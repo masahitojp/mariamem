@@ -1,0 +1,48 @@
+--- a/wasm/lite4mariadb.c
++++ b/wasm/lite4mariadb.c
+@@ -358,7 +358,11 @@
+   }
+ 
+   if (!mysql_real_connect(g_mysql, NULL, "root", "", NULL, 0, NULL,
++#ifdef L4M_RESIDENT
++                          0))
++#else
+                           CLIENT_MULTI_STATEMENTS))
++#endif
+   {
+     mysql_close(g_mysql);
+     g_mysql= NULL;
+@@ -449,7 +453,7 @@
+   return dup_str("{\"ok\":false,\"error\":\"oom\"}");
+ }
+ 
+-#ifdef __wasi__
++#if defined(__wasi__) && !defined(L4M_RESIDENT)
+ /*
+   WASIX CLI entry point: opens the embedded server, runs each argument as
+   a statement and prints one JSON envelope per statement.
+@@ -533,3 +537,5 @@
+   free(b.p);
+   return dup_str("{\"ok\":false,\"error\":\"oom\"}");
+ }
++
++#include "wire_api.inc"
+--- a/wasm/CMakeLists.txt
++++ b/wasm/CMakeLists.txt
+@@ -6,7 +6,7 @@
+ 
+ IF(WASIX)
+   ADD_EXECUTABLE(lite4mariadb-wasix lite4mariadb.c)
+-  TARGET_COMPILE_DEFINITIONS(lite4mariadb-wasix PRIVATE EMBEDDED_LIBRARY)
++  TARGET_COMPILE_DEFINITIONS(lite4mariadb-wasix PRIVATE EMBEDDED_LIBRARY L4M_RESIDENT)
+   TARGET_INCLUDE_DIRECTORIES(lite4mariadb-wasix PRIVATE
+     ${CMAKE_SOURCE_DIR}/include
+     ${CMAKE_BINARY_DIR}/include
+@@ -29,6 +29,7 @@
+     "SHELL:-Wl,-z,stack-size=8388608"
+     "SHELL:-Wl,--export=l4m_open"
+     "SHELL:-Wl,--export=l4m_query"
++    "SHELL:-Wl,--export=l4m_query_v2"
+     "SHELL:-Wl,--export=l4m_exec_multi"
+     "SHELL:-Wl,--export=l4m_escape"
+     "SHELL:-Wl,--export=l4m_close"
