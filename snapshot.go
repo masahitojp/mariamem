@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"sync"
 
-	stored "mariamem/internal/snapshot"
+	stored "github.com/masahitojp/mariamem/internal/snapshot"
 )
 
 type SnapshotOptions struct {

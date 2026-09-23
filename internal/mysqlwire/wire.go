@@ -15,7 +15,7 @@ import (
 	"strings"
 	"time"
 
-	"mariamem/internal/guest"
+	"github.com/masahitojp/mariamem/internal/guest"
 )
 
 const capabilities uint32 = 1 | 4 | 8 | 512 | 8192 | 32768 | 524288

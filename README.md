@@ -42,6 +42,10 @@ The `test` extra installs PyMySQL, pytest, and pytest-xdist. The wrapper itself
 uses the Python standard library. See [development](docs/development.md) to
 build the guest and wheel.
 
+Go users can follow the [Go API guide](docs/go.md) to fetch the module and use
+an existing native bundle through `Options.NativeDir`. Native runtime binaries
+are not downloaded by `go get`.
+
 ## pytest
 
 The installed package automatically registers its pytest plugin:

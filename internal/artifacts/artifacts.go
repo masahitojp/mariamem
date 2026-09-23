@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"strings"
 
-	"mariamem/internal/snapshot"
+	"github.com/masahitojp/mariamem/internal/snapshot"
 )
 
 type Bundle struct{ Dir, Runtime, Module, Build string }

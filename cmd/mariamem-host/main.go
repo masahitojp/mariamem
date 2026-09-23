@@ -15,7 +15,7 @@ import (
 	"syscall"
 	"time"
 
-	"mariamem/internal/host"
+	"github.com/masahitojp/mariamem/internal/host"
 )
 
 type request struct {

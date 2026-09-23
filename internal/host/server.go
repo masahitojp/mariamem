@@ -10,9 +10,9 @@ import (
 	"sync"
 	"time"
 
-	"mariamem/internal/guest"
-	"mariamem/internal/mysqlwire"
-	"mariamem/internal/snapshot"
+	"github.com/masahitojp/mariamem/internal/guest"
+	"github.com/masahitojp/mariamem/internal/mysqlwire"
+	"github.com/masahitojp/mariamem/internal/snapshot"
 )
 
 type Server struct {

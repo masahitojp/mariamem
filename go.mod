@@ -1,4 +1,4 @@
-module mariamem
+module github.com/masahitojp/mariamem
 
 go 1.26.0
 

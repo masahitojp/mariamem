@@ -11,8 +11,8 @@ import (
 	"sync"
 	"time"
 
-	"mariamem/internal/artifacts"
-	"mariamem/internal/host"
+	"github.com/masahitojp/mariamem/internal/artifacts"
+	"github.com/masahitojp/mariamem/internal/host"
 )
 
 type Options struct {

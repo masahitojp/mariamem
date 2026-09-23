@@ -16,7 +16,7 @@ import (
 	"time"
 
 	"github.com/go-sql-driver/mysql"
-	"mariamem"
+	"github.com/masahitojp/mariamem"
 )
 
 func TestPublicLifecycle(t *testing.T) {

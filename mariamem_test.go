@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"mariamem/internal/host"
-	stored "mariamem/internal/snapshot"
+	"github.com/masahitojp/mariamem/internal/host"
+	stored "github.com/masahitojp/mariamem/internal/snapshot"
 )
 
 type fakeBackend struct {

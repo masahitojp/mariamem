@@ -2,7 +2,7 @@ package artifacts
 
 import (
 	"encoding/json"
-	"mariamem/internal/snapshot"
+	"github.com/masahitojp/mariamem/internal/snapshot"
 	"os"
 	"path/filepath"
 	"strings"

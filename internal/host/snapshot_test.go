@@ -13,8 +13,8 @@ import (
 	"testing"
 	"time"
 
-	"mariamem/internal/guest"
-	"mariamem/internal/snapshot"
+	"github.com/masahitojp/mariamem/internal/guest"
+	"github.com/masahitojp/mariamem/internal/snapshot"
 )
 
 // The test executable acts as a guest to deterministically fail publication

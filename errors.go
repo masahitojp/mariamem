@@ -3,7 +3,7 @@ package mariamem
 import (
 	"errors"
 	"fmt"
-	"mariamem/internal/host"
+	"github.com/masahitojp/mariamem/internal/host"
 )
 
 var (

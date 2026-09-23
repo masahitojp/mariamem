@@ -1,11 +1,28 @@
 # Go API
 
 The public package is `mariamem` at the module root. Unit tests and the opt-in
-real-guest integration test below cover the initial API. The current module path
-is not yet a published import path.
+real-guest integration test below cover the initial API. Use Go 1.26 or newer.
+
+Fetch the Go source using a published version or pushed commit (replace the
+placeholder; no release tag is required):
+
+```sh
+go get github.com/masahitojp/mariamem@<version-or-commit>
+```
+
+Import it with:
 
 ```go
-db, err := mariamem.Start(ctx, mariamem.Options{NativeDir: nativeDir})
+import "github.com/masahitojp/mariamem"
+```
+
+`go get` fetches Go source and module dependencies, **not the native runtime**.
+An existing native bundle and explicit `Options.NativeDir` remain required.
+
+```go
+db, err := mariamem.Start(ctx, mariamem.Options{
+    NativeDir: "/path/to/native",
+})
 if err != nil { return err }
 defer db.Close()
 
