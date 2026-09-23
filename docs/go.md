@@ -1,8 +1,8 @@
-# Go API (Task 4a)
+# Go API
 
-The public package is `mariamem` at the module root. This is the initial API
-skeleton, unit-tested without a real guest. Real MariaDB integration acceptance
-is deferred to Task 4b; the current module path is not yet a published import path.
+The public package is `mariamem` at the module root. Unit tests and the opt-in
+real-guest integration test below cover the initial API. The current module path
+is not yet a published import path.
 
 ```go
 db, err := mariamem.Start(ctx, mariamem.Options{NativeDir: nativeDir})
@@ -56,3 +56,35 @@ WaitDisconnected and snapshot. DSN sets `interpolateParams=true` for driver-side
 parameter interpolation through the supported text protocol. **This is not server
 prepared-statement support**; explicit Prepare remains unsupported. Query timeout
 remains instance-fatal. Signal handlers are not installed in the caller process.
+
+## Opt-in integration verification (Task 4b)
+
+Use the existing native bundle, without rebuilding or rearranging its artifacts:
+
+```sh
+MARIAMEM_NATIVE_DIR="$PWD/python/mariamem/_native" \
+  go test -tags=integration ./tests/gointegration -v -count=1 -timeout=3m
+```
+
+The integration build tag keeps this test out of ordinary unit-test runs. An
+explicit integration run requires `MARIAMEM_NATIVE_DIR`; a missing bundle is a
+failure, not a silently skipped acceptance test. The module pins the test driver
+`github.com/go-sql-driver/mysql` to v1.9.3. Applications register their own driver.
+
+Verified on the development macOS arm64 machine with the existing native bundle:
+MariaDB reported `13.1.0-MariaDB-embedded`. The test passed ConnectionInfo and DSN
+connections, SELECT 1/version, verified InnoDB storage, parameterized INSERT/SELECT
+via text interpolation, BEGIN/COMMIT, and ErrTransactionActive mapping without
+consuming the source. It also passed pool Close → WaitDisconnected, seeded
+snapshot/source closure, independent A/B forks, temporary snapshot deletion while
+forks remain usable, explicit snapshot retention/existing-destination rejection,
+and idempotent Close with listener shutdown. No production fixes were required.
+
+Only the deliberate active-transaction rejection test snapshots with a live SQL
+connection. It tolerates the brief ErrBusy interval between a wire reply and host
+session-idle bookkeeping, then requires ErrTransactionActive. All successful
+snapshots follow pool Close → WaitDisconnected.
+
+This is integration correctness evidence, not a benchmark or clean macOS 12
+platform acceptance. Prepared statements and query-timeout behavior are outside
+this test's scope.
