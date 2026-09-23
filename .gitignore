@@ -1,0 +1,11 @@
+/build/
+/.venv/
+**/__pycache__/
+*.pyc
+/.pytest_cache/
+/python/build/
+/python/*.egg-info/
+/python/mariamem/_native/
+/tests/runs/
+/tests/evidence/
+.DS_Store

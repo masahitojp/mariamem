@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "checks": {
+    "guest_source": {
+      "passed": false,
+      "evidence": null,
+      "note": "Verify complete guest source including linked WASIX C/C++ runtime and required recursive source inputs."
+    },
+    "runtime_notices": {
+      "passed": false,
+      "evidence": null,
+      "note": "Inventory the actual Wasmer headless static dependencies and include their required notices."
+    },
+    "independent_build": {
+      "passed": true,
+      "evidence": "docs/verification.md",
+      "note": "Fresh guest build from public pinned inputs passed; installed wheel acceptance passed; source candidate offline preparation matches modified build inputs. Existing pinned Docker toolchain image reused."
+    },
+    "platform_acceptance": {
+      "passed": false,
+      "evidence": null,
+      "note": "Confirm the supported macOS/CPU target on a clean machine or CI; the development Mac alone is not cross-machine proof."
+    }
+  }
+}

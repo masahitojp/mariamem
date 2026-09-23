@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "inputs": [
+    {
+      "name": "lite4mariadb",
+      "file": "lite4mariadb-source.tar.gz",
+      "url": "https://codeload.github.com/shyim/lite4mariadb/tar.gz/24be9371a2f6c71250a2356631ad6feab2280b02",
+      "revision": "24be9371a2f6c71250a2356631ad6feab2280b02",
+      "sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd"
+    },
+    {
+      "name": "libmariadb",
+      "file": "mariadb-connector-c-source.tar.gz",
+      "url": "https://codeload.github.com/MariaDB/mariadb-connector-c/tar.gz/5a6fe6016fc908518e7d2a8c128a5c108b511c17",
+      "revision": "5a6fe6016fc908518e7d2a8c128a5c108b511c17",
+      "sha256": "54562818bf2c5d56a6238738aea53fd276d5cff1fdaf9b05fa62d0a2dbab059b"
+    },
+    {
+      "name": "wolfssl",
+      "file": "wolfssl-source.tar.gz",
+      "url": "https://codeload.github.com/wolfSSL/wolfssl/tar.gz/1d363f3adceba9d1478230ede476a37b0dcdef24",
+      "revision": "1d363f3adceba9d1478230ede476a37b0dcdef24",
+      "sha256": "2754bcd8a0a3fed5ae19574506d0bf003eee7264ec8bed4ebb15409494246fd3"
+    },
+    {
+      "name": "pcre2",
+      "file": "pcre2-10.47.zip",
+      "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.47/pcre2-10.47.zip",
+      "sha256": "d74c183c86c77248ad50017c7f45bae8f88106a6cca5d87ad09917e1c6fb0784"
+    },
+    {
+      "name": "libfmt",
+      "file": "fmt-12.2.0.zip",
+      "url": "https://github.com/fmtlib/fmt/releases/download/12.2.0/fmt-12.2.0.zip",
+      "sha256": "a2f4a8d51178f954e4c339007f77edd76ba0cb2e36f87a48e5a5403d9be5878f"
+    },
+    {
+      "name": "wasmer",
+      "file": "wasmer-darwin-arm64.tar.gz",
+      "url": "https://github.com/wasmerio/wasmer/releases/download/v7.4.2/wasmer-darwin-arm64.tar.gz",
+      "version": "7.4.2",
+      "sha256": "c6b555b32619321bc6d0ce34f9119d34ada07e7a0b1d3588082c165e76e8536e",
+      "kind": "runtime-binary"
+    },
+    {
+      "name": "wasix-libc",
+      "file": "wasix-libc-source.tar.gz",
+      "url": "https://codeload.github.com/wasix-org/wasix-libc/tar.gz/refs/tags/v2026-07-03.1",
+      "sha256": "55091ce6af5b549b3c97f61592bd2506e6a7e5da3588cb2f77a64388468ad231",
+      "kind": "runtime-source"
+    },
+    {
+      "name": "wasmer-source",
+      "file": "wasmer-full-source.tar.gz",
+      "url": "https://github.com/wasmerio/wasmer/releases/download/v7.4.2/wasmer-full-source.tar.gz",
+      "sha256": "1959cc1a07ca96e583cac488832bfac3787c354edc69336d6ccbcaf2db49ed67",
+      "kind": "runtime-source"
+    }
+  ],
+  "pristine_files": {
+    "wasm/lite4mariadb.c": "c0a959b6755d3463de31d9d08d2a43031cc418a332768a0956ebfd5046e15526",
+    "wasm/CMakeLists.txt": "f317e2786a12b2cfdd7c0de8d4b3d3c05b6aa9ee4f0a8aad909898b6d218f437"
+  },
+  "toolchain": {
+    "go": "1.26.8",
+    "wasmer": "7.4.2",
+    "wasixcc": "0.4.7",
+    "llvm": "21.1.206",
+    "wasix_sysroot": "v2026-07-03.1",
+    "binaryen": "version_133"
+  },
+  "known_unresolved": [
+    "WASIX sysroot linked runtime source and licenses",
+    "Wasmer static Rust dependency notices"
+  ],
+  "runtime_source_submodules_to_collect": [
+    {
+      "path": "tools/llvm-project",
+      "commit": "6bb93a243f6d15855f485f5aec3810d9e2de150d"
+    },
+    {
+      "path": "tools/wasi-headers/WASI",
+      "commit": "bac366c8aeb69cacfea6c4c04a503191bf1cede1"
+    },
+    {
+      "path": "tools/wasix-headers/WASI",
+      "commit": "0dfbd35a0f30f3fe7fd3b3ab5a50dc4191d5caed"
+    }
+  ]
+}

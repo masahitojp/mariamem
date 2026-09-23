@@ -1,0 +1,5 @@
+# Keep upstream license text and patch context bytes unchanged.
+licenses/* -whitespace
+python/licenses/* -whitespace
+guest/source.patch -whitespace
+guest/*.inc whitespace=-blank-at-eof
