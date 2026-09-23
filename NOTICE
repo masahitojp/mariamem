@@ -1,0 +1,30 @@
+mariamem
+Disposable, in-memory MariaDB for tests.
+
+The mariamem project code is distributed under GPL-2.0-only, except where a
+file or bundled third-party component states its original license. See LICENSE
+and THIRD_PARTY_LICENSES. No rights to upstream trademarks are granted.
+
+This is a modified work based on shyim/lite4mariadb, itself a fork of MariaDB
+Server. MariaDB's WebAssembly port is upstream work, not an original port by
+mariamem. The upstream C wrapper and CMake files are modified by the patches
+and overlays in this repository. Changes made in September 2026 include a
+resident session protocol, native result metadata, reusable session workers,
+cold filesystem export/restore, a Go MySQL protocol host, and testing APIs.
+
+MariaDB Server includes work by Oracle and/or its affiliates, MariaDB and many
+other contributors. Original notices are preserved in the corresponding source.
+lite4mariadb: https://github.com/shyim/lite4mariadb
+Pinned commit: 24be9371a2f6c71250a2356631ad6feab2280b02
+
+The lifecycle and pytest fixture design references shibukawa/pgmem,
+Copyright (c) 2026 Yoshiki Shibukawa, MIT License. Its notice is included.
+The project also takes inspiration from pg-mem and PGlite's testing experience;
+their database implementations are not included in the mariamem Python code.
+
+The native bundle uses Wasmer headless and the Go runtime. Their upstream
+licenses and the licenses of embedded dependencies must be retained.
+
+This initial alpha bundle is for local evaluation. Complete runtime dependency
+notices and the corresponding-source release set require release verification
+before public distribution. See docs/releasing.md and THIRD_PARTY_LICENSES.

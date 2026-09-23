@@ -1,0 +1,28 @@
+mariamem third-party inventory (initial local alpha)
+
+Component                      License / treatment
+MariaDB / lite4mariadb guest    GPL-2.0-only; modified source and build scripts
+                               must accompany binary distribution as required.
+wolfSSL bundled by MariaDB     GPLv3 with a GPLv2 election for combination with
+                               MariaDB Server in its LICENSING file. Preserve
+                               both COPYING and LICENSING.
+PCRE2 10.47, zlib, fmt 12.2.0  License texts are included in licenses/ and their
+                               sources are retained by the input lock/archive.
+                               Final linked-file inventory remains pending.
+WASIX libc v2026-07-03.1        Upstream multi-license notices and musl/cloudlibc
+                               notices are included. Recursive LLVM runtime and
+                               header-generator source collection remains pending.
+Wasmer headless 7.4.2           MIT text verified against the v7.4.2 source; its statically
+                               included Rust dependencies retain their licenses.
+Go runtime                     BSD-3-Clause; bundled Go LICENSE included.
+shibukawa/pgmem fixture design MIT; copyright and permission notice included.
+PyMySQL / pytest / xdist       Optional dependencies, not copied into the wheel.
+
+The native bundle has no libmariadbd dynamic dependency: MariaDB and the C
+wrapper are compiled into the WASM/AOT guest. Python communicates with the Go
+host, which uses a separate Wasmer process. The project chooses GPL-2.0-only
+for its own code rather than claiming this process boundary exempts all parts.
+
+License texts are in licenses/. This list is not yet a complete SBOM of the
+prebuilt Wasmer release or the WASIX sysroot. Do not treat this local alpha as
+ready for public release merely because a wheel can be built.
