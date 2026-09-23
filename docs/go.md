@@ -107,3 +107,59 @@ snapshots follow pool Close → WaitDisconnected.
 This is integration correctness evidence, not a benchmark or clean macOS 12
 platform acceptance. Prepared statements and query-timeout behavior are outside
 this test's scope.
+
+## Manual native bundle (local candidate)
+
+Generate a Go bundle from the existing wheel staging artifacts; this does not
+rebuild the guest, alter the wheel, download binaries, or publish a release:
+
+```sh
+python3 scripts/package_native.py
+python3 scripts/package_native.py --verify build/release/native-candidate/mariamem-native-darwin-arm64.tar.gz
+```
+
+Use `--native-dir /path/to/existing/native` for another staged bundle. Inputs must
+match its manifest, sidecar, and the repository's candidate deployment target.
+Outputs live under ignored `build/release/native-candidate/`, separate from the
+release-approved `build/release/publish/` directory. The archive and SHA256SUMS
+are accompanied by `native-candidate.json` recording archive and member hashes.
+Packaging the same input bytes produces the same archive bytes (sorted members,
+fixed timestamps/ownership/modes and gzip header); this does not promise identical
+MariaDB/Wasmer binaries from independent builds or across compression toolchains.
+
+The archive expands to `mariamem-native-darwin-arm64/`, containing:
+
+- `manifest.json`, `wasmer-headless` (executable), `mariamem.wasmu`, `mariamem.wasmu.json`
+- Existing `LICENSE`, `NOTICE`, `THIRD_PARTY_LICENSES`, and `licenses/` copied unchanged
+- `CANDIDATE.json`: input manifest/lock hashes and a snapshot of release reviews
+
+The manifest retains its format and compatibility metadata, removes the unused
+`mariamem-host` hash, and records exactly the three required artifact hashes.
+The host executable is not included. `public_release_ready` is always false for
+this candidate tool, even if the input manifest says otherwise.
+
+For local evaluation, or once a future reviewed GitHub Release supplies these
+assets, manually obtain the archive and its SHA256SUMS, then:
+
+```sh
+go get github.com/masahitojp/mariamem@<version-or-commit>
+shasum -a 256 -c SHA256SUMS
+tar -xzf mariamem-native-darwin-arm64.tar.gz
+export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
+```
+
+Pass the extracted directory explicitly to Go; the API does not automatically
+read this environment variable:
+
+```go
+db, err := mariamem.Start(ctx, mariamem.Options{
+    NativeDir: os.Getenv("MARIAMEM_NATIVE_DIR"),
+})
+```
+
+**This is not cleared for public binary distribution.** WASIX linked runtime
+source/licenses, Wasmer static Rust notices, and clean-platform acceptance remain
+unresolved. Existing notices are preserved, not asserted complete. No source
+archive is replaced by this bundle or by GitHub's default source zip. The existing
+release review and corresponding-source requirements in [releasing](releasing.md)
+still apply; candidate generation does not stage an approved Release asset.

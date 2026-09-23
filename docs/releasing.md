@@ -33,6 +33,15 @@ readiness checks.
 5. Run `python3 scripts/check_release.py`. It must pass before distributing the
    wheel. Rebuild source/release manifests after any source or review changes.
 
+## Go native candidate
+
+`python3 scripts/package_native.py` packages existing staged artifacts into
+`build/release/native-candidate/`. See [Go manual bundle instructions](go.md#manual-native-bundle-local-candidate).
+This candidate-only path does not populate `build/release/publish/` or satisfy
+release reviews. It preserves current notices and records unresolved reviews;
+complete corresponding-source and runtime notice review are still prerequisites
+for public binary distribution.
+
 ## GitHub
 
 Create the repository from this folder. Choose the GitHub owner before running
