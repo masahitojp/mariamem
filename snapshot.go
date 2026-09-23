@@ -17,7 +17,7 @@ type SnapshotOptions struct {
 
 // Snapshot owns only snapshots created with an empty Destination. Do not copy.
 type Snapshot struct {
-	mu              sync.Mutex
+	mu              sync.RWMutex
 	path, temporary string
 	opts            Options
 	closed          bool
@@ -66,11 +66,12 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 }
 func (s *Snapshot) Path() string { return s.path }
 
-// Fork inherits the original DB options. Close is serialized with startup so an
-// owned snapshot cannot be removed while its initial data is being restored.
+// Fork inherits the original DB options. Multiple startups can run concurrently.
+// The read lock pins owned files through startup; a waiting Close blocks new
+// readers and removes those files only after all admitted startups finish.
 func (s *Snapshot) Fork(ctx context.Context) (*Database, error) {
-	s.mu.Lock()
-	defer s.mu.Unlock()
+	s.mu.RLock()
+	defer s.mu.RUnlock()
 	if s.closed || s.path == "" {
 		return nil, hostError(ErrClosed, "closed", true)
 	}

@@ -307,3 +307,138 @@ func TestSuccessfulExportWithInvalidSnapshot(t *testing.T) {
 		t.Fatal("invalid snapshot leaked")
 	}
 }
+
+// Hold startup at its initial context check, after Fork has acquired its lock.
+// Returning cancellation after release avoids starting a runtime in unit tests.
+type heldStartupContext struct {
+	context.Context
+	entered chan<- struct{}
+	release <-chan struct{}
+}
+
+func (c heldStartupContext) Err() error {
+	c.entered <- struct{}{}
+	<-c.release
+	return context.Canceled
+}
+
+func TestConcurrentForkCloseOwnership(t *testing.T) {
+	for _, temporary := range []bool{false, true} {
+		name := "explicit"
+		if temporary {
+			name = "temporary"
+		}
+		t.Run(name, func(t *testing.T) {
+			root := t.TempDir()
+			path := filepath.Join(root, "snapshot")
+			if err := os.Mkdir(path, 0700); err != nil {
+				t.Fatal(err)
+			}
+			marker := filepath.Join(path, "keep")
+			if err := os.WriteFile(marker, []byte("preserved"), 0600); err != nil {
+				t.Fatal(err)
+			}
+			s := &Snapshot{path: path, opts: Options{NativeDir: "unused"}}
+			if temporary {
+				s.temporary = root
+			}
+			entered := make(chan struct{}, 2)
+			release := make(chan struct{})
+			var once sync.Once
+			unblock := func() { once.Do(func() { close(release) }) }
+			defer unblock()
+			ctx := heldStartupContext{Context: context.Background(), entered: entered, release: release}
+			results := make(chan error, 2)
+			for i := 0; i < 2; i++ {
+				go func() { _, err := s.Fork(ctx); results <- err }()
+			}
+			// Both must reach startup before either is released: no latency threshold.
+			for i := 0; i < 2; i++ {
+				select {
+				case <-entered:
+				case <-time.After(5 * time.Second):
+					t.Fatal("Fork startups were serialized")
+				}
+			}
+			closed := make(chan error, 1)
+			go func() { closed <- s.Close() }()
+			// With readers held, TryRLock fails once Close has queued its writer lock.
+			deadline := time.Now().Add(5 * time.Second)
+			for s.mu.TryRLock() {
+				s.mu.RUnlock()
+				if time.Now().After(deadline) {
+					t.Fatal("Close did not queue")
+				}
+				time.Sleep(time.Millisecond)
+			}
+			late := make(chan error, 1)
+			go func() { _, err := s.Fork(context.Background()); late <- err }()
+			select {
+			case err := <-closed:
+				t.Fatalf("Close returned during startup: %v", err)
+			default:
+			}
+			b, err := os.ReadFile(marker)
+			if err != nil || string(b) != "preserved" {
+				t.Fatal("snapshot removed during startup")
+			}
+			unblock()
+			for i := 0; i < 2; i++ {
+				select {
+				case err := <-results:
+					if !errors.Is(err, context.Canceled) {
+						t.Fatal(err)
+					}
+				case <-time.After(5 * time.Second):
+					t.Fatal("startup did not finish")
+				}
+			}
+			select {
+			case err := <-closed:
+				if err != nil {
+					t.Fatal(err)
+				}
+			case <-time.After(5 * time.Second):
+				t.Fatal("Close did not finish")
+			}
+			select {
+			case err := <-late:
+				if !errors.Is(err, ErrClosed) {
+					t.Fatalf("late Fork admitted: %v", err)
+				}
+			case <-time.After(5 * time.Second):
+				t.Fatal("late Fork did not finish")
+			}
+			if temporary {
+				if _, err := os.Lstat(root); !os.IsNotExist(err) {
+					t.Fatalf("owned snapshot retained: %v", err)
+				}
+			} else {
+				b, err := os.ReadFile(marker)
+				if err != nil || string(b) != "preserved" {
+					t.Fatal("explicit snapshot deleted")
+				}
+			}
+			if _, err := s.Fork(context.Background()); !errors.Is(err, ErrClosed) {
+				t.Fatal(err)
+			}
+			if err := s.Close(); err != nil {
+				t.Fatal(err)
+			}
+		})
+	}
+}
+
+func TestSequentialForkReleasesReadLock(t *testing.T) {
+	s := &Snapshot{path: t.TempDir(), opts: Options{NativeDir: "unused"}}
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	for i := 0; i < 2; i++ {
+		if _, err := s.Fork(ctx); !errors.Is(err, context.Canceled) {
+			t.Fatal(err)
+		}
+	}
+	if err := s.Close(); err != nil {
+		t.Fatal(err)
+	}
+}

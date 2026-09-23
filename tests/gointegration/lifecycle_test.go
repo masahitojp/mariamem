@@ -172,16 +172,33 @@ func TestPublicLifecycle(t *testing.T) {
 	if _, err := os.Stat(filepath.Join(snap.Path(), "manifest.json")); err != nil {
 		t.Fatal(err)
 	}
-	a, err := snap.Fork(ctx)
-	if err != nil {
-		t.Fatal(err)
+	type forkResult struct {
+		db  *mariamem.Database
+		err error
 	}
-	own(a)
-	b, err := snap.Fork(ctx)
-	if err != nil {
-		t.Fatal(err)
+	gate := make(chan struct{})
+	results := make(chan forkResult, 2)
+	for i := 0; i < 2; i++ {
+		go func() {
+			<-gate
+			db, err := snap.Fork(ctx)
+			results <- forkResult{db, err}
+		}()
 	}
-	own(b)
+	close(gate)
+	var forks []*mariamem.Database
+	var forkErr error
+	for i := 0; i < 2; i++ {
+		result := <-results
+		if result.db != nil {
+			forks = append(forks, own(result.db))
+		}
+		forkErr = errors.Join(forkErr, result.err)
+	}
+	if forkErr != nil {
+		t.Fatal(forkErr)
+	}
+	a, b := forks[0], forks[1]
 	ap, bp := open(a.DSN()), open(b.DSN())
 	count(ap, 2)
 	count(bp, 2)
@@ -215,6 +232,18 @@ func TestPublicLifecycle(t *testing.T) {
 	})
 	if !a.Closed() {
 		t.Fatal("explicit snapshot did not consume source")
+	}
+	// Also retain sequential Fork coverage and verify the explicit saved image.
+	c, err := saved.Fork(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	own(c)
+	cp := open(c.DSN())
+	count(cp, 3)
+	disconnect(cp, c)
+	if err := c.Close(); err != nil {
+		t.Fatal(err)
 	}
 	marker := filepath.Join(destination, "manifest.json")
 	before, err := os.ReadFile(marker)
@@ -253,5 +282,5 @@ func TestPublicLifecycle(t *testing.T) {
 		conn.Close()
 		t.Fatal("listener remains after Close")
 	}
-	t.Log("Start, ConnectionInfo/DSN, SQL, InnoDB, commit, transaction rejection, disconnect, snapshot, fork isolation and cleanup passed")
+	t.Log("Start, ConnectionInfo/DSN, SQL, InnoDB, commit, transaction rejection, disconnect, snapshot, concurrent/sequential fork isolation and cleanup passed")
 }

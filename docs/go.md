@@ -62,8 +62,10 @@ and ErrClosed, and errors.As for HostError. Underlying errors remain unwrap-able
 
 An empty Destination creates an owned temporary snapshot, deleted by Snapshot.Close.
 An explicit Destination is retained. Fork inherits options and validates the saved
-snapshot through the existing host. Close and Fork startup are serialized; already
-started forks survive snapshot Close. Manifest format/hash/commit-marker semantics
+snapshot through the existing host. Fork startups from the same snapshot may run
+concurrently. Close waits for admitted startups before deleting owned files; once
+Close is waiting for the lock, new Fork calls wait and then return ErrClosed.
+Already-started forks survive snapshot Close. Manifest format/hash/commit-marker semantics
 are unchanged. ConnectionInfo and DSN are immutable endpoint metadata, available
 after Close; use Closed to inspect lifecycle state. Zero-value handles cannot start
 operations; construct them through Start and Database.Snapshot.
