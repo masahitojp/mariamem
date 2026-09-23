@@ -213,12 +213,13 @@ def main():
         except mariamem.HostError as exc:
             check("accepted snapshot failure closes source", exc.closed and failed._closed)
         gone(failed)
+        check("failed export removes new destination", not (run / "incomplete").exists())
         check("failed export has no completed manifest", not (run / "incomplete/manifest.json").exists())
         try:
             mariamem.Snapshot.open(run / "incomplete")
             raise AssertionError("incomplete snapshot accepted")
-        except ValueError:
-            check("incomplete snapshot rejected", True)
+        except FileNotFoundError:
+            check("removed partial snapshot cannot be opened", True)
 
         empty = start("no-sql-client")
         empty_saved = empty.snapshot(run / "empty-template")

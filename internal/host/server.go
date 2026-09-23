@@ -2,6 +2,7 @@ package host
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"os"
@@ -158,7 +159,7 @@ func (s *Server) stopAccepting() {
 		conn.Close()
 	}
 }
-func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool) (bool, error) {
+func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool) (closed bool, err error) {
 	s.mu.Lock()
 	if !s.SnapshotCapable() {
 		s.mu.Unlock()
@@ -190,6 +191,15 @@ func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool
 		s.mu.Unlock()
 		return false, &Rejected{"destination", err.Error()}
 	}
+	// Only this call owns the destination after Mkdir succeeds. Existing paths
+	// return above, before this cleanup is registered.
+	defer func() {
+		if err != nil {
+			if cleanupErr := os.RemoveAll(path); cleanupErr != nil {
+				err = errors.Join(err, fmt.Errorf("remove partial snapshot: %w", cleanupErr))
+			}
+		}
+	}()
 	s.stopAccepting()
 	s.mu.Unlock()
 	defer os.RemoveAll(s.transfer)
