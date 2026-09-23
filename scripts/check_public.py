@@ -8,7 +8,7 @@ from common import ROOT, digest
 
 TOP_FILES = {".gitignore", ".gitattributes", "README.md", "CONTRIBUTING.md", "LICENSE", "NOTICE",
              "THIRD_PARTY_LICENSES", "go.mod"}
-TOP_DIRS = {"cmd", "internal", "python", "guest", "scripts", "tests", "docs", "licenses", "release", ".github"}
+TOP_DIRS = {"cmd", "internal", "python", "guest", "scripts", "tests", "docs", "licenses", "release", ".github", "benchmarks"}
 EXCLUDED = {"__pycache__", ".pytest_cache", "_native"}
 
 
@@ -21,7 +21,7 @@ def public_files():
             rel = path.relative_to(ROOT)
             ignored = (name in EXCLUDED or name.endswith(".egg-info") or
                        rel.parts in ((".git",), ("build",), (".venv",), ("python", "build"),
-                                     ("tests", "runs"), ("tests", "evidence")))
+                                     ("tests", "runs"), ("tests", "evidence"), ("benchmarks", "results")))
             if ignored:
                 dirs.remove(name)
             elif path.is_symlink():

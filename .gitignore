@@ -8,4 +8,5 @@
 /python/mariamem/_native/
 /tests/runs/
 /tests/evidence/
+/benchmarks/results/
 .DS_Store

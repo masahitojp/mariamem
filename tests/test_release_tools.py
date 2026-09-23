@@ -13,6 +13,15 @@ from common import extract
 
 
 class PublicationBoundary(unittest.TestCase):
+    def test_benchmark_sources_included_but_results_excluded(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "benchmarks/results").mkdir(parents=True)
+            (root / "benchmarks/ready_to_query.py").write_text("# source\n")
+            (root / "benchmarks/results/raw.json").write_text('{"local": true}')
+            with patch.object(check_public, "ROOT", root):
+                self.assertEqual(list(check_public.check()["files"]), ["benchmarks/ready_to_query.py"])
+
     def test_ignored_build_is_not_published(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
