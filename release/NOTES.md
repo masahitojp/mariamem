@@ -5,7 +5,8 @@ mariamem 0.1.0a1 is an early Python alpha for disposable MariaDB tests.
 - Use the bundled pytest fixtures and cold snapshot/fork API for isolated tests.
 - The platform wheel includes the Go host, Wasmer headless, and MariaDB guest.
 
-Current target: macOS 27+ arm64. Acceptance tested with Python 3.9.
+Candidate target: macOS 12+ arm64. Acceptance tested on development macOS 27
+with Python 3.9 only; clean macOS 12 validation remains pending.
 One simultaneous SQL connection per DB. Text protocol only; no prepared statements.
 Each DB uses child processes. Snapshot creation stops its source DB and writes a
 cold filesystem image. In-process Go embedding and live/COW snapshots are future work.

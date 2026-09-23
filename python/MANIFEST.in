@@ -1,3 +1,4 @@
 include LICENSE NOTICE THIRD_PARTY_LICENSES
 recursive-include licenses *
 recursive-include mariamem/_native *
+include deployment_target.json

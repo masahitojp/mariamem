@@ -11,7 +11,12 @@ import subprocess
 import sys
 import zipfile
 
+from deployment import check_binary
+
 ROOT = Path(__file__).resolve().parents[1]
+target = json.loads((ROOT / "python/deployment_target.json").read_text())
+major = target["minimum_macos"]
+wheel_platform = target["wheel_platform"]
 parser = argparse.ArgumentParser()
 parser.add_argument("--go", type=Path, default=Path(shutil.which("go") or "go"))
 parser.add_argument("--runtime", type=Path, default=ROOT / "build/tools/wasmer/bin/wasmer-headless")
@@ -24,7 +29,10 @@ if platform.system() != "Darwin" or platform.machine() != "arm64":
 host = ROOT / "build/mariamem-host"
 subprocess.run([str(args.go), "build", "-trimpath", "-o", str(host), "./cmd/mariamem-host"],
                cwd=ROOT, check=True, env=dict(os.environ, CGO_ENABLED="0", GOTOOLCHAIN="local",
+                                             GOOS="darwin", GOARCH=target["architecture"],
+                                             MACOSX_DEPLOYMENT_TARGET=f"{major}.0",
                                              GOCACHE=str(ROOT / "build/gocache")))
+binary_minimums = {p.name: check_binary(p, major) for p in (host, args.runtime)}
 native = ROOT / "python/mariamem/_native"
 native.mkdir(parents=True, exist_ok=True)
 for source, name in [(host, "mariamem-host"), (args.runtime, "wasmer-headless"),
@@ -32,7 +40,6 @@ for source, name in [(host, "mariamem-host"), (args.runtime, "wasmer-headless"),
     shutil.copy2(source, native / name)
 for name in ("mariamem-host", "wasmer-headless"):
     (native / name).chmod(0o755)
-major = int(platform.mac_ver()[0].split(".")[0])
 review = json.loads((ROOT / "release/review.json").read_text())
 ready = all(item.get("passed") and item.get("evidence") for item in review["checks"].values())
 manifest = {"version": 1, "package_version": "0.1.0a1", "platform": "darwin-arm64",
@@ -46,11 +53,15 @@ shutil.copytree(ROOT / "licenses", ROOT / "python/licenses", dirs_exist_ok=True)
 subprocess.run([sys.executable, "-m", "pip", "wheel", "--no-deps", "--no-build-isolation",
                 "--no-cache-dir", "--wheel-dir", str(ROOT / "build/dist"), str(ROOT / "python")],
                check=True, env=dict(os.environ, PIP_DISABLE_PIP_VERSION_CHECK="1",
-                                    MARIAMEM_WHEEL_PLATFORM=f"macosx_{major}_0_arm64"))
+                                    MARIAMEM_WHEEL_PLATFORM=wheel_platform))
 print(json.dumps(manifest, indent=2))
-wheel = ROOT / "build/dist" / f"mariamem-0.1.0a1-py3-none-macosx_{major}_0_arm64.whl"
+wheel = ROOT / "build/dist" / f"mariamem-0.1.0a1-py3-none-{wheel_platform}.whl"
 with zipfile.ZipFile(wheel) as archive:
     names = archive.namelist()
+    metadata = archive.read("mariamem-0.1.0a1.dist-info/WHEEL").decode()
+    assert f"Tag: py3-none-{wheel_platform}" in metadata, "incorrect wheel tag"
+    bundled_manifest = next(p for p in names if p.endswith("/mariamem/_native/manifest.json"))
+    assert json.loads(archive.read(bundled_manifest)) == manifest, "incorrect bundled manifest"
     for name in ("LICENSE", "NOTICE", "THIRD_PARTY_LICENSES", "Go-BSD-3-Clause.txt",
                  "Wasmer-MIT.txt", "wolfSSL-LICENSING.txt"):
         assert any(p.endswith(".dist-info/" + name) for p in names), f"missing {name}"
@@ -66,5 +77,5 @@ with zipfile.ZipFile(wheel) as archive:
     assert not any("/mysqlmem/" in p for p in names), "old package leaked into wheel"
     evidence = {"wheel": str(wheel.relative_to(ROOT)), "bytes": wheel.stat().st_size,
                 "sha256": hashlib.sha256(wheel.read_bytes()).hexdigest(),
-                "files": names, "manifest": manifest, "archive_checks_passed": True}
+                "binary_minimum_macos": binary_minimums, "files": names, "manifest": manifest, "archive_checks_passed": True}
 (ROOT / "tests/evidence/alpha-wheel.json").write_text(json.dumps(evidence, indent=2) + "\n")
