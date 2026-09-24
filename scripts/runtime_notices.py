@@ -20,6 +20,20 @@ BUNDLE = 'licenses/Wasmer-Rust-NOTICES.txt'
 WORK = ROOT / 'build/runtime-notices'
 LEGAL = re.compile(r'^(licen[cs]e|copying|copyright|notice|attributions?)([._-].*)?$', re.I)
 FEATURES = ['sys', 'headless-minimal', 'singlepass']
+WEBC_DECLARATION = {
+    'basis': 'Package metadata license=MIT accepted as the formal license declaration (Task 9b-final).',
+    'separate_license_file': 'unavailable upstream',
+    'copyright_handling': 'No copyright wording inferred or generated.',
+}
+
+
+def accepted_declaration(package):
+    return (package.get('name'), package.get('version'), package.get('license'),
+            package.get('source_sha256'), package.get('declaration_acceptance')) == (
+        'webc', '12.0.1', 'MIT',
+        '715cbfae9eb87236aedca786d0f094e4b513ae5c1bc328a81760d1f9b19f187e',
+        WEBC_DECLARATION)
+
 
 
 def sha(data):
@@ -52,6 +66,8 @@ def assemble(records, inputs):
             data += ('Source: ' + record['source_url'] + '\nSHA256: ' + record['source_sha256'] + '\n').encode()
         for requirement in record.get('notice_requirements', []):
             data += (requirement + '\n').encode()
+        for key, value in record.get('declaration_acceptance', {}).items():
+            data += (key + ': ' + value + '\n').encode()
         if record.get('missing_reason'):
             data += ('UNRESOLVED: ' + record['missing_reason'] + '\n').encode()
         for notice in record['notices']:
@@ -87,7 +103,9 @@ def verify(root=ROOT):
     for p in doc['packages'] + doc['additional_notices']:
         if not p['license'] and not p.get('license_file'):
             raise ValueError('missing license metadata: ' + p['name'])
-        if not p['notices'] and not p.get('missing_reason'):
+        if p.get('declaration_acceptance') and not accepted_declaration(p):
+            raise ValueError('unreviewed license declaration acceptance')
+        if not p['notices'] and not p.get('missing_reason') and not accepted_declaration(p):
             raise ValueError('unaccounted missing notices: ' + p['name'])
         for n in p['notices']:
             body = data[n['offset']:n['offset'] + n['length']]

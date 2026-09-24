@@ -3,7 +3,7 @@
 `release/guest-source-provenance.json` records the reviewed guest's WASM/AOT
 hashes, build image ID, modified source hashes, source archive hashes/revisions,
 and sysroot evidence. `guest_source=true` applies to this recorded build only.
-Wasmer static Rust notices and clean-platform acceptance remain unresolved;
+Runtime notice review is now complete (Task 9b-final); clean-platform acceptance remains unresolved;
 this review does not make a native bundle ready for publication.
 
 ## Evidence chain
@@ -82,5 +82,5 @@ These are recorded separately from guest corresponding-source coverage:
 
 The original compressed download was not retained. A newly fetched fixed release
 asset matches the entire installed payload; this is provenance evidence, not a
-signed attestation or independent rebuild. Runtime-notice and platform reviews
-remain separate binary-release blockers.
+signed attestation or independent rebuild. Runtime-notice review was completed separately in Task 9b-final. Platform
+acceptance remains a binary-release blocker.

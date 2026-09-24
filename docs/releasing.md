@@ -112,12 +112,14 @@ compiler dependency files and build-image driver selection. CMake's older
 Task 9a3 completed the guest source provenance review for the recorded artifact.
 See [guest source provenance](guest-source-provenance.md) for the evidence,
 validation commands, and remaining reproducibility gaps. `guest_source` is true;
-runtime-notice and platform-acceptance reviews remain false. This does not approve
+runtime-notice review is now complete (Task 9b-final); platform acceptance remains false. This does not approve
 binary publication. No guest binaries are rebuilt by this coverage verification.
 
 ## Wasmer runtime notice review (Task 9b)
 
 See [runtime notices](runtime-notices.md) for the pinned dependency inventory,
-verification commands, Singlepass BUSL-1.1 disclosure, and the remaining
-`webc 12.0.1` notice gap. `runtime_notices` remains false; a successful notice
-validation checks recorded coverage, not completeness or permission to publish.
+verification commands, Singlepass BUSL-1.1 disclosure, and the accepted webc
+12.0.1 package MIT declaration. `runtime_notices` is true after Task 9b-final.
+The absence of a separate webc license file is recorded without inferred
+copyright wording. Platform acceptance and final distribution checks still
+prevent binary publication.

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "complete": false,
+  "complete": true,
   "runtime_sha256": "ebbedfd8c43d866440b960a7b5f773b7b6932a563b6f61d043bc0c21ed535899",
   "build": {
     "package": "wasmer-cli",
@@ -20446,14 +20446,18 @@
       "manifest_path": "webc-12.0.1/Cargo.toml",
       "manifest_sha256": "202b81f1cc3886f83281e1009637dbaee11ae3f592473053c61c3353b76ee0ce",
       "role": "runtime dependency graph",
-      "notice_basis": "upstream crate legal files, including nested third-party notices",
+      "notice_basis": "Package metadata license=MIT accepted as the formal license declaration (Task 9b-final).",
       "notices": [],
-      "missing_reason": "No license/notice text in crate; exact upstream license text not established.",
       "source_url": "https://static.crates.io/crates/webc/webc-12.0.1.crate",
       "source_sha256": "715cbfae9eb87236aedca786d0f094e4b513ae5c1bc328a81760d1f9b19f187e",
       "notice_requirements": [
-        "Preserve upstream license terms and copyright/attribution text; retain original license expression."
-      ]
+        "Retain the declared MIT license, exact source/version/hash, and absence of a separate upstream license/copyright file."
+      ],
+      "declaration_acceptance": {
+        "basis": "Package metadata license=MIT accepted as the formal license declaration (Task 9b-final).",
+        "separate_license_file": "unavailable upstream",
+        "copyright_handling": "No copyright wording inferred or generated."
+      }
     },
     {
       "name": "which",
@@ -20475,7 +20479,7 @@
           "input": "which-8.0.6",
           "path": "which-8.0.6/LICENSE.txt",
           "sha256": "0041560f5d419c30e1594567f3b7ac2bc078ff6a68f437e0348ba85d9cf99112",
-          "offset": 5118494,
+          "offset": 5118627,
           "length": 1056
         }
       ],
@@ -20503,7 +20507,7 @@
           "input": "winnow-1.0.4",
           "path": "winnow-1.0.4/LICENSE-MIT",
           "sha256": "cb5aedb296c5246d1f22e9099f925a65146f9f0d6b4eebba97fd27a6cdbbab2d",
-          "offset": 5119940,
+          "offset": 5120073,
           "length": 1023
         }
       ],
@@ -20533,7 +20537,7 @@
           "input": "writeable-0.6.4",
           "path": "writeable-0.6.4/LICENSE",
           "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2",
-          "offset": 5121401,
+          "offset": 5121534,
           "length": 2195
         }
       ],
@@ -20563,14 +20567,14 @@
           "input": "xattr-1.6.1",
           "path": "xattr-1.6.1/LICENSE-APACHE",
           "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
-          "offset": 5124032,
+          "offset": 5124165,
           "length": 10847
         },
         {
           "input": "xattr-1.6.1",
           "path": "xattr-1.6.1/LICENSE-MIT",
           "sha256": "8b427f5bc501764575e52ba4f9d95673cf8f6d80a86d0d06599852e1a9a20a36",
-          "offset": 5134925,
+          "offset": 5135058,
           "length": 1056
         }
       ],
@@ -20600,7 +20604,7 @@
           "input": "xxhash-rust-0.8.18",
           "path": "xxhash-rust-0.8.18/LICENSE",
           "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566",
-          "offset": 5136427,
+          "offset": 5136560,
           "length": 1338
         }
       ],
@@ -20630,7 +20634,7 @@
           "input": "anyhow-1.0.104",
           "path": "anyhow-1.0.104/LICENSE-APACHE",
           "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
-          "offset": 5138213,
+          "offset": 5138346,
           "length": 9723
         }
       ],
@@ -20661,14 +20665,14 @@
           "input": "yansi-1.0.1",
           "path": "yansi-1.0.1/LICENSE-APACHE",
           "sha256": "a8410ec5312922e0edae227ae056c7ea78093092503717ae377a2be4f0d295f1",
-          "offset": 5148370,
+          "offset": 5148503,
           "length": 10834
         },
         {
           "input": "yansi-1.0.1",
           "path": "yansi-1.0.1/LICENSE-MIT",
           "sha256": "ce1f970284c4ab06e90671a984086692dc44da3e2b8ee86444d79b6f77bcf9e7",
-          "offset": 5159250,
+          "offset": 5159383,
           "length": 1080
         }
       ],
@@ -20698,7 +20702,7 @@
           "input": "yoke-0.8.3",
           "path": "yoke-0.8.3/LICENSE",
           "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2",
-          "offset": 5160756,
+          "offset": 5160889,
           "length": 2195
         }
       ],
@@ -20728,7 +20732,7 @@
           "input": "yoke-derive-0.8.2",
           "path": "yoke-derive-0.8.2/LICENSE",
           "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2",
-          "offset": 5163412,
+          "offset": 5163545,
           "length": 2195
         }
       ],
@@ -20756,21 +20760,21 @@
           "input": "zerocopy-0.8.57",
           "path": "zerocopy-0.8.57/LICENSE-APACHE",
           "sha256": "9d185ac6703c4b0453974c0d85e9eee43e6941009296bb1f5eb0b54e2329e9f3",
-          "offset": 5166043,
+          "offset": 5166176,
           "length": 11350
         },
         {
           "input": "zerocopy-0.8.57",
           "path": "zerocopy-0.8.57/LICENSE-BSD",
           "sha256": "83c1763356e822adde0a2cae748d938a73fdc263849ccff6b27776dff213bd32",
-          "offset": 5177447,
+          "offset": 5177580,
           "length": 1275
         },
         {
           "input": "zerocopy-0.8.57",
           "path": "zerocopy-0.8.57/LICENSE-MIT",
           "sha256": "1a2f5c12ddc934d58956aa5dbdd3255fe55fd957633ab7d0d39e4f0daa73f7df",
-          "offset": 5178776,
+          "offset": 5178909,
           "length": 1060
         }
       ],
@@ -20798,21 +20802,21 @@
           "input": "zerocopy-derive-0.8.57",
           "path": "zerocopy-derive-0.8.57/LICENSE-APACHE",
           "sha256": "9d185ac6703c4b0453974c0d85e9eee43e6941009296bb1f5eb0b54e2329e9f3",
-          "offset": 5180307,
+          "offset": 5180440,
           "length": 11350
         },
         {
           "input": "zerocopy-derive-0.8.57",
           "path": "zerocopy-derive-0.8.57/LICENSE-BSD",
           "sha256": "83c1763356e822adde0a2cae748d938a73fdc263849ccff6b27776dff213bd32",
-          "offset": 5191725,
+          "offset": 5191858,
           "length": 1275
         },
         {
           "input": "zerocopy-derive-0.8.57",
           "path": "zerocopy-derive-0.8.57/LICENSE-MIT",
           "sha256": "1a2f5c12ddc934d58956aa5dbdd3255fe55fd957633ab7d0d39e4f0daa73f7df",
-          "offset": 5193068,
+          "offset": 5193201,
           "length": 1060
         }
       ],
@@ -20842,7 +20846,7 @@
           "input": "zerofrom-0.1.8",
           "path": "zerofrom-0.1.8/LICENSE",
           "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2",
-          "offset": 5194561,
+          "offset": 5194694,
           "length": 2195
         }
       ],
@@ -20872,7 +20876,7 @@
           "input": "zerofrom-derive-0.1.7",
           "path": "zerofrom-derive-0.1.7/LICENSE",
           "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2",
-          "offset": 5197237,
+          "offset": 5197370,
           "length": 2195
         }
       ],
@@ -20902,14 +20906,14 @@
           "input": "zeroize-1.9.0",
           "path": "zeroize-1.9.0/LICENSE-APACHE",
           "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
-          "offset": 5199877,
+          "offset": 5200010,
           "length": 11358
         },
         {
           "input": "zeroize-1.9.0",
           "path": "zeroize-1.9.0/LICENSE-MIT",
           "sha256": "8c7516d4b27b1e495be5e38b612298b63de48d05f49cdac94f70f3cd70f8864b",
-          "offset": 5211285,
+          "offset": 5211418,
           "length": 1082
         }
       ],
@@ -20939,7 +20943,7 @@
           "input": "zerotrie-0.2.5",
           "path": "zerotrie-0.2.5/LICENSE",
           "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2",
-          "offset": 5212800,
+          "offset": 5212933,
           "length": 2195
         }
       ],
@@ -20969,7 +20973,7 @@
           "input": "zerovec-0.11.8",
           "path": "zerovec-0.11.8/LICENSE",
           "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2",
-          "offset": 5215427,
+          "offset": 5215560,
           "length": 2195
         }
       ],
@@ -20999,7 +21003,7 @@
           "input": "zerovec-derive-0.11.6",
           "path": "zerovec-derive-0.11.6/LICENSE",
           "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2",
-          "offset": 5218102,
+          "offset": 5218235,
           "length": 2195
         }
       ],
@@ -21032,7 +21036,7 @@
           "input": "zip-8.6.0",
           "path": "zip-8.6.0/LICENSE",
           "sha256": "58545fed1565e42d687aecec6897d35c6d37ccb71479a137c0deb2203e125c79",
-          "offset": 5220810,
+          "offset": 5220943,
           "length": 1085
         }
       ],
@@ -21060,7 +21064,7 @@
           "input": "zlib-rs-0.6.7",
           "path": "zlib-rs-0.6.7/LICENSE",
           "sha256": "e72111c52b7d96ebe25348dee19f0744f444d3c95ae6b1ecb6ccaecc5bce05ba",
-          "offset": 5222301,
+          "offset": 5222434,
           "length": 856
         }
       ],
@@ -21090,7 +21094,7 @@
           "input": "zmij-1.0.23",
           "path": "zmij-1.0.23/LICENSE-MIT",
           "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
-          "offset": 5223569,
+          "offset": 5223702,
           "length": 1023
         }
       ],
@@ -21118,7 +21122,7 @@
           "input": "zopfli-0.8.3",
           "path": "zopfli-0.8.3/COPYING",
           "sha256": "018b1cb87efdf7a04c2fcc13d57ed63f62149113fb207b27ea13430d64f13513",
-          "offset": 5224985,
+          "offset": 5225118,
           "length": 11341
         }
       ],
@@ -21148,7 +21152,7 @@
           "input": "zstd-0.13.3",
           "path": "zstd-0.13.3/LICENSE",
           "sha256": "129e8edef29e9abcd2ebabe252f4ef1b1289cdca356bf0040284a2fbccfb96c8",
-          "offset": 5236745,
+          "offset": 5236878,
           "length": 1080
         }
       ],
@@ -21178,7 +21182,7 @@
           "input": "zstd-0.14.0",
           "path": "zstd-0.14.0/LICENSE",
           "sha256": "ce4868c8e4ebe47a7d4b3c93dbf6b802033e5ae2fa7638098173f80836daac60",
-          "offset": 5238253,
+          "offset": 5238386,
           "length": 1501
         }
       ],
@@ -21208,7 +21212,7 @@
           "input": "zstd-safe-7.3.0",
           "path": "zstd-safe-7.3.0/LICENSE",
           "sha256": "ce4868c8e4ebe47a7d4b3c93dbf6b802033e5ae2fa7638098173f80836daac60",
-          "offset": 5240203,
+          "offset": 5240336,
           "length": 1501
         }
       ],
@@ -21238,7 +21242,7 @@
           "input": "zstd-safe-8.0.0",
           "path": "zstd-safe-8.0.0/LICENSE",
           "sha256": "ce4868c8e4ebe47a7d4b3c93dbf6b802033e5ae2fa7638098173f80836daac60",
-          "offset": 5242153,
+          "offset": 5242286,
           "length": 1501
         }
       ],
@@ -21268,28 +21272,28 @@
           "input": "zstd-sys-2.1.0+zstd.1.5.7",
           "path": "zstd-sys-2.1.0+zstd.1.5.7/LICENSE",
           "sha256": "ce4868c8e4ebe47a7d4b3c93dbf6b802033e5ae2fa7638098173f80836daac60",
-          "offset": 5244142,
+          "offset": 5244275,
           "length": 1501
         },
         {
           "input": "zstd-sys-2.1.0+zstd.1.5.7",
           "path": "zstd-sys-2.1.0+zstd.1.5.7/LICENSE.BSD-3-Clause",
           "sha256": "bf7017a73a95ea63bf3716b13ec2bcd79c92942356e3408c6fb66332bad6d977",
-          "offset": 5245726,
+          "offset": 5245859,
           "length": 1614
         },
         {
           "input": "zstd-sys-2.1.0+zstd.1.5.7",
           "path": "zstd-sys-2.1.0+zstd.1.5.7/zstd/COPYING",
           "sha256": "f9c375a1be4a41f7b70301dd83c91cb89e41567478859b77eef375a52d782505",
-          "offset": 5247415,
+          "offset": 5247548,
           "length": 18091
         },
         {
           "input": "zstd-sys-2.1.0+zstd.1.5.7",
           "path": "zstd-sys-2.1.0+zstd.1.5.7/zstd/LICENSE",
           "sha256": "7055266497633c9025b777c78eb7235af13922117480ed5c674677adc381c9d8",
-          "offset": 5265581,
+          "offset": 5265714,
           "length": 1549
         }
       ],
@@ -21311,14 +21315,14 @@
           "input": "wasmer",
           "path": "LICENSE",
           "sha256": "76dc7d305458d07478bc62669fe53dbfd3b94b95c5e00fbb45af1f492cbd7284",
-          "offset": 5267286,
+          "offset": 5267419,
           "length": 1097
         },
         {
           "input": "wasmer",
           "path": "ATTRIBUTIONS",
           "sha256": "c92517fb876e2a188276d18856eca0b1f20af2f6caf10c0ac08581d204400f06",
-          "offset": 5268413,
+          "offset": 5268546,
           "length": 35351
         }
       ]
@@ -21333,7 +21337,7 @@
           "input": "rust-1.95.0",
           "path": "rustc-1.95.0-aarch64-apple-darwin/rustc/share/doc/rust/COPYRIGHT-library.html",
           "sha256": "90567e2718bf7fd65a71a3a43c5596488e80e5f51ed02bfea6fec54458b5f3d1",
-          "offset": 5304054,
+          "offset": 5304187,
           "length": 425661
         }
       ]
@@ -21343,10 +21347,8 @@
     "licenses/Wasmer-ATTRIBUTIONS.txt": "c92517fb876e2a188276d18856eca0b1f20af2f6caf10c0ac08581d204400f06",
     "licenses/Wasmer-Singlepass-BUSL-1.1.txt": "a893f5994948d9cbcefaec079b8d59a60060d112c415bf7af736eee3c19824e1"
   },
-  "bundle_sha256": "a820d5a3fab053f3605f71277765d3214ab0bef12ab0a87371f6eaa0ffc69ca9",
-  "missing_notices": [
-    "webc"
-  ],
+  "bundle_sha256": "14d986a413231a7bd11cd0f340902e1289c1652f7e5a93101e56eafe2c660524",
+  "missing_notices": [],
   "limitations": [
     "Cargo graph is a conservative build-input set, not a post-LTO symbol inventory.",
     "Proc-macro dependencies are recorded separately, not claimed to be linked runtime objects.",

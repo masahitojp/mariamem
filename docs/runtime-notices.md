@@ -1,9 +1,11 @@
 # Wasmer runtime notices (Task 9b)
 
-**Incomplete: `runtime_notices=false`. Do not publish the native candidate yet.**
-The remaining missing notice is the MIT copyright/license text for **webc 12.0.1**.
-The collected inventory is evidence of progress, not an approval of completeness.
-`guest_source=true` and `platform_acceptance=false` are unchanged.
+**Runtime notice review complete: `runtime_notices=true`.**
+Task 9b-final accepts webc 12.0.1's package metadata `license="MIT"` as its
+formal license declaration. The absence of a separate upstream license/copyright
+file is recorded, without inventing copyright wording or requiring further
+investigation as a release blocker. `guest_source=true` and
+`platform_acceptance=false` are unchanged; binary publication remains NOT READY.
 
 ## Runtime and dependency selection
 
@@ -98,8 +100,9 @@ python3.11 scripts/runtime_notices.py --native-dir python/mariamem/_native
 ```
 
 `verified=true` means the recorded collection is internally consistent. The
-output independently reports `complete=false` and the missing packages. Review
-approval while notices are missing is rejected. These commands do not set review
+output independently reports `complete=true` under the recorded review policy.
+Unaccounted missing notices still reject approval; the explicit webc declaration
+acceptance is limited to its exact version, MIT declaration, and source hash. These commands do not set review
 flags. No full offline build, Cargo vendor, or bit-for-bit rebuild is required.
 
 To repeat Cargo selection, unpack the pinned `wasmer-full-source.tar.gz` under
@@ -129,19 +132,23 @@ python3.11 scripts/runtime_notices.py --verify-inputs
 The collector uses the committed input pins, the prepared metadata/tree, and
 Cargo's downloaded registry cache. Generated metadata/build files stay in ignored
 `build/`; they are not published as source or treated as linked dependencies.
-Generation never changes the release review and always starts as incomplete.
+Generation never changes the release review. Coverage is complete only when
+every package has collected notices or the explicitly accepted webc declaration.
 
-## Exact outstanding work
+## webc declaration decision (Task 9b-final)
 
-`webc 12.0.1` declares MIT and lists the Wasmer Engineering Team as authors, but
-contains no license/copyright text. Its recorded repository is
-`https://github.com/wasmerio/pirita`, VCS commit
-`b447309d10535d24220190094e5747ebdc66097a`. That exact source archive and version
-12.0.1/v12.0.1 tag URLs returned HTTP 404. A guessed copyright line or the
-unrelated Wasmer workspace MIT file is not substituted.
+- Package: `webc 12.0.1`
+- Formal declared license: `MIT`, from the checksum-verified Cargo.toml.
+- Source: `https://static.crates.io/crates/webc/webc-12.0.1.crate`
+- SHA256: `715cbfae9eb87236aedca786d0f094e4b513ae5c1bc328a81760d1f9b19f187e`
+- Separate license/copyright file: unavailable upstream; not present in the crate.
 
-Obtain the correct version's license/copyright notice (and any additional
-attributions) from its publisher or an authoritative matching source archive;
-pin its provenance/hash, collect it, and rerun verification. Then review the
-complete collection, including the Singlepass disclosure, before setting
-`runtime_notices=true`. Platform acceptance remains a separate next task.
+The maintainer's Task 9b-final decision accepts this package declaration for the
+runtime notice review. No replacement copyright text is generated, and the
+unavailable separate document is not a remaining blocker. This scoped decision
+is recorded in the inventory and generated notice bundle and checked by the
+verifier. It does not grant the same treatment to other packages or versions.
+
+The existing Wasmer ATTRIBUTIONS, collected dependency terms, Singlepass BUSL-1.1
+text/disclosure and Rust stdlib notices remain included. The next independent
+review is Task 9c clean-platform acceptance; no runtime binary is rebuilt here.

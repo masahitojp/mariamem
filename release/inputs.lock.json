@@ -129,9 +129,7 @@
     "binaryen": "version_133",
     "wasix_sysroot_variant": "sysroot-exnref-eh"
   },
-  "known_unresolved": [
-    "Wasmer static Rust dependency notices"
-  ],
+  "known_unresolved": [],
   "runtime_source_submodules_to_collect": [
     {
       "path": "tools/llvm-project",

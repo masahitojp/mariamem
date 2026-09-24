@@ -97823,8 +97823,10 @@ Repository: https://github.com/wasmerio/pirita
 Authors: Wasmer Engineering Team <engineering@wasmer.io>
 Source: https://static.crates.io/crates/webc/webc-12.0.1.crate
 SHA256: 715cbfae9eb87236aedca786d0f094e4b513ae5c1bc328a81760d1f9b19f187e
-Preserve upstream license terms and copyright/attribution text; retain original license expression.
-UNRESOLVED: No license/notice text in crate; exact upstream license text not established.
+Retain the declared MIT license, exact source/version/hash, and absence of a separate upstream license/copyright file.
+basis: Package metadata license=MIT accepted as the formal license declaration (Task 9b-final).
+separate_license_file: unavailable upstream
+copyright_handling: No copyright wording inferred or generated.
 
 
 === which 8.0.6 ===

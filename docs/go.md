@@ -157,8 +157,8 @@ db, err := mariamem.Start(ctx, mariamem.Options{
 })
 ```
 
-**This is not cleared for public binary distribution.** Wasmer static Rust notices
-and clean-platform acceptance remain unresolved. Guest source coverage for the
+**This is not cleared for public binary distribution.** Clean-platform acceptance
+remains unresolved. Runtime notice review is complete; see [runtime notices](runtime-notices.md). Guest source coverage for the
 recorded artifact is reviewed; see [provenance](guest-source-provenance.md). Existing notices are preserved, not asserted complete. No source
 archive is replaced by this bundle or by GitHub's default source zip. The existing
 release review and corresponding-source requirements in [releasing](releasing.md)

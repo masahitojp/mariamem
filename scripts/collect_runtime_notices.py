@@ -11,7 +11,7 @@ import tarfile
 import tomllib
 
 from common import ROOT, LOCK, digest
-from runtime_notices import WORK, INVENTORY, BUNDLE, FEATURES, sha, tree_keys, legal_files, assemble
+from runtime_notices import WORK, INVENTORY, BUNDLE, FEATURES, sha, tree_keys, legal_files, assemble, WEBC_DECLARATION, accepted_declaration
 
 
 def main():
@@ -121,6 +121,14 @@ def main():
             p.pop('missing_reason')
             p['notice_basis'] = 'Apache-2.0 distribution terms; Cargo declaration retained; full pinned upstream has no separate legal document. Authors recorded above.'
             p['upstream_no_legal_files_input'] = key + '-upstream'
+    for p in packages:
+        if (p['name'], p['version']) == ('webc', '12.0.1'):
+            p['declaration_acceptance'] = dict(WEBC_DECLARATION)
+            if not accepted_declaration(p):
+                raise ValueError('webc input differs from accepted declaration')
+            p.pop('missing_reason', None)
+            p['notice_basis'] = WEBC_DECLARATION['basis']
+            p['notice_requirements'] = ['Retain the declared MIT license, exact source/version/hash, and absence of a separate upstream license/copyright file.']
     def extra(name, version, key, names, license):
         return {'name': name, 'version': version, 'repository': None, 'license': license,
                 'notices': [{'input': key, 'path': n, 'sha256': sha(contents[key][n])} for n in names]}
@@ -132,7 +140,7 @@ def main():
         binary = tar.extractfile('bin/wasmer-headless').read()
     import re
     observed = sorted(set((a.decode(), v.decode()) for a, v in re.findall(rb'([A-Za-z0-9_-]+)-([0-9]+\.[0-9]+\.[0-9]+(?:[A-Za-z0-9_.+-]*))/src/', binary)))
-    doc = {'version': 1, 'complete': False, 'runtime_sha256': sha(binary),
+    doc = {'version': 1, 'complete': not any(p.get('missing_reason') for p in packages), 'runtime_sha256': sha(binary),
            'build': {'package': 'wasmer-cli', 'bin': 'wasmer-headless', 'target': 'aarch64-apple-darwin',
                      'default_features': False, 'features': FEATURES,
                      'source_files': {n: sha((WORK / 'wasmer' / n).read_bytes()) for n in ['Cargo.lock', 'Makefile', '.github/workflows/build.yml', 'lib/cli/Cargo.toml']}},

@@ -20,7 +20,8 @@ Wasmer headless 7.4.2           Mixed licenses: workspace MIT is not the license
                                every component. Singlepass is BUSL-1.1 with
                                conditional production-use terms. See its separate
                                license and Wasmer-Rust-NOTICES.txt in licenses/.
-                               webc 12.0.1 MIT notice remains unresolved; see
+                               webc 12.0.1 package MIT declaration is accepted;
+                               separate upstream license file unavailable. See
                                docs/runtime-notices.md.
 Go runtime                     BSD-3-Clause; bundled Go LICENSE included.
 shibukawa/pgmem fixture design MIT; copyright and permission notice included.

@@ -7,9 +7,9 @@
       "note": "Reviewed corresponding-source coverage for the exact recorded guest WASM/AOT hashes: pinned source archives, licenses, modified inputs, and sysroot payload provenance verified. See docs/guest-source-provenance.md for evidence and nonblocking reproducibility gaps. Not approval of Wasmer notices or binary publication."
     },
     "runtime_notices": {
-      "passed": false,
+      "passed": true,
       "evidence": "release/wasmer-runtime-notices.json",
-      "note": "509 Cargo graph packages inventoried with pinned notice inputs; webc 12.0.1 MIT copyright/license text remains unavailable. Singlepass BUSL-1.1 terms are included and must be disclosed; do not describe the whole runtime as MIT. See docs/runtime-notices.md."
+      "note": "509 Cargo graph packages and upstream/Rust standard-library notices reviewed. Task 9b-final accepts webc 12.0.1 package metadata license=MIT as its formal declaration, with exact source/hash and separate upstream license file unavailable recorded; no copyright text inferred. Singlepass BUSL-1.1 disclosure preserved. Platform acceptance remains separate."
     },
     "independent_build": {
       "passed": true,
