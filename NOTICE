@@ -31,7 +31,9 @@ See licenses/Wasmer-ATTRIBUTIONS.txt and licenses/Wasmer-Rust-NOTICES.txt
 for upstream attributions and collected dependency terms. webc 12.0.1 declares
 MIT in its package metadata; a separate upstream license/copyright file is
 unavailable. Its exact source/version/hash is recorded without inferred copyright
-wording. Runtime notice review is complete; platform acceptance remains pending.
+wording. Runtime notice review and clean macOS 15 arm64 platform acceptance are
+complete for the recorded native candidate.
 
-This initial alpha bundle is for local evaluation. Platform acceptance and final
-release verification remain required before public distribution. See docs/releasing.md and THIRD_PARTY_LICENSES.
+This initial alpha bundle is for local evaluation. Final release verification
+remains required before public distribution. See docs/releasing.md and
+THIRD_PARTY_LICENSES.

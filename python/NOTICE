@@ -24,7 +24,16 @@ their database implementations are not included in the mariamem Python code.
 
 The native bundle uses Wasmer headless and the Go runtime. Their upstream
 licenses and the licenses of embedded dependencies must be retained.
+Wasmer 7.4.2 headless includes Singlepass under Business Source License 1.1,
+not MIT. Its non-production grant, conditional production-use grant, and change
+date/license are reproduced in licenses/Wasmer-Singlepass-BUSL-1.1.txt.
+See licenses/Wasmer-ATTRIBUTIONS.txt and licenses/Wasmer-Rust-NOTICES.txt
+for upstream attributions and collected dependency terms. webc 12.0.1 declares
+MIT in its package metadata; a separate upstream license/copyright file is
+unavailable. Its exact source/version/hash is recorded without inferred copyright
+wording. Runtime notice review and clean macOS 15 arm64 platform acceptance are
+complete for the recorded native candidate.
 
-This initial alpha bundle is for local evaluation. Complete runtime dependency
-notices and the corresponding-source release set require release verification
-before public distribution. See docs/releasing.md and THIRD_PARTY_LICENSES.
+This initial alpha bundle is for local evaluation. Final release verification
+remains required before public distribution. See docs/releasing.md and
+THIRD_PARTY_LICENSES.
