@@ -38,7 +38,7 @@ binary hashes across builds are not guaranteed.
 ```sh
 python3 scripts/build_alpha.py
 python3 -m venv .venv
-.venv/bin/python -m pip install './build/dist/mariamem-0.1.0a1-py3-none-macosx_15_0_arm64.whl[test]'
+.venv/bin/python -m pip install './build/dist/mariamem-0.1.0a2-py3-none-macosx_15_0_arm64.whl[test]'
 .venv/bin/python tests/verify_alpha.py
 .venv/bin/python tests/integration.py
 .venv/bin/python tests/snapshots.py

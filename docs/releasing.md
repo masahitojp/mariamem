@@ -59,7 +59,7 @@ Binary release commands are intentionally separate from source push. After
 `check_release.py` succeeds and the release commit is pushed:
 
 ```sh
-gh release create v0.1.0a1 --draft --prerelease --title 'mariamem 0.1.0a1' \
+gh release create v0.1.0-alpha.2 --draft --prerelease --title 'mariamem v0.1.0-alpha.2 / Python 0.1.0a2' \
   --notes-file release/NOTES.md build/release/publish/*
 ```
 

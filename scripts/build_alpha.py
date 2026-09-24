@@ -42,7 +42,7 @@ for name in ("mariamem-host", "wasmer-headless"):
     (native / name).chmod(0o755)
 review = json.loads((ROOT / "release/review.json").read_text())
 ready = all(item.get("passed") and item.get("evidence") for item in review["checks"].values())
-manifest = {"version": 1, "package_version": "0.1.0a1", "platform": "darwin-arm64",
+manifest = {"version": 1, "package_version": "0.1.0a2", "platform": "darwin-arm64",
             "minimum_macos": major, "wasmer_version": "7.4.2", "public_release_ready": bool(ready),
             "sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                        for p in native.iterdir() if p.name != "manifest.json"}}
@@ -55,10 +55,10 @@ subprocess.run([sys.executable, "-m", "pip", "wheel", "--no-deps", "--no-build-i
                check=True, env=dict(os.environ, PIP_DISABLE_PIP_VERSION_CHECK="1",
                                     MARIAMEM_WHEEL_PLATFORM=wheel_platform))
 print(json.dumps(manifest, indent=2))
-wheel = ROOT / "build/dist" / f"mariamem-0.1.0a1-py3-none-{wheel_platform}.whl"
+wheel = ROOT / "build/dist" / f"mariamem-0.1.0a2-py3-none-{wheel_platform}.whl"
 with zipfile.ZipFile(wheel) as archive:
     names = archive.namelist()
-    metadata = archive.read("mariamem-0.1.0a1.dist-info/WHEEL").decode()
+    metadata = archive.read("mariamem-0.1.0a2.dist-info/WHEEL").decode()
     assert f"Tag: py3-none-{wheel_platform}" in metadata, "incorrect wheel tag"
     bundled_manifest = next(p for p in names if p.endswith("/mariamem/_native/manifest.json"))
     assert json.loads(archive.read(bundled_manifest)) == manifest, "incorrect bundled manifest"

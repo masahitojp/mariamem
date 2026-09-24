@@ -10,7 +10,7 @@ import time
 
 from ._artifacts import resolve
 
-__version__ = "0.1.0a1"
+__version__ = "0.1.0a2"
 
 
 class HostError(RuntimeError):

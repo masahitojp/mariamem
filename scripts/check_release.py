@@ -54,11 +54,11 @@ target = ROOT / "build/release/publish"
 target.mkdir(exist_ok=True)
 if any(target.iterdir()):
     raise SystemExit("build/release/publish is not empty; move the previous staged release aside")
-source_name = "mariamem-0.1.0a1-corresponding-source.tar.gz"
+source_name = "mariamem-0.1.0a2-corresponding-source.tar.gz"
 shutil.copy2(archive, target / source_name)
 shutil.copy2(path, target / path.name)
 assets = {source_name: digest(target / source_name), path.name: digest(target / path.name)}
-manifest = {"version": 1, "release": "0.1.0a1", "assets": assets,
+manifest = {"version": 1, "release": "0.1.0a2", "assets": assets,
             "source_manifest": record["manifest"], "wheel": wheel, "acceptance": alpha,
             "reviews": review}
 (target / "release-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")

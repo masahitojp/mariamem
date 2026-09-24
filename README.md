@@ -9,10 +9,10 @@ for Python tests. The Python API manages startup, shutdown, isolated databases,
 and cold snapshots. A platform wheel bundles the Go host, Wasmer headless, and
 MariaDB guest; users do not need Docker, a MariaDB installation, or a compiler.
 
-**Status:** Python `0.1.0a1`, under release preparation. No PyPI release is
+**Status:** Python `0.1.0a2`, under release preparation. No PyPI release is
 available yet. The initial native alpha targets macOS 15+ on Apple Silicon.
 macOS 12 guest execution failed; macOS 12–14 are unsupported. Clean macOS 15
-acceptance is pending. See [the release checklist](docs/releasing.md) and
+acceptance passed. See [the release checklist](docs/releasing.md) and
 [the compatibility finding](docs/macos-compatibility.md).
 
 ```python
@@ -35,7 +35,7 @@ For a locally built wheel:
 
 ```sh
 python3 -m venv .venv
-.venv/bin/python -m pip install './build/dist/mariamem-0.1.0a1-py3-none-macosx_15_0_arm64.whl[test]'
+.venv/bin/python -m pip install './build/dist/mariamem-0.1.0a2-py3-none-macosx_15_0_arm64.whl[test]'
 ```
 
 The `test` extra installs PyMySQL, pytest, and pytest-xdist. The wrapper itself

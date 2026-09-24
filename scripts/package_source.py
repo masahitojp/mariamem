@@ -13,7 +13,7 @@ check()
 out = ROOT / "build/release"
 out.mkdir(parents=True, exist_ok=True)
 review = json.loads((ROOT / "release/review.json").read_text())
-archive = out / "mariamem-0.1.0a1-source-candidate.tar.gz"
+archive = out / "mariamem-0.1.0a2-source-candidate.tar.gz"
 inputs = [entry for entry in LOCK["inputs"] if entry.get("kind") != "runtime-binary"]
 for entry in inputs:
     fetch(entry["name"])
@@ -30,7 +30,7 @@ manifest["guest_source_provenance"] = verify_evidence(ROOT, LOCK, manifest["buil
 with archive.open("wb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as gz:
     with tarfile.open(fileobj=gz, mode="w") as tar:
         def add(path, name):
-            info = tar.gettarinfo(str(path), arcname="mariamem-0.1.0a1/" + name)
+            info = tar.gettarinfo(str(path), arcname="mariamem-0.1.0a2/" + name)
             info.uid = info.gid = 0
             info.uname = info.gname = ""
             info.mtime = 0
@@ -41,7 +41,7 @@ with archive.open("wb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=ra
         for entry in inputs:
             add(ROOT / "build/downloads" / entry["file"], "build/downloads/" + entry["file"])
         content = (json.dumps(manifest, indent=2) + "\n").encode()
-        info = tarfile.TarInfo("mariamem-0.1.0a1/build/source-manifest.json")
+        info = tarfile.TarInfo("mariamem-0.1.0a2/build/source-manifest.json")
         info.size = len(content)
         tar.addfile(info, io.BytesIO(content))
 record = {"file": archive.name, "sha256": digest(archive), "bytes": archive.stat().st_size,

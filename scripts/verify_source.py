@@ -9,7 +9,7 @@ from common import ROOT, LOCK, digest, extract
 from runtime_sources import verify_runtime_sources
 from verify_guest_provenance import verify_evidence
 
-archive = ROOT / "build/release/mariamem-0.1.0a1-source-candidate.tar.gz"
+archive = ROOT / "build/release/mariamem-0.1.0a2-source-candidate.tar.gz"
 record = json.loads((archive.parent / "source-manifest.json").read_text())
 if digest(archive) != record["sha256"]:
     raise ValueError("source candidate archive hash mismatch")
@@ -17,7 +17,7 @@ expected = json.loads((ROOT / "build/prepared-source.json").read_text())["modifi
 with tempfile.TemporaryDirectory(prefix="mariamem-source-check-") as temporary:
     target = Path(temporary) / "unpack"
     extract(archive, target)
-    project = target / "mariamem-0.1.0a1"
+    project = target / "mariamem-0.1.0a2"
     subprocess.run([sys.executable, "scripts/check_public.py"], cwd=project, check=True)
     manifest = json.loads((project / "build/source-manifest.json").read_text())
     lock_path = project / "release/inputs.lock.json"
