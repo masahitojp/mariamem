@@ -6,6 +6,7 @@ import json
 import tarfile
 from common import ROOT, LOCK, digest, fetch
 from check_public import check, public_files
+from runtime_sources import verify_runtime_sources
 
 check()
 out = ROOT / "build/release"
@@ -15,10 +16,12 @@ archive = out / "mariamem-0.1.0a1-source-candidate.tar.gz"
 inputs = [entry for entry in LOCK["inputs"] if entry.get("kind") != "runtime-binary"]
 for entry in inputs:
     fetch(entry["name"])
+runtime_sources = verify_runtime_sources(ROOT, LOCK)
 manifest = {"version": 1, "source_complete": bool(review["checks"]["guest_source"].get("passed")),
             "review": review, "inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
             "files": {p.relative_to(ROOT).as_posix(): digest(p) for p in public_files()},
-            "source_inputs": inputs}
+            "source_inputs": inputs, "runtime_sources": runtime_sources,
+            "wasix_sysroot_variant": LOCK["toolchain"]["wasix_sysroot_variant"]}
 provenance = [ROOT / "build" / name for name in
               ("prepared-source.json", "preparation-inputs.lock.json", "guest-build.json")]
 manifest["build_records"] = {p.name: json.loads(p.read_text()) for p in provenance if p.exists()}

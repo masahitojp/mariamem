@@ -75,3 +75,43 @@ copyright notices for all dependencies. Source collection includes build scripts
 and modifications; generated binaries are bound to their inputs by hashes.
 Build tools and linked runtime libraries must be distinguished when determining
 source requirements. See [GPLv2 section 3](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
+
+## WASIX guest source coverage (Task 9a1)
+
+The source candidate now includes full pinned archives for the three submodules
+of WASIX libc `v2026-07-03.1`:
+
+| Source | Revision | Required license files inside its archive |
+| --- | --- | --- |
+| llvm/llvm-project | `6bb93a243f6d15855f485f5aec3810d9e2de150d` | `LICENSE.TXT`, `libcxx/LICENSE.TXT`, `libcxxabi/LICENSE.TXT`, `libunwind/LICENSE.TXT`, `compiler-rt/LICENSE.TXT` |
+| WebAssembly/WASI | `bac366c8aeb69cacfea6c4c04a503191bf1cede1` | `tools/witx/LICENSE` |
+| wasix-org/wasix-witx | `0dfbd35a0f30f3fe7fd3b3ab5a50dc4191d5caed` | `tools/witx/LICENSE` |
+
+All other upstream LICENSE/NOTICE files are retained inside the full source
+archives too. LLVM runtime licenses include Apache-2.0 with LLVM exceptions and
+component-specific legacy notices; header tools declare Apache-2.0. Preserve the
+actual per-file notices rather than assigning one new license to all sources.
+
+`release/inputs.lock.json` connects the existing submodule pins to downloadable
+source inputs with explicit commit URLs and SHA256 hashes. `package_source.py`
+verifies these before packaging. The candidate embeds that lock plus a source
+manifest recording each revision, archive hash, source coverage, and license-file
+hashes. GitHub source tarballs do not include Git history: revision verification
+uses the pinned commit URL, expected archive root, and content hash, not `git rev-parse`.
+
+`verify_source.py` checks the outer archive hash, bundled/current lock agreement,
+all three nested archives, revision consistency, required source directories and
+nonempty license files. It also retains the existing offline MariaDB preparation
+and comparison with the actual guest's modified build inputs. LLVM source is
+inspected without expanding its whole tree or compiling any runtime.
+
+The recorded variant is **`sysroot-exnref-eh`**: it was observed in the actual
+compiler dependency files and build-image driver selection. CMake's older
+`sysroot-eh` search-root setting is not proof that this other variant was linked.
+
+This closes concrete source collection gaps, not complete sysroot reproducibility.
+It does not vendor every header-generator Cargo dependency, prove the prebuilt
+sysroot was generated from these sources, establish complete toolchain source
+closure, or replace a final linked-object/source review. `guest_source` remains
+false, as do the independent runtime-notice and platform-acceptance blockers.
+No guest binaries are rebuilt by this coverage verification.

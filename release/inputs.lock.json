@@ -55,6 +55,65 @@
       "url": "https://github.com/wasmerio/wasmer/releases/download/v7.4.2/wasmer-full-source.tar.gz",
       "sha256": "1959cc1a07ca96e583cac488832bfac3787c354edc69336d6ccbcaf2db49ed67",
       "kind": "runtime-source"
+    },
+    {
+      "name": "llvm-project",
+      "file": "llvm-project-source.tar.gz",
+      "url": "https://codeload.github.com/llvm/llvm-project/tar.gz/6bb93a243f6d15855f485f5aec3810d9e2de150d",
+      "revision": "6bb93a243f6d15855f485f5aec3810d9e2de150d",
+      "sha256": "b62854f0704e513f2a93a0955a41e08894c60bcf750ba32f26b3637e6fa14b05",
+      "kind": "runtime-source",
+      "repository": "llvm/llvm-project",
+      "archive_root": "llvm-project-6bb93a243f6d15855f485f5aec3810d9e2de150d",
+      "license_files": [
+        "LICENSE.TXT",
+        "libcxx/LICENSE.TXT",
+        "libcxxabi/LICENSE.TXT",
+        "libunwind/LICENSE.TXT",
+        "compiler-rt/LICENSE.TXT"
+      ],
+      "source_directories": [
+        "libcxx/src",
+        "libcxxabi/src",
+        "libunwind/src",
+        "compiler-rt/lib/builtins",
+        "runtimes",
+        "cmake"
+      ]
+    },
+    {
+      "name": "wasi-headers",
+      "file": "wasi-headers-source.tar.gz",
+      "url": "https://codeload.github.com/WebAssembly/WASI/tar.gz/bac366c8aeb69cacfea6c4c04a503191bf1cede1",
+      "revision": "bac366c8aeb69cacfea6c4c04a503191bf1cede1",
+      "sha256": "ad49685e5f2e4333909f72eae1c63dfde0dfe500e7ab2ddd17f5bc9e2d323ce3",
+      "kind": "runtime-source",
+      "repository": "WebAssembly/WASI",
+      "archive_root": "WASI-bac366c8aeb69cacfea6c4c04a503191bf1cede1",
+      "license_files": [
+        "tools/witx/LICENSE"
+      ],
+      "source_directories": [
+        "tools/witx/src",
+        "phases/snapshot/witx"
+      ]
+    },
+    {
+      "name": "wasix-headers",
+      "file": "wasix-headers-source.tar.gz",
+      "url": "https://codeload.github.com/wasix-org/wasix-witx/tar.gz/0dfbd35a0f30f3fe7fd3b3ab5a50dc4191d5caed",
+      "revision": "0dfbd35a0f30f3fe7fd3b3ab5a50dc4191d5caed",
+      "sha256": "845e8b60ff818aa92966b7e122b4f1a508e8d5bfb76062538cd6f498bc9f87c6",
+      "kind": "runtime-source",
+      "repository": "wasix-org/wasix-witx",
+      "archive_root": "wasix-witx-0dfbd35a0f30f3fe7fd3b3ab5a50dc4191d5caed",
+      "license_files": [
+        "tools/witx/LICENSE"
+      ],
+      "source_directories": [
+        "tools/witx/src",
+        "phases/snapshot/witx"
+      ]
     }
   ],
   "pristine_files": {
@@ -67,7 +126,8 @@
     "wasixcc": "0.4.7",
     "llvm": "21.1.206",
     "wasix_sysroot": "v2026-07-03.1",
-    "binaryen": "version_133"
+    "binaryen": "version_133",
+    "wasix_sysroot_variant": "sysroot-exnref-eh"
   },
   "known_unresolved": [
     "WASIX sysroot linked runtime source and licenses",
@@ -76,15 +136,18 @@
   "runtime_source_submodules_to_collect": [
     {
       "path": "tools/llvm-project",
-      "commit": "6bb93a243f6d15855f485f5aec3810d9e2de150d"
+      "commit": "6bb93a243f6d15855f485f5aec3810d9e2de150d",
+      "source_input": "llvm-project"
     },
     {
       "path": "tools/wasi-headers/WASI",
-      "commit": "bac366c8aeb69cacfea6c4c04a503191bf1cede1"
+      "commit": "bac366c8aeb69cacfea6c4c04a503191bf1cede1",
+      "source_input": "wasi-headers"
     },
     {
       "path": "tools/wasix-headers/WASI",
-      "commit": "0dfbd35a0f30f3fe7fd3b3ab5a50dc4191d5caed"
+      "commit": "0dfbd35a0f30f3fe7fd3b3ab5a50dc4191d5caed",
+      "source_input": "wasix-headers"
     }
   ]
 }

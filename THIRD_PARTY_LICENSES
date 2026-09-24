@@ -10,8 +10,11 @@ PCRE2 10.47, zlib, fmt 12.2.0  License texts are included in licenses/ and their
                                sources are retained by the input lock/archive.
                                Final linked-file inventory remains pending.
 WASIX libc v2026-07-03.1        Upstream multi-license notices and musl/cloudlibc
-                               notices are included. Recursive LLVM runtime and
-                               header-generator source collection remains pending.
+                               notices are included. Pinned LLVM runtime and WASI/
+                               WASIX header-generator sources, including upstream
+                               license/notice files, are collected in the source
+                               candidate. Actual sysroot provenance/completeness
+                               review remains pending.
 Wasmer headless 7.4.2           MIT text verified against the v7.4.2 source; its statically
                                included Rust dependencies retain their licenses.
 Go runtime                     BSD-3-Clause; bundled Go LICENSE included.
