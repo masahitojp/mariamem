@@ -27,7 +27,7 @@ func fixture(t *testing.T) string {
 	for _, name := range []string{"wasmer-headless", "mariamem.wasmu", "mariamem.wasmu.json"} {
 		hashes[name], _ = snapshot.Digest(filepath.Join(dir, name))
 	}
-	manifest, _ := json.Marshal(map[string]any{"version": 1, "platform": "darwin-arm64", "minimum_macos": 12, "sha256": hashes, "public_release_ready": false})
+	manifest, _ := json.Marshal(map[string]any{"version": 1, "platform": "darwin-arm64", "minimum_macos": 15, "sha256": hashes, "public_release_ready": false})
 	write("manifest.json", manifest, 0600)
 	// Existing bundle's host is deliberately unused by Go.
 	write("mariamem-host", []byte("unused"), 0600)
@@ -35,19 +35,19 @@ func fixture(t *testing.T) string {
 }
 func TestResolveBundle(t *testing.T) {
 	dir := fixture(t)
-	b, err := resolve(dir, "darwin-arm64", 12)
+	b, err := resolve(dir, "darwin-arm64", 15)
 	if err != nil || b.Dir != dir || b.Build != strings.Repeat("a", 64) {
 		t.Fatalf("%+v %v", b, err)
 	}
 	for _, tc := range []struct {
 		platform string
 		major    int
-	}{{"linux-arm64", 12}, {"darwin-amd64", 12}, {"darwin-arm64", 11}} {
+	}{{"linux-arm64", 15}, {"darwin-amd64", 15}, {"darwin-arm64", 12}, {"darwin-arm64", 13}, {"darwin-arm64", 14}} {
 		if _, err := resolve(dir, tc.platform, tc.major); err == nil {
 			t.Fatal("incompatible platform accepted")
 		}
 	}
-	if _, err := resolve("", "darwin-arm64", 12); err == nil {
+	if _, err := resolve("", "darwin-arm64", 15); err == nil {
 		t.Fatal("missing directory accepted")
 	}
 }
@@ -87,7 +87,7 @@ func TestInvalidBundle(t *testing.T) {
 				raw, _ = json.Marshal(m)
 				os.WriteFile(path, raw, 0600)
 			}
-			if _, err := resolve(dir, "darwin-arm64", 12); err == nil {
+			if _, err := resolve(dir, "darwin-arm64", 15); err == nil {
 				t.Fatal("invalid bundle accepted")
 			}
 		})

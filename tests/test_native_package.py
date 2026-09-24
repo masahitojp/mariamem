@@ -22,14 +22,14 @@ class NativePackage(unittest.TestCase):
             (self.root / name).write_text(name)
         (self.root / "release/inputs.lock.json").write_text('{}')
         (self.root / "release/review.json").write_text('{"checks":{"guest_source":{"passed":false}}}')
-        (self.root / "python/deployment_target.json").write_text('{"minimum_macos":12}')
+        (self.root / "python/deployment_target.json").write_text('{"minimum_macos":15}')
         (self.native / "wasmer-headless").write_bytes(b"inert runtime")
         (self.native / "wasmer-headless").chmod(0o755)
         (self.native / "mariamem.wasmu").write_bytes(b"inert guest")
         (self.native / "mariamem.wasmu.json").write_bytes(pkg.encoded({
             "snapshot_version": 1, "wasm_sha256": "a" * 64,
             "module_sha256": pkg.digest(b"inert guest")}))
-        self.manifest = {"version": 1, "platform": "darwin-arm64", "minimum_macos": 12,
+        self.manifest = {"version": 1, "platform": "darwin-arm64", "minimum_macos": 15,
                          "public_release_ready": True,
                          "sha256": {n: pkg.digest((self.native / n).read_bytes()) for n in pkg.ARTIFACTS}}
         self.manifest["sha256"]["mariamem-host"] = "unused"
@@ -56,6 +56,20 @@ class NativePackage(unittest.TestCase):
         self.assertFalse((extracted / "mariamem-host").exists())
         self.assertEqual((extracted / "NOTICE").read_bytes(), files["NOTICE"])
         self.assertFalse(json.loads(files["CANDIDATE.json"])["reviews"]["checks"]["guest_source"]["passed"])
+
+    def test_raise_supported_floor_without_binary_changes(self):
+        self.manifest['minimum_macos'] = 12
+        self.save_manifest()
+        files = pkg.payload(self.root, self.native)
+        self.assertEqual(json.loads(files['manifest.json'])['minimum_macos'], 15)
+        self.assertEqual(files['wasmer-headless'], b'inert runtime')
+        self.assertEqual(files['mariamem.wasmu'], b'inert guest')
+
+    def test_cannot_lower_input_minimum(self):
+        self.manifest['minimum_macos'] = 16
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, 'candidate platform'):
+            pkg.payload(self.root, self.native)
 
     def test_reject_corrupt_input(self):
         (self.native / "mariamem.wasmu").write_bytes(b"changed")

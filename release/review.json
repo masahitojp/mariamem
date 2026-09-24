@@ -19,7 +19,7 @@
     "platform_acceptance": {
       "passed": false,
       "evidence": null,
-      "note": "Confirm the supported macOS/CPU target on a clean machine or CI; the development Mac alone is not cross-machine proof."
+      "note": "Confirm the new native candidate SHA256 on clean macOS 15 arm64. macOS 12.5.1 guest execution failed on an unavailable libunwind symbol; 12-14 are unsupported. Development macOS 27 is not floor acceptance."
     }
   }
 }

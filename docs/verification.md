@@ -54,9 +54,9 @@ of the GitHub source publication set.
 The source candidate and binary publication gate deliberately retain these
 unresolved checks. Passing functional tests does not mark them complete.
 
-## Candidate macOS deployment target
+## Historical macOS 12 candidate (superseded)
 
-The wheel target is now explicitly `macosx_12_0_arm64`, with native manifest
+The previous wheel target was explicitly `macosx_12_0_arm64`, with native manifest
 `minimum_macos: 12`. On the development macOS 27 arm64 machine, `otool` reports
 `LC_BUILD_VERSION minos 12.0` for the Go host and `11.0` for Wasmer headless.
 The build rejects binaries requiring a newer OS, verifies the wheel tag and
@@ -64,6 +64,8 @@ bundled manifest, and records binary minimums in local `alpha-wheel.json` eviden
 Five focused deployment-check tests passed. The newly built and installed wheel
 passed startup, PyMySQL `SELECT 1`, and shutdown on the development machine.
 
-This is a candidate target, not clean-platform acceptance. The AOT guest and
-runtime still need end-to-end validation on clean macOS 12 arm64;
-`release/review.json` retains `platform_acceptance: passed=false`.
+This earlier load-command inspection did not establish runtime compatibility.
+Clean macOS 12.5.1 testing subsequently failed during guest execution; see
+[the compatibility finding](macos-compatibility.md). The current target is
+macOS 15+ arm64 (`macosx_15_0_arm64`, `minimum_macos: 15`).
+Clean macOS 15 acceptance is required before changing the platform review.

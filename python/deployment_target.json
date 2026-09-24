@@ -1,5 +1,5 @@
 {
-  "minimum_macos": 12,
+  "minimum_macos": 15,
   "architecture": "arm64",
-  "wheel_platform": "macosx_12_0_arm64"
+  "wheel_platform": "macosx_15_0_arm64"
 }

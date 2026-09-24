@@ -45,7 +45,7 @@ defer fork.Close()
 optionally the existing `mariamem-host` (unused by Go). Required guest/runtime
 files are checked against manifest hashes; the sidecar is also validated.
 No binaries are committed to the Go module and no downloads occur. The candidate
-platform remains macOS 12 arm64; clean-platform acceptance remains pending.
+platform remains macOS 15 arm64; clean-platform acceptance remains pending.
 
 The host runs in the Go caller; Wasmer/MariaDB remains a child process. Start's
 context only controls startup. Zero startup/shutdown/query timeouts default to
@@ -104,7 +104,7 @@ connection. It tolerates the brief ErrBusy interval between a wire reply and hos
 session-idle bookkeeping, then requires ErrTransactionActive. All successful
 snapshots follow pool Close → WaitDisconnected.
 
-This is integration correctness evidence, not a benchmark or clean macOS 12
+This is integration correctness evidence, not a benchmark or clean macOS 15
 platform acceptance. Prepared statements and query-timeout behavior are outside
 this test's scope.
 
@@ -133,7 +133,7 @@ The archive expands to `mariamem-native-darwin-arm64/`, containing:
 - Existing `LICENSE`, `NOTICE`, `THIRD_PARTY_LICENSES`, and `licenses/` copied unchanged
 - `CANDIDATE.json`: input manifest/lock hashes and a snapshot of release reviews
 
-The manifest retains its format and compatibility metadata, removes the unused
+The manifest retains its format, declares the canonical macOS 15 minimum, removes the unused
 `mariamem-host` hash, and records exactly the three required artifact hashes.
 The host executable is not included. `public_release_ready` is always false for
 this candidate tool, even if the input manifest says otherwise.

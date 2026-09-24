@@ -38,7 +38,7 @@ class PlatformHarness(unittest.TestCase):
     def fixture(self, executable=True):
         files = {'wasmer-headless': b'inert runtime', 'mariamem.wasmu': b'inert guest'}
         files['mariamem.wasmu.json'] = json.dumps({'module_sha256': hashlib.sha256(files['mariamem.wasmu']).hexdigest(), 'wasm_sha256': 'a'*64}).encode()
-        files['manifest.json'] = json.dumps({'version': 1, 'platform': 'darwin-arm64', 'sha256': {k: hashlib.sha256(v).hexdigest() for k, v in files.items()}}).encode()
+        files['manifest.json'] = json.dumps({'version': 1, 'platform': 'darwin-arm64', 'minimum_macos': 15, 'sha256': {k: hashlib.sha256(v).hexdigest() for k, v in files.items()}}).encode()
         self.archive_with([(harness.BUNDLE+'/'+k, v, tarfile.REGTYPE, 0o755 if k=='wasmer-headless' and executable else 0o644) for k,v in files.items()])
 
     def run_harness(self, dry=True, expected=None):
@@ -115,7 +115,7 @@ class PlatformHarness(unittest.TestCase):
         spawned = []
         def command(args, **kwargs):
             if args[0] == '/usr/bin/sw_vers':
-                text = '12.7.6' if len(args) > 1 else 'ProductVersion: 12.7.6'
+                text = '15.7.1' if len(args) > 1 else 'ProductVersion: 15.7.1'
             elif args[0] == '/usr/bin/uname':
                 text = 'arm64'
             elif args[1] == 'version':
@@ -145,9 +145,11 @@ class PlatformHarness(unittest.TestCase):
         self.assertFalse(spawned[0].exists())
 
     def test_platform_requires_exact_major_and_arch(self):
-        self.assertTrue(harness.eligible('12.7.6','arm64'))
+        self.assertTrue(harness.eligible('15.7.1','arm64'))
         self.assertFalse(harness.eligible('27.0','arm64'))
-        self.assertFalse(harness.eligible('12.7.6','x86_64'))
+        for version in ('12.5.1', '13.7.0', '14.7.0'):
+            self.assertFalse(harness.eligible(version, 'arm64'))
+        self.assertFalse(harness.eligible('15.7.1','x86_64'))
 
 
 if __name__ == '__main__':

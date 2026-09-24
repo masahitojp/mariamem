@@ -38,7 +38,7 @@ binary hashes across builds are not guaranteed.
 ```sh
 python3 scripts/build_alpha.py
 python3 -m venv .venv
-.venv/bin/python -m pip install './build/dist/mariamem-0.1.0a1-py3-none-macosx_12_0_arm64.whl[test]'
+.venv/bin/python -m pip install './build/dist/mariamem-0.1.0a1-py3-none-macosx_15_0_arm64.whl[test]'
 .venv/bin/python tests/verify_alpha.py
 .venv/bin/python tests/integration.py
 .venv/bin/python tests/snapshots.py
@@ -47,14 +47,14 @@ go vet ./...
 
 Use `build_alpha.py --go /path/to/go` when the pinned Go is not on PATH.
 The candidate deployment target is fixed in `python/deployment_target.json`:
-macOS 12.0 arm64 (`macosx_12_0_arm64`), independent of the development OS.
+macOS 15.0 arm64 (`macosx_15_0_arm64`), independent of the development OS.
 The build sets GOOS/GOARCH and MACOSX_DEPLOYMENT_TARGET, and checks the actual
 arm64 Mach-O minimum OS with `otool`; the environment variable alone does not
 control the pure-Go linker. Binaries requiring a newer OS are rejected.
 Packaging also checks that the native manifest matches this target.
-The inspected Go host requires macOS 12.0 and Wasmer headless requires 11.0.
+The inspected Go host declares Mach-O minos 12.0 and Wasmer headless requires 11.0.
 These load commands do not prove runtime compatibility (including the AOT guest):
-clean macOS 12 acceptance is required before setting `platform_acceptance=true`.
+clean macOS 15 acceptance is required before setting `platform_acceptance=true`.
 
 The acceptance runner copies consumer tests outside the repository, clears runtime
 overrides, and verifies installed-wheel startup, SQL, transactions, snapshots,

@@ -1,8 +1,8 @@
-# Clean macOS 12 arm64 acceptance harness
+# Clean macOS 15 arm64 acceptance harness
 
 This harness does not edit `release/review.json`. A successful run produces
 reviewable evidence; setting `platform_acceptance=true` remains a separate action.
-Run inside a clean macOS 12 arm64 VM with Python 3.9+ and Go 1.26.8 installed.
+Run inside a clean macOS 15 arm64 VM with Python 3.9+ and Go 1.26.8 installed.
 Network access is needed for the public Go module and its pinned MySQL driver.
 No Wasmer, MariaDB, Homebrew runtime, or repository checkout is needed in the VM.
 
@@ -19,12 +19,14 @@ From that directory:
 ```sh
 python3 platform_acceptance.py \
   --archive ./mariamem-native-darwin-arm64.tar.gz \
-  --sha256 7fe851bdab2fafef1dffd2607a8af41b880a1a539c6e37be25b11c7f1aa8c8c2 \
-  --module 7f4820e220e757c4a171bb02622b03eb3fbc0613 \
-  --evidence ./macos12-arm64-acceptance.json
+  --sha256 "$CANDIDATE_SHA256" \
+  --module "$MARIAMEM_REVISION" \
+  --evidence ./macos15-arm64-acceptance.json
 ```
 
-The example pins the candidate prepared in Task 9c and its Go source commit.
+Set `CANDIDATE_SHA256` from the newly generated archive SHA256SUMS and
+`MARIAMEM_REVISION` to its intended public source revision. Do not use the old
+macOS 12 candidate (SHA256 `7fe851bd…a8c8c2`).
 That source commit must be publicly retrievable from GitHub before running;
 otherwise `module_fetch` fails. Use an explicitly chosen published revision if
 reviewing a different candidate. There is no local `replace` fallback, automatic
@@ -51,11 +53,11 @@ The harness then removes the extracted archive, external module and its caches.
 
 Keep both generated files:
 
-- `macos12-arm64-acceptance.json`: exact `sw_vers` output, architecture, Go version,
+- `macos15-arm64-acceptance.json`: exact `sw_vers` output, architecture, Go version,
   requested/resolved module identity, archive filename/SHA256, runtime/guest hashes,
   MariaDB version, step results, final `PASS`/`FAIL`, and
   `platform_acceptance_passed`.
-- `macos12-arm64-acceptance.log`: Go command output and consumer stderr.
+- `macos15-arm64-acceptance.log`: Go command output and consumer stderr.
 
 A failure has `failure.step`, per-step error information, and a nonzero exit
 status. Unexecuted steps remain `NOT_RUN`. Abrupt VM/power loss can leave the
@@ -69,7 +71,7 @@ Append `--dry-run` and choose a separate evidence filename to check environment
 capture, checksum, extraction, permissions and artifact hashes without module
 fetch or guest execution. This permits the development macOS 27 host, always
 reports `DRY_RUN`, and always sets `platform_acceptance_passed=false`.
-A normal run rejects anything except macOS major version 12 and arm64 before
+A normal run rejects anything except macOS major version 15 and arm64 before
 fetching/running the consumer. Unit tests mock target environment information;
 those tests are not platform acceptance.
 
@@ -82,3 +84,28 @@ go vet ./scripts/platform_acceptance
 After actual VM success, review the evidence against the intended archive hash,
 then perform the separate Task 9c review update. Until then the review stays
 `guest_source=true`, `runtime_notices=true`, `platform_acceptance=false`.
+
+## GitHub Actions on macOS 15 arm64
+
+The manual `Clean native platform acceptance` workflow uses `runs-on: macos-15`
+and checks actual OS/architecture through the same harness. It does not build or
+publish a native binary. Supply a private HTTPS download URL for the new archive
+as repository secret `MARIAMEM_ACCEPTANCE_ARCHIVE_URL`; do not put a signed URL in
+workflow inputs, source or public logs. The URL must remain valid for the run.
+Only JSON/log evidence is uploaded as an Actions artifact, never the native archive.
+
+After pushing the source/workflow commit and providing that secret:
+
+```sh
+gh workflow run platform-acceptance.yml \
+  -f candidate_sha256="$CANDIDATE_SHA256" \
+  -f module_revision="$MARIAMEM_REVISION"
+gh run list --workflow platform-acceptance.yml
+gh run watch <run-id> --exit-status
+gh run download <run-id> --dir build/clean-platform-evidence
+```
+
+The module revision must be publicly retrievable. No secret URL or private transfer
+location is assumed to exist, and this workflow does not create one. Review the
+actual PASS evidence before changing `platform_acceptance`; workflow success does
+not edit the review or override the publication guard.

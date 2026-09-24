@@ -10,10 +10,10 @@ and cold snapshots. A platform wheel bundles the Go host, Wasmer headless, and
 MariaDB guest; users do not need Docker, a MariaDB installation, or a compiler.
 
 **Status:** Python `0.1.0a1`, under release preparation. No PyPI release is
-available yet. The candidate target is macOS 12+ on Apple Silicon. Acceptance tests have
-only run on the macOS 27 development machine with Python 3.9; clean macOS 12
-validation is still required. Binary publication is pending the source/license checks in
-[the release checklist](docs/releasing.md).
+available yet. The initial native alpha targets macOS 15+ on Apple Silicon.
+macOS 12 guest execution failed; macOS 12–14 are unsupported. Clean macOS 15
+acceptance is pending. See [the release checklist](docs/releasing.md) and
+[the compatibility finding](docs/macos-compatibility.md).
 
 ```python
 import mariamem
@@ -35,7 +35,7 @@ For a locally built wheel:
 
 ```sh
 python3 -m venv .venv
-.venv/bin/python -m pip install './build/dist/mariamem-0.1.0a1-py3-none-macosx_12_0_arm64.whl[test]'
+.venv/bin/python -m pip install './build/dist/mariamem-0.1.0a1-py3-none-macosx_15_0_arm64.whl[test]'
 ```
 
 The `test` extra installs PyMySQL, pytest, and pytest-xdist. The wrapper itself

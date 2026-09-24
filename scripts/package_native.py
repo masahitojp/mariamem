@@ -34,7 +34,8 @@ def payload(root, native):
     manifest = json.loads(original)
     target = json.loads((root / "python/deployment_target.json").read_text())
     if (manifest.get("version") != 1 or manifest.get("platform") != "darwin-arm64"
-            or manifest.get("minimum_macos") != target["minimum_macos"]):
+            or not isinstance(manifest.get("minimum_macos"), int)
+            or not 0 < manifest["minimum_macos"] <= target["minimum_macos"]):
         raise ValueError("native manifest does not match the candidate platform")
     files = {}
     for name in ARTIFACTS:
@@ -52,6 +53,8 @@ def payload(root, native):
         raise ValueError("guest artifact metadata mismatch")
     # Preserve the schema and compatibility fields; remove the unused host hash.
     manifest["sha256"] = {name: digest(files[name]) for name in ARTIFACTS}
+    # Raising the supported floor is metadata-only; never lower an input requirement.
+    manifest["minimum_macos"] = target["minimum_macos"]
     manifest["public_release_ready"] = False
     files["manifest.json"] = encoded(manifest)
     for name in ("LICENSE", "NOTICE", "THIRD_PARTY_LICENSES"):

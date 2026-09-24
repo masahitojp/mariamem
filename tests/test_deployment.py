@@ -21,13 +21,13 @@ class Deployment(unittest.TestCase):
             minimum_macos("cmd LC_SOURCE_VERSION\n version 12.0\n")
 
     def test_newer_binary_rejected(self):
-        with patch("deployment.subprocess.check_output", return_value="cmd LC_BUILD_VERSION\n minos 12.1\n"):
+        with patch("deployment.subprocess.check_output", return_value="cmd LC_BUILD_VERSION\n minos 15.1\n"):
             with self.assertRaises(ValueError):
-                check_binary(Path("host"), 12)
+                check_binary(Path("host"), 15)
 
     def test_older_binary_allowed(self):
         with patch("deployment.subprocess.check_output", return_value="cmd LC_BUILD_VERSION\n minos 11.0\n"):
-            self.assertEqual(check_binary(Path("runtime"), 12), "11.0.0")
+            self.assertEqual(check_binary(Path("runtime"), 15), "11.0.0")
 
 
 if __name__ == "__main__":

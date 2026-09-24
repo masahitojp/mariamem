@@ -32,7 +32,7 @@ def digest(path):
 
 
 def eligible(version, arch):
-    return version.split('.')[0] == '12' and arch == 'arm64'
+    return version.split('.')[0] == '15' and arch == 'arm64'
 
 
 def extract(archive, destination):
@@ -58,7 +58,7 @@ def extract(archive, destination):
 def check_artifacts(native):
     manifest = json.loads((native / 'manifest.json').read_text())
     hashes = {name: digest(native / name) for name in ARTIFACTS}
-    if manifest.get('platform') != 'darwin-arm64' or manifest.get('version') != 1:
+    if manifest.get('platform') != 'darwin-arm64' or manifest.get('version') != 1 or manifest.get('minimum_macos') != 15:
         raise ValueError('unexpected native manifest')
     if any(manifest['sha256'].get(name) != value for name, value in hashes.items()):
         raise ValueError('native artifact hash mismatch')
@@ -141,7 +141,7 @@ def main():
         e = evidence['environment']
         evidence['target_matches'] = eligible(e['product_version'], e['architecture'])
         if not args.dry_run and not evidence['target_matches']:
-            raise RuntimeError('acceptance requires macOS 12 arm64; use --dry-run for preparation elsewhere')
+            raise RuntimeError('acceptance requires macOS 15 arm64; use --dry-run for preparation elsewhere')
         passed()
         begin('archive_sha256')
         evidence['archive']['sha256'] = digest(archive)

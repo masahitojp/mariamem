@@ -1,5 +1,10 @@
 # mariamem v0.1.0-alpha.1 — source-only Go alpha
 
+> Historical source-only release notes. The macOS 12 candidate below was
+> superseded after a clean-machine compatibility failure. The native alpha now
+> targets macOS 15+ arm64; see [the finding](../docs/macos-compatibility.md)
+> and current [release review](review.json).
+
 ## What this is
 
 mariamem makes real MariaDB disposable for application tests. This is the first
