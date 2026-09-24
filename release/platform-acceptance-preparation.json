@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "task": "9c",
+  "status": "blocked-before-clean-platform-execution",
+  "passed": false,
+  "candidate_source_commit": "7f4820e220e757c4a171bb02622b03eb3fbc0613",
+  "candidate": {
+    "file": "mariamem-native-darwin-arm64.tar.gz",
+    "sha256": "7fe851bdab2fafef1dffd2607a8af41b880a1a539c6e37be25b11c7f1aa8c8c2",
+    "bytes": 29487053
+  },
+  "artifact_sha256": {
+    "wasmer-headless": "ebbedfd8c43d866440b960a7b5f773b7b6932a563b6f61d043bc0c21ed535899",
+    "mariamem.wasmu": "f2d31597064e12ba3a6955c51cdbef5aaae5d33501b50799a5ef27dadc7e562b",
+    "mariamem.wasmu.json": "99abbbfa652cc304077d743c774a82846952962fbce71cc4df1e6297b8de4e35"
+  },
+  "guest_wasm_sha256": "8b2822d3414cb978bc9b608faa55e3b8980c905906889741aba0a40a3cc17c10",
+  "required_environment": {
+    "os": "macOS 12",
+    "architecture": "arm64"
+  },
+  "acceptance_environment": {
+    "os": null,
+    "architecture": null,
+    "go_version": null
+  },
+  "available_development_environment": {
+    "os": "macOS 27.0",
+    "build": "26A428",
+    "architecture": "arm64",
+    "go_version": "go1.26.8 darwin/arm64",
+    "qualifies_as_target": false
+  },
+  "local_preparation": {
+    "native_regenerated": true,
+    "archive_content_hash_permissions_verified": true,
+    "candidate_reviews_match": true,
+    "source_candidate_regenerated_and_verified": true,
+    "source_candidate_sha256": "a3b8a9c2a3435980095e9c30aea2e164a4eaeb7e0f3f8dc39f6f44e0b34a0673",
+    "source_candidate_offline_prepare": true,
+    "source_files_matched": 7,
+    "runtime_rebuilt": false
+  },
+  "acceptance_steps": [
+    {
+      "step": "checksum verification",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "extract",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "executable permission",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "external Go consumer",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "fetch current module",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "explicit extracted NativeDir",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "Start",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "database/sql connection",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "SELECT 1",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "MariaDB version",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "InnoDB CREATE / INSERT / COMMIT / SELECT",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "Snapshot",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "source Database closed",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "Fork A / Fork B",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "independent fork state",
+      "status": "not_run_on_target"
+    },
+    {
+      "step": "Close / cleanup",
+      "status": "not_run_on_target"
+    }
+  ],
+  "blocker": "No accessible clean macOS 12 arm64 machine, VM, or remote runner was supplied or configured in the task environment. The available macOS 27 development host is not acceptance evidence for macOS 12.",
+  "review_unchanged": {
+    "guest_source": true,
+    "runtime_notices": true,
+    "platform_acceptance": false
+  },
+  "next_action": "Provide a clean macOS 12 arm64 host and run the external-consumer acceptance against the exact candidate archive SHA256. Do not reuse development runtime paths or mark platform acceptance passed until all steps succeed.",
+  "note": "This evidence-only commit records preparation from candidate_source_commit. It is not target acceptance. Source candidates containing this new record must be refreshed before final publication; the recorded source hash identifies the preparation run, not a self-containing source archive."
+}
