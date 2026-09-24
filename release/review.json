@@ -8,8 +8,8 @@
     },
     "runtime_notices": {
       "passed": false,
-      "evidence": null,
-      "note": "Inventory the actual Wasmer headless static dependencies and include their required notices."
+      "evidence": "release/wasmer-runtime-notices.json",
+      "note": "509 Cargo graph packages inventoried with pinned notice inputs; webc 12.0.1 MIT copyright/license text remains unavailable. Singlepass BUSL-1.1 terms are included and must be disclosed; do not describe the whole runtime as MIT. See docs/runtime-notices.md."
     },
     "independent_build": {
       "passed": true,

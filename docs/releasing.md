@@ -114,3 +114,10 @@ See [guest source provenance](guest-source-provenance.md) for the evidence,
 validation commands, and remaining reproducibility gaps. `guest_source` is true;
 runtime-notice and platform-acceptance reviews remain false. This does not approve
 binary publication. No guest binaries are rebuilt by this coverage verification.
+
+## Wasmer runtime notice review (Task 9b)
+
+See [runtime notices](runtime-notices.md) for the pinned dependency inventory,
+verification commands, Singlepass BUSL-1.1 disclosure, and the remaining
+`webc 12.0.1` notice gap. `runtime_notices` remains false; a successful notice
+validation checks recorded coverage, not completeness or permission to publish.

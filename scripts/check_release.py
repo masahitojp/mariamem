@@ -4,11 +4,16 @@ import json
 import shutil
 from common import ROOT, digest
 from check_public import check
+from runtime_notices import verify as verify_runtime_notices
 
 source = check()
 review = json.loads((ROOT / "release/review.json").read_text())
 missing = [f"{name}: {item['note']}" for name, item in review["checks"].items()
            if not item.get("passed") or not item.get("evidence")]
+try:
+    verify_runtime_notices()
+except (ValueError, KeyError, OSError) as error:
+    missing.append("runtime notice evidence: " + str(error))
 record_path = ROOT / "build/release/source-manifest.json"
 if not record_path.exists():
     missing.append("source candidate has not been generated")
