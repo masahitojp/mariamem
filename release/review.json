@@ -17,9 +17,9 @@
       "note": "Fresh guest build from public pinned inputs passed; installed wheel acceptance passed; source candidate offline preparation matches modified build inputs. Existing pinned Docker toolchain image reused."
     },
     "platform_acceptance": {
-      "passed": false,
-      "evidence": null,
-      "note": "Confirm the new native candidate SHA256 on clean macOS 15 arm64. macOS 12.5.1 guest execution failed on an unavailable libunwind symbol; 12-14 are unsupported. Development macOS 27 is not floor acceptance."
+      "passed": true,
+      "evidence": "release/evidence/macos15-arm64-acceptance.json",
+      "note": "Clean Tart VM acceptance (maintainer-provided evidence) passed on macOS 15.7.7 (24G720) arm64 with Go 1.26.8, public module commit 8326c6b471e8, and native archive SHA256 9b1650d1fcf7ed337d96d2c39a0a9a6bf1ae28ed8f6f4c685041bbeac313e99c. All harness steps passed, including external consumer, InnoDB transaction, snapshot, independent forks and cleanup. Archive and runtime/guest hashes match the recorded candidate. macOS 12.5.1 libunwind compatibility failure remains documented in docs/macos-compatibility.md; macOS 12-14 are unsupported. This records native candidate acceptance, not wheel acceptance or binary publication."
     }
   }
 }
