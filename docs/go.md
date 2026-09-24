@@ -157,9 +157,9 @@ db, err := mariamem.Start(ctx, mariamem.Options{
 })
 ```
 
-**This is not cleared for public binary distribution.** WASIX linked runtime
-source/licenses, Wasmer static Rust notices, and clean-platform acceptance remain
-unresolved. Existing notices are preserved, not asserted complete. No source
+**This is not cleared for public binary distribution.** Wasmer static Rust notices
+and clean-platform acceptance remain unresolved. Guest source coverage for the
+recorded artifact is reviewed; see [provenance](guest-source-provenance.md). Existing notices are preserved, not asserted complete. No source
 archive is replaced by this bundle or by GitHub's default source zip. The existing
 release review and corresponding-source requirements in [releasing](releasing.md)
 still apply; candidate generation does not stage an approved Release asset.

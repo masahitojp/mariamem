@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "scope": "Guest corresponding-source coverage for the exact recorded WASM/AOT build; not binary release readiness.",
+  "binary_release_ready": false,
+  "sysroot": {
+    "tag": "v2026-07-03.1",
+    "variant": "sysroot-exnref-eh",
+    "asset": "sysroot-exnref-eh.tar.gz",
+    "url": "https://github.com/wasix-org/wasix-libc/releases/download/v2026-07-03.1/sysroot-exnref-eh.tar.gz",
+    "sha256": "12874e8ff2347ec57fd70954964689eb37ab7c0491b492c092d8dd19fbcc5b7e",
+    "archive_prefix": "wasix-sysroot-exnref-eh/sysroot/",
+    "comparison": {
+      "entries": 2492,
+      "missing": 0,
+      "extra": 0,
+      "changed": 0,
+      "regular_files": "SHA256 of content",
+      "symlinks": "link target",
+      "directories": "not counted",
+      "inventory_sha256": "898df3a247a45a642d402e1d13a156773345c0e0b6c81cfb4035878c8e7dcc84"
+    },
+    "major_library_sha256": {
+      "libc.a": "e0837c66fecab3cef5d8d202939c6125986685e9d8e589f90a253f5f18a17af9",
+      "libc++.a": "b294c3286ee2e91a000177eabc28928f56d3fe8086fd42ecd856464949aa665d",
+      "libc++abi.a": "de9640f95e44e26361356418c1383fe802d02069109093db3b87cfd3818187db",
+      "libunwind.a": "06fedbefadfd2c0ac0bc97a1ccc9884f8bdce43445afb9b82f57892a448dd0b1",
+      "libclang_rt.builtins-wasm32.a": "66d5eec603514c751ece9614344f45272d10ebb704c699bdf919d9a14e30e169",
+      "crt1.o": "030c6f2f2e042c165cf747f431ec50855b1e0c6588c65c3c586c37521a96f889",
+      "libwasi-emulated-mman.a": "8f6d3ec4fd7c072dca9ee0fe283a24fd0fd0ffd64ddb60b3c6fee6192402caad",
+      "libwasi-emulated-process-clocks.a": "b513692b1059d31ccb7b33f9a38da7b374dd5617e4a09beb988bedb5ead06dd1"
+    }
+  },
+  "upstream_build": {
+    "commit": "09503b230e8acc721c1e013ca28a41bf149e4ee2",
+    "run_url": "https://github.com/wasix-org/wasix-libc/actions/runs/28659258439",
+    "conclusion": "success",
+    "variant_job": "build / build_cxx_sysroot (-exnref-eh)",
+    "observed_steps": [
+      "Checkout: success",
+      "Build: success",
+      "Upload sysroot: success",
+      "Create published artifacts: success",
+      "Publish: success"
+    ],
+    "release_workflow": ".github/workflows/release.yml",
+    "build_workflow": ".github/workflows/build_cxx_sysroot.yml",
+    "basis": "Tag commit, recursive submodule checkout, build scripts, successful release workflow, and matching installed payload. No independent rebuild or signed attestation claimed."
+  },
+  "source_archives": {
+    "lite4mariadb": {
+      "sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd",
+      "revision": "24be9371a2f6c71250a2356631ad6feab2280b02"
+    },
+    "libmariadb": {
+      "sha256": "54562818bf2c5d56a6238738aea53fd276d5cff1fdaf9b05fa62d0a2dbab059b",
+      "revision": "5a6fe6016fc908518e7d2a8c128a5c108b511c17"
+    },
+    "wolfssl": {
+      "sha256": "2754bcd8a0a3fed5ae19574506d0bf003eee7264ec8bed4ebb15409494246fd3",
+      "revision": "1d363f3adceba9d1478230ede476a37b0dcdef24"
+    },
+    "pcre2": {
+      "sha256": "d74c183c86c77248ad50017c7f45bae8f88106a6cca5d87ad09917e1c6fb0784"
+    },
+    "libfmt": {
+      "sha256": "a2f4a8d51178f954e4c339007f77edd76ba0cb2e36f87a48e5a5403d9be5878f"
+    },
+    "wasix-libc": {
+      "sha256": "55091ce6af5b549b3c97f61592bd2506e6a7e5da3588cb2f77a64388468ad231",
+      "revision": "09503b230e8acc721c1e013ca28a41bf149e4ee2"
+    },
+    "llvm-project": {
+      "sha256": "b62854f0704e513f2a93a0955a41e08894c60bcf750ba32f26b3637e6fa14b05",
+      "revision": "6bb93a243f6d15855f485f5aec3810d9e2de150d"
+    },
+    "wasi-headers": {
+      "sha256": "ad49685e5f2e4333909f72eae1c63dfde0dfe500e7ab2ddd17f5bc9e2d323ce3",
+      "revision": "bac366c8aeb69cacfea6c4c04a503191bf1cede1"
+    },
+    "wasix-headers": {
+      "sha256": "845e8b60ff818aa92966b7e122b4f1a508e8d5bfb76062538cd6f498bc9f87c6",
+      "revision": "0dfbd35a0f30f3fe7fd3b3ab5a50dc4191d5caed"
+    }
+  },
+  "guest_build": {
+    "wasm_sha256": "8b2822d3414cb978bc9b608faa55e3b8980c905906889741aba0a40a3cc17c10",
+    "module_sha256": "f2d31597064e12ba3a6955c51cdbef5aaae5d33501b50799a5ef27dadc7e562b",
+    "snapshot_version": 1,
+    "prepared_source_sha256": "c71ebaca32c396a11609a5c5680863262120c8d448358f64f6e85a1f60082617",
+    "image_id": "sha256:52172f596e753135ca270cd3767564d378085dbf205cb3a4c4821a09ed6811e4"
+  },
+  "modified_guest_files": {
+    "wasm/lite4mariadb.c": "789e58526710fd49313530cb060956b4f63944ba415e8cbb6caeb3212ea719cf",
+    "wasm/CMakeLists.txt": "35404ae73df8957fc1604d0a0e7fb55e4005cb7f2176bf6996a3cf511f2f75c9",
+    "wasm/wire_api.inc": "d21bea6b0bb9d3f044fa88170899f0b52f99aa0c73aa51f54a7e7004b858e344",
+    "wasm/resident.inc": "a9b53e81ab2bfc494155baae147db846f5ac6fc47ef962b4c3b00127cda52f4a",
+    "wasm/snapshot_fs.inc": "d97b201eac04b7f6dda4191eafea9e5fe38db895dde7f2366fc22a17649f15df",
+    "cmake/pcre.cmake": "ed0dbf1f78b8fe86ed04e1a85cdeaeec3b2b9c271b0ee4a5f9eb036d43eb0907",
+    "cmake/libfmt.cmake": "436e87408474a62f2c344ea6de4ccbcc02e65f900f00a8474073513c082da765"
+  },
+  "non_blocking_gaps": [
+    "Header generator Cargo dependencies not fully vendored",
+    "Full offline sysroot rebuild not verified",
+    "Full toolchain source closure not collected",
+    "Independent bit-for-bit rebuild not verified",
+    "Complete final archive-member link map not recorded"
+  ],
+  "limitations": [
+    "Historical downloaded compressed bytes were not retained; a newly fetched release asset matches the actual installed sysroot payload.",
+    "Library link inputs do not imply every archive member survives linking. Full runtime source archives provide coverage without an exact member map.",
+    "Wasmer static Rust notices and platform acceptance are separate unresolved reviews."
+  ]
+}

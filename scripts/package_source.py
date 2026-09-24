@@ -7,6 +7,7 @@ import tarfile
 from common import ROOT, LOCK, digest, fetch
 from check_public import check, public_files
 from runtime_sources import verify_runtime_sources
+from verify_guest_provenance import verify_evidence
 
 check()
 out = ROOT / "build/release"
@@ -25,6 +26,7 @@ manifest = {"version": 1, "source_complete": bool(review["checks"]["guest_source
 provenance = [ROOT / "build" / name for name in
               ("prepared-source.json", "preparation-inputs.lock.json", "guest-build.json")]
 manifest["build_records"] = {p.name: json.loads(p.read_text()) for p in provenance if p.exists()}
+manifest["guest_source_provenance"] = verify_evidence(ROOT, LOCK, manifest["build_records"])
 with archive.open("wb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as gz:
     with tarfile.open(fileobj=gz, mode="w") as tar:
         def add(path, name):

@@ -130,7 +130,6 @@
     "wasix_sysroot_variant": "sysroot-exnref-eh"
   },
   "known_unresolved": [
-    "WASIX sysroot linked runtime source and licenses",
     "Wasmer static Rust dependency notices"
   ],
   "runtime_source_submodules_to_collect": [

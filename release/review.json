@@ -2,9 +2,9 @@
   "version": 1,
   "checks": {
     "guest_source": {
-      "passed": false,
-      "evidence": null,
-      "note": "Verify complete guest source including linked WASIX C/C++ runtime and required recursive source inputs."
+      "passed": true,
+      "evidence": "release/guest-source-provenance.json",
+      "note": "Reviewed corresponding-source coverage for the exact recorded guest WASM/AOT hashes: pinned source archives, licenses, modified inputs, and sysroot payload provenance verified. See docs/guest-source-provenance.md for evidence and nonblocking reproducibility gaps. Not approval of Wasmer notices or binary publication."
     },
     "runtime_notices": {
       "passed": false,

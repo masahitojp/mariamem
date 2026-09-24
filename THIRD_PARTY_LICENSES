@@ -13,8 +13,9 @@ WASIX libc v2026-07-03.1        Upstream multi-license notices and musl/cloudlib
                                notices are included. Pinned LLVM runtime and WASI/
                                WASIX header-generator sources, including upstream
                                license/notice files, are collected in the source
-                               candidate. Actual sysroot provenance/completeness
-                               review remains pending.
+                               candidate. Guest source provenance is reviewed for
+                               the recorded artifact; see
+                               docs/guest-source-provenance.md.
 Wasmer headless 7.4.2           MIT text verified against the v7.4.2 source; its statically
                                included Rust dependencies retain their licenses.
 Go runtime                     BSD-3-Clause; bundled Go LICENSE included.

@@ -109,9 +109,8 @@ The recorded variant is **`sysroot-exnref-eh`**: it was observed in the actual
 compiler dependency files and build-image driver selection. CMake's older
 `sysroot-eh` search-root setting is not proof that this other variant was linked.
 
-This closes concrete source collection gaps, not complete sysroot reproducibility.
-It does not vendor every header-generator Cargo dependency, prove the prebuilt
-sysroot was generated from these sources, establish complete toolchain source
-closure, or replace a final linked-object/source review. `guest_source` remains
-false, as do the independent runtime-notice and platform-acceptance blockers.
-No guest binaries are rebuilt by this coverage verification.
+Task 9a3 completed the guest source provenance review for the recorded artifact.
+See [guest source provenance](guest-source-provenance.md) for the evidence,
+validation commands, and remaining reproducibility gaps. `guest_source` is true;
+runtime-notice and platform-acceptance reviews remain false. This does not approve
+binary publication. No guest binaries are rebuilt by this coverage verification.

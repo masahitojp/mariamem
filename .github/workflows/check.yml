@@ -17,6 +17,7 @@ jobs:
       - run: python3 -m unittest discover -s tests -p 'test_release_tools.py'
       - run: python3 -m unittest discover -s tests -p 'test_native_package.py'
       - run: python3 -m unittest discover -s tests -p 'test_runtime_sources.py'
+      - run: python3 -m unittest discover -s tests -p 'test_guest_provenance.py'
       - run: python3 -m compileall -q scripts python/mariamem tests
       - run: go vet ./...
       - run: CGO_ENABLED=0 go build ./...
