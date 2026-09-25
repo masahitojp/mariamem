@@ -4,21 +4,47 @@ The public package is `mariamem` at the module root. Unit tests and the opt-in
 real-guest integration test below cover the initial API. Use Go 1.26 or newer.
 The [README](../README.md#go) has a complete first-query example.
 
-The planned Go version is `v0.1.0-alpha.2`. After that tag is published, fetch
-the source with:
+The published Go version is `v0.1.0-alpha.2`. In a fresh directory, initialize
+a consumer module and fetch it with:
 
 ```sh
+mkdir mariamem-example
+cd mariamem-example
+go mod init example.com/mariamem-example
 go get github.com/masahitojp/mariamem@v0.1.0-alpha.2
 ```
 
-Import it with:
+Save the complete [README example](../README.md#go) as `main.go`. It imports
+both mariamem and `github.com/go-sql-driver/mysql`. Resolve the imports of your
+own program before running it:
+
+```sh
+go mod tidy
+```
+
+`go get mariamem` does not by itself resolve every package imported directly
+by a consumer's source file. The example imports mariamem with:
 
 ```go
 import "github.com/masahitojp/mariamem"
 ```
 
 `go get` fetches Go source and module dependencies, **not the native runtime**.
+Download `mariamem-native-darwin-arm64.tar.gz` from the published GitHub Release,
+extract it, and run the example:
+
+```sh
+gh release download v0.1.0-alpha.2 --repo masahitojp/mariamem \
+  --pattern 'mariamem-native-darwin-arm64.tar.gz'
+tar -xzf mariamem-native-darwin-arm64.tar.gz
+export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
+go run .
+# SELECT 1 = 1
+```
+
 An existing native bundle and explicit `Options.NativeDir` remain required.
+The README example reads `MARIAMEM_NATIVE_DIR` and passes it as `NativeDir`;
+the Go package does not read this environment variable automatically.
 The following excerpt belongs inside a function with `ctx`; import
 `database/sql` and register `github.com/go-sql-driver/mysql` as in the README.
 
@@ -142,8 +168,8 @@ unused `mariamem-host` hash, and records the three required artifact hashes.
 The host executable is not included. `public_release_ready` is always false for
 this candidate tool, even if the input manifest says otherwise.
 
-For local evaluation, or after the matching archive is attached to a GitHub
-Release, verify the archive against its published SHA256 and then extract it:
+For local evaluation, or when using the published archive, verify it against
+its published SHA256 and then extract it:
 
 ```sh
 go get github.com/masahitojp/mariamem@v0.1.0-alpha.2

@@ -8,32 +8,23 @@ guest under Wasmer/WASIX; it does not reimplement MariaDB SQL or InnoDB.
 Go hosts run in the test process; Python starts the packaged Go host process.
 Both languages have public lifecycle APIs.
 
-The upcoming release is `v0.1.0-alpha.2` for the Go module and GitHub Release,
-with Python distribution version `0.1.0a2`. Native support is **macOS 15+ on
-Apple Silicon (arm64)**. The instructions use GitHub Release or locally built
-artifacts and do not depend on PyPI. Release-download commands apply once those
-assets are published.
+The Go module and GitHub Release are at `v0.1.0-alpha.2`; the Python
+distribution version is `0.1.0a2`. Native support is **macOS 15+ on Apple
+Silicon (arm64)**. The instructions use GitHub Release or locally built
+artifacts and do not depend on PyPI.
 
 ## Go
 
-In your Go module, fetch the source:
+Go **1.26 or newer** is required. Start in a fresh directory:
 
 ```sh
+mkdir mariamem-example
+cd mariamem-example
+go mod init example.com/mariamem-example
 go get github.com/masahitojp/mariamem@v0.1.0-alpha.2
 ```
 
-The Go module does not contain the native runtime. Once the matching archive is
-attached to the GitHub Release, download and extract it:
-
-```sh
-gh release download v0.1.0-alpha.2 --repo masahitojp/mariamem \
-  --pattern 'mariamem-native-darwin-arm64.tar.gz'
-tar -xzf mariamem-native-darwin-arm64.tar.gz
-export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
-```
-
-Pass that directory to `Start`. The environment variable below is read by the
-example, not automatically by the Go package.
+Save the following as `main.go`:
 
 ```go
 package main
@@ -69,7 +60,7 @@ func run(ctx context.Context) error {
 	if err := sqlDB.QueryRowContext(ctx, "SELECT 1").Scan(&answer); err != nil {
 		return err
 	}
-	fmt.Println(answer)
+	fmt.Println("SELECT 1 =", answer)
 	return nil
 }
 
@@ -79,6 +70,23 @@ func main() {
 	}
 }
 ```
+
+Resolve the MySQL driver imported by `main.go`, then download the native bundle
+from the published GitHub Release and run the example:
+
+```sh
+go mod tidy
+gh release download v0.1.0-alpha.2 --repo masahitojp/mariamem \
+  --pattern 'mariamem-native-darwin-arm64.tar.gz'
+tar -xzf mariamem-native-darwin-arm64.tar.gz
+export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
+go run .
+# SELECT 1 = 1
+```
+
+The Go module does not contain the native runtime. The example passes the
+extracted directory to `Start`; `MARIAMEM_NATIVE_DIR` is read by this example,
+not automatically by the Go package.
 
 See the [Go guide](docs/go.md) for connection metadata, snapshots, forks, and
 manual bundle verification.
