@@ -31,19 +31,22 @@ Historical experiments, local logs, and generated binaries stay outside Git.
    ignored `tests/evidence/alpha-wheel.json` and binds installed-wheel results
    to it in `tests/evidence/alpha.json`.
 5. Run `python3 scripts/check_release.py`. It checks source, reviews, and the
-   exact wheel/acceptance hashes, then stages the corresponding source, wheel,
-   release manifest, and SHA256SUMS in `build/release/publish/`. The directory
-   must be empty first. Rebuild source and wheel evidence after public files or
-   reviewed artifacts change.
+   exact wheel/acceptance hashes and the native archive hash from clean-platform
+   evidence. It stages the native bundle, corresponding source, wheel, and
+   SHA256SUMS in `build/release/publish/`, with a local release manifest at
+   `build/release/release-manifest.json`. The publish directory must be empty
+   first. Rebuild source and wheel evidence after public files or reviewed
+   artifacts change.
 
 ## Go native candidate
 
 `python3 scripts/package_native.py` packages existing staged artifacts into
 `build/release/native-candidate/`. See [Go manual bundle instructions](go.md#manual-native-bundle-local-candidate).
-This path does not populate `build/release/publish/`. The accepted candidate's
+This path does not populate `build/release/publish/`; the release guard copies
+the accepted archive there after hash verification. The accepted candidate's
 SHA256 is recorded in [clean-platform evidence](../release/evidence/macos15-arm64-acceptance.json).
 The review applies to that exact archive; regenerate and recheck if its bytes
-change. Attaching the native bundle to a GitHub Release is a separate step.
+change. The planned `v0.1.0-alpha.2` Release includes this native bundle.
 
 ## Smoke checks
 
@@ -64,8 +67,8 @@ change. Attaching the native bundle to a GitHub Release is a separate step.
 ## GitHub Release draft
 
 After the release guard passes and the intended source commit is pushed, the
-following command prepares a draft. It does not attach the Go native bundle;
-decide and verify that separate asset explicitly before publication.
+following command prepares a draft with all four planned assets, including
+the accepted Go native bundle.
 
 ```sh
 gh release create v0.1.0-alpha.2 --draft --prerelease --title 'mariamem v0.1.0-alpha.2 / Python 0.1.0a2' \

@@ -12,6 +12,12 @@ The Python distribution version is 0.1.0a2.
 
 Candidate target: macOS 15+ arm64. The native candidate passed clean macOS 15.7.7
 arm64 acceptance; the Python wheel is accepted separately after each rebuild.
+The Go native archive is released byte-for-byte from that accepted candidate
+(`9b1650d1fcf7ed337d96d2c39a0a9a6bf1ae28ed8f6f4c685041bbeac313e99c`).
+Its embedded `CANDIDATE.json` and `manifest.json` retain generation-time fields
+(`public_release_ready=false`, `package_version=0.1.0a1`). The current release
+review and SHA256SUMS bind that unchanged archive to `v0.1.0-alpha.2`; the Python
+wheel itself is version `0.1.0a2`.
 One simultaneous SQL connection per DB. Text protocol only; no prepared statements.
 Python starts a Go host process; the Go API hosts it in the caller. Both run the
 Wasmer/MariaDB guest as a child process. Snapshot creation stops its source DB

@@ -45,6 +45,25 @@ else:
         missing.append("rebuild the wheel after completing the release reviews")
     if not alpha.get("passed") or alpha.get("wheel_sha256") != wheel["sha256"]:
         missing.append("installed-wheel acceptance must identify this exact wheel hash")
+native = ROOT / "build/release/native-candidate/mariamem-native-darwin-arm64.tar.gz"
+platform_evidence = review["checks"]["platform_acceptance"].get("evidence")
+if not platform_evidence:
+    missing.append("native bundle has no platform acceptance evidence")
+else:
+    try:
+        accepted = json.loads((ROOT / platform_evidence).read_text())
+        accepted_hash = accepted["archive"]["sha256"]
+        if (accepted["mode"] != "acceptance" or accepted["result"] != "PASS"
+                or accepted["platform_acceptance_passed"] is not True
+                or accepted["archive"]["filename"] != native.name
+                or accepted["archive"]["expected_sha256"] != accepted_hash
+                or accepted["environment"]["architecture"] != "arm64"
+                or not accepted["environment"]["product_version"].startswith("15.")
+                or not all(step["status"] == "PASS" for step in accepted["steps"].values())
+                or digest(native) != accepted_hash):
+            missing.append("native bundle differs from clean-platform accepted archive")
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        missing.append("native bundle acceptance evidence is missing or invalid: " + str(error))
 if missing:
     print("Source repository check: PASS\nBinary alpha publication: NOT READY")
     for message in missing:
@@ -57,11 +76,12 @@ if any(target.iterdir()):
 source_name = "mariamem-0.1.0a2-corresponding-source.tar.gz"
 shutil.copy2(archive, target / source_name)
 shutil.copy2(path, target / path.name)
-assets = {source_name: digest(target / source_name), path.name: digest(target / path.name)}
+shutil.copy2(native, target / native.name)
+assets = {native.name: digest(target / native.name), path.name: digest(target / path.name),
+          source_name: digest(target / source_name)}
 manifest = {"version": 1, "release": "0.1.0a2", "assets": assets,
             "source_manifest": record["manifest"], "wheel": wheel, "acceptance": alpha,
-            "reviews": review}
-(target / "release-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-assets["release-manifest.json"] = digest(target / "release-manifest.json")
+            "native_acceptance": accepted, "reviews": review}
+(ROOT / "build/release/release-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 (target / "SHA256SUMS").write_text("".join(f"{value}  {name}\n" for name, value in assets.items()))
 print("Recorded release checks passed; review assets in build/release/publish before publishing.")
