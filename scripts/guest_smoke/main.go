@@ -1,4 +1,4 @@
-// Architecture spike only: exercise a transferred WASM guest after macOS AOT.
+// Guest build boundary check: exercise a transferred WASM after macOS AOT.
 package main
 
 import (

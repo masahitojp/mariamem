@@ -7,14 +7,42 @@ are required. Downloaded inputs and all build products live under ignored `build
 
 - macOS arm64 for the initial native/AOT wheel (built and tested on macOS 27).
 - Go 1.26.8; Python 3.9+ with pip, setuptools >=58 and wheel.
-- Docker with Linux arm64 support for the MariaDB guest build.
+- Linux x86_64 with the pinned WASIX toolchain for the canonical guest WASM
+  build; macOS arm64 for AOT compilation and native packaging.
+- Docker with Linux arm64 support only for the older combined local build path.
 - `patch`, a network connection for first-time downloads, and sufficient disk/RAM.
 
 The toolchain versions and source archive hashes are in
 [`release/inputs.lock.json`](../release/inputs.lock.json).
 Docker/compiler requirements apply to developers; they are not user dependencies.
 
-## Guest
+## Guest build boundary
+
+The future-candidate path separates the host-independent WASIX guest from its
+macOS-specific AOT artifact:
+
+```sh
+# On Linux x86_64, after installing the native host-tool packages listed in
+# .github/workflows/guest-build-boundary.yml:
+python3 scripts/install_guest_toolchain.py
+python3 scripts/prepare_guest.py
+python3 scripts/build_guest_wasm.py
+
+# Transfer the complete build/guest-wasm/ directory unchanged. On macOS 15
+# arm64, from the same source commit:
+python3 scripts/compile_guest_aot.py --wasm-dir build/guest-wasm
+```
+
+The Linux output includes the exact WASM SHA256 and source/toolchain provenance.
+The macOS command verifies that hash before using pinned Wasmer 7.4.2 and records
+the AOT SHA256 separately. The manually dispatched
+`guest-build-boundary.yml` workflow runs this handoff and a minimal real
+MariaDB smoke on separate GitHub-hosted jobs. It does not produce an approved
+release or alter the published alpha.3 provenance. No Docker or Tart is needed
+on this path; build-tool packages and hosted-runner images are not yet pinned to
+bit-for-bit reproducible OS snapshots.
+
+## Older combined local guest build
 
 ```sh
 python3 scripts/prepare_guest.py

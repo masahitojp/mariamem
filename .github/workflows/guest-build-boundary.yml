@@ -1,0 +1,80 @@
+name: Guest build boundary verification
+on:
+  workflow_dispatch:
+
+# Focused source/WASM/AOT verification; no release review or publication.
+permissions:
+  contents: read
+
+jobs:
+  guest:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - name: Install native host-tool dependencies
+        run: |
+          test "$(uname -m)" = x86_64
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            build-essential cmake ninja-build bison pkg-config curl ca-certificates git \
+            libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
+      - name: Install pinned WASIXCC toolchain
+        run: |
+          python scripts/install_guest_toolchain.py
+          echo "$HOME/.wasixcc/bin" >> "$GITHUB_PATH"
+      - name: Build guest WASM without Docker
+        run: |
+          python scripts/prepare_guest.py
+          python scripts/build_guest_wasm.py --jobs 3
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: guest-wasm-${{ github.sha }}
+          path: build/guest-wasm/
+          if-no-files-found: error
+          retention-days: 14
+
+  macos:
+    needs: guest
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: guest-wasm-${{ github.sha }}
+          path: build/guest-wasm/
+      - name: AOT compile exact transferred WASM
+        run: python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm
+      - name: Minimal real MariaDB smoke
+        run: |
+          go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+          {
+            echo '## Guest build boundary: PASS'
+            echo 'Source: `${{ github.sha }}`'
+            echo 'Linux x86_64 WASM provenance: `guest-wasm-${{ github.sha }}`'
+            echo 'macOS arm64 AOT provenance: `guest-aot-${{ github.sha }}`'
+            echo 'Start / SELECT 1 / Close: PASS'
+            echo 'Verification only; nothing was published.'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: guest-aot-${{ github.sha }}
+          path: build/guest-aot/provenance.json
+          if-no-files-found: warn
+          retention-days: 14

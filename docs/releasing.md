@@ -8,6 +8,13 @@ native/wheel metadata; set `MARIAMEM_RELEASE_TAG` when comparing a proposed tag.
 The source repository, native bundle, and Python wheel have separate checks.
 Historical experiments, local logs, and generated binaries stay outside Git.
 
+For future candidates, the [guest build boundary](development.md#guest-build-boundary)
+records Linux x86_64 source/toolchain/WASM identity separately from macOS arm64
+Wasmer AOT identity. Its CI verification is not release approval. The published
+alpha.3 `release/guest-source-provenance.json` and review apply only to their
+recorded artifact hashes; a newly built guest requires its own corresponding
+source/provenance review before the existing release guard can accept it.
+
 ## Current release work
 
 - Product code, consumer examples, and regression tests use this repository only.
