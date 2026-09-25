@@ -8,7 +8,8 @@ for installation and a first query.
 Use `with mariamem.start() as db:` to own a database and call
 `db.connection_info()` for MySQL driver keyword arguments. Close driver
 connections with their own context managers. Database `close()` is idempotent.
-`closed` reports disposal; `logs` retains the last 16 Ki characters after cleanup.
+`closed` reports disposal or host termination; call `close()` to release wrapper
+resources. `logs` retains the last 16 Ki characters after cleanup.
 An explicitly supplied `log_path=` is preserved; default log directories are removed.
 
 `wait_disconnected()` waits until the host has released the SQL session after a
@@ -80,5 +81,8 @@ Class fixtures deliberately share mutations between tests in that class.
 `MARIAMEM_NATIVE_DIR` points to a directory containing the private bundle manifest.
 Neither is needed with a complete platform wheel. Timeouts can be configured with
 `startup_timeout`, `query_timeout`, and `shutdown_timeout` (seconds).
-Query timeout currently terminates the database instance; create a new instance
-after one occurs.
+Query timeout or client disconnect during a running query terminates the
+database instance. `db.closed` then becomes true; `db.status()` raises
+`HostError(code="unusable", closed=True)`. Call `db.close()` to release wrapper
+resources, then start or fork another instance. An idle client disconnect does
+not terminate the instance. Server-side prepared statements remain unsupported.

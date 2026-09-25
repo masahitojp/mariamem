@@ -1,4 +1,4 @@
-// Package mysqlwire provides the initial, single-session MySQL text protocol.
+// Package mysqlwire provides the initial MySQL text protocol.
 package mysqlwire
 
 import (
@@ -74,6 +74,65 @@ func (w *wire) send(b []byte) error {
 	}
 	return nil
 }
+
+// callQuery observes a driver disconnect while the guest is executing SQL.
+// MySQL clients issue one command at a time; unexpected pipelined input also
+// invalidates the instance rather than leaving a query running unsupervised.
+func (w *wire) callQuery(p *guest.Process, sql []byte) (guest.Result, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), w.timeout)
+	defer cancel()
+	type outcome struct {
+		result guest.Result
+		err    error
+	}
+	completed := make(chan outcome, 1)
+	go func() {
+		r, err := p.Call(ctx, 2, 0, sql)
+		completed <- outcome{r, err}
+	}()
+	type observed struct {
+		n   int
+		err error
+	}
+	reading := make(chan observed, 1)
+	_ = w.conn.SetReadDeadline(time.Time{})
+	go func() {
+		var b [1]byte
+		n, err := w.conn.Read(b[:])
+		reading <- observed{n, err}
+	}()
+	var result outcome
+	select {
+	case seen := <-reading:
+		var cause error = errors.New("SQL client disconnected during query")
+		if seen.err != nil {
+			cause = fmt.Errorf("SQL client disconnected during query: %w", seen.err)
+		}
+		if seen.n != 0 {
+			cause = errors.New("unexpected client input during running query")
+		}
+		p.Abort(cause)
+		<-completed
+		return guest.Result{}, cause
+	case result = <-completed:
+		_ = w.conn.SetReadDeadline(time.Now())
+		seen := <-reading
+		if seen.n != 0 {
+			cause := errors.New("unexpected client input during running query")
+			p.Abort(cause)
+			return guest.Result{}, cause
+		} else if seen.err != nil {
+			var timeout net.Error
+			if !errors.As(seen.err, &timeout) || !timeout.Timeout() {
+				cause := fmt.Errorf("SQL client disconnected during query: %w", seen.err)
+				p.Abort(cause)
+				return guest.Result{}, cause
+			}
+		}
+	}
+	_ = w.conn.SetReadDeadline(time.Time{})
+	return result.result, result.err
+}
 func le16(n uint16) []byte { return []byte{byte(n), byte(n >> 8)} }
 func le32(n uint32) []byte { return []byte{byte(n), byte(n >> 8), byte(n >> 16), byte(n >> 24)} }
 func leint(n uint64) []byte {
@@ -97,6 +156,12 @@ func ErrorPacket(code uint16, state, message string) []byte {
 	}
 	b := append([]byte{0xff}, le16(code)...)
 	return append(b, []byte("#"+state+message)...)
+}
+func fatalPacket(err error) []byte {
+	if errors.Is(err, context.DeadlineExceeded) {
+		return ErrorPacket(2013, "HY000", "mariamem query timed out; database instance terminated")
+	}
+	return ErrorPacket(2013, "HY000", "mariamem database instance terminated: "+err.Error())
 }
 func Reject(conn net.Conn) {
 	w := wire{conn: conn, timeout: time.Second}
@@ -191,6 +256,7 @@ func Serve(conn net.Conn, p *guest.Process, timeout time.Duration, closing func(
 	}
 	r, err := call(1, nil)
 	if err != nil {
+		_ = (&wire{conn: conn, timeout: timeout}).send(fatalPacket(err))
 		return err
 	}
 	if !r.OK {
@@ -205,17 +271,24 @@ func Serve(conn net.Conn, p *guest.Process, timeout time.Duration, closing func(
 			err = errors.Join(err, errors.New("session did not close"))
 		}
 	}()
-	query := func(sql []byte) (guest.Result, error) {
+	w := wire{conn: conn, timeout: timeout, begin: activity.Begin}
+	query := func(sql []byte, monitor bool) (guest.Result, error) {
 		if len(sql) == 0 || len(sql) > 1<<20 {
 			return guest.Result{Errno: 1153, SQLState: "08S01", Error: "SQL length must be 1..1048576 bytes"}, nil
 		}
-		r, e := call(2, sql)
+		var r guest.Result
+		var e error
+		if monitor {
+			r, e = w.callQuery(p, sql)
+		} else {
+			r, e = call(2, sql)
+		}
 		if e == nil && r.Version != 2 {
 			e = errors.New("unexpected guest query version")
 		}
 		return r, e
 	}
-	r, err = query([]byte("SELECT CONNECTION_ID()"))
+	r, err = query([]byte("SELECT CONNECTION_ID()"), false)
 	if err != nil {
 		return err
 	}
@@ -231,7 +304,6 @@ func Serve(conn net.Conn, p *guest.Process, timeout time.Duration, closing func(
 		return err
 	}
 	status := r.Status
-	w := wire{conn: conn, timeout: timeout, begin: activity.Begin}
 	salt := make([]byte, 20)
 	if _, err = rand.Read(salt); err != nil {
 		return err
@@ -289,15 +361,15 @@ func Serve(conn net.Conn, p *guest.Process, timeout time.Duration, closing func(
 		_ = w.send(ErrorPacket(1045, "28000", "only local root with empty password is supported"))
 		return nil
 	}
-	use := func(name []byte) (guest.Result, error) {
-		return query([]byte("USE `" + strings.ReplaceAll(string(name), "`", "``") + "`"))
+	use := func(name []byte, monitor bool) (guest.Result, error) {
+		return query([]byte("USE `"+strings.ReplaceAll(string(name), "`", "``")+"`"), monitor)
 	}
 	if flags&8 != 0 {
 		name, _, e := takeString(rest)
 		if e != nil {
 			return nil
 		}
-		r, e := use(name)
+		r, e := use(name, false)
 		if e != nil {
 			return e
 		}
@@ -325,15 +397,16 @@ func Serve(conn net.Conn, p *guest.Process, timeout time.Duration, closing func(
 		case 1:
 			return nil
 		case 3:
-			r, e = query(request[1:])
+			r, e = query(request[1:], true)
 		case 2:
-			r, e = use(request[1:])
+			r, e = use(request[1:], true)
 		case 14:
 			replies = [][]byte{okPacket(status, 0, 0, 0)}
 		default:
 			replies = [][]byte{ErrorPacket(1235, "42000", "command is not supported")}
 		}
 		if e != nil {
+			_ = w.send(fatalPacket(e))
 			return e
 		}
 		if replies == nil {

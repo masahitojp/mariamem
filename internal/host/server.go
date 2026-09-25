@@ -82,9 +82,10 @@ func Start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 	go s.accept()
 	return s, nil
 }
-func (s *Server) Port() int     { return s.listener.Addr().(*net.TCPAddr).Port }
-func (s *Server) Closing() bool { s.mu.Lock(); defer s.mu.Unlock(); return s.closing }
-func (s *Server) Active() int   { s.mu.Lock(); defer s.mu.Unlock(); return len(s.clients) }
+func (s *Server) Port() int      { return s.listener.Addr().(*net.TCPAddr).Port }
+func (s *Server) Closing() bool  { s.mu.Lock(); defer s.mu.Unlock(); return s.closing }
+func (s *Server) Active() int    { s.mu.Lock(); defer s.mu.Unlock(); return len(s.clients) }
+func (s *Server) Failure() error { return s.Guest.Err() }
 func (s *Server) Busy() bool {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -143,8 +144,8 @@ func (s *Server) accept() {
 		}()
 	}
 }
-func (s *Server) Close(ctx context.Context) error {
-	defer os.RemoveAll(s.transfer)
+func (s *Server) Close(ctx context.Context) (err error) {
+	defer func() { err = errors.Join(err, os.RemoveAll(s.transfer)) }()
 	s.mu.Lock()
 	s.stopAccepting()
 	s.mu.Unlock()

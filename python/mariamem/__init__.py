@@ -97,7 +97,8 @@ class Database:
         try:
             for line in self._process.stdout:
                 self._messages.put(json.loads(line))
-            self._messages.put(HostError(f"Host exited; see {self.log_path}"))
+            self._messages.put(HostError(f"Database instance terminated; see {self.log_path}",
+                                         code="unusable", closed=True))
         except Exception as exc:
             self._messages.put(HostError(str(exc)))
 
@@ -111,12 +112,16 @@ class Database:
         return message
 
     def _request(self, operation, response_timeout=10, **fields):
+        if self._process.poll() is not None:
+            raise HostError(f"Database instance terminated; see {self.log_path}",
+                            code="unusable", closed=True)
         self._sequence += 1
         try:
             self._process.stdin.write(json.dumps({"id": self._sequence, "op": operation, **fields}) + "\n")
             self._process.stdin.flush()
         except (BrokenPipeError, OSError) as exc:
-            raise HostError(f"Host control channel closed; see {self.log_path}") from exc
+            raise HostError(f"Database instance terminated; see {self.log_path}",
+                            code="unusable", closed=True) from exc
         reply = self._receive(response_timeout)
         if reply.get("id") != self._sequence:
             raise HostError("Host response ID mismatch")
@@ -131,11 +136,16 @@ class Database:
         with self._lock:
             if self._closed:
                 raise HostError("Database is closed")
-            return self._request("status")
+            try:
+                return self._request("status")
+            except HostError as exc:
+                if exc.closed:
+                    self._dispose()
+                raise
 
     @property
     def closed(self):
-        return self._closed
+        return self._closed or self._process.poll() is not None
 
     @property
     def logs(self):
@@ -144,7 +154,7 @@ class Database:
         return self._logs
 
     def connection_info(self):
-        if self._closed:
+        if self.closed:
             raise HostError("Database is closed")
         return dict(self._connection_info)
 
@@ -163,10 +173,15 @@ class Database:
             if self._closed:
                 return
             try:
+                if self._process.poll() is not None:
+                    return
                 self._request("close", self._shutdown_timeout + 25)
                 code = self._process.wait(timeout=5)
                 if code:
                     raise HostError(f"Host exited with code {code}")
+            except HostError as exc:
+                if not exc.closed:
+                    raise
             finally:
                 self._dispose()
 

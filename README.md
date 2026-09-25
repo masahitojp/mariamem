@@ -128,8 +128,11 @@ see the [Python guide](docs/python.md).
   Python wheel bundles its runtime.
 - Each database permits one simultaneous SQL client connection at the host.
   Use `SetMaxOpenConns(1)` with Go's `database/sql`.
-- A query timeout currently terminates that database instance. Server-side
-  prepared statements are not supported.
+- A query timeout or client context cancellation during SQL execution terminates
+  that database instance. Close it and start or fork another; Go callers can
+  inspect `db.Err()` with `errors.Is(err, mariamem.ErrUnusable)` and, for a host
+  deadline, `errors.Is(err, context.DeadlineExceeded)`. Server-side prepared
+  statements are not supported.
 - Snapshots are cold: close client connections first, then wait for disconnect.
   A successful snapshot ends its source database. Temporary snapshots are
   removed when closed; explicit destinations are retained.

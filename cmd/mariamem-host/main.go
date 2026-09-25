@@ -101,7 +101,7 @@ func run() error {
 			return shutdown()
 		case <-s.Guest.Done():
 			_ = shutdown()
-			return errors.New("database runtime exited unexpectedly")
+			return fmt.Errorf("database runtime exited: %w", s.Failure())
 		case msg := <-messages:
 			if msg.terminal {
 				err := shutdown()
@@ -120,10 +120,15 @@ func run() error {
 			} else {
 				switch msg.req.Op {
 				case "status":
-					reply["ok"] = true
-					reply["state"] = "ready"
-					reply["active_connections"] = s.Active()
-					reply["busy"] = s.Busy()
+					if failure := s.Failure(); failure != nil {
+						reply["closed"] = true
+						reply["error"] = map[string]string{"code": "unusable", "message": "database instance terminated: " + failure.Error()}
+					} else {
+						reply["ok"] = true
+						reply["state"] = "ready"
+						reply["active_connections"] = s.Active()
+						reply["busy"] = s.Busy()
+					}
 				case "snapshot":
 					timeout := 120 * time.Second
 					if msg.req.Timeout != "" {

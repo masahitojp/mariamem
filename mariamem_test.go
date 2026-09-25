@@ -18,11 +18,13 @@ type fakeBackend struct {
 	closes   int
 	active   int
 	closeErr error
+	failure  error
 	snapshot func(context.Context, string, bool) (bool, error)
 }
 
 func (f *fakeBackend) Close(context.Context) error { f.closes++; return f.closeErr }
 func (f *fakeBackend) Active() int                 { return f.active }
+func (f *fakeBackend) Failure() error              { return f.failure }
 func (f *fakeBackend) Snapshot(ctx context.Context, p string, r bool) (bool, error) {
 	return f.snapshot(ctx, p, r)
 }
@@ -66,6 +68,9 @@ func TestConnection(t *testing.T) {
 		t.Fatal(got)
 	}
 	db.Close()
+	if err := db.Err(); err != nil {
+		t.Fatalf("clean Close invalidated DB: %v", err)
+	}
 	if db.ConnectionInfo().Port != 12345 {
 		t.Fatal("metadata mutated")
 	}
@@ -269,7 +274,7 @@ func TestLogsBounded(t *testing.T) {
 }
 
 func TestRuntimeExitCleanup(t *testing.T) {
-	f := &fakeBackend{}
+	f := &fakeBackend{failure: errors.New("guest exited")}
 	db := testDB(t, f)
 	temp := db.temporary
 	done := make(chan struct{})
@@ -279,7 +284,10 @@ func TestRuntimeExitCleanup(t *testing.T) {
 		t.Fatal("runtime exit not cleaned up")
 	}
 	var detail *HostError
-	if err := db.Close(); !errors.As(err, &detail) || detail.Code != "runtime_exited" || !detail.Closed {
+	if err := db.Err(); !errors.As(err, &detail) || detail.Code != "unusable" || !detail.Closed || !errors.Is(err, ErrUnusable) {
+		t.Fatal(err)
+	}
+	if err := db.Close(); err != nil {
 		t.Fatal(err)
 	}
 	if _, err := os.Stat(temp); !os.IsNotExist(err) {
@@ -288,6 +296,33 @@ func TestRuntimeExitCleanup(t *testing.T) {
 	db.watch(done)
 	if f.closes != 1 {
 		t.Fatal("double cleanup")
+	}
+}
+
+func TestInvalidatedState(t *testing.T) {
+	f := &fakeBackend{failure: context.DeadlineExceeded}
+	db := testDB(t, f)
+	temp := db.temporary
+	if !db.Closed() || !errors.Is(db.Err(), ErrUnusable) || !errors.Is(db.Err(), context.DeadlineExceeded) {
+		t.Fatalf("invalid state: closed=%v err=%v", db.Closed(), db.Err())
+	}
+	if _, err := db.Snapshot(context.Background(), SnapshotOptions{}); !errors.Is(err, ErrUnusable) || !errors.Is(err, context.DeadlineExceeded) {
+		t.Fatalf("snapshot after invalidation: %v", err)
+	}
+	if err := db.WaitDisconnected(context.Background()); !errors.Is(err, ErrUnusable) {
+		t.Fatalf("wait after invalidation: %v", err)
+	}
+	done := make(chan struct{})
+	close(done)
+	db.watch(done)
+	if err := db.Close(); err != nil {
+		t.Fatalf("close after invalidation: %v", err)
+	}
+	if f.closes != 1 {
+		t.Fatalf("cleanup calls: %d", f.closes)
+	}
+	if _, err := os.Stat(temp); !os.IsNotExist(err) {
+		t.Fatalf("temporary directory remains: %v", err)
 	}
 }
 

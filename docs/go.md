@@ -100,11 +100,29 @@ are unchanged. ConnectionInfo and DSN are immutable endpoint metadata, available
 after Close; use Closed to inspect lifecycle state. Zero-value handles cannot start
 operations; construct them through Start and Database.Snapshot.
 
-There is one simultaneous SQL connection per DB. Close the database/sql pool before
+There is one simultaneous SQL connection per DB. The host currently binds every
+session to guest slot 0; supporting multiple clients requires per-connection slot
+allocation and lifecycle handling. Close the database/sql pool before
 WaitDisconnected and snapshot. DSN sets `interpolateParams=true` for driver-side
 parameter interpolation through the supported text protocol. **This is not server
-prepared-statement support**; explicit Prepare remains unsupported. Query timeout
-remains instance-fatal. Signal handlers are not installed in the caller process.
+prepared-statement support**; explicit Prepare remains unsupported.
+
+A host `QueryTimeout` or client context cancellation while SQL runs terminates
+the guest and invalidates that database instance. The host also treats a client
+disconnect during SQL as fatal; a normal disconnect while idle leaves the DB
+usable. Do not retry SQL against an invalidated instance: close it and start or
+fork another. `db.Closed()` becomes true, and `db.Err()` reports
+`ErrUnusable` with the underlying cause. For a host timeout,
+`errors.Is(db.Err(), context.DeadlineExceeded)` is true; a MySQL-driver query
+receives a server error explaining that the instance was terminated. For a
+caller context deadline or explicit cancellation, go-sql-driver/mysql returns
+the caller's context error (`errors.Is` matches `context.DeadlineExceeded` or
+`context.Canceled`); the host sees the resulting connection loss and terminates
+the guest. The wire protocol does not carry the caller's context reason to the
+host, so `db.Err()` reports a client disconnect in that case. Snapshot and
+WaitDisconnected reject invalidated instances; Close remains idempotent and
+releases the guest process and temporary files. Signal handlers are not
+installed in the caller process.
 
 ## Opt-in integration verification (Task 4b)
 

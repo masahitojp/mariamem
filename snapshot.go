@@ -31,6 +31,9 @@ type Snapshot struct {
 func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapshot, error) {
 	db.mu.Lock()
 	defer db.mu.Unlock()
+	if err := db.invalidLocked(); err != nil {
+		return nil, err
+	}
 	if db.closed || db.server == nil {
 		return nil, hostError(ErrClosed, "closed", true)
 	}
@@ -65,6 +68,7 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 	}
 	return saved, nil
 }
+
 // Path returns the snapshot directory. It may no longer exist after Close for
 // a temporary snapshot.
 func (s *Snapshot) Path() string { return s.path }

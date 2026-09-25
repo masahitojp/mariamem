@@ -117,6 +117,32 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 }
 func (p *Process) PID() int              { return p.cmd.Process.Pid }
 func (p *Process) Done() <-chan struct{} { return p.done }
+
+// Err reports the cause that made the guest unusable, if any.
+func (p *Process) Err() error {
+	p.mu.Lock()
+	err := p.failure
+	p.mu.Unlock()
+	if err != nil {
+		select {
+		case <-p.done:
+			if p.exitErr != nil {
+				return errors.Join(err, fmt.Errorf("guest process: %w", p.exitErr))
+			}
+		default:
+		}
+		return err
+	}
+	select {
+	case <-p.done:
+		if p.exitErr != nil {
+			return fmt.Errorf("guest exited: %w", p.exitErr)
+		}
+		return errors.New("guest exited")
+	default:
+		return nil
+	}
+}
 func (p *Process) fail(err error) {
 	p.mu.Lock()
 	defer p.mu.Unlock()
@@ -149,7 +175,7 @@ func (p *Process) readFailed(err error) {
 	if stopping {
 		p.fail(err)
 	} else {
-		p.Abort(err)
+		p.Abort(fmt.Errorf("guest output closed unexpectedly: %w", err))
 	}
 }
 func (p *Process) read() {
@@ -267,17 +293,26 @@ func (p *Process) stop(ctx context.Context, export bool) error {
 	var saved chan response
 	p.mu.Lock()
 	p.stopping = true
+	failed := p.failure != nil
 	if export {
 		saved = make(chan response, 1)
 		p.pending[0] = saved
 	}
 	p.mu.Unlock()
+	if failed && !export {
+		select {
+		case <-p.done:
+			return nil
+		case <-ctx.Done():
+			return ctx.Err()
+		}
+	}
 	select {
 	case <-p.done:
 		if export {
 			return errors.New("guest exited before snapshot")
 		}
-		return p.exitErr
+		return nil // Already reaped; the owner reports an unexpected exit separately.
 	default:
 	}
 	frame := []byte{0, 0, 0, 0}
@@ -285,6 +320,14 @@ func (p *Process) stop(ctx context.Context, export bool) error {
 		binary.LittleEndian.PutUint32(frame, 0xfffffffe)
 	}
 	if err := p.write(ctx, frame); err != nil {
+		if !export && p.Err() != nil {
+			select {
+			case <-p.done:
+				return nil
+			case <-ctx.Done():
+				return ctx.Err()
+			}
+		}
 		return err
 	}
 	p.in.Close()

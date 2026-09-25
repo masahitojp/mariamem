@@ -15,9 +15,10 @@
 // success. Snapshot.Fork starts independent databases from the saved state.
 // Closing a temporary snapshot removes its files; explicit destinations remain.
 //
-// Query timeout currently terminates the database instance. DSN enables client
-// parameter interpolation for the text protocol, not server-side prepared
-// statements. This package is an alpha and its API may change.
+// A host query timeout or client cancellation during a query terminates that
+// database instance. Database.Err reports the reason and ErrUnusable; close it
+// and start or fork another instance. DSN enables client parameter interpolation
+// for the text protocol, not server-side prepared statements.
 package mariamem
 
 import (
@@ -39,7 +40,7 @@ type Options struct {
 	NativeDir       string
 	StartupTimeout  time.Duration // Zero defaults to 120 seconds.
 	ShutdownTimeout time.Duration // Zero defaults to 30 seconds.
-	QueryTimeout    time.Duration // Zero defaults to 30 seconds; expiry is instance-fatal.
+	QueryTimeout    time.Duration // Zero defaults to 30 seconds; expiry terminates this instance.
 }
 
 func (o Options) defaults() (Options, error) {
@@ -64,6 +65,7 @@ type backend interface {
 	Close(context.Context) error
 	Snapshot(context.Context, string, bool) (bool, error)
 	Active() int
+	Failure() error
 }
 
 // Database owns one guest process and its temporary runtime directory.
@@ -76,6 +78,7 @@ type Database struct {
 	build, temporary string
 	closed           bool
 	closeErr         error
+	failure          error
 	logs             logTail
 }
 
@@ -120,15 +123,39 @@ func (db *Database) watch(done <-chan struct{}) {
 	db.mu.Lock()
 	defer db.mu.Unlock()
 	if !db.closed {
-		db.closeErr = errors.Join(hostError(errors.New("runtime exited"), "runtime_exited", true), db.closeLocked())
+		db.failure = db.invalidLocked()
+		_ = db.closeLocked()
 	}
 }
 
-// Closed reports whether the database has been disposed of.
+// Err reports why a running instance became unusable. It retains the underlying
+// guest/host cause; a clean Close or successful Snapshot does not set Err.
+func (db *Database) Err() error {
+	db.mu.Lock()
+	defer db.mu.Unlock()
+	return db.invalidLocked()
+}
+func (db *Database) invalidLocked() error {
+	if db.failure != nil {
+		return db.failure
+	}
+	if db.closed {
+		return nil
+	}
+	if db.server == nil {
+		return nil
+	}
+	if cause := db.server.Failure(); cause != nil {
+		return hostError(errors.Join(ErrUnusable, cause), "unusable", true)
+	}
+	return nil
+}
+
+// Closed reports whether the database has been disposed of or invalidated.
 func (db *Database) Closed() bool {
 	db.mu.Lock()
 	defer db.mu.Unlock()
-	return db.closed || db.server == nil
+	return db.closed || db.server == nil || db.invalidLocked() != nil
 }
 
 // Close is idempotent; repeated calls return the stored cleanup result.
@@ -136,6 +163,9 @@ func (db *Database) Close() error { db.mu.Lock(); defer db.mu.Unlock(); return d
 func (db *Database) closeLocked() error {
 	if db.closed {
 		return db.closeErr
+	}
+	if failure := db.invalidLocked(); failure != nil {
+		db.failure = failure
 	}
 	db.closed = true
 	var err error
@@ -166,6 +196,10 @@ func (db *Database) WaitDisconnected(ctx context.Context) error {
 			return err
 		}
 		db.mu.Lock()
+		if err := db.invalidLocked(); err != nil {
+			db.mu.Unlock()
+			return err
+		}
 		if db.closed || db.server == nil {
 			db.mu.Unlock()
 			return hostError(ErrClosed, "closed", true)
