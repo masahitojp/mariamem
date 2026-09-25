@@ -131,13 +131,12 @@ installed in the caller process.
 Use the existing native bundle, without rebuilding or rearranging its artifacts:
 
 ```sh
-MARIAMEM_NATIVE_DIR="$PWD/python/mariamem/_native" \
-  go test -tags=integration ./tests/gointegration -v -count=1 -timeout=3m
+MARIAMEM_NATIVE_DIR="$PWD/python/mariamem/_native" python3 scripts/verify.py integration
 ```
 
-The integration build tag keeps this test out of ordinary unit-test runs. An
-explicit integration run requires `MARIAMEM_NATIVE_DIR`; a missing bundle is a
-failure, not a silently skipped acceptance test. The module pins the test driver
+The integration entry point runs Go real-guest tests with the race detector and
+Python timeout/multi-client checks. It requires `MARIAMEM_NATIVE_DIR`; a missing
+bundle is a failure, not a silently skipped test. The module pins the test driver
 `github.com/go-sql-driver/mysql` to v1.9.3. Applications register their own driver.
 
 Verified on the development macOS arm64 machine with the existing native bundle:

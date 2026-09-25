@@ -30,8 +30,9 @@ Historical experiments, local logs, and generated binaries stay outside Git.
    extra and run `tests/verify_alpha.py`. It records the wheel SHA256 in
    ignored `tests/evidence/alpha-wheel.json` and binds installed-wheel results
    to it in `tests/evidence/alpha.json`.
-5. Run `python3 scripts/check_release.py`. It checks source, reviews, and the
-   exact wheel/acceptance hashes and the native archive hash from clean-platform
+5. Run `python3 scripts/verify.py release-check`. It invokes the existing release
+   guard to check source, reviews, exact wheel/acceptance hashes, and the native
+   archive hash from clean-platform
    evidence. It stages the native bundle, corresponding source, wheel, and
    SHA256SUMS in `build/release/publish/`, with a local release manifest at
    `build/release/release-manifest.json`. The publish directory must be empty

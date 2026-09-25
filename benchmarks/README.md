@@ -3,6 +3,8 @@
 These scripts measure developer-facing database lifecycle latency and memory
 scaling. They are not SQL-engine throughput benchmarks, CI requirements, or
 pass/fail performance thresholds. They do not change the product implementation.
+The repository-level entry point is `python3 scripts/verify.py bench WORKLOAD [options]`,
+where `WORKLOAD` is `ready`, `seeded`, `parallel`, or `memory`.
 
 The historical [0.1.0a1 manual baseline](baseline-0.1.0a1.md) is retained as a
 reference. These scripts formalize its workloads; exact reproduction of its

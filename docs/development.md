@@ -35,25 +35,42 @@ binary hashes across builds are not guaranteed.
 
 ## Local verification
 
-Run the checks that match the changed boundary. These commands do not rebuild the
-guest, wheel, or release assets.
+Run the matching command from the repository root with Go 1.26+ and Python with
+`pytest` and `PyMySQL` installed. These commands do not rebuild the guest, wheel,
+or release assets.
 
-| Change | Checks | Excludes |
+| Change | Command | Excludes |
 | --- | --- | --- |
-| Ordinary Go/Python source | `go test ./...`, `go vet ./...`, `PYTHONPATH=python .venv/bin/python -m pytest tests --ignore=tests/consumer -q`, `python3 scripts/check_public.py` | Real guest tests, installed-wheel consumer tests, release artifacts, benchmarks |
-| Guest, host, MySQL wire, or lifecycle behavior | Ordinary checks plus `MARIAMEM_NATIVE_DIR=/path/to/native go test -race -tags=integration ./tests/gointegration -count=1 -timeout=3m` and the relevant opt-in Python real-host tests (`MARIAMEM_TEST_HOST=/path/to/mariamem-host MARIAMEM_NATIVE_DIR=/path/to/native`) | Wheel/platform acceptance and benchmarks |
+| Ordinary Go/Python source | `python3 scripts/verify.py check` | Real guest, installed-wheel consumer, release assets, benchmarks |
+| Guest, host, MySQL wire, or lifecycle behavior | `MARIAMEM_NATIVE_DIR=/path/to/native python3 scripts/verify.py integration` after `check` | Wheel/platform acceptance and benchmarks |
 | MySQL wire failure handling | The real-guest checks above plus `.venv/bin/python tests/integration.py` when its raw-protocol/failure-injection cases are relevant | Unrelated release checks |
 | Snapshot export, restore, or validation | The real-guest checks above plus `.venv/bin/python tests/snapshots.py` for its negative-path/corruption cases | Unrelated release checks |
 
-The Python command excludes `tests/consumer` because those tests must import an
-**installed wheel from outside the checkout**. The opt-in Python real-host tests
-skip without both environment variables; supply them when testing runtime or
-lifecycle behavior. The older `integration.py` and `snapshots.py` scripts retain
-distinct wire-failure and snapshot-corruption coverage, but are not part of the
-ordinary source-change loop. Real-guest runs need a current native bundle; the
-Python tests need `MARIAMEM_TEST_HOST` built from the current checkout. The older
-scripts also read `build/guest` and `build/tools`, so do not use them against stale
-build outputs. See [Go integration details](go.md#opt-in-integration-verification).
+`check` runs Go unit tests, Go vet, checkout Python tests, and the public-source
+check. It clears native test settings so the opt-in real-host tests remain skipped.
+`integration` requires the native bundle, runs the real-guest Go tests with the
+race detector, builds a temporary current Go host, and runs the Python timeout
+and multi-client tests. Neither command runs `tests/consumer`, which must import
+an **installed wheel from outside the checkout**. The older `integration.py` and
+`snapshots.py` scripts retain distinct wire-failure and snapshot-corruption
+coverage, but are not part of the ordinary source-change loop. Real-guest runs
+need a current native bundle; the older scripts also read `build/guest` and
+`build/tools`, so do not use them against stale build outputs. See
+[Go integration details](go.md#opt-in-integration-verification).
+
+For release work, `python3 scripts/verify.py release-check` invokes the existing
+release guard after the source, wheel, native bundle, and acceptance evidence have
+been prepared. It verifies hashes/reviews and **stages files locally** in
+`build/release/publish/`; it does not publish. See [releasing](releasing.md) for
+the required preparation. For performance work only, select one workload with
+`python3 scripts/verify.py bench {ready,seeded,parallel,memory} [options]`;
+see [benchmark settings](../benchmarks/README.md).
+
+CI runs `check` on Ubuntu and `integration` on the GitHub-hosted macOS 15 arm64
+runner, using the SHA256-pinned public alpha.2 native bundle. It tests the current
+host/wrapper against that fixed guest; after guest source changes, rebuild the
+bundle and run `integration` against the new guest separately. The clean platform
+acceptance and exact release-artifact checks remain release-only.
 
 ## Wheel and release acceptance
 

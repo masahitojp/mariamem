@@ -1,11 +1,13 @@
-name: Source checks
+name: Development checks
 on:
   push:
+    branches: [main]
   pull_request:
+    branches: [main]
 permissions:
   contents: read
 jobs:
-  source:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -13,13 +15,35 @@ jobs:
         with:
           go-version: '1.26.8'
           cache: false
-      - run: python3 scripts/check_public.py
-      - run: python3 -m unittest discover -s tests -p 'test_release_tools.py'
-      - run: python3 -m unittest discover -s tests -p 'test_native_package.py'
-      - run: python3 -m unittest discover -s tests -p 'test_runtime_sources.py'
-      - run: python3 -m unittest discover -s tests -p 'test_guest_provenance.py'
-      - run: python3 -m unittest discover -s tests -p 'test_runtime_notices.py'
-      - run: python3 -m unittest discover -s tests -p 'test_platform_acceptance.py'
-      - run: python3 -m compileall -q scripts python/mariamem tests
-      - run: go vet ./...
-      - run: CGO_ENABLED=0 go build ./...
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - run: python -m pip install 'pytest>=7' 'PyMySQL>=1.1,<2'
+      - run: python scripts/verify.py check
+
+  integration:
+    runs-on: macos-15
+    timeout-minutes: 15
+    # Tests this checkout's Go host/Python wrapper against the accepted alpha.2 guest.
+    # Guest source changes still need a separately rebuilt bundle and manual integration.
+    env:
+      NATIVE_URL: https://github.com/masahitojp/mariamem/releases/download/v0.1.0-alpha.2/mariamem-native-darwin-arm64.tar.gz
+      NATIVE_SHA256: 9b1650d1fcf7ed337d96d2c39a0a9a6bf1ae28ed8f6f4c685041bbeac313e99c
+      MARIAMEM_NATIVE_DIR: ${{ runner.temp }}/mariamem-native-darwin-arm64
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - run: python -m pip install 'pytest>=7' 'PyMySQL>=1.1,<2'
+      - name: Obtain accepted native bundle
+        run: |
+          curl --proto '=https' --tlsv1.2 --fail --silent --show-error --location --retry 3 \
+            "$NATIVE_URL" -o "$RUNNER_TEMP/native.tar.gz"
+          printf '%s  %s\n' "$NATIVE_SHA256" "$RUNNER_TEMP/native.tar.gz" | shasum -a 256 -c -
+          tar -xzf "$RUNNER_TEMP/native.tar.gz" -C "$RUNNER_TEMP"
+      - run: python scripts/verify.py integration

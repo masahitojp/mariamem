@@ -13,3 +13,6 @@ explicitly requested.
 Use small spikes to reduce uncertainty before expensive architectural changes.
 
 Mechanical verification belongs in deterministic scripts and CI where possible.
+
+Use `docs/development.md#local-verification` to choose the canonical check for
+the changed boundary; release acceptance and benchmarks are separate.
