@@ -9,6 +9,7 @@ from pathlib import Path
 import stat
 import tarfile
 import tempfile
+from release_version import PYTHON_VERSION
 
 ROOT = Path(__file__).resolve().parents[1]
 NAME = "mariamem-native-darwin-arm64"
@@ -37,6 +38,8 @@ def payload(root, native):
             or not isinstance(manifest.get("minimum_macos"), int)
             or not 0 < manifest["minimum_macos"] <= target["minimum_macos"]):
         raise ValueError("native manifest does not match the candidate platform")
+    if manifest.get("package_version") != PYTHON_VERSION:
+        raise ValueError("native manifest package_version does not match the current release")
     files = {}
     for name in ARTIFACTS:
         data = regular(native / name)

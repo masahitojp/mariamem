@@ -47,7 +47,8 @@ or release assets.
 | Snapshot export, restore, or validation | The real-guest checks above plus `.venv/bin/python tests/snapshots.py` for its negative-path/corruption cases | Unrelated release checks |
 
 `check` runs Go unit tests, Go vet, checkout Python tests, and the public-source
-check. It clears native test settings so the opt-in real-host tests remain skipped.
+check, plus the cheap release-version consistency check. It clears native test
+settings so the opt-in real-host tests remain skipped.
 `integration` requires the native bundle, runs the real-guest Go tests with the
 race detector, builds a temporary current Go host, and runs the Python timeout
 and multi-client tests. Neither command runs `tests/consumer`, which must import

@@ -29,7 +29,8 @@ class NativePackage(unittest.TestCase):
         (self.native / "mariamem.wasmu.json").write_bytes(pkg.encoded({
             "snapshot_version": 1, "wasm_sha256": "a" * 64,
             "module_sha256": pkg.digest(b"inert guest")}))
-        self.manifest = {"version": 1, "platform": "darwin-arm64", "minimum_macos": 15,
+        self.manifest = {"version": 1, "package_version": pkg.PYTHON_VERSION,
+                         "platform": "darwin-arm64", "minimum_macos": 15,
                          "public_release_ready": True,
                          "sha256": {n: pkg.digest((self.native / n).read_bytes()) for n in pkg.ARTIFACTS}}
         self.manifest["sha256"]["mariamem-host"] = "unused"
@@ -74,6 +75,12 @@ class NativePackage(unittest.TestCase):
     def test_reject_corrupt_input(self):
         (self.native / "mariamem.wasmu").write_bytes(b"changed")
         with self.assertRaisesRegex(ValueError, "hash mismatch"):
+            pkg.payload(self.root, self.native)
+
+    def test_reject_stale_package_version(self):
+        self.manifest["package_version"] = "0.1.0a2"
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, "package_version"):
             pkg.payload(self.root, self.native)
 
     def test_reject_bad_sidecar_even_with_matching_manifest_hash(self):

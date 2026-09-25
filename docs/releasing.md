@@ -1,6 +1,10 @@
 # Releasing an alpha
 
-The planned tag is `v0.1.0-alpha.2`; the Python distribution is `0.1.0a2`.
+The next planned tag is `v0.1.0-alpha.3`; the Python distribution is `0.1.0a3`.
+Change the five semantic components only in `python/mariamem/_version.py`.
+Run `python3 scripts/verify.py check` to verify the derived Python version and
+Git/Go tag. The release guard checks versioned artifact names and rejects stale
+native/wheel metadata; set `MARIAMEM_RELEASE_TAG` when comparing a proposed tag.
 The source repository, native bundle, and Python wheel have separate checks.
 Historical experiments, local logs, and generated binaries stay outside Git.
 
@@ -25,7 +29,7 @@ Historical experiments, local logs, and generated binaries stay outside Git.
    Then run `python3 scripts/verify_source.py` to extract it outside the repository,
    prepare the guest with network access disabled, and compare the modified source
    files with the inputs of the local guest build.
-4. Build the `0.1.0a2` wheel with `scripts/build_alpha.py`. From an isolated
+4. Build the versioned wheel with `scripts/build_alpha.py`. From an isolated
    environment outside the checkout, install that exact wheel with its `test`
    extra and run `tests/verify_alpha.py`. It records the wheel SHA256 in
    ignored `tests/evidence/alpha-wheel.json` and binds installed-wheel results
@@ -47,19 +51,19 @@ This path does not populate `build/release/publish/`; the release guard copies
 the accepted archive there after hash verification. The accepted candidate's
 SHA256 is recorded in [clean-platform evidence](../release/evidence/macos15-arm64-acceptance.json).
 The review applies to that exact archive; regenerate and recheck if its bytes
-change. The planned `v0.1.0-alpha.2` Release includes this native bundle.
+change. The planned Release includes this native bundle.
 
 ## Smoke checks
 
 - **Go source:** after the tag is published, use a fresh external module to run
-  `go get github.com/masahitojp/mariamem@v0.1.0-alpha.2` and build the
+  `go get github.com/masahitojp/mariamem@<published-tag>` and build the
   [README Go example](../README.md#go). Before tagging, use the pushed commit
   instead of the version. The Go module contains no native binaries.
 - **Native bundle:** compare the downloaded archive's SHA256 with its published
   checksum and the accepted evidence. Extract it, check that `wasmer-headless`
   is executable, then run the same Go example with `MARIAMEM_NATIVE_DIR` set
   to the extracted directory. It should print `1`.
-- **Python wheel:** install the exact staged `0.1.0a2` wheel with `[test]` in a
+- **Python wheel:** install the exact staged wheel with `[test]` in a
   fresh virtual environment. From outside the checkout, run the checked-in
   `tests/verify_alpha.py` with that environment's Python. It checks bundled
   files, SQL, fixtures, snapshots, parallel workers, and cleanup. Compare its
@@ -67,16 +71,12 @@ change. The planned `v0.1.0-alpha.2` Release includes this native bundle.
 
 ## GitHub Release draft
 
-After the release guard passes and the intended source commit is pushed, the
-following command prepares a draft with all four planned assets, including
-the accepted Go native bundle.
-
-```sh
-gh release create v0.1.0-alpha.2 --draft --prerelease --title 'mariamem v0.1.0-alpha.2 / Python 0.1.0a2' \
-  --notes-file release/NOTES.md build/release/publish/*
-```
-
-Review the draft assets before publication. No build script pushes code or
+After the release guard passes, write release notes for the new version; the
+checked-in `release/NOTES.md` still records the published alpha.2 release.
+Compare the proposed tag with the canonical version using
+`MARIAMEM_RELEASE_TAG=<tag> python3 scripts/verify.py release-check` before
+creating a draft with the four staged assets. Review the draft assets before
+publication. No build script pushes code or
 publishes a release. The corresponding-source archive must remain available
 alongside the binaries it covers; GitHub's default source zip is not a
 replacement for the collected dependency sources.

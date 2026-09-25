@@ -459,10 +459,10 @@ CI rather than consume model reasoning time.
 
 ## Version single-source
 
-The release version should become single-source.
+The release version is single-source in `python/mariamem/_version.py`.
 
 Go and Python require different textual version formats, so the source of truth
-should represent semantic components rather than reuse one ecosystem-specific
+represents semantic components rather than reusing one ecosystem-specific
 string.
 
 For example:
@@ -475,7 +475,7 @@ stage  = alpha
 serial = 3
 ```
 
-From this, tooling should derive:
+From this, tooling derives:
 
 ```text
 v0.1.0-alpha.3
@@ -485,8 +485,9 @@ artifact names
 release metadata
 ```
 
-This prevents mismatches such as the alpha.2 release containing accepted native
-artifacts whose internal version metadata still referred to alpha.1.
+`python3 scripts/verify.py check` checks the derived forms. Native candidate
+packaging and the release guard reject stale package metadata, preventing a
+repeat of the alpha.2 release's accepted native artifact referring to alpha.1.
 
 ---
 

@@ -9,8 +9,9 @@ import tempfile
 import time
 
 from ._artifacts import resolve
+from ._version import PYTHON_VERSION
 
-__version__ = "0.1.0a2"
+__version__ = PYTHON_VERSION
 
 
 class HostError(RuntimeError):

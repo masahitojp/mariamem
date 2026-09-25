@@ -24,6 +24,7 @@ def run(argv, *, env=None):
 
 
 def check():
+    run([sys.executable, "scripts/check_version.py"])
     run(["go", "test", "./..."])
     run(["go", "vet", "./..."])
     # Opt-in real-host pytest cases must stay skipped in the ordinary check,
