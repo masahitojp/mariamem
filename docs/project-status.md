@@ -60,18 +60,19 @@ Core properties:
 Current public release:
 
 ```text
-Git / Go: v0.1.0-alpha.2
-Python:   0.1.0a2
+Git / Go: v0.1.0-alpha.3
+Python:   0.1.0a3
 ```
 
 Release:
 
 ```text
-https://github.com/masahitojp/mariamem/releases/tag/v0.1.0-alpha.2
+https://github.com/masahitojp/mariamem/releases/tag/v0.1.0-alpha.3
 ```
 
-The public release has been verified through clean consumer tests outside the
-repository.
+The accepted artifacts were published unchanged. Clean artifact acceptance and
+post-publication public Go tag/native-bundle consumer smoke passed. The tag and
+remote main point to `1c97b7bda65bffa66abcf751bddd6bbc10132304`.
 
 Go:
 
@@ -93,11 +94,17 @@ fresh virtualenv
 → Snapshot / Fork
 ```
 
-The alpha.2 release currently targets:
+The alpha.3 release targets:
 
 ```text
 macOS 15+ / Apple Silicon arm64
 ```
+
+Alpha.3 includes multi-client support (the current guest capacity is 16
+independent sessions), ordinary connection-pool use without
+`SetMaxOpenConns(1)`, canonical verification commands, baseline GitHub Actions,
+single-source versioning, and exact artifact/acceptance-evidence binding.
+The session capacity is not a permanent public API guarantee.
 
 ---
 
@@ -334,7 +341,7 @@ The goal is:
 > When CI fails, the user should usually know what failed and what to inspect
 > next.
 
-### Release correctness
+### Release correctness and maintainer requirements
 
 0.1 release artifacts should satisfy:
 
@@ -344,44 +351,76 @@ The goal is:
 - third-party notices / provenance are correct
 - a minimal clean consumer smoke test succeeds
 
-Release automation is desirable but is not itself a product requirement.
+Release CI is a 0.1 maintainer requirement, separate from the product
+requirements above. Alpha.3 showed that the manual happy path repeatedly
+coordinated the human, ChatGPT, Codex, and local release state for deterministic
+steps. This costs approval attention, handoff effort, coding-agent capacity,
+and depends unnecessarily on the local environment. Happy-path release
+mechanics belong in CI. Codex/local development should change the product or
+release system, run focused checks, prepare notes where useful, and diagnose
+`NOT READY` or unexpected failures, not orchestrate a defined release by hand.
+
+The intended boundary is **manual decision, automated mechanics**:
+
+```text
+exact remote candidate checkout
+→ build immutable artifacts and hashes
+→ clean-platform acceptance and external evidence
+→ release guard: READY / NOT READY
+→ human: Approve / Stop
+→ CI: derived Git tag, GitHub Release and exact assets
+→ post-publication smoke
+```
+
+The human owns publication approval or stopping it, not individual Git,
+packaging, hashing, and upload commands. READY alone must never publish.
+One explicit approval should authorize the deterministic publication
+transaction.
+
+The release tag should identify the **exact source commit used to build the
+published host/package artifacts**. Alpha.3 accepted a binary build commit
+different from its final tag commit because post-build review/evidence was
+committed afterward; that relationship was reviewed for alpha.3, but is not
+the intended 0.1 release model. Post-build evidence must stay external to
+candidate bytes and should not require a new source commit for publication:
+
+```text
+build inputs → immutable candidate → candidate SHA256
+             → external acceptance evidence → release guard
+```
+
+CI must retrieve the exact candidate source/ref through its remote trigger,
+without a permanent manual push step or build/tag diff inspection. Clean macOS
+acceptance belongs in CI. Tart is not part of the canonical local development
+or release path; local/Codex work should not download VM images, maintain Tart
+VMs, or run clean-platform acceptance locally. Tart remains available for
+explicitly requested debugging. Missing CI acceptance infrastructure is a
+release-infrastructure gap, not a reason to silently fall back to Tart.
 
 ---
 
-## Next checkpoint: v0.1.0-alpha.3
-
-The next planned public checkpoint is:
+## Remaining 0.1 direction
 
 ```text
-Git / Go: v0.1.0-alpha.3
-Python:   0.1.0a3
+v0.1.0-alpha.3  DONE
+        ↓
+Release CI / release-mechanics cleanup
+        ↓
+Linux x86_64
+        ↓
+minimum failure UX
+        ↓
+exact 0.1 release rehearsal / correctness
+        ↓
+v0.1.0
 ```
 
-Its primary product change is multi-client support.
+This is a roadmap direction, not a rigid task tracker. Release CI moves ahead
+of the remaining product work to stop spending human and agent effort on the
+manual release happy path. Linux x86_64 and minimum failure UX remain 0.1
+product requirements.
 
-Before publishing alpha.3, the current plan is roughly:
-
-```text
-Task 2e multi-client                       DONE
-        ↓
-record current project context
-        ↓
-toil / harness audit
-        ↓
-remove obsolete or duplicate verification work
-        ↓
-establish minimal canonical verification commands
-        ↓
-baseline GitHub Actions CI
-        ↓
-single-source release versioning
-        ↓
-alpha.3 artifact acceptance
-        ↓
-v0.1.0-alpha.3
-```
-
-The pre-release language matrix may remain intentionally narrow:
+The pre-release validation matrix remains intentionally narrow:
 
 ```text
 Python 3.14
@@ -394,66 +433,14 @@ Broad version compatibility is not currently worth slowing early development.
 
 ---
 
-## Development toil before alpha.3
+## Verification state
 
-The repository has accumulated several harnesses and verification paths while
-bringing alpha.2 to release.
-
-Examples include:
-
-- Go unit tests
-- Go race tests
-- Go vet
-- Python tests
-- real guest integration tests
-- Snapshot / Fork tests
-- timeout / cancellation tests
-- legacy integration scripts
-- platform acceptance
-- release guards
-- clean consumer smoke tests
-- release artifact generation
-- benchmark scripts
-- historical diagnostic scripts
-
-Before simply moving all of these into CI, review them.
-
-For each check ask:
-
-```text
-What failure does this detect?
-Does another check already detect it?
-Does it need to run for every change?
-Is it only useful before a release?
-Was it only needed for a past investigation?
-```
-
-Prefer:
-
-```text
-delete
-→ merge
-→ simplify
-→ automate
-```
-
-rather than automating all existing work unchanged.
-
-The goal is to reduce both maintainer work and coding-agent toil.
-
-A possible future set of canonical entry points is:
-
-```text
-check
-integration
-release
-bench
-```
-
-Exact command names are not yet decided.
-
-Mechanical verification should increasingly move to deterministic scripts and
-CI rather than consume model reasoning time.
+The verification/toil audit consolidated local checks into canonical `check`,
+`integration`, `release-check`, and `bench` entry points. Baseline GitHub
+Actions runs normal and real-guest integration checks. Release acceptance and
+publication still need the CI mechanics described above; benchmarks remain
+performance-work only. See [local verification](development.md#local-verification)
+for the commands and their boundaries.
 
 ---
 
@@ -793,7 +780,7 @@ rather than repeatedly spending it on deterministic mechanical checks.
 
 mariamem builds on `shyim/lite4mariadb`.
 
-After alpha.3 is published, multi-client support provides a useful milestone for
+With alpha.3 published, multi-client support provides a useful milestone for
 leaving a concrete downstream usage note on the original lite4mariadb
 announcement:
 
@@ -823,7 +810,8 @@ Unless evidence changes the priority, these are not 0.1 blockers:
 - high connection-count scalability
 - broad ORM/framework coverage
 - perfect Go/Python API parity
-- complete release automation
+- autonomous/unattended publication or release decisions
+- automatic version bumps or release scheduling
 - 1.0-level API stability
 
 ---
