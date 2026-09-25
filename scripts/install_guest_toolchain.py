@@ -73,7 +73,7 @@ def main():
     if not sysroot.is_dir():
         raise ValueError(f"missing installed sysroot: {sysroot}")
     selected = {}
-    for name in ("bin/wasixccenv", "bin/wasixcc", "bin/wasixc++"):
+    for name in ("bin/wasixccenv", "bin/wasixcc", "bin/wasixcc++"):
         path = home / name
         if not path.exists():
             raise ValueError(f"missing toolchain executable: {name}")
