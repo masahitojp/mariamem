@@ -1,5 +1,23 @@
-// Package mariamem provides disposable MariaDB instances for tests.
-// The Go host runs in the caller; the Wasmer/MariaDB guest remains a subprocess.
+// Package mariamem starts disposable, isolated instances of real MariaDB for tests.
+// The Go host runs in the caller's process; a Wasmer/WASIX child process runs the
+// MariaDB guest. Clients use the ordinary MySQL wire protocol through a local
+// endpoint, including database/sql with go-sql-driver/mysql.
+//
+// Start requires Options.NativeDir to name an extracted native bundle containing
+// manifest.json, wasmer-headless, mariamem.wasmu, and mariamem.wasmu.json. The
+// Go module does not download or contain these artifacts. The current native
+// target is macOS 15 or later on arm64.
+//
+// A Database owns its runtime and should be closed after use. Only one SQL client
+// connection can be active per instance; set database/sql's MaxOpenConns to 1.
+// Close the SQL pool and call Database.WaitDisconnected before taking a snapshot.
+// Database.Snapshot creates a cold snapshot and closes its source database on
+// success. Snapshot.Fork starts independent databases from the saved state.
+// Closing a temporary snapshot removes its files; explicit destinations remain.
+//
+// Query timeout currently terminates the database instance. DSN enables client
+// parameter interpolation for the text protocol, not server-side prepared
+// statements. This package is an alpha and its API may change.
 package mariamem
 
 import (
@@ -15,6 +33,8 @@ import (
 	"github.com/masahitojp/mariamem/internal/host"
 )
 
+// Options configures a database instance. NativeDir must point to an extracted
+// native bundle; zero timeouts use the documented defaults.
 type Options struct {
 	NativeDir       string
 	StartupTimeout  time.Duration // Zero defaults to 120 seconds.
@@ -59,7 +79,8 @@ type Database struct {
 	logs             logTail
 }
 
-// Start's context governs startup, not the lifetime of a successfully started DB.
+// Start creates one database. Its context governs startup, not the lifetime of a
+// successfully started database; call Close to dispose of it.
 func Start(ctx context.Context, opts Options) (*Database, error) { return start(ctx, opts, "") }
 func start(ctx context.Context, opts Options, restore string) (*Database, error) {
 	opts, err := opts.defaults()
@@ -103,6 +124,7 @@ func (db *Database) watch(done <-chan struct{}) {
 	}
 }
 
+// Closed reports whether the database has been disposed of.
 func (db *Database) Closed() bool {
 	db.mu.Lock()
 	defer db.mu.Unlock()

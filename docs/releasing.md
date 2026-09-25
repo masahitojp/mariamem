@@ -1,9 +1,8 @@
 # Releasing an alpha
 
-This folder is the source repository intended for GitHub. Historical experiments,
-local tools, databases, raw logs, and native artifacts are outside the source
-publication set. A GitHub source repository and a binary Release have separate
-readiness checks.
+The planned tag is `v0.1.0-alpha.2`; the Python distribution is `0.1.0a2`.
+The source repository, native bundle, and Python wheel have separate checks.
+Historical experiments, local logs, and generated binaries stay outside Git.
 
 ## Current release work
 
@@ -11,9 +10,8 @@ readiness checks.
 - Pinned MariaDB/lite4mariadb, connector, wolfSSL, PCRE2, and fmt archives are
   collected by hash. The build applies the maintained patch/overlays.
 - Go host, Wasmer headless, guest AOT, and metadata are bundled in a platform wheel.
-- `release/review.json` tracks remaining source/license and environment checks.
-  An unverified item must remain false; a generated source archive is not by
-  itself evidence of completeness.
+- `release/review.json` records source, runtime-notice, and clean macOS 15
+  acceptance evidence. Recheck the evidence if a reviewed binary changes.
 
 ## Local preparation
 
@@ -27,46 +25,57 @@ readiness checks.
    Then run `python3 scripts/verify_source.py` to extract it outside the repository,
    prepare the guest with network access disabled, and compare the modified source
    files with the inputs of the local guest build.
-4. Finish each review in `release/review.json`, recording evidence paths and notes.
-   In particular, resolve WASIX runtime source dependencies and Wasmer's static
-   dependencies/licenses against the actual native binary.
-5. Run `python3 scripts/check_release.py`. It must pass before distributing the
-   wheel. Rebuild source/release manifests after any source or review changes.
+4. Build the `0.1.0a2` wheel with `scripts/build_alpha.py`. From an isolated
+   environment outside the checkout, install that exact wheel with its `test`
+   extra and run `tests/verify_alpha.py`. It records the wheel SHA256 in
+   ignored `tests/evidence/alpha-wheel.json` and binds installed-wheel results
+   to it in `tests/evidence/alpha.json`.
+5. Run `python3 scripts/check_release.py`. It checks source, reviews, and the
+   exact wheel/acceptance hashes, then stages the corresponding source, wheel,
+   release manifest, and SHA256SUMS in `build/release/publish/`. The directory
+   must be empty first. Rebuild source and wheel evidence after public files or
+   reviewed artifacts change.
 
 ## Go native candidate
 
 `python3 scripts/package_native.py` packages existing staged artifacts into
 `build/release/native-candidate/`. See [Go manual bundle instructions](go.md#manual-native-bundle-local-candidate).
-This candidate-only path does not populate `build/release/publish/` or satisfy
-release reviews. It preserves current notices and records unresolved reviews;
-complete corresponding-source and runtime notice review are still prerequisites
-for public binary distribution.
+This path does not populate `build/release/publish/`. The accepted candidate's
+SHA256 is recorded in [clean-platform evidence](../release/evidence/macos15-arm64-acceptance.json).
+The review applies to that exact archive; regenerate and recheck if its bytes
+change. Attaching the native bundle to a GitHub Release is a separate step.
 
-## GitHub
+## Smoke checks
 
-Create the repository from this folder. Choose the GitHub owner before running
-the following commands; `<owner>` is a placeholder, not a configured destination.
+- **Go source:** after the tag is published, use a fresh external module to run
+  `go get github.com/masahitojp/mariamem@v0.1.0-alpha.2` and build the
+  [README Go example](../README.md#go). Before tagging, use the pushed commit
+  instead of the version. The Go module contains no native binaries.
+- **Native bundle:** compare the downloaded archive's SHA256 with its published
+  checksum and the accepted evidence. Extract it, check that `wasmer-headless`
+  is executable, then run the same Go example with `MARIAMEM_NATIVE_DIR` set
+  to the extracted directory. It should print `1`.
+- **Python wheel:** install the exact staged `0.1.0a2` wheel with `[test]` in a
+  fresh virtual environment. From outside the checkout, run the checked-in
+  `tests/verify_alpha.py` with that environment's Python. It checks bundled
+  files, SQL, fixtures, snapshots, parallel workers, and cleanup. Compare its
+  `wheel_sha256` with the staged wheel's hash.
 
-```sh
-git init -b main
-git add .
-git diff --cached --stat
-git commit -m "Prepare mariamem Python alpha"
-gh repo create <owner>/mariamem --public --source . --remote origin --push
-```
+## GitHub Release draft
 
-Binary release commands are intentionally separate from source push. After
-`check_release.py` succeeds and the release commit is pushed:
+After the release guard passes and the intended source commit is pushed, the
+following command prepares a draft. It does not attach the Go native bundle;
+decide and verify that separate asset explicitly before publication.
 
 ```sh
 gh release create v0.1.0-alpha.2 --draft --prerelease --title 'mariamem v0.1.0-alpha.2 / Python 0.1.0a2' \
   --notes-file release/NOTES.md build/release/publish/*
 ```
 
-Review the draft assets and publish it. No command in the build scripts creates
-a repository, pushes code, or publishes a release. The source archive must remain
-available alongside the exact binaries it corresponds to. The default GitHub
-source zip is not a replacement for the collected dependency sources.
+Review the draft assets before publication. No build script pushes code or
+publishes a release. The corresponding-source archive must remain available
+alongside the binaries it covers; GitHub's default source zip is not a
+replacement for the collected dependency sources.
 
 ## License scope
 
@@ -112,8 +121,9 @@ compiler dependency files and build-image driver selection. CMake's older
 Task 9a3 completed the guest source provenance review for the recorded artifact.
 See [guest source provenance](guest-source-provenance.md) for the evidence,
 validation commands, and remaining reproducibility gaps. `guest_source` is true;
-runtime-notice review is now complete (Task 9b-final); platform acceptance remains false. This does not approve
-binary publication. No guest binaries are rebuilt by this coverage verification.
+runtime-notice review and acceptance of the recorded native candidate are now
+complete. This provenance review does not publish binaries. No guest binaries
+are rebuilt by source verification.
 
 ## Wasmer runtime notice review (Task 9b)
 
@@ -121,5 +131,5 @@ See [runtime notices](runtime-notices.md) for the pinned dependency inventory,
 verification commands, Singlepass BUSL-1.1 disclosure, and the accepted webc
 12.0.1 package MIT declaration. `runtime_notices` is true after Task 9b-final.
 The absence of a separate webc license file is recorded without inferred
-copyright wording. Platform acceptance and final distribution checks still
-prevent binary publication.
+copyright wording. The release guard and review of the exact staged assets
+remain the final local checks before publication.

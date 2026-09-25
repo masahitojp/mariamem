@@ -10,6 +10,7 @@ import (
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
 )
 
+// SnapshotOptions configures cold snapshot creation.
 type SnapshotOptions struct {
 	Destination string // Empty creates a temporary snapshot owned by the handle.
 	Rollback    bool
@@ -64,6 +65,8 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 	}
 	return saved, nil
 }
+// Path returns the snapshot directory. It may no longer exist after Close for
+// a temporary snapshot.
 func (s *Snapshot) Path() string { return s.path }
 
 // Fork inherits the original DB options. Multiple startups can run concurrently.

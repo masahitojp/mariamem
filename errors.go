@@ -6,6 +6,7 @@ import (
 	"github.com/masahitojp/mariamem/internal/host"
 )
 
+// These errors identify common rejected operations; use errors.Is to test them.
 var (
 	ErrBusy              = errors.New("database is busy")
 	ErrTransactionActive = errors.New("transaction is active")

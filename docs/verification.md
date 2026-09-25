@@ -1,5 +1,9 @@
 # Local verification — 2026-09-23
 
+This is a historical verification record. Its then-open publication items were
+reviewed later; see the current [release review](../release/review.json) and
+[release instructions](releasing.md).
+
 The public repository was tested on macOS 27 arm64 with Python 3.9, Go 1.26.8,
 Wasmer 7.4.2, PyMySQL 1.2.3, pytest 8.4.2, and pytest-xdist 3.8.0.
 

@@ -1,19 +1,101 @@
 # mariamem
 
-**Disposable, in-memory MariaDB for tests.**
+**Make a real MariaDB as disposable as a test double.**
 
-Make a real MariaDB as disposable as a test double.
+mariamem starts an isolated MariaDB for a test, lets an ordinary MySQL client
+connect, and disposes of the database afterward. It runs a modified MariaDB
+guest under Wasmer/WASIX; it does not reimplement MariaDB SQL or InnoDB.
+Go hosts run in the test process; Python starts the packaged Go host process.
+Both languages have public lifecycle APIs.
 
-mariamem runs MariaDB/InnoDB in a Wasm runtime and exposes a local MySQL endpoint
-for Python tests. The Python API manages startup, shutdown, isolated databases,
-and cold snapshots. A platform wheel bundles the Go host, Wasmer headless, and
-MariaDB guest; users do not need Docker, a MariaDB installation, or a compiler.
+The upcoming release is `v0.1.0-alpha.2` for the Go module and GitHub Release,
+with Python distribution version `0.1.0a2`. Native support is **macOS 15+ on
+Apple Silicon (arm64)**. The instructions use GitHub Release or locally built
+artifacts and do not depend on PyPI. Release-download commands apply once those
+assets are published.
 
-**Status:** Python `0.1.0a2`, under release preparation. No PyPI release is
-available yet. The initial native alpha targets macOS 15+ on Apple Silicon.
-macOS 12 guest execution failed; macOS 12–14 are unsupported. Clean macOS 15
-acceptance passed. See [the release checklist](docs/releasing.md) and
-[the compatibility finding](docs/macos-compatibility.md).
+## Go
+
+In your Go module, fetch the source:
+
+```sh
+go get github.com/masahitojp/mariamem@v0.1.0-alpha.2
+```
+
+The Go module does not contain the native runtime. Once the matching archive is
+attached to the GitHub Release, download and extract it:
+
+```sh
+gh release download v0.1.0-alpha.2 --repo masahitojp/mariamem \
+  --pattern 'mariamem-native-darwin-arm64.tar.gz'
+tar -xzf mariamem-native-darwin-arm64.tar.gz
+export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
+```
+
+Pass that directory to `Start`. The environment variable below is read by the
+example, not automatically by the Go package.
+
+```go
+package main
+
+import (
+	"context"
+	"database/sql"
+	"fmt"
+	"log"
+	"os"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem"
+)
+
+func run(ctx context.Context) error {
+	db, err := mariamem.Start(ctx, mariamem.Options{
+		NativeDir: os.Getenv("MARIAMEM_NATIVE_DIR"),
+	})
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	sqlDB, err := sql.Open("mysql", db.DSN())
+	if err != nil {
+		return err
+	}
+	defer sqlDB.Close()
+	sqlDB.SetMaxOpenConns(1)
+
+	var answer int
+	if err := sqlDB.QueryRowContext(ctx, "SELECT 1").Scan(&answer); err != nil {
+		return err
+	}
+	fmt.Println(answer)
+	return nil
+}
+
+func main() {
+	if err := run(context.Background()); err != nil {
+		log.Fatal(err)
+	}
+}
+```
+
+See the [Go guide](docs/go.md) for connection metadata, snapshots, forks, and
+manual bundle verification.
+
+## Python
+
+Install the `0.1.0a2` macOS wheel downloaded from a GitHub Release or built
+locally with [the development instructions](docs/development.md). For a locally
+built wheel:
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install './build/dist/mariamem-0.1.0a2-py3-none-macosx_15_0_arm64.whl[test]'
+```
+
+The wheel includes the Go host executable, Wasmer runtime, and MariaDB guest.
+The `test` extra installs PyMySQL and pytest tools.
 
 ```python
 import mariamem
@@ -29,74 +111,26 @@ with mariamem.start() as server:
             assert cursor.fetchone() == (1,)
 ```
 
-## Installation
+The installed package also provides pytest fixtures for independent databases;
+see the [Python guide](docs/python.md).
 
-For a locally built wheel:
+## Current limits
 
-```sh
-python3 -m venv .venv
-.venv/bin/python -m pip install './build/dist/mariamem-0.1.0a2-py3-none-macosx_15_0_arm64.whl[test]'
-```
+- Go requires `Options.NativeDir` and has no automatic native download. The
+  Python wheel bundles its runtime.
+- Each database permits one simultaneous SQL client connection at the host.
+  Use `SetMaxOpenConns(1)` with Go's `database/sql`.
+- A query timeout currently terminates that database instance. Server-side
+  prepared statements are not supported.
+- Snapshots are cold: close client connections first, then wait for disconnect.
+  A successful snapshot ends its source database. Temporary snapshots are
+  removed when closed; explicit destinations are retained.
+- This is an alpha API. Native support is limited to macOS 15+ arm64.
 
-The `test` extra installs PyMySQL, pytest, and pytest-xdist. The wrapper itself
-uses the Python standard library. See [development](docs/development.md) to
-build the guest and wheel.
-
-Go users can follow the [Go API guide](docs/go.md) to fetch the module and use
-an existing native bundle through `Options.NativeDir`. Native runtime binaries
-are not downloaded by `go get`.
-
-## pytest
-
-The installed package automatically registers its pytest plugin:
-
-```python
-def test_query(mariamem_connection_info):
-    with pymysql.connect(**mariamem_connection_info) as conn:
-        with conn.cursor() as cursor:
-            cursor.execute("SELECT 1")
-            assert cursor.fetchone() == (1,)
-```
-
-Each test receives an independent database restored from a session snapshot.
-See [Python usage](docs/python.md) for migration/seed templates and class fixtures.
-
-## Scope
-
-- Real MariaDB SQL and InnoDB transaction behavior; SQL is not reimplemented.
-- One simultaneous SQL connection per database; independent forks can run in parallel.
-- MySQL text protocol, tested with PyMySQL. Prepared statements and broad ORM/driver
-  compatibility are not supported in this alpha.
-- The running data directory is in Wasmer's memory filesystem. Logs, runtime
-  settings, and cold snapshots use temporary host directories.
-- Each database starts a Go host process and a Wasmer child. In-process Go
-  embedding, a Go-owned VFS, and live/COW snapshots are future work.
-- Snapshot creation stops its source database. Database startup and memory use
-  are not yet optimized; this is not a promise of test-double performance.
-
-## Architecture
-
-```text
-Python lifecycle API ────────────┐
-                               ▼
-PyMySQL ── MySQL/TCP ──► Go host process
-                               │ internal session/query protocol
-                               ▼
-                        Wasmer process
-                               │
-                        MariaDB WASM
-                               │
-                        in-memory filesystem
-```
-
-## License and upstream
-
-Project code is GPL-2.0-only, with third-party components retaining their own
-licenses. See [LICENSE](LICENSE), [NOTICE](NOTICE), and
-[THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES).
-
-The guest is a modified derivative of
-[shyim/lite4mariadb](https://github.com/shyim/lite4mariadb), itself based on MariaDB
-Server. The disposable testing API is informed by
-[shibukawa/pgmem](https://github.com/shibukawa/pgmem).
-This project is independent of the upstream projects.
+Project code is [GPL-2.0-only](LICENSE); bundled components keep their own
+licenses and notices in [NOTICE](NOTICE) and
+[THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES). The guest is derived from
+[shyim/lite4mariadb](https://github.com/shyim/lite4mariadb) and MariaDB Server.
+The testing API is informed by
+[shibukawa/pgmem](https://github.com/shibukawa/pgmem). This is an independent
+project.

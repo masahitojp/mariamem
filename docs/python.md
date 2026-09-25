@@ -1,5 +1,10 @@
 # Python API
 
+Python distribution `0.1.0a2` is a macOS 15+ arm64 wheel. Use a locally built
+wheel or a GitHub Release asset once published. The wheel includes the host and
+native runtime. See the [README](../README.md#python)
+for installation and a first query.
+
 Use `with mariamem.start() as db:` to own a database and call
 `db.connection_info()` for MySQL driver keyword arguments. Close driver
 connections with their own context managers. Database `close()` is idempotent.
@@ -75,3 +80,5 @@ Class fixtures deliberately share mutations between tests in that class.
 `MARIAMEM_NATIVE_DIR` points to a directory containing the private bundle manifest.
 Neither is needed with a complete platform wheel. Timeouts can be configured with
 `startup_timeout`, `query_timeout`, and `shutdown_timeout` (seconds).
+Query timeout currently terminates the database instance; create a new instance
+after one occurs.

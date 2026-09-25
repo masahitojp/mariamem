@@ -1,5 +1,8 @@
 # Source-only Go alpha publication checklist
 
+This is the historical plan for `v0.1.0-alpha.1`. The upcoming
+`v0.1.0-alpha.2` instructions are in [releasing](releasing.md).
+
 Planned tag: `v0.1.0-alpha.1`. No publication command in this document was executed
 as part of Task 5e. Native assets must not be attached.
 

@@ -81,9 +81,10 @@ go build -o build/platform-acceptance-consumer ./scripts/platform_acceptance
 go vet ./scripts/platform_acceptance
 ```
 
-After actual VM success, review the evidence against the intended archive hash,
-then perform the separate Task 9c review update. Until then the review stays
-`guest_source=true`, `runtime_notices=true`, `platform_acceptance=false`.
+For a new candidate, review the actual VM evidence against its archive hash
+before updating the review. The accepted candidate's clean macOS 15.7.7 arm64
+[evidence](../release/evidence/macos15-arm64-acceptance.json) is recorded with
+`platform_acceptance=true`. A changed archive requires its own acceptance.
 
 ## GitHub Actions on macOS 15 arm64
 

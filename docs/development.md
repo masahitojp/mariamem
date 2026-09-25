@@ -54,7 +54,8 @@ control the pure-Go linker. Binaries requiring a newer OS are rejected.
 Packaging also checks that the native manifest matches this target.
 The inspected Go host declares Mach-O minos 12.0 and Wasmer headless requires 11.0.
 These load commands do not prove runtime compatibility (including the AOT guest):
-clean macOS 15 acceptance is required before setting `platform_acceptance=true`.
+Clean macOS 15.7.7 arm64 acceptance has passed for the recorded native candidate;
+see [platform evidence](../release/evidence/macos15-arm64-acceptance.json).
 
 The acceptance runner copies consumer tests outside the repository, clears runtime
 overrides, and verifies installed-wheel startup, SQL, transactions, snapshots,

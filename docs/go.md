@@ -2,12 +2,13 @@
 
 The public package is `mariamem` at the module root. Unit tests and the opt-in
 real-guest integration test below cover the initial API. Use Go 1.26 or newer.
+The [README](../README.md#go) has a complete first-query example.
 
-Fetch the Go source using a published version or pushed commit (replace the
-placeholder; no release tag is required):
+The planned Go version is `v0.1.0-alpha.2`. After that tag is published, fetch
+the source with:
 
 ```sh
-go get github.com/masahitojp/mariamem@<version-or-commit>
+go get github.com/masahitojp/mariamem@v0.1.0-alpha.2
 ```
 
 Import it with:
@@ -18,6 +19,8 @@ import "github.com/masahitojp/mariamem"
 
 `go get` fetches Go source and module dependencies, **not the native runtime**.
 An existing native bundle and explicit `Options.NativeDir` remain required.
+The following excerpt belongs inside a function with `ctx`; import
+`database/sql` and register `github.com/go-sql-driver/mysql` as in the README.
 
 ```go
 db, err := mariamem.Start(ctx, mariamem.Options{
@@ -44,8 +47,9 @@ defer fork.Close()
 `manifest.json`, `wasmer-headless`, `mariamem.wasmu`, `mariamem.wasmu.json`, and
 optionally the existing `mariamem-host` (unused by Go). Required guest/runtime
 files are checked against manifest hashes; the sidecar is also validated.
-No binaries are committed to the Go module and no downloads occur. The candidate
-platform remains macOS 15 arm64; clean-platform acceptance remains pending.
+No binaries are committed to the Go module and no downloads occur. The supported
+native platform is macOS 15+ arm64. The recorded native candidate passed clean
+macOS 15.7.7 arm64 acceptance; see [the evidence](../release/evidence/macos15-arm64-acceptance.json).
 
 The host runs in the Go caller; Wasmer/MariaDB remains a child process. Start's
 context only controls startup. Zero startup/shutdown/query timeouts default to
@@ -104,9 +108,9 @@ connection. It tolerates the brief ErrBusy interval between a wire reply and hos
 session-idle bookkeeping, then requires ErrTransactionActive. All successful
 snapshots follow pool Close → WaitDisconnected.
 
-This is integration correctness evidence, not a benchmark or clean macOS 15
-platform acceptance. Prepared statements and query-timeout behavior are outside
-this test's scope.
+This integration test is correctness evidence, not a benchmark. The separate
+clean macOS 15 acceptance is recorded above. Prepared statements and query-timeout
+behavior are outside this integration test's scope.
 
 ## Manual native bundle (local candidate)
 
@@ -133,17 +137,17 @@ The archive expands to `mariamem-native-darwin-arm64/`, containing:
 - Existing `LICENSE`, `NOTICE`, `THIRD_PARTY_LICENSES`, and `licenses/` copied unchanged
 - `CANDIDATE.json`: input manifest/lock hashes and a snapshot of release reviews
 
-The manifest retains its format, declares the canonical macOS 15 minimum, removes the unused
-`mariamem-host` hash, and records exactly the three required artifact hashes.
+The manifest retains its format, declares the macOS 15 minimum, removes the
+unused `mariamem-host` hash, and records the three required artifact hashes.
 The host executable is not included. `public_release_ready` is always false for
 this candidate tool, even if the input manifest says otherwise.
 
-For local evaluation, or once a future reviewed GitHub Release supplies these
-assets, manually obtain the archive and its SHA256SUMS, then:
+For local evaluation, or after the matching archive is attached to a GitHub
+Release, verify the archive against its published SHA256 and then extract it:
 
 ```sh
-go get github.com/masahitojp/mariamem@<version-or-commit>
-shasum -a 256 -c SHA256SUMS
+go get github.com/masahitojp/mariamem@v0.1.0-alpha.2
+shasum -a 256 mariamem-native-darwin-arm64.tar.gz
 tar -xzf mariamem-native-darwin-arm64.tar.gz
 export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
 ```
@@ -157,9 +161,9 @@ db, err := mariamem.Start(ctx, mariamem.Options{
 })
 ```
 
-**This is not cleared for public binary distribution.** Clean-platform acceptance
-remains unresolved. Runtime notice review is complete; see [runtime notices](runtime-notices.md). Guest source coverage for the
-recorded artifact is reviewed; see [provenance](guest-source-provenance.md). Existing notices are preserved, not asserted complete. No source
-archive is replaced by this bundle or by GitHub's default source zip. The existing
-release review and corresponding-source requirements in [releasing](releasing.md)
-still apply; candidate generation does not stage an approved Release asset.
+The locally generated archive remains a candidate with
+`public_release_ready=false` in its metadata; this packaging command does not
+publish or stage it as an approved Release asset. The exact candidate hash has
+clean-platform evidence, and [release review](../release/review.json) records the
+source and runtime-notice checks. It is separate from the Python wheel and the
+corresponding-source archive staged by the [release guard](releasing.md).

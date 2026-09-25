@@ -4,8 +4,10 @@
 Task 9b-final accepts webc 12.0.1's package metadata `license="MIT"` as its
 formal license declaration. The absence of a separate upstream license/copyright
 file is recorded, without inventing copyright wording or requiring further
-investigation as a release blocker. `guest_source=true` and
-`platform_acceptance=false` are unchanged; binary publication remains NOT READY.
+investigation as a release blocker. At Task 9b completion,
+`platform_acceptance=false`; subsequent clean macOS 15 acceptance set it true
+for the [recorded candidate](../release/evidence/macos15-arm64-acceptance.json).
+The runtime notice evidence is unchanged.
 
 ## Runtime and dependency selection
 
