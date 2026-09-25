@@ -52,6 +52,9 @@ the accepted archive there after hash verification. The accepted candidate's
 SHA256 is recorded in [clean-platform evidence](../release/evidence/macos15-arm64-acceptance.json).
 The review applies to that exact archive; regenerate and recheck if its bytes
 change. The planned Release includes this native bundle.
+`CANDIDATE.json` records stable build inputs only. Review and clean-platform
+acceptance are external evidence bound to the finished archive's SHA256; updating
+them does not change the native candidate bytes.
 
 ## Smoke checks
 

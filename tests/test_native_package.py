@@ -56,7 +56,21 @@ class NativePackage(unittest.TestCase):
         self.assertEqual((extracted / "wasmer-headless").stat().st_mode & 0o777, 0o755)
         self.assertFalse((extracted / "mariamem-host").exists())
         self.assertEqual((extracted / "NOTICE").read_bytes(), files["NOTICE"])
-        self.assertFalse(json.loads(files["CANDIDATE.json"])["reviews"]["checks"]["guest_source"]["passed"])
+        candidate = json.loads(files["CANDIDATE.json"])
+        self.assertNotIn("reviews", candidate)
+        self.assertIn("input_native_build_manifest_sha256", candidate)
+
+    def test_review_updates_do_not_change_candidate_bytes(self):
+        before = self.root / "before.tar.gz"
+        pkg.write_archive(before, pkg.payload(self.root, self.native))
+        (self.root / "release/review.json").write_text(json.dumps({
+            "checks": {"platform_acceptance": {"passed": True,
+                       "evidence": "release/evidence/new-archive.json"}}}))
+        self.manifest["public_release_ready"] = False
+        self.save_manifest()
+        after = self.root / "after.tar.gz"
+        pkg.write_archive(after, pkg.payload(self.root, self.native))
+        self.assertEqual(pkg.digest(before.read_bytes()), pkg.digest(after.read_bytes()))
 
     def test_raise_supported_floor_without_binary_changes(self):
         self.manifest['minimum_macos'] = 12

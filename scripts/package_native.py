@@ -40,6 +40,10 @@ def payload(root, native):
         raise ValueError("native manifest does not match the candidate platform")
     if manifest.get("package_version") != PYTHON_VERSION:
         raise ValueError("native manifest package_version does not match the current release")
+    # Wheel readiness follows post-build review. It is not a native build input:
+    # acceptance of this archive must not change its own identity.
+    build_manifest = {key: value for key, value in manifest.items()
+                      if key != "public_release_ready"}
     files = {}
     for name in ARTIFACTS:
         data = regular(native / name)
@@ -64,13 +68,13 @@ def payload(root, native):
         files[name] = regular(root / name)
     for path in sorted((root / "licenses").iterdir()):
         files["licenses/" + path.name] = regular(path)
-    # These are evidence of candidate inputs, not proof of complete source/notices.
+    # Only stable build inputs belong here. Review/acceptance evidence is checked
+    # externally against the finished archive's SHA256 by check_release.py.
     files["CANDIDATE.json"] = encoded({
         "status": "local-evaluation-candidate", "public_release_ready": False,
-        "input_native_manifest_sha256": digest(original),
+        "input_native_build_manifest_sha256": digest(encoded(build_manifest)),
         "inputs_lock_sha256": digest(regular(root / "release/inputs.lock.json")),
-        "reviews": json.loads(regular(root / "release/review.json")),
-        "note": "Not cleared for public binary distribution. Complete source/notices and platform review remain required."
+        "note": "Candidate metadata does not record release approval; consult the external release review and exact archive-hash acceptance evidence."
     })
     return files
 

@@ -181,7 +181,8 @@ The archive expands to `mariamem-native-darwin-arm64/`, containing:
 
 - `manifest.json`, `wasmer-headless` (executable), `mariamem.wasmu`, `mariamem.wasmu.json`
 - Existing `LICENSE`, `NOTICE`, `THIRD_PARTY_LICENSES`, and `licenses/` copied unchanged
-- `CANDIDATE.json`: input manifest/lock hashes and a snapshot of release reviews
+- `CANDIDATE.json`: stable input build-manifest/lock hashes; release reviews and
+  clean-platform acceptance remain external and refer to the archive SHA256
 
 The manifest retains its format, declares the macOS 15 minimum, removes the
 unused `mariamem-host` hash, and records the three required artifact hashes.
