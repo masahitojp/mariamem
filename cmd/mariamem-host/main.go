@@ -76,7 +76,7 @@ func run() error {
 	if s.SnapshotCapable() {
 		caps = append(caps, "snapshot", "fork")
 	}
-	if err = enc.Encode(map[string]any{"event": "ready", "protocol": 1, "id": hex.EncodeToString(token), "pid": os.Getpid(), "runtime_pid": s.Guest.PID(), "host": "127.0.0.1", "port": s.Port(), "user": "root", "password": "", "database": "test", "capabilities": caps, "max_connections": 1}); err != nil {
+	if err = enc.Encode(map[string]any{"event": "ready", "protocol": 1, "id": hex.EncodeToString(token), "pid": os.Getpid(), "runtime_pid": s.Guest.PID(), "host": "127.0.0.1", "port": s.Port(), "user": "root", "password": "", "database": "test", "capabilities": caps, "max_connections": s.Capacity()}); err != nil {
 		return err
 	}
 	messages := make(chan incoming, 1)

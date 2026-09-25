@@ -54,7 +54,6 @@ func run(ctx context.Context) error {
 		return err
 	}
 	defer sqlDB.Close()
-	sqlDB.SetMaxOpenConns(1)
 
 	var answer int
 	if err := sqlDB.QueryRowContext(ctx, "SELECT 1").Scan(&answer); err != nil {
@@ -126,8 +125,9 @@ see the [Python guide](docs/python.md).
 
 - Go requires `Options.NativeDir` and has no automatic native download. The
   Python wheel bundles its runtime.
-- Each database permits one simultaneous SQL client connection at the host.
-  Use `SetMaxOpenConns(1)` with Go's `database/sql`.
+- Multiple SQL clients can use one database up to the guest's session capacity
+  (16 in the current native bundle). An additional connection receives a
+  recoverable capacity error; idle disconnects free slots for reuse.
 - A query timeout or client context cancellation during SQL execution terminates
   that database instance. Close it and start or fork another; Go callers can
   inspect `db.Err()` with `errors.Is(err, mariamem.ErrUnusable)` and, for a host

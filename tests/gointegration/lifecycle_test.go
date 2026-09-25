@@ -41,7 +41,6 @@ func TestPublicLifecycle(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		pool.SetMaxOpenConns(1)
 		t.Cleanup(func() {
 			if err := pool.Close(); err != nil {
 				t.Error(err)

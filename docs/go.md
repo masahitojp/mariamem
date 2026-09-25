@@ -57,7 +57,6 @@ defer db.Close()
 
 sqlDB, err := sql.Open("mysql", db.DSN()) // register go-sql-driver/mysql in the app
 if err != nil { return err }
-sqlDB.SetMaxOpenConns(1)
 // SQL, migrations, fixtures...
 if err := sqlDB.Close(); err != nil { return err }
 if err := db.WaitDisconnected(ctx); err != nil { return err }
@@ -100,10 +99,13 @@ are unchanged. ConnectionInfo and DSN are immutable endpoint metadata, available
 after Close; use Closed to inspect lifecycle state. Zero-value handles cannot start
 operations; construct them through Start and Database.Snapshot.
 
-There is one simultaneous SQL connection per DB. The host currently binds every
-session to guest slot 0; supporting multiple clients requires per-connection slot
-allocation and lifecycle handling. Close the database/sql pool before
-WaitDisconnected and snapshot. DSN sets `interpolateParams=true` for driver-side
+Multiple clients can connect to one DB up to the guest-advertised session
+capacity (16 for the current native bundle). Each connection has its own guest
+session and transaction state. A connection beyond capacity receives MySQL
+error 1040; closing a client releases its slot after guest cleanup. Different
+sessions may have queries in flight together, without a throughput guarantee.
+Close the database/sql pool before WaitDisconnected when taking a snapshot.
+DSN sets `interpolateParams=true` for driver-side
 parameter interpolation through the supported text protocol. **This is not server
 prepared-statement support**; explicit Prepare remains unsupported.
 

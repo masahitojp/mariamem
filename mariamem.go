@@ -8,8 +8,8 @@
 // Go module does not download or contain these artifacts. The current native
 // target is macOS 15 or later on arm64.
 //
-// A Database owns its runtime and should be closed after use. Only one SQL client
-// connection can be active per instance; set database/sql's MaxOpenConns to 1.
+// A Database owns its runtime and should be closed after use. Multiple SQL
+// clients can connect up to the guest-advertised session capacity.
 // Close the SQL pool and call Database.WaitDisconnected before taking a snapshot.
 // Database.Snapshot creates a cold snapshot and closes its source database on
 // success. Snapshot.Fork starts independent databases from the saved state.

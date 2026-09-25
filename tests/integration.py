@@ -71,11 +71,9 @@ def main():
         db = start("normal")
         check("opaque database identity independent of PID", len(db.id) == 32 and db.id != str(db.diagnostics["host_pid"]))
         conn = connect(db)
-        try:
-            connect(db)
-            raise AssertionError("second connection accepted")
-        except pymysql.OperationalError as exc:
-            check("second connection rejected with 1040", exc.args[0] == 1040)
+        with connect(db) as second:
+            check("second connection accepted", sql(second, "SELECT 1") == ((1,),))
+            check("first connection remains usable", sql(conn, "SELECT 2") == ((2,),))
         acceptance.exercise(conn, evidence["wire_checks"], api_version=2)
         conn.rollback()
         sql(conn, "CREATE TEMPORARY TABLE gone_on_reconnect(id INT)")

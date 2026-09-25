@@ -68,6 +68,7 @@ type Process struct {
 	exitErr         error
 	abort           sync.Once
 	SnapshotVersion int
+	MaxSessions     int
 }
 
 func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore string, stderr io.Writer) (*Process, error) {
@@ -103,12 +104,13 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 	go func() { <-readDone; p.exitErr = cmd.Wait(); close(p.done); p.fail(errors.New("guest exited")) }()
 	select {
 	case r := <-ready:
-		if r.err == nil && r.result.Ready && r.result.Version == 2 && r.result.MaxSessions == 16 {
+		if r.err == nil && r.result.Ready && r.result.Version == 2 && r.result.MaxSessions > 0 && r.result.MaxSessions <= 65536 {
 			p.SnapshotVersion = r.result.SnapshotVersion
+			p.MaxSessions = r.result.MaxSessions
 			return p, nil
 		}
 		if r.err == nil {
-			r.err = errors.New("unsupported guest: requires multi-session API v2")
+			r.err = errors.New("unsupported guest: requires multi-session API v2 with valid capacity")
 		}
 		return nil, p.AbortAndWait(r.err)
 	case <-ctx.Done():

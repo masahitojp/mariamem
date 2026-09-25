@@ -20,6 +20,7 @@ type Server struct {
 	listener     net.Listener
 	mu           sync.Mutex
 	clients      map[net.Conn]*session
+	slots        []bool
 	closing      bool
 	workers      sync.WaitGroup
 	queryTimeout time.Duration
@@ -30,6 +31,7 @@ type Server struct {
 type session struct {
 	busy   bool
 	status uint16
+	slot   uint32
 }
 type Rejected struct {
 	Code    string
@@ -78,13 +80,14 @@ func Start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 		os.RemoveAll(transfer)
 		return nil, p.AbortAndWait(err)
 	}
-	s := &Server{Guest: p, listener: ln, clients: make(map[net.Conn]*session), queryTimeout: timeout, transfer: transfer, build: build}
+	s := &Server{Guest: p, listener: ln, clients: make(map[net.Conn]*session), slots: make([]bool, p.MaxSessions), queryTimeout: timeout, transfer: transfer, build: build}
 	go s.accept()
 	return s, nil
 }
 func (s *Server) Port() int      { return s.listener.Addr().(*net.TCPAddr).Port }
 func (s *Server) Closing() bool  { s.mu.Lock(); defer s.mu.Unlock(); return s.closing }
 func (s *Server) Active() int    { s.mu.Lock(); defer s.mu.Unlock(); return len(s.clients) }
+func (s *Server) Capacity() int  { return len(s.slots) }
 func (s *Server) Failure() error { return s.Guest.Err() }
 func (s *Server) Busy() bool {
 	s.mu.Lock()
@@ -109,12 +112,18 @@ func (s *Server) accept() {
 			conn.Close()
 			return
 		}
-		if len(s.clients) != 0 {
+		if s.Guest.Err() != nil {
 			s.mu.Unlock()
-			mysqlwire.Reject(conn)
+			mysqlwire.RejectUnavailable(conn)
 			continue
 		}
-		state := &session{busy: true}
+		slot, ok := s.allocateSlotLocked()
+		if !ok {
+			s.mu.Unlock()
+			mysqlwire.RejectCapacity(conn)
+			continue
+		}
+		state := &session{busy: true, slot: slot}
 		s.clients[conn] = state
 		s.workers.Add(1)
 		s.mu.Unlock()
@@ -134,15 +143,29 @@ func (s *Server) accept() {
 				Idle:    func(status uint16) { s.mu.Lock(); defer s.mu.Unlock(); state.status = status; state.busy = false },
 				Cleanup: func() { s.mu.Lock(); defer s.mu.Unlock(); state.busy = true },
 			}
-			err := mysqlwire.Serve(conn, s.Guest, s.queryTimeout, s.Closing, activity)
+			err := mysqlwire.Serve(conn, s.Guest, state.slot, s.queryTimeout, s.Closing, activity)
 			if err != nil {
 				s.Guest.Abort(fmt.Errorf("SQL session: %w", err))
 			}
 			s.mu.Lock()
 			delete(s.clients, conn)
+			// Serve waits for the guest's close acknowledgement. On failure the
+			// guest is aborted before a slot can be offered to another client.
+			s.slots[state.slot] = false
 			s.mu.Unlock()
 		}()
 	}
+}
+
+// allocateSlotLocked reserves the lowest free guest slot before session open.
+func (s *Server) allocateSlotLocked() (uint32, bool) {
+	for i, occupied := range s.slots {
+		if !occupied {
+			s.slots[i] = true
+			return uint32(i), true
+		}
+	}
+	return 0, false
 }
 func (s *Server) Close(ctx context.Context) (err error) {
 	defer func() { err = errors.Join(err, os.RemoveAll(s.transfer)) }()

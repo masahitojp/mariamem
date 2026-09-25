@@ -78,7 +78,7 @@ func (w *wire) send(b []byte) error {
 // callQuery observes a driver disconnect while the guest is executing SQL.
 // MySQL clients issue one command at a time; unexpected pipelined input also
 // invalidates the instance rather than leaving a query running unsupervised.
-func (w *wire) callQuery(p *guest.Process, sql []byte) (guest.Result, error) {
+func (w *wire) callQuery(p *guest.Process, slot uint32, sql []byte) (guest.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), w.timeout)
 	defer cancel()
 	type outcome struct {
@@ -87,7 +87,7 @@ func (w *wire) callQuery(p *guest.Process, sql []byte) (guest.Result, error) {
 	}
 	completed := make(chan outcome, 1)
 	go func() {
-		r, err := p.Call(ctx, 2, 0, sql)
+		r, err := p.Call(ctx, 2, slot, sql)
 		completed <- outcome{r, err}
 	}()
 	type observed struct {
@@ -163,9 +163,14 @@ func fatalPacket(err error) []byte {
 	}
 	return ErrorPacket(2013, "HY000", "mariamem database instance terminated: "+err.Error())
 }
-func Reject(conn net.Conn) {
+func RejectCapacity(conn net.Conn) {
 	w := wire{conn: conn, timeout: time.Second}
-	_ = w.send(ErrorPacket(1040, "08004", "mariamem allows one active connection"))
+	_ = w.send(ErrorPacket(1040, "08004", "mariamem session capacity exhausted"))
+	conn.Close()
+}
+func RejectUnavailable(conn net.Conn) {
+	w := wire{conn: conn, timeout: time.Second}
+	_ = w.send(ErrorPacket(2013, "HY000", "mariamem database instance terminated"))
 	conn.Close()
 }
 func okPacket(status uint16, affected, id uint64, warnings uint16) []byte {
@@ -248,11 +253,11 @@ type Activity struct {
 	Cleanup func()
 }
 
-func Serve(conn net.Conn, p *guest.Process, timeout time.Duration, closing func() bool, activity Activity) (err error) {
+func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, closing func() bool, activity Activity) (err error) {
 	call := func(op byte, sql []byte) (guest.Result, error) {
 		ctx, cancel := context.WithTimeout(context.Background(), timeout)
 		defer cancel()
-		return p.Call(ctx, op, 0, sql)
+		return p.Call(ctx, op, slot, sql)
 	}
 	r, err := call(1, nil)
 	if err != nil {
@@ -279,7 +284,7 @@ func Serve(conn net.Conn, p *guest.Process, timeout time.Duration, closing func(
 		var r guest.Result
 		var e error
 		if monitor {
-			r, e = w.callQuery(p, sql)
+			r, e = w.callQuery(p, slot, sql)
 		} else {
 			r, e = call(2, sql)
 		}

@@ -12,9 +12,12 @@ connections with their own context managers. Database `close()` is idempotent.
 resources. `logs` retains the last 16 Ki characters after cleanup.
 An explicitly supplied `log_path=` is preserved; default log directories are removed.
 
-`wait_disconnected()` waits until the host has released the SQL session after a
-driver disconnect. Call it before reconnecting to the same one-connection DB or
-creating a template snapshot.
+`wait_disconnected()` waits until the host has released all SQL sessions after
+driver disconnects. Multiple clients may connect to one DB up to the guest's
+session capacity (16 in the current native bundle). An extra connection gets
+MySQL error 1040; disconnecting a client makes its slot available after guest
+cleanup. Call `wait_disconnected()` before creating a template snapshot when
+all clients have been closed.
 
 ## Snapshots
 

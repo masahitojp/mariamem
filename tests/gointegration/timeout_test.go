@@ -59,6 +59,14 @@ func TestFatalQueryInterruption(t *testing.T) {
 			if err := pool.Ping(); err != nil {
 				t.Fatal(err)
 			}
+			observer, err := sql.Open("mysql", db.DSN())
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer observer.Close()
+			if err := observer.Ping(); err != nil {
+				t.Fatalf("second client could not connect: %v", err)
+			}
 			var value int
 			if err := pool.QueryRow("SELECT * FROM mariamem_missing_table").Scan(&value); err == nil || db.Err() != nil {
 				t.Fatalf("ordinary SQL error invalidated DB: query=%v instance=%v", err, db.Err())
@@ -102,6 +110,9 @@ func TestFatalQueryInterruption(t *testing.T) {
 			}
 			if err := pool.QueryRow("SELECT 1").Scan(&value); err == nil {
 				t.Fatal("query succeeded after invalidation")
+			}
+			if err := observer.QueryRow("SELECT 1").Scan(&value); err == nil {
+				t.Fatal("other session remained usable after invalidation")
 			}
 			if err := pool.Close(); err != nil {
 				t.Fatal(err)
