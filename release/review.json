@@ -18,8 +18,8 @@
     },
     "platform_acceptance": {
       "passed": true,
-      "evidence": "release/evidence/macos15-arm64-acceptance.json",
-      "note": "Clean Tart VM acceptance (maintainer-provided evidence) passed on macOS 15.7.7 (24G720) arm64 with Go 1.26.8, public module commit 8326c6b471e8, and native archive SHA256 9b1650d1fcf7ed337d96d2c39a0a9a6bf1ae28ed8f6f4c685041bbeac313e99c. All harness steps passed, including external consumer, InnoDB transaction, snapshot, independent forks and cleanup. Archive and runtime/guest hashes match the recorded candidate. macOS 12.5.1 libunwind compatibility failure remains documented in docs/macos-compatibility.md; macOS 12-14 are unsupported. This records native candidate acceptance, not wheel acceptance or binary publication."
+      "evidence": "release/evidence/macos15-arm64-alpha3-acceptance.json",
+      "note": "Clean Tart VM acceptance passed on macOS 15.7.7 (24G720) arm64 with Go 1.26.8, public module commit 41da4c38cc9dfec4767ac1a2cba434d34e62d4e7, and native archive SHA256 6bbee02002396b83c88b5a347c6cdccecb9c99c336102d85289120162becbc0c. All harness steps passed, including external consumer, InnoDB transaction, snapshot, independent forks and cleanup. A separate external Go consumer in the same VM passed simultaneous connections, session-variable isolation and reconnect using the same archive and public commit. Archive and runtime/guest hashes match the recorded candidate. macOS 12-14 remain unsupported. This records native candidate acceptance, not wheel acceptance or binary publication."
     }
   }
 }

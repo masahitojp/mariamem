@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-09-25T18:41:10.404463+00:00",
+  "mode": "acceptance",
+  "result": "PASS",
+  "platform_acceptance_passed": true,
+  "module_requested": "github.com/masahitojp/mariamem@41da4c38cc9dfec4767ac1a2cba434d34e62d4e7",
+  "archive": {
+    "filename": "mariamem-native-darwin-arm64.tar.gz",
+    "expected_sha256": "6bbee02002396b83c88b5a347c6cdccecb9c99c336102d85289120162becbc0c",
+    "sha256": "6bbee02002396b83c88b5a347c6cdccecb9c99c336102d85289120162becbc0c"
+  },
+  "steps": {
+    "environment": {
+      "status": "PASS"
+    },
+    "archive_sha256": {
+      "status": "PASS"
+    },
+    "extract": {
+      "status": "PASS"
+    },
+    "executable_permission": {
+      "status": "PASS"
+    },
+    "artifact_hashes": {
+      "status": "PASS"
+    },
+    "external_module": {
+      "status": "PASS"
+    },
+    "module_fetch": {
+      "status": "PASS"
+    },
+    "consumer_build": {
+      "status": "PASS"
+    },
+    "NativeDir": {
+      "status": "PASS",
+      "step": "NativeDir"
+    },
+    "Start": {
+      "status": "PASS",
+      "step": "Start"
+    },
+    "database_sql_connection": {
+      "status": "PASS",
+      "step": "database_sql_connection"
+    },
+    "SELECT_1": {
+      "status": "PASS",
+      "step": "SELECT_1"
+    },
+    "MariaDB_version": {
+      "status": "PASS",
+      "step": "MariaDB_version"
+    },
+    "InnoDB_transaction": {
+      "status": "PASS",
+      "step": "InnoDB_transaction"
+    },
+    "WaitDisconnected": {
+      "status": "PASS",
+      "step": "WaitDisconnected"
+    },
+    "Snapshot": {
+      "status": "PASS",
+      "step": "Snapshot"
+    },
+    "source_closed": {
+      "status": "PASS",
+      "step": "source_closed"
+    },
+    "Fork_A": {
+      "status": "PASS",
+      "step": "Fork_A"
+    },
+    "Fork_B": {
+      "status": "PASS",
+      "step": "Fork_B"
+    },
+    "fork_isolation": {
+      "status": "PASS",
+      "step": "fork_isolation"
+    },
+    "close_cleanup": {
+      "status": "PASS",
+      "step": "close_cleanup"
+    },
+    "consumer": {
+      "status": "PASS",
+      "step": "consumer"
+    },
+    "harness_cleanup": {
+      "status": "PASS"
+    }
+  },
+  "consumer_events": [
+    {
+      "status": "RUNNING",
+      "step": "NativeDir"
+    },
+    {
+      "status": "PASS",
+      "step": "NativeDir"
+    },
+    {
+      "status": "RUNNING",
+      "step": "Start"
+    },
+    {
+      "status": "PASS",
+      "step": "Start"
+    },
+    {
+      "status": "RUNNING",
+      "step": "database_sql_connection"
+    },
+    {
+      "status": "PASS",
+      "step": "database_sql_connection"
+    },
+    {
+      "status": "RUNNING",
+      "step": "SELECT_1"
+    },
+    {
+      "status": "PASS",
+      "step": "SELECT_1"
+    },
+    {
+      "status": "RUNNING",
+      "step": "MariaDB_version"
+    },
+    {
+      "details": {
+        "version": "13.1.0-MariaDB-embedded"
+      },
+      "status": "INFO",
+      "step": "MariaDB_version"
+    },
+    {
+      "status": "PASS",
+      "step": "MariaDB_version"
+    },
+    {
+      "status": "RUNNING",
+      "step": "InnoDB_transaction"
+    },
+    {
+      "status": "PASS",
+      "step": "InnoDB_transaction"
+    },
+    {
+      "status": "RUNNING",
+      "step": "WaitDisconnected"
+    },
+    {
+      "status": "PASS",
+      "step": "WaitDisconnected"
+    },
+    {
+      "status": "RUNNING",
+      "step": "Snapshot"
+    },
+    {
+      "status": "PASS",
+      "step": "Snapshot"
+    },
+    {
+      "status": "RUNNING",
+      "step": "source_closed"
+    },
+    {
+      "status": "PASS",
+      "step": "source_closed"
+    },
+    {
+      "status": "RUNNING",
+      "step": "Fork_A"
+    },
+    {
+      "status": "PASS",
+      "step": "Fork_A"
+    },
+    {
+      "status": "RUNNING",
+      "step": "Fork_B"
+    },
+    {
+      "status": "PASS",
+      "step": "Fork_B"
+    },
+    {
+      "status": "RUNNING",
+      "step": "fork_isolation"
+    },
+    {
+      "status": "PASS",
+      "step": "fork_isolation"
+    },
+    {
+      "status": "RUNNING",
+      "step": "close_cleanup"
+    },
+    {
+      "status": "PASS",
+      "step": "close_cleanup"
+    },
+    {
+      "status": "PASS",
+      "step": "consumer"
+    }
+  ],
+  "environment": {
+    "sw_vers": "ProductName:\t\tmacOS\nProductVersion:\t\t15.7.7\nBuildVersion:\t\t24G720",
+    "product_version": "15.7.7",
+    "architecture": "arm64",
+    "go_version": "go version go1.26.8 darwin/arm64"
+  },
+  "target_matches": true,
+  "artifacts": {
+    "files": {
+      "wasmer-headless": "ebbedfd8c43d866440b960a7b5f773b7b6932a563b6f61d043bc0c21ed535899",
+      "mariamem.wasmu": "f2d31597064e12ba3a6955c51cdbef5aaae5d33501b50799a5ef27dadc7e562b",
+      "mariamem.wasmu.json": "99abbbfa652cc304077d743c774a82846952962fbce71cc4df1e6297b8de4e35"
+    },
+    "guest_wasm_sha256": "8b2822d3414cb978bc9b608faa55e3b8980c905906889741aba0a40a3cc17c10"
+  },
+  "module_resolved": {
+    "Path": "github.com/masahitojp/mariamem",
+    "Version": "v0.1.0-alpha.2.0.20260925183004-41da4c38cc9d",
+    "Sum": "h1:9BHa1IoHX0aLGjrciSMPKgYk5ryUGzsLHMGbhSMhnWM="
+  },
+  "finished_at": "2026-09-25T18:41:25.575224+00:00"
+}
