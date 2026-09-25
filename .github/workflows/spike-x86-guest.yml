@@ -1,0 +1,161 @@
+name: Spike - Linux x86_64 WASIX guest
+on:
+  workflow_dispatch:
+
+# Architecture experiment only. No release review, tag, or publication.
+permissions:
+  contents: read
+
+jobs:
+  guest:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - name: Install native host-tool dependencies
+        run: |
+          test "$(uname -m)" = x86_64
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            build-essential cmake ninja-build bison pkg-config curl ca-certificates git \
+            libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
+      - name: Install pinned x86_64 WASIXCC
+        run: |
+          mkdir -p "$HOME/.wasixcc/bin"
+          curl --proto '=https' --tlsv1.2 --fail --show-error --location --retry 3 \
+            https://github.com/wasix-org/wasixcc/releases/download/v0.4.7/wasixcc-x86_64-unknown-linux-gnu.tar.gz \
+            -o "$RUNNER_TEMP/wasixcc.tar.gz"
+          printf '%s  %s\n' \
+            d39db81b6b76d9567e0f61955f390b8586d932ab683816989e23305f27099c2f \
+            "$RUNNER_TEMP/wasixcc.tar.gz" | sha256sum --check -
+          tar -xzf "$RUNNER_TEMP/wasixcc.tar.gz" -C "$HOME/.wasixcc/bin"
+          "$HOME/.wasixcc/bin/wasixccenv" install-executables "$HOME/.wasixcc/bin"
+          "$HOME/.wasixcc/bin/wasixccenv" download-all \
+            --llvm-tag 21.1.206 --sysroot-tag v2026-07-03.1 --binaryen-tag version_133
+          echo "$HOME/.wasixcc/bin" >> "$GITHUB_PATH"
+      - name: Build guest without Docker
+        run: |
+          python scripts/prepare_guest.py
+          JOBS=3 bash build/source/wasm/build-wasix.sh
+          mkdir -p build/spike-x86
+          cp build/source/wasm/dist/lite4mariadb.wasix.wasm build/spike-x86/mariamem.wasm
+          python - <<'PY'
+          import hashlib, json, os, pathlib, platform
+          root = pathlib.Path('build')
+          wasm = root / 'spike-x86/mariamem.wasm'
+          if wasm.read_bytes()[:8] != b'\0asm\1\0\0\0':
+              raise SystemExit('not a WebAssembly module')
+          digest = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+          identity = {
+              'source_commit': os.environ['GITHUB_SHA'],
+              'linux_architecture': platform.machine(),
+              'wasixcc_version': 'v0.4.7',
+              'wasixcc_archive_sha256': 'd39db81b6b76d9567e0f61955f390b8586d932ab683816989e23305f27099c2f',
+              'llvm_tag': '21.1.206', 'sysroot_tag': 'v2026-07-03.1',
+              'binaryen_tag': 'version_133', 'target': 'wasm32/WASIX',
+              'prepared_source_sha256': digest(root / 'prepared-source.json'),
+              'wasm_sha256': digest(wasm), 'wasm_bytes': wasm.stat().st_size,
+          }
+          (root / 'spike-x86/identity.json').write_text(json.dumps(identity, indent=2) + '\n')
+          (root / 'spike-x86/SHA256SUMS').write_text(identity['wasm_sha256'] + '  mariamem.wasm\n')
+          print(json.dumps(identity, indent=2))
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: x86-guest-wasm-${{ github.sha }}
+          path: build/spike-x86/
+          if-no-files-found: error
+          retention-days: 14
+
+  macos:
+    needs: guest
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: x86-guest-wasm-${{ github.sha }}
+          path: build/spike-x86/
+      - name: Verify transferred guest and AOT compile
+        run: |
+          cd build/spike-x86
+          shasum -a 256 -c SHA256SUMS
+          cd ../..
+          python - <<'PY'
+          import json, os, pathlib
+          import sys
+          sys.path.insert(0, 'scripts')
+          from common import extract, fetch
+          identity = json.loads(pathlib.Path('build/spike-x86/identity.json').read_text())
+          if identity['source_commit'] != os.environ['GITHUB_SHA'] or identity['linux_architecture'] != 'x86_64':
+              raise SystemExit('wrong source commit or build architecture')
+          extract(fetch('wasmer'), pathlib.Path('build/tools/wasmer'))
+          PY
+          mkdir -p build/wasmer-home build/spike-native
+          export WASMER_DIR="$GITHUB_WORKSPACE/build/wasmer-home"
+          build/tools/wasmer/bin/wasmer --version
+          build/tools/wasmer/bin/wasmer validate build/spike-x86/mariamem.wasm
+          build/tools/wasmer/bin/wasmer inspect build/spike-x86/mariamem.wasm > build/spike-x86/inspect.txt
+          grep -F '"wasi_snapshot_preview1".' build/spike-x86/inspect.txt > /dev/null
+          grep -F '"wasix_32v1".' build/spike-x86/inspect.txt > /dev/null
+          grep -F '"l4m_query_v2"' build/spike-x86/inspect.txt > /dev/null
+          build/tools/wasmer/bin/wasmer compile build/spike-x86/mariamem.wasm \
+            -o build/spike-native/mariamem.wasmu
+          cp build/tools/wasmer/bin/wasmer-headless build/spike-native/wasmer-headless
+          chmod 755 build/spike-native/wasmer-headless
+          python - <<'PY'
+          import hashlib, json, os, pathlib, platform, subprocess
+          root = pathlib.Path('build/spike-native')
+          wasm = pathlib.Path('build/spike-x86/mariamem.wasm')
+          digest = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+          aot = root / 'mariamem.wasmu'
+          sidecar = {'wasm_sha256': digest(wasm), 'module_sha256': digest(aot), 'snapshot_version': 1}
+          (root / 'mariamem.wasmu.json').write_text(json.dumps(sidecar, indent=2) + '\n')
+          manifest = {'version': 1, 'platform': 'darwin-arm64', 'minimum_macos': 15,
+                      'sha256': {name: digest(root / name) for name in
+                                 ('wasmer-headless', 'mariamem.wasmu', 'mariamem.wasmu.json')}}
+          (root / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+          identity = json.loads(pathlib.Path('build/spike-x86/identity.json').read_text())
+          identity.update({'macos_version': subprocess.check_output(['sw_vers', '-productVersion'], text=True).strip(),
+                           'macos_architecture': platform.machine(), 'go_version': subprocess.check_output(['go', 'version'], text=True).strip(),
+                           'wasmer_version': subprocess.check_output(['build/tools/wasmer/bin/wasmer', '--version'], text=True, env={**os.environ, 'WASMER_DIR': str(pathlib.Path('build/wasmer-home').resolve())}).strip(),
+                           'aot_sha256': digest(aot), 'aot_bytes': aot.stat().st_size})
+          pathlib.Path('build/spike-x86/identity.json').write_text(json.dumps(identity, indent=2) + '\n')
+          print(json.dumps(identity, indent=2))
+          PY
+      - name: Minimal real MariaDB smoke
+        run: |
+          go run ./scripts/spikes/x86_guest_smoke.go "$GITHUB_WORKSPACE/build/spike-native"
+          python - <<'PY'
+          import json, pathlib
+          path = pathlib.Path('build/spike-x86/identity.json')
+          result = json.loads(path.read_text())
+          result['smoke'] = 'PASS'
+          path.write_text(json.dumps(result, indent=2) + '\n')
+          PY
+          cat build/spike-x86/identity.json >> "$GITHUB_STEP_SUMMARY"
+          echo 'Architecture spike only; nothing was published.' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: x86-guest-spike-result-${{ github.sha }}
+          path: |
+            build/spike-x86/identity.json
+            build/spike-x86/inspect.txt
+          if-no-files-found: warn
+          retention-days: 14
