@@ -29,7 +29,6 @@ jobs:
     env:
       NATIVE_URL: https://github.com/masahitojp/mariamem/releases/download/v0.1.0-alpha.2/mariamem-native-darwin-arm64.tar.gz
       NATIVE_SHA256: 9b1650d1fcf7ed337d96d2c39a0a9a6bf1ae28ed8f6f4c685041bbeac313e99c
-      MARIAMEM_NATIVE_DIR: ${{ runner.temp }}/mariamem-native-darwin-arm64
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
@@ -46,4 +45,5 @@ jobs:
             "$NATIVE_URL" -o "$RUNNER_TEMP/native.tar.gz"
           printf '%s  %s\n' "$NATIVE_SHA256" "$RUNNER_TEMP/native.tar.gz" | shasum -a 256 -c -
           tar -xzf "$RUNNER_TEMP/native.tar.gz" -C "$RUNNER_TEMP"
+          echo "MARIAMEM_NATIVE_DIR=$RUNNER_TEMP/mariamem-native-darwin-arm64" >> "$GITHUB_ENV"
       - run: python scripts/verify.py integration
