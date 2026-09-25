@@ -126,7 +126,7 @@ WaitDisconnected reject invalidated instances; Close remains idempotent and
 releases the guest process and temporary files. Signal handlers are not
 installed in the caller process.
 
-## Opt-in integration verification (Task 4b)
+## Opt-in integration verification
 
 Use the existing native bundle, without rebuilding or rearranging its artifacts:
 
@@ -154,9 +154,10 @@ connection. It tolerates the brief ErrBusy interval between a wire reply and hos
 session-idle bookkeeping, then requires ErrTransactionActive. All successful
 snapshots follow pool Close → WaitDisconnected.
 
-This integration test is correctness evidence, not a benchmark. The separate
-clean macOS 15 acceptance is recorded above. Prepared statements and query-timeout
-behavior are outside this integration test's scope.
+This integration test is correctness evidence, not a benchmark. It now also
+covers query interruption and multiple independent SQL clients. The separate
+clean macOS 15 acceptance is recorded above. Prepared statements are not tested.
+For when to run the other local checks, see [development](development.md#local-verification).
 
 ## Manual native bundle (local candidate)
 

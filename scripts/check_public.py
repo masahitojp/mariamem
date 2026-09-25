@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 from common import ROOT, digest
 
-TOP_FILES = {".gitignore", ".gitattributes", "README.md", "CONTRIBUTING.md", "LICENSE", "NOTICE",
+TOP_FILES = {".gitignore", ".gitattributes", "AGENTS.md", "README.md", "CONTRIBUTING.md", "LICENSE", "NOTICE",
              "THIRD_PARTY_LICENSES", "go.mod", "go.sum", "mariamem.go", "mariamem_test.go",
              "connection.go", "errors.go", "snapshot.go"}
 TOP_DIRS = {"cmd", "internal", "python", "guest", "scripts", "tests", "docs", "licenses", "release", ".github", "benchmarks"}

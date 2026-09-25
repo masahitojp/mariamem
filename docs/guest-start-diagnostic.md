@@ -1,5 +1,10 @@
 # Diagnose Start EOF without changing production behavior
 
+This tool was created for the unsupported macOS 12 guest-start investigation.
+Keep it for on-demand startup diagnosis; it is not part of ordinary development,
+release acceptance, or supported-platform verification. The VM example below is
+historical and does not establish support for macOS 12–14.
+
 ## Launch path
 
 For a fresh `mariamem.Start`, `mariamem.go` creates a temporary
