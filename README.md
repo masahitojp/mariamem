@@ -13,6 +13,11 @@ distribution version is `0.1.0a4`. Native support is **macOS 15+ on Apple
 Silicon (arm64)**. The instructions use GitHub Release or locally built
 artifacts and do not depend on PyPI.
 
+The checkout also implements **Ubuntu 24.04 LTS / x86_64** native support.
+Its clean-runner acceptance is pending; no Linux asset is claimed for the
+existing public release. Linux bundles and wheels must come from a verified
+future candidate. Other Linux distributions are not supported.
+
 ## Go
 
 Go **1.26 or newer** is required. Start in a fresh directory:
@@ -136,7 +141,8 @@ see the [Python guide](docs/python.md).
 - Snapshots are cold: close client connections first, then wait for disconnect.
   A successful snapshot ends its source database. Temporary snapshots are
   removed when closed; explicit destinations are retained.
-- This is an alpha API. Native support is limited to macOS 15+ arm64.
+- This is an alpha API. Published native support is macOS 15+ arm64.
+  Ubuntu 24.04 LTS / x86_64 is the new checkout target, pending clean CI acceptance.
 
 Project code is [GPL-2.0-only](LICENSE); bundled components keep their own
 licenses and notices in [NOTICE](NOTICE) and

@@ -42,7 +42,7 @@ if args.ci_evidence_dir:
     manifest["guest_source_provenance"] = verify_ci_guest_source(
         ROOT, LOCK, stage, manifest["build_records"])
     manifest["source_complete"] = True
-    manifest["build_path"] = "linux-x86_64-wasm/macos-arm64-aot"
+    manifest["build_path"] = "linux-x86_64-wasm/" + ("ubuntu24.04-x86_64-aot" if manifest["build_records"]["guest-aot-provenance.json"].get("aot_platform") == "ubuntu24.04-x86_64" else "macos-arm64-aot")
     # Approval and clean-platform acceptance can only happen after immutable
     # binary construction. Neither is an input to this archive.
 else:

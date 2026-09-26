@@ -308,10 +308,10 @@ Target platforms for 0.1:
 
 ```text
 macOS 15+ / arm64
-Linux / x86_64
+Ubuntu 24.04 LTS / x86_64
 ```
 
-Linux x86_64 is important because CI environments commonly use Linux and it
+Ubuntu 24.04 x86_64 is important because CI environments commonly use Linux and it
 makes mariamem useful beyond the maintainer's local Mac.
 
 Not currently required:
@@ -401,8 +401,8 @@ build inputs → immutable candidate → candidate SHA256
 
 The canonical guest build boundary is Linux x86_64 WASIX guest build → exact
 WASM handoff → macOS arm64 AOT/package. Docker and Tart are not dependencies
-of the canonical release path. This Linux build capability does not yet mean
-Linux product/runtime support.
+of the canonical release path. Target-native Ubuntu 24.04 x86_64 AOT/package
+is now implemented alongside macOS; clean product acceptance is pending CI.
 
 CI must retrieve the exact candidate source/ref through its remote trigger,
 without a permanent manual push step or build/tag diff inspection. Clean macOS
@@ -426,7 +426,7 @@ v0.1.0-alpha.4 end-to-end release rehearsal
         ↓
 failure diagnostics foundation
         ↓
-Linux x86_64 product support
+Ubuntu 24.04 x86_64 product support (implemented; clean CI acceptance pending)
         ↓
 minimum failure UX
         ↓
@@ -510,14 +510,16 @@ repeat of the alpha.2 release's accepted native artifact referring to alpha.1.
 
 ---
 
-## Linux x86_64 before 0.1
+## Ubuntu 24.04 x86_64 before 0.1
 
-Linux x86_64 is planned as a 0.1 product capability.
+The first Linux product target is exactly Ubuntu 24.04 LTS / x86_64. Native
+build/package support is implemented; clean consumer acceptance must pass before
+claiming accepted artifacts. No Linux asset is claimed for an existing release.
 
 The intended scope is deliberately narrow:
 
 ```text
-Linux x86_64
+Ubuntu 24.04 LTS x86_64
 Go
 Python
 Start / SQL

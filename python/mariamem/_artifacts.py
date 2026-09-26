@@ -21,6 +21,28 @@ def _available(path, executable):
         raise ArtifactError(f"native input is not executable: {path}", "native_unavailable")
 
 
+def _os_release():
+    values = {}
+    for line in Path("/etc/os-release").read_text().splitlines():
+        key, separator, value = line.partition("=")
+        if separator:
+            values[key] = value.strip("\"'")
+    return values
+
+
+def _platform_identity():
+    if platform.system() == "Darwin" and platform.machine() == "arm64":
+        return "darwin-arm64"
+    if platform.system() == "Linux" and platform.machine() == "x86_64":
+        try:
+            release = _os_release()
+        except OSError as exc:
+            raise ArtifactError("cannot identify Ubuntu release", "unsupported_platform") from exc
+        if release.get("ID") == "ubuntu" and release.get("VERSION_ID") == "24.04":
+            return "ubuntu24.04-x86_64"
+    raise ArtifactError("mariamem supports macOS 15+ arm64 or Ubuntu 24.04 x86_64", "unsupported_platform")
+
+
 def resolve(host_binary=None, runtime=None, module=None):
     values = {"host_binary": host_binary, "runtime": runtime, "module": module}
     if all(value is not None for value in values.values()):
@@ -28,15 +50,22 @@ def resolve(host_binary=None, runtime=None, module=None):
         for key, path in resolved.items():
             _available(path, key != "module")
         return {key: str(path) for key, path in resolved.items()}
-    if platform.system() != "Darwin" or platform.machine() != "arm64":
-        raise ArtifactError("This mariamem alpha supports macOS 15+ arm64 only", "unsupported_platform")
+    identity = _platform_identity()
     root = Path(os.environ.get("MARIAMEM_NATIVE_DIR", Path(__file__).parent / "_native"))
     names = {"host_binary": "mariamem-host", "runtime": "wasmer-headless", "module": "mariamem.wasmu"}
     try:
         manifest = json.loads((root / "manifest.json").read_text())
         if manifest["version"] != 1:
             raise ValueError("unsupported artifact manifest")
-        if int(platform.mac_ver()[0].split(".")[0]) < manifest["minimum_macos"]:
+        if manifest.get("platform") != identity:
+            raise ValueError("native bundle platform mismatch")
+        if identity == "ubuntu24.04-x86_64" and (
+            manifest.get("distribution") != "ubuntu"
+            or manifest.get("version_id") != "24.04"
+            or manifest.get("architecture") != "x86_64"
+        ):
+            raise ValueError("native bundle requires Ubuntu 24.04 x86_64 metadata")
+        if identity == "darwin-arm64" and int(platform.mac_ver()[0].split(".")[0]) < manifest["minimum_macos"]:
             raise ArtifactError(f"this alpha requires macOS {manifest['minimum_macos']} or newer", "unsupported_platform")
         for key, name in names.items():
             if values[key] is not None:

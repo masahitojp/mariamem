@@ -254,3 +254,20 @@ verification commands, Singlepass BUSL-1.1 disclosure, and the accepted webc
 The absence of a separate webc license file is recorded without inferred
 copyright wording. The release guard and review of the exact staged assets
 remain the final local checks before publication.
+
+## Ubuntu 24.04 product candidates
+
+`ubuntu-product.yml` builds an exact remote checkout on `ubuntu-24.04` and
+hands frozen native/wheel/source bytes to a separate Ubuntu consumer job.
+It checks public Go consumers, installed-wheel consumers, lifecycle regressions
+and the existing CI release guard with Ubuntu-specific external evidence.
+It does not publish or expand the existing macOS release asset set.
+
+The target is Ubuntu 24.04 LTS / x86_64, with a `linux_x86_64` wheel,
+not a manylinux compatibility claim. Source manifests record the Linux-native
+AOT path, pinned Wasmer distribution, actual ELF dependencies and GLIBC floor.
+Linux runtime notices reuse the reviewed common inventory and add
+`release/wasmer-linux-runtime-notices.json` plus
+`licenses/Wasmer-Linux-NOTICES.txt`; verify with
+`python3 scripts/linux_runtime_notices.py`. Historical macOS evidence is unchanged.
+Clean Ubuntu acceptance is pending until the product workflow succeeds.

@@ -100,7 +100,7 @@ class PlatformHarness(unittest.TestCase):
             harness.check_artifacts(native)
 
     def test_ambient_go_and_native_settings_removed(self):
-        with patch.dict(os.environ, {'GOWORK':'ambient', 'GOFLAGS':'-modfile=other', 'MARIAMEM_NATIVE_DIR':'ambient', 'WASMER_DIR':'ambient', 'GH_TOKEN':'secret', 'GITHUB_TOKEN':'secret'}):
+        with patch.dict(os.environ, {'GOWORK':'ambient', 'GOFLAGS':'-modfile=other', 'MARIAMEM_NATIVE_DIR':'ambient', 'WASMER_DIR':'ambient', 'GH_TOKEN':'secret', 'GITHUB_TOKEN':'secret', 'LD_LIBRARY_PATH':'ambient', 'LD_PRELOAD':'ambient'}):
             env=harness.isolated_env(self.root)
         self.assertEqual(env['GOWORK'],'off')
         self.assertEqual(env['GOFLAGS'],'-modcacherw')
@@ -109,6 +109,8 @@ class PlatformHarness(unittest.TestCase):
         self.assertNotIn('WASMER_DIR',env)
         self.assertNotIn('GH_TOKEN',env)
         self.assertNotIn('GITHUB_TOKEN',env)
+        self.assertNotIn('LD_LIBRARY_PATH',env)
+        self.assertNotIn('LD_PRELOAD',env)
 
     def test_exact_public_commit_binding(self):
         commit = 'a' * 40
@@ -207,6 +209,77 @@ class PlatformHarness(unittest.TestCase):
         for version in ('12.5.1', '13.7.0', '14.7.0'):
             self.assertFalse(harness.eligible(version, 'arm64'))
         self.assertFalse(harness.eligible('15.7.1','x86_64'))
+
+
+class UbuntuPlatformHarness(unittest.TestCase):
+    setUp = PlatformHarness.setUp
+    archive_with = PlatformHarness.archive_with
+    # Keep Ubuntu coverage explicit rather than inheriting macOS-only assumptions.
+    def fixture(self, executable=True):
+        files = {'wasmer-headless': b'inert runtime', 'mariamem.wasmu': b'inert guest'}
+        files['mariamem.wasmu.json'] = json.dumps({
+            'module_sha256': hashlib.sha256(files['mariamem.wasmu']).hexdigest(),
+            'wasm_sha256': 'a' * 64}).encode()
+        files['manifest.json'] = json.dumps({
+            'version': 1, 'platform': harness.UBUNTU, 'distribution': 'ubuntu',
+            'version_id': '24.04', 'architecture': 'x86_64',
+            'sha256': {k: hashlib.sha256(v).hexdigest() for k, v in files.items()}}).encode()
+        bundle = 'mariamem-native-ubuntu24.04-x86_64'
+        self.archive_with([(bundle + '/' + k, v, tarfile.REGTYPE,
+                            0o755 if k == 'wasmer-headless' and executable else 0o644)
+                           for k, v in files.items()])
+
+    def run_ubuntu(self, version='24.04', dry=False):
+        self.fixture()
+        argv = ['harness', '--target', harness.UBUNTU, '--archive', str(self.archive),
+                '--sha256', harness.digest(self.archive), '--module', '7f4820e',
+                '--evidence', str(self.evidence)]
+        if dry:
+            argv.append('--dry-run')
+        def command(args, **kwargs):
+            if args == ['cat', '/etc/os-release']:
+                text = 'NAME="Ubuntu"\nID=ubuntu\nVERSION_ID="' + version + '"\n'
+            elif args[0] == '/usr/bin/uname':
+                text = 'Linux' if args[-1] == '-s' else 'x86_64'
+            elif args[1] == 'version':
+                text = 'go version go1.26.8 linux/amd64'
+            else:
+                self.assertEqual(kwargs['env']['GOWORK'], 'off')
+                self.assertNotEqual(kwargs['cwd'], Path.cwd())
+                text = json.dumps({'Path': harness.MODULE, 'Version': 'v0.0.0-example'}) if args[1] == 'list' else ''
+            return subprocess.CompletedProcess(args, 0, text, '')
+        def consumer(args, **kwargs):
+            self.assertEqual(Path(args[1]).name, 'mariamem-native-ubuntu24.04-x86_64')
+            events = [{'step': step, 'status': 'PASS'}
+                      for step in harness.STEPS[harness.STEPS.index('NativeDir'):-1]]
+            proc = Mock()
+            proc.stdout = io.StringIO(''.join(json.dumps(e) + '\n' for e in events))
+            proc.wait.return_value = proc.poll.return_value = 0
+            return proc
+        with patch.object(sys, 'argv', argv), patch.object(harness.subprocess, 'run', command), \
+             patch.object(harness.subprocess, 'Popen', consumer), patch('builtins.print'):
+            code = harness.main()
+        return code, json.loads(self.evidence.read_text())
+
+    def test_ubuntu_external_consumer(self):
+        code, evidence = self.run_ubuntu()
+        self.assertEqual(code, 0)
+        self.assertTrue(evidence['platform_acceptance_passed'])
+        self.assertEqual(evidence['target'], harness.UBUNTU)
+        self.assertEqual(evidence['environment']['version_id'], '24.04')
+        self.assertEqual(evidence['environment']['architecture'], 'x86_64')
+
+    def test_ubuntu_22_not_supported(self):
+        code, evidence = self.run_ubuntu(version='22.04')
+        self.assertEqual(code, 1)
+        self.assertEqual(evidence['failure']['step'], 'environment')
+
+    def test_ubuntu_dry_run_not_acceptance(self):
+        code, evidence = self.run_ubuntu(dry=True)
+        self.assertEqual(code, 0)
+        self.assertEqual(evidence['result'], 'DRY_RUN')
+        self.assertFalse(evidence['platform_acceptance_passed'])
+
 
 
 if __name__ == '__main__':

@@ -114,6 +114,14 @@
         "tools/witx/src",
         "phases/snapshot/witx"
       ]
+    },
+    {
+      "name": "wasmer-linux-x86_64",
+      "file": "wasmer-linux-amd64.tar.gz",
+      "url": "https://github.com/wasmerio/wasmer/releases/download/v7.4.2/wasmer-linux-amd64.tar.gz",
+      "version": "7.4.2",
+      "sha256": "07271f7ecf449135bbd44cfe9f38a65e54ab25f1564a9c6bd2d0d5cca5743963",
+      "kind": "runtime-binary"
     }
   ],
   "pristine_files": {

@@ -7,11 +7,13 @@ import os
 from pathlib import Path, PurePosixPath
 import re
 import shutil
+import shlex
 import signal
 import subprocess
 import tarfile
 import tempfile
 from datetime import datetime, timezone
+from native_target import DARWIN, UBUNTU, target_metadata, manifest_target
 
 MODULE = 'github.com/masahitojp/mariamem'
 BUNDLE = 'mariamem-native-darwin-arm64'
@@ -56,12 +58,13 @@ def bind_remote_origin(resolved, remote, expected, requested_tag=None):
     return bound
 
 
-def extract(archive, destination):
+def extract(archive, destination, target=DARWIN):
+    bundle = target_metadata(target)["bundle_name"]
     seen = set()
     with tarfile.open(archive, 'r:gz') as tar:
         for m in tar:
             p = PurePosixPath(m.name)
-            if (p.is_absolute() or '..' in p.parts or not p.parts or p.parts[0] != BUNDLE
+            if (p.is_absolute() or '..' in p.parts or not p.parts or p.parts[0] != bundle
                     or p.as_posix() in seen or not (m.isfile() or m.isdir())):
                 raise ValueError('unsafe/duplicate archive member: ' + m.name)
             seen.add(p.as_posix())
@@ -73,14 +76,17 @@ def extract(archive, destination):
                 with tar.extractfile(m) as src, target.open('xb') as out:
                     shutil.copyfileobj(src, out)
                 target.chmod(m.mode & 0o777)
-    return destination / BUNDLE
+    return destination / bundle
 
 
-def check_artifacts(native):
+def check_artifacts(native, target=DARWIN):
     manifest = json.loads((native / 'manifest.json').read_text())
     hashes = {name: digest(native / name) for name in ARTIFACTS}
-    if manifest.get('platform') != 'darwin-arm64' or manifest.get('version') != 1 or manifest.get('minimum_macos') != 15:
-        raise ValueError('unexpected native manifest')
+    if manifest.get("platform") != target or manifest.get("version") != 1:
+        raise ValueError("unexpected native manifest")
+    manifest_target(manifest)
+    if target == DARWIN and manifest.get("minimum_macos") != 15:
+        raise ValueError("unexpected native manifest")
     if any(manifest['sha256'].get(name) != value for name, value in hashes.items()):
         raise ValueError('native artifact hash mismatch')
     sidecar = json.loads((native / 'mariamem.wasmu.json').read_text())
@@ -90,7 +96,7 @@ def check_artifacts(native):
 
 
 def isolated_env(work):
-    env = {k: v for k, v in os.environ.items() if k not in ('GH_TOKEN', 'GITHUB_TOKEN') and not k.startswith(('GO', 'MARIAMEM_', 'WASMER_', 'WASIX_', 'DYLD_'))}
+    env = {k: v for k, v in os.environ.items() if k not in ('GH_TOKEN', 'GITHUB_TOKEN') and not k.startswith(('GO', 'MARIAMEM_', 'WASMER_', 'WASIX_', 'DYLD_', 'LD_'))}
     env.update(GOWORK='off', GOENV='off', GOFLAGS='-modcacherw', GOTOOLCHAIN='local', CGO_ENABLED='0',
                GO111MODULE='on', GOPROXY='https://proxy.golang.org,direct', GOSUMDB='sum.golang.org',
                GOPATH=str(work / 'gopath'), GOMODCACHE=str(work / 'modcache'),
@@ -101,6 +107,7 @@ def isolated_env(work):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--target', choices=(DARWIN, UBUNTU), default=DARWIN)
     parser.add_argument('--archive', type=Path, required=True)
     parser.add_argument('--sha256', required=True)
     parser.add_argument('--module', required=True, help='public commit, tag or pseudo-version (no local replace)')
@@ -123,7 +130,7 @@ def main():
         parser.error('evidence/log already exists; choose a new output path')
     output.parent.mkdir(parents=True, exist_ok=True)
     archive = args.archive.expanduser().resolve()
-    evidence = {'schema_version': 1, 'started_at': datetime.now(timezone.utc).isoformat(),
+    evidence = {'schema_version': 1, 'target': args.target, 'started_at': datetime.now(timezone.utc).isoformat(),
                 'mode': 'dry-run' if args.dry_run else 'acceptance', 'result': 'FAIL',
                 'platform_acceptance_passed': False, 'module_requested': MODULE + '@' + args.module,
                 'expected_source_commit': args.expected_commit.lower() if args.expected_commit else None,
@@ -160,16 +167,26 @@ def main():
     try:
         begin('environment')
         evidence['environment'] = {}
-        for key, command in [('sw_vers', ['/usr/bin/sw_vers']),
-                             ('product_version', ['/usr/bin/sw_vers', '-productVersion']),
-                             ('architecture', ['/usr/bin/uname', '-m']),
-                             ('go_version', [args.go, 'version'])]:
+        commands = ([('sw_vers', ['/usr/bin/sw_vers']),
+                     ('product_version', ['/usr/bin/sw_vers', '-productVersion'])]
+                    if args.target == DARWIN else [('os_release', ['cat', '/etc/os-release']),
+                                                  ('system', ['/usr/bin/uname', '-s'])])
+        commands += [('architecture', ['/usr/bin/uname', '-m']),
+                     ('go_version', [args.go, 'version'])]
+        for key, command in commands:
             evidence['environment'][key] = execute(command)
             save()
         e = evidence['environment']
-        evidence['target_matches'] = eligible(e['product_version'], e['architecture'])
+        if args.target == DARWIN:
+            evidence['target_matches'] = eligible(e['product_version'], e['architecture'])
+        else:
+            release = dict(line.split('=', 1) for line in shlex.split(e['os_release'], comments=True)
+                           if '=' in line)
+            e['distribution'], e['version_id'] = release.get('ID'), release.get('VERSION_ID')
+            evidence['target_matches'] = (e['system'] == 'Linux' and e['architecture'] == 'x86_64'
+                                          and e['distribution'] == 'ubuntu' and e['version_id'] == '24.04')
         if not args.dry_run and not evidence['target_matches']:
-            raise RuntimeError('acceptance requires macOS 15 arm64; use --dry-run for preparation elsewhere')
+            raise RuntimeError('acceptance requires ' + args.target + '; use --dry-run for preparation elsewhere')
         passed()
         begin('archive_sha256')
         evidence['archive']['sha256'] = digest(archive)
@@ -178,7 +195,7 @@ def main():
         passed()
         work = Path(tempfile.mkdtemp(prefix='mariamem-acceptance-')).resolve()
         begin('extract')
-        native = extract(archive, work / 'unpacked')
+        native = extract(archive, work / 'unpacked', args.target)
         passed()
         begin('executable_permission')
         runtime = native / 'wasmer-headless'
@@ -186,7 +203,7 @@ def main():
             raise ValueError('extracted runtime lacks executable permission')
         passed()
         begin('artifact_hashes')
-        evidence['artifacts'] = check_artifacts(native)
+        evidence['artifacts'] = check_artifacts(native, args.target)
         passed()
         if args.dry_run:
             evidence['result'] = 'DRY_RUN'

@@ -29,7 +29,7 @@ def accepted():
         "steps": {name: {"status": "PASS"} for name in STEPS},
         "artifacts": {"guest_wasm_sha256": WASM_HASH, "files": files},
     }
-    return evidence, {"sha256": files}, {"wasm_sha256": WASM_HASH}
+    return evidence, {"platform":"darwin-arm64", "minimum_macos":15, "sha256": files}, {"wasm_sha256": WASM_HASH}
 
 
 def test_exact_candidate_acceptance():
@@ -53,3 +53,37 @@ def test_reject_stale_or_incomplete_acceptance(path, value, message):
     part[path[-1]] = value
     with pytest.raises(ValueError, match=message):
         verify_native_acceptance(changed, COMMIT, ARCHIVE_HASH, manifest, guest)
+
+
+def ubuntu_accepted():
+    evidence, manifest, guest = accepted()
+    manifest.update(platform="ubuntu24.04-x86_64", distribution="ubuntu", version_id="24.04", architecture="x86_64")
+    del manifest["minimum_macos"]
+    evidence["target"] = "ubuntu24.04-x86_64"
+    evidence["archive"]["filename"] = "mariamem-native-ubuntu24.04-x86_64.tar.gz"
+    evidence["environment"] = {"system": "Linux", "architecture": "x86_64", "distribution": "ubuntu", "version_id": "24.04"}
+    return evidence, manifest, guest
+
+
+def test_exact_ubuntu_candidate_acceptance():
+    evidence, manifest, guest = ubuntu_accepted()
+    verify_native_acceptance(evidence, COMMIT, ARCHIVE_HASH, manifest, guest)
+
+
+@pytest.mark.parametrize("path,value,message", [
+    (("archive", "sha256"), "e" * 64, "another native archive"),
+    (("environment", "distribution"), "debian", "Ubuntu 24.04 x86_64"),
+    (("environment", "version_id"), "22.04", "Ubuntu 24.04 x86_64"),
+    (("environment", "architecture"), "aarch64", "Ubuntu 24.04 x86_64"),
+    (("module_resolved", "Origin", "Hash"), "e" * 40, "another public Go module"),
+    (("artifacts", "files", "wasmer-headless"), "e" * 64, "another native wasmer-headless"),
+])
+def test_rejects_wrong_ubuntu_acceptance(path, value, message):
+    evidence, manifest, guest = ubuntu_accepted()
+    evidence = copy.deepcopy(evidence)
+    part = evidence
+    for key in path[:-1]:
+        part = part[key]
+    part[path[-1]] = value
+    with pytest.raises(ValueError, match=message):
+        verify_native_acceptance(evidence, COMMIT, ARCHIVE_HASH, manifest, guest)

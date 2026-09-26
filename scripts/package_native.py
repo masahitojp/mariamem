@@ -10,6 +10,7 @@ import stat
 import tarfile
 import tempfile
 from release_version import PYTHON_VERSION
+from native_target import manifest_target
 
 ROOT = Path(__file__).resolve().parents[1]
 NAME = "mariamem-native-darwin-arm64"
@@ -33,11 +34,9 @@ def regular(path):
 def payload(root, native, package_version=PYTHON_VERSION):
     original = regular(native / "manifest.json")
     manifest = json.loads(original)
-    target = json.loads((root / "python/deployment_target.json").read_text())
-    if (manifest.get("version") != 1 or manifest.get("platform") != "darwin-arm64"
-            or not isinstance(manifest.get("minimum_macos"), int)
-            or not 0 < manifest["minimum_macos"] <= target["minimum_macos"]):
+    if manifest.get("version") != 1:
         raise ValueError("native manifest does not match the candidate platform")
+    target = manifest_target(manifest, root)
     if manifest.get("package_version") != package_version:
         raise ValueError("native manifest package_version does not match the current release")
     # Wheel readiness follows post-build review. It is not a native build input:
@@ -61,7 +60,8 @@ def payload(root, native, package_version=PYTHON_VERSION):
     # Preserve the schema and compatibility fields; remove the unused host hash.
     manifest["sha256"] = {name: digest(files[name]) for name in ARTIFACTS}
     # Raising the supported floor is metadata-only; never lower an input requirement.
-    manifest["minimum_macos"] = target["minimum_macos"]
+    if "minimum_macos" in target:
+        manifest["minimum_macos"] = target["minimum_macos"]
     manifest["public_release_ready"] = False
     files["manifest.json"] = encoded(manifest)
     for name in ("LICENSE", "NOTICE", "THIRD_PARTY_LICENSES"):
@@ -79,12 +79,17 @@ def payload(root, native, package_version=PYTHON_VERSION):
     return files
 
 
+def archive_name(files):
+    return manifest_target(json.loads(files["manifest.json"]))["bundle_name"]
+
+
 def write_archive(path, files):
+    name_prefix = archive_name(files)
     with path.open("wb") as raw:
         with gzip.GzipFile(filename="", fileobj=raw, mode="wb", mtime=0) as gz:
             with tarfile.open(fileobj=gz, mode="w", format=tarfile.USTAR_FORMAT) as tar:
                 for name, data in sorted(files.items()):
-                    info = tarfile.TarInfo(NAME + "/" + name)
+                    info = tarfile.TarInfo(name_prefix + "/" + name)
                     info.size = len(data)
                     info.mode = 0o755 if name == "wasmer-headless" else 0o644
                     info.mtime = info.uid = info.gid = 0
@@ -92,13 +97,14 @@ def write_archive(path, files):
 
 
 def verify_archive(path, files):
-    expected = {NAME + "/" + name: data for name, data in files.items()}
+    name_prefix = archive_name(files)
+    expected = {name_prefix + "/" + name: data for name, data in files.items()}
     with tarfile.open(path, "r:gz") as tar:
         members = tar.getmembers()
         if len(members) != len(expected) or {m.name for m in members} != set(expected):
             raise ValueError("unexpected, missing or duplicate archive entries")
         for member in members:
-            mode = 0o755 if member.name == NAME + "/wasmer-headless" else 0o644
+            mode = 0o755 if member.name == name_prefix + "/wasmer-headless" else 0o644
             if not member.isfile() or member.mode != mode:
                 raise ValueError("invalid archive type/permissions")
             if tar.extractfile(member).read() != expected[member.name]:
@@ -118,7 +124,7 @@ def main():
         print("Candidate archive content/hash/permissions: PASS")
         return
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    archive = args.output_dir / (NAME + ".tar.gz")
+    archive = args.output_dir / (archive_name(files) + ".tar.gz")
     with tempfile.TemporaryDirectory(dir=args.output_dir) as directory:
         pending = Path(directory) / archive.name
         write_archive(pending, files)

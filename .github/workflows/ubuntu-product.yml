@@ -1,0 +1,139 @@
+name: Ubuntu 24.04 x86_64 product acceptance
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+
+# Product verification only: no tags, release publication, Docker, or Tart.
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - name: Install native build tools
+        run: |
+          test "$(uname -m)" = x86_64
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            build-essential binutils cmake ninja-build bison pkg-config curl ca-certificates git \
+            libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
+          python -m pip install setuptools wheel pytest PyMySQL
+      - name: Build pinned WASIX guest and Ubuntu native candidates
+        run: |
+          python scripts/install_guest_toolchain.py
+          export PATH="$HOME/.wasixcc/bin:$PATH"
+          python scripts/prepare_guest.py
+          python scripts/build_guest_wasm.py --jobs 3
+          python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm
+          python scripts/linux_runtime_notices.py
+          python scripts/build_alpha.py --ci-candidate \
+            --runtime build/guest-aot/wasmer-headless --module build/guest-aot/mariamem.wasmu
+          python scripts/package_native.py --native-dir build/guest-aot
+          python scripts/package_source.py --ci-evidence-dir build
+          python scripts/verify_source.py --ci-evidence-dir build
+      - name: Freeze exact candidate handoff
+        run: |
+          tar -cf build/ubuntu-handoff.tar \
+            build/guest-wasm build/guest-aot build/release build/dist \
+            build/source-candidate-check.json tests/evidence/alpha-wheel.json
+          cd build
+          sha256sum ubuntu-handoff.tar > ubuntu-handoff.sha256
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: ubuntu-candidate-${{ github.sha }}
+          path: |
+            build/ubuntu-handoff.tar
+            build/ubuntu-handoff.sha256
+          if-no-files-found: error
+          retention-days: 14
+
+  acceptance:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: ubuntu-candidate-${{ github.sha }}
+          path: build/handoff
+      - name: Verify and restore immutable handoff
+        run: |
+          cd build/handoff
+          sha256sum -c ubuntu-handoff.sha256
+          cd ../..
+          tar -xf build/handoff/ubuntu-handoff.tar
+          python -m pip install pytest PyMySQL
+      - id: consumers
+        name: Exact archive and installed-wheel public consumers
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          mapfile -t inputs < <(python - <<'PY'
+          import json
+          from pathlib import Path
+          native=json.loads(Path('build/release/native-candidate/native-candidate.json').read_text())
+          wheel=json.loads(Path('tests/evidence/alpha-wheel.json').read_text())
+          print('build/release/native-candidate/'+native['file']);print(native['sha256'])
+          print(wheel['wheel']);print(wheel['sha256'])
+          PY
+          )
+          python scripts/ubuntu_product_acceptance.py \
+            --archive "${inputs[0]}" --native-sha256 "${inputs[1]}" \
+            --wheel "${inputs[2]}" --wheel-sha256 "${inputs[3]}" --commit "$SOURCE_SHA"
+      - name: Existing real guest race and lifecycle regressions
+        env:
+          MARIAMEM_NATIVE_DIR: ${{ github.workspace }}/build/guest-aot
+        run: python scripts/verify.py integration
+      - id: guard
+        name: Exact Ubuntu candidate release guard
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          python scripts/verify.py release-check --ci-candidate-sha "$SOURCE_SHA" \
+            --native-acceptance build/release/ci-native-acceptance.json
+      - name: Acceptance summary
+        if: always()
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+          CONSUMERS: ${{ steps.consumers.outcome }}
+          GUARD: ${{ steps.guard.outcome }}
+        run: |
+          {
+            echo '## Ubuntu 24.04 x86_64 product acceptance'
+            echo "Source: $SOURCE_SHA"
+            echo "Clean public consumers: $CONSUMERS"
+            echo "Release guard: $GUARD"
+            echo 'No release was published. No manylinux or other distro support is claimed.'
+            if [ -f build/release/SHA256SUMS ]; then cat build/release/SHA256SUMS; fi
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        if: always()
+        with:
+          name: ubuntu-evidence-${{ github.sha }}
+          path: |
+            build/release/*.json
+            build/release/*.log
+            build/release/SHA256SUMS
+            tests/evidence/
+          if-no-files-found: warn
+          retention-days: 14

@@ -76,6 +76,14 @@ No binaries are committed to the Go module and no downloads occur. The supported
 native platform is macOS 15+ arm64. The recorded native candidate passed clean
 macOS 15.7.7 arm64 acceptance; see [the evidence](../release/evidence/macos15-arm64-acceptance.json).
 
+Ubuntu 24.04 LTS / x86_64 is also implemented in the checkout, with clean CI
+acceptance pending. Its bundle is `mariamem-native-ubuntu24.04-x86_64.tar.gz`;
+extract it and pass the resulting directory through the same `NativeDir` option.
+The bundle is target-specific: do not use a macOS AOT artifact on Ubuntu. There
+is no published Linux asset in the existing release, and no support claim for
+other distributions, Ubuntu versions, or Linux architectures.
+
+
 The host runs in the Go caller; Wasmer/MariaDB remains a child process. Start's
 context only controls startup. Zero startup/shutdown/query timeouts default to
 120/30/30 seconds; negative values are rejected. Close is idempotent, returning

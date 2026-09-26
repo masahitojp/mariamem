@@ -122,3 +122,48 @@ func TestDiagnosticCategories(t *testing.T) {
 		})
 	}
 }
+
+func TestUbuntuIdentity(t *testing.T) {
+	for _, raw := range []string{"ID=ubuntu\nVERSION_ID=24.04\n", "ID=\"ubuntu\"\nVERSION_ID=\"24.04\"\n"} {
+		if err := ubuntuPlatform(raw); err != nil {
+			t.Fatal(err)
+		}
+	}
+	for _, raw := range []string{"ID=ubuntu\nVERSION_ID=22.04", "ID=debian\nVERSION_ID=24.04", "ID=linuxmint\nID_LIKE=ubuntu\nVERSION_ID=24.04", ""} {
+		err := ubuntuPlatform(raw)
+		var detail *diagnostic.Error
+		if !errors.As(err, &detail) || detail.Code != "unsupported_platform" {
+			t.Fatalf("%q: %v", raw, err)
+		}
+	}
+}
+
+func TestUbuntuBundle(t *testing.T) {
+	dir := fixture(t)
+	path := filepath.Join(dir, "manifest.json")
+	raw, _ := os.ReadFile(path)
+	var m map[string]any
+	json.Unmarshal(raw, &m)
+	m["platform"] = "ubuntu24.04-x86_64"
+	m["distribution"] = "ubuntu"
+	m["version_id"] = "24.04"
+	m["architecture"] = "x86_64"
+	delete(m, "minimum_macos")
+	raw, _ = json.Marshal(m)
+	os.WriteFile(path, raw, 0600)
+	if _, err := resolve(dir, "ubuntu24.04-x86_64", 0); err != nil {
+		t.Fatal(err)
+	}
+	for _, key := range []string{"distribution", "version_id", "architecture"} {
+		old := m[key]
+		m[key] = "wrong"
+		raw, _ = json.Marshal(m)
+		os.WriteFile(path, raw, 0600)
+		_, err := resolve(dir, "ubuntu24.04-x86_64", 0)
+		var detail *diagnostic.Error
+		if !errors.As(err, &detail) || detail.Code != "artifact_mismatch" {
+			t.Fatalf("%s: %v", key, err)
+		}
+		m[key] = old
+	}
+}

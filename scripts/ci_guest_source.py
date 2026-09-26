@@ -1,4 +1,4 @@
-"""Verify the Linux WASM -> macOS AOT source/build boundary for future candidates.
+"""Verify the Linux WASM -> target-native AOT source/build boundary for future candidates.
 
 This is separate from the recorded alpha.3 Docker-build provenance. It verifies
 build-time records and exact artifacts, never post-build acceptance or review.
@@ -8,6 +8,7 @@ from pathlib import Path
 import subprocess
 
 from common import digest
+from native_target import DARWIN, UBUNTU, manifest_target
 from verify_guest_provenance import EVIDENCE as REVIEWED_SYSROOT
 
 
@@ -104,10 +105,22 @@ def verify_ci_guest_source(root, lock, evidence_dir, build_records=None):
     _same(sidecar["snapshot_version"], 1, "snapshot version")
     manifest_path = aot_dir / "manifest.json"
     manifest = _read(manifest_path)
-    target = _read(root / "python/deployment_target.json")
+    target = manifest_target(manifest, root)
     _same(manifest["version"], 1, "native manifest version")
-    _same(manifest["minimum_macos"], target["minimum_macos"], "native macOS floor")
-    _same(aot_record["macos_architecture"], "arm64", "AOT architecture")
+    if target["platform"] == DARWIN:
+        _same(manifest["minimum_macos"], target["minimum_macos"], "native macOS floor")
+        _same(aot_record["macos_architecture"], "arm64", "AOT architecture")
+    else:
+        _same(aot_record["aot_platform"], UBUNTU, "AOT Ubuntu platform")
+        _same(aot_record["aot_architecture"], "x86_64", "AOT architecture")
+        _same(aot_record["linux_os_release"]["ID"], "ubuntu", "AOT distribution")
+        _same(aot_record["linux_os_release"]["VERSION_ID"], "24.04", "AOT distribution version")
+        deps = aot_record["runtime_dependencies"]
+        _same(deps["format"], "ELF-x86_64", "runtime executable format")
+        _same(deps["manylinux_verified"], False, "Linux wheel scope")
+        _same(deps["wheel_platform"], "linux_x86_64", "Linux wheel tag")
+        if any(tuple(map(int, version.split('.'))) > (2, 39) for version in deps["glibc_versions"]):
+            raise ValueError("runtime GLIBC exceeds Ubuntu 24.04")
     _same(aot_record["native_manifest_sha256"], digest(manifest_path), "AOT manifest hash")
     _same(manifest["sha256"]["mariamem.wasmu"], aot_record["aot_sha256"], "native AOT hash")
     _same(manifest["sha256"]["mariamem.wasmu.json"],
@@ -116,14 +129,14 @@ def verify_ci_guest_source(root, lock, evidence_dir, build_records=None):
           digest(aot_dir / "wasmer-headless"), "native runtime hash")
     _same(aot_record["headless_executable_sha256"],
           manifest["sha256"]["wasmer-headless"], "AOT runtime hash")
-    runtime = next(e for e in lock["inputs"] if e["name"] == "wasmer")
+    runtime = next(e for e in lock["inputs"] if e["name"] == target["runtime_input"])
     _same(aot_record["wasmer_archive_sha256"], runtime["sha256"], "Wasmer distribution hash")
     if lock["toolchain"]["wasmer"] not in aot_record["wasmer_version"]:
         raise ValueError("CI guest source mismatch: Wasmer version")
-    notice = _read(root / "release/wasmer-runtime-notices.json")
+    notice = _read(root / ("release/wasmer-runtime-notices.json" if target["platform"] == DARWIN else "release/wasmer-linux-runtime-notices.json"))
     _same(manifest["sha256"]["wasmer-headless"], notice["runtime_sha256"],
           "reviewed Wasmer runtime binary")
-    _same(manifest["platform"], "darwin-arm64", "native platform")
+    _same(manifest["platform"], target["platform"], "native platform")
     return {"version": 1, "source_commit": wasm_record["source_commit"],
             "inputs_lock_sha256": lock_hash,
             "prepared_source_sha256": digest(prepared_path),

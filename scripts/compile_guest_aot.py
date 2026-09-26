@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify an exact guest WASM handoff and compile it on macOS arm64."""
+"""Verify an exact guest WASM handoff and compile it on a supported native target."""
 import argparse
 import json
 import os
@@ -10,6 +10,7 @@ import subprocess
 
 from common import ROOT, LOCK, digest, extract, fetch
 from release_version import PYTHON_VERSION
+from native_target import current_target, platform_fields, elf_dependencies
 
 
 def verify_handoff(directory):
@@ -49,11 +50,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--wasm-dir", type=Path, default=ROOT / "build/guest-wasm")
     args = parser.parse_args()
-    if platform.system() != "Darwin" or platform.machine() != "arm64":
-        raise SystemExit("guest AOT compilation requires macOS arm64")
+    target = current_target(ROOT)
     wasm, provenance_path, provenance = verify_handoff(args.wasm_dir)
     runtime = ROOT / "build/tools/wasmer-guest-aot"
-    extract(fetch("wasmer"), runtime)
+    extract(fetch(target["runtime_input"]), runtime)
     wasmer = runtime / "bin/wasmer"
     wasmer_home = ROOT / "build/wasmer-home"
     wasmer_home.mkdir(exist_ok=True)
@@ -74,7 +74,7 @@ def main():
     sidecar = {"wasm_sha256": provenance["wasm_sha256"], "module_sha256": digest(aot),
                "snapshot_version": 1}
     (output / "mariamem.wasmu.json").write_text(json.dumps(sidecar, indent=2, sort_keys=True) + "\n")
-    manifest = {"version": 1, "platform": "darwin-arm64", "minimum_macos": 15,
+    manifest = {"version": 1, **platform_fields(target),
                 "package_version": PYTHON_VERSION,
                 "sha256": {name: digest(output / name) for name in
                            ("wasmer-headless", "mariamem.wasmu", "mariamem.wasmu.json")}}
@@ -84,8 +84,11 @@ def main():
         "wasm_handoff_provenance_sha256": digest(provenance_path),
         "wasm_sha256_verified": provenance["wasm_sha256"],
         "wasixcc_archive_sha256": provenance["toolchain"]["wasixcc_archive_sha256"],
-        "macos_version": platform.mac_ver()[0], "macos_architecture": "arm64",
-        "wasmer_version": version, "wasmer_archive_sha256": digest(fetch("wasmer")),
+        "aot_platform": target["platform"], "aot_architecture": target["architecture"],
+        **({"macos_version": platform.mac_ver()[0], "macos_architecture": "arm64"}
+           if target["goos"] == "darwin" else {"linux_os_release": platform.freedesktop_os_release(),
+                                                "runtime_dependencies": elf_dependencies(headless)}),
+        "wasmer_version": version, "wasmer_archive_sha256": digest(fetch(target["runtime_input"])),
         "wasmer_executable_sha256": digest(wasmer),
         "headless_executable_sha256": digest(headless),
         "aot_sha256": digest(aot), "aot_bytes": aot.stat().st_size,

@@ -22,7 +22,7 @@ def bundle(tmp_path, monkeypatch):
         path.chmod(0o755)
         hashes[name] = hashlib.sha256(path.read_bytes()).hexdigest()
     (tmp_path / "manifest.json").write_text(json.dumps({
-        "version": 1, "minimum_macos": 15, "sha256": hashes,
+        "version": 1, "platform": "darwin-arm64", "minimum_macos": 15, "sha256": hashes,
     }))
 
 
@@ -109,3 +109,57 @@ sys.exit(7)
     assert "loader failure" in str(failure.value)
     assert len(str(failure.value)) < 2200
     assert failure.value.__cause__ is not None
+
+
+def ubuntu_bundle(tmp_path, monkeypatch):
+    bundle(tmp_path, monkeypatch)
+    monkeypatch.setattr(_artifacts.platform, "system", lambda: "Linux")
+    monkeypatch.setattr(_artifacts.platform, "machine", lambda: "x86_64")
+    monkeypatch.setattr(_artifacts, "_os_release", lambda: {"ID": "ubuntu", "VERSION_ID": "24.04"})
+    path = tmp_path / "manifest.json"
+    manifest = json.loads(path.read_text())
+    manifest.update(platform="ubuntu24.04-x86_64", distribution="ubuntu", version_id="24.04", architecture="x86_64")
+    del manifest["minimum_macos"]
+    path.write_text(json.dumps(manifest))
+
+
+def test_ubuntu_artifact_resolution(tmp_path, monkeypatch):
+    ubuntu_bundle(tmp_path, monkeypatch)
+    resolved = _artifacts.resolve()
+    assert resolved["module"] == str(tmp_path / "mariamem.wasmu")
+
+
+@pytest.mark.parametrize("release,arch", [
+    ({"ID": "ubuntu", "VERSION_ID": "22.04"}, "x86_64"),
+    ({"ID": "debian", "VERSION_ID": "24.04"}, "x86_64"),
+    ({"ID": "linuxmint", "ID_LIKE": "ubuntu", "VERSION_ID": "24.04"}, "x86_64"),
+    ({"ID": "ubuntu", "VERSION_ID": "24.04"}, "aarch64"),
+])
+def test_unsupported_linux_identity(tmp_path, monkeypatch, release, arch):
+    ubuntu_bundle(tmp_path, monkeypatch)
+    monkeypatch.setattr(_artifacts, "_os_release", lambda: release)
+    monkeypatch.setattr(_artifacts.platform, "machine", lambda: arch)
+    with pytest.raises(mariamem.HostError) as failure:
+        mariamem.start()
+    assert failure.value.code == "unsupported_platform"
+    assert failure.value.stage == "platform"
+
+
+@pytest.mark.parametrize("key", ["distribution", "version_id", "architecture", "platform"])
+def test_ubuntu_manifest_identity_mismatch(tmp_path, monkeypatch, key):
+    ubuntu_bundle(tmp_path, monkeypatch)
+    path = tmp_path / "manifest.json"
+    manifest = json.loads(path.read_text())
+    manifest[key] = "wrong"
+    path.write_text(json.dumps(manifest))
+    with pytest.raises(mariamem.HostError) as failure:
+        mariamem.start()
+    assert failure.value.code == "artifact_mismatch"
+
+
+def test_linux_explicit_inputs_keep_override_semantics(tmp_path, monkeypatch):
+    options = host_options(tmp_path, "")
+    monkeypatch.setattr(_artifacts.platform, "system", lambda: "Linux")
+    monkeypatch.setattr(_artifacts.platform, "machine", lambda: "aarch64")
+    resolved = _artifacts.resolve(**{key: options[key] for key in ("host_binary", "runtime", "module")})
+    assert resolved["module"] == str(options["module"])

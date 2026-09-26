@@ -54,7 +54,7 @@ with tempfile.TemporaryDirectory(prefix="mariamem-source-check-") as temporary:
             raise ValueError(f"source candidate input hash mismatch: {entry['name']}")
     runtime_sources = verify_runtime_sources(project, bundled_lock)
     if args.ci_evidence_dir:
-        if (manifest.get("build_path") != "linux-x86_64-wasm/macos-arm64-aot"
+        if (manifest.get("build_path") != ("linux-x86_64-wasm/" + ("ubuntu24.04-x86_64-aot" if manifest["build_records"]["guest-aot-provenance.json"].get("aot_platform") == "ubuntu24.04-x86_64" else "macos-arm64-aot"))
                 or manifest.get("review") is not None or manifest.get("source_complete") is not True):
             raise ValueError("invalid CI source candidate build path/review scope")
         guest_provenance = verify_ci_guest_source(project, bundled_lock, stage,

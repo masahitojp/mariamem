@@ -5,6 +5,14 @@ wheel or the published GitHub Release asset. The wheel includes the host and
 native runtime. See the [README](../README.md#python)
 for installation and a first query.
 
+The checkout can also package an Ubuntu 24.04 LTS / x86_64 wheel, tagged
+`linux_x86_64`. It includes the Linux host, Wasmer runtime and target-specific
+AOT guest. This is deliberately not a manylinux compatibility claim. Clean
+Ubuntu runner acceptance is pending; no Linux wheel is claimed for the existing
+public release. Install the exact verified candidate wheel when available.
+Other Linux distributions and Ubuntu versions are outside the supported scope.
+
+
 Use `with mariamem.start() as db:` to own a database and call
 `db.connection_info()` for MySQL driver keyword arguments. Close driver
 connections with their own context managers. Database `close()` is idempotent.

@@ -13,6 +13,8 @@ from common import ROOT, digest
 from check_public import check as check_public
 from check_version import check_release_docs
 from package_native import payload, verify_archive
+from native_target import DARWIN, UBUNTU, target_metadata, manifest_target
+from linux_runtime_notices import verify as verify_linux_notices
 from platform_acceptance import STEPS
 from runtime_notices import verify as verify_runtime_notices
 
@@ -30,15 +32,20 @@ def verify_native_acceptance(acceptance, commit, native_hash, native_manifest, g
     require(acceptance.get("mode") == "acceptance" and acceptance.get("result") == "PASS"
             and acceptance.get("platform_acceptance_passed") is True,
             "clean platform acceptance did not pass")
+    target = manifest_target(native_manifest)
+    expected_native = target["bundle_name"] + ".tar.gz"
     archive_record = acceptance["archive"]
-    require(archive_record.get("filename") == NATIVE
+    require(archive_record.get("filename") == expected_native
             and archive_record.get("expected_sha256") == native_hash
             and archive_record.get("sha256") == native_hash,
             "clean acceptance refers to another native archive")
     environment = acceptance["environment"]
-    require(environment.get("architecture") == "arm64"
-            and environment.get("product_version", "").startswith("15."),
-            "clean acceptance did not run on macOS 15 arm64")
+    if target["platform"] == DARWIN:
+        require(environment.get("architecture") == "arm64" and environment.get("product_version", "").startswith("15."), "clean acceptance did not run on macOS 15 arm64")
+    else:
+        require(environment.get("system") == "Linux" and environment.get("architecture") == "x86_64"
+                and environment.get("distribution") == "ubuntu" and environment.get("version_id") == "24.04"
+                and acceptance.get("target") == UBUNTU, "clean acceptance did not run on Ubuntu 24.04 x86_64")
     require(acceptance.get("module_requested") == "github.com/masahitojp/mariamem@" + commit,
             "clean acceptance used another Go module commit")
     require(acceptance.get("expected_source_commit") == commit,
@@ -85,12 +92,15 @@ def check_candidate(commit, acceptance_path, root=ROOT):
             "offline source verification differs from candidate")
     require(guest["source_commit"] == commit, "guest was built from another commit")
 
-    notices = verify_runtime_notices(root)
+    aot_manifest = json.loads((build / "guest-aot/manifest.json").read_text())
+    target = manifest_target(aot_manifest, root)
+    native_name = target["bundle_name"] + ".tar.gz"
+    notices = verify_runtime_notices(root) if target["platform"] == DARWIN else verify_linux_notices(root)
     require(notices["complete"] and not notices["missing_notices"], "runtime notices incomplete")
     require(digest(build / "guest-aot/wasmer-headless") == notices["runtime_sha256"],
             "candidate Wasmer binary differs from reviewed runtime notices")
 
-    native = build / "release/native-candidate" / NATIVE
+    native = build / "release/native-candidate" / native_name
     expected_native = payload(root, build / "guest-aot", package_version=python_version)
     verify_archive(native, expected_native)
     native_hash = digest(native)
@@ -98,7 +108,7 @@ def check_candidate(commit, acceptance_path, root=ROOT):
     require(native_record.get("sha256") == native_hash and native_record.get("archive_checks_passed") is True,
             "native candidate build record differs")
     with tarfile.open(native, "r:gz") as archive:
-        prefix = "mariamem-native-darwin-arm64/"
+        prefix = target["bundle_name"] + "/"
         native_manifest = json.load(archive.extractfile(prefix + "manifest.json"))
         native_files = {name: archive.extractfile(prefix + name).read() for name in NATIVE_FILES}
     require(native_manifest.get("package_version") == python_version,
@@ -110,6 +120,7 @@ def check_candidate(commit, acceptance_path, root=ROOT):
 
     wheel_record = json.loads((root / "tests/evidence/alpha-wheel.json").read_text())
     wheel = root / wheel_record["wheel"]
+    require(wheel.name == f"mariamem-{python_version}-py3-none-{target['wheel_platform']}.whl", "wheel filename/target differs")
     require(wheel.is_file() and digest(wheel) == wheel_record.get("sha256"),
             "Python wheel hash differs from build evidence")
     require(wheel_record.get("archive_checks_passed") is True, "Python wheel archive checks missing")
@@ -118,6 +129,7 @@ def check_candidate(commit, acceptance_path, root=ROOT):
     require(wheel_record["manifest"].get("public_release_ready") is False,
             "Python candidate must not embed post-build release approval")
     with zipfile.ZipFile(wheel) as archive:
+        require(f"Tag: py3-none-{target['wheel_platform']}" in archive.read(f"mariamem-{python_version}.dist-info/WHEEL").decode(), "wheel platform tag differs")
         metadata = archive.read(f"mariamem-{python_version}.dist-info/METADATA").decode()
         require(f"\nVersion: {python_version}\n" in "\n" + metadata,
                 "wheel metadata version differs")
@@ -145,7 +157,7 @@ def check_candidate(commit, acceptance_path, root=ROOT):
     acceptance = json.loads(acceptance_path.read_text())
     verify_native_acceptance(acceptance, commit, native_hash, native_manifest, guest)
 
-    assets = {NATIVE: native_hash, wheel.name: digest(wheel),
+    assets = {native_name: native_hash, wheel.name: digest(wheel),
               corresponding_source: digest(source)}
     return {"version": 1, "result": "READY", "source_commit": commit, "git_tag": git_tag,
             "python_version": python_version, "assets": assets,

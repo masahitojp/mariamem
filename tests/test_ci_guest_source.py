@@ -133,3 +133,57 @@ def test_rejects_unreviewed_sysroot(tmp_path):
     write_json(aot_path, aot_record)
     with pytest.raises(ValueError, match="reviewed sysroot payload"):
         verify_ci_guest_source(root, lock, stage)
+
+
+def ubuntu_fixture(tmp_path):
+    root, lock, stage, _ = fixture(tmp_path)
+    aot_dir = stage / "guest-aot"
+    path = aot_dir / "manifest.json"
+    manifest = json.loads(path.read_text())
+    manifest.update(platform="ubuntu24.04-x86_64", distribution="ubuntu", version_id="24.04", architecture="x86_64")
+    del manifest["minimum_macos"]
+    write_json(path, manifest)
+    record_path = aot_dir / "provenance.json"
+    record = json.loads(record_path.read_text())
+    del record["macos_architecture"]
+    record.update(aot_platform="ubuntu24.04-x86_64", aot_architecture="x86_64",
+                  linux_os_release={"ID": "ubuntu", "VERSION_ID": "24.04"},
+                  runtime_dependencies={"format": "ELF-x86_64", "manylinux_verified": False,
+                                        "wheel_platform": "linux_x86_64", "glibc_versions": ["2.17", "2.39"]},
+                  native_manifest_sha256=digest(path),
+                  wasmer_archive_sha256=next(e for e in lock["inputs"] if e["name"] == "wasmer-linux-x86_64")["sha256"])
+    write_json(record_path, record)
+    write_json(root / "release/wasmer-linux-runtime-notices.json", {"runtime_sha256": digest(aot_dir / "wasmer-headless")})
+    return root, lock, stage
+
+
+def test_exact_ubuntu_ci_guest_source_boundary(tmp_path):
+    root, lock, stage = ubuntu_fixture(tmp_path)
+    result = verify_ci_guest_source(root, lock, stage)
+    assert result["runtime_sha256"] == digest(stage / "guest-aot/wasmer-headless")
+
+
+@pytest.mark.parametrize("change, matching", [
+    ("distribution", "candidate platform"), ("runtime", "native runtime hash"),
+    ("aot_os", "AOT distribution"), ("glibc", "GLIBC exceeds"),
+])
+def test_rejects_ubuntu_provenance_mismatch(tmp_path, change, matching):
+    root, lock, stage = ubuntu_fixture(tmp_path)
+    aot_dir = stage / "guest-aot"
+    if change == "runtime":
+        (aot_dir / "wasmer-headless").write_bytes(b"changed")
+    elif change == "distribution":
+        path = aot_dir / "manifest.json"
+        record = json.loads(path.read_text())
+        record["distribution"] = "debian"
+        write_json(path, record)
+    else:
+        path = aot_dir / "provenance.json"
+        record = json.loads(path.read_text())
+        if change == "aot_os":
+            record["linux_os_release"]["ID"] = "debian"
+        else:
+            record["runtime_dependencies"]["glibc_versions"] = ["2.40"]
+        write_json(path, record)
+    with pytest.raises(ValueError, match=matching):
+        verify_ci_guest_source(root, lock, stage)
