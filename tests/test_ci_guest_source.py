@@ -147,7 +147,7 @@ def ubuntu_fixture(tmp_path):
     record = json.loads(record_path.read_text())
     del record["macos_architecture"]
     record.update(aot_platform="ubuntu24.04-x86_64", aot_architecture="x86_64",
-                  aot_target_triple="x86_64-unknown-linux-gnu", aot_cpu_features=["sse2"],
+                  aot_target_triple="x86_64-unknown-linux-gnu", aot_cpu_features=["sse2", "ssse3"],
                   linux_os_release={"ID": "ubuntu", "VERSION_ID": "24.04"},
                   runtime_dependencies={"format": "ELF-x86_64", "manylinux_verified": False,
                                         "wheel_platform": "linux_x86_64", "glibc_versions": ["2.17", "2.39"]},

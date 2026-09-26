@@ -111,3 +111,6 @@ Ordinary SQL errors and capacity exhaustion remain MySQL driver errors (capacity
 is error 1040), rather than wrapper startup failures. Interrupted active SQL
 still invalidates the entire instance; `status()` reports `unusable` and disposes
 wrapper resources. `close()` stays safe and idempotent.
+
+Ubuntu 24.04 x86_64 candidates require a CPU with SSSE3. AOT compilation uses
+a fixed SSE2+SSSE3 feature set and does not require AVX or AVX-512.

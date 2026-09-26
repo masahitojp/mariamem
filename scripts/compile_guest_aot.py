@@ -49,9 +49,11 @@ def verify_handoff(directory):
 def compile_command(wasmer, wasm, output, target):
     command = [str(wasmer), "compile", str(wasm), "-o", str(output)]
     if target["goos"] == "linux":
-        # An explicit triple uses Wasmer's x86_64 SSE2 baseline instead of
+        # An explicit triple and SSSE3 avoid Wasmer's unsupported SIMD libcall
+        # fallback, without detecting optional features from the build runner.
+        # Use a fixed baseline instead of
         # detecting optional features (such as AVX-512) from the build runner.
-        command += ["--target", "x86_64-unknown-linux-gnu"]
+        command += ["--target", "x86_64-unknown-linux-gnu", "-m", "ssse3"]
     return command
 
 
@@ -98,7 +100,7 @@ def main():
            if target["goos"] == "darwin" else {"linux_os_release": platform.freedesktop_os_release(),
                                                 "runtime_dependencies": elf_dependencies(headless),
                                                 "aot_target_triple": "x86_64-unknown-linux-gnu",
-                                                "aot_cpu_features": ["sse2"]}),
+                                                "aot_cpu_features": ["sse2", "ssse3"]}),
         "wasmer_version": version, "wasmer_archive_sha256": digest(fetch(target["runtime_input"])),
         "wasmer_executable_sha256": digest(wasmer),
         "headless_executable_sha256": digest(headless),

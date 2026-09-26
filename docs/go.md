@@ -239,3 +239,6 @@ Ordinary SQL errors do not invalidate a Database. Interrupted active SQL still
 invalidates the entire Database: `db.Err()` matches `mariamem.ErrUnusable` and
 retains its cause. `Close()` remains safe and idempotent. Stage names provide
 diagnostic context rather than a stable inventory of runtime internals.
+
+Ubuntu 24.04 x86_64 candidates require a CPU with SSSE3. AOT compilation uses
+a fixed SSE2+SSSE3 feature set and does not require AVX or AVX-512.

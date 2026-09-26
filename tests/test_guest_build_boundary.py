@@ -93,6 +93,5 @@ if __name__ == "__main__":
 
 def test_linux_aot_uses_explicit_portable_cpu_target():
     command = compile_command("wasmer", "guest.wasm", "guest.wasmu", {"goos": "linux"})
-    assert command[-2:] == ["--target", "x86_64-unknown-linux-gnu"]
-    assert "-m" not in command
+    assert command[-4:] == ["--target", "x86_64-unknown-linux-gnu", "-m", "ssse3"]
     assert "--target" not in compile_command("wasmer", "guest.wasm", "guest.wasmu", {"goos": "darwin"})
