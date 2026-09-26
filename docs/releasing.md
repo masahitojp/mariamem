@@ -1,6 +1,6 @@
 # Releasing mariamem
 
-The canonical release version is `v0.1.0-alpha.4`; the Python distribution is `0.1.0a4`.
+The canonical release version is `v0.1.0`; the Python distribution is `0.1.0`.
 Change the five semantic components only in `python/mariamem/_version.py`.
 For a stable release, set `STAGE = ""` and `SERIAL = 0`; this derives
 `vX.Y.Z` and Python `X.Y.Z`. Use `release/NOTES-vX.Y.Z.md`. Stable GitHub
@@ -66,7 +66,7 @@ commit or rebuild after acceptance is required. Frozen handoffs and evidence are
 named `release-candidate-<platform>-<sha>` and `release-evidence-<platform>-<sha>`.
 The aggregate output is `release-ready-<sha>`.
 
-A multi-platform alpha publishes two native archives, two wheels, two
+A multi-platform release publishes two native archives, two wheels, two
 platform-qualified corresponding-source archives, and one `SHA256SUMS`. Separate
 source archives retain each platform's exact AOT provenance without introducing
 another source format. Publication rechecks aggregate READY and accepted hashes,
@@ -288,4 +288,4 @@ Linux runtime notices reuse the reviewed common inventory and add
 `release/wasmer-linux-runtime-notices.json` plus
 `licenses/Wasmer-Linux-NOTICES.txt`; verify with
 `python3 scripts/linux_runtime_notices.py`. Historical macOS evidence is unchanged.
-Clean Ubuntu acceptance is pending until the product workflow succeeds.
+Clean Ubuntu acceptance is required for each candidate.
