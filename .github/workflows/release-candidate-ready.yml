@@ -331,8 +331,9 @@ jobs:
       env:
         SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
       run: |
+        mkdir -p candidate-source/build/release
         set -o pipefail
-        python scripts/ci_release_platforms.py guard --root candidate-source --candidate-sha "$SOURCE_SHA" | tee candidate-source/build/release/ci-aggregate.log
+        python scripts/ci_release_platforms.py guard --root candidate-source --candidate-sha "$SOURCE_SHA" 2>&1 | tee candidate-source/build/release/ci-aggregate.log
         cat candidate-source/build/release/ci-aggregate.log >> "$GITHUB_STEP_SUMMARY"
     - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       if: always()
