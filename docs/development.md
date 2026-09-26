@@ -91,7 +91,9 @@ For release work, `python3 scripts/verify.py release-check` invokes the existing
 release guard after the source, wheel, native bundle, and acceptance evidence have
 been prepared. It verifies hashes/reviews and **stages files locally** in
 `build/release/publish/`; it does not publish. See [releasing](releasing.md) for
-the required preparation. For performance work only, select one workload with
+the required preparation. Multi-platform CI composes these same per-platform
+checks with `scripts/ci_release_platforms.py guard`; aggregate READY requires
+both clean platform acceptances and one common exact source/WASM identity. For performance work only, select one workload with
 `python3 scripts/verify.py bench {ready,seeded,parallel,memory} [options]`;
 see [benchmark settings](../benchmarks/README.md).
 

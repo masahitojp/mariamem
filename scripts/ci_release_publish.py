@@ -9,8 +9,9 @@ import shutil
 import subprocess
 import tempfile
 
-from check_ci_release import check_candidate, require
+from check_ci_release import require
 from common import ROOT, digest
+from ci_release_platforms import check_aggregate, expected_names as multi_asset_names
 
 
 def command(args, root):
@@ -36,20 +37,17 @@ def prepare(root, commit, notes, ready_path=None):
     require(not command(["git", "status", "--porcelain", "--untracked-files=no"], root),
             "candidate checkout has tracked changes")
     ready = json.loads((ready_path or root / "build/release/ci-ready.json").read_text())
-    checked = check_candidate(commit, root / "build/release/ci-native-acceptance.json", root)
+    require(ready.get("version") == 2, "publication requires aggregate platform READY")
+    checked = check_aggregate(root, commit)
     require(ready == checked and ready.get("result") == "READY", "READY evidence differs from current guard")
     version = runpy.run_path(str(root / "python/mariamem/_version.py"))
     require(ready["source_commit"] == commit and ready["git_tag"] == version["GIT_TAG"]
             and ready["python_version"] == version["PYTHON_VERSION"], "release identity differs")
-    require(len(ready["assets"]) == 3, "expected exactly three candidate artifacts")
-    expected_names = {"mariamem-native-darwin-arm64.tar.gz",
-                      f"mariamem-{version['PYTHON_VERSION']}-py3-none-macosx_15_0_arm64.whl",
-                      f"mariamem-{version['PYTHON_VERSION']}-corresponding-source.tar.gz"}
-    require(set(ready["assets"]) == expected_names, "unexpected alpha asset names")
+    require(set(ready["assets"]) == multi_asset_names(version["PYTHON_VERSION"]), "unexpected alpha asset names")
     checksums = root / "build/release/SHA256SUMS"
     # JSON sorting may reorder assets; compare records, never tolerate duplicate names.
     entries = [line.split("  ") for line in checksums.read_text().splitlines()]
-    require(len(entries) == 3 and {name: sha for sha, name in entries} == ready["assets"],
+    require(len(entries) == len(ready["assets"]) and {name: sha for sha, name in entries} == ready["assets"],
             "SHA256SUMS differs from READY artifacts")
     if notes is None:
         suffix = f"{version['STAGE']}.{version['SERIAL']}" if version["STAGE"] else version["GIT_TAG"]
@@ -62,25 +60,21 @@ def prepare(root, commit, notes, ready_path=None):
             "release notes must be tracked")
     require(re.search(r"^#{1,6}\s+.*" + re.escape(version["GIT_TAG"]) + r"(?:\s|$)",
                       notes.read_text(), re.MULTILINE), "release notes heading does not identify canonical tag")
-    wheel_record = json.loads((root / "tests/evidence/alpha-wheel.json").read_text())
-    paths = {"mariamem-native-darwin-arm64.tar.gz": root / "build/release/native-candidate/mariamem-native-darwin-arm64.tar.gz",
-             Path(wheel_record["wheel"]).name: root / wheel_record["wheel"],
-             f"mariamem-{version['PYTHON_VERSION']}-corresponding-source.tar.gz":
-             root / f"build/release/mariamem-{version['PYTHON_VERSION']}-source-candidate.tar.gz"}
+    paths = {name: root / "build/release/publish" / name for name in ready["assets"]}
     for name, path in paths.items():
         require(path.is_file() and digest(path) == ready["assets"][name], "artifact hash differs: " + name)
     staging = root / "build/release/publish"
     staging.mkdir(parents=True, exist_ok=True)
     for name, path in paths.items():
-        shutil.copyfile(path, staging / name)
+        if path.resolve() != (staging / name).resolve():
+            shutil.copyfile(path, staging / name)
     shutil.copyfile(checksums, staging / "SHA256SUMS")
     hashes = {name: digest(staging / name) for name in [*ready["assets"], "SHA256SUMS"]}
     require(all(hashes[name] == sha for name, sha in ready["assets"].items()), "staged bytes differ")
-    return {"version": 1, "source_commit": commit, "git_tag": ready["git_tag"],
+    return {"version": 2, "source_commit": commit, "git_tag": ready["git_tag"],
             "python_version": ready["python_version"], "assets": hashes,
             "prerelease": version["STAGE"] in {"alpha", "beta", "rc"},
-            "native_acceptance_sha256": ready["native_acceptance_sha256"],
-            "wheel_acceptance_sha256": ready["wheel_acceptance_sha256"],
+            "platforms": ready["platforms"],
             "status": "PREPARED"}, staging, notes
 
 
@@ -131,7 +125,7 @@ def publish(root, commit, repository, notes=None, dry_run=False, ready_path=None
         require(release.get("tag_name") == tag and release.get("draft") is False
                 and release.get("prerelease") == report["prerelease"], "published release metadata differs")
         require({asset["name"] for asset in release["assets"]} == set(report["assets"])
-                and len(release["assets"]) == 4, "published asset names differ")
+                and len(release["assets"]) == len(report["assets"]), "published asset names differ")
         report.update(status="PUBLISHED", stage="complete", release_url=release["html_url"])
         return report
     except Exception as error:

@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 
 from common import ROOT, digest
+from native_target import DARWIN, target_metadata
 
 
 
@@ -53,7 +54,8 @@ def main():
     version = runpy.run_path(str(root / 'python/mariamem/_version.py'))
     build = root / "build"
     source = build / "release" / f"mariamem-{version['PYTHON_VERSION']}-source-candidate.tar.gz"
-    native = build / "release/native-candidate/mariamem-native-darwin-arm64.tar.gz"
+    platform = os.environ.get("RELEASE_PLATFORM", DARWIN)
+    native = build / "release/native-candidate" / (target_metadata(platform)["bundle_name"] + ".tar.gz")
     wheel_record = root / "tests/evidence/alpha-wheel.json"
     wheel = root / json.loads(wheel_record.read_text())["wheel"] if wheel_record.exists() else None
     acceptance = build / "release/ci-native-acceptance.json"
@@ -96,7 +98,7 @@ def main():
         if reason:
             rows.append('- Guard reason: ' + reason)
     result = json.loads(acceptance.read_text()).get("result") if acceptance.exists() else "NOT RUN"
-    rows.extend([f"- Clean macOS acceptance: **{result}**",
+    rows.extend([f"- Clean {platform} acceptance: **{result}**",
                  f"- Installed-wheel acceptance step: **{os.environ.get('WHEEL_RESULT', 'NOT RUN')}** (reused in guard-only mode)",
                  f"- Release guard: **{'READY' if ready.exists() and os.environ.get('GUARD_RESULT') == 'success' else 'NOT READY'}**",
                  "- Verification stage does not publish tags, releases, or packages.", ""])

@@ -1,15 +1,21 @@
+---
 name: Release candidate and publication
-on:
+'on':
   workflow_dispatch:
     inputs:
       operation:
-        description: Verify only, publication dry-run, or authorize release after READY
+        description: Verify only, publication dry-run, or authorize release after
+          READY
         required: true
         default: verify
         type: choice
-        options: [verify, dry-run, release]
+        options:
+        - verify
+        - dry-run
+        - release
       notes:
-        description: Optional candidate-relative release notes path (otherwise derived from version)
+        description: Optional candidate-relative release notes path (otherwise derived
+          from version)
         required: false
         type: string
       mode:
@@ -17,7 +23,10 @@ on:
         required: true
         default: full
         type: choice
-        options: [full, acceptance-only, guard-only]
+        options:
+        - full
+        - acceptance-only
+        - guard-only
       candidate_run:
         description: Original candidate build run ID (required for retry modes)
         required: false
@@ -31,259 +40,316 @@ on:
         required: true
         default: main
         type: string
-
-# Dispatch operation=release is the human publication decision; no later approval gate.
-# Build and verification jobs never receive publication permissions.
 permissions:
   contents: read
   actions: read
-
 jobs:
   resolve:
     runs-on: ubuntu-24.04
     outputs:
-      source_sha: ${{ steps.source.outputs.sha }}
+      source_sha: "${{ steps.source.outputs.sha }}"
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-        with:
-          fetch-depth: 0
-      - id: source
-        name: Resolve exact remote candidate
-        env:
-          CANDIDATE_REF: ${{ inputs.candidate_ref }}
-          MODE: ${{ inputs.mode }}
-          CANDIDATE_RUN: ${{ inputs.candidate_run }}
-          EVIDENCE_RUN: ${{ inputs.evidence_run }}
-        run: |
-          if [ "$MODE" != full ]; then
-            [[ "$CANDIDATE_RUN" =~ ^[0-9]+$ ]] || { echo 'Retry requires the original candidate_run ID; use full if unavailable.' >&2; exit 1; }
-            if [ -n "$EVIDENCE_RUN" ]; then
-              [[ "$EVIDENCE_RUN" =~ ^[0-9]+$ ]] || exit 1
-            fi
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      with:
+        fetch-depth: 0
+    - id: source
+      name: Resolve exact remote candidate
+      env:
+        CANDIDATE_REF: "${{ inputs.candidate_ref }}"
+        MODE: "${{ inputs.mode }}"
+        CANDIDATE_RUN: "${{ inputs.candidate_run }}"
+        EVIDENCE_RUN: "${{ inputs.evidence_run }}"
+      run: |
+        if [ "$MODE" != full ]; then
+          [[ "$CANDIDATE_RUN" =~ ^[0-9]+$ ]] || { echo 'Retry requires the original candidate_run ID; use full if unavailable.' >&2; exit 1; }
+          if [ -n "$EVIDENCE_RUN" ]; then
+            [[ "$EVIDENCE_RUN" =~ ^[0-9]+$ ]] || exit 1
           fi
-          git fetch --no-tags origin "$CANDIDATE_REF"
-          sha="$(git rev-parse 'FETCH_HEAD^{commit}')"
-          test "$(git cat-file -t "$sha")" = commit
-          echo "sha=$sha" >> "$GITHUB_OUTPUT"
-          echo "Mode: $MODE; candidate source: $sha" >> "$GITHUB_STEP_SUMMARY"
-
+        fi
+        git fetch --no-tags origin "$CANDIDATE_REF"
+        sha="$(git rev-parse 'FETCH_HEAD^{commit}')"
+        test "$(git cat-file -t "$sha")" = commit
+        echo "sha=$sha" >> "$GITHUB_OUTPUT"
+        echo "Mode: $MODE; candidate source: $sha" >> "$GITHUB_STEP_SUMMARY"
   guest:
     if: inputs.mode == 'full'
     needs: resolve
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-        with:
-          ref: ${{ needs.resolve.outputs.source_sha }}
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
-        with:
-          python-version: '3.14'
-      - name: Install native host-tool dependencies
-        run: |
-          test "$(uname -m)" = x86_64
-          sudo apt-get update
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-            build-essential cmake ninja-build bison pkg-config curl ca-certificates git \
-            libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
-      - name: Build pinned guest WASM without Docker
-        run: |
-          test "$(git rev-parse HEAD)" = '${{ needs.resolve.outputs.source_sha }}'
-          python scripts/install_guest_toolchain.py
-          echo "$HOME/.wasixcc/bin" >> "$GITHUB_PATH"
-          python scripts/prepare_guest.py
-          python scripts/build_guest_wasm.py --jobs 3
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
-        with:
-          name: release-guest-wasm-${{ needs.resolve.outputs.source_sha }}
-          path: build/guest-wasm/
-          if-no-files-found: error
-          retention-days: 14
-
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      with:
+        ref: "${{ needs.resolve.outputs.source_sha }}"
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: '3.14'
+    - name: Install native host-tool dependencies
+      run: |
+        test "$(uname -m)" = x86_64
+        sudo apt-get update
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+          build-essential cmake ninja-build bison pkg-config curl ca-certificates git \
+          libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
+    - name: Build pinned guest WASM without Docker
+      run: |
+        test "$(git rev-parse HEAD)" = '${{ needs.resolve.outputs.source_sha }}'
+        python scripts/install_guest_toolchain.py
+        echo "$HOME/.wasixcc/bin" >> "$GITHUB_PATH"
+        python scripts/prepare_guest.py
+        python scripts/build_guest_wasm.py --jobs 3
+    - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+      with:
+        name: release-guest-wasm-${{ needs.resolve.outputs.source_sha }}
+        path: build/guest-wasm/
+        if-no-files-found: error
+        retention-days: 14
   candidate:
     if: inputs.mode == 'full'
-    needs: [resolve, guest]
-    runs-on: macos-15
+    needs:
+    - resolve
+    - guest
+    runs-on: "${{ matrix.runner }}"
     timeout-minutes: 90
-    outputs:
-      handoff_sha256: ${{ steps.handoff.outputs.sha256 }}
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-        with:
-          ref: ${{ needs.resolve.outputs.source_sha }}
-      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
-        with:
-          go-version: '1.26.8'
-          cache: false
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
-        with:
-          python-version: '3.14'
-      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
-        with:
-          name: release-guest-wasm-${{ needs.resolve.outputs.source_sha }}
-          path: build/guest-wasm/
-      - name: Build immutable candidate set
-        run: |
-          test "$(git rev-parse HEAD)" = '${{ needs.resolve.outputs.source_sha }}'
-          python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm
-          python -m pip install 'setuptools>=58' wheel
-          python scripts/build_alpha.py --ci-candidate \
-            --runtime build/guest-aot/wasmer-headless --module build/guest-aot/mariamem.wasmu
-          python scripts/package_native.py --native-dir build/guest-aot
-          python scripts/package_source.py --ci-evidence-dir build
-          python scripts/verify_source.py --ci-evidence-dir build
-      - id: handoff
-        name: Freeze and hash candidate handoff
-        run: |
-          source_file="$(python -c 'import json; print(json.load(open("build/release/source-manifest.json"))["file"])')"
-          wheel_file="$(python -c 'import json; print(json.load(open("tests/evidence/alpha-wheel.json"))["wheel"])')"
-          tar -cf "$RUNNER_TEMP/candidate-handoff.tar" \
-            build/guest-wasm build/guest-aot \
-            build/release/native-candidate/mariamem-native-darwin-arm64.tar.gz \
-            build/release/native-candidate/native-candidate.json \
-            "build/release/$source_file" \
-            build/release/source-manifest.json build/source-candidate-check.json \
-            "$wheel_file" tests/evidence/alpha-wheel.json
-          sha="$(shasum -a 256 "$RUNNER_TEMP/candidate-handoff.tar" | cut -d ' ' -f 1)"
-          echo "sha256=$sha" >> "$GITHUB_OUTPUT"
-          echo "Candidate handoff SHA256: $sha" >> "$GITHUB_STEP_SUMMARY"
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
-        with:
-          name: release-candidate-${{ needs.resolve.outputs.source_sha }}
-          path: ${{ runner.temp }}/candidate-handoff.tar
-          if-no-files-found: error
-          retention-days: 14
-
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      with:
+        ref: "${{ needs.resolve.outputs.source_sha }}"
+    - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+      with:
+        go-version: 1.26.8
+        cache: false
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: '3.14'
+    - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+      with:
+        name: release-guest-wasm-${{ needs.resolve.outputs.source_sha }}
+        path: build/guest-wasm/
+    - name: Build immutable candidate set
+      run: |
+        test "$(git rev-parse HEAD)" = '${{ needs.resolve.outputs.source_sha }}'
+        python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm
+        python -m pip install 'setuptools>=58' wheel
+        python scripts/build_alpha.py --ci-candidate \
+          --runtime build/guest-aot/wasmer-headless --module build/guest-aot/mariamem.wasmu
+        python scripts/package_native.py --native-dir build/guest-aot
+        python scripts/package_source.py --ci-evidence-dir build
+        python scripts/verify_source.py --ci-evidence-dir build
+    - id: handoff
+      name: Freeze and hash candidate handoff
+      run: |
+        python scripts/ci_release_platforms.py handoff --platform "${{ matrix.platform }}" --output "$RUNNER_TEMP/candidate-handoff.tar"
+        cat "$RUNNER_TEMP/candidate-handoff.sha256" >> "$GITHUB_STEP_SUMMARY"
+    - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+      with:
+        name: release-candidate-${{ matrix.platform }}-${{ needs.resolve.outputs.source_sha
+          }}
+        path: |
+          ${{ runner.temp }}/candidate-handoff.tar
+          ${{ runner.temp }}/candidate-handoff.sha256
+        if-no-files-found: error
+        retention-days: 14
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - platform: darwin-arm64
+          runner: macos-15
+        - platform: ubuntu24.04-x86_64
+          runner: ubuntu-24.04
   verification:
-    needs: [resolve, candidate]
-    if: always() && needs.resolve.result == 'success' && (inputs.mode != 'full' || needs.candidate.result == 'success')
-    runs-on: macos-15
+    needs:
+    - resolve
+    - candidate
+    if: always() && needs.resolve.result == 'success' && (inputs.mode != 'full' ||
+      needs.candidate.result == 'success')
+    runs-on: "${{ matrix.runner }}"
     timeout-minutes: 90
     defaults:
       run:
         shell: bash
     steps:
-      # Workflow tooling may be newer than the immutable candidate source.
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-        with:
-          ref: ${{ needs.resolve.outputs.source_sha }}
-          path: candidate-source
-      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
-        with:
-          go-version: '1.26.8'
-          cache: false
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
-        with:
-          python-version: '3.14'
-      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
-        if: inputs.mode == 'full'
-        with:
-          name: release-candidate-${{ needs.resolve.outputs.source_sha }}
-          path: ${{ runner.temp }}/candidate-input
-      - id: restore
-        name: Verify and restore immutable candidate inputs
-        env:
-          MODE: ${{ inputs.mode }}
-          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
-          CANDIDATE_RUN: ${{ inputs.candidate_run }}
-          EVIDENCE_RUN: ${{ inputs.evidence_run }}
-          HANDOFF_SHA256: ${{ needs.candidate.outputs.handoff_sha256 }}
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          args=(--mode "$MODE" --candidate-sha "$SOURCE_SHA" --root candidate-source)
-          if [ "$MODE" = full ]; then
-            args+=(--handoff "$RUNNER_TEMP/candidate-input/candidate-handoff.tar" --handoff-sha256 "$HANDOFF_SHA256")
-          else
-            args+=(--candidate-run "$CANDIDATE_RUN")
-            if [ -n "$EVIDENCE_RUN" ]; then args+=(--evidence-run "$EVIDENCE_RUN"); fi
-          fi
-          mkdir -p candidate-source/build/release
-          set -o pipefail
-          python scripts/ci_release_reuse.py "${args[@]}" 2>&1 | tee candidate-source/build/release/ci-restore.log
-      - id: native
-        name: Clean external native acceptance
-        if: inputs.mode != 'guard-only'
-        continue-on-error: true
-        env:
-          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
-        run: |
-          python scripts/platform_acceptance.py \
-            --archive candidate-source/build/release/native-candidate/mariamem-native-darwin-arm64.tar.gz \
-            --sha256 "$(python -c 'import json; print(json.load(open("candidate-source/build/release/native-candidate/native-candidate.json"))["sha256"])')" \
-            --module "$SOURCE_SHA" --expected-commit "$SOURCE_SHA" \
-            --evidence candidate-source/build/release/ci-native-acceptance.json
-      - id: wheel
-        name: Clean installed-wheel acceptance
-        if: inputs.mode != 'guard-only'
-        continue-on-error: true
-        run: |
-          python -m venv "$RUNNER_TEMP/mariamem-wheel-venv"
-          wheel_file="$(python -c 'import json; print(json.load(open("candidate-source/tests/evidence/alpha-wheel.json"))["wheel"])')"
-          "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" -m pip install "$GITHUB_WORKSPACE/candidate-source/${wheel_file}[test]"
-          cd "$RUNNER_TEMP"
-          "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" "$GITHUB_WORKSPACE/candidate-source/tests/verify_alpha.py"
-      - id: guard
-        name: Release guard — READY or NOT READY
-        if: always() && steps.restore.outcome == 'success'
-        continue-on-error: true
-        env:
-          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
-        run: |
-          set -o pipefail
-          python scripts/verify.py release-check \
-            --ci-candidate-sha "$SOURCE_SHA" --candidate-root candidate-source \
-            --native-acceptance candidate-source/build/release/ci-native-acceptance.json \
-            2>&1 | tee candidate-source/build/release/ci-guard.log
-      - name: Candidate summary
-        if: always()
-        env:
-          CI_MODE: ${{ inputs.mode }}
-          CANDIDATE_RUN: ${{ inputs.candidate_run }}
-          EVIDENCE_RUN: ${{ inputs.evidence_run }}
-          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
-          RESTORE_RESULT: ${{ steps.restore.outcome }}
-          NATIVE_RESULT: ${{ steps.native.outcome }}
-          WHEEL_RESULT: ${{ steps.wheel.outcome }}
-          GUARD_RESULT: ${{ steps.guard.outcome }}
-        run: python scripts/ci_release_summary.py --root candidate-source
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
-        if: always()
-        with:
-          name: release-evidence-${{ needs.resolve.outputs.source_sha }}
-          path: |
-            candidate-source/build/release/ci-native-acceptance.json
-            candidate-source/build/release/ci-native-acceptance.log
-            candidate-source/build/release/ci-ready.json
-            candidate-source/build/release/ci-reuse.json
-            candidate-source/build/release/ci-guard.log
-            candidate-source/build/release/ci-restore.log
-            candidate-source/build/release/SHA256SUMS
-            candidate-source/tests/evidence/alpha.json
-            candidate-source/build/source-candidate-check.json
-          if-no-files-found: warn
-          retention-days: 14
-      - name: Fail unless the requested stages passed
-        if: always()
-        env:
-          MODE: ${{ inputs.mode }}
-          RESTORE_RESULT: ${{ steps.restore.outcome }}
-          NATIVE_RESULT: ${{ steps.native.outcome }}
-          WHEEL_RESULT: ${{ steps.wheel.outcome }}
-          GUARD_RESULT: ${{ steps.guard.outcome }}
-        run: |
-          test "$RESTORE_RESULT" = success
-          if [ "$MODE" != guard-only ]; then
-            test "$NATIVE_RESULT" = success
-            test "$WHEEL_RESULT" = success
-          fi
-          test "$GUARD_RESULT" = success
-
-
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      with:
+        ref: "${{ needs.resolve.outputs.source_sha }}"
+        path: candidate-source
+    - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+      with:
+        go-version: 1.26.8
+        cache: false
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: '3.14'
+    - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+      if: inputs.mode == 'full'
+      with:
+        name: release-candidate-${{ matrix.platform }}-${{ needs.resolve.outputs.source_sha
+          }}
+        path: "${{ runner.temp }}/candidate-input"
+    - id: restore
+      name: Verify and restore immutable candidate inputs
+      env:
+        MODE: "${{ inputs.mode }}"
+        SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
+        CANDIDATE_RUN: "${{ inputs.candidate_run }}"
+        EVIDENCE_RUN: "${{ inputs.evidence_run }}"
+        GITHUB_TOKEN: "${{ github.token }}"
+      run: |
+        args=(--platform "${{ matrix.platform }}" --mode "$MODE" --candidate-sha "$SOURCE_SHA" --root candidate-source)
+        if [ "$MODE" = full ]; then
+          args+=(--handoff "$RUNNER_TEMP/candidate-input/candidate-handoff.tar" --handoff-sha256 "$(cat "$RUNNER_TEMP/candidate-input/candidate-handoff.sha256")")
+        else
+          args+=(--candidate-run "$CANDIDATE_RUN")
+          if [ -n "$EVIDENCE_RUN" ]; then args+=(--evidence-run "$EVIDENCE_RUN"); fi
+        fi
+        mkdir -p candidate-source/build/release
+        set -o pipefail
+        python scripts/ci_release_reuse.py "${args[@]}" 2>&1 | tee candidate-source/build/release/ci-restore.log
+    - id: native
+      name: Clean external native acceptance
+      if: inputs.mode != 'guard-only'
+      continue-on-error: true
+      env:
+        SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
+      run: |
+        python scripts/platform_acceptance.py \
+          --target "${{ matrix.platform }}" \
+                    --archive "candidate-source/build/release/native-candidate/mariamem-native-${{ matrix.platform }}.tar.gz" \
+          --sha256 "$(python -c 'import json; print(json.load(open("candidate-source/build/release/native-candidate/native-candidate.json"))["sha256"])')" \
+          --module "$SOURCE_SHA" --expected-commit "$SOURCE_SHA" \
+          --evidence candidate-source/build/release/ci-native-acceptance.json
+    - id: wheel
+      name: Clean installed-wheel acceptance
+      if: inputs.mode != 'guard-only'
+      continue-on-error: true
+      run: |
+        python -m venv "$RUNNER_TEMP/mariamem-wheel-venv"
+        wheel_file="$(python -c 'import json; print(json.load(open("candidate-source/tests/evidence/alpha-wheel.json"))["wheel"])')"
+        "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" -m pip install "$GITHUB_WORKSPACE/candidate-source/${wheel_file}[test]"
+        cd "$RUNNER_TEMP"
+        "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" "$GITHUB_WORKSPACE/candidate-source/tests/verify_alpha.py"
+    - name: Ubuntu installed-wheel diagnostics and lifecycle
+      if: inputs.mode != 'guard-only' && matrix.platform == 'ubuntu24.04-x86_64' &&
+        steps.wheel.outcome == 'success'
+      run: |
+        cp candidate-source/tests/consumer/test_ubuntu.py "$RUNNER_TEMP/test_ubuntu.py"
+        cd "$RUNNER_TEMP"
+        "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" -m pytest -q "$RUNNER_TEMP/test_ubuntu.py"
+    - id: guard
+      name: Release guard — READY or NOT READY
+      if: always() && steps.restore.outcome == 'success'
+      continue-on-error: true
+      env:
+        SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
+      run: |
+        set -o pipefail
+        python scripts/verify.py release-check \
+          --ci-candidate-sha "$SOURCE_SHA" --candidate-root candidate-source \
+          --native-acceptance candidate-source/build/release/ci-native-acceptance.json \
+          2>&1 | tee candidate-source/build/release/ci-guard.log
+    - name: Candidate summary
+      if: always()
+      env:
+        CI_MODE: "${{ inputs.mode }}"
+        CANDIDATE_RUN: "${{ inputs.candidate_run }}"
+        EVIDENCE_RUN: "${{ inputs.evidence_run }}"
+        SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
+        RESTORE_RESULT: "${{ steps.restore.outcome }}"
+        NATIVE_RESULT: "${{ steps.native.outcome }}"
+        WHEEL_RESULT: "${{ steps.wheel.outcome }}"
+        GUARD_RESULT: "${{ steps.guard.outcome }}"
+        RELEASE_PLATFORM: "${{ matrix.platform }}"
+      run: python scripts/ci_release_summary.py --root candidate-source
+    - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+      if: always()
+      with:
+        name: release-evidence-${{ matrix.platform }}-${{ needs.resolve.outputs.source_sha
+          }}
+        path: |
+          candidate-source/build/release/ci-native-acceptance.json
+          candidate-source/build/release/ci-native-acceptance.log
+          candidate-source/build/release/ci-ready.json
+          candidate-source/build/release/ci-reuse.json
+          candidate-source/build/release/ci-guard.log
+          candidate-source/build/release/ci-restore.log
+          candidate-source/build/release/SHA256SUMS
+          candidate-source/tests/evidence/alpha.json
+          candidate-source/build/source-candidate-check.json
+        if-no-files-found: warn
+        retention-days: 14
+    - name: Fail unless the requested stages passed
+      if: always()
+      env:
+        MODE: "${{ inputs.mode }}"
+        RESTORE_RESULT: "${{ steps.restore.outcome }}"
+        NATIVE_RESULT: "${{ steps.native.outcome }}"
+        WHEEL_RESULT: "${{ steps.wheel.outcome }}"
+        GUARD_RESULT: "${{ steps.guard.outcome }}"
+      run: |
+        test "$RESTORE_RESULT" = success
+        if [ "$MODE" != guard-only ]; then
+          test "$NATIVE_RESULT" = success
+          test "$WHEEL_RESULT" = success
+        fi
+        test "$GUARD_RESULT" = success
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - platform: darwin-arm64
+          runner: macos-15
+        - platform: ubuntu24.04-x86_64
+          runner: ubuntu-24.04
+  aggregate:
+    needs:
+    - resolve
+    - verification
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      with:
+        ref: "${{ needs.resolve.outputs.source_sha }}"
+        path: candidate-source
+        fetch-depth: 0
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: '3.14'
+    - name: Restore both frozen platforms and exact external evidence
+      env:
+        SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
+        ORIGINAL_RUN: "${{ inputs.mode == 'full' && github.run_id || inputs.candidate_run
+          }}"
+        EVIDENCE_RUN: "${{ github.run_id }}"
+        GITHUB_TOKEN: "${{ github.token }}"
+      run: |
+        python scripts/ci_release_platforms.py restore --root candidate-source \
+          --candidate-sha "$SOURCE_SHA" --candidate-run "$ORIGINAL_RUN" --evidence-run "$EVIDENCE_RUN"
+    - name: Aggregate guard — all supported platforms required
+      env:
+        SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
+      run: |
+        set -o pipefail
+        python scripts/ci_release_platforms.py guard --root candidate-source --candidate-sha "$SOURCE_SHA" | tee candidate-source/build/release/ci-aggregate.log
+        cat candidate-source/build/release/ci-aggregate.log >> "$GITHUB_STEP_SUMMARY"
+    - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+      if: always()
+      with:
+        name: release-ready-${{ needs.resolve.outputs.source_sha }}
+        path: |
+          candidate-source/build/release/ci-ready.json
+          candidate-source/build/release/SHA256SUMS
+          candidate-source/build/release/ci-aggregate.log
+        if-no-files-found: warn
+        retention-days: 14
   publication:
-    needs: [resolve, verification]
-    if: inputs.operation != 'verify' && needs.verification.result == 'success'
-    runs-on: macos-15
+    needs:
+    - resolve
+    - aggregate
+    if: inputs.operation != 'verify' && needs.aggregate.result == 'success'
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
       contents: write
@@ -292,78 +358,108 @@ jobs:
       group: mariamem-release-publication
       cancel-in-progress: false
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-        with:
-          ref: ${{ needs.resolve.outputs.source_sha }}
-          path: candidate-source
-          fetch-depth: 0
-      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
-        with:
-          go-version: '1.26.8'
-          cache: false
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
-        with:
-          python-version: '3.14'
-      - id: restore
-        name: Restore exact candidate and this run's acceptance (no rebuild)
-        env:
-          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
-          ORIGINAL_RUN: ${{ inputs.mode == 'full' && github.run_id || inputs.candidate_run }}
-          EVIDENCE_RUN: ${{ github.run_id }}
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          python scripts/ci_release_reuse.py --mode guard-only \
-            --root candidate-source --candidate-sha "$SOURCE_SHA" \
-            --candidate-run "$ORIGINAL_RUN" --evidence-run "$EVIDENCE_RUN"
-      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
-        with:
-          name: release-evidence-${{ needs.resolve.outputs.source_sha }}
-          path: ${{ runner.temp }}/ready-input
-      - id: publish
-        name: Recheck READY, create exact tag and publish accepted bytes
-        env:
-          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
-          OPERATION: ${{ inputs.operation }}
-          RELEASE_NOTES: ${{ inputs.notes }}
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          cp "$RUNNER_TEMP/ready-input/build/release/SHA256SUMS" candidate-source/build/release/SHA256SUMS
-          args=(--root candidate-source --candidate-sha "$SOURCE_SHA" \
-            --repository "$GITHUB_REPOSITORY" \
-            --ready "$RUNNER_TEMP/ready-input/build/release/ci-ready.json")
-          if [ -n "$RELEASE_NOTES" ]; then args+=(--notes "$RELEASE_NOTES"); fi
-          if [ "$OPERATION" = dry-run ]; then args+=(--dry-run); fi
-          git -C candidate-source config user.name "github-actions[bot]"
-          git -C candidate-source config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          set -o pipefail
-          python scripts/ci_release_publish.py "${args[@]}" 2>&1 | tee candidate-source/build/release/ci-publication.log
-      - id: smoke
-        name: Public tag and published-asset consumer smoke
-        if: inputs.operation == 'release'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          python scripts/ci_release_public_smoke.py --root candidate-source \
-            --repository "$GITHUB_REPOSITORY"
-      - name: Publication summary
-        if: always()
-        env:
-          OPERATION: ${{ inputs.operation }}
-          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
-          RESTORE_RESULT: ${{ steps.restore.outcome }}
-          PUBLISH_RESULT: ${{ steps.publish.outcome }}
-          SMOKE_RESULT: ${{ steps.smoke.outcome }}
-        run: python scripts/ci_release_summary.py --root candidate-source --publication
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
-        if: always()
-        with:
-          name: release-publication-${{ needs.resolve.outputs.source_sha }}
-          path: |
-            candidate-source/build/release/ci-publication.json
-            candidate-source/build/release/ci-publication.log
-            candidate-source/build/release/ci-public-smoke.json
-            candidate-source/build/release/ci-public-smoke.log
-            candidate-source/build/release/ci-public-smoke-consumer.log
-          if-no-files-found: warn
-          retention-days: 14
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      with:
+        ref: "${{ needs.resolve.outputs.source_sha }}"
+        path: candidate-source
+        fetch-depth: 0
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: '3.14'
+    - name: Restore both frozen platforms and exact external evidence
+      env:
+        SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
+        ORIGINAL_RUN: "${{ inputs.mode == 'full' && github.run_id || inputs.candidate_run
+          }}"
+        EVIDENCE_RUN: "${{ github.run_id }}"
+        GITHUB_TOKEN: "${{ github.token }}"
+      run: |
+        python scripts/ci_release_platforms.py restore --root candidate-source \
+          --candidate-sha "$SOURCE_SHA" --candidate-run "$ORIGINAL_RUN" --evidence-run "$EVIDENCE_RUN"
+    - name: Recheck aggregate identity and stage exact accepted assets
+      env:
+        SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
+      run: python scripts/ci_release_platforms.py guard --root candidate-source --candidate-sha
+        "$SOURCE_SHA"
+    - id: publish
+      name: Recheck READY, create exact tag and publish accepted bytes
+      env:
+        SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
+        OPERATION: "${{ inputs.operation }}"
+        RELEASE_NOTES: "${{ inputs.notes }}"
+        GH_TOKEN: "${{ github.token }}"
+      run: |
+        args=(--root candidate-source --candidate-sha "$SOURCE_SHA" \
+          --repository "$GITHUB_REPOSITORY" \
+          --ready candidate-source/build/release/ci-ready.json)
+        if [ -n "$RELEASE_NOTES" ]; then args+=(--notes "$RELEASE_NOTES"); fi
+        if [ "$OPERATION" = dry-run ]; then args+=(--dry-run); fi
+        git -C candidate-source config user.name "github-actions[bot]"
+        git -C candidate-source config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        set -o pipefail
+        python scripts/ci_release_publish.py "${args[@]}" 2>&1 | tee candidate-source/build/release/ci-publication.log
+    - name: Publication summary
+      if: always()
+      env:
+        OPERATION: "${{ inputs.operation }}"
+        SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
+        PUBLISH_RESULT: "${{ steps.publish.outcome }}"
+      run: python scripts/ci_release_summary.py --root candidate-source --publication
+    - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+      if: always()
+      with:
+        name: release-publication-${{ needs.resolve.outputs.source_sha }}
+        path: |
+          candidate-source/build/release/ci-publication.json
+          candidate-source/build/release/ci-publication.log
+        if-no-files-found: warn
+        retention-days: 14
+  public_smoke:
+    needs:
+    - resolve
+    - publication
+    if: inputs.operation == 'release' && needs.publication.result == 'success'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - platform: darwin-arm64
+          runner: macos-15
+        - platform: ubuntu24.04-x86_64
+          runner: ubuntu-24.04
+    runs-on: "${{ matrix.runner }}"
+    timeout-minutes: 30
+    steps:
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+    - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      with:
+        ref: "${{ needs.resolve.outputs.source_sha }}"
+        path: candidate-source
+        fetch-depth: 0
+    - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+      with:
+        go-version: 1.26.8
+        cache: false
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: '3.14'
+    - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+      with:
+        name: release-publication-${{ needs.resolve.outputs.source_sha }}
+        path: publication-input
+    - name: Public tag and published assets on this platform
+      env:
+        GH_TOKEN: "${{ github.token }}"
+      run: |
+        python scripts/ci_release_public_smoke.py --root candidate-source \
+          --platform "${{ matrix.platform }}" --repository "$GITHUB_REPOSITORY" \
+          --publication publication-input/ci-publication.json
+    - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+      if: always()
+      with:
+        name: release-public-smoke-${{ matrix.platform }}-${{ needs.resolve.outputs.source_sha
+          }}
+        path: candidate-source/build/release/ci-public-smoke*
+        if-no-files-found: warn
+        retention-days: 14

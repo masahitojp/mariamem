@@ -400,9 +400,12 @@ build inputs → immutable candidate → candidate SHA256
 ```
 
 The canonical guest build boundary is Linux x86_64 WASIX guest build → exact
-WASM handoff → macOS arm64 AOT/package. Docker and Tart are not dependencies
-of the canonical release path. Target-native Ubuntu 24.04 x86_64 AOT/package
-is now implemented alongside macOS; clean product acceptance is pending CI.
+WASM handoff → macOS arm64 and Ubuntu 24.04 x86_64 AOT/package. Docker and
+Tart are not dependencies of the canonical release path. Release CI builds the
+common guest once, accepts each platform independently, and requires aggregate
+READY before one tag/release can publish either platform. Ubuntu AOT records
+the fixed SSE2+SSSE3 CPU requirement. Retries restore paired immutable platform
+artifacts/evidence; public smoke runs on each platform after publication.
 
 CI must retrieve the exact candidate source/ref through its remote trigger,
 without a permanent manual push step or build/tag diff inspection. Clean macOS

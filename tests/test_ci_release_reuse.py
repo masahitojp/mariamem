@@ -173,6 +173,8 @@ def test_main_canonicalizes_macos_temporary_directory_alias(tmp_path, monkeypatc
     (root / "python/mariamem").mkdir(parents=True)
     (root / "python/mariamem/_version.py").write_text("PYTHON_VERSION = '0.1.0a3'\n")
     (root / "build/release").mkdir(parents=True)
+    (root / "build/guest-aot").mkdir(parents=True)
+    (root / "build/guest-aot/manifest.json").write_text('{"platform":"darwin-arm64"}')
     real = tmp_path / "temporary"
     real.mkdir()
     alias = tmp_path / "temporary-alias"

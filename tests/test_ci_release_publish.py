@@ -35,13 +35,20 @@ def candidate(tmp_path, monkeypatch):
     wheel_record.parent.mkdir(parents=True)
     wheel_record.write_text(json.dumps({"wheel": str(wheel.relative_to(tmp_path))}))
     assets = {native.name: digest(native), wheel.name: digest(wheel),
-              source.name.replace("source-candidate", "corresponding-source"): digest(source)}
-    ready = {"result": "READY", "source_commit": SHA, "git_tag": TAG,
+              "mariamem-0.1.0a3-darwin-arm64-corresponding-source.tar.gz": digest(source)}
+    staging = release / "publish"
+    staging.mkdir()
+    for name, path in ((native.name, native), (wheel.name, wheel), ("mariamem-0.1.0a3-darwin-arm64-corresponding-source.tar.gz", source)):
+        (staging / name).write_bytes(path.read_bytes())
+    for name in ("mariamem-native-ubuntu24.04-x86_64.tar.gz", "mariamem-0.1.0a3-py3-none-linux_x86_64.whl", "mariamem-0.1.0a3-ubuntu24.04-x86_64-corresponding-source.tar.gz"):
+        (staging / name).write_bytes(name.encode())
+        assets[name] = digest(staging / name)
+    ready = {"version": 2, "platforms": {"darwin-arm64": {}, "ubuntu24.04-x86_64": {}}, "result": "READY", "source_commit": SHA, "git_tag": TAG,
              "python_version": "0.1.0a3", "assets": assets,
              "native_acceptance_sha256": "b" * 64, "wheel_acceptance_sha256": "c" * 64}
     (release / "ci-ready.json").write_text(json.dumps(ready))
     (release / "SHA256SUMS").write_text("".join(f"{sha}  {name}\n" for name, sha in assets.items()))
-    monkeypatch.setattr(publisher, "check_candidate", lambda *args: ready)
+    monkeypatch.setattr(publisher, "check_aggregate", lambda *args: ready)
     calls = []
 
     def run(args, root):
@@ -91,7 +98,7 @@ def test_publish_exact_tag_assets_prerelease(candidate):
     assert SHA in tag and "--force" not in tag
     create = next(a for a in calls if a[:3] == ["gh", "release", "create"])
     assert "--draft" in create and "--prerelease" in create and "--verify-tag" in create
-    assert len([a for a in create if a.startswith(str(root / "build/release/publish"))]) == 4
+    assert len([a for a in create if a.startswith(str(root / "build/release/publish"))]) == 7
 
 
 @pytest.mark.parametrize("failure", ["not-ready", "source", "tag", "hash", "checksum"])
@@ -104,7 +111,7 @@ def test_invalid_candidate_never_mutates(candidate, failure):
     elif failure == "tag":
         ready["git_tag"] = "v0.1.0-alpha.4"
     elif failure == "hash":
-        (root / "build/release/native-candidate/mariamem-native-darwin-arm64.tar.gz").write_bytes(b"changed")
+        (root / "build/release/publish/mariamem-native-darwin-arm64.tar.gz").write_bytes(b"changed")
     else:
         (root / "build/release/SHA256SUMS").write_text("bad\n")
     with pytest.raises((ValueError, KeyError)):
@@ -168,3 +175,12 @@ def test_uploaded_mismatch_stops_before_publishing_draft(candidate, monkeypatch)
         publisher.publish(root, SHA, REPO)
     assert not any(a[:3] == ["gh", "release", "edit"] for a in calls)
     assert not any("delete" in a or "--clobber" in a for a in calls)
+
+
+def test_single_platform_ready_cannot_publish(candidate):
+    root, ready, calls, _ = candidate
+    ready['version'] = 1
+    (root / 'build/release/ci-ready.json').write_text(json.dumps(ready))
+    with pytest.raises(ValueError, match='aggregate platform READY'):
+        publisher.publish(root, SHA, REPO)
+    assert not mutations(calls)

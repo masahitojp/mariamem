@@ -17,6 +17,7 @@ from common import ROOT, digest
 from ci_guest_source import verify_ci_guest_source
 from check_ci_release import NATIVE, verify_native_acceptance
 from release_version import SOURCE_CANDIDATE
+from native_target import DARWIN, UBUNTU, target_metadata, manifest_target
 
 WORKFLOW = ".github/workflows/release-candidate-ready.yml"
 EVIDENCE_FILES = {
@@ -40,10 +41,10 @@ def safe_name(name):
     return str(path)
 
 
-def candidate_path(name, directory=False, source_filename=SOURCE_CANDIDATE):
+def candidate_path(name, directory=False, source_filename=SOURCE_CANDIDATE, platform=DARWIN):
     name = safe_name(name)
     prefixes = ("build/guest-wasm", "build/guest-aot")
-    files = {"build/release/native-candidate/" + NATIVE,
+    files = {"build/release/native-candidate/" + target_metadata(platform)["bundle_name"] + ".tar.gz",
              "build/release/native-candidate/native-candidate.json",
              "build/release/" + source_filename,
              "build/release/source-manifest.json", "build/source-candidate-check.json",
@@ -58,12 +59,12 @@ def candidate_path(name, directory=False, source_filename=SOURCE_CANDIDATE):
     return name
 
 
-def restore_tar(path, destination, source_filename=SOURCE_CANDIDATE):
+def restore_tar(path, destination, source_filename=SOURCE_CANDIDATE, platform=DARWIN):
     with tarfile.open(path, "r:") as archive:
         seen = set()
         members = archive.getmembers()
         for member in members:
-            name = candidate_path(member.name, member.isdir(), source_filename)
+            name = candidate_path(member.name, member.isdir(), source_filename, platform)
             require(name not in seen, "duplicate candidate entry: " + name)
             seen.add(name)
             require(member.isfile() or member.isdir(), "special/link candidate entry: " + name)
@@ -95,7 +96,7 @@ def restore_zip(path, destination, candidate=False):
                 require(not candidate and any(p.startswith(name + "/") for p in EVIDENCE_FILES),
                         "unexpected ZIP directory: " + name)
             else:
-                require(name == "candidate-handoff.tar" if candidate else name in EVIDENCE_FILES,
+                require(name in {"candidate-handoff.tar", "candidate-handoff.sha256"} if candidate else name in EVIDENCE_FILES,
                         "unexpected ZIP entry: " + name)
         for entry in archive.infolist():
             if not candidate and entry.filename not in ("build/release/ci-native-acceptance.json",
@@ -165,7 +166,7 @@ class GitHub:
         return {"run_id": run, "artifact_id": artifact["id"], "name": name, "zip_sha256": digest(destination)}
 
 
-def verify_candidate(root, commit, source_filename=SOURCE_CANDIDATE):
+def verify_candidate(root, commit, source_filename=SOURCE_CANDIDATE, platform=DARWIN):
     lock = json.loads((root / "release/inputs.lock.json").read_text())
     source_record = json.loads((root / "build/release/source-manifest.json").read_text())
     guest = verify_ci_guest_source(root, lock, root / "build", source_record["manifest"]["build_records"])
@@ -174,7 +175,9 @@ def verify_candidate(root, commit, source_filename=SOURCE_CANDIDATE):
     native_record = json.loads((root / "build/release/native-candidate/native-candidate.json").read_text())
     wheel_record = json.loads((root / "tests/evidence/alpha-wheel.json").read_text())
     wheel_path = candidate_path(wheel_record["wheel"])
-    records = [((root / "build/release/native-candidate" / NATIVE), native_record["sha256"]),
+    native_name = target_metadata(platform)["bundle_name"] + ".tar.gz"
+    require(native_record.get("file", native_name) == native_name, "native candidate filename/platform differs")
+    records = [((root / "build/release/native-candidate" / native_name), native_record["sha256"]),
                (root / wheel_path, wheel_record["sha256"]),
                (root / "build/release" / source_filename, source_record["sha256"])]
     require(source_record["file"] == source_filename, "source filename/version differs")
@@ -184,11 +187,13 @@ def verify_candidate(root, commit, source_filename=SOURCE_CANDIDATE):
 
 
 def verify_evidence(root, commit, hashes, guest):
-    native = root / "build/release/native-candidate" / NATIVE
+    target = manifest_target(json.loads((root / "build/guest-aot/manifest.json").read_text()))
+    native_name = target["bundle_name"] + ".tar.gz"
+    native = root / "build/release/native-candidate" / native_name
     with tarfile.open(native, "r:gz") as archive:
-        manifest = json.load(archive.extractfile("mariamem-native-darwin-arm64/manifest.json"))
+        manifest = json.load(archive.extractfile(target["bundle_name"] + "/manifest.json"))
     acceptance = json.loads((root / "build/release/ci-native-acceptance.json").read_text())
-    verify_native_acceptance(acceptance, commit, hashes[NATIVE], manifest, guest)
+    verify_native_acceptance(acceptance, commit, hashes[native_name], manifest, guest)
     wheel_record = json.loads((root / "tests/evidence/alpha-wheel.json").read_text())
     evidence = json.loads((root / "tests/evidence/alpha.json").read_text())
     require(evidence.get("passed") is True and evidence.get("wheel_sha256") == wheel_record["sha256"]
@@ -204,6 +209,7 @@ def verify_evidence(root, commit, hashes, guest):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--platform", choices=(DARWIN, UBUNTU), default=DARWIN)
     parser.add_argument("--mode", choices=("full", "acceptance-only", "guard-only"), required=True)
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--handoff", type=Path)
@@ -230,19 +236,23 @@ def main():
                 require(digest(handoff) == args.handoff_sha256, "candidate handoff hash mismatch")
                 candidate_identity = {"handoff_sha256": args.handoff_sha256}
             else:
-                candidate_identity = api.artifact(args.candidate_run, "release-candidate-" + args.candidate_sha,
+                candidate_identity = api.artifact(args.candidate_run, "release-candidate-" + args.platform + "-" + args.candidate_sha,
                                                   args.candidate_sha, staging / "candidate.zip")
                 restore_zip(staging / "candidate.zip", staging, candidate=True)
                 handoff = staging / "candidate-handoff.tar"
             handoff_hash = digest(handoff)
-            restore_tar(handoff, root, source_filename)
-            hashes, guest = verify_candidate(root, args.candidate_sha, source_filename)
-            result = {"version": 1, "mode": args.mode, "source_commit": args.candidate_sha,
+            checksum = handoff.with_suffix(".sha256")
+            if checksum.exists():
+                require(checksum.read_text().strip() == handoff_hash, "candidate handoff checksum mismatch")
+            restore_tar(handoff, root, source_filename, args.platform)
+            require(json.loads((root / "build/guest-aot/manifest.json").read_text())["platform"] == args.platform, "reused platform differs")
+            hashes, guest = verify_candidate(root, args.candidate_sha, source_filename, args.platform)
+            result = {"version": 1, "mode": args.mode, "platform": args.platform, "source_commit": args.candidate_sha,
                       "candidate_artifact": candidate_identity, "handoff_sha256": handoff_hash,
                       "assets": hashes, "guest_source_provenance": guest}
             if args.mode == "guard-only":
                 evidence_run = args.evidence_run or args.candidate_run
-                result["evidence_artifact"] = api.artifact(evidence_run, "release-evidence-" + args.candidate_sha,
+                result["evidence_artifact"] = api.artifact(evidence_run, "release-evidence-" + args.platform + "-" + args.candidate_sha,
                                                           args.candidate_sha, staging / "evidence.zip")
                 restore_zip(staging / "evidence.zip", root)
                 result["evidence_sha256"] = verify_evidence(root, args.candidate_sha, hashes, guest)

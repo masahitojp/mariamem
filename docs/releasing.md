@@ -12,7 +12,8 @@ Historical experiments, local logs, and generated binaries stay outside Git.
 
 For future candidates, the [guest build boundary](development.md#guest-build-boundary)
 records Linux x86_64 source/toolchain/WASM identity separately from macOS arm64
-Wasmer AOT identity. Its CI verification is not release approval. The published
+Wasmer AOT identity. Its CI verification is not release approval. Ubuntu AOT/package uses the same
+common WASM with its own target/runtime provenance. The published
 alpha.3 `release/guest-source-provenance.json` and review apply only to their
 recorded artifact hashes; a newly built guest requires its own corresponding
 source/provenance review before the existing release guard can accept it.
@@ -23,24 +24,23 @@ Manually dispatch `release-candidate-ready.yml`. Its small input interface is:
 
 | Mode | Inputs | Work performed |
 | --- | --- | --- |
-| `full` (default) | remotely fetchable `candidate_ref` | Linux guest build, macOS AOT/package, clean acceptance, guard |
+| `full` (default) | remotely fetchable `candidate_ref` | One Linux guest build, both native AOT/package jobs, clean acceptance per platform, aggregate guard |
 | `acceptance-only` | original candidate SHA as `candidate_ref`, `candidate_run` ID | restore exact frozen candidate, clean native/wheel acceptance, guard |
 | `guard-only` | original SHA, `candidate_run`, optional `evidence_run` (defaults to candidate run) | restore exact candidate and acceptance evidence, guard only |
 
 Retry modes skip both build jobs. `candidate_run` must be the original run that
-uploaded `release-candidate-<sha>`; an acceptance retry only uploads new evidence.
+uploaded both `release-candidate-<platform>-<sha>` artifacts; an acceptance retry only uploads new evidence.
 Use its run ID as `evidence_run` for a later guard retry. The workflow tooling
 and immutable candidate source are checked out separately, so a guard fix can
 verify an older candidate without changing its source or bytes.
 
-For example, to retry the proven candidate's guard:
-
-```sh
-gh workflow run release-candidate-ready.yml \
-  -f mode=guard-only \
-  -f candidate_ref=1f1379351c6054518fb48aeddc9640845b36dab9 \
-  -f candidate_run=36215480255
-```
+To retry, keep `candidate_ref` at the original full source SHA and provide its
+build run as `candidate_run`. For `guard-only`, set `evidence_run` to the run
+that produced both platform acceptance records. Retry never builds the common
+guest, AOT, wheel, or native archives. Failed platform acceptance does not require
+rebuilding an otherwise valid candidate. Both platforms are re-accepted in
+`acceptance-only`; `guard-only` runs neither acceptance. Single-platform historical
+runs lack the new paired handoff set and require a new full candidate.
 
 The workflow resolves the requested source to a full remote SHA. Reuse verifies
 the GitHub artifact ZIP digest, safe extraction, exact source/build provenance,
@@ -50,14 +50,27 @@ corrupted, or mismatched inputs fail clearly; there is no rebuild fallback.
 Retention is currently 14 days. A new full run is required when reusable inputs
 are unavailable.
 
-The full path transfers exact WASM to macOS 15 arm64 for AOT, wheel, native,
-and corresponding-source construction. A separate clean macOS job accepts the
-frozen native archive through the public Go module at the exact source commit
-and tests the installed wheel. Acceptance evidence stays external. The workflow
-produces candidate/evidence artifacts and a summary of mode, source, reused
-identity/hashes, failed stage, acceptance, and `READY`/`NOT READY`. The verification
-stages never tag or publish; `operation=release` enables the publication job
-described below. Neither path requires Docker or Tart.
+The full path builds one common WASM and transfers its exact bytes to independent
+macOS 15 arm64 and Ubuntu 24.04 x86_64 AOT/package jobs. Ubuntu uses the explicit
+SSE2+SSSE3 CPU baseline recorded and verified by source provenance. Each platform
+has a separate clean native/public-Go and installed-wheel acceptance job.
+
+Both platform guards must pass. The aggregate guard rechecks their source files,
+full source SHA, version, input-lock/prepared-source/toolchain identities, and
+common WASM hash. A missing or failing platform yields NOT READY and publishes
+nothing. Candidate bytes and acceptance evidence remain separate; no evidence
+commit or rebuild after acceptance is required. Frozen handoffs and evidence are
+named `release-candidate-<platform>-<sha>` and `release-evidence-<platform>-<sha>`.
+The aggregate output is `release-ready-<sha>`.
+
+A multi-platform alpha publishes two native archives, two wheels, two
+platform-qualified corresponding-source archives, and one `SHA256SUMS`. Separate
+source archives retain each platform's exact AOT provenance without introducing
+another source format. Publication rechecks aggregate READY and accepted hashes,
+creates one immutable tag at the exact build source SHA, and publishes one release.
+Post-publication smoke runs separately on each platform using public-tag Go code
+and downloaded public native assets. A smoke failure never moves the tag or
+replaces published bytes. No path requires Docker or Tart.
 
 **Codex submits work to CI; it does not supervise CI.** After a long-running
 dispatch, hand back the run URL, candidate SHA, and mode immediately. Do not poll,
@@ -99,15 +112,16 @@ gh workflow run release-candidate-ready.yml -f candidate_ref=<full-source-sha> \
 
 An optional `notes` input selects another tracked candidate-relative file with a
 heading identifying the canonical tag. CI rechecks the guard and exact artifact
-hashes, creates an annotated tag at the build commit, uploads the four accepted
+hashes, creates an annotated tag at the build commit, uploads the seven accepted
 assets to a draft, downloads/verifies them, then publishes (prerelease for
-alpha/beta/rc). It runs the maintained external Go consumer against the public
-tag and downloaded native bundle. No candidate is rebuilt after acceptance.
+alpha/beta/rc). It runs the maintained external Go consumer separately on both platforms against
+the public tag and each downloaded native bundle. No candidate is rebuilt after acceptance.
 Existing local/remote tags or GitHub releases stop publication, even if they
 appear to describe the same candidate. No overwrite, deletion, or rollback is
 performed after failure; a public-smoke failure leaves the release intact for
 investigation. JSON reports and logs are retained in
-`release-publication-<source-sha>` with the failing stage in the workflow summary.
+`release-publication-<source-sha>` and
+`release-public-smoke-<platform>-<source-sha>` with the failing stage in the workflow summary.
 Codex returns the run URL and hands off immediately; it does not supervise CI.
 
 For this path, `package_source.py --ci-evidence-dir build` and
@@ -261,7 +275,8 @@ remain the final local checks before publication.
 hands frozen native/wheel/source bytes to a separate Ubuntu consumer job.
 It checks public Go consumers, installed-wheel consumers, lifecycle regressions
 and the existing CI release guard with Ubuntu-specific external evidence.
-It does not publish or expand the existing macOS release asset set.
+This standalone product workflow does not publish. The canonical multi-platform
+release workflow described above owns aggregate readiness and publication.
 
 The target is Ubuntu 24.04 LTS / x86_64, with a `linux_x86_64` wheel,
 not a manylinux compatibility claim. Source manifests record the Linux-native

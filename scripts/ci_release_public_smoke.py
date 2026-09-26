@@ -12,6 +12,8 @@ import tempfile
 
 from common import ROOT, digest
 from platform_acceptance import MODULE, STEPS
+from native_target import DARWIN, UBUNTU, target_metadata
+from ci_release_platforms import expected_names, PLATFORMS
 
 
 def require(condition, message):
@@ -52,7 +54,7 @@ def verify_consumer(evidence, commit, tag, native_hash):
             'public consumer acceptance steps incomplete')
 
 
-def smoke(root, repository, publication_path, output):
+def smoke(root, repository, publication_path, output, platform=DARWIN):
     root = Path(root).resolve()
     report = {'schema_version': 1, 'result': 'FAIL', 'started_at': datetime.now(timezone.utc).isoformat(),
               'stage': 'publication_identity', 'nothing_modified': True}
@@ -75,7 +77,11 @@ def smoke(root, repository, publication_path, output):
         require(re.fullmatch('[0-9a-f]{40}', commit) is not None, 'publication source SHA invalid')
         require(re.fullmatch(r'v[0-9]+\.[0-9]+\.[0-9]+(?:-(?:alpha|beta|rc)\.[0-9]+)?', tag) is not None,
                 'publication tag invalid')
-        require(len(assets) == 4 and 'SHA256SUMS' in assets
+        if publication.get('version') == 2:
+            require(set(publication.get('platforms', {})) == set(PLATFORMS), 'publication platform set incomplete')
+            require(set(assets) == expected_names(publication['python_version']) | {'SHA256SUMS'}, 'publication asset set incomplete')
+        else:
+            require(len(assets) == 4 and 'SHA256SUMS' in assets
                 and 'mariamem-native-darwin-arm64.tar.gz' in assets
                 and sum(n.endswith('.whl') for n in assets) == 1
                 and sum(n.endswith('-corresponding-source.tar.gz') for n in assets) == 1,
@@ -94,10 +100,10 @@ def smoke(root, repository, publication_path, output):
             report['downloaded_hashes'] = verify_downloads(downloaded, assets)
             report['stage'] = 'public_go_consumer'
             consumer_path = work / 'consumer.json'
-            native = 'mariamem-native-darwin-arm64.tar.gz'
+            native = target_metadata(platform)['bundle_name'] + '.tar.gz'
             try:
                 execute([sys.executable, str(root / 'scripts/platform_acceptance.py'),
-                         '--archive', str(downloaded / native), '--sha256', assets[native],
+                         '--target', platform, '--archive', str(downloaded / native), '--sha256', assets[native],
                          '--module', tag, '--expected-commit', commit, '--evidence', str(consumer_path)],
                         public_consumer=True)
             finally:
@@ -107,6 +113,8 @@ def smoke(root, repository, publication_path, output):
                     output.with_name(output.stem + '-consumer.log').write_text(consumer_path.with_suffix('.log').read_text())
             consumer = report['consumer']
             verify_consumer(consumer, commit, tag, assets[native])
+            require(consumer.get('target', DARWIN) == platform, 'public consumer platform differs')
+            report['platform'] = platform
             report['environment'] = consumer['environment']
         report.update(stage='complete', result='PASS')
     except (OSError, ValueError, KeyError, TypeError) as exc:
@@ -119,6 +127,7 @@ def smoke(root, repository, publication_path, output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--platform', choices=PLATFORMS, default=DARWIN)
     parser.add_argument('--root', type=Path, default=ROOT)
     parser.add_argument('--repository', required=True)
     parser.add_argument('--publication', type=Path)
@@ -126,7 +135,7 @@ def main():
     args = parser.parse_args()
     root = args.root.resolve()
     report = smoke(root, args.repository, args.publication or root / 'build/release/ci-publication.json',
-                   args.output or root / 'build/release/ci-public-smoke.json')
+                   args.output or root / 'build/release/ci-public-smoke.json', args.platform)
     print(json.dumps(report, indent=2))
     return 0 if report['result'] == 'PASS' else 1
 

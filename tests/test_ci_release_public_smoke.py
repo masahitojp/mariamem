@@ -119,6 +119,41 @@ class PublicSmoke(unittest.TestCase):
         self.assertTrue(report['nothing_modified'])
         self.assertEqual(json.loads(report_path.read_text())['result'], 'FAIL')
 
+    def test_ubuntu_smoke_uses_published_native_and_public_tag(self):
+        # Build the new six-asset release identity without creating a release.
+        self.assets = {}
+        for name in smoke.expected_names('0.1.0a4'):
+            (self.root / name).write_bytes(name.encode())
+            self.assets[name] = smoke.digest(self.root / name)
+        (self.root / 'SHA256SUMS').write_text(''.join(h + '  ' + n + '\n' for n, h in self.assets.items()))
+        self.assets['SHA256SUMS'] = smoke.digest(self.root / 'SHA256SUMS')
+        publication = self.root / 'publication.json'
+        publication.write_text(json.dumps({'version': 2, 'status': 'PUBLISHED',
+            'python_version': '0.1.0a4', 'platforms': {p: {} for p in smoke.PLATFORMS},
+            'source_commit': self.commit, 'git_tag': self.tag,
+            'repository': 'owner/repo', 'assets': self.assets}))
+        native = 'mariamem-native-ubuntu24.04-x86_64.tar.gz'
+        def command(argv, **kwargs):
+            if argv[0] == 'gh':
+                directory = Path(argv[argv.index('--dir') + 1])
+                for name in self.assets:
+                    shutil.copyfile(self.root / name, directory / name)
+            else:
+                self.assertEqual(argv[argv.index('--target') + 1], smoke.UBUNTU)
+                self.assertEqual(Path(argv[argv.index('--archive') + 1]).name, native)
+                self.assertEqual(argv[argv.index('--module') + 1], self.tag)
+                consumer = self.consumer()
+                consumer['archive']['sha256'] = self.assets[native]
+                consumer.update(target=smoke.UBUNTU, environment={'distribution': 'ubuntu', 'version_id': '24.04'})
+                Path(argv[argv.index('--evidence') + 1]).write_text(json.dumps(consumer))
+            class Result:
+                returncode, stdout, stderr = 0, '', ''
+            return Result()
+        with patch.object(smoke.subprocess, 'run', command):
+            result = smoke.smoke(self.root, 'owner/repo', publication, self.root / 'out.json', smoke.UBUNTU)
+        self.assertEqual(result['result'], 'PASS')
+        self.assertEqual(result['platform'], smoke.UBUNTU)
+
 
 if __name__ == '__main__':
     unittest.main()
