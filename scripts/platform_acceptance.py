@@ -45,6 +45,15 @@ def verify_resolved_commit(resolved, expected):
         raise ValueError(f'public module commit mismatch: expected {expected}, resolved {actual or "unknown"}')
 
 
+def bind_remote_origin(resolved, remote, expected):
+    """Match proxy-fetched module identity to a direct full-SHA remote query."""
+    if any(remote.get(key) != resolved.get(key) for key in ('Path', 'Version')):
+        raise ValueError('direct remote module identity/version differs from fetched module')
+    bound = {**resolved, 'Origin': remote.get('Origin') or {}}
+    verify_resolved_commit(bound, expected)
+    return bound
+
+
 def extract(archive, destination):
     seen = set()
     with tarfile.open(archive, 'r:gz') as tar:
@@ -192,7 +201,12 @@ def main():
             if resolved.get('Replace'):
                 raise ValueError('local module replacement is forbidden')
             if args.expected_commit:
-                verify_resolved_commit(resolved, args.expected_commit.lower())
+                # Proxy responses need not contain Origin. Query the full SHA
+                # directly, then bind it to the fetched version/checksum.
+                remote = json.loads(execute(
+                    [args.go, 'list', '-m', '-json', MODULE + '@' + args.expected_commit.lower()],
+                    consumer, {**env, 'GOPROXY': 'direct'}))
+                resolved = bind_remote_origin(resolved, remote, args.expected_commit.lower())
             evidence['module_resolved'] = {k: resolved[k] for k in ('Path', 'Version', 'Sum', 'Origin') if k in resolved}
             passed()
             begin('consumer_build')

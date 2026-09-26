@@ -120,6 +120,18 @@ class PlatformHarness(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'identity/version/checksum'):
             harness.verify_resolved_commit({**module, 'Path': 'example.com/other'}, commit)
 
+    def test_proxy_identity_bound_to_direct_remote_origin(self):
+        commit = 'a' * 40
+        fetched = {'Path': harness.MODULE, 'Version': 'v0.0.0-example', 'Sum': 'h1:test'}
+        remote = {'Path': harness.MODULE, 'Version': fetched['Version'], 'Origin': {'Hash': commit}}
+        bound = harness.bind_remote_origin(fetched, remote, commit)
+        self.assertEqual(bound['Sum'], fetched['Sum'])
+        self.assertEqual(bound['Origin']['Hash'], commit)
+        with self.assertRaisesRegex(ValueError, 'identity/version differs'):
+            harness.bind_remote_origin(fetched, {**remote, 'Version': 'v0.0.1'}, commit)
+        with self.assertRaisesRegex(ValueError, 'commit mismatch'):
+            harness.bind_remote_origin(fetched, {**remote, 'Origin': {'Hash': 'b' * 40}}, commit)
+
     def test_mocked_external_consumer_orchestration(self):
         self.fixture()
         argv = ['harness', '--archive', str(self.archive), '--sha256', harness.digest(self.archive),
