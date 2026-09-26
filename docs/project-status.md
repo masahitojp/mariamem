@@ -71,8 +71,9 @@ https://github.com/masahitojp/mariamem/releases/tag/v0.1.0-alpha.3
 ```
 
 The accepted artifacts were published unchanged. Clean artifact acceptance and
-post-publication public Go tag/native-bundle consumer smoke passed. The tag and
-remote main point to `1c97b7bda65bffa66abcf751bddd6bbc10132304`.
+post-publication public Go tag/native-bundle consumer smoke passed. The release
+tag points to
+`1c97b7bda65bffa66abcf751bddd6bbc10132304`; main has continued development.
 
 Go:
 
@@ -380,8 +381,9 @@ whether or when to release: the human authorizes that by requesting the release.
 Codex returns the run URL and exact candidate SHA after successful submission;
 it does not poll, wait, or supervise the workflow. It re-enters for an explicit
 status request, requested failure diagnosis, or an unexpected engineering
-decision. Candidate verification and publication mechanics are implemented. The workflow
-defaults to verification only; an explicit `operation=release` dispatch authorizes
+decision. Candidate verification can reach READY from an exact remote source
+commit, and publication mechanics are implemented. The workflow defaults to
+verification only; an explicit `operation=release` dispatch authorizes
 READY → exact-source tag, accepted assets, and public consumer smoke. Publication
 failures never move tags or replace assets.
 
@@ -396,6 +398,11 @@ candidate bytes and should not require a new source commit for publication:
 build inputs → immutable candidate → candidate SHA256
              → external acceptance evidence → release guard
 ```
+
+The canonical guest build boundary is Linux x86_64 WASIX guest build → exact
+WASM handoff → macOS arm64 AOT/package. Docker and Tart are not dependencies
+of the canonical release path. This Linux build capability does not yet mean
+Linux product/runtime support.
 
 CI must retrieve the exact candidate source/ref through its remote trigger,
 without a permanent manual push step or build/tag diff inspection. Clean macOS
@@ -412,21 +419,29 @@ release-infrastructure gap, not a reason to silently fall back to Tart.
 ```text
 v0.1.0-alpha.3  DONE
         ↓
-Release CI / release-mechanics cleanup
+release publication mechanics (implemented)
+READY → exact tag → GitHub Release → exact assets → public smoke
         ↓
-Linux x86_64
+v0.1.0-alpha.4 end-to-end release rehearsal
+        ↓
+failure diagnostics foundation
+        ↓
+Linux x86_64 product support
         ↓
 minimum failure UX
         ↓
-exact 0.1 release rehearsal / correctness
+v0.1.0 rehearsal / correctness
         ↓
 v0.1.0
 ```
 
-This is a roadmap direction, not a rigid task tracker. Release CI moves ahead
-of the remaining product work to stop spending human and agent effort on the
-manual release happy path. Linux x86_64 and minimum failure UX remain 0.1
-product requirements.
+This is a roadmap direction, not a rigid task tracker. Alpha.4 is the proof that
+the new release path works end-to-end, rather than a product-feature release.
+Publication mechanics have focused verification; the real release rehearsal
+still needs to exercise the complete transaction. A failure diagnostics
+foundation follows so CI failures expose their stage and useful evidence before
+more product work. Linux x86_64 and minimum failure UX remain 0.1 product
+requirements, distinct from maintainer/release infrastructure.
 
 The pre-release validation matrix remains intentionally narrow:
 
@@ -446,11 +461,18 @@ Broad version compatibility is not currently worth slowing early development.
 The verification/toil audit consolidated local checks into canonical `check`,
 `integration`, `release-check`, and `bench` entry points. Baseline GitHub
 Actions runs normal and real-guest integration checks. Release candidate CI
-builds immutable candidates, clean-accepts them, and evaluates READY using external
-evidence; it supports acceptance-only and guard-only retries. Publication mechanics
-still need the CI implementation described above; benchmarks remain
-performance-work only. See [local verification](development.md#local-verification)
-for the commands and their boundaries.
+builds immutable candidates, clean-accepts them, and evaluates READY using
+external evidence. It supports `full`, `acceptance-only`, and `guard-only` modes.
+Retries reuse immutable artifacts/evidence and verify source identity and hashes;
+missing, expired, corrupted, or mismatched inputs fail instead of silently
+rebuilding. Acceptance-only avoids rebuilds; guard-only also avoids re-acceptance.
+An explicitly authorized release proceeds from READY to exact-source tag,
+GitHub Release, exact assets, and public smoke without another approval.
+Codex submits and hands off rather than polling or supervising CI.
+Release-facing documentation/version consistency is mechanically checked against
+the canonical version. Release-path GitHub Actions use Node 24-compatible releases
+pinned by immutable SHA. Benchmarks remain performance-work only. See
+[local verification](development.md#local-verification) for commands and boundaries.
 
 ---
 
