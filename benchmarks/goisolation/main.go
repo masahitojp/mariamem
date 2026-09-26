@@ -28,11 +28,13 @@ type config struct {
 	runs, warmup, rows, queries, clients int
 	interval, hold                       float64
 	stages, guestStages                  bool
+	initDiagnostics, memoryDiagnostics   bool
 }
 type runner struct {
-	cfg     config
-	samples []map[string]any
-	version string
+	cfg           config
+	samples       []map[string]any
+	version       string
+	captureMemory bool
 }
 
 func event(name string, begin time.Time) timing.Event {
@@ -250,6 +252,11 @@ func (r *runner) batch(saved *mariamem.Snapshot, workers int) (row map[string]an
 		time.Sleep(time.Duration(r.cfg.hold * float64(time.Second)))
 	}
 	cost := monitor.finish(wall)
+	if r.captureMemory {
+		for _, value := range perDB {
+			value["process_diagnostics"] = processDiagnostics(value)
+		}
+	}
 	cleanup := time.Now()
 	close(release)
 	wg.Wait()
@@ -284,11 +291,18 @@ func (r *runner) run() error {
 			begin := time.Now()
 			monitor.start(begin)
 			db, row, err := r.startup(nil, begin)
+			var cost map[string]any
+			if db != nil && r.cfg.memoryDiagnostics && phase == "measurement" && i == 0 {
+				cost = monitor.finish(row["ready_at_seconds"].(float64))
+				row["process_diagnostics"] = processDiagnostics(row)
+			}
 			if db != nil {
 				err = errors.Join(err, db.Close())
 			}
 			wall := time.Since(begin).Seconds()
-			cost := monitor.finish(wall)
+			if cost == nil {
+				cost = monitor.finish(wall)
+			}
 			if err != nil {
 				return err
 			}
@@ -355,7 +369,11 @@ func (r *runner) preparedPhase(phase string, runs int) (err error) {
 			if r.cfg.stages {
 				stages = map[string]any{"host": trace}
 			}
-			r.samples = append(r.samples, map[string]any{"case": "snapshot", "workers": 1, "phase": phase, "run": i, "latency_seconds": elapsed, "stage_timings": stages, "cpu_seconds": nil, "peak_rss_bytes": nil})
+			sample := map[string]any{"case": "snapshot", "workers": 1, "phase": phase, "run": i, "latency_seconds": elapsed, "stage_timings": stages, "cpu_seconds": nil, "peak_rss_bytes": nil}
+			if r.cfg.initDiagnostics {
+				sample["snapshot_inventory"] = snapshotDiagnostics(snapshot.Path())
+			}
+			r.samples = append(r.samples, sample)
 			return snapshot, nil
 		}()
 		if e != nil {
@@ -372,6 +390,7 @@ func (r *runner) preparedPhase(phase string, runs int) (err error) {
 	for _, text := range strings.Split(r.cfg.workers, ",") {
 		workers, _ := strconv.Atoi(text)
 		for i := 0; i < runs; i++ {
+			r.captureMemory = r.cfg.memoryDiagnostics && phase == "measurement" && i == 0
 			row, e := r.batch(saved, workers)
 			if e != nil {
 				return e
@@ -399,7 +418,18 @@ func main() {
 	flag.Float64Var(&c.hold, "hold", .1, "post-ready hold seconds")
 	flag.BoolVar(&c.stages, "stage-timing", false, "structured stages")
 	flag.BoolVar(&c.guestStages, "guest-stage-timing", false, "require matching guest stages")
+	flag.BoolVar(&c.initDiagnostics, "init-diagnostics", false, "require detailed initialization diagnostics")
+	flag.BoolVar(&c.memoryDiagnostics, "memory-diagnostics", false, "post-ready mapping/thread inventory once per case")
 	flag.Parse()
+	if c.initDiagnostics || c.memoryDiagnostics {
+		c.stages = true
+		c.guestStages = true
+	}
+	if c.initDiagnostics {
+		os.Setenv("MARIAMEM_INIT_DIAGNOSTICS", "1")
+	} else {
+		os.Unsetenv("MARIAMEM_INIT_DIAGNOSTICS")
+	}
 	if c.native == "" || c.output == "" || c.runs < 1 || c.warmup < 0 || c.rows < 1 || c.queries < 1 || c.clients < 1 || c.interval <= 0 || c.hold < 0 || math.IsNaN(c.interval) || math.IsInf(c.interval, 0) || math.IsNaN(c.hold) || math.IsInf(c.hold, 0) {
 		fmt.Fprintln(os.Stderr, "invalid benchmark options")
 		os.Exit(2)

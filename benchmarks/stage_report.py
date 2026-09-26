@@ -32,7 +32,8 @@ def render(report):
               'The startup envelope residual includes pre-main runtime/CRT initialization,',
               'C/C++ static constructors, diagnostic file writing and ready delivery/scheduling;',
               'it is not pure Wasmer time.',
-              'MariaDB server initialization includes InnoDB; those internals remain unsplit.', '']
+              ('See initialization_summary for measured InnoDB subdivisions.' if report.get('initialization_summary') else
+               'MariaDB server initialization includes InnoDB; those internals are unsplit in this report.'), '']
     return '\n'.join(lines)
 
 

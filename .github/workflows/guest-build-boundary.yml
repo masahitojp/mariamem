@@ -6,6 +6,10 @@ on:
         description: 'Measure opt-in guest startup stages (20 samples, no performance gates)'
         type: boolean
         default: false
+      initialization_measurement:
+        description: 'MariaDB init/CPU/file/memory probe, two fixtures and disposable validation reuse'
+        type: boolean
+        default: false
 
 # Focused source/WASM/AOT verification; no release review or publication.
 permissions:
@@ -43,8 +47,16 @@ jobs:
           path: build/guest-wasm/
           if-no-files-found: error
           retention-days: 14
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        if: failure()
+        with:
+          name: guest-build-log-${{ github.sha }}
+          path: build/guest-wasm-build.log
+          if-no-files-found: warn
+          retention-days: 14
 
   macos:
+    if: ${{ !inputs.initialization_measurement }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -111,6 +123,7 @@ jobs:
             build/guest-aot/provenance.json
           if-no-files-found: warn
           retention-days: 14
+
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: always()
         with:
@@ -118,3 +131,67 @@ jobs:
           path: build/guest-aot/provenance.json
           if-no-files-found: warn
           retention-days: 14
+
+  initialization:
+    if: inputs.initialization_measurement
+    needs: guest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            platform: darwin-arm64
+          - runner: ubuntu-24.04
+            platform: ubuntu24.04-x86_64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: guest-wasm-${{ github.sha }}
+          path: build/guest-wasm/
+      - name: AOT exact measured guest on product platform
+        run: |
+          python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm
+          go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Canonical Go control (diagnostics off)
+        run: |
+          python scripts/verify.py bench go-isolation --native-dir build/guest-aot \
+            --guest-stage-timing --runs 20 --warmup 2 --workers 1 4 8 --rows 1000 \
+            --json benchmarks/results/init-control.json
+      - name: Initialization attribution and fixture sensitivity
+        run: |
+          for rows in 1000 100000; do
+            python scripts/verify.py bench go-isolation --native-dir build/guest-aot \
+              --init-diagnostics --memory-diagnostics --runs 20 --warmup 2 --workers 1 4 8 --rows "$rows" \
+              --json "benchmarks/results/init-${rows}.json"
+            python benchmarks/init_report.py "benchmarks/results/init-${rows}.json" > "benchmarks/results/init-${rows}.md"
+            cat "benchmarks/results/init-${rows}.md" >> "$GITHUB_STEP_SUMMARY"
+          done
+      - name: Disposable within-call validation reuse (no production patch)
+        run: |
+          python benchmarks/validation_reuse.py --native-dir build/guest-aot \
+            --guest-stage-timing --runs 20 --warmup 2 --workers 1 4 8 --rows 1000 \
+            --json benchmarks/results/init-validation-reuse.json
+          python benchmarks/stage_report.py benchmarks/results/init-validation-reuse.json > benchmarks/results/init-validation-reuse.md
+          cat benchmarks/results/init-validation-reuse.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        if: always()
+        with:
+          name: initialization-${{ matrix.platform }}-${{ github.sha }}
+          path: |
+            benchmarks/results/init-*
+            build/guest-aot/provenance.json
+            build/guest-aot/manifest.json
+          if-no-files-found: warn
+          retention-days: 30

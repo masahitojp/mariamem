@@ -27,12 +27,13 @@ type Event struct {
 	Offset int64  `json:"offset_ns"`
 }
 type Trace struct {
-	Operation string          `json:"operation"`
-	PID       int             `json:"pid"`
-	Events    []Event         `json:"events"`
-	Guest     json.RawMessage `json:"guest,omitempty"`
-	start     time.Time
-	dir       string
+	Operation  string          `json:"operation"`
+	PID        int             `json:"pid"`
+	RuntimePID int             `json:"runtime_pid,omitempty"`
+	Events     []Event         `json:"events"`
+	Guest      json.RawMessage `json:"guest,omitempty"`
+	start      time.Time
+	dir        string
 }
 
 // Begin is disabled unless the benchmark explicitly supplies a trace directory.
@@ -70,12 +71,19 @@ func Enabled(ctx context.Context) bool {
 	return ok
 }
 
+// Runtime identifies the child for opt-in OS mapping/thread observations.
+func Runtime(ctx context.Context, pid int) {
+	if t, ok := ctx.Value(key{}).(*Trace); ok {
+		t.RuntimePID = pid
+	}
+}
+
 // ReadGuest copies an optional record after ready, without changing startup success.
 // The benchmark validates its schema; old guests simply leave the scope absent.
 func ReadGuest(ctx context.Context, transfer string) {
 	if t, ok := ctx.Value(key{}).(*Trace); ok {
 		data, err := os.ReadFile(filepath.Join(transfer, "startup-timing.json"))
-		if err == nil && len(data) <= 8192 && json.Valid(data) {
+		if err == nil && len(data) <= 128*1024 && json.Valid(data) {
 			t.Guest = data
 		}
 	}

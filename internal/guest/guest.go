@@ -79,6 +79,9 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 	args := []string{"run", module, "--no-tty", "--volume", transfer + ":/snapshot-out"}
 	if timing.Enabled(ctx) {
 		args = append(args, "--env", "MARIAMEM_GUEST_TIMING=1")
+		if os.Getenv("MARIAMEM_INIT_DIAGNOSTICS") == "1" {
+			args = append(args, "--env", "MARIAMEM_INIT_DIAGNOSTICS=1")
+		}
 	}
 	if restore != "" {
 		args = append(args, "--volume", restore+":/snapshot-in", "--", "--restore-snapshot")
@@ -113,6 +116,7 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 		return nil, diagnostic.Wrap("guest_start", "guest_launch", fmt.Errorf("could not launch Wasmer %q for guest %q; use the complete native bundle for your supported platform and check executable permissions: %w", runtime, module, err))
 	}
 	timing.Mark(ctx, "spawn_returned")
+	timing.Runtime(ctx, p.PID())
 	readDone := make(chan struct{})
 	go func() { defer close(readDone); p.read() }()
 	go func() { <-readDone; p.exitErr = cmd.Wait(); close(p.done); p.fail(errors.New("guest exited")) }()

@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
 }
 ''')
     executable = tmp_path / 'check'
-    subprocess.run([compiler, '-std=c11', '-D_POSIX_C_SOURCE=200809L', '-I', str(ROOT/'guest'),
+    subprocess.run([compiler, '-std=c11', '-D_POSIX_C_SOURCE=200809L', '-DMARIAMEM_DIAGNOSTIC_TEST', '-I', str(ROOT/'guest'),
                     str(source), '-o', str(executable)], check=True)
     result = tmp_path / 'timing.json'
     subprocess.run([str(executable), str(result)], check=True)

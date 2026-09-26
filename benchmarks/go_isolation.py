@@ -28,7 +28,10 @@ def main():
     parser.add_argument('--json', type=Path)
     parser.add_argument('--stage-timing', action='store_true')
     parser.add_argument('--guest-stage-timing', action='store_true')
+    parser.add_argument('--init-diagnostics', action='store_true')
+    parser.add_argument('--memory-diagnostics', action='store_true')
     args = parser.parse_args()
+    args.guest_stage_timing = args.guest_stage_timing or args.init_diagnostics or args.memory_diagnostics
     args.stage_timing = args.stage_timing or args.guest_stage_timing
     if args.native_dir is None:
         parser.error('--native-dir or MARIAMEM_NATIVE_DIR is required; no artifact auto-download')
@@ -47,7 +50,7 @@ def main():
     for name in ['runs', 'warmup', 'rows', 'queries', 'clients', 'interval', 'hold']:
         command += ['--'+name, str(getattr(args, name))]
     command += ['--workers', ','.join(map(str, args.workers))]
-    for name in ['stage_timing', 'guest_stage_timing']:
+    for name in ['stage_timing', 'guest_stage_timing', 'init_diagnostics', 'memory_diagnostics']:
         if getattr(args, name):
             command += ['--'+name.replace('_', '-')]
     # Never load a stale report after an early executable/build failure.
@@ -70,6 +73,8 @@ def main():
         ['go', 'list', '-m', 'github.com/go-sql-driver/mysql'], cwd=ROOT, text=True).strip()
     sources = [Path(__file__), ROOT/'benchmarks/isolation_baseline.py', ROOT/'benchmarks/_common.py',
                ROOT/'benchmarks/stage_report.py', *sorted((ROOT/'benchmarks/goisolation').glob('*.go'))]
+    if args.init_diagnostics:
+        sources.append(ROOT/'benchmarks/init_report.py')
     report['environment']['harness_sha256'] = {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest() for path in sources}
     report['settings'] = {key: value for key, value in vars(args).items() if key not in {'json', 'backend', 'native_dir'}}
     if args.guest_stage_timing:
@@ -80,10 +85,18 @@ def main():
             for trace in traces:
                 if trace:
                     validate_guest_timing(trace['host'].get('guest'))
+                    if args.init_diagnostics:
+                        from init_report import validate
+                        validate(trace['host']['guest'].get('initialization'))
     report['summary'] = summarize(report['samples'])
     report['stage_summary'] = summarize_stages(report['samples'])
+    if args.init_diagnostics:
+        from init_report import summarize as summarize_init, render as render_init
+        report['initialization_summary'] = summarize_init(report)
     output.write_text(json.dumps(report, indent=2)+'\n')
     print(render(report), end='')
+    if args.init_diagnostics:
+        print(render_init(report), end='')
     print(f'Raw results: {output}')
     if result.returncode:
         raise SystemExit(result.returncode)

@@ -305,3 +305,49 @@ claimed. Benchmark reads of host traces occur after the first-SQL timestamp, but
 perturb concurrent peers; Python records a few additional clock reads and hosts
 write one small file per lifecycle operation. This is measurement instrumentation,
 not a logging framework or an optimization.
+
+## MariaDB initialization attribution (architecture probe)
+
+Build a matching guest with the canonical Linux WASM → product-platform AOT
+path. An old release guest cannot supply these additional markers. Go remains
+the canonical core benchmark; no Python consumer or release artifact rebuild is
+needed for this probe.
+
+```sh
+python3 scripts/verify.py bench go-isolation --native-dir build/guest-aot \
+  --init-diagnostics --memory-diagnostics --runs 20 --warmup 2 \
+  --workers 1 4 8 --rows 1000 --json benchmarks/results/init-1000.json
+python3 benchmarks/init_report.py benchmarks/results/init-1000.json
+```
+
+`--init-diagnostics` requests bounded embedded-server/InnoDB markers, OS process
+and current-thread CPU clocks, logical POSIX file I/O, wrapped allocator balance
+and request totals, successful thread creates, and WASM linear-memory capacity.
+`--memory-diagnostics` collects post-ready `vmmap -summary` / `ps -M` on macOS,
+or `/proc` mappings/PSS/private pages/status/thread inventory on Ubuntu, once
+per case. Unavailable diagnostics remain explicit rather than guessed values.
+They run after first SQL and cost sampling; extra diagnostic duration/self CPU
+are recorded. Whole-lifecycle wall/runner CPU includes that work on those trials.
+Retained mapping text also increases the benchmark runner's own memory footprint.
+
+These are diagnostic observations, not exclusive allocations: wrapped C heap
+balance excludes unwrapped allocations and may include frees of pre-enable
+allocations. Linear-memory capacity is neither resident memory nor memory used
+by MariaDB. OS RSS may count shared pages repeatedly. I/O is through the WASIX
+filesystem, not host disk activity; libc-internal stdio and mmap are blind spots.
+CPU and summed I/O durations can overlap threads; do not subtract them from wall
+time and label the remainder as waiting.
+
+`benchmarks/validation_reuse.py --native-dir ... --json ... [baseline options]`
+compares within-call AOT identity reuse in a disposable source tree/private
+read-only native copy. It removes only two redundant AOT digests; initial
+manifest/artifact hashes, sidecar identity and snapshot inventory still pass.
+There is no production cache or integrity change. It requires committed source.
+
+Dispatch `guest-build-boundary.yml` with `initialization_measurement=true` for
+macOS 15 arm64 and Ubuntu 24.04 x86_64 observations: one common instrumented
+WASM, target-specific AOT, 20 measured trials / two warmups at ×1/4/8, 1,000 and
+100,000 rows, diagnostics-off control and validation-reuse experiment. Results,
+raw samples, mapping/thread text and AOT provenance are uploaded as
+`initialization-<platform>-<commit>`. No performance gates or release operations
+run. Submit this long-running workflow and hand off without polling it.

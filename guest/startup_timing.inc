@@ -2,6 +2,7 @@
  * no new protocol messages, SQL, or runtime behavior. Never fail startup on I/O. */
 #include <time.h>
 #include <stdint.h>
+#include "init_diagnostics.inc"
 
 static struct {
   int enabled, count;
@@ -31,6 +32,8 @@ static void startup_write(void)
   for (int i= 0; i < startup_timing.count; i++)
     fprintf(f, "%s{\"name\":\"%s\",\"offset_ns\":%llu}", i ? "," : "",
             startup_timing.names[i], (unsigned long long)startup_timing.offsets[i]);
-  fputs("]}\n", f);
+  fputs("]", f);
+  init_write(f);
+  fputs("}\n", f);
   fclose(f);
 }

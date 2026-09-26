@@ -5,6 +5,7 @@ import re
 import shutil
 import subprocess
 from common import ROOT, LOCK, digest, extract, fetch
+from guest_init_hooks import instrument
 
 source = ROOT / "build/source"
 if source.exists():
@@ -27,8 +28,19 @@ subprocess.run(["patch", "-p1", "-i", str(ROOT / "guest/source.patch")], cwd=sou
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
 (source / "wasm/wire_api.inc").write_text(
     "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "resident.inc"\n')
-for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc"):
+for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc", "init_diagnostics.inc"):
     shutil.copy2(ROOT / "guest" / name, source / "wasm" / name)
+shutil.copy2(ROOT / "guest/init_diagnostics.h", source / "include/mariamem_init_diagnostics.h")
+diagnostic_files = instrument(source)
+cmake = source / 'wasm/CMakeLists.txt'
+text = cmake.read_text()
+anchor = '  TARGET_LINK_OPTIONS(lite4mariadb-wasix PRIVATE\n'
+if text.count(anchor) != 1:
+    raise ValueError('guest linker diagnostic anchor changed')
+wrappers = ('open', 'open64', 'close', 'read', 'write', 'pread', 'pread64', 'pwrite', 'pwrite64',
+            'ftruncate', 'ftruncate64', 'malloc', 'calloc', 'realloc', 'free', 'posix_memalign',
+            'mmap', 'mmap64', 'munmap', 'pthread_create')
+cmake.write_text(text.replace(anchor, anchor + ''.join(f'    "SHELL:-Wl,--wrap={name}"\n' for name in wrappers)))
 vendor = source / "mariamem-dependencies"
 vendor.mkdir()
 for name, cmake in (("pcre2", "cmake/pcre.cmake"), ("libfmt", "cmake/libfmt.cmake")):
@@ -43,7 +55,9 @@ manifest = {"inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
             "overlays": {p.name: digest(p) for p in sorted((ROOT / "guest").iterdir()) if p.is_file()},
             "modified_files": {name: digest(source / name) for name in
                                (*LOCK["pristine_files"], "wasm/wire_api.inc", "wasm/resident.inc",
-                                "wasm/snapshot_fs.inc", "wasm/startup_timing.inc", "cmake/pcre.cmake", "cmake/libfmt.cmake")}}
+                                "wasm/snapshot_fs.inc", "wasm/startup_timing.inc", "wasm/init_diagnostics.inc",
+                                "include/mariamem_init_diagnostics.h", *diagnostic_files,
+                                "cmake/pcre.cmake", "cmake/libfmt.cmake")}}
 (ROOT / "build/prepared-source.json").write_text(json.dumps(manifest, indent=2) + "\n")
 shutil.copy2(ROOT / "release/inputs.lock.json", ROOT / "build/preparation-inputs.lock.json")
 print("Prepared build/source from pinned archives; all guest dependencies are local.")
