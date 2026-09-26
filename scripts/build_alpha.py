@@ -67,14 +67,15 @@ with zipfile.ZipFile(wheel) as archive:
     assert f"Tag: py3-none-{wheel_platform}" in metadata, "incorrect wheel tag"
     bundled_manifest = next(p for p in names if p.endswith("/mariamem/_native/manifest.json"))
     assert json.loads(archive.read(bundled_manifest)) == manifest, "incorrect bundled manifest"
-    for name in ("LICENSE", "NOTICE", "THIRD_PARTY_LICENSES", "Go-BSD-3-Clause.txt",
-                 "Wasmer-MIT.txt", "wolfSSL-LICENSING.txt"):
-        assert any(p.endswith(".dist-info/" + name) for p in names), f"missing {name}"
-    for license_file in (ROOT / "licenses").iterdir():
-        if license_file.is_file():
-            entries = [p for p in names if p.endswith(".dist-info/" + license_file.name)]
-            assert len(entries) == 1, f"missing license: {license_file.name}"
-            assert archive.read(entries[0]) == license_file.read_bytes(), license_file.name
+    # Modern setuptools may put license files under .dist-info/licenses/.
+    # Check content in either standard location, not just filename presence.
+    license_inputs = [ROOT / name for name in ("LICENSE", "NOTICE", "THIRD_PARTY_LICENSES")]
+    license_inputs += [p for p in (ROOT / "licenses").iterdir() if p.is_file()]
+    for license_file in license_inputs:
+        entries = [p for p in names if ".dist-info/" in p
+                   and p.rsplit("/", 1)[-1] == license_file.name]
+        assert entries, f"missing license: {license_file.name}"
+        assert all(archive.read(entry) == license_file.read_bytes() for entry in entries), license_file.name
     for name, expected in manifest["sha256"].items():
         paths = [p for p in names if p.endswith("/mariamem/_native/" + name)]
         assert len(paths) == 1, name
