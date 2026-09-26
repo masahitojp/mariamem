@@ -11,9 +11,12 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"strings"
 	"sync"
 	"syscall"
 	"time"
+
+	"github.com/masahitojp/mariamem/internal/diagnostic"
 )
 
 type Column struct {
@@ -81,7 +84,12 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 	if wasmerDir != "" {
 		cmd.Env = append(cmd.Env, "WASMER_DIR="+wasmerDir)
 	}
-	cmd.Stderr = stderr
+	tail := &stderrTail{}
+	if stderr == nil {
+		cmd.Stderr = tail
+	} else {
+		cmd.Stderr = io.MultiWriter(stderr, tail)
+	}
 	cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 	in, err := cmd.StdinPipe()
 	if err != nil {
@@ -97,7 +105,7 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 	if err = cmd.Start(); err != nil {
 		in.Close()
 		out.Close()
-		return nil, err
+		return nil, diagnostic.Wrap("guest_start", "guest_launch", err)
 	}
 	readDone := make(chan struct{})
 	go func() { defer close(readDone); p.read() }()
@@ -112,9 +120,9 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 		if r.err == nil {
 			r.err = errors.New("unsupported guest: requires multi-session API v2 with valid capacity")
 		}
-		return nil, p.AbortAndWait(r.err)
+		return nil, startupError(p.AbortAndWait(r.err), tail)
 	case <-ctx.Done():
-		return nil, p.AbortAndWait(ctx.Err())
+		return nil, startupError(p.AbortAndWait(ctx.Err()), tail)
 	}
 }
 func (p *Process) PID() int              { return p.cmd.Process.Pid }
@@ -164,7 +172,7 @@ func (p *Process) AbortAndWait(err error) error {
 	p.Abort(err)
 	select {
 	case <-p.done:
-		return err
+		return errors.Join(err, p.Err())
 	case <-time.After(10 * time.Second):
 		return fmt.Errorf("%w; guest cleanup timed out", err)
 	}
@@ -356,4 +364,30 @@ func (p *Process) stop(ctx context.Context, export bool) error {
 		p.Abort(ctx.Err())
 		return ctx.Err()
 	}
+}
+
+// stderrTail bounds startup diagnostics without retaining the full runtime log.
+type stderrTail struct {
+	mu   sync.Mutex
+	data []byte
+}
+
+func (t *stderrTail) Write(b []byte) (int, error) {
+	t.mu.Lock()
+	defer t.mu.Unlock()
+	n := len(b)
+	t.data = append(t.data, b...)
+	if len(t.data) > 1024 {
+		t.data = append([]byte(nil), t.data[len(t.data)-1024:]...)
+	}
+	return n, nil
+}
+func startupError(err error, tail *stderrTail) error {
+	tail.mu.Lock()
+	text := strings.TrimSpace(string(tail.data))
+	tail.mu.Unlock()
+	if text != "" {
+		err = fmt.Errorf("%w; stderr tail: %s", err, text)
+	}
+	return diagnostic.Wrap("guest_connection", "guest_ready", err)
 }

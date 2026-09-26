@@ -89,3 +89,17 @@ database instance. `db.closed` then becomes true; `db.status()` raises
 `HostError(code="unusable", closed=True)`. Call `db.close()` to release wrapper
 resources, then start or fork another instance. An idle client disconnect does
 not terminate the instance. Server-side prepared statements remain unsupported.
+
+## Failure diagnostics
+
+`HostError.code` identifies lifecycle/startup failures: `unsupported_platform`,
+`native_unavailable`, `artifact_mismatch`, `host_start`, `guest_start`,
+`guest_connection`, or `unusable`. `stage` identifies the failed startup boundary
+when known; messages explain the concrete input or process failure. Underlying
+Python causes are retained through `__cause__`. Startup errors may include a
+short stderr tail; `db.logs` retains the longer bounded log after cleanup.
+
+Ordinary SQL errors and capacity exhaustion remain MySQL driver errors (capacity
+is error 1040), rather than wrapper startup failures. Interrupted active SQL
+still invalidates the entire instance; `status()` reports `unusable` and disposes
+wrapper resources. `close()` stays safe and idempotent.

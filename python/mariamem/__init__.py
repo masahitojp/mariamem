@@ -8,16 +8,17 @@ import threading
 import tempfile
 import time
 
-from ._artifacts import resolve
+from ._artifacts import ArtifactError, resolve
 from ._version import PYTHON_VERSION
 
 __version__ = PYTHON_VERSION
 
 
 class HostError(RuntimeError):
-    def __init__(self, message, *, code=None, closed=False):
+    def __init__(self, message, *, code=None, stage=None, closed=False):
         super().__init__(message)
         self.code = code
+        self.stage = stage
         self.closed = closed
 
 
@@ -42,7 +43,10 @@ class Database:
         self._closed = False
         self._shutdown_timeout = shutdown_timeout
         self._messages = queue.Queue()
-        resolved = resolve(host_binary, runtime, module)
+        try:
+            resolved = resolve(host_binary, runtime, module)
+        except ArtifactError as exc:
+            raise HostError(str(exc), code=exc.code, stage="platform" if exc.code == "unsupported_platform" else "artifact_validation") from exc
         host_binary, runtime, module = (resolved[key] for key in ("host_binary", "runtime", "module"))
         self._options = dict(host_binary=host_binary, runtime=runtime, module=module,
                              wasmer_dir=wasmer_dir, query_timeout=query_timeout,
@@ -73,6 +77,10 @@ class Database:
         try:
             self._process = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                              stderr=self._log, text=True, encoding="utf-8", bufsize=1)
+        except OSError as exc:
+            self._log.close()
+            self._temporary.cleanup()
+            raise HostError(f"Host launch failed: {argv[0]}: {exc}", code="host_start", stage="host_launch", closed=True) from exc
         except BaseException:
             self._log.close()
             self._temporary.cleanup()
@@ -81,8 +89,12 @@ class Database:
         self._reader.start()
         try:
             ready = self._receive(startup_timeout + 15)
+            if ready.get("event") == "error":
+                error = ready.get("error", {})
+                raise HostError(error.get("message", "Guest startup failed"),
+                                code=error.get("code", "guest_start"), stage=error.get("stage"), closed=True)
             if ready.get("event") != "ready" or ready.get("protocol") != 1:
-                raise HostError(f"Unsupported host greeting: {ready}")
+                raise HostError("Host startup greeting is invalid", code="guest_connection", stage="host_control", closed=True)
             self.id = ready["id"]
             self._connection_info = {key: ready[key] for key in ("host", "port", "user", "password", "database")}
             self.capabilities = tuple(ready["capabilities"])
@@ -90,9 +102,16 @@ class Database:
             self.diagnostics = {"host_pid": ready["pid"], "runtime_pid": ready["runtime_pid"]}
         except BaseException as exc:
             self._dispose()
-            if isinstance(exc, HostError) and self._logs:
-                exc.args = (str(exc) + "\n" + self._logs,)
-            raise
+            if not isinstance(exc, Exception):
+                raise
+            if isinstance(exc, HostError) and exc.code not in (None, "unusable"):
+                if self._logs:
+                    exc.args = (str(exc) + "\n" + self._logs[-2048:].strip(),)
+                raise
+            message = f"Host startup failed before ready (exit status {self._process.returncode})"
+            if self._logs:
+                message += "\n" + self._logs[-2048:].strip()
+            raise HostError(message, code="host_start", stage="host_ready", closed=True) from exc
 
     def _read(self):
         try:
@@ -101,7 +120,9 @@ class Database:
             self._messages.put(HostError(f"Database instance terminated; see {self.log_path}",
                                          code="unusable", closed=True))
         except Exception as exc:
-            self._messages.put(HostError(str(exc)))
+            error = HostError(f"Host control response failed: {exc}", code="guest_connection", stage="host_control", closed=True)
+            error.__cause__ = exc
+            self._messages.put(error)
 
     def _receive(self, timeout):
         try:
@@ -130,7 +151,7 @@ class Database:
             error = reply.get("error", {})
             code = error.get("code")
             cls = {"busy": Busy, "transaction_active": TransactionActive}.get(code, HostError)
-            raise cls(error.get("message", str(error)), code=code, closed=reply.get("closed", False))
+            raise cls(error.get("message", str(error)), code=code, stage=error.get("stage"), closed=reply.get("closed", False))
         return reply
 
     def status(self):

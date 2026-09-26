@@ -10,6 +10,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/host"
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
 )
@@ -475,5 +476,18 @@ func TestSequentialForkReleasesReadLock(t *testing.T) {
 	}
 	if err := s.Close(); err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestStartupErrorBoundaryAndLifecycleCause(t *testing.T) {
+	cause := diagnostic.Wrap("guest_connection", "guest_ready", context.DeadlineExceeded)
+	err := hostError(cause, "start", true)
+	var detail *HostError
+	if !errors.As(err, &detail) || detail.Code != "guest_connection" || detail.Stage != "guest_ready" || !errors.Is(err, context.DeadlineExceeded) {
+		t.Fatalf("%v", err)
+	}
+	err = hostError(errors.Join(ErrUnusable, cause), "unusable", true)
+	if !errors.As(err, &detail) || detail.Code != "unusable" || !errors.Is(err, ErrUnusable) || !errors.Is(err, context.DeadlineExceeded) {
+		t.Fatalf("%v", err)
 	}
 }

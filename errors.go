@@ -3,6 +3,8 @@ package mariamem
 import (
 	"errors"
 	"fmt"
+
+	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/host"
 )
 
@@ -15,8 +17,13 @@ var (
 )
 
 // HostError preserves the underlying error and whether the source DB was consumed.
+// Startup Code values include unsupported_platform, native_unavailable,
+// artifact_mismatch, guest_start, guest_connection, and host_start. Stage names
+// identify the failed boundary for diagnosis; they are not an execution API.
+// Runtime invalidation uses unusable; ordinary SQL errors remain driver errors.
 type HostError struct {
 	Code   string
+	Stage  string // Startup boundary, when available; empty for ordinary lifecycle errors.
 	Closed bool
 	Err    error
 }
@@ -34,5 +41,10 @@ func hostError(err error, code string, closed bool) error {
 	if errors.As(err, &rejected) {
 		code = rejected.Code
 	}
-	return &HostError{Code: code, Closed: closed, Err: err}
+	var detail *diagnostic.Error
+	stage := ""
+	if errors.As(err, &detail) && (code == "artifacts" || code == "start") {
+		code, stage = detail.Code, detail.Stage
+	}
+	return &HostError{Code: code, Stage: stage, Closed: closed, Err: err}
 }

@@ -214,3 +214,20 @@ publish or stage it as an approved Release asset. The exact candidate hash has
 clean-platform evidence, and [release review](../release/review.json) records the
 source and runtime-notice checks. It is separate from the Python wheel and the
 corresponding-source archive staged by the [release guard](releasing.md).
+
+## Failure diagnostics
+
+Use `errors.As(err, &hostError)` with `var hostError *mariamem.HostError` to read
+`Code` and, when available, the failed startup `Stage`. Startup codes distinguish
+`unsupported_platform`, `native_unavailable`, `artifact_mismatch`, `guest_start`,
+`guest_connection`, and `host_start`. Messages include the failing input or
+boundary, and guest greeting failures retain a bounded stderr tail. Causes remain
+available through `errors.Is`/`errors.As`, including filesystem and context errors.
+Artifact mismatch covers existing manifest/hash/guest metadata checks; the Go
+module does not enforce equality with a Python distribution version.
+
+Session capacity exhaustion remains recoverable MySQL error 1040 from the driver.
+Ordinary SQL errors do not invalidate a Database. Interrupted active SQL still
+invalidates the entire Database: `db.Err()` matches `mariamem.ErrUnusable` and
+retains its cause. `Close()` remains safe and idempotent. Stage names provide
+diagnostic context rather than a stable inventory of runtime internals.

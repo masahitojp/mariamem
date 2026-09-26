@@ -10,6 +10,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/guest"
 	"github.com/masahitojp/mariamem/internal/mysqlwire"
 	"github.com/masahitojp/mariamem/internal/snapshot"
@@ -40,14 +41,22 @@ type Rejected struct {
 
 func (e *Rejected) Error() string { return e.Message }
 
-func Start(ctx context.Context, runtime, module, wasmerDir, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (*Server, error) {
+func Start(ctx context.Context, runtime, module, wasmerDir, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (server *Server, err error) {
+	defer func() {
+		if err != nil {
+			var detail *diagnostic.Error
+			if !errors.As(err, &detail) {
+				err = diagnostic.Wrap("host_start", "host_setup", err)
+			}
+		}
+	}()
 	build, metadataErr := snapshot.ModuleBuild(module)
 	if metadataErr != nil && !os.IsNotExist(metadataErr) {
-		return nil, metadataErr
+		return nil, diagnostic.Wrap("artifact_mismatch", "artifact_validation", metadataErr)
 	}
 	if restore != "" {
 		if metadataErr != nil {
-			return nil, metadataErr
+			return nil, diagnostic.Wrap("artifact_mismatch", "artifact_validation", metadataErr)
 		}
 		var err error
 		restore, err = filepath.Abs(restore)
@@ -78,7 +87,7 @@ func Start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 	ln, err := net.Listen("tcp4", "127.0.0.1:0")
 	if err != nil {
 		os.RemoveAll(transfer)
-		return nil, p.AbortAndWait(err)
+		return nil, diagnostic.Wrap("host_start", "host_listen", p.AbortAndWait(err))
 	}
 	s := &Server{Guest: p, listener: ln, clients: make(map[net.Conn]*session), slots: make([]bool, p.MaxSessions), queryTimeout: timeout, transfer: transfer, build: build}
 	go s.accept()

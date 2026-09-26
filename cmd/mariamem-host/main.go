@@ -15,6 +15,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/host"
 )
 
@@ -54,6 +55,12 @@ func run() error {
 	s, err := host.Start(ctx, *runtime, *module, *wasmerDir, *restore, *queryTimeout, os.Stderr)
 	cancel()
 	if err != nil {
+		code, stage := "host_start", "host_setup"
+		var detail *diagnostic.Error
+		if errors.As(err, &detail) {
+			code, stage = detail.Code, detail.Stage
+		}
+		_ = json.NewEncoder(os.Stdout).Encode(map[string]any{"event": "error", "error": map[string]string{"code": code, "stage": stage, "message": err.Error()}})
 		return err
 	}
 	closed := false

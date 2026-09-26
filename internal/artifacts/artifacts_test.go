@@ -2,11 +2,14 @@ package artifacts
 
 import (
 	"encoding/json"
-	"github.com/masahitojp/mariamem/internal/snapshot"
+	"errors"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/snapshot"
 )
 
 func fixture(t *testing.T) string {
@@ -89,6 +92,32 @@ func TestInvalidBundle(t *testing.T) {
 			}
 			if _, err := resolve(dir, "darwin-arm64", 15); err == nil {
 				t.Fatal("invalid bundle accepted")
+			}
+		})
+	}
+}
+
+func TestDiagnosticCategories(t *testing.T) {
+	for _, tc := range []struct {
+		name, code string
+		modify     func(string)
+		platform   string
+		major      int
+	}{
+		{name: "platform", code: "unsupported_platform", platform: "linux-amd64", major: 15},
+		{name: "old macOS", code: "unsupported_platform", platform: "darwin-arm64", major: 14},
+		{name: "missing", code: "native_unavailable", platform: "darwin-arm64", major: 15, modify: func(dir string) { os.Remove(filepath.Join(dir, "wasmer-headless")) }},
+		{name: "hash", code: "artifact_mismatch", platform: "darwin-arm64", major: 15, modify: func(dir string) { os.WriteFile(filepath.Join(dir, "mariamem.wasmu"), []byte("changed"), 0600) }},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			dir := fixture(t)
+			if tc.modify != nil {
+				tc.modify(dir)
+			}
+			_, err := resolve(dir, tc.platform, tc.major)
+			var detail *diagnostic.Error
+			if !errors.As(err, &detail) || detail.Code != tc.code {
+				t.Fatalf("%v", err)
 			}
 		})
 	}
