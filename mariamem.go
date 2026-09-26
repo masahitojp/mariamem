@@ -45,7 +45,7 @@ type Options struct {
 
 func (o Options) defaults() (Options, error) {
 	if o.NativeDir == "" {
-		return o, hostError(fmt.Errorf("NativeDir is required"), "native_unavailable", false)
+		return o, hostError(fmt.Errorf("NativeDir is required; download and extract the native bundle for your platform, then set Options.NativeDir to the extracted directory"), "native_unavailable", false)
 	}
 	for _, field := range []struct {
 		p        *time.Duration

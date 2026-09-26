@@ -105,7 +105,7 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 	if err = cmd.Start(); err != nil {
 		in.Close()
 		out.Close()
-		return nil, diagnostic.Wrap("guest_start", "guest_launch", err)
+		return nil, diagnostic.Wrap("guest_start", "guest_launch", fmt.Errorf("could not launch Wasmer %q for guest %q; use the complete native bundle for your supported platform and check executable permissions: %w", runtime, module, err))
 	}
 	readDone := make(chan struct{})
 	go func() { defer close(readDone); p.read() }()
@@ -389,5 +389,9 @@ func startupError(err error, tail *stderrTail) error {
 	if text != "" {
 		err = fmt.Errorf("%w; stderr tail: %s", err, text)
 	}
-	return diagnostic.Wrap("guest_connection", "guest_ready", err)
+	hint := "Check that the runtime and guest come from the same native bundle; re-extract the matching release bundle before retrying."
+	if strings.Contains(strings.ToLower(text), "cpu features") || strings.Contains(strings.ToLower(text), "incompatible binary") {
+		hint = "The AOT guest is incompatible with this runtime or CPU. Use the matching platform bundle; Ubuntu 24.04 x86_64 requires SSE2 and SSSE3 CPU features (including in a VM)."
+	}
+	return diagnostic.Wrap("guest_connection", "guest_ready", fmt.Errorf("Wasmer/guest startup did not complete the expected API v2 handshake. %s Cause: %w", hint, err))
 }

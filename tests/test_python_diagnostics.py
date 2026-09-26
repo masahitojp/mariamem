@@ -33,6 +33,8 @@ def test_unsupported_platform(monkeypatch):
         mariamem.start()
     assert failure.value.code == "unsupported_platform"
     assert failure.value.stage == "platform"
+    assert "detected Windows" in str(failure.value)
+    assert "supported" in str(failure.value)
     assert failure.value.__cause__ is not None
 
 
@@ -61,6 +63,8 @@ def test_artifact_mismatch(tmp_path, monkeypatch):
         mariamem.start()
     assert failure.value.code == "artifact_mismatch"
     assert "mariamem.wasmu" in str(failure.value)
+    assert "expected SHA256" in str(failure.value)
+    assert "Reinstall" in str(failure.value)
 
 
 def host_options(tmp_path, body):
@@ -83,6 +87,7 @@ def test_host_exec_failure_retains_os_cause(tmp_path):
     assert failure.value.code == "host_start"
     assert failure.value.stage == "host_launch"
     assert isinstance(failure.value.__cause__, OSError)
+    assert "matching platform wheel" in str(failure.value)
 
 
 def test_startup_frame_preserves_guest_stage(tmp_path):
@@ -108,6 +113,8 @@ sys.exit(7)
     assert failure.value.stage == "host_ready"
     assert "exit status 7" in str(failure.value)
     assert "loader failure" in str(failure.value)
+    assert "ready handshake" in str(failure.value)
+    assert "reinstall" in str(failure.value)
     assert len(str(failure.value)) < 2200
     assert failure.value.__cause__ is not None
 
@@ -164,3 +171,13 @@ def test_linux_explicit_inputs_keep_override_semantics(tmp_path, monkeypatch):
     monkeypatch.setattr(_artifacts.platform, "machine", lambda: "aarch64")
     resolved = _artifacts.resolve(**{key: options[key] for key in ("host_binary", "runtime", "module")})
     assert resolved["module"] == str(options["module"])
+
+
+def test_invalid_host_handshake_recovery(tmp_path):
+    options = host_options(tmp_path, 'import json\nprint(json.dumps({"event":"ready", "protocol":99}), flush=True)\n')
+    with pytest.raises(mariamem.HostError) as failure:
+        mariamem.start(**options)
+    assert failure.value.code == "guest_connection"
+    assert failure.value.stage == "host_control"
+    assert "expected control protocol 1" in str(failure.value)
+    assert "same matching platform" in str(failure.value)

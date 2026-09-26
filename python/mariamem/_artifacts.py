@@ -16,9 +16,9 @@ class ArtifactError(RuntimeError):
 
 def _available(path, executable):
     if not path.is_file():
-        raise ArtifactError(f"native input is unavailable: {path}", "native_unavailable")
+        raise ArtifactError(f"native input is unavailable: {path}; install the matching platform wheel or re-extract a complete native bundle", "native_unavailable")
     if executable and not os.access(path, os.X_OK):
-        raise ArtifactError(f"native input is not executable: {path}", "native_unavailable")
+        raise ArtifactError(f"native input is not executable: {path}; re-extract the native bundle preserving executable permissions", "native_unavailable")
 
 
 def _os_release():
@@ -31,6 +31,7 @@ def _os_release():
 
 
 def _platform_identity():
+    detected = f"{platform.system()} / {platform.machine()}"
     if platform.system() == "Darwin" and platform.machine() == "arm64":
         return "darwin-arm64"
     if platform.system() == "Linux" and platform.machine() == "x86_64":
@@ -38,9 +39,10 @@ def _platform_identity():
             release = _os_release()
         except OSError as exc:
             raise ArtifactError("cannot identify Ubuntu release", "unsupported_platform") from exc
+        detected += f" (ID={release.get('ID')!r}, VERSION_ID={release.get('VERSION_ID')!r})"
         if release.get("ID") == "ubuntu" and release.get("VERSION_ID") == "24.04":
             return "ubuntu24.04-x86_64"
-    raise ArtifactError("mariamem supports macOS 15+ arm64 or Ubuntu 24.04 x86_64", "unsupported_platform")
+    raise ArtifactError(f"unsupported platform: detected {detected}; supported: macOS 15+ arm64 or Ubuntu 24.04 x86_64. Run on a supported platform with its matching wheel/native bundle.", "unsupported_platform")
 
 
 def resolve(host_binary=None, runtime=None, module=None):
@@ -56,17 +58,17 @@ def resolve(host_binary=None, runtime=None, module=None):
     try:
         manifest = json.loads((root / "manifest.json").read_text())
         if manifest["version"] != 1:
-            raise ValueError("unsupported artifact manifest")
+            raise ValueError(f"expected native manifest format 1, got {manifest['version']!r}")
         if manifest.get("platform") != identity:
-            raise ValueError("native bundle platform mismatch")
+            raise ValueError(f"native bundle platform mismatch: expected {identity!r}, got {manifest.get('platform')!r}")
         if identity == "ubuntu24.04-x86_64" and (
             manifest.get("distribution") != "ubuntu"
             or manifest.get("version_id") != "24.04"
             or manifest.get("architecture") != "x86_64"
         ):
-            raise ValueError("native bundle requires Ubuntu 24.04 x86_64 metadata")
+            raise ValueError(f"expected Ubuntu 24.04 x86_64 metadata; got distribution={manifest.get('distribution')!r}, version_id={manifest.get('version_id')!r}, architecture={manifest.get('architecture')!r}")
         if identity == "darwin-arm64" and int(platform.mac_ver()[0].split(".")[0]) < manifest["minimum_macos"]:
-            raise ArtifactError(f"this alpha requires macOS {manifest['minimum_macos']} or newer", "unsupported_platform")
+            raise ArtifactError(f"detected macOS {platform.mac_ver()[0]}; this bundle requires macOS {manifest['minimum_macos']} or newer. Upgrade macOS or use another supported platform.", "unsupported_platform")
         for key, name in names.items():
             if values[key] is not None:
                 path = Path(values[key]).expanduser().resolve()
@@ -79,9 +81,9 @@ def resolve(host_binary=None, runtime=None, module=None):
                 for chunk in iter(lambda: stream.read(1024 * 1024), b""):
                     digest.update(chunk)
             if digest.hexdigest() != manifest["sha256"][name]:
-                raise ArtifactError(f"artifact hash mismatch: {name}", "artifact_mismatch")
+                raise ArtifactError(f"artifact hash mismatch: {path}; expected SHA256 {manifest['sha256'][name]}, got {digest.hexdigest()}. Reinstall the matching wheel or re-extract the complete native bundle; do not mix artifacts.", "artifact_mismatch")
             if key != "module" and not os.access(path, os.X_OK):
-                raise ArtifactError(f"artifact is not executable: {name}", "native_unavailable")
+                raise ArtifactError(f"artifact is not executable: {path}; re-extract the bundle preserving executable permissions", "native_unavailable")
             values[key] = str(path.resolve())
     except ArtifactError:
         raise

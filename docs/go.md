@@ -242,3 +242,11 @@ diagnostic context rather than a stable inventory of runtime internals.
 
 Ubuntu 24.04 x86_64 candidates require a CPU with SSSE3. AOT compilation uses
 a fixed SSE2+SSSE3 feature set and does not require AVX or AVX-512.
+
+For startup failures, read the category/stage first, then the expected path,
+platform or hash in the message. Re-extract a complete matching native bundle
+(or reinstall the matching Python wheel); do not mix files from different
+bundles. Preserve executable permissions. An AOT/CPU compatibility error may
+require a supported machine or VM exposing the required CPU features; the
+Ubuntu 24.04 x86_64 bundle requires SSE2 and SSSE3. Startup failure does not
+return a usable database; retry Start after correcting the reported input.

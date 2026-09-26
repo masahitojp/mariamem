@@ -17,7 +17,7 @@ func TestStartupDiagnostics(t *testing.T) {
 	defer cancel()
 	_, err := Start(ctx, filepath.Join(t.TempDir(), "missing"), "unused", "", "", "", nil)
 	var detail *diagnostic.Error
-	if !errors.As(err, &detail) || detail.Code != "guest_start" || detail.Stage != "guest_launch" || !errors.Is(err, os.ErrNotExist) {
+	if !errors.As(err, &detail) || detail.Code != "guest_start" || detail.Stage != "guest_launch" || !errors.Is(err, os.ErrNotExist) || !strings.Contains(err.Error(), "executable permissions") {
 		t.Fatalf("%v", err)
 	}
 	runtime := filepath.Join(t.TempDir(), "runtime")
@@ -33,7 +33,7 @@ func TestStartupCauseAndBoundedTail(t *testing.T) {
 	tail := &stderrTail{}
 	tail.Write([]byte(strings.Repeat("x", 4096)))
 	err := startupError(context.DeadlineExceeded, tail)
-	if !errors.Is(err, context.DeadlineExceeded) || len(err.Error()) > 1200 {
+	if !errors.Is(err, context.DeadlineExceeded) || len(err.Error()) > 1600 {
 		t.Fatalf("unbounded/lost cause: %v", err)
 	}
 }

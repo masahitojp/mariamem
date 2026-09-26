@@ -80,7 +80,7 @@ class Database:
         except OSError as exc:
             self._log.close()
             self._temporary.cleanup()
-            raise HostError(f"Host launch failed: {argv[0]}: {exc}", code="host_start", stage="host_launch", closed=True) from exc
+            raise HostError(f"Host launch failed: {argv[0]}; install the matching platform wheel/native bundle and check executable permissions. Cause: {exc}", code="host_start", stage="host_launch", closed=True) from exc
         except BaseException:
             self._log.close()
             self._temporary.cleanup()
@@ -94,7 +94,7 @@ class Database:
                 raise HostError(error.get("message", "Guest startup failed"),
                                 code=error.get("code", "guest_start"), stage=error.get("stage"), closed=True)
             if ready.get("event") != "ready" or ready.get("protocol") != 1:
-                raise HostError("Host startup greeting is invalid", code="guest_connection", stage="host_control", closed=True)
+                raise HostError("Host startup greeting is invalid; expected control protocol 1. Use host/runtime/guest files from the same matching platform wheel or native bundle.", code="guest_connection", stage="host_control", closed=True)
             self.id = ready["id"]
             self._connection_info = {key: ready[key] for key in ("host", "port", "user", "password", "database")}
             self.capabilities = tuple(ready["capabilities"])
@@ -106,11 +106,11 @@ class Database:
                 raise
             if isinstance(exc, HostError) and exc.code not in (None, "unusable"):
                 if self._logs:
-                    exc.args = (str(exc) + "\n" + self._logs[-2048:].strip(),)
+                    exc.args = (str(exc) + "\n" + self._logs[-1024:].strip(),)
                 raise
-            message = f"Host startup failed before ready (exit status {self._process.returncode})"
+            message = f"Host startup failed before the expected ready handshake (exit status {self._process.returncode}); reinstall the matching platform wheel/native bundle. Cause: {exc}"
             if self._logs:
-                message += "\n" + self._logs[-2048:].strip()
+                message += "\n" + self._logs[-1024:].strip()
             raise HostError(message, code="host_start", stage="host_ready", closed=True) from exc
 
     def _read(self):
