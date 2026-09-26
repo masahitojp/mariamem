@@ -67,7 +67,7 @@ The handoff is:
 > Release CI has been submitted for candidate `<sha>`. GitHub Actions owns
 > execution; no further local work is needed until a result requires attention.
 
-### Publication decision (target policy)
+### Publication decision
 
 ```text
 human: "release this candidate"
@@ -82,10 +82,32 @@ approves the deterministic transaction as a whole; READY must not request a
 second approval. Codex does not supervise or poll after submission. CI does not
 make release decisions, schedule releases, or bump versions automatically.
 
-Tag/publication/post-publication smoke are not implemented yet. The current
-`release-candidate-ready.yml` is verification-only, so dispatching it never
-publishes. This policy guides the upcoming publication implementation; it does
-not add publication to the existing retry modes.
+`release-candidate-ready.yml` defaults to `operation=verify`, which never
+publishes. `operation=dry-run` rechecks READY and publication inputs without
+creating tags or releases. Only `operation=release` authorizes publication;
+it works with the same full/acceptance-only/guard-only retry boundaries.
+
+After preparing the canonical version, current release-facing docs, and tracked
+`release/NOTES-alpha.N.md` (or `NOTES-beta.N.md`, `NOTES-rc.N.md`,
+`NOTES-vX.Y.Z.md`), submit the remotely available exact commit:
+
+```sh
+gh workflow run release-candidate-ready.yml -f candidate_ref=<full-source-sha> \
+  -f mode=full -f operation=release
+```
+
+An optional `notes` input selects another tracked candidate-relative file with a
+heading identifying the canonical tag. CI rechecks the guard and exact artifact
+hashes, creates an annotated tag at the build commit, uploads the four accepted
+assets to a draft, downloads/verifies them, then publishes (prerelease for
+alpha/beta/rc). It runs the maintained external Go consumer against the public
+tag and downloaded native bundle. No candidate is rebuilt after acceptance.
+Existing local/remote tags or GitHub releases stop publication, even if they
+appear to describe the same candidate. No overwrite, deletion, or rollback is
+performed after failure; a public-smoke failure leaves the release intact for
+investigation. JSON reports and logs are retained in
+`release-publication-<source-sha>` with the failing stage in the workflow summary.
+Codex returns the run URL and hands off immediately; it does not supervise CI.
 
 For this path, `package_source.py --ci-evidence-dir build` and
 `verify_source.py --ci-evidence-dir build` compare the new WASM/AOT provenance,
@@ -168,11 +190,12 @@ them does not change the native candidate bytes.
 
 Prepare notes for the intended canonical version before submitting a release.
 `release/NOTES.md` and `release/NOTES-alpha.3.md` are historical release records,
-not current version inputs. The upcoming publication mechanics will consume the
-READY candidate's exact assets and derived tag without another approval gate.
+not current version inputs. Publication consumes the READY candidate's exact
+assets and derived tag without another approval gate.
 The corresponding-source archive must remain available alongside the binaries
 it covers; GitHub's default source zip is not a replacement for the collected
-dependency sources. No current build script pushes code or publishes a release.
+dependency sources. Local build/check commands never publish; only the explicitly
+authorized CI publication job pushes the release tag and publishes assets.
 
 ## License scope
 

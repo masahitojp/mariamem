@@ -9,10 +9,47 @@ from pathlib import Path
 from common import ROOT, digest
 
 
+
+def publication_rows(root):
+    record_path = root / 'build/release/ci-publication.json'
+    smoke_path = root / 'build/release/ci-public-smoke.json'
+    record = json.loads(record_path.read_text()) if record_path.exists() else {}
+    smoke = json.loads(smoke_path.read_text()) if smoke_path.exists() else {}
+    rows = ['## Release publication', '',
+            f"- Operation: `{os.environ.get('OPERATION')}`",
+            f"- Exact source/tag commit: `{os.environ.get('SOURCE_SHA')}`",
+            f"- Tag: `{record.get('git_tag', 'unavailable')}`",
+            f"- Publication: **{record.get('status', 'NOT RUN')}**",
+            f"- Public consumer smoke: **{smoke.get('result', 'NOT RUN')}**"]
+    if record.get('release_url'):
+        rows.append('- Release: ' + record['release_url'])
+    for name, sha in record.get('assets', {}).items():
+        rows.append(f'- `{name}` SHA256 `{sha}`')
+    failed = [name for name, key in [('restore', 'RESTORE_RESULT'),
+              ('publication', 'PUBLISH_RESULT'), ('public smoke', 'SMOKE_RESULT')]
+              if os.environ.get(key) == 'failure']
+    rows.append('- Failed stage: ' + (failed[0] if failed else 'none'))
+    for item in (record, smoke):
+        if item.get('failure') or item.get('error'):
+            rows.append('- Failure: ' + str(item.get('failure') or item['error']))
+            rows.append('- Detail stage: ' + str(item.get('stage', 'unknown')))
+    if failed:
+        rows.append('- Published tags/assets are never moved, deleted, or replaced on failure. Investigate before starting a corrective release.')
+    return rows + ['']
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=ROOT)
-    root = parser.parse_args().root.resolve()
+    parser.add_argument('--publication', action='store_true')
+    args = parser.parse_args()
+    root = args.root.resolve()
+    if args.publication:
+        text = '\n'.join(publication_rows(root))
+        if os.environ.get('GITHUB_STEP_SUMMARY'):
+            with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+                out.write(text)
+        print(text)
+        return
     version = runpy.run_path(str(root / 'python/mariamem/_version.py'))
     build = root / "build"
     source = build / "release" / f"mariamem-{version['PYTHON_VERSION']}-source-candidate.tar.gz"
@@ -62,7 +99,7 @@ def main():
     rows.extend([f"- Clean macOS acceptance: **{result}**",
                  f"- Installed-wheel acceptance step: **{os.environ.get('WHEEL_RESULT', 'NOT RUN')}** (reused in guard-only mode)",
                  f"- Release guard: **{'READY' if ready.exists() and os.environ.get('GUARD_RESULT') == 'success' else 'NOT READY'}**",
-                 "- No tag, release, or package was published.", ""])
+                 "- Verification stage does not publish tags, releases, or packages.", ""])
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary:
         with open(summary, "a") as out:

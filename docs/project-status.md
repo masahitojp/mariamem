@@ -380,8 +380,10 @@ whether or when to release: the human authorizes that by requesting the release.
 Codex returns the run URL and exact candidate SHA after successful submission;
 it does not poll, wait, or supervise the workflow. It re-enters for an explicit
 status request, requested failure diagnosis, or an unexpected engineering
-decision. Candidate verification CI is implemented; tag/publication/smoke
-mechanics remain to be implemented and the current verifier publishes nothing.
+decision. Candidate verification and publication mechanics are implemented. The workflow
+defaults to verification only; an explicit `operation=release` dispatch authorizes
+READY → exact-source tag, accepted assets, and public consumer smoke. Publication
+failures never move tags or replace assets.
 
 The release tag should identify the **exact source commit used to build the
 published host/package artifacts**. Alpha.3 accepted a binary build commit

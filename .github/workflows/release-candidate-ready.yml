@@ -1,7 +1,17 @@
-name: Release candidate READY verification
+name: Release candidate and publication
 on:
   workflow_dispatch:
     inputs:
+      operation:
+        description: Verify only, publication dry-run, or authorize release after READY
+        required: true
+        default: verify
+        type: choice
+        options: [verify, dry-run, release]
+      notes:
+        description: Optional candidate-relative release notes path (otherwise derived from version)
+        required: false
+        type: string
       mode:
         description: Build everything, retry acceptance, or retry guard only
         required: true
@@ -22,7 +32,8 @@ on:
         default: main
         type: string
 
-# Candidate construction and acceptance only. No tag, release, or publication.
+# Dispatch operation=release is the human publication decision; no later approval gate.
+# Build and verification jobs never receive publication permissions.
 permissions:
   contents: read
   actions: read
@@ -267,3 +278,92 @@ jobs:
             test "$WHEEL_RESULT" = success
           fi
           test "$GUARD_RESULT" = success
+
+
+  publication:
+    needs: [resolve, verification]
+    if: inputs.operation != 'verify' && needs.verification.result == 'success'
+    runs-on: macos-15
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: read
+    concurrency:
+      group: mariamem-release-publication
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ needs.resolve.outputs.source_sha }}
+          path: candidate-source
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - id: restore
+        name: Restore exact candidate and this run's acceptance (no rebuild)
+        env:
+          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
+          ORIGINAL_RUN: ${{ inputs.mode == 'full' && github.run_id || inputs.candidate_run }}
+          EVIDENCE_RUN: ${{ github.run_id }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python scripts/ci_release_reuse.py --mode guard-only \
+            --root candidate-source --candidate-sha "$SOURCE_SHA" \
+            --candidate-run "$ORIGINAL_RUN" --evidence-run "$EVIDENCE_RUN"
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: release-evidence-${{ needs.resolve.outputs.source_sha }}
+          path: ${{ runner.temp }}/ready-input
+      - id: publish
+        name: Recheck READY, create exact tag and publish accepted bytes
+        env:
+          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
+          OPERATION: ${{ inputs.operation }}
+          RELEASE_NOTES: ${{ inputs.notes }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp "$RUNNER_TEMP/ready-input/build/release/SHA256SUMS" candidate-source/build/release/SHA256SUMS
+          args=(--root candidate-source --candidate-sha "$SOURCE_SHA" \
+            --repository "$GITHUB_REPOSITORY" \
+            --ready "$RUNNER_TEMP/ready-input/build/release/ci-ready.json")
+          if [ -n "$RELEASE_NOTES" ]; then args+=(--notes "$RELEASE_NOTES"); fi
+          if [ "$OPERATION" = dry-run ]; then args+=(--dry-run); fi
+          git -C candidate-source config user.name "github-actions[bot]"
+          git -C candidate-source config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          set -o pipefail
+          python scripts/ci_release_publish.py "${args[@]}" 2>&1 | tee candidate-source/build/release/ci-publication.log
+      - id: smoke
+        name: Public tag and published-asset consumer smoke
+        if: inputs.operation == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python scripts/ci_release_public_smoke.py --root candidate-source \
+            --repository "$GITHUB_REPOSITORY"
+      - name: Publication summary
+        if: always()
+        env:
+          OPERATION: ${{ inputs.operation }}
+          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
+          RESTORE_RESULT: ${{ steps.restore.outcome }}
+          PUBLISH_RESULT: ${{ steps.publish.outcome }}
+          SMOKE_RESULT: ${{ steps.smoke.outcome }}
+        run: python scripts/ci_release_summary.py --root candidate-source --publication
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        if: always()
+        with:
+          name: release-publication-${{ needs.resolve.outputs.source_sha }}
+          path: |
+            candidate-source/build/release/ci-publication.json
+            candidate-source/build/release/ci-publication.log
+            candidate-source/build/release/ci-public-smoke.json
+            candidate-source/build/release/ci-public-smoke.log
+            candidate-source/build/release/ci-public-smoke-consumer.log
+          if-no-files-found: warn
+          retention-days: 14

@@ -100,13 +100,15 @@ class PlatformHarness(unittest.TestCase):
             harness.check_artifacts(native)
 
     def test_ambient_go_and_native_settings_removed(self):
-        with patch.dict(os.environ, {'GOWORK':'ambient', 'GOFLAGS':'-modfile=other', 'MARIAMEM_NATIVE_DIR':'ambient', 'WASMER_DIR':'ambient'}):
+        with patch.dict(os.environ, {'GOWORK':'ambient', 'GOFLAGS':'-modfile=other', 'MARIAMEM_NATIVE_DIR':'ambient', 'WASMER_DIR':'ambient', 'GH_TOKEN':'secret', 'GITHUB_TOKEN':'secret'}):
             env=harness.isolated_env(self.root)
         self.assertEqual(env['GOWORK'],'off')
         self.assertEqual(env['GOFLAGS'],'-modcacherw')
         self.assertEqual(env['GOMODCACHE'],str(self.root/'modcache'))
         self.assertNotIn('MARIAMEM_NATIVE_DIR',env)
         self.assertNotIn('WASMER_DIR',env)
+        self.assertNotIn('GH_TOKEN',env)
+        self.assertNotIn('GITHUB_TOKEN',env)
 
     def test_exact_public_commit_binding(self):
         commit = 'a' * 40
@@ -119,6 +121,14 @@ class PlatformHarness(unittest.TestCase):
             harness.verify_resolved_commit({**module, 'Origin': {}}, commit)
         with self.assertRaisesRegex(ValueError, 'identity/version/checksum'):
             harness.verify_resolved_commit({**module, 'Path': 'example.com/other'}, commit)
+
+    def test_public_tag_binds_exact_version_and_commit(self):
+        commit, tag = 'a' * 40, 'v0.1.0-alpha.4'
+        fetched = {'Path': harness.MODULE, 'Version': tag, 'Sum': 'h1:test'}
+        remote = {'Path': harness.MODULE, 'Version': tag, 'Origin': {'Hash': commit}}
+        harness.bind_remote_origin(fetched, remote, commit, tag)
+        with self.assertRaisesRegex(ValueError, 'requested release tag'):
+            harness.bind_remote_origin(fetched, remote, commit, 'v0.1.0-alpha.5')
 
     def test_proxy_identity_bound_to_direct_remote_origin(self):
         commit = 'a' * 40

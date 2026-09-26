@@ -24,8 +24,9 @@ to Release CI and hands off; CI owns build, acceptance, and guard evaluation.
 The intended publication path is NOT READY → stop; READY → tag, publish, and
 post-publication smoke. Starting that release workflow is the publication
 approval for the transaction; there must be no second approval gate after READY.
-Publication mechanics are not implemented yet; the current candidate workflow
-only verifies and does not publish.
+The workflow defaults to `operation=verify` (no publication). Explicitly selecting
+`operation=release` authorizes READY → exact tag, release, and public smoke.
+`operation=dry-run` validates publication inputs without remote writes.
 
 Codex submits work to CI; it does not supervise CI. After successful submission,
 return the run URL, candidate SHA, and mode, then stop. Do not poll, wait, or
