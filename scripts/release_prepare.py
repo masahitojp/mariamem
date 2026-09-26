@@ -12,14 +12,15 @@ from common import ROOT
 
 REPOSITORY = 'masahitojp/mariamem'
 WORKFLOW = 'release-candidate-ready.yml'
-VERSION = r'v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)-(alpha|beta|rc)\.([1-9][0-9]*)'
+VERSION = r'v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-(alpha|beta|rc)\.([1-9][0-9]*))?'
 
 
 def parse_version(value):
     match = re.fullmatch(VERSION, value)
     if not match:
-        raise ValueError('provide an explicit project-supported tag: vX.Y.Z-{alpha|beta|rc}.N')
-    return match.groups()
+        raise ValueError('provide an explicit project-supported tag: vX.Y.Z or vX.Y.Z-{alpha|beta|rc}.N')
+    major, minor, patch, stage, serial = match.groups()
+    return major, minor, patch, stage or "", serial or "0"
 
 
 def run(args, root):
@@ -61,7 +62,8 @@ def submit(root, version):
     preflight(root, version, prepared=True)
     canonical = runpy.run_path(str(root / 'python/mariamem/_version.py'))
     require(canonical['GIT_TAG'] == version, 'canonical version does not match explicit human version')
-    notes = f"release/NOTES-{canonical['STAGE']}.{canonical['SERIAL']}.md"
+    suffix = f"{canonical['STAGE']}.{canonical['SERIAL']}" if canonical["STAGE"] else canonical["GIT_TAG"]
+    notes = f"release/NOTES-{suffix}.md"
     allowed = {'python/mariamem/_version.py', 'README.md', 'docs/go.md', 'docs/python.md', 'docs/releasing.md', notes}
     # Include staged, unstaged, and untracked paths, including both sides of renames.
     paths = set()

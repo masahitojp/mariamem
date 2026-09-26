@@ -23,7 +23,8 @@ as one transaction. Do not ask for a second publication approval.
    second editable version field. Update current-release examples in `README.md`,
    `docs/go.md`, `docs/python.md`, and the intro of `docs/releasing.md`;
    preserve historical records/evidence. Existing `check_version.py` owns checks.
-3. Prepare tracked `release/NOTES-<stage>.<serial>.md`, matching the project style
+3. Prepare tracked `release/NOTES-<stage>.<serial>.md` for prereleases or
+   `release/NOTES-vX.Y.Z.md` for stable releases, matching the project style
    in `release/NOTES-alpha.4.md`, with a heading containing the exact requested
    tag. Summarize actual changes; do not invent product/performance claims.
 4. Run `python3 scripts/release_prepare.py submit <version>`. It restricts the

@@ -49,7 +49,7 @@ def test_missing_version_rejected():
     assert result.returncode != 0 and 'version' in result.stderr
 
 
-@pytest.mark.parametrize('value', ['', 'alpha.5', 'v0.1.0', 'v0.1.0-alpha.0', 'v01.1.0-alpha.5', 'v0.1.0-dev.5'])
+@pytest.mark.parametrize('value', ['', 'alpha.5', 'v0.1.0-', 'v01.1.0', 'v0.1.0-alpha.0', 'v01.1.0-alpha.5', 'v0.1.0-dev.5'])
 def test_invalid_version_no_git_operations(prepared, value):
     root, calls, _ = prepared
     with pytest.raises(ValueError):
@@ -135,3 +135,40 @@ def test_skill_is_repository_only_source_coverage_unchanged():
     files = {p.relative_to(root).as_posix() for p in public_files(root)}
     assert '.agents/skills/release/SKILL.md' not in files
     assert 'scripts/release_prepare.py' in files
+
+
+@pytest.mark.parametrize("tag,stage,serial", [("v0.1.0", "", "0"), ("v0.1.0-alpha.4", "alpha", "4"), ("v0.1.0-beta.1", "beta", "1"), ("v0.1.0-rc.1", "rc", "1")])
+def test_supported_versions(tag, stage, serial):
+    assert release.parse_version(tag) == ("0", "1", "0", stage, serial)
+
+
+def test_stable_submit_notes_and_dispatch(prepared, monkeypatch):
+    root, calls, original = prepared
+    (root / "python/mariamem/_version.py").write_text('GIT_TAG="v0.1.0"\nSTAGE=""\nSERIAL=0\n')
+    (root / "release/NOTES-v0.1.0.md").write_text("# mariamem v0.1.0")
+    def run(args, directory):
+        if args == ["git", "diff", "--name-only", "--no-renames"]:
+            calls.append(args)
+            return "python/mariamem/_version.py\nrelease/NOTES-v0.1.0.md"
+        return original(args, directory)
+    monkeypatch.setattr(release, "run", run)
+    result = release.submit(root, "v0.1.0")
+    assert result["version"] == "v0.1.0"
+    assert [sys.executable, "scripts/verify.py", "check"] in calls
+    assert "operation=release" in calls[-1]
+
+
+@pytest.mark.parametrize("kind", ["local-tag", "remote-tag", "release"])
+def test_stable_uniqueness(prepared, monkeypatch, kind):
+    root, calls, original = prepared
+    def run(args, directory):
+        if kind == "local-tag" and args[:2] == ["git", "tag"]:
+            return "v0.1.0"
+        if kind == "remote-tag" and args[:3] == ["git", "ls-remote", "--tags"]:
+            return SHA + "\trefs/tags/v0.1.0"
+        if kind == "release" and args[:2] == ["gh", "api"]:
+            return json.dumps([[{"tag_name": "v0.1.0"}]])
+        return original(args, directory)
+    monkeypatch.setattr(release, "run", run)
+    with pytest.raises(ValueError, match="already exists"):
+        release.preflight(root, "v0.1.0")

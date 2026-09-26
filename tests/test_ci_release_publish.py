@@ -184,3 +184,39 @@ def test_single_platform_ready_cannot_publish(candidate):
     with pytest.raises(ValueError, match='aggregate platform READY'):
         publisher.publish(root, SHA, REPO)
     assert not mutations(calls)
+
+
+def test_stable_publication_is_not_prerelease(candidate, monkeypatch):
+    root, ready, calls, original = candidate
+    tag = "v0.1.0"
+    ready.update(git_tag=tag, python_version="0.1.0")
+    staging = root / "build/release/publish"
+    for name in list(ready["assets"]):
+        renamed = name.replace("0.1.0a3", "0.1.0")
+        if renamed != name:
+            (staging / name).rename(staging / renamed)
+            ready["assets"][renamed] = ready["assets"].pop(name)
+    (root / "build/release/ci-ready.json").write_text(json.dumps(ready))
+    (root / "build/release/SHA256SUMS").write_text("".join(f"{sha}  {name}\n" for name, sha in ready["assets"].items()))
+    (root / "python/mariamem/_version.py").write_text('PYTHON_VERSION="0.1.0"\nGIT_TAG="v0.1.0"\nSTAGE=""\nSERIAL=0\n')
+    (root / "release/NOTES-v0.1.0.md").write_text("# mariamem " + tag)
+
+    def run(args, directory):
+        if args[:2] == ["git", "ls-files"]:
+            calls.append(args)
+            return "release/NOTES-v0.1.0.md"
+        if args[:3] == ["gh", "api", f"repos/{REPO}/releases/tags/{tag}"]:
+            calls.append(args)
+            return json.dumps({"tag_name": tag, "draft": False, "prerelease": False,
+                               "assets": [{"name": name} for name in [*ready["assets"], "SHA256SUMS"]],
+                               "html_url": "https://example.invalid/release"})
+        if args[:2] == ["git", "ls-remote"] and any(a[:2] == ["git", "push"] for a in calls):
+            calls.append(args)
+            return SHA + "\trefs/tags/" + tag + "^{}"
+        return original(args, directory)
+
+    monkeypatch.setattr(publisher, "command", run)
+    publisher.publish(root, SHA, REPO)
+    create = next(a for a in calls if a[:3] == ["gh", "release", "create"])
+    assert tag in create and "--prerelease" not in create
+    assert str(root / "release/NOTES-v0.1.0.md") in create

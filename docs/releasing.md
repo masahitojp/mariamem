@@ -1,7 +1,10 @@
-# Releasing an alpha
+# Releasing mariamem
 
 The canonical release version is `v0.1.0-alpha.4`; the Python distribution is `0.1.0a4`.
 Change the five semantic components only in `python/mariamem/_version.py`.
+For a stable release, set `STAGE = ""` and `SERIAL = 0`; this derives
+`vX.Y.Z` and Python `X.Y.Z`. Use `release/NOTES-vX.Y.Z.md`. Stable GitHub
+releases are not prereleases; alpha/beta/rc releases remain prereleases.
 Run `python3 scripts/verify.py check` to verify the derived Python version and
 Git/Go tag and release-facing README/Go/Python examples. Update those examples
 when changing the canonical version; historical release records are excluded.
