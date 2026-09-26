@@ -27,7 +27,8 @@ def bundle(tmp_path, monkeypatch):
 
 
 def test_unsupported_platform(monkeypatch):
-    monkeypatch.setattr(_artifacts.platform, "system", lambda: "Linux")
+    # Use an unsupported OS, independent of the machine running this test.
+    monkeypatch.setattr(_artifacts.platform, "system", lambda: "Windows")
     with pytest.raises(mariamem.HostError) as failure:
         mariamem.start()
     assert failure.value.code == "unsupported_platform"
