@@ -4,7 +4,7 @@ MAJOR = 0
 MINOR = 1
 PATCH = 0
 STAGE = "alpha"
-SERIAL = 3
+SERIAL = 4
 
 _PEP440_STAGE = {"alpha": "a", "beta": "b", "rc": "rc"}
 if STAGE not in _PEP440_STAGE or any(

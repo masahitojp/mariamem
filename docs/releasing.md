@@ -1,6 +1,6 @@
 # Releasing an alpha
 
-The canonical release version is `v0.1.0-alpha.3`; the Python distribution is `0.1.0a3`.
+The canonical release version is `v0.1.0-alpha.4`; the Python distribution is `0.1.0a4`.
 Change the five semantic components only in `python/mariamem/_version.py`.
 Run `python3 scripts/verify.py check` to verify the derived Python version and
 Git/Go tag and release-facing README/Go/Python examples. Update those examples
@@ -55,8 +55,9 @@ and corresponding-source construction. A separate clean macOS job accepts the
 frozen native archive through the public Go module at the exact source commit
 and tests the installed wheel. Acceptance evidence stays external. The workflow
 produces candidate/evidence artifacts and a summary of mode, source, reused
-identity/hashes, failed stage, acceptance, and `READY`/`NOT READY`. It never tags
-or publishes, and needs neither Docker nor Tart.
+identity/hashes, failed stage, acceptance, and `READY`/`NOT READY`. The verification
+stages never tag or publish; `operation=release` enables the publication job
+described below. Neither path requires Docker or Tart.
 
 **Codex submits work to CI; it does not supervise CI.** After a long-running
 dispatch, hand back the run URL, candidate SHA, and mode immediately. Do not poll,
