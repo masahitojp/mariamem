@@ -15,13 +15,14 @@ EXCLUDED = {"__pycache__", ".pytest_cache", "_native"}
 REPOSITORY_ONLY_FILES = {"AGENTS.md"}
 
 
-def public_files():
+def public_files(root=None):
+    root = ROOT if root is None else Path(root)
     found = []
-    for directory, dirs, files in os.walk(ROOT):
+    for directory, dirs, files in os.walk(root):
         base = Path(directory)
         for name in list(dirs):
             path = base / name
-            rel = path.relative_to(ROOT)
+            rel = path.relative_to(root)
             ignored = (name in EXCLUDED or name.endswith(".egg-info") or
                        rel.parts in ((".git",), ("build",), (".venv",), ("python", "build"),
                                      ("tests", "runs"), ("tests", "evidence"), ("benchmarks", "results")))
@@ -31,7 +32,7 @@ def public_files():
                 raise ValueError(f"symlink in publication set: {rel}")
         for name in files:
             path = base / name
-            rel = path.relative_to(ROOT)
+            rel = path.relative_to(root)
             if name == ".DS_Store" or path.suffix == ".pyc":
                 continue
             if rel.as_posix() in REPOSITORY_ONLY_FILES:
@@ -46,11 +47,12 @@ def public_files():
     return sorted(found)
 
 
-def check():
+def check(root=None):
+    root = ROOT if root is None else Path(root)
     errors = []
-    paths = public_files()
+    paths = public_files(root)
     for path in paths:
-        rel = path.relative_to(ROOT).as_posix()
+        rel = path.relative_to(root).as_posix()
         try:
             text = path.read_text()
         except UnicodeDecodeError:
@@ -65,7 +67,7 @@ def check():
             errors.append(f"reference to non-product workspace: {rel}")
     if errors:
         raise ValueError("\n".join(errors))
-    return {"passed": True, "files": {p.relative_to(ROOT).as_posix(): digest(p) for p in paths}}
+    return {"passed": True, "files": {p.relative_to(root).as_posix(): digest(p) for p in paths}}
 
 
 if __name__ == "__main__":

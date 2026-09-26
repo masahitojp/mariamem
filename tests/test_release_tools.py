@@ -31,6 +31,12 @@ class PublicationBoundary(unittest.TestCase):
             with patch.object(check_public, "ROOT", root):
                 self.assertEqual(list(check_public.check()["files"]), ["README.md"])
 
+    def test_explicit_candidate_root_is_scoped(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "LICENSE").write_text("candidate license")
+            self.assertEqual(list(check_public.check(root)["files"]), ["LICENSE"])
+
     def test_agent_guidance_is_not_corresponding_source(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

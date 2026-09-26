@@ -30,7 +30,7 @@ def regular(path):
     return path.read_bytes()
 
 
-def payload(root, native):
+def payload(root, native, package_version=PYTHON_VERSION):
     original = regular(native / "manifest.json")
     manifest = json.loads(original)
     target = json.loads((root / "python/deployment_target.json").read_text())
@@ -38,7 +38,7 @@ def payload(root, native):
             or not isinstance(manifest.get("minimum_macos"), int)
             or not 0 < manifest["minimum_macos"] <= target["minimum_macos"]):
         raise ValueError("native manifest does not match the candidate platform")
-    if manifest.get("package_version") != PYTHON_VERSION:
+    if manifest.get("package_version") != package_version:
         raise ValueError("native manifest package_version does not match the current release")
     # Wheel readiness follows post-build review. It is not a native build input:
     # acceptance of this archive must not change its own identity.

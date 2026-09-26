@@ -66,6 +66,7 @@ def main():
     release = commands.add_parser("release-check", help="release guard; verify a local or CI candidate")
     release.add_argument("--ci-candidate-sha")
     release.add_argument("--native-acceptance")
+    release.add_argument("--candidate-root", type=Path, help="exact CI candidate checkout")
     bench = commands.add_parser("bench", help="run one optional lifecycle benchmark")
     bench.add_argument("workload", choices=BENCHMARKS)
     args, extra = parser.parse_known_args()
@@ -79,9 +80,14 @@ def main():
         if bool(args.ci_candidate_sha) != bool(args.native_acceptance):
             parser.error("CI release check requires both --ci-candidate-sha and --native-acceptance")
         if args.ci_candidate_sha:
-            run([sys.executable, "scripts/check_ci_release.py", "--candidate-sha",
-                 args.ci_candidate_sha, "--native-acceptance", args.native_acceptance])
+            command = [sys.executable, "scripts/check_ci_release.py", "--candidate-sha",
+                       args.ci_candidate_sha, "--native-acceptance", args.native_acceptance]
+            if args.candidate_root:
+                command.extend(["--root", args.candidate_root])
+            run(command)
         else:
+            if args.candidate_root:
+                parser.error("--candidate-root requires CI candidate/evidence arguments")
             run([sys.executable, "scripts/check_release.py"])
     else:
         run([sys.executable, ROOT / "benchmarks" / BENCHMARKS[args.workload], *extra])

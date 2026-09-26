@@ -1,33 +1,66 @@
 #!/usr/bin/env python3
 """Summarize the external CI candidate and guard result in GitHub Actions."""
+import argparse
 import json
+import runpy
 import os
 from pathlib import Path
 
 from common import ROOT, digest
-from release_version import GIT_TAG, PYTHON_VERSION, SOURCE_CANDIDATE
 
 
 def main():
-    build = ROOT / "build"
-    source = build / "release" / SOURCE_CANDIDATE
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--root', type=Path, default=ROOT)
+    root = parser.parse_args().root.resolve()
+    version = runpy.run_path(str(root / 'python/mariamem/_version.py'))
+    build = root / "build"
+    source = build / "release" / f"mariamem-{version['PYTHON_VERSION']}-source-candidate.tar.gz"
     native = build / "release/native-candidate/mariamem-native-darwin-arm64.tar.gz"
-    wheel_record = ROOT / "tests/evidence/alpha-wheel.json"
-    wheel = ROOT / json.loads(wheel_record.read_text())["wheel"] if wheel_record.exists() else None
+    wheel_record = root / "tests/evidence/alpha-wheel.json"
+    wheel = root / json.loads(wheel_record.read_text())["wheel"] if wheel_record.exists() else None
     acceptance = build / "release/ci-native-acceptance.json"
     ready = build / "release/ci-ready.json"
     rows = ["## Release candidate verification", "",
+            f"- Mode: `{os.environ.get('CI_MODE', 'full')}`",
             f"- Source commit: `{os.environ.get('SOURCE_SHA', 'unavailable')}`",
-            f"- Derived tag / Python version: `{GIT_TAG}` / `{PYTHON_VERSION}`"]
+            f"- Derived tag / Python version: `{version['GIT_TAG']}` / `{version['PYTHON_VERSION']}`"]
     for label, path in (("Native candidate", native), ("Wheel", wheel),
                         ("Corresponding source", source)):
         if path is not None and path.is_file():
             rows.append(f"- {label}: `{path.name}` SHA256 `{digest(path)}`")
         else:
             rows.append(f"- {label}: unavailable")
+    reuse_path = build / 'release/ci-reuse.json'
+    if reuse_path.exists():
+        reuse = json.loads(reuse_path.read_text())
+        for key in ('candidate_artifact', 'evidence_artifact'):
+            if key in reuse:
+                rows.append(f"- {key}: `{json.dumps(reuse[key], sort_keys=True)}`")
+        rows.append(f"- Handoff SHA256: `{reuse['handoff_sha256']}`")
+    elif os.environ.get('CI_MODE') != 'full':
+        rows.append(f"- Requested candidate/evidence runs: `{os.environ.get('CANDIDATE_RUN')}` / "
+                    f"`{os.environ.get('EVIDENCE_RUN') or os.environ.get('CANDIDATE_RUN')}`")
+    stages = [('restore', 'RESTORE_RESULT'), ('native acceptance', 'NATIVE_RESULT'),
+              ('wheel acceptance', 'WHEEL_RESULT'), ('guard', 'GUARD_RESULT')]
+    failed = [name for name, key in stages if os.environ.get(key) == 'failure']
+    rows.append('- Failed stage: ' + (failed[0] if failed else 'none'))
+    restore_log = build / 'release/ci-restore.log'
+    if failed and failed[0] == 'restore' and restore_log.exists():
+        reason = next((line for line in restore_log.read_text().splitlines()
+                       if 'CI reuse FAILED' in line), None)
+        if reason:
+            rows.append('- Restore reason: ' + reason)
+    guard_log = build / 'release/ci-guard.log'
+    if failed and guard_log.exists():
+        lines = guard_log.read_text().splitlines()
+        reason = next((lines[i + 1] for i, line in enumerate(lines[:-1])
+                       if 'Release candidate: NOT READY' in line), None)
+        if reason:
+            rows.append('- Guard reason: ' + reason)
     result = json.loads(acceptance.read_text()).get("result") if acceptance.exists() else "NOT RUN"
     rows.extend([f"- Clean macOS acceptance: **{result}**",
-                 f"- Installed-wheel acceptance step: **{os.environ.get('WHEEL_RESULT', 'NOT RUN')}**",
+                 f"- Installed-wheel acceptance step: **{os.environ.get('WHEEL_RESULT', 'NOT RUN')}** (reused in guard-only mode)",
                  f"- Release guard: **{'READY' if ready.exists() and os.environ.get('GUARD_RESULT') == 'success' else 'NOT READY'}**",
                  "- No tag, release, or package was published.", ""])
     summary = os.environ.get("GITHUB_STEP_SUMMARY")

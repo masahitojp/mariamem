@@ -17,15 +17,57 @@ source/provenance review before the existing release guard can accept it.
 
 ## CI candidate readiness (future releases)
 
-Manually dispatch `release-candidate-ready.yml` with a remotely fetchable
-`candidate_ref`. The workflow resolves it once to a full commit SHA, builds the
-guest on Linux x86_64, and transfers the exact WASM to macOS 15 arm64 for AOT,
-wheel, native bundle, and corresponding-source construction. A separate clean
-macOS job downloads those frozen bytes, checks their transfer hash, accepts the
-native bundle through the external Go module at that exact commit, and tests the
-installed wheel. It passes external acceptance JSON to the CI release guard.
-The workflow produces candidate and evidence artifacts plus a `READY` or
-`NOT READY` summary; it does not tag or publish.
+Manually dispatch `release-candidate-ready.yml`. Its small input interface is:
+
+| Mode | Inputs | Work performed |
+| --- | --- | --- |
+| `full` (default) | remotely fetchable `candidate_ref` | Linux guest build, macOS AOT/package, clean acceptance, guard |
+| `acceptance-only` | original candidate SHA as `candidate_ref`, `candidate_run` ID | restore exact frozen candidate, clean native/wheel acceptance, guard |
+| `guard-only` | original SHA, `candidate_run`, optional `evidence_run` (defaults to candidate run) | restore exact candidate and acceptance evidence, guard only |
+
+Retry modes skip both build jobs. `candidate_run` must be the original run that
+uploaded `release-candidate-<sha>`; an acceptance retry only uploads new evidence.
+Use its run ID as `evidence_run` for a later guard retry. The workflow tooling
+and immutable candidate source are checked out separately, so a guard fix can
+verify an older candidate without changing its source or bytes.
+
+For example, to retry the proven candidate's guard:
+
+```sh
+gh workflow run release-candidate-ready.yml \
+  -f mode=guard-only \
+  -f candidate_ref=1f1379351c6054518fb48aeddc9640845b36dab9 \
+  -f candidate_run=36215480255
+```
+
+The workflow resolves the requested source to a full remote SHA. Reuse verifies
+the GitHub artifact ZIP digest, safe extraction, exact source/build provenance,
+and recomputed native/wheel/source hashes. Guard-only additionally validates
+both acceptance records against those exact artifacts. Missing, expired,
+corrupted, or mismatched inputs fail clearly; there is no rebuild fallback.
+Retention is currently 14 days. A new full run is required when reusable inputs
+are unavailable.
+
+The full path transfers exact WASM to macOS 15 arm64 for AOT, wheel, native,
+and corresponding-source construction. A separate clean macOS job accepts the
+frozen native archive through the public Go module at the exact source commit
+and tests the installed wheel. Acceptance evidence stays external. The workflow
+produces candidate/evidence artifacts and a summary of mode, source, reused
+identity/hashes, failed stage, acceptance, and `READY`/`NOT READY`. It never tags
+or publishes, and needs neither Docker nor Tart.
+
+**Codex submits work to CI; it does not supervise CI.** After a long-running
+dispatch, hand back the run URL, candidate SHA, and mode immediately. Do not poll,
+wait, or report elapsed time. Re-enter for an explicit human status request,
+requested CI failure/NOT READY diagnosis, or an unexpected engineering decision.
+Short feedback loops for an actively fixed CI issue are allowed. The handoff is:
+
+> Release CI has been submitted for candidate `<sha>`. GitHub Actions owns
+> build/acceptance/READY evaluation; no further local work is needed until a
+> result requires attention.
+
+Publication approval is not implemented yet. Phase 3 will request explicit
+human approval after READY; this workflow does not currently request it.
 
 For this path, `package_source.py --ci-evidence-dir build` and
 `verify_source.py --ci-evidence-dir build` compare the new WASM/AOT provenance,

@@ -2,6 +2,20 @@ name: Release candidate READY verification
 on:
   workflow_dispatch:
     inputs:
+      mode:
+        description: Build everything, retry acceptance, or retry guard only
+        required: true
+        default: full
+        type: choice
+        options: [full, acceptance-only, guard-only]
+      candidate_run:
+        description: Original candidate build run ID (required for retry modes)
+        required: false
+        type: string
+      evidence_run:
+        description: Acceptance evidence run ID (guard-only; defaults to candidate_run)
+        required: false
+        type: string
       candidate_ref:
         description: Remotely fetchable branch, tag, or full commit SHA
         required: true
@@ -11,6 +25,7 @@ on:
 # Candidate construction and acceptance only. No tag, release, or publication.
 permissions:
   contents: read
+  actions: read
 
 jobs:
   resolve:
@@ -25,14 +40,24 @@ jobs:
         name: Resolve exact remote candidate
         env:
           CANDIDATE_REF: ${{ inputs.candidate_ref }}
+          MODE: ${{ inputs.mode }}
+          CANDIDATE_RUN: ${{ inputs.candidate_run }}
+          EVIDENCE_RUN: ${{ inputs.evidence_run }}
         run: |
+          if [ "$MODE" != full ]; then
+            [[ "$CANDIDATE_RUN" =~ ^[0-9]+$ ]] || { echo 'Retry requires the original candidate_run ID; use full if unavailable.' >&2; exit 1; }
+            if [ -n "$EVIDENCE_RUN" ]; then
+              [[ "$EVIDENCE_RUN" =~ ^[0-9]+$ ]] || exit 1
+            fi
+          fi
           git fetch --no-tags origin "$CANDIDATE_REF"
           sha="$(git rev-parse 'FETCH_HEAD^{commit}')"
           test "$(git cat-file -t "$sha")" = commit
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
-          echo "Candidate source: $sha" >> "$GITHUB_STEP_SUMMARY"
+          echo "Mode: $MODE; candidate source: $sha" >> "$GITHUB_STEP_SUMMARY"
 
   guest:
+    if: inputs.mode == 'full'
     needs: resolve
     runs-on: ubuntu-24.04
     timeout-minutes: 120
@@ -65,6 +90,7 @@ jobs:
           retention-days: 14
 
   candidate:
+    if: inputs.mode == 'full'
     needs: [resolve, guest]
     runs-on: macos-15
     timeout-minutes: 90
@@ -117,14 +143,21 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-  acceptance:
+  verification:
     needs: [resolve, candidate]
+    if: always() && needs.resolve.result == 'success' && (inputs.mode != 'full' || needs.candidate.result == 'success')
     runs-on: macos-15
     timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash
     steps:
+      # Workflow tooling may be newer than the immutable candidate source.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: ${{ needs.resolve.outputs.source_sha }}
+          path: candidate-source
       - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
         with:
           go-version: '1.26.8'
@@ -133,72 +166,104 @@ jobs:
         with:
           python-version: '3.14'
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        if: inputs.mode == 'full'
         with:
           name: release-candidate-${{ needs.resolve.outputs.source_sha }}
           path: ${{ runner.temp }}/candidate-input
-      - name: Verify exact transfer and extract (no rebuild)
+      - id: restore
+        name: Verify and restore immutable candidate inputs
+        env:
+          MODE: ${{ inputs.mode }}
+          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
+          CANDIDATE_RUN: ${{ inputs.candidate_run }}
+          EVIDENCE_RUN: ${{ inputs.evidence_run }}
+          HANDOFF_SHA256: ${{ needs.candidate.outputs.handoff_sha256 }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          test "$(git rev-parse HEAD)" = '${{ needs.resolve.outputs.source_sha }}'
-          echo '${{ needs.candidate.outputs.handoff_sha256 }}  candidate-handoff.tar' > "$RUNNER_TEMP/candidate-input/SHA256SUMS"
-          cd "$RUNNER_TEMP/candidate-input"
-          shasum -a 256 -c SHA256SUMS
-          tar -xf candidate-handoff.tar -C "$GITHUB_WORKSPACE"
+          args=(--mode "$MODE" --candidate-sha "$SOURCE_SHA" --root candidate-source)
+          if [ "$MODE" = full ]; then
+            args+=(--handoff "$RUNNER_TEMP/candidate-input/candidate-handoff.tar" --handoff-sha256 "$HANDOFF_SHA256")
+          else
+            args+=(--candidate-run "$CANDIDATE_RUN")
+            if [ -n "$EVIDENCE_RUN" ]; then args+=(--evidence-run "$EVIDENCE_RUN"); fi
+          fi
+          mkdir -p candidate-source/build/release
+          set -o pipefail
+          python scripts/ci_release_reuse.py "${args[@]}" 2>&1 | tee candidate-source/build/release/ci-restore.log
       - id: native
         name: Clean external native acceptance
+        if: inputs.mode != 'guard-only'
         continue-on-error: true
+        env:
+          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
         run: |
           python scripts/platform_acceptance.py \
-            --archive build/release/native-candidate/mariamem-native-darwin-arm64.tar.gz \
-            --sha256 "$(python -c 'import json; print(json.load(open("build/release/native-candidate/native-candidate.json"))["sha256"])')" \
-            --module '${{ needs.resolve.outputs.source_sha }}' \
-            --expected-commit '${{ needs.resolve.outputs.source_sha }}' \
-            --evidence build/release/ci-native-acceptance.json
+            --archive candidate-source/build/release/native-candidate/mariamem-native-darwin-arm64.tar.gz \
+            --sha256 "$(python -c 'import json; print(json.load(open("candidate-source/build/release/native-candidate/native-candidate.json"))["sha256"])')" \
+            --module "$SOURCE_SHA" --expected-commit "$SOURCE_SHA" \
+            --evidence candidate-source/build/release/ci-native-acceptance.json
       - id: wheel
         name: Clean installed-wheel acceptance
+        if: inputs.mode != 'guard-only'
         continue-on-error: true
         run: |
           python -m venv "$RUNNER_TEMP/mariamem-wheel-venv"
-          wheel_file="$(python -c 'import json; print(json.load(open("tests/evidence/alpha-wheel.json"))["wheel"])')"
-          "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" -m pip install "$GITHUB_WORKSPACE/${wheel_file}[test]"
+          wheel_file="$(python -c 'import json; print(json.load(open("candidate-source/tests/evidence/alpha-wheel.json"))["wheel"])')"
+          "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" -m pip install "$GITHUB_WORKSPACE/candidate-source/${wheel_file}[test]"
           cd "$RUNNER_TEMP"
-          "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" "$GITHUB_WORKSPACE/tests/verify_alpha.py"
+          "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" "$GITHUB_WORKSPACE/candidate-source/tests/verify_alpha.py"
       - id: guard
         name: Release guard — READY or NOT READY
-        if: always()
+        if: always() && steps.restore.outcome == 'success'
         continue-on-error: true
+        env:
+          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
         run: |
-          python scripts/verify_source.py --ci-evidence-dir build
+          set -o pipefail
           python scripts/verify.py release-check \
-            --ci-candidate-sha '${{ needs.resolve.outputs.source_sha }}' \
-            --native-acceptance build/release/ci-native-acceptance.json
+            --ci-candidate-sha "$SOURCE_SHA" --candidate-root candidate-source \
+            --native-acceptance candidate-source/build/release/ci-native-acceptance.json \
+            2>&1 | tee candidate-source/build/release/ci-guard.log
       - name: Candidate summary
         if: always()
         env:
+          CI_MODE: ${{ inputs.mode }}
+          CANDIDATE_RUN: ${{ inputs.candidate_run }}
+          EVIDENCE_RUN: ${{ inputs.evidence_run }}
           SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
+          RESTORE_RESULT: ${{ steps.restore.outcome }}
           NATIVE_RESULT: ${{ steps.native.outcome }}
           WHEEL_RESULT: ${{ steps.wheel.outcome }}
           GUARD_RESULT: ${{ steps.guard.outcome }}
-        run: python scripts/ci_release_summary.py
+        run: python scripts/ci_release_summary.py --root candidate-source
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: release-evidence-${{ needs.resolve.outputs.source_sha }}
           path: |
-            build/release/ci-native-acceptance.json
-            build/release/ci-native-acceptance.log
-            build/release/ci-ready.json
-            build/release/SHA256SUMS
-            tests/evidence/alpha.json
-            build/source-candidate-check.json
+            candidate-source/build/release/ci-native-acceptance.json
+            candidate-source/build/release/ci-native-acceptance.log
+            candidate-source/build/release/ci-ready.json
+            candidate-source/build/release/ci-reuse.json
+            candidate-source/build/release/ci-guard.log
+            candidate-source/build/release/ci-restore.log
+            candidate-source/build/release/SHA256SUMS
+            candidate-source/tests/evidence/alpha.json
+            candidate-source/build/source-candidate-check.json
           if-no-files-found: warn
           retention-days: 14
-      - name: Fail unless all acceptance and guard checks passed
+      - name: Fail unless the requested stages passed
         if: always()
         env:
+          MODE: ${{ inputs.mode }}
+          RESTORE_RESULT: ${{ steps.restore.outcome }}
           NATIVE_RESULT: ${{ steps.native.outcome }}
           WHEEL_RESULT: ${{ steps.wheel.outcome }}
           GUARD_RESULT: ${{ steps.guard.outcome }}
         run: |
-          test "$NATIVE_RESULT" = success
-          test "$WHEEL_RESULT" = success
+          test "$RESTORE_RESULT" = success
+          if [ "$MODE" != guard-only ]; then
+            test "$NATIVE_RESULT" = success
+            test "$WHEEL_RESULT" = success
+          fi
           test "$GUARD_RESULT" = success
