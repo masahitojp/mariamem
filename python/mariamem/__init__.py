@@ -38,6 +38,12 @@ class Database:
         for timeout in (query_timeout, startup_timeout, shutdown_timeout):
             if not isinstance(timeout, (int, float)) or not 0 < timeout < float("inf"):
                 raise ValueError("timeouts must be positive and finite")
+        timing_start = time.perf_counter_ns() if os.environ.get("MARIAMEM_TIMING_DIR") else None
+        self._startup_timing = [] if timing_start is not None else None
+        def mark(name):
+            if timing_start is not None:
+                self._startup_timing.append({"name": name, "offset_ns": time.perf_counter_ns() - timing_start})
+        mark("begin")
         self._lock = threading.Lock()
         self._sequence = 0
         self._closed = False
@@ -47,12 +53,14 @@ class Database:
             resolved = resolve(host_binary, runtime, module)
         except ArtifactError as exc:
             raise HostError(str(exc), code=exc.code, stage="platform" if exc.code == "unsupported_platform" else "artifact_validation") from exc
+        mark("artifacts_resolved")
         host_binary, runtime, module = (resolved[key] for key in ("host_binary", "runtime", "module"))
         self._options = dict(host_binary=host_binary, runtime=runtime, module=module,
                              wasmer_dir=wasmer_dir, query_timeout=query_timeout,
                              startup_timeout=startup_timeout, shutdown_timeout=shutdown_timeout)
         if snapshot is not None:
             snapshot = Snapshot.open(snapshot.path if isinstance(snapshot, Snapshot) else snapshot)
+        mark("snapshot_validated")
         self._temporary = tempfile.TemporaryDirectory(prefix="mariamem-")
         self._logs = ""
         if wasmer_dir is None:
@@ -74,6 +82,7 @@ class Database:
             argv += ["--wasmer-dir", str(Path(wasmer_dir).absolute())]
         if snapshot is not None:
             argv += ["--snapshot", str(snapshot.path)]
+        mark("host_spawn_begin")
         try:
             self._process = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                              stderr=self._log, text=True, encoding="utf-8", bufsize=1)
@@ -85,6 +94,7 @@ class Database:
             self._log.close()
             self._temporary.cleanup()
             raise
+        mark("host_spawn_returned")
         self._reader = threading.Thread(target=self._read, daemon=True)
         self._reader.start()
         try:
@@ -95,6 +105,7 @@ class Database:
                                 code=error.get("code", "guest_start"), stage=error.get("stage"), closed=True)
             if ready.get("event") != "ready" or ready.get("protocol") != 1:
                 raise HostError("Host startup greeting is invalid; expected control protocol 1. Use host/runtime/guest files from the same matching platform wheel or native bundle.", code="guest_connection", stage="host_control", closed=True)
+            mark("host_control_ready")
             self.id = ready["id"]
             self._connection_info = {key: ready[key] for key in ("host", "port", "user", "password", "database")}
             self.capabilities = tuple(ready["capabilities"])

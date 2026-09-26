@@ -107,3 +107,28 @@ def test_cpu_retains_exited_process_observations_and_subtracts_baseline():
     assert result["sampled_descendant_cpu_seconds"] == 2.5
     assert result["sampled_peak_rss_bytes"] == 30
     assert result["nearest_ready_sample"] is samples[1]
+
+
+def test_stage_summary_separates_nested_scopes_and_worker_counts():
+    trace = {'caller': [{'name': 'begin', 'offset_ns': 0}, {'name': 'first_sql', 'offset_ns': 2000000000}],
+             'host': {'events': [{'name': 'begin', 'offset_ns': 0}, {'name': 'guest_ready', 'offset_ns': 1000000000}]}}
+    rows = [{'phase': 'measurement', 'case': 'fork_first_sql', 'workers': 4,
+             'per_db': [{'stage_timings': trace}]},
+            {'phase': 'warmup', 'case': 'fork_first_sql', 'workers': 4, 'per_db': [{'stage_timings': trace}]}]
+    summary = baseline.summarize_stages(rows)
+    assert len(summary) == 2
+    assert {r['scope']: r['p50_seconds'] for r in summary} == {'caller': 2, 'host': 1}
+    assert all(r['count'] == 1 and r['workers'] == 4 for r in summary)
+
+
+def test_stage_trace_is_explicit_and_requires_structured_host_record(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    import json
+    db = SimpleNamespace(database=SimpleNamespace(diagnostics={'host_pid': 123}, _startup_timing=[]), timing_events=[])
+    monkeypatch.delenv('MARIAMEM_TIMING_DIR', raising=False)
+    assert baseline.stage_timings(db) is None
+    monkeypatch.setenv('MARIAMEM_TIMING_DIR', str(tmp_path))
+    with pytest.raises(RuntimeError, match='instrumented host'):
+        baseline.stage_timings(db)
+    (tmp_path / '123-startup-1.json').write_text(json.dumps({'pid': 123, 'operation': 'startup', 'events': []}))
+    assert baseline.stage_timings(db)['host']['pid'] == 123

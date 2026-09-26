@@ -166,3 +166,48 @@ Sampling perturbs latency; compare with identical interval/hold settings. Use
 `--runs 1 --warmup 0 --rows 10 --queries 5` for an implementation smoke, not a
 statistically useful baseline. Testcontainers comparison and profiling come next;
 this harness does not select or optimize an isolation architecture.
+
+## Opt-in lifecycle waterfall
+
+With a wheel built from the instrumented source (including the matching Go host),
+add `--stage-timing` to `bench isolation`. The installed runtime/guest may be the
+unchanged v0.1 artifacts; record the native manifest and host hash for comparison.
+A published pre-instrumentation wheel cannot supply these traces and fails clearly
+when stage timing is requested. No guest/Wasm rebuild is needed for host timing.
+
+```sh
+/path/to/instrumented-venv/bin/python scripts/verify.py bench isolation \
+  --stage-timing --runs 20 --warmup 2 --workers 1 4 8 --rows 1000
+```
+
+`MARIAMEM_TIMING_DIR` is an internal benchmark diagnostic switch, not a public
+API. The harness creates a temporary directory, reads structured per-host
+startup/snapshot records, and retains raw monotonic nanosecond offsets in JSON.
+Without the switch the host does not create traces. Diagnostic write errors do
+not change database behavior; a benchmark requesting absent traces fails.
+
+The JSON `stage_timings` and `stage_summary` have separate nested clock scopes:
+
+- **caller:** Start/Fork return, client handshake, first successful SQL.
+- **python_startup:** native validation, snapshot validation, wrapper temporary
+  files, host spawn, host control ready.
+- **host startup:** artifact/snapshot validation, transfer directory preparation,
+  Wasmer command/pipes preparation, process spawn, guest API v2 ready, wire listener.
+- **host snapshot:** preconditions/destination, sessions drained, export ack,
+  guest process termination, snapshot publish (copy/inventory/hash/commit marker).
+
+Each stage is the difference between consecutive offsets in that scope. Host
+startup is nested within Python's host-control wait; neither scope is additive
+with the caller's startup total. Do not sum p50/p95 columns into a synthetic total.
+Different scopes have independent zero points; absolute alignment is not inferred.
+
+The largest blind spot is spawn→guest ready: Wasmer AOT deserialization/runtime
+initialization, snapshot restore and MariaDB initialization occur before one
+structured ready reply. Those steps are not separately observable without guest
+or runtime changes. Snapshot export ack likewise combines MariaDB shutdown and
+guest filesystem export; host publish combines materialization and verification.
+CPU/RSS stay correlated by trial and host PID; no per-stage CPU attribution is
+claimed. Trace-file reads occur after the first-SQL timestamp, but may still
+perturb concurrent peers; Python records a few additional clock reads and hosts
+write one small file per lifecycle operation. This is measurement instrumentation,
+not a logging framework or an optimization.

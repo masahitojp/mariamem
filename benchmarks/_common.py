@@ -104,8 +104,14 @@ def environment(args):
 def instance(backend, args, snapshot=None, label=None):
     if backend == "mariamem":
         import mariamem
+        started = time.perf_counter_ns() if os.environ.get("MARIAMEM_TIMING_DIR") else None
         with (snapshot.fork() if snapshot is not None else mariamem.start()) as db:
-            yield SimpleNamespace(info=db.connection_info(), database=db)
+            value = SimpleNamespace(info=db.connection_info(), database=db)
+            if started is not None:
+                value.timing_start = started
+                value.timing_events = [{"name": "begin", "offset_ns": 0},
+                    {"name": "database_returned", "offset_ns": time.perf_counter_ns() - started}]
+            yield value
     else:
         from testcontainers.core.container import DockerContainer
         container = (DockerContainer(args.resolved_image)
@@ -135,6 +141,8 @@ def probe(db, *, rows=None, seed=False):
             if time.perf_counter() >= deadline:
                 raise
             time.sleep(0.02)
+    if hasattr(db, "timing_events"):
+        db.timing_events.append({"name": "client_connected", "offset_ns": time.perf_counter_ns() - db.timing_start})
     with connection, connection.cursor() as cur:
         if seed:
             cur.execute("CREATE TABLE benchmark_rows(id INT PRIMARY KEY, payload VARCHAR(64)) ENGINE=InnoDB")
@@ -147,6 +155,8 @@ def probe(db, *, rows=None, seed=False):
         if cur.fetchone() != (expected,):
             raise AssertionError("unexpected SQL result")
         completed = time.perf_counter()
+        if hasattr(db, "timing_events"):
+            db.timing_events.append({"name": "first_sql", "offset_ns": time.perf_counter_ns() - db.timing_start})
         # Record the actual DB version after the readiness timing boundary.
         cur.execute("SELECT VERSION()")
         version = cur.fetchone()[0]
@@ -213,3 +223,21 @@ def run(args, workload, name):
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(json.dumps(report, indent=2) + "\n")
         print(f"Raw results: {output}")
+
+
+def stage_timings(db, operation="startup"):
+    """Read structured benchmark diagnostics after the primary SQL timestamp."""
+    if not os.environ.get("MARIAMEM_TIMING_DIR"):
+        return None
+    result = {"caller": getattr(db, "timing_events", []),
+              "python_startup": getattr(db.database, "_startup_timing", None)}
+    root = Path(os.environ["MARIAMEM_TIMING_DIR"])
+    pattern = f"{db.database.diagnostics['host_pid']}-{operation}-*.json"
+    try:
+        paths = list(root.glob(pattern))
+        if len(paths) != 1:
+            raise ValueError(f"expected one record; got {len(paths)}")
+        result["host"] = json.loads(paths[0].read_text())
+    except (OSError, ValueError) as exc:
+        raise RuntimeError(f"stage timing requires an instrumented host; missing/invalid structured trace: {root / pattern}") from exc
+    return result

@@ -11,9 +11,10 @@ from pathlib import Path
 import statistics
 import subprocess
 import threading
+import tempfile
 import time
 
-from _common import ROOT, RESULTS, environment, positive, instance, probe
+from _common import ROOT, RESULTS, environment, positive, instance, probe, stage_timings
 from parallel_databases import batch
 
 
@@ -133,6 +134,28 @@ def summarize(samples):
     return result
 
 
+def summarize_stages(samples):
+    grouped = {}
+    for row in samples:
+        if row['phase'] != 'measurement':
+            continue
+        traces = [d.get('stage_timings') for d in row.get('per_db', [])] or [row.get('stage_timings')]
+        for trace in traces:
+            if not trace:
+                continue
+            scopes = {'caller': trace.get('caller', [])} if row['case'] != 'snapshot' else {}
+            if row['case'] != 'snapshot':
+                scopes['python_startup'] = trace.get('python_startup') or []
+            scopes['host'] = trace.get('host', {}).get('events', [])
+            for scope, events in scopes.items():
+                for begin, end in zip(events, events[1:]):
+                    key = (row['case'], row['workers'], scope, end['name'])
+                    grouped.setdefault(key, []).append((end['offset_ns'] - begin['offset_ns']) / 1e9)
+    return [{'case': case, 'workers': workers, 'scope': scope, 'stage': stage,
+             'count': len(times), 'p50_seconds': statistics.median(times), 'p95_seconds': percentile(times, .95)}
+            for (case, workers, scope, stage), times in grouped.items()]
+
+
 def regression(db, count, clients):
     import pymysql
     connections = []
@@ -169,7 +192,8 @@ def benchmark(args, report):
                 start = time.perf_counter()
                 with instance('mariamem', args) as db:
                     ready, version = probe(db)
-                return {'latency_seconds': ready - start, 'server_version': version}
+                    stages = stage_timings(db)
+                return {'latency_seconds': ready - start, 'server_version': version, 'stage_timings': stages}
             report['samples'].append({'case': 'start_first_sql', 'workers': 1, 'phase': phase, 'run': run,
                                       **measured(fresh, args.interval)})
         # Repeat cold snapshot measurements; retain the last prepared state for forks.
@@ -189,7 +213,7 @@ def benchmark(args, report):
                     start = time.perf_counter()
                     current = db.database.snapshot()
                     report['samples'].append({'case': 'snapshot', 'workers': 1, 'phase': phase, 'run': run,
-                        'latency_seconds': time.perf_counter() - start, 'cpu_seconds': None, 'peak_rss_bytes': None})
+                        'latency_seconds': time.perf_counter() - start, 'stage_timings': stage_timings(db, 'snapshot'), 'cpu_seconds': None, 'peak_rss_bytes': None})
                 if snapshot is not None:
                     snapshot.close()
                 snapshot = current
@@ -224,6 +248,7 @@ def main():
     parser.add_argument('--interval', type=float, default=.05)
     parser.add_argument('--hold', type=float, default=.1)
     parser.add_argument('--json', type=Path)
+    parser.add_argument('--stage-timing', action='store_true', help='opt-in host/Python lifecycle diagnostics; requires instrumented host')
     args = parser.parse_args()
     if args.warmup < 0 or not math.isfinite(args.interval) or args.interval <= 0 or not math.isfinite(args.hold) or args.hold < 0:
         parser.error('warmup/hold must be nonnegative; interval must be positive and finite')
@@ -252,16 +277,27 @@ def main():
         report['environment']['package_origin'] = str(origin)
         report['environment']['harness_sha256'] = {name: hashlib.sha256((Path(__file__).parent / name).read_bytes()).hexdigest()
             for name in ['isolation_baseline.py', '_common.py', 'parallel_databases.py']}
-        benchmark(args, report)
+        if args.stage_timing:
+            with tempfile.TemporaryDirectory(prefix="mariamem-timings-") as timing_dir:
+                os.environ["MARIAMEM_TIMING_DIR"] = timing_dir
+                try:
+                    benchmark(args, report)
+                finally:
+                    os.environ.pop("MARIAMEM_TIMING_DIR", None)
+        else:
+            benchmark(args, report)
         report['completed'] = True
     except Exception as exc:
         report['error'] = f'{type(exc).__name__}: {exc}'
         raise
     finally:
         report['summary'] = summarize(report['samples'])
+        report['stage_summary'] = summarize_stages(report['samples'])
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(json.dumps(report, indent=2) + '\n')
         print(json.dumps(report['summary'], indent=2))
+        print('Stage waterfall (nested scopes overlap; do not add scopes):')
+        print(json.dumps(report['stage_summary'], indent=2))
         print(f'Raw results: {output}')
 
 

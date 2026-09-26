@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 import queue
 import threading
 import time
-from _common import backends, instance, options, probe, record, run, template
+from _common import backends, instance, options, probe, record, run, template, stage_timings
 
 
 def batch(backend, args, saved, workers, *, hold=0, monitor=None):
@@ -18,7 +18,8 @@ def batch(backend, args, saved, workers, *, hold=0, monitor=None):
             with instance(backend, args, saved, label=monitor.label if monitor else None) as db:
                 ready, version = probe(db, rows=args.rows, seed=backend == "testcontainers")
                 ready_queue.put({"ready_at_seconds": ready - started,
-                                 "latency_seconds": ready - local_start, "server_version": version})
+                                 "latency_seconds": ready - local_start, "server_version": version,
+                                 "stage_timings": stage_timings(db)})
                 release.wait()
         except BaseException as exc:
             ready_queue.put(exc)

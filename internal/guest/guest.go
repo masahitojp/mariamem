@@ -17,6 +17,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 type Column struct {
@@ -102,11 +103,13 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 	}
 	ready := make(chan response, 1)
 	p := &Process{cmd: cmd, in: in, out: out, writes: make(chan struct{}, 1), done: make(chan struct{}), pending: map[uint32]chan response{0: ready}}
+	timing.Mark(ctx, "spawn_begin")
 	if err = cmd.Start(); err != nil {
 		in.Close()
 		out.Close()
 		return nil, diagnostic.Wrap("guest_start", "guest_launch", fmt.Errorf("could not launch Wasmer %q for guest %q; use the complete native bundle for your supported platform and check executable permissions: %w", runtime, module, err))
 	}
+	timing.Mark(ctx, "spawn_returned")
 	readDone := make(chan struct{})
 	go func() { defer close(readDone); p.read() }()
 	go func() { <-readDone; p.exitErr = cmd.Wait(); close(p.done); p.fail(errors.New("guest exited")) }()

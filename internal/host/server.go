@@ -14,6 +14,7 @@ import (
 	"github.com/masahitojp/mariamem/internal/guest"
 	"github.com/masahitojp/mariamem/internal/mysqlwire"
 	"github.com/masahitojp/mariamem/internal/snapshot"
+	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 type Server struct {
@@ -42,6 +43,8 @@ type Rejected struct {
 func (e *Rejected) Error() string { return e.Message }
 
 func Start(ctx context.Context, runtime, module, wasmerDir, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (server *Server, err error) {
+	ctx, finishTiming := timing.Begin(ctx, "startup")
+	defer finishTiming()
 	defer func() {
 		if err != nil {
 			var detail *diagnostic.Error
@@ -67,10 +70,12 @@ func Start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 			return nil, err
 		}
 	}
+	timing.Mark(ctx, "metadata_snapshot_validated")
 	transfer, err := os.MkdirTemp("", "mariamem-transfer-")
 	if err != nil {
 		return nil, err
 	}
+	timing.Mark(ctx, "transfer_prepared")
 	p, err := guest.Start(ctx, runtime, module, wasmerDir, transfer, restore, stderr)
 	if err != nil {
 		os.RemoveAll(transfer)
@@ -84,12 +89,14 @@ func Start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 		os.RemoveAll(transfer)
 		return nil, p.AbortAndWait(fmt.Errorf("guest does not support snapshot restore"))
 	}
+	timing.Mark(ctx, "guest_ready")
 	ln, err := net.Listen("tcp4", "127.0.0.1:0")
 	if err != nil {
 		os.RemoveAll(transfer)
 		return nil, diagnostic.Wrap("host_start", "host_listen", p.AbortAndWait(err))
 	}
 	s := &Server{Guest: p, listener: ln, clients: make(map[net.Conn]*session), slots: make([]bool, p.MaxSessions), queryTimeout: timeout, transfer: transfer, build: build}
+	timing.Mark(ctx, "wire_listener_ready")
 	go s.accept()
 	return s, nil
 }
@@ -193,6 +200,8 @@ func (s *Server) stopAccepting() {
 	}
 }
 func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool) (closed bool, err error) {
+	ctx, finishTiming := timing.Begin(ctx, "snapshot")
+	defer finishTiming()
 	s.mu.Lock()
 	if !s.SnapshotCapable() {
 		s.mu.Unlock()
@@ -233,13 +242,17 @@ func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool
 			}
 		}
 	}()
+	timing.Mark(ctx, "preconditions_destination_ready")
 	s.stopAccepting()
 	s.mu.Unlock()
 	defer os.RemoveAll(s.transfer)
 	if err = s.finish(ctx, true); err != nil {
 		return true, err
 	}
-	return true, snapshot.Publish(s.transfer, path, s.build)
+	timing.Mark(ctx, "guest_stopped")
+	err = snapshot.Publish(s.transfer, path, s.build)
+	timing.Mark(ctx, "snapshot_published")
+	return true, err
 }
 func (s *Server) finish(ctx context.Context, export bool) error {
 	done := make(chan struct{})
@@ -248,7 +261,9 @@ func (s *Server) finish(ctx context.Context, export bool) error {
 	select {
 	case <-done:
 		if export {
+			timing.Mark(ctx, "sessions_drained")
 			err = s.Guest.Export(ctx)
+			timing.Mark(ctx, "export_acknowledged")
 		} else {
 			err = s.Guest.Shutdown(ctx)
 		}
