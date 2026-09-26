@@ -32,3 +32,7 @@ Codex submits work to CI; it does not supervise CI. After successful submission,
 return the run URL, candidate SHA, and mode, then stop. Do not poll, wait, or
 report elapsed build time. Re-enter only for a human status request, requested
 failure/NOT READY diagnosis, or an unexpected engineering decision.
+
+For an explicitly versioned release request, use the repository-local
+`.agents/skills/release/SKILL.md` (`$release vX.Y.Z-alpha.N`). It prepares and
+submits the existing workflow; it never chooses the release version.
