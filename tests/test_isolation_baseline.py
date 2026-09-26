@@ -132,3 +132,39 @@ def test_stage_trace_is_explicit_and_requires_structured_host_record(tmp_path, m
         baseline.stage_timings(db)
     (tmp_path / '123-startup-1.json').write_text(json.dumps({'pid': 123, 'operation': 'startup', 'events': []}))
     assert baseline.stage_timings(db)['host']['pid'] == 123
+
+
+def test_guest_stage_validation_and_nested_duration_residual():
+    from _common import validate_guest_timing
+    names = ['guest_main', 'restore_begin', 'restore_complete', 'open_begin',
+             'server_init_begin', 'server_init_complete', 'bootstrap_complete', 'ready_prepared']
+    record = {'version': 1, 'clock': 'guest_monotonic',
+              'events': [{'name': name, 'offset_ns': i * 1000000} for i, name in enumerate(names)]}
+    validate_guest_timing(record)
+    with pytest.raises(ValueError, match='instrumented guest'):
+        validate_guest_timing(None)
+    trace = {'host': {'guest': record, 'events': [
+        {'name': 'spawn_returned', 'offset_ns': 1000000},
+        {'name': 'guest_ready', 'offset_ns': 11000000}]}}
+    rows = [{'phase': 'measurement', 'case': 'fork_first_sql', 'workers': 8,
+             'per_db': [{'stage_timings': trace}]}]
+    summary = baseline.summarize_stages(rows)
+    residual = next(row for row in summary if row['scope'] == 'startup_envelope')
+    assert residual['p50_seconds'] == pytest.approx(.003)
+    assert len([row for row in summary if row['scope'] == 'guest']) == 7
+    record['events'][1]['offset_ns'] = -1
+    with pytest.raises(ValueError, match='monotonic'):
+        validate_guest_timing(record)
+
+
+def test_stage_report_preserves_unavailable_cost_and_sample_counts():
+    from stage_report import render
+    report = {'environment': {'commit': 'test-sha'}, 'samples': [],
+              'summary': [{'case': 'snapshot', 'workers': 1, 'p50_seconds': .4, 'p95_seconds': .5}],
+              'stage_summary': [{'case': 'fork_first_sql', 'workers': 8, 'scope': 'guest',
+                                 'stage': 'restore_complete', 'count': 160,
+                                 'p50_seconds': .01, 'p95_seconds': .02}]}
+    text = render(report)
+    assert 'test-sha' in text and '| 160 | 10.000 | 20.000 |' in text
+    assert '| 400.000 / 500.000 | unavailable | unavailable |' in text
+    assert 'not pure Wasmer time' in text

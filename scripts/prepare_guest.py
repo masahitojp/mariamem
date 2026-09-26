@@ -27,7 +27,7 @@ subprocess.run(["patch", "-p1", "-i", str(ROOT / "guest/source.patch")], cwd=sou
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
 (source / "wasm/wire_api.inc").write_text(
     "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "resident.inc"\n')
-for name in ("resident.inc", "snapshot_fs.inc"):
+for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc"):
     shutil.copy2(ROOT / "guest" / name, source / "wasm" / name)
 vendor = source / "mariamem-dependencies"
 vendor.mkdir()
@@ -43,7 +43,7 @@ manifest = {"inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
             "overlays": {p.name: digest(p) for p in sorted((ROOT / "guest").iterdir()) if p.is_file()},
             "modified_files": {name: digest(source / name) for name in
                                (*LOCK["pristine_files"], "wasm/wire_api.inc", "wasm/resident.inc",
-                                "wasm/snapshot_fs.inc", "cmake/pcre.cmake", "cmake/libfmt.cmake")}}
+                                "wasm/snapshot_fs.inc", "wasm/startup_timing.inc", "cmake/pcre.cmake", "cmake/libfmt.cmake")}}
 (ROOT / "build/prepared-source.json").write_text(json.dumps(manifest, indent=2) + "\n")
 shutil.copy2(ROOT / "release/inputs.lock.json", ROOT / "build/preparation-inputs.lock.json")
 print("Prepared build/source from pinned archives; all guest dependencies are local.")

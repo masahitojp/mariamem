@@ -1,4 +1,4 @@
-// Package timing provides opt-in benchmark diagnostics, outside runtime protocols.
+// Package timing provides opt-in benchmark diagnostics, without changing runtime protocols.
 package timing
 
 import (
@@ -19,9 +19,10 @@ type Event struct {
 	Offset int64  `json:"offset_ns"`
 }
 type Trace struct {
-	Operation string  `json:"operation"`
-	PID       int     `json:"pid"`
-	Events    []Event `json:"events"`
+	Operation string          `json:"operation"`
+	PID       int             `json:"pid"`
+	Events    []Event         `json:"events"`
+	Guest     json.RawMessage `json:"guest,omitempty"`
 	start     time.Time
 	dir       string
 }
@@ -49,5 +50,22 @@ func Begin(ctx context.Context, operation string) (context.Context, func()) {
 func Mark(ctx context.Context, name string) {
 	if t, ok := ctx.Value(key{}).(*Trace); ok {
 		t.Events = append(t.Events, Event{Name: name, Offset: time.Since(t.start).Nanoseconds()})
+	}
+}
+
+// Enabled lets the host request the matching guest's optional file diagnostics.
+func Enabled(ctx context.Context) bool {
+	_, ok := ctx.Value(key{}).(*Trace)
+	return ok
+}
+
+// ReadGuest copies an optional record after ready, without changing startup success.
+// The benchmark validates its schema; old guests simply leave the scope absent.
+func ReadGuest(ctx context.Context, transfer string) {
+	if t, ok := ctx.Value(key{}).(*Trace); ok {
+		data, err := os.ReadFile(filepath.Join(transfer, "startup-timing.json"))
+		if err == nil && len(data) <= 8192 && json.Valid(data) {
+			t.Guest = data
+		}
 	}
 }

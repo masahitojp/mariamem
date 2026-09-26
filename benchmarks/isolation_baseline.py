@@ -147,6 +147,15 @@ def summarize_stages(samples):
             if row['case'] != 'snapshot':
                 scopes['python_startup'] = trace.get('python_startup') or []
             scopes['host'] = trace.get('host', {}).get('events', [])
+            if row['case'] != 'snapshot':
+                scopes['guest'] = trace.get('host', {}).get('guest', {}).get('events', [])
+            if scopes.get('guest'):
+                host = {event['name']: event['offset_ns'] for event in scopes['host']}
+                guest = scopes['guest']
+                if 'spawn_returned' in host and 'guest_ready' in host:
+                    # A duration residual, not absolute clock alignment or pure runtime time.
+                    residual = host['guest_ready'] - host['spawn_returned'] - (guest[-1]['offset_ns'] - guest[0]['offset_ns'])
+                    grouped.setdefault((row['case'], row['workers'], 'startup_envelope', 'outside_recorded_guest_interval'), []).append(residual / 1e9)
             for scope, events in scopes.items():
                 for begin, end in zip(events, events[1:]):
                     key = (row['case'], row['workers'], scope, end['name'])
@@ -249,7 +258,9 @@ def main():
     parser.add_argument('--hold', type=float, default=.1)
     parser.add_argument('--json', type=Path)
     parser.add_argument('--stage-timing', action='store_true', help='opt-in host/Python lifecycle diagnostics; requires instrumented host')
+    parser.add_argument('--guest-stage-timing', action='store_true', help='require matching instrumented guest; implies --stage-timing')
     args = parser.parse_args()
+    args.stage_timing = args.stage_timing or args.guest_stage_timing
     if args.warmup < 0 or not math.isfinite(args.interval) or args.interval <= 0 or not math.isfinite(args.hold) or args.hold < 0:
         parser.error('warmup/hold must be nonnegative; interval must be positive and finite')
     output = (args.json or RESULTS / f'isolation-baseline-{time.time_ns()}.json').resolve()
@@ -280,10 +291,13 @@ def main():
         if args.stage_timing:
             with tempfile.TemporaryDirectory(prefix="mariamem-timings-") as timing_dir:
                 os.environ["MARIAMEM_TIMING_DIR"] = timing_dir
+                if args.guest_stage_timing:
+                    os.environ["MARIAMEM_REQUIRE_GUEST_TIMING"] = "1"
                 try:
                     benchmark(args, report)
                 finally:
                     os.environ.pop("MARIAMEM_TIMING_DIR", None)
+                    os.environ.pop("MARIAMEM_REQUIRE_GUEST_TIMING", None)
         else:
             benchmark(args, report)
         report['completed'] = True

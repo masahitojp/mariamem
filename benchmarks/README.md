@@ -201,13 +201,44 @@ startup is nested within Python's host-control wait; neither scope is additive
 with the caller's startup total. Do not sum p50/p95 columns into a synthetic total.
 Different scopes have independent zero points; absolute alignment is not inferred.
 
-The largest blind spot is spawn→guest ready: Wasmer AOT deserialization/runtime
-initialization, snapshot restore and MariaDB initialization occur before one
-structured ready reply. Those steps are not separately observable without guest
-or runtime changes. Snapshot export ack likewise combines MariaDB shutdown and
+For a freshly rebuilt instrumented guest, use `--guest-stage-timing` (implies
+`--stage-timing` and rejects missing guest records). The additional **guest**
+clock scope records main entry, restore copy begin/end, open preparation,
+`mysql_server_init()` begin/end, bootstrap connection/schema completion, and
+ready preparation. Restore is the actual `/snapshot-in/data` → `/mariadb` copy;
+Start records the same boundaries with no restore copy. Server initialization
+includes MariaDB/InnoDB; individual InnoDB internals are not observed.
+
+`startup_envelope / outside_recorded_guest_interval` subtracts the measured
+guest main→ready-prepared duration from the measured host spawn-return→ready
+wait for each instance. It includes pre-main Wasmer/AOT/WASIX/CRT work and C/C++
+static constructors, diagnostic
+file writing, ready delivery and scheduling. It is **not** an exact Wasmer
+initialization timer or proof that runtime initialization is the whole residual.
+There is no structured Wasmer-initialized boundary available in the current
+unmodified runtime. Independent clock origins are never aligned.
+
+The opt-in guest writes a small JSON file in the existing transfer mount before
+sending the unchanged ready reply. It adds no SQL or protocol messages and never
+changes startup success on diagnostic I/O failure. The host reads it after wire
+listener readiness. Existing host-only timing works with older guest artifacts.
+
+For CI measurement, manually dispatch `guest-build-boundary.yml` with
+`lifecycle_measurement=true` on the exact pushed commit. It rebuilds Linux WASM,
+verifies the exact macOS AOT handoff, installs the matching wheel in a temporary
+venv, then measures 20 samples + 2 warmups, 1/4/8 forks and 1000-row preparation.
+The `guest-startup-stages-<sha>` Actions artifact contains raw JSON, a Markdown
+waterfall and AOT provenance; the job summary contains the same table. Nothing
+is published. Submit and hand off; do not poll the guest build.
+
+`python benchmarks/stage_report.py <result.json>` renders an existing result.
+Raw results remain ignored. Measurements from a different CI machine/toolchain
+must not be interpreted as a controlled speed comparison with local baselines.
+
+Snapshot export ack likewise combines MariaDB shutdown and
 guest filesystem export; host publish combines materialization and verification.
 CPU/RSS stay correlated by trial and host PID; no per-stage CPU attribution is
-claimed. Trace-file reads occur after the first-SQL timestamp, but may still
+claimed. Benchmark reads of host traces occur after the first-SQL timestamp, but may still
 perturb concurrent peers; Python records a few additional clock reads and hosts
 write one small file per lifecycle operation. This is measurement instrumentation,
 not a logging framework or an optimization.

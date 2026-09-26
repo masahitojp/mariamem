@@ -238,6 +238,23 @@ def stage_timings(db, operation="startup"):
         if len(paths) != 1:
             raise ValueError(f"expected one record; got {len(paths)}")
         result["host"] = json.loads(paths[0].read_text())
+        guest = result["host"].get("guest")
+        if operation == "startup" and (guest is not None or os.environ.get("MARIAMEM_REQUIRE_GUEST_TIMING")):
+            validate_guest_timing(guest)
     except (OSError, ValueError) as exc:
         raise RuntimeError(f"stage timing requires an instrumented host; missing/invalid structured trace: {root / pattern}") from exc
     return result
+
+
+def validate_guest_timing(record):
+    """Reject absent/malformed guest diagnostics instead of reporting empty stages."""
+    expected = ["guest_main", "restore_begin", "restore_complete", "open_begin",
+                "server_init_begin", "server_init_complete", "bootstrap_complete", "ready_prepared"]
+    if not isinstance(record, dict) or record.get("version") != 1 or record.get("clock") != "guest_monotonic":
+        raise ValueError("guest stage timing requires a matching instrumented guest")
+    events = record.get("events", [])
+    offsets = [event.get("offset_ns") for event in events]
+    if ([event.get("name") for event in events] != expected or len(offsets) != len(expected)
+            or any(type(value) is not int or value < 0 for value in offsets)
+            or offsets != sorted(offsets) or offsets[0] != 0):
+        raise ValueError("invalid guest startup event sequence/monotonic offsets")

@@ -1,6 +1,11 @@
 name: Guest build boundary verification
 on:
   workflow_dispatch:
+    inputs:
+      lifecycle_measurement:
+        description: 'Measure opt-in guest startup stages (20 samples, no performance gates)'
+        type: boolean
+        default: false
 
 # Focused source/WASM/AOT verification; no release review or publication.
 permissions:
@@ -71,6 +76,30 @@ jobs:
             echo 'Start / SELECT 1 / Close: PASS'
             echo 'Verification only; nothing was published.'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: Measure packaged guest startup stages
+        if: inputs.lifecycle_measurement
+        run: |
+          python -m pip install setuptools wheel
+          python scripts/build_alpha.py --ci-candidate --runtime build/guest-aot/wasmer-headless --module build/guest-aot/mariamem.wasmu
+          python -m venv "$RUNNER_TEMP/stage-venv"
+          version=$(python -c "import sys; sys.path.insert(0, 'scripts'); from release_version import PYTHON_VERSION; print(PYTHON_VERSION)")
+          "$RUNNER_TEMP/stage-venv/bin/python" -m pip install "build/dist/mariamem-${version}-py3-none-macosx_15_0_arm64.whl" PyMySQL
+          unset MARIAMEM_NATIVE_DIR PYTHONPATH
+          "$RUNNER_TEMP/stage-venv/bin/python" scripts/verify.py bench isolation \
+            --guest-stage-timing --runs 20 --warmup 2 --workers 1 4 8 --rows 1000 --queries 100 \
+            --json benchmarks/results/guest-startup-stages.json
+          python benchmarks/stage_report.py benchmarks/results/guest-startup-stages.json > benchmarks/results/guest-startup-stages.md
+          cat benchmarks/results/guest-startup-stages.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        if: always() && inputs.lifecycle_measurement
+        with:
+          name: guest-startup-stages-${{ github.sha }}
+          path: |
+            benchmarks/results/guest-startup-stages.json
+            benchmarks/results/guest-startup-stages.md
+            build/guest-aot/provenance.json
+          if-no-files-found: warn
+          retention-days: 14
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: always()
         with:

@@ -49,3 +49,29 @@ func TestDisabledAndUnavailableDestination(t *testing.T) {
 	Mark(ctx, "ready")
 	finish() // diagnostic I/O does not fail startup
 }
+
+func TestGuestFileDiagnosticsAreOptionalAndOutsideHostClock(t *testing.T) {
+	t.Setenv("MARIAMEM_TIMING_DIR", t.TempDir())
+	ctx, _ := Begin(context.Background(), "startup")
+	if !Enabled(ctx) || Enabled(context.Background()) {
+		t.Fatal("opt-in state")
+	}
+	transfer := t.TempDir()
+	ReadGuest(ctx, transfer) // absent older guest never fails startup
+	trace := ctx.Value(key{}).(*Trace)
+	if trace.Guest != nil {
+		t.Fatal("fabricated guest events")
+	}
+	raw := []byte(`{"version":1,"clock":"guest_monotonic","events":[{"name":"guest_main","offset_ns":0}]}`)
+	if err := os.WriteFile(filepath.Join(transfer, "startup-timing.json"), raw, 0600); err != nil {
+		t.Fatal(err)
+	}
+	ReadGuest(ctx, transfer)
+	if string(trace.Guest) != string(raw) || len(trace.Events) != 1 {
+		t.Fatal(trace)
+	}
+	if err := os.WriteFile(filepath.Join(transfer, "startup-timing.json"), []byte("invalid"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	ReadGuest(context.Background(), transfer) // disabled diagnostics do no I/O
+}

@@ -105,8 +105,13 @@ static void *multi_worker(void *arg)
 
 int main(int argc, char **argv)
 {
+  startup_timing.enabled= getenv("MARIAMEM_GUEST_TIMING") != NULL;
+  startup_mark("guest_main");
   if (argc > 2 || (argc == 2 && strcmp(argv[1], "--restore-snapshot"))) return 16;
+  startup_mark("restore_begin");
   if (argc == 2 && snapshot_copy("/snapshot-in/data", "/mariadb", 0)) return 17;
+  startup_mark("restore_complete");
+  startup_mark("open_begin");
   if (l4m_open()) return 11;
   /* Bootstrap connection creates test; engine remains alive after closing it. */
   mysql_close(g_mysql);
@@ -117,6 +122,8 @@ int main(int argc, char **argv)
     pthread_cond_init(&multi_slots[i].condition, NULL);
     multi_slots[i].slot= i;
   }
+  startup_mark("ready_prepared");
+  startup_write();
   multi_reply(0, 0, "{\"ready\":true,\"api_version\":2,\"max_sessions\":16,\"snapshot_version\":1}");
   int rc= 0, export_snapshot= 0;
   for (;;)

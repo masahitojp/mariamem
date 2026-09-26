@@ -97,6 +97,7 @@ func Start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 	}
 	s := &Server{Guest: p, listener: ln, clients: make(map[net.Conn]*session), slots: make([]bool, p.MaxSessions), queryTimeout: timeout, transfer: transfer, build: build}
 	timing.Mark(ctx, "wire_listener_ready")
+	timing.ReadGuest(ctx, transfer)
 	go s.accept()
 	return s, nil
 }

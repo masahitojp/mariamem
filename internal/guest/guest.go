@@ -77,6 +77,9 @@ type Process struct {
 
 func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore string, stderr io.Writer) (*Process, error) {
 	args := []string{"run", module, "--no-tty", "--volume", transfer + ":/snapshot-out"}
+	if timing.Enabled(ctx) {
+		args = append(args, "--env", "MARIAMEM_GUEST_TIMING=1")
+	}
 	if restore != "" {
 		args = append(args, "--volume", restore+":/snapshot-in", "--", "--restore-snapshot")
 	}

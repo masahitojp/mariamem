@@ -1,6 +1,30 @@
 --- a/wasm/lite4mariadb.c
 +++ b/wasm/lite4mariadb.c
-@@ -358,7 +358,11 @@
+@@ -9,6 +9,11 @@
+ #include <string.h>
+ #include <sys/stat.h>
+ #include <errno.h>
++#ifdef L4M_RESIDENT
++#include "startup_timing.inc"
++#else
++#define startup_mark(name) ((void)0)
++#endif
+ 
+ #ifdef __EMSCRIPTEN__
+ #include <emscripten.h>
+@@ -347,9 +352,11 @@
+   };
+   int argc= (int)(sizeof(argv) / sizeof(argv[0]) - 1);
+ 
++  startup_mark("server_init_begin");
+   if (mysql_server_init(argc, argv, NULL))
+     return 1;
+ 
++  startup_mark("server_init_complete");
+   g_mysql= mysql_init(NULL);
+   if (!g_mysql)
+   {
+@@ -358,7 +365,11 @@
    }
  
    if (!mysql_real_connect(g_mysql, NULL, "root", "", NULL, 0, NULL,
@@ -12,7 +36,15 @@
    {
      mysql_close(g_mysql);
      g_mysql= NULL;
-@@ -449,7 +453,7 @@
+@@ -371,6 +382,7 @@
+   (void)mysql_query(g_mysql, "CREATE DATABASE IF NOT EXISTS test");
+   (void)mysql_select_db(g_mysql, "test");
+   g_open= 1;
++  startup_mark("bootstrap_complete");
+   return 0;
+ }
+ 
+@@ -449,7 +461,7 @@
    return dup_str("{\"ok\":false,\"error\":\"oom\"}");
  }
  
@@ -21,7 +53,7 @@
  /*
    WASIX CLI entry point: opens the embedded server, runs each argument as
    a statement and prints one JSON envelope per statement.
-@@ -533,3 +537,5 @@
+@@ -533,3 +545,5 @@
    free(b.p);
    return dup_str("{\"ok\":false,\"error\":\"oom\"}");
  }
