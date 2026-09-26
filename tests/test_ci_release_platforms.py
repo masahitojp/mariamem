@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import ci_release_platforms as platforms
 from ci_release_reuse import restore_tar
 from native_target import target_metadata
+from release_version import SOURCE_CANDIDATE, PYTHON_VERSION
 
 SHA = 'a' * 40
 
@@ -101,11 +102,11 @@ def test_frozen_handoff_roundtrip_includes_only_allowed_inputs(tmp_path):
         'build/guest-wasm/mariamem.wasm': 'wasm',
         'build/release/native-candidate/' + native: 'native',
         'build/release/native-candidate/native-candidate.json': '{}',
-        'build/release/source-manifest.json': '{"file":"mariamem-0.1.0a4-source-candidate.tar.gz"}',
-        'build/release/mariamem-0.1.0a4-source-candidate.tar.gz': 'source',
+        'build/release/source-manifest.json': json.dumps({'file': SOURCE_CANDIDATE}),
+        'build/release/' + SOURCE_CANDIDATE: 'source',
         'build/source-candidate-check.json': '{}',
-        'build/dist/mariamem-0.1.0a4-py3-none-linux_x86_64.whl': 'wheel',
-        'tests/evidence/alpha-wheel.json': '{"wheel":"build/dist/mariamem-0.1.0a4-py3-none-linux_x86_64.whl"}',
+        f'build/dist/mariamem-{PYTHON_VERSION}-py3-none-linux_x86_64.whl': 'wheel',
+        'tests/evidence/alpha-wheel.json': json.dumps({'wheel': f'build/dist/mariamem-{PYTHON_VERSION}-py3-none-linux_x86_64.whl'}),
     }
     for name, body in names.items():
         path = root / name

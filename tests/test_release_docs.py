@@ -43,11 +43,38 @@ def test_stale_readme_release_forms_fail(candidate, old, new, label):
         check_release_docs(candidate)
 
 
-def test_next_prerelease_with_stale_examples_blocks_guard(candidate):
+def configure_fixture_stage(candidate, stage):
     source = candidate / 'python/mariamem/_version.py'
-    components = runpy.run_path(str(source))
-    source.write_text(re.sub(r'SERIAL = \d+', f'SERIAL = {components["SERIAL"] + 1}', source.read_text()))
-    expected = runpy.run_path(str(source))['GIT_TAG']
+    before = runpy.run_path(str(source))
+    text = re.sub(r'^STAGE = .*$', f'STAGE = {stage!r}', source.read_text(), flags=re.M)
+    text = re.sub(r'^SERIAL = .*$', f'SERIAL = {1 if stage else 0}', text, flags=re.M)
+    source.write_text(text)
+    after = runpy.run_path(str(source))
+    update_fixture_docs(candidate, before, after)
+
+
+def update_fixture_docs(candidate, before, after):
+    for name in DOCS:
+        path = candidate / name
+        text = path.read_text().replace(before['GIT_TAG'], after['GIT_TAG'])
+        path.write_text(re.sub(r'(?<![\w.])' + re.escape(before['PYTHON_VERSION']) + r'(?![\w.])',
+                               lambda _: after['PYTHON_VERSION'], text))
+
+
+def advance_fixture_version(source):
+    before = runpy.run_path(str(source))
+    # A stable next patch stays stable; a prerelease advances its serial.
+    field = "SERIAL" if before["STAGE"] else "PATCH"
+    source.write_text(re.sub(rf'^{field} = \d+', f'{field} = {before[field] + 1}', source.read_text(), flags=re.M))
+    return before, runpy.run_path(str(source))
+
+
+@pytest.mark.parametrize("stage", ["", "alpha", "beta", "rc"])
+def test_next_version_with_stale_examples_blocks_guard(candidate, stage):
+    configure_fixture_stage(candidate, stage)
+    source = candidate / 'python/mariamem/_version.py'
+    _, after = advance_fixture_version(source)
+    expected = after["GIT_TAG"]
     with pytest.raises(ValueError, match=re.escape('expected ' + expected)):
         check_release_docs(candidate)
     # Guard rejects documentation before considering any artifact/evidence.
@@ -67,15 +94,11 @@ def test_current_examples_cannot_be_replaced_with_placeholders(candidate):
         check_release_docs(candidate)
 
 
-def test_next_prerelease_docs_can_be_updated_without_checker_changes(candidate):
-    source = candidate / 'python/mariamem/_version.py'
-    before = runpy.run_path(str(source))
-    source.write_text(re.sub(r'SERIAL = \d+', f'SERIAL = {before["SERIAL"] + 1}', source.read_text()))
-    after = runpy.run_path(str(source))
-    for name in DOCS:
-        path = candidate / name
-        path.write_text(path.read_text().replace(before['GIT_TAG'], after['GIT_TAG'])
-                        .replace(before['PYTHON_VERSION'], after['PYTHON_VERSION']))
+@pytest.mark.parametrize("stage", ["", "alpha", "beta", "rc"])
+def test_next_version_docs_can_be_updated_without_checker_changes(candidate, stage):
+    configure_fixture_stage(candidate, stage)
+    before, after = advance_fixture_version(candidate / 'python/mariamem/_version.py')
+    update_fixture_docs(candidate, before, after)
     assert check_release_docs(candidate)['tag'] == after['GIT_TAG']
 
 
