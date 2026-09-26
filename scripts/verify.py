@@ -11,6 +11,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 BENCHMARKS = {
+    "isolation": "isolation_baseline.py",
     "ready": "ready_to_query.py",
     "seeded": "seeded_database.py",
     "parallel": "parallel_databases.py",

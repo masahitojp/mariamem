@@ -4,7 +4,7 @@ These scripts measure developer-facing database lifecycle latency and memory
 scaling. They are not SQL-engine throughput benchmarks, CI requirements, or
 pass/fail performance thresholds. They do not change the product implementation.
 The repository-level entry point is `python3 scripts/verify.py bench WORKLOAD [options]`,
-where `WORKLOAD` is `ready`, `seeded`, `parallel`, or `memory`.
+where `WORKLOAD` is `ready`, `seeded`, `parallel`, `memory`, or `isolation`.
 
 The historical [0.1.0a1 manual baseline](baseline-0.1.0a1.md) is retained as a
 reference. These scripts formalize its workloads; exact reproduction of its
@@ -117,3 +117,52 @@ IDs, container IDs, and machine-specific errors.
 `benchmarks/results/` is ignored by Git and excluded by the source-release file
 selector. Scripts, this documentation, and the labelled historical baseline are
 source assets. No benchmark is added to mandatory CI.
+
+## 0.2 FAST baseline
+
+Use an installed release wheel and PyMySQL in an isolated environment. Run locally
+or on a supported CI runner (macOS 15+ arm64 or Ubuntu 24.04 x86_64):
+
+```sh
+python3 -m venv /tmp/mariamem-baseline
+/tmp/mariamem-baseline/bin/python -m pip install /path/to/mariamem-0.1.0-PLATFORM.whl pymysql
+unset PYTHONPATH MARIAMEM_NATIVE_DIR
+/tmp/mariamem-baseline/bin/python scripts/verify.py bench isolation \
+  --runs 10 --warmup 1 --workers 1 4 8 --rows 1000 --queries 100
+```
+
+`isolation_baseline.py` uses the wheel runtime without checkout imports; an
+explicit native override is permitted and recorded. JSON records harness commit
+(and dirty state), installed package origin/version, native manifest identity,
+actual MariaDB version, settings, warmup/measurement raw observations and p50/p95
+(linear interpolation). Generated results stay in ignored `benchmarks/results/`;
+use `--json /external/path.json` to retain history elsewhere. No timing threshold
+is a pass/fail gate. Failures preserve partial samples with `completed: false`.
+
+Cases are Start→first SELECT, cold Snapshot after InnoDB schema/seed/commit and
+disconnect, prepared Fork→connect→first verified COUNT at concurrency 1/4/8,
+steady SELECT 1, and SELECT 1 through two simultaneous independent sessions.
+Fork is the primary metric: group ready-wall and per-DB latencies are retained,
+with separate p50/p95. Snapshot preparation/seed is excluded from Snapshot timing
+and parallel-fork timing; phases prepare separate templates. Regression queries
+retain each timing; multi-client checks verify session-variable isolation.
+
+Cost collection uses `ps` RSS and cumulative CPU for descendant host/runtime
+processes, excluding the Python parent and sampling `ps`. JSON keeps every sample
+and collection duration. Peak RSS means **sampled peak**, not exact peak. Ready
+incremental RSS subtracts the pre-batch baseline and divides by DB count; this is
+not unique physical allocation (shared pages may be counted repeatedly). CPU is
+a sampled observed delta, not complete runtime CPU: fast exits and unsampled
+startup/exit work are missed, and `ps` time precision varies (Linux can be coarse). Rare PID reuse can alias
+CPU observations within a trial. Python process CPU
+is recorded separately for the complete lifecycle including cleanup/hold/sampling.
+Runtime CPU observations stop before batch cleanup. Sampler failures are recorded;
+missing observations yield null rather than fabricated CPU values.
+
+Snapshot-only CPU/RSS are currently unavailable (null): the source exists before
+that boundary and exits during Snapshot, making reaped-child CPU attribution
+unreliable. This measurement limitation is explicit rather than estimating cost.
+Sampling perturbs latency; compare with identical interval/hold settings. Use
+`--runs 1 --warmup 0 --rows 10 --queries 5` for an implementation smoke, not a
+statistically useful baseline. Testcontainers comparison and profiling come next;
+this harness does not select or optimize an isolation architecture.
