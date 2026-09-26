@@ -57,55 +57,25 @@ Core properties:
 
 ## Current public release
 
-Current public release:
+`v0.1.0` is released; the Python distribution version is `0.1.0`.
 
-```text
-Git / Go: v0.1.0-alpha.3
-Python:   0.1.0a3
-```
+Release: https://github.com/masahitojp/mariamem/releases/tag/v0.1.0
 
-Release:
+Supported native platforms:
 
-```text
-https://github.com/masahitojp/mariamem/releases/tag/v0.1.0-alpha.3
-```
+- macOS 15+ / Apple Silicon arm64
+- Ubuntu 24.04 LTS / x86_64, with an SSE2 + SSSE3 AOT CPU baseline
 
-The accepted artifacts were published unchanged. Clean artifact acceptance and
-post-publication public Go tag/native-bundle consumer smoke passed. The release
-tag points to
-`1c97b7bda65bffa66abcf751bddd6bbc10132304`; main has continued development.
+Go uses the public module and an explicitly supplied native bundle; Python
+wheels include their runtime. Release artifacts have corresponding source,
+notices, exact hashes and independent clean-platform acceptance.
+Multi-client support currently provides 16 independent guest sessions, not a
+permanent API capacity guarantee. Normal pools do not require `SetMaxOpenConns(1)`.
 
-Go:
-
-```text
-fresh module
-→ go get public tag
-→ public native bundle
-→ database/sql
-→ SELECT 1
-```
-
-Python:
-
-```text
-fresh virtualenv
-→ install public wheel
-→ start MariaDB
-→ SQL
-→ Snapshot / Fork
-```
-
-The alpha.3 release targets:
-
-```text
-macOS 15+ / Apple Silicon arm64
-```
-
-Alpha.3 includes multi-client support (the current guest capacity is 16
-independent sessions), ordinary connection-pool use without
-`SetMaxOpenConns(1)`, canonical verification commands, baseline GitHub Actions,
-single-source versioning, and exact artifact/acceptance-evidence binding.
-The session capacity is not a permanent public API guarantee.
+Multi-platform Release CI and the repository release skill are complete enough
+for now. Minimum startup failure UX is complete enough for 0.1: errors identify
+category/stage/cause and provide expected inputs and recovery guidance.
+Release work is no longer the active focus.
 
 ---
 
@@ -417,45 +387,30 @@ release-infrastructure gap, not a reason to silently fall back to Tart.
 
 ---
 
-## Remaining 0.1 direction
+## Active direction — 0.2 FAST / cheap isolation
+
+0.1 is complete. The active question is broader than making Fork faster:
+
+> Creating an isolated MariaDB from a prepared state should be fast and cheap
+> enough in latency, CPU and memory that tests do not need to conserve database
+> instances.
+
+The next sequence is evidence-driven:
 
 ```text
-v0.1.0-alpha.3  DONE
-        ↓
-release publication mechanics (implemented)
-READY → exact tag → GitHub Release → exact assets → public smoke
-        ↓
-v0.1.0-alpha.4 end-to-end release rehearsal
-        ↓
-failure diagnostics foundation
-        ↓
-Ubuntu 24.04 x86_64 product support (implemented; clean CI acceptance pending)
-        ↓
-minimum failure UX
-        ↓
-v0.1.0 rehearsal / correctness
-        ↓
-v0.1.0
+current implementation baseline
+→ Testcontainers comparison
+→ profiling
+→ architecture exploration
+→ implementation
 ```
 
-This is a roadmap direction, not a rigid task tracker. Alpha.4 is the proof that
-the new release path works end-to-end, rather than a product-feature release.
-Publication mechanics have focused verification; the real release rehearsal
-still needs to exercise the complete transaction. A failure diagnostics
-foundation follows so CI failures expose their stage and useful evidence before
-more product work. Linux x86_64 and minimum failure UX remain 0.1 product
-requirements, distinct from maintainer/release infrastructure.
+Fork → connection → first successful SQL is the primary isolation-latency
+metric. Measure CPU and memory cost too, including 1 / 4 / 8 parallel instances.
+No CoW, VFS, embedded-runtime or other implementation strategy has been chosen.
 
-The pre-release validation matrix remains intentionally narrow:
-
-```text
-Python 3.14
-Go 1.26
-```
-
-This is a validation choice, not a statement that other versions cannot work.
-
-Broad version compatibility is not currently worth slowing early development.
+Validation remains intentionally narrow: Go 1.26 and Python 3.14. Broader version
+compatibility is not the current focus.
 
 ---
 
@@ -513,38 +468,23 @@ repeat of the alpha.2 release's accepted native artifact referring to alpha.1.
 
 ---
 
-## Ubuntu 24.04 x86_64 before 0.1
+## Ubuntu 24.04 x86_64 support boundary
 
-The first Linux product target is exactly Ubuntu 24.04 LTS / x86_64. Native
-build/package support is implemented; clean consumer acceptance must pass before
-claiming accepted artifacts. No Linux asset is claimed for an existing release.
-
-The intended scope is deliberately narrow:
-
-```text
-Ubuntu 24.04 LTS x86_64
-Go
-Python
-Start / SQL
-Snapshot / Fork
-multi-client
-timeout / cleanup
-release artifact smoke
-```
-
-Do not expand this into a Linux compatibility matrix during 0.1.
-
-Once Linux integration is reliable, normal CI should prefer Linux where
-practical, while macOS remains a platform-specific acceptance target.
+0.1 includes Ubuntu 24.04 LTS / x86_64 Go and Python artifacts, clean consumer
+acceptance, Snapshot/Fork, multi-client, timeout/cleanup and startup diagnostics.
+AOT requires SSE2 + SSSE3. This does not claim generic Linux, manylinux,
+Linux arm64, Alpine/musl or other distro support. macOS remains an independent
+platform acceptance target.
 
 ---
 
-## 0.2 — Fast
+## 0.2 — FAST / cheap isolation
 
 Goal:
 
-> Creating an isolated MariaDB from prepared state should be cheap enough that
-> tests do not need to conserve database instances.
+> Creating an isolated MariaDB from prepared state should be fast and cheap
+> enough in latency, CPU and memory that tests do not need to conserve database
+> instances.
 
 0.2 is outcome-driven.
 
