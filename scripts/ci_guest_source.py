@@ -112,6 +112,8 @@ def verify_ci_guest_source(root, lock, evidence_dir, build_records=None):
         _same(aot_record["macos_architecture"], "arm64", "AOT architecture")
     else:
         _same(aot_record["aot_platform"], UBUNTU, "AOT Ubuntu platform")
+        _same(aot_record["aot_target_triple"], "x86_64-unknown-linux-gnu", "AOT target triple")
+        _same(aot_record["aot_cpu_features"], ["sse2"], "AOT CPU baseline")
         _same(aot_record["aot_architecture"], "x86_64", "AOT architecture")
         _same(aot_record["linux_os_release"]["ID"], "ubuntu", "AOT distribution")
         _same(aot_record["linux_os_release"]["VERSION_ID"], "24.04", "AOT distribution version")

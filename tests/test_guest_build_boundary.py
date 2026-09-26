@@ -8,7 +8,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from common import ROOT, digest
-from compile_guest_aot import verify_handoff
+from compile_guest_aot import verify_handoff, compile_command
 from install_guest_toolchain import inventory
 
 
@@ -89,3 +89,10 @@ class ToolchainInventory(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_linux_aot_uses_explicit_portable_cpu_target():
+    command = compile_command("wasmer", "guest.wasm", "guest.wasmu", {"goos": "linux"})
+    assert command[-2:] == ["--target", "x86_64-unknown-linux-gnu"]
+    assert "-m" not in command
+    assert "--target" not in compile_command("wasmer", "guest.wasm", "guest.wasmu", {"goos": "darwin"})

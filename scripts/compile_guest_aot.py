@@ -46,6 +46,15 @@ def verify_handoff(directory):
     return wasm, provenance_path, provenance
 
 
+def compile_command(wasmer, wasm, output, target):
+    command = [str(wasmer), "compile", str(wasm), "-o", str(output)]
+    if target["goos"] == "linux":
+        # An explicit triple uses Wasmer's x86_64 SSE2 baseline instead of
+        # detecting optional features (such as AVX-512) from the build runner.
+        command += ["--target", "x86_64-unknown-linux-gnu"]
+    return command
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--wasm-dir", type=Path, default=ROOT / "build/guest-wasm")
@@ -67,7 +76,7 @@ def main():
     output.mkdir(parents=True)
     subprocess.run([str(wasmer), "validate", str(wasm)], check=True, env=env)
     aot = output / "mariamem.wasmu"
-    subprocess.run([str(wasmer), "compile", str(wasm), "-o", str(aot)], check=True, env=env)
+    subprocess.run(compile_command(wasmer, wasm, aot, target), check=True, env=env)
     headless = output / "wasmer-headless"
     shutil.copy2(runtime / "bin/wasmer-headless", headless)
     headless.chmod(headless.stat().st_mode | 0o111)
@@ -87,7 +96,9 @@ def main():
         "aot_platform": target["platform"], "aot_architecture": target["architecture"],
         **({"macos_version": platform.mac_ver()[0], "macos_architecture": "arm64"}
            if target["goos"] == "darwin" else {"linux_os_release": platform.freedesktop_os_release(),
-                                                "runtime_dependencies": elf_dependencies(headless)}),
+                                                "runtime_dependencies": elf_dependencies(headless),
+                                                "aot_target_triple": "x86_64-unknown-linux-gnu",
+                                                "aot_cpu_features": ["sse2"]}),
         "wasmer_version": version, "wasmer_archive_sha256": digest(fetch(target["runtime_input"])),
         "wasmer_executable_sha256": digest(wasmer),
         "headless_executable_sha256": digest(headless),

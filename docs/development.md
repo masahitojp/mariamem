@@ -143,7 +143,9 @@ The first Linux product target is exactly Ubuntu 24.04 LTS / x86_64. The
 and hand immutable candidate bytes to a separate clean consumer job. This
 workflow does not publish. Clean acceptance remains pending until that run passes.
 
-`compile_guest_aot.py` selects the pinned Linux Wasmer distribution on Ubuntu.
+`compile_guest_aot.py` selects the pinned Linux Wasmer distribution on Ubuntu
+and an explicit x86_64/SSE2 AOT target, rather than inheriting optional CPU
+features from a particular build runner. The target is recorded in provenance.
 `build_alpha.py` builds the Linux Go host, records actual ELF `NEEDED` libraries
 and GLIBC symbol requirements, and produces a `linux_x86_64` wheel.
 `package_native.py` produces `mariamem-native-ubuntu24.04-x86_64.tar.gz`.
