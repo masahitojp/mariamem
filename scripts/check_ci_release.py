@@ -11,6 +11,7 @@ import zipfile
 from ci_guest_source import verify_ci_guest_source
 from common import ROOT, digest
 from check_public import check as check_public
+from check_version import check_release_docs
 from package_native import payload, verify_archive
 from platform_acceptance import STEPS
 from runtime_notices import verify as verify_runtime_notices
@@ -64,6 +65,7 @@ def check_candidate(commit, acceptance_path, root=ROOT):
     corresponding_source = f"mariamem-{python_version}-corresponding-source.tar.gz"
     lock = json.loads((root / "release/inputs.lock.json").read_text())
     require(re.fullmatch(r"[0-9a-f]{40}", commit) is not None, "candidate must be a full Git SHA")
+    check_release_docs(root)
     public = check_public(root)
     build = root / "build"
     source_record = json.loads((build / "release/source-manifest.json").read_text())

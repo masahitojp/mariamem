@@ -7,6 +7,7 @@ import zipfile
 import os
 from common import ROOT, digest
 from check_public import check
+from check_version import check_release_docs
 from runtime_notices import verify as verify_runtime_notices
 from release_version import PYTHON_VERSION, SOURCE_CANDIDATE, CORRESPONDING_SOURCE, GIT_TAG, require_tag
 
@@ -32,6 +33,10 @@ source = check()
 review = json.loads((ROOT / "release/review.json").read_text())
 missing = [f"{name}: {item['note']}" for name, item in review["checks"].items()
            if not item.get("passed") or not item.get("evidence")]
+try:
+    check_release_docs()
+except (ValueError, OSError) as error:
+    missing.append("release-facing documentation: " + str(error))
 try:
     verify_runtime_notices()
 except (ValueError, KeyError, OSError) as error:

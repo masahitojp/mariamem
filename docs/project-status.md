@@ -360,22 +360,28 @@ mechanics belong in CI. Codex/local development should change the product or
 release system, run focused checks, prepare notes where useful, and diagnose
 `NOT READY` or unexpected failures, not orchestrate a defined release by hand.
 
-The intended boundary is **manual decision, automated mechanics**:
+The intended boundary is **one manual decision, automated mechanics**:
 
 ```text
-exact remote candidate checkout
-→ build immutable artifacts and hashes
+human: "release this exact candidate"
+→ Codex: submit Release CI and hand off
+→ CI: exact remote checkout, immutable artifacts and hashes
 → clean-platform acceptance and external evidence
-→ release guard: READY / NOT READY
-→ human: Approve / Stop
-→ CI: derived Git tag, GitHub Release and exact assets
-→ post-publication smoke
+→ release guard
+    NOT READY → stop
+    READY → derived Git tag, GitHub Release and exact assets
+          → post-publication smoke
 ```
 
-The human owns publication approval or stopping it, not individual Git,
-packaging, hashing, and upload commands. READY alone must never publish.
-One explicit approval should authorize the deterministic publication
-transaction.
+Starting the release workflow is the human publication decision for the whole
+transaction. There is no second human approval gate after READY and no repeated
+approval of Git, hashing, packaging, or upload operations. CI does not choose
+whether or when to release: the human authorizes that by requesting the release.
+Codex returns the run URL and exact candidate SHA after successful submission;
+it does not poll, wait, or supervise the workflow. It re-enters for an explicit
+status request, requested failure diagnosis, or an unexpected engineering
+decision. Candidate verification CI is implemented; tag/publication/smoke
+mechanics remain to be implemented and the current verifier publishes nothing.
 
 The release tag should identify the **exact source commit used to build the
 published host/package artifacts**. Alpha.3 accepted a binary build commit
@@ -437,8 +443,10 @@ Broad version compatibility is not currently worth slowing early development.
 
 The verification/toil audit consolidated local checks into canonical `check`,
 `integration`, `release-check`, and `bench` entry points. Baseline GitHub
-Actions runs normal and real-guest integration checks. Release acceptance and
-publication still need the CI mechanics described above; benchmarks remain
+Actions runs normal and real-guest integration checks. Release candidate CI
+builds immutable candidates, clean-accepts them, and evaluates READY using external
+evidence; it supports acceptance-only and guard-only retries. Publication mechanics
+still need the CI implementation described above; benchmarks remain
 performance-work only. See [local verification](development.md#local-verification)
 for the commands and their boundaries.
 

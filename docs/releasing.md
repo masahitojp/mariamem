@@ -1,9 +1,11 @@
 # Releasing an alpha
 
-The next planned tag is `v0.1.0-alpha.3`; the Python distribution is `0.1.0a3`.
+The canonical release version is `v0.1.0-alpha.3`; the Python distribution is `0.1.0a3`.
 Change the five semantic components only in `python/mariamem/_version.py`.
 Run `python3 scripts/verify.py check` to verify the derived Python version and
-Git/Go tag. The release guard checks versioned artifact names and rejects stale
+Git/Go tag and release-facing README/Go/Python examples. Update those examples
+when changing the canonical version; historical release records are excluded.
+The release guard checks these docs and versioned artifact names and rejects stale
 native/wheel metadata; set `MARIAMEM_RELEASE_TAG` when comparing a proposed tag.
 The source repository, native bundle, and Python wheel have separate checks.
 Historical experiments, local logs, and generated binaries stay outside Git.
@@ -60,14 +62,30 @@ or publishes, and needs neither Docker nor Tart.
 dispatch, hand back the run URL, candidate SHA, and mode immediately. Do not poll,
 wait, or report elapsed time. Re-enter for an explicit human status request,
 requested CI failure/NOT READY diagnosis, or an unexpected engineering decision.
-Short feedback loops for an actively fixed CI issue are allowed. The handoff is:
+The handoff is:
 
 > Release CI has been submitted for candidate `<sha>`. GitHub Actions owns
-> build/acceptance/READY evaluation; no further local work is needed until a
-> result requires attention.
+> execution; no further local work is needed until a result requires attention.
 
-Publication approval is not implemented yet. Phase 3 will request explicit
-human approval after READY; this workflow does not currently request it.
+### Publication decision (target policy)
+
+```text
+human: "release this candidate"
+→ Codex: submit exact candidate and hand off
+→ CI: build → acceptance → guard
+      NOT READY → stop
+      READY → tag → publish → post-publication smoke
+```
+
+Starting the release workflow is the single human publication decision. It
+approves the deterministic transaction as a whole; READY must not request a
+second approval. Codex does not supervise or poll after submission. CI does not
+make release decisions, schedule releases, or bump versions automatically.
+
+Tag/publication/post-publication smoke are not implemented yet. The current
+`release-candidate-ready.yml` is verification-only, so dispatching it never
+publishes. This policy guides the upcoming publication implementation; it does
+not add publication to the existing retry modes.
 
 For this path, `package_source.py --ci-evidence-dir build` and
 `verify_source.py --ci-evidence-dir build` compare the new WASM/AOT provenance,
@@ -88,7 +106,10 @@ release-check and historical alpha.3 evidence remain unchanged.
 - `release/review.json` records source, runtime-notice, and clean macOS 15
   acceptance evidence. Recheck the evidence if a reviewed binary changes.
 
-## Local preparation
+## Local tooling reference (diagnostics)
+
+These commands remain available for focused diagnostics and tooling development;
+the normal release path belongs to CI.
 
 1. Follow [development](development.md) to build and test the guest and wheel.
 2. Run `python3 scripts/check_public.py`. The source publication set must not
@@ -143,17 +164,15 @@ them does not change the native candidate bytes.
   files, SQL, fixtures, snapshots, parallel workers, and cleanup. Compare its
   `wheel_sha256` with the staged wheel's hash.
 
-## GitHub Release draft
+## Publication inputs
 
-After the release guard passes, write release notes for the new version; the
-checked-in `release/NOTES.md` still records the published alpha.2 release.
-Compare the proposed tag with the canonical version using
-`MARIAMEM_RELEASE_TAG=<tag> python3 scripts/verify.py release-check` before
-creating a draft with the four staged assets. Review the draft assets before
-publication. No build script pushes code or
-publishes a release. The corresponding-source archive must remain available
-alongside the binaries it covers; GitHub's default source zip is not a
-replacement for the collected dependency sources.
+Prepare notes for the intended canonical version before submitting a release.
+`release/NOTES.md` and `release/NOTES-alpha.3.md` are historical release records,
+not current version inputs. The upcoming publication mechanics will consume the
+READY candidate's exact assets and derived tag without another approval gate.
+The corresponding-source archive must remain available alongside the binaries
+it covers; GitHub's default source zip is not a replacement for the collected
+dependency sources. No current build script pushes code or publishes a release.
 
 ## License scope
 

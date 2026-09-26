@@ -1,7 +1,7 @@
 # Python API
 
-Python distribution `0.1.0a2` is a macOS 15+ arm64 wheel. Use a locally built
-wheel or a GitHub Release asset once published. The wheel includes the host and
+Python distribution `0.1.0a3` is a macOS 15+ arm64 wheel. Use a locally built
+wheel or the published GitHub Release asset. The wheel includes the host and
 native runtime. See the [README](../README.md#python)
 for installation and a first query.
 
