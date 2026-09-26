@@ -222,7 +222,7 @@ def main():
         require(args.evidence_run is None or args.evidence_run > 0, "invalid evidence run ID")
         api = GitHub(args.repository, os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN"))
         with tempfile.TemporaryDirectory(prefix="mariamem-ci-reuse-") as temporary:
-            staging = Path(temporary)
+            staging = Path(temporary).resolve()
             if args.mode == "full":
                 require(args.handoff is not None and re.fullmatch(r"[0-9a-f]{64}", args.handoff_sha256 or ""),
                         "full mode requires handoff and SHA256")

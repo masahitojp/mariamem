@@ -163,3 +163,30 @@ def test_failed_previous_guard_logs_do_not_poison_reusable_acceptance(tmp_path):
     assert not (root / "build/release/ci-ready.json").exists()
     assert not (root / "build/release/SHA256SUMS").exists()
     assert json.loads((root / "build/release/ci-native-acceptance.json").read_text())["result"] == "PASS"
+
+
+
+def test_main_canonicalizes_macos_temporary_directory_alias(tmp_path, monkeypatch):
+    import ci_release_reuse as reuse
+    from contextlib import nullcontext
+    root = tmp_path / "candidate"
+    (root / "python/mariamem").mkdir(parents=True)
+    (root / "python/mariamem/_version.py").write_text("PYTHON_VERSION = '0.1.0a3'\n")
+    (root / "build/release").mkdir(parents=True)
+    real = tmp_path / "temporary"
+    real.mkdir()
+    alias = tmp_path / "temporary-alias"
+    alias.symlink_to(real, target_is_directory=True)
+    handoff = tmp_path / "handoff.tar"
+    tar_input(handoff, "build/source-candidate-check.json")
+    def artifact(self, run, name, commit, destination):
+        with zipfile.ZipFile(destination, "w") as zipped:
+            zipped.write(handoff, "candidate-handoff.tar")
+        return {"run_id": run}
+    monkeypatch.setattr(reuse.GitHub, "artifact", artifact)
+    monkeypatch.setattr(reuse.tempfile, "TemporaryDirectory", lambda **kw: nullcontext(str(alias)))
+    monkeypatch.setattr(reuse, "verify_candidate", lambda *args: ({}, {"source_commit": "a" * 40}))
+    monkeypatch.setattr(sys, "argv", ["reuse", "--mode", "acceptance-only", "--root", str(root),
+                                    "--candidate-sha", "a" * 40, "--candidate-run", "123"])
+    assert reuse.main() == 0
+    assert (root / "build/release/ci-reuse.json").exists()
