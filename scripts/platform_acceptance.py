@@ -18,7 +18,7 @@ BUNDLE = 'mariamem-native-darwin-arm64'
 ARTIFACTS = ('wasmer-headless', 'mariamem.wasmu', 'mariamem.wasmu.json')
 STEPS = ('environment', 'archive_sha256', 'extract', 'executable_permission', 'artifact_hashes',
          'external_module', 'module_fetch', 'consumer_build', 'NativeDir', 'Start',
-         'database_sql_connection', 'SELECT_1', 'MariaDB_version', 'InnoDB_transaction',
+         'database_sql_connection', 'SELECT_1', 'MariaDB_version', 'multi_client', 'InnoDB_transaction',
          'WaitDisconnected', 'Snapshot', 'source_closed', 'Fork_A', 'Fork_B',
          'fork_isolation', 'close_cleanup', 'consumer', 'harness_cleanup')
 
@@ -33,6 +33,16 @@ def digest(path):
 
 def eligible(version, arch):
     return version.split('.')[0] == '15' and arch == 'arm64'
+
+
+def verify_resolved_commit(resolved, expected):
+    """Bind a CI candidate's public Go module to the exact build commit."""
+    if resolved.get('Path') != MODULE or not resolved.get('Version') or not resolved.get('Sum'):
+        raise ValueError('public module identity/version/checksum is incomplete')
+    origin = resolved.get('Origin') or {}
+    actual = origin.get('Hash')
+    if actual != expected:
+        raise ValueError(f'public module commit mismatch: expected {expected}, resolved {actual or "unknown"}')
 
 
 def extract(archive, destination):
@@ -83,6 +93,7 @@ def main():
     parser.add_argument('--archive', type=Path, required=True)
     parser.add_argument('--sha256', required=True)
     parser.add_argument('--module', required=True, help='public commit, tag or pseudo-version (no local replace)')
+    parser.add_argument('--expected-commit', help='exact public build commit (40 hexadecimal characters)')
     parser.add_argument('--evidence', type=Path, required=True)
     parser.add_argument('--go', default='go', help='Go executable; requires a toolchain supporting the module')
     parser.add_argument('--dry-run', action='store_true', help='archive/environment checks only; never acceptance PASS')
@@ -91,6 +102,10 @@ def main():
         parser.error('--sha256 must be 64 hexadecimal characters')
     if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9.\-]*', args.module):
         parser.error('--module must be a commit/tag/pseudo-version')
+    if args.expected_commit and not re.fullmatch('[0-9a-fA-F]{40}', args.expected_commit):
+        parser.error('--expected-commit must be a full 40-character Git commit')
+    if args.expected_commit and args.module.lower() != args.expected_commit.lower():
+        parser.error('--module must equal --expected-commit for exact candidate acceptance')
     output = args.evidence.expanduser().resolve()
     if output.exists() or output.with_suffix('.log').exists():
         parser.error('evidence/log already exists; choose a new output path')
@@ -99,6 +114,7 @@ def main():
     evidence = {'schema_version': 1, 'started_at': datetime.now(timezone.utc).isoformat(),
                 'mode': 'dry-run' if args.dry_run else 'acceptance', 'result': 'FAIL',
                 'platform_acceptance_passed': False, 'module_requested': MODULE + '@' + args.module,
+                'expected_source_commit': args.expected_commit.lower() if args.expected_commit else None,
                 'archive': {'filename': archive.name, 'expected_sha256': args.sha256.lower()},
                 'steps': {s: {'status': 'NOT_RUN'} for s in STEPS}, 'consumer_events': []}
     work = None
@@ -175,6 +191,8 @@ def main():
             resolved = json.loads(execute([args.go, 'list', '-m', '-json', MODULE], consumer, env))
             if resolved.get('Replace'):
                 raise ValueError('local module replacement is forbidden')
+            if args.expected_commit:
+                verify_resolved_commit(resolved, args.expected_commit.lower())
             evidence['module_resolved'] = {k: resolved[k] for k in ('Path', 'Version', 'Sum', 'Origin') if k in resolved}
             passed()
             begin('consumer_build')

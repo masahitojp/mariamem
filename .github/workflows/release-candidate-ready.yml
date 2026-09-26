@@ -1,0 +1,204 @@
+name: Release candidate READY verification
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_ref:
+        description: Remotely fetchable branch, tag, or full commit SHA
+        required: true
+        default: main
+        type: string
+
+# Candidate construction and acceptance only. No tag, release, or publication.
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    runs-on: ubuntu-24.04
+    outputs:
+      source_sha: ${{ steps.source.outputs.sha }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - id: source
+        name: Resolve exact remote candidate
+        env:
+          CANDIDATE_REF: ${{ inputs.candidate_ref }}
+        run: |
+          git fetch --no-tags origin "$CANDIDATE_REF"
+          sha="$(git rev-parse 'FETCH_HEAD^{commit}')"
+          test "$(git cat-file -t "$sha")" = commit
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "Candidate source: $sha" >> "$GITHUB_STEP_SUMMARY"
+
+  guest:
+    needs: resolve
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.resolve.outputs.source_sha }}
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - name: Install native host-tool dependencies
+        run: |
+          test "$(uname -m)" = x86_64
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            build-essential cmake ninja-build bison pkg-config curl ca-certificates git \
+            libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
+      - name: Build pinned guest WASM without Docker
+        run: |
+          test "$(git rev-parse HEAD)" = '${{ needs.resolve.outputs.source_sha }}'
+          python scripts/install_guest_toolchain.py
+          echo "$HOME/.wasixcc/bin" >> "$GITHUB_PATH"
+          python scripts/prepare_guest.py
+          python scripts/build_guest_wasm.py --jobs 3
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-guest-wasm-${{ needs.resolve.outputs.source_sha }}
+          path: build/guest-wasm/
+          if-no-files-found: error
+          retention-days: 14
+
+  candidate:
+    needs: [resolve, guest]
+    runs-on: macos-15
+    timeout-minutes: 90
+    outputs:
+      handoff_sha256: ${{ steps.handoff.outputs.sha256 }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.resolve.outputs.source_sha }}
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: release-guest-wasm-${{ needs.resolve.outputs.source_sha }}
+          path: build/guest-wasm/
+      - name: Build immutable candidate set
+        run: |
+          test "$(git rev-parse HEAD)" = '${{ needs.resolve.outputs.source_sha }}'
+          python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm
+          python -m pip install 'setuptools>=58' wheel
+          python scripts/build_alpha.py --ci-candidate \
+            --runtime build/guest-aot/wasmer-headless --module build/guest-aot/mariamem.wasmu
+          python scripts/package_native.py --native-dir build/guest-aot
+          python scripts/package_source.py --ci-evidence-dir build
+          python scripts/verify_source.py --ci-evidence-dir build
+      - id: handoff
+        name: Freeze and hash candidate handoff
+        run: |
+          source_file="$(python -c 'import json; print(json.load(open("build/release/source-manifest.json"))["file"])')"
+          wheel_file="$(python -c 'import json; print(json.load(open("tests/evidence/alpha-wheel.json"))["wheel"])')"
+          tar -cf "$RUNNER_TEMP/candidate-handoff.tar" \
+            build/guest-wasm build/guest-aot \
+            build/release/native-candidate/mariamem-native-darwin-arm64.tar.gz \
+            build/release/native-candidate/native-candidate.json \
+            "build/release/$source_file" \
+            build/release/source-manifest.json build/source-candidate-check.json \
+            "$wheel_file" tests/evidence/alpha-wheel.json
+          sha="$(shasum -a 256 "$RUNNER_TEMP/candidate-handoff.tar" | cut -d ' ' -f 1)"
+          echo "sha256=$sha" >> "$GITHUB_OUTPUT"
+          echo "Candidate handoff SHA256: $sha" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-candidate-${{ needs.resolve.outputs.source_sha }}
+          path: ${{ runner.temp }}/candidate-handoff.tar
+          if-no-files-found: error
+          retention-days: 14
+
+  acceptance:
+    needs: [resolve, candidate]
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.resolve.outputs.source_sha }}
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: release-candidate-${{ needs.resolve.outputs.source_sha }}
+          path: ${{ runner.temp }}/candidate-input
+      - name: Verify exact transfer and extract (no rebuild)
+        run: |
+          test "$(git rev-parse HEAD)" = '${{ needs.resolve.outputs.source_sha }}'
+          echo '${{ needs.candidate.outputs.handoff_sha256 }}  candidate-handoff.tar' > "$RUNNER_TEMP/candidate-input/SHA256SUMS"
+          cd "$RUNNER_TEMP/candidate-input"
+          shasum -a 256 -c SHA256SUMS
+          tar -xf candidate-handoff.tar -C "$GITHUB_WORKSPACE"
+      - id: native
+        name: Clean external native acceptance
+        continue-on-error: true
+        run: |
+          python scripts/platform_acceptance.py \
+            --archive build/release/native-candidate/mariamem-native-darwin-arm64.tar.gz \
+            --sha256 "$(python -c 'import json; print(json.load(open("build/release/native-candidate/native-candidate.json"))["sha256"])')" \
+            --module '${{ needs.resolve.outputs.source_sha }}' \
+            --expected-commit '${{ needs.resolve.outputs.source_sha }}' \
+            --evidence build/release/ci-native-acceptance.json
+      - id: wheel
+        name: Clean installed-wheel acceptance
+        continue-on-error: true
+        run: |
+          python -m venv "$RUNNER_TEMP/mariamem-wheel-venv"
+          wheel_file="$(python -c 'import json; print(json.load(open("tests/evidence/alpha-wheel.json"))["wheel"])')"
+          "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" -m pip install "$GITHUB_WORKSPACE/${wheel_file}[test]"
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" "$GITHUB_WORKSPACE/tests/verify_alpha.py"
+      - id: guard
+        name: Release guard — READY or NOT READY
+        if: always()
+        continue-on-error: true
+        run: |
+          python scripts/verify_source.py --ci-evidence-dir build
+          python scripts/verify.py release-check \
+            --ci-candidate-sha '${{ needs.resolve.outputs.source_sha }}' \
+            --native-acceptance build/release/ci-native-acceptance.json
+      - name: Candidate summary
+        if: always()
+        env:
+          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
+          NATIVE_RESULT: ${{ steps.native.outcome }}
+          WHEEL_RESULT: ${{ steps.wheel.outcome }}
+          GUARD_RESULT: ${{ steps.guard.outcome }}
+        run: python scripts/ci_release_summary.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: release-evidence-${{ needs.resolve.outputs.source_sha }}
+          path: |
+            build/release/ci-native-acceptance.json
+            build/release/ci-native-acceptance.log
+            build/release/ci-ready.json
+            build/release/SHA256SUMS
+            tests/evidence/alpha.json
+            build/source-candidate-check.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Fail unless all acceptance and guard checks passed
+        if: always()
+        env:
+          NATIVE_RESULT: ${{ steps.native.outcome }}
+          WHEEL_RESULT: ${{ steps.wheel.outcome }}
+          GUARD_RESULT: ${{ steps.guard.outcome }}
+        run: |
+          test "$NATIVE_RESULT" = success
+          test "$WHEEL_RESULT" = success
+          test "$GUARD_RESULT" = success

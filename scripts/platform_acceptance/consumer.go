@@ -106,7 +106,6 @@ func run(native string) (result error) {
 			return nil, err
 		}
 		pools = append(pools, p)
-		p.SetMaxOpenConns(1)
 		return p, p.PingContext(ctx)
 	}
 	var pool *sql.DB
@@ -133,6 +132,67 @@ func run(native string) (result error) {
 		event("MariaDB_version", "INFO", nil, map[string]string{"version": version})
 		if !strings.Contains(version, "MariaDB") {
 			return fmt.Errorf("unexpected version: %s", version)
+		}
+		return nil
+	}); err != nil {
+		return err
+	}
+	if err := step("multi_client", func() (result error) {
+		// Two held sql.Conn values must be distinct MariaDB sessions. Drop the
+		// first connection and open another to exercise session cleanup/reopen.
+		first, err := pool.Conn(ctx)
+		if err != nil {
+			return err
+		}
+		firstClosed := false
+		defer func() {
+			if !firstClosed {
+				result = errors.Join(result, first.Close())
+			}
+		}()
+		secondPool, err := open(source)
+		if err != nil {
+			return err
+		}
+		defer func() { result = errors.Join(result, secondPool.Close()) }()
+		second, err := secondPool.Conn(ctx)
+		if err != nil {
+			return err
+		}
+		defer func() { result = errors.Join(result, second.Close()) }()
+		if _, err = first.ExecContext(ctx, "SET @mariamem_acceptance = 123"); err != nil {
+			return err
+		}
+		var value sql.NullInt64
+		if err = second.QueryRowContext(ctx, "SELECT @mariamem_acceptance").Scan(&value); err != nil {
+			return err
+		}
+		if value.Valid {
+			return fmt.Errorf("second session observed first session variable: %d", value.Int64)
+		}
+		// Keep second connected while the first connection is closed/reopened.
+		pool.SetMaxIdleConns(0)
+		if err = first.Close(); err != nil {
+			return err
+		}
+		firstClosed = true
+		reopened, err := pool.Conn(ctx)
+		if err != nil {
+			return err
+		}
+		defer func() { result = errors.Join(result, reopened.Close()) }()
+		if err = reopened.QueryRowContext(ctx, "SELECT @mariamem_acceptance").Scan(&value); err != nil {
+			return err
+		}
+		if value.Valid {
+			return fmt.Errorf("reopened session retained prior variable: %d", value.Int64)
+		}
+		var n int
+		if err = second.QueryRowContext(ctx, "SELECT 1").Scan(&n); err != nil {
+			return err
+		}
+		if n != 1 {
+			return fmt.Errorf("second session returned %d", n)
 		}
 		return nil
 	}); err != nil {

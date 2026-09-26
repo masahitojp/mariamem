@@ -108,6 +108,18 @@ class PlatformHarness(unittest.TestCase):
         self.assertNotIn('MARIAMEM_NATIVE_DIR',env)
         self.assertNotIn('WASMER_DIR',env)
 
+    def test_exact_public_commit_binding(self):
+        commit = 'a' * 40
+        module = {'Path': harness.MODULE, 'Version': 'v0.0.0-example', 'Sum': 'h1:test',
+                  'Origin': {'Hash': commit}}
+        harness.verify_resolved_commit(module, commit)
+        with self.assertRaisesRegex(ValueError, 'public module commit mismatch'):
+            harness.verify_resolved_commit({**module, 'Origin': {'Hash': 'b' * 40}}, commit)
+        with self.assertRaisesRegex(ValueError, 'resolved unknown'):
+            harness.verify_resolved_commit({**module, 'Origin': {}}, commit)
+        with self.assertRaisesRegex(ValueError, 'identity/version/checksum'):
+            harness.verify_resolved_commit({**module, 'Path': 'example.com/other'}, commit)
+
     def test_mocked_external_consumer_orchestration(self):
         self.fixture()
         argv = ['harness', '--archive', str(self.archive), '--sha256', harness.digest(self.archive),
@@ -143,6 +155,29 @@ class PlatformHarness(unittest.TestCase):
         self.assertTrue(e['platform_acceptance_passed'])
         self.assertTrue(all(v['status']=='PASS' for v in e['steps'].values()))
         self.assertFalse(spawned[0].exists())
+
+    def test_expected_commit_rejects_wrong_public_module(self):
+        self.fixture()
+        expected = 'a' * 40
+        argv = ['harness', '--archive', str(self.archive), '--sha256', harness.digest(self.archive),
+                '--module', expected, '--expected-commit', expected, '--evidence', str(self.evidence)]
+        def command(args, **kwargs):
+            if args[0] == '/usr/bin/sw_vers':
+                text = '15.7.1' if len(args) > 1 else 'ProductVersion: 15.7.1'
+            elif args[0] == '/usr/bin/uname':
+                text = 'arm64'
+            elif args[1] == 'version':
+                text = 'go version go1.26.8 darwin/arm64'
+            else:
+                text = json.dumps({'Path': harness.MODULE, 'Version': 'v0.0.0-example',
+                                   'Sum': 'h1:test', 'Origin': {'Hash': 'b' * 40}}) if args[1] == 'list' else ''
+            return subprocess.CompletedProcess(args, 0, text, '')
+        with patch.object(sys, 'argv', argv), patch.object(harness.subprocess, 'run', command), patch('builtins.print'):
+            code = harness.main()
+        evidence = json.loads(self.evidence.read_text())
+        self.assertEqual(code, 1)
+        self.assertEqual(evidence['failure']['step'], 'module_fetch')
+        self.assertIn('public module commit mismatch', evidence['failure']['error'])
 
     def test_platform_requires_exact_major_and_arch(self):
         self.assertTrue(harness.eligible('15.7.1','arm64'))

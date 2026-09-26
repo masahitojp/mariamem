@@ -22,6 +22,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--go", type=Path, default=Path(shutil.which("go") or "go"))
 parser.add_argument("--runtime", type=Path, default=ROOT / "build/tools/wasmer/bin/wasmer-headless")
 parser.add_argument("--module", type=Path, default=ROOT / "build/guest/mariamem.wasmu")
+parser.add_argument("--ci-candidate", action="store_true",
+                    help="build immutable candidate metadata without post-build review state")
 args = parser.parse_args()
 if platform.system() != "Darwin" or platform.machine() != "arm64":
     raise SystemExit("The initial alpha bundle is built on macOS arm64 only")
@@ -41,8 +43,10 @@ for source, name in [(host, "mariamem-host"), (args.runtime, "wasmer-headless"),
     shutil.copy2(source, native / name)
 for name in ("mariamem-host", "wasmer-headless"):
     (native / name).chmod(0o755)
-review = json.loads((ROOT / "release/review.json").read_text())
-ready = all(item.get("passed") and item.get("evidence") for item in review["checks"].values())
+ready = False
+if not args.ci_candidate:
+    review = json.loads((ROOT / "release/review.json").read_text())
+    ready = all(item.get("passed") and item.get("evidence") for item in review["checks"].values())
 manifest = {"version": 1, "package_version": PYTHON_VERSION, "platform": "darwin-arm64",
             "minimum_macos": major, "wasmer_version": "7.4.2", "public_release_ready": bool(ready),
             "sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()

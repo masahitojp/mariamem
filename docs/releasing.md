@@ -15,6 +15,28 @@ alpha.3 `release/guest-source-provenance.json` and review apply only to their
 recorded artifact hashes; a newly built guest requires its own corresponding
 source/provenance review before the existing release guard can accept it.
 
+## CI candidate readiness (future releases)
+
+Manually dispatch `release-candidate-ready.yml` with a remotely fetchable
+`candidate_ref`. The workflow resolves it once to a full commit SHA, builds the
+guest on Linux x86_64, and transfers the exact WASM to macOS 15 arm64 for AOT,
+wheel, native bundle, and corresponding-source construction. A separate clean
+macOS job downloads those frozen bytes, checks their transfer hash, accepts the
+native bundle through the external Go module at that exact commit, and tests the
+installed wheel. It passes external acceptance JSON to the CI release guard.
+The workflow produces candidate and evidence artifacts plus a `READY` or
+`NOT READY` summary; it does not tag or publish.
+
+For this path, `package_source.py --ci-evidence-dir build` and
+`verify_source.py --ci-evidence-dir build` compare the new WASM/AOT provenance,
+reviewed sysroot source payload, pinned source archives, licenses, and offline
+source preparation. The source archive contains build-time records only.
+`build_alpha.py --ci-candidate` likewise embeds stable candidate metadata, not
+post-build review. `verify.py release-check --ci-candidate-sha <sha>
+--native-acceptance <evidence.json>` checks the exact hashes and emits external
+`ci-ready.json` and `SHA256SUMS` only after all checks pass. The legacy local
+release-check and historical alpha.3 evidence remain unchanged.
+
 ## Current release work
 
 - Product code, consumer examples, and regression tests use this repository only.

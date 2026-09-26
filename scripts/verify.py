@@ -63,7 +63,9 @@ def main():
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("check", help="lightweight Go/Python/public-source checks")
     commands.add_parser("integration", help="real guest Go race and Python lifecycle checks")
-    commands.add_parser("release-check", help="existing release guard; locally stages verified assets")
+    release = commands.add_parser("release-check", help="release guard; verify a local or CI candidate")
+    release.add_argument("--ci-candidate-sha")
+    release.add_argument("--native-acceptance")
     bench = commands.add_parser("bench", help="run one optional lifecycle benchmark")
     bench.add_argument("workload", choices=BENCHMARKS)
     args, extra = parser.parse_known_args()
@@ -74,7 +76,13 @@ def main():
     elif args.command == "integration":
         integration()
     elif args.command == "release-check":
-        run([sys.executable, "scripts/check_release.py"])
+        if bool(args.ci_candidate_sha) != bool(args.native_acceptance):
+            parser.error("CI release check requires both --ci-candidate-sha and --native-acceptance")
+        if args.ci_candidate_sha:
+            run([sys.executable, "scripts/check_ci_release.py", "--candidate-sha",
+                 args.ci_candidate_sha, "--native-acceptance", args.native_acceptance])
+        else:
+            run([sys.executable, "scripts/check_release.py"])
     else:
         run([sys.executable, ROOT / "benchmarks" / BENCHMARKS[args.workload], *extra])
 
