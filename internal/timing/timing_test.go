@@ -75,3 +75,26 @@ func TestGuestFileDiagnosticsAreOptionalAndOutsideHostClock(t *testing.T) {
 	}
 	ReadGuest(context.Background(), transfer) // disabled diagnostics do no I/O
 }
+
+func TestRecorderBindsConcurrentCallsWithoutPIDMatching(t *testing.T) {
+	t.Setenv("MARIAMEM_TIMING_DIR", t.TempDir())
+	results := make(chan Trace, 2)
+	for _, name := range []string{"one", "two"} {
+		ctx := WithRecorder(context.Background(), func(trace Trace) { results <- trace })
+		go func(name string, ctx context.Context) { ctx, finish := Begin(ctx, name); Mark(ctx, name); finish() }(name, ctx)
+	}
+	seen := map[string]bool{}
+	for range 2 {
+		trace := <-results
+		seen[trace.Operation] = true
+		if len(trace.Events) != 3 || trace.Events[1].Name != trace.Operation {
+			t.Fatal(trace)
+		}
+	}
+	if !seen["one"] || !seen["two"] {
+		t.Fatal(seen)
+	}
+	t.Setenv("MARIAMEM_TIMING_DIR", "")
+	_, finish := Begin(WithRecorder(context.Background(), func(Trace) { t.Fatal("disabled recorder called") }), "disabled")
+	finish()
+}

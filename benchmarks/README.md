@@ -4,7 +4,7 @@ These scripts measure developer-facing database lifecycle latency and memory
 scaling. They are not SQL-engine throughput benchmarks, CI requirements, or
 pass/fail performance thresholds. They do not change the product implementation.
 The repository-level entry point is `python3 scripts/verify.py bench WORKLOAD [options]`,
-where `WORKLOAD` is `ready`, `seeded`, `parallel`, `memory`, or `isolation`.
+where `WORKLOAD` is `ready`, `seeded`, `parallel`, `memory`, `isolation`, or `go-isolation`.
 
 The historical [0.1.0a1 manual baseline](baseline-0.1.0a1.md) is retained as a
 reference. These scripts formalize its workloads; exact reproduction of its
@@ -119,6 +119,69 @@ selector. Scripts, this documentation, and the labelled historical baseline are
 source assets. No benchmark is added to mandatory CI.
 
 ## 0.2 FAST baseline
+
+**Canonical core benchmark: Go `go-isolation`.** Python `isolation` remains the
+end-to-end installed-wheel consumer regression benchmark. Both use the same
+1000-row InnoDB fixture, batch size, warmup/measurement phases, readiness SQL,
+1/4/8 independent forks and linear-interpolated p50/p95 with retained raw samples.
+No result is a performance gate.
+
+```sh
+python3 scripts/verify.py bench go-isolation --native-dir /path/to/native \
+  --runs 20 --warmup 2 --workers 1 4 8 --rows 1000 --queries 100 --stage-timing
+```
+
+`benchmarks/goisolation` is a standalone Go runner, using the public Go API,
+`database/sql` and go-sql-driver/mysql. The thin `go_isolation.py` entry point
+builds it **outside measurement**, then reuses the Python JSON summaries/waterfall.
+No Python mariamem installation is needed for this command. All measured lifecycle
+timestamps are in Go. The runner directly exposes `--workers 1,4,8` if invoked
+without the wrapper; canonical wrapper flags match the Python benchmark.
+
+The Go path is caller → in-process host → Wasmer/guest. Python is wrapper and
+artifact/snapshot validation → separate Go host process → Wasmer/guest. A
+Python-vs-Go difference is a **path difference**, not automatically Python language
+CPU overhead. Artifact validation counts, driver behavior, host process startup,
+GC and persistent-runner caches can differ. Compare matching runtime/guest hashes,
+source revisions, fixtures, toolchains, sampling settings and machine state.
+
+Go records `caller`, `host`, and optional `guest` stages. A small internal
+context recorder associates traces with each concurrent public call; shared PID
+or trace-file completion order is never used to guess instance identity.
+The public Go artifact validation before host startup is inside caller total but
+has no separate timer. Python wrapper stages remain available for that path.
+`--guest-stage-timing` requires a matching rebuilt instrumented guest in both APIs.
+
+Cost accounting differs deliberately:
+
+| Metric | Python consumer | Go core |
+| --- | --- | --- |
+| `cost.sampled_descendant_cpu_seconds` | Separate Go hosts + runtime descendants | Runtime descendants only |
+| Parent CPU | `python_cpu_seconds` | `runner_cpu_seconds`, getrusage SELF: in-process host + Go driver/runtime/GC/sampler |
+| `cost.sampled_peak_rss_bytes` | Host + runtime descendant RSS | Runtime descendant RSS only |
+| Whole Go process tree RSS | Not the same scope | `cost.sampled_process_tree_peak_rss_bytes`, includes persistent Go runner/host |
+| Incremental RSS per DB | Descendants minus pre-batch baseline | Whole Go process tree minus pre-batch baseline |
+
+Parent CPU covers the full lifecycle/hold/cleanup; descendant CPU is sampled and
+can miss process edges. These cannot be added into exact accounting or compared
+as identical scopes. RSS sums double-count shared pages; a persistent Go runner
+retains heaps/caches and raw report data and can experience GC, unlike Python's
+new host per DB. Runner RSS includes the harness and Go SQL driver, not just host
+allocations.
+Raw samples keep runner RSS, descendant members, tree RSS and baseline separately.
+Missing observations are null, not zero estimates. Snapshot CPU/RSS stay unavailable.
+
+For a paired run, install a wheel containing the same guest/runtime and current
+Go host, then run Python and Go **sequentially** with identical flags. Record
+wheel/binary/manifest identity; `api: go` vs `api: python` labels aligned JSON cases.
+The opt-in guest-build workflow performs both paths with the exact fresh AOT and
+writes their individual JSON/waterfall artifacts and paired comparison.
+`python benchmarks/compare_baselines.py go.json python.json` rejects differing
+source/platform, fixture/sampling settings, sample counts or guest/runtime hashes
+before rendering equivalent cases. It is informational CI, not a
+mandatory benchmark gate. Do not compare different runners as a language ratio.
+
+### Python consumer regression benchmark
 
 Use an installed release wheel and PyMySQL in an isolated environment. Run locally
 or on a supported CI runner (macOS 15+ arm64 or Ubuntu 24.04 x86_64):

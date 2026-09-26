@@ -14,6 +14,14 @@ import (
 var sequence atomic.Uint64
 
 type key struct{}
+type recorderKey struct{}
+
+// WithRecorder associates benchmark traces with concurrent public API calls.
+// Recording remains opt-in through MARIAMEM_TIMING_DIR; it changes no public API.
+func WithRecorder(ctx context.Context, record func(Trace)) context.Context {
+	return context.WithValue(ctx, recorderKey{}, record)
+}
+
 type Event struct {
 	Name   string `json:"name"`
 	Offset int64  `json:"offset_ns"`
@@ -38,6 +46,9 @@ func Begin(ctx context.Context, operation string) (context.Context, func()) {
 	Mark(ctx, "begin")
 	return ctx, func() {
 		Mark(ctx, "end")
+		if record, ok := ctx.Value(recorderKey{}).(func(Trace)); ok {
+			record(*t)
+		}
 		data, err := json.Marshal(t)
 		if err != nil {
 			return

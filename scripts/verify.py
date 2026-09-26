@@ -11,6 +11,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 BENCHMARKS = {
+    "go-isolation": "go_isolation.py",
     "isolation": "isolation_baseline.py",
     "ready": "ready_to_query.py",
     "seeded": "seeded_database.py",

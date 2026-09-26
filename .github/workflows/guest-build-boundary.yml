@@ -88,8 +88,16 @@ jobs:
           "$RUNNER_TEMP/stage-venv/bin/python" scripts/verify.py bench isolation \
             --guest-stage-timing --runs 20 --warmup 2 --workers 1 4 8 --rows 1000 --queries 100 \
             --json benchmarks/results/guest-startup-stages.json
+          native_dir=$("$RUNNER_TEMP/stage-venv/bin/python" -c "import pathlib, mariamem; print(pathlib.Path(mariamem.__file__).parent / '_native')")
+          "$RUNNER_TEMP/stage-venv/bin/python" scripts/verify.py bench go-isolation \
+            --native-dir "$native_dir" --guest-stage-timing --runs 20 --warmup 2 --workers 1 4 8 --rows 1000 --queries 100 \
+            --json benchmarks/results/go-startup-stages.json
+          python benchmarks/stage_report.py benchmarks/results/go-startup-stages.json > benchmarks/results/go-startup-stages.md
+          cat benchmarks/results/go-startup-stages.md >> "$GITHUB_STEP_SUMMARY"
           python benchmarks/stage_report.py benchmarks/results/guest-startup-stages.json > benchmarks/results/guest-startup-stages.md
           cat benchmarks/results/guest-startup-stages.md >> "$GITHUB_STEP_SUMMARY"
+          python benchmarks/compare_baselines.py benchmarks/results/go-startup-stages.json benchmarks/results/guest-startup-stages.json > benchmarks/results/go-python-comparison.md
+          cat benchmarks/results/go-python-comparison.md >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: always() && inputs.lifecycle_measurement
         with:
@@ -97,6 +105,9 @@ jobs:
           path: |
             benchmarks/results/guest-startup-stages.json
             benchmarks/results/guest-startup-stages.md
+            benchmarks/results/go-startup-stages.json
+            benchmarks/results/go-startup-stages.md
+            benchmarks/results/go-python-comparison.md
             build/guest-aot/provenance.json
           if-no-files-found: warn
           retention-days: 14

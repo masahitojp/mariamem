@@ -267,7 +267,7 @@ def main():
     if output.is_relative_to(ROOT) and not output.is_relative_to(RESULTS):
         parser.error('repository-local output must be under benchmarks/results/')
     args.backend = 'mariamem'
-    report = {'benchmark': 'isolation_baseline', 'schema_version': 1,
+    report = {'benchmark': 'isolation_baseline', 'api': 'python', 'schema_version': 1,
               'started_at': datetime.now(timezone.utc).isoformat(),
               'settings': {k: v for k, v in vars(args).items() if k != 'json'},
               'samples': [], 'completed': False,

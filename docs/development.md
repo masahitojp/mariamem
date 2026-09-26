@@ -94,7 +94,9 @@ been prepared. It verifies hashes/reviews and **stages files locally** in
 the required preparation. Multi-platform CI composes these same per-platform
 checks with `scripts/ci_release_platforms.py guard`; aggregate READY requires
 both clean platform acceptances and one common exact source/WASM identity. For performance work only, select one workload with
-`python3 scripts/verify.py bench {ready,seeded,parallel,memory} [options]`;
+`python3 scripts/verify.py bench go-isolation --native-dir /path/to/native [options]`
+for canonical 0.2 core measurements; `bench isolation` retains Python consumer
+regression measurement (other historical benchmark workloads remain optional);
 see [benchmark settings](../benchmarks/README.md).
 
 CI runs `check` on Ubuntu and `integration` on the GitHub-hosted macOS 15 arm64
