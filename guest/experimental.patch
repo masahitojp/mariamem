@@ -115,3 +115,169 @@
 +#ifndef __wasm__
 +int main(int argc,char **argv){return argc==3?hv_probe(argv[1],argv[2]):30;}
 +#endif
+--- a/wasm/snapshot_fs.inc
++++ b/wasm/snapshot_fs.inc
+@@ -5,0 +6 @@
++#include "restore_experiment.inc"
+@@ -64 +65 @@
+-  size_t n;
++  ssize_t n;
+@@ -66,5 +67,6 @@
+-  while ((n= fread(buffer, 1, sizeof(buffer), in)))
+-    if (fwrite(buffer, 1, n, out) != n)
+-    {
+-      rc= -1;
+-      break;
++  if(rr.active) rr.files++;
++  for(;;) {
++    uint64_t p0=0,t0=0,w0=0;
++    if(rr.active && rr.measure) {
++      p0=rr_clock(CLOCK_PROCESS_CPUTIME_ID,&rr.process_ok);
++      t0=rr_clock(CLOCK_THREAD_CPUTIME_ID,&rr.thread_ok);w0=rr_wall();
+@@ -72 +74,29 @@
+-  if (ferror(in)) rc= -1;
++    n=rr_source_read(in,buffer,sizeof(buffer));
++    if(rr.active) {
++      rr.reads++;
++      if(rr.measure) {
++        rr.read_wall+=rr_wall()-w0;
++        rr.read_thread+=rr_clock(CLOCK_THREAD_CPUTIME_ID,&rr.thread_ok)-t0;
++        rr.read_process+=rr_clock(CLOCK_PROCESS_CPUTIME_ID,&rr.process_ok)-p0;
++      }
++    }
++    if(n<=0) break;
++    if(rr.active) {
++      rr.bytes+=(uint64_t)n;
++      if(rr.measure) {
++        p0=rr_clock(CLOCK_PROCESS_CPUTIME_ID,&rr.process_ok);
++        t0=rr_clock(CLOCK_THREAD_CPUTIME_ID,&rr.thread_ok);w0=rr_wall();
++      }
++    }
++    size_t written=fwrite(buffer,1,(size_t)n,out);
++    if(rr.active) {
++      rr.writes++;rr.written_bytes+=written;
++      if(rr.measure) {
++        rr.write_wall+=rr_wall()-w0;
++        rr.write_thread+=rr_clock(CLOCK_THREAD_CPUTIME_ID,&rr.thread_ok)-t0;
++        rr.write_process+=rr_clock(CLOCK_PROCESS_CPUTIME_ID,&rr.process_ok)-p0;
++      }
++    }
++    if(written!=(size_t)n) {rc= -1;break;}
++  }
++  if(n<0 || ferror(in)) rc= -1;
+--- a/wasm/resident.inc
++++ b/wasm/resident.inc
+@@ -111,0 +112 @@
++  rr_guest_begin();
+@@ -131 +132,9 @@
+-  if (argc == 2 && !key_check && snapshot_copy("/snapshot-in/data", "/mariadb", 0)) return 17;
++  if (argc == 2 && !key_check) {
++    if(rr_begin()) return 17;
++    int failed=snapshot_copy("/snapshot-in/data", "/mariadb", 0);
++    rr_end();if(failed) return 17;
++    if(getenv("MARIAMEM_EXPERIMENT_RESTORE_VERIFY")) {
++      if(snapshot_copy("/mariadb","/snapshot-out/verified",0)) return 17;
++      startup_write();return 0;
++    }
++  }
+--- a/wasm/startup_timing.inc
++++ b/wasm/startup_timing.inc
+@@ -25,0 +26,2 @@
++static void rr_write_stats(FILE *f);
++
+@@ -36,0 +39 @@
++  rr_write_stats(f);
+--- /dev/null
++++ b/wasm/restore_experiment.inc
+@@ -0,0 +1,91 @@
++/* Experimental import-only counters; no cache or destination change. */
++#include <time.h>
++#include <stdint.h>
++#include <unistd.h>
++#ifdef __wasm__
++typedef struct { unsigned char *buf; uint32_t len; } rr_iov;
++__attribute__((__import_module__("wasi_snapshot_preview1"), __import_name__("fd_read")))
++extern uint16_t rr_wasi_read(uint32_t, const rr_iov *, uint32_t, uint32_t *);
++#endif
++#ifndef RR_NATIVE_READ
++#define RR_NATIVE_READ read
++#endif
++static struct {
++  int active, measure, direct, process_ok, thread_ok;
++  uint64_t bytes, written_bytes, files, reads, writes;
++  uint64_t read_wall, read_process, read_thread, write_wall, write_process, write_thread;
++  uint64_t begin_wall, begin_process, begin_thread, wall, process, thread;
++} rr;
++static int rr_guest_process_ok=1, rr_guest_thread_ok=1;
++static uint64_t rr_guest_process, rr_guest_thread;
++static uint64_t rr_clock(clockid_t clock, int *ok)
++{
++  struct timespec ts;
++  if(clock_gettime(clock,&ts)) { *ok=0; return 0; }
++  return (uint64_t)ts.tv_sec*1000000000ULL+ts.tv_nsec;
++}
++static uint64_t rr_wall(void) { int ok=1; return rr_clock(CLOCK_MONOTONIC,&ok); }
++static void rr_guest_begin(void)
++{
++  rr_guest_process=rr_clock(CLOCK_PROCESS_CPUTIME_ID,&rr_guest_process_ok);
++  rr_guest_thread=rr_clock(CLOCK_THREAD_CPUTIME_ID,&rr_guest_thread_ok);
++}
++static int rr_begin(void)
++{
++  const char *mode=getenv("MARIAMEM_EXPERIMENT_RESTORE");
++  if(mode && strcmp(mode,"stdio") && strcmp(mode,"direct")) {
++    fputs("invalid experimental restore reader\n",stderr);return -1;
++  }
++  memset(&rr,0,sizeof(rr));rr.active=1;rr.measure=startup_timing.enabled;
++  rr.direct=mode && !strcmp(mode,"direct");rr.process_ok=rr.thread_ok=1;
++  rr.begin_wall=rr_wall();rr.begin_process=rr_clock(CLOCK_PROCESS_CPUTIME_ID,&rr.process_ok);
++  rr.begin_thread=rr_clock(CLOCK_THREAD_CPUTIME_ID,&rr.thread_ok);
++  return 0;
++}
++static void rr_end(void)
++{
++  rr.wall=rr_wall()-rr.begin_wall;
++  rr.process=rr_clock(CLOCK_PROCESS_CPUTIME_ID,&rr.process_ok)-rr.begin_process;
++  rr.thread=rr_clock(CLOCK_THREAD_CPUTIME_ID,&rr.thread_ok)-rr.begin_thread;
++  rr.active=0;
++}
++static ssize_t rr_source_read(FILE *in, unsigned char *buffer, size_t size)
++{
++  if(!rr.active || !rr.direct) return (ssize_t)fread(buffer,1,size,in);
++  for(;;) {
++#ifdef __wasm__
++    rr_iov iov={buffer,(uint32_t)size};uint32_t got=0;
++    uint16_t error=rr_wasi_read((uint32_t)fileno(in),&iov,1,&got);
++    if(error==27) continue; /* WASI ERRNO_INTR; retry without discarding bytes. */
++    if(error) {fprintf(stderr,"experimental restore fd_read failed: WASI errno=%u\n",error);return -1;}
++    return (ssize_t)got;
++#else
++    ssize_t n=RR_NATIVE_READ(fileno(in),buffer,size);
++    if(n<0 && errno==EINTR) continue;
++    return n;
++#endif
++  }
++}
++static void rr_json_cpu(FILE *f,const char *name,uint64_t value,int ok)
++{
++  fprintf(f,",\"%s\":",name);
++  if(ok)fprintf(f,"%llu",(unsigned long long)value);else fputs("null",f);
++}
++static void rr_write_stats(FILE *f)
++{
++  fprintf(f,",\"restore_copy\":{\"mode\":\"%s\",\"chunk_bytes\":65536,\"bytes\":%llu,\"written_bytes\":%llu,\"files\":%llu,\"read_calls\":%llu,\"write_calls\":%llu,\"total_wall_ns\":%llu,\"read_wall_ns\":%llu,\"write_wall_ns\":%llu",
++    rr.direct?"direct":"stdio",(unsigned long long)rr.bytes,(unsigned long long)rr.written_bytes,
++    (unsigned long long)rr.files,(unsigned long long)rr.reads,(unsigned long long)rr.writes,
++    (unsigned long long)rr.wall,(unsigned long long)rr.read_wall,(unsigned long long)rr.write_wall);
++  rr_json_cpu(f,"total_process_cpu_ns",rr.process,rr.process_ok);
++  rr_json_cpu(f,"total_thread_cpu_ns",rr.thread,rr.thread_ok);
++  rr_json_cpu(f,"read_process_cpu_ns",rr.read_process,rr.process_ok);
++  rr_json_cpu(f,"read_thread_cpu_ns",rr.read_thread,rr.thread_ok);
++  rr_json_cpu(f,"write_process_cpu_ns",rr.write_process,rr.process_ok);
++  rr_json_cpu(f,"write_thread_cpu_ns",rr.write_thread,rr.thread_ok);
++  uint64_t p=rr_clock(CLOCK_PROCESS_CPUTIME_ID,&rr_guest_process_ok)-rr_guest_process;
++  uint64_t t=rr_clock(CLOCK_THREAD_CPUTIME_ID,&rr_guest_thread_ok)-rr_guest_thread;
++  rr_json_cpu(f,"guest_main_to_ready_process_cpu_ns",p,rr_guest_process_ok);
++  rr_json_cpu(f,"guest_main_to_ready_thread_cpu_ns",t,rr_guest_thread_ok);
++  fputs("}",f);
++}

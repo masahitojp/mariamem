@@ -21,7 +21,7 @@ from common import digest
 
 def probe_source():
     text = (ROOT / 'guest/experimental.patch').read_text()
-    section = text.split('+++ b/wasm/host_volume_probe.inc\n', 1)[1].splitlines()[1:]
+    section = text.split('+++ b/wasm/host_volume_probe.inc\n', 1)[1].split('\n--- ', 1)[0].splitlines()[1:]
     if not section or any(not line.startswith('+') for line in section):
         raise ValueError('experimental read-probe source patch drift')
     return '\n'.join(line[1:] for line in section) + '\n'

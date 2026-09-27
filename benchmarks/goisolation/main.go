@@ -29,6 +29,7 @@ type config struct {
 	interval, hold                       float64
 	stages, guestStages                  bool
 	initDiagnostics, memoryDiagnostics   bool
+	restoreAB                            bool
 }
 type runner struct {
 	cfg           config
@@ -274,6 +275,9 @@ func (r *runner) batch(saved *mariamem.Snapshot, workers int) (row map[string]an
 	return row, err
 }
 func (r *runner) run() error {
+	if r.cfg.restoreAB {
+		return r.restoreComparison()
+	}
 	for _, phase := range []string{"warmup", "measurement"} {
 		runs := r.cfg.runs
 		if phase == "warmup" {
@@ -420,6 +424,7 @@ func main() {
 	flag.BoolVar(&c.guestStages, "guest-stage-timing", false, "require matching guest stages")
 	flag.BoolVar(&c.initDiagnostics, "init-diagnostics", false, "require detailed initialization diagnostics")
 	flag.BoolVar(&c.memoryDiagnostics, "memory-diagnostics", false, "post-ready mapping/thread inventory once per case")
+	flag.BoolVar(&c.restoreAB, "restore-ab", false, "experiment-only interleaved source reader comparison")
 	flag.Parse()
 	if c.initDiagnostics || c.memoryDiagnostics {
 		c.stages = true

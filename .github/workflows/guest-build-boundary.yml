@@ -2,6 +2,10 @@ name: Guest build boundary verification
 on:
   workflow_dispatch:
     inputs:
+      restore_read_comparison:
+        description: "Experimental real-restore stdio/direct WASI A/B on both platforms"
+        type: boolean
+        default: false
       host_volume_measurement:
         description: "Experimental read-only host-volume attribution on both platforms"
         type: boolean
@@ -81,7 +85,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.host_volume_measurement }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.host_volume_measurement && !inputs.restore_read_comparison }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -179,7 +183,7 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche || inputs.host_volume_measurement
+    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche || inputs.host_volume_measurement || inputs.restore_read_comparison
     needs: guest
     strategy:
       fail-fast: false
@@ -231,6 +235,16 @@ jobs:
           key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal verified guest smoke
         run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Real restore correctness, lifecycle and interleaved A/B
+        if: inputs.restore_read_comparison
+        run: |
+          python -m pip install pytest PyMySQL
+          for mode in stdio direct; do
+            MARIAMEM_EXPERIMENT_RESTORE="$mode" MARIAMEM_NATIVE_DIR="$GITHUB_WORKSPACE/build/guest-aot" python scripts/verify.py integration
+          done
+          python benchmarks/restore_read_ab.py --native-dir build/guest-aot --runs 20 --warmup 2 \
+            --json benchmarks/results/init-restore-read-ab.json
+          echo 'Real restore A/B complete; exact-content and both-mode lifecycle checks passed. Evidence is in the initialization artifact; production decision remains a separate review.' >> "$GITHUB_STEP_SUMMARY"
       - name: Install Ubuntu syscall diagnostic
         if: inputs.host_volume_measurement && matrix.platform == 'ubuntu24.04-x86_64'
         run: sudo apt-get update && sudo apt-get install -y strace

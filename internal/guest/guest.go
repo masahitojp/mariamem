@@ -77,6 +77,10 @@ type Process struct {
 
 func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore string, stderr io.Writer) (*Process, error) {
 	args := []string{"run", module, "--no-tty", "--volume", transfer + ":/snapshot-out"}
+	// Experiment-only selection; the production guest does not consume this input.
+	if mode := os.Getenv("MARIAMEM_EXPERIMENT_RESTORE"); mode != "" {
+		args = append(args, "--env", "MARIAMEM_EXPERIMENT_RESTORE="+mode)
+	}
 	if timing.Enabled(ctx) {
 		args = append(args, "--env", "MARIAMEM_GUEST_TIMING=1")
 		if os.Getenv("MARIAMEM_INIT_DIAGNOSTICS") == "1" {
