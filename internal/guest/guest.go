@@ -81,6 +81,9 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 		args = append(args, "--env", "MARIAMEM_GUEST_TIMING=1")
 		if os.Getenv("MARIAMEM_INIT_DIAGNOSTICS") == "1" {
 			args = append(args, "--env", "MARIAMEM_INIT_DIAGNOSTICS=1")
+			if os.Getenv("MARIAMEM_RESTORE_DIAGNOSTICS") == "1" {
+				args = append(args, "--env", "MARIAMEM_RESTORE_DIAGNOSTICS=1")
+			}
 		}
 	}
 	// Disposable experiment: explicit test key volume, never production provisioning.

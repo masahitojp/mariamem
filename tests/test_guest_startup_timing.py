@@ -20,6 +20,7 @@ static const char *destination;
 static FILE *diagnostic_open(const char *path, const char *mode) { return fopen(destination, mode); }
 #define fopen diagnostic_open
 #include "startup_timing.inc"
+static void restore_probe_write(FILE *f) { (void)f; }
 int main(int argc, char **argv) {
  destination = argv[1];
  startup_mark("disabled"); startup_write();

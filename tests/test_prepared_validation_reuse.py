@@ -61,7 +61,8 @@ def test_measurement_path_keeps_prepared_keys_and_omits_memory_diagnostics():
     assert "('reuse', 'control')" in text
 
 
-def test_orchestration_shares_native_keys_and_alternates_without_rebuild(tmp_path):
+@pytest.mark.parametrize("restore", [False, True])
+def test_orchestration_shares_native_keys_and_alternates_without_rebuild(tmp_path, restore):
     native = tmp_path/'native'
     native.mkdir()
     (native/'provenance.json').write_text('{}')
@@ -97,10 +98,11 @@ def test_orchestration_shares_native_keys_and_alternates_without_rebuild(tmp_pat
          patch('prepared_validation_reuse.verify_branches', return_value=14) as verify, \
          patch('prepared_validation_reuse.tarfile.TarFile.extractall') as extract, \
          patch('prepared_validation_reuse.aggregate', return_value=empty), \
-         patch('prepared_validation_reuse.platform.platform', return_value='test-platform'):
-        run(native, tmp_path/'results', pairs=2, warmup=0)
+         patch('prepared_validation_reuse.platform.platform', return_value='test-platform'), \
+         patch('restore_report.summarize', return_value=[]):
+        run(native, tmp_path/'results', pairs=2, warmup=0, restore_attribution=restore)
     assert len(builds) == len(checks) == 2
-    assert modified.call_count == 1
+    assert modified.call_count == (2 if restore else 1)
     assert extract.call_count == 2
     assert all(call.kwargs['filter'] == 'data' for call in extract.call_args_list)
     assert [Path(args[0]).name for args, _ in calls] == ['control-go', 'reuse-go', 'reuse-go', 'control-go']
@@ -109,3 +111,5 @@ def test_orchestration_shares_native_keys_and_alternates_without_rebuild(tmp_pat
     assert all(env['MARIAMEM_AUTH_EXPERIMENT_CHECK'] == '1' for _, env in calls)
     assert all('--memory-diagnostics' not in args for args, _ in calls)
     assert all(call.args[1] == 'existing-keys' for call in verify.call_args_list)
+
+    assert [env.get("MARIAMEM_RESTORE_DIAGNOSTICS") for _, env in calls] == ([None, "1", "1", None] if restore else [None]*4)

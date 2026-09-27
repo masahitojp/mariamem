@@ -76,7 +76,7 @@ def aggregate(reports):
     return result
 
 
-def run(native, output, pairs=20, warmup=2):
+def run(native, output, pairs=20, warmup=2, restore_attribution=False):
     if subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True).strip():
         raise ValueError('commit the experiment before measuring')
     source = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
@@ -99,7 +99,7 @@ def run(native, output, pairs=20, warmup=2):
             root.mkdir()
             with tarfile.open(fileobj=io.BytesIO(archive)) as tar:
                 tar.extractall(root, filter='data')
-            if condition == 'reuse':
+            if condition == 'reuse' or restore_attribution:
                 changed = patch(root)  # Existing two-digest within-call probe only.
             subprocess.run(['go', 'test', './internal/artifacts', './internal/snapshot', './internal/host'], cwd=root, check=True)
             binary = temporary/(condition+'-go')
@@ -112,6 +112,7 @@ def run(native, output, pairs=20, warmup=2):
         subprocess.run(['openssl', 'pkey', '-in', str(keys/'private.pem'), '-pubout', '-out', str(keys/'public.pem')], check=True)
         key_hashes = hashes(keys)
         env = dict(os.environ, MARIAMEM_EXPERIMENT_AUTH_KEYS_DIR=str(keys), MARIAMEM_AUTH_EXPERIMENT_CHECK='1')
+        env.pop('MARIAMEM_RESTORE_DIAGNOSTICS', None)
         for pair in range(-warmup, pairs):
             current = {}
             order = ('control', 'reuse') if pair % 2 == 0 else ('reuse', 'control')
@@ -120,7 +121,7 @@ def run(native, output, pairs=20, warmup=2):
                 subprocess.run([str(binaries[condition]), '--native-dir', str(bundle), '--json', str(path),
                                 '--runs', '1', '--warmup', '0', '--workers', '1,4,8',
                                 '--rows', '1000', '--queries', '100', '--init-diagnostics'],
-                               cwd=temporary/condition, env=env, check=True)
+                               cwd=temporary/condition, env=dict(env, **({'MARIAMEM_RESTORE_DIAGNOSTICS': '1'} if restore_attribution and condition == 'reuse' else {})), check=True)
                 raw = json.loads(path.read_text())
                 if not raw['completed'] or verify_branches(raw, 'existing-keys') != 14:
                     raise ValueError('missing prepared-key startup evidence')
@@ -133,6 +134,9 @@ def run(native, output, pairs=20, warmup=2):
         identity = {'source_commit': source, 'patched_source_sha256': changed,
                     'binary_sha256': {k: hashlib.sha256(v.read_bytes()).hexdigest() for k, v in binaries.items()},
                     'native_sha256': before, 'test_key_sha256': key_hashes}
+    if restore_attribution:
+        from restore_report import summarize as restore_summary
+        restore = restore_summary([pair['reuse'] for pair in reports])
     result = {'experiment': 'prepared-key-within-call-validation-reuse', **identity,
               'platform': platform.platform(), 'architecture': platform.machine(),
               'pairs': pairs, 'warmup_pairs': warmup, 'runs': runs, 'summary': aggregate(reports),
@@ -143,6 +147,10 @@ def run(native, output, pairs=20, warmup=2):
                         'Public-outside-host includes public preparation and host trace return tail.',
                         'Envelope residual is not pure Wasmer time; scopes overlap.',
                         'Positive paired differences mean control was slower.']}
+    if restore_attribution:
+        result['experiment'] = 'prepared-keys-validation-reuse-restore-attribution'
+        result['restore_copy'] = restore
+        result['notes'] = ['Both conditions use prepared keys and the same validation-reuse patch.', 'Control: restore counters off; reuse: restore counters on; paired difference measures instrumentation perturbation.', 'No memory diagnostics; no storage or validation optimization.']
     (output/'summary.json').write_text(json.dumps(result, indent=2)+'\n')
     lines = ['# Prepared keys: within-call validation reuse', '', f'Candidate: `{source}`', '',
              '| Condition | Workers | Stage | p50 ms | p95 ms |', '|---|---:|---|---:|---:|']
@@ -153,6 +161,12 @@ def run(native, output, pairs=20, warmup=2):
               '| Workers | Stage | Median ms | p95 ms |', '|---:|---|---:|---:|']
     for row in result['summary']['paired_control_minus_reuse']:
         lines.append(f'| {row["workers"]} | {row["stage"]} | {row["p50_seconds"]*1000:.2f} | {row["p95_seconds"]*1000:.2f} |')
+    if restore_attribution:
+        lines += ['', '## Restore operation attribution (probe enabled)', '', '| Workers | Component | p50 ms | p95 ms |', '|---:|---|---:|---:|']
+        for row in restore:
+            if row['metric'] == 'wall_ns' and not row['component'].startswith('file:'):
+                lines.append(f"| {row['workers']} | {row['component']} | {row['p50']/1e6:.2f} | {row['p95']/1e6:.2f} |")
+        lines += ['', 'Control/probe both use validation reuse; paired differences measure diagnostic perturbation. File/CPU/byte distributions are in summary.json.']
     (output/'summary.md').write_text('\n'.join(lines)+'\n')
 
 
@@ -162,7 +176,8 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--pairs', type=int, default=20)
     parser.add_argument('--warmup', type=int, default=2)
+    parser.add_argument('--restore-attribution', action='store_true')
     args = parser.parse_args()
     if args.pairs < 1 or args.warmup < 0:
         parser.error('positive pairs and nonnegative warmup required')
-    run(args.native_dir.resolve(), args.output.resolve(), args.pairs, args.warmup)
+    run(args.native_dir.resolve(), args.output.resolve(), args.pairs, args.warmup, args.restore_attribution)

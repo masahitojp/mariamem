@@ -23,6 +23,8 @@ static void startup_mark(const char *name)
   startup_timing.offsets[i]= now - startup_timing.origin;
 }
 
+static void restore_probe_write(FILE *f);
+
 static void startup_write(void)
 {
   if (!startup_timing.enabled) return;
@@ -34,6 +36,7 @@ static void startup_write(void)
             startup_timing.names[i], (unsigned long long)startup_timing.offsets[i]);
   fputs("]", f);
   init_write(f);
+  restore_probe_write(f);
   fputs("}\n", f);
   fclose(f);
 }

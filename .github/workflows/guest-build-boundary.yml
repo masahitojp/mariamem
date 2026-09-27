@@ -6,6 +6,10 @@ on:
         description: 'Measure opt-in guest startup stages (20 samples, no performance gates)'
         type: boolean
         default: false
+      restore_attribution:
+        description: "Prepared keys + validation reuse: paired restore instrumentation attribution"
+        type: boolean
+        default: false
       prepared_validation_experiment:
         description: "Paired within-call validation reuse with prepared RSA keys, no memory diagnostics"
         type: boolean
@@ -81,7 +85,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.auth_key_experiment && !inputs.prepared_validation_experiment }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.auth_key_experiment && !inputs.prepared_validation_experiment && !inputs.restore_attribution }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -179,7 +183,7 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.auth_key_experiment || inputs.prepared_validation_experiment
+    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.auth_key_experiment || inputs.prepared_validation_experiment || inputs.restore_attribution
     needs: guest
     strategy:
       fail-fast: false
@@ -231,6 +235,12 @@ jobs:
           key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal verified guest smoke
         run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Restore attribution (same keys and validation reuse in both conditions)
+        if: inputs.restore_attribution
+        run: |
+          python benchmarks/prepared_validation_reuse.py --native-dir build/guest-aot --output benchmarks/results/init-restore --pairs 20 --warmup 2 --restore-attribution
+          python scripts/benchmark_artifacts.py verify aot --target ${{ matrix.platform }}
+          cat benchmarks/results/init-restore/summary.md >> "$GITHUB_STEP_SUMMARY"
       - name: Prepared-key paired validation reuse
         if: inputs.prepared_validation_experiment
         run: |
