@@ -1,16 +1,17 @@
 """Bounded restore-copy attribution; logical stdio activity, not physical disk I/O."""
 import statistics
+import json
 from isolation_baseline import percentile
 
 
 def validate(probe):
     if probe['version'] != 1 or probe['invalid_clock'] or probe['dropped_files']:
-        raise ValueError('incomplete restore clock/file evidence')
+        raise ValueError('incomplete restore clock/file evidence: '+json.dumps(probe.get('clock_error', {})))
     if probe['file_count'] != len(probe['files']):
         raise ValueError('restore file inventory mismatch')
-    for stage in probe['stages'].values():
+    for name, stage in probe['stages'].items():
         if stage['invalid_clock']:
-            raise ValueError('invalid restore stage clock')
+            raise ValueError('invalid restore stage clock: '+name+' '+json.dumps(stage.get('clock_error', {})))
     for file in probe['files']:
         if any(stage['invalid_clock'] for stage in file['stages'].values()):
             raise ValueError('invalid per-file restore clock')

@@ -12,7 +12,7 @@ enum { RP_META, RP_SRC_OPEN, RP_DST_OPEN, RP_READ, RP_WRITE,
 static const char *rp_names[]= {"metadata", "source_open", "destination_create",
   "read", "write", "source_close", "destination_close"};
 typedef struct { uint64_t wall, process, thread; int valid; } rp_stamp;
-typedef struct { uint64_t wall, process, thread, calls, bytes; int invalid; } rp_cost;
+typedef struct { uint64_t wall, process, thread, calls, bytes; int invalid, failed_clocks, regressed_clocks; rp_stamp first_begin, first_end; } rp_cost;
 static struct {
   int enabled, count, dropped;
   uint64_t directories;
@@ -26,22 +26,29 @@ static rp_stamp rp_now(void)
   rp_stamp s= {0};
   int saved= errno;
   struct timespec t;
-  s.valid= !clock_gettime(CLOCK_MONOTONIC, &t);
+  s.valid= !clock_gettime(CLOCK_MONOTONIC, &t) ? 1 : 0;
   if (s.valid) s.wall= (uint64_t)t.tv_sec*1000000000ULL+t.tv_nsec;
   int ok= !clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &t);
   if (ok) s.process= (uint64_t)t.tv_sec*1000000000ULL+t.tv_nsec;
-  s.valid &= ok;
+  if (ok) s.valid |= 2;
   ok= !clock_gettime(CLOCK_THREAD_CPUTIME_ID, &t);
   if (ok) s.thread= (uint64_t)t.tv_sec*1000000000ULL+t.tv_nsec;
-  s.valid &= ok;
+  if (ok) s.valid |= 4;
   errno= saved;
   return s;
 }
 static void rp_add(rp_cost *cost, rp_stamp begin, rp_stamp end, uint64_t bytes)
 {
   cost->calls++; cost->bytes+= bytes;
-  if (!begin.valid || !end.valid || end.wall<begin.wall ||
-      end.process<begin.process || end.thread<begin.thread) { cost->invalid= 1; return; }
+  int failed= 7 & ~(begin.valid & end.valid);
+  int regressed= ((begin.valid & end.valid & 1) && end.wall<begin.wall ? 1 : 0) |
+    ((begin.valid & end.valid & 2) && end.process<begin.process ? 2 : 0) |
+    ((begin.valid & end.valid & 4) && end.thread<begin.thread ? 4 : 0);
+  if (failed || regressed) {
+    if (!cost->invalid) { cost->first_begin= begin; cost->first_end= end; }
+    cost->invalid= 1; cost->failed_clocks |= failed; cost->regressed_clocks |= regressed;
+    return;
+  }
   cost->wall+= end.wall-begin.wall;
   cost->process+= end.process-begin.process;
   cost->thread+= end.thread-begin.thread;
@@ -59,24 +66,37 @@ static void rp_finish(int stage, int file, rp_stamp begin, uint64_t bytes)
   result= (call); rp_finish(stage,file,rp_start,0); \
 } while (0)
 
+/* Bit masks: 1=monotonic wall, 2=process CPU, 4=current-thread CPU. */
+static void rp_write_clock_error(FILE *f, rp_cost *c)
+{
+  if (!c->invalid) return;
+  fprintf(f,",\"clock_error\":{\"failed_mask\":%d,\"regressed_mask\":%d,\"first_begin\":[%llu,%llu,%llu],\"first_end\":[%llu,%llu,%llu]}",
+    c->failed_clocks,c->regressed_clocks,
+    (unsigned long long)c->first_begin.wall,(unsigned long long)c->first_begin.process,(unsigned long long)c->first_begin.thread,
+    (unsigned long long)c->first_end.wall,(unsigned long long)c->first_end.process,(unsigned long long)c->first_end.thread);
+}
 static void rp_write_cost(FILE *f, rp_cost *c)
 {
-  fprintf(f,"{\"wall_ns\":%llu,\"process_cpu_ns\":%llu,\"thread_cpu_ns\":%llu,\"calls\":%llu,\"bytes\":%llu,\"invalid_clock\":%s}",
+  fprintf(f,"{\"wall_ns\":%llu,\"process_cpu_ns\":%llu,\"thread_cpu_ns\":%llu,\"calls\":%llu,\"bytes\":%llu,\"invalid_clock\":%s",
     (unsigned long long)c->wall,(unsigned long long)c->process,
     (unsigned long long)c->thread,(unsigned long long)c->calls,
     (unsigned long long)c->bytes,c->invalid ? "true" : "false");
+  rp_write_clock_error(f,c); fputc('}',f);
 }
 static void restore_probe_write(FILE *f)
 {
   if (!restore_probe.enabled) return;
+  rp_cost total= {0};
+  rp_add(&total,restore_probe.begin,restore_probe.end,0);
   fprintf(f,",\"restore_copy\":{\"version\":1,\"clock\":\"guest_monotonic\",\"wall_ns\":%llu,\"process_cpu_ns\":%llu,\"thread_cpu_ns\":%llu,\"invalid_clock\":%s,\"directories\":%llu,\"file_count\":%d,\"dropped_files\":%d,\"stages\":{",
-    (unsigned long long)(restore_probe.end.wall-restore_probe.begin.wall),
-    (unsigned long long)(restore_probe.end.process-restore_probe.begin.process),
-    (unsigned long long)(restore_probe.end.thread-restore_probe.begin.thread),
-    restore_probe.begin.valid && restore_probe.end.valid ? "false" : "true",
+    (unsigned long long)total.wall,
+    (unsigned long long)total.process,
+    (unsigned long long)total.thread,
+    total.invalid ? "true" : "false",
     (unsigned long long)restore_probe.directories,restore_probe.count,restore_probe.dropped);
   for (int i=0;i<RP_STAGES;i++) { if(i) fputc(',',f); fprintf(f,"\"%s\":",rp_names[i]); rp_write_cost(f,&restore_probe.stages[i]); }
-  fputs("},\"files\":[",f);
+  fputs("}",f); rp_write_clock_error(f,&total);
+  fputs(",\"files\":[",f);
   for(int i=0;i<restore_probe.count;i++) {
     if(i) fputc(',',f);
     fputs("{\"path\":",f); init_quote(f,restore_probe.files[i].path);

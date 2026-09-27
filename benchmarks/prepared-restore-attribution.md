@@ -91,3 +91,17 @@ define ownership of the verified identity, test mutable native directory/sidecar
 changes and failure paths, and run packaged lifecycle/cleanup coverage on both
 platforms. The disposable read-only-input probe is not a production trust cache.
 Neither change is integrated by this task.
+
+## First run clock failure and diagnostic retry
+
+Run `36289530318` completed macOS benchmark execution, then rejected one read-stage
+clock observation during aggregation (pair 4, workers 8; 286 startup records including
+warmups). The original combined validity flag cannot establish whether wall/process/
+thread clock failed or regressed. It does not establish a restore failure.
+
+The retry records separate failed/regressed bit masks (wall=1, process CPU=2,
+thread CPU=4), and the first offending begin/end timestamps, in raw JSON and the
+aggregation error. Invalid intervals remain rejected, not clamped into valid CPU
+measurements. Total restore deltas use the same validation to prevent unsigned
+underflow. This is diagnostic instrumentation only; it changes guest identity and
+therefore requires a new verified WASM/AOT build once.
