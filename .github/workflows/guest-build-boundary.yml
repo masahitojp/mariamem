@@ -2,6 +2,10 @@ name: Guest build boundary verification
 on:
   workflow_dispatch:
     inputs:
+      fast_tranche:
+        description: 'Production FAST tranche: packaged acceptance and 1000-row Go baseline on both platforms'
+        type: boolean
+        default: false
       lifecycle_measurement:
         description: 'Measure opt-in guest startup stages (20 samples, no performance gates)'
         type: boolean
@@ -11,7 +15,7 @@ on:
         type: boolean
         default: false
       initialization_measurement:
-        description: 'MariaDB init/CPU/file/memory probe, two fixtures and disposable validation reuse'
+        description: 'MariaDB init/CPU/file/memory probe and two fixture sizes'
         type: boolean
         default: false
 
@@ -73,7 +77,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -171,7 +175,7 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement || inputs.plugin_measurement
+    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche
     needs: guest
     strategy:
       fail-fast: false
@@ -223,6 +227,37 @@ jobs:
           key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal verified guest smoke
         run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Package and accept production FAST tranche
+        if: inputs.fast_tranche
+        run: |
+          python -m pip install setuptools wheel pytest PyMySQL
+          python scripts/build_alpha.py --ci-candidate --runtime build/guest-aot/wasmer-headless --module build/guest-aot/mariamem.wasmu
+          python scripts/package_native.py --native-dir python/mariamem/_native
+          python scripts/package_native.py --native-dir python/mariamem/_native --verify "build/release/native-candidate/mariamem-native-${{ matrix.platform }}.tar.gz"
+          version=$(python -c "import sys; sys.path.insert(0, 'scripts'); from release_version import PYTHON_VERSION; print(PYTHON_VERSION)")
+          wheel_platform=$(python -c "import sys; sys.path.insert(0, 'scripts'); from native_target import target_metadata; print(target_metadata('${{ matrix.platform }}')['wheel_platform'])")
+          archive="build/release/native-candidate/mariamem-native-${{ matrix.platform }}.tar.gz"
+          wheel="build/dist/mariamem-${version}-py3-none-${wheel_platform}.whl"
+          archive_hash=$(python -c "import hashlib,sys; print(hashlib.sha256(open(sys.argv[1],'rb').read()).hexdigest())" "$archive")
+          wheel_hash=$(python -c "import hashlib,sys; print(hashlib.sha256(open(sys.argv[1],'rb').read()).hexdigest())" "$wheel")
+          python scripts/fast_tranche_acceptance.py --native-archive "$archive" --native-sha256 "$archive_hash" \
+            --wheel "$wheel" --wheel-sha256 "$wheel_hash" --source-sha '${{ github.sha }}' \
+            --target '${{ matrix.platform }}' --evidence "benchmarks/results/init-fast-acceptance"
+      - name: Production lifecycle and integrity regression
+        if: inputs.fast_tranche
+        env:
+          MARIAMEM_NATIVE_DIR: ${{ github.workspace }}/python/mariamem/_native
+        run: python scripts/verify.py integration
+      - name: Canonical production FAST baseline (no memory diagnostics)
+        if: inputs.fast_tranche
+        run: |
+          python scripts/verify.py bench go-isolation --native-dir python/mariamem/_native \
+            --init-diagnostics --runs 20 --warmup 2 --workers 1 4 8 --rows 1000 \
+            --json benchmarks/results/init-fast-tranche.json
+          python benchmarks/stage_report.py benchmarks/results/init-fast-tranche.json > benchmarks/results/init-fast-tranche-stages.md
+          python benchmarks/init_report.py benchmarks/results/init-fast-tranche.json > benchmarks/results/init-fast-tranche-init.md
+          cat benchmarks/results/init-fast-tranche-stages.md >> "$GITHUB_STEP_SUMMARY"
+          cat benchmarks/results/init-fast-tranche-init.md >> "$GITHUB_STEP_SUMMARY"
       - name: Focused plugin/cache attribution
         if: inputs.plugin_measurement
         run: |
@@ -247,14 +282,6 @@ jobs:
             python benchmarks/init_report.py "benchmarks/results/init-${rows}.json" > "benchmarks/results/init-${rows}.md"
             cat "benchmarks/results/init-${rows}.md" >> "$GITHUB_STEP_SUMMARY"
           done
-      - name: Disposable within-call validation reuse (no production patch)
-        if: inputs.initialization_measurement
-        run: |
-          python benchmarks/validation_reuse.py --native-dir build/guest-aot \
-            --guest-stage-timing --runs 20 --warmup 2 --workers 1 4 8 --rows 1000 \
-            --json benchmarks/results/init-validation-reuse.json
-          python benchmarks/stage_report.py benchmarks/results/init-validation-reuse.json > benchmarks/results/init-validation-reuse.md
-          cat benchmarks/results/init-validation-reuse.md >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: always()
         with:

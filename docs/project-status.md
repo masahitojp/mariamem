@@ -395,15 +395,28 @@ release-infrastructure gap, not a reason to silently fall back to Tart.
 > enough in latency, CPU and memory that tests do not need to conserve database
 > instances.
 
+The first production FAST tranche integrates prepared public test RSA keys
+(`caching_sha2_password` remains enabled) and Go's single-startup ownership of
+verified native artifact identity. Per-startup RSA generation and redundant
+within-call AOT hash scans are removed; mandatory integrity checks, default
+grant bypass and lifecycle semantics remain. The experiment history is not
+merged into main. Both-platform packaged acceptance and a fresh canonical Go
+baseline are the current CI checkpoint; their results must be recorded before
+this tranche is declared fully accepted. See [tranche baseline](../benchmarks/fast-tranche-baseline.md).
+
 The next sequence is evidence-driven:
 
 ```text
-current implementation baseline
-→ Testcontainers comparison
-→ profiling
-→ architecture exploration
-→ implementation
+first FAST tranche acceptance + new main baseline
+→ fresh restore/source-boundary experiment
+→ profiling / competing architecture probes as supported by evidence
+→ production-quality integration
 ```
+
+Restore remains the next active FAST question. No pre-staging, copy changes,
+VFS/CoW or runtime sharing is integrated. Framework dogfood remains 0.3+;
+Testcontainers comparison remains a separate measurement, not a prerequisite
+for this tranche.
 
 Fork → connection → first successful SQL is the primary isolation-latency
 metric. Measure CPU and memory cost too, including 1 / 4 / 8 parallel instances.

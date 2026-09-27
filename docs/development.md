@@ -203,3 +203,42 @@ semantic differences, platform limitations, guest/upstream patches and a
 reject/continue/integrate decision. Experiment history is disposable: integrate
 only the accepted production-quality change. No continuation or storage probe
 is implied by this workflow preparation.
+
+## First FAST tranche: prepared authentication keys and startup validation
+
+The guest embeds one fixed **public, non-secret, test-only** RSA-2048 pair from
+`guest/test-auth-keypair.json`. It is never appropriate for production credentials.
+Source preparation derives a deterministic header; the fixture, preparation
+helpers and modified plugin sources are recorded in guest provenance and guest
+artifact reuse identity. Each process writes the keys exclusively into its own
+memory filesystem at `/mariamem-auth`, outside snapshot-exported `/mariadb`.
+They disappear with that process; Start and Fork provision the same fixture.
+The plugin remains enabled, automatic key generation is disabled, and missing,
+invalid or mismatched keys fail startup with a recovery message.
+
+Default `skip-grant-tables` and public connection behavior are unchanged.
+The dedicated guest command `--check-auth-keys` invokes the actual pinned
+`caching_sha2_password` full-auth callback over a bounded mock non-TLS transport:
+public-key request, RSA OAEP password, successful authentication, wrong-password
+and malformed-ciphertext rejection. This establishes plugin/key correctness;
+it does **not** establish full network account/grant authentication support.
+The matching missing/corrupt-key diagnostic commands must fail, never generate
+replacement keys.
+
+Go validates manifest, runtime, AOT bytes and sidecar once on **each** startup,
+then carries a single-use internal verified identity through that call. It skips
+two repeated AOT hash scans; sidecar consistency and full snapshot inventory/hash
+validation remain mandatory. Metadata rechecks (inode, size, mode, mtime and
+ctime) reject mutation/replacement before launch. Keep `NativeDir` unchanged
+throughout startup. This preserves the existing path-open race boundary; it is
+not atomic protection against a hostile concurrent writer. There is no global
+or persistent trust cache. Python's separate host still validates independently;
+trust is not serialized across its process boundary.
+
+For both-platform packaged acceptance and the new 1,000-row Go baseline,
+dispatch `guest-build-boundary.yml` with `fast_tranche=true` on the exact pushed
+commit. It checks external Go/installed-wheel consumers and real lifecycle/race
+regressions, then records 20 samples plus two warmups at ×1/4/8, without costly
+memory diagnostics. Verified WASM/AOT reuse applies only to identical inputs.
+See [tranche baseline](../benchmarks/fast-tranche-baseline.md). Nothing is released;
+submit the workflow and hand off without polling.
