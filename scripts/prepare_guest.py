@@ -6,6 +6,7 @@ import shutil
 import subprocess
 from common import ROOT, LOCK, digest, extract, fetch
 from guest_init_hooks import instrument
+from guest_experiment import patch_files
 
 source = ROOT / "build/source"
 if source.exists():
@@ -25,6 +26,11 @@ for name, expected in LOCK["pristine_files"].items():
     if digest(source / name) != expected:
         raise ValueError(f"unexpected upstream file: {name}")
 subprocess.run(["patch", "-p1", "-i", str(ROOT / "guest/source.patch")], cwd=source, check=True)
+# A disposable experiment patch is separate from the canonical product patch.
+experimental = ROOT / "guest/experimental.patch"
+experimental_files = patch_files(ROOT)
+if experimental.exists():
+    subprocess.run(["patch", "-p1", "-i", str(experimental)], cwd=source, check=True)
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
 (source / "wasm/wire_api.inc").write_text(
     "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "resident.inc"\n')
@@ -57,7 +63,9 @@ manifest = {"inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
                                (*LOCK["pristine_files"], "wasm/wire_api.inc", "wasm/resident.inc",
                                 "wasm/snapshot_fs.inc", "wasm/startup_timing.inc", "wasm/init_diagnostics.inc",
                                 "include/mariamem_init_diagnostics.h", *diagnostic_files,
-                                "cmake/pcre.cmake", "cmake/libfmt.cmake")}}
+                                "cmake/pcre.cmake", "cmake/libfmt.cmake", *experimental_files)}}
+if experimental.exists():
+    manifest["experimental_patch"] = {"file": "guest/experimental.patch", "sha256": digest(experimental)}
 (ROOT / "build/prepared-source.json").write_text(json.dumps(manifest, indent=2) + "\n")
 shutil.copy2(ROOT / "release/inputs.lock.json", ROOT / "build/preparation-inputs.lock.json")
 print("Prepared build/source from pinned archives; all guest dependencies are local.")

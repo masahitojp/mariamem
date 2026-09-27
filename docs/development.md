@@ -159,3 +159,47 @@ Archive-only public Go acceptance uses the maintained harness with
 `--target ubuntu24.04-x86_64`; the default macOS acceptance is unchanged.
 Both consumers use exact packaged candidate artifacts outside the checkout.
 No Docker or Tart is needed for this path.
+
+## Measurement artifact reuse and architecture experiments
+
+`guest-build-boundary.yml` uses exact-key immutable caches for measurement WASM
+and each platform AOT. There are no prefix/fallback cache hits. Every hit verifies
+input identity, original producing checkout, provenance and every output hash;
+a corrupt hit fails instead of silently using or rebuilding it. A missing/evicted
+cache rebuilds through the canonical scripts. Summaries report REUSED/REBUILT.
+
+WASM identity covers all guest patches/overlays, pinned source/toolchain lock,
+preparation/instrumentation/build/toolchain-install recipes, target and job
+configuration. AOT identity covers exact WASM and handoff provenance, Wasmer
+archive/version, platform, CPU compile flags, compiler recipe and package version.
+Harness/analysis changes do not invalidate those keys. Platform/runtime changes
+invalidate the corresponding AOT; only guest-relevant lock entries participate
+in WASM identity. Release checks still require the complete current lock. Full release builds still require the exact candidate checkout;
+measurement reuse never relabels an earlier artifact as newly built source.
+
+For local measurements, `scripts/benchmark_artifacts.py key|seal|verify wasm`
+and `key|seal|verify aot --target <platform>` expose the same checks. Seal only
+fresh canonical build outputs, never restored artifacts. The AOT compiler's
+`--benchmark-input-reuse` verifies a sealed WASM's identical inputs before
+allowing an earlier build commit; do not use it for release preparation.
+Cache scope/retention may cause misses; no bit-for-bit rebuild guarantee is added
+for unpinned hosted OS packages.
+
+Use `experiment/<short-purpose>` for disposable architecture probes. Keep main
+for stable product behavior, measurements, harnesses, diagnostics and tooling.
+On that branch, put temporary unified source changes in
+`guest/experimental.patch` (paths `a/...` / `b/...`), leaving `guest/source.patch`
+unchanged. Fresh `prepare_guest.py` applies it after the canonical patch, before
+overlays, records its hash and affected source files, and refuses it outside an
+experiment branch. Prefer modifications/additions; deletion-only patches are
+not supported by this small mechanism. Commit the patch with the experiment so
+its original input identity remains retrievable. The measurement workflow's
+full-history checkout must retain an experiment branch when using this path.
+Release source verification rejects experimental patches. Do not put prototype
+outputs into accepted production provenance.
+
+Before integration, provide a short hypothesis/correctness/benchmark summary,
+semantic differences, platform limitations, guest/upstream patches and a
+reject/continue/integrate decision. Experiment history is disposable: integrate
+only the accepted production-quality change. No continuation or storage probe
+is implied by this workflow preparation.

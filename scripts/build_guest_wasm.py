@@ -89,7 +89,7 @@ def main():
     shutil.copyfile(toolchain_path, output / "toolchain.json")
     source_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     record = {
-        "version": 1, "source_commit": source_commit, "linux_architecture": "x86_64",
+        "version": 1, "build_configuration": {"jobs": args.jobs}, "source_commit": source_commit, "linux_architecture": "x86_64",
         "target": "wasm32/WASIX", "inputs_lock_sha256": prepared["inputs_lock_sha256"],
         "prepared_source_sha256": digest(prepared_path),
         "prepared_source": prepared,

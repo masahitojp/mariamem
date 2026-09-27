@@ -23,24 +23,37 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           ref: ${{ github.sha }}
+          fetch-depth: 0
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: '3.14'
-      - name: Install native host-tool dependencies
-        run: |
-          test "$(uname -m)" = x86_64
-          sudo apt-get update
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-            build-essential cmake ninja-build bison pkg-config curl ca-certificates git \
-            libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
-      - name: Install pinned WASIXCC toolchain
+      - name: Resolve guest input identity
+        id: guest-key
+        run: echo "key=$(python scripts/benchmark_artifacts.py key wasm)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        id: guest-cache
+        with:
+          path: build/guest-wasm
+          key: ${{ steps.guest-key.outputs.key }}
+      - name: Install native host-tool dependencies (cache miss)
+        if: steps.guest-cache.outputs.cache-hit != 'true'
+        run: bash scripts/install_guest_host_tools.sh
+      - name: Build and seal guest WASM (cache miss)
+        if: steps.guest-cache.outputs.cache-hit != 'true'
         run: |
           python scripts/install_guest_toolchain.py
-          echo "$HOME/.wasixcc/bin" >> "$GITHUB_PATH"
-      - name: Build guest WASM without Docker
-        run: |
           python scripts/prepare_guest.py
           python scripts/build_guest_wasm.py --jobs 3
+          python scripts/benchmark_artifacts.py seal wasm
+      - name: Verify guest identity and bytes
+        run: |
+          python scripts/benchmark_artifacts.py verify wasm
+          echo 'Guest WASM: ${{ steps.guest-cache.outputs.cache-hit == 'true' && 'REUSED' || 'REBUILT' }}' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        if: steps.guest-cache.outputs.cache-hit != 'true'
+        with:
+          path: build/guest-wasm
+          key: ${{ steps.guest-key.outputs.key }}
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: guest-wasm-${{ github.sha }}
@@ -64,6 +77,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           ref: ${{ github.sha }}
+          fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
         with:
           go-version: '1.26.8'
@@ -75,8 +89,28 @@ jobs:
         with:
           name: guest-wasm-${{ github.sha }}
           path: build/guest-wasm/
-      - name: AOT compile exact transferred WASM
-        run: python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm
+      - name: Resolve platform AOT identity
+        id: aot-key
+        run: echo "key=$(python scripts/benchmark_artifacts.py key aot --target darwin-arm64)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        id: aot-cache
+        with:
+          path: build/guest-aot
+          key: ${{ steps.aot-key.outputs.key }}
+      - name: AOT compile and seal (cache miss)
+        if: steps.aot-cache.outputs.cache-hit != 'true'
+        run: |
+          python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm --benchmark-input-reuse
+          python scripts/benchmark_artifacts.py seal aot --target darwin-arm64
+      - name: Verify platform AOT identity and bytes
+        run: |
+          python scripts/benchmark_artifacts.py verify aot --target darwin-arm64
+          echo 'AOT darwin-arm64: ${{ steps.aot-cache.outputs.cache-hit == 'true' && 'REUSED' || 'REBUILT' }}' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        if: steps.aot-cache.outputs.cache-hit != 'true'
+        with:
+          path: build/guest-aot
+          key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal real MariaDB smoke
         run: |
           go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
@@ -149,6 +183,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           ref: ${{ github.sha }}
+          fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
         with:
           go-version: '1.26.8'
@@ -160,10 +195,30 @@ jobs:
         with:
           name: guest-wasm-${{ github.sha }}
           path: build/guest-wasm/
-      - name: AOT exact measured guest on product platform
+      - name: Resolve platform AOT identity
+        id: aot-key
+        run: echo "key=$(python scripts/benchmark_artifacts.py key aot --target ${{ matrix.platform }})" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        id: aot-cache
+        with:
+          path: build/guest-aot
+          key: ${{ steps.aot-key.outputs.key }}
+      - name: AOT compile and seal (cache miss)
+        if: steps.aot-cache.outputs.cache-hit != 'true'
         run: |
-          python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm
-          go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+          python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm --benchmark-input-reuse
+          python scripts/benchmark_artifacts.py seal aot --target ${{ matrix.platform }}
+      - name: Verify platform AOT identity and bytes
+        run: |
+          python scripts/benchmark_artifacts.py verify aot --target ${{ matrix.platform }}
+          echo 'AOT ${{ matrix.platform }}: ${{ steps.aot-cache.outputs.cache-hit == 'true' && 'REUSED' || 'REBUILT' }}' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        if: steps.aot-cache.outputs.cache-hit != 'true'
+        with:
+          path: build/guest-aot
+          key: ${{ steps.aot-key.outputs.key }}
+      - name: Minimal verified guest smoke
+        run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
       - name: Canonical Go control (diagnostics off)
         run: |
           python scripts/verify.py bench go-isolation --native-dir build/guest-aot \

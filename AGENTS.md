@@ -36,3 +36,19 @@ failure/NOT READY diagnosis, or an unexpected engineering decision.
 For an explicitly versioned release request, use the repository-local
 `.agents/skills/release/SKILL.md` (`$release vX.Y.Z-alpha.N`). It prepares and
 submits the existing workflow; it never chooses the release version.
+
+0.2 architecture experiments use `experiment/<short-purpose>` branches (for
+example `experiment/wasix-continuation` or `experiment/storage-overlay`). Main
+remains the stable product/measurement baseline: production behavior,
+instrumentation, benchmarks, diagnostics, analysis and low-risk tooling.
+Exploratory engine patches, runtime/VFS changes, cloning and disposable
+prototypes belong on experiment branches, which are not assumed merge-ready.
+Before integration, summarize hypothesis, correctness, benchmark results,
+semantic differences, platform limits, upstream patches and the decision
+(reject / continue / integrate). Integrate the smallest production-quality
+change rather than blindly merging exploratory history.
+
+Keep `guest/source.patch` canonical. Temporary guest changes belong in
+`guest/experimental.patch` on the experiment branch; preparation records it
+separately and release provenance rejects it. See `docs/development.md` for
+measurement artifact reuse and experiment preparation.

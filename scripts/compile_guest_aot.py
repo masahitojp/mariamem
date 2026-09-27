@@ -13,7 +13,7 @@ from release_version import PYTHON_VERSION
 from native_target import current_target, platform_fields, elf_dependencies
 
 
-def verify_handoff(directory):
+def verify_handoff(directory, *, check_source_commit=True, check_input_lock=True):
     wasm = directory / "mariamem.wasm"
     provenance_path = directory / "provenance.json"
     provenance = json.loads(provenance_path.read_text())
@@ -21,7 +21,7 @@ def verify_handoff(directory):
             or provenance.get("target") != "wasm32/WASIX"
             or provenance.get("wasm_file") != wasm.name):
         raise ValueError("invalid Linux guest WASM handoff")
-    if provenance.get("inputs_lock_sha256") != digest(ROOT / "release/inputs.lock.json"):
+    if check_input_lock and provenance.get("inputs_lock_sha256") != digest(ROOT / "release/inputs.lock.json"):
         raise ValueError("guest WASM was built with a different input lock")
     prepared_path = directory / "prepared-source.json"
     if (digest(prepared_path) != provenance["prepared_source_sha256"]
@@ -32,7 +32,7 @@ def verify_handoff(directory):
             or json.loads(toolchain_path.read_text()) != provenance["toolchain"]):
         raise ValueError("guest toolchain record hash mismatch")
     current_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    if provenance.get("source_commit") != current_commit:
+    if check_source_commit and provenance.get("source_commit") != current_commit:
         raise ValueError("guest WASM source commit differs from checkout")
     expected = provenance["wasm_sha256"]
     if digest(wasm) != expected or wasm.stat().st_size != provenance["wasm_bytes"]:
@@ -60,9 +60,15 @@ def compile_command(wasmer, wasm, output, target):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--wasm-dir", type=Path, default=ROOT / "build/guest-wasm")
+    parser.add_argument("--benchmark-input-reuse", action="store_true",
+                        help="measurement only: verify exact input identity across commits")
     args = parser.parse_args()
+    if args.benchmark_input_reuse:
+        from benchmark_artifacts import verify_wasm
+        verify_wasm(args.wasm_dir)
     target = current_target(ROOT)
-    wasm, provenance_path, provenance = verify_handoff(args.wasm_dir)
+    wasm, provenance_path, provenance = verify_handoff(args.wasm_dir, check_source_commit=not args.benchmark_input_reuse,
+                                                 check_input_lock=not args.benchmark_input_reuse)
     runtime = ROOT / "build/tools/wasmer-guest-aot"
     extract(fetch(target["runtime_input"]), runtime)
     wasmer = runtime / "bin/wasmer"

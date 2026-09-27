@@ -38,6 +38,8 @@ def verify_ci_guest_source(root, lock, evidence_dir, build_records=None):
     wasm_record_path = wasm_dir / "provenance.json"
     aot_record_path = aot_dir / "provenance.json"
     prepared = _read(prepared_path)
+    if prepared.get("experimental_patch") or "experimental.patch" in prepared.get("overlays", {}):
+        raise ValueError("experimental guest patches cannot enter release provenance")
     toolchain = _read(toolchain_path)
     wasm_record = _read(wasm_record_path)
     aot_record = _read(aot_record_path)
