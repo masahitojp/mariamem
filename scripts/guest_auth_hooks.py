@@ -33,8 +33,15 @@ LOAD_NEW = '''  bio= NULL;
   if (!bio)
     goto err;
   EVP_PKEY *public_pkey= PEM_read_bio_PUBKEY(bio, NULL, NULL, NULL);
+  /* Pinned wolfSSL defaults to 0 for matching keys, unlike OpenSSL's 1.
+   * Its optional OpenSSL error-code mode restores the OpenSSL convention. */
+#if defined(LIBWOLFSSL_VERSION_HEX) && !defined(WOLFSSL_ERROR_CODE_OPENSSL)
+  const int keys_match= 0;
+#else
+  const int keys_match= 1;
+#endif
   int valid= public_pkey && EVP_PKEY_base_id(pkey) == EVP_PKEY_RSA &&
-    EVP_PKEY_bits(pkey) == 2048 && EVP_PKEY_cmp(pkey, public_pkey) == 1;
+    EVP_PKEY_bits(pkey) == 2048 && EVP_PKEY_cmp(pkey, public_pkey) == keys_match;
   EVP_PKEY_free(public_pkey);
   if (!valid)
     SSL_ERROR("validate RSA-2048 pair", public_key_path);

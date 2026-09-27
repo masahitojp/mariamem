@@ -38,7 +38,8 @@ def test_auth_hooks_check_both_files_before_writing(tmp_path):
     assert (tmp_path / PLUGIN).read_text() == before
 
 
-def test_native_pinned_authentication(tmp_path):
+@pytest.mark.parametrize('comparison_mode', ['openssl', 'wolfssl', 'wolfssl-openssl-codes'])
+def test_native_pinned_authentication(tmp_path, comparison_mode):
     """Native crypto catches protocol/key regressions; WASIX CLI proves ABI/build.
 
     Requires prepared pinned input sources locally. We compile the unchanged
@@ -135,6 +136,19 @@ int ssl_genkeys(void);
 int ssl_loadkeys(void);
 int ssl_decrypt(EVP_PKEY*,unsigned char*,size_t,unsigned char*,size_t*);
 void sha256_crypt_r(const unsigned char*,size_t,const unsigned char*,size_t,unsigned char*,size_t);
+'''
+    # Exercise the guest backend's documented return convention as well as
+    # OpenSSL. Keep real crypto and mismatched-pair rejection in every mode.
+    if comparison_mode != 'openssl':
+        header += '\n#define LIBWOLFSSL_VERSION_HEX 0x05009001\n'
+        if comparison_mode == 'wolfssl-openssl-codes':
+            header += '#define WOLFSSL_ERROR_CODE_OPENSSL\n'
+        else:
+            header += '''
+static int guest_backend_key_cmp(const EVP_PKEY *a, const EVP_PKEY *b) {
+  return EVP_PKEY_cmp(a, b) == 1 ? 0 : -1;
+}
+#define EVP_PKEY_cmp guest_backend_key_cmp
 '''
     main = r'''
 int main(int argc, char **argv) {
