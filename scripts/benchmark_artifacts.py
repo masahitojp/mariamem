@@ -11,6 +11,7 @@ from native_target import target_metadata, platform_fields
 from release_version import PYTHON_VERSION
 
 RECIPE = ('scripts/prepare_guest.py', 'scripts/guest_init_hooks.py',
+          'scripts/guest_auth_hooks.py', 'scripts/prepared_auth_keys.py',
           'scripts/build_guest_wasm.py', 'scripts/install_guest_toolchain.py',
           'scripts/common.py', 'scripts/benchmark_artifacts.py', 'scripts/guest_experiment.py',
           'scripts/install_guest_host_tools.sh')

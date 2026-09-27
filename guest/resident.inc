@@ -102,6 +102,9 @@ static void *multi_worker(void *arg)
 }
 
 #include "snapshot_fs.inc"
+#include "prepared_auth_keys.inc"
+extern int mariamem_auth_keys_ready(void);
+extern int mariamem_auth_key_self_test(void);
 
 int main(int argc, char **argv)
 {
@@ -109,13 +112,43 @@ int main(int argc, char **argv)
   init_enable();
   mariamem_init_mark("guest_main");
   startup_mark("guest_main");
-  if (argc > 2 || (argc == 2 && strcmp(argv[1], "--restore-snapshot"))) return 16;
+  int key_check= argc == 2 &&
+    (!strcmp(argv[1], "--check-auth-keys") ||
+     !strcmp(argv[1], "--check-auth-keys-missing") ||
+     !strcmp(argv[1], "--check-auth-keys-corrupt"));
+  if (argc > 2 || (argc == 2 && strcmp(argv[1], "--restore-snapshot") && !key_check)) return 16;
+  if (prepare_auth_keys()) return 18;
+  /* Explicit diagnostic CLI only, never changed default authentication semantics. */
+  if (key_check && !strcmp(argv[1], "--check-auth-keys-missing"))
+    if (unlink("/mariamem-auth/private.pem")) return 18;
+  if (key_check && !strcmp(argv[1], "--check-auth-keys-corrupt")) {
+    FILE *bad= fopen("/mariamem-auth/private.pem", "wb");
+    if (!bad) return 18;
+    int failed= fputs("invalid test key", bad) == EOF;
+    if (fclose(bad) || failed) return 18;
+  }
   startup_mark("restore_begin");
-  if (argc == 2 && snapshot_copy("/snapshot-in/data", "/mariadb", 0)) return 17;
+  if (argc == 2 && !key_check && snapshot_copy("/snapshot-in/data", "/mariadb", 0)) return 17;
   startup_mark("restore_complete");
   mariamem_init_mark("restore_complete");
   startup_mark("open_begin");
-  if (l4m_open()) return 11;
+  if (l4m_open()) {
+    fputs("mariamem: embedded MariaDB startup failed; the bundled test RSA keypair is required at /mariamem-auth. Inspect guest stderr and reinstall/rebuild the complete matching native bundle.\n",stderr);
+    return 11;
+  }
+  if (!mariamem_auth_keys_ready()) {
+    fputs("mariamem: caching_sha2_password failed to load the bundled public test RSA keypair; automatic generation is disabled. Reinstall/rebuild the complete matching native bundle.\n",stderr);
+    l4m_close(); return 18;
+  }
+  if (key_check) {
+    int check= mariamem_auth_key_self_test();
+    if (check)
+      fprintf(stderr, "mariamem: caching_sha2_password actual auth callback self-test failed (code=%d)\n", check);
+    else
+      fputs("{\"prepared_auth_keys\":\"PASS\",\"generated\":false,\"actual_callback\":true}\n", stdout);
+    l4m_close();
+    return check ? 19 : 0;
+  }
   /* Bootstrap connection creates test; engine remains alive after closing it. */
   mysql_close(g_mysql);
   g_mysql= NULL;

@@ -7,6 +7,8 @@ import subprocess
 from common import ROOT, LOCK, digest, extract, fetch
 from guest_init_hooks import instrument
 from guest_experiment import patch_files
+from prepared_auth_keys import write_header
+from guest_auth_hooks import prepare as prepare_auth_source
 
 source = ROOT / "build/source"
 if source.exists():
@@ -34,10 +36,12 @@ if experimental.exists():
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
 (source / "wasm/wire_api.inc").write_text(
     "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "resident.inc"\n')
-for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc", "init_diagnostics.inc"):
+for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc", "init_diagnostics.inc", "prepared_auth_keys.inc"):
     shutil.copy2(ROOT / "guest" / name, source / "wasm" / name)
 shutil.copy2(ROOT / "guest/init_diagnostics.h", source / "include/mariamem_init_diagnostics.h")
 diagnostic_files = instrument(source)
+auth_files = prepare_auth_source(source)
+auth_header = write_header(source)
 cmake = source / 'wasm/CMakeLists.txt'
 text = cmake.read_text()
 anchor = '  TARGET_LINK_OPTIONS(lite4mariadb-wasix PRIVATE\n'
@@ -62,6 +66,7 @@ manifest = {"inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
             "modified_files": {name: digest(source / name) for name in
                                (*LOCK["pristine_files"], "wasm/wire_api.inc", "wasm/resident.inc",
                                 "wasm/snapshot_fs.inc", "wasm/startup_timing.inc", "wasm/init_diagnostics.inc",
+                                "wasm/prepared_auth_keys.inc", auth_header, *auth_files,
                                 "include/mariamem_init_diagnostics.h", *diagnostic_files,
                                 "cmake/pcre.cmake", "cmake/libfmt.cmake", *experimental_files)}}
 if experimental.exists():

@@ -30,10 +30,12 @@ def test_guest_identity_ignores_harness_but_changes_for_patch_recipe_and_pins(tm
     before = reuse.guest_inputs(root)
     (root / 'README.md').write_text('measurement-only change')
     assert reuse.guest_inputs(root) == before
-    for name in ('guest/source.patch', 'scripts/prepare_guest.py', 'release/inputs.lock.json'):
+    for name in ('guest/source.patch', 'guest/test-auth-keypair.json',
+                 'scripts/prepare_guest.py', 'scripts/guest_auth_hooks.py',
+                 'scripts/prepared_auth_keys.py', 'release/inputs.lock.json'):
         path = root / name
         original = path.read_bytes()
-        if name.endswith('.json'):
+        if name == 'release/inputs.lock.json':
             changed = json.loads(original)
             changed['toolchain']['wasixcc'] = 'changed'
             write_json(path, changed)

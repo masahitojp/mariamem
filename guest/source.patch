@@ -12,7 +12,19 @@
  
  #ifdef __EMSCRIPTEN__
  #include <emscripten.h>
-@@ -347,9 +352,11 @@
+@@ -342,6 +347,11 @@
+     (char *)"--loose-innodb-purge-threads=1",
+     (char *)"--table-open-cache=32",
+     (char *)"--thread-cache-size=0",
+     (char *)"--socket=/tmp/mysql.sock",
++#ifdef L4M_RESIDENT
++    (char *)"--caching-sha2-password-private-key-path=/mariamem-auth/private.pem",
++    (char *)"--caching-sha2-password-public-key-path=/mariamem-auth/public.pem",
++    (char *)"--caching-sha2-password-auto-generate-rsa-keys=OFF",
++#endif
+     NULL
+   };
+@@ -347,9 +357,11 @@
    };
    int argc= (int)(sizeof(argv) / sizeof(argv[0]) - 1);
  
