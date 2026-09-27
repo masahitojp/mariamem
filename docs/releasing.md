@@ -1,6 +1,6 @@
 # Releasing mariamem
 
-The canonical release version is `v0.1.0`; the Python distribution is `0.1.0`.
+The canonical release version is `v0.2.0-alpha.1`; the Python distribution is `0.2.0a1`.
 Change the five semantic components only in `python/mariamem/_version.py`.
 For a stable release, set `STAGE = ""` and `SERIAL = 0`; this derives
 `vX.Y.Z` and Python `X.Y.Z`. Use `release/NOTES-vX.Y.Z.md`. Stable GitHub

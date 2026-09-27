@@ -1,13 +1,13 @@
 # Python API
 
-Python distribution `0.1.0` provides macOS 15+ arm64 and Ubuntu 24.04 LTS x86_64 wheels. Use a locally built
+Python distribution `0.2.0a1` provides macOS 15+ arm64 and Ubuntu 24.04 LTS x86_64 wheels. Use a locally built
 wheel or the published GitHub Release asset. The wheel includes the host and
 native runtime. See the [README](../README.md#python)
 for installation and a first query.
 
 The release includes an Ubuntu 24.04 LTS / x86_64 wheel, tagged
 `linux_x86_64`. It includes the Linux host, Wasmer runtime and target-specific
-AOT guest. This is deliberately not a manylinux compatibility claim. Install `mariamem-0.1.0-py3-none-linux_x86_64.whl` from the GitHub Release.
+AOT guest. This is deliberately not a manylinux compatibility claim. Install `mariamem-0.2.0a1-py3-none-linux_x86_64.whl` from the GitHub Release.
 Other Linux distributions and Ubuntu versions are outside the supported scope.
 
 
