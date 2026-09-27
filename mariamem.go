@@ -109,7 +109,7 @@ func start(ctx context.Context, opts Options, restore string) (*Database, error)
 	}
 	startup, cancel := context.WithTimeout(ctx, opts.StartupTimeout)
 	defer cancel()
-	s, err := host.Start(startup, bundle.Runtime, bundle.Module, runtimeDir, restore, opts.QueryTimeout, &db.logs)
+	s, err := host.StartVerified(startup, bundle, runtimeDir, restore, opts.QueryTimeout, &db.logs)
 	if err != nil {
 		return nil, hostError(errors.Join(err, os.RemoveAll(temp)), "start", true)
 	}

@@ -338,16 +338,17 @@ filesystem, not host disk activity; libc-internal stdio and mmap are blind spots
 CPU and summed I/O durations can overlap threads; do not subtract them from wall
 time and label the remainder as waiting.
 
-`benchmarks/validation_reuse.py --native-dir ... --json ... [baseline options]`
-compares within-call AOT identity reuse in a disposable source tree/private
-read-only native copy. It removes only two redundant AOT digests; initial
-manifest/artifact hashes, sidecar identity and snapshot inventory still pass.
-There is no production cache or integrity change. It requires committed source.
+The disposable source-text validation-reuse probe was retired when typed,
+single-startup artifact identity ownership entered the Go production path.
+Its historical measurements remain in `mariadb-init-investigation.md` and the
+experiment branch reports; they describe the earlier implementation. Current
+benchmarks exercise production validation, including all required native hashes,
+sidecar checks, mutation checks and snapshot inventory validation.
 
 Dispatch `guest-build-boundary.yml` with `initialization_measurement=true` for
 macOS 15 arm64 and Ubuntu 24.04 x86_64 observations: one common instrumented
 WASM, target-specific AOT, 20 measured trials / two warmups at ×1/4/8, 1,000 and
-100,000 rows, diagnostics-off control and validation-reuse experiment. Results,
+100,000 rows and diagnostics-off control. Results,
 raw samples, mapping/thread text and AOT provenance are uploaded as
 `initialization-<platform>-<commit>`. No performance gates or release operations
 run. Submit this long-running workflow and hand off without polling it.

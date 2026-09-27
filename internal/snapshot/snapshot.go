@@ -39,6 +39,16 @@ func Digest(path string) (string, error) {
 	return hex.EncodeToString(h.Sum(nil)), nil
 }
 func ModuleBuild(module string) (string, error) {
+	hash, err := Digest(module)
+	if err != nil {
+		return "", err
+	}
+	return ModuleBuildWithDigest(module, hash)
+}
+
+// ModuleBuildWithDigest validates the sidecar against a digest just verified by
+// the caller in this startup call. It does not establish trust in a path.
+func ModuleBuildWithDigest(module, hash string) (string, error) {
 	b, err := os.ReadFile(module + ".json")
 	if err != nil {
 		return "", err
@@ -51,12 +61,9 @@ func ModuleBuild(module string) (string, error) {
 	if err = json.Unmarshal(b, &m); err != nil {
 		return "", err
 	}
-	hash, err := Digest(module)
-	if err != nil {
-		return "", err
-	}
 	decoded, e := hex.DecodeString(m.WASM)
-	if e != nil || len(decoded) != 32 || m.Version != 1 || hash != m.Module {
+	verified, hashErr := hex.DecodeString(hash)
+	if e != nil || len(decoded) != 32 || hashErr != nil || len(verified) != 32 || m.Version != 1 || hash != m.Module {
 		return "", errors.New("guest artifact metadata mismatch")
 	}
 	return m.WASM, nil

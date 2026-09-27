@@ -10,6 +10,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/masahitojp/mariamem/internal/artifacts"
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/guest"
 	"github.com/masahitojp/mariamem/internal/mysqlwire"
@@ -43,6 +44,19 @@ type Rejected struct {
 func (e *Rejected) Error() string { return e.Message }
 
 func Start(ctx context.Context, runtime, module, wasmerDir, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (server *Server, err error) {
+	return start(ctx, runtime, module, wasmerDir, restore, timeout, stderr, nil)
+}
+
+// StartVerified carries native integrity established by the in-process caller.
+// The standalone Python host continues to validate its module independently.
+func StartVerified(ctx context.Context, bundle artifacts.Bundle, wasmerDir, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (*Server, error) {
+	if err := bundle.ClaimStartupIdentity(); err != nil {
+		return nil, err
+	}
+	return start(ctx, bundle.Runtime, bundle.Module, wasmerDir, restore, timeout, stderr, &bundle)
+}
+
+func start(ctx context.Context, runtime, module, wasmerDir, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }, verified *artifacts.Bundle) (server *Server, err error) {
 	ctx, finishTiming := timing.Begin(ctx, "startup")
 	defer finishTiming()
 	defer func() {
@@ -53,8 +67,14 @@ func Start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 			}
 		}
 	}()
-	build, metadataErr := snapshot.ModuleBuild(module)
-	if metadataErr != nil && !os.IsNotExist(metadataErr) {
+	var build string
+	var metadataErr error
+	if verified != nil {
+		build, metadataErr = verified.CheckStartupIdentity(runtime, module)
+	} else {
+		build, metadataErr = snapshot.ModuleBuild(module)
+	}
+	if metadataErr != nil && (verified != nil || !os.IsNotExist(metadataErr)) {
 		return nil, diagnostic.Wrap("artifact_mismatch", "artifact_validation", metadataErr)
 	}
 	if restore != "" {
@@ -76,6 +96,12 @@ func Start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 		return nil, err
 	}
 	timing.Mark(ctx, "transfer_prepared")
+	if verified != nil {
+		if _, err := verified.CheckStartupIdentity(runtime, module); err != nil {
+			os.RemoveAll(transfer)
+			return nil, err
+		}
+	}
 	p, err := guest.Start(ctx, runtime, module, wasmerDir, transfer, restore, stderr)
 	if err != nil {
 		os.RemoveAll(transfer)

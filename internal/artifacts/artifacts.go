@@ -16,7 +16,10 @@ import (
 	"github.com/masahitojp/mariamem/internal/snapshot"
 )
 
-type Bundle struct{ Dir, Runtime, Module, Build string }
+type Bundle struct {
+	Dir, Runtime, Module, Build string
+	verified                    *startupIdentity
+}
 
 func Resolve(dir string) (Bundle, error) {
 	if runtime.GOOS == "linux" && runtime.GOARCH == "amd64" {
@@ -89,6 +92,10 @@ func resolve(dir, platform string, major int) (b Bundle, err error) {
 		VersionID    string            `json:"version_id"`
 		Architecture string            `json:"architecture"`
 	}
+	identity, err := captureIdentity(root)
+	if err != nil {
+		return b, err
+	}
 	raw, err := os.ReadFile(filepath.Join(root, "manifest.json"))
 	if err != nil {
 		return b, err
@@ -130,6 +137,14 @@ func resolve(dir, platform string, major int) (b Bundle, err error) {
 		}
 	}
 	b = Bundle{Dir: root, Runtime: filepath.Join(root, "wasmer-headless"), Module: filepath.Join(root, "mariamem.wasmu")}
-	b.Build, err = snapshot.ModuleBuild(b.Module)
-	return b, err
+	b.Build, err = snapshot.ModuleBuildWithDigest(b.Module, m.Hashes["mariamem.wasmu"])
+	if err != nil {
+		return b, err
+	}
+	identity.build = b.Build
+	b.verified = identity
+	if _, err = b.CheckStartupIdentity(b.Runtime, b.Module); err != nil {
+		return Bundle{}, err
+	}
+	return b, nil
 }
