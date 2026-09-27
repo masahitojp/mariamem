@@ -94,6 +94,22 @@ func (r *runner) startup(saved *mariamem.Snapshot, group time.Time) (db *mariame
 	if err = conn.QueryRowContext(ctx, "SELECT VERSION()").Scan(&version); err != nil {
 		return nil, nil, err
 	}
+	if os.Getenv("MARIAMEM_AUTH_EXPERIMENT_CHECK") == "1" {
+		var status string
+		if err = conn.QueryRowContext(ctx, "SELECT PLUGIN_STATUS FROM information_schema.PLUGINS WHERE PLUGIN_NAME='caching_sha2_password'").Scan(&status); err != nil || status != "ACTIVE" {
+			return nil, nil, fmt.Errorf("authentication plugin not active: %s: %w", status, err)
+		}
+		var name, public string
+		if err = conn.QueryRowContext(ctx, "SHOW STATUS LIKE 'Caching_sha2_password_rsa_public_key'").Scan(&name, &public); err != nil || public == "" {
+			return nil, nil, fmt.Errorf("authentication public key unavailable: %w", err)
+		}
+		if directory := os.Getenv("MARIAMEM_EXPERIMENT_AUTH_KEYS_DIR"); directory != "" {
+			expected, e := os.ReadFile(filepath.Join(directory, "public.pem"))
+			if e != nil || strings.TrimSpace(public) != strings.TrimSpace(string(expected)) {
+				return nil, nil, errors.New("plugin public key differs from prepared test key")
+			}
+		}
+	}
 	var stages any
 	if r.cfg.stages {
 		if host == nil {

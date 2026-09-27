@@ -1,0 +1,43 @@
+--- a/wasm/lite4mariadb.c
++++ b/wasm/lite4mariadb.c
+@@ -343,9 +343,14 @@
+     (char *)"--table-open-cache=32",
+     (char *)"--thread-cache-size=0",
+     (char *)"--socket=/tmp/mysql.sock",
+-    NULL
++    NULL, NULL, NULL
+   };
+-  int argc= (int)(sizeof(argv) / sizeof(argv[0]) - 1);
++  int argc= (int)(sizeof(argv) / sizeof(argv[0]) - 3);
++  if (getenv("MARIAMEM_EXPERIMENT_AUTH_KEYS"))
++  {
++    argv[argc++]= (char *)"--caching-sha2-password-private-key-path=/auth-keys/private.pem";
++    argv[argc++]= (char *)"--caching-sha2-password-public-key-path=/auth-keys/public.pem";
++  }
+ 
+   if (mysql_server_init(argc, argv, NULL))
+     return 1;
+--- a/plugin/auth_mysql_sha2/mysql_sha2.c
++++ b/plugin/auth_mysql_sha2/mysql_sha2.c
+@@ -1,3 +1,4 @@
++#include "mariamem_init_diagnostics.h"
+ /*
+   Copyright (c) 2025, MariaDB plc
+ 
+@@ -213,8 +214,14 @@
+       public_key_path == MYSQL_SYSVAR_NAME(public_key_path).def_val &&
+       access(private_key_path, F_OK) && access(public_key_path, F_OK) &&
+       auto_generate_keys)
+-    ssl_genkeys();
+-  ssl_loadkeys();
++  {
++    mariamem_init_mark("auth_generate_begin");
++    int result= ssl_genkeys();
++    mariamem_init_mark(result ? "auth_generate_failed" : "auth_generate_complete");
++  }
++  mariamem_init_mark("auth_load_begin");
++  int result= ssl_loadkeys();
++  mariamem_init_mark(result ? "auth_load_failed" : "auth_load_complete");
+   return 0;
+ }
+ 

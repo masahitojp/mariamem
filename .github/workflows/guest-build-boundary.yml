@@ -6,6 +6,10 @@ on:
         description: 'Measure opt-in guest startup stages (20 samples, no performance gates)'
         type: boolean
         default: false
+      auth_key_experiment:
+        description: "Experimental paired RSA generation vs prepared keys (experiment branch only)"
+        type: boolean
+        default: false
       plugin_measurement:
         description: 'Focused plugin/cache attribution, 1000 rows, Go Fork 1/4/8'
         type: boolean
@@ -73,7 +77,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.auth_key_experiment }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -171,7 +175,7 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement || inputs.plugin_measurement
+    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.auth_key_experiment
     needs: guest
     strategy:
       fail-fast: false
@@ -223,6 +227,12 @@ jobs:
           key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal verified guest smoke
         run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Paired authentication-key experiment
+        if: inputs.auth_key_experiment
+        run: |
+          python benchmarks/prepared_auth_keys.py --native-dir build/guest-aot --output benchmarks/results/init-auth-keys --pairs 20 --warmup 2
+          python scripts/benchmark_artifacts.py verify aot --target ${{ matrix.platform }}
+          cat benchmarks/results/init-auth-keys/summary.md >> "$GITHUB_STEP_SUMMARY"
       - name: Focused plugin/cache attribution
         if: inputs.plugin_measurement
         run: |

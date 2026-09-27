@@ -83,6 +83,10 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 			args = append(args, "--env", "MARIAMEM_INIT_DIAGNOSTICS=1")
 		}
 	}
+	// Disposable experiment: explicit test key volume, never production provisioning.
+	if keys := os.Getenv("MARIAMEM_EXPERIMENT_AUTH_KEYS_DIR"); keys != "" {
+		args = append(args, "--volume", keys+":/auth-keys", "--env", "MARIAMEM_EXPERIMENT_AUTH_KEYS=1")
+	}
 	if restore != "" {
 		args = append(args, "--volume", restore+":/snapshot-in", "--", "--restore-snapshot")
 	}
