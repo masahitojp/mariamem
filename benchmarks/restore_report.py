@@ -45,7 +45,7 @@ def summarize(reports):
                     for metric in ('wall_ns', 'process_cpu_ns', 'thread_cpu_ns', 'bytes', 'calls'):
                         add(workers, name, metric, stage[metric])
                 for f in probe['files']:
-                    path = f['path'].removeprefix('/snapshot-in/data/')
+                    path = f['path'].removeprefix('/snapshot-in/data/').removeprefix('/restore-source/')
                     add(workers, 'file:'+path, 'wall_ns', f['wall_ns'])
                     add(workers, 'file:'+path, 'size_bytes', f['size_bytes'])
                     for name, stage in f['stages'].items():

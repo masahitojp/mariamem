@@ -406,16 +406,40 @@ func (r *runner) preparedPhase(phase string, runs int) (err error) {
 	for _, text := range strings.Split(r.cfg.workers, ",") {
 		workers, _ := strconv.Atoi(text)
 		for i := 0; i < runs; i++ {
-			r.captureMemory = r.cfg.memoryDiagnostics && phase == "measurement" && i == 0
-			row, e := r.batch(saved, workers)
-			if e != nil {
-				return e
+			sourcePair := os.Getenv("MARIAMEM_SOURCE_BOUNDARY_PAIR") != ""
+			conditions := []string{"control"}
+			if sourcePair {
+				conditions = []string{"control", "reuse"}
+				if os.Getenv("MARIAMEM_SOURCE_BOUNDARY_ORDER") == "guest-first" {
+					conditions = []string{"reuse", "control"}
+				}
 			}
-			row["case"] = "fork_first_sql"
-			row["workers"] = workers
-			row["phase"] = phase
-			row["run"] = i
-			r.samples = append(r.samples, row)
+			for _, condition := range conditions {
+				if sourcePair {
+					if condition == "reuse" {
+						os.Setenv("MARIAMEM_GUEST_RESTORE_SOURCE", "1")
+					} else {
+						os.Unsetenv("MARIAMEM_GUEST_RESTORE_SOURCE")
+					}
+				}
+				r.captureMemory = r.cfg.memoryDiagnostics && phase == "measurement" && i == 0
+				row, e := r.batch(saved, workers)
+				if e != nil {
+					return e
+				}
+				row["case"] = "fork_first_sql"
+				row["workers"] = workers
+				row["phase"] = phase
+				row["run"] = i
+				if sourcePair {
+					row["source_condition"] = condition
+				}
+				r.samples = append(r.samples, row)
+			}
+			if sourcePair {
+				os.Unsetenv("MARIAMEM_GUEST_RESTORE_SOURCE")
+			}
+
 		}
 	}
 	return nil

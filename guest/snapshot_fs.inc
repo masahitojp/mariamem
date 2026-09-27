@@ -13,13 +13,16 @@ static const char *rp_names[]= {"metadata", "source_open", "destination_create",
   "read", "write", "source_close", "destination_close"};
 typedef struct { uint64_t wall, process, thread; int valid; } rp_stamp;
 typedef struct { uint64_t wall, process, thread, calls, bytes; int invalid, failed_clocks, regressed_clocks; rp_stamp first_begin, first_end; } rp_cost;
-static struct {
+typedef struct {
   int enabled, count, dropped;
   uint64_t directories;
   rp_stamp begin, end;
   rp_cost stages[RP_STAGES];
   struct { char path[384]; uint64_t size, wall; rp_cost stages[RP_STAGES]; } files[256];
-} restore_probe;
+} rp_record;
+static rp_record restore_probe, restore_prestage;
+static rp_cost restore_verification;
+static int restore_source_experiment, restore_identity_verified;
 
 static rp_stamp rp_now(void)
 {
@@ -83,13 +86,13 @@ static void rp_write_cost(FILE *f, rp_cost *c)
     (unsigned long long)c->bytes,c->invalid ? "true" : "false");
   rp_write_clock_error(f,c); fputc('}',f);
 }
-static void restore_probe_write(FILE *f)
+static void rp_write_record(FILE *f, const char *name)
 {
   if (!restore_probe.enabled) return;
   rp_cost total= {0};
   rp_add(&total,restore_probe.begin,restore_probe.end,0);
-  fprintf(f,",\"restore_copy\":{\"version\":1,\"clock\":\"guest_monotonic\",\"wall_ns\":%llu,\"process_cpu_ns\":%llu,\"thread_cpu_ns\":%llu,\"invalid_clock\":%s,\"directories\":%llu,\"file_count\":%d,\"dropped_files\":%d,\"stages\":{",
-    (unsigned long long)total.wall,
+  fprintf(f,",\"%s\":{\"version\":1,\"clock\":\"guest_monotonic\",\"wall_ns\":%llu,\"process_cpu_ns\":%llu,\"thread_cpu_ns\":%llu,\"invalid_clock\":%s,\"directories\":%llu,\"file_count\":%d,\"dropped_files\":%d,\"stages\":{",
+    name, (unsigned long long)total.wall,
     (unsigned long long)total.process,
     (unsigned long long)total.thread,
     total.invalid ? "true" : "false",
@@ -108,10 +111,23 @@ static void restore_probe_write(FILE *f)
   fputs("]}",f);
 }
 
+static void restore_probe_write(FILE *f)
+{
+  rp_write_record(f,"restore_copy");
+  if (restore_source_experiment) {
+    rp_record saved=restore_probe;
+    restore_probe=restore_prestage; rp_write_record(f,"restore_prestage"); restore_probe=saved;
+    fputs(",\"restore_verification\":",f); rp_write_cost(f,&restore_verification);
+    fprintf(f,",\"restore_source\":\"%s\",\"restore_identity_verified\":%s",
+      getenv("MARIAMEM_GUEST_RESTORE_SOURCE") ? "guest" : "host", restore_identity_verified ? "true" : "false");
+  }
+}
+
 static int snapshot_copy(const char *src, const char *dst, unsigned int depth)
 {
   if (!depth) {
-    restore_probe.enabled= !strcmp(src,"/snapshot-in/data") && getenv("MARIAMEM_RESTORE_DIAGNOSTICS") != NULL;
+    memset(&restore_probe,0,sizeof(restore_probe));
+    restore_probe.enabled= (!strcmp(src,"/snapshot-in/data") || (restore_source_experiment && !strcmp(src,"/restore-source"))) && getenv("MARIAMEM_RESTORE_DIAGNOSTICS") != NULL;
     if (restore_probe.enabled) restore_probe.begin= rp_now();
   }
   struct stat st;
@@ -214,4 +230,53 @@ static int snapshot_copy(const char *src, const char *dst, unsigned int depth)
   if (status) rc= -1;
   if (file >= 0) restore_probe.files[file].wall= rp_now().wall-file_begin.wall;
   return rc;
+}
+
+/* Exact recursive inventory and byte comparison, outside timed copy. */
+static int restore_equal(const char *a, const char *b, unsigned depth)
+{
+  struct stat sa,sb;
+  if(depth>64 || lstat(a,&sa) || lstat(b,&sb)) return -1;
+  if(S_ISDIR(sa.st_mode) && S_ISDIR(sb.st_mode)) {
+    DIR *da=opendir(a),*db=opendir(b); int rc=0,na=0,nb=0;
+    if(!da || !db) { if(da)closedir(da); if(db)closedir(db); return -1; }
+    struct dirent *e;
+    for(;;) {
+      errno=0; e=readdir(da); if(!e) { if(errno)rc=-1; break; }
+      if(!strcmp(e->d_name,".") || !strcmp(e->d_name,".."))continue;
+      na++; char pa[4096],pb[4096];
+      if(snprintf(pa,sizeof(pa),"%s/%s",a,e->d_name)>=(int)sizeof(pa) ||
+         snprintf(pb,sizeof(pb),"%s/%s",b,e->d_name)>=(int)sizeof(pb) || restore_equal(pa,pb,depth+1)) {rc=-1;break;}
+    }
+    for(;;) {errno=0;e=readdir(db);if(!e){if(errno)rc=-1;break;}if(strcmp(e->d_name,".")&&strcmp(e->d_name,".."))nb++;}
+    if(closedir(da))rc=-1; if(closedir(db))rc=-1;
+    return rc || na!=nb ? -1 : 0;
+  }
+  if(!S_ISREG(sa.st_mode)||!S_ISREG(sb.st_mode)||sa.st_size!=sb.st_size)return -1;
+  FILE *fa=fopen(a,"rb"),*fb=fopen(b,"rb");int rc=0;
+  if(!fa||!fb){if(fa)fclose(fa);if(fb)fclose(fb);return -1;}
+  unsigned char ba[65536],bb[65536];size_t n,m;
+  do {n=fread(ba,1,sizeof(ba),fa);m=fread(bb,1,sizeof(bb),fb);if(n!=m||memcmp(ba,bb,n)){rc=-1;break;}}while(n);
+  if(ferror(fa)||ferror(fb))rc=-1;
+  if(fclose(fa))rc=-1;if(fclose(fb))rc=-1;return rc;
+}
+static int snapshot_restore(void)
+{
+  const char *original="/snapshot-in/data",*source=original;
+  restore_source_experiment=getenv("MARIAMEM_SOURCE_BOUNDARY_PROBE")!=NULL;
+  if(restore_source_experiment && !getenv("MARIAMEM_RESTORE_DIAGNOSTICS"))return -1;
+  if(restore_source_experiment && getenv("MARIAMEM_GUEST_RESTORE_SOURCE")) {
+    if(snapshot_copy(original,"/restore-source",0))return -1;
+    restore_prestage=restore_probe;
+    rp_stamp begin=rp_now();int rc=restore_equal(original,"/restore-source",0);
+    rp_add(&restore_verification,begin,rp_now(),0);if(rc)return -1;
+    source="/restore-source";
+  }
+  if(snapshot_copy(source,"/mariadb",0))return -1;
+  if(restore_source_experiment) {
+    rp_stamp begin=rp_now();int rc=restore_equal(original,"/mariadb",0);
+    rp_add(&restore_verification,begin,rp_now(),0);if(rc)return -1;
+    restore_identity_verified=1;
+  }
+  return 0;
 }

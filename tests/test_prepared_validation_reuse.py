@@ -53,7 +53,7 @@ def test_paired_differences_not_difference_of_percentiles():
 
 def test_measurement_path_keeps_prepared_keys_and_omits_memory_diagnostics():
     text = (ROOT/'benchmarks/prepared_validation_reuse.py').read_text()
-    assert "verify_branches(raw, 'existing-keys') != 14" in text
+    assert "verify_branches(raw, 'existing-keys') != (27 if source_boundary else 14)" in text
     assert 'MARIAMEM_AUTH_EXPERIMENT_CHECK' in text
     assert '--memory-diagnostics' not in text
     assert 'changed = patch(root)' in text
@@ -61,8 +61,8 @@ def test_measurement_path_keeps_prepared_keys_and_omits_memory_diagnostics():
     assert "('reuse', 'control')" in text
 
 
-@pytest.mark.parametrize("restore", [False, True])
-def test_orchestration_shares_native_keys_and_alternates_without_rebuild(tmp_path, restore):
+@pytest.mark.parametrize("restore,source", [(False, False), (True, False), (False, True)])
+def test_orchestration_shares_native_keys_and_alternates_without_rebuild(tmp_path, restore, source):
     native = tmp_path/'native'
     native.mkdir()
     (native/'provenance.json').write_text('{}')
@@ -95,21 +95,25 @@ def test_orchestration_shares_native_keys_and_alternates_without_rebuild(tmp_pat
     with patch('prepared_validation_reuse.subprocess.check_output', side_effect=git), \
          patch('prepared_validation_reuse.subprocess.run', side_effect=command), \
          patch('prepared_validation_reuse.patch', return_value={'source.go': 'b'*64}) as modified, \
-         patch('prepared_validation_reuse.verify_branches', return_value=14) as verify, \
+         patch('prepared_validation_reuse.verify_branches', return_value=27 if source else 14) as verify, \
          patch('prepared_validation_reuse.tarfile.TarFile.extractall') as extract, \
          patch('prepared_validation_reuse.aggregate', return_value=empty), \
          patch('prepared_validation_reuse.platform.platform', return_value='test-platform'), \
-         patch('restore_report.summarize', return_value=[]):
-        run(native, tmp_path/'results', pairs=2, warmup=0, restore_attribution=restore)
+         patch('restore_report.summarize', return_value=[]), \
+         patch('source_boundary_report.summarize', return_value={}):
+        run(native, tmp_path/'results', pairs=2, warmup=0, restore_attribution=restore, source_boundary=source)
     assert len(builds) == len(checks) == 2
-    assert modified.call_count == (2 if restore else 1)
+    assert modified.call_count == (2 if restore or source else 1)
     assert extract.call_count == 2
     assert all(call.kwargs['filter'] == 'data' for call in extract.call_args_list)
-    assert [Path(args[0]).name for args, _ in calls] == ['control-go', 'reuse-go', 'reuse-go', 'control-go']
+    assert [Path(args[0]).name for args, _ in calls] == (['control-go', 'control-go'] if source else ['control-go', 'reuse-go', 'reuse-go', 'control-go'])
     assert len({args[args.index('--native-dir')+1] for args, _ in calls}) == 1
     assert len({env['MARIAMEM_EXPERIMENT_AUTH_KEYS_DIR'] for _, env in calls}) == 1
     assert all(env['MARIAMEM_AUTH_EXPERIMENT_CHECK'] == '1' for _, env in calls)
     assert all('--memory-diagnostics' not in args for args, _ in calls)
     assert all(call.args[1] == 'existing-keys' for call in verify.call_args_list)
 
-    assert [env.get("MARIAMEM_RESTORE_DIAGNOSTICS") for _, env in calls] == ([None, "1", "1", None] if restore else [None]*4)
+    assert [env.get("MARIAMEM_RESTORE_DIAGNOSTICS") for _, env in calls] == (["1", "1"] if source else ([None, "1", "1", None] if restore else [None]*4))
+
+    if source:
+        assert [env["MARIAMEM_SOURCE_BOUNDARY_ORDER"] for _, env in calls] == ["host-first", "guest-first"]

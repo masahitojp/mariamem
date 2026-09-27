@@ -111,7 +111,7 @@ int main(int argc, char **argv)
   startup_mark("guest_main");
   if (argc > 2 || (argc == 2 && strcmp(argv[1], "--restore-snapshot"))) return 16;
   startup_mark("restore_begin");
-  if (argc == 2 && snapshot_copy("/snapshot-in/data", "/mariadb", 0)) return 17;
+  if (argc == 2 && snapshot_restore()) return 17;
   startup_mark("restore_complete");
   mariamem_init_mark("restore_complete");
   startup_mark("open_begin");

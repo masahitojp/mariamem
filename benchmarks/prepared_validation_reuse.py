@@ -76,7 +76,7 @@ def aggregate(reports):
     return result
 
 
-def run(native, output, pairs=20, warmup=2, restore_attribution=False):
+def run(native, output, pairs=20, warmup=2, restore_attribution=False, source_boundary=False):
     if subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True).strip():
         raise ValueError('commit the experiment before measuring')
     source = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
@@ -99,7 +99,7 @@ def run(native, output, pairs=20, warmup=2, restore_attribution=False):
             root.mkdir()
             with tarfile.open(fileobj=io.BytesIO(archive)) as tar:
                 tar.extractall(root, filter='data')
-            if condition == 'reuse' or restore_attribution:
+            if condition == 'reuse' or restore_attribution or source_boundary:
                 changed = patch(root)  # Existing two-digest within-call probe only.
             subprocess.run(['go', 'test', './internal/artifacts', './internal/snapshot', './internal/host'], cwd=root, check=True)
             binary = temporary/(condition+'-go')
@@ -112,20 +112,30 @@ def run(native, output, pairs=20, warmup=2, restore_attribution=False):
         subprocess.run(['openssl', 'pkey', '-in', str(keys/'private.pem'), '-pubout', '-out', str(keys/'public.pem')], check=True)
         key_hashes = hashes(keys)
         env = dict(os.environ, MARIAMEM_EXPERIMENT_AUTH_KEYS_DIR=str(keys), MARIAMEM_AUTH_EXPERIMENT_CHECK='1')
-        env.pop('MARIAMEM_RESTORE_DIAGNOSTICS', None)
+        for key in ('MARIAMEM_RESTORE_DIAGNOSTICS', 'MARIAMEM_SOURCE_BOUNDARY_PROBE', 'MARIAMEM_GUEST_RESTORE_SOURCE', 'MARIAMEM_SOURCE_BOUNDARY_PAIR', 'MARIAMEM_SOURCE_BOUNDARY_ORDER'):
+            env.pop(key, None)
+        if source_boundary:
+            env.update(MARIAMEM_RESTORE_DIAGNOSTICS='1', MARIAMEM_SOURCE_BOUNDARY_PROBE='1', MARIAMEM_SOURCE_BOUNDARY_PAIR='1')
         for pair in range(-warmup, pairs):
             current = {}
             order = ('control', 'reuse') if pair % 2 == 0 else ('reuse', 'control')
+            if source_boundary:
+                env['MARIAMEM_SOURCE_BOUNDARY_ORDER'] = 'host-first' if pair % 2 == 0 else 'guest-first'
+                order = ('control',)
             for condition in order:
                 path = output/f'pair-{pair}-{condition}.json'
                 subprocess.run([str(binaries[condition]), '--native-dir', str(bundle), '--json', str(path),
                                 '--runs', '1', '--warmup', '0', '--workers', '1,4,8',
                                 '--rows', '1000', '--queries', '100', '--init-diagnostics'],
-                               cwd=temporary/condition, env=dict(env, **({'MARIAMEM_RESTORE_DIAGNOSTICS': '1'} if restore_attribution and condition == 'reuse' else {})), check=True)
+                               cwd=temporary/condition, env=dict(env, **({'MARIAMEM_GUEST_RESTORE_SOURCE': '1'} if source_boundary and condition == 'reuse' else ({'MARIAMEM_RESTORE_DIAGNOSTICS': '1'} if restore_attribution and condition == 'reuse' else {}))), check=True)
                 raw = json.loads(path.read_text())
-                if not raw['completed'] or verify_branches(raw, 'existing-keys') != 14:
+                if not raw['completed'] or verify_branches(raw, 'existing-keys') != (27 if source_boundary else 14):
                     raise ValueError('missing prepared-key startup evidence')
-                current[condition] = raw
+                if source_boundary:
+                    for name in ('control', 'reuse'):
+                        current[name] = dict(raw, samples=[s for s in raw['samples'] if s.get('source_condition', name) == name])
+                else:
+                    current[condition] = raw
                 runs.append({'pair': pair, 'condition': condition, 'raw': path.name})
             if pair >= 0:
                 reports.append(current)
@@ -151,6 +161,11 @@ def run(native, output, pairs=20, warmup=2, restore_attribution=False):
         result['experiment'] = 'prepared-keys-validation-reuse-restore-attribution'
         result['restore_copy'] = restore
         result['notes'] = ['Both conditions use prepared keys and the same validation-reuse patch.', 'Control: restore counters off; reuse: restore counters on; paired difference measures instrumentation perturbation.', 'No memory diagnostics; no storage or validation optimization.']
+    if source_boundary:
+        from source_boundary_report import summarize as source_summary
+        result['experiment'] = 'host-vs-guest-source-restore'
+        result['source_boundary'] = source_summary(reports)
+        result['notes'] = ['Both conditions: prepared keys, validation reuse, identical copy code and restore instrumentation.', 'Control=host source; reuse=guest-memory source.', 'Guest-source pre-stage and exact byte verification are separately timed; Fork and restore event envelope include these costs.', 'Guest-source retains an extra ~138MiB source; no expensive memory diagnostics.']
     (output/'summary.json').write_text(json.dumps(result, indent=2)+'\n')
     lines = ['# Prepared keys: within-call validation reuse', '', f'Candidate: `{source}`', '',
              '| Condition | Workers | Stage | p50 ms | p95 ms |', '|---|---:|---|---:|---:|']
@@ -167,6 +182,12 @@ def run(native, output, pairs=20, warmup=2, restore_attribution=False):
             if row['metric'] == 'wall_ns' and not row['component'].startswith('file:'):
                 lines.append(f"| {row['workers']} | {row['component']} | {row['p50']/1e6:.2f} | {row['p95']/1e6:.2f} |")
         lines += ['', 'Control/probe both use validation reuse; paired differences measure diagnostic perturbation. File/CPU/byte distributions are in summary.json.']
+    if source_boundary:
+        lines += ['', '## Copy-only source comparison (pre-stage and verification are separate)', '', '| Condition | Workers | Component | p50 ms | p95 ms |', '|---|---:|---|---:|---:|']
+        for condition, rows in result['source_boundary'].items():
+            for row in rows:
+                if row['metric'] == 'wall_ns' and not row['component'].startswith('file:'):
+                    lines.append(f"| {condition} | {row['workers']} | {row['component']} | {row['p50']/1e6:.2f} | {row['p95']/1e6:.2f} |")
     (output/'summary.md').write_text('\n'.join(lines)+'\n')
 
 
@@ -177,7 +198,10 @@ if __name__ == '__main__':
     parser.add_argument('--pairs', type=int, default=20)
     parser.add_argument('--warmup', type=int, default=2)
     parser.add_argument('--restore-attribution', action='store_true')
+    parser.add_argument('--source-boundary', action='store_true')
     args = parser.parse_args()
+    if args.restore_attribution and args.source_boundary:
+        parser.error('choose exactly one restore probe')
     if args.pairs < 1 or args.warmup < 0:
         parser.error('positive pairs and nonnegative warmup required')
-    run(args.native_dir.resolve(), args.output.resolve(), args.pairs, args.warmup, args.restore_attribution)
+    run(args.native_dir.resolve(), args.output.resolve(), args.pairs, args.warmup, args.restore_attribution, args.source_boundary)

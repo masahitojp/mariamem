@@ -83,6 +83,11 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 			args = append(args, "--env", "MARIAMEM_INIT_DIAGNOSTICS=1")
 			if os.Getenv("MARIAMEM_RESTORE_DIAGNOSTICS") == "1" {
 				args = append(args, "--env", "MARIAMEM_RESTORE_DIAGNOSTICS=1")
+				for _, key := range []string{"MARIAMEM_SOURCE_BOUNDARY_PROBE", "MARIAMEM_GUEST_RESTORE_SOURCE"} {
+					if os.Getenv(key) == "1" {
+						args = append(args, "--env", key+"=1")
+					}
+				}
 			}
 		}
 	}

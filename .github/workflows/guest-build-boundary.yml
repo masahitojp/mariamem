@@ -6,6 +6,10 @@ on:
         description: 'Measure opt-in guest startup stages (20 samples, no performance gates)'
         type: boolean
         default: false
+      source_boundary:
+        description: "Paired host-mounted vs guest-memory source copy attribution"
+        type: boolean
+        default: false
       restore_attribution:
         description: "Prepared keys + validation reuse: paired restore instrumentation attribution"
         type: boolean
@@ -85,7 +89,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.auth_key_experiment && !inputs.prepared_validation_experiment && !inputs.restore_attribution }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.auth_key_experiment && !inputs.prepared_validation_experiment && !inputs.restore_attribution && !inputs.source_boundary }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -183,7 +187,7 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.auth_key_experiment || inputs.prepared_validation_experiment || inputs.restore_attribution
+    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.auth_key_experiment || inputs.prepared_validation_experiment || inputs.restore_attribution || inputs.source_boundary
     needs: guest
     strategy:
       fail-fast: false
@@ -235,6 +239,12 @@ jobs:
           key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal verified guest smoke
         run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Paired source-boundary probe
+        if: inputs.source_boundary
+        run: |
+          python benchmarks/prepared_validation_reuse.py --native-dir build/guest-aot --output benchmarks/results/init-source-boundary --pairs 20 --warmup 2 --source-boundary
+          python scripts/benchmark_artifacts.py verify aot --target ${{ matrix.platform }}
+          cat benchmarks/results/init-source-boundary/summary.md >> "$GITHUB_STEP_SUMMARY"
       - name: Restore attribution (same keys and validation reuse in both conditions)
         if: inputs.restore_attribution
         run: |
