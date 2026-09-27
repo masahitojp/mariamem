@@ -1,0 +1,8 @@
+{
+  "image_tag": "docker.io/library/mariadb:11.8.9",
+  "image": "docker.io/library/mariadb:11.8.9@sha256:de4cf325ed1fc8a22460b4f285de7b9e06d89edbd593505e678ec480f86e501b",
+  "architecture": "amd64",
+  "testcontainers_go": "v0.40.0",
+  "rows": 1000,
+  "payload_characters": 32
+}

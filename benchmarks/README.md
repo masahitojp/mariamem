@@ -352,3 +352,12 @@ WASM, target-specific AOT, 20 measured trials / two warmups at ×1/4/8, 1,000 an
 raw samples, mapping/thread text and AOT provenance are uploaded as
 `initialization-<platform>-<commit>`. No performance gates or release operations
 run. Submit this long-running workflow and hand off without polling it.
+
+## Same-run Go / Testcontainers practical comparison
+
+The maintained Go comparison uses `python3 scripts/verify.py bench competitive
+--native-dir /path/to/verified/native` on Ubuntu 24.04 x86_64 with Docker.
+Use `guest-build-boundary.yml` with `competitive_baseline=true` for same-run CI,
+immutable WASM/AOT reuse, digest-pinned official MariaDB and raw artifacts.
+See [methodology/results](testcontainers-comparison.md). Docker belongs only to
+this competitor measurement, not mariamem's canonical build/release path.

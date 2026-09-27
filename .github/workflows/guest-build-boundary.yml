@@ -2,6 +2,10 @@ name: Guest build boundary verification
 on:
   workflow_dispatch:
     inputs:
+      competitive_baseline:
+        description: 'Ubuntu-only mariamem vs digest-pinned Testcontainers practical isolation comparison'
+        type: boolean
+        default: false
       fast_tranche:
         description: 'Production FAST tranche: packaged acceptance and 1000-row Go baseline on both platforms'
         type: boolean
@@ -77,7 +81,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.competitive_baseline }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -291,4 +295,63 @@ jobs:
             build/guest-aot/provenance.json
             build/guest-aot/manifest.json
           if-no-files-found: warn
+          retention-days: 30
+
+  competitive:
+    if: inputs.competitive_baseline
+    needs: guest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: guest-wasm-${{ github.sha }}
+          path: build/guest-wasm/
+      - name: Resolve platform AOT identity
+        id: aot-key
+        run: echo "key=$(python scripts/benchmark_artifacts.py key aot --target ubuntu24.04-x86_64)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        id: aot-cache
+        with:
+          path: build/guest-aot
+          key: ${{ steps.aot-key.outputs.key }}
+      - name: AOT compile and seal (cache miss)
+        if: steps.aot-cache.outputs.cache-hit != 'true'
+        run: |
+          python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm --benchmark-input-reuse
+          python scripts/benchmark_artifacts.py seal aot --target ubuntu24.04-x86_64
+      - name: Verify platform AOT identity and bytes
+        run: |
+          python scripts/benchmark_artifacts.py verify aot --target ubuntu24.04-x86_64
+          echo 'AOT ubuntu24.04-x86_64: ${{ steps.aot-cache.outputs.cache-hit == 'true' && 'REUSED' || 'REBUILT' }}' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        if: steps.aot-cache.outputs.cache-hit != 'true'
+        with:
+          path: build/guest-aot
+          key: ${{ steps.aot-key.outputs.key }}
+      - name: Practical same-run comparison (not a release or performance gate)
+        run: |
+          python benchmarks/testcontainers_compare.py --native-dir build/guest-aot --runs 20 --warmup 2
+          cat benchmarks/results/testcontainers-comparison.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        if: always()
+        with:
+          name: competitive-ubuntu24.04-${{ github.sha }}
+          path: |
+            benchmarks/results/testcontainers-comparison*
+            build/guest-aot/manifest.json
+            build/guest-aot/provenance.json
+            benchmarks/testcontainers-inputs.json
+          if-no-files-found: error
           retention-days: 30
