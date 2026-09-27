@@ -37,6 +37,11 @@ func (r *runner) restoreComparison() (err error) {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
 	defer cancel()
+	// Pool.Close sends disconnect; guest session-close acknowledgement is async.
+	// Finish fixture cleanup before Snapshot, outside every measured batch.
+	if err = db.WaitDisconnected(ctx); err != nil {
+		return err
+	}
 	saved, err := db.Snapshot(ctx, mariamem.SnapshotOptions{})
 	if err != nil {
 		return err
