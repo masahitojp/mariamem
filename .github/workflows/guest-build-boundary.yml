@@ -6,6 +6,10 @@ on:
         description: 'Measure opt-in guest startup stages (20 samples, no performance gates)'
         type: boolean
         default: false
+      plugin_measurement:
+        description: 'Focused plugin/cache attribution, 1000 rows, Go Fork 1/4/8'
+        type: boolean
+        default: false
       initialization_measurement:
         description: 'MariaDB init/CPU/file/memory probe, two fixtures and disposable validation reuse'
         type: boolean
@@ -69,7 +73,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -167,7 +171,7 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement
+    if: inputs.initialization_measurement || inputs.plugin_measurement
     needs: guest
     strategy:
       fail-fast: false
@@ -219,12 +223,22 @@ jobs:
           key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal verified guest smoke
         run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Focused plugin/cache attribution
+        if: inputs.plugin_measurement
+        run: |
+          python scripts/verify.py bench go-isolation --native-dir build/guest-aot \
+            --init-diagnostics --runs 20 --warmup 2 --workers 1 4 8 --rows 1000 \
+            --json benchmarks/results/init-plugins.json
+          python benchmarks/init_report.py benchmarks/results/init-plugins.json > benchmarks/results/init-plugins.md
+          cat benchmarks/results/init-plugins.md >> "$GITHUB_STEP_SUMMARY"
       - name: Canonical Go control (diagnostics off)
+        if: inputs.initialization_measurement
         run: |
           python scripts/verify.py bench go-isolation --native-dir build/guest-aot \
             --guest-stage-timing --runs 20 --warmup 2 --workers 1 4 8 --rows 1000 \
             --json benchmarks/results/init-control.json
       - name: Initialization attribution and fixture sensitivity
+        if: inputs.initialization_measurement
         run: |
           for rows in 1000 100000; do
             python scripts/verify.py bench go-isolation --native-dir build/guest-aot \
@@ -234,6 +248,7 @@ jobs:
             cat "benchmarks/results/init-${rows}.md" >> "$GITHUB_STEP_SUMMARY"
           done
       - name: Disposable within-call validation reuse (no production patch)
+        if: inputs.initialization_measurement
         run: |
           python benchmarks/validation_reuse.py --native-dir build/guest-aot \
             --guest-stage-timing --runs 20 --warmup 2 --workers 1 4 8 --rows 1000 \

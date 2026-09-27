@@ -6,10 +6,12 @@
 extern "C" {
 #endif
 void mariamem_init_mark(const char *name);
+void mariamem_init_plugin_mark(const char *name, const char *boundary);
 #ifdef __cplusplus
 }
 #endif
 #else
 #define mariamem_init_mark(name) ((void)0)
+#define mariamem_init_plugin_mark(name, boundary) ((void)0)
 #endif
 #endif

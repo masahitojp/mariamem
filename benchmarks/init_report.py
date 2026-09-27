@@ -11,6 +11,16 @@ from isolation_baseline import percentile
 INTERVALS = {
     'embedded options': ('embedded_begin', 'embedded_options_complete'),
     'global components before plugins': ('components_begin', 'plugins_begin'),
+    'MyISAM key cache': ('myisam_key_cache_begin', 'myisam_key_cache_complete'),
+    'Aria setup/control': ('aria_begin', 'aria_cache_begin'),
+    'Aria main page cache': ('aria_cache_begin', 'aria_cache_complete'),
+    'Aria log page cache': ('aria_cache_complete', 'aria_log_cache_complete'),
+    'Aria log initialization': ('aria_log_cache_complete', 'aria_log_init_complete'),
+    'Aria recovery': ('aria_log_init_complete', 'aria_recovery_complete'),
+    'Aria checkpoint': ('aria_recovery_complete', 'aria_checkpoint_complete'),
+    'Aria remaining setup': ('aria_checkpoint_complete', 'aria_complete'),
+    'Aria enclosing init': ('aria_begin', 'aria_complete'),
+    'post-srv_start plugins': ('innodb_start_complete', 'plugins_complete'),
     'all plugins': ('plugins_begin', 'plugins_complete'),
     'InnoDB options': ('innodb_plugin_begin', 'innodb_parameters_complete'),
     'InnoDB runtime before buffer pool': ('innodb_runtime_begin', 'buffer_pool_begin'),
@@ -34,7 +44,8 @@ def validate(record):
     events = record.get('events', [])
     names = [e['name'] for e in events]
     required = {'guest_main', 'restore_complete', 'ready_prepared'} | {name for pair in INTERVALS.values() for name in pair}
-    if len(names) != len(set(names)) or not required <= set(names):
+    fixed = [name for name in names if not name.startswith('plugin.')]
+    if len(fixed) != len(set(fixed)) or not required <= set(names):
         raise ValueError('initialization boundaries missing or duplicated')
     offsets = [e['offset_ns'] for e in events]
     if any(not isinstance(v, int) or v < 0 for v in offsets) or offsets != sorted(offsets):
@@ -58,8 +69,25 @@ def summarize(report):
     groups = {}
     for sample, _, record in records(report):
         events = validate(record)
-        for label, (a, b) in INTERVALS.items():
-            start, end = events[a], events[b]
+        intervals = [(label, events[a], events[b]) for label, (a, b) in INTERVALS.items()]
+        pending = {}
+        for event in record['events']:
+            name = event['name']
+            if name.startswith('plugin.') and name.endswith('.begin'):
+                plugin = name[7:-6]
+                if plugin in pending:
+                    raise ValueError('overlapping plugin initialization callback')
+                pending[plugin] = event
+            elif name.startswith('plugin.') and (name.endswith('.end') or name.endswith('.failed')):
+                plugin, boundary = name[7:].rsplit('.', 1)
+                if plugin not in pending:
+                    raise ValueError('plugin callback end without begin')
+                intervals.append(('plugin ' + plugin + (' failed callback' if boundary == 'failed' else ' callback'), pending.pop(plugin), event))
+                if plugin == 'InnoDB' and boundary == 'end':
+                    intervals.append(('remaining InnoDB after srv_start', events['innodb_start_complete'], event))
+        # Failed/retried plugin attempts can have an unmatched begin. Keep that
+        # inventory in raw events; never pretend an absent end is a zero timer.
+        for label, start, end in intervals:
             row = {'wall_ns': end['offset_ns'] - start['offset_ns']}
             if row['wall_ns'] < 0:
                 raise ValueError(f'initialization order changed: {label}')
@@ -86,15 +114,16 @@ def render(report):
     lines = ['# MariaDB initialization diagnostics', '',
              f"Source: `{report['environment'].get('commit', 'unknown')}`; fixture rows: {report.get('settings', {}).get('rows', 'unknown')}.", '',
              'Nested buckets overlap. Percentiles are not additive. CPU clocks cover the runtime process / current OS thread, not exclusive engine CPU.', '',
-             '| Case | DBs | Stage | n | Wall p50 / p95 ms | Process CPU p50 / p95 ms | Read / write p50 MiB | Alloc balance delta p50 MiB |',
+             '| Case | DBs | Stage | n | Wall p50 / p95 ms | Process / thread CPU p50 / p95 ms | Read / write p50 MiB | Alloc / mapping delta p50 MiB |',
              '| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: |']
     def pair(v):
         return f"{v['p50']/1e6:.2f} / {v['p95']/1e6:.2f}" if v else 'unavailable'
     for row in rows:
         read, write = row['read_bytes'], row['write_bytes']
         allocation = row['wrapped_alloc_balance_bytes']
+        mapping = row['wrapped_mmap_balance_bytes']
         io = f"{read['p50']/1024**2:.2f} / {write['p50']/1024**2:.2f}" if read and write else 'unavailable'
-        lines.append(f"| {row['case']} | {row['workers']} | {row['stage']} | {row['count']} | {pair(row['wall_ns'])} | {pair(row['process_cpu_ns'])} | {io} | {allocation['p50']/1024**2:.2f} |")
+        lines.append(f"| {row['case']} | {row['workers']} | {row['stage']} | {row['count']} | {pair(row['wall_ns'])} | {pair(row['process_cpu_ns'])} / {pair(row['thread_cpu_ns'])} | {io} | {allocation['p50']/1024**2:.2f} / {mapping['p50']/1024**2:.2f} |")
     files = {}
     for sample, _, record in records(report):
         for file in record.get('files', []):

@@ -16,7 +16,7 @@ extern size_t malloc_size(const void *);
 #include <pthread.h>
 #include <errno.h>
 
-#define INIT_EVENTS 32
+#define INIT_EVENTS 256
 #define INIT_FILES 96
 #define INIT_FDS 4096
 static int init_enabled;
@@ -31,7 +31,7 @@ static struct init_file {
 static int init_fd[INIT_FDS], init_file_count;
 static uint64_t init_dropped, init_origin;
 static struct init_event {
-  const char *name;
+  char name[128];
   uint64_t wall, process_cpu, thread_cpu, memory, requested, threads, read_bytes, write_bytes, io_ns;
   int64_t alloc_balance;
   int64_t mmap_balance;
@@ -61,7 +61,8 @@ void mariamem_init_mark(const char *name)
   pthread_mutex_lock(&init_lock);
   if (init_event_count < INIT_EVENTS) {
     struct init_event *e = &init_events[init_event_count++];
-    e->name=name; e->wall=init_now()-init_origin;
+    if (snprintf(e->name, sizeof(e->name), "%s", name) >= (int)sizeof(e->name)) init_dropped++;
+    e->wall=init_now()-init_origin;
     e->process_cpu=init_clock(CLOCK_PROCESS_CPUTIME_ID, &e->process_valid);
     e->thread_cpu=init_clock(CLOCK_THREAD_CPUTIME_ID, &e->thread_valid);
 #ifdef __wasm__
@@ -79,6 +80,18 @@ void mariamem_init_mark(const char *name)
   pthread_mutex_unlock(&init_lock);
   errno=saved;
 }
+/* Bounded plugin callback inventory, using the same counters and clocks. */
+void mariamem_init_plugin_mark(const char *name, const char *boundary)
+{
+  if (!init_enabled) return;
+  int saved = errno;
+  char label[128];
+  if (snprintf(label, sizeof(label), "plugin.%s.%s", name, boundary) >= (int)sizeof(label)) {
+    pthread_mutex_lock(&init_lock); init_dropped++; pthread_mutex_unlock(&init_lock);
+  } else mariamem_init_mark(label);
+  errno = saved;
+}
+
 static void init_quote(FILE *f, const char *s)
 {
   fputc('"', f);
