@@ -400,14 +400,17 @@ The first production FAST tranche integrates prepared public test RSA keys
 verified native artifact identity. Per-startup RSA generation and redundant
 within-call AOT hash scans are removed; mandatory integrity checks, default
 grant bypass and lifecycle semantics remain. The experiment history is not
-merged into main. Both-platform packaged acceptance and a fresh canonical Go
-baseline are the current CI checkpoint; their results must be recorded before
-this tranche is declared fully accepted. See [tranche baseline](../benchmarks/fast-tranche-baseline.md).
+merged into main. Both-platform packaged Go/Python acceptance, real authentication
+callback/key checks and lifecycle/race regressions passed. The fresh canonical Go
+baseline records Fork → first SQL ×1 p50 about 517 ms on macOS and 539 ms on
+Ubuntu; memory remains hundreds of MiB per DB. RSA generation and redundant
+within-call native validation are closed for this tranche. See
+[accepted tranche baseline](../benchmarks/fast-tranche-baseline.md).
 
 The next sequence is evidence-driven:
 
 ```text
-first FAST tranche acceptance + new main baseline
+first FAST tranche integrated + accepted main baseline
 → fresh restore/source-boundary experiment
 → profiling / competing architecture probes as supported by evidence
 → production-quality integration
