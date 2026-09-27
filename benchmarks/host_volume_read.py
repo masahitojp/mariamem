@@ -35,11 +35,15 @@ def snapshot_identity(path):
     expected = manifest['entries']
     files = {}
     seen = set()
-    for p in sorted((path / 'data').rglob('*')):
+    data = path / 'data'
+    # Go filepath.WalkDir includes the root itself as the '.' directory entry.
+    for p in [data, *sorted(data.rglob('*'))]:
         relative = p.relative_to(path / 'data').as_posix()
         if p.is_symlink() or any(c in relative for c in '\n\r\t"\\'):
             raise ValueError('unsafe snapshot path')
         seen.add(relative)
+        if relative not in expected:
+            raise ValueError('snapshot inventory mismatch: unexpected entry '+relative)
         item = expected[relative]
         if p.is_file():
             if item['kind'] != 'file' or p.stat().st_size != item['bytes'] or digest(p) != item['sha256']:
@@ -48,7 +52,7 @@ def snapshot_identity(path):
         elif not p.is_dir() or item['kind'] != 'directory':
             raise ValueError('snapshot entry type mismatch')
     if seen != set(expected):
-        raise ValueError('snapshot inventory mismatch')
+        raise ValueError(f'snapshot inventory mismatch: missing={sorted(set(expected)-seen)}, unexpected={sorted(seen-set(expected))}')
     return {'manifest_sha256': digest(path / 'manifest.json'), 'files': files,
             'verification_seconds': time.monotonic()-begin}
 

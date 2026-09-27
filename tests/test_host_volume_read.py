@@ -29,7 +29,7 @@ def fixture(root):
     (data / 'nested').mkdir(parents=True)
     (data / 'empty').write_bytes(b'')
     (data / 'nested/payload').write_bytes(bytes(range(256)) * 256 + b'end')
-    entries = {'nested': {'kind': 'directory'}}
+    entries = {'.': {'kind': 'directory'}, 'nested': {'kind': 'directory'}}
     for p in data.rglob('*'):
         if p.is_file():
             entries[p.relative_to(data).as_posix()] = {'kind': 'file', 'bytes': p.stat().st_size, 'sha256': probe.digest(p)}
@@ -63,6 +63,21 @@ def test_missing_inventory_and_corruption_fail_closed(tmp_path):
     (tmp_path / 'snapshot/data/nested/payload').write_bytes(b'bad')
     with pytest.raises(ValueError, match='integrity'):
         probe.snapshot_identity(tmp_path / 'snapshot')
+
+
+def test_manifest_root_is_required_and_validated(tmp_path):
+    snapshot = tmp_path / 'snapshot'
+    fixture(snapshot)
+    path = snapshot / 'manifest.json'
+    manifest = json.loads(path.read_text())
+    manifest['entries']['.'] = {'kind': 'file', 'bytes': 0, 'sha256': 'invalid'}
+    path.write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match='entry type'):
+        probe.snapshot_identity(snapshot)
+    del manifest['entries']['.']
+    path.write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match='inventory mismatch'):
+        probe.snapshot_identity(snapshot)
 
 
 def test_symlink_and_unknown_mode_rejected(binary, tmp_path):
