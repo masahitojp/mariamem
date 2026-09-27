@@ -2,6 +2,10 @@ name: Guest build boundary verification
 on:
   workflow_dispatch:
     inputs:
+      host_volume_measurement:
+        description: "Experimental read-only host-volume attribution on both platforms"
+        type: boolean
+        default: false
       fast_tranche:
         description: 'Production FAST tranche: packaged acceptance and 1000-row Go baseline on both platforms'
         type: boolean
@@ -77,7 +81,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.host_volume_measurement }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -175,7 +179,7 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche
+    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche || inputs.host_volume_measurement
     needs: guest
     strategy:
       fail-fast: false
@@ -227,6 +231,15 @@ jobs:
           key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal verified guest smoke
         run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Install Ubuntu syscall diagnostic
+        if: inputs.host_volume_measurement && matrix.platform == 'ubuntu24.04-x86_64'
+        run: sudo apt-get update && sudo apt-get install -y strace
+      - name: Read-only host-volume attribution
+        if: inputs.host_volume_measurement
+        run: |
+          python benchmarks/host_volume_read.py --native-dir build/guest-aot --runs 20 --warmup 2 \
+            --json benchmarks/results/init-host-volume.json
+          echo 'Read-only host-volume experiment completed; raw source/CPU/read data and separate Ubuntu syscall traces are in the initialization artifact. Nothing published.' >> "$GITHUB_STEP_SUMMARY"
       - name: Package and accept production FAST tranche
         if: inputs.fast_tranche
         run: |
@@ -288,6 +301,7 @@ jobs:
           name: initialization-${{ matrix.platform }}-${{ github.sha }}
           path: |
             benchmarks/results/init-*
+            benchmarks/results/host-volume-traces/
             build/guest-aot/provenance.json
             build/guest-aot/manifest.json
           if-no-files-found: warn

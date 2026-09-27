@@ -1,0 +1,117 @@
+--- a/wasm/lite4mariadb.c
++++ b/wasm/lite4mariadb.c
+@@ -554,1 +554,12 @@
++#define main mariamem_product_main
+ #include "wire_api.inc"
++#undef main
++#include "host_volume_probe.inc"
++int main(int argc, char **argv)
++{
++  if (argc == 2 && !strcmp(argv[1], "--host-volume-stdio"))
++    return hv_probe("/snapshot-in/data", "stdio");
++  if (argc == 2 && !strcmp(argv[1], "--host-volume-direct"))
++    return hv_probe("/snapshot-in/data", "direct");
++  return mariamem_product_main(argc, argv);
++}
+--- /dev/null
++++ b/wasm/host_volume_probe.inc
+@@ -0,0 +1,99 @@
++/* Read-only experiment. Never called by ordinary MariaDB startup/restore. */
++#include <stdio.h>
++#include <stdint.h>
++#include <stdlib.h>
++#include <string.h>
++#include <errno.h>
++#include <dirent.h>
++#include <sys/stat.h>
++#include <fcntl.h>
++#include <unistd.h>
++#include <time.h>
++
++#ifdef __wasm__
++typedef struct { unsigned char *buf; uint32_t len; } hv_iov;
++__attribute__((__import_module__("wasi_snapshot_preview1"), __import_name__("fd_read")))
++extern uint16_t hv_wasi_read(uint32_t, const hv_iov *, uint32_t, uint32_t *);
++#endif
++
++static uint64_t hv_clock(clockid_t id, int *ok)
++{
++  struct timespec ts;
++  if (clock_gettime(id, &ts)) { *ok= 0; return 0; }
++  return (uint64_t)ts.tv_sec*1000000000ULL+ts.tv_nsec;
++}
++static int hv_visit(const char *root, const char *relative, int direct, unsigned int depth)
++{
++  char path[4096]; struct stat st;
++  if (depth > 64 || snprintf(path, sizeof(path), "%s/%s", root, relative) >= (int)sizeof(path) || lstat(path, &st)) return -1;
++  if (S_ISDIR(st.st_mode)) {
++    DIR *dir= opendir(path); if (!dir) return -1;
++    int rc= 0; struct dirent *entry;
++    for (;;) {
++      errno= 0; entry= readdir(dir);
++      if (!entry) { if (errno) rc= -1; break; }
++      if (!strcmp(entry->d_name,".") || !strcmp(entry->d_name,"..")) continue;
++      char child[4096];
++      if (snprintf(child,sizeof(child),"%s%s%s",relative,*relative?"/":"",entry->d_name)>=(int)sizeof(child) || hv_visit(root,child,direct,depth+1)) {rc= -1;break;}
++    }
++    if (closedir(dir)) rc= -1;
++    return rc;
++  }
++  if (!S_ISREG(st.st_mode)) return -1;
++  /* JSON-safe paths only; snapshot names are checked by the harness too. */
++  if (strpbrk(relative,"\"\\\n\r\t")) return -1;
++  int wall_ok=1, process_ok=1, thread_ok=1;
++  uint64_t begin=hv_clock(CLOCK_MONOTONIC,&wall_ok);
++  uint64_t pb=hv_clock(CLOCK_PROCESS_CPUTIME_ID,&process_ok), tb=hv_clock(CLOCK_THREAD_CPUTIME_ID,&thread_ok);
++  FILE *file=NULL; int fd= -1;
++  if (direct) fd=open(path,O_RDONLY); else file=fopen(path,"rb");
++  if ((direct && fd<0) || (!direct && !file)) return -1;
++  uint64_t read_wall=0, read_process=0, read_thread=0, hash_wall=0, bytes=0, calls=0;
++  uint64_t checksum=14695981039346656037ULL;
++  unsigned char buffer[65536]; int rc=0;
++  for (;;) {
++    uint64_t p0=hv_clock(CLOCK_PROCESS_CPUTIME_ID,&process_ok),t0=hv_clock(CLOCK_THREAD_CPUTIME_ID,&thread_ok),w0=hv_clock(CLOCK_MONOTONIC,&wall_ok);
++    ssize_t n;
++    if (!direct) n=(ssize_t)fread(buffer,1,sizeof(buffer),file);
++    else {
++#ifdef __wasm__
++      hv_iov iov={buffer,sizeof(buffer)}; uint32_t got=0;
++      n=hv_wasi_read((uint32_t)fd,&iov,1,&got) ? -1 : (ssize_t)got;
++#else
++      n=read(fd,buffer,sizeof(buffer));
++#endif
++    }
++    uint64_t w1=hv_clock(CLOCK_MONOTONIC,&wall_ok),t1=hv_clock(CLOCK_THREAD_CPUTIME_ID,&thread_ok),p1=hv_clock(CLOCK_PROCESS_CPUTIME_ID,&process_ok);
++    read_wall+=w1-w0;read_process+=p1-p0;read_thread+=t1-t0;calls++;
++    if (n<0 || (!direct && ferror(file))) {rc= -1;break;}
++    if (!n) break;
++    bytes+=(uint64_t)n;
++    uint64_t h0=hv_clock(CLOCK_MONOTONIC,&wall_ok);
++    for (ssize_t i=0;i<n;i++) {checksum^=buffer[i];checksum*=1099511628211ULL;}
++    hash_wall+=hv_clock(CLOCK_MONOTONIC,&wall_ok)-h0;
++  }
++  if ((direct ? close(fd) : fclose(file))) rc= -1;
++  uint64_t pe=hv_clock(CLOCK_PROCESS_CPUTIME_ID,&process_ok),te=hv_clock(CLOCK_THREAD_CPUTIME_ID,&thread_ok),end=hv_clock(CLOCK_MONOTONIC,&wall_ok);
++  if (bytes!=(uint64_t)st.st_size || !wall_ok) rc= -1;
++  if (rc) return rc;
++  printf("{\"file\":\"%s\",\"bytes\":%llu,\"read_calls\":%llu,\"read_wall_ns\":%llu,\"read_process_cpu_ns\":",relative,(unsigned long long)bytes,(unsigned long long)calls,(unsigned long long)read_wall);
++  if(process_ok) printf("%llu",(unsigned long long)read_process);else fputs("null",stdout);
++  fputs(",\"read_thread_cpu_ns\":",stdout);if(thread_ok)printf("%llu",(unsigned long long)read_thread);else fputs("null",stdout);
++  printf(",\"checksum_fnv1a64\":\"%016llx\",\"checksum_wall_ns\":%llu,\"file_wall_ns\":%llu,\"file_process_cpu_ns\":",(unsigned long long)checksum,(unsigned long long)hash_wall,(unsigned long long)(end-begin));
++  if(process_ok)printf("%llu",(unsigned long long)(pe-pb));else fputs("null",stdout);
++  fputs(",\"file_thread_cpu_ns\":",stdout);if(thread_ok)printf("%llu",(unsigned long long)(te-tb));else fputs("null",stdout);
++  fputs("}\n",stdout);
++  return 0;
++}
++static int hv_probe(const char *root, const char *mode)
++{
++  if(strcmp(mode,"stdio") && strcmp(mode,"direct"))return 31;
++  int ok=1;uint64_t begin=hv_clock(CLOCK_MONOTONIC,&ok);
++  if(hv_visit(root,"",!strcmp(mode,"direct"),0)) {fprintf(stderr,"read-only probe failed: %s\n",strerror(errno));return 32;}
++  uint64_t end=hv_clock(CLOCK_MONOTONIC,&ok);
++  printf("{\"completed\":true,\"probe_wall_ns\":%llu,\"mode\":\"%s\",\"chunk_bytes\":65536,\"destination_writes\":0}\n",(unsigned long long)(end-begin),mode);
++  return ok?0:33;
++}
++#ifndef __wasm__
++int main(int argc,char **argv){return argc==3?hv_probe(argv[1],argv[2]):30;}
++#endif
