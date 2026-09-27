@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 import unittest
 import runpy
+import re
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import release_version as version
@@ -29,8 +30,11 @@ class ReleaseVersion(unittest.TestCase):
 class StableAndPrereleaseForms(unittest.TestCase):
     def test_forms(self):
         source = (version.ROOT / "python/mariamem/_version.py").read_text()
+        # These formatting cases own their input version, independently of the
+        # release currently being prepared in the canonical source.
+        for field, value in (("MAJOR", 0), ("MINOR", 1), ("PATCH", 0)):
+            source = re.sub(rf'^{field} = .*$', f'{field} = {value}', source, flags=re.M)
         for stage, serial, python, tag in [("", 0, "0.1.0", "v0.1.0"), ("alpha", 4, "0.1.0a4", "v0.1.0-alpha.4"), ("beta", 1, "0.1.0b1", "v0.1.0-beta.1"), ("rc", 1, "0.1.0rc1", "v0.1.0-rc.1")]:
-            import re
             fixture = re.sub(r'^STAGE = .*$', f'STAGE = {stage!r}', source, flags=re.M)
             fixture = re.sub(r'^SERIAL = .*$', f'SERIAL = {serial}', fixture, flags=re.M)
             values = {}
