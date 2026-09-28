@@ -63,9 +63,28 @@ func resourceCost() (c groupCost, err error) {
 			return c, errors.New("missing process counters")
 		}
 	}
-	for _, m := range c.Members {
-		if m.Error == "" && (m.Primary <= 0 || m.RSS <= 0 || m.CPU < 0) {
-			return c, errors.New("invalid process counters")
+	c, e = sumResources(c.Members)
+	if e != nil {
+		return c, e
+	}
+
+	c.Collection = time.Since(begin).Seconds()
+	return c, nil
+}
+
+// Short-lived/newly spawned processes may disappear or have no accountable
+// pages yet. Ready/baseline callers require complete counters; the startup
+// peak sampler retains these as gaps and never substitutes zero memory.
+var errCountersUnavailable = errors.New("process counters temporarily unavailable")
+
+func sumResources(members map[string]resource) (c groupCost, err error) {
+	c.Members = members
+	for pid, m := range members {
+		if m.Primary < 0 || m.RSS < 0 || m.CPU < 0 {
+			return c, fmt.Errorf("invalid process counters for pid %s: %+v", pid, m)
+		}
+		if m.Error != "" || m.Primary == 0 || m.RSS == 0 {
+			return c, fmt.Errorf("%w: pid %s: %+v", errCountersUnavailable, pid, m)
 		}
 		c.Primary += m.Primary
 		c.RSS += m.RSS
@@ -77,9 +96,9 @@ func resourceCost() (c groupCost, err error) {
 			*c.Private += *m.Private
 		}
 	}
-	c.Collection = time.Since(begin).Seconds()
 	return c, nil
 }
+
 func (r *runner) ariaBatch(s *mariamem.Snapshot, n int) (row map[string]any, err error) {
 	baseline, err := resourceCost()
 	if err != nil {
@@ -92,6 +111,7 @@ func (r *runner) ariaBatch(s *mariamem.Snapshot, n int) (row map[string]any, err
 		return nil, errors.New("G(0) has live runtime descendants")
 	}
 	samples := []groupCost{}
+	gaps := []map[string]any{}
 	stop := make(chan struct{})
 	done := make(chan struct{})
 	var monitorErr error
@@ -101,11 +121,15 @@ func (r *runner) ariaBatch(s *mariamem.Snapshot, n int) (row map[string]any, err
 		for {
 			c, e := resourceCost()
 			if e != nil {
-				monitorErr = e
-				return
+				if !errors.Is(e, errCountersUnavailable) {
+					monitorErr = e
+					return
+				}
+				gaps = append(gaps, map[string]any{"at_seconds": time.Since(begin).Seconds(), "error": e.Error(), "members": c.Members})
+			} else {
+				c.At = time.Since(begin).Seconds()
+				samples = append(samples, c)
 			}
-			c.At = time.Since(begin).Seconds()
-			samples = append(samples, c)
 			select {
 			case <-stop:
 				return
@@ -175,7 +199,7 @@ func (r *runner) ariaBatch(s *mariamem.Snapshot, n int) (row map[string]any, err
 	for _, c := range samples {
 		peak = max(peak, c.Primary)
 	}
-	return map[string]any{"per_db": rows, "workers": n, "group_ready_seconds": wall, "baseline": baseline, "ready": ready, "after_close": after, "memory_samples": samples, "group_peak_primary_bytes": peak, "incremental_peak_primary_bytes": peak - baseline.Primary, "incremental_primary_bytes": ready.Primary - baseline.Primary, "average_incremental_bytes": float64(ready.Primary-baseline.Primary) / float64(n), "combined_cpu_seconds": cpu, "host_cpu_seconds": ready.Members[strconv.Itoa(os.Getpid())].CPU - baseline.Members[strconv.Itoa(os.Getpid())].CPU, "runtime_cpu_seconds": cpu - (ready.Members[strconv.Itoa(os.Getpid())].CPU - baseline.Members[strconv.Itoa(os.Getpid())].CPU)}, nil
+	return map[string]any{"per_db": rows, "workers": n, "group_ready_seconds": wall, "baseline": baseline, "ready": ready, "after_close": after, "memory_samples": samples, "memory_sampling_gaps": gaps, "group_peak_primary_bytes": peak, "incremental_peak_primary_bytes": peak - baseline.Primary, "incremental_primary_bytes": ready.Primary - baseline.Primary, "average_incremental_bytes": float64(ready.Primary-baseline.Primary) / float64(n), "combined_cpu_seconds": cpu, "host_cpu_seconds": ready.Members[strconv.Itoa(os.Getpid())].CPU - baseline.Members[strconv.Itoa(os.Getpid())].CPU, "runtime_cpu_seconds": cpu - (ready.Members[strconv.Itoa(os.Getpid())].CPU - baseline.Members[strconv.Itoa(os.Getpid())].CPU)}, nil
 }
 func (r *runner) ariaCorrect(db *mariamem.Database, expectedCRC uint64) (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)

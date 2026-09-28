@@ -67,6 +67,9 @@ polling or supervision.
   forced GC is used to manufacture a low baseline. Requested sampling is 50 ms
   plus recorded collection time; brief peaks may be missed. Counter failures at
   baseline/ready/after-close fail the run rather than become zero-byte savings.
+  New or disappearing processes with unavailable/zero-page counters during
+  startup are retained in `memory_sampling_gaps`; only complete samples enter
+  group peak calculations. Other counter/parse failures still fail the run.
 - Marginal growth: `(incremental(4)−incremental(1))/3` and
   `(incremental(8)−incremental(4))/4`, matched by round index. These are sequential
   group comparisons, not concurrent populations. ×8 CPU amplification is
