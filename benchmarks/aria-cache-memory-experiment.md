@@ -1,7 +1,8 @@
 # Aria page cache: bounded memory A/B
 
-Status: measurement protocol prepared on `experiment/aria-cache-memory`.
-Results and accept/reject decision remain pending the two-platform CI run.
+Status: both-platform measurements completed; see [results and rejection](aria-cache-memory-results.md).
+A corrected macOS CPU baseline rerun is pending; the trade-off decision is based
+on valid memory/latency and Ubuntu CPU evidence.
 No production cache setting has changed.
 
 ## Hypothesis and source boundary
@@ -52,7 +53,9 @@ polling or supervision.
   and correctness SQL are outside it. The version query and startup bookkeeping
   following first SQL, Go sampler overhead and sequential counter collection
   are included; `ps`/counter-helper subprocess CPU is excluded. Ubuntu uses
-  `/proc/<pid>/stat` ticks; macOS uses `proc_pid_rusage` nanosecond CPU counters.
+  `/proc/<pid>/stat` ticks; macOS uses `proc_pid_rusage` Mach CPU ticks converted using recorded
+  `mach_timebase_info` (the first successful run omitted this conversion; its
+  macOS CPU values are invalid).
 - Memory: each batch records zero-active-DB G(0), all-ready G(n), incremental
   G(n)−G(0), incremental/n, sampled group peak, and after-Close host state.
   Group includes Go host and runtime descendants. Linux records `smaps_rollup`
