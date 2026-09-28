@@ -168,6 +168,14 @@ allocation; shared mappings can be counted repeatedly. No expensive mapping
 analysis was repeated. The tranche removes latency/CPU work, not the Aria/cache
 mapping issue, and does not yet deliver cheap memory isolation.
 
+**Resource-baseline update:** the later corrected 128 MiB Aria control provides
+the current comparable CPU and incremental-memory measurements. Use its combined
+host/runtime CPU and macOS physical-footprint / Ubuntu PSS values in
+[the post-Aria FAST note](fast-gap-after-aria.md); treat this report's RSS and
+runner-CPU figures as historical. The accepted latency baseline above remains
+the canonical production reference; the newer Aria control is diagnostic and
+does not replace it.
+
 ### Interpretation and next checkpoint
 
 **Historical comparison (derived):** macOS ×1 p50 517 ms is about 58% below the

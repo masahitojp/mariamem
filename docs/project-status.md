@@ -407,6 +407,26 @@ Ubuntu; memory remains hundreds of MiB per DB. RSA generation and redundant
 within-call native validation are closed for this tranche. See
 [accepted tranche baseline](../benchmarks/fast-tranche-baseline.md).
 
+The bounded Aria page-cache experiment is complete and rejected: reducing its
+configured cache from 128 MiB to 16 MiB saved only about 5–6 MiB/DB at ordinary
+ready state, while the over-cache workload saved about 100 MiB but regressed
+wall time and CPU by 6–11%. Correctness and cleanup passed. Production remains
+at 128 MiB; do not continue tuning other MariaDB caches in 0.2. The experiment's
+128 MiB control establishes scoped ×1 combined CPU baselines of 0.379 CPU-sec/DB
+on macOS and 0.520 on Ubuntu. Its primary memory readings are incremental
+physical-footprint accounting on macOS and PSS on Ubuntu, not raw RSS. See the
+[Aria decision and current latency waterfall](../benchmarks/fast-gap-after-aria.md).
+
+The latest 128 MiB control waterfall measured ×1 Fork → first SQL at
+358.9/394.8 ms p50/p95 on macOS and 532.2/557.1 ms on Ubuntu. The macOS result
+is hosted-runner variation, not a product improvement: an unchanged control
+also measured about 576 ms and the accepted canonical baseline is 516.9 ms.
+Keep that accepted baseline as the product reference. Ubuntu remains about
+32–39 ms above the 500 ms p50 KPI, depending on which unchanged control run is
+used; the measured p95 remains below 750 ms. The new note separates validation,
+restore, MariaDB startup and currently unattributed time without selecting an
+optimization.
+
 The north star remains: creating an isolated real MariaDB should be fast and
 cheap enough that tests do not need to conserve database instances.
 
@@ -421,25 +441,35 @@ Three kinds of numbers have different purposes:
 These are development/reference measurements, not public performance guarantees
 or noisy hard CI gates. CPU time and memory are first-class FAST KPIs. Define
 CPU-sec per isolated DB over the same host/runtime measurement interval and ×8
-amplification CPU(8)/(8×CPU(1)); <0.5 CPU-sec/DB and ≤1.5× are provisional until
-consistent control baselines establish their meaning. Define G(0), G(1/4/8),
-incremental group cost G(n)-G(0), average cost per DB and marginal growth.
-Prefer private/PSS/physical footprint where supported, retaining raw RSS as a
-secondary metric. Ready RSS is about 400 MiB/DB; actual incremental cost is not
-yet established. <256 MiB/DB and <2 GiB at ×8 are provisional memory budgets;
-<192 MiB/DB and <1.5 GiB are stretch ideas. Freeze meaningful metrics/budgets
-from control evidence before judging optimization results.
+amplification CPU(8)/(8×CPU(1)); a corrected control baseline is now available,
+but <0.5 CPU-sec/DB and ≤1.5× remain provisional pending repeated, comparable
+measurements. Define G(0), G(1/4/8), incremental group cost G(n)-G(0), average
+cost per DB and marginal growth. Prefer private/PSS/physical-footprint
+accounting where supported, with raw RSS secondary. The current control
+measured about 244/246/251 MiB incremental per DB on macOS and 399/342/332 MiB
+on Ubuntu at ×1/4/8 (macOS physical-footprint accounting; Ubuntu PSS); raw RSS
+from earlier runs was around 400 MiB/DB and is not the incremental KPI. At ×8,
+measured incremental group cost was about 2.0 GiB on macOS and 2.65 GiB on
+Ubuntu. <256 MiB/DB and <2 GiB at ×8 remain provisional memory budgets;
+<192 MiB/DB and <1.5 GiB are stretch ideas. See the
+[measured baseline](../benchmarks/fast-gap-after-aria.md).
 
 The same-run Ubuntu Testcontainers comparison already shows strong practical
 latency value: fixture-ready p50 527/693/1,221 ms versus 5.58/7.46/14.67 s at
 ×1/4/8, with different MariaDB versions/defaults. It does not establish memory
 superiority. See [comparison](../benchmarks/testcontainers-comparison.md).
 
-The next bounded experiment changes only Aria page cache from 128 to 16 MiB.
-It must demonstrate physical/incremental savings (roughly ≥64 MiB/DB), preserve
-correctness/cleanup, and avoid reproducible latency/CPU/parallel-tail regressions.
-Mapping shrinkage alone is insufficient. Use its controls to establish CPU and
-incremental-memory baselines. Do not respond to failure by tuning another cache.
+The Aria cache experiment did not meet its acceptance criteria, and no other
+MariaDB cache tuning is planned for v0.2. CPU and incremental memory remain
+first-class FAST KPIs. The experiment measured average incremental ready cost
+of about 244/246/251 MiB per DB on macOS and 399/342/332 MiB per DB on Ubuntu at
+×1/4/8 (macOS physical-footprint accounting; Ubuntu PSS). CPU was 0.379/0.499/
+0.554 CPU-sec per DB on macOS and 0.520/0.562/0.572 on Ubuntu. These are scoped
+measurements, not user-facing promises. Numeric CPU targets (<0.5 CPU-sec/DB,
+×8 amplification ≤1.5×) and memory budgets (<256 MiB/DB, <2 GiB incremental at
+×8) remain provisional; platform-specific counter behavior and hosted-runner
+variation must be considered. Prefer incremental/private/PSS-style cost, with
+raw RSS only as secondary evidence.
 
 v0.2 should finish production-quality cold-start/resource improvements and
 both-platform acceptance without VFS/CoW/runtime-sharing/continuation redesigns.
