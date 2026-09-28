@@ -80,7 +80,8 @@ is introduced.
 
 Outside the canonical timed fixture, build a separate snapshot with 24,000
 unique 2,048-character Aria rows (`ROW_FORMAT=PAGE`). Require its actual `.MAD`
-file to exceed 16 MiB, then fork it five times per condition in balanced order.
+file to exceed 16 MiB. Setup inserts use 200 rows (about 400 KiB) per
+statement to stay below the existing 1 MiB SQL/wire limit. Then fork it five times per condition in balanced order.
 Verify exact count, total payload length and aggregate CRC32 against the inserted
 fixture; read the full table; execute a
 large GROUP BY with session-local 16 KiB temporary-table limits and require an

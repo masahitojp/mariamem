@@ -289,24 +289,18 @@ func (r *runner) ariaRun() (err error) {
 		return err
 	}
 	var expectedCRC uint64
-	for start := 0; start < 24000; start += 1000 {
-		query := "INSERT INTO aria_probe VALUES"
-		args := []any{}
-		for i := start; i < start+1000; i++ {
-			if i > start {
-				query += ","
-			}
-			query += "(?,?)"
-			payload := fmt.Sprintf("%08d", i) + string(makePayload(2040))
-			expectedCRC += uint64(crc32.ChecksumIEEE([]byte(payload)))
-			args = append(args, i, payload)
-		}
+	// The public text/guest path caps SQL at 1 MiB. Keep setup inserts below
+	// that boundary too; 1000 x 2048-byte rows exceed it after interpolation.
+	for start := 0; start < 24000; start += ariaFixtureBatchRows {
+		query, args, checksum := ariaFixtureBatch(start)
+		expectedCRC += checksum
 		if _, err = p.ExecContext(ctx, query, args...); err != nil {
 			p.Close()
-			return fmt.Errorf("Aria bulk insert batch %d: %w", start/1000, err)
+			return fmt.Errorf("Aria bulk insert batch %d: %w", start/ariaFixtureBatchRows, err)
 		}
-		checkpoint(fmt.Sprintf("aria_inserted_%d_rows", start+1000))
+		checkpoint(fmt.Sprintf("aria_inserted_%d_rows", start+ariaFixtureBatchRows))
 	}
+
 	p.Close()
 	checkpoint("aria_data_loaded")
 	if err = checkDB.WaitDisconnected(ctx); err != nil {
@@ -406,4 +400,20 @@ func makePayload(n int) []byte {
 		b[i] = 'x'
 	}
 	return b
+}
+
+const ariaFixtureBatchRows = 200
+
+func ariaFixtureBatch(start int) (query string, args []any, checksum uint64) {
+	query = "INSERT INTO aria_probe VALUES"
+	for i := start; i < start+ariaFixtureBatchRows; i++ {
+		if i > start {
+			query += ","
+		}
+		query += "(?,?)"
+		payload := fmt.Sprintf("%08d", i) + string(makePayload(2040))
+		checksum += uint64(crc32.ChecksumIEEE([]byte(payload)))
+		args = append(args, i, payload)
+	}
+	return
 }
