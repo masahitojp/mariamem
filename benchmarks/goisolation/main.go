@@ -105,13 +105,13 @@ func (r *runner) startup(saved *mariamem.Snapshot, group time.Time) (db *mariame
 		if host == nil {
 			return nil, nil, errors.New("missing host startup trace")
 		}
-		if len(traces["api_startup"].Events) == 0 || (saved != nil && len(traces["fork"].Events) == 0) {
+		if len(traces["native_verification"].Events) == 0 || (saved != nil && len(traces["snapshot_verification"].Events) == 0) || len(traces["api_startup"].Events) == 0 || (saved != nil && len(traces["fork"].Events) == 0) {
 			return nil, nil, errors.New("missing public API startup trace")
 		}
 		if r.cfg.guestStages && len(host.Guest) == 0 {
 			return nil, nil, errors.New("matching instrumented guest required")
 		}
-		stages = map[string]any{"caller": events, "host": host, "api_startup": traces["api_startup"], "fork": traces["fork"]}
+		stages = map[string]any{"caller": events, "host": host, "api_startup": traces["api_startup"], "fork": traces["fork"], "native_verification": traces["native_verification"], "snapshot_verification": traces["snapshot_verification"]}
 	}
 	row = map[string]any{"latency_seconds": ready.Sub(begin).Seconds(), "ready_at_seconds": ready.Sub(group).Seconds(), "server_version": version, "stage_timings": stages}
 	success = true

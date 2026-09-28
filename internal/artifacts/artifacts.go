@@ -2,6 +2,7 @@
 package artifacts
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -14,6 +15,7 @@ import (
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/snapshot"
+	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 type Bundle struct {
@@ -21,7 +23,10 @@ type Bundle struct {
 	verified                    *startupIdentity
 }
 
-func Resolve(dir string) (Bundle, error) {
+func Resolve(dir string) (Bundle, error) { return ResolveTimed(context.Background(), dir) }
+func ResolveTimed(ctx context.Context, dir string) (Bundle, error) {
+	ctx, finish := timing.Begin(ctx, "native_verification")
+	defer finish()
 	if runtime.GOOS == "linux" && runtime.GOARCH == "amd64" {
 		raw, err := os.ReadFile("/etc/os-release")
 		if err != nil {
@@ -30,7 +35,8 @@ func Resolve(dir string) (Bundle, error) {
 		if err := ubuntuPlatform(string(raw)); err != nil {
 			return Bundle{}, err
 		}
-		return resolve(dir, "ubuntu24.04-x86_64", 0)
+		timing.Mark(ctx, "platform_checked")
+		return resolveTimed(ctx, dir, "ubuntu24.04-x86_64", 0)
 	}
 	if runtime.GOOS != "darwin" || runtime.GOARCH != "arm64" {
 		return Bundle{}, diagnostic.Wrap("unsupported_platform", "platform", fmt.Errorf("mariamem requires macOS 15+ arm64 or Ubuntu 24.04 x86_64; got %s-%s. Run on a supported platform with its matching native bundle", runtime.GOOS, runtime.GOARCH))
@@ -43,7 +49,8 @@ func Resolve(dir string) (Bundle, error) {
 	if err != nil {
 		return Bundle{}, diagnostic.Wrap("unsupported_platform", "platform", err)
 	}
-	return resolve(dir, "darwin-arm64", major)
+	timing.Mark(ctx, "platform_checked")
+	return resolveTimed(ctx, dir, "darwin-arm64", major)
 }
 
 func ubuntuPlatform(raw string) error {
@@ -60,7 +67,10 @@ func ubuntuPlatform(raw string) error {
 	return nil
 }
 
-func resolve(dir, platform string, major int) (b Bundle, err error) {
+func resolve(dir, platform string, major int) (Bundle, error) {
+	return resolveTimed(context.Background(), dir, platform, major)
+}
+func resolveTimed(ctx context.Context, dir, platform string, major int) (b Bundle, err error) {
 	defer func() {
 		if err != nil {
 			var classified *diagnostic.Error
@@ -96,10 +106,12 @@ func resolve(dir, platform string, major int) (b Bundle, err error) {
 	if err != nil {
 		return b, err
 	}
+	timing.Work(ctx, "identity_captured", 0, 4)
 	raw, err := os.ReadFile(filepath.Join(root, "manifest.json"))
 	if err != nil {
 		return b, err
 	}
+	timing.Work(ctx, "manifest_read", int64(len(raw)), 1)
 	if err = json.Unmarshal(raw, &m); err != nil {
 		return b, err
 	}
@@ -115,6 +127,7 @@ func resolve(dir, platform string, major int) (b Bundle, err error) {
 	if platform == "ubuntu24.04-x86_64" && (m.Distribution != "ubuntu" || m.VersionID != "24.04" || m.Architecture != "x86_64") {
 		return b, fmt.Errorf("native bundle requires Ubuntu 24.04 x86_64 metadata; got distribution=%q version_id=%q architecture=%q", m.Distribution, m.VersionID, m.Architecture)
 	}
+	timing.Mark(ctx, "manifest_checked")
 	// mariamem-host may be present in the unchanged bundle, but is not used by Go.
 	for _, name := range []string{"wasmer-headless", "mariamem.wasmu", "mariamem.wasmu.json"} {
 		path := filepath.Join(root, name)
@@ -128,23 +141,27 @@ func resolve(dir, platform string, major int) (b Bundle, err error) {
 		if name == "wasmer-headless" && info.Mode()&0111 == 0 {
 			return b, diagnostic.Wrap("native_unavailable", "artifact_validation", fmt.Errorf("runtime is not executable: %s; re-extract the native bundle preserving executable permissions", path))
 		}
-		hash, err := snapshot.Digest(path)
+		timing.Work(ctx, name+"/metadata", 0, 1)
+		hash, err := snapshot.DigestTimed(ctx, path, name)
 		if err != nil {
 			return b, err
 		}
 		if hash != m.Hashes[name] {
 			return b, fmt.Errorf("artifact hash mismatch: %s; expected SHA256 %q, got %q", path, m.Hashes[name], hash)
 		}
+		timing.Mark(ctx, name+"/hash_compared")
 	}
 	b = Bundle{Dir: root, Runtime: filepath.Join(root, "wasmer-headless"), Module: filepath.Join(root, "mariamem.wasmu")}
-	b.Build, err = snapshot.ModuleBuildWithDigest(b.Module, m.Hashes["mariamem.wasmu"])
+	b.Build, err = snapshot.ModuleBuildWithDigestTimed(ctx, b.Module, m.Hashes["mariamem.wasmu"])
 	if err != nil {
 		return b, err
 	}
+	timing.Mark(ctx, "sidecar_identity_checked")
 	identity.build = b.Build
 	b.verified = identity
 	if _, err = b.CheckStartupIdentity(b.Runtime, b.Module); err != nil {
 		return Bundle{}, err
 	}
+	timing.Work(ctx, "identity_rechecked", 0, 4)
 	return b, nil
 }

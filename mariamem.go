@@ -97,7 +97,7 @@ func start(ctx context.Context, opts Options, restore string) (*Database, error)
 		return nil, err
 	}
 	timing.Mark(ctx, "options_ready")
-	bundle, err := artifacts.Resolve(opts.NativeDir)
+	bundle, err := artifacts.ResolveTimed(ctx, opts.NativeDir)
 	if err != nil {
 		return nil, hostError(err, "artifacts", false)
 	}

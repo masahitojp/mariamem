@@ -147,7 +147,7 @@ def summarize_stages(samples):
             if row['case'] != 'snapshot':
                 scopes['python_startup'] = trace.get('python_startup') or []
             scopes['host'] = trace.get('host', {}).get('events', [])
-            for name in ('api_startup', 'fork'):
+            for name in ('api_startup', 'fork', 'native_verification', 'snapshot_verification'):
                 scopes[name] = trace.get(name, {}).get('events', []) or []
             if row['case'] != 'snapshot':
                 scopes['guest'] = trace.get('host', {}).get('guest', {}).get('events', [])

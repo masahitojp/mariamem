@@ -15,6 +15,25 @@ def render(report):
              '| --- | ---: | --- | ---: | ---: | ---: |']
     for row in report.get('stage_summary', []):
         lines.append(f"| {row['case']} | {row['workers']} | {row['scope']} / {row['stage']} | {row['count']} | {row['p50_seconds']*1000:.3f} | {row['p95_seconds']*1000:.3f} |")
+    work = {}
+    for sample in report.get('samples', []):
+        if sample.get('phase') != 'measurement':
+            continue
+        for instance in sample.get('per_db', []):
+            trace = instance.get('stage_timings') or {}
+            for scope in ('native_verification', 'snapshot_verification'):
+                events = trace.get(scope, {}).get('events') or []
+                if events:
+                    key = (sample['case'], sample['workers'], scope)
+                    work.setdefault(key, []).append((sum(e.get('bytes_read', 0) for e in events),
+                                                    sum(e.get('files_touched', 0) for e in events)))
+    if work:
+        lines += ['', '## Verification logical work', '',
+                  'File visits include repeated metadata/open visits, not unique files. Bytes include the sidecar reread; they are not physical I/O.', '',
+                  '| Case | DBs | Scope | Median logical bytes read | Median file visits |',
+                  '| --- | ---: | --- | ---: | ---: |']
+        for (case, workers, scope), rows in work.items():
+            lines.append(f"| {case} | {workers} | {scope} | {statistics.median(r[0] for r in rows):.0f} | {statistics.median(r[1] for r in rows):.0f} |")
     lines += ['', '## End-to-end and correlated process observations', '',
               '| Case | DBs | p50 / p95 ms | Median descendant CPU s | Median sampled descendant RSS MiB |',
               '| --- | ---: | ---: | ---: | ---: |']

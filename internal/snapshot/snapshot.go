@@ -2,11 +2,13 @@
 package snapshot
 
 import (
+	"context"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/masahitojp/mariamem/internal/timing"
 	"io"
 	"os"
 	"path/filepath"
@@ -27,13 +29,21 @@ type Manifest struct {
 }
 
 func Digest(path string) (string, error) {
+	return DigestTimed(context.Background(), path, "digest")
+}
+
+// DigestTimed splits open, read/hash and close without changing digest semantics.
+func DigestTimed(ctx context.Context, path, label string) (string, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return "", err
 	}
-	defer f.Close()
+	timing.Work(ctx, label+"/opened", 0, 1)
+	defer func() { f.Close(); timing.Mark(ctx, label+"/closed") }()
 	h := sha256.New()
-	if _, err = io.Copy(h, f); err != nil {
+	n, err := io.Copy(h, f)
+	timing.Work(ctx, label+"/read_hashed", n, 0)
+	if err != nil {
 		return "", err
 	}
 	return hex.EncodeToString(h.Sum(nil)), nil
@@ -49,10 +59,14 @@ func ModuleBuild(module string) (string, error) {
 // ModuleBuildWithDigest validates the sidecar against a digest just verified by
 // the caller in this startup call. It does not establish trust in a path.
 func ModuleBuildWithDigest(module, hash string) (string, error) {
+	return ModuleBuildWithDigestTimed(context.Background(), module, hash)
+}
+func ModuleBuildWithDigestTimed(ctx context.Context, module, hash string) (string, error) {
 	b, err := os.ReadFile(module + ".json")
 	if err != nil {
 		return "", err
 	}
+	timing.Work(ctx, "sidecar_read", int64(len(b)), 1)
 	var m struct {
 		WASM    string `json:"wasm_sha256"`
 		Module  string `json:"module_sha256"`
@@ -69,6 +83,9 @@ func ModuleBuildWithDigest(module, hash string) (string, error) {
 	return m.WASM, nil
 }
 func Inventory(root string) (map[string]Entry, error) {
+	return inventory(context.Background(), root)
+}
+func inventory(ctx context.Context, root string) (map[string]Entry, error) {
 	result := make(map[string]Entry)
 	err := filepath.WalkDir(root, func(path string, d os.DirEntry, err error) error {
 		if err != nil {
@@ -83,6 +100,7 @@ func Inventory(root string) (map[string]Entry, error) {
 			return err
 		}
 		name = filepath.ToSlash(name)
+		timing.Work(ctx, "inventory/"+name+"/metadata", 0, 1)
 		if info.IsDir() {
 			result[name] = Entry{Kind: "directory"}
 			return nil
@@ -90,7 +108,7 @@ func Inventory(root string) (map[string]Entry, error) {
 		if path == root || !info.Mode().IsRegular() {
 			return fmt.Errorf("snapshot contains a link or special file: %s", path)
 		}
-		hash, err := Digest(path)
+		hash, err := DigestTimed(ctx, path, "inventory/"+name)
 		if err != nil {
 			return err
 		}
@@ -101,6 +119,11 @@ func Inventory(root string) (map[string]Entry, error) {
 	return result, err
 }
 func Validate(path, build string) (*Manifest, error) {
+	return ValidateTimed(context.Background(), path, build)
+}
+func ValidateTimed(ctx context.Context, path, build string) (*Manifest, error) {
+	ctx, finish := timing.Begin(ctx, "snapshot_verification")
+	defer finish()
 	for _, name := range []string{path, filepath.Join(path, "manifest.json")} {
 		info, err := os.Lstat(name)
 		if err != nil {
@@ -110,6 +133,7 @@ func Validate(path, build string) (*Manifest, error) {
 			return nil, errors.New("invalid snapshot root or manifest")
 		}
 	}
+	timing.Work(ctx, "root_metadata_checked", 0, 2)
 	children, err := os.ReadDir(path)
 	if err != nil {
 		return nil, err
@@ -117,10 +141,12 @@ func Validate(path, build string) (*Manifest, error) {
 	if len(children) != 2 {
 		return nil, errors.New("snapshot must contain only data and manifest.json")
 	}
+	timing.Work(ctx, "root_inventory_checked", 0, int64(len(children)))
 	b, err := os.ReadFile(filepath.Join(path, "manifest.json"))
 	if err != nil {
 		return nil, err
 	}
+	timing.Work(ctx, "manifest_read", int64(len(b)), 1)
 	var m Manifest
 	if err = json.Unmarshal(b, &m); err != nil {
 		return nil, err
@@ -128,13 +154,16 @@ func Validate(path, build string) (*Manifest, error) {
 	if m.Format != "mariamem-cold-snapshot" || m.Version != 1 || m.WASM != build || m.Storage != "memory" {
 		return nil, errors.New("snapshot format or WASM build mismatch")
 	}
-	entries, err := Inventory(filepath.Join(path, "data"))
+	timing.Mark(ctx, "manifest_identity_checked")
+	entries, err := inventory(ctx, filepath.Join(path, "data"))
 	if err != nil {
 		return nil, err
 	}
+	timing.Mark(ctx, "inventory_complete")
 	if !reflect.DeepEqual(entries, m.Entries) {
 		return nil, errors.New("snapshot file manifest mismatch")
 	}
+	timing.Mark(ctx, "inventory_compared")
 	return &m, nil
 }
 func Publish(transfer, destination, build string) error {

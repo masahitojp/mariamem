@@ -183,3 +183,21 @@ def test_nested_api_host_handoff_uses_durations_not_clock_offsets():
     handoff = next(row for row in rows if row['scope'] == 'api_host_handoff')
     assert handoff['p50_seconds'] == pytest.approx(100 / 1e9)
     assert next(row for row in rows if row['scope'] == 'api_startup' and row['stage'] == 'runtime_directory_ready')['p50_seconds'] == pytest.approx(100 / 1e9)
+
+
+def test_verification_scopes_and_logical_byte_reporting():
+    from stage_report import render
+    events = [{'name': 'begin', 'offset_ns': 0},
+              {'name': 'module/read_hashed', 'offset_ns': 3_000_000,
+               'bytes_read': 42, 'files_touched': 1},
+              {'name': 'end', 'offset_ns': 4_000_000}]
+    rows = [{'case': 'fork_first_sql', 'workers': 1, 'phase': 'measurement',
+             'per_db': [{'stage_timings': {'native_verification': {'events': events},
+                                           'snapshot_verification': {'events': events}}}]}]
+    stages = baseline.summarize_stages(rows)
+    assert {r['scope'] for r in stages} == {'native_verification', 'snapshot_verification'}
+    assert all(r['count'] == 1 for r in stages)
+    output = render({'samples': rows, 'stage_summary': stages})
+    assert '| fork_first_sql | 1 | native_verification | 42 | 1 |' in output
+    assert '| fork_first_sql | 1 | snapshot_verification | 42 | 1 |' in output
+    assert 'not physical I/O' in output

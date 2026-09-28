@@ -23,8 +23,10 @@ func WithRecorder(ctx context.Context, record func(Trace)) context.Context {
 }
 
 type Event struct {
-	Name   string `json:"name"`
-	Offset int64  `json:"offset_ns"`
+	Name         string `json:"name"`
+	Offset       int64  `json:"offset_ns"`
+	BytesRead    int64  `json:"bytes_read,omitempty"`
+	FilesTouched int64  `json:"files_touched,omitempty"`
 }
 type Trace struct {
 	Operation  string          `json:"operation"`
@@ -95,4 +97,16 @@ func ReadGuest(ctx context.Context, transfer string) {
 			t.Guest = data
 		}
 	}
+}
+
+// Work records logical bytes and file visits at an existing diagnostic boundary.
+// Counters do not represent physical storage I/O or unique files.
+func Work(ctx context.Context, name string, bytes, files int64) {
+	if !Enabled(ctx) {
+		return
+	}
+	Mark(ctx, name)
+	t := ctx.Value(key{}).(*Trace)
+	e := &t.Events[len(t.Events)-1]
+	e.BytesRead, e.FilesTouched = bytes, files
 }

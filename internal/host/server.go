@@ -87,7 +87,7 @@ func start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 		if err != nil {
 			return nil, err
 		}
-		if _, err = snapshot.Validate(restore, build); err != nil {
+		if _, err = snapshot.ValidateTimed(ctx, restore, build); err != nil {
 			return nil, err
 		}
 	}

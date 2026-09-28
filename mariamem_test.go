@@ -558,7 +558,7 @@ func TestPublicForkTimingRetainsPreparationFailureAndNestedScopes(t *testing.T) 
 	if err == nil || db != nil {
 		t.Fatal("missing native input unexpectedly started", db, err)
 	}
-	if len(traces) != 2 {
+	if len(traces) != 3 || len(traces["native_verification"].Events) == 0 {
 		t.Fatal(traces)
 	}
 	api := traces["api_startup"].Events

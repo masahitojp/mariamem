@@ -1,6 +1,7 @@
 package artifacts
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"os"
@@ -10,6 +11,7 @@ import (
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/snapshot"
+	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 func fixture(t *testing.T) string {
@@ -165,5 +167,37 @@ func TestUbuntuBundle(t *testing.T) {
 			t.Fatalf("%s: %v", key, err)
 		}
 		m[key] = old
+	}
+}
+
+func TestNativeVerificationTimingCountsRequiredBytes(t *testing.T) {
+	t.Setenv("MARIAMEM_TIMING_DIR", t.TempDir())
+	dir := fixture(t)
+	var trace timing.Trace
+	ctx := timing.WithRecorder(context.Background(), func(tr timing.Trace) { trace = tr })
+	ctx, finish := timing.Begin(ctx, "native_verification")
+	if _, err := resolveTimed(ctx, dir, "darwin-arm64", 15); err != nil {
+		t.Fatal(err)
+	}
+	finish()
+	var expected, actual int64
+	for _, name := range []string{"manifest.json", "wasmer-headless", "mariamem.wasmu", "mariamem.wasmu.json", "mariamem.wasmu.json"} {
+		info, err := os.Stat(filepath.Join(dir, name))
+		if err != nil {
+			t.Fatal(err)
+		}
+		expected += info.Size()
+	}
+	for _, e := range trace.Events {
+		actual += e.BytesRead
+	}
+	if actual != expected {
+		t.Fatalf("logical bytes %d != %d", actual, expected)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "mariamem.wasmu"), []byte("changed"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := resolveTimed(ctx, dir, "darwin-arm64", 15); err == nil {
+		t.Fatal("instrumentation bypassed corrupt artifact")
 	}
 }
