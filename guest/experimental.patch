@@ -1,0 +1,10 @@
+--- a/wasm/lite4mariadb.c
++++ b/wasm/lite4mariadb.c
+@@ -345,2 +345,7 @@
+     (char *)"--thread-cache-size=0",
++#ifdef L4M_RESIDENT
++    (char *)(getenv("MARIAMEM_EXPERIMENT_ARIA_MIB") &&
++      !strcmp(getenv("MARIAMEM_EXPERIMENT_ARIA_MIB"), "16") ?
++      "--aria-pagecache-buffer-size=16M" : "--aria-pagecache-buffer-size=128M"),
++#endif
+     (char *)"--socket=/tmp/mysql.sock",

@@ -2,6 +2,10 @@ name: Guest build boundary verification
 on:
   workflow_dispatch:
     inputs:
+      aria_memory_comparison:
+        description: 'Experiment-only Aria 128/16 MiB balanced CPU/incremental-memory A/B'
+        type: boolean
+        default: false
       competitive_baseline:
         description: 'Ubuntu-only mariamem vs digest-pinned Testcontainers practical isolation comparison'
         type: boolean
@@ -81,7 +85,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.competitive_baseline }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.competitive_baseline && !inputs.aria_memory_comparison }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -179,7 +183,7 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche
+    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche || inputs.aria_memory_comparison
     needs: guest
     strategy:
       fail-fast: false
@@ -231,6 +235,21 @@ jobs:
           key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal verified guest smoke
         run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Aria-only A/B lifecycle regression
+        if: inputs.aria_memory_comparison
+        env:
+          MARIAMEM_NATIVE_DIR: ${{ github.workspace }}/build/guest-aot
+        run: |
+          test -f guest/experimental.patch
+          python -m pip install pytest PyMySQL
+          for cache in 128 16; do
+            MARIAMEM_EXPERIMENT_ARIA_MIB="$cache" python scripts/verify.py integration
+          done
+      - name: Balanced Aria cache CPU and incremental-memory experiment
+        if: inputs.aria_memory_comparison
+        run: |
+          python benchmarks/aria_cache_ab.py --native-dir build/guest-aot --runs 20 --warmup 2
+          cat benchmarks/results/init-aria-cache.md >> "$GITHUB_STEP_SUMMARY"
       - name: Package and accept production FAST tranche
         if: inputs.fast_tranche
         run: |

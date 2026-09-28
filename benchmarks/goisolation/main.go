@@ -29,6 +29,7 @@ type config struct {
 	interval, hold                       float64
 	stages, guestStages                  bool
 	initDiagnostics, memoryDiagnostics   bool
+	ariaAB                               bool
 }
 type runner struct {
 	cfg           config
@@ -420,6 +421,7 @@ func main() {
 	flag.BoolVar(&c.guestStages, "guest-stage-timing", false, "require matching guest stages")
 	flag.BoolVar(&c.initDiagnostics, "init-diagnostics", false, "require detailed initialization diagnostics")
 	flag.BoolVar(&c.memoryDiagnostics, "memory-diagnostics", false, "post-ready mapping/thread inventory once per case")
+	flag.BoolVar(&c.ariaAB, "aria-memory-ab", false, "experimental Aria-only resource comparison")
 	flag.Parse()
 	if c.initDiagnostics || c.memoryDiagnostics {
 		c.stages = true
@@ -452,11 +454,26 @@ func main() {
 	}
 	r := runner{cfg: c, samples: []map[string]any{}}
 	begin := time.Now()
-	err := r.run()
+	var err error
+	if c.ariaAB {
+		err = r.ariaRun()
+	} else {
+		err = r.run()
+	}
 	report := map[string]any{"benchmark": "isolation_baseline", "api": "go", "schema_version": 1, "started_at": begin.UTC().Format(time.RFC3339Nano), "completed": err == nil, "samples": r.samples, "environment": map[string]any{"go": runtime.Version(), "goos": runtime.GOOS, "machine": runtime.GOARCH, "cpu_count": runtime.NumCPU(), "server_version": r.version}, "metric_notes": map[string]string{"primary": "Fork to connection and verified first COUNT; group and per-DB wall latency", "cpu": "sampled runtime descendant delta excludes in-process host; runner_cpu_seconds is getrusage SELF over full lifecycle, including host/driver/GC/sampler/hold/cleanup", "rss": "descendant RSS excludes host; process_tree RSS includes Go runner. Incremental RSS subtracts persistent-runner baseline; shared pages may be counted repeatedly", "snapshot_cost": "CPU/RSS unavailable; Snapshot wall time only", "sampling": "ps precision/collection overhead and missing startup/exit edges; informational, no thresholds"}}
 	if info, ok := debug.ReadBuildInfo(); ok {
 		report["environment"].(map[string]any)["go_build_info"] = info
 	}
+	if c.ariaAB {
+		report["benchmark"] = "aria_cache_ab"
+		report["metric_notes"] = map[string]string{
+			"cpu":     "Host delta plus full runtime lifetime CPU at all-ready; common G(0) to all-ready envelope, excluding correctness and shutdown. Includes driver/version query, Go sampler overhead; ps/counter-helper CPU excluded. Sequential process counter reads are not atomic.",
+			"memory":  "Linux smaps_rollup PSS/private or macOS proc_pid_rusage physical footprint sum; G(n)-G(0) includes Go host. macOS private bytes unavailable (null). Footprint is an accounting charge, not globally unique physical bytes. RSS secondary.",
+			"peak":    "Sampled group peak only; short-lived peaks/processes may be missed; collection duration retained.",
+			"cleanup": "All runtime children must disappear; after_close host memory retained for repeated-cycle analysis, not forced GC or a zero-heap assertion.",
+		}
+	}
+
 	if err != nil {
 		report["error"] = err.Error()
 	}

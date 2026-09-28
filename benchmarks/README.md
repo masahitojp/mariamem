@@ -361,3 +361,12 @@ Use `guest-build-boundary.yml` with `competitive_baseline=true` for same-run CI,
 immutable WASM/AOT reuse, digest-pinned official MariaDB and raw artifacts.
 See [methodology/results](testcontainers-comparison.md). Docker belongs only to
 this competitor measurement, not mariamem's canonical build/release path.
+
+## Bounded Aria memory experiment
+
+On `experiment/aria-cache-memory`, the [A/B protocol](aria-cache-memory-experiment.md)
+compares only 128/16 MiB Aria page cache using the canonical Go lifecycle runner.
+Dispatch `guest-build-boundary.yml` with `aria_memory_comparison=true` for paired
+macOS/Ubuntu measurements and lifecycle checks; submit and hand off without
+polling. Linux PSS / macOS physical footprint, G(0)/G(1)/G(4)/G(8), combined
+CPU and raw samples remain informational. No production tuning is implied.
