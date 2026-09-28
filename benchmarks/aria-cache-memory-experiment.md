@@ -1,8 +1,8 @@
 # Aria page cache: bounded memory A/B
 
 Status: both-platform measurements completed; see [results and rejection](aria-cache-memory-results.md).
-A corrected macOS CPU baseline rerun is pending; the trade-off decision is based
-on valid memory/latency and Ubuntu CPU evidence.
+The corrected CPU rerun completed on both platforms; its valid CPU/memory
+baselines and the final combined trade-off decision are recorded in that report.
 No production cache setting has changed.
 
 ## Hypothesis and source boundary

@@ -1,149 +1,169 @@
 # Aria cache memory A/B results
 
-Decision: **reject 128 → 16 MiB as a production candidate**. Ready-state paired
-median savings on the canonical fixture are only approximately 2–5 MiB/DB.
-After the large Aria workload, physical accounting savings are substantial
-(≈81 MiB macOS / ≈108 MiB Ubuntu, paired medians), but Ubuntu wall and CPU
-regress in all five pairs. This trade-off fails the combined acceptance
-criteria. Correctness/lifecycle passed. Do not tune another setting.
+Final decision: **reject 128 →16 MiB as a production candidate**.
+Canonical ready-state paired savings are only ≈4–6 MiB/DB. The large Aria
+workload saves ≈108 MiB macOS / ≈116 MiB Ubuntu after execution, but wall and
+CPU regress in all five pairs on both platforms. This fails the combined
+acceptance criteria. Correctness/lifecycle passed. Keep production Aria unchanged;
+do not continue by tuning another setting.
 
-## Evidence and measurement validity
+## Verified evidence
 
-[Successful run 36370036508](https://github.com/masahitojp/mariamem/actions/runs/36370036508)
-measured source `0ff27c1ccb3aff625661683339ab0311490195a0` on
-`experiment/aria-cache-memory`. See the [protocol](aria-cache-memory-experiment.md)
-for boundaries and fail-closed correctness checks. Twenty balanced measured
-rounds plus two warmups per condition/count; 1,000-row canonical fixture;
-Go 1.26.8; embedded MariaDB 13.1.0. Native manifest/provenance embedded in each
-JSON match the independently uploaded metadata. CI verified exact WASM/AOT
-inputs and bytes before measurement. Both conditions use the same platform AOT.
+[Final run 36371206896](https://github.com/masahitojp/mariamem/actions/runs/36371206896)
+measured source `b2e84fe94fc60d13feaee39cfad9e10bebf1b975` on
+`experiment/aria-cache-memory`. Twenty balanced measured rounds plus two warmups
+per condition at ×1/4/8; 1,000-row canonical fixture. Go 1.26.8, embedded
+MariaDB 13.1.0. See [protocol](aria-cache-memory-experiment.md) for timing scopes.
+Downloaded JSONs are complete with all 120 measured groups per platform.
+Embedded native manifest/provenance equal the independently uploaded records.
+CI verified immutable WASM/AOT input hashes before measurement; both cache
+conditions use the same platform AOT. Verified reuse retains the original
+guest/AOT build commit `54b046bc3059b14d114192e10c5b1b21d38b8b24`; the
+measurement SHA identifies the current Go harness/counter, not a relabelled
+guest build. All ready process inventories are n+1
+(host plus runtimes), and all baseline/after-close inventories contain only host.
 
-Ubuntu: 24.04, x86_64, kernel 6.17.0-1022-azure, glibc 2.39, 4 reported CPUs.
-macOS: 15.7.9, arm64, 3 reported CPUs. These are different hosted machines;
-absolute latency, memory accounting and CPU must not be compared as equivalent.
+Ubuntu 24.04 x86_64: kernel 6.17.0-1022-azure, glibc 2.39, 4 reported CPUs.
+macOS 15.7.9 arm64: 3 reported CPUs. Do not compare absolute timings or memory
+accounting as equivalent hardware/platforms. macOS records its CPU timebase
+125/3 and converts Mach ticks to seconds. The native counter regression test
+matches the standard process CPU clock. These CPU values are valid.
 
-**CPU caveat:** this run’s macOS helper incorrectly divided Mach CPU ticks by
-1e9 without applying the machine timebase. Its macOS CPU values and amplification
-are not a valid quantitative baseline. A local check against `getrusage`
-confirmed the unit issue; the corrected helper applies and records
-`mach_timebase_info`, with a regression test against process CPU time.
-A corrected rerun is pending. Do not retroactively apply an assumed runner
-timebase to these historical numbers. Ubuntu CPU is unaffected. Memory and
-latency do not use that clock and remain valid.
+The earlier [run 36370036508](https://github.com/masahitojp/mariamem/actions/runs/36370036508)
+at `0ff27c1` supported the same rejection, but its macOS CPU values omitted
+Mach timebase conversion and must not be used as a CPU baseline. Its valid
+memory/latency evidence is historical only. No retroactive conversion was applied.
 
 ## Fork latency
 
-Pooled per-DB first SQL / barrier-to-group-ready distributions, ms p50 / p95.
-Percentiles describe different distributions; do not add or subtract medians
-as if they were a single paired sample.
+Milliseconds p50 / p95. First SQL pools per-DB samples; group ready is the
+barrier-to-all-ready distribution. Their percentiles are distinct, not additive.
 
-| Platform | DBs | 128 MiB first SQL | 16 MiB first SQL | 128 group ready | 16 group ready |
+| Platform | DBs | 128M first SQL | 16M first SQL | 128M group ready | 16M group ready |
 |---|---:|---:|---:|---:|---:|
-| linux | 1 | 548.4 / 566.5 | 548.3 / 563.0 | 548.4 / 566.5 | 548.3 / 563.0 |
-| linux | 4 | 730.3 / 824.9 | 722.9 / 834.6 | 795.8 / 849.2 | 802.7 / 867.0 |
-| linux | 8 | 1292.5 / 1471.0 | 1300.4 / 1447.7 | 1410.0 / 1537.7 | 1434.7 / 1491.1 |
-| darwin | 1 | 576.1 / 642.7 | 520.1 / 584.5 | 576.2 / 642.8 | 520.1 / 584.6 |
-| darwin | 4 | 897.4 / 1236.7 | 937.0 / 1156.0 | 930.7 / 1242.7 | 984.5 / 1215.5 |
-| darwin | 8 | 1617.1 / 2312.1 | 1590.8 / 2240.4 | 1739.0 / 2327.9 | 1726.5 / 2317.2 |
+| darwin | 1 | 358.9 / 394.8 | 343.4 / 368.4 | 358.9 / 394.8 | 343.4 / 368.4 |
+| darwin | 4 | 718.9 / 1070.7 | 674.9 / 1024.3 | 757.5 / 1079.1 | 706.9 / 1069.3 |
+| darwin | 8 | 1589.7 / 2786.8 | 1622.1 / 2986.0 | 1742.9 / 2858.5 | 1752.4 / 3036.4 |
+| linux | 1 | 532.2 / 557.1 | 540.9 / 561.0 | 532.2 / 557.1 | 540.9 / 561.0 |
+| linux | 4 | 720.1 / 831.8 | 735.4 / 827.7 | 789.8 / 836.6 | 801.3 / 838.9 |
+| linux | 8 | 1296.7 / 1443.7 | 1310.5 / 1446.2 | 1426.8 / 1500.0 | 1432.0 / 1546.5 |
 
-Measured paired group-ready median improvement (control minus experiment):
-macOS +29.1 / −5.9 / +46.7 ms and Ubuntu −3.2 / −13.9 / −11.7 ms at ×1/4/8.
-Latency effects are mixed; this single run does not establish a portable benefit.
-No additional tail repetition is needed to reject the failed memory criterion.
+Paired group-ready median improvement (control−16M), ×1/4/8:
+macOS +9.2 / −3.6 / −53.5 ms; Ubuntu +0.1 / −8.2 / −19.2 ms.
+There is no consistent portable latency benefit. macOS ×8 group p95 is
+2.858→3.036 s; one run does not establish a reproducible parallel-tail regression,
+but it provides no reason to override the failed combined criteria.
 
-## Incremental real-memory accounting
+## Incremental ready memory
 
 Primary metric: Linux PSS sum; macOS physical-footprint sum. MiB p50 below.
-G(0) includes the Go host with no runtime children; G(n) includes host and all
-n runtimes. Incremental/n is computed within each sample. Paired saving is the
-median of per-round control-minus-experiment incremental/n differences.
-G(0) and G(n) columns are separate medians, not an identity to recompute savings.
+G(0) includes Go host with zero DBs; G(n) includes host and n runtimes.
+Incremental/n is calculated within each sample. Paired saving is the median
+per-round control−16M difference, not subtraction of separately pooled medians.
 
-| Platform | DBs | G(0) control | G(n) control | Incremental/DB control | Incremental/DB 16 | Paired saving/DB |
+| Platform | DBs | G(0) control | G(n) control | Incremental/DB control | Incremental/DB 16M | Paired saving/DB |
 |---|---:|---:|---:|---:|---:|---:|
-| linux | 1 | 19.10 | 420.58 | 401.68 | 400.83 | 4.05 |
-| linux | 4 | 18.88 | 1389.78 | 342.76 | 339.43 | 4.88 |
-| linux | 8 | 19.34 | 2673.49 | 331.70 | 326.62 | 4.81 |
-| darwin | 1 | 9.81 | 250.59 | 240.86 | 239.02 | 2.45 |
-| darwin | 4 | 10.31 | 988.32 | 244.53 | 241.31 | 2.96 |
-| darwin | 8 | 13.35 | 2031.70 | 252.31 | 248.53 | 4.15 |
+| darwin | 1 | 9.68 | 253.59 | 243.96 | 237.88 | 4.73 |
+| darwin | 4 | 11.00 | 992.89 | 245.50 | 242.44 | 3.90 |
+| darwin | 8 | 12.53 | 2018.49 | 250.73 | 245.52 | 4.33 |
+| linux | 1 | 14.98 | 413.83 | 398.81 | 400.26 | 6.11 |
+| linux | 4 | 15.31 | 1384.43 | 342.34 | 337.63 | 5.24 |
+| linux | 8 | 18.24 | 2672.02 | 331.67 | 325.45 | 5.68 |
 
-Derived control marginal growth per additional DB, matched sequential rounds:
-Ubuntu 1→4 ≈321.9 MiB, 4→8 ≈321.3 MiB; macOS ≈245.4 and ≈258.9 MiB.
-These are process accounting measures, not globally unique physical-memory totals.
-Linux private bytes support the same small reduction: median ready-group private
-128→16 is 420.3→419.1 MiB at ×1, 1311.1→1297.9 at ×4,
-2594.2→2553.9 at ×8. macOS private bytes are unavailable.
+Control marginal growth, matched sequential rounds (1→4 / 4→8):
+- darwin: 246.0 / 254.8 MiB per additional DB.
+- linux: 321.6 / 322.1 MiB per additional DB.
 
-Raw RSS remains secondary: median ready-group control RSS is Ubuntu
-424.8 / 1634.3 / 3230.7 MiB and macOS 357.9 / 1387.0 / 2455.3 MiB.
-PSS/footprint differ materially from RSS, validating the decision to avoid RSS
-alone as the FAST memory KPI. Inference: the large cache mapping/default size
-does not translate into an equally large ready-state physical charge in this
-workload. The exact remaining ready-state allocation ownership is still unknown.
+Raw RSS and Linux private bytes are retained in JSON; macOS private bytes are
+unavailable. These process accounting measures are not globally unique physical
+memory. Linux PSS can change with sharing; macOS footprint is an accounting charge.
+Unmapped kernel/filesystem cache is outside this process scope.
 
-After the >16 MiB Aria/temp-table workload, paired after-workload group savings
-are approximately 80.9 MiB on macOS and 107.7 MiB on Ubuntu. Separate-distribution
-median group primary bytes are 450.4→367.9 MiB macOS and 661.2→561.8 MiB Ubuntu.
-These groups include the host and one runtime; no separate G(0) was captured for
-this auxiliary workload, so these are paired group savings, not the canonical
-G(n)−G(0) KPI. Actual `.MAD` length was 65,544,192 bytes (≈62.5 MiB).
-Inference: cache-related physical pages are material after this heavier work,
-while the normal ready-state fixture does not pay the full configured cache size.
+Sampled incremental group-peak p50, ×1/4/8:
+- darwin 128M: 244.0 / 982.1 / 2005.9 MiB.
+- darwin 16M: 237.9 / 969.7 / 1964.2 MiB.
+- linux 128M: 398.8 / 1369.4 / 2653.6 MiB.
+- linux 16M: 400.3 / 1350.5 / 2603.7 MiB.
 
-Sampled group peaks have the same reported median as the all-ready measurement
-in this run. macOS retained 103 startup sampling gaps; Ubuntu retained none.
-Incomplete samples never enter peak calculations; brief peaks can still be missed.
-All mandatory G(0), ready and after-close samples succeeded. Runtime inventories
-were empty after every Close. Paired create/destroy cycles showed small
-after-close increments (p95 <0.8 MiB per cycle on both platforms); this establishes
-bounded-run cleanup, not a proof of long-term absence of memory retention.
+Sampled peak medians equal the all-ready values in this run. macOS retained
+108 transient startup counter gaps, Ubuntu none; incomplete samples never enter
+peak calculations. Brief peaks may be missed. All mandatory baseline/ready/
+after-close measurements succeeded. All runtimes disappear after every Close.
+Per-cycle after-close increases have p95 <1 MiB, across repeated create/destroy
+groups. This is bounded-run cleanup evidence, not proof of indefinite stability.
 
-## CPU control baseline and cache-overflow workload
+## CPU baseline
 
-Ubuntu combined process CPU per DB, seconds p50 / p95:
-128 MiB control ×1 0.530/0.560, ×4 0.567/0.580, ×8 0.565/0.583.
-16 MiB ×1 0.535/0.551, ×4 0.563/0.585, ×8 0.570/0.584.
-Control ×1 median host delta is 0.19 s and runtime lifetime CPU 0.34 s.
-×8 amplification (same interval, matched rounds) is control 1.073/1.109 and
-16 MiB 1.057/1.123. Kernel ticks limit CPU precision. The provisional <0.5
-CPU-sec target is not yet met by this control; do not convert it into a hard gate.
-CPU includes Go sampler/startup bookkeeping and excludes counter-helper/ps CPU
-and shutdown. macOS CPU baseline awaits corrected measurement.
+Combined host/runtime CPU seconds per DB, p50 / p95. All components use the
+same G(0)→all-ready collection interval; shutdown/correctness SQL excluded.
+Host includes sampler/bookkeeping, runtime includes all process threads.
+Counter-helper/ps CPU excluded. Version query and sequential collection are
+included. Linux CPU precision is limited by scheduler ticks.
 
-Both conditions passed five fresh large-Aria forks: actual `.MAD` >16 MiB;
-24,000 unique 2,048-character rows; count/length/CRC validation; disk-backed
-internal temporary-table counter increase; fork-local writes isolated.
-Go race/lifecycle and Python multi-client/interruption checks passed in both
-conditions/platforms. Aria and other plugins remained enabled.
+| Platform | DBs | 128M CPU-sec/DB | 16M CPU-sec/DB |
+|---|---:|---:|---:|
+| darwin | 1 | 0.379 / 0.397 | 0.361 / 0.393 |
+| darwin | 4 | 0.499 / 0.596 | 0.457 / 0.611 |
+| darwin | 8 | 0.554 / 0.882 | 0.560 / 0.845 |
+| linux | 1 | 0.520 / 0.550 | 0.530 / 0.550 |
+| linux | 4 | 0.562 / 0.583 | 0.570 / 0.578 |
+| linux | 8 | 0.572 / 0.589 | 0.572 / 0.589 |
 
-Over-cache correctness workload wall time, seconds p50/p95:
-Ubuntu 128M 1.192/1.198 →16M 1.318/1.337; combined CPU
-1.200/1.200 →1.320/1.344. Derived separate-distribution p50 change is
-about +10.6% wall/+10.0% CPU. All five Ubuntu pairs regress: wall +111–145 ms,
-paired median +131 ms; CPU +0.12–0.15 s, paired median +0.12 s. This is
-reproducible within this bounded run, not a broad workload guarantee. macOS wall 1.779/1.809 →1.824/2.290; CPU invalid as above.
-This test aggregates scans, checksum, grouping/temp-table work and a mutation;
-it does not attribute the increase to a particular cache miss/file operation.
+Control ×1 component medians: macOS host 0.136 s / runtime 0.243 s;
+Ubuntu host 0.190 s / runtime 0.330 s. These separate medians should not be added
+as an exact decomposition of the combined median. Control ×8 amplification
+CPU(8)/(8×CPU(1)), matched rounds: macOS 1.492 / 2.294 (p50/p95),
+Ubuntu 1.092 / 1.151. The provisional 0.5 CPU-sec / 1.5× ideas must be considered
+with these platform-specific scopes and variance, not promoted to CI gates.
 
-## FAST strategy implications
+## Aria and temporary-table workload
 
-Fact: reducing this cache misses the ≈64 MiB ready-state saving on the canonical
-fixture; heavy Aria usage does show >64 MiB paired group savings. It incurs
-consistent CPU/wall regression in that Ubuntu workload.
-Decision: reject this setting change under the combined criteria; keep
-production Aria unchanged.
-The control establishes Ubuntu incremental PSS around 402 MiB at ×1,
-332 MiB/DB at ×8 and marginal growth around 321 MiB/additional DB. macOS
-footprint is around 241 MiB at ×1 and 252 MiB/DB at ×8; its accounting differs.
-The provisional 256 MiB/DB and 2 GiB ×8 budgets must be evaluated by platform
-and scope rather than raw RSS. No numeric target is changed here.
-Both control first-SQL p50 values remain above the v0.2 ≤500 ms KPI in this run.
-A future strategy review must address remaining latency/resource costs with
-maintenance cost in mind. This result authorizes no new cache tuning or
-restore/VFS/runtime architecture implementation.
+Actual `.MAD`: 65,544,192 bytes, ≈62.5 MiB, exceeding the 16 MiB cache.
+Five fresh forks/condition passed 24,000-row count/length/CRC validation,
+disk-backed internal temporary-table activity and isolated fork-local mutation.
+Existing Go race/lifecycle and Python multi-client/interruption checks passed
+in both conditions/platforms. Plugins remained enabled.
 
-## Artifact identities
+| Platform | 128M workload wall s p50/p95 | 16M workload wall | 128M CPU s p50/p95 | 16M CPU | Paired post-workload memory saving MiB |
+|---|---:|---:|---:|---:|---:|
+| darwin | 1.214 / 1.269 | 1.304 / 1.463 | 1.214 / 1.275 | 1.292 / 1.423 | 107.8 |
 
-- linux `init-aria-cache.json` SHA256: `7eee73b7ade001747a672b840df873c9dc509586ffa7e5086c894aea1e510464`
-- darwin `init-aria-cache.json` SHA256: `35340a9472a08e49ca8b54cbcff7cce641f1e6b912f48bbfa11e4347d6052e53`
+| linux | 1.187 / 1.198 | 1.312 / 1.322 | 1.190 / 1.198 | 1.320 / 1.328 | 115.6 |
+
+Both platforms regress wall and CPU in all five pairs. Paired median
+wall/CPU increases: macOS +93/+96 ms; Ubuntu +123/+130 ms.
+Derived separate-distribution p50 increases are ≈7.4% wall / 6.4% CPU macOS,
+≈10.5% / 10.9% Ubuntu. Five pairs support this bounded-workload trade-off;
+they do not establish all application behavior. The aggregate includes scans,
+checksum, GROUP BY/temp-table work and mutation; exact cache-miss attribution
+is unknown. Post-workload group savings include host and one runtime and lack
+a separate auxiliary G(0); they are not the canonical incremental-memory KPI.
+
+Inference: physical cache-related pages become material after heavier Aria
+activity, but the small reference fixture does not pay the full configured
+128 MiB physically. Shrinking the cache trades heavier-workload CPU/wall for
+memory, without the required ready-state isolation gain.
+
+## Implications and remaining limits
+
+- Reject this setting change; preserve the production cache and SQL semantics.
+- The valid control baseline is macOS ≈244 MiB/DB footprint / 0.379 CPU-sec at
+  ×1; Ubuntu ≈399 MiB/DB PSS / 0.520 CPU-sec. At ×8 the corresponding averages
+  are ≈251/332 MiB per DB. RSS alone overstates this measure of marginal cost.
+- The macOS control meets the 500/750 ms latency KPI in this run, Ubuntu p50
+  532 ms does not. Previous macOS run was 576 ms, despite no product optimization;
+  hosted-run variance prevents claiming a new canonical product improvement.
+  ×8 macOS tail is also noisy; CPU amplification identifies continuing cost.
+- Further attribution of non-Aria ready memory, restore and parallel scaling
+  remains evidence for a strategy review. No additional cache tuning or
+  architecture change is selected here. Numeric CPU/memory goals remain
+  provisional; this experiment supplies scoped baselines for that decision.
+
+## Final artifact identities
+
+- darwin `init-aria-cache.json` SHA256: `c7f63584dd9d2ade6143b1742da63e37b63714b2e3f6e6dc5e35ab1f689bec8c`
+- linux `init-aria-cache.json` SHA256: `19d60810f9ae5cbfa3fefe20dcd63f2c0b8bd718fef9d7ffc4cd75044d8de72d`
+
+- Common WASM SHA256: `8603578dd5774645598234c86833db61dfcc7b07c25b39180b61635f60b078e8`
+- macOS AOT SHA256: `386d610d0bd15865d7f1111119034d8aa771c6ae8861c0be0f709d8b5ebd5f80`
+- Ubuntu AOT SHA256: `81c88817991fbc1a169bb763bc23beb612a998c25ff6f0c9a2d3ed675128e63b`
