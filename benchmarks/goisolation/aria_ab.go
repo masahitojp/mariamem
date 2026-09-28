@@ -243,6 +243,10 @@ func (r *runner) ariaCache(db *mariamem.Database) error {
 	return nil
 }
 func (r *runner) ariaRun() (err error) {
+	checkpoint := func(stage string) {
+		r.samples = append(r.samples, map[string]any{"case": "preparation_checkpoint", "stage": stage, "at": time.Now().UTC().Format(time.RFC3339Nano)})
+	}
+	checkpoint("start_template")
 	if os.Getenv("MARIAMEM_COST_HELPER") == "" {
 		return errors.New("native cost helper required")
 	}
@@ -253,11 +257,13 @@ func (r *runner) ariaRun() (err error) {
 	}
 	defer db.Close()
 	r.version = initial["server_version"].(string)
+	checkpoint("template_started")
 	if err = r.seed(db); err != nil {
 		return err
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
 	defer cancel()
+	checkpoint("template_seeded")
 	// Normal 1k timed snapshot; a separate larger Aria correctness snapshot below.
 	if err = db.WaitDisconnected(ctx); err != nil {
 		return err
@@ -267,6 +273,7 @@ func (r *runner) ariaRun() (err error) {
 		return err
 	}
 	defer s.Close()
+	checkpoint("normal_snapshot_ready")
 	checkDB, _, err := r.startup(s, time.Now())
 	if err != nil {
 		return err
@@ -296,10 +303,12 @@ func (r *runner) ariaRun() (err error) {
 		}
 		if _, err = p.ExecContext(ctx, query, args...); err != nil {
 			p.Close()
-			return err
+			return fmt.Errorf("Aria bulk insert batch %d: %w", start/1000, err)
 		}
+		checkpoint(fmt.Sprintf("aria_inserted_%d_rows", start+1000))
 	}
 	p.Close()
+	checkpoint("aria_data_loaded")
 	if err = checkDB.WaitDisconnected(ctx); err != nil {
 		return err
 	}
@@ -308,6 +317,7 @@ func (r *runner) ariaRun() (err error) {
 		return err
 	}
 	defer large.Close()
+	checkpoint("large_snapshot_ready")
 	var dataBytes int64
 	if err = filepath.Walk(large.Path(), func(path string, info os.FileInfo, e error) error {
 		if e != nil {
