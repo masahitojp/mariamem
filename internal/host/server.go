@@ -77,6 +77,7 @@ func start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 	if metadataErr != nil && (verified != nil || !os.IsNotExist(metadataErr)) {
 		return nil, diagnostic.Wrap("artifact_mismatch", "artifact_validation", metadataErr)
 	}
+	timing.Mark(ctx, "native_identity_checked")
 	if restore != "" {
 		if metadataErr != nil {
 			return nil, diagnostic.Wrap("artifact_mismatch", "artifact_validation", metadataErr)
@@ -124,6 +125,7 @@ func start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 	s := &Server{Guest: p, listener: ln, clients: make(map[net.Conn]*session), slots: make([]bool, p.MaxSessions), queryTimeout: timeout, transfer: transfer, build: build}
 	timing.Mark(ctx, "wire_listener_ready")
 	timing.ReadGuest(ctx, transfer)
+	timing.Mark(ctx, "guest_timing_read")
 	go s.accept()
 	return s, nil
 }

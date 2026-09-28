@@ -147,8 +147,16 @@ def summarize_stages(samples):
             if row['case'] != 'snapshot':
                 scopes['python_startup'] = trace.get('python_startup') or []
             scopes['host'] = trace.get('host', {}).get('events', [])
+            for name in ('api_startup', 'fork'):
+                scopes[name] = trace.get(name, {}).get('events', []) or []
             if row['case'] != 'snapshot':
                 scopes['guest'] = trace.get('host', {}).get('guest', {}).get('events', [])
+            # Compare nested durations, never offsets from different clock origins.
+            api = {e['name']: e['offset_ns'] for e in scopes['api_startup']}
+            host_events = {e['name']: e['offset_ns'] for e in scopes['host']}
+            if all(k in api for k in ('runtime_directory_ready', 'host_returned')) and all(k in host_events for k in ('begin', 'end')):
+                residual = (api['host_returned'] - api['runtime_directory_ready']) - (host_events['end'] - host_events['begin'])
+                grouped.setdefault((row['case'], row['workers'], 'api_host_handoff', 'outside_host_trace'), []).append(residual / 1e9)
             if scopes.get('guest'):
                 host = {event['name']: event['offset_ns'] for event in scopes['host']}
                 guest = scopes['guest']

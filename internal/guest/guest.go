@@ -55,8 +55,9 @@ type Result struct {
 	Rows            [][]*Cell `json:"rows"`
 }
 type response struct {
-	result Result
-	err    error
+	result              Result
+	err                 error
+	headerAt, decodedAt time.Time
 }
 type Process struct {
 	cmd             *exec.Cmd
@@ -71,6 +72,7 @@ type Process struct {
 	done            chan struct{}
 	exitErr         error
 	abort           sync.Once
+	startupTiming   bool
 	SnapshotVersion int
 	MaxSessions     int
 }
@@ -108,7 +110,7 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 		return nil, err
 	}
 	ready := make(chan response, 1)
-	p := &Process{cmd: cmd, in: in, out: out, writes: make(chan struct{}, 1), done: make(chan struct{}), pending: map[uint32]chan response{0: ready}}
+	p := &Process{startupTiming: timing.Enabled(ctx), cmd: cmd, in: in, out: out, writes: make(chan struct{}, 1), done: make(chan struct{}), pending: map[uint32]chan response{0: ready}}
 	timing.Mark(ctx, "spawn_begin")
 	if err = cmd.Start(); err != nil {
 		in.Close()
@@ -122,6 +124,9 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 	go func() { <-readDone; p.exitErr = cmd.Wait(); close(p.done); p.fail(errors.New("guest exited")) }()
 	select {
 	case r := <-ready:
+		timing.MarkAt(ctx, "ready_header_received", r.headerAt)
+		timing.MarkAt(ctx, "ready_frame_decoded", r.decodedAt)
+		timing.Mark(ctx, "ready_response_observed")
 		if r.err == nil && r.result.Ready && r.result.Version == 2 && r.result.MaxSessions > 0 && r.result.MaxSessions <= 65536 {
 			p.SnapshotVersion = r.result.SnapshotVersion
 			p.MaxSessions = r.result.MaxSessions
@@ -199,11 +204,16 @@ func (p *Process) readFailed(err error) {
 	}
 }
 func (p *Process) read() {
+	first := true
 	for {
 		var h [4]byte
 		if _, err := io.ReadFull(p.out, h[:]); err != nil {
 			p.readFailed(err)
 			return
+		}
+		var headerAt time.Time
+		if first && p.startupTiming {
+			headerAt = time.Now()
 		}
 		n := binary.LittleEndian.Uint32(h[:])
 		if n == 0 || n > 32<<20 {
@@ -231,7 +241,12 @@ func (p *Process) read() {
 			p.Abort(errors.New("unknown guest response ID"))
 			return
 		}
-		ch <- response{result: msg.Result}
+		var decodedAt time.Time
+		if first && p.startupTiming {
+			decodedAt = time.Now()
+		}
+		first = false
+		ch <- response{result: msg.Result, headerAt: headerAt, decodedAt: decodedAt}
 	}
 }
 func writeAll(w io.Writer, b []byte) error {

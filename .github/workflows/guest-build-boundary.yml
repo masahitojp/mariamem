@@ -2,6 +2,10 @@ name: Guest build boundary verification
 on:
   workflow_dispatch:
     inputs:
+      fork_gap_measurement:
+        description: 'Production Fork gap attribution, 30 samples at x1 on both platforms'
+        type: boolean
+        default: false
       competitive_baseline:
         description: 'Ubuntu-only mariamem vs digest-pinned Testcontainers practical isolation comparison'
         type: boolean
@@ -81,7 +85,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.competitive_baseline }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.competitive_baseline && !inputs.fork_gap_measurement }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -179,7 +183,7 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche
+    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche || inputs.fork_gap_measurement
     needs: guest
     strategy:
       fail-fast: false
@@ -231,6 +235,14 @@ jobs:
           key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal verified guest smoke
         run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Focused production Fork gap attribution
+        if: inputs.fork_gap_measurement
+        run: |
+          python scripts/verify.py bench go-isolation --native-dir build/guest-aot \
+            --guest-stage-timing --runs 30 --warmup 2 --workers 1 --rows 1000 --queries 10 \
+            --json benchmarks/results/init-fork-gap.json
+          python benchmarks/stage_report.py benchmarks/results/init-fork-gap.json > benchmarks/results/init-fork-gap.md
+          cat benchmarks/results/init-fork-gap.md >> "$GITHUB_STEP_SUMMARY"
       - name: Package and accept production FAST tranche
         if: inputs.fast_tranche
         run: |

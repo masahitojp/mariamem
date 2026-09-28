@@ -60,8 +60,16 @@ func Begin(ctx context.Context, operation string) (context.Context, func()) {
 	}
 }
 func Mark(ctx context.Context, name string) {
-	if t, ok := ctx.Value(key{}).(*Trace); ok {
-		t.Events = append(t.Events, Event{Name: name, Offset: time.Since(t.start).Nanoseconds()})
+	if Enabled(ctx) {
+		MarkAt(ctx, name, time.Now())
+	}
+}
+
+// MarkAt records a host-clock observation made by a transport goroutine.
+// The owning startup goroutine appends it after receiving the response.
+func MarkAt(ctx context.Context, name string, at time.Time) {
+	if t, ok := ctx.Value(key{}).(*Trace); ok && !at.IsZero() {
+		t.Events = append(t.Events, Event{Name: name, Offset: at.Sub(t.start).Nanoseconds()})
 	}
 }
 

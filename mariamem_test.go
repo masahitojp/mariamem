@@ -16,6 +16,7 @@ import (
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/host"
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
+	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 type fakeBackend struct {
@@ -545,5 +546,30 @@ func TestPublicStartupRecoveryMessages(t *testing.T) {
 				t.Fatal(err)
 			}
 		}
+	}
+}
+
+func TestPublicForkTimingRetainsPreparationFailureAndNestedScopes(t *testing.T) {
+	t.Setenv("MARIAMEM_TIMING_DIR", t.TempDir())
+	traces := map[string]timing.Trace{}
+	ctx := timing.WithRecorder(context.Background(), func(trace timing.Trace) { traces[trace.Operation] = trace })
+	snapshot := &Snapshot{path: t.TempDir(), opts: Options{NativeDir: t.TempDir()}}
+	db, err := snapshot.Fork(ctx)
+	if err == nil || db != nil {
+		t.Fatal("missing native input unexpectedly started", db, err)
+	}
+	if len(traces) != 2 {
+		t.Fatal(traces)
+	}
+	api := traces["api_startup"].Events
+	fork := traces["fork"].Events
+	if len(api) != 3 || api[1].Name != "options_ready" || api[2].Name != "end" {
+		t.Fatal(api)
+	}
+	if len(fork) != 4 || fork[1].Name != "snapshot_handle_ready" || fork[2].Name != "startup_returned" {
+		t.Fatal(fork)
+	}
+	if snapshot.closed {
+		t.Fatal("diagnostics consumed failed fork source")
 	}
 }

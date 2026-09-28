@@ -168,3 +168,18 @@ def test_stage_report_preserves_unavailable_cost_and_sample_counts():
     assert 'test-sha' in text and '| 160 | 10.000 | 20.000 |' in text
     assert '| 400.000 / 500.000 | unavailable | unavailable |' in text
     assert 'not pure Wasmer time' in text
+
+
+def test_nested_api_host_handoff_uses_durations_not_clock_offsets():
+    def events(**offsets):
+        return [{'name': name, 'offset_ns': value} for name, value in offsets.items()]
+    trace = {
+        'api_startup': {'events': events(begin=0, runtime_directory_ready=100, host_returned=600, end=610)},
+        'fork': {'events': None},
+        # Host origin is independent from API origin.
+        'host': {'events': events(begin=3, metadata_snapshot_validated=103, end=403)},
+    }
+    rows = baseline.summarize_stages([{'case': 'fork', 'workers': 1, 'phase': 'measurement', 'per_db': [{'stage_timings': trace}]}])
+    handoff = next(row for row in rows if row['scope'] == 'api_host_handoff')
+    assert handoff['p50_seconds'] == pytest.approx(100 / 1e9)
+    assert next(row for row in rows if row['scope'] == 'api_startup' and row['stage'] == 'runtime_directory_ready')['p50_seconds'] == pytest.approx(100 / 1e9)

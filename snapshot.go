@@ -8,6 +8,7 @@ import (
 	"sync"
 
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
+	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 // SnapshotOptions configures cold snapshot creation.
@@ -77,12 +78,17 @@ func (s *Snapshot) Path() string { return s.path }
 // The read lock pins owned files through startup; a waiting Close blocks new
 // readers and removes those files only after all admitted startups finish.
 func (s *Snapshot) Fork(ctx context.Context) (*Database, error) {
+	ctx, finishTiming := timing.Begin(ctx, "fork")
+	defer finishTiming()
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	if s.closed || s.path == "" {
 		return nil, hostError(ErrClosed, "closed", true)
 	}
-	return start(ctx, s.opts, s.path)
+	timing.Mark(ctx, "snapshot_handle_ready")
+	db, err := start(ctx, s.opts, s.path)
+	timing.Mark(ctx, "startup_returned")
+	return db, err
 }
 
 // Close retains explicit destinations and removes only this handle's temp root.

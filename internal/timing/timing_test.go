@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"testing"
+	"time"
 )
 
 func TestOptInMonotonicTrace(t *testing.T) {
@@ -97,4 +98,26 @@ func TestRecorderBindsConcurrentCallsWithoutPIDMatching(t *testing.T) {
 	t.Setenv("MARIAMEM_TIMING_DIR", "")
 	_, finish := Begin(WithRecorder(context.Background(), func(Trace) { t.Fatal("disabled recorder called") }), "disabled")
 	finish()
+}
+
+func TestNestedStartupScopesAndDeferredObservation(t *testing.T) {
+	t.Setenv("MARIAMEM_TIMING_DIR", t.TempDir())
+	traces := map[string]Trace{}
+	ctx := WithRecorder(context.Background(), func(tr Trace) { traces[tr.Operation] = tr })
+	parent, finishParent := Begin(ctx, "api_startup")
+	Mark(parent, "native_resolved")
+	child, finishChild := Begin(parent, "startup")
+	at := time.Now()
+	MarkAt(child, "ready_frame_decoded", at)
+	Mark(child, "ready_response_observed")
+	finishChild()
+	Mark(parent, "host_returned")
+	finishParent()
+	if len(traces) != 2 || traces["api_startup"].Events[2].Name != "host_returned" {
+		t.Fatal(traces)
+	}
+	events := traces["startup"].Events
+	if events[1].Offset > events[2].Offset {
+		t.Fatal(events)
+	}
 }

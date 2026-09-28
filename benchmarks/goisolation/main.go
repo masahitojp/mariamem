@@ -44,10 +44,16 @@ func (r *runner) startup(saved *mariamem.Snapshot, group time.Time) (db *mariame
 	begin := time.Now()
 	events := []timing.Event{event("begin", begin)}
 	var host *timing.Trace
+	traces := map[string]timing.Trace{}
 	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
 	defer cancel()
 	if r.cfg.stages {
-		ctx = timing.WithRecorder(ctx, func(trace timing.Trace) { host = &trace })
+		ctx = timing.WithRecorder(ctx, func(trace timing.Trace) {
+			traces[trace.Operation] = trace
+			if trace.Operation == "startup" {
+				host = &trace
+			}
+		})
 	}
 	if saved == nil {
 		db, err = mariamem.Start(ctx, mariamem.Options{NativeDir: r.cfg.native})
@@ -99,10 +105,13 @@ func (r *runner) startup(saved *mariamem.Snapshot, group time.Time) (db *mariame
 		if host == nil {
 			return nil, nil, errors.New("missing host startup trace")
 		}
+		if len(traces["api_startup"].Events) == 0 || (saved != nil && len(traces["fork"].Events) == 0) {
+			return nil, nil, errors.New("missing public API startup trace")
+		}
 		if r.cfg.guestStages && len(host.Guest) == 0 {
 			return nil, nil, errors.New("matching instrumented guest required")
 		}
-		stages = map[string]any{"caller": events, "host": host}
+		stages = map[string]any{"caller": events, "host": host, "api_startup": traces["api_startup"], "fork": traces["fork"]}
 	}
 	row = map[string]any{"latency_seconds": ready.Sub(begin).Seconds(), "ready_at_seconds": ready.Sub(group).Seconds(), "server_version": version, "stage_timings": stages}
 	success = true

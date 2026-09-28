@@ -32,6 +32,7 @@ import (
 
 	"github.com/masahitojp/mariamem/internal/artifacts"
 	"github.com/masahitojp/mariamem/internal/host"
+	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 // Options configures a database instance. NativeDir must point to an extracted
@@ -86,6 +87,8 @@ type Database struct {
 // successfully started database; call Close to dispose of it.
 func Start(ctx context.Context, opts Options) (*Database, error) { return start(ctx, opts, "") }
 func start(ctx context.Context, opts Options, restore string) (*Database, error) {
+	ctx, finishTiming := timing.Begin(ctx, "api_startup")
+	defer finishTiming()
 	opts, err := opts.defaults()
 	if err != nil {
 		return nil, err
@@ -93,10 +96,12 @@ func start(ctx context.Context, opts Options, restore string) (*Database, error)
 	if err = ctx.Err(); err != nil {
 		return nil, err
 	}
+	timing.Mark(ctx, "options_ready")
 	bundle, err := artifacts.Resolve(opts.NativeDir)
 	if err != nil {
 		return nil, hostError(err, "artifacts", false)
 	}
+	timing.Mark(ctx, "native_resolved")
 	opts.NativeDir = bundle.Dir
 	temp, err := os.MkdirTemp("", "mariamem-go-")
 	if err != nil {
@@ -107,15 +112,18 @@ func start(ctx context.Context, opts Options, restore string) (*Database, error)
 	if err = os.Mkdir(runtimeDir, 0700); err != nil {
 		return nil, errors.Join(err, os.RemoveAll(temp))
 	}
+	timing.Mark(ctx, "runtime_directory_ready")
 	startup, cancel := context.WithTimeout(ctx, opts.StartupTimeout)
 	defer cancel()
 	s, err := host.StartVerified(startup, bundle, runtimeDir, restore, opts.QueryTimeout, &db.logs)
 	if err != nil {
 		return nil, hostError(errors.Join(err, os.RemoveAll(temp)), "start", true)
 	}
+	timing.Mark(ctx, "host_returned")
 	db.server = s
 	db.info = ConnectionInfo{Host: "127.0.0.1", Port: s.Port(), User: "root", Database: "test"}
 	go db.watch(s.Guest.Done())
+	timing.Mark(ctx, "database_ready")
 	return db, nil
 }
 func (db *Database) watch(done <-chan struct{}) {
