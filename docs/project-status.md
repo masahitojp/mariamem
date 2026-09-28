@@ -407,23 +407,48 @@ Ubuntu; memory remains hundreds of MiB per DB. RSA generation and redundant
 within-call native validation are closed for this tranche. See
 [accepted tranche baseline](../benchmarks/fast-tranche-baseline.md).
 
-The next sequence is evidence-driven:
+The north star remains: creating an isolated real MariaDB should be fast and
+cheap enough that tests do not need to conserve database instances.
 
-```text
-first FAST tranche integrated + accepted main baseline
-→ fresh restore/source-boundary experiment
-→ profiling / competing architecture probes as supported by evidence
-→ production-quality integration
-```
+Three kinds of numbers have different purposes:
 
-Restore remains the next active FAST question. No pre-staging, copy changes,
-VFS/CoW or runtime sharing is integrated. Framework dogfood remains 0.3+;
-Testcontainers comparison remains a separate measurement, not a prerequisite
-for this tranche.
+| Kind | Meaning |
+| --- | --- |
+| v0.2 product latency KPI | ×1 Fork → usable SQL p50 ≤500 ms and p95 ≤750 ms on the fixed 1,000-row reference workload, on both platforms |
+| Regression/debug red line | ×1 600/900 ms; ×4 group-ready p95 1.5 s; ×8 group-ready p95 3 s. Passing these does not establish FAST completion |
+| Longer-term stretch | ×1 p50 <250 ms / p95 <500 ms; further latency work is deferred, not abandoned |
 
-Fork → connection → first successful SQL is the primary isolation-latency
-metric. Measure CPU and memory cost too, including 1 / 4 / 8 parallel instances.
-No CoW, VFS, embedded-runtime or other implementation strategy has been chosen.
+These are development/reference measurements, not public performance guarantees
+or noisy hard CI gates. CPU time and memory are first-class FAST KPIs. Define
+CPU-sec per isolated DB over the same host/runtime measurement interval and ×8
+amplification CPU(8)/(8×CPU(1)); <0.5 CPU-sec/DB and ≤1.5× are provisional until
+consistent control baselines establish their meaning. Define G(0), G(1/4/8),
+incremental group cost G(n)-G(0), average cost per DB and marginal growth.
+Prefer private/PSS/physical footprint where supported, retaining raw RSS as a
+secondary metric. Ready RSS is about 400 MiB/DB; actual incremental cost is not
+yet established. <256 MiB/DB and <2 GiB at ×8 are provisional memory budgets;
+<192 MiB/DB and <1.5 GiB are stretch ideas. Freeze meaningful metrics/budgets
+from control evidence before judging optimization results.
+
+The same-run Ubuntu Testcontainers comparison already shows strong practical
+latency value: fixture-ready p50 527/693/1,221 ms versus 5.58/7.46/14.67 s at
+×1/4/8, with different MariaDB versions/defaults. It does not establish memory
+superiority. See [comparison](../benchmarks/testcontainers-comparison.md).
+
+The next bounded experiment changes only Aria page cache from 128 to 16 MiB.
+It must demonstrate physical/incremental savings (roughly ≥64 MiB/DB), preserve
+correctness/cleanup, and avoid reproducible latency/CPU/parallel-tail regressions.
+Mapping shrinkage alone is insufficient. Use its controls to establish CPU and
+incremental-memory baselines. Do not respond to failure by tuning another cache.
+
+v0.2 should finish production-quality cold-start/resource improvements and
+both-platform acceptance without VFS/CoW/runtime-sharing/continuation redesigns.
+A change that saves memory does not by itself satisfy the latency KPI. Restore
+remains a measured cost and future investigation input; direct-WASI reads were
+not accepted due to unresolved parallel tails. No restore change is integrated.
+After v0.2, prioritize ORM/interface dogfood such as GORM and SQLAlchemy before
+larger MORE FAST architecture work. Broader latency/resource improvements remain
+on the roadmap, and the later Easy/zero-setup direction remains intact.
 
 Validation remains intentionally narrow: Go 1.26 and Python 3.14. Broader version
 compatibility is not the current focus.
