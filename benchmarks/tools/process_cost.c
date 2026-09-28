@@ -6,6 +6,7 @@
 #include <unistd.h>
 #ifdef __APPLE__
 #include <libproc.h>
+#include <mach/mach_time.h>
 #include <sys/resource.h>
 #endif
 int main(int argc,char **argv) {
@@ -18,8 +19,10 @@ int main(int argc,char **argv) {
  double cpu=0;int ok=1;
 #ifdef __APPLE__
   struct rusage_info_v0 r;
+  mach_timebase_info_data_t timebase;
+  if(mach_timebase_info(&timebase)!=KERN_SUCCESS)return 2;
   if(proc_pid_rusage(pid,RUSAGE_INFO_V0,(rusage_info_t*)&r))ok=0;
-  else {rss=r.ri_resident_size;primary=r.ri_phys_footprint;cpu=(r.ri_user_time+r.ri_system_time)/1e9;}
+  else {rss=r.ri_resident_size;primary=r.ri_phys_footprint;cpu=((double)r.ri_user_time+r.ri_system_time)*timebase.numer/timebase.denom/1e9;}
 #else
   char path[128],line[4096],key[128];unsigned long long kb;
   snprintf(path,sizeof(path),"/proc/%d/smaps_rollup",pid);FILE *f=fopen(path,"r");
@@ -40,7 +43,7 @@ int main(int argc,char **argv) {
   if(!ok)printf("{\"error\":\"process counters unavailable\"}");
   else {
 #ifdef __APPLE__
- printf("{\"rss_bytes\":%llu,\"primary_bytes\":%llu,\"private_bytes\":null,\"cpu_seconds\":%.9f}",(unsigned long long)rss,(unsigned long long)primary,cpu);
+ printf("{\"rss_bytes\":%llu,\"primary_bytes\":%llu,\"private_bytes\":null,\"cpu_seconds\":%.9f,\"cpu_timebase_numer\":%u,\"cpu_timebase_denom\":%u}",(unsigned long long)rss,(unsigned long long)primary,cpu,timebase.numer,timebase.denom);
 #else
  printf("{\"rss_bytes\":%llu,\"primary_bytes\":%llu,\"private_bytes\":%llu,\"cpu_seconds\":%.9f}",(unsigned long long)rss,(unsigned long long)primary,(unsigned long long)priv,cpu);
 #endif

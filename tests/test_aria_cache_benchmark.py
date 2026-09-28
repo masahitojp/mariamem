@@ -45,3 +45,27 @@ def test_unavailable_metrics_are_not_zero_savings():
         ab.distribution([])
     with pytest.raises(ValueError, match='missing/nonfinite'):
         ab.distribution([float('nan')])
+
+
+def test_native_counter_matches_process_cpu_clock(tmp_path):
+    import os
+    import shutil
+    import subprocess
+    import time
+    import json
+    if shutil.which('cc') is None:
+        pytest.skip('native C compiler unavailable')
+    source = Path(__file__).resolve().parents[1]/'benchmarks/tools/process_cost.c'
+    helper = tmp_path/'cost'
+    subprocess.run(['cc', '-Wall', '-Wextra', '-Werror', str(source), '-o', str(helper)], check=True)
+    until = time.process_time()+.12
+    while time.process_time()<until:
+        pass
+    expected = time.process_time()
+    row = json.loads(subprocess.check_output([str(helper), str(os.getpid())]))[str(os.getpid())]
+    assert row['cpu_seconds'] == pytest.approx(expected, abs=.04, rel=.05)
+    assert row['primary_bytes']>0
+    if sys.platform == 'darwin':
+        assert row['cpu_timebase_numer']>0 and row['cpu_timebase_denom']>0
+    missing = json.loads(subprocess.check_output([str(helper), '2147483647']))['2147483647']
+    assert 'error' in missing and 'primary_bytes' not in missing

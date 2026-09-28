@@ -19,11 +19,13 @@ import (
 )
 
 type resource struct {
-	RSS     int64   `json:"rss_bytes"`
-	Primary int64   `json:"primary_bytes"`
-	Private *int64  `json:"private_bytes"`
-	CPU     float64 `json:"cpu_seconds"`
-	Error   string  `json:"error,omitempty"`
+	RSS           int64   `json:"rss_bytes"`
+	Primary       int64   `json:"primary_bytes"`
+	Private       *int64  `json:"private_bytes"`
+	CPU           float64 `json:"cpu_seconds"`
+	Error         string  `json:"error,omitempty"`
+	TimebaseNumer uint32  `json:"cpu_timebase_numer,omitempty"`
+	TimebaseDenom uint32  `json:"cpu_timebase_denom,omitempty"`
 }
 type groupCost struct {
 	Members    map[string]resource `json:"members"`
