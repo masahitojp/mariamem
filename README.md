@@ -16,14 +16,70 @@ test. Close client connections and owned database/snapshot handles normally.
 The Go module and GitHub Release are at `v0.2.0`; the Python
 distribution version is `0.2.0`. Native support is **macOS 15+ / Apple
 Silicon (arm64)** and **Ubuntu 24.04 LTS / x86_64** (SSE2 + SSSE3).
-The instructions use GitHub Release or locally built artifacts and do not
-depend on PyPI. Other Linux distributions are not supported.
+Install from the [v0.2.0 GitHub Release](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0).
+PyPI publication is temporarily unavailable while account recovery is pending;
+GitHub Release wheels are the supported Python installation path for now.
+Other Linux distributions are not supported.
 The 0.x public API may change.
 
 Release CI tests Go 1.26.8 and Python 3.14 on macOS 15 arm64 and Ubuntu 24.04
 x86_64. Package minimums (Go 1.26.0, Python >=3.9) do not imply a tested matrix
 across all later language versions. Other platforms are neither supported nor
 validated by these release jobs.
+
+## Python
+
+The released wheel includes the Go host executable, Wasmer runtime and MariaDB
+guest; no separate native setup or Docker is needed. Use a virtual environment:
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+**macOS 15+ / arm64:**
+
+```sh
+python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.2.0/mariamem-0.2.0-py3-none-macosx_15_0_arm64.whl
+```
+
+**Ubuntu 24.04 LTS / x86_64 (SSE2 + SSSE3):**
+
+```sh
+python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.2.0/mariamem-0.2.0-py3-none-linux_x86_64.whl
+```
+
+For the SQL example below and pytest fixtures, install the `test` extra using a
+PEP 508 direct reference instead of the plain command above:
+
+```sh
+# macOS arm64
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.2.0/mariamem-0.2.0-py3-none-macosx_15_0_arm64.whl'
+# Ubuntu x86_64
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.2.0/mariamem-0.2.0-py3-none-linux_x86_64.whl'
+```
+
+The extra installs PyMySQL and pytest tools. Use the wheel rather than a Git
+source install: it contains the required bundled native artifacts. Once PyPI
+publication becomes available, installation is expected to simplify to
+`pip install mariamem`; PyPI distribution has not been abandoned.
+
+```python
+import mariamem
+import pymysql
+
+with mariamem.start() as server:
+    with pymysql.connect(**server.connection_info()) as conn:
+        with conn.cursor() as cursor:
+            cursor.execute("CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB")
+            cursor.execute("INSERT INTO items VALUES(1)")
+            conn.commit()
+            cursor.execute("SELECT id FROM items")
+            assert cursor.fetchone() == (1,)
+```
+
+The installed package also provides pytest fixtures for independent databases;
+see the [Python guide](docs/python.md).
 
 ## Go
 
@@ -95,76 +151,42 @@ go run .
 # SELECT 1 = 1
 ```
 
-On Ubuntu 24.04 x86_64, download/extract
-`mariamem-native-ubuntu24.04-x86_64.tar.gz` instead and set `MARIAMEM_NATIVE_DIR`
-to `$PWD/mariamem-native-ubuntu24.04-x86_64`.
+On Ubuntu 24.04 x86_64, use the Ubuntu bundle instead:
+
+```sh
+gh release download v0.2.0 --repo masahitojp/mariamem \
+  --pattern 'mariamem-native-ubuntu24.04-x86_64.tar.gz'
+tar -xzf mariamem-native-ubuntu24.04-x86_64.tar.gz
+export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-ubuntu24.04-x86_64"
+go run .
+```
 
 The Go module does not contain the native runtime. The example passes the
 extracted directory to `Start`; `MARIAMEM_NATIVE_DIR` is read by this example,
-not automatically by the Go package.
+not automatically by the Go package. Simpler native setup is future usability
+work, not a v0.2.0 feature.
 
 See the [Go guide](docs/go.md) for connection metadata, snapshots, forks, and
 manual bundle verification.
 
-## Python
-
-Install the `0.2.0` platform wheel downloaded from a GitHub Release or built
-locally with [the development instructions](docs/development.md). For a locally
-built wheel:
-
-```sh
-python3 -m venv .venv
-.venv/bin/python -m pip install './build/dist/mariamem-0.2.0-py3-none-macosx_15_0_arm64.whl[test]'
-```
-
-On Ubuntu 24.04 x86_64, use
-`mariamem-0.2.0-py3-none-linux_x86_64.whl` instead of the macOS wheel.
-
-The wheel includes the Go host executable, Wasmer runtime, and MariaDB guest.
-The `test` extra installs PyMySQL and pytest tools.
-
-```python
-import mariamem
-import pymysql
-
-with mariamem.start() as server:
-    with pymysql.connect(**server.connection_info()) as conn:
-        with conn.cursor() as cursor:
-            cursor.execute("CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB")
-            cursor.execute("INSERT INTO items VALUES(1)")
-            conn.commit()
-            cursor.execute("SELECT id FROM items")
-            assert cursor.fetchone() == (1,)
-```
-
-The installed package also provides pytest fixtures for independent databases;
-see the [Python guide](docs/python.md).
-
 ## Performance and resource limits
 
-FAST reference measurements use the public Go API, a prepared 1,000-row fixture
-and Fork through the first successful SQL. On a fixed MacBook Air M1 / 16 GiB /
-macOS 27.0 arm64, 30 independent trials measured **374.2 ms p50, 417.7 ms p95,
-446.1 ms max**. These are reference observations, not hardware-independent
-guarantees or a universal CI threshold. See the
-[method, commit and artifact identities](benchmarks/final-v02-local-reference.md).
-GitHub-hosted runner hardware varies substantially; CI monitors correctness and
-regressions. Native verification uses two bounded workers without skipping any
-required integrity checks.
+On a fixed MacBook Air M1 / 16 GiB / macOS 27.0 arm64, 30 independent Go trials
+of Fork → first SQL with a prepared 1,000-row fixture measured **374.2 ms p50,
+417.7 ms p95, 446.1 ms max**. These are reference-machine observations, not
+hardware-independent guarantees or a universal CI threshold. See the
+[method and exact identities](benchmarks/final-v02-local-reference.md).
 
-Memory remains substantial: the ×16 probe measured about **259 MiB per isolated
-DB on macOS** (incremental physical footprint) and **327 MiB on Ubuntu**
-(incremental PSS). Memory efficiency is not solved. ×16 databases completed on
-both platforms and left no runtime residue after teardown in measured scenarios;
-see the [memory/session envelope](benchmarks/memory-session-envelope.md).
+Memory efficiency is not solved: the ×16 probe measured about **259 MiB per
+isolated DB on macOS** (incremental physical footprint) and **327 MiB on Ubuntu**
+(incremental PSS). Both platforms completed ×16 with no runtime residue after
+teardown in measured scenarios; see the [resource envelope](benchmarks/memory-session-envelope.md).
 
-The [practical Testcontainers comparison](benchmarks/practical-suite-comparison.md)
-found fresh server/container isolation much slower in measured suites, but a
-shared container with schema reset much faster for repeated tests. Those have
-different isolation guarantees. Snapshot/Fork did not materially outperform
-fresh mariamem Start for the small fixture. Different MariaDB versions/defaults
-and an unresolved fresh-container 100-test failure in that benchmark environment
-limit interpretation; mariamem is not universally faster or more reliable.
+mariamem is not universally faster than Testcontainers. Fresh server/container
+isolation was much slower in measured suites, while shared-server schema reset
+was much faster and has weaker isolation. Fork did not materially beat fresh
+Start for the small fixture. Versions/defaults and observed benchmark-environment
+failures limit interpretation; see the [practical comparison](benchmarks/practical-suite-comparison.md).
 
 ## Current limits
 

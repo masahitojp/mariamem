@@ -23,11 +23,15 @@ source/provenance review before the existing release guard can accept it.
 
 ## CI candidate readiness (future releases)
 
-The stable release version is **v0.2.0**, with notes in
+PyPI publication is temporarily unavailable pending account recovery; GitHub
+Release wheels are the supported Python distribution channel for now. Restoring
+PyPI remains intended, but current Release CI does not publish to PyPI.
+
+The current public stable release is [v0.2.0](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0), with notes in
 [`release/NOTES-v0.2.0.md`](../release/NOTES-v0.2.0.md). Package metadata and
 installation examples identify the same canonical version. Release CI must
-accept that exact remote candidate on both platforms before aggregate READY
-can publish it. The fixed-reference FAST result is not an absolute hosted-runner
+accept each future exact remote candidate on both platforms before aggregate
+READY can publish it. The fixed-reference FAST result is not an absolute hosted-runner
 performance gate; preserve the separately recorded lifecycle,
 race/corruption/key-failure evidence for unchanged product code. A stable 0.x
 version does not promise 1.0-level API compatibility.

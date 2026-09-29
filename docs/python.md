@@ -1,9 +1,13 @@
 # Python API
 
-Python distribution `0.2.0` provides macOS 15+ arm64 and Ubuntu 24.04 LTS x86_64 wheels. Use a locally built
-wheel or the published GitHub Release asset. The wheel includes the host and
-native runtime. See the [README](../README.md#python)
-for installation and a first query.
+Python distribution `0.2.0` is released for macOS 15+ arm64 and Ubuntu 24.04
+LTS x86_64. PyPI publication is temporarily unavailable while account recovery
+is pending. The supported installation path is the
+[v0.2.0 GitHub Release wheels](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0),
+which include the required Go host, Wasmer runtime and guest bundle. Use the
+[copy-pasteable platform commands and PEP 508 extras](../README.md#python), not a
+Git source install. Once PyPI is available, installation is expected to simplify
+to `pip install mariamem`.
 
 The release includes an Ubuntu 24.04 LTS / x86_64 wheel, tagged
 `linux_x86_64`. It includes the Linux host, Wasmer runtime and target-specific

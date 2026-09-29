@@ -55,16 +55,20 @@ Core properties:
 
 ---
 
-## Release state — v0.2.0 preparation
+## Current public release — v0.2.0
 
-The current public release is [v0.2.0-alpha.1](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0-alpha.1),
-with Python distribution `0.2.0a1`. Canonical metadata and installation examples
-now target **v0.2.0 / Python 0.2.0** for the final release attempt; final acceptance
-and publication remain pending. Do not interpret this source commit as publication.
-The [readiness audit](release-readiness-v0.2.md) found no known blockers and
-concluded READY AFTER RELEASE PREP. Close v0.2 after final two-platform Release CI acceptance/aggregate READY and
-publication. Version metadata and release notes are finalized; no alpha maturity
-classifier is asserted, while the public 0.x API may still change.
+[v0.2.0](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0) is released;
+the Python distribution version is `0.2.0`. Release CI accepted both platforms,
+reached aggregate READY and published from the exact candidate
+`c5c6645fd8ce03ad5ff71ff79b7daf14a7b8a385`. The 0.2 FAST milestone is complete.
+The stable 0.x release does not promise 1.0-level API compatibility.
+
+PyPI publication is temporarily unavailable pending account recovery. Published
+GitHub Release wheels are the supported Python install path and include the
+native/runtime bundle. PyPI remains intended: installation should simplify to
+`pip install mariamem` when publication is available. Go still requires explicit
+native bundle resolution and `Options.NativeDir`; zero-setup Go is future
+usability work, not a v0.2 feature.
 
 Supported native platforms:
 
@@ -393,7 +397,7 @@ release-infrastructure gap, not a reason to silently fall back to Tart.
 
 ---
 
-## v0.2.0 — FAST completion state
+## v0.2.0 — FAST (released)
 
 The north star remains:
 
@@ -464,9 +468,9 @@ cleanup/reset/transaction-lifecycle reasoning when humans or coding agents
 produce CRUD tests. This is unvalidated, not a product claim. Real pools,
 transactions, application migrations and test failure paths must test it.
 
-The remaining v0.2 work is final candidate Release CI acceptance and publication. Further
-latency/resource work is deferred, not abandoned; ORM/usability evidence comes
-before larger architecture exploration.
+v0.2 is released. The next direction is v0.3 ORM dogfood / usability. Further
+latency/resource work is deferred, not abandoned; workload evidence comes before
+larger architecture exploration.
 
 ---
 
@@ -537,7 +541,7 @@ platform acceptance target.
 ## Remaining roadmap
 
 ```text
-v0.2.0 FAST: final Release CI → release
+v0.2.0 FAST: released
     ↓
 v0.3 ORM dogfood / usability
     ↓
