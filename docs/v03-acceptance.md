@@ -156,3 +156,11 @@ This is not an aggregate release READY verdict or publication approval.
 Public-release installation smoke still belongs to the eventual release; the
 private fixture is not public publication evidence. No further feature work or
 merge to main is performed by this acceptance task.
+
+## Main integration and release audit
+
+The complete accepted history plus its evidence documentation was fast-forwarded
+into main at `96a5c3b32e76715eee664a171e0b6f435f3b458f`. Only documentation
+differs from the CI source above. The subsequent [main audit](release-readiness-v0.3.md)
+records missing release-candidate/public consumer gates; this compatibility PASS
+is not aggregate release READY for a later main or release-preparation SHA.
