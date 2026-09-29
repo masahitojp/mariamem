@@ -75,6 +75,7 @@ def main():
             check("second connection accepted", sql(second, "SELECT 1") == ((1,),))
             check("first connection remains usable", sql(conn, "SELECT 2") == ((2,),))
         acceptance.exercise(conn, evidence["wire_checks"], api_version=2)
+        acceptance.exercise_found_rows(db.connection_info(), evidence["wire_checks"])
         conn.rollback()
         sql(conn, "CREATE TEMPORARY TABLE gone_on_reconnect(id INT)")
         sql(conn, "START TRANSACTION")

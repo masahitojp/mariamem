@@ -2,10 +2,11 @@
 
 ## Result and scope
 
-**Ordinary SQLAlchemy defaults cannot connect to released mariamem v0.2.0.**
-The first handshake fails with MySQL 1235, `unsupported connection capabilities`.
-This is a mariamem compatibility gap, not a schema or test-lifecycle failure.
-No product code, native artifacts, or public APIs were changed for this probe.
+The original SQLAlchemy blocker is fixed on this branch. SQLAlchemy's default
+MySQL dialect enables `CLIENT_FOUND_ROWS`; the host now carries that negotiated
+bit into the guest MariaDB client connection. Unchanged UPDATEs return 1 for a
+FOUND_ROWS client and 0 for existing clients without the flag. The SQLAlchemy
+dogfood passes with ordinary engine defaults and no flag workaround.
 
 The application adapts the official [SQLAlchemy ORM Quick Start](https://docs.sqlalchemy.org/en/20/orm/quickstart.html)
 and its Unified Tutorial patterns: typed declarative `User` / `Address`, a
@@ -34,57 +35,58 @@ The server reports `13.1.0-MariaDB-embedded`.
 build/sqlalchemy-dogfood/py314/bin/python -m pip install \
   -r tests/consumer/sqlalchemy-requirements.txt \
   'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.2.0/mariamem-0.2.0-py3-none-macosx_15_0_arm64.whl'
-# Expected to fail until standard handshake compatibility is addressed:
 build/sqlalchemy-dogfood/py314/bin/python tests/consumer/run_sqlalchemy.py \
-  --output tests/evidence/sqlalchemy-dogfood-default
-# Diagnostic condition only; NOT recommended as normal application configuration:
-build/sqlalchemy-dogfood/py314/bin/python tests/consumer/run_sqlalchemy.py \
-  --without-found-rows --output tests/evidence/sqlalchemy-dogfood-workaround
+  --native-dir build/sqlalchemy-dogfood/native \
+  --output tests/evidence/sqlalchemy-dogfood-found-rows
 ```
 
-The runner copies only the application test into an external temporary directory,
-clears native/path overrides, and verifies the import is inside the venv. It runs
-serial Start / Fork / Fork / Start suites, each with 11 cases. The explicit A→B
-isolation pair must run together in the maintained order; this is not an xdist
-suite. JSON records the wheel origin/hash, native manifest, dialect, issued SQL,
-pool events, database identities and teardown checks; JUnit/logs retain failures.
-Raw evidence is ignored under `tests/evidence/`. Final observations are in
-`sqlalchemy-dogfood-final-default/` and `sqlalchemy-dogfood-final-workaround/`.
-These are compatibility observations, not controlled performance measurements;
-some default and diagnostic suites overlapped in execution.
+For this branch acceptance, the venv imports the released Python wheel outside
+the checkout; `--native-dir` selects the locally built, unaccepted host/runtime/
+guest bundle containing the change. The bundle was built from the current guest
+source and Wasmer 7.4.2 for this test only. It is not a release candidate or a
+published artifact. The runner clears inherited runtime overrides, then applies
+only this explicit bundle path. The previous unmodified v0.2.0 bundle's failure
+is retained as historical evidence in `sqlalchemy-dogfood-final-default/`.
+
+The runner executes four serial 11-case suites in Start / Fork / Fork / Start
+order. A→B isolation cases must remain together and in maintained order; the
+suite is not an xdist run. JSON records the wheel origin/hash, native manifest,
+dialect, pool events, SQL, database identity and teardown checks; JUnit and logs
+retain failures. Raw evidence is ignored under `tests/evidence/`. These are
+compatibility observations, not controlled performance measurements.
 
 ## SQLAlchemy compatibility
 
-| Condition | Start suites | Fork suites | Interpretation |
-|---|---|---|---|
-| Standard dialect / pool | 2 × 11 setup errors | 2 × 11 setup errors | First connection rejected; Fork template cannot be prepared |
-| Explicit `client_flag=0` probe | 2 × 11 passed | 2 × 11 passed | CRUD/lifecycle evidence conditional on changed rowcount semantics |
+| Condition | Result | Evidence |
+|---|---|---|
+| Released v0.2.0 host/runtime bundle before this fix | Rejected `CLIENT_FOUND_ROWS` with MySQL 1235 | Historical default run |
+| Branch host + rebuilt guest, SQLAlchemy defaults | 4 × 11 cases passed | 2 Start and 2 Fork suites |
+| PyMySQL without FOUND_ROWS | Connects; unchanged UPDATE rowcount = 0 | Raw wire acceptance |
+| PyMySQL with FOUND_ROWS | Connects; unchanged UPDATE rowcount = 1 | Raw wire acceptance |
 
-SQLAlchemy's MySQL dialect enables `CLIENT_FOUND_ROWS` for matched-row UPDATE
-counts. mariamem's handshake rejects bit 2 in `internal/mysqlwire/wire.go`.
-The diagnostic `connect_args={"client_flag": 0}` override leaves PyMySQL's basic
-capabilities and all pool defaults intact but removes FOUND_ROWS. This isolated
-the connection failure. It is **not a complete compatibility workaround**:
-a no-op UPDATE matching one row returns **0**, whereas SQLAlchemy expects a
-matched-row count of **1**. ORM stale-row/version checking can depend on that
-contract; full optimistic-concurrency behavior was not tested. See
-[SQLAlchemy rowcount support](https://docs.sqlalchemy.org/en/20/dialects/mysql.html#rowcount-support).
+The host accepts `CLIENT_FOUND_ROWS`, reopens that session with an internal
+FOUND_ROWS option byte, and the guest passes `CLIENT_FOUND_ROWS` to
+`mysql_real_connect()` before establishing its MariaDB session. Unflagged
+connections keep the previous single-open path. This preserves MariaDB's own
+matched-versus-changed row accounting rather than adjusting counts in the host.
 
-Under this explicit probe, MariaDB dialect/version detection, DDL, reflection of
-PK/FK/unique constraints, relationship SELECT/JOIN, insert/update/delete commits,
-explicit rollback, autocommit, and recoverable unique/non-null/FK errors passed.
-IntegrityError retained MariaDB codes 1062, 1048 and 1452. Normal Session rollback
-recovered the failed transaction and the database remained usable. Initial test
-adaptation used a name longer than the upstream 30-character column; that was a
-harness error, corrected by shortening the fixture rather than relaxing the model.
+With standard SQLAlchemy behavior, MariaDB dialect/version detection, schema
+creation, primary/foreign/unique constraint reflection, one-to-many relationship
+loading, JOIN, inserts/updates/deletes with commits, rollback, autocommit, and
+recoverable unique/non-null/FK errors passed. IntegrityError retained codes
+1062, 1048 and 1452. A no-op UPDATE through SQLAlchemy returned `rowcount=1`.
+
+The earlier fixture's committed marker exceeded the User name column's 30
+characters; shortening only test data fixed this harness error. It did not
+require changing the SQLAlchemy model or product behavior.
 
 ## Disposable isolation and pool/lifecycle behavior
 
 Every test owns a new database. Test A commits a new user and ends with two
 users; disposal performs no DELETE/TRUNCATE/schema reset. Test B has a different
 database identity and sees only its seed user, with A's committed user absent.
-This passed twice with fresh Start and twice with Snapshot/Fork, under the
-explicit handshake probe. DELETE is an application operation; rollback cases
+This passed twice with fresh Start and twice with Snapshot/Fork, with standard
+SQLAlchemy connection options. DELETE is an application operation; rollback cases
 exercise application/failed-transaction semantics, not a cleanup wrapper.
 
 QueuePool defaults remained size 5 / max overflow 10. Typical cases opened one
@@ -115,21 +117,23 @@ Snapshot/Fork is useful when maintaining a prepared fixture, not mandatory.
 
 The ordinary CRUD tests written for this task contain no state-restoration logic:
 the fixture owns disposal. This supports the feasibility of cleanup-free tests
-**under the diagnostic condition**. It does not establish that AI-generated tests
+with SQLAlchemy defaults and the branch candidate native bundle. It does not establish that AI-generated tests
 are less error-prone; there was no authoring/control study, and transaction and
 pool-session reasoning is still necessary.
 
-## v0.3 usability findings: next three tasks
+## v0.3 usability findings
 
-1. **BLOCKER:** support the SQLAlchemy-required FOUND_ROWS handshake **and actual
-   matched-row semantics**. Merely accepting the flag or recommending zero flags
-   would hide an ORM correctness issue. Re-run the unchanged default application,
-   including no-op UPDATE and optimistic-concurrency checks.
-2. **P1:** document disposable fixture ownership and pooled-session lifetime with
-   an idiomatic public example after default compatibility passes. Distinguish
-   normal rollback/recovery from cleanup SQL; do not introduce framework APIs yet.
-3. **P1:** repeat this consumer probe on Ubuntu and the current SQLAlchemy series,
-   extending pool/shutdown coverage as evidence warrants. Current results cover
-   only the released macOS wheel and this pinned 2.0 stack.
+- **BLOCKER resolved on this branch:** `CLIENT_FOUND_ROWS` now reaches the
+  MariaDB connection and preserves the requested affected-row semantics.
+- **P1:** run the same installed-wheel consumer acceptance on Ubuntu 24.04 and
+  repeat against the current SQLAlchemy 2.1 series before broadening the
+  compatibility statement. This result covers macOS arm64 and SQLAlchemy 2.0.54.
+- **P1:** document pooled connection state lifetime for application authors.
+  SQLAlchemy's normal rollback-on-checkin does not clear MySQL session variables
+  or temporary tables on a reused physical connection; disposable DBs avoid
+  cross-test database residue but do not reset a session between checkouts.
 
-No mariamem implementation fix or broader compatibility guarantee is made here.
+The CRUD tests need no state-restoration SQL because each owns and closes a
+separate database. This supports cleanup-free disposable tests for this example;
+it is not evidence that AI-authored tests are less error-prone. No wider ORM
+compatibility guarantee is made here.

@@ -89,6 +89,8 @@ def exercise(conn, events, api_version=1):
             assert cur.lastrowid == 0, cur.lastrowid
             cur.execute("SELECT ROW_COUNT()")
             assert cur.fetchone() == (0,)
+            cur.execute("UPDATE wire_probe SET txt=txt WHERE id=2")
+            assert cur.rowcount == 0, cur.rowcount
             events.append({"check": "native_insert_id_status_warnings_columns_duplicate_names_row_count_found_rows", "passed": True})
         cur.execute("SELECT %s AS large_value", ("x" * 70000,))
         assert cur.fetchone() == ("x" * 70000,)
@@ -114,3 +116,21 @@ def exercise(conn, events, api_version=1):
                        "seconds": round(time.monotonic() - start, 4)})
         conn.begin()
         cur.execute("UPDATE wire_probe SET txt='pending-on-disconnect' WHERE id=2")
+
+
+def exercise_found_rows(connection_info, events):
+    """Compare unchanged UPDATE rowcount for both negotiated client modes."""
+    from pymysql.constants import CLIENT
+
+    for label, flags, expected in (("default", 0, 0), ("found_rows", CLIENT.FOUND_ROWS, 1)):
+        conn = pymysql.connect(**connection_info, autocommit=True, client_flag=flags)
+        try:
+            with conn.cursor() as cur:
+                cur.execute("CREATE TEMPORARY TABLE found_rows_probe (id INT PRIMARY KEY, value INT)")
+                cur.execute("INSERT INTO found_rows_probe VALUES (1, 7)")
+                cur.execute("UPDATE found_rows_probe SET value=value WHERE id=1")
+                assert cur.rowcount == expected, (label, cur.rowcount, expected)
+                events.append({"check": "client_found_rows_semantics", "mode": label,
+                               "affected_rows": cur.rowcount, "passed": True})
+        finally:
+            conn.close()

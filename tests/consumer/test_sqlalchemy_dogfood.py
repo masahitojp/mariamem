@@ -46,12 +46,9 @@ class Address(Base):
 def engine_for(db, record):
     info = db.connection_info()
     # Ordinary URL adaptation, not a mariamem-specific dialect or pool setting.
-    options = {}
-    if os.environ.get("DOGFOOD_WITHOUT_FOUND_ROWS") == "1":
-        options["connect_args"] = {"client_flag": 0}
     engine = create_engine(URL.create(
         "mysql+pymysql", username=info["user"], password=info["password"],
-        host=info["host"], port=info["port"], database=info["database"]), **options)
+        host=info["host"], port=info["port"], database=info["database"]))
     record.update(connects=0, checkouts=0, checkins=0, resets=0, closes=0,
                   peak_checked_out=0, sql=[])
     active = set()
@@ -106,14 +103,17 @@ def reaped(db, pids, directory):
 def audit():
     assert mariamem.__version__ == "0.2.0"
     assert Path(mariamem.__file__).resolve().is_relative_to(Path(sys.prefix).resolve())
-    assert not os.environ.get("MARIAMEM_NATIVE_DIR")
-    result = {"mode": os.environ["DOGFOOD_MODE"], "without_found_rows": os.environ.get("DOGFOOD_WITHOUT_FOUND_ROWS") == "1", "python": platform.python_version(),
+    native_override = os.environ.get("MARIAMEM_NATIVE_DIR")
+    result = {"mode": os.environ["DOGFOOD_MODE"], "python": platform.python_version(),
+              "native_dir_override": native_override,
               "platform": platform.platform(), "architecture": platform.machine(),
               "packages": {name: importlib.metadata.version(name)
                            for name in ("mariamem", "SQLAlchemy", "PyMySQL", "pytest")},
               "cases": [], "templates": []}
     result["wheel_origin"] = json.loads(importlib.metadata.distribution("mariamem").read_text("direct_url.json"))
-    result["native_manifest"] = json.loads((Path(mariamem.__file__).parent / "_native/manifest.json").read_text())
+    manifest_path = (Path(native_override) / "manifest.json" if native_override
+                     else Path(mariamem.__file__).parent / "_native/manifest.json")
+    result["native_manifest"] = json.loads(manifest_path.read_text())
     try:
         yield result
     finally:
@@ -307,5 +307,4 @@ def test_09_matched_rowcount_observation(app):
     with engine.begin() as connection:
         record["noop_update_rowcount"] = connection.execute(text(
             "UPDATE user_account SET name=name WHERE id=1")).rowcount
-    # Explicit observation of the semantic cost of the exploratory workaround.
-    assert record["noop_update_rowcount"] == (0 if os.environ.get("DOGFOOD_WITHOUT_FOUND_ROWS") == "1" else 1)
+    assert record["noop_update_rowcount"] == 1

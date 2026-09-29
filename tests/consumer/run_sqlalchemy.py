@@ -15,13 +15,14 @@ import xml.etree.ElementTree as ET
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--without-found-rows", action="store_true", help="Exploratory compatibility workaround; changes matched-rowcount semantics")
+    parser.add_argument("--native-dir", type=Path, help="explicit locally built native bundle for product-change acceptance")
     args = parser.parse_args()
     source = Path(__file__).with_name("test_sqlalchemy_dogfood.py")
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     env = {key: value for key, value in os.environ.items()
            if not key.startswith(("MARIAMEM_", "MYSQLMEM_", "PYTHON", "PYTEST", "DOGFOOD_"))}
+    native_dir = args.native_dir.resolve() if args.native_dir else None
     runs = []
     # Two order-balanced observations, not a performance benchmark.
     with tempfile.TemporaryDirectory(prefix="mariamem-sqlalchemy-") as temporary:
@@ -34,7 +35,8 @@ def main():
             started = time.monotonic()
             result = subprocess.run(
                 [sys.executable, "-m", "pytest", "-q", source.name, "--junitxml", str(junit)],
-                cwd=project, env={**env, "DOGFOOD_MODE": mode, "DOGFOOD_WITHOUT_FOUND_ROWS": "1" if args.without_found_rows else "0", "DOGFOOD_EVIDENCE": str(evidence)},
+                cwd=project, env={**env, "DOGFOOD_MODE": mode, "DOGFOOD_EVIDENCE": str(evidence),
+                                 **({"MARIAMEM_NATIVE_DIR": str(native_dir)} if native_dir else {})},
                 capture_output=True, text=True, timeout=180)
             (output / f"{name}.log").write_text(result.stdout + result.stderr)
             counts = [dict(suite.attrib) for suite in ET.parse(junit).getroot().iter("testsuite")] if junit.exists() else []

@@ -20,6 +20,7 @@ import (
 
 const capabilities uint32 = 1 | 4 | 8 | 512 | 8192 | 32768 | 524288
 const maxPacket = 0xffffff - 1
+const clientFoundRows uint32 = 2
 
 type wire struct {
 	conn     net.Conn
@@ -267,7 +268,11 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 	if !r.OK {
 		return fmt.Errorf("open session: %s", r.Error)
 	}
+	opened := true
 	defer func() {
+		if !opened {
+			return
+		}
 		activity.Cleanup()
 		r, e := call(3, nil)
 		if e != nil {
@@ -340,7 +345,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		return nil
 	}
 	flags := binary.LittleEndian.Uint32(auth)
-	if flags&512 == 0 || flags&(2|2048|65536) != 0 {
+	if flags&512 == 0 || flags&(2048|65536) != 0 {
 		_ = w.send(ErrorPacket(1235, "42000", "unsupported connection capabilities"))
 		return nil
 	}
@@ -365,6 +370,30 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 	if string(user) != "root" || len(password) != 0 {
 		_ = w.send(ErrorPacket(1045, "28000", "only local root with empty password is supported"))
 		return nil
+	}
+	if flags&clientFoundRows != 0 {
+		// MariaDB's client capability is fixed at connect time. Reopen only this
+		// flagged session so clients without FOUND_ROWS retain the original path.
+		closed, closeErr := call(3, nil)
+		if closeErr != nil || !closed.Closed {
+			if closeErr == nil {
+				closeErr = errors.New("guest session did not close before FOUND_ROWS reopen")
+			}
+			_ = w.send(fatalPacket(closeErr))
+			return closeErr
+		}
+		opened = false
+		r, err = call(1, []byte{1})
+		if err != nil {
+			_ = w.send(fatalPacket(err))
+			return err
+		}
+		if !r.OK {
+			_ = w.send(ErrorPacket(r.Errno, r.SQLState, r.Error))
+			return nil
+		}
+		opened = true
+		status = r.Status
 	}
 	use := func(name []byte, monitor bool) (guest.Result, error) {
 		return query([]byte("USE `"+strings.ReplaceAll(string(name), "`", "``")+"`"), monitor)
