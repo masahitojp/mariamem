@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -38,6 +39,8 @@ type observation struct {
 	Settings  map[string]string `json:"server_settings"`
 	pid       int
 	container string
+	db        *mariamem.Database
+	dsn       string
 	pool      *sql.DB
 	close     func() error
 }
@@ -92,6 +95,7 @@ func start(ctx context.Context, backend, scenario, native, image string, saved *
 		if err != nil {
 			return nil, err
 		}
+		o.db = db
 		o.close = db.Close
 		dsn = db.DSN()
 	} else {
@@ -127,6 +131,7 @@ func start(ctx context.Context, backend, scenario, native, image string, saved *
 		}
 	}()
 	o.Caller = append(o.Caller, timing.Event{Name: "database_returned", Offset: time.Since(begin).Nanoseconds()})
+	o.dsn = dsn
 	o.pool, err = sql.Open("mysql", dsn)
 	if err != nil {
 		return nil, err
@@ -162,7 +167,11 @@ func costs(o *observation, hz float64) map[string]any {
 	if o.container != "" {
 		// Read actual Docker cgroup counters, not runner CPU or docker-stats CPU percent.
 		client := &http.Client{Timeout: 15 * time.Second, Transport: &http.Transport{DialContext: func(ctx context.Context, _, _ string) (net.Conn, error) {
-			return (&net.Dialer{}).DialContext(ctx, "unix", "/var/run/docker.sock")
+			socket := "/var/run/docker.sock"
+			if endpoint, e := url.Parse(os.Getenv("DOCKER_HOST")); e == nil && endpoint.Scheme == "unix" {
+				socket = endpoint.Path
+			}
+			return (&net.Dialer{}).DialContext(ctx, "unix", socket)
 		}}}
 		defer client.CloseIdleConnections()
 		resp, err := client.Get("http://docker/containers/" + o.container + "/stats?stream=false&one-shot=true")
@@ -180,8 +189,9 @@ func costs(o *observation, hz float64) map[string]any {
 				} `json:"cpu_usage"`
 			} `json:"cpu_stats"`
 			Memory struct {
-				Usage uint64            `json:"usage"`
-				Stats map[string]uint64 `json:"stats"`
+				Usage    uint64            `json:"usage"`
+				MaxUsage uint64            `json:"max_usage"`
+				Stats    map[string]uint64 `json:"stats"`
 			} `json:"memory_stats"`
 		}
 		if err = json.NewDecoder(resp.Body).Decode(&s); err != nil {
@@ -190,7 +200,23 @@ func costs(o *observation, hz float64) map[string]any {
 		if s.CPU.Usage.Total == 0 || s.Memory.Usage == 0 {
 			return map[string]any{"error": "Docker one-shot accounting counters unavailable"}
 		}
-		return map[string]any{"mechanism": "Docker cgroup since container creation; includes entrypoint/init", "cpu_seconds": float64(s.CPU.Usage.Total) / 1e9, "memory_usage_bytes": s.Memory.Usage, "memory_stats": s.Memory.Stats}
+		return map[string]any{"mechanism": "Docker cgroup since container creation; includes entrypoint/init", "cpu_seconds": float64(s.CPU.Usage.Total) / 1e9, "memory_usage_bytes": s.Memory.Usage, "memory_stats": s.Memory.Stats, "peak_memory_bytes_if_available": s.Memory.MaxUsage}
+	}
+	if runtime.GOOS == "darwin" {
+		b, err := exec.Command("ps", "-p", strconv.Itoa(o.pid), "-o", "rss=,time=").Output()
+		if err != nil {
+			return map[string]any{"error": err.Error()}
+		}
+		fields := strings.Fields(string(b))
+		if len(fields) != 2 {
+			return map[string]any{"error": "invalid ps counters"}
+		}
+		rss, e := strconv.ParseInt(fields[0], 10, 64)
+		cpu, e2 := clockSeconds(fields[1])
+		if e != nil || e2 != nil {
+			return map[string]any{"error": "invalid ps counters"}
+		}
+		return map[string]any{"mechanism": "ready Wasmer ps RSS/cumulative CPU; excludes Go host", "cpu_seconds": cpu, "rss_bytes": rss * 1024}
 	}
 	b, err := os.ReadFile(fmt.Sprintf("/proc/%d/stat", o.pid))
 	if err != nil {
@@ -295,7 +321,12 @@ func run() (err error) {
 	output := flag.String("json", "", "result path")
 	runs := flag.Int("runs", 20, "measured rounds")
 	warmup := flag.Int("warmup", 2, "warmup rounds")
+	suiteMode := flag.String("suite-mode", "", "benchmark-only fresh/prepared/schema-reset condition")
+	suiteCount := flag.Int("suite-count", 10, "sequential isolated tests")
 	flag.Parse()
+	if *suiteMode != "" {
+		return runSuite(*suiteMode, *suiteCount, *native, *image, *output)
+	}
 	if runtime.GOOS != "linux" || runtime.GOARCH != "amd64" {
 		return errors.New("comparison requires Ubuntu 24.04 x86_64")
 	}
