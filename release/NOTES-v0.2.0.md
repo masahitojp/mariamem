@@ -1,7 +1,7 @@
 # mariamem v0.2.0
 
-Draft for the intended stable 0.2 release; final candidate acceptance and
-publication remain pending. The intended Python distribution version is `0.2.0`.
+The Python distribution version is `0.2.0`. This stable 0.x release retains
+the pre-1.0 API compatibility caveat.
 
 ## FAST prepared-state startup
 
@@ -66,7 +66,7 @@ are not a broad tested language matrix. Other Linux distributions, Linux arm64,
 macOS Intel and Windows are unsupported; `linux_x86_64` is not a manylinux claim.
 
 Go uses the public module plus an explicit native bundle; Python wheels include
-the runtime. Neither user path requires Docker. Final assets will include both
+the runtime. Neither user path requires Docker. Release assets include both
 native bundles, both wheels, platform-qualified corresponding-source archives
 and SHA256SUMS, bound to exact candidate acceptance. No PyPI publication is
 part of this release path. Project code is GPL-2.0-only; bundled components

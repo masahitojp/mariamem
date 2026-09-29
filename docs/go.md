@@ -5,14 +5,14 @@ real-guest integration tests cover the public API. The module requires Go 1.26.0
 or newer; canonical release validation uses Go 1.26.8, not a broad version matrix.
 The [README](../README.md#go) has a complete first-query example.
 
-The published Go version is `v0.2.0-alpha.1`. In a fresh directory, initialize
+For Go release `v0.2.0`, use the public module path. In a fresh directory, initialize
 a consumer module and fetch it with:
 
 ```sh
 mkdir mariamem-example
 cd mariamem-example
 go mod init example.com/mariamem-example
-go get github.com/masahitojp/mariamem@v0.2.0-alpha.1
+go get github.com/masahitojp/mariamem@v0.2.0
 ```
 
 Save the complete [README example](../README.md#go) as `main.go`. It imports
@@ -35,7 +35,7 @@ Download `mariamem-native-darwin-arm64.tar.gz` from the published GitHub Release
 extract it, and run the example:
 
 ```sh
-gh release download v0.2.0-alpha.1 --repo masahitojp/mariamem \
+gh release download v0.2.0 --repo masahitojp/mariamem \
   --pattern 'mariamem-native-darwin-arm64.tar.gz'
 tar -xzf mariamem-native-darwin-arm64.tar.gz
 export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
@@ -207,7 +207,7 @@ For local evaluation, or when using the published archive, verify it against
 its published SHA256 and then extract it:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.2.0-alpha.1
+go get github.com/masahitojp/mariamem@v0.2.0
 shasum -a 256 mariamem-native-darwin-arm64.tar.gz
 tar -xzf mariamem-native-darwin-arm64.tar.gz
 export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"

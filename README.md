@@ -13,13 +13,11 @@ state. Prepare migrations/fixtures once with Snapshot, then Fork independent
 databases without adding rollback, schema-reset or data-cleanup logic to each
 test. Close client connections and owned database/snapshot handles normally.
 
-The Go module and GitHub Release are at `v0.2.0-alpha.1`; the Python
-distribution version is `0.2.0a1`. Native support is **macOS 15+ / Apple
+The Go module and GitHub Release are at `v0.2.0`; the Python
+distribution version is `0.2.0`. Native support is **macOS 15+ / Apple
 Silicon (arm64)** and **Ubuntu 24.04 LTS / x86_64** (SSE2 + SSSE3).
 The instructions use GitHub Release or locally built artifacts and do not
 depend on PyPI. Other Linux distributions are not supported.
-The stable 0.2 release is being prepared; these install examples remain pinned
-to the currently published alpha until canonical version preparation is complete.
 The 0.x public API may change.
 
 Release CI tests Go 1.26.8 and Python 3.14 on macOS 15 arm64 and Ubuntu 24.04
@@ -35,7 +33,7 @@ Go **1.26 or newer** is required. Start in a fresh directory:
 mkdir mariamem-example
 cd mariamem-example
 go mod init example.com/mariamem-example
-go get github.com/masahitojp/mariamem@v0.2.0-alpha.1
+go get github.com/masahitojp/mariamem@v0.2.0
 ```
 
 Save the following as `main.go`:
@@ -89,7 +87,7 @@ from the published GitHub Release and run the example:
 
 ```sh
 go mod tidy
-gh release download v0.2.0-alpha.1 --repo masahitojp/mariamem \
+gh release download v0.2.0 --repo masahitojp/mariamem \
   --pattern 'mariamem-native-darwin-arm64.tar.gz'
 tar -xzf mariamem-native-darwin-arm64.tar.gz
 export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
@@ -110,17 +108,17 @@ manual bundle verification.
 
 ## Python
 
-Install the `0.2.0a1` platform wheel downloaded from a GitHub Release or built
+Install the `0.2.0` platform wheel downloaded from a GitHub Release or built
 locally with [the development instructions](docs/development.md). For a locally
 built wheel:
 
 ```sh
 python3 -m venv .venv
-.venv/bin/python -m pip install './build/dist/mariamem-0.2.0a1-py3-none-macosx_15_0_arm64.whl[test]'
+.venv/bin/python -m pip install './build/dist/mariamem-0.2.0-py3-none-macosx_15_0_arm64.whl[test]'
 ```
 
 On Ubuntu 24.04 x86_64, use
-`mariamem-0.2.0a1-py3-none-linux_x86_64.whl` instead of the macOS wheel.
+`mariamem-0.2.0-py3-none-linux_x86_64.whl` instead of the macOS wheel.
 
 The wheel includes the Go host executable, Wasmer runtime, and MariaDB guest.
 The `test` extra installs PyMySQL and pytest tools.

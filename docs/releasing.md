@@ -1,6 +1,6 @@
 # Releasing mariamem
 
-The canonical release version is `v0.2.0-alpha.1`; the Python distribution is `0.2.0a1`.
+The canonical release version is `v0.2.0`; the Python distribution is `0.2.0`.
 Change the five semantic components only in `python/mariamem/_version.py`.
 For a stable release, set `STAGE = ""` and `SERIAL = 0`; this derives
 `vX.Y.Z` and Python `X.Y.Z`. Use `release/NOTES-vX.Y.Z.md`. Stable GitHub
@@ -23,17 +23,14 @@ source/provenance review before the existing release guard can accept it.
 
 ## CI candidate readiness (future releases)
 
-The intended stable release is **v0.2.0**, with draft notes in
-[`release/NOTES-v0.2.0.md`](../release/NOTES-v0.2.0.md). Documentation/status
-preparation does not change package metadata: the canonical version and runnable
-installation examples still identify the current public alpha. Before submitting
-the final candidate, set the stable semantic components, update those checked
-examples and review the package's Alpha maturity classifier deliberately. Run
-the normal preparation check and finalize draft/preparation-only wording in
-the notes and usage guides as part of that version commit. The fixed-reference
-FAST result is not an absolute
-hosted-runner performance gate; preserve the separately recorded lifecycle,
-race/corruption/key-failure evidence for unchanged product code.
+The stable release version is **v0.2.0**, with notes in
+[`release/NOTES-v0.2.0.md`](../release/NOTES-v0.2.0.md). Package metadata and
+installation examples identify the same canonical version. Release CI must
+accept that exact remote candidate on both platforms before aggregate READY
+can publish it. The fixed-reference FAST result is not an absolute hosted-runner
+performance gate; preserve the separately recorded lifecycle,
+race/corruption/key-failure evidence for unchanged product code. A stable 0.x
+version does not promise 1.0-level API compatibility.
 
 Manually dispatch `release-candidate-ready.yml`. Its small input interface is:
 

@@ -1,20 +1,19 @@
 # Python API
 
-Python distribution `0.2.0a1` provides macOS 15+ arm64 and Ubuntu 24.04 LTS x86_64 wheels. Use a locally built
+Python distribution `0.2.0` provides macOS 15+ arm64 and Ubuntu 24.04 LTS x86_64 wheels. Use a locally built
 wheel or the published GitHub Release asset. The wheel includes the host and
 native runtime. See the [README](../README.md#python)
 for installation and a first query.
 
 The release includes an Ubuntu 24.04 LTS / x86_64 wheel, tagged
 `linux_x86_64`. It includes the Linux host, Wasmer runtime and target-specific
-AOT guest. This is deliberately not a manylinux compatibility claim. Install `mariamem-0.2.0a1-py3-none-linux_x86_64.whl` from the GitHub Release.
+AOT guest. This is deliberately not a manylinux compatibility claim. Install `mariamem-0.2.0-py3-none-linux_x86_64.whl` from the GitHub Release.
 Other Linux distributions and Ubuntu versions are outside the supported scope.
 
 Canonical clean release validation uses Python 3.14 on macOS 15 arm64 and
 Ubuntu 24.04 x86_64 (SSE2 + SSSE3). Metadata allows Python >=3.9; this is not a
 broad tested-version matrix. macOS 15+ arm64 is supported; macOS Intel, Linux
-arm64 and Windows are not supported. The stable 0.2 release is being prepared;
-installation examples still identify the published alpha.
+arm64 and Windows are not supported. The 0.x public API may change.
 
 Use `with mariamem.start() as db:` to own a database and call
 `db.connection_info()` for MySQL driver keyword arguments. Close driver

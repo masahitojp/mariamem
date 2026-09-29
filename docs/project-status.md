@@ -58,10 +58,13 @@ Core properties:
 ## Release state — v0.2.0 preparation
 
 The current public release is [v0.2.0-alpha.1](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0-alpha.1),
-with Python distribution `0.2.0a1`. **v0.2.0 is being prepared, not yet released.**
+with Python distribution `0.2.0a1`. Canonical metadata and installation examples
+now target **v0.2.0 / Python 0.2.0** for the final release attempt; final acceptance
+and publication remain pending. Do not interpret this source commit as publication.
 The [readiness audit](release-readiness-v0.2.md) found no known blockers and
-concluded READY AFTER RELEASE PREP. Close v0.2 after version preparation and
-final two-platform Release CI acceptance/aggregate READY and publication.
+concluded READY AFTER RELEASE PREP. Close v0.2 after final two-platform Release CI acceptance/aggregate READY and
+publication. Version metadata and release notes are finalized; no alpha maturity
+classifier is asserted, while the public 0.x API may still change.
 
 Supported native platforms:
 
@@ -461,7 +464,7 @@ cleanup/reset/transaction-lifecycle reasoning when humans or coding agents
 produce CRUD tests. This is unvalidated, not a product claim. Real pools,
 transactions, application migrations and test failure paths must test it.
 
-The remaining v0.2 work is release preparation and final release CI. Further
+The remaining v0.2 work is final candidate Release CI acceptance and publication. Further
 latency/resource work is deferred, not abandoned; ORM/usability evidence comes
 before larger architecture exploration.
 
@@ -495,7 +498,7 @@ Go and Python require different textual version formats, so the source of truth
 represents semantic components rather than reusing one ecosystem-specific
 string.
 
-For the intended stable v0.2.0 preparation (not yet applied):
+The canonical stable v0.2.0 components are:
 
 ```text
 major  = 0
@@ -534,7 +537,7 @@ platform acceptance target.
 ## Remaining roadmap
 
 ```text
-v0.2.0 FAST: release preparation → final Release CI → release
+v0.2.0 FAST: final Release CI → release
     ↓
 v0.3 ORM dogfood / usability
     ↓
