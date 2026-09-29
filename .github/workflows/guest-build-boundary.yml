@@ -250,6 +250,13 @@ jobs:
             --json benchmarks/results/init-final-latency.json
           cat benchmarks/results/init-final-latency.md >> "$GITHUB_STEP_SUMMARY"
           cat benchmarks/results/init-final-latency-stages.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Isolate verification CPU and benchmark-only hash concurrency
+        if: inputs.final_latency_baseline
+        run: |
+          build/bench/isolation-go --native-dir build/guest-aot --verification-probe \
+            --runs 30 --warmup 2 --rows 1000 --json benchmarks/results/init-verification.json
+          python benchmarks/verification_report.py benchmarks/results/init-verification.json > benchmarks/results/init-verification.md
+          cat benchmarks/results/init-verification.md >> "$GITHUB_STEP_SUMMARY"
       - name: Memory scaling and separate 16-session probe
         if: inputs.memory_envelope
         run: |

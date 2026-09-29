@@ -30,12 +30,14 @@ type config struct {
 	interval, hold                       float64
 	stages, guestStages                  bool
 	initDiagnostics, memoryDiagnostics   bool
+	verificationProbe                    bool
 }
 type runner struct {
-	cfg           config
-	samples       []map[string]any
-	version       string
-	captureMemory bool
+	cfg                     config
+	samples                 []map[string]any
+	version                 string
+	captureMemory           bool
+	verificationEnvironment map[string]any
 }
 
 func event(name string, begin time.Time) timing.Event {
@@ -430,6 +432,7 @@ func main() {
 	flag.BoolVar(&c.guestStages, "guest-stage-timing", false, "require matching guest stages")
 	flag.BoolVar(&c.initDiagnostics, "init-diagnostics", false, "require detailed initialization diagnostics")
 	flag.BoolVar(&c.memoryDiagnostics, "memory-diagnostics", false, "post-ready mapping/thread inventory once per case")
+	flag.BoolVar(&c.verificationProbe, "verification-probe", false, "isolated verification attribution; benchmark-only hash concurrency")
 	flag.StringVar(&c.resourceProbe, "resource-probe", "", "isolated diagnostic batch, sessions, or attribution")
 	flag.Parse()
 	if c.initDiagnostics || c.memoryDiagnostics {
@@ -464,7 +467,9 @@ func main() {
 	r := runner{cfg: c, samples: []map[string]any{}}
 	begin := time.Now()
 	var err error
-	if c.resourceProbe != "" {
+	if c.verificationProbe {
+		err = r.verificationRun()
+	} else if c.resourceProbe != "" {
 		err = r.resourceRun()
 	} else {
 		err = r.run()
@@ -476,6 +481,15 @@ func main() {
 			"cpu":         "host and runtime counters from G(0) to all-ready collection; same interval; observer/version-query overhead included, cleanup excluded",
 			"memory":      "macOS physical-footprint accounting / Linux PSS and private; non-atomic tree sum; RSS secondary; sample peak can miss short peaks",
 			"attribution": "ready mappings plus sampled startup progression; guest monotonic clock not aligned to host; no exact post-restore memory hook",
+		}
+	}
+	if c.verificationProbe {
+		report["benchmark"] = "verification_attribution"
+		report["verification_environment"] = r.verificationEnvironment
+		report["metric_notes"] = map[string]string{
+			"cpu":      "getrusage SELF delta over exactly the isolated verification/hash operation, including all worker threads; no runtime descendants",
+			"parallel": "benchmark-only complete content-hash phase, not a parallel production validator; full production validators are separately measured",
+			"memory":   "heap allocation deltas and process cumulative peak RSS; peak RSS cannot reset per operation and is not marginal physical memory",
 		}
 	}
 	if info, ok := debug.ReadBuildInfo(); ok {
