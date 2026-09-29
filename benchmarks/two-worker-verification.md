@@ -89,7 +89,8 @@ process-tree RSS and incremental RSS from raw samples. State limitations; use
 existing private/PSS/footprint probes only if RSS indicates a material regression.
 No claim of per-stage CPU or unique physical-memory accounting is implied.
 
-The fixed-local acceptance has **not yet been run**. If it fails, report NOT MET
+The fixed-local acceptance has now passed on the M1 reference; see
+[the measured local result](final-v02-local-reference.md). If it fails, report NOT MET
 separately and stop; no additional architecture/performance work belongs here.
 
 ## Completed hosted regression: run 36522659284
@@ -244,7 +245,8 @@ unpaired post-change phases; they do not causally allocate the paired savings.
 - Host CPU: small measured increase, not a CPU-saving claim.
 - Sampled memory: no consistent material peak-RSS increase; physical attribution
   and precise short-interval guest CPU remain limited.
-- Fixed-local 30-trial diagnostics-OFF p95 <500 ms: **NOT YET MEASURED**.
+- Fixed-local 30-trial diagnostics-OFF p95 <500 ms: **PASS on the M1 reference**,
+  417.7 ms p95; see [full identity/distribution](final-v02-local-reference.md).
 
 The implementation pass stops here. Use the fixed-reference procedure above,
 record machine/source/AOT identity and every trial, and evaluate p95 unchanged.
