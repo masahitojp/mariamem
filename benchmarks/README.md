@@ -369,3 +369,10 @@ For the production ×1/4/8/16 memory/CPU envelope and the separate one-DB,
 `guest-build-boundary.yml` with `memory_envelope=true`. See
 [memory/session measurement contract](memory-session-envelope.md).
 Failures are retained as evidence; no performance threshold or tuning is applied.
+
+### Final v0.2 verification and fixed-reference acceptance
+
+See [two-worker-verification.md](two-worker-verification.md) for the bounded
+verification change, paired hosted regression procedure and final diagnostics-OFF
+30-trial local p95 <500 ms acceptance. Hosted runner allocation is not the absolute
+performance gate.

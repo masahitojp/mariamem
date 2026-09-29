@@ -38,12 +38,14 @@ def test_each_child_measures_one_complete_fork_with_only_explicit_diagnostics():
         assert off[off.index(flag)+1] == value
 
 
-@pytest.mark.parametrize('production_only', [False, True])
-def test_supervisor_retains_fresh_child_reports_and_alternates_order(tmp_path, monkeypatch, production_only):
+@pytest.mark.parametrize('production_only,comparison', [(False,False),(True,False),(True,True)])
+def test_supervisor_retains_fresh_child_reports_and_alternates_order(tmp_path, monkeypatch, production_only, comparison):
     native = tmp_path/'native'
     native.mkdir()
     (native/'manifest.json').write_text('{}')
     output = tmp_path/'results/report.json'
+    control = tmp_path/'control'
+    control.write_bytes(b'control')
     monkeypatch.setattr(benchmark, 'environment', lambda _: {'commit': 'sha', 'platform': 'test'})
     monkeypatch.setattr(benchmark, 'runner_metadata', lambda _: {'cpu': {'output': 'Model name: test-runner'}})
     monkeypatch.setattr(benchmark, 'validate_guest_timing', lambda _: None)
@@ -74,17 +76,21 @@ def test_supervisor_retains_fresh_child_reports_and_alternates_order(tmp_path, m
         return real_run(command, **kwargs)
     monkeypatch.setattr(benchmark.subprocess, 'run', isolated_run)
     monkeypatch.setattr(sys, 'argv', ['final_latency.py', '--native-dir', str(native),
-                                    '--json', str(output), '--runs', '20'] + (['--production-only'] if production_only else []))
+                                    '--json', str(output), '--runs', '20'] + (['--production-only'] if production_only else []) + (['--comparison-runner',str(control)] if comparison else []))
     # Hashing refers to the standard binary path; supply only that one read.
     original_read = Path.read_bytes
     monkeypatch.setattr(Path, 'read_bytes', lambda path: b'runner' if path == benchmark.ROOT/'build/bench/isolation-go'
                         else original_read(path))
     benchmark.main()
     result = json.loads(output.read_text())
-    expected = 22 if production_only else 44
+    expected = 22 if production_only and not comparison else 44
     assert result['completed'] and len(result['trials']) == expected
     assert result['distribution']['production']['count'] == 20
     assert result['distribution']['production']['max'] == .6
     assert ['--guest-stage-timing' in command for command in commands[:4]] == ([False]*4 if production_only else [False, True, True, False])
     assert len({command[command.index('--json')+1] for command in commands}) == expected
     assert result['runner_metadata']['cpu']['output'] == 'Model name: test-runner'
+    if comparison:
+        assert result['distribution']['control']['count'] == 20
+        assert [Path(c[0]) == control for c in commands[:4]] == [True,False,False,True]
+        assert result['comparison_runner_sha256'] != result['runner_sha256']

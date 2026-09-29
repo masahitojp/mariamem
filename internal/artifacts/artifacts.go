@@ -129,27 +129,33 @@ func resolveTimed(ctx context.Context, dir, platform string, major int) (b Bundl
 	}
 	timing.Mark(ctx, "manifest_checked")
 	// mariamem-host may be present in the unchanged bundle, but is not used by Go.
-	for _, name := range []string{"wasmer-headless", "mariamem.wasmu", "mariamem.wasmu.json"} {
+	names := []string{"wasmer-headless", "mariamem.wasmu", "mariamem.wasmu.json"}
+	err = snapshot.VerifyIndependent(len(names), func(i int) error {
+		name := names[i]
 		path := filepath.Join(root, name)
 		info, err := os.Lstat(path)
 		if err != nil {
-			return b, err
+			return err
 		}
 		if !info.Mode().IsRegular() {
-			return b, fmt.Errorf("artifact must be a regular file: %s", name)
+			return fmt.Errorf("artifact must be a regular file: %s", name)
 		}
 		if name == "wasmer-headless" && info.Mode()&0111 == 0 {
-			return b, diagnostic.Wrap("native_unavailable", "artifact_validation", fmt.Errorf("runtime is not executable: %s; re-extract the native bundle preserving executable permissions", path))
+			return diagnostic.Wrap("native_unavailable", "artifact_validation", fmt.Errorf("runtime is not executable: %s; re-extract the native bundle preserving executable permissions", path))
 		}
 		timing.Work(ctx, name+"/metadata", 0, 1)
 		hash, err := snapshot.DigestTimed(ctx, path, name)
 		if err != nil {
-			return b, err
+			return err
 		}
 		if hash != m.Hashes[name] {
-			return b, fmt.Errorf("artifact hash mismatch: %s; expected SHA256 %q, got %q", path, m.Hashes[name], hash)
+			return fmt.Errorf("artifact hash mismatch: %s; expected SHA256 %q, got %q", path, m.Hashes[name], hash)
 		}
 		timing.Mark(ctx, name+"/hash_compared")
+		return nil
+	})
+	if err != nil {
+		return b, err
 	}
 	b = Bundle{Dir: root, Runtime: filepath.Join(root, "wasmer-headless"), Module: filepath.Join(root, "mariamem.wasmu")}
 	b.Build, err = snapshot.ModuleBuildWithDigestTimed(ctx, b.Module, m.Hashes["mariamem.wasmu"])

@@ -503,12 +503,16 @@ jobs:
           tar -xzf build/latency-input/guest-aot.tar.gz -C build
           python scripts/benchmark_artifacts.py verify wasm
           python scripts/benchmark_artifacts.py verify aot --target ubuntu24.04-x86_64
+      - name: Build unchanged serial verification control (same guest bytes)
+        run: |
+          git worktree add --detach build/verification-control 2e631cd7e682fda06b43655edb7e8b685ff12be9
+          (cd build/verification-control && go build -trimpath -o ../verification-control-go ./benchmarks/goisolation)
       - name: Thirty independent prepared-state starts, diagnostics OFF
         env:
           MARIAMEM_BENCH_JOB_INDEX: ${{ matrix.replica }}
           MARIAMEM_BENCH_INPUT_SHA256: ${{ needs.fresh-latency-inputs.outputs.archive_sha256 }}
         run: |
-          python benchmarks/final_latency.py --native-dir build/guest-aot --production-only --runs 30 \
+          python benchmarks/final_latency.py --native-dir build/guest-aot --production-only --runs 30 --comparison-runner build/verification-control-go \
             --json benchmarks/results/init-fresh-runner.json
           cat benchmarks/results/init-fresh-runner.md >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0

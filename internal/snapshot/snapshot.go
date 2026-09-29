@@ -13,6 +13,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"sync"
 )
 
 type Entry struct {
@@ -82,12 +83,44 @@ func ModuleBuildWithDigestTimed(ctx context.Context, module, hash string) (strin
 	}
 	return m.WASM, nil
 }
+
+// VerifyIndependent runs at most two independent checks and returns the first
+// error in input order after all checks finish. Trust is never cached.
+func VerifyIndependent(count int, check func(int) error) error {
+	errors := make([]error, count)
+	var wg sync.WaitGroup
+	workers := 2
+	if count < workers {
+		workers = count
+	}
+	for worker := 0; worker < workers; worker++ {
+		wg.Add(1)
+		go func(worker int) {
+			defer wg.Done()
+			for i := worker; i < count; i += workers {
+				errors[i] = check(i)
+			}
+		}(worker)
+	}
+	wg.Wait()
+	for _, err := range errors {
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func Inventory(root string) (map[string]Entry, error) {
 	return inventory(context.Background(), root)
 }
 func inventory(ctx context.Context, root string) (map[string]Entry, error) {
-	result := make(map[string]Entry)
-	err := filepath.WalkDir(root, func(path string, d os.DirEntry, err error) error {
+	type item struct {
+		path, name string
+		entry      Entry
+	}
+	var items []item
+	walkErr := filepath.WalkDir(root, func(path string, d os.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -101,23 +134,37 @@ func inventory(ctx context.Context, root string) (map[string]Entry, error) {
 		}
 		name = filepath.ToSlash(name)
 		timing.Work(ctx, "inventory/"+name+"/metadata", 0, 1)
-		if info.IsDir() {
-			result[name] = Entry{Kind: "directory"}
-			return nil
+		entry := Entry{Kind: "directory"}
+		if !info.IsDir() {
+			if path == root || !info.Mode().IsRegular() {
+				return fmt.Errorf("snapshot contains a link or special file: %s", path)
+			}
+			size := info.Size()
+			entry = Entry{Kind: "file", Bytes: &size}
 		}
-		if path == root || !info.Mode().IsRegular() {
-			return fmt.Errorf("snapshot contains a link or special file: %s", path)
-		}
-		hash, err := DigestTimed(ctx, path, "inventory/"+name)
-		if err != nil {
-			return err
-		}
-		size := info.Size()
-		result[name] = Entry{Kind: "file", Bytes: &size, SHA256: hash}
+		items = append(items, item{path, name, entry})
 		return nil
 	})
-	return result, err
+	// WalkDir retains lexical ordering and rejects links/special files. Hash only
+	// collected regular files; all hashes still complete before manifest comparison.
+	err := VerifyIndependent(len(items), func(i int) error {
+		if items[i].entry.Kind != "file" {
+			return nil
+		}
+		hash, err := DigestTimed(ctx, items[i].path, "inventory/"+items[i].name)
+		items[i].entry.SHA256 = hash
+		return err
+	})
+	result := make(map[string]Entry, len(items))
+	for _, item := range items {
+		result[item.name] = item.entry
+	}
+	if err != nil {
+		return result, err
+	}
+	return result, walkErr
 }
+
 func Validate(path, build string) (*Manifest, error) {
 	return ValidateTimed(context.Background(), path, build)
 }

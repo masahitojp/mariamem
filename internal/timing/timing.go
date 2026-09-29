@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"sync"
 	"sync/atomic"
 	"time"
 )
@@ -29,6 +30,7 @@ type Event struct {
 	FilesTouched int64  `json:"files_touched,omitempty"`
 }
 type Trace struct {
+	mu         *sync.Mutex
 	Operation  string          `json:"operation"`
 	PID        int             `json:"pid"`
 	RuntimePID int             `json:"runtime_pid,omitempty"`
@@ -44,7 +46,7 @@ func Begin(ctx context.Context, operation string) (context.Context, func()) {
 	if dir == "" {
 		return ctx, func() {}
 	}
-	t := &Trace{Operation: operation, PID: os.Getpid(), start: time.Now(), dir: dir}
+	t := &Trace{mu: &sync.Mutex{}, Operation: operation, PID: os.Getpid(), start: time.Now(), dir: dir}
 	ctx = context.WithValue(ctx, key{}, t)
 	Mark(ctx, "begin")
 	return ctx, func() {
@@ -71,6 +73,8 @@ func Mark(ctx context.Context, name string) {
 // The owning startup goroutine appends it after receiving the response.
 func MarkAt(ctx context.Context, name string, at time.Time) {
 	if t, ok := ctx.Value(key{}).(*Trace); ok && !at.IsZero() {
+		t.mu.Lock()
+		defer t.mu.Unlock()
 		t.Events = append(t.Events, Event{Name: name, Offset: at.Sub(t.start).Nanoseconds()})
 	}
 }
@@ -105,8 +109,8 @@ func Work(ctx context.Context, name string, bytes, files int64) {
 	if !Enabled(ctx) {
 		return
 	}
-	Mark(ctx, name)
 	t := ctx.Value(key{}).(*Trace)
-	e := &t.Events[len(t.Events)-1]
-	e.BytesRead, e.FilesTouched = bytes, files
+	t.mu.Lock()
+	defer t.mu.Unlock()
+	t.Events = append(t.Events, Event{Name: name, Offset: time.Since(t.start).Nanoseconds(), BytesRead: bytes, FilesTouched: files})
 }
