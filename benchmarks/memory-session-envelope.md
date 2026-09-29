@@ -18,6 +18,8 @@ hashes are retained. Nothing is released. Results remain ignored artifacts.
 The canonical Go API runner creates the existing 1,000-row / 32-character fixture,
 snapshots it, then concurrently Forks ×1/4/8/16 using unchanged startup and first
 fixture COUNT. Preparation of the fixture is outside the measured batch.
+Before Snapshot, close the fixture SQL pool and await `WaitDisconnected` so
+server-side session cleanup is acknowledged. This is outside G(0)/Fork timing.
 Each trial is a separate process; the supervisor writes retained results after
 every trial. Counts run round-robin (not paired performance conditions), with
 20 measured trials and one warmup per count if they complete. A failed count is
@@ -86,6 +88,16 @@ guest memory filesystem and MariaDB allocations can overlap; do not sum them
 as disjoint physical owners. Report the remainder as unattributed. If the current
 architecture cannot distinguish runtime-owned FS from linear memory, state that
 limitation rather than adding protocol/runtime changes.
+
+## Initial run diagnosis
+
+[Run 36501655086](https://github.com/masahitojp/mariamem/actions/runs/36501655086)
+passed all ten 16-session trials on each platform. Scaling attempts failed before
+Fork timing: the new harness omitted the canonical runner's `WaitDisconnected`
+after fixture SQL, so Snapshot correctly rejected active session cleanup as busy.
+This was not an OOM or ×16 resource-envelope result. The harness now awaits the
+existing acknowledgement with a bounded context before Snapshot; no product
+precondition is relaxed. Scaling distributions still require a fresh successful run.
 
 ## Verification before CI
 

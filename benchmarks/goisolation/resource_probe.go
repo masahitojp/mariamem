@@ -310,7 +310,9 @@ func (r *runner) resourceRun() error {
 	if e = r.seed(db); e != nil {
 		return e
 	}
-	saved, e := db.Snapshot(context.Background(), mariamem.SnapshotOptions{})
+	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
+	defer cancel()
+	saved, e := resourceSnapshot(ctx, db)
 	if e != nil {
 		return e
 	}
@@ -321,4 +323,22 @@ func (r *runner) resourceRun() error {
 		r.samples = append(r.samples, row)
 	}
 	return e
+}
+
+// Driver Close only starts server-side cleanup. Snapshot must wait for its acknowledgement,
+// just as the canonical isolation runner does; all of this is outside G(0)/Fork timing.
+type resourceSnapshotSource interface {
+	WaitDisconnected(context.Context) error
+	Snapshot(context.Context, mariamem.SnapshotOptions) (*mariamem.Snapshot, error)
+}
+
+func resourceSnapshot(ctx context.Context, db resourceSnapshotSource) (*mariamem.Snapshot, error) {
+	if err := db.WaitDisconnected(ctx); err != nil {
+		return nil, fmt.Errorf("fixture session cleanup before Snapshot: %w", err)
+	}
+	saved, err := db.Snapshot(ctx, mariamem.SnapshotOptions{})
+	if err != nil {
+		return nil, fmt.Errorf("prepared fixture Snapshot: %w", err)
+	}
+	return saved, nil
 }
