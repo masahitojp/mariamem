@@ -11,6 +11,10 @@ reference. These scripts formalize its workloads; exact reproduction of its
 numbers is not claimed because the original full scripts/environment were not
 captured. Compare future runs using the same script revision and settings.
 
+The fixed-reference [repeated isolated-test comparison](practical-suite-comparison.md)
+measures fresh servers, prepared Fork and shared-container schema reset separately,
+including 10/50/100-test suite costs and their different isolation guarantees.
+
 ## Setup
 
 Install a locally built mariamem wheel into a venv as described in
