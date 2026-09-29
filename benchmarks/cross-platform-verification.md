@@ -242,47 +242,130 @@ cleanup/corruption, parallel tails and resource regressions remain mandatory.
 Four workers, restore changes and architecture work are not selected.
 No production optimization is implemented by this analysis task.
 
-## Fresh-runner reproducibility follow-up
+## Fresh-runner reproducibility result
 
-Status: five-job measurement queued for a new exact main commit; results pending.
-No production optimization or threshold change. Dispatch the existing
-`guest-build-boundary.yml` with `fresh_runner_latency=true`.
+[Run 36521228629](https://github.com/masahitojp/mariamem/actions/runs/36521228629)
+measured exact clean commit `99072a8a7f993a6d1459e30233def6a1286932f8`.
+Five separately provisioned Ubuntu jobs each completed all 30 independent
+measured Go-process/DB trials and two labelled warmups. Diagnostics were OFF;
+the same 1,000-row fixture, production verification and ps sampler were used.
+Fixture preparation/Snapshot is outside timed Fork; required startup work and
+first verified fixture query remain inside. No slow trial was removed.
+Percentiles use linear interpolation over each job's 30 per-DB latency samples;
+150 trials are not pooled as one machine.
 
-One Ubuntu input job restores/builds and verifies the immutable common AOT once,
-then freezes it in an archive. Five independent `ubuntu-24.04` jobs download that
-same archive, compare its SHA256 against the input job's output, and verify
-WASM/AOT seals and provenance. Workers cannot rebuild or fall back to another
-artifact. All checkouts use the same workflow source SHA, Go 1.26.8 and Python
-3.14. Each job runs `final_latency.py --production-only --runs 30`: fresh Go
-process/DB/1,000-row fixture for each measured trial, two separately labelled
-warmups, lifecycle diagnostics OFF, existing ps sampler unchanged.
+### Identity and environment
 
-The fresh-job environment is isolated by GitHub-hosted job provisioning; this
-does not prove distinct physical hosts. Metadata records job index/runner name,
-image version, CPU topology/model/flags, kernel, filesystem/mounts, Go target and
-shared archive SHA. CPU observations retain the existing broader batch interval
-and ps limitations. Environment commands run outside timed startup. No cache
-flush or privileged tuning is added. Native-file verification before measurement
-is identical across jobs, and fixture setup/Snapshot remains outside Fork timing.
+All jobs used Go 1.26.8, Python 3.14.7, four vCPUs, image
+`20260920.314.1`, kernel `6.17.0-1022-azure`, and ext4 root storage for both
+native inputs and temporary snapshots. They used the identical Go runner
+SHA256 `b2a54af4023838ab9f8e6a58244ccfe081f147284281f737d54a785660a65eb9`.
+Every recorded harness source hash matches the measured commit.
 
-Artifacts `fresh-latency-1..5-<SHA>` retain per-job min/p50/p95/max, all raw child
-reports/logs, CPU and runner metadata, native manifest/provenance/reuse seal.
-`fresh-latency-input-<SHA>` holds the one shared AOT archive. Fail-fast is disabled
-and failure evidence uploads even if one job fails. No slow trial/job is removed;
-a failed job cannot be treated as a successful distribution.
+The shared input archive SHA256 is
+`10e064751c4ffdd176be44831990552bc8c7e87a9aaa7d4261e7cbb2dff5b917`.
+It was recomputed after download; all sealed files were rehashed, and each job's
+manifest/provenance/reuse seal matches the archive. AOT SHA256 is
+`e729fc07d7cb03de6b4bbf5334f0e1da460a8abfff56b0d3661b2688969e73fb`,
+consuming WASM `41e3acfb51fe52ad13d9691de0bd3f05619266571e84dd1a0ddf263e082add7f`
+with Wasmer 7.4.2 and SSE2 + SSSE3 baseline. This is reused immutable build
+output: its retained provenance source commit is `d44157ad...`, and reuse seal
+build checkout is `a8e5d5b...`; neither is relabelled as the measured Go checkout.
+Workers downloaded these same bytes and verified reuse; they did not rebuild.
 
-On completion, compare per-job medians/p95 and ranges with within-job spread
-(p95-minus-p50, IQR and standard deviation from raw trials), keeping jobs as the
-independent units rather than pooling 150 trials as one machine. Report any
-fast/slow regimes alongside CPU/image information without claiming a hardware
-cause from five observations. Keep the prior 534/554 ms and 434/454 ms runs as
-historical unchanged-production controls; their full CPU metadata differs in
-availability. Every job must independently have p50/p95 <500 ms to call this
-five-job sample reproducible. This remains an informational experiment, not a
-new release gate. If hardware/runtime conditions vary, explicitly discuss whether
-an unqualified hosted-runner gate is meaningful.
+Raw JSON/logs remain in Actions artifacts `fresh-latency-1..5-99072a8...`;
+`fresh-latency-input-99072a8...` contains the shared archive. Downloaded copies
+are under `/private/tmp/mariamem-fresh-36521228629/`, outside tracked source.
+Fresh jobs do not prove distinct physical hosts, and model labels do not expose
+host contention, actual frequency, or storage throughput.
 
-For headroom, retain the measured 2-worker content saving ~41.6 ms. Any subtraction
-from new job samples is a labelled counterfactual, not measured end-to-end parallel
-validation. Assess the slowest job/tails, not only a pooled median. No parallel
-production implementation is added or selected by this follow-up.
+### Per-job distribution
+
+All latency values below are milliseconds. CPU is **Go runner SELF CPU seconds
+over the broader batch** (including sampling, hold and cleanup), not combined
+host + guest CPU confined to Fork. It is supporting evidence only.
+
+| Job | CPU model | min | p50 | p95 | max | >=500 ms | CPU p50 / p95 |
+|---|---|---:|---:|---:|---:|---:|---:|
+| 1 | AMD EPYC 9V45 96-Core Processor | 337.5 | 353.9 | 369.8 | 402.7 | 0/30 | 0.132 / 0.136 |
+| 2 | AMD EPYC 7763 64-Core Processor | 519.6 | 544.5 | 565.2 | 569.1 | 30/30 | 0.189 / 0.193 |
+| 3 | AMD EPYC 7763 64-Core Processor | 518.1 | 536.3 | 555.2 | 562.9 | 30/30 | 0.186 / 0.189 |
+| 4 | INTEL(R) XEON(R) PLATINUM 8573C | 469.1 | 518.6 | 541.2 | 548.7 | 25/30 | 0.170 / 0.173 |
+| 5 | AMD EPYC 7763 64-Core Processor | 516.9 | 541.7 | 564.9 | 577.1 | 30/30 | 0.186 / 0.189 |
+
+### Within-job versus between-job variance
+
+| Job | sample standard deviation (ms) | IQR (ms) | p95 minus p50 (ms) |
+|---|---:|---:|---:|
+| 1 | 12.5 | 10.9 | 16.0 |
+| 2 | 11.6 | 11.9 | 20.7 |
+| 3 | 10.7 | 13.9 | 18.9 |
+| 4 | 17.6 | 21.1 | 22.6 |
+| 5 | 15.3 | 21.2 | 23.2 |
+
+**Derived calculation:** job medians span 353.9–544.5 ms (190.6 ms).
+Their sample standard deviation is 81.8 ms, versus 13.8 ms root-mean-square
+within-job sample standard deviation: approximately 5.9 times larger. These are
+descriptive spreads, not an estimate of population variance components from five
+independent machines.
+
+**Measured fact:** the three EPYC 7763 jobs have tightly grouped medians
+536.3–544.5 ms; the EPYC 9V45 job is 353.9 ms, and Xeon 8573C is 518.6 ms.
+There are clear sampled fast/slow regimes associated with CPU model. Runner SELF
+CPU is also lower on the fast job. **Inference:** execution environment is a
+material confounder, not merely occasional slow trials within a stable runner.
+**Unknown:** CPU generation alone is not causally isolated; frequency,
+virtualization contention and storage may covary. Diagnostics OFF provides no
+new per-stage attribution, so this does not locate the regime difference in
+hashing versus restore versus initialization.
+
+Historical unchanged-production controls remain relevant: run 36517366853
+had 534.3 / 554.3 ms p50/p95; run 36519208622 had 434.2 / 453.6 ms on EPYC
+9V74. The former resembles the current 7763 jobs; its CPU model was not recorded.
+The latter is a different intermediate environment, not evidence of a product
+speedup. Historical runs are not paired with these five jobs.
+
+### Reproducibility and the 500 ms gate
+
+**NOT MET:** only job 1 has both p50 and p95 <500 ms. Jobs 2, 3 and 5 have
+every measured trial above 500 ms; job 4 has 25/30 above it. All jobs completed
+successfully, so this is a performance result rather than a correctness failure.
+The target is unchanged, and the fast job cannot substitute for the four failures.
+
+The unqualified `ubuntu-24.04` hosted label is not currently a controlled enough
+environment for a hard 500 ms product-regression release gate: identical code
+and artifacts change verdict with job allocation. It remains useful for recording
+performance and testing the explicit milestone. A pass there is not reproducible
+across this sample, and this observation does not redefine the milestone or
+justify filtering runners after seeing their results.
+
+### Two-worker headroom: counterfactual only
+
+The earlier isolated-content probe measured median combined saving 41.575 ms
+(range 39.207–43.581 ms) on EPYC 9V74. Applying that identical saving to these
+jobs is a **derived thought experiment**, not measured end-to-end parallel
+verification, and transfer to other CPU models is unproven.
+
+| Job | observed p95 (ms) | p95 minus 41.575 ms | saving needed for p95 <500 ms |
+|---|---:|---:|---:|
+| 1 | 369.8 | 328.3 | >0.0 ms |
+| 2 | 565.2 | 523.6 | >65.2 ms |
+| 3 | 555.2 | 513.6 | >55.2 ms |
+| 4 | 541.2 | 499.6 | >41.2 ms |
+| 5 | 564.9 | 523.4 | >64.9 ms |
+
+The thought experiment still leaves jobs 2, 3 and 5 at approximately
+514–524 ms p95; even subtracting the earlier largest observed saving does not
+close them. Job 4 would have essentially no headroom. Thus ~42 ms helps, but is
+not demonstrated to cover observed runner variance. Parallel verification is
+not implemented or selected here. Its benefit may differ on slower processors;
+only a measured end-to-end comparison could establish that.
+
+### Decision inputs
+
+- Between-job variation dominates the within-job noise in this sample.
+- There is a model-associated performance regime, not proof of Ubuntu being
+  uniformly slower than macOS or of a single OS-specific bottleneck.
+- Stable p95 <500 ms across fresh hosted jobs is not established.
+- The known ~42 ms candidate alone does not provide demonstrated headroom for
+  the slow regime. No production optimization or threshold change is made.
