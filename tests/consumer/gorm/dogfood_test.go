@@ -18,6 +18,7 @@ import (
 	"github.com/masahitojp/mariamem"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 // Conventional has-many models: no test cleanup hooks or soft-delete policy.
@@ -52,6 +53,20 @@ type application struct {
 	orm     *gorm.DB
 	pool    *sql.DB
 	record  *observation
+}
+
+// Observe the actual bound queries without changing the migrator or dialect.
+type discoveryLogger struct {
+	logger.Interface
+	queries *[]string
+}
+
+func (l discoveryLogger) Trace(ctx context.Context, begin time.Time, fc func() (string, int64), err error) {
+	query, rows := fc()
+	if strings.Contains(strings.ToLower(query), "information_schema") {
+		*l.queries = append(*l.queries, query)
+	}
+	l.Interface.Trace(ctx, begin, func() (string, int64) { return query, rows }, err)
 }
 
 func require(t *testing.T, err error) {
@@ -338,11 +353,16 @@ func TestDogfood(t *testing.T) {
 			require(t, rows.Close())
 			diagnostics[query] = values
 		}
-		diagnostics["gorm_current_database"] = a.orm.Migrator().CurrentDatabase()
-		diagnostics["gorm_has_users"] = a.orm.Migrator().HasTable(&User{})
+		var queries []string
+		observed := a.orm.Session(&gorm.Session{Logger: discoveryLogger{a.orm.Logger, &queries}})
+		diagnostics["gorm_current_database"] = observed.Migrator().CurrentDatabase()
+		diagnostics["gorm_has_users"] = observed.Migrator().HasTable(&User{})
 		a.record.Details["migration_diagnostics"] = diagnostics
-		require(t, a.orm.AutoMigrate(&User{}, &Address{}))
-		check(t, a.orm.Migrator().HasTable(&User{}) && a.orm.Migrator().HasConstraint(&Address{}, "User"), "metadata missing")
+		a.record.Details["gorm_discovery_queries"] = &queries
+		require(t, observed.AutoMigrate(&User{}, &Address{}))
+		// The FK is created by User.Addresses and named fk_users_addresses.
+		// Address.User is the inverse relation, not its constraint name.
+		check(t, observed.Migrator().HasTable(&User{}) && observed.Migrator().HasConstraint(&Address{}, "fk_users_addresses"), "metadata missing")
 		var version string
 		require(t, a.orm.Raw("SELECT VERSION()").Scan(&version).Error)
 		a.record.Details["server_version"] = version

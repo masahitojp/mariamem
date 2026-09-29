@@ -125,6 +125,7 @@
     }
   ],
   "pristine_files": {
+    "mysys/my_lib.c": "6138a676de2b16c8dd19ac45dc78c88153d73def490954f3867fba40d247a74e",
     "wasm/lite4mariadb.c": "c0a959b6755d3463de31d9d08d2a43031cc418a332768a0956ebfd5046e15526",
     "wasm/CMakeLists.txt": "f317e2786a12b2cfdd7c0de8d4b3d3c05b6aa9ee4f0a8aad909898b6d218f437"
   },

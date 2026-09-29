@@ -32,6 +32,27 @@ def exercise(conn, events, api_version=1):
         # Test engine semantics; protocol lastrowid is explicitly unsupported.
         cur.execute("SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA='test' AND TABLE_NAME='wire_probe'")
         assert cur.fetchone() == ("InnoDB",)
+        # Generic schema discovery: wildcard/enumeration must agree with exact
+        # lookup, including newly created and subsequently dropped databases.
+        cur.execute("SHOW DATABASES")
+        assert ("test",) in cur.fetchall()
+        cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA")
+        assert ("test",) in cur.fetchall()
+        cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA "
+                    "WHERE SCHEMA_NAME LIKE %s ORDER BY SCHEMA_NAME=%s DESC,SCHEMA_NAME LIMIT 1",
+                    ("test%", "test"))
+        assert cur.fetchone() == ("test",)
+        cur.execute("CREATE DATABASE wire_discovery")
+        cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA "
+                    "WHERE SCHEMA_NAME LIKE %s", ("wire_discovery%",))
+        assert cur.fetchall() == (("wire_discovery",),)
+        cur.execute("DROP DATABASE wire_discovery")
+        cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA "
+                    "WHERE SCHEMA_NAME=%s", ("wire_discovery",))
+        assert cur.fetchall() == ()
+        cur.execute("SHOW DATABASES")
+        assert ("wire_discovery",) not in cur.fetchall()
+        events.append({"check": "schema_discovery_enumeration_wildcard_create_drop", "passed": True})
         cur.execute("SET @wire_marker=9876")
         conn.begin()
         assert conn.server_status & 1

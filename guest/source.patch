@@ -90,3 +90,22 @@
      "SHELL:-Wl,--export=l4m_exec_multi"
      "SHELL:-Wl,--export=l4m_escape"
      "SHELL:-Wl,--export=l4m_close"
+--- a/mysys/my_lib.c
++++ b/mysys/my_lib.c
+@@ -166,9 +166,16 @@
+       mystat= &statbuf;
+       bzero(mystat, sizeof(*mystat));
+       (void) strmov(tmp_file, dp->d_name);
++#ifdef __wasi__
++      /* WASIX stat reports file type without POSIX permission bits.
++         Check readability through libc instead of hiding every database. */
++      if (!my_stat(tmp_path, mystat, MyFlags) || access(tmp_path, R_OK))
++        continue;
++#else
+       (void) my_stat(tmp_path, mystat, MyFlags);
+       if (!(mystat->st_mode & MY_S_IREAD))
+         continue;
++#endif
+     }
+ 
+     if (!(finfo.name= strdup_root(&dirh->root, dp->d_name)))

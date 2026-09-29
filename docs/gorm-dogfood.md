@@ -3,10 +3,10 @@
 ## Result and scope
 
 Ordinary GORM CRUD works with a disposable mariamem DB per test, without
-cleanup SQL or pool restrictions. **Existing-schema discovery is a compatibility
-blocker:** a second `AutoMigrate` fails with MariaDB 1050, `Table 'users' already
-exists`. The maintained probe deliberately fails there; no migrator override,
-SQL rewrite, disabled check, or production change hides it.
+cleanup SQL or pool restrictions. **32/32 cases now pass**, including repeat
+`AutoMigrate`, after fixing generic MariaDB directory enumeration for WASIX.
+There is no GORM migrator override, SQL rewrite or disabled integrity check.
+The original discovery failure and real-MariaDB comparison are retained below.
 
 The conventional User / Address model uses GORM's documented
 [MySQL connection](https://gorm.io/docs/connecting_to_the_database.html),
@@ -29,13 +29,15 @@ is added.
   SQLAlchemy fix, not a new public mariamem release.
 - Server `13.1.0-MariaDB-embedded`; Wasmer 7.4.2. The explicit local bundle from
   SQLAlchemy branch acceptance has package metadata `0.2.0` and AOT SHA256
-  `d914dd9100870b05b03852be473e173a8415ccd5f520b2ed1aca522b66a64fc8`.
-  It includes the modified guest and is not a published/approved release bundle.
+  `90da311cbcaeec30705a73fe45629c7ede470d1094b3db7ca6e113de294b1d84`.
+  The Go host source remains d036296; the guest includes this branch's discovery
+  fix. It is not a published/approved release bundle. All recorded prepared-source
+  hashes matched a fresh canonical preparation before the incremental local build.
 
 ```sh
 python3 tests/consumer/run_gorm.py \
-  --native-dir build/sqlalchemy-dogfood/native \
-  --output tests/evidence/gorm-dogfood-final
+  --native-dir build/gorm-dogfood/native \
+  --output tests/evidence/gorm-discovery-fixed
 ```
 
 Supply an existing matching native bundle: this runner never builds/downloads
@@ -43,14 +45,16 @@ one. It copies the pinned consumer module into a temporary directory outside
 the checkout and uses the remote module without `replace`, with `GOWORK=off`
 and Go 1.26.8. Start / Fork / Fork / Start suites each run eight sequential cases.
 The A→B pair must remain in order. JSON captures module/native identities,
-timings, pool statistics, connection IDs, SQL diagnostics, and cleanup; raw logs
-and evidence remain ignored under `tests/evidence/`. Exit status is nonzero
-while the observed migration blocker remains.
+timings, pool statistics, connection IDs, SQL diagnostics, actual bound GORM
+discovery SQL, and cleanup; raw logs and evidence remain ignored under
+`tests/evidence/`. Historical failing evidence is in `gorm-dogfood-final/`;
+successful evidence is in `gorm-discovery-fixed/`.
 
 ## GORM compatibility
 
-Each of four suites passed seven cases and failed the existing-schema migration
-case: **28 pass / 4 fail**.
+Originally each suite passed seven cases and failed existing-schema migration:
+28 pass / 4 fail. With the generic discovery fix, all four eight-case suites pass:
+**32 pass / 0 fail**.
 
 | Path | Observation |
 |---|---|
@@ -59,7 +63,7 @@ case: **28 pass / 4 fail**.
 | Associations | Automatic child insertion, Preload and belongs-to JOIN passed |
 | Transactions | Intentional commit persisted inside its DB; explicit rollback removed its own uncommitted write |
 | Constraint errors | 1062 unique, 1048 non-null and 1452 FK retained driver error codes; normal queries still worked |
-| Repeat AutoMigrate / HasTable | Failed consistently; schema discovery returns empty current database |
+| Repeat AutoMigrate / HasTable | Passed after generic discovery repair; current database is `test` |
 | Runtime close with pooled connections | Passed; subsequent SQL failed, pool close and runtime cleanup succeeded |
 
 GORM detects MariaDB and uses `INSERT ... RETURNING id` normally. Those statements
@@ -68,7 +72,7 @@ operations, never restoration of the fixture for the next test.
 
 ### Migration blocker diagnosis
 
-These raw `database/sql` queries reproduce the disagreement without GORM:
+These raw `database/sql` queries reproduced the disagreement without GORM:
 
 | Query | Result |
 |---|---|
@@ -80,21 +84,58 @@ These raw `database/sql` queries reproduce the disagreement without GORM:
 | TABLES with exact schema `test`, table `users`, type `BASE TABLE` | Count 1 |
 | `SHOW TABLES` | `addresses`, `users` |
 
-The driver's `Migrator.CurrentDatabase()` first obtains `DATABASE()`, then runs
-`SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE ?
-ORDER BY SCHEMA_NAME=? DESC,SCHEMA_NAME limit 1` with `test%` / `test`.
-It returns an empty string. `HasTable` consequently searches TABLES with an
-empty schema, returns false, and `AutoMigrate` attempts CREATE TABLE again.
+The driver's `Migrator.CurrentDatabase()` first obtains `DATABASE()`. A logger
+observer captures the following actual bound discovery SQL without changing it:
+
+```sql
+SELECT SCHEMA_NAME from Information_schema.SCHEMATA
+where SCHEMA_NAME LIKE 'test%'
+ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1
+```
+
+Before the fix this returned an empty string. `HasTable` consequently searched
+TABLES with an empty schema, returned false, and AutoMigrate attempted CREATE
+TABLE again.
 Lowercasing Information_schema/SCHEMATA produces the same failure: this is not
 a capitalization workaround opportunity or missing table.
 
 **Source fact:** pinned MariaDB `sql/sql_show.cc` routes SCHEMATA through
 `fill_schema_schemata` / `make_db_list`. Exact database lookup can use the supplied
 name; enumerated/wildcard lookup uses `find_files`, `my_dir` and directory-stat
-filtering. This matches the observed split. **Unknown:** which guest filesystem,
-directory-stat or enumeration behavior causes the omission. No source patch was
-made. Classify this as a mariamem embedded guest metadata compatibility issue,
-triggered by an ordinary GORM discovery query, rather than application misuse.
+filtering. The failing condition is in `mysys/my_lib.c`: with `MY_WANT_STAT`,
+`my_dir` discards every entry without `MY_S_IREAD` in `st_mode`.
+
+**Measured runtime fact:** a minimal diagnostic compiled with the same WASIXCC
+0.4.7 and executed by Wasmer 7.4.2 creates `/mariadb/test`, then returns:
+`stat=0 mode=40000 type_dir=1 user_read=0 access_read=0`. Readdir finds `test`.
+WASIX reports the directory type without POSIX permission bits; the native
+permission-bit test therefore silently discarded a readable database directory.
+
+**Real MariaDB comparison:** official local image `mariadb:12.3`, digest
+`sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1`,
+reports `12.3.3-MariaDB-ubu2404`. In a disposable container with a real `test`
+database/table, the exact GORM query returns `test`; SHOW DATABASES and unfiltered
+SCHEMATA also include it, and the exact TABLES query returns count 1. This is not
+the same server version as embedded 13.1.0; the comparison establishes the
+expected discovery semantics, not complete cross-version equivalence. The native
+server also contains system databases absent from this embedded configuration.
+
+**Generic repair:** only the `__wasi__` branch of `my_dir` checks successful stat
+and `access(path, R_OK)` instead of testing unavailable POSIX read bits. Stat or
+access failure still excludes the entry; file type remains checked by MariaDB's
+normal caller. Native builds keep their previous branch. There is no fabricated
+schema list, GORM query interception, authentication/grant change or runtime
+redesign. The canonical patch and pristine hash of `mysys/my_lib.c` are recorded
+in source preparation/provenance. Generic wire tests cover SHOW DATABASES,
+SCHEMATA enumeration/wildcard lookup and database CREATE/DROP visibility.
+
+One previously unreachable assertion was a harness error: it queried
+`HasConstraint(&Address{}, "User")`. The FK created by User.Addresses is named
+`fk_users_addresses`; the inverse relation name is not that constraint name.
+Normal MariaDB also returns 0 for constraint name `User` and 1 for the actual FK.
+The test now checks that existing FK by its correct name, without changing GORM's
+model/migration or database semantics.
+
 The initial teardown failure was separately a harness error: WaitDisconnected
 was called after runtime Close. Waiting is now done only while the runtime lives.
 
@@ -104,8 +145,8 @@ Test A explicitly commits `committed-A` and observes two users. It ends by closi
 the pool/runtime, without DELETE, TRUNCATE, schema reset, or cleanup transaction.
 Test B receives a new DB, sees the seed user only and cannot find `committed-A`.
 This passes twice with Start and twice with Fork. Every case has its own DB;
-errors and session state from one case do not affect the next. The compatibility
-blocker does not invalidate the successful cleanup-free CRUD observation.
+errors and session state from one case do not affect the next. The original
+blocker did not invalidate the successful cleanup-free CRUD observation.
 
 ## Pool and lifecycle behavior
 
@@ -134,6 +175,8 @@ closes its pool, waits for disconnect, snapshots the consumed template, and fork
 one fresh DB per case. This adds snapshot ownership/teardown code but removes
 schema/seed setup from individual cases.
 
+Historical pre-discovery-fix observations (the original 28/32 run):
+
 | Observation | Start | Fork |
 |---|---:|---:|
 | Startup + GORM Open median (16 cases each) | 306.8 ms | 306.5 ms |
@@ -160,18 +203,21 @@ a concrete P1 usability candidate; no auto-download feature is implemented here.
 
 ## v0.3 findings: next three tasks
 
-1. **BLOCKER:** repair existing-schema discovery in the guest and rerun the
-   unchanged migration case. Require SHOW DATABASES, wildcard/equality SCHEMATA,
-   HasTable and repeat AutoMigrate to agree; do not replace GORM's migrator.
+The schema-discovery **BLOCKER is resolved on this branch**. The remaining tasks:
+
+1. **P1:** run the unchanged consumer on Ubuntu 24.04 and packaged candidates
+   before claiming two-platform GORM compatibility. This is macOS local acceptance.
 2. **P1:** improve/document Go native-bundle setup and disposable fixture ownership,
    including pooled session lifetime. Decide its priority from additional dogfood
    evidence; keep zero-setup implementation separate.
-3. **P1:** run this consumer on Ubuntu 24.04 and packaged candidates before claiming
-   two-platform GORM compatibility. This report establishes only the tested macOS
-   configuration, and overall compatibility remains blocked by discovery.
+3. **NICE TO HAVE:** repeat with a larger realistic migration/fixture workload
+   before drawing broader conclusions about Snapshot/Fork ergonomics or payoff.
 
 Verification: canonical check (Go tests/vet, Python 326 pass / 3 skipped,
 public-source/version checks), real-guest Go race/lifecycle tests and Python
-timeout/multi-client tests (3 pass), plus `git diff --check`. The consumer's
-expected four failures are retained rather than reported as green. No product
-behavior, public API, runtime configuration or session capacity changed.
+timeout/multi-client tests (3 pass), raw wire acceptance including generic
+discovery and FOUND_ROWS, SQLAlchemy standard consumer (44 pass), canonical
+source preparation/hash checks and `git diff --check`. Current GORM acceptance
+is 32/32; historical failures remain separate. The repair restores database
+discovery semantics; public API, runtime configuration and session capacity stay
+unchanged.
