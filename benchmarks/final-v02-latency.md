@@ -160,3 +160,13 @@ safely be deleted. Restore remains required materialization under the unchanged
 implementation. The final pass remains open: baseline failure is established;
 no optimization has yet passed the correctness/resource guardrails, and no
 structural impossibility verdict is supported by this profile alone.
+
+## Later unchanged control
+
+[Run 36519208622 analysis](cross-platform-verification.md) repeats this profile
+without a product optimization: Ubuntu production p50/p95 became
+434.187/453.558 ms (min 421.967, max 510.239), 30 independent trials.
+This run meets both numerical percentiles, but does not invalidate the earlier
+failure or establish stable hosted-run performance. The cross-platform report
+separates this run variability from the benchmark-only parallel-hash experiment;
+no final production improvement or across-run PASS is claimed.
