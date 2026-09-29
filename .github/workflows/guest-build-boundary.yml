@@ -2,6 +2,10 @@ name: Guest build boundary verification
 on:
   workflow_dispatch:
     inputs:
+      final_latency_baseline:
+        description: 'Final v0.2 baseline: 30 independent x1 trials with diagnostics off/on'
+        type: boolean
+        default: false
       memory_envelope:
         description: 'Independent DB x1/4/8/16 and separate 16-session resource probe'
         type: boolean
@@ -187,7 +191,7 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche || inputs.fork_gap_measurement || inputs.memory_envelope
+    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche || inputs.fork_gap_measurement || inputs.memory_envelope || inputs.final_latency_baseline
     needs: guest
     strategy:
       fail-fast: false
@@ -239,6 +243,13 @@ jobs:
           key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal verified guest smoke
         run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Independent production baseline and diagnostic perturbation
+        if: inputs.final_latency_baseline
+        run: |
+          python benchmarks/final_latency.py --native-dir build/guest-aot --runs 30 \
+            --json benchmarks/results/init-final-latency.json
+          cat benchmarks/results/init-final-latency.md >> "$GITHUB_STEP_SUMMARY"
+          cat benchmarks/results/init-final-latency-stages.md >> "$GITHUB_STEP_SUMMARY"
       - name: Memory scaling and separate 16-session probe
         if: inputs.memory_envelope
         run: |
