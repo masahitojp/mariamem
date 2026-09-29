@@ -82,8 +82,7 @@ Ignored evidence is under `tests/evidence/gorm-zero-options/` and
   first-download/cache/offline `Options{}` startup on both release platforms.
   No compatible public bundle exists for this development source; using v0.2.0
   to pretend otherwise would violate compatibility.
-- **P1:** Ubuntu real-runtime zero-setup dogfood remains to be run; this local
-  task exercised macOS and both platform resolver fixtures, not an Ubuntu guest.
+- Ubuntu real-runtime acceptance is now complete; see the follow-up below.
 - **NICE TO HAVE:** an explicit prefetch/cache-inspection command may help offline
   provisioning; existing NativeDir/environment overrides already provide it.
 
@@ -94,7 +93,11 @@ No P0 blocker was found in the implemented resolver or local lifecycle checks.
 The release-like full public startup path now passes locally with a real macOS
 bundle: tagged private module, local release server, Start(Options{}), SQL,
 cache/offline, concurrent startup and failure recovery. No production resolver
-hook or public release was added. Both-platform clean acceptance is pending in
-the existing guest boundary workflow; see [v0.3 acceptance](v03-acceptance.md).
+hook or public release was added. Clean macOS 15 arm64 and Ubuntu 24.04 x86_64
+acceptance subsequently passed on `872fdea882ad82540ffe32e14e506ff67b2d10c3`
+in [run 36582171063](https://github.com/masahitojp/mariamem/actions/runs/36582171063).
+Both platforms passed all nine full-startup resolver cases, GORM 32/32 and
+installed-wheel SQLAlchemy 44/44; see [v0.3 acceptance](v03-acceptance.md).
 The earlier fixture-only limitation above is historical; public published-tag
-smoke remains distinct from this controlled release-like check.
+smoke remains distinct from this controlled release-like check. The branch is
+ready for a dedicated release-readiness audit.

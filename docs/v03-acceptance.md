@@ -15,24 +15,62 @@ The locally built installed wheel uses the canonical development package version
 `0.2.0`; it is not the published v0.2.0 wheel. Its SHA256 is
 `fdcfa2e260086a5e7e6dd6c02dce6c625367edb6194a8515bae4a115d7e3283d`.
 Production source is the starting commit; acceptance harness additions were
-uncommitted during the local run. The CI run will record its exact committed SHA.
+uncommitted during the local run. The completed CI run below records the exact
+committed acceptance source.
 
 | Boundary | Local macOS | Clean macOS 15 CI | Ubuntu 24.04 x86_64 CI |
 |---|---|---|---|
-| Installed-wheel SQLAlchemy | 44/44 | Pending | Pending |
-| GORM default pool / repeated AutoMigrate | 32/32 | Pending | Pending |
-| Real CLIENT_FOUND_ROWS unchanged-row 0/1 | PASS | Pending | Pending |
-| Commit → dispose → next test cannot observe data | PASS | Pending | Pending |
-| Race/lifecycle, sessions, shutdown | PASS | Pending | Pending |
-| Snapshot/Fork + actual corrupt/symlink/wrong-build rejection | PASS (50 snapshot checks) | Pending | Pending |
-| Tagged-fixture Start(Options{}) → download → cache → real SQL | PASS | Pending | Pending |
-| Exact runtime notice identity | PASS | Pending | Pending |
+| Installed-wheel SQLAlchemy | 44/44 | 44/44 | 44/44 |
+| GORM default pool / repeated AutoMigrate | 32/32 | 32/32 | 32/32 |
+| Real CLIENT_FOUND_ROWS unchanged-row 0/1 | PASS | PASS | PASS |
+| Commit → dispose → next test cannot observe data | PASS | PASS | PASS |
+| Race/lifecycle, sessions, shutdown | PASS | PASS | PASS |
+| Snapshot/Fork + actual corrupt/symlink/wrong-build rejection | PASS (50 snapshot checks) | PASS | PASS |
+| Tagged-fixture Start(Options{}) → download → cache → real SQL | PASS | PASS | PASS |
+| Exact runtime notice identity | PASS | PASS | PASS |
 
 Ignored local evidence is in `tests/evidence/v03-local/` (including per-stage logs
 and nested ORM/zero-setup JSON). Native and wheel hashes are recorded before
 acceptance and must remain unchanged afterward. Normal verification passed:
 Go tests/vet/race, Python 329 passed / 3 skipped, public-source check, fixture
 preparation/workflow tests and `git diff --check`.
+
+## Completed clean-platform evidence
+
+[CI run 36582171063](https://github.com/masahitojp/mariamem/actions/runs/36582171063)
+passed on exact source **`872fdea882ad82540ffe32e14e506ff67b2d10c3`**.
+Both jobs used Go 1.26.8, Python 3.14.7 and Wasmer 7.4.2: macOS 15.7.9 arm64
+and Ubuntu 24.04.5 LTS x86_64 (glibc 2.39, SSE2 + SSSE3 AOT baseline).
+
+Both platform evidence records report all ten required stages PASS. SQLAlchemy
+passed 44/44 and GORM 32/32 without framework workarounds. Raw wire acceptance
+passed 38 checks, including CLIENT_FOUND_ROWS; snapshot integrity passed 50
+checks, including real corruption rejection. Race/lifecycle and packaged
+Go/installed-wheel acceptance also passed, including interrupted-query
+invalidation and cleanup.
+
+Each release-like resolver consumer passed all nine cases: first download,
+cached/offline, concurrent first starts, corrupt cache, corrupt download,
+interrupted download, missing artifact, incompatible version and explicit
+offline override. This closes Ubuntu real-runtime acceptance as well as the
+previous fixture-only limitation.
+
+The downloaded evidence agrees on source SHA, native runtime/AOT identity and
+fixture archive hashes. Downloaded AOT manifests and acceptance harness source
+hashes were independently recomputed; binary archive hashes were checked by CI
+and reconciled across its records, not recomputed from local archive downloads.
+Both platforms consumed the same guest WASM:
+`d49402efec834414527537f639c9a11e5709bf8642357d34d33c7cfa471322d3`.
+
+| Target | Accepted AOT SHA256 |
+|---|---|
+| macOS arm64 | `f8b46a3f6f47dde36f90f518c4edee180713027b1311a178adb0aa46fa5a7c72` |
+| Ubuntu x86_64 | `2f37cba52236cc1d8406b8d360bbf76cc480fa5cb570936f44ec08a6a3821419` |
+
+Raw downloaded evidence remains ignored under
+`tests/evidence/v03-ci-36582171063/`. The workflow artifacts named below are the
+run's evidence location. These development candidates retain package version
+`0.2.0`; they are not replacements for published v0.2.0 assets.
 
 ## SQLAlchemy
 
@@ -112,8 +150,9 @@ The small dogfood workloads have not demonstrated a clear speed advantage for
 Snapshot/Fork. Its product positioning remains unresolved pending broader
 workloads; this task neither promotes nor demotes it.
 
-**Pending cross-platform CI:** this branch is not yet declared ready for a
-v0.3 release-readiness audit. If both clean platform jobs pass all required checks,
-these specific compatibility/usability acceptance gaps are closed and a dedicated
-audit is the next decision. Public-release installation smoke still belongs to
-the eventual release; the private fixture is not public publication evidence.
+**Ready for a dedicated v0.3 release-readiness audit:** both clean platform jobs
+passed the required compatibility/usability checks for the exact source above.
+This is not an aggregate release READY verdict or publication approval.
+Public-release installation smoke still belongs to the eventual release; the
+private fixture is not public publication evidence. No further feature work or
+merge to main is performed by this acceptance task.

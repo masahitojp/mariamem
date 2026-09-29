@@ -137,3 +137,15 @@ The CRUD tests need no state-restoration SQL because each owns and closes a
 separate database. This supports cleanup-free disposable tests for this example;
 it is not evidence that AI-authored tests are less error-prone. No wider ORM
 compatibility guarantee is made here.
+
+## Follow-up cross-platform acceptance
+
+The earlier local-only observations above are historical. SQLAlchemy passed
+44/44 on clean macOS 15 arm64 and Ubuntu 24.04 x86_64 in
+[run 36582171063](https://github.com/masahitojp/mariamem/actions/runs/36582171063),
+source `872fdea882ad82540ffe32e14e506ff67b2d10c3`, without framework-specific
+workarounds. Committed CRUD isolation, normal pools and lifecycle cleanup passed
+on both platforms. See [v0.3 acceptance](v03-acceptance.md) for artifact identity,
+related regression checks and the dedicated audit-readiness conclusion.
+This closes the two-platform dogfood acceptance gap; it does not broaden the
+supported framework/version matrix or establish a Snapshot/Fork speed advantage.
