@@ -121,6 +121,9 @@ func TestDogfood(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 	opts := mariamem.Options{NativeDir: native}
+	if os.Getenv("DOGFOOD_ZERO_OPTIONS") == "1" {
+		opts = mariamem.Options{}
+	}
 	var cases []*observation
 	result := map[string]any{"mode": mode, "go": runtime.Version(), "os": runtime.GOOS, "arch": runtime.GOARCH, "native_dir": native}
 	manifest, err := os.ReadFile(filepath.Join(native, "manifest.json"))

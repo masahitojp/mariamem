@@ -14,6 +14,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--native-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--source-dir", type=Path, help="Development-only local module replacement")
+    parser.add_argument("--zero-options", action="store_true", help="Use Options{} with the supported environment override for this untagged build")
     args = parser.parse_args()
     native, output = args.native_dir.resolve(), args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
@@ -26,6 +28,13 @@ def main():
         project = Path(temporary)
         for source in Path(__file__).with_name("gorm").iterdir():
             shutil.copyfile(source, project / source.name)
+        if args.source_dir:
+            subprocess.run(["go", "mod", "edit", "-replace",
+                            f"github.com/masahitojp/mariamem={args.source_dir.resolve()}"],
+                           cwd=project, env=env, check=True)
+        if args.zero_options:
+            env["MARIAMEM_NATIVE_DIR"] = str(native)
+            env["DOGFOOD_ZERO_OPTIONS"] = "1"
         for index, mode in enumerate(("start", "fork", "fork", "start"), 1):
             name = f"{index}-{mode}"
             begin = time.monotonic()

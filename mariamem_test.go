@@ -42,8 +42,8 @@ func testDB(t *testing.T, f *fakeBackend) *Database {
 	return &Database{server: f, opts: opts, build: "test-build", temporary: t.TempDir(), info: ConnectionInfo{Host: "127.0.0.1", Port: 12345, User: "root", Database: "test"}}
 }
 func TestOptions(t *testing.T) {
-	if _, err := (Options{}).defaults(); err == nil {
-		t.Fatal("missing NativeDir accepted")
+	if _, err := (Options{}).defaults(); err != nil {
+		t.Fatal(err)
 	}
 	o, err := (Options{NativeDir: "native"}).defaults()
 	if err != nil || o.StartupTimeout != 120*time.Second || o.ShutdownTimeout != 30*time.Second || o.QueryTimeout != 30*time.Second {
@@ -571,5 +571,28 @@ func TestPublicForkTimingRetainsPreparationFailureAndNestedScopes(t *testing.T) 
 	}
 	if snapshot.closed {
 		t.Fatal("diagnostics consumed failed fork source")
+	}
+}
+
+// Unit builds carry no release tag; Options{} must never download an older guest.
+func TestDevelopmentStartupResolution(t *testing.T) {
+	t.Setenv("MARIAMEM_NATIVE_DIR", "")
+	_, err := Start(context.Background(), Options{})
+	var detail *diagnostic.Error
+	if !errors.As(err, &detail) || (detail.Code != "native_unavailable" && detail.Code != "unsupported_platform") {
+		t.Fatalf("%v", err)
+	}
+}
+func TestStartupEnvironmentOverride(t *testing.T) {
+	missing := filepath.Join(t.TempDir(), "environment-bundle")
+	t.Setenv("MARIAMEM_NATIVE_DIR", missing)
+	_, err := Start(context.Background(), Options{})
+	if err == nil || !strings.Contains(err.Error(), missing) {
+		t.Fatal(err)
+	}
+	explicit := filepath.Join(t.TempDir(), "explicit-bundle")
+	_, err = Start(context.Background(), Options{NativeDir: explicit})
+	if err == nil || !strings.Contains(err.Error(), explicit) {
+		t.Fatal(err)
 	}
 }

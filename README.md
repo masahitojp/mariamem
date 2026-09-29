@@ -83,7 +83,21 @@ see the [Python guide](docs/python.md).
 
 ## Go
 
-Go **1.26 or newer** is required. Start in a fresh directory:
+Go **1.26 or newer** is required. This development branch adds automatic native
+setup for tagged builds:
+
+```go
+db, err := mariamem.Start(ctx, mariamem.Options{})
+```
+
+First use fetches the **exact module release's** verified platform bundle; later
+starts use the user cache, including offline. Explicit `NativeDir` or
+`MARIAMEM_NATIVE_DIR` overrides it. Untagged/pseudo-version/local-replacement
+builds require a matching override, never a fallback to an older released guest.
+See the [Go guide](docs/go.md#automatic-setup-next-release-development-branch).
+
+The current public **v0.2.0 predates automatic setup**. Its copy-pasteable setup
+below still uses the explicit native bundle. Start in a fresh directory:
 
 ```sh
 mkdir mariamem-example
@@ -190,8 +204,9 @@ failures limit interpretation; see the [practical comparison](benchmarks/practic
 
 ## Current limits
 
-- Go requires `Options.NativeDir` and has no automatic native download. The
-  Python wheel bundles its runtime.
+- Public v0.2.0 Go requires a native-bundle override. Automatic exact-release
+  setup in this branch requires a future tagged release; development builds still
+  need a matching override. The Python wheel bundles its runtime unchanged.
 - Multiple SQL clients can use one database up to the guest's session capacity
   (16 in the current native bundle). An additional connection receives a
   recoverable MySQL 1040 error; slots are reusable after guest close acknowledgement.

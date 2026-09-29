@@ -47,9 +47,47 @@ For Ubuntu 24.04 LTS x86_64, use
 `mariamem-native-ubuntu24.04-x86_64.tar.gz` and the extracted
 `mariamem-native-ubuntu24.04-x86_64` directory instead.
 
-An existing native bundle and explicit `Options.NativeDir` remain required.
-The README example reads `MARIAMEM_NATIVE_DIR` and passes it as `NativeDir`;
-the Go package does not read this environment variable automatically.
+### Automatic setup (next release; development branch)
+
+The ordinary usage with a tagged Go release containing this feature is:
+
+```go
+db, err := mariamem.Start(ctx, mariamem.Options{})
+```
+
+Resolution uses explicit `Options.NativeDir`, then `MARIAMEM_NATIVE_DIR`, then
+an exact release/platform cache entry, then a first-use download from this
+project's GitHub Release. It never uses `latest`. The module's Go build metadata
+must name a stable or alpha/beta/rc release tag; pseudo-versions, local module
+replacements and development builds require a matching explicit override.
+The currently published **v0.2.0 does not contain automatic setup**; its commands
+above still need the manual bundle path below. A new tagged release is required
+before the automatic-download path can be exercised against public assets.
+
+Cache entries live at `os.UserCacheDir()/mariamem/<tag>/<platform>`:
+`~/Library/Caches/mariamem` on macOS, normally `$XDG_CACHE_HOME/mariamem` or
+`~/.cache/mariamem` on Ubuntu. First use downloads only the exact platform's
+native archive and `SHA256SUMS`, checking exact-tag GitHub metadata, published
+digests when supplied, archive SHA256, manifest/sidecar hashes, package version,
+and this module's pinned-input lock hash. Release CI binds published artifacts
+to the tag; the native archive itself does not contain a source commit.
+Checksums use the existing HTTPS GitHub release trust model, not an independent
+signature. An installed receipt records the archive and extracted file hashes.
+Every startup still verifies required files and carries the single-use verified
+identity; the cache is not a persistent shortcut around integrity checks.
+
+Downloads honor the startup context and a bounded HTTP timeout. Separate private
+staging directories and atomic installation tolerate concurrent first starts.
+Failed/interrupted downloads cannot install partial entries. Cache hits work
+offline; corrupt entries fail rather than redownload silently. Errors show the
+required asset and cache entry, plus the manual override recovery path. To recover
+from corruption, remove only the named cache entry and retry online.
+
+### Advanced / offline / development override
+
+Explicit `NativeDir` and the environment override do not require a network
+connection. Supply a complete matching bundle, including CI/development builds;
+never substitute the older public v0.2.0 guest for this branch's changed guest.
 The following excerpt belongs inside a function with `ctx`; import
 `database/sql` and register `github.com/go-sql-driver/mysql` as in the README.
 
@@ -73,11 +111,11 @@ if err != nil { return err }
 defer fork.Close()
 ```
 
-`NativeDir` is required and accepts the existing native bundle unchanged:
+`NativeDir` accepts the existing native bundle unchanged:
 `manifest.json`, `wasmer-headless`, `mariamem.wasmu`, `mariamem.wasmu.json`, and
 optionally the existing `mariamem-host` (unused by Go). Required guest/runtime
 files are checked against manifest hashes; the sidecar is also validated.
-No binaries are committed to the Go module and no downloads occur. Supported
+No binaries are committed to the Go module. Explicit overrides do not download. Supported
 native platforms are macOS 15+ arm64 and Ubuntu 24.04 LTS x86_64 (SSE2 + SSSE3).
 Both have published native assets and independent clean release acceptance;
 canonical CI tests macOS 15 arm64 and Ubuntu 24.04 x86_64. Bundles are

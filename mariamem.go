@@ -3,10 +3,10 @@
 // MariaDB guest. Clients use the ordinary MySQL wire protocol through a local
 // endpoint, including database/sql with go-sql-driver/mysql.
 //
-// Start requires Options.NativeDir to name an extracted native bundle containing
-// manifest.json, wasmer-headless, mariamem.wasmu, and mariamem.wasmu.json. The
-// Go module does not download or contain these artifacts. The current native
-// target is macOS 15 or later on arm64.
+// Tagged Go builds resolve and verify their exact release native bundle on first
+// use, then reuse it from the user cache. Options.NativeDir or MARIAMEM_NATIVE_DIR
+// bypasses network setup. Development/replaced builds require such an override.
+// Supported platforms are macOS 15+ arm64 and Ubuntu 24.04 x86_64.
 //
 // A Database owns its runtime and should be closed after use. Multiple SQL
 // clients can connect up to the guest-advertised session capacity.
@@ -35,19 +35,15 @@ import (
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
-// Options configures a database instance. NativeDir must point to an extracted
-// native bundle; zero timeouts use the documented defaults.
+// Options configures a database instance. Zero timeouts use documented defaults.
 type Options struct {
-	NativeDir       string
+	NativeDir       string        // Explicit bundle override; empty uses environment, then exact-release cache/download.
 	StartupTimeout  time.Duration // Zero defaults to 120 seconds.
 	ShutdownTimeout time.Duration // Zero defaults to 30 seconds.
 	QueryTimeout    time.Duration // Zero defaults to 30 seconds; expiry terminates this instance.
 }
 
 func (o Options) defaults() (Options, error) {
-	if o.NativeDir == "" {
-		return o, hostError(fmt.Errorf("NativeDir is required; download and extract the native bundle for your platform, then set Options.NativeDir to the extracted directory"), "native_unavailable", false)
-	}
 	for _, field := range []struct {
 		p        *time.Duration
 		fallback time.Duration
@@ -97,7 +93,7 @@ func start(ctx context.Context, opts Options, restore string) (*Database, error)
 		return nil, err
 	}
 	timing.Mark(ctx, "options_ready")
-	bundle, err := artifacts.ResolveTimed(ctx, opts.NativeDir)
+	bundle, err := artifacts.ResolveStartup(ctx, opts.NativeDir, nativeInputHash())
 	if err != nil {
 		return nil, hostError(err, "artifacts", false)
 	}

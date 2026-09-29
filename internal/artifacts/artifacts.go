@@ -27,30 +27,37 @@ func Resolve(dir string) (Bundle, error) { return ResolveTimed(context.Backgroun
 func ResolveTimed(ctx context.Context, dir string) (Bundle, error) {
 	ctx, finish := timing.Begin(ctx, "native_verification")
 	defer finish()
+	platform, major, err := currentTarget(ctx)
+	if err != nil {
+		return Bundle{}, err
+	}
+	timing.Mark(ctx, "platform_checked")
+	return resolveTimed(ctx, dir, platform, major)
+}
+
+func currentTarget(ctx context.Context) (string, int, error) {
 	if runtime.GOOS == "linux" && runtime.GOARCH == "amd64" {
 		raw, err := os.ReadFile("/etc/os-release")
 		if err != nil {
-			return Bundle{}, diagnostic.Wrap("unsupported_platform", "platform", err)
+			return "", 0, diagnostic.Wrap("unsupported_platform", "platform", err)
 		}
 		if err := ubuntuPlatform(string(raw)); err != nil {
-			return Bundle{}, err
+			return "", 0, err
 		}
-		timing.Mark(ctx, "platform_checked")
-		return resolveTimed(ctx, dir, "ubuntu24.04-x86_64", 0)
+		return "ubuntu24.04-x86_64", 0, nil
 	}
 	if runtime.GOOS != "darwin" || runtime.GOARCH != "arm64" {
-		return Bundle{}, diagnostic.Wrap("unsupported_platform", "platform", fmt.Errorf("mariamem requires macOS 15+ arm64 or Ubuntu 24.04 x86_64; got %s-%s. Run on a supported platform with its matching native bundle", runtime.GOOS, runtime.GOARCH))
+		return "", 0, diagnostic.Wrap("unsupported_platform", "platform", fmt.Errorf("mariamem requires macOS 15+ arm64 or Ubuntu 24.04 x86_64; got %s-%s. Run on a supported platform with its matching native bundle", runtime.GOOS, runtime.GOARCH))
 	}
-	output, err := exec.Command("/usr/bin/sw_vers", "-productVersion").Output()
+	output, err := exec.CommandContext(ctx, "/usr/bin/sw_vers", "-productVersion").Output()
 	if err != nil {
-		return Bundle{}, diagnostic.Wrap("unsupported_platform", "platform", err)
+		return "", 0, diagnostic.Wrap("unsupported_platform", "platform", err)
 	}
 	major, err := strconv.Atoi(strings.Split(strings.TrimSpace(string(output)), ".")[0])
 	if err != nil {
-		return Bundle{}, diagnostic.Wrap("unsupported_platform", "platform", err)
+		return "", 0, diagnostic.Wrap("unsupported_platform", "platform", err)
 	}
-	timing.Mark(ctx, "platform_checked")
-	return resolveTimed(ctx, dir, "darwin-arm64", major)
+	return "darwin-arm64", major, nil
 }
 
 func ubuntuPlatform(raw string) error {
