@@ -2,6 +2,10 @@ name: Guest build boundary verification
 on:
   workflow_dispatch:
     inputs:
+      v03_acceptance:
+        description: 'Both-platform ORM dogfood and real release-like Start(Options{}) acceptance (no publication)'
+        type: boolean
+        default: false
       fresh_runner_latency:
         description: 'Five fresh Ubuntu jobs, 30 independent production-only Fork trials each'
         type: boolean
@@ -97,7 +101,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.competitive_baseline && !inputs.fork_gap_measurement && !inputs.memory_envelope }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.competitive_baseline && !inputs.fork_gap_measurement && !inputs.memory_envelope && !inputs.v03_acceptance }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -195,7 +199,8 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche || inputs.fork_gap_measurement || inputs.memory_envelope || inputs.final_latency_baseline
+    name: ${{ inputs.v03_acceptance && 'v0.3 acceptance' || 'Initialization verification' }} (${{ matrix.platform }})
+    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche || inputs.fork_gap_measurement || inputs.memory_envelope || inputs.final_latency_baseline || inputs.v03_acceptance
     needs: guest
     strategy:
       fail-fast: false
@@ -283,7 +288,7 @@ jobs:
           python benchmarks/stage_report.py benchmarks/results/init-fork-gap.json > benchmarks/results/init-fork-gap.md
           cat benchmarks/results/init-fork-gap.md >> "$GITHUB_STEP_SUMMARY"
       - name: Package and accept production FAST tranche
-        if: inputs.fast_tranche
+        if: inputs.fast_tranche || inputs.v03_acceptance
         run: |
           python -m pip install setuptools wheel pytest PyMySQL
           python scripts/build_alpha.py --ci-candidate --runtime build/guest-aot/wasmer-headless --module build/guest-aot/mariamem.wasmu
@@ -298,6 +303,17 @@ jobs:
           python scripts/fast_tranche_acceptance.py --native-archive "$archive" --native-sha256 "$archive_hash" \
             --wheel "$wheel" --wheel-sha256 "$wheel_hash" --source-sha '${{ github.sha }}' \
             --target '${{ matrix.platform }}' --evidence "benchmarks/results/init-fast-acceptance"
+      - name: Current v0.3 ORM and release-like zero-setup acceptance
+        if: inputs.v03_acceptance
+        run: |
+          python scripts/verify.py check
+          go test -race ./...
+          version=$(python -c "import sys; sys.path.insert(0, 'scripts'); from release_version import PYTHON_VERSION; print(PYTHON_VERSION)")
+          wheel_platform=$(python -c "import sys; sys.path.insert(0, 'scripts'); from native_target import target_metadata; print(target_metadata('${{ matrix.platform }}')['wheel_platform'])")
+          python scripts/v03_acceptance.py --native-dir python/mariamem/_native \
+            --wheel "build/dist/mariamem-${version}-py3-none-${wheel_platform}.whl" \
+            --output "tests/evidence/v03-${{ matrix.platform }}"
+          echo 'v0.3 real-runtime ORM + release-like zero-setup: PASS (${{ matrix.platform }}); no publication' >> "$GITHUB_STEP_SUMMARY"
       - name: Production lifecycle and integrity regression
         if: inputs.fast_tranche
         env:
@@ -337,6 +353,27 @@ jobs:
             python benchmarks/init_report.py "benchmarks/results/init-${rows}.json" > "benchmarks/results/init-${rows}.md"
             cat "benchmarks/results/init-${rows}.md" >> "$GITHUB_STEP_SUMMARY"
           done
+      - name: v0.3 acceptance summary
+        if: always() && inputs.v03_acceptance
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = Path('tests/evidence/v03-${{ matrix.platform }}/acceptance.json')
+          lines = ['## v0.3 acceptance: ${{ matrix.platform }}', 'Source: `${{ github.sha }}`']
+          if report.exists():
+              result = json.loads(report.read_text())
+              lines += [f"Result: {result['result']}; stage: {result['stage']}",
+                        f"Checks: {result['steps']}", f"Native hashes: `{result['native_files']}`",
+                        f"Wheel: `{result['wheel']}`"]
+              if 'error' in result: lines.append(f"Failure: {result['error']}")
+          else:
+              lines.append('Acceptance did not start; inspect guest/AOT/package failure logs.')
+          lines += ['Evidence: `initialization-${{ matrix.platform }}-${{ github.sha }}`',
+                    'Verification only; nothing was published.']
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as output:
+              output.write('\n'.join(lines) + '\n')
+          PY
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: always()
         with:
@@ -345,6 +382,7 @@ jobs:
             benchmarks/results/init-*
             build/guest-aot/provenance.json
             build/guest-aot/manifest.json
+            tests/evidence/v03-*
           if-no-files-found: warn
           retention-days: 30
 

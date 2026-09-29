@@ -88,3 +88,13 @@ Ignored evidence is under `tests/evidence/gorm-zero-options/` and
   provisioning; existing NativeDir/environment overrides already provide it.
 
 No P0 blocker was found in the implemented resolver or local lifecycle checks.
+
+## Follow-up full startup acceptance
+
+The release-like full public startup path now passes locally with a real macOS
+bundle: tagged private module, local release server, Start(Options{}), SQL,
+cache/offline, concurrent startup and failure recovery. No production resolver
+hook or public release was added. Both-platform clean acceptance is pending in
+the existing guest boundary workflow; see [v0.3 acceptance](v03-acceptance.md).
+The earlier fixture-only limitation above is historical; public published-tag
+smoke remains distinct from this controlled release-like check.

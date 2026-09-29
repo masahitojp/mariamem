@@ -565,7 +565,12 @@ Do not combine this milestone with major performance architecture work.
 Retain the usability direction: install/start should not require users to
 understand native runtime management. Python already bundles it; Go still needs
 an explicit native directory. Automatic download/cache is a possible technique,
-not an accepted design or a required v0.2 feature.
+not a required v0.2 feature. The `v0.3/go-zero-setup` branch now implements
+exact-tag native download/cache with explicit offline/development overrides;
+untagged or replaced modules never fall back to an older public guest.
+SQLAlchemy/GORM and release-like automatic startup passed local macOS acceptance.
+Clean macOS 15 / Ubuntu 24.04 acceptance remains pending before a dedicated v0.3
+release-readiness audit; see [v0.3 acceptance](v03-acceptance.md).
 
 ### v0.4 — SCALE
 

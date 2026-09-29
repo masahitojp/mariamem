@@ -35,6 +35,9 @@ def main():
                        runtime=ROOT / "build/tools/wasmer/bin/wasmer-headless",
                        module=ROOT / "build/guest/mariamem.wasmu",
                        wasmer_dir=ROOT / "build/wasmer-home", log_path=run / (name + ".log"))
+        if os.environ.get("MARIAMEM_NATIVE_DIR"):
+            native = Path(os.environ["MARIAMEM_NATIVE_DIR"]).resolve()
+            options.update(runtime=native / "wasmer-headless", module=native / "mariamem.wasmu")
         options.update(extra)
         db = mariamem.start(**options)
         active.append(db)

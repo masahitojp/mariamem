@@ -23,6 +23,9 @@ def main():
     binary = Path(os.environ.get("MARIAMEM_TEST_HOST", ROOT / "build/mariamem-host"))
     options = dict(host_binary=binary, runtime=ROOT / "build/tools/wasmer/bin/wasmer-headless",
                    module=ROOT / "build/guest/mariamem.wasmu", wasmer_dir=ROOT / "build/wasmer-home")
+    if os.environ.get("MARIAMEM_NATIVE_DIR"):
+        native = Path(os.environ["MARIAMEM_NATIVE_DIR"]).resolve()
+        options.update(runtime=native / "wasmer-headless", module=native / "mariamem.wasmu")
     report = {"run_directory": str(run), "checks": []}
     active, connections = [], []
 
