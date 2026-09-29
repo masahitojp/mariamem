@@ -361,3 +361,11 @@ Use `guest-build-boundary.yml` with `competitive_baseline=true` for same-run CI,
 immutable WASM/AOT reuse, digest-pinned official MariaDB and raw artifacts.
 See [methodology/results](testcontainers-comparison.md). Docker belongs only to
 this competitor measurement, not mariamem's canonical build/release path.
+
+For the production ×1/4/8/16 memory/CPU envelope and the separate one-DB,
+16-session readiness probe, use `python3 scripts/verify.py bench envelope
+--native-dir /path/to/native --runs 20 --warmup 1
+--json benchmarks/results/init-memory-envelope.json` or dispatch
+`guest-build-boundary.yml` with `memory_envelope=true`. See
+[memory/session measurement contract](memory-session-envelope.md).
+Failures are retained as evidence; no performance threshold or tuning is applied.

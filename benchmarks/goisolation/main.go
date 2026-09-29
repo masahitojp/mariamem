@@ -25,6 +25,7 @@ import (
 
 type config struct {
 	native, output, workers              string
+	resourceProbe                        string
 	runs, warmup, rows, queries, clients int
 	interval, hold                       float64
 	stages, guestStages                  bool
@@ -429,6 +430,7 @@ func main() {
 	flag.BoolVar(&c.guestStages, "guest-stage-timing", false, "require matching guest stages")
 	flag.BoolVar(&c.initDiagnostics, "init-diagnostics", false, "require detailed initialization diagnostics")
 	flag.BoolVar(&c.memoryDiagnostics, "memory-diagnostics", false, "post-ready mapping/thread inventory once per case")
+	flag.StringVar(&c.resourceProbe, "resource-probe", "", "isolated diagnostic batch, sessions, or attribution")
 	flag.Parse()
 	if c.initDiagnostics || c.memoryDiagnostics {
 		c.stages = true
@@ -461,8 +463,21 @@ func main() {
 	}
 	r := runner{cfg: c, samples: []map[string]any{}}
 	begin := time.Now()
-	err := r.run()
+	var err error
+	if c.resourceProbe != "" {
+		err = r.resourceRun()
+	} else {
+		err = r.run()
+	}
 	report := map[string]any{"benchmark": "isolation_baseline", "api": "go", "schema_version": 1, "started_at": begin.UTC().Format(time.RFC3339Nano), "completed": err == nil, "samples": r.samples, "environment": map[string]any{"go": runtime.Version(), "goos": runtime.GOOS, "machine": runtime.GOARCH, "cpu_count": runtime.NumCPU(), "server_version": r.version}, "metric_notes": map[string]string{"primary": "Fork to connection and verified first COUNT; group and per-DB wall latency", "cpu": "sampled runtime descendant delta excludes in-process host; runner_cpu_seconds is getrusage SELF over full lifecycle, including host/driver/GC/sampler/hold/cleanup", "rss": "descendant RSS excludes host; process_tree RSS includes Go runner. Incremental RSS subtracts persistent-runner baseline; shared pages may be counted repeatedly", "snapshot_cost": "CPU/RSS unavailable; Snapshot wall time only", "sampling": "ps precision/collection overhead and missing startup/exit edges; informational, no thresholds"}}
+	if c.resourceProbe != "" {
+		report["benchmark"] = "memory_session_envelope"
+		report["metric_notes"] = map[string]string{
+			"cpu":         "host and runtime counters from G(0) to all-ready collection; same interval; observer/version-query overhead included, cleanup excluded",
+			"memory":      "macOS physical-footprint accounting / Linux PSS and private; non-atomic tree sum; RSS secondary; sample peak can miss short peaks",
+			"attribution": "ready mappings plus sampled startup progression; guest monotonic clock not aligned to host; no exact post-restore memory hook",
+		}
+	}
 	if info, ok := debug.ReadBuildInfo(); ok {
 		report["environment"].(map[string]any)["go_build_info"] = info
 	}

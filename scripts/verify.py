@@ -11,6 +11,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 BENCHMARKS = {
+    "envelope": "memory_envelope.py",
     "competitive": "testcontainers_compare.py",
     "go-isolation": "go_isolation.py",
     "isolation": "isolation_baseline.py",

@@ -2,6 +2,10 @@ name: Guest build boundary verification
 on:
   workflow_dispatch:
     inputs:
+      memory_envelope:
+        description: 'Independent DB x1/4/8/16 and separate 16-session resource probe'
+        type: boolean
+        default: false
       fork_gap_measurement:
         description: 'Production Fork gap attribution, 30 samples at x1 on both platforms'
         type: boolean
@@ -85,7 +89,7 @@ jobs:
           retention-days: 14
 
   macos:
-    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.competitive_baseline && !inputs.fork_gap_measurement }}
+    if: ${{ !inputs.initialization_measurement && !inputs.plugin_measurement && !inputs.fast_tranche && !inputs.competitive_baseline && !inputs.fork_gap_measurement && !inputs.memory_envelope }}
     needs: guest
     runs-on: macos-15
     timeout-minutes: 40
@@ -183,7 +187,7 @@ jobs:
           retention-days: 14
 
   initialization:
-    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche || inputs.fork_gap_measurement
+    if: inputs.initialization_measurement || inputs.plugin_measurement || inputs.fast_tranche || inputs.fork_gap_measurement || inputs.memory_envelope
     needs: guest
     strategy:
       fail-fast: false
@@ -235,6 +239,19 @@ jobs:
           key: ${{ steps.aot-key.outputs.key }}
       - name: Minimal verified guest smoke
         run: go run ./scripts/guest_smoke "$GITHUB_WORKSPACE/build/guest-aot"
+      - name: Memory scaling and separate 16-session probe
+        if: inputs.memory_envelope
+        run: |
+          python scripts/verify.py bench envelope --native-dir build/guest-aot --runs 20 --warmup 1 \
+            --json benchmarks/results/init-memory-envelope.json
+      - name: Memory envelope summary (including failures)
+        if: always() && inputs.memory_envelope
+        run: |
+          if test -f benchmarks/results/init-memory-envelope.md; then
+            cat benchmarks/results/init-memory-envelope.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Resource probe did not finish; inspect retained JSON/logs for OOM or runner failure.' >> "$GITHUB_STEP_SUMMARY"
+          fi
       - name: Focused production Fork gap attribution
         if: inputs.fork_gap_measurement
         run: |
