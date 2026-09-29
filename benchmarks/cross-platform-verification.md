@@ -241,3 +241,48 @@ failure must remain, with no global trust cache. End-to-end Ubuntu/macOS,
 cleanup/corruption, parallel tails and resource regressions remain mandatory.
 Four workers, restore changes and architecture work are not selected.
 No production optimization is implemented by this analysis task.
+
+## Fresh-runner reproducibility follow-up
+
+Status: five-job measurement queued for a new exact main commit; results pending.
+No production optimization or threshold change. Dispatch the existing
+`guest-build-boundary.yml` with `fresh_runner_latency=true`.
+
+One Ubuntu input job restores/builds and verifies the immutable common AOT once,
+then freezes it in an archive. Five independent `ubuntu-24.04` jobs download that
+same archive, compare its SHA256 against the input job's output, and verify
+WASM/AOT seals and provenance. Workers cannot rebuild or fall back to another
+artifact. All checkouts use the same workflow source SHA, Go 1.26.8 and Python
+3.14. Each job runs `final_latency.py --production-only --runs 30`: fresh Go
+process/DB/1,000-row fixture for each measured trial, two separately labelled
+warmups, lifecycle diagnostics OFF, existing ps sampler unchanged.
+
+The fresh-job environment is isolated by GitHub-hosted job provisioning; this
+does not prove distinct physical hosts. Metadata records job index/runner name,
+image version, CPU topology/model/flags, kernel, filesystem/mounts, Go target and
+shared archive SHA. CPU observations retain the existing broader batch interval
+and ps limitations. Environment commands run outside timed startup. No cache
+flush or privileged tuning is added. Native-file verification before measurement
+is identical across jobs, and fixture setup/Snapshot remains outside Fork timing.
+
+Artifacts `fresh-latency-1..5-<SHA>` retain per-job min/p50/p95/max, all raw child
+reports/logs, CPU and runner metadata, native manifest/provenance/reuse seal.
+`fresh-latency-input-<SHA>` holds the one shared AOT archive. Fail-fast is disabled
+and failure evidence uploads even if one job fails. No slow trial/job is removed;
+a failed job cannot be treated as a successful distribution.
+
+On completion, compare per-job medians/p95 and ranges with within-job spread
+(p95-minus-p50, IQR and standard deviation from raw trials), keeping jobs as the
+independent units rather than pooling 150 trials as one machine. Report any
+fast/slow regimes alongside CPU/image information without claiming a hardware
+cause from five observations. Keep the prior 534/554 ms and 434/454 ms runs as
+historical unchanged-production controls; their full CPU metadata differs in
+availability. Every job must independently have p50/p95 <500 ms to call this
+five-job sample reproducible. This remains an informational experiment, not a
+new release gate. If hardware/runtime conditions vary, explicitly discuss whether
+an unqualified hosted-runner gate is meaningful.
+
+For headroom, retain the measured 2-worker content saving ~41.6 ms. Any subtraction
+from new job samples is a labelled counterfactual, not measured end-to-end parallel
+validation. Assess the slowest job/tails, not only a pooled median. No parallel
+production implementation is added or selected by this follow-up.

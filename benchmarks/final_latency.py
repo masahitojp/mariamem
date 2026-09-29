@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import tempfile
 from types import SimpleNamespace
 
 from _common import ROOT, RESULTS, environment, positive, validate_guest_timing
@@ -16,6 +17,24 @@ from stage_report import render as render_stages
 def distribution(values):
     return {'count': len(values), 'min': min(values), 'p50': percentile(values, .5),
             'p95': percentile(values, .95), 'max': max(values)}
+
+
+def runner_metadata(native):
+    """Untimed observations; unavailable diagnostics remain explicit."""
+    result = {'github': {key: os.environ.get(key) for key in
+              ('GITHUB_RUN_ID', 'GITHUB_RUN_ATTEMPT', 'GITHUB_JOB', 'RUNNER_NAME',
+               'RUNNER_OS', 'RUNNER_ARCH', 'ImageOS', 'ImageVersion',
+               'MARIAMEM_BENCH_JOB_INDEX', 'MARIAMEM_BENCH_INPUT_SHA256')}}
+    for name, command in {'cpu': ['lscpu'], 'filesystem': ['df', '-T', str(native), tempfile.gettempdir()],
+                          'mounts': ['mount'], 'kernel': ['uname', '-a'],
+                          'go_target': ['go', 'env', 'GOAMD64', 'GOARM64', 'GOOS', 'GOARCH']}.items():
+        try:
+            value = subprocess.run(command, capture_output=True, text=True, timeout=10)
+            result[name] = {'exit_code': value.returncode, 'output': value.stdout[:131072],
+                            'stderr': value.stderr[:4096]}
+        except (OSError, subprocess.TimeoutExpired) as error:
+            result[name] = {'error': str(error)}
+    return result
 
 
 def trial_command(binary, native, output, condition):
@@ -54,8 +73,19 @@ def render(report):
     for condition, values in report.get('distribution', {}).items():
         lines.append(f"| {condition} | {values['count']} | " +
                      ' | '.join(f"{values[key]*1000:.3f}" for key in ('min', 'p50', 'p95', 'max')) + ' |')
+    cpu = [sample['runner_cpu_seconds'] for trial in report.get('trials', [])
+           if trial['phase'] == 'measurement' and trial['condition'] == 'production' and trial.get('report')
+           for sample in trial['report']['samples']
+           if sample['case'] == 'fork_first_sql' and sample.get('runner_cpu_seconds') is not None]
+    if cpu:
+        lines += ['', f"Go runner CPU p50/p95: {percentile(cpu,.5):.6f}/{percentile(cpu,.95):.6f} CPU-sec.",
+                  'This counter covers the broader batch including hold/cleanup; it is not exact first-SQL CPU.']
+    metadata = report.get('runner_metadata', {})
+    for line in metadata.get('cpu', {}).get('output', '').splitlines():
+        if line.startswith(('Model name:', 'CPU(s):', 'Thread(s) per core:')):
+            lines.append(line)
     lines += ['', 'No product change in this baseline. No slow trial is discarded.',
-              'Production has lifecycle diagnostics off; both conditions retain the existing ps sampler.',
+              'Production has lifecycle diagnostics off; all conditions retain the existing ps sampler.',
               'Each trial is a fresh Go process and fresh isolated DB. Fixture creation/Snapshot and',
               'two explicitly labelled warmup rounds are outside measured Fork entry → first COUNT.',
               'Runtime CPU sampling may miss startup/exit edges; RSS is secondary, not private/PSS.',
@@ -70,6 +100,7 @@ def main():
     parser.add_argument('--native-dir', type=Path, required=True)
     parser.add_argument('--runs', type=positive, default=30)
     parser.add_argument('--json', type=Path, required=True)
+    parser.add_argument('--production-only', action='store_true', help='fresh-runner primary distribution, diagnostics off')
     args = parser.parse_args()
     if args.runs < 20:
         parser.error('at least 20 measured trials per condition are required')
@@ -85,8 +116,10 @@ def main():
               'environment': environment(SimpleNamespace(backend='none')),
               'native_manifest': json.loads((native/'manifest.json').read_text()),
               'runner_sha256': hashlib.sha256(binary.read_bytes()).hexdigest(),
-              'settings': {'runs': args.runs, 'warmup_rounds': 2, 'rows': 1000, 'workers': [1]},
+              'settings': {'runs': args.runs, 'warmup_rounds': 2, 'rows': 1000, 'workers': [1],
+                           'production_only': args.production_only},
               'trials': [], 'completed': False}
+    report['runner_metadata'] = runner_metadata(native)
     report['harness_sha256'] = {
         str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
         for path in [Path(__file__), ROOT/'benchmarks/isolation_baseline.py',
@@ -99,6 +132,8 @@ def main():
         for phase, rounds in (('warmup', 2), ('measurement', args.runs)):
             for index in range(rounds):
                 conditions = ('production', 'attribution') if index % 2 == 0 else ('attribution', 'production')
+                if args.production_only:
+                    conditions = ('production',)
                 for condition in conditions:
                     stem = output.with_name(f'{output.stem}-{phase}-{index}-{condition}')
                     raw = stem.with_suffix('.json')

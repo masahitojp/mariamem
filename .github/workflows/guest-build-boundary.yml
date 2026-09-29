@@ -2,6 +2,10 @@ name: Guest build boundary verification
 on:
   workflow_dispatch:
     inputs:
+      fresh_runner_latency:
+        description: 'Five fresh Ubuntu jobs, 30 independent production-only Fork trials each'
+        type: boolean
+        default: false
       final_latency_baseline:
         description: 'Final v0.2 baseline: 30 independent x1 trials with diagnostics off/on'
         type: boolean
@@ -401,4 +405,120 @@ jobs:
             build/guest-aot/provenance.json
             benchmarks/testcontainers-inputs.json
           if-no-files-found: error
+          retention-days: 30
+
+
+  fresh-latency-inputs:
+    if: inputs.fresh_runner_latency
+    needs: guest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    outputs:
+      archive_sha256: ${{ steps.freeze.outputs.sha256 }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: guest-wasm-${{ github.sha }}
+          path: build/guest-wasm/
+      - name: Resolve immutable Ubuntu AOT identity
+        id: aot-key
+        run: echo "key=$(python scripts/benchmark_artifacts.py key aot --target ubuntu24.04-x86_64)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        id: aot-cache
+        with:
+          path: build/guest-aot
+          key: ${{ steps.aot-key.outputs.key }}
+      - name: Compile once only on verified cache miss
+        if: steps.aot-cache.outputs.cache-hit != 'true'
+        run: |
+          python scripts/compile_guest_aot.py --wasm-dir build/guest-wasm --benchmark-input-reuse
+          python scripts/benchmark_artifacts.py seal aot --target ubuntu24.04-x86_64
+      - name: Verify exact common input
+        run: |
+          python scripts/benchmark_artifacts.py verify wasm
+          python scripts/benchmark_artifacts.py verify aot --target ubuntu24.04-x86_64
+          echo 'Ubuntu AOT: ${{ steps.aot-cache.outputs.cache-hit == 'true' && 'REUSED' || 'REBUILT' }}' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        if: steps.aot-cache.outputs.cache-hit != 'true'
+        with:
+          path: build/guest-aot
+          key: ${{ steps.aot-key.outputs.key }}
+      - name: Freeze the one artifact shared by all five jobs
+        id: freeze
+        run: |
+          mkdir -p build/latency-input
+          tar -czf build/latency-input/guest-aot.tar.gz -C build guest-aot
+          hash=$(sha256sum build/latency-input/guest-aot.tar.gz | cut -d' ' -f1)
+          echo "sha256=$hash" >> "$GITHUB_OUTPUT"
+          echo "Candidate ${{ github.sha }}; shared AOT archive SHA256: $hash" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: fresh-latency-input-${{ github.sha }}
+          path: build/latency-input/guest-aot.tar.gz
+          if-no-files-found: error
+          retention-days: 30
+
+  fresh-latency:
+    if: inputs.fresh_runner_latency
+    needs: fresh-latency-inputs
+    strategy:
+      fail-fast: false
+      matrix:
+        replica: [1, 2, 3, 4, 5]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: guest-wasm-${{ github.sha }}
+          path: build/guest-wasm/
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: fresh-latency-input-${{ github.sha }}
+          path: build/latency-input/
+      - name: Verify frozen bytes and provenance; never rebuild
+        env:
+          EXPECTED_SHA256: ${{ needs.fresh-latency-inputs.outputs.archive_sha256 }}
+        run: |
+          test -n "$EXPECTED_SHA256"
+          echo "$EXPECTED_SHA256  build/latency-input/guest-aot.tar.gz" | sha256sum -c -
+          tar -xzf build/latency-input/guest-aot.tar.gz -C build
+          python scripts/benchmark_artifacts.py verify wasm
+          python scripts/benchmark_artifacts.py verify aot --target ubuntu24.04-x86_64
+      - name: Thirty independent prepared-state starts, diagnostics OFF
+        env:
+          MARIAMEM_BENCH_JOB_INDEX: ${{ matrix.replica }}
+          MARIAMEM_BENCH_INPUT_SHA256: ${{ needs.fresh-latency-inputs.outputs.archive_sha256 }}
+        run: |
+          python benchmarks/final_latency.py --native-dir build/guest-aot --production-only --runs 30 \
+            --json benchmarks/results/init-fresh-runner.json
+          cat benchmarks/results/init-fresh-runner.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        if: always()
+        with:
+          name: fresh-latency-${{ matrix.replica }}-${{ github.sha }}
+          path: |
+            benchmarks/results/init-fresh-runner*
+            build/guest-aot/provenance.json
+            build/guest-aot/manifest.json
+            build/guest-aot/reuse.json
+          if-no-files-found: warn
           retention-days: 30
