@@ -55,27 +55,30 @@ Core properties:
 
 ---
 
-## Current public release
+## Release state — v0.2.0 preparation
 
-`v0.1.0` is released; the Python distribution version is `0.1.0`.
-
-Release: https://github.com/masahitojp/mariamem/releases/tag/v0.1.0
+The current public release is [v0.2.0-alpha.1](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0-alpha.1),
+with Python distribution `0.2.0a1`. **v0.2.0 is being prepared, not yet released.**
+The [readiness audit](release-readiness-v0.2.md) found no known blockers and
+concluded READY AFTER RELEASE PREP. Close v0.2 after version preparation and
+final two-platform Release CI acceptance/aggregate READY and publication.
 
 Supported native platforms:
 
 - macOS 15+ / Apple Silicon arm64
-- Ubuntu 24.04 LTS / x86_64, with an SSE2 + SSSE3 AOT CPU baseline
+- Ubuntu 24.04 LTS / x86_64, requiring SSE2 + SSSE3
+
+Release CI clean-accepts macOS 15 arm64 and Ubuntu 24.04 x86_64 independently.
+The canonical toolchains are Go 1.26.8 and Python 3.14. Go's module minimum is
+1.26.0 and Python package metadata allows >=3.9; these are not evidence of a
+broad tested-version matrix. Other OS/architecture/distro combinations are
+unsupported; future platform experiments are not release support.
 
 Go uses the public module and an explicitly supplied native bundle; Python
-wheels include their runtime. Release artifacts have corresponding source,
-notices, exact hashes and independent clean-platform acceptance.
-Multi-client support currently provides 16 independent guest sessions, not a
-permanent API capacity guarantee. Normal pools do not require `SetMaxOpenConns(1)`.
-
-Multi-platform Release CI and the repository release skill are complete enough
-for now. Minimum startup failure UX is complete enough for 0.1: errors identify
-category/stage/cause and provide expected inputs and recovery guidance.
-Release work is no longer the active focus.
+wheels include their runtime. Artifacts have corresponding source, notices,
+exact hashes and separate clean-platform acceptance. Multi-platform Release CI,
+the release skill and startup failure UX are complete enough for this milestone.
+Release initiation is one human decision; CI owns execution after Codex hands off.
 
 ---
 
@@ -254,14 +257,14 @@ approaches `1.0`, not prematurely during `0.x`.
 
 # Roadmap
 
-## 0.1 — Works enough
+## 0.1 — Works enough (released)
 
 Goal:
 
 > A developer can use a real disposable MariaDB locally and in CI using normal
 > database clients, and failures are understandable enough to diagnose.
 
-The most important product requirements are:
+The completed product requirements were:
 
 ### Ordinary database usage
 
@@ -294,7 +297,7 @@ Not currently required:
 
 ### Minimum viable failure UX
 
-0.1 should avoid opaque failures where possible.
+The implemented failure UX avoids opaque failures where practical.
 
 Users should be able to distinguish at least:
 
@@ -361,7 +364,7 @@ The release tag should identify the **exact source commit used to build the
 published host/package artifacts**. Alpha.3 accepted a binary build commit
 different from its final tag commit because post-build review/evidence was
 committed afterward; that relationship was reviewed for alpha.3, but is not
-the intended 0.1 release model. Post-build evidence must stay external to
+the current release model. Post-build evidence must stay external to
 candidate bytes and should not require a new source commit for publication:
 
 ```text
@@ -387,101 +390,80 @@ release-infrastructure gap, not a reason to silently fall back to Tart.
 
 ---
 
-## Active direction — 0.2 FAST / cheap isolation
+## v0.2.0 — FAST completion state
 
-0.1 is complete. The active question is broader than making Fork faster:
+The north star remains:
 
-> Creating an isolated MariaDB from a prepared state should be fast and cheap
-> enough in latency, CPU and memory that tests do not need to conserve database
-> instances.
+> Creating an isolated real MariaDB should be fast and cheap enough that tests
+> do not need to conserve database instances.
 
-The first production FAST tranche integrates prepared public test RSA keys
-(`caching_sha2_password` remains enabled) and Go's single-startup ownership of
-verified native artifact identity. Per-startup RSA generation and redundant
-within-call AOT hash scans are removed; mandatory integrity checks, default
-grant bypass and lifecycle semantics remain. The experiment history is not
-merged into main. Both-platform packaged Go/Python acceptance, real authentication
-callback/key checks and lifecycle/race regressions passed. The fresh canonical Go
-baseline records Fork → first SQL ×1 p50 about 517 ms on macOS and 539 ms on
-Ubuntu; memory remains hundreds of MiB per DB. RSA generation and redundant
-within-call native validation are closed for this tranche. See
-[accepted tranche baseline](../benchmarks/fast-tranche-baseline.md).
+Production changes remove per-startup RSA generation using public test keys,
+carry verified native identity within one startup call and use bounded
+**2-worker verification** for independent hash work. Integrity checks, plugin
+selection, default grant bypass and lifecycle semantics remain intact. No
+restore, cache-size or runtime-sharing experiment was integrated.
 
-The bounded Aria page-cache experiment is complete and rejected: reducing its
-configured cache from 128 MiB to 16 MiB saved only about 5–6 MiB/DB at ordinary
-ready state, while the over-cache workload saved about 100 MiB but regressed
-wall time and CPU by 6–11%. Correctness and cleanup passed. Production remains
-at 128 MiB; do not continue tuning other MariaDB caches in 0.2. The experiment's
-128 MiB control establishes scoped ×1 combined CPU baselines of 0.379 CPU-sec/DB
-on macOS and 0.520 on Ubuntu. Its primary memory readings are incremental
-physical-footprint accounting on macOS and PSS on Ubuntu, not raw RSS. See the
-[Aria decision and current latency waterfall](../benchmarks/fast-gap-after-aria.md).
+The established fixed-local reference is a **MacBook Air M1 / 16 GiB /
+macOS 27.0 arm64**, measuring 30 independent trials of Fork through the first
+successful SQL against a prepared 1,000-row fixture, with diagnostics OFF:
 
-The latest 128 MiB control waterfall measured ×1 Fork → first SQL at
-358.9/394.8 ms p50/p95 on macOS and 532.2/557.1 ms on Ubuntu. The macOS result
-is hosted-runner variation, not a product improvement: an unchanged control
-also measured about 576 ms and the accepted canonical baseline is 516.9 ms.
-Keep that accepted baseline as the product reference. Ubuntu remains about
-32–39 ms above the 500 ms p50 KPI, depending on which unchanged control run is
-used; the measured p95 remains below 750 ms. The new note separates validation,
-restore, MariaDB startup and currently unattributed time without selecting an
-optimization.
+| Metric | Reference result |
+| --- | ---: |
+| p50 | 374.2 ms |
+| p95 | 417.7 ms |
+| max | 446.1 ms |
 
-The north star remains: creating an isolated real MariaDB should be fast and
-cheap enough that tests do not need to conserve database instances.
+This met the final fixed-reference p95 <500 ms milestone. These numbers are
+reference measurements, not hardware-independent guarantees or an Ubuntu
+latency promise. Hosted CI hardware has substantial between-job variation and
+is used for correctness/regression monitoring, not an absolute 500 ms release
+gate. See [reference method and exact identities](../benchmarks/final-v02-local-reference.md)
+and [verification comparison](../benchmarks/two-worker-verification.md).
+Earlier 250/500 ms targets remain longer-term stretch goals; historical
+600/900 ms red lines were diagnostics, not a definition of FAST completion.
 
-Three kinds of numbers have different purposes:
+Both platforms completed ×16 isolated DBs. One DB with 16 simultaneous sessions
+passed session isolation, reconnect, cleanup and recoverable MySQL 1040 rejection
+of the 17th session. Current capacity is 16, not a permanent public API guarantee;
+ordinary Go pools do not require `SetMaxOpenConns(1)`. No runtime residue was
+observed after teardown in the measured scenarios.
 
-| Kind | Meaning |
-| --- | --- |
-| v0.2 product latency KPI | ×1 Fork → usable SQL p50 ≤500 ms and p95 ≤750 ms on the fixed 1,000-row reference workload, on both platforms |
-| Regression/debug red line | ×1 600/900 ms; ×4 group-ready p95 1.5 s; ×8 group-ready p95 3 s. Passing these does not establish FAST completion |
-| Longer-term stretch | ×1 p50 <250 ms / p95 <500 ms; further latency work is deferred, not abandoned |
+Memory efficiency is **not solved**: measured ×16 average incremental ready cost
+was approximately **259 MiB/DB on macOS** (physical footprint) and
+**327 MiB/DB on Ubuntu** (PSS). These counters differ and are not raw RSS or exact
+allocation ownership. CPU and incremental/private memory remain first-class
+metrics, with numeric budgets provisional rather than release promises.
+See [memory/session envelope](../benchmarks/memory-session-envelope.md).
+The Aria 128→16 MiB probe was rejected: ordinary ready savings were only 5–6
+MiB/DB, while heavy workloads regressed wall/CPU by 6–11%. No further cache tuning
+or memory architecture work is required for v0.2.
 
-These are development/reference measurements, not public performance guarantees
-or noisy hard CI gates. CPU time and memory are first-class FAST KPIs. Define
-CPU-sec per isolated DB over the same host/runtime measurement interval and ×8
-amplification CPU(8)/(8×CPU(1)); a corrected control baseline is now available,
-but <0.5 CPU-sec/DB and ≤1.5× remain provisional pending repeated, comparable
-measurements. Define G(0), G(1/4/8), incremental group cost G(n)-G(0), average
-cost per DB and marginal growth. Prefer private/PSS/physical-footprint
-accounting where supported, with raw RSS secondary. The current control
-measured about 244/246/251 MiB incremental per DB on macOS and 399/342/332 MiB
-on Ubuntu at ×1/4/8 (macOS physical-footprint accounting; Ubuntu PSS); raw RSS
-from earlier runs was around 400 MiB/DB and is not the incremental KPI. At ×8,
-measured incremental group cost was about 2.0 GiB on macOS and 2.65 GiB on
-Ubuntu. <256 MiB/DB and <2 GiB at ×8 remain provisional memory budgets;
-<192 MiB/DB and <1.5 GiB are stretch ideas. See the
-[measured baseline](../benchmarks/fast-gap-after-aria.md).
+### Product value and practical comparison
 
-The same-run Ubuntu Testcontainers comparison already shows strong practical
-latency value: fixture-ready p50 527/693/1,221 ms versus 5.58/7.46/14.67 s at
-×1/4/8, with different MariaDB versions/defaults. It does not establish memory
-superiority. See [comparison](../benchmarks/testcontainers-comparison.md).
+mariamem offers Docker-free MariaDB testing, disposable server-level isolation
+and prepared-state reuse. Per-test DB disposal can avoid application test code
+having to perform rollback, schema reset or data cleanup to isolate tests.
+Connections and owned DB/snapshot handles still need deterministic Close/context
+manager cleanup; failed tests do not make resource ownership optional.
 
-The Aria cache experiment did not meet its acceptance criteria, and no other
-MariaDB cache tuning is planned for v0.2. CPU and incremental memory remain
-first-class FAST KPIs. The experiment measured average incremental ready cost
-of about 244/246/251 MiB per DB on macOS and 399/342/332 MiB per DB on Ubuntu at
-×1/4/8 (macOS physical-footprint accounting; Ubuntu PSS). CPU was 0.379/0.499/
-0.554 CPU-sec per DB on macOS and 0.520/0.562/0.572 on Ubuntu. These are scoped
-measurements, not user-facing promises. Numeric CPU targets (<0.5 CPU-sec/DB,
-×8 amplification ≤1.5×) and memory budgets (<256 MiB/DB, <2 GiB incremental at
-×8) remain provisional; platform-specific counter behavior and hosted-runner
-variation must be considered. Prefer incremental/private/PSS-style cost, with
-raw RSS only as secondary evidence.
+In the [fixed-reference practical comparison](../benchmarks/practical-suite-comparison.md),
+fresh Testcontainers server/container isolation was much slower in measured
+suites; sharing one container and resetting schemas was much faster for repeated
+tests. Schema reset shares global/engine/server state and is a different isolation
+contract. Snapshot/Fork did not materially beat fresh mariamem Start for this
+small 1,000-row fixture. This does not establish universal superiority or the
+benefit for larger/application fixtures. MariaDB versions/defaults differed.
+Two fresh-container 100-test attempts failed in that benchmark environment;
+the cause is unresolved and no general Testcontainers reliability claim follows.
 
-v0.2 should finish production-quality cold-start/resource improvements and
-both-platform acceptance without VFS/CoW/runtime-sharing/continuation redesigns.
-A change that saves memory does not by itself satisfy the latency KPI. Restore
-remains a measured cost and future investigation input; direct-WASI reads were
-not accepted due to unresolved parallel tails. No restore change is integrated.
-After v0.2, prioritize ORM/interface dogfood such as GORM and SQLAlchemy before
-larger MORE FAST architecture work. Broader latency/resource improvements remain
-on the roadmap, and the later Easy/zero-setup direction remains intact.
+**Future v0.3 dogfood hypothesis:** disposable per-test databases may reduce
+cleanup/reset/transaction-lifecycle reasoning when humans or coding agents
+produce CRUD tests. This is unvalidated, not a product claim. Real pools,
+transactions, application migrations and test failure paths must test it.
 
-Validation remains intentionally narrow: Go 1.26 and Python 3.14. Broader version
-compatibility is not the current focus.
+The remaining v0.2 work is release preparation and final release CI. Further
+latency/resource work is deferred, not abandoned; ORM/usability evidence comes
+before larger architecture exploration.
 
 ---
 
@@ -513,21 +495,21 @@ Go and Python require different textual version formats, so the source of truth
 represents semantic components rather than reusing one ecosystem-specific
 string.
 
-For example:
+For the intended stable v0.2.0 preparation (not yet applied):
 
 ```text
 major  = 0
-minor  = 1
+minor  = 2
 patch  = 0
-stage  = alpha
-serial = 3
+stage  = (empty)
+serial = 0
 ```
 
 From this, tooling derives:
 
 ```text
-v0.1.0-alpha.3
-0.1.0a3
+v0.2.0
+0.2.0
 native metadata
 artifact names
 release metadata
@@ -549,209 +531,62 @@ platform acceptance target.
 
 ---
 
-## 0.2 — FAST / cheap isolation
-
-Goal:
-
-> Creating an isolated MariaDB from prepared state should be fast and cheap
-> enough in latency, CPU and memory that tests do not need to conserve database
-> instances.
-
-0.2 is outcome-driven.
-
-Possible implementation techniques such as COW, runtime sharing, or embedded
-WASM runtimes are means, not the release goal.
-
-Candidate product metrics include:
-
-- Fork-to-ready latency
-- p50 and p95 latency
-- 1 / 4 / 8 parallel forks
-- incremental memory per fork
-- incremental storage per fork
-- latency scaling with fixture size
-- no major steady-state SQL latency regression
-- no isolation or correctness regression
-
-The primary end-to-end metric should measure:
+## Remaining roadmap
 
 ```text
-Fork()
-→ database ready
-→ client connection succeeds
-→ first SQL query succeeds
+v0.2.0 FAST: release preparation → final Release CI → release
+    ↓
+v0.3 ORM dogfood / usability
+    ↓
+v0.4 SCALE exploration, informed by dogfood
+    ↓
+v0.5 broader client workloads
+    ↓
+1.0 stable public APIs and semantics
 ```
 
-rather than an internal runtime-ready event.
+### v0.3 — ORM dogfood / usability
 
-Initial exploratory targets may be around:
+Validate SQLAlchemy, GORM, connection pools, transactions/sessions, realistic
+CRUD tests and disposable per-test DB ergonomics. Test whether cleanup-free
+state isolation reduces reset/rollback boilerplate, including AI-generated test
+dogfood; deterministic resource cleanup is still required. No broad framework
+compatibility is established yet. Django and migration/introspection behavior
+may provide additional evidence where relevant.
 
-```text
-warm fork-to-ready p50 < 250 ms
-warm fork-to-ready p95 < 500 ms
-```
+Do not combine this milestone with major performance architecture work.
+Retain the usability direction: install/start should not require users to
+understand native runtime management. Python already bundles it; Go still needs
+an explicit native directory. Automatic download/cache is a possible technique,
+not an accepted design or a required v0.2 feature.
 
-These are investigation targets, not yet public performance promises.
+### v0.4 — SCALE
 
-Fixtures should remain representative of test workloads rather than
-production-scale datasets.
+Use v0.3 workloads to explore CoW, runtime sharing, guest filesystem/state
+sharing, restore-path redesign, startup and per-DB memory improvements. These
+are candidates, not committed designs. The current guest depends on WASIX;
+embedding/replacing a runtime cannot be assumed viable. References such as
+pglite-go inform questions, not a porting plan. Measure benefit, isolation and
+platform implications before selecting an architecture.
 
-Small / medium / moderately large fixtures are sufficient to understand scaling
-behavior.
+### v0.5 — Broader client workloads
 
----
+Validate the dbt MySQL connector, metadata/introspection-heavy clients and
+non-ORM connection/lifecycle patterns. Do not claim support before exercising
+the actual consumer and its semantics.
 
-## 0.2 architecture exploration
+### 1.0 — Stable public APIs and semantics
 
-Before choosing an optimization strategy, inspect the current execution path.
+Stabilize supported lifecycle, isolation and compatibility contracts using the
+workload evidence. A stable semantic version in the 0.x series does not promise
+1.0-level API compatibility.
 
-Current conceptual path:
+### Unscheduled backlog
 
-```text
-client
-  ↓
-MySQL wire
-  ↓
-Go host / mysqlwire
-  ↓
-Wasmer process
-  ↓
-WASIX
-  ↓
-MariaDB WASM guest
-```
-
-For every boundary ask:
-
-```text
-Why does this boundary exist?
-What does it cost?
-Does it duplicate another layer?
-Can it be removed or merged?
-What compatibility value does it provide?
-```
-
-Relevant reference projects include:
-
-```text
-shyim/lite4mariadb
-moriyoshi/pglite-go
-```
-
-`pglite-go` is particularly interesting because it demonstrates a different
-execution architecture:
-
-- PostgreSQL/PGlite WASM
-- Go host
-- embedded WASM runtime
-- Wasmtime by default
-- optional wazero backend
-- no external database-server process
-
-The purpose is not to copy `pglite-go`.
-
-The useful question is:
-
-> Which execution boundaries has pglite-go removed, and could mariamem remove
-> similar boundaries without losing its MariaDB, multi-client, and
-> Snapshot/Fork properties?
-
-Possible architectural directions may include:
-
-```text
-A. keep external Wasmer and optimize current architecture
-
-B. embed a WASM runtime in the Go host
-
-C. move toward a pglite-go-style host/runtime architecture
-
-D. redesign guest/host responsibilities more substantially
-```
-
-The current `lite4mariadb` guest depends on WASIX, so alternative runtime
-feasibility must be investigated rather than assumed.
-
-Measure first, then choose the architecture.
-
-Breaking internal architecture or public `0.x` APIs is acceptable if justified.
-
----
-
-## 0.3 — Easy / zero-setup
-
-Goal:
-
-> A user can install mariamem and start a database without understanding or
-> manually managing its native runtime.
-
-The desired user experience approaches:
-
-```text
-install mariamem
-↓
-Start()
-```
-
-Potential techniques include:
-
-- platform detection
-- native artifact resolution
-- automatic download
-- integrity / provenance verification
-- local runtime cache
-- offline behavior
-- explicit runtime override
-- package/runtime compatibility checking
-
-Automatic download is one possible implementation, not the product goal.
-
-The product goal is to make native-runtime complexity invisible during normal
-usage.
-
-0.3 should initially target already-supported platforms.
-
-Do not combine zero-setup work with broad platform expansion unless evidence
-justifies it.
-
----
-
-## 0.3+ backlog
-
-Possible later themes include:
-
-### Platform expansion
-
-- Linux arm64
-- Windows
-- additional macOS targets if still relevant
-
-### Ecosystem coverage
-
-Possible representative consumers:
-
-- SQLAlchemy / Alembic
-- Django
-- golang-migrate
-- GORM
-- ent
-- goose
-- Atlas
-
-Ecosystem integrations should be added because they expose useful real-world
-compatibility problems, not to collect framework badges.
-
-### Connection scalability
-
-Possible future work:
-
-- runtime-configurable session capacity
-- connection counts beyond the current guest capacity
-- high-concurrency performance
-- memory-efficiency improvements
-
-Supporting ordinary connection pools is a 0.1 concern.
-
-Supporting very high connection counts is not.
+Broader platforms (Linux arm64, Windows, additional distro/macOS targets),
+runtime-configurable or higher session capacity, offline/native artifact
+resolution and wider ecosystem coverage remain evidence-driven follow-ups.
+Ordinary pools are supported; high connection-count scalability is not claimed.
 
 ---
 
@@ -828,9 +663,8 @@ rather than repeatedly spending it on deterministic mechanical checks.
 
 mariamem builds on `shyim/lite4mariadb`.
 
-With alpha.3 published, multi-client support provides a useful milestone for
-leaving a concrete downstream usage note on the original lite4mariadb
-announcement:
+A concrete downstream usage note can reference multi-client and lifecycle
+evidence on the original lite4mariadb announcement:
 
 ```text
 https://www.linkedin.com/posts/shyim_lite4mariadb-mariadb-compiled-to-webassembly-share-7501126063813533698-LdJG/
@@ -877,6 +711,9 @@ Milestones:
   v0.1.0
   v0.2.0
   v0.3.0
+  v0.4.0
+  v0.5.0
+  v1.0.0
 ```
 
 GitHub Issues should contain actionable work.

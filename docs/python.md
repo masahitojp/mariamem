@@ -10,6 +10,11 @@ The release includes an Ubuntu 24.04 LTS / x86_64 wheel, tagged
 AOT guest. This is deliberately not a manylinux compatibility claim. Install `mariamem-0.2.0a1-py3-none-linux_x86_64.whl` from the GitHub Release.
 Other Linux distributions and Ubuntu versions are outside the supported scope.
 
+Canonical clean release validation uses Python 3.14 on macOS 15 arm64 and
+Ubuntu 24.04 x86_64 (SSE2 + SSSE3). Metadata allows Python >=3.9; this is not a
+broad tested-version matrix. macOS 15+ arm64 is supported; macOS Intel, Linux
+arm64 and Windows are not supported. The stable 0.2 release is being prepared;
+installation examples still identify the published alpha.
 
 Use `with mariamem.start() as db:` to own a database and call
 `db.connection_info()` for MySQL driver keyword arguments. Close driver
@@ -20,7 +25,9 @@ An explicitly supplied `log_path=` is preserved; default log directories are rem
 
 `wait_disconnected()` waits until the host has released all SQL sessions after
 driver disconnects. Multiple clients may connect to one DB up to the guest's
-session capacity (16 in the current native bundle). An extra connection gets
+session capacity (16 in the current native bundle, not a permanent API guarantee).
+Session variables, temporary tables and transactions are independent. Concurrent
+queries do not establish a throughput-scaling guarantee. An extra connection gets
 MySQL error 1040; disconnecting a client makes its slot available after guest
 cleanup. Call `wait_disconnected()` before creating a template snapshot when
 all clients have been closed.
@@ -83,6 +90,15 @@ def mariamem_snapshot(mariamem_server):
 Each xdist worker creates its own session template. Use
 `pytest -n 2 --dist=loadscope` when class-scoped DBs must stay on the same worker.
 Class fixtures deliberately share mutations between tests in that class.
+
+Function-scoped forks provide disposable server-level state, avoiding per-test
+rollback/schema reset/data cleanup for isolation. Driver connections and owned
+DB/snapshot handles still need context-manager or explicit cleanup. Snapshot
+captures a prepared filesystem, not a live running server. For the measured
+small fixture, Fork did not materially outperform fresh Start; prepared-state
+value depends on migration/fixture cost. See the [performance/resource limits](../README.md#performance-and-resource-limits)
+for the fixed Go reference and substantial per-DB memory cost. Those Go timings
+are not Python end-to-end or hardware-independent guarantees.
 
 ## Developer overrides
 

@@ -23,6 +23,18 @@ source/provenance review before the existing release guard can accept it.
 
 ## CI candidate readiness (future releases)
 
+The intended stable release is **v0.2.0**, with draft notes in
+[`release/NOTES-v0.2.0.md`](../release/NOTES-v0.2.0.md). Documentation/status
+preparation does not change package metadata: the canonical version and runnable
+installation examples still identify the current public alpha. Before submitting
+the final candidate, set the stable semantic components, update those checked
+examples and review the package's Alpha maturity classifier deliberately. Run
+the normal preparation check and finalize draft/preparation-only wording in
+the notes and usage guides as part of that version commit. The fixed-reference
+FAST result is not an absolute
+hosted-runner performance gate; preserve the separately recorded lifecycle,
+race/corruption/key-failure evidence for unchanged product code.
+
 Manually dispatch `release-candidate-ready.yml`. Its small input interface is:
 
 | Mode | Inputs | Work performed |
@@ -269,8 +281,9 @@ See [runtime notices](runtime-notices.md) for the pinned dependency inventory,
 verification commands, Singlepass BUSL-1.1 disclosure, and the accepted webc
 12.0.1 package MIT declaration. `runtime_notices` is true after Task 9b-final.
 The absence of a separate webc license file is recorded without inferred
-copyright wording. The release guard and review of the exact staged assets
-remain the final local checks before publication.
+copyright wording. CI guards verify the exact candidate's source, runtime hash
+and shipped notices before aggregate readiness. The tracked historical review
+does not approve future candidate bytes.
 
 ## Ubuntu 24.04 product candidates
 

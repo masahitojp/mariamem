@@ -1,7 +1,8 @@
 # Go API
 
 The public package is `mariamem` at the module root. Unit tests and the opt-in
-real-guest integration test below cover the initial API. Use Go 1.26 or newer.
+real-guest integration tests cover the public API. The module requires Go 1.26.0
+or newer; canonical release validation uses Go 1.26.8, not a broad version matrix.
 The [README](../README.md#go) has a complete first-query example.
 
 The published Go version is `v0.2.0-alpha.1`. In a fresh directory, initialize
@@ -76,17 +77,12 @@ defer fork.Close()
 `manifest.json`, `wasmer-headless`, `mariamem.wasmu`, `mariamem.wasmu.json`, and
 optionally the existing `mariamem-host` (unused by Go). Required guest/runtime
 files are checked against manifest hashes; the sidecar is also validated.
-No binaries are committed to the Go module and no downloads occur. The supported
-native platform is macOS 15+ arm64. The recorded native candidate passed clean
-macOS 15.7.7 arm64 acceptance; see [the evidence](../release/evidence/macos15-arm64-acceptance.json).
-
-Ubuntu 24.04 LTS / x86_64 is also implemented in the checkout, with clean CI
-acceptance pending. Its bundle is `mariamem-native-ubuntu24.04-x86_64.tar.gz`;
-extract it and pass the resulting directory through the same `NativeDir` option.
-The bundle is target-specific: do not use a macOS AOT artifact on Ubuntu. There
-is no published Linux asset in the existing release, and no support claim for
-other distributions, Ubuntu versions, or Linux architectures.
-
+No binaries are committed to the Go module and no downloads occur. Supported
+native platforms are macOS 15+ arm64 and Ubuntu 24.04 LTS x86_64 (SSE2 + SSSE3).
+Both have published native assets and independent clean release acceptance;
+canonical CI tests macOS 15 arm64 and Ubuntu 24.04 x86_64. Bundles are
+target-specific: do not use macOS AOT on Ubuntu. Other distributions, Ubuntu
+versions, Linux architectures, macOS Intel and Windows are unsupported.
 
 The host runs in the Go caller; Wasmer/MariaDB remains a child process. Start's
 context only controls startup. Zero startup/shutdown/query timeouts default to
@@ -112,7 +108,8 @@ after Close; use Closed to inspect lifecycle state. Zero-value handles cannot st
 operations; construct them through Start and Database.Snapshot.
 
 Multiple clients can connect to one DB up to the guest-advertised session
-capacity (16 for the current native bundle). Each connection has its own guest
+capacity (16 for the current native bundle, not a permanent API guarantee).
+Each connection has its own guest
 session and transaction state. A connection beyond capacity receives MySQL
 error 1040; closing a client releases its slot after guest cleanup. Different
 sessions may have queries in flight together, without a throughput guarantee.
@@ -166,14 +163,19 @@ session-idle bookkeeping, then requires ErrTransactionActive. All successful
 snapshots follow pool Close → WaitDisconnected.
 
 This integration test is correctness evidence, not a benchmark. It now also
-covers query interruption and multiple independent SQL clients. The separate
-clean macOS 15 acceptance is recorded above. Prepared statements are not tested.
+covers query interruption and multiple independent SQL clients. Separate clean
+release acceptance covers both supported platforms. Server-side prepared
+statements remain unsupported.
 For when to run the other local checks, see [development](development.md#local-verification).
 
 ## Manual native bundle (local candidate)
 
 Generate a Go bundle from the existing wheel staging artifacts; this does not
 rebuild the guest, alter the wheel, download binaries, or publish a release:
+
+The commands/layout below show the macOS bundle. On Ubuntu use the same tooling
+with the Ubuntu native directory/archive; its manifest records Ubuntu 24.04,
+x86_64, SSE2 + SSSE3 and the verified ELF dependencies instead of Mach-O minimums.
 
 ```sh
 python3 scripts/package_native.py
@@ -222,10 +224,11 @@ db, err := mariamem.Start(ctx, mariamem.Options{
 
 The locally generated archive remains a candidate with
 `public_release_ready=false` in its metadata; this packaging command does not
-publish or stage it as an approved Release asset. The exact candidate hash has
-clean-platform evidence, and [release review](../release/review.json) records the
-source and runtime-notice checks. It is separate from the Python wheel and the
-corresponding-source archive staged by the [release guard](releasing.md).
+publish or stage it as an approved Release asset. Release CI must obtain clean
+platform evidence for its exact hash and verify source/runtime notices. Tracked
+`release/review.json` describes historical artifacts, not a new candidate's
+approval. The native archive is separate from the wheel and corresponding-source
+archive checked by the [release guard](releasing.md).
 
 ## Failure diagnostics
 

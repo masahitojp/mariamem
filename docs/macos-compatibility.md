@@ -1,6 +1,6 @@
 # macOS support floor: 15+ / arm64
 
-The initial native alpha targets **macOS 15 and later on arm64**. macOS 12–14
+The native distribution supports **macOS 15 and later on arm64**. macOS 12–14
 are unsupported. Declared bundle/wheel metadata uses minimum macOS 15; this does
 not rewrite the runtime binary's older Mach-O load commands.
 
@@ -20,15 +20,16 @@ provided to this checkout. The earlier preparation record and diagnostic tooling
 remain preserved. No Wasmer/libunwind fix has been implemented, and the missing
 symbol is not claimed to be repaired by raising metadata. Mach-O minos and a
 successful `--version` were insufficient to establish guest-execution compatibility.
-Supporting older macOS is outside this alpha's scope.
+Supporting older macOS is outside the current release scope.
 
-## New acceptance boundary
+## Clean acceptance boundary
 
-The harness now requires macOS major version **15** and arm64 to verify the new
-floor. Newer development hosts may perform dry-run only, even though declared
+The clean-platform harness requires macOS major version **15** and arm64 to
+verify the support floor. Newer development hosts may perform dry-run only, even though declared
 product support is 15+. Use a newly generated archive, its exact SHA256 and an
-external public-module consumer. Platform review remains false until all checks
-succeed on a clean macOS 15 arm64 host.
+external public-module consumer. Published releases have passed clean macOS 15
+acceptance; each future candidate needs fresh evidence for its exact bytes.
+Newer-host local benchmarks are reference measurements, not clean-floor acceptance.
 
 GitHub's [hosted runner reference](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)
 lists `macos-15` as arm64; `macos-15-intel` is not a substitute. Candidate transfer

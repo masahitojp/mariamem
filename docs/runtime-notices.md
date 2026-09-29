@@ -1,4 +1,4 @@
-# Wasmer runtime notices (Task 9b)
+# Wasmer runtime notices
 
 **Runtime notice review complete: `runtime_notices=true`.**
 Task 9b-final accepts webc 12.0.1's package metadata `license="MIT"` as its
@@ -8,6 +8,15 @@ investigation as a release blocker. At Task 9b completion,
 `platform_acceptance=false`; subsequent clean macOS 15 acceptance set it true
 for the [recorded candidate](../release/evidence/macos15-arm64-acceptance.json).
 The runtime notice evidence is unchanged.
+
+The original Task 9b inventory below covers the pinned macOS runtime. Ubuntu
+coverage additionally uses `release/wasmer-linux-runtime-notices.json` and
+`licenses/Wasmer-Linux-NOTICES.txt`, checked with
+`python3 scripts/linux_runtime_notices.py`. Both platform inventories are reviewed;
+each new candidate's runtime hash and shipped notice/source bytes must match
+the applicable inventory. Release CI, not a historical review flag, binds that
+verification and clean acceptance to the new candidate. This inventory is a
+conservative dependency graph, not a complete final linked-file SBOM.
 
 ## Runtime and dependency selection
 

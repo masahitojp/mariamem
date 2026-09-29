@@ -145,7 +145,9 @@ See [releasing](releasing.md) for source collection and binary release checks.
 The first Linux product target is exactly Ubuntu 24.04 LTS / x86_64. The
 `ubuntu-product.yml` workflow uses `ubuntu-24.04` runners to build
 and hand immutable candidate bytes to a separate clean consumer job. This
-workflow does not publish. Clean acceptance remains pending until that run passes.
+workflow does not publish. Ubuntu is now a supported, publicly distributed target
+with successful clean acceptance; every new release candidate still requires
+its own exact-byte Ubuntu acceptance in the multi-platform release workflow.
 
 `compile_guest_aot.py` selects the pinned Linux Wasmer distribution on Ubuntu
 and an explicit x86_64/SSE2+SSSE3 AOT target, rather than inheriting optional CPU

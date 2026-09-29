@@ -1,10 +1,20 @@
-# Guest source provenance (Task 9a3)
+# Guest source provenance
 
-`release/guest-source-provenance.json` records the reviewed guest's WASM/AOT
+The tracked Task 9a3 record, `release/guest-source-provenance.json`, describes
+the historical guest's WASM/AOT
 hashes, build image ID, modified source hashes, source archive hashes/revisions,
 and sysroot evidence. `guest_source=true` applies to this recorded build only.
-Runtime notice review is now complete (Task 9b-final); clean-platform acceptance remains unresolved;
-this review does not make a native bundle ready for publication.
+Runtime notice review and later clean macOS acceptance completed for the recorded
+candidate. That historical review does not approve newly built native bytes.
+
+Current Release CI builds the guest on Linux x86_64 and uses the exact WASM for
+separate macOS arm64 and Ubuntu x86_64 AOT/package jobs. New source/toolchain/WASM
+and target AOT hashes are recorded in generated candidate provenance. The guard
+checks source coverage, pinned sysroot identity and external acceptance for each
+candidate; it does not relabel this older Docker/arm64 record as a new build.
+See [current build boundary](development.md#guest-build-boundary) and
+[release CI](releasing.md#ci-candidate-readiness-future-releases). The evidence
+chain and repeat commands below describe the historical record.
 
 ## Evidence chain
 
@@ -82,5 +92,6 @@ These are recorded separately from guest corresponding-source coverage:
 
 The original compressed download was not retained. A newly fetched fixed release
 asset matches the entire installed payload; this is provenance evidence, not a
-signed attestation or independent rebuild. Runtime-notice review was completed separately in Task 9b-final. Platform
-acceptance remains a binary-release blocker.
+signed attestation or independent rebuild. Runtime-notice review was completed
+separately in Task 9b-final. Exact clean-platform acceptance remains mandatory
+for new binary candidates; historical acceptance cannot waive it.
