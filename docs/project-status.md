@@ -55,20 +55,20 @@ Core properties:
 
 ---
 
-## Current public release — v0.2.0
+## v0.3.0 release preparation
 
-[v0.2.0](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0) is released;
-the Python distribution version is `0.2.0`. Release CI accepted both platforms,
-reached aggregate READY and published from the exact candidate
-`c5c6645fd8ce03ad5ff71ff79b7daf14a7b8a385`. The 0.2 FAST milestone is complete.
-The stable 0.x release does not promise 1.0-level API compatibility.
+The canonical candidate is `v0.3.0` / Python `0.3.0`. It is not published yet;
+the latest public stable release remains [v0.2.0](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0).
+The v0.3 product and release-pipeline work is complete enough to prepare the
+formal candidate. The stable 0.x release does not promise 1.0-level API
+compatibility.
 
-PyPI publication is temporarily unavailable pending account recovery. Published
-GitHub Release wheels are the supported Python install path and include the
-native/runtime bundle. PyPI remains intended: installation should simplify to
-`pip install mariamem` when publication is available. Go still requires explicit
-native bundle resolution and `Options.NativeDir`; zero-setup Go is future
-usability work, not a v0.2 feature.
+PyPI publication is temporarily unavailable pending account recovery. GitHub
+Release wheels remain the supported Python path and include the native/runtime
+bundle; the v0.3.0 wheel is prepared but not published. PyPI remains intended:
+installation should simplify to `pip install mariamem` when publication is
+available. The v0.3.0 Go candidate provides zero-setup exact-version native
+bundle resolution; explicit `NativeDir` remains the offline/development override.
 
 Supported native platforms:
 
@@ -81,8 +81,8 @@ The canonical toolchains are Go 1.26.8 and Python 3.14. Go's module minimum is
 broad tested-version matrix. Other OS/architecture/distro combinations are
 unsupported; future platform experiments are not release support.
 
-Go uses the public module and an explicitly supplied native bundle; Python
-wheels include their runtime. Artifacts have corresponding source, notices,
+The v0.3.0 Go candidate uses the public module and exact-version automatic
+native bundle resolution; Python wheels include their runtime. Artifacts have corresponding source, notices,
 exact hashes and separate clean-platform acceptance. Multi-platform Release CI,
 the release skill and startup failure UX are complete enough for this milestone.
 Release initiation is one human decision; CI owns execution after Codex hands off.
@@ -468,9 +468,10 @@ cleanup/reset/transaction-lifecycle reasoning when humans or coding agents
 produce CRUD tests. This is unvalidated, not a product claim. Real pools,
 transactions, application migrations and test failure paths must test it.
 
-v0.2 is released. The next direction is v0.3 ORM dogfood / usability. Further
-latency/resource work is deferred, not abandoned; workload evidence comes before
-larger architecture exploration.
+v0.2 is released, and its FAST milestone is complete. The v0.3 ORM dogfood and
+usability work is complete; this task prepares its first formal release
+candidate. Further latency/resource work is deferred, not abandoned; workload
+evidence comes before larger architecture exploration.
 
 ---
 
@@ -502,11 +503,10 @@ Go and Python require different textual version formats, so the source of truth
 represents semantic components rather than reusing one ecosystem-specific
 string.
 
-The canonical stable v0.2.0 components are:
+The canonical stable v0.3.0 components are:
 
 ```text
-major  = 0
-minor  = 2
+minor  = 3
 patch  = 0
 stage  = (empty)
 serial = 0
@@ -515,8 +515,8 @@ serial = 0
 From this, tooling derives:
 
 ```text
-v0.2.0
-0.2.0
+v0.3.0
+0.3.0
 native metadata
 artifact names
 release metadata
@@ -543,7 +543,7 @@ platform acceptance target.
 ```text
 v0.2.0 FAST: released
     ↓
-v0.3 ORM dogfood / usability
+v0.3.0 ORM dogfood / usability: release preparation
     ↓
 v0.4 SCALE exploration, informed by dogfood
     ↓
@@ -554,28 +554,27 @@ v0.5 broader client workloads
 
 ### v0.3 — ORM dogfood / usability
 
-Validate SQLAlchemy, GORM, connection pools, transactions/sessions, realistic
-CRUD tests and disposable per-test DB ergonomics. Test whether cleanup-free
-state isolation reduces reset/rollback boilerplate, including AI-generated test
-dogfood; deterministic resource cleanup is still required. No broad framework
-compatibility is established yet. Django and migration/introspection behavior
-may provide additional evidence where relevant.
+The dogfood goal is complete for SQLAlchemy and GORM on macOS 15 arm64 and
+Ubuntu 24.04 x86_64. SQLAlchemy passed 44/44 cases and GORM passed 32/32 on
+each platform, covering conventional CRUD, relationships, pools,
+transactions/sessions, repeated AutoMigrate and cleanup-free per-test database
+isolation. `CLIENT_FOUND_ROWS` and WASIX schema discovery work with ordinary
+framework behavior.
 
-Do not combine this milestone with major performance architecture work.
-Retain the usability direction: install/start should not require users to
-understand native runtime management. Python already bundles it; released v0.2
-Go still needs an explicit native directory. Automatic download/cache is a possible technique,
-not a required v0.2 feature. Integrated v0.3 code now implements
-exact-tag native download/cache with explicit offline/development overrides;
-untagged or replaced modules never fall back to an older public guest.
-Clean macOS 15 arm64 and Ubuntu 24.04 x86_64 acceptance passed on candidate
-`872fdea882ad82540ffe32e14e506ff67b2d10c3`: SQLAlchemy 44/44, GORM 32/32,
-and release-like automatic startup/cache/offline and failure handling on both.
-The complete v0.3 history is integrated into main; this remains unreleased.
-The [v0.3 audit](release-readiness-v0.3.md) found the product acceptance green,
-but release validation must still enforce exact-candidate ORM/zero-setup checks
-and public Go Options{} / Python wheel smoke. Historical branch evidence is not
-final-source release READY; see [v0.3 acceptance](v03-acceptance.md).
+The Go resolver supports `Start(ctx, mariamem.Options{})` for tagged builds,
+fetches only the exact version/platform bundle, verifies and atomically caches
+it, reuses verified cache offline, and requires explicit matching overrides for
+development/pseudo-version builds. Release CI now requires candidate-level Go
+zero-setup, Python wheel/SQLAlchemy and GORM/schema-discovery smoke evidence on
+both platforms. The [readiness re-audit](release-readiness-v0.3.md) records
+`READY AFTER RELEASE PREP` at `fb1dfff575d0d7cf1604d3edcdd583c8db97bb11`.
+This release-preparation commit creates a new exact candidate; final acceptance
+and aggregate READY must run on its SHA before publication. The public release
+still awaits that candidate run and authorized publication.
+
+Snapshot/Fork remains available; small ORM workloads did not establish a clear
+speed advantage. Do not combine this milestone with major performance
+architecture work.
 
 ### v0.4 — SCALE
 

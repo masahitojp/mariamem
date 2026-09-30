@@ -28,8 +28,8 @@ def test_current_release_docs_match(candidate):
 
 
 @pytest.mark.parametrize('old,new,label', [
-    (f'Release are at `{GIT_TAG}`', 'Release are at `v0.1.0-alpha.2`', 'current tag text'),
-    (f'distribution version is `{PYTHON_VERSION}`', 'distribution version is `0.1.0a2`', 'current Python text'),
+    (f'`{GIT_TAG}`', '`v0.1.0-alpha.2`', 'current tag text'),
+    (f'`{PYTHON_VERSION}`', '`0.1.0a2`', 'current Python text'),
     (f'mariamem@{GIT_TAG}', 'mariamem@v0.1.0-alpha.2', 'go get'),
     (f'gh release download {GIT_TAG}', 'gh release download v0.1.0-alpha.2', 'gh release download'),
     (f'mariamem-{PYTHON_VERSION}-py3-none-', 'mariamem-0.1.0a2-py3-none-', 'wheel filename'),
@@ -104,7 +104,7 @@ def test_next_version_docs_can_be_updated_without_checker_changes(candidate, sta
 
 def test_plain_current_version_text_is_checked(candidate):
     path = candidate / 'README.md'
-    path.write_text(path.read_text().replace(f'Release are at `{GIT_TAG}`',
-                                           'Release are at v0.0.0-alpha.1', 1))
+    path.write_text(path.read_text().replace(f'`{GIT_TAG}`',
+                                           'v0.0.0-alpha.1', 1))
     with pytest.raises(ValueError, match='current tag text'):
         check_release_docs(candidate)

@@ -13,10 +13,11 @@ state. Prepare migrations/fixtures once with Snapshot, then Fork independent
 databases without adding rollback, schema-reset or data-cleanup logic to each
 test. Close client connections and owned database/snapshot handles normally.
 
-The Go module and GitHub Release are at `v0.2.0`; the Python
-distribution version is `0.2.0`. Native support is **macOS 15+ / Apple
-Silicon (arm64)** and **Ubuntu 24.04 LTS / x86_64** (SSE2 + SSSE3).
-Install from the [v0.2.0 GitHub Release](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0).
+The formal release candidate is `v0.3.0`; its Python distribution version is
+`0.3.0`. It is not published yet. After publication, the Go module and native
+bundles will use the exact `v0.3.0` tag, and Python wheels will be available from
+the matching GitHub Release. Native support remains **macOS 15+ / Apple Silicon
+(arm64)** and **Ubuntu 24.04 LTS / x86_64** (SSE2 + SSSE3).
 PyPI publication is temporarily unavailable while account recovery is pending;
 GitHub Release wheels are the supported Python installation path for now.
 Other Linux distributions are not supported.
@@ -29,8 +30,9 @@ validated by these release jobs.
 
 ## Python
 
-The released wheel includes the Go host executable, Wasmer runtime and MariaDB
-guest; no separate native setup or Docker is needed. Use a virtual environment:
+The v0.3.0 wheel includes the Go host executable, Wasmer runtime and MariaDB
+guest; no separate native setup or Docker is needed. The candidate is not yet
+published. Use a virtual environment:
 
 ```sh
 python3 -m venv .venv
@@ -40,13 +42,13 @@ source .venv/bin/activate
 **macOS 15+ / arm64:**
 
 ```sh
-python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.2.0/mariamem-0.2.0-py3-none-macosx_15_0_arm64.whl
+python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.3.0/mariamem-0.3.0-py3-none-macosx_15_0_arm64.whl
 ```
 
 **Ubuntu 24.04 LTS / x86_64 (SSE2 + SSSE3):**
 
 ```sh
-python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.2.0/mariamem-0.2.0-py3-none-linux_x86_64.whl
+python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.3.0/mariamem-0.3.0-py3-none-linux_x86_64.whl
 ```
 
 For the SQL example below and pytest fixtures, install the `test` extra using a
@@ -54,9 +56,9 @@ PEP 508 direct reference instead of the plain command above:
 
 ```sh
 # macOS arm64
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.2.0/mariamem-0.2.0-py3-none-macosx_15_0_arm64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.3.0/mariamem-0.3.0-py3-none-macosx_15_0_arm64.whl'
 # Ubuntu x86_64
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.2.0/mariamem-0.2.0-py3-none-linux_x86_64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.3.0/mariamem-0.3.0-py3-none-linux_x86_64.whl'
 ```
 
 The extra installs PyMySQL and pytest tools. Use the wheel rather than a Git
@@ -83,105 +85,43 @@ see the [Python guide](docs/python.md).
 
 ## Go
 
-Go **1.26 or newer** is required. This development branch adds automatic native
-setup for tagged builds:
-
-```go
-db, err := mariamem.Start(ctx, mariamem.Options{})
-```
-
-First use fetches the **exact module release's** verified platform bundle; later
-starts use the user cache, including offline. Explicit `NativeDir` or
-`MARIAMEM_NATIVE_DIR` overrides it. Untagged/pseudo-version/local-replacement
-builds require a matching override, never a fallback to an older released guest.
-See the [Go guide](docs/go.md#automatic-setup-next-release-development-branch).
-
-The current public **v0.2.0 predates automatic setup**. Its copy-pasteable setup
-below still uses the explicit native bundle. Start in a fresh directory:
+Go **1.26 or newer** is required. The v0.3.0 candidate is not published yet.
+After publication, add the exact released module to a fresh module:
 
 ```sh
 mkdir mariamem-example
 cd mariamem-example
 go mod init example.com/mariamem-example
-go get github.com/masahitojp/mariamem@v0.2.0
+go get github.com/masahitojp/mariamem@v0.3.0
 ```
 
-Save the following as `main.go`:
+For a tagged v0.3.0 build, the normal API needs no native path:
 
 ```go
-package main
-
-import (
-	"context"
-	"database/sql"
-	"fmt"
-	"log"
-	"os"
-
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/masahitojp/mariamem"
-)
-
-func run(ctx context.Context) error {
-	db, err := mariamem.Start(ctx, mariamem.Options{
-		NativeDir: os.Getenv("MARIAMEM_NATIVE_DIR"),
-	})
-	if err != nil {
-		return err
-	}
-	defer db.Close()
-
-	sqlDB, err := sql.Open("mysql", db.DSN())
-	if err != nil {
-		return err
-	}
-	defer sqlDB.Close()
-
-	var answer int
-	if err := sqlDB.QueryRowContext(ctx, "SELECT 1").Scan(&answer); err != nil {
-		return err
-	}
-	fmt.Println("SELECT 1 =", answer)
-	return nil
-}
-
-func main() {
-	if err := run(context.Background()); err != nil {
-		log.Fatal(err)
-	}
-}
+db, err := mariamem.Start(ctx, mariamem.Options{})
 ```
 
-Resolve the MySQL driver imported by `main.go`, then download the native bundle
-from the published GitHub Release and run the example:
+On first start mariamem downloads the bundle matching that exact module tag and
+platform, verifies its checksums and metadata, and installs it in the user
+cache. Later starts reuse and verify the cached bundle, including offline.
+`Options.NativeDir` and `MARIAMEM_NATIVE_DIR` remain overrides. Development,
+pseudo-version and local replacement builds require an explicitly matching
+bundle; they never use an unrelated public release. See the
+[Go guide](docs/go.md) for complete SQL, cache and recovery examples.
+
+For offline use, CI and development, download the matching macOS arm64 or Ubuntu
+24.04 x86_64 native archive from the GitHub Release and pass its extracted
+directory in `Options.NativeDir`. The module does not embed the native runtime.
+After publication, the exact platform commands will be:
 
 ```sh
-go mod tidy
-gh release download v0.2.0 --repo masahitojp/mariamem \
+# macOS 15+ arm64
+gh release download v0.3.0 --repo masahitojp/mariamem \
   --pattern 'mariamem-native-darwin-arm64.tar.gz'
-tar -xzf mariamem-native-darwin-arm64.tar.gz
-export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
-go run .
-# SELECT 1 = 1
-```
-
-On Ubuntu 24.04 x86_64, use the Ubuntu bundle instead:
-
-```sh
-gh release download v0.2.0 --repo masahitojp/mariamem \
+# Ubuntu 24.04 x86_64
+gh release download v0.3.0 --repo masahitojp/mariamem \
   --pattern 'mariamem-native-ubuntu24.04-x86_64.tar.gz'
-tar -xzf mariamem-native-ubuntu24.04-x86_64.tar.gz
-export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-ubuntu24.04-x86_64"
-go run .
 ```
-
-The Go module does not contain the native runtime. The example passes the
-extracted directory to `Start`; `MARIAMEM_NATIVE_DIR` is read by this example,
-not automatically by the Go package. Simpler native setup is future usability
-work, not a v0.2.0 feature.
-
-See the [Go guide](docs/go.md) for connection metadata, snapshots, forks, and
-manual bundle verification.
 
 ## Performance and resource limits
 
@@ -204,9 +144,9 @@ failures limit interpretation; see the [practical comparison](benchmarks/practic
 
 ## Current limits
 
-- Public v0.2.0 Go requires a native-bundle override. Automatic exact-release
-  setup in this branch requires a future tagged release; development builds still
-  need a matching override. The Python wheel bundles its runtime unchanged.
+- The v0.3.0 release candidate is not published yet. Its Go auto-download and
+  GitHub wheel installation commands become usable when those release assets
+  exist. Development builds still need a matching explicit native bundle.
 - Multiple SQL clients can use one database up to the guest's session capacity
   (16 in the current native bundle). An additional connection receives a
   recoverable MySQL 1040 error; slots are reusable after guest close acknowledgement.
@@ -227,9 +167,10 @@ failures limit interpretation; see the [practical comparison](benchmarks/practic
 - The prepared RSA keys are public, non-secret test material. Default grant
   bypass is unchanged; this is not production credential provisioning or a
   claim of full public account/grant authentication support.
-- ORM/framework and dbt compatibility is not yet validated. Those workloads and
-  larger memory/storage architecture work follow this FAST milestone; see the
-  [roadmap](docs/project-status.md#remaining-roadmap).
+- Tested ORM coverage includes SQLAlchemy 2.x and GORM 1.x dogfood suites; this
+  does not promise compatibility with every framework version or migration
+  workload. dbt and larger memory/storage architecture work remain future
+  validation; see the [roadmap](docs/project-status.md#remaining-roadmap).
 
 Project code is [GPL-2.0-only](LICENSE); bundled components keep their own
 licenses and notices in [NOTICE](NOTICE) and

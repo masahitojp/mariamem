@@ -1,6 +1,7 @@
 # Releasing mariamem
 
-The canonical release version is `v0.2.0`; the Python distribution is `0.2.0`.
+The canonical release candidate version is `v0.3.0`; the Python distribution
+version is `0.3.0`.
 Change the five semantic components only in `python/mariamem/_version.py`.
 For a stable release, set `STAGE = ""` and `SERIAL = 0`; this derives
 `vX.Y.Z` and Python `X.Y.Z`. Use `release/NOTES-vX.Y.Z.md`. Stable GitHub
@@ -21,17 +22,17 @@ alpha.3 `release/guest-source-provenance.json` and review apply only to their
 recorded artifact hashes; a newly built guest requires its own corresponding
 source/provenance review before the existing release guard can accept it.
 
-## CI candidate readiness (future releases)
+## CI candidate readiness
 
 PyPI publication is temporarily unavailable pending account recovery; GitHub
 Release wheels are the supported Python distribution channel for now. Restoring
 PyPI remains intended, but current Release CI does not publish to PyPI.
 
-The current public stable release is [v0.2.0](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0), with notes in
-[`release/NOTES-v0.2.0.md`](../release/NOTES-v0.2.0.md). Package metadata and
-installation examples identify the same canonical version. Release CI must
-accept each future exact remote candidate on both platforms before aggregate
-READY can publish it. The fixed-reference FAST result is not an absolute hosted-runner
+The v0.3.0 candidate is being prepared and is not published yet. The current
+public stable release remains available until the candidate is published.
+Candidate metadata and installation examples identify the intended version.
+Release CI must accept the exact remote candidate on both platforms before
+aggregate READY can publish it. The fixed-reference FAST result is not an absolute hosted-runner
 performance gate; preserve the separately recorded lifecycle,
 race/corruption/key-failure evidence for unchanged product code. A stable 0.x
 version does not promise 1.0-level API compatibility.

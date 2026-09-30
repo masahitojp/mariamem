@@ -1,177 +1,111 @@
 # Go API
 
-The public package is `mariamem` at the module root. Unit tests and the opt-in
-real-guest integration tests cover the public API. The module requires Go 1.26.0
-or newer; canonical release validation uses Go 1.26.8, not a broad version matrix.
-The [README](../README.md#go) has a complete first-query example.
+The public package is `mariamem` at the module root. Go 1.26 or newer is
+required; canonical release validation uses Go 1.26.8, not a broad language
+version matrix. The v0.3.0 candidate is in preparation and is not published yet.
 
-For Go release `v0.2.0`, use the public module path. In a fresh directory, initialize
-a consumer module and fetch it with:
+After publication, add the exact release to a fresh module:
 
 ```sh
 mkdir mariamem-example
 cd mariamem-example
 go mod init example.com/mariamem-example
-go get github.com/masahitojp/mariamem@v0.2.0
+go get github.com/masahitojp/mariamem@v0.3.0
+go get github.com/go-sql-driver/mysql
 ```
 
-Save the complete [README example](../README.md#go) as `main.go`. It imports
-both mariamem and `github.com/go-sql-driver/mysql`. Resolve the imports of your
-own program before running it:
-
-```sh
-go mod tidy
-```
-
-`go get mariamem` does not by itself resolve every package imported directly
-by a consumer's source file. The example imports mariamem with:
-
-```go
-import "github.com/masahitojp/mariamem"
-```
-
-`go get` fetches Go source and module dependencies, **not the native runtime**.
-Download `mariamem-native-darwin-arm64.tar.gz` from the published GitHub Release,
-extract it, and run the example:
-
-```sh
-gh release download v0.2.0 --repo masahitojp/mariamem \
-  --pattern 'mariamem-native-darwin-arm64.tar.gz'
-tar -xzf mariamem-native-darwin-arm64.tar.gz
-export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
-go run .
-# SELECT 1 = 1
-```
-
-For Ubuntu 24.04 LTS x86_64, use
-`mariamem-native-ubuntu24.04-x86_64.tar.gz` and the extracted
-`mariamem-native-ubuntu24.04-x86_64` directory instead.
-
-### Automatic setup (next release; development branch)
-
-The ordinary usage with a tagged Go release containing this feature is:
+The ordinary API needs no native path:
 
 ```go
 db, err := mariamem.Start(ctx, mariamem.Options{})
 ```
 
-Resolution uses explicit `Options.NativeDir`, then `MARIAMEM_NATIVE_DIR`, then
-an exact release/platform cache entry, then a first-use download from this
-project's GitHub Release. It never uses `latest`. The module's Go build metadata
-must name a stable or alpha/beta/rc release tag; pseudo-versions, local module
-replacements and development builds require a matching explicit override.
-The currently published **v0.2.0 does not contain automatic setup**; its commands
-above still need the manual bundle path below. A new tagged release is required
-before the automatic-download path can be exercised against public assets.
+On first use, the tagged release downloads the native bundle for that exact
+module version and supported platform. It verifies release metadata, SHA256,
+manifest and package/input identity, then installs atomically in the user cache.
+Later starts verify and reuse that cache, including offline. It never requests
+`latest` or substitutes an older bundle. Candidate URLs will work after
+v0.3.0 publication.
 
-Cache entries live at `os.UserCacheDir()/mariamem/<tag>/<platform>`:
-`~/Library/Caches/mariamem` on macOS, normally `$XDG_CACHE_HOME/mariamem` or
-`~/.cache/mariamem` on Ubuntu. First use downloads only the exact platform's
-native archive and `SHA256SUMS`, checking exact-tag GitHub metadata, published
-digests when supplied, archive SHA256, manifest/sidecar hashes, package version,
-and this module's pinned-input lock hash. Release CI binds published artifacts
-to the tag; the native archive itself does not contain a source commit.
-Checksums use the existing HTTPS GitHub release trust model, not an independent
-signature. An installed receipt records the archive and extracted file hashes.
-Every startup still verifies required files and carries the single-use verified
-identity; the cache is not a persistent shortcut around integrity checks.
+## Advanced, offline and development override
 
-Downloads honor the startup context and a bounded HTTP timeout. Separate private
-staging directories and atomic installation tolerate concurrent first starts.
-Failed/interrupted downloads cannot install partial entries. Cache hits work
-offline; corrupt entries fail rather than redownload silently. Errors show the
-required asset and cache entry, plus the manual override recovery path. To recover
-from corruption, remove only the named cache entry and retry online.
+Explicit `NativeDir` and `MARIAMEM_NATIVE_DIR` override automatic resolution and
+work without network access. Use them for CI, offline environments, and
+unreleased development builds. Pseudo-version, local-replacement and untagged
+builds require an explicitly matching bundle.
 
-### Advanced / offline / development override
+After v0.3.0 publication, download the platform-specific bundle for offline use:
 
-Explicit `NativeDir` and the environment override do not require a network
-connection. Supply a complete matching bundle, including CI/development builds;
-never substitute the older public v0.2.0 guest for this branch's changed guest.
-The following excerpt belongs inside a function with `ctx`; import
-`database/sql` and register `github.com/go-sql-driver/mysql` as in the README.
+```sh
+# macOS 15+ arm64
+gh release download v0.3.0 --repo masahitojp/mariamem \
+  --pattern 'mariamem-native-darwin-arm64.tar.gz'
+# Ubuntu 24.04 x86_64
+gh release download v0.3.0 --repo masahitojp/mariamem \
+  --pattern 'mariamem-native-ubuntu24.04-x86_64.tar.gz'
+```
 
 ```go
 db, err := mariamem.Start(ctx, mariamem.Options{
     NativeDir: "/path/to/native",
 })
-if err != nil { return err }
-defer db.Close()
-
-sqlDB, err := sql.Open("mysql", db.DSN()) // register go-sql-driver/mysql in the app
-if err != nil { return err }
-// SQL, migrations, fixtures...
-if err := sqlDB.Close(); err != nil { return err }
-if err := db.WaitDisconnected(ctx); err != nil { return err }
-snap, err := db.Snapshot(ctx, mariamem.SnapshotOptions{})
-if err != nil { return err }
-defer snap.Close()
-fork, err := snap.Fork(ctx)
-if err != nil { return err }
-defer fork.Close()
 ```
 
-`NativeDir` accepts the existing native bundle unchanged:
-`manifest.json`, `wasmer-headless`, `mariamem.wasmu`, `mariamem.wasmu.json`, and
-optionally the existing `mariamem-host` (unused by Go). Required guest/runtime
-files are checked against manifest hashes; the sidecar is also validated.
-No binaries are committed to the Go module. Explicit overrides do not download. Supported
-native platforms are macOS 15+ arm64 and Ubuntu 24.04 LTS x86_64 (SSE2 + SSSE3).
-Both have published native assets and independent clean release acceptance;
-canonical CI tests macOS 15 arm64 and Ubuntu 24.04 x86_64. Bundles are
-target-specific: do not use macOS AOT on Ubuntu. Other distributions, Ubuntu
-versions, Linux architectures, macOS Intel and Windows are unsupported.
+A manual bundle contains `manifest.json`, `wasmer-headless`, `mariamem.wasmu`,
+`mariamem.wasmu.json`, and optionally `mariamem-host` (unused by Go). Required
+files are checked against manifest hashes and sidecar metadata. No native binary
+is committed to the Go module. Supported bundles are macOS 15+ arm64 and Ubuntu
+24.04 LTS x86_64 (SSE2 + SSSE3); other distributions and architectures are not
+supported.
 
-The host runs in the Go caller; Wasmer/MariaDB remains a child process. Start's
-context only controls startup. Zero startup/shutdown/query timeouts default to
-120/30/30 seconds; negative values are rejected. Close is idempotent, returning
-the stored cleanup result. Guest diagnostics retain their last 16 KiB via Logs.
+The host runs in the Go caller; Wasmer/MariaDB remains a child process.
 
-Snapshot forwards the caller's context without adding a default timeout. A caller
-deadline bounds the existing export operation; filesystem copy/hash is still not
-context-interruptible, and existing shutdown cleanup may outlast the deadline.
-Without a deadline it waits for the existing snapshot operation. Success consumes
-the source DB; precondition rejection leaves it running. An accepted failure also
-consumes it (`HostError.Closed`). Use errors.Is with ErrBusy, ErrTransactionActive,
-and ErrClosed, and errors.As for HostError. Underlying errors remain unwrap-able.
+## Lifecycle and sessions
 
-An empty Destination creates an owned temporary snapshot, deleted by Snapshot.Close.
-An explicit Destination is retained. Fork inherits options and validates the saved
-snapshot through the existing host. Fork startups from the same snapshot may run
-concurrently. Close waits for admitted startups before deleting owned files; once
-Close is waiting for the lock, new Fork calls wait and then return ErrClosed.
-Already-started forks survive snapshot Close. Manifest format/hash/commit-marker semantics
-are unchanged. ConnectionInfo and DSN are immutable endpoint metadata, available
-after Close; use Closed to inspect lifecycle state. Zero-value handles cannot start
-operations; construct them through Start and Database.Snapshot.
+Start's context controls startup. Zero startup/shutdown/query timeouts default
+to 120/30/30 seconds; negative values are rejected. Close is idempotent and
+returns the stored cleanup result. Guest diagnostics retain their last 16 KiB
+via Logs.
+
+Snapshot forwards the caller's context without adding a default timeout. A
+caller deadline bounds the export operation; filesystem copy/hash is not
+context-interruptible, and shutdown cleanup may outlast the deadline. Without a
+deadline Snapshot waits for the export. Success consumes the source DB;
+precondition rejection leaves it running. An accepted failure also consumes it
+(`HostError.Closed`). Use `errors.Is` with ErrBusy, ErrTransactionActive and
+ErrClosed, and `errors.As` for HostError. Underlying errors remain unwrap-able.
+
+An empty Snapshot Destination creates an owned temporary snapshot, deleted by
+Snapshot.Close. An explicit Destination is retained. Fork inherits options and
+validates the saved snapshot through the host. Fork startups from the same
+snapshot may run concurrently. Close waits for admitted startups before deleting
+owned files; already-started forks survive Snapshot.Close. Manifest
+format/hash/commit-marker semantics are unchanged. ConnectionInfo and DSN are
+immutable endpoint metadata available after Close; use Closed to inspect
+lifecycle state. Zero-value handles cannot start operations; construct them
+through Start and Database.Snapshot.
 
 Multiple clients can connect to one DB up to the guest-advertised session
 capacity (16 for the current native bundle, not a permanent API guarantee).
-Each connection has its own guest
-session and transaction state. A connection beyond capacity receives MySQL
-error 1040; closing a client releases its slot after guest cleanup. Different
-sessions may have queries in flight together, without a throughput guarantee.
-Close the database/sql pool before WaitDisconnected when taking a snapshot.
-DSN sets `interpolateParams=true` for driver-side
-parameter interpolation through the supported text protocol. **This is not server
-prepared-statement support**; explicit Prepare remains unsupported.
+Each connection has its own guest session and transaction state. A connection
+beyond capacity receives MySQL error 1040; closing a client releases its slot
+after guest cleanup. Different sessions may have queries in flight together,
+without a throughput guarantee. Close the database/sql pool before
+WaitDisconnected when taking a snapshot. DSN sets `interpolateParams=true` for
+driver-side parameter interpolation through the supported text protocol. This
+is not server prepared-statement support; explicit Prepare remains unsupported.
 
-A host `QueryTimeout` or client context cancellation while SQL runs terminates
-the guest and invalidates that database instance. The host also treats a client
-disconnect during SQL as fatal; a normal disconnect while idle leaves the DB
-usable. Do not retry SQL against an invalidated instance: close it and start or
-fork another. `db.Closed()` becomes true, and `db.Err()` reports
-`ErrUnusable` with the underlying cause. For a host timeout,
-`errors.Is(db.Err(), context.DeadlineExceeded)` is true; a MySQL-driver query
-receives a server error explaining that the instance was terminated. For a
-caller context deadline or explicit cancellation, go-sql-driver/mysql returns
-the caller's context error (`errors.Is` matches `context.DeadlineExceeded` or
-`context.Canceled`); the host sees the resulting connection loss and terminates
-the guest. The wire protocol does not carry the caller's context reason to the
-host, so `db.Err()` reports a client disconnect in that case. Snapshot and
-WaitDisconnected reject invalidated instances; Close remains idempotent and
-releases the guest process and temporary files. Signal handlers are not
-installed in the caller process.
+A host QueryTimeout or client context cancellation while SQL runs terminates the
+guest and invalidates that database instance. A client disconnect during SQL is
+also fatal; a normal disconnect while idle leaves the DB usable. Do not retry
+SQL against an invalidated instance: close it and start or fork another.
+`db.Closed()` becomes true, and `db.Err()` reports ErrUnusable with the
+underlying cause. For a host timeout, `errors.Is(db.Err(), context.DeadlineExceeded)`
+is true. A caller context deadline or explicit cancellation is returned by the
+MySQL driver as the caller's context error; the host sees the connection loss
+and terminates the guest. Snapshot and WaitDisconnected reject invalidated
+instances; Close remains idempotent and releases the guest process and temporary
+files. Signal handlers are not installed in the caller process.
 
 ## Opt-in integration verification
 
@@ -241,18 +175,18 @@ unused `mariamem-host` hash, and records the three required artifact hashes.
 The host executable is not included. `public_release_ready` is always false for
 this candidate tool, even if the input manifest says otherwise.
 
-For local evaluation, or when using the published archive, verify it against
-its published SHA256 and then extract it:
+For local evaluation, or when using the v0.3.0 published archive, verify it
+against its published SHA256 and then extract it:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.2.0
+go get github.com/masahitojp/mariamem@v0.3.0
 shasum -a 256 mariamem-native-darwin-arm64.tar.gz
 tar -xzf mariamem-native-darwin-arm64.tar.gz
 export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
 ```
 
-Pass the extracted directory explicitly to Go; the API does not automatically
-read this environment variable:
+To force use of this local bundle, pass its directory explicitly or set the
+supported environment override:
 
 ```go
 db, err := mariamem.Start(ctx, mariamem.Options{

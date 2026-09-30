@@ -1,17 +1,19 @@
 # Python API
 
-Python distribution `0.2.0` is released for macOS 15+ arm64 and Ubuntu 24.04
-LTS x86_64. PyPI publication is temporarily unavailable while account recovery
-is pending. The supported installation path is the
-[v0.2.0 GitHub Release wheels](https://github.com/masahitojp/mariamem/releases/tag/v0.2.0),
-which include the required Go host, Wasmer runtime and guest bundle. Use the
+The `0.3.0` Python package is prepared for the v0.3.0 release candidate; it is
+not published yet. PyPI publication is temporarily unavailable while account
+recovery is pending. After release, the supported installation path is the
+[v0.3.0 GitHub Release wheel](https://github.com/masahitojp/mariamem/releases/tag/v0.3.0),
+which includes the required Go host, Wasmer runtime and guest bundle. Use the
 [copy-pasteable platform commands and PEP 508 extras](../README.md#python), not a
 Git source install. Once PyPI is available, installation is expected to simplify
-to `pip install mariamem`.
+to `pip install mariamem`; PyPI publication has not been abandoned.
 
 The release includes an Ubuntu 24.04 LTS / x86_64 wheel, tagged
 `linux_x86_64`. It includes the Linux host, Wasmer runtime and target-specific
-AOT guest. This is deliberately not a manylinux compatibility claim. Install `mariamem-0.2.0-py3-none-linux_x86_64.whl` from the GitHub Release.
+AOT guest. This is deliberately not a manylinux compatibility claim. After
+publication, install `mariamem-0.3.0-py3-none-linux_x86_64.whl` from the GitHub
+Release.
 Other Linux distributions and Ubuntu versions are outside the supported scope.
 
 Canonical clean release validation uses Python 3.14 on macOS 15 arm64 and
