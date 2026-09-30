@@ -14,13 +14,23 @@ def main():
     p.add_argument('--guest',type=Path,required=True)
     p.add_argument('--wasm-tools',type=Path,required=True)
     p.add_argument('--output-dir',type=Path,required=True)
+    p.add_argument('--features',help='wasm-tools validation feature set, e.g. all for legacy EH')
     a=p.parse_args();out=a.output_dir.resolve();out.mkdir(parents=True,exist_ok=True)
-    subprocess.run([str(a.wasm_tools),'validate',str(a.guest)],check=True)
+    validation=[str(a.wasm_tools),'validate']
+    if a.features:validation+=['--features='+a.features]
+    subprocess.run(validation+[str(a.guest)],check=True)
     wat=out/'guest.wat'
     subprocess.run([str(a.wasm_tools),'print',str(a.guest),'-o',str(wat)],check=True)
     text=wat.read_text();lines=text.splitlines()
     types={int(m[1]):m[2] for l in lines if (m:=re.match(r'^  \(type \(;([0-9]+);\) (.*)\)$',l))}
-    calls=collections.Counter(int(m[1]) for l in lines if (m:=re.match(r'^\s+call ([0-9]+)(?:\s|$)',l)))
+    identifier=r'(?:\$"(?:\\.|[^"\\])*"|\$[^\s()]+)'
+    name_annotation=r'(?: \(@name "(?:\\.|[^"\\])*"\))?'
+    function_names={m[1]:int(m[2]) for l in lines if (m:=re.search(r'\(func ('+identifier+r')'+name_annotation+r' \(;([0-9]+);\)',l))}
+    calls=collections.Counter()
+    for l in lines:
+        if m:=re.match(r'^\s+call ('+identifier+r'|[0-9]+)(?:\s|$)',l):
+            index=function_names[m[1]] if m[1].startswith('$') else int(m[1])
+            calls[index]+=1
     opcodes=collections.Counter()
     for l in lines:
         tokens=l.strip().split()
@@ -28,12 +38,15 @@ def main():
     imports=[]
     for l in lines:
         m=re.match(r'^  \(import "([^"]+)" "([^"]+)" (.*)\)$',l)
-        if not m:continue
+        if not m:
+            if l.startswith('  (import '):raise ValueError('compact/multiline imports need normalization before inventory')
+            continue
         i=dict(module=m[1],name=m[2])
-        f=re.search(r'func \(;([0-9]+);\) \(type ([0-9]+)\)',m[3])
+        f=re.search(r'func(?: '+identifier+r')? \(;([0-9]+);\) \(type ([0-9]+)\)',m[3])
         if f:
             i.update(kind='function',function_index=int(f[1]),signature=types[int(f[2])],static_direct_calls=calls[int(f[1])])
-        else:i.update(kind='memory',declaration=m[3])
+        elif m[3].startswith('(memory '):i.update(kind='memory',declaration=m[3])
+        else:raise ValueError('unexpected import declaration: '+m[3])
         imports.append(i)
     sections={k:sum(l.startswith('  ('+k+' ') for l in lines) for k in ('func','global','table','tag','data','export','start')}
     sections['mutable_globals']=sum(l.startswith('  (global ') and '(mut ' in l for l in lines)

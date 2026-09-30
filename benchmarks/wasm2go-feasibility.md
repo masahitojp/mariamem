@@ -214,3 +214,130 @@ modern EH/exnrefの変換またはguest buildの互換化、WASIX thread/TLS/fut
 hostのtransport/abort/cleanup ownershipに意味のあるarchitectural adaptationが必要。
 full guestの変換・MariaDB-ready・SQL・全semantic互換性は未解決であり、性能改善の見込み値を採用判断には使えない。
 次に進む境界と必要な互換性を設計で決める必要がある。別architectureを自動選択しない。
+
+## Legacy EH guest experiment
+
+2026-10-01。開始HEADは `05d0aa8230564649df9a80a0f94ff66515b6aeb5`。
+前節の事実・original YELLOW evidenceを保持する。追加の [比較証拠](wasm2go-legacy-eh-evidence.json) と
+[再現手順](spikes/wasm2go/README.md#legacy-eh-toolchain-experiment) を参照。
+
+### 開始前の branch health
+
+既存の未追跡 `package.json` / `package-lock.json` を内容そのままignored buildに退避し、
+`git status --porcelain` が空、HEADが指定SHAであることを確認した。
+生成結果rootの独立 `go.mod` により、`go list ./...` は通常14 packageのみを列挙した。
+**guest buildを開始する前に**以下が完走。隔離修正の追加コミットは不要だった。
+
+- normal `scripts/verify.py check`: Go test/vet成功、Python **368 passed / 3 skipped** (8.97 s)、public-source検査324 files成功。
+- released Wasmer `scripts/verify.py integration`: Go race **8.933 s**、Python timeout/multiclient **3 passed** (2.42 s)。最初のsandbox実行はloopback bind拒否で失敗し、同一チェックの承認済み制限外実行が成功。
+- `git diff --check`: 成功。
+
+### 新 EH の起源
+
+production経路は `prepare_guest.py` → `build_guest_wasm.py` → upstream `wasm/build-wasix.sh` →
+CMake `wasix-toolchain.cmake` / `cmake/os/WASIX.cmake` / `wasm/CMakeLists.txt` → WASIXCC → wasm-ld → wasm-opt。
+CMakeは `-pthread -fexceptions -fno-strict-aliasing`、Release compile `-O3 -DNDEBUG`、
+final link `-O2 -pthread -fexceptions` と既存wrap/export/256 MiB initial・2 GiB max・8 MiB stackを指定する。
+公開lock/provenanceは WASIXCC **0.4.7**、LLVM配布tag **21.1.206**、sysroot **v2026-07-03.1 / sysroot-exnref-eh**、Binaryen **133**。
+実験の同じtagの実binaryは **WASIX clang 21.1.2 / WASIX LLD 21.1.2 / wasm-opt 133** と報告した。
+実行hostは既存Linux arm64 Docker image `sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f`。
+canonical releaseのLinux x86_64 hostとは異なる。exnref sysrootのlibc/libc++/libc++abi/libunwind SHA256は公開provenanceと一致した。
+
+実際の0.4.7 `help-config`、`-###`、assembly、object、link前後の成果物で確認した。
+[WASIXCC](https://github.com/wasix-org/wasixcc/tree/v0.4.7) の既定 `WASM_EXCEPTIONS=yes` はexnrefを選び、
+compiler/backendとlinkerへ `--wasm-enable-eh`、`--wasm-enable-sjlj`、`--wasm-use-legacy-eh=false` を渡す。
+legacy指定は `true` と `sysroot-eh` に切り替える。LLVM backend optionの存在も実binaryの `--help-hidden` で確認した。
+post-linkの既定wasm-optは **`--emit-exnref`** を付けるため、legacyでcompileしても最終出力は新EHになる。
+
+| 実C++ catch/rethrow + setjmp/longjmp対照 | try_table / throw_ref | legacy命令 |
+|---|---:|---|
+| exnref compiler object | 7 / 5 | なし |
+| exnref linked・post-opt前 | 43 / 9 | なし |
+| legacy compiler object | 0 / 0 | try 7、rethrow 3、delegate 3 |
+| legacy linked・post-opt前 | 0 / 0 | try 43、rethrow 6 |
+| legacy + default post-opt | 38 / 8 | なし |
+| legacy + emit-exnrefを省いた -O2 | 0 / 0 | try 38、rethrow 6 |
+
+公開prepared sourceと一致する既存local MariaDB objectにも新EHがある：`sql_parse.cc.o` は89/14、
+`sql_class.cc.o` は232/58、`item.cc.o` は381/61。これらはCI objectではなくlocal実測である。
+**新EHはcompiler objectの時点で現れる。link/post-linkだけが起源ではない。**
+MariaDBや依存が例外・SjLjを必要とすることと、exnref表現を必要とすることは別である。
+今回、同一sourceをlegacy表現でcompile/linkできた。新表現の選択はwrapper/backend/sysroot/post-link設定による。
+
+### 隔離 build と成果物
+
+pinned archivesからfresh sourceを再準備し、prepared manifestが公開版と完全一致
+(`8a46305159195504a08562aab33cb0438b6ca813f830b8aef541c28de1eb1747`) することを確認した。
+MariaDB/lite4mariadb revision、mariamem overlays、例外、pthread、shared memory、sessionsは変更しない。
+既存local default buildとlegacy buildの `my_config.h` もbyte一致した。
+
+1. `WASIXCC_WASM_EXCEPTIONS=legacy`、`WASIXCC_WASM_OPT_SUPPRESS_DEFAULT=yes`、`WASIXCC_WASM_OPT_FLAGS=-O2` を試したが、CMake `CHECK_FUNCTION_EXISTS(pthread_rwlock_rdlock)` の不正prototypeの検出用binaryをwasm-optが型エラーで拒否しconfigure停止。
+2. fresh build directoryで **`WASIXCC_WASM_EXCEPTIONS=legacy` / `WASIXCC_RUN_WASM_OPT=no`** を設定すると全体compile/link成功。例外を無効化せず、CMake検出結果を手動上書きせず、compiler最適化も通常のまま。
+3. valid full guestに既存Binaryen **-O2** を別段階で適用し、既存wrapperと同じenabled feature familyを指定、`--emit-exnref` を省いた。これは既存build処理の再現であり性能tuningではない。
+
+raw legacyは22,164,434 bytes、WASIX importが4増えた。通常-O2を再現すると追加importは消える。
+途中の `--all-features` 試行は意図しない**compact imports**を生成し、Wasmerもそれを拒否した。
+最終比較対象はその試行を採用せず、既存feature familyのみの成果物とした。
+
+| 最終比較 | released guest | legacy + existing -O2 |
+|---|---:|---:|
+| WASM bytes | 18,802,825 | **18,613,516** |
+| try_table / throw_ref | 12,747 / 3,746 | **0 / 0** |
+| try / catch / catch_all | 0 / 0 / 0 | **12,749 / 101 / 11,630** |
+| rethrow / delegate | 0 / 0 | **3,327 / 1,018** |
+| import names/signatures | 66 imports | **全て一致** |
+| shared memory min / max | 256 MiB / 2 GiB | **一致** |
+| atomics / memory.grow | 4,233 / 1 | **一致** |
+| funcref table / tags / mutable globals | 17,204 / 2 / 4 | **一致** |
+| data segments / exports / start fn | 3 / 5,022 / 67 | **一致** |
+| defined functions / SIMD命令 | 21,757 / 29,634 | **21,861 / 29,603** |
+
+最終SHA256: `6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3`。
+bulk-memoryのinit/drop/copy/fill数も一致。func/SIMD数の差は残り、EH/SDK/backendとlocal build hostの影響を完全分離していない。
+WASM validation (`wasm-tools --features=all`) は成功したが、これらの静的比較だけでは実SQLの同等性を証明しない。
+
+### 現行 Wasmer validation と continuation の停止
+
+通常のmacOS AOTコマンドで、raw版と最終-O2版の双方が **Wasmer 7.4.2 / cranelift-opts** のvalidationで停止。
+最終版のエラーは `legacy_exceptions feature required for try instruction (at offset 0x3e68b)`。
+小さなlegacy対照も同じ拒否。`--enable-all` でも通らず、単純なfeature flagでの解決は確認できなかった。
+[7.4.2 compilerのvalidator](https://github.com/wasmerio/wasmer/blob/v7.4.2/lib/compiler/src/compiler.rs) はlegacy flagを設定せず、
+[Cranelift translator](https://github.com/wasmerio/wasmer/blob/v7.4.2/lib/compiler-cranelift/src/translator/code_translator.rs) はlegacy Try/Catch/Rethrow/Delegateを明示的にunsupportedとする。
+runtimeへのpatchやbackend変更は行っていない。
+
+対照のexnref版、およびlegacy compile後に既定post-linkでexnrefへ変換した小プログラムは、同じ現行headless binaryで
+`C++ unwind=7 setjmp=9`、exit 0。これは新EHが動く対照であり、legacy MariaDBのruntime検証を代用しない。
+
+**legacy guestはAOT生成前で停止した。** guest initialization、MariaDB ready、SELECT 1、CREATE/INSERT/SELECT、
+実guestのthread動作・clean shutdownはいずれも未到達。指定のWasmer検証ゲートを通過しなかったため、
+**wasm2goへの再投入、生成Go compile/instantiate、追加WASIX shim実装は行わない。**
+新しいwasm2go側blockerは未観測。今回の次のblockerは**現行Wasmerのlegacy EH validation/codegen契約**であり、
+bounded generator patchやWASIX shimの問題とは区別する。
+分類は **Runtime contract work（検証用runtime経路）**。guest/build自体のarchitectural mismatchを示す結果ではない。
+
+### Maintenance と明示的な回答
+
+- **build changeの大きさ:** source patchなし。2つのsupported wrapper設定、legacy sysroot選択、既存-O2を別段階に置く小さなbuild分岐。configureとpost-linkの扱いを記録する必要がある。
+- **reproducibility/pinning:** 同一input archives/overlays、SDK version、legacy sysroot、compiler/linker/Binaryenとfeature listを固定する必要がある。今回のlocal image ID/成果物/library hashesを保持。canonical x86_64再現は未実施。
+- **obsolete compilerへの依存:** 古いcompilerへのdowngradeは不要で、現行21系/0.4.7が明示的に提供するmodeを使用。ただし[legacy EH](https://webassembly.github.io/exception-handling/legacy/exceptions/core/_download/WebAssembly-Legacy-Exceptions.pdf)は現行standardized EHとは別の旧proposalで、今後のSDK/tool対応継続は保証できない。
+- **MariaDB/WASIX compatibility:** current sourceのcompile/linkと静的ABI保持は成立。実guestのunwind/SjLj/TLS/threads/SQL同等性は未確認。
+- **Wasmer compatibility:** 現行runtimeは直接実行不可。legacyからexnrefへの変換版を動かしても、legacy成果物そのものの検証にはならない。
+- **wasm2go advancement/next blocker:** 新命令を除去したartifactは得たが、必須ゲート未通過のためconverterを再試行していない。次のgenerator failureは不明。
+- **bridgeかmaintainableか:** build上の実験bridgeは成立する。production adoptionを維持できるという証拠はない。current Wasmerとの同等性検証方法、例外/SjLj ABI、将来SDKのlegacy維持を先に設計する必要がある。
+
+### 実験後の通常回帰確認
+
+normal `scripts/verify.py check` はGo test/vet成功、Python **368 passed / 3 skipped** (9.15 s)。
+既存released Wasmer integrationはGo race **9.045 s**、Python **3 passed** (2.40 s)。
+最終report/evidenceを含むpublic-source検査と `git diff --check` も成功。
+更新したinspectorで公開guestを再採取し、以前のinventoryとの完全一致を確認した。
+追加したbuild/result rootにも独立 `go.mod` を置き、通常package discoveryから隔離した。
+既存の未追跡npmファイルは退避時のSHA256を照合して復元し、コミットに含めない。
+
+### LEGACY-EH BUILD NOT PRACTICAL
+
+**この分類は「現行Wasmerで同等性を確認してからwasm2goへ進む」という今回の必須条件に限定する。**
+legacy guestの生成自体は成功しており、sourceの大幅な書き換えやold compilerが必要だったという結論ではない。
+現行Wasmerのruntime契約を変えずに要求された同等性確認済みguestを成立させられず、continuationを停止した。
+二重encodingの検証関係やruntime対応を別の設計判断なしに追加しない。
+**overall wasm2go verdictは YELLOW のまま。** SQL-capable経路と性能/resource改善の証拠は追加されていない。

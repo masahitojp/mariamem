@@ -1,0 +1,2332 @@
+{
+  "schema_version": 1,
+  "start_commit": "05d0aa8230564649df9a80a0f94ff66515b6aeb5",
+  "overall_verdict": "YELLOW",
+  "experiment_classification": "LEGACY-EH BUILD NOT PRACTICAL",
+  "classification_scope": "Required current-Wasmer runtime equivalence gate. Legacy compilation itself succeeded with current supported SDK settings. This label does not mean source rewrite or obsolete compiler is required.",
+  "pre_health": {
+    "branch_head": "05d0aa8230564649df9a80a0f94ff66515b6aeb5",
+    "clean_before_experiment": true,
+    "preexisting_files": "Untracked package.json/package-lock.json moved intact to ignored build/wasm2go-legacy-eh/preexisting-files before checks.",
+    "normal_check": {
+      "status": "passed",
+      "go_test": "passed",
+      "go_vet": "passed",
+      "python": {
+        "passed": 368,
+        "skipped": 3,
+        "seconds": 8.97
+      },
+      "public_source_files": 324
+    },
+    "integration": {
+      "status": "passed",
+      "go_race_seconds": 8.933,
+      "python_passed": 3,
+      "python_seconds": 2.42
+    },
+    "sandbox_attempt": "Integration initially denied loopback bind; identical checks passed with approved execution outside sandbox.",
+    "normal_discovery": "go list ./... returned only the 14 normal packages, no generated packages. There was a harmless denied stat-cache write warning in that separate listing.",
+    "diff_check": "passed",
+    "hygiene_fix_needed": false
+  },
+  "production_guest_sha256": "d49402efec834414527537f639c9a11e5709bf8642357d34d33c7cfa471322d3",
+  "prepared_source_sha256": "8a46305159195504a08562aab33cb0438b6ca813f830b8aef541c28de1eb1747",
+  "prepared_manifest_matches_release": true,
+  "prepared_source_files_unchanged_after_build": true,
+  "local_toolchain": {
+    "image_id": "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+    "host": "linux-arm64",
+    "canonical_release_host": "linux-x86_64",
+    "wasixcc": "0.4.7",
+    "llvm_distribution": "21.1.206",
+    "clang_version": "WASIX clang 21.1.2",
+    "linker_version": "WASIX LLD 21.1.2",
+    "binaryen": "133",
+    "sysroot_tag": "v2026-07-03.1",
+    "sysroot_library_sha256": {
+      "/root/.wasixcc/sysroot/sysroot-exnref-eh/lib/wasm32-wasi/libc.a": "e0837c66fecab3cef5d8d202939c6125986685e9d8e589f90a253f5f18a17af9",
+      "/root/.wasixcc/sysroot/sysroot-exnref-eh/lib/wasm32-wasi/libc++.a": "b294c3286ee2e91a000177eabc28928f56d3fe8086fd42ecd856464949aa665d",
+      "/root/.wasixcc/sysroot/sysroot-exnref-eh/lib/wasm32-wasi/libc++abi.a": "de9640f95e44e26361356418c1383fe802d02069109093db3b87cfd3818187db",
+      "/root/.wasixcc/sysroot/sysroot-exnref-eh/lib/wasm32-wasi/libunwind.a": "06fedbefadfd2c0ac0bc97a1ccc9884f8bdce43445afb9b82f57892a448dd0b1",
+      "/root/.wasixcc/sysroot/sysroot-eh/lib/wasm32-wasi/libc.a": "e0837c66fecab3cef5d8d202939c6125986685e9d8e589f90a253f5f18a17af9",
+      "/root/.wasixcc/sysroot/sysroot-eh/lib/wasm32-wasi/libc++.a": "d221d99b1d85807d9a5f5899b4f3aef93c7417ebb6b29bdf1f998cfa61ef8a78",
+      "/root/.wasixcc/sysroot/sysroot-eh/lib/wasm32-wasi/libc++abi.a": "ad65038a291308c2b9294e95f8111d978a8a7dc2fcebb1abcb7c2b39457be191",
+      "/root/.wasixcc/sysroot/sysroot-eh/lib/wasm32-wasi/libunwind.a": "1b6df8f03a6425c0f0c10874d1138118797f1f5e96d10e545ca9021f1191bc75"
+    },
+    "production_toolchain_record_sha256": "477db4dbff2adfe3cf5a8a38356c157fc87f21e426959bdedd4385dec421f8aa"
+  },
+  "probe_inspection": [
+    {
+      "file": "exnref-default.wasm",
+      "try_table": 38,
+      "throw_ref": 8,
+      "try": 0,
+      "catch": 0,
+      "catch_all": 0,
+      "delegate": 0,
+      "rethrow": 0
+    },
+    {
+      "file": "exnref-preopt.wasm",
+      "try_table": 43,
+      "throw_ref": 9,
+      "try": 0,
+      "catch": 0,
+      "catch_all": 0,
+      "delegate": 0,
+      "rethrow": 0
+    },
+    {
+      "file": "exnref.o",
+      "try_table": 7,
+      "throw_ref": 5,
+      "try": 0,
+      "catch": 0,
+      "catch_all": 0,
+      "delegate": 0,
+      "rethrow": 0
+    },
+    {
+      "file": "legacy-default.wasm",
+      "try_table": 38,
+      "throw_ref": 8,
+      "try": 0,
+      "catch": 0,
+      "catch_all": 0,
+      "delegate": 0,
+      "rethrow": 0
+    },
+    {
+      "file": "legacy-preopt.wasm",
+      "try_table": 0,
+      "throw_ref": 0,
+      "try": 43,
+      "catch": 9,
+      "catch_all": 30,
+      "delegate": 4,
+      "rethrow": 6
+    },
+    {
+      "file": "legacy-preserved.wasm",
+      "try_table": 0,
+      "throw_ref": 0,
+      "try": 38,
+      "catch": 7,
+      "catch_all": 28,
+      "delegate": 3,
+      "rethrow": 6
+    },
+    {
+      "file": "legacy.o",
+      "try_table": 0,
+      "throw_ref": 0,
+      "try": 7,
+      "catch": 3,
+      "catch_all": 1,
+      "delegate": 3,
+      "rethrow": 3
+    }
+  ],
+  "local_default_guest_objects": [
+    {
+      "object": "libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_parse.cc.o",
+      "sha256": "e86fdf8fbf2f1c4693c221b86a71e8f02c4574e8f68b43a406582e094545f9b7",
+      "try_table": 89,
+      "throw_ref": 14,
+      "try": 0,
+      "rethrow": 0
+    },
+    {
+      "object": "libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_class.cc.o",
+      "sha256": "175063655c670a6df6cdb77bdbe27cdc228ce9cbb5005ce8fd836982705b0f53",
+      "try_table": 232,
+      "throw_ref": 58,
+      "try": 0,
+      "rethrow": 0
+    },
+    {
+      "object": "mysys/CMakeFiles/mysys.dir/my_error.c.o",
+      "sha256": "92575f7fc2823bd8fc614bdd43ccb843cbe632bec130ed29d9ff9f5de55be980",
+      "try_table": 0,
+      "throw_ref": 0,
+      "try": 0,
+      "rethrow": 0
+    },
+    {
+      "object": "libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item.cc.o",
+      "sha256": "697e13b3eb49c16fa9b2fe192ed1fac7115afe9487a6cd19624aa7af93e81ca6",
+      "try_table": 381,
+      "throw_ref": 61,
+      "try": 0,
+      "rethrow": 0
+    }
+  ],
+  "local_config_comparison": {
+    "comparison": "existing local default-EH build vs fresh legacy-EH build, not CI config artifact",
+    "old_sha256": "d538f670f1f7b34c3dc22e92b1e146782b5e3679fdca3f6b03f73a0b0cfc2aa4",
+    "new_sha256": "d538f670f1f7b34c3dc22e92b1e146782b5e3679fdca3f6b03f73a0b0cfc2aa4",
+    "identical_bytes": true,
+    "old_only_have": [],
+    "new_only_have": []
+  },
+  "legacy_unoptimized_inventory": {
+    "guest_bytes": 22164434,
+    "guest_sha256": "5ba2a970161a6d3455ba0e1bab7329887313202409152973a381419a371be8a5",
+    "wasm_tools_version": "wasm-tools 1.259.0 (7fc33f279 2026-09-10)",
+    "sections": {
+      "func": 32244,
+      "global": 728,
+      "table": 1,
+      "tag": 2,
+      "data": 3,
+      "export": 5022,
+      "start": 1,
+      "mutable_globals": 4
+    },
+    "imports": [
+      {
+        "module": "env",
+        "name": "memory",
+        "kind": "memory",
+        "declaration": "(memory (;0;) 4096 32768 shared)"
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "args_get",
+        "kind": "function",
+        "function_index": 0,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "args_sizes_get",
+        "kind": "function",
+        "function_index": 1,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "environ_get",
+        "kind": "function",
+        "function_index": 2,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "environ_sizes_get",
+        "kind": "function",
+        "function_index": 3,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "clock_time_get",
+        "kind": "function",
+        "function_index": 4,
+        "signature": "(func (param i32 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_advise",
+        "kind": "function",
+        "function_index": 5,
+        "signature": "(func (param i32 i64 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_allocate",
+        "kind": "function",
+        "function_index": 6,
+        "signature": "(func (param i32 i64 i64) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_close",
+        "kind": "function",
+        "function_index": 7,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_datasync",
+        "kind": "function",
+        "function_index": 8,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_fdstat_get",
+        "kind": "function",
+        "function_index": 9,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_fdstat_set_flags",
+        "kind": "function",
+        "function_index": 10,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_filestat_get",
+        "kind": "function",
+        "function_index": 11,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_filestat_set_size",
+        "kind": "function",
+        "function_index": 12,
+        "signature": "(func (param i32 i64) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_pread",
+        "kind": "function",
+        "function_index": 13,
+        "signature": "(func (param i32 i32 i32 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_prestat_get",
+        "kind": "function",
+        "function_index": 14,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_prestat_dir_name",
+        "kind": "function",
+        "function_index": 15,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_pwrite",
+        "kind": "function",
+        "function_index": 16,
+        "signature": "(func (param i32 i32 i32 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_read",
+        "kind": "function",
+        "function_index": 17,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_readdir",
+        "kind": "function",
+        "function_index": 18,
+        "signature": "(func (param i32 i32 i32 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_renumber",
+        "kind": "function",
+        "function_index": 19,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_seek",
+        "kind": "function",
+        "function_index": 20,
+        "signature": "(func (param i32 i64 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_tell",
+        "kind": "function",
+        "function_index": 21,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_write",
+        "kind": "function",
+        "function_index": 22,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_create_directory",
+        "kind": "function",
+        "function_index": 23,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_filestat_get",
+        "kind": "function",
+        "function_index": 24,
+        "signature": "(func (param i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_filestat_set_times",
+        "kind": "function",
+        "function_index": 25,
+        "signature": "(func (param i32 i32 i32 i32 i64 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_readlink",
+        "kind": "function",
+        "function_index": 26,
+        "signature": "(func (param i32 i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_remove_directory",
+        "kind": "function",
+        "function_index": 27,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_rename",
+        "kind": "function",
+        "function_index": 28,
+        "signature": "(func (param i32 i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_symlink",
+        "kind": "function",
+        "function_index": 29,
+        "signature": "(func (param i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_unlink_file",
+        "kind": "function",
+        "function_index": 30,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "poll_oneoff",
+        "kind": "function",
+        "function_index": 31,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "sched_yield",
+        "kind": "function",
+        "function_index": 32,
+        "signature": "(func (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "sock_recv",
+        "kind": "function",
+        "function_index": 33,
+        "signature": "(func (param i32 i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "sock_send",
+        "kind": "function",
+        "function_index": 34,
+        "signature": "(func (param i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "sock_shutdown",
+        "kind": "function",
+        "function_index": 35,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "fd_dup",
+        "kind": "function",
+        "function_index": 36,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "fd_dup2",
+        "kind": "function",
+        "function_index": 37,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "tty_get",
+        "kind": "function",
+        "function_index": 38,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "tty_set",
+        "kind": "function",
+        "function_index": 39,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "getcwd",
+        "kind": "function",
+        "function_index": 40,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "callback_signal",
+        "kind": "function",
+        "function_index": 41,
+        "signature": "(func (param i32 i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "thread_parallelism",
+        "kind": "function",
+        "function_index": 42,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "thread_signal",
+        "kind": "function",
+        "function_index": 43,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "futex_wait",
+        "kind": "function",
+        "function_index": 44,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "futex_wake",
+        "kind": "function",
+        "function_index": 45,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "futex_wake_all",
+        "kind": "function",
+        "function_index": 46,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "thread_exit",
+        "kind": "function",
+        "function_index": 47,
+        "signature": "(func (param i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "path_open2",
+        "kind": "function",
+        "function_index": 48,
+        "signature": "(func (param i32 i32 i32 i32 i32 i64 i64 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "fd_fdflags_get",
+        "kind": "function",
+        "function_index": 49,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "fd_fdflags_set",
+        "kind": "function",
+        "function_index": 50,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "proc_exit2",
+        "kind": "function",
+        "function_index": 51,
+        "signature": "(func (param i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "proc_id",
+        "kind": "function",
+        "function_index": 52,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "proc_signals_get",
+        "kind": "function",
+        "function_index": 53,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "proc_signals_sizes_get",
+        "kind": "function",
+        "function_index": 54,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_addr_local",
+        "kind": "function",
+        "function_index": 55,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_addr_peer",
+        "kind": "function",
+        "function_index": 56,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_open",
+        "kind": "function",
+        "function_index": 57,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_set_opt_flag",
+        "kind": "function",
+        "function_index": 58,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_get_opt_flag",
+        "kind": "function",
+        "function_index": 59,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_set_opt_time",
+        "kind": "function",
+        "function_index": 60,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_get_opt_time",
+        "kind": "function",
+        "function_index": 61,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_set_opt_size",
+        "kind": "function",
+        "function_index": 62,
+        "signature": "(func (param i32 i32 i64) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_get_opt_size",
+        "kind": "function",
+        "function_index": 63,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_bind",
+        "kind": "function",
+        "function_index": 64,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_connect",
+        "kind": "function",
+        "function_index": 65,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_send_to",
+        "kind": "function",
+        "function_index": 66,
+        "signature": "(func (param i32 i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "resolve",
+        "kind": "function",
+        "function_index": 67,
+        "signature": "(func (param i32 i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi",
+        "name": "thread-spawn",
+        "kind": "function",
+        "function_index": 68,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      }
+    ],
+    "import_namespaces": {
+      "env": 1,
+      "wasi_snapshot_preview1": 36,
+      "wasix_32v1": 32,
+      "wasi": 1
+    },
+    "opcode_counts": {
+      "atomic.fence": 442,
+      "block": 166070,
+      "br": 60973,
+      "br_if": 205293,
+      "br_table": 3515,
+      "call": 127496,
+      "call_indirect": 21185,
+      "catch": 110,
+      "catch_all": 12630,
+      "data.drop": 2,
+      "delegate": 1573,
+      "drop": 25345,
+      "end": 197030,
+      "f32.abs": 7,
+      "f32.add": 47,
+      "f32.ceil": 20,
+      "f32.const": 145,
+      "f32.convert_i32_s": 1,
+      "f32.convert_i32_u": 34,
+      "f32.convert_i64_s": 11,
+      "f32.convert_i64_u": 10,
+      "f32.copysign": 1,
+      "f32.demote_f64": 31,
+      "f32.div": 40,
+      "f32.eq": 10,
+      "f32.ge": 7,
+      "f32.gt": 28,
+      "f32.le": 17,
+      "f32.load": 324,
+      "f32.lt": 133,
+      "f32.mul": 77,
+      "f32.ne": 8,
+      "f32.nearest": 1,
+      "f32.neg": 3,
+      "f32.reinterpret_i32": 38,
+      "f32.sqrt": 3,
+      "f32.store": 170,
+      "f32.sub": 18,
+      "f32x4.extract_lane": 20,
+      "f32x4.gt": 6,
+      "f32x4.lt": 4,
+      "f32x4.ne": 2,
+      "f64.abs": 54,
+      "f64.add": 1017,
+      "f64.ceil": 17,
+      "f64.const": 2300,
+      "f64.convert_i32_s": 139,
+      "f64.convert_i32_u": 360,
+      "f64.convert_i64_s": 94,
+      "f64.convert_i64_u": 521,
+      "f64.copysign": 6,
+      "f64.div": 481,
+      "f64.eq": 148,
+      "f64.floor": 29,
+      "f64.ge": 128,
+      "f64.gt": 422,
+      "f64.le": 121,
+      "f64.load": 2832,
+      "f64.lt": 556,
+      "f64.max": 1,
+      "f64.min": 1,
+      "f64.mul": 1276,
+      "f64.ne": 160,
+      "f64.nearest": 20,
+      "f64.neg": 73,
+      "f64.promote_f32": 54,
+      "f64.reinterpret_i64": 88,
+      "f64.sqrt": 37,
+      "f64.store": 1236,
+      "f64.sub": 456,
+      "f64x2.add": 16,
+      "f64x2.extract_lane": 14,
+      "f64x2.ge": 2,
+      "f64x2.gt": 1,
+      "f64x2.le": 2,
+      "f64x2.lt": 1,
+      "f64x2.mul": 8,
+      "f64x2.promote_low_f32x4": 2,
+      "f64x2.replace_lane": 2,
+      "f64x2.splat": 1,
+      "f64x2.sub": 6,
+      "global.get": 16351,
+      "global.set": 29636,
+      "i16x8.all_true": 1,
+      "i16x8.bitmask": 2,
+      "i16x8.eq": 5,
+      "i16x8.extend_low_i8x16_s": 10,
+      "i16x8.extend_low_i8x16_u": 120,
+      "i16x8.extract_lane_u": 21,
+      "i16x8.gt_u": 4,
+      "i16x8.max_u": 15,
+      "i16x8.narrow_i32x4_u": 57,
+      "i16x8.replace_lane": 16,
+      "i16x8.shr_u": 1,
+      "i16x8.splat": 10,
+      "i16x8.sub_sat_u": 2,
+      "i32.add": 221502,
+      "i32.and": 50616,
+      "i32.atomic.load": 1051,
+      "i32.atomic.load16_u": 1,
+      "i32.atomic.load8_u": 400,
+      "i32.atomic.rmw.add": 522,
+      "i32.atomic.rmw.and": 12,
+      "i32.atomic.rmw.cmpxchg": 382,
+      "i32.atomic.rmw.or": 98,
+      "i32.atomic.rmw.sub": 465,
+      "i32.atomic.rmw.xchg": 30,
+      "i32.atomic.rmw8.add_u": 2,
+      "i32.atomic.rmw8.xchg_u": 9,
+      "i32.atomic.store": 394,
+      "i32.atomic.store16": 4,
+      "i32.atomic.store8": 106,
+      "i32.clz": 109,
+      "i32.const": 623307,
+      "i32.ctz": 6,
+      "i32.div_s": 423,
+      "i32.div_u": 919,
+      "i32.eq": 18163,
+      "i32.eqz": 72182,
+      "i32.extend16_s": 146,
+      "i32.extend8_s": 539,
+      "i32.ge_s": 1116,
+      "i32.ge_u": 5879,
+      "i32.gt_s": 5209,
+      "i32.gt_u": 9954,
+      "i32.le_s": 563,
+      "i32.le_u": 3097,
+      "i32.load": 284957,
+      "i32.load16_s": 363,
+      "i32.load16_u": 12116,
+      "i32.load8_s": 3626,
+      "i32.load8_u": 41215,
+      "i32.lt_s": 6123,
+      "i32.lt_u": 13404,
+      "i32.mul": 5284,
+      "i32.ne": 25956,
+      "i32.or": 22642,
+      "i32.popcnt": 76,
+      "i32.reinterpret_f32": 28,
+      "i32.rem_s": 243,
+      "i32.rem_u": 490,
+      "i32.rotl": 645,
+      "i32.rotr": 6,
+      "i32.shl": 23286,
+      "i32.shr_s": 2868,
+      "i32.shr_u": 13618,
+      "i32.store": 139717,
+      "i32.store16": 12561,
+      "i32.store8": 34662,
+      "i32.sub": 22203,
+      "i32.trunc_sat_f32_s": 1,
+      "i32.trunc_sat_f32_u": 21,
+      "i32.trunc_sat_f64_s": 54,
+      "i32.trunc_sat_f64_u": 68,
+      "i32.wrap_i64": 5520,
+      "i32.xor": 4925,
+      "i32x4.add": 569,
+      "i32x4.all_true": 3,
+      "i32x4.bitmask": 1,
+      "i32x4.eq": 29,
+      "i32x4.extend_high_i16x8_u": 4,
+      "i32x4.extend_low_i16x8_s": 43,
+      "i32x4.extend_low_i16x8_u": 125,
+      "i32x4.extract_lane": 967,
+      "i32x4.ge_u": 3,
+      "i32x4.gt_u": 4,
+      "i32x4.lt_u": 18,
+      "i32x4.max_u": 4,
+      "i32x4.min_u": 2,
+      "i32x4.mul": 5,
+      "i32x4.ne": 19,
+      "i32x4.neg": 2,
+      "i32x4.replace_lane": 1944,
+      "i32x4.shl": 74,
+      "i32x4.shr_s": 8,
+      "i32x4.shr_u": 61,
+      "i32x4.splat": 543,
+      "i32x4.sub": 27,
+      "i64.add": 6287,
+      "i64.and": 7448,
+      "i64.atomic.load": 536,
+      "i64.atomic.load32_u": 11,
+      "i64.atomic.rmw.add": 61,
+      "i64.atomic.rmw.cmpxchg": 7,
+      "i64.atomic.rmw.or": 1,
+      "i64.atomic.rmw.sub": 7,
+      "i64.atomic.store": 180,
+      "i64.atomic.store32": 1,
+      "i64.clz": 54,
+      "i64.const": 46901,
+      "i64.ctz": 90,
+      "i64.div_s": 29,
+      "i64.div_u": 544,
+      "i64.eq": 1022,
+      "i64.eqz": 2264,
+      "i64.extend32_s": 16,
+      "i64.extend8_s": 9,
+      "i64.extend_i32_s": 469,
+      "i64.extend_i32_u": 3497,
+      "i64.ge_s": 119,
+      "i64.ge_u": 659,
+      "i64.gt_s": 412,
+      "i64.gt_u": 898,
+      "i64.le_s": 104,
+      "i64.le_u": 658,
+      "i64.load": 23330,
+      "i64.load16_s": 30,
+      "i64.load16_u": 207,
+      "i64.load32_s": 919,
+      "i64.load32_u": 2316,
+      "i64.load8_s": 20,
+      "i64.load8_u": 577,
+      "i64.lt_s": 485,
+      "i64.lt_u": 1237,
+      "i64.mul": 3066,
+      "i64.ne": 2095,
+      "i64.or": 7705,
+      "i64.popcnt": 7,
+      "i64.reinterpret_f64": 88,
+      "i64.rem_s": 36,
+      "i64.rem_u": 110,
+      "i64.rotl": 498,
+      "i64.shl": 5096,
+      "i64.shr_s": 456,
+      "i64.shr_u": 6593,
+      "i64.store": 31170,
+      "i64.store16": 104,
+      "i64.store32": 845,
+      "i64.store8": 631,
+      "i64.sub": 1242,
+      "i64.trunc_sat_f32_s": 1,
+      "i64.trunc_sat_f32_u": 5,
+      "i64.trunc_sat_f64_s": 27,
+      "i64.trunc_sat_f64_u": 84,
+      "i64.xor": 1079,
+      "i64x2.add": 197,
+      "i64x2.eq": 2,
+      "i64x2.extend_low_i32x4_s": 9,
+      "i64x2.extend_low_i32x4_u": 2,
+      "i64x2.extmul_low_i32x4_s": 23,
+      "i64x2.extract_lane": 104,
+      "i64x2.mul": 58,
+      "i64x2.ne": 12,
+      "i64x2.replace_lane": 68,
+      "i64x2.shl": 15,
+      "i64x2.shr_u": 86,
+      "i64x2.splat": 71,
+      "i64x2.sub": 8,
+      "i8x16.add": 14,
+      "i8x16.all_true": 1,
+      "i8x16.bitmask": 2,
+      "i8x16.eq": 46,
+      "i8x16.extract_lane_u": 89,
+      "i8x16.ge_u": 1,
+      "i8x16.lt_s": 1,
+      "i8x16.lt_u": 5,
+      "i8x16.narrow_i16x8_u": 13,
+      "i8x16.ne": 9,
+      "i8x16.replace_lane": 101,
+      "i8x16.shl": 2,
+      "i8x16.shr_u": 9,
+      "i8x16.shuffle": 524,
+      "i8x16.splat": 6,
+      "local.get": 1119893,
+      "local.set": 214119,
+      "local.tee": 173936,
+      "loop": 18220,
+      "memory.atomic.notify": 1,
+      "memory.atomic.wait32": 1,
+      "memory.copy": 3880,
+      "memory.fill": 2778,
+      "memory.grow": 1,
+      "memory.init": 4,
+      "memory.size": 2,
+      "rethrow": 3444,
+      "return": 10359,
+      "select": 18966,
+      "throw": 2,
+      "try": 14313,
+      "unreachable": 11445,
+      "v128.and": 716,
+      "v128.andnot": 5,
+      "v128.any_true": 42,
+      "v128.bitselect": 21,
+      "v128.const": 4336,
+      "v128.load": 4685,
+      "v128.load16_lane": 30,
+      "v128.load16_splat": 6,
+      "v128.load32_lane": 156,
+      "v128.load32_splat": 2,
+      "v128.load32_zero": 100,
+      "v128.load32x2_u": 4,
+      "v128.load64_lane": 2,
+      "v128.load64_zero": 32,
+      "v128.load8_lane": 195,
+      "v128.load8_splat": 40,
+      "v128.not": 56,
+      "v128.or": 232,
+      "v128.store": 12378,
+      "v128.store32_lane": 14,
+      "v128.store64_lane": 5,
+      "v128.store8_lane": 80,
+      "v128.xor": 142
+    },
+    "relevant_exports": [
+      "(export \"__wasm_call_ctors\" (func $__wasm_call_ctors))",
+      "(export \"__stack_pointer\" (global $__stack_pointer))",
+      "(export \"__tls_base\" (global $__tls_base))",
+      "(export \"__tls_size\" (global $__tls_size))",
+      "(export \"__tls_align\" (global $__tls_align))",
+      "(export \"__wasm_init_tls\" (func $__wasm_init_tls))",
+      "(export \"__wasm_signal\" (func $__wasm_signal))",
+      "(export \"__wasm_sigaction\" (func $__wasm_sigaction))",
+      "(export \"wasi_thread_start\" (func $wasi_thread_start))",
+      "(export \"l4m_open\" (func $l4m_open))",
+      "(export \"l4m_close\" (func $l4m_close))",
+      "(export \"l4m_query\" (func $l4m_query))",
+      "(export \"l4m_exec_multi\" (func $l4m_exec_multi))",
+      "(export \"l4m_query_v2\" (func $l4m_query_v2))",
+      "(export \"_start\" (func $_start))"
+    ],
+    "notes": [
+      "Function count excludes imported functions.",
+      "Static direct-call count is not reachability or runtime frequency.",
+      "Imports may include linked but unused facilities."
+    ]
+  },
+  "legacy_final_inventory": {
+    "guest_bytes": 18613516,
+    "guest_sha256": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+    "wasm_tools_version": "wasm-tools 1.259.0 (7fc33f279 2026-09-10)",
+    "sections": {
+      "func": 21861,
+      "global": 709,
+      "table": 1,
+      "tag": 2,
+      "data": 3,
+      "export": 5022,
+      "start": 1,
+      "mutable_globals": 4
+    },
+    "imports": [
+      {
+        "module": "env",
+        "name": "memory",
+        "kind": "memory",
+        "declaration": "(memory (;0;) 4096 32768 shared)"
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "args_get",
+        "kind": "function",
+        "function_index": 0,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "args_sizes_get",
+        "kind": "function",
+        "function_index": 1,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "environ_get",
+        "kind": "function",
+        "function_index": 2,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "environ_sizes_get",
+        "kind": "function",
+        "function_index": 3,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "clock_time_get",
+        "kind": "function",
+        "function_index": 4,
+        "signature": "(func (param i32 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_advise",
+        "kind": "function",
+        "function_index": 5,
+        "signature": "(func (param i32 i64 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_allocate",
+        "kind": "function",
+        "function_index": 6,
+        "signature": "(func (param i32 i64 i64) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_close",
+        "kind": "function",
+        "function_index": 7,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_datasync",
+        "kind": "function",
+        "function_index": 8,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_fdstat_get",
+        "kind": "function",
+        "function_index": 9,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_fdstat_set_flags",
+        "kind": "function",
+        "function_index": 10,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_filestat_get",
+        "kind": "function",
+        "function_index": 11,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_filestat_set_size",
+        "kind": "function",
+        "function_index": 12,
+        "signature": "(func (param i32 i64) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_pread",
+        "kind": "function",
+        "function_index": 13,
+        "signature": "(func (param i32 i32 i32 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_prestat_get",
+        "kind": "function",
+        "function_index": 14,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_prestat_dir_name",
+        "kind": "function",
+        "function_index": 15,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_pwrite",
+        "kind": "function",
+        "function_index": 16,
+        "signature": "(func (param i32 i32 i32 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_read",
+        "kind": "function",
+        "function_index": 17,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_readdir",
+        "kind": "function",
+        "function_index": 18,
+        "signature": "(func (param i32 i32 i32 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_renumber",
+        "kind": "function",
+        "function_index": 19,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_seek",
+        "kind": "function",
+        "function_index": 20,
+        "signature": "(func (param i32 i64 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_tell",
+        "kind": "function",
+        "function_index": 21,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "fd_write",
+        "kind": "function",
+        "function_index": 22,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_create_directory",
+        "kind": "function",
+        "function_index": 23,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_filestat_get",
+        "kind": "function",
+        "function_index": 24,
+        "signature": "(func (param i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_filestat_set_times",
+        "kind": "function",
+        "function_index": 25,
+        "signature": "(func (param i32 i32 i32 i32 i64 i64 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_readlink",
+        "kind": "function",
+        "function_index": 26,
+        "signature": "(func (param i32 i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_remove_directory",
+        "kind": "function",
+        "function_index": 27,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_rename",
+        "kind": "function",
+        "function_index": 28,
+        "signature": "(func (param i32 i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_symlink",
+        "kind": "function",
+        "function_index": 29,
+        "signature": "(func (param i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "path_unlink_file",
+        "kind": "function",
+        "function_index": 30,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "poll_oneoff",
+        "kind": "function",
+        "function_index": 31,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "sched_yield",
+        "kind": "function",
+        "function_index": 32,
+        "signature": "(func (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "sock_recv",
+        "kind": "function",
+        "function_index": 33,
+        "signature": "(func (param i32 i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "sock_send",
+        "kind": "function",
+        "function_index": 34,
+        "signature": "(func (param i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi_snapshot_preview1",
+        "name": "sock_shutdown",
+        "kind": "function",
+        "function_index": 35,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "fd_dup",
+        "kind": "function",
+        "function_index": 36,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "fd_dup2",
+        "kind": "function",
+        "function_index": 37,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "getcwd",
+        "kind": "function",
+        "function_index": 38,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "callback_signal",
+        "kind": "function",
+        "function_index": 39,
+        "signature": "(func (param i32 i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "thread_parallelism",
+        "kind": "function",
+        "function_index": 40,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "thread_signal",
+        "kind": "function",
+        "function_index": 41,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "futex_wait",
+        "kind": "function",
+        "function_index": 42,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "futex_wake",
+        "kind": "function",
+        "function_index": 43,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "futex_wake_all",
+        "kind": "function",
+        "function_index": 44,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "thread_exit",
+        "kind": "function",
+        "function_index": 45,
+        "signature": "(func (param i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "path_open2",
+        "kind": "function",
+        "function_index": 46,
+        "signature": "(func (param i32 i32 i32 i32 i32 i64 i64 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "fd_fdflags_get",
+        "kind": "function",
+        "function_index": 47,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "fd_fdflags_set",
+        "kind": "function",
+        "function_index": 48,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "proc_exit2",
+        "kind": "function",
+        "function_index": 49,
+        "signature": "(func (param i32))",
+        "static_direct_calls": 2
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "proc_id",
+        "kind": "function",
+        "function_index": 50,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "proc_signals_get",
+        "kind": "function",
+        "function_index": 51,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "proc_signals_sizes_get",
+        "kind": "function",
+        "function_index": 52,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_addr_local",
+        "kind": "function",
+        "function_index": 53,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_addr_peer",
+        "kind": "function",
+        "function_index": 54,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_open",
+        "kind": "function",
+        "function_index": 55,
+        "signature": "(func (param i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_set_opt_flag",
+        "kind": "function",
+        "function_index": 56,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_set_opt_time",
+        "kind": "function",
+        "function_index": 57,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_set_opt_size",
+        "kind": "function",
+        "function_index": 58,
+        "signature": "(func (param i32 i32 i64) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_get_opt_size",
+        "kind": "function",
+        "function_index": 59,
+        "signature": "(func (param i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_bind",
+        "kind": "function",
+        "function_index": 60,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_connect",
+        "kind": "function",
+        "function_index": 61,
+        "signature": "(func (param i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "sock_send_to",
+        "kind": "function",
+        "function_index": 62,
+        "signature": "(func (param i32 i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasix_32v1",
+        "name": "resolve",
+        "kind": "function",
+        "function_index": 63,
+        "signature": "(func (param i32 i32 i32 i32 i32 i32) (result i32))",
+        "static_direct_calls": 1
+      },
+      {
+        "module": "wasi",
+        "name": "thread-spawn",
+        "kind": "function",
+        "function_index": 64,
+        "signature": "(func (param i32) (result i32))",
+        "static_direct_calls": 1
+      }
+    ],
+    "import_namespaces": {
+      "env": 1,
+      "wasi_snapshot_preview1": 36,
+      "wasix_32v1": 28,
+      "wasi": 1
+    },
+    "opcode_counts": {
+      "block": 79196,
+      "br": 56275,
+      "br_if": 120073,
+      "br_table": 3436,
+      "call": 116248,
+      "call_indirect": 20429,
+      "catch": 101,
+      "catch_all": 11630,
+      "data.drop": 2,
+      "delegate": 1018,
+      "drop": 25469,
+      "else": 4016,
+      "end": 183767,
+      "f32.abs": 7,
+      "f32.add": 47,
+      "f32.ceil": 18,
+      "f32.const": 128,
+      "f32.convert_i32_s": 1,
+      "f32.convert_i32_u": 31,
+      "f32.convert_i64_s": 11,
+      "f32.convert_i64_u": 10,
+      "f32.demote_f64": 30,
+      "f32.div": 37,
+      "f32.eq": 8,
+      "f32.ge": 6,
+      "f32.gt": 54,
+      "f32.le": 15,
+      "f32.load": 321,
+      "f32.lt": 98,
+      "f32.mul": 75,
+      "f32.ne": 9,
+      "f32.nearest": 1,
+      "f32.neg": 3,
+      "f32.reinterpret_i32": 24,
+      "f32.sqrt": 3,
+      "f32.store": 170,
+      "f32.sub": 16,
+      "f32x4.extract_lane": 10,
+      "f32x4.gt": 4,
+      "f32x4.lt": 2,
+      "f32x4.ne": 1,
+      "f64.abs": 54,
+      "f64.add": 1001,
+      "f64.ceil": 15,
+      "f64.const": 1966,
+      "f64.convert_i32_s": 100,
+      "f64.convert_i32_u": 331,
+      "f64.convert_i64_s": 78,
+      "f64.convert_i64_u": 514,
+      "f64.copysign": 6,
+      "f64.div": 474,
+      "f64.eq": 153,
+      "f64.floor": 27,
+      "f64.ge": 126,
+      "f64.gt": 466,
+      "f64.le": 115,
+      "f64.load": 2769,
+      "f64.lt": 484,
+      "f64.max": 1,
+      "f64.min": 1,
+      "f64.mul": 1251,
+      "f64.ne": 146,
+      "f64.nearest": 20,
+      "f64.neg": 69,
+      "f64.promote_f32": 45,
+      "f64.reinterpret_i64": 69,
+      "f64.sqrt": 35,
+      "f64.store": 1190,
+      "f64.sub": 407,
+      "f64x2.add": 16,
+      "f64x2.extract_lane": 14,
+      "f64x2.ge": 2,
+      "f64x2.gt": 1,
+      "f64x2.le": 2,
+      "f64x2.lt": 1,
+      "f64x2.mul": 8,
+      "f64x2.promote_low_f32x4": 1,
+      "f64x2.replace_lane": 2,
+      "f64x2.splat": 1,
+      "f64x2.sub": 6,
+      "global.get": 11433,
+      "global.set": 28098,
+      "i16x8.all_true": 1,
+      "i16x8.bitmask": 2,
+      "i16x8.eq": 5,
+      "i16x8.extend_low_i8x16_s": 10,
+      "i16x8.extend_low_i8x16_u": 106,
+      "i16x8.extract_lane_u": 20,
+      "i16x8.gt_u": 4,
+      "i16x8.max_u": 12,
+      "i16x8.narrow_i32x4_u": 51,
+      "i16x8.replace_lane": 13,
+      "i16x8.shr_u": 1,
+      "i16x8.splat": 9,
+      "i16x8.sub_sat_u": 2,
+      "i32.add": 176323,
+      "i32.and": 48370,
+      "i32.atomic.load": 1033,
+      "i32.atomic.load16_u": 1,
+      "i32.atomic.load8_u": 374,
+      "i32.atomic.rmw.add": 482,
+      "i32.atomic.rmw.and": 12,
+      "i32.atomic.rmw.cmpxchg": 376,
+      "i32.atomic.rmw.or": 98,
+      "i32.atomic.rmw.sub": 501,
+      "i32.atomic.rmw.xchg": 30,
+      "i32.atomic.rmw8.add_u": 2,
+      "i32.atomic.rmw8.xchg_u": 9,
+      "i32.atomic.store": 394,
+      "i32.atomic.store16": 4,
+      "i32.atomic.store8": 106,
+      "i32.clz": 106,
+      "i32.const": 577530,
+      "i32.ctz": 6,
+      "i32.div_s": 398,
+      "i32.div_u": 893,
+      "i32.eq": 21571,
+      "i32.eqz": 57614,
+      "i32.extend16_s": 123,
+      "i32.extend8_s": 477,
+      "i32.ge_s": 2348,
+      "i32.ge_u": 6270,
+      "i32.gt_s": 2626,
+      "i32.gt_u": 8581,
+      "i32.le_s": 2056,
+      "i32.le_u": 4556,
+      "i32.load": 278728,
+      "i32.load16_s": 363,
+      "i32.load16_u": 11883,
+      "i32.load8_s": 3345,
+      "i32.load8_u": 39673,
+      "i32.lt_s": 5222,
+      "i32.lt_u": 11353,
+      "i32.mul": 5218,
+      "i32.ne": 20480,
+      "i32.or": 21815,
+      "i32.popcnt": 74,
+      "i32.reinterpret_f32": 22,
+      "i32.rem_s": 243,
+      "i32.rem_u": 469,
+      "i32.rotl": 645,
+      "i32.rotr": 4,
+      "i32.shl": 22213,
+      "i32.shr_s": 2781,
+      "i32.shr_u": 13162,
+      "i32.store": 136310,
+      "i32.store16": 12388,
+      "i32.store8": 33344,
+      "i32.sub": 46953,
+      "i32.trunc_sat_f32_s": 1,
+      "i32.trunc_sat_f32_u": 19,
+      "i32.trunc_sat_f64_s": 54,
+      "i32.trunc_sat_f64_u": 68,
+      "i32.wrap_i64": 5499,
+      "i32.xor": 4774,
+      "i32x4.add": 565,
+      "i32x4.all_true": 3,
+      "i32x4.bitmask": 1,
+      "i32x4.eq": 29,
+      "i32x4.extend_high_i16x8_u": 4,
+      "i32x4.extend_low_i16x8_s": 43,
+      "i32x4.extend_low_i16x8_u": 111,
+      "i32x4.extract_lane": 959,
+      "i32x4.ge_u": 3,
+      "i32x4.gt_u": 4,
+      "i32x4.lt_u": 18,
+      "i32x4.max_u": 4,
+      "i32x4.min_u": 2,
+      "i32x4.mul": 5,
+      "i32x4.ne": 19,
+      "i32x4.neg": 2,
+      "i32x4.replace_lane": 1344,
+      "i32x4.shl": 62,
+      "i32x4.shr_s": 8,
+      "i32x4.shr_u": 61,
+      "i32x4.splat": 540,
+      "i32x4.sub": 27,
+      "i64.add": 5652,
+      "i64.and": 6968,
+      "i64.atomic.load": 541,
+      "i64.atomic.load32_u": 11,
+      "i64.atomic.rmw.add": 61,
+      "i64.atomic.rmw.cmpxchg": 7,
+      "i64.atomic.rmw.or": 1,
+      "i64.atomic.rmw.sub": 7,
+      "i64.atomic.store": 180,
+      "i64.atomic.store32": 1,
+      "i64.clz": 44,
+      "i64.const": 44361,
+      "i64.ctz": 72,
+      "i64.div_s": 29,
+      "i64.div_u": 540,
+      "i64.eq": 963,
+      "i64.eqz": 1928,
+      "i64.extend32_s": 16,
+      "i64.extend8_s": 9,
+      "i64.extend_i32_s": 460,
+      "i64.extend_i32_u": 3298,
+      "i64.ge_s": 235,
+      "i64.ge_u": 699,
+      "i64.gt_s": 274,
+      "i64.gt_u": 1046,
+      "i64.le_s": 124,
+      "i64.le_u": 558,
+      "i64.load": 22945,
+      "i64.load16_s": 29,
+      "i64.load16_u": 202,
+      "i64.load32_s": 916,
+      "i64.load32_u": 2342,
+      "i64.load8_s": 19,
+      "i64.load8_u": 575,
+      "i64.lt_s": 429,
+      "i64.lt_u": 1110,
+      "i64.mul": 3050,
+      "i64.ne": 2213,
+      "i64.or": 7123,
+      "i64.popcnt": 7,
+      "i64.reinterpret_f64": 85,
+      "i64.rem_s": 36,
+      "i64.rem_u": 110,
+      "i64.rotl": 496,
+      "i64.shl": 4721,
+      "i64.shr_s": 452,
+      "i64.shr_u": 6244,
+      "i64.store": 30647,
+      "i64.store16": 100,
+      "i64.store32": 842,
+      "i64.store8": 596,
+      "i64.sub": 1741,
+      "i64.trunc_sat_f32_s": 1,
+      "i64.trunc_sat_f32_u": 5,
+      "i64.trunc_sat_f64_s": 26,
+      "i64.trunc_sat_f64_u": 84,
+      "i64.xor": 1054,
+      "i64x2.add": 197,
+      "i64x2.eq": 2,
+      "i64x2.extend_low_i32x4_s": 6,
+      "i64x2.extend_low_i32x4_u": 2,
+      "i64x2.extmul_low_i32x4_s": 23,
+      "i64x2.extract_lane": 102,
+      "i64x2.mul": 58,
+      "i64x2.ne": 12,
+      "i64x2.replace_lane": 60,
+      "i64x2.shl": 15,
+      "i64x2.shr_u": 86,
+      "i64x2.splat": 62,
+      "i64x2.sub": 8,
+      "i8x16.add": 14,
+      "i8x16.all_true": 1,
+      "i8x16.bitmask": 2,
+      "i8x16.eq": 46,
+      "i8x16.extract_lane_u": 89,
+      "i8x16.ge_u": 1,
+      "i8x16.lt_s": 1,
+      "i8x16.lt_u": 5,
+      "i8x16.narrow_i16x8_u": 12,
+      "i8x16.ne": 9,
+      "i8x16.replace_lane": 101,
+      "i8x16.shl": 2,
+      "i8x16.shr_u": 9,
+      "i8x16.shuffle": 503,
+      "i8x16.splat": 6,
+      "if": 75156,
+      "local.get": 1052394,
+      "local.set": 168544,
+      "local.tee": 173242,
+      "loop": 17684,
+      "memory.atomic.notify": 1,
+      "memory.atomic.wait32": 1,
+      "memory.copy": 3794,
+      "memory.fill": 2710,
+      "memory.grow": 1,
+      "memory.init": 4,
+      "memory.size": 2,
+      "rethrow": 3327,
+      "return": 8501,
+      "select": 18721,
+      "throw": 2,
+      "try": 12749,
+      "unreachable": 13281,
+      "v128.and": 707,
+      "v128.andnot": 5,
+      "v128.any_true": 42,
+      "v128.bitselect": 21,
+      "v128.const": 6009,
+      "v128.load": 4619,
+      "v128.load16_lane": 30,
+      "v128.load16_splat": 6,
+      "v128.load32_lane": 153,
+      "v128.load32_splat": 2,
+      "v128.load32_zero": 99,
+      "v128.load32x2_u": 4,
+      "v128.load64_lane": 2,
+      "v128.load64_zero": 28,
+      "v128.load8_lane": 195,
+      "v128.load8_splat": 40,
+      "v128.not": 54,
+      "v128.or": 216,
+      "v128.store": 11575,
+      "v128.store32_lane": 14,
+      "v128.store64_lane": 5,
+      "v128.store8_lane": 80,
+      "v128.xor": 142
+    },
+    "relevant_exports": [
+      "(export \"__wasm_call_ctors\" (func 65))",
+      "(export \"__stack_pointer\" (global 0))",
+      "(export \"__tls_base\" (global 1))",
+      "(export \"__tls_size\" (global 2))",
+      "(export \"__tls_align\" (global 3))",
+      "(export \"__wasm_init_tls\" (func 66))",
+      "(export \"__wasm_signal\" (func 145))",
+      "(export \"__wasm_sigaction\" (func 149))",
+      "(export \"wasi_thread_start\" (func 217))",
+      "(export \"l4m_open\" (func 244))",
+      "(export \"l4m_close\" (func 245))",
+      "(export \"l4m_query\" (func 248))",
+      "(export \"l4m_exec_multi\" (func 255))",
+      "(export \"l4m_query_v2\" (func 256))",
+      "(export \"_start\" (func 21925))"
+    ],
+    "notes": [
+      "Function count excludes imported functions.",
+      "Static direct-call count is not reachability or runtime frequency.",
+      "Imports may include linked but unused facilities."
+    ]
+  },
+  "comparison_unoptimized": {
+    "before_sha256": "d49402efec834414527537f639c9a11e5709bf8642357d34d33c7cfa471322d3",
+    "after_sha256": "5ba2a970161a6d3455ba0e1bab7329887313202409152973a381419a371be8a5",
+    "bytes": {
+      "before": 18802825,
+      "after": 22164434
+    },
+    "sections": {
+      "before": {
+        "func": 21757,
+        "global": 709,
+        "table": 1,
+        "tag": 2,
+        "data": 3,
+        "export": 5022,
+        "start": 1,
+        "mutable_globals": 4
+      },
+      "after": {
+        "func": 32244,
+        "global": 728,
+        "table": 1,
+        "tag": 2,
+        "data": 3,
+        "export": 5022,
+        "start": 1,
+        "mutable_globals": 4
+      }
+    },
+    "opcodes": {
+      "try_table": {
+        "before": 12747,
+        "after": 0
+      },
+      "throw_ref": {
+        "before": 3746,
+        "after": 0
+      },
+      "try": {
+        "before": 0,
+        "after": 14313
+      },
+      "catch": {
+        "before": 0,
+        "after": 110
+      },
+      "catch_all": {
+        "before": 0,
+        "after": 12630
+      },
+      "delegate": {
+        "before": 0,
+        "after": 1573
+      },
+      "rethrow": {
+        "before": 0,
+        "after": 3444
+      },
+      "throw": {
+        "before": 2,
+        "after": 2
+      },
+      "memory.grow": {
+        "before": 1,
+        "after": 1
+      },
+      "memory.size": {
+        "before": 2,
+        "after": 2
+      },
+      "memory.init": {
+        "before": 4,
+        "after": 4
+      },
+      "data.drop": {
+        "before": 2,
+        "after": 2
+      },
+      "memory.copy": {
+        "before": 3794,
+        "after": 3880
+      },
+      "memory.fill": {
+        "before": 2710,
+        "after": 2778
+      }
+    },
+    "added_imports": [
+      [
+        "wasix_32v1",
+        "sock_get_opt_flag"
+      ],
+      [
+        "wasix_32v1",
+        "sock_get_opt_time"
+      ],
+      [
+        "wasix_32v1",
+        "tty_get"
+      ],
+      [
+        "wasix_32v1",
+        "tty_set"
+      ]
+    ],
+    "removed_imports": [],
+    "changed_import_signatures": [],
+    "memory_declarations": {
+      "before": [
+        "(memory (;0;) 4096 32768 shared)"
+      ],
+      "after": [
+        "(memory (;0;) 4096 32768 shared)"
+      ]
+    },
+    "atomic_instruction_count": {
+      "before": 4233,
+      "after": 4724
+    },
+    "notes": [
+      "Static counts are not execution frequency or semantic equivalence.",
+      "Full inventories retain SIMD, tables, tag exports and per-import signatures."
+    ]
+  },
+  "comparison_final": {
+    "before_sha256": "d49402efec834414527537f639c9a11e5709bf8642357d34d33c7cfa471322d3",
+    "after_sha256": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+    "bytes": {
+      "before": 18802825,
+      "after": 18613516
+    },
+    "sections": {
+      "before": {
+        "func": 21757,
+        "global": 709,
+        "table": 1,
+        "tag": 2,
+        "data": 3,
+        "export": 5022,
+        "start": 1,
+        "mutable_globals": 4
+      },
+      "after": {
+        "func": 21861,
+        "global": 709,
+        "table": 1,
+        "tag": 2,
+        "data": 3,
+        "export": 5022,
+        "start": 1,
+        "mutable_globals": 4
+      }
+    },
+    "opcodes": {
+      "try_table": {
+        "before": 12747,
+        "after": 0
+      },
+      "throw_ref": {
+        "before": 3746,
+        "after": 0
+      },
+      "try": {
+        "before": 0,
+        "after": 12749
+      },
+      "catch": {
+        "before": 0,
+        "after": 101
+      },
+      "catch_all": {
+        "before": 0,
+        "after": 11630
+      },
+      "delegate": {
+        "before": 0,
+        "after": 1018
+      },
+      "rethrow": {
+        "before": 0,
+        "after": 3327
+      },
+      "throw": {
+        "before": 2,
+        "after": 2
+      },
+      "memory.grow": {
+        "before": 1,
+        "after": 1
+      },
+      "memory.size": {
+        "before": 2,
+        "after": 2
+      },
+      "memory.init": {
+        "before": 4,
+        "after": 4
+      },
+      "data.drop": {
+        "before": 2,
+        "after": 2
+      },
+      "memory.copy": {
+        "before": 3794,
+        "after": 3794
+      },
+      "memory.fill": {
+        "before": 2710,
+        "after": 2710
+      }
+    },
+    "added_imports": [],
+    "removed_imports": [],
+    "changed_import_signatures": [],
+    "memory_declarations": {
+      "before": [
+        "(memory (;0;) 4096 32768 shared)"
+      ],
+      "after": [
+        "(memory (;0;) 4096 32768 shared)"
+      ]
+    },
+    "atomic_instruction_count": {
+      "before": 4233,
+      "after": 4233
+    },
+    "notes": [
+      "Static counts are not execution frequency or semantic equivalence.",
+      "Full inventories retain SIMD, tables, tag exports and per-import signatures."
+    ]
+  },
+  "attempts": [
+    {
+      "attempt": "legacy with wrapper postopt -O2 but no emit-exnref",
+      "status": "configure failed",
+      "failure": "Prototype-only CHECK_FUNCTION_EXISTS(pthread_rwlock_rdlock) linked binary fails Binaryen parsing: popping from empty stack; independent wasm-tools validation confirms missing i32 call argument."
+    },
+    {
+      "attempt": "legacy + RUN_WASM_OPT=no in fresh configure/build directory",
+      "status": "compile/link and full WASM validation passed",
+      "artifact": "build/wasm2go-legacy-eh/artifact/mariamem-legacy-eh.wasm"
+    },
+    {
+      "attempt": "standalone -O2 --all-features",
+      "status": "valid WASM, unintended compact imports, rejected by Wasmer",
+      "sha256": "e34e8aed0cd2cfc5550ac6d8a0c055ee5035e3f1651528cda8f0c7b7bc2e7612",
+      "bytes": 18612655,
+      "failure": "invalid leading byte 0x7E with compact imports proposal disabled (at offset 0x9a1)"
+    },
+    {
+      "attempt": "standalone existing -O2 feature family, without emit-exnref",
+      "status": "full WASM validation passed; import names/signatures match release; Wasmer rejected legacy EH",
+      "artifact": "build/wasm2go-legacy-eh/artifact/mariamem-legacy-eh-O2-compatible.wasm"
+    }
+  ],
+  "wasmer_validation": {
+    "version": "7.4.2",
+    "compiler": "cranelift-opts",
+    "final_legacy_status": "failed before AOT emission",
+    "failure": "Compiler: cranelift-opts\nTarget: aarch64-apple-darwin\nerror: failed to compile `build/wasm2go-legacy-eh/artifact/mariamem-legacy-eh-O2-compatible.wasm`\n╰─▶ 1: Validation error: legacy_exceptions feature required for try instruction (at offset 0x3e68b)\n",
+    "raw_legacy_failure": "Compiler: cranelift-opts\nTarget: aarch64-apple-darwin\nerror: failed to compile `build/wasm2go-legacy-eh/artifact/mariamem-legacy-eh.wasm`\n╰─▶ 1: Validation error: legacy_exceptions feature required for try instruction (at offset 0xae6eb)\n",
+    "all_features_probe_failure": "error: failed to compile `build/wasm2go-legacy-eh/probe/legacy-preserved.wasm`\n╰─▶ 1: No backends support the required features for the Wasm module. Feel free to open an issue at https://github.com/wasmerio/wasmer/issues\n",
+    "exnref_control": {
+      "compile_exit": 0,
+      "run_exit": 0,
+      "output": "C++ unwind=7 setjmp=9\n"
+    },
+    "legacy_to_exnref_small_control": {
+      "compile_exit": 0,
+      "run_exit": 0,
+      "output": "C++ unwind=7 setjmp=9\n"
+    },
+    "headless_sha256": "ebbedfd8c43d866440b960a7b5f773b7b6932a563b6f61d043bc0c21ed535899"
+  },
+  "wasm2go_retry": {
+    "status": "not run",
+    "reason": "Required legacy guest validation under current Wasmer did not pass. No other wasm2go implementation was tested."
+  },
+  "furthest_point": "Full legacy guest compile/link, -O2 post-link and independent WASM validation. Current Wasmer AOT validation rejected legacy try; no guest instantiation or MariaDB SQL.",
+  "next_blocker": "Current Wasmer legacy-EH validation/codegen contract. Next generated-Go blocker is unobserved.",
+  "source_sha256": {
+    "README.md": "ccc9b72886072e170a058ef833c2a43e0e4b8d3a3f9cf9816c8495cd7fbee66d",
+    "attempt.py": "fa82a0f7a7c7fb719ad9e3e00e77e6c4dce4d3daf4c09bef168d40820571807d",
+    "await-threads.go.txt": "c02548a00259aac72ce0bf2e85ae42fda00bce7330f70ad989aa04c9751d1f1a",
+    "defined-memory.wat": "9e7783177fc1a307186576609a2e81d5a65347c55e5289f5059025b82083bab3",
+    "eh_probe.cpp": "8dd3b3a3b55611f06e1c609623889d51ebfb5450e731c73806e39edd800730ff",
+    "futex-shim.go.txt": "10b947edb11873df1285762fca207187d388c9a9f1014d61093500adb83e4861",
+    "growth.wat": "7b02a4c1744d8afc448dccd81767cab684184669811b675ea0f2d33b96997194",
+    "imported-memory.patch": "d342ffb1c09af27b215c0c26a26e4056b14a5e2a54d5ee8a084af719e2227639",
+    "imported-memory.wat": "e8a291bcfb80829e73dd67677d6002a005d077d26fcb0d3ea8b7a1593652a2b6",
+    "inspect_guest.py": "21422d46a8938ab1d9b305ebd6e3e9e9f0237f1973009ab4906d969fa2a2114f",
+    "legacy-eh.wat": "b904dba333df12b0da4ec6ec2693332903d4f4ca48e3377eed0a583243b422e3",
+    "legacy_eh_inspection.py": "d0764b2f53ebf77a3cf4adcced1f33b055a482784c1d1b7f9e47eee662dfda4f",
+    "legacy_eh_toolchain.sh": "753c3f3f3bdb5ae92fc4b81d3e318d3f02fa64365527bcb985b2ed962f174ab6",
+    "memfs-driver.go.txt": "847a716b8dd12f37fd1a568696351e023ccfbaddb39f603b5290abcb822cff16",
+    "modern-eh.wat": "ff36812e0d9d89f48554f1a809e7f0af9423eb4e559723696351d641005366f6",
+    "path-open-shim.go.txt": "11b37d133fee30966006d58b865b09ffafecca9efb566c89727c522d00172a56",
+    "reductions.py": "c8e907c84ba143407d302ea0cbe595a62101ade2632687bdd626cf385577e0e7",
+    "simd.wat": "e101d9b561aa755f1780afca5c821e39dad92371757d78057f735a5ac06aad02",
+    "thread-exit-shim.go.txt": "d6ab64a9cb8d7c2aa2f0fb275c7a5781e91cd104325f00753a4f4d91ad095f21",
+    "thread-exit.wat": "0a54d961eb781aef6356432fafb8149f72ef05ffef74585964d9a44f809e4afd",
+    "thread-globals.wat": "eed2be12118479e8be973182feae2e82a43a7ffa91302142c1a1993d66bc88f8",
+    "threads.wat": "65d5f5d5786d22085015c22c7f8cd527431365d8943662fd1a97d329ce35fb88",
+    "throw-ref.wat": "06ec23c063e81c06c07d1ef2f48fe77af18f697238bfab2633a4db01107e1a03",
+    "wasi-filesystem.wat": "0d6e683d2e5167a91dc5c224a1773d2dbb2545a8574321e4b3b478de18188e44",
+    "wasix-futex.wat": "91293edb96c0d766ee2fb1111c90356e80551d9d2a2765956beefa4be08153da",
+    "wasix-path-open.wat": "996d98b5cbd638372499d81d36d7f59b459d748242454bfd7706a583b90cb8ba"
+  },
+  "raw_sha256": {
+    "comparison-O2.json": "c018f119d4c3dca0c798b688a4af7bde9888e21b2e715d1d90af69400d3bb9a4",
+    "comparison-compatible.json": "3abb3a167a2c6d06ea1d0de210e952ed45c2855196584e8270ac2a355790e52b",
+    "comparison-unoptimized.json": "aa8567cde2c703a9056401bac15b1a73e464e28d93dea101f111a7d8809725bd",
+    "config-comparison.json": "e7f6ba58730da46a463ecf7512d21b04f79203e9793a4b8df1b8129a865a6e13",
+    "guest-build-no-postopt.log": "3d01ea5e266748ecad7baf0ef7377a864b251ef994c4d949153e78b82a24834f",
+    "guest-build.log": "ffe1cbcb2cb3981e97159bc59da690f119e855f3544b060fc4662dbff94daeb2",
+    "guest-legacy-O2-aot.log": "b6265b94c1e9148ddbd9ad3402c315246ad0f051df4f827fc7d21d4ec3799bf1",
+    "guest-legacy-aot.log": "b79466ac4db12a036c83cf3a225bc20fe57d5f1aa7cf77f700850b3488cce21b",
+    "guest-legacy-compatible-aot.log": "a50e163b7e48f3e4d5afc5622661f3a7de712bac11072c48ac6d50ab688ada25",
+    "guest-legacy-postopt-compatible.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "guest-legacy-postopt.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "inspection/inventory.json": "dfd0f59841dd3d0f054eacd880c02322838b137f571f7d69e29655980333883d",
+    "inspection-O2/inventory.json": "a247d29dbdf474a716147ddc8040057422ca63e3c23f5b76f2c98b6fca05309f",
+    "inspection-O2.log": "9f72939371aed5c9a848054c832004dfa736c63197c9dec7b358c6d1c8f24da2",
+    "inspection-compatible/inventory.json": "609cee42c45809c273d031b6ad9221a4f6e908bc1c8df873a9834f70264556c8",
+    "inspection-compatible.log": "f630459fbfbc7b981386e4262d3570b7abb77c39ae4feab954e841eb214627cd",
+    "inspection.log": "a86e8c0f93d001288990a23649694ec990bdf18a2411ca39b278860f10214d1a",
+    "post-check.log": "084bde14a0125587bc533211e1ebced61ea9f75bdf383955f5dace26c7440c10",
+    "post-integration.log": "0c18c19a24ac72fc2c6b953b1e236b74c807360682d940bbebef436c20403ecc",
+    "pre-check.log": "f8ff67e0bcd78033b3b84677770aa1f28a57bf64407f35cdd2582909c9f2aebb",
+    "pre-health.json": "b0ae64a1d432b5f347d4d098731cc632ad963bc6db55d9831a31eef387842c82",
+    "pre-integration-unsandboxed.log": "951cf86ecdfd4b70bd51a04920b978db69fee2a498a553fd3966a79d477036d1",
+    "pre-integration.log": "2e9186f32782a77df0b8623a378262adf60de37d325652720bad9176a97eccfd",
+    "preparation.log": "591585a773294e7fbe2b6772146dd6b5ea8cf0fd7339fa11ba7fcbfee6f234c0",
+    "probe-exnref-aot.log": "c49c1c96b40facf5f9f238981aa89d1541f917b753d69a18a2f4dd20c545c17d",
+    "probe-exnref-run.log": "d55217b0b4b0fd9c25dea748473e38c552a9328292b56bbecf4f0b98b0f8433a",
+    "probe-inspection.json": "021ea9f269518392bc5600f7618fd049e924e87591933802e376e66509512424",
+    "probe-legacy-aot-all.log": "42fd93eff7750f29f4c669f2a1683ddeca4963e11042535828fd26d3a5c02856",
+    "probe-legacy-aot.log": "83940fde1429d0edb239291c32834421e6136f1fc7dd370665e2a3466931427d",
+    "probe-legacy-roundtrip-aot.log": "f1c29caa8fdaf67eb470ba699342df3a3107d71a68c428d31027d44a9c641cdc",
+    "probe-legacy-roundtrip-run.log": "d55217b0b4b0fd9c25dea748473e38c552a9328292b56bbecf4f0b98b0f8433a",
+    "production-objects.json": "6696396468b6a767f5fd1e4b76a75320d330bfd50f53f59efa0996c1ad793112",
+    "production-source-object.json": "d0ae7447b509006fb860c2e51366378027862619c6e960a17956d6cfddd3ece4",
+    "released-replay/inventory.json": "2a35f45f1cc756a58dda288569c486c262fdfc9dfe02fba9972d6225742e2f04",
+    "released-replay.log": "a2e2272232499d83015ad02ffeab168afa7c0fdf33e99ebcaefabda53d4ca333",
+    "toolchain-probe.log": "9dcf0e3ea117dd8afd87423f71c025e407349011cc12caef57b72496ec071bff"
+  },
+  "notes": [
+    "Static feature and call counts do not prove dynamic behavior or semantic equivalence.",
+    "Legacy current-source generation succeeded, but current-Wasmer runtime compatibility was not demonstrated.",
+    "No generated-Go startup/memory/CPU/performance probe.",
+    "Original release inventory replay was identical after adding named/quoted WAT identifier handling.",
+    "Intermediate compact-import inventory was incomplete and was not used for comparison; inspector now fails on this unsupported print format."
+  ],
+  "compiler_driver_traces": {
+    "exnref": "WASIX clang version 21.1.2\nTarget: wasm32-unknown-wasi\nThread model: posix\nInstalledDir: /root/.wasixcc/llvm/bin\n (in-process)\n \"/root/.wasixcc/llvm/bin/clang-21\" \"-cc1\" \"-triple\" \"wasm32-unknown-wasi\" \"-O2\" \"-emit-obj\" \"-disable-free\" \"-clear-ast-before-backend\" \"-disable-llvm-verifier\" \"-discard-value-names\" \"-main-file-name\" \"eh_probe.cpp\" \"-mrelocation-model\" \"static\" \"-mframe-pointer=none\" \"-ffp-contract=on\" \"-fno-rounding-math\" \"-ffp-exception-behavior=ignore\" \"-mconstructor-aliases\" \"-target-feature\" \"+atomics\" \"-target-feature\" \"+bulk-memory\" \"-target-feature\" \"+mutable-globals\" \"-target-feature\" \"+sign-ext\" \"-target-feature\" \"+exception-handling\" \"-target-feature\" \"+multivalue\" \"-target-feature\" \"+reference-types\" \"-exception-model=wasm\" \"-mllvm\" \"-wasm-enable-eh\" \"-target-cpu\" \"generic\" \"-target-feature\" \"+atomics\" \"-target-feature\" \"+bulk-memory\" \"-target-feature\" \"+mutable-globals\" \"-target-feature\" \"+simd128\" \"-target-feature\" \"+relaxed-simd\" \"-target-feature\" \"+extended-const\" \"-fvisibility=hidden\" \"-debugger-tuning=gdb\" \"-fdebug-compilation-dir=/work\" \"-fcoverage-compilation-dir=/work\" \"-resource-dir\" \"/root/.wasixcc/llvm/lib/clang/21\" \"-D\" \"_WASI_EMULATED_MMAN\" \"-D\" \"_WASI_EMULATED_SIGNAL\" \"-D\" \"_WASI_EMULATED_PROCESS_CLOCKS\" \"-isysroot\" \"/root/.wasixcc/sysroot/sysroot-exnref-eh\" \"-internal-isystem\" \"/root/.wasixcc/sysroot/sysroot-exnref-eh/include/wasm32-wasi/c++/v1\" \"-internal-isystem\" \"/root/.wasixcc/sysroot/sysroot-exnref-eh/include/c++/v1\" \"-internal-isystem\" \"/root/.wasixcc/llvm/lib/clang/21/include\" \"-internal-isystem\" \"/root/.wasixcc/sysroot/sysroot-exnref-eh/include/wasm32-wasi\" \"-internal-isystem\" \"/root/.wasixcc/sysroot/sysroot-exnref-eh/include\" \"-fdeprecated-macro\" \"-ferror-limit\" \"19\" \"-ftls-model=local-exec\" \"-pthread\" \"-fgnuc-version=4.2.1\" \"-fskip-odr-check-in-gmf\" \"-fcxx-exceptions\" \"-fexceptions\" \"-exception-model=wasm\" \"-vectorize-loops\" \"-vectorize-slp\" \"-mllvm\" \"--wasm-enable-eh\" \"-mllvm\" \"--wasm-enable-sjlj\" \"-mllvm\" \"--wasm-use-legacy-eh=false\" \"-o\" \"eh_probe.o\" \"-x\" \"c++\" \"eh_probe.cpp\"\n",
+    "legacy": "WASIX clang version 21.1.2\nTarget: wasm32-unknown-wasi\nThread model: posix\nInstalledDir: /root/.wasixcc/llvm/bin\n (in-process)\n \"/root/.wasixcc/llvm/bin/clang-21\" \"-cc1\" \"-triple\" \"wasm32-unknown-wasi\" \"-O2\" \"-emit-obj\" \"-disable-free\" \"-clear-ast-before-backend\" \"-disable-llvm-verifier\" \"-discard-value-names\" \"-main-file-name\" \"eh_probe.cpp\" \"-mrelocation-model\" \"static\" \"-mframe-pointer=none\" \"-ffp-contract=on\" \"-fno-rounding-math\" \"-ffp-exception-behavior=ignore\" \"-mconstructor-aliases\" \"-target-feature\" \"+atomics\" \"-target-feature\" \"+bulk-memory\" \"-target-feature\" \"+mutable-globals\" \"-target-feature\" \"+sign-ext\" \"-target-feature\" \"+exception-handling\" \"-target-feature\" \"+multivalue\" \"-target-feature\" \"+reference-types\" \"-exception-model=wasm\" \"-mllvm\" \"-wasm-enable-eh\" \"-target-cpu\" \"generic\" \"-target-feature\" \"+atomics\" \"-target-feature\" \"+bulk-memory\" \"-target-feature\" \"+mutable-globals\" \"-target-feature\" \"+simd128\" \"-target-feature\" \"+relaxed-simd\" \"-target-feature\" \"+extended-const\" \"-fvisibility=hidden\" \"-debugger-tuning=gdb\" \"-fdebug-compilation-dir=/work\" \"-fcoverage-compilation-dir=/work\" \"-resource-dir\" \"/root/.wasixcc/llvm/lib/clang/21\" \"-D\" \"_WASI_EMULATED_MMAN\" \"-D\" \"_WASI_EMULATED_SIGNAL\" \"-D\" \"_WASI_EMULATED_PROCESS_CLOCKS\" \"-isysroot\" \"/root/.wasixcc/sysroot/sysroot-eh\" \"-internal-isystem\" \"/root/.wasixcc/sysroot/sysroot-eh/include/wasm32-wasi/c++/v1\" \"-internal-isystem\" \"/root/.wasixcc/sysroot/sysroot-eh/include/c++/v1\" \"-internal-isystem\" \"/root/.wasixcc/llvm/lib/clang/21/include\" \"-internal-isystem\" \"/root/.wasixcc/sysroot/sysroot-eh/include/wasm32-wasi\" \"-internal-isystem\" \"/root/.wasixcc/sysroot/sysroot-eh/include\" \"-fdeprecated-macro\" \"-ferror-limit\" \"19\" \"-ftls-model=local-exec\" \"-pthread\" \"-fgnuc-version=4.2.1\" \"-fskip-odr-check-in-gmf\" \"-fcxx-exceptions\" \"-fexceptions\" \"-exception-model=wasm\" \"-vectorize-loops\" \"-vectorize-slp\" \"-mllvm\" \"--wasm-enable-eh\" \"-mllvm\" \"--wasm-enable-sjlj\" \"-mllvm\" \"--wasm-use-legacy-eh=true\" \"-o\" \"eh_probe.o\" \"-x\" \"c++\" \"eh_probe.cpp\"\n"
+  },
+  "guest_build_link_command": "/root/.wasixcc/bin/wasixcc++  -Werror=uninitialized-explicit-init -Werror=uninitialized-const-reference -Werror=uninitialized-explicit-init -Werror=uninitialized-const-reference -Werror=uninitialized -O3 -DNDEBUG -DDBUG_OFF -pthread -fexceptions -Wl,--wrap=open -Wl,--wrap=open64 -Wl,--wrap=close -Wl,--wrap=read -Wl,--wrap=write -Wl,--wrap=pread -Wl,--wrap=pread64 -Wl,--wrap=pwrite -Wl,--wrap=pwrite64 -Wl,--wrap=ftruncate -Wl,--wrap=ftruncate64 -Wl,--wrap=malloc -Wl,--wrap=calloc -Wl,--wrap=realloc -Wl,--wrap=free -Wl,--wrap=posix_memalign -Wl,--wrap=mmap -Wl,--wrap=mmap64 -Wl,--wrap=munmap -Wl,--wrap=pthread_create -O2 -Wl,--initial-memory=268435456 -Wl,--max-memory=2147483648 -Wl,-z,stack-size=8388608 -Wl,--export=l4m_open -Wl,--export=l4m_query -Wl,--export=l4m_query_v2 -Wl,--export=l4m_exec_multi -Wl,--export=l4m_escape -Wl,--export=l4m_close -Wl,--export=l4m_free -Wl,--export=malloc -Wl,--export=free \"CMakeFiles/lite4mariadb-wasix.dir/lite4mariadb.c.o\" -o /work/source/wasm/dist/lite4mariadb.wasix.wasm  ../libmysqld/libmariadbd.a -ldl \n",
+  "guest_compile_flags": "# CMAKE generated file: DO NOT EDIT!\n# Generated by \"Unix Makefiles\" Generator, CMake Version 3.28\n\n# compile C with /root/.wasixcc/bin/wasixcc\nC_DEFINES = -DEMBEDDED_LIBRARY -DHAVE_CONFIG_H -DL4M_RESIDENT -D_FILE_OFFSET_BITS=64\n\nC_INCLUDES = -I/work/source/build-legacy-no-postopt/include -I/work/source/include/providers -I/work/source/include\n\nC_FLAGS =  -Werror=uninitialized-explicit-init -Werror=uninitialized-const-reference -Werror=uninitialized -Werror=uninitialized-explicit-init -Werror=uninitialized-const-reference -O3 -DNDEBUG -DDBUG_OFF -std=gnu99 -pthread -fexceptions -fno-strict-aliasing\n\n",
+  "post_health": {
+    "normal_check": "passed",
+    "go_test": "passed",
+    "go_vet": "passed",
+    "python_passed": 368,
+    "python_skipped": 3,
+    "python_seconds": 9.15,
+    "integration_go_race_seconds": 9.045,
+    "integration_python_passed": 3,
+    "integration_python_seconds": 2.4,
+    "diff_check": "passed",
+    "final_public_source": "passed",
+    "generated_modules_isolated": true,
+    "final_public_source_files": 328
+  },
+  "next_blocker_classification": "Runtime contract work in the validation runtime path; not an observed generated-Go blocker or evidence of a fundamental guest/build architectural mismatch."
+}
