@@ -18,9 +18,11 @@ from ci_guest_source import verify_ci_guest_source
 from check_ci_release import NATIVE, verify_native_acceptance
 from release_version import SOURCE_CANDIDATE
 from native_target import DARWIN, UBUNTU, target_metadata, manifest_target
+from release_consumer_smoke import require_candidate_smoke
 
 WORKFLOW = ".github/workflows/release-candidate-ready.yml"
 EVIDENCE_FILES = {
+    "build/release/ci-consumer-smoke.json", "build/release/ci-consumer-smoke.log",
     "build/release/ci-native-acceptance.json", "build/release/ci-native-acceptance.log",
     "build/release/ci-ready.json", "build/release/SHA256SUMS",
     "tests/evidence/alpha.json", "build/source-candidate-check.json",
@@ -101,6 +103,8 @@ def restore_zip(path, destination, candidate=False):
         for entry in archive.infolist():
             if not candidate and entry.filename not in ("build/release/ci-native-acceptance.json",
                                                         "build/release/ci-native-acceptance.log",
+                                                        "build/release/ci-consumer-smoke.json",
+                                                        "build/release/ci-consumer-smoke.log",
                                                         "tests/evidence/alpha.json"):
                 continue
             target = destination / safe_name(entry.filename.rstrip("/"))
@@ -203,8 +207,12 @@ def verify_evidence(root, commit, hashes, guest):
             "reused installed-wheel acceptance missing, failed, or mismatched")
     require({r.get("name") for r in evidence.get("runs", [])}
             == {"serial", "parallel", "migration", "failure-cleanup"}, "reused wheel acceptance incomplete")
+    version = runpy.run_path(str(root / 'python/mariamem/_version.py'))
+    require_candidate_smoke(root, commit, version['GIT_TAG'], version['PYTHON_VERSION'],
+                            target['platform'], hashes[native_name], wheel_record['sha256'])
     return {name: digest(root / name) for name in
-            ("build/release/ci-native-acceptance.json", "tests/evidence/alpha.json")}
+            ("build/release/ci-native-acceptance.json", "tests/evidence/alpha.json",
+             "build/release/ci-consumer-smoke.json")}
 
 
 def main():

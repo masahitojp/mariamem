@@ -9,7 +9,6 @@ import shutil
 import subprocess
 import sys
 import tempfile
-import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -59,21 +58,8 @@ def prepare_fixture(root, native, work):
 
 
 def prepare_proxy(root, work):
-    proxy = work / 'proxy'
-    version_dir = proxy / MODULE / '@v'
-    version_dir.mkdir(parents=True)
-    (version_dir / f'{TAG}.mod').write_bytes((root / 'go.mod').read_bytes())
-    (version_dir / f'{TAG}.info').write_bytes(encoded({'Version': TAG, 'Time': '2026-09-29T00:00:00Z'}))
-    (version_dir / 'list').write_text(TAG + '\n')
-    # Only public Go implementation plus its existing embedded input-lock file.
-    paths = sorted(p for base in (root, root / 'internal') for p in
-                   (base.glob('*.go') if base == root else base.rglob('*.go'))
-                   if not p.name.endswith('_test.go'))
-    paths += [root / 'go.mod', root / 'go.sum', root / 'LICENSE', root / 'release/inputs.lock.json']
-    with zipfile.ZipFile(version_dir / f'{TAG}.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
-        for path in paths:
-            archive.write(path, f'{MODULE}@{TAG}/{path.relative_to(root).as_posix()}')
-    return proxy
+    from consumer_module import prepare_proxy as tagged_proxy
+    return tagged_proxy(root, work, TAG)
 
 
 def main():

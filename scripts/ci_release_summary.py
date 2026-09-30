@@ -81,7 +81,7 @@ def main():
         rows.append(f"- Requested candidate/evidence runs: `{os.environ.get('CANDIDATE_RUN')}` / "
                     f"`{os.environ.get('EVIDENCE_RUN') or os.environ.get('CANDIDATE_RUN')}`")
     stages = [('restore', 'RESTORE_RESULT'), ('native acceptance', 'NATIVE_RESULT'),
-              ('wheel acceptance', 'WHEEL_RESULT'), ('guard', 'GUARD_RESULT')]
+              ('wheel acceptance', 'WHEEL_RESULT'), ('clean consumers', 'CONSUMER_RESULT'), ('guard', 'GUARD_RESULT')]
     failed = [name for name, key in stages if os.environ.get(key) == 'failure']
     rows.append('- Failed stage: ' + (failed[0] if failed else 'none'))
     restore_log = build / 'release/ci-restore.log'
@@ -97,6 +97,11 @@ def main():
                        if 'Release candidate: NOT READY' in line), None)
         if reason:
             rows.append('- Guard reason: ' + reason)
+    consumer_path = build / 'release/ci-consumer-smoke.json'
+    consumer = json.loads(consumer_path.read_text()) if consumer_path.exists() else {}
+    rows.append(f"- Zero-setup Go / GORM / SQLAlchemy: **{consumer.get('result', 'NOT RUN')}**")
+    if consumer.get('error'):
+        rows.append(f"- Consumer failure ({consumer.get('stage')}): {consumer['error']}")
     result = json.loads(acceptance.read_text()).get("result") if acceptance.exists() else "NOT RUN"
     rows.extend([f"- Clean {platform} acceptance: **{result}**",
                  f"- Installed-wheel acceptance step: **{os.environ.get('WHEEL_RESULT', 'NOT RUN')}** (reused in guard-only mode)",

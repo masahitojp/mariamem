@@ -157,3 +157,14 @@ but the release path does not yet enforce/prove the new clean-consumer boundary.
 No new product feature, optimization or architecture change is needed by this
 audit. The two BLOCKER findings require focused release validation work; metadata
 and final exact-source READY remain ordinary release preparation afterward.
+
+## Release-pipeline follow-up
+
+Focused candidate and public-consumer smoke was added after this audit. Its
+exact-version private candidate distribution, guard binding, retry evidence and
+post-publication zero-setup/SQLAlchemy behavior are described in
+[release mechanics](releasing.md#ci-candidate-readiness-future-releases). This
+section records the subsequent resolution; the audit verdict above describes
+the pipeline **at the time of the audit**, before those checks existed. The new
+checks still require an exact final-version candidate run and public smoke at
+the eventual release; this document does not declare READY or publish v0.3.

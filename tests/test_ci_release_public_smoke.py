@@ -10,29 +10,41 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import ci_release_public_smoke as smoke
+from test_release_consumer_smoke import accepted, ROOT
 
 
 class PublicSmoke(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
-        self.commit, self.tag = 'a' * 40, 'v0.1.0-alpha.4'
+        self.root = Path(self.temp.name) / 'assets'
+        self.root.mkdir()
+        self.commit, self.tag = 'a' * 40, 'v0.3.0'
         self.names = ['mariamem-native-darwin-arm64.tar.gz',
-                      'mariamem-0.1.0a4-py3-none-macosx_15_0_arm64.whl',
-                      'mariamem-0.1.0a4-corresponding-source.tar.gz']
+                      'mariamem-0.3.0-py3-none-macosx_15_0_arm64.whl',
+                      'mariamem-0.3.0-corresponding-source.tar.gz']
         for name in self.names:
             (self.root / name).write_bytes(name.encode())
         self.assets = {n: smoke.digest(self.root / n) for n in self.names}
         (self.root / 'SHA256SUMS').write_text(''.join(h + '  ' + n + '\n' for n, h in self.assets.items()))
         self.assets['SHA256SUMS'] = smoke.digest(self.root / 'SHA256SUMS')
+        self.checkout = Path(self.temp.name) / 'checkout'
+        (self.checkout / 'release').mkdir(parents=True)
+        shutil.copyfile(ROOT / 'release/inputs.lock.json', self.checkout / 'release/inputs.lock.json')
 
-    def consumer(self):
-        return {'result': 'PASS', 'module_requested': smoke.MODULE + '@' + self.tag,
-                'expected_source_commit': self.commit,
-                'module_resolved': {'Version': self.tag, 'Origin': {'Hash': self.commit}},
-                'archive': {'sha256': self.assets[self.names[0]]},
-                'steps': {s: {'status': 'PASS'} for s in smoke.STEPS}}
+    def consumer(self, target=smoke.DARWIN):
+        record = accepted(target)
+        native = smoke.target_metadata(target)['bundle_name'] + '.tar.gz'
+        wheel = f"mariamem-0.3.0-py3-none-{smoke.target_metadata(target)['wheel_platform']}.whl"
+        record.update(mode='published', module_resolved={'Version': self.tag, 'Origin': {'Hash': self.commit}},
+                      native_sha256=self.assets[native], wheel_sha256=self.assets[wheel])
+        record['go']['receipt']['archive_sha256'] = self.assets[native]
+        record['python']['wheel_sha256'] = self.assets[wheel]
+        return record
+
+    def verify(self, evidence):
+        return smoke.verify_consumer(evidence, self.commit, self.tag, self.assets[self.names[0]],
+                                     self.assets[self.names[1]], smoke.digest(self.checkout / 'release/inputs.lock.json'))
 
     def test_downloaded_bytes_and_checksums(self):
         self.assertEqual(smoke.verify_downloads(self.root, self.assets), self.assets)
@@ -54,54 +66,52 @@ class PublicSmoke(unittest.TestCase):
 
     def test_public_tag_and_native_binding(self):
         evidence = self.consumer()
-        smoke.verify_consumer(evidence, self.commit, self.tag, self.assets[self.names[0]])
+        self.verify(evidence)
         evidence['module_resolved']['Origin']['Hash'] = 'b' * 40
         with self.assertRaisesRegex(ValueError, 'another commit'):
-            smoke.verify_consumer(evidence, self.commit, self.tag, self.assets[self.names[0]])
+            self.verify(evidence)
 
     def test_incomplete_smoke_rejected(self):
         evidence = self.consumer()
-        evidence['steps']['multi_client']['status'] = 'FAIL'
+        evidence['steps']['go_zero_setup'] = 'FAIL'
         with self.assertRaisesRegex(ValueError, 'steps incomplete'):
-            smoke.verify_consumer(evidence, self.commit, self.tag, self.assets[self.names[0]])
+            self.verify(evidence)
 
     def test_public_download_then_isolated_consumer(self):
-        publication = self.root / 'publication.json'
-        output = self.root / 'out.json'
-        publication.write_text(json.dumps({'status': 'PUBLISHED', 'source_commit': self.commit,
-                                          'git_tag': self.tag, 'repository': 'owner/repo', 'assets': self.assets}))
+        publication = self.checkout / 'publication.json'
+        output = self.checkout / 'out.json'
+        publication.write_text(json.dumps({'status':'PUBLISHED', 'source_commit':self.commit,
+                                          'git_tag':self.tag, 'repository':'owner/repo', 'assets':self.assets}))
         commands = []
         def command(argv, **kwargs):
             commands.append(argv)
-            if argv[0] == 'gh':
-                directory = Path(argv[argv.index('--dir') + 1])
-                self.assertNotEqual(directory.parent, self.root)
-                for name in self.assets:
-                    shutil.copyfile(self.root / name, directory / name)
-            else:
-                self.assertNotIn('GH_TOKEN', kwargs['env'])
-                self.assertNotIn('GITHUB_TOKEN', kwargs['env'])
-                self.assertEqual(argv[argv.index('--module') + 1], self.tag)
-                self.assertEqual(argv[argv.index('--expected-commit') + 1], self.commit)
-                evidence = Path(argv[argv.index('--evidence') + 1])
-                consumer = self.consumer()
-                consumer['environment'] = {'product_version': '15.7.1', 'architecture': 'arm64'}
-                evidence.write_text(json.dumps(consumer))
-                evidence.with_suffix('.log').write_text('consumer log')
+            directory = Path(argv[argv.index('--dir') + 1])
+            for name in self.assets:
+                shutil.copyfile(self.root / name, directory / name)
             class Result:
                 returncode, stdout, stderr = 0, '', ''
             return Result()
-        with patch.dict(os.environ, {'GH_TOKEN': 'secret', 'GITHUB_TOKEN': 'secret'}), patch.object(smoke.subprocess, 'run', command):
-            report = smoke.smoke(self.root, 'owner/repo', publication, output)
+        def consumers(root, commit, archive, wheel, output, **kwargs):
+            self.assertEqual(root, self.checkout.resolve())
+            self.assertEqual(commit, self.commit)
+            self.assertEqual(kwargs, {'mode':'published', 'tag':self.tag})
+            self.assertEqual(smoke.digest(archive), self.assets[archive.name])
+            self.assertEqual(smoke.digest(wheel), self.assets[wheel.name])
+            report = self.consumer()
+            output.write_text(json.dumps(report))
+            output.with_suffix('.log').write_text('consumer log')
+            return report
+        with patch.object(smoke.subprocess, 'run', command), patch.object(smoke, 'run_consumers', consumers):
+            report = smoke.smoke(self.checkout, 'owner/repo', publication, output)
         self.assertEqual(report['result'], 'PASS')
-        self.assertEqual(len(commands), 2)
+        self.assertEqual(len(commands), 1)
         self.assertEqual(report['downloaded_hashes'], self.assets)
         self.assertEqual(output.with_name('out-consumer.log').read_text(), 'consumer log')
         self.assertFalse(Path(commands[0][commands[0].index('--dir') + 1]).exists())
 
     def test_download_failure_report_never_mutates_release(self):
-        report_path = self.root / 'out.json'
-        publication = self.root / 'publication.json'
+        report_path = self.checkout / 'out.json'
+        publication = self.checkout / 'publication.json'
         publication.write_text(json.dumps({'status': 'PUBLISHED', 'source_commit': self.commit,
                                           'git_tag': self.tag, 'repository': 'owner/repo', 'assets': self.assets}))
         commands = []
@@ -111,7 +121,7 @@ class PublicSmoke(unittest.TestCase):
                 returncode, stdout, stderr = 1, '', 'download failed'
             return Result()
         with patch.object(smoke.subprocess, 'run', failed):
-            report = smoke.smoke(self.root, 'owner/repo', publication, report_path)
+            report = smoke.smoke(self.checkout, 'owner/repo', publication, report_path)
         self.assertEqual(report['result'], 'FAIL')
         self.assertEqual(report['stage'], 'published_download')
         self.assertEqual(commands[0][:3], ['gh', 'release', 'download'])
@@ -122,35 +132,32 @@ class PublicSmoke(unittest.TestCase):
     def test_ubuntu_smoke_uses_published_native_and_public_tag(self):
         # Build the new six-asset release identity without creating a release.
         self.assets = {}
-        for name in smoke.expected_names('0.1.0a4'):
+        for name in smoke.expected_names('0.3.0'):
             (self.root / name).write_bytes(name.encode())
             self.assets[name] = smoke.digest(self.root / name)
         (self.root / 'SHA256SUMS').write_text(''.join(h + '  ' + n + '\n' for n, h in self.assets.items()))
         self.assets['SHA256SUMS'] = smoke.digest(self.root / 'SHA256SUMS')
-        publication = self.root / 'publication.json'
+        publication = self.checkout / 'publication.json'
         publication.write_text(json.dumps({'version': 2, 'status': 'PUBLISHED',
-            'python_version': '0.1.0a4', 'platforms': {p: {} for p in smoke.PLATFORMS},
+            'python_version': '0.3.0', 'platforms': {p: {} for p in smoke.PLATFORMS},
             'source_commit': self.commit, 'git_tag': self.tag,
             'repository': 'owner/repo', 'assets': self.assets}))
         native = 'mariamem-native-ubuntu24.04-x86_64.tar.gz'
         def command(argv, **kwargs):
-            if argv[0] == 'gh':
-                directory = Path(argv[argv.index('--dir') + 1])
-                for name in self.assets:
-                    shutil.copyfile(self.root / name, directory / name)
-            else:
-                self.assertEqual(argv[argv.index('--target') + 1], smoke.UBUNTU)
-                self.assertEqual(Path(argv[argv.index('--archive') + 1]).name, native)
-                self.assertEqual(argv[argv.index('--module') + 1], self.tag)
-                consumer = self.consumer()
-                consumer['archive']['sha256'] = self.assets[native]
-                consumer.update(target=smoke.UBUNTU, environment={'distribution': 'ubuntu', 'version_id': '24.04'})
-                Path(argv[argv.index('--evidence') + 1]).write_text(json.dumps(consumer))
+            directory = Path(argv[argv.index('--dir') + 1])
+            for name in self.assets:
+                shutil.copyfile(self.root / name, directory / name)
             class Result:
                 returncode, stdout, stderr = 0, '', ''
             return Result()
-        with patch.object(smoke.subprocess, 'run', command):
-            result = smoke.smoke(self.root, 'owner/repo', publication, self.root / 'out.json', smoke.UBUNTU)
+        def consumers(root, commit, archive, wheel, output, **kwargs):
+            self.assertEqual(archive.name, native)
+            self.assertEqual(wheel.name, 'mariamem-0.3.0-py3-none-linux_x86_64.whl')
+            report = self.consumer(smoke.UBUNTU)
+            output.write_text(json.dumps(report))
+            return report
+        with patch.object(smoke.subprocess, 'run', command), patch.object(smoke, 'run_consumers', consumers):
+            result = smoke.smoke(self.checkout, 'owner/repo', publication, self.checkout / 'out.json', smoke.UBUNTU)
         self.assertEqual(result['result'], 'PASS')
         self.assertEqual(result['platform'], smoke.UBUNTU)
 

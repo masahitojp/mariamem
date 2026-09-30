@@ -11,7 +11,8 @@ import sys
 import tempfile
 
 from common import ROOT, digest
-from platform_acceptance import MODULE, STEPS
+from consumer_module import MODULE
+from release_consumer_smoke import run as run_consumers, STEPS, verify_go, verify_python
 from native_target import DARWIN, UBUNTU, target_metadata
 from ci_release_platforms import expected_names, PLATFORMS
 
@@ -39,19 +40,20 @@ def verify_downloads(directory, assets):
     return {name: digest(directory / name) for name in assets}
 
 
-def verify_consumer(evidence, commit, tag, native_hash):
-    require(evidence.get('result') == 'PASS', 'public Go consumer failed')
-    require(evidence.get('module_requested') == MODULE + '@' + tag
-            and evidence.get('expected_source_commit') == commit,
+def verify_consumer(evidence, commit, tag, native_hash, wheel_hash, lock_hash):
+    require(evidence.get('result') == 'PASS' and evidence.get('mode') == 'published', 'public consumers failed')
+    require(evidence.get('source_sha') == commit and evidence.get('git_tag') == tag,
             'public consumer requested another source/tag')
     resolved = evidence.get('module_resolved', {})
     require(resolved.get('Version') == tag and resolved.get('Origin', {}).get('Hash') == commit,
             'public Go tag resolved another commit/version')
-    require(evidence.get('archive', {}).get('sha256') == native_hash,
-            'public consumer used another native archive')
+    require(evidence.get('native_sha256') == native_hash and evidence.get('wheel_sha256') == wheel_hash,
+            'public consumers used another native archive/wheel')
     require(set(evidence.get('steps', {})) == set(STEPS)
-            and all(s.get('status') == 'PASS' for s in evidence['steps'].values()),
+            and all(value == 'PASS' for value in evidence['steps'].values()),
             'public consumer acceptance steps incomplete')
+    verify_go(evidence.get('go', {}), tag, evidence['python_version'], evidence['target'], native_hash, lock_hash)
+    verify_python(evidence.get('python', {}), evidence['python_version'], wheel_hash)
 
 
 def smoke(root, repository, publication_path, output, platform=DARWIN):
@@ -98,26 +100,27 @@ def smoke(root, repository, publication_path, output, platform=DARWIN):
             execute(['gh', 'release', 'download', tag, '--repo', repository, '--dir', str(downloaded)])
             report['stage'] = 'published_hashes'
             report['downloaded_hashes'] = verify_downloads(downloaded, assets)
-            report['stage'] = 'public_go_consumer'
+            report['stage'] = 'public_clean_consumers'
             consumer_path = work / 'consumer.json'
             native = target_metadata(platform)['bundle_name'] + '.tar.gz'
+            wheels = [name for name in assets if name.endswith('-' + target_metadata(platform)['wheel_platform'] + '.whl')]
+            require(len(wheels) == 1, 'published platform wheel missing/ambiguous')
+            wheel = wheels[0]
             try:
-                execute([sys.executable, str(root / 'scripts/platform_acceptance.py'),
-                         '--target', platform, '--archive', str(downloaded / native), '--sha256', assets[native],
-                         '--module', tag, '--expected-commit', commit, '--evidence', str(consumer_path)],
-                        public_consumer=True)
+                run_consumers(root, commit, downloaded / native, downloaded / wheel, consumer_path,
+                              mode='published', tag=tag)
             finally:
                 if consumer_path.exists():
                     report['consumer'] = json.loads(consumer_path.read_text())
                 if consumer_path.with_suffix('.log').exists():
                     output.with_name(output.stem + '-consumer.log').write_text(consumer_path.with_suffix('.log').read_text())
             consumer = report['consumer']
-            verify_consumer(consumer, commit, tag, assets[native])
-            require(consumer.get('target', DARWIN) == platform, 'public consumer platform differs')
+            verify_consumer(consumer, commit, tag, assets[native], assets[wheel], digest(root / 'release/inputs.lock.json'))
+            require(consumer.get('target') == platform, 'public consumer platform differs')
             report['platform'] = platform
             report['environment'] = consumer['environment']
         report.update(stage='complete', result='PASS')
-    except (OSError, ValueError, KeyError, TypeError) as exc:
+    except (OSError, ValueError, KeyError, TypeError, subprocess.CalledProcessError) as exc:
         report['failure'] = str(exc)
     finally:
         report['finished_at'] = datetime.now(timezone.utc).isoformat()

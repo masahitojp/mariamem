@@ -1,0 +1,282 @@
+// Built in a clean external module, never as a repository-internal Go test.
+package main
+
+import (
+	"context"
+	"database/sql"
+	"encoding/json"
+	"errors"
+	"flag"
+	"fmt"
+	"net/http"
+	"net/http/httptest"
+	"os"
+	"path/filepath"
+	"runtime/debug"
+	"strings"
+	"sync"
+	"time"
+
+	gomysql "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem"
+	gormmysql "gorm.io/driver/mysql"
+	"gorm.io/gorm"
+)
+
+type transport struct {
+	base        http.RoundTripper
+	destination string
+	mu          sync.Mutex
+	offline     bool
+	requests    []string
+}
+
+func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
+	t.mu.Lock()
+	if t.offline {
+		t.mu.Unlock()
+		return nil, errors.New("offline smoke attempted HTTP")
+	}
+	t.requests = append(t.requests, req.URL.String())
+	t.mu.Unlock()
+	if t.destination != "" {
+		if req.URL.Scheme != "https" || (req.URL.Host != "github.com" && req.URL.Host != "api.github.com") {
+			return nil, fmt.Errorf("unexpected candidate URL %s", req.URL)
+		}
+		copied := req.Clone(req.Context())
+		address := *req.URL
+		address.Scheme = "http"
+		address.Host = strings.TrimPrefix(t.destination, "http://")
+		copied.URL = &address
+		copied.Host = address.Host
+		return t.base.RoundTrip(copied)
+	}
+	return t.base.RoundTrip(req)
+}
+
+type User struct {
+	ID   uint   `gorm:"primaryKey"`
+	Name string `gorm:"size:64;not null;uniqueIndex"`
+}
+
+func (User) TableName() string { return "release_users" }
+
+func run() (report map[string]any, result error) {
+	tag := flag.String("tag", "", "exact release version")
+	version := flag.String("version", "", "Python/native spelling")
+	target := flag.String("target", "", "accepted platform")
+	archiveHash := flag.String("archive-sha256", "", "accepted native archive")
+	lockHash := flag.String("lock-sha256", "", "candidate embedded inputs")
+	fixture := flag.String("distribution", "", "private candidate distribution, empty for public GitHub")
+	expectedCache := flag.String("cache-root", "", "new empty user cache root")
+	output := flag.String("output", "", "machine-readable evidence")
+	flag.Parse()
+	report = map[string]any{"result": "FAIL", "stage": "setup", "steps": map[string]string{}}
+	steps := report["steps"].(map[string]string)
+	defer func() {
+		if result != nil {
+			report["result"] = "FAIL"
+			report["error"] = result.Error()
+		}
+		data, err := json.MarshalIndent(report, "", "  ")
+		if err == nil {
+			err = os.WriteFile(*output, data, 0600)
+		}
+		result = errors.Join(result, err)
+	}()
+	for _, name := range []string{"MARIAMEM_NATIVE_DIR", "MYSQLMEM_NATIVE_DIR"} {
+		if os.Getenv(name) != "" {
+			return report, fmt.Errorf("native override present: %s", name)
+		}
+	}
+	cache, err := os.UserCacheDir()
+	if err != nil {
+		return report, err
+	}
+	if cache != *expectedCache {
+		return report, fmt.Errorf("cache is not isolated: %s", cache)
+	}
+	entries, err := os.ReadDir(cache)
+	if err != nil || len(entries) != 0 {
+		return report, fmt.Errorf("smoke requires a new empty cache: %v", err)
+	}
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return report, errors.New("module build identity missing")
+	}
+	matched := false
+	for _, module := range info.Deps {
+		if module.Path == "github.com/masahitojp/mariamem" {
+			if module.Version != *tag || module.Replace != nil {
+				return report, errors.New("wrong/replaced module version")
+			}
+			matched = true
+			report["module_version"] = module.Version
+		}
+	}
+	if !matched {
+		return report, errors.New("candidate module not present")
+	}
+	report["go_version"] = info.GoVersion
+	report["cache_initially_empty"] = true
+	report["native_overrides"] = false
+	tracker := &transport{base: http.DefaultTransport}
+	asset := "mariamem-native-" + *target + ".tar.gz"
+	prefix := "/masahitojp/mariamem/releases/download/" + *tag + "/"
+	if *fixture != "" {
+		var metadata map[string]any
+		raw, err := os.ReadFile(filepath.Join(*fixture, "release.json"))
+		if err != nil {
+			return report, err
+		}
+		if err = json.Unmarshal(raw, &metadata); err != nil {
+			return report, err
+		}
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			switch r.URL.Path {
+			case "/repos/masahitojp/mariamem/releases/tags/" + *tag:
+				w.Header().Set("Content-Type", "application/json")
+				json.NewEncoder(w).Encode(metadata)
+			case prefix + asset:
+				http.ServeFile(w, r, filepath.Join(*fixture, asset))
+			case prefix + "SHA256SUMS":
+				http.ServeFile(w, r, filepath.Join(*fixture, "SHA256SUMS"))
+			default:
+				http.NotFound(w, r)
+			}
+		}))
+		defer server.Close()
+		tracker.destination = server.URL
+	}
+	http.DefaultTransport = tracker
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
+	defer cancel()
+	report["stage"] = "go_zero_setup"
+	db, err := mariamem.Start(ctx, mariamem.Options{})
+	if err != nil {
+		return report, err
+	}
+	defer func() { result = errors.Join(result, db.Close()) }()
+	config, err := gomysql.ParseDSN(db.DSN())
+	if err != nil {
+		return report, err
+	}
+	config.InterpolateParams = true // Existing documented text-protocol usage.
+	pool, err := sql.Open("mysql", config.FormatDSN())
+	if err != nil {
+		return report, err
+	}
+	defer func() { result = errors.Join(result, pool.Close()) }()
+	var one int
+	if err = pool.QueryRowContext(ctx, "SELECT 1").Scan(&one); err != nil || one != 1 {
+		return report, fmt.Errorf("SELECT 1 failed: %v", err)
+	}
+	raw, err := os.ReadFile(filepath.Join(cache, "mariamem", *tag, *target, "receipt.json"))
+	if err != nil {
+		return report, err
+	}
+	var receipt struct {
+		Tag     string `json:"tag"`
+		Target  string `json:"target"`
+		Asset   string `json:"asset"`
+		Archive string `json:"archive_sha256"`
+		Lock    string `json:"inputs_lock_sha256"`
+	}
+	if err = json.Unmarshal(raw, &receipt); err != nil {
+		return report, err
+	}
+	if receipt.Tag != *tag || receipt.Target != *target || receipt.Asset != asset || receipt.Archive != *archiveHash || receipt.Lock != *lockHash {
+		return report, errors.New("resolved receipt differs from accepted version/artifact/provenance")
+	}
+	raw, err = os.ReadFile(filepath.Join(cache, "mariamem", *tag, *target, "bundle", "manifest.json"))
+	if err != nil {
+		return report, err
+	}
+	var manifest struct {
+		Version string `json:"package_version"`
+	}
+	if err = json.Unmarshal(raw, &manifest); err != nil || manifest.Version != *version {
+		return report, errors.New("native package version differs")
+	}
+	requests := tracker.requests
+	for _, url := range []string{"https://api.github.com/repos/masahitojp/mariamem/releases/tags/" + *tag, "https://github.com" + prefix + asset, "https://github.com" + prefix + "SHA256SUMS"} {
+		found := false
+		for _, actual := range requests {
+			if actual == url {
+				found = true
+			}
+		}
+		if !found {
+			return report, fmt.Errorf("required download not observed: %s", url)
+		}
+	}
+	leftovers, err := filepath.Glob(filepath.Join(cache, "mariamem", *tag, ".download-*"))
+	if err != nil || len(leftovers) != 0 {
+		return report, errors.New("partial install remained")
+	}
+	report["requests"] = requests
+	report["receipt"] = receipt
+	report["native_version"] = manifest.Version
+	steps["go_zero_setup"] = "PASS"
+	report["stage"] = "gorm_schema"
+	orm, err := gorm.Open(gormmysql.New(gormmysql.Config{Conn: pool}), &gorm.Config{})
+	if err != nil {
+		return report, err
+	}
+	if err = orm.AutoMigrate(&User{}); err != nil {
+		return report, err
+	}
+	if !orm.Migrator().HasTable(&User{}) {
+		return report, errors.New("GORM cannot discover migrated table")
+	}
+	var schemas int
+	if err = pool.QueryRowContext(ctx, "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME=DATABASE()").Scan(&schemas); err != nil || schemas != 1 {
+		return report, fmt.Errorf("schema enumeration failed: count=%d error=%v", schemas, err)
+	}
+	if err = orm.AutoMigrate(&User{}); err != nil {
+		return report, err
+	}
+	if err = orm.Create(&User{Name: "committed"}).Error; err != nil {
+		return report, err
+	}
+	var user User
+	if err = orm.Where("name = ?", "committed").First(&user).Error; err != nil {
+		return report, err
+	}
+	steps["gorm_schema"] = "PASS"
+	if err = pool.Close(); err != nil {
+		return report, err
+	}
+	if err = db.Close(); err != nil {
+		return report, err
+	}
+	report["stage"] = "cached_offline"
+	tracker.mu.Lock()
+	tracker.offline = true
+	tracker.mu.Unlock()
+	cached, err := mariamem.Start(ctx, mariamem.Options{})
+	if err != nil {
+		return report, err
+	}
+	defer func() { result = errors.Join(result, cached.Close()) }()
+	second, err := sql.Open("mysql", cached.DSN())
+	if err != nil {
+		return report, err
+	}
+	err = second.QueryRowContext(ctx, "SELECT 1").Scan(&one)
+	err = errors.Join(err, second.Close(), cached.Close())
+	if err != nil || one != 1 {
+		return report, fmt.Errorf("offline cached SQL failed: %v", err)
+	}
+	steps["cached_offline"] = "PASS"
+	report["result"] = "PASS"
+	report["stage"] = "complete"
+	return report, nil
+}
+func main() {
+	_, err := run()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}

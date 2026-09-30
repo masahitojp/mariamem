@@ -236,6 +236,19 @@ jobs:
         cp candidate-source/tests/consumer/test_ubuntu.py "$RUNNER_TEMP/test_ubuntu.py"
         cd "$RUNNER_TEMP"
         "$RUNNER_TEMP/mariamem-wheel-venv/bin/python" -m pytest -q "$RUNNER_TEMP/test_ubuntu.py"
+    - id: consumers
+      name: Clean zero-setup Go, GORM discovery and wheel SQLAlchemy
+      if: inputs.mode != 'guard-only'
+      continue-on-error: true
+      env:
+        SOURCE_SHA: "${{ needs.resolve.outputs.source_sha }}"
+      run: |
+        wheel_file="$(python -c 'import json; print(json.load(open("candidate-source/tests/evidence/alpha-wheel.json"))["wheel"])')"
+        python candidate-source/scripts/release_consumer_smoke.py --root candidate-source \
+          --candidate-sha "$SOURCE_SHA" \
+          --archive "candidate-source/build/release/native-candidate/mariamem-native-${{ matrix.platform }}.tar.gz" \
+          --wheel "candidate-source/${wheel_file}" \
+          --output candidate-source/build/release/ci-consumer-smoke.json
     - id: guard
       name: Release guard — READY or NOT READY
       if: always() && steps.restore.outcome == 'success'
@@ -258,6 +271,7 @@ jobs:
         RESTORE_RESULT: "${{ steps.restore.outcome }}"
         NATIVE_RESULT: "${{ steps.native.outcome }}"
         WHEEL_RESULT: "${{ steps.wheel.outcome }}"
+        CONSUMER_RESULT: "${{ steps.consumers.outcome }}"
         GUARD_RESULT: "${{ steps.guard.outcome }}"
         RELEASE_PLATFORM: "${{ matrix.platform }}"
       run: python scripts/ci_release_summary.py --root candidate-source
@@ -267,6 +281,8 @@ jobs:
         name: release-evidence-${{ matrix.platform }}-${{ needs.resolve.outputs.source_sha
           }}
         path: |
+          candidate-source/build/release/ci-consumer-smoke.json
+          candidate-source/build/release/ci-consumer-smoke.log
           candidate-source/build/release/ci-native-acceptance.json
           candidate-source/build/release/ci-native-acceptance.log
           candidate-source/build/release/ci-ready.json
@@ -285,12 +301,14 @@ jobs:
         RESTORE_RESULT: "${{ steps.restore.outcome }}"
         NATIVE_RESULT: "${{ steps.native.outcome }}"
         WHEEL_RESULT: "${{ steps.wheel.outcome }}"
+        CONSUMER_RESULT: "${{ steps.consumers.outcome }}"
         GUARD_RESULT: "${{ steps.guard.outcome }}"
       run: |
         test "$RESTORE_RESULT" = success
         if [ "$MODE" != guard-only ]; then
           test "$NATIVE_RESULT" = success
           test "$WHEEL_RESULT" = success
+          test "$CONSUMER_RESULT" = success
         fi
         test "$GUARD_RESULT" = success
     strategy:
@@ -453,7 +471,7 @@ jobs:
       env:
         GH_TOKEN: "${{ github.token }}"
       run: |
-        python scripts/ci_release_public_smoke.py --root candidate-source \
+        python candidate-source/scripts/ci_release_public_smoke.py --root candidate-source \
           --platform "${{ matrix.platform }}" --repository "$GITHUB_REPOSITORY" \
           --publication publication-input/ci-publication.json
     - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f

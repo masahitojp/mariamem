@@ -27,7 +27,8 @@ def records():
                         'assets': {target['bundle_name'] + '.tar.gz': 'c' * 64,
                                    f"mariamem-0.1.0a4-py3-none-{target['wheel_platform']}.whl": 'd' * 64,
                                    'mariamem-0.1.0a4-corresponding-source.tar.gz': 'e' * 64},
-                        'native_acceptance_sha256': 'f' * 64, 'wheel_acceptance_sha256': 'f' * 64}
+                        'native_acceptance_sha256': 'f' * 64, 'wheel_acceptance_sha256': 'f' * 64,
+                        'consumer_smoke_sha256': 'f' * 64}
     return result
 
 
@@ -122,3 +123,11 @@ def test_frozen_handoff_roundtrip_includes_only_allowed_inputs(tmp_path):
     for name, body in names.items():
         assert (destination / name).read_text() == body
     assert not (destination / 'build/release/native-candidate/SHA256SUMS').exists()
+
+
+@pytest.mark.parametrize('platform', platforms.PLATFORMS)
+def test_aggregate_requires_consumer_smoke_binding(platform):
+    data = records()
+    data[platform].pop('consumer_smoke_sha256')
+    with pytest.raises(ValueError, match='consumer smoke binding missing'):
+        platforms.aggregate_records(data, SHA)

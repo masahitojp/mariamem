@@ -17,6 +17,7 @@ from native_target import DARWIN, UBUNTU, target_metadata, manifest_target
 from linux_runtime_notices import verify as verify_linux_notices
 from platform_acceptance import STEPS
 from runtime_notices import verify as verify_runtime_notices
+from release_consumer_smoke import require_candidate_smoke
 
 
 NATIVE = "mariamem-native-darwin-arm64.tar.gz"
@@ -156,13 +157,16 @@ def check_candidate(commit, acceptance_path, root=ROOT):
 
     acceptance = json.loads(acceptance_path.read_text())
     verify_native_acceptance(acceptance, commit, native_hash, native_manifest, guest)
+    smoke_hash = require_candidate_smoke(root, commit, git_tag, python_version,
+                                        target['platform'], native_hash, digest(wheel))
 
     assets = {native_name: native_hash, wheel.name: digest(wheel),
               corresponding_source: digest(source)}
     return {"version": 1, "result": "READY", "source_commit": commit, "git_tag": git_tag,
             "python_version": python_version, "assets": assets,
             "guest_source_provenance": guest, "native_acceptance_sha256": digest(acceptance_path),
-            "wheel_acceptance_sha256": digest(root / "tests/evidence/alpha.json")}
+            "wheel_acceptance_sha256": digest(root / "tests/evidence/alpha.json"),
+            "consumer_smoke_sha256": smoke_hash}
 
 
 def main():

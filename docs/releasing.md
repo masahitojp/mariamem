@@ -69,12 +69,24 @@ are unavailable.
 The full path builds one common WASM and transfers its exact bytes to independent
 macOS 15 arm64 and Ubuntu 24.04 x86_64 AOT/package jobs. Ubuntu uses the explicit
 SSE2+SSSE3 CPU baseline recorded and verified by source provenance. Each platform
-has a separate clean native/public-Go and installed-wheel acceptance job.
+has separate clean native/public-Go, installed-wheel, and focused v0.3
+consumer acceptance. The focused consumer check uses the **frozen native archive
+and wheel**: a private exact-version Go module proxy serves the candidate's Go
+source and a temporary HTTP distribution serves unchanged archive bytes to the
+production resolver. It requires an empty cache, no NativeDir, Start(Options{}),
+SQL, cached/offline restart, repeated GORM AutoMigrate/schema discovery, and a
+clean-venv SQLAlchemy commit/SELECT/FOUND_ROWS check against that wheel. No
+public tag or release is required for candidate acceptance.
 
-Both platform guards must pass. The aggregate guard rechecks their source files,
-full source SHA, version, input-lock/prepared-source/toolchain identities, and
-common WASM hash. A missing or failing platform yields NOT READY and publishes
-nothing. Candidate bytes and acceptance evidence remain separate; no evidence
+Both platform guards must pass. Each platform guard also requires external
+consumer evidence for all four focused steps, bound to the exact source SHA,
+version, native/wheel hashes, target, embedded input lock and checked-in smoke
+harness. Missing, skipped, failed or mismatched evidence prevents READY; retry
+modes preserve and re-verify the same evidence without rebuilding artifacts.
+The aggregate guard rechecks their source files, full source SHA, version,
+input-lock/prepared-source/toolchain identities, and common WASM hash. A missing
+or failing platform yields NOT READY and publishes nothing. Candidate bytes and
+acceptance evidence remain separate; no evidence
 commit or rebuild after acceptance is required. Frozen handoffs and evidence are
 named `release-candidate-<platform>-<sha>` and `release-evidence-<platform>-<sha>`.
 The aggregate output is `release-ready-<sha>`.
@@ -84,9 +96,12 @@ platform-qualified corresponding-source archives, and one `SHA256SUMS`. Separate
 source archives retain each platform's exact AOT provenance without introducing
 another source format. Publication rechecks aggregate READY and accepted hashes,
 creates one immutable tag at the exact build source SHA, and publishes one release.
-Post-publication smoke runs separately on each platform using public-tag Go code
-and downloaded public native assets. A smoke failure never moves the tag or
-replaces published bytes. No path requires Docker or Tart.
+Post-publication smoke runs separately on each platform using a clean public-tag
+Go module with `Start(ctx, Options{})`, an initially empty cache and the actual
+published GitHub native archive. It also installs the published wheel in a clean
+virtualenv and exercises normal SQLAlchemy behavior. The smoke rechecks accepted
+published hashes first and never supplies a native override. A smoke failure
+never moves the tag or replaces published bytes. No path requires Docker or Tart.
 
 **Codex submits work to CI; it does not supervise CI.** After a long-running
 dispatch, hand back the run URL, candidate SHA, and mode immediately. Do not poll,

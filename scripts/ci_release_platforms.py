@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 import runpy
+import re
 import shutil
 import subprocess
 import sys
@@ -53,6 +54,8 @@ def aggregate_records(records, commit):
     for platform, record in records.items():
         require(record.get('result') == 'READY' and record.get('source_commit') == commit,
                 platform + ': platform not READY for exact source')
+        require(re.fullmatch('[0-9a-f]{64}', record.get('consumer_smoke_sha256', '')) is not None,
+                platform + ': required consumer smoke binding missing')
         for key in ('git_tag', 'python_version'):
             require(record[key] == first[key], 'platform version mismatch: ' + key)
         for key in ('wasm_sha256', 'prepared_source_sha256', 'toolchain_provenance_sha256', 'inputs_lock_sha256'):
