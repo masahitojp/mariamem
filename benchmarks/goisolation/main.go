@@ -116,7 +116,7 @@ func (r *runner) startup(saved *mariamem.Snapshot, group time.Time) (db *mariame
 		}
 		stages = map[string]any{"caller": events, "host": host, "api_startup": traces["api_startup"], "fork": traces["fork"], "native_verification": traces["native_verification"], "snapshot_verification": traces["snapshot_verification"]}
 	}
-	row = map[string]any{"latency_seconds": ready.Sub(begin).Seconds(), "ready_at_seconds": ready.Sub(group).Seconds(), "server_version": version, "stage_timings": stages}
+	row = map[string]any{"api_return_seconds": float64(events[1].Offset) / 1e9, "latency_seconds": ready.Sub(begin).Seconds(), "ready_at_seconds": ready.Sub(group).Seconds(), "server_version": version, "stage_timings": stages}
 	success = true
 	return db, row, nil
 }
@@ -342,7 +342,8 @@ func (r *runner) preparedPhase(phase string, runs int) (err error) {
 		}
 	}()
 	for i := 0; i < runs; i++ {
-		db, _, e := r.startup(nil, time.Now())
+		seededBegin := time.Now()
+		db, _, e := r.startup(nil, seededBegin)
 		if e != nil {
 			return e
 		}
@@ -351,6 +352,7 @@ func (r *runner) preparedPhase(phase string, runs int) (err error) {
 			if e := r.seed(db); e != nil {
 				return nil, e
 			}
+			r.samples = append(r.samples, map[string]any{"case": "start_seeded", "workers": 1, "phase": phase, "run": i, "latency_seconds": time.Since(seededBegin).Seconds()})
 			if i == 0 {
 				for _, clients := range []int{1, r.cfg.clients} {
 					if e := r.regression(db, phase, clients); e != nil {

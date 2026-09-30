@@ -380,3 +380,15 @@ See [two-worker-verification.md](two-worker-verification.md) for the bounded
 verification change, paired hosted regression procedure and final diagnostics-OFF
 30-trial local p95 <500 ms acceptance. Hosted runner allocation is not the absolute
 performance gate.
+
+## v0.4 architecture baseline
+
+The [v0.4 baseline](v04-baseline.md) measures released v0.3.0 on the fixed local
+M1 reference without product changes. `v04_baseline.py` reuses the canonical Go
+fixture and OS resource helper for 30 independent startup trials, ×1/4/8/16
+resource scaling, and a separate five-trial attribution pass. `v04_orm.py` calls
+the existing SQLAlchemy dogfood CRUD case with fresh Start and prepared Fork.
+Run them sequentially; suite totals include prepared setup and all teardown.
+`v04_report.py` renders the report and retains comparable observations in
+`v04-baseline-values.json`. These are comparison baselines, not performance gates
+or a decision about the next architecture.
