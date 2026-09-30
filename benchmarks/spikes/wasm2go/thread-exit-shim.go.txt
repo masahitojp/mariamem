@@ -1,0 +1,18 @@
+// Spike-only normal worker exit; main/process exit and signals are not implemented.
+package main
+import (
+    "fmt"
+    "runtime"
+    "example.com/spike/generated"
+)
+type host struct{}
+func (host) Thread_exit(m *generated.Module, code int32) {
+    if code != 0 { panic("nonzero thread exit not implemented by spike") }
+    runtime.Goexit()
+}
+func main() {
+    m := generated.New(host{})
+    if m.Run() != 42 { panic("thread result failed") }
+    generated.SpikeWait(m)
+    fmt.Println("WASIX worker exit + join PASS")
+}

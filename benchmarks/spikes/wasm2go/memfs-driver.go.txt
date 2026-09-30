@@ -1,0 +1,12 @@
+package main
+import (
+    "fmt"
+    "example.com/spike/generated"
+)
+func main() {
+    host := generated.DefaultWASI()
+    host.SetFS(generated.NewMemFS())
+    m := generated.NewWithWASI(host)
+    if errno := m.Run(); errno != 0 { panic(fmt.Sprintf("filesystem errno=%d", errno)) }
+    fmt.Println("MemFS mkdir/stat/remove PASS")
+}

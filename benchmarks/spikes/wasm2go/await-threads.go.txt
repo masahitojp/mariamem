@@ -1,0 +1,3 @@
+// Spike-only embedding hook; upstream emitter prunes the unused ThreadsWait helper.
+package generated
+func SpikeWait(m *Module) { m.threads.wg.Wait() }

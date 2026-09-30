@@ -1,0 +1,12 @@
+--- a/cmd/wasm2go/main.go
++++ b/cmd/wasm2go/main.go
+@@ -129,0 +130,9 @@
++	// SPIKE ONLY: expose imported-memory metadata to the existing emitter.
++	// This does not implement an external memory owner or general import linking.
++	if mod.NumImportedMems == 1 && len(mod.Memories) == 0 {
++		for _, imp := range mod.Imports {
++			if imp.Kind == wasm.ImportMemory {
++				mod.Memories = append(mod.Memories, imp.Memory)
++			}
++		}
++	}

@@ -1,0 +1,32 @@
+// Spike-only ABI proof: changed-value path, not a general WASIX futex runtime.
+package main
+
+import (
+    "encoding/binary"
+    "fmt"
+    "example.com/spike/generated"
+)
+
+type host struct{}
+func (host) Futex_wait(m *generated.Module, addr, expected, timeout, result int32) int32 {
+    b := m.Memory()
+    if addr < 0 || int(addr)+4 > len(b) || timeout < 0 || int(timeout)+16 > len(b) || result < 0 || int(result)+1 > len(b) {
+        return 21 // WASI EFAULT
+    }
+    if binary.LittleEndian.Uint32(b[addr:]) == uint32(expected) {
+        panic("spike: blocking WASIX futex not implemented")
+    }
+    b[result] = 1 // Wasmer's changed-value path returns Success and ret_woken=true.
+    return 0
+}
+func main() {
+    m := generated.New(host{})
+    if m.Run() != 0 || m.Memory()[16] != 1 { panic("changed-value ABI failed") }
+    fmt.Println("changed-value futex ABI PASS")
+    m.Memory()[0] = 1
+    defer func() {
+        if recover() != "spike: blocking WASIX futex not implemented" { panic("must fail closed for blocking path") }
+        fmt.Println("blocking futex deliberately rejected PASS")
+    }()
+    m.Run()
+}

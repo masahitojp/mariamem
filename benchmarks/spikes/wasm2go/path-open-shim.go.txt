@@ -1,0 +1,22 @@
+// Spike-only path_open2 subset; extended flags are rejected, not silently dropped.
+package main
+import (
+    "fmt"
+    "example.com/spike/generated"
+)
+type host struct { *generated.WasiStubs }
+func (h host) Path_open2(m *generated.Module, fd, flags, path, length, oflags int32, rights, inherited int64, fdflags, extflags, out int32) int32 {
+    if extflags != 0 { return 52 } // WASI ENOSYS: not implemented by this spike.
+    return h.Path_open(m,fd,flags,path,length,oflags,rights,inherited,fdflags,out)
+}
+func main() {
+    w := generated.DefaultWASI()
+    fs := generated.NewMemFS()
+    w.SetFS(fs)
+    h := host{w}
+    m := generated.NewWithWASI(w,h)
+    if m.Run()!=0 { panic("path_open2 subset failed") }
+    if _,err:=fs.Stat("proof");err!=nil { panic(err) }
+    if h.Path_open2(m,3,1,64,5,1,66,0,0,1,32)!=52 { panic("extended flags must be rejected") }
+    fmt.Println("WASIX path_open2 create/close + unsupported flags rejection PASS")
+}
