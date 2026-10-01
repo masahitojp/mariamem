@@ -1,0 +1,395 @@
+{
+  "schema_version": 1,
+  "source_sha": "5676f901239c5ba4935c10061b8895216c212505",
+  "branch": "v0.4/reentry-spike",
+  "date": "2026-10-01",
+  "environment": {
+    "cpu": "Apple M1",
+    "ram_bytes": 17179869184,
+    "os": "macOS 27.0 (26A428)",
+    "go": "go1.26.8",
+    "python": "3.14.7",
+    "page_bytes": 16384
+  },
+  "guest_sha256": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+  "binary_sha256": "a694f071993dd3afdd60425b9e50062a34dba53dfb417801b11c03b0727d651b",
+  "binary_bytes": 83353186,
+  "converter_sha256": "dff239246e7cd3caf90aaba93ca1f4d7af05231064ae41c5fedf351370fd5a7a",
+  "sources_sha256": {
+    "storage/innobase/buf/buf0flu.cc": "0963a352861f1a78cc3425aebebbd52582c174c99bd9e0189d831eadecaa3c71",
+    "storage/innobase/row/row0quiesce.cc": "236e1e25b0abf578c14bb916978bb54d5ed2dda3654a201c3cd1304564eda4c6",
+    "tpool/tpool_generic.cc": "5aa908eba25625c652adf3df2d08723116491127bfef1d61148f2e91a8218280",
+    "mysys/my_thr_init.c": "63ecd51518051b4bfd7cc38526bc05897919c4f13188b5d5a6ce3750918570f3",
+    "guest/resident.inc": "7dfee608541002f4fca74b6eeceb8a0b54f22e0b04b5d1e254391b970e6af634"
+  },
+  "generated_inputs_sha256": {
+    "generated/base/base.go": "7d747bfb5114b80aac248ab0792f08a0f660f53c0859ba379ec8c3b36aff04f0",
+    "main.go": "bc1578dcdfe7c73dfe5c13402fdf3a47a49da366ffeb257897a2aee6fd99b301"
+  },
+  "observations": [
+    {
+      "trial": 0,
+      "stages": [
+        {
+          "label": "no-client",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        },
+        {
+          "label": "idle",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        },
+        {
+          "label": "table-export",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        },
+        {
+          "label": "global-read-lock",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        },
+        {
+          "label": "unlocked-closed",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        }
+      ],
+      "sql": [
+        {
+          "sql": "SELECT COUNT(*) FROM benchmark_rows",
+          "ok": true
+        },
+        {
+          "sql": "SELECT @@in_transaction",
+          "ok": true
+        },
+        {
+          "sql": "SHOW ENGINE INNODB STATUS",
+          "ok": true
+        },
+        {
+          "sql": "FLUSH TABLES benchmark_rows FOR EXPORT",
+          "ok": true
+        },
+        {
+          "sql": "SELECT COUNT(*) FROM benchmark_rows",
+          "ok": true
+        },
+        {
+          "sql": "UNLOCK TABLES",
+          "ok": true
+        },
+        {
+          "sql": "FLUSH TABLES WITH READ LOCK",
+          "ok": true
+        },
+        {
+          "sql": "UNLOCK TABLES",
+          "ok": true
+        }
+      ],
+      "innodb_status_selected": [
+        "Purge done for trx's n:o < 0 undo n:o < 0 state: running but idle",
+        "History list length 0",
+        "0 lock struct(s), heap size 1072, 0 row lock(s)",
+        "Modified db pages  0",
+        "Pending reads 0",
+        "Pending writes: LRU 0, flush list 0",
+        "state: sleeping"
+      ],
+      "completed": true,
+      "exit_code": 0
+    },
+    {
+      "trial": 1,
+      "stages": [
+        {
+          "label": "no-client",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        },
+        {
+          "label": "idle",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        },
+        {
+          "label": "table-export",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        },
+        {
+          "label": "global-read-lock",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 7,
+          "wait_addresses": 7,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 7
+        },
+        {
+          "label": "unlocked-closed",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 7,
+          "wait_addresses": 7,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 7
+        }
+      ],
+      "sql": [
+        {
+          "sql": "SELECT COUNT(*) FROM benchmark_rows",
+          "ok": true
+        },
+        {
+          "sql": "SELECT @@in_transaction",
+          "ok": true
+        },
+        {
+          "sql": "SHOW ENGINE INNODB STATUS",
+          "ok": true
+        },
+        {
+          "sql": "FLUSH TABLES benchmark_rows FOR EXPORT",
+          "ok": true
+        },
+        {
+          "sql": "SELECT COUNT(*) FROM benchmark_rows",
+          "ok": true
+        },
+        {
+          "sql": "UNLOCK TABLES",
+          "ok": true
+        },
+        {
+          "sql": "FLUSH TABLES WITH READ LOCK",
+          "ok": true
+        },
+        {
+          "sql": "UNLOCK TABLES",
+          "ok": true
+        }
+      ],
+      "innodb_status_selected": [
+        "Purge done for trx's n:o < 0 undo n:o < 0 state: running but idle",
+        "History list length 0",
+        "0 lock struct(s), heap size 1072, 0 row lock(s)",
+        "Modified db pages  0",
+        "Pending reads 0",
+        "Pending writes: LRU 0, flush list 0",
+        "state: sleeping"
+      ],
+      "completed": true,
+      "exit_code": 0
+    },
+    {
+      "trial": 2,
+      "stages": [
+        {
+          "label": "no-client",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        },
+        {
+          "label": "idle",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        },
+        {
+          "label": "table-export",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        },
+        {
+          "label": "global-read-lock",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 7,
+          "wait_addresses": 7,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 7
+        },
+        {
+          "label": "unlocked-closed",
+          "next_tid": 8,
+          "goroutines": 12,
+          "waiter_count": 8,
+          "wait_addresses": 8,
+          "fd_count": 15,
+          "socket_count": 0,
+          "page_cleaner_frame": true,
+          "atomic_wait_frames": 8
+        }
+      ],
+      "sql": [
+        {
+          "sql": "SELECT COUNT(*) FROM benchmark_rows",
+          "ok": true
+        },
+        {
+          "sql": "SELECT @@in_transaction",
+          "ok": true
+        },
+        {
+          "sql": "SHOW ENGINE INNODB STATUS",
+          "ok": true
+        },
+        {
+          "sql": "FLUSH TABLES benchmark_rows FOR EXPORT",
+          "ok": true
+        },
+        {
+          "sql": "SELECT COUNT(*) FROM benchmark_rows",
+          "ok": true
+        },
+        {
+          "sql": "UNLOCK TABLES",
+          "ok": true
+        },
+        {
+          "sql": "FLUSH TABLES WITH READ LOCK",
+          "ok": true
+        },
+        {
+          "sql": "UNLOCK TABLES",
+          "ok": true
+        }
+      ],
+      "innodb_status_selected": [
+        "Purge done for trx's n:o < 0 undo n:o < 0 state: running but idle",
+        "History list length 0",
+        "0 lock struct(s), heap size 1072, 0 row lock(s)",
+        "Modified db pages  0",
+        "Pending reads 0",
+        "Pending writes: LRU 0, flush list 0",
+        "state: sleeping"
+      ],
+      "completed": true,
+      "exit_code": 0
+    }
+  ],
+  "component_tests": {
+    "semantic": {
+      "race_detector": true,
+      "passed_executions": 20,
+      "log_sha256": "3810f3664cb1f487b8f0bd7519b0e8b24603e413a0e80797be44f101e29b4d63"
+    },
+    "component": {
+      "race_detector": true,
+      "passed_executions": 6,
+      "log_sha256": "081a0ccd323267dfafd6d2a26a0a8c21aebb74ac76ec938932eded59b903b8ff"
+    },
+    "setup_reproduction": {
+      "race_detector": true,
+      "passed_executions": 1
+    }
+  },
+  "prepared_base_unchanged": true,
+  "prepared_base_files_checked": 11,
+  "whole_ready_reentry_sql": false,
+  "ready_heap_two_children": false,
+  "reentry_latency_ms": null,
+  "reentry_incremental_physical_mib": null,
+  "checks": {
+    "go_unit": "PASS",
+    "go_vet": "PASS",
+    "python": {
+      "passed": 368,
+      "skipped": 3,
+      "seconds": 9.26
+    },
+    "public_source": {
+      "passed": true,
+      "file_count": 380
+    },
+    "wasmer_go_race_integration": {
+      "passed": true,
+      "seconds": 8.765
+    },
+    "wasmer_python_integration": {
+      "passed": 3,
+      "seconds": 2.43
+    },
+    "reproduction_from_setup": "PASS",
+    "sandbox_failures": "localhost bind / Go cache denied; retried with permission, no product failure",
+    "npm_files_restored": true,
+    "git_diff_check": "PASS"
+  },
+  "verdict": "RED — READY-STATE REENTRY NOT PRACTICAL",
+  "recommendation": "stop at prepared-files architecture for this bounded spike"
+}

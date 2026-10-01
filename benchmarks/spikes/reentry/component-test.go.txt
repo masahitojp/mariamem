@@ -1,0 +1,255 @@
+// Component-only tests in the isolated full guest base package. Not reentry.
+package base
+
+import (
+	"bytes"
+	"crypto/sha256"
+	"encoding/binary"
+	"io"
+	"os"
+	"sort"
+	"sync/atomic"
+	"testing"
+	"time"
+	"unsafe"
+)
+
+func reentryTestModule() *Module {
+	b := make([]byte, 65536)
+	s := &atomic.Uint64{}
+	s.Store(uint64(len(b)))
+	return &Module{Memory: b, M: unsafe.Pointer(&b[0]), MemSize: s, MemShared: true, Threads: &ThreadPool{}}
+}
+func TestReentryDroppedWaiterContext(t *testing.T) {
+	old := reentryTestModule()
+	done := make(chan int32, 1)
+	atomic.StoreUint32(AtomicPtr32At(old, 64), 2)
+	ThreadLaunch(old, func(m *Module, tid int32) { done <- AtomicWait32At(m, 64, 2, int64(time.Second)) })
+	limit := time.Now().Add(time.Second)
+	for {
+		old.Threads.parkMu.Lock()
+		n := len(old.Threads.parked[64])
+		old.Threads.parkMu.Unlock()
+		if n == 1 {
+			break
+		}
+		if time.Now().After(limit) {
+			t.Fatal("waiter missing")
+		}
+		time.Sleep(time.Microsecond * 50)
+	}
+	restored := reentryTestModule()
+	copy(restored.Memory, old.Memory)
+	if AtomicNotify(restored, 64, 0, 1) != 0 {
+		t.Fatal("invented waiter")
+	}
+	if AtomicNotify(old, 64, 0, 1) != 1 || <-done != 0 {
+		t.Fatal("source wait contract changed")
+	}
+	old.Threads.wg.Wait()
+	t.Log("same guest bytes + fresh host queue cannot resume old wait; original wake remains correct")
+}
+
+type fdNodeImage struct {
+	ID   int
+	Path string
+	Data []byte
+}
+type fdEntryImage struct {
+	FD             int32
+	Node           int
+	Offset         int64
+	Flags          int32
+	DiagnosticPath string
+}
+type fdReducedImage struct {
+	Nodes   []fdNodeImage
+	Entries []fdEntryImage
+	Next    int32
+}
+
+// Strictly regular MemFS entries only. Reject stdio/net/dir/alias variants;
+// demonstrate the narrow contract, rather than pretend full FD virtualization.
+func fdCaptureReduced(t *testing.T, w *WasiStubs, fs *MemFS, selected []int32) fdReducedImage {
+	t.Helper()
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	fs.mu.Lock()
+	defer fs.mu.Unlock()
+	paths := map[*memNode]string{}
+	var walk func(*memNode, string)
+	walk = func(n *memNode, p string) {
+		paths[n] = p
+		for k, c := range n.children {
+			walk(c, p+"/"+k)
+		}
+	}
+	walk(fs.root, "")
+	image := fdReducedImage{Next: w.nextFD}
+	ids := map[*memNode]int{}
+	for _, fd := range selected {
+		entry := w.fdTable[fd]
+		file, ok := entry.f.(*memFile)
+		if !ok || entry.isDir || entry.isSocket || entry.refs != 0 {
+			t.Fatal("unsupported FD class")
+		}
+		id, seen := ids[file.node]
+		if !seen {
+			id = len(image.Nodes)
+			ids[file.node] = id
+			image.Nodes = append(image.Nodes, fdNodeImage{id, paths[file.node], append([]byte(nil), file.node.data...)})
+		}
+		image.Entries = append(image.Entries, fdEntryImage{fd, id, file.off, entry.fdflags, entry.path})
+	}
+	return image
+}
+func fdRestoreReduced(t *testing.T, image fdReducedImage) (*WasiStubs, *MemFS) {
+	t.Helper()
+	fs := NewMemFS()
+	nodes := map[int]*memNode{}
+	for _, n := range image.Nodes {
+		if n.Path == "" {
+			nodes[n.ID] = &memNode{name: "unlinked", mode: 0600, data: append([]byte(nil), n.Data...)}
+			continue
+		}
+		split := bytes.LastIndexByte([]byte(n.Path), '/')
+		if err := fs.MkdirAll(n.Path[:split], 0700); err != nil {
+			t.Fatal(err)
+		}
+		f, err := fs.OpenFile(n.Path, os.O_CREATE|os.O_RDWR, 0600)
+		if err != nil {
+			t.Fatal(err)
+		}
+		mf := f.(*memFile)
+		mf.node.data = append([]byte(nil), n.Data...)
+		nodes[n.ID] = mf.node
+	}
+	w := DefaultWASI()
+	w.SetFS(fs)
+	w.nextFD = image.Next
+	for _, e := range image.Entries {
+		w.fdTable[e.FD] = &wasiOpen{f: &memFile{fsys: fs, node: nodes[e.Node], off: e.Offset}, path: e.DiagnosticPath, fdflags: e.Flags}
+	}
+	return w, fs
+}
+func fdReadABI(t *testing.T, w *WasiStubs, m *Module, fd int32) []byte {
+	t.Helper()
+	binary.LittleEndian.PutUint32(m.Memory[0:], 256)
+	binary.LittleEndian.PutUint32(m.Memory[4:], 16)
+	if rc := w.Fd_read(m, fd, 0, 1, 8); rc != 0 {
+		t.Fatal("read rc", rc)
+	}
+	n := binary.LittleEndian.Uint32(m.Memory[8:])
+	return append([]byte(nil), m.Memory[256:256+n]...)
+}
+func TestReentryFileDescriptorRebind(t *testing.T) {
+	dir := os.Getenv("REENTRY_PREPARED_FILES")
+	if dir == "" {
+		t.Fatal("prepared files required")
+	}
+	fs := NewMemFS()
+	maps, err := PreparedLoad(fs, dir, "cow")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer maps.Close()
+	w := DefaultWASI()
+	w.SetFS(fs)
+	selected := []int32{}
+	for _, p := range []string{"mariadb/data/ib_logfile0", "mariadb/data/test/benchmark_rows.ibd"} {
+		fd, rc := w.pathOpen(p, 0, 0, (1<<1)|(1<<6), 8)
+		if rc != 0 {
+			t.Fatal(rc)
+		}
+		if _, rc := w.fdSeek(fd, 32, io.SeekStart); rc != 0 {
+			t.Fatal(rc)
+		}
+		selected = append(selected, fd)
+	}
+	if err := fs.Rename("mariadb/data/ib_logfile0", "mariadb/data/rebound-redo"); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := fs.Stat(w.fdTable[selected[0]].path); err == nil {
+		t.Fatal("old path should be stale")
+	}
+	if err := fs.MkdirAll("tmp", 0700); err != nil {
+		t.Fatal(err)
+	}
+	f, err := fs.OpenFile("tmp/unlinked", os.O_CREATE|os.O_RDWR, 0600)
+	if err != nil {
+		t.Fatal(err)
+	}
+	f.Write([]byte("unlinked file identity survives removal"))
+	fd, rc := w.pathOpen("tmp/unlinked", 0, 0, (1<<1)|(1<<6), 0)
+	if rc != 0 {
+		t.Fatal(rc)
+	}
+	selected = append(selected, fd)
+	if err := fs.Remove("tmp/unlinked"); err != nil {
+		t.Fatal(err)
+	}
+	image := fdCaptureReduced(t, w, fs, selected)
+	expected := map[int32][]byte{}
+	for _, e := range image.Entries {
+		end := e.Offset + 16
+		if end > int64(len(image.Nodes[e.Node].Data)) {
+			end = int64(len(image.Nodes[e.Node].Data))
+		}
+		expected[e.FD] = append([]byte(nil), image.Nodes[e.Node].Data[e.Offset:end]...)
+	}
+	sourceObjects := map[int32]*wasiOpen{}
+	for _, fd := range selected {
+		sourceObjects[fd] = w.fdTable[fd]
+		w.Fd_close(nil, fd)
+	}
+	A, _ := fdRestoreReduced(t, image)
+	B, _ := fdRestoreReduced(t, image)
+	m := reentryTestModule()
+	for _, fd := range selected {
+		if A.fdTable[fd] == sourceObjects[fd] || A.fdTable[fd] == B.fdTable[fd] {
+			t.Fatal("old host identity")
+		}
+		if !bytes.Equal(fdReadABI(t, A, m, fd), expected[fd]) || !bytes.Equal(fdReadABI(t, B, m, fd), expected[fd]) {
+			t.Fatal("content/offset mismatch")
+		}
+		if A.fdTable[fd].fdflags != sourceObjects[fd].fdflags {
+			t.Fatal("flags")
+		}
+	}
+	// Regular file write through WASI into A; B and the captured base stay intact.
+	target := selected[1]
+	n := image.Nodes[1]
+	before := sha256.Sum256(n.Data)
+	binary.LittleEndian.PutUint32(m.Memory[0:], 256)
+	binary.LittleEndian.PutUint32(m.Memory[4:], 3)
+	copy(m.Memory[256:], []byte("XYZ"))
+	if A.Fd_write(m, target, 0, 1, 8) != 0 {
+		t.Fatal("write")
+	}
+	written := make([]byte, 3)
+	if _, err := A.fdTable[target].f.(*memFile).ReadAt(written, 48); err != nil || !bytes.Equal(written, []byte("XYZ")) {
+		t.Fatal("A write missing")
+	}
+	if sha256.Sum256(n.Data) != before {
+		t.Fatal("base mutated")
+	}
+	mf := B.fdTable[target].f.(*memFile)
+	check := make([]byte, 3)
+	if _, err := mf.ReadAt(check, 48); err != nil {
+		t.Fatal(err)
+	}
+	if bytes.Equal(check, []byte("XYZ")) {
+		t.Fatal("cross-child write")
+	}
+	for _, fd := range selected {
+		A.Fd_close(nil, fd)
+	}
+	if _, rc := B.fdSeek(target, 32, io.SeekStart); rc != 0 || !bytes.Equal(fdReadABI(t, B, m, target), expected[target]) {
+		t.Fatal("A close damaged B")
+	}
+	for _, fd := range selected {
+		B.Fd_close(nil, fd)
+	}
+	sort.Slice(selected, func(i, j int) bool { return selected[i] < selected[j] })
+	t.Logf("dynamic logical FDs %v; fresh objects, offset/flags, rename/unlink identity, private write and close isolation: PASS", selected)
+}

@@ -1,0 +1,55 @@
+// Copy only into the small generated WAT module, package generated.
+package generated
+
+import (
+	"encoding/binary"
+	"testing"
+)
+
+func reentryWord(m *Module, a int) uint32 { return binary.LittleEndian.Uint32(m.Memory()[a:]) }
+func semanticRun(t *testing.T, m *Module, n int32) int32 {
+	t.Helper()
+	tid := m.Begin(n)
+	m.threads.wg.Wait()
+	if m.MainTls() != 99 || reentryWord(m, 8) != uint32(tid) || reentryWord(m, 12) != 1 {
+		t.Fatal("identity/TLS/completion")
+	}
+	if reentryWord(m, 1024+int(tid)*16) != uint32(tid+100) {
+		t.Fatal("worker TLS storage")
+	}
+	if len(m.threads.parked) != 0 {
+		t.Fatal("safepoint has waiters")
+	}
+	return tid
+}
+func TestSemanticWorkerRebind(t *testing.T) {
+	old := New()
+	oldTid := semanticRun(t, old, 10)
+	image := append([]byte(nil), old.Memory()...)
+	globals := saveGlobals(old)
+	size := old.memSize.Load()
+	oldPool := old.threads
+	old = nil // no old Go context is in the captured representation
+	A := NewFromSnapshot(append([]byte(nil), image...), size, globals)
+	B := NewFromSnapshot(append([]byte(nil), image...), size, globals)
+	if A.threads == oldPool || A.threads == B.threads {
+		t.Fatal("host runtime reused")
+	}
+	// A legitimate fresh launch allocates identity1, then work identity2. This
+	// tests fresh identity, without editing a copied TID or scheduler counter.
+	semanticRun(t, A, 0)
+	semanticRun(t, B, 0)
+	aTid := semanticRun(t, A, 3)
+	bTid := semanticRun(t, B, 5)
+	if aTid == oldTid || bTid == oldTid {
+		t.Fatal("stale logical identity")
+	}
+	if reentryWord(A, 4) != 13 || reentryWord(B, 4) != 15 || binary.LittleEndian.Uint32(image[4:]) != 10 {
+		t.Fatal("state/isolation")
+	}
+	semanticRun(t, A, 7)
+	if reentryWord(B, 4) != 15 {
+		t.Fatal("cross-child write")
+	}
+	t.Log("semantic restart, fresh host/thread identity, mutable-global TLS, storage, two children, joined shutdown: PASS")
+}
