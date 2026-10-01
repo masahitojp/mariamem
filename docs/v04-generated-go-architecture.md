@@ -100,3 +100,27 @@ an opened-directory identity contract under rename/path reuse. They are not
 production shims. No generated runtime has been selected or enabled in the
 product. Production regeneration/provenance, bundle binding and platform/failure
 acceptance remain prerequisites after resolving that gate.
+
+### FD follow-up from 023796b9
+
+The opened-directory identity gate is now fixed in the isolated shim. Relative
+resolution retains a MemFS node and opens under the tree mutex; parent links
+follow rename and unlinked objects remain descriptor-owned. Pathname reuse
+cannot rebind an already opened directory. Close/dup/reuse includes the preopen
+entry. The same deterministic rename gate fails before and passes after the fix.
+
+Integration has resumed with a **selected local production-like candidate**.
+`setup_candidate.py` validates the accepted generated Go/assembly inventory,
+applies bounded adaptations automatically, binds the compiled guest to its input
+module SHA256, builds the existing host and records provenance/checksums.
+Prepared cold files use independent MemFS nodes and MAP_PRIVATE views; new guest
+execution state is built each time. Join every worker before releasing mappings.
+No diagnostic I/O overhead, Wasmer execution, ready heap or live state cloning is
+included. The historical runtime filename is retained only for selection by the
+unchanged local bundle resolver; manifest runtime_kind labels the candidate.
+
+This remains isolated and disabled by default. The full canonical guest-source
+build bridge, distribution/cache/wheel contract, comprehensive WASIX hardening,
+licensing/source review and exact-byte Ubuntu/macOS15 acceptance are release
+gates. Local regression/benchmark evidence does not replace them. See the updated
+candidate report for public-boundary measurements and observed regressions.

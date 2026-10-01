@@ -435,7 +435,7 @@ func main() {
 	flag.BoolVar(&c.initDiagnostics, "init-diagnostics", false, "require detailed initialization diagnostics")
 	flag.BoolVar(&c.memoryDiagnostics, "memory-diagnostics", false, "post-ready mapping/thread inventory once per case")
 	flag.BoolVar(&c.verificationProbe, "verification-probe", false, "isolated verification attribution; benchmark-only hash concurrency")
-	flag.StringVar(&c.resourceProbe, "resource-probe", "", "isolated diagnostic batch, sessions, or attribution")
+	flag.StringVar(&c.resourceProbe, "resource-probe", "", "isolated diagnostic batch, fresh, sessions, or attribution")
 	flag.Parse()
 	if c.initDiagnostics || c.memoryDiagnostics {
 		c.stages = true

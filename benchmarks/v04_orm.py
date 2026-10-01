@@ -18,8 +18,11 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--json', type=Path, required=True)
     p.add_argument('--runs', type=int, default=3)
+    p.add_argument('--native-dir', type=Path, help='selected exact bundle; public API still uses its ordinary resolver')
     a = p.parse_args()
     if a.runs < 3: p.error('three or more suite trials required')
+    if a.native_dir:
+        os.environ['MARIAMEM_NATIVE_DIR'] = str(a.native_dir.resolve())
     import mariamem
     assert mariamem.__version__ == '0.3.0'
     source = ROOT/'tests/consumer/test_sqlalchemy_dogfood.py'
@@ -33,7 +36,7 @@ def main():
                   platform=platform.platform(), python=platform.python_version(),
                   wheel_origin=json.loads(importlib.metadata.distribution('mariamem').read_text('direct_url.json')),
                   packages={k:importlib.metadata.version(k) for k in ('mariamem','SQLAlchemy','PyMySQL','pytest')},
-                  native_manifest=json.loads((Path(mariamem.__file__).parent/'_native/manifest.json').read_text()),
+                  native_manifest=json.loads((Path(os.environ.get('MARIAMEM_NATIVE_DIR', Path(mariamem.__file__).parent/'_native'))/'manifest.json').read_text()),
                   suites=[])
     output = a.json.resolve()
     if output.is_relative_to(ROOT) and not output.is_relative_to(ROOT/'benchmarks/results'):

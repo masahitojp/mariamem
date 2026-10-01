@@ -295,12 +295,20 @@ func (r *runner) resourceRun() error {
 		}
 		return e
 	}
-	if r.cfg.resourceProbe != "batch" && r.cfg.resourceProbe != "attribution" {
+	if r.cfg.resourceProbe != "batch" && r.cfg.resourceProbe != "attribution" && r.cfg.resourceProbe != "fresh" {
 		return errors.New("unknown resource probe")
 	}
 	n, e := strconv.Atoi(r.cfg.workers)
 	if e != nil || n < 1 {
 		return errors.New("resource probe requires one concurrency level")
+	}
+	if r.cfg.resourceProbe == "fresh" {
+		row, err := r.resourceBatch(nil, n)
+		if row != nil {
+			row["case"] = "fresh_resources"
+			r.samples = append(r.samples, row)
+		}
+		return err
 	}
 	db, _, e := r.startup(nil, time.Now())
 	if e != nil {

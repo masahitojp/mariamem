@@ -1,6 +1,10 @@
-# v0.4 generated-Go candidate — integration gate
+# v0.4 generated-Go candidate — FD follow-up and public-boundary measurement
 
-## 結果
+> **更新:** `023796b9`のFD停止条件は本follow-upで解消し、correctness gate後に
+> selected local candidateの公開API計測を実施した。最新結果は末尾の
+> 「Directory-FD identity fix / integration continuation」を参照。以下の初回記録は履歴として保持する。
+
+## 初回integration結果 (023796b9)
 
 **NOT READY — BLOCKERS REMAIN**。
 
@@ -153,5 +157,105 @@ pgmem/Testcontainersとの製品比較・marketing claimは行わない。
 最優先blockerはgeneric filesystem/FD契約の正しい実装と決定的な回帰検証。
 その後にcompiled-guest trust binding、再現可能なproduction pipeline、両platformとfailure-path
 acceptanceを完了し、初めてcanonical benchmarksへ進む。これらの後続統合作業は開始していない。
+
+**NOT READY — BLOCKERS REMAIN**
+
+## Directory-FD identity fix / integration continuation
+
+開始SHA: `023796b9e357ff2dfae9894c3b4e52d75c39db20`。同じbranchで修正。通常runtime、main、guest/MariaDB source、public API、SQL、futex/condvar/timeout、MaxSessionsは変更していない。
+
+### 原因とgeneric修正
+
+旧adapterはopened `memFile.node`からpathnameを探し、FS lockを解放した後にその名前をopenした。個々のoperationのmutexでは、この間のrename + name reuseによるTOCTOUを防げない。
+
+directory FDを元のMemFS nodeへ固定し、component traversalとopenを同じtree lock内で行う。parent identityはrename時に更新。unlink済みnodeはopen参照の寿命まで保持し、そのdirectoryへの新規作成はENOENT。root preopenも実際のFD table entryにし、close/dup/reuseで古いrootを復活させない。path文字列はdiagnostic/access-hook labelだけで、object探索に使わない。対応しないFS bindingはENOTSUPで拒否する。
+
+旧決定的reproducerは旧moduleでFAIL (`replacement`)を再確認した。修正後は同じrename/name-reuse順序を必ず実行して`original`を読む。nested open、parent移動、unlink、FD close/dup/reuse、並行rename、stat/readlinkも検査する。MariaDB path/addressの特別扱いはない。
+
+### 継続した候補の境界
+
+FD gate後、checksum結合・private prepared-filesを持つselected local candidateを構築した。通常runtimeには組み込まず、NativeDir overrideで既存Go/Python wrapperとhostへ接続した。歴史的bundle filenameの`wasmer-headless`は実際の生成Go executableであり、Wasmerもshell adapterも起動しない。manifestは`runtime_kind=generated-go` / `public_release_ready=false`。
+
+- 実行前にmodule SHAをcompiled guest input SHAと比較。違うmoduleはguest entry前に拒否した。既存artifact identity/checksum・Snapshot build/inventory/hash検証は残す。
+- accepted生成Go/assembly全inventoryをinstallerで検証し、source adaptationを自動適用する。正しい2-patch converterを再実行し、48 output filesのbyte一致を確認した。
+- prepared cold filesは子専用MemFS nodesとMAP_PRIVATE viewへ接続。fresh linear memory / thread / TLS / FD / offset / wait queue。file growthは子ownedのstorageになる。
+- 子間/base不変、growth/rename、一方のmapping Close、partial invalid treeの検査を追加。join全完了後だけmappingを解放する。
+- I/O diagnostic overridesを計測candidateから除去した。build/guest inputはStart時間に含めない。
+
+### 再実行したcorrectness gates
+
+| 検査 | 結果 |
+| --- | --- |
+| 決定的FD reproducer | before FAIL / after PASS。race detector警告なし |
+| focused FS / primitive tests | FD 8件 + prepared-files 2件と既存primitiveがrace PASS。readlink errno regression PASS。合法な1秒ordering testも維持 |
+| generated-Go Start/Fork integration | Go race PASS、Python 3 PASS。capacity/session/Snapshot/timeout/deadline/cancel/repeated Close・回収 |
+| SQLAlchemy dogfood | Start/Fork/Fork/Start、11×4=44 PASS。ORM semantics変更なし |
+| GORM dogfood | Start/Fork/Fork/Start、8×4=32 PASS。repeated AutoMigrate/schema discovery/cleanupもPASS |
+| existing raw-wire acceptance | 38 checks PASS + SQL/protocol checks。CLIENT_FOUND_ROWS/auth/reconnect/error behavior |
+| existing Snapshot acceptance | 50 checks PASS。transaction拒否/rollback option/source消費/build mismatch/corruption/concurrent children/isolation/close |
+| 通常Wasmer integration | Go race PASS、Python 3 PASS。正常経路は維持 |
+| normal checks | Go test/vet、Python 368 PASS / 3 SKIP、public-source PASS |
+
+### 公開Go API計測 (ms)
+
+同じlocal reference、同じ既存goisolation 1,000行fixture/SQL検証。2 warmup + 30独立runnerでStart、schema/seed、cold Snapshot、prepared Fork。OS cachesはflushしない。最初のpilotはconverter replayとの重複を理由に**全体**を無効として保存し、他のジョブ終了後に全30回を再実行した。遅い試行を選別していない。
+
+| 境界 | n | min | p50 | p95 | p99 | max | ≥900ms |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Start→SELECT 1 | 30 | 81.6 | 86.1 | 692.9 | 1089.8 | 1090.9 | 2/30 |
+| Start→fixture COUNT | 30 | 85.6 | 90.0 | 1109.6 | 1124.4 | 1128.9 | 4/30 |
+| cold Snapshot取得 | 30 | 4942.3 | 5148.1 | 6669.3 | 6970.0 | 6975.8 | 30/30 |
+| prepared Fork→COUNT | 30 | 147.5 | 150.3 | 168.3 | 180.9 | 185.4 | 0/30 |
+
+Startの2/30 (~6.7%)、seededの4/30 (~13.3%)は約1秒のcluster。既知の合法InnoDB raceは変更していない。このrun自体はtraceなしなので、全slow trialの原因を新たに証明したとは言わない。Start p95 692.9msはfast/slow間のlinear interpolationで、典型的な独立clusterを表す値ではない。
+
+別の30独立Startでready countersを測定。SQL後のcounter取得/observer/version queryをCPU終点に含め、teardownは除外。
+CPU p50/p95 0.105/0.142 CPU-sec。増分physical p50 90.40MiB、ready process-tree physical 94.95MiB、RSS 123.83MiB。
+counter probeのStart分布は別sample setでp50/p95 83.7/1086.8ms、≥900msは4/30件。30件のtail率は不安定であり、primary latency runと合成しない。
+
+### Prepared child scaling
+
+各×1/4/8/16は3独立group。fixture preparation/Snapshotを除き、既存public Fork→COUNTまで測る。CPUはhost+guest、全ready取得まで。physicalはmacOS accountingでexclusive private allocationではない。RSSをphysicalの代用にしない。
+
+| DBs | group ms p50/p95 | CPU-sec p50 | increment MiB/DB p50 | ready total physical MiB | ready RSS MiB | after Close − baseline MiB |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 153.7/166.6 | 0.187 | 86.19 | 94.47 | 131.53 | 1.14 |
+| 4 | 192.9/909.4 | 0.853 | 85.61 | 350.97 | 476.48 | 1.61 |
+| 8 | 329.5/1001.5 | 1.909 | 85.56 | 692.68 | 936.34 | 3.20 |
+| 16 | 660.0/678.2 | 3.824 | 85.25 | 1372.00 | 1852.05 | 3.81 |
+
+12/12 groups成功。全Close後はrunnerだけでguest descendants 0。残った数MiBはcallerのGo heap/bookkeepingで、長期leak-free保証にはsoakが必要。macOSのこのcounterではprivate dirtyは取得できず、物理の内訳を過剰に断定しない。sampled peak、raw counters、sampling gapsはJSONに保持。
+
+### SQLAlchemy suite (seconds)
+
+v0.3 dogfoodの同じ`test_03_update_commit_and_delete`。Startはschema/seed込み、Forkはスイート冒頭のbase preparation/Snapshotと最終cleanup込み。接続/relationship/CRUD/commit/dispose/WaitDisconnected/Close/PID消滅・temporary directory削除を両方同じ条件で検査。各3 suites、1-test warmup除外、18 measurement suites / 960 isolated testsすべて成功。
+
+| tests | mode | suite p50/p95 | setup p50 |
+| ---: | --- | ---: | ---: |
+| 10 | start | 2.35/3.21 | 0.00 |
+| 10 | fork | 7.71/7.89 | 5.28 |
+| 50 | start | 9.87/11.51 | 0.00 |
+| 50 | fork | 15.98/16.33 | 5.47 |
+| 100 | start | 25.38/26.35 | 0.00 |
+| 100 | fork | 26.00/26.65 | 5.20 |
+
+### 境界差とrelease前の説明が必要な差
+
+- Wasmer baseline Start→SQL p50 308.5msに対し、このselected candidateは86.1ms。prepared Fork→COUNTは288.7→150.3ms。Start p95は335.3→692.9msで、合法な約1秒tailを含む。
+- ×16のprepared増分physicalは280.8→85.25MiB/DB、total physical約1.34GiB。CPUは9.46→3.82 CPU-sec。過去のdirect prepared-files 77.16MiB/34.2msと公開APIの85.25MiB/150.3msを同一境界とは扱わない。
+- 1回の既存timingによる概算: native resolution/hash約48.6ms、host Snapshot validation約62.2ms、spawn→guest ready約35.5ms、client/SQL等残差。これらでpublic Forkの約150msを説明できる。検証を省略して34msへ見せていない。
+- **Snapshot取得は悪化:** Wasmer p50 404.6ms → candidate 5148.1ms。1回のtraceではdrain→export/guest-stop約4914.6ms、publish約242.8ms。guest shutdown/file-copy/native-export envelopeが大半だが、各内部費用はまだ分離していない。root cause確定/改善なし。これはready-memory reentryで解決しない。release前のperformance blockerとして残す。
+- SQLAlchemy100 suite p50: Wasmer Start約39.0 / Fork約43.1s → candidate 25.38 / 26.00s。Forkのsetupに約5秒Snapshotを含むので、childだけを抜いて勝利とは言わない。
+- pgmem/Testcontainersの新測定やmarketing比較は行わない。現在のlocal selected candidateの比較値であり、最終product benchmarkの宣言ではない。
+
+### 残るrelease gates
+
+FD bugは解消し、**v0.4統合は計測まで再開できた**。normal runtimeにはまだ有効化していない。canonical MariaDB source→legacy-EH WASM→pinned converter→bundleの完全自動pipeline、runtime-kind付き配布/cache/wheel、notice/source/license review、exact-byte Ubuntu x86_64/macOS15 arm64 acceptance、signals/abnormal worker/cancellation/lifecycle soak、完全なWASIX FS rights/path契約が未完了。今回のbindingとconverter output replayだけで全pipeline完了とは言わない。既存nativeファイルのhistorical名もlocal compatibility bridgeである。
+
+Snapshot exportの約5秒regressionは追加のrelease前調査事項。性能で権限/検証/SQL意味を弱めない。このtaskでは無関係な最適化やruntime redesignを行わない。ready heap、live threads、TLS、waitersの複製も行わない。
+
+最終ソースから再構築したnative bundleは測定bundleと全4artifactがbyte一致した。
+
+最終testsとartifact hashesは[evidence](v04-generated-go-candidate-evidence.json)の`fd_followup`。raw resultsはignored benchmarks/resultsへ保存、再現コマンドは[README](spikes/generated-go-integration/README.md)。
 
 **NOT READY — BLOCKERS REMAIN**
