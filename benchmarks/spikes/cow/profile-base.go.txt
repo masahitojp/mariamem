@@ -1,0 +1,195 @@
+// Darwin-only characterization, copied into the isolated generated/base package.
+package base
+
+import (
+	"crypto/sha256"
+	"encoding/hex"
+	"fmt"
+	"os"
+	"path/filepath"
+	"runtime"
+	"sort"
+	"strings"
+	"syscall"
+	"unsafe"
+)
+
+type SpikeFile struct {
+	Resident int      `json:"resident"`
+	Path     string   `json:"path"`
+	Size     int      `json:"size"`
+	Capacity int      `json:"capacity"`
+	Address  string   `json:"address"`
+	Hash     string   `json:"hash"`
+	Blocks   []string `json:"blocks"`
+}
+type SpikeSample struct {
+	LinearAddress  string         `json:"linear_address"`
+	LinearVirtual  int            `json:"linear_virtual"`
+	LinearLogical  uint64         `json:"linear_logical"`
+	LinearResident int            `json:"linear_resident"`
+	PageSize       int            `json:"page_size"`
+	Pages          map[int]string `json:"pages"`
+	Files          []SpikeFile    `json:"files"`
+	HeapAlloc      uint64         `json:"heap_alloc"`
+	HeapInuse      uint64         `json:"heap_inuse"`
+	HeapSys        uint64         `json:"heap_sys"`
+	StackInuse     uint64         `json:"stack_inuse"`
+	Goroutines     int            `json:"goroutines"`
+}
+
+func SpikeInspect(m *Module, fsys *MemFS) SpikeSample {
+	p := os.Getpagesize()
+	start := uintptr(m.M)
+	aligned := start & ^uintptr(p-1)
+	n := int(m.MemSize.Load())
+	span := n + int(start-aligned)
+	vec := make([]byte, (span+p-1)/p)
+	_, _, errno := syscall.Syscall(syscall.SYS_MINCORE, aligned, uintptr(span), uintptr(unsafe.Pointer(&vec[0])))
+	if errno != 0 {
+		panic(errno)
+	}
+	s := SpikeSample{LinearAddress: fmt.Sprintf("0x%x", start), LinearVirtual: len(m.Memory), LinearLogical: m.MemSize.Load(), PageSize: p, Pages: map[int]string{}}
+	// Skip nonresident pages: scanning all virtual zero memory would distort RSS.
+	for i, v := range vec {
+		if v&1 == 0 {
+			continue
+		}
+		a := i*p - int(start-aligned)
+		b := a + p
+		if a < 0 {
+			a = 0
+		}
+		if b > n {
+			b = n
+		}
+		if a >= b {
+			continue
+		}
+		h := sha256.Sum256(m.Memory[a:b])
+		s.Pages[a] = hex.EncodeToString(h[:])
+		s.LinearResident += b - a
+	}
+	fsys.mu.Lock()
+	var walk func(*memNode, string)
+	walk = func(node *memNode, path string) {
+		if node.dir {
+			keys := make([]string, 0, len(node.children))
+			for k := range node.children {
+				keys = append(keys, k)
+			}
+			sort.Strings(keys)
+			for _, k := range keys {
+				walk(node.children[k], path+"/"+k)
+			}
+			return
+		}
+		f := SpikeFile{Path: path, Size: len(node.data), Capacity: cap(node.data)}
+		if len(node.data) > 0 {
+			f.Address = fmt.Sprintf("0x%x", uintptr(unsafe.Pointer(&node.data[0])))
+		}
+		if len(node.data) > 0 {
+			ptr := uintptr(unsafe.Pointer(&node.data[0]))
+			aligned := ptr & ^uintptr(p-1)
+			span := len(node.data) + int(ptr-aligned)
+			vec := make([]byte, (span+p-1)/p)
+			_, _, errno := syscall.Syscall(syscall.SYS_MINCORE, aligned, uintptr(span), uintptr(unsafe.Pointer(&vec[0])))
+			if errno != 0 {
+				panic(errno)
+			}
+			for a := 0; a < len(node.data); a += p {
+				b := a + p
+				if b > len(node.data) {
+					b = len(node.data)
+				}
+				lo := int(ptr-aligned) + a
+				hi := int(ptr-aligned) + b - 1
+				if vec[lo/p]&1 == 0 || vec[hi/p]&1 == 0 {
+					f.Blocks = append(f.Blocks, "not-resident")
+					continue
+				}
+				h := sha256.Sum256(node.data[a:b])
+				f.Blocks = append(f.Blocks, hex.EncodeToString(h[:]))
+				f.Resident += b - a
+			}
+		}
+		h := sha256.Sum256([]byte(strings.Join(f.Blocks, ":")))
+		f.Hash = hex.EncodeToString(h[:])
+		s.Files = append(s.Files, f)
+	}
+	walk(fsys.root, "")
+	fsys.mu.Unlock()
+	var ms runtime.MemStats
+	runtime.ReadMemStats(&ms)
+	s.HeapAlloc = ms.HeapAlloc
+	s.HeapInuse = ms.HeapInuse
+	s.HeapSys = ms.HeapSys
+	s.StackInuse = ms.StackInuse
+	s.Goroutines = runtime.NumGoroutine()
+	return s
+}
+
+// Export only after normal MariaDB shutdown and all guest workers joined.
+func SpikeExportFS(fsys *MemFS, dir string) error {
+	fsys.mu.Lock()
+	defer fsys.mu.Unlock()
+	var walk func(*memNode, string) error
+	walk = func(node *memNode, path string) error {
+		destination := filepath.Join(dir, path)
+		if node.dir {
+			if err := os.MkdirAll(destination, 0700); err != nil {
+				return err
+			}
+			for k, c := range node.children {
+				if err := walk(c, filepath.Join(path, k)); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+		return os.WriteFile(destination, node.data, 0600)
+	}
+	node, err := fsys.lookup("mariadb")
+	if err != nil {
+		return err
+	}
+	return walk(node, "mariadb")
+}
+
+// Optional deep-copy filesystem loader; not a sharing mechanism.
+func SpikeLoadFS(fsys *MemFS, dir string) error {
+	return filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		rel, err := filepath.Rel(dir, path)
+		if err != nil {
+			return err
+		}
+		rel = filepath.ToSlash(rel)
+		if rel == "." {
+			return nil
+		}
+		if d.IsDir() {
+			return fsys.MkdirAll(rel, 0755)
+		}
+		if !d.Type().IsRegular() || strings.Contains(rel, "..") {
+			return fmt.Errorf("unsupported image file")
+		}
+		b, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		_, err = fsys.OpenFile(rel, os.O_CREATE|os.O_RDWR, 0600)
+		if err != nil {
+			return err
+		}
+		fsys.mu.Lock()
+		node, err := fsys.lookup(rel)
+		if err == nil {
+			node.data = b
+		}
+		fsys.mu.Unlock()
+		return err
+	})
+}

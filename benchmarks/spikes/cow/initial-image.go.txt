@@ -1,0 +1,117 @@
+// One proof: share the initialized, thread-free linear image. No live Go fork.
+package main
+
+import (
+	"encoding/json"
+	"example.com/mariamem-spike/generated"
+	"example.com/mariamem-spike/generated/base"
+	"fmt"
+	"os"
+	"path/filepath"
+	"syscall"
+)
+
+type initialImage struct {
+	Logical  uint64   `json:"logical"`
+	Length   int      `json:"length"`
+	Globals  []uint64 `json:"globals"`
+	Dropped  []int    `json:"dropped"`
+	Offsets  []int    `json:"offsets"`
+	PageSize int      `json:"page_size"`
+}
+
+var cowMapping []byte
+
+func cowNewModule(h *host) *base.Module {
+	dir := os.Getenv("COW_LINEAR_IMAGE")
+	mode := os.Getenv("COW_LINEAR_MODE")
+	if dir == "" || mode == "fresh" {
+		m := generated.NewWithWASI(h, nil, h)
+		if dest := os.Getenv("COW_BUILD_INITIAL_IMAGE"); dest != "" {
+			if err := os.MkdirAll(dest, 0700); err != nil {
+				panic(err)
+			}
+			s := base.SpikeInspect(m, base.NewMemFS())
+			info := initialImage{Logical: m.MemSize.Load(), Length: len(m.Memory), Globals: base.SaveGlobals(m), PageSize: s.PageSize}
+			f, err := os.OpenFile(filepath.Join(dest, "memory.bin"), os.O_CREATE|os.O_EXCL|os.O_RDWR, 0600)
+			if err != nil {
+				panic(err)
+			}
+			if err = f.Truncate(int64(info.Length)); err != nil {
+				panic(err)
+			}
+			for a := range s.Pages {
+				info.Offsets = append(info.Offsets, a)
+				if _, err = f.WriteAt(m.Memory[a:a+s.PageSize], int64(a)); err != nil {
+					panic(err)
+				}
+			}
+			for i, seg := range m.DataSegs {
+				if seg == nil {
+					info.Dropped = append(info.Dropped, i)
+				}
+			}
+			if err = f.Sync(); err != nil {
+				panic(err)
+			}
+			if err = f.Close(); err != nil {
+				panic(err)
+			}
+			b, _ := json.Marshal(info)
+			if err = os.WriteFile(filepath.Join(dest, "image.json"), b, 0444); err != nil {
+				panic(err)
+			}
+			if err = os.Chmod(filepath.Join(dest, "memory.bin"), 0444); err != nil {
+				panic(err)
+			}
+		}
+		return m
+	}
+	b, err := os.ReadFile(filepath.Join(dir, "image.json"))
+	if err != nil {
+		panic(err)
+	}
+	var info initialImage
+	if err = json.Unmarshal(b, &info); err != nil {
+		panic(err)
+	}
+	if info.Length != 2147483648 || info.Logical != 268435456 || len(info.Globals) != 4 {
+		panic("wrong initial image")
+	}
+	f, err := os.Open(filepath.Join(dir, "memory.bin"))
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+	switch mode {
+	case "cow":
+		cowMapping, err = syscall.Mmap(int(f.Fd()), 0, info.Length, syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_PRIVATE)
+	case "anon":
+		cowMapping, err = syscall.Mmap(-1, 0, info.Length, syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_PRIVATE|syscall.MAP_ANON)
+		if err == nil {
+			for _, a := range info.Offsets {
+				if _, err = f.ReadAt(cowMapping[a:a+info.PageSize], int64(a)); err != nil {
+					break
+				}
+			}
+		}
+	default:
+		panic("unsupported experimental mapping mode: " + mode)
+	}
+	if err != nil {
+		panic(err)
+	}
+	m := generated.NewFromSnapshot(h, nil, h, cowMapping, info.Logical, info.Globals)
+	for _, i := range info.Dropped {
+		base.DataDrop(m, i)
+	}
+	return m
+}
+func cowRelease() {
+	if cowMapping != nil {
+		if err := syscall.Munmap(cowMapping); err != nil {
+			panic(fmt.Sprint("munmap: ", err))
+		}
+		cowMapping = nil
+	}
+}
