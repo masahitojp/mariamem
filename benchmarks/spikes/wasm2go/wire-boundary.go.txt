@@ -1,0 +1,94 @@
+// Isolated host-boundary experiment; no production package is edited.
+package main
+
+import (
+	"context"
+	"database/sql"
+	"encoding/json"
+	"flag"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem/internal/artifacts"
+	"github.com/masahitojp/mariamem/internal/host"
+	"github.com/masahitojp/mariamem/internal/snapshot"
+	"os"
+	"os/exec"
+	"strconv"
+	"time"
+)
+
+func check(path, want string) {
+	info, err := os.Lstat(path)
+	if err != nil || !info.Mode().IsRegular() {
+		panic("non-regular experiment artifact: " + path)
+	}
+	got, err := snapshot.Digest(path)
+	if err != nil {
+		panic(err)
+	}
+	if got != want {
+		panic("experiment digest mismatch: " + path)
+	}
+}
+func main() {
+	runtimePath := flag.String("runtime", "", "isolated exec adapter")
+	probe := flag.String("probe", "", "generated guest")
+	probeHash := flag.String("probe-hash", "", "expected pinned digest")
+	runtimeHash := flag.String("runtime-hash", "", "expected adapter digest")
+	module := flag.String("module", "", "guest provenance artifact + sidecar")
+	native := flag.String("production-native-dir", "", "released control")
+	helper := flag.String("cost-helper", "", "existing process counters")
+	flag.Parse()
+	started := time.Now()
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	var s *host.Server
+	var err error
+	var bundle artifacts.Bundle
+	if *native != "" {
+		bundle, err = artifacts.Resolve(*native)
+		if err != nil {
+			panic(err)
+		}
+	} else {
+		check(*probe, *probeHash)
+		check(*runtimePath, *runtimeHash)
+		check(*module, "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3")
+	}
+	verified := time.Since(started).Seconds()
+	if *native != "" {
+		s, err = host.StartVerified(ctx, bundle, "", "", time.Second*10, nil)
+	} else {
+		s, err = host.Start(ctx, *runtimePath, *module, "", "", time.Second*10, nil)
+	}
+	if err != nil {
+		panic(err)
+	}
+	ready := time.Since(started).Seconds()
+	counterStart := time.Since(started).Seconds()
+	raw, err := exec.Command(*helper, strconv.Itoa(os.Getpid()), strconv.Itoa(s.Guest.PID())).Output()
+	if err != nil {
+		panic(err)
+	}
+	var counters any
+	if err = json.Unmarshal(raw, &counters); err != nil {
+		panic(err)
+	}
+	counterEnd := time.Since(started).Seconds()
+	db, err := sql.Open("mysql", fmt.Sprintf("root@tcp(127.0.0.1:%d)/", s.Port()))
+	if err != nil {
+		panic(err)
+	}
+	var value int
+	if err = db.QueryRowContext(ctx, "SELECT 1").Scan(&value); err != nil || value != 1 {
+		panic(fmt.Sprint(err, value))
+	}
+	firstSQL := time.Since(started).Seconds()
+	if err = db.Close(); err != nil {
+		panic(err)
+	}
+	if err = s.Close(ctx); err != nil {
+		panic(err)
+	}
+	json.NewEncoder(os.Stdout).Encode(map[string]any{"verified_seconds": verified, "wire_ready_seconds": ready, "sql_seconds": firstSQL, "counters": counters, "host_pid": os.Getpid(), "guest_pid": s.Guest.PID(), "counter_interval_seconds": []float64{counterStart, counterEnd}, "clean_shutdown": true})
+}

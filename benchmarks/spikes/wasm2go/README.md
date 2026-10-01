@@ -219,3 +219,67 @@ These interrupted boots must not be counted as successful trials or benchmark
 samples. The observed one-second InnoDB wait tail is retained, not optimized away.
 See [execution evidence](../../wasm2go-execution-evidence.json) and the appended
 report section for current limitations and the GREEN CANDIDATE verdict.
+
+## Tail investigation (same guest and converter)
+
+The measured binary is unchanged. `measure_execution.py` now preserves p90/p99,
+the >=500ms slow flag and both clusters, including individual CPU counters.
+Run performance probes sequentially; do not overlap compilations or controls.
+
+```sh
+python3 benchmarks/spikes/wasm2go/measure_execution.py \
+  --binary "$SPIKE_OUTPUT/module/probe" --cost-helper "$SPIKE_OUTPUT/process-cost" \
+  --runs 100 --output "$SPIKE_OUTPUT/before-100.json"
+# Copy go.mod, generated/ and main.go to a NEW independent module first.
+python3 benchmarks/spikes/wasm2go/trace_waits.py "$SPIKE_OUTPUT/traced"
+cp benchmarks/spikes/wasm2go/wait-contract-test.go.txt \
+  "$SPIKE_OUTPUT/traced/generated/base/spike_contract_test.go"
+cd "$SPIKE_OUTPUT/traced"
+GOTOOLCHAIN=go1.26.8 go build -p 1 -trimpath -o probe .
+GOTOOLCHAIN=go1.26.8 go test -race -v ./generated/base \
+  -run 'TestWaitContract|TestPageCleanerOrdering'
+cd "$SPIKE_REPO"
+python3 benchmarks/spikes/wasm2go/trace_trials.py \
+  --binary "$SPIKE_OUTPUT/traced/probe" --output-dir "$SPIKE_OUTPUT/traces" \
+  --attempts 100 --slow-target 3
+```
+
+Trace hooks are specific to the pinned guest/function indices. They buffer at
+most 10,000 events, write after normal exit, and do not affect the uninstrumented
+measurement binary. Check `dropped`, sort by event timestamps for analysis, and
+never use trace run frequencies as performance frequencies. The page-cleaner
+ordering reduction reproduces a valid one-second timer; no runtime fix was made.
+Repeat the 100-run uninstrumented command to measure reproducibility, not a fix.
+
+For a closer boundary, create another private module:
+
+```sh
+python3 benchmarks/spikes/wasm2go/setup_wire.py \
+  --probe "$SPIKE_OUTPUT/module/probe" \
+  --guest build/wasm2go-legacy-eh/artifact/mariamem-legacy-eh-O2-compatible.wasm \
+  --output-dir "$SPIKE_OUTPUT/wire"
+cd "$SPIKE_OUTPUT/wire"
+GOTOOLCHAIN=go1.26.8 go mod tidy
+GOTOOLCHAIN=go1.26.8 go build -trimpath -o wire-probe .
+cd "$SPIKE_REPO"
+python3 benchmarks/spikes/wasm2go/measure_wire.py --runs 100 \
+  --output "$SPIKE_OUTPUT/wire-generated.json" -- "$SPIKE_OUTPUT/wire/wire-probe" \
+  --runtime "$SPIKE_OUTPUT/wire/exec-guest.sh" --probe "$SPIKE_OUTPUT/module/probe" \
+  --runtime-hash <runtime_hash-from-pins.json> --probe-hash <probe_hash-from-pins.json> \
+  --module build/wasm2go-legacy-eh/artifact/mariamem-legacy-eh-O2-compatible.wasm \
+  --cost-helper "$SPIKE_OUTPUT/process-cost"
+python3 benchmarks/spikes/wasm2go/measure_wire.py --runs 30 \
+  --output "$SPIKE_OUTPUT/wire-control.json" -- "$SPIKE_OUTPUT/wire/wire-probe" \
+  --production-native-dir <released-native-bundle> --cost-helper "$SPIKE_OUTPUT/process-cost"
+```
+
+Use absolute artifact/helper paths when invoking the wire driver. It checks the
+local experiment executable/adapter/WASM digests every start, calls the unchanged
+host and MySQL-wire packages, sends SELECT 1 through the ordinary MySQL driver,
+samples host + guest processes, and checks clean close. The released control uses
+the existing native verifier and StartVerified. Local digest pins are experiment
+provenance checks, not a production generated-Go release trust design. The timer
+starts inside Go main; public Start/resolver and Python host launch are excluded.
+
+See [tail evidence](../../wasm2go-tail-evidence.json) for the retained 100-run
+distributions, compact traces, deterministic contract tests and paired wire data.

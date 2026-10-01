@@ -18,7 +18,7 @@ def distribution(values):
         n = (len(s)-1)*p
         lo = int(n)
         return s[lo] + (s[min(lo+1,len(s)-1)]-s[lo])*(n-lo)
-    return dict(n=len(s),min=s[0],p50=quantile(.5),p95=quantile(.95),max=s[-1])
+    return dict(n=len(s),min=s[0],p50=quantile(.5),p90=quantile(.9),p95=quantile(.95),p99=quantile(.99),max=s[-1])
 
 
 def main():
@@ -89,6 +89,7 @@ def main():
                     with ThreadPoolExecutor(max_workers=n) as pool:
                         row['ready_seconds_by_db'] = list(pool.map(ready,guests))
                     row['group_ready_seconds'] = max(row['ready_seconds_by_db'])
+                    row['slow_path'] = row['group_ready_seconds'] >= .5
                     sample_start = time.perf_counter()
                     row['ready_counters'] = counters(guests)
                     row['ready_counter_interval_seconds'] = [sample_start-started,time.perf_counter()-started]
@@ -127,6 +128,16 @@ def main():
                                        'incremental_primary_bytes_per_db','ready_cpu_seconds')}
                            for n in a.workers}
         report['completed']=True
+        report['slow_path_threshold_seconds']=.5
+        report['clusters']={}
+        for n in a.workers:
+            group=[r for r in report['trials'] if r['workers']==n]
+            report['clusters'][str(n)]={}
+            for label,slow in [('fast',False),('slow',True)]:
+                cluster=[r for r in group if r['slow_path']==slow]
+                report['clusters'][str(n)][label]=dict(count=len(cluster),percentage=100*len(cluster)/len(group),
+                    distributions={key:distribution([r[key] for r in cluster]) for key in
+                    ('group_ready_seconds','group_first_sql_seconds','ready_cpu_seconds')} if cluster else {})
     finally: save()
 
 

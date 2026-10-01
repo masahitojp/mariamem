@@ -528,3 +528,212 @@ full public host/wireと既存integration期待値を接続できるか。Snapsh
 SELECT 1のみでなく、CRUD/transactions/errors/2 sessions/認証self-test/normal shutdownと対照一致がある。
 ただし production-ready GREENではない。残るbounded compatibility work、wait/wake tail、未検証runtime契約、
 full API/wire/長時間/cancellation/platform検証を終えたという判断はしていない。原 YELLOW evidenceは上に保存した。
+
+## Generated-Go tail latency investigation
+
+開始点は `c63f81e099dbe4417aa42fb925cadb40af7a7fd3`、branch は `v0.4/wasm2go-spike`。
+同じ固定参照環境、legacy guest `6a2e1a8c…`、計測 binary `cd02482c…` を継続使用。
+**runtime fix は適用していない。** 以下の再計測は同一 binary の再現確認であり、改善後の値ではない。
+生成 code、trace、exec adapter、Go test は ignored directory の独立 module 内だけに置いた。
+通常 runtime、MariaDB 設定、API、Snapshot/Fork、thread/shared-memory model は変更していない。
+全試行・CPU/memory counters・重要 trace・source/hash・check 結果は
+[tail evidence](wasm2go-tail-evidence.json)、再現方法は [spike README](spikes/wasm2go/README.md)。
+
+### 100-run distribution：変更前 / 調査後の無変更再計測
+
+各100回は独立 process。trace/guest diagnostics は off、SELECT 1 と正常終了は全て成功。
+起点は process launch 前、ready は framing の ready 応答、SQL は最初の SELECT 1 応答。
+CPU は ready 直後の OS sample。counter 取得時間が first-SQL に含まれる。
+quantile は sorted samples の線形補間、単位は ms。平均で二峰性をまとめない。
+
+| series / metric | min | p50 | p90 | p95 | p99 | max |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 変更前 ready | 23.6 | 39.6 | 46.0 | 52.8 | 1053.8 | 1055.4 |
+| 変更前 SELECT 1 | 28.0 | 44.7 | 51.5 | 61.0 | 1067.5 | 1068.8 |
+| 変更前 CPU | 33.4 | 51.7 | 58.6 | 64.6 | 79.5 | 94.2 |
+| 無変更再計測 ready | 25.5 | 40.3 | 53.7 | 1042.3 | 1054.1 | 1055.6 |
+| 無変更再計測 SELECT 1 | 29.9 | 45.5 | 59.3 | 1046.7 | 1065.6 | 1068.0 |
+| 無変更再計測 CPU | 35.0 | 52.1 | 60.8 | 69.8 | 74.9 | 78.8 |
+
+slow 判定は ready ≥500 ms。変更前 **4/100 (4%)**、再計測 **6/100 (6%)**。
+変更前 p95 が速い群に収まったのは件数による。tail 消失の証拠にはならない。
+以前の30回は4/30、今回の wire prototype は32/100であり、頻度は起動順序・計測境界に依存する。
+
+| cluster | n | ready min / p50 / p95 / max (ms) | SELECT 1 p50 / p95 (ms) |
+| --- | ---: | --- | --- |
+| 変更前 fast | 96 | 23.6 / 39.3 / 46.3 / 55.4 | 44.6 / 52.2 |
+| 変更前約1秒の群 | 3 | 1037.9 / 1053.8 / 1055.2 / 1055.4 | 1067.5 / 1068.6 |
+| 変更前の初回、別の中間値 | 1 | 613.8 | 619.8 |
+| 無変更再計測 fast | 94 | 25.5 / 40.1 / 50.1 / 58.2 | 45.2 / 55.4 |
+| 無変更再計測 slow | 6 | 1042.1 / 1050.3 / 1055.2 / 1055.6 | 1061.2 / 1067.4 |
+
+初回613.8 msは未計装のため帰属できない。別の計装 binary の初回にも外側1.124 sに対し
+全 guest trace が52.6 ms以内に終わる例があった。process launch / Go初期化前 / observer scheduling の
+未帰属区間であり、これを page-cleaner の1秒 wait と同一原因とは断定しない。全値は除外せず保持した。
+
+### Direct trace と原因
+
+`trace_waits.py` は AtomicWait の expected/current、queue registration/token、notify count/対象、
+timeout/return、thread spawn/start/exit、TLS、guest start/return を記録する。
+少数の caller frame と、問題の guest target read/cond signal も記録。最大10,000 eventsをmemoryに保持し、
+正常終了後にJSON出力する。対象 trace は dropped=0。計装は scheduling を変えるため性能値・頻度に使わない。
+event timestamp は Go package initialization からの monotonic time。queue mutation は同じ park lock 内で記録した。
+wait-entry timestamp は lock 前なので JSON の列挙順と時刻順が一部異なる。
+
+Binaryen133の同じ-O2に `--symbolmap` だけを追加した解析用再生成は、**元 guest とSHA256完全一致**。
+関数名は推測ではなく、このmapから得た：
+`Fn18158=buf_flush_wait`、`Fn18163=buf_flush_page_cleaner`、`Fn18169=log_make_checkpoint`、
+`Fn18170=buf_flush_sync_batch`、`Fn17976=create_log_file`。
+
+guest source の `storage/innobase/buf/buf0flu.cc`：
+
+- `buf_flush_wait()` (2321–2350付近) は mutex を保持して target を設定し、`do_flush_list` をsignal、`done_flush_list` をwait。
+- page cleaner (2804–2841付近) は **target を読む→mutexを取る→idle/dirty状態からwaitを決める**。
+  mutex取得直後にはtargetを読み直さない。timed waitのdeadlineは `set_timespec(abstime,1)`。
+- wait終了後に target を読み直し、flush完了時に `done_flush_list` をbroadcastする。
+
+slow trace #3では、ワーカーが先にtarget=0を読んでmutex待ちに入り、主スレッドの要求とsignalを挟んで
+mutexを取得した。live target は12288だが、ワーカーはそのまま約1秒のtimed waitに入った。
+signal時の musl private-cond waiter list は空。futexへのnotify自体が発行されていない。
+
+| fast trace #1 (ms) | slow trace #3 (ms) | operation |
+| ---: | ---: | --- |
+| 14.514 | 13.194 | worker tid2 reads target `0xf04248` =0 |
+| — | 13.194–13.680 | worker waits for mutex futex `0x68fb44`, main tid0 wakes exactly one |
+| 14.514 | 13.680 | worker obtains mutex; live target fast=0 / slow=12288 |
+| 14.533 | 13.775 | worker barrier `0x1aa18694`, expected=2, registers wait; timeout fast=1s / slow=999.513ms |
+| 14.964 | 13.647 (**registration前**) | main signals cond `0x68fb88`; fast waiter=0x1aa18688 / slow waiter=0 |
+| 15.046 | **発行なし** | main futex wake of worker barrier |
+| 15.048–15.118 | 13.738–1015.488 | main waits on barrier `0x1721374`, expected=2, timeout=none |
+| — | 1015.351 | worker timer expires; atomic wait returns2 → WASIX woken=false |
+| 15.085 | 1015.38付近 | worker broadcasts done cond `0x68fbe8`; tid2→tid0 barrier wake |
+| 15.118 | 1015.488 | main resumes; fast returns not-equal1 because its barrier already changed, slow returns wake0 |
+
+slow trace #11 repeats target0→mutex wait→live12288→empty cond signal→999.509ms timeout→done notification。
+main TLS=1024、worker TLS=446793504で、wait/wake token・thread identityも対応する。
+並行するtid1の400ms maintenance timerは主スレッドを再開させない。
+
+**分類：InnoDB behavior / guest-level notification-before-registration + timer fallback。**
+この順序はmusl/WASIX shimの契約に違反するlost wakeを示していない。
+mutexのwakeは届き、比較/queue登録のraceではchanged-valueの即時復帰も機能している。
+通知が待ち手の存在前に発生する条件変数は、後から来る待ち手用に通知を保存しない。
+MariaDB source が設定した約1秒のdeadlineを消費してから、flush要求を処理して正しく起動している。
+
+### Contract / minimal reproducer / fix 判断
+
+WASIX libc `v2026-07-03.1` の `pthread_cond_timedwait.c` / `pthread_cond_signal.c` は private waiter listを
+mutex解放前に登録し、signalはその時点のlistだけを処理する。
+`__timedwait.c` は absolute pthread deadlineからclockの現在値を引き、相対nsをWASIXへ渡す。
+実際のimportには約999.5msが渡されており、relative/absolute取り違えや秒への丸めではない。
+Wasmer7.4.2 `futex_wait.rs` の実装は値不一致でsuccess/woken=true、timeoutでfalse。
+既存shimは atomic wait rc1→true / rc2→false。queue lockはcompareと登録を保護し、wakeも同じlockを取る。
+generatorの timer に既存の+1msがあるが、約1秒の起源はguest deadline。この+1msは今回変更していない。
+
+隔離した [wait-contract-test.go.txt](spikes/wasm2go/wait-contract-test.go.txt) は実際のgenerated/base primitiveを使用。
+`TestPageCleanerOrdering` はsourceの対象read/mutex/signal順序とprivate-condの非蓄積性だけを縮小したmodelで、
+MariaDBやmusl全体を再実装・検証したものではない。
+gateで順序を固定した早いsignalでは **1.001324 s / timeout2**、登録後signalでは **15.792µs / wake0**。
+`TestWaitContract` は expected mismatch、通知の非蓄積、count0/1、compare→registrationに競合する100 wakesを確認。
+全て `go test -race` 成功。queue登録のraceをタイムアウトで救う必要はなかった。
+
+**修正なし。** guest側の待機判断を変えること、shimに架空のsticky signalを入れること、timeoutを短縮することは、
+今回の契約を超える。正当なMariaDB待機の最適化をここで停止した。旧fallbackを失敗扱いにするtestも追加しない。
+reductionのrace成功は、unsafe shared-memoryを使うfull generated guestのrace/correctness監査完了を意味しない。
+
+### Resources / scaling 再計測
+
+同一binary、cache/MaxSessions変更なし、RSSとphysical footprintを別々に記録する。
+
+| metric (p50) | 変更前100 | 無変更再計測100 | 前回spike |
+| --- | ---: | ---: | ---: |
+| ready RSS / DB | 107.5 MiB | 107.4 MiB | 約107 MiB |
+| ready physical footprint / DB | 87.6 MiB | 87.5 MiB | 約88 MiB |
+| CPU to ready | 0.0517 CPU-s | 0.0521 CPU-s | 0.0525 CPU-s |
+
+各scale3回（分位数は探索値）。process/DB、shared-state/CoWは無し。
+
+| DBs | group-ready p50 / max (ms) | RSS total / DB (MiB) | footprint / DB (MiB) | CPU total (s) |
+| ---: | ---: | ---: | ---: | ---: |
+| 1 | 34.0 / 1035.0 | 107.5 / 107.5 | 87.6 | 0.044 |
+| 4 | 1072.4 / 1077.9 | 432.4 / 108.1 | 88.2 | 0.285 |
+| 8 | 1075.4 / 1139.1 | 863.2 / 107.9 | 88.0 | 0.395 |
+| 16 | 1122.8 / 1261.8 | 1725.6 / 107.8 | 88.0 | 0.881 |
+
+×16 footprint total p50 **1407.9 MiB (1.375 GiB)**、最大1434.2 MiB。
+前回の×16 107.7 MiB RSS/DB・87.8 MiB footprint/DB・0.810 CPU-sと同程度。
+全child正常終了・reap、after-close active=0 / guest RSS=0。
+in-process thread cleanup、Go GCによるDB単位の回収を測ったものではない。
+
+### MySQL-wire comparable boundary
+
+**既存 host とMySQL-wireを接続できた。** `setup_wire.py` が別moduleを作り、既存 `host` / `guest` / `mysqlwire`
+を変更せずimportする。小さなexec adapterはWasmer用argvを既存 `probe measure` に変えるだけ。
+actual legacy WASMのsidecarを使い、generated executable/adapter/WASMのdigestを毎回確認してから `host.Start()`。
+対照は同じdriverでrelease bundleの既存 `artifacts.Resolve()` / `host.StartVerified()` を実行する。
+productionのtrustチェックを変更・無効化していない。
+
+時刻の起点はfresh Go hostのmain内の **start-like call前**。artifact digest、guest process/init、ready frame decode、
+wire listener、MySQL handshake、最初のSELECT 1を含む。build/transpilationは含まない。
+hostのOS launch/Go初期化はwall timer外（public Go APIの呼び出し元は既に実行中）。CPUは両processの累積counter。
+ready後のcounter取得もSQL時間に含む。
+
+| boundary / metric | n | min | p50 | p90 | p95 | p99 | max |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| generated wire-ready (ms) | 100 | 84.1 | 94.7 | 1105.8 | 1113.2 | 1119.4 | 1127.4 |
+| generated SELECT 1 (ms) | 100 | 88.3 | 99.3 | 1117.5 | 1122.4 | 1131.0 | 1136.7 |
+| released Wasmer wire-ready (ms) | 30 | 278.1 | 289.9 | 304.0 | 314.5 | 332.6 | 339.1 |
+| released Wasmer SELECT 1 (ms) | 30 | 288.0 | 300.2 | 312.2 | 323.5 | 341.7 | 348.4 |
+
+generated slow **32/100**、対照0/30。同じguestの中央値の利点と、tailの悪化が両方残った。
+per-row stage delta p50：generated verification48.5ms、host.Start39.5ms、ready→SQL4.3ms。
+最後の4.3msにはcounter取得3.2msを含む。各stageのmedianの合計はtotal medianと一致するとは限らない。
+対照 verification42.7ms / host.Start246.8ms / ready→SQL9.7ms。
+
+| at wire-ready (p50) | generated | released control |
+| --- | ---: | ---: |
+| guest RSS | 107.6 MiB | 380.5 MiB |
+| guest footprint | 87.7 MiB | 309.4 MiB |
+| host + guest RSS | 118.5 MiB | 391.7 MiB |
+| host + guest footprint | 92.1 MiB | 313.9 MiB |
+| host + guest CPU | **0.1092 CPU-s** | **0.3016 CPU-s** |
+
+generated host digest作業が約0.0658 CPU-s、guest約0.0383 CPU-s（各median）。検証を含めてもtotal CPUは約64%低い。
+ただし実験のlocal digest pinはrelease trust/distribution設計の代用ではない。
+generatedはWASMのprovenance hashとhost.Start内のsidecar hashを重ねて読み、対照は既存verified identityを使う。
+本番のbinary/manifest/signature/source対応、path ownership/TOCTOU検証、download/resolution/cacheを決めたものではない。
+public Go Startのenvelope/resolver、Python包装・host launch、1,000-row fixture、Snapshot/Fork/ORMは未接続。
+v0.4 baselineのStart→SQL **308.5/335.3ms** とprototype **99.3/1122.4ms** は近い境界の参考比較で、同じpublic APIの測定ではない。
+baseline **約281 MiB/DB** はphysical incremental memoryの値。RSS108MiBと直接割らず、今回のfootprint88MiB/DBと比べる。
+×16 baseline約4.5GiB / 9.46 CPU-sに対しdirect guest約1.375GiB / 0.881 CPU-sだが、fixture/host境界差も残る。
+
+### Correctness / architecture signal / remaining work
+
+既存22-record SQL workloadをgeneratedで10回再実行し、release controlの全recordと一致。
+ready、SELECT 1、CRUD、COMMIT/ROLLBACK、constraints/errors、2 sessions、正常終了を含む。
+認証RSA self-testも再成功。legacy artifactをWasmer7.4.2で検証できない事実は維持し、これはobservable behaviorの比較。
+
+- **Startup:** 40–50ms direct-guest medianは再現し、架空の同期省略で得た値という証拠はない。
+  host/wire/digestsを含むmedianは約99ms。外部Wasmer setup/executionを除いた固定cost低下のsignalはあるが、component別の因果割合は分離していない。
+- **Tail:** 約1秒の反復waitは理解できた。bounded shim bug修正で消せる根拠はなく、guest semanticsを維持して残す。
+  schedulerが発生頻度を変えるのでp95の保証には使えない。初回の別未帰属区間も残る。
+- **Memory:** 正常機能と同じbinaryで約108MiB RSS / 88MiB footprint/DBは維持。
+  linear memory、MariaDB heap、MemFS、Go metadataは存在し、2GiB virtual reservationも残る。
+  誤ったtimeoutや共有stateによる見かけの削減ではないが、埋め込み・大きなDBのmemory ownershipは未検証。
+- **CPU:** 同じwire hostの探索比較でもtotal CPUは低い。full public API/fixture/ORMの同等比較は次の測定課題。
+- **Productionization:** signal delivery、abnormal thread/process exit、panic/EH propagation、cancellation、timeoutとwakeの同時発生、
+  spawn failure、thread join/detach/TLS destruction、shutdown中のpending SQL、host kill/EOF/backpressureを設計・検証する必要がある。
+  15 fail-closed WASIX imports、timerの+1ms/zero-timeout境界、filesystem全契約、unsafe-memory/atomic ordering、Snapshot/Fork、
+  platform/long-run/security/trust/release packagingは完成していない。正常全worker joinとprocess reapは強制終了/埋め込みcleanupの保証ではない。
+
+通常チェック：Go unit / vet成功、Python **368 passed / 3 skipped**、public source check成功。
+通常WasmerのGo race integration成功（9.050s）、Python timeout/multiclient **3 passed**（2.39s）。
+既存未追跡npm filesはcheck中だけ退避し、同じSHA256で復元。`git diff --check` を実行。
+製品runtime差分なし。生成 `.go` は独立 go.mod 内、tracked template は `.go.txt` のまま。
+
+### Updated verdict
+
+**GREEN CANDIDATE — TAIL UNDERSTOOD**
+
+MariaDBのpage-cleaner待機順序と1秒timerで反復tailを説明でき、bounded queue/clock shimの誤動作は今回の原因として確認されなかった。
+ゲストの意味を変えるtail削減は行わない。wire/verificationを含むmedian・CPU・memory低下のsignalと、tailの不利を両方記録した。
+production-readyではなく、残るruntime-contract監査・trust/lifecycle設計が必要。CoW/runtime-sharingとの順位や次のarchitectureは選んでいない。

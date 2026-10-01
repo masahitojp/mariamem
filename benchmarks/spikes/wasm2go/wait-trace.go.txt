@@ -1,0 +1,88 @@
+package base
+
+import (
+	"encoding/json"
+	"os"
+	"reflect"
+	"runtime"
+	"strings"
+	"sync"
+	"time"
+)
+
+type spikeEvent struct {
+	NS      int64    `json:"ns"`
+	Kind    string   `json:"kind"`
+	TID     int32    `json:"tid"`
+	EA      uint64   `json:"ea,omitempty"`
+	A       int64    `json:"a,omitempty"`
+	B       int64    `json:"b,omitempty"`
+	Timeout int64    `json:"timeout_ns,omitempty"`
+	Token   uintptr  `json:"token,omitempty"`
+	TLS     int32    `json:"tls,omitempty"`
+	Callers []string `json:"callers,omitempty"`
+}
+
+var spikeTrace = struct {
+	sync.Mutex
+	start   time.Time
+	tids    map[*Module]int32
+	events  []spikeEvent
+	dropped int
+}{start: time.Now(), tids: map[*Module]int32{}, events: make([]spikeEvent, 0, 10000)}
+var spikePath = os.Getenv("MARIAMEM_SPIKE_TRACE")
+
+func spikeToken(ch chan struct{}) uintptr { return reflect.ValueOf(ch).Pointer() }
+func SpikeRegister(m *Module, tid int32) {
+	spikeTrace.Lock()
+	spikeTrace.tids[m] = tid
+	spikeTrace.Unlock()
+}
+func SpikeEvent(m *Module, kind string, ea uint64, a, b, timeout int64, token uintptr) {
+	if spikePath == "" {
+		return
+	}
+	e := spikeEvent{NS: time.Since(spikeTrace.start).Nanoseconds(), Kind: kind, EA: ea, A: a, B: b, Timeout: timeout, Token: token}
+	if m != nil {
+		e.TLS = m.G4
+	}
+	if kind == "wait" || kind == "notify" {
+		pcs := make([]uintptr, 12)
+		n := runtime.Callers(2, pcs)
+		frames := runtime.CallersFrames(pcs[:n])
+		for {
+			f, more := frames.Next()
+			if strings.Contains(f.Function, ".Fn") {
+				e.Callers = append(e.Callers, f.Function)
+			}
+			if !more {
+				break
+			}
+		}
+	}
+	spikeTrace.Lock()
+	defer spikeTrace.Unlock()
+	e.TID = spikeTrace.tids[m]
+	if len(spikeTrace.events) < cap(spikeTrace.events) {
+		spikeTrace.events = append(spikeTrace.events, e)
+	} else {
+		spikeTrace.dropped++
+	}
+}
+func SpikeDump() {
+	if spikePath == "" {
+		return
+	}
+	spikeTrace.Lock()
+	defer spikeTrace.Unlock()
+	b, err := json.MarshalIndent(struct {
+		Events  []spikeEvent `json:"events"`
+		Dropped int          `json:"dropped"`
+	}{spikeTrace.events, spikeTrace.dropped}, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	if err = os.WriteFile(spikePath, append(b, '\n'), 0600); err != nil {
+		panic(err)
+	}
+}
