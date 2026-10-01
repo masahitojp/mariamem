@@ -1,0 +1,675 @@
+{
+  "source_sha": "c21ec0a3ee05f098e63f69521524e21c0ec4cf82",
+  "scope": "diagnostic only; no allocation/synchronization/SQL fix",
+  "counter_only_stages": [
+    {
+      "elapsed_seconds": 8.5833e-05,
+      "growth": {},
+      "guest_copy_begin_seconds": 0,
+      "stage": "snapshot_request_read"
+    },
+    {
+      "elapsed_seconds": 5.8229567079999995,
+      "growth": {
+        "/mariadb/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 8192,
+          "grow_seconds": 2.0792e-05
+        },
+        "/mariadb/data/ib_buffer_pool.incomplete": {
+          "calls": 1,
+          "allocated_bytes": 772,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.167e-06
+        },
+        "/snapshot-out/data/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.708e-06
+        },
+        "/snapshot-out/data/data/aria_log_control": {
+          "calls": 1,
+          "allocated_bytes": 52,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.75e-06
+        },
+        "/snapshot-out/data/data/ib_buffer_pool": {
+          "calls": 1,
+          "allocated_bytes": 772,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 4.58e-07
+        },
+        "/snapshot-out/data/data/ib_logfile0": {
+          "calls": 1536,
+          "allocated_bytes": 77359742976,
+          "copied_existing_bytes": 77259079680,
+          "grow_seconds": 5.533569799999988
+        },
+        "/snapshot-out/data/data/ibdata1": {
+          "calls": 192,
+          "allocated_bytes": 1214251008,
+          "copied_existing_bytes": 1201668096,
+          "grow_seconds": 0.071314997
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.frm": {
+          "calls": 1,
+          "allocated_bytes": 1208,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 8.75e-07
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.ibd": {
+          "calls": 3,
+          "allocated_bytes": 360448,
+          "copied_existing_bytes": 196608,
+          "grow_seconds": 3.4959e-05
+        },
+        "/snapshot-out/data/data/test/db.opt": {
+          "calls": 1,
+          "allocated_bytes": 70,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 3.34e-07
+        },
+        "/snapshot-out/data/data/undo001": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.05170034
+        },
+        "/snapshot-out/data/data/undo002": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.04857287300000001
+        },
+        "/snapshot-out/data/data/undo003": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.05884379099999999
+        }
+      },
+      "guest_copy_begin_seconds": 0.001552541,
+      "stage": "guest_returned_and_workers_joined"
+    },
+    {
+      "elapsed_seconds": 5.823216667,
+      "growth": {
+        "/mariadb/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 8192,
+          "grow_seconds": 2.0792e-05
+        },
+        "/mariadb/data/ib_buffer_pool.incomplete": {
+          "calls": 1,
+          "allocated_bytes": 772,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.167e-06
+        },
+        "/snapshot-out/data/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.708e-06
+        },
+        "/snapshot-out/data/data/aria_log_control": {
+          "calls": 1,
+          "allocated_bytes": 52,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.75e-06
+        },
+        "/snapshot-out/data/data/ib_buffer_pool": {
+          "calls": 1,
+          "allocated_bytes": 772,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 4.58e-07
+        },
+        "/snapshot-out/data/data/ib_logfile0": {
+          "calls": 1536,
+          "allocated_bytes": 77359742976,
+          "copied_existing_bytes": 77259079680,
+          "grow_seconds": 5.533569799999988
+        },
+        "/snapshot-out/data/data/ibdata1": {
+          "calls": 192,
+          "allocated_bytes": 1214251008,
+          "copied_existing_bytes": 1201668096,
+          "grow_seconds": 0.071314997
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.frm": {
+          "calls": 1,
+          "allocated_bytes": 1208,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 8.75e-07
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.ibd": {
+          "calls": 3,
+          "allocated_bytes": 360448,
+          "copied_existing_bytes": 196608,
+          "grow_seconds": 3.4959e-05
+        },
+        "/snapshot-out/data/data/test/db.opt": {
+          "calls": 1,
+          "allocated_bytes": 70,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 3.34e-07
+        },
+        "/snapshot-out/data/data/undo001": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.05170034
+        },
+        "/snapshot-out/data/data/undo002": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.04857287300000001
+        },
+        "/snapshot-out/data/data/undo003": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.05884379099999999
+        }
+      },
+      "guest_copy_begin_seconds": 0.001552541,
+      "stage": "native_export_begin"
+    },
+    {
+      "elapsed_seconds": 5.991621333,
+      "growth": {
+        "/mariadb/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 8192,
+          "grow_seconds": 2.0792e-05
+        },
+        "/mariadb/data/ib_buffer_pool.incomplete": {
+          "calls": 1,
+          "allocated_bytes": 772,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.167e-06
+        },
+        "/snapshot-out/data/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.708e-06
+        },
+        "/snapshot-out/data/data/aria_log_control": {
+          "calls": 1,
+          "allocated_bytes": 52,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.75e-06
+        },
+        "/snapshot-out/data/data/ib_buffer_pool": {
+          "calls": 1,
+          "allocated_bytes": 772,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 4.58e-07
+        },
+        "/snapshot-out/data/data/ib_logfile0": {
+          "calls": 1536,
+          "allocated_bytes": 77359742976,
+          "copied_existing_bytes": 77259079680,
+          "grow_seconds": 5.533569799999988
+        },
+        "/snapshot-out/data/data/ibdata1": {
+          "calls": 192,
+          "allocated_bytes": 1214251008,
+          "copied_existing_bytes": 1201668096,
+          "grow_seconds": 0.071314997
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.frm": {
+          "calls": 1,
+          "allocated_bytes": 1208,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 8.75e-07
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.ibd": {
+          "calls": 3,
+          "allocated_bytes": 360448,
+          "copied_existing_bytes": 196608,
+          "grow_seconds": 3.4959e-05
+        },
+        "/snapshot-out/data/data/test/db.opt": {
+          "calls": 1,
+          "allocated_bytes": 70,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 3.34e-07
+        },
+        "/snapshot-out/data/data/undo001": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.05170034
+        },
+        "/snapshot-out/data/data/undo002": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.04857287300000001
+        },
+        "/snapshot-out/data/data/undo003": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.05884379099999999
+        }
+      },
+      "guest_copy_begin_seconds": 0.001552541,
+      "stage": "native_export_complete"
+    },
+    {
+      "elapsed_seconds": 6.542e-06,
+      "growth": {},
+      "guest_copy_begin_seconds": 0,
+      "stage": "snapshot_request_read"
+    },
+    {
+      "elapsed_seconds": 4.966282334,
+      "growth": {
+        "/mariadb/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 8192,
+          "grow_seconds": 1.9417e-05
+        },
+        "/mariadb/data/ib_buffer_pool.incomplete": {
+          "calls": 1,
+          "allocated_bytes": 767,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.709e-06
+        },
+        "/snapshot-out/data/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.958e-06
+        },
+        "/snapshot-out/data/data/aria_log_control": {
+          "calls": 1,
+          "allocated_bytes": 52,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.25e-07
+        },
+        "/snapshot-out/data/data/ib_buffer_pool": {
+          "calls": 1,
+          "allocated_bytes": 767,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 8.3e-08
+        },
+        "/snapshot-out/data/data/ib_logfile0": {
+          "calls": 1536,
+          "allocated_bytes": 77359742976,
+          "copied_existing_bytes": 77259079680,
+          "grow_seconds": 4.688822762000001
+        },
+        "/snapshot-out/data/data/ibdata1": {
+          "calls": 192,
+          "allocated_bytes": 1214251008,
+          "copied_existing_bytes": 1201668096,
+          "grow_seconds": 0.07252837100000002
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.frm": {
+          "calls": 1,
+          "allocated_bytes": 1208,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 3.5e-06
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.ibd": {
+          "calls": 3,
+          "allocated_bytes": 360448,
+          "copied_existing_bytes": 196608,
+          "grow_seconds": 4.3999000000000003e-05
+        },
+        "/snapshot-out/data/data/test/db.opt": {
+          "calls": 1,
+          "allocated_bytes": 70,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 4.17e-07
+        },
+        "/snapshot-out/data/data/undo001": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.044156832
+        },
+        "/snapshot-out/data/data/undo002": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.059612408000000006
+        },
+        "/snapshot-out/data/data/undo003": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.052740366
+        }
+      },
+      "guest_copy_begin_seconds": 0.001084416,
+      "stage": "guest_returned_and_workers_joined"
+    },
+    {
+      "elapsed_seconds": 4.966517875,
+      "growth": {
+        "/mariadb/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 8192,
+          "grow_seconds": 1.9417e-05
+        },
+        "/mariadb/data/ib_buffer_pool.incomplete": {
+          "calls": 1,
+          "allocated_bytes": 767,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.709e-06
+        },
+        "/snapshot-out/data/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.958e-06
+        },
+        "/snapshot-out/data/data/aria_log_control": {
+          "calls": 1,
+          "allocated_bytes": 52,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.25e-07
+        },
+        "/snapshot-out/data/data/ib_buffer_pool": {
+          "calls": 1,
+          "allocated_bytes": 767,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 8.3e-08
+        },
+        "/snapshot-out/data/data/ib_logfile0": {
+          "calls": 1536,
+          "allocated_bytes": 77359742976,
+          "copied_existing_bytes": 77259079680,
+          "grow_seconds": 4.688822762000001
+        },
+        "/snapshot-out/data/data/ibdata1": {
+          "calls": 192,
+          "allocated_bytes": 1214251008,
+          "copied_existing_bytes": 1201668096,
+          "grow_seconds": 0.07252837100000002
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.frm": {
+          "calls": 1,
+          "allocated_bytes": 1208,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 3.5e-06
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.ibd": {
+          "calls": 3,
+          "allocated_bytes": 360448,
+          "copied_existing_bytes": 196608,
+          "grow_seconds": 4.3999000000000003e-05
+        },
+        "/snapshot-out/data/data/test/db.opt": {
+          "calls": 1,
+          "allocated_bytes": 70,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 4.17e-07
+        },
+        "/snapshot-out/data/data/undo001": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.044156832
+        },
+        "/snapshot-out/data/data/undo002": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.059612408000000006
+        },
+        "/snapshot-out/data/data/undo003": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.052740366
+        }
+      },
+      "guest_copy_begin_seconds": 0.001084416,
+      "stage": "native_export_begin"
+    },
+    {
+      "elapsed_seconds": 5.10039125,
+      "growth": {
+        "/mariadb/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 8192,
+          "grow_seconds": 1.9417e-05
+        },
+        "/mariadb/data/ib_buffer_pool.incomplete": {
+          "calls": 1,
+          "allocated_bytes": 767,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.709e-06
+        },
+        "/snapshot-out/data/data/aria_log.00000001": {
+          "calls": 1,
+          "allocated_bytes": 16384,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.958e-06
+        },
+        "/snapshot-out/data/data/aria_log_control": {
+          "calls": 1,
+          "allocated_bytes": 52,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 1.25e-07
+        },
+        "/snapshot-out/data/data/ib_buffer_pool": {
+          "calls": 1,
+          "allocated_bytes": 767,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 8.3e-08
+        },
+        "/snapshot-out/data/data/ib_logfile0": {
+          "calls": 1536,
+          "allocated_bytes": 77359742976,
+          "copied_existing_bytes": 77259079680,
+          "grow_seconds": 4.688822762000001
+        },
+        "/snapshot-out/data/data/ibdata1": {
+          "calls": 192,
+          "allocated_bytes": 1214251008,
+          "copied_existing_bytes": 1201668096,
+          "grow_seconds": 0.07252837100000002
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.frm": {
+          "calls": 1,
+          "allocated_bytes": 1208,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 3.5e-06
+        },
+        "/snapshot-out/data/data/test/benchmark_rows.ibd": {
+          "calls": 3,
+          "allocated_bytes": 360448,
+          "copied_existing_bytes": 196608,
+          "grow_seconds": 4.3999000000000003e-05
+        },
+        "/snapshot-out/data/data/test/db.opt": {
+          "calls": 1,
+          "allocated_bytes": 70,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 4.17e-07
+        },
+        "/snapshot-out/data/data/undo001": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.044156832
+        },
+        "/snapshot-out/data/data/undo002": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.059612408000000006
+        },
+        "/snapshot-out/data/data/undo003": {
+          "calls": 160,
+          "allocated_bytes": 844103680,
+          "copied_existing_bytes": 833617920,
+          "grow_seconds": 0.052740366
+        }
+      },
+      "guest_copy_begin_seconds": 0.001084416,
+      "stage": "native_export_complete"
+    }
+  ],
+  "counter_only_snapshots": [
+    {
+      "case": "snapshot",
+      "cpu_seconds": null,
+      "latency_seconds": 6.401818334,
+      "peak_rss_bytes": null,
+      "phase": "measurement",
+      "run": 0,
+      "stage_timings": {
+        "host": {
+          "operation": "snapshot",
+          "pid": 2771,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 625
+            },
+            {
+              "name": "preconditions_destination_ready",
+              "offset_ns": 63875
+            },
+            {
+              "name": "sessions_drained",
+              "offset_ns": 85208
+            },
+            {
+              "name": "export_acknowledged",
+              "offset_ns": 6049360750
+            },
+            {
+              "name": "guest_stopped",
+              "offset_ns": 6049382708
+            },
+            {
+              "name": "snapshot_published",
+              "offset_ns": 6332678708
+            },
+            {
+              "name": "end",
+              "offset_ns": 6337132375
+            }
+          ]
+        }
+      },
+      "workers": 1
+    },
+    {
+      "case": "snapshot",
+      "cpu_seconds": null,
+      "latency_seconds": 5.534944334,
+      "peak_rss_bytes": null,
+      "phase": "measurement",
+      "run": 1,
+      "stage_timings": {
+        "host": {
+          "operation": "snapshot",
+          "pid": 2771,
+          "events": [
+            {
+              "name": "begin",
+              "offset_ns": 542
+            },
+            {
+              "name": "preconditions_destination_ready",
+              "offset_ns": 60792
+            },
+            {
+              "name": "sessions_drained",
+              "offset_ns": 84084
+            },
+            {
+              "name": "export_acknowledged",
+              "offset_ns": 5168593959
+            },
+            {
+              "name": "guest_stopped",
+              "offset_ns": 5168603000
+            },
+            {
+              "name": "snapshot_published",
+              "offset_ns": 5466683750
+            },
+            {
+              "name": "end",
+              "offset_ns": 5472262500
+            }
+          ]
+        }
+      },
+      "workers": 1
+    }
+  ],
+  "minimal_memfs_shapes": {
+    "growth-single": {
+      "allocated_bytes": 100663776,
+      "bytes": 100663296,
+      "chunk": 100663296,
+      "cpu_seconds": 0.010775,
+      "gc_cycles": 1,
+      "growth": {
+        "/file": {
+          "calls": 1,
+          "allocated_bytes": 100663296,
+          "copied_existing_bytes": 0,
+          "grow_seconds": 5.3958e-05
+        }
+      },
+      "seconds": 0.01073475,
+      "sha256": "XqKUghwYATqPuXoQWAAdKxXcGGO/Umh7n5SrP8ylgKU="
+    },
+    "growth-64k": {
+      "allocated_bytes": 77359889600,
+      "bytes": 100663296,
+      "chunk": 65536,
+      "cpu_seconds": 5.352498,
+      "gc_cycles": 760,
+      "growth": {
+        "/file": {
+          "calls": 1536,
+          "allocated_bytes": 77359742976,
+          "copied_existing_bytes": 77259079680,
+          "grow_seconds": 4.925228248999998
+        }
+      },
+      "seconds": 4.93918575,
+      "sha256": "XqKUghwYATqPuXoQWAAdKxXcGGO/Umh7n5SrP8ylgKU="
+    },
+    "growth-1m": {
+      "allocated_bytes": 4882199248,
+      "bytes": 100663296,
+      "chunk": 1048576,
+      "cpu_seconds": 0.392656,
+      "gc_cycles": 48,
+      "growth": {
+        "/file": {
+          "calls": 96,
+          "allocated_bytes": 4882169856,
+          "copied_existing_bytes": 4781506560,
+          "grow_seconds": 0.33773337500000006
+        }
+      },
+      "seconds": 0.343119625,
+      "sha256": "XqKUghwYATqPuXoQWAAdKxXcGGO/Umh7n5SrP8ylgKU="
+    }
+  },
+  "profile_status": "CPU profile collected separately, but go tool pprof unavailable in installed toolchain; no profile symbol attribution claimed",
+  "diagnostic_patch_sha256": "53e749a7375a7555d0f75116819381d06a9faa48e959d05b6423c28ecf973984"
+}

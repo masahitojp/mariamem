@@ -259,3 +259,45 @@ Snapshot exportの約5秒regressionは追加のrelease前調査事項。性能�
 最終testsとartifact hashesは[evidence](v04-generated-go-candidate-evidence.json)の`fd_followup`。raw resultsはignored benchmarks/resultsへ保存、再現コマンドは[README](spikes/generated-go-integration/README.md)。
 
 **NOT READY — BLOCKERS REMAIN**
+
+## Snapshot regression local attribution
+
+対象SHA `c21ec0a3ee05f098e63f69521524e21c0ec4cf82`。同じmacOS arm64 reference環境、公開APIの1,000-row fixture → Snapshot → Fork/COUNTを使用。通常candidateを変更せず、独立した診断moduleにtimestampとファイル拡張counterだけ追加した。性能修正、MariaDB設定変更、同期変更は行っていない。
+
+**原因を確認:** `generated/base/base.go` の `memFile.writeAt` はファイルが伸びるたびに `make([]byte, end)` し、既存内容を全コピーする。`guest/snapshot_fs.inc` の `snapshot_copy` は通常どおり64 KiB単位で書き込むため、コピー先MemFSで二次的な累積コピーが発生する。FD identity修正とは別の、既存のファイル拡張実装の問題である。
+
+### 内部費用の分離
+
+CPU profileなしの2回。requestの4-byte headerは分割Readにも対応して検出。`snapshot-out/data` の最初のmkdirをguestコピー開始とした。この位置は `guest/resident.inc` のsession/thread drainと `l4m_close()` の後。復元用ファイルの内容や書き込み順は変更しない。
+
+| phase | trial 1 | trial 2 |
+| --- | ---: | ---: |
+| guest request → copy開始（shutdown等） | 1.55 ms | 1.08 ms |
+| copy開始 → guest return / worker join | 5821.40 ms | 4965.20 ms |
+| うちMemFS grow allocation + 既存内容copy | 5764.04 ms | 4917.91 ms |
+| native filesystem export | 168.40 ms | 133.87 ms |
+| host guest-stopped → snapshot-published | 283.30 ms | 298.08 ms |
+| public Snapshot全体 | 6401.82 ms | 5534.94 ms |
+
+grow処理がguest copy envelopeの約99%を占める。残差には新しい書き込み内容のcopy、metadata、GC、プロセス終了、host/client処理と計測がある。hostの `export_acknowledged` はprocess finishも待つため、guestのackだけの時間ではない。診断の2回をcanonical 30-run benchmarkの置き換えにはしない。
+
+各Snapshotでcopy先ファイルのgrowは2216回、累積allocation約75.54 GiB、既存内容copy約75.40 GiB。最大要因は96 MiBの `ib_logfile0`: 1536回、既存内容copy **71.95 GiB**。redo log growだけでtrial 1の約5.53秒を使った。巨大な最終Snapshotや常駐memoryという意味ではなく、同じ内容の繰り返しallocation/copyである。
+
+### 最小のalgorithm確認
+
+同じMemFS、同じ96 MiBの内容をwrite形状だけ変えて生成。すべてSHA-256一致。各1回の診断で、product benchmarkや提案するguest変更ではない。
+
+| write単位 | grow回数 | 累積既存copy | wall | CPU | GC回数 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 64 KiB | 1536 | 71.95 GiB | 4939 ms | 5.352 s | 760 |
+| 1 MiB | 96 | 4.45 GiB | 343 ms | 0.393 s | 48 |
+| 96 MiB（1 write） | 1 | 0 | 10.7 ms | 0.0108 s | 1 |
+
+ソース、実際のSnapshot counter、同じbytesの最小再現が一致するため、原因は確定。別途CPU profileを取得したが、この環境のGo toolchainに `pprof` toolがなくsymbol解析は未実施。profileによる関数割合は主張しない。直接のgrow時間と最小実験のprocess CPUで判断した。
+
+### 調査結果と範囲
+
+- 同期timeoutやMariaDB shutdownが約5秒regressionを作っている証拠はない。既知の合法なInnoDB startup tailは変更せず、再調査していない。
+- 修正候補はgeneric MemFSの拡張allocationを償却すること。ただしlogical sizeとcapacity、zero-filled holes、truncate/regrow、append/offset、prepared mapping ownership、child isolationを保つ必要がある。**今回その修正は実装していない。**
+- 2回ともSnapshotとFork→COUNT成功。調査用patchとevidenceだけを保存し、production/runtime pathsは変更なし。広いORM/regression suiteやcandidate benchmarkは再実行していない。
+- [counter evidence](v04-snapshot-attribution.json) と [診断再現手順](spikes/generated-go-integration/snapshot-audit.md) を参照。Snapshot性能blockerは原因判明、未修正。release readinessは引き続き **NOT READY — BLOCKERS REMAIN**。
