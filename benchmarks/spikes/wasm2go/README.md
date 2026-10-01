@@ -125,7 +125,7 @@ valid full guest without `--emit-exnref`. No source/exception/threading feature
 was disabled. `--all-features` is deliberately absent from postopt: it emitted
 compact imports in an intermediate diagnostic, which the current Wasmer rejects.
 
-Attempt the current AOT path before any wasm2go retry:
+The previous experiment required the current AOT path before a wasm2go retry:
 
 ```sh
 WASMER_DIR="$SPIKE_WORK/wasmer-home" build/tools/wasmer/bin/wasmer compile \
@@ -139,3 +139,83 @@ Do not interpret successful WASM validation or identical import signatures as
 successful MariaDB execution. The inspector handles named/quoted function IDs;
 unsupported compact/multiline import output fails instead of returning an
 incomplete inventory. Original feasibility evidence remains a historical record.
+
+## Legacy EH generated-Go execution
+
+This continuation explicitly removes the Wasmer validation prerequisite. Use the
+already built `mariamem-legacy-eh-O2-compatible.wasm` (SHA256
+`6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3`).
+Keep both converter patches experimental, applied only to a fresh source copy of
+the same pinned fork. Set `SPIKE_CONVERTER_SOURCE` to that copy and
+`SPIKE_IMPORT_CONVERTER` to a separately named output binary:
+
+```sh
+SPIKE_REPO="$PWD"
+cd "$SPIKE_CONVERTER_SOURCE"
+git apply --unidiff-zero "$SPIKE_REPO/benchmarks/spikes/wasm2go/imported-memory.patch"
+git apply --unidiff-zero "$SPIKE_REPO/benchmarks/spikes/wasm2go/import-function-index.patch"
+GOTOOLCHAIN=go1.26.8 go build -trimpath -o "$SPIKE_IMPORT_CONVERTER" ./cmd/wasm2go
+cd "$SPIKE_REPO"
+SPIKE_OUTPUT="$PWD/benchmarks/results/wasm2go-execution-replay"
+GOTOOLCHAIN=go1.26.8 python3 benchmarks/spikes/wasm2go/reductions.py \
+  --converter "$SPIKE_IMPORT_CONVERTER" --wasm-tools "$SPIKE_WASM_TOOLS" \
+  --output-dir "$SPIKE_OUTPUT/reductions" \
+  --case imported-memory-calls imported-memory thread-globals threads
+python3 benchmarks/spikes/wasm2go/attempt.py \
+  --guest build/wasm2go-legacy-eh/artifact/mariamem-legacy-eh-O2-compatible.wasm \
+  --converter "$SPIKE_IMPORT_CONVERTER" --output-dir "$SPIKE_OUTPUT/module"
+python3 benchmarks/spikes/wasm2go/setup_execution.py --module "$SPIKE_OUTPUT/module"
+cd "$SPIKE_OUTPUT/module"
+GOTOOLCHAIN=go1.26.8 go build -p 1 -trimpath -o probe .
+cd "$SPIKE_REPO"
+python3 benchmarks/spikes/wasm2go/run_execution.py \
+  --binary "$SPIKE_OUTPUT/module/probe" --stage instantiate --output "$SPIKE_OUTPUT/instantiate.json"
+python3 benchmarks/spikes/wasm2go/run_execution.py \
+  --binary "$SPIKE_OUTPUT/module/probe" --stage shim-check --output "$SPIKE_OUTPUT/shim-check.json"
+python3 benchmarks/spikes/wasm2go/run_execution.py \
+  --binary "$SPIKE_OUTPUT/module/probe" --stage auth-check --output "$SPIKE_OUTPUT/auth-check.json"
+python3 benchmarks/spikes/wasm2go/sql_execution.py \
+  --binary "$SPIKE_OUTPUT/module/probe" --output "$SPIKE_OUTPUT/sql.json"
+```
+
+The diagnostic driver explicitly installs private MemFS, read-only OS entropy
+devices, bounded flags/signals/wait/wake/worker-exit adapters. Fifteen remaining
+WASIX methods panic when called. No exception or authentication check is disabled.
+`shim-check` checks changed-value, timeout and blocking wake. `auth-check` invokes
+the existing guest's RSA callback self-test. Clean SQL shutdown also waits for all
+generated workers. `.go.txt` is copied only under an independent `go.mod`.
+
+Only after functional checks pass, reuse the existing process counter helper:
+
+```sh
+cc -O2 benchmarks/tools/process_cost.c -o "$SPIKE_OUTPUT/process-cost"
+python3 benchmarks/spikes/wasm2go/measure_execution.py \
+  --binary "$SPIKE_OUTPUT/module/probe" --cost-helper "$SPIKE_OUTPUT/process-cost" \
+  --runs 10 --output "$SPIKE_OUTPUT/pilot.json"
+python3 benchmarks/spikes/wasm2go/measure_execution.py \
+  --binary "$SPIKE_OUTPUT/module/probe" --cost-helper "$SPIKE_OUTPUT/process-cost" \
+  --runs 30 --output "$SPIKE_OUTPUT/single-30.json"
+python3 benchmarks/spikes/wasm2go/measure_execution.py \
+  --binary "$SPIKE_OUTPUT/module/probe" --cost-helper "$SPIKE_OUTPUT/process-cost" \
+  --runs 3 --workers 1 4 8 16 --output "$SPIKE_OUTPUT/scaling.json"
+```
+
+The measure command invokes `probe measure`: guest timing/host diagnostics are off.
+RSS and physical footprint are separate, CPU is sampled just after ready, and
+counter collection delay is included in first-SQL latency. Each DB is an ordinary
+independent process. All children are reaped; after-close zero guest RSS is not a
+claim about in-process GC. Public API/wire/verification, fixtures, Fork and ORM
+costs are outside this direct-guest measurement.
+
+For a paired production control, use the same measure command with the released
+`wasmer-headless` as `--binary` and its bundle as `--production-native-dir`.
+The bundle manifest is checked before trials, with private runtime homes/transfer
+directories per process. `sql_execution.py --module <released-AOT>
+--wasmer-home <isolated-home>` runs the identical functional assertions on Wasmer.
+
+`diagnose_wait.py --binary <probe> --output-dir <ignored-directory>` intentionally
+sends SIGQUIT to a diagnostic boot that has not returned ready within 200 ms.
+These interrupted boots must not be counted as successful trials or benchmark
+samples. The observed one-second InnoDB wait tail is retained, not optimized away.
+See [execution evidence](../../wasm2go-execution-evidence.json) and the appended
+report section for current limitations and the GREEN CANDIDATE verdict.

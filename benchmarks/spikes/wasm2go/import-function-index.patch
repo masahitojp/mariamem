@@ -1,0 +1,16 @@
+--- a/internal/codegen/emit_ssa.go
++++ b/internal/codegen/emit_ssa.go
+@@ -12,0 +13 @@
++	"github.com/goccy/wasm2go/internal/wasm"
+@@ -1421 +1422,10 @@
+-	imp := em.t.Module().Imports[v.AuxInt]
++	// Function indices exclude memory/table/global/tag imports.
++	var imp wasm.Import
++	found := false
++	funcIndex := int64(0)
++	for _, candidate := range em.t.Module().Imports {
++		if candidate.Kind != wasm.ImportFunc { continue }
++		if funcIndex == v.AuxInt { imp = candidate; found = true; break }
++		funcIndex++
++	}
++	if !found { return nil, fmt.Errorf("ssa emit: missing function import %d", v.AuxInt) }

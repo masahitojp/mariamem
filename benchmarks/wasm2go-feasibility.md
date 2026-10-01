@@ -5,9 +5,13 @@
 製品コード、guest、runtime 設定、public API、Snapshot/Fork、cache、検証・trust は変更していない。
 実験は [spikes/wasm2go](spikes/wasm2go/README.md) と ignored build/results に隔離した。
 
-**無改変の現行 guest は変換段階で停止し、生成 Go での MariaDB-ready / SQL は未達。**
+**初回実験では無改変の現行 guest は変換段階で停止し、生成 Go での MariaDB-ready / SQL は未達だった。**
 一方、共有メモリ、WASI thread-spawn、thread ごとの globals、atomic wait/notify、memory.grow、MemFS の最小実験は動いた。
 この結果から「Wasmer を除けば即動く」とも「pthread のため原理的に不可能」とも判断できない。
+
+**追試の現状: legacy EH guest は生成 Go で MariaDB-ready、通常 SQL、transaction、認証鍵 self-test、正常終了に到達。
+overall verdict は GREEN CANDIDATE。** [末尾の追試](#legacy-eh-generated-go-execution) に局所修正、性能の尾部、残る契約と測定境界を記録した。
+前節までの YELLOW と Wasmer validation 不可は当時の証拠として保持する。
 
 ## 1. 対象の同一性と比較基準
 
@@ -34,7 +38,7 @@ pgmem は専用 guest build と host を持ち、[gen-aot.sh](https://github.com
 比較元は [v0.4 baseline](v04-baseline.md): Start→SQL 308.5/335.3 ms、Fork→COUNT 288.7/349.2 ms (p50/p95)、
 ×16 は約281 MiB/DB、ready 約4.5 GiB、CPU 約9.46 CPU-sec。
 SQLAlchemy 100 tests は Start 約39.0 s、Fork 約43.1 s。
-本 spike は feasibility の測定であり、これらを更新する性能測定ではない。
+初回 spike は feasibility の測定であり、これらを更新する性能測定ではない。末尾の探索的測定も既存 baseline の置換ではない。
 
 ## 2. 現行 guest の依存 inventory
 
@@ -341,3 +345,186 @@ legacy guestの生成自体は成功しており、sourceの大幅な書き換�
 現行Wasmerのruntime契約を変えずに要求された同等性確認済みguestを成立させられず、continuationを停止した。
 二重encodingの検証関係やruntime対応を別の設計判断なしに追加しない。
 **overall wasm2go verdictは YELLOW のまま。** SQL-capable経路と性能/resource改善の証拠は追加されていない。
+
+
+## Legacy EH generated-Go execution
+
+2026-10-01、開始 HEAD `fbe9ff4e4beac00ad33b64ca8cfb78a7029a6048`、同じ M1/16 GiB/macOS 27.0、Go 1.26.8。
+今回の指示では Wasmer validation を前提にせず、既存の legacy artifact を同じ pinned converter へ直接渡した。
+前回の `LEGACY-EH BUILD NOT PRACTICAL` は **Wasmer 7.4.2 上の validation を必須とした前回の条件**での分類であり、
+legacy guest 自体の無効性を示していない。production/new EH/Wasmer と experimental/legacy EH/Go を分けた。
+原 guest/source/build の対応、66 imports/signatures 一致、cross-runtime validation 不可の事実は前節のまま。
+今回も製品・guest source・cache・MaxSessions・Snapshot/Fork・trust の変更はない。
+
+再現手順は [isolated experiments](spikes/wasm2go/README.md#legacy-eh-generated-go-execution)、
+raw trials/SQL/stack/回帰結果は [wasm2go-execution-evidence.json](wasm2go-execution-evidence.json)。
+生成物・独立 `go.mod`・バイナリは ignored results 内のみ。通常 package には `.go.txt` のテンプレートを含めていない。
+開始時に tracked tree は clean、既存 untracked npm 2ファイルは保持した。通常 check の allowlist 用に一時退避し、内容 SHA を確認して戻した。
+
+### 変換・コンパイル・実行の到達点
+
+入力は前回の **18,613,516 bytes / `6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3`**。
+`try_table=0` / `throw_ref=0` のまま、追加 guest build・source 改変はしていない。
+
+| 試行 | 変換結果 | 生成量 | 最初の compile failure |
+|---|---|---|---|
+| unchanged pinned converter | 成功、57.4 s、21,861関数 | 45 files、184,700,184 bytes | imported memory の `MemSize/Memory/MemMu` 等が未生成 |
+| 既存 imported-memory patch | 成功、55.6 s | 48 files、184,760,140 bytes | `Fd_pread` へ2引数、`Fd_prestat_get` へ3引数を誤接続 |
+| 上記 + import function-index patch | 成功、56.0 s | 48 files、184,761,664 bytes | generated packages と診断 host の compile/link 成功 |
+
+後者の不具合は function index と import section index の混同だった。`env.memory` を先頭に含む場合、
+SSA emitter が次ではなく前の import を参照していた。**関数 import だけを数えて解決する局所 patch**を追加。
+2つの異なる signature を持つ WASI imports + imported memory の縮小例は修正前 compile failure、修正後実行0を確認。
+既存 memory/thread/TLS の縮小例も再確認した。converter を別実装には切り替えていない。
+
+235件の `SSA fixpoint cap` warning は全試行で残った。upstream emitter はこれを最適化反復の収束警告と説明している。
+警告を無効化せず、選択した SQL/認証/終了の動作を実行で確認した。全 code path の正しさを保証する証拠ではない。
+初回 compile の約77 sは log timestamp による概算のみ。最終 cached rebuild は0.298 s、同一 SHA の binary を再現した。
+clean compiler/linker の個別 benchmark は取っていない。
+
+| 段階 | 結果 |
+|---|---|
+| Go translation / compile / link | 成功。binary 77,848,546 bytes = 74.2 MiB |
+| module instantiation / start function | 成功。shared memory、data/table/globals 初期化 |
+| guest startup | 成功。private MemFS 内の認証鍵を準備 |
+| MariaDB initialization | 成功。InnoDB data/undo/log/temporary files を作成、WASI workers 起動 |
+| mariamem protocol ready | `ready=true, api_version=2, max_sessions=16, snapshot_version=1` |
+| ordinary SQL | `SELECT 1`、CRUD、COMMIT/ROLLBACK、2 sessions、制約/構文エラー成功 |
+| normal lifecycle | session close → zero-length shutdown frame → guest return → 全 generated workers join → exit 0 |
+
+binary SHA は `cd02482c3700f5f953856cad6e29610de27f44bb18627b1ebfe449adf22ffb30`。
+`otool -L` の依存は libSystem/libresolv。Wasmer link/子 process はなく、**1 DB = 1 Go process** + 共通 Python supervisor。
+同一 Go process 内に複数 DB を作る設計には変更していない。
+Wasmerへの依存は除去したが、host/guest の process boundary は今回残した。pgmem型のin-process embedding自体は未検証。
+
+### 観測した不足と限定した対応
+
+全28 WASIX imports のうち13をこの host で扱い、残る15は呼ばれた時点で panic する。
+全 import を偽の成功で埋めていない。`Fd_dup/Fd_dup2`、`Thread_signal`、`Proc_exit2`、socket/resolve 系は未実装。
+
+| 分類 | 実際の最初の failure / 対応 | 限界 |
+|---|---|---|
+| LOCAL | imported-memory metadata / function import index の2 patch | 汎用的な外部所有 memory linker の完成ではない |
+| LOCAL | root `getcwd`、process ID、実 host CPU 数の adapter | この artifact に chdir/process creation import はない |
+| RUNTIME CONTRACT | signal inherited-disposition count と callback registration | 新規 process の継承 count=0、`__wasm_signal` 登録のみ。配送/割り込みは未実装 |
+| RUNTIME CONTRACT | `path_open2`、CLOEXEC get/set、descriptor close | flags=0/1だけを保持。exec/fork、dup の一般契約は未実装 |
+| RUNTIME CONTRACT | blocking `futex_wait/wake/wake_all` | 既存 shared-memory atomic wait/notify queue に mapping。OptionTimestamp、mismatch/timeout/wake の ABI を確認。signal/cancellation は未対応 |
+| RUNTIME CONTRACT | `thread_exit(0)` と worker wait | 既存 Goexit shim + wait hook。異常 exit/process termination は別契約 |
+| RUNTIME CONTRACT | 明示的 MemFS + entropy devices | `/dev/random` / `/dev/urandom` だけを読み取り専用 OS device として追加。host-root FS は公開しない |
+| ARCHITECTURAL | **今回の正常 SQL path では観測なし** | in-process cancellation/import ownership/full lifecycle の設計を完了したという意味ではない |
+
+実行順の failure は signal inheritance → getcwd → proc ID → CLOEXEC → futex → CPU count → fd flags → entropy/worker exit。
+最初の entropy 未対応では `caching_sha2_password` の key read が失敗し、**ready を成功扱いしなかった**。
+本物の OS entropy device を追加すると鍵の読込・RSA callback self-test も成功した。
+例外/認証/エラーを abort や成功に置換していない。timed blocking wait、changed-value、wake の縮小 check も成功。
+
+**残る最初の課題:** 正常 SQL に未解決の hard failure はない。InnoDB 初期化の約1 s wait tail と、
+未対応 signal/forced process-exit/cancellation の **RUNTIME CONTRACT** が次の検証対象。
+診断10試行の遅い3件は file initialization 中、`ibdata1` open の直前に1.001–1.003 sの空白を持った。
+別の遅い boot に SIGQUIT を送り、main の indefinite `AtomicWait32At` と worker の約1 s timed wait を捕捉した。
+これは意図的に止めた診断で、成功試行・benchmark には数えていない。wait/wake の correctness、tail の原因は未確定。
+登録順・通知・timer/scheduling を調べる必要がある。最適化や大きな runtime 実装は始めていない。
+
+### Observable correctness の対照
+
+公開 v0.3.0 `.wasmu` と今回の Go binary に **同じ既存 guest framing / SQL / assertions** を適用した。
+ready、open、`SELECT 1`、CREATE/INSERT/SELECT/UPDATE/DELETE、COMMIT、ROLLBACK、
+1062 duplicate key、1048 NOT NULL、1146 missing table、1064 syntax error、2 session の未 commit 行不可視、close/exit を確認。
+columns/rows/status/error を含む記録22件が一致した。Go 側の full workload をさらに10回繰り返し、全て対照と一致、worker join/exit 0。
+既存の `--check-auth-keys` も `PASS, generated=false, actual_callback=true`。
+
+これは **観測した behavior の equivalence evidence**。byte-identical guest や same-runtime validation ではない。
+legacy artifact は Wasmer 7.4.2 で依然 validation 不可。full MySQL-wire/public Go host は生成 Go へ接続していない。
+SQL script は既存 resident protocol と通常 SQL期待値を使い、特殊な SQL/弱い correctness に変更していない。
+
+### Exploratory performance / resource
+
+最初の10 independent trials は全て SQL/normal shutdown 成功だが tail があったため、追加30試行で分布を保持した。
+30件全て成功、4件でready >500 ms。除外・warmup差引・MariaDB tuning はしていない。
+全測定は診断/timing OFF。開始は process launch 前、ready は既存 ready frame、first SQL は session open + `SELECT 1` の応答。
+ready 後の OS counter 読取時間も first-SQL latency に入る。同じ procedure で production Wasmer control も30試行測定。
+
+| single DB / 30 trials | min | p50 | p95 | max |
+|---|---:|---:|---:|---:|
+| Go start→ready ms | 22.5 | 42.5 | 1040.6 | 1045.1 |
+| Go start→first SQL ms | 26.5 | 47.8 | 1052.4 | 1056.2 |
+| Go ready RSS MiB | 106.9 | 107.3 | 107.8 | 108.0 |
+| Go ready physical footprint MiB | 87.0 | 87.4 | 87.9 | 88.1 |
+| Go CPU at ready sample, CPU-sec | 0.0314 | 0.0525 | 0.0686 | 0.0703 |
+| Wasmer control start→ready ms | 238.5 | 252.4 | 271.5 | 281.4 |
+| Wasmer control start→first SQL ms | 247.6 | 262.1 | 281.0 | 289.6 |
+| Wasmer control ready RSS MiB | 373.0 | 379.8 | 397.8 | 405.7 |
+| Wasmer control footprint MiB | 301.8 | 308.6 | 326.7 | 334.5 |
+| Wasmer control CPU at ready, CPU-sec | 0.2440 | 0.2582 | 0.2893 | 0.3014 |
+
+CPU は既存 `process_cost.c` の OS counters を ready frame の直後に取得。厳密な ready 瞬間の CPU ではなく、
+background work と counter collection delay を含む。raw JSON に collection interval、RSS/footprint両方を保持。
+RSS は shared code/圧縮の影響があり、281 MiB/DB baseline と直接比較する主 counter は **physical footprint**。
+
+自然な isolation は独立 process のまま ×1/4/8/16、各3 independent group trials。CoW/runtime sharing を追加していない。
+表は p50。3件なので scaling p95 の強い結論は出さず、全 trials/distributions を evidence に残した。
+
+| DB数 | Go group-ready / first SQL ms | Go RSS total MiB | Go footprint total / DB MiB | Go CPU-sec total | Wasmer control ready ms | control footprint/DB MiB | control CPU-sec |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 29.5 / 33.7 | 107.6 | 87.7 / 87.7 | 0.0393 | 246.0 | 307.4 | 0.2534 |
+| 4 | 1057.1 / 1063.5 | 431.6 | 351.8 / 88.0 | 0.2268 | 300.9 | 318.6 | 1.1968 |
+| 8 | 1079.7 / 1088.2 | 863.4 | 704.3 / 88.0 | 0.4908 | 567.5 | 334.9 | 3.2609 |
+| 16 | 1130.7 / 1144.6 | 1722.5 | 1404.3 / 87.8 | 0.8097 | 1184.8 | 334.7 | 6.6980 |
+
+×16 ready footprint は約1.37 GiB、RSS 約1.68 GiB / 107.7 MiB/DB。
+全 group の SQL/close は成功し、全 child は exit 0で reap、close後 guest RSS=0。
+これは process teardown の結果であり、long-lived Go process 内の Close/GC/allocator reclamation の証明ではない。
+Python supervisor 自身の memory/CPU は除外している。peak memory や大量 SQL 後の保持量は未測定。
+
+### v0.4 baseline と解釈
+
+既存 baseline は **public Start→first SQL 308.5 / 335.3 ms**、1,000-row ready 312.2 / 342.9 ms、
+Fork→COUNT 288.7 / 349.2 ms、×16 memory/DB 280.8 MiB、ready total 4501.3 MiB、CPU 9.463 s。
+今回の direct guest は public host、MySQL-wire、per-Start trust verification、1,000-row fixture setup を含まない。
+同じ直接境界の Wasmer control を併記する理由は、この差を generated-Go の勝利に数えないため。
+control footprint/DB 334.7 MiB は歴史 baseline 280.8 MiB と一致せず、差の内訳は未帰属。baseline値を置き換えない。
+
+- **fixed runtime/lifecycle cost は materially 減ったか:** 観測した fresh direct path の p50 と CPU は明確に低下。
+  first SQL p50 は control 262.1→47.8 ms。ただし Wasmer setup 除去、generated-Go execution、MemFS の効果は個別に分離できない。
+  p95 は 281.0→1052.4 msに悪化し、public baseline 335.3 msにも未達。速い中央値だけで startup KPI 達成とはしない。
+- **per-DB memory は materially 減ったか:** この ready state の physical footprint は対照で334.7→87.8 MiB/DB、
+  歴史281 MiB/DBに対しても大きく小さい。runtime/allocator の backing、Go/Wasmer metadata、guest heap、FSの内訳は未分離。
+  guest の min 256 MiB/max 2 GiBは変更なし。生成 constructor は安定 shared pointer のため **2 GiB/DBを予約**するが、
+  全ページがresidentになるわけではない。virtual/Go heap accounting と resident footprint を混同しない。
+  FS/stateの共有はなく、SQLによる成長・memory pressure・長時間後の効果は未確認。
+- **scaling/cleanup:** ×16 CPU/ready footprintは低下する証拠がある一方、約1 sのtailがgroup-readyにも現れた。
+  process終了は機能した。同一 process内の isolation、fault containment、キャンセル、memory返却を解決したとは言えない。
+- **測っていないもの:** prepared Fork、snapshot/restore、ORM 100 tests、public API startup。これらの baseline の改善は未証明。
+
+### Decision inputs / maintenance
+
+| 問い | 今回の証拠 / 残る判断 |
+|---|---|
+| external runtime boundary removable? | この SQL実行binaryは Wasmer不要。ただし既存 public hostとの接続/embedding方式は未設計 |
+| WASIX dependency removable? | Wasmer implementation は外せたが、guest の WASIX imports/意味は残る。build SDKも残る |
+| pthread compatible? | real MariaDB workers、2 sessions/TLS、wait/wake、normal join成功。signal/異常exit/futex stress未完 |
+| FS compatible? | private MemFS + entropy + bounded flagsでSQL/rollback成功。全 FS edge casesやdurabilityではない |
+| startup benefit? | p50/CPUに大きな改善候補。p95の約1 s waitは次の要検証事項 |
+| memory benefit? | ready footprint減少を実測。2 GiB reservation、長時間/大きなDB/in-process GCは要調査 |
+| distribution benefit? | AOT+WasmerをGo executable/linked generated codeへ置換できる可能性。今回binaryは74.2 MiB、圧縮releaseサイズ未測定 |
+| Go/Python packaging? | Goへの組込ならnative download不要の可能性。現在のprocess方式ならplatform binary配布は残る。Pythonもnative executable/bridge選択が必要 |
+| portability? | darwin/arm64のみ実行。upstream SIMD helpers/unsafe、entropy devices、Go/OS依存を他platformでも確認する必要 |
+| maintenance? | compiler optionは既存 supported legacy mode。WASIXCC 0.4.7/LLVM21/Binaryen133 pin、legacy-compatible postopt、2 converter patchesを再現管理。deprecated encodingへの依存は残る |
+| implementation complexity / correctness risk? | 変換器2局所patchと限定hostでSQLまで来た。full WASIX hostへの拡大、EH全経路、timer/atomic ordering、signals/exit/cancellation/FS差は未検証 |
+| notices/licensing? | Wasmerを実際の配布物から外す場合のみruntime noticesの対象が変わり得る。converter/Go/WASIX/libc/wolfSSL等のreviewは必要。MariaDB/lite4mariadb GPL-derived obligationsは独立して残る |
+
+次に決めるべき質問は、1 s waitの通知順/タイムアウトが正しいか、未対応 signal/exit をどの境界で保証するか、
+2 GiB reservationとGo memory accountingが大きなDB/同一processでどう効くか、legacy pinを継続できるか、
+full public host/wireと既存integration期待値を接続できるか。Snapshot/Fork設計や別architectureの優劣は選んでいない。
+
+### Regression / verdict
+
+`go test ./...` / `go vet ./...`、Python **368 passed / 3 skipped**、public-source check成功。
+通常 Wasmer integration: Go race integration成功（9.276 s）、Python timeout/multiclient **3 passed**。
+追加ファイルを含めた最終通常チェックと `git diff --check` を commit 前に再実行した。
+製品/runtimeへのdiffはない。生成codeの独立 `go.mod` が通常 package discovery を遮断している。
+
+**GREEN CANDIDATE — legacy guest は生成 Go で MariaDB-ready と普通の SQLに到達した。**
+SELECT 1のみでなく、CRUD/transactions/errors/2 sessions/認証self-test/normal shutdownと対照一致がある。
+ただし production-ready GREENではない。残るbounded compatibility work、wait/wake tail、未検証runtime契約、
+full API/wire/長時間/cancellation/platform検証を終えたという判断はしていない。原 YELLOW evidenceは上に保存した。
