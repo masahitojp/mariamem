@@ -256,3 +256,10 @@ acceptance adds exact supported platforms, cold source/artifact provenance,
 zero-setup consumer and notices review. Fixed-environment benchmarks and old
 spike traces remain manual; do not run them in parallel or make speed a CI gate.
 Current CI's Wasmer guest job is not generated-Go regeneration/acceptance.
+
+## Development artifact cleanup
+
+Keep disposable v0.4 translations/builds and tool caches outside `publish/`.
+See [disk layout and safe cleanup](development-cleanup.md) for classification,
+a default dry-run helper, evidence retention and checksum-bound rebuild commands.
+Canonical source, reports, input pins and regression tests remain in the repository.

@@ -205,3 +205,8 @@ untracked npm manifests. The initial timing test TempDir cleanup flake is retain
 unchanged retries pass. Public report paths are redacted to a repository-root
 placeholder; raw local evidence digests and WASM bytes remain unchanged.
 `git diff --check` passes.
+
+For subsequent local runs use the [external cache/work layout](development-cleanup.md).
+Repeated source/build trees may be discarded after the canonical evidence is
+retained. The recipe accepts explicit downloads, toolchain and output paths; no
+recorded compiler/object output is a prerequisite for regeneration.
