@@ -1,0 +1,56 @@
+--- a/internal/wasm/instr.go
++++ b/internal/wasm/instr.go
+@@ -231,6 +231,8 @@
+ 			return err
+ 		case sub == 0x5c || sub == 0x5d: // v128.load32_zero / load64_zero
+ 			return skipMemarg()
++		case sub == 0x107: // f64x2.relaxed_madd: three vectors, no immediate
++			return nil
+ 		case sub <= 0xff: // plain lane / arithmetic ops
+ 			return nil
+ 		}
+--- a/internal/lower/simd.go
++++ b/internal/lower/simd.go
+@@ -36,6 +36,7 @@
+ // (0x0c), i8x16.shuffle (0x0d) and the lane ops (0x15–0x22) are handled
+ // directly in handleFDOp because they carry immediates.
+ var fdSimd = map[uint32]fdSimdSpec{
++	0x107: {"simd_f64x2_relaxed_madd", []ssa.Type{simdV, simdV, simdV}, simdV},
+ 	0x0e: {"simd_i8x16_swizzle", []ssa.Type{simdV, simdV}, simdV},
+ 
+ 	0x0f: {"simd_i8x16_splat", []ssa.Type{sdI32}, simdV},
+--- a/internal/codegen/simd_files.go
++++ b/internal/codegen/simd_files.go
+@@ -13,6 +13,9 @@
+ // simd_scalar.go is tagged out there, since keeping generated Go small is
+ // the whole point of the asm backend. tools/gen-simd-asm regenerates all of
+ // them.
++
++//go:embed helpers/simd_relaxed.go
++var simdRelaxedSrc string
+ 
+ //go:embed helpers/simd_scalar.go
+ var simdScalarSrc string
+@@ -82,6 +85,7 @@
+ 		}
+ 		return []byte(src)
+ 	}
++	files[dir+"simd_relaxed.go"] = goFile(simdRelaxedSrc)
+ 	files[dir+"simd_scalar.go"] = goFile(simdScalarSrc)
+ 	files[dir+"simd_pair.go"] = goFile(simdPairSrc)
+ 	files[dir+"simd_fallback.go"] = goFile(simdFallbackSrc)
+--- /dev/null
++++ b/internal/codegen/helpers/simd_relaxed.go
+@@ -0,0 +1,12 @@
++package helpers
++
++import "math"
++
++// Relaxed SIMD permits either fused or separately rounded multiply/add.
++// Choose the fused projection consistently for both lanes on every platform.
++func simd_f64x2_relaxed_madd(a, b, c [2]uint64) (r [2]uint64) {
++ for i := range r {
++  r[i] = math.Float64bits(math.FMA(math.Float64frombits(a[i]), math.Float64frombits(b[i]), math.Float64frombits(c[i])))
++ }
++ return
++}

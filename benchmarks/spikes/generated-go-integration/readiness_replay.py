@@ -33,7 +33,11 @@ def main():
     p.add_argument('--downloads', type=Path, required=True)
     p.add_argument('--converter-archive', type=Path, required=True)
     p.add_argument('--translation-only-guest', type=Path, help='explicit partial replay; does NOT count as guest regeneration')
+    p.add_argument('--guest-build-only', action='store_true', help='source-to-legacy-EH build only; compare independent recipe outputs, not historical artifact identity')
+    p.add_argument('--llvm-dir', type=Path, help='explicit isolated compiler override; requires guest-build-only, never automatically changes accepted identity')
     a = p.parse_args(); out = a.output.resolve()
+    if a.llvm_dir and not a.guest_build_only: p.error('llvm override requires guest-build-only')
+    if a.guest_build_only and a.translation_only_guest: p.error('guest-build-only requires a full source build')
     if out.exists(): p.error('output must be fresh')
     if sha(a.converter_archive) != CONVERTER_ARCHIVE: p.error('converter archive mismatch')
     out.mkdir(parents=True); (out/'go.mod').write_text('module example.com/readiness-replay\n\ngo 1.26.0\n')
@@ -68,11 +72,26 @@ def main():
             if actual != IMAGE: raise ValueError('Docker image identity mismatch')
             report['toolchain_image_id']=actual; save()
             cmd=['docker','run','--rm','--network','none','--platform','linux/arm64','--mount',f'type=bind,src={work},dst=/work',IMAGE,'bash','/work/legacy_eh_toolchain.sh']
+            if a.llvm_dir:
+                llvm=a.llvm_dir.resolve()
+                for name in ['clang','wasm-ld','llvm-ar','llvm-ranlib']:
+                    if not (llvm/'bin'/name).is_file(): raise ValueError('missing LLVM override tool: '+name)
+                report['llvm_override']={'host_path':str(llvm),'tools_sha256':{name:sha(llvm/'bin'/name) for name in ['clang','wasm-ld','llvm-ar','llvm-ranlib']}}
+                cmd[cmd.index(IMAGE):cmd.index(IMAGE)]=['--mount',f'type=bind,src={llvm},dst=/root/.wasixcc/llvm,readonly','--env','LD_LIBRARY_PATH=/root/.wasixcc/llvm/lib']
+                save()
             run('toolchain-probe',cmd+['probe'])
             run('guest-build',cmd+['build-no-postopt'])
             run('guest-postopt',cmd+['postopt'])
             guest=work/'artifact/mariamem-legacy-eh-O2-compatible.wasm'
-        report['guest_sha256']=sha(guest); save()
+        report['guest_sha256']=sha(guest); report['guest_size']=guest.stat().st_size
+        report['accepted_guest_identity_match']=sha(guest)==GUEST
+        if not a.translation_only_guest:
+            raw=work/'artifact/mariamem-legacy-eh.wasm'
+            report['linked_guest_sha256']=sha(raw); report['linked_guest_size']=raw.stat().st_size
+            report['build_paths']={'container_source':'/work/source', 'container_build':'/work/source/build-legacy-no-postopt', 'host_work':str(work)}
+        save()
+        if a.guest_build_only:
+            report['completed']=True; report['comparison_scope']='same v0.4 legacy-EH recipe, not historical/new-EH identity'; return
         if sha(guest)!=GUEST: raise ValueError('rebuilt guest differs from accepted identity; no silent pin update')
         croot=out/'converter'; croot.mkdir()
         with tarfile.open(a.converter_archive) as t: t.extractall(croot,filter='data')

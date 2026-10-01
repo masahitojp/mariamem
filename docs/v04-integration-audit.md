@@ -122,3 +122,14 @@ verification rule or successful acceptance claim.
 The final results and retained evidence are in [the canonical candidate report](../benchmarks/v04-generated-go-candidate.md#final-canonical-candidate-and-release-preparation-audit) and [readiness evidence](../benchmarks/v04-integration-readiness-evidence.json). macOS arm64 acceptance and Ubuntu x86_64 container acceptance pass; the latter uses emulation on the reference Mac and does not replace native release CI. Two fresh translations of the accepted guest produce matching generated-source inventories and matching binaries under the same VCS metadata. Complete source-to-WASM regeneration fails the accepted checksum gate and is not approved as an equivalent guest.
 
 Default distribution/runtime selection, generated-Go CI regeneration, native supported-platform acceptance and failure-path hardening remain release gates. No public compatibility option or focused regression test has been removed. Windows is excluded at the user's request. **NOT READY — BLOCKERS REMAIN**.
+
+## Source-build reproducibility follow-up
+
+The earlier LLVM21 checksum blocker is resolved by the pinned LLVM23.1.0 WASM
+profile: six independent full legacy-EH builds match, and two generated-Go
+regenerations match. [Evidence and recipe](v04-guest-reproducibility.md) record
+the upstream MapVector fix, target-header profile, bounded relaxed-madd generator
+adapter and new-candidate acceptance. The previous audit remains historical.
+Portable/native release CI, default resolver migration, failure-path hardening
+and corresponding-source/notices propagation remain open; no release approval
+is implied.

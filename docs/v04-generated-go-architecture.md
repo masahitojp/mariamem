@@ -22,7 +22,7 @@ No ready heap, live worker, TLS or futex-waiter restoration; no Go process fork.
 ## Build-time path
 
 Pinned MariaDB/lite4mariadb sources and canonical guest overlays → pinned WASIXCC
-0.4.7 / LLVM21 / WASIX sysroot / Binaryen133 → legacy-EH WASM intermediate → pinned
+0.4.7 / pinned LLVM23.1.0 WASM profile / WASIX sysroot / Binaryen133 → legacy-EH WASM intermediate → pinned
 goccy/wasm2go fork and reproducible generator patches → generated Go → platform
 guest executable, host executable and metadata bundle.
 
@@ -153,3 +153,7 @@ gaps. NativeDir remains a compatibility override; ordinary v0.4 zero setup must
 be delivered by a runtime-kind-aware exact-version distribution rather than
 requiring users to choose a local directory. Do not remove Wasmer fallback/trust
 mechanisms before their replacements and both-platform acceptance pass.
+
+The source-build reproducibility recipe and exact toolchain/input pins are in
+[guest reproducibility](v04-guest-reproducibility.md). This supersedes the earlier
+LLVM21 candidate build bridge; historical artifact pins remain explicit.

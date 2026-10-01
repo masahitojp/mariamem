@@ -1,0 +1,27 @@
+package generated
+
+import (
+ "math"
+ "testing"
+)
+
+func TestRelaxedMaddFusedProjection(t *testing.T) {
+ m := New()
+ epsilon := math.Ldexp(1, -27)
+ cases := []struct { name string; a,b,c,want float64; nan bool }{
+  {"fused cancellation", 1+epsilon, 1-epsilon, -1, -math.Ldexp(1,-54), false},
+  {"overflow cancellation", math.MaxFloat64, 2, -math.MaxFloat64, math.MaxFloat64, false},
+  {"subnormal", math.SmallestNonzeroFloat64, 1, 0, math.SmallestNonzeroFloat64, false},
+  {"negative zero", math.Copysign(0,-1), 1, math.Copysign(0,-1), math.Copysign(0,-1), false},
+  {"NaN", math.NaN(), 1, 2, 0, true},
+  {"invalid infinity", math.Inf(1), 0, 1, 0, true},
+ }
+ for _,c := range cases {
+  t.Run(c.name,func(t *testing.T){
+   got := m.Calc([2]uint64{math.Float64bits(c.a), math.Float64bits(2)}, [2]uint64{math.Float64bits(c.b), math.Float64bits(3)}, [2]uint64{math.Float64bits(c.c), math.Float64bits(1)})
+   if got[1] != math.Float64bits(7) { t.Fatalf("second lane/operand order: %x",got[1]) }
+   if c.nan { if !math.IsNaN(math.Float64frombits(got[0])) {t.Fatal("expected NaN")}; return }
+   if got[0] != math.Float64bits(c.want) { t.Fatalf("got %x want %x",got[0],math.Float64bits(c.want)) }
+  })
+ }
+}

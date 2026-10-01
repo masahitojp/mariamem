@@ -10,13 +10,12 @@ from pathlib import Path
 import shutil
 from patch_memfs import apply
 
-BASE_SHA256 = "7d747bfb5114b80aac248ab0792f08a0f660f53c0859ba379ec8c3b36aff04f0"
-
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-module", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--input-manifest", type=Path, default=Path(__file__).with_name("accepted-generated-source.json"), help="explicit checksum-bound generated input inventory")
     args = parser.parse_args()
     source, output = args.source_module.resolve(), args.output.resolve()
     if output.exists():
@@ -24,9 +23,10 @@ def main():
     if (source / "go.mod").read_text().splitlines()[0] != "module example.com/mariamem-spike":
         parser.error("expected the accepted independent generated guest module")
     base = source / "generated/base/base.go"
-    if hashlib.sha256(base.read_bytes()).hexdigest() != BASE_SHA256:
+    pins = json.loads(args.input_manifest.read_text())
+    if hashlib.sha256(base.read_bytes()).hexdigest() != pins["files_sha256"]["base/base.go"]:
         parser.error("generated base differs from the accepted converter output")
-    expected = json.loads(Path(__file__).with_name("accepted-generated-source.json").read_text())["files_sha256"]
+    expected = pins["files_sha256"]
     actual = {str(f.relative_to(source / "generated")): hashlib.sha256(f.read_bytes()).hexdigest()
               for f in (source / "generated").rglob("*") if f.is_file()}
     if actual != expected:

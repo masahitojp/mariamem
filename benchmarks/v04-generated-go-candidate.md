@@ -1,5 +1,7 @@
 # v0.4 generated-Go candidate — canonical benchmarks and readiness audit
 
+Latest source-build result: [reproducibility follow-up](#source-build-reproducibility-follow-up).
+
 Final canonical results: [release-preparation audit](#final-canonical-candidate-and-release-preparation-audit). Earlier sections retain the chronological investigation evidence.
 
 > **更新:** `023796b9`のFD停止条件は本follow-upで解消し、correctness gate後に
@@ -442,3 +444,52 @@ Fresh accepted-guest replay passes on macOS arm64: generated/base race regressio
 No new performance architecture, ready-heap restoration, public API change, tag or publication was introduced. **NOT READY — BLOCKERS REMAIN**.
 
 Final ordinary checks: Go test/vet PASS, Python 368 PASS / 3 SKIP, public-source check 408 files PASS. The check uses a copy of current owned source excluding the pre-existing user-owned untracked `package.json` / `package-lock.json`; those files remain untouched and unstaged. The pinned native-auth source is supplied to preserve the ordinary test scope. Existing Wasmer integration is rerun and passes Go race (9.330 sec) and Python 3/3. Replay script compilation/help and deterministic fail-closed checks for wrong converter checksum and existing output pass. `git diff --check` passes.
+
+## Source-build reproducibility follow-up
+
+**REPRODUCIBLE**. Exact source SHA: `98eb7f038b96b8422424800702baa780458e590e`.
+The compiler was WASIX clang21.1.2 (distribution21.1.206), not LLVM22. Its
+WebAssembly pointer-keyed DenseMaps lack upstream fix
+`fd76c9bdf10383ae536d8c504dafe3bd91947d83`. In `log_write_up_to()`, identical
+IR diverges immediately at CFG Stackify into two legacy `try/delegate` layouts.
+One of 860 objects, two dependent archives and the linked/postoptimized code
+section differ. This is neither debug metadata nor an old new-EH checksum gate.
+
+Official LLVM/LLD23.1.0 containing the fix, unchanged WASIXCC0.4.7/sysroot and
+Binaryen133, with an automated WASM header profile preserving old SDK visibility,
+produce identical outputs across **six independent clean legacy-EH builds**:
+
+| Stage | SHA-256 | Bytes | Matching builds |
+| --- | --- | ---: | ---: |
+| Linked WASM | `2b3a7ffdbeda9e9709d266e331b0c5c8c0c03265c81a91d31cbf498daa6ae781` | 22,051,110 | 6/6 |
+| Final WASM | `5a513f74607ef1f1ddd4a36ebeefbba50354d9d00564e1977475d642104903bb` | 18,560,224 | 6/6 |
+
+All object/archive/configuration inventories and WASM sections/function bodies
+match. Six reduced compiler trials also have identical CFG Stackify output; old
+compiler trials yield two forms. No normalization or exception disabling occurs.
+
+LLVM23 introduces `f64x2.relaxed_madd`, rejected by the existing generator. A
+bounded isolated opcode adapter implements the permitted fused projection with
+Go `math.FMA`; deterministic reduced regression and six race-tested cases pass.
+Two fresh pinned converter builds/translations yield the same 51-file source
+inventory. New exact input/compiled-guest bindings preserve checksum trust gates.
+
+The new guest passes SQLAlchemy **44/44**, GORM **32/32**, Snapshot/Fork **50**
+checks, wire **38** checks, auth self-test, generated/base race and Go/Python
+integration on local macOS arm64. Unchanged Wasmer integration passes too.
+66 imports/signatures and shared memory limits match; no new EH instructions.
+Cross-runtime validation remains unavailable for legacy EH.
+
+[Build recipe/tool pins](../docs/v04-guest-reproducibility.md) and
+[machine-readable evidence](v04-guest-reproducibility-evidence.json) include
+stage inventories, compiler probes, checksums, timestamps and compatibility.
+Source reproducibility is no longer the local blocker. Portable/native release
+CI/bootstrap, default runtime/cache/resolver migration, failure hardening and
+source/notices propagation remain release blockers. Previous performance tables
+refer to the previously measured guest; no performance work was done here.
+**NOT READY — BLOCKERS REMAIN**.
+
+Follow-up ordinary checks: Go test/vet PASS; Python373 PASS/3 SKIP; public-source
+420 files PASS (owned source, pre-existing user npm manifests excluded unchanged).
+Initial timing cleanup flake and publication-path rejection are retained in local
+logs; unchanged test retry and report-path redaction pass. `git diff --check` PASS.

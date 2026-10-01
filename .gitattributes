@@ -3,3 +3,4 @@ licenses/* -whitespace
 python/licenses/* -whitespace
 guest/source.patch -whitespace
 guest/*.inc whitespace=-blank-at-eof
+benchmarks/spikes/wasm2go/*.patch -whitespace
