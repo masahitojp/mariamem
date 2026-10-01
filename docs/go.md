@@ -1,5 +1,10 @@
 # Go API
 
+These public usage instructions retain the current packaging contract. The
+unpublished v0.4 artifact migration and NativeDir compatibility decision are in
+[the integration audit](v04-integration-audit.md); no manual NativeDir requirement
+is proposed for ordinary v0.4 usage.
+
 The public package is `mariamem` at the module root. Go 1.26 or newer is
 required; canonical release validation uses Go 1.26.8, not a broad language
 version matrix. The v0.3.0 candidate is in preparation and is not published yet.

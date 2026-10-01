@@ -2,7 +2,8 @@
 
 ## Integration contract
 
-Source HEAD: `8b368a79eb3a0070f84168b1c70a1e2896e4a5ca`.
+Architecture-decision source: `8b368a79eb3a0070f84168b1c70a1e2896e4a5ca`.
+Readiness audit source: `a06773e5296be5cc3c3657e9e48785fba7bd6d25`.
 Accepted architecture inputs:
 
 | Evidence | Exact SHA |
@@ -43,6 +44,27 @@ Existing MariaDB/lite4mariadb GPL-derived obligations remain; converter, Go,
 WASIX/libc, wolfSSL and other linked components require source/notices review.
 
 ## Runtime path
+
+For the selected v0.4 candidate, **WASM changed from a runtime format to a build
+intermediate**. Generated Go executes MariaDB; the WASIX compatibility layer
+implements its imports. No Wasmer decoder/interpreter/AOT loader executes that
+intermediate. The local bundle still carries it for compiled-code identity
+verification; removing that payload requires an equivalent trust contract.
+Released/default packaging has not yet switched.
+
+```text
+Build time:
+MariaDB/WASIX source → WASM (legacy-EH bridge) → wasm2go → generated Go → executables
+
+Runtime:
+Python/Go lifecycle API → mariamem host / MySQL-wire endpoint
+MySQL client → wire endpoint → guest protocol → generated-Go MariaDB
+                                              ↓
+                                  WASIX compatibility layer
+                                              ↓
+                        isolated filesystem / private prepared-file views
+```
+
 
 Public Go `Start(ctx, Options{})` / Python Database start → exact-release bundle
 resolution and per-start verification → existing mariamem host → isolated
@@ -91,15 +113,13 @@ If an existing feature cannot be implemented correctly with bounded changes,
 record the concrete discrepancy and stop integration. Keep the selected path
 disabled, avoid incomplete product benchmarks and report NOT READY.
 
-## Current integration gate
+## Current integration state
 
-The compatibility preflight and its stop decision are recorded in
-[the candidate gate report](../benchmarks/v04-generated-go-candidate.md).
-The diagnostic Aria/readlink/relative-FD fixes pass ordinary ORM cases but fail
-an opened-directory identity contract under rename/path reuse. They are not
-production shims. No generated runtime has been selected or enabled in the
-product. Production regeneration/provenance, bundle binding and platform/failure
-acceptance remain prerequisites after resolving that gate.
+The opened-directory FD identity and quadratic MemFS Snapshot growth gates are
+fixed and regression-tested in the selected local candidate. SQLAlchemy/GORM,
+SQL/transactions/sessions/Snapshot/Fork and local cleanup checks pass. The earlier
+failed gates remain historical evidence in the candidate report. This does not
+mean the default product runtime or release pipeline has been migrated.
 
 ### FD follow-up from 023796b9
 
@@ -124,3 +144,12 @@ build bridge, distribution/cache/wheel contract, comprehensive WASIX hardening,
 licensing/source review and exact-byte Ubuntu/macOS15 acceptance are release
 gates. Local regression/benchmark evidence does not replace them. See the updated
 candidate report for public-boundary measurements and observed regressions.
+
+## Release preparation audit
+
+[The infrastructure/docs/test audit](v04-integration-audit.md) records retained
+API options, intended artifact migration, verification tiers and actual build/CI
+gaps. NativeDir remains a compatibility override; ordinary v0.4 zero setup must
+be delivered by a runtime-kind-aware exact-version distribution rather than
+requiring users to choose a local directory. Do not remove Wasmer fallback/trust
+mechanisms before their replacements and both-platform acceptance pass.

@@ -8,15 +8,21 @@ guest under Wasmer/WASIX; it does not reimplement MariaDB SQL or InnoDB.
 Go hosts run in the test process; Python starts the packaged Go host process.
 Both languages have public lifecycle APIs.
 
+The unpublished v0.4 generated-Go integration candidate is documented separately
+in [the architecture](docs/v04-generated-go-architecture.md) and
+[readiness audit](docs/v04-integration-audit.md). The installation and APIs below
+still describe the current public packaging; a local candidate benchmark does
+not imply a runtime/distribution release.
+
 The testing workflow is Docker-free: each disposable database has its own server
 state. Prepare migrations/fixtures once with Snapshot, then Fork independent
 databases without adding rollback, schema-reset or data-cleanup logic to each
 test. Close client connections and owned database/snapshot handles normally.
 
-The formal release candidate is `v0.3.0`; its Python distribution version is
-`0.3.0`. It is not published yet. After publication, the Go module and native
-bundles will use the exact `v0.3.0` tag, and Python wheels will be available from
-the matching GitHub Release. Native support remains **macOS 15+ / Apple Silicon
+The current public release is [v0.3.0](https://github.com/masahitojp/mariamem/releases/tag/v0.3.0),
+published on September 30, 2026; its Python distribution version is `0.3.0`.
+The Go module and native bundles use the exact `v0.3.0` tag, and Python wheels
+are available from the matching GitHub Release. Native support remains **macOS 15+ / Apple Silicon
 (arm64)** and **Ubuntu 24.04 LTS / x86_64** (SSE2 + SSSE3).
 PyPI publication is temporarily unavailable while account recovery is pending;
 GitHub Release wheels are the supported Python installation path for now.
@@ -31,8 +37,7 @@ validated by these release jobs.
 ## Python
 
 The v0.3.0 wheel includes the Go host executable, Wasmer runtime and MariaDB
-guest; no separate native setup or Docker is needed. The candidate is not yet
-published. Use a virtual environment:
+guest; no separate native setup or Docker is needed. Use a virtual environment:
 
 ```sh
 python3 -m venv .venv
@@ -85,8 +90,7 @@ see the [Python guide](docs/python.md).
 
 ## Go
 
-Go **1.26 or newer** is required. The v0.3.0 candidate is not published yet.
-After publication, add the exact released module to a fresh module:
+Go **1.26 or newer** is required. Add the exact released module to a fresh module:
 
 ```sh
 mkdir mariamem-example
@@ -144,9 +148,8 @@ failures limit interpretation; see the [practical comparison](benchmarks/practic
 
 ## Current limits
 
-- The v0.3.0 release candidate is not published yet. Its Go auto-download and
-  GitHub wheel installation commands become usable when those release assets
-  exist. Development builds still need a matching explicit native bundle.
+- Development builds still need a matching explicit native bundle. The unpublished
+  v0.4 candidate has not replaced the v0.3.0 release distribution.
 - Multiple SQL clients can use one database up to the guest's session capacity
   (16 in the current native bundle). An additional connection receives a
   recoverable MySQL 1040 error; slots are reusable after guest close acknowledgement.

@@ -244,3 +244,15 @@ regressions, then records 20 samples plus two warmups at ×1/4/8, without costly
 memory diagnostics. Verified WASM/AOT reuse applies only to identical inputs.
 See [tranche baseline](../benchmarks/fast-tranche-baseline.md). Nothing is released;
 submit the workflow and hand off without polling.
+
+## v0.4 candidate verification tiers
+
+The generated-Go candidate is isolated and disabled by default. See
+[the documentation/test/build audit](v04-integration-audit.md) for the inventory.
+Fast PR uses `verify.py check`; candidate integration additionally regenerates
+inputs, runs generated filesystem/thread contracts, `verify.py integration`,
+raw-wire/Snapshot checks and installed SQLAlchemy/GORM consumers. Release
+acceptance adds exact supported platforms, cold source/artifact provenance,
+zero-setup consumer and notices review. Fixed-environment benchmarks and old
+spike traces remain manual; do not run them in parallel or make speed a CI gate.
+Current CI's Wasmer guest job is not generated-Go regeneration/acceptance.

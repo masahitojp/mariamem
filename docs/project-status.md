@@ -23,7 +23,7 @@ The core idea is:
 > and lifecycle cost normally associated with running a full external database
 > server.
 
-The current high-level architecture is:
+The current public v0.3 high-level architecture is:
 
 ```text
 Go / Python application
@@ -578,12 +578,18 @@ architecture work.
 
 ### v0.4 — SCALE
 
-Use v0.3 workloads to explore CoW, runtime sharing, guest filesystem/state
-sharing, restore-path redesign, startup and per-DB memory improvements. These
-are candidates, not committed designs. The current guest depends on WASIX;
-embedding/replacing a runtime cannot be assumed viable. References such as
-pglite-go inform questions, not a porting plan. Measure benefit, isolation and
-platform implications before selecting an architecture.
+Architecture exploration is complete. The selected candidate is generated-Go
+execution + prepared-files reuse + fresh runtime/execution-state reconstruction.
+WASM becomes a build intermediate. Ready-heap/live-worker reentry is rejected;
+no further CoW/runtime-sharing architecture work is part of integration.
+
+The isolated candidate passes local SQL/ORM/Snapshot/Fork compatibility and has
+substantially lower startup/memory cost. Directory-FD identity and MemFS growth
+regressions are fixed. This is not a default-runtime or distribution switch:
+reproducible legacy-EH/converter build, generated-Go CI, runtime-kind bundle/cache
+and Python wheel migration, supported-platform/failure acceptance and notices
+review remain release gates. See [the canonical architecture](v04-generated-go-architecture.md),
+[readiness audit](v04-integration-audit.md) and [candidate benchmark](../benchmarks/v04-generated-go-candidate.md).
 
 ### v0.5 — Broader client workloads
 

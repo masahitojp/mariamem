@@ -1,0 +1,1212 @@
+{
+  "audit_source_sha": "a06773e5296be5cc3c3657e9e48785fba7bd6d25",
+  "benchmark_reference": "exact measured selected bundle from completed MemFS fix campaign; raw data hashes/source identity retained, no slow run removed",
+  "benchmark_manifest": {
+    "version": 1,
+    "platform": "darwin-arm64",
+    "minimum_macos": 15,
+    "public_release_ready": false,
+    "runtime_kind": "generated-go",
+    "sha256": {
+      "wasmer-headless": "3ce4d773f281f179a1b9aec62125ccc7c3243c2a71d33107fd220d318d72aa45",
+      "mariamem-host": "d31bc9abd074579428d56a6244729ed0b989b17ddd03da27476a235ccd28f541",
+      "mariamem.wasmu": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+      "mariamem.wasmu.json": "09273b027975f909ebceebaf84e6239653703e016667d73b5da1bbb78e32451c"
+    }
+  },
+  "startup": {
+    "start_first_sql": {
+      "count": 30,
+      "min": 0.083502917,
+      "p50": 0.0876739165,
+      "p95": 1.09071707035,
+      "max": 1.096311166,
+      "p99": 1.09487208943,
+      "ge500ms": 3,
+      "ge900ms": 3
+    },
+    "start_seeded": {
+      "count": 30,
+      "min": 0.087400209,
+      "p50": 0.09024904149999999,
+      "p95": 1.110412708,
+      "max": 1.11567225,
+      "p99": 1.11470095532,
+      "ge500ms": 4,
+      "ge900ms": 4
+    },
+    "snapshot": {
+      "count": 30,
+      "min": 0.486099333,
+      "p50": 0.5424297505,
+      "p95": 0.9165672225499996,
+      "max": 1.272960625,
+      "p99": 1.1918442656400003,
+      "ge500ms": 27,
+      "ge900ms": 2
+    },
+    "fork_first_sql": {
+      "count": 30,
+      "min": 0.148651834,
+      "p50": 0.152307,
+      "p95": 0.1618898875,
+      "max": 0.169353166,
+      "p99": 0.16735947661,
+      "ge500ms": 0,
+      "ge900ms": 0
+    }
+  },
+  "scaling": {
+    "groups": [
+      {
+        "workers": 1,
+        "successes": 3,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 3,
+          "p50": 0.1509515,
+          "p95": 0.1854763622
+        },
+        "host_cpu_seconds": {
+          "count": 3,
+          "p50": 0.13863429199999994,
+          "p95": 0.17113779109999996
+        },
+        "runtime_cpu_seconds": {
+          "count": 3,
+          "p50": 0.048108292,
+          "p95": 0.0483986167
+        },
+        "combined_cpu_seconds": {
+          "count": 3,
+          "p50": 0.18681599999999998,
+          "p95": 0.21925342469999998
+        },
+        "incremental_primary_bytes": {
+          "count": 3,
+          "p50": 90522392.0,
+          "p95": 90831984.8
+        },
+        "average_incremental_bytes": {
+          "count": 3,
+          "p50": 90522392.0,
+          "p95": 90831984.8
+        },
+        "group_peak_primary_bytes": {
+          "count": 3,
+          "p50": 99255616.0,
+          "p95": 99550463.2
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 3,
+          "p50": 90522392.0,
+          "p95": 90831984.8
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 3,
+          "p50": 0.18681599999999998,
+          "p95": 0.21925342469999998
+        },
+        "baseline_primary_bytes": {
+          "count": 3,
+          "p50": 8716840.0,
+          "p95": 8731585.6
+        },
+        "baseline_rss_bytes": {
+          "count": 3,
+          "p50": 16564224.0,
+          "p95": 16564224.0
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 3,
+          "p50": 99255616.0,
+          "p95": 99550463.2
+        },
+        "ready_rss_bytes": {
+          "count": 3,
+          "p50": 138149888.0,
+          "p95": 138503782.4
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 3,
+          "p50": 10273320.0,
+          "p95": 10568232.0
+        },
+        "after_close_rss_bytes": {
+          "count": 3,
+          "p50": 18186240.0,
+          "p95": 18481152.0
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 3,
+          "p50": 1540096.0,
+          "p95": 1849753.6
+        }
+      },
+      {
+        "workers": 4,
+        "successes": 3,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 3,
+          "p50": 0.198682833,
+          "p95": 0.2086898961
+        },
+        "host_cpu_seconds": {
+          "count": 3,
+          "p50": 0.628117041,
+          "p95": 0.6371577668999998
+        },
+        "runtime_cpu_seconds": {
+          "count": 3,
+          "p50": 0.21797929100000002,
+          "p95": 0.2299246922
+        },
+        "combined_cpu_seconds": {
+          "count": 3,
+          "p50": 0.8409357909999999,
+          "p95": 0.8546210037999998
+        },
+        "incremental_primary_bytes": {
+          "count": 3,
+          "p50": 358829176.0,
+          "p95": 359286376.0
+        },
+        "average_incremental_bytes": {
+          "count": 3,
+          "p50": 89707294.0,
+          "p95": 89821594.0
+        },
+        "group_peak_primary_bytes": {
+          "count": 3,
+          "p50": 367480504.0,
+          "p95": 367996664.8
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 3,
+          "p50": 358829176.0,
+          "p95": 359286376.0
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 3,
+          "p50": 0.21023394774999998,
+          "p95": 0.21365525094999996
+        },
+        "baseline_primary_bytes": {
+          "count": 3,
+          "p50": 8716840.0,
+          "p95": 8716883.2
+        },
+        "baseline_rss_bytes": {
+          "count": 3,
+          "p50": 16498688.0,
+          "p95": 16528179.2
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 3,
+          "p50": 367480504.0,
+          "p95": 367996664.8
+        },
+        "ready_rss_bytes": {
+          "count": 3,
+          "p50": 499482624.0,
+          "p95": 499748044.8
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 3,
+          "p50": 10764864.0,
+          "p95": 11266214.4
+        },
+        "after_close_rss_bytes": {
+          "count": 3,
+          "p50": 18808832.0,
+          "p95": 19192217.6
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 3,
+          "p50": 2113536.0,
+          "p95": 2555925.6
+        }
+      },
+      {
+        "workers": 8,
+        "successes": 3,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 3,
+          "p50": 0.312813417,
+          "p95": 0.3212177295
+        },
+        "host_cpu_seconds": {
+          "count": 3,
+          "p50": 1.3781769160000001,
+          "p95": 1.3828123290999998
+        },
+        "runtime_cpu_seconds": {
+          "count": 3,
+          "p50": 0.507835917,
+          "p95": 0.5226304536
+        },
+        "combined_cpu_seconds": {
+          "count": 3,
+          "p50": 1.8911632919999999,
+          "p95": 1.9013224155000001
+        },
+        "incremental_primary_bytes": {
+          "count": 3,
+          "p50": 717002848.0,
+          "p95": 726204318.4
+        },
+        "average_incremental_bytes": {
+          "count": 3,
+          "p50": 89625356.0,
+          "p95": 90775539.8
+        },
+        "group_peak_primary_bytes": {
+          "count": 3,
+          "p50": 725310088.0,
+          "p95": 734570540.8
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 3,
+          "p50": 717002848.0,
+          "p95": 726204318.4
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 3,
+          "p50": 0.23639541149999999,
+          "p95": 0.23766530193750002
+        },
+        "baseline_primary_bytes": {
+          "count": 3,
+          "p50": 8372776.0,
+          "p95": 8431736.8
+        },
+        "baseline_rss_bytes": {
+          "count": 3,
+          "p50": 16203776.0,
+          "p95": 16262758.4
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 3,
+          "p50": 725310088.0,
+          "p95": 734570540.8
+        },
+        "ready_rss_bytes": {
+          "count": 3,
+          "p50": 981991424.0,
+          "p95": 990824038.4
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 3,
+          "p50": 11584088.0,
+          "p95": 11584109.6
+        },
+        "after_close_rss_bytes": {
+          "count": 3,
+          "p50": 19873792.0,
+          "p95": 19977011.2
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 3,
+          "p50": 3145800.0,
+          "p95": 3204782.4
+        }
+      },
+      {
+        "workers": 16,
+        "successes": 3,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 3,
+          "p50": 0.662601291,
+          "p95": 0.6682486038
+        },
+        "host_cpu_seconds": {
+          "count": 3,
+          "p50": 2.7274055830000004,
+          "p95": 2.7305482336
+        },
+        "runtime_cpu_seconds": {
+          "count": 3,
+          "p50": 1.052372709,
+          "p95": 1.0559593214999998
+        },
+        "combined_cpu_seconds": {
+          "count": 3,
+          "p50": 3.7832701259999997,
+          "p95": 3.7837140879000004
+        },
+        "incremental_primary_bytes": {
+          "count": 3,
+          "p50": 1440707160.0,
+          "p95": 1442196184.8
+        },
+        "average_incremental_bytes": {
+          "count": 3,
+          "p50": 90044197.5,
+          "p95": 90137261.55
+        },
+        "group_peak_primary_bytes": {
+          "count": 3,
+          "p50": 1449292976.0,
+          "p95": 1450781957.6
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 3,
+          "p50": 1440707160.0,
+          "p95": 1442314149.6
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 3,
+          "p50": 0.23645438287499998,
+          "p95": 0.23648213049375003
+        },
+        "baseline_primary_bytes": {
+          "count": 3,
+          "p50": 8454696.0,
+          "p95": 8572704.0
+        },
+        "baseline_rss_bytes": {
+          "count": 3,
+          "p50": 16269312.0,
+          "p95": 16357785.6
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 3,
+          "p50": 1449292976.0,
+          "p95": 1450663992.8
+        },
+        "ready_rss_bytes": {
+          "count": 3,
+          "p50": 1953054720.0,
+          "p95": 1954706227.2
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 3,
+          "p50": 12255832.0,
+          "p95": 12329603.2
+        },
+        "after_close_rss_bytes": {
+          "count": 3,
+          "p50": 20447232.0,
+          "p95": 20638924.8
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 3,
+          "p50": 3801136.0,
+          "p95": 4110793.6
+        }
+      }
+    ],
+    "marginal_memory": [
+      {
+        "from": 1,
+        "to": 4,
+        "bytes_per_added_db": {
+          "count": 3,
+          "p50": 89435594.66666667,
+          "p95": 89484797.06666666
+        }
+      },
+      {
+        "from": 4,
+        "to": 8,
+        "bytes_per_added_db": {
+          "count": 3,
+          "p50": 89416418.0,
+          "p95": 91938034.4
+        }
+      },
+      {
+        "from": 8,
+        "to": 16,
+        "bytes_per_added_db": {
+          "count": 3,
+          "p50": 90583871.0,
+          "p95": 90661250.3
+        }
+      }
+    ]
+  },
+  "fresh_resources": {
+    "group_ready_seconds": {
+      "count": 30,
+      "min": 0.081928125,
+      "p50": 0.085223583,
+      "p95": 1.0868228913,
+      "max": 1.088186958
+    },
+    "combined_cpu_seconds": {
+      "count": 30,
+      "min": 0.101643958,
+      "p50": 0.1052284795,
+      "p95": 0.13645074985,
+      "max": 0.13790883399999998
+    },
+    "host_cpu_seconds": {
+      "count": 30,
+      "min": 0.058178666999999996,
+      "p50": 0.059606479000000004,
+      "p95": 0.09131755625000001,
+      "max": 0.092809042
+    },
+    "runtime_cpu_seconds": {
+      "count": 30,
+      "min": 0.042346583,
+      "p50": 0.0452896875,
+      "p95": 0.05173131425,
+      "max": 0.055206
+    },
+    "average_incremental_bytes": {
+      "count": 30,
+      "min": 94192360,
+      "p50": 94642992.0,
+      "p95": 97372542.4,
+      "max": 106611480
+    },
+    "incremental_primary_bytes": {
+      "count": 30,
+      "min": 94192360,
+      "p50": 94642992.0,
+      "p95": 97372542.4,
+      "max": 106611480
+    },
+    "ready_primary_bytes": {
+      "count": 30,
+      "min": 98895144,
+      "p50": 99444044.0,
+      "p95": 102117068.4,
+      "max": 111396160
+    },
+    "ready_rss_bytes": {
+      "count": 30,
+      "min": 129187840,
+      "p50": 129810432.0,
+      "p95": 132793958.4,
+      "max": 141737984
+    },
+    "baseline_primary_bytes": {
+      "count": 30,
+      "min": 4653608,
+      "p50": 4776488.0,
+      "p95": 4957544.4,
+      "max": 5014056
+    },
+    "baseline_rss_bytes": {
+      "count": 30,
+      "min": 11403264,
+      "p50": 11526144.0,
+      "p95": 11698176.0,
+      "max": 11763712
+    },
+    "after_close_primary_bytes": {
+      "count": 30,
+      "min": 6898216,
+      "p50": 7414324.0,
+      "p95": 9896514.4,
+      "max": 10142248
+    },
+    "after_close_rss_bytes": {
+      "count": 30,
+      "min": 14729216,
+      "p50": 15253504.0,
+      "p95": 17931468.8,
+      "max": 18219008
+    }
+  },
+  "orm_suite_summary": [
+    {
+      "tests": 10,
+      "mode": "start",
+      "runs": 3,
+      "suite_p50": 3.372305208002217,
+      "setup_p50": 3.999914042651653e-06
+    },
+    {
+      "tests": 10,
+      "mode": "fork",
+      "runs": 3,
+      "suite_p50": 2.7597872080514207,
+      "setup_p50": 0.6510079170111567
+    },
+    {
+      "tests": 50,
+      "mode": "start",
+      "runs": 3,
+      "suite_p50": 8.585023917024955,
+      "setup_p50": 9.958050213754177e-06
+    },
+    {
+      "tests": 50,
+      "mode": "fork",
+      "runs": 3,
+      "suite_p50": 11.215317457914352,
+      "setup_p50": 0.6486197910271585
+    },
+    {
+      "tests": 100,
+      "mode": "start",
+      "runs": 3,
+      "suite_p50": 21.496999541996047,
+      "setup_p50": 6.458023563027382e-06
+    },
+    {
+      "tests": 100,
+      "mode": "fork",
+      "runs": 3,
+      "suite_p50": 21.921253000036813,
+      "setup_p50": 0.7041505420347676
+    }
+  ],
+  "benchmark_raw_sha256": {
+    "benchmarks/results/v04-candidate-growth-fixed.json": "b1159341538c316b35741d317291d7588cdc2ae1e88afae06393aa45d888de17",
+    "benchmarks/results/v04-candidate-growth-fresh-resources.json": "3b0ae693e985c56e48372ae652d70244930220cd4cd0c771edd0734c9e0fd728",
+    "benchmarks/results/v04-candidate-orm-growth-fixed.json": "99bad609b39cedc9dad356a487bfe2fe30a26bb68fc4c55aa68e810e438b3738"
+  },
+  "source_wasm_replay": {
+    "source_sha": "a06773e5296be5cc3c3657e9e48785fba7bd6d25",
+    "completed": false,
+    "stages": [
+      {
+        "name": "prepare",
+        "seconds": 9.819994917022996,
+        "exit_code": 0,
+        "log_sha256": "591585a773294e7fbe2b6772146dd6b5ea8cf0fd7339fa11ba7fcbfee6f234c0"
+      },
+      {
+        "name": "toolchain-probe",
+        "seconds": 2.6563757499679923,
+        "exit_code": 0,
+        "log_sha256": "9dcf0e3ea117dd8afd87423f71c025e407349011cc12caef57b72496ec071bff"
+      },
+      {
+        "name": "guest-build",
+        "seconds": 559.066149708,
+        "exit_code": 0,
+        "log_sha256": "c1ad70912cfc3e389b67fc9d71140d4a5b494ad8f78d482bbfe1c5c4bce11d4a"
+      },
+      {
+        "name": "guest-postopt",
+        "seconds": 14.53452125005424,
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "full_guest_regeneration": true,
+    "prepared_source": {
+      "inputs_lock_sha256": "bad72fcb09d919a20216ef8bb566b72f6369e46abfbc33a91ad1120f96152680",
+      "overlays": {
+        "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
+        "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
+        "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
+        "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
+        "resident.inc": "7dfee608541002f4fca74b6eeceb8a0b54f22e0b04b5d1e254391b970e6af634",
+        "snapshot_fs.inc": "d97b201eac04b7f6dda4191eafea9e5fe38db895dde7f2366fc22a17649f15df",
+        "source.patch": "595341525825860a398c3dc3f7c9660264af4db79ec487902d51e3d1d3bd5e0f",
+        "startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
+        "test-auth-keypair.json": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be",
+        "wire_core.inc": "dafdc569959bc21821ddf39533116f2a62eab2441c9280a675be3065db58278f"
+      },
+      "modified_files": {
+        "mysys/my_lib.c": "d00d2647d98e49272c6652e0dc5a88438d86da5856c6007d70f0047a994f0f26",
+        "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
+        "wasm/CMakeLists.txt": "c202123fef2d0ac6ec8da5d659d488907aaff4b8040a5a6e514255c3d47fd254",
+        "wasm/wire_api.inc": "d21bea6b0bb9d3f044fa88170899f0b52f99aa0c73aa51f54a7e7004b858e344",
+        "wasm/resident.inc": "7dfee608541002f4fca74b6eeceb8a0b54f22e0b04b5d1e254391b970e6af634",
+        "wasm/snapshot_fs.inc": "d97b201eac04b7f6dda4191eafea9e5fe38db895dde7f2366fc22a17649f15df",
+        "wasm/startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
+        "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
+        "wasm/prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
+        "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
+        "plugin/auth_mysql_sha2/mysql_sha2.c": "2dfb8b6e0ca9bc26e1aa6ab50c8009f0d5be850d3d7ad0c56b9413b4acc3928e",
+        "plugin/auth_mysql_sha2/ssl_stuff.c": "8621b8bbb5cab82eb32b736938fcfebf66a09a4acd388bcca5be8c2962ff0d02",
+        "include/mariamem_init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
+        "libmysqld/lib_sql.cc": "457ddea08a0619911f3a069a2ac5062ef1bd61bab50faaf57cbd7cb984401f78",
+        "sql/mysqld.cc": "3d9f00e740fb0224f219e726957549e2e764f71f0490b027c29af0e0eed9beb8",
+        "sql/sql_plugin.cc": "630e717311f615de83820b3af7c23e909c8e8e263c1088e404456a0ca0c83bd1",
+        "storage/maria/ha_maria.cc": "465fe7518073e467a97710e48626fbf4dbdd15f28ec20d2d074087b6d7871c36",
+        "storage/innobase/handler/ha_innodb.cc": "e4bcc75b44bc1c74bb2c9758f548fa54c1ce69bf71e970b9d07ea2cfea28179b",
+        "storage/innobase/srv/srv0start.cc": "c9b1c1343f88298b55ea0cdaaa6d147d9b26a8683cc3a829ae11284ba5f6b9da",
+        "cmake/pcre.cmake": "ed0dbf1f78b8fe86ed04e1a85cdeaeec3b2b9c271b0ee4a5f9eb036d43eb0907",
+        "cmake/libfmt.cmake": "436e87408474a62f2c344ea6de4ccbcc02e65f900f00a8474073513c082da765"
+      }
+    },
+    "toolchain_image_id": "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+    "guest_sha256": "a927703cbc7ca59ffab02a50a42598c1cf5e18a5e5f74dbc267f59d4285a4922",
+    "failure": "rebuilt guest differs from accepted identity; no silent pin update"
+  },
+  "wasm_section_diff": [
+    {
+      "section": 1,
+      "old_bytes": 2408,
+      "new_bytes": 2408,
+      "equal": true
+    },
+    {
+      "section": 2,
+      "old_bytes": 2174,
+      "new_bytes": 2174,
+      "equal": true
+    },
+    {
+      "section": 3,
+      "old_bytes": 22007,
+      "new_bytes": 22007,
+      "equal": true
+    },
+    {
+      "section": 4,
+      "old_bytes": 9,
+      "new_bytes": 9,
+      "equal": true
+    },
+    {
+      "section": 13,
+      "old_bytes": 5,
+      "new_bytes": 5,
+      "equal": true
+    },
+    {
+      "section": 6,
+      "old_bytes": 5661,
+      "new_bytes": 5661,
+      "equal": true
+    },
+    {
+      "section": 7,
+      "old_bytes": 182907,
+      "new_bytes": 182907,
+      "equal": true
+    },
+    {
+      "section": 8,
+      "old_bytes": 1,
+      "new_bytes": 1,
+      "equal": true
+    },
+    {
+      "section": 9,
+      "old_bytes": 38103,
+      "new_bytes": 38103,
+      "equal": true
+    },
+    {
+      "section": 12,
+      "old_bytes": 1,
+      "new_bytes": 1,
+      "equal": true
+    },
+    {
+      "section": 10,
+      "old_bytes": 8979583,
+      "new_bytes": 8979583,
+      "equal": false
+    },
+    {
+      "section": 11,
+      "old_bytes": 6909732,
+      "new_bytes": 6909732,
+      "equal": true
+    },
+    {
+      "section": 0,
+      "old_bytes": 481824,
+      "new_bytes": 481824,
+      "equal": true
+    },
+    {
+      "section": 0,
+      "old_bytes": 49963,
+      "new_bytes": 49963,
+      "equal": true
+    },
+    {
+      "section": 0,
+      "old_bytes": 1290903,
+      "new_bytes": 1290903,
+      "equal": true
+    },
+    {
+      "section": 0,
+      "old_bytes": 96462,
+      "new_bytes": 96462,
+      "equal": true
+    },
+    {
+      "section": 0,
+      "old_bytes": 509647,
+      "new_bytes": 509647,
+      "equal": true
+    },
+    {
+      "section": 0,
+      "old_bytes": 41741,
+      "new_bytes": 41741,
+      "equal": true
+    },
+    {
+      "section": 0,
+      "old_bytes": 93,
+      "new_bytes": 93,
+      "equal": true
+    },
+    {
+      "section": 0,
+      "old_bytes": 216,
+      "new_bytes": 216,
+      "equal": true
+    }
+  ],
+  "wasm_function_diff": [
+    {
+      "defined_function_index": 18159,
+      "old_bytes": 576,
+      "new_bytes": 576,
+      "diff_offsets": [
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        460,
+        461,
+        462
+      ],
+      "diff_count": 34,
+      "old_excerpt": "0541010b2102064041b088c107280200110f002103180406",
+      "new_excerpt": "0541010b21020640064041b088c107280200110f00210318"
+    }
+  ],
+  "converter_replay": [
+    {
+      "source_sha": "a06773e5296be5cc3c3657e9e48785fba7bd6d25",
+      "completed": true,
+      "stages": [
+        {
+          "name": "patch-imported-memory.patch",
+          "seconds": 0.011074999929405749,
+          "exit_code": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "patch-import-function-index.patch",
+          "seconds": 0.010317959007807076,
+          "exit_code": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "converter-build",
+          "seconds": 1.7195577499223873,
+          "exit_code": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "translate",
+          "seconds": 59.775217457907274,
+          "exit_code": 0,
+          "log_sha256": "08974ebd6a973e7f4877d07875d657ce716c19d9c8133934d5925c5a49bcc233"
+        },
+        {
+          "name": "candidate-build",
+          "seconds": 20.122146166977473,
+          "exit_code": 0,
+          "log_sha256": "b8da0575392c80df528fb5b9bd050348b806db73a1146d4ac99e05098ed49208"
+        }
+      ],
+      "full_guest_regeneration": false,
+      "guest_sha256": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+      "generated_inventory_match": true,
+      "generated_bytes": 184766554,
+      "converter_sha256": "f2b4e3882a18b24870c3cd4ae0b88b40748516a4d31b52b473e9a42c8c67a3b3",
+      "native_manifest": {
+        "version": 1,
+        "platform": "darwin-arm64",
+        "minimum_macos": 15,
+        "public_release_ready": false,
+        "runtime_kind": "generated-go",
+        "sha256": {
+          "wasmer-headless": "386fdf4d26fb77fbd827a55956f1b9b9e4e01026e82f15a0b6545098fd177a29",
+          "mariamem-host": "acf2cddc62d7ffecb2397aa6768f12ee054249336f899bec52b3fea19eff88d4",
+          "mariamem.wasmu": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+          "mariamem.wasmu.json": "09273b027975f909ebceebaf84e6239653703e016667d73b5da1bbb78e32451c"
+        }
+      }
+    },
+    {
+      "source_sha": "a06773e5296be5cc3c3657e9e48785fba7bd6d25",
+      "completed": true,
+      "stages": [
+        {
+          "name": "patch-imported-memory.patch",
+          "seconds": 0.04017495806328952,
+          "exit_code": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "patch-import-function-index.patch",
+          "seconds": 0.020283375051803887,
+          "exit_code": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "converter-build",
+          "seconds": 3.407160458038561,
+          "exit_code": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "translate",
+          "seconds": 57.322466709068976,
+          "exit_code": 0,
+          "log_sha256": "08974ebd6a973e7f4877d07875d657ce716c19d9c8133934d5925c5a49bcc233"
+        },
+        {
+          "name": "candidate-build",
+          "seconds": 19.79338133300189,
+          "exit_code": 0,
+          "log_sha256": "46e16efc5fc2b04b96301510e0bd67b21d3957cd596e67015eff389855417334"
+        }
+      ],
+      "full_guest_regeneration": false,
+      "guest_sha256": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+      "generated_inventory_match": true,
+      "generated_bytes": 184766554,
+      "converter_sha256": "f2b4e3882a18b24870c3cd4ae0b88b40748516a4d31b52b473e9a42c8c67a3b3",
+      "native_manifest": {
+        "version": 1,
+        "platform": "darwin-arm64",
+        "minimum_macos": 15,
+        "public_release_ready": false,
+        "runtime_kind": "generated-go",
+        "sha256": {
+          "wasmer-headless": "386fdf4d26fb77fbd827a55956f1b9b9e4e01026e82f15a0b6545098fd177a29",
+          "mariamem-host": "acf2cddc62d7ffecb2397aa6768f12ee054249336f899bec52b3fea19eff88d4",
+          "mariamem.wasmu": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+          "mariamem.wasmu.json": "09273b027975f909ebceebaf84e6239653703e016667d73b5da1bbb78e32451c"
+        }
+      }
+    }
+  ],
+  "windows": "not attempted; user removed from scope",
+  "formal_platform_acceptance": "not completed: local macOS27 arm64 and Docker-emulated Ubuntu24.04 amd64 evidence is not exact macOS15/native Ubuntu release CI",
+  "verdict": "NOT READY \u2014 BLOCKERS REMAIN",
+  "converter_replay_two_builds_exact_match": true,
+  "source_wasm_inspection": {
+    "prepared_source_matches_original": true,
+    "imports_match": true,
+    "sections_match": true,
+    "opcodes_match": true,
+    "try_table": 0,
+    "throw_ref": 0,
+    "link_flags_match": true,
+    "changed_function_count": 1,
+    "semantics_not_proven_equivalent": true
+  },
+  "acceptance": {
+    "macos": {
+      "go_integration": "race PASS 9.480s",
+      "python_integration": "3 PASS 1.57s",
+      "sqlalchemy": {
+        "source_commit": "a06773e5296be5cc3c3657e9e48785fba7bd6d25",
+        "runs": [
+          {
+            "name": "1-start",
+            "mode": "start",
+            "returncode": 0,
+            "suite_seconds": 2.762498375028372,
+            "junit": [
+              {
+                "name": "pytest",
+                "errors": "0",
+                "failures": "0",
+                "skipped": "0",
+                "tests": "11",
+                "time": "2.306",
+                "timestamp": "2026-10-01T21:50:25.638965+09:00",
+                "hostname": "MacBookAir"
+              }
+            ]
+          },
+          {
+            "name": "2-fork",
+            "mode": "fork",
+            "returncode": 0,
+            "suite_seconds": 4.0338500830112025,
+            "junit": [
+              {
+                "name": "pytest",
+                "errors": "0",
+                "failures": "0",
+                "skipped": "0",
+                "tests": "11",
+                "time": "3.689",
+                "timestamp": "2026-10-01T21:50:28.272250+09:00",
+                "hostname": "MacBookAir"
+              }
+            ]
+          },
+          {
+            "name": "3-fork",
+            "mode": "fork",
+            "returncode": 0,
+            "suite_seconds": 4.934441874967888,
+            "junit": [
+              {
+                "name": "pytest",
+                "errors": "0",
+                "failures": "0",
+                "skipped": "0",
+                "tests": "11",
+                "time": "4.628",
+                "timestamp": "2026-10-01T21:50:32.318818+09:00",
+                "hostname": "MacBookAir"
+              }
+            ]
+          },
+          {
+            "name": "4-start",
+            "mode": "start",
+            "returncode": 0,
+            "suite_seconds": 4.057486540987156,
+            "junit": [
+              {
+                "name": "pytest",
+                "errors": "0",
+                "failures": "0",
+                "skipped": "0",
+                "tests": "11",
+                "time": "3.731",
+                "timestamp": "2026-10-01T21:50:37.248142+09:00",
+                "hostname": "MacBookAir"
+              }
+            ]
+          }
+        ],
+        "passed": true
+      },
+      "gorm": [
+        {
+          "name": "1-start",
+          "exit_code": 0,
+          "runner_seconds": 3.8750652499729767
+        },
+        {
+          "name": "2-fork",
+          "exit_code": 0,
+          "runner_seconds": 3.3984879580093548
+        },
+        {
+          "name": "3-fork",
+          "exit_code": 0,
+          "runner_seconds": 3.702498291968368
+        },
+        {
+          "name": "4-start",
+          "exit_code": 0,
+          "runner_seconds": 1.5415478330105543
+        }
+      ],
+      "wire": "38 checks PASS incl CLIENT_FOUND_ROWS",
+      "snapshot": "50 checks PASS",
+      "auth": "actual callback PASS"
+    },
+    "ubuntu_emulated": {
+      "go_integration": "PASS; cross-compiled CGO=0 executable, no Linux race detector",
+      "python_integration": "3 PASS 2.82s",
+      "sqlalchemy": {
+        "source_commit": "a06773e5296be5cc3c3657e9e48785fba7bd6d25",
+        "runs": [
+          {
+            "name": "1-start",
+            "mode": "start",
+            "returncode": 0,
+            "suite_seconds": 11.959667379996972,
+            "junit": [
+              {
+                "name": "pytest",
+                "errors": "0",
+                "failures": "0",
+                "skipped": "0",
+                "tests": "11",
+                "time": "11.522",
+                "timestamp": "2026-10-01T12:48:35.590568+00:00",
+                "hostname": "486adad5aace"
+              }
+            ]
+          },
+          {
+            "name": "2-fork",
+            "mode": "fork",
+            "returncode": 0,
+            "suite_seconds": 17.330797883012565,
+            "junit": [
+              {
+                "name": "pytest",
+                "errors": "0",
+                "failures": "0",
+                "skipped": "0",
+                "tests": "11",
+                "time": "16.940",
+                "timestamp": "2026-10-01T12:48:47.513222+00:00",
+                "hostname": "486adad5aace"
+              }
+            ]
+          },
+          {
+            "name": "3-fork",
+            "mode": "fork",
+            "returncode": 0,
+            "suite_seconds": 17.18240846702247,
+            "junit": [
+              {
+                "name": "pytest",
+                "errors": "0",
+                "failures": "0",
+                "skipped": "0",
+                "tests": "11",
+                "time": "16.774",
+                "timestamp": "2026-10-01T12:49:04.842141+00:00",
+                "hostname": "486adad5aace"
+              }
+            ]
+          },
+          {
+            "name": "4-start",
+            "mode": "start",
+            "returncode": 0,
+            "suite_seconds": 11.822395130002405,
+            "junit": [
+              {
+                "name": "pytest",
+                "errors": "0",
+                "failures": "0",
+                "skipped": "0",
+                "tests": "11",
+                "time": "11.400",
+                "timestamp": "2026-10-01T12:49:22.060778+00:00",
+                "hostname": "486adad5aace"
+              }
+            ]
+          }
+        ],
+        "passed": true
+      },
+      "gorm": "4 x 8 cases PASS incl repeated AutoMigrate",
+      "wire": "38 checks PASS incl CLIENT_FOUND_ROWS",
+      "snapshot": "50 checks PASS",
+      "auth": "actual callback PASS",
+      "processes_after": "    PID    PPID COMMAND         COMMAND\n      1       0 bash            bash /work/accept-final.sh\n   4777       1 ps              ps -eo pid,ppid,comm,args\n",
+      "environment": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\nLinux 486adad5aace 7.0.14-linuxkit #1 SMP PREEMPT Fri Sep 18 10:19:32 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux\ngreenlet==3.5.6\niniconfig==2.3.0\nmariamem @ file:///work/checkout/python\npackaging==26.3\npluggy==1.6.0\nPygments==2.21.0\nPyMySQL==1.2.3\npytest==8.4.2\nsetuptools==84.0.0\nSQLAlchemy==2.0.54\ntyping_extensions==4.16.0\nwheel==0.48.0\n"
+    }
+  },
+  "raw_logs_sha256": {
+    "build/generated-go-integration/readiness-ubuntu-auth.log": "27487988671b369a1b536d065eff9de84cc12a628556db3f7cd8d80b4ddb0cf5",
+    "build/generated-go-integration/readiness-linux-compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build/generated-go-integration/readiness-macos-wire.log": "5ffc0788d2e16908c1c39523e5eafd08a2a4a64da9812563aca0312916e1b690",
+    "build/generated-go-integration/readiness-cleanroom.log": "5592426aca9bae2109cb2070ba5ab449886162973a7ebfccc78c4cbafce12b9b",
+    "build/generated-go-integration/readiness-converter-replay-2.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build/generated-go-integration/readiness-macos-snapshots.log": "63306779e0b0bff11721a1de33bb212cdee349c4bf0b3737f2fa3ce31752899f",
+    "build/generated-go-integration/readiness-macos-integration.log": "ee427777426042bbed9b0ecd54cf5ade01b5011d49d66da3635ba7d427c1a691",
+    "build/generated-go-integration/readiness-converter-replay.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build/generated-go-integration/readiness-ubuntu-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build/generated-go-integration/readiness-macos-sqlalchemy.log": "f7a4dac977c28f2c7e1e558bc16cd0fe4432aa74d93ef7f5929f48fedb4a198f",
+    "build/generated-go-integration/readiness-gorm-measure.log": "76a4c401e274513fe2de860ab3267cdfdba1333518ccf0bdf165af100a73102a",
+    "build/generated-go-integration/readiness-macos-gorm.log": "b25538c5fec1e438843eaf1a3a7d9736b151bb42ffb596a85ab846c43973770f",
+    "build/generated-go-integration/readiness-macos-auth.log": "62865dc8fbdc9d438eb90799bf16d0036a97a0b58db0f79af2557b73bdcebcc4",
+    "build/generated-go-integration/readiness-ubuntu.log": "fff3c42feb21f8933144953cb31d8edf57320956c8bcc548b66a96b822b5069b",
+    "build/generated-go-integration/readiness-ubuntu/wire.log": "7b0f1eb719eebe5ab5c481de5efc9b188857e2c8ed92ec4869e5291aa1febc94",
+    "build/generated-go-integration/readiness-ubuntu/gorm-1-start.log": "e73d337cdd058deb27f559568b313cc3885aff5c46a3bcbbe4bf43610a066258",
+    "build/generated-go-integration/readiness-ubuntu/pip.log": "bd352dcbd3f32013a98c29817318c6f0f7655a1b7446ae0e12cbef089abd8ea6",
+    "build/generated-go-integration/readiness-ubuntu/apt-install.log": "cdd2994d0264fac33eb88bd9487009f1e8c95b31e43a08f362a7a1aeb73b7ce4",
+    "build/generated-go-integration/readiness-ubuntu/go-integration.log": "c42dcfe5d22f5cb63b6f13eaedadb71835be1d40dfb4fee7fd0b7d2a249b9edd",
+    "build/generated-go-integration/readiness-ubuntu/gorm-2-fork.log": "a48e1a4f87f02667faaabfe65583fcdfd87863aca43c2f468378e893cb9254b2",
+    "build/generated-go-integration/readiness-ubuntu/gorm-3-fork.log": "10b4d540c449bd8f1e5630ba15ce024e18a57762b6861065351bbb547f5a820b",
+    "build/generated-go-integration/readiness-ubuntu/python-integration.log": "a68a0ee46d489577eebb2e4d759da06ea90945593172f9bd232ff48f29f463f8",
+    "build/generated-go-integration/readiness-ubuntu/snapshots.log": "99fe18030e0afa8d470ec6d4f1744bcdef2f5b9e1f394d02281df56f9dd605fc",
+    "build/generated-go-integration/readiness-ubuntu/sqlalchemy.log": "ed219c44039ce67720970481f7f5e8ffadb2ea8d1230252d618ef2517027d0fd",
+    "build/generated-go-integration/readiness-ubuntu/apt.log": "ba06923465504021b31b6ebf2c7ca501d498a9772c5b5bbf820564869b38f320",
+    "build/generated-go-integration/readiness-ubuntu/auth.log": "1d733dfb4b349a49426a7e1907ce1d21a44ceca50228b1a81ca6bd3217f75511",
+    "build/generated-go-integration/readiness-ubuntu/gorm-4-start.log": "477b9a0d28861cdd14d4493ceb3875f189c3e703d689b10eaf617ef45e1b23a5"
+  },
+  "artifact_sizes": {
+    "build/generated-go-integration/readiness-converter-replay/candidate/native/wasmer-headless": 77992338,
+    "build/generated-go-integration/readiness-converter-replay/candidate/native/mariamem.wasmu.json": 192,
+    "build/generated-go-integration/readiness-converter-replay/candidate/native/manifest.json": 522,
+    "build/generated-go-integration/readiness-converter-replay/candidate/native/mariamem.wasmu": 18613516,
+    "build/generated-go-integration/readiness-converter-replay/candidate/native/mariamem-host": 6452498
+  },
+  "gorm_selected_runner": [
+    {
+      "name": "1-start",
+      "exit_code": 0,
+      "runner_seconds": 4.657984833000228
+    },
+    {
+      "name": "2-fork",
+      "exit_code": 0,
+      "runner_seconds": 2.814414917025715
+    },
+    {
+      "name": "3-fork",
+      "exit_code": 0,
+      "runner_seconds": 2.8178085410036147
+    },
+    {
+      "name": "4-start",
+      "exit_code": 0,
+      "runner_seconds": 2.4777056250022724
+    }
+  ],
+  "final_normal_checks": {
+    "go_test_vet": "PASS",
+    "python": {
+      "passed": 368,
+      "skipped": 3
+    },
+    "public_source_files": 408,
+    "source_copy_exclusions": [
+      "package.json",
+      "package-lock.json"
+    ],
+    "wasmer_integration": {
+      "go_race_seconds": 9.33,
+      "python_passed": 3
+    },
+    "replay_smoke": [
+      "py_compile",
+      "help",
+      "reject wrong converter checksum before creating output",
+      "reject existing output"
+    ],
+    "diff_check": "PASS",
+    "log_sha256": {
+      "build/generated-go-integration/readiness-normal-check.log": "caf589eb34f7cd9967f91734792e8b5bd057f95dd784d8469661143b0e7df447",
+      "build/generated-go-integration/readiness-final-wasmer.log": "59a0ff8b98882b3dd46ea8ee775b6e43c8275a22fa1c78be562c5e42bd679baa"
+    }
+  }
+}

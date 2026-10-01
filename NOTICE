@@ -40,3 +40,8 @@ The native distribution is intended for testing. Prepared authentication keys
 are public, non-secret test material, never production credentials. Exact
 source, notice and platform verification remains required for every release
 before public distribution. See docs/releasing.md and THIRD_PARTY_LICENSES.
+
+The unpublished v0.4 generated-Go candidate uses goccy/wasm2go via the
+shibukawa/wasm2go-fork commit ac98bcf00c17d8531f0c071a9836d0b50975e7ff.
+Its preserved MIT notice is in licenses/wasm2go-MIT.txt (Masaaki Goshima).
+This does not remove MariaDB/lite4mariadb corresponding-source obligations.

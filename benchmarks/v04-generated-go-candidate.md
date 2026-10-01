@@ -1,8 +1,10 @@
-# v0.4 generated-Go candidate — FD follow-up and public-boundary measurement
+# v0.4 generated-Go candidate — canonical benchmarks and readiness audit
+
+Final canonical results: [release-preparation audit](#final-canonical-candidate-and-release-preparation-audit). Earlier sections retain the chronological investigation evidence.
 
 > **更新:** `023796b9`のFD停止条件は本follow-upで解消し、correctness gate後に
 > selected local candidateの公開API計測を実施した。最新結果は末尾の
-> 「Directory-FD identity fix / integration continuation」を参照。以下の初回記録は履歴として保持する。
+> 「Final canonical candidate and release-preparation audit」を参照。以下の初回記録は履歴として保持する。
 
 ## 初回integration結果 (023796b9)
 
@@ -367,3 +369,76 @@ Start suiteの揺れは合法なstartup tailを含む。小さいsuiteの増減�
 通常checkoutのGo test/vetはPASS。Pythonは367 PASS / 3 SKIP、作業前から存在する未追跡 `package-lock.json` によりpublication allowlistの1件がFAIL。このユーザーファイルと `package.json` は変更/削除/stageせず、変更済み公開ソースを隔離コピーし、通常の `scripts/verify.py check` を再実行した。pinned native-auth source archiveもそのコピーに渡し、通常と同じ検査範囲を確保した。隔離コピーでGo test/vet、Python 368 PASS / 3 SKIP、public source 403 files PASS。結果はfix evidenceに保存する。
 
 大きなSnapshot繰り返しcopyのregressionは修正・再測定済み。通常runtime切替、配布pipeline、platform/failure-path hardening等の残るrelease gatesは未変更で、**NOT READY — BLOCKERS REMAIN**。
+
+## Final canonical candidate and release-preparation audit
+
+Audit source: `a06773e5296be5cc3c3657e9e48785fba7bd6d25`, branch `v0.4/generated-go-integration`. [Machine-readable evidence](v04-integration-readiness-evidence.json) records exact bundle/source/tool checksums, replay logs and acceptance results. The measured bundle is the growth-fixed candidate: guest executable `3ce4d773f281f179a1b9aec62125ccc7c3243c2a71d33107fd220d318d72aa45`, host `d31bc9abd074579428d56a6244729ed0b989b17ddd03da27476a235ccd28f541`, guest intermediate `6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3`.
+
+### Canonical measurement boundary
+
+Fixed reference: M1 arm64 / 16 GiB / macOS 27.0 (26A428), 16 KiB pages, Go 1.26.8, Python 3.14.7. Two warmups followed by 30 independent processes per latency metric; no competing acceptance suite or profiling. Start includes public API, trust/compiled-guest binding, MySQL wire and first `SELECT 1`. Snapshot uses the ordinary 1,000-row InnoDB fixture, shutdown/export/validation/publication. Fork includes isolated prepared-files state, fresh runtime and wire `COUNT`. OS/file caches are not flushed. No MariaDB configuration or legal condition-variable timeout was changed.
+
+| Boundary (ms), n=30 | min | p50 | p95 | max |
+| --- | ---: | ---: | ---: | ---: |
+| Start → first SQL | 83.5 | 87.7 | 1090.7 | 1096.3 |
+| Snapshot | 486.1 | 542.4 | 916.6 | 1273.0 |
+| Fork → COUNT | 148.7 | 152.3 | 161.9 | 169.4 |
+
+Start has 3/30 runs ≥900 ms; the known guest-side InnoDB tail remains visible. Snapshot has 2/30 ≥900 ms, p99 1191.8 ms; these tails remain unattributed and are not asserted to be the same race. Fork has no ≥900 ms runs.
+
+| Metric | Original Wasmer baseline | Final local candidate |
+| --- | ---: | ---: |
+| Start first SQL p50 / p95 (ms) | 308.5 / 335.3 | 87.7 / 1090.7 |
+| Snapshot p50 / p95 (ms) | 404.6 / 473.3 | 542.4 / 916.6 |
+| Fork COUNT p50 / p95 (ms) | 288.7 / 349.2 | 152.3 / 161.9 |
+| ×16 incremental memory / DB (MiB) | ~280.8 | physical 85.87 |
+| ×16 ready memory | ~4.5 GiB | physical 1382.15 MiB (~1.35 GiB) |
+| SQLAlchemy 100 Start / Fork (s) | ~39.0 / ~43.1 | 21.50 / 21.92 |
+
+Start median improves ~72%, but p95 is worse. Snapshot median regresses ~34%; correctness and bounded completion pass, and no slow runs are removed. Historical memory collection and generated-Go physical-footprint boundaries differ; RSS, fresh-start and prepared-child figures are distinguished below. These are local candidate measurements, not published product claims.
+
+Scaling uses three independent groups per size.
+
+| DBs | group-ready p50 ms | CPU-sec | incremental physical MiB/DB | ready physical MiB | RSS MiB | Close minus baseline MiB |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 151.0 | 0.187 | 86.33 | 94.66 | 131.75 | 1.47 |
+| 4 | 198.7 | 0.841 | 85.55 | 350.46 | 476.34 | 2.02 |
+| 8 | 312.8 | 1.891 | 85.47 | 691.71 | 936.50 | 3.00 |
+| 16 | 662.6 | 3.783 | 85.87 | 1382.15 | 1862.58 | 3.63 |
+
+Separate 30 fresh Start samples: CPU p50 0.10523 sec, incremental physical 90.26 MiB, ready process-tree physical 94.84 MiB and RSS 123.80 MiB. After group Close only the runner remains; retained caller bookkeeping is not a long-term leak-free proof.
+
+SQLAlchemy: three suites per size/mode, 960 isolated measurement tests, all pass. Fork timing includes base preparation, Snapshot and teardown.
+
+| Tests | Start suite p50 s | Fork suite p50 s |
+| ---: | ---: | ---: |
+| 10 | 3.37 | 2.76 |
+| 50 | 8.59 | 11.22 |
+| 100 | 21.50 | 21.92 |
+
+Existing GORM workload: eight cases per invocation, two invocations per mode. Whole runner times including Go test startup/build are Start 4.658 / 2.478 sec and Fork 2.814 / 2.818 sec. This sample size does not support a p95 or a SQLAlchemy 100-test comparison.
+
+### Clean-room generation and provenance
+
+`benchmarks/spikes/generated-go-integration/readiness_replay.py` archives the source HEAD, verifies pinned source/converter inputs, applies recorded generator patches automatically and regenerates in a fresh directory. Full guest-source replay builds successfully but **fails the accepted guest checksum**: `a927703cbc7ca59ffab02a50a42598c1cf5e18a5e5f74dbc267f59d4285a4922`. Source preparation manifest, CMake/link/compiler flags and toolchain match. Nineteen other WASM sections match; one 576-byte function body differs in 34 bytes. The unoptimized artifact already differs. Root cause and semantic equivalence are unresolved; no checksum was silently repinned. Imports/signatures (66), feature counts and artifact size match, with zero `try_table`/`throw_ref`. This is insufficient to pass reproducibility.
+
+For the exact accepted guest only, two independent converter/source regenerations pass: generated inventory matches, and their native manifests match each other. Fresh translation produces ~184.77 MB Go/helper/test sources; first translation takes 59.8 sec and candidate build 20.1 sec with warm Go cache. Full source preparation/build/postopt takes ~586 sec before the failing identity gate. These are observed local build times, not cold CI guarantees. Exact executable/wheel sizes are retained in the evidence JSON.
+
+Replay binaries differ from the measured bundle because embedded parent-repository VCS revision metadata differs (`9d80…` versus `a067…`). `-trimpath` does not remove that metadata. Reproducible release generation must explicitly control source/VCS identity, portable bootstrap/cache keys and regenerated artifact verification. Current CI/default build and bundle resolver are still Wasmer-era; generated-Go is not silently enabled for ordinary distribution. Legacy EH is an internal build intermediate; Wasmer 7.4.2 cannot validate it. Generated-Go behavioral acceptance and import/feature inspection provide alternative evidence, not same-runtime validation.
+
+### Compatibility and audits
+
+Fresh accepted-guest replay passes on macOS arm64: generated/base race regressions, Go integration with race detector, Python integration, SQLAlchemy 44/44, GORM 32/32, raw-wire 38 checks, Snapshot 50 checks and auth self-test. This preserves directory-FD identity, MemFS growth/truncate, transaction/isolation and wire regressions. Ubuntu 24.04 x86_64 binaries and installed-wheel consumers also pass SQLAlchemy 44/44, GORM 32/32, Go/Python integration, raw-wire 38, Snapshot 50 and auth. Ubuntu was executed under Docker x86_64 emulation on this Mac with CGO-disabled cross builds; it does not replace native Ubuntu CI or race detection. Local macOS 27 does not replace supported macOS 15 release acceptance. No guest/host processes remained after the Ubuntu campaign.
+
+[Architecture](../docs/v04-generated-go-architecture.md) distinguishes build-time WASM from generated-Go runtime. [Infrastructure/docs/tests audit](../docs/v04-integration-audit.md) records dispositions and fast-PR/integration/release/manual tiers. NativeDir remains an optional public override; download/cache, exact-version resolution and verification remain required for native generated artifacts. Wasmer is a legacy fallback, not an execution dependency of the selected candidate. Its bundle-specific machinery cannot be removed from the current default until migration and compatibility gates pass. MIT converter notices have been added; MariaDB GPL-derived and existing runtime notices remain. Windows is excluded at the user's request.
+
+### Remaining release blockers
+
+- Complete source→WASM reproducibility/checksum discrepancy and controlled VCS metadata.
+- Default runtime/distribution selection, runtime-kind-aware resolver/cache/trust identity, portable generation and CI regeneration gates.
+- Native supported-platform acceptance and comprehensive failure/cancellation/signal/thread/descriptor cleanup hardening; passing local campaigns do not establish a complete leak-free guarantee.
+- Complete corresponding-source/notices/release-artifact propagation review for the generated converter/runtime dependency closure.
+
+No new performance architecture, ready-heap restoration, public API change, tag or publication was introduced. **NOT READY — BLOCKERS REMAIN**.
+
+Final ordinary checks: Go test/vet PASS, Python 368 PASS / 3 SKIP, public-source check 408 files PASS. The check uses a copy of current owned source excluding the pre-existing user-owned untracked `package.json` / `package-lock.json`; those files remain untouched and unstaged. The pinned native-auth source is supplied to preserve the ordinary test scope. Existing Wasmer integration is rerun and passes Go race (9.330 sec) and Python 3/3. Replay script compilation/help and deterministic fail-closed checks for wrong converter checksum and existing output pass. `git diff --check` passes.

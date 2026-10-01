@@ -1,5 +1,10 @@
 # Exact-release Go native setup
 
+These public usage instructions retain the current packaging contract. The
+unpublished v0.4 artifact migration and NativeDir compatibility decision are in
+[the integration audit](v04-integration-audit.md); no manual NativeDir requirement
+is proposed for ordinary v0.4 usage.
+
 This branch implements automatic native setup for future tagged releases. It
 starts from `d3d700a76095a55361ad3c52ff031750c84c83c4`; no release/version bump or
 runtime build was performed. Python packaging/installation is unchanged.

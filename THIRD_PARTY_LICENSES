@@ -40,3 +40,8 @@ records are not a complete final linked-file SBOM or an independent bit-for-bit
 toolchain rebuild. Every release must still pass exact candidate/source/notice
 checks and clean acceptance on both supported platforms; a buildable wheel
 alone is not release approval. Historical records do not approve changed bytes.
+
+Unpublished v0.4 candidate build/runtime source: goccy/wasm2go via
+shibukawa/wasm2go-fork ac98bcf00c17d8531f0c071a9836d0b50975e7ff, MIT;
+see licenses/wasm2go-MIT.txt. Existing Wasmer notices remain for v0.3/fallback
+artifacts. Candidate-specific linked source/notices review is still pending.
