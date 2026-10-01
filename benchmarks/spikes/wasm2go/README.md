@@ -42,6 +42,48 @@ Do not copy either test into a normal mariamem package.
 
 ## Earlier experiments
 
+### Interleaved boundary characterization
+
+Prepare a fresh private host module with `setup_wire.py`, then replace its
+`main.go` with `boundary-variants.go.txt` and build it there:
+
+```sh
+python3 benchmarks/spikes/wasm2go/setup_wire.py \
+  --probe "$SPIKE_PROBE" --guest "$SPIKE_LEGACY_GUEST" \
+  --output-dir "$SPIKE_BOUNDARY_MODULE"
+cp benchmarks/spikes/wasm2go/boundary-variants.go.txt "$SPIKE_BOUNDARY_MODULE/main.go"
+cd "$SPIKE_BOUNDARY_MODULE"
+GOTOOLCHAIN=go1.26.8 go mod tidy
+GOTOOLCHAIN=go1.26.8 go build -trimpath -o boundary-probe .
+cd "$SPIKE_REPO"
+python3 benchmarks/spikes/wasm2go/characterize_boundary.py \
+  --driver "$SPIKE_BOUNDARY_MODULE/boundary-probe" --probe "$SPIKE_PROBE" \
+  --guest "$SPIKE_LEGACY_GUEST" --output-dir "$SPIKE_BOUNDARY_OUTPUT/uninstrumented" \
+  --runs 100
+python3 benchmarks/spikes/wasm2go/characterize_boundary.py \
+  --driver "$SPIKE_BOUNDARY_MODULE/boundary-probe" --probe "$SPIKE_TRACED_PROBE" \
+  --guest "$SPIKE_LEGACY_GUEST" --output-dir "$SPIKE_BOUNDARY_OUTPUT/diagnostic" \
+  --runs 100 --variants python-direct transport-verify full-no-client full --diagnostic
+```
+
+Use absolute paths for the variables. The driver module and output directories
+must be fresh. Run the two campaigns sequentially, with localhost access for
+wire cases. The runner randomizes variant order within each complete block
+(seed 4817), creates independent processes, and checks SELECT 1/clean shutdown.
+`full-no-client` checks readiness/close without opening a SQL connection.
+All artifacts are pinned outside the campaign; verification variants additionally
+check digests per start. This does not replace production trust verification.
+
+Diagnostic trials use the existing `trace_waits.py` guest and opt-in host timing.
+The classifier requires stale cleaner target, empty condition-list notification,
+matching barrier timeout, and the startup `create_log_file → buf_flush_wait`
+caller chain. It retains compact per-trial proof and raw-trace hashes. Untraced
+trials have **unknown**, not inferred, race labels. Do not combine diagnostic
+frequencies with performance frequencies: instrumentation changes scheduling.
+These variants omit the earlier resource-counter subprocess before first SQL;
+full wire uses an explicit Ping before SELECT 1. Their boundaries are described
+in [boundary evidence](../../wasm2go-boundary-evidence.json) and the report.
+
 These are feature reductions and small, deliberately incomplete adapters. They
 are not mariamem runtime implementations and are not imported by normal Go/Python
 paths. `.go.txt` files are driver templates copied into ignored generated modules.

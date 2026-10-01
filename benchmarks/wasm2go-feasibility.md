@@ -863,3 +863,150 @@ sticky wake、timeout短縮、InnoDB patchを導入しない。
 **Overall feasibility: GREEN CANDIDATE — TAIL UNDERSTOOD** を維持する。
 median/CPU/memoryのarchitecture signalは残るが、tailは残り、production-readyでもp95改善達成でもない。
 残るruntime-contract/trust/lifecycle課題、CoW/runtime-sharingとの比較未実施という範囲も変わらない。
+
+## MySQL-wire startup tail characterization
+
+基点 `a3936660eea50856766b9ae5d290d7b98eb133b3`。
+結論は **PARTIALLY EXPLAINED / INCIDENTAL SCHEDULING**。
+wireの診断runで発生した1秒群はすべて既知のguest-side page-cleaner raceだった。
+検証を含む起動前のworkを加えると頻度が増える比較はあるが、過去の **direct 6% → wire 32%** を
+特定のhost操作の効果として再現・帰属するには至らなかった。今回の未計装directは31%、full wireは39%。
+listenerやclientが新しい1秒waitを導入した証拠、avoidable host ordering、NEW BUGは見つからなかった。
+futex/condvarの契約・guest source・timeout・製品runtimeは変更しない。
+各trialの値、診断race certificate、代表timeline、hashは [boundary evidence](wasm2go-boundary-evidence.json)。
+
+### Sequencing and concurrency
+
+spike adapterはWasmer形式のargvだけを `probe measure` へ変換する。
+既存 `internal/host/server.go:start()` / `internal/guest/guest.go:Start()` /
+`internal/mysqlwire/wire.go:Serve()` を変更せず使用した。
+
+| order | work | MariaDB startupとの関係 |
+| --- | --- | --- |
+| 1 | prototypeのbinary/adapter/WASM digest、hostのModuleBuild/sidecar検証、transfer directory作成 | **guest spawn前**。新しいdownload/production trust設計ではなく、既存local pinの実験 |
+| 2 | exec adapter → generated-Go process、Go初期化、MemFS、module instantiation、guest main | hostがready frameを待つ間に実行 |
+| 3 | prepared test RSA keysをMemFSへ書く、l4m_open、MariaDB/InnoDB起動、page-cleaner spawn、auth keys ready確認 | **guest内、ready前**。wire接続がRSAを生成する経路ではない |
+| 4 | bootstrap接続を閉じ、16 session slotsを初期化、ready frame送信 | MariaDB初期化後 |
+| 5 | hostのreaderがreadyをdecode、callerへ通知、**その後**にnet.Listen・Server作成・accept goroutine開始 | page-cleaner startup raceをすでに通過した後 |
+| 6 | client connect、guest session open、SELECT CONNECTION_ID、wire salt/handshake、root認証、Ping、SELECT 1 | **wire-ready後**。initializationの過去のraceを起こす順序ではない |
+
+同時実行は主にguestとGo transportのstdout reader、stderr copy、exit監視。
+`guest.Start` のstderr writerはtail bufferなので、Go1.26.8 `os/exec.writerDescriptor()` はpipe/copy goroutineを作る。
+raw directのstderrはfile descriptorであり、このcopy goroutineを作らない。
+親のgoroutine観測はraw ready時1、transport ready時4、full ready時5、client接続後は約8–9。
+これはgoroutine数であり、OS thread/core配置の測定ではない。guest側は同じgoroutine-agent/pthreadモデルを維持した。
+ホストはほとんどready待ちで、検証hashがMariaDBと並列に走る構造ではない。
+
+### Controlled trials: uninstrumented
+
+同じ未計装guest binary `cd02482c…`、same legacy guest、同じGo1.26.8、固定local reference環境。
+8境界×100独立process、各blockで境界順をseed4817でrandomize、逐次実行した。
+sleep/poll/forced ordering、guest設定変更はない。全SQL対象runでSELECT 1と正常終了を確認。
+各armはcampaign前にartifactをpin。verification variantでは起動ごとにdigestを追加確認する。
+これは比較のためのinternal spikeであり、製品のtrust checksを省略・変更したものではない。
+
+| variant / ready boundary | p50 / p95 / p99 (ms) | ≥500ms | ≥900ms | known race |
+| --- | --- | ---: | ---: | --- |
+| Python direct、従来と同じGuest framing | 30.9 / 1043.2 / 1045.5 | 31/100 | 31/100 | 未計装につきunknown |
+| Go raw direct、file stderr、同じframing | 35.6 / 1044.2 / 1049.6 | 32/100 | 32/100 | unknown |
+| Go raw + external digest verification | 86.5 / 1107.4 / 1112.8 | 38/100 | 38/100 | unknown |
+| existing guest.Start transport、verification追加なし | 38.3 / 1050.3 / 1059.8 | 21/100 | 21/100 | unknown |
+| transport + external verification + ModuleBuild | 105.8 / 1118.9 / 1125.8 | 45/100 | 45/100 | unknown |
+| host.Start/wire、external verification追加なし（ModuleBuildは維持） | 44.0 / 1056.7 / 1062.8 | 31/100 | 31/100 | unknown |
+| full verification + host/wire、client接続なし | 106.4 / 1114.2 / 1122.5 | 45/100 | 45/100 | unknown |
+| full verification + host/wire + client | 105.3 / 1118.7 / 1124.1 | 39/100 | 39/100 | unknown |
+
+fullのfirst SQLは **106.5 / 1121.6 / 1126.4ms**。
+このcampaignは従来wire benchmarkのready直後のresource-counter subprocessを省き、client境界を分けるためPingを明示した。
+Python directのSQLは **31.2 / 1044.1 / 1046.7ms**。timerはPythonではchild launch直前、Goではmain内のStart-like entry。
+public API envelope/resolve/download、fixture、Snapshot/Fork、ORMを含まない。
+未計装trialをelapsed timeだけで既知raceと決め付けず、race labelはunknownとして保持した。
+
+### Trace correlation: independent diagnostic cohort
+
+既存 `trace_waits.py` による同じguestの計装binaryと、opt-in host timingを使用。
+4境界×100回を別campaignでrandomizeした。全trialのtraceを照合、dropped eventsは全て0。
+classifierは単なる1秒gapではなく、次をすべて要求する：target=0読取り、mutex取得前のempty-list signal、
+取得後のlive target=12288、expected/current=2の同じbarrier待機、約1秒後rc=2、
+mainが **create_log_file → buf_flush_wait** の起動call chainで待っていること。
+
+| diagnostic boundary | ready p50 / p95 / p99 (ms) | ≥500ms / ≥900ms | known startup race | slow without known race |
+| --- | --- | --- | ---: | ---: |
+| Python direct | 26.3 / 1042.7 / 1046.2 | 25/100 / 25/100 | 25/100 | 0 |
+| verified transport | 87.0 / 1103.0 / 1105.7 | 15/100 / 15/100 | 15/100 | 0 |
+| full wire、clientなし | 88.0 / 1107.6 / 1111.8 | 14/100 / 14/100 | 14/100 | 0 |
+| full wire、clientあり | 87.9 / 1105.6 / 1113.1 | 13/100 / 13/100 | 13/100 | 0 |
+
+full first SQLは **89.2 / 1109.5 / 1116.5ms**。
+67 slow trialsすべてが既知race。fast trialsでこのstartup raceは検出されなかった。
+**診断の頻度・latencyを未計装の性能値と合算しない。** 計装はcaller取得、event lock、recordingを追加し、
+binary size/hashも異なる。計装によって頻度の大小関係が変わること自体、schedulingへの敏感さを示す。
+
+代表slow timeline（guest trace clock、ms）：
+
+| event | direct block1 | full wire block3 |
+| --- | ---: | ---: |
+| cleaner target=0を読む | 14.319 | 14.095 |
+| mainがempty condition listへsignal | 14.798 | 14.679 |
+| cleanerがmutexを取得、live target=12288 | 14.814 | 14.697 |
+| barrier wait / register | 14.814 / 14.923 | 14.698 / 14.805 |
+| timeout / return rc=2 | 1016.479 / 1016.485 | 1016.263 / 1016.269 |
+
+fast block0ではdirect/wireともtarget読取り→mutex取得が約0.1µs以内で、live target=0のまま先にwaiterを登録し、
+後のsignalで復帰する。遅いwireだけに別の待機primitiveが追加されたわけではない。
+guest clockはGo package初期化から、host clockはStart-like entryからの相対時刻。
+cross-processのclock originを揃えていないため、両者のoffsetを引いて厳密な因果時間を捏造しない。
+thread spawn/start、TLS、main wait caller、host goroutine数は記録したが、OS scheduler/core配置は追跡していない。
+
+### Fixed overhead versus frequency
+
+未計装fullのexternal verificationはmedian **48.95ms**（wall time、純CPU値ではない）。
+client/auth/Pingはready後約 **0.995ms**、ready→first SQLは約 **1.268ms**。
+診断fullのhost phase差分はModuleBuild/identity **9.428ms**、transfer作成 **0.124ms**、
+spawn call **1.118ms**、guest-ready→listener **0.076ms**（各median、診断の参考値）。
+これらの固定costと約1秒のguest timeoutは別である。listener/clientはそのtimeoutが終わった後に開始する。
+
+pre-spawn workを増やすとlaunch前のCPU/IO/cache状態、実行時刻、親子のscheduling条件が変わる。
+今回はtransport→verified transportが **21%→45%** と増えたが、このvariantはexternal hashとModuleBuildを共に加える。
+raw→verified rawは **32%→38%**、wire→fullは **31%→39%** に留まる。
+「どのhash読取り、どのgoroutine、どのOS scheduleがempty-listの順序を選ばせたか」までは証明できていない。
+機序はschedulingに敏感なguest raceとして整合するが、CPU/cacheの内訳は未測定の仮説である。
+direct自体が過去6%から今回31%へ変わっており、独立campaignの6%対32%をwire固有の一定倍率として扱えない。
+参考binomial Wilson95% intervalは今回direct **22.8–40.6%**、full **30.0–48.8%**。
+時間相関・複数比較を補正した確証的な検定ではなく、頻度を保証する値でもない。
+
+分類は **INCIDENTAL SCHEDULING**。検証はguest execution前、listenerはready後という既存順序を守っている。
+不要なadverse host orderingを特定できなかったためalternate ordering実装は行わない。
+trust検証を後回しにしたり、sleepでphaseをずらしたり、workerを強制整列してtailを消す実験はしない。
+過去の未帰属613.8ms/初回外側gapも前節のまま残す。今回の診断slowに別原因はなかったが、未計装の全slowや
+過去の未帰属区間まで同一原因と認定したものではない。
+
+### Final feasibility summary / closure
+
+- **Functional:** MariaDB-ready、SELECT 1、CRUD、COMMIT/ROLLBACK、constraint/error behavior、2 sessions、
+  authentication callback self-test、clean shutdownは成功。今回も22-record workloadとauth self-testを再確認した。
+- **Performance signal:** 従来のdirect median約40ms、wire/verification/SQL約99ms、RSS約108MiB/DB、
+  footprint約88MiB/DB、wire CPU約0.109 CPU-sを探索証拠として維持。
+  v0.4 Wasmer baseline Start→SQL308.5ms、incremental footprint約281MiB/DBより低いmedian/resource costのsignalはある。
+  今回も両峰性が残り、p95は約1秒。measurement boundary、試行順序、計装の差があるため製品benchmarkではない。
+  このcharacterizationではRSS/CPU/×16 footprintを再測定していない。
+- **Productionization:** signal delivery、abnormal termination/panic/EH propagation、cancellation、thread/TLS cleanup、
+  pending SQL/EOF/kill/backpressureなどlifecycle edge cases、15 fail-closed WASIX importとfilesystem/unsafe-memory/atomic/timerのhardeningが残る。
+  legacy EH toolchain/build pipelineを固定・維持する戦略、generated artifactのtrust/distribution、GPL由来のsource/notices、
+  platform/long-run/negative-path検証、Snapshot/Forkの同等性も未完。
+- **Validation:** legacy guestはWasmer7.4.2でcross-runtime validationできない。
+  unchanged source/import signatures、縮約、production guestとのobservable SQL/lifecycle比較は証拠だが、
+comprehensive equivalence/production readinessの保証にはならない。
+
+通常チェックはGo unit/vet成功、Python **368 passed / 3 skipped (8.53s)**、public source **352 files**成功。
+通常WasmerはGo race integration **9.061s**、Python timeout/multiclient **3 passed (2.40s)** 成功。
+wire campaignとintegrationは必要なlocalhost bindを許可した環境で実行した。
+preflight harnessのpipe自動closeの二重確認を修正した後に本campaignを開始し、失敗pilotは測定値に含めていない。
+利用者の未追跡npm filesはcheck中だけ退避し、同じhashで復元。生成Goは独立go.mod内、templateは `.go.txt` のまま。
+変更はspike/benchmarksのみ。`git diff --check` 成功。
+
+**Final verdict: GREEN CANDIDATE — TAIL UNDERSTOOD** を維持する。
+高いwire slow頻度の説明は **partially explained**：観測したwire tailの機序は説明でき、pre-spawn workへの感度も確認したが、
+過去の頻度差の大きさと特定のhost actionへの因果帰属は未解決。
+新しいarchitecture blockerやruntime bugの証拠はない。**このspikeでのwasm2go性能探索はここで終了する。**
+製品runtimeへの統合・別architectureの実装は行わず、残る設計判断の入力として記録を閉じる。

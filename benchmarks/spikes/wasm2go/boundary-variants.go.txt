@@ -1,0 +1,177 @@
+// Isolated characterization: imports unchanged internal production packages.
+package main
+
+import (
+	"context"
+	"database/sql"
+	"encoding/binary"
+	"encoding/json"
+	"flag"
+	"fmt"
+	"io"
+	"os"
+	"os/exec"
+	"runtime"
+	"time"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem/internal/guest"
+	"github.com/masahitojp/mariamem/internal/host"
+	"github.com/masahitojp/mariamem/internal/snapshot"
+	"github.com/masahitojp/mariamem/internal/timing"
+)
+
+func must(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+func pin(path, want string) {
+	info, err := os.Lstat(path)
+	must(err)
+	if !info.Mode().IsRegular() {
+		panic("nonregular experiment artifact")
+	}
+	got, err := snapshot.Digest(path)
+	must(err)
+	if got != want {
+		panic("experiment artifact digest mismatch")
+	}
+}
+func main() {
+	variant := flag.String("variant", "full", "raw, raw-verify, transport, transport-verify, wire, full, full-no-client")
+	runtimePath := flag.String("runtime", "", "private argv adapter")
+	probe := flag.String("probe", "", "generated guest binary")
+	probeHash := flag.String("probe-hash", "", "pinned probe SHA256")
+	runtimeHash := flag.String("runtime-hash", "", "pinned adapter SHA256")
+	module := flag.String("module", "", "legacy provenance module")
+	logPath := flag.String("guest-log", "", "raw mode guest stderr file")
+	flag.Parse()
+	started := time.Now()
+	type event struct {
+		Name       string `json:"name"`
+		NS         int64  `json:"ns"`
+		Goroutines int    `json:"goroutines"`
+	}
+	events := []event{}
+	mark := func(name string) {
+		events = append(events, event{name, time.Since(started).Nanoseconds(), runtime.NumGoroutine()})
+	}
+	mark("entry")
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	var hostTrace *timing.Trace
+	ctx = timing.WithRecorder(ctx, func(t timing.Trace) { hostTrace = &t })
+	verify := *variant == "raw-verify" || *variant == "transport-verify" || *variant == "full" || *variant == "full-no-client"
+	if verify {
+		pin(*probe, *probeHash)
+		pin(*runtimePath, *runtimeHash)
+		pin(*module, "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3")
+	}
+	mark("external_verification_done")
+	var call func(byte, string) guest.Result
+	var closeGuest func()
+	var server *host.Server
+	switch *variant {
+	case "raw", "raw-verify":
+		cmd := exec.Command(*probe, "measure")
+		log, err := os.Create(*logPath)
+		must(err)
+		defer log.Close()
+		cmd.Stderr = log
+		in, err := cmd.StdinPipe()
+		must(err)
+		out, err := cmd.StdoutPipe()
+		must(err)
+		read := func() guest.Result {
+			var n uint32
+			must(binary.Read(out, binary.LittleEndian, &n))
+			if n > 32<<20 {
+				panic("invalid guest frame")
+			}
+			b := make([]byte, n)
+			_, err := io.ReadFull(out, b)
+			must(err)
+			var r struct {
+				Result guest.Result `json:"result"`
+			}
+			must(json.Unmarshal(b, &r))
+			return r.Result
+		}
+		mark("guest_spawn_begin")
+		must(cmd.Start())
+		mark("guest_spawn_returned")
+		if !read().Ready {
+			panic("guest not ready")
+		}
+		var request uint32
+		call = func(op byte, sql string) guest.Result {
+			request++
+			payload := make([]byte, 9)
+			payload[0] = op
+			binary.LittleEndian.PutUint32(payload[1:], request)
+			payload = append(payload, []byte(sql)...)
+			must(binary.Write(in, binary.LittleEndian, uint32(len(payload))))
+			_, err := in.Write(payload)
+			must(err)
+			return read()
+		}
+		closeGuest = func() { must(binary.Write(in, binary.LittleEndian, uint32(0))); must(cmd.Wait()) }
+	case "transport", "transport-verify":
+		if verify {
+			_, err := snapshot.ModuleBuild(*module)
+			must(err)
+		}
+		mark("metadata_done")
+		transfer, err := os.MkdirTemp("", "mariamem-transfer-")
+		must(err)
+		defer os.RemoveAll(transfer)
+		mark("guest_start_begin")
+		p, err := guest.Start(ctx, *runtimePath, *module, "", transfer, "", nil)
+		must(err)
+		call = func(op byte, sql string) guest.Result { r, err := p.Call(ctx, op, 0, []byte(sql)); must(err); return r }
+		closeGuest = func() { must(p.Shutdown(ctx)) }
+	case "wire", "full", "full-no-client":
+		mark("host_start_begin")
+		var err error
+		server, err = host.Start(ctx, *runtimePath, *module, "", "", 10*time.Second, nil)
+		must(err)
+		closeGuest = func() { must(server.Close(ctx)) }
+	default:
+		panic("unknown variant")
+	}
+	mark("ready")
+	ready := time.Since(started).Seconds()
+	var firstSQL any
+	if server != nil && *variant != "full-no-client" {
+		mark("client_open_begin")
+		db, err := sql.Open("mysql", fmt.Sprintf("root@tcp(127.0.0.1:%d)/", server.Port()))
+		must(err)
+		must(db.PingContext(ctx))
+		mark("client_connected_authenticated")
+		var value int
+		must(db.QueryRowContext(ctx, "SELECT 1").Scan(&value))
+		if value != 1 {
+			panic("SQL result")
+		}
+		firstSQL = time.Since(started).Seconds()
+		mark("first_sql")
+		must(db.Close())
+	} else if call != nil {
+		if !call(1, "").OK {
+			panic("open failed")
+		}
+		r := call(2, "SELECT 1")
+		if !r.OK || len(r.Rows) != 1 || len(r.Rows[0]) != 1 || r.Rows[0][0].Hex != "31" {
+			panic("SQL result")
+		}
+		firstSQL = time.Since(started).Seconds()
+		mark("first_sql")
+		if !call(3, "").Closed {
+			panic("close failed")
+		}
+	}
+	closeGuest()
+	mark("clean_shutdown")
+	must(json.NewEncoder(os.Stdout).Encode(map[string]any{"variant": *variant, "ready_seconds": ready, "sql_seconds": firstSQL, "events": events, "host_trace": hostTrace, "clean_shutdown": true}))
+}
