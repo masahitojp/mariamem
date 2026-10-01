@@ -1,0 +1,727 @@
+{
+  "source_parent_sha": "9d80d601584e0b19b2999ed43286b03aba755463",
+  "scope": "selected generated-Go candidate MemFS growth fix; normal runtime unchanged; source/template hashes record working-tree build inputs",
+  "startup": {
+    "start_first_sql": {
+      "count": 30,
+      "min": 0.083502917,
+      "p50": 0.0876739165,
+      "p95": 1.09071707035,
+      "max": 1.096311166,
+      "p99": 1.09487208943,
+      "ge500ms": 3,
+      "ge900ms": 3
+    },
+    "start_seeded": {
+      "count": 30,
+      "min": 0.087400209,
+      "p50": 0.09024904149999999,
+      "p95": 1.110412708,
+      "max": 1.11567225,
+      "p99": 1.11470095532,
+      "ge500ms": 4,
+      "ge900ms": 4
+    },
+    "snapshot": {
+      "count": 30,
+      "min": 0.486099333,
+      "p50": 0.5424297505,
+      "p95": 0.9165672225499996,
+      "max": 1.272960625,
+      "p99": 1.1918442656400003,
+      "ge500ms": 27,
+      "ge900ms": 2
+    },
+    "fork_first_sql": {
+      "count": 30,
+      "min": 0.148651834,
+      "p50": 0.152307,
+      "p95": 0.1618898875,
+      "max": 0.169353166,
+      "p99": 0.16735947661,
+      "ge500ms": 0,
+      "ge900ms": 0
+    }
+  },
+  "scaling": {
+    "groups": [
+      {
+        "workers": 1,
+        "successes": 3,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 3,
+          "p50": 0.1509515,
+          "p95": 0.1854763622
+        },
+        "host_cpu_seconds": {
+          "count": 3,
+          "p50": 0.13863429199999994,
+          "p95": 0.17113779109999996
+        },
+        "runtime_cpu_seconds": {
+          "count": 3,
+          "p50": 0.048108292,
+          "p95": 0.0483986167
+        },
+        "combined_cpu_seconds": {
+          "count": 3,
+          "p50": 0.18681599999999998,
+          "p95": 0.21925342469999998
+        },
+        "incremental_primary_bytes": {
+          "count": 3,
+          "p50": 90522392.0,
+          "p95": 90831984.8
+        },
+        "average_incremental_bytes": {
+          "count": 3,
+          "p50": 90522392.0,
+          "p95": 90831984.8
+        },
+        "group_peak_primary_bytes": {
+          "count": 3,
+          "p50": 99255616.0,
+          "p95": 99550463.2
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 3,
+          "p50": 90522392.0,
+          "p95": 90831984.8
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 3,
+          "p50": 0.18681599999999998,
+          "p95": 0.21925342469999998
+        },
+        "baseline_primary_bytes": {
+          "count": 3,
+          "p50": 8716840.0,
+          "p95": 8731585.6
+        },
+        "baseline_rss_bytes": {
+          "count": 3,
+          "p50": 16564224.0,
+          "p95": 16564224.0
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 3,
+          "p50": 99255616.0,
+          "p95": 99550463.2
+        },
+        "ready_rss_bytes": {
+          "count": 3,
+          "p50": 138149888.0,
+          "p95": 138503782.4
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 3,
+          "p50": 10273320.0,
+          "p95": 10568232.0
+        },
+        "after_close_rss_bytes": {
+          "count": 3,
+          "p50": 18186240.0,
+          "p95": 18481152.0
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 3,
+          "p50": 1540096.0,
+          "p95": 1849753.6
+        }
+      },
+      {
+        "workers": 4,
+        "successes": 3,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 3,
+          "p50": 0.198682833,
+          "p95": 0.2086898961
+        },
+        "host_cpu_seconds": {
+          "count": 3,
+          "p50": 0.628117041,
+          "p95": 0.6371577668999998
+        },
+        "runtime_cpu_seconds": {
+          "count": 3,
+          "p50": 0.21797929100000002,
+          "p95": 0.2299246922
+        },
+        "combined_cpu_seconds": {
+          "count": 3,
+          "p50": 0.8409357909999999,
+          "p95": 0.8546210037999998
+        },
+        "incremental_primary_bytes": {
+          "count": 3,
+          "p50": 358829176.0,
+          "p95": 359286376.0
+        },
+        "average_incremental_bytes": {
+          "count": 3,
+          "p50": 89707294.0,
+          "p95": 89821594.0
+        },
+        "group_peak_primary_bytes": {
+          "count": 3,
+          "p50": 367480504.0,
+          "p95": 367996664.8
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 3,
+          "p50": 358829176.0,
+          "p95": 359286376.0
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 3,
+          "p50": 0.21023394774999998,
+          "p95": 0.21365525094999996
+        },
+        "baseline_primary_bytes": {
+          "count": 3,
+          "p50": 8716840.0,
+          "p95": 8716883.2
+        },
+        "baseline_rss_bytes": {
+          "count": 3,
+          "p50": 16498688.0,
+          "p95": 16528179.2
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 3,
+          "p50": 367480504.0,
+          "p95": 367996664.8
+        },
+        "ready_rss_bytes": {
+          "count": 3,
+          "p50": 499482624.0,
+          "p95": 499748044.8
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 3,
+          "p50": 10764864.0,
+          "p95": 11266214.4
+        },
+        "after_close_rss_bytes": {
+          "count": 3,
+          "p50": 18808832.0,
+          "p95": 19192217.6
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 3,
+          "p50": 2113536.0,
+          "p95": 2555925.6
+        }
+      },
+      {
+        "workers": 8,
+        "successes": 3,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 3,
+          "p50": 0.312813417,
+          "p95": 0.3212177295
+        },
+        "host_cpu_seconds": {
+          "count": 3,
+          "p50": 1.3781769160000001,
+          "p95": 1.3828123290999998
+        },
+        "runtime_cpu_seconds": {
+          "count": 3,
+          "p50": 0.507835917,
+          "p95": 0.5226304536
+        },
+        "combined_cpu_seconds": {
+          "count": 3,
+          "p50": 1.8911632919999999,
+          "p95": 1.9013224155000001
+        },
+        "incremental_primary_bytes": {
+          "count": 3,
+          "p50": 717002848.0,
+          "p95": 726204318.4
+        },
+        "average_incremental_bytes": {
+          "count": 3,
+          "p50": 89625356.0,
+          "p95": 90775539.8
+        },
+        "group_peak_primary_bytes": {
+          "count": 3,
+          "p50": 725310088.0,
+          "p95": 734570540.8
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 3,
+          "p50": 717002848.0,
+          "p95": 726204318.4
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 3,
+          "p50": 0.23639541149999999,
+          "p95": 0.23766530193750002
+        },
+        "baseline_primary_bytes": {
+          "count": 3,
+          "p50": 8372776.0,
+          "p95": 8431736.8
+        },
+        "baseline_rss_bytes": {
+          "count": 3,
+          "p50": 16203776.0,
+          "p95": 16262758.4
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 3,
+          "p50": 725310088.0,
+          "p95": 734570540.8
+        },
+        "ready_rss_bytes": {
+          "count": 3,
+          "p50": 981991424.0,
+          "p95": 990824038.4
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 3,
+          "p50": 11584088.0,
+          "p95": 11584109.6
+        },
+        "after_close_rss_bytes": {
+          "count": 3,
+          "p50": 19873792.0,
+          "p95": 19977011.2
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 3,
+          "p50": 3145800.0,
+          "p95": 3204782.4
+        }
+      },
+      {
+        "workers": 16,
+        "successes": 3,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 3,
+          "p50": 0.662601291,
+          "p95": 0.6682486038
+        },
+        "host_cpu_seconds": {
+          "count": 3,
+          "p50": 2.7274055830000004,
+          "p95": 2.7305482336
+        },
+        "runtime_cpu_seconds": {
+          "count": 3,
+          "p50": 1.052372709,
+          "p95": 1.0559593214999998
+        },
+        "combined_cpu_seconds": {
+          "count": 3,
+          "p50": 3.7832701259999997,
+          "p95": 3.7837140879000004
+        },
+        "incremental_primary_bytes": {
+          "count": 3,
+          "p50": 1440707160.0,
+          "p95": 1442196184.8
+        },
+        "average_incremental_bytes": {
+          "count": 3,
+          "p50": 90044197.5,
+          "p95": 90137261.55
+        },
+        "group_peak_primary_bytes": {
+          "count": 3,
+          "p50": 1449292976.0,
+          "p95": 1450781957.6
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 3,
+          "p50": 1440707160.0,
+          "p95": 1442314149.6
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 3,
+          "p50": 0.23645438287499998,
+          "p95": 0.23648213049375003
+        },
+        "baseline_primary_bytes": {
+          "count": 3,
+          "p50": 8454696.0,
+          "p95": 8572704.0
+        },
+        "baseline_rss_bytes": {
+          "count": 3,
+          "p50": 16269312.0,
+          "p95": 16357785.6
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 3,
+          "p50": 1449292976.0,
+          "p95": 1450663992.8
+        },
+        "ready_rss_bytes": {
+          "count": 3,
+          "p50": 1953054720.0,
+          "p95": 1954706227.2
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 3,
+          "p50": 12255832.0,
+          "p95": 12329603.2
+        },
+        "after_close_rss_bytes": {
+          "count": 3,
+          "p50": 20447232.0,
+          "p95": 20638924.8
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 3,
+          "p50": 3801136.0,
+          "p95": 4110793.6
+        }
+      }
+    ],
+    "marginal_memory": [
+      {
+        "from": 1,
+        "to": 4,
+        "bytes_per_added_db": {
+          "count": 3,
+          "p50": 89435594.66666667,
+          "p95": 89484797.06666666
+        }
+      },
+      {
+        "from": 4,
+        "to": 8,
+        "bytes_per_added_db": {
+          "count": 3,
+          "p50": 89416418.0,
+          "p95": 91938034.4
+        }
+      },
+      {
+        "from": 8,
+        "to": 16,
+        "bytes_per_added_db": {
+          "count": 3,
+          "p50": 90583871.0,
+          "p95": 90661250.3
+        }
+      }
+    ]
+  },
+  "fresh_resources": {
+    "group_ready_seconds": {
+      "count": 30,
+      "min": 0.081928125,
+      "p50": 0.085223583,
+      "p95": 1.0868228913,
+      "max": 1.088186958
+    },
+    "combined_cpu_seconds": {
+      "count": 30,
+      "min": 0.101643958,
+      "p50": 0.1052284795,
+      "p95": 0.13645074985,
+      "max": 0.13790883399999998
+    },
+    "host_cpu_seconds": {
+      "count": 30,
+      "min": 0.058178666999999996,
+      "p50": 0.059606479000000004,
+      "p95": 0.09131755625000001,
+      "max": 0.092809042
+    },
+    "runtime_cpu_seconds": {
+      "count": 30,
+      "min": 0.042346583,
+      "p50": 0.0452896875,
+      "p95": 0.05173131425,
+      "max": 0.055206
+    },
+    "average_incremental_bytes": {
+      "count": 30,
+      "min": 94192360,
+      "p50": 94642992.0,
+      "p95": 97372542.4,
+      "max": 106611480
+    },
+    "incremental_primary_bytes": {
+      "count": 30,
+      "min": 94192360,
+      "p50": 94642992.0,
+      "p95": 97372542.4,
+      "max": 106611480
+    },
+    "ready_primary_bytes": {
+      "count": 30,
+      "min": 98895144,
+      "p50": 99444044.0,
+      "p95": 102117068.4,
+      "max": 111396160
+    },
+    "ready_rss_bytes": {
+      "count": 30,
+      "min": 129187840,
+      "p50": 129810432.0,
+      "p95": 132793958.4,
+      "max": 141737984
+    },
+    "baseline_primary_bytes": {
+      "count": 30,
+      "min": 4653608,
+      "p50": 4776488.0,
+      "p95": 4957544.4,
+      "max": 5014056
+    },
+    "baseline_rss_bytes": {
+      "count": 30,
+      "min": 11403264,
+      "p50": 11526144.0,
+      "p95": 11698176.0,
+      "max": 11763712
+    },
+    "after_close_primary_bytes": {
+      "count": 30,
+      "min": 6898216,
+      "p50": 7414324.0,
+      "p95": 9896514.4,
+      "max": 10142248
+    },
+    "after_close_rss_bytes": {
+      "count": 30,
+      "min": 14729216,
+      "p50": 15253504.0,
+      "p95": 17931468.8,
+      "max": 18219008
+    }
+  },
+  "native_manifest": {
+    "version": 1,
+    "platform": "darwin-arm64",
+    "minimum_macos": 15,
+    "public_release_ready": false,
+    "runtime_kind": "generated-go",
+    "sha256": {
+      "wasmer-headless": "3ce4d773f281f179a1b9aec62125ccc7c3243c2a71d33107fd220d318d72aa45",
+      "mariamem-host": "d31bc9abd074579428d56a6244729ed0b989b17ddd03da27476a235ccd28f541",
+      "mariamem.wasmu": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+      "mariamem.wasmu.json": "09273b027975f909ebceebaf84e6239653703e016667d73b5da1bbb78e32451c"
+    }
+  },
+  "candidate_provenance": {
+    "source_sha": "9d80d601584e0b19b2999ed43286b03aba755463",
+    "guest_sha256": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+    "go_toolchain": "go1.26.8",
+    "converter_commit": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+    "templates_sha256": {
+      "README.md": "e1fab84039acf2b4cb3addde61ab1425fade4a3aebce0fd7bd966b22ea5cea8a",
+      "accepted-generated-source.json": "cc542d345e22234c22f2bada0769814ed62cfae41262a5ceaad91c4df18992fa",
+      "io-audit-base.go.txt": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
+      "io-driver.go.txt": "1f08e2c885ad14d48e17326399d4d83696360d02ac22f15c35125f1cade51d97",
+      "memfs-growth-test.go.txt": "283effbf7e3056f557910df060f2c007d0070b5d0588069f3ad6e6aff0d5c4e3",
+      "memfs-growth.go.txt": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
+      "patch_memfs.py": "74b9b27ec2c569380f13cfc239a1bf62f8d819b15cbdeb2ba615c41477a055d1",
+      "prepared-files-test.go.txt": "540bf350e2aaa9276ef7266980d6c637ca06b2ce62dbb9b1e84da1a5410ec7ef",
+      "prepared-files.go.txt": "9f860253f7cb682b274492129e1fc7e8c64d62dcc47c7c39e42ee347675629cc",
+      "prepared-growth-test.go.txt": "dc49bf7d6d8399b0083216335092005f9b6c2b68e9c6ec7e18b81bdcf55db115",
+      "readlink-contract-test.go.txt": "85ed0755df28767cda62c3e5f7a4889266687df1c4d959abde51183cb8f5226d",
+      "relative-fd-base.go.txt": "61d67c5ee85fc73d28745e17b8eaab4d0d6e1c63f28969a1e8c66983db8fbd80",
+      "relative-fd-contract-test.go.txt": "f3f731925741da0bd9dd528b57972e5aaf721410090c83ab524cb75f44f87ba2",
+      "setup_audit.py": "4e5477fbc456ce77f43b7ebe747ceb79dd3ff64ecb07442c579ff5b590c351e9",
+      "setup_candidate.py": "5d1254c8c6e95be78276304997f3f82d8ee9440dabd93332a3c3b2c297a1232b",
+      "snapshot-audit-patch.json": "f0736000a4fcb3f55f1d6d04b54592f5a330f849f958dbe2e5cf48852390e3fc",
+      "snapshot-audit.md": "c7a14bbd48c8d55c0e032109cc8488e2bc86e984bd6f73f1b7b0d750250f7e77"
+    },
+    "generated_go_sha256": {
+      "fs_contract_test.go": "85ed0755df28767cda62c3e5f7a4889266687df1c4d959abde51183cb8f5226d",
+      "generated/alias.go": "a1fda16e8b4f29c88320151bfa23c637f8ce670bf5ea3814a080bce3ad671bfb",
+      "generated/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
+      "generated/base/base.go": "96e4d2395ce49266c61e1b96fe6ca2da281fd860ebe46e55cca740cb7daedb56",
+      "generated/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+      "generated/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+      "generated/base/cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+      "generated/base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+      "generated/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
+      "generated/base/memfs_growth_test.go": "2c7c1954fa9a952d7e182c2b721fe9330c6d935b34f9aa9f45a35a6c8501f4c4",
+      "generated/base/prepared_files.go": "9f860253f7cb682b274492129e1fc7e8c64d62dcc47c7c39e42ee347675629cc",
+      "generated/base/prepared_files_test.go": "540bf350e2aaa9276ef7266980d6c637ca06b2ce62dbb9b1e84da1a5410ec7ef",
+      "generated/base/prepared_growth_test.go": "4c1122c2f378b35787c48debbe2053f5d0b7eabaf706f71bb3fdb8beef8f1d93",
+      "generated/base/relative.go": "61d67c5ee85fc73d28745e17b8eaab4d0d6e1c63f28969a1e8c66983db8fbd80",
+      "generated/base/relative_contract_test.go": "f3f731925741da0bd9dd528b57972e5aaf721410090c83ab524cb75f44f87ba2",
+      "generated/base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+      "generated/base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+      "generated/base/sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+      "generated/base/simd_asm_decls_amd64.go": "456cefd6896b1021a6dbf813a381165ec99efb3cd7b66a34a4e97ef31b23802e",
+      "generated/base/simd_asm_decls_arm64.go": "8e9dd950f0c3282a924cf961e055db631536f883f2c05cccef44c4974d99abee",
+      "generated/base/simd_fallback.go": "0bb864d570bc9286d87290c55ef52e7082c114e6f3730ae86415e15bbff849ad",
+      "generated/base/simd_pair.go": "ffa8c2aac9e0a61608fca859ea8a7493b42dca47babed99c28762573c8d0a916",
+      "generated/base/simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+      "generated/base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+      "generated/base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+      "generated/base/spike_contract_test.go": "2ea04d8502569740c3d7f779c5a3c9cbdbbc46f4ed8606bd80ba272494d0b947",
+      "generated/base/spike_wait.go": "46aefb9ce6dd8837941f6411c22de4e6f264580214e690575d78487b8f572e4d",
+      "generated/generated.go": "cf009457a9418a518f68f1091ef5079293da46aea219e588fd6a155cc9e42f69",
+      "generated/p0/alias.go": "67a4f1e7d722a96bc4c307527cdb33e1f90e266e9096de7f860e4ef5479635df",
+      "generated/p0/p0.go": "573427048a37e5ebffc415b14528cfc426a54991aca769dd3313d711fa691ba6",
+      "generated/p0/p0_pure.go": "bce15e0d7cfd4c8f17badc3483399183d25f21f94737b4f45c01c00d1c333c76",
+      "generated/p1/alias.go": "281558325e8f2993eddd2fc1b23b38351d939dcc6ff2b3de28bea3afbbfb2f39",
+      "generated/p1/p1.go": "7f0398b24292e3184c081fcf528e2bf57438c2cd15e022705fcb1c43319ee50d",
+      "generated/p1/p1_pure.go": "cc44af08f3a163e4f88ee73a494b34ba2bb76e4f7fa18aa1d4574daa1e877d73",
+      "generated/p2/alias.go": "f702f1a9ce76d6052588b88faee8664687818e0cc9cf6f6f4fc1d1494bd5d24c",
+      "generated/p2/p2.go": "fb467465ca14c7b262a95e512de90ed1e6823ec189d9453d642ee6c65c1af786",
+      "generated/p2/p2_pure.go": "068c6a6151b661f138baf7e3c602bc37926dede852a4219d321dc6c35dd86736",
+      "generated/p3/alias.go": "5d67dec6189137e7436a37e622cb11bd492c21e80bcbc0a291dc04e2e1136518",
+      "generated/p3/p3.go": "f80b50aae984d7796f0029127eab76d4718f9fef69a9bfd0be37fc41dce39b7d",
+      "generated/p3/p3_pure.go": "b2c5e72fa4820aae90f68803898c15213b46cc96fd4c872e60c378b77916f933",
+      "generated/p4/alias.go": "d8639d39617ce5700fdf258d564d8c0c418eea5e87f29fb81b4b9a2e1472e83f",
+      "generated/p4/p4.go": "5a762190c1cfff7dab361b9c265208bd57b3e6748ad2e45bcc31b9081a8fc9ff",
+      "generated/p4/p4_pure.go": "cf1f40e828f116a3c333878f502a367064d9084f2df63ac5d9c8f163017417b4",
+      "generated/p5/alias.go": "f677357153b70141a36899958dc06850a0f114cf62edf23288fc76ca87ffe965",
+      "generated/p5/p5.go": "a50c663b86da25df19e746006ef9e651c63ea115ee527fc5451a45a761db5a60",
+      "generated/p5/p5_pure.go": "223098520edc7a71fbe973801b55828d97b787b58645dcbdc33b80decaebd4b7",
+      "generated/p6/alias.go": "ad1e1c291f590dffefe118fc509beeadaa7db9395e1e4f9542c152b5018d9696",
+      "generated/p6/p6.go": "c925ec73b4f82fb3bc3f590b740d7e68153da63aba47f75fea9633ddf93a6fc7",
+      "generated/p6/p6_pure.go": "df0ced0e244847a5557b7ea10872c87c199a0ce6cee9469c84c9f9a53cbdfe23",
+      "generated/p7/alias.go": "ecaa43cd2b8267eb74eda6d7ec66dc01c3a91a657e4370dd3b616d6796ac84dd",
+      "generated/p7/p7.go": "f8efc988f1cbbcf8d68eed00d25c891822997a0f8b9f551bbb57c17427f1e072",
+      "generated/p7/p7_pure.go": "7bca7d2a01f5e84a552320ee6cf24ad22bf8411e23b9c2fb67e4e70541f97f3c",
+      "generated/p8/alias.go": "e250c696a083865734ae01428cf2472e1132bd1ba12ce99bc1f74d3410fd21c0",
+      "generated/p8/p8.go": "ae4aad1811665f8e28e601d1aaeb65c0dc9682bfb9cd57fed5cc934d50bc9934",
+      "generated/p8/p8_pure.go": "7f28f5f0e348f538f763f9879245697683baabc92457966159d49ee2fbc13244",
+      "guest_identity.go": "2cd0d6cb8db4dade1264d06813959388b5cc353bb7952aa2341bfb44e11d1de7",
+      "main.go": "8d84368e9a6c2c85aeaeed58a109456e33cde92c16dd1ba4b7c7d30f8eb518ec"
+    },
+    "generated_asm_sha256": {
+      "generated/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+      "generated/base/simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+      "generated/base/simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c"
+    },
+    "native_manifest": {
+      "version": 1,
+      "platform": "darwin-arm64",
+      "minimum_macos": 15,
+      "public_release_ready": false,
+      "runtime_kind": "generated-go",
+      "sha256": {
+        "wasmer-headless": "3ce4d773f281f179a1b9aec62125ccc7c3243c2a71d33107fd220d318d72aa45",
+        "mariamem-host": "d31bc9abd074579428d56a6244729ed0b989b17ddd03da27476a235ccd28f541",
+        "mariamem.wasmu": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+        "mariamem.wasmu.json": "09273b027975f909ebceebaf84e6239653703e016667d73b5da1bbb78e32451c"
+      }
+    },
+    "scope": "selected local candidate; full source regeneration and Ubuntu acceptance pending"
+  },
+  "checks": {
+    "old_deterministic_test": "FAIL copied=132120576 allocated=136314880 file=4194304",
+    "new_base_race": "PASS including 3 new growth/ownership tests, directory-FD, prepared-files and synchronization contracts",
+    "generated_integration": "Go race 8.110s; Python 3 PASS 1.62s",
+    "wasmer_integration": "Go race 11.089s; Python 3 PASS 2.47s",
+    "snapshots": "50/50 PASS",
+    "sqlalchemy": "44/44 PASS",
+    "gorm": "32/32 PASS; current source replacement + zero options",
+    "normal_checkout": "Go test/vet PASS; Python 367 PASS / 3 SKIP / 1 FAIL: pre-existing untracked package-lock.json outside publication allowlist",
+    "isolated_source": "PASS: final Go test/vet; Python 368 PASS / 3 SKIP; public source check 403 files. Pre-existing user npm files excluded from source copy, pinned native-auth archive included.",
+    "orm_measurements": "18 suites / 960 isolated tests PASS plus 2 one-test warmup suites",
+    "final_template_source_identity": "PASS: final formatted templates byte-identical to corresponding tested/measured generated files",
+    "diff_check": "PASS"
+  },
+  "logs_sha256": {
+    "build/generated-go-integration/growth-before.log": "0ea6aae0b3e4a453636544cf14db0f32cba5ecf08af83c05e07347ec5e1b8fa1",
+    "build/generated-go-integration/growth-normal-check.log": "c09026480b64670123d5a185f82d75d475afc3fbb2a19fc39bf79d281c191364",
+    "build/generated-go-integration/growth-clean-check.log": "f16371e9efe5ad95f52a86bc0e80afd740602c691a22778441f398a596365133",
+    "build/generated-go-integration/growth-fixed-build.log": "3a849ebabbc4d395318937d9d04389c963846eeccd7dece2bbf6253b3c16d71f",
+    "build/generated-go-integration/growth-generated-integration.log": "8f6dfb4f7dd2dee8baf8ae513502fd8417f741d17f3a170d7c62442b326b05b0",
+    "build/generated-go-integration/growth-wasmer-integration.log": "5dfaa34061dc37209e5c9ef103909cf04ed0bc66bd0a2446593e5aeefbd88a7e",
+    "build/generated-go-integration/growth-snapshots.log": "63306779e0b0bff11721a1de33bb212cdee349c4bf0b3737f2fa3ce31752899f",
+    "build/generated-go-integration/growth-sqlalchemy.log": "d9c30f55d56f47bba4b66df46cbcb98de3344e378b74bfb9c30c26127e2d1494",
+    "build/generated-go-integration/growth-gorm.log": "807daab9624738a52b5226f597c5543b2c7faa4252804f590d9ae3858c9480a0",
+    "build/generated-go-integration/growth-fixed-candidate/growth-fs-tests.log": "b99ce96743af64e7e675ac545f230025b3bb9050e4034be9569d5154cd022a20"
+  },
+  "raw_measurement_sha256": {
+    "benchmarks/results/v04-candidate-growth-fixed.json": "b1159341538c316b35741d317291d7588cdc2ae1e88afae06393aa45d888de17",
+    "benchmarks/results/v04-candidate-growth-fresh-resources.json": "3b0ae693e985c56e48372ae652d70244930220cd4cd0c771edd0734c9e0fd728",
+    "benchmarks/results/v04-candidate-orm-growth-fixed.json": "99bad609b39cedc9dad356a487bfe2fe30a26bb68fc4c55aa68e810e438b3738"
+  },
+  "orm_suite_summary": [
+    {
+      "tests": 10,
+      "mode": "start",
+      "runs": 3,
+      "suite_p50": 3.372305208002217,
+      "setup_p50": 3.999914042651653e-06
+    },
+    {
+      "tests": 10,
+      "mode": "fork",
+      "runs": 3,
+      "suite_p50": 2.7597872080514207,
+      "setup_p50": 0.6510079170111567
+    },
+    {
+      "tests": 50,
+      "mode": "start",
+      "runs": 3,
+      "suite_p50": 8.585023917024955,
+      "setup_p50": 9.958050213754177e-06
+    },
+    {
+      "tests": 50,
+      "mode": "fork",
+      "runs": 3,
+      "suite_p50": 11.215317457914352,
+      "setup_p50": 0.6486197910271585
+    },
+    {
+      "tests": 100,
+      "mode": "start",
+      "runs": 3,
+      "suite_p50": 21.496999541996047,
+      "setup_p50": 6.458023563027382e-06
+    },
+    {
+      "tests": 100,
+      "mode": "fork",
+      "runs": 3,
+      "suite_p50": 21.921253000036813,
+      "setup_p50": 0.7041505420347676
+    }
+  ],
+  "environment": {
+    "python": "3.14.7",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "cpu_count": 8,
+    "packages": {
+      "mariamem": "0.3.0",
+      "PyMySQL": "1.2.3",
+      "testcontainers": null,
+      "docker": null
+    },
+    "commit": "9d80d601584e0b19b2999ed43286b03aba755463",
+    "working_tree_dirty": true
+  },
+  "final_growth_templates_sha256": {
+    "benchmarks/spikes/generated-go-integration/memfs-growth.go.txt": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
+    "benchmarks/spikes/generated-go-integration/memfs-growth-test.go.txt": "2c7c1954fa9a952d7e182c2b721fe9330c6d935b34f9aa9f45a35a6c8501f4c4",
+    "benchmarks/spikes/generated-go-integration/prepared-growth-test.go.txt": "4c1122c2f378b35787c48debbe2053f5d0b7eabaf706f71bb3fdb8beef8f1d93"
+  }
+}

@@ -66,6 +66,7 @@ func verifyCompiledGuest(name string) {
     (module/'guest_identity.go').write_text('package main\nconst compiledGuestSHA256 = '+json.dumps(GUEST_SHA)+'\n')
     shutil.copyfile(HERE/'prepared-files.go.txt', module/'generated/base/prepared_files.go')
     shutil.copyfile(HERE/'prepared-files-test.go.txt', module/'generated/base/prepared_files_test.go')
+    shutil.copyfile(HERE/'prepared-growth-test.go.txt', module/'generated/base/prepared_growth_test.go')
     env = dict(os.environ, GOTOOLCHAIN='go1.26.8')
     sources = sorted(module.rglob('*.go'))
     subprocess.run(['gofmt','-w', *map(str,sources)], check=True)

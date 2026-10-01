@@ -301,3 +301,69 @@ grow処理がguest copy envelopeの約99%を占める。残差には新しい書
 - 修正候補はgeneric MemFSの拡張allocationを償却すること。ただしlogical sizeとcapacity、zero-filled holes、truncate/regrow、append/offset、prepared mapping ownership、child isolationを保つ必要がある。**今回その修正は実装していない。**
 - 2回ともSnapshotとFork→COUNT成功。調査用patchとevidenceだけを保存し、production/runtime pathsは変更なし。広いORM/regression suiteやcandidate benchmarkは再実行していない。
 - [counter evidence](v04-snapshot-attribution.json) と [診断再現手順](spikes/generated-go-integration/snapshot-audit.md) を参照。Snapshot性能blockerは原因判明、未修正。release readinessは引き続き **NOT READY — BLOCKERS REMAIN**。
+
+## Snapshot growth correction
+
+調査の次の承認で、selected generated-Go candidateのMemFS拡張だけを修正した。通常Wasmer runtime、public API、guest source、Snapshotのshutdown/copy/export/validation/publish手順は変更していない。source parentは `9d80d601584e0b19b2999ed43286b03aba755463`、正確なbuild input/native checksumは [fix evidence](v04-snapshot-growth-fix-evidence.json) に保存する。
+
+### 修正と回帰検査
+
+`resizeMemData` をwriteとtruncateの共通処理にし、logical file lengthとcapacityを分離。capacity不足時だけ幾何的に拡張して既存内容をコピーする。小さいallocationは2倍、大きいallocationは1.25倍までの余裕を取り、大きな単発writeは必要サイズへ直接拡張。保持capacity内の伸長でも新しく見えるbytesは必ずゼロ化し、truncate/O_TRUNC後の古い内容を再公開しない。stat/EOF/export/appendが見るのはlengthだけ。
+
+prepared-filesは子専用MAP_PRIVATE view。mappingの元capacityを越えた場合のみGo-owned bufferへコピーし、元mappingは従来のmanagerが全worker終了まで保持してunmapする。baseや兄弟のviewには書き込まない。FD identity、offset、modTime、FS lockとlifecycleの契約は変更なし。MariaDB path/addressの特別処理、timeout短縮、強制wakeはない。
+
+- 決定的なコピー量テスト: 4 MiBを64 KiBずつ書く旧実装は126 MiBを既存copyしFAIL。修正版は同じcontents/stat/EOFと償却copy上限を満たしてPASS。wall-clock閾値には依存しない。
+- 新しい3テスト: allocation/copy上限、truncate/regrowと疎なwriteのzero-fill、O_TRUNC、append、WriteAt offset、private mapping再利用/detach、base/兄弟の内容とshutdown後の独立性。
+- 全generated/base raceテストPASS（FD identity、prepared-files、thread/futex契約を含む）。既存generated integrationはGo race 8.110s / Python 3 PASS。Snapshotの破損・拒否・隔離など50チェックPASS。
+- installed-wheel SQLAlchemy 44/44 PASS、現Goソース+Options{}のGORM 32/32 PASS。通常Wasmer integrationもGo race 11.089s / Python 3 PASS。
+
+### 同じ公開API境界の再計測
+
+CPU profile/diagnostic countersなし、同じreference環境・1,000-row fixture・bundle trust/compiled guest binding・wire/SQL・30 independent startup trials。各scaling groupは3回。競合する別のsuiteは同時実行していない。
+
+| Snapshot (ms) | before | after |
+| --- | ---: | ---: |
+| min | 4942.3 | 486.1 |
+| p50 | 5148.1 | 542.4 |
+| p95 | 6669.3 | 916.6 |
+| p99 | 6970.0 | 1191.8 |
+| max | 6975.8 | 1273.0 |
+| >=900 ms | 30/30 | 2/30 |
+
+median約89.5%短縮。旧Wasmer Snapshot p50 404.6msに対してはなお約34%遅い。残る2回のSnapshot tailは含めたままで、この修正のために新たな広い調査/最適化はしていない。startupの合法なInnoDB tailとも同一原因とは断定しない。
+
+| ordinary behavior | before p50/p95 | after p50/p95 |
+| --- | ---: | ---: |
+| Start→first SQL (ms) | 86.1 / 692.9 | 87.7 / 1090.7 |
+| Start→fixture ready (ms) | 90.0 / 1109.6 | 90.2 / 1110.4 |
+| Fork→COUNT (ms) | 150.3 / 168.4 | 152.3 / 161.9 |
+
+Startの>=900msは2/30→3/30、fixtureは4/30→4/30。少数trialのtail頻度差を新しい同期bugや改善とは扱わない。既知のguest-side raceはそのまま。全30 Snapshot/Fork、12 scaling group成功。
+
+| DBs | ready p50 (ms) | CPU-sec p50 | incremental physical MiB/DB | ready physical MiB | ready RSS MiB | Close後のbaseline差 MiB |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 151.0 | 0.187 | 86.33 | 94.66 | 131.75 | 1.47 |
+| 4 | 198.7 | 0.841 | 85.55 | 350.46 | 476.34 | 2.02 |
+| 8 | 312.8 | 1.891 | 85.47 | 691.71 | 936.50 | 3.00 |
+| 16 | 662.6 | 3.783 | 85.87 | 1382.15 | 1862.58 | 3.63 |
+
+修正前×16は85.25 MiB/DB / physical 1372 MiB / CPU 3.824s。今回も同程度で、予備capacityによる大きな常駐memory増加は観測していない。全Close後のmembersはrunnerのみ。長期soak/leak-free保証とは区別する。
+
+別30 fresh Start resource試行: combined CPU p50 0.10523s（旧0.10526s）、incremental physical p50 90.26 MiB（旧90.40）、ready tree physical 94.84 MiB / RSS 123.80 MiB。これをprepared childの85.87 MiBと混同しない。
+
+SQLAlchemyの同じCRUD workloadを各3 suites、18 measurement suites / 960 isolated testsで再実行し、全成功。Forkはbase preparation/Snapshotとcleanup込み。
+
+| tests | mode | old suite p50 (s) | new suite p50 (s) | new setup p50 (s) |
+| ---: | --- | ---: | ---: | ---: |
+| 10 | Start | 2.35 | 3.37 | 0 |
+| 10 | Fork | 7.71 | 2.76 | 0.65 |
+| 50 | Start | 9.87 | 8.59 | 0 |
+| 50 | Fork | 15.98 | 11.22 | 0.65 |
+| 100 | Start | 25.38 | 21.50 | 0 |
+| 100 | Fork | 26.00 | 21.92 | 0.70 |
+
+Start suiteの揺れは合法なstartup tailを含む。小さいsuiteの増減までallocation fixの効果とは断定しない。Fork setupの約5.20→0.70sはSnapshot短縮と一致する。
+
+通常checkoutのGo test/vetはPASS。Pythonは367 PASS / 3 SKIP、作業前から存在する未追跡 `package-lock.json` によりpublication allowlistの1件がFAIL。このユーザーファイルと `package.json` は変更/削除/stageせず、変更済み公開ソースを隔離コピーし、通常の `scripts/verify.py check` を再実行した。pinned native-auth source archiveもそのコピーに渡し、通常と同じ検査範囲を確保した。隔離コピーでGo test/vet、Python 368 PASS / 3 SKIP、public source 403 files PASS。結果はfix evidenceに保存する。
+
+大きなSnapshot繰り返しcopyのregressionは修正・再測定済み。通常runtime切替、配布pipeline、platform/failure-path hardening等の残るrelease gatesは未変更で、**NOT READY — BLOCKERS REMAIN**。

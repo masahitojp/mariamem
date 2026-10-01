@@ -63,4 +63,17 @@ func (w *WasiStubs) pathOpenOnFS(fsys relativeFileSystem, rel, policyPath string
 	w.mu.Unlock()
 	if previous != nil { _ = closeWasiOpen(previous) }
 }''')
+    # Logical length remains independent of reusable allocation capacity.
+    # Clear newly exposed bytes even after truncate/O_TRUNC: stale data in
+    # retained capacity (including a child's private mmap) is not file content.
+    change('''		grown := make([]byte, end)
+		copy(grown, f.node.data)
+		f.node.data = grown''', '''		f.node.data = resizeMemData(f.node.data, end)''')
+    change('''	if size <= int64(len(f.node.data)) {
+		f.node.data = f.node.data[:size]
+	} else {
+		grown := make([]byte, size)
+		copy(grown, f.node.data)
+		f.node.data = grown
+	}''', '''	f.node.data = resizeMemData(f.node.data, size)''')
     return text

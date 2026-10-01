@@ -90,3 +90,31 @@ hardening. Unsupported filesystem directory binding returns ENOTSUP, never a
 path fallback. MemFS currently has no symlink nodes. SetFS is initialization-only,
 before guest execution. The legal InnoDB condition-variable timeout race is
 unchanged. Do not infer production readiness from these local gates or numbers.
+
+## MemFS Snapshot growth correction
+
+`setup_audit.py` and `setup_candidate.py` now install `memfs-growth.go.txt`
+through exact, inventory-checked generator adaptations. Ordinary packages and
+the Wasmer path remain unchanged. Rebuild into a fresh output directory with
+the same commands above; do not reuse an old binary/manifest.
+
+Logical length stays in `len(node.data)`; capacity is only allocation storage.
+Writes and truncate share a resize helper. Existing capacity is reused and
+newly exposed bytes are cleared, including after shrink or O_TRUNC. Allocation
+grows geometrically (2x below 1 MiB, 1.25x above it), or directly to the requested
+size for a larger write. No path/address/MariaDB-specific allocation rule exists.
+The unused capacity is not visible to stat, reads, export or append offsets.
+
+Prepared-file mappings are already child-private. Growth within their original
+capacity is safe; growth beyond it copies logical bytes to new Go-owned storage.
+The mapping manager still retains the original full view for eventual unmap
+after workers finish, never treating Go spare capacity as an OS mapping.
+
+`TestMemFSGrowthAmortizedCopy` bounds actual allocation/copy work without timing:
+the old implementation fails (126 MiB copied for a 4 MiB file). Additional tests
+cover logical size/EOF, sparse writes, truncate/regrow zero-fill, O_TRUNC,
+WriteAt offsets, append and private-mapping detach/base/child isolation.
+
+See the candidate report's Snapshot growth correction section for the repeated
+public API benchmark. The prior `snapshot-audit-patch.json` intentionally targets
+the historical pre-fix module only; it is not part of this candidate.

@@ -45,6 +45,8 @@ def main():
         ("io-audit-base.go.txt", "generated/base/audit.go"),
         ("relative-fd-base.go.txt", "generated/base/relative.go"),
         ("relative-fd-contract-test.go.txt", "generated/base/relative_contract_test.go"),
+        ("memfs-growth.go.txt", "generated/base/memfs_growth.go"),
+        ("memfs-growth-test.go.txt", "generated/base/memfs_growth_test.go"),
     ):
         shutil.copyfile(templates / template, output / destination)
     print("Installed FD audit. Stable directory-object adaptation installed; FD contracts must PASS.")
