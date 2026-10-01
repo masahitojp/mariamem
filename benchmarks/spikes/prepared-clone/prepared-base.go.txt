@@ -1,0 +1,152 @@
+// Isolated prepared-filesystem proof and live-boundary observation.
+package base
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+	"runtime"
+	"sort"
+	"strings"
+	"syscall"
+)
+
+type PreparedMaps struct{ mappings [][]byte }
+
+// Load clean-shutdown DB files into independent MemFS nodes, without inheriting
+// handles, offsets, goroutines, fd tables, or any live Go synchronization object.
+func PreparedLoad(fs *MemFS, dir, mode string) (*PreparedMaps, error) {
+	maps := &PreparedMaps{}
+	err := filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		rel, err := filepath.Rel(dir, path)
+		if err != nil {
+			return err
+		}
+		rel = filepath.ToSlash(rel)
+		if rel == "." {
+			return nil
+		}
+		if d.IsDir() {
+			return fs.MkdirAll(rel, 0755)
+		}
+		if !d.Type().IsRegular() || strings.Contains(rel, "..") {
+			return fmt.Errorf("unsupported base entry")
+		}
+		f, err := os.Open(path)
+		if err != nil {
+			return err
+		}
+		defer f.Close()
+		stat, err := f.Stat()
+		if err != nil {
+			return err
+		}
+		var data []byte
+		if stat.Size() > 0 {
+			switch mode {
+			case "cow":
+				data, err = syscall.Mmap(int(f.Fd()), 0, int(stat.Size()), syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_PRIVATE)
+			case "copy":
+				data, err = syscall.Mmap(-1, 0, int(stat.Size()), syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_PRIVATE|syscall.MAP_ANON)
+				if err == nil {
+					_, err = f.ReadAt(data, 0)
+				}
+			default:
+				return fmt.Errorf("bad prepared filesystem mode")
+			}
+			if err != nil {
+				return err
+			}
+			maps.mappings = append(maps.mappings, data)
+		}
+		if _, err = fs.OpenFile(rel, os.O_CREATE|os.O_RDWR, 0600); err != nil {
+			return err
+		}
+		fs.mu.Lock()
+		node, err := fs.lookup(rel)
+		if err == nil {
+			node.data = data
+		}
+		fs.mu.Unlock()
+		return err
+	})
+	if err != nil {
+		maps.Close()
+		return nil, err
+	}
+	return maps, nil
+}
+func (p *PreparedMaps) Close() error {
+	for _, b := range p.mappings {
+		if err := syscall.Munmap(b); err != nil {
+			return err
+		}
+	}
+	p.mappings = nil
+	return nil
+}
+
+// Diagnostic only: background threads keep running; this is not a snapshot.
+func PreparedRuntime(m *Module, w *WasiStubs) map[string]any {
+	result := map[string]any{"mutable_globals": SaveGlobals(m), "next_tid": m.Threads.nextTID.Load()}
+	m.Threads.parkMu.Lock()
+	waiters := map[string]int{}
+	for a, cs := range m.Threads.parked {
+		waiters[fmt.Sprint(a)] = len(cs)
+	}
+	m.Threads.parkMu.Unlock()
+	result["host_waiters"] = waiters
+	w.mu.Lock()
+	fds := []map[string]any{}
+	for n, f := range w.fdTable {
+		row := map[string]any{"fd": n}
+		if f != nil {
+			row["path"] = f.path
+			row["socket"] = f.isSocket
+			if mf, ok := f.f.(*memFile); ok {
+				mf.fsys.mu.Lock()
+				row["offset"] = mf.off
+				row["size"] = len(mf.node.data)
+				mf.fsys.mu.Unlock()
+			}
+		}
+		fds = append(fds, row)
+	}
+	w.mu.Unlock()
+	sort.Slice(fds, func(i, j int) bool { return fds[i]["fd"].(int32) < fds[j]["fd"].(int32) })
+	result["fds"] = fds
+	result["goroutines"] = runtime.NumGoroutine()
+	stack := make([]byte, 1<<20)
+	n := runtime.Stack(stack, true)
+	result["goroutine_stacks"] = string(stack[:n])
+	return result
+}
+func PreparedExport(fs *MemFS, dir string) error {
+	// Use the production guest's snapshot output, created after mysql_server_end.
+	fs.mu.Lock()
+	defer fs.mu.Unlock()
+	node, err := fs.lookup("snapshot-out/data")
+	if err != nil {
+		return err
+	}
+	var walk func(*memNode, string) error
+	walk = func(n *memNode, path string) error {
+		dest := filepath.Join(dir, path)
+		if n.dir {
+			if err := os.MkdirAll(dest, 0700); err != nil {
+				return err
+			}
+			for k, c := range n.children {
+				if err := walk(c, filepath.Join(path, k)); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+		return os.WriteFile(dest, n.data, 0600)
+	}
+	return walk(node, "mariadb")
+}
