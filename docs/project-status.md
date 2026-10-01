@@ -10,6 +10,26 @@ the important project context quickly without relying on past chat history.
 
 ---
 
+## v0.4 branch: generated-Go default
+
+On `v0.4/generated-go-integration`, **generated-Go is the default v0.4 runtime**
+for Go `Start(ctx, Options{})` and Python `mariamem.start()`. Normal usage needs
+no NativeDir, native bundle cache/download or Wasmer. Explicit legacy bundle
+overrides remain compatible. WASM is now a build intermediate, not the default
+runtime payload. Fresh execution state and isolated prepared files are used;
+ready-heap/live-worker restoration remains rejected.
+
+Local default-path SQLAlchemy44/GORM32, wire/Snapshot/Fork, synchronization,
+filesystem and cleanup acceptance pass. See [architecture](v04-generated-go-architecture.md)
+and [default migration evidence](../benchmarks/v04-default-runtime-migration.md).
+Go's per-database embedded image delivery currently adds substantial startup cost;
+it is a distribution/provisioning release concern, not a MariaDB tuning result.
+This branch is unpublished and does not imply v0.4 release readiness. Exact-byte
+platform release acceptance and the legacy release-pipeline migration remain.
+The v0.3 sections below preserve historical/public-release context.
+
+---
+
 ## Project goal
 
 mariamem aims to make a real MariaDB instance as convenient and disposable as

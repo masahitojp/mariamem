@@ -1,0 +1,37 @@
+{
+  "guest_sha256": "5a513f74607ef1f1ddd4a36ebeefbba50354d9d00564e1977475d642104903bb",
+  "generated_provenance_sha256": "99092e99f196253f7b0f0c18a5ef9b90734a670e8ae1676161c38953fed9af7e",
+  "entry_sha256": "fc2eafb558ff25b0813b65f8fce7cd45dc9e6718189a1ca0318d5ebef90fb7dd",
+  "go": "go1.26.8",
+  "python": "3.14.7",
+  "zlib": "1.2.12",
+  "go_environment": {
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": "",
+    "GOAMD64": "v1",
+    "GOARM64": "v8.0"
+  },
+  "build_flags": [
+    "-p",
+    "1",
+    "-trimpath",
+    "-buildvcs=false",
+    "CGO_ENABLED=0"
+  ],
+  "images": {
+    "darwin-arm64": {
+      "sha256": "921cf13edca14c442bacea0d5b5c17d8f45a93235f83be23daed3e608a559b8c",
+      "binary_bytes": 78034498,
+      "compressed_bytes": 42731042,
+      "source_sha256": "0502a8fa5ad35b2bc7a759adb390392cd6a7edcaa74ee1ef24c5a7a41d716d2c"
+    },
+    "linux-amd64": {
+      "sha256": "42bf295796436053c3a3aa3d694ad84839318b5c129c7930918570bd231c7f36",
+      "binary_bytes": 80265934,
+      "compressed_bytes": 45249242,
+      "source_sha256": "131c0a28b8a57c19f4b91cc5e5ee1ac121940bf5d1983d009ba9beca17889738"
+    }
+  }
+}

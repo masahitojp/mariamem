@@ -576,12 +576,12 @@ func TestPublicForkTimingRetainsPreparationFailureAndNestedScopes(t *testing.T) 
 
 // Unit builds carry no release tag; Options{} must never download an older guest.
 func TestDevelopmentStartupResolution(t *testing.T) {
+	t.Setenv("MARIAMEM_RUNTIME", "")
 	t.Setenv("MARIAMEM_NATIVE_DIR", "")
-	_, err := Start(context.Background(), Options{})
-	var detail *diagnostic.Error
-	if !errors.As(err, &detail) || (detail.Code != "native_unavailable" && detail.Code != "unsupported_platform") {
-		t.Fatalf("%v", err)
+	if configuredRuntime("") != "generated-go" {
+		t.Fatal("development builds must use built-in generated-Go")
 	}
+
 }
 func TestStartupEnvironmentOverride(t *testing.T) {
 	missing := filepath.Join(t.TempDir(), "environment-bundle")
@@ -593,6 +593,29 @@ func TestStartupEnvironmentOverride(t *testing.T) {
 	explicit := filepath.Join(t.TempDir(), "explicit-bundle")
 	_, err = Start(context.Background(), Options{NativeDir: explicit})
 	if err == nil || !strings.Contains(err.Error(), explicit) {
+		t.Fatal(err)
+	}
+}
+
+func TestRuntimeSelectionCompatibility(t *testing.T) {
+	for _, tc := range []struct{ name, kind, env, dir, want string }{
+		{"default", "", "", "", "generated-go"},
+		{"explicit generated", "generated-go", "", "", "generated-go"},
+		{"development legacy", "wasmer", "", "", "wasmer"},
+		{"NativeDir compatibility", "", "", "bundle", "wasmer"},
+		{"environment compatibility", "", "bundle", "", "wasmer"},
+		{"explicit override precedence", "generated-go", "", "bundle", "wasmer"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			t.Setenv("MARIAMEM_RUNTIME", tc.kind)
+			t.Setenv("MARIAMEM_NATIVE_DIR", tc.env)
+			if string(configuredRuntime(tc.dir)) != tc.want {
+				t.Fatal(configuredRuntime(tc.dir))
+			}
+		})
+	}
+	t.Setenv("MARIAMEM_RUNTIME", "unknown")
+	if _, err := Start(context.Background(), Options{}); err == nil || !strings.Contains(err.Error(), "runtime kind") {
 		t.Fatal(err)
 	}
 }

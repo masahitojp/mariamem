@@ -61,7 +61,7 @@ func queryInt(t *testing.T, ctx context.Context, c *sqlClient, statement string)
 
 func TestMultipleClientIsolationAndCapacity(t *testing.T) {
 	native := os.Getenv("MARIAMEM_NATIVE_DIR")
-	if native == "" {
+	if native == "" && os.Getenv("MARIAMEM_TEST_DEFAULT") != "1" {
 		t.Fatal("set MARIAMEM_NATIVE_DIR")
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
@@ -251,7 +251,7 @@ func TestMultipleClientIsolationAndCapacity(t *testing.T) {
 
 func TestMultipleClientSnapshotAndShutdown(t *testing.T) {
 	native := os.Getenv("MARIAMEM_NATIVE_DIR")
-	if native == "" {
+	if native == "" && os.Getenv("MARIAMEM_TEST_DEFAULT") != "1" {
 		t.Fatal("set MARIAMEM_NATIVE_DIR")
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)

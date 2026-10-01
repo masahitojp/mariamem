@@ -1,9 +1,11 @@
 # Python API
 
-These public usage instructions retain the current packaging contract. The
-unpublished v0.4 artifact migration and NativeDir compatibility decision are in
-[the integration audit](v04-integration-audit.md); no manual NativeDir requirement
-is proposed for ordinary v0.4 usage.
+On the unpublished v0.4 branch, **generated-Go is the default runtime**. Ordinary
+usage needs no NativeDir, bundle cache/download or external Wasmer. Existing APIs
+and cold Snapshot/Fork semantics are preserved. Explicit NativeDir/environment
+bundle overrides retain legacy compatibility. See [current architecture](v04-generated-go-architecture.md)
+and [migration evidence](../benchmarks/v04-default-runtime-migration.md).
+The v0.3 installation/bundle examples below are historical release instructions.
 
 The `0.3.0` Python package is prepared for the v0.3.0 release candidate; it is
 not published yet. PyPI publication is temporarily unavailable while account

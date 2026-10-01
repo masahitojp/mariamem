@@ -17,6 +17,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/runtimekind"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
@@ -78,6 +79,10 @@ type Process struct {
 }
 
 func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore string, stderr io.Writer) (*Process, error) {
+	return StartKind(ctx, runtime, module, wasmerDir, transfer, restore, stderr, runtimekind.Wasmer)
+}
+
+func StartKind(ctx context.Context, runtime, module, wasmerDir, transfer, restore string, stderr io.Writer, kind runtimekind.Kind) (*Process, error) {
 	args := []string{"run", module, "--no-tty", "--volume", transfer + ":/snapshot-out"}
 	if timing.Enabled(ctx) {
 		args = append(args, "--env", "MARIAMEM_GUEST_TIMING=1")
@@ -88,9 +93,12 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 	if restore != "" {
 		args = append(args, "--volume", restore+":/snapshot-in", "--", "--restore-snapshot")
 	}
+	if kind == runtimekind.GeneratedGo && module != runtimekind.GuestSHA256 {
+		return nil, fmt.Errorf("generated guest identity mismatch")
+	}
 	cmd := exec.Command(runtime, args...)
 	cmd.Env = os.Environ()
-	if wasmerDir != "" {
+	if kind == runtimekind.Wasmer && wasmerDir != "" {
 		cmd.Env = append(cmd.Env, "WASMER_DIR="+wasmerDir)
 	}
 	tail := &stderrTail{}
@@ -115,7 +123,7 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 	if err = cmd.Start(); err != nil {
 		in.Close()
 		out.Close()
-		return nil, diagnostic.Wrap("guest_start", "guest_launch", fmt.Errorf("could not launch Wasmer %q for guest %q; use the complete native bundle for your supported platform and check executable permissions: %w", runtime, module, err))
+		return nil, diagnostic.Wrap("guest_start", "guest_launch", fmt.Errorf("could not launch runtime %q for guest %q; use the complete native bundle for your supported platform and check executable permissions: %w", runtime, module, err))
 	}
 	timing.Mark(ctx, "spawn_returned")
 	timing.Runtime(ctx, p.PID())

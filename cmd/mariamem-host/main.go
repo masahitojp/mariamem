@@ -16,7 +16,9 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/generatedgo"
 	"github.com/masahitojp/mariamem/internal/host"
+	"github.com/masahitojp/mariamem/internal/runtimekind"
 )
 
 type request struct {
@@ -41,8 +43,8 @@ func run() error {
 	startupTimeout := flag.Duration("startup-timeout", 120*time.Second, "startup timeout")
 	shutdownTimeout := flag.Duration("shutdown-timeout", 30*time.Second, "shutdown timeout")
 	flag.Parse()
-	if *runtime == "" || *module == "" {
-		return errors.New("--runtime and --module are required")
+	if (*runtime == "") != (*module == "") {
+		return errors.New("legacy override requires both --runtime and --module")
 	}
 	if *queryTimeout <= 0 || *startupTimeout <= 0 || *shutdownTimeout <= 0 {
 		return errors.New("timeouts must be positive")
@@ -52,7 +54,17 @@ func run() error {
 	owner, cancelOwner := context.WithCancel(signals)
 	defer cancelOwner()
 	ctx, cancel := context.WithTimeout(owner, *startupTimeout)
-	s, err := host.Start(ctx, *runtime, *module, *wasmerDir, *restore, *queryTimeout, os.Stderr)
+	var s *host.Server
+	var err error
+	if *runtime == "" {
+		var executable string
+		executable, err = os.Executable()
+		if err == nil {
+			s, err = host.StartGenerated(ctx, executable, *restore, *queryTimeout, os.Stderr)
+		}
+	} else {
+		s, err = host.Start(ctx, *runtime, *module, *wasmerDir, *restore, *queryTimeout, os.Stderr)
+	}
 	cancel()
 	if err != nil {
 		code, stage := "host_start", "host_setup"
@@ -189,6 +201,10 @@ func run() error {
 	}
 }
 func main() {
+	if len(os.Args) > 2 && os.Args[1] == "run" && os.Args[2] == runtimekind.GuestSHA256 {
+		generatedgo.Run(os.Args)
+		return
+	}
 	if err := run(); err != nil {
 		fmt.Fprintln(os.Stderr, "mariamem:", err)
 		os.Exit(1)

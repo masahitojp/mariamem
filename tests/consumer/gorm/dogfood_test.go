@@ -115,7 +115,7 @@ func childPIDs(t *testing.T) []string {
 
 func TestDogfood(t *testing.T) {
 	native, output, mode := os.Getenv("DOGFOOD_NATIVE_DIR"), os.Getenv("DOGFOOD_EVIDENCE"), os.Getenv("DOGFOOD_MODE")
-	if native == "" || output == "" {
+	if (native == "" && os.Getenv("DOGFOOD_ZERO_OPTIONS") != "1") || output == "" {
 		t.Skip("run via tests/consumer/run_gorm.py with an explicit native bundle")
 	}
 	check(t, mode == "start" || mode == "fork", "invalid mode")
@@ -127,11 +127,15 @@ func TestDogfood(t *testing.T) {
 	}
 	var cases []*observation
 	result := map[string]any{"mode": mode, "go": runtime.Version(), "os": runtime.GOOS, "arch": runtime.GOARCH, "native_dir": native}
-	manifest, err := os.ReadFile(filepath.Join(native, "manifest.json"))
-	require(t, err)
-	var metadata any
-	require(t, json.Unmarshal(manifest, &metadata))
-	result["native_manifest"] = metadata
+	if native != "" {
+		manifest, err := os.ReadFile(filepath.Join(native, "manifest.json"))
+		require(t, err)
+		var metadata any
+		require(t, json.Unmarshal(manifest, &metadata))
+		result["native_manifest"] = metadata
+	} else {
+		result["native_manifest"] = map[string]any{"runtime_kind": "generated-go", "selection": "built-in"}
+	}
 	if b, err := exec.Command("go", "list", "-m", "-json", "all").Output(); err == nil {
 		result["modules"] = string(b)
 	}

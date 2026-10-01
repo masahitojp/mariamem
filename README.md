@@ -4,15 +4,17 @@
 
 mariamem starts an isolated MariaDB for a test, lets an ordinary MySQL client
 connect, and disposes of the database afterward. It runs a modified MariaDB
-guest under Wasmer/WASIX; it does not reimplement MariaDB SQL or InnoDB.
+guest (generated Go on the v0.4 branch, Wasmer/WASIX in v0.3); it does not reimplement MariaDB SQL or InnoDB.
 Go hosts run in the test process; Python starts the packaged Go host process.
 Both languages have public lifecycle APIs.
 
-The unpublished v0.4 generated-Go integration candidate is documented separately
-in [the architecture](docs/v04-generated-go-architecture.md) and
-[readiness audit](docs/v04-integration-audit.md). The installation and APIs below
-still describe the current public packaging; a local candidate benchmark does
-not imply a runtime/distribution release.
+**generated-Go is the default v0.4 runtime on this branch.** Ordinary Go
+`Start(ctx, Options{})` and Python `mariamem.start()` need no Wasmer bundle,
+NativeDir or runtime download. Explicit legacy bundle overrides remain supported.
+See [architecture](docs/v04-generated-go-architecture.md) and
+[default migration measurements](benchmarks/v04-default-runtime-migration.md).
+No v0.4 artifacts have been tagged or published. The installation instructions
+below describe the already released v0.3 packaging, not the branch candidate.
 
 The testing workflow is Docker-free: each disposable database has its own server
 state. Prepare migrations/fixtures once with Snapshot, then Fork independent

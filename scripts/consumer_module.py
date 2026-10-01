@@ -10,7 +10,7 @@ MODULE = 'github.com/masahitojp/mariamem'
 def source_files(root):
     root = Path(root)
     paths = sorted(p for base in (root, root / 'internal') for p in
-                   (base.glob('*.go') if base == root else base.rglob('*.go'))
+                   (base.glob('*.go') if base == root else (p for suffix in ('*.go', '*.s') for p in base.rglob(suffix)))
                    if not p.name.endswith('_test.go'))
     return paths + [root / name for name in ('go.mod', 'go.sum', 'LICENSE', 'release/inputs.lock.json')]
 

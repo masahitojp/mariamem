@@ -23,7 +23,7 @@ import (
 // with cancellation under normal scheduling.
 func TestFatalQueryInterruption(t *testing.T) {
 	native := os.Getenv("MARIAMEM_NATIVE_DIR")
-	if native == "" {
+	if native == "" && os.Getenv("MARIAMEM_TEST_DEFAULT") != "1" {
 		t.Fatal("set MARIAMEM_NATIVE_DIR to an existing native bundle")
 	}
 	for _, tc := range []struct {

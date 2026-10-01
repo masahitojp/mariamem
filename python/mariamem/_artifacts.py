@@ -47,6 +47,10 @@ def _platform_identity():
 
 def resolve(host_binary=None, runtime=None, module=None):
     values = {"host_binary": host_binary, "runtime": runtime, "module": module}
+    if host_binary is not None and runtime is None and module is None and not os.environ.get("MARIAMEM_NATIVE_DIR"):
+        path = Path(host_binary).expanduser().resolve()
+        _available(path, True)
+        return {"host_binary":str(path), "runtime":None, "module":None}
     if all(value is not None for value in values.values()):
         resolved = {key: Path(value).expanduser().resolve() for key, value in values.items()}
         for key, path in resolved.items():
@@ -69,6 +73,13 @@ def resolve(host_binary=None, runtime=None, module=None):
             raise ValueError(f"expected Ubuntu 24.04 x86_64 metadata; got distribution={manifest.get('distribution')!r}, version_id={manifest.get('version_id')!r}, architecture={manifest.get('architecture')!r}")
         if identity == "darwin-arm64" and int(platform.mac_ver()[0].split(".")[0]) < manifest["minimum_macos"]:
             raise ArtifactError(f"detected macOS {platform.mac_ver()[0]}; this bundle requires macOS {manifest['minimum_macos']} or newer. Upgrade macOS or use another supported platform.", "unsupported_platform")
+        kind = manifest.get("runtime_kind", "wasmer")
+        if kind not in ("generated-go", "wasmer"):
+            raise ValueError(f"unknown runtime kind: {kind!r}")
+        if kind == "generated-go" and runtime is None and module is None:
+            names = {"host_binary":"mariamem-host"}
+        elif kind == "wasmer" and not os.environ.get("MARIAMEM_NATIVE_DIR") and runtime is None and module is None:
+            raise ArtifactError("v0.4 default requires a generated-Go wheel; use an explicit legacy bundle override for Wasmer", "artifact_mismatch")
         for key, name in names.items():
             if values[key] is not None:
                 path = Path(values[key]).expanduser().resolve()

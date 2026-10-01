@@ -29,8 +29,13 @@ def run(argv, *, env=None):
 
 def check():
     run([sys.executable, "scripts/check_version.py"])
-    run(["go", "test", "./..."])
-    run(["go", "vet", "./..."])
+    run([sys.executable, "scripts/verify_generated_runtime.py"])
+    run(["go", "test", "-p", "1", "./..."])
+    # wasm2go emits dead structured-control fallthrough. Retain every other
+    # analyzer there; handwritten runtime/shim/API packages retain full vet.
+    tool_dir = subprocess.check_output(["go", "env", "GOTOOLDIR"], cwd=ROOT, text=True).strip()
+    env = dict(os.environ, MARIAMEM_VET_TOOL=str(Path(tool_dir)/"vet"))
+    run(["go", "vet", "-p", "1", "-vettool="+str(ROOT/"scripts/vet_generated.py"), "./..."], env=env)
     # Opt-in real-host pytest cases must stay skipped in the ordinary check,
     # even if a developer has a native bundle configured in their shell.
     env = os.environ.copy()
@@ -43,20 +48,21 @@ def check():
 
 def integration():
     native = os.environ.get("MARIAMEM_NATIVE_DIR")
-    if not native:
-        raise SystemExit("integration requires MARIAMEM_NATIVE_DIR with a current native bundle")
-    native = Path(native).expanduser().resolve()
-    for name in ("manifest.json", "wasmer-headless", "mariamem.wasmu", "mariamem.wasmu.json"):
-        if not (native / name).is_file():
-            raise SystemExit(f"integration native bundle is missing {name}: {native}")
     env = os.environ.copy()
-    env["MARIAMEM_NATIVE_DIR"] = str(native)
+    if native:
+        native = Path(native).expanduser().resolve()
+        for name in ("manifest.json", "wasmer-headless", "mariamem.wasmu", "mariamem.wasmu.json"):
+            if not (native / name).is_file():
+                raise SystemExit(f"integration native bundle is missing {name}: {native}")
+        env["MARIAMEM_NATIVE_DIR"] = str(native)
+    else:
+        env["MARIAMEM_TEST_DEFAULT"] = "1"
     env["PYTHONPATH"] = str(ROOT / "python")
-    run(["go", "test", "-race", "-tags=integration", "./tests/gointegration",
+    run(["go", "test", "-race", "-tags=integration", "./tests/gointegration", "./tests/godefault",
          "-count=1", "-timeout=3m"], env=env)
     with tempfile.TemporaryDirectory(prefix="mariamem-integration-") as temporary:
         host = Path(temporary) / "mariamem-host"
-        run(["go", "build", "-o", host, "./cmd/mariamem-host"], env=env)
+        run(["go", "build", "-p", "1", "-o", host, "./cmd/mariamem-host"], env=env)
         env["MARIAMEM_TEST_HOST"] = str(host)
         run([sys.executable, "-m", "pytest", "tests/test_python_timeout.py",
              "tests/test_python_multiclient.py", "-q"], env=env)

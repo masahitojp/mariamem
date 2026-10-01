@@ -12,11 +12,12 @@ import pymysql
 def test_two_python_clients_keep_independent_sessions():
     host = os.environ.get("MARIAMEM_TEST_HOST")
     native = os.environ.get("MARIAMEM_NATIVE_DIR")
-    if not host or not native:
+    if not host or (not native and os.environ.get("MARIAMEM_TEST_DEFAULT") != "1"):
         pytest.skip("requires MARIAMEM_TEST_HOST and MARIAMEM_NATIVE_DIR")
-    native = Path(native)
-    with mariamem.start(host_binary=host, runtime=native / "wasmer-headless",
-                        module=native / "mariamem.wasmu") as db:
+    options = {"host_binary":host}
+    if native:
+        options.update(runtime=Path(native)/"wasmer-headless", module=Path(native)/"mariamem.wasmu")
+    with mariamem.start(**options) as db:
         a = pymysql.connect(**db.connection_info(), autocommit=True)
         b = pymysql.connect(**db.connection_info(), autocommit=True)
         try:

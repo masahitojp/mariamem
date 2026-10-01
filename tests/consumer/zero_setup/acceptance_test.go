@@ -58,6 +58,8 @@ func must(t *testing.T, err error) {
 	}
 }
 func TestZeroSetup(t *testing.T) {
+	// This fixture tests the explicit legacy downloader; default no longer downloads.
+	t.Setenv("MARIAMEM_RUNTIME", "wasmer")
 	root := os.Getenv("ZERO_FIXTURE")
 	if root == "" {
 		t.Skip("run via run_zero_setup.py; no default network")
@@ -166,6 +168,22 @@ func TestZeroSetup(t *testing.T) {
 		}
 	}
 	outcomes := map[string]string{}
+	t.Run("default-generated-go-no-download", func(t *testing.T) {
+		t.Setenv("MARIAMEM_RUNTIME", "")
+		t.Setenv("PATH", t.TempDir())
+		cache := newCache()
+		before := calls()
+		db := start(t, mariamem.Options{})
+		defer closeDB(t, db)
+		sqlCheck(t, db)
+		if calls() != before {
+			t.Fatal("default selected native downloader")
+		}
+		if files, err := os.ReadDir(cache); err != nil || len(files) != 0 {
+			t.Fatal("default populated cache", err)
+		}
+		outcomes[t.Name()] = "PASS"
+	})
 	t.Run("first-download", func(t *testing.T) {
 		newCache()
 		db := start(t, mariamem.Options{})

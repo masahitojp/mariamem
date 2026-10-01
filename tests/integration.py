@@ -38,6 +38,8 @@ def main():
         if os.environ.get("MARIAMEM_NATIVE_DIR"):
             native = Path(os.environ["MARIAMEM_NATIVE_DIR"]).resolve()
             options.update(runtime=native / "wasmer-headless", module=native / "mariamem.wasmu")
+        if os.environ.get("MARIAMEM_TEST_DEFAULT")=="1":
+            options=dict(host_binary=HOST_BINARY,log_path=run/(name+".log"))
         options.update(extra)
         db = mariamem.start(**options)
         active.append(db)

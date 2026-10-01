@@ -1,11 +1,10 @@
 // Package mariamem starts disposable, isolated instances of real MariaDB for tests.
-// The Go host runs in the caller's process; a Wasmer/WASIX child process runs the
-// MariaDB guest. Clients use the ordinary MySQL wire protocol through a local
+// The Go host runs in the caller's process; a built-in generated-Go child runs
+// the MariaDB guest. Clients use the ordinary MySQL wire protocol through a local
 // endpoint, including database/sql with go-sql-driver/mysql.
 //
-// Tagged Go builds resolve and verify their exact release native bundle on first
-// use, then reuse it from the user cache. Options.NativeDir or MARIAMEM_NATIVE_DIR
-// bypasses network setup. Development/replaced builds require such an override.
+// Zero options require no native bundle, runtime download or pre-populated cache.
+// Options.NativeDir or MARIAMEM_NATIVE_DIR retains explicit legacy bundle support.
 // Supported platforms are macOS 15+ arm64 and Ubuntu 24.04 x86_64.
 //
 // A Database owns its runtime and should be closed after use. Multiple SQL
@@ -31,13 +30,15 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/artifacts"
+	"github.com/masahitojp/mariamem/internal/builtinruntime"
 	"github.com/masahitojp/mariamem/internal/host"
+	"github.com/masahitojp/mariamem/internal/runtimekind"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 // Options configures a database instance. Zero timeouts use documented defaults.
 type Options struct {
-	NativeDir       string        // Explicit bundle override; empty uses environment, then exact-release cache/download.
+	NativeDir       string        // Compatibility bundle override; empty uses generated-Go unless MARIAMEM_NATIVE_DIR is set.
 	StartupTimeout  time.Duration // Zero defaults to 120 seconds.
 	ShutdownTimeout time.Duration // Zero defaults to 30 seconds.
 	QueryTimeout    time.Duration // Zero defaults to 30 seconds; expiry terminates this instance.
@@ -93,12 +94,23 @@ func start(ctx context.Context, opts Options, restore string) (*Database, error)
 		return nil, err
 	}
 	timing.Mark(ctx, "options_ready")
-	bundle, err := artifacts.ResolveStartup(ctx, opts.NativeDir, nativeInputHash())
-	if err != nil {
-		return nil, hostError(err, "artifacts", false)
+	var bundle artifacts.Bundle
+	if kind := os.Getenv("MARIAMEM_RUNTIME"); kind != "" && kind != "generated-go" && kind != "wasmer" {
+		return nil, fmt.Errorf("unsupported development runtime kind: %q", kind)
 	}
-	timing.Mark(ctx, "native_resolved")
-	opts.NativeDir = bundle.Dir
+	legacy := configuredRuntime(opts.NativeDir) == runtimekind.Wasmer
+	if legacy {
+		bundle, err = artifacts.ResolveStartup(ctx, opts.NativeDir, nativeInputHash())
+		if err != nil {
+			return nil, hostError(err, "artifacts", false)
+		}
+		opts.NativeDir = bundle.Dir
+	} else {
+		if err = artifacts.ValidatePlatform(ctx); err != nil {
+			return nil, hostError(err, "platform", false)
+		}
+		bundle.Build = runtimekind.GuestSHA256
+	}
 	temp, err := os.MkdirTemp("", "mariamem-go-")
 	if err != nil {
 		return nil, err
@@ -111,7 +123,18 @@ func start(ctx context.Context, opts Options, restore string) (*Database, error)
 	timing.Mark(ctx, "runtime_directory_ready")
 	startup, cancel := context.WithTimeout(ctx, opts.StartupTimeout)
 	defer cancel()
-	s, err := host.StartVerified(startup, bundle, runtimeDir, restore, opts.QueryTimeout, &db.logs)
+	var s *host.Server
+	if legacy {
+		s, err = host.StartVerified(startup, bundle, runtimeDir, restore, opts.QueryTimeout, &db.logs)
+	} else {
+		var executable string
+		timing.Mark(ctx, "builtin_image_begin")
+		executable, err = builtinruntime.Prepare(startup, temp)
+		timing.Mark(ctx, "builtin_image_ready")
+		if err == nil {
+			s, err = host.StartGenerated(startup, executable, restore, opts.QueryTimeout, &db.logs)
+		}
+	}
 	if err != nil {
 		return nil, hostError(errors.Join(err, os.RemoveAll(temp)), "start", true)
 	}
@@ -122,6 +145,16 @@ func start(ctx context.Context, opts Options, restore string) (*Database, error)
 	timing.Mark(ctx, "database_ready")
 	return db, nil
 }
+
+// Explicit bundle overrides preserve legacy/offline compatibility; empty selects
+// compiled generated-Go without consulting release discovery or native caches.
+func configuredRuntime(dir string) runtimekind.Kind {
+	if dir != "" || os.Getenv("MARIAMEM_NATIVE_DIR") != "" || os.Getenv("MARIAMEM_RUNTIME") == "wasmer" {
+		return runtimekind.Wasmer
+	}
+	return runtimekind.GeneratedGo
+}
+
 func (db *Database) watch(done <-chan struct{}) {
 	<-done
 	db.mu.Lock()

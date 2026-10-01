@@ -14,6 +14,7 @@ import (
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/guest"
 	"github.com/masahitojp/mariamem/internal/mysqlwire"
+	"github.com/masahitojp/mariamem/internal/runtimekind"
 	"github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
@@ -44,7 +45,7 @@ type Rejected struct {
 func (e *Rejected) Error() string { return e.Message }
 
 func Start(ctx context.Context, runtime, module, wasmerDir, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (server *Server, err error) {
-	return start(ctx, runtime, module, wasmerDir, restore, timeout, stderr, nil)
+	return start(ctx, runtime, module, wasmerDir, restore, timeout, stderr, nil, runtimekind.Wasmer)
 }
 
 // StartVerified carries native integrity established by the in-process caller.
@@ -53,10 +54,18 @@ func StartVerified(ctx context.Context, bundle artifacts.Bundle, wasmerDir, rest
 	if err := bundle.ClaimStartupIdentity(); err != nil {
 		return nil, err
 	}
-	return start(ctx, bundle.Runtime, bundle.Module, wasmerDir, restore, timeout, stderr, &bundle)
+	return start(ctx, bundle.Runtime, bundle.Module, wasmerDir, restore, timeout, stderr, &bundle, runtimekind.Wasmer)
 }
 
-func start(ctx context.Context, runtime, module, wasmerDir, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }, verified *artifacts.Bundle) (server *Server, err error) {
+// StartGenerated uses compiled guest identity and the same snapshot/transport contract.
+func StartGenerated(ctx context.Context, executable, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (*Server, error) {
+	if err := artifacts.ValidatePlatform(ctx); err != nil {
+		return nil, err
+	}
+	return start(ctx, executable, runtimekind.GuestSHA256, "", restore, timeout, stderr, nil, runtimekind.GeneratedGo)
+}
+
+func start(ctx context.Context, runtime, module, wasmerDir, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }, verified *artifacts.Bundle, kind runtimekind.Kind) (server *Server, err error) {
 	ctx, finishTiming := timing.Begin(ctx, "startup")
 	defer finishTiming()
 	defer func() {
@@ -71,6 +80,8 @@ func start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 	var metadataErr error
 	if verified != nil {
 		build, metadataErr = verified.CheckStartupIdentity(runtime, module)
+	} else if kind == runtimekind.GeneratedGo {
+		build = runtimekind.GuestSHA256
 	} else {
 		build, metadataErr = snapshot.ModuleBuild(module)
 	}
@@ -103,7 +114,7 @@ func start(ctx context.Context, runtime, module, wasmerDir, restore string, time
 			return nil, err
 		}
 	}
-	p, err := guest.Start(ctx, runtime, module, wasmerDir, transfer, restore, stderr)
+	p, err := guest.StartKind(ctx, runtime, module, wasmerDir, transfer, restore, stderr, kind)
 	if err != nil {
 		os.RemoveAll(transfer)
 		return nil, err

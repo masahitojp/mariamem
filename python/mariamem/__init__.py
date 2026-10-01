@@ -55,6 +55,8 @@ class Database:
             raise HostError(str(exc), code=exc.code, stage="platform" if exc.code == "unsupported_platform" else "artifact_validation") from exc
         mark("artifacts_resolved")
         host_binary, runtime, module = (resolved[key] for key in ("host_binary", "runtime", "module"))
+        if (runtime is None) != (module is None):
+            raise ValueError("legacy runtime override requires runtime and module")
         self._options = dict(host_binary=host_binary, runtime=runtime, module=module,
                              wasmer_dir=wasmer_dir, query_timeout=query_timeout,
                              startup_timeout=startup_timeout, shutdown_timeout=shutdown_timeout)
@@ -75,9 +77,10 @@ class Database:
         except BaseException:
             self._temporary.cleanup()
             raise
-        argv = [str(Path(host_binary).absolute()), "--runtime", str(Path(runtime).absolute()),
-                "--module", str(Path(module).absolute()), "--query-timeout", f"{query_timeout}s",
+        argv = [str(Path(host_binary).absolute()), "--query-timeout", f"{query_timeout}s",
                 "--startup-timeout", f"{startup_timeout}s", "--shutdown-timeout", f"{shutdown_timeout}s"]
+        if runtime is not None or module is not None:
+            argv += ["--runtime", str(Path(runtime).absolute()), "--module", str(Path(module).absolute())]
         if wasmer_dir is not None:
             argv += ["--wasmer-dir", str(Path(wasmer_dir).absolute())]
         if snapshot is not None:

@@ -1,5 +1,11 @@
 # v0.4 generated-Go candidate — canonical benchmarks and readiness audit
 
+**Default-migration follow-up:** generated-Go is now selected by ordinary v0.4
+Go/Python startup. This report preserves the earlier selected-bundle measurement
+boundary. See [default migration](v04-default-runtime-migration.md) for current selection, packaging and
+public-boundary delivery costs; earlier bundle numbers do not include Go's
+per-database built-in executable materialization.
+
 Latest source-build result: [reproducibility follow-up](#source-build-reproducibility-follow-up).
 
 Final canonical results: [release-preparation audit](#final-canonical-candidate-and-release-preparation-audit). Earlier sections retain the chronological investigation evidence.

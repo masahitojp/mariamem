@@ -1,5 +1,11 @@
 # v0.4 integration readiness audit
 
+**Default-migration follow-up:** generated-Go is now selected by ordinary v0.4
+Go/Python startup. This report preserves the earlier selected-bundle measurement
+boundary. See [default migration](../benchmarks/v04-default-runtime-migration.md) for current selection, packaging and
+public-boundary delivery costs; earlier bundle numbers do not include Go's
+per-database built-in executable materialization.
+
 Audit source: `a06773e5296be5cc3c3657e9e48785fba7bd6d25`.
 This separates the selected local generated-Go candidate from released v0.3.
 Architecture exploration is closed. No ready-heap reentry, CoW redesign, runtime

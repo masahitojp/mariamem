@@ -3,6 +3,27 @@
 The repository is self-contained: no files from an earlier investigation workspace
 are required. Downloaded inputs and all build products live under ignored `build/`.
 
+## v0.4 default-path checks
+
+Generated-Go is the default. Use pinned Go1.26.8 for developer commands:
+
+```sh
+GOTOOLCHAIN=go1.26.8 python3 scripts/verify.py check
+GOTOOLCHAIN=go1.26.8 python3 scripts/verify.py integration
+# Explicit legacy Wasmer coverage:
+MARIAMEM_NATIVE_DIR=/path/to/legacy-native GOTOOLCHAIN=go1.26.8 python3 scripts/verify.py integration
+```
+
+Without an override, integration runs generated-Go race/lifecycle/default
+Snapshot/Fork tests and Python host-only lifecycle checks. Explicit legacy
+integration retains Wasmer coverage; the default-isolation test deliberately
+clears that override. `tests/integration.py` and `tests/snapshots.py` select host-only
+checks with `MARIAMEM_TEST_DEFAULT=1`. Installed-wheel SQLAlchemy and outside-checkout
+GORM remain separate consumer acceptance. Generated source/image checks run in
+`check`; the narrow generated-function vet exception is documented in the
+[architecture](v04-generated-go-architecture.md). The older bundle/AOT workflow
+below remains available for explicit legacy/fallback builds, not normal v0.4 use.
+
 ## Requirements
 
 - macOS 15+ arm64 or Ubuntu 24.04 LTS x86_64 for native AOT/package builds.
@@ -77,7 +98,8 @@ or release assets.
 `check` runs Go unit tests, Go vet, checkout Python tests, and the public-source
 check, plus the cheap release-version consistency check. It clears native test
 settings so the opt-in real-host tests remain skipped.
-`integration` requires the native bundle, runs the real-guest Go tests with the
+`integration` uses generated-Go by default or an explicitly supplied legacy
+native bundle, runs the real-guest Go tests with the
 race detector, builds a temporary current Go host, and runs the Python timeout
 and multi-client tests. Neither command runs `tests/consumer`, which must import
 an **installed wheel from outside the checkout**. The older `integration.py` and

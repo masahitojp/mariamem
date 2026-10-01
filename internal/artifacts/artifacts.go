@@ -14,12 +14,14 @@ import (
 	"strings"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/runtimekind"
 	"github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 type Bundle struct {
 	Dir, Runtime, Module, Build string
+	Kind                        runtimekind.Kind
 	verified                    *startupIdentity
 }
 
@@ -33,6 +35,18 @@ func ResolveTimed(ctx context.Context, dir string) (Bundle, error) {
 	}
 	timing.Mark(ctx, "platform_checked")
 	return resolveTimed(ctx, dir, platform, major)
+}
+
+// ValidatePlatform checks supported OS/architecture without runtime discovery.
+func ValidatePlatform(ctx context.Context) error {
+	platform, major, err := currentTarget(ctx)
+	if err != nil {
+		return err
+	}
+	if platform == "darwin-arm64" && major < 15 {
+		return diagnostic.Wrap("unsupported_platform", "platform", fmt.Errorf("requires macOS15+ arm64"))
+	}
+	return nil
 }
 
 func currentTarget(ctx context.Context) (string, int, error) {
@@ -101,6 +115,7 @@ func resolveTimed(ctx context.Context, dir, platform string, major int) (b Bundl
 		return b, err
 	}
 	var m struct {
+		Kind         runtimekind.Kind  `json:"runtime_kind"`
 		Version      int               `json:"version"`
 		Platform     string            `json:"platform"`
 		Minimum      int               `json:"minimum_macos"`
@@ -164,7 +179,13 @@ func resolveTimed(ctx context.Context, dir, platform string, major int) (b Bundl
 	if err != nil {
 		return b, err
 	}
-	b = Bundle{Dir: root, Runtime: filepath.Join(root, "wasmer-headless"), Module: filepath.Join(root, "mariamem.wasmu")}
+	if m.Kind == "" {
+		m.Kind = runtimekind.Wasmer
+	}
+	if m.Kind != runtimekind.Wasmer && m.Kind != runtimekind.GeneratedGo {
+		return b, fmt.Errorf("unsupported runtime kind: %q", m.Kind)
+	}
+	b = Bundle{Kind: m.Kind, Dir: root, Runtime: filepath.Join(root, "wasmer-headless"), Module: filepath.Join(root, "mariamem.wasmu")}
 	b.Build, err = snapshot.ModuleBuildWithDigestTimed(ctx, b.Module, m.Hashes["mariamem.wasmu"])
 	if err != nil {
 		return b, err

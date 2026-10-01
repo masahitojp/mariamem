@@ -26,6 +26,8 @@ def main():
     if os.environ.get("MARIAMEM_NATIVE_DIR"):
         native = Path(os.environ["MARIAMEM_NATIVE_DIR"]).resolve()
         options.update(runtime=native / "wasmer-headless", module=native / "mariamem.wasmu")
+    if os.environ.get("MARIAMEM_TEST_DEFAULT")=="1":
+        options=dict(host_binary=binary)
     report = {"run_directory": str(run), "checks": []}
     active, connections = [], []
 
