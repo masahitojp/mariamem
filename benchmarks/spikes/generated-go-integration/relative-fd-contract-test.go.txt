@@ -1,0 +1,69 @@
+package base
+
+import (
+	"encoding/binary"
+	"sync/atomic"
+	"testing"
+)
+
+// Gate a rename between relative-path resolution and opening, deterministically.
+// A directory descriptor must continue to identify its opened directory.
+type renameBetweenResolveAndOpen struct {
+	*MemFS
+	armed bool
+}
+
+func (f *renameBetweenResolveAndOpen) DirectoryPath(d *memFile) (string, bool) {
+	p, ok := f.MemFS.DirectoryPath(d)
+	if ok && f.armed {
+		f.armed = false
+		if err := f.Rename("a", "original"); err != nil {
+			panic(err)
+		}
+		if err := f.Mkdir("a", 0700); err != nil {
+			panic(err)
+		}
+		if err := f.WriteFile("a/value", []byte("replacement"), 0600); err != nil {
+			panic(err)
+		}
+	}
+	return p, ok
+}
+func TestRelativeDirectoryIdentityDuringRename(t *testing.T) {
+	fs := &renameBetweenResolveAndOpen{MemFS: NewMemFS()}
+	if err := fs.Mkdir("a", 0700); err != nil {
+		t.Fatal(err)
+	}
+	if err := fs.WriteFile("a/value", []byte("original"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	w := DefaultWASI()
+	w.SetFS(fs)
+	dir, rc := w.pathOpen("a", 0, 2, (1<<13)|(1<<18)|2, 0)
+	if rc != 0 {
+		t.Fatal(rc)
+	}
+	size := &atomic.Uint64{}
+	size.Store(65536)
+	m := &Module{Memory: make([]byte, 65536), MemSize: size}
+	copy(m.Memory, "value")
+	fs.armed = true
+	rc = OpenRelative(w, m, dir, 0, 0, 5, 0, 2, 0, 0, 128)
+	if rc != 0 {
+		t.Fatal(rc)
+	}
+	fd := int32(binary.LittleEndian.Uint32(m.Memory[128:]))
+	w.mu.Lock()
+	f := w.fdTable[fd].f
+	w.mu.Unlock()
+	b := make([]byte, 32)
+	n, err := f.Read(b)
+	if n == 0 && err != nil {
+		t.Fatal(err)
+	}
+	if string(b[:n]) != "original" {
+		t.Fatalf("directory FD rebound by pathname: got %q, want original", b[:n])
+	}
+	_ = w.Fd_close(m, fd)
+	_ = w.Fd_close(m, dir)
+}

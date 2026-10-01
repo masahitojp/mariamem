@@ -101,7 +101,7 @@ def reaped(db, pids, directory):
 
 @pytest.fixture(scope="session", autouse=True)
 def audit():
-    assert mariamem.__version__ == "0.2.0"
+    assert mariamem.__version__ == "0.3.0"
     assert Path(mariamem.__file__).resolve().is_relative_to(Path(sys.prefix).resolve())
     native_override = os.environ.get("MARIAMEM_NATIVE_DIR")
     result = {"mode": os.environ["DOGFOOD_MODE"], "python": platform.python_version(),

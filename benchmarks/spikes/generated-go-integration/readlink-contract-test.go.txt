@@ -1,0 +1,31 @@
+package main
+
+import (
+	"encoding/binary"
+	"example.com/mariamem-spike/generated/base"
+	"sync/atomic"
+	"testing"
+)
+
+func TestReadlinkRegularAndMissing(t *testing.T) {
+	fs := base.NewMemFS()
+	if err := fs.WriteFile("regular", []byte("data"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	w := base.DefaultWASI()
+	w.SetFS(entropyFS{fs})
+	size := &atomic.Uint64{}
+	size.Store(65536)
+	m := &base.Module{Memory: make([]byte, 65536), MemSize: size}
+	for _, c := range []struct {
+		name string
+		want int32
+	}{{"regular", 28}, {"missing", 44}} {
+		copy(m.Memory, c.name)
+		binary.LittleEndian.PutUint32(m.Memory[100:], 999)
+		rc := w.Path_readlink(m, 3, 0, int32(len(c.name)), 256, 128, 100)
+		if rc != c.want {
+			t.Errorf("readlink %s: rc=%d want=%d", c.name, rc, c.want)
+		}
+	}
+}

@@ -100,16 +100,17 @@ func prepare(t *testing.T, orm *gorm.DB) {
 }
 func childPIDs(t *testing.T) []string {
 	t.Helper()
-	out, err := exec.Command("ps", "-axo", "pid=,ppid=,comm=").Output()
-	require(t, err)
-	var ids []string
-	for _, line := range strings.Split(string(out), "\n") {
-		f := strings.Fields(line)
-		if len(f) >= 3 && f[1] == strconv.Itoa(os.Getpid()) && strings.Contains(strings.Join(f[2:], " "), "wasmer") {
-			ids = append(ids, f[0])
+	// Match the product integration observer: every direct child counts,
+	// independently of which runtime executable implements the guest.
+	out, err := exec.Command("pgrep", "-P", strconv.Itoa(os.Getpid())).Output()
+	if err != nil {
+		var exit *exec.ExitError
+		if errors.As(err, &exit) && exit.ExitCode() == 1 {
+			return nil
 		}
+		require(t, err)
 	}
-	return ids
+	return strings.Fields(string(out))
 }
 
 func TestDogfood(t *testing.T) {

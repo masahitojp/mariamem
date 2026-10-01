@@ -1,0 +1,107 @@
+package base
+
+import (
+	"encoding/binary"
+	"path"
+)
+
+// Diagnostic relative-FD adapter, not a complete descriptor-capability layer.
+func relativePath(w *WasiStubs, fd int32, p string) (string, int32) {
+	if fd == 3 {
+		return p, 0
+	}
+	w.mu.Lock()
+	op := w.fdTable[fd]
+	fsys := w.fsys
+	w.mu.Unlock()
+	if op == nil {
+		return "", _wasiEBADF
+	}
+	if !op.isDir {
+		return "", _wasiENOTDIR
+	}
+	// Resolve a MemFS directory by object identity, not its stale open path.
+	mf, ok := op.f.(*memFile)
+	fs, okfs := fsys.(interface{ DirectoryPath(*memFile) (string, bool) })
+	if ok && okfs {
+		s, found := fs.DirectoryPath(mf)
+		if !found {
+			return "", _wasiENOENT
+		}
+		return path.Join(s, p), 0
+	}
+	return path.Join(op.path, p), 0
+}
+func (fs *MemFS) DirectoryPath(f *memFile) (string, bool) {
+	fs.mu.Lock()
+	defer fs.mu.Unlock()
+	var result string
+	found := false
+	var walk func(*memNode, string)
+	walk = func(n *memNode, p string) {
+		if n == f.node {
+			result = p
+			found = true
+			return
+		}
+		if n.dir {
+			for name, c := range n.children {
+				walk(c, path.Join(p, name))
+			}
+		}
+	}
+	walk(fs.root, "/")
+	return result, found
+}
+func OpenRelative(w *WasiStubs, m *Module, fd, flags, ptr, n, oflags int32, rights, inherited int64, fdflags, out int32) int32 {
+	b := w.memSlice(m, ptr, n)
+	o := w.memSlice(m, out, 4)
+	if b == nil || o == nil {
+		return _wasiEFAULT
+	}
+	p, rc := relativePath(w, fd, string(b))
+	if rc != 0 {
+		return rc
+	}
+	id, rc := w.pathOpen(p, flags, oflags, rights, fdflags)
+	if rc == 0 {
+		binary.LittleEndian.PutUint32(o, uint32(id))
+	}
+	return rc
+}
+func ReadlinkRelative(w *WasiStubs, m *Module, fd, ptr, n, buf, size, out int32) int32 {
+	b := w.memSlice(m, ptr, n)
+	o := w.memSlice(m, out, 4)
+	dest := w.memSlice(m, buf, size)
+	if b == nil || o == nil || dest == nil {
+		return _wasiEFAULT
+	}
+	p, rc := relativePath(w, fd, string(b))
+	if rc != 0 {
+		return rc
+	}
+	s, err := w.fsys.Readlink(p)
+	if err != nil {
+		return mapOSError(err)
+	}
+	nn := copy(dest, s)
+	binary.LittleEndian.PutUint32(o, uint32(nn))
+	return 0
+}
+func StatRelative(w *WasiStubs, m *Module, fd, flags, ptr, n, out int32) int32 {
+	b := w.memSlice(m, ptr, n)
+	o := w.memSlice(m, out, 64)
+	if b == nil || o == nil {
+		return _wasiEFAULT
+	}
+	p, rc := relativePath(w, fd, string(b))
+	if rc != 0 {
+		return rc
+	}
+	st, err := w.fsys.Lstat(p)
+	if err != nil {
+		return mapOSError(err)
+	}
+	writeFilestat(o, st)
+	return 0
+}

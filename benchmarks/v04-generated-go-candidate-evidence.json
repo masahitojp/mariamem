@@ -1,0 +1,387 @@
+{
+  "source_sha": "8b368a79eb3a0070f84168b1c70a1e2896e4a5ca",
+  "branch": "v0.4/generated-go-integration",
+  "candidate_enabled": false,
+  "release_readiness": "NOT READY — BLOCKERS REMAIN",
+  "guest_wasm_sha256": "6a2e1a8c00da1953cf0379e6cf5464c0f3f3668de674467673ee701230dd27d3",
+  "converter_commit": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+  "generated_base_sha256": "7d747bfb5114b80aac248ab0792f08a0f660f53c0859ba379ec8c3b36aff04f0",
+  "diagnostic_probe_sha256": "61f77199dc2baf5c888a99bac0a9c20becfc54b09ddf973997f12cb6d54db867",
+  "environment": {
+    "os": "macOS 27.0 (26A428)",
+    "arch": "arm64",
+    "hardware": "Apple M1, 16 GiB",
+    "go": "1.26.8",
+    "python": "3.14.7",
+    "ubuntu_acceptance": "not run"
+  },
+  "sql_comparison": {
+    "generated": [
+      {
+        "sql": "SELECT 1",
+        "ok": true
+      },
+      {
+        "sql": "DESCRIBE missing_gate",
+        "ok": false,
+        "errno": 1030,
+        "error": "Got error 29 \"I/O error\" from storage engine Aria",
+        "sqlstate": "HY000"
+      },
+      {
+        "sql": "CREATE TABLE gate(id INT PRIMARY KEY) ENGINE=InnoDB",
+        "ok": true
+      },
+      {
+        "sql": "SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema=DATABASE()",
+        "ok": true
+      },
+      {
+        "sql": "SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='gate'",
+        "ok": false,
+        "errno": 1030,
+        "error": "Got error 29 \"I/O error\" from storage engine Aria",
+        "sqlstate": "HY000"
+      },
+      {
+        "sql": "CREATE TABLE aria_gate(id INT PRIMARY KEY) ENGINE=Aria",
+        "ok": true
+      },
+      {
+        "sql": "INSERT INTO aria_gate VALUES(1)",
+        "ok": false,
+        "errno": 1030,
+        "error": "Got error 29 \"I/O error\" from storage engine Aria",
+        "sqlstate": "HY000"
+      },
+      {
+        "sql": "SELECT * FROM aria_gate",
+        "ok": false,
+        "errno": 1030,
+        "error": "Got error 29 \"I/O error\" from storage engine Aria",
+        "sqlstate": "HY000"
+      },
+      {
+        "sql": "SHOW TABLES",
+        "ok": true
+      },
+      {
+        "sql": "SHOW COLUMNS FROM gate",
+        "ok": false,
+        "errno": 1030,
+        "error": "Got error 29 \"I/O error\" from storage engine Aria",
+        "sqlstate": "HY000"
+      },
+      {
+        "sql": "DESCRIBE gate",
+        "ok": false,
+        "errno": 1030,
+        "error": "Got error 29 \"I/O error\" from storage engine Aria",
+        "sqlstate": "HY000"
+      }
+    ],
+    "wasmer": [
+      {
+        "sql": "SELECT 1",
+        "ok": true
+      },
+      {
+        "sql": "DESCRIBE missing_gate",
+        "ok": false,
+        "errno": 1146,
+        "error": "Table 'test.missing_gate' doesn't exist",
+        "sqlstate": "42S02"
+      },
+      {
+        "sql": "CREATE TABLE gate(id INT PRIMARY KEY) ENGINE=InnoDB",
+        "ok": true
+      },
+      {
+        "sql": "SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema=DATABASE()",
+        "ok": true
+      },
+      {
+        "sql": "SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='gate'",
+        "ok": true
+      },
+      {
+        "sql": "CREATE TABLE aria_gate(id INT PRIMARY KEY) ENGINE=Aria",
+        "ok": true
+      },
+      {
+        "sql": "INSERT INTO aria_gate VALUES(1)",
+        "ok": true
+      },
+      {
+        "sql": "SELECT * FROM aria_gate",
+        "ok": true
+      },
+      {
+        "sql": "SHOW TABLES",
+        "ok": true
+      },
+      {
+        "sql": "SHOW COLUMNS FROM gate",
+        "ok": true
+      },
+      {
+        "sql": "DESCRIBE gate",
+        "ok": true
+      }
+    ],
+    "readlink_fix_only": [
+      {
+        "sql": "DESCRIBE missing_gate",
+        "ok": false,
+        "errno": 1030,
+        "error": "Got error 8 \"Bad file descriptor\" from storage engine Aria",
+        "sqlstate": "HY000"
+      },
+      {
+        "sql": "CREATE TABLE gate(id INT PRIMARY KEY) ENGINE=InnoDB",
+        "ok": true
+      },
+      {
+        "sql": "DESCRIBE gate",
+        "ok": false,
+        "errno": 1030,
+        "error": "Got error 8 \"Bad file descriptor\" from storage engine Aria",
+        "sqlstate": "HY000"
+      },
+      {
+        "sql": "SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='gate'",
+        "ok": false,
+        "errno": 1030,
+        "error": "Got error 8 \"Bad file descriptor\" from storage engine Aria",
+        "sqlstate": "HY000"
+      },
+      {
+        "sql": "CREATE TABLE aria_gate(id INT PRIMARY KEY) ENGINE=Aria",
+        "ok": true
+      },
+      {
+        "sql": "INSERT INTO aria_gate VALUES(1)",
+        "ok": false,
+        "errno": 1030,
+        "error": "Got error 8 \"Bad file descriptor\" from storage engine Aria",
+        "sqlstate": "HY000"
+      },
+      {
+        "sql": "SELECT * FROM aria_gate",
+        "ok": false,
+        "errno": 1030,
+        "error": "Got error 8 \"Bad file descriptor\" from storage engine Aria",
+        "sqlstate": "HY000"
+      }
+    ],
+    "readlink_and_relative_fd": [
+      {
+        "sql": "SELECT 1",
+        "ok": true
+      },
+      {
+        "sql": "DESCRIBE missing_gate",
+        "ok": false,
+        "errno": 1146,
+        "error": "Table 'test.missing_gate' doesn't exist",
+        "sqlstate": "42S02"
+      },
+      {
+        "sql": "CREATE TABLE gate(id INT PRIMARY KEY) ENGINE=InnoDB",
+        "ok": true
+      },
+      {
+        "sql": "DESCRIBE gate",
+        "ok": true
+      },
+      {
+        "sql": "SHOW COLUMNS FROM gate",
+        "ok": true
+      },
+      {
+        "sql": "SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='gate'",
+        "ok": true
+      },
+      {
+        "sql": "CREATE TABLE aria_gate(id INT PRIMARY KEY) ENGINE=Aria",
+        "ok": true
+      },
+      {
+        "sql": "INSERT INTO aria_gate VALUES(1)",
+        "ok": true
+      },
+      {
+        "sql": "SELECT * FROM aria_gate",
+        "ok": true
+      }
+    ]
+  },
+  "fd_gate": {
+    "native": {
+      "contract": "opened-directory identity survives rename and path reuse",
+      "native_result": "original",
+      "expected": "original",
+      "passed": true
+    },
+    "adapter_result": "replacement",
+    "adapter_expected": "original",
+    "adapter_test_exit_code": 1,
+    "reproducible_setup_test_exit_code": 1,
+    "race_detector_diagnostic": false,
+    "reason": "filesystem TOCTOU / descriptor identity loss, not Go data race; FS operations are individually locked",
+    "disposition": "do not promote this adapter into the production runtime"
+  },
+  "readlink_gate": {
+    "before": {
+      "regular_errno": 29,
+      "missing_errno": 29,
+      "passed": false
+    },
+    "after": {
+      "regular_errno": 28,
+      "missing_errno": 44,
+      "passed": true
+    }
+  },
+  "orm_preflight": {
+    "boundary": "public wrappers + existing host + diagnostic generated guest file-transfer adapter; not production acceptance",
+    "sqlalchemy": [
+      {
+        "name": "1-start",
+        "mode": "start",
+        "returncode": 0,
+        "suite_seconds": 3.2749038339825347,
+        "junit": [
+          {
+            "name": "pytest",
+            "errors": "0",
+            "failures": "0",
+            "skipped": "0",
+            "tests": "11",
+            "time": "2.574",
+            "timestamp": "2026-10-01T17:47:01.743502+09:00",
+            "hostname": "MacBookAir"
+          }
+        ]
+      },
+      {
+        "name": "2-fork",
+        "mode": "fork",
+        "returncode": 0,
+        "suite_seconds": 8.76912974996958,
+        "junit": [
+          {
+            "name": "pytest",
+            "errors": "0",
+            "failures": "0",
+            "skipped": "0",
+            "tests": "11",
+            "time": "8.494",
+            "timestamp": "2026-10-01T17:47:04.650903+09:00",
+            "hostname": "MacBookAir"
+          }
+        ]
+      },
+      {
+        "name": "3-fork",
+        "mode": "fork",
+        "returncode": 0,
+        "suite_seconds": 8.211384291993454,
+        "junit": [
+          {
+            "name": "pytest",
+            "errors": "0",
+            "failures": "0",
+            "skipped": "0",
+            "tests": "11",
+            "time": "7.944",
+            "timestamp": "2026-10-01T17:47:13.414935+09:00",
+            "hostname": "MacBookAir"
+          }
+        ]
+      },
+      {
+        "name": "4-start",
+        "mode": "start",
+        "returncode": 0,
+        "suite_seconds": 1.3485961670521647,
+        "junit": [
+          {
+            "name": "pytest",
+            "errors": "0",
+            "failures": "0",
+            "skipped": "0",
+            "tests": "11",
+            "time": "1.087",
+            "timestamp": "2026-10-01T17:47:21.620372+09:00",
+            "hostname": "MacBookAir"
+          }
+        ]
+      }
+    ],
+    "gorm": [
+      {
+        "name": "1-start",
+        "exit_code": 0,
+        "runner_seconds": 2.5752954579656944
+      },
+      {
+        "name": "2-fork",
+        "exit_code": 0,
+        "runner_seconds": 8.100332000060007
+      },
+      {
+        "name": "3-fork",
+        "exit_code": 0,
+        "runner_seconds": 8.251297916984186
+      },
+      {
+        "name": "4-start",
+        "exit_code": 0,
+        "runner_seconds": 5.3162990000564605
+      }
+    ]
+  },
+  "checks": {
+    "generated_guest_existing_integration": {
+      "go_race_seconds": 20.749,
+      "python_passed": 3,
+      "python_seconds": 1.59
+    },
+    "auth_selftest_exit_code": 0,
+    "normal_check": {
+      "go_test": "passed",
+      "go_vet": "passed",
+      "python_passed": 368,
+      "python_skipped": 3,
+      "python_seconds": 9.75,
+      "public_source": "passed",
+      "public_source_files": 390,
+      "log_sha256": "f91a815a69355ae980150eda3627929dca0c068e629445b0d9c18b30326ef018"
+    },
+    "production_wasmer_integration": {
+      "go_race_seconds": 8.818,
+      "python_passed": 3,
+      "python_seconds": 2.41
+    },
+    "diff_check": "passed"
+  },
+  "candidate_benchmarks": {
+    "start_p50_ms": null,
+    "start_p95_ms": null,
+    "prepared_child_p50_ms": null,
+    "prepared_child_p95_ms": null,
+    "physical_mib_per_db": null,
+    "x16_total_physical_gib": null,
+    "sqlalchemy_100_test_seconds": null
+  },
+  "diagnostic_templates_sha256": {
+    "README.md": "106c40eed6894b1883a135d6675ff3015b2ffb86d57bec1d2d1fa6e49b27cc9a",
+    "io-audit-base.go.txt": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
+    "io-driver.go.txt": "1f08e2c885ad14d48e17326399d4d83696360d02ac22f15c35125f1cade51d97",
+    "readlink-contract-test.go.txt": "85ed0755df28767cda62c3e5f7a4889266687df1c4d959abde51183cb8f5226d",
+    "relative-fd-base.go.txt": "220be484f2759cba1b999fba6c6c268b5e634b53383a94e97d53276cfc01728d",
+    "relative-fd-contract-test.go.txt": "22d2574006f7a1f51f95a731d048926672091d4e4b4f2773f419a76a599cfb7b",
+    "setup_audit.py": "bf97313332188c39bd9add9190ca998a97d68fe1c423579cce05055e41b9cc9b"
+  }
+}
