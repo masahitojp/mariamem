@@ -1,5 +1,47 @@
 # Isolated wasm2go feasibility experiments
 
+## Lost-wake semantics reduction
+
+`pthread-signal-order.c` uses actual pthread conditions and a separate control
+condition to force the two source orderings. It deliberately retains the guest's
+one-second deadline. This is not a MariaDB benchmark or a production change.
+
+```sh
+mkdir -p benchmarks/results/wasm2go-lost-wake
+clang -std=c11 -O2 -pthread benchmarks/spikes/wasm2go/pthread-signal-order.c \
+  -o benchmarks/results/wasm2go-lost-wake/pthread-native
+```
+
+Inside the existing `mariamem-wasix-build:0.4.7` image, with this repository mounted
+at `/work` and `/work` as the working directory:
+
+```sh
+wasixcc -sWASM_EXCEPTIONS=exnref -O2 -pthread \
+  benchmarks/spikes/wasm2go/pthread-signal-order.c \
+  -o benchmarks/results/wasm2go-lost-wake/pthread-exnref.wasm
+```
+
+Use the current Wasmer CLI (new EH only for this reduction; the experimental
+MariaDB guest remains legacy EH):
+
+```sh
+python3 benchmarks/spikes/wasm2go/check_pthread_order.py \
+  --native benchmarks/results/wasm2go-lost-wake/pthread-native \
+  --wasmer build/tools/wasmer/bin/wasmer \
+  --wasm benchmarks/results/wasm2go-lost-wake/pthread-exnref.wasm \
+  --runs 5 --output benchmarks/results/wasm2go-lost-wake/pthread-results.json
+```
+
+Copy `futex-host-contract-test.go.txt` to `futex_host_contract_test.go` **only inside
+the independent full-guest generated module**, alongside its existing main.go.
+Run `GOTOOLCHAIN=go1.26.8 go test -v . -run TestFutexHostEarlyNotification` there.
+The test calls the existing host methods without patching them. Copy
+`wait-contract-test.go.txt` into that module's generated/base directory to run
+`go test -race -v ./generated/base -run 'TestWaitContract|TestPageCleanerOrdering'`.
+Do not copy either test into a normal mariamem package.
+
+## Earlier experiments
+
 These are feature reductions and small, deliberately incomplete adapters. They
 are not mariamem runtime implementations and are not imported by normal Go/Python
 paths. `.go.txt` files are driver templates copied into ignored generated modules.

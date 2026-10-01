@@ -1,0 +1,703 @@
+{
+  "schema_version": 1,
+  "base_commit": "e2a7e66344123a8c51a173d84c29e7866cb50936",
+  "classification": "GUEST-SIDE BEHAVIOR",
+  "tail_result": "TAIL GUEST-SIDE — NO FIX",
+  "shim_changed": false,
+  "overall_verdict": "GREEN CANDIDATE — TAIL UNDERSTOOD",
+  "pthread_reduction": {
+    "purpose": "deterministic pthread ordering, not startup benchmark",
+    "source_sha256": "cecb4fc509212cb2bdc69f2574b4aefd834283550aab2eea7f1e275b73f71f6d",
+    "wasm_sha256": "103e036e4339c75b2815feb31b8efe363dd0318c87c8e2ab1df25ab9e1f72463",
+    "native": [
+      {
+        "run": 0,
+        "events": [
+          {
+            "early_signal": true,
+            "observed": 0,
+            "live_before_wait": 12288,
+            "timeout": true,
+            "elapsed_ms": 1005.016,
+            "valid": true
+          },
+          {
+            "early_signal": false,
+            "observed": 0,
+            "live_before_wait": 0,
+            "timeout": false,
+            "elapsed_ms": 0.011,
+            "valid": true
+          }
+        ]
+      },
+      {
+        "run": 1,
+        "events": [
+          {
+            "early_signal": true,
+            "observed": 0,
+            "live_before_wait": 12288,
+            "timeout": true,
+            "elapsed_ms": 1002.799,
+            "valid": true
+          },
+          {
+            "early_signal": false,
+            "observed": 0,
+            "live_before_wait": 0,
+            "timeout": false,
+            "elapsed_ms": 0.009,
+            "valid": true
+          }
+        ]
+      },
+      {
+        "run": 2,
+        "events": [
+          {
+            "early_signal": true,
+            "observed": 0,
+            "live_before_wait": 12288,
+            "timeout": true,
+            "elapsed_ms": 1000.082,
+            "valid": true
+          },
+          {
+            "early_signal": false,
+            "observed": 0,
+            "live_before_wait": 0,
+            "timeout": false,
+            "elapsed_ms": 0.006,
+            "valid": true
+          }
+        ]
+      },
+      {
+        "run": 3,
+        "events": [
+          {
+            "early_signal": true,
+            "observed": 0,
+            "live_before_wait": 12288,
+            "timeout": true,
+            "elapsed_ms": 1005.035,
+            "valid": true
+          },
+          {
+            "early_signal": false,
+            "observed": 0,
+            "live_before_wait": 0,
+            "timeout": false,
+            "elapsed_ms": 0.012,
+            "valid": true
+          }
+        ]
+      },
+      {
+        "run": 4,
+        "events": [
+          {
+            "early_signal": true,
+            "observed": 0,
+            "live_before_wait": 12288,
+            "timeout": true,
+            "elapsed_ms": 1005.039,
+            "valid": true
+          },
+          {
+            "early_signal": false,
+            "observed": 0,
+            "live_before_wait": 0,
+            "timeout": false,
+            "elapsed_ms": 4.082,
+            "valid": true
+          }
+        ]
+      }
+    ],
+    "wasmer": [
+      {
+        "run": 0,
+        "events": [
+          {
+            "early_signal": true,
+            "observed": 0,
+            "live_before_wait": 12288,
+            "timeout": true,
+            "elapsed_ms": 1002.408,
+            "valid": true
+          },
+          {
+            "early_signal": false,
+            "observed": 0,
+            "live_before_wait": 0,
+            "timeout": false,
+            "elapsed_ms": 0.03,
+            "valid": true
+          }
+        ]
+      },
+      {
+        "run": 1,
+        "events": [
+          {
+            "early_signal": true,
+            "observed": 0,
+            "live_before_wait": 12288,
+            "timeout": true,
+            "elapsed_ms": 1001.98,
+            "valid": true
+          },
+          {
+            "early_signal": false,
+            "observed": 0,
+            "live_before_wait": 0,
+            "timeout": false,
+            "elapsed_ms": 0.024,
+            "valid": true
+          }
+        ]
+      },
+      {
+        "run": 2,
+        "events": [
+          {
+            "early_signal": true,
+            "observed": 0,
+            "live_before_wait": 12288,
+            "timeout": true,
+            "elapsed_ms": 1002.352,
+            "valid": true
+          },
+          {
+            "early_signal": false,
+            "observed": 0,
+            "live_before_wait": 0,
+            "timeout": false,
+            "elapsed_ms": 3.84,
+            "valid": true
+          }
+        ]
+      },
+      {
+        "run": 3,
+        "events": [
+          {
+            "early_signal": true,
+            "observed": 0,
+            "live_before_wait": 12288,
+            "timeout": true,
+            "elapsed_ms": 1007.173,
+            "valid": true
+          },
+          {
+            "early_signal": false,
+            "observed": 0,
+            "live_before_wait": 0,
+            "timeout": false,
+            "elapsed_ms": 0.049,
+            "valid": true
+          }
+        ]
+      },
+      {
+        "run": 4,
+        "events": [
+          {
+            "early_signal": true,
+            "observed": 0,
+            "live_before_wait": 12288,
+            "timeout": true,
+            "elapsed_ms": 1001.509,
+            "valid": true
+          },
+          {
+            "early_signal": false,
+            "observed": 0,
+            "live_before_wait": 0,
+            "timeout": false,
+            "elapsed_ms": 0.016,
+            "valid": true
+          }
+        ]
+      }
+    ]
+  },
+  "checks": {
+    "base_contract_race": {
+      "log_sha256": "0125af7f439805c024a634f4578d0d1c7fa32c95646212a659d8c6395d938a40",
+      "tail": [
+        "=== RUN   TestWaitContract",
+        "--- PASS: TestWaitContract (0.00s)",
+        "=== RUN   TestPageCleanerOrdering",
+        "=== RUN   TestPageCleanerOrdering/signal-before-registration",
+        "    spike_contract_test.go:174: signal_delivered=false wait_result=2 elapsed=1.001530958s",
+        "=== RUN   TestPageCleanerOrdering/registered-before-signal",
+        "    spike_contract_test.go:174: signal_delivered=true wait_result=0 elapsed=4.042µs",
+        "--- PASS: TestPageCleanerOrdering (1.00s)",
+        "    --- PASS: TestPageCleanerOrdering/signal-before-registration (1.00s)",
+        "    --- PASS: TestPageCleanerOrdering/registered-before-signal (0.00s)",
+        "PASS",
+        "ok  \texample.com/mariamem-spike/generated/base\t2.326s"
+      ],
+      "tail_paths_redacted": true
+    },
+    "actual_host_contract": {
+      "log_sha256": "8041677b9fcb2e5fbbc41852cc183a984af862aee9b71791282a5d24587151da",
+      "tail": [
+        "=== RUN   TestFutexHostEarlyNotification",
+        "    futex_host_contract_test.go:52: unchanged barrier: timeout; changed barrier: immediate; no sticky wake",
+        "--- PASS: TestFutexHostEarlyNotification (1.00s)",
+        "PASS",
+        "ok  \texample.com/mariamem-spike\t1.339s"
+      ],
+      "tail_paths_redacted": true
+    },
+    "normal": {
+      "log_sha256": "f6af52fa6106d6f9f05e347b33c4706a6fe9e98c308bb75aee25d43780f880ae",
+      "tail": [
+        "ok  \tgithub.com/masahitojp/mariamem/internal/guest\t(cached)",
+        "ok  \tgithub.com/masahitojp/mariamem/internal/host\t(cached)",
+        "?   \tgithub.com/masahitojp/mariamem/internal/mysqlwire\t[no test files]",
+        "ok  \tgithub.com/masahitojp/mariamem/internal/snapshot\t(cached)",
+        "ok  \tgithub.com/masahitojp/mariamem/internal/timing\t(cached)",
+        "?   \tgithub.com/masahitojp/mariamem/scripts/guest_smoke\t[no test files]",
+        "?   \tgithub.com/masahitojp/mariamem/scripts/platform_acceptance\t[no test files]",
+        "?   \tgithub.com/masahitojp/mariamem/scripts/ubuntu_acceptance\t[no test files]",
+        "ok  \tgithub.com/masahitojp/mariamem/tests/consumer/zero_setup\t(cached)",
+        "+ go vet ./...",
+        "+ <repo>/build/sqlalchemy-dogfood/py314/bin/python -m pytest tests --ignore=tests/consumer -q",
+        "........................................................................ [ 19%]",
+        "........................................................................ [ 38%]",
+        "........................................................................ [ 58%]",
+        ".................................sss.................................... [ 77%]",
+        "........................................................................ [ 97%]",
+        "...........                                                              [100%]",
+        "368 passed, 3 skipped in 8.39s",
+        "+ <repo>/build/sqlalchemy-dogfood/py314/bin/python scripts/check_public.py",
+        "Public source check passed: 349 files"
+      ],
+      "tail_paths_redacted": true
+    },
+    "wasmer_integration": {
+      "log_sha256": "a400f36b6f4424aa24865797181ab23dbc3ceb82197c0064cb36b94d8ab3ab56",
+      "tail": [
+        "+ go test -race -tags=integration ./tests/gointegration -count=1 -timeout=3m",
+        "ok  \tgithub.com/masahitojp/mariamem/tests/gointegration\t9.022s",
+        "+ go build -o /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-mz6c05yl/mariamem-host ./cmd/mariamem-host",
+        "+ <repo>/build/sqlalchemy-dogfood/py314/bin/python -m pytest tests/test_python_timeout.py tests/test_python_multiclient.py -q",
+        "...                                                                      [100%]",
+        "3 passed in 2.33s"
+      ],
+      "tail_paths_redacted": true
+    },
+    "sql": {
+      "completed": true,
+      "exit_code": 0,
+      "records": [
+        {
+          "sql": "READY",
+          "result": {
+            "ready": true,
+            "api_version": 2,
+            "max_sessions": 16,
+            "snapshot_version": 1
+          }
+        },
+        {
+          "sql": "OPEN",
+          "result": {
+            "ok": true,
+            "api_version": 2,
+            "server_status": 2
+          }
+        },
+        {
+          "sql": "SELECT 1",
+          "result": {
+            "ok": true,
+            "affected": "1",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 2,
+            "warnings": 0,
+            "columns": [
+              {
+                "name": "1",
+                "org_name": "",
+                "table": "",
+                "org_table": "",
+                "db": "",
+                "catalog": "def",
+                "type": 3,
+                "charset": 63,
+                "flags": 32897,
+                "length": 1,
+                "decimals": 0
+              }
+            ],
+            "rows": [
+              [
+                {
+                  "$h": "31"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "sql": "CREATE TABLE spike(id INT PRIMARY KEY, v INT NOT NULL) ENGINE=InnoDB",
+          "result": {
+            "ok": true,
+            "affected": "0",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 2,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "INSERT INTO spike VALUES (1,10),(2,20)",
+          "result": {
+            "ok": true,
+            "affected": "2",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 2,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "SELECT id,v FROM spike ORDER BY id",
+          "result": {
+            "ok": true,
+            "affected": "2",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 34,
+            "warnings": 0,
+            "columns": [
+              {
+                "name": "id",
+                "org_name": "id",
+                "table": "spike",
+                "org_table": "spike",
+                "db": "test",
+                "catalog": "def",
+                "type": 3,
+                "charset": 63,
+                "flags": 53251,
+                "length": 11,
+                "decimals": 0
+              },
+              {
+                "name": "v",
+                "org_name": "v",
+                "table": "spike",
+                "org_table": "spike",
+                "db": "test",
+                "catalog": "def",
+                "type": 3,
+                "charset": 63,
+                "flags": 36865,
+                "length": 11,
+                "decimals": 0
+              }
+            ],
+            "rows": [
+              [
+                {
+                  "$h": "31"
+                },
+                {
+                  "$h": "3130"
+                }
+              ],
+              [
+                {
+                  "$h": "32"
+                },
+                {
+                  "$h": "3230"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "sql": "UPDATE spike SET v=11 WHERE id=1",
+          "result": {
+            "ok": true,
+            "affected": "1",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 2,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "DELETE FROM spike WHERE id=2",
+          "result": {
+            "ok": true,
+            "affected": "1",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 2,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "START TRANSACTION",
+          "result": {
+            "ok": true,
+            "affected": "0",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 3,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "INSERT INTO spike VALUES (3,30)",
+          "result": {
+            "ok": true,
+            "affected": "1",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 3,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "COMMIT",
+          "result": {
+            "ok": true,
+            "affected": "0",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 2,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "START TRANSACTION",
+          "result": {
+            "ok": true,
+            "affected": "0",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 3,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "UPDATE spike SET v=99 WHERE id=1",
+          "result": {
+            "ok": true,
+            "affected": "1",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 3,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "INSERT INTO spike VALUES (4,40)",
+          "result": {
+            "ok": true,
+            "affected": "1",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 3,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "ROLLBACK",
+          "result": {
+            "ok": true,
+            "affected": "0",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 2,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "SELECT id,v FROM spike ORDER BY id",
+          "result": {
+            "ok": true,
+            "affected": "2",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 34,
+            "warnings": 0,
+            "columns": [
+              {
+                "name": "id",
+                "org_name": "id",
+                "table": "spike",
+                "org_table": "spike",
+                "db": "test",
+                "catalog": "def",
+                "type": 3,
+                "charset": 63,
+                "flags": 53251,
+                "length": 11,
+                "decimals": 0
+              },
+              {
+                "name": "v",
+                "org_name": "v",
+                "table": "spike",
+                "org_table": "spike",
+                "db": "test",
+                "catalog": "def",
+                "type": 3,
+                "charset": 63,
+                "flags": 36865,
+                "length": 11,
+                "decimals": 0
+              }
+            ],
+            "rows": [
+              [
+                {
+                  "$h": "31"
+                },
+                {
+                  "$h": "3131"
+                }
+              ],
+              [
+                {
+                  "$h": "33"
+                },
+                {
+                  "$h": "3330"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "sql": "INSERT INTO spike VALUES (1,88)",
+          "result": {
+            "ok": false,
+            "errno": 1062,
+            "error": "Duplicate entry '1' for key 'PRIMARY'",
+            "sqlstate": "23000",
+            "api_version": 2,
+            "server_status": 2,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "INSERT INTO spike VALUES (5,NULL)",
+          "result": {
+            "ok": false,
+            "errno": 1048,
+            "error": "Column 'v' cannot be null",
+            "sqlstate": "23000",
+            "api_version": 2,
+            "server_status": 2,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "SELECT * FROM missing_spike_table",
+          "result": {
+            "ok": false,
+            "errno": 1146,
+            "error": "Table 'test.missing_spike_table' doesn't exist",
+            "sqlstate": "42S02",
+            "api_version": 2,
+            "server_status": 2,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "SELECT FROM",
+          "result": {
+            "ok": false,
+            "errno": 1064,
+            "error": "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM' at line 1",
+            "sqlstate": "42000",
+            "api_version": 2,
+            "server_status": 2,
+            "warnings": 0
+          }
+        },
+        {
+          "sql": "second session sees committed rows only",
+          "result": {
+            "ok": true,
+            "affected": "1",
+            "insert_id": "0",
+            "api_version": 2,
+            "server_status": 34,
+            "warnings": 0,
+            "columns": [
+              {
+                "name": "COUNT(*)",
+                "org_name": "",
+                "table": "",
+                "org_table": "",
+                "db": "",
+                "catalog": "def",
+                "type": 8,
+                "charset": 63,
+                "flags": 32897,
+                "length": 21,
+                "decimals": 0
+              }
+            ],
+            "rows": [
+              [
+                {
+                  "$h": "32"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "sql": "SHUTDOWN",
+          "exit_code": 0
+        }
+      ]
+    },
+    "authentication": {
+      "stage": "auth-check",
+      "seconds": 1.1902598750311881,
+      "exit_code": 0,
+      "timed_out": false
+    }
+  },
+  "sandbox_integration_attempt": {
+    "exit_code": 1,
+    "reason": "localhost bind: operation not permitted",
+    "unrestricted_retry_exit_code": 0
+  },
+  "preserved_user_files": {
+    "package.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "package-lock.json": "7799eaaf03912f7b42b17a86488b4f8cea533417cb6cc97e4b17f3da1208491f"
+  },
+  "hashes": {
+    "benchmarks/results/wasm2go-execution/import-patched/probe": "cd02482c3700f5f953856cad6e29610de27f44bb18627b1ebfe449adf22ffb30",
+    "build/downloads/wasix-libc-source.tar.gz": "55091ce6af5b549b3c97f61592bd2506e6a7e5da3588cb2f77a64388468ad231",
+    "build/wasm2go-legacy-eh/source/storage/innobase/buf/buf0flu.cc": "0963a352861f1a78cc3425aebebbd52582c174c99bd9e0189d831eadecaa3c71",
+    "build/runtime-notices/wasmer/lib/wasix/src/syscalls/wasix/futex_wait.rs": "4dded1c32a6e081fc4f9c42f786d430492ef44ad62a8ab5130f47c18dc79f2e4",
+    "build/runtime-notices/wasmer/lib/wasix/src/syscalls/wasix/futex_wake.rs": "ba03fe151bcbd9b35fefc919c5cbfbbe7ea3777e40bb21921cfc259f6939c1e2",
+    "benchmarks/spikes/wasm2go/execution-driver.go.txt": "a707c8e0e5c205b610aad955ea56cf94115d3e75ac7ff140e5332095cb4502cb",
+    "benchmarks/results/wasm2go-execution/import-patched/generated/base/base.go": "7d747bfb5114b80aac248ab0792f08a0f660f53c0859ba379ec8c3b36aff04f0"
+  },
+  "new_startup_benchmark": null,
+  "previous_startup_evidence": "wasm2go-tail-evidence.json",
+  "publication_check_retry": {
+    "initial_failure": "Personal absolute paths in retained command excerpts",
+    "fix": "Redact command excerpts to <repo>; retain original ignored log SHA256",
+    "final_result": "349 files passed; normal check exit 0"
+  }
+}

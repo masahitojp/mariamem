@@ -1,0 +1,53 @@
+// Copy into the isolated full-guest execution module, alongside its main.go.
+// Tests the actual host adapter, not a substitute implementation.
+package main
+
+import (
+	"encoding/binary"
+	"sync/atomic"
+	"testing"
+	"time"
+	"unsafe"
+
+	"example.com/mariamem-spike/generated/base"
+)
+
+func TestFutexHostEarlyNotification(t *testing.T) {
+	mem := make([]byte, 65536)
+	size := &atomic.Uint64{}
+	size.Store(uint64(len(mem)))
+	m := &base.Module{Memory: mem, M: unsafe.Pointer(&mem[0]), MemSize: size, MemShared: true, Threads: &base.ThreadPool{}}
+	base.ForceContendedAtomics(m)
+	h := &host{}
+	const addr, timeout, result, woke = 64, 80, 96, 97
+	word := base.AtomicPtr32At(m, addr)
+	atomic.StoreUint32(word, 2)
+	mem[timeout] = 1
+	binary.LittleEndian.PutUint64(mem[timeout+8:], uint64(time.Second))
+	// An empty wake stores no permit. If the word still equals expected,
+	// waiting until timeout is legitimate even though wake was called first.
+	if h.Futex_wake(m, addr, woke) != 0 || mem[woke] != 1 {
+		t.Fatal("empty-wake ABI differs from actual Wasmer 7.4.2")
+	}
+	start := time.Now()
+	if h.Futex_wait(m, addr, 2, timeout, result) != 0 || mem[result] != 0 {
+		t.Fatal("unchanged word did not time out")
+	}
+	if time.Since(start) < 900*time.Millisecond {
+		t.Fatal("early wake incorrectly retained a permit")
+	}
+	// A registered musl condition waiter has its barrier changed before wake.
+	// That changed value must prevent a later futex wait from sleeping.
+	atomic.StoreUint32(word, 0)
+	if h.Futex_wake(m, addr, woke) != 0 {
+		t.Fatal("wake failed")
+	}
+	start = time.Now()
+	if h.Futex_wait(m, addr, 2, timeout, result) != 0 || mem[result] != 1 {
+		t.Fatal("expected-value mismatch ABI")
+	}
+	if time.Since(start) >= 500*time.Millisecond {
+		t.Fatal("changed barrier slept")
+	}
+	t.Log("unchanged barrier: timeout; changed barrier: immediate; no sticky wake")
+}

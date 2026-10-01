@@ -737,3 +737,129 @@ ready、SELECT 1、CRUD、COMMIT/ROLLBACK、constraints/errors、2 sessions、�
 MariaDBのpage-cleaner待機順序と1秒timerで反復tailを説明でき、bounded queue/clock shimの誤動作は今回の原因として確認されなかった。
 ゲストの意味を変えるtail削減は行わない。wire/verificationを含むmedian・CPU・memory低下のsignalと、tailの不利を両方記録した。
 production-readyではなく、残るruntime-contract監査・trust/lifecycle設計が必要。CoW/runtime-sharingとの順位や次のarchitectureは選んでいない。
+
+## Lost-wake semantics validation
+
+基点 `e2a7e66344123a8c51a173d84c29e7866cb50936`。今回の分類は **GUEST-SIDE BEHAVIOR**、
+tail-specific result は **TAIL GUEST-SIDE — NO FIX**。観測された通知は条件変数への登録より前であり、
+futex queueのwakeをshimが失ったものではない。guestの既存1秒deadlineで復帰することは契約上許される。
+このraceがMariaDB作者の意図した最適動作であるとは主張しない。明示された周期timeoutと、実際のsource orderingの結果である。
+同期shim、生成器、guest、製品runtimeには修正を加えず、分離した再現テストと記録だけ追加した。
+原データ・実行結果・source/binary hashは [semantics evidence](wasm2go-lost-wake-evidence.json)。
+
+### Exact call path / expected semantics
+
+同じlegacy guest sourceの `storage/innobase/buf/buf0flu.cc`：
+
+1. 起動時のcheckpoint/flush経路は `buf_flush_wait()` (2321–2350) に到達。
+   呼び出し側は `flush_list_mutex` を保持し、`buf_flush_sync_lsn` を更新、
+   `pthread_cond_signal(&do_flush_list)`、`my_cond_wait(&done_flush_list, mutex)` を実行する。
+2. `buf_flush_page_cleaner()` は2804行で `Atomic_relaxed<lsn_t>` のtargetを読み、2816行でmutexを取得する。
+   この間にtargetが変わっても、待機前にはtargetを再確認しない。
+   `page_cleaner_idle` / dirty stateがtimed branchを選ぶと2835行の `my_cond_timedwait()` へ進む。
+   deadlineは `set_timespec(abstime, 1)`、復帰後2841行でtargetを再度読む。
+3. 非SAFE_MUTEXの `include/my_pthread.h:417–418` はpthread waitへ直接展開する。
+   WASIX libc `v2026-07-03.1` のmusl `src/thread/pthread_cond_timedwait.c` はprivate condition用に
+   **新しいstack waiterの `barrier=2`** を作り、condition listへ登録してからapplication mutexを解放する。
+4. `__timedwait_cp()` (`src/thread/__timedwait.c`) はconditionのabsolute CLOCK_REALTIME deadlineから
+   現在時刻を引きrelative nanosecondsへ変換。
+   `libc-bottom-half/sources/__wasilibc_futex.c::__wasilibc_futex_wait_wasix()` がwordを予備比較してから
+   **`wasix_32v1.futex_wait(addr, expected=2, OptionTimestamp::Some(relative_ns), result)`** を呼ぶ。
+   観測workerのtimeoutは約999.5ms、mainのdone waitは `None`。
+5. private `pthread_cond_signal()` は同じmuslファイルの `__private_cond_signal(c,1)` へ進む。
+   現在のwaiter listだけを走査し、対象nodeがあればbarrierを2→0にして
+   `__wake()` → `__wasilibc_futex_wake_wasix()` → `wasix_32v1.futex_wake`。
+   **listが空ならfuture waiter用のbarrierやpermitを保存せず、対象barrierへのfutex wakeも発行しない。**
+
+したがって質問への答えは、**futexが比較するwordが変わったなら後続waitは即時復帰する必要があるが、
+application targetだけが変わった今回の順序ではtimeoutまでの待機が有効**、である。
+target `0xf04248` の0→12288はworker stack barrier `0x1aa18694` の変更ではない。
+通知時にまだ存在しなかったbarrierは後から2で初期化され、expectedも2になる。
+condition signalは現在のwaiter向け通知であり、sticky eventではない。
+waiter登録とmutex解放のatomicityは、**mutex取得前のpredicate読取り**を保護しない。
+
+前節のguest trace #3/#11はempty condition listを直接記録している。
+slow #3では13.194msにtarget読取り、13.647msにempty-list signal、13.775msにworker登録、
+1015.351msにtimeout、1015.383–1015.488msにdone wake/main復帰。
+fast #1では14.533msにworker登録、14.964msにnonempty-list signal、15.046msにwake、15.082msに復帰。
+さらにmain側ではsignal後・futex登録前のbarrier変更をexpected比較で検出し、即時復帰した。
+sourceと同一SHAのsymbolmap、時系列、addressesは前節と既存 [tail evidence](wasm2go-tail-evidence.json) を維持した。
+
+### Native / current Wasmer comparison
+
+[pthread-signal-order.c](spikes/wasm2go/pthread-signal-order.c) は実際のpthreadを使った決定的な順序縮約。
+mutexと別control conditionで「target読取り→先行signal→wait」と「登録→signal」を強制する。
+timeoutはguestと同じ1秒で、短縮せず、pollや強制wakeは使わない。
+実際のMariaDBをnativeへ再ビルドしたものではなく、sourceから抽出した順序を検証するもの。
+
+同じCをnative macOS pthreadと、既存WASIXCC0.4.7 / WASIX libcの**new-EH** build→Wasmer7.4.2で各5回実行：
+
+| implementation | signal before registration | signal after registration |
+| --- | ---: | ---: |
+| native macOS pthread | 5/5 timeout、1000.082–1005.039ms | 5/5 signal復帰、0.006–4.082ms |
+| pinned WASIX libc + Wasmer7.4.2 | 5/5 timeout、1001.509–1007.173ms | 5/5 signal復帰、0.016–3.840ms |
+
+Wasmer縮約のimportsに `futex_wait/wake/wake_all`、`wasi.thread-spawn`、`clock_time_get`、shared memoryを確認。
+nativeでも「stale targetを再確認せずwait」なら同じtimeout経路を取る。
+conditionはspurious wakeを許すため、すべての合法実装で必ず1秒になるという一般保証ではない。
+既存production MariaDBのwire対照30回は500ms超0/30だったが、同じraceが不可能な証拠にはならない。
+Wasmer production MariaDB内のpage-cleaner traceやnative MariaDB全体の発生率比較は行っていない。
+実装sourceとこの縮約は、Wasmerにfuture notificationを保持する別契約がないことを支持する。
+**legacy MariaDB artifactそのもののWasmer7.4.2 cross-runtime検証不可という制限は維持**した。
+縮約のnew EHを製品・legacy guestのbuild設定へ反映していない。
+
+### Shim audit / deterministic checks
+
+監査対象は既存 `execution-driver.go.txt` のhost adapterと、同じgenerated moduleの `base.AtomicWait/AtomicNotify`。
+productionと同じWasmer7.4.2 `lib/wasix/src/syscalls/wasix/futex_wait.rs` / `futex_wake.rs` の実コードも確認した。
+Wasmerはpollerをqueueに登録してからwordを比較し、mismatchは `Success + woken=true`、timeoutはfalse。
+empty wakeの返却boolはdoc commentと異なり実コードではtrueだが、未来へのwake保存はしない。
+
+| check | generated-Go behavior / finding |
+| --- | --- |
+| compare timing / registration | `parkMu` 保持中にatomic loadでexpected比較し、同じcritical sectionでqueueへ登録。wakeも同じlockを取得し、比較→登録間のwake消失を防ぐ |
+| wake-before-wait | empty notifyはqueueを変えずpermitなし。word変更後のwaitはrc=1で即時復帰、WASIX adapterはwoken=trueへ変換 |
+| count | wakeは最大count個のchannelを閉じてqueueから除去。WASIX wake=1、wake_all=全対象、count=0はqueueを変えない |
+| timeout | relative nsをGo durationへ渡し、rc=2をwoken=falseへ変換。timeout時は同じlockでqueueから除去。既存generatorの+1msは残るが約1秒を作る原因ではない |
+| lock order / visibility | predicate loadはGo atomic、parking queueは共通mutex。guestのsignal側barrier更新はwakeに先行する。対象traceと縮約で値変更の即時検出を確認 |
+
+新しい [actual-host test](spikes/wasm2go/futex-host-contract-test.go.txt) はfull-guestの独立moduleで
+**実際のhost methods**を呼び、empty wake→未変更barrierの合法timeoutと、barrier変更→wake→後続waitの即時復帰を決定的に検証した。現行shimのままPASS。
+既存base縮約も未計装moduleで `go test -race` 再実行しPASS：100回の比較/登録boundary順序、mismatch、wake-count、
+condition先行signal（1.001531s timeout）/登録後signal（4.042µs復帰）。
+これはfaulty shimに対するbefore-fail/after-pass testではない。**bugを発見しなかったためfixを作っていない。**
+race detector成功は縮約の範囲だけであり、full guestのunsafe-memory concurrency全体の正当性証明ではない。
+zero-timeout、timerの+1ms、同時timeout/wake、signals/cancellation、異常終了等の未監査契約は残る。
+その不確実性を今回のempty-list signalの原因と混同しない。
+
+### Latency / correctness / result
+
+同期変更なしのため、200回の「修正後」startupやmemory/CPU再benchmarkは実施していない。
+従来の全sampleを残し、改善前後と呼び替えない。直近の既存100回測定値：
+
+| boundary / metric | min | p50 | p90 | p95 | p99 | max | ≥500ms / ≥900ms |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| direct ready (ms) | 25.5 | 40.3 | 53.7 | 1042.3 | 1054.1 | 1055.6 | 6/100 / 6/100 |
+| direct first SQL (ms) | 29.9 | 45.5 | 59.3 | 1046.7 | 1065.6 | 1068.0 | 6/100 / 6/100 |
+| wire + verification ready (ms) | 84.1 | 94.7 | 1105.8 | 1113.2 | 1119.4 | 1127.4 | 32/100 / 32/100 |
+| wire + verification SQL (ms) | 88.3 | 99.3 | 1117.5 | 1122.4 | 1131.0 | 1136.7 | 32/100 / 32/100 |
+
+direct最初の100回は≥500ms 4/100、≥900ms 3/100。別の613.8ms初回と、計装初回の外側1.124s/trace内52.6msは
+未帰属のまま維持。上表の高quantileは反復するpage-cleaner群の影響を受けるが、全tailを同一原因と断定しない。
+新しいstartup sampleを追加しておらず、これらを改善・除外・再分類していない。
+既存direct ready RSS約107.4MiB、×16 RSS107.8MiB/DB / footprint88.0MiB/DB、wire total CPU0.1092s
+（Wasmer対照0.3016s）は前節の探索値を参照する。今回のnative reductionの1秒はperformance比較値ではない。
+
+今回も生成Goのready/SELECT 1、CRUD、COMMIT/ROLLBACK、4種errors/constraints、2 sessions、正常終了の
+22-record workloadを再実行して成功、auth self-test成功。
+通常checkはGo unit/vet、Python **368 passed / 3 skipped**、public source **349 files**成功。
+通常Wasmer integrationは最初sandboxのlocalhost bindで失敗し、制限外で同じコマンドを再実行して
+Go race integration **9.022s**、Python **3 passed (2.33s)** 成功。
+利用者の未追跡npm filesはsource check中だけ退避し、元SHA256で復元。
+生成/test `.go` は独立go.mod内、tracked Go templateは `.go.txt`、Cもspike内に分離。`git diff --check` 成功。
+
+**Tail result: TAIL GUEST-SIDE — NO FIX**。観測順序ではtimeoutが合法であり、shim bugは見つからなかった。
+sticky wake、timeout短縮、InnoDB patchを導入しない。
+**Overall feasibility: GREEN CANDIDATE — TAIL UNDERSTOOD** を維持する。
+median/CPU/memoryのarchitecture signalは残るが、tailは残り、production-readyでもp95改善達成でもない。
+残るruntime-contract/trust/lifecycle課題、CoW/runtime-sharingとの比較未実施という範囲も変わらない。
