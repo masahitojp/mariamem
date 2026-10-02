@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+"""Reconstruct Lane B's direct-link diagnostic from explicit regenerated inputs.
+
+Never overwrites the checkout: new output must be outside it. No generated
+function/address edits, no relaxed digest gates, no executable provisioning.
+"""
+import argparse
+import hashlib
+import io
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import tarfile
+
+ROOT = Path(__file__).resolve().parents[2]
+BASE = '6940bf1ac3010a020c8a67cd366d9e26c42c4974'
+OLD = 'example.com/mariamem-spike/generated'
+NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
+
+def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--translation', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    a = p.parse_args()
+    target, translated = a.output.resolve(), a.translation.resolve()
+    if target.exists() or target.is_relative_to(ROOT): p.error('fresh external output required')
+    manifest = json.loads((translated/'input-manifest.json').read_text())
+    source = translated/'module/generated'
+    inventory = {str(f.relative_to(source)):sha(f) for f in source.rglob('*') if f.is_file()}
+    if inventory != manifest['files_sha256']: p.error('translation inventory mismatch')
+    if sha(translated/'guest.wasm') != manifest['guest_sha256']: p.error('guest digest mismatch')
+    original = json.loads((ROOT/'benchmarks/spikes/generated-go-integration/llvm23-generated-source.json').read_text())
+    for name,digest in original['files_sha256'].items():
+        if name.startswith('base/') and inventory.get(name) != digest:
+            p.error('generator/runtime changed beyond guest functions: '+name)
+    target.mkdir(parents=True)
+    archive = subprocess.check_output(['git','archive',BASE],cwd=ROOT)
+    with tarfile.open(fileobj=io.BytesIO(archive)) as t: t.extractall(target,filter='data')
+    destination = target/'internal/generatedgo/code'
+    data = (source/'data.bin').read_bytes()
+    # Same deterministic import/data representation as scripts/generate_runtime.py.
+    for file in source.glob('*.go'):
+        text = file.read_text().replace(OLD,NEW)
+        if file.name == 'generated.go':
+            text = text.replace('\t_ "embed"\n','')
+            text = text.replace('//go:embed data.bin\nvar wasm2goData_data_bin []byte',
+                'var wasm2goData_data_bin = []byte("'+''.join('\\x%02x'%b for b in data)+'")')
+        (destination/file.name).write_text(text)
+    old_sha = json.loads((target/'release/generated-go-inputs.json').read_text())['guest_sha256']
+    new_sha = manifest['guest_sha256']
+    bindings = ['internal/generatedgo/entry.go','internal/generatedgo/guest_identity.go','internal/runtimekind/kind.go']
+    for name in bindings:
+        file=target/name
+        text=file.read_text()
+        if text.count(old_sha)!=1: p.error('guest identity binding changed: '+name)
+        file.write_text(text.replace(old_sha,new_sha))
+    shutil.copytree(ROOT/'benchmarks/snapshotpreallocation',target/'benchmarks/snapshotpreallocation')
+    env=dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off')
+    subprocess.run(['gofmt','-w',*map(str,destination.glob('*.go'))],env=env,check=True)
+    generated_inventory = {str(f.relative_to(target/'internal/generatedgo')):sha(f) for f in (target/'internal/generatedgo').rglob('*') if f.is_file()}
+    record={'base_sha':BASE,'recipe_sha':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'guest_sha256':new_sha,'translation_manifest_sha256':sha(translated/'input-manifest.json'),'unchanged_base_inventory_verified':True,'identity_binding_files':bindings,'diagnostic_generated_inventory':generated_inventory,'scope':'external experiment; committed canonical generated source, executable image pins and release identity unchanged; not a release candidate'}
+    (target/'experiment-provenance.json').write_text(json.dumps(record,indent=2)+'\n')
+    print(target)
+if __name__=='__main__': main()
