@@ -15,9 +15,14 @@ Final canonical results: [release-preparation audit](#final-canonical-candidate-
 > 「Final canonical candidate and release-preparation audit」を参照。以下の初回記録は履歴として保持する。
 
 **Latest direct-link follow-up:** ordinary Go now directly links the guest.
-Full generated-guest race acceptance fails; the new canonical production benchmark
-is deferred. See [direct-link acceptance](v04-direct-link-baseline.md). Earlier
-selected-bundle/image measurements below remain historical.
+The [production direct-link canonical baseline](v04-direct-link-baseline.md) is
+complete under the explicit v0.4 normal-path scope: Start p50/p95 42.7/53.7 ms,
+Fork 126.2/187.2 ms, Snapshot 490.0/592.1 ms. Snapshot and post-Close retention
+regress; ×16 physical p50 is approximately unchanged and p95 regresses despite
+lower CPU and incremental memory p50. SQLAlchemy100 Start/Fork p50 is
+35.649/21.405 s. Full generated-guest `-race` remains a known, unsuppressed,
+non-gating v0.4 limitation; focused runtime race tests pass. Earlier selected-bundle
+and image measurements below remain historical and must not be used as this baseline.
 
 ## 初回integration結果 (023796b9)
 

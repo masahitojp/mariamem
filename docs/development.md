@@ -19,9 +19,8 @@ MARIAMEM_NATIVE_DIR=/path/to/legacy-native GOTOOLCHAIN=go1.26.8 python3 scripts/
 Without an override, integration runs non-race generated-Go lifecycle/default
 Snapshot/Fork tests, focused handwritten/runtime race tests, and Python host-only
 lifecycle checks. Explicit legacy guest integration retains `-race`; default-only
-tests always use the normal generated-Go path. Explicit legacy
-integration retains Wasmer coverage; the default-isolation test deliberately
-clears that override. `tests/integration.py` and `tests/snapshots.py` select host-only
+tests always use the normal generated-Go path, clearing that override for the
+default-isolation test. `tests/integration.py` and `tests/snapshots.py` select host-only
 checks with `MARIAMEM_TEST_DEFAULT=1`. Default integration requires normal Python
 Close/session behavior. Forced query-timeout reclamation remains separate from
 this normal-path scope: `tests/test_python_timeout.py::test_query_timeout_disposes_wrapper`

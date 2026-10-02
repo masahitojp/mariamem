@@ -392,3 +392,20 @@ Run them sequentially; suite totals include prepared setup and all teardown.
 `v04_report.py` renders the report and retains comparable observations in
 `v04-baseline-values.json`. These are comparison baselines, not performance gates
 or a decision about the next architecture.
+
+## Current v0.4 direct-link reference
+
+[Canonical production direct-link baseline](v04-direct-link-baseline.md) supersedes
+selected-bundle/native-image spike numbers for ordinary Go. Use
+`v04_candidate.py --runs 30 --scaling-runs 10` without `--native-dir`, then the
+unchanged installed-wheel `v04_orm.py --runs 3`, sequentially. Clear native/runtime
+overrides rather than setting an empty Python native path. `v04_direct_link_report.py`
+records p50/p95 comparisons, RSS and historical physical-footprint boundaries,
+raw checksums and retained post-Close footprint. `--fresh-resources-only` is a
+separate Start observation; it must not replace prepared scaling.
+
+Normal acceptance and focused handwritten/runtime race tests precede measurement.
+The full generated guest is not Go race-detector clean; the documented v0.4 scope
+retains the diagnostic/evidence without suppression and defers broader shared-memory
+adaptation to re-evaluation with the v0.5 guest/toolchain update. It is not a v0.4
+release gate. This is not a claim that the observed races are harmless.

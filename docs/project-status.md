@@ -32,8 +32,17 @@ or generated address/function patches are used. The full-guest `-race` diagnosti
 is not a v0.4 release gate; evidence/reducers remain available. Shared-memory-model
 work is deferred for re-evaluation after the planned v0.5 guest/toolchain update.
 Focused handwritten synchronization/filesystem race tests remain mandatory.
-Canonical benchmarks use normal functional acceptance; see
-[direct-link baseline](../benchmarks/v04-direct-link-baseline.md). See [architecture](v04-generated-go-architecture.md)
+Canonical normal-path measurements are complete; see
+[direct-link baseline](../benchmarks/v04-direct-link-baseline.md). Start→SQL p50/p95:
+42.7/53.7 ms; Fork→COUNT: 126.2/187.2 ms; Snapshot: 490.0/592.1 ms (regressed).
+×16 CPU p50 is 3.352 CPU-sec. ×16 incremental physical footprint is
+197.5/320.8 MiB per DB; ready total 4283.3/6255.4 MiB, and immediate post-Close
+4283.2/6255.6 MiB. Fresh Start is a separate ~90.8 MiB ready boundary.
+Prepared-state lifecycle retention is not explained; do not substitute the fresh
+figure for prepared scaling. SQLAlchemy100 Start/Fork p50: 35.649/21.405 s.
+The next bounded performance investigation is Snapshot preparation's elevated
+G(0) allocation/reference lifetime and retained footprint; no optimization was
+performed for this baseline. See [architecture](v04-generated-go-architecture.md)
 and [default migration evidence](../benchmarks/v04-default-runtime-migration.md).
 Go ordinary startup now directly links the canonical generated module in the
 consumer, without embedded image delivery or subprocess startup. Python's packaged
@@ -41,7 +50,10 @@ host likewise directly runs the guest. See the production direct-link baseline
 report for measured results; historical image-delivery measurements are superseded.
 Go 1.27.0/1.27.1 arm64 are unsupported due to upstream compiler issue #81036;
 no mariamem workaround is used. Upstream-fixed toolchains are expected to work.
-This branch is unpublished and does not imply v0.4 release readiness. Exact-byte
+Normal Close/session acceptance passes. The retained, unchanged Python forced
+query-timeout reclamation diagnostic fails with a guest cleanup deadline; that
+failure-containment boundary is separate from the normal-path baseline and is not
+claimed passing. This branch is unpublished and does not imply v0.4 release readiness. Exact-byte
 platform release acceptance and the legacy release-pipeline migration remain.
 The v0.3 sections below preserve historical/public-release context.
 
