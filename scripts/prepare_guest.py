@@ -31,14 +31,15 @@ subprocess.run(["patch", "-p1", "-i", str(ROOT / "guest/source.patch")], cwd=sou
 # A disposable experiment patch is separate from the canonical product patch.
 experimental = ROOT / "guest/experimental.patch"
 experimental_files = patch_files(ROOT)
-if experimental.exists():
-    subprocess.run(["patch", "-p1", "-i", str(experimental)], cwd=source, check=True)
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
 (source / "wasm/wire_api.inc").write_text(
     "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "resident.inc"\n')
 for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc", "init_diagnostics.inc", "prepared_auth_keys.inc"):
     shutil.copy2(ROOT / "guest" / name, source / "wasm" / name)
 shutil.copy2(ROOT / "guest/init_diagnostics.h", source / "include/mariamem_init_diagnostics.h")
+# Experimental patches may target copied overlays as well as upstream source.
+if experimental.exists():
+    subprocess.run(["patch", "-p1", "-i", str(experimental)], cwd=source, check=True)
 diagnostic_files = instrument(source)
 auth_files = prepare_auth_source(source)
 auth_header = write_header(source)
