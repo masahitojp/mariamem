@@ -60,6 +60,13 @@ static int snapshot_copy(const char *src, const char *dst, unsigned int depth)
     fclose(in);
     return -1;
   }
+  /* Cold source is stable; truncate preserves offset zero and zero-fills gaps. */
+  if (st.st_size < 0 || ftruncate(fileno(out), st.st_size))
+  {
+    fclose(in);
+    fclose(out);
+    return -1;
+  }
   unsigned char buffer[65536];
   size_t n;
   int rc= 0;
