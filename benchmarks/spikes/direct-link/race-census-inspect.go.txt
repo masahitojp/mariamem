@@ -1,0 +1,68 @@
+package main
+
+import (
+	"encoding/hex"
+	"encoding/json"
+	"os"
+	"strconv"
+
+	"github.com/goccy/wasm2go/internal/wasm"
+)
+
+func main() {
+	f, e := os.Open(os.Args[1])
+	if e != nil {
+		panic(e)
+	}
+	defer f.Close()
+	m, e := wasm.Parse(f)
+	if e != nil {
+		panic(e)
+	}
+	out := []map[string]any{}
+	for _, s := range os.Args[2:] {
+		n, e := strconv.Atoi(s)
+		if e != nil {
+			panic(e)
+		}
+		b := m.Functions[uint32(n)-m.NumImportedFuncs].Body
+		r := wasm.NewInstrReader(b)
+		c, e := r.ReadU32()
+		if e != nil {
+			panic(e)
+		}
+		for i := uint32(0); i < c; i++ {
+			r.ReadU32()
+			r.ReadByte()
+		}
+		counts := map[string]int{}
+		samples := map[string][]string{}
+		for !r.EOF() {
+			p := r.Pos()
+			op, e := r.ReadByte()
+			if e != nil {
+				panic(e)
+			}
+			if e = r.SkipImmediates(op); e != nil {
+				panic(e)
+			}
+			raw := b[p:r.Pos()]
+			if op >= 0x28 && op <= 0x3e || op == 0xfe || op == 0xfd {
+				key := hex.EncodeToString(raw[:1])
+				if op == 0xfe || op == 0xfd {
+					sub := wasm.NewInstrReader(raw[1:])
+					if _, e := sub.ReadU32(); e != nil {
+						panic(e)
+					}
+					key = hex.EncodeToString(raw[:1+sub.Pos()])
+				}
+				counts[key]++
+				if len(samples[key]) < 4 {
+					samples[key] = append(samples[key], strconv.FormatInt(int64(p), 16)+":"+hex.EncodeToString(raw))
+				}
+			}
+		}
+		out = append(out, map[string]any{"function": n, "body_bytes": len(b), "opcode_counts": counts, "first_four_body_offsets_per_opcode": samples})
+	}
+	json.NewEncoder(os.Stdout).Encode(out)
+}

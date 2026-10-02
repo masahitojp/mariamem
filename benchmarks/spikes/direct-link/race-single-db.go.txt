@@ -1,0 +1,38 @@
+package precheck
+
+import (
+	"context"
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem"
+	"testing"
+	"time"
+)
+
+func TestCensusSingleDB(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+	defer cancel()
+	t.Log("CENSUS_PHASE startup")
+	s, err := mariamem.Start(ctx, mariamem.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log("CENSUS_PHASE ready")
+	c, err := sql.Open("mysql", s.DSN())
+	if err != nil {
+		t.Fatal(err)
+	}
+	var one int
+	if err = c.QueryRowContext(ctx, "SELECT 1").Scan(&one); err != nil {
+		t.Fatal(err)
+	}
+	if one != 1 {
+		t.Fatal(one)
+	}
+	c.Close()
+	t.Log("CENSUS_PHASE close")
+	if err = s.Close(); err != nil {
+		t.Fatal(err)
+	}
+	t.Log("CENSUS_PHASE closed")
+}

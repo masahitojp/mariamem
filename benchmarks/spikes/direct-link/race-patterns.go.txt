@@ -1,0 +1,167 @@
+package precheck
+
+import (
+	"encoding/binary"
+	"github.com/masahitojp/mariamem/diagnostics/precheck/fixture"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/p6"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/p7"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/p8"
+	"sync/atomic"
+	"testing"
+	"unsafe"
+)
+
+func module() (*fixture.Module, *base.Module) {
+	f := fixture.New()
+	size := &atomic.Uint64{}
+	size.Store(65536)
+	m := &base.Module{M: f.M, Memory: unsafe.Slice((*byte)(f.M), 65536), MemSize: size, MemShared: true, Threads: &base.ThreadPool{}, G0: 32768}
+	base.ForceContendedAtomics(m)
+	return f, m
+}
+func agents(a, b func()) {
+	start, done := make(chan struct{}), make(chan struct{})
+	go func() { <-start; b(); close(done) }()
+	close(start)
+	a()
+	<-done
+}
+func TestCASRetryRace(t *testing.T) {
+	_, m := module()
+	run := func() {
+		for i := 0; i < 1000; i++ {
+			if p8.Fn212(m, 64) != 0 {
+				panic("rwlock tryrdlock failed")
+			}
+		}
+	}
+	agents(run, run)
+	if got := atomic.LoadUint32((*uint32)(unsafe.Add(m.M, 64))); got != 2000 {
+		t.Fatal(got)
+	}
+}
+func TestReleaseStoreWaitRace(t *testing.T) {
+	f, m := module()
+	agents(func() {
+		for i := 0; i < 1000; i++ {
+			if base.AtomicWait32At(m, 64, 2, 0) != 1 {
+				panic("expected mismatch")
+			}
+		}
+	}, func() {
+		for i := 0; i < 1000; i++ {
+			f.Store32(64, 0)
+			f.Store32(64, 1)
+		}
+	})
+}
+func TestScalarCounterRace(t *testing.T) {
+	f, _ := module()
+	run := func() {
+		for i := 0; i < 1000; i++ {
+			f.Inc32(64)
+		}
+	}
+	agents(run, run)
+	if got := f.Read32(64); got <= 0 || got > 2000 {
+		t.Fatal(got)
+	}
+}
+func TestSIMDRangeRace(t *testing.T) {
+	f, _ := module()
+	agents(func() {
+		for i := 0; i < 1000; i++ {
+			f.VectorRead(64)
+		}
+	}, func() {
+		for i := 0; i < 1000; i++ {
+			f.VectorStore(64, int64(i))
+		}
+	})
+}
+func TestAtomicByteReadRace(t *testing.T) {
+	f, m := module()
+	agents(func() {
+		for i := 0; i < 1000; i++ {
+			if f.Read8(66) != 0 {
+				panic("ordinary byte changed")
+			}
+		}
+	}, func() {
+		for i := 0; i < 1000; i++ {
+			if base.AtomicLoad32_8u(m, 66, 0) != 0 {
+				panic("atomic byte changed")
+			}
+		}
+	})
+}
+func TestAtomicNeighborByteRace(t *testing.T) {
+	f, m := module()
+	agents(func() {
+		for i := 0; i < 1000; i++ {
+			f.Store8(65, int32(i))
+		}
+	}, func() {
+		for i := 0; i < 1000; i++ {
+			if base.AtomicLoad32_8u(m, 66, 0) != 0 {
+				panic("neighbor damaged atomic byte")
+			}
+		}
+	})
+}
+
+// Embedding fails loudly on any unexpected import. Wait/wake use unchanged
+// canonical helpers; private scratch/stack state is separate for each agent.
+type syncHost struct{ base.Wasix_32v1Imports }
+
+func (syncHost) Futex_wait(m *base.Module, addr, expected, timeout, result int32) int32 {
+	duration := int64(-1)
+	if m.Memory[timeout] == 1 {
+		duration = int64(binary.LittleEndian.Uint64(m.Memory[timeout+8:]))
+	}
+	rc := base.AtomicWait32At(m, uint64(addr), expected, duration)
+	m.Memory[result] = 1
+	if rc == 2 {
+		m.Memory[result] = 0
+	}
+	return 0
+}
+func (syncHost) Futex_wake(m *base.Module, addr, result int32) int32 {
+	base.AtomicNotify(m, addr, 0, 1)
+	m.Memory[result] = 1
+	return 0
+}
+func (syncHost) Futex_wake_all(m *base.Module, addr, result int32) int32 {
+	base.AtomicNotify(m, addr, 0, 1<<31-1)
+	m.Memory[result] = 1
+	return 0
+}
+func TestMutexPollRace(t *testing.T) {
+	f, m := module()
+	n := *m
+	n.G0 = 49152
+	m.G1 = 1024
+	n.G1 = 1280
+	binary.LittleEndian.PutUint32(m.Memory[1028:], 2048)
+	binary.LittleEndian.PutUint32(m.Memory[1284:], 2304)
+	binary.LittleEndian.PutUint32(m.Memory[2068:], 1)
+	binary.LittleEndian.PutUint32(m.Memory[2324:], 2)
+	m.Wasix_32v1 = syncHost{}
+	n.Wasix_32v1 = m.Wasix_32v1
+	run := func(c *base.Module) {
+		for i := 0; i < 1000; i++ {
+			if p6.Fn93(c, 64) != 0 {
+				panic("mutex lock failed")
+			}
+			f.Inc32(128)
+			if p7.Fn130(c, 64) != 0 {
+				panic("mutex unlock failed")
+			}
+		}
+	}
+	agents(func() { run(m) }, func() { run(&n) })
+	if got := f.Read32(128); got != 2000 {
+		t.Fatal(got)
+	}
+}

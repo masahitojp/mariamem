@@ -23,7 +23,9 @@ was run. Other full-guest reports remain unclassified.
   `WASIXCC_WASM_EXCEPTIONS=legacy`, `WASIXCC_RUN_WASM_OPT=no`.
 
 The archived libc was checksum-verified before extraction. The final guest has
-no retained name/debug section: C function correspondence below is a structural
+no retained name section. **Correction from the scope follow-up:** DWARF custom
+sections are present, but their 6,289 decoded subprogram/inlined ranges have
+zero low/high addresses and provide no usable PC mapping. C correspondence is a structural
 match of signatures, branches, error constants, imports and synchronization
 layout, not recovered DWARF. The fresh IR probe verifies the pinned source's
 lowering; it is not presented as the original full-build IR.
@@ -173,7 +175,7 @@ futex-word precheck, retaining the imported wait protocol and timeout/wake
 behavior. But it is not an established **generic generator fix**:
 
 - The precheck is an ordinary WASM opcode, without a futex annotation; the final
-  guest has no source names. Editing Fn88 or matching its index/address would be
+  guest has no usable function-name/PC-to-source mapping. Editing Fn88 or matching its index/address would be
   artifact-specific, not a maintainable lowering rule.
 - The same barrier exchange loop already contains a second ordinary load
   (Fn219 `0x0143`). Patching only a wait helper/precheck cannot make the traced

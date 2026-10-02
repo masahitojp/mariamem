@@ -23,7 +23,9 @@ Local default-path SQLAlchemy44/GORM32 and normal wire/Snapshot/Fork pass.
 **Full generated guest race acceptance fails** on mixed ordinary/atomic linear-memory
 accesses. The traced futex precheck is a **WASM↔Go memory-model mismatch**
 ([origin investigation](../benchmarks/direct-link-futex-race-origin.md)), not an
-atomic-wait helper lowering defect. A generic adapter remains unresolved,
+atomic-wait helper lowering defect. The [scope census](../benchmarks/direct-link-race-scope.md)
+finds 149 observed signature pairs in seven access-pattern groups, including
+ordinary payload accesses and subword atomic-load widening. A generic adapter remains unresolved,
 separate from the Go1.27 compiler issue.
 Focused synchronization/filesystem race tests pass. Canonical benchmarking is
 deferred until this gate is resolved; see [direct-link acceptance](../benchmarks/v04-direct-link-baseline.md). See [architecture](v04-generated-go-architecture.md)
