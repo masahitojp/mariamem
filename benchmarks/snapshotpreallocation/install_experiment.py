@@ -21,6 +21,32 @@ NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
 
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 
+def install_function_tree(source, destination, data):
+    # Package shards contain the actual generated guest functions. Rebuild all
+    # non-base files; root-only copying can silently retain old function bodies.
+    for child in destination.iterdir():
+        if child.name == 'base': continue
+        if child.is_dir(): shutil.rmtree(child)
+        else: child.unlink()
+    transformed = []
+    for file in source.rglob('*.go'):
+        name = file.relative_to(source)
+        if name.parts[0] == 'base': continue
+        text = file.read_text().replace(OLD, NEW)
+        if name.as_posix() == 'generated.go':
+            text = text.replace('\t_ "embed"\n','')
+            marker = '//go:embed data.bin\nvar wasm2goData_data_bin []byte'
+            if text.count(marker) != 1: raise ValueError('generated data marker changed')
+            text = text.replace(marker, 'var wasm2goData_data_bin = []byte("'+''.join('\\x%02x'%b for b in data)+'")')
+        out = destination/name
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(text)
+        transformed.append(out)
+    expected = {str(f.relative_to(source)) for f in source.rglob('*.go') if f.relative_to(source).parts[0] != 'base'}
+    actual = {str(f.relative_to(destination)) for f in destination.rglob('*') if f.is_file() and f.relative_to(destination).parts[0] != 'base'}
+    if actual != expected: raise ValueError('incomplete transformed function tree')
+    return transformed
+
 def write_runtime_provenance(target, translated, manifest):
     runtime = target/'internal/generatedgo'
     hand = {'runtime_instance.go','code/base/runtime_cleanup.go'}
@@ -53,14 +79,7 @@ def main():
     with tarfile.open(fileobj=io.BytesIO(archive)) as t: t.extractall(target,filter='data')
     destination = target/'internal/generatedgo/code'
     data = (source/'data.bin').read_bytes()
-    # Same deterministic import/data representation as scripts/generate_runtime.py.
-    for file in source.glob('*.go'):
-        text = file.read_text().replace(OLD,NEW)
-        if file.name == 'generated.go':
-            text = text.replace('\t_ "embed"\n','')
-            text = text.replace('//go:embed data.bin\nvar wasm2goData_data_bin []byte',
-                'var wasm2goData_data_bin = []byte("'+''.join('\\x%02x'%b for b in data)+'")')
-        (destination/file.name).write_text(text)
+    transformed = install_function_tree(source, destination, data)
     old_sha = json.loads((target/'release/generated-go-inputs.json').read_text())['guest_sha256']
     new_sha = manifest['guest_sha256']
     bindings = ['internal/generatedgo/entry.go','internal/generatedgo/guest_identity.go','internal/runtimekind/kind.go']
@@ -71,7 +90,7 @@ def main():
         file.write_text(text.replace(old_sha,new_sha))
     shutil.copytree(ROOT/'benchmarks/snapshotpreallocation',target/'benchmarks/snapshotpreallocation')
     env=dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off')
-    subprocess.run(['gofmt','-w',*map(str,destination.glob('*.go'))],env=env,check=True)
+    subprocess.run(['gofmt','-w',*map(str,transformed)],env=env,check=True)
     write_runtime_provenance(target, translated, manifest)
     generated_inventory = {str(f.relative_to(target/'internal/generatedgo')):sha(f) for f in (target/'internal/generatedgo').rglob('*') if f.is_file()}
     record={'base_sha':BASE,'recipe_sha':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'guest_sha256':new_sha,'translation_manifest_sha256':sha(translated/'input-manifest.json'),'unchanged_base_inventory_verified':True,'identity_binding_files':bindings,'diagnostic_generated_inventory':generated_inventory,'scope':'external experiment; committed canonical generated source, executable image pins and release identity unchanged; not a release candidate'}

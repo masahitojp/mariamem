@@ -46,3 +46,26 @@ def test_presized_cold_copy_exact_contents_and_no_overwrite(tmp_path):
     (original / 'different').write_bytes(b'unrelated')
     subprocess.run([str(binary), str(moved), str(tmp_path / 'second')], check=True)
     assert (tmp_path / 'second/nested/blocks').read_bytes() == (moved / 'nested/blocks').read_bytes()
+
+
+def test_installer_replaces_nested_generated_functions_and_removes_old_code(tmp_path):
+    import runpy
+    install = runpy.run_path(str(ROOT / 'benchmarks/snapshotpreallocation/install_experiment.py'))['install_function_tree']
+    source, destination = tmp_path / 'raw', tmp_path / 'code'
+    (source / 'p0').mkdir(parents=True)
+    (source / 'base').mkdir()
+    (destination / 'p0').mkdir(parents=True)
+    (destination / 'obsolete').mkdir()
+    (destination / 'base').mkdir()
+    (source / 'generated.go').write_text('package generated\n\t_ "embed"\n//go:embed data.bin\nvar wasm2goData_data_bin []byte\n')
+    (source / 'p0/function.go').write_text('package p0\nimport "example.com/mariamem-spike/generated/base"\n// new body\n')
+    (source / 'base/base.go').write_text('raw base must not replace canonical adapter')
+    (destination / 'p0/function.go').write_text('stale body')
+    (destination / 'obsolete/stale.go').write_text('obsolete code')
+    (destination / 'base/base.go').write_text('canonical adapter')
+    files = install(source, destination, b'\x01\x02')
+    assert len(files) == 2
+    assert (destination / 'p0/function.go').read_text() == 'package p0\nimport "github.com/masahitojp/mariamem/internal/generatedgo/code/base"\n// new body\n'
+    assert (destination / 'base/base.go').read_text() == 'canonical adapter'
+    assert not (destination / 'obsolete').exists()
+    assert '\\x01\\x02' in (destination / 'generated.go').read_text()
