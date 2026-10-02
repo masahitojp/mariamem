@@ -238,3 +238,23 @@ task does not implement that contract, change source synchronization, suppress
 instrumentation, switch execution architecture or benchmark.
 
 **Final verdict: GENERAL SHARED-MEMORY MODEL WORK REQUIRED.**
+
+## v0.4 scope decision
+
+The full generated guest is currently not Go race-detector clean. This was
+investigated, not suppressed: 5,373 reports, 149 distinct conflict signatures,
+seven broad access-pattern groups, and no small sound adapter rule demonstrated
+for the whole set. The verdict remains **GENERAL SHARED-MEMORY MODEL WORK REQUIRED**.
+These are not 149 independent bugs, and the observed races are not called harmless.
+
+For v0.4 this is a known limitation, not a requirement that the full generated
+guest `-race` integration pass as a release gate. Do not suppress `-race`, add
+`//go:norace`, patch generated addresses/function indexes, make all accesses
+atomic, redesign the shared-memory adapter, or switch to subprocess execution
+because of this finding. Keep the reduced reproducers and investigation evidence.
+Focused handwritten/runtime FD, filesystem, thread, TLS and futex race tests
+remain enabled and must pass. Re-evaluate broader shared-memory adaptation after
+the planned v0.5 MariaDB/WASIX/toolchain update.
+
+This scope decision permits the normal functional acceptance and canonical
+v0.4 direct-link performance baseline; it does not establish race correctness.

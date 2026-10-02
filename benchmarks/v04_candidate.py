@@ -34,6 +34,16 @@ def main():
     report=dict(schema_version=1,completed=False,boundary='public Go Start/Fork; exact bundle verification + compiled-guest binding + MySQL wire + first SQL; prepared COUNT uses 1000 rows',environment=environment(SimpleNamespace(backend='none')),native_manifest=manifest,runs=a.runs,scaling_runs=a.scaling_runs,trials=[])
     report['source_commit']=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     report['runtime_kind']='wasmer' if native else 'direct-linked generated-Go'
+    report['benchmark']='v04_candidate'
+    report['scenario_version']='v04-public-1000rows-v1'
+    report['go_version']=subprocess.check_output(['go','version'],text=True).strip()
+    report['settings']=dict(rows=1000,workers=[1,4,8,16],startup_warmup=2,
+                            scaling_warmup_per_size=1,interval_seconds=.05,hold_seconds=.1)
+    report['memory_boundary']='sum owning process tree physical footprint on macOS (primary_bytes); RSS separately retained; incremental subtracts post-preparation G(0); immediate post-Close, no forced GC'
+    report['cpu_boundary']='sum owning process tree cumulative CPU delta from G(0) to all-ready counter collection; includes observer/version-query collection, excludes fixture/base preparation and teardown'
+    report['binary_sha256']=hashlib.sha256(binary.read_bytes()).hexdigest()
+    report['helper_sha256']=hashlib.sha256(helper.read_bytes()).hexdigest()
+    report['helper_source_sha256']=hashlib.sha256((ROOT/'benchmarks/tools/process_cost.c').read_bytes()).hexdigest()
     if not native:report['boundary']='public Go Start/Fork; compiled guest identity + snapshot verification + MySQL wire + first SQL; 1000-row fixture; same process hosts all instances'
     report['harness_sha256']={str(f.relative_to(ROOT)):hashlib.sha256(f.read_bytes()).hexdigest() for f in [Path(__file__),*sorted((ROOT/'benchmarks/goisolation').glob('*.go'))]}
     env=os.environ.copy()
@@ -62,8 +72,9 @@ def main():
             return
         for phase,count in [('warmup',2),('measurement',a.runs)]:
             for i in range(count):trial('startup',1,phase,i)
-        for i in range(a.scaling_runs):
-            for n in [1,4,8,16]:trial('batch',n,'measurement',i)
+        for phase,count in [('warmup',1),('measurement',a.scaling_runs)]:
+            for i in range(count):
+                for n in [1,4,8,16]:trial('batch',n,phase,i)
         samples=[s for t in report['trials'] if t['kind']=='startup' and t['phase']=='measurement' for s in t['report']['samples']]
         report['startup']={}
         for case in ['start_first_sql','start_seeded','snapshot','fork_first_sql']:

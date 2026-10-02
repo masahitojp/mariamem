@@ -16,19 +16,37 @@ GOTOOLCHAIN=go1.26.8 python3 scripts/verify.py integration
 MARIAMEM_NATIVE_DIR=/path/to/legacy-native GOTOOLCHAIN=go1.26.8 python3 scripts/verify.py integration
 ```
 
-Without an override, integration runs generated-Go race/lifecycle/default
-Snapshot/Fork tests and Python host-only lifecycle checks. Explicit legacy
+Without an override, integration runs non-race generated-Go lifecycle/default
+Snapshot/Fork tests, focused handwritten/runtime race tests, and Python host-only
+lifecycle checks. Explicit legacy guest integration retains `-race`; default-only
+tests always use the normal generated-Go path. Explicit legacy
 integration retains Wasmer coverage; the default-isolation test deliberately
 clears that override. `tests/integration.py` and `tests/snapshots.py` select host-only
-checks with `MARIAMEM_TEST_DEFAULT=1`. Installed-wheel SQLAlchemy and outside-checkout
+checks with `MARIAMEM_TEST_DEFAULT=1`. Default integration requires normal Python
+Close/session behavior. Forced query-timeout reclamation remains separate from
+this normal-path scope: `tests/test_python_timeout.py::test_query_timeout_disposes_wrapper`
+is retained unchanged and was observed to fail with `guest cleanup timed out`
+on direct-link. Explicit legacy integration still runs that failure-containment
+test. Do not represent it as passing for direct-link. Installed-wheel SQLAlchemy and outside-checkout
 GORM remain separate consumer acceptance. Generated source/image checks run in
 `check`; the narrow generated-function vet exception is documented in the
 [architecture](v04-generated-go-architecture.md). The older bundle/AOT workflow
 below remains available for explicit legacy/fallback builds, not normal v0.4 use.
 
-The current full generated guest race gate fails; focused shim race tests pass.
-See [direct-link acceptance](../benchmarks/v04-direct-link-baseline.md). Do not
-suppress this gate or treat earlier non-race consumer success as full acceptance.
+The full generated guest is not Go race-detector clean. The v0.4 scope decision
+retains this known limitation without suppression and does not require that
+full-guest diagnostic to pass as a release gate. See the
+[race investigation](../benchmarks/direct-link-race-scope.md) and
+[direct-link baseline](../benchmarks/v04-direct-link-baseline.md).
+Focused handwritten FD/filesystem/thread/TLS/futex race tests remain mandatory.
+Broader WASM↔Go shared-memory adaptation is deferred until the planned v0.5
+MariaDB/WASIX/toolchain update; these races are not claimed harmless.
+To observe the full-guest limitation explicitly (expected to fail, diagnostic only):
+
+```sh
+MARIAMEM_NATIVE_DIR= MARIAMEM_RUNTIME= MARIAMEM_TEST_DEFAULT=1 GOTOOLCHAIN=go1.26.8 \
+  go test -race -tags=integration ./tests/godefault -run '^TestDefaultRepeatedConcurrentLifecycle$' -count=1
+```
 
 ## Requirements
 

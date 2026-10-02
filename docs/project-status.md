@@ -20,15 +20,20 @@ runtime payload. Fresh execution state and isolated prepared files are used;
 ready-heap/live-worker restoration remains rejected.
 
 Local default-path SQLAlchemy44/GORM32 and normal wire/Snapshot/Fork pass.
-**Full generated guest race acceptance fails** on mixed ordinary/atomic linear-memory
+**Known v0.4 limitation: the full generated guest is not Go race-detector clean** on mixed ordinary/atomic linear-memory
 accesses. The traced futex precheck is a **WASM↔Go memory-model mismatch**
 ([origin investigation](../benchmarks/direct-link-futex-race-origin.md)), not an
 atomic-wait helper lowering defect. The [scope census](../benchmarks/direct-link-race-scope.md)
 finds 149 observed signature pairs in seven access-pattern groups, including
 ordinary payload accesses and subword atomic-load widening. A generic adapter remains unresolved,
 separate from the Go1.27 compiler issue.
-Focused synchronization/filesystem race tests pass. Canonical benchmarking is
-deferred until this gate is resolved; see [direct-link acceptance](../benchmarks/v04-direct-link-baseline.md). See [architecture](v04-generated-go-architecture.md)
+The scope verdict is **GENERAL SHARED-MEMORY MODEL WORK REQUIRED**. No suppression
+or generated address/function patches are used. The full-guest `-race` diagnostic
+is not a v0.4 release gate; evidence/reducers remain available. Shared-memory-model
+work is deferred for re-evaluation after the planned v0.5 guest/toolchain update.
+Focused handwritten synchronization/filesystem race tests remain mandatory.
+Canonical benchmarks use normal functional acceptance; see
+[direct-link baseline](../benchmarks/v04-direct-link-baseline.md). See [architecture](v04-generated-go-architecture.md)
 and [default migration evidence](../benchmarks/v04-default-runtime-migration.md).
 Go ordinary startup now directly links the canonical generated module in the
 consumer, without embedded image delivery or subprocess startup. Python's packaged

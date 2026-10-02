@@ -1,8 +1,18 @@
 # v0.4 generated-Go default runtime
 
-**Candidate acceptance is blocked:** full generated guest race integration reports
-shared linear-memory accesses. See [current evidence](../benchmarks/v04-direct-link-baseline.md).
-Default selection is implemented on this unpublished branch, not release acceptance.
+Ordinary Go `Start(ctx, Options{})` directly links the generated guest into the
+consumer process; generated Go is a normal Go dependency/build input. WASM is a
+build intermediate. The unpublished candidate's functional acceptance and canonical
+measurements are recorded in the [direct-link baseline](../benchmarks/v04-direct-link-baseline.md).
+
+**Known v0.4 limitation:** the full generated guest is not Go `-race` clean.
+The [investigation](../benchmarks/direct-link-race-scope.md) found a general shared-memory
+adaptation problem, not 149 independent bugs or harmless reports. No suppression
+is used. The full-guest diagnostic is not a v0.4 release gate; focused handwritten
+FD/filesystem/thread/TLS/futex race tests remain enabled. Broader adaptation is
+scheduled for re-evaluation after the v0.5 guest/toolchain update. This decision
+does not establish production race correctness or forced reclamation of hung
+in-process execution.
 
 ## Integration contract
 
