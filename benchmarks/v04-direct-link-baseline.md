@@ -60,6 +60,12 @@ requested, and is **not** the reason benchmarking is blocked.
 
 ## New acceptance gap: generated shared-memory accesses
 
+The follow-up [origin investigation](direct-link-futex-race-origin.md) classifies
+the traced Fn88/Fn219 conflict as **WASM↔GO MEMORY-MODEL MISMATCH**:
+ordinary WASIX libc polling loads are already present in the WASM; the actual
+atomic-wait helper is atomic. No bounded generic fix has been demonstrated,
+so full-guest race acceptance and canonical benchmarking remain blocked.
+
 Single `TestPublicLifecycle`, Go1.26.8, `GORACE=halt_on_error=1`, reports:
 
 - worker: `base.AtomicRmwCmpxchg32` → `sync/atomic.CompareAndSwapUint32`;

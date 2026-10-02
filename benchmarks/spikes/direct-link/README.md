@@ -52,3 +52,35 @@ with an explicit development replacement of the checkout. Run with Go1.26.8.
 Use `GORACE=halt_on_error=1 go test -race -count=1 .` to retain only the first
 report. The failing diagnostic is intentionally outside normal package discovery.
 No generated source is edited. See the production direct-link baseline report.
+
+The [origin investigation](../../direct-link-futex-race-origin.md) traces the
+ordinary read to the pinned libc and guest `i32.load`, with the competing
+`i32.atomic.rmw.cmpxchg`. `race-instructions.go.txt` is a decoder template:
+copy it to `cmd/raceinspect/main.go` in a disposable checkout of the pinned
+wasm2go fork (it imports that fork's internal parser), then run:
+
+```sh
+GOTOOLCHAIN=go1.26.8 go run ./cmd/raceinspect /path/to/canonical/guest.wasm
+```
+
+It prints imported function indexes and complete instruction bytes for functions
+88/219. These indexes are diagnostic evidence for this checksummed artifact,
+not a production function-index workaround. Body offsets include local declarations.
+
+To repeat the source/IR probes, extract the locked WASIX libc source archive's
+`libc-bottom-half/sources/__wasilibc_futex.c` unchanged. Separately extract
+`libc-top-half/musl/arch/wasm32/atomic_arch.h` and compile this wrapper:
+
+```c
+#include "atomic_arch.h"
+int probe_cas(volatile int *p, int expected, int replacement) {
+    return a_cas(p, expected, replacement);
+}
+```
+
+Use the pinned reproducibility build image and LLVM prefix from
+`docs/v04-guest-reproducibility.md`, with `WASIXCC_WASM_EXCEPTIONS=legacy` and
+`WASIXCC_RUN_WASM_OPT=no`; run `wasixcc -O2 -matomics -mbulk-memory -pthread
+-S -emit-llvm` on each input. The first produces volatile non-atomic loads,
+the second sequentially consistent cmpxchg. No guest regeneration or manual
+generated-source edit is required for this investigation.

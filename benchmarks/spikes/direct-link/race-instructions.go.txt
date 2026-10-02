@@ -1,0 +1,56 @@
+package main
+
+import (
+	"encoding/hex"
+	"fmt"
+	"github.com/goccy/wasm2go/internal/wasm"
+	"os"
+)
+
+func main() {
+	f, e := os.Open(os.Args[1])
+	if e != nil {
+		panic(e)
+	}
+	defer f.Close()
+	m, e := wasm.Parse(f)
+	if e != nil {
+		panic(e)
+	}
+	fmt.Printf("imported functions=%d\n", m.NumImportedFuncs)
+	var idx uint32
+	for _, im := range m.Imports {
+		if im.Kind == wasm.ImportFunc {
+			fmt.Printf("import %d %s.%s\n", idx, im.Module, im.Name)
+			idx++
+		}
+	}
+	for _, n := range []uint32{88, 219} {
+		b := m.Functions[n-m.NumImportedFuncs].Body
+		r := wasm.NewInstrReader(b)
+		count, e := r.ReadU32()
+		if e != nil {
+			panic(e)
+		}
+		for i := uint32(0); i < count; i++ {
+			if _, e = r.ReadU32(); e != nil {
+				panic(e)
+			}
+			if _, e = r.ReadByte(); e != nil {
+				panic(e)
+			}
+		}
+		fmt.Printf("FUNCTION %d type=%+v body-bytes=%d\n", n, m.FuncTypeOf(n), len(b))
+		for !r.EOF() {
+			pos := r.Pos()
+			op, e := r.ReadByte()
+			if e != nil {
+				panic(e)
+			}
+			if e = r.SkipImmediates(op); e != nil {
+				panic(e)
+			}
+			fmt.Printf("%04x %s\n", pos, hex.EncodeToString(b[pos:r.Pos()]))
+		}
+	}
+}
