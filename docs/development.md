@@ -236,9 +236,9 @@ Use `experiment/<short-purpose>` for disposable architecture probes. Keep main
 for stable product behavior, measurements, harnesses, diagnostics and tooling.
 On that branch, put temporary unified source changes in
 `guest/experimental.patch` (paths `a/...` / `b/...`), leaving `guest/source.patch`
-unchanged. Fresh `prepare_guest.py` applies it after the canonical patch, before
-overlays, records its hash and affected source files, and refuses it outside an
-experiment branch. Prefer modifications/additions; deletion-only patches are
+unchanged. Fresh `prepare_guest.py` applies it after the canonical patch and
+copied overlays, before diagnostic instrumentation. It records its hash and
+affected source files, and refuses it outside an experiment branch. Prefer modifications/additions; deletion-only patches are
 not supported by this small mechanism. Commit the patch with the experiment so
 its original input identity remains retrievable. The measurement workflow's
 full-history checkout must retain an experiment branch when using this path.
