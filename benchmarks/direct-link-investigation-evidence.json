@@ -1,0 +1,141 @@
+{
+  "source_sha": "52b5e2ac5612222fe933134b0342dee6dc77b1c9",
+  "adapter_inputs": {
+    "main.go": "b33b8a6b1ada3eb71ad8739e3424d56fe97dd1e78cbe099c76c9747b21baecea",
+    "guest_identity.go": "c41a29034715b84bbfb2349890bec6c4ba147ce4360002173296006149ad9a28",
+    "entry.go": "5bddbf31701e530edde9f900a1d09bc86c536e65755e0d31ced5a52caf3d76fb"
+  },
+  "probe_sha256": "61fe2fddf9e5daba1e7523cceceebf0789ecf23620388a21bd7a40a4af26de28",
+  "normal": [
+    {
+      "goroutines_after": 2,
+      "goroutines_before": 2,
+      "pid": 49611,
+      "results": [
+        {
+          "case": "sequential",
+          "index": 0,
+          "ready_ms": 60.117125,
+          "shutdown": true,
+          "sql": true
+        },
+        {
+          "case": "sequential",
+          "index": 1,
+          "ready_ms": 467.391583,
+          "shutdown": true,
+          "sql": true
+        },
+        {
+          "case": "two_live_instances",
+          "isolation": true,
+          "ready_a_ms": 715.234208,
+          "ready_b_ms": 723.276083,
+          "rollback": true,
+          "shutdown": true
+        }
+      ]
+    },
+    {
+      "goroutines_after": 2,
+      "goroutines_before": 2,
+      "pid": 49655,
+      "results": [
+        {
+          "case": "sequential",
+          "index": 0,
+          "ready_ms": 19.996833,
+          "shutdown": true,
+          "sql": true
+        },
+        {
+          "case": "sequential",
+          "index": 1,
+          "ready_ms": 287.1545,
+          "shutdown": true,
+          "sql": true
+        },
+        {
+          "case": "two_live_instances",
+          "isolation": true,
+          "ready_a_ms": 518.067458,
+          "ready_b_ms": 566.93425,
+          "rollback": true,
+          "shutdown": true
+        }
+      ]
+    },
+    {
+      "goroutines_after": 2,
+      "goroutines_before": 2,
+      "pid": 49665,
+      "results": [
+        {
+          "case": "sequential",
+          "index": 0,
+          "ready_ms": 18.945417,
+          "shutdown": true,
+          "sql": true
+        },
+        {
+          "case": "sequential",
+          "index": 1,
+          "ready_ms": 232.866125,
+          "shutdown": true,
+          "sql": true
+        },
+        {
+          "case": "two_live_instances",
+          "isolation": true,
+          "ready_a_ms": 457.653708,
+          "ready_b_ms": 536.158875,
+          "rollback": true,
+          "shutdown": true
+        }
+      ]
+    }
+  ],
+  "faults": [
+    {
+      "mode": "worker-panic",
+      "exit_code": 2,
+      "stderr": "wasm2go: wasi thread 1 trapped:\n   injected worker failure\npanic: injected worker failure [recovered, repanicked]\n\ngoroutine 8 [running]:\ngithub.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1.1()\n\tgithub.com/masahitojp/mariamem@v0.0.0/internal/generatedgo/code/base/base.go:1977 +0x12c\npanic({0x1038c2e40?, 0x103911fb0?})\n\truntime/panic.go:860 +0x12c\nmain.main.func1(0x0?, 0x0?)\n\tgithub.com/masahitojp/mariamem/directlinkprobe/probe.go:128 +0x2c\ngithub.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1()\n\tgithub.com/masahitojp/mariamem@v0.0.0/internal/generatedgo/code/base/base.go:1980 +0x98\ncreated by github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch in goroutine 1\n\tgithub.com/masahitojp/mariamem@v0.0.0/internal/generatedgo/code/base/base.go:1964 +0x134\n"
+    },
+    {
+      "mode": "entry-failure",
+      "exit_code": 1,
+      "stderr": "generated-Go failure: lstat /nonexistent-directlink-probe/data: no such file or directory\ngoroutine 1 [running]:\nruntime/debug.Stack()\n\truntime/debug/stack.go:26 +0x64\nmain.run.func1()\n\tgithub.com/masahitojp/mariamem/directlinkprobe/main.go:298 +0x2c\npanic({0x10322b260?, 0x4e38a62020f0?})\n\truntime/panic.go:860 +0x12c\nmain.run({0x4e38a6274e68, 0x5, 0x0?})\n\tgithub.com/masahitojp/mariamem/directlinkprobe/main.go:317 +0x7d4\nmain.main()\n\tgithub.com/masahitojp/mariamem/directlinkprobe/probe.go:132 +0x1014\n"
+    }
+  ],
+  "inventory": {
+    "module_global_fields": 707,
+    "guest_global_write_sites_in_pure_code": {
+      "G0": 56991,
+      "G1": 3
+    },
+    "function_table_entries_per_module": 17197,
+    "linear_memory_reserved_bytes": 2147483648,
+    "initial_guest_memory_bytes": 268435456,
+    "data_segment_bytes": 6918839,
+    "const_arrays": 9,
+    "const_array_bytes_arm64": 245128,
+    "generated_source_bytes": 205710793,
+    "builtin_image_source_bytes": 117307672,
+    "tracked_source_bytes_before_investigation": 341726382,
+    "wasm_bytes": 18560224
+  },
+  "environment": {
+    "os": "macOS 27.0 arm64",
+    "machine": "MacBook Air M1 / 16 GiB",
+    "go": "go1.26.8",
+    "boundary": "main-local NewWithWASI through ready frame; SQL via existing guest framing; no public host/wire/trust or provisioning"
+  },
+  "shared_executable_control": {
+    "executable_sha256": "9beeec744a6740d6c7b2a8e426a4462cc50d0f1bdf793ee904f69c7c0c2c69f2",
+    "two_independent_databases": true,
+    "write_schema_isolation": true,
+    "one_close_other_live": true,
+    "executable_unchanged": true
+  },
+  "pgmem_revision": "ed2c23f79a93feb267070784576dd2eedb6cdef2"
+}

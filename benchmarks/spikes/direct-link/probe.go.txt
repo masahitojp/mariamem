@@ -1,0 +1,185 @@
+// Investigation only: canonical generated code, copied unmodified host methods.
+package main
+
+import (
+	"encoding/binary"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"io"
+	"os"
+	"runtime"
+	"time"
+)
+
+type instance struct {
+	in      *os.File
+	out     *os.File
+	done    chan any
+	id      uint32
+	readyMS float64
+}
+
+func frame(r io.Reader) map[string]any {
+	var h [4]byte
+	must(ioRead(r, h[:]))
+	n := binary.LittleEndian.Uint32(h[:])
+	if n == 0 || n > 32<<20 {
+		panic(n)
+	}
+	b := make([]byte, n)
+	must(ioRead(r, b))
+	var v map[string]any
+	must(json.Unmarshal(b, &v))
+	return v
+}
+func ioRead(r io.Reader, b []byte) error { _, e := io.ReadFull(r, b); return e }
+func must(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+func start() *instance {
+	begin := time.Now()
+	rd, wr, e := os.Pipe()
+	must(e)
+	outr, outw, e := os.Pipe()
+	must(e)
+	i := &instance{in: wr, out: outr, done: make(chan any, 1)}
+	w := base.DefaultWASI()
+	fs := base.NewMemFS()
+	must(fs.MkdirAll("dev", 0755))
+	must(fs.MkdirAll("snapshot-out", 0755))
+	w.SetFS(entropyFS{fs})
+	w.SetArgs([]string{"mariamem"})
+	w.SetEnv(nil)
+	w.SetStdin(rd)
+	w.SetStdout(outw)
+	w.SetStderr(io.Discard)
+	h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
+	m := generated.NewWithWASI(h, nil, h)
+	go func() {
+		defer func() { p := recover(); i.done <- p; rd.Close(); outw.Close() }()
+		generated.Start(m)
+		base.SpikeWait(m)
+	}()
+	r := frame(outr)["result"].(map[string]any)
+	if r["ready"] != true {
+		panic(r)
+	}
+	i.readyMS = float64(time.Since(begin).Nanoseconds()) / 1e6
+	return i
+}
+func (i *instance) call(op byte, sql string) map[string]any {
+	i.id++
+	p := make([]byte, 13+len(sql))
+	binary.LittleEndian.PutUint32(p, uint32(9+len(sql)))
+	p[4] = op
+	binary.LittleEndian.PutUint32(p[5:], i.id)
+	copy(p[13:], sql)
+	_, e := i.in.Write(p)
+	must(e)
+	r := frame(i.out)
+	if uint32(r["request_id"].(float64)) != i.id {
+		panic(r)
+	}
+	return r["result"].(map[string]any)
+}
+func (i *instance) sql(s string) map[string]any {
+	r := i.call(2, s)
+	if r["ok"] != true {
+		panic(r)
+	}
+	return r
+}
+func (i *instance) scalar(s string) string {
+	r := i.sql(s)
+	rows := r["rows"].([]any)
+	c := rows[0].([]any)[0].(map[string]any)
+	b, e := hex.DecodeString(c["$h"].(string))
+	must(e)
+	return string(b)
+}
+func (i *instance) open() {
+	if r := i.call(1, ""); r["ok"] != true {
+		panic(r)
+	}
+}
+func (i *instance) close() {
+	if r := i.call(3, ""); r["ok"] != true {
+		panic(r)
+	}
+	_, e := i.in.Write([]byte{0, 0, 0, 0})
+	must(e)
+	i.in.Close()
+	if p := <-i.done; p != nil {
+		panic(p)
+	}
+	i.out.Close()
+}
+func main() {
+	diagnostic = false
+	if len(os.Args) > 1 {
+		switch os.Args[1] {
+		case "worker-panic":
+			m := &base.Module{Threads: &base.ThreadPool{}}
+			base.ThreadLaunch(m, func(*base.Module, int32) { panic("injected worker failure") })
+			base.SpikeWait(m)
+			panic("worker panic did not terminate")
+		case "entry-failure":
+			run([]string{"probe", "run", GuestSHA256, "--volume", "/nonexistent-directlink-probe:/snapshot-in"})
+			panic("invalid entry survived")
+		}
+	}
+	go func() {
+		time.Sleep(15 * time.Second)
+		buf := make([]byte, 2<<20)
+		n := runtime.Stack(buf, true)
+		os.Stderr.Write(buf[:n])
+		fmt.Fprintln(os.Stderr, "probe deadline exceeded")
+		os.Exit(2)
+	}()
+	before := runtime.NumGoroutine()
+	var results []any
+	for j := 0; j < 2; j++ {
+		i := start()
+		i.open()
+		if i.scalar("SELECT 1") != "1" {
+			panic("SELECT")
+		}
+		i.sql("CREATE TABLE isolated(id INT PRIMARY KEY) ENGINE=InnoDB")
+		i.sql("INSERT INTO isolated VALUES(1)")
+		i.close()
+		results = append(results, map[string]any{"case": "sequential", "index": j, "ready_ms": i.readyMS, "sql": true, "shutdown": true})
+		runtime.GC()
+	}
+	starts := make(chan *instance, 2)
+	go func() { starts <- start() }()
+	go func() { starts <- start() }()
+	a, b := <-starts, <-starts
+	a.open()
+	b.open()
+	a.sql("CREATE TABLE isolated(id INT PRIMARY KEY) ENGINE=InnoDB")
+	b.sql("CREATE TABLE isolated(id INT PRIMARY KEY) ENGINE=InnoDB")
+	a.sql("INSERT INTO isolated VALUES(11)")
+	b.sql("INSERT INTO isolated VALUES(22)")
+	if a.scalar("SELECT id FROM isolated") != "11" || b.scalar("SELECT id FROM isolated") != "22" {
+		panic("isolation")
+	}
+	a.sql("START TRANSACTION")
+	a.sql("INSERT INTO isolated VALUES(33)")
+	a.sql("ROLLBACK")
+	if a.scalar("SELECT COUNT(*) FROM isolated") != "1" {
+		panic("rollback")
+	}
+	a.close()
+	if b.scalar("SELECT id FROM isolated") != "22" {
+		panic("independent close")
+	}
+	b.close()
+	runtime.GC()
+	results = append(results, map[string]any{"case": "two_live_instances", "ready_a_ms": a.readyMS, "ready_b_ms": b.readyMS, "isolation": true, "rollback": true, "shutdown": true})
+	must(json.NewEncoder(os.Stdout).Encode(map[string]any{"pid": os.Getpid(), "goroutines_before": before, "goroutines_after": runtime.NumGoroutine(), "results": results}))
+}
