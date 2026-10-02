@@ -54,6 +54,14 @@ def main():
         product = out/'product'; product.mkdir()
         archive = subprocess.check_output(['git','archive',report['source_sha']], cwd=ROOT)
         with tarfile.open(fileobj=io.BytesIO(archive)) as t: t.extractall(product, filter='data')
+        # Source archives have no Git metadata. Preserve only the explicit
+        # experiment branch identity required by prepare_guest's patch guard.
+        if (product/'guest/experimental.patch').exists():
+            branch = subprocess.check_output(['git','branch','--show-current'], cwd=ROOT, text=True).strip()
+            if not branch.startswith('experiment/'):
+                raise ValueError('experimental replay requires experiment/ branch')
+            subprocess.run(['git','init','-q','--initial-branch='+branch,str(product)],check=True)
+            report['experiment_branch'] = branch
         if a.translation_only_guest:
             guest = a.translation_only_guest.resolve()
         else:
