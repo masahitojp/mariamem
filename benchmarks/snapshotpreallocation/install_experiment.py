@@ -21,6 +21,26 @@ NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
 
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 
+def transform_function_text(file, name, data):
+    text = file.read_text().replace(OLD, NEW)
+    if name.as_posix() == 'generated.go':
+        text = text.replace('\t_ "embed"\n','')
+        marker = '//go:embed data.bin\nvar wasm2goData_data_bin []byte'
+        if text.count(marker) != 1: raise ValueError('generated data marker changed')
+        text = text.replace(marker, 'var wasm2goData_data_bin = []byte("'+''.join('\\x%02x'%b for b in data)+'")')
+    return text
+
+def verify_transformed_functions(source, destination, data, env):
+    count = 0
+    for file in source.rglob('*.go'):
+        name = file.relative_to(source)
+        if name.parts[0] == 'base': continue
+        expected = subprocess.check_output(['gofmt'],input=transform_function_text(file,name,data).encode(),env=env)
+        if (destination/name).read_bytes() != expected:
+            raise ValueError('transformed function content mismatch: '+str(name))
+        count += 1
+    return count
+
 def install_function_tree(source, destination, data):
     # Package shards contain the actual generated guest functions. Rebuild all
     # non-base files; root-only copying can silently retain old function bodies.
@@ -32,12 +52,7 @@ def install_function_tree(source, destination, data):
     for file in source.rglob('*.go'):
         name = file.relative_to(source)
         if name.parts[0] == 'base': continue
-        text = file.read_text().replace(OLD, NEW)
-        if name.as_posix() == 'generated.go':
-            text = text.replace('\t_ "embed"\n','')
-            marker = '//go:embed data.bin\nvar wasm2goData_data_bin []byte'
-            if text.count(marker) != 1: raise ValueError('generated data marker changed')
-            text = text.replace(marker, 'var wasm2goData_data_bin = []byte("'+''.join('\\x%02x'%b for b in data)+'")')
+        text = transform_function_text(file, name, data)
         out = destination/name
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(text)
@@ -91,9 +106,10 @@ def main():
     shutil.copytree(ROOT/'benchmarks/snapshotpreallocation',target/'benchmarks/snapshotpreallocation')
     env=dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off')
     subprocess.run(['gofmt','-w',*map(str,transformed)],env=env,check=True)
+    transformed_count = verify_transformed_functions(source, destination, data, env)
     write_runtime_provenance(target, translated, manifest)
     generated_inventory = {str(f.relative_to(target/'internal/generatedgo')):sha(f) for f in (target/'internal/generatedgo').rglob('*') if f.is_file()}
-    record={'base_sha':BASE,'recipe_sha':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'guest_sha256':new_sha,'translation_manifest_sha256':sha(translated/'input-manifest.json'),'unchanged_base_inventory_verified':True,'identity_binding_files':bindings,'diagnostic_generated_inventory':generated_inventory,'scope':'external experiment; committed canonical generated source, executable image pins and release identity unchanged; not a release candidate'}
+    record={'base_sha':BASE,'recipe_sha':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'guest_sha256':new_sha,'translation_manifest_sha256':sha(translated/'input-manifest.json'),'unchanged_base_inventory_verified':True,'all_transformed_function_contents_verified':transformed_count,'identity_binding_files':bindings,'diagnostic_generated_inventory':generated_inventory,'scope':'external experiment; committed canonical generated source, executable image pins and release identity unchanged; not a release candidate'}
     (target/'experiment-provenance.json').write_text(json.dumps(record,indent=2)+'\n')
     print(target)
 if __name__=='__main__': main()
