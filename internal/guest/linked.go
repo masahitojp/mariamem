@@ -41,6 +41,10 @@ func startLinked(ctx context.Context, module, transfer, restore string, stderr i
 		childIn.Close()
 		childOut.Close()
 		<-readDone
+		// The host response reader is owned by this linked execution, not by
+		// the lifetime of a retained Process/Database handle. Join its reader
+		// before closing it, and release the FD before publishing completion.
+		_ = out.Close()
 		p.exitErr = err
 		close(p.done)
 		p.fail(errors.New("guest exited"))
