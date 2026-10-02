@@ -1,0 +1,59 @@
+// External-consumer fixture only; normal execution, no forced reclamation contract.
+package generatedgo
+
+import (
+	"fmt"
+	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"io"
+	"path/filepath"
+	"sync"
+)
+
+var consumerFixtureOnce sync.Once
+
+func StartConsumerFixture(in io.Reader, out, stderr io.Writer, transfer, restore string) <-chan error {
+	consumerFixtureOnce.Do(func() { diagnostic = false })
+	done := make(chan error, 1)
+	go func() {
+		var err error
+		defer func() {
+			if p := recover(); p != nil {
+				err = fmt.Errorf("fixture guest failed: %v", p)
+			}
+			done <- err
+		}()
+		w := base.DefaultWASI()
+		fs := base.NewMemFS()
+		if err = fs.MkdirAll("dev", 0755); err != nil {
+			return
+		}
+		if err = fs.MkdirAll("snapshot-out", 0755); err != nil {
+			return
+		}
+		w.SetFS(entropyFS{fs})
+		w.SetArgs([]string{"mariamem"})
+		w.SetEnv(nil)
+		w.SetStdin(in)
+		w.SetStdout(out)
+		w.SetStderr(stderr)
+		var maps *base.PreparedFiles
+		if restore != "" {
+			maps, err = base.MapPreparedFiles(fs, filepath.Join(restore, "data"), "mariadb")
+			if err != nil {
+				return
+			}
+		}
+		h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
+		m := generated.NewWithWASI(h, nil, h)
+		generated.Start(m)
+		base.SpikeWait(m)
+		if transfer != "" {
+			if err = exportTransfer(fs, transfer); err != nil {
+				return
+			}
+		}
+		err = maps.Close()
+	}()
+	return done
+}

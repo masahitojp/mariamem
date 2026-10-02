@@ -1,0 +1,13 @@
+// Compile-only: a large offset, not a large package. No MariaDB dependency.
+package repro
+
+import "unsafe"
+
+//go:noinline
+func Pair(p unsafe.Pointer) int32 {
+	a := *(*int32)(unsafe.Add(p, 23997552))
+	if a == 0 {
+		return *(*int32)(unsafe.Add(p, 23997556))
+	}
+	return a
+}

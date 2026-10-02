@@ -1,0 +1,64 @@
+package main
+
+import (
+	"context"
+	"database/sql"
+	"encoding/json"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem"
+	"os"
+	"time"
+)
+
+var buildMarker = "original"
+
+func smoke() error {
+	if buildMarker == "" {
+		return fmt.Errorf("empty consumer build marker")
+	}
+	db, e := mariamem.Start(context.Background(), mariamem.Options{})
+	if e != nil {
+		return e
+	}
+	defer db.Close()
+	pool, e := sql.Open("mysql", db.DSN())
+	if e != nil {
+		return e
+	}
+	defer pool.Close()
+	var n int
+	if e = pool.QueryRow("SELECT 1").Scan(&n); e != nil {
+		return e
+	}
+	if n != 1 {
+		return fmt.Errorf("SELECT 1=%d", n)
+	}
+	for _, q := range []string{"CREATE TABLE consumer_rows(id INT PRIMARY KEY,v INT) ENGINE=InnoDB", "INSERT INTO consumer_rows VALUES(1,10)", "UPDATE consumer_rows SET v=20 WHERE id=1"} {
+		if _, e = pool.Exec(q); e != nil {
+			return e
+		}
+	}
+	if e = pool.QueryRow("SELECT v FROM consumer_rows WHERE id=1").Scan(&n); e != nil {
+		return e
+	}
+	if n != 20 {
+		return fmt.Errorf("CRUD=%d", n)
+	}
+	if _, e = pool.Exec("DELETE FROM consumer_rows"); e != nil {
+		return e
+	}
+	if e = pool.Close(); e != nil {
+		return e
+	}
+	return db.Close()
+}
+func main() {
+	_ = buildMarker
+	begin := time.Now()
+	if e := smoke(); e != nil {
+		fmt.Fprintln(os.Stderr, e)
+		os.Exit(1)
+	}
+	json.NewEncoder(os.Stdout).Encode(map[string]any{"sql_crud_close": true, "elapsed_ms": float64(time.Since(begin).Nanoseconds()) / 1e6})
+}

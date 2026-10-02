@@ -1,0 +1,573 @@
+{
+  "source_sha": "c751746c42ac50045ee1ff7a60491b0344d3231c",
+  "environment": {
+    "date": "2026-10-03",
+    "machine": "MacBook Air Apple M1",
+    "ram_bytes": 17179869184,
+    "os": "macOS 27.0 darwin/arm64",
+    "page_size_bytes": 16384,
+    "CGO_ENABLED": "0",
+    "parallelism": "Go default",
+    "rss_boundary": "macOS time -l reported maximum RSS, not aggregate simultaneous-process RSS",
+    "build_cache": "independent initially empty per label; OS page cache not flushed",
+    "module_acquisition": "mariamem private file proxy, pgmem public proxy"
+  },
+  "fixture": {
+    "tag": "v0.4.0-direct-consumer-probe",
+    "source_bytes": 211789207,
+    "module_zip_bytes": 29926089,
+    "module_zip_sha256": "daf666e56fea80311ad2f2394423a330bc125d8cb52f724b3cd54931d4fb6f8b",
+    "fixture_only_changes": [
+      "internal/generatedgo/consumer_fixture.go",
+      "internal/builtinruntime/runtime.go",
+      "internal/guest/guest.go"
+    ]
+  },
+  "fixture_source_inventory": {
+    "copied_input_count": 98,
+    "unexpected_changed_inputs": 0,
+    "generated_provenance_sha256": "99092e99f196253f7b0f0c18a5ef9b90734a670e8ae1676161c38953fed9af7e",
+    "guest_sha256": "5a513f74607ef1f1ddd4a36ebeefbba50354d9d00564e1977475d642104903bb"
+  },
+  "mariamem_cache": {
+    "generated_source_bytes": 205683700,
+    "extracted_bytes": 211789207,
+    "download_cache_bytes": 29926385,
+    "attributable_total_bytes": 241715592
+  },
+  "pgmem_module": {
+    "version": "v1.18.1",
+    "source_sha": "ed2c23f79a93feb267070784576dd2eedb6cdef2",
+    "source_bytes": 122585418,
+    "zip_bytes": 25588626,
+    "zip_sha256": "e52e657270320129ab27aa78213a3aec86c663c3f368163f59a99924ea1d5e10",
+    "download_wall_sec": 5.66,
+    "download_cpu_sec": 1.57,
+    "download_max_rss_bytes": 29212672,
+    "attributable_cache_bytes": 148174781
+  },
+  "driver_only_binary": {
+    "default_bytes": 7528674,
+    "stripped_bytes": 5104386
+  },
+  "compiler_repro": {
+    "go1.26.8": "PASS; two MOVW",
+    "go1.27.1": "FAIL; LDPSW: constant is not in pool",
+    "upstream_master": "PASS; LDPSW plus WORD literal pool",
+    "go1.27.1_linux_amd64_compile_only": "PASS (reproducer only, not full consumer)"
+  },
+  "upstream": {
+    "fix_sha": "b3f5034b15a7a6f065e92d0617f7a473d5d9dcfa",
+    "master_sha": "ff48d740d5e6dcf01cb1023b382a858a493c5f69",
+    "contains_fix": true,
+    "compare_ahead_by": 422,
+    "compare_behind_by": 0,
+    "archive_sha256": "ee9847b992729a6500fdd54703aa4a041c51028516df23ff064e1acfdf01a207",
+    "bootstrap": "go1.26.8",
+    "version": "go1.28-devel_ff48d740 darwin/arm64",
+    "local_compiler_code_patches": 0,
+    "VERSION_metadata_stamped": true
+  },
+  "campaigns": {
+    "go126-trial1": {
+      "label": "go126-trial1",
+      "go_version": "go version go1.26.8 darwin/arm64",
+      "samples": [
+        {
+          "phase": "module_fetch",
+          "wall_sec": 1.337411499931477,
+          "cpu_sec": 1.2095900000000002,
+          "reported_max_rss_bytes": 20398080,
+          "exit_code": 0,
+          "stdout": "module acquired from private file proxy; h1:wYLBdcTmkbO71ugLq7keaXUo6f2ngoKZf2UrLKEBp1s="
+        },
+        {
+          "phase": "cold_build",
+          "wall_sec": 109.33786204189528,
+          "cpu_sec": 302.623032,
+          "reported_max_rss_bytes": 2542747648,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "cold_test",
+          "wall_sec": 46.517707040999085,
+          "cpu_sec": 96.59529800000004,
+          "reported_max_rss_bytes": 2713075712,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.06s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t1.249s\n"
+        },
+        {
+          "phase": "warm_build_1",
+          "wall_sec": 0.42204062500968575,
+          "cpu_sec": 0.39740599999995396,
+          "reported_max_rss_bytes": 34193408,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "warm_build_2",
+          "wall_sec": 0.20142266689799726,
+          "cpu_sec": 0.4384589999999946,
+          "reported_max_rss_bytes": 37355520,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "warm_test",
+          "wall_sec": 0.2947966249193996,
+          "cpu_sec": 0.5289510000000206,
+          "reported_max_rss_bytes": 36978688,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.06s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t(cached)\n"
+        },
+        {
+          "phase": "warm_test_uncached",
+          "wall_sec": 2.464029125054367,
+          "cpu_sec": 1.3157170000000242,
+          "reported_max_rss_bytes": 597180416,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.09s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t0.592s\n"
+        },
+        {
+          "phase": "consumer_edit_build",
+          "wall_sec": 1.3482519590761513,
+          "cpu_sec": 2.1705779999999955,
+          "reported_max_rss_bytes": 754614272,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "consumer_edit_test",
+          "wall_sec": 0.7487508329795673,
+          "cpu_sec": 1.042372999999973,
+          "reported_max_rss_bytes": 588087296,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.06s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t(cached)\n"
+        },
+        {
+          "phase": "stripped_build",
+          "wall_sec": 0.6632527919718996,
+          "cpu_sec": 0.8959610000000175,
+          "reported_max_rss_bytes": 575635456,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "test_binary",
+          "wall_sec": 1.4240763330599293,
+          "cpu_sec": 2.3328620000000377,
+          "reported_max_rss_bytes": 767344640,
+          "exit_code": 0,
+          "stdout": ""
+        }
+      ],
+      "consumer_path": "<external-consumer>",
+      "replace": false,
+      "app_bytes": 85197218,
+      "stripped_app_bytes": 57115666,
+      "test_binary_bytes": 85823474,
+      "mod_cache_bytes": 242517884,
+      "build_cache_bytes": 557540108
+    },
+    "go126-ci": {
+      "label": "go126-ci",
+      "go_version": "go version go1.26.8 darwin/arm64",
+      "samples": [
+        {
+          "phase": "clean_ci_test",
+          "wall_sec": 128.9682212920161,
+          "cpu_sec": 425.228245,
+          "reported_max_rss_bytes": 2653143040,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.08s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t1.040s\n"
+        },
+        {
+          "phase": "build_after_ci_test",
+          "wall_sec": 2.6288506250130013,
+          "cpu_sec": 2.3598449999999502,
+          "reported_max_rss_bytes": 750567424,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "cold_test",
+          "wall_sec": 0.27182870800606906,
+          "cpu_sec": 0.5907240000000229,
+          "reported_max_rss_bytes": 39682048,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.08s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t(cached)\n"
+        },
+        {
+          "phase": "warm_build_1",
+          "wall_sec": 0.19938762509264052,
+          "cpu_sec": 0.44289100000001014,
+          "reported_max_rss_bytes": 36126720,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "warm_build_2",
+          "wall_sec": 0.19154149992391467,
+          "cpu_sec": 0.43641999999996983,
+          "reported_max_rss_bytes": 36257792,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "warm_test",
+          "wall_sec": 0.23786812496837229,
+          "cpu_sec": 0.6159330000000338,
+          "reported_max_rss_bytes": 39321600,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.08s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t(cached)\n"
+        },
+        {
+          "phase": "warm_test_uncached",
+          "wall_sec": 1.3340135420439765,
+          "cpu_sec": 1.2900299999999305,
+          "reported_max_rss_bytes": 597819392,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.09s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t0.591s\n"
+        },
+        {
+          "phase": "consumer_edit_build",
+          "wall_sec": 1.4300073749618605,
+          "cpu_sec": 2.284308999999986,
+          "reported_max_rss_bytes": 754761728,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "consumer_edit_test",
+          "wall_sec": 1.6136504170717672,
+          "cpu_sec": 1.3133350000000235,
+          "reported_max_rss_bytes": 593379328,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.08s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t0.828s\n"
+        },
+        {
+          "phase": "stripped_build",
+          "wall_sec": 0.7160050830570981,
+          "cpu_sec": 1.0386690000000343,
+          "reported_max_rss_bytes": 584368128,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "test_binary",
+          "wall_sec": 1.433861333061941,
+          "cpu_sec": 2.504137999999976,
+          "reported_max_rss_bytes": 751845376,
+          "exit_code": 0,
+          "stdout": ""
+        }
+      ],
+      "consumer_path": "<external-consumer>",
+      "replace": false,
+      "app_bytes": 85197266,
+      "stripped_app_bytes": 57115682,
+      "test_binary_bytes": 85840066,
+      "mod_cache_bytes": 242517884,
+      "build_cache_bytes": 557548180
+    },
+    "go1260": {
+      "label": "go1260",
+      "go_version": "go version go1.26.0 darwin/arm64",
+      "samples": [
+        {
+          "phase": "cold_build",
+          "wall_sec": 92.59620716597419,
+          "cpu_sec": 278.702178,
+          "reported_max_rss_bytes": 2770747392,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "cold_test",
+          "wall_sec": 45.52661599998828,
+          "cpu_sec": 92.74128200000001,
+          "reported_max_rss_bytes": 2958409728,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.08s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t1.668s\n"
+        },
+        {
+          "phase": "warm_build_1",
+          "wall_sec": 0.4778292909031734,
+          "cpu_sec": 0.3899850000000491,
+          "reported_max_rss_bytes": 34308096,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "warm_build_2",
+          "wall_sec": 0.1904363330686465,
+          "cpu_sec": 0.4511089999999953,
+          "reported_max_rss_bytes": 36093952,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "warm_test",
+          "wall_sec": 0.2680554169928655,
+          "cpu_sec": 0.5457019999999879,
+          "reported_max_rss_bytes": 38371328,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.08s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t(cached)\n"
+        },
+        {
+          "phase": "warm_test_uncached",
+          "wall_sec": 2.8728164579952136,
+          "cpu_sec": 1.3613910000000402,
+          "reported_max_rss_bytes": 596049920,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.07s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t0.707s\n"
+        },
+        {
+          "phase": "consumer_edit_build",
+          "wall_sec": 1.3836832920787856,
+          "cpu_sec": 2.137500000000017,
+          "reported_max_rss_bytes": 751009792,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "consumer_edit_test",
+          "wall_sec": 1.5319944589864463,
+          "cpu_sec": 1.327453999999939,
+          "reported_max_rss_bytes": 587202560,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.07s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t0.789s\n"
+        },
+        {
+          "phase": "stripped_build",
+          "wall_sec": 0.6539017501054332,
+          "cpu_sec": 0.9636360000000508,
+          "reported_max_rss_bytes": 575537152,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "test_binary",
+          "wall_sec": 1.3199266250012442,
+          "cpu_sec": 2.3443959999999784,
+          "reported_max_rss_bytes": 765886464,
+          "exit_code": 0,
+          "stdout": ""
+        }
+      ],
+      "consumer_path": "<external-consumer>",
+      "replace": false,
+      "app_bytes": 85163650,
+      "stripped_app_bytes": 57098994,
+      "test_binary_bytes": 85822962,
+      "mod_cache_bytes": 242517884,
+      "build_cache_bytes": 557372065
+    },
+    "go127": {
+      "label": "go127",
+      "go_version": "go version go1.27.1 darwin/arm64",
+      "samples": [
+        {
+          "phase": "cold_build",
+          "wall_sec": 86.77761366707273,
+          "cpu_sec": 260.385683,
+          "reported_max_rss_bytes": 2306441216,
+          "exit_code": 1,
+          "stdout": "",
+          "failure": "internal/generatedgo/code/p6: Fn8139/Fn8150, LDPSW 23997552/23997528(R4): constant is not in pool"
+        }
+      ],
+      "consumer_path": "<external-consumer>",
+      "replace": false
+    },
+    "master": {
+      "label": "master",
+      "go_version": "go version go1.28-devel_ff48d740 darwin/arm64",
+      "samples": [
+        {
+          "phase": "cold_build",
+          "wall_sec": 88.35981108399574,
+          "cpu_sec": 265.182247,
+          "reported_max_rss_bytes": 2186657792,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "cold_test",
+          "wall_sec": 45.49054979090579,
+          "cpu_sec": 89.56502599999995,
+          "reported_max_rss_bytes": 2848440320,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.08s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t1.014s\n"
+        },
+        {
+          "phase": "warm_build_1",
+          "wall_sec": 0.41994387505110353,
+          "cpu_sec": 0.4465429999999948,
+          "reported_max_rss_bytes": 36192256,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "warm_build_2",
+          "wall_sec": 0.22844479198101908,
+          "cpu_sec": 0.5040620000000047,
+          "reported_max_rss_bytes": 38567936,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "warm_test",
+          "wall_sec": 0.2950565000064671,
+          "cpu_sec": 0.6544529999999646,
+          "reported_max_rss_bytes": 42205184,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.08s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t(cached)\n"
+        },
+        {
+          "phase": "warm_test_uncached",
+          "wall_sec": 2.3608358749188483,
+          "cpu_sec": 1.4033930000000403,
+          "reported_max_rss_bytes": 579502080,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.09s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t0.606s\n"
+        },
+        {
+          "phase": "consumer_edit_build",
+          "wall_sec": 1.1960102500161156,
+          "cpu_sec": 1.895443999999955,
+          "reported_max_rss_bytes": 736985088,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "consumer_edit_test",
+          "wall_sec": 1.4663384170271456,
+          "cpu_sec": 1.3852479999999652,
+          "reported_max_rss_bytes": 580239360,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.07s)\nPASS\nok  \texample.com/mariamem-direct-consumer\t0.743s\n"
+        },
+        {
+          "phase": "stripped_build",
+          "wall_sec": 0.8022076250053942,
+          "cpu_sec": 1.0588210000000622,
+          "reported_max_rss_bytes": 568016896,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "test_binary",
+          "wall_sec": 1.245057792053558,
+          "cpu_sec": 1.9773209999999288,
+          "reported_max_rss_bytes": 745242624,
+          "exit_code": 0,
+          "stdout": ""
+        }
+      ],
+      "consumer_path": "<external-consumer>",
+      "replace": false,
+      "app_bytes": 85640242,
+      "stripped_app_bytes": 56771186,
+      "test_binary_bytes": 86213106,
+      "mod_cache_bytes": 242517884,
+      "build_cache_bytes": 550565577
+    },
+    "pgmem126": {
+      "label": "pgmem126",
+      "go_version": "go version go1.26.8 darwin/arm64",
+      "samples": [
+        {
+          "phase": "cold_build",
+          "wall_sec": 67.43128979206085,
+          "cpu_sec": 182.47773700000002,
+          "reported_max_rss_bytes": 2203271168,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "cold_test",
+          "wall_sec": 25.58431670803111,
+          "cpu_sec": 56.45526700000002,
+          "reported_max_rss_bytes": 2536914944,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.07s)\nPASS\nok  \texample.com/pgmem-direct-consumer\t0.872s\n"
+        },
+        {
+          "phase": "warm_build_1",
+          "wall_sec": 0.6137832090025768,
+          "cpu_sec": 0.5184279999999859,
+          "reported_max_rss_bytes": 38060032,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "warm_build_2",
+          "wall_sec": 0.2138452499639243,
+          "cpu_sec": 0.5947060000000022,
+          "reported_max_rss_bytes": 42811392,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "warm_test",
+          "wall_sec": 0.28120345796924084,
+          "cpu_sec": 0.6452680000000228,
+          "reported_max_rss_bytes": 41353216,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.07s)\nPASS\nok  \texample.com/pgmem-direct-consumer\t(cached)\n"
+        },
+        {
+          "phase": "warm_test_uncached",
+          "wall_sec": 2.214064750005491,
+          "cpu_sec": 1.4904040000000265,
+          "reported_max_rss_bytes": 474890240,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.07s)\nPASS\nok  \texample.com/pgmem-direct-consumer\t0.530s\n"
+        },
+        {
+          "phase": "consumer_edit_build",
+          "wall_sec": 1.1051967910025269,
+          "cpu_sec": 1.9661629999999768,
+          "reported_max_rss_bytes": 595247104,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "consumer_edit_test",
+          "wall_sec": 1.3959352090023458,
+          "cpu_sec": 1.4994389999999989,
+          "reported_max_rss_bytes": 473956352,
+          "exit_code": 0,
+          "stdout": "=== RUN   TestConsumer\n--- PASS: TestConsumer (0.08s)\nPASS\nok  \texample.com/pgmem-direct-consumer\t0.708s\n"
+        },
+        {
+          "phase": "stripped_build",
+          "wall_sec": 0.6195932499831542,
+          "cpu_sec": 1.0527460000000097,
+          "reported_max_rss_bytes": 462405632,
+          "exit_code": 0,
+          "stdout": ""
+        },
+        {
+          "phase": "test_binary",
+          "wall_sec": 1.16203470795881,
+          "cpu_sec": 2.1172449999999934,
+          "reported_max_rss_bytes": 603045888,
+          "exit_code": 0,
+          "stdout": ""
+        }
+      ],
+      "consumer_path": "<external-consumer>",
+      "replace": false,
+      "app_bytes": 65080018,
+      "stripped_app_bytes": 42513010,
+      "test_binary_bytes": 65757698,
+      "mod_cache_bytes": 362272890,
+      "build_cache_bytes": 430251349
+    }
+  },
+  "verdict": "DIRECT-LINK TOOLCHAIN BLOCKED",
+  "verdict_scope": "current released Go 1.27.1 arm64 fails; Go 1.26 and fixed upstream master pass; no inherent source-volume blocker demonstrated"
+}

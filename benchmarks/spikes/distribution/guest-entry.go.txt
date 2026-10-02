@@ -1,0 +1,47 @@
+// Replace only StartKind's body in a disposable module fixture.
+func StartKind(ctx context.Context, runtime, module, wasmerDir, transfer, restore string, stderr io.Writer, kind runtimekind.Kind) (*Process, error) {
+	if kind != runtimekind.GeneratedGo || module != runtimekind.GuestSHA256 {
+		return nil, fmt.Errorf("consumer fixture supports generated-Go only")
+	}
+	tail := &stderrTail{}
+	logs := io.Writer(tail)
+	if stderr != nil {
+		logs = io.MultiWriter(stderr, tail)
+	}
+	childIn, in, err := os.Pipe()
+	if err != nil {
+		return nil, err
+	}
+	out, childOut, err := os.Pipe()
+	if err != nil {
+		childIn.Close()
+		in.Close()
+		return nil, err
+	}
+	ready := make(chan response, 1)
+	p := &Process{in: in, out: out, writes: make(chan struct{}, 1), done: make(chan struct{}), pending: map[uint32]chan response{0: ready}}
+	execution := generatedgo.StartConsumerFixture(childIn, childOut, logs, transfer, restore)
+	readDone := make(chan struct{})
+	go func() { defer close(readDone); p.read() }()
+	go func() {
+		err := <-execution
+		childIn.Close()
+		childOut.Close()
+		<-readDone
+		p.exitErr = err
+		close(p.done)
+		p.fail(errors.New("guest exited"))
+	}()
+	select {
+	case r := <-ready:
+		if r.err == nil && r.result.Ready && r.result.Version == 2 && r.result.MaxSessions > 0 {
+			p.SnapshotVersion = r.result.SnapshotVersion
+			p.MaxSessions = r.result.MaxSessions
+			return p, nil
+		}
+		return nil, fmt.Errorf("fixture ready failure: %v", r)
+	case <-ctx.Done():
+		p.Abort(ctx.Err())
+		return nil, ctx.Err()
+	}
+}
