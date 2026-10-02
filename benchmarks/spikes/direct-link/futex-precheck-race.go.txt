@@ -1,0 +1,34 @@
+// Diagnostic: expected to FAIL under -race. No MariaDB startup or Go host.
+package precheck
+
+import (
+ "sync/atomic"
+ "testing"
+ "unsafe"
+ "github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+ "github.com/masahitojp/mariamem/internal/generatedgo/code/p7"
+)
+
+func TestGeneratedFutexPrecheckRace(t *testing.T) {
+ memory := make([]byte, 65536)
+ size := &atomic.Uint64{}
+ size.Store(uint64(len(memory)))
+ m := &base.Module{Memory: memory, M: unsafe.Pointer(&memory[0]), MemSize: size,
+  MemShared: true, Threads: &base.ThreadPool{}, G0: 32768}
+ base.ForceContendedAtomics(m)
+ start, done := make(chan struct{}), make(chan struct{})
+ go func() {
+  <-start
+  for i:=0; i<1000; i++ {
+   base.AtomicRmwCmpxchg32(m,64,0,0,2)
+   base.AtomicRmwCmpxchg32(m,64,0,2,0)
+  }
+  close(done)
+ }()
+ close(start)
+ for i:=0; i<1000; i++ {
+  // Values are 0 or 2, so expected=1 returns before calling the WASIX host.
+  if rc:=p7.Fn88(m,64,1,0); rc!=-6 { t.Fatal(rc) }
+ }
+ <-done
+}

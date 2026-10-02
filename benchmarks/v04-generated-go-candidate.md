@@ -14,6 +14,11 @@ Final canonical results: [release-preparation audit](#final-canonical-candidate-
 > selected local candidateの公開API計測を実施した。最新結果は末尾の
 > 「Final canonical candidate and release-preparation audit」を参照。以下の初回記録は履歴として保持する。
 
+**Latest direct-link follow-up:** ordinary Go now directly links the guest.
+Full generated-guest race acceptance fails; the new canonical production benchmark
+is deferred. See [direct-link acceptance](v04-direct-link-baseline.md). Earlier
+selected-bundle/image measurements below remain historical.
+
 ## 初回integration結果 (023796b9)
 
 **NOT READY — BLOCKERS REMAIN**。

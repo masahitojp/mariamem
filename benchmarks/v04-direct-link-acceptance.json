@@ -1,0 +1,62 @@
+{
+  "source_parent": "952f379ea98a0406b689057379c3006fda384ca0",
+  "runtime_kind": "direct-linked generated-Go",
+  "environment": {
+    "os": "macOS 27.0 (26A428)",
+    "arch": "arm64",
+    "machine": "Apple M1, 16 GiB",
+    "go": "1.26.8",
+    "python": "3.14.7 installed-wheel consumer; 3.9 ordinary checkout checks"
+  },
+  "runtime_source_sha256": {
+    "mariamem.go": "86f0077dabaa723cc776433e7899b040a4833cb69aed46cea38370d5399e77a4",
+    "internal/guest/guest.go": "ffcd7ab77825e77a927fbc2d9633826d4c8528fdfbdc5af9f2aae76b22658835",
+    "internal/guest/linked.go": "df80a750c55cfdc64cf6b4ae18bb83d9bfec9d1e34b397aa07853ff6a874b99c",
+    "internal/generatedgo/runtime_instance.go": "46d759b33a0fd7dfd9afdb3f4170f3c03b7b238d1c4b45f0ee6041a8975186de",
+    "internal/generatedgo/code/base/runtime_cleanup.go": "40886ea6b6c24316f4fd73d451674c815bc7b26717e1b635362b2170d010d75c",
+    "cmd/mariamem-host/main.go": "cd44f3045ff35e39834557dd9ff2ea63c53bbb96b84bc9a3433b291344698d19"
+  },
+  "guest_sha256": "5a513f74607ef1f1ddd4a36ebeefbba50354d9d00564e1977475d642104903bb",
+  "gates": {
+    "go_unit": "pass",
+    "go_vet": "pass",
+    "go_default_integration_without_race": "pass",
+    "go_repeated_concurrent_cleanup_without_race": "pass",
+    "sqlalchemy": {
+      "passed": 44,
+      "expected": 44
+    },
+    "gorm": {
+      "passed": 32,
+      "expected": 32
+    },
+    "generated_base_and_shim_race": "pass",
+    "full_generated_guest_race": "fail",
+    "reduced_generated_futex_precheck_normal": "pass",
+    "reduced_generated_futex_precheck_race": "fail (expected diagnostic)",
+    "wasmer_fallback_without_race": "pass",
+    "python_checkout": {
+      "passed": 388,
+      "skipped": 3,
+      "failed": 1,
+      "failure": "user-owned untracked package-lock.json publication allowlist; same source-coverage test passes in tracked-source copy"
+    },
+    "public_source_owned_copy": "pass",
+    "fresh_generated_provenance_and_adapters": "identical",
+    "wasmer_fallback_race": "pass"
+  },
+  "canonical_benchmark": {
+    "performed": false,
+    "reason": "full guest race acceptance failed before benchmark gate"
+  },
+  "verdict": "NOT COMPLETE \u2014 BLOCKERS REMAIN",
+  "race_reduction": {
+    "ordinary": "pass",
+    "race": "fails",
+    "read": "p7.Fn88 p7_pure.go:356 ordinary unsafe int32 load",
+    "write": "base.AtomicRmwCmpxchg32 base.go:1836 sync/atomic CAS",
+    "scope": "one 64KiB module, no MariaDB/host/FS/adapter; expected mismatch avoids import"
+  },
+  "python_host_sha256": "f19cbd13cc61dede717e3e78539b953470abbf7f79bfee77d0a14e07306d8966",
+  "scope": "macOS arm64 acceptance; Ubuntu default-path acceptance not rerun after the blocking full-guest race result"
+}

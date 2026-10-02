@@ -1,6 +1,6 @@
 // Package mariamem starts disposable, isolated instances of real MariaDB for tests.
-// The Go host runs in the caller's process; a built-in generated-Go child runs
-// the MariaDB guest. Clients use the ordinary MySQL wire protocol through a local
+// The Go host and generated-Go MariaDB run in the caller's process.
+// Clients use the ordinary MySQL wire protocol through a local
 // endpoint, including database/sql with go-sql-driver/mysql.
 //
 // Zero options require no native bundle, runtime download or pre-populated cache.
@@ -30,7 +30,6 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/artifacts"
-	"github.com/masahitojp/mariamem/internal/builtinruntime"
 	"github.com/masahitojp/mariamem/internal/host"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
 	"github.com/masahitojp/mariamem/internal/timing"
@@ -66,7 +65,7 @@ type backend interface {
 	Failure() error
 }
 
-// Database owns one guest process and its temporary runtime directory.
+// Database owns one isolated guest instance and its temporary directory.
 // Do not copy a Database; construct it with Start.
 type Database struct {
 	mu               sync.Mutex
@@ -127,13 +126,7 @@ func start(ctx context.Context, opts Options, restore string) (*Database, error)
 	if legacy {
 		s, err = host.StartVerified(startup, bundle, runtimeDir, restore, opts.QueryTimeout, &db.logs)
 	} else {
-		var executable string
-		timing.Mark(ctx, "builtin_image_begin")
-		executable, err = builtinruntime.Prepare(startup, temp)
-		timing.Mark(ctx, "builtin_image_ready")
-		if err == nil {
-			s, err = host.StartGenerated(startup, executable, restore, opts.QueryTimeout, &db.logs)
-		}
+		s, err = host.StartGenerated(startup, "", restore, opts.QueryTimeout, &db.logs)
 	}
 	if err != nil {
 		return nil, hostError(errors.Join(err, os.RemoveAll(temp)), "start", true)

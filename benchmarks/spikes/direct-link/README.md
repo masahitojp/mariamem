@@ -34,3 +34,21 @@ is implemented. The first io.Pipe attempt's zero-length write deadlock is descri
 in the report; the final probe uses ordinary OS pipes within its own process.
 ``ready_ms`` is a secondary New-to-ready observation, not a public first-SQL
 benchmark. No cross-platform direct-link acceptance or race-detector claim.
+
+
+## Production acceptance diagnostic
+
+`futex-precheck-race.go.txt` calls the unchanged generated `p7.Fn88` (WASIX futex
+precheck) against the unchanged atomic CAS helper on one module's linear memory.
+It returns mismatch before any host import: no SQL, server, FD, page cleaner or
+instance adapter is required. Expected: normal `go test` passes; `go test -race`
+reports conflicting memory accesses. This does not by itself settle whether the
+underlying WASM operation is permitted, or whether Go race instrumentation is an
+adequate model. It must not be used to justify suppressing reports.
+
+Copy to a disposable nested module as `precheck_test.go`, using module name
+`github.com/masahitojp/mariamem/diagnostics/precheck`, requiring mariamem v0.0.0
+with an explicit development replacement of the checkout. Run with Go1.26.8.
+Use `GORACE=halt_on_error=1 go test -race -count=1 .` to retain only the first
+report. The failing diagnostic is intentionally outside normal package discovery.
+No generated source is edited. See the production direct-link baseline report.

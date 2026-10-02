@@ -17,28 +17,31 @@ from memory_envelope import summarize
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--native-dir',type=Path,required=True)
+    p.add_argument('--native-dir',type=Path,help='explicit legacy bundle; omitted selects production direct-link')
     p.add_argument('--json',type=Path,required=True)
     p.add_argument('--runs',type=int,default=30)
     p.add_argument('--scaling-runs',type=int,default=3)
     p.add_argument('--fresh-resources-only',action='store_true',help='separate Start CPU/ready physical-memory probe; does not mix with latency trials')
     a=p.parse_args()
     if a.runs<30 or a.scaling_runs<1:p.error('30+ startup trials and positive scaling trials required')
-    native=a.native_dir.resolve();out=a.json.resolve();out.parent.mkdir(parents=True,exist_ok=True)
+    native=a.native_dir.resolve() if a.native_dir else None;out=a.json.resolve();out.parent.mkdir(parents=True,exist_ok=True)
     binary=ROOT/'build/bench/isolation-go';helper=ROOT/'build/bench/process-cost';binary.parent.mkdir(parents=True,exist_ok=True)
     subprocess.run(['go','build','-trimpath','-o',str(binary),'./benchmarks/goisolation'],cwd=ROOT,check=True)
     subprocess.run(['cc','-O2',str(ROOT/'benchmarks/tools/process_cost.c'),'-o',str(helper)],check=True)
-    manifest=json.loads((native/'manifest.json').read_text())
-    for name,digest in manifest['sha256'].items():
+    manifest=json.loads((native/'manifest.json').read_text()) if native else None
+    for name,digest in (manifest or {}).get('sha256',{}).items():
         if hashlib.sha256((native/name).read_bytes()).hexdigest()!=digest:raise ValueError('native checksum mismatch: '+name)
     report=dict(schema_version=1,completed=False,boundary='public Go Start/Fork; exact bundle verification + compiled-guest binding + MySQL wire + first SQL; prepared COUNT uses 1000 rows',environment=environment(SimpleNamespace(backend='none')),native_manifest=manifest,runs=a.runs,scaling_runs=a.scaling_runs,trials=[])
+    report['source_commit']=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    report['runtime_kind']='wasmer' if native else 'direct-linked generated-Go'
+    if not native:report['boundary']='public Go Start/Fork; compiled guest identity + snapshot verification + MySQL wire + first SQL; 1000-row fixture; same process hosts all instances'
     report['harness_sha256']={str(f.relative_to(ROOT)):hashlib.sha256(f.read_bytes()).hexdigest() for f in [Path(__file__),*sorted((ROOT/'benchmarks/goisolation').glob('*.go'))]}
     env=os.environ.copy()
-    for k in ['MARIAMEM_TIMING_DIR','MARIAMEM_INIT_DIAGNOSTICS','MARIAMEM_MEMORY_DIAGNOSTICS','MARIAMEM_COST_HELPER']:env.pop(k,None)
+    for k in ['MARIAMEM_TIMING_DIR','MARIAMEM_INIT_DIAGNOSTICS','MARIAMEM_MEMORY_DIAGNOSTICS','MARIAMEM_COST_HELPER','MARIAMEM_NATIVE_DIR','MARIAMEM_RUNTIME']:env.pop(k,None)
     def save():out.write_text(json.dumps(report,indent=2)+'\n')
     def trial(kind,n,phase,i):
         raw=out.with_name(f'{out.stem}-{kind}-{n}-{phase}-{i}.json')
-        cmd=[str(binary),'--native-dir',str(native),'--json',str(raw),'--runs','1','--warmup','0','--workers',str(n),'--rows','1000','--queries','10']
+        cmd=[str(binary),'--native-dir',str(native) if native else '', '--json',str(raw),'--runs','1','--warmup','0','--workers',str(n),'--rows','1000','--queries','10']
         e=env.copy()
         if kind in ['batch','fresh']:cmd+=['--resource-probe','fresh' if kind=='fresh' else 'batch'];e['MARIAMEM_COST_HELPER']=str(helper)
         with raw.with_suffix('.log').open('w') as log:r=subprocess.run(cmd,cwd=ROOT,env=e,stdout=log,stderr=subprocess.STDOUT,timeout=300)

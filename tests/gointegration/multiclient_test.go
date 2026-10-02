@@ -335,7 +335,7 @@ func TestMultipleClientSnapshotAndShutdown(t *testing.T) {
 			otherPID = pid
 		}
 	}
-	if otherPID == 0 {
+	if native != "" && otherPID == 0 {
 		t.Fatal("guest process not found")
 	}
 	x := openSQLClient(t, ctx, other)
@@ -343,8 +343,10 @@ func TestMultipleClientSnapshotAndShutdown(t *testing.T) {
 	if err := other.Close(); err != nil {
 		t.Fatal(err)
 	}
-	if err := syscall.Kill(otherPID, 0); !errors.Is(err, syscall.ESRCH) {
-		t.Fatalf("guest process remains after Close: %v", err)
+	if native != "" {
+		if err := syscall.Kill(otherPID, 0); !errors.Is(err, syscall.ESRCH) {
+			t.Fatalf("guest process remains after Close: %v", err)
+		}
 	}
 	if err := other.Close(); err != nil {
 		t.Fatal(err)

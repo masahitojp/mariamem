@@ -1,5 +1,9 @@
 # v0.4 generated-Go default runtime
 
+**Candidate acceptance is blocked:** full generated guest race integration reports
+shared linear-memory accesses. See [current evidence](../benchmarks/v04-direct-link-baseline.md).
+Default selection is implemented on this unpublished branch, not release acceptance.
+
 ## Integration contract
 
 Architecture-decision source: `8b368a79eb3a0070f84168b1c70a1e2896e4a5ca`.
@@ -24,7 +28,8 @@ No ready heap, live worker, TLS or futex-waiter restoration; no Go process fork.
 Pinned MariaDB/lite4mariadb sources and canonical guest overlays → pinned WASIXCC
 0.4.7 / pinned LLVM23.1.0 WASM profile / WASIX sysroot / Binaryen133 → legacy-EH WASM intermediate → pinned
 goccy/wasm2go fork and reproducible generator patches → generated Go → platform
-guest executable, host-only Python wheel and checksum-bound Go images.
+ordinary Go module build input and a host-only Python wheel. Historical encoded
+executables are retained temporarily, but are not used by normal Go startup.
 
 The legacy encoding is an internal compiler bridge. Exceptions, pthreads, shared
 memory and MariaDB semantics remain enabled. Preserve the proven compatible-O2
@@ -52,31 +57,30 @@ native bundle caches, download a bundle or verify Wasmer provenance.
 
 ```text
 Build time:
-MariaDB/WASIX → pinned legacy-EH WASM → pinned wasm2go → generated Go → executables
+MariaDB/WASIX → pinned legacy-EH WASM → pinned wasm2go → generated Go source
 
-Runtime:
-Go Options{} → in-process host → dedicated built-in generated guest child
-Python start() → packaged Go host → fresh generated guest child
-MySQL client → host wire endpoint → guest protocol → generated-Go MariaDB
-                                                   ↓
-                                      WASIX compatibility layer
-                                                   ↓
-                                 isolated/prepared database files
+Go runtime:
+consumer → public Go API/host → MySQL wire → directly linked generated-Go MariaDB
+Python runtime:
+Python API → packaged Go host process → MySQL wire → linked generated-Go MariaDB
+                                                     ↓
+                                        WASIX compatibility layer
+                                                     ↓
+                                     isolated/prepared database files
 ```
 
-Go carries both supported platform executables as compressed text images.
-`internal/builtinruntime` expands only the matching image into the database's
-private temporary directory, checks the complete executable SHA256 and removes
-it on close/failure. No user cache or download is needed. It executes a dedicated
-mariamem guest, **never the consumer executable**, so consumer init functions are
-not rerun. The materialization and new-executable launch costs belong in public
-Start/Fork measurements; see the default-migration sanity report.
+Go production `Start(ctx, Options{})` directly creates a generated module in the
+consumer process. Generated Go is a normal Go dependency/build input. It does
+not decode, write, checksum or execute an embedded native image. Python retains
+one packaged host process per DB; that host directly runs its generated module,
+without another guest subprocess. Python host artifact verification remains.
+Execution architecture is an internal implementation detail; a child-process
+failure-containment boundary is not a public API contract.
 
-The Python wheel contains the host executable and its manifest, with generated
-MariaDB linked into the host. Its owned command dispatches an internal guest
-entry in a fresh child. Host-only manifest checksum/platform verification remains
-required; no external Wasmer/WASM/AOT payload is needed. Build-time WASM identity
-is compiled into both endpoints and remains the Snapshot compatibility identity.
+Normal shutdown joins guest workers and closes descriptors and prepared mappings.
+Non-cooperative/hung execution cannot be forcibly reclaimed inside a Go process;
+arbitrary worker panic/abort containment remains a separate architecture decision,
+not a new guarantee. Legacy force-kill tests remain explicit Wasmer coverage.
 
 Internal kinds are `generated-go` and `wasmer`. `Options.NativeDir` and
 `MARIAMEM_NATIVE_DIR` are retained **compatibility bundle overrides**. Explicit
@@ -88,14 +92,13 @@ empty or `generated-go` selects the default, while unknown values are errors.
 An explicit NativeDir override takes precedence. No new public option was added.
 Python uses an explicit bundle override or runtime/module pair for legacy use.
 
-Each child receives independent guest linear memory, Module/function tables,
+Each instance receives independent guest linear memory, Module/function tables,
 thread agents, TLS, pthread bookkeeping, wait queues, clocks/timers, FD table,
 MemFS nodes/handles/offsets and session state. Immutable prepared database files
 may back private writable views. Growing files must become child-owned; closing
-one child cannot unmap or invalidate another child's files. Code pages use normal
-OS executable sharing. No live Go runtime object is captured or cloned.
+one child cannot unmap or invalidate another child's files. Generated code is normally linked once into the consumer. No live Go runtime object is captured or cloned.
 
-Verification covers platform identity, compiled guest/executable checksums and
+Verification covers platform identity, compiled guest identity (plus Python host executable checksums) and
 snapshot build identity, inventory and file hashes. Explicit legacy bundles retain
 their module, sidecar and artifact-change verification. Existing released Wasmer
 bundles remain usable through intentional selection.
@@ -223,3 +226,26 @@ shared runtime, ready heap or cache. Python's default host-only wheel contains
 neither Wasmer nor a runtime WASM/AOT payload. Explicit legacy packaging commands,
 old native resolver/cache, release CI native-bundle assumptions and Wasmer notices
 remain for fallback/release migration. No license obligation is considered removed.
+
+## Go toolchain support and regeneration
+
+Go 1.26.0/1.26.8 and upstream-fixed Go tip build the unchanged canonical generated
+source. **Go 1.27.0 and 1.27.1 on arm64 are unsupported**, due to upstream compiler
+regression [golang/go#81036](https://github.com/golang/go/issues/81036). Upstream fix
+`b3f5034b15a7a6f065e92d0617f7a473d5d9dcfa` was tested in both the reduced reproducer
+and the real direct-link consumer. No mariamem-side compiler/generated-code
+workaround is used. Toolchains containing that fix are expected to work; see the
+[consumer measurements](../benchmarks/direct-link-consumer-experience.md).
+
+`runtime_instance.go` and `code/base/runtime_cleanup.go` are handwritten,
+version-controlled ownership adapters, outside the unchanged WASM-transpilation
+inventory. Regeneration copies these ordinary source files automatically. Guest,
+converter, pins and generated provenance hashes remain unchanged.
+
+## Deferred packaging removal
+
+The default no longer imports `internal/builtinruntime`: encoded platform images,
+image provisioning/checksum-at-Start and private executable cleanup can be removed
+in a later packaging task. Old image verification metadata, diagnostic guest CLI,
+spawn wrapper and explicit legacy bundle/cache infrastructure remain isolated.
+No broad artifact deletion is included in this migration.

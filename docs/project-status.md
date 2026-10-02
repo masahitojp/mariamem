@@ -19,11 +19,18 @@ overrides remain compatible. WASM is now a build intermediate, not the default
 runtime payload. Fresh execution state and isolated prepared files are used;
 ready-heap/live-worker restoration remains rejected.
 
-Local default-path SQLAlchemy44/GORM32, wire/Snapshot/Fork, synchronization,
-filesystem and cleanup acceptance pass. See [architecture](v04-generated-go-architecture.md)
+Local default-path SQLAlchemy44/GORM32 and normal wire/Snapshot/Fork pass.
+**Full generated guest race acceptance fails** on mixed ordinary/atomic linear-memory
+accesses; this remains an unresolved gate, separate from the Go1.27 compiler issue.
+Focused synchronization/filesystem race tests pass. Canonical benchmarking is
+deferred until this gate is resolved; see [direct-link acceptance](../benchmarks/v04-direct-link-baseline.md). See [architecture](v04-generated-go-architecture.md)
 and [default migration evidence](../benchmarks/v04-default-runtime-migration.md).
-Go's per-database embedded image delivery currently adds substantial startup cost;
-it is a distribution/provisioning release concern, not a MariaDB tuning result.
+Go ordinary startup now directly links the canonical generated module in the
+consumer, without embedded image delivery or subprocess startup. Python's packaged
+host likewise directly runs the guest. See the production direct-link baseline
+report for measured results; historical image-delivery measurements are superseded.
+Go 1.27.0/1.27.1 arm64 are unsupported due to upstream compiler issue #81036;
+no mariamem workaround is used. Upstream-fixed toolchains are expected to work.
 This branch is unpublished and does not imply v0.4 release readiness. Exact-byte
 platform release acceptance and the legacy release-pipeline migration remain.
 The v0.3 sections below preserve historical/public-release context.

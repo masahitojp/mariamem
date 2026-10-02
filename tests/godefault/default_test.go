@@ -8,6 +8,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
 	"os"
+	"runtime"
 	"testing"
 	"time"
 )
@@ -79,5 +80,55 @@ func TestDefaultNoBundleAndForkIsolation(t *testing.T) {
 	}
 	if entries, err := os.ReadDir(cache); err != nil || len(entries) != 0 {
 		t.Fatalf("runtime cache unexpectedly used: %v %v", entries, err)
+	}
+}
+
+// Repeated and concurrent normal lifecycles must not require executable provisioning.
+func TestDefaultRepeatedConcurrentLifecycle(t *testing.T) {
+	t.Setenv("MARIAMEM_NATIVE_DIR", "")
+	t.Setenv("MARIAMEM_RUNTIME", "")
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+	before := runtime.NumGoroutine()
+	fdsBefore, _ := os.ReadDir("/dev/fd")
+	for round := 0; round < 3; round++ {
+		var instances []*mariamem.Database
+		for i := 0; i < 2; i++ {
+			db, err := mariamem.Start(ctx, mariamem.Options{})
+			if err != nil {
+				t.Fatal(err)
+			}
+			instances = append(instances, db)
+			t.Cleanup(func() { _ = db.Close() })
+			conn, err := sql.Open("mysql", db.DSN())
+			if err != nil {
+				t.Fatal(err)
+			}
+			if _, err = conn.Exec("CREATE TABLE independent(id INT PRIMARY KEY)"); err != nil {
+				t.Fatal(err)
+			}
+			if _, err = conn.Exec("INSERT INTO independent VALUES(1)"); err != nil {
+				t.Fatal(err)
+			}
+			conn.Close()
+		}
+		for _, db := range instances {
+			if err := db.Close(); err != nil {
+				t.Fatal(err)
+			}
+			if err := db.Close(); err != nil {
+				t.Fatal(err)
+			}
+		}
+	}
+	deadline := time.Now().Add(2 * time.Second)
+	for runtime.NumGoroutine() > before+8 && time.Now().Before(deadline) {
+		time.Sleep(10 * time.Millisecond)
+	}
+	if got := runtime.NumGoroutine(); got > before+8 {
+		t.Fatalf("retained goroutines: before=%d after=%d", before, got)
+	}
+	if after, err := os.ReadDir("/dev/fd"); err == nil && len(fdsBefore) > 0 && len(after) > len(fdsBefore)+4 {
+		t.Fatalf("retained descriptors: before=%d after=%d", len(fdsBefore), len(after))
 	}
 }

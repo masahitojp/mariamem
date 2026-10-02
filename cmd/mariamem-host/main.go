@@ -57,11 +57,7 @@ func run() error {
 	var s *host.Server
 	var err error
 	if *runtime == "" {
-		var executable string
-		executable, err = os.Executable()
-		if err == nil {
-			s, err = host.StartGenerated(ctx, executable, *restore, *queryTimeout, os.Stderr)
-		}
+		s, err = host.StartGenerated(ctx, "", *restore, *queryTimeout, os.Stderr)
 	} else {
 		s, err = host.Start(ctx, *runtime, *module, *wasmerDir, *restore, *queryTimeout, os.Stderr)
 	}

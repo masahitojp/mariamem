@@ -108,7 +108,7 @@ func (r *runner) startup(saved *mariamem.Snapshot, group time.Time) (db *mariame
 		if host == nil {
 			return nil, nil, errors.New("missing host startup trace")
 		}
-		if len(traces["native_verification"].Events) == 0 || (saved != nil && len(traces["snapshot_verification"].Events) == 0) || len(traces["api_startup"].Events) == 0 || (saved != nil && len(traces["fork"].Events) == 0) {
+		if (r.cfg.native != "" && len(traces["native_verification"].Events) == 0) || (saved != nil && len(traces["snapshot_verification"].Events) == 0) || len(traces["api_startup"].Events) == 0 || (saved != nil && len(traces["fork"].Events) == 0) {
 			return nil, nil, errors.New("missing public API startup trace")
 		}
 		if r.cfg.guestStages && len(host.Guest) == 0 {
@@ -446,7 +446,7 @@ func main() {
 	} else {
 		os.Unsetenv("MARIAMEM_INIT_DIAGNOSTICS")
 	}
-	if c.native == "" || c.output == "" || c.runs < 1 || c.warmup < 0 || c.rows < 1 || c.queries < 1 || c.clients < 1 || c.interval <= 0 || c.hold < 0 || math.IsNaN(c.interval) || math.IsInf(c.interval, 0) || math.IsNaN(c.hold) || math.IsInf(c.hold, 0) {
+	if c.output == "" || c.runs < 1 || c.warmup < 0 || c.rows < 1 || c.queries < 1 || c.clients < 1 || c.interval <= 0 || c.hold < 0 || math.IsNaN(c.interval) || math.IsInf(c.interval, 0) || math.IsNaN(c.hold) || math.IsInf(c.hold, 0) {
 		fmt.Fprintln(os.Stderr, "invalid benchmark options")
 		os.Exit(2)
 	}

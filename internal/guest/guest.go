@@ -1,4 +1,4 @@
-// Package guest owns the experimental WASIX subprocess and its framed API.
+// Package guest owns a WASIX guest instance and its framed API.
 // This transport is internal: public database identity is independent of PIDs.
 package guest
 
@@ -83,6 +83,9 @@ func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore st
 }
 
 func StartKind(ctx context.Context, runtime, module, wasmerDir, transfer, restore string, stderr io.Writer, kind runtimekind.Kind) (*Process, error) {
+	if kind == runtimekind.GeneratedGo {
+		return startLinked(ctx, module, transfer, restore, stderr)
+	}
 	args := []string{"run", module, "--no-tty", "--volume", transfer + ":/snapshot-out"}
 	if timing.Enabled(ctx) {
 		args = append(args, "--env", "MARIAMEM_GUEST_TIMING=1")
@@ -148,7 +151,12 @@ func StartKind(ctx context.Context, runtime, module, wasmerDir, transfer, restor
 		return nil, startupError(p.AbortAndWait(ctx.Err()), tail)
 	}
 }
-func (p *Process) PID() int              { return p.cmd.Process.Pid }
+func (p *Process) PID() int {
+	if p.cmd == nil {
+		return os.Getpid()
+	}
+	return p.cmd.Process.Pid
+}
 func (p *Process) Done() <-chan struct{} { return p.done }
 
 // Err reports the cause that made the guest unusable, if any.
@@ -188,7 +196,14 @@ func (p *Process) fail(err error) {
 	}
 }
 func (p *Process) Abort(err error) {
-	p.abort.Do(func() { p.fail(err); _ = syscall.Kill(-p.PID(), syscall.SIGKILL); p.in.Close(); p.out.Close() })
+	p.abort.Do(func() {
+		p.fail(err)
+		if p.cmd != nil {
+			_ = syscall.Kill(-p.PID(), syscall.SIGKILL)
+		}
+		p.in.Close()
+		p.out.Close()
+	})
 }
 
 func (p *Process) AbortAndWait(err error) error {

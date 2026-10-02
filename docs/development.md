@@ -1,3 +1,4 @@
+<!-- Current v0.4 production path: direct-linked generated-Go. -->
 # Building and testing
 
 The repository is self-contained: no files from an earlier investigation workspace
@@ -5,7 +6,8 @@ are required. Downloaded inputs and all build products live under ignored `build
 
 ## v0.4 default-path checks
 
-Generated-Go is the default. Use pinned Go1.26.8 for developer commands:
+Direct-linked generated-Go is the default. Go1.27.0/1.27.1 arm64 are unsupported
+(upstream go#81036); no generated-source workaround. Use pinned Go1.26.8 for developer commands:
 
 ```sh
 GOTOOLCHAIN=go1.26.8 python3 scripts/verify.py check
@@ -23,6 +25,10 @@ GORM remain separate consumer acceptance. Generated source/image checks run in
 `check`; the narrow generated-function vet exception is documented in the
 [architecture](v04-generated-go-architecture.md). The older bundle/AOT workflow
 below remains available for explicit legacy/fallback builds, not normal v0.4 use.
+
+The current full generated guest race gate fails; focused shim race tests pass.
+See [direct-link acceptance](../benchmarks/v04-direct-link-baseline.md). Do not
+suppress this gate or treat earlier non-race consumer success as full acceptance.
 
 ## Requirements
 

@@ -24,8 +24,11 @@ def main():
     record = json.loads((source/'provenance.json').read_text())
     pins = ROOT/'release/generated-go-inputs.json'
     require(record['input_manifest_sha256'] == digest(pins), 'input manifest changed')
+    # Ordinary handwritten integration files are versioned Go source, outside
+    # the unchanged transpilation inventory and historical executable binding.
+    handwritten = {'runtime_instance.go', 'code/base/runtime_cleanup.go'}
     inventory = {str(p.relative_to(source)):digest(p) for p in source.rglob('*')
-                 if p.is_file() and p.name != 'provenance.json'}
+                 if p.is_file() and p.name != 'provenance.json' and str(p.relative_to(source)) not in handwritten}
     require(inventory == record['files_sha256'], 'generated source inventory changed; regenerate')
     require(record['guest_sha256'] == json.loads(pins.read_text())['guest_sha256'], 'guest identity changed')
     images = ROOT/'internal/builtinruntime'

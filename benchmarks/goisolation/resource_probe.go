@@ -96,7 +96,11 @@ func (r *runner) resourceBatch(saved *mariamem.Snapshot, n int) (row map[string]
 		row["host_cpu_seconds"], row["runtime_cpu_seconds"], row["combined_cpu_seconds"] = host, runtime, host+runtime
 		row["incremental_primary_bytes"] = ready.Primary - baseline.Primary
 		row["average_incremental_bytes"] = float64(ready.Primary-baseline.Primary) / float64(n)
-		if len(ready.Members) != n+1 {
+		expectedProcesses := n + 1
+		if r.cfg.native == "" {
+			expectedProcesses = 1
+		}
+		if len(ready.Members) != expectedProcesses {
 			err = errors.Join(err, errors.New("ready process inventory mismatch"))
 		}
 	}

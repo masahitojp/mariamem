@@ -68,6 +68,10 @@ def main():
     (out/'provenance.json').write_text(json.dumps({'guest_sha256':pins['guest_sha256'],
         'input_manifest_sha256':hashlib.sha256((ROOT/'release/generated-go-inputs.json').read_bytes()).hexdigest(),
         'files_sha256':inventory},indent=2)+'\n')
+    # Production ownership glue is ordinary handwritten Go, not transpilation
+    # output. Carry it into clean regenerated trees without modifying that output.
+    for name in ('runtime_instance.go', 'code/base/runtime_cleanup.go'):
+        shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)
     print('Installed checksum-bound generated runtime:',len(inventory),'files')
 
 
