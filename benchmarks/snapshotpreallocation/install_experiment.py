@@ -21,6 +21,17 @@ NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
 
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 
+def write_runtime_provenance(target, translated, manifest):
+    runtime = target/'internal/generatedgo'
+    hand = {'runtime_instance.go','code/base/runtime_cleanup.go'}
+    files = {str(f.relative_to(runtime)):sha(f) for f in runtime.rglob('*')
+             if f.is_file() and f.name != 'provenance.json' and str(f.relative_to(runtime)) not in hand}
+    record = {'guest_sha256':manifest['guest_sha256'],
+              'input_manifest_sha256':sha(translated/'input-manifest.json'),
+              'files_sha256':files,
+              'scope':'experimental direct-link source inventory, not canonical release/platform-image provenance'}
+    (runtime/'provenance.json').write_text(json.dumps(record,indent=2)+'\n')
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--translation', type=Path, required=True)
@@ -61,6 +72,7 @@ def main():
     shutil.copytree(ROOT/'benchmarks/snapshotpreallocation',target/'benchmarks/snapshotpreallocation')
     env=dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off')
     subprocess.run(['gofmt','-w',*map(str,destination.glob('*.go'))],env=env,check=True)
+    write_runtime_provenance(target, translated, manifest)
     generated_inventory = {str(f.relative_to(target/'internal/generatedgo')):sha(f) for f in (target/'internal/generatedgo').rglob('*') if f.is_file()}
     record={'base_sha':BASE,'recipe_sha':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'guest_sha256':new_sha,'translation_manifest_sha256':sha(translated/'input-manifest.json'),'unchanged_base_inventory_verified':True,'identity_binding_files':bindings,'diagnostic_generated_inventory':generated_inventory,'scope':'external experiment; committed canonical generated source, executable image pins and release identity unchanged; not a release candidate'}
     (target/'experiment-provenance.json').write_text(json.dumps(record,indent=2)+'\n')
