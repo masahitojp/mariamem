@@ -1,0 +1,93 @@
+{
+  "source_sha": "1687465bcbaff74a334b3e89181c47e66478792c",
+  "completed": true,
+  "stages": [
+    {
+      "name": "prepare",
+      "seconds": 13.080995457999961,
+      "exit_code": 0,
+      "log_sha256": "591585a773294e7fbe2b6772146dd6b5ea8cf0fd7339fa11ba7fcbfee6f234c0"
+    },
+    {
+      "name": "toolchain-probe",
+      "seconds": 5.214430707997963,
+      "exit_code": 0,
+      "log_sha256": "0b8aefcda61e107489a579cda4c02f1f855eb894518926245b78b6e92ca89f6c"
+    },
+    {
+      "name": "guest-build",
+      "seconds": 658.2491855000007,
+      "exit_code": 0,
+      "log_sha256": "4670e157ad320bcc98c43c142b09d19a682e68ad0267d01ce993fa0e830e2b47"
+    },
+    {
+      "name": "guest-postopt",
+      "seconds": 15.928457624999282,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "full_guest_regeneration": true,
+  "prepared_source": {
+    "inputs_lock_sha256": "bad72fcb09d919a20216ef8bb566b72f6369e46abfbc33a91ad1120f96152680",
+    "overlays": {
+      "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
+      "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
+      "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
+      "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
+      "resident.inc": "7dfee608541002f4fca74b6eeceb8a0b54f22e0b04b5d1e254391b970e6af634",
+      "snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
+      "source.patch": "595341525825860a398c3dc3f7c9660264af4db79ec487902d51e3d1d3bd5e0f",
+      "startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
+      "test-auth-keypair.json": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be",
+      "wire_core.inc": "dafdc569959bc21821ddf39533116f2a62eab2441c9280a675be3065db58278f"
+    },
+    "modified_files": {
+      "mysys/my_lib.c": "d00d2647d98e49272c6652e0dc5a88438d86da5856c6007d70f0047a994f0f26",
+      "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
+      "wasm/CMakeLists.txt": "c202123fef2d0ac6ec8da5d659d488907aaff4b8040a5a6e514255c3d47fd254",
+      "wasm/wire_api.inc": "d21bea6b0bb9d3f044fa88170899f0b52f99aa0c73aa51f54a7e7004b858e344",
+      "wasm/resident.inc": "7dfee608541002f4fca74b6eeceb8a0b54f22e0b04b5d1e254391b970e6af634",
+      "wasm/snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
+      "wasm/startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
+      "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
+      "wasm/prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
+      "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
+      "plugin/auth_mysql_sha2/mysql_sha2.c": "2dfb8b6e0ca9bc26e1aa6ab50c8009f0d5be850d3d7ad0c56b9413b4acc3928e",
+      "plugin/auth_mysql_sha2/ssl_stuff.c": "8621b8bbb5cab82eb32b736938fcfebf66a09a4acd388bcca5be8c2962ff0d02",
+      "include/mariamem_init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
+      "libmysqld/lib_sql.cc": "457ddea08a0619911f3a069a2ac5062ef1bd61bab50faaf57cbd7cb984401f78",
+      "sql/mysqld.cc": "3d9f00e740fb0224f219e726957549e2e764f71f0490b027c29af0e0eed9beb8",
+      "sql/sql_plugin.cc": "630e717311f615de83820b3af7c23e909c8e8e263c1088e404456a0ca0c83bd1",
+      "storage/maria/ha_maria.cc": "465fe7518073e467a97710e48626fbf4dbdd15f28ec20d2d074087b6d7871c36",
+      "storage/innobase/handler/ha_innodb.cc": "e4bcc75b44bc1c74bb2c9758f548fa54c1ce69bf71e970b9d07ea2cfea28179b",
+      "storage/innobase/srv/srv0start.cc": "c9b1c1343f88298b55ea0cdaaa6d147d9b26a8683cc3a829ae11284ba5f6b9da",
+      "cmake/pcre.cmake": "ed0dbf1f78b8fe86ed04e1a85cdeaeec3b2b9c271b0ee4a5f9eb036d43eb0907",
+      "cmake/libfmt.cmake": "436e87408474a62f2c344ea6de4ccbcc02e65f900f00a8474073513c082da765"
+    }
+  },
+  "toolchain_image_id": "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+  "llvm_override": {
+    "host_path": "$cache/llvm23-wasm-prefix/LLVM-23.1.0-Linux-ARM64",
+    "tools_sha256": {
+      "clang": "36d4e324933337bea84dcc17b28e50b2aac0813905f99af7b79e80e9e5b5cbf6",
+      "wasm-ld": "2fc5f8dcbe7dd01899fef04b1d2f2c9f2e3fbd35e4a9db93d41b861ebab307b7",
+      "llvm-ar": "f624542cc7fc77f722f8d3357d8ecd1d4542b7ab2b5f9c83179df403e6c79f51",
+      "llvm-ranlib": "f624542cc7fc77f722f8d3357d8ecd1d4542b7ab2b5f9c83179df403e6c79f51"
+    }
+  },
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "guest_size": 18560271,
+  "accepted_guest_identity_match": false,
+  "linked_guest_sha256": "94b2ae2ba97f424faf419daf4e819f2dfeefc8640b529ae19a98ee3579cb7d1b",
+  "linked_guest_size": 22051175,
+  "build_paths": {
+    "container_source": "/work/source",
+    "container_build": "/work/source/build-legacy-no-postopt",
+    "host_work": "$work/guest-build-canonical/work"
+  },
+  "comparison_scope": "same v0.4 legacy-EH recipe, not historical/new-EH identity",
+  "raw_replay_sha256": "8048bcb74a36ae2350d9ea561feb2ea11a0dbda8684652e94ff9c1556b6aabbf",
+  "translation_manifest_sha256": "cfdc39441b388ef57394712c1168fe26bdb21aca14e0e41643b7dc6d996c2ab4",
+  "compiled_guest_source_scope": "canonical snapshot_fs.inc; no experimental.patch"
+}
