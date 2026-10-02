@@ -130,7 +130,15 @@ func main() {
 		}
 	}
 	// Deliberate corruption after the successful children must still be rejected.
-	corrupted := filepath.Join(snap.Path(), "data/test/benchmark_rows.ibd")
+	corrupted := ""
+	for name := range inventory {
+		if strings.HasSuffix(name, "/test/benchmark_rows.ibd") {
+			corrupted = filepath.Join(snap.Path(), name)
+		}
+	}
+	if corrupted == "" {
+		panic("fixture data file missing from published inventory")
+	}
 	file, e := os.OpenFile(corrupted, os.O_RDWR, 0)
 	must(e)
 	_, e = file.WriteAt([]byte("corrupt"), 0)
