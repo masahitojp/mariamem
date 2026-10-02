@@ -10,6 +10,7 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
+	"github.com/masahitojp/mariamem/internal/runtimekind"
 	"github.com/masahitojp/mariamem/internal/timing"
 	"os"
 	"path/filepath"
@@ -55,6 +56,12 @@ func main() {
 	must(e)
 	elapsed := time.Since(start)
 	runtime.ReadMemStats(&after)
+	// Collection only after all measured boundaries, to settle alloc-space profile epoch.
+	runtime.GC()
+	f, e := os.Create(filepath.Join(*out, "snapshot.heap"))
+	must(e)
+	must(pprof.WriteHeapProfile(f))
+	must(f.Close())
 	inventory := map[string]int64{}
 	hashes := map[string]string{}
 	var bytes int64
@@ -77,12 +84,6 @@ func main() {
 		}
 		return nil
 	}))
-	// Collection only after all measured boundaries, to settle alloc-space profile epoch.
-	runtime.GC()
-	f, e := os.Create(filepath.Join(*out, "snapshot.heap"))
-	must(e)
-	must(pprof.WriteHeapProfile(f))
-	must(f.Close())
 	a, e := snap.Fork(ctx)
 	must(e)
 	b, e := snap.Fork(ctx)
@@ -150,7 +151,7 @@ func main() {
 	}
 	must(snap.Close())
 	must(db.Close())
-	report := map[string]any{"go": runtime.Version(), "snapshot_ms": float64(elapsed) / float64(time.Millisecond), "total_alloc_delta": after.TotalAlloc - before.TotalAlloc, "heap_before": before.HeapAlloc, "heap_after": after.HeapAlloc, "snapshot_bytes": bytes, "inventory": inventory, "traces": traces, "isolation_pass": true, "corruption_rejected": true, "files_sha256": hashes}
+	report := map[string]any{"go": runtime.Version(), "guest_sha256": runtimekind.GuestSHA256, "mallocs_delta": after.Mallocs - before.Mallocs, "snapshot_ms": float64(elapsed) / float64(time.Millisecond), "total_alloc_delta": after.TotalAlloc - before.TotalAlloc, "heap_before": before.HeapAlloc, "heap_after": after.HeapAlloc, "snapshot_bytes": bytes, "inventory": inventory, "traces": traces, "isolation_pass": true, "corruption_rejected": true, "files_sha256": hashes}
 	data, e := json.MarshalIndent(report, "", "  ")
 	must(e)
 	must(os.WriteFile(filepath.Join(*out, "result.json"), data, 0600))
