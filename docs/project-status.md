@@ -38,11 +38,17 @@ Canonical normal-path measurements are complete; see
 ×16 CPU p50 is 3.352 CPU-sec. ×16 incremental physical footprint is
 197.5/320.8 MiB per DB; ready total 4283.3/6255.4 MiB, and immediate post-Close
 4283.2/6255.6 MiB. Fresh Start is a separate ~90.8 MiB ready boundary.
-Prepared-state lifecycle retention is not explained; do not substitute the fresh
-figure for prepared scaling. SQLAlchemy100 Start/Fork p50: 35.649/21.405 s.
-The next bounded performance investigation is Snapshot preparation's elevated
-G(0) allocation/reference lifetime and retained footprint; no optimization was
-performed for this baseline. See [architecture](v04-generated-go-architecture.md)
+The [memory-lifetime diagnostic](../benchmarks/v04-snapshot-memory-lifetime.md)
+shows large guest/FS Go objects become unreachable after normal Close and GC,
+while anonymous/compressed OS footprint remains. A held closed handle retains
+one pipe FD, separately from the GiB-scale memory. Do not substitute the fresh
+figure for prepared scaling or interpret process footprint as exclusive live DB
+bytes. SQLAlchemy100 Start/Fork p50: 35.649/21.405 s.
+The proposed next implementation experiment is known-length pre-sizing of the
+cold filesystem copy destination to reduce MemFS growth churn. It requires the
+human decision before implementation; no production optimization, GC/scavenging
+policy or Snapshot/Fork redesign was applied by this attribution task. See
+[architecture](v04-generated-go-architecture.md)
 and [default migration evidence](../benchmarks/v04-default-runtime-migration.md).
 Go ordinary startup now directly links the canonical generated module in the
 consumer, without embedded image delivery or subprocess startup. Python's packaged
