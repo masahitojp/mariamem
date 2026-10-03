@@ -88,7 +88,7 @@ def main():
         prepared = json.loads((ROOT/'build/prepared-source.json').read_text())
         if prepared.get('experimental_patch'):
             raise ValueError('experimental source patches are forbidden')
-        (ROOT/'build/source').rename(work/'source')
+        shutil.move(str(ROOT/'build/source'), work/'source')
         subprocess.run(['bash', shell, 'build-no-postopt'], env=env, check=True)
         subprocess.run(['bash', shell, 'postopt'], env=env, check=True)
         linked = work/'artifact/mariamem-legacy-eh.wasm'

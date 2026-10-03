@@ -145,8 +145,8 @@ bypass Snapshot validation or change the build mismatch policy.
 
 ## Acceptance order
 
-First reproduce all v0.3 behavior through unchanged workloads. The deferred Aria
-schema-discovery issue is a compatibility gate: do not use checkfirst=False or
+First reproduce all v0.3 behavior through unchanged workloads. The previously found Aria
+schema-discovery issue is covered by passing GORM32 acceptance: do not use checkfirst=False or
 change GORM AutoMigrate to pass. Audit generated runtime contracts before moving
 shims into production. Then establish reproducible build and platform acceptance,
 bounded failure/cleanup behavior, and canonical public-boundary measurements.
@@ -185,18 +185,18 @@ unchanged local bundle resolver; manifest runtime_kind labels the candidate.
 
 The generated source is now isolated under `internal/generatedgo` and selected
 by default. Source-to-WASM and generated source reproducibility are recorded in
-[v04 guest reproducibility](v04-guest-reproducibility.md). Distribution size and
-Go image-provisioning cost, comprehensive WASIX hardening, licensing/source
-review and exact-byte Ubuntu/macOS15 acceptance remain release gates. Local regression/benchmark evidence does not replace them. See the updated
+[v04 guest reproducibility](v04-guest-reproducibility.md). Generated-source build cost is documented separately; normal startup no longer
+provisions images. Source/notices/provenance and exact-byte Ubuntu/macOS15
+acceptance remain release gates. Local regression/benchmark evidence does not replace them. See the updated
 candidate report for public-boundary measurements and observed regressions.
 
 ## Release preparation audit
 
 [The infrastructure/docs/test audit](v04-integration-audit.md) records retained
 API options, intended artifact migration, verification tiers and actual build/CI
-gaps. NativeDir remains a compatibility override; ordinary v0.4 zero setup must
-be delivered by a runtime-kind-aware exact-version distribution rather than
-requiring users to choose a local directory. Do not remove Wasmer fallback/trust
+gaps. NativeDir remains a compatibility override; ordinary v0.4 zero setup is
+delivered by direct-linked Go and a host-only Python wheel, without a local
+runtime directory. Do not remove Wasmer fallback/trust
 mechanisms before their replacements and both-platform acceptance pass.
 
 The source-build reproducibility recipe and exact toolchain/input pins are in
@@ -206,27 +206,28 @@ LLVM21 candidate build bridge; historical artifact pins remain explicit.
 
 ## Default build and regeneration
 
-First run the pinned source/translation/candidate commands in
-[v04 guest reproducibility](v04-guest-reproducibility.md). Then:
+The current Release CI contract is [generated-go-v1](releasing.md). On a fresh
+Linux arm64 build runner, `build_generated_guest.py` checksum-verifies downloaded
+tools and performs two independent source builds against the canonical guest
+identity. `regenerate_release_guest.py` repeats translation/adaptation/import in
+a disposable tree and compares every file with `internal/generatedgo`.
 
 ```sh
-python3 scripts/generate_runtime.py --source-module /work/candidate/module --output /work/imported-runtime
-# Compare /work/imported-runtime to internal/generatedgo; replace the latter only
-# after the script's pinned inventory check succeeds.
-python3 scripts/embed_generated_runtime.py --work-dir /work/platform-images
+# Fresh canonical build host only; fixed /work and SDK locations must be empty.
+sudo -E "$(command -v python3)" scripts/build_generated_guest.py --repetitions 2
+# With transferred build/generated-release inputs on a Go1.26.8 builder:
+python3 scripts/regenerate_release_guest.py
 python3 scripts/verify_generated_runtime.py
-python3 scripts/build_alpha.py
+python3 scripts/build_alpha.py --ci-candidate
 ```
 
-`generate_runtime.py` performs the package/import/data and owned-entry conversion
-without manual patches. `release/generated-go-inputs.json` pins all candidate
-Go/assembly/data inputs; `internal/generatedgo/provenance.json` pins the resulting
-source. The generated source is intentionally committed. Image generation uses
-Go1.26.8, CGO disabled, trimmed paths, no VCS embedding, sequential compilation to bound developer/CI memory, baseline target CPU flags
-and no user GOENV/GOFLAGS/GOEXPERIMENT/GOWORK overrides. Its provenance records
-both uncompressed executables, encoded sources and Python/zlib versions.
-Changing a pin requires regeneration and product acceptance, never a checksum
-exception. The image verifier is part of normal `scripts/verify.py check`.
+`release/generated-go-toolchain.json` pins tools/downloads;
+`release/generated-go-inputs.json` pins source/assembly/data inputs;
+`internal/generatedgo/provenance.json` pins resulting source. Generated code is
+intentionally committed and is normal consumer build input. Generator patches
+and bounded shim adaptations are applied automatically, never by manual edits.
+The historical image verifier remains in normal checks while old encoded assets
+are retained; **image regeneration is not part of the v0.4 default release path**.
 
 The generated pure function packages retain dead structured-control fallthrough
 from the translator. `scripts/vet_generated.py` inspects each vet configuration, including dependency
@@ -239,19 +240,18 @@ explicit rather than hiding other findings.
 
 Canonical guest generation is Go1.26.8. A local Go1.27.1 compiler failed in the
 large arm64 pure function package (LDPSW offset handling); do not silently change
-the build compiler. Ordinary consumers execute the pinned image and do not compile
-that generated package unless they build the developer host/guest commands.
+the build compiler. Ordinary consumers compile the generated packages as normal Go dependencies;
+Go1.27.0/1.27.1 arm64 are unsupported, as documented below.
 
 ## Packaging follow-up
 
-The Go module source set is about 326 MiB, below Go's 500 MiB uncompressed module
-zip limit, but includes generated source and both platform images. Each database
-currently expands its own image. A distribution/provisioning follow-up must
-address this cost with explicit trust, ownership and cleanup; this task adds no
-shared runtime, ready heap or cache. Python's default host-only wheel contains
-neither Wasmer nor a runtime WASM/AOT payload. Explicit legacy packaging commands,
-old native resolver/cache, release CI native-bundle assumptions and Wasmer notices
-remain for fallback/release migration. No license obligation is considered removed.
+The Go source set retains generated source and two historical encoded images.
+Normal consumers direct-link generated Go; **no DB expands or spawns an image**.
+Encoded assets and their verifier/provisioner remain later cleanup candidates.
+Python's default host-only wheel contains neither Wasmer nor runtime WASM/AOT.
+The migrated Release CI verifies the current source/module and host-only wheels;
+legacy native resolver/cache/packaging and Wasmer notices remain isolated for
+fallback. No license obligation is considered removed.
 
 ## Go toolchain support and regeneration
 
