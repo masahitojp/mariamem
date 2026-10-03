@@ -93,4 +93,13 @@ with zipfile.ZipFile(wheel) as archive:
     evidence = {"wheel": str(wheel.relative_to(ROOT)), "bytes": wheel.stat().st_size,
                 "sha256": hashlib.sha256(wheel.read_bytes()).hexdigest(),
                 "binary_minimum_macos": binary_minimums, "linux_dependencies": linux_dependencies, "files": names, "manifest": manifest, "archive_checks_passed": True}
+if args.ci_candidate and not legacy:
+    from generated_release import checkout, source_inventory
+    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    checkout(ROOT, commit)
+    buildinfo = subprocess.check_output([str(args.go), "version", "-m", str(host)], cwd=ROOT, text=True)
+    if "vcs.revision="+commit not in buildinfo or "vcs.modified=false" not in buildinfo:
+        raise ValueError("host executable is not built from the exact clean candidate")
+    evidence.update(source_commit=commit, source_files_sha256=source_inventory(ROOT),
+                    host_buildinfo=buildinfo)
 (ROOT / "tests/evidence/alpha-wheel.json").write_text(json.dumps(evidence, indent=2) + "\n")

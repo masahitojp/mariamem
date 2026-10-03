@@ -29,7 +29,7 @@ def handoff_paths(root,platform):
 
 
 def freeze(root,commit,platform,output):
-    checkout(root,commit); verify_build(root,commit); verify_source(root,commit); verify_wheel(root,platform)
+    checkout(root,commit); verify_build(root,commit); verify_source(root,commit); verify_wheel(root,platform,commit)
     require(not output.exists(),'refuse replacing frozen handoff')
     with tarfile.open(output,'w') as tar:
         for name in handoff_paths(root,platform): tar.add(root/name,arcname=name)
@@ -100,7 +100,7 @@ def restore_platform(root,commit,platform,mode,archive=None,sha=None,candidate_r
             archive=work/'candidate-handoff.tar'; sha=(work/'candidate-handoff.sha256').read_text().strip()
         require(archive is not None and sha is not None,'missing immutable handoff/hash')
         restore_handoff(archive,sha,root)
-        verify_build(root,commit); verify_source(root,commit); verify_wheel(root,platform)
+        verify_build(root,commit); verify_source(root,commit); verify_wheel(root,platform,commit)
         if mode=='guard-only':
             require(evidence_run and int(evidence_run)>0,'exact acceptance evidence run required')
             api.artifact(evidence_run,'release-evidence-'+platform+'-'+commit,commit,work/'evidence.zip')

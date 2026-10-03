@@ -36,7 +36,7 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None):
     require(not output.exists(),'refuse stale acceptance evidence')
     require(mode in ('candidate','published'),'unknown acceptance mode')
     if mode=='candidate': checkout(root,commit)
-    selected,record=verify_wheel(root,platform)
+    selected,record=verify_wheel(root,platform,commit)
     if wheel is not None:
         require(wheel.resolve()==selected.resolve(),'selected wheel differs from frozen metadata')
     metadata=version(root); report={'contract':CONTRACT,'result':'FAIL','source_commit':commit,'mode':mode,

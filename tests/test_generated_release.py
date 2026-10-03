@@ -121,7 +121,9 @@ def host_wheel(tmp_path):
             z.writestr('mariamem-0.4.0.dist-info/METADATA','Version: 0.4.0\n')
             for name in release.notices(root):z.writestr('mariamem-0.4.0.dist-info/licenses/'+Path(name).name,(root/name).read_bytes())
             if extra:z.writestr(extra,b'old-runtime')
-        release.write(root/'tests/evidence/alpha-wheel.json',{'wheel':wheel.relative_to(root).as_posix(),'sha256':digest(wheel),'manifest':manifest})
+        release.write(root/'tests/evidence/alpha-wheel.json',{'wheel':wheel.relative_to(root).as_posix(),'sha256':digest(wheel),'manifest':manifest,
+            'source_commit':'a'*40,'source_files_sha256':release.source_inventory(root),
+            'host_buildinfo':'vcs.revision='+('a'*40)+'\nvcs.modified=false'})
     make();return root,wheel,manifest,make
 
 
@@ -131,6 +133,9 @@ def test_host_only_wheel_and_notice_bytes(host_wheel):
     make('mariamem/mariamem/_native/wasmer-headless')
     with pytest.raises(ValueError,match='assets'):release.verify_wheel(root,'darwin-arm64')
     make();(root/'NOTICE').write_text('changed')
+    record=release.read(root/'tests/evidence/alpha-wheel.json')
+    record['source_files_sha256']=release.source_inventory(root)
+    release.write(root/'tests/evidence/alpha-wheel.json',record)
     with pytest.raises(ValueError,match='notice'):release.verify_wheel(root,'darwin-arm64')
 
 
@@ -183,3 +188,14 @@ def test_guard_failure_replaces_old_ready(tmp_path,monkeypatch):
     assert ci.main()==1
     record=release.read(tmp_path/'build/release/ci-ready.json')
     assert record['result']=='NOT READY' and record['error']=='missing platform'
+
+
+def test_wheel_build_receipt_rejects_other_candidate(host_wheel):
+    root,wheel,manifest,make=host_wheel
+    with pytest.raises(ValueError,match='another source commit'):
+        release.verify_wheel(root,'darwin-arm64','b'*40)
+    record=release.read(root/'tests/evidence/alpha-wheel.json')
+    record['host_buildinfo']='vcs.modified=true'
+    release.write(root/'tests/evidence/alpha-wheel.json',record)
+    with pytest.raises(ValueError,match='build identity'):
+        release.verify_wheel(root,'darwin-arm64','a'*40)

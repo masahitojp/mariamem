@@ -14,7 +14,8 @@ def test_installed_host_contract():
     assert {p.name for p in native.iterdir()} == {'manifest.json', 'mariamem-host'}
     manifest = json.loads((native / 'manifest.json').read_text())
     assert manifest['runtime_kind'] == 'generated-go'
-    header = (native / 'mariamem-host').read_bytes()[:20]
+    with (native / 'mariamem-host').open('rb') as stream:
+        header = stream.read(20)
     if platform.system() == 'Linux':
         assert manifest['platform'] == 'ubuntu24.04-x86_64'
         assert (manifest['distribution'], manifest['version_id'], manifest['architecture']) == ('ubuntu', '24.04', 'x86_64')

@@ -165,8 +165,15 @@ def verify_source(root,commit):
     return record
 
 
-def verify_wheel(root, platform):
+def verify_wheel(root, platform, commit=None):
     value=version(root)['PYTHON_VERSION']; record=read(root/'tests/evidence/alpha-wheel.json')
+    require(re.fullmatch('[0-9a-f]{40}',record.get('source_commit','')) is not None,
+            'wheel build source receipt missing')
+    if commit is not None:
+        require(record['source_commit']==commit,'wheel built from another source commit')
+    require(record.get('source_files_sha256')==source_inventory(root),'wheel build source inventory differs')
+    require('vcs.revision='+record['source_commit'] in record.get('host_buildinfo','') and
+            'vcs.modified=false' in record.get('host_buildinfo',''),'wheel host build identity differs')
     path=root/record['wheel']
     require(path.name==wheel_name(value,platform) and digest(path)==record['sha256'],'wheel hash/version/target differs')
     manifest=record['manifest']
@@ -220,7 +227,7 @@ def guard(root, commit, platform):
     from check_version import check_release_docs
     check_release_docs(root)
     checkout(root,commit); build=verify_build(root,commit); source=verify_source(root,commit)
-    wheel,record=verify_wheel(root,platform)
+    wheel,record=verify_wheel(root,platform,commit)
     acceptance=verify_acceptance(root,commit,platform,record['sha256'])
     return {'version':3,'contract':CONTRACT,'result':'READY','source_commit':commit,'platform':platform,
             'git_tag':version(root)['GIT_TAG'],'python_version':version(root)['PYTHON_VERSION'],
@@ -269,7 +276,7 @@ def stage(root,ready):
     write(staging/f"mariamem-{ready['python_version']}-provenance.json",provenance)
     for platform in PLATFORMS:
         project=root/'build/platforms'/platform
-        wheel,_=verify_wheel(project,platform)
+        wheel,_=verify_wheel(project,platform,ready['source_commit'])
         shutil.copyfile(wheel,staging/wheel.name)
     source=source_name(ready['python_version'])
     shutil.copyfile(root/'build/platforms'/DARWIN/'build/release'/source,staging/source)
