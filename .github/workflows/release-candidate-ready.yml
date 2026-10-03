@@ -89,7 +89,7 @@ jobs:
       - name: Two independent canonical source to WASM builds
         run: |
           test "$(git rev-parse HEAD)" = '${{ needs.resolve.outputs.source_sha }}'
-          sudo -E "$(command -v python)" scripts/build_generated_guest.py --repetitions 2
+          sudo -H -E "$(command -v python)" scripts/build_generated_guest.py --repetitions 2
           sudo chown -R "$(id -u):$(id -g)" build
       - name: Reproduce generated Go and verify GPL source closure offline
         env:

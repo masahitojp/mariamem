@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run only inside the spike's isolated Docker work directory.
+# Run only in an isolated Linux builder with the canonical /work paths.
 set -euo pipefail
 cd /work
 case "${1:?probe, build, build-no-postopt or postopt}" in
