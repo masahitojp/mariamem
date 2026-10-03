@@ -1,0 +1,485 @@
+{
+  "schema": 1,
+  "source_tag": "v0.4.0",
+  "scenario": "public-released-direct-link-consumer-v1",
+  "environment": {
+    "system": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "cpu_count": 8,
+    "go": "go version go1.26.8 darwin/arm64",
+    "go_env": {
+      "CGO_ENABLED": "1",
+      "GOARCH": "arm64",
+      "GOOS": "darwin",
+      "GOPROXY": "https://proxy.golang.org,direct",
+      "GOSUMDB": "sum.golang.org"
+    },
+    "ram_bytes": 17179869184,
+    "cpu_model": "Apple M1"
+  },
+  "work": "${WORK}",
+  "commands": [
+    {
+      "label": "module-download",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "mod",
+        "download",
+        "-json",
+        "github.com/masahitojp/mariamem@v0.4.0"
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "setup",
+      "returncode": 0,
+      "wall_seconds": 17.457927250005014,
+      "cpu_seconds": 3.4400000000000004,
+      "reported_max_rss_bytes": 29310976,
+      "build_cache_logical_bytes_after": 0,
+      "build_cache_allocated_bytes_after": 0,
+      "stdout_sha256": "235d470d05f7b524afbd978d56fdb1d149c97290bc6ea2fc33f0cc05b176f9c0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "fd2b147d730b7532ffe54584ddf04a0dc71620864d82b8f232e03b9776aaa455"
+    },
+    {
+      "label": "dependencies-download",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "mod",
+        "tidy"
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "setup",
+      "returncode": 0,
+      "wall_seconds": 1.6697733749970212,
+      "cpu_seconds": 0.62,
+      "reported_max_rss_bytes": 33767424,
+      "build_cache_logical_bytes_after": 1233342,
+      "build_cache_allocated_bytes_after": 3227648,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "bc341a6fc6cd5119497626cfa7308723f86f7225818b7c510b976030d8f41c30",
+      "time_sha256": "5b8f2cfad44bb5c28a296f98c0cab2705fbf3bc5fdaf9baf25990de927ac1cd0"
+    },
+    {
+      "label": "cold-build-1",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "build",
+        "-o",
+        "${WORK}/consumer-1",
+        "."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-build-1",
+      "returncode": 0,
+      "wall_seconds": 96.26145508299669,
+      "cpu_seconds": 272.90999999999997,
+      "reported_max_rss_bytes": 2620129280,
+      "build_cache_logical_bytes_after": 543570242,
+      "build_cache_allocated_bytes_after": 548753408,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "cca7a4cddda96b20e9bb399ceddd69717b4b9f9b538fad80ae8ec46e020f49e1"
+    },
+    {
+      "label": "run-consumer-1",
+      "argv": [
+        "${WORK}/consumer-1"
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-build-1",
+      "returncode": 0,
+      "wall_seconds": 0.9606787090015132,
+      "cpu_seconds": 0.09,
+      "reported_max_rss_bytes": 127434752,
+      "build_cache_logical_bytes_after": 543570242,
+      "build_cache_allocated_bytes_after": 548753408,
+      "stdout_sha256": "78de27955e098fa287c1651c18547f8ee2e20a74b88fb0bc4aa7588553b5728e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "81a1b5803b09c61388b2a6aefebd6f28e7081422c00c1abdd056a7e1d86f70a6"
+    },
+    {
+      "label": "warm-build-1",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "build",
+        "-o",
+        "${WORK}/consumer-1",
+        "."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-build-1",
+      "returncode": 0,
+      "wall_seconds": 0.380688666999049,
+      "cpu_seconds": 0.41000000000000003,
+      "reported_max_rss_bytes": 35504128,
+      "build_cache_logical_bytes_after": 543571044,
+      "build_cache_allocated_bytes_after": 548761600,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "f16f0728d2d063bf9d01c2e2676a913681b8c5a0158a04e2718bafe368642fb9"
+    },
+    {
+      "label": "warm-build-2",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "build",
+        "-o",
+        "${WORK}/consumer-1",
+        "."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-build-1",
+      "returncode": 0,
+      "wall_seconds": 0.2132752499965136,
+      "cpu_seconds": 0.44,
+      "reported_max_rss_bytes": 37715968,
+      "build_cache_logical_bytes_after": 543571044,
+      "build_cache_allocated_bytes_after": 548761600,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "4dd72f3638b4f5eb41d9740e5479b1dd4e154776a829cdfe3009a35a571eaf6e"
+    },
+    {
+      "label": "cold-build-2",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "build",
+        "-o",
+        "${WORK}/consumer-2",
+        "."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-build-2",
+      "returncode": 0,
+      "wall_seconds": 99.84915724999883,
+      "cpu_seconds": 278.04999999999995,
+      "reported_max_rss_bytes": 2963341312,
+      "build_cache_logical_bytes_after": 543571044,
+      "build_cache_allocated_bytes_after": 548761600,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "1a3e2026a47df594ba184989a7c3b7c53be45ab7bb06f8c4ac6a0712beb4eaa2"
+    },
+    {
+      "label": "run-consumer-2",
+      "argv": [
+        "${WORK}/consumer-2"
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-build-2",
+      "returncode": 0,
+      "wall_seconds": 0.8022667080003885,
+      "cpu_seconds": 0.09,
+      "reported_max_rss_bytes": 127238144,
+      "build_cache_logical_bytes_after": 543571044,
+      "build_cache_allocated_bytes_after": 548761600,
+      "stdout_sha256": "78de27955e098fa287c1651c18547f8ee2e20a74b88fb0bc4aa7588553b5728e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "7644404f579878335bad377aafcc110725fe08121755eb3637789da860529682"
+    },
+    {
+      "label": "cold-test",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "test",
+        "./..."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-test",
+      "returncode": 0,
+      "wall_seconds": 133.50007862500206,
+      "cpu_seconds": 408.55,
+      "reported_max_rss_bytes": 2873524224,
+      "build_cache_logical_bytes_after": 556213583,
+      "build_cache_allocated_bytes_after": 563642368,
+      "stdout_sha256": "7400817fe10e27576fe62188b68f6e77e447b838171b6078e6401e6999fc1e5f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "8c45fb7d06c839af1af5ffcac3dd071c23475633c70a8421fd6f229a7b5cb3e9"
+    },
+    {
+      "label": "warm-test-cached",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "test",
+        "./..."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-test",
+      "returncode": 0,
+      "wall_seconds": 0.4335124999997788,
+      "cpu_seconds": 0.5,
+      "reported_max_rss_bytes": 38354944,
+      "build_cache_logical_bytes_after": 556213583,
+      "build_cache_allocated_bytes_after": 563642368,
+      "stdout_sha256": "755b05ab5e5b9c7f05b70e81e1165409c10147810ef0f3762cfc1792bca23666",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "d897cc5d434e966cf00c08aa700389766ce85a246bfbde0b5febc6c7ee37fc67"
+    },
+    {
+      "label": "warm-test-executed-1",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "test",
+        "-count=1",
+        "./..."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-test",
+      "returncode": 0,
+      "wall_seconds": 3.508116290999169,
+      "cpu_seconds": 1.33,
+      "reported_max_rss_bytes": 588021760,
+      "build_cache_logical_bytes_after": 556213583,
+      "build_cache_allocated_bytes_after": 563642368,
+      "stdout_sha256": "739885c1b3aa239520e1aa192ed0983eb1c4692983a11dd79345da5afdfb0864",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "85159dfd87168566888a886e4e98531af267cedaa1ccff103fd1a2c1996e37f7"
+    },
+    {
+      "label": "warm-test-executed-2",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "test",
+        "-count=1",
+        "./..."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-test",
+      "returncode": 0,
+      "wall_seconds": 1.2669957910038647,
+      "cpu_seconds": 1.1600000000000001,
+      "reported_max_rss_bytes": 589414400,
+      "build_cache_logical_bytes_after": 556213583,
+      "build_cache_allocated_bytes_after": 563642368,
+      "stdout_sha256": "17631d38775714c743a647da9ba9bf1296fc5d70385e3afc0db3cca97225bd07",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "4c3b6692352c5804d483b6fa30927db86bb0532ed452c0fada9442a42137c3dd"
+    },
+    {
+      "label": "post-test-build",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "build",
+        "-o",
+        "${WORK}/consumer-test-cache",
+        "."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-test",
+      "returncode": 0,
+      "wall_seconds": 1.4573240840036306,
+      "cpu_seconds": 2.21,
+      "reported_max_rss_bytes": 752435200,
+      "build_cache_logical_bytes_after": 556451021,
+      "build_cache_allocated_bytes_after": 563900416,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "82ceecead818c360fcd24bd35788b776c6ae9490741209b57ebaf2d41d5b098e"
+    },
+    {
+      "label": "consumer-change-build",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "build",
+        "-o",
+        "${WORK}/consumer-test-cache",
+        "."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-test",
+      "returncode": 0,
+      "wall_seconds": 1.444316291002906,
+      "cpu_seconds": 2.2600000000000002,
+      "reported_max_rss_bytes": 753188864,
+      "build_cache_logical_bytes_after": 556688481,
+      "build_cache_allocated_bytes_after": 564154368,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "ab68a6aa6c5ebff06d650a8bf2c2fa351419a8505bee390d1a65de9bfb871f6b"
+    },
+    {
+      "label": "consumer-change-test",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "test",
+        "./..."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-test",
+      "returncode": 0,
+      "wall_seconds": 1.5377266670038807,
+      "cpu_seconds": 1.33,
+      "reported_max_rss_bytes": 586514432,
+      "build_cache_logical_bytes_after": 557092592,
+      "build_cache_allocated_bytes_after": 564617216,
+      "stdout_sha256": "66323061fe485b70bfbd6e99452de88d8e8bde4a106707201cfe37e47b06ce22",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "03d1583e38752f43ffb4b25fc3aa902e8f5c32ef0e3cd02801ce0901f984296c"
+    },
+    {
+      "label": "stripped-build",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "build",
+        "-ldflags=-s -w",
+        "-o",
+        "${WORK}/consumer-stripped",
+        "."
+      ],
+      "cwd": "${WORK}/consumer",
+      "cache": "cold-test",
+      "returncode": 0,
+      "wall_seconds": 0.745469540997874,
+      "cpu_seconds": 0.9199999999999999,
+      "reported_max_rss_bytes": 585072640,
+      "build_cache_logical_bytes_after": 557330227,
+      "build_cache_allocated_bytes_after": 564875264,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "0e6ce9993c2dced907f53589fc85ab09ae122316402f510520449766b2df3114"
+    },
+    {
+      "label": "control-tidy",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "mod",
+        "tidy"
+      ],
+      "cwd": "${WORK}/driver-control",
+      "cache": "cold-test",
+      "returncode": 0,
+      "wall_seconds": 0.34019858299870975,
+      "cpu_seconds": 0.18,
+      "reported_max_rss_bytes": 28737536,
+      "build_cache_logical_bytes_after": 557559764,
+      "build_cache_allocated_bytes_after": 565710848,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "15fd0e68b1adcdf6c0bb12302c1389120f531fae1ce162f9d8c3603867467f22"
+    },
+    {
+      "label": "control-build",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "build",
+        "-o",
+        "${WORK}/control",
+        "."
+      ],
+      "cwd": "${WORK}/driver-control",
+      "cache": "cold-test",
+      "returncode": 0,
+      "wall_seconds": 0.2985169159946963,
+      "cpu_seconds": 0.55,
+      "reported_max_rss_bytes": 140673024,
+      "build_cache_logical_bytes_after": 557766038,
+      "build_cache_allocated_bytes_after": 565936128,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "743fcc7f53b1381e500e950529ebc45e8866aa7d4dbced7c16f4ba64506d99da"
+    },
+    {
+      "label": "control-stripped-build",
+      "argv": [
+        "${GOROOT}/bin/go",
+        "build",
+        "-ldflags=-s -w",
+        "-o",
+        "${WORK}/control-stripped",
+        "."
+      ],
+      "cwd": "${WORK}/driver-control",
+      "cache": "cold-test",
+      "returncode": 0,
+      "wall_seconds": 0.22726937499828637,
+      "cpu_seconds": 0.36,
+      "reported_max_rss_bytes": 125239296,
+      "build_cache_logical_bytes_after": 557972312,
+      "build_cache_allocated_bytes_after": 566161408,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "time_sha256": "27fb8bc4afd463b0ad6a9be4b9f2df3128200a2118f2ba29030f7634a7c13c8d"
+    }
+  ],
+  "module": {
+    "Path": "github.com/masahitojp/mariamem",
+    "Version": "v0.4.0",
+    "Info": "${WORK}/gomodcache/cache/download/github.com/masahitojp/mariamem/@v/v0.4.0.info",
+    "GoMod": "${WORK}/gomodcache/cache/download/github.com/masahitojp/mariamem/@v/v0.4.0.mod",
+    "Zip": "${WORK}/gomodcache/cache/download/github.com/masahitojp/mariamem/@v/v0.4.0.zip",
+    "Dir": "${WORK}/gomodcache/github.com/masahitojp/mariamem@v0.4.0",
+    "Sum": "h1:XlvetHnwQjKnf9LRrN7BHIWXcIOYaANp6qd7rJ4EuL8=",
+    "GoModSum": "h1:aexYk5YouQtRKB87Wnb+gPmSvbN6NmVG8P+w+ylpn2E=",
+    "Origin": {
+      "VCS": "git",
+      "URL": "https://github.com/masahitojp/mariamem",
+      "Hash": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+      "Ref": "refs/tags/v0.4.0"
+    }
+  },
+  "acquisition": {
+    "zip_bytes": 150979989,
+    "zip_sha256": "5c7df0e7065a0ac855f3ef36b2f4946369eabe62f54896730b8b7c6fdf01962b",
+    "extracted_logical_bytes": 344095170,
+    "download_record_logical_bytes": 150980386,
+    "mariamem_cache_logical_bytes": 495075556,
+    "mariamem_cache_allocated_bytes": 496427008,
+    "generated_go_logical_bytes": 205714993,
+    "encoded_image_logical_bytes": 117304775,
+    "complete_module_cache_logical_bytes": 495982282,
+    "complete_module_cache_allocated_bytes": 497586176
+  },
+  "consumer_source_sha256": {
+    "main.go": "edb649a57502dfc49828c363d5cb73ad436c4ec43b453adeabd1d9abde4d09c9",
+    "main_test.go": "063bd3e60001fe8ecb9d969a347eff7b3759618d3d4f1908b8343fdf40e4213f",
+    "go.mod": "7fd8cb09e6056edd4d23d11b0fa5dbe0911b087d92563646bd0ea5f5cb548656",
+    "go.sum": "bea4271dabd7e1adcfa48069d517c48a47a5d439b9b334826ec169163d0e5f60"
+  },
+  "binaries": {
+    "consumer-1": {
+      "bytes": 85197730,
+      "sha256": "19f0fbc7ab17a22aeef44a0bc4aafe0c3e6d0148cf0420d025a6e83289290486"
+    },
+    "consumer-stripped": {
+      "bytes": 57115682,
+      "sha256": "fc9ee55f83a54d337eceaa8191c3044a373c6fd4be299f2af093392a0bae2002"
+    },
+    "control": {
+      "bytes": 7154354,
+      "sha256": "4cb4e019c2eac6d4f6e32dea08238ee8e4701e4af304ba6e7af26d26e0b4bdcd"
+    },
+    "control-stripped": {
+      "bytes": 4852050,
+      "sha256": "3bdd87aa818950d6ecb412a0eaa0bebdecbd720915da4e67326ac9a5638aaec5"
+    }
+  },
+  "final_consumer_marker": "consumer-only-change",
+  "notes": [
+    "No replace, private GOPROXY, GOSUMDB override, -p setting, compiler workaround or generated-source edits.",
+    "OS page cache not flushed; cold means independent empty Go build cache.",
+    "macOS time -l max RSS is reported maximum process RSS, not aggregate simultaneously live compiler RSS.",
+    "CPU includes descendants; warm executed tests include actual Start/CRUD/Close.",
+    "The isolated workspace includes reproducible caches and binaries; it is not source evidence to commit.",
+    "The committed runner adds zip-group inventory and a runner checksum after this completed campaign; command boundaries are unchanged."
+  ],
+  "base_sha": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+  "raw_result_sha256": "b9378518eec974685299ea08db6c19a73520e4a3d5c4ad022b4f53127972760a",
+  "harness_sha256": "646e18f6fb311c22bfd5395b768cb69f9d179665e7bae60a1a555ace8f348fab",
+  "zip_groups": {
+    "other": {
+      "uncompressed_bytes": 21075402,
+      "compressed_bytes": 2748203,
+      "files": 512
+    },
+    "encoded_image": {
+      "uncompressed_bytes": 117304775,
+      "compressed_bytes": 116573865,
+      "files": 6
+    },
+    "generated": {
+      "uncompressed_bytes": 205714993,
+      "compressed_bytes": 31518221,
+      "files": 65
+    }
+  }
+}
