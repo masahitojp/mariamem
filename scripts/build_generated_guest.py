@@ -49,8 +49,9 @@ def main():
     expected = json.loads((ROOT/'release/generated-go-inputs.json').read_text())['guest_sha256']
     work = Path('/work')
     sdk = Path('/root/.wasixcc')
-    if (work.exists() and any(work.iterdir())) or sdk.exists() or (ROOT/'build/source').exists():
-        parser.error('refuse nonempty /work, existing SDK, or prepared source; use a fresh builder')
+    if ((work.exists() and any(work.iterdir())) or sdk.exists() or
+        any((ROOT/'build'/name).exists() for name in ('source','unpack','generated-release'))):
+        parser.error('refuse existing work/SDK/source/output; use a fresh builder')
     archives = {k: download(v, ROOT/'build/downloads') for k,v in pins['archives'].items()}
     work.mkdir(exist_ok=True)
     sdk.mkdir()
@@ -72,14 +73,17 @@ def main():
     (sdk/'llvm').rmdir()
     (sdk/'llvm-prepared').rename(sdk/'llvm')
     env = {k:v for k,v in os.environ.items() if not k.startswith('WASIXCC_')}
-    env.update(PATH=str(sdk/'bin')+':'+env.get('PATH',''), LD_LIBRARY_PATH=str(sdk/'llvm/lib'),
+    env.update(PATH=str(sdk/'bin')+':/usr/bin:/bin', LD_LIBRARY_PATH=str(sdk/'llvm/lib'),
                LC_ALL='C', TZ='UTC', SOURCE_DATE_EPOCH='0')
     toolchain = {'contract': 'generated-go-v1', 'pins_sha256': digest(PIN),
                  'host': 'linux-arm64', 'versions': {}, 'sysroot': inventory(sdk/'sysroot/sysroot-eh'),
                  'archives_sha256': {k:digest(v) for k,v in archives.items()}}
     for key,command in [('wasixcc',[driver,'--version']),('llvm',[sdk/'llvm/bin/clang','--version']),
-                         ('lld',[sdk/'llvm/bin/wasm-ld','--version']),('binaryen',[sdk/'binaryen/bin/wasm-opt','--version'])]:
+                         ('lld',[sdk/'llvm/bin/wasm-ld','--version']),('binaryen',[sdk/'binaryen/bin/wasm-opt','--version']),
+                         ('cmake',['/usr/bin/cmake','--version']),('bison',['/usr/bin/bison','--version']),
+                         ('make',['/usr/bin/make','--version']),('python',[sys.executable,'--version'])]:
         toolchain['versions'][key] = subprocess.check_output(command,env=env,text=True).strip()
+    toolchain['environment']={k:env[k] for k in ('PATH','LD_LIBRARY_PATH','LC_ALL','TZ','SOURCE_DATE_EPOCH')}
     results = []
     out = ROOT/'build/generated-release'; out.mkdir()
     shell = ROOT/'benchmarks/spikes/wasm2go/legacy_eh_toolchain.sh'
