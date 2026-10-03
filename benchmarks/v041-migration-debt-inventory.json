@@ -1,0 +1,35 @@
+{
+  "base_sha": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+  "inventory": {
+    "internal/generatedgo/": {
+      "files": 65,
+      "bytes": 205714993
+    },
+    "internal/builtinruntime/": {
+      "files": 6,
+      "bytes": 117304775
+    },
+    "benchmarks/spikes/": {
+      "files": 119,
+      "bytes": 1020294
+    },
+    "tests/": {
+      "files": 72,
+      "bytes": 369575
+    },
+    "scripts/": {
+      "files": 60,
+      "bytes": 381718
+    },
+    ".github/workflows/": {
+      "files": 5,
+      "bytes": 55672
+    },
+    "docs/": {
+      "files": 27,
+      "bytes": 250614
+    }
+  },
+  "builtinruntime_external_imports": [],
+  "scope": "static tracked-source audit; no runtime or benchmark changes"
+}
