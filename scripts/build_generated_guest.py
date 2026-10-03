@@ -48,10 +48,10 @@ def main():
     expected = json.loads((ROOT/'release/generated-go-inputs.json').read_text())['guest_sha256']
     work = Path('/work')
     sdk = Path('/root/.wasixcc')
-    if work.exists() or sdk.exists() or (ROOT/'build/source').exists():
-        parser.error('refuse existing /work, SDK, or prepared source; use a fresh builder')
+    if (work.exists() and any(work.iterdir())) or sdk.exists() or (ROOT/'build/source').exists():
+        parser.error('refuse nonempty /work, existing SDK, or prepared source; use a fresh builder')
     archives = {k: download(v, ROOT/'build/downloads') for k,v in pins['archives'].items()}
-    work.mkdir()
+    work.mkdir(exist_ok=True)
     sdk.mkdir()
     extract(archives['wasixcc'], sdk/'bin')
     # SDK release is flat; the installer creates its named compiler wrappers.
