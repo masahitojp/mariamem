@@ -22,6 +22,17 @@ alpha.3 `release/guest-source-provenance.json` and review apply only to their
 recorded artifact hashes; a newly built guest requires its own corresponding
 source/provenance review before the existing release guard can accept it.
 
+## Unpublished v0.4 generated-Go candidate
+
+The [v0.4 readiness audit](release-readiness-v0.4.md) records passing local product
+and representative graceful-failure acceptance. The workflow and guards below
+still build/require Wasmer AOT/native archives, not the current generated-Go
+default's host-only wheel and normal Go-source runtime. Do not use those legacy
+results to approve generated-Go distribution. A release-pipeline migration,
+candidate-specific corresponding-source/notices review, canonical version/notes,
+and exact two-platform artifact acceptance remain required. No workflow was
+submitted by the audit; its result is NOT READY.
+
 ## CI candidate readiness
 
 PyPI publication is temporarily unavailable pending account recovery; GitHub

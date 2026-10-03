@@ -77,6 +77,13 @@ claimed passing. This branch is unpublished and does not imply v0.4 release read
 platform release acceptance and the legacy release-pipeline migration remain.
 The v0.3 sections below preserve historical/public-release context.
 
+The [v0.4 release-readiness audit](release-readiness-v0.4.md) confirms local
+normal acceptance and bounded failure paths (FD6→6 / goroutines2→2), with no
+new runtime behavior. Release submission remains blocked by the Wasmer-specific
+CI build/source/artifact/guard contract, pending candidate-specific source/notices
+review, v0.4 version/notes and exact supported-platform artifact acceptance.
+No release workflow or publication was started by that audit.
+
 ---
 
 ## Project goal

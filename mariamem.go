@@ -14,9 +14,10 @@
 // success. Snapshot.Fork starts independent databases from the saved state.
 // Closing a temporary snapshot removes its files; explicit destinations remain.
 //
-// A host query timeout or client cancellation during a query terminates that
+// A host query timeout or client cancellation during a query invalidates that
 // database instance. Database.Err reports the reason and ErrUnusable; close it
-// and start or fork another instance. DSN enables client parameter interpolation
+// and start or fork another instance. Direct-linked execution does not guarantee
+// forced reclamation of a non-cooperative guest. DSN enables client parameter interpolation
 // for the text protocol, not server-side prepared statements.
 package mariamem
 
@@ -40,7 +41,7 @@ type Options struct {
 	NativeDir       string        // Compatibility bundle override; empty uses generated-Go unless MARIAMEM_NATIVE_DIR is set.
 	StartupTimeout  time.Duration // Zero defaults to 120 seconds.
 	ShutdownTimeout time.Duration // Zero defaults to 30 seconds.
-	QueryTimeout    time.Duration // Zero defaults to 30 seconds; expiry terminates this instance.
+	QueryTimeout    time.Duration // Zero defaults to 30 seconds; expiry invalidates this instance.
 }
 
 func (o Options) defaults() (Options, error) {
