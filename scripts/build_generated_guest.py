@@ -59,7 +59,13 @@ def main():
     # SDK release is flat; the installer creates its named compiler wrappers.
     driver = sdk/'bin/wasixccenv'
     subprocess.run([driver, 'install-executables', sdk/'bin'], check=True)
-    extract(archives['sysroot'], sdk/'sysroot')
+    extract(archives['sysroot'], sdk/'sysroot-unpack')
+    sysroot_payload = sdk/'sysroot-unpack/wasix-sysroot-eh/sysroot'
+    if not (sysroot_payload/'lib/wasm32-wasi/libc.a').is_file():
+        raise ValueError('unexpected upstream sysroot layout')
+    (sdk/'sysroot').mkdir()
+    sysroot_payload.rename(sdk/'sysroot/sysroot-eh')
+    shutil.rmtree(sdk/'sysroot-unpack')
     extract(archives['binaryen'], sdk/'binaryen-unpack')
     binaryen = next((sdk/'binaryen-unpack').iterdir())
     binaryen.rename(sdk/'binaryen')
