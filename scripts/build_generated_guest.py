@@ -11,6 +11,7 @@ from pathlib import Path
 import platform
 import shutil
 import subprocess
+import sys
 import urllib.request
 from common import ROOT, digest, extract
 from install_guest_toolchain import inventory
@@ -64,7 +65,7 @@ def main():
     recipe = ROOT/'benchmarks/spikes/generated-go-integration/prepare_llvm23.py'
     # The checksum-verified official LLVM23 and ICU archives are prepared by
     # the same accepted header profile, including the native-only NEON exclusion.
-    subprocess.run(['python3', recipe, '--llvm-archive', archives['llvm'],
+    subprocess.run([sys.executable, recipe, '--llvm-archive', archives['llvm'],
                     '--icu-package', archives['icu'], '--output', sdk/'llvm'], check=True)
     llvm_prefix = next((sdk/'llvm').iterdir())
     llvm_prefix.rename(sdk/'llvm-prepared')
@@ -83,7 +84,7 @@ def main():
     out = ROOT/'build/generated-release'; out.mkdir()
     shell = ROOT/'benchmarks/spikes/wasm2go/legacy_eh_toolchain.sh'
     for trial in range(args.repetitions):
-        subprocess.run(['python3', ROOT/'scripts/prepare_guest.py'], env=env, check=True)
+        subprocess.run([sys.executable, ROOT/'scripts/prepare_guest.py'], env=env, check=True)
         prepared = json.loads((ROOT/'build/prepared-source.json').read_text())
         if prepared.get('experimental_patch'):
             raise ValueError('experimental source patches are forbidden')

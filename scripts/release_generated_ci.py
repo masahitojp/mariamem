@@ -164,6 +164,9 @@ def main():
             else: stage(root,result)
             print(json.dumps(result,indent=2))
     except Exception as error:
+        if a.command=='guard':
+            write(root/'build/release/ci-ready.json',{'version':3,'contract':CONTRACT,
+                  'result':'NOT READY','source_commit':a.candidate_sha,'error':str(error)})
         print('Release candidate: NOT READY\n- '+str(error)); return 1
     return 0
 

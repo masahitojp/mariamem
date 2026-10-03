@@ -89,7 +89,7 @@ jobs:
       - name: Two independent canonical source to WASM builds
         run: |
           test "$(git rev-parse HEAD)" = '${{ needs.resolve.outputs.source_sha }}'
-          sudo -E python3 scripts/build_generated_guest.py --repetitions 2
+          sudo -E "$(command -v python)" scripts/build_generated_guest.py --repetitions 2
           sudo chown -R "$(id -u):$(id -g)" build
       - name: Reproduce generated Go and verify GPL source closure offline
         env:
@@ -234,6 +234,7 @@ jobs:
           retention-days: 14
   aggregate:
     needs: [resolve, verification]
+    if: always() && needs.resolve.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -244,7 +245,9 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.14'
-      - name: Restore both frozen platforms and exact external evidence; aggregate guard
+      - id: restore
+        name: Restore both frozen platforms and exact external evidence
+        continue-on-error: true
         env:
           SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
           CANDIDATE_RUN: ${{ inputs.mode == 'full' && github.run_id || inputs.candidate_run }}
@@ -253,6 +256,11 @@ jobs:
         run: |
           python candidate-source/scripts/release_generated_ci.py restore --root candidate-source \
             --candidate-sha "$SOURCE_SHA" --candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN"
+      - name: Aggregate guard — require both platforms even after acceptance failure
+        if: always()
+        env:
+          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
+        run: |
           python candidate-source/scripts/release_generated_ci.py guard --root candidate-source --candidate-sha "$SOURCE_SHA"
           cat candidate-source/build/release/ci-ready.json >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f

@@ -8,6 +8,7 @@ import hashlib
 import io
 import json
 from pathlib import Path
+import subprocess
 import tarfile
 
 LLVM_SHA = 'cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4'
@@ -61,7 +62,17 @@ def main():
         at += 60+size+(size % 2)
         if name.startswith('data.tar'):
             found = True
-            with tarfile.open(fileobj=io.BytesIO(payload)) as archive:
+            try:
+                archive = tarfile.open(fileobj=io.BytesIO(payload))
+            except tarfile.ReadError:
+                if not name.endswith('.zst'):
+                    raise
+                # Ubuntu's system Python may precede stdlib zstd support.
+                # dpkg decodes the already checksum-verified Debian payload;
+                # selected file/symlink bytes and the header profile are unchanged.
+                payload = subprocess.check_output(['dpkg-deb', '--fsys-tarfile', str(args.icu_package)])
+                archive = tarfile.open(fileobj=io.BytesIO(payload))
+            with archive:
                 for member in archive:
                     filename = Path(member.name).name
                     if not filename.startswith('libicu') or '.so' not in filename:
