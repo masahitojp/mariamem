@@ -158,7 +158,7 @@ def verify_source(root,commit):
         for entry in [*manifest['source_inputs'],manifest['converter_source']]:
             require(digest(project/'build/downloads'/entry['file'])==entry['sha256'],'bundled upstream source differs: '+entry['file'])
         require(verify_runtime_sources(project,lock)==manifest['runtime_sources'],'runtime source/license coverage differs')
-        program="import runpy,urllib.request\ndef offline(*a,**k): raise RuntimeError('unexpected network')\nurllib.request.urlopen=offline\nrunpy.run_path('scripts/prepare_guest.py',run_name='__main__')"
+        program="import runpy,urllib.request,sys\nsys.path.insert(0,'scripts')\ndef offline(*a,**k): raise RuntimeError('unexpected network')\nurllib.request.urlopen=offline\nrunpy.run_path('scripts/prepare_guest.py',run_name='__main__')"
         subprocess.run([sys.executable,'-c',program],cwd=project,check=True)
         prepared=read(project/'build/prepared-source.json')
         require(prepared==manifest['build']['guest']['prepared_source'],'offline preparation differs from actual build')
