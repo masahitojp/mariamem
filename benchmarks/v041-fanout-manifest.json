@@ -35,7 +35,7 @@
     },
     "B": {
       "branch": "experiment/v041-fixture-crossover",
-      "sha": "ab65da8167d8b91cd6d97784414243264edf41bc",
+      "sha": "082fada79193db9a593384883c9efac5dd44519d",
       "base": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
       "verdict": "FRESH START IS SUFFICIENT FOR CURRENT WORKLOADS",
       "report": "benchmarks/v041-fixture-crossover.md",
@@ -44,12 +44,13 @@
         "benchmarks/fixturecrossover/go.mod": "cc652df13d9628c7be4feb93485769de11059a00fa68a15f2ccd9b2d7966cd20",
         "benchmarks/fixturecrossover/go.sum": "cc6dd80c9aad5de80dc9d1e85dcff41b9ed6096d983bed4971ff029c6faeab4f",
         "benchmarks/fixturecrossover/main.go": "fcd90b42aed41e2a0192951f06a36b37d3e422100aa65d2497c4068591c78057",
-        "benchmarks/fixturecrossover/run.py": "d0cb9b103b99ef7440f27b2f1159601ca2c486efc39ccd8b63768018a294062d",
-        "benchmarks/v041-fixture-crossover.csv": "2461be4bb9888cf17b09358f7f0e9e2857695dc9d384ce27ed9d211b9a71d19d",
-        "benchmarks/v041-fixture-crossover.json": "f701322bd2d0a7cdf8c7ad90bbf59932b0e1e4985651ec3de788c2faef65907f",
-        "benchmarks/v041-fixture-crossover.md": "f314199dfc6fb9591188c47ce8aaa9dd0f610ceb11f60c5409c693f2ba7e672f"
+        "benchmarks/fixturecrossover/run.py": "c4dc48572630987000769c2c3c908cc4969a16d0fbfd9cc1fec8b6807f0821dc",
+        "benchmarks/v041-fixture-crossover.csv": "114249a33839604b959a3b44e5a5d440d8c3f24d90479eff9e443e5ff7706c39",
+        "benchmarks/v041-fixture-crossover.json": "f08bb100d3544efb8306eda0db358c68682f11255939ef4dcba94dff88bf7904",
+        "benchmarks/v041-fixture-crossover.md": "c9dcf853817dcd26db80c4b15f177cdbbdcd71193cd610112483b5ed5d7dbeff"
       },
       "commits": [
+        "082fada79193db9a593384883c9efac5dd44519d",
         "ab65da8167d8b91cd6d97784414243264edf41bc"
       ]
     },

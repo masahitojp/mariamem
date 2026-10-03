@@ -95,7 +95,7 @@ C/Eは取得物cleanupの判断を補強する。Dの設定は全laneに共通�
 | Lane | Branch | Exact result SHA | Report |
 | --- | --- | --- | --- |
 | A | `experiment/v041-disposable-soak` | `2fa63fe03e5275c171106e0a578e63f86dfb3644` | [report](https://github.com/masahitojp/mariamem/blob/2fa63fe03e5275c171106e0a578e63f86dfb3644/benchmarks/v041-disposable-soak.md) |
-| B | `experiment/v041-fixture-crossover` | `ab65da8167d8b91cd6d97784414243264edf41bc` | [report](https://github.com/masahitojp/mariamem/blob/ab65da8167d8b91cd6d97784414243264edf41bc/benchmarks/v041-fixture-crossover.md) |
+| B | `experiment/v041-fixture-crossover` | `082fada79193db9a593384883c9efac5dd44519d` | [report](https://github.com/masahitojp/mariamem/blob/082fada79193db9a593384883c9efac5dd44519d/benchmarks/v041-fixture-crossover.md) |
 | C | `experiment/v041-consumer-cost` | `f414ff346df8d087d0e6d1e21c52399b03b0d1fb` | [report](https://github.com/masahitojp/mariamem/blob/f414ff346df8d087d0e6d1e21c52399b03b0d1fb/benchmarks/v041-consumer-cost.md) |
 | D | `experiment/v041-rsa-startup` | `85f6cfe4b5deeff5601d413123b52e12fca26763` | [report](https://github.com/masahitojp/mariamem/blob/85f6cfe4b5deeff5601d413123b52e12fca26763/benchmarks/v041-rsa-startup.md) |
 | E | `experiment/v041-migration-debt-audit` | `4635df3d8a06dacc5542b8fa8aec78f2e9c7fe6a` | [report](https://github.com/masahitojp/mariamem/blob/4635df3d8a06dacc5542b8fa8aec78f2e9c7fe6a/benchmarks/v041-migration-debt-audit.md) |
@@ -105,6 +105,8 @@ large raw/cache/binariesはowned work rootの `fanout-v041/evidence/soak-run-01.
 `crossover-raw/`、`consumer-measurement-1/`、`rsa-evidence/` に保持し、Gitには入れない。
 このreview branchはreport/manifestだけを追加する。全laneのdiffはdiagnostic
 `benchmarks/`配下だけ、共通ancestorとcommit非共有、lock非重複、diff-checkを確認。
+BのCSVは計測後にCRLF→LFだけを正規化し、全1,920 parsed rowsが同一であることと
+元/新checksumを記録した。計測値やtrial選別は変更していない。
 normal production acceptance/canonical benchmarkの代替とはしない。
 
 **Stop at HUMAN DECISION.** 選択したcleanup/fixの実装・統合、v0.4.1/v0.4.2準備、
