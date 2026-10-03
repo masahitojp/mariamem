@@ -1,0 +1,2636 @@
+{
+  "schema_version": 1,
+  "base_sha": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+  "source_sha": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+  "runtime": "direct-linked generated-Go",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "measured_at_utc": "2026-10-03T10:17:27Z",
+  "arch": "arm64",
+  "go": "go version go1.26.8 darwin/arm64",
+  "fixture_sources": [
+    "benchmarks/goisolation/main.go",
+    "tests/consumer/gorm/dogfood_test.go"
+  ],
+  "fixture_source_sha256": {
+    "benchmarks/goisolation/main.go": "668aca7c073c78b789ea351a0dd952304d224220336a8944c12af4f40a47d04f",
+    "tests/consumer/gorm/dogfood_test.go": "b55b39f952eaa1d36ca4d93dbdc299686f9eeb67b5af02b1689b6bcd90e2395d"
+  },
+  "harness_sha256": {
+    "main.go": "fcd90b42aed41e2a0192951f06a36b37d3e422100aa65d2497c4068591c78057",
+    "run.py": "d0cb9b103b99ef7440f27b2f1159601ca2c486efc39ccd8b63768018a294062d",
+    "go.mod": "cc652df13d9628c7be4feb93485769de11059a00fa68a15f2ccd9b2d7966cd20",
+    "go.sum": "cc6dd80c9aad5de80dc9d1e85dcff41b9ed6096d983bed4971ff029c6faeab4f"
+  },
+  "binary_sha256": "415e75f14b6f5c13ab1f28a55b545a5c7cd0983cee9c0882f614ca3ffa6b9128",
+  "generated_provenance_sha256": "ade34eabe1dfacba7182ff351a39f3f2f7f06bdd6e89556cf899a7cbc8ade867",
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "compile_seconds": 96.94611041699682,
+  "settings": {
+    "rounds": 3,
+    "counts": [
+      10,
+      50,
+      100
+    ],
+    "warmup_tests": 1,
+    "per_suite_timeout_seconds": 900,
+    "no_slow_samples_removed": true,
+    "forced_gc": false
+  },
+  "suites": [
+    {
+      "scenario": "fixture-1000",
+      "mode": "fork",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 40.085416,
+      "setup_prepare_ms": 4.879791,
+      "setup_disconnect_ms": 5.655708,
+      "setup_snapshot_ms": 996.777209,
+      "setup_ms": 1047.398792,
+      "final_cleanup_ms": 32.017459,
+      "total_ms": 4905.551917,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "fixture-1000-fork-10-0.json",
+      "raw_sha256": "eba2a490723adfa15b31e96db0b1b621fc0e59700844a5f4a56de466f7b46434",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 109.17925,
+          "mean": 371.6322294,
+          "p50": 394.3588955,
+          "p95": 420.5382715,
+          "max": 423.063334
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 111.083667,
+          "mean": 373.9530919,
+          "p50": 397.0689165,
+          "p95": 422.7617151,
+          "max": 425.131209
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.22675,
+          "mean": 1.6987375,
+          "p50": 1.4988955000000002,
+          "p95": 2.7801107499999986,
+          "max": 3.353917
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 6.484666,
+          "mean": 6.9608459,
+          "p50": 6.9863955,
+          "p95": 7.1363042000000005,
+          "max": 7.199792
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 119.558834,
+          "mean": 382.6128877,
+          "p50": 406.133396,
+          "p95": 431.00194185,
+          "max": 433.570167
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fresh",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 3439.705417,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "fixture-1000-fresh-10-0.json",
+      "raw_sha256": "d6bab6c8cbbc336faa4659d180484ada743a00246242e1b149f29d4da5a7ad18",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 54.853667,
+          "mean": 329.1466458,
+          "p50": 289.4088545,
+          "p95": 733.1978600499992,
+          "max": 1049.777041
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 4.548417,
+          "mean": 5.58325,
+          "p50": 4.993646,
+          "p95": 8.417368749999994,
+          "max": 10.525
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 60.38825,
+          "mean": 335.4491999,
+          "p50": 294.93204149999997,
+          "p95": 742.5863938999993,
+          "max": 1061.75225
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.092708,
+          "mean": 1.2430957,
+          "p50": 1.14575,
+          "p95": 1.6823876499999992,
+          "max": 1.995625
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 6.486625,
+          "mean": 7.249199900000001,
+          "p50": 7.235271,
+          "p95": 7.998003949999999,
+          "max": 8.361041
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 68.837667,
+          "mean": 343.9693749,
+          "p50": 303.408729,
+          "p95": 752.2231751499992,
+          "max": 1072.3855
+        }
+      },
+      "ready_ge_500_ms": 1,
+      "ready_ge_900_ms": 1
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fresh",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 2384.105917,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "fixture-1000-fresh-10-1.json",
+      "raw_sha256": "2ff05807e3921b43a5f132c115de135a45d35d6c19488f114210fe5f26c89557",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 41.408417,
+          "mean": 224.3641043,
+          "p50": 274.3077705,
+          "p95": 359.9242667,
+          "max": 370.497167
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 4.483375,
+          "mean": 4.9484375,
+          "p50": 5.0265830000000005,
+          "p95": 5.3393,
+          "max": 5.462375
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 47.290667,
+          "mean": 230.00567099999998,
+          "p50": 280.0627705,
+          "p95": 365.9817212,
+          "max": 376.395209
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.103583,
+          "mean": 1.2541043,
+          "p50": 1.2074375000000002,
+          "p95": 1.4730545,
+          "max": 1.500167
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 6.721167,
+          "mean": 7.1313919,
+          "p50": 7.160021,
+          "p95": 7.34779215,
+          "max": 7.377417
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 56.061958,
+          "mean": 238.409825,
+          "p50": 288.41608299999996,
+          "p95": 374.51927485,
+          "max": 385.147
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fork",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 41.383709,
+      "setup_prepare_ms": 5.420959,
+      "setup_disconnect_ms": 5.691209,
+      "setup_snapshot_ms": 1044.042625,
+      "setup_ms": 1096.539291,
+      "final_cleanup_ms": 37.351833,
+      "total_ms": 4671.477583,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "fixture-1000-fork-10-1.json",
+      "raw_sha256": "4fe7c78857d7df8ecced12fc95b8410d3bd8f7b7dc7763a9e324bd6033525c7e",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 108.190709,
+          "mean": 342.9778708,
+          "p50": 366.18625,
+          "p95": 393.20077879999997,
+          "max": 399.586916
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 110.176417,
+          "mean": 345.2408291,
+          "p50": 368.7151455,
+          "p95": 395.13602095,
+          "max": 401.274583
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.2445,
+          "mean": 1.4836335999999999,
+          "p50": 1.464188,
+          "p95": 1.8028607499999993,
+          "max": 2.025667
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 6.723791,
+          "mean": 7.0331249,
+          "p50": 7.0239995,
+          "p95": 7.34232905,
+          "max": 7.503542
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 118.214709,
+          "mean": 353.7578208,
+          "p50": 377.374521,
+          "p95": 403.6716535,
+          "max": 409.872541
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fork",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 39.877916,
+      "setup_prepare_ms": 4.810416,
+      "setup_disconnect_ms": 5.676166,
+      "setup_snapshot_ms": 682.826083,
+      "setup_ms": 733.191417,
+      "final_cleanup_ms": 32.473875,
+      "total_ms": 3961.085875,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "fixture-1000-fork-10-2.json",
+      "raw_sha256": "637e73977ebb31c55c04b823a4274aa5cc41907132d219c96365ca094f50c178",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 105.586083,
+          "mean": 308.7104584,
+          "p50": 348.289083,
+          "p95": 386.95016875,
+          "max": 387.44725
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 107.62125,
+          "mean": 311.0875708,
+          "p50": 350.9452495,
+          "p95": 389.15133765,
+          "max": 389.562
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.314084,
+          "mean": 1.4667043,
+          "p50": 1.373896,
+          "p95": 1.8281480999999997,
+          "max": 2.004792
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 6.846125,
+          "mean": 6.9868877,
+          "p50": 6.977145999999999,
+          "p95": 7.116892,
+          "max": 7.153792
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 115.957167,
+          "mean": 319.5413791,
+          "p50": 359.536604,
+          "p95": 397.89453299999997,
+          "max": 398.638833
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fresh",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 2271.370333,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "fixture-1000-fresh-10-2.json",
+      "raw_sha256": "fd90f67c67385a959c6783e19a8f899b1eab65a179fadbc5d657b384f518b3a9",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 40.98775,
+          "mean": 213.41875,
+          "p50": 261.4013955,
+          "p95": 334.3863064,
+          "max": 339.437875
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 4.375,
+          "mean": 4.6471792,
+          "p50": 4.6165415,
+          "p95": 4.965271349999999,
+          "max": 5.124084
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 47.382125,
+          "mean": 218.8069208,
+          "p50": 266.617875,
+          "p95": 339.48872079999995,
+          "max": 344.485708
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.062625,
+          "mean": 1.2530664999999999,
+          "p50": 1.256146,
+          "p95": 1.4815705,
+          "max": 1.529833
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 6.740167,
+          "mean": 7.05595,
+          "p50": 7.09525,
+          "p95": 7.31814345,
+          "max": 7.389
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 56.505042,
+          "mean": 227.1365583,
+          "p50": 274.8631455,
+          "p95": 347.80749145,
+          "max": 352.824541
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fork",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 40.475958,
+      "setup_prepare_ms": 4.723208,
+      "setup_disconnect_ms": 5.64375,
+      "setup_snapshot_ms": 573.233709,
+      "setup_ms": 624.077166,
+      "final_cleanup_ms": 35.636208,
+      "total_ms": 19194.698333,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "fixture-1000-fork-50-0.json",
+      "raw_sha256": "a9f5d115b8653349465ce8e4efcb60110ecb9eb14e454e01dda1ab8f203996dd",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 108.62375,
+          "mean": 359.76462338,
+          "p50": 374.3557915,
+          "p95": 395.52261250000004,
+          "max": 409.513791
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 110.43375,
+          "mean": 362.28169094,
+          "p50": 376.7437085,
+          "p95": 397.48510845,
+          "max": 411.274333
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 1.103333,
+          "mean": 1.43709406,
+          "p50": 1.427187,
+          "p95": 1.5679622,
+          "max": 2.462208
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 6.367416,
+          "mean": 6.98025082,
+          "p50": 6.9390835,
+          "p95": 7.181945499999999,
+          "max": 9.098625
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 118.881208,
+          "mean": 370.69928762,
+          "p50": 384.9436875,
+          "p95": 405.8474791,
+          "max": 419.879458
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fresh",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 15184.602,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "fixture-1000-fresh-50-0.json",
+      "raw_sha256": "81b9ba37db69c4146502a2df7ecdeddb282da671405bc1e2e0842095225c6b49",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 39.615792,
+          "mean": 289.87024338,
+          "p50": 293.846604,
+          "p95": 333.04964185,
+          "max": 358.366125
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 4.425208,
+          "mean": 4.816174960000001,
+          "p50": 4.7895205,
+          "p95": 5.32068315,
+          "max": 5.471
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 45.198458,
+          "mean": 295.34814842,
+          "p50": 299.494271,
+          "p95": 338.22757675,
+          "max": 363.638666
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 0.966375,
+          "mean": 1.20742922,
+          "p50": 1.175438,
+          "p95": 1.4206520499999997,
+          "max": 1.825792
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 6.47625,
+          "mean": 7.13196676,
+          "p50": 7.0209165,
+          "p95": 7.598196199999999,
+          "max": 10.615542
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 54.055667,
+          "mean": 303.69174844,
+          "p50": 307.73400000000004,
+          "p95": 346.41233109999996,
+          "max": 371.761125
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fresh",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 15085.232542,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "fixture-1000-fresh-50-1.json",
+      "raw_sha256": "72758fecb177bc891706e6485777ab1b0620389a930e83f73ce34e28411a720b",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 38.577125,
+          "mean": 287.84203416,
+          "p50": 293.4739795,
+          "p95": 340.742283,
+          "max": 348.841917
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 4.406,
+          "mean": 4.87748168,
+          "p50": 4.812250000000001,
+          "p95": 5.4567811,
+          "max": 5.984125
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 44.2175,
+          "mean": 293.39739672,
+          "p50": 298.749729,
+          "p95": 347.4009564,
+          "max": 354.890375
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 1.056,
+          "mean": 1.23588502,
+          "p50": 1.1721249999999999,
+          "p95": 1.4943267499999997,
+          "max": 2.284417
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 6.564583,
+          "mean": 7.0670458599999995,
+          "p50": 7.045396,
+          "p95": 7.34323505,
+          "max": 7.648792
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 53.087042,
+          "mean": 301.70427086,
+          "p50": 306.9307915,
+          "p95": 356.26429809999996,
+          "max": 363.4785
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fork",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 1053.6825,
+      "setup_prepare_ms": 10.234125,
+      "setup_disconnect_ms": 5.742,
+      "setup_snapshot_ms": 683.508041,
+      "setup_ms": 1753.167542,
+      "final_cleanup_ms": 37.203875,
+      "total_ms": 22044.91,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "fixture-1000-fork-50-1.json",
+      "raw_sha256": "393d061f6e9e9578e3e30dfdda9be4fd5999801bc9707db24dcb24cd9b21b253",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 109.985708,
+          "mean": 393.78669501999997,
+          "p50": 405.82966650000003,
+          "p95": 446.28375884999997,
+          "max": 500.13075
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 111.851125,
+          "mean": 396.18103504,
+          "p50": 408.1681665,
+          "p95": 448.48090245,
+          "max": 503.771667
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 1.113625,
+          "mean": 1.42826086,
+          "p50": 1.3927295,
+          "p95": 1.6944230999999998,
+          "max": 1.940292
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 6.533084,
+          "mean": 7.48055076,
+          "p50": 7.6213125,
+          "p95": 7.980114099999999,
+          "max": 10.042542
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 120.27025,
+          "mean": 405.09010576000003,
+          "p50": 416.99606200000005,
+          "p95": 457.42649185,
+          "max": 515.754958
+        }
+      },
+      "ready_ge_500_ms": 1,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fork",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 40.0115,
+      "setup_prepare_ms": 4.861625,
+      "setup_disconnect_ms": 6.271416,
+      "setup_snapshot_ms": 561.336416,
+      "setup_ms": 612.481584,
+      "final_cleanup_ms": 42.68625,
+      "total_ms": 25100.106542,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "fixture-1000-fork-50-2.json",
+      "raw_sha256": "b9d7e8ff06d9ca9cbd1c74f2e0c1803854fc0c94af5e7304f3123806c28fe2f2",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 118.753916,
+          "mean": 468.88749092,
+          "p50": 425.4750415,
+          "p95": 530.5428912999998,
+          "max": 2232.095709
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 120.28175,
+          "mean": 472.00612587999996,
+          "p50": 427.95658349999997,
+          "p95": 536.8065412999999,
+          "max": 2234.415
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 1.016292,
+          "mean": 1.5547483,
+          "p50": 1.4403545,
+          "p95": 2.2681767499999994,
+          "max": 3.758458
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 2.119333,
+          "mean": 15.33719328,
+          "p50": 7.6510205,
+          "p95": 31.40235829999991,
+          "max": 186.532583
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 128.950958,
+          "mean": 488.8983442,
+          "p50": 437.0514795,
+          "p95": 562.56410175,
+          "max": 2414.345542
+        }
+      },
+      "ready_ge_500_ms": 6,
+      "ready_ge_900_ms": 1
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fresh",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 17145.587792,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "fixture-1000-fresh-50-2.json",
+      "raw_sha256": "aadafcd8a5a084f28dea232bc2cca64fcd52c7eb528934a7f25fb52a5782bfcd",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 37.764625,
+          "mean": 328.43057172,
+          "p50": 344.261146,
+          "p95": 374.68308545,
+          "max": 433.258
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 4.477458,
+          "mean": 4.9615025600000005,
+          "p50": 4.8487705,
+          "p95": 5.6362814,
+          "max": 6.566916
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 43.965417,
+          "mean": 334.07339332000004,
+          "p50": 349.658896,
+          "p95": 380.34265404999996,
+          "max": 440.592417
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 1.014291,
+          "mean": 1.18873504,
+          "p50": 1.157104,
+          "p95": 1.4243211999999998,
+          "max": 1.697125
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 6.517542,
+          "mean": 7.64408338,
+          "p50": 7.6738125,
+          "p95": 8.0392564,
+          "max": 12.778
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 53.522792,
+          "mean": 342.9114017,
+          "p50": 358.5995835,
+          "p95": 388.761033,
+          "max": 448.767125
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fresh",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 35135.628625,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "fixture-1000-fresh-100-0.json",
+      "raw_sha256": "432827eb838d4ef85202420ad6d1414eae3e25ad2bf4a13df85e903a74999b3a",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 40.657584,
+          "mean": 336.82980301000003,
+          "p50": 345.515792,
+          "p95": 381.6519479,
+          "max": 405.124625
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 4.524291,
+          "mean": 4.93310708,
+          "p50": 4.8535205,
+          "p95": 5.52701665,
+          "max": 6.816375
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 46.634167,
+          "mean": 342.46280007,
+          "p50": 351.45141650000005,
+          "p95": 387.4136979,
+          "max": 410.523834
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 0.982958,
+          "mean": 1.26038495,
+          "p50": 1.208937,
+          "p95": 1.47863685,
+          "max": 5.021
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.243042,
+          "mean": 7.63052375,
+          "p50": 7.7065415,
+          "p95": 8.2001857,
+          "max": 9.717834
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 55.977084,
+          "mean": 351.35541341,
+          "p50": 359.960396,
+          "p95": 396.5324354,
+          "max": 420.578417
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fork",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 1047.906417,
+      "setup_prepare_ms": 5.66875,
+      "setup_disconnect_ms": 6.291083,
+      "setup_snapshot_ms": 1051.538875,
+      "setup_ms": 2111.405791,
+      "final_cleanup_ms": 66.122333,
+      "total_ms": 42655.570916,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "fixture-1000-fork-100-0.json",
+      "raw_sha256": "95dc45fd7c8d87b94fa86a2018e7ddb0e0e64b570032ce9716ef9dc884fb8d69",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 112.854792,
+          "mean": 393.34657796,
+          "p50": 395.9673545,
+          "p95": 420.97180355,
+          "max": 426.383375
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 114.657584,
+          "mean": 395.82628164,
+          "p50": 398.500229,
+          "p95": 423.26073065,
+          "max": 429.353458
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 1.148584,
+          "mean": 1.47447414,
+          "p50": 1.4292295,
+          "p95": 1.7466479,
+          "max": 2.50175
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.394917,
+          "mean": 7.478742110000001,
+          "p50": 7.5857915,
+          "p95": 7.82505685,
+          "max": 8.557375
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 123.677167,
+          "mean": 404.7797425,
+          "p50": 407.196958,
+          "p95": 432.246775,
+          "max": 438.411
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fork",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 1058.605709,
+      "setup_prepare_ms": 9.763125,
+      "setup_disconnect_ms": 6.290708,
+      "setup_snapshot_ms": 567.9095,
+      "setup_ms": 1642.569833,
+      "final_cleanup_ms": 36.999625,
+      "total_ms": 41616.483625,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "fixture-1000-fork-100-1.json",
+      "raw_sha256": "83b370d036e9dd13747ae2096995dab1ca9b5661f822df86f752ff6a3525fc2d",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 110.390416,
+          "mean": 387.95526705,
+          "p50": 391.162958,
+          "p95": 416.6918253,
+          "max": 446.124667
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 112.2885,
+          "mean": 390.36911034999997,
+          "p50": 393.593104,
+          "p95": 418.98920834999996,
+          "max": 448.325833
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 1.212542,
+          "mean": 1.44876372,
+          "p50": 1.4286875,
+          "p95": 1.6947711499999998,
+          "max": 2.014625
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.404417,
+          "mean": 7.55040292,
+          "p50": 7.606937500000001,
+          "p95": 7.78630145,
+          "max": 12.987959
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 121.226208,
+          "mean": 399.3685266,
+          "p50": 402.6095415,
+          "p95": 427.825008,
+          "max": 457.369167
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fresh",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 35340.785708,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "fixture-1000-fresh-100-1.json",
+      "raw_sha256": "f1b3d9b6308d8d9f17027d388869c47bbddfb850dbc35dbf139b5e3d9edbc045",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 55.791042,
+          "mean": 338.8344083,
+          "p50": 338.0901045,
+          "p95": 361.69081074999997,
+          "max": 1050.9965
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 4.487708,
+          "mean": 4.95892417,
+          "p50": 4.7901665,
+          "p95": 5.6954579999999995,
+          "max": 11.476041
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 61.091208,
+          "mean": 344.4794725,
+          "p50": 343.4944795,
+          "p95": 367.22742325,
+          "max": 1063.875959
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 1.032208,
+          "mean": 1.2320621,
+          "p50": 1.1974580000000001,
+          "p95": 1.5128499999999998,
+          "max": 2.094167
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.360792,
+          "mean": 7.692532529999999,
+          "p50": 7.7258335,
+          "p95": 8.524356549999998,
+          "max": 10.68875
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 70.0855,
+          "mean": 353.40730579,
+          "p50": 352.6405,
+          "p95": 376.04696635,
+          "max": 1075.748375
+        }
+      },
+      "ready_ge_500_ms": 1,
+      "ready_ge_900_ms": 1
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fresh",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 34969.640375,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "fixture-1000-fresh-100-2.json",
+      "raw_sha256": "a86bf525505dedb68ab9168b31340647dc65fcd23e08cc94fd91e080d965d797",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 56.341333,
+          "mean": 335.22735626,
+          "p50": 332.95268699999997,
+          "p95": 355.97561249999995,
+          "max": 1048.281916
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 4.527458,
+          "mean": 4.97611629,
+          "p50": 4.776875,
+          "p95": 5.493698199999999,
+          "max": 10.874917
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 61.554333,
+          "mean": 340.88331128,
+          "p50": 338.4567085,
+          "p95": 361.64870179999997,
+          "max": 1059.650291
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 1.011875,
+          "mean": 1.21188625,
+          "p50": 1.181521,
+          "p95": 1.45770175,
+          "max": 1.762459
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.432542,
+          "mean": 7.597714610000001,
+          "p50": 7.6611460000000005,
+          "p95": 8.1331194,
+          "max": 9.16
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 70.415208,
+          "mean": 349.69579459,
+          "p50": 347.2112505,
+          "p95": 370.5199619,
+          "max": 1070.546125
+        }
+      },
+      "ready_ge_500_ms": 1,
+      "ready_ge_900_ms": 1
+    },
+    {
+      "scenario": "fixture-1000",
+      "mode": "fork",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 42.58125,
+      "setup_prepare_ms": 4.962125,
+      "setup_disconnect_ms": 6.282375,
+      "setup_snapshot_ms": 456.845792,
+      "setup_ms": 510.675208,
+      "final_cleanup_ms": 5.62375,
+      "total_ms": 41526.098917,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "fixture-1000-fork-100-2.json",
+      "raw_sha256": "d0b7ec738205db09c2295d43a9e2ed5ecc56eac8ee7cf2f707ad8b3b744cd54e",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 110.621584,
+          "mean": 398.59722502,
+          "p50": 400.7397085,
+          "p95": 423.44090865,
+          "max": 476.258875
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 112.504042,
+          "mean": 401.08324466,
+          "p50": 403.207667,
+          "p95": 425.35401285,
+          "max": 479.249917
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 1.170166,
+          "mean": 1.47330957,
+          "p50": 1.4705205000000001,
+          "p95": 1.6717562499999998,
+          "max": 2.077292
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.519,
+          "mean": 7.540832030000001,
+          "p50": 7.60175,
+          "p95": 7.83170595,
+          "max": 8.675625
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 121.792084,
+          "mean": 410.09764091,
+          "p50": 412.2180625,
+          "p95": 435.12653785,
+          "max": 488.778167
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fork",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 40.791791,
+      "setup_prepare_ms": 4.194833,
+      "setup_disconnect_ms": 6.265292,
+      "setup_snapshot_ms": 572.989375,
+      "setup_ms": 624.241792,
+      "final_cleanup_ms": 12.666958,
+      "total_ms": 4478.853625,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "gorm-user-address-fork-10-0.json",
+      "raw_sha256": "32ff9f60c830a4525aab40f45de84639ee6d0a2fc7a360b36f567af055adff7f",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 114.239542,
+          "mean": 373.80904169999997,
+          "p50": 405.8171455,
+          "p95": 415.34504345,
+          "max": 416.2565
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 115.183792,
+          "mean": 374.9005626,
+          "p50": 406.87904149999997,
+          "p95": 416.4564792,
+          "max": 417.130167
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.040292,
+          "mean": 1.4046167,
+          "p50": 1.4106040000000002,
+          "p95": 1.57961235,
+          "max": 1.58475
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 7.703084,
+          "mean": 7.888216699999999,
+          "p50": 7.875354,
+          "p95": 8.0509625,
+          "max": 8.09225
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 124.546167,
+          "mean": 384.19366249999996,
+          "p50": 415.9386875,
+          "p95": 425.7441497,
+          "max": 426.308375
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fresh",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 2552.320375,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "gorm-user-address-fresh-10-0.json",
+      "raw_sha256": "38f4697c30ac9454618f3b94f80506b37eb133f2cf66d81e3b02bda34abc8d0d",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 39.736083,
+          "mean": 242.0815541,
+          "p50": 308.461167,
+          "p95": 357.3336542,
+          "max": 361.396292
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 3.011417,
+          "mean": 3.4632376000000002,
+          "p50": 3.3572914999999997,
+          "p95": 4.18507745,
+          "max": 4.467209
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 43.71025,
+          "mean": 246.1486042,
+          "p50": 312.1798755,
+          "p95": 361.94855229999996,
+          "max": 366.563584
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.069625,
+          "mean": 1.1719001,
+          "p50": 1.1319795,
+          "p95": 1.37260435,
+          "max": 1.385167
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 7.043167,
+          "mean": 7.8945544,
+          "p50": 8.0025625,
+          "p95": 8.136317,
+          "max": 8.137667
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 52.036291,
+          "mean": 255.23145829999999,
+          "p50": 321.2468755,
+          "p95": 371.06104605,
+          "max": 375.340209
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fresh",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 2459.39025,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "gorm-user-address-fresh-10-1.json",
+      "raw_sha256": "4321fe4d6d829093f019fc7975aa8d7c3b4c59be4628ca42f30958495319aa1d",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 39.136959,
+          "mean": 233.12585840000003,
+          "p50": 294.704021,
+          "p95": 352.88657715,
+          "max": 354.047709
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 2.989375,
+          "mean": 3.2783251,
+          "p50": 3.2424999999999997,
+          "p95": 3.5597999999999996,
+          "max": 3.595125
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 43.142542,
+          "mean": 236.99544999999998,
+          "p50": 298.5920625,
+          "p95": 356.7491978,
+          "max": 357.935792
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.027041,
+          "mean": 1.2290541000000001,
+          "p50": 1.170375,
+          "p95": 1.45591655,
+          "max": 1.464917
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 6.936667,
+          "mean": 7.6976542,
+          "p50": 7.7910205,
+          "p95": 8.19812935,
+          "max": 8.232292
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 52.702459,
+          "mean": 245.93852929999997,
+          "p50": 307.659521,
+          "p95": 365.938475,
+          "max": 367.241
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fork",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 38.835833,
+      "setup_prepare_ms": 3.977,
+      "setup_disconnect_ms": 6.267709,
+      "setup_snapshot_ms": 383.936625,
+      "setup_ms": 433.017625,
+      "final_cleanup_ms": 4.629958,
+      "total_ms": 3777.678584,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "gorm-user-address-fork-10-1.json",
+      "raw_sha256": "820d2cf2369f349f533fc0f6c51cb2e22cf82736e6eec8b80bd662cd48960383",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 108.517167,
+          "mean": 323.6531166,
+          "p50": 364.507021,
+          "p95": 412.82083504999997,
+          "max": 419.814416
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 109.459667,
+          "mean": 324.884204,
+          "p50": 365.99504149999996,
+          "p95": 413.83690205,
+          "max": 420.845333
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.32325,
+          "mean": 1.4504538999999999,
+          "p50": 1.4500205,
+          "p95": 1.6269017499999998,
+          "max": 1.687708
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 7.171916,
+          "mean": 7.667391500000001,
+          "p50": 7.6761870000000005,
+          "p95": 7.8261522,
+          "max": 7.828458
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 117.966334,
+          "mean": 334.0022583,
+          "p50": 375.27414550000003,
+          "p95": 422.90096265,
+          "max": 429.964875
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fork",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 43.232333,
+      "setup_prepare_ms": 4.881542,
+      "setup_disconnect_ms": 5.070083,
+      "setup_snapshot_ms": 430.726583,
+      "setup_ms": 483.911208,
+      "final_cleanup_ms": 9.44425,
+      "total_ms": 4537.939042,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "gorm-user-address-fork-10-2.json",
+      "raw_sha256": "cff7e295db4281d3fda8ddb3ffd33617a1abd298400d6a5fafb88db9dd998872",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 110.208583,
+          "mean": 394.0125458,
+          "p50": 394.2075415,
+          "p95": 559.86771845,
+          "max": 566.393375
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 111.10925,
+          "mean": 395.1118333,
+          "p50": 395.3393955,
+          "p95": 560.9243519,
+          "max": 567.510083
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.182125,
+          "mean": 1.3861418,
+          "p50": 1.367063,
+          "p95": 1.5855001499999999,
+          "max": 1.66125
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 6.781167,
+          "mean": 7.958937399999999,
+          "p50": 7.7715,
+          "p95": 9.484349699999997,
+          "max": 10.62975
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 119.232333,
+          "mean": 404.4571625,
+          "p50": 404.423042,
+          "p95": 571.3968292,
+          "max": 576.632167
+        }
+      },
+      "ready_ge_500_ms": 2,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fresh",
+      "tests": 10,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 2469.691208,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "gorm-user-address-fresh-10-2.json",
+      "raw_sha256": "38ba8568339706f589bd7e7bd12a7b1ed7319a95e2afd704a9d9184fc282f2d5",
+      "case_summary": {
+        "entry_ms": {
+          "n": 10,
+          "min": 41.140917,
+          "mean": 234.3025959,
+          "p50": 303.6578125,
+          "p95": 337.61752935,
+          "max": 344.290542
+        },
+        "prepare_ms": {
+          "n": 10,
+          "min": 3.040334,
+          "mean": 3.2341335,
+          "p50": 3.208021,
+          "p95": 3.5106707999999998,
+          "max": 3.679833
+        },
+        "ready_ms": {
+          "n": 10,
+          "min": 45.375792,
+          "mean": 238.1244708,
+          "p50": 307.573104,
+          "p95": 341.31532715,
+          "max": 347.911334
+        },
+        "work_ms": {
+          "n": 10,
+          "min": 1.032334,
+          "mean": 1.1285668000000002,
+          "p50": 1.1234165,
+          "p95": 1.20481905,
+          "max": 1.223625
+        },
+        "close_ms": {
+          "n": 10,
+          "min": 6.528292,
+          "mean": 7.7002668,
+          "p50": 7.8260205,
+          "p95": 8.1832689,
+          "max": 8.393625
+        },
+        "total_ms": {
+          "n": 10,
+          "min": 55.1,
+          "mean": 246.9683584,
+          "p50": 315.81254149999995,
+          "p95": 349.8666103,
+          "max": 356.121667
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fork",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 40.212792,
+      "setup_prepare_ms": 4.050417,
+      "setup_disconnect_ms": 6.277875,
+      "setup_snapshot_ms": 374.025833,
+      "setup_ms": 424.567375,
+      "final_cleanup_ms": 5.795583,
+      "total_ms": 20056.63275,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "gorm-user-address-fork-50-0.json",
+      "raw_sha256": "d585cff51bbb19327e339ab5c7e636653046a1b2dc525ee248e3376c0cd159a8",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 113.383333,
+          "mean": 381.8983366,
+          "p50": 382.70491649999997,
+          "p95": 417.54019185,
+          "max": 537.093625
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 114.412833,
+          "mean": 383.1918533,
+          "p50": 384.1804165,
+          "p95": 418.83977095,
+          "max": 537.902583
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 0.865333,
+          "mean": 1.3643657999999999,
+          "p50": 1.358917,
+          "p95": 1.5775128,
+          "max": 1.697583
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 6.699917,
+          "mean": 7.968582420000001,
+          "p50": 7.713875,
+          "p95": 7.900710599999999,
+          "max": 16.775958
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 123.454791,
+          "mean": 392.52503235999995,
+          "p50": 393.2688955,
+          "p95": 432.92095595,
+          "max": 546.716125
+        }
+      },
+      "ready_ge_500_ms": 1,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fresh",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 16957.959583,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "gorm-user-address-fresh-50-0.json",
+      "raw_sha256": "40882522776ab417c039f65a93a14a471510774ce5b335b0df30656d3b8ac140",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 53.88425,
+          "mean": 326.60143408,
+          "p50": 324.38793799999996,
+          "p95": 343.01143475,
+          "max": 1052.908
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 2.889083,
+          "mean": 3.1814699,
+          "p50": 3.1352915,
+          "p95": 3.6127831499999994,
+          "max": 3.793292
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 57.287458,
+          "mean": 330.34890576,
+          "p50": 328.3107295,
+          "p95": 346.78662660000003,
+          "max": 1056.913875
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 0.923,
+          "mean": 1.13694084,
+          "p50": 1.1186255,
+          "p95": 1.3472640999999999,
+          "max": 1.449584
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 6.523,
+          "mean": 7.6700242,
+          "p50": 7.812854,
+          "p95": 7.94498535,
+          "max": 8.017459
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 66.153792,
+          "mean": 339.15878993999996,
+          "p50": 337.2912505,
+          "p95": 355.7581497,
+          "max": 1066.134333
+        }
+      },
+      "ready_ge_500_ms": 1,
+      "ready_ge_900_ms": 1
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fresh",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 16259.042042,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "gorm-user-address-fresh-50-1.json",
+      "raw_sha256": "ee8ba742535e51488a7c1e2ceabc98217a9fffa49d69e21d51761f322c6c4fa7",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 41.950208,
+          "mean": 312.42420844000003,
+          "p50": 326.9389375,
+          "p95": 352.4557465,
+          "max": 359.529625
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 2.869917,
+          "mean": 3.2023174799999996,
+          "p50": 3.1562505,
+          "p95": 3.5776296499999996,
+          "max": 4.50075
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 46.101875,
+          "mean": 316.21751008,
+          "p50": 330.70943750000004,
+          "p95": 356.2058064,
+          "max": 363.564708
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 0.924625,
+          "mean": 1.15743254,
+          "p50": 1.1449790000000002,
+          "p95": 1.34379185,
+          "max": 1.575959
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 7.007375,
+          "mean": 7.802474999999999,
+          "p50": 7.807249499999999,
+          "p95": 7.9614212,
+          "max": 8.07975
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 55.392,
+          "mean": 325.18036596,
+          "p50": 339.7048545,
+          "p95": 365.108617,
+          "max": 372.690291
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fork",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 42.514792,
+      "setup_prepare_ms": 4.439834,
+      "setup_disconnect_ms": 5.683959,
+      "setup_snapshot_ms": 361.320625,
+      "setup_ms": 413.962334,
+      "final_cleanup_ms": 6.344833,
+      "total_ms": 20320.377084,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "gorm-user-address-fork-50-1.json",
+      "raw_sha256": "b629ae0bf3e6596d542a90970f33842105cbd90ac8f9c2ff7358dce059655850",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 107.287667,
+          "mean": 387.37425263999995,
+          "p50": 397.433042,
+          "p95": 416.66000885,
+          "max": 447.552959
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 108.319208,
+          "mean": 388.90097762,
+          "p50": 398.8348335,
+          "p95": 418.14446905,
+          "max": 449.314584
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 1.10175,
+          "mean": 1.4177641600000002,
+          "p50": 1.408229,
+          "p95": 1.7077704999999999,
+          "max": 1.745833
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 6.521708,
+          "mean": 7.681441680000001,
+          "p50": 7.7333545,
+          "p95": 7.93735365,
+          "max": 8.457583
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 117.319,
+          "mean": 398.00041261999996,
+          "p50": 407.787188,
+          "p95": 427.3210026,
+          "max": 458.376875
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fork",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 1055.119334,
+      "setup_prepare_ms": 8.233708,
+      "setup_disconnect_ms": 6.320542,
+      "setup_snapshot_ms": 478.786958,
+      "setup_ms": 1548.461458,
+      "final_cleanup_ms": 7.084959,
+      "total_ms": 20966.683541,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "gorm-user-address-fork-50-2.json",
+      "raw_sha256": "209eb0d38ccbe0eae0c7838dd5b4a23dea4e66e80029cde9536910d7df9bf042",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 107.762042,
+          "mean": 377.41430676000004,
+          "p50": 381.7338125,
+          "p95": 404.67075245,
+          "max": 410.472833
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 108.779709,
+          "mean": 378.96260671999994,
+          "p50": 383.2606665,
+          "p95": 405.72135625000004,
+          "max": 412.141791
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 1.176667,
+          "mean": 1.40832574,
+          "p50": 1.3966664999999998,
+          "p95": 1.6055769,
+          "max": 1.661208
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 6.546458,
+          "mean": 7.85111168,
+          "p50": 7.703875,
+          "p95": 8.780081249999997,
+          "max": 16.044375
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 126.214292,
+          "mean": 388.22228842,
+          "p50": 392.101896,
+          "p95": 414.5264859,
+          "max": 420.623166
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fresh",
+      "tests": 50,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 14996.358958,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "gorm-user-address-fresh-50-2.json",
+      "raw_sha256": "94b3e639238dd8358291e5c2a4d7eba1ffa64add00c952512f33ea28cf45ae82",
+      "case_summary": {
+        "entry_ms": {
+          "n": 50,
+          "min": 41.040458,
+          "mean": 287.02463666,
+          "p50": 295.09312450000004,
+          "p95": 333.6403208,
+          "max": 348.270208
+        },
+        "prepare_ms": {
+          "n": 50,
+          "min": 2.93525,
+          "mean": 3.34637006,
+          "p50": 3.2095835,
+          "p95": 3.5089706499999993,
+          "max": 8.202917
+        },
+        "ready_ms": {
+          "n": 50,
+          "min": 44.885083,
+          "mean": 290.99311248000004,
+          "p50": 298.892375,
+          "p95": 337.49647515,
+          "max": 353.730917
+        },
+        "work_ms": {
+          "n": 50,
+          "min": 0.950584,
+          "mean": 1.17523578,
+          "p50": 1.118479,
+          "p95": 1.3548876499999998,
+          "max": 2.90925
+        },
+        "close_ms": {
+          "n": 50,
+          "min": 6.794375,
+          "mean": 7.75541582,
+          "p50": 7.8129165,
+          "p95": 7.94455595,
+          "max": 7.97425
+        },
+        "total_ms": {
+          "n": 50,
+          "min": 52.953917,
+          "mean": 299.92682584,
+          "p50": 307.956271,
+          "p95": 346.52157325,
+          "max": 364.245334
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fresh",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 30817.935292,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "gorm-user-address-fresh-100-0.json",
+      "raw_sha256": "d49410d0013751f89341da311ec4fc1082049dbd503cc73dc74cf619d582b526",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 38.470125,
+          "mean": 295.38356968,
+          "p50": 304.81875,
+          "p95": 330.63051845,
+          "max": 374.690209
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 2.888459,
+          "mean": 3.32837629,
+          "p50": 3.1671250000000004,
+          "p95": 3.7261976,
+          "max": 11.257625
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 42.579375,
+          "mean": 299.31153632,
+          "p50": 308.4618755,
+          "p95": 334.33000415,
+          "max": 387.291417
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 0.9935,
+          "mean": 1.19147003,
+          "p50": 1.1235835,
+          "p95": 1.4679958499999999,
+          "max": 2.548667
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.686917,
+          "mean": 7.67442375,
+          "p50": 7.7990414999999995,
+          "p95": 7.953625,
+          "max": 8.478125
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 51.751125,
+          "mean": 308.17894134,
+          "p50": 317.352271,
+          "p95": 343.2091622,
+          "max": 398.126167
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fork",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 39.39975,
+      "setup_prepare_ms": 4.193041,
+      "setup_disconnect_ms": 6.262708,
+      "setup_snapshot_ms": 366.496875,
+      "setup_ms": 416.353,
+      "final_cleanup_ms": 6.05925,
+      "total_ms": 39016.424458,
+      "completed": true,
+      "trial": 0,
+      "raw_file": "gorm-user-address-fork-100-0.json",
+      "raw_sha256": "2d7060e72a728657fad18295aab232bc85d7b6d07ef79e4f818646a470cf1f6b",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 110.148792,
+          "mean": 375.35359006,
+          "p50": 379.0420835,
+          "p95": 401.88249344999997,
+          "max": 417.47425
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 111.01475,
+          "mean": 376.85078916,
+          "p50": 380.5344585,
+          "p95": 403.0139482,
+          "max": 418.505083
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 1.102833,
+          "mean": 1.41367916,
+          "p50": 1.3982915,
+          "p95": 1.62405175,
+          "max": 2.999375
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.6145,
+          "mean": 7.67477041,
+          "p50": 7.7143545,
+          "p95": 7.9011503,
+          "max": 10.180333
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 120.196875,
+          "mean": 385.93946209,
+          "p50": 389.51545799999997,
+          "p95": 411.64814345,
+          "max": 428.0445
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fork",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 40.477041,
+      "setup_prepare_ms": 3.910667,
+      "setup_disconnect_ms": 6.262209,
+      "setup_snapshot_ms": 575.725417,
+      "setup_ms": 626.375833,
+      "final_cleanup_ms": 12.667458,
+      "total_ms": 38335.711958,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "gorm-user-address-fork-100-1.json",
+      "raw_sha256": "ad4468575f4ee28b2441be21f238325b63966d3e4454ea6aa039efc47f785c3d",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 106.5105,
+          "mean": 366.46017754,
+          "p50": 371.1593335,
+          "p95": 402.46813929999996,
+          "max": 602.33725
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 107.590333,
+          "mean": 367.96840295000004,
+          "p50": 372.7593335,
+          "p95": 404.11186074999995,
+          "max": 604.227
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 1.18475,
+          "mean": 1.38258959,
+          "p50": 1.361,
+          "p95": 1.58475835,
+          "max": 1.800833
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.666583,
+          "mean": 7.61462083,
+          "p50": 7.697438,
+          "p95": 7.85159935,
+          "max": 10.27575
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 116.902083,
+          "mean": 376.96583004,
+          "p50": 381.8346875,
+          "p95": 413.39421699999997,
+          "max": 612.762917
+        }
+      },
+      "ready_ge_500_ms": 1,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fresh",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 30486.69375,
+      "completed": true,
+      "trial": 1,
+      "raw_file": "gorm-user-address-fresh-100-1.json",
+      "raw_sha256": "5c42475387c6b76dc5f2c939344ebcfb69335e4fbc79344501355569a06c78c3",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 37.455,
+          "mean": 292.20843457,
+          "p50": 298.7240205,
+          "p95": 325.90627915,
+          "max": 404.704
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 2.812333,
+          "mean": 3.1975895100000002,
+          "p50": 3.1177915,
+          "p95": 3.5104291499999998,
+          "max": 6.179208
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 41.659583,
+          "mean": 295.96869377,
+          "p50": 302.651604,
+          "p95": 329.63617915,
+          "max": 408.295292
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 0.956458,
+          "mean": 1.11709919,
+          "p50": 1.1102705,
+          "p95": 1.3079535500000001,
+          "max": 1.416125
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.572667,
+          "mean": 7.7787853600000005,
+          "p50": 7.785646,
+          "p95": 8.05197885,
+          "max": 12.640167
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 51.006292,
+          "mean": 304.86634203,
+          "p50": 311.181646,
+          "p95": 338.46302564999996,
+          "max": 417.307083
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fresh",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 0,
+      "setup_prepare_ms": 0,
+      "setup_disconnect_ms": 0,
+      "setup_snapshot_ms": 0,
+      "setup_ms": 0,
+      "final_cleanup_ms": 0,
+      "total_ms": 29222.393792,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "gorm-user-address-fresh-100-2.json",
+      "raw_sha256": "3cdc7139f6a8d53e372c83bcb18b61946aac9ae0443c02009170993534163018",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 43.033625,
+          "mean": 279.62419211,
+          "p50": 275.782896,
+          "p95": 317.1888816,
+          "max": 339.793292
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 2.935417,
+          "mean": 3.1718629199999997,
+          "p50": 3.1278125,
+          "p95": 3.41520415,
+          "max": 4.77925
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 46.921166,
+          "mean": 283.36350464,
+          "p50": 279.729959,
+          "p95": 320.7142941,
+          "max": 343.534042
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 0.98675,
+          "mean": 1.12866954,
+          "p50": 1.116104,
+          "p95": 1.2716625,
+          "max": 1.457875
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.642083,
+          "mean": 7.729472469999999,
+          "p50": 7.7922080000000005,
+          "p95": 7.9033729,
+          "max": 8.080125
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 56.368083,
+          "mean": 292.22333294,
+          "p50": 288.7052295,
+          "p95": 329.54453959999995,
+          "max": 352.607125
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    },
+    {
+      "scenario": "gorm-user-address",
+      "mode": "fork",
+      "tests": 100,
+      "go": "go1.26.8",
+      "os": "darwin",
+      "arch": "arm64",
+      "server_version": "13.1.0-MariaDB-embedded",
+      "setup_start_ms": 39.434583,
+      "setup_prepare_ms": 4.027667,
+      "setup_disconnect_ms": 5.417708,
+      "setup_snapshot_ms": 430.247667,
+      "setup_ms": 479.128084,
+      "final_cleanup_ms": 5.373875,
+      "total_ms": 36151.146792,
+      "completed": true,
+      "trial": 2,
+      "raw_file": "gorm-user-address-fork-100-2.json",
+      "raw_sha256": "3f9d6f102bdd2b5d5c7da23af70d4b9c2bc4ed0936fc620e947e88a4a86886e5",
+      "case_summary": {
+        "entry_ms": {
+          "n": 100,
+          "min": 104.242292,
+          "mean": 346.13269789,
+          "p50": 354.22900000000004,
+          "p95": 382.05471075,
+          "max": 420.732417
+        },
+        "prepare_ms": {
+          "n": 100,
+          "min": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "max": 0
+        },
+        "ready_ms": {
+          "n": 100,
+          "min": 105.118417,
+          "mean": 347.68780799,
+          "p50": 355.9371255,
+          "p95": 383.7502902,
+          "max": 422.332209
+        },
+        "work_ms": {
+          "n": 100,
+          "min": 1.09025,
+          "mean": 1.3758529,
+          "p50": 1.3680835,
+          "p95": 1.57654615,
+          "max": 2.002583
+        },
+        "close_ms": {
+          "n": 100,
+          "min": 6.439666,
+          "mean": 7.6019963,
+          "p50": 7.693021,
+          "p95": 7.81572085,
+          "max": 7.99275
+        },
+        "total_ms": {
+          "n": 100,
+          "min": 114.284917,
+          "mean": 356.66589582,
+          "p50": 364.8648965,
+          "p95": 393.4647649,
+          "max": 431.4505
+        }
+      },
+      "ready_ge_500_ms": 0,
+      "ready_ge_900_ms": 0
+    }
+  ],
+  "samples_csv_sha256": "2461be4bb9888cf17b09358f7f0e9e2857695dc9d384ce27ed9d211b9a71d19d",
+  "completed": true
+}
