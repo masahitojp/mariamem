@@ -107,6 +107,7 @@ def host_wheel(tmp_path):
     root=tmp_path; release.write(root/'release/generated-go-inputs.json',{'guest_sha256':'c'*64})
     path=root/'python/mariamem/_version.py';path.parent.mkdir(parents=True)
     path.write_text('PYTHON_VERSION="0.4.0"\nGIT_TAG="v0.4.0"\n')
+    release.write(root/'python/deployment_target.json', {'minimum_macos':15})
     for name in ('LICENSE','NOTICE','THIRD_PARTY_LICENSES'):(root/name).write_text(name)
     (root/'licenses').mkdir();(root/'licenses/wasm2go-MIT.txt').write_text('MIT')
     manifest={'version':1,'runtime_kind':'generated-go','platform':'darwin-arm64','package_version':'0.4.0',
