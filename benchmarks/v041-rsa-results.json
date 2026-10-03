@@ -1,0 +1,310 @@
+{
+  "source_sha": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+  "base_tag": "v0.4.0",
+  "go": "go version go1.26.8 darwin/arm64",
+  "os": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "arch": "arm64",
+  "runs": 30,
+  "rsa_off_occurrences": 1,
+  "generated_data_sha256": "22b9b269097cfda323244d3d51cdab118eb65cde043409fa59865130e502c5a0",
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "auth_callback": "PASS, generated=false, actual_callback=true",
+  "stats": {
+    "ready_seconds": {
+      "min": 0.03844575,
+      "p50": 0.045419333,
+      "p95": 1.055446167,
+      "max": 1.056115917
+    },
+    "first_sql_seconds": {
+      "min": 0.040140875,
+      "p50": 0.0474736875,
+      "p95": 1.058400667,
+      "max": 1.058802334
+    },
+    "ready_cpu_seconds": {
+      "min": 0.026282999999999997,
+      "p50": 0.030081999999999998,
+      "p95": 0.047795000000000004,
+      "max": 0.048976000000000006
+    },
+    "first_sql_cpu_seconds": {
+      "min": 0.030418,
+      "p50": 0.0343505,
+      "p95": 0.055119,
+      "max": 0.056098
+    }
+  },
+  "trials": [
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.040025,
+      "first_sql_seconds": 0.047917416,
+      "ready_cpu_seconds": 0.032957,
+      "ready_seconds": 0.045253041,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.033493,
+      "first_sql_seconds": 0.044691458,
+      "ready_cpu_seconds": 0.029589999999999998,
+      "ready_seconds": 0.042940083,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.036228,
+      "first_sql_seconds": 1.043934584,
+      "ready_cpu_seconds": 0.031504000000000004,
+      "ready_seconds": 1.042113167,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.030551999999999996,
+      "first_sql_seconds": 0.042243875,
+      "ready_cpu_seconds": 0.026614,
+      "ready_seconds": 0.040477833,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.032230999999999996,
+      "first_sql_seconds": 0.076051542,
+      "ready_cpu_seconds": 0.028229,
+      "ready_seconds": 0.074305083,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.030688,
+      "first_sql_seconds": 0.040290209,
+      "ready_cpu_seconds": 0.026805999999999996,
+      "ready_seconds": 0.038612875,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.052506000000000004,
+      "first_sql_seconds": 1.053556625,
+      "ready_cpu_seconds": 0.04585,
+      "ready_seconds": 1.050933917,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.036059,
+      "first_sql_seconds": 0.054478083,
+      "ready_cpu_seconds": 0.03217,
+      "ready_seconds": 0.052782,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.037164,
+      "first_sql_seconds": 1.046460334,
+      "ready_cpu_seconds": 0.032785,
+      "ready_seconds": 1.044662625,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.034336,
+      "first_sql_seconds": 0.043710125,
+      "ready_cpu_seconds": 0.029429999999999998,
+      "ready_seconds": 0.041507875,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.030418,
+      "first_sql_seconds": 0.040297209,
+      "ready_cpu_seconds": 0.026639000000000003,
+      "ready_seconds": 0.0385065,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.031984,
+      "first_sql_seconds": 0.041095417,
+      "ready_cpu_seconds": 0.028169,
+      "ready_seconds": 0.039396375,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.030819,
+      "first_sql_seconds": 0.040471791,
+      "ready_cpu_seconds": 0.026914,
+      "ready_seconds": 0.038709458,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.054339,
+      "first_sql_seconds": 1.054017125,
+      "ready_cpu_seconds": 0.047123,
+      "ready_seconds": 1.051400875,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.03351,
+      "first_sql_seconds": 0.047573125,
+      "ready_cpu_seconds": 0.029855,
+      "ready_seconds": 0.045973792,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.035053,
+      "first_sql_seconds": 0.042801291,
+      "ready_cpu_seconds": 0.030309,
+      "ready_seconds": 0.040746291,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.054223,
+      "first_sql_seconds": 1.056452542,
+      "ready_cpu_seconds": 0.04746,
+      "ready_seconds": 1.053833167,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.039178000000000004,
+      "first_sql_seconds": 0.054798875,
+      "ready_cpu_seconds": 0.035449,
+      "ready_seconds": 0.053105167,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.033489,
+      "first_sql_seconds": 0.042060125,
+      "ready_cpu_seconds": 0.028998999999999997,
+      "ready_seconds": 0.039978583,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.032766,
+      "first_sql_seconds": 0.040718375,
+      "ready_cpu_seconds": 0.028549,
+      "ready_seconds": 0.0390145,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.050983,
+      "first_sql_seconds": 1.053506167,
+      "ready_cpu_seconds": 0.044419,
+      "ready_seconds": 1.050951042,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.03892,
+      "first_sql_seconds": 0.053379084,
+      "ready_cpu_seconds": 0.034545,
+      "ready_seconds": 0.051697167,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.055119,
+      "first_sql_seconds": 1.058400667,
+      "ready_cpu_seconds": 0.047795000000000004,
+      "ready_seconds": 1.055446167,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.034365,
+      "first_sql_seconds": 0.051833833,
+      "ready_cpu_seconds": 0.030546000000000004,
+      "ready_seconds": 0.0501975,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.030987999999999998,
+      "first_sql_seconds": 0.041058208,
+      "ready_cpu_seconds": 0.026282999999999997,
+      "ready_seconds": 0.038908625,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.031909,
+      "first_sql_seconds": 0.041788166,
+      "ready_cpu_seconds": 0.028111999999999998,
+      "ready_seconds": 0.040029791,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.031903,
+      "first_sql_seconds": 0.041794666,
+      "ready_cpu_seconds": 0.028047000000000002,
+      "ready_seconds": 0.040041833,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.037688,
+      "first_sql_seconds": 0.04737425,
+      "ready_cpu_seconds": 0.033036,
+      "ready_seconds": 0.045585625,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.031619,
+      "first_sql_seconds": 0.040140875,
+      "ready_cpu_seconds": 0.027831,
+      "ready_seconds": 0.03844575,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    },
+    {
+      "auth_reconnect_two_sessions": "PASS",
+      "first_sql_cpu_seconds": 0.056098,
+      "first_sql_seconds": 1.058802334,
+      "ready_cpu_seconds": 0.048976000000000006,
+      "ready_seconds": 1.056115917,
+      "rsa_option": "OFF (released baseline)",
+      "runtime": "direct-linked generated-Go"
+    }
+  ]
+}
