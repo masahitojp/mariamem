@@ -1,5 +1,10 @@
 # v0.4 generated-Go candidate — canonical benchmarks and readiness audit
 
+Historical reference preserved. The accepted FD/cold-copy integration and new
+canonical comparison are in [v04-integrated-candidate.md](v04-integrated-candidate.md).
+Original observations and the OS-accounting attribution below are unchanged.
+
+
 **Default-migration follow-up:** generated-Go is now selected by ordinary v0.4
 Go/Python startup. This report preserves the earlier selected-bundle measurement
 boundary. See [default migration](v04-default-runtime-migration.md) for current selection, packaging and

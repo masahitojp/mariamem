@@ -39,4 +39,3 @@ def test_presized_cold_copy_exact_contents_and_no_overwrite(tmp_path):
     (original / 'different').write_bytes(b'unrelated')
     subprocess.run([str(binary), str(moved), str(tmp_path / 'second')], check=True)
     assert (tmp_path / 'second/nested/blocks').read_bytes() == (moved / 'nested/blocks').read_bytes()
-

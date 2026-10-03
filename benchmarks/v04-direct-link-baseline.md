@@ -1,5 +1,10 @@
 # v0.4 production direct-link canonical baseline
 
+Historical reference preserved. The accepted FD/cold-copy integration and new
+canonical comparison are in [v04-integrated-candidate.md](v04-integrated-candidate.md).
+Original observations and the OS-accounting attribution below are unchanged.
+
+
 **DIRECT-LINK CANONICAL BASELINE COMPLETE** — normal functional scope; not a tag, publication, full race acceptance or final release-readiness declaration.
 
 ## Source / environment

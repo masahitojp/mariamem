@@ -1,5 +1,10 @@
 # v0.4 Snapshot / Fork memory ownership and lifetime
 
+Historical reference preserved. The accepted FD/cold-copy integration and new
+canonical comparison are in [v04-integrated-candidate.md](v04-integrated-candidate.md).
+Original observations and the OS-accounting attribution below are unchanged.
+
+
 Source: `d94934a2d6fb79730297c0bbb80af79ffd04d0d4` (canonical baseline HEAD), `v0.4/generated-go-integration`. Production runtime is unchanged. Diagnostic tooling is isolated in [memorylifetime](memorylifetime/README.md).
 
 Apple M1, 16 GiB, macOS 27.0.1 (26A434), arm64, Go 1.26.8. Canonical compiled guest SHA-256: `5a513f74607ef1f1ddd4a36ebeefbba50354d9d00564e1977475d642104903bb`. [Checkpoint values / raw evidence hashes](v04-snapshot-memory-lifetime-values.json).

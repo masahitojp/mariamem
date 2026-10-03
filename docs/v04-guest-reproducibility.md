@@ -210,3 +210,29 @@ For subsequent local runs use the [external cache/work layout](development-clean
 Repeated source/build trees may be discarded after the canonical evidence is
 retained. The recipe accepts explicit downloads, toolchain and output paths; no
 recorded compiler/object output is a prerequisite for regeneration.
+
+## Accepted cold-copy guest update
+
+The A+B integration adopts canonical source recipe
+`1687465bcbaff74a334b3e89181c47e66478792c`, with seven added helper C lines to
+pre-size cold exclusive output files. No experimental.patch is present. A clean
+build produces guest SHA-256
+`33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008`
+(18,560,271 bytes), matching the independent experiment artifact. Toolchain,
+MariaDB sources, WASIX/shared memory/threading/legacy-EH settings are unchanged.
+The fresh canonical converter manifest is byte-identical to the independently
+translated experiment inventory; repeated runtime installation is byte-identical.
+This is not a claim of six new full builds: the six-build table above documents
+the earlier recipe/toolchain reproducibility evidence. New canonical build,
+overlay identities, tool hashes and stage results: release/generated-go-build.json.
+
+For current regeneration, use the same explicit cache and LLVM23 build command
+above on the pinned recipe, then translate with the new exact guest hash. Pass
+`--input-manifest release/generated-go-translation.json` to setup_candidate.py,
+and its resulting module to scripts/generate_runtime.py. That installer rejects
+any candidate inventory differing from release/generated-go-inputs.json and
+recursively transforms all generated packages; no manual generated-Go edit.
+Regenerate required compatibility images with scripts/embed_generated_runtime.py
+and verify using scripts/verify_generated_runtime.py. Ordinary Go startup does not
+use those images. Historical manifest/recipe evidence is retained, not silently
+rewritten. No licensing/notices or legacy fallback removal occurs in this update.

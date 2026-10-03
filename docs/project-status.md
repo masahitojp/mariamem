@@ -32,24 +32,38 @@ or generated address/function patches are used. The full-guest `-race` diagnosti
 is not a v0.4 release gate; evidence/reducers remain available. Shared-memory-model
 work is deferred for re-evaluation after the planned v0.5 guest/toolchain update.
 Focused handwritten synchronization/filesystem race tests remain mandatory.
-Canonical normal-path measurements are complete; see
-[direct-link baseline](../benchmarks/v04-direct-link-baseline.md). Start→SQL p50/p95:
-42.7/53.7 ms; Fork→COUNT: 126.2/187.2 ms; Snapshot: 490.0/592.1 ms (regressed).
-×16 CPU p50 is 3.352 CPU-sec. ×16 incremental physical footprint is
-197.5/320.8 MiB per DB; ready total 4283.3/6255.4 MiB, and immediate post-Close
-4283.2/6255.6 MiB. Fresh Start is a separate ~90.8 MiB ready boundary.
-The [memory-lifetime diagnostic](../benchmarks/v04-snapshot-memory-lifetime.md)
-shows large guest/FS Go objects become unreachable after normal Close and GC,
-while anonymous/compressed OS footprint remains. A held closed handle retains
-one pipe FD, separately from the GiB-scale memory. Do not substitute the fresh
-figure for prepared scaling or interpret process footprint as exclusive live DB
-bytes. SQLAlchemy100 Start/Fork p50: 35.649/21.405 s.
-The proposed next implementation experiment is known-length pre-sizing of the
-cold filesystem copy destination to reduce MemFS growth churn. It requires the
-human decision before implementation; no production optimization, GC/scavenging
-policy or Snapshot/Fork redesign was applied by this attribution task. See
-[architecture](v04-generated-go-architecture.md)
-and [default migration evidence](../benchmarks/v04-default-runtime-migration.md).
+The accepted A+B integration and one canonical campaign are complete; see
+[integrated candidate](../benchmarks/v04-integrated-candidate.md). The original
+[direct-link baseline](../benchmarks/v04-direct-link-baseline.md) remains the
+historical pre-integration reference. Start→SQL p50/p95 is 38.4/593.7 ms (two
+~1-second trials); Fork→COUNT 104.6/251.6 ms; Snapshot 399.9/570.8 ms. Snapshot
+median recovers to approximately the Wasmer baseline; its p95 remains regressed.
+×4 group-ready median regression is removed. ×16 CPU is 2.814/2.954 CPU-sec;
+incremental physical footprint 197.4/265.6 MiB per DB, ready total
+3664.7/4755.1 MiB, immediate after-Close 3665.4/4755.1 MiB.
+SQLAlchemy100 Start/Fork p50 is 34.025/20.430 s; installed SQLAlchemy44/GORM32 pass.
+
+The FD bug is fixed: linked completion closes its drained response pipe reader
+before publishing completion. Held closed DB and Snapshot source handles retain
+no pipe FD; repeated/concurrent lifecycle passes. The canonical cold-copy helper
+pre-sizes an exclusive destination using its known stable source size. Snapshot
+TotalAlloc falls from ~914.83 to ~278.17 MiB, without CoW, global MemFS growth,
+Snapshot format/API change or production GC/scavenging calls.
+The [memory-lifetime finding](../benchmarks/v04-snapshot-memory-lifetime.md)
+remains **OS PHYSICAL ACCOUNTING DOMINATES**. Snapshot owns ~138 MiB of cold files
+on disk, not the exited guest/MemFS. Large temporary Go allocations become
+unreachable after GC; OS anonymous/dirty/compressed accounting and substantial
+post-Close physical/RSS footprint remain a separate resource concern. Do not
+interpret these counters as exclusive live DB bytes, call them harmless, or
+promise immediate reclaimability. Fresh Start ~90.8 MiB is an earlier separate
+boundary and is not substituted for prepared scaling.
+
+Deferred: immutable Snapshot backing/CoW, deeper publish optimization,
+mmap-backed linear memory, shared-memory race adaptation, forced guest kill,
+legacy Wasmer removal, a Go1.27 arm64 compiler workaround, and MariaDB stable
+version migration. No further optimization or v0.5 work was started. See
+[architecture](v04-generated-go-architecture.md) and
+[default migration evidence](../benchmarks/v04-default-runtime-migration.md).
 Go ordinary startup now directly links the canonical generated module in the
 consumer, without embedded image delivery or subprocess startup. Python's packaged
 host likewise directly runs the guest. See the production direct-link baseline

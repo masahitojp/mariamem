@@ -3,7 +3,8 @@
 Ordinary Go `Start(ctx, Options{})` directly links the generated guest into the
 consumer process; generated Go is a normal Go dependency/build input. WASM is a
 build intermediate. The unpublished candidate's functional acceptance and canonical
-measurements are recorded in the [direct-link baseline](../benchmarks/v04-direct-link-baseline.md).
+measurements are recorded in the [integrated candidate](../benchmarks/v04-integrated-candidate.md);
+the [direct-link baseline](../benchmarks/v04-direct-link-baseline.md) is the preserved pre-integration reference.
 
 **Known v0.4 limitation:** the full generated guest is not Go `-race` clean.
 The [investigation](../benchmarks/direct-link-race-scope.md) found a general shared-memory
@@ -13,6 +14,21 @@ FD/filesystem/thread/TLS/futex race tests remain enabled. Broader adaptation is
 scheduled for re-evaluation after the v0.5 guest/toolchain update. This decision
 does not establish production race correctness or forced reclamation of hung
 in-process execution.
+
+## Accepted bounded follow-up
+
+Linked execution closes its host response reader after the reader joins and before
+completion notification; Close releases that FD even while a closed Database or
+Snapshot source handle remains retained. No finalizer/GC dependency is introduced.
+Cold filesystem copying pre-sizes a private exclusive destination with existing
+ftruncate, using its stable source size before the 64 KiB copy loop. Empty/sparse
+contents, offsets, grow/truncate, directory identity, rename/name reuse, independent
+Fork state and shutdown are verified. This is allocation reduction, not CoW or a
+Snapshot format/API change. Guest source and generated artifacts are rebuilt with
+pinned LLVM23/WASIX/wasm2go inputs; release/generated-go-build.json and
+release/generated-go-translation.json record the new canonical input provenance.
+Substantial immediate post-Close physical accounting persists independently of
+live Go-object ownership. No production GC, mmap or allocator tuning is added.
 
 ## Integration contract
 
