@@ -1,5 +1,9 @@
 # v0.4.0 release-readiness audit
 
+**Historical audit / migration evidence.** v0.4.0 is now published; the
+[project status](project-status.md) owns current release status and roadmap.
+Pending work described below records the audit boundary, not current blockers.
+
 Audited product candidate: `543867f82d3c174a72435d3077d8c1ec19b7949c`,
 `v0.4/generated-go-integration`, 2026-10-03 JST. The audit adds a focused
 non-race acceptance test and corrects timeout documentation only. No execution,

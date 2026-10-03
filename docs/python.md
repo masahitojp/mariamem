@@ -1,14 +1,14 @@
 # Python API
 
-**Generated Go is the default v0.4.0 runtime.** The `0.4.0` candidate is
-prepared, not tagged or published. Normal Python startup uses a platform Go host
+**Generated Go is the default v0.4.0 runtime.** The `0.4.0` package is published
+on GitHub Release. Normal Python startup uses a platform Go host
 with generated-Go MariaDB linked in; no external Wasmer/native bundle is needed.
 Public APIs and cold Snapshot/Fork semantics are preserved. See
 [architecture](v04-generated-go-architecture.md) and
 [canonical measurements](../benchmarks/v04-integrated-candidate.md).
 
-PyPI publication remains unavailable pending account recovery. After publication,
-use the [v0.4.0 GitHub Release wheels](https://github.com/masahitojp/mariamem/releases/tag/v0.4.0)
+PyPI publication remains unavailable pending account recovery. Use the
+[v0.4.0 GitHub Release wheels](https://github.com/masahitojp/mariamem/releases/tag/v0.4.0)
 and [platform install commands / PEP 508 extras](../README.md#python), not a Git
 source install. The wheel supplies the platform host executable. PyPI remains a
 planned distribution channel.

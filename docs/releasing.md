@@ -1,9 +1,12 @@
 # Releasing mariamem
 
 The canonical package version is `v0.4.0`; Python spelling is `0.4.0`.
-The final candidate and [tracked notes](../release/NOTES-v0.4.0.md) are prepared,
-but no tag or release has been published. Submit the exact final pushed SHA to
-Release CI **verify** before any separately authorized release operation.
+[v0.4.0 is published](https://github.com/masahitojp/mariamem/releases/tag/v0.4.0)
+from `39537e9bb2fbbc28315e1ff672960ad734a9e399`;
+[Release CI](https://github.com/masahitojp/mariamem/actions/runs/37109036059)
+passed both platform public smokes. See [notes](../release/NOTES-v0.4.0.md) and
+[current status / roadmap](project-status.md). Future releases require exact-SHA
+verify and a separately authorized release operation.
 
 ## Exact-source release boundary
 
@@ -104,6 +107,12 @@ Wasmer/source approval is not reused to approve changed bytes.
 | `acceptance-only` | original SHA, original `candidate_run` | Hash-verified frozen handoffs, new clean acceptance, guard. No rebuild fallback. |
 | `guard-only` | original SHA, `candidate_run`, explicit `evidence_run` | Restore exact handoffs/evidence and recheck only. No build or acceptance. |
 
+The macOS `guard-only` reuse path currently rejects the normal `/var` →
+`/private/var` temporary-directory alias as a symlink. The
+[failed release attempt](https://github.com/masahitojp/mariamem/actions/runs/37108460866)
+and reduced helper reproduction confirmed this; v0.4.0 publication used `full`.
+Use the verified `full` path until reuse-path hardening is separately accepted.
+
 Artifacts expire after 14 days. Missing/expired artifacts, ambiguous identities,
 unsafe archive entries, overwritten files, changed source/version/guest/notices,
 missing acceptance or one missing platform produce **NOT READY**. A full run is
@@ -135,9 +144,9 @@ physical footprint is not live Go heap and is not claimed harmless or immediatel
 reclaimable. Go1.27.0/1.27.1 arm64 are unsupported due to the documented upstream
 compiler regression; no generated-source/compiler workaround is used.
 
-After this migration, submit an exact pushed SHA with `operation=verify` to
-collect new hosted-runner evidence. Local script tests are not that evidence.
-Version/notes preparation is complete. Before actual release: unused-tag checks,
+For each new candidate, submit its exact pushed SHA with `operation=verify` to
+collect hosted-runner evidence. Local script tests are not that evidence.
+Before release: human-selected version/notes preparation, unused-tag checks,
 review source/notices/provenance and **both-platform READY for that exact
 final-version candidate**. The release skill owns only preparation/handoff;
 CI owns build, acceptance, guard, publication and public smoke.

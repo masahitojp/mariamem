@@ -10,8 +10,8 @@ See [architecture](v04-generated-go-architecture.md) and
 The public package is `mariamem` at the module root. The module requires Go
 1.26.0+; canonical validation uses Go 1.26.8. Go 1.27.0/1.27.1 arm64 are
 unsupported because of upstream compiler issue #81036; no local workaround is
-used. An upstream-fixed toolchain has been verified. The v0.4.0 candidate is
-prepared, not published. After publication:
+used. An upstream-fixed toolchain has been verified.
+[v0.4.0 is published](https://github.com/masahitojp/mariamem/releases/tag/v0.4.0):
 
 ```sh
 mkdir mariamem-example
@@ -29,7 +29,7 @@ Each DB has fresh execution/thread/TLS/FD state and private writable files.
 Normal Start does not decode/materialize a native image, spawn a guest process
 or resolve a runtime bundle. Development/local replacement builds use the same
 default. Once normal Go dependencies are available, startup needs no download.
-After publication, optional release audit assets are available separately:
+Optional release audit assets are available separately:
 
 ```sh
 gh release download v0.4.0 --repo masahitojp/mariamem \

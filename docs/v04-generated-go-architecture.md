@@ -2,7 +2,7 @@
 
 Ordinary Go `Start(ctx, Options{})` directly links the generated guest into the
 consumer process; generated Go is a normal Go dependency/build input. WASM is a
-build intermediate. The unpublished candidate's functional acceptance and canonical
+build intermediate. The published v0.4.0 runtime's functional acceptance and canonical
 measurements are recorded in the [integrated candidate](../benchmarks/v04-integrated-candidate.md);
 the [direct-link baseline](../benchmarks/v04-direct-link-baseline.md) is the preserved pre-integration reference.
 
@@ -11,11 +11,12 @@ The [investigation](../benchmarks/direct-link-race-scope.md) found a general sha
 adaptation problem, not 149 independent bugs or harmless reports. No suppression
 is used. The full-guest diagnostic is not a v0.4 release gate; focused handwritten
 FD/filesystem/thread/TLS/futex race tests remain enabled. Broader adaptation is
-scheduled for re-evaluation after the v0.5 guest/toolchain update. This decision
-does not establish production race correctness or forced reclamation of hung
+deferred for re-evaluation after the v0.5 guest/toolchain update; the
+[current roadmap](project-status.md) owns version themes and decision gates.
+This decision does not establish production race correctness or forced reclamation of hung
 in-process execution.
 
-## Accepted bounded follow-up
+## Integrated v0.4.0 fixes
 
 Linked execution closes its host response reader after the reader joins and before
 completion notification; Close releases that FD even while a closed Database or
@@ -156,7 +157,10 @@ If an existing feature cannot be implemented correctly with bounded changes,
 record the concrete discrepancy and stop integration. Keep the selected path
 disabled, avoid incomplete product benchmarks and report NOT READY.
 
-## Current integration state
+## Historical integration evidence
+
+The following records pre-release integration gates and selection bridges.
+[Project status](project-status.md) owns the published milestone and next decisions.
 
 The opened-directory FD identity and quadratic MemFS Snapshot growth gates are
 fixed and regression-tested in the selected local candidate. SQLAlchemy/GORM,
@@ -190,7 +194,7 @@ provisions images. Source/notices/provenance and exact-byte Ubuntu/macOS15
 acceptance remain release gates. Local regression/benchmark evidence does not replace them. See the updated
 candidate report for public-boundary measurements and observed regressions.
 
-## Release preparation audit
+## Historical release preparation audit
 
 [The infrastructure/docs/test audit](v04-integration-audit.md) records retained
 API options, intended artifact migration, verification tiers and actual build/CI
@@ -274,4 +278,5 @@ The default no longer imports `internal/builtinruntime`: encoded platform images
 image provisioning/checksum-at-Start and private executable cleanup can be removed
 in a later packaging task. Old image verification metadata, diagnostic guest CLI,
 spawn wrapper and explicit legacy bundle/cache infrastructure remain isolated.
-No broad artifact deletion is included in this migration.
+The [current roadmap](project-status.md) treats cleanup as a tentative polish
+candidate, preserving required legacy fallback rather than deleting it wholesale.

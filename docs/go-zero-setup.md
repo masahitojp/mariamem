@@ -1,9 +1,10 @@
 # Exact-release Go native setup
 
-These public usage instructions retain the current packaging contract. The
-unpublished v0.4 artifact migration and NativeDir compatibility decision are in
-[the integration audit](v04-integration-audit.md); no manual NativeDir requirement
-is proposed for ordinary v0.4 usage.
+**Historical v0.3 native-bundle implementation record.** Normal v0.4 Go startup
+direct-links generated Go and does not download a bundle. See the current
+[Go guide](go.md), [architecture](v04-generated-go-architecture.md) and
+[project status / roadmap](project-status.md). The implementation and cache
+behavior below apply only to the retained legacy path.
 
 This branch implements automatic native setup for future tagged releases. It
 starts from `d3d700a76095a55361ad3c52ff031750c84c83c4`; no release/version bump or
@@ -15,8 +16,8 @@ Ordinary application code becomes:
 db, err := mariamem.Start(ctx, mariamem.Options{})
 ```
 
-See the [Go guide](go.md#automatic-setup-next-release-development-branch) for
-cache locations, offline recovery and overrides.
+See the current [Go guide](go.md#legacy-wasmer-compatibility-override) for
+legacy override behavior; the cache details below are historical.
 
 ## Distribution identity
 

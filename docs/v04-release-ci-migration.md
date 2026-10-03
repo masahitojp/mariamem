@@ -1,5 +1,9 @@
 # v0.4 Release CI contract migration
 
+**Historical audit / migration evidence.** v0.4.0 is now published; the
+[project status](project-status.md) owns current release status and roadmap.
+Pending work described below records the audit boundary, not current blockers.
+
 Base candidate: `d2cc855b1c8c48343076040ac67946d9e5d288d4`,
 branch `v0.4/generated-go-integration`. This changes release tooling, packaging
 receipts, notices and documentation; no production Go/runtime/generated source,

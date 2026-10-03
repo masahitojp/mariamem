@@ -13,8 +13,9 @@ Both languages have public lifecycle APIs.
 NativeDir or runtime download. Explicit legacy bundle overrides remain supported.
 See [architecture](docs/v04-generated-go-architecture.md) and
 [canonical measurements](benchmarks/v04-integrated-candidate.md).
-The v0.4.0 candidate is prepared but not tagged or published. Installation
-commands below are for use after publication. See [release notes](release/NOTES-v0.4.0.md).
+[v0.4.0 is published](https://github.com/masahitojp/mariamem/releases/tag/v0.4.0).
+See [release notes](release/NOTES-v0.4.0.md) and
+[current product direction / roadmap](docs/project-status.md).
 
 The testing workflow is Docker-free: each disposable database has its own server
 state. Prepare migrations/fixtures once with Snapshot, then Fork independent
@@ -22,7 +23,7 @@ databases without adding rollback, schema-reset or data-cleanup logic to each
 test. Close client connections and owned database/snapshot handles normally.
 
 The canonical Python distribution version is `0.4.0`; the Go module uses
-the exact `v0.4.0` tag. Python wheels will be available from the matching GitHub Release.
+the exact `v0.4.0` tag. Python wheels are available from the matching GitHub Release.
 Supported platforms remain **macOS 15+ / Apple Silicon (arm64)** and
 **Ubuntu 24.04 LTS / x86_64**.
 PyPI publication is temporarily unavailable while account recovery is pending;
@@ -93,7 +94,7 @@ see the [Python guide](docs/python.md).
 
 The module requires Go **1.26.0+**; canonical validation uses **1.26.8**.
 Go 1.27.0/1.27.1 arm64 are unsupported due to an upstream compiler regression
-(see [known limitations](#current-limits)). After publication, add the exact module:
+(see [known limitations](#current-limits)). Add the exact released module:
 
 ```sh
 mkdir mariamem-example
@@ -115,7 +116,7 @@ spawn a guest subprocess or resolve/download a Wasmer bundle. Explicit
 `Options.NativeDir` and `MARIAMEM_NATIVE_DIR` select the legacy compatibility
 path; see the [Go guide](docs/go.md).
 
-After publication, source/provenance review assets can be downloaded separately;
+Source/provenance review assets can be downloaded separately;
 they are not required for ordinary startup:
 
 ```sh
@@ -181,8 +182,8 @@ and [memory-lifetime attribution](benchmarks/v04-snapshot-memory-lifetime.md).
   claim of full public account/grant authentication support.
 - Tested ORM coverage includes SQLAlchemy 2.x and GORM 1.x dogfood suites; this
   does not promise compatibility with every framework version or migration
-  workload. dbt and larger memory/storage architecture work remain future
-  validation; see the [roadmap](docs/project-status.md).
+  workload. Broader consumer coverage and resource work follow evidence of
+  Disposable isolation's practical value; see the [roadmap](docs/project-status.md).
 
 Project code is [GPL-2.0-only](LICENSE); bundled components keep their own
 licenses and notices in [NOTICE](NOTICE) and
