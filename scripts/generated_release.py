@@ -214,7 +214,7 @@ def verify_acceptance(root, commit, platform, wheel_hash):
     require(report['go_version'].startswith('go version go1.26.8 '),'consumer Go toolchain differs')
     env=report['environment']
     if platform==DARWIN:
-        require(env['system']=='Darwin' and env['architecture']=='arm64' and int(env['product_version'].split('.')[0])>=15,'wrong macOS acceptance environment')
+        require(env['system']=='Darwin' and env['architecture']=='arm64' and env['product_version'].startswith('15.'),'wrong macOS acceptance environment')
     else:
         require(env['system']=='Linux' and env['architecture']=='x86_64' and env['distribution']=='ubuntu' and env['version_id']=='24.04','wrong Ubuntu acceptance environment')
     installed=read(root/'tests/evidence/alpha.json')

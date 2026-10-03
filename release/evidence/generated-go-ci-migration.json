@@ -1,0 +1,80 @@
+{
+  "base_sha": "d2cc855b1c8c48343076040ac67946d9e5d288d4",
+  "checks": {
+    "integration": {
+      "focused_runtime_race": "PASS",
+      "result": "PASS",
+      "source_commit": "171ced72ee7c7d3a94b3213e96bf6700564ef65c"
+    },
+    "normal_check": {
+      "python_passed": 415,
+      "python_skipped": 6,
+      "result": "PASS",
+      "source_commit": "14145820a43835d7412556119613350f46dbee33"
+    },
+    "production_runtime_changed": false,
+    "workflow_lint": "PASS"
+  },
+  "contract": "generated-go-v1",
+  "external_consumer": {
+    "environment": {
+      "architecture": "arm64",
+      "product_version": "27.0.1",
+      "system": "Darwin"
+    },
+    "go_version": "go version go1.26.8 darwin/arm64",
+    "gorm_cases": 32,
+    "result": "PASS",
+    "runtime_cache_entries": [],
+    "source_commit": "14145820a43835d7412556119613350f46dbee33",
+    "sqlalchemy_cases": 44,
+    "steps": {
+      "go_default": "PASS",
+      "go_snapshot_failure_lifecycle": "PASS",
+      "gorm": "PASS",
+      "installed_wheel": "PASS",
+      "sqlalchemy": "PASS"
+    },
+    "wheel_sha256": "23701b5cad0d68e976f87d5dd0e25e79786b2a8590e06cbb6387d7dac5d52330"
+  },
+  "guest_build": {
+    "independent_builds": 2,
+    "results": [
+      {
+        "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+        "linked_sha256": "94b2ae2ba97f424faf419daf4e819f2dfeefc8640b529ae19a98ee3579cb7d1b"
+      },
+      {
+        "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+        "linked_sha256": "94b2ae2ba97f424faf419daf4e819f2dfeefc8640b529ae19a98ee3579cb7d1b"
+      }
+    ],
+    "source_commit": "675aa050fc6a8a09cea86ee808fc83a2dbfd5eba",
+    "toolchain_pins_sha256": "7b7953ff4825e9af913bb7bac94a774b8abe54c7a1a04b9c8bfcb6a38e669802"
+  },
+  "logs_sha256": {
+    "acceptance-bound.json": "7205df5ab3e4370d9b84ed5a3e7a301582d8afc671e5918ad772e087b89fd0e8",
+    "acceptance-bound.log": "0d398fc40c2efd82d62540b4d6e71aea3aab5b266e38e4e91abf9e5adc3f27a1",
+    "final-integration.log": "488ccbdd070739c4ade548ed28f2a1e4bdbc7bfc395e209fee33a50d958e5e60",
+    "final-release-check.log": "33cd12ef6604c3c16925f2953f289818f58c20976f02850309bf9997ac3dc360",
+    "guest-build.log": "beebfa25a1d3bfcc986d9a81b7f76cb642c498618ea6d669f0fcc7a8f4e23c52",
+    "regeneration-validated.log": "f01f745c1503cb3c51a746099efc0709db52e572da517fd0025845df9b185392",
+    "source-closure-validated.log": "a6ce59988cd45b3a71b11161c7a6d9e93a9abf6461680fa7be6179e3b872ef50"
+  },
+  "regeneration": {
+    "generated_files": 65,
+    "launcher_commit": "14145820a43835d7412556119613350f46dbee33",
+    "provenance_sha256": "ade34eabe1dfacba7182ff351a39f3f2f7f06bdd6e89556cf899a7cbc8ade867",
+    "result": "PASS"
+  },
+  "remaining": "Exact final pushed SHA needs full Release CI verify on macOS15 arm64 and Ubuntu24.04 x86_64; version/notes/source review precede actual release.",
+  "scope": "local migration component validation, not two-platform Release CI READY",
+  "source_archive": {
+    "bytes": 567200836,
+    "offline_preparation": "PASS",
+    "sha256": "87380320c23e24cd83abdecd3af45a7dbfdc4d1ea69c0de229ffbd4e0375fe8b",
+    "source_and_notice_inventory": "PASS",
+    "source_commit": "675aa050fc6a8a09cea86ee808fc83a2dbfd5eba",
+    "sysroot_independently_rebuilt": false
+  }
+}

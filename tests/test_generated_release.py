@@ -199,3 +199,20 @@ def test_wheel_build_receipt_rejects_other_candidate(host_wheel):
     release.write(root/'tests/evidence/alpha-wheel.json',record)
     with pytest.raises(ValueError,match='build identity'):
         release.verify_wheel(root,'darwin-arm64','a'*40)
+
+
+def test_newer_local_macos_is_not_minimum_platform_release_evidence(tmp_path,monkeypatch):
+    import generated_release_acceptance as acceptance
+    version_file=tmp_path/'python/mariamem/_version.py';version_file.parent.mkdir(parents=True)
+    version_file.write_text('PYTHON_VERSION="0.4.0"\nGIT_TAG="v0.4.0"\n')
+    monkeypatch.setattr(release,'source_inventory',lambda *a:{})
+    monkeypatch.setattr(acceptance,'harness_inventory',lambda *a:{})
+    report={'contract':release.CONTRACT,'result':'PASS','source_commit':'a'*40,
+            'platform':'darwin-arm64','python_version':'0.4.0','wheel_sha256':'b'*64,
+            'go_source_sha256':{},'harness_sha256':{},'steps':{k:'PASS' for k in release.STEPS},
+            'sqlalchemy_cases':44,'gorm_cases':32,'outside_checkout':True,'runtime_overrides':False,
+            'module_version':'v0.4.0','go_version':'go version go1.26.8 darwin/arm64',
+            'environment':{'system':'Darwin','architecture':'arm64','product_version':'27.0.1'}}
+    release.write(tmp_path/'build/release/generated-acceptance.json',report)
+    with pytest.raises(ValueError,match='macOS acceptance environment'):
+        release.verify_acceptance(tmp_path,'a'*40,'darwin-arm64','b'*64)

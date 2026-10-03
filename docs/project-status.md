@@ -137,7 +137,8 @@ The integrated product is verified locally. The release-system migration now
 uses the **generated-go-v1** contract: ordinary Go source/module, two host-only
 Python wheels, common corresponding source, provenance and SHA256SUMS.
 WASM is a build intermediate. Legacy AOT/native bundles are not acceptance
-inputs for the normal path. See [releasing](releasing.md).
+inputs for the normal path. See [releasing](releasing.md) and the
+[migration validation/boundaries](v04-release-ci-migration.md).
 
 The branch remains unpublished; canonical version metadata still identifies
 v0.3.0. Required before v0.4.0 publication:
