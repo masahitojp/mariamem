@@ -25,12 +25,13 @@ def main():
     p.add_argument('--source-module', type=Path, required=True)
     p.add_argument('--guest', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--source-only', action='store_true', help='portable deterministic source adaptation; no native images or test execution')
     p.add_argument("--input-manifest", type=Path, default=HERE/"accepted-generated-source.json", help="explicit guest and generated-source identity; never inferred from the candidate")
     a = p.parse_args()
     input_manifest = a.input_manifest.resolve()
     pins = json.loads(input_manifest.read_text())
     guest_sha = pins["guest_sha256"]
-    if sys.platform != 'darwin' or platform.machine() != 'arm64':
+    if not a.source_only and (sys.platform != 'darwin' or platform.machine() != 'arm64'):
         p.error('this local candidate recipe is macOS arm64 only; Ubuntu acceptance is pending')
     if digest(a.guest) != guest_sha:
         p.error('guest differs from the accepted converter input')
@@ -72,7 +73,11 @@ func verifyCompiledGuest(name string) {
     shutil.copyfile(HERE/'prepared-growth-test.go.txt', module/'generated/base/prepared_growth_test.go')
     env = dict(os.environ, GOTOOLCHAIN='go1.26.8')
     sources = sorted(module.rglob('*.go'))
-    subprocess.run(['gofmt','-w', *map(str,sources)], check=True)
+    go_root = Path(subprocess.check_output(['go','env','GOROOT'], env=env, text=True).strip())
+    subprocess.run([str(go_root/'bin/gofmt'),'-w', *map(str,sources)], check=True)
+    if a.source_only:
+        print(module)
+        return
     subprocess.run(['go','test','-race','./generated/base'], cwd=module, env=env, check=True)
     native = out/'native'; native.mkdir()
     subprocess.run(['go','build','-p','1','-trimpath','-o',str(native/'wasmer-headless'),'.'], cwd=module,env=env,check=True)

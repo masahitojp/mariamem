@@ -8,6 +8,13 @@ description: Prepare and submit a mariamem release when the human explicitly req
 Read `AGENTS.md`, `docs/project-status.md`, and `docs/releasing.md` from the
 repository root. They own release policy; this skill only prepares and hands off.
 
+The current normal contract is `generated-go-v1`: ordinary direct-linked Go
+source/module, macOS arm64 and Ubuntu24.04 x86_64 host-only wheels, common GPL
+corresponding source, provenance/notices and SHA256SUMS. WASM is a build
+intermediate. Do not prepare Wasmer AOT/native bundles for this default path.
+Legacy fallback is separate. Verify mode is publication-free and available for
+an explicitly requested exact-SHA CI audit; it does not authorize release mode.
+
 Require an explicit human version, e.g. `release v0.1.0-alpha.5`. Missing version
 means stop and request it; never infer, choose, or recommend a next version.
 The request authorizes preparation, commit, push, and release workflow dispatch

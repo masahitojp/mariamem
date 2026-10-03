@@ -1,0 +1,42 @@
+{
+  "contract": "generated-go-v1",
+  "go": "1.26.8",
+  "llvm": "23.1.0",
+  "llvm_revision": "ea7d852a70e8bdfaf601d6626a760f9771b2c4b4",
+  "wasixcc": "0.4.7",
+  "sysroot": "v2026-07-03.1",
+  "sysroot_variant": "sysroot-eh",
+  "binaryen": "version_133",
+  "archives": {
+    "wasixcc": {
+      "file": "wasixcc-aarch64-unknown-linux-gnu.tar.gz",
+      "url": "https://github.com/wasix-org/wasixcc/releases/download/v0.4.7/wasixcc-aarch64-unknown-linux-gnu.tar.gz",
+      "sha256": "b4cf06f3ce00a0b2bdc376de24324bac2c963f4672914bf9a1ba99000a4866a7"
+    },
+    "sysroot": {
+      "file": "sysroot-eh.tar.gz",
+      "url": "https://github.com/wasix-org/wasix-libc/releases/download/v2026-07-03.1/sysroot-eh.tar.gz",
+      "sha256": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4"
+    },
+    "binaryen": {
+      "file": "binaryen-version_133-aarch64-linux.tar.gz",
+      "url": "https://github.com/WebAssembly/binaryen/releases/download/version_133/binaryen-version_133-aarch64-linux.tar.gz",
+      "sha256": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8"
+    },
+    "llvm": {
+      "file": "LLVM-23.1.0-Linux-ARM64.tar.xz",
+      "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.0/LLVM-23.1.0-Linux-ARM64.tar.xz",
+      "sha256": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4"
+    },
+    "icu": {
+      "file": "libicu70_70.1-2_arm64.deb",
+      "url": "https://ports.ubuntu.com/ubuntu-ports/pool/main/i/icu/libicu70_70.1-2_arm64.deb",
+      "sha256": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174"
+    },
+    "converter": {
+      "file": "wasm2go-fork.tar.gz",
+      "url": "https://codeload.github.com/shibukawa/wasm2go-fork/tar.gz/ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+      "sha256": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f"
+    }
+  }
+}

@@ -13,25 +13,26 @@ def test_publication_job_gate_and_handoff():
     before, publication = workflow.split('\n  publication:\n')
     assert 'default: verify' in before
     assert "if: inputs.operation != 'verify' && needs.aggregate.result == 'success'" in publication
-    assert 'contents: write' not in before
-    assert 'contents: write' in publication
+    assert 'contents: write' not in before and 'contents: write' in publication
     assert 'cancel-in-progress: false' in publication
-    assert 'environment:' not in publication  # no second approval gate
-    assert 'ci_release_platforms.py restore' in publication
-    assert 'ci_release_platforms.py guard' in publication
-    assert 'needs.resolve.outputs.source_sha' in publication
+    assert 'environment:' not in publication
+    assert 'release_generated_ci.py restore' in publication
+    assert 'release_generated_ci.py guard' in publication
     assert '--ready candidate-source/build/release/ci-ready.json' in publication
-    assert 'config user.name' in publication
-    assert 'args+=(--dry-run)' in publication
+    assert 'config user.name' in publication and 'args+=(--dry-run)' in publication
     assert "if: inputs.operation == 'release' && needs.publication.result == 'success'" in publication
-    assert '--platform "${{ matrix.platform }}"' in publication
-    assert 'build_alpha.py' not in publication and 'build_guest' not in publication
+    assert 'build_alpha.py' not in publication and 'build_generated_guest.py' not in publication
     assert 'release-candidate-${{ matrix.platform }}-' in before
     assert 'release-evidence-${{ matrix.platform }}-' in before
-    assert workflow.count('python scripts/build_guest_wasm.py') == 1
+    assert 'build_generated_guest.py --repetitions 2' in before
+    assert 'regenerate_release_guest.py' in before
+    assert 'compile_guest_aot.py' not in workflow and 'package_native.py' not in workflow
+    assert 'build_alpha.py --ci-candidate\n' in before
+    assert 'build_alpha.py --ci-candidate \\' not in before
+    assert 'ubuntu-24.04-arm' in before
+    assert 'generated_release_acceptance.py' in before
     for platform, runner in [('darwin-arm64', 'macos-15'), ('ubuntu24.04-x86_64', 'ubuntu-24.04')]:
-        assert f'platform: {platform}' in before
-        assert f'runner: {runner}' in before
+        assert f'platform: {platform}' in before and f'runner: {runner}' in before
         assert f'platform: {platform}' in publication
 
 

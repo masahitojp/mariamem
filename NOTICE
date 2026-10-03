@@ -22,7 +22,7 @@ Copyright (c) 2026 Yoshiki Shibukawa, MIT License. Its notice is included.
 The project also takes inspiration from pg-mem and PGlite's testing experience;
 their database implementations are not included in the mariamem Python code.
 
-The native bundle uses Wasmer headless and the Go runtime. Their upstream
+The legacy native bundle uses Wasmer headless and the Go runtime. Their upstream
 licenses and the licenses of embedded dependencies must be retained.
 Wasmer 7.4.2 headless includes Singlepass under Business Source License 1.1,
 not MIT. Its non-production grant, conditional production-use grant, and change
@@ -41,7 +41,9 @@ are public, non-secret test material, never production credentials. Exact
 source, notice and platform verification remains required for every release
 before public distribution. See docs/releasing.md and THIRD_PARTY_LICENSES.
 
-The unpublished v0.4 generated-Go candidate uses goccy/wasm2go via the
+The unpublished v0.4 default direct-links generated Go in Go consumers and
+links it into the host-only Python wheel. WASM is a build intermediate; normal
+execution does not include Wasmer/AOT runtime assets. It uses goccy/wasm2go via the
 shibukawa/wasm2go-fork commit ac98bcf00c17d8531f0c071a9836d0b50975e7ff.
 Its preserved MIT notice is in licenses/wasm2go-MIT.txt (Masaaki Goshima).
 This does not remove MariaDB/lite4mariadb corresponding-source obligations.

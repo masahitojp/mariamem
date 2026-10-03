@@ -29,6 +29,15 @@ def artifact_versions(native, wheel):
 if os.environ.get("MARIAMEM_RELEASE_TAG"):
     require_tag(os.environ["MARIAMEM_RELEASE_TAG"])
 
+if (ROOT / 'release/generated-go-toolchain.json').exists() and os.environ.get('MARIAMEM_RELEASE_CONTRACT') != 'wasmer':
+    # Current normal release guard. Historical Wasmer checks below remain
+    # available only for explicit legacy audit, never default-path approval.
+    import subprocess
+    import sys
+    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    raise SystemExit(subprocess.call([sys.executable, str(ROOT/'scripts/release_generated_ci.py'),
+                                     'guard', '--root', str(ROOT), '--candidate-sha', commit]))
+
 source = check()
 review = json.loads((ROOT / "release/review.json").read_text())
 missing = [f"{name}: {item['note']}" for name, item in review["checks"].items()

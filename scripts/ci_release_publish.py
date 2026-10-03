@@ -37,13 +37,20 @@ def prepare(root, commit, notes, ready_path=None):
     require(not command(["git", "status", "--porcelain", "--untracked-files=no"], root),
             "candidate checkout has tracked changes")
     ready = json.loads((ready_path or root / "build/release/ci-ready.json").read_text())
-    require(ready.get("version") == 2, "publication requires aggregate platform READY")
-    checked = check_aggregate(root, commit)
+    require(ready.get("version") in (2, 3), "publication requires aggregate platform READY")
+    if ready.get('version') == 3:
+        from generated_release import check_aggregate as generated_check, expected_names, CONTRACT
+        require(ready.get('contract') == CONTRACT, 'unknown aggregate artifact contract')
+        checked = generated_check(root, commit)
+        asset_names = expected_names
+    else:
+        checked = check_aggregate(root, commit)
+        asset_names = multi_asset_names
     require(ready == checked and ready.get("result") == "READY", "READY evidence differs from current guard")
     version = runpy.run_path(str(root / "python/mariamem/_version.py"))
     require(ready["source_commit"] == commit and ready["git_tag"] == version["GIT_TAG"]
             and ready["python_version"] == version["PYTHON_VERSION"], "release identity differs")
-    require(set(ready["assets"]) == multi_asset_names(version["PYTHON_VERSION"]), "unexpected alpha asset names")
+    require(set(ready["assets"]) == asset_names(version["PYTHON_VERSION"]), "unexpected release asset names")
     checksums = root / "build/release/SHA256SUMS"
     # JSON sorting may reorder assets; compare records, never tolerate duplicate names.
     entries = [line.split("  ") for line in checksums.read_text().splitlines()]
@@ -71,7 +78,7 @@ def prepare(root, commit, notes, ready_path=None):
     shutil.copyfile(checksums, staging / "SHA256SUMS")
     hashes = {name: digest(staging / name) for name in [*ready["assets"], "SHA256SUMS"]}
     require(all(hashes[name] == sha for name, sha in ready["assets"].items()), "staged bytes differ")
-    return {"version": 2, "source_commit": commit, "git_tag": ready["git_tag"],
+    return {"version": ready['version'], **({'contract':ready['contract']} if ready['version']==3 else {}), "source_commit": commit, "git_tag": ready["git_tag"],
             "python_version": ready["python_version"], "assets": hashes,
             "prerelease": version["STAGE"] in {"alpha", "beta", "rc"},
             "platforms": ready["platforms"],

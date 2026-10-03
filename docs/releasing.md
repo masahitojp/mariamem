@@ -1,332 +1,132 @@
 # Releasing mariamem
 
-The canonical release candidate version is `v0.3.0`; the Python distribution
-version is `0.3.0`.
-Change the five semantic components only in `python/mariamem/_version.py`.
-For a stable release, set `STAGE = ""` and `SERIAL = 0`; this derives
-`vX.Y.Z` and Python `X.Y.Z`. Use `release/NOTES-vX.Y.Z.md`. Stable GitHub
-releases are not prereleases; alpha/beta/rc releases remain prereleases.
-Run `python3 scripts/verify.py check` to verify the derived Python version and
-Git/Go tag and release-facing README/Go/Python examples. Update those examples
-when changing the canonical version; historical release records are excluded.
-The release guard checks these docs and versioned artifact names and rejects stale
-native/wheel metadata; set `MARIAMEM_RELEASE_TAG` when comparing a proposed tag.
-The source repository, native bundle, and Python wheel have separate checks.
-Historical experiments, local logs, and generated binaries stay outside Git.
+The canonical package version is `v0.3.0`; Python spelling is `0.3.0`.
+This unpublished branch implements the v0.4 generated-Go release contract.
+A human must supply the release version before version/notes preparation;
+this migration does not bump, tag, or publish a version.
 
-For future candidates, the [guest build boundary](development.md#guest-build-boundary)
-records Linux x86_64 source/toolchain/WASM identity separately from macOS arm64
-Wasmer AOT identity. Its CI verification is not release approval. Ubuntu AOT/package uses the same
-common WASM with its own target/runtime provenance. The published
-alpha.3 `release/guest-source-provenance.json` and review apply only to their
-recorded artifact hashes; a newly built guest requires its own corresponding
-source/provenance review before the existing release guard can accept it.
+## Exact-source release boundary
 
-## Unpublished v0.4 generated-Go candidate
+**Exact source commit → immutable artifacts → external acceptance evidence →
+release guard.** `release-candidate-ready.yml` defaults to `operation=verify`.
+Verify has read-only repository permissions and never enters publication.
+`dry-run` rechecks publication prerequisites without writes. Only an explicit
+human release request authorizes `operation=release`; the existing publisher
+owns the exact tag and accepted asset bytes, never a rebuild during publication.
 
-The [v0.4 readiness audit](release-readiness-v0.4.md) records passing local product
-and representative graceful-failure acceptance. The workflow and guards below
-still build/require Wasmer AOT/native archives, not the current generated-Go
-default's host-only wheel and normal Go-source runtime. Do not use those legacy
-results to approve generated-Go distribution. A release-pipeline migration,
-candidate-specific corresponding-source/notices review, canonical version/notes,
-and exact two-platform artifact acceptance remain required. No workflow was
-submitted by the audit; its result is NOT READY.
+Change only the five semantic components in `python/mariamem/_version.py`.
+Stable releases use `STAGE = ""`, `SERIAL = 0` and tracked
+`release/NOTES-vX.Y.Z.md`; prereleases use `NOTES-<stage>.<serial>.md`.
+Update current README/Go/Python/releasing examples with the derived version.
+`check_version.py` rejects stale examples/metadata; historical evidence is not
+rewritten. PyPI publication remains unavailable pending account recovery;
+GitHub Release wheels are the current Python distribution channel.
 
-## CI candidate readiness
+## v0.4 artifact contract: generated-go-v1
 
-PyPI publication is temporarily unavailable pending account recovery; GitHub
-Release wheels are the supported Python distribution channel for now. Restoring
-PyPI remains intended, but current Release CI does not publish to PyPI.
+| Consumer / artifact | Contract |
+| --- | --- |
+| Go module | Exact source commit/tag; canonical generated Go is ordinary source/build input in the module. `Options{}` direct-links it; no guest executable, NativeDir, bundle/cache or Wasmer download. |
+| macOS wheel | `mariamem-<version>-py3-none-macosx_15_0_arm64.whl`; macOS 15+ arm64; `_native` contains only `mariamem-host` and its checksum-bound manifest. |
+| Ubuntu wheel | `mariamem-<version>-py3-none-linux_x86_64.whl`; tested on Ubuntu 24.04 x86_64, not a manylinux claim; same host-only layout. |
+| Corresponding source | One common `mariamem-<version>-corresponding-source.tar.gz`, covering both wheels and Go source: product source/generated code/patches/scripts, pinned MariaDB/lite4mariadb/dependency sources, WASIX libc, LLVM runtime/header submodule sources, converter source and build evidence. |
+| Provenance | `mariamem-<version>-provenance.json`: exact source/guest/generated/toolchain/notices hashes, both frozen wheel records and external acceptance hashes. |
+| Hashes | `SHA256SUMS` binds the two wheels, common corresponding source and provenance. Go source identity is bound to the exact tag commit and module fixture inventory. |
 
-The v0.3.0 candidate is being prepared and is not published yet. The current
-public stable release remains available until the candidate is published.
-Candidate metadata and installation examples identify the intended version.
-Release CI must accept the exact remote candidate on both platforms before
-aggregate READY can publish it. The fixed-reference FAST result is not an absolute hosted-runner
-performance gate; preserve the separately recorded lifecycle,
-race/corruption/key-failure evidence for unchanged product code. A stable 0.x
-version does not promise 1.0-level API compatibility.
+These four assets plus SHA256SUMS replace native-bundle/AOT assets on the normal
+release path. Existing legacy Wasmer code, notices, locks and historical guard
+fixtures remain. Explicit fallback still requires its independently verified
+legacy bundle; this release contract does not promise a new fallback bundle.
+No legacy evidence substitutes for generated-Go acceptance.
 
-Manually dispatch `release-candidate-ready.yml`. Its small input interface is:
-
-| Mode | Inputs | Work performed |
-| --- | --- | --- |
-| `full` (default) | remotely fetchable `candidate_ref` | One Linux guest build, both native AOT/package jobs, clean acceptance per platform, aggregate guard |
-| `acceptance-only` | original candidate SHA as `candidate_ref`, `candidate_run` ID | restore exact frozen candidate, clean native/wheel acceptance, guard |
-| `guard-only` | original SHA, `candidate_run`, optional `evidence_run` (defaults to candidate run) | restore exact candidate and acceptance evidence, guard only |
-
-Retry modes skip both build jobs. `candidate_run` must be the original run that
-uploaded both `release-candidate-<platform>-<sha>` artifacts; an acceptance retry only uploads new evidence.
-Use its run ID as `evidence_run` for a later guard retry. The workflow tooling
-and immutable candidate source are checked out separately, so a guard fix can
-verify an older candidate without changing its source or bytes.
-
-To retry, keep `candidate_ref` at the original full source SHA and provide its
-build run as `candidate_run`. For `guard-only`, set `evidence_run` to the run
-that produced both platform acceptance records. Retry never builds the common
-guest, AOT, wheel, or native archives. Failed platform acceptance does not require
-rebuilding an otherwise valid candidate. Both platforms are re-accepted in
-`acceptance-only`; `guard-only` runs neither acceptance. Single-platform historical
-runs lack the new paired handoff set and require a new full candidate.
-
-The workflow resolves the requested source to a full remote SHA. Reuse verifies
-the GitHub artifact ZIP digest, safe extraction, exact source/build provenance,
-and recomputed native/wheel/source hashes. Guard-only additionally validates
-both acceptance records against those exact artifacts. Missing, expired,
-corrupted, or mismatched inputs fail clearly; there is no rebuild fallback.
-Retention is currently 14 days. A new full run is required when reusable inputs
-are unavailable.
-
-The full path builds one common WASM and transfers its exact bytes to independent
-macOS 15 arm64 and Ubuntu 24.04 x86_64 AOT/package jobs. Ubuntu uses the explicit
-SSE2+SSSE3 CPU baseline recorded and verified by source provenance. Each platform
-has separate clean native/public-Go, installed-wheel, and focused v0.3
-consumer acceptance. The focused consumer check uses the **frozen native archive
-and wheel**: a private exact-version Go module proxy serves the candidate's Go
-source and a temporary HTTP distribution serves unchanged archive bytes to the
-production resolver. It requires an empty cache, no NativeDir, Start(Options{}),
-SQL, cached/offline restart, repeated GORM AutoMigrate/schema discovery, and a
-clean-venv SQLAlchemy commit/SELECT/FOUND_ROWS check against that wheel. No
-public tag or release is required for candidate acceptance.
-
-Both platform guards must pass. Each platform guard also requires external
-consumer evidence for all four focused steps, bound to the exact source SHA,
-version, native/wheel hashes, target, embedded input lock and checked-in smoke
-harness. Missing, skipped, failed or mismatched evidence prevents READY; retry
-modes preserve and re-verify the same evidence without rebuilding artifacts.
-The aggregate guard rechecks their source files, full source SHA, version,
-input-lock/prepared-source/toolchain identities, and common WASM hash. A missing
-or failing platform yields NOT READY and publishes nothing. Candidate bytes and
-acceptance evidence remain separate; no evidence
-commit or rebuild after acceptance is required. Frozen handoffs and evidence are
-named `release-candidate-<platform>-<sha>` and `release-evidence-<platform>-<sha>`.
-The aggregate output is `release-ready-<sha>`.
-
-A multi-platform release publishes two native archives, two wheels, two
-platform-qualified corresponding-source archives, and one `SHA256SUMS`. Separate
-source archives retain each platform's exact AOT provenance without introducing
-another source format. Publication rechecks aggregate READY and accepted hashes,
-creates one immutable tag at the exact build source SHA, and publishes one release.
-Post-publication smoke runs separately on each platform using a clean public-tag
-Go module with `Start(ctx, Options{})`, an initially empty cache and the actual
-published GitHub native archive. It also installs the published wheel in a clean
-virtualenv and exercises normal SQLAlchemy behavior. The smoke rechecks accepted
-published hashes first and never supplies a native override. A smoke failure
-never moves the tag or replaces published bytes. No path requires Docker or Tart.
-
-**Codex submits work to CI; it does not supervise CI.** After a long-running
-dispatch, hand back the run URL, candidate SHA, and mode immediately. Do not poll,
-wait, or report elapsed time. Re-enter for an explicit human status request,
-requested CI failure/NOT READY diagnosis, or an unexpected engineering decision.
-The handoff is:
-
-> Release CI has been submitted for candidate `<sha>`. GitHub Actions owns
-> execution; no further local work is needed until a result requires attention.
-
-### Publication decision
+WASM is a **build intermediate**, not the normal runtime format:
 
 ```text
-human: "release this candidate"
-→ Codex: submit exact candidate and hand off
-→ CI: build → acceptance → guard
-      NOT READY → stop
-      READY → tag → publish → post-publication smoke
+MariaDB/WASIX source → LLVM23 legacy-EH WASM → patched pinned wasm2go
+→ generated Go → consumer Go build / platform Python host build
 ```
 
-Starting the release workflow is the single human publication decision. It
-approves the deterministic transaction as a whole; READY must not request a
-second approval. Codex does not supervise or poll after submission. CI does not
-make release decisions, schedule releases, or bump versions automatically.
+Each DB reconstructs fresh execution/thread/TLS/FD state and private writable
+files. Snapshot/Fork use prepared files, not ready-heap/live-worker restoration.
+Python's installed host links the same guest; Go runs it in-process.
 
-`release-candidate-ready.yml` defaults to `operation=verify`, which never
-publishes. `operation=dry-run` rechecks READY and publication inputs without
-creating tags or releases. Only `operation=release` authorizes publication;
-it works with the same full/acceptance-only/guard-only retry boundaries.
+## Build and source/provenance verification
 
-After preparing the canonical version, current release-facing docs, and tracked
-`release/NOTES-alpha.N.md` (or `NOTES-beta.N.md`, `NOTES-rc.N.md`,
-`NOTES-vX.Y.Z.md`), submit the remotely available exact commit:
+`release/generated-go-toolchain.json` pins WASIXCC 0.4.7, LLVM/LLD 23.1.0,
+Binaryen 133, sysroot v2026-07-03.1 **sysroot-eh**, converter commit/archive and
+all downloaded tool hashes. The old `inputs.lock.json` runtime toolchain profile
+remains a legacy profile; its source revisions still provide guest dependencies
+and WASIX libc/runtime/header corresponding sources.
 
-```sh
-gh workflow run release-candidate-ready.yml -f candidate_ref=<full-source-sha> \
-  -f mode=full -f operation=release
-```
+The build-host job uses [GitHub's Linux arm64 runner](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)
+to preserve the accepted canonical recipe. It does not add a supported product
+platform. `build_generated_guest.py` installs a fresh checksum-verified SDK and
+LLVM23 header profile, uses fixed `/work/source` build paths, performs two
+independent clean source builds and requires both linked and final WASM hashes
+to equal the accepted canonical identities. No local Docker image or hidden
+SDK/download is accepted. `regenerate_release_guest.py` applies the three pinned
+generator patches and bounded filesystem adaptations automatically, uses pinned
+Go1.26.8 formatting, and compares **all** regenerated files (including handwritten
+ownership glue) with committed generated source. A mismatch fails; it does not
+update accepted hashes.
 
-An optional `notes` input selects another tracked candidate-relative file with a
-heading identifying the canonical tag. CI rechecks the guard and exact artifact
-hashes, creates an annotated tag at the build commit, uploads the seven accepted
-assets to a draft, downloads/verifies them, then publishes (prerelease for
-alpha/beta/rc). It runs the maintained external Go consumer separately on both platforms against
-the public tag and each downloaded native bundle. No candidate is rebuilt after acceptance.
-Existing local/remote tags or GitHub releases stop publication, even if they
-appear to describe the same candidate. No overwrite, deletion, or rollback is
-performed after failure; a public-smoke failure leaves the release intact for
-investigation. JSON reports and logs are retained in
-`release-publication-<source-sha>` and
-`release-public-smoke-<platform>-<source-sha>` with the failing stage in the workflow summary.
-Codex returns the run URL and hands off immediately; it does not supervise CI.
+The legacy-EH intermediate cannot be validated by Wasmer7.4.2. Validation is
+independent rebuild/hash equality, exact converter/input/output provenance and
+observable SQL/runtime acceptance on the generated-Go path. Exceptions are not
+disabled and the guest is not rewritten to satisfy Wasmer.
 
-For this path, `package_source.py --ci-evidence-dir build` and
-`verify_source.py --ci-evidence-dir build` compare the new WASM/AOT provenance,
-reviewed sysroot source payload, pinned source archives, licenses, and offline
-source preparation. The source archive contains build-time records only.
-`build_alpha.py --ci-candidate` likewise embeds stable candidate metadata, not
-post-build review. `verify.py release-check --ci-candidate-sha <sha>
---native-acceptance <evidence.json>` checks the exact hashes and emits external
-`ci-ready.json` and `SHA256SUMS` only after all checks pass. The legacy local
-release-check and historical alpha.3 evidence remain unchanged.
+`release_generated_ci.py source` collects the complete pinned source archives
+and preserved notices; `generated_release.verify_source` extracts outside the
+checkout, checks every archive/file/version hash and pinned runtime/header
+source/license coverage, disables network, and repeats source preparation.
+Modified input hashes must equal those used in the actual WASM build. The new
+sysroot archive is checksum-bound to its upstream release; this is **not** an
+independent rebuild of the sysroot or a final linked-file SBOM. The compiler
+LLVM23 revision is recorded separately from the older LLVM runtime source
+revision used by that WASIX sysroot. Original source/license texts remain in
+full archives. GPL-derived obligations remain independently relevant; historical
+Wasmer/source approval is not reused to approve changed bytes.
 
-## Current release work
+## CI inputs, reuse, and acceptance
 
-- Product code, consumer examples, and regression tests use this repository only.
-- Pinned MariaDB/lite4mariadb, connector, wolfSSL, PCRE2, and fmt archives are
-  collected by hash. The build applies the maintained patch/overlays.
-- Go host, Wasmer headless, guest AOT, and metadata are bundled in a platform wheel.
-- `release/review.json` records source, runtime-notice, and clean macOS 15
-  acceptance evidence. Recheck the evidence if a reviewed binary changes.
-
-## Local tooling reference (diagnostics)
-
-These commands remain available for focused diagnostics and tooling development;
-the normal release path belongs to CI.
-
-1. Follow [development](development.md) to build and test the guest and wheel.
-2. Run `python3 scripts/check_public.py`. The source publication set must not
-   contain local paths, secrets, symlinks out of the tree, native artifacts, or
-   references to the previous workspace.
-3. Run `python3 scripts/package_source.py` to produce a source *candidate* and
-   manifest in `build/release/`. This collects pinned source archives and this
-   repository's selected sources, licenses, and build scripts.
-   Then run `python3 scripts/verify_source.py` to extract it outside the repository,
-   prepare the guest with network access disabled, and compare the modified source
-   files with the inputs of the local guest build.
-4. Build the versioned wheel with `scripts/build_alpha.py`. From an isolated
-   environment outside the checkout, install that exact wheel with its `test`
-   extra and run `tests/verify_alpha.py`. It records the wheel SHA256 in
-   ignored `tests/evidence/alpha-wheel.json` and binds installed-wheel results
-   to it in `tests/evidence/alpha.json`.
-5. Run `python3 scripts/verify.py release-check`. It invokes the existing release
-   guard to check source, reviews, exact wheel/acceptance hashes, and the native
-   archive hash from clean-platform
-   evidence. It stages the native bundle, corresponding source, wheel, and
-   SHA256SUMS in `build/release/publish/`, with a local release manifest at
-   `build/release/release-manifest.json`. The publish directory must be empty
-   first. Rebuild source and wheel evidence after public files or reviewed
-   artifacts change.
-
-## Go native candidate
-
-`python3 scripts/package_native.py` packages existing staged artifacts into
-`build/release/native-candidate/`. See [Go manual bundle instructions](go.md#manual-native-bundle-local-candidate).
-This path does not populate `build/release/publish/`; the release guard copies
-the accepted archive there after hash verification. The accepted candidate's
-SHA256 is recorded in [clean-platform evidence](../release/evidence/macos15-arm64-acceptance.json).
-The review applies to that exact archive; regenerate and recheck if its bytes
-change. The planned Release includes this native bundle.
-`CANDIDATE.json` records stable build inputs only. Review and clean-platform
-acceptance are external evidence bound to the finished archive's SHA256; updating
-them does not change the native candidate bytes.
-
-## Smoke checks
-
-- **Go source:** after the tag is published, use a fresh external module to run
-  `go get github.com/masahitojp/mariamem@<published-tag>` and build the
-  [README Go example](../README.md#go). Before tagging, use the pushed commit
-  instead of the version. The Go module contains no native binaries.
-- **Native bundle:** compare the downloaded archive's SHA256 with its published
-  checksum and the accepted evidence. Extract it, check that `wasmer-headless`
-  is executable, then run the same Go example with `MARIAMEM_NATIVE_DIR` set
-  to the extracted directory. It should print `1`.
-- **Python wheel:** install the exact staged wheel with `[test]` in a
-  fresh virtual environment. From outside the checkout, run the checked-in
-  `tests/verify_alpha.py` with that environment's Python. It checks bundled
-  files, SQL, fixtures, snapshots, parallel workers, and cleanup. Compare its
-  `wheel_sha256` with the staged wheel's hash.
-
-## Publication inputs
-
-Prepare notes for the intended canonical version before submitting a release.
-`release/NOTES.md` and `release/NOTES-alpha.3.md` are historical release records,
-not current version inputs. Publication consumes the READY candidate's exact
-assets and derived tag without another approval gate.
-The corresponding-source archive must remain available alongside the binaries
-it covers; GitHub's default source zip is not a replacement for the collected
-dependency sources. Local build/check commands never publish; only the explicitly
-authorized CI publication job pushes the release tag and publishes assets.
-
-## License scope
-
-The project chooses GPL-2.0-only for its own code. Keep original licenses and
-copyright notices for all dependencies. Source collection includes build scripts
-and modifications; generated binaries are bound to their inputs by hashes.
-Build tools and linked runtime libraries must be distinguished when determining
-source requirements. See [GPLv2 section 3](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
-
-## WASIX guest source coverage (Task 9a1)
-
-The source candidate now includes full pinned archives for the three submodules
-of WASIX libc `v2026-07-03.1`:
-
-| Source | Revision | Required license files inside its archive |
+| Mode | Inputs | Work |
 | --- | --- | --- |
-| llvm/llvm-project | `6bb93a243f6d15855f485f5aec3810d9e2de150d` | `LICENSE.TXT`, `libcxx/LICENSE.TXT`, `libcxxabi/LICENSE.TXT`, `libunwind/LICENSE.TXT`, `compiler-rt/LICENSE.TXT` |
-| WebAssembly/WASI | `bac366c8aeb69cacfea6c4c04a503191bf1cede1` | `tools/witx/LICENSE` |
-| wasix-org/wasix-witx | `0dfbd35a0f30f3fe7fd3b3ab5a50dc4191d5caed` | `tools/witx/LICENSE` |
+| `full` (default) | remotely fetchable exact `candidate_ref` | Two source→WASM builds; generated-source verification; common source archive; both host-only wheels; frozen handoffs; both clean consumers; aggregate guard. |
+| `acceptance-only` | original SHA, original `candidate_run` | Hash-verified frozen handoffs, new clean acceptance, guard. No rebuild fallback. |
+| `guard-only` | original SHA, `candidate_run`, explicit `evidence_run` | Restore exact handoffs/evidence and recheck only. No build or acceptance. |
 
-All other upstream LICENSE/NOTICE files are retained inside the full source
-archives too. LLVM runtime licenses include Apache-2.0 with LLVM exceptions and
-component-specific legacy notices; header tools declare Apache-2.0. Preserve the
-actual per-file notices rather than assigning one new license to all sources.
+Artifacts expire after 14 days. Missing/expired artifacts, ambiguous identities,
+unsafe archive entries, overwritten files, changed source/version/guest/notices,
+missing acceptance or one missing platform produce **NOT READY**. A full run is
+required if immutable inputs are unavailable. Reuse executes the exact candidate
+scripts; a candidate-script fix needs a new source candidate, not a silent
+reinterpretation of old evidence.
 
-`release/inputs.lock.json` connects the existing submodule pins to downloadable
-source inputs with explicit commit URLs and SHA256 hashes. `package_source.py`
-verifies these before packaging. The candidate embeds that lock plus a source
-manifest recording each revision, archive hash, source coverage, and license-file
-hashes. GitHub source tarballs do not include Git history: revision verification
-uses the pinned commit URL, expected archive root, and content hash, not `git rev-parse`.
+macOS acceptance runs on `macos-15` arm64; Ubuntu on `ubuntu-24.04` x86_64.
+A private exact-tag Go module proxy transports the **candidate source** without
+`replace` or a native bundle. A fresh external Go consumer runs existing
+Options{} SQL/Snapshot/Fork/isolation/corruption/failure/lifecycle tests and
+GORM32 (Start/Fork, including repeated schema discovery). A fresh external venv
+installs the frozen wheel, verifies installed bytes/notices/version, runs the
+serial/parallel/seeded/failure-cleanup suite and SQLAlchemy44. Ubuntu also runs
+its platform diagnostics. Both guards bind source, harness, platform and wheel
+hashes before aggregate READY. Public smoke later downloads accepted bytes and
+checks the public Go tag's origin commit; it cannot modify the release.
 
-`verify_source.py` checks the outer archive hash, bundled/current lock agreement,
-all three nested archives, revision consistency, required source directories and
-nonempty license files. It also retains the existing offline MariaDB preparation
-and comparison with the actual guest's modified build inputs. LLVM source is
-inspected without expanding its whole tree or compiling any runtime.
+## Known limitations and release preparation
 
-The recorded variant is **`sysroot-exnref-eh`**: it was observed in the actual
-compiler dependency files and build-image driver selection. CMake's older
-`sysroot-eh` search-root setting is not proof that this other variant was linked.
+Full generated guest `-race` remains **GENERAL SHARED-MEMORY MODEL WORK REQUIRED**;
+no suppression is used and it is not a v0.4 release gate. Focused handwritten
+FD/MemFS/thread/TLS/futex race coverage remains enabled in normal integration CI.
+Forced query-timeout reclamation/hard failure containment is not guaranteed.
+The ~1s legal guest-side startup tail remains observable. macOS post-Close
+physical footprint is not live Go heap and is not claimed harmless or immediately
+reclaimable. Go1.27.0/1.27.1 arm64 are unsupported due to the documented upstream
+compiler regression; no generated-source/compiler workaround is used.
 
-Task 9a3 completed the guest source provenance review for the recorded artifact.
-See [guest source provenance](guest-source-provenance.md) for the evidence,
-validation commands, and remaining reproducibility gaps. `guest_source` is true;
-runtime-notice review and acceptance of the recorded native candidate are now
-complete. This provenance review does not publish binaries. No guest binaries
-are rebuilt by source verification.
-
-## Wasmer runtime notice review (Task 9b)
-
-See [runtime notices](runtime-notices.md) for the pinned dependency inventory,
-verification commands, Singlepass BUSL-1.1 disclosure, and the accepted webc
-12.0.1 package MIT declaration. `runtime_notices` is true after Task 9b-final.
-The absence of a separate webc license file is recorded without inferred
-copyright wording. CI guards verify the exact candidate's source, runtime hash
-and shipped notices before aggregate readiness. The tracked historical review
-does not approve future candidate bytes.
-
-## Ubuntu 24.04 product candidates
-
-`ubuntu-product.yml` builds an exact remote checkout on `ubuntu-24.04` and
-hands frozen native/wheel/source bytes to a separate Ubuntu consumer job.
-It checks public Go consumers, installed-wheel consumers, lifecycle regressions
-and the existing CI release guard with Ubuntu-specific external evidence.
-This standalone product workflow does not publish. The canonical multi-platform
-release workflow described above owns aggregate readiness and publication.
-
-The target is Ubuntu 24.04 LTS / x86_64, with a `linux_x86_64` wheel,
-not a manylinux compatibility claim. Source manifests record the Linux-native
-AOT path, pinned Wasmer distribution, actual ELF dependencies and GLIBC floor.
-Linux runtime notices reuse the reviewed common inventory and add
-`release/wasmer-linux-runtime-notices.json` plus
-`licenses/Wasmer-Linux-NOTICES.txt`; verify with
-`python3 scripts/linux_runtime_notices.py`. Historical macOS evidence is unchanged.
-Clean Ubuntu acceptance is required for each candidate.
+After this migration, submit an exact pushed SHA with `operation=verify` to
+collect new hosted-runner evidence. Local script tests are not that evidence.
+Before actual release: human version/notes preparation, unused-tag checks,
+review source/notices/provenance and **both-platform READY for that exact
+final-version candidate**. The release skill owns only preparation/handoff;
+CI owns build, acceptance, guard, publication and public smoke.
