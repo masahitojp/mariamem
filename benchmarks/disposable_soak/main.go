@@ -44,8 +44,14 @@ func observe(helper string) (checkpoint, error) {
 	if runtime.GOOS == "linux" {
 		fdDir = "/proc/self/fd"
 	}
-	fds, err := os.ReadDir(fdDir)
+	fdObserver, err := os.Open(fdDir)
 	if err != nil {
+		return checkpoint{}, err
+	}
+	// /dev/fd entries can disappear before a stat; count names without metadata.
+	fds, err := fdObserver.Readdirnames(-1)
+	closeErr := fdObserver.Close()
+	if err = errors.Join(err, closeErr); err != nil {
 		return checkpoint{}, err
 	}
 	pid := strconv.Itoa(os.Getpid())

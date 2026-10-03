@@ -20,6 +20,8 @@ every generation so an externally terminated diagnostic retains partial evidence
 On macOS, primary memory is `phys_footprint`; on Linux it is PSS. RSS and Go heap
 are separate fields. `/dev/fd` or `/proc/self/fd` enumeration counts the observer's
 directory FD consistently; comparisons use the same observer at every checkpoint.
+Enumeration reads names only: statting transient `/dev/fd` pseudo-entries can
+produce EBADF on macOS and is not needed to count the open descriptors.
 Counters sample ready/after Close, not the transient maximum between checkpoints.
 Parent observer overhead is included in CPU; short-lived counter-helper CPU is
 not. No DB subprocess is created by this harness.
