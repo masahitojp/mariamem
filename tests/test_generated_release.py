@@ -109,7 +109,10 @@ def host_wheel(tmp_path):
     path.write_text('PYTHON_VERSION="0.4.0"\nGIT_TAG="v0.4.0"\n')
     release.write(root/'python/deployment_target.json', {'minimum_macos':15})
     for name in ('LICENSE','NOTICE','THIRD_PARTY_LICENSES'):(root/name).write_text(name)
-    (root/'licenses').mkdir();(root/'licenses/wasm2go-MIT.txt').write_text('MIT')
+    import shutil
+    shutil.copytree(ROOT/'licenses',root/'licenses')
+    for name in ('distribution-licenses.json','generated-license-evidence.json'):
+        shutil.copyfile(ROOT/'release'/name,root/'release'/name)
     manifest={'version':1,'runtime_kind':'generated-go','platform':'darwin-arm64','package_version':'0.4.0',
               'minimum_macos':15,'guest_sha256':'c'*64,'public_release_ready':False,'sha256':{'mariamem-host':hashlib.sha256(b'host').hexdigest()}}
     wheel=root/'build/dist'/release.wheel_name('0.4.0','darwin-arm64');wheel.parent.mkdir(parents=True)
@@ -137,6 +140,12 @@ def test_host_only_wheel_and_notice_bytes(host_wheel):
     record['source_files_sha256']=release.source_inventory(root)
     release.write(root/'tests/evidence/alpha-wheel.json',record)
     with pytest.raises(ValueError,match='notice'):release.verify_wheel(root,'darwin-arm64')
+
+
+def test_host_only_wheel_rejects_legacy_notices(host_wheel):
+    root,wheel,manifest,make=host_wheel
+    make('mariamem-0.4.0.dist-info/licenses/Wasmer-Singlepass-BUSL-1.1.txt')
+    with pytest.raises(ValueError,match='legacy-only'):release.verify_wheel(root,'darwin-arm64')
 
 
 @pytest.mark.parametrize('field,value,match',[('runtime_kind','wasmer','generated-Go'),('minimum_macos',14,'platform metadata'),

@@ -1,0 +1,359 @@
+{
+  "version": 1,
+  "audit_source_commit": "05d85afccefdb61f448ea68e9b29a6e20bcba053",
+  "linked_sha256": "94b2ae2ba97f424faf419daf4e819f2dfeefc8640b529ae19a98ee3579cb7d1b",
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "symbol_map_sha256": "fbb3db9c1f593db376cdbd38a8e8b172baef108cbf0b86101c257e26d3f2a8fb",
+  "symbol_map_entries": 21859,
+  "binaryen": "version_133",
+  "method": "canonical -O2 recipe with --symbolmap; resulting WASM is byte-identical to canonical guest",
+  "generated_provenance_sha256": "ade34eabe1dfacba7182ff351a39f3f2f7f06bdd6e89556cf899a7cbc8ade867",
+  "retained_symbols": {
+    "MariaDB": {
+      "pattern": "^(mysql_server_init|mysql_real_query)$",
+      "named_matches": 2,
+      "generated_definitions": 2,
+      "examples": [
+        {
+          "index": 5726,
+          "symbol": "mysql_server_init",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn5726",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 5790,
+          "symbol": "mysql_real_query",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn5790",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 2
+    },
+    "lite4mariadb": {
+      "pattern": "^l4m_",
+      "named_matches": 7,
+      "generated_definitions": 7,
+      "examples": [
+        {
+          "index": 244,
+          "symbol": "l4m_open",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn244",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 245,
+          "symbol": "l4m_close",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn245",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 246,
+          "symbol": "l4m_free",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn246",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 4
+    },
+    "WASIX libc": {
+      "pattern": "^(pthread_|__pthread|__wasi|__wasilibc|__imported_wasix_)",
+      "named_matches": 79,
+      "generated_definitions": 51,
+      "examples": [
+        {
+          "index": 69,
+          "symbol": "__pthread_mutex_trylock",
+          "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+          "generated_function": "Fn69",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 71,
+          "symbol": "__wasi_clock_time_get",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn71",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 72,
+          "symbol": "__wasi_fd_fdstat_get",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn72",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 40
+    },
+    "wolfSSL": {
+      "pattern": "^(wolfSSL_|wc_|wolfCrypt)",
+      "named_matches": 1982,
+      "generated_definitions": 1982,
+      "examples": [
+        {
+          "index": 1247,
+          "symbol": "wolfSSL_ResourceFree",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn1247",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1325,
+          "symbol": "wolfSSL_ERR_func_error_string",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1325",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1379,
+          "symbol": "wolfSSL_CTX_set_groups",
+          "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+          "generated_function": "Fn1379",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 344
+    },
+    "zlib": {
+      "pattern": "^(deflate|inflate|crc32|adler32)",
+      "named_matches": 15,
+      "generated_definitions": 15,
+      "examples": [
+        {
+          "index": 4476,
+          "symbol": "crc32_z",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn4476",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 5944,
+          "symbol": "adler32",
+          "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
+          "generated_function": "Fn5944",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 5952,
+          "symbol": "deflateInit_",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn5952",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 14
+    },
+    "PCRE2": {
+      "pattern": "^_?pcre2_",
+      "named_matches": 23,
+      "generated_definitions": 23,
+      "examples": [
+        {
+          "index": 7222,
+          "symbol": "pcre2_match_data_free_8",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn7222",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 7223,
+          "symbol": "pcre2_get_ovector_pointer_8",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn7223",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 7225,
+          "symbol": "_pcre2_strncmp_8",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn7225",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 9
+    },
+    "fmt": {
+      "pattern": "^_ZN3fmt",
+      "named_matches": 61,
+      "generated_definitions": 61,
+      "examples": [
+        {
+          "index": 10779,
+          "symbol": "_ZN3fmt3v1219basic_memory_bufferIcLm500ENS0_6detail9allocatorIcEEE4growERNS2_6bufferIcEEm",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn10779",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 11154,
+          "symbol": "_ZN3fmt3v126detail5writeIcNS0_14basic_appenderIcEEiTnNSt3__29enable_ifIXaaaasr11is_integralIT1_EE5valuentsr3std7is_sameIS7_bEE5valuentsr3std7is_sameIS7_T_EE5valueEiE4typeELi0EEET0_SB_S7_",
+          "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+          "generated_function": "Fn11154",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 11155,
+          "symbol": "_ZN3fmt3v126detail5writeIcNS0_14basic_appenderIcEEjTnNSt3__29enable_ifIXaaaasr11is_integralIT1_EE5valuentsr3std7is_sameIS7_bEE5valuentsr3std7is_sameIS7_T_EE5valueEiE4typeELi0EEET0_SB_S7_",
+          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
+          "generated_function": "Fn11155",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 58
+    },
+    "libc++": {
+      "pattern": "^_ZNSt3__2",
+      "named_matches": 775,
+      "generated_definitions": 775,
+      "examples": [
+        {
+          "index": 4582,
+          "symbol": "_ZNSt3__221__throw_runtime_errorEPKc",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn4582",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 4583,
+          "symbol": "_ZNSt3__212__next_primeEm",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn4583",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 4584,
+          "symbol": "_ZNSt3__222__throw_overflow_errorB8ne200100EPKc",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn4584",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 375
+    },
+    "libc++abi": {
+      "pattern": "^__cxa_",
+      "named_matches": 27,
+      "generated_definitions": 27,
+      "examples": [
+        {
+          "index": 1073,
+          "symbol": "__cxa_pure_virtual",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1073",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1108,
+          "symbol": "__cxa_allocate_exception",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1108",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1109,
+          "symbol": "__cxa_free_exception",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1109",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 14
+    },
+    "libunwind": {
+      "pattern": "^_Unwind_",
+      "named_matches": 6,
+      "generated_definitions": 6,
+      "examples": [
+        {
+          "index": 1100,
+          "symbol": "_Unwind_CallPersonality",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn1100",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1101,
+          "symbol": "_Unwind_RaiseException",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1101",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1102,
+          "symbol": "_Unwind_DeleteException",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1102",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 6
+    },
+    "compiler-rt": {
+      "pattern": "^__(ashlti3|fixunstfsi|floatunsitf|fixtfsi|floatsitf|udivti3|multi3)$",
+      "named_matches": 5,
+      "generated_definitions": 5,
+      "examples": [
+        {
+          "index": 113,
+          "symbol": "__ashlti3",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn113",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 170,
+          "symbol": "__udivti3",
+          "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
+          "generated_function": "Fn170",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 171,
+          "symbol": "__multi3",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn171",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 3
+    },
+    "dlmalloc": {
+      "pattern": "^(dlmalloc|dlfree|dlrealloc)",
+      "named_matches": 2,
+      "generated_definitions": 2,
+      "examples": [
+        {
+          "index": 152,
+          "symbol": "dlmalloc",
+          "generated_file": "internal/generatedgo/code/p1/p1_pure.go",
+          "generated_function": "Fn152",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 153,
+          "symbol": "dlfree",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn153",
+          "host_symbol_retained": true
+        }
+      ],
+      "host_named_definitions": 2
+    }
+  },
+  "limitations": [
+    "Regex counts are lower bounds/examples, not archive member or byte attribution.",
+    "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
+    "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
+  ],
+  "host_check": {
+    "source_commit": "14145820a43835d7412556119613350f46dbee33",
+    "sha256": "eb2757f875b61ed264448c34ed32688cbcbf4f9a5c72776f501ef5a149856fac",
+    "go_version": "1.26.8",
+    "platform": "darwin-arm64",
+    "note": "Previously verified host; same canonical generated provenance. Not a new release artifact approval."
+  }
+}

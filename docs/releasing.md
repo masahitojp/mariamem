@@ -39,6 +39,15 @@ fixtures remain. Explicit fallback still requires its independently verified
 legacy bundle; this release contract does not promise a new fallback bundle.
 No legacy evidence substitutes for generated-Go acceptance.
 
+Normal host-only wheels use the explicit notice inventory in
+`release/distribution-licenses.json`; they exclude Wasmer engine/BUSL/Rust notices.
+The Go module and corresponding-source archive retain repository/fallback source
+and notices. Only the external Wasmer engine archive is excluded from the normal
+corresponding-source input set; guest/sysroot/runtime/header/converter sources
+remain. Original library texts are checked against pinned source archives.
+See [artifact license inventory](v04-license-inventory.md). Changed packaging/
+notice bytes require new exact-SHA verification; previous READY is not reused.
+
 WASM is a **build intermediate**, not the normal runtime format:
 
 ```text

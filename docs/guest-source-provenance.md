@@ -1,5 +1,12 @@
 # Guest source provenance
 
+For the current generated-Go release path, see
+[releasing](releasing.md) and [artifact license inventory](v04-license-inventory.md).
+The historical WASIX/LLVM runtime source pins below remain source inputs; the
+LLVM23 compiler is a distinct build tool. Current attribution also traces retained
+WASM functions into generated Go and the host, without using Wasmer validation.
+All AOT/build-image statements below describe historical v0.3 evidence.
+
 The tracked Task 9a3 record, `release/guest-source-provenance.json`, describes
 the historical guest's WASM/AOT
 hashes, build image ID, modified source hashes, source archive hashes/revisions,
@@ -7,7 +14,7 @@ and sysroot evidence. `guest_source=true` applies to this recorded build only.
 Runtime notice review and later clean macOS acceptance completed for the recorded
 candidate. That historical review does not approve newly built native bytes.
 
-Current Release CI builds the guest on Linux x86_64 and uses the exact WASM for
+Historical v0.3 Release CI builds the guest on Linux x86_64 and uses the exact WASM for
 separate macOS arm64 and Ubuntu x86_64 AOT/package jobs. New source/toolchain/WASM
 and target AOT hashes are recorded in generated candidate provenance. The guard
 checks source coverage, pinned sysroot identity and external acceptance for each

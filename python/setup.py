@@ -38,4 +38,12 @@ class PlatformWheel(bdist_wheel):
         return "py3", "none", platform
 
 
-setup(version=PYTHON_VERSION, cmdclass={"bdist_wheel": PlatformWheel})
+license_root = Path(__file__).parent
+license_inventory = json.loads((license_root / "license-inventory.json").read_text())
+manifest_path = license_root / "mariamem/_native/manifest.json"
+legacy = manifest_path.exists() and json.loads(manifest_path.read_text()).get("runtime_kind") == "wasmer"
+license_names = set(license_inventory["distributed_notices"])
+if legacy:
+    license_names |= set(license_inventory["legacy_notices"])
+license_files = ["LICENSE", "NOTICE", "THIRD_PARTY_LICENSES"] + ["licenses/"+n for n in sorted(license_names)]
+setup(version=PYTHON_VERSION, cmdclass={"bdist_wheel": PlatformWheel}, license_files=license_files)

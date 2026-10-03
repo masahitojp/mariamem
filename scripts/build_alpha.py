@@ -14,6 +14,7 @@ import zipfile
 from deployment import check_binary
 from release_version import PYTHON_VERSION
 from native_target import current_target, platform_fields, elf_dependencies
+from distribution_licenses import paths as license_paths
 
 ROOT = Path(__file__).resolve().parents[1]
 target = current_target(ROOT)
@@ -78,8 +79,7 @@ with zipfile.ZipFile(wheel) as archive:
     assert json.loads(archive.read(bundled_manifest)) == manifest, "incorrect bundled manifest"
     # Modern setuptools may put license files under .dist-info/licenses/.
     # Check content in either standard location, not just filename presence.
-    license_inputs = [ROOT / name for name in ("LICENSE", "NOTICE", "THIRD_PARTY_LICENSES")]
-    license_inputs += [p for p in (ROOT / "licenses").iterdir() if p.is_file()]
+    license_inputs = license_paths(ROOT, legacy=legacy)
     for license_file in license_inputs:
         entries = [p for p in names if ".dist-info/" in p
                    and p.rsplit("/", 1)[-1] == license_file.name]

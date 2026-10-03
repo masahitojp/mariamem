@@ -15,6 +15,7 @@ from common import ROOT, digest, extract, fetch
 from check_public import check, public_files
 from runtime_sources import verify_runtime_sources
 from native_target import DARWIN, UBUNTU, target_metadata, platform_fields
+from distribution_licenses import inventory as license_inventory, paths as license_paths, source_inputs, verify_upstream_notices
 
 CONTRACT = 'generated-go-v1'
 PLATFORMS = (DARWIN, UBUNTU)
@@ -50,9 +51,8 @@ def expected_names(value):
 def source_inventory(root): return check(root)['files']
 
 
-def notices(root):
-    return {p.relative_to(root).as_posix():digest(p) for p in
-            [root/'LICENSE',root/'NOTICE',root/'THIRD_PARTY_LICENSES',*sorted((root/'licenses').glob('*'))] if p.is_file()}
+def notices(root, *, legacy=False):
+    return {p.relative_to(root).as_posix():digest(p) for p in license_paths(root, legacy=legacy)}
 
 
 def checkout(root, commit):
@@ -100,10 +100,11 @@ def verify_build(root, commit, directory=None):
 def package_source(root, commit):
     checkout(root,commit); build=verify_build(root,commit)
     lock=read(root/'release/inputs.lock.json')
-    inputs=[e for e in lock['inputs'] if e.get('kind')!='runtime-binary']
-    # Retain legacy source/notices conservatively; do not substitute legacy AOT
-    # provenance for the newly verified legacy-EH/generated-Go build.
+    inputs=source_inputs(root,lock)
+    # Preserve repository/fallback attribution; the external Wasmer engine
+    # source is not corresponding source for the generated-Go artifacts.
     for entry in inputs: fetch(entry['name'])
+    verify_upstream_notices(root,lock)
     converter=read(root/'release/generated-go-toolchain.json')['archives']['converter']
     from build_generated_guest import download
     download(converter,root/'build/downloads')
@@ -114,6 +115,7 @@ def package_source(root, commit):
         require(len(licenses)==1 and tar.extractfile(licenses[0]).read()==(root/'licenses/wasm2go-MIT.txt').read_bytes(),'converter MIT notice differs')
     manifest={'contract':CONTRACT,'source_commit':commit,'python_version':version(root)['PYTHON_VERSION'],
               'files':source_inventory(root),'notices':notices(root),'source_inputs':inputs,
+              'repository_notices':notices(root,legacy=True),'license_inventory':license_inventory(root),
               'converter_source':converter,'runtime_sources':runtime_sources,'build':build,
               'sysroot_rebuild_verified':False}
     value=manifest['python_version']; out=root/'build/release'; out.mkdir(parents=True,exist_ok=True)
@@ -140,9 +142,11 @@ def verify_source(root,commit):
     manifest=record['manifest']
     require(manifest['contract']==CONTRACT and manifest['source_commit']==commit and manifest['python_version']==v,'source/version differs')
     require(manifest['files']==source_inventory(root) and manifest['notices']==notices(root),'source/notices differ')
+    require(manifest['repository_notices']==notices(root,legacy=True) and
+            manifest['license_inventory']==license_inventory(root),'repository/license inventory differs')
     require(manifest['build']==verify_build(root,commit),'source build evidence differs')
     lock=read(root/'release/inputs.lock.json')
-    require(manifest['source_inputs']==[e for e in lock['inputs'] if e.get('kind')!='runtime-binary'],'source input set differs')
+    require(manifest['source_inputs']==source_inputs(root,lock),'source input set differs')
     require(manifest['converter_source']==read(root/'release/generated-go-toolchain.json')['archives']['converter'],'converter source pin differs')
     with tempfile.TemporaryDirectory(prefix='mariamem-generated-source-') as temporary:
         unpack=Path(temporary)/'unpack'; extract(archive,unpack)
@@ -158,6 +162,7 @@ def verify_source(root,commit):
         for entry in [*manifest['source_inputs'],manifest['converter_source']]:
             require(digest(project/'build/downloads'/entry['file'])==entry['sha256'],'bundled upstream source differs: '+entry['file'])
         require(verify_runtime_sources(project,lock)==manifest['runtime_sources'],'runtime source/license coverage differs')
+        verify_upstream_notices(project,lock)
         program="import runpy,urllib.request,sys\nsys.path.insert(0,'scripts')\ndef offline(*a,**k): raise RuntimeError('unexpected network')\nurllib.request.urlopen=offline\nrunpy.run_path('scripts/prepare_guest.py',run_name='__main__')"
         subprocess.run([sys.executable,'-c',program],cwd=project,check=True)
         prepared=read(project/'build/prepared-source.json')
@@ -197,6 +202,8 @@ def verify_wheel(root, platform, commit=None):
         for name in notices(root):
             found=[n for n in names if '.dist-info/' in n and n.rsplit('/',1)[-1]==Path(name).name]
             require(found and all(archive.read(n)==(root/name).read_bytes() for n in found),'wheel notice missing/different: '+name)
+        legacy_names=set(license_inventory(root)['legacy_notices'])
+        require(not any(n.rsplit('/',1)[-1] in legacy_names for n in names),'legacy-only wheel notices')
     return path,record
 
 

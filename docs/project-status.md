@@ -141,9 +141,13 @@ inputs for the normal path. See [releasing](releasing.md) and the
 [migration validation/boundaries](v04-release-ci-migration.md).
 
 The branch remains unpublished; canonical version metadata still identifies
-v0.3.0. Required before v0.4.0 publication:
+v0.3.0. The [hosted verify run](https://github.com/masahitojp/mariamem/actions/runs/37096640237)
+approved candidate `05d85afccefdb61f448ea68e9b29a6e20bcba053` on both platforms.
+The [artifact license audit](v04-license-inventory.md) subsequently changes
+notice/source-package selection; new artifacts require renewed exact-SHA checks.
+Required before v0.4.0 publication:
 
-1. Submit the exact pushed candidate to **Release CI verify mode** and obtain
+1. Submit the final exact pushed candidate to **Release CI verify mode** and obtain
    both macOS arm64 and Ubuntu24.04 x86_64 final-artifact acceptance/aggregate
    READY. Local checks do not replace hosted-runner evidence.
 2. Review the candidate's collected corresponding source/notices/provenance,

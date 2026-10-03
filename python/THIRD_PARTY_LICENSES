@@ -1,51 +1,58 @@
-mariamem third-party inventory (reviewed pinned inputs)
+mariamem v0.4 third-party inventory (generated-go-v1)
 
-Component                      License / treatment
-MariaDB / lite4mariadb guest    GPL-2.0-only; modified source and build scripts
-                               must accompany binary distribution as required.
-wolfSSL bundled by MariaDB     GPLv3 with a GPLv2 election for combination with
-                               MariaDB Server in its LICENSING file. Preserve
-                               both COPYING and LICENSING.
-PCRE2 10.47, zlib, fmt 12.2.0  License texts are included in licenses/ and their
-                               sources are retained by the input lock/archive.
-                               A complete final linked-file/member map is not
-                               recorded; full pinned source archives are retained.
-WASIX libc v2026-07-03.1        Upstream multi-license notices and musl/cloudlibc
-                               notices are included. Pinned LLVM runtime and WASI/
-                               WASIX header-generator sources, including upstream
-                               license/notice files, are collected in the source
-                               candidate. Guest source provenance is reviewed for
-                               the recorded artifact; see
-                               docs/guest-source-provenance.md.
-Wasmer headless 7.4.2           Mixed licenses: workspace MIT is not the license of
-                               every component. Singlepass is BUSL-1.1 with
-                               conditional production-use terms. See its separate
-                               license and Wasmer-Rust-NOTICES.txt in licenses/.
-                               webc 12.0.1 package MIT declaration is accepted;
-                               separate upstream license file unavailable. See
-                               docs/runtime-notices.md.
-Go runtime                     BSD-3-Clause; bundled Go LICENSE included.
-shibukawa/pgmem fixture design MIT; copyright and permission notice included.
-PyMySQL / pytest / xdist       Optional dependencies, not copied into the wheel.
+Normal artifacts: generated Go source/module and host-only Python wheels.
+WASM is a build intermediate. Translated/embedded upstream code retains its
+original licenses; removing Wasmer does not remove GPL corresponding source.
 
-The v0.4 default has no libmariadbd dynamic dependency: MariaDB and the C
-wrapper become generated Go through the WASM build intermediate. Ordinary Go
-usage direct-links it; Python communicates with the host-only Go executable.
-Legacy Wasmer fallback is separate. The project remains GPL-2.0-only; changing
-the execution boundary does not remove corresponding-source obligations.
+DISTRIBUTED / DERIVED
+MariaDB / lite4mariadb     GPL-2.0-only; modified guest, wrappers and patches.
+wolfSSL                   GPLv3 COPYING plus upstream LICENSING permitting
+                          GPLv2 election for combination with MariaDB Server.
+                          mariamem elects GPLv2 for that combination.
+zlib                      zlib license, bundled MariaDB compression/CRC code.
+PCRE2 10.47               Upstream BSD notices, translated regexp code.
+fmt 12.2.0                MIT, translated format routines and templates.
+WASIX libc/sysroot        Upstream multi-license texts, musl MIT, cloudlibc BSD,
+                          dlmalloc public-domain/CC0 notice; translated C/thread/
+                          filesystem/allocation support. Full sources retained.
+LLVM runtime libraries    compiler-rt, libc++, libc++abi, libunwind: individual
+                          original Apache-2.0-with-LLVM-exception and legacy texts
+                          in licenses/LLVM-*-LICENSE.txt, pinned runtime sources.
+wasm2go helpers/runtime   MIT (Masaaki Goshima); copied/generated helpers, SIMD
+                          and filesystem support, from fork ac98bcf00c17d8531f0c071a9836d0b50975e7ff.
+Go runtime                BSD-3-Clause; linked into Python host/consumer binary.
+pgmem fixture design     MIT attribution retained for referenced lifecycle/
+                          pytest fixture design (not a bundled PostgreSQL engine).
 
-License texts are in licenses/. The Wasmer macOS and Ubuntu dependency/notice
-inventories are reviewed for their pinned runtime identities. Guest source
-coverage records pinned sources, patches and toolchain/sysroot inputs. These
-records are not a complete final linked-file SBOM or an independent bit-for-bit
-toolchain rebuild. Every release must still pass exact candidate/source/notice
-checks and clean acceptance on both supported platforms; a buildable wheel
-alone is not release approval. Historical records do not approve changed bytes.
+BUILD-ONLY
+LLVM23/clang/LLD,          Pinned tools; compiler executables are not in wheels or
+WASIXCC, Binaryen, ICU    Go module. LLVM runtime libraries above are a separate
+                          distributed component, not removable tooling notices.
+MariaDB Connector/C      Pinned source preparation/CMake input, not the embedded
+                          client implementation in libmysqld/libmysql.c. Retained
+                          conservatively in corresponding source with its terms.
 
-Unpublished v0.4 candidate build/runtime source: goccy/wasm2go via
-shibukawa/wasm2go-fork ac98bcf00c17d8531f0c071a9836d0b50975e7ff, MIT;
-see licenses/wasm2go-MIT.txt. Existing Wasmer notices remain for v0.3/fallback
-artifacts. The generated-go-v1 release guard collects the pinned converter and guest/
-runtime/header sources, checks preserved notice bytes and offline preparation,
-and binds them to the new canonical build. Exact candidate source/provenance
-and two-platform acceptance remain required; historical approvals are not reused.
+LEGACY-ONLY
+Wasmer/headless 7.4.2     External fallback bundle, not linked into the generated
+                          guest or host. Workspace MIT, Singlepass BUSL-1.1 and
+                          Rust dependency notices remain in repository licenses/.
+Native-bundle engines/   Preserve the existing exact macOS/Linux legacy notice
+Rust dependencies        inventories for fallback distribution; not wheel inputs.
+
+UNUSED (normal packaged code)
+PyMySQL / pytest / xdist Optional/test dependencies; not copied into host-only
+                          wheels. No removal of independently installed terms.
+
+release/distribution-licenses.json selects normal wheel notices explicitly and
+separately records legacy notices. The Go module and GPL source contain repository
+source (including legacy compatibility), so retain repository notices there.
+The source package omits only Wasmer's external engine source archive; all guest,
+sysroot runtime/header and converter sources remain. Full archives preserve
+upstream copyright/license files, not just these extracted license summaries.
+
+See docs/v04-license-inventory.md and release/generated-license-evidence.json
+for exact guest/generated identities, retained-function evidence, limitations
+and repeat commands. Symbol counts are not a complete final linked-file SBOM,
+and sysroot source coverage is not an independently verified sysroot rebuild.
+Changed release bytes need new source/notices/provenance verification and exact
+two-platform acceptance; prior approval does not approve changed artifacts.

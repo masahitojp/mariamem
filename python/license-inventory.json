@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "contract": "generated-go-v1",
+  "components": {
+    "MariaDB": "DISTRIBUTED / DERIVED",
+    "lite4mariadb modifications": "DISTRIBUTED / DERIVED",
+    "WASIX libc/sysroot": "DISTRIBUTED / DERIVED",
+    "compiler-rt": "DISTRIBUTED / DERIVED",
+    "libc++": "DISTRIBUTED / DERIVED",
+    "libc++abi": "DISTRIBUTED / DERIVED",
+    "libunwind": "DISTRIBUTED / DERIVED",
+    "wolfSSL": "DISTRIBUTED / DERIVED",
+    "zlib": "DISTRIBUTED / DERIVED",
+    "PCRE2": "DISTRIBUTED / DERIVED",
+    "fmt": "DISTRIBUTED / DERIVED",
+    "wasm2go generated/helper/runtime code": "DISTRIBUTED / DERIVED",
+    "Go runtime": "DISTRIBUTED / DERIVED",
+    "pgmem fixture design": "DISTRIBUTED / DERIVED",
+    "LLVM23/clang/LLD tooling": "BUILD-ONLY",
+    "WASIXCC": "BUILD-ONLY",
+    "Binaryen": "BUILD-ONLY",
+    "ICU build-host libraries": "BUILD-ONLY",
+    "MariaDB Connector/C preparation input": "BUILD-ONLY",
+    "Wasmer/headless": "LEGACY-ONLY",
+    "Wasmer Singlepass": "LEGACY-ONLY",
+    "native-bundle Rust runtime dependencies": "LEGACY-ONLY",
+    "PyMySQL wheel payload": "UNUSED",
+    "pytest/xdist wheel payload": "UNUSED"
+  },
+  "distributed_notices": {
+    "GPL-2.0-only.txt": "240a15a1d0f34d3abca462cdb7e5fb89470967563f16b0e71169e51c1e74cf2b",
+    "Go-BSD-3-Clause.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+    "LLVM-compiler-rt-LICENSE.txt": "1a8f1058753f1ba890de984e48f0242a3a5c29a6a8f2ed9fd813f36985387e8d",
+    "LLVM-libcxx-LICENSE.txt": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b",
+    "LLVM-libcxxabi-LICENSE.txt": "e2b35be49f7284a45b7baca8fc7b3ab7440e7902392b2528a457816b5bb2a15c",
+    "LLVM-libunwind-LICENSE.txt": "b5efebcaca80879234098e52d1725e6d9eb8fb96a19fce625d39184b705f7b6d",
+    "PCRE2-LICENSE.txt": "197d8a73ffee0d6b09adba2f9c677b5f5aede24edf89258a68e48248d010d811",
+    "WASIX-LICENSE-APACHE-LLVM.txt": "268872b9816f90fd8e85db5a28d33f8150ebb8dd016653fb39ef1f94f2686bc5",
+    "WASIX-LICENSE-APACHE.txt": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+    "WASIX-LICENSE-MIT.txt": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "WASIX-LICENSE.txt": "da1128117561950db9e04201ce9ac3f0bd9e3baf852289211608b73098d51ac0",
+    "WASIX-dlmalloc-NOTICE.txt": "650081c8be7fe6a6045cfa9b1914e73c50715a2ab7289e5829e9acf9c4507114",
+    "WASIX-libc-bottom-half-cloudlibc-LICENSE.txt": "c8b789cf5a746611e6300a0cc7750dbf92b61912a709d04e639245f7290656d0",
+    "WASIX-libc-top-half-musl-COPYRIGHT.txt": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af",
+    "fmt-LICENSE.txt": "a65fcc5a1095fc33cc37e4fff69366e49d7e92f613558a2b95ed1b70e33758b4",
+    "pgmem-MIT.txt": "f841b48a04d578790861f0ca1831f8edd2daba4007f9b09da251cfd4478f3438",
+    "wasm2go-MIT.txt": "7115805b523b3cca337f09fb1d81d398918ee815ba533ac604fce9b68a75d4a8",
+    "wolfSSL-COPYING.txt": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "wolfSSL-LICENSING.txt": "84f8096dc7f70cdb6075ccf3722a44654361063eaf3e1ce7885c9875b8465a63",
+    "zlib-LICENSE.txt": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2"
+  },
+  "legacy_notices": {
+    "Wasmer-ATTRIBUTIONS.txt": "c92517fb876e2a188276d18856eca0b1f20af2f6caf10c0ac08581d204400f06",
+    "Wasmer-Linux-NOTICES.txt": "70e0546b14f081816a64d19f514aab7e8520b188d26cb3d22de5084b4279c28f",
+    "Wasmer-MIT.txt": "76dc7d305458d07478bc62669fe53dbfd3b94b95c5e00fbb45af1f492cbd7284",
+    "Wasmer-Rust-NOTICES.txt": "14d986a413231a7bd11cd0f340902e1289c1652f7e5a93101e56eafe2c660524",
+    "Wasmer-Singlepass-BUSL-1.1.txt": "a893f5994948d9cbcefaec079b8d59a60060d112c415bf7af736eee3c19824e1"
+  },
+  "legacy_source_inputs": [
+    "wasmer-source"
+  ],
+  "evidence_sha256": "87ca82ddbf53d154f690d3d0fa104067d78dadeb043f6f3025bda457c85dd15b",
+  "upstream_notice_files": {
+    "LLVM-compiler-rt-LICENSE.txt": {
+      "input": "llvm-project",
+      "path": "compiler-rt/LICENSE.TXT"
+    },
+    "LLVM-libcxx-LICENSE.txt": {
+      "input": "llvm-project",
+      "path": "libcxx/LICENSE.TXT"
+    },
+    "LLVM-libcxxabi-LICENSE.txt": {
+      "input": "llvm-project",
+      "path": "libcxxabi/LICENSE.TXT"
+    },
+    "LLVM-libunwind-LICENSE.txt": {
+      "input": "llvm-project",
+      "path": "libunwind/LICENSE.TXT"
+    },
+    "WASIX-LICENSE.txt": {
+      "input": "wasix-libc",
+      "path": "LICENSE"
+    },
+    "WASIX-LICENSE-APACHE.txt": {
+      "input": "wasix-libc",
+      "path": "LICENSE-APACHE"
+    },
+    "WASIX-LICENSE-APACHE-LLVM.txt": {
+      "input": "wasix-libc",
+      "path": "LICENSE-APACHE-LLVM"
+    },
+    "WASIX-LICENSE-MIT.txt": {
+      "input": "wasix-libc",
+      "path": "LICENSE-MIT"
+    },
+    "WASIX-libc-top-half-musl-COPYRIGHT.txt": {
+      "input": "wasix-libc",
+      "path": "libc-top-half/musl/COPYRIGHT"
+    },
+    "WASIX-libc-bottom-half-cloudlibc-LICENSE.txt": {
+      "input": "wasix-libc",
+      "path": "libc-bottom-half/cloudlibc/LICENSE"
+    },
+    "wolfSSL-COPYING.txt": {
+      "input": "wolfssl",
+      "path": "COPYING"
+    },
+    "wolfSSL-LICENSING.txt": {
+      "input": "wolfssl",
+      "path": "LICENSING"
+    },
+    "fmt-LICENSE.txt": {
+      "input": "libfmt",
+      "path": "LICENSE"
+    },
+    "PCRE2-LICENSE.txt": {
+      "input": "pcre2",
+      "path": "LICENCE.md"
+    },
+    "zlib-LICENSE.txt": {
+      "input": "lite4mariadb",
+      "path": "zlib/LICENSE"
+    }
+  }
+}

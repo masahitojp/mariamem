@@ -4,6 +4,7 @@ from pathlib import Path
 
 def test_python_license_mirrors_match_source_inputs():
     root = Path(__file__).resolve().parents[1]
+    assert (root/'python/license-inventory.json').read_bytes() == (root/'release/distribution-licenses.json').read_bytes()
     for source in (root / 'licenses').iterdir():
         if source.is_file():
             mirror = root / 'python/licenses' / source.name

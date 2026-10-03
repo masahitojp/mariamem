@@ -22,28 +22,29 @@ Copyright (c) 2026 Yoshiki Shibukawa, MIT License. Its notice is included.
 The project also takes inspiration from pg-mem and PGlite's testing experience;
 their database implementations are not included in the mariamem Python code.
 
-The legacy native bundle uses Wasmer headless and the Go runtime. Their upstream
-licenses and the licenses of embedded dependencies must be retained.
-Wasmer 7.4.2 headless includes Singlepass under Business Source License 1.1,
-not MIT. Its non-production grant, conditional production-use grant, and change
-date/license are reproduced in licenses/Wasmer-Singlepass-BUSL-1.1.txt.
-See licenses/Wasmer-ATTRIBUTIONS.txt and licenses/Wasmer-Rust-NOTICES.txt
-for upstream attributions and collected dependency terms. webc 12.0.1 declares
-MIT in its package metadata; a separate upstream license/copyright file is
-unavailable. Its exact source/version/hash is recorded without inferred copyright
-wording. Runtime notice inventories are reviewed for the pinned macOS arm64
-and Ubuntu 24.04 x86_64 distributions. Each new candidate must match its
-applicable runtime/source/notice identities and pass separate clean-platform
-acceptance; historical approval applies only to its recorded artifact hashes.
-
-The native distribution is intended for testing. Prepared authentication keys
+The distribution is intended for testing. Prepared authentication keys
 are public, non-secret test material, never production credentials. Exact
 source, notice and platform verification remains required for every release
 before public distribution. See docs/releasing.md and THIRD_PARTY_LICENSES.
 
-The unpublished v0.4 default direct-links generated Go in Go consumers and
+The v0.4 default direct-links generated Go in Go consumers and
 links it into the host-only Python wheel. WASM is a build intermediate; normal
 execution does not include Wasmer/AOT runtime assets. It uses goccy/wasm2go via the
 shibukawa/wasm2go-fork commit ac98bcf00c17d8531f0c071a9836d0b50975e7ff.
 Its preserved MIT notice is in licenses/wasm2go-MIT.txt (Masaaki Goshima).
 This does not remove MariaDB/lite4mariadb corresponding-source obligations.
+
+The translated guest retains WASIX libc (including musl, cloudlibc and dlmalloc),
+LLVM compiler-rt/libc++/libc++abi/libunwind, wolfSSL, zlib, PCRE2 and fmt code.
+Translation to Go does not remove their original terms. Preserve their texts
+in licenses/ and their pinned sources in the corresponding-source archive.
+wolfSSL's upstream LICENSING permits the GPLv2 election for combination with
+MariaDB Server; this distribution uses that election and preserves COPYING
+and LICENSING. The Python host also contains the Go runtime (BSD-3-Clause).
+
+Legacy Wasmer fallback is separate: its engine, Singlepass BUSL-1.1 and Rust
+dependency notices are preserved in the repository for legacy bundles, not
+included in normal host-only wheel notices. The Go module/corresponding-source
+package still carries that fallback's source and historical notices; it does
+not bundle the Wasmer engine. See release/distribution-licenses.json and
+docs/v04-license-inventory.md for the artifact-specific inventory.
