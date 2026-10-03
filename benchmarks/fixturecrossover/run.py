@@ -76,7 +76,7 @@ def main():
                     args.summary.write_text(json.dumps(report,indent=2)+'\n')
     args.samples.parent.mkdir(parents=True,exist_ok=True)
     with args.samples.open('w',newline='') as stream:
-        writer=csv.DictWriter(stream,fieldnames=list(all_rows[0]));writer.writeheader();writer.writerows(all_rows)
+        writer=csv.DictWriter(stream,fieldnames=list(all_rows[0]),lineterminator='\n');writer.writeheader();writer.writerows(all_rows)
     report['samples_csv_sha256']=sha(args.samples)
     report['completed']=True
     args.summary.write_text(json.dumps(report,indent=2)+'\n')

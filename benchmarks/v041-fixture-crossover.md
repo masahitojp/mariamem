@@ -151,13 +151,17 @@ Do not optimize Fork or manufacture a heavy fixture in this lane.
   [v041-fixture-crossover.json](v041-fixture-crossover.json).
 - All 1,920 individual samples, including tails:
   [v041-fixture-crossover.csv](v041-fixture-crossover.csv), SHA-256
-  `2461be4bb9888cf17b09358f7f0e9e2857695dc9d384ce27ed9d211b9a71d19d`.
+  `114249a33839604b959a3b44e5a5d440d8c3f24d90479eff9e443e5ff7706c39`.
 - Large diagnostic binary and full per-suite JSON remain in the ignored external
   `fanout-v041/crossover-raw` work area; no platform image, build tree or runtime
   artifact is committed. The tracked summary records each raw filename/hash.
 - All 1,920 measured cases and four warmups pass fixture verification, COMMIT,
   ROLLBACK, next-child pristine data and normal disconnect/Close. All temporary
   Snapshots are removed. No correctness failure or deadline occurs.
+- Post-measurement hygiene normalizes CSV record terminators from CRLF to LF.
+  All 1,920 parsed rows are identical; no benchmark is rerun. The original
+  measured harness hashes remain recorded, with the original CSV hash and revised
+  writer hash in `post_measurement_formatting`.
 - Production runtime/API, guest source/provenance, Snapshot format and defaults
   are unchanged. No normal-path optimization, integration or release is made.
 - Python harness syntax, summary/sample count and recorded harness identity

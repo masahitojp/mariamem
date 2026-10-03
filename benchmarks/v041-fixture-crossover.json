@@ -2631,6 +2631,15 @@
       "ready_ge_900_ms": 0
     }
   ],
-  "samples_csv_sha256": "2461be4bb9888cf17b09358f7f0e9e2857695dc9d384ce27ed9d211b9a71d19d",
-  "completed": true
+  "samples_csv_sha256": "114249a33839604b959a3b44e5a5d440d8c3f24d90479eff9e443e5ff7706c39",
+  "completed": true,
+  "post_measurement_formatting": {
+    "change": "CSV record terminators CRLF to LF only; no measurement rerun",
+    "original_csv_sha256": "2461be4bb9888cf17b09358f7f0e9e2857695dc9d384ce27ed9d211b9a71d19d",
+    "normalized_csv_sha256": "114249a33839604b959a3b44e5a5d440d8c3f24d90479eff9e443e5ff7706c39",
+    "parsed_rows_unchanged": true,
+    "parsed_row_count": 1920,
+    "revised_runner_sha256": "c4dc48572630987000769c2c3c908cc4969a16d0fbfd9cc1fec8b6807f0821dc",
+    "measured_harness_hashes_preserved": true
+  }
 }
