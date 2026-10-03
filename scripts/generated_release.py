@@ -147,6 +147,11 @@ def verify_source(root,commit):
     with tempfile.TemporaryDirectory(prefix='mariamem-generated-source-') as temporary:
         unpack=Path(temporary)/'unpack'; extract(archive,unpack)
         project=unpack/('mariamem-'+v)
+        expected=set(manifest['files']) | {'build/generated-source-manifest.json'} | {
+            'build/downloads/'+e['file'] for e in [*manifest['source_inputs'],manifest['converter_source']]}
+        actual={p.relative_to(project).as_posix() for p in project.rglob('*') if p.is_file()}
+        require(actual==expected,'unexpected/missing corresponding-source members')
+        require({p.name for p in unpack.iterdir()}=={'mariamem-'+v},'unexpected source archive roots')
         require(source_inventory(project)==manifest['files'],'bundled public source differs')
         require(read(project/'build/generated-source-manifest.json')==manifest,'bundled source manifest differs')
         require(version(project)['PYTHON_VERSION']==v,'bundled version differs')

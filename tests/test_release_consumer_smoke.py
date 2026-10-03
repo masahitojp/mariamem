@@ -115,9 +115,9 @@ def test_guard_requires_consumer_file_before_ready(tmp_path):
         smoke.require_candidate_smoke(tmp_path, SHA, TAG, VERSION, smoke.DARWIN, NATIVE, WHEEL)
     workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
     assert 'python candidate-source/scripts/generated_release_acceptance.py --root candidate-source' in workflow
-    assert 'python candidate-source/scripts/ci_release_public_smoke.py --root candidate-source' in workflow
-    assert 'test "$CONSUMER_RESULT" = success' in workflow
-    assert 'candidate-source/build/release/ci-consumer-smoke.json' in workflow
+    assert 'release_generated_ci.py public-smoke --root candidate-source' in workflow
+    assert 'id: consumers' in workflow and 'id: guard' in workflow
+    assert 'candidate-source/build/release/generated-acceptance.json' in workflow
 
 
 def test_go_smoke_never_supplies_native_override_and_checks_empty_cache():
