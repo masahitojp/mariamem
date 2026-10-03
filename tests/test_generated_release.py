@@ -59,6 +59,8 @@ def test_evidence_zip_rejects_unknown_and_duplicates(tmp_path):
 def test_toolchain_recipe_exact_pins():
     pins=json.loads((ROOT/'release/generated-go-toolchain.json').read_text())
     assert pins['llvm']=='23.1.0' and pins['sysroot_variant']=='sysroot-eh'
+    assert pins['sysroot_variants']==['sysroot-eh','sysroot-ehpic']
+    assert pins['archives']['sysroot_pic']['sha256']=='54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0'
     assert pins['archives']['sysroot']['sha256']=='8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4'
     assert all(len(v['sha256'])==64 and v['url'].startswith('https://') for v in pins['archives'].values())
 
@@ -108,7 +110,7 @@ def host_wheel(tmp_path):
     for name in ('LICENSE','NOTICE','THIRD_PARTY_LICENSES'):(root/name).write_text(name)
     (root/'licenses').mkdir();(root/'licenses/wasm2go-MIT.txt').write_text('MIT')
     manifest={'version':1,'runtime_kind':'generated-go','platform':'darwin-arm64','package_version':'0.4.0',
-              'guest_sha256':'c'*64,'public_release_ready':False,'sha256':{'mariamem-host':hashlib.sha256(b'host').hexdigest()}}
+              'minimum_macos':15,'guest_sha256':'c'*64,'public_release_ready':False,'sha256':{'mariamem-host':hashlib.sha256(b'host').hexdigest()}}
     wheel=root/'build/dist'/release.wheel_name('0.4.0','darwin-arm64');wheel.parent.mkdir(parents=True)
     def make(extra=None):
         with zipfile.ZipFile(wheel,'w') as z:
@@ -131,7 +133,7 @@ def test_host_only_wheel_and_notice_bytes(host_wheel):
     with pytest.raises(ValueError,match='notice'):release.verify_wheel(root,'darwin-arm64')
 
 
-@pytest.mark.parametrize('field,value,match',[('runtime_kind','wasmer','generated-Go'),
+@pytest.mark.parametrize('field,value,match',[('runtime_kind','wasmer','generated-Go'),('minimum_macos',14,'platform metadata'),
  ('guest_sha256','d'*64,'guest'),('package_version','0.3.0','guest'),('public_release_ready',True,'approval')])
 def test_wheel_identity_rejection(host_wheel,field,value,match):
     root,wheel,manifest,make=host_wheel;manifest[field]=value;make()

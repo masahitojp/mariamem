@@ -14,7 +14,7 @@ import zipfile
 from common import ROOT, digest, extract, fetch
 from check_public import check, public_files
 from runtime_sources import verify_runtime_sources
-from native_target import DARWIN, UBUNTU, target_metadata
+from native_target import DARWIN, UBUNTU, target_metadata, platform_fields
 
 CONTRACT = 'generated-go-v1'
 PLATFORMS = (DARWIN, UBUNTU)
@@ -171,6 +171,8 @@ def verify_wheel(root, platform):
     require(path.name==wheel_name(value,platform) and digest(path)==record['sha256'],'wheel hash/version/target differs')
     manifest=record['manifest']
     require(manifest['runtime_kind']=='generated-go' and manifest['platform']==platform,'wheel is not generated-Go platform artifact')
+    require(all(manifest.get(k)==v for k,v in platform_fields(target_metadata(platform,root)).items()),
+            'wheel platform metadata differs')
     require(manifest['package_version']==value and manifest['guest_sha256']==read(root/'release/generated-go-inputs.json')['guest_sha256'],'wheel guest/version differs')
     require(manifest['public_release_ready'] is False and set(manifest['sha256'])=={'mariamem-host'},'wheel must be host-only, without embedded approval')
     with zipfile.ZipFile(path) as archive:

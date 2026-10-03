@@ -1,4 +1,4 @@
-name: Clean native platform acceptance
+name: Legacy Wasmer native platform acceptance
 on:
   workflow_dispatch:
     inputs:
