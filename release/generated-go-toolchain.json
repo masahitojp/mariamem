@@ -37,6 +37,15 @@
       "file": "wasm2go-fork.tar.gz",
       "url": "https://codeload.github.com/shibukawa/wasm2go-fork/tar.gz/ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
       "sha256": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f"
+    },
+    "sysroot_pic": {
+      "file": "sysroot-ehpic.tar.gz",
+      "url": "https://github.com/wasix-org/wasix-libc/releases/download/v2026-07-03.1/sysroot-ehpic.tar.gz",
+      "sha256": "54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0"
     }
-  }
+  },
+  "sysroot_variants": [
+    "sysroot-eh",
+    "sysroot-ehpic"
+  ]
 }

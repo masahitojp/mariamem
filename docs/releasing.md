@@ -53,7 +53,7 @@ Python's installed host links the same guest; Go runs it in-process.
 ## Build and source/provenance verification
 
 `release/generated-go-toolchain.json` pins WASIXCC 0.4.7, LLVM/LLD 23.1.0,
-Binaryen 133, sysroot v2026-07-03.1 **sysroot-eh**, converter commit/archive and
+Binaryen 133, sysroot v2026-07-03.1 **sysroot-eh / sysroot-ehpic**, converter commit/archive and
 all downloaded tool hashes. The old `inputs.lock.json` runtime toolchain profile
 remains a legacy profile; its source revisions still provide guest dependencies
 and WASIX libc/runtime/header corresponding sources.

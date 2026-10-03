@@ -59,13 +59,15 @@ def main():
     # SDK release is flat; the installer creates its named compiler wrappers.
     driver = sdk/'bin/wasixccenv'
     subprocess.run([driver, 'install-executables', sdk/'bin'], check=True)
-    extract(archives['sysroot'], sdk/'sysroot-unpack')
-    sysroot_payload = sdk/'sysroot-unpack/wasix-sysroot-eh/sysroot'
-    if not (sysroot_payload/'lib/wasm32-wasi/libc.a').is_file():
-        raise ValueError('unexpected upstream sysroot layout')
     (sdk/'sysroot').mkdir()
-    sysroot_payload.rename(sdk/'sysroot/sysroot-eh')
-    shutil.rmtree(sdk/'sysroot-unpack')
+    for archive_key, variant in [('sysroot', 'sysroot-eh'), ('sysroot_pic', 'sysroot-ehpic')]:
+        unpack = sdk/(variant+'-unpack')
+        extract(archives[archive_key], unpack)
+        payload = unpack/('wasix-'+variant)/'sysroot'
+        if not (payload/'lib/wasm32-wasi/libc.a').is_file():
+            raise ValueError('unexpected upstream sysroot layout: '+variant)
+        payload.rename(sdk/'sysroot'/variant)
+        shutil.rmtree(unpack)
     extract(archives['binaryen'], sdk/'binaryen-unpack')
     binaryen = next((sdk/'binaryen-unpack').iterdir())
     binaryen.rename(sdk/'binaryen')
@@ -82,7 +84,7 @@ def main():
     env.update(PATH=str(sdk/'bin')+':/usr/bin:/bin', LD_LIBRARY_PATH=str(sdk/'llvm/lib'),
                LC_ALL='C', TZ='UTC', SOURCE_DATE_EPOCH='0')
     toolchain = {'contract': 'generated-go-v1', 'pins_sha256': digest(PIN),
-                 'host': 'linux-arm64', 'versions': {}, 'sysroot': inventory(sdk/'sysroot/sysroot-eh'),
+                 'host': 'linux-arm64', 'versions': {}, 'sysroot': inventory(sdk/'sysroot'),
                  'archives_sha256': {k:digest(v) for k,v in archives.items()}}
     for key,command in [('wasixcc',[driver,'--version']),('llvm',[sdk/'llvm/bin/clang','--version']),
                          ('lld',[sdk/'llvm/bin/wasm-ld','--version']),('binaryen',[sdk/'binaryen/bin/wasm-opt','--version']),

@@ -93,7 +93,8 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None):
             report['gorm_cases']=count; report['steps']['gorm']='PASS'
             venv=work/'venv'; run([sys.executable,'-m','venv',venv],work,env)
             python=venv/'bin/python'
-            run([python,'-m','pip','install',str(selected)+'[test]','SQLAlchemy==2.0.54'],work,env)
+            run([python,'-m','pip','install',str(selected)+'[test]','SQLAlchemy==2.0.54','pytest==8.4.2',
+                 'pytest-xdist==3.8.0','PyMySQL==1.2.3'],work,env)
             run([python,root/'tests/verify_alpha.py'],work,env)
             if platform=='ubuntu24.04-x86_64':
                 shutil.copyfile(root/'tests/consumer/test_ubuntu.py',work/'test_ubuntu.py')
