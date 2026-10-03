@@ -57,7 +57,8 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None):
             env={k:v for k,v in env.items() if not k.startswith(('MARIAMEM_','MYSQLMEM_','PYTHON','PYTEST','DOGFOOD_'))}
             env.update(GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='',CGO_ENABLED='0')
             home=work/'home'; home.mkdir(); cache=work/'runtime-cache'; cache.mkdir()
-            env.update(HOME=str(home),XDG_CACHE_HOME=str(cache))
+            # pip downloads are build/test tooling, not mariamem runtime cache.
+            env.update(HOME=str(home),XDG_CACHE_HOME=str(cache),PIP_CACHE_DIR=str(work/'pip-cache'))
             report['go_version']=subprocess.check_output(['go','version'],env=env,text=True).strip()
             project=work/'go-consumer'; project.mkdir()
             tag=metadata['GIT_TAG']
@@ -111,7 +112,9 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None):
                         all(int(s.get(k,0))==0 for s in suites for k in ('failures','errors','skipped')),'SQLAlchemy cases differ')
                 count+=11
             report['sqlalchemy_cases']=count; report['steps']['sqlalchemy']='PASS'
-            require(not list(cache.iterdir()),'ordinary consumers unexpectedly used runtime cache')
+            report['runtime_cache_entries']=sorted(p.name for p in cache.iterdir())
+            require(not report['runtime_cache_entries'],'ordinary consumers unexpectedly used runtime cache: '+
+                    ', '.join(report['runtime_cache_entries']))
         require(set(report['steps'])==STEPS,'missing acceptance stage')
         require(digest(selected)==report['wheel_sha256'],'wheel changed during acceptance')
         report['result']='PASS'
