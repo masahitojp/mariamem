@@ -7,6 +7,14 @@ guest, generated artifact, Snapshot format, version, packaging or benchmark
 change is made. This is not release approval or an exact-byte two-platform
 Release CI acceptance record.
 
+## Scope of this historical audit
+
+The table below records the pre-migration candidate. Its Wasmer-era release
+infrastructure blockers are superseded by the current
+[generated-Go release contract](releasing.md). Exact final-version source/notices
+review and both-platform Release CI verify evidence remain required; this local
+product audit is not a final-artifact release approval.
+
 ## Checklist
 
 | Boundary | Classification | Evidence / remaining action |

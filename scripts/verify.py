@@ -91,7 +91,8 @@ def main():
     commands.add_parser("integration", help="normal guest acceptance, focused runtime race and Python lifecycle checks")
     release = commands.add_parser("release-check", help="release guard; verify a local or CI candidate")
     release.add_argument("--ci-candidate-sha")
-    release.add_argument("--native-acceptance")
+    release.add_argument("--native-acceptance", help="explicit legacy Wasmer evidence only")
+    release.add_argument("--platform", choices=("darwin-arm64", "ubuntu24.04-x86_64"))
     release.add_argument("--candidate-root", type=Path, help="exact CI candidate checkout")
     bench = commands.add_parser("bench", help="run one optional lifecycle benchmark")
     bench.add_argument("workload", choices=BENCHMARKS)
@@ -103,17 +104,25 @@ def main():
     elif args.command == "integration":
         integration()
     elif args.command == "release-check":
-        if bool(args.ci_candidate_sha) != bool(args.native_acceptance):
-            parser.error("CI release check requires both --ci-candidate-sha and --native-acceptance")
-        if args.ci_candidate_sha:
+        if args.native_acceptance:
+            if not args.ci_candidate_sha or args.platform:
+                parser.error("legacy evidence requires candidate SHA and no generated-Go platform")
             command = [sys.executable, "scripts/check_ci_release.py", "--candidate-sha",
                        args.ci_candidate_sha, "--native-acceptance", args.native_acceptance]
             if args.candidate_root:
                 command.extend(["--root", args.candidate_root])
             run(command)
-        else:
+        elif args.ci_candidate_sha:
+            command = [sys.executable, "scripts/release_generated_ci.py", "guard",
+                       "--candidate-sha", args.ci_candidate_sha]
             if args.candidate_root:
-                parser.error("--candidate-root requires CI candidate/evidence arguments")
+                command.extend(["--root", args.candidate_root])
+            if args.platform:
+                command.extend(["--platform", args.platform])
+            run(command)
+        else:
+            if args.candidate_root or args.platform:
+                parser.error("candidate root/platform requires --ci-candidate-sha")
             run([sys.executable, "scripts/check_release.py"])
     else:
         run([sys.executable, ROOT / "benchmarks" / BENCHMARKS[args.workload], *extra])

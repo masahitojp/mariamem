@@ -132,13 +132,17 @@ need a current native bundle; the older scripts also read `build/guest` and
 `build/tools`, so do not use them against stale build outputs. See
 [Go integration details](go.md#opt-in-integration-verification).
 
-For release work, `python3 scripts/verify.py release-check` invokes the existing
-release guard after the source, wheel, native bundle, and acceptance evidence have
-been prepared. It verifies hashes/reviews and **stages files locally** in
-`build/release/publish/`; it does not publish. See [releasing](releasing.md) for
-the required preparation. Multi-platform CI composes these same per-platform
-checks with `scripts/ci_release_platforms.py guard`; aggregate READY requires
-both clean platform acceptances and one common exact source/WASM identity. For performance work only, select one workload with
+For release work, `python3 scripts/verify.py release-check` invokes the current
+`generated-go-v1` aggregate guard after host-only wheels, corresponding source,
+regeneration and external acceptance evidence have been prepared. It stages
+accepted bytes locally in `build/release/publish/`; it does not publish.
+For an explicit candidate, use `release-check --ci-candidate-sha <sha>
+--candidate-root <checkout>`; add `--platform darwin-arm64` or
+`--platform ubuntu24.04-x86_64` for a platform guard. `--native-acceptance` is
+retained only as an explicit legacy Wasmer guard path. Both-platform READY
+requires one common exact source/guest identity and fresh immutable-artifact
+acceptance. See [releasing](releasing.md).
+For performance work only, select one workload with
 `python3 scripts/verify.py bench go-isolation --native-dir /path/to/native [options]`
 for canonical 0.2 core measurements; `bench isolation` retains Python consumer
 regression measurement (other historical benchmark workloads remain optional);

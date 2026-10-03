@@ -159,3 +159,24 @@ def test_aggregate_common_source_and_provenance_must_match(tmp_path,monkeypatch)
     records[release.UBUNTU]['assets'][release.source_name('0.4.0')]='e'*64
     records[release.UBUNTU]['guest_sha256']='0'*64
     with pytest.raises(ValueError,match='provenance differs'):release.check_aggregate(tmp_path,'a'*40)
+
+
+def test_normal_release_check_routes_generated_guard(monkeypatch):
+    import verify
+    commands=[]
+    monkeypatch.setattr(verify, 'run', lambda command, **kwargs: commands.append(command))
+    monkeypatch.setattr(sys, 'argv', ['verify.py','release-check','--ci-candidate-sha','a'*40,
+                                    '--platform','darwin-arm64'])
+    verify.main()
+    assert commands[0][1:]==['scripts/release_generated_ci.py','guard','--candidate-sha','a'*40,
+                            '--platform','darwin-arm64']
+
+
+def test_guard_failure_replaces_old_ready(tmp_path,monkeypatch):
+    release.write(tmp_path/'build/release/ci-ready.json',{'result':'READY'})
+    monkeypatch.setattr(ci,'check_aggregate',lambda *a: (_ for _ in ()).throw(ValueError('missing platform')))
+    monkeypatch.setattr(sys,'argv',['release_generated_ci.py','guard','--root',str(tmp_path),
+                                    '--candidate-sha','a'*40])
+    assert ci.main()==1
+    record=release.read(tmp_path/'build/release/ci-ready.json')
+    assert record['result']=='NOT READY' and record['error']=='missing platform'
