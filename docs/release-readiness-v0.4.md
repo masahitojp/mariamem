@@ -45,6 +45,28 @@ checks remain enabled. Focused handwritten FD/MemFS/thread/TLS/futex runtime
 `-race` checks remain mandatory. No canonical benchmark is rerun: only tests and
 comments/docs changed, so the measured production runtime remains identical.
 
+## Final local verification
+
+On audit test/comment commit `d5ae336b997e045b930d21cfd98ab60dcd1cd90f`, the clean
+managed checkout passes `verify.py check` (Go test/vet/version/provenance,
+Python393/6 optional skips/public559 files), `verify.py integration` (focused
+runtime race, normal guest/core/default/Snapshot/Fork/failure acceptance,
+Python2/2), and `verify_generated_runtime.py`. The full guest race and forced
+timeout diagnostics are not rerun or represented as passing.
+`git diff --check` passes. No benchmark or guest regeneration is needed for
+these test/comment/docs-only changes.
+
+The unchanged installed candidate wheel also passes `tests/verify_alpha.py`
+outside the checkout: serial7, parallel7, Snapshot migration2, and deliberate
+failure-cleanup2 (one expected assertion failure and one setup error). The audit
+plugin confirms teardown of all recorded fixture processes/temp directories.
+The first attempt lacked pytest-xdist in the local test venv; a fresh external
+venv with pinned pytest8.4.2/xdist3.8.0/PyMySQL1.2.3 and the same wheel passes the
+complete unchanged harness. No product workaround or new wheel is built.
+SQLAlchemy44/GORM32 pass again. Exact raw-log digests and the reused wheel
+identity are in [audit evidence](v04-release-readiness-evidence.json); these
+local results do not replace final-version supported-platform Release CI.
+
 ## Release CI mismatch: concrete stages
 
 1. `.github/workflows/release-candidate-ready.yml` installs the old x86_64

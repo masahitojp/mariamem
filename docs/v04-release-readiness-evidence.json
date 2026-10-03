@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "audit_date": "2026-10-03",
+  "product_candidate": "543867f82d3c174a72435d3077d8c1ec19b7949c",
+  "test_and_comment_candidate": "d5ae336b997e045b930d21cfd98ab60dcd1cd90f",
+  "environment": {
+    "os": "macOS 27.0.1",
+    "arch": "arm64",
+    "go": "1.26.8",
+    "python": "3.14.8",
+    "pytest": "8.4.2",
+    "pytest_xdist": "3.8.0",
+    "pymysql": "1.2.3"
+  },
+  "runtime_behavior_changed": false,
+  "canonical_benchmark_rerun": false,
+  "release_workflow_dispatched": false,
+  "new_public_release_artifacts_created": false,
+  "raw_location": "$work/v04-integrated",
+  "raw_sha256": {
+    "release-failure-paths.log": "17b667f1e1232a0dc7ce30ad2019412c113ad315812af82d251ce6edcbe9ed58",
+    "release-audit-check.log": "39caa746adc20134dd05f22953938d0e52b48cf16bc3a25716f8c318f208516c",
+    "release-audit-integration.log": "dc6422b046cce9d626ede70840bfd8753b989b22ab0528e9af0877d5a2f5050e",
+    "release-audit-provenance.log": "4d39f921167860dae20a9020fd790399832f6ad6c52619f78f1f1606cb958e39",
+    "release-audit-guard.log": "d07221715bf30ac02ae5806a6d79375e742cc2bb6f26867922d96bc5ad908bbf",
+    "release-audit-wheel.log": "a04a81c9d5962bc323451390c0ffb41391c16695cae573501da36598855e6776",
+    "release-audit-wheel-env.log": "55408c77f97fedda79224a78eb734f61a60b0531ecffbcf64243e6f9b18cb4da",
+    "release-audit-sqlalchemy/summary.json": "04c8c1794978b8cb2f5b862550cbec5879c8c6e40198b413b8540579e5114a54",
+    "release-audit-gorm/summary.json": "5cdd572f673d829038ce4a121a12d9adb30bb85ebfdfe35e21679a7582850be8"
+  },
+  "verification": {
+    "check": "PASS (393 Python / 6 optional skip / public559 files)",
+    "integration": "PASS (focused runtime race + normal generated guest + Python2/2)",
+    "generated_provenance": "PASS",
+    "reduced_failure_paths": "PASS x3: FD6→6 / goroutines2→2",
+    "sqlalchemy": "PASS44/44",
+    "gorm": "PASS32/32",
+    "local_release_guard": "NOT READY (exit1; missing final artifacts and Wasmer-era contract)"
+  },
+  "installed_wheel": {
+    "host_source": "57b5ed4f8c7148e553e23583516567ddb21052ad",
+    "version": "0.3.0",
+    "sha256": "ea601217efe244422acbaeaff7d0780ee2949e7c9690198848e140a289ed6d1c",
+    "runtime_kind": "generated-go",
+    "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+    "passed": true,
+    "installed_files_match_wheel": true,
+    "runs": [
+      {
+        "name": "serial",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "fixture_instances_reaped": 4
+      },
+      {
+        "name": "parallel",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "fixture_instances_reaped": 5
+      },
+      {
+        "name": "migration",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "fixture_instances_reaped": 3
+      },
+      {
+        "name": "failure-cleanup",
+        "tests": 2,
+        "failures": 1,
+        "errors": 1,
+        "skipped": 0,
+        "fixture_instances_reaped": 3
+      }
+    ],
+    "scope": "reused unchanged integrated wheel; not final v0.4 exact-byte acceptance"
+  },
+  "known_limitations": {
+    "full_guest_race": "known failing; no suppression; not rerun",
+    "forced_timeout_reclamation": "known failing deadline; not rerun",
+    "go_1_27_0_1_arm64": "unsupported upstream compiler regression; no workaround",
+    "physical_footprint": "OS accounting distinct from live Go heap; not harmless or immediately reclaimable",
+    "startup_tail": "~1 second remains observable",
+    "legacy_wasmer": "retained isolated fallback"
+  },
+  "blockers": [
+    "generated-Go release CI/handoff/consumer/guard migration",
+    "candidate-specific generated-Go corresponding-source/toolchain/notices review",
+    "canonical v0.4 version/notes and matching artifact metadata",
+    "exact supported-platform frozen-artifact acceptance after pipeline migration"
+  ],
+  "ready_to_submit_to_existing_release_ci": false,
+  "verdict": "V0.4.0 NOT READY — BLOCKERS REMAIN"
+}
