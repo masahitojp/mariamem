@@ -8,7 +8,7 @@ The post-release direction on main is context, not a source input to this lane.
 
 ## Current invariants
 
-Normal `Options{}` selects `host.StartGenerated` → `guest.StartLinked` →
+Normal `Options{}` selects `host.StartGenerated` → `guest.StartKind(GeneratedGo)` → `guest.startLinked` →
 `generatedgo.StartInstance`. `mariamem.go` resolves native artifacts only after
 explicit legacy selection. Preserve SQL/transaction/auth/session/lifecycle,
 Snapshot/Fork hashes and isolation, directory-FD identity, grow/truncate,
@@ -28,6 +28,12 @@ notices and canonical source/WASM/generated provenance.
 | P2 HISTORICAL | `benchmarks/spikes` has 119 files / ~0.97 MiB; historical v0.2/v0.3 readiness reports and v0.4 integration/audit reports describe superseded decision gates. | Small documentation/index change, low risk. | Label historical reports and use `docs/project-status.md` as the only roadmap. Retain race reproducers, provenance/reproducibility scripts and evidence. Do not mass-delete spike tests by filename. |
 | P2 CONSOLIDATE | `scripts/verify.py bench` exposes older workload runners but not a common resource-lifetime/crossover/consumer interface. Probe metadata, quantiles, subprocess boundaries, raw paths and comparison calculations are repeated. | Medium tooling work, low runtime risk, medium measurement risk. | Standardize mechanics after these lanes establish useful scenarios; keep generation-soak long-lived boundaries distinct from startup fresh-process boundaries. |
 | P2 CONSOLIDATE | `scripts/clean_development.py` safely dry-runs an explicit historical output allowlist, checks ignored/untracked paths, and exports small evidence before apply. Its allowlist consists mostly of named v0.4 build trees; current shared caches/worktrees require a clearer owned work-root contract. | Small-to-medium tooling change, low risk with current refusal gates preserved. | Extend existing command instead of a second deletion tool. Cache, work and evidence must remain separate. Never delete source, Git worktrees or tool inputs through broad globbing. |
+
+Peer review confirmed the dead-image boundary, with two cautions:
+`guest.Process`, generic spawn/AbortAndWait and native resolution still serve
+Wasmer fallback. `cmd/mariamem-guest` is a diagnostic CLI and current image
+entry-binding input; its deletion requires a separate caller audit, not merely
+removing encoded images.
 
 ## KEEP versus cleanup boundaries
 
