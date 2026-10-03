@@ -1,0 +1,164 @@
+{
+  "source_tag": "v0.4.0",
+  "source_sha": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+  "main_before": "4788319d92cd6d3dd485cb0bdea94406272cc7d0",
+  "integration_before": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+  "environment": {
+    "machine": "Apple M1 / 16 GiB",
+    "os": "macOS27.0.1",
+    "arch": "arm64",
+    "go": "go1.26.8"
+  },
+  "lanes": {
+    "A": {
+      "branch": "experiment/v041-disposable-soak",
+      "sha": "2fa63fe03e5275c171106e0a578e63f86dfb3644",
+      "base": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+      "verdict": "DISPOSABLE LIFECYCLE DEGRADES",
+      "report": "benchmarks/v041-disposable-soak.md",
+      "evidence_sha256": {
+        "benchmarks/disposable_soak.py": "981116993578899760fb0f152f240e0b711d6c8db884fec904bcbfb305a873f3",
+        "benchmarks/disposable_soak/README.md": "1889fc432b8797cfed7f0ce2c7a397ae8bfea27d2f6fcfae8684fc9083292ce6",
+        "benchmarks/disposable_soak/main.go": "bd26083d338de6f41ad59339072d11650d0adb6d7bc2f4210c3526ac2b389e50",
+        "benchmarks/disposable_soak/summarize.py": "65d42014b31aa69ca92ca0ae98062fb8e240485723d2ef5053a3ef9aa023ab1b",
+        "benchmarks/v041-disposable-soak-observer-failure.json": "39792d39d02a376f6a72f8bab6ac6e3921f3362aeee6f030223a8c3625281333",
+        "benchmarks/v041-disposable-soak-repeat.json": "eec3e729e73c16a41c1c3dbd7b92e657da7e88a0f0dcb1d975d1ab667d50c0c2",
+        "benchmarks/v041-disposable-soak.json": "322a21797ddc5c12c96685bba6918e793bdc3a17b136be217ce4237489b74f08",
+        "benchmarks/v041-disposable-soak.md": "ec2b44a87689c2a0e7f2578864fb9255167d30dda74e9e099bb803665c983697"
+      },
+      "commits": [
+        "1f18544f38ff3b5f0743d0a43f84be4f55a62abe",
+        "2fa63fe03e5275c171106e0a578e63f86dfb3644",
+        "b9e8cf393bd24fe8752d1f8e67dd3651007671c5",
+        "e9c7ed9955074ec4f9f463a9ec78535537c0e1ad"
+      ]
+    },
+    "B": {
+      "branch": "experiment/v041-fixture-crossover",
+      "sha": "ab65da8167d8b91cd6d97784414243264edf41bc",
+      "base": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+      "verdict": "FRESH START IS SUFFICIENT FOR CURRENT WORKLOADS",
+      "report": "benchmarks/v041-fixture-crossover.md",
+      "evidence_sha256": {
+        "benchmarks/fixturecrossover/README.md": "ad70a67bc16d7ecbb87ec3eeb3d6cc97ddd4b8ba882412d0955aac104cd42654",
+        "benchmarks/fixturecrossover/go.mod": "cc652df13d9628c7be4feb93485769de11059a00fa68a15f2ccd9b2d7966cd20",
+        "benchmarks/fixturecrossover/go.sum": "cc6dd80c9aad5de80dc9d1e85dcff41b9ed6096d983bed4971ff029c6faeab4f",
+        "benchmarks/fixturecrossover/main.go": "fcd90b42aed41e2a0192951f06a36b37d3e422100aa65d2497c4068591c78057",
+        "benchmarks/fixturecrossover/run.py": "d0cb9b103b99ef7440f27b2f1159601ca2c486efc39ccd8b63768018a294062d",
+        "benchmarks/v041-fixture-crossover.csv": "2461be4bb9888cf17b09358f7f0e9e2857695dc9d384ce27ed9d211b9a71d19d",
+        "benchmarks/v041-fixture-crossover.json": "f701322bd2d0a7cdf8c7ad90bbf59932b0e1e4985651ec3de788c2faef65907f",
+        "benchmarks/v041-fixture-crossover.md": "f314199dfc6fb9591188c47ce8aaa9dd0f610ceb11f60c5409c693f2ba7e672f"
+      },
+      "commits": [
+        "ab65da8167d8b91cd6d97784414243264edf41bc"
+      ]
+    },
+    "C": {
+      "branch": "experiment/v041-consumer-cost",
+      "sha": "f414ff346df8d087d0e6d1e21c52399b03b0d1fb",
+      "base": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+      "verdict": "CONSUMER BUILD COST NEEDS POLISH",
+      "report": "benchmarks/v041-consumer-cost.md",
+      "evidence_sha256": {
+        "benchmarks/spikes/consumer-cost/README.md": "0dc2816f3ca8ddfda66756f458b0eb2b4f7fec26633a678d99a3fdf4444473ad",
+        "benchmarks/spikes/consumer-cost/measure.py": "646e18f6fb311c22bfd5395b768cb69f9d179665e7bae60a1a555ace8f348fab",
+        "benchmarks/v041-consumer-cost.json": "745e911a9e8319846da275ad50e906ef61157cff4392fc6d4df2773fd3573da3",
+        "benchmarks/v041-consumer-cost.md": "f9fdb1940ec153bfe10abc66f565ff4e873755bf8af5305f21de8c1e82052a24"
+      },
+      "commits": [
+        "f414ff346df8d087d0e6d1e21c52399b03b0d1fb"
+      ]
+    },
+    "D": {
+      "branch": "experiment/v041-rsa-startup",
+      "sha": "85f6cfe4b5deeff5601d413123b52e12fca26763",
+      "base": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+      "verdict": "SAFE BUT BENEFIT IS NEGLIGIBLE",
+      "report": "benchmarks/v041-rsa-startup.md",
+      "evidence_sha256": {
+        "benchmarks/v041-rsa-results.json": "3bf92c56c1858ce3e0d5409b6899d2215fdfae39c3c2357610f5e0717e69cb0e",
+        "benchmarks/v041-rsa-startup.md": "061880c38800b878874c6417b5594a8a25ec679c2c2336f4dfa6cffbb0415a71",
+        "benchmarks/v041_rsa.py": "a0b43b0195611a33434346577f68911890ab0f23c340c554d8c3d37d22738e3a",
+        "benchmarks/v041rsa/main.go": "71f8b9fcbf00f7508c17dd7746ec9d33b30a2c88151102243fc71aa7732c2fc8"
+      },
+      "commits": [
+        "85f6cfe4b5deeff5601d413123b52e12fca26763"
+      ]
+    },
+    "E": {
+      "branch": "experiment/v041-migration-debt-audit",
+      "sha": "4635df3d8a06dacc5542b8fa8aec78f2e9c7fe6a",
+      "base": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+      "verdict": "STATIC AUDIT COMPLETE",
+      "report": "benchmarks/v041-migration-debt-audit.md",
+      "evidence_sha256": {
+        "benchmarks/v041-migration-debt-audit.md": "9857e46a1d8f7498577b1de5160e796d26868c1701e94b63d6005f2df276f1eb",
+        "benchmarks/v041-migration-debt-inventory.json": "54ab7fb934bf1bda8ec839afd44be6ac130ea332edf3db1986fbb17d96e72d32"
+      },
+      "commits": [
+        "4635df3d8a06dacc5542b8fa8aec78f2e9c7fe6a",
+        "d9ec383a724c5acf19eb1a94405e5c28f5226ec5"
+      ]
+    }
+  },
+  "integration": "none; human decision pending",
+  "exclusive_sessions": [
+    {
+      "lane": "D",
+      "start_utc": "2026-10-03T10:06:27.881319+00:00",
+      "end_utc": "2026-10-03T10:08:08.253405+00:00",
+      "duration_seconds": 100.37208604812622
+    },
+    {
+      "lane": "C",
+      "start_utc": "2026-10-03T10:08:08.254081+00:00",
+      "end_utc": "2026-10-03T10:14:11.889739+00:00",
+      "duration_seconds": 363.6356580257416
+    },
+    {
+      "lane": "A",
+      "start_utc": "2026-10-03T10:14:11.891395+00:00",
+      "end_utc": "2026-10-03T10:15:49.977812+00:00",
+      "duration_seconds": 98.08641695976257
+    },
+    {
+      "lane": "B",
+      "start_utc": "2026-10-03T10:15:49.979577+00:00",
+      "end_utc": "2026-10-03T10:29:15.812358+00:00",
+      "duration_seconds": 805.8327808380127
+    },
+    {
+      "lane": "A",
+      "start_utc": "2026-10-03T10:29:15.813377+00:00",
+      "end_utc": "2026-10-03T10:29:30.895699+00:00",
+      "duration_seconds": 15.082321882247925
+    },
+    {
+      "lane": "A",
+      "start_utc": "2026-10-03T10:30:30.916408+00:00",
+      "end_utc": "2026-10-03T10:30:41.869406+00:00",
+      "duration_seconds": 10.952997922897339
+    },
+    {
+      "lane": "B-validation",
+      "start_utc": "2026-10-03T10:32:50.546719+00:00",
+      "end_utc": "2026-10-03T10:32:50.630444+00:00",
+      "duration_seconds": 0.0837249755859375
+    },
+    {
+      "lane": "B-validation",
+      "start_utc": "2026-10-03T10:33:31.466680+00:00",
+      "end_utc": "2026-10-03T10:33:40.513975+00:00",
+      "duration_seconds": 9.047295093536377
+    },
+    {
+      "lane": "B-validation",
+      "start_utc": "2026-10-03T10:35:14.768707+00:00",
+      "end_utc": "2026-10-03T10:35:22.777142+00:00",
+      "duration_seconds": 8.008435010910034
+    }
+  ],
+  "no_overlapping_lock_holders": true,
+  "external_lock_script_sha256": "e87d3d2319cd9f951d63191a23bff08509f826f467852434a1755f0ad019eec7",
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008"
+}
