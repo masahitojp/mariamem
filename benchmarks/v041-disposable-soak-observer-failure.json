@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "schema": "v041-disposable-soak-v1",
+    "source_sha": "e9c7ed9955074ec4f9f463a9ec78535537c0e1ad",
+    "source_diff": "",
+    "go": "go version go1.26.8 darwin/arm64",
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "databases": 16,
+    "generations": 50,
+    "timeout_seconds": 900,
+    "gc_policy": "normal Go policy; no runtime.GC or FreeOSMemory",
+    "cpu_boundary": "self process CPU before generation through after Close counter; observer parent overhead included",
+    "ready_boundary": "concurrent public Options{} Start through first SELECT 1 for every DB",
+    "memory_boundary": "same long-lived self process, no child DB processes; macOS phys_footprint / RSS",
+    "binary_sha256": "d8d6943c1c8548156d33df6fd5d7df37f9776fe1a4cc125808a0e4b9911aba7f",
+    "helper_sha256": "9d8fb8f59646f46d4af04e732706c60ab8e3ad7c3065648f3ec384418aa2a25f",
+    "harness_sha256": "a245a86e020c85d3268019bbf59f3405b3c5333d053093fb5f6c86b13f899b7e",
+    "exit_code": 1,
+    "elapsed_seconds": 1.146137167001143
+  },
+  "raw_sha256": "a0fee8535bea60d5bc2a00347fa3f569141a5182a28812e9676daf4c60ece8d3",
+  "checkpoints": [
+    {
+      "arch": "arm64",
+      "checkpoint": {
+        "os": {
+          "rss_bytes": 12124160,
+          "primary_bytes": 5096072,
+          "cpu_seconds": 0.012937375
+        },
+        "heap_alloc_bytes": 266440,
+        "heap_inuse_bytes": 958464,
+        "heap_idle_bytes": 3006464,
+        "heap_released_bytes": 2940928,
+        "total_alloc_bytes": 266440,
+        "sys_bytes": 8407304,
+        "num_gc": 0,
+        "goroutines": 1,
+        "fds": 6
+      },
+      "databases": 16,
+      "generations": 50,
+      "go_version": "go1.26.8",
+      "os": "darwin",
+      "runtime": "direct-linked generated-Go",
+      "type": "baseline"
+    },
+    {
+      "generation": 1,
+      "ready_seconds": 0,
+      "use_seconds": 0,
+      "close_seconds": 0,
+      "cpu_seconds": 0,
+      "per_db_ready_seconds": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "before": {
+        "os": {
+          "rss_bytes": 0,
+          "primary_bytes": 0,
+          "cpu_seconds": 0
+        },
+        "heap_alloc_bytes": 0,
+        "heap_inuse_bytes": 0,
+        "heap_idle_bytes": 0,
+        "heap_released_bytes": 0,
+        "total_alloc_bytes": 0,
+        "sys_bytes": 0,
+        "num_gc": 0,
+        "goroutines": 0,
+        "fds": 0
+      },
+      "ready": {
+        "os": {
+          "rss_bytes": 0,
+          "primary_bytes": 0,
+          "cpu_seconds": 0
+        },
+        "heap_alloc_bytes": 0,
+        "heap_inuse_bytes": 0,
+        "heap_idle_bytes": 0,
+        "heap_released_bytes": 0,
+        "total_alloc_bytes": 0,
+        "sys_bytes": 0,
+        "num_gc": 0,
+        "goroutines": 0,
+        "fds": 0
+      },
+      "after_close": {
+        "os": {
+          "rss_bytes": 0,
+          "primary_bytes": 0,
+          "cpu_seconds": 0
+        },
+        "heap_alloc_bytes": 0,
+        "heap_inuse_bytes": 0,
+        "heap_idle_bytes": 0,
+        "heap_released_bytes": 0,
+        "total_alloc_bytes": 0,
+        "sys_bytes": 0,
+        "num_gc": 0,
+        "goroutines": 0,
+        "fds": 0
+      },
+      "errors": [
+        "fstatat /dev/fd: bad file descriptor"
+      ]
+    },
+    {
+      "generation": 1,
+      "reason": "SQL/start/close/counter failure",
+      "type": "stop"
+    }
+  ]
+}
