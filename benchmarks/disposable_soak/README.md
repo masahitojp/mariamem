@@ -29,8 +29,12 @@ not. No DB subprocess is created by this harness.
 - Stop immediately on any SQL/start/close/counter failure.
 - Start/SQL contexts are 30 seconds; the external diagnostic-process watchdog is
   15 minutes. This is not forced in-process guest reclamation.
-- Stop after ready physical footprint exceeds 12 GiB, or after-Close HeapAlloc
-  exceeds 10 GiB, to protect the 16-GiB reference machine.
+- Stop after ready or after-Close physical footprint exceeds 12 GiB, to protect
+  the 16-GiB reference machine. Before the first run, source inspection removed
+  a proposed 10-GiB HeapAlloc guard: every guest reserves a large sparse linear
+  memory slice, so Go HeapAlloc can greatly exceed resident/physical memory and
+  does not directly express the machine's pressure budget. HeapAlloc and its
+  natural GC cycles are recorded rather than mistaken for committed live bytes.
 - Stop after three consecutive after-Close samples exceed baseline by 16 FDs or
   64 goroutines, or three consecutive generations take at least 10 seconds.
 - Compare ten-generation windows, including the first and last; do not discard

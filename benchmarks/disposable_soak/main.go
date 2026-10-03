@@ -231,7 +231,7 @@ func main() {
 		reason := ""
 		if len(g.Errors) > 0 {
 			reason = "SQL/start/close/counter failure"
-		} else if g.Ready.Counters.Physical > 12*(1<<30) || g.AfterClose.HeapAlloc > 10*(1<<30) {
+		} else if g.Ready.Counters.Physical > 12*(1<<30) || g.AfterClose.Counters.Physical > 12*(1<<30) {
 			reason = "machine resource safety budget exceeded"
 		} else if excessCount >= 3 {
 			reason = "sustained FD/goroutine resource excess"
