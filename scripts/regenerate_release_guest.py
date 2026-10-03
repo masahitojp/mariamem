@@ -32,7 +32,7 @@ def main():
       [spike/'translate_guest.py','--guest',guest/'mariamem.wasm','--guest-sha256',pins['guest_sha256'],
        '--converter-archive',converter,'--output',out/'translation'],
       [spike/'setup_candidate.py','--source-only','--source-module',out/'translation/module',
-       '--guest',guest/'mariamem.wasm','--input-manifest',ROOT/'release/generated-go-inputs.json','--output',out/'candidate'],
+       '--guest',guest/'mariamem.wasm','--input-manifest',ROOT/'release/generated-go-translation.json','--output',out/'candidate'],
       [ROOT/'scripts/generate_runtime.py','--source-module',out/'candidate/module','--output',out/'generatedgo']]
     for command in commands:
         subprocess.run([sys.executable,*map(str,command)],cwd=ROOT,env=env,check=True)
