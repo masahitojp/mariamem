@@ -25,7 +25,7 @@ def harness_inventory(root):
     paths=[root/'scripts/generated_release_acceptance.py', root/'scripts/consumer_module.py',
            root/'scripts/platform_acceptance.py',root/'scripts/release_consumer_smoke.py',root/'tests/verify_alpha.py',
            *sorted((root/'tests/godefault').glob('*.go')),
-           root/'tests/consumer/test_database.py',root/'tests/consumer/test_ubuntu.py',
+           root/'tests/consumer/test_database.py',root/'tests/consumer/test_generated_platform.py',
            root/'tests/consumer/test_sqlalchemy_dogfood.py',
            *sorted((root/'tests/consumer/gorm').glob('*'))]
     return {p.relative_to(root).as_posix():digest(p) for p in paths if p.is_file()}
@@ -97,9 +97,8 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None):
             run([python,'-m','pip','install',str(selected)+'[test]','SQLAlchemy==2.0.54','pytest==8.4.2',
                  'pytest-xdist==3.8.0','PyMySQL==1.2.3'],work,env)
             run([python,root/'tests/verify_alpha.py'],work,env)
-            if platform=='ubuntu24.04-x86_64':
-                shutil.copyfile(root/'tests/consumer/test_ubuntu.py',work/'test_ubuntu.py')
-                run([python,'-m','pytest','-q',work/'test_ubuntu.py'],work,env)
+            shutil.copyfile(root/'tests/consumer/test_generated_platform.py',work/'test_generated_platform.py')
+            run([python,'-m','pytest','-q',work/'test_generated_platform.py'],work,env)
             report['steps']['installed_wheel']='PASS'
             shutil.copyfile(root/'tests/consumer/test_sqlalchemy_dogfood.py',work/'test_sqlalchemy_dogfood.py')
             count=0

@@ -108,8 +108,9 @@ A private exact-tag Go module proxy transports the **candidate source** without
 Options{} SQL/Snapshot/Fork/isolation/corruption/failure/lifecycle tests and
 GORM32 (Start/Fork, including repeated schema discovery). A fresh external venv
 installs the frozen wheel, verifies installed bytes/notices/version, runs the
-serial/parallel/seeded/failure-cleanup suite and SQLAlchemy44. Ubuntu also runs
-its platform diagnostics. Both guards bind source, harness, platform and wheel
+serial/parallel/seeded/failure-cleanup suite and SQLAlchemy44. Both platforms also check the installed host binary format/architecture and
+missing-host recovery. The old Ubuntu AOT-corruption/forced-timeout diagnostics
+remain legacy-only; they are not claimed as generated-Go acceptance. Both guards bind source, harness, platform and wheel
 hashes before aggregate READY. Public smoke later downloads accepted bytes and
 checks the public Go tag's origin commit; it cannot modify the release.
 
