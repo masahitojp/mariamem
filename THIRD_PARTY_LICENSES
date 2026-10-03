@@ -1,4 +1,4 @@
-mariamem v0.4 third-party inventory (generated-go-v1)
+mariamem v0.4.0 third-party inventory (generated-go-v1)
 
 Normal artifacts: generated Go source/module and host-only Python wheels.
 WASM is a build intermediate. Translated/embedded upstream code retains its

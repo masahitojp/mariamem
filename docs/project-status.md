@@ -140,8 +140,8 @@ WASM is a build intermediate. Legacy AOT/native bundles are not acceptance
 inputs for the normal path. See [releasing](releasing.md) and the
 [migration validation/boundaries](v04-release-ci-migration.md).
 
-The branch remains unpublished; canonical version metadata still identifies
-v0.3.0. The [hosted verify run](https://github.com/masahitojp/mariamem/actions/runs/37096640237)
+The branch remains unpublished; canonical version metadata is now v0.4.0 and
+[release notes](../release/NOTES-v0.4.0.md) are prepared. The [hosted verify run](https://github.com/masahitojp/mariamem/actions/runs/37096640237)
 approved candidate `05d85afccefdb61f448ea68e9b29a6e20bcba053` on both platforms.
 The [artifact license audit](v04-license-inventory.md) subsequently changes
 notice/source-package selection; new artifacts require renewed exact-SHA checks.
@@ -154,9 +154,9 @@ Required before v0.4.0 publication:
    preserving exact hashes and MariaDB/lite4mariadb GPL-derived obligations.
    The migrated guard checks LLVM23/legacy-EH→wasm2go generation and offline
    source preparation; historical Wasmer approval does not approve new bytes.
-3. Prepare the explicitly human-selected version/current examples/tracked notes
-   from `python/mariamem/_version.py`, then reverify that exact final-version SHA.
-   Do not tag or publish before the separate release instruction.
+3. After exact-candidate READY and human approval, merge the approved candidate
+   into main without changing its accepted source identity; separately authorize
+   release submission. Do not tag or publish during candidate preparation.
 
 The [prior release-readiness audit](release-readiness-v0.4.md) remains a historical
 record of the old CI mismatch and local graceful-failure acceptance.

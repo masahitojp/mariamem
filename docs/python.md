@@ -1,30 +1,24 @@
 # Python API
 
-On the unpublished v0.4 branch, **generated-Go is the default runtime**. Ordinary
-usage needs no NativeDir, bundle cache/download or external Wasmer. Existing APIs
-and cold Snapshot/Fork semantics are preserved. Explicit NativeDir/environment
-bundle overrides retain legacy compatibility. See [current architecture](v04-generated-go-architecture.md)
-and [migration evidence](../benchmarks/v04-default-runtime-migration.md).
-The v0.3 installation/bundle examples below are historical release instructions.
+**Generated Go is the default v0.4.0 runtime.** The `0.4.0` candidate is
+prepared, not tagged or published. Normal Python startup uses a platform Go host
+with generated-Go MariaDB linked in; no external Wasmer/native bundle is needed.
+Public APIs and cold Snapshot/Fork semantics are preserved. See
+[architecture](v04-generated-go-architecture.md) and
+[canonical measurements](../benchmarks/v04-integrated-candidate.md).
 
-The `0.3.0` Python package is prepared for the v0.3.0 release candidate; it is
-not published yet. PyPI publication is temporarily unavailable while account
-recovery is pending. After release, the supported installation path is the
-[v0.3.0 GitHub Release wheel](https://github.com/masahitojp/mariamem/releases/tag/v0.3.0),
-which includes the required Go host, Wasmer runtime and guest bundle. Use the
-[copy-pasteable platform commands and PEP 508 extras](../README.md#python), not a
-Git source install. Once PyPI is available, installation is expected to simplify
-to `pip install mariamem`; PyPI publication has not been abandoned.
+PyPI publication remains unavailable pending account recovery. After publication,
+use the [v0.4.0 GitHub Release wheels](https://github.com/masahitojp/mariamem/releases/tag/v0.4.0)
+and [platform install commands / PEP 508 extras](../README.md#python), not a Git
+source install. The wheel supplies the platform host executable. PyPI remains a
+planned distribution channel.
 
-The release includes an Ubuntu 24.04 LTS / x86_64 wheel, tagged
-`linux_x86_64`. It includes the Linux host, Wasmer runtime and target-specific
-AOT guest. This is deliberately not a manylinux compatibility claim. After
-publication, install `mariamem-0.3.0-py3-none-linux_x86_64.whl` from the GitHub
-Release.
-Other Linux distributions and Ubuntu versions are outside the supported scope.
+The Ubuntu 24.04 LTS x86_64 host-only wheel is named
+`mariamem-0.4.0-py3-none-linux_x86_64.whl`. This is deliberately not a manylinux
+compatibility claim; other Linux distributions are outside the supported scope.
 
 Canonical clean release validation uses Python 3.14 on macOS 15 arm64 and
-Ubuntu 24.04 x86_64 (SSE2 + SSSE3). Metadata allows Python >=3.9; this is not a
+Ubuntu 24.04 x86_64. Metadata allows Python >=3.9; this is not a
 broad tested-version matrix. macOS 15+ arm64 is supported; macOS Intel, Linux
 arm64 and Windows are not supported. The 0.x public API may change.
 
@@ -37,7 +31,7 @@ An explicitly supplied `log_path=` is preserved; default log directories are rem
 
 `wait_disconnected()` waits until the host has released all SQL sessions after
 driver disconnects. Multiple clients may connect to one DB up to the guest's
-session capacity (16 in the current native bundle, not a permanent API guarantee).
+session capacity (16 in the current guest, not a permanent API guarantee).
 Session variables, temporary tables and transactions are independent. Concurrent
 queries do not establish a throughput-scaling guarantee. An extra connection gets
 MySQL error 1040; disconnecting a client makes its slot available after guest
@@ -106,9 +100,9 @@ Class fixtures deliberately share mutations between tests in that class.
 Function-scoped forks provide disposable server-level state, avoiding per-test
 rollback/schema reset/data cleanup for isolation. Driver connections and owned
 DB/snapshot handles still need context-manager or explicit cleanup. Snapshot
-captures a prepared filesystem, not a live running server. For the measured
-small fixture, Fork did not materially outperform fresh Start; prepared-state
-value depends on migration/fixture cost. See the [performance/resource limits](../README.md#performance-and-resource-limits)
+captures a prepared filesystem, not a live running server. Prepared-state value
+depends on migration/fixture cost; Fork and fresh Start measure different
+boundaries. See the [performance/resource limits](../README.md#performance-and-resource-limits)
 for the fixed Go reference and substantial per-DB memory cost. Those Go timings
 are not Python end-to-end or hardware-independent guarantees.
 
@@ -118,8 +112,10 @@ are not Python end-to-end or hardware-independent guarantees.
 `MARIAMEM_NATIVE_DIR` points to a directory containing the private bundle manifest.
 Neither is needed with a complete platform wheel. Timeouts can be configured with
 `startup_timeout`, `query_timeout`, and `shutdown_timeout` (seconds).
-Query timeout or client disconnect during a running query terminates the
-database instance. `db.closed` then becomes true; `db.status()` raises
+Query timeout or client disconnect during a running query invalidates the
+database instance. Forced reclamation of non-cooperative guest execution and
+hard failure containment are not guaranteed. `db.closed` then becomes true;
+`db.status()` raises
 `HostError(code="unusable", closed=True)`. Call `db.close()` to release wrapper
 resources, then start or fork another instance. An idle client disconnect does
 not terminate the instance. Server-side prepared statements remain unsupported.
@@ -138,12 +134,13 @@ is error 1040), rather than wrapper startup failures. Interrupted active SQL
 still invalidates the entire instance; `status()` reports `unusable` and disposes
 wrapper resources. `close()` stays safe and idempotent.
 
-Ubuntu 24.04 x86_64 candidates require a CPU with SSSE3. AOT compilation uses
+Legacy Ubuntu 24.04 x86_64 AOT bundles require a CPU with SSSE3. Compilation uses
 a fixed SSE2+SSSE3 feature set and does not require AVX or AVX-512.
 
 For startup failures, read the category/stage first, then the expected path,
-platform or hash in the message. Re-extract a complete matching native bundle
-(or reinstall the matching Python wheel); do not mix files from different
+platform or hash in the message. Reinstall the matching host-only Python wheel,
+or, for explicit legacy execution, re-extract a complete matching native bundle;
+do not mix files from different
 bundles. Preserve executable permissions. An AOT/CPU compatibility error may
 require a supported machine or VM exposing the required CPU features; the
 Ubuntu 24.04 x86_64 bundle requires SSE2 and SSSE3. Startup failure does not

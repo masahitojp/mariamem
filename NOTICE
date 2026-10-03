@@ -27,7 +27,7 @@ are public, non-secret test material, never production credentials. Exact
 source, notice and platform verification remains required for every release
 before public distribution. See docs/releasing.md and THIRD_PARTY_LICENSES.
 
-The v0.4 default direct-links generated Go in Go consumers and
+The v0.4.0 default direct-links generated Go in Go consumers and
 links it into the host-only Python wheel. WASM is a build intermediate; normal
 execution does not include Wasmer/AOT runtime assets. It uses goccy/wasm2go via the
 shibukawa/wasm2go-fork commit ac98bcf00c17d8531f0c071a9836d0b50975e7ff.

@@ -1,71 +1,57 @@
 # Go API
 
-On the unpublished v0.4 branch, **generated-Go is the default runtime**. Ordinary
-usage needs no NativeDir, bundle cache/download or external Wasmer. Existing APIs
-and cold Snapshot/Fork semantics are preserved. Explicit NativeDir/environment
-bundle overrides retain legacy compatibility. See [current architecture](v04-generated-go-architecture.md)
-and [migration evidence](../benchmarks/v04-default-runtime-migration.md).
-The v0.3 installation/bundle examples below are historical release instructions.
+**Direct-linked generated Go is the default v0.4.0 runtime.** Ordinary Go
+usage needs no NativeDir, bundle cache/download or external Wasmer. Generated
+Go is a normal module dependency/build input; WASM is a build intermediate.
+Existing public APIs and cold Snapshot/Fork semantics are preserved.
+See [architecture](v04-generated-go-architecture.md) and
+[canonical measurements](../benchmarks/v04-integrated-candidate.md).
 
-The public package is `mariamem` at the module root. Go 1.26 or newer is
-required; canonical release validation uses Go 1.26.8, not a broad language
-version matrix. The v0.3.0 candidate is in preparation and is not published yet.
-
-After publication, add the exact release to a fresh module:
+The public package is `mariamem` at the module root. The module requires Go
+1.26.0+; canonical validation uses Go 1.26.8. Go 1.27.0/1.27.1 arm64 are
+unsupported because of upstream compiler issue #81036; no local workaround is
+used. An upstream-fixed toolchain has been verified. The v0.4.0 candidate is
+prepared, not published. After publication:
 
 ```sh
 mkdir mariamem-example
 cd mariamem-example
 go mod init example.com/mariamem-example
-go get github.com/masahitojp/mariamem@v0.3.0
+go get github.com/masahitojp/mariamem@v0.4.0
 go get github.com/go-sql-driver/mysql
 ```
-
-The ordinary API needs no native path:
 
 ```go
 db, err := mariamem.Start(ctx, mariamem.Options{})
 ```
 
-On first use, the tagged release downloads the native bundle for that exact
-module version and supported platform. It verifies release metadata, SHA256,
-manifest and package/input identity, then installs atomically in the user cache.
-Later starts verify and reuse that cache, including offline. It never requests
-`latest` or substitutes an older bundle. Candidate URLs will work after
-v0.3.0 publication.
-
-## Advanced, offline and development override
-
-Explicit `NativeDir` and `MARIAMEM_NATIVE_DIR` override automatic resolution and
-work without network access. Use them for CI, offline environments, and
-unreleased development builds. Pseudo-version, local-replacement and untagged
-builds require an explicitly matching bundle.
-
-After v0.3.0 publication, download the platform-specific bundle for offline use:
+Each DB has fresh execution/thread/TLS/FD state and private writable files.
+Normal Start does not decode/materialize a native image, spawn a guest process
+or resolve a runtime bundle. Development/local replacement builds use the same
+default. Once normal Go dependencies are available, startup needs no download.
+After publication, optional release audit assets are available separately:
 
 ```sh
-# macOS 15+ arm64
-gh release download v0.3.0 --repo masahitojp/mariamem \
-  --pattern 'mariamem-native-darwin-arm64.tar.gz'
-# Ubuntu 24.04 x86_64
-gh release download v0.3.0 --repo masahitojp/mariamem \
-  --pattern 'mariamem-native-ubuntu24.04-x86_64.tar.gz'
+gh release download v0.4.0 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.0-provenance.json'
 ```
+
+## Legacy Wasmer compatibility override
+
+Explicit `NativeDir` or `MARIAMEM_NATIVE_DIR` selects legacy Wasmer execution.
+Use only a matching, independently verified legacy bundle. The normal v0.4.0
+artifact contract does not include a new Wasmer/AOT bundle.
 
 ```go
 db, err := mariamem.Start(ctx, mariamem.Options{
-    NativeDir: "/path/to/native",
+    NativeDir: "/path/to/verified/legacy/native",
 })
 ```
 
-A manual bundle contains `manifest.json`, `wasmer-headless`, `mariamem.wasmu`,
-`mariamem.wasmu.json`, and optionally `mariamem-host` (unused by Go). Required
-files are checked against manifest hashes and sidecar metadata. No native binary
-is committed to the Go module. Supported bundles are macOS 15+ arm64 and Ubuntu
-24.04 LTS x86_64 (SSE2 + SSSE3); other distributions and architectures are not
-supported.
-
-The host runs in the Go caller; Wasmer/MariaDB remains a child process.
+A legacy bundle contains `manifest.json`, `wasmer-headless`, `mariamem.wasmu`
+and `mariamem.wasmu.json`. Hashes and sidecar metadata remain verified on that
+explicit path; its guest runs as a child process. The historical manual bundle
+section below applies only to this fallback, not ordinary Go startup.
 
 ## Lifecycle and sessions
 
@@ -93,7 +79,7 @@ lifecycle state. Zero-value handles cannot start operations; construct them
 through Start and Database.Snapshot.
 
 Multiple clients can connect to one DB up to the guest-advertised session
-capacity (16 for the current native bundle, not a permanent API guarantee).
+capacity (16 for the current guest, not a permanent API guarantee).
 Each connection has its own guest session and transaction state. A connection
 beyond capacity receives MySQL error 1040; closing a client releases its slot
 after guest cleanup. Different sessions may have queries in flight together,
@@ -102,50 +88,35 @@ WaitDisconnected when taking a snapshot. DSN sets `interpolateParams=true` for
 driver-side parameter interpolation through the supported text protocol. This
 is not server prepared-statement support; explicit Prepare remains unsupported.
 
-A host QueryTimeout or client context cancellation while SQL runs terminates the
-guest and invalidates that database instance. A client disconnect during SQL is
+A host QueryTimeout or client context cancellation while SQL runs invalidates
+that database instance. Forced reclamation of non-cooperative in-process guest
+execution and hard failure containment are not guaranteed. A client disconnect during SQL is
 also fatal; a normal disconnect while idle leaves the DB usable. Do not retry
 SQL against an invalidated instance: close it and start or fork another.
 `db.Closed()` becomes true, and `db.Err()` reports ErrUnusable with the
 underlying cause. For a host timeout, `errors.Is(db.Err(), context.DeadlineExceeded)`
 is true. A caller context deadline or explicit cancellation is returned by the
 MySQL driver as the caller's context error; the host sees the connection loss
-and terminates the guest. Snapshot and WaitDisconnected reject invalidated
-instances; Close remains idempotent and releases the guest process and temporary
-files. Signal handlers are not installed in the caller process.
+and invalidates the instance. Snapshot and WaitDisconnected reject invalidated
+instances; Close remains idempotent; normal cooperative shutdown releases runtime
+resources and temporary files. Signal handlers are not installed in the caller process.
 
 ## Opt-in integration verification
 
-Use the existing native bundle, without rebuilding or rearranging its artifacts:
+Run default generated-Go acceptance without a native override:
 
 ```sh
-MARIAMEM_NATIVE_DIR="$PWD/python/mariamem/_native" python3 scripts/verify.py integration
+GOTOOLCHAIN=go1.26.8 python scripts/verify.py integration
 ```
 
-The integration entry point runs Go real-guest tests with the race detector and
-Python timeout/multi-client checks. It requires `MARIAMEM_NATIVE_DIR`; a missing
-bundle is a failure, not a silently skipped test. The module pins the test driver
-`github.com/go-sql-driver/mysql` to v1.9.3. Applications register their own driver.
-
-Verified on the development macOS arm64 machine with the existing native bundle:
-MariaDB reported `13.1.0-MariaDB-embedded`. The test passed ConnectionInfo and DSN
-connections, SELECT 1/version, verified InnoDB storage, parameterized INSERT/SELECT
-via text interpolation, BEGIN/COMMIT, and ErrTransactionActive mapping without
-consuming the source. It also passed pool Close → WaitDisconnected, seeded
-snapshot/source closure, independent A/B forks, temporary snapshot deletion while
-forks remain usable, explicit snapshot retention/existing-destination rejection,
-and idempotent Close with listener shutdown. No production fixes were required.
-
-Only the deliberate active-transaction rejection test snapshots with a live SQL
-connection. It tolerates the brief ErrBusy interval between a wire reply and host
-session-idle bookkeeping, then requires ErrTransactionActive. All successful
-snapshots follow pool Close → WaitDisconnected.
-
-This integration test is correctness evidence, not a benchmark. It now also
-covers query interruption and multiple independent SQL clients. Separate clean
-release acceptance covers both supported platforms. Server-side prepared
-statements remain unsupported.
-For when to run the other local checks, see [development](development.md#local-verification).
+This runs normal full-guest SQL/Snapshot/Fork/lifecycle tests, Python
+multi-client checks and focused handwritten/runtime FD/MemFS/thread/TLS/futex
+race coverage. The full generated guest is not Go `-race` clean; its documented
+shared-memory adaptation problem is not suppressed or presented as passing.
+Forced query-timeout reclamation remains a separate diagnostic, not a guarantee.
+Set `MARIAMEM_NATIVE_DIR` only to exercise explicit legacy Wasmer acceptance.
+The module pins the test driver `github.com/go-sql-driver/mysql` to v1.9.3;
+applications register their own driver. See [development](development.md#local-verification).
 
 ## Manual native bundle (local candidate)
 
@@ -182,11 +153,11 @@ unused `mariamem-host` hash, and records the three required artifact hashes.
 The host executable is not included. `public_release_ready` is always false for
 this candidate tool, even if the input manifest says otherwise.
 
-For local evaluation, or when using the v0.3.0 published archive, verify it
+For legacy evaluation, verify the matching previously published archive
 against its published SHA256 and then extract it:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.3.0
+go get github.com/masahitojp/mariamem@<published-tag>
 shasum -a 256 mariamem-native-darwin-arm64.tar.gz
 tar -xzf mariamem-native-darwin-arm64.tar.gz
 export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
@@ -226,12 +197,13 @@ invalidates the entire Database: `db.Err()` matches `mariamem.ErrUnusable` and
 retains its cause. `Close()` remains safe and idempotent. Stage names provide
 diagnostic context rather than a stable inventory of runtime internals.
 
-Ubuntu 24.04 x86_64 candidates require a CPU with SSSE3. AOT compilation uses
+Legacy Ubuntu 24.04 x86_64 AOT bundles require a CPU with SSSE3. Compilation uses
 a fixed SSE2+SSSE3 feature set and does not require AVX or AVX-512.
 
 For startup failures, read the category/stage first, then the expected path,
-platform or hash in the message. Re-extract a complete matching native bundle
-(or reinstall the matching Python wheel); do not mix files from different
+platform or hash in the message. Reinstall the matching host-only Python wheel,
+or, for explicit legacy execution, re-extract a complete matching native bundle;
+do not mix files from different
 bundles. Preserve executable permissions. An AOT/CPU compatibility error may
 require a supported machine or VM exposing the required CPU features; the
 Ubuntu 24.04 x86_64 bundle requires SSE2 and SSSE3. Startup failure does not

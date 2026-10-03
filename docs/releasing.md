@@ -1,9 +1,9 @@
 # Releasing mariamem
 
-The canonical package version is `v0.3.0`; Python spelling is `0.3.0`.
-This unpublished branch implements the v0.4 generated-Go release contract.
-A human must supply the release version before version/notes preparation;
-this migration does not bump, tag, or publish a version.
+The canonical package version is `v0.4.0`; Python spelling is `0.4.0`.
+The final candidate and [tracked notes](../release/NOTES-v0.4.0.md) are prepared,
+but no tag or release has been published. Submit the exact final pushed SHA to
+Release CI **verify** before any separately authorized release operation.
 
 ## Exact-source release boundary
 
@@ -137,7 +137,7 @@ compiler regression; no generated-source/compiler workaround is used.
 
 After this migration, submit an exact pushed SHA with `operation=verify` to
 collect new hosted-runner evidence. Local script tests are not that evidence.
-Before actual release: human version/notes preparation, unused-tag checks,
+Version/notes preparation is complete. Before actual release: unused-tag checks,
 review source/notices/provenance and **both-platform READY for that exact
 final-version candidate**. The release skill owns only preparation/handoff;
 CI owns build, acceptance, guard, publication and public smoke.
