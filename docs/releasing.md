@@ -107,11 +107,20 @@ Wasmer/source approval is not reused to approve changed bytes.
 | `acceptance-only` | original SHA, original `candidate_run` | Hash-verified frozen handoffs, new clean acceptance, guard. No rebuild fallback. |
 | `guard-only` | original SHA, `candidate_run`, explicit `evidence_run` | Restore exact handoffs/evidence and recheck only. No build or acceptance. |
 
-The macOS `guard-only` reuse path currently rejects the normal `/var` →
+The macOS `guard-only` path previously rejected the normal `/var` →
 `/private/var` temporary-directory alias as a symlink. The
-[failed release attempt](https://github.com/masahitojp/mariamem/actions/runs/37108460866)
-and reduced helper reproduction confirmed this; v0.4.0 publication used `full`.
-Use the verified `full` path until reuse-path hardening is separately accepted.
+[v0.4.0 failed release attempt](https://github.com/masahitojp/mariamem/actions/runs/37108460866)
+confirmed this; v0.4.0 publication used `full`. The generated reuse and public
+smoke helpers now canonicalize owned staging paths instead of relying on a
+workflow `TMPDIR` override.
+
+Freshly created, owned temporary staging directories must be canonicalized with
+`Path(temporary).resolve()` before strict archive destination checks. macOS can
+return a system temporary path through `/var` → `/private/var`; that host alias
+must not be mistaken for an unsafe archive destination. Keep member traversal,
+archive-link, destination-symlink and overwrite rejection intact. The generated
+reuse regression tests simulate a symlinked system temporary directory on every
+platform, independently of CI `TMPDIR` overrides.
 
 Artifacts expire after 14 days. Missing/expired artifacts, ambiguous identities,
 unsafe archive entries, overwritten files, changed source/version/guest/notices,

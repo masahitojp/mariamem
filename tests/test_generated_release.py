@@ -56,6 +56,71 @@ def test_evidence_zip_rejects_unknown_and_duplicates(tmp_path):
     with pytest.raises(ValueError,match='duplicate'):ci.unzip(archive,tmp_path/'dest')
 
 
+@pytest.mark.parametrize('mode', ['acceptance-only', 'guard-only'])
+def test_generated_reuse_with_symlinked_system_temp(tmp_path, monkeypatch, mode):
+    # Reproduce macOS /var -> /private/var on every CI platform, regardless
+    # of TMPDIR overrides or pytest's own canonical temporary directory.
+    physical = tmp_path.resolve() / 'physical-temp'
+    physical.mkdir()
+    alias = tmp_path.resolve() / 'system-temp'
+    alias.symlink_to(physical, target_is_directory=True)
+    monkeypatch.setattr(ci.tempfile, 'tempdir', str(alias))
+    root = tmp_path.resolve() / 'checkout'
+    root.mkdir()
+    payload = b'guest fixture'
+    handoff = io.BytesIO()
+    with tarfile.open(fileobj=handoff, mode='w') as tar:
+        member = tarfile.TarInfo('build/generated-release/guest.json')
+        member.size = len(payload)
+        tar.addfile(member, io.BytesIO(payload))
+    import hashlib
+    requests = []
+
+    class FixtureGitHub:
+        def __init__(self, *args): pass
+        def artifact(self, run, name, commit, destination):
+            requests.append((run, name))
+            with zipfile.ZipFile(destination, 'w') as archive:
+                if name.startswith('release-candidate-'):
+                    archive.writestr('candidate-handoff.tar', handoff.getvalue())
+                    archive.writestr('candidate-handoff.sha256',
+                                     hashlib.sha256(handoff.getvalue()).hexdigest())
+                else:
+                    archive.writestr('build/release/generated-acceptance.json', '{}')
+                    archive.writestr('tests/evidence/alpha.json', '{}')
+
+    monkeypatch.setattr(ci, 'GitHub', FixtureGitHub)
+    # Path restoration uses real ZIP/TAR validation; unrelated expensive
+    # artifact/source/consumer verification is covered by the other tests.
+    for name in ('verify_build', 'verify_source', 'verify_wheel'):
+        monkeypatch.setattr(ci, name, lambda *args: None)
+    guards = []
+    monkeypatch.setattr(ci, 'guard', lambda *args: guards.append(args))
+    ci.restore_platform(root, 'a'*40, release.DARWIN, mode,
+                        candidate_run=123, evidence_run=456)
+    assert (root/'build/generated-release/guest.json').read_bytes() == payload
+    assert len(requests) == (2 if mode == 'guard-only' else 1)
+    if mode == 'guard-only':
+        assert (root/'build/release/generated-acceptance.json').read_text() == '{}'
+        assert (root/'tests/evidence/alpha.json').read_text() == '{}'
+        assert guards == [(root, 'a'*40, release.DARWIN)]
+    assert not list(physical.iterdir())  # Owned scratch is removed on success.
+
+
+def test_reuse_evidence_still_rejects_destination_symlink(tmp_path):
+    root = tmp_path.resolve() / 'checkout'
+    root.mkdir()
+    outside = tmp_path.resolve() / 'outside'
+    outside.mkdir()
+    (root/'build').symlink_to(outside, target_is_directory=True)
+    archive = tmp_path/'evidence.zip'
+    with zipfile.ZipFile(archive, 'w') as z:
+        z.writestr('build/release/generated-acceptance.json', '{}')
+    with pytest.raises(ValueError, match='symlink'):
+        ci.unzip(archive, root)
+    assert not list(outside.iterdir())
+
+
 def test_toolchain_recipe_exact_pins():
     pins=json.loads((ROOT/'release/generated-go-toolchain.json').read_text())
     assert pins['llvm']=='23.1.0' and pins['sysroot_variant']=='sysroot-eh'

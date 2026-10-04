@@ -91,7 +91,7 @@ def unzip(path,destination,candidate=False):
 def restore_platform(root,commit,platform,mode,archive=None,sha=None,candidate_run=None,evidence_run=None):
     checkout(root,commit)
     with tempfile.TemporaryDirectory(prefix='mariamem-v04-reuse-') as temporary:
-        work=Path(temporary)
+        work=Path(temporary).resolve()
         api=GitHub(os.environ.get('GITHUB_REPOSITORY','masahitojp/mariamem'),os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN'))
         if mode!='full':
             require(candidate_run and int(candidate_run)>0,'original candidate run required; no rebuild fallback')
@@ -126,7 +126,7 @@ def public_smoke(root,commit,platform,publication,repository):
     record=read(publication); require(record['status']=='PUBLISHED' and record['source_commit']==commit,'publication not accepted')
     require(set(record['assets'])==expected_names(version(root)['PYTHON_VERSION'])|{'SHA256SUMS'},'published asset contract differs')
     with tempfile.TemporaryDirectory(prefix='mariamem-v04-public-') as temporary:
-        work=Path(temporary)
+        work=Path(temporary).resolve()
         subprocess.run(['gh','release','download',record['git_tag'],'--repo',repository,'--dir',work],check=True)
         verify_downloads(work,record['assets'])
         # The existing frozen wheel metadata is reconstructed from accepted
