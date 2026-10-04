@@ -17,5 +17,5 @@ Close and cold Snapshot/Fork semantics are unchanged. No memory backing,
 reclaim/soak or Snapshot optimization is included.
 
 Supported release targets remain macOS 15+ arm64 and Ubuntu 24.04 x86_64,
-with canonical Go 1.26.8 / Python 3.14 validation. This candidate is submitted
-to publication-free Release CI verify; no tag or publication is authorized.
+with canonical Go 1.26.8 / Python 3.14 validation. Release CI builds and verifies
+the exact integrated candidate on both platforms before publication and public smoke.

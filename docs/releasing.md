@@ -1,9 +1,10 @@
 # Releasing mariamem
 
 The canonical package version is `v0.4.1`; Python spelling is `0.4.1`.
-The final candidate and [tracked notes](../release/NOTES-v0.4.1.md) are prepared,
-but no tag or release has been published. Submit the exact final pushed SHA to
-Release CI **verify** before any separately authorized release operation.
+The integrated candidate and [tracked notes](../release/NOTES-v0.4.1.md) are prepared
+for the explicitly authorized release submission. Release CI full mode verifies
+the exact final pushed SHA before publishing its accepted artifacts and running
+public smoke; no tag or release has been published during preparation.
 
 ## Exact-source release boundary
 
