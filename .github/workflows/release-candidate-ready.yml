@@ -167,6 +167,10 @@ jobs:
             runner: macos-15
           - platform: ubuntu24.04-x86_64
             runner: ubuntu-24.04
+    env:
+      # macOS default tempfile paths use /var -> /private/var. Keep strict
+      # archive destination checks by using the runner-owned physical scratch.
+      TMPDIR: ${{ runner.temp }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
