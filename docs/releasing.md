@@ -1,7 +1,7 @@
 # Releasing mariamem
 
-The canonical package version is `v0.4.0`; Python spelling is `0.4.0`.
-The final candidate and [tracked notes](../release/NOTES-v0.4.0.md) are prepared,
+The canonical package version is `v0.4.1`; Python spelling is `0.4.1`.
+The final candidate and [tracked notes](../release/NOTES-v0.4.1.md) are prepared,
 but no tag or release has been published. Submit the exact final pushed SHA to
 Release CI **verify** before any separately authorized release operation.
 

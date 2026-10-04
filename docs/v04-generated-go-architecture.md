@@ -268,10 +268,11 @@ version-controlled ownership adapters, outside the unchanged WASM-transpilation
 inventory. Regeneration copies these ordinary source files automatically. Guest,
 converter, pins and generated provenance hashes remain unchanged.
 
-## Deferred packaging removal
+## Distribution cleanup (v0.4.1)
 
-The default no longer imports `internal/builtinruntime`: encoded platform images,
-image provisioning/checksum-at-Start and private executable cleanup can be removed
-in a later packaging task. Old image verification metadata, diagnostic guest CLI,
-spawn wrapper and explicit legacy bundle/cache infrastructure remain isolated.
-No broad artifact deletion is included in this migration.
+v0.4.1 removes the unreferenced
+`internal/builtinruntime` package, its encoded platform images, image-only metadata
+and embed script. Canonical generated source/guest verification remains required.
+The diagnostic guest CLI, generic spawn wrapper and explicit legacy bundle/cache
+infrastructure remain intact. Python still builds its linked host-only wheel.
+Runtime execution and the fallback contract are unchanged. See [distribution audit](../benchmarks/v041-distribution-cleanup.md).
