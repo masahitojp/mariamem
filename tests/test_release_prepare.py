@@ -137,6 +137,19 @@ def test_skill_is_repository_only_source_coverage_unchanged():
     assert 'scripts/release_prepare.py' in files
 
 
+@pytest.mark.parametrize('worktree', [False, True])
+def test_public_source_excludes_git_metadata(tmp_path, worktree):
+    from check_public import check
+    (tmp_path / 'LICENSE').write_text('license text')
+    metadata = tmp_path / '.git'
+    if worktree:
+        metadata.write_text('gitdir: private-repository-metadata')
+    else:
+        metadata.mkdir()
+        (metadata / 'config').write_text('private-repository-metadata')
+    assert set(check(tmp_path)['files']) == {'LICENSE'}
+
+
 @pytest.mark.parametrize("tag,stage,serial", [("v0.1.0", "", "0"), ("v0.1.0-alpha.4", "alpha", "4"), ("v0.1.0-beta.1", "beta", "1"), ("v0.1.0-rc.1", "rc", "1")])
 def test_supported_versions(tag, stage, serial):
     assert release.parse_version(tag) == ("0", "1", "0", stage, serial)

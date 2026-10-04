@@ -33,6 +33,9 @@ def public_files(root=None):
         for name in files:
             path = base / name
             rel = path.relative_to(root)
+            # Linked worktrees use a root .git file rather than a directory.
+            if rel.parts == (".git",):
+                continue
             if name == ".DS_Store" or path.suffix == ".pyc":
                 continue
             if rel.as_posix() in REPOSITORY_ONLY_FILES:
