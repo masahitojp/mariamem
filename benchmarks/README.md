@@ -406,6 +406,7 @@ separate Start observation; it must not replace prepared scaling.
 
 Normal acceptance and focused handwritten/runtime race tests precede measurement.
 The full generated guest is not Go race-detector clean; the documented v0.4 scope
-retains the diagnostic/evidence without suppression and defers broader shared-memory
-adaptation to re-evaluation with the v0.5 guest/toolchain update. It is not a v0.4
-release gate. This is not a claim that the observed races are harmless.
+retains the diagnostic/evidence without suppression. The
+[current roadmap](../docs/project-status.md) owns the v0.4.2 memory-contract gate,
+v0.4.3 product comparison and v0.5 guest/toolchain race-census follow-up. The full
+race diagnostic is not a v0.4 release gate; observed races are not called harmless.

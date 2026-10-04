@@ -38,8 +38,10 @@ full-guest diagnostic to pass as a release gate. See the
 [race investigation](../benchmarks/direct-link-race-scope.md) and
 [direct-link baseline](../benchmarks/v04-direct-link-baseline.md).
 Focused handwritten FD/filesystem/thread/TLS/futex race tests remain mandatory.
-Broader WASM↔Go shared-memory adaptation is deferred until the planned v0.5
-MariaDB/WASIX/toolchain update; these races are not claimed harmless.
+The [current roadmap](project-status.md) separates the v0.4.2 memory-contract
+validation gate from the v0.5 stable-guest/toolchain race census. A backing change
+does not prove the full shared-memory model race-clean; these races are not
+claimed harmless.
 To observe the full-guest limitation explicitly (expected to fail, diagnostic only):
 
 ```sh

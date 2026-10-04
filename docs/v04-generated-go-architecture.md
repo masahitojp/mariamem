@@ -10,9 +10,10 @@ the [direct-link baseline](../benchmarks/v04-direct-link-baseline.md) is the pre
 The [investigation](../benchmarks/direct-link-race-scope.md) found a general shared-memory
 adaptation problem, not 149 independent bugs or harmless reports. No suppression
 is used. The full-guest diagnostic is not a v0.4 release gate; focused handwritten
-FD/filesystem/thread/TLS/futex race tests remain enabled. Broader adaptation is
-deferred for re-evaluation after the v0.5 guest/toolchain update; the
-[current roadmap](project-status.md) owns version themes and decision gates.
+FD/filesystem/thread/TLS/futex race tests remain enabled. The
+[current roadmap](project-status.md) owns the v0.4.2 memory-contract gate and
+v0.5 guest/toolchain race-census follow-up; a backing change does not settle the
+broader adaptation problem.
 This decision does not establish production race correctness or forced reclamation of hung
 in-process execution.
 
@@ -272,11 +273,12 @@ version-controlled ownership adapters, outside the unchanged WASM-transpilation
 inventory. Regeneration copies these ordinary source files automatically. Guest,
 converter, pins and generated provenance hashes remain unchanged.
 
-## Deferred packaging removal
+## Distribution and legacy consolidation
 
-The default no longer imports `internal/builtinruntime`: encoded platform images,
-image provisioning/checksum-at-Start and private executable cleanup can be removed
-in a later packaging task. Old image verification metadata, diagnostic guest CLI,
-spawn wrapper and explicit legacy bundle/cache infrastructure remain isolated.
-The [current roadmap](project-status.md) treats cleanup as a tentative polish
-candidate, preserving required legacy fallback rather than deleting it wholesale.
+The accepted v0.4.1 distribution candidate removes the unreferenced
+`internal/builtinruntime` package and image-only metadata/provisioning. Normal
+generated code and Python host-only packaging are preserved. Diagnostic guest
+CLI/spawn scaffolding and intentionally supported legacy bundle/cache machinery
+are separate. The [current roadmap](project-status.md) keeps distribution polish
+in v0.4.1, lifecycle work in v0.4.2 and conditional legacy retirement in v0.4.3;
+this architecture record does not authorize broader removal.
