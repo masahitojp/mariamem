@@ -1,0 +1,298 @@
+{
+  "date": "2026-10-04",
+  "result": "PASS LOCAL DISTRIBUTION VALIDATION",
+  "base_sha": "39537e9bb2fbbc28315e1ff672960ad734a9e399",
+  "implementation_sha": "01d39dffedbb3f2af00395a6cc7b1a627cdd4c8e",
+  "environment": {
+    "go": "go version go1.26.8 darwin/arm64",
+    "os_version": "27.0.1",
+    "arch": "arm64"
+  },
+  "zip_algorithm": {
+    "library": "golang.org/x/mod/zip v0.4.2",
+    "api": "CreateFromDir",
+    "input": "exact git archive extraction, one commit at a time",
+    "module_prefix": "github.com/masahitojp/mariamem@v0.4.0",
+    "ordering": "CreateFromDir sorted filesystem traversal"
+  },
+  "module_zip": {
+    "before": {
+      "bytes": 120818662,
+      "sha256": "b9594b203bc23e13e948d60ae0c60cdac5ef712e7b2cdd954743fde0341ad387",
+      "members": 583,
+      "uncompressed_bytes": 344095170,
+      "encoded_image_compressed_bytes": 88171122
+    },
+    "after": {
+      "bytes": 32645673,
+      "sha256": "054f40701c02fcba3d77755c6313f6f2746155445a60fc5ad551397b67b20bff",
+      "members": 578,
+      "uncompressed_bytes": 226788848,
+      "encoded_image_compressed_bytes": 0
+    }
+  },
+  "module_content_comparison": {
+    "removed": [
+      "internal/builtinruntime/image_darwin_arm64.go",
+      "internal/builtinruntime/image_linux_amd64.go",
+      "internal/builtinruntime/image_unsupported.go",
+      "internal/builtinruntime/provenance.json",
+      "internal/builtinruntime/runtime.go",
+      "internal/builtinruntime/runtime_test.go",
+      "scripts/embed_generated_runtime.py"
+    ],
+    "added": [
+      "benchmarks/v041-distribution-cleanup.md",
+      "tests/test_generated_runtime_inventory.py"
+    ],
+    "changed": [
+      "docs/development.md",
+      "docs/v04-generated-go-architecture.md",
+      "docs/v04-guest-reproducibility.md",
+      "scripts/verify_generated_runtime.py"
+    ],
+    "generated_guest_members_unchanged": 65,
+    "guest_changes": []
+  },
+  "wheel": {
+    "bytes": 44786051,
+    "sha256": "282f3c5bfa342fd4190c53f12fea639f72aaefdfb2679d390a66fffffdb04d46",
+    "native_files": [
+      "mariamem-0.4.0.data/purelib/mariamem/_native/manifest.json",
+      "mariamem-0.4.0.data/purelib/mariamem/_native/mariamem-host"
+    ],
+    "build_receipt_sha256": "63579d82ca7ad13e69506cd02922e5c6fb81696686bd80e20b89796fac155899",
+    "build_receipt": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results/alpha-wheel.json"
+  },
+  "completed_phases": [
+    {
+      "name": "check",
+      "command": [
+        "<python>",
+        "scripts/verify.py",
+        "check"
+      ],
+      "returncode": 0,
+      "log_sha256": "65b8c97a1d30e72e47ca35d9d3021d45d85ba08b314bbadbc92bfaa6c0f6c376",
+      "evidence_log": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/check.log"
+    },
+    {
+      "name": "integration",
+      "command": [
+        "<python>",
+        "scripts/verify.py",
+        "integration"
+      ],
+      "returncode": 0,
+      "log_sha256": "50dee37ca82e03ad3f5350c3a9f2ce4b191d8afa9c0915f2eb0af056927d5648",
+      "evidence_log": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/integration.log"
+    },
+    {
+      "name": "legacy",
+      "command": [
+        "go",
+        "test",
+        "-tags=integration",
+        "./tests/gointegration",
+        "-run",
+        "^TestPublicLifecycle$",
+        "-count=1",
+        "-timeout=3m"
+      ],
+      "returncode": 0,
+      "log_sha256": "a4172df8268a9ebfa0b248ae03db48fb6afbdbb8f9f74bb9c4d761d357ea76e2",
+      "evidence_log": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/legacy.log"
+    },
+    {
+      "name": "wheel-build",
+      "command": [
+        "<workspace>/build/mariamem-work/final-v040-prep-fdxefs0v/venv/bin/python",
+        "scripts/build_alpha.py",
+        "--ci-candidate"
+      ],
+      "cwd": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/candidate",
+      "elapsed_seconds": 14.27966674999334,
+      "returncode": 0,
+      "log_sha256": "b3d006461361f4b9a68567d73c7b7064bba1a6c63bd5421c58bf8708f69d1d45",
+      "evidence_log": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results/wheel-build.log"
+    },
+    {
+      "name": "installed-wheel",
+      "command": [
+        "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work/wheel-env/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work/test_generated_platform.py"
+      ],
+      "cwd": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work",
+      "elapsed_seconds": 1.352722540992545,
+      "returncode": 0,
+      "log_sha256": "4ed0087a1bfecddfdbb0b5972380dc645310e783b065eee0345091c39840326e",
+      "evidence_log": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-03/installed-wheel.log"
+    },
+    {
+      "name": "wheel-snapshot-smoke",
+      "command": [
+        "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work/wheel-env/bin/python",
+        "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work/wheel-smoke.py"
+      ],
+      "cwd": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work",
+      "elapsed_seconds": 1.7315115419914946,
+      "returncode": 0,
+      "log_sha256": "871404e148fa1ab50f06961135ed3935654ed4de09ebfd5ff54ed104653f4845",
+      "evidence_log": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-03/wheel-snapshot-smoke.log"
+    },
+    {
+      "name": "modulezip-before",
+      "command": [
+        "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work/modulezip",
+        "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work/source-before",
+        "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-03/before.zip"
+      ],
+      "cwd": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work",
+      "elapsed_seconds": 5.290836165993824,
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "evidence_log": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-03/modulezip-before.log"
+    },
+    {
+      "name": "modulezip-after",
+      "command": [
+        "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work/modulezip",
+        "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work/source-after",
+        "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-03/after.zip"
+      ],
+      "cwd": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work",
+      "elapsed_seconds": 3.164416457992047,
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "evidence_log": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-03/modulezip-after.log"
+    },
+    {
+      "name": "external-download",
+      "command": [
+        "<go1.26.8>/bin/go",
+        "mod",
+        "download",
+        "github.com/masahitojp/mariamem@v0.4.0"
+      ],
+      "cwd": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work/consumer",
+      "elapsed_seconds": 1.8187712499930058,
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "evidence_log": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-04/external-download.log"
+    },
+    {
+      "name": "external-tidy",
+      "command": [
+        "<go1.26.8>/bin/go",
+        "mod",
+        "tidy"
+      ],
+      "cwd": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work/consumer",
+      "elapsed_seconds": 1.3339432920038234,
+      "returncode": 0,
+      "log_sha256": "bc341a6fc6cd5119497626cfa7308723f86f7225818b7c510b976030d8f41c30",
+      "evidence_log": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-04/external-tidy.log"
+    },
+    {
+      "name": "external-consumer",
+      "command": [
+        "<go1.26.8>/bin/go",
+        "test",
+        "-tags=integration",
+        "-count=1",
+        "-timeout=3m",
+        "./..."
+      ],
+      "cwd": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-work/consumer",
+      "elapsed_seconds": 13.34772733299178,
+      "returncode": 0,
+      "log_sha256": "ceb7b403bfa9e2d2d8f792abf8f2c0625b16ac464e2321c10be7c14b39bf99a9",
+      "evidence_log": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-04/external-consumer.log"
+    }
+  ],
+  "attempts": [
+    {
+      "name": "resume-results",
+      "result": "STOPPED",
+      "error": "installed-wheel failed",
+      "guard": {
+        "global_free_floor_bytes": 8589934592,
+        "new_work_max_bytes": 1073741824,
+        "sample_seconds": 0.25,
+        "owned_scratch_peak_bytes": 427348064,
+        "minimum_free_bytes": 28016640000
+      },
+      "cleanup": {
+        "owned_scratch_removed": true,
+        "existing_source_and_shared_cache_retained": true
+      },
+      "raw_result_sha256": "27dee40a4e50acf171d1b9504c645430dd1ae4a39b7461969781a6b37cf64d44",
+      "raw_result": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results/result.json"
+    },
+    {
+      "name": "resume-results-02",
+      "result": "STOPPED",
+      "error": "installed-wheel failed",
+      "guard": {
+        "global_free_floor_bytes": 8589934592,
+        "new_work_max_bytes": 1073741824,
+        "sample_seconds": 0.25,
+        "owned_scratch_peak_bytes": 138185429,
+        "minimum_free_bytes": 28303360000
+      },
+      "cleanup": {
+        "owned_scratch_removed": true,
+        "existing_source_and_shared_cache_retained": true
+      },
+      "raw_result_sha256": "6512fa7499f5fcd68eebc8efb32d2b1d000444fb6213884c1cb526c25b063d4a",
+      "raw_result": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-02/result.json"
+    },
+    {
+      "name": "resume-results-03",
+      "result": "STOPPED",
+      "error": "disk guard stop: owned=1097751728, free=24722366464",
+      "guard": {
+        "global_free_floor_bytes": 8589934592,
+        "new_work_max_bytes": 1073741824,
+        "sample_seconds": 0.25,
+        "owned_scratch_peak_bytes": 1097751728,
+        "minimum_free_bytes": 24722366464
+      },
+      "cleanup": {
+        "owned_scratch_removed": true,
+        "existing_source_and_shared_cache_retained": true
+      },
+      "raw_result_sha256": "1478a97a42c2b33e3f029c205cf512c89a265187cbb429e174a7d21def565bdd",
+      "raw_result": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-03/result.json"
+    },
+    {
+      "name": "resume-results-04",
+      "result": "PASS",
+      "error": null,
+      "guard": {
+        "global_free_floor_bytes": 8589934592,
+        "new_work_max_bytes": 1073741824,
+        "sample_seconds": 0.25,
+        "owned_scratch_peak_bytes": 685124756,
+        "minimum_free_bytes": 24989646848
+      },
+      "cleanup": {
+        "owned_scratch_removed": true,
+        "existing_source_and_shared_cache_retained": true
+      },
+      "raw_result_sha256": "df6dd98f5af7d0b0ca6989cd872f838866caaea7d6baa1f36a069416cd55dd14",
+      "raw_result": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume-results-04/result.json"
+    }
+  ],
+  "normal_runtime_cache_entries": [],
+  "scope": "macOS arm64 local unpublished module fixture; no Linux validation, timing benchmark, merge or publication",
+  "dependencies": {
+    "method": "existing validation venv site-packages appended after installed-wheel site-packages",
+    "path": "<workspace>/build/mariamem-work/final-v040-prep-fdxefs0v/venv/lib/python3.14/site-packages"
+  },
+  "reproduction_harness": "<workspace>/build/mariamem-work/fanout-v041-debts/evidence/distribution/resume.py",
+  "reproduction_harness_sha256": "40ef4f05077f8398caa3aa3377635921caeff1749f9a113dd0d192c003168ce0"
+}

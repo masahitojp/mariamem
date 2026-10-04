@@ -27,7 +27,7 @@ this normal-path scope: `tests/test_python_timeout.py::test_query_timeout_dispos
 is retained unchanged and was observed to fail with `guest cleanup timed out`
 on direct-link. Explicit legacy integration still runs that failure-containment
 test. Do not represent it as passing for direct-link. Installed-wheel SQLAlchemy and outside-checkout
-GORM remain separate consumer acceptance. Generated source/image checks run in
+GORM remain separate consumer acceptance. Generated source/guest identity checks run in
 `check`; the narrow generated-function vet exception is documented in the
 [architecture](v04-generated-go-architecture.md). The older bundle/AOT workflow
 below remains available for explicit legacy/fallback builds, not normal v0.4 use.

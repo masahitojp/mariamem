@@ -1,12 +1,9 @@
 # Releasing mariamem
 
-The canonical package version is `v0.4.0`; Python spelling is `0.4.0`.
-[v0.4.0 is published](https://github.com/masahitojp/mariamem/releases/tag/v0.4.0)
-from `39537e9bb2fbbc28315e1ff672960ad734a9e399`;
-[Release CI](https://github.com/masahitojp/mariamem/actions/runs/37109036059)
-passed both platform public smokes. See [notes](../release/NOTES-v0.4.0.md) and
-[current status / roadmap](project-status.md). Future releases require exact-SHA
-verify and a separately authorized release operation.
+The canonical package version is `v0.4.1`; Python spelling is `0.4.1`.
+The final candidate and [tracked notes](../release/NOTES-v0.4.1.md) are prepared,
+but no tag or release has been published. Submit the exact final pushed SHA to
+Release CI **verify** before any separately authorized release operation.
 
 ## Exact-source release boundary
 

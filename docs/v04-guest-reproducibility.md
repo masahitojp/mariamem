@@ -232,7 +232,8 @@ above on the pinned recipe, then translate with the new exact guest hash. Pass
 and its resulting module to scripts/generate_runtime.py. That installer rejects
 any candidate inventory differing from release/generated-go-inputs.json and
 recursively transforms all generated packages; no manual generated-Go edit.
-Regenerate required compatibility images with scripts/embed_generated_runtime.py
-and verify using scripts/verify_generated_runtime.py. Ordinary Go startup does not
-use those images. Historical manifest/recipe evidence is retained, not silently
-rewritten. No licensing/notices or legacy fallback removal occurs in this update.
+Verify the canonical generated source with scripts/verify_generated_runtime.py.
+v0.4.1 removes unused encoded executables
+and image-only verification/provisioning. Canonical guest/source/toolchain
+provenance remains required and unchanged. Historical recipe evidence remains
+in the existing reports and Git history. No licenses or legacy fallback are removed.
