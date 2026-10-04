@@ -1,6 +1,6 @@
 ---
 name: release
-description: Prepare and submit a mariamem release when the human explicitly requests release <version>; never choose the version.
+description: Prepare and submit a mariamem release when the human explicitly requests a versioned release; never choose the version.
 ---
 
 # Release mariamem
@@ -20,8 +20,13 @@ means stop and request it; never infer, choose, or recommend a next version.
 The request authorizes preparation, commit, push, and release workflow dispatch
 as one transaction. Do not ask for a second publication approval.
 
-1. Before edits, run `python3 scripts/release_prepare.py preflight <version>`.
-   Stop on failure. This checks project-supported version syntax, clean tree,
+Use the canonical Go toolchain (`GOTOOLCHAIN=go1.26.8`) and a Python environment
+with `pytest` and `PyMySQL` available for every preparation command. Check these
+before submit; create an ignored or temporary venv if needed. Do not modify the
+global Python installation.
+
+1. Before edits, run `python scripts/release_prepare.py preflight <version>`.
+   Stop on unmet release-policy prerequisites. This checks project-supported version syntax, clean tree,
    main/origin identity, fast-forward remote history, and unused tag/release.
    Inspect any unpushed history; include only history belonging to this release,
    never silently include unrelated commits. Do not reset/discard dirty changes.
@@ -34,11 +39,15 @@ as one transaction. Do not ask for a second publication approval.
    `release/NOTES-vX.Y.Z.md` for stable releases, matching the project style
    in `release/NOTES-alpha.4.md`, with a heading containing the exact requested
    tag. Summarize actual changes; do not invent product/performance claims.
-4. Run `python3 scripts/release_prepare.py submit <version>`. It restricts the
+4. Run `GOTOOLCHAIN=go1.26.8 <venv>/bin/python scripts/release_prepare.py submit <version>`. It restricts the
    diff to preparation files, invokes `scripts/verify.py check`, commits that
    explicit file set, pushes normally, verifies exact remote source SHA, and
    dispatches existing Release CI with `mode=full`, `operation=release`.
-   Stop on failure; never force-push or silently retry a possibly submitted run.
+   If failure is confirmed to precede workflow dispatch, repair routine local
+   environment problems and retry under the existing release authorization.
+   Preserve preparation changes and inspect commit/push state before retrying.
+   Stop on policy/acceptance failures or ambiguous dispatch status; never
+   force-push or retry a possibly submitted run.
 5. Once submit succeeds, immediately report the returned version, candidate SHA,
    and workflow URL. Do not poll, wait, or supervise CI.
 
