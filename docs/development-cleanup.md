@@ -4,6 +4,11 @@ This is development housekeeping on `v0.4/generated-go-integration`, from
 `b7bdf27fbf54a2fab3a352136a193aa09cf2766f`. It changes neither production
 runtime selection nor release publication.
 
+For new fan-out work, use the owned workspace and disk guard described in
+[Disposable experiment workspace](experiment-workspace.md). Its cleanup defaults
+to dry-run and leaves unmanaged legacy data for REVIEW. The historical allowlist
+here is retained for its original scope.
+
 ## Keep source separate from disposable outputs
 
 From the public repository root, the local workspace convention is:

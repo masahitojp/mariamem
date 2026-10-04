@@ -1,0 +1,377 @@
+{
+  "date": "2026-10-04",
+  "scope": "development storage only; no runtime changes and no soak/backing-memory execution",
+  "measurement": "du -sk allocated KiB converted to bytes; filesystem free space varies with unrelated activity",
+  "before_bytes": {
+    ".": 28810268672,
+    "build/mariamem-work": 12047757312,
+    "build/mariamem-cache": 2094641152,
+    "publish/mariamem": 12311273472,
+    "publish/mariamem/build": 11333578752
+  },
+  "after_bytes": {
+    ".": 26488098816,
+    "build/mariamem-work": 12050931712,
+    "build/mariamem-cache": 2094641152,
+    "publish/mariamem": 9985929216,
+    "publish/mariamem/build": 9008222208
+  },
+  "removed": [
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/source",
+      "kind": "source-copy"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-decision/source",
+      "kind": "source-copy"
+    },
+    {
+      "path": "publish/mariamem/build/distribution-decision/direct/source",
+      "kind": "source-copy"
+    },
+    {
+      "path": "publish/mariamem/build/distribution-decision/embedded/source",
+      "kind": "source-copy"
+    },
+    {
+      "path": "publish/mariamem/build/distribution-decision/external/source",
+      "kind": "source-copy"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/go126-trial1-stripped",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/go126-ci-stripped",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/master-test",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/driver-baseline-stripped",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/go1260-app",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/driver-baseline-default",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/master-stripped",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/go126-trial1-test",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/go1260-stripped",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/go126-ci-app",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/go1260-test",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/go126-ci-test",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/go126-trial1-app",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final/master-app",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/pgmem-consumer/pgmem126-stripped",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/pgmem-consumer/pgmem126-app",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/pgmem-consumer/pgmem126-test",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/bench/competitive-linux",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/bench/isolation-go",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/bench/practical-suite",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/bench/process-cost",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/directlink-probe/probe",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/distribution-decision/direct/pinned-app",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/wasm2go-spike/wasm2go",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/wasm2go-spike/wasm2go-import-shim",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/wasm2go-spike/wasm2go-memory-shim",
+      "kind": "reproducible-binary"
+    },
+    {
+      "path": "publish/mariamem/build/sqlalchemy-dogfood/venv",
+      "kind": "stale-venv"
+    },
+    {
+      "path": "publish/mariamem/build/v03-acceptance/venv",
+      "kind": "stale-venv"
+    }
+  ],
+  "large_remaining_paths": [
+    {
+      "path": "build/mariamem-work/cleanup-check-source",
+      "bytes": 70496256,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "build/mariamem-work/default-final-owned-source",
+      "bytes": 392314880,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "build/mariamem-work/delivery-traced-source",
+      "bytes": 205869056,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "build/mariamem-work/direct-link-owned-source",
+      "bytes": 343191552,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "build/mariamem-work/evidence-before-cleanup",
+      "bytes": 84377600,
+      "class": "KEEP",
+      "reason": "retained evidence/profiles, expensive module cache or source/license closure"
+    },
+    {
+      "path": "build/mariamem-work/fanout-v04",
+      "bytes": 2013196288,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "build/mariamem-work/fanout-v041",
+      "bytes": 502054912,
+      "class": "KEEP",
+      "reason": "retained evidence/profiles, expensive module cache or source/license closure"
+    },
+    {
+      "path": "build/mariamem-work/fanout-v041-debts",
+      "bytes": 200343552,
+      "class": "KEEP",
+      "reason": "retained evidence/profiles, expensive module cache or source/license closure"
+    },
+    {
+      "path": "build/mariamem-work/final-v040-prep-fdxefs0v",
+      "bytes": 347578368,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "build/mariamem-work/license-audit",
+      "bytes": 67497984,
+      "class": "KEEP",
+      "reason": "retained evidence/profiles, expensive module cache or source/license closure"
+    },
+    {
+      "path": "build/mariamem-work/release-ci-migration",
+      "bytes": 6189404160,
+      "class": "KEEP",
+      "reason": "expensive Go cache and source input archives; other raw data retained"
+    },
+    {
+      "path": "build/mariamem-work/v04-canonical-clean-checkout",
+      "bytes": 345067520,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "build/mariamem-work/v04-canonical-owned-source",
+      "bytes": 343494656,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "build/mariamem-work/v04-integrated",
+      "bytes": 700850176,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-decision",
+      "bytes": 273436672,
+      "class": "KEEP",
+      "reason": "remaining reusable compiler/module cache, current environment and compact evidence"
+    },
+    {
+      "path": "publish/mariamem/build/direct-consumer-final",
+      "bytes": 637800448,
+      "class": "KEEP",
+      "reason": "remaining reusable compiler/module cache, current environment and compact evidence"
+    },
+    {
+      "path": "publish/mariamem/build/dist",
+      "bytes": 270139392,
+      "class": "KEEP",
+      "reason": "cache, dependency/license source closure, pinned guest/fallback or required release input/artifact"
+    },
+    {
+      "path": "publish/mariamem/build/distribution-decision",
+      "bytes": 691617792,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "publish/mariamem/build/fixed-reference-native",
+      "bytes": 87166976,
+      "class": "KEEP",
+      "reason": "cache, dependency/license source closure, pinned guest/fallback or required release input/artifact"
+    },
+    {
+      "path": "publish/mariamem/build/gocache",
+      "bytes": 1770635264,
+      "class": "KEEP",
+      "reason": "cache, dependency/license source closure, pinned guest/fallback or required release input/artifact"
+    },
+    {
+      "path": "publish/mariamem/build/gorm-dogfood",
+      "bytes": 85835776,
+      "class": "KEEP",
+      "reason": "cache, dependency/license source closure, pinned guest/fallback or required release input/artifact"
+    },
+    {
+      "path": "publish/mariamem/build/gorm-preparation",
+      "bytes": 627544064,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "publish/mariamem/build/guest",
+      "bytes": 87396352,
+      "class": "KEEP",
+      "reason": "cache, dependency/license source closure, pinned guest/fallback or required release input/artifact"
+    },
+    {
+      "path": "publish/mariamem/build/pgmem-consumer",
+      "bytes": 416497664,
+      "class": "KEEP",
+      "reason": "remaining reusable compiler/module cache, current environment and compact evidence"
+    },
+    {
+      "path": "publish/mariamem/build/release",
+      "bytes": 309997568,
+      "class": "KEEP",
+      "reason": "cache, dependency/license source closure, pinned guest/fallback or required release input/artifact"
+    },
+    {
+      "path": "publish/mariamem/build/runtime-notices",
+      "bytes": 1402896384,
+      "class": "KEEP",
+      "reason": "cache, dependency/license source closure, pinned guest/fallback or required release input/artifact"
+    },
+    {
+      "path": "publish/mariamem/build/source",
+      "bytes": 926752768,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    },
+    {
+      "path": "publish/mariamem/build/sqlalchemy-dogfood",
+      "bytes": 313237504,
+      "class": "KEEP",
+      "reason": "remaining reusable compiler/module cache, current environment and compact evidence"
+    },
+    {
+      "path": "publish/mariamem/build/tools",
+      "bytes": 472477696,
+      "class": "KEEP",
+      "reason": "cache, dependency/license source closure, pinned guest/fallback or required release input/artifact"
+    },
+    {
+      "path": "publish/mariamem/build/v04-baseline-release",
+      "bytes": 150114304,
+      "class": "KEEP",
+      "reason": "cache, dependency/license source closure, pinned guest/fallback or required release input/artifact"
+    },
+    {
+      "path": "publish/mariamem/build/wasm2go-spike",
+      "bytes": 186126336,
+      "class": "REVIEW",
+      "reason": "mixed retained evidence/cache/input or source with differences; no blanket deletion"
+    }
+  ],
+  "preserved": [
+    "all committed source and local/pushed branch refs",
+    "reports, compact evidence, checksums, selected profiles and previous cleanup archives",
+    "build/mariamem-cache (outer shared cache)",
+    "build/release-ci-migration/source/build/gocache and downloads (outer work)",
+    "build/gocache, build/gomodcache, build/tools, build/downloads",
+    "module caches and pinned Go compiler under direct-consumer-final/decision and pgmem-consumer",
+    "build/runtime-notices, build/guest, fixed-reference native/guest inputs, dist/release/baseline artifacts",
+    ".venv and build/sqlalchemy-dogfood/py314",
+    "user-owned untracked package.json and package-lock.json"
+  ],
+  "registered_worktrees_before": 1,
+  "registered_worktrees_after": 1,
+  "prune_dry_run": "no stale registration",
+  "unpublished_branches_retained": [
+    "experiment/v041-debts-fan-in-review",
+    "experiment/v041-distribution-cleanup",
+    "experiment/v041-reclaim-root-cause",
+    "experiment/v041-release-toil",
+    "experiment/v041-soak-storage-guard"
+  ],
+  "local_audit_root": "../../build/mariamem-work/storage-lifecycle-20261004",
+  "audit_sha256": {
+    "plan.json": "3d1f89bc756cc3ce5b2527596945f60a6cc6c39498f07550fc5a624500d6a0a3",
+    "preservation.json": "ab52618bd1659c48139efb063493be64396d51ef21865c3b82db227eca771179",
+    "removed.json": "06d755f9f020c3ece2e0e1eff5b312d9af19c0125976fdd6cfa79a005603c656",
+    "large-path-classification.json": "d4ba9fb11172e2518428d62056e2b0498e83ba8cf92d3a0630b5078e3e0c7932"
+  },
+  "validation": {
+    "isolated_git_index_export": true,
+    "targeted_safety_and_publication_tests": 63,
+    "public_source_files": 594,
+    "version_check": "Python 0.4.0; Git/Go v0.4.0",
+    "skill_yaml": "parsed and metadata validated",
+    "diff_check": "passed"
+  }
+}

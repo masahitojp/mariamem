@@ -52,6 +52,18 @@ class PublicationBoundary(unittest.TestCase):
             with patch.object(check_public, "ROOT", root), self.assertRaises(ValueError):
                 check_public.check()
 
+    def test_experiment_skill_excluded_without_broadening_agent_allowlist(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            skill = root / '.agents/skills/experiment-workspace/SKILL.md'
+            skill.parent.mkdir(parents=True)
+            skill.write_text('repository workflow')
+            (root / 'LICENSE').write_text('project license')
+            self.assertEqual(list(check_public.check(root)['files']), ['LICENSE'])
+            (skill.parent / 'unknown.txt').write_text('private scratch')
+            with self.assertRaises(ValueError):
+                check_public.check(root)
+
     def test_personal_path_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
