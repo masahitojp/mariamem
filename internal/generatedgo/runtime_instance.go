@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"path/filepath"
+	"runtime"
 	"sync"
 
 	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
@@ -55,7 +56,18 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string
 			}
 		}
 		h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
-		m := generated.NewWithWASI(h, nil, h)
+		m, release, allocErr := experimentMappedModule(h)
+		if allocErr != nil {
+			err = allocErr
+			return
+		}
+		// No unmap while generated workers can still use cached raw pointers.
+		// A noncooperative guest blocks here; the process guard owns containment.
+		defer func() {
+			base.SpikeWait(m)
+			err = errors.Join(err, release())
+			runtime.KeepAlive(m)
+		}()
 		generated.Start(m)
 		base.SpikeWait(m)
 		if transfer != "" {

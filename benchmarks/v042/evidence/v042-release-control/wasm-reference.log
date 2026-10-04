@@ -1,0 +1,1 @@
+{"engine":"v26.9.0","shared":true,"initial_pages":4096,"max_pages":32768,"results":[{"name":"initial-oob","trap":"memory access out of bounds"},{"name":"width-crosses-end","trap":"memory access out of bounds"},{"name":"offset-overflow","trap":"memory access out of bounds"}],"grow":"PASS"}

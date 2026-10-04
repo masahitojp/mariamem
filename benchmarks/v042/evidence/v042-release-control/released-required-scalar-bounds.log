@@ -1,0 +1,15 @@
+=== RUN   TestV042RequiredScalarBounds
+=== RUN   TestV042RequiredScalarBounds/initial-oob
+    v042_release_boundary_test.go:61: required instance-level trap absent: exit=exit status 10 output=0
+        ACCESS_RETURNED_WITHOUT_TRAP
+=== RUN   TestV042RequiredScalarBounds/width-crosses-end
+    v042_release_boundary_test.go:61: required instance-level trap absent: exit=exit status 10 output=0
+        ACCESS_RETURNED_WITHOUT_TRAP
+=== RUN   TestV042RequiredScalarBounds/offset-overflow
+    v042_release_boundary_test.go:61: required instance-level trap absent: exit=exit status 10 output=Fn80 return 0
+        ACCESS_RETURNED_WITHOUT_TRAP
+--- FAIL: TestV042RequiredScalarBounds (0.04s)
+    --- FAIL: TestV042RequiredScalarBounds/initial-oob (0.02s)
+    --- FAIL: TestV042RequiredScalarBounds/width-crosses-end (0.01s)
+    --- FAIL: TestV042RequiredScalarBounds/offset-overflow (0.01s)
+FAIL

@@ -1,0 +1,131 @@
+{
+  "base_release": "v0.4.1",
+  "base_sha": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+  "platform": "Darwin arm64",
+  "phases": [
+    {
+      "name": "build-os-counter",
+      "command": [
+        "cc",
+        "-O2",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-mmap-contract/worktree/benchmarks/tools/process_cost.c",
+        "-o",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-contract-run02/temp/process-cost"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "elapsed_seconds": 0.6255042089906055,
+      "peak_rss_bytes": 0,
+      "peak_physical_bytes": 0
+    },
+    {
+      "name": "wasm-reference",
+      "command": [
+        "node",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-mmap-contract/worktree/benchmarks/v042/wasm_reference.js"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "elapsed_seconds": 0.8000204999989364,
+      "peak_rss_bytes": 39370752,
+      "peak_physical_bytes": 0
+    },
+    {
+      "name": "build-contract",
+      "command": [
+        "/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "test",
+        "-c",
+        "-p",
+        "1",
+        "-tags=experiment_mmap",
+        "-gcflags=github.com/masahitojp/mariamem/internal/generatedgo=-d=checkptr=2",
+        "-o",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-contract-run02/temp/contract.test",
+        "./internal/generatedgo"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "elapsed_seconds": 117.77210212498903,
+      "peak_rss_bytes": 2911813632,
+      "peak_physical_bytes": 3347795376
+    },
+    {
+      "name": "legal-mapping-contract",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-contract-run02/temp/contract.test",
+        "-test.v",
+        "-test.count=1",
+        "-test.timeout=60s",
+        "-test.run=TestExperimentMmap|TestV042MultipleGrow"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "elapsed_seconds": 0.9817960830114316,
+      "peak_rss_bytes": 32768,
+      "peak_physical_bytes": 81992
+    },
+    {
+      "name": "required-scalar-bounds",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-contract-run02/temp/contract.test",
+        "-test.v",
+        "-test.count=1",
+        "-test.timeout=60s",
+        "-test.run=^TestV042RequiredScalarBounds$"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "elapsed_seconds": 0.23294562500086613,
+      "peak_rss_bytes": 6930432,
+      "peak_physical_bytes": 4014632
+    },
+    {
+      "name": "focused-runtime-race",
+      "command": [
+        "/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "test",
+        "-race",
+        "-p",
+        "1",
+        "-count=1",
+        "./internal/generatedgo/code/base"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "elapsed_seconds": 4.109603791992413,
+      "peak_rss_bytes": 173064192,
+      "peak_physical_bytes": 151504360
+    },
+    {
+      "name": "macos-product-lifecycle",
+      "command": [
+        "/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "test",
+        "-p",
+        "1",
+        "-tags=integration,experiment_mmap",
+        "-v",
+        "-count=1",
+        "-timeout=240s",
+        "./tests/godefault"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "elapsed_seconds": 6.449926208995748,
+      "peak_rss_bytes": 806961152,
+      "peak_physical_bytes": 740231136
+    }
+  ],
+  "correctness_gate": "BLOCKED: generated scalar OOB kills process; scalar offset arithmetic wraps",
+  "performance_started": false,
+  "budgets": {
+    "free_disk_gib": 16,
+    "owned_disk_gib": 4,
+    "rss_gib": 4,
+    "physical_gib": 6,
+    "phase_timeout_seconds": 300
+  },
+  "contract_binary_sha256": "4fcee1a56b14794e8827b4fd40d8207927398fd97c99aaedd5770ebcd231e515",
+  "decision": "STOP at memory semantic gate; no lifecycle expansion, no CI/platform-support claim"
+}

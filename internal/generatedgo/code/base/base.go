@@ -821,6 +821,8 @@ type Module struct {
 	MemShared              bool
 	Threads                *ThreadPool
 	ThreadStart            func(*Module, int32, int32)
+	// Experiment only: prepare new shared pages before publishing logical size.
+	ExperimentMemoryCommit func(old, next uint64) error
 }
 
 func I32(x int32) int32 { return x }
@@ -1164,6 +1166,11 @@ func MemoryGrow(m *Module, n int32) int32 {
 
 		if want > uint64(len(m.Memory)) {
 			return -1
+		}
+		if m.ExperimentMemoryCommit != nil {
+			if err := m.ExperimentMemoryCommit(cur, want); err != nil {
+				return -1
+			}
 		}
 		m.MemSize.Store(want)
 		return prev

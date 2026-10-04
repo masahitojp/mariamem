@@ -1,0 +1,21 @@
+{
+  "owner": "mariamem-experiment-v1",
+  "name": "v042-contract-run02",
+  "repo": "/Users/masahito/src/mysqlmem/publish/mariamem",
+  "state": "completed",
+  "base_sha": "d492e52ff460e4a54e29dbef56645c5788d681dd",
+  "created": 1791139207.252882,
+  "min_free_gib": 16.0,
+  "budget_gib": 4.0,
+  "disposable": [
+    "temp"
+  ],
+  "evidence": "evidence",
+  "command": [
+    "python3",
+    "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-mmap-contract/worktree/benchmarks/v042/run_contract.py"
+  ],
+  "returncode": 0,
+  "peak_owned_bytes": 506269696,
+  "minimum_free_bytes": 65491443712
+}

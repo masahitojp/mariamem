@@ -1,0 +1,31 @@
+{
+  "base_release": "v0.4.1",
+  "base_sha": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+  "platform": "Darwin arm64",
+  "phases": [
+    {
+      "name": "build-os-counter",
+      "command": [
+        "cc",
+        "-O2",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-mmap-contract/worktree/benchmarks/tools/process_cost.c",
+        "-o",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-mmap-contract/temp/process-cost"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "elapsed_seconds": 0.6328383749932982,
+      "peak_rss_bytes": 0,
+      "peak_physical_bytes": 0
+    }
+  ],
+  "correctness_gate": "NOT_RUN",
+  "performance_started": false,
+  "budgets": {
+    "free_disk_gib": 16,
+    "owned_disk_gib": 4,
+    "rss_gib": 4,
+    "physical_gib": 6,
+    "phase_timeout_seconds": 300
+  }
+}

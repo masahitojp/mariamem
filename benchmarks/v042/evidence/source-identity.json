@@ -1,0 +1,16 @@
+{
+  "base_sha": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+  "spike_commit": "b9975c3ae33848442704007ad2647bd76e52a602",
+  "candidate_files_sha256": {
+    "internal/generatedgo/runtime_instance.go": "e85dca94f8f2d7a973b2bcd671e10c37b55ebe108230a1f04ed1c353333974a0",
+    "internal/generatedgo/code/base/base.go": "635425dcbf1502c4565bb1ac58a20049412ec9fe7d46aa3110258b7749e8b2d1",
+    "internal/generatedgo/experiment_mmap.go": "0d1a78888891df36ca67ce3dc1f58752568488860ff9b4b038871eb22873edfb",
+    "internal/generatedgo/experiment_mmap_test.go": "9b70c4f7498c5a3e7778d7c8c83e9497e42fbcf32e07349d04f2112675218931",
+    "internal/generatedgo/v042_boundary_test.go": "c87d0ea26ee2dbd33c03867f2a38625eb22f357950e1388d7209fbfea85a8d25",
+    "benchmarks/v042/run_contract.py": "7da97a556198471ff7a93c19a8f197a29ed763bacb0de3d3f6f8394e5de16233",
+    "benchmarks/v042/wasm_reference.js": "4f0efe0f3210f9c851137974f3ea9cf405f92eb7e50d07d5e3d83a37190d2929"
+  },
+  "generated_body_unchanged": true,
+  "released_control_commit": "3b10ef8cbc8a881c285c16c6c7a60ba47ed1be1b",
+  "released_runtime_unchanged": true
+}

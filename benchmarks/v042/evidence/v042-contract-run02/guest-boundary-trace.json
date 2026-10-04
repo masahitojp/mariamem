@@ -1,0 +1,13 @@
+{
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "function_import_count": 65,
+  "function_bodies_hex": {
+    "68": "00230141046a2802000b",
+    "80": "03017f017e017e230041106b22022400027f20004201200241086a10472200044023012000360200417f0c010b2001410036020c200120022903082203428094ebdc03802204370300200120032004428094ebdc037e7d3e020841000b2100200241106a240020000b"
+  },
+  "Fn68": "global.get 1; i32.const 4; i32.add; i32.load align=2 offset=0 (i32.add wraps legitimately)",
+  "Fn80_scalar_load": "i64.load align=3 offset=8 (29 03 08); effective address must not wrap at 32 bits",
+  "generated_Fn80_expression": "*(*int64)(unsafe.Add(mBase, uint32(v8)+8))",
+  "source_release": "v0.4.1",
+  "converter_commit": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff"
+}

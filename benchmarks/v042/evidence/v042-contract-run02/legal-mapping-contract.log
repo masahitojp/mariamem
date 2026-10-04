@@ -1,0 +1,11 @@
+=== RUN   TestExperimentMmapContract
+    experiment_mmap_test.go:121: contract PASS, Go constructor TotalAlloc delta=284080; OS unmap returned cannot allocate memory; counters=map[active_mappings:0 active_reserved_bytes:0 active_rw_bytes:0 creates:1 grow_calls:3 grow_failures:0 peak_total_rw_bytes:2147483648 release_failures:0 releases:1]
+--- PASS: TestExperimentMmapContract (0.01s)
+=== RUN   TestExperimentMmapWorkerGrowAndFutex
+--- PASS: TestExperimentMmapWorkerGrowAndFutex (0.03s)
+=== RUN   TestExperimentMmapInaccessibleTail
+    experiment_mmap_test.go:189: OS protects tail; no generated bounds/signal handler redesign
+--- PASS: TestExperimentMmapInaccessibleTail (0.01s)
+=== RUN   TestV042MultipleGrowPreserveZeroAndFailure
+--- PASS: TestV042MultipleGrowPreserveZeroAndFailure (0.00s)
+PASS

@@ -1,0 +1,14 @@
+RUN build-os-counter
+END build-os-counter 0
+RUN wasm-reference
+END wasm-reference 0
+RUN build-contract
+END build-contract 0
+RUN legal-mapping-contract
+END legal-mapping-contract 0
+RUN required-scalar-bounds
+END required-scalar-bounds 1
+RUN focused-runtime-race
+END focused-runtime-race 0
+RUN macos-product-lifecycle
+END macos-product-lifecycle 0

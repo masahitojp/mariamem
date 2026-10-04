@@ -1,0 +1,45 @@
+=== RUN   TestV042RequiredScalarBounds
+=== RUN   TestV042RequiredScalarBounds/initial-oob
+    v042_boundary_test.go:65: required instance-level trap absent: exit=exit status 2 output=unexpected fault address 0x7010000000
+        fatal error: fault
+        [signal SIGBUS: bus error code=0x1 addr=0x7010000000 pc=0x103e7f150]
+        
+        goroutine 8 gp=0x5664c6fbba40 m=0 mp=0x105359ac0 [running]:
+        runtime.throw({0x103e8cbfc?, 0x1021d12c8?})
+        	/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/runtime/panic.go:1229 +0x38 fp=0x5664c703adb0 sp=0x5664c703ad80 pc=0x10223b418
+        runtime.sigpanic()
+        	/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/runtime/signal_unix.go:928 +0x164 fp=0x5664c703ae10 sp=0x5664c703adb0 pc=0x10223cfe4
+        github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn68(...)
+        	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-mmap-contract/worktree/internal/generatedgo/code/p8/p8_pure.go:23
+        github.com/masahitojp/mariamem/internal/generatedgo.TestV042RequiredScalarBounds(0x5664c707e248)
+        	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-mmap-contract/worktree/internal/generatedgo/v042_boundary_test.go:45 +0x180 fp=0x5664c703af60 sp=0x5664c703ae20 pc=0x103e7f150
+        testing.tRunner(0x5664c707e248, 0x104c1c7d0)
+        	/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0xc4 fp=0x5664c703afb0 sp=0x5664c703af60 pc=0x10229db14
+        testing.(*T).Run.gowrap1()
+        	/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm
+=== RUN   TestV042RequiredScalarBounds/width-crosses-end
+    v042_boundary_test.go:65: required instance-level trap absent: exit=exit status 2 output=unexpected fault address 0x7010000000
+        fatal error: fault
+        [signal SIGBUS: bus error code=0x1 addr=0x7010000000 pc=0x1061a72f8]
+        
+        goroutine 8 gp=0x7c2df5eda40 m=0 mp=0x107681ac0 [running]:
+        runtime.throw({0x1061b4bfc?, 0x1044f92c8?})
+        	/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/runtime/panic.go:1229 +0x38 fp=0x7c2df66cdb0 sp=0x7c2df66cd80 pc=0x104563418
+        runtime.sigpanic()
+        	/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/runtime/signal_unix.go:928 +0x164 fp=0x7c2df66ce10 sp=0x7c2df66cdb0 pc=0x104564fe4
+        github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn68(...)
+        	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-mmap-contract/worktree/internal/generatedgo/code/p8/p8_pure.go:23
+        github.com/masahitojp/mariamem/internal/generatedgo.TestV042RequiredScalarBounds(0x7c2df734248)
+        	/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-mmap-contract/worktree/internal/generatedgo/v042_boundary_test.go:48 +0x328 fp=0x7c2df66cf60 sp=0x7c2df66ce20 pc=0x1061a72f8
+        testing.tRunner(0x7c2df734248, 0x106f447d0)
+        	/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0xc4 fp=0x7c2df66cfb0 sp=0x7c2df66cf60 pc=0x1045c5b14
+        testing.(*T).Run.gowrap1()
+        	/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/test
+=== RUN   TestV042RequiredScalarBounds/offset-overflow
+    v042_boundary_test.go:65: required instance-level trap absent: exit=exit status 10 output=Fn80 return 0
+        ACCESS_RETURNED_WITHOUT_TRAP
+--- FAIL: TestV042RequiredScalarBounds (0.03s)
+    --- FAIL: TestV042RequiredScalarBounds/initial-oob (0.01s)
+    --- FAIL: TestV042RequiredScalarBounds/width-crosses-end (0.01s)
+    --- FAIL: TestV042RequiredScalarBounds/offset-overflow (0.01s)
+FAIL
