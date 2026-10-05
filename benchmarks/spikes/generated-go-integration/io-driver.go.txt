@@ -77,7 +77,7 @@ func (h *host) Callback_signal(m *base.Module, ptr, length int32) {
 	if ptr < 0 || length < 0 || uint64(ptr)+uint64(length) > m.MemSize.Load() {
 		panic("signal callback bounds")
 	}
-	h.signalCallback = string(m.Memory[ptr : ptr+length])
+	h.signalCallback = string(m.Memory[uint64(ptr) : uint64(ptr)+uint64(length)])
 	if h.signalCallback != "__wasm_signal" {
 		panic("unknown signal callback: " + h.signalCallback)
 	}
@@ -219,7 +219,7 @@ func (h *host) Path_open2(m *base.Module, fd, flags, path, length, oflags int32,
 		h.flagsMu.Unlock()
 	}
 	if path >= 0 && length >= 0 && uint64(path)+uint64(length) <= m.MemSize.Load() {
-		tracef("SPIKE path_open2 %q errno=%d\n", m.Memory[path:path+length], errno)
+		tracef("SPIKE path_open2 %q errno=%d\n", m.Memory[uint64(path):uint64(path)+uint64(length)], errno)
 	}
 	return errno
 }

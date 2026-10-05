@@ -25,7 +25,7 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string
 		var err error
 		defer func() {
 			if p := recover(); p != nil {
-				err = errors.Join(err, fmt.Errorf("generated-Go guest failure: %v", p))
+				err = errors.Join(err, guestFailure(p))
 			}
 			done <- err
 		}()
@@ -55,7 +55,12 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string
 			}
 		}
 		h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
-		m := generated.NewWithWASI(h, nil, h)
+		m, release, allocErr := newMemoryModule(h)
+		if allocErr != nil {
+			err = allocErr
+			return
+		}
+		defer releaseMemoryModule(m, release, &err)
 		if err = executeGuest(m, generated.Start); err != nil {
 			return
 		}
@@ -78,10 +83,18 @@ func executeGuest(m *base.Module, start func(*base.Module)) (err error) {
 		}
 		for _, p := range []any{root, worker} {
 			if p != nil {
-				err = errors.Join(err, fmt.Errorf("generated-Go guest failure: %v", p))
+				err = errors.Join(err, guestFailure(p))
 			}
 		}
 	}()
 	start(m)
 	return nil
+}
+
+// Preserve owned cleanup errors through recover, including retryable munmap errors.
+func guestFailure(p any) error {
+	if e, ok := p.(error); ok {
+		return fmt.Errorf("generated-Go guest failure: %w", e)
+	}
+	return fmt.Errorf("generated-Go guest failure: %v", p)
 }

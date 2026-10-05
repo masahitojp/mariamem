@@ -54,6 +54,7 @@ def main():
 }
 '''
             text = text.replace('SPIKE', 'generated-Go')
+            text = text.replace('m := generated.NewWithWASI(h, nil, h)', 'm, release, allocErr := newMemoryModule(h)\n\tif allocErr != nil { panic(allocErr) }\n\tvar memoryErr error\n\tdefer func(){ releaseMemoryModule(m, release, &memoryErr); if memoryErr != nil { panic(memoryErr) } }()')
         elif name in ('fs_contract_test.go', 'guest_identity.go'):
             text = text.replace('package main', 'package generatedgo', 1)
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -70,7 +71,7 @@ def main():
         'files_sha256':inventory},indent=2)+'\n')
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.
-    for name in ('runtime_instance.go', 'runtime_instance_test.go', 'code/base/runtime_cleanup.go', 'code/base/host_memory_test.go'):
+    for name in ('runtime_instance.go', 'runtime_instance_test.go', 'code/base/runtime_cleanup.go', 'code/base/host_memory_test.go', 'memory_backing_unix.go', 'memory_backing_other.go', 'memory_lifetime.go', 'memory_backing_test.go', 'memory_controlled_test.go', 'memory_host_test.go', 'code/base/memory_mapping.go', 'code/base/memory_mapping_test.go'):
         shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)
     print('Installed checksum-bound generated runtime:',len(inventory),'files')
 

@@ -4,7 +4,7 @@
   "source_sha": "1687465bcbaff74a334b3e89181c47e66478792c",
   "candidate_files_sha256": {
     "fs_contract_test.go": "85ed0755df28767cda62c3e5f7a4889266687df1c4d959abde51183cb8f5226d",
-    "main.go": "8d84368e9a6c2c85aeaeed58a109456e33cde92c16dd1ba4b7c7d30f8eb518ec",
+    "main.go": "9935e86c8a67409426c67e7a68707e76118c4fdd012a83fcfd20eedf71ba2b31",
     "guest_identity.go": "0a133ff193b3e09b0fa92612a18fb7bdc22144d04069a6d314e2bb3c45858556",
     "generated/alias.go": "7e0d6767d2905973a76e5cc2efb5023125fd4d9ceee4d668eaa0deddc4354e48",
     "generated/generated.go": "d8fa2eee357eefa468bd57387eed91e91d4a28814347d74e029a402e7541baf6",
@@ -56,7 +56,7 @@
     "generated/base/relative.go": "61d67c5ee85fc73d28745e17b8eaab4d0d6e1c63f28969a1e8c66983db8fbd80",
     "generated/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
     "generated/base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
-    "generated/base/base.go": "7d86dd3d3f039aef9fc373196576f194e672dc8cc7870a06ff59ebdde35b79ce",
+    "generated/base/base.go": "966192fa209033269e5d500b59830e8fe896e50c1d94498f196150285ecef003",
     "generated/base/spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862",
     "generated/base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
     "generated/base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",

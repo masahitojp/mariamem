@@ -1,0 +1,36 @@
+--- a/internal/codegen/translate.go
++++ b/internal/codegen/translate.go
+@@ -2327,6 +2327,13 @@
+ 		// and the start_arg width follow the memory width: a memory64
+ 		// module's start_arg is an i64 linear-memory pointer, read by the
+ 		// threadSpawn_m64 helper through the threadStart64 field.
++		// Optional shared memory32 owner: prepare pages before publishing size.
++		fields = append(fields, &ast.Field{
++			Names: []*ast.Ident{newID(t.fieldName("prepareMemoryGrow"))},
++			Type: &ast.FuncType{Params: &ast.FieldList{List: []*ast.Field{
++				{Type: newID("uint64")}, {Type: newID("uint64")},
++			}}, Results: &ast.FieldList{List: []*ast.Field{{Type: newID("error")}}}},
++		})
+ 		threadStartField, argType := "threadStart", "int32"
+ 		if t.mod.Memory64() {
+ 			threadStartField, argType = "threadStart64", "int64"
+--- a/internal/codegen/helpers/helpers.go
++++ b/internal/codegen/helpers/helpers.go
+@@ -46,6 +46,7 @@
+ 	memSize *atomic.Uint64
+ 	// memShared records that the memory was declared shared (threads).
+ 	memShared bool
++ prepareMemoryGrow func(uint64,uint64) error
+ 	// dataSegs holds passive data segments by original index (nil = active
+ 	// or dropped); memory.init copies out of them, data.drop nils them.
+ 	dataSegs [][]byte
+@@ -857,6 +858,9 @@
+ 		// relocation — other agents hold m.M and deref it concurrently.
+ 		if want > uint64(len(m.memory)) {
+ 			return -1
++		}
++		if m.prepareMemoryGrow != nil {
++			if err := m.prepareMemoryGrow(cur,want); err != nil { return -1 }
+ 		}
+ 		m.memSize.Store(want)
+ 		return prev

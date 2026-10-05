@@ -7,7 +7,7 @@
   "symbol_map_entries": 21859,
   "binaryen": "version_133",
   "method": "canonical -O2 recipe with --symbolmap; resulting WASM is byte-identical to canonical guest",
-  "generated_provenance_sha256": "e02129d4844b4cc3d0ffcba9244d93149e794cd3b8bccff6e403bae08b519467",
+  "generated_provenance_sha256": "372f89df575c3e76125925e352e0c816e6a593942f9f23f1f0f56308e394c6b0",
   "retained_symbols": {
     "MariaDB": {
       "pattern": "^(mysql_server_init|mysql_real_query)$",
@@ -783,8 +783,8 @@
   },
   "production_memory_contract_check": {
     "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
-    "host_sha256": "7e7e22102a38532aafc9e8580abe9a31da96aff7c4a19dbe46abe3802c5bd9de",
-    "generated_provenance_sha256": "e02129d4844b4cc3d0ffcba9244d93149e794cd3b8bccff6e403bae08b519467",
+    "host_sha256": "d688fa027b905aadd8a0d48ba980fb8d0bcbf9c3395a5c274399683840896c9e",
+    "generated_provenance_sha256": "372f89df575c3e76125925e352e0c816e6a593942f9f23f1f0f56308e394c6b0",
     "examples": [
       {
         "component": "MariaDB",
