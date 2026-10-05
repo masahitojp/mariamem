@@ -7,7 +7,7 @@
   "symbol_map_entries": 21859,
   "binaryen": "version_133",
   "method": "canonical -O2 recipe with --symbolmap; resulting WASM is byte-identical to canonical guest",
-  "generated_provenance_sha256": "6076a3152fa3d26adf1486ed9cfd3a5deafb30a0a780396615b1da5316ba058d",
+  "generated_provenance_sha256": "ba105d727758f7e189e7244938b648b2a90ca6690ddb2a0d6766f1245e00a9f9",
   "retained_symbols": {
     "MariaDB": {
       "pattern": "^(mysql_server_init|mysql_real_query)$",
@@ -568,5 +568,321 @@
       }
     ],
     "note": "Same pinned guest and function map; generated definitions and positive native retention rechecked against the measured candidate probe. No release approval."
+  },
+  "mmap_integration_candidate_check": {
+    "released_base": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+    "semantics_basis": "56be628bf2d976048c5ea6d1949879781ed75342",
+    "mmap_basis": "b9975c3ae33848442704007ad2647bd76e52a602",
+    "host_sha256": "072ae51c6be22c56b40d54472ef9ed7c8697ab32ef5165448768f902bf9ee0b9",
+    "generated_provenance_sha256": "ba105d727758f7e189e7244938b648b2a90ca6690ddb2a0d6766f1245e00a9f9",
+    "examples": [
+      {
+        "component": "MariaDB",
+        "index": 5726,
+        "symbol": "mysql_server_init",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn5726",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "MariaDB",
+        "index": 5790,
+        "symbol": "mysql_real_query",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn5790",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "lite4mariadb",
+        "index": 244,
+        "symbol": "l4m_open",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn244",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "lite4mariadb",
+        "index": 245,
+        "symbol": "l4m_close",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn245",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "lite4mariadb",
+        "index": 246,
+        "symbol": "l4m_free",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn246",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "WASIX libc",
+        "index": 69,
+        "symbol": "__pthread_mutex_trylock",
+        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+        "generated_function": "Fn69",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "WASIX libc",
+        "index": 71,
+        "symbol": "__wasi_clock_time_get",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn71",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "WASIX libc",
+        "index": 72,
+        "symbol": "__wasi_fd_fdstat_get",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn72",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "wolfSSL",
+        "index": 1247,
+        "symbol": "wolfSSL_ResourceFree",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn1247",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "wolfSSL",
+        "index": 1325,
+        "symbol": "wolfSSL_ERR_func_error_string",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1325",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "wolfSSL",
+        "index": 1379,
+        "symbol": "wolfSSL_CTX_set_groups",
+        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+        "generated_function": "Fn1379",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "zlib",
+        "index": 4476,
+        "symbol": "crc32_z",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn4476",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "zlib",
+        "index": 5944,
+        "symbol": "adler32",
+        "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
+        "generated_function": "Fn5944",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "zlib",
+        "index": 5952,
+        "symbol": "deflateInit_",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn5952",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "PCRE2",
+        "index": 7222,
+        "symbol": "pcre2_match_data_free_8",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn7222",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "PCRE2",
+        "index": 7223,
+        "symbol": "pcre2_get_ovector_pointer_8",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn7223",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "PCRE2",
+        "index": 7225,
+        "symbol": "_pcre2_strncmp_8",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn7225",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "fmt",
+        "index": 10779,
+        "symbol": "_ZN3fmt3v1219basic_memory_bufferIcLm500ENS0_6detail9allocatorIcEEE4growERNS2_6bufferIcEEm",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn10779",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "fmt",
+        "index": 11154,
+        "symbol": "_ZN3fmt3v126detail5writeIcNS0_14basic_appenderIcEEiTnNSt3__29enable_ifIXaaaasr11is_integralIT1_EE5valuentsr3std7is_sameIS7_bEE5valuentsr3std7is_sameIS7_T_EE5valueEiE4typeELi0EEET0_SB_S7_",
+        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+        "generated_function": "Fn11154",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "fmt",
+        "index": 11155,
+        "symbol": "_ZN3fmt3v126detail5writeIcNS0_14basic_appenderIcEEjTnNSt3__29enable_ifIXaaaasr11is_integralIT1_EE5valuentsr3std7is_sameIS7_bEE5valuentsr3std7is_sameIS7_T_EE5valueEiE4typeELi0EEET0_SB_S7_",
+        "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
+        "generated_function": "Fn11155",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++",
+        "index": 4582,
+        "symbol": "_ZNSt3__221__throw_runtime_errorEPKc",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn4582",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++",
+        "index": 4583,
+        "symbol": "_ZNSt3__212__next_primeEm",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn4583",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++",
+        "index": 4584,
+        "symbol": "_ZNSt3__222__throw_overflow_errorB8ne200100EPKc",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn4584",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++abi",
+        "index": 1073,
+        "symbol": "__cxa_pure_virtual",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1073",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++abi",
+        "index": 1108,
+        "symbol": "__cxa_allocate_exception",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1108",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++abi",
+        "index": 1109,
+        "symbol": "__cxa_free_exception",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1109",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libunwind",
+        "index": 1100,
+        "symbol": "_Unwind_CallPersonality",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn1100",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libunwind",
+        "index": 1101,
+        "symbol": "_Unwind_RaiseException",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1101",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libunwind",
+        "index": 1102,
+        "symbol": "_Unwind_DeleteException",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1102",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "compiler-rt",
+        "index": 113,
+        "symbol": "__ashlti3",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn113",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "compiler-rt",
+        "index": 170,
+        "symbol": "__udivti3",
+        "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
+        "generated_function": "Fn170",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "compiler-rt",
+        "index": 171,
+        "symbol": "__multi3",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn171",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "dlmalloc",
+        "index": 152,
+        "symbol": "dlmalloc",
+        "generated_file": "internal/generatedgo/code/p1/p1_pure.go",
+        "generated_function": "Fn152",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "dlmalloc",
+        "index": 153,
+        "symbol": "dlfree",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn153",
+        "host_symbol_retained": true,
+        "candidate_symbol_retained": true
+      }
+    ],
+    "note": "Private integration experiment, same guest/function map; native retention checked. Not release approval."
   }
 }

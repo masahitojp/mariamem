@@ -2,16 +2,17 @@
   "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
   "converter_commit": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
   "converter_archive_sha256": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f",
-  "patched_converter_sha256": "4e87a2924b9fdac59d8474a85c0ea5aeabbc304bd71eaa5c8d01b24f255a997f",
+  "patched_converter_sha256": "a683d8903e65fc992fe95baa3da48219e9ebeee4e9d91d5ce097412e336e406c",
   "patches_sha256": {
     "imported-memory.patch": "d342ffb1c09af27b215c0c26a26e4056b14a5e2a54d5ee8a084af719e2227639",
     "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
     "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
-    "pure-memory32.patch": "097952ab11b4a07a939586d9f4a4b1037b890d6e43aaa4f4fa6ce1d6bc588815"
+    "pure-memory32.patch": "097952ab11b4a07a939586d9f4a4b1037b890d6e43aaa4f4fa6ce1d6bc588815",
+    "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5"
   },
   "files_sha256": {
     "alias.go": "5971b5c5e24d6a99b454eb02d722a714b5f4d8fbac151fc8663472fd18dbacfa",
-    "base/base.go": "54ff26f313288855c1e8a03eee680a02d487686ae62021b1efdb1e0316231d68",
+    "base/base.go": "b08ec74a04042152f9851944c82080947a9180ab99692642dca594e0f241a833",
     "base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
     "base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
     "base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",

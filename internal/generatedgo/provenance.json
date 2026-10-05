@@ -1,10 +1,10 @@
 {
   "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
-  "input_manifest_sha256": "0ff68e69bd521f0ae30c7429d1c50d673670c2379d4ff48219a4effa2559054d",
+  "input_manifest_sha256": "640123f2c322f83b31a35c99212973393818898c05c85f67039fed0a01eb97af",
   "files_sha256": {
     "code/alias.go": "52026958d5a3ee0c85d325e1c22ecfd9d6d860843e8e2aa160d8d46a9b0d23bd",
     "code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
-    "code/base/base.go": "b09a8f92f41cee1716d7d5131b4d776755b81f5bfb9caf4902cb06d7f1a00d6f",
+    "code/base/base.go": "db59b4fe1024919572bc719bbff7f26f0fb452b2248cc576ebb45edc93e208eb",
     "code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
     "code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
     "code/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
@@ -63,6 +63,6 @@
     "entry.go": "459431d32cd2d3290546bb2a88191ab0b101ee7c27b645ab8b2709cfa9bc360e",
     "fs_contract_test.go": "3576133358a407286ddac38586b879fbd4bcc4947ffc0d9bbd5b14d93eeba7ac",
     "guest_identity.go": "dbdff84b8730b6efbef2860a727512370d9083b082967712f82bad287c24642f",
-    "main.go": "b33b8a6b1ada3eb71ad8739e3424d56fe97dd1e78cbe099c76c9747b21baecea"
+    "main.go": "db12252eb6a3c648e7138b90c122d2ae599159e083b19c81aa3c08fc472857cd"
   }
 }

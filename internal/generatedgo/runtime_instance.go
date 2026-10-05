@@ -25,7 +25,7 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string
 		var err error
 		defer func() {
 			if p := recover(); p != nil {
-				err = fmt.Errorf("generated-Go guest failure: %v", p)
+				err = errors.Join(err, fmt.Errorf("generated-Go guest failure: %v", p))
 			}
 			done <- err
 		}()
@@ -55,7 +55,13 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string
 			}
 		}
 		h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
-		m := generated.NewWithWASI(h, nil, h)
+		m, release, allocErr := newMemoryModule(h)
+		if allocErr != nil {
+			err = allocErr
+			return
+		}
+		// Never release while any generated worker can use a cached pointer.
+		defer releaseMemoryModule(m, release, &err)
 		generated.Start(m)
 		base.SpikeWait(m)
 		if transfer != "" {
