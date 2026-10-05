@@ -1,0 +1,73 @@
+--- a/internal/codegen/helpers/helpers.go
++++ b/internal/codegen/helpers/helpers.go
+@@ -919,7 +919,8 @@
+ func accessMemory(m *Module, f func(mem []byte)) {
+ 	m.memMu.Lock()
+ 	defer m.memMu.Unlock()
+-	f(m.memory)
++	bound := memBound(m)
++	f(m.memory[:bound:bound])
+ }
+ 
+ // ----- Integer unary helpers ----------------------------------------------
+--- a/internal/codegen/wasip1_native.go
++++ b/internal/codegen/wasip1_native.go
+@@ -56,6 +56,7 @@
+ 	"strconv"
+ 	"strings"
+ 	"sync"
++	"sync/atomic"
+ 	"syscall"
+ 	"time"
+ )
+@@ -68,6 +69,15 @@
+ // and lets the generated Module shadow this one.
+ type Module struct {
+ 	memory []byte
++	memShared bool
++	memSize *atomic.Uint64
++}
++
++// Restrict host imports to the shared logical range, not reserved backing.
++func (w *WasiStubs) logicalMemory(m *Module) []byte {
++ bound := uint64(len(m.memory))
++ if m.memShared { bound = m.memSize.Load() }
++ return m.memory[:bound:bound]
+ }
+ 
+ // WasiExitError is the sentinel that the recover layer of SafeInvokeExport
+@@ -782,7 +792,7 @@
+ 	if ptr == 0 {
+ 		return "", true
+ 	}
+-	mem := m.memory
++	mem := w.logicalMemory(m)
+ 	lo := uint64(uint32(ptr))
+ 	if lo > uint64(len(mem)) {
+ 		return "", false
+@@ -1183,7 +1193,7 @@
+ // empty slice on out-of-range (the wasi function should then return
+ // EFAULT / EINVAL).
+ func (w *WasiStubs) memSlice(m *Module, off, n int32) []byte {
+-	mem := m.memory
++	mem := w.logicalMemory(m)
+ 	lo := uint64(uint32(off))
+ 	hi := lo + uint64(uint32(n))
+ 	if hi > uint64(len(mem)) {
+@@ -3125,6 +3135,7 @@
+ 			"NewMemFS":                true,
+ 			"memSplit":                true,
+ 			"memSlice":                true,
++			"logicalMemory":           true,
+ 			"mapOSError":              true,
+ 			"mapExecError":            true,
+ 			"encodeWaitStatus":        true,
+@@ -3419,7 +3430,7 @@
+ 
+ // memSlice64 is memSlice for full-range 64-bit guest pointers.
+ func (w *WasiStubs) memSlice64(m *Module, off int64, n int64) []byte {
+-	mem := m.memory
++	mem := w.logicalMemory(m)
+ 	lo := uint64(off)
+ 	hi := lo + uint64(n)
+ 	if n < 0 || hi < lo || hi > uint64(len(mem)) {

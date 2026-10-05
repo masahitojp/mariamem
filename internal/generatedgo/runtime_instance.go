@@ -25,7 +25,7 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string
 		var err error
 		defer func() {
 			if p := recover(); p != nil {
-				err = fmt.Errorf("generated-Go guest failure: %v", p)
+				err = errors.Join(err, fmt.Errorf("generated-Go guest failure: %v", p))
 			}
 			done <- err
 		}()
@@ -56,11 +56,32 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string
 		}
 		h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
 		m := generated.NewWithWASI(h, nil, h)
-		generated.Start(m)
-		base.SpikeWait(m)
+		if err = executeGuest(m, generated.Start); err != nil {
+			return
+		}
 		if transfer != "" {
 			err = exportTransfer(fs, transfer)
 		}
 	}()
 	return done
+}
+
+// executeGuest is the recover boundary for both the root and joined workers.
+// Join before callers close descriptors/prepared files, including root failures.
+// It intentionally retains the existing non-cooperative-worker limitation.
+func executeGuest(m *base.Module, start func(*base.Module)) (err error) {
+	defer func() {
+		root := recover()
+		var worker any
+		if m != nil && m.Threads != nil {
+			worker = m.Threads.WaitThreads()
+		}
+		for _, p := range []any{root, worker} {
+			if p != nil {
+				err = errors.Join(err, fmt.Errorf("generated-Go guest failure: %v", p))
+			}
+		}
+	}()
+	start(m)
+	return nil
 }
