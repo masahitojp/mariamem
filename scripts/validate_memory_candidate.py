@@ -70,7 +70,9 @@ def main():
   p=project/'module/main.go';s=p.read_text().replace('m := fixture.New()','m, release := fixture.NewMapped()');s=s.replace('\t}\n\tm, release := fixture.NewMapped()','\t\tif e:=release();e!=nil{panic(e)}\n\t}\n\tm, release := fixture.NewMapped()');s=s.replace('\tbase := &m.Memory()[0]','\tdefer func(){if e:=release();e!=nil{panic(e)};stats:=fixture.MemoryMappingStats();if stats["active_mappings"]!=0 || stats["creates"]!=stats["releases"]{panic("mapping leak")};fmt.Fprintln(os.Stderr,"mapped ownership PASS",stats)}()\n\tbase := &m.Memory()[0]');p.write_text(s)
   run('mapped-memory32-regression',[go,'run','.',project/'inputs/matrix.json'],cwd=project/'module')
   actual=[json.loads(line) for line in (evidence/'mapped-memory32-regression.log').read_text().splitlines() if line.startswith('{')];golden=json.loads((fixture/'reference-results.json').read_text());assert [[v[k] for k in golden['keys']] for v in actual]==golden['rows'];report['fixture_cases']=len(actual);report['trap_cases']=sum(v['trap'] for v in actual)
-  run('focused-runtime-race',[go,'test','-race','-p','1','-v','-count=1','-timeout=180s','./internal/generatedgo/code/base','./internal/generatedgo','./internal/guest','./internal/host','./internal/mysqlwire','./internal/snapshot'],extra={'CGO_ENABLED':'1'})
+  # The test-process timeout remains 180s. A cold generated-guest race build
+  # can exceed 15 minutes on hosted macOS; bound that separate build phase too.
+  run('focused-runtime-race',[go,'test','-race','-p','1','-v','-count=1','-timeout=180s','./internal/generatedgo/code/base','./internal/generatedgo','./internal/guest','./internal/host','./internal/mysqlwire','./internal/snapshot'],extra={'CGO_ENABLED':'1'},timeout=1500)
   run('generated-product-smoke',[go,'test','-p','1','-tags=integration','-v','-count=1','-timeout=180s','./tests/generatedmemory'])
   run('normal-product-smoke',[go,'test','-p','1','-tags=integration','-v','-count=1','-timeout=300s','./tests/godefault'])
   report['correctness']='PASS';save()
