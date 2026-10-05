@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"sync"
 	"testing"
 	"time"
 )
@@ -78,11 +79,23 @@ func TestGuestFileDiagnosticsAreOptionalAndOutsideHostClock(t *testing.T) {
 }
 
 func TestRecorderBindsConcurrentCallsWithoutPIDMatching(t *testing.T) {
-	t.Setenv("MARIAMEM_TIMING_DIR", t.TempDir())
+	dir := t.TempDir()
+	t.Setenv("MARIAMEM_TIMING_DIR", dir)
 	results := make(chan Trace, 2)
+	var workers sync.WaitGroup
+	// The callback runs before finish writes its diagnostic file. Receiving a
+	// trace does not join that writer; join before environment/TempDir cleanup,
+	// including assertion failures below.
+	t.Cleanup(workers.Wait)
 	for _, name := range []string{"one", "two"} {
 		ctx := WithRecorder(context.Background(), func(trace Trace) { results <- trace })
-		go func(name string, ctx context.Context) { ctx, finish := Begin(ctx, name); Mark(ctx, name); finish() }(name, ctx)
+		workers.Add(1)
+		go func(name string, ctx context.Context) {
+			defer workers.Done()
+			ctx, finish := Begin(ctx, name)
+			Mark(ctx, name)
+			finish()
+		}(name, ctx)
 	}
 	seen := map[string]bool{}
 	for range 2 {
@@ -91,6 +104,11 @@ func TestRecorderBindsConcurrentCallsWithoutPIDMatching(t *testing.T) {
 		if len(trace.Events) != 3 || trace.Events[1].Name != trace.Operation {
 			t.Fatal(trace)
 		}
+	}
+	workers.Wait()
+	paths, err := filepath.Glob(filepath.Join(dir, "*.json"))
+	if err != nil || len(paths) != 2 {
+		t.Fatalf("diagnostic writes incomplete: paths=%v err=%v", paths, err)
 	}
 	if !seen["one"] || !seen["two"] {
 		t.Fatal(seen)
