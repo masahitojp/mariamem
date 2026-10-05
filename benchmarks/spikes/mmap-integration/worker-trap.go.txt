@@ -1,0 +1,31 @@
+package main
+
+import (
+	"flag"
+	"fmt"
+	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/p8"
+)
+
+var makeModule = func() (*base.Module, func() error) {
+	return generated.NewWithWASI(nil, nil, nil), func() error { return nil }
+}
+
+func main() {
+	atomicTrap := flag.Bool("atomic", false, "representative atomic helper trap")
+	flag.Parse()
+	m, release := makeModule()
+	defer release()
+	base.ThreadLaunch(m, func(child *base.Module, tid int32) {
+		if *atomicTrap {
+			base.AtomicEA(child, int32(generated.InitialMemoryBytes), 0, 4)
+		} else {
+			child.G1 = generated.InitialMemoryBytes - 4
+			p8.Fn68(child)
+		}
+		fmt.Println("ACCESS_SUCCEEDED")
+	})
+	base.SpikeWait(m)
+	fmt.Println("HOST_SURVIVED")
+}

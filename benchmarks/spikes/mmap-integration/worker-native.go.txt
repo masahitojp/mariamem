@@ -1,0 +1,44 @@
+package main
+
+import (
+	"flag"
+	"fmt"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"strings"
+	"sync"
+	"sync/atomic"
+	"unsafe"
+)
+
+func main() {
+	defer func() {
+		if p := recover(); p != nil {
+			if strings.Contains(fmt.Sprint(p), "out of bounds") {
+				fmt.Println("HOST_SURVIVED_TRAP")
+				return
+			}
+			panic(p)
+		}
+	}()
+	atomicTrap := flag.Bool("atomic", false, "atomic OOB instead of scalar effective address")
+	flag.Parse()
+	b, e := base.NewMemoryMapping(256<<20, 2<<30)
+	if e != nil {
+		panic(e)
+	}
+	defer b.Close()
+	size := &atomic.Uint64{}
+	size.Store(256 << 20)
+	m := &base.Module{Memory: b.Bytes(), MaxMem: 2 << 30, M: unsafe.Pointer(unsafe.SliceData(b.Bytes())), MemMu: &sync.Mutex{}, MemSize: size, MemShared: true, Threads: &base.ThreadPool{}, PrepareMemoryGrow: b.Grow}
+	base.ThreadLaunch(m, func(child *base.Module, tid int32) {
+		if *atomicTrap {
+			base.AtomicEA(child, 256<<20, 0, 4)
+		} else {
+			ea := base.MemoryEA(child, 256<<20, 0, 4)
+			fmt.Println(*(*uint32)(unsafe.Add(child.M, uintptr(ea))))
+		}
+		fmt.Println("ACCESS_SUCCEEDED")
+	})
+	base.SpikeWait(m)
+	fmt.Println("HOST_SURVIVED_WITHOUT_TRAP")
+}

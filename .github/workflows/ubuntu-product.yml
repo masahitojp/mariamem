@@ -1,6 +1,11 @@
 name: Bounded v0.4.2 mmap integration acceptance
 on:
   workflow_dispatch:
+    inputs:
+      lane:
+        type: choice
+        default: full
+        options: [full, worker-traps]
 permissions:
   contents: read
 jobs:
@@ -33,8 +38,14 @@ jobs:
         env:
           MARIAMEM_TOOLING_REPO: ${{ github.workspace }}/build/tooling
           GOCACHE: ${{ runner.temp }}/go-cache
+          EXPERIMENT_LANE: ${{ inputs.lane }}
         run: |
-          python build/tooling/scripts/experiment_workspace.py --repo "$GITHUB_WORKSPACE" --root "$RUNNER_TEMP/bounded-work" run --timeout 3000 ubuntu-mmap -- python "$GITHUB_WORKSPACE/benchmarks/spikes/mmap-integration/ci.py"
+          if [ "$EXPERIMENT_LANE" = worker-traps ]; then
+            script=worker_native.py
+          else
+            script=ci.py
+          fi
+          python build/tooling/scripts/experiment_workspace.py --repo "$GITHUB_WORKSPACE" --root "$RUNNER_TEMP/bounded-work" run --timeout 3000 ubuntu-mmap -- python "$GITHUB_WORKSPACE/benchmarks/spikes/mmap-integration/$script"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
