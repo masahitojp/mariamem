@@ -1,0 +1,4 @@
+=== RUN   TestPureMemory32Auth
+--- PASS: TestPureMemory32Auth (0.08s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/godefault	0.697s

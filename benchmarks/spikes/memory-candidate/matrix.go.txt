@@ -1,0 +1,116 @@
+package main
+
+import (
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"genericfixture/fixture"
+	"os"
+	"reflect"
+	"strings"
+)
+
+type Case struct {
+	AllowPartial bool   `json:"allow_partial"`
+	Op           string `json:"op"`
+	Addr         int32  `json:"addr"`
+	Grow         int32  `json:"grow"`
+	Expected     bool   `json:"expected_trap"`
+}
+
+func sum(b []byte) string { x := sha256.Sum256(b); return hex.EncodeToString(x[:]) }
+func main() {
+	var cases []Case
+	b, e := os.ReadFile(os.Args[1])
+	if e != nil {
+		panic(e)
+	}
+	if e = json.Unmarshal(b, &cases); e != nil {
+		panic(e)
+	}
+	enc := json.NewEncoder(os.Stdout)
+	for _, c := range cases {
+		m := fixture.New()
+		mem := m.Memory()
+		for i := 0; i < 65536; i++ {
+			mem[i] = byte(i*7 + 3)
+		}
+		if c.Grow != 0 {
+			if m.Grow(c.Grow) != 1 {
+				panic("grow")
+			}
+		}
+		mem = m.Memory()[:(1+c.Grow)*65536]
+		before := sum(mem)
+		value := ""
+		message := ""
+		trap := false
+		func() {
+			defer func() {
+				if r := recover(); r != nil {
+					message = fmt.Sprint(r)
+					trap = strings.Contains(message, "wasm:") && (strings.Contains(message, "out of bounds") || strings.Contains(message, "unaligned"))
+					if !trap {
+						panic(r)
+					}
+				}
+			}()
+			fn := reflect.ValueOf(m).MethodByName(strings.ToUpper(c.Op[:1]) + c.Op[1:])
+			if !fn.IsValid() {
+				panic("missing export " + c.Op)
+			}
+			v := fn.Call([]reflect.Value{reflect.ValueOf(c.Addr)})
+			value = fmt.Sprint(v[0].Interface())
+		}()
+		after := sum(mem)
+		if trap && !c.AllowPartial && before != after {
+			panic("trapping store changed memory")
+		}
+		if trap != c.Expected {
+			panic(fmt.Sprintf("required trap mismatch %+v got %v", c, trap))
+		}
+		if e := enc.Encode(map[string]any{"op": c.Op, "addr": c.Addr, "grow": c.Grow, "trap": trap, "value": value, "message": message, "before": before, "after": after}); e != nil {
+			panic(e)
+		}
+	}
+	m := fixture.New()
+	base := &m.Memory()[0]
+	m.Memory()[31] = 77
+	if m.Grow(0) != 1 || m.Grow(1) != 1 || m.Grow(1) != 2 {
+		panic("multiple grow")
+	}
+	if &m.Memory()[0] != base || m.Memory()[31] != 77 {
+		panic("grow moved base or lost data")
+	}
+	for _, value := range m.Memory()[65536 : 3*65536] {
+		if value != 0 {
+			panic("new range not zero")
+		}
+	}
+	before := sum(m.Memory()[:3*65536])
+	if m.Grow(1) != -1 || m.Grow(-1) != -1 || m.Grow(0) != 3 || &m.Memory()[0] != base || sum(m.Memory()[:3*65536]) != before {
+		panic("failed grow changed state")
+	}
+	const max = 3 * 65536
+	if m.S64o0(max-8) != 0 || m.L64o0(max-8) != 85 || m.Al64o0(max-8) != 85 || m.Vl128o0(max-16) != 0 {
+		panic("valid maximum-boundary access")
+	}
+	before = sum(m.Memory()[:max])
+	for _, access := range []func(){func() { m.L64o0(max) }, func() { m.S64o0(max - 7) }, func() { m.L32o4294967295(1) }, func() { m.Vl128o0(max - 15) }, func() { m.Vs128o0(max) }, func() { m.Al64o0(max) }, func() { m.Ar64o0(max - 7) }} {
+		func() {
+			defer func() {
+				value := recover()
+				message := fmt.Sprint(value)
+				if value == nil || !strings.Contains(message, "wasm:") || (!strings.Contains(message, "out of bounds") && !strings.Contains(message, "unaligned")) {
+					panic("wrong max-boundary trap: " + message)
+				}
+			}()
+			access()
+		}()
+		if sum(m.Memory()[:max]) != before || m.Grow(0) != 3 {
+			panic("maximum trap changed state")
+		}
+	}
+	fmt.Fprintln(os.Stderr, "generated memory matrix PASS; host survives all expected traps; grow/max/state PASS")
+}

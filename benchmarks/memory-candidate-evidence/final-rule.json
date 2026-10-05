@@ -1,0 +1,71 @@
+{
+  "released_base": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+  "backing": "unchanged Go heap",
+  "mmap": false,
+  "phases": [
+    {
+      "name": "build-counter",
+      "peak_rss_bytes": 0,
+      "peak_physical_bytes": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 0.21278949998668395
+    },
+    {
+      "name": "converter-unit-tests",
+      "peak_rss_bytes": 307544064,
+      "peak_physical_bytes": 279266648,
+      "exit_code": 0,
+      "elapsed_seconds": 3.627845000009984
+    },
+    {
+      "name": "build-converter",
+      "peak_rss_bytes": 262127616,
+      "peak_physical_bytes": 235095384,
+      "exit_code": 0,
+      "elapsed_seconds": 1.4092807080014609
+    },
+    {
+      "name": "reference-partial-writes",
+      "peak_rss_bytes": 88031232,
+      "peak_physical_bytes": 58238072,
+      "exit_code": 0,
+      "elapsed_seconds": 0.9374077499960549
+    },
+    {
+      "name": "final-regression",
+      "peak_rss_bytes": 92225536,
+      "peak_physical_bytes": 60032704,
+      "exit_code": 0,
+      "elapsed_seconds": 1.401551125018159
+    },
+    {
+      "name": "translate-guest",
+      "peak_rss_bytes": 3640295424,
+      "peak_physical_bytes": 6578198048,
+      "exit_code": 0,
+      "elapsed_seconds": 69.2657849160023
+    },
+    {
+      "name": "verify-provenance",
+      "peak_rss_bytes": 119930880,
+      "peak_physical_bytes": 5554656,
+      "exit_code": 0,
+      "elapsed_seconds": 0.453324917005375
+    },
+    {
+      "name": "canonical-check",
+      "peak_rss_bytes": 645742592,
+      "peak_physical_bytes": 328140624,
+      "exit_code": 0,
+      "elapsed_seconds": 49.40100516600069
+    }
+  ],
+  "rss_limit_bytes": 6442450944,
+  "physical_limit_bytes": 8589934592,
+  "finished": true,
+  "fixture_case_count": 2472,
+  "trap_cases": 1693,
+  "max_boundary_extra_traps": 7,
+  "partial_write_cases": 14,
+  "full_guest_byte_identical_to_measurement": true
+}

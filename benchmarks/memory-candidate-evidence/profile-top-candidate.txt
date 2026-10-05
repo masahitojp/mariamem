@@ -1,0 +1,37 @@
+File: candidate-probe
+Type: cpu
+Time: 2026-10-05 14:36:49 JST
+Duration: 1.50s, Total samples = 1.52s (101.02%)
+Showing nodes accounting for 1.52s, 100% of 1.52s total
+Showing top 30 nodes out of 175
+      flat  flat%   sum%        cum   cum%
+     0.75s 49.34% 49.34%      0.75s 49.34%  syscall.rawsyscalln
+     0.24s 15.79% 65.13%      0.24s 15.79%  runtime.pthread_cond_signal
+     0.22s 14.47% 79.61%      0.22s 14.47%  runtime.kevent
+     0.10s  6.58% 86.18%      0.10s  6.58%  runtime.pthread_cond_wait
+     0.05s  3.29% 89.47%      0.05s  3.29%  runtime.madvise
+     0.03s  1.97% 91.45%      0.03s  1.97%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)
+     0.03s  1.97% 93.42%      0.03s  1.97%  runtime.usleep
+     0.02s  1.32% 94.74%      0.03s  1.97%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18097
+     0.02s  1.32% 96.05%      0.02s  1.32%  runtime.memclrNoHeapPointers
+     0.02s  1.32% 97.37%      0.02s  1.32%  runtime.memmove
+     0.01s  0.66% 98.03%      0.04s  2.63%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA
+     0.01s  0.66% 98.68%      0.01s  0.66%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_p_v128_load8_lane
+     0.01s  0.66% 99.34%      0.01s  0.66%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18130
+     0.01s  0.66%   100%      0.01s  0.66%  time.runtimeNow
+         0     0%   100%      0.03s  1.97%  database/sql.(*DB).ExecContext
+         0     0%   100%      0.03s  1.97%  database/sql.(*DB).ExecContext.func1
+         0     0%   100%      0.05s  3.29%  database/sql.(*DB).QueryContext
+         0     0%   100%      0.05s  3.29%  database/sql.(*DB).QueryContext.func1
+         0     0%   100%      0.05s  3.29%  database/sql.(*DB).QueryRowContext
+         0     0%   100%      0.02s  1.32%  database/sql.(*DB).conn
+         0     0%   100%      0.03s  1.97%  database/sql.(*DB).exec
+         0     0%   100%      0.02s  1.32%  database/sql.(*DB).execDC
+         0     0%   100%      0.02s  1.32%  database/sql.(*DB).execDC.func2
+         0     0%   100%      0.05s  3.29%  database/sql.(*DB).query
+         0     0%   100%      0.04s  2.63%  database/sql.(*DB).queryDC
+         0     0%   100%      0.04s  2.63%  database/sql.(*DB).queryDC.func1
+         0     0%   100%      0.08s  5.26%  database/sql.(*DB).retry
+         0     0%   100%      0.02s  1.32%  database/sql.(*driverConn).resetSession
+         0     0%   100%      0.02s  1.32%  database/sql.ctxDriverExec
+         0     0%   100%      0.04s  2.63%  database/sql.ctxDriverQuery

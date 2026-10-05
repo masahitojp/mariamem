@@ -1,0 +1,37 @@
+File: baseline-probe
+Type: cpu
+Time: 2026-10-05 14:36:45 JST
+Duration: 1.10s, Total samples = 940ms (85.27%)
+Showing nodes accounting for 940ms, 100% of 940ms total
+Showing top 30 nodes out of 120
+      flat  flat%   sum%        cum   cum%
+     580ms 61.70% 61.70%      580ms 61.70%  syscall.rawsyscalln
+     120ms 12.77% 74.47%      120ms 12.77%  runtime.kevent
+     110ms 11.70% 86.17%      110ms 11.70%  runtime.pthread_cond_signal
+      70ms  7.45% 93.62%       70ms  7.45%  runtime.pthread_cond_wait
+      30ms  3.19% 96.81%       30ms  3.19%  runtime.usleep
+      10ms  1.06% 97.87%       10ms  1.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18097
+      10ms  1.06% 98.94%       10ms  1.06%  runtime.madvise
+      10ms  1.06%   100%       10ms  1.06%  runtime.memmove
+         0     0%   100%       50ms  5.32%  database/sql.(*DB).ExecContext
+         0     0%   100%       50ms  5.32%  database/sql.(*DB).ExecContext.func1
+         0     0%   100%       20ms  2.13%  database/sql.(*DB).QueryContext
+         0     0%   100%       20ms  2.13%  database/sql.(*DB).QueryContext.func1
+         0     0%   100%       20ms  2.13%  database/sql.(*DB).QueryRowContext
+         0     0%   100%       20ms  2.13%  database/sql.(*DB).conn
+         0     0%   100%       50ms  5.32%  database/sql.(*DB).exec
+         0     0%   100%       30ms  3.19%  database/sql.(*DB).execDC
+         0     0%   100%       30ms  3.19%  database/sql.(*DB).execDC.func2
+         0     0%   100%       20ms  2.13%  database/sql.(*DB).query
+         0     0%   100%       20ms  2.13%  database/sql.(*DB).queryDC
+         0     0%   100%       20ms  2.13%  database/sql.(*DB).queryDC.func1
+         0     0%   100%       70ms  7.45%  database/sql.(*DB).retry
+         0     0%   100%       20ms  2.13%  database/sql.(*driverConn).resetSession
+         0     0%   100%       30ms  3.19%  database/sql.ctxDriverExec
+         0     0%   100%       20ms  2.13%  database/sql.ctxDriverQuery
+         0     0%   100%       50ms  5.32%  database/sql.withLock
+         0     0%   100%       30ms  3.19%  github.com/go-sql-driver/mysql.(*buffer).fill
+         0     0%   100%       30ms  3.19%  github.com/go-sql-driver/mysql.(*mysqlConn).Exec
+         0     0%   100%       30ms  3.19%  github.com/go-sql-driver/mysql.(*mysqlConn).ExecContext
+         0     0%   100%       20ms  2.13%  github.com/go-sql-driver/mysql.(*mysqlConn).QueryContext
+         0     0%   100%       20ms  2.13%  github.com/go-sql-driver/mysql.(*mysqlConn).ResetSession

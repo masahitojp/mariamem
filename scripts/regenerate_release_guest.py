@@ -31,6 +31,8 @@ def main():
     commands=[
       [spike/'translate_guest.py','--guest',guest/'mariamem.wasm','--guest-sha256',pins['guest_sha256'],
        '--converter-archive',converter,'--output',out/'translation'],
+      [ROOT/'benchmarks/spikes/memory-candidate/check_fixture.py','--converter',out/'translation/wasm2go',
+       '--output',out/'memory32-regression'],
       [spike/'setup_candidate.py','--source-only','--source-module',out/'translation/module',
        '--guest',guest/'mariamem.wasm','--input-manifest',ROOT/'release/generated-go-translation.json','--output',out/'candidate'],
       [ROOT/'scripts/generate_runtime.py','--source-module',out/'candidate/module','--output',out/'generatedgo']]

@@ -1,0 +1,38 @@
+{
+  "released_base": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+  "backing": "unchanged Go heap",
+  "mmap": false,
+  "phases": [
+    {
+      "name": "build-counter",
+      "peak_rss_bytes": 0,
+      "peak_physical_bytes": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 0.2063550419989042
+    },
+    {
+      "name": "candidate-symbols",
+      "peak_rss_bytes": 40091648,
+      "peak_physical_bytes": 25642160,
+      "exit_code": 0,
+      "elapsed_seconds": 0.9654562500072643
+    },
+    {
+      "name": "independent-regeneration",
+      "peak_rss_bytes": 4179378176,
+      "peak_physical_bytes": 6625745040,
+      "exit_code": 0,
+      "elapsed_seconds": 100.07880808398477
+    },
+    {
+      "name": "canonical-check",
+      "peak_rss_bytes": 705953792,
+      "peak_physical_bytes": 322930080,
+      "exit_code": 1,
+      "elapsed_seconds": 39.59680479200324
+    }
+  ],
+  "rss_limit_bytes": 6442450944,
+  "physical_limit_bytes": 8589934592,
+  "retained_license_examples_rechecked": 34
+}

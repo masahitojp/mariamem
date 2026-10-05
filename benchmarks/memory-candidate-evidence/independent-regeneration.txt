@@ -1,0 +1,280 @@
+wasm2go: SSA fixpoint cap reached at function Fn5556
+wasm2go: SSA fixpoint cap reached at function Fn7056
+wasm2go: SSA fixpoint cap reached at function Fn7273
+wasm2go: SSA fixpoint cap reached at function Fn13483
+wasm2go: SSA fixpoint cap reached at function Fn14569
+wasm2go: SSA fixpoint cap reached at function Fn14958
+wasm2go: SSA fixpoint cap reached at function Fn14981
+wasm2go: SSA fixpoint cap reached at function Fn14982
+wasm2go: SSA fixpoint cap reached at function Fn15344
+wasm2go: SSA fixpoint cap reached at function Fn15448
+wasm2go: SSA fixpoint cap reached at function Fn15531
+wasm2go: SSA fixpoint cap reached at function Fn15715
+wasm2go: SSA fixpoint cap reached at function Fn16950
+wasm2go: SSA fixpoint cap reached at function Fn16963
+wasm2go: SSA fixpoint cap reached at function Fn16974
+wasm2go: SSA fixpoint cap reached at function Fn17057
+wasm2go: SSA fixpoint cap reached at function Fn17205
+wasm2go: SSA fixpoint cap reached at function Fn17216
+wasm2go: SSA fixpoint cap reached at function Fn17244
+wasm2go: SSA fixpoint cap reached at function Fn17283
+wasm2go: SSA fixpoint cap reached at function Fn17362
+wasm2go: SSA fixpoint cap reached at function Fn17921
+wasm2go: SSA fixpoint cap reached at function Fn18348
+wasm2go: SSA fixpoint cap reached at function Fn19922
+wasm2go: SSA fixpoint cap reached at function Fn21200
+wasm2go: SSA fixpoint cap reached at function Fn21203
+wasm2go: SSA fixpoint cap reached at function Fn21857
+wasm2go: SSA fixpoint cap reached at function Fn455
+wasm2go: SSA fixpoint cap reached at function Fn920
+wasm2go: SSA fixpoint cap reached at function Fn1306
+wasm2go: SSA fixpoint cap reached at function Fn4362
+wasm2go: SSA fixpoint cap reached at function Fn4487
+wasm2go: SSA fixpoint cap reached at function Fn4603
+wasm2go: SSA fixpoint cap reached at function Fn4606
+wasm2go: SSA fixpoint cap reached at function Fn4647
+wasm2go: SSA fixpoint cap reached at function Fn4993
+wasm2go: SSA fixpoint cap reached at function Fn5079
+wasm2go: SSA fixpoint cap reached at function Fn5138
+wasm2go: SSA fixpoint cap reached at function Fn5337
+wasm2go: SSA fixpoint cap reached at function Fn5407
+wasm2go: SSA fixpoint cap reached at function Fn5545
+wasm2go: SSA fixpoint cap reached at function Fn5957
+wasm2go: SSA fixpoint cap reached at function Fn5966
+wasm2go: SSA fixpoint cap reached at function Fn7237
+wasm2go: SSA fixpoint cap reached at function Fn7258
+wasm2go: SSA fixpoint cap reached at function Fn7570
+wasm2go: SSA fixpoint cap reached at function Fn10778
+wasm2go: SSA fixpoint cap reached at function Fn11210
+wasm2go: SSA fixpoint cap reached at function Fn12744
+wasm2go: SSA fixpoint cap reached at function Fn12765
+wasm2go: SSA fixpoint cap reached at function Fn13554
+wasm2go: SSA fixpoint cap reached at function Fn13737
+wasm2go: SSA fixpoint cap reached at function Fn13803
+wasm2go: SSA fixpoint cap reached at function Fn14212
+wasm2go: SSA fixpoint cap reached at function Fn14530
+wasm2go: SSA fixpoint cap reached at function Fn14549
+wasm2go: SSA fixpoint cap reached at function Fn14686
+wasm2go: SSA fixpoint cap reached at function Fn14804
+wasm2go: SSA fixpoint cap reached at function Fn14957
+wasm2go: SSA fixpoint cap reached at function Fn14959
+wasm2go: SSA fixpoint cap reached at function Fn14960
+wasm2go: SSA fixpoint cap reached at function Fn14985
+wasm2go: SSA fixpoint cap reached at function Fn14991
+wasm2go: SSA fixpoint cap reached at function Fn14993
+wasm2go: SSA fixpoint cap reached at function Fn15086
+wasm2go: SSA fixpoint cap reached at function Fn15414
+wasm2go: SSA fixpoint cap reached at function Fn15444
+wasm2go: SSA fixpoint cap reached at function Fn15460
+wasm2go: SSA fixpoint cap reached at function Fn15592
+wasm2go: SSA fixpoint cap reached at function Fn15697
+wasm2go: SSA fixpoint cap reached at function Fn15918
+wasm2go: SSA fixpoint cap reached at function Fn16228
+wasm2go: SSA fixpoint cap reached at function Fn16679
+wasm2go: SSA fixpoint cap reached at function Fn16682
+wasm2go: SSA fixpoint cap reached at function Fn16878
+wasm2go: SSA fixpoint cap reached at function Fn16905
+wasm2go: SSA fixpoint cap reached at function Fn16947
+wasm2go: SSA fixpoint cap reached at function Fn17000
+wasm2go: SSA fixpoint cap reached at function Fn17140
+wasm2go: SSA fixpoint cap reached at function Fn17161
+wasm2go: SSA fixpoint cap reached at function Fn17299
+wasm2go: SSA fixpoint cap reached at function Fn17375
+wasm2go: SSA fixpoint cap reached at function Fn17378
+wasm2go: SSA fixpoint cap reached at function Fn17457
+wasm2go: SSA fixpoint cap reached at function Fn17459
+wasm2go: SSA fixpoint cap reached at function Fn17739
+wasm2go: SSA fixpoint cap reached at function Fn17786
+wasm2go: SSA fixpoint cap reached at function Fn17802
+wasm2go: SSA fixpoint cap reached at function Fn17994
+wasm2go: SSA fixpoint cap reached at function Fn18019
+wasm2go: SSA fixpoint cap reached at function Fn18391
+wasm2go: SSA fixpoint cap reached at function Fn18392
+wasm2go: SSA fixpoint cap reached at function Fn18522
+wasm2go: SSA fixpoint cap reached at function Fn18614
+wasm2go: SSA fixpoint cap reached at function Fn18682
+wasm2go: SSA fixpoint cap reached at function Fn19893
+wasm2go: SSA fixpoint cap reached at function Fn21585
+wasm2go: SSA fixpoint cap reached at function Fn21593
+wasm2go: SSA fixpoint cap reached at function Fn278
+wasm2go: SSA fixpoint cap reached at function Fn747
+wasm2go: SSA fixpoint cap reached at function Fn1049
+wasm2go: SSA fixpoint cap reached at function Fn2305
+wasm2go: SSA fixpoint cap reached at function Fn2721
+wasm2go: SSA fixpoint cap reached at function Fn3064
+wasm2go: SSA fixpoint cap reached at function Fn3098
+wasm2go: SSA fixpoint cap reached at function Fn3327
+wasm2go: SSA fixpoint cap reached at function Fn3896
+wasm2go: SSA fixpoint cap reached at function Fn4562
+wasm2go: SSA fixpoint cap reached at function Fn5203
+wasm2go: SSA fixpoint cap reached at function Fn5274
+wasm2go: SSA fixpoint cap reached at function Fn5336
+wasm2go: SSA fixpoint cap reached at function Fn5352
+wasm2go: SSA fixpoint cap reached at function Fn5753
+wasm2go: SSA fixpoint cap reached at function Fn5836
+wasm2go: SSA fixpoint cap reached at function Fn7238
+wasm2go: SSA fixpoint cap reached at function Fn7291
+wasm2go: SSA fixpoint cap reached at function Fn11196
+wasm2go: SSA fixpoint cap reached at function Fn11556
+wasm2go: SSA fixpoint cap reached at function Fn12458
+wasm2go: SSA fixpoint cap reached at function Fn12748
+wasm2go: SSA fixpoint cap reached at function Fn12751
+wasm2go: SSA fixpoint cap reached at function Fn13317
+wasm2go: SSA fixpoint cap reached at function Fn13322
+wasm2go: SSA fixpoint cap reached at function Fn13504
+wasm2go: SSA fixpoint cap reached at function Fn14035
+wasm2go: SSA fixpoint cap reached at function Fn14081
+wasm2go: SSA fixpoint cap reached at function Fn14519
+wasm2go: SSA fixpoint cap reached at function Fn14947
+wasm2go: SSA fixpoint cap reached at function Fn14989
+wasm2go: SSA fixpoint cap reached at function Fn15013
+wasm2go: SSA fixpoint cap reached at function Fn15022
+wasm2go: SSA fixpoint cap reached at function Fn15123
+wasm2go: SSA fixpoint cap reached at function Fn15264
+wasm2go: SSA fixpoint cap reached at function Fn15524
+wasm2go: SSA fixpoint cap reached at function Fn15673
+wasm2go: SSA fixpoint cap reached at function Fn16621
+wasm2go: SSA fixpoint cap reached at function Fn16656
+wasm2go: SSA fixpoint cap reached at function Fn16806
+wasm2go: SSA fixpoint cap reached at function Fn16814
+wasm2go: SSA fixpoint cap reached at function Fn16818
+wasm2go: SSA fixpoint cap reached at function Fn16822
+wasm2go: SSA fixpoint cap reached at function Fn16900
+wasm2go: SSA fixpoint cap reached at function Fn16908
+wasm2go: SSA fixpoint cap reached at function Fn16937
+wasm2go: SSA fixpoint cap reached at function Fn16957
+wasm2go: SSA fixpoint cap reached at function Fn16959
+wasm2go: SSA fixpoint cap reached at function Fn17071
+wasm2go: SSA fixpoint cap reached at function Fn17129
+wasm2go: SSA fixpoint cap reached at function Fn17167
+wasm2go: SSA fixpoint cap reached at function Fn17228
+wasm2go: SSA fixpoint cap reached at function Fn17271
+wasm2go: SSA fixpoint cap reached at function Fn17289
+wasm2go: SSA fixpoint cap reached at function Fn17335
+wasm2go: SSA fixpoint cap reached at function Fn17354
+wasm2go: SSA fixpoint cap reached at function Fn17525
+wasm2go: SSA fixpoint cap reached at function Fn17528
+wasm2go: SSA fixpoint cap reached at function Fn17787
+wasm2go: SSA fixpoint cap reached at function Fn18059
+wasm2go: SSA fixpoint cap reached at function Fn18062
+wasm2go: SSA fixpoint cap reached at function Fn18087
+wasm2go: SSA fixpoint cap reached at function Fn18108
+wasm2go: SSA fixpoint cap reached at function Fn18130
+wasm2go: SSA fixpoint cap reached at function Fn18223
+wasm2go: SSA fixpoint cap reached at function Fn18338
+wasm2go: SSA fixpoint cap reached at function Fn18381
+wasm2go: SSA fixpoint cap reached at function Fn18386
+wasm2go: SSA fixpoint cap reached at function Fn18442
+wasm2go: SSA fixpoint cap reached at function Fn18536
+wasm2go: SSA fixpoint cap reached at function Fn18588
+wasm2go: SSA fixpoint cap reached at function Fn18599
+wasm2go: SSA fixpoint cap reached at function Fn21249
+wasm2go: SSA fixpoint cap reached at function Fn256
+wasm2go: SSA fixpoint cap reached at function Fn968
+wasm2go: SSA fixpoint cap reached at function Fn2306
+wasm2go: SSA fixpoint cap reached at function Fn3050
+wasm2go: SSA fixpoint cap reached at function Fn3915
+wasm2go: SSA fixpoint cap reached at function Fn4264
+wasm2go: SSA fixpoint cap reached at function Fn4903
+wasm2go: SSA fixpoint cap reached at function Fn5021
+wasm2go: SSA fixpoint cap reached at function Fn5664
+wasm2go: SSA fixpoint cap reached at function Fn7295
+wasm2go: SSA fixpoint cap reached at function Fn11964
+wasm2go: SSA fixpoint cap reached at function Fn12033
+wasm2go: SSA fixpoint cap reached at function Fn12065
+wasm2go: SSA fixpoint cap reached at function Fn12833
+wasm2go: SSA fixpoint cap reached at function Fn13500
+wasm2go: SSA fixpoint cap reached at function Fn14060
+wasm2go: SSA fixpoint cap reached at function Fn14080
+wasm2go: SSA fixpoint cap reached at function Fn14942
+wasm2go: SSA fixpoint cap reached at function Fn15003
+wasm2go: SSA fixpoint cap reached at function Fn15051
+wasm2go: SSA fixpoint cap reached at function Fn15092
+wasm2go: SSA fixpoint cap reached at function Fn15438
+wasm2go: SSA fixpoint cap reached at function Fn16229
+wasm2go: SSA fixpoint cap reached at function Fn16805
+wasm2go: SSA fixpoint cap reached at function Fn16973
+wasm2go: SSA fixpoint cap reached at function Fn17012
+wasm2go: SSA fixpoint cap reached at function Fn17339
+wasm2go: SSA fixpoint cap reached at function Fn17673
+wasm2go: SSA fixpoint cap reached at function Fn17691
+wasm2go: SSA fixpoint cap reached at function Fn17696
+wasm2go: SSA fixpoint cap reached at function Fn17835
+wasm2go: SSA fixpoint cap reached at function Fn18111
+wasm2go: SSA fixpoint cap reached at function Fn18213
+wasm2go: SSA fixpoint cap reached at function Fn18258
+wasm2go: SSA fixpoint cap reached at function Fn18406
+wasm2go: SSA fixpoint cap reached at function Fn21346
+wasm2go: SSA fixpoint cap reached at function Fn21362
+wasm2go: SSA fixpoint cap reached at function Fn4379
+wasm2go: SSA fixpoint cap reached at function Fn4474
+wasm2go: SSA fixpoint cap reached at function Fn4968
+wasm2go: SSA fixpoint cap reached at function Fn5227
+wasm2go: SSA fixpoint cap reached at function Fn5308
+wasm2go: SSA fixpoint cap reached at function Fn9704
+wasm2go: SSA fixpoint cap reached at function Fn11182
+wasm2go: SSA fixpoint cap reached at function Fn12016
+wasm2go: SSA fixpoint cap reached at function Fn12037
+wasm2go: SSA fixpoint cap reached at function Fn12466
+wasm2go: SSA fixpoint cap reached at function Fn12506
+wasm2go: SSA fixpoint cap reached at function Fn12754
+wasm2go: SSA fixpoint cap reached at function Fn13121
+wasm2go: SSA fixpoint cap reached at function Fn13516
+wasm2go: SSA fixpoint cap reached at function Fn14948
+wasm2go: SSA fixpoint cap reached at function Fn14971
+wasm2go: SSA fixpoint cap reached at function Fn15577
+wasm2go: SSA fixpoint cap reached at function Fn17239
+wasm2go: SSA fixpoint cap reached at function Fn17779
+wasm2go: SSA fixpoint cap reached at function Fn18120
+wasm2go: SSA fixpoint cap reached at function Fn18440
+wasm2go: SSA fixpoint cap reached at function Fn18776
+wasm2go: SSA fixpoint cap reached at function Fn19788
+wasm2go: SSA fixpoint cap reached at function Fn19857
+wasm2go: SSA fixpoint cap reached at function Fn11810
+wasm2go: SSA fixpoint cap reached at function Fn14085
+wasm2go: SSA fixpoint cap reached at function Fn15679
+wasm2go: SSA fixpoint cap reached at function Fn836
+
+wasm2go: SSA optimization + memory promotion summary
+  SSA instructions:         4531216 -> 3164956  (-30.2% folded)
+  emit form:                  15804 structured / 5990 goto  (72.5% structured)
+  SSA-lowered functions:      21794
+  functions with a frame:      6799  (561 non-escaping)
+  total memory accesses:     790263
+  promoted (y/x):             32275 / 790263  (  4.1%)
+    frame:                     4832  (  0.6%)
+    rodata:                   27443  (  3.5%)
+  slab (not promoted):       757988  ( 95.9%)
+  top un-promoted functions:
+    Fn21857                      slab=14983  frame=0     total=15182
+    Fn21647                      slab=14164  frame=0     total=14351
+    Fn65                         slab=14016  frame=0     total=15186
+    Fn14569                      slab=6992   frame=0     total=7266
+    Fn5656                       slab=5376   frame=0     total=5381
+
+wasm2go: f16 gather sites at bases [12418928] were not verified (no static table image, no init-loop coverage) — the table-keyed rewrites stayed OFF there
+$WORKSPACE_ROOT/v042-memory-proof/temp/regeneration/translation/input-manifest.json
+
+wasm2go: SSA optimization + memory promotion summary
+  SSA instructions:            1032 -> 1000  (-3.1% folded)
+  emit form:                    187 structured / 0 goto  (100.0% structured)
+  SSA-lowered functions:        187
+  functions with a frame:         0  (0 non-escaping)
+  total memory accesses:         67
+  promoted (y/x):                 0 / 67  (  0.0%)
+    frame:                        0  (  0.0%)
+    rodata:                       0  (  0.0%)
+  slab (not promoted):           67  (100.0%)
+  top un-promoted functions:
+    fn0                          slab=1      frame=0     total=1
+    fn1                          slab=1      frame=0     total=1
+    fn2                          slab=1      frame=0     total=1
+    fn3                          slab=1      frame=0     total=1
+    fn4                          slab=1      frame=0     total=1
+
+generated memory matrix PASS; host survives all expected traps; grow/max/state PASS
+PASS: 2404 cases; 1647 guest traps; host exit 0
+Installed FD audit. Stable directory-object adaptation installed; FD contracts must PASS.
+$WORKSPACE_ROOT/v042-memory-proof/temp/regeneration/candidate/module
+Installed checksum-bound generated runtime: 62 files
+PASS: independently regenerated source equals canonical checked-in source

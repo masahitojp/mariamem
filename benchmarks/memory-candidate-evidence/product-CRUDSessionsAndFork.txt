@@ -1,0 +1,4 @@
+=== RUN   TestPureMemory32CRUDSessionsAndFork
+--- PASS: TestPureMemory32CRUDSessionsAndFork (1.19s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/godefault	1.892s

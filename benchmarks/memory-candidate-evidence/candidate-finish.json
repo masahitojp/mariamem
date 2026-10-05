@@ -1,0 +1,89 @@
+{
+  "released_base": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+  "backing": "unchanged Go heap",
+  "mmap": false,
+  "phases": [
+    {
+      "name": "build-counter",
+      "peak_rss_bytes": 0,
+      "peak_physical_bytes": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 0.42253329200320877
+    },
+    {
+      "name": "verify-provenance",
+      "peak_rss_bytes": 119767040,
+      "peak_physical_bytes": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 0.4943865000095684
+    },
+    {
+      "name": "fixture-matrix-grow-state",
+      "peak_rss_bytes": 52707328,
+      "peak_physical_bytes": 24183912,
+      "exit_code": 0,
+      "elapsed_seconds": 0.9166168340016156
+    },
+    {
+      "name": "product-GeneratedTraps",
+      "peak_rss_bytes": 699449344,
+      "peak_physical_bytes": 80185024,
+      "exit_code": 0,
+      "elapsed_seconds": 1.9088356670108624
+    },
+    {
+      "name": "product-CRUDSessionsAndFork",
+      "peak_rss_bytes": 1984856064,
+      "peak_physical_bytes": 2592099760,
+      "exit_code": 0,
+      "elapsed_seconds": 2.8772071249841247
+    },
+    {
+      "name": "product-Auth",
+      "peak_rss_bytes": 445579264,
+      "peak_physical_bytes": 78071440,
+      "exit_code": 0,
+      "elapsed_seconds": 1.640957083000103
+    },
+    {
+      "name": "product-RepeatedClose",
+      "peak_rss_bytes": 470679552,
+      "peak_physical_bytes": 422594624,
+      "exit_code": 0,
+      "elapsed_seconds": 1.8653005830128677
+    },
+    {
+      "name": "focused-adapter-race",
+      "peak_rss_bytes": 3701637120,
+      "peak_physical_bytes": 5563126872,
+      "exit_code": 0,
+      "elapsed_seconds": 438.7811450419831
+    },
+    {
+      "name": "build-probe-baseline",
+      "peak_rss_bytes": 3047768064,
+      "peak_physical_bytes": 3087518960,
+      "exit_code": 0,
+      "elapsed_seconds": 81.93983633400057
+    },
+    {
+      "name": "build-probe-candidate",
+      "peak_rss_bytes": 3208560640,
+      "peak_physical_bytes": 3170487680,
+      "exit_code": 0,
+      "elapsed_seconds": 96.02501033301814
+    },
+    {
+      "name": "fresh-00-baseline",
+      "peak_rss_bytes": 0,
+      "peak_physical_bytes": 0
+    }
+  ],
+  "rss_limit_bytes": 6442450944,
+  "physical_limit_bytes": 8589934592,
+  "fixture_pass": true,
+  "fixture_case_count": 2404,
+  "trap_cases": 1647,
+  "resumed_generated_manifest_sha256": "6ee1f19f35e0e0ba62d52c33e6f7b1d1a7abe4b63573d39d5b361e9587d44817",
+  "compatibility_pass": true
+}

@@ -1,0 +1,48 @@
++ $SHARED_REPO/.venv/bin/python scripts/check_version.py
+Release version: Python 0.4.1; Git/Go v0.4.1
++ $SHARED_REPO/.venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ go test -p 1 ./...
+ok  	github.com/masahitojp/mariamem	1.276s
+?   	github.com/masahitojp/mariamem/benchmarks/defaultsanity	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/goisolation	0.352s
+?   	github.com/masahitojp/mariamem/benchmarks/memorylifetime	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotallocation	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/artifacts	0.490s
+?   	github.com/masahitojp/mariamem/internal/diagnostic	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.294s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	1.005s
+ok  	github.com/masahitojp/mariamem/internal/host	0.814s
+?   	github.com/masahitojp/mariamem/internal/mysqlwire	[no test files]
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	0.275s
+ok  	github.com/masahitojp/mariamem/internal/timing	0.268s
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
+ok  	github.com/masahitojp/mariamem/tests/consumer/zero_setup	(cached)
++ go vet -p 1 -vettool=$WORKSPACE_ROOT/v042-memory-candidate/worktree/scripts/vet_generated.py ./...
++ $SHARED_REPO/.venv/bin/python -m pytest tests --ignore=tests/consumer -q
+........................................................................ [ 16%]
+........................................................................ [ 32%]
+....................sss................................................. [ 49%]
+........................................................................ [ 65%]
+..............sss....................................................... [ 82%]
+........................................................................ [ 98%]
+......                                                                   [100%]
+432 passed, 6 skipped in 27.92s
++ $SHARED_REPO/.venv/bin/python scripts/check_public.py
+Public source check passed: 621 files
