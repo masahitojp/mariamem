@@ -209,7 +209,7 @@ jobs:
         run: |
           python candidate-source/scripts/generated_release_acceptance.py --root candidate-source \
             --candidate-sha '${{ needs.resolve.outputs.source_sha }}' --platform '${{ matrix.platform }}' \
-            --output candidate-source/build/release/generated-acceptance.json
+            --output candidate-source/build/release/generated-acceptance.json --go-build-jobs 1
       - id: guard
         name: Exact platform guard — READY / NOT READY
         if: always() && steps.restore.outcome == 'success'

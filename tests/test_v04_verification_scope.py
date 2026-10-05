@@ -24,7 +24,7 @@ def test_default_acceptance_preserves_focused_runtime_race_gate(monkeypatch):
     assert '-race' in focused
     assert './internal/generatedgo/code/base' in focused
     assert './internal/generatedgo' in focused
-    for package in ('./tests/gointegration', './tests/godefault'):
+    for package in ('./tests/gointegration', './tests/godefault', './tests/generatedmemory'):
         argv, env = next(c for c in calls if package in c[0])
         assert '-race' not in argv
         assert env['MARIAMEM_TEST_DEFAULT'] == '1'
@@ -41,4 +41,5 @@ def test_legacy_guest_keeps_race_gate_and_default_is_separate(monkeypatch, tmp_p
     assert '-race' in legacy
     assert '-race' not in default
     assert '-race' in calls[0][0]
+    assert not any('./tests/generatedmemory' in c[0] for c in calls)
     assert any('tests/test_python_timeout.py' in c[0] for c in calls)

@@ -60,7 +60,7 @@ def integration():
     env["PYTHONPATH"] = str(ROOT / "python")
     # v0.4 keeps handwritten/runtime race coverage. Full generated guest races
     # are a documented shared-memory-model limitation, not a release gate.
-    run(["go", "test", "-race", "./internal/generatedgo/code/base",
+    run(["go", "test", "-race", "-p", "1", "./internal/generatedgo/code/base",
          "./internal/generatedgo", "./internal/guest", "./internal/host",
          "./internal/mysqlwire", "./internal/snapshot", "-count=1"], env=env)
     command = ["go", "test"]
@@ -71,6 +71,11 @@ def integration():
     # These tests deliberately clear native overrides and execute the full guest.
     run(["go", "test", "-tags=integration", "./tests/godefault",
          "-count=1", "-timeout=3m"], env=env)
+    if not native:
+        # Actual generated accesses must trap without killing the host, including
+        # worker failures, logical grow and mmap-backed shared-memory visibility.
+        run(["go", "test", "-p", "1", "-tags=integration", "./tests/generatedmemory",
+             "-count=1", "-timeout=3m"], env=env)
     with tempfile.TemporaryDirectory(prefix="mariamem-integration-") as temporary:
         host = Path(temporary) / "mariamem-host"
         run(["go", "build", "-p", "1", "-o", host, "./cmd/mariamem-host"], env=env)
