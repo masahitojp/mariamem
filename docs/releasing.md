@@ -1,10 +1,9 @@
 # Releasing mariamem
 
-The canonical package version is `v0.4.1`; Python spelling is `0.4.1`.
-The integrated candidate and [tracked notes](../release/NOTES-v0.4.1.md) are prepared
-for the explicitly authorized release submission. Release CI full mode verifies
-the exact final pushed SHA before publishing its accepted artifacts and running
-public smoke; no tag or release has been published during preparation.
+The canonical package version is `v0.4.2`; Python spelling is `0.4.2`.
+The integrated candidate and [tracked notes](../release/NOTES-v0.4.2.md) are prepared
+for an exact-SHA `operation=verify` submission. Verify cannot tag or publish;
+publication remains a separate explicitly authorized transaction.
 
 ## Exact-source release boundary
 
@@ -74,8 +73,9 @@ platform. `build_generated_guest.py` installs a fresh checksum-verified SDK and
 LLVM23 header profile, uses fixed `/work/source` build paths, performs two
 independent clean source builds and requires both linked and final WASM hashes
 to equal the accepted canonical identities. No local Docker image or hidden
-SDK/download is accepted. `regenerate_release_guest.py` applies the three pinned
-generator patches and bounded filesystem adaptations automatically, uses pinned
+SDK/download is accepted. `regenerate_release_guest.py` applies the pinned
+converter patches (including memory32 bounds, controlled traps and memory
+ownership) and bounded filesystem adaptations automatically, uses pinned
 Go1.26.8 formatting, and compares **all** regenerated files (including handwritten
 ownership glue) with committed generated source. A mismatch fails; it does not
 update accepted hashes.
@@ -146,9 +146,10 @@ Full generated guest `-race` remains **GENERAL SHARED-MEMORY MODEL WORK REQUIRED
 no suppression is used and it is not a v0.4 release gate. Focused handwritten
 FD/MemFS/thread/TLS/futex race coverage remains enabled in normal integration CI.
 Forced query-timeout reclamation/hard failure containment is not guaranteed.
-The ~1s legal guest-side startup tail remains observable. macOS post-Close
-physical footprint is not live Go heap and is not claimed harmless or immediately
-reclaimable. Go1.27.0/1.27.1 arm64 are unsupported due to the documented upstream
+The ~1s legal guest-side startup tail remains observable. v0.4.2 releases its
+mmap-backed linear memory after cooperative join; remaining Go filesystem/metadata
+heap and OS accounting still differ from live allocations. Go1.27.0/1.27.1 arm64
+are unsupported due to the documented upstream
 compiler regression; no generated-source/compiler workaround is used.
 
 For each new candidate, submit its exact pushed SHA with `operation=verify` to

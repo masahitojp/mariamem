@@ -18,8 +18,9 @@ Simpler tests and reviews, including tests written by coding agents, remain a
 hypothesis rather than a demonstrated AI productivity claim.
 
 mariamem runs real MariaDB SQL/InnoDB for Go/Python integration tests. v0.4.0
-provides evidence for cheaper creation and ordinary isolated disposal; cheap
-reclamation across sustained generations still needs validation. Hard failure
+provides evidence for cheaper creation and ordinary isolated disposal. The
+accepted v0.4.2 candidate adds evidence for cheap reclamation across bounded
+sustained generations, with final release verification pending. Hard failure
 containment is not guaranteed. The guest derives from `shyim/lite4mariadb`; GPL
 corresponding source and upstream notices remain required.
 
@@ -94,12 +95,12 @@ are evidence, not pending release work or a second roadmap.
   cooperative Close passes; the retained forced-timeout diagnostic fails its
   cleanup deadline. Non-cooperative in-process execution cannot currently be
   forcibly reclaimed. Ordinary-error acceptance does not resolve this limitation.
-- **Repeated-generation cost and post-Close footprint remain resource concerns.**
-  Large backing-array allocation/zeroing in long-lived processes is a separate
-  boundary from the earlier [Snapshot lifetime investigation](../benchmarks/v04-snapshot-memory-lifetime.md).
-  Live Go heap, RSS and macOS dirty/compressed/physical accounting are different
-  measurements. Neither unreachable heap nor virtual reservation proves cheap
-  reclamation; no production GC/FreeOSMemory policy was added.
+- **Resource accounting remains boundary-specific.** The accepted v0.4.2 candidate
+  removes repeated 2 GiB Go backing allocation and explicitly releases linear
+  memory after cooperative worker join. Go filesystem/metadata heap remains
+  GC-managed; live heap, RSS and OS physical accounting are different measures.
+  The earlier [Snapshot lifetime investigation](../benchmarks/v04-snapshot-memory-lifetime.md)
+  remains historical evidence. No GC/FreeOSMemory policy was added.
 - **Go1.27.0/1.27.1 arm64 are unsupported** because of upstream compiler issue
   #81036 (`LDPSW: constant is not in pool`). An upstream-fixed toolchain was
   verified previously; no mariamem compiler/generated-source workaround is used.
@@ -113,42 +114,38 @@ are evidence, not pending release work or a second roadmap.
 ## 4. v0.4.1 — Distribution polish
 
 **Make the generated-Go distribution match the actual direct-link architecture.**
-The accepted distribution-only direction removes unused platform executable
-images and directly related dead image/provisioning metadata where safe.
-Preserve intentionally supported explicit legacy fallback, Python host-only
-packaging and consistent corresponding source/notices/provenance.
+[v0.4.1](https://github.com/masahitojp/mariamem/releases/tag/v0.4.1) is released.
+It removed unused platform executable images and directly related dead metadata,
+preserving explicit legacy fallback, Python host-only packaging and
+corresponding source/notices/provenance.
 
 The completed experiment measured comparable local complete module zips of
 roughly **115 MiB → 31 MiB (~73% reduction)** with unchanged normal generated
 MariaDB code and passing consumer/package smoke. See the
 [distribution report](https://github.com/masahitojp/mariamem/blob/022011d724b6114a842b0996ed358dbb2f2d4c95/benchmarks/v041-distribution-cleanup.md).
 The exact distribution candidate passed [both-platform Release CI verify](https://github.com/masahitojp/mariamem/actions/runs/37211034305);
-publication is a separate transaction. Do not mix mmap, reclaim/soak,
-Fork/Snapshot optimization or broad release-toil cleanup into v0.4.1.
+publication is complete. No mmap or unrelated runtime change was included.
 
 ## 5. v0.4.2 — Disposable memory lifecycle
 
 **Make repeated create/use/Close cycles remain cheap in a long-lived process.**
-WASM shared memory declares an initial ~256 MiB and maximum 2 GiB. The current
-generated-Go model allocates a ~2 GiB Go backing array to keep the base pointer
-stable through `memory.grow` and shared-worker access. Long-lived direct-link
-generations show substantial allocation/zeroing degradation; fresh parent
-processes avoid most of it. This is not primarily a retained-object leak.
+The human-approved production candidate preserves released pure-memory32 semantics
+and uses mmap on macOS arm64 / Ubuntu 24.04 x86_64. Shared memory still starts at
+256 MiB, grows without relocating its base, and has a 2 GiB maximum. Generic
+non-wrapping, width-aware bounds checks and atomic alignment produce controlled
+WASM traps; host imports see the logical range. Linear memory is released after
+cooperative worker join, including tested initialization/startup/guest-failure
+paths and repeated Close.
 
-The bounded mmap-backed experiment materially reduced repeated-generation CPU,
-ready latency and memory accounting on macOS. **mmap is a strong implementation
-candidate**, not the roadmap goal or an integrated design. The goal remains
-Disposable lifecycle correctness and efficiency; macOS experiment success does
-not establish Ubuntu readiness or safe failure behavior.
-
-Before integration, validate the complete memory contract:
-
-- initial accessible range; `memory.grow` logical size and stable base pointer;
-- zero-fill of newly accessible memory and preservation of old data;
-- maximum size, failed grow and out-of-bounds behavior;
-- shared worker access and atomic semantics;
-- mapping ownership and `munmap` only after users exit, on every exit path;
-- SQL/session, Close and Snapshot/Fork compatibility on macOS and Ubuntu.
+Native contract, focused race and product/ORM acceptance pass on both platforms.
+Bounded macOS create/use/Close and Snapshot/Fork measurements show materially
+lower sustained CPU/latency and plateauing resources, with a modest accepted
+fresh-start correctness cost. See the
+[accepted candidate report](https://github.com/masahitojp/mariamem/blob/dc939de87087cadf229f017c1a5942496aae45da/benchmarks/v042-production-candidate.md).
+The design is selected for integration; v0.4.2 is not yet released. Exact-final-SHA
+Release CI verify, source/notices/provenance and separate publication remain.
+Memory64, non-cooperative forced termination, Fork optimization and Wasmer
+retirement are outside this release.
 
 In or around v0.4.2, compare **mariamem fresh**, **mariamem Snapshot/Fork**,
 **Testcontainers fresh**, and **shared real MariaDB + reset/rollback** under
@@ -225,8 +222,9 @@ These are maintainer practices, not extra v0.4.1 runtime scope.
 
 CoW/immutable Snapshot views, runtime sharing, stronger hard failure containment,
 higher session capacity and broader platforms remain evidence-driven options.
-They are not selected version goals. mmap's bounded candidate status belongs to
-the v0.4.2 lifecycle gate above. Ready-heap/live-worker reentry was rejected for
+They are not selected version goals. The selected mmap lifecycle design and its
+validated limits belong to the v0.4.2 section above. Ready-heap/live-worker reentry
+was rejected for
 v0.4; preserve the [reentry boundary](../benchmarks/reentry-feasibility.md),
 [CoW evidence](../benchmarks/cow-feasibility.md) and
 [prepared-files findings](../benchmarks/prepared-clone-feasibility.md).

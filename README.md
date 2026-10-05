@@ -8,13 +8,15 @@ guest translated to generated Go; it does not reimplement MariaDB SQL or InnoDB.
 Go hosts run in the test process; Python starts the packaged Go host process.
 Both languages have public lifecycle APIs.
 
-**Direct-linked generated Go is the default v0.4.1 runtime.** Ordinary Go
+**Direct-linked generated Go is the default v0.4.2 runtime.** Ordinary Go
 `Start(ctx, Options{})` and Python `mariamem.start()` need no Wasmer bundle,
 NativeDir or runtime download. Explicit legacy bundle overrides remain supported.
 See [architecture](docs/v04-generated-go-architecture.md) and
-[canonical measurements](benchmarks/v04-integrated-candidate.md).
-The v0.4.1 candidate is prepared but not tagged or published. Installation
-commands below are for use after publication. See [release notes](release/NOTES-v0.4.1.md)
+[historical canonical measurements](benchmarks/v04-integrated-candidate.md).
+v0.4.2 adds controlled pure-memory32 traps and mmap-backed linear memory for
+cheaper repeated disposal.
+The v0.4.2 candidate is prepared but not tagged or published. Installation
+commands below are for use after publication. See [release notes](release/NOTES-v0.4.2.md)
 and [current product direction / roadmap](docs/project-status.md).
 
 The testing workflow is Docker-free: each disposable database has its own server
@@ -22,8 +24,8 @@ state. Prepare migrations/fixtures once with Snapshot, then Fork independent
 databases without adding rollback, schema-reset or data-cleanup logic to each
 test. Close client connections and owned database/snapshot handles normally.
 
-The canonical Python distribution version is `0.4.1`; the Go module uses
-the exact `v0.4.1` tag. Python wheels will be available from the matching GitHub Release.
+The canonical Python distribution version is `0.4.2`; the Go module uses
+the exact `v0.4.2` tag. Python wheels will be available from the matching GitHub Release.
 Supported platforms remain **macOS 15+ / Apple Silicon (arm64)** and
 **Ubuntu 24.04 LTS / x86_64**.
 PyPI publication is temporarily unavailable while account recovery is pending;
@@ -38,7 +40,7 @@ validated by these release jobs.
 
 ## Python
 
-The v0.4.1 host-only wheel contains a Go host executable with generated-Go
+The v0.4.2 host-only wheel contains a Go host executable with generated-Go
 MariaDB linked in; no Wasmer/native bundle or Docker is needed. Use a virtual environment:
 
 ```sh
@@ -49,13 +51,13 @@ source .venv/bin/activate
 **macOS 15+ / arm64:**
 
 ```sh
-python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.4.1/mariamem-0.4.1-py3-none-macosx_15_0_arm64.whl
+python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.4.2/mariamem-0.4.2-py3-none-macosx_15_0_arm64.whl
 ```
 
 **Ubuntu 24.04 LTS / x86_64:**
 
 ```sh
-python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.4.1/mariamem-0.4.1-py3-none-linux_x86_64.whl
+python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.4.2/mariamem-0.4.2-py3-none-linux_x86_64.whl
 ```
 
 For the SQL example below and pytest fixtures, install the `test` extra using a
@@ -63,9 +65,9 @@ PEP 508 direct reference instead of the plain command above:
 
 ```sh
 # macOS arm64
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.1/mariamem-0.4.1-py3-none-macosx_15_0_arm64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.2/mariamem-0.4.2-py3-none-macosx_15_0_arm64.whl'
 # Ubuntu x86_64
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.1/mariamem-0.4.1-py3-none-linux_x86_64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.2/mariamem-0.4.2-py3-none-linux_x86_64.whl'
 ```
 
 The extra installs PyMySQL and pytest tools. Use the wheel rather than a Git
@@ -100,7 +102,7 @@ Go 1.27.0/1.27.1 arm64 are unsupported due to an upstream compiler regression
 mkdir mariamem-example
 cd mariamem-example
 go mod init example.com/mariamem-example
-go get github.com/masahitojp/mariamem@v0.4.1
+go get github.com/masahitojp/mariamem@v0.4.2
 ```
 
 The normal API needs no native path:
@@ -120,9 +122,9 @@ Source/provenance review assets can be downloaded separately;
 they are not required for ordinary startup:
 
 ```sh
-gh release download v0.4.1 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.1-provenance.json' \
-  --pattern 'mariamem-0.4.1-corresponding-source.tar.gz'
+gh release download v0.4.2 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.2-provenance.json' \
+  --pattern 'mariamem-0.4.2-corresponding-source.tar.gz'
 ```
 
 ## Performance and resource limits

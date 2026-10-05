@@ -32,6 +32,24 @@ release/generated-go-translation.json record the new canonical input provenance.
 Substantial immediate post-Close physical accounting persists independently of
 live Go-object ownership. No production GC, mmap or allocator tuning is added.
 
+## v0.4.2 memory lifecycle candidate
+
+The accepted design scopes correctness to released pure memory32. Generic
+non-wrapping effective addresses and width-aware logical bounds checks cover
+scalar/SIMD/atomic accesses; atomics retain natural-alignment checks and unused
+trapping loads remain observable. Root/worker guest failures become controlled
+runtime errors with cooperative join.
+
+On macOS arm64 and Ubuntu 24.04 x86_64, each instance reserves a stable 2 GiB
+anonymous mapping, initially enables 256 MiB, and enables additional zero-filled
+ranges before publishing logical growth. Host imports receive logical views.
+Close releases the mapping exactly once after workers join; failed unmap retains
+retryable ownership. No Go-heap 2 GiB backing, GC policy, CoW or Snapshot format
+change is introduced. Native contract/product acceptance and bounded lifecycle
+results are in the [accepted report](https://github.com/masahitojp/mariamem/blob/dc939de87087cadf229f017c1a5942496aae45da/benchmarks/v042-production-candidate.md).
+Final release-artifact verification is still required. Memory64 and
+non-cooperative forced termination remain outside the guarantee.
+
 ## Integration contract
 
 Architecture-decision source: `8b368a79eb3a0070f84168b1c70a1e2896e4a5ca`.
@@ -56,8 +74,8 @@ No ready heap, live worker, TLS or futex-waiter restoration; no Go process fork.
 Pinned MariaDB/lite4mariadb sources and canonical guest overlays → pinned WASIXCC
 0.4.7 / pinned LLVM23.1.0 WASM profile / WASIX sysroot / Binaryen133 → legacy-EH WASM intermediate → pinned
 goccy/wasm2go fork and reproducible generator patches → generated Go → platform
-ordinary Go module build input and a host-only Python wheel. Historical encoded
-executables are retained temporarily, but are not used by normal Go startup.
+ordinary Go module build input and a host-only Python wheel. v0.4.1 removed
+unused encoded executable images from the normal distribution.
 
 The legacy encoding is an internal compiler bridge. Exceptions, pthreads, shared
 memory and MariaDB semantics remain enabled. Preserve the proven compatible-O2
