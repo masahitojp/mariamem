@@ -77,7 +77,7 @@ func (h *host) Callback_signal(m *base.Module, ptr, length int32) {
 	if ptr < 0 || length < 0 || uint64(ptr)+uint64(length) > m.MemSize.Load() {
 		panic("signal callback bounds")
 	}
-	h.signalCallback = string(m.Memory[ptr : ptr+length])
+	h.signalCallback = string(m.Memory[uint64(ptr) : uint64(ptr)+uint64(length)])
 	if h.signalCallback != "__wasm_signal" {
 		panic("unknown signal callback: " + h.signalCallback)
 	}
@@ -219,7 +219,7 @@ func (h *host) Path_open2(m *base.Module, fd, flags, path, length, oflags int32,
 		h.flagsMu.Unlock()
 	}
 	if path >= 0 && length >= 0 && uint64(path)+uint64(length) <= m.MemSize.Load() {
-		tracef("generated-Go path_open2 %q errno=%d\n", m.Memory[path:path+length], errno)
+		tracef("generated-Go path_open2 %q errno=%d\n", m.Memory[uint64(path):uint64(path)+uint64(length)], errno)
 	}
 	return errno
 }
@@ -332,7 +332,17 @@ func run(args []string) {
 	w.SetStderr(os.Stderr)
 	h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
 	trace("generated-Go instantiate_begin (explicit MemFS)")
-	m := generated.NewWithWASI(h, nil, h)
+	m, release, allocErr := newMemoryModule(h)
+	if allocErr != nil {
+		panic(allocErr)
+	}
+	var memoryErr error
+	defer func() {
+		releaseMemoryModule(m, release, &memoryErr)
+		if memoryErr != nil {
+			panic(memoryErr)
+		}
+	}()
 	trace("generated-Go instantiated")
 	if len(args) == 2 && args[1] == "instantiate" {
 		return
