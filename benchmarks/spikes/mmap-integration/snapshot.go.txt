@@ -93,6 +93,7 @@ func main() {
 		must(e)
 		must(p.Close())
 		t = time.Now()
+		must(db.WaitDisconnected(ctx))
 		snap, e := db.Snapshot(ctx, mariamem.SnapshotOptions{})
 		must(e)
 		snapMS := millis(t)

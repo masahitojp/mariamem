@@ -92,6 +92,7 @@ func main() {
 		_, e = p.ExecContext(ctx, "INSERT INTO disposal VALUES(1,7)")
 		must(e)
 		must(p.Close())
+		must(db.WaitDisconnected(ctx))
 		snapshot, e = db.Snapshot(ctx, mariamem.SnapshotOptions{})
 		must(e)
 		must(db.Close())
