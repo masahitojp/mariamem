@@ -1,0 +1,126 @@
+package main
+
+import (
+	"context"
+	"database/sql"
+	"encoding/json"
+	"flag"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem"
+	"os"
+	"os/exec"
+	"runtime"
+	"strconv"
+	"syscall"
+	"time"
+)
+
+var mappingStats = func() map[string]uint64 { return nil }
+
+func must(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+func cpu() float64 {
+	var r syscall.Rusage
+	must(syscall.Getrusage(syscall.RUSAGE_SELF, &r))
+	return float64(r.Utime.Sec+r.Stime.Sec) + float64(r.Utime.Usec+r.Stime.Usec)/1e6
+}
+func millis(t time.Time) float64 { return float64(time.Since(t)) / float64(time.Millisecond) }
+func observe() any {
+	b, e := exec.Command(os.Getenv("MARIAMEM_PROCESS_COUNTER"), strconv.Itoa(os.Getpid())).Output()
+	must(e)
+	var v map[string]any
+	must(json.Unmarshal(b, &v))
+	return v[strconv.Itoa(os.Getpid())]
+}
+func counters() map[string]any {
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
+	f, e := os.Open("/dev/fd")
+	must(e)
+	fds, e := f.Readdirnames(-1)
+	must(e)
+	must(f.Close())
+	return map[string]any{"heap_alloc_bytes": m.HeapAlloc, "heap_sys_bytes": m.HeapSys, "total_alloc_bytes": m.TotalAlloc, "fd": len(fds) - 1, "goroutines": runtime.NumGoroutine(), "os": observe(), "mapping": mappingStats()}
+}
+func query(ctx context.Context, db *mariamem.Database, fixture bool) {
+	p, e := sql.Open("mysql", db.DSN())
+	must(e)
+	defer p.Close()
+	var n int
+	must(p.QueryRowContext(ctx, "SELECT 1").Scan(&n))
+	if n != 1 {
+		panic("SQL")
+	}
+	if fixture {
+		_, e = p.ExecContext(ctx, "CREATE TABLE disposal(id INT PRIMARY KEY,value INT)")
+		must(e)
+		_, e = p.ExecContext(ctx, "INSERT INTO disposal VALUES(1,7)")
+		must(e)
+	}
+	for i := 0; i < 20; i++ {
+		_, e = p.ExecContext(ctx, "UPDATE disposal SET value=value+1 WHERE id=1")
+		must(e)
+		must(p.QueryRowContext(ctx, "SELECT value FROM disposal WHERE id=1").Scan(&n))
+	}
+	if n != 27 {
+		panic(fmt.Sprint("isolation ", n))
+	}
+}
+func main() {
+	n := flag.Int("generations", 20, "complete Snapshot/Fork disposal cycles")
+	flag.Parse()
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
+	defer cancel()
+	enc := json.NewEncoder(os.Stdout)
+	for g := 1; g <= *n; g++ {
+		cycle := time.Now()
+		c := cpu()
+		t := time.Now()
+		db, e := mariamem.Start(ctx, mariamem.Options{})
+		must(e)
+		p, e := sql.Open("mysql", db.DSN())
+		must(e)
+		var one int
+		must(p.QueryRowContext(ctx, "SELECT 1").Scan(&one))
+		sourceReady := millis(t)
+		_, e = p.ExecContext(ctx, "CREATE TABLE disposal(id INT PRIMARY KEY,value INT)")
+		must(e)
+		_, e = p.ExecContext(ctx, "INSERT INTO disposal VALUES(1,7)")
+		must(e)
+		must(p.Close())
+		t = time.Now()
+		snap, e := db.Snapshot(ctx, mariamem.SnapshotOptions{})
+		must(e)
+		snapMS := millis(t)
+		must(db.Close())
+		t = time.Now()
+		cc := cpu()
+		child, e := snap.Fork(ctx)
+		must(e)
+		p, e = sql.Open("mysql", child.DSN())
+		must(e)
+		must(p.QueryRowContext(ctx, "SELECT 1").Scan(&one))
+		must(p.Close())
+		forkMS := millis(t)
+		forkCPU := cpu() - cc
+		query(ctx, child, false)
+		t = time.Now()
+		cc = cpu()
+		must(child.Close())
+		must(child.Close())
+		must(snap.Close())
+		closeMS := millis(t)
+		closeCPU := cpu() - cc
+		cycleMS := millis(cycle)
+		totalCPU := cpu() - c
+		after := counters()
+		must(enc.Encode(map[string]any{"generation": g, "source_ready_ms": sourceReady, "snapshot_ms": snapMS, "fork_ready_ms": forkMS, "fork_cpu_s": forkCPU, "cycle_ms": cycleMS, "total_cpu_s": totalCPU, "close_ms": closeMS, "close_cpu_s": closeCPU, "closed_counters": after}))
+		if stats := mappingStats(); stats != nil && (stats["active_mappings"] != 0 || stats["release_failures"] != 0) {
+			panic("mapping leak")
+		}
+	}
+}

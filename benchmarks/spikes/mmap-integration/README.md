@@ -32,7 +32,7 @@ outside scratch. `support.py` applies additional RSS 6 GiB / physical-or-PSS
 - `products.py`: private installed platform wheel, SQLAlchemy, local GORM and
   supported failure/reconnect cases. No published artifact is changed.
 - `measure.py`: three identical-source probes, balanced fresh trials, 1×20,
-  mmap1×50, 4×12 (stop bounded heap controls on resource limit), Fork1×20.
+  mmap1×50, 4×12 (stop bounded heap controls on resource limit), Fork1×20 and 20 complete fresh→Snapshot→Fork→use→Close cycles.
 - `prove.py`: positive retained-symbol attribution, provenance, canonical check
   and independent regeneration.
 - `ci.py`: Ubuntu24.04 actual execution, not cross-compilation.

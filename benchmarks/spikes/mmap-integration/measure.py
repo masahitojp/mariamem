@@ -12,7 +12,7 @@ refs['mmap']='current'
 record['sources']=refs;record['binary_sha256']={};save()
 for mode in refs:
  source=R if mode=='mmap' else T/mode
- for kind in ['fresh','lifecycle']:
+ for kind in ['fresh','lifecycle','snapshot']:
   project=T/(mode+'-'+kind);project.mkdir();(project/'go.mod').write_text('module github.com/masahitojp/mariamem/memoryprobe\n\ngo 1.26.0\nrequire github.com/masahitojp/mariamem v0.0.0\nreplace github.com/masahitojp/mariamem => '+str(source)+'\n')
   shutil.copyfile(R/'benchmarks/spikes/mmap-integration'/(kind+'.go.txt'),project/'main.go')
   if mode=='mmap':(project/'counter.go').write_text('package main\nimport "github.com/masahitojp/mariamem/internal/generatedgo/code/base"\nfunc init(){ mappingStats=base.MemoryMappingStats }\n')
@@ -34,4 +34,5 @@ run('one50-mmap',[T/'mmap-fresh-probe','-generations=50'],extras=extras,timeout=
 for mode in refs:
  record[mode+'_four_completed']=run('four12-'+mode,[T/(mode+'-lifecycle-probe'),'-databases=4','-generations=12'],extras=extras,timeout=240,allow_budget=mode!='mmap');save()
 for mode in refs:run('fork20-'+mode,[T/(mode+'-lifecycle-probe'),'-fork','-generations=20'],extras=extras,timeout=240)
+for mode in refs:run('snapshot20-'+mode,[T/(mode+'-snapshot-probe'),'-generations=20'],extras=extras,timeout=300)
 record['measurement_pass']=True;save()
