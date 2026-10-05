@@ -37,7 +37,7 @@ jobs:
       - name: Exact-source contract and native consumer acceptance
         run: |
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
-          python scripts/experiment_workspace.py --root "$RUNNER_TEMP/mariamem-memory-work" run --timeout 3300 platform -- python scripts/validate_memory_candidate.py
+          python scripts/experiment_workspace.py --root "$RUNNER_TEMP/mariamem-memory-work" run --timeout 3300 platform -- python "$GITHUB_WORKSPACE/scripts/validate_memory_candidate.py"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
