@@ -1,0 +1,113 @@
+{
+  "basis": "56be628bf2d976048c5ea6d1949879781ed75342",
+  "backing": "unchanged Go heap",
+  "mmap": false,
+  "correctness_only": true,
+  "fixture_case_count": 2472,
+  "trap_cases": 1693,
+  "max_boundary_extra_traps": 7,
+  "phases": [
+    {
+      "name": "build-counter",
+      "exit_code": 0
+    },
+    {
+      "name": "format-handwritten",
+      "exit_code": 0
+    },
+    {
+      "name": "translate-guest",
+      "exit_code": 0
+    },
+    {
+      "name": "converter-unit-tests",
+      "exit_code": 0
+    },
+    {
+      "name": "deterministic-memory32-regression",
+      "exit_code": 0
+    },
+    {
+      "name": "prepare-candidate",
+      "exit_code": 0
+    },
+    {
+      "name": "install-runtime",
+      "exit_code": 0
+    },
+    {
+      "name": "verify-provenance",
+      "exit_code": 0
+    },
+    {
+      "name": "controlled-root-and-worker-traps",
+      "exit_code": 0
+    },
+    {
+      "name": "focused-runtime-race",
+      "exit_code": 0
+    },
+    {
+      "name": "product-GeneratedTraps",
+      "exit_code": 0
+    },
+    {
+      "name": "product-CRUDSessionsAndFork",
+      "exit_code": 0
+    },
+    {
+      "name": "product-Auth",
+      "exit_code": 0
+    },
+    {
+      "name": "product-RepeatedClose",
+      "exit_code": 0
+    },
+    {
+      "name": "build-host-for-attribution",
+      "exit_code": 0
+    },
+    {
+      "name": "candidate-symbols",
+      "exit_code": 0
+    },
+    {
+      "name": "independent-regeneration",
+      "exit_code": 0
+    },
+    {
+      "name": "canonical-check",
+      "exit_code": 0
+    },
+    {
+      "name": "final-controlled-traps-race",
+      "exit_code": 0
+    }
+  ],
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "generated_provenance_sha256": "250dce69ed0497e9802b3137bab8bae3aae5338cb1388ca08148b485151b35d2",
+  "converter_sha256": "c165922be1b9ed192cf811ca96280c7d5321322d62dc2a6358138133cca4ea9d",
+  "limits": {
+    "min_free_gib": 16,
+    "disk_budget_gib": 6,
+    "rss_gib": 6,
+    "physical_gib": 8
+  },
+  "result": "PASS",
+  "limitation": "Worker failure is relayed at cooperative join; non-cooperative root/worker termination is not guaranteed.",
+  "platform": {
+    "os": "macOS",
+    "version": "27.0.1",
+    "architecture": "arm64",
+    "go": "1.26.8",
+    "ubuntu_execution": false
+  },
+  "guard_observed": {
+    "peak_rss_bytes": 4628168704,
+    "peak_physical_bytes": 7034378096,
+    "peak_owned_bytes": 1703800832,
+    "minimum_free_bytes": 47472652288,
+    "violations": false
+  },
+  "final_worker_lifetime_race": "PASS"
+}

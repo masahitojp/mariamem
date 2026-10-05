@@ -23,7 +23,7 @@ def main():
     require(record['input_manifest_sha256'] == digest(pins), 'input manifest changed')
     # Ordinary handwritten integration files are versioned Go source, outside
     # the unchanged transpilation inventory.
-    handwritten = {'runtime_instance.go', 'code/base/runtime_cleanup.go'}
+    handwritten = {'runtime_instance.go', 'runtime_instance_test.go', 'code/base/runtime_cleanup.go'}
     inventory = {str(p.relative_to(source)):digest(p) for p in source.rglob('*')
                  if p.is_file() and p.name != 'provenance.json' and str(p.relative_to(source)) not in handwritten}
     require(inventory == record['files_sha256'], 'generated source inventory changed; regenerate')

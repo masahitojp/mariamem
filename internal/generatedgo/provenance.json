@@ -1,10 +1,10 @@
 {
   "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
-  "input_manifest_sha256": "0ff68e69bd521f0ae30c7429d1c50d673670c2379d4ff48219a4effa2559054d",
+  "input_manifest_sha256": "f718b781d93f83b59c32b744ed5bad2d3e1fb543ecbf6b30693a027cbdbc824a",
   "files_sha256": {
     "code/alias.go": "52026958d5a3ee0c85d325e1c22ecfd9d6d860843e8e2aa160d8d46a9b0d23bd",
     "code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
-    "code/base/base.go": "b09a8f92f41cee1716d7d5131b4d776755b81f5bfb9caf4902cb06d7f1a00d6f",
+    "code/base/base.go": "190ed7237a95a65fa9eff326dd7fc1b973a7a4be4e0be27a6f191940b88a4a0b",
     "code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
     "code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
     "code/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
@@ -31,7 +31,7 @@
     "code/base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
     "code/base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
     "code/base/spike_contract_test.go": "2ea04d8502569740c3d7f779c5a3c9cbdbbc46f4ed8606bd80ba272494d0b947",
-    "code/base/spike_wait.go": "46aefb9ce6dd8837941f6411c22de4e6f264580214e690575d78487b8f572e4d",
+    "code/base/spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862",
     "code/generated.go": "cce8d2f92994d12370730d74fe9a491a9c8243b14a29e7435f9fe8841bee9b92",
     "code/p0/alias.go": "0aadaa332fcd99e3c40e6a6b57b803a5f028572609a9afb6ab915a0db36627ae",
     "code/p0/p0.go": "90e46c953e66e730b8578b59e5706657c56101e53eba9a03c16788aa32485558",

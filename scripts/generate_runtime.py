@@ -70,7 +70,7 @@ def main():
         'files_sha256':inventory},indent=2)+'\n')
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.
-    for name in ('runtime_instance.go', 'code/base/runtime_cleanup.go'):
+    for name in ('runtime_instance.go', 'runtime_instance_test.go', 'code/base/runtime_cleanup.go'):
         shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)
     print('Installed checksum-bound generated runtime:',len(inventory),'files')
 

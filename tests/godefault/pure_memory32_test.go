@@ -72,7 +72,13 @@ func TestPureMemory32GeneratedTraps(t *testing.T) {
 	if !<-done || atomic.LoadUint32(word) != 99 || m.G1 != 65536 || m.G0 != 8<<20 || p8.Fn68(m) != 123 || base.MemorySize(m) != oldPages+1 {
 		t.Fatal("shared worker/grow/TLS contract")
 	}
-	t.Log("three real generated accesses recover as WASM traps; worker visibility, grow and private TLS/stack globals pass")
+	// The same actual generated access must be recoverable across a worker
+	// boundary too; an unhandled goroutine panic previously killed the host.
+	m.G1 = int32(m.MemSize.Load()) - 4
+	base.ThreadLaunch(m, func(child *base.Module, _ int32) { p8.Fn68(child) })
+	trap("worker OOB relayed at join", func() { base.SpikeWait(m) })
+	trap("worker failure retained on repeated join", func() { base.SpikeWait(m) })
+	t.Log("root and worker generated traps survived; worker visibility, grow and private TLS/stack globals pass")
 }
 func TestPureMemory32CRUDSessionsAndFork(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 45*time.Second)

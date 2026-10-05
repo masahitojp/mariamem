@@ -51,3 +51,35 @@ harness; its mechanics do not establish Linux acceptance.
 See [the candidate report](../../v042-memory-candidate.md) and its compact evidence.
 No mmap, CoW, forced GC, performance optimization, merge or release is authorized
 by these scripts.
+
+## Heap-only controlled-trap continuation
+
+`controlled_traps.py` starts from the memory-semantics candidate
+`56be628bf2d976048c5ea6d1949879781ed75342`. It regenerates using the additional
+shared `controlled-thread-traps.patch`, replays the same reviewed fixtures,
+checks root/worker error propagation and cooperative join ordering, and runs
+focused SQL/session/Snapshot/Fork and runtime race acceptance. It also verifies
+independent regeneration and retained license symbols. It runs no benchmarks.
+
+Use a fresh workspace with minimum free space 16 GiB and disk budget 6 GiB:
+
+```sh
+python3 scripts/experiment_workspace.py prepare memory-traps \
+  --min-free-gib 16 --budget-gib 6
+python3 scripts/experiment_workspace.py run --timeout 2400 memory-traps -- \
+  env MARIAMEM_CACHE="$cache" MARIAMEM_RELEASE_GUEST="$released_guest" \
+  python3 "$candidate/benchmarks/spikes/memory-candidate/controlled_traps.py"
+```
+
+Run these commands from the experiment-tooling checkout; `candidate` is the
+isolated correctness worktree. The cache and WASM inputs are checksum-bound.
+The existing resource guard applies to child processes as well.
+
+Worker failures are retained and relayed at the cooperative join boundary.
+Root failure also joins workers before descriptor/prepared-file cleanup. This
+prevents an uncaught worker panic from terminating the Go host and prevents
+cleanup while cooperative workers still run. It does **not** interrupt a blocked
+root or forcibly terminate non-cooperative peers. No success or snapshot export
+is reported after the join observes a worker failure. A future mmap task must
+keep that lifetime limitation explicit; this is not a hard-failure containment
+design.

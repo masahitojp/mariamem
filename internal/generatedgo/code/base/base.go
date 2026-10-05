@@ -1983,14 +1983,11 @@ func ThreadLaunch(m *Module, body func(child *Module, tid int32)) int32 {
 
 		defer func() {
 			if r := recover(); r != nil {
-				println("wasm2go: wasi thread", tid, "trapped:")
-				switch v := r.(type) {
-				case error:
-					println("  ", v.Error())
-				case string:
-					println("  ", v)
+				m.Threads.trapMu.Lock()
+				if m.Threads.trap == nil {
+					m.Threads.trap = r
 				}
-				panic(r)
+				m.Threads.trapMu.Unlock()
 			}
 		}()
 		body(child, tid)
@@ -11516,8 +11513,22 @@ type ThreadPool struct {
 	nextTID atomic.Int32
 	wg      sync.WaitGroup
 
+	trapMu sync.Mutex
+	trap   any
+
 	parkMu sync.Mutex
 	parked map[uint64][]chan struct{}
+}
+
+// WaitThreads joins all launched agents and returns the first worker panic.
+// Call only after the root has stopped launching workers. Retaining the panic
+// makes repeated joins observe failure rather than turn it into success.
+// This is cooperative quiescence, not forced cancellation of other agents.
+func (p *ThreadPool) WaitThreads() any {
+	p.wg.Wait()
+	p.trapMu.Lock()
+	defer p.trapMu.Unlock()
+	return p.trap
 }
 
 // wake releases up to count waiters on ea and reports how many it woke.
