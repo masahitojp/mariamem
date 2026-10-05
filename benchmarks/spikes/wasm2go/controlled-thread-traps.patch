@@ -1,0 +1,50 @@
+--- a/internal/codegen/helpers/helpers.go
++++ b/internal/codegen/helpers/helpers.go
+@@ -2480,8 +2480,22 @@
+ 	nextTID atomic.Int32
+ 	wg      sync.WaitGroup
+ 
++	trapMu sync.Mutex
++	trap any
++
+ 	parkMu sync.Mutex
+ 	parked map[uint64][]chan struct{}
++}
++
++// WaitThreads joins all launched agents and returns the first worker panic.
++// Call only after the root has stopped launching workers. Retaining the panic
++// makes repeated joins observe failure rather than turn it into success.
++// This is cooperative quiescence, not forced cancellation of other agents.
++func (p *threadPool) WaitThreads() any {
++ p.wg.Wait()
++ p.trapMu.Lock()
++ defer p.trapMu.Unlock()
++ return p.trap
+ }
+ 
+ // wake releases up to count waiters on ea and reports how many it woke.
+@@ -2523,19 +2537,13 @@
+ 	go func() {
+ 		defer m.threads.wg.Done()
+ 		defer spinAgentsAdd(-1)
+-		// A trap on any wasm thread traps the whole instance (wasi-threads
+-		// semantics): surface WHERE it happened, then let it take the
+-		// process down instead of silently unwinding the goroutine.
++		// A worker panic cannot be recovered by the host/root goroutine.
++		// Preserve failure for its join boundary instead of killing the host.
+ 		defer func() {
+ 			if r := recover(); r != nil {
+-				println("wasm2go: wasi thread", tid, "trapped:")
+-				switch v := r.(type) {
+-				case error:
+-					println("  ", v.Error())
+-				case string:
+-					println("  ", v)
+-				}
+-				panic(r)
++				m.threads.trapMu.Lock()
++				if m.threads.trap == nil { m.threads.trap = r }
++				m.threads.trapMu.Unlock()
+ 			}
+ 		}()
+ 		body(child, tid)
