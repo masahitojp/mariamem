@@ -77,7 +77,9 @@ def main():
   if not args.skip_consumers:
    run('build-installed-wheel',[sys.executable,ROOT/'scripts/build_alpha.py','--ci-candidate'],timeout=1200)
    target='darwin-arm64' if platform.system()=='Darwin' else 'ubuntu24.04-x86_64'
-   run('external-consumers',[sys.executable,ROOT/'scripts/generated_release_acceptance.py','--candidate-sha',sha,'--platform',target,'--output',evidence/'consumers.json'],extra={'GOMAXPROCS':'2'},timeout=1800)
+   # The isolated consumer cache is cold. Serialize Go compilation so it stays
+   # inside the same RSS budget; correctness phases above retain normal settings.
+   run('external-consumers',[sys.executable,ROOT/'scripts/generated_release_acceptance.py','--candidate-sha',sha,'--platform',target,'--output',evidence/'consumers.json'],extra={'GOMAXPROCS':'1'},timeout=1800)
    consumers=json.loads((evidence/'consumers.json').read_text());assert consumers['result']=='PASS';report['consumers']={'result':'PASS','gorm_cases':consumers['gorm_cases'],'sqlalchemy_cases':consumers['sqlalchemy_cases'],'wheel_sha256':consumers['wheel_sha256']}
   report['result']='PASS'
  finally: save()
