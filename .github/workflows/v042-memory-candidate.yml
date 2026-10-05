@@ -1,0 +1,49 @@
+name: v0.4.2 memory candidate acceptance
+on:
+  push:
+    branches: [experiment/v042-production-integration]
+    paths:
+      - 'internal/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'release/**'
+      - 'python/**'
+      - 'benchmarks/spikes/wasm2go/**'
+      - 'benchmarks/spikes/memory-candidate/**'
+      - '.github/workflows/v042-memory-candidate.yml'
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: 1.26.8
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Prepare tool dependencies and guarded workspace
+        run: |
+          python -m pip install setuptools==80.9.0 wheel==0.45.1
+          python scripts/experiment_workspace.py --root "$RUNNER_TEMP/mariamem-memory-work" prepare platform --min-free-gib 8 --budget-gib 8
+      - name: Exact-source contract and native consumer acceptance
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python scripts/experiment_workspace.py --root "$RUNNER_TEMP/mariamem-memory-work" run --timeout 3300 platform -- python scripts/validate_memory_candidate.py
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: v042-memory-${{ matrix.runner }}-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/mariamem-memory-work/platform/evidence/
+            ${{ runner.temp }}/mariamem-memory-work/platform/experiment.json
+          if-no-files-found: error
+          retention-days: 14
