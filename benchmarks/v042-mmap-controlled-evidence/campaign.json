@@ -1,0 +1,198 @@
+{
+  "sources": {
+    "released": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+    "controlled_heap": "2d633531acd7f81f7abb3ed613435b5d4a090342",
+    "controlled_mmap": "88e9f397e57ada7b0e4268d8775af4d0a134230e"
+  },
+  "binary_sha256": {
+    "released": "65d04520b5e72f3c7136483530a2f101810aefba518f2428589018f1db387d5c",
+    "controlled_heap": "db24d74f6e0fd91cc1333eca098546afe97504f584d4b3fecdb3074b9417dc1f",
+    "controlled_mmap": "97db944851d1f517725087d60aa4be3c01ba0204ede97d453b7943371e73005e"
+  },
+  "source_inventory_sha256": {
+    "released": "52512dde29a374a974f8ded0dbeb90bcb2945b92253e7b1a95c96a60b868ef5c",
+    "controlled_heap": "f5d47ca9852dcc9c792951807b83c72dcfc173f5cf9fb4dba83cee610e33bcdd",
+    "controlled_mmap": "922513bda5e01f6573a196bd9e69670219f2b484703f03a180b25c3427fde273"
+  },
+  "correctness_gate_sha256": "0426e69042da6305dd95b6a4d677b091a9fda422a130460adda06e3ebeefcb8a",
+  "fresh_trials_per_state": 12,
+  "generations_per_state": 20,
+  "rows": 96,
+  "phases": [
+    {
+      "name": "build-counter",
+      "exit_code": 0
+    },
+    {
+      "name": "build-released",
+      "exit_code": 0
+    },
+    {
+      "name": "build-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "build-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-00-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-00-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-00-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-01-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-01-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-01-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-02-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-02-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-02-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-03-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-03-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-03-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-04-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-04-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-04-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-05-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-05-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-05-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-06-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-06-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-06-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-07-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-07-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-07-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-08-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-08-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-08-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-09-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-09-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-09-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-10-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-10-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-10-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-11-controlled_mmap",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-11-released",
+      "exit_code": 0
+    },
+    {
+      "name": "fresh-11-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "one20-released",
+      "exit_code": 0
+    },
+    {
+      "name": "one20-controlled_heap",
+      "exit_code": 0
+    },
+    {
+      "name": "one20-controlled_mmap",
+      "exit_code": 0
+    }
+  ],
+  "backing": "released heap / controlled-traps heap / controlled-traps mmap",
+  "result": "PASS",
+  "no_expansion": true
+}

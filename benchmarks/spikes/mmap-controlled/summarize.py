@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[3]
 OUT = ROOT/'benchmarks/v042-mmap-controlled-evidence'
 rows = [json.loads(line) for line in (OUT/'measurements.jsonl').read_text().splitlines()]
 states = ['released', 'controlled_heap', 'controlled_mmap']
-metrics = ['start_sql_ms', 'start_fixture_ms', 'crud_ms', 'crud_cpu_s', 'total_cpu_s', 'close_ms']
+metrics = ['ready_ms', 'start_sql_ms', 'start_fixture_ms', 'crud_ms', 'crud_cpu_s', 'total_cpu_s', 'close_ms']
 summary = {'fresh': {}, 'one20': {}, 'excluded_observations': 0}
 
 def stats(values):
@@ -40,7 +40,7 @@ summary['relative_mmap_vs_heap'] = {boundary: {metric: {'absolute_delta': summar
 (OUT/'summary.json').write_text(json.dumps(summary, indent=2)+'\n')
 fields = ['state','generation','ready_ms','start_sql_ms','start_fixture_ms','crud_ms','total_cpu_s','close_ms','heap_alloc_bytes','heap_sys_bytes','rss_bytes','physical_footprint_bytes','fd','goroutines']
 with (OUT/'generations.csv').open('w', newline='') as f:
-    writer = csv.DictWriter(f, fieldnames=fields)
+    writer = csv.DictWriter(f, fieldnames=fields, lineterminator='\n')
     writer.writeheader()
     for state in states:
         for r in rows:
