@@ -1,0 +1,32 @@
+{
+  "removed": [
+    {
+      "path": "build/experiment-work/v042-production-canonical/temp/released",
+      "sha": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+      "removed_bytes": 603176960
+    },
+    {
+      "path": "build/experiment-work/v042-production-canonical/temp/controlled-heap",
+      "sha": "fda33d6e4dea1b5202ae0fb8437014f85d814985",
+      "removed_bytes": 721612800
+    },
+    {
+      "path": "build/experiment-work/v042-production-canonical/temp/mmap",
+      "sha": "b14cacf359927bae5c9bdfbf6bd02952ce8b7f4c",
+      "removed_bytes": 721813504
+    },
+    {
+      "path": "build/experiment-work/v042-production-lifecycle-followup/temp/released",
+      "sha": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+      "removed_bytes": 228225024
+    },
+    {
+      "path": "build/experiment-work/v042-production-lifecycle-followup/temp/controlled-heap",
+      "sha": "fda33d6e4dea1b5202ae0fb8437014f85d814985",
+      "removed_bytes": 256126976
+    }
+  ],
+  "removed_total_bytes": 2530955264,
+  "retained_frozen_artifacts_bytes": 731436863,
+  "free_bytes_after": 27402240000
+}

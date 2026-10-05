@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import runpy
 import subprocess
 import time
 
@@ -24,7 +25,8 @@ def main():
     if a.native_dir:
         os.environ['MARIAMEM_NATIVE_DIR'] = str(a.native_dir.resolve())
     import mariamem
-    assert mariamem.__version__ == '0.3.0'
+    expected = runpy.run_path(str(ROOT/'python/mariamem/_version.py'))['PYTHON_VERSION']
+    assert mariamem.__version__ == expected, 'installed wheel version differs from measured source'
     source = ROOT/'tests/consumer/test_sqlalchemy_dogfood.py'
     spec = importlib.util.spec_from_file_location('dogfood', source)
     dog = importlib.util.module_from_spec(spec)

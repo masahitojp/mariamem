@@ -1,0 +1,154 @@
+package main
+
+import (
+	"context"
+	"database/sql"
+	"encoding/json"
+	"flag"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"os"
+	"os/exec"
+	"runtime"
+	"strconv"
+	"sync"
+	"syscall"
+	"time"
+)
+
+func must(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+func cpu() float64 {
+	var r syscall.Rusage
+	must(syscall.Getrusage(syscall.RUSAGE_SELF, &r))
+	return float64(r.Utime.Sec+r.Stime.Sec) + float64(r.Utime.Usec+r.Stime.Usec)/1e6
+}
+func ms(t time.Time) float64 { return float64(time.Since(t)) / float64(time.Millisecond) }
+func use(ctx context.Context, db *mariamem.Database, initialize bool) {
+	p, e := sql.Open("mysql", db.DSN())
+	must(e)
+	defer p.Close()
+	p.SetMaxOpenConns(1)
+	if initialize {
+		_, e = p.ExecContext(ctx, "CREATE TABLE lifecycle_rows(id INT PRIMARY KEY,value INT)")
+		must(e)
+		_, e = p.ExecContext(ctx, "INSERT INTO lifecycle_rows VALUES(1,10),(2,20),(3,30)")
+		must(e)
+	}
+	var n int
+	must(p.QueryRowContext(ctx, "SELECT COUNT(*) FROM lifecycle_rows").Scan(&n))
+	if n != 3 {
+		panic("isolation count")
+	}
+	_, e = p.ExecContext(ctx, "UPDATE lifecycle_rows SET value=value+1 WHERE id=1")
+	must(e)
+}
+func main() {
+	gens := flag.Int("generations", 50, "bounded sequential groups")
+	workers := flag.Int("workers", 1, "instances per group")
+	mode := flag.String("mode", "fresh", "fresh or snapshot-cycle")
+	flag.Parse()
+	if *workers < 1 || *workers > 4 || *gens < 1 || *gens > 100 || (*mode != "fresh" && *mode != "snapshot-cycle") {
+		panic("invalid scope")
+	}
+	enc := json.NewEncoder(os.Stdout)
+	for g := 1; g <= *gens; g++ {
+		ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+		c0 := cpu()
+		t0 := time.Now()
+		ready := make([]float64, *workers)
+		closeCost := make([]float64, *workers)
+		snapshotCost := make([]float64, *workers)
+		startCost := make([]float64, *workers)
+		dbs := make([]*mariamem.Database, *workers)
+		snaps := make([]*mariamem.Snapshot, *workers)
+		errs := make([]error, *workers)
+		var wg sync.WaitGroup
+		for i := range dbs {
+			wg.Add(1)
+			go func(i int) {
+				defer wg.Done()
+				defer func() {
+					if p := recover(); p != nil {
+						errs[i] = fmt.Errorf("lifecycle failure: %v", p)
+					}
+				}()
+				t := time.Now()
+				db, e := mariamem.Start(ctx, mariamem.Options{})
+				must(e)
+				dbs[i] = db
+				startCost[i] = ms(t)
+				use(ctx, db, true)
+				if *mode == "snapshot-cycle" {
+					must(db.WaitDisconnected(ctx))
+					s := time.Now()
+					snaps[i], e = db.Snapshot(ctx, mariamem.SnapshotOptions{})
+					must(e)
+					snapshotCost[i] = ms(s)
+					must(db.Close())
+					f := time.Now()
+					dbs[i], e = snaps[i].Fork(ctx)
+					must(e)
+					use(ctx, dbs[i], false)
+					ready[i] = ms(f)
+				} else {
+					ready[i] = ms(t)
+				}
+			}(i)
+		}
+		wg.Wait()
+		groupReady := ms(t0)
+		for _, e := range errs {
+			must(e)
+		}
+		tc := time.Now()
+		for i, db := range dbs {
+			wg.Add(1)
+			go func(i int, db *mariamem.Database) {
+				defer wg.Done()
+				t := time.Now()
+				errs[i] = db.Close()
+				if snaps[i] != nil {
+					errs[i] = join(errs[i], snaps[i].Close())
+				}
+				closeCost[i] = ms(t)
+			}(i, db)
+		}
+		wg.Wait()
+		for _, e := range errs {
+			must(e)
+		}
+		closeGroup := ms(tc)
+		cpuCost := cpu() - c0
+		cancel()
+		var mem runtime.MemStats
+		runtime.ReadMemStats(&mem)
+		f, e := os.Open("/dev/fd")
+		must(e)
+		fds, e := f.Readdirnames(-1)
+		must(e)
+		must(f.Close())
+		fd := len(fds) - 1
+		goroutines := runtime.NumGoroutine()
+		b, e := exec.Command(os.Getenv("MARIAMEM_PROCESS_COUNTER"), strconv.Itoa(os.Getpid())).Output()
+		must(e)
+		var counters map[string]any
+		must(json.Unmarshal(b, &counters))
+		mapping := base.MemoryMappingStats()
+		if mapping["active_mappings"] != 0 || mapping["creates"] != mapping["releases"] || mapping["release_failures"] != 0 || fd > 32 || goroutines > 32 {
+			panic("ownership/resource budget")
+		}
+		must(enc.Encode(map[string]any{"generation": g, "mode": *mode, "workers": *workers, "ready_ms": groupReady, "ready_per_db_ms": ready, "start_per_db_ms": startCost, "snapshot_per_db_ms": snapshotCost, "total_cpu_s": cpuCost, "cpu_per_db_s": cpuCost / float64(*workers), "close_ms": closeGroup, "close_per_db_ms": closeCost, "heap_alloc_bytes": mem.HeapAlloc, "heap_sys_bytes": mem.HeapSys, "fd": fd, "goroutines": goroutines, "os": counters[strconv.Itoa(os.Getpid())], "mapping": mapping}))
+	}
+}
+func join(a, b error) error {
+	if a != nil {
+		return a
+	}
+	return b
+}
