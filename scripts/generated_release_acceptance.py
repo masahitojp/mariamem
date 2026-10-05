@@ -31,7 +31,7 @@ def harness_inventory(root):
     return {p.relative_to(root).as_posix():digest(p) for p in paths if p.is_file()}
 
 
-def accept(root, commit, platform, output, mode='candidate', wheel=None):
+def accept(root, commit, platform, output, mode='candidate', wheel=None, go_build_jobs=None):
     root=root.resolve(); output=output.resolve()
     require(not output.exists(),'refuse stale acceptance evidence')
     require(mode in ('candidate','published'),'unknown acceptance mode')
@@ -55,7 +55,9 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None):
             work=Path(temporary).resolve(); require(not work.is_relative_to(root),'consumer must be external')
             env=isolated_env(work)
             env={k:v for k,v in env.items() if not k.startswith(('MARIAMEM_','MYSQLMEM_','PYTHON','PYTEST','DOGFOOD_'))}
-            env.update(GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='',CGO_ENABLED='0')
+            require(go_build_jobs is None or go_build_jobs > 0,'Go build jobs must be positive')
+            env.update(GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='' if go_build_jobs is None else f'-p={go_build_jobs}',GOEXPERIMENT='',CGO_ENABLED='0')
+            report['go_build_jobs']=go_build_jobs
             home=work/'home'; home.mkdir(); cache=work/'runtime-cache'; cache.mkdir()
             # pip downloads are build/test tooling, not mariamem runtime cache.
             env.update(HOME=str(home),XDG_CACHE_HOME=str(cache),PIP_CACHE_DIR=str(work/'pip-cache'))
@@ -127,6 +129,9 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--root',type=Path,default=ROOT); p.add_argument('--candidate-sha',required=True)
     p.add_argument('--platform',required=True); p.add_argument('--output',type=Path,required=True)
-    a=p.parse_args(); print(json.dumps(accept(a.root,a.candidate_sha,a.platform,a.output),indent=2))
+    p.add_argument('--go-build-jobs',type=int,help='bound cold Go compilation without changing runtime concurrency')
+    a=p.parse_args()
+    if a.go_build_jobs is not None and a.go_build_jobs < 1: p.error('--go-build-jobs must be positive')
+    print(json.dumps(accept(a.root,a.candidate_sha,a.platform,a.output,go_build_jobs=a.go_build_jobs),indent=2))
 
 if __name__=='__main__': main()

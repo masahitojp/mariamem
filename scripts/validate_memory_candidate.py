@@ -79,7 +79,7 @@ def main():
    target='darwin-arm64' if platform.system()=='Darwin' else 'ubuntu24.04-x86_64'
    # The isolated consumer cache is cold. Serialize Go compilation so it stays
    # inside the same RSS budget; correctness phases above retain normal settings.
-   run('external-consumers',[sys.executable,ROOT/'scripts/generated_release_acceptance.py','--candidate-sha',sha,'--platform',target,'--output',evidence/'consumers.json'],extra={'GOMAXPROCS':'1'},timeout=1800)
+   run('external-consumers',[sys.executable,ROOT/'scripts/generated_release_acceptance.py','--candidate-sha',sha,'--platform',target,'--output',evidence/'consumers.json','--go-build-jobs','1'],timeout=1800)
    consumers=json.loads((evidence/'consumers.json').read_text());assert consumers['result']=='PASS';report['consumers']={'result':'PASS','gorm_cases':consumers['gorm_cases'],'sqlalchemy_cases':consumers['sqlalchemy_cases'],'wheel_sha256':consumers['wheel_sha256']}
   report['result']='PASS'
  finally: save()
