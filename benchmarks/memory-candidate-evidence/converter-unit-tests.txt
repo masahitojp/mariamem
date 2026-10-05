@@ -1,0 +1,3 @@
+ok  	github.com/goccy/wasm2go/internal/codegen	0.323s
+ok  	github.com/goccy/wasm2go/internal/ssa	0.264s
+ok  	github.com/goccy/wasm2go/internal/ssa/pass	0.280s

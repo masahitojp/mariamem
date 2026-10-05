@@ -1,0 +1,23 @@
+[
+  {
+    "close_cpu_s": 0.0013450000000001516,
+    "close_ms": 1.1535,
+    "crud_cpu_s": 1.080655,
+    "crud_ms": 913.352167,
+    "crud_statements": 8000,
+    "fd": 5,
+    "fixture_cpu_s": 0.007639,
+    "fixture_ms": 3.452667,
+    "generation": 1,
+    "goroutines": 1,
+    "heap_alloc_bytes": 2343662496,
+    "heap_sys_bytes": 2351661056,
+    "ready_cpu_s": 0.028057000000000002,
+    "ready_ms": 44.163875,
+    "start_fixture_cpu_s": 0.038470000000000004,
+    "start_fixture_ms": 48.70675,
+    "start_sql_cpu_s": 0.030829,
+    "start_sql_ms": 45.251125,
+    "total_cpu_s": 1.265795
+  }
+]

@@ -47,7 +47,7 @@ def main():
     source = next(converter.iterdir())
     env = dict(os.environ, GOTOOLCHAIN='go1.26.8', GOWORK='off')
     patches = HERE.parent/'wasm2go'
-    for name in ['imported-memory.patch','import-function-index.patch','relaxed-madd.patch']:
+    for name in ['imported-memory.patch','import-function-index.patch','relaxed-madd.patch','pure-memory32.patch']:
         subprocess.run(['git','apply','--unidiff-zero',str(patches/name)],cwd=source,check=True)
     binary = out/'wasm2go'
     subprocess.run(['go','build','-mod=readonly','-trimpath','-buildvcs=false','-o',str(binary),'./cmd/wasm2go'],cwd=source,env=env,check=True)
@@ -59,7 +59,7 @@ def main():
     (generated/'base/spike_wait.go').write_text('package base\nfunc SpikeWait(m *Module) { m.Threads.wg.Wait() }\n')
     shutil.copyfile(patches/'wait-contract-test.go.txt',generated/'base/spike_contract_test.go')
     inventory = {str(p.relative_to(generated)):sha(p) for p in sorted(generated.rglob('*')) if p.is_file()}
-    record = {'guest_sha256':args.guest_sha256,'converter_commit':'ac98bcf00c17d8531f0c071a9836d0b50975e7ff','converter_archive_sha256':CONVERTER_SHA,'patched_converter_sha256':sha(binary),'patches_sha256':{name:sha(patches/name) for name in ['imported-memory.patch','import-function-index.patch','relaxed-madd.patch']},'files_sha256':inventory}
+    record = {'guest_sha256':args.guest_sha256,'converter_commit':'ac98bcf00c17d8531f0c071a9836d0b50975e7ff','converter_archive_sha256':CONVERTER_SHA,'patched_converter_sha256':sha(binary),'patches_sha256':{name:sha(patches/name) for name in ['imported-memory.patch','import-function-index.patch','relaxed-madd.patch','pure-memory32.patch']},'files_sha256':inventory}
     (out/'input-manifest.json').write_text(json.dumps(record,indent=2)+'\n')
     print(out/'input-manifest.json')
 

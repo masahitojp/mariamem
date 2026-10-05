@@ -1,0 +1,4 @@
+=== RUN   TestPureMemory32RepeatedClose
+--- PASS: TestPureMemory32RepeatedClose (0.23s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/godefault	0.843s

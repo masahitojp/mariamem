@@ -1,0 +1,18 @@
+{
+  "base": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+  "basis": "49817bb8c918be6215f6dfe5a4bdce98ab8d77ab",
+  "platform": "macOS 27.0.1 arm64",
+  "go": "1.26.8",
+  "reference_engine": "Node 26.9.0",
+  "matrix_cases": 2472,
+  "matrix_traps": 1693,
+  "max_boundary_extra_traps": 7,
+  "partial_write_cases": 14,
+  "mismatches": 0,
+  "host_survives": true,
+  "measured_full_guest_byte_identity": true,
+  "canonical_check": "PASS; Go tests and vet; Python 432 passed, 6 skipped; public source check",
+  "focused_acceptance": "PASS",
+  "mmap": false,
+  "verdict": "MEMORY SEMANTICS FIX READY FOR MMAP INTEGRATION"
+}

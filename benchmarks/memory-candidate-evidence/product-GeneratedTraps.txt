@@ -1,0 +1,5 @@
+=== RUN   TestPureMemory32GeneratedTraps
+    pure_memory32_test.go:75: three real generated accesses recover as WASM traps; worker visibility, grow and private TLS/stack globals pass
+--- PASS: TestPureMemory32GeneratedTraps (0.01s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/godefault	0.800s

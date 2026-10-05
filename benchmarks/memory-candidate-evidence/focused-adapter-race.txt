@@ -1,0 +1,5 @@
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	1.332s
+ok  	github.com/masahitojp/mariamem/internal/guest	2.844s
+ok  	github.com/masahitojp/mariamem/internal/host	4.701s
+?   	github.com/masahitojp/mariamem/internal/mysqlwire	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.352s
