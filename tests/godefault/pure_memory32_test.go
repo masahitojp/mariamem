@@ -25,7 +25,13 @@ func (g genericClock) Clock_time_get(m *base.Module, clock int32, precision int6
 	return 0
 }
 func TestPureMemory32GeneratedTraps(t *testing.T) {
-	m := generated.NewWithWASI(genericClock{base.DefaultWASI()}, nil, nil)
+	owner, e := base.NewMemoryMapping(generated.InitialMemoryBytes, 2<<30)
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer owner.Close()
+	m := generated.NewWithMemory(genericClock{base.DefaultWASI()}, nil, nil, owner.Bytes(), generated.InitialMemoryBytes)
+	m.PrepareMemoryGrow = owner.Grow
 	ptr := m.M
 	trap := func(name string, f func()) {
 		t.Helper()

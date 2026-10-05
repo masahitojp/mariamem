@@ -7,7 +7,7 @@
   "symbol_map_entries": 21859,
   "binaryen": "version_133",
   "method": "canonical -O2 recipe with --symbolmap; resulting WASM is byte-identical to canonical guest",
-  "generated_provenance_sha256": "250dce69ed0497e9802b3137bab8bae3aae5338cb1388ca08148b485151b35d2",
+  "generated_provenance_sha256": "ea14ffaec575a81fa23906da931bfc09c666f2d7dd6f125d832af732a65ce58e",
   "retained_symbols": {
     "MariaDB": {
       "pattern": "^(mysql_server_init|mysql_real_query)$",
@@ -780,5 +780,217 @@
       }
     ],
     "note": "Heap-only correctness candidate. Positive native retention rechecked; not release approval."
+  },
+  "mmap_controlled_traps_check": {
+    "basis": "2d633531acd7f81f7abb3ed613435b5d4a090342",
+    "host_sha256": "d87288fc53d078e4032534b6fdccb6d7b1c18c9dd72d962277bddae6e8ff1957",
+    "generated_provenance_sha256": "ea14ffaec575a81fa23906da931bfc09c666f2d7dd6f125d832af732a65ce58e",
+    "examples": [
+      {
+        "component": "MariaDB",
+        "function": "Fn5726",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "MariaDB",
+        "function": "Fn5790",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "lite4mariadb",
+        "function": "Fn244",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "lite4mariadb",
+        "function": "Fn245",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "lite4mariadb",
+        "function": "Fn246",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "WASIX libc",
+        "function": "Fn69",
+        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "WASIX libc",
+        "function": "Fn71",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "WASIX libc",
+        "function": "Fn72",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "wolfSSL",
+        "function": "Fn1247",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "wolfSSL",
+        "function": "Fn1325",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "wolfSSL",
+        "function": "Fn1379",
+        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "zlib",
+        "function": "Fn4476",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "zlib",
+        "function": "Fn5944",
+        "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "zlib",
+        "function": "Fn5952",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "PCRE2",
+        "function": "Fn7222",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "PCRE2",
+        "function": "Fn7223",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "PCRE2",
+        "function": "Fn7225",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "fmt",
+        "function": "Fn10779",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "fmt",
+        "function": "Fn11154",
+        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "fmt",
+        "function": "Fn11155",
+        "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++",
+        "function": "Fn4582",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++",
+        "function": "Fn4583",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++",
+        "function": "Fn4584",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++abi",
+        "function": "Fn1073",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++abi",
+        "function": "Fn1108",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libc++abi",
+        "function": "Fn1109",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libunwind",
+        "function": "Fn1100",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libunwind",
+        "function": "Fn1101",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "libunwind",
+        "function": "Fn1102",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "compiler-rt",
+        "function": "Fn113",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "compiler-rt",
+        "function": "Fn170",
+        "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "compiler-rt",
+        "function": "Fn171",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "dlmalloc",
+        "function": "Fn152",
+        "generated_file": "internal/generatedgo/code/p1/p1_pure.go",
+        "candidate_symbol_retained": true
+      },
+      {
+        "component": "dlmalloc",
+        "function": "Fn153",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "candidate_symbol_retained": true
+      }
+    ],
+    "note": "Controlled-traps mmap candidate. Positive native retention rechecked; not release approval."
   }
 }

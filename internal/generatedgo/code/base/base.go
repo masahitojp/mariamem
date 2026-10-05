@@ -820,6 +820,7 @@ type Module struct {
 	DataEnd                uint32
 	MemShared              bool
 	Threads                *ThreadPool
+	PrepareMemoryGrow      func(uint64, uint64) error
 	ThreadStart            func(*Module, int32, int32)
 }
 
@@ -1164,6 +1165,11 @@ func MemoryGrow(m *Module, n int32) int32 {
 
 		if want > uint64(len(m.Memory)) {
 			return -1
+		}
+		if m.PrepareMemoryGrow != nil {
+			if err := m.PrepareMemoryGrow(cur, want); err != nil {
+				return -1
+			}
 		}
 		m.MemSize.Store(want)
 		return prev

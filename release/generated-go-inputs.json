@@ -56,7 +56,7 @@
     "generated/base/relative.go": "61d67c5ee85fc73d28745e17b8eaab4d0d6e1c63f28969a1e8c66983db8fbd80",
     "generated/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
     "generated/base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
-    "generated/base/base.go": "190ed7237a95a65fa9eff326dd7fc1b973a7a4be4e0be27a6f191940b88a4a0b",
+    "generated/base/base.go": "8a4759486ca893611fae92e3f28f79d8be3670b196cc6dfc86ec0f2a9492afd1",
     "generated/base/spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862",
     "generated/base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
     "generated/base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",

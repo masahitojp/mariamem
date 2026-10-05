@@ -1,0 +1,135 @@
+package main
+
+import (
+	"context"
+	"database/sql"
+	"encoding/json"
+	"flag"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem"
+	"os"
+	"os/exec"
+	"runtime"
+	"runtime/pprof"
+	"strconv"
+	"strings"
+	"syscall"
+	"time"
+)
+
+func cpu() float64 {
+	var r syscall.Rusage
+	if e := syscall.Getrusage(syscall.RUSAGE_SELF, &r); e != nil {
+		panic(e)
+	}
+	return float64(r.Utime.Sec+r.Stime.Sec) + float64(r.Utime.Usec+r.Stime.Usec)/1e6
+}
+func ms(t time.Time) float64 { return float64(time.Since(t)) / float64(time.Millisecond) }
+func must(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+var mappingStats = func() map[string]uint64 { return nil }
+
+func observe() any {
+	helper := os.Getenv("MARIAMEM_PROCESS_COUNTER")
+	b, err := exec.Command(helper, strconv.Itoa(os.Getpid())).Output()
+	must(err)
+	var v map[string]any
+	must(json.Unmarshal(b, &v))
+	return v[strconv.Itoa(os.Getpid())]
+}
+func main() {
+	n := flag.Int("generations", 1, "sequential generations; no forced GC")
+	crudLoops := flag.Int("crud-iterations", 50, "CRUD loops; 4 statements per loop")
+	profileFile := flag.String("cpu-profile", "", "optional profile of CRUD only")
+	flag.Parse()
+	enc := json.NewEncoder(os.Stdout)
+	for g := 1; g <= *n; g++ {
+		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		c0 := cpu()
+		t0 := time.Now()
+		db, e := mariamem.Start(ctx, mariamem.Options{})
+		must(e)
+		ready := ms(t0)
+		readyCPU := cpu() - c0
+		pool, e := sql.Open("mysql", db.DSN())
+		must(e)
+		pool.SetMaxOpenConns(1)
+		var one int
+		must(pool.QueryRowContext(ctx, "SELECT 1").Scan(&one))
+		if one != 1 {
+			panic("SQL")
+		}
+		first := ms(t0)
+		firstCPU := cpu() - c0
+		c1 := cpu()
+		f := time.Now()
+		_, e = pool.ExecContext(ctx, "CREATE TABLE perf_rows(id INT PRIMARY KEY,value INT) ENGINE=InnoDB")
+		must(e)
+		values := make([]string, 1000)
+		for i := range values {
+			values[i] = fmt.Sprintf("(%d,%d)", i, i)
+		}
+		_, e = pool.ExecContext(ctx, "INSERT INTO perf_rows VALUES"+strings.Join(values, ","))
+		must(e)
+		var count int
+		must(pool.QueryRowContext(ctx, "SELECT COUNT(*) FROM perf_rows").Scan(&count))
+		if count != 1000 {
+			panic("fixture")
+		}
+		fixture := ms(f)
+		fixtureCPU := cpu() - c1
+		startFixture := ms(t0)
+		startFixtureCPU := cpu() - c0
+		var profile *os.File
+		if *profileFile != "" {
+			profile, e = os.Create(*profileFile)
+			must(e)
+			must(pprof.StartCPUProfile(profile))
+		}
+		c2 := cpu()
+		q := time.Now()
+		for i := 0; i < *crudLoops; i++ {
+			_, e = pool.ExecContext(ctx, "INSERT INTO perf_rows VALUES(?,?)", 1000+i, i)
+			must(e)
+			_, e = pool.ExecContext(ctx, "UPDATE perf_rows SET value=value+1 WHERE id=?", 1000+i)
+			must(e)
+			var v int
+			must(pool.QueryRowContext(ctx, "SELECT value FROM perf_rows WHERE id=?", 1000+i).Scan(&v))
+			if v != i+1 {
+				panic("CRUD")
+			}
+			_, e = pool.ExecContext(ctx, "DELETE FROM perf_rows WHERE id=?", 1000+i)
+			must(e)
+		}
+		crud := ms(q)
+		crudCPU := cpu() - c2
+		if profile != nil {
+			pprof.StopCPUProfile()
+			must(profile.Close())
+		}
+		must(pool.Close())
+		c3 := cpu()
+		closeStart := time.Now()
+		must(db.Close())
+		closeMS := ms(closeStart)
+		closeCPU := cpu() - c3
+		totalCPU := cpu() - c0
+		var mem runtime.MemStats
+		runtime.ReadMemStats(&mem)
+		fdDirectory, e := os.Open("/dev/fd")
+		must(e)
+		fds, e := fdDirectory.Readdirnames(-1)
+		must(fdDirectory.Close())
+		must(e)
+		stats := mappingStats()
+        if stats != nil && (stats["active_mappings"] != 0 || stats["release_failures"] != 0 || stats["creates"] != stats["releases"]) { panic("mapping ownership budget") }
+        if len(fds)-1 > 32 || runtime.NumGoroutine() > 32 { panic("FD/goroutine residual budget") }
+		must(enc.Encode(map[string]any{"generation": g, "crud_statements": 4 * (*crudLoops), "ready_ms": ready, "ready_cpu_s": readyCPU, "start_sql_ms": first, "start_sql_cpu_s": firstCPU, "fixture_ms": fixture, "fixture_cpu_s": fixtureCPU, "start_fixture_ms": startFixture, "start_fixture_cpu_s": startFixtureCPU, "crud_ms": crud, "crud_cpu_s": crudCPU, "close_ms": closeMS, "close_cpu_s": closeCPU, "total_cpu_s": totalCPU, "os": observe(), "mapping": stats, "heap_alloc_bytes": mem.HeapAlloc, "heap_sys_bytes": mem.HeapSys, "fd": len(fds) - 1, "goroutines": runtime.NumGoroutine()}))
+		cancel()
+	}
+}

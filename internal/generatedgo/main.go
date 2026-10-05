@@ -332,7 +332,17 @@ func run(args []string) {
 	w.SetStderr(os.Stderr)
 	h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
 	trace("generated-Go instantiate_begin (explicit MemFS)")
-	m := generated.NewWithWASI(h, nil, h)
+	m, release, allocErr := newMemoryModule(h)
+	if allocErr != nil {
+		panic(allocErr)
+	}
+	var memoryErr error
+	defer func() {
+		releaseMemoryModule(m, release, &memoryErr)
+		if memoryErr != nil {
+			panic(memoryErr)
+		}
+	}()
 	trace("generated-Go instantiated")
 	if len(args) == 2 && args[1] == "instantiate" {
 		return

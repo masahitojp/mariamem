@@ -1,0 +1,122 @@
+{
+  "basis": "2d633531acd7f81f7abb3ed613435b5d4a090342",
+  "backing": "anonymous mmap",
+  "mmap": true,
+  "correctness_only": true,
+  "fixture_case_count": 2472,
+  "trap_cases": 1693,
+  "max_boundary_extra_traps": 7,
+  "phases": [
+    {
+      "name": "build-counter",
+      "exit_code": 0
+    },
+    {
+      "name": "format-handwritten",
+      "exit_code": 0
+    },
+    {
+      "name": "translate-guest",
+      "exit_code": 0
+    },
+    {
+      "name": "converter-unit-tests",
+      "exit_code": 0
+    },
+    {
+      "name": "deterministic-memory32-regression",
+      "exit_code": 0
+    },
+    {
+      "name": "prepare-candidate",
+      "exit_code": 0
+    },
+    {
+      "name": "install-runtime",
+      "exit_code": 0
+    },
+    {
+      "name": "verify-provenance",
+      "exit_code": 0
+    },
+    {
+      "name": "deterministic-mapped-memory32-regression",
+      "exit_code": 0
+    },
+    {
+      "name": "mapping-owner-unit-tests",
+      "exit_code": 0
+    },
+    {
+      "name": "mapped-runtime-contract-and-failure-paths",
+      "exit_code": 0
+    },
+    {
+      "name": "controlled-root-and-worker-traps",
+      "exit_code": 0
+    },
+    {
+      "name": "focused-runtime-race",
+      "exit_code": 0
+    },
+    {
+      "name": "product-GeneratedTraps",
+      "exit_code": 0
+    },
+    {
+      "name": "product-CRUDSessionsAndFork",
+      "exit_code": 0
+    },
+    {
+      "name": "product-Auth",
+      "exit_code": 0
+    },
+    {
+      "name": "product-RepeatedClose",
+      "exit_code": 0
+    },
+    {
+      "name": "auth-reconnect-failure-cleanup",
+      "exit_code": 0
+    },
+    {
+      "name": "build-host-for-attribution",
+      "exit_code": 0
+    },
+    {
+      "name": "candidate-symbols",
+      "exit_code": 0
+    },
+    {
+      "name": "independent-regeneration",
+      "exit_code": 0
+    },
+    {
+      "name": "canonical-check",
+      "exit_code": 0
+    },
+    {
+      "name": "final-mapped-controlled-race",
+      "exit_code": 0
+    }
+  ],
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "generated_provenance_sha256": "ea14ffaec575a81fa23906da931bfc09c666f2d7dd6f125d832af732a65ce58e",
+  "converter_sha256": "36ae460bf057154ac2fb49f5b912a0c02e0fb6adf1489d7e1bcc825a194acee7",
+  "limits": {
+    "min_free_gib": 16,
+    "disk_budget_gib": 6,
+    "rss_gib": 6,
+    "physical_gib": 8
+  },
+  "result": "PASS",
+  "limitation": "Worker failure is relayed at cooperative join; non-cooperative root/worker termination is not guaranteed.",
+  "final_mapped_controlled_race": "PASS",
+  "platform": {
+    "os": "macOS",
+    "version": "27.0.1",
+    "architecture": "arm64",
+    "go": "1.26.8",
+    "ubuntu_execution": false
+  }
+}
