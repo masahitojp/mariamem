@@ -1,0 +1,2623 @@
+{
+  "released_base": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+  "converter_commit": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+  "phases": [
+    {
+      "name": "build-counter",
+      "command": [
+        "cc",
+        "-O2",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/worktree/benchmarks/tools/process_cost.c",
+        "-o",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/process-cost"
+      ],
+      "peak_rss_bytes": 0,
+      "peak_physical_bytes": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 0.6267679170123301
+    },
+    {
+      "name": "apply-imported-memory.patch",
+      "command": [
+        "git",
+        "apply",
+        "--unidiff-zero",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/worktree/benchmarks/spikes/wasm2go/imported-memory.patch"
+      ],
+      "peak_rss_bytes": 7667712,
+      "peak_physical_bytes": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 0.7373779580229893
+    },
+    {
+      "name": "apply-import-function-index.patch",
+      "command": [
+        "git",
+        "apply",
+        "--unidiff-zero",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/worktree/benchmarks/spikes/wasm2go/import-function-index.patch"
+      ],
+      "peak_rss_bytes": 7864320,
+      "peak_physical_bytes": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 0.26454270898830146
+    },
+    {
+      "name": "apply-relaxed-madd.patch",
+      "command": [
+        "git",
+        "apply",
+        "--unidiff-zero",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/worktree/benchmarks/spikes/wasm2go/relaxed-madd.patch"
+      ],
+      "peak_rss_bytes": 7880704,
+      "peak_physical_bytes": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 0.2777595420193393
+    },
+    {
+      "name": "build-baseline-converter",
+      "command": [
+        "/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "build",
+        "-p",
+        "1",
+        "-trimpath",
+        "-o",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/baseline-converter",
+        "./cmd/wasm2go"
+      ],
+      "peak_rss_bytes": 297025536,
+      "peak_physical_bytes": 272139536,
+      "exit_code": 0,
+      "elapsed_seconds": 3.7121037499746308
+    },
+    {
+      "name": "apply-generic-rule",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/worktree/benchmarks/spikes/generic-memory/patch_converter.py",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/converter/wasm2go-fork-ac98bcf00c17d8531f0c071a9836d0b50975e7ff"
+      ],
+      "peak_rss_bytes": 12910592,
+      "peak_physical_bytes": 5751288,
+      "exit_code": 0,
+      "elapsed_seconds": 0.2294079590064939
+    },
+    {
+      "name": "format-prototype",
+      "command": [
+        "/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/gofmt",
+        "-w",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/converter/wasm2go-fork-ac98bcf00c17d8531f0c071a9836d0b50975e7ff/internal/codegen/translate.go",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/converter/wasm2go-fork-ac98bcf00c17d8531f0c071a9836d0b50975e7ff/internal/codegen/emit_memops.go",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/converter/wasm2go-fork-ac98bcf00c17d8531f0c071a9836d0b50975e7ff/internal/ssa/ssa.go",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/converter/wasm2go-fork-ac98bcf00c17d8531f0c071a9836d0b50975e7ff/internal/ssa/op.go",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/converter/wasm2go-fork-ac98bcf00c17d8531f0c071a9836d0b50975e7ff/internal/codegen/helpers/helpers.go",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/converter/wasm2go-fork-ac98bcf00c17d8531f0c071a9836d0b50975e7ff/cmd/wasm2go/main.go"
+      ],
+      "peak_rss_bytes": 14090240,
+      "peak_physical_bytes": 11534792,
+      "exit_code": 0,
+      "elapsed_seconds": 0.2350420829898212
+    },
+    {
+      "name": "build-checked-converter",
+      "command": [
+        "/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "build",
+        "-p",
+        "1",
+        "-trimpath",
+        "-o",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/checked-converter",
+        "./cmd/wasm2go"
+      ],
+      "peak_rss_bytes": 301744128,
+      "peak_physical_bytes": 275907952,
+      "exit_code": 0,
+      "elapsed_seconds": 2.3261160840047523
+    },
+    {
+      "name": "wasm-reference",
+      "command": [
+        "node",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/worktree/benchmarks/spikes/generic-memory/reference.js",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/contract.wasm",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/matrix.json"
+      ],
+      "peak_rss_bytes": 100712448,
+      "peak_physical_bytes": 72806232,
+      "exit_code": 0,
+      "elapsed_seconds": 1.4298841249838006
+    },
+    {
+      "name": "wasmer-l32o0-32",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/tools/wasmer/bin/wasmer",
+        "run",
+        "--wasmer-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-home",
+        "--cache-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-cache",
+        "--invoke",
+        "l32o0",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/contract.wasm",
+        "--",
+        "32"
+      ],
+      "peak_rss_bytes": 4833280,
+      "peak_physical_bytes": 3457288,
+      "exit_code": 0,
+      "elapsed_seconds": 0.2258829170023091
+    },
+    {
+      "name": "wasmer-s64o0-65535",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/tools/wasmer/bin/wasmer",
+        "run",
+        "--wasmer-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-home",
+        "--cache-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-cache",
+        "--invoke",
+        "s64o0",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/contract.wasm",
+        "--",
+        "65535"
+      ],
+      "peak_rss_bytes": 35340288,
+      "peak_physical_bytes": 0,
+      "exit_code": 1,
+      "elapsed_seconds": 0.23245562499505468
+    },
+    {
+      "name": "wasmer-l32o4--4",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/tools/wasmer/bin/wasmer",
+        "run",
+        "--wasmer-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-home",
+        "--cache-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-cache",
+        "--invoke",
+        "l32o4",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/contract.wasm",
+        "--",
+        "-4"
+      ],
+      "peak_rss_bytes": 35291136,
+      "peak_physical_bytes": 0,
+      "exit_code": 1,
+      "elapsed_seconds": 0.2335154160100501
+    },
+    {
+      "name": "wasmer-vl128o0-65521",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/tools/wasmer/bin/wasmer",
+        "run",
+        "--wasmer-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-home",
+        "--cache-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-cache",
+        "--invoke",
+        "vl128o0",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/contract.wasm",
+        "--",
+        "65521"
+      ],
+      "peak_rss_bytes": 35274752,
+      "peak_physical_bytes": 0,
+      "exit_code": 1,
+      "elapsed_seconds": 0.2679923340037931
+    },
+    {
+      "name": "wasmer-vs128o0-32",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/tools/wasmer/bin/wasmer",
+        "run",
+        "--wasmer-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-home",
+        "--cache-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-cache",
+        "--invoke",
+        "vs128o0",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/contract.wasm",
+        "--",
+        "32"
+      ],
+      "peak_rss_bytes": 35110912,
+      "peak_physical_bytes": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 0.2559810410020873
+    },
+    {
+      "name": "wasmer-al32o0-1",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/tools/wasmer/bin/wasmer",
+        "run",
+        "--wasmer-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-home",
+        "--cache-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-cache",
+        "--invoke",
+        "al32o0",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/contract.wasm",
+        "--",
+        "1"
+      ],
+      "peak_rss_bytes": 35323904,
+      "peak_physical_bytes": 0,
+      "exit_code": 1,
+      "elapsed_seconds": 0.273905707988888
+    },
+    {
+      "name": "wasmer-ar64o0-65536",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/tools/wasmer/bin/wasmer",
+        "run",
+        "--wasmer-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-home",
+        "--cache-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-cache",
+        "--invoke",
+        "ar64o0",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/contract.wasm",
+        "--",
+        "65536"
+      ],
+      "peak_rss_bytes": 35307520,
+      "peak_physical_bytes": 0,
+      "exit_code": 1,
+      "elapsed_seconds": 0.2556380840251222
+    },
+    {
+      "name": "wasmer-al32o4--4",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/tools/wasmer/bin/wasmer",
+        "run",
+        "--wasmer-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-home",
+        "--cache-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/wasmer-cache",
+        "--invoke",
+        "al32o4",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/contract.wasm",
+        "--",
+        "-4"
+      ],
+      "peak_rss_bytes": 35274752,
+      "peak_physical_bytes": 0,
+      "exit_code": 1,
+      "elapsed_seconds": 0.25809770901105367
+    },
+    {
+      "name": "translate-baseline",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/baseline-converter",
+        "-pure",
+        "-i",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/contract.wasm",
+        "-o",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixture-baseline/fixture/fixture.go",
+        "-pkg",
+        "fixture",
+        "-import",
+        "genericfixture/fixture"
+      ],
+      "peak_rss_bytes": 32768,
+      "peak_physical_bytes": 81992,
+      "exit_code": 0,
+      "elapsed_seconds": 0.4729407499835361
+    },
+    {
+      "name": "build-fixture-baseline",
+      "command": [
+        "/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "build",
+        "-p",
+        "1",
+        "-o",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/baseline-fixture",
+        "."
+      ],
+      "peak_rss_bytes": 86474752,
+      "peak_physical_bytes": 65176776,
+      "exit_code": 0,
+      "elapsed_seconds": 0.7069767090142705
+    },
+    {
+      "name": "fixture-baseline",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/baseline-fixture",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/matrix.json"
+      ],
+      "peak_rss_bytes": 11272192,
+      "peak_physical_bytes": 8864224,
+      "exit_code": 0,
+      "elapsed_seconds": 0.6914265420055017
+    },
+    {
+      "name": "translate-checked",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/checked-converter",
+        "-pure",
+        "-i",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/contract.wasm",
+        "-o",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixture-checked/fixture/fixture.go",
+        "-pkg",
+        "fixture",
+        "-import",
+        "genericfixture/fixture",
+        "-checked-memory"
+      ],
+      "peak_rss_bytes": 32768,
+      "peak_physical_bytes": 81992,
+      "exit_code": 0,
+      "elapsed_seconds": 0.4682665830187034
+    },
+    {
+      "name": "build-fixture-checked",
+      "command": [
+        "/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "build",
+        "-p",
+        "1",
+        "-o",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/checked-fixture",
+        "."
+      ],
+      "peak_rss_bytes": 27312128,
+      "peak_physical_bytes": 14926520,
+      "exit_code": 0,
+      "elapsed_seconds": 0.4944927080068737
+    },
+    {
+      "name": "fixture-checked",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/checked-fixture",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/fixtures/matrix.json"
+      ],
+      "peak_rss_bytes": 11796480,
+      "peak_physical_bytes": 9355744,
+      "exit_code": 0,
+      "elapsed_seconds": 0.7200173749879468
+    },
+    {
+      "name": "regenerate-guest",
+      "command": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/checked-converter",
+        "-pure",
+        "-checked-memory",
+        "-i",
+        "/Users/masahito/src/mysqlmem/build/mariamem-work/release-ci-migration/source/build/generated-release/mariamem.wasm",
+        "-out-dir",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp/guest-generated",
+        "-pkg",
+        "generated",
+        "-import",
+        "github.com/masahitojp/mariamem/internal/generatedgo/code"
+      ],
+      "peak_rss_bytes": 3363602432,
+      "peak_physical_bytes": 6585275504,
+      "exit_code": 0,
+      "elapsed_seconds": 71.77701787499245
+    },
+    {
+      "name": "focused-runtime-race",
+      "command": [
+        "/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "test",
+        "-race",
+        "-p",
+        "1",
+        "-count=1",
+        "./internal/generatedgo/code/base"
+      ],
+      "peak_rss_bytes": 169541632,
+      "peak_physical_bytes": 149079552,
+      "exit_code": 0,
+      "elapsed_seconds": 4.537217459001113
+    },
+    {
+      "name": "product-smoke",
+      "command": [
+        "/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "test",
+        "-p",
+        "1",
+        "-tags=integration",
+        "-v",
+        "-count=1",
+        "-timeout=240s",
+        "./tests/godefault"
+      ],
+      "peak_rss_bytes": 0,
+      "peak_physical_bytes": 0
+    }
+  ],
+  "fixture_pass": true,
+  "product_smoke": false,
+  "mmap": false,
+  "performance_measurement": false,
+  "budgets": {
+    "disk_gib": 4,
+    "free_disk_gib": 16,
+    "rss_gib": 6,
+    "physical_gib": 8,
+    "cpu_per_process_seconds": [
+      180,
+      200
+    ]
+  },
+  "converter_archive_sha256": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f",
+  "prototype_files": [
+    "internal/codegen/translate.go",
+    "internal/codegen/emit_memops.go",
+    "internal/ssa/ssa.go",
+    "internal/ssa/op.go",
+    "internal/codegen/helpers/helpers.go",
+    "cmd/wasm2go/main.go"
+  ],
+  "prototype_patch_bytes": 8060,
+  "fixture_case_count": 1960,
+  "wasmer_reference_pass": true,
+  "baseline_mismatches": [
+    {
+      "op": "l8o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o0",
+      "addr": 65535,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o0",
+      "addr": 65535,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o0",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o0",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o0",
+      "addr": 65529,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o0",
+      "addr": 65529,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o0",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4",
+      "addr": 65535,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4",
+      "addr": 65535,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4",
+      "addr": 65529,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4",
+      "addr": 65529,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o4",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o4",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o4",
+      "addr": -4,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o65536",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o65536",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o65536",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o65536",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o65536",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o65536",
+      "addr": 65535,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o65536",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o65536",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o65536",
+      "addr": 65535,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o65536",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o65536",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o65536",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o65536",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o65536",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o65536",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o65536",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o65536",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o65536",
+      "addr": 65529,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o65536",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o65536",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o65536",
+      "addr": 65529,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o65536",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o65536",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o65536",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o65536",
+      "addr": -65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4294967295",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4294967295",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4294967295",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4294967295",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4294967295",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4294967295",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4294967295",
+      "addr": 65535,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4294967295",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4294967295",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4294967295",
+      "addr": 65535,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4294967295",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4294967295",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4294967295",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4294967295",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4294967295",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4294967295",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4294967295",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4294967295",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4294967295",
+      "addr": 65529,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4294967295",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4294967295",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4294967295",
+      "addr": 65529,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o4294967295",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o4294967295",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o4294967295",
+      "addr": 65529,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o4294967295",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o4294967295",
+      "addr": 65529,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o4294967295",
+      "addr": 1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "positiveadd",
+      "addr": 32,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "positiveadd",
+      "addr": 33,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "positiveadd",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "positiveadd",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "positiveadd",
+      "addr": 0,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "positiveadd",
+      "addr": -1,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "positiveadd",
+      "addr": 65532,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "positiveadd",
+      "addr": 65568,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "droppedload",
+      "addr": 65536,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "droppedload",
+      "addr": 65533,
+      "grow": 0,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o0",
+      "addr": 131071,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o0",
+      "addr": 131071,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o0",
+      "addr": 131069,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o0",
+      "addr": 131069,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o0",
+      "addr": 131065,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o0",
+      "addr": 131065,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o0",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4",
+      "addr": 131071,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4",
+      "addr": 131071,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4",
+      "addr": 131069,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4",
+      "addr": 131069,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4",
+      "addr": 131065,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4",
+      "addr": 131065,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o4",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o4",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o4",
+      "addr": -4,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o65536",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o65536",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o65536",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o65536",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o65536",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o65536",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o65536",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o65536",
+      "addr": -1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o65536",
+      "addr": -65536,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4294967295",
+      "addr": 32,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4294967295",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l8o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4294967295",
+      "addr": 32,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4294967295",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s8o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4294967295",
+      "addr": 32,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4294967295",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4294967295",
+      "addr": 131071,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l16o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4294967295",
+      "addr": 32,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4294967295",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4294967295",
+      "addr": 131071,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s16o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4294967295",
+      "addr": 32,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4294967295",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4294967295",
+      "addr": 131069,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l32o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4294967295",
+      "addr": 32,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4294967295",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4294967295",
+      "addr": 131069,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s32o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4294967295",
+      "addr": 32,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4294967295",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4294967295",
+      "addr": 131065,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "l64o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4294967295",
+      "addr": 32,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4294967295",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4294967295",
+      "addr": 131065,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "s64o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o4294967295",
+      "addr": 131069,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al32o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o4294967295",
+      "addr": 131069,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as32o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o4294967295",
+      "addr": 131065,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "al64o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o4294967295",
+      "addr": 33,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o4294967295",
+      "addr": 131065,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "as64o4294967295",
+      "addr": 1,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "positiveadd",
+      "addr": 131068,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "positiveadd",
+      "addr": 65568,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "droppedload",
+      "addr": 131072,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    },
+    {
+      "op": "droppedload",
+      "addr": 131069,
+      "grow": 1,
+      "expected_trap": true,
+      "actual_trap": false
+    }
+  ],
+  "baseline_executed_cases": 1547,
+  "checked_mismatches": [],
+  "checked_executed_cases": 1960,
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "generated_inventory": {
+    "alias.go": "dee4d6cece6bf9496ebc2d0ad4ea40e28db5a163dd7e28f281b1c03a7277d8ad",
+    "generated.go": "3e81f7053b18e0bb5b0824d9cc4d4b4c86f19235ae6bd7922b03a0295f99741a",
+    "data.bin": "22b9b269097cfda323244d3d51cdab118eb65cde043409fa59865130e502c5a0",
+    "p4/p4.go": "7cba5657ac43d37c774dbe894d7dfd6f4c26300994c0a7995fd77f0f23bb2057",
+    "p4/alias.go": "7b0a0c0b55f8974a35a16e67d106ec0428380d548bb165710b2ce4992e6c8cc8",
+    "p4/p4_pure.go": "5e9b0bd0b1045547748bb959e2fd9030aefc787bd481170fdfa8886ea8dab7dd",
+    "p3/alias.go": "d04a3c99110dc90f5d74f89bfe443cb3f167e112b4b11bd6054a7a2068763bca",
+    "p3/p3_pure.go": "0a067412fe2bfd29f09c057d87c9f48024917b29508e786ba7a52bc52e66b880",
+    "p3/p3.go": "aa6a06ace6e3418d18dc36c70edc675b773ea8170ebc3048397d3aa1b863a8af",
+    "p2/alias.go": "677356f180ad720f989d28f1fb4461cbb8a137a8e37f014d2706e2f3275d05e5",
+    "p2/p2_pure.go": "6a3b4f305f338617d2052c7f79c40922c979501e9bdc2492735f96d5752acbf4",
+    "p2/p2.go": "d186b895fda4ccd6d466b12df3c8e6f13f27395735032adce4ee64648358b3c6",
+    "p5/alias.go": "2a9bedbf37173eedafb131efd8f24a01101b266d40e511417a09a70a0598f5ad",
+    "p5/p5.go": "5b23a299c111f1ec38126010c2c8a50dacaa3a699af198a80b30bd1964dfb9ee",
+    "p5/p5_pure.go": "bdb5a9c38645ecbf52ab3c7ab09af6d9e3d3fb370915c08200e751c161627a4b",
+    "p0/p0.go": "90e46c953e66e730b8578b59e5706657c56101e53eba9a03c16788aa32485558",
+    "p0/alias.go": "6cc49c44ed17b8688fd9e34025c3df84082c62fda957eedbefe09e8d9b09196f",
+    "p0/p0_pure.go": "dc7b6254242dc89eca4f62012be97f435d3d2c980564a598a66475ae9a688512",
+    "p7/alias.go": "c3b08ad19abe4396ffbd9f22564cb72551e6f59ae3a4cfa70d32a5393d2a92a1",
+    "p7/p7_pure.go": "684e3c3b29a6cfb8592bf09c9310dadb9859d9ae8d1867844ead8cb5b9b27f84",
+    "p7/p7.go": "41c6ca9bb9fbf75040e1624958048ab071a0cdb21fd78e9f0389ba6bad3e226c",
+    "p8/p8_pure.go": "35ca39226cc80d0e24d2051f217f5674dc09ba627cafdedcee281c72a177a03d",
+    "p8/alias.go": "ef94ab5b6376e687eef9525d53623c3926728ac33b86590b15ec1352b75ad2e8",
+    "p8/p8.go": "a396c747803557cbd95746620afc51fca8ca99e763a1d9129b851d3f12a9c911",
+    "p6/alias.go": "9e5299a1114e8b9aff7df952093bb0937c5ae11862ca8cfa5c88177720b19b18",
+    "p6/p6_pure.go": "c954f284fad9fbf078eae76e214d07e4257e7028ce970893db40f8f7ccd53656",
+    "p6/p6.go": "eb67352f2fbbdc7da17dba8cb4f5617664dde0ee69a4aa2275b6f163a3068bc4",
+    "p1/p1_pure.go": "cb0ffd1f400a3c3b7dd98d854f73cfccc9acc86ceddb00e4ee994a2dce4326fa",
+    "p1/alias.go": "b051ba8c0b0b376ef334e0e1046fe1375afe80f0add3497fcae04f4868b10888",
+    "p1/p1.go": "ac3cb18646389801b2ad42d26ba2ebf5a33ab99e96c16e03fcc4abb08ff7b356",
+    "base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+    "base/simd_relaxed.go": "84b1a59cccf949026fefa74e4377176839e4d09fde0bac9b192e2754abe8fdd9",
+    "base/simd_pair.go": "f4ebb41696ef6bb57709ee4e44622572159745382a06d49630278503fed479db",
+    "base/cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+    "base/simd_asm_decls_arm64.go": "b8233d5f511991ce47dbd3aa82f17004f9f0a001af5c3feba18f3bf2be1f514d",
+    "base/simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+    "base/simd_fallback.go": "83141bdc4d20c44bc2b62312c29d8b34164c75542bc9590729b77d7b342a675d",
+    "base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+    "base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+    "base/simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+    "base/sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+    "base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+    "base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+    "base/simd_asm_decls_amd64.go": "8cd739faed219b86305f36152639461265627ddf3ce99ece79af31172ee4a023",
+    "base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+    "base/base.go": "079269e4ca17e5c6360bb46fb12f309d559489f4ec5ab80261014bd91811128a",
+    "base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+    "base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+    "base/simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c"
+  }
+}

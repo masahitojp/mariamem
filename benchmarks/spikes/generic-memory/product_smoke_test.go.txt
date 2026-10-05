@@ -1,0 +1,31 @@
+//go:build integration
+package godefault
+import("context";"database/sql";"encoding/binary";"strings";"fmt";"testing";"time";"sync/atomic";"github.com/masahitojp/mariamem";generated "github.com/masahitojp/mariamem/internal/generatedgo/code";"github.com/masahitojp/mariamem/internal/generatedgo/code/base";"github.com/masahitojp/mariamem/internal/generatedgo/code/p8")
+type genericClock struct{*base.WasiStubs}
+func(g genericClock)Clock_time_get(m *base.Module,clock int32,precision int64,out int32)int32{binary.LittleEndian.PutUint64(m.Memory[uint32(out):],1000000000);return 0}
+func TestGenericActualGeneratedScalarTraps(t *testing.T){
+ m:=generated.NewWithWASI(genericClock{base.DefaultWASI()},nil,nil);ptr:=m.M
+ trap:=func(name string,f func()){t.Helper();func(){defer func(){r:=recover();if r==nil||!strings.Contains(fmt.Sprint(r),"wasm: memory access out of bounds"){t.Fatalf("%s: wrong trap %v",name,r)}}();f()}()}
+ m.G1=generated.InitialMemoryBytes-4;trap("initial OOB",func(){p8.Fn68(m)})
+ m.G1=generated.InitialMemoryBytes-6;trap("width crosses end",func(){p8.Fn68(m)})
+ m.G0=8;trap("non-wrapping static offset",func(){p8.Fn80(m,0,65536)})
+ if base.MemoryGrow(m,1)!=4096||m.M!=ptr{t.Fatal("grow/base")};m.G1=generated.InitialMemoryBytes-4;if p8.Fn68(m)!=0{t.Fatal("grown zero region")}
+
+ m.G0=8<<20;p8.Fn66(m,65536);binary.LittleEndian.PutUint32(m.Memory[65540:],123)
+ word:=base.AtomicPtr32At(m,base.AtomicEA(m,196608,0,4));atomic.StoreUint32(word,0)
+ oldPages:=base.MemorySize(m);done:=make(chan bool,1)
+ base.ThreadLaunch(m,func(child *base.Module,tid int32){p8.Fn66(child,131072);binary.LittleEndian.PutUint32(child.Memory[131076:],456);child.G0=7<<20;grown:=base.MemoryGrow(child,1)==oldPages;atomic.StoreUint32(base.AtomicPtr32At(child,base.AtomicEA(child,196608,0,4)),99);done<-grown&&child.M==ptr&&p8.Fn68(child)==456})
+ base.SpikeWait(m);if !<-done||atomic.LoadUint32(word)!=99||m.G1!=65536||m.G0!=8<<20||p8.Fn68(m)!=123||base.MemorySize(m)!=oldPages+1{t.Fatal("shared worker/grow/TLS contract")}
+ t.Log("three real generated accesses recover as WASM traps; worker visibility, grow and private TLS/stack globals pass")
+}
+func TestGenericFocusedCRUDSessionsAndFork(t *testing.T){
+ ctx,cancel:=context.WithTimeout(context.Background(),45*time.Second);defer cancel()
+ db,e:=mariamem.Start(ctx,mariamem.Options{});if e!=nil{t.Fatal(e)};defer db.Close()
+ p,e:=sql.Open("mysql",db.DSN());if e!=nil{t.Fatal(e)};defer p.Close();p.SetMaxOpenConns(2)
+ a,e:=p.Conn(ctx);if e!=nil{t.Fatal(e)};defer a.Close();b,e:=p.Conn(ctx);if e!=nil{t.Fatal(e)};defer b.Close()
+ var x,y int64;if e=a.QueryRowContext(ctx,"SELECT CONNECTION_ID()").Scan(&x);e!=nil{t.Fatal(e)};if e=b.QueryRowContext(ctx,"SELECT CONNECTION_ID()").Scan(&y);e!=nil||x==y{t.Fatal("sessions",x,y,e)}
+ for _,q:=range []string{"CREATE TABLE correctness_rows(id INT PRIMARY KEY,value INT) ENGINE=InnoDB","INSERT INTO correctness_rows VALUES(1,10),(2,20)","UPDATE correctness_rows SET value=11 WHERE id=1","DELETE FROM correctness_rows WHERE id=2"}{if _,e=a.ExecContext(ctx,q);e!=nil{t.Fatal(e)}}
+ var value,count int;if e=b.QueryRowContext(ctx,"SELECT value FROM correctness_rows WHERE id=1").Scan(&value);e!=nil||value!=11{t.Fatal("cross-session CRUD",value,e)};if e=b.QueryRowContext(ctx,"SELECT COUNT(*) FROM correctness_rows").Scan(&count);e!=nil||count!=1{t.Fatal(count,e)}
+ a.Close();b.Close();p.Close();if e=db.WaitDisconnected(ctx);e!=nil{t.Fatal(e)};s,e:=db.Snapshot(ctx,mariamem.SnapshotOptions{});if e!=nil{t.Fatal(e)};defer s.Close()
+ for i:=0;i<2;i++{child,e:=s.Fork(ctx);if e!=nil{t.Fatal(e)};c,e:=sql.Open("mysql",child.DSN());if e!=nil{child.Close();t.Fatal(e)};e=c.QueryRowContext(ctx,"SELECT value FROM correctness_rows WHERE id=1").Scan(&value);if e==nil&&value!=11{e=fmt.Errorf("fork fixture %d",value)};if e==nil{_,e=c.ExecContext(ctx,"UPDATE correctness_rows SET value=99")};c.Close();closeErr:=child.Close();if e!=nil||closeErr!=nil{t.Fatal(e,closeErr)}}
+}

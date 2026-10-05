@@ -1,0 +1,58 @@
+[
+  {
+    "op": "l32o0",
+    "addr": 32,
+    "expected_trap": false,
+    "exit_code": 0,
+    "matches_reference": true
+  },
+  {
+    "op": "s64o0",
+    "addr": 65535,
+    "expected_trap": true,
+    "exit_code": 1,
+    "matches_reference": true
+  },
+  {
+    "op": "l32o4",
+    "addr": -4,
+    "expected_trap": true,
+    "exit_code": 1,
+    "matches_reference": true
+  },
+  {
+    "op": "vl128o0",
+    "addr": 65521,
+    "expected_trap": true,
+    "exit_code": 1,
+    "matches_reference": true
+  },
+  {
+    "op": "vs128o0",
+    "addr": 32,
+    "expected_trap": false,
+    "exit_code": 0,
+    "matches_reference": true
+  },
+  {
+    "op": "al32o0",
+    "addr": 1,
+    "expected_trap": true,
+    "exit_code": 1,
+    "matches_reference": true
+  },
+  {
+    "op": "ar64o0",
+    "addr": 65536,
+    "expected_trap": true,
+    "exit_code": 1,
+    "matches_reference": true
+  },
+  {
+    "op": "al32o4",
+    "addr": -4,
+    "expected_trap": true,
+    "exit_code": 1,
+    "matches_reference": true
+  }
+]

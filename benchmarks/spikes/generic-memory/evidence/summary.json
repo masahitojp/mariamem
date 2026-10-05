@@ -1,0 +1,23 @@
+{
+  "released_tag": "v0.4.1",
+  "released_base": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+  "converter_commit": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+  "converter_archive_sha256": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f",
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "platform": "darwin-arm64",
+  "checked_cases": 1960,
+  "checked_traps": 1353,
+  "checked_mismatches": 0,
+  "baseline_cases": 1547,
+  "baseline_mismatches": 300,
+  "baseline_skipped_for_host_safety": 413,
+  "wasmer_cases": 8,
+  "wasmer_reference_pass": true,
+  "focused_base_race": "PASS",
+  "focused_product": "PASS",
+  "worker_TLS": "PASS",
+  "extra_parallel_lifecycle": "STOPPED by memory budget; not an acceptance pass",
+  "mmap_integrated": false,
+  "performance_measurement": false,
+  "verdict": "MULTIPLE BOUNDED MEMORY RULES REQUIRED"
+}

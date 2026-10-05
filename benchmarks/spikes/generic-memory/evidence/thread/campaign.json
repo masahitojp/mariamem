@@ -1,0 +1,55 @@
+{
+  "released_base": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
+  "converter_commit": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+  "phases": [
+    {
+      "name": "build-counter",
+      "command": [
+        "cc",
+        "-O2",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/worktree/benchmarks/tools/process_cost.c",
+        "-o",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-thread/temp/process-cost"
+      ],
+      "peak_rss_bytes": 0,
+      "peak_physical_bytes": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 0.2064865840075072
+    },
+    {
+      "name": "generated-traps-and-worker-TLS",
+      "command": [
+        "/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "test",
+        "-p",
+        "1",
+        "-tags=integration",
+        "-v",
+        "-count=1",
+        "-run=^TestGenericActualGeneratedScalarTraps$",
+        "-timeout=90s",
+        "./tests/godefault"
+      ],
+      "peak_rss_bytes": 637894656,
+      "peak_physical_bytes": 106529992,
+      "exit_code": 0,
+      "elapsed_seconds": 2.0003345829900354
+    }
+  ],
+  "fixture_pass": false,
+  "product_smoke": false,
+  "mmap": false,
+  "performance_measurement": false,
+  "budgets": {
+    "disk_gib": 4,
+    "free_disk_gib": 16,
+    "rss_gib": 6,
+    "physical_gib": 8,
+    "cpu_per_process_seconds": [
+      180,
+      200
+    ]
+  },
+  "finished": true,
+  "worker_TLS_smoke": true
+}

@@ -1,0 +1,23 @@
+{
+  "owner": "mariamem-experiment-v1",
+  "name": "v042-generic-focused",
+  "repo": "/Users/masahito/src/mysqlmem/publish/mariamem",
+  "state": "completed",
+  "base_sha": "d492e52ff460e4a54e29dbef56645c5788d681dd",
+  "created": 1791162805.9724212,
+  "min_free_gib": 16.0,
+  "budget_gib": 4.0,
+  "disposable": [
+    "temp"
+  ],
+  "evidence": "evidence",
+  "command": [
+    "env",
+    "GENERIC_INPUT_TEMP=/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/temp",
+    "python3",
+    "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v042-generic-memory/worktree/benchmarks/spikes/generic-memory/finish.py"
+  ],
+  "returncode": 0,
+  "peak_owned_bytes": 221208576,
+  "minimum_free_bytes": 61523910656
+}

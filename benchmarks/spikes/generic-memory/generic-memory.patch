@@ -1,0 +1,202 @@
+--- a/cmd/wasm2go/main.go
++++ b/cmd/wasm2go/main.go
+@@ -56,6 +56,7 @@
+ 	addrConsts := flag.Bool("addr-consts", false, "route constants that point into the module's static data through a package-level _addr table instead of emitting them inline, so rebuilding the wasm with added static data changes one table line per file instead of every function body that carries an address")
+ 	addrConstsMax := flag.Uint64("addr-consts-max", 0, "with -addr-consts: top of the static-data address window (0 = derive it from the data segments and the stack-pointer global)")
+ 	directAsm := flag.String("direct-asm", "", "comma-separated function names (FnN / outlined FnNlH) to emit via the direct-asm backend instead of the gc-listing transform; unsupported functions fall back per function")
++	checkedMemory := flag.Bool("checked-memory", false, "experiment: check logical bounds for pure-Go memory accesses")
+ 	flag.Parse()
+ 
+ 	var r io.Reader
+@@ -107,6 +108,7 @@
+ 		EntryExports:        parseEntryExports(*entryExports),
+ 		PromotionReportPath: *promotionReport,
+ 		PureOnly:            *pureOnly,
++		CheckedMemory:       *checkedMemory,
+ 		OutlineMinValues:    *outlineMin,
+ 		SIMDUnroll:          *simdUnroll,
+ 		FuseLoops:           *fuseLoops,
+--- a/internal/codegen/emit_memops.go
++++ b/internal/codegen/emit_memops.go
+@@ -147,9 +147,27 @@
+ // up the import.
+ func (em *ssaEmitter) unsafeDerefExpr(spec memOpSpec, baseExpr ast.Expr, offset uint64, baseVal *ssa.Value) ast.Expr {
+ 	em.useImport("unsafe")
++	address := em.memOffsetExpr(baseExpr, offset, baseVal)
++	if em.t != nil && em.t.opts.CheckedMemory {
++		em.useHelper("memoryEA")
++		addr := ast.Expr(&ast.CallExpr{Fun: newID("uint64"), Args: []ast.Expr{baseExpr}})
++		if !em.mem64 {
++			addr = &ast.CallExpr{Fun: newID("uint64"), Args: []ast.Expr{&ast.CallExpr{Fun: newID("uint32"), Args: []ast.Expr{baseExpr}}}}
++			if c := ssaConstBase(baseVal); c != nil {
++				addr = uintLit(uint64(uint32(c.AuxInt)))
++			}
++		} else if c := ssaConstBase64(baseVal); c != nil {
++			addr = uintLit(uint64(c.AuxInt))
++		}
++		width := map[string]uint64{"uint8": 1, "int8": 1, "uint16": 2, "int16": 2, "uint32": 4, "int32": 4, "float32": 4, "int64": 8, "uint64": 8, "float64": 8}[spec.elemType]
++		if width == 0 {
++			panic("unknown memory width")
++		}
++		address = &ast.CallExpr{Fun: em.helperRef("memoryEA"), Args: []ast.Expr{newID("m"), addr, uintLit(offset), uintLit(width)}}
++	}
+ 	added := &ast.CallExpr{
+ 		Fun:  &ast.SelectorExpr{X: newID("unsafe"), Sel: newID("Add")},
+-		Args: []ast.Expr{em.memBasePtrExpr(), em.memOffsetExpr(baseExpr, offset, baseVal)},
++		Args: []ast.Expr{em.memBasePtrExpr(), address},
+ 	}
+ 	castFn := &ast.ParenExpr{X: &ast.StarExpr{X: newID(spec.elemType)}}
+ 	cast := &ast.CallExpr{Fun: castFn, Args: []ast.Expr{added}}
+@@ -558,11 +576,26 @@
+ 	}
+ 	em.useImport("unsafe")
+ 	em.useImport("sync/atomic")
++	address := em.memOffsetExpr(baseExpr, offU, v.Args[0])
++	if em.t != nil && em.t.opts.CheckedMemory {
++		name := "atomicEA"
++		off := goConstI32(int32(offU))
++		if em.mem64 {
++			name = "atomicEA64"
++			off = goConstI64(int64(offU))
++		}
++		em.useHelper(name)
++		width := uint64(4)
++		if spec.elemType == "uint64" {
++			width = 8
++		}
++		address = &ast.CallExpr{Fun: em.helperRef(name), Args: []ast.Expr{newID("m"), baseExpr, off, uintLit(width)}}
++	}
+ 	added := &ast.CallExpr{
+ 		Fun: &ast.SelectorExpr{X: newID("unsafe"), Sel: newID("Add")},
+ 		Args: []ast.Expr{
+ 			em.memBasePtrExpr(),
+-			em.memOffsetExpr(baseExpr, offU, v.Args[0]),
++			address,
+ 		},
+ 	}
+ 	ptr := &ast.CallExpr{
+--- a/internal/codegen/helpers/helpers.go
++++ b/internal/codegen/helpers/helpers.go
+@@ -1259,6 +1259,22 @@
+ // up front and aliases shared segments above the guest-visible size into
+ // it keeps every byte of the slice addressable, exactly as the unchecked
+ // load/store paths do.
++// memoryEA is the shared non-wrapping logical-bound rule. Subtractions make
++// both additions safe, including memory64 without a representable 65-bit sum.
++func memoryInBounds(m *Module, addr, offset, size uint64) bool {
++	bound := m.memSize.Load()
++	return addr <= bound && offset <= bound-addr && size <= bound-addr-offset
++}
++func memoryEA(m *Module, addr, offset, size uint64) uint64 {
++	if !memoryInBounds(m, addr, offset, size) {
++		wasm_trap_memory_oob()
++	}
++	return addr + offset
++}
++
++//go:noinline
++func wasm_trap_memory_oob() { panic("wasm: memory access out of bounds") }
++
+ func memBound(m *Module) uint64 {
+ 	if m.memShared {
+ 		return m.memSize.Load()
+@@ -1277,7 +1293,7 @@
+ //go:noinline
+ func atomicEA(m *Module, addr int32, offset int32, size uint64) uint64 {
+ 	ea := uint64(uint32(addr)) + uint64(uint32(offset))
+-	if ea+size > memBound(m) {
++	if !memoryInBounds(m, uint64(uint32(addr)), uint64(uint32(offset)), size) {
+ 		wasm_trap_atomic_oob()
+ 	}
+ 	if ea&(size-1) != 0 {
+@@ -2606,7 +2622,7 @@
+ 	// Same shape as atomicEA, minus the alignment trap: SIMD memory access
+ 	// is alignment-hint-only, never trapping on misalignment.
+ 	ea := uint64(uint32(addr)) + uint64(uint32(offset))
+-	if ea+size > m.memSize.Load() {
++	if !memoryInBounds(m, uint64(uint32(addr)), uint64(uint32(offset)), size) {
+ 		wasm_trap_simd_oob()
+ 	}
+ 	return ea
+--- a/internal/codegen/translate.go
++++ b/internal/codegen/translate.go
+@@ -126,7 +126,8 @@
+ 	// slower to compile / heavier on tooling for large modules, but the
+ 	// reference backend for benchmarking codegen quality without the
+ 	// gcasm ABI0 marshalling.
+-	PureOnly bool
++	PureOnly      bool
++	CheckedMemory bool // experiment: logical bounds before every scalar/inline atomic access
+ 
+ 	// OutlineMinValues enables outlining of large loops into their own
+ 	// functions and sets the minimum loop body size (in SSA values)
+@@ -3388,6 +3389,15 @@
+ 	if err != nil {
+ 		return nil, err
+ 	}
++	if t.opts.CheckedMemory {
++		for _, b := range ssaFn.Blocks {
++			for _, v := range b.Values {
++				if _, ok := loadSpec(v); ok {
++					v.MemoryMayTrap = true
++				}
++			}
++		}
++	}
+ 	insBefore := ssa.CountValues(ssaFn)
+ 	// MemOpt (redundant-load elimination + store-to-load forwarding) is
+ 	// UNSOUND on a shared linear memory: it assumes this agent is the only
+@@ -3398,7 +3408,7 @@
+ 	// would drop that read. Disable the pass whole-module when the memory
+ 	// is shared. (Atomic ops are OpAtomicCall — MemOpt already treats them
+ 	// as barriers and never touches them.)
+-	memOptOK := !t.memoryIsShared()
++	memOptOK := !t.memoryIsShared() && !t.opts.CheckedMemory
+ 	// SIMD loop unrolling runs BEFORE the fixpoint so its cloned
+ 	// pointer-bump chains constant-fold and the bounds/window passes
+ 	// see the unrolled straight-line body. OPT-IN via Options.SIMDUnroll:
+@@ -3459,7 +3469,7 @@
+ 	// the emitter's _consts-table guard sees them — a constant that
+ 	// stays in the base sum bypasses the guard and can fail to
+ 	// assemble on arm64 ("constant is not in pool").
+-	if pass.FoldMemAddend(ssaFn, largeConstThreshold) {
++	if !t.opts.CheckedMemory && pass.FoldMemAddend(ssaFn, largeConstThreshold) {
+ 		pass.DCE(ssaFn)
+ 	}
+ 	// Bounds-check coalescing for v128 load groups. After the fixpoint
+--- a/internal/ssa/op.go
++++ b/internal/ssa/op.go
+@@ -442,6 +442,9 @@
+ func (v *Value) HasSideEffect() bool {
+ 	if v == nil {
+ 		return false
++	}
++	if v.MemoryMayTrap {
++		return true
+ 	}
+ 	if v.Op == OpAtomicCall {
+ 		return true
+--- a/internal/ssa/ssa.go
++++ b/internal/ssa/ssa.go
+@@ -257,13 +257,14 @@
+ 
+ // Value is one SSA node.
+ type Value struct {
+-	ID     ValueID
+-	Op     Op
+-	Type   Type
+-	Args   []*Value
+-	AuxInt int64       // small immediate (constant value, offset, ...)
+-	Aux    interface{} // larger immediate (call target, string, ...)
+-	Block  *Block
++	MemoryMayTrap bool // opt-in checked scalar loads are observable
++	ID            ValueID
++	Op            Op
++	Type          Type
++	Args          []*Value
++	AuxInt        int64       // small immediate (constant value, offset, ...)
++	Aux           interface{} // larger immediate (call target, string, ...)
++	Block         *Block
+ }
+ 
+ // String produces a short "v3 = OpAdd32 v1 v2" rendering.

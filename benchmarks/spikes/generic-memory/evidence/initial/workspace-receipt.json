@@ -1,0 +1,23 @@
+{
+  "owner": "mariamem-experiment-v1",
+  "name": "v042-generic-memory",
+  "repo": "/Users/masahito/src/mysqlmem/publish/mariamem",
+  "state": "failed",
+  "base_sha": "d492e52ff460e4a54e29dbef56645c5788d681dd",
+  "created": 1791157933.156956,
+  "min_free_gib": 16.0,
+  "budget_gib": 4.0,
+  "disposable": [
+    "temp",
+    "worktree"
+  ],
+  "evidence": "evidence",
+  "branch": "experiment/v042-generic-memory",
+  "command": [
+    "python3",
+    "benchmarks/spikes/generic-memory/run.py"
+  ],
+  "returncode": 1,
+  "peak_owned_bytes": 1463873536,
+  "minimum_free_bytes": 61606916096
+}

@@ -1,0 +1,10 @@
+package main
+import("crypto/sha256";"encoding/hex";"encoding/json";"fmt";"os";"reflect";"strings";"genericfixture/fixture")
+type Case struct{Op string `json:"op"`;Addr int32 `json:"addr"`;Grow int32 `json:"grow"`;Safe bool `json:"baseline_safe"`;Expected bool `json:"expected_trap"`}
+func sum(b []byte)string{x:=sha256.Sum256(b);return hex.EncodeToString(x[:])}
+func main(){var cases []Case;b,e:=os.ReadFile(os.Args[1]);if e!=nil{panic(e)};if e=json.Unmarshal(b,&cases);e!=nil{panic(e)};enc:=json.NewEncoder(os.Stdout)
+ for _,c:=range cases{if os.Getenv("BASELINE_ONLY_SAFE")=="1"&&!c.Safe{continue};m:=fixture.New();mem:=m.Memory();for i:=0;i<65536;i++{mem[i]=byte(i*7+3)};if c.Grow!=0{if m.Grow(c.Grow)!=1{panic("grow")}};mem=m.Memory()[:(1+c.Grow)*65536];before:=sum(mem);value:="";message:="";trap:=false
+ func(){defer func(){if r:=recover();r!=nil{message=fmt.Sprint(r);trap=strings.Contains(message,"wasm:")&&(strings.Contains(message,"out of bounds")||strings.Contains(message,"unaligned"));if !trap{panic(r)}}}();fn:=reflect.ValueOf(m).MethodByName(strings.ToUpper(c.Op[:1])+c.Op[1:]);if !fn.IsValid(){panic("missing export "+c.Op)};v:=fn.Call([]reflect.Value{reflect.ValueOf(c.Addr)});value=fmt.Sprint(v[0].Interface())}();after:=sum(mem);if trap&&before!=after{panic("trapping store changed memory")};if os.Getenv("BASELINE_ONLY_SAFE")!="1"&&trap!=c.Expected{panic(fmt.Sprintf("required trap mismatch %+v got %v",c,trap))};if e:=enc.Encode(map[string]any{"op":c.Op,"addr":c.Addr,"grow":c.Grow,"trap":trap,"value":value,"message":message,"before":before,"after":after});e!=nil{panic(e)}
+ }
+ m:=fixture.New();if m.Grow(0)!=1||m.Grow(1)!=1||m.Grow(1)!=2||m.Grow(1)!=-1||m.Grow(-1)!=-1{panic("max/failed grow")};fmt.Fprintln(os.Stderr,"generated memory matrix PASS; host survives all expected traps")
+}

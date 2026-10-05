@@ -1,0 +1,916 @@
+[
+  {
+    "name": "l8o0",
+    "width": 1,
+    "offset": 0,
+    "family": "scalar"
+  },
+  {
+    "name": "s8o0",
+    "width": 1,
+    "offset": 0,
+    "family": "scalar"
+  },
+  {
+    "name": "l16o0",
+    "width": 2,
+    "offset": 0,
+    "family": "scalar"
+  },
+  {
+    "name": "s16o0",
+    "width": 2,
+    "offset": 0,
+    "family": "scalar"
+  },
+  {
+    "name": "l32o0",
+    "width": 4,
+    "offset": 0,
+    "family": "scalar"
+  },
+  {
+    "name": "s32o0",
+    "width": 4,
+    "offset": 0,
+    "family": "scalar"
+  },
+  {
+    "name": "l64o0",
+    "width": 8,
+    "offset": 0,
+    "family": "scalar"
+  },
+  {
+    "name": "s64o0",
+    "width": 8,
+    "offset": 0,
+    "family": "scalar"
+  },
+  {
+    "name": "al8o0",
+    "width": 1,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "as8o0",
+    "width": 1,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "ar8o0",
+    "width": 1,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "al16o0",
+    "width": 2,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "as16o0",
+    "width": 2,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "ar16o0",
+    "width": 2,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "al32o0",
+    "width": 4,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "as32o0",
+    "width": 4,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "ar32o0",
+    "width": 4,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "al64o0",
+    "width": 8,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "as64o0",
+    "width": 8,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "ar64o0",
+    "width": 8,
+    "offset": 0,
+    "family": "atomic"
+  },
+  {
+    "name": "vl128o0",
+    "width": 16,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vs128o0",
+    "width": 16,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vl7o0",
+    "width": 1,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vl8o0",
+    "width": 2,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vl9o0",
+    "width": 4,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vl10o0",
+    "width": 8,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vl92o0",
+    "width": 4,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vl93o0",
+    "width": 8,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vl2o0",
+    "width": 8,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vll8o0",
+    "width": 1,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vsl8o0",
+    "width": 1,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vll16o0",
+    "width": 2,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vsl16o0",
+    "width": 2,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vll32o0",
+    "width": 4,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vsl32o0",
+    "width": 4,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vll64o0",
+    "width": 8,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "vsl64o0",
+    "width": 8,
+    "offset": 0,
+    "family": "simd"
+  },
+  {
+    "name": "l8o4",
+    "width": 1,
+    "offset": 4,
+    "family": "scalar"
+  },
+  {
+    "name": "s8o4",
+    "width": 1,
+    "offset": 4,
+    "family": "scalar"
+  },
+  {
+    "name": "l16o4",
+    "width": 2,
+    "offset": 4,
+    "family": "scalar"
+  },
+  {
+    "name": "s16o4",
+    "width": 2,
+    "offset": 4,
+    "family": "scalar"
+  },
+  {
+    "name": "l32o4",
+    "width": 4,
+    "offset": 4,
+    "family": "scalar"
+  },
+  {
+    "name": "s32o4",
+    "width": 4,
+    "offset": 4,
+    "family": "scalar"
+  },
+  {
+    "name": "l64o4",
+    "width": 8,
+    "offset": 4,
+    "family": "scalar"
+  },
+  {
+    "name": "s64o4",
+    "width": 8,
+    "offset": 4,
+    "family": "scalar"
+  },
+  {
+    "name": "al8o4",
+    "width": 1,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "as8o4",
+    "width": 1,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "ar8o4",
+    "width": 1,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "al16o4",
+    "width": 2,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "as16o4",
+    "width": 2,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "ar16o4",
+    "width": 2,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "al32o4",
+    "width": 4,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "as32o4",
+    "width": 4,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "ar32o4",
+    "width": 4,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "al64o4",
+    "width": 8,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "as64o4",
+    "width": 8,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "ar64o4",
+    "width": 8,
+    "offset": 4,
+    "family": "atomic"
+  },
+  {
+    "name": "vl128o4",
+    "width": 16,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vs128o4",
+    "width": 16,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vl7o4",
+    "width": 1,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vl8o4",
+    "width": 2,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vl9o4",
+    "width": 4,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vl10o4",
+    "width": 8,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vl92o4",
+    "width": 4,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vl93o4",
+    "width": 8,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vl2o4",
+    "width": 8,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vll8o4",
+    "width": 1,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vsl8o4",
+    "width": 1,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vll16o4",
+    "width": 2,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vsl16o4",
+    "width": 2,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vll32o4",
+    "width": 4,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vsl32o4",
+    "width": 4,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vll64o4",
+    "width": 8,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "vsl64o4",
+    "width": 8,
+    "offset": 4,
+    "family": "simd"
+  },
+  {
+    "name": "l8o65536",
+    "width": 1,
+    "offset": 65536,
+    "family": "scalar"
+  },
+  {
+    "name": "s8o65536",
+    "width": 1,
+    "offset": 65536,
+    "family": "scalar"
+  },
+  {
+    "name": "l16o65536",
+    "width": 2,
+    "offset": 65536,
+    "family": "scalar"
+  },
+  {
+    "name": "s16o65536",
+    "width": 2,
+    "offset": 65536,
+    "family": "scalar"
+  },
+  {
+    "name": "l32o65536",
+    "width": 4,
+    "offset": 65536,
+    "family": "scalar"
+  },
+  {
+    "name": "s32o65536",
+    "width": 4,
+    "offset": 65536,
+    "family": "scalar"
+  },
+  {
+    "name": "l64o65536",
+    "width": 8,
+    "offset": 65536,
+    "family": "scalar"
+  },
+  {
+    "name": "s64o65536",
+    "width": 8,
+    "offset": 65536,
+    "family": "scalar"
+  },
+  {
+    "name": "al8o65536",
+    "width": 1,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "as8o65536",
+    "width": 1,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "ar8o65536",
+    "width": 1,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "al16o65536",
+    "width": 2,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "as16o65536",
+    "width": 2,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "ar16o65536",
+    "width": 2,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "al32o65536",
+    "width": 4,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "as32o65536",
+    "width": 4,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "ar32o65536",
+    "width": 4,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "al64o65536",
+    "width": 8,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "as64o65536",
+    "width": 8,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "ar64o65536",
+    "width": 8,
+    "offset": 65536,
+    "family": "atomic"
+  },
+  {
+    "name": "vl128o65536",
+    "width": 16,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vs128o65536",
+    "width": 16,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vl7o65536",
+    "width": 1,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vl8o65536",
+    "width": 2,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vl9o65536",
+    "width": 4,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vl10o65536",
+    "width": 8,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vl92o65536",
+    "width": 4,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vl93o65536",
+    "width": 8,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vl2o65536",
+    "width": 8,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vll8o65536",
+    "width": 1,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vsl8o65536",
+    "width": 1,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vll16o65536",
+    "width": 2,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vsl16o65536",
+    "width": 2,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vll32o65536",
+    "width": 4,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vsl32o65536",
+    "width": 4,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vll64o65536",
+    "width": 8,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "vsl64o65536",
+    "width": 8,
+    "offset": 65536,
+    "family": "simd"
+  },
+  {
+    "name": "l8o4294967295",
+    "width": 1,
+    "offset": 4294967295,
+    "family": "scalar"
+  },
+  {
+    "name": "s8o4294967295",
+    "width": 1,
+    "offset": 4294967295,
+    "family": "scalar"
+  },
+  {
+    "name": "l16o4294967295",
+    "width": 2,
+    "offset": 4294967295,
+    "family": "scalar"
+  },
+  {
+    "name": "s16o4294967295",
+    "width": 2,
+    "offset": 4294967295,
+    "family": "scalar"
+  },
+  {
+    "name": "l32o4294967295",
+    "width": 4,
+    "offset": 4294967295,
+    "family": "scalar"
+  },
+  {
+    "name": "s32o4294967295",
+    "width": 4,
+    "offset": 4294967295,
+    "family": "scalar"
+  },
+  {
+    "name": "l64o4294967295",
+    "width": 8,
+    "offset": 4294967295,
+    "family": "scalar"
+  },
+  {
+    "name": "s64o4294967295",
+    "width": 8,
+    "offset": 4294967295,
+    "family": "scalar"
+  },
+  {
+    "name": "al8o4294967295",
+    "width": 1,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "as8o4294967295",
+    "width": 1,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "ar8o4294967295",
+    "width": 1,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "al16o4294967295",
+    "width": 2,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "as16o4294967295",
+    "width": 2,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "ar16o4294967295",
+    "width": 2,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "al32o4294967295",
+    "width": 4,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "as32o4294967295",
+    "width": 4,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "ar32o4294967295",
+    "width": 4,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "al64o4294967295",
+    "width": 8,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "as64o4294967295",
+    "width": 8,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "ar64o4294967295",
+    "width": 8,
+    "offset": 4294967295,
+    "family": "atomic"
+  },
+  {
+    "name": "vl128o4294967295",
+    "width": 16,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vs128o4294967295",
+    "width": 16,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vl7o4294967295",
+    "width": 1,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vl8o4294967295",
+    "width": 2,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vl9o4294967295",
+    "width": 4,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vl10o4294967295",
+    "width": 8,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vl92o4294967295",
+    "width": 4,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vl93o4294967295",
+    "width": 8,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vl2o4294967295",
+    "width": 8,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vll8o4294967295",
+    "width": 1,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vsl8o4294967295",
+    "width": 1,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vll16o4294967295",
+    "width": 2,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vsl16o4294967295",
+    "width": 2,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vll32o4294967295",
+    "width": 4,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vsl32o4294967295",
+    "width": 4,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vll64o4294967295",
+    "width": 8,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "vsl64o4294967295",
+    "width": 8,
+    "offset": 4294967295,
+    "family": "simd"
+  },
+  {
+    "name": "wrappedadd",
+    "width": 4,
+    "offset": 0,
+    "family": "scalar",
+    "dynamic_add": -65536
+  },
+  {
+    "name": "positiveadd",
+    "width": 4,
+    "offset": 0,
+    "family": "scalar",
+    "dynamic_add": 65536
+  },
+  {
+    "name": "droppedload",
+    "width": 4,
+    "offset": 0,
+    "family": "scalar"
+  },
+  {
+    "name": "twoloads",
+    "width": 48,
+    "offset": 0,
+    "family": "simd"
+  }
+]
