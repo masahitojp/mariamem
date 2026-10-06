@@ -168,7 +168,27 @@ def test_stable_submit_notes_and_dispatch(prepared, monkeypatch):
     result = release.submit(root, "v0.1.0")
     assert result["version"] == "v0.1.0"
     assert [sys.executable, "scripts/verify.py", "check"] in calls
-    assert "operation=release" in calls[-1]
+    assert "operation=release" in calls[-1] and "mode=auto" in calls[-1]
+
+
+@pytest.mark.parametrize('operation', ['verify', 'release'])
+def test_already_prepared_exact_candidate_submits_once_without_new_commit(prepared, monkeypatch, operation):
+    root, calls, original = prepared
+    def run(args, directory):
+        if args == ['git', 'diff', '--name-only', '--no-renames']:
+            calls.append(args)
+            return ''
+        return original(args, directory)
+    monkeypatch.setattr(release, 'run', run)
+    result = release.submit(root, TAG, operation)
+    dispatches = [a for a in calls if a[:3] == ['gh', 'workflow', 'run']]
+    assert len(dispatches) == 1 and calls[-1] == dispatches[0]
+    assert 'candidate_ref=' + SHA in dispatches[0]
+    assert 'mode=auto' in dispatches[0] and 'operation=' + operation in dispatches[0]
+    assert f'label={TAG} -- {SHA[:7]}' in dispatches[0]
+    assert 'notes=release/NOTES-alpha.5.md' in dispatches[0]
+    assert result['operation'] == operation and result['candidate'] == SHA
+    assert not any(a[:2] in (['git', 'add'], ['git', 'commit'], ['gh', 'run']) for a in calls)
 
 
 @pytest.mark.parametrize("kind", ["local-tag", "remote-tag", "release"])

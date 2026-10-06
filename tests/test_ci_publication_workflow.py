@@ -12,15 +12,16 @@ def test_publication_job_gate_and_handoff():
     workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
     before, publication = workflow.split('\n  publication:\n')
     assert 'default: verify' in before
-    assert "if: inputs.operation != 'verify' && needs.aggregate.result == 'success'" in publication
+    assert "if: always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.aggregate.result == 'success'" in publication
     assert 'contents: write' not in before and 'contents: write' in publication
     assert 'cancel-in-progress: false' in publication
     assert 'environment:' not in publication
     assert 'release_generated_ci.py restore' in publication
     assert 'release_generated_ci.py guard' in publication
     assert '--ready candidate-source/build/release/ci-ready.json' in publication
-    assert 'config user.name' in publication and 'args+=(--dry-run)' in publication
-    assert "if: inputs.operation == 'release' && needs.publication.result == 'success'" in publication
+    assert 'config user.name' in publication and 'args+=(--dry-run)' not in publication
+    assert 'options: [verify, release]' in before
+    assert "if: always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'" in publication
     assert 'build_alpha.py' not in publication and 'build_generated_guest.py' not in publication
     assert 'release-candidate-${{ matrix.platform }}-' in before
     assert 'release-evidence-${{ matrix.platform }}-' in before

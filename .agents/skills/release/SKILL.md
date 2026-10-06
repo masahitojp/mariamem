@@ -41,15 +41,22 @@ global Python installation.
    tag. Summarize actual changes; do not invent product/performance claims.
 4. Run `GOTOOLCHAIN=go1.26.8 <venv>/bin/python scripts/release_prepare.py submit <version>`. It restricts the
    diff to preparation files, invokes `scripts/verify.py check`, commits that
-   explicit file set, pushes normally, verifies exact remote source SHA, and
-   dispatches existing Release CI with `mode=full`, `operation=release`.
+   explicit file set when preparation is needed, pushes normally, verifies exact
+   remote source SHA, and dispatches existing Release CI once with
+   `mode=auto`, `operation=release`. An already-prepared clean candidate is valid;
+   do not create a new commit just to submit it. CI automatically reuses valid
+   exact-SHA READY/artifacts or performs full qualification in that same run.
+   Do not require a preliminary verify dispatch or choose recovery run IDs.
+   `submit <version> --operation verify` is an optional publication-free audit,
+   not a prerequisite for release. Local preparation checks do not replace CI.
    If failure is confirmed to precede workflow dispatch, repair routine local
    environment problems and retry under the existing release authorization.
    Preserve preparation changes and inspect commit/push state before retrying.
    Stop on policy/acceptance failures or ambiguous dispatch status; never
    force-push or retry a possibly submitted run.
 5. Once submit succeeds, immediately report the returned version, candidate SHA,
-   and workflow URL. Do not poll, wait, or supervise CI.
+   operation and workflow URL. Do not poll, wait, or supervise CI. The initial
+   release request is the only publication approval, including READY reuse.
 
 Do not build artifacts, manage candidate hashes, create tags/releases, upload
 assets, use Docker/Tart, or recreate Release CI locally. CI owns build,
@@ -62,6 +69,7 @@ Return:
 Release submitted.
 Version: <version>
 Candidate: <sha>
+Operation: release
 Workflow: <url>
 
 CI now owns build, acceptance, publication, and public smoke.

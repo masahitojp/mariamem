@@ -57,7 +57,8 @@ def preflight(root, version, prepared=False):
     return {'version': version, 'unpushed_history': commits}
 
 
-def submit(root, version):
+def submit(root, version, operation='release'):
+    require(operation in {'verify', 'release'}, 'operation must be verify or release')
     parse_version(version)
     preflight(root, version, prepared=True)
     canonical = runpy.run_path(str(root / 'python/mariamem/_version.py'))
@@ -71,14 +72,15 @@ def submit(root, version):
                  ['git', 'diff', '--cached', '--name-only', '--no-renames'],
                  ['git', 'ls-files', '--others', '--exclude-standard']):
         paths.update(run(args, root).splitlines())
-    require(paths and paths <= allowed, 'unexpected or empty preparation changes: ' + ', '.join(sorted(paths - allowed)))
+    require(paths <= allowed, 'unexpected preparation changes: ' + ', '.join(sorted(paths - allowed)))
     require((root / notes).is_file() and re.search(r'^#\s+.*' + re.escape(version) + r'(?:\s|$)',
             (root / notes).read_text(), re.MULTILINE), 'release notes must identify requested tag')
-    run([sys.executable, 'scripts/verify.py', 'check'], root)
-    run(['git', 'diff', '--check'], root)
-    run(['git', 'diff', '--cached', '--check'], root)
-    run(['git', 'add', '--', *sorted(paths)], root)
-    run(['git', 'commit', '-m', f'release: prepare {version} for CI publication'], root)
+    if paths:
+        run([sys.executable, 'scripts/verify.py', 'check'], root)
+        run(['git', 'diff', '--check'], root)
+        run(['git', 'diff', '--cached', '--check'], root)
+        run(['git', 'add', '--', *sorted(paths)], root)
+        run(['git', 'commit', '-m', f'release: prepare {version} for CI publication'], root)
     require(not run(['git', 'status', '--porcelain'], root), 'tree not clean after preparation commit')
     candidate = run(['git', 'rev-parse', 'HEAD'], root)
     require(re.fullmatch('[0-9a-f]{40}', candidate) is not None, 'candidate is not an exact SHA')
@@ -86,21 +88,24 @@ def submit(root, version):
     remote = run(['git', 'ls-remote', 'origin', 'refs/heads/main'], root).split()
     require(remote == [candidate, 'refs/heads/main'], 'remote main does not equal candidate; no dispatch')
     output = run(['gh', 'workflow', 'run', WORKFLOW, '--ref', 'main', '-f', f'candidate_ref={candidate}',
-                  '-f', 'mode=full', '-f', 'operation=release'], root)
+                  '-f', 'mode=auto', '-f', f'operation={operation}', '-f', f'notes={notes}',
+                  '-f', f'label={version} -- {candidate[:7]}'], root)
     # gh prints the run URL on supported current versions. Never poll/redispatch to obtain it.
     match = re.search(r'https://github\.com/masahitojp/mariamem/actions/runs/[0-9]+', output)
-    return {'version': version, 'candidate': candidate,
+    return {'version': version, 'candidate': candidate, 'operation': operation,
             'workflow': match.group() if match else f'https://github.com/{REPOSITORY}/actions/workflows/{WORKFLOW}',
             'submission': 'submitted', 'ci_owns_execution': True}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('operation', choices=['preflight', 'submit'])
+    parser.add_argument('command', choices=['preflight', 'submit'])
     parser.add_argument('version')
+    parser.add_argument('--operation', choices=('verify', 'release'), default='release',
+                        help='submit once: READY only, or READY followed by publication')
     args = parser.parse_args()
     try:
-        result = preflight(ROOT, args.version) if args.operation == 'preflight' else submit(ROOT, args.version)
+        result = preflight(ROOT, args.version) if args.command == 'preflight' else submit(ROOT, args.version, args.operation)
         print(json.dumps(result, indent=2))
     except (ValueError, RuntimeError, OSError) as exc:
         parser.exit(1, f'Release preparation stopped: {exc}\nNo automatic rollback or redispatch.\n')

@@ -26,10 +26,13 @@ post-publication smoke. Starting that release workflow is the publication
 approval for the transaction; there must be no second approval gate after READY.
 The workflow defaults to `operation=verify` (no publication). Explicitly selecting
 `operation=release` authorizes READY → exact tag, release, and public smoke.
-`operation=dry-run` validates publication inputs without remote writes.
+Normal operations are only `verify` and `release`. CI automatically selects
+valid exact-SHA READY reuse or full qualification in the same run; a preceding
+verify is optional, never a required release step. Recovery modes/run IDs are
+advanced overrides, not part of the normal human ceremony.
 
 Codex submits work to CI; it does not supervise CI. After successful submission,
-return the run URL, candidate SHA, and mode, then stop. Do not poll, wait, or
+return the run URL, candidate SHA, and operation, then stop. Do not poll, wait, or
 report elapsed build time. Re-enter only for a human status request, requested
 failure/NOT READY diagnosis, or an unexpected engineering decision.
 

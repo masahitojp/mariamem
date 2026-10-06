@@ -1,18 +1,28 @@
 # Releasing mariamem
 
 The canonical package version is `v0.4.2`; Python spelling is `0.4.2`.
-The integrated candidate and [tracked notes](../release/NOTES-v0.4.2.md) are prepared
-for an exact-SHA `operation=verify` submission. Verify cannot tag or publish;
-publication remains a separate explicitly authorized transaction.
+The [tracked notes](../release/NOTES-v0.4.2.md) describe this version. A normal
+release requires one human request authorizing one exact final-version SHA.
+An optional `verify` audit never authorizes publication.
 
 ## Exact-source release boundary
 
 **Exact source commit → immutable artifacts → external acceptance evidence →
 release guard.** `release-candidate-ready.yml` defaults to `operation=verify`.
 Verify has read-only repository permissions and never enters publication.
-`dry-run` rechecks publication prerequisites without writes. Only an explicit
+Only an explicit
 human release request authorizes `operation=release`; the existing publisher
 owns the exact tag and accepted asset bytes, never a rebuild during publication.
+CI automatically discovers reusable READY evidence or qualifies the candidate
+from source, then publishes after READY and runs public smoke in that same run.
+There is no second approval or mandatory verify dispatch. Codex returns the run
+URL, exact SHA and operation immediately after submission and stops.
+
+Prepare a human-selected version with the repository release skill. Submit using
+`GOTOOLCHAIN=go1.26.8 <venv>/bin/python scripts/release_prepare.py submit vX.Y.Z`.
+Already-prepared clean candidates are accepted without another metadata commit.
+For an optional READY-only audit, add `--operation verify`. Run names include the
+operation, supplied version and short SHA; display labels never establish identity.
 
 Change only the five semantic components in `python/mariamem/_version.py`.
 Stable releases use `STAGE = ""`, `SERIAL = 0` and tracked
@@ -99,11 +109,49 @@ Wasmer/source approval is not reused to approve changed bytes.
 
 ## CI inputs, reuse, and acceptance
 
-| Mode | Inputs | Work |
+| Normal operation | Inputs | Work |
 | --- | --- | --- |
-| `full` (default) | remotely fetchable exact `candidate_ref` | Two source→WASM builds; generated-source verification; common source archive; both host-only wheels; frozen handoffs; both clean consumers; aggregate guard. |
-| `acceptance-only` | original SHA, original `candidate_run` | Hash-verified frozen handoffs, new clean acceptance, guard. No rebuild fallback. |
-| `guard-only` | original SHA, `candidate_run`, explicit `evidence_run` | Restore exact handoffs/evidence and recheck only. No build or acceptance. |
+| `verify` | exact `candidate_ref` | Automatic reuse or full qualification; stop at READY / NOT READY; never publish. |
+| `release` | exact `candidate_ref`, tracked notes | Automatic reuse or full qualification; READY → exact tag/publish → public smoke. This dispatch is the publication approval. |
+
+`mode=auto` is the default. The planner searches completed canonical workflow
+runs in the 14-day retention window (at most 1,000 recent runs), downloads the
+hash-authenticated aggregate READY receipt and resolves its immutable handoff/
+acceptance run references. Legacy full receipts without references can be reused
+only if all inputs validate from that same run. The candidate's own scripts
+restore both platforms in disposable scratch and recompute the aggregate guard;
+the complete READY record must equal the original, including version, source,
+NOTICE/licenses, GPL source, generated provenance, artifact and acceptance hashes.
+Only then does CI select reuse. Scratch from a failed attempt is discarded.
+
+Missing, expired, incomplete, corrupted, NOT READY or mismatched evidence is
+never reused. Discovery/validation failure selects a full qualification in that
+same run. Full qualification retains two independent source→WASM builds,
+generated-source verification, GPL source closure, both frozen wheels and both
+clean external Go/Python/ORM acceptance suites. After selection, inputs are
+authenticated again at restoration, aggregation and publication; a subsequent
+change/download failure stops without publication rather than trusting the plan.
+
+With valid READY, neither builds nor expensive consumer acceptance run again.
+Hash/source/license/identity checks and the existing guards still rerun; they
+bind the accepted bytes to the candidate immediately before publication. Public
+smoke always runs after publication on both supported platforms. New aggregate
+receipts retain immutable qualification references so later reuse can follow a
+reuse run without requiring manual run selection.
+
+Advanced `full`, `acceptance-only` and `guard-only` overrides remain for recovery;
+only explicit recovery requires `candidate_run` / `evidence_run`. There is no
+silent rebuild fallback in manually selected reuse modes. The publisher's local
+`--dry-run` remains available for fixtures/preflight, outside the normal ceremony.
+
+Previously, the documented verify-before-release ceremony repeated builds and
+acceptance, while manual reuse required run IDs. In
+[this v0.4.2 reuse attempt](https://github.com/masahitojp/mariamem/actions/runs/37380087403),
+READY succeeded but publication was skipped: the publication/smoke job conditions
+inherited the implicit `success()` check across skipped build ancestors. Explicit
+status conditions now permit the reuse path while still requiring successful
+resolution, aggregate READY and publication before public smoke. Normal flow is
+now one dispatch, with optional prior READY automatically reused.
 
 The macOS `guard-only` path previously rejected the normal `/var` →
 `/private/var` temporary-directory alias as a symlink. The
@@ -120,10 +168,9 @@ archive-link, destination-symlink and overwrite rejection intact. The generated
 reuse regression tests simulate a symlinked system temporary directory on every
 platform, independently of CI `TMPDIR` overrides.
 
-Artifacts expire after 14 days. Missing/expired artifacts, ambiguous identities,
-unsafe archive entries, overwritten files, changed source/version/guest/notices,
-missing acceptance or one missing platform produce **NOT READY**. A full run is
-required if immutable inputs are unavailable. Reuse executes the exact candidate
+Artifacts expire after 14 days. Invalid inputs never produce READY. In normal
+auto mode unusable previous inputs trigger full qualification; explicit recovery
+fails closed. Reuse executes the exact candidate
 scripts; a candidate-script fix needs a new source candidate, not a silent
 reinterpretation of old evidence.
 
@@ -152,9 +199,9 @@ heap and OS accounting still differ from live allocations. Go1.27.0/1.27.1 arm64
 are unsupported due to the documented upstream
 compiler regression; no generated-source/compiler workaround is used.
 
-For each new candidate, submit its exact pushed SHA with `operation=verify` to
-collect hosted-runner evidence. Local script tests are not that evidence.
-Before release: human-selected version/notes preparation, unused-tag checks,
-review source/notices/provenance and **both-platform READY for that exact
-final-version candidate**. The release skill owns only preparation/handoff;
+For each release, submit its exact pushed SHA once with `operation=release`.
+CI collects or revalidates hosted-runner evidence before publication. Local
+script tests are not that evidence. Human-selected version/notes preparation,
+unused-tag checks, source/notices/provenance and **both-platform READY for that
+exact final-version candidate** remain required. The release skill owns only preparation/handoff;
 CI owns build, acceptance, guard, publication and public smoke.
