@@ -17,13 +17,14 @@ type SnapshotOptions struct {
 	Rollback    bool
 }
 
-// Snapshot owns only snapshots created with an empty Destination. Do not copy.
+// Snapshot owns an unlinked, verified backing for every destination. Do not copy.
 type Snapshot struct {
 	mu              sync.RWMutex
 	path, temporary string
 	opts            Options
 	closed          bool
 	closeErr        error
+	backing         *stored.Owned
 }
 
 // Snapshot consumes the DB on success, or on failure after host acceptance.
@@ -62,7 +63,13 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 		err = errors.Join(err, db.closeErr)
 	}
 	if err == nil {
-		_, err = stored.Validate(saved.path, db.build)
+		if saved.temporary != "" {
+			saved.backing, err = stored.AdoptCreated(saved.path, db.build)
+		} else {
+			// Keep path-write API policy separate from this spike. The exported
+			// artifact is external; Fork uses an independently imported backing.
+			saved.backing, err = stored.Import(saved.path, db.build)
+		}
 	}
 	if err != nil {
 		return nil, hostError(errors.Join(err, saved.Close()), "snapshot_failed", consumed)
@@ -70,8 +77,8 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 	return saved, nil
 }
 
-// Path returns the snapshot directory. It may no longer exist after Close for
-// a temporary snapshot.
+// Path returns the staging/export path for compatibility. Temporary staging is
+// removed after acquisition. Fork never reads this path.
 func (s *Snapshot) Path() string { return s.path }
 
 // Fork inherits the original DB options. Multiple startups can run concurrently.
@@ -86,7 +93,7 @@ func (s *Snapshot) Fork(ctx context.Context) (*Database, error) {
 		return nil, hostError(ErrClosed, "closed", true)
 	}
 	timing.Mark(ctx, "snapshot_handle_ready")
-	db, err := start(ctx, s.opts, s.path)
+	db, err := start(ctx, s.opts, s.backing)
 	timing.Mark(ctx, "startup_returned")
 	return db, err
 }
@@ -99,8 +106,9 @@ func (s *Snapshot) Close() error {
 		return s.closeErr
 	}
 	s.closed = true
+	s.closeErr = s.backing.Close()
 	if s.temporary != "" {
-		s.closeErr = os.RemoveAll(s.temporary)
+		s.closeErr = errors.Join(s.closeErr, os.RemoveAll(s.temporary))
 	}
 	return s.closeErr
 }

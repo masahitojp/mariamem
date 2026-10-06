@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"path/filepath"
 	"sync"
 
 	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/prepared"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
@@ -20,13 +20,13 @@ var libraryMode sync.Once
 // StartInstance owns fresh execution/FS state. Completion includes all guest
 // workers, descriptor cleanup, snapshot export and prepared mapping release.
 // It does not serialize execution or forcibly kill non-cooperative Go workers.
-func StartInstance(ctx context.Context, in io.Reader, out, stderr io.Writer, transfer, restore string, guestTiming bool) <-chan error {
+func StartInstance(ctx context.Context, in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool) <-chan error {
 	// CLI diagnostic entrypoints are separate command modes, not library calls.
 	libraryMode.Do(func() { diagnostic = false })
 	done := make(chan error, 1)
 	go func() {
 		scope := "generated_fresh_lifetime"
-		if restore != "" {
+		if restore != nil {
 			scope = "generated_restore_lifetime"
 		}
 		lifetimeCtx, finishLifetime := timing.Begin(ctx, scope)
@@ -63,8 +63,8 @@ func StartInstance(ctx context.Context, in io.Reader, out, stderr io.Writer, tra
 		var maps *base.PreparedFiles
 		defer func() { err = errors.Join(err, w.CloseDescriptors(), maps.Close()) }()
 		timing.Mark(ctx, "prepared_view_begin")
-		if restore != "" {
-			maps, err = base.MapPreparedFiles(fs, filepath.Join(restore, "data"), "mariadb")
+		if restore != nil {
+			maps, err = base.MapPreparedHandles(fs, restore, "mariadb")
 			if err != nil {
 				return
 			}

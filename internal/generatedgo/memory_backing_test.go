@@ -17,6 +17,7 @@ import (
 	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/p8"
+	"github.com/masahitojp/mariamem/internal/prepared"
 )
 
 func mappedTestHost() *host {
@@ -185,7 +186,7 @@ func TestMappedMemoryInitializationFailure(t *testing.T) {
 	}
 	for i := 0; i < 3; i++ {
 		// Restore failure occurs before reserve; missing prepared source must not leak.
-		if err := <-StartInstance(context.Background(), strings.NewReader(""), io.Discard, io.Discard, "", t.TempDir()+"/missing", false); err == nil {
+		if err := <-StartInstance(context.Background(), strings.NewReader(""), io.Discard, io.Discard, "", []prepared.Entry{{Name: "missing", FD: -1, Size: 1}}, false); err == nil {
 			t.Fatal("expected failed restore")
 		}
 	}

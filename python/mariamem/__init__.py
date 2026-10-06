@@ -59,8 +59,7 @@ class Database:
         host_binary, runtime, module = (resolved[key] for key in ("host_binary", "runtime", "module"))
         self._options = dict(host_binary=host_binary, query_timeout=query_timeout,
                              startup_timeout=startup_timeout, shutdown_timeout=shutdown_timeout)
-        if snapshot is not None:
-            snapshot = Snapshot.open(snapshot.path if isinstance(snapshot, Snapshot) else snapshot)
+        imported_snapshot = None
         mark("snapshot_validated")
         self._temporary = tempfile.TemporaryDirectory(prefix="mariamem-")
         self._logs = ""
@@ -75,12 +74,13 @@ class Database:
             raise
         argv = [str(Path(host_binary).absolute()), "--query-timeout", f"{query_timeout}s",
                 "--startup-timeout", f"{startup_timeout}s", "--shutdown-timeout", f"{shutdown_timeout}s"]
-        if snapshot is not None:
-            argv += ["--snapshot", str(snapshot.path)]
         mark("host_spawn_begin")
         try:
-            self._process = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                                             stderr=self._log, text=True, encoding="utf-8", bufsize=1)
+            if snapshot is not None and not isinstance(snapshot, Snapshot):
+                imported_snapshot = snapshot = Snapshot.open(snapshot, host_binary=host_binary)
+            launcher = snapshot._spawn if snapshot is not None else subprocess.Popen
+            self._process = launcher(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                     stderr=self._log, text=True, encoding="utf-8", bufsize=1)
         except OSError as exc:
             self._log.close()
             self._temporary.cleanup()
@@ -89,6 +89,9 @@ class Database:
             self._log.close()
             self._temporary.cleanup()
             raise
+        finally:
+            if imported_snapshot is not None:
+                imported_snapshot.close()
         mark("host_spawn_returned")
         self._reader = threading.Thread(target=self._read, daemon=True)
         self._reader.start()
@@ -249,12 +252,12 @@ class Database:
                 raise
             self._dispose()
             try:
-                saved = Snapshot.open(destination)
+                saved = (Snapshot._created(destination, self._options, temporary) if temporary
+                         else Snapshot.open(destination, host_binary=self._options["host_binary"]))
             except BaseException:
                 if temporary:
                     temporary.cleanup()
                 raise
-            saved._temporary = temporary
             saved._options = self._options.copy()
             return saved
 

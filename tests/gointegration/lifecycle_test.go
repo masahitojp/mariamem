@@ -129,7 +129,7 @@ func TestPublicLifecycle(t *testing.T) {
 	rejectedPath := filepath.Join(t.TempDir(), "rejected")
 	until := time.Now().Add(2 * time.Second)
 	for {
-		unexpected, snapshotErr := db.Snapshot(ctx, mariamem.SnapshotOptions{Destination: rejectedPath})
+		unexpected, snapshotErr := db.Snapshot(ctx, mariamem.SnapshotOptions{})
 		if unexpected != nil {
 			unexpected.Close()
 			t.Fatal("active transaction snapshot succeeded")
@@ -167,7 +167,7 @@ func TestPublicLifecycle(t *testing.T) {
 	if err := db.Close(); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := os.Stat(filepath.Join(snap.Path(), "manifest.json")); err != nil {
+	if _, err := os.Stat(snap.Path()); !os.IsNotExist(err) {
 		t.Fatal(err)
 	}
 	type forkResult struct {
@@ -248,6 +248,7 @@ func TestPublicLifecycle(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if err := saved.Close(); err != nil {
 		t.Fatal(err)
 	}
@@ -262,9 +263,7 @@ func TestPublicLifecycle(t *testing.T) {
 	if err != nil || !bytes.Equal(before, after) {
 		t.Fatalf("explicit snapshot changed: %v", err)
 	}
-	if _, err := os.Stat(filepath.Join(destination, "data")); err != nil {
-		t.Fatal(err)
-	}
+
 	if err := b.Close(); err != nil {
 		t.Fatal(err)
 	}

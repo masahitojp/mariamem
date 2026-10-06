@@ -22,7 +22,7 @@ on:
         required: false
         default: auto
         type: choice
-        options: [auto, full, acceptance-only, guard-only]
+        options: [auto, full, acceptance-only, guard-only, owned-spike]
       candidate_run:
         description: Advanced recovery only — original frozen artifact run ID
         required: false
@@ -40,6 +40,7 @@ permissions:
   actions: read
 jobs:
   resolve:
+    if: inputs.mode != 'owned-spike'
     runs-on: ubuntu-24.04
     outputs:
       source_sha: ${{ steps.source.outputs.sha }}
@@ -410,4 +411,97 @@ jobs:
             candidate-source/build/release/ci-public-smoke.json
             candidate-source/build/release/ci-public-smoke.log
           if-no-files-found: warn
+          retention-days: 14
+
+  owned_spike:
+    # Experiment branch only. No guest rebuild, release guard, tag or publication.
+    if: inputs.mode == 'owned-spike' && inputs.operation == 'verify' && github.ref == 'refs/heads/experiment/v044-owned-snapshot'
+    name: OwnedPrepared -- ${{ matrix.platform }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            platform: darwin-arm64
+          - runner: ubuntu-24.04
+            platform: ubuntu24.04-x86_64
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ inputs.candidate_ref }}
+          fetch-depth: 0
+      - name: Freeze exact spike and platform
+        env:
+          CANDIDATE: ${{ inputs.candidate_ref }}
+          PLATFORM: ${{ matrix.platform }}
+        run: |
+          [[ "$CANDIDATE" =~ ^[0-9a-f]{40}$ ]]
+          test "$(git rev-parse HEAD)" = "$CANDIDATE"
+          case "$PLATFORM" in
+            darwin-arm64) test "$(uname -m)" = arm64 ;;
+            ubuntu24.04-x86_64) test "$(uname -m)" = x86_64 ;;
+          esac
+          echo "SPIKE=$RUNNER_TEMP/owned-spike" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/owned-spike/evidence" "$RUNNER_TEMP/owned-spike/scratch"
+          git rev-parse HEAD > "$RUNNER_TEMP/owned-spike/evidence/candidate-sha.txt"
+          uname -a > "$RUNNER_TEMP/owned-spike/evidence/platform.txt"
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - run: python -m pip install pytest==9.1.1 PyMySQL==1.2.3
+      - name: Canonical source and unit checks
+        env:
+          GOMAXPROCS: '2'
+        run: python scripts/verify.py check > "$SPIKE/evidence/check.txt" 2>&1
+      - name: Focused handwritten races
+        env:
+          GOMAXPROCS: '2'
+        run: |
+          go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/snapshot -count=1 > "$SPIKE/evidence/race.txt" 2>&1
+      - name: Real Go isolation, generations, order and lifecycle
+        env:
+          GOMAXPROCS: '2'
+          MARIAMEM_TEST_DEFAULT: '1'
+        run: |
+          go test -p 1 -tags=integration ./tests/gointegration ./tests/godefault -count=1 -timeout=4m -v > "$SPIKE/evidence/go-runtime.txt" 2>&1
+      - name: Real Python import, parallel isolation and failure cleanup
+        env:
+          GOMAXPROCS: '2'
+          PYTHONPATH: python
+        run: |
+          go build -p 1 -o "$SPIKE/candidate-host" ./cmd/mariamem-host
+          MARIAMEM_TEST_HOST="$SPIKE/candidate-host" python -m pytest tests/test_owned_snapshot_spike.py -q -s > "$SPIKE/evidence/python-runtime.txt" 2>&1
+      - name: Build exact baseline and shared measurement harness
+        env:
+          GOMAXPROCS: '2'
+        run: |
+          mkdir "$SPIKE/baseline"
+          git archive b83dd2c8bcda6d57def2cbbe9f9b9226d93cd2ca | tar -x -C "$SPIKE/baseline"
+          mkdir -p "$SPIKE/baseline/benchmarks/ownedspike"
+          cp benchmarks/ownedspike/main.go "$SPIKE/baseline/benchmarks/ownedspike/main.go"
+          go build -p 1 -o "$SPIKE/candidate-bench" ./benchmarks/ownedspike
+          (cd "$SPIKE/baseline" && go build -p 1 -o "$SPIKE/baseline-bench" ./benchmarks/ownedspike && go build -p 1 -o "$SPIKE/baseline-host" ./cmd/mariamem-host)
+          cc -O2 -o "$SPIKE/process_cost" benchmarks/tools/process_cost.c
+      - name: Actual bounded comparison after correctness
+        env:
+          GOMAXPROCS: '2'
+        run: |
+          python benchmarks/ownedspike/run_compare.py --correctness-passed \
+            --baseline-root "$SPIKE/baseline" --baseline-bench "$SPIKE/baseline-bench" \
+            --candidate-bench "$SPIKE/candidate-bench" --baseline-host "$SPIKE/baseline-host" \
+            --candidate-host "$SPIKE/candidate-host" --helper "$SPIKE/process_cost" \
+            --scratch "$SPIKE/scratch" --out "$SPIKE/evidence/performance" --trials 3 --forks 16 \
+            > "$SPIKE/evidence/comparison.txt" 2>&1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: owned-spike-${{ matrix.platform }}-${{ inputs.candidate_ref }}
+          path: ${{ runner.temp }}/owned-spike/evidence
+          if-no-files-found: error
           retention-days: 14

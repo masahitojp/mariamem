@@ -189,8 +189,10 @@ func TestSnapshotOwnership(t *testing.T) {
 			if !db.Closed() {
 				t.Fatal("source not consumed")
 			}
-			if _, err := stored.Validate(snap.Path(), db.build); err != nil {
+			if _, release, err := snap.backing.Acquire(db.build); err != nil {
 				t.Fatal(err)
+			} else {
+				release()
 			}
 			if snap.opts.NativeDir != db.opts.NativeDir {
 				t.Fatal("fork options not inherited")
