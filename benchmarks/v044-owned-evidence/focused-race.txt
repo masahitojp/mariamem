@@ -1,0 +1,5 @@
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	2.460s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	3.737s
+ok  	github.com/masahitojp/mariamem/internal/guest	2.589s
+ok  	github.com/masahitojp/mariamem/internal/host	1.327s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.545s

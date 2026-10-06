@@ -1,0 +1,7 @@
+=== RUN   TestOwnedPrivateViewsGrowthAndRelease
+--- PASS: TestOwnedPrivateViewsGrowthAndRelease (0.01s)
+=== RUN   TestOwnedPartialMappingFailure
+    owned_prepared_test.go:145: 100 partial mapping failures: file-backed VM bytes 5357568 -> 5357568
+--- PASS: TestOwnedPartialMappingFailure (0.04s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.425s

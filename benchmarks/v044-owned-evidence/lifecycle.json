@@ -1,0 +1,182 @@
+[
+  {
+    "cell": "go-0-0-baseline",
+    "fds_before": 3,
+    "fds_snapshot": 4,
+    "fds_after": 4,
+    "vm_before": 77250560,
+    "vm_after_first_close": 77250560,
+    "vm_after_last_close": 77250560,
+    "vm_after_snapshot_close": 77250560
+  },
+  {
+    "cell": "go-0-0-candidate",
+    "fds_before": 3,
+    "fds_snapshot": 15,
+    "fds_after": 4,
+    "vm_before": 77299712,
+    "vm_after_first_close": 77299712,
+    "vm_after_last_close": 77299712,
+    "vm_after_snapshot_close": 77299712
+  },
+  {
+    "cell": "go-0-1-baseline",
+    "fds_before": 3,
+    "fds_snapshot": 4,
+    "fds_after": 4,
+    "vm_before": 77250560,
+    "vm_after_first_close": 77250560,
+    "vm_after_last_close": 77250560,
+    "vm_after_snapshot_close": 77250560
+  },
+  {
+    "cell": "go-0-1-candidate",
+    "fds_before": 3,
+    "fds_snapshot": 15,
+    "fds_after": 4,
+    "vm_before": 77299712,
+    "vm_after_first_close": 77299712,
+    "vm_after_last_close": 77299712,
+    "vm_after_snapshot_close": 77299712
+  },
+  {
+    "cell": "go-0-2-baseline",
+    "fds_before": 3,
+    "fds_snapshot": 4,
+    "fds_after": 4,
+    "vm_before": 77250560,
+    "vm_after_first_close": 77250560,
+    "vm_after_last_close": 77250560,
+    "vm_after_snapshot_close": 77250560
+  },
+  {
+    "cell": "go-0-2-candidate",
+    "fds_before": 3,
+    "fds_snapshot": 15,
+    "fds_after": 4,
+    "vm_before": 77299712,
+    "vm_after_first_close": 77299712,
+    "vm_after_last_close": 77299712,
+    "vm_after_snapshot_close": 77299712
+  },
+  {
+    "cell": "go-10-0-baseline",
+    "fds_before": 3,
+    "fds_snapshot": 4,
+    "fds_after": 4,
+    "vm_before": 77250560,
+    "vm_after_first_close": 77250560,
+    "vm_after_last_close": 77250560,
+    "vm_after_snapshot_close": 77250560
+  },
+  {
+    "cell": "go-10-0-candidate",
+    "fds_before": 3,
+    "fds_snapshot": 15,
+    "fds_after": 4,
+    "vm_before": 77299712,
+    "vm_after_first_close": 77299712,
+    "vm_after_last_close": 77299712,
+    "vm_after_snapshot_close": 77299712
+  },
+  {
+    "cell": "go-10-1-baseline",
+    "fds_before": 3,
+    "fds_snapshot": 4,
+    "fds_after": 4,
+    "vm_before": 77250560,
+    "vm_after_first_close": 77250560,
+    "vm_after_last_close": 77250560,
+    "vm_after_snapshot_close": 77250560
+  },
+  {
+    "cell": "go-10-1-candidate",
+    "fds_before": 3,
+    "fds_snapshot": 15,
+    "fds_after": 4,
+    "vm_before": 77299712,
+    "vm_after_first_close": 77299712,
+    "vm_after_last_close": 77299712,
+    "vm_after_snapshot_close": 77299712
+  },
+  {
+    "cell": "go-10-2-baseline",
+    "fds_before": 3,
+    "fds_snapshot": 4,
+    "fds_after": 4,
+    "vm_before": 77250560,
+    "vm_after_first_close": 77250560,
+    "vm_after_last_close": 77250560,
+    "vm_after_snapshot_close": 77250560
+  },
+  {
+    "cell": "go-10-2-candidate",
+    "fds_before": 3,
+    "fds_snapshot": 15,
+    "fds_after": 4,
+    "vm_before": 77299712,
+    "vm_after_first_close": 77299712,
+    "vm_after_last_close": 77299712,
+    "vm_after_snapshot_close": 77299712
+  },
+  {
+    "cell": "go-100-0-baseline",
+    "fds_before": 3,
+    "fds_snapshot": 4,
+    "fds_after": 4,
+    "vm_before": 77250560,
+    "vm_after_first_close": 77250560,
+    "vm_after_last_close": 77250560,
+    "vm_after_snapshot_close": 77250560
+  },
+  {
+    "cell": "go-100-0-candidate",
+    "fds_before": 3,
+    "fds_snapshot": 15,
+    "fds_after": 4,
+    "vm_before": 77299712,
+    "vm_after_first_close": 77299712,
+    "vm_after_last_close": 77299712,
+    "vm_after_snapshot_close": 77299712
+  },
+  {
+    "cell": "go-100-1-baseline",
+    "fds_before": 3,
+    "fds_snapshot": 4,
+    "fds_after": 4,
+    "vm_before": 77250560,
+    "vm_after_first_close": 77250560,
+    "vm_after_last_close": 77250560,
+    "vm_after_snapshot_close": 77250560
+  },
+  {
+    "cell": "go-100-1-candidate",
+    "fds_before": 3,
+    "fds_snapshot": 15,
+    "fds_after": 4,
+    "vm_before": 77299712,
+    "vm_after_first_close": 77299712,
+    "vm_after_last_close": 77299712,
+    "vm_after_snapshot_close": 77299712
+  },
+  {
+    "cell": "go-100-2-baseline",
+    "fds_before": 3,
+    "fds_snapshot": 4,
+    "fds_after": 4,
+    "vm_before": 77250560,
+    "vm_after_first_close": 77250560,
+    "vm_after_last_close": 77250560,
+    "vm_after_snapshot_close": 77250560
+  },
+  {
+    "cell": "go-100-2-candidate",
+    "fds_before": 3,
+    "fds_snapshot": 15,
+    "fds_after": 4,
+    "vm_before": 77299712,
+    "vm_after_first_close": 77299712,
+    "vm_after_last_close": 77299712,
+    "vm_after_snapshot_close": 77299712
+  }
+]

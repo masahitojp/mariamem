@@ -1,0 +1,51 @@
+{
+  "requested_main_baseline": "a23e450af19fd2086a008cc85ed35173f0103801",
+  "retirement_base": "26d9050be9004940315e2add8253e31b26538316",
+  "exact_comparison_baseline": "b83dd2c8bcda6d57def2cbbe9f9b9226d93cd2ca",
+  "code_candidate": "935f18c9fcf8134db615ed45e0f86d6fa3144071",
+  "go_measured_source": "064c658a4bcb52505a771c895e16dca1c856d447",
+  "python_measured_source": "1f4b4b904bd183364f928d23711f8f95b528c878",
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "go_version": "go1.26.8",
+  "python_version": "3.14.8",
+  "platform": "macOS arm64",
+  "gomaxprocs": 2,
+  "trials_per_cell": 3,
+  "forks_per_trial": 16,
+  "query_payload_mib": [
+    0,
+    10,
+    100
+  ],
+  "rows": [
+    1,
+    10240,
+    102400
+  ],
+  "fixture_recipe": "benchmarks/ownedspike/main.go: INT PK, VARBINARY(1024), 128-row insertion batches; repeated 0123456789abcdef payload",
+  "measurement_build_note": "Locally built before source commits; VCS dirty stamps retained in binaries. Source hashes/commits pin measured implementation. Native CI rebuilds exact clean candidate. No production Go changes from 064c658 to code_candidate; Python import type checks included in final import rerun.",
+  "binary_sha256": {
+    "baseline-bench": "8270359dddfa2727b2501b40d24596f67e44c4da852d4178ae6494f6b40c39a5",
+    "candidate-bench": "e1ee6a0ca9cee6eaaa353977c532939b94b9b2079b407de0635b1226dc170315",
+    "baseline-host": "4c97133cf012c2b332cb16ce020d17614d394affc80f1aef5a1e9f0c1b52e2a2",
+    "candidate-host": "bb8ea8ae06943d801365ea6c62853cd4303f5c4593e8f9f1efe229581d8a2a8a"
+  },
+  "harness_sha256": "63b5da43a460608c4f9d584278053e63a20ea29fb2e0ff57a32722513dc69635",
+  "ubuntu_emulation": {
+    "image": "ubuntu:24.04",
+    "digest": "sha256:534baea6a22c03a63003dbc8dbe78fe34bc0d7e595d9a9dc9834884ff530eb55",
+    "platform": "linux/amd64 on arm64 Docker Desktop",
+    "snapshot_units": "PASS",
+    "owned_mapping_units": "PASS",
+    "native_runtime_or_performance_evidence": false
+  },
+  "new_os_test_started_after_performance": true,
+  "changes_after_measurements": [
+    ".github/workflows/release-candidate-ready.yml",
+    "benchmarks/ownedspike/run_compare.py",
+    "benchmarks/ownedspike/summarize.py",
+    "internal/generatedgo/code/base/owned_prepared_test.go",
+    "python/mariamem/owned_snapshot.py",
+    "tests/test_owned_snapshot_spike.py"
+  ]
+}
