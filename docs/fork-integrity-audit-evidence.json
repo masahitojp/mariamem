@@ -1,0 +1,131 @@
+{
+  "baseline": "a23e450af19fd2086a008cc85ed35173f0103801",
+  "track_a": "26d9050be9004940315e2add8253e31b26538316",
+  "track_b": "2715c44df0f567930a1d6ef272a18bcffd401a29",
+  "kind": "read-only architecture audit; no new performance measurements",
+  "unchanged_blob_identities": {
+    "snapshot.go": {
+      "a23e450af19fd2086a008cc85ed35173f0103801": "066b417dd43eab5ee8f75a1bba99adb1f0a8030b",
+      "26d9050be9004940315e2add8253e31b26538316": "066b417dd43eab5ee8f75a1bba99adb1f0a8030b",
+      "2715c44df0f567930a1d6ef272a18bcffd401a29": "066b417dd43eab5ee8f75a1bba99adb1f0a8030b"
+    },
+    "internal/snapshot/snapshot.go": {
+      "a23e450af19fd2086a008cc85ed35173f0103801": "a1ff35eaaa17e3cda35bc4f4b25f9afadfaaf461",
+      "26d9050be9004940315e2add8253e31b26538316": "a1ff35eaaa17e3cda35bc4f4b25f9afadfaaf461",
+      "2715c44df0f567930a1d6ef272a18bcffd401a29": "a1ff35eaaa17e3cda35bc4f4b25f9afadfaaf461"
+    },
+    "python/mariamem/snapshot.py": {
+      "a23e450af19fd2086a008cc85ed35173f0103801": "590eadd9e8a0e7b75c93bb6b06c5427fefb72ec4",
+      "26d9050be9004940315e2add8253e31b26538316": "590eadd9e8a0e7b75c93bb6b06c5427fefb72ec4",
+      "2715c44df0f567930a1d6ef272a18bcffd401a29": "590eadd9e8a0e7b75c93bb6b06c5427fefb72ec4"
+    },
+    "internal/generatedgo/code/base/prepared_files.go": {
+      "a23e450af19fd2086a008cc85ed35173f0103801": "0013d7affee86ae8ce3a1c81830e1bf9c5bb9316",
+      "26d9050be9004940315e2add8253e31b26538316": "0013d7affee86ae8ce3a1c81830e1bf9c5bb9316",
+      "2715c44df0f567930a1d6ef272a18bcffd401a29": "0013d7affee86ae8ce3a1c81830e1bf9c5bb9316"
+    },
+    "internal/generatedgo/code/base/memfs_growth.go": {
+      "a23e450af19fd2086a008cc85ed35173f0103801": "a2f692fa82022074f83ebb9e64c60138dfd57155",
+      "26d9050be9004940315e2add8253e31b26538316": "a2f692fa82022074f83ebb9e64c60138dfd57155",
+      "2715c44df0f567930a1d6ef272a18bcffd401a29": "a2f692fa82022074f83ebb9e64c60138dfd57155"
+    }
+  },
+  "inputs": {
+    "benchmarks/v043-snapshot-characterization-values.json": {
+      "commit": "2715c44df0f567930a1d6ef272a18bcffd401a29",
+      "sha256": "560feb8baa628949717cd205f8da2c286edee5683120175717fee870d782e8c3"
+    },
+    "benchmarks/v043-first-use-attribution.md": {
+      "commit": "2715c44df0f567930a1d6ef272a18bcffd401a29",
+      "sha256": "fd8020cf99317449582c4e04e452e7373163cef5115d7adc7c5bb3ed10cf8ee4"
+    }
+  },
+  "stage_key": "startup/restore:native_identity_checked→metadata_snapshot_validated",
+  "stages": [
+    {
+      "cell": "matrix-0m-1-read-full",
+      "payload_mib": 0,
+      "ready_ms": 115.100875,
+      "verification_ms": 61.183084,
+      "verification_share": 0.5315605463468458,
+      "hypothetical_zero_verification_residual_ms": 53.917791,
+      "assumption": "Subtract full measured validation stage; all other costs held fixed. Not a predicted implementation result."
+    },
+    {
+      "cell": "matrix-10m-1-read-full",
+      "payload_mib": 10,
+      "ready_ms": 125.21554100000002,
+      "verification_ms": 70.190625,
+      "verification_share": 0.5605584134320833,
+      "hypothetical_zero_verification_residual_ms": 55.02491600000002,
+      "assumption": "Subtract full measured validation stage; all other costs held fixed. Not a predicted implementation result."
+    },
+    {
+      "cell": "matrix-100m-1-read-full",
+      "payload_mib": 100,
+      "ready_ms": 202.29508299999998,
+      "verification_ms": 126.391041,
+      "verification_share": 0.6247855317373187,
+      "hypothetical_zero_verification_residual_ms": 75.90404199999998,
+      "assumption": "Subtract full measured validation stage; all other costs held fixed. Not a predicted implementation result."
+    }
+  ],
+  "suite_counterfactual_formula": "measured Fork suite - N * matching-size single-child validation; no Snapshot reduction or new ownership cost",
+  "suite_counterfactuals": [
+    {
+      "cell": "suite-0m-16-read-full",
+      "payload_mib": 0,
+      "n": 16,
+      "fresh_seconds": 1.195965917,
+      "fork_seconds": 2.476434625,
+      "single_child_validation_seconds_assumed_per_fork": 0.061183084,
+      "hypothetical_fork_without_validation_seconds": 1.497505281
+    },
+    {
+      "cell": "suite-10m-2-read-n2",
+      "payload_mib": 10,
+      "n": 2,
+      "fresh_seconds": 1.275318875,
+      "fork_seconds": 1.355663792,
+      "single_child_validation_seconds_assumed_per_fork": 0.07019062499999999,
+      "hypothetical_fork_without_validation_seconds": 1.2152825420000002
+    },
+    {
+      "cell": "suite-10m-16-read-full",
+      "payload_mib": 10,
+      "n": 16,
+      "fresh_seconds": 10.271300291,
+      "fork_seconds": 3.75481075,
+      "single_child_validation_seconds_assumed_per_fork": 0.07019062499999999,
+      "hypothetical_fork_without_validation_seconds": 2.6317607499999998
+    },
+    {
+      "cell": "suite-100m-1-read-full",
+      "payload_mib": 100,
+      "n": 1,
+      "fresh_seconds": 5.815138959,
+      "fork_seconds": 6.691021166,
+      "single_child_validation_seconds_assumed_per_fork": 0.126391041,
+      "hypothetical_fork_without_validation_seconds": 6.564630125
+    },
+    {
+      "cell": "suite-100m-2-read-n2",
+      "payload_mib": 100,
+      "n": 2,
+      "fresh_seconds": 11.495094708,
+      "fork_seconds": 7.192528959,
+      "single_child_validation_seconds_assumed_per_fork": 0.126391041,
+      "hypothetical_fork_without_validation_seconds": 6.939746876999999
+    },
+    {
+      "cell": "suite-100m-16-read-full",
+      "payload_mib": 100,
+      "n": 16,
+      "fresh_seconds": 96.036452292,
+      "fork_seconds": 14.274261208,
+      "single_child_validation_seconds_assumed_per_fork": 0.126391041,
+      "hypothetical_fork_without_validation_seconds": 12.252004552
+    }
+  ],
+  "verification": "Wording, exact source references/blob identity, arithmetic, doc links, diff/status only. No runtime tests or new instrumentation."
+}
