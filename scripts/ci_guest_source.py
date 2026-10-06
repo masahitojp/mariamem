@@ -3,6 +3,10 @@
 This is separate from the recorded alpha.3 Docker-build provenance. It verifies
 build-time records and exact artifacts, never post-build acceptance or review.
 """
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses docs/development.md.")
+
 import json
 from pathlib import Path
 import subprocess

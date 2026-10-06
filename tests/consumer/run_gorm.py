@@ -17,7 +17,9 @@ def main():
     parser.add_argument("--source-dir", type=Path, help="Development-only local module replacement")
     parser.add_argument("--zero-options", action="store_true", help="Use Options{}; no bundle is required for generated-Go default")
     args = parser.parse_args()
-    native, output = args.native_dir.resolve() if args.native_dir else None, args.output.resolve()
+    if args.native_dir is not None:
+        parser.error('--native-dir is retired; use the generated-Go consumer or reproduce a pinned historical tag')
+    output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     env = {k: v for k, v in os.environ.items()
            if not k.startswith(("MARIAMEM_", "MYSQLMEM_", "DOGFOOD_"))}
@@ -33,7 +35,6 @@ def main():
                             f"github.com/masahitojp/mariamem={args.source_dir.resolve()}"],
                            cwd=project, env=env, check=True)
         if args.zero_options:
-            if native: env["MARIAMEM_NATIVE_DIR"] = str(native)
             env["DOGFOOD_ZERO_OPTIONS"] = "1"
         for index, mode in enumerate(("start", "fork", "fork", "start"), 1):
             name = f"{index}-{mode}"
@@ -41,7 +42,7 @@ def main():
             result = subprocess.run(
                 ["go", "test", "-mod=readonly", "-v", "-count=1", "-timeout=3m", "."],
                 cwd=project, env={**env, "DOGFOOD_MODE": mode,
-                                  "DOGFOOD_NATIVE_DIR": str(native) if native else "",
+                                  "DOGFOOD_NATIVE_DIR": "",
                                   "DOGFOOD_EVIDENCE": str(output / f"{name}.json")},
                 capture_output=True, text=True, timeout=240)
             (output / f"{name}.txt").write_text(result.stdout + result.stderr)

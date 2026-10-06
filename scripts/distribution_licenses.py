@@ -1,4 +1,4 @@
-"""Artifact-specific notices; never discard legacy repository attribution."""
+"""Generated-Go notices plus immutable historical/reference attribution."""
 import json
 from pathlib import Path
 import hashlib

@@ -4,6 +4,10 @@
 Requires Python 3.11. Inputs are prepared as documented in docs/runtime-notices.md.
 No compilation, dependency update, or review approval is performed.
 """
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses docs/development.md.")
+
 import json
 from pathlib import Path
 import shutil

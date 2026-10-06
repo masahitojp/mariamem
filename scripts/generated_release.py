@@ -101,7 +101,7 @@ def package_source(root, commit):
     checkout(root,commit); build=verify_build(root,commit)
     lock=read(root/'release/inputs.lock.json')
     inputs=source_inputs(root,lock)
-    # Preserve repository/fallback attribution; the external Wasmer engine
+    # Preserve immutable historical attribution; the external Wasmer engine
     # source is not corresponding source for the generated-Go artifacts.
     for entry in inputs: fetch(entry['name'])
     verify_upstream_notices(root,lock)

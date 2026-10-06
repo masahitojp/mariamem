@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """Package existing artifacts as a local Go native candidate, never a release."""
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses docs/development.md.")
+
 import argparse
 import gzip
 import hashlib

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """Capture the direct guest startup without the host's EOF-triggered SIGKILL."""
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses docs/development.md.")
+
 import argparse
 import hashlib
 import json

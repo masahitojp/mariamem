@@ -148,7 +148,7 @@ def test_new_publisher_contract_dry_run(tmp_path,monkeypatch):
            'git_tag':tag,'python_version':version,'platforms':{p:{} for p in release.PLATFORMS},'assets':assets}
     release.write(root/'build/release/ci-ready.json',ready)
     (root/'build/release/SHA256SUMS').write_text(''.join(f'{v}  {k}\n' for k,v in assets.items()))
-    monkeypatch.setattr(release,'check_aggregate',lambda *a:ready)
+    monkeypatch.setattr(publisher,'check_aggregate',lambda *a:ready)
     calls=[]
     def command(args,cwd):
         calls.append(args)

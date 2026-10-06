@@ -20,9 +20,8 @@ import (
 )
 
 func TestPublicLifecycle(t *testing.T) {
-	native := os.Getenv("MARIAMEM_NATIVE_DIR")
-	if native == "" && os.Getenv("MARIAMEM_TEST_DEFAULT") != "1" {
-		t.Fatal("set MARIAMEM_NATIVE_DIR to an existing native bundle")
+	if os.Getenv("MARIAMEM_TEST_DEFAULT") != "1" {
+		t.Fatal("set MARIAMEM_TEST_DEFAULT=1 for generated-Go integration")
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
@@ -70,7 +69,7 @@ func TestPublicLifecycle(t *testing.T) {
 			t.Fatalf("row count=%d, want %d", got, want)
 		}
 	}
-	db, err := mariamem.Start(ctx, mariamem.Options{NativeDir: native})
+	db, err := mariamem.Start(ctx, mariamem.Options{})
 	if err != nil {
 		t.Fatal(err)
 	}

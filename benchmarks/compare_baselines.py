@@ -16,10 +16,16 @@ def compare(go, python):
     for key in ('runs', 'warmup', 'workers', 'rows', 'queries', 'clients', 'interval', 'hold', 'stage_timing', 'guest_stage_timing'):
         if go['settings'].get(key) != python['settings'].get(key):
             raise ValueError(f'comparison requires matching setting {key}')
-    for name in ('wasmer-headless', 'mariamem.wasmu', 'mariamem.wasmu.json'):
-        values = [report['environment']['native_manifest']['sha256'].get(name) for report in (go, python)]
-        if not values[0] or values[0] != values[1]:
-            raise ValueError(f'comparison requires identical {name} bytes')
+    if go['environment'].get('runtime_kind') == 'generated-go' or python['environment'].get('runtime_kind') == 'generated-go':
+        values = [r['environment'].get('guest_sha256') for r in (go,python)]
+        if not values[0] or values[0] != values[1] or any(r['environment'].get('runtime_kind') != 'generated-go' for r in (go,python)):
+            raise ValueError('comparison requires identical generated-Go guest identity')
+    else:
+        # Historical immutable report comparison, not a current runtime selector.
+        for name in ('wasmer-headless', 'mariamem.wasmu', 'mariamem.wasmu.json'):
+            values = [report['environment']['native_manifest']['sha256'].get(name) for report in (go, python)]
+            if not values[0] or values[0] != values[1]:
+                raise ValueError(f'comparison requires identical {name} bytes')
     rows = {(row['case'], row['workers']): row for row in python['summary']}
     lines = ['# Paired Go core / Python consumer baseline', '',
              f"Source: `{go['environment']['commit']}`; {go['environment']['platform']}", '',

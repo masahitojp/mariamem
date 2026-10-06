@@ -1,5 +1,9 @@
 # Wasmer runtime notices
 
+> Historical Wasmer/migration reference. Current runtime, verification and roadmap
+> are documented in [project status](project-status.md) and
+> [development](development.md); this is not a supported fallback workflow.
+
 **Runtime notice review complete: `runtime_notices=true`.**
 Task 9b-final accepts webc 12.0.1's package metadata `license="MIT"` as its
 formal license declaration. The absence of a separate upstream license/copyright

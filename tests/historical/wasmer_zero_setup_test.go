@@ -1,7 +1,9 @@
+//go:build historical_wasmer
+
 // External consumer acceptance. The tagged module and real bundle are private
 // fixtures, never a GitHub release. Only HTTP transport is redirected locally;
 // the production resolver selects its canonical URLs and module build identity.
-package acceptance
+package historical
 
 import (
 	"context"

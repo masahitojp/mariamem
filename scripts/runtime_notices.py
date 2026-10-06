@@ -5,6 +5,10 @@ Normal verification is offline and requires only committed files. --verify-input
 also rechecks cached upstream inputs; --fetch explicitly permits downloading them.
 This tool never approves runtime_notices or rebuilds a runtime.
 """
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses docs/development.md.")
+
 import argparse
 import hashlib
 import json

@@ -33,11 +33,11 @@ MariaDB Connector/C      Pinned source preparation/CMake input, not the embedded
                           conservatively in corresponding source with its terms.
 
 LEGACY-ONLY
-Wasmer/headless 7.4.2     External fallback bundle, not linked into the generated
+Wasmer/headless 7.4.2     Retired engine, not linked into the generated
                           guest or host. Workspace MIT, Singlepass BUSL-1.1 and
                           Rust dependency notices remain in repository licenses/.
 Native-bundle engines/   Preserve the existing exact macOS/Linux legacy notice
-Rust dependencies        inventories for fallback distribution; not wheel inputs.
+Rust dependencies        inventories as historical references; not current runtime/wheel inputs.
 
 UNUSED (normal packaged code)
 PyMySQL / pytest / xdist Optional/test dependencies; not copied into host-only
@@ -45,7 +45,7 @@ PyMySQL / pytest / xdist Optional/test dependencies; not copied into host-only
 
 release/distribution-licenses.json selects normal wheel notices explicitly and
 separately records legacy notices. The Go module and GPL source contain repository
-source (including legacy compatibility), so retain repository notices there.
+source (including historical reference tools), so retain repository notices there.
 The source package omits only Wasmer's external engine source archive; all guest,
 sysroot runtime/header and converter sources remain. Full archives preserve
 upstream copyright/license files, not just these extracted license summaries.

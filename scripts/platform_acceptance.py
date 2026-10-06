@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """Run archive-only acceptance from a temporary external Go module; never edit reviews."""
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses docs/development.md.")
+
 import argparse
 import hashlib
 import json

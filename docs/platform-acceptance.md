@@ -1,5 +1,9 @@
 # Clean macOS 15 arm64 acceptance harness
 
+> Historical Wasmer/migration reference. Current runtime, verification and roadmap
+> are documented in [project status](project-status.md) and
+> [development](development.md); this is not a supported fallback workflow.
+
 This harness does not edit `release/review.json`. A successful run produces
 reviewable evidence; setting `platform_acceptance=true` remains a separate action.
 Run inside a clean macOS 15 arm64 VM with Python 3.9+ and Go 1.26.8 installed.

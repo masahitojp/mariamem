@@ -5,28 +5,15 @@ import (
 	"errors"
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"io"
-	"os"
-	"path/filepath"
 	"strings"
 	"testing"
 	"time"
 )
 
-func TestStartupDiagnostics(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	_, err := Start(ctx, filepath.Join(t.TempDir(), "missing"), "unused", "", "", "", nil)
-	var detail *diagnostic.Error
-	if !errors.As(err, &detail) || detail.Code != "guest_start" || detail.Stage != "guest_launch" || !errors.Is(err, os.ErrNotExist) || !strings.Contains(err.Error(), "executable permissions") {
-		t.Fatalf("%v", err)
-	}
-	runtime := filepath.Join(t.TempDir(), "runtime")
-	if err := os.WriteFile(runtime, []byte("#!/bin/sh\necho 'runtime cannot load guest' >&2\nexit 7\n"), 0700); err != nil {
+func TestCompiledIdentityFailure(t *testing.T) {
+	_, err := startLinked(context.Background(), "wrong-identity", "", "", io.Discard)
+	if err == nil || !strings.Contains(err.Error(), "identity mismatch") {
 		t.Fatal(err)
-	}
-	_, err = Start(ctx, runtime, "unused", "", "", "", nil)
-	if !errors.As(err, &detail) || detail.Stage != "guest_ready" || !errors.Is(err, io.EOF) || !strings.Contains(err.Error(), "runtime cannot load guest") {
-		t.Fatalf("%v", err)
 	}
 }
 func TestStartupCauseAndBoundedTail(t *testing.T) {
@@ -35,5 +22,26 @@ func TestStartupCauseAndBoundedTail(t *testing.T) {
 	err := startupError(context.DeadlineExceeded, tail)
 	if !errors.Is(err, context.DeadlineExceeded) || len(err.Error()) > 1600 {
 		t.Fatalf("unbounded/lost cause: %v", err)
+	}
+}
+
+// Removing executable startup must retain controlled greeting/protocol errors.
+func TestFramedStartupFailureSurvivesAndJoins(t *testing.T) {
+	childIn, in := io.Pipe()
+	out, childOut := io.Pipe()
+	completed := make(chan error, 1)
+	go func() {
+		// Zero-length framing is invalid; the host must return an error and join.
+		_, err := childOut.Write([]byte{0, 0, 0, 0})
+		childIn.Close()
+		childOut.Close()
+		completed <- err
+	}()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	_, err := Connect(ctx, in, out, completed, nil, io.Discard)
+	var detail *diagnostic.Error
+	if !errors.As(err, &detail) || detail.Code != "guest_connection" || detail.Stage != "guest_ready" || !strings.Contains(err.Error(), "invalid guest frame") {
+		t.Fatal(err)
 	}
 }

@@ -35,6 +35,8 @@ class Database:
                  wasmer_dir=None, query_timeout=30, startup_timeout=120,
                  shutdown_timeout=30, snapshot=None):
         """Start one memory DB, optionally restoring a validated cold snapshot."""
+        if wasmer_dir is not None:
+            raise ValueError("wasmer_dir is retired; generated-Go requires no Wasmer cache")
         for timeout in (query_timeout, startup_timeout, shutdown_timeout):
             if not isinstance(timeout, (int, float)) or not 0 < timeout < float("inf"):
                 raise ValueError("timeouts must be positive and finite")
@@ -55,19 +57,13 @@ class Database:
             raise HostError(str(exc), code=exc.code, stage="platform" if exc.code == "unsupported_platform" else "artifact_validation") from exc
         mark("artifacts_resolved")
         host_binary, runtime, module = (resolved[key] for key in ("host_binary", "runtime", "module"))
-        if (runtime is None) != (module is None):
-            raise ValueError("legacy runtime override requires runtime and module")
-        self._options = dict(host_binary=host_binary, runtime=runtime, module=module,
-                             wasmer_dir=wasmer_dir, query_timeout=query_timeout,
+        self._options = dict(host_binary=host_binary, query_timeout=query_timeout,
                              startup_timeout=startup_timeout, shutdown_timeout=shutdown_timeout)
         if snapshot is not None:
             snapshot = Snapshot.open(snapshot.path if isinstance(snapshot, Snapshot) else snapshot)
         mark("snapshot_validated")
         self._temporary = tempfile.TemporaryDirectory(prefix="mariamem-")
         self._logs = ""
-        if wasmer_dir is None:
-            wasmer_dir = Path(self._temporary.name) / "runtime"
-            wasmer_dir.mkdir()
         if log_path is None:
             log_path = Path(self._temporary.name) / "host.log"
         self.log_path = Path(log_path).absolute()
@@ -79,10 +75,6 @@ class Database:
             raise
         argv = [str(Path(host_binary).absolute()), "--query-timeout", f"{query_timeout}s",
                 "--startup-timeout", f"{startup_timeout}s", "--shutdown-timeout", f"{shutdown_timeout}s"]
-        if runtime is not None or module is not None:
-            argv += ["--runtime", str(Path(runtime).absolute()), "--module", str(Path(module).absolute())]
-        if wasmer_dir is not None:
-            argv += ["--wasmer-dir", str(Path(wasmer_dir).absolute())]
         if snapshot is not None:
             argv += ["--snapshot", str(snapshot.path)]
         mark("host_spawn_begin")
@@ -280,14 +272,6 @@ class Database:
             try:
                 self._process.wait(timeout=12)
             except subprocess.TimeoutExpired:
-                # Last-resort cleanup is restricted to this wrapper's own child.
-                runtime_pid = getattr(self, "diagnostics", {}).get("runtime_pid")
-                if runtime_pid:
-                    try:
-                        import signal
-                        os.killpg(runtime_pid, signal.SIGKILL)
-                    except ProcessLookupError:
-                        pass
                 self._process.kill()
                 self._process.wait(timeout=5)
         self._reader.join(timeout=5)

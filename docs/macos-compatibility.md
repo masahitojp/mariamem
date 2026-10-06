@@ -1,5 +1,9 @@
 # macOS support floor: 15+ / arm64
 
+> Historical Wasmer/migration reference. Current runtime, verification and roadmap
+> are documented in [project status](project-status.md) and
+> [development](development.md); this is not a supported fallback workflow.
+
 The native distribution supports **macOS 15 and later on arm64**. macOS 12–14
 are unsupported. Declared bundle/wheel metadata uses minimum macOS 15; this does
 not rewrite the runtime binary's older Mach-O load commands.

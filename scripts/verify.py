@@ -42,21 +42,15 @@ def check():
     env.pop("MARIAMEM_TEST_HOST", None)
     env.pop("MARIAMEM_NATIVE_DIR", None)
     env["PYTHONPATH"] = str(ROOT / "python")
-    run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer", "-q"], env=env)
+    run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer", "--ignore=tests/historical", "-q"], env=env)
     run([sys.executable, "scripts/check_public.py"])
 
 
 def integration():
-    native = os.environ.get("MARIAMEM_NATIVE_DIR")
     env = os.environ.copy()
-    if native:
-        native = Path(native).expanduser().resolve()
-        for name in ("manifest.json", "wasmer-headless", "mariamem.wasmu", "mariamem.wasmu.json"):
-            if not (native / name).is_file():
-                raise SystemExit(f"integration native bundle is missing {name}: {native}")
-        env["MARIAMEM_NATIVE_DIR"] = str(native)
-    else:
-        env["MARIAMEM_TEST_DEFAULT"] = "1"
+    env.pop("MARIAMEM_NATIVE_DIR", None)
+    env.pop("MARIAMEM_RUNTIME", None)
+    env["MARIAMEM_TEST_DEFAULT"] = "1"
     env["PYTHONPATH"] = str(ROOT / "python")
     # v0.4 keeps handwritten/runtime race coverage. Full generated guest races
     # are a documented shared-memory-model limitation, not a release gate.
@@ -64,27 +58,21 @@ def integration():
          "./internal/generatedgo", "./internal/guest", "./internal/host",
          "./internal/mysqlwire", "./internal/snapshot", "-count=1"], env=env)
     command = ["go", "test"]
-    if native:
-        command.append("-race")  # explicit legacy guest retains race acceptance
     run([*command, "-tags=integration", "./tests/gointegration",
          "-count=1", "-timeout=3m"], env=env)
     # These tests deliberately clear native overrides and execute the full guest.
     run(["go", "test", "-tags=integration", "./tests/godefault",
          "-count=1", "-timeout=3m"], env=env)
-    if not native:
-        # Actual generated accesses must trap without killing the host, including
-        # worker failures, logical grow and mmap-backed shared-memory visibility.
-        run(["go", "test", "-p", "1", "-tags=integration", "./tests/generatedmemory",
-             "-count=1", "-timeout=3m"], env=env)
+    # Guest OOB failures must trap without terminating the host process.
+    run(["go", "test", "-p", "1", "-tags=integration", "./tests/generatedmemory",
+         "-count=1", "-timeout=3m"], env=env)
     with tempfile.TemporaryDirectory(prefix="mariamem-integration-") as temporary:
         host = Path(temporary) / "mariamem-host"
         run(["go", "build", "-p", "1", "-o", host, "./cmd/mariamem-host"], env=env)
         env["MARIAMEM_TEST_HOST"] = str(host)
-        timeout_test = "tests/test_python_timeout.py" if native else (
-            "tests/test_python_timeout.py::test_normal_close_is_idempotent")
-        if not native:
-            print("Direct-link forced query-timeout reclamation is a separate diagnostic; "
-                  "normal Close remains required.", flush=True)
+        timeout_test = "tests/test_python_timeout.py::test_normal_close_is_idempotent"
+        print("Forced query-timeout reclamation remains a separate diagnostic; "
+              "normal Close remains required.", flush=True)
         run([sys.executable, "-m", "pytest", timeout_test,
              "tests/test_python_multiclient.py", "-q"], env=env)
 
@@ -96,7 +84,6 @@ def main():
     commands.add_parser("integration", help="normal guest acceptance, focused runtime race and Python lifecycle checks")
     release = commands.add_parser("release-check", help="release guard; verify a local or CI candidate")
     release.add_argument("--ci-candidate-sha")
-    release.add_argument("--native-acceptance", help="explicit legacy Wasmer evidence only")
     release.add_argument("--platform", choices=("darwin-arm64", "ubuntu24.04-x86_64"))
     release.add_argument("--candidate-root", type=Path, help="exact CI candidate checkout")
     bench = commands.add_parser("bench", help="run one optional lifecycle benchmark")
@@ -109,15 +96,7 @@ def main():
     elif args.command == "integration":
         integration()
     elif args.command == "release-check":
-        if args.native_acceptance:
-            if not args.ci_candidate_sha or args.platform:
-                parser.error("legacy evidence requires candidate SHA and no generated-Go platform")
-            command = [sys.executable, "scripts/check_ci_release.py", "--candidate-sha",
-                       args.ci_candidate_sha, "--native-acceptance", args.native_acceptance]
-            if args.candidate_root:
-                command.extend(["--root", args.candidate_root])
-            run(command)
-        elif args.ci_candidate_sha:
+        if args.ci_candidate_sha:
             command = [sys.executable, "scripts/release_generated_ci.py", "guard",
                        "--candidate-sha", args.ci_candidate_sha]
             if args.candidate_root:

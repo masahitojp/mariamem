@@ -2,12 +2,9 @@ package mariamem
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
-	"io"
 	"os"
 	"path/filepath"
-	"runtime"
 	"strings"
 	"sync"
 	"testing"
@@ -496,59 +493,6 @@ func TestStartupErrorBoundaryAndLifecycleCause(t *testing.T) {
 	}
 }
 
-func TestPublicStartupRecoveryMessages(t *testing.T) {
-	for _, mode := range []string{"missing", "guest", "mismatch"} {
-		missing := mode == "missing"
-		dir := t.TempDir()
-		if !missing {
-			files := map[string]string{"wasmer-headless": "#!/bin/sh\necho 'incompatible binary: CPU Features missing: SSSE3' >&2\nexit 7\n", "mariamem.wasmu": "fixture"}
-			hashes := map[string]string{}
-			for name, body := range files {
-				if err := os.WriteFile(filepath.Join(dir, name), []byte(body), 0700); err != nil {
-					t.Fatal(err)
-				}
-				hashes[name], _ = stored.Digest(filepath.Join(dir, name))
-			}
-			sidecar, _ := json.Marshal(map[string]any{"wasm_sha256": strings.Repeat("a", 64), "module_sha256": hashes["mariamem.wasmu"], "snapshot_version": 1})
-			os.WriteFile(filepath.Join(dir, "mariamem.wasmu.json"), sidecar, 0600)
-			hashes["mariamem.wasmu.json"], _ = stored.Digest(filepath.Join(dir, "mariamem.wasmu.json"))
-			platform := "darwin-arm64"
-			if runtime.GOOS == "linux" {
-				platform = "ubuntu24.04-x86_64"
-			}
-			raw, _ := json.Marshal(map[string]any{"version": 1, "platform": platform, "minimum_macos": 15, "distribution": "ubuntu", "version_id": "24.04", "architecture": "x86_64", "sha256": hashes})
-			os.WriteFile(filepath.Join(dir, "manifest.json"), raw, 0600)
-		}
-		if mode == "mismatch" {
-			os.WriteFile(filepath.Join(dir, "mariamem.wasmu"), []byte("changed"), 0600)
-		}
-		_, err := Start(context.Background(), Options{NativeDir: dir})
-		var detail *HostError
-		if !errors.As(err, &detail) {
-			t.Fatalf("%v", err)
-		}
-		if detail.Code == "unsupported_platform" {
-			if detail.Stage != "platform" {
-				t.Fatal(err)
-			}
-			continue
-		}
-		if missing {
-			if detail.Code != "native_unavailable" || detail.Stage != "artifact_validation" || !errors.Is(err, os.ErrNotExist) || !strings.Contains(err.Error(), "Options.NativeDir") {
-				t.Fatal(err)
-			}
-		} else if mode == "mismatch" {
-			if detail.Code != "artifact_mismatch" || detail.Stage != "artifact_validation" || !strings.Contains(err.Error(), "expected SHA256") || !strings.Contains(err.Error(), "got") {
-				t.Fatal(err)
-			}
-		} else {
-			if detail.Code != "guest_connection" || detail.Stage != "guest_ready" || !errors.Is(err, io.EOF) || !strings.Contains(err.Error(), "SSSE3") || !strings.Contains(err.Error(), "matching platform bundle") {
-				t.Fatal(err)
-			}
-		}
-	}
-}
-
 func TestPublicForkTimingRetainsPreparationFailureAndNestedScopes(t *testing.T) {
 	t.Setenv("MARIAMEM_TIMING_DIR", t.TempDir())
 	traces := map[string]timing.Trace{}
@@ -558,7 +502,7 @@ func TestPublicForkTimingRetainsPreparationFailureAndNestedScopes(t *testing.T) 
 	if err == nil || db != nil {
 		t.Fatal("missing native input unexpectedly started", db, err)
 	}
-	if len(traces) != 3 || len(traces["native_verification"].Events) == 0 {
+	if len(traces) != 2 {
 		t.Fatal(traces)
 	}
 	api := traces["api_startup"].Events
@@ -574,48 +518,22 @@ func TestPublicForkTimingRetainsPreparationFailureAndNestedScopes(t *testing.T) 
 	}
 }
 
-// Unit builds carry no release tag; Options{} must never download an older guest.
-func TestDevelopmentStartupResolution(t *testing.T) {
-	t.Setenv("MARIAMEM_RUNTIME", "")
-	t.Setenv("MARIAMEM_NATIVE_DIR", "")
-	if configuredRuntime("") != "generated-go" {
-		t.Fatal("development builds must use built-in generated-Go")
-	}
-
-}
-func TestStartupEnvironmentOverride(t *testing.T) {
-	missing := filepath.Join(t.TempDir(), "environment-bundle")
-	t.Setenv("MARIAMEM_NATIVE_DIR", missing)
-	_, err := Start(context.Background(), Options{})
-	if err == nil || !strings.Contains(err.Error(), missing) {
-		t.Fatal(err)
-	}
-	explicit := filepath.Join(t.TempDir(), "explicit-bundle")
-	_, err = Start(context.Background(), Options{NativeDir: explicit})
-	if err == nil || !strings.Contains(err.Error(), explicit) {
-		t.Fatal(err)
-	}
-}
-
-func TestRuntimeSelectionCompatibility(t *testing.T) {
-	for _, tc := range []struct{ name, kind, env, dir, want string }{
-		{"default", "", "", "", "generated-go"},
-		{"explicit generated", "generated-go", "", "", "generated-go"},
-		{"development legacy", "wasmer", "", "", "wasmer"},
-		{"NativeDir compatibility", "", "", "bundle", "wasmer"},
-		{"environment compatibility", "", "bundle", "", "wasmer"},
-		{"explicit override precedence", "generated-go", "", "bundle", "wasmer"},
+func TestRetiredRuntimeOverrides(t *testing.T) {
+	for _, tc := range []struct{ dir, native, kind string }{
+		{"bundle", "", ""}, {"", "bundle", ""}, {"", "", "wasmer"}, {"", "", "unknown"},
 	} {
-		t.Run(tc.name, func(t *testing.T) {
-			t.Setenv("MARIAMEM_RUNTIME", tc.kind)
-			t.Setenv("MARIAMEM_NATIVE_DIR", tc.env)
-			if string(configuredRuntime(tc.dir)) != tc.want {
-				t.Fatal(configuredRuntime(tc.dir))
-			}
-		})
+		t.Setenv("MARIAMEM_NATIVE_DIR", tc.native)
+		t.Setenv("MARIAMEM_RUNTIME", tc.kind)
+		_, err := Start(context.Background(), Options{NativeDir: tc.dir})
+		if err == nil || !strings.Contains(err.Error(), "generated-Go") {
+			t.Fatal(err)
+		}
 	}
-	t.Setenv("MARIAMEM_RUNTIME", "unknown")
-	if _, err := Start(context.Background(), Options{}); err == nil || !strings.Contains(err.Error(), "runtime kind") {
-		t.Fatal(err)
+	t.Setenv("MARIAMEM_NATIVE_DIR", "")
+	for _, kind := range []string{"", "generated-go"} {
+		t.Setenv("MARIAMEM_RUNTIME", kind)
+		if err := rejectLegacyRuntime(""); err != nil {
+			t.Fatal(err)
+		}
 	}
 }

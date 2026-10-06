@@ -1,5 +1,9 @@
 # v0.4 integration readiness audit
 
+> Historical Wasmer/migration reference. Current runtime, verification and roadmap
+> are documented in [project status](project-status.md) and
+> [development](development.md); this is not a supported fallback workflow.
+
 **Historical pre-direct-link audit.** This report preserves the earlier
 selected-bundle/subprocess boundary and its then-pending work. v0.4.0 is now
 published with direct-link Go and host-only wheels; the classifications below

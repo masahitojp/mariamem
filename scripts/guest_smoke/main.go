@@ -1,11 +1,10 @@
-// Guest build boundary check: exercise a transferred WASM after macOS AOT.
+// Generated-Go guest smoke; no external bundle or runtime selector.
 package main
 
 import (
 	"context"
 	"database/sql"
 	"fmt"
-	"os"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -13,12 +12,9 @@ import (
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		panic("usage: x86_guest_smoke NATIVE_DIR")
-	}
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
-	db, err := mariamem.Start(ctx, mariamem.Options{NativeDir: os.Args[1]})
+	db, err := mariamem.Start(ctx, mariamem.Options{})
 	if err != nil {
 		panic(err)
 	}
