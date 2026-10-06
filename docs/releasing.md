@@ -1,7 +1,7 @@
 # Releasing mariamem
 
-The canonical package version is `v0.4.2`; Python spelling is `0.4.2`.
-The [tracked notes](../release/NOTES-v0.4.2.md) describe this version. A normal
+The canonical package version is `v0.4.3`; Python spelling is `0.4.3`.
+The [tracked notes](../release/NOTES-v0.4.3.md) describe this version. A normal
 release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
 
@@ -146,7 +146,7 @@ silent rebuild fallback in manually selected reuse modes. The publisher's local
 
 Previously, the documented verify-before-release ceremony repeated builds and
 acceptance, while manual reuse required run IDs. In
-[this v0.4.2 reuse attempt](https://github.com/masahitojp/mariamem/actions/runs/37380087403),
+[this v0.4.3 reuse attempt](https://github.com/masahitojp/mariamem/actions/runs/37380087403),
 READY succeeded but publication was skipped: the publication/smoke job conditions
 inherited the implicit `success()` check across skipped build ancestors. Explicit
 status conditions now permit the reuse path while still requiring successful
@@ -193,7 +193,7 @@ Full generated guest `-race` remains **GENERAL SHARED-MEMORY MODEL WORK REQUIRED
 no suppression is used and it is not a v0.4 release gate. Focused handwritten
 FD/MemFS/thread/TLS/futex race coverage remains enabled in normal integration CI.
 Forced query-timeout reclamation/hard failure containment is not guaranteed.
-The ~1s legal guest-side startup tail remains observable. v0.4.2 releases its
+The ~1s legal guest-side startup tail remains observable. v0.4.3 releases its
 mmap-backed linear memory after cooperative join; remaining Go filesystem/metadata
 heap and OS accounting still differ from live allocations. Go1.27.0/1.27.1 arm64
 are unsupported due to the documented upstream

@@ -158,30 +158,40 @@ heap, RSS/physical footprint, FDs and goroutines. Keep different isolation
 contracts explicit. Existing [suite comparisons](../benchmarks/practical-suite-comparison.md)
 are reference evidence, not acceptance of a new memory implementation.
 
-## 6. v0.4.3 — Architecture consolidation + Product validation
+## 6. v0.4.3 — Architecture consolidation and characterization
 
-**Retire legacy Wasmer if generated-Go is proven sufficient, and validate the
-product value of Disposable isolation.** Wasmer is no longer a normal
-user-selectable product runtime; the prior explicit fallback was migration/development residue, not a second
-long-term product architecture. Track A on this branch removes live execution,
-provisioning and native packaging; it awaits Human Review before merge.
+The release candidate retires live Wasmer execution, NativeDir/bundle resolution,
+cache/provisioning, legacy executable packaging and legacy release gates.
+**generated-Go is the only supported production runtime.** Legacy selectors are
+rejected; historical reports/tags and disabled reference tooling remain, not a
+supported second runtime. Required guest/converter/source licenses remain.
+See the [retirement review](../benchmarks/v043-retirement-current.md).
 
-Once the sufficiency/removal decision is made, retire unneeded NativeDir and
-bundle resolver/cache, Wasmer startup, legacy bundle packaging, and
-Wasmer-specific tests/gates/docs/licenses. Preserve required upstream licensing
-and historical tags/reports as comparison references rather than maintaining a
-second live runtime indefinitely. The roadmap alone did not remove the previous fallback; this independent
-retirement candidate makes that change explicit and reviewable.
+Snapshot captures cold prepared files; Fork starts a fresh MariaDB runtime.
+Prepared contents use private file-backed mappings (`MAP_PRIVATE`), allowing
+OS page-level CoW. No running heap/threads/TLS/locks/stacks are cloned, no custom
+CoW filesystem is implemented, and mariamem Fork is not Unix `fork()`.
+Metadata, dirty pages, anonymous linear memory and InnoDB state are child-owned;
+OS sharing is not a public memory-usage guarantee.
 
-Product validation asks whether **fresh-instance isolation becomes cheap enough
-that users choose disposal over cleanup discipline**. Compare wall time together
-with isolation contract, cleanup/reset responsibility, test coupling, failure
-aftermath, resource cost, review complexity, Docker/runtime dependency and
-first-use/build cost. Any benefit for coding-agent authored tests remains a
-hypothesis to validate, not a product claim derived from latency alone.
+Measured Fork→ready includes roughly **53–62% inventory/hash validation**, about
+**1 ms mapping**, and about **35 ms minimal server initialization**. Nested
+InnoDB/plugin/open timers overlap and must not be added independently. Validation
+is an integrity design cost; these measurements do not authorize its removal.
+The 100 MiB COUNT cost is a recurring broad scan through a 16 MiB InnoDB buffer
+pool, not hidden Fork-only initialization: Fresh is comparable and immediate
+second COUNT remains slow. Snapshot bulk export/copy/hash and COUNT scan/read/
+synchronization are different mechanisms. See the
+[characterization and guidance](../benchmarks/v043-characterization.md).
 
-Results guide future priorities. They do not block release merely because an
-alternative is faster under a different isolation model.
+Small/light setup often favors Fresh; expensive migrations/business fixtures can
+be amortized with Snapshot/Fork. Large parallel prepared workloads gain isolated
+mutable children and OS sharing of clean pages, while workload reads still cost.
+These are measured guidance, not permanent crossover/performance promises.
+No Snapshot API, ownership or validation optimization is selected in this release.
+Product-validation comparisons and future optimization require separate evidence;
+AI test/review benefits remain a hypothesis. Exact-final-source artifact and
+platform qualification belongs to the one-shot release operation.
 
 ## 7. v0.5.0 — Stable guest
 
@@ -225,7 +235,7 @@ These are maintainer practices, not extra v0.4.1 runtime scope.
 
 ## 10. Longer-term options
 
-CoW/immutable Snapshot views, runtime sharing, stronger hard failure containment,
+Runtime-state CoW/immutable Snapshot ownership, runtime sharing, stronger hard failure containment,
 higher session capacity and broader platforms remain evidence-driven options.
 They are not selected version goals. The selected mmap lifecycle design and its
 validated limits belong to the v0.4.2 section above. Ready-heap/live-worker reentry

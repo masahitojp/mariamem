@@ -25,14 +25,14 @@ Snapshot source handle remains retained. No finalizer/GC dependency is introduce
 Cold filesystem copying pre-sizes a private exclusive destination with existing
 ftruncate, using its stable source size before the 64 KiB copy loop. Empty/sparse
 contents, offsets, grow/truncate, directory identity, rename/name reuse, independent
-Fork state and shutdown are verified. This is allocation reduction, not CoW or a
+Fork state and shutdown are verified. This is allocation reduction, not a new runtime-state CoW mechanism or a
 Snapshot format/API change. Guest source and generated artifacts are rebuilt with
 pinned LLVM23/WASIX/wasm2go inputs; release/generated-go-build.json and
 release/generated-go-translation.json record the new canonical input provenance.
 Substantial immediate post-Close physical accounting persists independently of
 live Go-object ownership. No production GC, mmap or allocator tuning is added.
 
-## v0.4.2 memory lifecycle candidate
+## Released v0.4.2 memory lifecycle
 
 The accepted design scopes correctness to released pure memory32. Generic
 non-wrapping effective addresses and width-aware logical bounds checks cover
@@ -44,7 +44,7 @@ On macOS arm64 and Ubuntu 24.04 x86_64, each instance reserves a stable 2 GiB
 anonymous mapping, initially enables 256 MiB, and enables additional zero-filled
 ranges before publishing logical growth. Host imports receive logical views.
 Close releases the mapping exactly once after workers join; failed unmap retains
-retryable ownership. No Go-heap 2 GiB backing, GC policy, CoW or Snapshot format
+retryable ownership. No Go-heap 2 GiB backing, GC policy, runtime-state CoW or Snapshot format
 change is introduced. Native contract/product acceptance and bounded lifecycle
 results are in the [accepted report](https://github.com/masahitojp/mariamem/blob/dc939de87087cadf229f017c1a5942496aae45da/benchmarks/v042-production-candidate.md).
 Final release-artifact verification is still required. Memory64 and
@@ -290,3 +290,27 @@ CLI support for generated diagnostics remains internal. The v0.4.3 Track A
 candidate removes Wasmer execution/provisioning and active legacy build workflows,
 with historical reports and benchmark mechanics retained. No merge/release is
 implied; see the [retirement review](../benchmarks/v043-wasmer-retirement.md).
+
+## v0.4.3 consolidation and prepared-file sharing
+
+Generated-Go is the only supported production execution path. Wasmer runtime
+selection, bundle resolution/provisioning and native executable packaging are
+retired; historical reports and disabled reference tools remain intentionally.
+
+Snapshot exports and inventories cold prepared files. Fork validates them, then
+`MapPreparedFiles` (`internal/generatedgo/code/base/prepared_files.go`) creates
+independent MemFS nodes with `PROT_READ|PROT_WRITE`, file-backed `MAP_PRIVATE`
+views of the same prepared files. Clean pages can be OS-shared; writes are private.
+Growth beyond a view can allocate and copy into Go storage (`memfs_growth.go`).
+Close releases child mappings after guest/worker shutdown. Snapshot export and
+publication do perform eager materialization/copy/inventory/hash work.
+
+Fork constructs new MariaDB execution, anonymous linear memory, threads, TLS,
+locks and stacks. It does not clone a running runtime, implement a custom CoW
+filesystem or call Unix `fork()`. OS page-level CoW is an implementation detail,
+not a zero-incremental-memory guarantee. Filesystem metadata, modified pages and
+MariaDB/InnoDB state may remain private.
+
+Measured Fork validation dominates much of ready latency; mapping itself is
+small. Broad COUNT scans are workload cost, separate from readiness and Snapshot
+export. See [v0.4.3 characterization](../benchmarks/v043-characterization.md).

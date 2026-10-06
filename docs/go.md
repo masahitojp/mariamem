@@ -1,6 +1,6 @@
 # Go API
 
-**Direct-linked generated Go is the default v0.4.2 runtime.** Ordinary Go
+**Direct-linked generated Go is the default v0.4.3 runtime.** Ordinary Go
 usage needs no NativeDir, bundle cache/download or external Wasmer. Generated
 Go is a normal module dependency/build input; WASM is a build intermediate.
 Existing public APIs and cold Snapshot/Fork semantics are preserved.
@@ -10,13 +10,13 @@ See [architecture](v04-generated-go-architecture.md) and
 The public package is `mariamem` at the module root. The module requires Go
 1.26.0+; canonical validation uses Go 1.26.8. Go 1.27.0/1.27.1 arm64 are
 unsupported because of upstream compiler issue #81036; no local workaround is
-used. An upstream-fixed toolchain has been verified. v0.4.2 is released.
+used. An upstream-fixed toolchain has been verified. v0.4.3 is released.
 
 ```sh
 mkdir mariamem-example
 cd mariamem-example
 go mod init example.com/mariamem-example
-go get github.com/masahitojp/mariamem@v0.4.2
+go get github.com/masahitojp/mariamem@v0.4.3
 go get github.com/go-sql-driver/mysql
 ```
 
@@ -31,8 +31,8 @@ default. Once normal Go dependencies are available, startup needs no download.
 Optional release audit assets are available separately:
 
 ```sh
-gh release download v0.4.2 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.2-provenance.json'
+gh release download v0.4.3 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.3-provenance.json'
 ```
 
 ## Retired legacy overrides
