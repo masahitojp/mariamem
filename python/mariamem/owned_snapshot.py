@@ -21,8 +21,16 @@ def _manifest(root):
     if not stat.S_ISREG(manifest.lstat().st_mode):
         raise ValueError("Snapshot manifest must be a regular file")
     data = json.loads(manifest.read_text())
-    if data.get("format") != "mariamem-cold-snapshot" or data.get("version") != 1 or data.get("source_storage") != "memory":
+    if not isinstance(data, dict):
+        raise ValueError("Snapshot manifest must be an object")
+    if data.get("format") != "mariamem-cold-snapshot" or type(data.get("version")) is not int or data["version"] != 1 or data.get("source_storage") != "memory":
         raise ValueError("Unsupported snapshot format")
+    entries = data.get("entries")
+    if not isinstance(entries, dict):
+        raise ValueError("Snapshot inventory must be an object")
+    for entry in entries.values():
+        if not isinstance(entry, dict) or (entry.get("kind") == "file" and type(entry.get("bytes")) is not int):
+            raise ValueError("Snapshot inventory has invalid field types")
     return data
 
 

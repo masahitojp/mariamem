@@ -90,7 +90,7 @@ def artifact(tmp_path_factory):
     return path
 
 
-@pytest.mark.parametrize("damage", ["content", "missing", "extra", "truncate", "guest", "format", "symlink"])
+@pytest.mark.parametrize("damage", ["content", "missing", "extra", "truncate", "guest", "format", "bool-version", "float-version", "float-size", "symlink"])
 def test_import_rejects_at_boundary(artifact, tmp_path, damage):
     path = tmp_path / "input"
     shutil.copytree(artifact, path)
@@ -104,9 +104,14 @@ def test_import_rejects_at_boundary(artifact, tmp_path, damage):
         (path / "data/extra").write_bytes(b"extra")
     elif damage == "truncate":
         victim.write_bytes(b"")
-    elif damage in ("guest", "format"):
+    elif damage in ("guest", "format", "bool-version", "float-version", "float-size"):
         manifest = json.loads((path / "manifest.json").read_text())
-        manifest["wasm_sha256" if damage == "guest" else "version"] = "f" * 64 if damage == "guest" else 999
+        if damage == "float-size":
+            entry = next(v for v in manifest["entries"].values() if v["kind"] == "file")
+            entry["bytes"] = float(entry["bytes"])
+        else:
+            key = "wasm_sha256" if damage == "guest" else "version"
+            manifest[key] = {"guest": "f" * 64, "format": 999, "bool-version": True, "float-version": 1.0}[damage]
         (path / "manifest.json").write_text(json.dumps(manifest))
     else:
         victim.unlink()

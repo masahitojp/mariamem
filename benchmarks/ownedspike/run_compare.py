@@ -20,6 +20,7 @@ def main():
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--trials", type=int, default=3)
     p.add_argument("--forks", type=int, default=16)
+    p.add_argument("--phase", choices=("both", "import"), default="both")
     p.add_argument("--correctness-passed", action="store_true", required=True)
     a = p.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
@@ -29,7 +30,7 @@ def main():
                 "candidate": (a.candidate_bench, a.candidate_host, root / "python")}
     for size in (0, 10, 100):
         external = a.scratch / f"external-{size}"
-        for trial in range(a.trials):
+        for trial in range(a.trials if a.phase == "both" else 0):
             order = ("baseline", "candidate") if trial % 2 == 0 else ("candidate", "baseline")
             for label in order:
                 print(f"Go size={size} trial={trial} {label}", flush=True)
