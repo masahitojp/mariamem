@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -137,5 +138,21 @@ func TestNestedStartupScopesAndDeferredObservation(t *testing.T) {
 	events := traces["startup"].Events
 	if events[1].Offset > events[2].Offset {
 		t.Fatal(events)
+	}
+}
+
+func TestLinkedGuestDiagnosticBytesOwnCopyAndRejectInvalid(t *testing.T) {
+	t.Setenv("MARIAMEM_TIMING_DIR", t.TempDir())
+	var saved Trace
+	ctx := WithRecorder(context.Background(), func(trace Trace) { saved = trace })
+	ctx, finish := Begin(ctx, "linked-diagnostic")
+	data := []byte(`{"version":1}`)
+	ReadGuestBytes(ctx, data)
+	data[0] = '!'
+	ReadGuestBytes(ctx, []byte("invalid"))
+	ReadGuestBytes(ctx, []byte(`{"oversized":"`+strings.Repeat("x", 128*1024)+`"}`))
+	finish()
+	if string(saved.Guest) != `{"version":1}` {
+		t.Fatalf("guest=%s", saved.Guest)
 	}
 }
