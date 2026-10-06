@@ -463,7 +463,8 @@ jobs:
         env:
           GOMAXPROCS: '2'
         run: |
-          go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/snapshot -count=1 > "$SPIKE/evidence/race.txt" 2>&1
+          cc -O2 -o "$SPIKE/process_cost" benchmarks/tools/process_cost.c
+          MARIAMEM_PROCESS_COST="$SPIKE/process_cost" go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/snapshot -count=1 -v > "$SPIKE/evidence/race.txt" 2>&1
       - name: Real Go isolation, generations, order and lifecycle
         env:
           GOMAXPROCS: '2'

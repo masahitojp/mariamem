@@ -1,15 +1,44 @@
 package base
 
 import (
+	"encoding/json"
 	"io"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"strconv"
 	"syscall"
 	"testing"
 
 	"github.com/masahitojp/mariamem/internal/prepared"
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
 )
+
+func ownedFileMappings(t *testing.T) uint64 {
+	t.Helper()
+	helper := os.Getenv("MARIAMEM_PROCESS_COST")
+	if helper == "" {
+		t.Log("OS file-map counter omitted; acceptance sets MARIAMEM_PROCESS_COST")
+		return 0
+	}
+	pid := strconv.Itoa(os.Getpid())
+	b, e := exec.Command(helper, pid).Output()
+	if e != nil {
+		t.Fatal(e)
+	}
+	var result map[string]struct {
+		Bytes uint64 `json:"file_mapping_bytes"`
+		Error string `json:"error"`
+	}
+	if e = json.Unmarshal(b, &result); e != nil {
+		t.Fatal(e)
+	}
+	value, ok := result[pid]
+	if !ok || value.Error != "" {
+		t.Fatalf("OS mapping counters unavailable: %s", b)
+	}
+	return value.Bytes
+}
 
 func TestOwnedPrivateViewsGrowthAndRelease(t *testing.T) {
 	transfer := t.TempDir()
@@ -106,9 +135,15 @@ func TestOwnedPartialMappingFailure(t *testing.T) {
 		t.Fatal(e)
 	}
 	entries := []prepared.Entry{{Name: ".", FD: -1, Directory: true}, {Name: "seed", FD: int(f.Fd()), Size: 8192}, {Name: "invalid", FD: -1, Size: 8192}}
+	before := ownedFileMappings(t)
 	for i := 0; i < 100; i++ {
 		if p, e := MapPreparedHandles(NewMemFS(), entries, "db"); e == nil || p != nil {
 			t.Fatal("partial mapping accepted")
 		}
+	}
+	after := ownedFileMappings(t)
+	t.Logf("100 partial mapping failures: file-backed VM bytes %d -> %d", before, after)
+	if after != before {
+		t.Fatal("partial mapping failure retained file-backed VM")
 	}
 }
