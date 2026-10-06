@@ -4,6 +4,11 @@ This is development housekeeping on `v0.4/generated-go-integration`, from
 `b7bdf27fbf54a2fab3a352136a193aa09cf2766f`. It changes neither production
 runtime selection nor release publication.
 
+> Historical cleanup record, not current retention policy. The
+> [disposable workspace policy](experiment-workspace.md) supersedes cache KEEP and
+> unknown-directory retention below: preserve compact knowledge, then delete
+> recreatable state. The inventories remain unchanged as historical evidence.
+
 ## Keep source separate from disposable outputs
 
 From the public repository root, the local workspace convention is:

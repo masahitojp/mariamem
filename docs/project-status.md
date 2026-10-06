@@ -205,10 +205,12 @@ compatibility before running the consumers on supported platforms.
 ## 9. Maintainer / tooling direction
 
 Experiment workspaces should themselves be disposable. Preserve compact reports,
-JSON/CSV evidence, checksums and selected unique profiles; retain reusable
-expensive caches instead of unlimited raw outputs, regenerated sources and build
-residue. Use explicit disk budgets, free-space/resource guards and safe cleanup
-of completed worktrees and failed-run scratch.
+JSON/CSV evidence, checksums, selected unique profiles and reproduction inputs.
+Recreatable caches and completed build/worktree state are disposable; regeneration
+cost alone is not a KEEP reason. Experiment completion includes cleanup and
+verification of retained state. Use explicit disk budgets/free-space guards and
+resolve unexplained multi-GiB residue as cleanup debt. See the
+[workspace policy](experiment-workspace.md).
 
 Script repeated benchmark mechanics: workload/trials, fresh-process boundaries,
 environment capture and comparable baselines. Turn repeated deterministic

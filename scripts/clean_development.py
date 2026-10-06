@@ -10,7 +10,9 @@ import shutil
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-# Explicit historical work outputs only. Never add source, caches or native inputs.
+# Fixed historical allowlist only; this helper is not the current classification policy.
+# For cache/worktree lifecycle use experiment_workspace.py and docs/experiment-workspace.md.
+# Do not broaden this allowlist to source or current native inputs.
 WORK_PATHS = ('build/generated-go-integration/final-stable-candidate',
  'build/generated-go-integration/llvm23-inspection',
  'build/generated-go-integration/llvm23-probe',
