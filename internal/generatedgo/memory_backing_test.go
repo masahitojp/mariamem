@@ -3,6 +3,7 @@
 package generatedgo
 
 import (
+	"context"
 	"encoding/binary"
 	"io"
 	"os"
@@ -184,7 +185,7 @@ func TestMappedMemoryInitializationFailure(t *testing.T) {
 	}
 	for i := 0; i < 3; i++ {
 		// Restore failure occurs before reserve; missing prepared source must not leak.
-		if err := <-StartInstance(strings.NewReader(""), io.Discard, io.Discard, "", t.TempDir()+"/missing", false); err == nil {
+		if err := <-StartInstance(context.Background(), strings.NewReader(""), io.Discard, io.Discard, "", t.TempDir()+"/missing", false); err == nil {
 			t.Fatal("expected failed restore")
 		}
 	}

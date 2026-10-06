@@ -2,14 +2,17 @@
 package generatedgo
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"path/filepath"
 	"sync"
 
 	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 var libraryMode sync.Once
@@ -17,11 +20,17 @@ var libraryMode sync.Once
 // StartInstance owns fresh execution/FS state. Completion includes all guest
 // workers, descriptor cleanup, snapshot export and prepared mapping release.
 // It does not serialize execution or forcibly kill non-cooperative Go workers.
-func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string, guestTiming bool) <-chan error {
+func StartInstance(ctx context.Context, in io.Reader, out, stderr io.Writer, transfer, restore string, guestTiming bool) <-chan error {
 	// CLI diagnostic entrypoints are separate command modes, not library calls.
 	libraryMode.Do(func() { diagnostic = false })
 	done := make(chan error, 1)
 	go func() {
+		scope := "generated_fresh_lifetime"
+		if restore != "" {
+			scope = "generated_restore_lifetime"
+		}
+		lifetimeCtx, finishLifetime := timing.Begin(ctx, scope)
+		defer finishLifetime()
 		var err error
 		defer func() {
 			if p := recover(); p != nil {
@@ -29,6 +38,7 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string
 			}
 			done <- err
 		}()
+		timing.Mark(ctx, "generated_instance_begin")
 		w := base.DefaultWASI()
 		fs := base.NewMemFS()
 		if err = fs.MkdirAll("dev", 0755); err != nil {
@@ -41,31 +51,50 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string
 		w.SetArgs([]string{"mariamem"})
 		w.SetEnv(nil)
 		if guestTiming {
-			w.SetEnv([]string{"MARIAMEM_GUEST_TIMING=1"})
+			env := []string{"MARIAMEM_GUEST_TIMING=1"}
+			if os.Getenv("MARIAMEM_INIT_DIAGNOSTICS") == "1" {
+				env = append(env, "MARIAMEM_INIT_DIAGNOSTICS=1")
+			}
+			w.SetEnv(env)
 		}
 		w.SetStdin(in)
 		w.SetStdout(out)
 		w.SetStderr(stderr)
 		var maps *base.PreparedFiles
 		defer func() { err = errors.Join(err, w.CloseDescriptors(), maps.Close()) }()
+		timing.Mark(ctx, "prepared_view_begin")
 		if restore != "" {
 			maps, err = base.MapPreparedFiles(fs, filepath.Join(restore, "data"), "mariadb")
 			if err != nil {
 				return
 			}
 		}
+		timing.Mark(ctx, "prepared_view_ready")
 		h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
+		timing.Mark(ctx, "linear_memory_begin")
 		m, release, allocErr := newMemoryModule(h)
 		if allocErr != nil {
 			err = allocErr
 			return
 		}
 		defer releaseMemoryModule(m, release, &err)
+		timing.Mark(ctx, "linear_memory_ready")
+		timing.Mark(ctx, "generated_guest_enter")
 		if err = executeGuest(m, generated.Start); err != nil {
 			return
 		}
 		if transfer != "" {
 			err = exportTransfer(fs, transfer)
+			// Collect only after cooperative guest/worker join, outside ready timing.
+			if timing.Enabled(lifetimeCtx) {
+				if f, e := fs.OpenFile("snapshot-out/startup-timing.json", os.O_RDONLY, 0); e == nil {
+					data, e := io.ReadAll(io.LimitReader(f, 128*1024+1))
+					_ = f.Close()
+					if e == nil {
+						timing.ReadGuestBytes(lifetimeCtx, data)
+					}
+				}
+			}
 		}
 	}()
 	return done

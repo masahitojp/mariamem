@@ -95,11 +95,20 @@ func Runtime(ctx context.Context, pid int) {
 // ReadGuest copies an optional record after ready, without changing startup success.
 // The benchmark validates its schema; old guests simply leave the scope absent.
 func ReadGuest(ctx context.Context, transfer string) {
-	if t, ok := ctx.Value(key{}).(*Trace); ok {
-		data, err := os.ReadFile(filepath.Join(transfer, "startup-timing.json"))
-		if err == nil && len(data) <= 128*1024 && json.Valid(data) {
-			t.Guest = data
-		}
+	if !Enabled(ctx) {
+		return
+	}
+	data, err := os.ReadFile(filepath.Join(transfer, "startup-timing.json"))
+	if err == nil {
+		ReadGuestBytes(ctx, data)
+	}
+}
+
+// ReadGuestBytes records linked guest diagnostics collected after worker join.
+// The linked filesystem is private; diagnostics need not materialize on disk.
+func ReadGuestBytes(ctx context.Context, data []byte) {
+	if t, ok := ctx.Value(key{}).(*Trace); ok && len(data) <= 128*1024 && json.Valid(data) {
+		t.Guest = append(json.RawMessage(nil), data...)
 	}
 }
 

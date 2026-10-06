@@ -31,7 +31,7 @@ func startLinked(ctx context.Context, module, transfer, restore string, stderr i
 		return nil, err
 	}
 	timing.Mark(ctx, "linked_execution_begin")
-	execution := generatedgo.StartInstance(childIn, childOut, logs, transfer, restore, timing.Enabled(ctx))
+	execution := generatedgo.StartInstance(ctx, childIn, childOut, logs, transfer, restore, timing.Enabled(ctx))
 	return Connect(ctx, in, out, execution, func() {
 		childIn.Close()
 		childOut.Close()
