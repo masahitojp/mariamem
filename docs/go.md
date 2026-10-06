@@ -10,7 +10,7 @@ See [architecture](v04-generated-go-architecture.md) and
 The public package is `mariamem` at the module root. The module requires Go
 1.26.0+; canonical validation uses Go 1.26.8. Go 1.27.0/1.27.1 arm64 are
 unsupported because of upstream compiler issue #81036; no local workaround is
-used. An upstream-fixed toolchain has been verified. v0.4.3 is released.
+used. An upstream-fixed toolchain has been verified. v0.4.3 is prepared as a release candidate; tag installation follows publication.
 
 ```sh
 mkdir mariamem-example

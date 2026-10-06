@@ -402,8 +402,7 @@ or a decision about the next architecture.
 
 [Canonical production direct-link baseline](v04-direct-link-baseline.md) supersedes
 selected-bundle/native-image spike numbers for ordinary Go. Use
-`v04_candidate.py --runs 30 --scaling-runs 10` without `--native-dir`, then the
-unchanged installed-wheel `v04_orm.py --runs 3`, sequentially. Clear native/runtime
+`v04_candidate.py --runs 30 --scaling-runs 10` without `--native-dir`, and choose any additional consumer suite only for a concrete changed boundary. Clear native/runtime
 overrides rather than setting an empty Python native path. `v04_direct_link_report.py`
 records p50/p95 comparisons, RSS and historical physical-footprint boundaries,
 raw checksums and retained post-Close footprint. `--fresh-resources-only` is a
@@ -415,3 +414,14 @@ retains the diagnostic/evidence without suppression. The
 [current roadmap](../docs/project-status.md) owns the v0.4.2 memory-contract gate,
 v0.4.3 product comparison and v0.5 guest/toolchain race-census follow-up. The full
 race diagnostic is not a v0.4 release gate; observed races are not called harmless.
+
+## v0.4.3 closeout
+
+The [characterization](v043-characterization.md) separates prepared-file OS CoW,
+Fork integrity validation, Snapshot export and recurring query reads. The
+release baseline uses the unchanged `v04_candidate.py` public 1000-row scenario:
+30 startup trials and one measurement per parallel size 1/4/8/16, after existing
+warmups. This is a bounded final baseline, not another ORM/crossover campaign.
+Run no other performance benchmark on the same machine during this campaign.
+Historical Wasmer comparisons require historical tags; current selectors reject
+legacy inputs. `v04_orm.py` is an old v0.3 harness, not a current release gate.
