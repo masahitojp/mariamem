@@ -39,8 +39,8 @@ Medians in ms, first / immediate second:
 
 | Payload MiB | Prepared MiB | SELECT1 | PK lookup | <=8-row range | COUNT | Full payload CRC scan | Fresh COUNT |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| minimal | 138.08 | 0.55 / 0.50 | 1.06 / 0.79 | 1.01 / 0.81 | 1.24 / 0.74 | 0.91 / 0.74 | 0.58 / 0.58 |
-| 10 | 157.02 | 0.51 / 0.49 | 1.95 / 0.78 | 1.79 / 0.88 | 33.90 / 33.29 | 43.29 / 40.69 | 32.02 / 33.20 |
+| minimal | 138.08 | 0.55 / 0.50 | 1.06 / 0.78 | 1.01 / 0.81 | 1.24 / 0.74 | 0.91 / 0.74 | 0.58 / 0.58 |
+| 10 | 157.02 | 0.51 / 0.49 | 1.94 / 0.78 | 1.79 / 0.88 | 33.90 / 33.29 | 43.29 / 40.69 | 32.02 / 33.20 |
 | 100 | 262.02 | 0.63 / 0.74 | 2.02 / 0.83 | 2.48 / 0.92 | 337.84 / 357.12 | 455.85 / 411.13 | 351.61 / 353.88 |
 
 Connections are ~1ms. Small first table reads have ~1ms excess; this cannot
@@ -67,7 +67,7 @@ operation intervals exclude those checkpoints. Do not infer universally cold
 disk performance or private-copy bytes from these counters.
 
 Separate 100MiB first COUNT CPU profile:600ms sampled over503ms duration;
-300ms pthread_cond_signal,170ms pthread_cond_wait,60ms runtime.usleep,50ms
+300ms pthread_cond_signal,170ms pthread_cond_wait,50ms runtime.usleep,50ms
 memmove reached through memFile.ReadAt/Fd_pread. Synchronization/scheduling is
 prominent. The profile includes all process threads and the resource watchdog;
 short samples and cumulative overlap forbid treating percentages as precise
