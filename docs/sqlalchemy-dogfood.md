@@ -1,5 +1,9 @@
 # SQLAlchemy disposable-database dogfood
 
+> Historical Wasmer/migration reference. Current runtime, verification and roadmap
+> are documented in [project status](project-status.md) and
+> [development](development.md); this is not a supported fallback workflow.
+
 ## Result and scope
 
 The original SQLAlchemy blocker is fixed on this branch. SQLAlchemy's default

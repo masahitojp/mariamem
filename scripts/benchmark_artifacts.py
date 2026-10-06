@@ -166,6 +166,8 @@ def main():
     parser.add_argument('stage', choices=['wasm', 'aot'])
     parser.add_argument('--target', choices=['darwin-arm64', 'ubuntu24.04-x86_64'])
     args = parser.parse_args()
+    if args.stage == 'aot':
+        parser.error('Wasmer AOT measurement is historical; reproduce with the pinned historical tag')
     wasm_dir = ROOT / 'build/guest-wasm'
     if args.stage == 'aot' and not args.target:
         parser.error('AOT requires --target')

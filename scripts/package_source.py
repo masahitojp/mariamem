@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """Collect a source candidate without silently declaring legal completeness."""
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses docs/development.md.")
+
 import argparse
 import gzip
 import io

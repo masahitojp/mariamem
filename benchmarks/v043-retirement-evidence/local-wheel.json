@@ -1,0 +1,21 @@
+{
+  "wheel": "build/dist/mariamem-0.4.2-py3-none-macosx_15_0_arm64.whl",
+  "bytes": 49410485,
+  "sha256": "acb22052be19f89286b5a4e4894913ef3d979e24dadee987058a9adb030aca9c",
+  "binary_minimum_macos": {
+    "mariamem-host": "12.0.0"
+  },
+  "manifest": {
+    "version": 1,
+    "package_version": "0.4.2",
+    "platform": "darwin-arm64",
+    "minimum_macos": 15,
+    "runtime_kind": "generated-go",
+    "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+    "public_release_ready": false,
+    "sha256": {
+      "mariamem-host": "8e49f4239f25e5ede5059fc92d9a5d2cd975d78b0a5c0e98d3cfebe413720cd0"
+    }
+  },
+  "archive_checks_passed": true
+}

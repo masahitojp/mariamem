@@ -1,5 +1,9 @@
 # Diagnose Start EOF without changing production behavior
 
+> Historical Wasmer/migration reference. Current runtime, verification and roadmap
+> are documented in [project status](project-status.md) and
+> [development](development.md); this is not a supported fallback workflow.
+
 This tool was created for the unsupported macOS 12 guest-start investigation.
 Keep it for on-demand startup diagnosis; it is not part of ordinary development,
 release acceptance, or supported-platform verification. The VM example below is

@@ -4,7 +4,7 @@ import unittest
 import tempfile
 from pathlib import Path
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts'))
 import runtime_notices as common
 import linux_runtime_notices as linux
 

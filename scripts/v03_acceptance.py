@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """ORM and release-like zero-setup acceptance against exact current native/wheel bytes."""
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses docs/development.md.")
+
 import argparse
 import json
 import os

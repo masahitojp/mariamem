@@ -23,6 +23,7 @@ def main():
     p.add_argument('--scaling-runs',type=int,default=3)
     p.add_argument('--fresh-resources-only',action='store_true',help='separate Start CPU/ready physical-memory probe; does not mix with latency trials')
     a=p.parse_args()
+    if a.native_dir is not None: p.error('legacy runtime measurements require their pinned historical tag; omit NativeDir for generated-Go')
     if a.runs<30 or a.scaling_runs<1:p.error('30+ startup trials and positive scaling trials required')
     native=a.native_dir.resolve() if a.native_dir else None;out=a.json.resolve();out.parent.mkdir(parents=True,exist_ok=True)
     binary=ROOT/'build/bench/isolation-go';helper=ROOT/'build/bench/process-cost';binary.parent.mkdir(parents=True,exist_ok=True)

@@ -32,14 +32,10 @@ def test_default_acceptance_preserves_focused_runtime_race_gate(monkeypatch):
     assert any('tests/test_python_timeout.py::test_normal_close_is_idempotent' in c[0] for c in calls)
 
 
-def test_legacy_guest_keeps_race_gate_and_default_is_separate(monkeypatch, tmp_path):
-    for name in ('manifest.json', 'wasmer-headless', 'mariamem.wasmu', 'mariamem.wasmu.json'):
-        (tmp_path/name).write_text('legacy fixture')
+def test_retired_overrides_do_not_change_integration_gate(monkeypatch, tmp_path):
     calls = commands(monkeypatch, tmp_path)
-    legacy = next(c[0] for c in calls if './tests/gointegration' in c[0])
-    default = next(c[0] for c in calls if './tests/godefault' in c[0])
-    assert '-race' in legacy
-    assert '-race' not in default
-    assert '-race' in calls[0][0]
-    assert not any('./tests/generatedmemory' in c[0] for c in calls)
-    assert any('tests/test_python_timeout.py' in c[0] for c in calls)
+    for package in ('./tests/gointegration', './tests/godefault', './tests/generatedmemory'):
+        argv, env = next(c for c in calls if package in c[0])
+        assert '-race' not in argv
+        assert env['MARIAMEM_TEST_DEFAULT'] == '1'
+        assert 'MARIAMEM_NATIVE_DIR' not in env

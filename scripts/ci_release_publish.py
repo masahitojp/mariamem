@@ -9,9 +9,8 @@ import shutil
 import subprocess
 import tempfile
 
-from check_ci_release import require
+from generated_release import require, check_aggregate, expected_names, CONTRACT
 from common import ROOT, digest
-from ci_release_platforms import check_aggregate, expected_names as multi_asset_names
 
 
 def command(args, root):
@@ -37,15 +36,10 @@ def prepare(root, commit, notes, ready_path=None):
     require(not command(["git", "status", "--porcelain", "--untracked-files=no"], root),
             "candidate checkout has tracked changes")
     ready = json.loads((ready_path or root / "build/release/ci-ready.json").read_text())
-    require(ready.get("version") in (2, 3), "publication requires aggregate platform READY")
-    if ready.get('version') == 3:
-        from generated_release import check_aggregate as generated_check, expected_names, CONTRACT
-        require(ready.get('contract') == CONTRACT, 'unknown aggregate artifact contract')
-        checked = generated_check(root, commit)
-        asset_names = expected_names
-    else:
-        checked = check_aggregate(root, commit)
-        asset_names = multi_asset_names
+    require(ready.get("version") == 3, "publication requires generated-Go aggregate platform READY")
+    require(ready.get('contract') == CONTRACT, 'unknown aggregate artifact contract')
+    checked = check_aggregate(root, commit)
+    asset_names = expected_names
     require(ready == checked and ready.get("result") == "READY", "READY evidence differs from current guard")
     version = runpy.run_path(str(root / "python/mariamem/_version.py"))
     require(ready["source_commit"] == commit and ready["git_tag"] == version["GIT_TAG"]

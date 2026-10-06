@@ -1,4 +1,4 @@
-//go:build integration
+//go:build historical_wasmer
 
 package gointegration_test
 

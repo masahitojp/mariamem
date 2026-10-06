@@ -5,7 +5,7 @@ import sys
 
 import pytest
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 from ci_guest_source import verify_ci_guest_source  # noqa: E402
 from common import digest  # noqa: E402

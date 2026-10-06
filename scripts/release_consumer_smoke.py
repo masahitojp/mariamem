@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 """Exact frozen candidate/public assets through clean Go and installed-wheel consumers."""
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer consumer reference; use its historical tag. Current consumers use generated_release_acceptance.py.")
+
 import argparse
 import json
 import os

@@ -17,32 +17,37 @@ import (
 	"github.com/masahitojp/mariamem/internal/snapshot"
 )
 
-// The test executable acts as a guest to deterministically fail publication
-// after export, without requiring MariaDB or introducing production test hooks.
-func TestMain(m *testing.M) {
-	if len(os.Args) > 2 && os.Args[1] == "run" {
+// In-memory framed fixtures exercise export/publication failure without a
+// second runtime or production function/address-specific hooks.
+func snapshotGuest(ctx context.Context, mode, destination string) (*guest.Process, error) {
+	childIn, in := io.Pipe()
+	out, childOut := io.Pipe()
+	completed := make(chan error, 1)
+	go func() {
+		defer childIn.Close()
+		defer childOut.Close()
 		send := func(result map[string]any) {
 			b, _ := json.Marshal(map[string]any{"request_id": 0, "result": result})
-			_ = binary.Write(os.Stdout, binary.LittleEndian, uint32(len(b)))
-			_, _ = os.Stdout.Write(b)
+			_ = binary.Write(childOut, binary.LittleEndian, uint32(len(b)))
+			_, _ = childOut.Write(b)
 		}
 		send(map[string]any{"ready": true, "api_version": 2, "max_sessions": 16, "snapshot_version": 1})
 		var op uint32
-		if binary.Read(os.Stdin, binary.LittleEndian, &op) != nil {
-			os.Exit(1)
-		}
-		if op == 0xfffffffe {
-			if os.Args[2] == "publish-failure" {
-				// Data copy and inventory validation succeed; writing manifest.pending fails.
-				if os.Mkdir(filepath.Join(os.Getenv("WASMER_DIR"), "manifest.pending"), 0700) != nil {
-					os.Exit(2)
-				}
+		err := binary.Read(childIn, binary.LittleEndian, &op)
+		if err == nil && op == 0xfffffffe {
+			if mode == "publish-failure" {
+				err = os.Mkdir(filepath.Join(destination, "manifest.pending"), 0700)
 			}
-			send(map[string]any{"snapshot": os.Args[2] != "export-failure", "snapshot_version": 1})
+			send(map[string]any{"snapshot": mode != "export-failure", "snapshot_version": 1})
 		}
-		os.Exit(0)
-	}
-	os.Exit(m.Run())
+		childIn.Close()
+		childOut.Close()
+		if errors.Is(err, io.EOF) {
+			err = nil
+		}
+		completed <- err
+	}()
+	return guest.Connect(ctx, in, out, completed, nil, io.Discard)
 }
 
 type unusedListener struct{}
@@ -71,13 +76,9 @@ func TestSnapshotDestination(t *testing.T) {
 					t.Fatal(err)
 				}
 			}
-			executable, err := os.Executable()
-			if err != nil {
-				t.Fatal(err)
-			}
 			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 			defer cancel()
-			p, err := guest.Start(ctx, executable, mode, destination, transfer, "", io.Discard)
+			p, err := snapshotGuest(ctx, mode, destination)
 			if err != nil {
 				t.Fatal(err)
 			}

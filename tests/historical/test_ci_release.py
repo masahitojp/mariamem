@@ -5,7 +5,7 @@ import sys
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from check_ci_release import NATIVE, NATIVE_FILES, verify_native_acceptance
 from platform_acceptance import STEPS
 

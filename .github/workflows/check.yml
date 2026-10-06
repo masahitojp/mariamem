@@ -24,11 +24,6 @@ jobs:
   integration:
     runs-on: macos-15
     timeout-minutes: 15
-    # Tests this checkout's Go host/Python wrapper against the accepted alpha.2 guest.
-    # Guest source changes still need a separately rebuilt bundle and manual integration.
-    env:
-      NATIVE_URL: https://github.com/masahitojp/mariamem/releases/download/v0.1.0-alpha.2/mariamem-native-darwin-arm64.tar.gz
-      NATIVE_SHA256: 9b1650d1fcf7ed337d96d2c39a0a9a6bf1ae28ed8f6f4c685041bbeac313e99c
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
@@ -39,11 +34,4 @@ jobs:
         with:
           python-version: '3.14'
       - run: python -m pip install 'pytest>=7' 'PyMySQL>=1.1,<2'
-      - name: Obtain accepted native bundle
-        run: |
-          curl --proto '=https' --tlsv1.2 --fail --silent --show-error --location --retry 3 \
-            "$NATIVE_URL" -o "$RUNNER_TEMP/native.tar.gz"
-          printf '%s  %s\n' "$NATIVE_SHA256" "$RUNNER_TEMP/native.tar.gz" | shasum -a 256 -c -
-          tar -xzf "$RUNNER_TEMP/native.tar.gz" -C "$RUNNER_TEMP"
-          echo "MARIAMEM_NATIVE_DIR=$RUNNER_TEMP/mariamem-native-darwin-arm64" >> "$GITHUB_ENV"
       - run: python scripts/verify.py integration

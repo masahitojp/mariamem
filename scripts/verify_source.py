@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """Prepare the source candidate offline outside the repository and compare inputs."""
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses docs/development.md.")
+
 import argparse
 import json
 from pathlib import Path

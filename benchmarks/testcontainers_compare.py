@@ -59,11 +59,12 @@ def render(report):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--native-dir',type=Path,required=True)
+    p.add_argument('--native-dir',type=Path,help='retired legacy-only input; omit for generated-Go')
     p.add_argument('--runs',type=int,default=20)
     p.add_argument('--warmup',type=int,default=2)
     p.add_argument('--json',type=Path,default=ROOT/'benchmarks/results/testcontainers-comparison.json')
     args=p.parse_args()
+    if args.native_dir is not None: p.error('NativeDir is retired; omit it for generated-Go')
     if platform.system()!='Linux' or platform.machine()!='x86_64':
         p.error('run on Ubuntu 24.04 x86_64 with Docker')
     release=Path('/etc/os-release').read_text()
@@ -75,8 +76,7 @@ def main():
     if output.is_relative_to(ROOT) and not output.is_relative_to(ROOT/'benchmarks/results'):
         p.error('checkout outputs must remain under ignored benchmarks/results')
     inputs=json.loads((ROOT/'benchmarks/testcontainers-inputs.json').read_text())
-    native=args.native_dir.resolve()
-    manifest=json.loads((native/'manifest.json').read_text())
+    guest=json.loads((ROOT/'release/generated-go-inputs.json').read_text())
     # All builds/downloads/image resolution are outside timed work.
     begun=time.monotonic()
     subprocess.run(['docker','pull','--platform','linux/amd64',inputs['image']],check=True)
@@ -88,7 +88,7 @@ def main():
     pre_pull=time.monotonic()-begun
     binary=ROOT/'build/bench/competitive'
     binary.parent.mkdir(parents=True,exist_ok=True)
-    subprocess.run(['go','build','-mod=readonly','-trimpath','-o',str(binary),'.'],cwd=ROOT/'benchmarks/competitive',check=True)
+    subprocess.run(['go','build','-p','1','-mod=readonly','-trimpath','-o',str(binary),'.'],cwd=ROOT/'benchmarks/competitive',check=True)
     output.parent.mkdir(parents=True,exist_ok=True)
     raw=output.with_suffix('.partial.json')
     if raw.exists():
@@ -96,13 +96,13 @@ def main():
     env=os.environ.copy()
     for name in ('MARIAMEM_NATIVE_DIR','MARIAMEM_EXPERIMENT_RESTORE','MARIAMEM_INIT_DIAGNOSTICS','MARIAMEM_MEMORY_DIAGNOSTICS','MARIAMEM_VALIDATION_REUSE'):
         env.pop(name,None)
-    process=subprocess.run([str(binary),'--native-dir',str(native),'--image',inputs['image'],'--runs',str(args.runs),'--warmup',str(args.warmup),'--json',str(raw)],cwd=ROOT,env=env)
+    process=subprocess.run([str(binary),'--image',inputs['image'],'--runs',str(args.runs),'--warmup',str(args.warmup),'--json',str(raw)],cwd=ROOT,env=env)
     if not raw.is_file():
         raise RuntimeError('runner failed before producing evidence')
     report=json.loads(raw.read_text())
     report['collected_at_utc']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
     report['benchmark_modules']=subprocess.check_output(['go','list','-m','-json','all'],cwd=ROOT/'benchmarks/competitive',text=True)
-    report.update({'inputs':inputs,'image_inspect':image,'docker_info':docker,'pre_pull_seconds':pre_pull,'os_release':release,'platform':platform.platform(),'native_manifest':manifest,'aot_provenance':json.loads((native/'provenance.json').read_text()),'runner_sha256':hashlib.sha256(binary.read_bytes()).hexdigest()})
+    report.update({'inputs':inputs,'image_inspect':image,'docker_info':docker,'pre_pull_seconds':pre_pull,'os_release':release,'platform':platform.platform(),'runtime_kind':'generated-go','guest_sha256':guest['guest_sha256'],'runner_sha256':hashlib.sha256(binary.read_bytes()).hexdigest()})
     if process.returncode==0 and report['completed']:
         report['summary']=summary(report)
         # Reuse the maintained stage summarizer without timing another benchmark.

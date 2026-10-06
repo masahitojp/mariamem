@@ -27,8 +27,7 @@ parser.add_argument("--module", type=Path, default=None)
 parser.add_argument("--ci-candidate", action="store_true",
                     help="build immutable candidate metadata without post-build review state")
 args = parser.parse_args()
-if (args.runtime is None)!=(args.module is None): parser.error("legacy bundle requires --runtime and --module")
-legacy=args.runtime is not None
+if args.runtime is not None or args.module is not None: parser.error("legacy Wasmer packaging is retired; build the generated-Go host-only wheel")
 (ROOT / "build").mkdir(exist_ok=True)
 (ROOT / "tests/evidence").mkdir(parents=True, exist_ok=True)
 host = ROOT / "build/mariamem-host"
@@ -37,28 +36,21 @@ subprocess.run([str(args.go), "build", "-p", "1", "-trimpath", "-o", str(host), 
                                              GOOS=target["goos"], GOARCH=target["goarch"],
                                              **({"MACOSX_DEPLOYMENT_TARGET": f"{major}.0"}
                                                 if major is not None else {}),
-                                             GOCACHE=str(ROOT / "build/gocache")))
-binary_minimums = ({p.name: check_binary(p, major) for p in ((host, args.runtime) if legacy else (host,))}
+                                             GOCACHE=os.environ.get("GOCACHE", str(ROOT / "build/gocache"))))
+binary_minimums = ({p.name: check_binary(p, major) for p in (host,)}
                    if major is not None else {})
-linux_dependencies = ({p.name: elf_dependencies(p) for p in ((host, args.runtime) if legacy else (host,))}
+linux_dependencies = ({p.name: elf_dependencies(p) for p in (host,)}
                       if major is None else {})
 native = ROOT / "python/mariamem/_native"
 native.mkdir(parents=True, exist_ok=True)
 sources=[(host,"mariamem-host")]
-if legacy:
- sources += [(args.runtime,"wasmer-headless"),(args.module,"mariamem.wasmu"),(Path(str(args.module)+".json"),"mariamem.wasmu.json")]
-else:
- for name in ("wasmer-headless","mariamem.wasmu","mariamem.wasmu.json"):
-  (native/name).unlink(missing_ok=True)
+for name in ("wasmer-headless","mariamem.wasmu","mariamem.wasmu.json"):
+ (native/name).unlink(missing_ok=True)
 for source, name in sources:
     shutil.copy2(source, native / name)
-for name in (["mariamem-host","wasmer-headless"] if legacy else ["mariamem-host"]):
+for name in ["mariamem-host"]:
     (native / name).chmod(0o755)
-ready = False
-if not args.ci_candidate:
-    review = json.loads((ROOT / "release/review.json").read_text())
-    ready = all(item.get("passed") and item.get("evidence") for item in review["checks"].values())
-manifest = {"version": 1, "package_version": PYTHON_VERSION, **platform_fields(target), "runtime_kind": "wasmer" if legacy else "generated-go", "guest_sha256": None if legacy else json.loads((ROOT/"release/generated-go-inputs.json").read_text())["guest_sha256"], "public_release_ready": bool(ready) if legacy else False,
+manifest = {"version": 1, "package_version": PYTHON_VERSION, **platform_fields(target), "runtime_kind": "generated-go", "guest_sha256": json.loads((ROOT/"release/generated-go-inputs.json").read_text())["guest_sha256"], "public_release_ready": False,
             "sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                        for p in native.iterdir() if p.name != "manifest.json"}}
 (native / "manifest.json").write_text(json.dumps(manifest, indent=2)+"\n")
@@ -79,7 +71,7 @@ with zipfile.ZipFile(wheel) as archive:
     assert json.loads(archive.read(bundled_manifest)) == manifest, "incorrect bundled manifest"
     # Modern setuptools may put license files under .dist-info/licenses/.
     # Check content in either standard location, not just filename presence.
-    license_inputs = license_paths(ROOT, legacy=legacy)
+    license_inputs = license_paths(ROOT)
     for license_file in license_inputs:
         entries = [p for p in names if ".dist-info/" in p
                    and p.rsplit("/", 1)[-1] == license_file.name]
@@ -93,7 +85,7 @@ with zipfile.ZipFile(wheel) as archive:
     evidence = {"wheel": str(wheel.relative_to(ROOT)), "bytes": wheel.stat().st_size,
                 "sha256": hashlib.sha256(wheel.read_bytes()).hexdigest(),
                 "binary_minimum_macos": binary_minimums, "linux_dependencies": linux_dependencies, "files": names, "manifest": manifest, "archive_checks_passed": True}
-if args.ci_candidate and not legacy:
+if args.ci_candidate:
     from generated_release import checkout, source_inventory
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     checkout(ROOT, commit)

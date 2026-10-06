@@ -1,5 +1,9 @@
 # Source-only Go alpha publication checklist
 
+> Historical Wasmer/migration reference. Current runtime, verification and roadmap
+> are documented in [project status](project-status.md) and
+> [development](development.md); this is not a supported fallback workflow.
+
 This is the historical plan for `v0.1.0-alpha.1`, not the current publication
 procedure. Use [Release CI](releasing.md) for current candidates.
 

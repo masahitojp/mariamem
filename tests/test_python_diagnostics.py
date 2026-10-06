@@ -14,15 +14,16 @@ def bundle(tmp_path, monkeypatch):
     monkeypatch.setattr(_artifacts.platform, "system", lambda: "Darwin")
     monkeypatch.setattr(_artifacts.platform, "machine", lambda: "arm64")
     monkeypatch.setattr(_artifacts.platform, "mac_ver", lambda: ("15.0", (), ""))
-    monkeypatch.setenv("MARIAMEM_NATIVE_DIR", str(tmp_path))
+    monkeypatch.delenv("MARIAMEM_NATIVE_DIR", raising=False)
+    monkeypatch.setattr(_artifacts, "NATIVE_ROOT", tmp_path)
     hashes = {}
-    for name in ("mariamem-host", "wasmer-headless", "mariamem.wasmu"):
+    for name in ("mariamem-host",):
         path = tmp_path / name
         path.write_bytes(b"fixture")
         path.chmod(0o755)
         hashes[name] = hashlib.sha256(path.read_bytes()).hexdigest()
     (tmp_path / "manifest.json").write_text(json.dumps({
-        "version": 1, "platform": "darwin-arm64", "minimum_macos": 15, "sha256": hashes,
+        "version": 1, "runtime_kind":"generated-go", "platform": "darwin-arm64", "minimum_macos": 15, "sha256": hashes,
     }))
 
 
@@ -46,7 +47,7 @@ def test_unsupported_macos_floor(tmp_path, monkeypatch):
     assert failure.value.code == "unsupported_platform"
 
 
-@pytest.mark.parametrize("name", ["manifest.json", "wasmer-headless", "mariamem.wasmu"])
+@pytest.mark.parametrize("name", ["manifest.json", "mariamem-host"])
 def test_missing_native_input(tmp_path, monkeypatch, name):
     bundle(tmp_path, monkeypatch)
     (tmp_path / name).unlink()
@@ -58,11 +59,11 @@ def test_missing_native_input(tmp_path, monkeypatch, name):
 
 def test_artifact_mismatch(tmp_path, monkeypatch):
     bundle(tmp_path, monkeypatch)
-    (tmp_path / "mariamem.wasmu").write_bytes(b"changed")
+    (tmp_path / "mariamem-host").write_bytes(b"changed")
     with pytest.raises(mariamem.HostError) as failure:
         mariamem.start()
     assert failure.value.code == "artifact_mismatch"
-    assert "mariamem.wasmu" in str(failure.value)
+    assert "mariamem-host" in str(failure.value)
     assert "expected SHA256" in str(failure.value)
     assert "Reinstall" in str(failure.value)
 
@@ -71,12 +72,8 @@ def host_options(tmp_path, body):
     host = tmp_path / "host"
     host.write_text(f"#!{sys.executable}\n" + body)
     host.chmod(0o755)
-    runtime = tmp_path / "runtime"
-    runtime.write_bytes(b"fixture")
-    runtime.chmod(0o755)
-    module = tmp_path / "guest"
-    module.write_bytes(b"fixture")
-    return dict(host_binary=host, runtime=runtime, module=module, shutdown_timeout=1)
+    return dict(host_binary=host, shutdown_timeout=1)
+
 
 
 def test_host_exec_failure_retains_os_cause(tmp_path):
@@ -92,14 +89,14 @@ def test_host_exec_failure_retains_os_cause(tmp_path):
 
 def test_startup_frame_preserves_guest_stage(tmp_path):
     options = host_options(tmp_path, '''import json
-print(json.dumps({"event":"error", "error":{"code":"guest_start", "stage":"guest_launch", "message":"Wasmer could not execute guest"}}), flush=True)
+print(json.dumps({"event":"error", "error":{"code":"guest_start", "stage":"guest_launch", "message":"generated-Go could not start guest"}}), flush=True)
 ''')
     with pytest.raises(mariamem.HostError) as failure:
         mariamem.start(**options)
     assert failure.value.code == "guest_start"
     assert failure.value.stage == "guest_launch"
     assert failure.value.closed
-    assert "Wasmer could not execute guest" in str(failure.value)
+    assert "generated-Go could not start guest" in str(failure.value)
 
 
 def test_startup_eof_keeps_exit_status_and_bounded_stderr(tmp_path):
@@ -134,7 +131,8 @@ def ubuntu_bundle(tmp_path, monkeypatch):
 def test_ubuntu_artifact_resolution(tmp_path, monkeypatch):
     ubuntu_bundle(tmp_path, monkeypatch)
     resolved = _artifacts.resolve()
-    assert resolved["module"] == str(tmp_path / "mariamem.wasmu")
+    assert resolved["module"] is None
+    assert resolved["host_binary"] == str(tmp_path / "mariamem-host")
 
 
 @pytest.mark.parametrize("release,arch", [
@@ -169,8 +167,8 @@ def test_linux_explicit_inputs_keep_override_semantics(tmp_path, monkeypatch):
     options = host_options(tmp_path, "")
     monkeypatch.setattr(_artifacts.platform, "system", lambda: "Linux")
     monkeypatch.setattr(_artifacts.platform, "machine", lambda: "aarch64")
-    resolved = _artifacts.resolve(**{key: options[key] for key in ("host_binary", "runtime", "module")})
-    assert resolved["module"] == str(options["module"])
+    resolved = _artifacts.resolve(**{key: options[key] for key in ("host_binary",)})
+    assert resolved["host_binary"] == str(options["host_binary"])
 
 
 def test_invalid_host_handshake_recovery(tmp_path):

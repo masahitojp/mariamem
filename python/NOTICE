@@ -42,9 +42,9 @@ wolfSSL's upstream LICENSING permits the GPLv2 election for combination with
 MariaDB Server; this distribution uses that election and preserves COPYING
 and LICENSING. The Python host also contains the Go runtime (BSD-3-Clause).
 
-Legacy Wasmer fallback is separate: its engine, Singlepass BUSL-1.1 and Rust
-dependency notices are preserved in the repository for legacy bundles, not
-included in normal host-only wheel notices. The Go module/corresponding-source
-package still carries that fallback's source and historical notices; it does
-not bundle the Wasmer engine. See release/distribution-licenses.json and
-docs/v04-license-inventory.md for the artifact-specific inventory.
+Wasmer execution and native/AOT fallback packaging are retired on the v0.4.3
+candidate branch. Engine/Singlepass BUSL-1.1/Rust notices remain immutable
+historical reference material in repository source and source mirrors; they are
+not normal host-only wheel inputs or current runtime dependencies. This does
+not remove MariaDB/WASIX/sysroot/LLVM/converter source or notice obligations.
+See release/distribution-licenses.json and docs/v04-license-inventory.md.

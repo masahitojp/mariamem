@@ -7,7 +7,7 @@ import sys
 import tarfile
 
 import pytest
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts'))
 import ci_release_platforms as platforms
 from ci_release_reuse import restore_tar
 from native_target import target_metadata

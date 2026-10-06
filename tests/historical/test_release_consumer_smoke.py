@@ -5,12 +5,12 @@ import sys
 import zipfile
 
 import pytest
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts'))
 import release_consumer_smoke as smoke
 from consumer_module import prepare_proxy, source_identity
 from common import digest
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 SHA = 'a' * 40
 TAG = 'v0.3.0'
 VERSION = '0.3.0'
@@ -100,7 +100,7 @@ def test_proxy_contains_exact_candidate_go_sources(tmp_path):
     archive = proxy / smoke.MODULE / '@v' / f'{TAG}.zip'
     with zipfile.ZipFile(archive) as contents:
         prefix = f'{smoke.MODULE}@{TAG}/'
-        for name in ('mariamem.go', 'native_version.go', 'internal/artifacts/download.go', 'release/inputs.lock.json'):
+        for name in ('mariamem.go', 'internal/artifacts/artifacts.go', 'release/inputs.lock.json'):
             assert contents.read(prefix + name) == (ROOT / name).read_bytes()
     assert json.loads((archive.parent / f'{TAG}.info').read_text())['Version'] == TAG
 

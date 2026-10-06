@@ -1,0 +1,108 @@
+{
+  "baseline": "fa6ef5355ecb93f7e1cabbedf5caa74fe4210870",
+  "branch": "experiment/v043-wasmer-retirement",
+  "platform": "macOS arm64",
+  "local_development_evidence_only": true,
+  "go_tests": "PASS",
+  "go_vet": "PASS",
+  "generated_identity": "PASS",
+  "python_tests": {
+    "passed": 285,
+    "intentional_skips": 6
+  },
+  "public_source_files": 604,
+  "focused_race_scopes": [
+    "generatedgo/code/base",
+    "generatedgo",
+    "guest",
+    "host",
+    "snapshot"
+  ],
+  "mysqlwire": "no standalone tests; product integration exercised",
+  "go_integration_suites": [
+    "gointegration",
+    "godefault",
+    "generatedmemory"
+  ],
+  "python_normal_close_and_multiclient_cases": 2,
+  "installed_wheel": {
+    "passed": true,
+    "outside_checkout": true,
+    "installed_wheel": true,
+    "sqlalchemy_runs": [
+      {
+        "mode": "start",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "mode": "fork",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "mode": "fork",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "mode": "start",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "installed_platform_cases": 2,
+  "verify_alpha": {
+    "serial_tests": 7,
+    "parallel_tests": 7,
+    "migration_tests": 2,
+    "intentional_failure_cleanup_tests": 2,
+    "all_fixture_processes_reaped": true
+  },
+  "gorm": [
+    {
+      "name": "1-start",
+      "exit_code": 0,
+      "cases": 8,
+      "runner_seconds": 7.997606916993391
+    },
+    {
+      "name": "2-fork",
+      "exit_code": 0,
+      "cases": 8,
+      "runner_seconds": 3.3553007089649327
+    },
+    {
+      "name": "3-fork",
+      "exit_code": 0,
+      "cases": 8,
+      "runner_seconds": 3.194503541046288
+    },
+    {
+      "name": "4-start",
+      "exit_code": 0,
+      "cases": 8,
+      "runner_seconds": 2.2697786249918863
+    }
+  ],
+  "new_ubuntu_artifact_acceptance": "NOT RUN",
+  "release_ci": "NOT RUN",
+  "source_license_provenance_validation": "active deterministic generated release/source/license tests; pinned guest/generated identity; local wheel hash/notice/Mach-O validation",
+  "full_corresponding_source_artifact_rebuild": "NOT RUN; unchanged release gate remains required",
+  "logs_sha256": {
+    "check-final-current.log": "47aad138a3a3f77b9cc31c472e65dd043b4ac45290775b59470964ca8544b371",
+    "integration-final.log": "1a9e8ce98382530c136e8a23ee384d4a13cb98478e6cb5b64ce749d830a6b091",
+    "wheel-acceptance.log": "2cfe950fd870be2a4f7d685cfa4e64cf4221d7bb855c79173587080c2439b63b",
+    "wheel-build.log": "1bb85f777869e6392ba71905011d44194020061b6a10dea35aa2b13e31689112",
+    "gorm-acceptance.log": "f5c24db42ca5f02393ae56f4dbac9837614d3694848827a4b2f22677b7fe0e6f"
+  }
+}

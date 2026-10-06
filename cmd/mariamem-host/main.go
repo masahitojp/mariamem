@@ -35,17 +35,11 @@ type incoming struct {
 }
 
 func run() error {
-	runtime := flag.String("runtime", "", "path to wasmer-headless")
-	module := flag.String("module", "", "path to multi-session AOT artifact")
-	wasmerDir := flag.String("wasmer-dir", "", "Wasmer configuration/cache directory")
 	restore := flag.String("snapshot", "", "validated cold snapshot to restore")
 	queryTimeout := flag.Duration("query-timeout", 30*time.Second, "query/session timeout")
 	startupTimeout := flag.Duration("startup-timeout", 120*time.Second, "startup timeout")
 	shutdownTimeout := flag.Duration("shutdown-timeout", 30*time.Second, "shutdown timeout")
 	flag.Parse()
-	if (*runtime == "") != (*module == "") {
-		return errors.New("legacy override requires both --runtime and --module")
-	}
 	if *queryTimeout <= 0 || *startupTimeout <= 0 || *shutdownTimeout <= 0 {
 		return errors.New("timeouts must be positive")
 	}
@@ -54,13 +48,7 @@ func run() error {
 	owner, cancelOwner := context.WithCancel(signals)
 	defer cancelOwner()
 	ctx, cancel := context.WithTimeout(owner, *startupTimeout)
-	var s *host.Server
-	var err error
-	if *runtime == "" {
-		s, err = host.StartGenerated(ctx, "", *restore, *queryTimeout, os.Stderr)
-	} else {
-		s, err = host.Start(ctx, *runtime, *module, *wasmerDir, *restore, *queryTimeout, os.Stderr)
-	}
+	s, err := host.StartGenerated(ctx, *restore, *queryTimeout, os.Stderr)
 	cancel()
 	if err != nil {
 		code, stage := "host_start", "host_setup"
