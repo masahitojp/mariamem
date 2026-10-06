@@ -425,3 +425,5 @@ warmups. This is a bounded final baseline, not another ORM/crossover campaign.
 Run no other performance benchmark on the same machine during this campaign.
 Historical Wasmer comparisons require historical tags; current selectors reject
 legacy inputs. `v04_orm.py` is an old v0.3 harness, not a current release gate.
+
+[Final v0.4.3 baseline and compact evidence](v043-release-baseline.md).

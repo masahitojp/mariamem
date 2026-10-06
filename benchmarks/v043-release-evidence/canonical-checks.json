@@ -1,0 +1,10 @@
+{
+  "results": [
+    {
+      "check": "canonical-default-cpu",
+      "exit_code": 0
+    }
+  ],
+  "peak_tree_rss_bytes": 2015576064,
+  "memory_budget_bytes": 8589934592
+}

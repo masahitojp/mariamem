@@ -1,0 +1,452 @@
+{
+  "measured_source_sha": "10fa4d1157c673f7eb7830802c584b774f221f00",
+  "integration_sha": "11353247d9bfda50d1309fd821dadafb50e45f3c",
+  "startup": {
+    "start_first_sql": {
+      "count": 30,
+      "min": 0.051703458,
+      "p50": 0.0533994795,
+      "p95": 0.05700303995,
+      "max": 0.057907459,
+      "p99": 0.057699819,
+      "ge500ms": 0,
+      "ge900ms": 0
+    },
+    "start_seeded": {
+      "count": 30,
+      "min": 0.0643645,
+      "p50": 0.0666516035,
+      "p95": 0.07228706654999999,
+      "max": 1.077352917,
+      "p99": 0.785975888250001,
+      "ge500ms": 1,
+      "ge900ms": 1
+    },
+    "snapshot": {
+      "count": 30,
+      "min": 0.344143,
+      "p50": 0.3510081665,
+      "p95": 0.36809746235,
+      "max": 0.372503458,
+      "p99": 0.37155763518,
+      "ge500ms": 0,
+      "ge900ms": 0
+    },
+    "fork_first_sql": {
+      "count": 30,
+      "min": 0.120852417,
+      "p50": 0.124736667,
+      "p95": 0.1334703209,
+      "max": 0.137970584,
+      "p99": 0.13685818025000002,
+      "ge500ms": 0,
+      "ge900ms": 0
+    }
+  },
+  "fork_api_return_ms_p50": 121.28937549999999,
+  "fork_close_ms_p50": 2.9765414999999997,
+  "select_1_ms_p50": 0.1653335,
+  "scaling": {
+    "groups": [
+      {
+        "workers": 1,
+        "successes": 1,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 1,
+          "p50": 0.134020208,
+          "p95": 0.134020208
+        },
+        "host_cpu_seconds": {
+          "count": 1,
+          "p50": 0.15910841700000006,
+          "p95": 0.15910841700000006
+        },
+        "runtime_cpu_seconds": {
+          "count": 1,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "combined_cpu_seconds": {
+          "count": 1,
+          "p50": 0.15910841700000006,
+          "p95": 0.15910841700000006
+        },
+        "incremental_primary_bytes": {
+          "count": 1,
+          "p50": 84230384.0,
+          "p95": 84230384.0
+        },
+        "average_incremental_bytes": {
+          "count": 1,
+          "p50": 84230384.0,
+          "p95": 84230384.0
+        },
+        "group_peak_primary_bytes": {
+          "count": 1,
+          "p50": 529319160.0,
+          "p95": 529319160.0
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 1,
+          "p50": 84607216.0,
+          "p95": 84607216.0
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 1,
+          "p50": 0.15910841700000006,
+          "p95": 0.15910841700000006
+        },
+        "baseline_primary_bytes": {
+          "count": 1,
+          "p50": 444711944.0,
+          "p95": 444711944.0
+        },
+        "baseline_rss_bytes": {
+          "count": 1,
+          "p50": 479608832.0,
+          "p95": 479608832.0
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 1,
+          "p50": 528942328.0,
+          "p95": 528942328.0
+        },
+        "ready_rss_bytes": {
+          "count": 1,
+          "p50": 571719680.0,
+          "p95": 571719680.0
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 1,
+          "p50": 450364424.0,
+          "p95": 450364424.0
+        },
+        "after_close_rss_bytes": {
+          "count": 1,
+          "p50": 486293504.0,
+          "p95": 486293504.0
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 1,
+          "p50": 5652480.0,
+          "p95": 5652480.0
+        }
+      },
+      {
+        "workers": 4,
+        "successes": 1,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 1,
+          "p50": 0.183344958,
+          "p95": 0.183344958
+        },
+        "host_cpu_seconds": {
+          "count": 1,
+          "p50": 0.7266413330000001,
+          "p95": 0.7266413330000001
+        },
+        "runtime_cpu_seconds": {
+          "count": 1,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "combined_cpu_seconds": {
+          "count": 1,
+          "p50": 0.7266413330000001,
+          "p95": 0.7266413330000001
+        },
+        "incremental_primary_bytes": {
+          "count": 1,
+          "p50": 335430784.0,
+          "p95": 335430784.0
+        },
+        "average_incremental_bytes": {
+          "count": 1,
+          "p50": 83857696.0,
+          "p95": 83857696.0
+        },
+        "group_peak_primary_bytes": {
+          "count": 1,
+          "p50": 779929760.0,
+          "p95": 779929760.0
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 1,
+          "p50": 335430784.0,
+          "p95": 335430784.0
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 1,
+          "p50": 0.18166033325000003,
+          "p95": 0.18166033325000003
+        },
+        "baseline_primary_bytes": {
+          "count": 1,
+          "p50": 444498976.0,
+          "p95": 444498976.0
+        },
+        "baseline_rss_bytes": {
+          "count": 1,
+          "p50": 479281152.0,
+          "p95": 479281152.0
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 1,
+          "p50": 779929760.0,
+          "p95": 779929760.0
+        },
+        "ready_rss_bytes": {
+          "count": 1,
+          "p50": 842940416.0,
+          "p95": 842940416.0
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 1,
+          "p50": 460883048.0,
+          "p95": 460883048.0
+        },
+        "after_close_rss_bytes": {
+          "count": 1,
+          "p50": 497352704.0,
+          "p95": 497352704.0
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 1,
+          "p50": 16384072.0,
+          "p95": 16384072.0
+        }
+      },
+      {
+        "workers": 8,
+        "successes": 1,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 1,
+          "p50": 0.303600916,
+          "p95": 0.303600916
+        },
+        "host_cpu_seconds": {
+          "count": 1,
+          "p50": 1.5941401250000002,
+          "p95": 1.5941401250000002
+        },
+        "runtime_cpu_seconds": {
+          "count": 1,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "combined_cpu_seconds": {
+          "count": 1,
+          "p50": 1.5941401250000002,
+          "p95": 1.5941401250000002
+        },
+        "incremental_primary_bytes": {
+          "count": 1,
+          "p50": 656591128.0,
+          "p95": 656591128.0
+        },
+        "average_incremental_bytes": {
+          "count": 1,
+          "p50": 82073891.0,
+          "p95": 82073891.0
+        },
+        "group_peak_primary_bytes": {
+          "count": 1,
+          "p50": 1101319432.0,
+          "p95": 1101319432.0
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 1,
+          "p50": 656591128.0,
+          "p95": 656591128.0
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 1,
+          "p50": 0.19926751562500003,
+          "p95": 0.19926751562500003
+        },
+        "baseline_primary_bytes": {
+          "count": 1,
+          "p50": 444728304.0,
+          "p95": 444728304.0
+        },
+        "baseline_rss_bytes": {
+          "count": 1,
+          "p50": 479690752.0,
+          "p95": 479690752.0
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 1,
+          "p50": 1101319432.0,
+          "p95": 1101319432.0
+        },
+        "ready_rss_bytes": {
+          "count": 1,
+          "p50": 1192476672.0,
+          "p95": 1192476672.0
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 1,
+          "p50": 465601640.0,
+          "p95": 465601640.0
+        },
+        "after_close_rss_bytes": {
+          "count": 1,
+          "p50": 502693888.0,
+          "p95": 502693888.0
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 1,
+          "p50": 20873336.0,
+          "p95": 20873336.0
+        }
+      },
+      {
+        "workers": 16,
+        "successes": 1,
+        "failures": 0,
+        "group_ready_seconds": {
+          "count": 1,
+          "p50": 0.896199125,
+          "p95": 0.896199125
+        },
+        "host_cpu_seconds": {
+          "count": 1,
+          "p50": 3.2323725,
+          "p95": 3.2323725
+        },
+        "runtime_cpu_seconds": {
+          "count": 1,
+          "p50": 0.0,
+          "p95": 0.0
+        },
+        "combined_cpu_seconds": {
+          "count": 1,
+          "p50": 3.2323725,
+          "p95": 3.2323725
+        },
+        "incremental_primary_bytes": {
+          "count": 1,
+          "p50": 1291522416.0,
+          "p95": 1291522416.0
+        },
+        "average_incremental_bytes": {
+          "count": 1,
+          "p50": 80720151.0,
+          "p95": 80720151.0
+        },
+        "group_peak_primary_bytes": {
+          "count": 1,
+          "p50": 1736299896.0,
+          "p95": 1736299896.0
+        },
+        "incremental_peak_primary_bytes": {
+          "count": 1,
+          "p50": 1291522416.0,
+          "p95": 1291522416.0
+        },
+        "combined_cpu_seconds_per_db": {
+          "count": 1,
+          "p50": 0.20202328125,
+          "p95": 0.20202328125
+        },
+        "baseline_primary_bytes": {
+          "count": 1,
+          "p50": 444777480.0,
+          "p95": 444777480.0
+        },
+        "baseline_rss_bytes": {
+          "count": 1,
+          "p50": 479625216.0,
+          "p95": 479625216.0
+        },
+        "baseline_private_bytes": null,
+        "ready_primary_bytes": {
+          "count": 1,
+          "p50": 1736299896.0,
+          "p95": 1736299896.0
+        },
+        "ready_rss_bytes": {
+          "count": 1,
+          "p50": 1888649216.0,
+          "p95": 1888649216.0
+        },
+        "ready_private_bytes": null,
+        "after_close_primary_bytes": {
+          "count": 1,
+          "p50": 464110720.0,
+          "p95": 464110720.0
+        },
+        "after_close_rss_bytes": {
+          "count": 1,
+          "p50": 508461056.0,
+          "p95": 508461056.0
+        },
+        "after_close_private_bytes": null,
+        "after_close_minus_baseline_bytes": {
+          "count": 1,
+          "p50": 19333240.0,
+          "p95": 19333240.0
+        }
+      }
+    ],
+    "marginal_memory": [
+      {
+        "from": 1,
+        "to": 4,
+        "bytes_per_added_db": {
+          "count": 1,
+          "p50": 83733466.66666667,
+          "p95": 83733466.66666667
+        }
+      },
+      {
+        "from": 4,
+        "to": 8,
+        "bytes_per_added_db": {
+          "count": 1,
+          "p50": 80290086.0,
+          "p95": 80290086.0
+        }
+      },
+      {
+        "from": 8,
+        "to": 16,
+        "bytes_per_added_db": {
+          "count": 1,
+          "p50": 79366411.0,
+          "p95": 79366411.0
+        }
+      }
+    ]
+  },
+  "local_platform": "macOS arm64; no new Ubuntu execution in this task",
+  "qualification": "release preflight PASS; exact-artifact READY remains CI responsibility",
+  "budgets": {
+    "disk_gib": 6,
+    "minimum_free_gib": 8,
+    "rss_gib": 8,
+    "canonical_peak_tree_rss_bytes": 2015576064
+  },
+  "accepted_evidence_reused": "26d9050 retirement local SQL/lifecycle/race/wheel/ORM; NOT exact-SHA READY",
+  "retirement_evidence_hashes": "4/4 PASS",
+  "skills": "release and experiment-workspace validators PASS",
+  "scope_exclusions": [
+    "OwnedPrepared implementation",
+    "Snapshot API/ownership change",
+    "hash verification optimization",
+    "v0.5 guest upgrade"
+  ],
+  "initial_calibration": "GOMAXPROCS=2 preserved separately, excluded from default-CPU table"
+}

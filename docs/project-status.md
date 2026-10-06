@@ -190,8 +190,9 @@ mutable children and OS sharing of clean pages, while workload reads still cost.
 These are measured guidance, not permanent crossover/performance promises.
 No Snapshot API, ownership or validation optimization is selected in this release.
 Product-validation comparisons and future optimization require separate evidence;
-AI test/review benefits remain a hypothesis. Exact-final-source artifact and
-platform qualification belongs to the one-shot release operation.
+AI test/review benefits remain a hypothesis. The [final generated-Go-only baseline](../benchmarks/v043-release-baseline.md)
+records the bounded canonical campaign. Exact-final-source artifact and platform
+qualification belongs to the one-shot release operation.
 
 ## 7. v0.5.0 — Stable guest
 

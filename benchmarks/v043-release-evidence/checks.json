@@ -1,0 +1,30 @@
+{
+  "results": [
+    {
+      "check": "focused-python",
+      "exit_code": 0
+    },
+    {
+      "check": "artifact-go",
+      "exit_code": 0
+    },
+    {
+      "check": "generated-identity",
+      "exit_code": 0
+    },
+    {
+      "check": "public-source",
+      "exit_code": 0
+    },
+    {
+      "check": "version",
+      "exit_code": 0
+    },
+    {
+      "check": "canonical",
+      "exit_code": 0
+    }
+  ],
+  "peak_tree_rss_bytes": 2383724544,
+  "memory_budget_bytes": 8589934592
+}
