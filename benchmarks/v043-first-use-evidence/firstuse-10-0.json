@@ -1,0 +1,3519 @@
+[
+ {
+  "forks": 1,
+  "gc_policy": "diagnostic checkpoints only; no FreeOSMemory",
+  "go": "go1.26.8",
+  "goarch": "arm64",
+  "goos": "darwin",
+  "init_diagnostics": false,
+  "max_memory_gib": 4,
+  "mode": "firstuse",
+  "mutation": false,
+  "payload_mib": 10,
+  "pid": 18375,
+  "scan_payload": false,
+  "suite_n": 4,
+  "trace": true,
+  "type": "environment"
+ },
+ {
+  "fds": 6,
+  "goroutines": 1,
+  "heap_alloc": 273296,
+  "heap_sys": 3932160,
+  "name": "baseline",
+  "os": {
+   "cpu_seconds": 0.00666775,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "primary_bytes": 4965000,
+   "private_bytes": null,
+   "rss_bytes": 12025856
+  },
+  "total_alloc": 273296,
+  "type": "checkpoint",
+  "virtual_bytes": 476042149888
+ },
+ {
+  "trace": {
+   "operation": "startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 1292
+    },
+    {
+     "name": "native_identity_checked",
+     "offset_ns": 3333
+    },
+    {
+     "name": "metadata_snapshot_validated",
+     "offset_ns": 4167
+    },
+    {
+     "name": "transfer_prepared",
+     "offset_ns": 89125
+    },
+    {
+     "name": "linked_execution_begin",
+     "offset_ns": 124958
+    },
+    {
+     "name": "generated_instance_begin",
+     "offset_ns": 165167
+    },
+    {
+     "name": "prepared_view_begin",
+     "offset_ns": 177042
+    },
+    {
+     "name": "prepared_view_ready",
+     "offset_ns": 177125
+    },
+    {
+     "name": "linear_memory_begin",
+     "offset_ns": 178792
+    },
+    {
+     "name": "linear_memory_ready",
+     "offset_ns": 2244708
+    },
+    {
+     "name": "generated_guest_enter",
+     "offset_ns": 2245167
+    },
+    {
+     "name": "ready_header_received",
+     "offset_ns": 32787542
+    },
+    {
+     "name": "ready_frame_decoded",
+     "offset_ns": 32864625
+    },
+    {
+     "name": "ready_response_observed",
+     "offset_ns": 32871833
+    },
+    {
+     "name": "guest_ready",
+     "offset_ns": 32872125
+    },
+    {
+     "name": "wire_listener_ready",
+     "offset_ns": 32945458
+    },
+    {
+     "name": "guest_timing_read",
+     "offset_ns": 32969833
+    },
+    {
+     "name": "end",
+     "offset_ns": 32976667
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "api_startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 1334
+    },
+    {
+     "name": "options_ready",
+     "offset_ns": 4875
+    },
+    {
+     "name": "runtime_directory_ready",
+     "offset_ns": 8707750
+    },
+    {
+     "name": "host_returned",
+     "offset_ns": 50667459
+    },
+    {
+     "name": "database_ready",
+     "offset_ns": 50669125
+    },
+    {
+     "name": "end",
+     "offset_ns": 50671334
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "cpu_seconds": 0.640815,
+  "name": "setup",
+  "seconds": 0.615184416,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 150159240,
+  "heap_delta": 98410040,
+  "major_faults": 0,
+  "minor_faults": 12079,
+  "name": "setup",
+  "physical_delta": 112640144,
+  "rss_delta": 117473280,
+  "type": "resources"
+ },
+ {
+  "trace": {
+   "operation": "generated_fresh_lifetime",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 250
+    },
+    {
+     "name": "export_transfer_begin",
+     "offset_ns": 698884042
+    },
+    {
+     "name": "export_transfer_complete",
+     "offset_ns": 763567042
+    },
+    {
+     "name": "end",
+     "offset_ns": 764780792
+    }
+   ],
+   "guest": {
+    "version": 1,
+    "clock": "guest_monotonic",
+    "events": [
+     {
+      "name": "guest_main",
+      "offset_ns": 0
+     },
+     {
+      "name": "restore_begin",
+      "offset_ns": 31625
+     },
+     {
+      "name": "restore_complete",
+      "offset_ns": 31833
+     },
+     {
+      "name": "open_begin",
+      "offset_ns": 32125
+     },
+     {
+      "name": "server_init_begin",
+      "offset_ns": 34541
+     },
+     {
+      "name": "server_init_complete",
+      "offset_ns": 29927708
+     },
+     {
+      "name": "bootstrap_complete",
+      "offset_ns": 30107666
+     },
+     {
+      "name": "ready_prepared",
+      "offset_ns": 30128875
+     }
+    ]
+   }
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "snapshot",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 917
+    },
+    {
+     "name": "preconditions_destination_ready",
+     "offset_ns": 55167
+    },
+    {
+     "name": "sessions_drained",
+     "offset_ns": 102292
+    },
+    {
+     "name": "export_acknowledged",
+     "offset_ns": 103629209
+    },
+    {
+     "name": "guest_stopped",
+     "offset_ns": 103642000
+    },
+    {
+     "name": "snapshot_published",
+     "offset_ns": 318459084
+    },
+    {
+     "name": "end",
+     "offset_ns": 321035334
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "cpu_seconds": 0.42427899999999996,
+  "name": "snapshot",
+  "seconds": 0.395327542,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 331428480,
+  "heap_delta": 240149120,
+  "major_faults": 0,
+  "minor_faults": 29440,
+  "name": "snapshot",
+  "physical_delta": 338051096,
+  "rss_delta": 338903040,
+  "type": "resources"
+ },
+ {
+  "files": {
+   "data/data/aria_log.00000001": 16384,
+   "data/data/aria_log_control": 52,
+   "data/data/ib_buffer_pool": 938,
+   "data/data/ib_logfile0": 100663296,
+   "data/data/ibdata1": 12582912,
+   "data/data/test/characterization.frm": 1976,
+   "data/data/test/characterization.ibd": 19922944,
+   "data/data/test/db.opt": 70,
+   "data/data/undo001": 10485760,
+   "data/data/undo002": 10485760,
+   "data/data/undo003": 10485760,
+   "manifest.json": 2179
+  },
+  "logical_payload_bytes": 10485760,
+  "snapshot_bytes": 164648031,
+  "type": "inventory"
+ },
+ {
+  "trace": {
+   "operation": "snapshot_verification",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 166
+    },
+    {
+     "name": "root_metadata_checked",
+     "offset_ns": 28041,
+     "files_touched": 2
+    },
+    {
+     "name": "root_inventory_checked",
+     "offset_ns": 100958,
+     "files_touched": 2
+    },
+    {
+     "name": "manifest_read",
+     "offset_ns": 137208,
+     "bytes_read": 2179,
+     "files_touched": 1
+    },
+    {
+     "name": "manifest_identity_checked",
+     "offset_ns": 187375
+    },
+    {
+     "name": "inventory/./metadata",
+     "offset_ns": 207375,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/metadata",
+     "offset_ns": 351208,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/metadata",
+     "offset_ns": 420291,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/metadata",
+     "offset_ns": 425875,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/metadata",
+     "offset_ns": 432750,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_logfile0/metadata",
+     "offset_ns": 439083,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ibdata1/metadata",
+     "offset_ns": 443083,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/metadata",
+     "offset_ns": 446625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/metadata",
+     "offset_ns": 482791,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/metadata",
+     "offset_ns": 489250,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/db.opt/metadata",
+     "offset_ns": 492791,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo001/metadata",
+     "offset_ns": 496958,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo002/metadata",
+     "offset_ns": 500458,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo003/metadata",
+     "offset_ns": 507916,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/plugin/metadata",
+     "offset_ns": 511333,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/opened",
+     "offset_ns": 567666,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/read_hashed",
+     "offset_ns": 578958,
+     "bytes_read": 52
+    },
+    {
+     "name": "inventory/data/aria_log_control/closed",
+     "offset_ns": 581458
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/opened",
+     "offset_ns": 590333,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_logfile0/opened",
+     "offset_ns": 602166,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/read_hashed",
+     "offset_ns": 606083,
+     "bytes_read": 16384
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/closed",
+     "offset_ns": 611166
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/opened",
+     "offset_ns": 632208,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/read_hashed",
+     "offset_ns": 639875,
+     "bytes_read": 938
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/closed",
+     "offset_ns": 641291
+    },
+    {
+     "name": "inventory/data/ibdata1/opened",
+     "offset_ns": 662666,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ibdata1/read_hashed",
+     "offset_ns": 7279875,
+     "bytes_read": 12582912
+    },
+    {
+     "name": "inventory/data/ibdata1/closed",
+     "offset_ns": 7294458
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/opened",
+     "offset_ns": 7375416,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/read_hashed",
+     "offset_ns": 7390791,
+     "bytes_read": 1976
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/closed",
+     "offset_ns": 7393000
+    },
+    {
+     "name": "inventory/data/test/db.opt/opened",
+     "offset_ns": 7421208,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/db.opt/read_hashed",
+     "offset_ns": 7426708,
+     "bytes_read": 70
+    },
+    {
+     "name": "inventory/data/test/db.opt/closed",
+     "offset_ns": 7428000
+    },
+    {
+     "name": "inventory/data/undo002/opened",
+     "offset_ns": 7447375,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo002/read_hashed",
+     "offset_ns": 12881958,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo002/closed",
+     "offset_ns": 12889500
+    },
+    {
+     "name": "inventory/data/ib_logfile0/read_hashed",
+     "offset_ns": 52049500,
+     "bytes_read": 100663296
+    },
+    {
+     "name": "inventory/data/ib_logfile0/closed",
+     "offset_ns": 52058916
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/opened",
+     "offset_ns": 52140333,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/read_hashed",
+     "offset_ns": 62706750,
+     "bytes_read": 19922944
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/closed",
+     "offset_ns": 62716291
+    },
+    {
+     "name": "inventory/data/undo001/opened",
+     "offset_ns": 62783958,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo001/read_hashed",
+     "offset_ns": 68463416,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo001/closed",
+     "offset_ns": 68471041
+    },
+    {
+     "name": "inventory/data/undo003/opened",
+     "offset_ns": 68523083,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo003/read_hashed",
+     "offset_ns": 74594125,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo003/closed",
+     "offset_ns": 74602083
+    },
+    {
+     "name": "inventory_complete",
+     "offset_ns": 74625416
+    },
+    {
+     "name": "inventory_compared",
+     "offset_ns": 74638625
+    },
+    {
+     "name": "end",
+     "offset_ns": 74638791
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 3500
+    },
+    {
+     "name": "native_identity_checked",
+     "offset_ns": 7333
+    },
+    {
+     "name": "metadata_snapshot_validated",
+     "offset_ns": 74856792
+    },
+    {
+     "name": "transfer_prepared",
+     "offset_ns": 74920875
+    },
+    {
+     "name": "linked_execution_begin",
+     "offset_ns": 74946167
+    },
+    {
+     "name": "generated_instance_begin",
+     "offset_ns": 74955875
+    },
+    {
+     "name": "prepared_view_begin",
+     "offset_ns": 74964542
+    },
+    {
+     "name": "prepared_view_ready",
+     "offset_ns": 76244625
+    },
+    {
+     "name": "linear_memory_begin",
+     "offset_ns": 76247750
+    },
+    {
+     "name": "linear_memory_ready",
+     "offset_ns": 77878750
+    },
+    {
+     "name": "generated_guest_enter",
+     "offset_ns": 77879083
+    },
+    {
+     "name": "ready_header_received",
+     "offset_ns": 122570042
+    },
+    {
+     "name": "ready_frame_decoded",
+     "offset_ns": 122592375
+    },
+    {
+     "name": "ready_response_observed",
+     "offset_ns": 122597000
+    },
+    {
+     "name": "guest_ready",
+     "offset_ns": 122597458
+    },
+    {
+     "name": "wire_listener_ready",
+     "offset_ns": 122651708
+    },
+    {
+     "name": "guest_timing_read",
+     "offset_ns": 122677708
+    },
+    {
+     "name": "end",
+     "offset_ns": 122683792
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "api_startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 166
+    },
+    {
+     "name": "options_ready",
+     "offset_ns": 1000
+    },
+    {
+     "name": "runtime_directory_ready",
+     "offset_ns": 9422250
+    },
+    {
+     "name": "host_returned",
+     "offset_ns": 141225250
+    },
+    {
+     "name": "database_ready",
+     "offset_ns": 141254041
+    },
+    {
+     "name": "end",
+     "offset_ns": 141256541
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "fork",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 2291
+    },
+    {
+     "name": "snapshot_handle_ready",
+     "offset_ns": 3875
+    },
+    {
+     "name": "startup_returned",
+     "offset_ns": 141366416
+    },
+    {
+     "name": "end",
+     "offset_ns": 141366750
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "cpu_seconds": 0.14694000000000007,
+  "name": "fork/select1/ready",
+  "seconds": 0.141453209,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 13581608,
+  "heap_delta": 13581608,
+  "major_faults": 0,
+  "minor_faults": 6101,
+  "name": "fork/select1/ready",
+  "physical_delta": 81690912,
+  "rss_delta": 92766208,
+  "type": "resources"
+ },
+ {
+  "cpu_seconds": 0.0024939999999999962,
+  "name": "fork/select1/connect",
+  "seconds": 0.001166416,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 73624,
+  "heap_delta": 73624,
+  "major_faults": 0,
+  "minor_faults": 367,
+  "name": "fork/select1/connect",
+  "physical_delta": 65536,
+  "rss_delta": 81920,
+  "type": "resources"
+ },
+ {
+  "kind": "select1",
+  "type": "query_result",
+  "value": 1
+ },
+ {
+  "cpu_seconds": 0.00040599999999990644,
+  "name": "fork/select1/first",
+  "seconds": 0.000504291,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 58016,
+  "heap_delta": 58016,
+  "major_faults": 0,
+  "minor_faults": 267,
+  "name": "fork/select1/first",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "kind": "select1",
+  "type": "query_result",
+  "value": 1
+ },
+ {
+  "cpu_seconds": 0.0019610000000001016,
+  "name": "fork/select1/second",
+  "seconds": 0.001193542,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 75616,
+  "heap_delta": 75616,
+  "major_faults": 0,
+  "minor_faults": 348,
+  "name": "fork/select1/second",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "trace": {
+   "operation": "generated_restore_lifetime",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 458
+    },
+    {
+     "name": "export_transfer_begin",
+     "offset_ns": 92416916
+    },
+    {
+     "name": "export_transfer_complete",
+     "offset_ns": 92418166
+    },
+    {
+     "name": "end",
+     "offset_ns": 93385250
+    }
+   ],
+   "guest": {
+    "version": 1,
+    "clock": "guest_monotonic",
+    "events": [
+     {
+      "name": "guest_main",
+      "offset_ns": 0
+     },
+     {
+      "name": "restore_begin",
+      "offset_ns": 35250
+     },
+     {
+      "name": "restore_complete",
+      "offset_ns": 35334
+     },
+     {
+      "name": "open_begin",
+      "offset_ns": 35542
+     },
+     {
+      "name": "server_init_begin",
+      "offset_ns": 45042
+     },
+     {
+      "name": "server_init_complete",
+      "offset_ns": 44268084
+     },
+     {
+      "name": "bootstrap_complete",
+      "offset_ns": 44371959
+     },
+     {
+      "name": "ready_prepared",
+      "offset_ns": 44385959
+     }
+    ]
+   }
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "snapshot_verification",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 125
+    },
+    {
+     "name": "root_metadata_checked",
+     "offset_ns": 22708,
+     "files_touched": 2
+    },
+    {
+     "name": "root_inventory_checked",
+     "offset_ns": 104833,
+     "files_touched": 2
+    },
+    {
+     "name": "manifest_read",
+     "offset_ns": 148791,
+     "bytes_read": 2179,
+     "files_touched": 1
+    },
+    {
+     "name": "manifest_identity_checked",
+     "offset_ns": 199333
+    },
+    {
+     "name": "inventory/./metadata",
+     "offset_ns": 211458,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/metadata",
+     "offset_ns": 256208,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/metadata",
+     "offset_ns": 310625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/metadata",
+     "offset_ns": 316333,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/metadata",
+     "offset_ns": 328333,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_logfile0/metadata",
+     "offset_ns": 335625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ibdata1/metadata",
+     "offset_ns": 340375,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/metadata",
+     "offset_ns": 344750,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/metadata",
+     "offset_ns": 395750,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/metadata",
+     "offset_ns": 403958,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/db.opt/metadata",
+     "offset_ns": 408333,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo001/metadata",
+     "offset_ns": 415500,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo002/metadata",
+     "offset_ns": 419500,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo003/metadata",
+     "offset_ns": 426875,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/plugin/metadata",
+     "offset_ns": 430708,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/opened",
+     "offset_ns": 529208,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/read_hashed",
+     "offset_ns": 542833,
+     "bytes_read": 52
+    },
+    {
+     "name": "inventory/data/aria_log_control/closed",
+     "offset_ns": 545500
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/opened",
+     "offset_ns": 545750,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/read_hashed",
+     "offset_ns": 565708,
+     "bytes_read": 16384
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/closed",
+     "offset_ns": 571041
+    },
+    {
+     "name": "inventory/data/ib_logfile0/opened",
+     "offset_ns": 587166,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/opened",
+     "offset_ns": 607125,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/read_hashed",
+     "offset_ns": 613458,
+     "bytes_read": 938
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/closed",
+     "offset_ns": 614875
+    },
+    {
+     "name": "inventory/data/ibdata1/opened",
+     "offset_ns": 647541,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ibdata1/read_hashed",
+     "offset_ns": 7269541,
+     "bytes_read": 12582912
+    },
+    {
+     "name": "inventory/data/ibdata1/closed",
+     "offset_ns": 7276500
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/opened",
+     "offset_ns": 7339250,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/read_hashed",
+     "offset_ns": 7353875,
+     "bytes_read": 1976
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/closed",
+     "offset_ns": 7355250
+    },
+    {
+     "name": "inventory/data/test/db.opt/opened",
+     "offset_ns": 7391916,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/db.opt/read_hashed",
+     "offset_ns": 7397125,
+     "bytes_read": 70
+    },
+    {
+     "name": "inventory/data/test/db.opt/closed",
+     "offset_ns": 7398416
+    },
+    {
+     "name": "inventory/data/undo002/opened",
+     "offset_ns": 7427458,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo002/read_hashed",
+     "offset_ns": 13147666,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo002/closed",
+     "offset_ns": 13154875
+    },
+    {
+     "name": "inventory/data/ib_logfile0/read_hashed",
+     "offset_ns": 53597083,
+     "bytes_read": 100663296
+    },
+    {
+     "name": "inventory/data/ib_logfile0/closed",
+     "offset_ns": 53605041
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/opened",
+     "offset_ns": 53673666,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/read_hashed",
+     "offset_ns": 63569750,
+     "bytes_read": 19922944
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/closed",
+     "offset_ns": 63576666
+    },
+    {
+     "name": "inventory/data/undo001/opened",
+     "offset_ns": 63645208,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo001/read_hashed",
+     "offset_ns": 68916791,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo001/closed",
+     "offset_ns": 68921291
+    },
+    {
+     "name": "inventory/data/undo003/opened",
+     "offset_ns": 68970416,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo003/read_hashed",
+     "offset_ns": 74205541,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo003/closed",
+     "offset_ns": 74210291
+    },
+    {
+     "name": "inventory_complete",
+     "offset_ns": 74222000
+    },
+    {
+     "name": "inventory_compared",
+     "offset_ns": 74230708
+    },
+    {
+     "name": "end",
+     "offset_ns": 74230958
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 4084
+    },
+    {
+     "name": "native_identity_checked",
+     "offset_ns": 5000
+    },
+    {
+     "name": "metadata_snapshot_validated",
+     "offset_ns": 74474500
+    },
+    {
+     "name": "transfer_prepared",
+     "offset_ns": 74527584
+    },
+    {
+     "name": "linked_execution_begin",
+     "offset_ns": 74555042
+    },
+    {
+     "name": "generated_instance_begin",
+     "offset_ns": 74565917
+    },
+    {
+     "name": "prepared_view_begin",
+     "offset_ns": 74576584
+    },
+    {
+     "name": "prepared_view_ready",
+     "offset_ns": 75870584
+    },
+    {
+     "name": "linear_memory_begin",
+     "offset_ns": 75875292
+    },
+    {
+     "name": "linear_memory_ready",
+     "offset_ns": 77598000
+    },
+    {
+     "name": "generated_guest_enter",
+     "offset_ns": 77598459
+    },
+    {
+     "name": "ready_header_received",
+     "offset_ns": 116813167
+    },
+    {
+     "name": "ready_frame_decoded",
+     "offset_ns": 116979875
+    },
+    {
+     "name": "ready_response_observed",
+     "offset_ns": 116987375
+    },
+    {
+     "name": "guest_ready",
+     "offset_ns": 116987625
+    },
+    {
+     "name": "wire_listener_ready",
+     "offset_ns": 117045334
+    },
+    {
+     "name": "guest_timing_read",
+     "offset_ns": 117076667
+    },
+    {
+     "name": "end",
+     "offset_ns": 117080375
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "api_startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 166
+    },
+    {
+     "name": "options_ready",
+     "offset_ns": 791
+    },
+    {
+     "name": "runtime_directory_ready",
+     "offset_ns": 9303291
+    },
+    {
+     "name": "host_returned",
+     "offset_ns": 135561583
+    },
+    {
+     "name": "database_ready",
+     "offset_ns": 135565291
+    },
+    {
+     "name": "end",
+     "offset_ns": 135570750
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "fork",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 1917
+    },
+    {
+     "name": "snapshot_handle_ready",
+     "offset_ns": 2583
+    },
+    {
+     "name": "startup_returned",
+     "offset_ns": 135678500
+    },
+    {
+     "name": "end",
+     "offset_ns": 135678917
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "cpu_seconds": 0.1401079999999999,
+  "name": "fork/pk/ready",
+  "seconds": 0.135766833,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 13599808,
+  "heap_delta": 13599808,
+  "major_faults": 0,
+  "minor_faults": 6049,
+  "name": "fork/pk/ready",
+  "physical_delta": 81543456,
+  "rss_delta": 91570176,
+  "type": "resources"
+ },
+ {
+  "cpu_seconds": 0.002471000000000112,
+  "name": "fork/pk/connect",
+  "seconds": 0.001216584,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 74168,
+  "heap_delta": 74168,
+  "major_faults": 0,
+  "minor_faults": 382,
+  "name": "fork/pk/connect",
+  "physical_delta": 65536,
+  "rss_delta": 65536,
+  "type": "resources"
+ },
+ {
+  "kind": "pk",
+  "type": "query_result",
+  "value": 1024
+ },
+ {
+  "cpu_seconds": 0.0019359999999999378,
+  "name": "fork/pk/first",
+  "seconds": 0.002023541,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 61040,
+  "heap_delta": 61040,
+  "major_faults": 0,
+  "minor_faults": 393,
+  "name": "fork/pk/first",
+  "physical_delta": 0,
+  "rss_delta": 1540096,
+  "type": "resources"
+ },
+ {
+  "kind": "pk",
+  "type": "query_result",
+  "value": 1024
+ },
+ {
+  "cpu_seconds": 0.0006420000000000314,
+  "name": "fork/pk/second",
+  "seconds": 0.00077775,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 58360,
+  "heap_delta": 58360,
+  "major_faults": 0,
+  "minor_faults": 238,
+  "name": "fork/pk/second",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "trace": {
+   "operation": "generated_restore_lifetime",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 458
+    },
+    {
+     "name": "export_transfer_begin",
+     "offset_ns": 88000833
+    },
+    {
+     "name": "export_transfer_complete",
+     "offset_ns": 88004625
+    },
+    {
+     "name": "end",
+     "offset_ns": 88958583
+    }
+   ],
+   "guest": {
+    "version": 1,
+    "clock": "guest_monotonic",
+    "events": [
+     {
+      "name": "guest_main",
+      "offset_ns": 0
+     },
+     {
+      "name": "restore_begin",
+      "offset_ns": 31875
+     },
+     {
+      "name": "restore_complete",
+      "offset_ns": 32084
+     },
+     {
+      "name": "open_begin",
+      "offset_ns": 32209
+     },
+     {
+      "name": "server_init_begin",
+      "offset_ns": 36000
+     },
+     {
+      "name": "server_init_complete",
+      "offset_ns": 38770542
+     },
+     {
+      "name": "bootstrap_complete",
+      "offset_ns": 38866459
+     },
+     {
+      "name": "ready_prepared",
+      "offset_ns": 38879292
+     }
+    ]
+   }
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "snapshot_verification",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 250
+    },
+    {
+     "name": "root_metadata_checked",
+     "offset_ns": 29125,
+     "files_touched": 2
+    },
+    {
+     "name": "root_inventory_checked",
+     "offset_ns": 109959,
+     "files_touched": 2
+    },
+    {
+     "name": "manifest_read",
+     "offset_ns": 163417,
+     "bytes_read": 2179,
+     "files_touched": 1
+    },
+    {
+     "name": "manifest_identity_checked",
+     "offset_ns": 214000
+    },
+    {
+     "name": "inventory/./metadata",
+     "offset_ns": 226292,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/metadata",
+     "offset_ns": 273250,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/metadata",
+     "offset_ns": 332334,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/metadata",
+     "offset_ns": 340042,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/metadata",
+     "offset_ns": 353709,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_logfile0/metadata",
+     "offset_ns": 361334,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ibdata1/metadata",
+     "offset_ns": 365917,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/metadata",
+     "offset_ns": 370000,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/metadata",
+     "offset_ns": 416834,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/metadata",
+     "offset_ns": 425459,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/db.opt/metadata",
+     "offset_ns": 430375,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo001/metadata",
+     "offset_ns": 434792,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo002/metadata",
+     "offset_ns": 438625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo003/metadata",
+     "offset_ns": 444500,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/plugin/metadata",
+     "offset_ns": 448042,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/opened",
+     "offset_ns": 531625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/read_hashed",
+     "offset_ns": 540875,
+     "bytes_read": 52
+    },
+    {
+     "name": "inventory/data/aria_log_control/closed",
+     "offset_ns": 543542
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/opened",
+     "offset_ns": 546625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/read_hashed",
+     "offset_ns": 562709,
+     "bytes_read": 16384
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/closed",
+     "offset_ns": 566834
+    },
+    {
+     "name": "inventory/data/ib_logfile0/opened",
+     "offset_ns": 573167,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/opened",
+     "offset_ns": 598250,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/read_hashed",
+     "offset_ns": 603875,
+     "bytes_read": 938
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/closed",
+     "offset_ns": 605209
+    },
+    {
+     "name": "inventory/data/ibdata1/opened",
+     "offset_ns": 636209,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ibdata1/read_hashed",
+     "offset_ns": 7329834,
+     "bytes_read": 12582912
+    },
+    {
+     "name": "inventory/data/ibdata1/closed",
+     "offset_ns": 7336500
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/opened",
+     "offset_ns": 7408042,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/read_hashed",
+     "offset_ns": 7422500,
+     "bytes_read": 1976
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/closed",
+     "offset_ns": 7424000
+    },
+    {
+     "name": "inventory/data/test/db.opt/opened",
+     "offset_ns": 7462792,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/db.opt/read_hashed",
+     "offset_ns": 7468584,
+     "bytes_read": 70
+    },
+    {
+     "name": "inventory/data/test/db.opt/closed",
+     "offset_ns": 7470250
+    },
+    {
+     "name": "inventory/data/undo002/opened",
+     "offset_ns": 7504000,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo002/read_hashed",
+     "offset_ns": 13488375,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo002/closed",
+     "offset_ns": 13496000
+    },
+    {
+     "name": "inventory/data/ib_logfile0/read_hashed",
+     "offset_ns": 54296000,
+     "bytes_read": 100663296
+    },
+    {
+     "name": "inventory/data/ib_logfile0/closed",
+     "offset_ns": 54309709
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/opened",
+     "offset_ns": 54387334,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/read_hashed",
+     "offset_ns": 64620459,
+     "bytes_read": 19922944
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/closed",
+     "offset_ns": 64627625
+    },
+    {
+     "name": "inventory/data/undo001/opened",
+     "offset_ns": 64710250,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo001/read_hashed",
+     "offset_ns": 70036542,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo001/closed",
+     "offset_ns": 70046917
+    },
+    {
+     "name": "inventory/data/undo003/opened",
+     "offset_ns": 70147667,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo003/read_hashed",
+     "offset_ns": 75796917,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo003/closed",
+     "offset_ns": 75806000
+    },
+    {
+     "name": "inventory_complete",
+     "offset_ns": 75830792
+    },
+    {
+     "name": "inventory_compared",
+     "offset_ns": 75845000
+    },
+    {
+     "name": "end",
+     "offset_ns": 75845334
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 3333
+    },
+    {
+     "name": "native_identity_checked",
+     "offset_ns": 7666
+    },
+    {
+     "name": "metadata_snapshot_validated",
+     "offset_ns": 76109666
+    },
+    {
+     "name": "transfer_prepared",
+     "offset_ns": 76167291
+    },
+    {
+     "name": "linked_execution_begin",
+     "offset_ns": 76203916
+    },
+    {
+     "name": "generated_instance_begin",
+     "offset_ns": 76218166
+    },
+    {
+     "name": "prepared_view_begin",
+     "offset_ns": 76226250
+    },
+    {
+     "name": "prepared_view_ready",
+     "offset_ns": 77566250
+    },
+    {
+     "name": "linear_memory_begin",
+     "offset_ns": 77570125
+    },
+    {
+     "name": "linear_memory_ready",
+     "offset_ns": 79508416
+    },
+    {
+     "name": "generated_guest_enter",
+     "offset_ns": 79509000
+    },
+    {
+     "name": "ready_header_received",
+     "offset_ns": 124361750
+    },
+    {
+     "name": "ready_frame_decoded",
+     "offset_ns": 124396666
+    },
+    {
+     "name": "ready_response_observed",
+     "offset_ns": 124407000
+    },
+    {
+     "name": "guest_ready",
+     "offset_ns": 124407583
+    },
+    {
+     "name": "wire_listener_ready",
+     "offset_ns": 124459250
+    },
+    {
+     "name": "guest_timing_read",
+     "offset_ns": 124490333
+    },
+    {
+     "name": "end",
+     "offset_ns": 124499000
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "api_startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 166
+    },
+    {
+     "name": "options_ready",
+     "offset_ns": 625
+    },
+    {
+     "name": "runtime_directory_ready",
+     "offset_ns": 8810791
+    },
+    {
+     "name": "host_returned",
+     "offset_ns": 142558125
+    },
+    {
+     "name": "database_ready",
+     "offset_ns": 142563875
+    },
+    {
+     "name": "end",
+     "offset_ns": 142566541
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "fork",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 3625
+    },
+    {
+     "name": "snapshot_handle_ready",
+     "offset_ns": 5542
+    },
+    {
+     "name": "startup_returned",
+     "offset_ns": 142688459
+    },
+    {
+     "name": "end",
+     "offset_ns": 142688875
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "cpu_seconds": 0.15223399999999998,
+  "name": "fork/range/ready",
+  "seconds": 0.142782458,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 13641600,
+  "heap_delta": -511559992,
+  "major_faults": 0,
+  "minor_faults": 6361,
+  "name": "fork/range/ready",
+  "physical_delta": 80888144,
+  "rss_delta": 91947008,
+  "type": "resources"
+ },
+ {
+  "cpu_seconds": 0.0020860000000000323,
+  "name": "fork/range/connect",
+  "seconds": 0.001176292,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 73000,
+  "heap_delta": 73000,
+  "major_faults": 0,
+  "minor_faults": 427,
+  "name": "fork/range/connect",
+  "physical_delta": 81944,
+  "rss_delta": 65536,
+  "type": "resources"
+ },
+ {
+  "kind": "range",
+  "type": "query_result",
+  "value": 8192
+ },
+ {
+  "cpu_seconds": 0.0020090000000001496,
+  "name": "fork/range/first",
+  "seconds": 0.002270625,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 60008,
+  "heap_delta": 60008,
+  "major_faults": 0,
+  "minor_faults": 355,
+  "name": "fork/range/first",
+  "physical_delta": 16384,
+  "rss_delta": 1376256,
+  "type": "resources"
+ },
+ {
+  "kind": "range",
+  "type": "query_result",
+  "value": 8192
+ },
+ {
+  "cpu_seconds": 0.0006540000000001545,
+  "name": "fork/range/second",
+  "seconds": 0.000779959,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 58416,
+  "heap_delta": 58416,
+  "major_faults": 0,
+  "minor_faults": 220,
+  "name": "fork/range/second",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "trace": {
+   "operation": "generated_restore_lifetime",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 459
+    },
+    {
+     "name": "export_transfer_begin",
+     "offset_ns": 92631709
+    },
+    {
+     "name": "export_transfer_complete",
+     "offset_ns": 92633084
+    },
+    {
+     "name": "end",
+     "offset_ns": 93961792
+    }
+   ],
+   "guest": {
+    "version": 1,
+    "clock": "guest_monotonic",
+    "events": [
+     {
+      "name": "guest_main",
+      "offset_ns": 0
+     },
+     {
+      "name": "restore_begin",
+      "offset_ns": 34875
+     },
+     {
+      "name": "restore_complete",
+      "offset_ns": 34916
+     },
+     {
+      "name": "open_begin",
+      "offset_ns": 35166
+     },
+     {
+      "name": "server_init_begin",
+      "offset_ns": 43416
+     },
+     {
+      "name": "server_init_complete",
+      "offset_ns": 44324250
+     },
+     {
+      "name": "bootstrap_complete",
+      "offset_ns": 44447000
+     },
+     {
+      "name": "ready_prepared",
+      "offset_ns": 44461250
+     }
+    ]
+   }
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "snapshot_verification",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 167
+    },
+    {
+     "name": "root_metadata_checked",
+     "offset_ns": 23417,
+     "files_touched": 2
+    },
+    {
+     "name": "root_inventory_checked",
+     "offset_ns": 101042,
+     "files_touched": 2
+    },
+    {
+     "name": "manifest_read",
+     "offset_ns": 161167,
+     "bytes_read": 2179,
+     "files_touched": 1
+    },
+    {
+     "name": "manifest_identity_checked",
+     "offset_ns": 215792
+    },
+    {
+     "name": "inventory/./metadata",
+     "offset_ns": 230084,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/metadata",
+     "offset_ns": 278625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/metadata",
+     "offset_ns": 333292,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/metadata",
+     "offset_ns": 338375,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/metadata",
+     "offset_ns": 344875,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_logfile0/metadata",
+     "offset_ns": 351584,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ibdata1/metadata",
+     "offset_ns": 356542,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/metadata",
+     "offset_ns": 360500,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/metadata",
+     "offset_ns": 409375,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/metadata",
+     "offset_ns": 418500,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/db.opt/metadata",
+     "offset_ns": 422709,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo001/metadata",
+     "offset_ns": 426750,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo002/metadata",
+     "offset_ns": 430584,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo003/metadata",
+     "offset_ns": 439375,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/plugin/metadata",
+     "offset_ns": 443125,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/opened",
+     "offset_ns": 565125,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/read_hashed",
+     "offset_ns": 576625,
+     "bytes_read": 52
+    },
+    {
+     "name": "inventory/data/aria_log_control/closed",
+     "offset_ns": 579000
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/opened",
+     "offset_ns": 580667,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/read_hashed",
+     "offset_ns": 598500,
+     "bytes_read": 16384
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/closed",
+     "offset_ns": 603292
+    },
+    {
+     "name": "inventory/data/ib_logfile0/opened",
+     "offset_ns": 609500,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/opened",
+     "offset_ns": 636625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/read_hashed",
+     "offset_ns": 643042,
+     "bytes_read": 938
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/closed",
+     "offset_ns": 644375
+    },
+    {
+     "name": "inventory/data/ibdata1/opened",
+     "offset_ns": 679500,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ibdata1/read_hashed",
+     "offset_ns": 7370459,
+     "bytes_read": 12582912
+    },
+    {
+     "name": "inventory/data/ibdata1/closed",
+     "offset_ns": 7379584
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/opened",
+     "offset_ns": 7469959,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/read_hashed",
+     "offset_ns": 7490750,
+     "bytes_read": 1976
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/closed",
+     "offset_ns": 7492250
+    },
+    {
+     "name": "inventory/data/test/db.opt/opened",
+     "offset_ns": 7532625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/db.opt/read_hashed",
+     "offset_ns": 7538917,
+     "bytes_read": 70
+    },
+    {
+     "name": "inventory/data/test/db.opt/closed",
+     "offset_ns": 7540542
+    },
+    {
+     "name": "inventory/data/undo002/opened",
+     "offset_ns": 7574417,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo002/read_hashed",
+     "offset_ns": 12932959,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo002/closed",
+     "offset_ns": 12938709
+    },
+    {
+     "name": "inventory/data/ib_logfile0/read_hashed",
+     "offset_ns": 51797667,
+     "bytes_read": 100663296
+    },
+    {
+     "name": "inventory/data/ib_logfile0/closed",
+     "offset_ns": 51805750
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/opened",
+     "offset_ns": 51882959,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/read_hashed",
+     "offset_ns": 61832167,
+     "bytes_read": 19922944
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/closed",
+     "offset_ns": 61838667
+    },
+    {
+     "name": "inventory/data/undo001/opened",
+     "offset_ns": 61903000,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo001/read_hashed",
+     "offset_ns": 67164959,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo001/closed",
+     "offset_ns": 67169875
+    },
+    {
+     "name": "inventory/data/undo003/opened",
+     "offset_ns": 67211709,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo003/read_hashed",
+     "offset_ns": 72459375,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo003/closed",
+     "offset_ns": 72463292
+    },
+    {
+     "name": "inventory_complete",
+     "offset_ns": 72475500
+    },
+    {
+     "name": "inventory_compared",
+     "offset_ns": 72484375
+    },
+    {
+     "name": "end",
+     "offset_ns": 72484584
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 5167
+    },
+    {
+     "name": "native_identity_checked",
+     "offset_ns": 6208
+    },
+    {
+     "name": "metadata_snapshot_validated",
+     "offset_ns": 72740625
+    },
+    {
+     "name": "transfer_prepared",
+     "offset_ns": 72792833
+    },
+    {
+     "name": "linked_execution_begin",
+     "offset_ns": 72817042
+    },
+    {
+     "name": "generated_instance_begin",
+     "offset_ns": 72849167
+    },
+    {
+     "name": "prepared_view_begin",
+     "offset_ns": 72871708
+    },
+    {
+     "name": "prepared_view_ready",
+     "offset_ns": 74137458
+    },
+    {
+     "name": "linear_memory_begin",
+     "offset_ns": 74138500
+    },
+    {
+     "name": "linear_memory_ready",
+     "offset_ns": 75693500
+    },
+    {
+     "name": "generated_guest_enter",
+     "offset_ns": 75694042
+    },
+    {
+     "name": "ready_header_received",
+     "offset_ns": 114313542
+    },
+    {
+     "name": "ready_frame_decoded",
+     "offset_ns": 114334042
+    },
+    {
+     "name": "ready_response_observed",
+     "offset_ns": 114344083
+    },
+    {
+     "name": "guest_ready",
+     "offset_ns": 114344917
+    },
+    {
+     "name": "wire_listener_ready",
+     "offset_ns": 114393708
+    },
+    {
+     "name": "guest_timing_read",
+     "offset_ns": 114418208
+    },
+    {
+     "name": "end",
+     "offset_ns": 114422542
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "api_startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 167
+    },
+    {
+     "name": "options_ready",
+     "offset_ns": 792
+    },
+    {
+     "name": "runtime_directory_ready",
+     "offset_ns": 8895250
+    },
+    {
+     "name": "host_returned",
+     "offset_ns": 132623584
+    },
+    {
+     "name": "database_ready",
+     "offset_ns": 132627125
+    },
+    {
+     "name": "end",
+     "offset_ns": 132629459
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "fork",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 2625
+    },
+    {
+     "name": "snapshot_handle_ready",
+     "offset_ns": 4250
+    },
+    {
+     "name": "startup_returned",
+     "offset_ns": 132946625
+    },
+    {
+     "name": "end",
+     "offset_ns": 132948375
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "cpu_seconds": 0.14513200000000026,
+  "name": "fork/count/ready",
+  "seconds": 0.133185042,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 13660400,
+  "heap_delta": -496720,
+  "major_faults": 0,
+  "minor_faults": 7682,
+  "name": "fork/count/ready",
+  "physical_delta": 79642936,
+  "rss_delta": 89669632,
+  "type": "resources"
+ },
+ {
+  "cpu_seconds": 0.0017700000000000493,
+  "name": "fork/count/connect",
+  "seconds": 0.000995542,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 70264,
+  "heap_delta": 70264,
+  "major_faults": 0,
+  "minor_faults": 417,
+  "name": "fork/count/connect",
+  "physical_delta": 49152,
+  "rss_delta": 49152,
+  "type": "resources"
+ },
+ {
+  "kind": "count",
+  "type": "query_result",
+  "value": 10240
+ },
+ {
+  "cpu_seconds": 0.05410899999999996,
+  "name": "fork/count/first",
+  "seconds": 0.032277083,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 596440,
+  "heap_delta": 596440,
+  "major_faults": 0,
+  "minor_faults": 1608,
+  "name": "fork/count/first",
+  "physical_delta": 3326000,
+  "rss_delta": 10878976,
+  "type": "resources"
+ },
+ {
+  "kind": "count",
+  "type": "query_result",
+  "value": 10240
+ },
+ {
+  "cpu_seconds": 0.04870600000000014,
+  "name": "fork/count/second",
+  "seconds": 0.031713625,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 471744,
+  "heap_delta": 471744,
+  "major_faults": 0,
+  "minor_faults": 642,
+  "name": "fork/count/second",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "trace": {
+   "operation": "generated_restore_lifetime",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 10959
+    },
+    {
+     "name": "export_transfer_begin",
+     "offset_ns": 143493000
+    },
+    {
+     "name": "export_transfer_complete",
+     "offset_ns": 143494417
+    },
+    {
+     "name": "end",
+     "offset_ns": 144679292
+    }
+   ],
+   "guest": {
+    "version": 1,
+    "clock": "guest_monotonic",
+    "events": [
+     {
+      "name": "guest_main",
+      "offset_ns": 0
+     },
+     {
+      "name": "restore_begin",
+      "offset_ns": 25708
+     },
+     {
+      "name": "restore_complete",
+      "offset_ns": 25750
+     },
+     {
+      "name": "open_begin",
+      "offset_ns": 25958
+     },
+     {
+      "name": "server_init_begin",
+      "offset_ns": 29708
+     },
+     {
+      "name": "server_init_complete",
+      "offset_ns": 38204125
+     },
+     {
+      "name": "bootstrap_complete",
+      "offset_ns": 38295791
+     },
+     {
+      "name": "ready_prepared",
+      "offset_ns": 38308916
+     }
+    ]
+   }
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "snapshot_verification",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 83
+    },
+    {
+     "name": "root_metadata_checked",
+     "offset_ns": 27708,
+     "files_touched": 2
+    },
+    {
+     "name": "root_inventory_checked",
+     "offset_ns": 95833,
+     "files_touched": 2
+    },
+    {
+     "name": "manifest_read",
+     "offset_ns": 135000,
+     "bytes_read": 2179,
+     "files_touched": 1
+    },
+    {
+     "name": "manifest_identity_checked",
+     "offset_ns": 201792
+    },
+    {
+     "name": "inventory/./metadata",
+     "offset_ns": 214542,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/metadata",
+     "offset_ns": 254708,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/metadata",
+     "offset_ns": 302500,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/metadata",
+     "offset_ns": 307875,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/metadata",
+     "offset_ns": 314042,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_logfile0/metadata",
+     "offset_ns": 320875,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ibdata1/metadata",
+     "offset_ns": 324625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/metadata",
+     "offset_ns": 328125,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/metadata",
+     "offset_ns": 367292,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/metadata",
+     "offset_ns": 373750,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/db.opt/metadata",
+     "offset_ns": 377333,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo001/metadata",
+     "offset_ns": 380917,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo002/metadata",
+     "offset_ns": 384542,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo003/metadata",
+     "offset_ns": 392542,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/plugin/metadata",
+     "offset_ns": 398167,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/opened",
+     "offset_ns": 469375,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log_control/read_hashed",
+     "offset_ns": 477583,
+     "bytes_read": 52
+    },
+    {
+     "name": "inventory/data/aria_log_control/closed",
+     "offset_ns": 479958
+    },
+    {
+     "name": "inventory/data/ib_logfile0/opened",
+     "offset_ns": 510583,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/opened",
+     "offset_ns": 523625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/read_hashed",
+     "offset_ns": 543792,
+     "bytes_read": 16384
+    },
+    {
+     "name": "inventory/data/aria_log.00000001/closed",
+     "offset_ns": 548917
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/opened",
+     "offset_ns": 589083,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/read_hashed",
+     "offset_ns": 595958,
+     "bytes_read": 938
+    },
+    {
+     "name": "inventory/data/ib_buffer_pool/closed",
+     "offset_ns": 597292
+    },
+    {
+     "name": "inventory/data/ibdata1/opened",
+     "offset_ns": 627458,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/ibdata1/read_hashed",
+     "offset_ns": 7134583,
+     "bytes_read": 12582912
+    },
+    {
+     "name": "inventory/data/ibdata1/closed",
+     "offset_ns": 7140625
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/opened",
+     "offset_ns": 7209500,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/read_hashed",
+     "offset_ns": 7236792,
+     "bytes_read": 1976
+    },
+    {
+     "name": "inventory/data/test/characterization.frm/closed",
+     "offset_ns": 7238292
+    },
+    {
+     "name": "inventory/data/test/db.opt/opened",
+     "offset_ns": 7270083,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/db.opt/read_hashed",
+     "offset_ns": 7276208,
+     "bytes_read": 70
+    },
+    {
+     "name": "inventory/data/test/db.opt/closed",
+     "offset_ns": 7277458
+    },
+    {
+     "name": "inventory/data/undo002/opened",
+     "offset_ns": 7305292,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo002/read_hashed",
+     "offset_ns": 12701125,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo002/closed",
+     "offset_ns": 12705833
+    },
+    {
+     "name": "inventory/data/ib_logfile0/read_hashed",
+     "offset_ns": 51605417,
+     "bytes_read": 100663296
+    },
+    {
+     "name": "inventory/data/ib_logfile0/closed",
+     "offset_ns": 51613917
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/opened",
+     "offset_ns": 51693542,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/read_hashed",
+     "offset_ns": 61774208,
+     "bytes_read": 19922944
+    },
+    {
+     "name": "inventory/data/test/characterization.ibd/closed",
+     "offset_ns": 61784375
+    },
+    {
+     "name": "inventory/data/undo001/opened",
+     "offset_ns": 61862292,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo001/read_hashed",
+     "offset_ns": 67258458,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo001/closed",
+     "offset_ns": 67267333
+    },
+    {
+     "name": "inventory/data/undo003/opened",
+     "offset_ns": 67346625,
+     "files_touched": 1
+    },
+    {
+     "name": "inventory/data/undo003/read_hashed",
+     "offset_ns": 73548167,
+     "bytes_read": 10485760
+    },
+    {
+     "name": "inventory/data/undo003/closed",
+     "offset_ns": 73556375
+    },
+    {
+     "name": "inventory_complete",
+     "offset_ns": 73567875
+    },
+    {
+     "name": "inventory_compared",
+     "offset_ns": 73577708
+    },
+    {
+     "name": "end",
+     "offset_ns": 73577958
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 4166
+    },
+    {
+     "name": "native_identity_checked",
+     "offset_ns": 4916
+    },
+    {
+     "name": "metadata_snapshot_validated",
+     "offset_ns": 73894291
+    },
+    {
+     "name": "transfer_prepared",
+     "offset_ns": 73952250
+    },
+    {
+     "name": "linked_execution_begin",
+     "offset_ns": 73977541
+    },
+    {
+     "name": "generated_instance_begin",
+     "offset_ns": 73992125
+    },
+    {
+     "name": "prepared_view_begin",
+     "offset_ns": 73998083
+    },
+    {
+     "name": "prepared_view_ready",
+     "offset_ns": 75263708
+    },
+    {
+     "name": "linear_memory_begin",
+     "offset_ns": 75266666
+    },
+    {
+     "name": "linear_memory_ready",
+     "offset_ns": 76741416
+    },
+    {
+     "name": "generated_guest_enter",
+     "offset_ns": 76741541
+    },
+    {
+     "name": "ready_header_received",
+     "offset_ns": 122839750
+    },
+    {
+     "name": "ready_frame_decoded",
+     "offset_ns": 122862916
+    },
+    {
+     "name": "ready_response_observed",
+     "offset_ns": 122876916
+    },
+    {
+     "name": "guest_ready",
+     "offset_ns": 122877291
+    },
+    {
+     "name": "wire_listener_ready",
+     "offset_ns": 122931833
+    },
+    {
+     "name": "guest_timing_read",
+     "offset_ns": 122959958
+    },
+    {
+     "name": "end",
+     "offset_ns": 122963500
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "api_startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 125
+    },
+    {
+     "name": "options_ready",
+     "offset_ns": 625
+    },
+    {
+     "name": "runtime_directory_ready",
+     "offset_ns": 8946167
+    },
+    {
+     "name": "host_returned",
+     "offset_ns": 141631000
+    },
+    {
+     "name": "database_ready",
+     "offset_ns": 141635250
+    },
+    {
+     "name": "end",
+     "offset_ns": 141637708
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "fork",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 2917
+    },
+    {
+     "name": "snapshot_handle_ready",
+     "offset_ns": 3292
+    },
+    {
+     "name": "startup_returned",
+     "offset_ns": 141775667
+    },
+    {
+     "name": "end",
+     "offset_ns": 141776042
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "cpu_seconds": 0.15409300000000004,
+  "name": "fork/scan/ready",
+  "seconds": 0.141873917,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 13663728,
+  "heap_delta": -1402760,
+  "major_faults": 0,
+  "minor_faults": 7672,
+  "name": "fork/scan/ready",
+  "physical_delta": 79675704,
+  "rss_delta": 89686016,
+  "type": "resources"
+ },
+ {
+  "cpu_seconds": 0.0018520000000004089,
+  "name": "fork/scan/connect",
+  "seconds": 0.001054375,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 72688,
+  "heap_delta": 72688,
+  "major_faults": 0,
+  "minor_faults": 428,
+  "name": "fork/scan/connect",
+  "physical_delta": 98304,
+  "rss_delta": 65536,
+  "type": "resources"
+ },
+ {
+  "kind": "scan",
+  "type": "query_result",
+  "value": 39856732119040
+ },
+ {
+  "cpu_seconds": 0.07801199999999975,
+  "name": "fork/scan/first",
+  "seconds": 0.042069,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 513136,
+  "heap_delta": 513136,
+  "major_faults": 0,
+  "minor_faults": 1565,
+  "name": "fork/scan/first",
+  "physical_delta": 3276848,
+  "rss_delta": 10878976,
+  "type": "resources"
+ },
+ {
+  "kind": "scan",
+  "type": "query_result",
+  "value": 39856732119040
+ },
+ {
+  "cpu_seconds": 0.07431999999999972,
+  "name": "fork/scan/second",
+  "seconds": 0.040178917,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 423896,
+  "heap_delta": 423896,
+  "major_faults": 0,
+  "minor_faults": 657,
+  "name": "fork/scan/second",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "trace": {
+   "operation": "generated_restore_lifetime",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 583
+    },
+    {
+     "name": "export_transfer_begin",
+     "offset_ns": 173051375
+    },
+    {
+     "name": "export_transfer_complete",
+     "offset_ns": 173056208
+    },
+    {
+     "name": "end",
+     "offset_ns": 174234083
+    }
+   ],
+   "guest": {
+    "version": 1,
+    "clock": "guest_monotonic",
+    "events": [
+     {
+      "name": "guest_main",
+      "offset_ns": 0
+     },
+     {
+      "name": "restore_begin",
+      "offset_ns": 26833
+     },
+     {
+      "name": "restore_complete",
+      "offset_ns": 26917
+     },
+     {
+      "name": "open_begin",
+      "offset_ns": 27125
+     },
+     {
+      "name": "server_init_begin",
+      "offset_ns": 30375
+     },
+     {
+      "name": "server_init_complete",
+      "offset_ns": 45684708
+     },
+     {
+      "name": "bootstrap_complete",
+      "offset_ns": 45784542
+     },
+     {
+      "name": "ready_prepared",
+      "offset_ns": 45798083
+     }
+    ]
+   }
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 3041
+    },
+    {
+     "name": "native_identity_checked",
+     "offset_ns": 4083
+    },
+    {
+     "name": "metadata_snapshot_validated",
+     "offset_ns": 6375
+    },
+    {
+     "name": "transfer_prepared",
+     "offset_ns": 109166
+    },
+    {
+     "name": "linked_execution_begin",
+     "offset_ns": 139875
+    },
+    {
+     "name": "generated_instance_begin",
+     "offset_ns": 166875
+    },
+    {
+     "name": "prepared_view_begin",
+     "offset_ns": 175916
+    },
+    {
+     "name": "prepared_view_ready",
+     "offset_ns": 176000
+    },
+    {
+     "name": "linear_memory_begin",
+     "offset_ns": 177541
+    },
+    {
+     "name": "linear_memory_ready",
+     "offset_ns": 1844000
+    },
+    {
+     "name": "generated_guest_enter",
+     "offset_ns": 1844416
+    },
+    {
+     "name": "ready_header_received",
+     "offset_ns": 47267458
+    },
+    {
+     "name": "ready_frame_decoded",
+     "offset_ns": 47288750
+    },
+    {
+     "name": "ready_response_observed",
+     "offset_ns": 47295125
+    },
+    {
+     "name": "guest_ready",
+     "offset_ns": 47295458
+    },
+    {
+     "name": "wire_listener_ready",
+     "offset_ns": 47345791
+    },
+    {
+     "name": "guest_timing_read",
+     "offset_ns": 47373083
+    },
+    {
+     "name": "end",
+     "offset_ns": 47374375
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "trace": {
+   "operation": "api_startup",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 1500
+    },
+    {
+     "name": "options_ready",
+     "offset_ns": 2334
+    },
+    {
+     "name": "runtime_directory_ready",
+     "offset_ns": 10360334
+    },
+    {
+     "name": "host_returned",
+     "offset_ns": 67608917
+    },
+    {
+     "name": "database_ready",
+     "offset_ns": 67613292
+    },
+    {
+     "name": "end",
+     "offset_ns": 67615500
+    }
+   ]
+  },
+  "type": "trace"
+ },
+ {
+  "cpu_seconds": 0.0006550000000000722,
+  "name": "fresh/select1/connect",
+  "seconds": 0.000931125,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 66096,
+  "heap_delta": 66096,
+  "major_faults": 0,
+  "minor_faults": 235,
+  "name": "fresh/select1/connect",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "kind": "select1",
+  "type": "query_result",
+  "value": 1
+ },
+ {
+  "cpu_seconds": 0.00030799999999953087,
+  "name": "fresh/select1/first",
+  "seconds": 0.000392042,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 57696,
+  "heap_delta": 57696,
+  "major_faults": 0,
+  "minor_faults": 223,
+  "name": "fresh/select1/first",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "kind": "select1",
+  "type": "query_result",
+  "value": 1
+ },
+ {
+  "cpu_seconds": 0.0003439999999996779,
+  "name": "fresh/select1/second",
+  "seconds": 0.000408333,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 57648,
+  "heap_delta": 57648,
+  "major_faults": 0,
+  "minor_faults": 203,
+  "name": "fresh/select1/second",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "cpu_seconds": 0.0007959999999997969,
+  "name": "fresh/pk/connect",
+  "seconds": 0.000988292,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 66208,
+  "heap_delta": 66208,
+  "major_faults": 0,
+  "minor_faults": 232,
+  "name": "fresh/pk/connect",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "kind": "pk",
+  "type": "query_result",
+  "value": 1024
+ },
+ {
+  "cpu_seconds": 0.0006810000000001537,
+  "name": "fresh/pk/first",
+  "seconds": 0.000746334,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 58472,
+  "heap_delta": 58472,
+  "major_faults": 0,
+  "minor_faults": 259,
+  "name": "fresh/pk/first",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "kind": "pk",
+  "type": "query_result",
+  "value": 1024
+ },
+ {
+  "cpu_seconds": 0.0006170000000000897,
+  "name": "fresh/pk/second",
+  "seconds": 0.000667542,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 58360,
+  "heap_delta": 58360,
+  "major_faults": 0,
+  "minor_faults": 250,
+  "name": "fresh/pk/second",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "cpu_seconds": 0.0006930000000000547,
+  "name": "fresh/range/connect",
+  "seconds": 0.000947083,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 66544,
+  "heap_delta": 66544,
+  "major_faults": 0,
+  "minor_faults": 232,
+  "name": "fresh/range/connect",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "kind": "range",
+  "type": "query_result",
+  "value": 8192
+ },
+ {
+  "cpu_seconds": 0.0006489999999996776,
+  "name": "fresh/range/first",
+  "seconds": 0.000745959,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 63568,
+  "heap_delta": 63568,
+  "major_faults": 0,
+  "minor_faults": 240,
+  "name": "fresh/range/first",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "kind": "range",
+  "type": "query_result",
+  "value": 8192
+ },
+ {
+  "cpu_seconds": 0.0006479999999999819,
+  "name": "fresh/range/second",
+  "seconds": 0.000769333,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 58416,
+  "heap_delta": 58416,
+  "major_faults": 0,
+  "minor_faults": 245,
+  "name": "fresh/range/second",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "cpu_seconds": 0.0008300000000001084,
+  "name": "fresh/count/connect",
+  "seconds": 0.000915375,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 119216,
+  "heap_delta": 119216,
+  "major_faults": 0,
+  "minor_faults": 339,
+  "name": "fresh/count/connect",
+  "physical_delta": 0,
+  "rss_delta": 16384,
+  "type": "resources"
+ },
+ {
+  "kind": "count",
+  "type": "query_result",
+  "value": 10240
+ },
+ {
+  "cpu_seconds": 0.044415000000000315,
+  "name": "fresh/count/first",
+  "seconds": 0.028496958,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 466720,
+  "heap_delta": 466720,
+  "major_faults": 0,
+  "minor_faults": 766,
+  "name": "fresh/count/first",
+  "physical_delta": 491568,
+  "rss_delta": 458752,
+  "type": "resources"
+ },
+ {
+  "kind": "count",
+  "type": "query_result",
+  "value": 10240
+ },
+ {
+  "cpu_seconds": 0.049055999999999766,
+  "name": "fresh/count/second",
+  "seconds": 0.031983083,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 497504,
+  "heap_delta": 497504,
+  "major_faults": 0,
+  "minor_faults": 673,
+  "name": "fresh/count/second",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "cpu_seconds": 0.0006919999999999149,
+  "name": "fresh/scan/connect",
+  "seconds": 0.000913541,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 66224,
+  "heap_delta": 66224,
+  "major_faults": 0,
+  "minor_faults": 242,
+  "name": "fresh/scan/connect",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "kind": "scan",
+  "type": "query_result",
+  "value": 39856732119040
+ },
+ {
+  "cpu_seconds": 0.07716699999999976,
+  "name": "fresh/scan/first",
+  "seconds": 0.042639917,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 400568,
+  "heap_delta": 400568,
+  "major_faults": 0,
+  "minor_faults": 686,
+  "name": "fresh/scan/first",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "kind": "scan",
+  "type": "query_result",
+  "value": 39856732119040
+ },
+ {
+  "cpu_seconds": 0.07301000000000002,
+  "name": "fresh/scan/second",
+  "seconds": 0.039283959,
+  "type": "operation"
+ },
+ {
+  "allocation_bytes": 398208,
+  "heap_delta": 398208,
+  "major_faults": 0,
+  "minor_faults": 690,
+  "name": "fresh/scan/second",
+  "physical_delta": 0,
+  "rss_delta": 0,
+  "type": "resources"
+ },
+ {
+  "trace": {
+   "operation": "generated_fresh_lifetime",
+   "pid": 18375,
+   "events": [
+    {
+     "name": "begin",
+     "offset_ns": 292
+    },
+    {
+     "name": "export_transfer_begin",
+     "offset_ns": 1022514292
+    },
+    {
+     "name": "export_transfer_complete",
+     "offset_ns": 1022520792
+    },
+    {
+     "name": "end",
+     "offset_ns": 1023482959
+    }
+   ],
+   "guest": {
+    "version": 1,
+    "clock": "guest_monotonic",
+    "events": [
+     {
+      "name": "guest_main",
+      "offset_ns": 0
+     },
+     {
+      "name": "restore_begin",
+      "offset_ns": 31250
+     },
+     {
+      "name": "restore_complete",
+      "offset_ns": 31416
+     },
+     {
+      "name": "open_begin",
+      "offset_ns": 31625
+     },
+     {
+      "name": "server_init_begin",
+      "offset_ns": 33875
+     },
+     {
+      "name": "server_init_complete",
+      "offset_ns": 45050875
+     },
+     {
+      "name": "bootstrap_complete",
+      "offset_ns": 45138416
+     },
+     {
+      "name": "ready_prepared",
+      "offset_ns": 45151708
+     }
+    ]
+   }
+  },
+  "type": "trace"
+ }
+]

@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"runtime/pprof"
 	"strconv"
 	"strings"
 	"sync"
@@ -309,8 +310,155 @@ func main() {
 		matrix()
 	case "suite":
 		suite()
+	case "status":
+		statusControl()
+	case "firstuse":
+		firstuse()
 	default:
 		panic("unknown mode")
 	}
 	close(done)
+}
+
+func measured(name string, f func()) {
+	var before, after syscall.Rusage
+	syscall.Getrusage(syscall.RUSAGE_SELF, &before)
+	var m0, m1 runtime.MemStats
+	runtime.ReadMemStats(&m0)
+	os0 := cost()
+	timed(name, f)
+	syscall.Getrusage(syscall.RUSAGE_SELF, &after)
+	runtime.ReadMemStats(&m1)
+	os1 := cost()
+	emit(map[string]any{"type": "resources", "name": name, "minor_faults": after.Minflt - before.Minflt, "major_faults": after.Majflt - before.Majflt, "allocation_bytes": m1.TotalAlloc - m0.TotalAlloc, "heap_delta": int64(m1.HeapAlloc) - int64(m0.HeapAlloc), "physical_delta": os1["primary_bytes"].(float64) - os0["primary_bytes"].(float64), "rss_delta": os1["rss_bytes"].(float64) - os0["rss_bytes"].(float64)})
+}
+func query(p *sql.DB, kind string) {
+	var n uint64
+	q := map[string]string{"select1": "SELECT 1", "pk": "SELECT LENGTH(payload) FROM characterization WHERE id=0", "range": "SELECT SUM(LENGTH(payload)) FROM characterization WHERE id < 8", "count": "SELECT COUNT(*) FROM characterization", "scan": "SELECT SUM(CRC32(payload)) FROM characterization"}[kind]
+	must(p.QueryRowContext(ctx, q).Scan(&n))
+	if kind == "count" {
+		want := size * 1024
+		if want == 0 {
+			want = 1
+		}
+		if n != uint64(want) {
+			panic("wrong count")
+		}
+	}
+	emit(map[string]any{"type": "query_result", "kind": kind, "value": n})
+}
+func queryPair(d *mariamem.Database, label, kind string) {
+	p := connect(d)
+	measured(label+"/connect", func() { must(p.PingContext(ctx)) })
+	measured(label+"/first", func() { query(p, kind) })
+	measured(label+"/second", func() { query(p, kind) })
+	disconnect(d, p)
+}
+func firstuse() {
+	d, e := mariamem.Start(ctx, mariamem.Options{})
+	must(e)
+	measured("setup", func() { setup(d) })
+	var s *mariamem.Snapshot
+	measured("snapshot", func() { s, e = d.Snapshot(ctx, mariamem.SnapshotOptions{}); must(e) })
+	must(d.Close())
+	inventory(s)
+	for _, kind := range []string{"select1", "pk", "range", "count", "scan"} {
+		var child *mariamem.Database
+		measured("fork/"+kind+"/ready", func() { child, e = s.Fork(ctx); must(e) })
+		queryPair(child, "fork/"+kind, kind)
+		must(child.Close())
+	}
+	must(s.Close())
+	d, e = mariamem.Start(ctx, mariamem.Options{})
+	must(e)
+	setup(d)
+	for _, kind := range []string{"select1", "pk", "range", "count", "scan"} {
+		queryPair(d, "fresh/"+kind, kind)
+	}
+	must(d.Close())
+	// Profiles use separate equivalent preparations, outside latency cells.
+	if size == 100 && os.Getenv("FIRSTUSE_PROFILE") == "1" {
+		d, e = mariamem.Start(ctx, mariamem.Options{})
+		must(e)
+		setup(d)
+		f, e := os.Create(output + ".snapshot.pprof")
+		must(e)
+		must(pprof.StartCPUProfile(f))
+		s, e = d.Snapshot(ctx, mariamem.SnapshotOptions{})
+		must(e)
+		pprof.StopCPUProfile()
+		must(f.Close())
+		must(d.Close())
+		child, e := s.Fork(ctx)
+		must(e)
+		p := connect(child)
+		must(p.PingContext(ctx))
+		f, e = os.Create(output + ".count.pprof")
+		must(e)
+		must(pprof.StartCPUProfile(f))
+		query(p, "count")
+		pprof.StopCPUProfile()
+		must(f.Close())
+		disconnect(child, p)
+		must(child.Close())
+		must(s.Close())
+	}
+}
+
+func status(p *sql.DB, label string) {
+	rows, e := p.QueryContext(ctx, "SHOW GLOBAL STATUS WHERE Variable_name IN ('Innodb_buffer_pool_reads','Innodb_buffer_pool_read_requests','Innodb_data_read','Innodb_buffer_pool_pages_data','Innodb_buffer_pool_pages_total')")
+	must(e)
+	defer rows.Close()
+	values := map[string]string{}
+	for rows.Next() {
+		var k, v string
+		must(rows.Scan(&k, &v))
+		values[k] = v
+	}
+	must(rows.Err())
+	emit(map[string]any{"type": "innodb_status", "label": label, "values": values})
+}
+func statusControl() {
+	d, e := mariamem.Start(ctx, mariamem.Options{})
+	must(e)
+	setup(d)
+	s, e := d.Snapshot(ctx, mariamem.SnapshotOptions{})
+	must(e)
+	must(d.Close())
+	d, e = s.Fork(ctx)
+	must(e)
+	p := connect(d)
+	must(p.PingContext(ctx))
+	rows, e := p.QueryContext(ctx, "SHOW VARIABLES WHERE Variable_name IN ('innodb_buffer_pool_size','innodb_page_size','innodb_read_io_threads','innodb_write_io_threads')")
+	must(e)
+	vars := map[string]string{}
+	for rows.Next() {
+		var k, v string
+		must(rows.Scan(&k, &v))
+		vars[k] = v
+	}
+	must(rows.Close())
+	emit(map[string]any{"type": "innodb_variables", "values": vars})
+	rows, e = p.QueryContext(ctx, "EXPLAIN SELECT COUNT(*) FROM characterization")
+	must(e)
+	cols, e := rows.Columns()
+	must(e)
+	for rows.Next() {
+		values := make([]sql.NullString, len(cols))
+		dest := make([]any, len(cols))
+		for i := range dest {
+			dest[i] = &values[i]
+		}
+		must(rows.Scan(dest...))
+		emit(map[string]any{"type": "count_plan", "columns": cols, "values": values})
+	}
+	must(rows.Close())
+	status(p, "before")
+	measured("control/count/first", func() { query(p, "count") })
+	status(p, "after_first")
+	measured("control/count/second", func() { query(p, "count") })
+	status(p, "after_second")
+	disconnect(d, p)
+	must(d.Close())
+	must(s.Close())
 }

@@ -1,0 +1,52 @@
+File: characterize
+Type: cpu
+Time: 2026-10-07 01:18:07 JST
+Duration: 1.01s, Total samples = 760ms (75.29%)
+Showing nodes accounting for 720ms, 94.74% of 760ms total
+Showing top 45 nodes out of 90
+      flat  flat%   sum%        cum   cum%
+     660ms 86.84% 86.84%      660ms 86.84%  syscall.rawsyscalln
+         0     0% 86.84%      660ms 86.84%  syscall.syscall
+         0     0% 86.84%      660ms 86.84%  syscall.syscalln
+         0     0% 86.84%      640ms 84.21%  internal/poll.ignoringEINTRIO (inline)
+         0     0% 86.84%      620ms 81.58%  io.Copy (inline)
+         0     0% 86.84%      620ms 81.58%  io.copyBuffer
+         0     0% 86.84%      620ms 81.58%  os.(*File).WriteTo
+         0     0% 86.84%      620ms 81.58%  os.genericWriteTo
+         0     0% 86.84%      490ms 64.47%  internal/poll.(*FD).Read
+         0     0% 86.84%      490ms 64.47%  os.(*File).Read
+         0     0% 86.84%      490ms 64.47%  os.(*File).read (inline)
+         0     0% 86.84%      490ms 64.47%  syscall.Read (inline)
+         0     0% 86.84%      490ms 64.47%  syscall.read
+         0     0% 86.84%      470ms 61.84%  github.com/masahitojp/mariamem/internal/snapshot.DigestTimed
+         0     0% 86.84%      470ms 61.84%  github.com/masahitojp/mariamem/internal/snapshot.VerifyIndependent.func1
+         0     0% 86.84%      470ms 61.84%  github.com/masahitojp/mariamem/internal/snapshot.inventory.func2
+         0     0% 86.84%      160ms 21.05%  github.com/masahitojp/mariamem.(*Database).Snapshot
+         0     0% 86.84%      160ms 21.05%  github.com/masahitojp/mariamem/internal/host.(*Server).Snapshot
+         0     0% 86.84%      160ms 21.05%  main.firstuse
+         0     0% 86.84%      160ms 21.05%  main.main
+         0     0% 86.84%      160ms 21.05%  runtime.main
+         0     0% 86.84%      150ms 19.74%  github.com/masahitojp/mariamem/internal/snapshot.Publish
+         0     0% 86.84%      150ms 19.74%  github.com/masahitojp/mariamem/internal/snapshot.Publish.func1
+         0     0% 86.84%      150ms 19.74%  internal/poll.(*FD).Write
+         0     0% 86.84%      150ms 19.74%  os.(*File).Write
+         0     0% 86.84%      150ms 19.74%  os.(*File).write (inline)
+         0     0% 86.84%      150ms 19.74%  path/filepath.WalkDir
+         0     0% 86.84%      150ms 19.74%  path/filepath.walkDir
+         0     0% 86.84%      150ms 19.74%  syscall.Write (inline)
+         0     0% 86.84%      150ms 19.74%  syscall.write
+         0     0% 86.84%      140ms 18.42%  os.(*File).ReadFrom
+         0     0% 86.84%      140ms 18.42%  os.genericReadFrom
+         0     0% 86.84%      120ms 15.79%  github.com/masahitojp/mariamem/internal/generatedgo.StartInstance.func2
+         0     0% 86.84%       70ms  9.21%  github.com/masahitojp/mariamem/internal/generatedgo.exportTransfer
+         0     0% 86.84%       70ms  9.21%  github.com/masahitojp/mariamem/internal/generatedgo.exportTransfer.func1
+         0     0% 86.84%       70ms  9.21%  runtime.mallocgc
+         0     0% 86.84%       60ms  7.89%  runtime.makeslice
+      60ms  7.89% 94.74%       60ms  7.89%  runtime.memclrNoHeapPointers
+         0     0% 94.74%       50ms  6.58%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0% 94.74%       50ms  6.58%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0% 94.74%       50ms  6.58%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21858
+         0     0% 94.74%       50ms  6.58%  runtime.mallocgcLarge
+         0     0% 94.74%       50ms  6.58%  runtime.memclrNoHeapPointersChunked
+         0     0% 94.74%       40ms  5.26%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn259
+         0     0% 94.74%       30ms  3.95%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_filestat_set_size

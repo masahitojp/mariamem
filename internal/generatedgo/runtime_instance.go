@@ -84,7 +84,9 @@ func StartInstance(ctx context.Context, in io.Reader, out, stderr io.Writer, tra
 			return
 		}
 		if transfer != "" {
+			timing.Mark(lifetimeCtx, "export_transfer_begin")
 			err = exportTransfer(fs, transfer)
+			timing.Mark(lifetimeCtx, "export_transfer_complete")
 			// Collect only after cooperative guest/worker join, outside ready timing.
 			if timing.Enabled(lifetimeCtx) {
 				if f, e := fs.OpenFile("snapshot-out/startup-timing.json", os.O_RDONLY, 0); e == nil {

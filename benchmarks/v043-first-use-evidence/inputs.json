@@ -1,0 +1,22 @@
+{
+  "baseline": "a23e450af19fd2086a008cc85ed35173f0103801",
+  "reused_instrumentation": "cc24747",
+  "harness_base_commit": "b73c19b",
+  "replicas": 3,
+  "sizes_payload_mib": [
+    0,
+    10,
+    100
+  ],
+  "rows": [
+    1,
+    10240,
+    102400
+  ],
+  "columns": "INT PRIMARY KEY, VARBINARY(1024); no secondary index",
+  "minimum_free_gib": 8,
+  "disk_budget_gib": 4,
+  "process_physical_rss_limit_gib": 4,
+  "sampling_ms": 250,
+  "profile_scope": "separate equivalent100MiB Snapshot and COUNT first; no profile in latency cells"
+}
