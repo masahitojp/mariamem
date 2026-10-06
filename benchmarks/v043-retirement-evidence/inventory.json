@@ -1,0 +1,35 @@
+{
+  "baseline": "fa6ef5355ecb93f7e1cabbedf5caa74fe4210870",
+  "branch": "experiment/v043-wasmer-retirement",
+  "historical_python_fixture_files": 15,
+  "historical_python_fixture_test_functions": 106,
+  "historical_go_fixture_files": 2,
+  "active_shared_guard_test_functions": {
+    "tests/test_consumer_acceptance.py": 4,
+    "tests/test_guest_provenance.py": 9,
+    "tests/test_benchmark_inputs.py": 1,
+    "tests/test_ci_release_reuse.py": 4,
+    "tests/test_ci_release_publish.py": 9,
+    "tests/test_generated_release.py": 17,
+    "tests/test_release_plan.py": 12,
+    "tests/test_distribution_licenses.py": 4,
+    "tests/test_generated_default.py": 4,
+    "tests/test_python_diagnostics.py": 12
+  },
+  "distributed_notices": 20,
+  "historical_notices": 5,
+  "historical_notice_names": [
+    "Wasmer-ATTRIBUTIONS.txt",
+    "Wasmer-Linux-NOTICES.txt",
+    "Wasmer-MIT.txt",
+    "Wasmer-Rust-NOTICES.txt",
+    "Wasmer-Singlepass-BUSL-1.1.txt"
+  ],
+  "supported_platforms": [
+    "macOS arm64",
+    "Ubuntu 24.04 x86_64"
+  ],
+  "local_platform_validation": "macOS arm64 only; new Ubuntu artifact/release acceptance not run",
+  "guest_generated_pins_unchanged": true,
+  "current_product_wasmer_runtime_dependencies": 0
+}

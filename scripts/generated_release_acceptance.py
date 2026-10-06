@@ -17,13 +17,12 @@ import xml.etree.ElementTree as ET
 from common import ROOT, digest
 from consumer_module import MODULE, prepare_proxy
 from generated_release import CONTRACT, STEPS, checkout, require, source_inventory, verify_wheel, version, write
-from platform_acceptance import isolated_env, bind_remote_origin
-from release_consumer_smoke import environment
+from consumer_acceptance import isolated_env, bind_remote_origin, environment
 
 
 def harness_inventory(root):
     paths=[root/'scripts/generated_release_acceptance.py', root/'scripts/consumer_module.py',
-           root/'scripts/platform_acceptance.py',root/'scripts/release_consumer_smoke.py',root/'tests/verify_alpha.py',
+           root/'scripts/consumer_acceptance.py',root/'tests/verify_alpha.py',
            *sorted((root/'tests/godefault').glob('*.go')),
            root/'tests/consumer/test_database.py',root/'tests/consumer/test_generated_platform.py',
            root/'tests/consumer/test_sqlalchemy_dogfood.py',

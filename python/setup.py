@@ -28,6 +28,8 @@ class PlatformWheel(bdist_wheel):
                 raise ValueError("Native manifest must match deployment_target.json; run scripts/build_alpha.py")
         if os.environ.get("MARIAMEM_WHEEL_PLATFORM", expected) != expected:
             raise ValueError("Wheel platform must match native manifest")
+        if manifest.get("runtime_kind") != "generated-go":
+            raise ValueError("Only generated-Go host-only wheels are supported")
         if manifest.get("package_version") != PYTHON_VERSION:
             raise ValueError("Native manifest version is stale; run scripts/build_alpha.py")
         self.plat_name = expected
@@ -40,10 +42,6 @@ class PlatformWheel(bdist_wheel):
 
 license_root = Path(__file__).parent
 license_inventory = json.loads((license_root / "license-inventory.json").read_text())
-manifest_path = license_root / "mariamem/_native/manifest.json"
-legacy = manifest_path.exists() and json.loads(manifest_path.read_text()).get("runtime_kind") == "wasmer"
 license_names = set(license_inventory["distributed_notices"])
-if legacy:
-    license_names |= set(license_inventory["legacy_notices"])
 license_files = ["LICENSE", "NOTICE", "THIRD_PARTY_LICENSES"] + ["licenses/"+n for n in sorted(license_names)]
 setup(version=PYTHON_VERSION, cmdclass={"bdist_wheel": PlatformWheel}, license_files=license_files)

@@ -126,17 +126,12 @@ failure-containment boundary is not a public API contract.
 Normal shutdown joins guest workers and closes descriptors and prepared mappings.
 Non-cooperative/hung execution cannot be forcibly reclaimed inside a Go process;
 arbitrary worker panic/abort containment remains a separate architecture decision,
-not a new guarantee. Legacy force-kill tests remain explicit Wasmer coverage.
+not a new guarantee. Historical force-kill tests are reference evidence only.
 
-Internal kinds are `generated-go` and `wasmer`. `Options.NativeDir` and
-`MARIAMEM_NATIVE_DIR` are retained **compatibility bundle overrides**. Explicit
-legacy bundles keep their existing integrity/exact-identity checks and execute
-Wasmer. The earlier generated candidate bundle adapter is also retained; its
-historical executable filename is not evidence of Wasmer execution. Go's
-`MARIAMEM_RUNTIME=wasmer` is a development-only explicit legacy resolver selector;
-empty or `generated-go` selects the default, while unknown values are errors.
-An explicit NativeDir override takes precedence. No new public option was added.
-Python uses an explicit bundle override or runtime/module pair for legacy use.
+Generated-Go is the only current runtime on this v0.4.3 candidate branch.
+Legacy NativeDir/environment and Python runtime/module/cache overrides are
+rejected explicitly. Native/AOT bundle resolution, cache/materialization and
+Wasmer process startup are removed. Historical tags preserve that architecture.
 
 Each instance receives independent guest linear memory, Module/function tables,
 thread agents, TLS, pthread bookkeeping, wait queues, clocks/timers, FD table,
@@ -145,9 +140,8 @@ may back private writable views. Growing files must become child-owned; closing
 one child cannot unmap or invalidate another child's files. Generated code is normally linked once into the consumer. No live Go runtime object is captured or cloned.
 
 Verification covers platform identity, compiled guest identity (plus Python host executable checksums) and
-snapshot build identity, inventory and file hashes. Explicit legacy bundles retain
-their module, sidecar and artifact-change verification. Existing released Wasmer
-bundles remain usable through intentional selection.
+snapshot build identity, inventory and file hashes. Old Wasmer artifacts are
+usable only with their historical code, not a second current runtime.
 
 ## Snapshot/Fork contract
 
@@ -203,8 +197,7 @@ module SHA256, builds the existing host and records provenance/checksums.
 Prepared cold files use independent MemFS nodes and MAP_PRIVATE views; new guest
 execution state is built each time. Join every worker before releasing mappings.
 No diagnostic I/O overhead, Wasmer execution, ready heap or live state cloning is
-included. The historical runtime filename is retained only for selection by the
-unchanged local bundle resolver; manifest runtime_kind labels the candidate.
+included. The normal host-only manifest identifies generated-Go.
 
 The generated source is now isolated under `internal/generatedgo` and selected
 by default. Source-to-WASM and generated source reproducibility are recorded in
@@ -217,10 +210,9 @@ candidate report for public-boundary measurements and observed regressions.
 
 [The infrastructure/docs/test audit](v04-integration-audit.md) records retained
 API options, intended artifact migration, verification tiers and actual build/CI
-gaps. NativeDir remains a compatibility override; ordinary v0.4 zero setup is
-delivered by direct-linked Go and a host-only Python wheel, without a local
-runtime directory. Do not remove Wasmer fallback/trust
-mechanisms before their replacements and both-platform acceptance pass.
+gaps at that historical migration point. The current retirement inventory is
+[Track A](../benchmarks/v043-wasmer-retirement.md). Ordinary startup needs no
+runtime directory; required guest/sysroot source and licensing remain.
 
 The source-build reproducibility recipe and exact toolchain/input pins are in
 [guest reproducibility](v04-guest-reproducibility.md). This supersedes the earlier
@@ -268,13 +260,11 @@ Go1.27.0/1.27.1 arm64 are unsupported, as documented below.
 
 ## Packaging follow-up
 
-The Go source set retains generated source and two historical encoded images.
-Normal consumers direct-link generated Go; **no DB expands or spawns an image**.
-Encoded assets and their verifier/provisioner remain later cleanup candidates.
-Python's default host-only wheel contains neither Wasmer nor runtime WASM/AOT.
-The migrated Release CI verifies the current source/module and host-only wheels;
-legacy native resolver/cache/packaging and Wasmer notices remain isolated for
-fallback. No license obligation is considered removed.
+The Go module contains generated source; v0.4.1 removed unused executable images.
+Host-only wheels contain neither Wasmer nor runtime WASM/AOT. Current Release CI
+verifies the generated-Go source/module and wheels on both supported platforms.
+Historical Wasmer notices remain reference material in repository source only;
+no corresponding-source or upstream notice obligation is considered removed.
 
 ## Go toolchain support and regeneration
 
@@ -296,7 +286,7 @@ converter, pins and generated provenance hashes remain unchanged.
 The accepted v0.4.1 distribution candidate removes the unreferenced
 `internal/builtinruntime` package and image-only metadata/provisioning. Normal
 generated code and Python host-only packaging are preserved. Diagnostic guest
-CLI/spawn scaffolding and intentionally supported legacy bundle/cache machinery
-are separate. The [current roadmap](project-status.md) keeps distribution polish
-in v0.4.1, lifecycle work in v0.4.2 and conditional legacy retirement in v0.4.3;
-this architecture record does not authorize broader removal.
+CLI support for generated diagnostics remains internal. The v0.4.3 Track A
+candidate removes Wasmer execution/provisioning and active legacy build workflows,
+with historical reports and benchmark mechanics retained. No merge/release is
+implied; see the [retirement review](../benchmarks/v043-wasmer-retirement.md).

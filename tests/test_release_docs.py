@@ -9,7 +9,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from check_version import DOCS, check_release_docs
-from check_ci_release import check_candidate
+from generated_release import guard
 from common import ROOT
 from release_version import GIT_TAG, PYTHON_VERSION
 
@@ -79,7 +79,7 @@ def test_next_version_with_stale_examples_blocks_guard(candidate, stage):
         check_release_docs(candidate)
     # Guard rejects documentation before considering any artifact/evidence.
     with pytest.raises(ValueError, match=re.escape('expected ' + expected)):
-        check_candidate('a' * 40, candidate / 'acceptance.json', root=candidate)
+        guard(candidate, 'a' * 40, 'darwin-arm64')
 
 
 def test_historical_records_are_not_rewritten_or_checked(candidate):

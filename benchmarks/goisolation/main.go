@@ -59,7 +59,7 @@ func (r *runner) startup(saved *mariamem.Snapshot, group time.Time) (db *mariame
 		})
 	}
 	if saved == nil {
-		db, err = mariamem.Start(ctx, mariamem.Options{NativeDir: r.cfg.native})
+		db, err = mariamem.Start(ctx, mariamem.Options{})
 	} else {
 		db, err = saved.Fork(ctx)
 	}
@@ -420,7 +420,7 @@ func (r *runner) preparedPhase(phase string, runs int) (err error) {
 }
 func main() {
 	c := config{}
-	flag.StringVar(&c.native, "native-dir", "", "native bundle")
+	flag.StringVar(&c.native, "native-dir", "", "retired legacy input")
 	flag.StringVar(&c.output, "json", "", "raw result path")
 	flag.StringVar(&c.workers, "workers", "1,4,8", "concurrency levels")
 	flag.IntVar(&c.runs, "runs", 20, "measured runs")
@@ -437,6 +437,10 @@ func main() {
 	flag.BoolVar(&c.verificationProbe, "verification-probe", false, "isolated verification attribution; benchmark-only hash concurrency")
 	flag.StringVar(&c.resourceProbe, "resource-probe", "", "isolated diagnostic batch, fresh, sessions, or attribution")
 	flag.Parse()
+	if c.native != "" {
+		fmt.Fprintln(os.Stderr, "--native-dir is retired; use a historical tag")
+		os.Exit(2)
+	}
 	if c.initDiagnostics || c.memoryDiagnostics {
 		c.stages = true
 		c.guestStages = true

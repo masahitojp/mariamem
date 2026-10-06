@@ -3,7 +3,6 @@ package main
 // Diagnostic experiments only. Production Resolve/Validate are never replaced.
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -15,7 +14,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/masahitojp/mariamem/internal/artifacts"
+	"github.com/masahitojp/mariamem/internal/runtimekind"
 	"github.com/masahitojp/mariamem/internal/snapshot"
 )
 
@@ -105,10 +104,6 @@ func (r *runner) verificationRun() (err error) {
 	if r.cfg.stages {
 		return errors.New("isolated verification requires diagnostics off")
 	}
-	bundle, err := artifacts.Resolve(r.cfg.native)
-	if err != nil {
-		return err
-	}
 	db, _, err := r.startup(nil, time.Now())
 	if err != nil {
 		return err
@@ -124,28 +119,9 @@ func (r *runner) verificationRun() (err error) {
 		return err
 	}
 	defer func() { err = errors.Join(err, saved.Close()) }()
-	manifest, err := snapshot.Validate(saved.Path(), bundle.Build)
+	manifest, err := snapshot.Validate(saved.Path(), runtimekind.GuestSHA256)
 	if err != nil {
 		return err
-	}
-	var nativeManifest struct {
-		Hashes map[string]string `json:"sha256"`
-	}
-	raw, err := os.ReadFile(filepath.Join(bundle.Dir, "manifest.json"))
-	if err != nil {
-		return err
-	}
-	if err = json.Unmarshal(raw, &nativeManifest); err != nil {
-		return err
-	}
-	nativeItems := []hashItem{}
-	for _, name := range []string{"wasmer-headless", "mariamem.wasmu", "mariamem.wasmu.json"} {
-		path := filepath.Join(bundle.Dir, name)
-		info, e := os.Lstat(path)
-		if e != nil {
-			return e
-		}
-		nativeItems = append(nativeItems, hashItem{path, info.Size(), nativeManifest.Hashes[name]})
 	}
 	snapshotItems := []hashItem{}
 	for name, entry := range manifest.Entries {
@@ -154,16 +130,16 @@ func (r *runner) verificationRun() (err error) {
 		}
 	}
 	sort.Slice(snapshotItems, func(i, j int) bool { return snapshotItems[i].Path < snapshotItems[j].Path })
-	r.verificationEnvironment = map[string]any{"native_items": nativeItems, "snapshot_items": snapshotItems,
+	r.verificationEnvironment = map[string]any{"snapshot_items": snapshotItems,
 		"snapshot_inventory_count": len(manifest.Entries), "algorithm": "Go standard crypto/sha256 via production snapshot.Digest",
 		"gomaxprocs": runtime.GOMAXPROCS(0), "godebug": os.Getenv("GODEBUG"),
-		"goamd64_env": os.Getenv("GOAMD64"), "native_manifest": json.RawMessage(raw),
-		"go_target":  environmentCommand("go", "env", "GOAMD64", "GOARM64", "GOOS", "GOARCH"),
-		"filesystem": environmentCommand("df", "-h", bundle.Dir, saved.Path()),
-		"mounts":     environmentCommand("mount")}
+		"goamd64_env": os.Getenv("GOAMD64"),
+		"go_target":   environmentCommand("go", "env", "GOAMD64", "GOARM64", "GOOS", "GOARCH"),
+		"filesystem":  environmentCommand("df", "-h", saved.Path()),
+		"mounts":      environmentCommand("mount")}
 	if runtime.GOOS == "linux" {
 		r.verificationEnvironment["cpu"] = environmentCommand("lscpu")
-		r.verificationEnvironment["filesystem_type"] = environmentCommand("df", "-T", bundle.Dir, saved.Path())
+		r.verificationEnvironment["filesystem_type"] = environmentCommand("df", "-T", saved.Path())
 	} else {
 		r.verificationEnvironment["cpu"] = environmentCommand("sysctl", "hw.model", "hw.ncpu", "hw.optional.arm.FEAT_SHA256", "hw.optional.arm.FEAT_SHA512")
 	}
@@ -174,13 +150,12 @@ func (r *runner) verificationRun() (err error) {
 		items     []hashItem
 	}
 	conditions := []condition{
-		{"native_full", 1, func() error { _, e := artifacts.Resolve(r.cfg.native); return e }, nativeItems},
-		{"snapshot_full", 1, func() error { _, e := snapshot.Validate(saved.Path(), bundle.Build); return e }, snapshotItems},
+		{"snapshot_full", 1, func() error { _, e := snapshot.Validate(saved.Path(), runtimekind.GuestSHA256); return e }, snapshotItems},
 	}
 	for _, dataset := range []struct {
 		name  string
 		items []hashItem
-	}{{"native_hashes", nativeItems}, {"snapshot_hashes", snapshotItems}} {
+	}{{"snapshot_hashes", snapshotItems}} {
 		for _, workers := range []int{1, 2, 4} {
 			conditions = append(conditions, condition{dataset.name, workers, func() error { return hashItems(dataset.items, workers) }, dataset.items})
 		}
@@ -214,9 +189,6 @@ func (r *runner) verificationRun() (err error) {
 		}
 	}
 	// Recheck the full production contracts after all experiments.
-	if _, err = artifacts.Resolve(r.cfg.native); err != nil {
-		return err
-	}
-	_, err = snapshot.Validate(saved.Path(), bundle.Build)
+	_, err = snapshot.Validate(saved.Path(), runtimekind.GuestSHA256)
 	return err
 }

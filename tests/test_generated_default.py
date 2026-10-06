@@ -12,7 +12,8 @@ def test_generated_bundle_needs_host_only(tmp_path, monkeypatch):
     manifest = {'version':1,'platform':'darwin-arm64','minimum_macos':15,
                 'runtime_kind':'generated-go','sha256':{'mariamem-host':hashlib.sha256(host.read_bytes()).hexdigest()}}
     (tmp_path/'manifest.json').write_text(json.dumps(manifest))
-    monkeypatch.setenv('MARIAMEM_NATIVE_DIR',str(tmp_path))
+    monkeypatch.delenv('MARIAMEM_NATIVE_DIR',raising=False)
+    monkeypatch.setattr(_artifacts,'NATIVE_ROOT',tmp_path)
     monkeypatch.setattr(_artifacts,'_platform_identity',lambda:'darwin-arm64')
     monkeypatch.setattr(_artifacts.platform,'mac_ver',lambda:('15.0','',''))
     resolved=_artifacts.resolve()
@@ -36,17 +37,10 @@ def test_compiled_guest_identity_matches_recipe():
         assert sha in (root/name).read_text()
 
 
-def test_explicit_host_preserves_legacy_environment_bundle(tmp_path, monkeypatch):
-    hashes={}
-    for name in ['mariamem-host','wasmer-headless','mariamem.wasmu']:
-        path=tmp_path/name;path.write_bytes(name.encode());path.chmod(0o700)
-        hashes[name]=hashlib.sha256(path.read_bytes()).hexdigest()
-    (tmp_path/'manifest.json').write_text(json.dumps({'version':1,'platform':'darwin-arm64','minimum_macos':15,'sha256':hashes}))
-    override=tmp_path/'custom-host';override.write_bytes(b'custom host');override.chmod(0o700)
-    monkeypatch.setenv('MARIAMEM_NATIVE_DIR',str(tmp_path))
-    monkeypatch.setattr(_artifacts,'_platform_identity',lambda:'darwin-arm64')
-    monkeypatch.setattr(_artifacts.platform,'mac_ver',lambda:('15.0','',''))
-    result=_artifacts.resolve(host_binary=override)
-    assert result['host_binary']==str(override)
-    assert result['runtime']==str(tmp_path/'wasmer-headless')
-    assert result['module']==str(tmp_path/'mariamem.wasmu')
+def test_legacy_overrides_rejected(tmp_path, monkeypatch):
+    for options in ({"runtime":"old"}, {"module":"old"}):
+        with pytest.raises(_artifacts.ArtifactError, match="retired"):
+            _artifacts.resolve(**options)
+    monkeypatch.setenv("MARIAMEM_NATIVE_DIR",str(tmp_path))
+    with pytest.raises(_artifacts.ArtifactError, match="retired"):
+        _artifacts.resolve(host_binary="old")

@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 """Private tagged-module/HTTP fixtures exercise real Start(Options{}); no publication."""
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer zero-setup reference; use its historical tag. Current consumer acceptance uses generated_release_acceptance.py.")
+
 import argparse
 import hashlib
 import json

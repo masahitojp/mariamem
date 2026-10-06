@@ -10,24 +10,24 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'benchmarks'))
 import go_isolation as benchmark
 
 
-def test_native_input_is_explicit(monkeypatch):
+def test_native_input_is_retired(monkeypatch):
     monkeypatch.delenv('MARIAMEM_NATIVE_DIR', raising=False)
-    monkeypatch.setattr(sys, 'argv', ['go_isolation.py'])
+    monkeypatch.setattr(sys, 'argv', ['go_isolation.py','--native-dir','legacy'])
     with pytest.raises(SystemExit) as error:
         benchmark.main()
     assert error.value.code == 2
 
 
 @pytest.mark.parametrize('exit_code', [0, 1])
-def test_launcher_preserves_raw_case_summary_failure_and_native_identity(tmp_path, monkeypatch, capsys, exit_code):
+def test_launcher_preserves_raw_case_summary_failure_and_generated_identity(tmp_path, monkeypatch, capsys, exit_code):
     root = tmp_path
     files = ['go_isolation.py', 'isolation_baseline.py', '_common.py', 'stage_report.py']
     (root/'benchmarks/goisolation').mkdir(parents=True)
     for name in files:
         (root/'benchmarks'/name).write_text('fixture')
     (root/'benchmarks/goisolation/main.go').write_text('fixture')
-    native = root/'native'; native.mkdir()
-    (native/'manifest.json').write_text('{"package_version":"test","sha256":{"mariamem.wasmu":"test-hash"}}')
+    (root/'release').mkdir()
+    (root/'release/generated-go-inputs.json').write_text('{"guest_sha256":"test-hash"}')
     output = root/'benchmarks/results/report.json'
     monkeypatch.setattr(benchmark, 'ROOT', root)
     monkeypatch.setattr(benchmark, 'RESULTS', output.parent)
@@ -41,14 +41,14 @@ def test_launcher_preserves_raw_case_summary_failure_and_native_identity(tmp_pat
             Path(command[command.index('-o')+1]).write_bytes(b'runner')
             return SimpleNamespace(returncode=0)
         assert command[command.index('--workers')+1] == '1,4,8'
-        assert command[command.index('--native-dir')+1] == str(native)
+        assert '--native-dir' not in command
         Path(command[command.index('--json')+1]).write_text(json.dumps({
             'api': 'go', 'completed': exit_code == 0, 'environment': {'go': 'test-go'},
             'samples': [{'case': 'fork_first_sql', 'workers': 4, 'phase': 'measurement',
                          'latency_seconds': 2, 'per_db': [{'latency_seconds': 1}]}]}))
         return SimpleNamespace(returncode=exit_code)
     monkeypatch.setattr(benchmark.subprocess, 'run', run)
-    monkeypatch.setattr(sys, 'argv', ['go_isolation.py', '--native-dir', str(native), '--json', str(output), '--runs', '20'])
+    monkeypatch.setattr(sys, 'argv', ['go_isolation.py', '--json', str(output), '--runs', '20'])
     if exit_code:
         with pytest.raises(SystemExit) as error:
             benchmark.main()
@@ -59,7 +59,8 @@ def test_launcher_preserves_raw_case_summary_failure_and_native_identity(tmp_pat
     assert result['summary'][0]['p50_seconds'] == 2
     assert result['summary'][0]['per_db_p50_seconds'] == 1
     assert result['api'] == 'go' and result['completed'] == (exit_code == 0)
-    assert result['environment']['native_manifest']['sha256']['mariamem.wasmu'] == 'test-hash'
+    assert result['environment']['guest_sha256'] == 'test-hash'
+    assert result['environment']['runtime_kind'] == 'generated-go'
     assert result['environment']['commit'] == 'test-sha'
     assert len(commands) == 2 and result['settings']['runs'] == 20
 

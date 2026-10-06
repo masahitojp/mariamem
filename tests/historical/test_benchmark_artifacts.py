@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts'))
 import benchmark_artifacts as reuse
 from common import ROOT, digest
 from test_ci_guest_source import fixture, write_json

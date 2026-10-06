@@ -10,8 +10,7 @@ See [architecture](v04-generated-go-architecture.md) and
 The public package is `mariamem` at the module root. The module requires Go
 1.26.0+; canonical validation uses Go 1.26.8. Go 1.27.0/1.27.1 arm64 are
 unsupported because of upstream compiler issue #81036; no local workaround is
-used. An upstream-fixed toolchain has been verified. The v0.4.2 candidate is
-prepared, not published. After publication:
+used. An upstream-fixed toolchain has been verified. v0.4.2 is released.
 
 ```sh
 mkdir mariamem-example
@@ -36,22 +35,13 @@ gh release download v0.4.2 --repo masahitojp/mariamem \
   --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.2-provenance.json'
 ```
 
-## Legacy Wasmer compatibility override
+## Retired legacy overrides
 
-Explicit `NativeDir` or `MARIAMEM_NATIVE_DIR` selects legacy Wasmer execution.
-Use only a matching, independently verified legacy bundle. The normal v0.4.2
-artifact contract does not include a new Wasmer/AOT bundle.
-
-```go
-db, err := mariamem.Start(ctx, mariamem.Options{
-    NativeDir: "/path/to/verified/legacy/native",
-})
-```
-
-A legacy bundle contains `manifest.json`, `wasmer-headless`, `mariamem.wasmu`
-and `mariamem.wasmu.json`. Hashes and sidecar metadata remain verified on that
-explicit path; its guest runs as a child process. The historical manual bundle
-section below applies only to this fallback, not ordinary Go startup.
+On this v0.4.3 candidate branch, generated-Go is the only runtime.
+`Options.NativeDir` remains a deprecated source-compatibility field; nonempty
+values, `MARIAMEM_NATIVE_DIR`, and `MARIAMEM_RUNTIME=wasmer` are rejected with
+migration guidance. Empty or `MARIAMEM_RUNTIME=generated-go` uses compiled source.
+For historical Wasmer comparisons, use an old tag and its matching artifacts.
 
 ## Lifecycle and sessions
 
@@ -114,71 +104,8 @@ multi-client checks and focused handwritten/runtime FD/MemFS/thread/TLS/futex
 race coverage. The full generated guest is not Go `-race` clean; its documented
 shared-memory adaptation problem is not suppressed or presented as passing.
 Forced query-timeout reclamation remains a separate diagnostic, not a guarantee.
-Set `MARIAMEM_NATIVE_DIR` only to exercise explicit legacy Wasmer acceptance.
 The module pins the test driver `github.com/go-sql-driver/mysql` to v1.9.3;
 applications register their own driver. See [development](development.md#local-verification).
-
-## Manual native bundle (local candidate)
-
-Generate a Go bundle from the existing wheel staging artifacts; this does not
-rebuild the guest, alter the wheel, download binaries, or publish a release:
-
-The commands/layout below show the macOS bundle. On Ubuntu use the same tooling
-with the Ubuntu native directory/archive; its manifest records Ubuntu 24.04,
-x86_64, SSE2 + SSSE3 and the verified ELF dependencies instead of Mach-O minimums.
-
-```sh
-python3 scripts/package_native.py
-python3 scripts/package_native.py --verify build/release/native-candidate/mariamem-native-darwin-arm64.tar.gz
-```
-
-Use `--native-dir /path/to/existing/native` for another staged bundle. Inputs must
-match its manifest, sidecar, and the repository's candidate deployment target.
-Outputs live under ignored `build/release/native-candidate/`, separate from the
-release-approved `build/release/publish/` directory. The archive and SHA256SUMS
-are accompanied by `native-candidate.json` recording archive and member hashes.
-Packaging the same input bytes produces the same archive bytes (sorted members,
-fixed timestamps/ownership/modes and gzip header); this does not promise identical
-MariaDB/Wasmer binaries from independent builds or across compression toolchains.
-
-The archive expands to `mariamem-native-darwin-arm64/`, containing:
-
-- `manifest.json`, `wasmer-headless` (executable), `mariamem.wasmu`, `mariamem.wasmu.json`
-- Existing `LICENSE`, `NOTICE`, `THIRD_PARTY_LICENSES`, and `licenses/` copied unchanged
-- `CANDIDATE.json`: stable input build-manifest/lock hashes; release reviews and
-  clean-platform acceptance remain external and refer to the archive SHA256
-
-The manifest retains its format, declares the macOS 15 minimum, removes the
-unused `mariamem-host` hash, and records the three required artifact hashes.
-The host executable is not included. `public_release_ready` is always false for
-this candidate tool, even if the input manifest says otherwise.
-
-For legacy evaluation, verify the matching previously published archive
-against its published SHA256 and then extract it:
-
-```sh
-go get github.com/masahitojp/mariamem@<published-tag>
-shasum -a 256 mariamem-native-darwin-arm64.tar.gz
-tar -xzf mariamem-native-darwin-arm64.tar.gz
-export MARIAMEM_NATIVE_DIR="$PWD/mariamem-native-darwin-arm64"
-```
-
-To force use of this local bundle, pass its directory explicitly or set the
-supported environment override:
-
-```go
-db, err := mariamem.Start(ctx, mariamem.Options{
-    NativeDir: os.Getenv("MARIAMEM_NATIVE_DIR"),
-})
-```
-
-The locally generated archive remains a candidate with
-`public_release_ready=false` in its metadata; this packaging command does not
-publish or stage it as an approved Release asset. Release CI must obtain clean
-platform evidence for its exact hash and verify source/runtime notices. Tracked
-`release/review.json` describes historical artifacts, not a new candidate's
-approval. The native archive is separate from the wheel and corresponding-source
-archive checked by the [release guard](releasing.md).
 
 ## Failure diagnostics
 
@@ -197,14 +124,7 @@ invalidates the entire Database: `db.Err()` matches `mariamem.ErrUnusable` and
 retains its cause. `Close()` remains safe and idempotent. Stage names provide
 diagnostic context rather than a stable inventory of runtime internals.
 
-Legacy Ubuntu 24.04 x86_64 AOT bundles require a CPU with SSSE3. Compilation uses
-a fixed SSE2+SSSE3 feature set and does not require AVX or AVX-512.
-
-For startup failures, read the category/stage first, then the expected path,
-platform or hash in the message. Reinstall the matching host-only Python wheel,
-or, for explicit legacy execution, re-extract a complete matching native bundle;
-do not mix files from different
-bundles. Preserve executable permissions. An AOT/CPU compatibility error may
-require a supported machine or VM exposing the required CPU features; the
-Ubuntu 24.04 x86_64 bundle requires SSE2 and SSSE3. Startup failure does not
-return a usable database; retry Start after correcting the reported input.
+For startup failures, read the category/stage and retained guest diagnostics.
+Remove retired runtime overrides; use the supported generated-Go module.
+Startup failure does not return a usable database. Retry Start after correcting
+the reported input. Existing lifecycle errors remain controlled and unwrap-able.

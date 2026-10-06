@@ -10,13 +10,13 @@ Both languages have public lifecycle APIs.
 
 **Direct-linked generated Go is the default v0.4.2 runtime.** Ordinary Go
 `Start(ctx, Options{})` and Python `mariamem.start()` need no Wasmer bundle,
-NativeDir or runtime download. Explicit legacy bundle overrides remain supported.
+NativeDir or runtime download. This branch retires legacy runtime overrides; generated-Go is the only supported runtime.
 See [architecture](docs/v04-generated-go-architecture.md) and
 [historical canonical measurements](benchmarks/v04-integrated-candidate.md).
 v0.4.2 adds controlled pure-memory32 traps and mmap-backed linear memory for
 cheaper repeated disposal.
-The v0.4.2 candidate is prepared but not tagged or published. Installation
-commands below are for use after publication. See [release notes](release/NOTES-v0.4.2.md)
+v0.4.2 is released. Installation commands below use its published artifacts;
+this independent retirement branch remains unmerged. See [release notes](release/NOTES-v0.4.2.md)
 and [current product direction / roadmap](docs/project-status.md).
 
 The testing workflow is Docker-free: each disposable database has its own server
@@ -114,9 +114,9 @@ db, err := mariamem.Start(ctx, mariamem.Options{})
 Generated Go is ordinary module source compiled by the consumer's `go build`.
 Each DB runs directly in the caller with fresh runtime/thread/TLS/FD and private
 writable filesystem state. Normal startup does not provision an executable,
-spawn a guest subprocess or resolve/download a Wasmer bundle. Explicit
-`Options.NativeDir` and `MARIAMEM_NATIVE_DIR` select the legacy compatibility
-path; see the [Go guide](docs/go.md).
+spawn a guest subprocess or resolve/download a Wasmer bundle. Legacy `Options.NativeDir`, `MARIAMEM_NATIVE_DIR` and
+`MARIAMEM_RUNTIME=wasmer` inputs now fail explicitly. Remove them when moving
+from a historical Wasmer-based release.
 
 Source/provenance review assets can be downloaded separately;
 they are not required for ordinary startup:

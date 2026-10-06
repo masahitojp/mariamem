@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """Verify an exact guest WASM handoff and compile it on a supported native target."""
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses docs/development.md.")
+
 import argparse
 import json
 import os

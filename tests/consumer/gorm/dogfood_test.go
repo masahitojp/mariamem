@@ -7,7 +7,6 @@ import (
 	"errors"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"runtime"
 	"strconv"
 	"strings"
@@ -114,28 +113,20 @@ func childPIDs(t *testing.T) []string {
 }
 
 func TestDogfood(t *testing.T) {
-	native, output, mode := os.Getenv("DOGFOOD_NATIVE_DIR"), os.Getenv("DOGFOOD_EVIDENCE"), os.Getenv("DOGFOOD_MODE")
-	if (native == "" && os.Getenv("DOGFOOD_ZERO_OPTIONS") != "1") || output == "" {
-		t.Skip("run via tests/consumer/run_gorm.py with an explicit native bundle")
+	output, mode := os.Getenv("DOGFOOD_EVIDENCE"), os.Getenv("DOGFOOD_MODE")
+	if output == "" {
+		t.Skip("run via tests/consumer/run_gorm.py")
+	}
+	if os.Getenv("DOGFOOD_NATIVE_DIR") != "" {
+		t.Fatal("legacy native override is retired")
 	}
 	check(t, mode == "start" || mode == "fork", "invalid mode")
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
-	opts := mariamem.Options{NativeDir: native}
-	if os.Getenv("DOGFOOD_ZERO_OPTIONS") == "1" {
-		opts = mariamem.Options{}
-	}
+	opts := mariamem.Options{}
 	var cases []*observation
-	result := map[string]any{"mode": mode, "go": runtime.Version(), "os": runtime.GOOS, "arch": runtime.GOARCH, "native_dir": native}
-	if native != "" {
-		manifest, err := os.ReadFile(filepath.Join(native, "manifest.json"))
-		require(t, err)
-		var metadata any
-		require(t, json.Unmarshal(manifest, &metadata))
-		result["native_manifest"] = metadata
-	} else {
-		result["native_manifest"] = map[string]any{"runtime_kind": "generated-go", "selection": "built-in"}
-	}
+	result := map[string]any{"mode": mode, "go": runtime.Version(), "os": runtime.GOOS, "arch": runtime.GOARCH,
+		"native_manifest": map[string]any{"runtime_kind": "generated-go", "selection": "built-in"}}
 	if b, err := exec.Command("go", "list", "-m", "-json", "all").Output(); err == nil {
 		result["modules"] = string(b)
 	}

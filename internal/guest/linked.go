@@ -30,20 +30,32 @@ func startLinked(ctx context.Context, module, transfer, restore string, stderr i
 		in.Close()
 		return nil, err
 	}
-	ready := make(chan response, 1)
-	p := &Process{startupTiming: timing.Enabled(ctx), in: in, out: out, writes: make(chan struct{}, 1), done: make(chan struct{}), pending: map[uint32]chan response{0: ready}}
 	timing.Mark(ctx, "linked_execution_begin")
 	execution := generatedgo.StartInstance(childIn, childOut, logs, transfer, restore, timing.Enabled(ctx))
+	return Connect(ctx, in, out, execution, func() {
+		childIn.Close()
+		childOut.Close()
+	}, tail)
+}
+
+// Connect owns a framed transport, not a runtime executable. Completion must
+// be followed by closePeer closing the peer endpoints (or already-closed peers). The linked runtime and deterministic
+// transport fixtures use the same response reader and cooperative teardown.
+func Connect(ctx context.Context, in io.WriteCloser, out io.ReadCloser, completed <-chan error, closePeer func(), logs io.Writer) (*Process, error) {
+	tail, ok := logs.(*stderrTail)
+	if !ok {
+		tail = &stderrTail{}
+	}
+	ready := make(chan response, 1)
+	p := &Process{startupTiming: timing.Enabled(ctx), in: in, out: out, writes: make(chan struct{}, 1), done: make(chan struct{}), pending: map[uint32]chan response{0: ready}}
 	readDone := make(chan struct{})
 	go func() { defer close(readDone); p.read() }()
 	go func() {
-		err := <-execution
-		childIn.Close()
-		childOut.Close()
+		err := <-completed
+		if closePeer != nil {
+			closePeer()
+		}
 		<-readDone
-		// The host response reader is owned by this linked execution, not by
-		// the lifetime of a retained Process/Database handle. Join its reader
-		// before closing it, and release the FD before publishing completion.
 		_ = out.Close()
 		p.exitErr = err
 		close(p.done)

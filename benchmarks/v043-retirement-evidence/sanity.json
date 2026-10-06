@@ -1,0 +1,82 @@
+{
+  "purpose": "small informational sanity, not canonical benchmark",
+  "baseline_sha": "fa6ef5355ecb93f7e1cabbedf5caa74fe4210870",
+  "trials_per_state_per_case": 3,
+  "benchmark_exclusive_start_utc": "2026-10-06 13:14:56",
+  "benchmark_exclusive_end_utc": "2026-10-06 13:15:40",
+  "note": "same-process Go CPU; runtime_pid=0 placeholder ignored; legacy boundary string mentions image provisioning but normal path provisions no image",
+  "baseline": {
+    "start": {
+      "latency_ms_samples": [
+        66.611583,
+        51.041292,
+        53.048542
+      ],
+      "median_ms": 53.048542,
+      "ready_cpu_seconds_samples": [
+        0.070372375,
+        0.05637208400000002,
+        0.061840958
+      ],
+      "median_ready_cpu_seconds": 0.061840958,
+      "max_ready_rss_bytes": 182845440,
+      "max_ready_physical_bytes": 150242336
+    },
+    "fork": {
+      "latency_ms_samples": [
+        118.708208,
+        119.09708400000001,
+        118.091291
+      ],
+      "median_ms": 118.708208,
+      "ready_cpu_seconds_samples": [
+        0.136970084,
+        0.13697354200000011,
+        0.1364248749999999
+      ],
+      "median_ready_cpu_seconds": 0.136970084,
+      "max_ready_rss_bytes": 588120064,
+      "max_ready_physical_bytes": 543835432
+    }
+  },
+  "candidate": {
+    "start": {
+      "latency_ms_samples": [
+        87.82,
+        53.801833,
+        53.344457999999996
+      ],
+      "median_ms": 53.801833,
+      "ready_cpu_seconds_samples": [
+        0.083601916,
+        0.067284,
+        0.059290167000000005
+      ],
+      "median_ready_cpu_seconds": 0.067284,
+      "max_ready_rss_bytes": 181846016,
+      "max_ready_physical_bytes": 149767224,
+      "latency_relative_delta_pct": 1.4200032113983463,
+      "latency_absolute_delta_ms": 0.7532910000000044,
+      "cpu_relative_delta_pct": 8.801678007640179
+    },
+    "fork": {
+      "latency_ms_samples": [
+        124.2985,
+        121.745834,
+        115.98383299999999
+      ],
+      "median_ms": 121.745834,
+      "ready_cpu_seconds_samples": [
+        0.14139641599999997,
+        0.13893091599999996,
+        0.13415404200000003
+      ],
+      "median_ready_cpu_seconds": 0.13893091599999996,
+      "max_ready_rss_bytes": 587202560,
+      "max_ready_physical_bytes": 543507776,
+      "latency_relative_delta_pct": 2.5589014030099833,
+      "latency_absolute_delta_ms": 3.037626000000003,
+      "cpu_relative_delta_pct": 1.4315768398009965
+    }
+  }
+}

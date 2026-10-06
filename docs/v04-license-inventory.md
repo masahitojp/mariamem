@@ -66,8 +66,8 @@ preserve original notices even for build/preparation inputs.
 | LLVM23/clang/LLD tooling | BUILD-ONLY | compiler/backend, different revision from sysroot runtime | pins/scripts, no compiler binary/code | absent | exact compiler pin/download retained as build provenance; runtime sources above separate |
 | WASIXCC / Binaryen / ICU | BUILD-ONLY | driver, optimizer, compiler-host dependency | recipes/pins, no tool executable | absent | build provenance, not runtime-wheel notices |
 | Connector/C preparation input | BUILD-ONLY | prepare_guest installs source for configure | no separately linked connector library; embedded client is libmysqld/libmysql.c | no connector library | full pinned archive/terms retained conservatively for source preparation |
-| Wasmer / headless / Singlepass | LEGACY-ONLY | not used in normal build/link/translation | fallback integration source/notices retained, engine external | engine/AOT/notices absent | external engine archive excluded; repository MIT/BUSL/Rust notices retained |
-| Native-bundle Rust dependencies | LEGACY-ONLY | Wasmer bundle dependency graph only | old inventories retained, not translated | absent | existing macOS/Linux legacy notice guards unchanged |
+| Wasmer / headless / Singlepass | LEGACY-ONLY | not used in normal build/link/translation | execution removed; historical source/notices retained | engine/AOT/notices absent | external engine archive excluded; repository MIT/BUSL/Rust notices retained |
+| Native-bundle Rust dependencies | LEGACY-ONLY | Wasmer bundle dependency graph only | old inventories retained, not translated | absent | old notice inventories retained as references |
 | PyMySQL / pytest / xdist | UNUSED | acceptance/optional install, not artifact build/link inputs | dependency declarations/tests, no copied implementation | not copied | independently installed packages retain their own terms |
 
 The [pinned wolfSSL terms](https://raw.githubusercontent.com/wolfSSL/wolfssl/1d363f3adceba9d1478230ede476a37b0dcdef24/LICENSING)
@@ -83,10 +83,11 @@ than assuming the compiler's license disappears on translation.
 `release/distribution-licenses.json` partitions all flat license files, binds
 their hashes and the evidence, and records one classification per component.
 Unknown/missing/changed license files fail closed. Normal wheel metadata selects
-only distributed notices; the explicit legacy wheel mode still selects all.
+only distributed notices. Legacy wheel mode is retired; the inventory keeps
+historical notice bytes independently classified.
 The five removed **normal-wheel** files are Wasmer-MIT, Wasmer-ATTRIBUTIONS,
 Wasmer-Singlepass-BUSL-1.1, Wasmer-Rust-NOTICES and Wasmer-Linux-NOTICES.
-Their original bytes remain in both source mirrors and legacy guards.
+Their original bytes remain in both source mirrors as historical references.
 The zlib text now uses the pinned source's dedicated `zlib/LICENSE`, replacing
 the full README previously used as its license file. Original README remains
 in corresponding source. Fifteen complete copied upstream texts are checked

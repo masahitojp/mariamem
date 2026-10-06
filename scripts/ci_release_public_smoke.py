@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """Verify published bytes and consume the public tag; never modify a release."""
+
+if __name__ == "__main__":
+    raise SystemExit("Retired Wasmer reference tool; reproduce with its pinned historical tag. Current generated-Go build/release uses docs/development.md.")
+
 import argparse
 from datetime import datetime, timezone
 import json

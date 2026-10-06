@@ -10,15 +10,12 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"os/exec"
 	"strings"
 	"sync"
-	"syscall"
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
-	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 type Column struct {
@@ -61,7 +58,6 @@ type response struct {
 	headerAt, decodedAt time.Time
 }
 type Process struct {
-	cmd             *exec.Cmd
 	in              io.WriteCloser
 	out             io.ReadCloser
 	mu              sync.Mutex
@@ -78,85 +74,10 @@ type Process struct {
 	MaxSessions     int
 }
 
-func Start(ctx context.Context, runtime, module, wasmerDir, transfer, restore string, stderr io.Writer) (*Process, error) {
-	return StartKind(ctx, runtime, module, wasmerDir, transfer, restore, stderr, runtimekind.Wasmer)
+func StartGenerated(ctx context.Context, transfer, restore string, stderr io.Writer) (*Process, error) {
+	return startLinked(ctx, runtimekind.GuestSHA256, transfer, restore, stderr)
 }
-
-func StartKind(ctx context.Context, runtime, module, wasmerDir, transfer, restore string, stderr io.Writer, kind runtimekind.Kind) (*Process, error) {
-	if kind == runtimekind.GeneratedGo {
-		return startLinked(ctx, module, transfer, restore, stderr)
-	}
-	args := []string{"run", module, "--no-tty", "--volume", transfer + ":/snapshot-out"}
-	if timing.Enabled(ctx) {
-		args = append(args, "--env", "MARIAMEM_GUEST_TIMING=1")
-		if os.Getenv("MARIAMEM_INIT_DIAGNOSTICS") == "1" {
-			args = append(args, "--env", "MARIAMEM_INIT_DIAGNOSTICS=1")
-		}
-	}
-	if restore != "" {
-		args = append(args, "--volume", restore+":/snapshot-in", "--", "--restore-snapshot")
-	}
-	if kind == runtimekind.GeneratedGo && module != runtimekind.GuestSHA256 {
-		return nil, fmt.Errorf("generated guest identity mismatch")
-	}
-	cmd := exec.Command(runtime, args...)
-	cmd.Env = os.Environ()
-	if kind == runtimekind.Wasmer && wasmerDir != "" {
-		cmd.Env = append(cmd.Env, "WASMER_DIR="+wasmerDir)
-	}
-	tail := &stderrTail{}
-	if stderr == nil {
-		cmd.Stderr = tail
-	} else {
-		cmd.Stderr = io.MultiWriter(stderr, tail)
-	}
-	cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
-	in, err := cmd.StdinPipe()
-	if err != nil {
-		return nil, err
-	}
-	out, err := cmd.StdoutPipe()
-	if err != nil {
-		in.Close()
-		return nil, err
-	}
-	ready := make(chan response, 1)
-	p := &Process{startupTiming: timing.Enabled(ctx), cmd: cmd, in: in, out: out, writes: make(chan struct{}, 1), done: make(chan struct{}), pending: map[uint32]chan response{0: ready}}
-	timing.Mark(ctx, "spawn_begin")
-	if err = cmd.Start(); err != nil {
-		in.Close()
-		out.Close()
-		return nil, diagnostic.Wrap("guest_start", "guest_launch", fmt.Errorf("could not launch runtime %q for guest %q; use the complete native bundle for your supported platform and check executable permissions: %w", runtime, module, err))
-	}
-	timing.Mark(ctx, "spawn_returned")
-	timing.Runtime(ctx, p.PID())
-	readDone := make(chan struct{})
-	go func() { defer close(readDone); p.read() }()
-	go func() { <-readDone; p.exitErr = cmd.Wait(); close(p.done); p.fail(errors.New("guest exited")) }()
-	select {
-	case r := <-ready:
-		timing.MarkAt(ctx, "ready_header_received", r.headerAt)
-		timing.MarkAt(ctx, "ready_frame_decoded", r.decodedAt)
-		timing.Mark(ctx, "ready_response_observed")
-		if r.err == nil && r.result.Ready && r.result.Version == 2 && r.result.MaxSessions > 0 && r.result.MaxSessions <= 65536 {
-			p.SnapshotVersion = r.result.SnapshotVersion
-			p.MaxSessions = r.result.MaxSessions
-			return p, nil
-		}
-		if r.err == nil {
-			r.err = errors.New("unsupported guest: requires multi-session API v2 with valid capacity")
-		}
-		return nil, startupError(p.AbortAndWait(r.err), tail)
-	case <-ctx.Done():
-		return nil, startupError(p.AbortAndWait(ctx.Err()), tail)
-	}
-}
-func (p *Process) PID() int {
-	if p.cmd == nil {
-		return os.Getpid()
-	}
-	return p.cmd.Process.Pid
-}
+func (p *Process) PID() int              { return os.Getpid() }
 func (p *Process) Done() <-chan struct{} { return p.done }
 
 // Err reports the cause that made the guest unusable, if any.
@@ -198,9 +119,6 @@ func (p *Process) fail(err error) {
 func (p *Process) Abort(err error) {
 	p.abort.Do(func() {
 		p.fail(err)
-		if p.cmd != nil {
-			_ = syscall.Kill(-p.PID(), syscall.SIGKILL)
-		}
 		p.in.Close()
 		p.out.Close()
 	})
@@ -437,9 +355,5 @@ func startupError(err error, tail *stderrTail) error {
 	if text != "" {
 		err = fmt.Errorf("%w; stderr tail: %s", err, text)
 	}
-	hint := "Check that the runtime and guest come from the same native bundle; re-extract the matching release bundle before retrying."
-	if strings.Contains(strings.ToLower(text), "cpu features") || strings.Contains(strings.ToLower(text), "incompatible binary") {
-		hint = "The AOT guest is incompatible with this runtime or CPU. Use the matching platform bundle; Ubuntu 24.04 x86_64 requires SSE2 and SSSE3 CPU features (including in a VM)."
-	}
-	return diagnostic.Wrap("guest_connection", "guest_ready", fmt.Errorf("Wasmer/guest startup did not complete the expected API v2 handshake. %s Cause: %w", hint, err))
+	return diagnostic.Wrap("guest_connection", "guest_ready", fmt.Errorf("generated-Go guest startup did not complete the expected API v2 handshake; inspect guest diagnostics. Cause: %w", err))
 }

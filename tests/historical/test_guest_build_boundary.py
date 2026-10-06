@@ -6,7 +6,7 @@ import sys
 import tempfile
 import unittest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from common import ROOT, digest
 from compile_guest_aot import verify_handoff, compile_command
 from install_guest_toolchain import inventory

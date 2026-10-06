@@ -316,7 +316,7 @@ func batch(backend, scenario, native, image string, saved *mariamem.Snapshot, n 
 	return map[string]any{"backend": backend, "scenario": scenario, "workers": n, "group_ready_seconds": groupReady, "runner_cpu_seconds": runnerCPU, "per_db": all}, nil
 }
 func run() (err error) {
-	native := flag.String("native-dir", "", "verified canonical native dir")
+	native := flag.String("native-dir", "", "retired legacy-only input; omit for generated-Go")
 	image := flag.String("image", "", "digest-pinned pre-pulled image")
 	output := flag.String("json", "", "result path")
 	runs := flag.Int("runs", 20, "measured rounds")
@@ -324,14 +324,17 @@ func run() (err error) {
 	suiteMode := flag.String("suite-mode", "", "benchmark-only fresh/prepared/schema-reset condition")
 	suiteCount := flag.Int("suite-count", 10, "sequential isolated tests")
 	flag.Parse()
+	if *native != "" {
+		return errors.New("NativeDir is retired; omit it for generated-Go")
+	}
 	if *suiteMode != "" {
 		return runSuite(*suiteMode, *suiteCount, *native, *image, *output)
 	}
 	if runtime.GOOS != "linux" || runtime.GOARCH != "amd64" {
 		return errors.New("comparison requires Ubuntu 24.04 x86_64")
 	}
-	if *runs < 1 || *warmup < 0 || *native == "" || *output == "" || !strings.Contains(*image, "@sha256:") {
-		return errors.New("native dir, output, digest-pinned image and valid run counts required")
+	if *runs < 1 || *warmup < 0 || *output == "" || !strings.Contains(*image, "@sha256:") {
+		return errors.New("output, digest-pinned image and valid run counts required")
 	}
 	dir, err := os.MkdirTemp("", "mariamem-competitive-")
 	if err != nil {

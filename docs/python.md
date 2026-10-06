@@ -1,13 +1,12 @@
 # Python API
 
-**Generated Go is the default v0.4.2 runtime.** The `0.4.2` candidate is
-prepared, not tagged or published. Normal Python startup uses a platform Go host
+**Generated Go is the default v0.4.2 runtime.** The `0.4.2` package is released. Normal Python startup uses a platform Go host
 with generated-Go MariaDB linked in; no external Wasmer/native bundle is needed.
 Public APIs and cold Snapshot/Fork semantics are preserved. See
 [architecture](v04-generated-go-architecture.md) and
 [canonical measurements](../benchmarks/v04-integrated-candidate.md).
 
-PyPI publication remains unavailable pending account recovery. After publication,
+PyPI publication remains unavailable pending account recovery;
 use the [v0.4.2 GitHub Release wheels](https://github.com/masahitojp/mariamem/releases/tag/v0.4.2)
 and [platform install commands / PEP 508 extras](../README.md#python), not a Git
 source install. The wheel supplies the platform host executable. PyPI remains a
@@ -108,10 +107,11 @@ are not Python end-to-end or hardware-independent guarantees.
 
 ## Developer overrides
 
-`start(host_binary=..., runtime=..., module=...)` allows explicit native artifacts.
-`MARIAMEM_NATIVE_DIR` points to a directory containing the private bundle manifest.
-Neither is needed with a complete platform wheel. Timeouts can be configured with
-`startup_timeout`, `query_timeout`, and `shutdown_timeout` (seconds).
+`start(host_binary=...)` supports a local generated-Go host. A complete wheel
+needs no override. Legacy `runtime`, `module`, `wasmer_dir` and
+`MARIAMEM_NATIVE_DIR` are rejected on this v0.4.3 candidate branch. Use an older
+tag for historical Wasmer comparisons. Timeouts use seconds:
+`startup_timeout`, `query_timeout`, and `shutdown_timeout`.
 Query timeout or client disconnect during a running query invalidates the
 database instance. Forced reclamation of non-cooperative guest execution and
 hard failure containment are not guaranteed. `db.closed` then becomes true;
@@ -134,14 +134,7 @@ is error 1040), rather than wrapper startup failures. Interrupted active SQL
 still invalidates the entire instance; `status()` reports `unusable` and disposes
 wrapper resources. `close()` stays safe and idempotent.
 
-Legacy Ubuntu 24.04 x86_64 AOT bundles require a CPU with SSSE3. Compilation uses
-a fixed SSE2+SSSE3 feature set and does not require AVX or AVX-512.
-
-For startup failures, read the category/stage first, then the expected path,
-platform or hash in the message. Reinstall the matching host-only Python wheel,
-or, for explicit legacy execution, re-extract a complete matching native bundle;
-do not mix files from different
-bundles. Preserve executable permissions. An AOT/CPU compatibility error may
-require a supported machine or VM exposing the required CPU features; the
-Ubuntu 24.04 x86_64 bundle requires SSE2 and SSSE3. Startup failure does not
-return a usable database; retry Start after correcting the reported input.
+For startup failures, read the category/stage, then check the reported platform
+or hash. Reinstall the matching host-only Python wheel and preserve executable
+permissions. Do not combine wheel files from different releases. Startup failure
+does not return a usable database; retry after correcting the input.

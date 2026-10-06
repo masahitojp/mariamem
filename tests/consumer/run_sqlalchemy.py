@@ -17,6 +17,8 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--native-dir", type=Path, help="explicit locally built native bundle for product-change acceptance")
     args = parser.parse_args()
+    if args.native_dir is not None:
+        parser.error('--native-dir is retired; use the generated-Go consumer or reproduce a pinned historical tag')
     source = Path(__file__).with_name("test_sqlalchemy_dogfood.py")
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)

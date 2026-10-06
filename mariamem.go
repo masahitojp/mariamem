@@ -4,7 +4,7 @@
 // endpoint, including database/sql with go-sql-driver/mysql.
 //
 // Zero options require no native bundle, runtime download or pre-populated cache.
-// Options.NativeDir or MARIAMEM_NATIVE_DIR retains explicit legacy bundle support.
+// Legacy runtime/bundle overrides are no longer supported.
 // Supported platforms are macOS 15+ arm64 and Ubuntu 24.04 x86_64.
 //
 // A Database owns its runtime and should be closed after use. Multiple SQL
@@ -26,7 +26,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"path/filepath"
 	"sync"
 	"time"
 
@@ -38,7 +37,7 @@ import (
 
 // Options configures a database instance. Zero timeouts use documented defaults.
 type Options struct {
-	NativeDir       string        // Compatibility bundle override; empty uses generated-Go unless MARIAMEM_NATIVE_DIR is set.
+	NativeDir       string        // Deprecated: legacy-only; a nonempty value is rejected.
 	StartupTimeout  time.Duration // Zero defaults to 120 seconds.
 	ShutdownTimeout time.Duration // Zero defaults to 30 seconds.
 	QueryTimeout    time.Duration // Zero defaults to 30 seconds; expiry invalidates this instance.
@@ -94,41 +93,21 @@ func start(ctx context.Context, opts Options, restore string) (*Database, error)
 		return nil, err
 	}
 	timing.Mark(ctx, "options_ready")
-	var bundle artifacts.Bundle
-	if kind := os.Getenv("MARIAMEM_RUNTIME"); kind != "" && kind != "generated-go" && kind != "wasmer" {
-		return nil, fmt.Errorf("unsupported development runtime kind: %q", kind)
+	if err = rejectLegacyRuntime(opts.NativeDir); err != nil {
+		return nil, hostError(err, "artifacts", false)
 	}
-	legacy := configuredRuntime(opts.NativeDir) == runtimekind.Wasmer
-	if legacy {
-		bundle, err = artifacts.ResolveStartup(ctx, opts.NativeDir, nativeInputHash())
-		if err != nil {
-			return nil, hostError(err, "artifacts", false)
-		}
-		opts.NativeDir = bundle.Dir
-	} else {
-		if err = artifacts.ValidatePlatform(ctx); err != nil {
-			return nil, hostError(err, "platform", false)
-		}
-		bundle.Build = runtimekind.GuestSHA256
+	if err = artifacts.ValidatePlatform(ctx); err != nil {
+		return nil, hostError(err, "platform", false)
 	}
 	temp, err := os.MkdirTemp("", "mariamem-go-")
 	if err != nil {
 		return nil, err
 	}
-	db := &Database{opts: opts, build: bundle.Build, temporary: temp}
-	runtimeDir := filepath.Join(temp, "runtime")
-	if err = os.Mkdir(runtimeDir, 0700); err != nil {
-		return nil, errors.Join(err, os.RemoveAll(temp))
-	}
+	db := &Database{opts: opts, build: runtimekind.GuestSHA256, temporary: temp}
 	timing.Mark(ctx, "runtime_directory_ready")
 	startup, cancel := context.WithTimeout(ctx, opts.StartupTimeout)
 	defer cancel()
-	var s *host.Server
-	if legacy {
-		s, err = host.StartVerified(startup, bundle, runtimeDir, restore, opts.QueryTimeout, &db.logs)
-	} else {
-		s, err = host.StartGenerated(startup, "", restore, opts.QueryTimeout, &db.logs)
-	}
+	s, err := host.StartGenerated(startup, restore, opts.QueryTimeout, &db.logs)
 	if err != nil {
 		return nil, hostError(errors.Join(err, os.RemoveAll(temp)), "start", true)
 	}
@@ -140,13 +119,15 @@ func start(ctx context.Context, opts Options, restore string) (*Database, error)
 	return db, nil
 }
 
-// Explicit bundle overrides preserve legacy/offline compatibility; empty selects
-// compiled generated-Go without consulting release discovery or native caches.
-func configuredRuntime(dir string) runtimekind.Kind {
-	if dir != "" || os.Getenv("MARIAMEM_NATIVE_DIR") != "" || os.Getenv("MARIAMEM_RUNTIME") == "wasmer" {
-		return runtimekind.Wasmer
+// Obsolete overrides fail explicitly rather than silently selecting another runtime.
+func rejectLegacyRuntime(dir string) error {
+	if dir != "" || os.Getenv("MARIAMEM_NATIVE_DIR") != "" {
+		return fmt.Errorf("legacy NativeDir/MARIAMEM_NATIVE_DIR is retired; remove the override and use generated-Go")
 	}
-	return runtimekind.GeneratedGo
+	if kind := os.Getenv("MARIAMEM_RUNTIME"); kind != "" && kind != "generated-go" {
+		return fmt.Errorf("unsupported runtime kind %q; generated-Go is the only supported runtime", kind)
+	}
+	return nil
 }
 
 func (db *Database) watch(done <-chan struct{}) {

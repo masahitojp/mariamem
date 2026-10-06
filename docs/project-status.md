@@ -19,8 +19,8 @@ hypothesis rather than a demonstrated AI productivity claim.
 
 mariamem runs real MariaDB SQL/InnoDB for Go/Python integration tests. v0.4.0
 provides evidence for cheaper creation and ordinary isolated disposal. The
-accepted v0.4.2 candidate adds evidence for cheap reclamation across bounded
-sustained generations, with final release verification pending. Hard failure
+released v0.4.2 adds evidence for cheap reclamation across bounded
+sustained generations, with exact-source release acceptance. Hard failure
 containment is not guaranteed. The guest derives from `shyim/lite4mariadb`; GPL
 corresponding source and upstream notices remain required.
 
@@ -29,7 +29,8 @@ MariaDB into the consumer process. Generated Go is ordinary module source/build
 input. Normal startup does not provision a per-DB executable, spawn a guest
 subprocess, download/discover Wasmer or require NativeDir/cache. Python's
 host-only platform wheel runs the same linked guest inside its packaged Go host.
-Explicit legacy Wasmer overrides remain separate.
+This v0.4.3 candidate branch retires explicit legacy overrides; generated-Go is
+the only supported runtime.
 
 ```text
 Build: MariaDB / WASIX → pinned WASM intermediate → wasm2go → generated Go
@@ -108,8 +109,9 @@ are evidence, not pending release work or a second roadmap.
   established legal guest-side condition-variable behavior; the latest campaign
   does not prove the cause of each individual slow run. No timeout shortening or
   forced wakeups suppress the tail.
-- **Legacy Wasmer fallback remains.** Its bundle/provisioning/notices infrastructure
-  is retained but does not participate in ordinary direct-link startup.
+- **Wasmer retirement is under review on this branch.** No current product runtime
+  selects Wasmer. Historical notices/pins/reports remain references; the branch
+  has not been merged or released.
 
 ## 4. v0.4.1 — Distribution polish
 
@@ -142,8 +144,8 @@ Bounded macOS create/use/Close and Snapshot/Fork measurements show materially
 lower sustained CPU/latency and plateauing resources, with a modest accepted
 fresh-start correctness cost. See the
 [accepted candidate report](https://github.com/masahitojp/mariamem/blob/dc939de87087cadf229f017c1a5942496aae45da/benchmarks/v042-production-candidate.md).
-The design is selected for integration; v0.4.2 is not yet released. Exact-final-SHA
-Release CI verify, source/notices/provenance and separate publication remain.
+[v0.4.2](https://github.com/masahitojp/mariamem/releases/tag/v0.4.2) is released
+from `3e394d5c2b18a618957a25f48434181fe9c08334`.
 Memory64, non-cooperative forced termination, Fork optimization and Wasmer
 retirement are outside this release.
 
@@ -160,15 +162,16 @@ are reference evidence, not acceptance of a new memory implementation.
 
 **Retire legacy Wasmer if generated-Go is proven sufficient, and validate the
 product value of Disposable isolation.** Wasmer is no longer a normal
-user-selectable product runtime; the still-supported explicit fallback is mostly
-migration/development residue, not a second long-term product architecture.
+user-selectable product runtime; the prior explicit fallback was migration/development residue, not a second
+long-term product architecture. Track A on this branch removes live execution,
+provisioning and native packaging; it awaits Human Review before merge.
 
 Once the sufficiency/removal decision is made, retire unneeded NativeDir and
 bundle resolver/cache, Wasmer startup, legacy bundle packaging, and
 Wasmer-specific tests/gates/docs/licenses. Preserve required upstream licensing
 and historical tags/reports as comparison references rather than maintaining a
-second live runtime indefinitely. This roadmap does not remove today's fallback
-contract by itself.
+second live runtime indefinitely. The roadmap alone did not remove the previous fallback; this independent
+retirement candidate makes that change explicit and reviewable.
 
 Product validation asks whether **fresh-instance isolation becomes cheap enough
 that users choose disposal over cleanup discipline**. Compare wall time together

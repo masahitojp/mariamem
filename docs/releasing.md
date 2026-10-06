@@ -44,14 +44,14 @@ GitHub Release wheels are the current Python distribution channel.
 | Hashes | `SHA256SUMS` binds the two wheels, common corresponding source and provenance. Go source identity is bound to the exact tag commit and module fixture inventory. |
 
 These four assets plus SHA256SUMS replace native-bundle/AOT assets on the normal
-release path. Existing legacy Wasmer code, notices, locks and historical guard
-fixtures remain. Explicit fallback still requires its independently verified
-legacy bundle; this release contract does not promise a new fallback bundle.
+release path. Wasmer runtime, bundle resolution and legacy wheel packaging are retired on the
+v0.4.3 candidate branch. Prior tags/reports and retained historical notice
+fixtures are comparison references, not current runtime or release gates.
 No legacy evidence substitutes for generated-Go acceptance.
 
 Normal host-only wheels use the explicit notice inventory in
 `release/distribution-licenses.json`; they exclude Wasmer engine/BUSL/Rust notices.
-The Go module and corresponding-source archive retain repository/fallback source
+The Go module and corresponding-source archive retain repository and historical reference source
 and notices. Only the external Wasmer engine archive is excluded from the normal
 corresponding-source input set; guest/sysroot/runtime/header/converter sources
 remain. Original library texts are checked against pinned source archives.

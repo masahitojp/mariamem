@@ -7,7 +7,7 @@ import sys
 import tarfile
 import zipfile
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
 spec = importlib.util.spec_from_file_location('zero_fixture', ROOT / 'tests/consumer/run_zero_setup.py')
 fixture = importlib.util.module_from_spec(spec)
@@ -48,7 +48,7 @@ def test_fixture_proxy_contains_exact_go_source_without_replace(tmp_path):
     assert (directory / f'{fixture.TAG}.mod').read_bytes() == (ROOT / 'go.mod').read_bytes()
     with zipfile.ZipFile(directory / f'{fixture.TAG}.zip') as archive:
         prefix = f'{fixture.MODULE}@{fixture.TAG}/'
-        for name in ('mariamem.go', 'native_version.go', 'internal/artifacts/download.go', 'release/inputs.lock.json'):
+        for name in ('mariamem.go', 'internal/artifacts/artifacts.go', 'release/inputs.lock.json'):
             assert archive.read(prefix + name) == (ROOT / name).read_bytes()
         assert all(not name.endswith('_test.go') for name in archive.namelist())
 

@@ -1,5 +1,10 @@
 # Optional lifecycle benchmarks
 
+Current generated-Go measurements use `go-isolation` with no `--native-dir`.
+Historical Wasmer sections below retain accounting/harness design as reference;
+use their pinned old source tags for reproduction. They are not current product
+runtime selectors. See [Track A retirement](v043-wasmer-retirement.md).
+
 These scripts measure developer-facing database lifecycle latency and memory
 scaling. They are not SQL-engine throughput benchmarks, CI requirements, or
 pass/fail performance thresholds. They do not change the product implementation.
