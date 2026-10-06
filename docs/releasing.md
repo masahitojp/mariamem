@@ -68,6 +68,10 @@ MariaDB/WASIX source → LLVM23 legacy-EH WASM → patched pinned wasm2go
 Each DB reconstructs fresh execution/thread/TLS/FD state and private writable
 files. Snapshot/Fork use prepared files, not ready-heap/live-worker restoration.
 Python's installed host links the same guest; Go runs it in-process.
+Prepared files use OS CoW through file-backed `MAP_PRIVATE` views, with fresh
+filesystem metadata and private writes. This does not imply runtime-state
+cloning, a custom CoW filesystem, or zero per-child memory cost. See
+[Copy-on-Write semantics](copy-on-write.md).
 
 ## Build and source/provenance verification
 

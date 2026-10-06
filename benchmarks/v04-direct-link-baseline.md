@@ -1,5 +1,10 @@
 # v0.4 production direct-link canonical baseline
 
+Terminology note: “new CoW or runtime sharing” below means no new runtime-image
+cloning or mutable execution-state sharing in this campaign. Prepared-file
+`MAP_PRIVATE` views already provide OS page-level CoW. See the
+[current path audit](../docs/copy-on-write.md); measured results are unchanged.
+
 Historical reference preserved. The accepted FD/cold-copy integration and new
 canonical comparison are in [v04-integrated-candidate.md](v04-integrated-candidate.md).
 Original observations and the OS-accounting attribution below are unchanged.

@@ -1,5 +1,11 @@
 # v0.4 CoW feasibility
 
+Historical scope note: this report tests pre-init linear-memory images, not the
+current production linear backing. Its “filesystem CoW … 未実証” finding predates
+the selected prepared-file mappings. Production uses fresh anonymous linear
+memory and prepared-file OS CoW; see the [current path audit](../docs/copy-on-write.md).
+The original experiment results below are unchanged.
+
 ## Source / environment / scope
 
 開始点はaccepted `v0.4/wasm2go-spike` **965da8c9d2702e6ecdd830d684e8463d31e94311**。

@@ -15,6 +15,12 @@ The fixed-reference [repeated isolated-test comparison](practical-suite-comparis
 measures fresh servers, prepared Fork and shared-container schema reset separately,
 including 10/50/100-test suite costs and their different isolation guarantees.
 
+Snapshot/Fork sharing terms are defined in the
+[CoW path audit](../docs/copy-on-write.md). Generated-Go prepared files already
+use OS private file-page CoW; this is not a cloned running server or custom CoW
+filesystem. Historical Wasmer restore-copy measurements describe a different
+path, not today's generated-Go materialization.
+
 ## Setup
 
 Install a locally built mariamem wheel into a venv as described in
@@ -267,6 +273,12 @@ Each stage is the difference between consecutive offsets in that scope. Host
 startup is nested within Python's host-control wait; neither scope is additive
 with the caller's startup total. Do not sum p50/p95 columns into a synthetic total.
 Different scopes have independent zero points; absolute alignment is not inferred.
+
+The following restore-copy/Wasmer stages describe the historical native guest
+harness. Normal generated-Go Fork maps prepared files directly into fresh MemFS
+nodes and does not run that guest restore-copy branch; use the
+[current path](../docs/copy-on-write.md#production-path-and-ownership) when
+interpreting newer measurements.
 
 For a freshly rebuilt instrumented guest, use `--guest-stage-timing` (implies
 `--stage-timing` and rejects missing guest records). The additional **guest**

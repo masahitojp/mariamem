@@ -26,6 +26,11 @@ db, err := mariamem.Start(ctx, mariamem.Options{})
 ```
 
 Each DB has fresh execution/thread/TLS/FD state and private writable files.
+Fork's prepared files use file-backed `MAP_PRIVATE` views: clean pages may be
+OS-shared, while modified pages and filesystem metadata are child-private.
+`Fork()` does not clone a running MariaDB or use Unix `fork()` for runtime
+cloning. See [Copy-on-Write semantics](copy-on-write.md); sharing is not a public
+memory-usage guarantee.
 Normal Start does not decode/materialize a native image, spawn a guest process
 or resolve a runtime bundle. Development/local replacement builds use the same
 default. Once normal Go dependencies are available, startup needs no download.

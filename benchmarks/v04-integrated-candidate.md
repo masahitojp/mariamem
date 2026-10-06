@@ -1,5 +1,10 @@
 # v0.4 integrated direct-link candidate: FD lifetime + cold-copy preallocation
 
+Terminology note: “No CoW … is introduced” below describes the cold-copy
+preallocation change, not absence of existing prepared-file OS CoW. Deferred
+CoW means additional image/ownership mechanisms; see the
+[current path audit](../docs/copy-on-write.md). Original measurements are unchanged.
+
 **V0.4 INTEGRATED CANDIDATE COMPLETE** — local normal acceptance and one canonical campaign; no tag, publication or release-readiness declaration.
 
 ## Identity / acceptance

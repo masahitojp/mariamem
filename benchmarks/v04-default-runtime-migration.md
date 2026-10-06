@@ -1,5 +1,10 @@
 # v0.4 default runtime migration
 
+Terminology note: “no runtime sharing or OS fork” refers to mutable execution
+state and Unix address-space cloning. It does not exclude the prepared files'
+OS page-level CoW. This dated executable-based migration report is historical;
+see the [current path audit](../docs/copy-on-write.md).
+
 Source base: `09146a46aedfb03a1177c9a3195e1a2a9f1389d2`, branch
 `v0.4/generated-go-integration`. The working-tree changes and this evidence are
 committed together. No tag, publication, main change or new architecture spike.

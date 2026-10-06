@@ -62,6 +62,10 @@ def main():
                     scaling_observations=observations([t for t in new['trials'] if t['kind']=='batch' and t['phase']=='measurement'], resource=True))
     (ROOT/'benchmarks/v04-integrated-values.json').write_text(json.dumps(evidence, indent=2)+'\n')
     lines = ['# v0.4 integrated direct-link candidate: FD lifetime + cold-copy preallocation', '',
+             'Terminology note: “No CoW … is introduced” below describes the cold-copy',
+             'preallocation change, not absence of existing prepared-file OS CoW. Deferred',
+             'CoW means additional image/ownership mechanisms; see the',
+             '[current path audit](../docs/copy-on-write.md). Original measurements are unchanged.', '',
              '**V0.4 INTEGRATED CANDIDATE COMPLETE** — local normal acceptance and one canonical campaign; no tag, publication or release-readiness declaration.', '',
              '## Identity / acceptance', '',
              f"Pre-integration: `{acceptance['pre_integration_sha']}`. Measured runtime: `{new['source_commit']}` on v0.4/generated-go-integration.",

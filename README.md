@@ -23,6 +23,9 @@ The testing workflow is Docker-free: each disposable database has its own server
 state. Prepare migrations/fixtures once with Snapshot, then Fork independent
 databases without adding rollback, schema-reset or data-cleanup logic to each
 test. Close client connections and owned database/snapshot handles normally.
+Snapshot/Fork starts fresh MariaDB execution state; prepared-file mappings may
+share clean OS pages while keeping writes private. This is not Unix `fork()` or
+a memory-usage guarantee. See [Copy-on-Write semantics](docs/copy-on-write.md).
 
 The canonical Python distribution version is `0.4.2`; the Go module uses
 the exact `v0.4.2` tag. Python wheels will be available from the matching GitHub Release.

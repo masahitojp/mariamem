@@ -1,5 +1,10 @@
 # 0.2 FAST: architecture review
 
+Historical scope note: restore-copy and proposed CoW changes below describe the
+pinned Wasmer-era baseline, not today's generated-Go prepared-file mappings.
+Current OS file-page CoW does not imply running-state cloning; see the
+[current path audit](../docs/copy-on-write.md).
+
 Review date: 2026-09-27. Repository reviewed at
 `8c93ddb`, using the exact benchmark inputs documented in
 [the baseline analysis](fast-baseline-analysis.md). This is an investigation

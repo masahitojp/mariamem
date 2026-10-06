@@ -1,5 +1,10 @@
 # v0.4 Prepared-clone feasibility
 
+Historical scope note: these isolated modes combine a pre-init linear image with
+prepared copy/private-map controls. Current production adopts prepared-file
+private mappings but not the shared linear image or running-state clone. See the
+[current CoW path audit](../docs/copy-on-write.md); original results are unchanged.
+
 ## Source / environment / result scope
 
 開始SHA：**8658310fce7745c7a8df04bc0aed7d7a6ce5ce14** (`v0.4/cow-spike`)。

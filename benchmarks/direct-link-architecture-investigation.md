@@ -1,5 +1,10 @@
 # generated-Go direct linkage / process boundary investigation
 
+Historical scope note: “prepared mapping … 未実験” describes this investigation's
+boundary, not current production. Prepared file-backed `MAP_PRIVATE` views were
+subsequently integrated, with fresh mutable runtime state. See the
+[current CoW path audit](../docs/copy-on-write.md).
+
 Source: `52b5e2ac5612222fe933134b0342dee6dc77b1c9`、branch
 `v0.4/generated-go-integration`。2026-10-02、MacBook Air M1 / 16 GiB、
 macOS27.0 arm64、Go1.26.8。guest SHA:

@@ -134,6 +134,10 @@ def main():
     dest = args.output.with_name('v04-direct-link-values.json')
     dest.write_text(json.dumps(evidence, indent=2)+'\n')
     lines = ['# v0.4 production direct-link canonical baseline', '',
+             'Terminology note: “new CoW or runtime sharing” below means no new runtime-image',
+             'cloning or mutable execution-state sharing in this campaign. Prepared-file',
+             '`MAP_PRIVATE` views already provide OS page-level CoW. See the',
+             '[current path audit](../docs/copy-on-write.md); measured results are unchanged.', '',
              '**DIRECT-LINK CANONICAL BASELINE COMPLETE** — normal functional scope; not a tag, publication, full race acceptance or final release-readiness declaration.', '',
              '## Source / environment', '',
              f"Measured source: `{new['source_commit']}`; runtime: **direct-linked generated-Go**; branch `v0.4/generated-go-integration`.",

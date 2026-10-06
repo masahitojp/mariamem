@@ -44,6 +44,10 @@ Python: Python API → packaged Go host → MySQL wire → linked generated-Go M
 **WASM is a build intermediate.** Each DB reconstructs fresh execution/thread/
 TLS/FD state and private writable files. Snapshot/Fork reuses prepared files,
 not ready heaps, live workers or waiter state; no Go process fork is used.
+Prepared files use private file-backed mappings, allowing OS sharing of clean
+pages and child-private modified pages. This OS-level CoW is distinct from
+runtime-state cloning or a custom CoW filesystem and is not a memory-usage
+guarantee. See [Copy-on-Write terminology](copy-on-write.md).
 Successful Snapshot consumes its source, precondition rejection keeps it usable,
 and children remain independent. Normal Close is idempotent; ordinary SQL errors
 and idle disconnects leave a DB usable. Current session capacity is 16, not a
@@ -220,8 +224,10 @@ These are maintainer practices, not extra v0.4.1 runtime scope.
 
 ## 10. Longer-term options
 
-CoW/immutable Snapshot views, runtime sharing, stronger hard failure containment,
+Runtime-state CoW, custom filesystem CoW/stronger immutable Snapshot ownership,
+mutable execution-state sharing, stronger hard failure containment,
 higher session capacity and broader platforms remain evidence-driven options.
+These are additional mechanisms, not the prepared-file OS CoW already in use.
 They are not selected version goals. The selected mmap lifecycle design and its
 validated limits belong to the v0.4.2 section above. Ready-heap/live-worker reentry
 was rejected for

@@ -25,8 +25,10 @@ Snapshot source handle remains retained. No finalizer/GC dependency is introduce
 Cold filesystem copying pre-sizes a private exclusive destination with existing
 ftruncate, using its stable source size before the 64 KiB copy loop. Empty/sparse
 contents, offsets, grow/truncate, directory identity, rename/name reuse, independent
-Fork state and shutdown are verified. This is allocation reduction, not CoW or a
-Snapshot format/API change. Guest source and generated artifacts are rebuilt with
+Fork state and shutdown are verified. This cold-copy preallocation reduces
+allocation; it introduces no runtime-state cloning or custom filesystem CoW and
+does not change the Snapshot format/API. Existing prepared-file OS CoW is
+separate. Guest source and generated artifacts are rebuilt with
 pinned LLVM23/WASIX/wasm2go inputs; release/generated-go-build.json and
 release/generated-go-translation.json record the new canonical input provenance.
 Substantial immediate post-Close physical accounting persists independently of
@@ -44,8 +46,10 @@ On macOS arm64 and Ubuntu 24.04 x86_64, each instance reserves a stable 2 GiB
 anonymous mapping, initially enables 256 MiB, and enables additional zero-filled
 ranges before publishing logical growth. Host imports receive logical views.
 Close releases the mapping exactly once after workers join; failed unmap retains
-retryable ownership. No Go-heap 2 GiB backing, GC policy, CoW or Snapshot format
-change is introduced. Native contract/product acceptance and bounded lifecycle
+retryable ownership. No Go-heap 2 GiB backing, GC policy, shared linear-memory
+image/runtime-state CoW or Snapshot format change is introduced. Each anonymous
+mapping is fresh; prepared-file OS CoW remains a separate existing mechanism.
+Native contract/product acceptance and bounded lifecycle
 results are in the [accepted report](https://github.com/masahitojp/mariamem/blob/dc939de87087cadf229f017c1a5942496aae45da/benchmarks/v042-production-candidate.md).
 Final release-artifact verification is still required. Memory64 and
 non-cooperative forced termination remain outside the guarantee.
@@ -140,9 +144,12 @@ Python uses an explicit bundle override or runtime/module pair for legacy use.
 
 Each instance receives independent guest linear memory, Module/function tables,
 thread agents, TLS, pthread bookkeeping, wait queues, clocks/timers, FD table,
-MemFS nodes/handles/offsets and session state. Immutable prepared database files
-may back private writable views. Growing files must become child-owned; closing
-one child cannot unmap or invalidate another child's files. Generated code is normally linked once into the consumer. No live Go runtime object is captured or cloned.
+MemFS nodes/handles/offsets and session state. Non-empty prepared database files
+back RW file-backed `MAP_PRIVATE` views of the same saved files across Forks.
+Clean pages may be OS-shared; modifications become private. Growth beyond mapped
+capacity allocates and copies that file into child-owned Go storage. Closing one
+child cannot unmap or invalidate another child's files. Generated code is normally
+linked once into the consumer. No live Go runtime object is captured or cloned.
 
 Verification covers platform identity, compiled guest identity (plus Python host executable checksums) and
 snapshot build identity, inventory and file hashes. Explicit legacy bundles retain
@@ -162,6 +169,13 @@ then initializes a fresh generated guest against that state. The child does not
 inherit live connections or transactions. Concurrent Fork and snapshot Close
 retain the current ownership/read-lock contract. Prepared-file mapping must not
 bypass Snapshot validation or change the build mismatch policy.
+
+`Fork()` is not Unix `fork()`. mariamem implements no custom block/page CoW
+filesystem, and its fresh anonymous linear memory does not clone a saved runtime
+image. Prepared-file OS CoW is an implementation detail: dirty pages, filesystem
+metadata, runtime memory and InnoDB state still cost memory per child. See the
+[CoW terminology/path audit](copy-on-write.md) for copying, sharing and lifetime
+boundaries, including the separate historical Wasmer restore path.
 
 ## Acceptance order
 

@@ -1,5 +1,9 @@
 # mariamem v0.1.0-alpha.1 — source-only Go alpha
 
+Historical terminology note: “not a live/COW snapshot” below means no clone of
+running MariaDB execution state. It is not a claim about OS private-file CoW in
+later generated-Go releases; see [current semantics](../docs/copy-on-write.md).
+
 > Historical source-only release notes. The macOS 12 candidate below was
 > superseded after a clean-machine compatibility failure. The native alpha now
 > targets macOS 15+ arm64; see [the finding](../docs/macos-compatibility.md)

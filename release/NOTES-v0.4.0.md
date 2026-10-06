@@ -1,5 +1,10 @@
 # mariamem v0.4.0
 
+Terminology note: “This is not CoW” below describes cold-copy preallocation;
+it does not deny existing OS CoW on prepared-file private mappings. No running
+MariaDB state is cloned. See [current CoW semantics](../docs/copy-on-write.md).
+Published release measurements below are retained unchanged.
+
 v0.4.0 makes generated-Go MariaDB the default runtime while preserving the
 public Go/Python workflows and cold Snapshot/Fork semantics. This remains a
 0.x release; public APIs may change before 1.0.
