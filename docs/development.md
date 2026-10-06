@@ -109,13 +109,37 @@ binary hashes across builds are not guaranteed.
 
 ## Local verification
 
-Run the matching command from the repository root with Go 1.26+ and Python with
-`pytest` and `PyMySQL` installed. These commands do not rebuild the guest, wheel,
-or release assets.
+Choose verification from the changed boundary, not the file extension or the
+fact that a branch is being merged. Start with focused checks. Expand only when
+a focused failure or an actual dependency requires it, and explain the exact
+changed-file-to-subsystem dependency before running broader checks.
+
+For experiment-workspace skill/helper/docs/tests changes that do not affect the
+MariaDB runtime, generated-Go execution, SQL, Snapshot/Fork or language SDKs:
+
+- Run `python3 -m pytest tests/test_experiment_workspace.py tests/test_release_tools.py tests/test_development_cleanup.py -q`.
+- Validate the skill using the available skill validator and check its examples
+  and relative links; run the Python tooling checks affected by the diff.
+- Run `python3 scripts/check_public.py` and the affected boundary tests. If
+  unrelated user files violate the publication allowlist, use a clean worktree
+  at the exact candidate SHA; do not remove those files or relax the allowlist.
+- Check `git diff --check`, the intended merge diff and Git status. Confirm no
+  new tracked/staged or untracked changes remain; report pre-existing user state
+  separately and preserve it.
+
+Do not run full `verify.py check`, Go runtime integration, SQLAlchemy/GORM,
+Snapshot/Fork runtime acceptance or broad release acceptance for that scope
+without a concrete dependency found by focused verification. Documentation-only
+changes need wording/reference and diff/status checks, not runtime tests. These
+rules leave runtime-change and explicitly requested release gates intact.
+
+For product-code checks below, run the matching command from the repository root
+with Go 1.26+ and Python with `pytest` and `PyMySQL` installed. These commands do
+not rebuild the guest, wheel, or release assets.
 
 | Change | Command | Excludes |
 | --- | --- | --- |
-| Ordinary Go/Python source | `python3 scripts/verify.py check` | Real guest, installed-wheel consumer, release assets, benchmarks |
+| Product Go/Python source (runtime or SDK) | `python3 scripts/verify.py check` | Real guest, installed-wheel consumer, release assets, benchmarks |
 | Guest, host, MySQL wire, or lifecycle behavior | `MARIAMEM_NATIVE_DIR=/path/to/native python3 scripts/verify.py integration` after `check` | Wheel/platform acceptance and benchmarks |
 | MySQL wire failure handling | The real-guest checks above plus `.venv/bin/python tests/integration.py` when its raw-protocol/failure-injection cases are relevant | Unrelated release checks |
 | Snapshot export, restore, or validation | The real-guest checks above plus `.venv/bin/python tests/snapshots.py` for its negative-path/corruption cases | Unrelated release checks |

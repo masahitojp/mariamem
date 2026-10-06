@@ -17,6 +17,20 @@ Mechanical verification belongs in deterministic scripts and CI where possible.
 Use `docs/development.md#local-verification` to choose the canonical check for
 the changed boundary; release acceptance and benchmarks are separate.
 
+Keep verification proportional to the changed boundary. For experiment-workspace
+skill/helper/docs/tests changes, run the relevant helper tests, skill validation,
+touched Python tooling checks, affected public-source/boundary checks, and clean
+diff/status checks. Do not run full `verify.py check`, Go runtime integration,
+SQLAlchemy/GORM, Snapshot/Fork runtime acceptance, or broad release acceptance
+unless a focused check identifies a concrete reason to expand scope. Before
+expanding, explain the exact dependency from the changed files to that subsystem.
+
+For documentation-only changes, inspect wording, references and diff/status;
+do not rebuild or test unchanged runtime code. Report pre-existing user changes
+separately rather than removing them to claim a clean checkout. This scope rule
+does not weaken runtime-change or release gates when those boundaries are changed
+or a release is explicitly requested.
+
 Release CI responsibility and handoff:
 
 The human decision is "release this candidate". Codex submits the exact candidate
