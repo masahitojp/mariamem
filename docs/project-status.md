@@ -29,7 +29,7 @@ MariaDB into the consumer process. Generated Go is ordinary module source/build
 input. Normal startup does not provision a per-DB executable, spawn a guest
 subprocess, download/discover Wasmer or require NativeDir/cache. Python's
 host-only platform wheel runs the same linked guest inside its packaged Go host.
-This v0.4.3 candidate branch retires explicit legacy overrides; generated-Go is
+The v0.4.3 integration retires explicit legacy overrides; generated-Go is
 the only supported runtime.
 
 ```text
@@ -109,9 +109,9 @@ are evidence, not pending release work or a second roadmap.
   established legal guest-side condition-variable behavior; the latest campaign
   does not prove the cause of each individual slow run. No timeout shortening or
   forced wakeups suppress the tail.
-- **Wasmer retirement is under review on this branch.** No current product runtime
-  selects Wasmer. Historical notices/pins/reports remain references; the branch
-  has not been merged or released.
+- **Wasmer is retired in the v0.4.3 candidate.** No supported product runtime
+  selects Wasmer. Historical reports/pins remain references; exact-source release
+  qualification and publication remain pending.
 
 ## 4. v0.4.1 — Distribution polish
 

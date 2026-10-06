@@ -146,7 +146,7 @@ silent rebuild fallback in manually selected reuse modes. The publisher's local
 
 Previously, the documented verify-before-release ceremony repeated builds and
 acceptance, while manual reuse required run IDs. In
-[this v0.4.3 reuse attempt](https://github.com/masahitojp/mariamem/actions/runs/37380087403),
+[this v0.4.2 reuse attempt](https://github.com/masahitojp/mariamem/actions/runs/37380087403),
 READY succeeded but publication was skipped: the publication/smoke job conditions
 inherited the implicit `success()` check across skipped build ancestors. Explicit
 status conditions now permit the reuse path while still requiring successful
@@ -181,8 +181,8 @@ Options{} SQL/Snapshot/Fork/isolation/corruption/failure/lifecycle tests and
 GORM32 (Start/Fork, including repeated schema discovery). A fresh external venv
 installs the frozen wheel, verifies installed bytes/notices/version, runs the
 serial/parallel/seeded/failure-cleanup suite and SQLAlchemy44. Both platforms also check the installed host binary format/architecture and
-missing-host recovery. The old Ubuntu AOT-corruption/forced-timeout diagnostics
-remain legacy-only; they are not claimed as generated-Go acceptance. Wheel build receipts bind the clean Git commit, complete source inventory and
+missing-host recovery. The historical Ubuntu AOT-corruption/forced-timeout diagnostics are disabled
+references, not live release gates or generated-Go acceptance. Wheel build receipts bind the clean Git commit, complete source inventory and
 host Go build-info revision; stale receipts fail even when package/guest versions
 match. Both guards bind source, harness, platform and wheel hashes before aggregate READY. Public smoke later downloads accepted bytes and
 checks the public Go tag's origin commit; it cannot modify the release.
@@ -193,7 +193,7 @@ Full generated guest `-race` remains **GENERAL SHARED-MEMORY MODEL WORK REQUIRED
 no suppression is used and it is not a v0.4 release gate. Focused handwritten
 FD/MemFS/thread/TLS/futex race coverage remains enabled in normal integration CI.
 Forced query-timeout reclamation/hard failure containment is not guaranteed.
-The ~1s legal guest-side startup tail remains observable. v0.4.3 releases its
+The ~1s legal guest-side startup tail remains observable. The current runtime releases its
 mmap-backed linear memory after cooperative join; remaining Go filesystem/metadata
 heap and OS accounting still differ from live allocations. Go1.27.0/1.27.1 arm64
 are unsupported due to the documented upstream

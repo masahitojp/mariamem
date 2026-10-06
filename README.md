@@ -10,13 +10,13 @@ Both languages have public lifecycle APIs.
 
 **Direct-linked generated Go is the default v0.4.3 runtime.** Ordinary Go
 `Start(ctx, Options{})` and Python `mariamem.start()` need no Wasmer bundle,
-NativeDir or runtime download. This branch retires legacy runtime overrides; generated-Go is the only supported runtime.
+NativeDir or runtime download. Legacy runtime overrides are retired; generated-Go is the only supported runtime.
 See [architecture](docs/v04-generated-go-architecture.md) and
 [historical canonical measurements](benchmarks/v04-integrated-candidate.md).
-v0.4.3 adds controlled pure-memory32 traps and mmap-backed linear memory for
-cheaper repeated disposal.
-v0.4.3 is released. Installation commands below use its published artifacts;
-this independent retirement branch remains unmerged. See [release notes](release/NOTES-v0.4.3.md)
+v0.4.3 preserves controlled pure-memory32 traps and mmap-backed linear memory
+for cheaper repeated disposal.
+v0.4.3 is a release candidate; the installation commands below target the
+artifacts that will be published after exact-source CI qualification. See [release notes](release/NOTES-v0.4.3.md)
 and [current product direction / roadmap](docs/project-status.md).
 
 The testing workflow is Docker-free: each disposable database has its own server
