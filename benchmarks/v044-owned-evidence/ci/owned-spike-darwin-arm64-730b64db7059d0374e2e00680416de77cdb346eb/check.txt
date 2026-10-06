@@ -1,0 +1,50 @@
++ /Library/Frameworks/Python.framework/Versions/3.14/bin/python scripts/check_version.py
+Release version: Python 0.4.2; Git/Go v0.4.2
++ /Library/Frameworks/Python.framework/Versions/3.14/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ go test -p 1 ./...
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+go: downloading filippo.io/edwards25519 v1.1.0
+ok  	github.com/masahitojp/mariamem	0.038s
+?   	github.com/masahitojp/mariamem/benchmarks/defaultsanity	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/goisolation	0.015s
+?   	github.com/masahitojp/mariamem/benchmarks/memorylifetime	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/ownedspike	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotallocation	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotcharacterization	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/artifacts	0.005s
+?   	github.com/masahitojp/mariamem/internal/diagnostic	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.265s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.043s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	0.010s
+ok  	github.com/masahitojp/mariamem/internal/host	0.016s
+?   	github.com/masahitojp/mariamem/internal/mysqlwire	[no test files]
+?   	github.com/masahitojp/mariamem/internal/prepared	[no test files]
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	0.134s
+ok  	github.com/masahitojp/mariamem/internal/timing	0.009s
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
++ go vet -p 1 -vettool=/Users/runner/work/mariamem/mariamem/scripts/vet_generated.py ./...
++ /Library/Frameworks/Python.framework/Versions/3.14/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical -q
+........................................................................ [ 20%]
+........................................................................ [ 41%]
+.sss.............................................sssssssssssssssss...... [ 61%]
+...................sss.................................................. [ 82%]
+.............................................................            [100%]
+326 passed, 23 skipped in 16.80s
++ /Library/Frameworks/Python.framework/Versions/3.14/bin/python scripts/check_public.py
+Public source check passed: 687 files

@@ -1,0 +1,75 @@
+{
+  "format": "mariamem-cold-snapshot",
+  "version": 1,
+  "wasm_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "source_storage": "memory",
+  "entries": {
+    ".": {
+      "kind": "directory"
+    },
+    "data": {
+      "kind": "directory"
+    },
+    "data/aria_log.00000001": {
+      "kind": "file",
+      "bytes": 16384,
+      "sha256": "08083e3f6f1a9a6a8237c5dacfe4b6ce4297f473f144674e29086a65ba1fc547"
+    },
+    "data/aria_log_control": {
+      "kind": "file",
+      "bytes": 52,
+      "sha256": "f5351bde7fd2292f4112e23551e54f88a9ec51f3a5a55259371499c065fda02c"
+    },
+    "data/ib_buffer_pool": {
+      "kind": "file",
+      "bytes": 612,
+      "sha256": "08064c66392e8e2c1ead3bfd952361d27b52ae24c9ecedf541453afcfa899f49"
+    },
+    "data/ib_logfile0": {
+      "kind": "file",
+      "bytes": 100663296,
+      "sha256": "499a86919905c85ea1778e1bf2985a7f6e23e2e491289d09f49322dcec96b9fe"
+    },
+    "data/ibdata1": {
+      "kind": "file",
+      "bytes": 12582912,
+      "sha256": "0e305aff70c8ff64f4dd5f366173d82bca2b1e859f8aeece279f6ee96b404fbd"
+    },
+    "data/test": {
+      "kind": "directory"
+    },
+    "data/test/characterization.frm": {
+      "kind": "file",
+      "bytes": 1976,
+      "sha256": "1be12894e828cfc42f7c41988a39d3bc1e9cbc821698e230aa44be0ea80839d2"
+    },
+    "data/test/characterization.ibd": {
+      "kind": "file",
+      "bytes": 130023424,
+      "sha256": "814e31da6c9ed914182c79e51f3307305d12746d2607efd359553ea4578b7207"
+    },
+    "data/test/db.opt": {
+      "kind": "file",
+      "bytes": 70,
+      "sha256": "9d2cb1189b5fa7b46cec9d9e277c9968066915ae38a1821a451a9a098b035f3f"
+    },
+    "data/undo001": {
+      "kind": "file",
+      "bytes": 10485760,
+      "sha256": "0713b5f2b2cc87015663102b4efe5498ab513a97b7d3a4d084cc5fcdfedb7801"
+    },
+    "data/undo002": {
+      "kind": "file",
+      "bytes": 10485760,
+      "sha256": "9338b2127298496dd8d5f467451cf9915f19d2e438ec127de8f554d55d9203f8"
+    },
+    "data/undo003": {
+      "kind": "file",
+      "bytes": 10485760,
+      "sha256": "58e36084c1a29dc14be3388d1c635d63312c8a4c9f0a1d7bbe8ce7b60a716c01"
+    },
+    "plugin": {
+      "kind": "directory"
+    }
+  }
+}

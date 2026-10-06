@@ -1,0 +1,3 @@
+...........Python: 35 mutating children, 4 workers, FD 8->8, threads 1->1, all child hosts reaped
+......
+17 passed in 34.67s

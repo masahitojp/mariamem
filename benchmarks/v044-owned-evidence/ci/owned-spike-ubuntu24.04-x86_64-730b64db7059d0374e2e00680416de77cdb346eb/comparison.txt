@@ -1,0 +1,36 @@
+Go size=0 trial=0 baseline
+Go size=0 trial=0 candidate
+Go size=0 trial=1 candidate
+Go size=0 trial=1 baseline
+Go size=0 trial=2 baseline
+Go size=0 trial=2 candidate
+Python import size=0 trial=0 baseline
+Python import size=0 trial=0 candidate
+Python import size=0 trial=1 candidate
+Python import size=0 trial=1 baseline
+Python import size=0 trial=2 baseline
+Python import size=0 trial=2 candidate
+Go size=10 trial=0 baseline
+Go size=10 trial=0 candidate
+Go size=10 trial=1 candidate
+Go size=10 trial=1 baseline
+Go size=10 trial=2 baseline
+Go size=10 trial=2 candidate
+Python import size=10 trial=0 baseline
+Python import size=10 trial=0 candidate
+Python import size=10 trial=1 candidate
+Python import size=10 trial=1 baseline
+Python import size=10 trial=2 baseline
+Python import size=10 trial=2 candidate
+Go size=100 trial=0 baseline
+Go size=100 trial=0 candidate
+Go size=100 trial=1 candidate
+Go size=100 trial=1 baseline
+Go size=100 trial=2 baseline
+Go size=100 trial=2 candidate
+Python import size=100 trial=0 baseline
+Python import size=100 trial=0 candidate
+Python import size=100 trial=1 candidate
+Python import size=100 trial=1 baseline
+Python import size=100 trial=2 baseline
+Python import size=100 trial=2 candidate

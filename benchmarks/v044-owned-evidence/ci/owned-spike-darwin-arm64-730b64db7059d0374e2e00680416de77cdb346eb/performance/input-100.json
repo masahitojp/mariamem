@@ -1,0 +1,58 @@
+{
+ "fds_after": 4,
+ "fds_before": 3,
+ "fds_snapshot": 4,
+ "forks": 1,
+ "go": "go1.26.8",
+ "goarch": "arm64",
+ "goos": "darwin",
+ "label": "input-producer",
+ "operations": [
+  {
+   "cpu_seconds": 0.03771,
+   "name": "prepare_start",
+   "seconds": 0.052550459
+  },
+  {
+   "cpu_seconds": 6.073843,
+   "name": "prepare_setup",
+   "seconds": 5.838490709
+  },
+  {
+   "cpu_seconds": 0.6975690000000005,
+   "name": "snapshot",
+   "seconds": 0.647536583
+  },
+  {
+   "cpu_seconds": 0.20652399999999993,
+   "name": "fork_ready_00",
+   "seconds": 0.20142625
+  },
+  {
+   "cpu_seconds": 0.001816000000000706,
+   "name": "point_use_00",
+   "seconds": 0.001909166
+  },
+  {
+   "cpu_seconds": 0.43536200000000047,
+   "name": "count_use_00",
+   "seconds": 0.31469275
+  },
+  {
+   "cpu_seconds": 0.002734999999999488,
+   "name": "child_close_00",
+   "seconds": 0.011791166
+  },
+  {
+   "cpu_seconds": 0.000001000000000139778,
+   "name": "snapshot_close",
+   "seconds": 0.000001125
+  }
+ ],
+ "payload_mib": 100,
+ "prepare_seconds": 6.540556875,
+ "resources": {},
+ "suite_n1_seconds": 7.070413666,
+ "suite_operation_seconds": 7.068398208,
+ "suite_seconds": 7.070964083
+}

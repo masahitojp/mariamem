@@ -1,5 +1,7 @@
 # OwnedPrepared — Human Review packet
 
+> 更新: 両 OS の CI が完了し、[CI 完了後の GO packet](v044-owned-ci-review.md) が現在の結論。以下は CI 提出前の記録。
+
 結論は **DEFER — 実機 Ubuntu CI の gate 待ち**。macOS では「より良い test primitive」と「速い Fork」の両方を確認した。設計が大きすぎるという理由の DEFER ではない。両 OS の clean-checkout CI が通れば、bounded な v0.4.4 実装候補として GO を推奨する根拠がある。まだ main へ統合・release しない。
 
 | 判断項目 | 結果と根拠 |

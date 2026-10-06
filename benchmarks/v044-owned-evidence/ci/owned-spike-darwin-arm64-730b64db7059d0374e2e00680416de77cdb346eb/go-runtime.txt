@@ -1,0 +1,36 @@
+=== RUN   TestPublicLifecycle
+    lifecycle_test.go:104: driver=v1.9.3 server=13.1.0-MariaDB-embedded
+    lifecycle_test.go:282: Start, ConnectionInfo/DSN, SQL, InnoDB, commit, transaction rejection, disconnect, snapshot, concurrent/sequential fork isolation and cleanup passed
+--- PASS: TestPublicLifecycle (1.70s)
+=== RUN   TestMultipleClientIsolationAndCapacity
+--- PASS: TestMultipleClientIsolationAndCapacity (0.27s)
+=== RUN   TestMultipleClientSnapshotAndShutdown
+[mysql] 2026/10/06 22:55:48 packets.go:58 unexpected EOF
+[mysql] 2026/10/06 22:55:48 packets.go:58 unexpected EOF
+[mysql] 2026/10/06 22:55:48 packets.go:58 unexpected EOF
+[mysql] 2026/10/06 22:55:48 packets.go:58 unexpected EOF
+--- PASS: TestMultipleClientSnapshotAndShutdown (0.58s)
+=== RUN   TestOwnedManyOrderParallelAndClose
+    owned_spike_test.go:231: 35 mutating children + live-after-Close: fd 8 -> 8; goroutines 2 -> 2
+--- PASS: TestOwnedManyOrderParallelAndClose (7.65s)
+=== RUN   TestOwnedForkCloseRace
+--- PASS: TestOwnedForkCloseRace (2.85s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/gointegration	13.082s
+=== RUN   TestDefaultNoBundleAndForkIsolation
+--- PASS: TestDefaultNoBundleAndForkIsolation (0.60s)
+=== RUN   TestDefaultRepeatedConcurrentLifecycle
+--- PASS: TestDefaultRepeatedConcurrentLifecycle (1.47s)
+=== RUN   TestDefaultReleaseFailurePaths
+[mysql] 2026/10/06 22:56:02 connection.go:706 closing bad idle connection: EOF
+[mysql] 2026/10/06 22:56:02 connection.go:706 closing bad idle connection: EOF
+=== RUN   TestDefaultReleaseFailurePaths/unusable_temporary_directory
+=== NAME  TestDefaultReleaseFailurePaths
+    failure_paths_test.go:210: FDs=10→10 goroutines=2→2
+--- PASS: TestDefaultReleaseFailurePaths (0.80s)
+    --- PASS: TestDefaultReleaseFailurePaths/unusable_temporary_directory (0.07s)
+=== RUN   TestClosedDatabaseRetainedPipeLifetime
+    fd_lifetime_test.go:100: retained closed handles=6 descriptors before=10 after=10
+--- PASS: TestClosedDatabaseRetainedPipeLifetime (0.97s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/godefault	3.853s
