@@ -6,5 +6,9 @@
     }
   ],
   "peak_tree_rss_bytes": 2015576064,
-  "memory_budget_bytes": 8589934592
+  "memory_budget_bytes": 8589934592,
+  "gomaxprocs": 8,
+  "source_sha": "10fa4d1157c673f7eb7830802c584b774f221f00",
+  "competing_benchmark_detected": false,
+  "competition_sampling_seconds": 1
 }

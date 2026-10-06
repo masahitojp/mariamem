@@ -38,7 +38,7 @@ An initial GOMAXPROCS=2 calibration was accidentally inherited from compile thro
 
 ## Verification and readiness
 
-Focused Python SDK/artifact/release/source/license/workspace boundary tests:239 PASS. Go artifact/platform resolver tests PASS. Generated input/inventory/guest identity, version, public-source inventory, four retirement evidence hashes, skill validators and diff checks PASS. Prior retirement SQL/auth/sessions/Snapshot/Close/mmap/race/installed-wheel/SQLAlchemy44/GORM32 evidence is reused because product code is unchanged from the accepted retirement source; this is not final-source artifact READY.
+Focused Python SDK/artifact/release/source/license/workspace boundary tests:239 PASS; after final docs/version changes,122 release/source/license boundary tests PASS (overlapping selection, not an additional122 unique tests). Go artifact/platform resolver tests PASS. Generated input/inventory/guest identity, version, public-source inventory, four retirement evidence hashes, skill validators and diff checks PASS. Prior retirement SQL/auth/sessions/Snapshot/Close/mmap/race/installed-wheel/SQLAlchemy44/GORM32 evidence is reused because product code is unchanged from the accepted retirement source; this is not final-source artifact READY.
 
 Live Wasmer runtime selection/provisioning/packaging is retired; historical sources/notices and disabled reference scripts remain. Snapshot/Fork API, integrity validation and generated guest are unchanged. No OwnedPrepared/new ownership implementation, hash optimization or v0.5 upgrade is included.
 

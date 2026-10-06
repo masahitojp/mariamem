@@ -448,5 +448,7 @@
     "hash verification optimization",
     "v0.5 guest upgrade"
   ],
-  "initial_calibration": "GOMAXPROCS=2 preserved separately, excluded from default-CPU table"
+  "initial_calibration": "GOMAXPROCS=2 preserved separately, excluded from default-CPU table",
+  "final_document_source_boundary_tests": "122 passed in 6.42s",
+  "final_public_source_check": "626 files passed"
 }
