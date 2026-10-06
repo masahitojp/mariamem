@@ -33,7 +33,7 @@ func startLinked(ctx context.Context, module, transfer, restore string, stderr i
 	ready := make(chan response, 1)
 	p := &Process{startupTiming: timing.Enabled(ctx), in: in, out: out, writes: make(chan struct{}, 1), done: make(chan struct{}), pending: map[uint32]chan response{0: ready}}
 	timing.Mark(ctx, "linked_execution_begin")
-	execution := generatedgo.StartInstance(childIn, childOut, logs, transfer, restore, timing.Enabled(ctx))
+	execution := generatedgo.StartInstance(ctx, childIn, childOut, logs, transfer, restore, timing.Enabled(ctx))
 	readDone := make(chan struct{})
 	go func() { defer close(readDone); p.read() }()
 	go func() {
