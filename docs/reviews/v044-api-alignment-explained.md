@@ -1,6 +1,7 @@
 # Decision 4: API alignment explained
 
-Status: 未採択。2026-10-07、Decision 1/2/3/5/6 採択後の説明。
+Status: 探索中・未採択。2026-10-07。Decision 1–6 は製品判断として採択していない。
+過去の「採択済み」表記は、支持・議論継続を採択と取り違えた記録だった。
 新しい API の実装や削除はこの文書では行わない。
 現行挙動の baseline: `c8bd25a56e9d5221abaf40b2c98102bd60c217ae`。
 
@@ -125,7 +126,7 @@ fixture 名の rename や利用者の custom scope の禁止は提案してい�
 ## 分けて決めるべきこと
 
 - path 指定 write の廃止：既に示された product preference の具体化。
-- explicit read/import の ownership：採択済み integrity contract の適用。
+- explicit read/import の ownership：PoC の integrity contract の適用。
 - constructor aliases の削除：安全に ALIGN して残す案と比較できる。
 - metadata の公開範囲：owned resource の identity と diagnostic value を分ける。
 - mutable class fixture の存廃：baseline の準備 scope と独立した子の scope を分ける。

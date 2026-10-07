@@ -97,7 +97,7 @@ second current runtime. See [benchmark notes](../benchmarks/README.md).
 Use independent experiment branches/worktrees and explicit disk/resource guards.
 Preserve compact JSON/CSV, final reports and checksums; dispose owned temp/build
 outputs after finalization. Confirm shared-cache inactivity, preserve unique evidence, then delete
-recreatable caches; regeneration cost is not a KEEP reason. See the current [workspace policy](experiment-workspace.md) and [project status](project-status.md).
+recreatable caches; regeneration cost is not a KEEP reason. See [safe cleanup](development-cleanup.md) and [project status](project-status.md).
 
 ## Historical runtime material
 

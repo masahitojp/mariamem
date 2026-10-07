@@ -1,18 +1,16 @@
 # Go API
 
-Use a real MariaDB for a test, commit normally, then close the database.
-For expensive setup, create a Snapshot once and Fork independent databases.
-Successful Snapshot creation ends the setup DB; each child starts with the
-captured schema/data and owns its subsequent mutations.
-
-This guide describes the released v0.4.3 API. The
-[accepted product/integrity decisions](decisions/README.md) describe the next
-contract direction; public API migrations remain under review.
+**Direct-linked generated Go is the default v0.4.3 runtime.** Ordinary Go
+usage needs no NativeDir, bundle cache/download or external Wasmer. Generated
+Go is a normal module dependency/build input; WASM is a build intermediate.
+Existing public APIs and cold Snapshot/Fork semantics are preserved.
+See [architecture](v04-generated-go-architecture.md) and
+[canonical measurements](../benchmarks/v04-integrated-candidate.md).
 
 The public package is `mariamem` at the module root. The module requires Go
 1.26.0+; canonical validation uses Go 1.26.8. Go 1.27.0/1.27.1 arm64 are
 unsupported because of upstream compiler issue #81036; no local workaround is
-used. An upstream-fixed toolchain has been verified. v0.4.3 is released; install the exact tag.
+used. An upstream-fixed toolchain has been verified. v0.4.3 is prepared as a release candidate; tag installation follows publication.
 
 ```sh
 mkdir mariamem-example
@@ -26,8 +24,10 @@ go get github.com/go-sql-driver/mysql
 db, err := mariamem.Start(ctx, mariamem.Options{})
 ```
 
-Start needs no external runtime bundle or per-database download. For the
-implementation boundary, see [current architecture](v04-generated-go-architecture.md).
+Each DB has fresh execution/thread/TLS/FD state and private writable files.
+Normal Start does not decode/materialize a native image, spawn a guest process
+or resolve a runtime bundle. Development/local replacement builds use the same
+default. Once normal Go dependencies are available, startup needs no download.
 Optional release audit assets are available separately:
 
 ```sh
@@ -37,7 +37,7 @@ gh release download v0.4.3 --repo masahitojp/mariamem \
 
 ## Retired legacy overrides
 
-In released v0.4.3, generated-Go is the only supported runtime.
+On this v0.4.3 candidate branch, generated-Go is the only runtime.
 `Options.NativeDir` remains a deprecated source-compatibility field; nonempty
 values, `MARIAMEM_NATIVE_DIR`, and `MARIAMEM_RUNTIME=wasmer` are rejected with
 migration guidance. Empty or `MARIAMEM_RUNTIME=generated-go` uses compiled source.
@@ -60,13 +60,11 @@ ErrClosed, and `errors.As` for HostError. Underlying errors remain unwrap-able.
 
 An empty Snapshot Destination creates an owned temporary snapshot, deleted by
 Snapshot.Close. An explicit Destination is retained. Fork inherits options and
-validates the saved snapshot through the host on each Fork in v0.4.3.
-A child cannot update the Snapshot or a sibling through SQL. Closing a child
-discards that child while leaving the Snapshot available for later Forks.
-Fork startups from the same snapshot may run concurrently. Close waits for admitted startups before deleting
+validates the saved snapshot through the host. Fork startups from the same
+snapshot may run concurrently. Close waits for admitted startups before deleting
 owned files; already-started forks survive Snapshot.Close. Manifest
 format/hash/commit-marker semantics are unchanged. ConnectionInfo and DSN are
-detached endpoint metadata available after Close; use Closed to inspect
+immutable endpoint metadata available after Close; use Closed to inspect
 lifecycle state. Zero-value handles cannot start operations; construct them
 through Start and Database.Snapshot.
 

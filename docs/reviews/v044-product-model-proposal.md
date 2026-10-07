@@ -1,9 +1,9 @@
 # Disposable database and reusable initial state
 
-Status: human accepted, October 7, 2026. Product Contract Audit Decisions 1, 2,
-3, 5 and 6 are accepted. Decision 4 remains under discussion.
-This document records the target contract and its rationale; it does not claim
-that an unqualified runtime change or public API migration has shipped.
+Status: proposal under exploration, October 7, 2026. Product Contract Audit
+Decisions 1–6 have not been adopted. Earlier support/preferences were incorrectly
+recorded as adoption; this document now preserves discussion material only.
+No product/API/integration decision follows from this proposal.
 
 ## Core uses and concepts
 
@@ -52,8 +52,8 @@ not yet been approved. Setup builders are not ordinary mutable test databases.
 ## Documentation responsibilities
 
 README and language guides own current usage, lifecycle, guarantees and limits.
-Architecture owns how the current implementation realizes them. This directory
-owns accepted reasons and invariants that constrain future work. Benchmark and
+Architecture owns how the current implementation realizes them. A proposed decisions directory
+would own adopted reasons and invariants that constrain future work. Benchmark and
 investigation reports own historical evidence with source/date/measurement bounds.
 Project-status owns current release state, limitations and selected next direction.
 
@@ -61,12 +61,12 @@ Do not make users reconcile historical CoW/Wasmer/allocator statements to use th
 current API. Preserve historical evidence and license/provenance obligations;
 label and route it rather than rewriting old measurements as current results.
 
-## Public API decisions still pending
+## Product and public API decisions still pending
 
-Decision 4 includes several separate choices: path writes, external import,
+All six audit decisions remain under exploration. Decision 4 includes several separate choices: path writes, external import,
 constructor aliases, backing introspection, mutable class fixtures and setup
-fixtures. Agreement with the core concepts or OwnedPrepared does not approve
-all those removals. Path-based reads/import remain acceptable; arbitrary
+fixtures. Support for the concepts or OwnedPrepared is not recorded as product adoption
+or authorization of API removal. Path-based reads/import remain acceptable; arbitrary
 path-based Snapshot writes are the maintainer's removal direction, with the
 specific API migration still to be settled.
 
@@ -78,5 +78,5 @@ an alias must be removed to enforce ownership.
 ## Evidence
 
 - [Product Contract Audit](https://github.com/masahitojp/mariamem/blob/25a537c9fdb112c89d3e17c69ca078ffc4ad1f82/docs/reviews/v044-product-contract-audit.md).
-- [Owned Snapshot integrity decision](snapshot-integrity.md).
+- [Owned Snapshot integrity proposal](v044-owned-integrity-proposal.md).
 - Current behavior remains documented in [Go](../go.md) and [Python](../python.md).

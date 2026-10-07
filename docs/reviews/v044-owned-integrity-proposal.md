@@ -1,11 +1,13 @@
 # Owned Snapshot integrity
 
-Status: human accepted target contract, October 7, 2026 (audit Decision 5).
-Productionization is authorized as a bounded candidate. The existing spike is
-not merged, and its CI does not qualify a different production candidate.
-Shipped v0.4.3 still validates inventory and content on each Fork.
+Status: experimental contract under product review, October 7, 2026.
+Audit Decision 5 has not been adopted; this document does not authorize
+productionization. The fixed PoC contract and measured evidence remain valid
+inputs to the discussion. The existing spike is not merged, and its CI does not
+qualify a different production candidate. Shipped v0.4.3 still validates
+inventory and content on each Fork.
 
-## Accepted contract
+## Fixed PoC contract; product adoption remains open
 
 Snapshot creation/import performs complete integrity validation. mariamem then
 owns the exact validated backing, which supported operations do not mutate.
@@ -27,7 +29,7 @@ Fork/Close admission pins resources through startup. Successful children can
 continue after Snapshot Close. Failed/partial startup and repeated Close must
 release descriptors/mappings without process or goroutine accumulation.
 
-## Why select it
+## Evidence supporting the proposal
 
 The independently qualified spike passed macOS arm64 and Ubuntu x86_64 import,
 isolation, generations/order, concurrency, growth, commit/rollback and tested
@@ -44,7 +46,7 @@ code, and the explicit later-corruption contract. Python external import copies
 input into independent backing, adding roughly 90 ms in the tested 100 MiB case;
 subsequent children amortize that work. This copy is distinct from per-child copies.
 
-## Bounded productionization boundary
+## Possible bounded productionization boundary, if approved
 
 Start from current main; integrate the smallest reviewed acquisition, descriptor
 handoff, private mapping and lifecycle changes. Do not merge experiment history
@@ -60,7 +62,8 @@ new MariaDB upgrade, broad performance campaign or full guest race redesign.
 Run current handwritten race checks where the changed synchronization depends on
 them. No new canonical release benchmark or publication is authorized here.
 
-Decision 4 determines public path/alias/introspection/fixture migration. Ownership
+Product adoption and productionization require an explicit future decision.
+Decision 4 explores public path/alias/introspection/fixture migration. Ownership
 can be introduced while preserving the existing signatures; those removals are
 not an automatic prerequisite or consequence of this decision. If compatibility
 writers temporarily remain, their exported artifact and owned Fork backing must
@@ -74,4 +77,4 @@ mutable filesystem path merely to preserve an old Path accessor.
 - Comparison baseline: `b83dd2c8bcda6d57def2cbbe9f9b9226d93cd2ca`, not the release tag.
 - [Both-platform CI](https://github.com/masahitojp/mariamem/actions/runs/37541652530).
 - [Compact review and measurement limits](https://github.com/masahitojp/mariamem/blob/09443d4de999b833cddc2ca536d43f9120130c79/benchmarks/v044-owned-ci-review.md).
-- [Accepted product model](product-contract.md).
+- [Product model proposal](v044-product-model-proposal.md).
