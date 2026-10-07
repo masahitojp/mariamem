@@ -1,13 +1,16 @@
 # Python API
 
-**Generated Go is the default v0.4.3 runtime.** The `0.4.3` package is a release candidate. Normal Python startup uses a platform Go host
-with generated-Go MariaDB linked in; no external Wasmer/native bundle is needed.
-Public APIs and cold Snapshot/Fork semantics are preserved. See
-[architecture](v04-generated-go-architecture.md) and
-[canonical measurements](../benchmarks/v04-integrated-candidate.md).
+Use a real MariaDB for a test, commit normally, then close the database.
+For expensive setup, create a Snapshot once and Fork independent databases.
+Successful Snapshot creation ends the setup DB; each child starts with the
+captured schema/data and owns its subsequent mutations.
+
+This guide describes the released v0.4.3 API. The
+[accepted product/integrity decisions](decisions/README.md) describe the next
+contract direction; public API migrations remain under review.
 
 PyPI publication remains unavailable pending account recovery;
-after publication use the [v0.4.3 GitHub Release wheels](https://github.com/masahitojp/mariamem/releases/tag/v0.4.3)
+use the released [v0.4.3 GitHub Release wheels](https://github.com/masahitojp/mariamem/releases/tag/v0.4.3)
 and [platform install commands / PEP 508 extras](../README.md#python), not a Git
 source install. The wheel supplies the platform host executable. PyPI remains a
 planned distribution channel.
@@ -58,20 +61,26 @@ rejections keep the source database available.
 
 An automatic snapshot owns a temporary directory removed by `close()` or context
 exit. An explicit `snapshot("path")` destination is retained and can be reopened
-with `mariamem.Snapshot.open("path")`. Snapshot manifests verify file hashes and
-guest build compatibility. Snapshots contain DB data: do not publish test data as
+with `mariamem.Snapshot.open("path")`. In v0.4.3, open verifies the inventory
+and file hashes;
+actual guest-build compatibility is checked by the host when Fork starts.
+The open handle still references the external directory, so external changes
+can affect later Forks or cause their validation to fail.
+Neither Fork writes nor child Close update the saved path. To capture changed
+child state, take a new Snapshot from that child into a new destination.
+Snapshots contain DB data: do not publish test data as
 source or release assets.
 
 ## pytest fixtures
 
-| Fixture | Scope | Purpose |
+| Fixture | Scope (per worker) | Shared object and cleanup |
 |---|---|---|
 | `mariamem_options` | session | Start options; defaults to `{}` |
-| `mariamem_server` | session | Template DB; consumed by successful snapshot creation |
-| `mariamem_snapshot` | session | Empty DB snapshot by default |
-| `mariamem_fork` | function | Independent DB for a test |
+| `mariamem_server` | session | Mutable setup DB; consumed by successful Snapshot creation |
+| `mariamem_snapshot` | session | Fixed initial state; empty by default; closed at session end |
+| `mariamem_fork` | function | Independent mutable DB; discarded at test end |
 | `mariamem_connection_info` | function | Connection keyword arguments for that DB |
-| `mariamem_class_fork` | class | Shared DB for one class |
+| `mariamem_class_fork` | class | One mutable DB shared across methods; discarded at class end |
 | `mariamem_class_connection_info` | function | Connection arguments for the class DB |
 
 To prepare migrations and seed data, override `mariamem_snapshot` in `conftest.py`:
@@ -94,22 +103,28 @@ def mariamem_snapshot(mariamem_server):
 
 Each xdist worker creates its own session template. Use
 `pytest -n 2 --dist=loadscope` when class-scoped DBs must stay on the same worker.
-Class fixtures deliberately share mutations between tests in that class.
+Class fixtures carry mutations between tests in that class; there is no
+per-method rollback, truncate or reset. This differs from sharing a baseline
+while creating a new DB for each method. Use function-scoped Forks for that
+independent-test workflow. Direct use of the session setup DB likewise shares
+mutable state until successful Snapshot creation consumes it.
 
 Function-scoped forks provide disposable server-level state, avoiding per-test
 rollback/schema reset/data cleanup for isolation. Driver connections and owned
 DB/snapshot handles still need context-manager or explicit cleanup. Snapshot
-captures a prepared filesystem, not a live running server. Prepared-state value
+captures fixed schema/data; child writes do not change that initial state.
+Each successful child can continue after the Snapshot handle is closed.
+Prepared-state value
 depends on migration/fixture cost; Fork and fresh Start measure different
 boundaries. See the [performance/resource limits](../README.md#performance-and-resource-limits)
-for the fixed Go reference and substantial per-DB memory cost. Those Go timings
+for source-specific observations and resource limits. Those Go timings
 are not Python end-to-end or hardware-independent guarantees.
 
 ## Developer overrides
 
 `start(host_binary=...)` supports a local generated-Go host. A complete wheel
 needs no override. Legacy `runtime`, `module`, `wasmer_dir` and
-`MARIAMEM_NATIVE_DIR` are rejected on this v0.4.3 candidate branch. Use an older
+`MARIAMEM_NATIVE_DIR` are rejected in released v0.4.3. Use an older
 tag for historical Wasmer comparisons. Timeouts use seconds:
 `startup_timeout`, `query_timeout`, and `shutdown_timeout`.
 Query timeout or client disconnect during a running query invalidates the

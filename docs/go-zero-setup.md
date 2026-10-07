@@ -16,7 +16,7 @@ Ordinary application code becomes:
 db, err := mariamem.Start(ctx, mariamem.Options{})
 ```
 
-See the current [Go guide](go.md#legacy-wasmer-compatibility-override) for
+See the current [Go guide](go.md#retired-legacy-overrides) for
 legacy override behavior; the cache details below are historical.
 
 ## Distribution identity

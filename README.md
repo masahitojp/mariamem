@@ -3,29 +3,25 @@
 **Make a real MariaDB as disposable as a test double.**
 
 mariamem starts an isolated MariaDB for a test, lets an ordinary MySQL client
-connect, and disposes of the database afterward. It runs a modified MariaDB
-guest translated to generated Go; it does not reimplement MariaDB SQL or InnoDB.
-Go hosts run in the test process; Python starts the packaged Go host process.
-Both languages have public lifecycle APIs.
+connect and commit normally, and discards the database afterward. It runs real
+MariaDB SQL/InnoDB rather than emulating them. No Docker is needed.
 
-**Direct-linked generated Go is the default v0.4.3 runtime.** Ordinary Go
-`Start(ctx, Options{})` and Python `mariamem.start()` need no Wasmer bundle,
-NativeDir or runtime download. Legacy runtime overrides are retired; generated-Go is the only supported runtime.
-See [architecture](docs/v04-generated-go-architecture.md) and
-[historical canonical measurements](benchmarks/v04-integrated-candidate.md).
-v0.4.3 preserves controlled pure-memory32 traps and mmap-backed linear memory
-for cheaper repeated disposal.
-v0.4.3 is a release candidate; the installation commands below target the
-artifacts that will be published after exact-source CI qualification. See [release notes](release/NOTES-v0.4.3.md)
-and [current product direction / roadmap](docs/project-status.md).
+For light setup, create a new database for each test. For expensive migrations
+and fixtures, prepare once, create a Snapshot, and Fork independent databases.
+Successful Snapshot creation closes the setup database. Each child inherits the
+fixed initial schema/data; its changes disappear when that child is closed.
+Close application connections and database/Snapshot handles at their own scope.
+Sharing initial state does not share mutations between tests.
 
-The testing workflow is Docker-free: each disposable database has its own server
-state. Prepare migrations/fixtures once with Snapshot, then Fork independent
-databases without adding rollback, schema-reset or data-cleanup logic to each
-test. Close client connections and owned database/snapshot handles normally.
+**v0.4.3 is released.** See [release notes](release/NOTES-v0.4.3.md),
+[current status](docs/project-status.md), [Go guide](docs/go.md) and
+[Python/pytest guide](docs/python.md). Internal implementation and historical
+runtime changes belong in [architecture](docs/v04-generated-go-architecture.md).
+The [accepted product decisions](docs/decisions/README.md) record the next
+contract direction; proposed API removals are not part of the released API.
 
 The canonical Python distribution version is `0.4.3`; the Go module uses
-the exact `v0.4.3` tag. Python wheels will be available from the matching GitHub Release.
+the exact `v0.4.3` tag. Python wheels are available from the matching GitHub Release.
 Supported platforms remain **macOS 15+ / Apple Silicon (arm64)** and
 **Ubuntu 24.04 LTS / x86_64**.
 PyPI publication is temporarily unavailable while account recovery is pending;
@@ -40,8 +36,7 @@ validated by these release jobs.
 
 ## Python
 
-The v0.4.3 host-only wheel contains a Go host executable with generated-Go
-MariaDB linked in; no Wasmer/native bundle or Docker is needed. Use a virtual environment:
+Install the platform wheel in a virtual environment:
 
 ```sh
 python3 -m venv .venv
@@ -111,12 +106,10 @@ The normal API needs no native path:
 db, err := mariamem.Start(ctx, mariamem.Options{})
 ```
 
-Generated Go is ordinary module source compiled by the consumer's `go build`.
-Each DB runs directly in the caller with fresh runtime/thread/TLS/FD and private
-writable filesystem state. Normal startup does not provision an executable,
-spawn a guest subprocess or resolve/download a Wasmer bundle. Legacy `Options.NativeDir`, `MARIAMEM_NATIVE_DIR` and
-`MARIAMEM_RUNTIME=wasmer` inputs now fail explicitly. Remove them when moving
-from a historical Wasmer-based release.
+Use the Go API to own the database lifecycle and your normal MySQL driver to
+connect. The [Go guide](docs/go.md) describes connections, Snapshot/Fork,
+cancellation and cleanup. Historical runtime overrides are retired; see its
+[migration guidance](docs/go.md#retired-legacy-overrides).
 
 Source/provenance review assets can be downloaded separately;
 they are not required for ordinary startup:
@@ -129,28 +122,18 @@ gh release download v0.4.3 --repo masahitojp/mariamem \
 
 ## Performance and resource limits
 
-Fixed Apple M1 / 16 GiB / macOS 27.0.1 arm64 / Go 1.26.8 measurements:
+Preparation reuse is useful when migrations/fixture setup outweigh Snapshot
+creation and repeated Fork costs. Light setup may favor a new DB each time.
+Broad scans over large data still take time in each child. There is no universal
+speedup, crossover or memory-sharing promise.
 
-| Boundary | Wasmer reference p50 | v0.4 candidate p50 / p95 |
-| --- | ---: | ---: |
-| Start → first SQL | 308.5 ms | 38.4 / 593.7 ms |
-| prepared Fork → COUNT | 288.7 ms | 104.6 / 251.6 ms |
-| Snapshot | 404.6 ms | 399.9 / 570.8 ms |
-| ×16 CPU | 9.463 CPU-sec | 2.814 / 2.954 CPU-sec |
-| SQLAlchemy100 Fork | 43.142 s | 20.430 / 20.705 s |
-
-Thirty Start/Snapshot/Fork trials, ten scaling trials and three ORM suites per
-mode; no slow runs removed. These are reference-machine observations, not
-hardware-independent guarantees or Python end-to-end startup timings.
-Snapshot preallocation reduced diagnostic TotalAlloc by **69.6%**. Snapshot
-median is approximately unchanged versus Wasmer; its p95 is slower. Start's p95
-includes observable approximately one-second startup tails.
-
-Prepared ×16 physical footprint was **3664.7 MiB p50**; incremental footprint
-was **197.4 MiB per DB p50**. Immediate post-Close physical accounting remains
-high and is distinct from reachable Go heap. It is not claimed harmless or
-immediately reclaimable. See [canonical boundaries and identities](benchmarks/v04-integrated-candidate.md)
-and [memory-lifetime attribution](benchmarks/v04-snapshot-memory-lifetime.md).
+The [released v0.4.3 measurements](benchmarks/v043-release-baseline.md) and
+[Snapshot/Fork characterization](benchmarks/v043-characterization.md) specify
+exact inputs and measurement boundaries. Earlier
+[v0.4.0 comparisons](benchmarks/v04-integrated-candidate.md) and
+[memory investigations](benchmarks/v04-snapshot-memory-lifetime.md) are historical
+and do not describe current allocator reclamation. These Go measurements are
+not Python end-to-end or hardware-independent guarantees.
 
 ## Current limits
 

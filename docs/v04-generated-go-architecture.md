@@ -1,5 +1,12 @@
 # v0.4 generated-Go default runtime
 
+This document owns implementation detail. For current user lifecycle and guarantees,
+read [Go](go.md) or [Python](python.md). The released v0.4.3 prepared-file path is
+summarized under [v0.4.3](#v043-consolidation-and-prepared-file-sharing); earlier task integration
+constraints are historical, not requirements to preserve every accidental API.
+The [accepted next ownership contract](decisions/snapshot-integrity.md) has not
+been productionized by this documentation change.
+
 Ordinary Go `Start(ctx, Options{})` directly links the generated guest into the
 consumer process; generated Go is a normal Go dependency/build input. WASM is a
 build intermediate. The published v0.4.0 runtime's functional acceptance and canonical
