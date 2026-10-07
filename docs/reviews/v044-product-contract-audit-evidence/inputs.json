@@ -1,0 +1,50 @@
+{
+  "audit_date": "2026-10-07",
+  "baseline_main_sha": "c8bd25a56e9d5221abaf40b2c98102bd60c217ae",
+  "remote_main_sha": "c8bd25a56e9d5221abaf40b2c98102bd60c217ae",
+  "baseline_existing_markdown_files": 90,
+  "public_inventory_grouped_items": 59,
+  "spike_ci_code_sha": "730b64db7059d0374e2e00680416de77cdb346eb",
+  "spike_review_sha": "09443d4de999b833cddc2ca536d43f9120130c79",
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "maintainer_confirmations": [
+    "v0.4.3 has already released",
+    "only current user is maintainer",
+    "no intentionally relied path-write/Destination, Snapshot.open, class/session mutable sharing; inherited APIs with concept"
+  ],
+  "approval_status": "Human Review pending; audit recommendations not implementation approval",
+  "verification_scope": "report/source references/JSON/checksums/diff/status only",
+  "runtime_tests_run": false,
+  "new_benchmarks_run": false,
+  "production_code_modified": false,
+  "existing_documentation_rewritten": false,
+  "source_sha256": {
+    "mariamem.go": "9ca69e97328dc09fed1abb89bbfeae0743299487338a80002ad1a712f142ae20",
+    "snapshot.go": "a7d07afc2ddc228f9d91ecfa4cf51bbb3a2e4618df7d0a7cd06281a1dc8810f4",
+    "connection.go": "b60923952ace993470fed64dcb4ba89c7c66f42f71d03ff16e70c89bba32f07b",
+    "errors.go": "92449a3ac6d2c613dc6f059c8b1754a6b71c53fe1b4b4179a908a624d6fd090c",
+    "python/mariamem/__init__.py": "7b0d6cc48fdffbc6cd0f957c1ea1783870dc910d5453b1840d84d0c9a4a84975",
+    "python/mariamem/snapshot.py": "7c55ef216562aefb64fb04630cea764fc5fc513d081c25d7e2bcd1e5eedf2ea4",
+    "python/mariamem/pytest_plugin.py": "fbbca0060ab99884ee264166432b4654d8b81ae33e090d13310f984667d8fc9a",
+    "python/mariamem/_artifacts.py": "2557677b0c7f606c2f678de25c2cabc4fc8aab6ceb8bee901c6b72b5ffee6e53",
+    "python/setup.cfg": "1333318378cfdb738a192a0a23423c672f971d4de675030ec5c08e42e07d2b55",
+    "internal/host/server.go": "bb1a7c02dd916962d9482b2e1c41e0cc63476503e2055e1ac35e88cb6bf65242",
+    "internal/snapshot/snapshot.go": "52a8298ce3bccdbe798b87b09c3bbd01a430dcbd12bd443c6df29a508916bf15",
+    "internal/mysqlwire/wire.go": "b299f8ee0e5655007fb4b35a9b97e6d3e47804878d66adca6761ebfafd38b55f",
+    "internal/generatedgo/code/base/prepared_files.go": "9f860253f7cb682b274492129e1fc7e8c64d62dcc47c7c39e42ee347675629cc",
+    "cmd/mariamem-host/main.go": "6d0fcdd2713b941205e67baa1ad565087c42cabe1bd630283d282acd92c9d65f",
+    "README.md": "cf7b7e7a177c20a484ae980b9c3988ec98bb6c2208f56a87170cb6759e0905ac",
+    "docs/go.md": "de494570dd7e7becd0e9c0e8fd8dd9b705abbeac524366dc4a700c7bbc89ffb0",
+    "docs/python.md": "6937ba7b19cd83a29f2236b9a7e8979ca0ebf6f269c8da48cc903dd392a5fdec",
+    "docs/project-status.md": "5fc1f41b2107d101d5ce9294ab705e8c03f81fc233e425d6d9b5255010170ccd",
+    "docs/development.md": "4eed4da79b4f2d301842001ec9155ec61713f4dbbce0c2a547916ef5955b0cf6",
+    "docs/v04-generated-go-architecture.md": "b780e938d0217b3f05fc6f6715c8b59e28e9533af29cc3445803b8b255dc8b9c",
+    "AGENTS.md": "fa52c17f99d2ff0c304d23d7e37a2caa1ebc9d35848ccf210fc3639dff0f2777"
+  },
+  "reproduction_commands": [
+    "git rev-parse main",
+    "git ls-remote origin refs/heads/main refs/tags/v0.4.3",
+    "git show c8bd25a56e9d5221abaf40b2c98102bd60c217ae:<source path>",
+    "git show 09443d4de999b833cddc2ca536d43f9120130c79:benchmarks/v044-owned-ci-review.md"
+  ]
+}

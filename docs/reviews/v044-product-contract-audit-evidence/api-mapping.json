@@ -1,0 +1,884 @@
+{
+  "baseline_sha": "c8bd25a56e9d5221abaf40b2c98102bd60c217ae",
+  "status": "PROPOSED; not approved/implemented",
+  "items": [
+    {
+      "language": "Go",
+      "syntax_reference": "`Start(ctx, Options{}) (*Database,error)`; `mariamem.go:82`",
+      "current_behavior": "Creates mutable DB + temp root; context governs startup only, successful DB outlives context; caller Close",
+      "other_evidence_columns": [
+        "`start()` / `Database()`",
+        "Documentation agrees; real MariaDB in caller process, local TCP listener",
+        "CRUD/protocol/ORM tests (`tests/gointegration/lifecycle_test.go:52`); core desired"
+      ],
+      "classification": "CORE",
+      "concept": "mutable disposable DB",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常の作成・所有・test単位破棄。Python constructorの既存別入口は個別REMOVE候補。",
+      "id": "API-01"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`Options{StartupTimeout}`; `mariamem.go:39`",
+      "current_behavior": "Zero→120s; negative reject; bounds host/guest startup after setup; no lifetime timer",
+      "other_evidence_columns": [
+        "`startup_timeout=120`",
+        "Go zero default vs Python zero invalid; validation artifact/setup work occurs before startup timeout",
+        "Lifecycle/failure tests; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-02"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`Options{ShutdownTimeout}`; same",
+      "current_behavior": "Zero→30s; negative reject; Close creates independent background timeout, cleanup may exceed it",
+      "other_evidence_columns": [
+        "`shutdown_timeout=30`",
+        "Cooperative reclamation only, no hard failure guarantee",
+        "Lifecycle/timeout tests; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-03"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`Options{QueryTimeout}`; same",
+      "current_behavior": "Zero→30s; negative reject; interrupted active SQL invalidates entire DB",
+      "other_evidence_columns": [
+        "`query_timeout=30`",
+        "Driver SQL errors are separate from fatal host timeout",
+        "`mariamem_test.go:304` fake-backend invalidation and `tests/test_python_timeout.py:26` retained opt-in runtime diagnostic; desired constraint, exact value U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-04"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`Options{NativeDir}`; `mariamem.go:40`",
+      "current_behavior": "Deprecated compatibility field; nonempty rejects startup",
+      "other_evidence_columns": [
+        "`runtime/module/wasmer_dir` rejected parameters",
+        "No working alternate runtime; retain/reject is a migration surface, not a runtime capability",
+        "`mariamem_test.go:521`; explicit legacy retirement, field reliance U"
+      ],
+      "classification": "ADVANCED",
+      "concept": "legacy migration rejection guard",
+      "proposed_scope": "keep as-is in v0.4.4; removal DEFER to possible v0.4.5 only if coherent follow-up",
+      "reason": "既に拒否する互換signature/環境guard。第二runtimeではない。owned baseline実装に無関係なので今まとめてAPI掃除しない。",
+      "id": "API-05"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`Database`; `mariamem.go:68`",
+      "current_behavior": "Construct via Start, do not copy; owns runtime, mutable DB and temp files",
+      "other_evidence_columns": [
+        "`Database`",
+        "Zero value cannot operate, Close safe",
+        "API tests; core desired"
+      ],
+      "classification": "CORE",
+      "concept": "mutable disposable DB",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常の作成・所有・test単位破棄。Python constructorの既存別入口は個別REMOVE候補。",
+      "id": "API-06"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`db.Close() error`; `mariamem.go:173`",
+      "current_behavior": "Mutex serializes lifecycle; marks closed, stops runtime, removes DB temp; repeated calls return stored cleanup result",
+      "other_evidence_columns": [
+        "`close()` / `with`",
+        "Normal idempotency promised; timeout does not force in-process reclaim",
+        "Cleanup/error/concurrent tests; core desired"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-07"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`db.Closed() bool`; `mariamem.go:166`",
+      "current_behavior": "True for closed/nil backend/failed runtime",
+      "other_evidence_columns": [
+        "`closed`",
+        "Availability diagnostic, not just explicit Close flag",
+        "`mariamem_test.go:304`; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-08"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`db.Err() error`; `mariamem.go:143`",
+      "current_behavior": "Preserves invalidation cause; clean Close/successful Snapshot returns nil; runtime watcher closes unexpectedly exited DB",
+      "other_evidence_columns": [
+        "Python has no `err` equivalent; `status()`/HostError",
+        "Cause retained through error chain; ordinary SQL does not invalidate",
+        "timeout/default lifecycle tests; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-09"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`db.ConnectionInfo() ConnectionInfo`; `connection.go:9`",
+      "current_behavior": "Detached value copy, available after Close; endpoint unusable after disposal",
+      "other_evidence_columns": [
+        "`connection_info()` rejects after Close",
+        "**Current language mismatch**: Go permits retained metadata, Python errors",
+        "`mariamem_test.go:64`, `tests/consumer/test_database.py:17`; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-10"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`ConnectionInfo{Host,Port,User,Password,Database}`; `connection.go:10`",
+      "current_behavior": "`127.0.0.1`, ephemeral port, `root`, empty password, `test`; user can alter copy, not DB",
+      "other_evidence_columns": [
+        "dict with same five keys",
+        "Local testing endpoint; not production credential/security provisioning",
+        "Driver/ORM tests; core desired"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-11"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`db.DSN() string`; `connection.go:20`",
+      "current_behavior": "Metadata remains usable as text after Close; string for go-sql-driver/mysql with `interpolateParams=true`",
+      "other_evidence_columns": [
+        "None; caller builds driver-specific args",
+        "Text protocol interpolation; explicit prepared statements unsupported",
+        "Go/GORM dogfood; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-12"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`db.WaitDisconnected(ctx) error`; `mariamem.go:203`",
+      "current_behavior": "Poll 5ms until host active connections=0; no implicit timeout; rejects closed/unusable; caller closes pool first",
+      "other_evidence_columns": [
+        "`wait_disconnected(timeout=5)`",
+        "Convenience admission/cleanup barrier, not rollback/reset",
+        "Snapshot and reconnect tests; documented preferred snapshot workflow"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-13"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`db.Logs() string`; `mariamem.go:232`",
+      "current_behavior": "Retains last 16 KiB including after Close; copies to string, no user path",
+      "other_evidence_columns": [
+        "`logs`, optional `log_path`",
+        "Bounded guest diagnostics, separate from DB data export",
+        "failure diagnostics tests; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-14"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`SnapshotOptions{Destination}`; `snapshot.go:14`",
+      "current_behavior": "Empty→owned temp; explicit absolute path created exclusively; existing path rejects without overwrite/source consumption",
+      "other_evidence_columns": [
+        "`snapshot(destination=None)`",
+        "Both languages expose path write; **no Go arbitrary reopen API**",
+        "`tests/gointegration/lifecycle_test.go:222`; **confirmed no intentional reliance**, arbitrary write undesirable"
+      ],
+      "classification": "REMOVE",
+      "concept": "no normal Snapshot path-write concept",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "arbitrary path-saveはcore用途不要、maintainer intentional relianceなし。",
+      "id": "API-15"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`SnapshotOptions{Rollback bool}`; `snapshot.go:17`",
+      "current_behavior": "False rejects open tx; true authorizes dropping unfinished tx during close/export",
+      "other_evidence_columns": [
+        "`rollback=False`",
+        "Not test-level isolation mode; controls snapshot acceptance only",
+        "`mariamem_test.go:153`, `tests/snapshots.py:127`; U"
+      ],
+      "classification": "ADVANCED",
+      "concept": "explicit unfinished-transaction discard before baseline",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "defaultはcommit/rollback/disconnect。Rollbackはsnapshot admissionだけを制御し、test reset modeではない。",
+      "id": "API-16"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`db.Snapshot(ctx, SnapshotOptions{})`; `snapshot.go:29`",
+      "current_behavior": "Mutex holds; success consumes DB; host-accepted failure consumes DB; precondition failure leaves DB alive; complete export then validation",
+      "other_evidence_columns": [
+        "`db.snapshot()`",
+        "Cold files, not live runtime clone; no default Snapshot context deadline; copy/hash not cancellable",
+        "Fixture/SQLAlchemy baseline reuse; core desired"
+      ],
+      "classification": "ALIGN",
+      "concept": "immutable lifetime-bound baseline → independent DB",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "同じ検証済みbackingを所有。creation成功はsource消費、Closeは新startupを拒否してadmitted startupを保護し既存childは継続。",
+      "id": "API-17"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`Snapshot`; `snapshot.go:20`",
+      "current_behavior": "Handle owns only empty-Destination temp root; explicit destination is externally lifetime-owned; no exported constructor",
+      "other_evidence_columns": [
+        "`Snapshot(path)` / `Snapshot.open(path)`",
+        "Logical reusable template, physical immutability not enforced; any external writer can change backing",
+        "Sibling tests; desired concept, present ownership not accepted future guarantee"
+      ],
+      "classification": "ALIGN",
+      "concept": "immutable lifetime-bound baseline → independent DB",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "同じ検証済みbackingを所有。creation成功はsource消費、Closeは新startupを拒否してadmitted startupを保護し既存childは継続。",
+      "id": "API-18"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`s.Path() string`; `snapshot.go:73`",
+      "current_behavior": "Returns actual directory even after Close; normal temp disappears on Close; no mutation via handle itself",
+      "other_evidence_columns": [
+        "mutable `snapshot.path` attr",
+        "Public implementation/storage detail enables external edits; explicit path retained",
+        "Existing lifecycle/fixture checks depend on existence; maintainer relies on logical template, path need U"
+      ],
+      "classification": "INTERNALIZE",
+      "concept": "backing/validation implementation",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "path/manifest/edit/revalidateを普通のtemplate操作にしない。取得時検証とowner lifecycleで完結。",
+      "id": "API-19"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`s.Fork(ctx) (*Database,error)`; `snapshot.go:77`",
+      "current_behavior": "Inherits all source options; concurrent startups permitted; RW read lock pins files through startup; Close waits admitted startups; created child independent",
+      "other_evidence_columns": [
+        "`s.fork(**options)`",
+        "Fork host verifies inventory/content every call then separately reopens/maps; no ready runtime cloning",
+        "Many integration/ORM workloads; core desired"
+      ],
+      "classification": "ALIGN",
+      "concept": "immutable lifetime-bound baseline → independent DB",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "同じ検証済みbackingを所有。creation成功はsource消費、Closeは新startupを拒否してadmitted startupを保護し既存childは継続。",
+      "id": "API-20"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`s.Close() error`; `snapshot.go:94`",
+      "current_behavior": "Exclusive lock, idempotent stored result; owned temp deleted, explicit destination retained; later Fork rejects; already started child survives",
+      "other_evidence_columns": [
+        "`s.close()` / `with`",
+        "Go enforces Fork/Close startup pin; Python current code does not",
+        "`mariamem_test.go:362`, runtime lifecycle tests; core desired"
+      ],
+      "classification": "ALIGN",
+      "concept": "immutable lifetime-bound baseline → independent DB",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "同じ検証済みbackingを所有。creation成功はsource消費、Closeは新startupを拒否してadmitted startupを保護し既存childは継続。",
+      "id": "API-21"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`ErrBusy`, `ErrTransactionActive`, `ErrClosed`, `ErrUnusable`; `errors.go:11`",
+      "current_behavior": "`errors.Is`; busy/tx rejection does not consume DB; closed terminal; unusable retain cause",
+      "other_evidence_columns": [
+        "`Busy`, `TransactionActive`, generic HostError closed/unusable",
+        "Not all errors return a public sentinel (e.g destination); no error enum promised for all cases",
+        "API/lifecycle diagnostics tests; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-22"
+    },
+    {
+      "language": "Go",
+      "syntax_reference": "`HostError{Code,Stage,Closed,Err}` plus Error/Unwrap/Is; `errors.go:19`",
+      "current_behavior": "Describes source consumed/unusable and failure boundary; joins cleanup cause; not an execution API",
+      "other_evidence_columns": [
+        "`HostError(code,stage,closed)` + Python cause",
+        "Some diagnostics still use historical `native_unavailable` category; ordinary SQL stays driver error",
+        "deterministic/root API tests; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-23"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`mariamem.start(**options)`; `python/mariamem/__init__.py:296`",
+      "current_behavior": "Thin `Database(**options)` factory; starts mutable DB in dedicated packaged Go host; caller owns lifecycle",
+      "other_evidence_columns": [
+        "Start",
+        "No Fresh name; no shared daemon",
+        "Consumer CRUD/ORM; core desired"
+      ],
+      "classification": "CORE",
+      "concept": "mutable disposable DB",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常の作成・所有・test単位破棄。Python constructorの既存別入口は個別REMOVE候補。",
+      "id": "API-24"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`Database(*,host_binary=None,runtime=None,module=None,log_path=None,wasmer_dir=None,query_timeout=30,startup_timeout=120,shutdown_timeout=30,snapshot=None)`; `__init__.py:33`",
+      "current_behavior": "Constructor starts immediately; no idle/unstarted object; owns host process, reader thread, logfile and temp root",
+      "other_evidence_columns": [
+        "Database/Start/options",
+        "Python process boundary differs but same SQL/isolation concept",
+        "Lifecycle/consumer tests; core desired"
+      ],
+      "classification": "CORE",
+      "concept": "mutable disposable DB",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常の作成・所有・test単位破棄。Python constructorの既存別入口は個別REMOVE候補。",
+      "id": "API-25"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`startup_timeout`, `query_timeout`, `shutdown_timeout`; `__init__.py:40`",
+      "current_behavior": "Positive finite numeric seconds; zero/negative/inf/non-numeric reject; `bool` currently accepted because int subtype; startup wrapper wait adds15s; close control wait adds25s and exit wait5s",
+      "other_evidence_columns": [
+        "Go durations with zero default",
+        "Not whole-call wall-clock bounds: wheel resolve/hash precedes timer; Snapshot copy/hash outside guest deadline",
+        "Timeout diagnostics; exact numbers U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-26"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`host_binary=...`; `_artifacts.py:50`",
+      "current_behavior": "Local executable path override; executable availability check; bypasses wheel platform/manifest/hash checks, host validates native platform on startup",
+      "other_evidence_columns": [
+        "No equivalent public Go executable selector",
+        "Documented developer override, not alternate supported runtime",
+        "`tests/test_python_diagnostics.py:166`, dev benches; U"
+      ],
+      "classification": "ADVANCED",
+      "concept": "developer override / observations",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "既存診断・developer機能として記録。ID/PID/status transport fieldsをcore data/identity契約にしない。stable schema再設計はDEFER。",
+      "id": "API-27"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`runtime=...`, `module=...`, `wasmer_dir=...`; `__init__.py:38`, `_artifacts.py:51`",
+      "current_behavior": "Any non-None value rejects; even empty string provided is rejected; no active compatibility runtime",
+      "other_evidence_columns": [
+        "Go deprecated NativeDir (empty accepted)",
+        "Migration tombstones; no capability exists",
+        "diagnostic/retirement tests; explicitly retired"
+      ],
+      "classification": "ADVANCED",
+      "concept": "legacy migration rejection guard",
+      "proposed_scope": "keep as-is in v0.4.4; removal DEFER to possible v0.4.5 only if coherent follow-up",
+      "reason": "既に拒否する互換signature/環境guard。第二runtimeではない。owned baseline実装に無関係なので今まとめてAPI掃除しない。",
+      "id": "API-28"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`log_path=...`, `db.log_path`; `__init__.py:67`",
+      "current_behavior": "Caller path absolute; parent dirs created; file exclusive `xb`, existing file rejects; explicit path retained, default removed with temp",
+      "other_evidence_columns": [
+        "Logs only, no public Go path choice",
+        "Diagnostic-only path write, distinct from unwanted Snapshot state writes",
+        "diagnostics/consumer cleanup; U"
+      ],
+      "classification": "ADVANCED",
+      "concept": "developer override / observations",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "既存診断・developer機能として記録。ID/PID/status transport fieldsをcore data/identity契約にしない。stable schema再設計はDEFER。",
+      "id": "API-29"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`with db` / `__enter__/__exit__`; `__init__.py:287`",
+      "current_behavior": "Context calls close on exit; enter only checks `_closed`, not live process poll",
+      "other_evidence_columns": [
+        "Go defer Close",
+        "No GC cleanup guarantee; already terminated host may enter until operation diagnoses",
+        "Core consumer workflow"
+      ],
+      "classification": "CORE",
+      "concept": "mutable disposable DB",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常の作成・所有・test単位破棄。Python constructorの既存別入口は個別REMOVE候補。",
+      "id": "API-30"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`db.close()`; `__init__.py:199`",
+      "current_behavior": "Lock serializes controls; requests close, waits, finally disposes; repeated closed returns None; may raise on first cleanup/error but no saved close result",
+      "other_evidence_columns": [
+        "Close() error",
+        "Idempotent resource cleanup, **no repeated identical error contract** like Go; Python terminate/kill fallback exists",
+        "Consumer failure/timeout tests; core desired"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-31"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`db.closed`; `__init__.py:174`",
+      "current_behavior": "`_closed` or host poll!=None; true host death does not alone release wrapper resources",
+      "other_evidence_columns": [
+        "Closed()",
+        "Docs explicitly require close/status cleanup; no async wrapper autoreap guarantee",
+        "Timeout consumer tests; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-32"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`db.status()`; `__init__.py:163`",
+      "current_behavior": "Control lock; returns raw reply dict incl `id,ok,state,active_connections,busy`; closed/unusable raises; closed HostError disposes",
+      "other_evidence_columns": [
+        "Err + Closed + WaitDisconnected, no raw status equivalent",
+        "Partly leaked private control envelope; documented failure inspection but fields not comprehensive user contract",
+        "`wait_disconnected`, timeout checks; U"
+      ],
+      "classification": "ADVANCED",
+      "concept": "developer override / observations",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "既存診断・developer機能として記録。ID/PID/status transport fieldsをcore data/identity契約にしない。stable schema再設計はDEFER。",
+      "id": "API-33"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`db.connection_info()`; `__init__.py:184`",
+      "current_behavior": "Five-key dict copy; errors once disposed/host exits",
+      "other_evidence_columns": [
+        "ConnectionInfo",
+        "Unlike Go unavailable after Close",
+        "Consumer metadata tests; core desired"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-34"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`db.wait_disconnected(timeout=5)`; `__init__.py:189`",
+      "current_behavior": "Poll status every5ms; positive finite seconds; timeout only checked after status response so not strict wall-clock bound; no reset",
+      "other_evidence_columns": [
+        "WaitDisconnected(ctx)",
+        "Barrier ensures sessions gone, not previous data changes gone",
+        "Fixtures and ORM; preferred barrier"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-35"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`db.logs`; `__init__.py:178`",
+      "current_behavior": "Last16 Ki characters while live via path and after close via retained string; caller `log_path` file preserved",
+      "other_evidence_columns": [
+        "Logs() last16KiB",
+        "Byte/character difference; disk can grow while running even though exposed tail bounded",
+        "failure diagnostics tests; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-36"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`db.id`; `__init__.py:104`",
+      "current_behavior": "Random ready token per host DB; writable Python attr; no lifetime resource",
+      "other_evidence_columns": [
+        "None",
+        "Intended public DB identity in inline comment, not storage/source identity",
+        "Consumer teardown audit uses token; real need U"
+      ],
+      "classification": "ADVANCED",
+      "concept": "developer override / observations",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "既存診断・developer機能として記録。ID/PID/status transport fieldsをcore data/identity契約にしない。stable schema再設計はDEFER。",
+      "id": "API-37"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`db.capabilities`; `__init__.py:106`",
+      "current_behavior": "Tuple strings status/close/text-query/reconnect/snapshot/fork from host; assignable attr",
+      "other_evidence_columns": [
+        "None",
+        "No documented stable negotiation policy; native maximum connections not copied into attr",
+        "`tests/snapshots.py:81`; current feature probe, U"
+      ],
+      "classification": "ADVANCED",
+      "concept": "developer override / observations",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "既存診断・developer機能として記録。ID/PID/status transport fieldsをcore data/identity契約にしない。stable schema再設計はDEFER。",
+      "id": "API-38"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`db.diagnostics`; `__init__.py:108`",
+      "current_behavior": "Mutable dict host_pid/runtime_pid; implementation detail, not DB identity",
+      "other_evidence_columns": [
+        "None",
+        "Explicit inline comment diagnostic-only",
+        "Consumer process-reaping audit; U"
+      ],
+      "classification": "ADVANCED",
+      "concept": "developer override / observations",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "既存診断・developer機能として記録。ID/PID/status transport fieldsをcore data/identity契約にしない。stable schema再設計はDEFER。",
+      "id": "API-39"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`db.snapshot(destination=None,*,rollback=False,timeout=120)`; `__init__.py:216`",
+      "current_behavior": "Temp default vs persistent explicit; exclusive destination; success/accepted fail consumes host; busy/tx/destination rejection leaves source alive; timeout bounds guest export, not copy/hash; inherits host/timeouts into new Snapshot",
+      "other_evidence_columns": [
+        "Snapshot(ctx, options)",
+        "Same logical concept but different timeout ergonomics; `rollback` must bool",
+        "SQLAlchemy/consumer/tests/snapshots; baseline desired; **confirmed no intentional reliance on destination**, arbitrary write undesirable"
+      ],
+      "classification": "ALIGN",
+      "concept": "immutable lifetime-bound baseline → independent DB",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "同じ検証済みbackingを所有。creation成功はsource消費、Closeは新startupを拒否してadmitted startupを保護し既存childは継続。 destination指定writeはREMOVE; timeout/rollbackは別にKEEP。",
+      "id": "API-40"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`Snapshot(path)`; `snapshot.py:35`",
+      "current_behavior": "Public constructor identical boundary to open; absolute exposed path; validates path now but owns no external files",
+      "other_evidence_columns": [
+        "None",
+        "Constructor is not documented canonical entrance; preserves external path and mutable attr",
+        "Internal `open` delegation; intentional reliance U"
+      ],
+      "classification": "REMOVE",
+      "concept": "single explicit import / child creation boundary",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "public open(path)とfork()に集約。handleをpathとして再解釈するalternate入口を廃止。",
+      "id": "API-41"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`Snapshot.open(path)`; `snapshot.py:43`",
+      "current_behavior": "Reads and hashes external files; **does not copy/take ownership**; close doesn't delete external path",
+      "other_evidence_columns": [
+        "No public OpenSnapshot",
+        "Doc says hash/build compatibility; code checks hash syntax only, actual guest compatibility later in Fork host",
+        "Persistence/corruption feature tests; **confirmed no intentional reliance**; read/import acceptable preference, not demonstrated demand"
+      ],
+      "classification": "ADVANCED",
+      "concept": "external prepared-state read/import",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "KEEP boundary; full guest/format/inventory/content validation before return、元pathから独立。実需要未確認、producer/cache/portableformatを追加しない。",
+      "id": "API-42"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`s.validate()`; `snapshot.py:47`",
+      "current_behavior": "Returns self after rehash; rejects closed; reloads `manifest`; checks root inventory, types, format1/memory, declared hashes",
+      "other_evidence_columns": [
+        "No public equivalent",
+        "Does not freeze backing or bind runtime identity; Python bool/float equality accepted for version/bytes unlike Go JSON integer decode",
+        "`tests/snapshots.py:225`; U"
+      ],
+      "classification": "INTERNALIZE",
+      "concept": "backing/validation implementation",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "path/manifest/edit/revalidateを普通のtemplate操作にしない。取得時検証とowner lifecycleで完結。",
+      "id": "API-43"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`s.path`; `snapshot.py:37`",
+      "current_behavior": "Public writable Path to live root; can be assigned to another root; temp owned only for internally-created object",
+      "other_evidence_columns": [
+        "Path() immutable Go string",
+        "Exposes mutable path trust boundary",
+        "cleanup/import/persistence acceptance; arbitrary source input acceptable, exposed backing need U"
+      ],
+      "classification": "INTERNALIZE",
+      "concept": "backing/validation implementation",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "path/manifest/edit/revalidateを普通のtemplate操作にしない。取得時検証とowner lifecycleで完結。",
+      "id": "API-44"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`s.manifest`; `snapshot.py:65`",
+      "current_behavior": "Public mutable dict after validate; entries/hash/guest metadata; mutation doesn't rewrite file, later validate reloads",
+      "other_evidence_columns": [
+        "No public manifest",
+        "Internal format leaks into SDK; no manifest caller mutability/compatibility promise documented",
+        "corruption tests manipulate on-disk manifest, attribute requirement U"
+      ],
+      "classification": "INTERNALIZE",
+      "concept": "backing/validation implementation",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "path/manifest/edit/revalidateを普通のtemplate操作にしない。取得時検証とowner lifecycleで完結。",
+      "id": "API-45"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`s.fork(**options)`; `snapshot.py:68`",
+      "current_behavior": "Rejects `_closed`, options override inherited host/timeouts, `snapshot=self` wins; returned DB owns child process",
+      "other_evidence_columns": [
+        "Fork(ctx) inherits options, no overrides",
+        "**No lock pins Snapshot through startup**; constructor reopens same path for Python hash then Go host hashes again",
+        "concurrency/sibling/ORM tests; core desired"
+      ],
+      "classification": "ALIGN",
+      "concept": "immutable lifetime-bound baseline → independent DB",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "同じ検証済みbackingを所有。creation成功はsource消費、Closeは新startupを拒否してadmitted startupを保護し既存childは継続。 source options継承を既定に、Python child timeout/developer overrideはguest compatibilityを維持するadvanced既存能力; Goに同型optsを新設しない。",
+      "id": "API-46"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`Database(snapshot=s)` / `start(snapshot=s)`; `__init__.py:62`",
+      "current_behavior": "**Reopens `s.path` as new Snapshot even if s is closed**; original handle lifetime/lock/manifest disregarded; explicit closed persistent handle still viable as path",
+      "other_evidence_columns": [
+        "None, only s.Fork",
+        "Hidden alternate entrance weakens handle semantics; not same as using owned immutable resource",
+        "Benchmarks/direct constructor restore; product need U"
+      ],
+      "classification": "REMOVE",
+      "concept": "single explicit import / child creation boundary",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "public open(path)とfork()に集約。handleをpathとして再解釈するalternate入口を廃止。",
+      "id": "API-47"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`Database(snapshot=path)` / `start(snapshot=path)`; same",
+      "current_behavior": "Implicit path read/validate + host restore; no independent owned copy; callers need not use Snapshot.open",
+      "other_evidence_columns": [
+        "None",
+        "Duplicates explicit import boundary; guest mismatch rejected during host start",
+        "`tests/snapshots.py` start helper; intentional reliance U"
+      ],
+      "classification": "REMOVE",
+      "concept": "single explicit import / child creation boundary",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "public open(path)とfork()に集約。handleをpathとして再解釈するalternate入口を廃止。",
+      "id": "API-48"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`s.close()` / context; `snapshot.py:74`",
+      "current_behavior": "`_closed=True` before temp cleanup; no close lock/error caching; temp removed, external destination retained; already-mapped children survive unlink",
+      "other_evidence_columns": [
+        "Snapshot.Close",
+        "Python concurrency guarantee weaker than Go; possible Fork/Close startup deletion race remains",
+        "Consumer persistence/default cleanup; core desired"
+      ],
+      "classification": "ALIGN",
+      "concept": "immutable lifetime-bound baseline → independent DB",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "同じ検証済みbackingを所有。creation成功はsource消費、Closeは新startupを拒否してadmitted startupを保護し既存childは継続。",
+      "id": "API-49"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`HostError(message,*,code=None,stage=None,closed=False)`; `__init__.py:17`",
+      "current_behavior": "RuntimeError subclass; attributes diagnostic; cause often chained; SQL errors separate driver exceptions",
+      "other_evidence_columns": [
+        "HostError",
+        "Some closed operations only generic HostError no code/closed flag; snapshot validate can raise ValueError/OSError/JSONDecodeError",
+        "diagnostic tests; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-50"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`Busy`, `TransactionActive`; `__init__.py:25`",
+      "current_behavior": "HostError subclasses selected from rejected reply code; precondition does not consume DB",
+      "other_evidence_columns": [
+        "ErrBusy/ErrTransactionActive",
+        "No Closed/Unusable exception subclasses/sentinels",
+        "`tests/snapshots.py:73`; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-51"
+    },
+    {
+      "language": "Python",
+      "syntax_reference": "`mariamem.__version__`; `__init__.py:14`",
+      "current_behavior": "String distribution version, not guest/prepared-state identity",
+      "other_evidence_columns": [
+        "Module/tag, no public Version constant",
+        "Packaging version independent of runtime guest hash",
+        "consumers/package tests; U"
+      ],
+      "classification": "KEEP",
+      "concept": "DB lifecycle / connection / diagnostics",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常利用に必要な lifecycle と client integration。言語別 error/default 差を無理に統一しない。",
+      "id": "API-52"
+    },
+    {
+      "language": "pytest",
+      "syntax_reference": "`mariamem_options`; `pytest_plugin.py:7`",
+      "current_behavior": "session; default `{}`, caller override Start options; dict itself mutable; no resources",
+      "other_evidence_columns": [
+        "Caller Options; docs/python.md:69 agrees",
+        "Consumer override/start tests; U"
+      ],
+      "classification": "KEEP",
+      "concept": "fixture configuration",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "session-per-workerのStart設定。public alias/CLI optionは存在しない。",
+      "id": "API-53"
+    },
+    {
+      "language": "pytest",
+      "syntax_reference": "`mariamem_server`; `pytest_plugin.py:12`",
+      "current_behavior": "session; one mutable DB per worker; context close session end; can carry state between tests if used directly; successful dependent snapshot consumes it",
+      "other_evidence_columns": [
+        "Manually-owned setup DB; docs says Template DB",
+        "Fixture setup override; **confirmed no intentional reliance on sharing mutable state across tests**; setup helper itself remains separately useful"
+      ],
+      "classification": "ALIGN",
+      "concept": "baseline setup builder",
+      "proposed_scope": "docs only in v0.4.4",
+      "reason": "KEEP既存fixture名; session-per-worker準備用DB。snapshot後consumed、通常test用共有可変DBではない。",
+      "id": "API-54"
+    },
+    {
+      "language": "pytest",
+      "syntax_reference": "`mariamem_snapshot`; `pytest_plugin.py:18`",
+      "current_behavior": "session; waits disconnected then consumes server into default empty temp Snapshot; one template per worker; context close session end",
+      "other_evidence_columns": [
+        "Caller baseline Snapshot; docs agrees",
+        "Migration/seed override `tests/verify_alpha.py:89`; desired baseline sharing"
+      ],
+      "classification": "ALIGN",
+      "concept": "immutable lifetime-bound baseline → independent DB",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "同じ検証済みbackingを所有。creation成功はsource消費、Closeは新startupを拒否してadmitted startupを保護し既存childは継続。",
+      "id": "API-55"
+    },
+    {
+      "language": "pytest",
+      "syntax_reference": "`mariamem_fork`; `pytest_plugin.py:25`",
+      "current_behavior": "function; independent child from same template; DB discarded function end, real commits persist within test",
+      "other_evidence_columns": [
+        "Manual `s.Fork()` + defer Close",
+        "Consumer parameterized test isolation; core desired"
+      ],
+      "classification": "CORE",
+      "concept": "mutable disposable DB",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常の作成・所有・test単位破棄。Python constructorの既存別入口は個別REMOVE候補。",
+      "id": "API-56"
+    },
+    {
+      "language": "pytest",
+      "syntax_reference": "`mariamem_connection_info`; `pytest_plugin.py:31`",
+      "current_behavior": "function; dict of function DB endpoint, no connection owned/closed by plugin",
+      "other_evidence_columns": [
+        "ConnectionInfo",
+        "Consumer PyMySQL tests; core desired"
+      ],
+      "classification": "CORE",
+      "concept": "mutable disposable DB",
+      "proposed_scope": "keep as-is; docs only in v0.4.4",
+      "reason": "通常の作成・所有・test単位破棄。Python constructorの既存別入口は個別REMOVE候補。",
+      "id": "API-57"
+    },
+    {
+      "language": "pytest",
+      "syntax_reference": "`mariamem_class_fork`; `pytest_plugin.py:36`",
+      "current_behavior": "class; **one mutable DB reused by all methods**, no per-method reset; discard class end; outside class pytest class-scope behaves per test item",
+      "other_evidence_columns": [
+        "No special Go counterpart; docs/python.md:74,97 explicitly says shared mutations",
+        "`tests/consumer/test_database.py:74` test_create schema then test_reuse observes it: order-dependent feature coverage; **confirmed no intentional maintainer reliance**"
+      ],
+      "classification": "REMOVE",
+      "concept": "no builtin shared mutable test state",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "classで前testの変更が残る。baseline scope reuseと別で、意図的実利用なし。",
+      "id": "API-58"
+    },
+    {
+      "language": "pytest",
+      "syntax_reference": "`mariamem_class_connection_info`; `pytest_plugin.py:42`",
+      "current_behavior": "function-scoped metadata for same class DB; calls wait_disconnected before returning; **does not reset data** and does not own driver's connections",
+      "other_evidence_columns": [
+        "None; docs describes same class DB",
+        "Same order-dependent test; barrier is session cleanup only; **confirmed no intentional maintainer reliance**"
+      ],
+      "classification": "REMOVE",
+      "concept": "no builtin shared mutable test state",
+      "proposed_scope": "fix in v0.4.4 after approval",
+      "reason": "classで前testの変更が残る。baseline scope reuseと別で、意図的実利用なし。",
+      "id": "API-59"
+    }
+  ]
+}

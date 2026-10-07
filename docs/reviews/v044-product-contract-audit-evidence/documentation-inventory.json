@@ -1,0 +1,4012 @@
+{
+  "baseline_sha": "c8bd25a56e9d5221abaf40b2c98102bd60c217ae",
+  "scope": "every tracked Markdown file on current main; not untracked experiment report or external branch docs",
+  "file_count": 90,
+  "production_modified": false,
+  "documentation_modified": false,
+  "classification_is_proposed_not_approved": true,
+  "files": [
+    {
+      "path": ".agents/skills/experiment-workspace/SKILL.md",
+      "title": "Disposable experiment lifecycle",
+      "lines": 82,
+      "sha256": "cb490132089aa0a5589afb862e77e8bc44d2361b7f7a352c42bbf1c472eef510",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "developer_or_release_rules"
+      ],
+      "currentness": "current",
+      "cleanup_action_after_approval": "retain canonical workflow/policy; correct stale wording/history-only links only where present",
+      "reference_lines": [
+        {
+          "line": 6,
+          "text": "# Disposable experiment lifecycle"
+        },
+        {
+          "line": 16,
+          "text": "## Classification: KEEP needs a reason"
+        },
+        {
+          "line": 42,
+          "text": "## Completion includes cleanup"
+        },
+        {
+          "line": 73,
+          "text": "## Examples"
+        }
+      ]
+    },
+    {
+      "path": ".agents/skills/release/SKILL.md",
+      "title": "Release mariamem",
+      "lines": 77,
+      "sha256": "55a529ad4c49c57953693899a8fba5aacccd66853c24ed4f1ed76a3e127ab935",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "developer_or_release_rules"
+      ],
+      "currentness": "current",
+      "cleanup_action_after_approval": "retain canonical workflow/policy; correct stale wording/history-only links only where present",
+      "reference_lines": [
+        {
+          "line": 6,
+          "text": "# Release mariamem"
+        }
+      ]
+    },
+    {
+      "path": "AGENTS.md",
+      "title": "AGENTS.md",
+      "lines": 71,
+      "sha256": "fa52c17f99d2ff0c304d23d7e37a2caa1ebc9d35848ccf210fc3639dff0f2777",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "developer_or_release_rules"
+      ],
+      "currentness": "current",
+      "cleanup_action_after_approval": "retain canonical workflow/policy; correct stale wording/history-only links only where present",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# AGENTS.md"
+        }
+      ]
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "title": "Contributing",
+      "lines": 9,
+      "sha256": "030141451ee964712728824b7ea437516c0bdbe8fc9e8f8a4634b248398381ed",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "developer_or_release_rules"
+      ],
+      "currentness": "current",
+      "cleanup_action_after_approval": "retain canonical workflow/policy; correct stale wording/history-only links only where present",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Contributing"
+        }
+      ]
+    },
+    {
+      "path": "README.md",
+      "title": "mariamem",
+      "lines": 196,
+      "sha256": "cf7b7e7a177c20a484ae980b9c3988ec98bb6c2208f56a87170cb6759e0905ac",
+      "audience": [
+        "user"
+      ],
+      "layers": [
+        "user_contract",
+        "current_architecture",
+        "historical_evidence"
+      ],
+      "currentness": "current entry point with stale candidate/release status",
+      "cleanup_action_after_approval": "retain primary user entry; after Human Review extract architecture/history, refresh release status and complete API coverage",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem"
+        },
+        {
+          "line": 18,
+          "text": "v0.4.3 is a release candidate; the installation commands below target the"
+        },
+        {
+          "line": 41,
+          "text": "## Python"
+        },
+        {
+          "line": 67,
+          "text": "# macOS arm64"
+        },
+        {
+          "line": 69,
+          "text": "# Ubuntu x86_64"
+        },
+        {
+          "line": 95,
+          "text": "## Go"
+        },
+        {
+          "line": 130,
+          "text": "## Performance and resource limits"
+        },
+        {
+          "line": 155,
+          "text": "## Current limits"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/README.md",
+      "title": "Optional lifecycle benchmarks",
+      "lines": 429,
+      "sha256": "cb3377659e5df5f72ae0f088cd456ed413cd27ac5c9fe97031940645b0ac9c4c",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "developer_or_release_rules",
+        "historical_evidence",
+        "current_architecture"
+      ],
+      "currentness": "current benchmark index plus dated Wasmer harness sections",
+      "cleanup_action_after_approval": "keep current commands/boundaries; make dated historical run recipes clearly separate",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Optional lifecycle benchmarks"
+        },
+        {
+          "line": 23,
+          "text": "## Setup"
+        },
+        {
+          "line": 39,
+          "text": "# Fresh DB -> connect -> SELECT 1"
+        },
+        {
+          "line": 42,
+          "text": "# One template preparation, then 10 independent forks; fresh seeded containers"
+        },
+        {
+          "line": 45,
+          "text": "# Each trial retains all DBs until every DB returns the expected COUNT"
+        },
+        {
+          "line": 48,
+          "text": "# Samples during startup, then holds all ready DBs for 30 seconds"
+        },
+        {
+          "line": 52,
+          "text": "# Short implementation smoke; not a new baseline"
+        },
+        {
+          "line": 61,
+          "text": "## Measurement boundaries"
+        },
+        {
+          "line": 92,
+          "text": "## Memory caveats"
+        },
+        {
+          "line": 117,
+          "text": "## Output"
+        },
+        {
+          "line": 130,
+          "text": "## 0.2 FAST baseline"
+        },
+        {
+          "line": 242,
+          "text": "## Opt-in lifecycle waterfall"
+        },
+        {
+          "line": 318,
+          "text": "## MariaDB initialization attribution (architecture probe)"
+        },
+        {
+          "line": 365,
+          "text": "## Same-run Go / Testcontainers practical comparison"
+        },
+        {
+          "line": 389,
+          "text": "## v0.4 architecture baseline"
+        },
+        {
+          "line": 401,
+          "text": "## Current v0.4 direct-link reference"
+        },
+        {
+          "line": 418,
+          "text": "## v0.4.3 closeout"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/baseline-0.1.0a1.md",
+      "title": "0.1.0a1 manual baseline — 2026-09-23",
+      "lines": 85,
+      "sha256": "4f05f8255a664cc555e79e27d5ce0434684680ed925ecd8785bbad0c78638e7c",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# 0.1.0a1 manual baseline — 2026-09-23"
+        },
+        {
+          "line": 13,
+          "text": "## Fresh ready-to-query (10 runs, seconds)"
+        },
+        {
+          "line": 25,
+          "text": "## Seeded independent DBs (1,000 rows, InnoDB, 10 DBs)"
+        },
+        {
+          "line": 38,
+          "text": "## Parallel readiness (seeded DBs)"
+        },
+        {
+          "line": 52,
+          "text": "## Memory (different measurement mechanisms)"
+        },
+        {
+          "line": 78,
+          "text": "## Interpretation limits"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/cow-feasibility.md",
+      "title": "v0.4 CoW feasibility",
+      "lines": 263,
+      "sha256": "4d726dfd639e9b939c0a27f5d9fef9a2e874856e857914b7f5ebb49cfe6a2922",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 CoW feasibility"
+        },
+        {
+          "line": 3,
+          "text": "## Source / environment / scope"
+        },
+        {
+          "line": 25,
+          "text": "## Measurement method and limits"
+        },
+        {
+          "line": 43,
+          "text": "## A. Current memory attribution"
+        },
+        {
+          "line": 64,
+          "text": "## B. Prepared 1,000-row state"
+        },
+        {
+          "line": 91,
+          "text": "## C. Workload dirtying / retained state"
+        },
+        {
+          "line": 122,
+          "text": "## D/E. Sharing layers and cloning models"
+        },
+        {
+          "line": 143,
+          "text": "## F/G. One bounded proof: initialized linear image"
+        },
+        {
+          "line": 151,
+          "text": "- **cow:** readonly fdから`MAP_PRIVATE`, RW child view。shared growは2 GiB backing内のlogical limit更新。"
+        },
+        {
+          "line": 167,
+          "text": "## H/I. Exploratory scaling / startup"
+        },
+        {
+          "line": 217,
+          "text": "## J. pgmem conceptual reference"
+        },
+        {
+          "line": 231,
+          "text": "## Decision inputs / remaining questions"
+        },
+        {
+          "line": 253,
+          "text": "## Regression / verdict"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/cross-platform-verification.md",
+      "title": "Ubuntu versus macOS prepared-state attribution",
+      "lines": 371,
+      "sha256": "47d878fdb1fcf96ee987d9c2ac7597531ccc9859e90e9200dca5761c197fbf47",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Ubuntu versus macOS prepared-state attribution"
+        },
+        {
+          "line": 8,
+          "text": "## Identity and measurement"
+        },
+        {
+          "line": 29,
+          "text": "## Full-startup distribution and runner variability"
+        },
+        {
+          "line": 56,
+          "text": "## Comparable phase breakdown"
+        },
+        {
+          "line": 101,
+          "text": "## Equivalent verification work"
+        },
+        {
+          "line": 122,
+          "text": "## Isolated verification wall and CPU"
+        },
+        {
+          "line": 186,
+          "text": "## Filesystem/cache sanity"
+        },
+        {
+          "line": 209,
+          "text": "## Cross-platform latency attribution"
+        },
+        {
+          "line": 218,
+          "text": "## Parallel verification hypothesis"
+        },
+        {
+          "line": 233,
+          "text": "## Next optimization candidate"
+        },
+        {
+          "line": 245,
+          "text": "## Fresh-runner reproducibility result"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/direct-link-architecture-investigation.md",
+      "title": "generated-Go direct linkage / process boundary investigation",
+      "lines": 208,
+      "sha256": "162adc850121fa9d3c59bd90db860766ed40471d3c74c6a441ab08427e7d5a90",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# generated-Go direct linkage / process boundary investigation"
+        },
+        {
+          "line": 13,
+          "text": "## 1. 履歴: direct linkageから切り替えたのか"
+        },
+        {
+          "line": 33,
+          "text": "## 2. process boundaryが現在提供するもの"
+        },
+        {
+          "line": 62,
+          "text": "## 3. generated-Go reentrancy / globals"
+        },
+        {
+          "line": 84,
+          "text": "## 4. 最小direct-link proof"
+        },
+        {
+          "line": 126,
+          "text": "## 5. executable ownershipは別問題"
+        },
+        {
+          "line": 138,
+          "text": "## 6. ~326 MiBの内訳"
+        },
+        {
+          "line": 164,
+          "text": "## 7. A / B / C comparison"
+        },
+        {
+          "line": 191,
+          "text": "## 8. Verdict / smallest next step"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/direct-link-consumer-experience.md",
+      "title": "Direct-linked mariamem: ordinary Go consumer experience",
+      "lines": 267,
+      "sha256": "b25c57a85b27dce3e1aa2b4de4954cb88d465b571069cd590e666648a01a850f",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "bounded evidence continues to inform current guidance/limitations",
+      "cleanup_action_after_approval": "retain immutable evidence and explicit source/platform/date limits; link from current architecture or measured guidance",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Direct-linked mariamem: ordinary Go consumer experience"
+        },
+        {
+          "line": 3,
+          "text": "## Scope / source / environment"
+        },
+        {
+          "line": 23,
+          "text": "## External consumer"
+        },
+        {
+          "line": 59,
+          "text": "## Acquisition / cache size"
+        },
+        {
+          "line": 84,
+          "text": "## Cold / warm / incremental build"
+        },
+        {
+          "line": 122,
+          "text": "## Final binary"
+        },
+        {
+          "line": 139,
+          "text": "## Compiler compatibility and upstream fix"
+        },
+        {
+          "line": 193,
+          "text": "## pgmem reality check"
+        },
+        {
+          "line": 225,
+          "text": "## Interpretation / remaining gates"
+        },
+        {
+          "line": 260,
+          "text": "## Verdict"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/direct-link-futex-race-origin.md",
+      "title": "Direct-link futex precheck race: origin and decision boundary",
+      "lines": 194,
+      "sha256": "5295f890ff0af0a8c603e964bd4fa90d081cd37d03ffa306aa52240fa5228c1d",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "bounded evidence continues to inform current guidance/limitations",
+      "cleanup_action_after_approval": "retain immutable evidence and explicit source/platform/date limits; link from current architecture or measured guidance",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Direct-link futex precheck race: origin and decision boundary"
+        },
+        {
+          "line": 8,
+          "text": "## Inputs and reproducibility"
+        },
+        {
+          "line": 33,
+          "text": "## One stable full-guest report"
+        },
+        {
+          "line": 62,
+          "text": "## Exact guest instructions and translation"
+        },
+        {
+          "line": 92,
+          "text": "## Pinned source synchronization primitive"
+        },
+        {
+          "line": 123,
+          "text": "## Contract and classification"
+        },
+        {
+          "line": 147,
+          "text": "## Minimal reproducer and validation"
+        },
+        {
+          "line": 171,
+          "text": "## Smallest fix boundary / stop decision"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/direct-link-race-scope.md",
+      "title": "Direct-link shared-memory race scope",
+      "lines": 260,
+      "sha256": "831590ea4dd733f982c9613c3f66fad45709f0aed95ae1f9e9be34e50a76e835",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "bounded evidence continues to inform current guidance/limitations",
+      "cleanup_action_after_approval": "retain immutable evidence and explicit source/platform/date limits; link from current architecture or measured guidance",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Direct-link shared-memory race scope"
+        },
+        {
+          "line": 10,
+          "text": "## Inputs and method"
+        },
+        {
+          "line": 47,
+          "text": "## Concrete counts and confidence"
+        },
+        {
+          "line": 109,
+          "text": "## Categories and source/WASM/Go mapping"
+        },
+        {
+          "line": 147,
+          "text": "## Are these all optimistic prechecks?"
+        },
+        {
+          "line": 175,
+          "text": "## Adapter candidates (not implemented)"
+        },
+        {
+          "line": 189,
+          "text": "## Reduced reproducer inventory"
+        },
+        {
+          "line": 219,
+          "text": "## Smallest next experiment and decision"
+        },
+        {
+          "line": 242,
+          "text": "## v0.4 scope decision"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/fast-architecture-review.md",
+      "title": "0.2 FAST: architecture review",
+      "lines": 455,
+      "sha256": "538abaebd66aff89e8a71cac416336d1dd261a56c2fe9a772b62eb56c18bc38e",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# 0.2 FAST: architecture review"
+        },
+        {
+          "line": 14,
+          "text": "## 1. What the measurements actually say"
+        },
+        {
+          "line": 79,
+          "text": "## 2. Cost model and actual implementation"
+        },
+        {
+          "line": 135,
+          "text": "## 3. Candidate architectures"
+        },
+        {
+          "line": 355,
+          "text": "## 4. Comparison matrix"
+        },
+        {
+          "line": 371,
+          "text": "## 5. Recommended investigation sequence"
+        },
+        {
+          "line": 406,
+          "text": "## 6. Decision point"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/fast-baseline-analysis.md",
+      "title": "0.2 FAST: current isolation cost",
+      "lines": 220,
+      "sha256": "6b5c6e9bee2cc0766804206712dbb935c1c678a9ae4eab03e55252570aa9f719",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# 0.2 FAST: current isolation cost"
+        },
+        {
+          "line": 7,
+          "text": "## Evidence and measurement conditions"
+        },
+        {
+          "line": 39,
+          "text": "## Go canonical baseline and Python comparison"
+        },
+        {
+          "line": 75,
+          "text": "## Fork → first SQL waterfall"
+        },
+        {
+          "line": 113,
+          "text": "## Concurrency scaling"
+        },
+        {
+          "line": 136,
+          "text": "## CPU and memory observations"
+        },
+        {
+          "line": 166,
+          "text": "## Snapshot and materialization"
+        },
+        {
+          "line": 185,
+          "text": "## Architecture-review inputs"
+        },
+        {
+          "line": 210,
+          "text": "## Raw result identity"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/fast-gap-after-aria.md",
+      "title": "v0.2 FAST status after the Aria cache experiment",
+      "lines": 121,
+      "sha256": "c3a3416219581b46b9dd14b8667376df3c04f5ba57855ac0948ae565e6001920",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.2 FAST status after the Aria cache experiment"
+        },
+        {
+          "line": 3,
+          "text": "## Decision"
+        },
+        {
+          "line": 27,
+          "text": "## Current scoped CPU and memory baseline"
+        },
+        {
+          "line": 54,
+          "text": "## Current 128 MiB control waterfall"
+        },
+        {
+          "line": 104,
+          "text": "## Candidates for the final v0.2 latency improvement"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/fast-tranche-baseline.md",
+      "title": "First production FAST tranche",
+      "lines": 205,
+      "sha256": "1e6aa5f7fd751e4bd7aed61eecfa9602e831afc53f396c2cff8f7d12c5cfbf99",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# First production FAST tranche"
+        },
+        {
+          "line": 3,
+          "text": "## Scope and evidence"
+        },
+        {
+          "line": 22,
+          "text": "## Historical comparison — not new main measurements"
+        },
+        {
+          "line": 39,
+          "text": "## Accepted canonical main baseline"
+        },
+        {
+          "line": 199,
+          "text": "## Next boundary"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/final-v02-latency.md",
+      "title": "Final v0.2 prepared-state latency pass",
+      "lines": 172,
+      "sha256": "a93a708f639ad16047de0d2a8f41cfaab9de382fd819a640a3a986adb5260f29",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Final v0.2 prepared-state latency pass"
+        },
+        {
+          "line": 12,
+          "text": "## Baseline"
+        },
+        {
+          "line": 51,
+          "text": "## Changes and final result"
+        },
+        {
+          "line": 65,
+          "text": "## Completed before-change profile"
+        },
+        {
+          "line": 164,
+          "text": "## Later unchanged control"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/final-v02-local-reference.md",
+      "title": "Final v0.2 FAST fixed-local acceptance",
+      "lines": 125,
+      "sha256": "febb936efe9b7f6356525b7723eb2c66a472f415dc8c5aabaacabbd6bc1d9201",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Final v0.2 FAST fixed-local acceptance"
+        },
+        {
+          "line": 12,
+          "text": "## Reference environment and exact artifacts"
+        },
+        {
+          "line": 51,
+          "text": "## Method and complete distribution"
+        },
+        {
+          "line": 94,
+          "text": "## Hosted CI and production optimization"
+        },
+        {
+          "line": 110,
+          "text": "## v0.2 closure checklist"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/fork-gap-probe.md",
+      "title": "Remaining Fork → first SQL attribution probe",
+      "lines": 179,
+      "sha256": "f554f6e4b64b3959ce3f9830252940a879c7803b965cb96be394e84a7b9f8b0d",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Remaining Fork → first SQL attribution probe"
+        },
+        {
+          "line": 8,
+          "text": "## Observable boundaries"
+        },
+        {
+          "line": 46,
+          "text": "## Blind spots and measurement"
+        },
+        {
+          "line": 72,
+          "text": "## Completed measurement and identity"
+        },
+        {
+          "line": 96,
+          "text": "## Measured Fork waterfall"
+        },
+        {
+          "line": 136,
+          "text": "## Start, CPU and historical comparison"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/mariadb-init-investigation.md",
+      "title": "MariaDB initialization and memory attribution: Step 1",
+      "lines": 390,
+      "sha256": "2849a9203f6280bf147ffbeb07adfe695da777c4bd4912ba63b1f26f7242bfc0",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# MariaDB initialization and memory attribution: Step 1"
+        },
+        {
+          "line": 8,
+          "text": "## Evidence and interpretation"
+        },
+        {
+          "line": 46,
+          "text": "## What is inside `mysql_server_init()`?"
+        },
+        {
+          "line": 147,
+          "text": "## File activity"
+        },
+        {
+          "line": 188,
+          "text": "## Memory attribution and ready threads"
+        },
+        {
+          "line": 263,
+          "text": "## Fixture-size sensitivity"
+        },
+        {
+          "line": 293,
+          "text": "## Instrumentation perturbation"
+        },
+        {
+          "line": 312,
+          "text": "## Within-call validation reuse"
+        },
+        {
+          "line": 345,
+          "text": "## Answers and remaining blind spots"
+        },
+        {
+          "line": 374,
+          "text": "## Implications for the next probes"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/memory-session-envelope.md",
+      "title": "Production memory scaling and 16-session readiness probe",
+      "lines": 310,
+      "sha256": "430e6a26839d2cfb4af9d475c7ce9c48ed7bb901cf3f63e5c5f897b0f62b6c2a",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Production memory scaling and 16-session readiness probe"
+        },
+        {
+          "line": 7,
+          "text": "## Measurement contract"
+        },
+        {
+          "line": 92,
+          "text": "## Initial run diagnosis"
+        },
+        {
+          "line": 102,
+          "text": "## Verification before CI"
+        },
+        {
+          "line": 112,
+          "text": "## Completed evidence and environment"
+        },
+        {
+          "line": 138,
+          "text": "## A. Independent database scaling"
+        },
+        {
+          "line": 215,
+          "text": "## B. One DB with 16 simultaneous sessions"
+        },
+        {
+          "line": 240,
+          "text": "## C. Observable memory ownership"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/memorylifetime/README.md",
+      "title": "Snapshot memory-lifetime diagnostic",
+      "lines": 50,
+      "sha256": "2b6698c7cbd87ee28934bc23015fc4b29a38f5884c64b00e1bfcb81d05e5691c",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Snapshot memory-lifetime diagnostic"
+        },
+        {
+          "line": 15,
+          "text": "# Each command is an independent process; do not run trials concurrently."
+        },
+        {
+          "line": 21,
+          "text": "# Repeat into distinct directories (two or three trials suffice)."
+        },
+        {
+          "line": 23,
+          "text": "# Extra views only; their overhead changes sampling/scheduling."
+        },
+        {
+          "line": 26,
+          "text": "# No MariaDB in this reduced Go allocator control."
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/plugin-init-investigation.md",
+      "title": "Post-InnoDB plugin initialization attribution",
+      "lines": 325,
+      "sha256": "da68cff4f6dd4ec278b6afdf985cdc8c5369aeef6e6927e71ebae71492819aa4",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Post-InnoDB plugin initialization attribution"
+        },
+        {
+          "line": 10,
+          "text": "## Established measurement and open question"
+        },
+        {
+          "line": 22,
+          "text": "## Source sequence and instrumented boundaries"
+        },
+        {
+          "line": 70,
+          "text": "## Plugin inventory and semantic relevance"
+        },
+        {
+          "line": 93,
+          "text": "## Measurement and interpretation"
+        },
+        {
+          "line": 122,
+          "text": "## Verified measurement identity"
+        },
+        {
+          "line": 153,
+          "text": "## Stage wall and CPU results"
+        },
+        {
+          "line": 230,
+          "text": "## Memory/cache ownership and file observations"
+        },
+        {
+          "line": 270,
+          "text": "## Actual eager plugin inventory and semantic relevance"
+        },
+        {
+          "line": 311,
+          "text": "## Recommended first experiment"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/practical-suite-comparison.md",
+      "title": "Fixed-reference repeated isolated-test comparison",
+      "lines": 323,
+      "sha256": "64069d7d1256a925a76b8fcfe0df19b8026cdd9de2defe301c7de9a2a70835ec",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Fixed-reference repeated isolated-test comparison"
+        },
+        {
+          "line": 3,
+          "text": "## Method"
+        },
+        {
+          "line": 56,
+          "text": "## Run"
+        },
+        {
+          "line": 72,
+          "text": "## Reference identity"
+        },
+        {
+          "line": 103,
+          "text": "## Results"
+        },
+        {
+          "line": 162,
+          "text": "## Startup and preparation"
+        },
+        {
+          "line": 200,
+          "text": "## CPU and memory"
+        },
+        {
+          "line": 247,
+          "text": "## Cleanup and limitations"
+        },
+        {
+          "line": 264,
+          "text": "## Where mariamem is better"
+        },
+        {
+          "line": 273,
+          "text": "## Where Testcontainers is better"
+        },
+        {
+          "line": 288,
+          "text": "## Prepared-state value"
+        },
+        {
+          "line": 298,
+          "text": "## Product signal"
+        },
+        {
+          "line": 307,
+          "text": "## Raw evidence"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/prepared-clone-feasibility.md",
+      "title": "v0.4 Prepared-clone feasibility",
+      "lines": 264,
+      "sha256": "45c4dbbbffb6027caf51f356b7e05530237f6fa53bab0e428df08495e2e2822e",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 Prepared-clone feasibility"
+        },
+        {
+          "line": 3,
+          "text": "## Source / environment / result scope"
+        },
+        {
+          "line": 23,
+          "text": "## A. Exact prepared boundary / state inventory"
+        },
+        {
+          "line": 38,
+          "text": "| schema / committed rows / system / redo / undo files | clean-shutdown baseとして再利用。immutable host fileから子ごとにMAP_PRIVATE view |"
+        },
+        {
+          "line": 49,
+          "text": "## B. Quiescence findings"
+        },
+        {
+          "line": 83,
+          "text": "## C/F. Ready-memory reconstruction blocker / stale state"
+        },
+        {
+          "line": 110,
+          "text": "## C/D. Bounded child prototype"
+        },
+        {
+          "line": 116,
+          "text": "2. immutable DB filesをMAP_PRIVATE/RWでmapし、各child独自のMemFS nodeへ入れる。"
+        },
+        {
+          "line": 128,
+          "text": "**prepared-cow**はそのfilesのMAP_PRIVATE view。全modeでpre-init linear imageを使う。"
+        },
+        {
+          "line": 131,
+          "text": "## E. Functional / isolation results"
+        },
+        {
+          "line": 149,
+          "text": "## G. Clone latency — direct persistent-files boundary"
+        },
+        {
+          "line": 175,
+          "text": "## H. Incremental memory / CPU / teardown"
+        },
+        {
+          "line": 221,
+          "text": "## I. Separate latency / memory conclusions"
+        },
+        {
+          "line": 229,
+          "text": "## Explicit answers / next architecture step"
+        },
+        {
+          "line": 250,
+          "text": "## Regression checks"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/reentry-feasibility.md",
+      "title": "v0.4 Ready-state reentry feasibility",
+      "lines": 191,
+      "sha256": "5206f78f995e145787cf6b19fa8e59264cb670287ab776db00aa7711537dd1fd",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 Ready-state reentry feasibility"
+        },
+        {
+          "line": 3,
+          "text": "## Source / environment / scope"
+        },
+        {
+          "line": 22,
+          "text": "## A. Runtime-bound state inventory"
+        },
+        {
+          "line": 53,
+          "text": "## B. Candidate safepoints — actual observation"
+        },
+        {
+          "line": 79,
+          "text": "## C/D. Worker execution position / TLS reduction"
+        },
+        {
+          "line": 103,
+          "text": "## E. Regular-file rebind reduction"
+        },
+        {
+          "line": 122,
+          "text": "## F. Waiter / mutex / condvar result"
+        },
+        {
+          "line": 135,
+          "text": "## G/H/I/J. Whole reentry / isolation / resource gate"
+        },
+        {
+          "line": 154,
+          "text": "## K. Complexity / maintenance / checks"
+        },
+        {
+          "line": 174,
+          "text": "## Recommendation"
+        },
+        {
+          "line": 183,
+          "text": "## Feasibility verdict"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/cow/README.md",
+      "title": "Isolated CoW characterization / proof",
+      "lines": 60,
+      "sha256": "df683bea8b46839013fe52277202f96db7e4a72ec72727a423ca9994def91f44",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Isolated CoW characterization / proof"
+        },
+        {
+          "line": 8,
+          "text": "## Reproduce"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/direct-link/README.md",
+      "title": "Direct-link architecture probe",
+      "lines": 137,
+      "sha256": "2071c5865944cbf5f16345f0cc97ce0f732ac02c9d408bdae78d4a8dcf001727",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Direct-link architecture probe"
+        },
+        {
+          "line": 39,
+          "text": "## Production acceptance diagnostic"
+        },
+        {
+          "line": 88,
+          "text": "## Race scope and pattern reductions"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/distribution/README.md",
+      "title": "Direct-link consumer build probe",
+      "lines": 101,
+      "sha256": "f396642386190d20d20c7d22edc03aecdad46e075ec9942f907d4746aab68496",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Direct-link consumer build probe"
+        },
+        {
+          "line": 8,
+          "text": "## mariamem"
+        },
+        {
+          "line": 60,
+          "text": "## pgmem"
+        },
+        {
+          "line": 77,
+          "text": "## Go compiler reproduction"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/generated-go-integration/README.md",
+      "title": "Generated-Go integration FD gate and selected local candidate",
+      "lines": 120,
+      "sha256": "ed3d7d4758b6846eb167da09b840d7041d4db09c2a206b3136c4adb5bc64f8c0",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Generated-Go integration FD gate and selected local candidate"
+        },
+        {
+          "line": 8,
+          "text": "## Deterministic FD regression"
+        },
+        {
+          "line": 30,
+          "text": "## Selected production-like measurement boundary"
+        },
+        {
+          "line": 56,
+          "text": "mapped (`MAP_PRIVATE`), and attached to new MemFS nodes; no heap, FD, offset,"
+        },
+        {
+          "line": 71,
+          "text": "## Contract and limits"
+        },
+        {
+          "line": 94,
+          "text": "## MemFS Snapshot growth correction"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/generated-go-integration/snapshot-audit.md",
+      "title": "Snapshot allocation attribution (diagnostic only)",
+      "lines": 46,
+      "sha256": "c7a14bbd48c8d55c0e032109cc8488e2bc86e984bd6f73f1b7b0d750250f7e77",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Snapshot allocation attribution (diagnostic only)"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/prepared-clone/README.md",
+      "title": "Prepared persistent-state reconstruction spike",
+      "lines": 54,
+      "sha256": "1f715cd693a1127749a936cf2c847089497748afa6dd0ad1123c3af0a260412d",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Prepared persistent-state reconstruction spike"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/reentry/README.md",
+      "title": "Ready-state reentry boundary experiment",
+      "lines": 53,
+      "sha256": "f75491756eed606f1ef458f3ab007359571ec6f5ceab5beb2224fb73f12f2c89",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Ready-state reentry boundary experiment"
+        },
+        {
+          "line": 21,
+          "text": "# Supply the absolute path to the existing clean base; go test runs in generated/base."
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/wasm2go/README.md",
+      "title": "Isolated wasm2go feasibility experiments",
+      "lines": 369,
+      "sha256": "dad7538a6ec7b44808700753319f2b79716e94ca50a15a5a5bdd9620e23c8e5a",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Isolated wasm2go feasibility experiments"
+        },
+        {
+          "line": 3,
+          "text": "## Lost-wake semantics reduction"
+        },
+        {
+          "line": 43,
+          "text": "## Earlier experiments"
+        },
+        {
+          "line": 156,
+          "text": "## Legacy EH toolchain experiment"
+        },
+        {
+          "line": 227,
+          "text": "## Legacy EH generated-Go execution"
+        },
+        {
+          "line": 307,
+          "text": "## Tail investigation (same guest and converter)"
+        },
+        {
+          "line": 317,
+          "text": "# Copy go.mod, generated/ and main.go to a NEW independent module first."
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/testcontainers-comparison.md",
+      "title": "Practical mariamem / Testcontainers MariaDB baseline",
+      "lines": 314,
+      "sha256": "1d781d817fab0d9a467142bb89c8a38608bfd746b463dcd00f02cf5ea5a2268b",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Practical mariamem / Testcontainers MariaDB baseline"
+        },
+        {
+          "line": 3,
+          "text": "## Status"
+        },
+        {
+          "line": 12,
+          "text": "## Exact workload and environment"
+        },
+        {
+          "line": 38,
+          "text": "## Timed boundaries"
+        },
+        {
+          "line": 63,
+          "text": "## Accounting and waterfall"
+        },
+        {
+          "line": 84,
+          "text": "## Outputs and local reproduction"
+        },
+        {
+          "line": 98,
+          "text": "## Verified run and artifact identity"
+        },
+        {
+          "line": 274,
+          "text": "## Historical context — not paired competitive measurements"
+        },
+        {
+          "line": 293,
+          "text": "## Inputs for the next FAST architecture review"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/two-worker-verification.md",
+      "title": "Final v0.2 verification pass",
+      "lines": 254,
+      "sha256": "9a4c067b9b33796527c3cf628d3abf3a21a4aff01b932c4c3ab315fe55bc88d3",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Final v0.2 verification pass"
+        },
+        {
+          "line": 3,
+          "text": "## Verification optimization"
+        },
+        {
+          "line": 32,
+          "text": "## Hosted CI interpretation"
+        },
+        {
+          "line": 56,
+          "text": "## Final v0.2 benchmark procedure"
+        },
+        {
+          "line": 96,
+          "text": "## Completed hosted regression: run 36522659284"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v04-baseline.md",
+      "title": "v0.4 performance/resource baseline",
+      "lines": 150,
+      "sha256": "c55ac4e2dd29212f72cb25de026caee36eb3982489f43c6587c1fbf2cb67eb7b",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 performance/resource baseline"
+        },
+        {
+          "line": 9,
+          "text": "## 再現・比較契約"
+        },
+        {
+          "line": 18,
+          "text": "# installed v0.3.0 wheel + SQLAlchemy/PyMySQL/pytest; clear native overrides"
+        },
+        {
+          "line": 29,
+          "text": "## 起動 (ms)"
+        },
+        {
+          "line": 41,
+          "text": "## 孤立 DB scaling"
+        },
+        {
+          "line": 67,
+          "text": "## SQLAlchemy representative workload"
+        },
+        {
+          "line": 84,
+          "text": "## Architecture attribution"
+        },
+        {
+          "line": 103,
+          "text": "## 回帰確認"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v04-default-runtime-migration.md",
+      "title": "v0.4 default runtime migration",
+      "lines": 162,
+      "sha256": "ec5d358070e037d06e43e3d8df1aa8695e63dce7db406ab7339bb8e8882a996d",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 default runtime migration"
+        },
+        {
+          "line": 8,
+          "text": "## Product path"
+        },
+        {
+          "line": 31,
+          "text": "## Acceptance"
+        },
+        {
+          "line": 61,
+          "text": "## Reproduction / packaging"
+        },
+        {
+          "line": 91,
+          "text": "## Sanity measurement"
+        },
+        {
+          "line": 156,
+          "text": "## Status"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v04-direct-link-baseline.md",
+      "title": "v0.4 production direct-link canonical baseline",
+      "lines": 173,
+      "sha256": "98a5b8b1ad4da5f13ca88484787a7140631a68530bd8417bd0fec6b744ebe794",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 production direct-link canonical baseline"
+        },
+        {
+          "line": 10,
+          "text": "## Source / environment"
+        },
+        {
+          "line": 19,
+          "text": "## Production path / acceptance"
+        },
+        {
+          "line": 39,
+          "text": "## Method / reproduction"
+        },
+        {
+          "line": 50,
+          "text": "# installed host-only wheel, pinned SQLAlchemy/PyMySQL/pytest; no native override"
+        },
+        {
+          "line": 55,
+          "text": "## Canonical comparison"
+        },
+        {
+          "line": 90,
+          "text": "## Startup distribution (ms)"
+        },
+        {
+          "line": 99,
+          "text": "## Scaling / cleanup"
+        },
+        {
+          "line": 117,
+          "text": "## Fresh Start resources — separate boundary"
+        },
+        {
+          "line": 128,
+          "text": "## ORM suites"
+        },
+        {
+          "line": 141,
+          "text": "## Known limitations / distribution / next bounded task"
+        },
+        {
+          "line": 149,
+          "text": "## Regression confirmation / coarse phase attribution"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v04-fd-close-lifetime.md",
+      "title": "Lane A: retained closed Database / linked response pipe",
+      "lines": 103,
+      "sha256": "1d5106ae14bcecf439ba5d1af66344b2d6023e15dc1f9521122d713bdeccfa07",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Lane A: retained closed Database / linked response pipe"
+        },
+        {
+          "line": 3,
+          "text": "## Scope and source"
+        },
+        {
+          "line": 11,
+          "text": "## Ownership and cause"
+        },
+        {
+          "line": 33,
+          "text": "## Minimal production change"
+        },
+        {
+          "line": 45,
+          "text": "## Reduced regression and before/after"
+        },
+        {
+          "line": 75,
+          "text": "## Acceptance and semantic risk"
+        },
+        {
+          "line": 96,
+          "text": "## Decision"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v04-generated-go-candidate.md",
+      "title": "v0.4 generated-Go candidate — canonical benchmarks and readiness audit",
+      "lines": 516,
+      "sha256": "14966c016a9cb4a2ef067c19f324362b82dd9ccadcff4e1dd3326b07e5d9bbbc",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 generated-Go candidate — canonical benchmarks and readiness audit"
+        },
+        {
+          "line": 32,
+          "text": "## 初回integration結果 (023796b9)"
+        },
+        {
+          "line": 47,
+          "text": "## 入力 / 環境"
+        },
+        {
+          "line": 60,
+          "text": "## 設計 / build-provenance gate"
+        },
+        {
+          "line": 83,
+          "text": "## Aria互換性の切り分け"
+        },
+        {
+          "line": 103,
+          "text": "## 停止したFD契約"
+        },
+        {
+          "line": 125,
+          "text": "## 互換性 / lifecycle preflight"
+        },
+        {
+          "line": 156,
+          "text": "## benchmark status / 比較"
+        },
+        {
+          "line": 174,
+          "text": "## 通常経路の回帰 / release gate"
+        },
+        {
+          "line": 188,
+          "text": "## Directory-FD identity fix / integration continuation"
+        },
+        {
+          "line": 206,
+          "text": "- prepared cold filesは子専用MemFS nodesとMAP_PRIVATE viewへ接続。fresh linear memory / thread / TLS / FD / offset / wait queue。file growthは子ownedのstorageになる。"
+        },
+        {
+          "line": 288,
+          "text": "## Snapshot regression local attribution"
+        },
+        {
+          "line": 330,
+          "text": "## Snapshot growth correction"
+        },
+        {
+          "line": 338,
+          "text": "prepared-filesは子専用MAP_PRIVATE view。mappingの元capacityを越えた場合のみGo-owned bufferへコピーし、元mappingは従来のmanagerが全worker終了まで保持してunmapする。baseや兄弟のviewには書き込まない。FD identity、offset、modTime、FS lockとlifecycleの契約は変更なし。MariaDB path/addressの特別処理、timeout短縮、強制wake"
+        },
+        {
+          "line": 396,
+          "text": "## Final canonical candidate and release-preparation audit"
+        },
+        {
+          "line": 469,
+          "text": "## Source-build reproducibility follow-up"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v04-integrated-candidate.md",
+      "title": "v0.4 integrated direct-link candidate: FD lifetime + cold-copy preallocation",
+      "lines": 123,
+      "sha256": "9764e399f87b05a7e1f4bbd5378c76200ed1e435e9096d71606606dd24f8fe61",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 integrated direct-link candidate: FD lifetime + cold-copy preallocation"
+        },
+        {
+          "line": 5,
+          "text": "## Identity / acceptance"
+        },
+        {
+          "line": 28,
+          "text": "## Method"
+        },
+        {
+          "line": 36,
+          "text": "## A. Wasmer → integrated candidate"
+        },
+        {
+          "line": 55,
+          "text": "## B. Previous direct-link → integrated candidate"
+        },
+        {
+          "line": 74,
+          "text": "## Startup tails / scaling"
+        },
+        {
+          "line": 92,
+          "text": "## ORM suites (three runs/mode)"
+        },
+        {
+          "line": 105,
+          "text": "## Snapshot allocation / phases"
+        },
+        {
+          "line": 115,
+          "text": "Known-size cold regular copy now pre-sizes its exclusive destination with existing ftruncate before the unchanged 64 KiB copy loop. Seven C lines, no global MemFS growth change. The prior ~775 MiB destination growth history is materially re"
+        },
+        {
+          "line": 117,
+          "text": "## Remaining scope / next decision"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v04-snapshot-memory-lifetime.md",
+      "title": "v0.4 Snapshot / Fork memory ownership and lifetime",
+      "lines": 172,
+      "sha256": "5a7879900ed82945dd43896274ac1f2de76437342f68d65631261e3f113e3d07",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 Snapshot / Fork memory ownership and lifetime"
+        },
+        {
+          "line": 12,
+          "text": "## Conclusions"
+        },
+        {
+          "line": 19,
+          "text": "## Experiment and checkpoint definitions"
+        },
+        {
+          "line": 33,
+          "text": "## Checkpoint tables"
+        },
+        {
+          "line": 95,
+          "text": "## Heap and allocation ownership"
+        },
+        {
+          "line": 105,
+          "text": "| `MapPreparedFiles → PreparedFiles.mappings` | ~138.18 MiB virtual file mappings per child, MAP_PRIVATE; logical FD/tree/offset state private | Descriptors closed and mapping slices munmapped after guest worker join; not Go heap file conte"
+        },
+        {
+          "line": 112,
+          "text": "## Snapshot ownership audit / G(0)"
+        },
+        {
+          "line": 124,
+          "text": "## Fork Close / shortest retained references"
+        },
+        {
+          "line": 132,
+          "text": "## OS accounting, GC and allocator controls"
+        },
+        {
+          "line": 158,
+          "text": "## Active per-DB measurement and timing"
+        },
+        {
+          "line": 164,
+          "text": "## Exactly one next implementation experiment"
+        },
+        {
+          "line": 170,
+          "text": "## Primary verdict"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v041-distribution-cleanup.md",
+      "title": "v0.4.1 generated-Go distribution cleanup",
+      "lines": 102,
+      "sha256": "71b9990aa4352c485a39acebf23dcc3c748279e57c9d6c6ae0c21ac5c1ead4d7",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4.1 generated-Go distribution cleanup"
+        },
+        {
+          "line": 13,
+          "text": "## Result and exact inputs"
+        },
+        {
+          "line": 24,
+          "text": "## Same-boundary module size"
+        },
+        {
+          "line": 47,
+          "text": "## Acceptance"
+        },
+        {
+          "line": 77,
+          "text": "## Stops, storage guard and limits"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v043-characterization.md",
+      "title": "v0.4.3 Snapshot/Fork characterization",
+      "lines": 54,
+      "sha256": "19b64efa9196f97d60cee9e4f5c0f13a9962384fbded4491abf0f5cf2fe0ac62",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "bounded evidence continues to inform current guidance/limitations",
+      "cleanup_action_after_approval": "retain immutable evidence and explicit source/platform/date limits; link from current architecture or measured guidance",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4.3 Snapshot/Fork characterization"
+        },
+        {
+          "line": 9,
+          "text": "`MAP_PRIVATE`, so the OS can share clean pages and privately copy written pages."
+        },
+        {
+          "line": 15,
+          "text": "## Ready latency and first query are different boundaries"
+        },
+        {
+          "line": 45,
+          "text": "## Conservative workload guidance"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v043-release-baseline.md",
+      "title": "v0.4.3 final generated-Go-only baseline",
+      "lines": 49,
+      "sha256": "2b6de487342d1bff8f5008ee66630e5987d26f2ab5fbf4496c1e0f71f0ecb464",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "bounded evidence continues to inform current guidance/limitations",
+      "cleanup_action_after_approval": "retain immutable evidence and explicit source/platform/date limits; link from current architecture or measured guidance",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4.3 final generated-Go-only baseline"
+        },
+        {
+          "line": 26,
+          "text": "## Historical context and limits"
+        },
+        {
+          "line": 39,
+          "text": "## Verification and readiness"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v043-retirement-current.md",
+      "title": "v0.4.3 Track A — current-main integration review",
+      "lines": 62,
+      "sha256": "2d38a478636931ef8348d0f8f03c744edae05c5e1f8e2cb1d98a7511bb4f4e9a",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4.3 Track A — current-main integration review"
+        },
+        {
+          "line": 19,
+          "text": "## Evidence validity and focused reruns"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/v043-wasmer-retirement.md",
+      "title": "v0.4.3 Track A — Wasmer retirement",
+      "lines": 151,
+      "sha256": "ef3cfb2ed1b0a0cce640a617dd21c01131e4d93a5d67a7ea2abb251f0bfb26ac",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4.3 Track A — Wasmer retirement"
+        },
+        {
+          "line": 8,
+          "text": "## Dependency inventory and decisions"
+        },
+        {
+          "line": 27,
+          "text": "## Scope and tradeoff"
+        },
+        {
+          "line": 40,
+          "text": "## Verification"
+        },
+        {
+          "line": 70,
+          "text": "## Small runtime sanity"
+        },
+        {
+          "line": 91,
+          "text": "## Current versus historical gates"
+        },
+        {
+          "line": 109,
+          "text": "## Disk/resource lifecycle"
+        },
+        {
+          "line": 120,
+          "text": "## Retained material / residual risk"
+        },
+        {
+          "line": 133,
+          "text": "## Review evidence and remaining release work"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/verification-cost-probe.md",
+      "title": "Fork verification cost decomposition",
+      "lines": 228,
+      "sha256": "d74ec3b863b44a3d0ab55d24f0c9a5656c3170473b2dc692f11851c23899c05f",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Fork verification cost decomposition"
+        },
+        {
+          "line": 8,
+          "text": "## Source path and interval relationship"
+        },
+        {
+          "line": 32,
+          "text": "## Guarantees and repeat work"
+        },
+        {
+          "line": 53,
+          "text": "## Diagnostic boundaries and measurement plan"
+        },
+        {
+          "line": 80,
+          "text": "## Completed run and artifact identity"
+        },
+        {
+          "line": 103,
+          "text": "## Measured ×1 decomposition"
+        },
+        {
+          "line": 131,
+          "text": "## Native files and small repeated work"
+        },
+        {
+          "line": 153,
+          "text": "## Snapshot files and verification versus restore"
+        },
+        {
+          "line": 185,
+          "text": "## CPU, attribution and interpretation limits"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/wasm2go-feasibility.md",
+      "title": "v0.4 wasm2go feasibility spike",
+      "lines": 1012,
+      "sha256": "eb2333c207025979117832e7aa5c4b11d4a672f3e7bf06498ee403d0681e74ed",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "source/date-bounded historical investigation or reproduction recipe",
+      "cleanup_action_after_approval": "preserve compact evidence and recipes; explicit historical status/link to current architecture; extract only enduring selected decisions",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 wasm2go feasibility spike"
+        },
+        {
+          "line": 16,
+          "text": "## 1. 対象の同一性と比較基準"
+        },
+        {
+          "line": 43,
+          "text": "## 2. 現行 guest の依存 inventory"
+        },
+        {
+          "line": 84,
+          "text": "## 3. 無改変 conversion と最初の失敗"
+        },
+        {
+          "line": 105,
+          "text": "## 4. 縮小実験と限定 shim"
+        },
+        {
+          "line": 136,
+          "text": "## 5. Blocker の分類"
+        },
+        {
+          "line": 152,
+          "text": "## 6. Minimal execution / performance 到達点"
+        },
+        {
+          "line": 166,
+          "text": "## 7. Distribution と運用への含意"
+        },
+        {
+          "line": 177,
+          "text": "## 8. Architecture decision inputs"
+        },
+        {
+          "line": 193,
+          "text": "## 9. 残る設計上の質問"
+        },
+        {
+          "line": 201,
+          "text": "## 10. 回帰確認"
+        },
+        {
+          "line": 222,
+          "text": "## Legacy EH guest experiment"
+        },
+        {
+          "line": 350,
+          "text": "## Legacy EH generated-Go execution"
+        },
+        {
+          "line": 532,
+          "text": "## Generated-Go tail latency investigation"
+        },
+        {
+          "line": 741,
+          "text": "## Lost-wake semantics validation"
+        },
+        {
+          "line": 867,
+          "text": "## MySQL-wire startup tail characterization"
+        }
+      ]
+    },
+    {
+      "path": "docs/development-cleanup.md",
+      "title": "Development disk layout and cleanup",
+      "lines": 152,
+      "sha256": "cbbdf28169b4bd062c3706f5dd830c6b833de3d05261f757b926970761f55bbf",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Development disk layout and cleanup"
+        },
+        {
+          "line": 12,
+          "text": "## Keep source separate from disposable outputs"
+        },
+        {
+          "line": 39,
+          "text": "## Large-item inventory"
+        },
+        {
+          "line": 62,
+          "text": "## Safe cleanup helper"
+        },
+        {
+          "line": 91,
+          "text": "## Rebuild after cleanup"
+        },
+        {
+          "line": 131,
+          "text": "## Completed cleanup and validation"
+        }
+      ]
+    },
+    {
+      "path": "docs/development.md",
+      "title": "Building and testing",
+      "lines": 109,
+      "sha256": "4eed4da79b4f2d301842001ec9155ec61713f4dbbce0c2a547916ef5955b0cf6",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "developer_or_release_rules"
+      ],
+      "currentness": "current",
+      "cleanup_action_after_approval": "retain canonical workflow/policy; correct stale wording/history-only links only where present",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Building and testing"
+        },
+        {
+          "line": 3,
+          "text": "Generated-Go is the only supported runtime on this v0.4.3 candidate branch."
+        },
+        {
+          "line": 8,
+          "text": "## Local verification"
+        },
+        {
+          "line": 55,
+          "text": "## Guest / generated source"
+        },
+        {
+          "line": 72,
+          "text": "## Packaging / release dry runs"
+        },
+        {
+          "line": 86,
+          "text": "## Benchmark / experiment mechanics"
+        },
+        {
+          "line": 102,
+          "text": "## Historical runtime material"
+        }
+      ]
+    },
+    {
+      "path": "docs/experiment-workspace.md",
+      "title": "Disposable experiment workspace",
+      "lines": 159,
+      "sha256": "2dbc4956dfcfb956eb4699b96d38e3b19541efeec31102a2faf15db2f2120426",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "developer_or_release_rules"
+      ],
+      "currentness": "current",
+      "cleanup_action_after_approval": "retain canonical workflow/policy; correct stale wording/history-only links only where present",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Disposable experiment workspace"
+        },
+        {
+          "line": 15,
+          "text": "## Prepare, run and finish"
+        },
+        {
+          "line": 26,
+          "text": "# Reduce results, commit/push useful changes, and confirm no task still uses it."
+        },
+        {
+          "line": 61,
+          "text": "## KEEP / DELETE / REVIEW"
+        },
+        {
+          "line": 100,
+          "text": "## Reproduction and retention records"
+        },
+        {
+          "line": 146,
+          "text": "## Guard an existing script"
+        }
+      ]
+    },
+    {
+      "path": "docs/go-zero-setup.md",
+      "title": "Exact-release Go native setup",
+      "lines": 109,
+      "sha256": "84e5e3ccf49e365c231a732fe68e205320e68061ed687e91ed278bbb321e0a87",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Exact-release Go native setup"
+        },
+        {
+          "line": 7,
+          "text": "behavior below apply only to the retained legacy path."
+        },
+        {
+          "line": 22,
+          "text": "## Distribution identity"
+        },
+        {
+          "line": 52,
+          "text": "## Verification on this branch"
+        },
+        {
+          "line": 85,
+          "text": "## Remaining usability acceptance"
+        },
+        {
+          "line": 97,
+          "text": "## Follow-up full startup acceptance"
+        }
+      ]
+    },
+    {
+      "path": "docs/go.md",
+      "title": "Go API",
+      "lines": 130,
+      "sha256": "de494570dd7e7becd0e9c0e8fd8dd9b705abbeac524366dc4a700c7bbc89ffb0",
+      "audience": [
+        "user"
+      ],
+      "layers": [
+        "user_contract",
+        "current_architecture",
+        "historical_evidence"
+      ],
+      "currentness": "current entry point with stale candidate/release status",
+      "cleanup_action_after_approval": "retain primary user entry; after Human Review extract architecture/history, refresh release status and complete API coverage",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Go API"
+        },
+        {
+          "line": 13,
+          "text": "used. An upstream-fixed toolchain has been verified. v0.4.3 is prepared as a release candidate; tag installation follows publication."
+        },
+        {
+          "line": 38,
+          "text": "## Retired legacy overrides"
+        },
+        {
+          "line": 40,
+          "text": "On this v0.4.3 candidate branch, generated-Go is the only runtime."
+        },
+        {
+          "line": 46,
+          "text": "## Lifecycle and sessions"
+        },
+        {
+          "line": 94,
+          "text": "## Opt-in integration verification"
+        },
+        {
+          "line": 110,
+          "text": "## Failure diagnostics"
+        }
+      ]
+    },
+    {
+      "path": "docs/gorm-dogfood.md",
+      "title": "GORM disposable-database dogfood",
+      "lines": 235,
+      "sha256": "2fe8687991397e04943e8dd796e86332cb27d317cc394ea1d0fc6164b33a7a7a",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# GORM disposable-database dogfood"
+        },
+        {
+          "line": 3,
+          "text": "## Result and scope"
+        },
+        {
+          "line": 23,
+          "text": "## Environment and reproduction"
+        },
+        {
+          "line": 53,
+          "text": "## GORM compatibility"
+        },
+        {
+          "line": 142,
+          "text": "## Disposable isolation"
+        },
+        {
+          "line": 151,
+          "text": "## Pool and lifecycle behavior"
+        },
+        {
+          "line": 171,
+          "text": "## Snapshot/Fork observation"
+        },
+        {
+          "line": 194,
+          "text": "## Go setup ergonomics"
+        },
+        {
+          "line": 204,
+          "text": "## v0.3 findings: next three tasks"
+        },
+        {
+          "line": 225,
+          "text": "## Follow-up cross-platform acceptance"
+        }
+      ]
+    },
+    {
+      "path": "docs/guest-source-provenance.md",
+      "title": "Guest source provenance",
+      "lines": 104,
+      "sha256": "db82a2c70a7825a25db8ee98afeabd23244672f8223a38a8aeb0421b5e3d8662",
+      "audience": [
+        "maintainer",
+        "license_reviewer",
+        "coding_agent"
+      ],
+      "layers": [
+        "current_architecture",
+        "historical_evidence",
+        "decision_rationale",
+        "developer_or_release_rules"
+      ],
+      "currentness": "current source/license constraints with historical audit inputs",
+      "cleanup_action_after_approval": "retain current canonical provenance/recipe; separate dated audit claims and final qualification state, preserve notice/source obligations",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Guest source provenance"
+        },
+        {
+          "line": 26,
+          "text": "## Evidence chain"
+        },
+        {
+          "line": 64,
+          "text": "## Repeat verification"
+        },
+        {
+          "line": 90,
+          "text": "## Remaining reproducibility / hardening gaps"
+        }
+      ]
+    },
+    {
+      "path": "docs/guest-start-diagnostic.md",
+      "title": "Diagnose Start EOF without changing production behavior",
+      "lines": 113,
+      "sha256": "b359e8bb271f5943888901abb6054fa46324056fb86cdb6e512c5815f00d0928",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Diagnose Start EOF without changing production behavior"
+        },
+        {
+          "line": 12,
+          "text": "## Launch path"
+        },
+        {
+          "line": 42,
+          "text": "## Why the error alone loses information"
+        },
+        {
+          "line": 54,
+          "text": "## VM command"
+        },
+        {
+          "line": 106,
+          "text": "## Development check"
+        },
+        {
+          "line": 113,
+          "text": "release candidate bytes remain unchanged."
+        }
+      ]
+    },
+    {
+      "path": "docs/macos-compatibility.md",
+      "title": "macOS support floor: 15+ / arm64",
+      "lines": 40,
+      "sha256": "256ce30785b68b2652926fe7f7ebedd7b8fb5397c3a690e9e63aaf590a2668b6",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# macOS support floor: 15+ / arm64"
+        },
+        {
+          "line": 11,
+          "text": "## Preserved macOS 12 failure"
+        },
+        {
+          "line": 29,
+          "text": "## Clean acceptance boundary"
+        }
+      ]
+    },
+    {
+      "path": "docs/platform-acceptance.md",
+      "title": "Clean macOS 15 arm64 acceptance harness",
+      "lines": 116,
+      "sha256": "48e589bdf210a3bac8be3e344d6e11d57a2e0bbd9d9571510c940cf69b485cf8",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Clean macOS 15 arm64 acceptance harness"
+        },
+        {
+          "line": 56,
+          "text": "## Evidence"
+        },
+        {
+          "line": 72,
+          "text": "## Development validation only"
+        },
+        {
+          "line": 93,
+          "text": "## GitHub Actions on macOS 15 arm64"
+        }
+      ]
+    },
+    {
+      "path": "docs/project-status.md",
+      "title": "mariamem project status",
+      "lines": 251,
+      "sha256": "5fc1f41b2107d101d5ce9294ab705e8c03f81fc233e425d6d9b5255010170ccd",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "user_contract",
+        "current_architecture",
+        "decision_rationale",
+        "historical_evidence",
+        "roadmap"
+      ],
+      "currentness": "current status owner with stale v0.4.3 publication claims",
+      "cleanup_action_after_approval": "keep concise current contract/state/limitations/roadmap; link released milestones and decision history rather than duplicate detail",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem project status"
+        },
+        {
+          "line": 7,
+          "text": "## 1. Product hypothesis / current architecture"
+        },
+        {
+          "line": 57,
+          "text": "## 2. Released v0.4.0 milestone"
+        },
+        {
+          "line": 87,
+          "text": "## 3. Known limitations"
+        },
+        {
+          "line": 116,
+          "text": "## 4. v0.4.1 — Distribution polish"
+        },
+        {
+          "line": 131,
+          "text": "## 5. v0.4.2 — Disposable memory lifecycle"
+        },
+        {
+          "line": 161,
+          "text": "## 6. v0.4.3 — Architecture consolidation and characterization"
+        },
+        {
+          "line": 163,
+          "text": "The release candidate retires live Wasmer execution, NativeDir/bundle resolution,"
+        },
+        {
+          "line": 171,
+          "text": "Prepared contents use private file-backed mappings (`MAP_PRIVATE`), allowing"
+        },
+        {
+          "line": 197,
+          "text": "## 7. v0.5.0 — Stable guest"
+        },
+        {
+          "line": 211,
+          "text": "## 8. v0.6.0 — Real workload breadth"
+        },
+        {
+          "line": 219,
+          "text": "## 9. Maintainer / tooling direction"
+        },
+        {
+          "line": 237,
+          "text": "## 10. Longer-term options"
+        }
+      ]
+    },
+    {
+      "path": "docs/python.md",
+      "title": "Python API",
+      "lines": 140,
+      "sha256": "6937ba7b19cd83a29f2236b9a7e8979ca0ebf6f269c8da48cc903dd392a5fdec",
+      "audience": [
+        "user"
+      ],
+      "layers": [
+        "user_contract",
+        "current_architecture",
+        "historical_evidence"
+      ],
+      "currentness": "current entry point with stale candidate/release status",
+      "cleanup_action_after_approval": "retain primary user entry; after Human Review extract architecture/history, refresh release status and complete API coverage",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Python API"
+        },
+        {
+          "line": 3,
+          "text": "**Generated Go is the default v0.4.3 runtime.** The `0.4.3` package is a release candidate. Normal Python startup uses a platform Go host"
+        },
+        {
+          "line": 40,
+          "text": "## Snapshots"
+        },
+        {
+          "line": 65,
+          "text": "## pytest fixtures"
+        },
+        {
+          "line": 108,
+          "text": "## Developer overrides"
+        },
+        {
+          "line": 112,
+          "text": "`MARIAMEM_NATIVE_DIR` are rejected on this v0.4.3 candidate branch. Use an older"
+        },
+        {
+          "line": 123,
+          "text": "## Failure diagnostics"
+        }
+      ]
+    },
+    {
+      "path": "docs/release-readiness-v0.2.md",
+      "title": "v0.2 release-readiness audit",
+      "lines": 158,
+      "sha256": "41277017178f8a3756a35b36f75008c54b29973fd3468243fd37e3d25eb98c0c",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.2 release-readiness audit"
+        },
+        {
+          "line": 8,
+          "text": "## Release identity and distribution"
+        },
+        {
+          "line": 34,
+          "text": "## Findings"
+        },
+        {
+          "line": 54,
+          "text": "## Integrity, licensing and release-critical evidence"
+        }
+      ]
+    },
+    {
+      "path": "docs/release-readiness-v0.3.md",
+      "title": "v0.3 release-readiness re-audit",
+      "lines": 114,
+      "sha256": "a96568d6428c07aece0e798f475f49c3737fc98d2ee1356fda3abd98b6af4e36",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.3 release-readiness re-audit"
+        },
+        {
+          "line": 9,
+          "text": "## Product evidence"
+        },
+        {
+          "line": 30,
+          "text": "## Release boundary re-audit"
+        },
+        {
+          "line": 77,
+          "text": "## Findings"
+        },
+        {
+          "line": 93,
+          "text": "## v0.3 release verdict"
+        }
+      ]
+    },
+    {
+      "path": "docs/release-readiness-v0.4.md",
+      "title": "v0.4.0 release-readiness audit",
+      "lines": 140,
+      "sha256": "d2fa8d287c7a3efb3b9b563200b1be7281c21a35e40ea3fb12ca6db20273c524",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4.0 release-readiness audit"
+        },
+        {
+          "line": 14,
+          "text": "## Scope of this historical audit"
+        },
+        {
+          "line": 22,
+          "text": "## Checklist"
+        },
+        {
+          "line": 40,
+          "text": "## Failure matrix and boundaries"
+        },
+        {
+          "line": 60,
+          "text": "## Final local verification"
+        },
+        {
+          "line": 82,
+          "text": "## Release CI mismatch: concrete stages"
+        },
+        {
+          "line": 114,
+          "text": "## Preserved limitations"
+        },
+        {
+          "line": 131,
+          "text": "## Decision"
+        }
+      ]
+    },
+    {
+      "path": "docs/releasing.md",
+      "title": "Releasing mariamem",
+      "lines": 207,
+      "sha256": "f8b0061c95633d3405086a523336d5de24d372baaf7d8d2987893834b6c59782",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "developer_or_release_rules"
+      ],
+      "currentness": "current",
+      "cleanup_action_after_approval": "retain canonical workflow/policy; correct stale wording/history-only links only where present",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Releasing mariamem"
+        },
+        {
+          "line": 8,
+          "text": "## Exact-source release boundary"
+        },
+        {
+          "line": 35,
+          "text": "## v0.4 artifact contract: generated-go-v1"
+        },
+        {
+          "line": 48,
+          "text": "v0.4.3 candidate branch. Prior tags/reports and retained historical notice"
+        },
+        {
+          "line": 72,
+          "text": "## Build and source/provenance verification"
+        },
+        {
+          "line": 110,
+          "text": "## CI inputs, reuse, and acceptance"
+        },
+        {
+          "line": 190,
+          "text": "## Known limitations and release preparation"
+        }
+      ]
+    },
+    {
+      "path": "docs/runtime-notices.md",
+      "title": "Wasmer runtime notices",
+      "lines": 169,
+      "sha256": "7a052f893d211a215d2745f6d45af712ec67cc9d4d529c5b838ec80cc5d1500b",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Wasmer runtime notices"
+        },
+        {
+          "line": 25,
+          "text": "## Runtime and dependency selection"
+        },
+        {
+          "line": 61,
+          "text": "## Collected terms and attribution"
+        },
+        {
+          "line": 97,
+          "text": "## Recheck recorded coverage"
+        },
+        {
+          "line": 111,
+          "text": "# Optional explicit downloads of missing, checksum-pinned inputs:"
+        },
+        {
+          "line": 113,
+          "text": "# Also check a staged native binary:"
+        },
+        {
+          "line": 142,
+          "text": "# After --verify-inputs --fetch has populated supplemental input archives:"
+        },
+        {
+          "line": 153,
+          "text": "## webc declaration decision (Task 9b-final)"
+        }
+      ]
+    },
+    {
+      "path": "docs/source-alpha-publication.md",
+      "title": "Source-only Go alpha publication checklist",
+      "lines": 140,
+      "sha256": "0e428002f7b2608dcb29ab3140424ba9452973cd96d637e77e58270be151ebaf",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Source-only Go alpha publication checklist"
+        },
+        {
+          "line": 13,
+          "text": "## Target and checks"
+        },
+        {
+          "line": 47,
+          "text": "## Human publication commands (not executed)"
+        },
+        {
+          "line": 76,
+          "text": "# If authentication is invalid, run gh auth login before continuing."
+        },
+        {
+          "line": 87,
+          "text": "## Post-tag consumer acceptance"
+        }
+      ]
+    },
+    {
+      "path": "docs/sqlalchemy-dogfood.md",
+      "title": "SQLAlchemy disposable-database dogfood",
+      "lines": 155,
+      "sha256": "13f383d2e1e650ff99b87d0b9d328ea9340b7d79a808195b2c14c5545bb22914",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# SQLAlchemy disposable-database dogfood"
+        },
+        {
+          "line": 7,
+          "text": "## Result and scope"
+        },
+        {
+          "line": 23,
+          "text": "## Reproduction and evidence"
+        },
+        {
+          "line": 50,
+          "text": "source and Wasmer 7.4.2 for this test only. It is not a release candidate or a"
+        },
+        {
+          "line": 62,
+          "text": "## SQLAlchemy compatibility"
+        },
+        {
+          "line": 87,
+          "text": "## Disposable isolation and pool/lifecycle behavior"
+        },
+        {
+          "line": 113,
+          "text": "## Snapshot/Fork value and test-author hypothesis"
+        },
+        {
+          "line": 128,
+          "text": "## v0.3 usability findings"
+        },
+        {
+          "line": 145,
+          "text": "## Follow-up cross-platform acceptance"
+        }
+      ]
+    },
+    {
+      "path": "docs/v03-acceptance.md",
+      "title": "v0.3 ORM / zero-setup acceptance",
+      "lines": 166,
+      "sha256": "5838054e911bed23db319794ea9aba92c7d9cefb42976a1109ca93be9d2c0e4d",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.3 ORM / zero-setup acceptance"
+        },
+        {
+          "line": 8,
+          "text": "## Current evidence"
+        },
+        {
+          "line": 38,
+          "text": "## Completed clean-platform evidence"
+        },
+        {
+          "line": 75,
+          "text": "## SQLAlchemy"
+        },
+        {
+          "line": 85,
+          "text": "## GORM"
+        },
+        {
+          "line": 96,
+          "text": "## Disposable isolation"
+        },
+        {
+          "line": 103,
+          "text": "## Go zero-setup: release-like fixture"
+        },
+        {
+          "line": 130,
+          "text": "## Cross-platform CI"
+        },
+        {
+          "line": 147,
+          "text": "## Snapshot/Fork and audit readiness"
+        },
+        {
+          "line": 160,
+          "text": "## Main integration and release audit"
+        }
+      ]
+    },
+    {
+      "path": "docs/v04-generated-go-architecture.md",
+      "title": "v0.4 generated-Go default runtime",
+      "lines": 316,
+      "sha256": "b780e938d0217b3f05fc6f6715c8b59e28e9533af29cc3445803b8b255dc8b9c",
+      "audience": [
+        "maintainer",
+        "coding_agent",
+        "advanced_user"
+      ],
+      "layers": [
+        "current_architecture",
+        "decision_rationale",
+        "historical_evidence",
+        "developer_or_release_rules"
+      ],
+      "currentness": "current architecture mixed with historical migration acceptance",
+      "cleanup_action_after_approval": "retain current HOW; relocate dated integration/release evidence and enduring WHY after review",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 generated-Go default runtime"
+        },
+        {
+          "line": 20,
+          "text": "## Integrated v0.4.0 fixes"
+        },
+        {
+          "line": 35,
+          "text": "## Released v0.4.2 memory lifecycle"
+        },
+        {
+          "line": 53,
+          "text": "## Integration contract"
+        },
+        {
+          "line": 72,
+          "text": "## Build-time path"
+        },
+        {
+          "line": 97,
+          "text": "## Runtime path"
+        },
+        {
+          "line": 131,
+          "text": "Generated-Go is the only current runtime on this v0.4.3 candidate branch."
+        },
+        {
+          "line": 146,
+          "text": "## Snapshot/Fork contract"
+        },
+        {
+          "line": 160,
+          "text": "## Acceptance order"
+        },
+        {
+          "line": 173,
+          "text": "## Historical integration evidence"
+        },
+        {
+          "line": 197,
+          "text": "Prepared cold files use independent MemFS nodes and MAP_PRIVATE views; new guest"
+        },
+        {
+          "line": 209,
+          "text": "## Historical release preparation audit"
+        },
+        {
+          "line": 222,
+          "text": "## Default build and regeneration"
+        },
+        {
+          "line": 231,
+          "text": "# Fresh canonical build host only; fixed /work and SDK locations must be empty."
+        },
+        {
+          "line": 233,
+          "text": "# With transferred build/generated-release inputs on a Go1.26.8 builder:"
+        },
+        {
+          "line": 261,
+          "text": "## Packaging follow-up"
+        },
+        {
+          "line": 269,
+          "text": "## Go toolchain support and regeneration"
+        },
+        {
+          "line": 284,
+          "text": "## Distribution and legacy consolidation"
+        },
+        {
+          "line": 294,
+          "text": "## v0.4.3 consolidation and prepared-file sharing"
+        },
+        {
+          "line": 302,
+          "text": "independent MemFS nodes with `PROT_READ|PROT_WRITE`, file-backed `MAP_PRIVATE`"
+        }
+      ]
+    },
+    {
+      "path": "docs/v04-guest-reproducibility.md",
+      "title": "v0.4 legacy-EH guest reproducibility",
+      "lines": 239,
+      "sha256": "419e7d6f632084db375aed3563401249b9439fe4f33f691536458647b469d6de",
+      "audience": [
+        "maintainer",
+        "license_reviewer",
+        "coding_agent"
+      ],
+      "layers": [
+        "current_architecture",
+        "historical_evidence",
+        "decision_rationale",
+        "developer_or_release_rules"
+      ],
+      "currentness": "current source/license constraints with historical audit inputs",
+      "cleanup_action_after_approval": "retain current canonical provenance/recipe; separate dated audit claims and final qualification state, preserve notice/source obligations",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 legacy-EH guest reproducibility"
+        },
+        {
+          "line": 7,
+          "text": "## Comparison boundary"
+        },
+        {
+          "line": 14,
+          "text": "## Cause and toolchain decision"
+        },
+        {
+          "line": 40,
+          "text": "## Pinned bootstrap"
+        },
+        {
+          "line": 95,
+          "text": "## Stage and compiler probes"
+        },
+        {
+          "line": 112,
+          "text": "## Adoption gates"
+        },
+        {
+          "line": 126,
+          "text": "## Six clean builds: result"
+        },
+        {
+          "line": 151,
+          "text": "## Regeneration and compatibility"
+        },
+        {
+          "line": 214,
+          "text": "## Accepted cold-copy guest update"
+        }
+      ]
+    },
+    {
+      "path": "docs/v04-integration-audit.md",
+      "title": "v0.4 integration readiness audit",
+      "lines": 145,
+      "sha256": "3dfacfccb6c3b134a3daaeb303dcc455cf37ead11b1446a900728462b6e70123",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 integration readiness audit"
+        },
+        {
+          "line": 19,
+          "text": "## Wasmer-era mechanisms"
+        },
+        {
+          "line": 40,
+          "text": "## Build audit"
+        },
+        {
+          "line": 62,
+          "text": "## Documentation inventory"
+        },
+        {
+          "line": 90,
+          "text": "## Test inventory and tiers"
+        },
+        {
+          "line": 121,
+          "text": "## Decision gate"
+        },
+        {
+          "line": 130,
+          "text": "## Completed local readiness audit"
+        },
+        {
+          "line": 136,
+          "text": "## Source-build reproducibility follow-up"
+        }
+      ]
+    },
+    {
+      "path": "docs/v04-license-inventory.md",
+      "title": "v0.4 artifact license inventory",
+      "lines": 142,
+      "sha256": "761b3f447d551c05f53f3bde08ec2aee7041f5222e74404ee9255e2d41f6671c",
+      "audience": [
+        "maintainer",
+        "license_reviewer",
+        "coding_agent"
+      ],
+      "layers": [
+        "current_architecture",
+        "historical_evidence",
+        "decision_rationale",
+        "developer_or_release_rules"
+      ],
+      "currentness": "current source/license constraints with historical audit inputs",
+      "cleanup_action_after_approval": "retain current canonical provenance/recipe; separate dated audit claims and final qualification state, preserve notice/source obligations",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 artifact license inventory"
+        },
+        {
+          "line": 9,
+          "text": "## Evidence and scope"
+        },
+        {
+          "line": 42,
+          "text": "## Component → artifact chain"
+        },
+        {
+          "line": 81,
+          "text": "## What changes / what remains"
+        },
+        {
+          "line": 111,
+          "text": "## Repeat / verify"
+        }
+      ]
+    },
+    {
+      "path": "docs/v04-release-ci-migration.md",
+      "title": "v0.4 Release CI contract migration",
+      "lines": 109,
+      "sha256": "102c05517bffe1877c1ae593add80a787a735f492e148ace0a7569fe07eff863",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# v0.4 Release CI contract migration"
+        },
+        {
+          "line": 14,
+          "text": "## Contract and ownership"
+        },
+        {
+          "line": 30,
+          "text": "## Local component validation"
+        },
+        {
+          "line": 79,
+          "text": "## Supported-platform verify path"
+        },
+        {
+          "line": 96,
+          "text": "## Remaining release work"
+        }
+      ]
+    },
+    {
+      "path": "docs/verification.md",
+      "title": "Local verification — 2026-09-23",
+      "lines": 76,
+      "sha256": "5c97a4d993cf8cb55144830da3e65eb1de324c3c94b2cfa4eae89d044748a383",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "historical_evidence",
+        "decision_rationale"
+      ],
+      "currentness": "historical audit/acceptance/migration evidence",
+      "cleanup_action_after_approval": "preserve evidence; visibly scope by source/date and redirect current behavior/policy to canonical docs",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Local verification — 2026-09-23"
+        },
+        {
+          "line": 11,
+          "text": "## Build provenance"
+        },
+        {
+          "line": 29,
+          "text": "## Acceptance"
+        },
+        {
+          "line": 48,
+          "text": "## Remaining publication work"
+        },
+        {
+          "line": 62,
+          "text": "## Historical macOS 12 candidate (superseded)"
+        }
+      ]
+    },
+    {
+      "path": "release/GO-v0.1.0-alpha.1.md",
+      "title": "mariamem v0.1.0-alpha.1 — source-only Go alpha",
+      "lines": 77,
+      "sha256": "4b3dce9ba3384d8b123dff9a5a08a742ea99d72ff5d80ed5f15d0830e1b9a283",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history"
+      ],
+      "currentness": "historical version/draft record",
+      "cleanup_action_after_approval": "retain version-qualified historical notes, never treat as current feature support",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem v0.1.0-alpha.1 — source-only Go alpha"
+        },
+        {
+          "line": 8,
+          "text": "## What this is"
+        },
+        {
+          "line": 17,
+          "text": "## What works"
+        },
+        {
+          "line": 28,
+          "text": "## Getting the Go source"
+        },
+        {
+          "line": 49,
+          "text": "## Alpha limitations"
+        },
+        {
+          "line": 60,
+          "text": "## Release status"
+        }
+      ]
+    },
+    {
+      "path": "release/NOTES-alpha.1.md",
+      "title": "mariamem v0.2.0-alpha.1",
+      "lines": 59,
+      "sha256": "a1628647f107e47b5cc6db8ba68ed3bfc712be618abc0947f4f8720838145946",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history"
+      ],
+      "currentness": "historical version/draft record",
+      "cleanup_action_after_approval": "retain version-qualified historical notes, never treat as current feature support",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem v0.2.0-alpha.1"
+        },
+        {
+          "line": 6,
+          "text": "## First FAST tranche"
+        },
+        {
+          "line": 18,
+          "text": "## Measured isolation latency"
+        },
+        {
+          "line": 33,
+          "text": "## Connection and lifecycle semantics"
+        },
+        {
+          "line": 47,
+          "text": "## Platform and distribution"
+        }
+      ]
+    },
+    {
+      "path": "release/NOTES-alpha.3.md",
+      "title": "mariamem v0.1.0-alpha.3",
+      "lines": 40,
+      "sha256": "db52a274b00e9424e7c0b84027ed7f018a19e643f546a43a868d6702a196f1ae",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history"
+      ],
+      "currentness": "historical version/draft record",
+      "cleanup_action_after_approval": "retain version-qualified historical notes, never treat as current feature support",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem v0.1.0-alpha.3"
+        },
+        {
+          "line": 6,
+          "text": "## Highlights"
+        },
+        {
+          "line": 14,
+          "text": "## Connection and lifecycle semantics"
+        },
+        {
+          "line": 26,
+          "text": "## Development and distribution"
+        }
+      ]
+    },
+    {
+      "path": "release/NOTES-alpha.4.md",
+      "title": "mariamem v0.1.0-alpha.4",
+      "lines": 47,
+      "sha256": "d11a680cd1c352a32e989108173b728ca728d80d74fba36e819d47443beedce1",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history"
+      ],
+      "currentness": "historical version/draft record",
+      "cleanup_action_after_approval": "retain version-qualified historical notes, never treat as current feature support",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem v0.1.0-alpha.4"
+        },
+        {
+          "line": 6,
+          "text": "## Highlights"
+        },
+        {
+          "line": 20,
+          "text": "## Connection and lifecycle semantics"
+        },
+        {
+          "line": 34,
+          "text": "## Platform and distribution"
+        }
+      ]
+    },
+    {
+      "path": "release/NOTES-v0.1.0.md",
+      "title": "mariamem v0.1.0",
+      "lines": 47,
+      "sha256": "0f2f4fbed9ea42f3df8dc0df7e7f71c0e9397bf26a79580b046236e27dc2c0a2",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history"
+      ],
+      "currentness": "historical version/draft record",
+      "cleanup_action_after_approval": "retain version-qualified historical notes, never treat as current feature support",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem v0.1.0"
+        },
+        {
+          "line": 6,
+          "text": "## Highlights"
+        },
+        {
+          "line": 21,
+          "text": "## Connection and lifecycle semantics"
+        },
+        {
+          "line": 36,
+          "text": "## Distribution and limitations"
+        }
+      ]
+    },
+    {
+      "path": "release/NOTES-v0.2.0.md",
+      "title": "mariamem v0.2.0",
+      "lines": 77,
+      "sha256": "287b625bf5e39924f963bfb8d7142c9ecb1e385e6621e0cf5d6ce378363e27d5",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history"
+      ],
+      "currentness": "historical version/draft record",
+      "cleanup_action_after_approval": "retain version-qualified historical notes, never treat as current feature support",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem v0.2.0"
+        },
+        {
+          "line": 6,
+          "text": "## FAST prepared-state startup"
+        },
+        {
+          "line": 21,
+          "text": "## Reference performance and limitations"
+        },
+        {
+          "line": 45,
+          "text": "## Sessions and lifecycle"
+        },
+        {
+          "line": 60,
+          "text": "## Platform and distribution"
+        }
+      ]
+    },
+    {
+      "path": "release/NOTES-v0.3.0.md",
+      "title": "mariamem v0.3.0",
+      "lines": 55,
+      "sha256": "99e50371e5c20742fa2522c8c2cff8d61517a976ff61492a9562094330ce21a1",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history"
+      ],
+      "currentness": "historical version/draft record",
+      "cleanup_action_after_approval": "retain version-qualified historical notes, never treat as current feature support",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem v0.3.0"
+        },
+        {
+          "line": 6,
+          "text": "## SQLAlchemy and GORM"
+        },
+        {
+          "line": 24,
+          "text": "## Go setup"
+        },
+        {
+          "line": 44,
+          "text": "## Tested platforms"
+        }
+      ]
+    },
+    {
+      "path": "release/NOTES-v0.4.0.md",
+      "title": "mariamem v0.4.0",
+      "lines": 83,
+      "sha256": "f9fc8b2dbcd8a9f9ebe7534b2eebac3aacec32feb34662389416565b9437114e",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history"
+      ],
+      "currentness": "historical version/draft record",
+      "cleanup_action_after_approval": "retain version-qualified historical notes, never treat as current feature support",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem v0.4.0"
+        },
+        {
+          "line": 7,
+          "text": "## Runtime and distribution"
+        },
+        {
+          "line": 22,
+          "text": "## Measured improvements and fixes"
+        },
+        {
+          "line": 47,
+          "text": "## Compatibility and supported scope"
+        },
+        {
+          "line": 61,
+          "text": "## Important known limitations"
+        }
+      ]
+    },
+    {
+      "path": "release/NOTES-v0.4.1.md",
+      "title": "mariamem v0.4.1",
+      "lines": 21,
+      "sha256": "80dfeabd81e942fbbd0beb7fa09352832ca40ad4c922fe0af6312ec99c8417a5",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history"
+      ],
+      "currentness": "historical version/draft record",
+      "cleanup_action_after_approval": "retain version-qualified historical notes, never treat as current feature support",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem v0.4.1"
+        }
+      ]
+    },
+    {
+      "path": "release/NOTES-v0.4.2.md",
+      "title": "mariamem v0.4.2",
+      "lines": 32,
+      "sha256": "8fbea3144c4d84024160fa3347f35e4d11fe36cecb8c10bf58450b1bb4564021",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history"
+      ],
+      "currentness": "historical version/draft record",
+      "cleanup_action_after_approval": "retain version-qualified historical notes, never treat as current feature support",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem v0.4.2"
+        }
+      ]
+    },
+    {
+      "path": "release/NOTES-v0.4.3.md",
+      "title": "mariamem v0.4.3",
+      "lines": 20,
+      "sha256": "d9b1c412d0db905e703da51adfa300d5fe3c6783017397df821cce95f3cdbf39",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history",
+        "user_contract"
+      ],
+      "currentness": "latest released version notes, bounded to v0.4.3",
+      "cleanup_action_after_approval": "retain immutable version history; current guides own latest contract",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# mariamem v0.4.3"
+        },
+        {
+          "line": 10,
+          "text": "  Prepared file-backed MAP_PRIVATE views use OS page-level CoW; no running"
+        }
+      ]
+    },
+    {
+      "path": "release/NOTES.md",
+      "title": "mariamem v0.1.0-alpha.2 is an early Go and Python alpha for disposable MariaDB tests.",
+      "lines": 30,
+      "sha256": "19d405a388ca32779ffacd2c9acf1a30cac687e90b92eeb4c0e817be8e03f909",
+      "audience": [
+        "user",
+        "maintainer"
+      ],
+      "layers": [
+        "release_history"
+      ],
+      "currentness": "historical version/draft record",
+      "cleanup_action_after_approval": "retain under explicit version history; rename/index unversioned alpha.2 NOTES.md as historical after review",
+      "reference_lines": []
+    },
+    {
+      "path": "tests/historical/README.md",
+      "title": "Historical Wasmer reference fixtures",
+      "lines": 9,
+      "sha256": "72363ffbb03eae09e3c6303928f4af6ac026d9c16b760a70cd48dc5f6b4cc9a6",
+      "audience": [
+        "maintainer",
+        "coding_agent"
+      ],
+      "layers": [
+        "developer_or_release_rules",
+        "historical_evidence"
+      ],
+      "currentness": "current policy for retired fixtures",
+      "cleanup_action_after_approval": "keep explicit historical non-gate boundary",
+      "reference_lines": [
+        {
+          "line": 1,
+          "text": "# Historical Wasmer reference fixtures"
+        }
+      ]
+    }
+  ]
+}
