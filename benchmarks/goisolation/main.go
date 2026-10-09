@@ -108,7 +108,7 @@ func (r *runner) startup(saved *mariamem.Snapshot, group time.Time) (db *mariame
 		if host == nil {
 			return nil, nil, errors.New("missing host startup trace")
 		}
-		if (r.cfg.native != "" && len(traces["native_verification"].Events) == 0) || (saved != nil && len(traces["snapshot_verification"].Events) == 0) || len(traces["api_startup"].Events) == 0 || (saved != nil && len(traces["fork"].Events) == 0) {
+		if (r.cfg.native != "" && len(traces["native_verification"].Events) == 0) || len(traces["api_startup"].Events) == 0 || (saved != nil && len(traces["fork"].Events) == 0) {
 			return nil, nil, errors.New("missing public API startup trace")
 		}
 		if r.cfg.guestStages && len(host.Guest) == 0 {
@@ -369,8 +369,17 @@ func (r *runner) preparedPhase(phase string, runs int) (err error) {
 			if r.cfg.stages {
 				ctx = timing.WithRecorder(ctx, func(t timing.Trace) { trace = &t })
 			}
+			opts := mariamem.SnapshotOptions{}
+			if r.cfg.initDiagnostics {
+				root, e := os.MkdirTemp("", "mariamem-inventory-")
+				if e != nil {
+					return nil, e
+				}
+				defer os.RemoveAll(root)
+				opts.Destination = filepath.Join(root, "prepared")
+			}
 			begin := time.Now()
-			snapshot, e := db.Snapshot(ctx, mariamem.SnapshotOptions{})
+			snapshot, e := db.Snapshot(ctx, opts)
 			elapsed := time.Since(begin).Seconds()
 			if e != nil {
 				return nil, e
@@ -385,7 +394,8 @@ func (r *runner) preparedPhase(phase string, runs int) (err error) {
 			}
 			sample := map[string]any{"case": "snapshot", "workers": 1, "phase": phase, "run": i, "latency_seconds": elapsed, "stage_timings": stages, "cpu_seconds": nil, "peak_rss_bytes": nil}
 			if r.cfg.initDiagnostics {
-				sample["snapshot_inventory"] = snapshotDiagnostics(snapshot.Path())
+				sample["snapshot_inventory"] = snapshotDiagnostics(opts.Destination)
+				sample["snapshot_mode"] = "explicit diagnostic output plus independent owned backing"
 			}
 			r.samples = append(r.samples, sample)
 			return snapshot, nil

@@ -14,6 +14,7 @@ import (
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/guest"
 	"github.com/masahitojp/mariamem/internal/mysqlwire"
+	"github.com/masahitojp/mariamem/internal/prepared"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
 	"github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
@@ -45,14 +46,14 @@ type Rejected struct {
 func (e *Rejected) Error() string { return e.Message }
 
 // StartGenerated uses compiled guest identity and the same snapshot/transport contract.
-func StartGenerated(ctx context.Context, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (*Server, error) {
+func StartGenerated(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (*Server, error) {
 	if err := artifacts.ValidatePlatform(ctx); err != nil {
 		return nil, err
 	}
 	return start(ctx, restore, timeout, stderr)
 }
 
-func start(ctx context.Context, restore string, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (server *Server, err error) {
+func start(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, stderr interface{ Write([]byte) (int, error) }) (server *Server, err error) {
 	ctx, finishTiming := timing.Begin(ctx, "startup")
 	defer finishTiming()
 	defer func() {
@@ -65,15 +66,14 @@ func start(ctx context.Context, restore string, timeout time.Duration, stderr in
 	}()
 	build := runtimekind.GuestSHA256
 	timing.Mark(ctx, "native_identity_checked")
-	if restore != "" {
-		var err error
-		restore, err = filepath.Abs(restore)
+	var entries []prepared.Entry
+	if restore != nil {
+		var release func()
+		entries, release, err = restore.Acquire(build)
 		if err != nil {
 			return nil, err
 		}
-		if _, err = snapshot.ValidateTimed(ctx, restore, build); err != nil {
-			return nil, err
-		}
+		defer release()
 	}
 	timing.Mark(ctx, "metadata_snapshot_validated")
 	transfer, err := os.MkdirTemp("", "mariamem-transfer-")
@@ -81,12 +81,12 @@ func start(ctx context.Context, restore string, timeout time.Duration, stderr in
 		return nil, err
 	}
 	timing.Mark(ctx, "transfer_prepared")
-	p, err := guest.StartGenerated(ctx, transfer, restore, stderr)
+	p, err := guest.StartGenerated(ctx, transfer, entries, stderr)
 	if err != nil {
 		os.RemoveAll(transfer)
 		return nil, err
 	}
-	if restore != "" && p.SnapshotVersion != 1 {
+	if restore != nil && p.SnapshotVersion != 1 {
 		os.RemoveAll(transfer)
 		return nil, p.AbortAndWait(fmt.Errorf("guest does not support snapshot restore"))
 	}

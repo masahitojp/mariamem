@@ -1,0 +1,90 @@
+{
+ "diagnostic_overhead_seconds": 8.086593167,
+ "fd_hard_limit": 9223372036854775807,
+ "fd_snapshots": 16,
+ "fd_snapshots_requested": 16,
+ "fd_soft_limit": 61440,
+ "fds_after": 6,
+ "fds_all_snapshots": 2198,
+ "fds_before": 5,
+ "fds_snapshot": 143,
+ "forks": 1,
+ "go": "go1.26.8",
+ "goarch": "arm64",
+ "goos": "darwin",
+ "label": "candidate",
+ "operations": [
+  {
+   "cpu_seconds": 0.068621,
+   "name": "prepare_start",
+   "seconds": 0.081784583
+  },
+  {
+   "cpu_seconds": 0.043953000000000006,
+   "name": "prepare_setup",
+   "seconds": 0.039519208
+  },
+  {
+   "cpu_seconds": 0.44064000000000003,
+   "name": "snapshot",
+   "seconds": 0.426678458
+  },
+  {
+   "cpu_seconds": 0.004305999999999699,
+   "name": "snapshot_close",
+   "seconds": 0.004337375
+  }
+ ],
+ "parallel_resource_sampling": "before/after child loop only; no simultaneous-child peak sample",
+ "payload_mib": 0,
+ "prepare_seconds": 0.548118541,
+ "resources": {
+  "after": {
+   "cpu_seconds": 8.6089415,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77332480,
+   "primary_bytes": 732824848,
+   "private_bytes": null,
+   "rss_bytes": 756498432
+  },
+  "all_snapshots": {
+   "cpu_seconds": 8.540371875,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77332480,
+   "primary_bytes": 732824848,
+   "private_bytes": null,
+   "rss_bytes": 756170752
+  },
+  "before": {
+   "cpu_seconds": 0.024507333,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77332480,
+   "primary_bytes": 4358840,
+   "private_bytes": null,
+   "rss_bytes": 10764288
+  },
+  "fds_16_snapshots": 2198,
+  "fds_4_snapshots": 554,
+  "snapshot": {
+   "cpu_seconds": 0.58031325,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77332480,
+   "primary_bytes": 471073800,
+   "private_bytes": null,
+   "rss_bytes": 504446976
+  }
+ },
+ "suite_cpu_scope": "RUSAGE_SELF; benchmark/diagnostic overhead included; counter-helper child CPU excluded",
+ "suite_cpu_seconds": 8.580961,
+ "suite_operation_seconds": 0.5523196239999999,
+ "suite_product_seconds": 0.5523196239999999,
+ "suite_seconds": 8.638912791,
+ "sum_of_operation_seconds": 0.5523196239999999,
+ "tables": 64,
+ "workers": 1,
+ "workload": "read"
+}

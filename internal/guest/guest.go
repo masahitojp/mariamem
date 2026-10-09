@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/prepared"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
 )
 
@@ -74,7 +75,7 @@ type Process struct {
 	MaxSessions     int
 }
 
-func StartGenerated(ctx context.Context, transfer, restore string, stderr io.Writer) (*Process, error) {
+func StartGenerated(ctx context.Context, transfer string, restore []prepared.Entry, stderr io.Writer) (*Process, error) {
 	return startLinked(ctx, runtimekind.GuestSHA256, transfer, restore, stderr)
 }
 func (p *Process) PID() int              { return os.Getpid() }

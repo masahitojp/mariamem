@@ -49,7 +49,10 @@ def pytest_fixture_post_finalizer(fixturedef, request):
         record = {"fixture": fixturedef.argname, "id": value.id, "reaped": True}
         (Path(os.environ["ALPHA_AUDIT"]) / (value.id + ".json")).write_text(json.dumps(record))
     elif isinstance(value, mariamem.Snapshot):
-        assert not value.path.exists()
+        assert value._closed and value._released
+        assert not value._files
+        if value._temporary is not None:
+            assert not Path(value._temporary.name).exists()
 '''
 
 

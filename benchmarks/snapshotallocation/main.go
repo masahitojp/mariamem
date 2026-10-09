@@ -11,6 +11,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
+	stored "github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
 	"os"
 	"path/filepath"
@@ -50,10 +51,12 @@ func main() {
 	must(conn.Close())
 	must(db.WaitDisconnected(ctx))
 	var before, after runtime.MemStats
+	snapshotPath := filepath.Join(*out, "prepared")
 	runtime.ReadMemStats(&before)
 	start := time.Now()
-	snap, e := db.Snapshot(ctx, mariamem.SnapshotOptions{})
+	snap, e := db.Snapshot(ctx, mariamem.SnapshotOptions{Destination: snapshotPath})
 	must(e)
+	defer func() { must(os.RemoveAll(snapshotPath)) }()
 	elapsed := time.Since(start)
 	runtime.ReadMemStats(&after)
 	// Collection only after all measured boundaries, to settle alloc-space profile epoch.
@@ -65,7 +68,7 @@ func main() {
 	inventory := map[string]int64{}
 	hashes := map[string]string{}
 	var bytes int64
-	must(filepath.WalkDir(snap.Path(), func(p string, d os.DirEntry, e error) error {
+	must(filepath.WalkDir(snapshotPath, func(p string, d os.DirEntry, e error) error {
 		if e != nil {
 			return e
 		}
@@ -74,13 +77,13 @@ func main() {
 			if e != nil {
 				return e
 			}
-			inventory[strings.TrimPrefix(p, snap.Path()+"/")] = s.Size()
+			inventory[strings.TrimPrefix(p, snapshotPath+"/")] = s.Size()
 			bytes += s.Size()
 			content, e := os.ReadFile(p)
 			if e != nil {
 				return e
 			}
-			hashes[strings.TrimPrefix(p, snap.Path()+"/")] = fmt.Sprintf("%x", sha256.Sum256(content))
+			hashes[strings.TrimPrefix(p, snapshotPath+"/")] = fmt.Sprintf("%x", sha256.Sum256(content))
 		}
 		return nil
 	}))
@@ -124,17 +127,18 @@ func main() {
 	must(bc.Close())
 	must(b.Close())
 	for name, want := range hashes {
-		content, e := os.ReadFile(filepath.Join(snap.Path(), name))
+		content, e := os.ReadFile(filepath.Join(snapshotPath, name))
 		must(e)
 		if fmt.Sprintf("%x", sha256.Sum256(content)) != want {
 			panic("base mutated: " + name)
 		}
 	}
-	// Deliberate corruption after the successful children must still be rejected.
+	// External input validation must reject corruption; an already-owned baseline
+	// must remain independent of changes to its published output.
 	corrupted := ""
 	for name := range inventory {
 		if strings.HasSuffix(name, "/test/benchmark_rows.ibd") {
-			corrupted = filepath.Join(snap.Path(), name)
+			corrupted = filepath.Join(snapshotPath, name)
 		}
 	}
 	if corrupted == "" {
@@ -145,13 +149,24 @@ func main() {
 	_, e = file.WriteAt([]byte("corrupt"), 0)
 	must(e)
 	must(file.Close())
-	if child, e := snap.Fork(ctx); e == nil {
-		child.Close()
-		panic("corrupt snapshot accepted")
+	if _, e := stored.Validate(snapshotPath, runtimekind.GuestSHA256); e == nil {
+		panic("corrupt external snapshot accepted")
 	}
+	child, e := snap.Fork(ctx)
+	must(e)
+	cc, e := sql.Open("mysql", child.DSN())
+	must(e)
+	must(cc.QueryRow("SELECT COUNT(*) FROM benchmark_rows").Scan(&count))
+	if count != 1000 {
+		panic("external output changed owned baseline")
+	}
+	must(cc.Close())
+	must(child.Close())
 	must(snap.Close())
 	must(db.Close())
 	report := map[string]any{"go": runtime.Version(), "guest_sha256": runtimekind.GuestSHA256, "mallocs_delta": after.Mallocs - before.Mallocs, "snapshot_ms": float64(elapsed) / float64(time.Millisecond), "total_alloc_delta": after.TotalAlloc - before.TotalAlloc, "heap_before": before.HeapAlloc, "heap_after": after.HeapAlloc, "snapshot_bytes": bytes, "inventory": inventory, "traces": traces, "isolation_pass": true, "corruption_rejected": true, "files_sha256": hashes}
+	report["snapshot_mode"] = "explicit diagnostic output plus independent owned backing; acquisition differs from historical temporary Snapshot"
+	report["corruption_boundary"] = "external inventory/content validation; subsequent Fork uses owned backing"
 	data, e := json.MarshalIndent(report, "", "  ")
 	must(e)
 	must(os.WriteFile(filepath.Join(*out, "result.json"), data, 0600))

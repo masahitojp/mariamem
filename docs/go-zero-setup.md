@@ -4,7 +4,8 @@
 direct-links generated Go and does not download a bundle. See the current
 [Go guide](go.md), [architecture](v04-generated-go-architecture.md) and
 [project status / roadmap](project-status.md). The implementation and cache
-behavior below apply only to the retained legacy path.
+behavior below apply only to matching historical tags; there is no live legacy
+runtime path.
 
 This branch implements automatic native setup for future tagged releases. It
 starts from `d3d700a76095a55361ad3c52ff031750c84c83c4`; no release/version bump or
@@ -16,7 +17,7 @@ Ordinary application code becomes:
 db, err := mariamem.Start(ctx, mariamem.Options{})
 ```
 
-See the current [Go guide](go.md#legacy-wasmer-compatibility-override) for
+See the current [Go guide](go.md#development-and-compatibility) for
 legacy override behavior; the cache details below are historical.
 
 ## Distribution identity

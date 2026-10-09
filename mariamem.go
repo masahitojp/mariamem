@@ -32,6 +32,7 @@ import (
 	"github.com/masahitojp/mariamem/internal/artifacts"
 	"github.com/masahitojp/mariamem/internal/host"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
+	stored "github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
@@ -81,8 +82,8 @@ type Database struct {
 
 // Start creates one database. Its context governs startup, not the lifetime of a
 // successfully started database; call Close to dispose of it.
-func Start(ctx context.Context, opts Options) (*Database, error) { return start(ctx, opts, "") }
-func start(ctx context.Context, opts Options, restore string) (*Database, error) {
+func Start(ctx context.Context, opts Options) (*Database, error) { return start(ctx, opts, nil) }
+func start(ctx context.Context, opts Options, restore *stored.Owned) (*Database, error) {
 	ctx, finishTiming := timing.Begin(ctx, "api_startup")
 	defer finishTiming()
 	opts, err := opts.defaults()

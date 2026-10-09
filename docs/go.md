@@ -1,130 +1,188 @@
-# Go API
+# Go usage
 
-**Direct-linked generated Go is the default v0.4.3 runtime.** Ordinary Go
-usage needs no NativeDir, bundle cache/download or external Wasmer. Generated
-Go is a normal module dependency/build input; WASM is a build intermediate.
-Existing public APIs and cold Snapshot/Fork semantics are preserved.
-See [architecture](v04-generated-go-architecture.md) and
-[canonical measurements](../benchmarks/v04-integrated-candidate.md).
+This guide describes the unreleased product-contract candidate.
+[Installation](../README.md#installation) uses the published module tag `v0.4.3`.
+The public package is `github.com/masahitojp/mariamem`.
 
-The public package is `mariamem` at the module root. The module requires Go
-1.26.0+; canonical validation uses Go 1.26.8. Go 1.27.0/1.27.1 arm64 are
-unsupported because of upstream compiler issue #81036; no local workaround is
-used. An upstream-fixed toolchain has been verified. v0.4.3 is prepared as a release candidate; tag installation follows publication.
+## Start fresh
 
-```sh
-mkdir mariamem-example
-cd mariamem-example
-go mod init example.com/mariamem-example
-go get github.com/masahitojp/mariamem@v0.4.3
-go get github.com/go-sql-driver/mysql
-```
+Use `Start` to acquire a disposable database and an ordinary MySQL driver to
+connect. Fresh means the new database's initial state; it is usually simplest
+for light fixtures.
 
 ```go
-db, err := mariamem.Start(ctx, mariamem.Options{})
+package example
+
+import (
+	"context"
+	"database/sql"
+	"testing"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem"
+)
+
+func TestItems(t *testing.T) {
+	ctx := context.Background()
+	db, err := mariamem.Start(ctx, mariamem.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
+
+	pool, err := sql.Open("mysql", db.DSN())
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer pool.Close() // Runs before DB Close.
+	if _, err := pool.ExecContext(ctx, "CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB"); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := pool.ExecContext(ctx, "INSERT INTO items VALUES(1)"); err != nil {
+		t.Fatal(err)
+	}
+	var count int
+	if err := pool.QueryRowContext(ctx, "SELECT COUNT(*) FROM items").Scan(&count); err != nil {
+		t.Fatal(err)
+	}
+	if count != 1 {
+		t.Fatalf("count = %d", count)
+	}
+}
 ```
 
-Each DB has fresh execution/thread/TLS/FD state and private writable files.
-Normal Start does not decode/materialize a native image, spawn a guest process
-or resolve a runtime bundle. Development/local replacement builds use the same
-default. Once normal Go dependencies are available, startup needs no download.
-Optional release audit assets are available separately:
+The application may use its own connections, commit and roll back normally.
+Per-test isolation comes from disposing of the DB, not from a test transaction
+imposed by mariamem. Close driver connections and pools before the DB.
+
+## Prepare once, Fork independent databases
+
+Prepare migrations/fixtures through the usual driver, commit, close all clients
+and wait for disconnect cleanup. Then create the fixed baseline:
+
+```go
+// setupDB is a database returned by Start; its SQL preparation is complete.
+if err := setupDB.WaitDisconnected(ctx); err != nil {
+    return err
+}
+baseline, err := setupDB.Snapshot(ctx, mariamem.SnapshotOptions{})
+if err != nil {
+    return err
+}
+defer baseline.Close()
+// Successful Snapshot has ended setupDB.
+
+first, err := baseline.Fork(ctx)
+if err != nil {
+    return err
+}
+defer first.Close()
+
+second, err := baseline.Fork(ctx)
+if err != nil {
+    return err
+}
+defer second.Close()
+// first and second start with the same schema/data.
+// Committed writes or schema changes in first cannot appear in second.
+```
+
+Snapshot fixes schema/data, not a running server or SQL file. Fork starts a new
+mutable database; connections and active transactions are not inherited.
+Children cannot update the baseline or siblings. Snapshotting a modified child
+creates a new baseline.
+
+Fork inherits the preparation DB's options. Startups may run concurrently.
+Snapshot Close prevents future Forks, waits for admitted startups, and releases
+its backing. Successfully started children remain usable and must be closed
+separately. Close is idempotent. Do not copy DB or Snapshot handles.
+
+## Persist expensive preparation
+
+An empty `SnapshotOptions.Destination` makes temporary, implementation-owned
+capture storage. Closing the handle releases it.
+
+An explicit Destination additionally persists the fixed baseline:
+
+```go
+baseline, err := setupDB.Snapshot(ctx, mariamem.SnapshotOptions{
+    Destination: "./prepared",
+})
+```
+
+The destination must not already exist. Snapshot Close leaves this artifact
+intact while releasing the handle's owned resources. The returned handle forks
+from independent owned backing, so changes to the saved output cannot affect it.
+
+The Go API does not currently expose arbitrary path-based reopening.
+Python's `load_snapshot(path)` provides that acquisition boundary. This is an
+existing language-surface asymmetry; the ownership/isolation contract is the
+same where the concepts exist. A new Go import API is not added in v0.4.4.
+
+Saved baselines contain database files tied to the compatible guest build.
+They are advanced derived artifacts; retain their migration/fixture/source
+inputs so they can be regenerated. mariamem does not manage invalidation,
+regeneration or deletion.
+
+Creation/import fully validates the baseline and takes ownership of the exact
+state used by children. Subsequent Forks do not read every content byte again
+to validate it. Damage arising in owned storage after acquisition is not
+guaranteed to be detected on every Fork. This is not a same-user process
+security boundary.
+
+## Lifecycle, cancellation and errors
+
+Start's context governs startup, not the lifetime of the returned DB.
+Zero startup/shutdown/query timeouts default to 120/30/30 seconds; negative
+values are rejected. Close is idempotent and returns its stored cleanup result.
+Endpoint information remains available after Close; it does not imply the DB
+is usable.
+
+Snapshot forwards its context without adding a default timeout. The export
+deadline does not make copy/validation context-interruptible; cleanup can
+outlast it. Successful Snapshot consumes its source; precondition rejection
+leaves it running. Failure after acceptance can consume it as well
+(`HostError.Closed`). Use `errors.Is` with `ErrBusy`,
+`ErrTransactionActive`, `ErrClosed`, and `errors.As` with `*HostError`.
+
+Multiple SQL clients have separate sessions, transactions and temporary tables.
+Current capacity is 16, not a permanent API or throughput guarantee. Additional
+connections receive recoverable MySQL error 1040; slots are reused after
+disconnect cleanup. Close the pool before `WaitDisconnected`.
+DSN enables driver-side parameter interpolation; server-side prepared
+statements are unsupported.
+
+Ordinary SQL errors leave the DB usable. Host query timeout, client cancellation
+or disconnect during active SQL invalidates the DB. Close it and start/fork
+another rather than retrying against it. `db.Err()` matches `ErrUnusable` and
+retains the cause; a host deadline also matches `context.DeadlineExceeded`.
+`db.Closed()` becomes true. Forced reclamation of hung execution is not guaranteed.
+
+`HostError.Code` identifies startup/lifecycle errors and `Stage` adds diagnostic
+context; causes remain unwrap-able. Startup failures return no usable DB.
+`Logs()` retains bounded diagnostics. Stage names are not a stable list of
+internal mechanisms.
+
+## Development and compatibility
+
+Install the published module and optional release audit files with:
 
 ```sh
+go get github.com/masahitojp/mariamem@v0.4.3
 gh release download v0.4.3 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.3-provenance.json'
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.3-corresponding-source.tar.gz'
 ```
 
-## Retired legacy overrides
+Runtime details belong in [architecture](v04-generated-go-architecture.md).
+Retired `Options.NativeDir`, `MARIAMEM_NATIVE_DIR` and Wasmer selectors are
+rejected; no native path is needed for ordinary Start. Historical executions
+require their matching old tags.
 
-On this v0.4.3 candidate branch, generated-Go is the only runtime.
-`Options.NativeDir` remains a deprecated source-compatibility field; nonempty
-values, `MARIAMEM_NATIVE_DIR`, and `MARIAMEM_RUNTIME=wasmer` are rejected with
-migration guidance. Empty or `MARIAMEM_RUNTIME=generated-go` uses compiled source.
-For historical Wasmer comparisons, use an old tag and its matching artifacts.
-
-## Lifecycle and sessions
-
-Start's context controls startup. Zero startup/shutdown/query timeouts default
-to 120/30/30 seconds; negative values are rejected. Close is idempotent and
-returns the stored cleanup result. Guest diagnostics retain their last 16 KiB
-via Logs.
-
-Snapshot forwards the caller's context without adding a default timeout. A
-caller deadline bounds the export operation; filesystem copy/hash is not
-context-interruptible, and shutdown cleanup may outlast the deadline. Without a
-deadline Snapshot waits for the export. Success consumes the source DB;
-precondition rejection leaves it running. An accepted failure also consumes it
-(`HostError.Closed`). Use `errors.Is` with ErrBusy, ErrTransactionActive and
-ErrClosed, and `errors.As` for HostError. Underlying errors remain unwrap-able.
-
-An empty Snapshot Destination creates an owned temporary snapshot, deleted by
-Snapshot.Close. An explicit Destination is retained. Fork inherits options and
-validates the saved snapshot through the host. Fork startups from the same
-snapshot may run concurrently. Close waits for admitted startups before deleting
-owned files; already-started forks survive Snapshot.Close. Manifest
-format/hash/commit-marker semantics are unchanged. ConnectionInfo and DSN are
-immutable endpoint metadata available after Close; use Closed to inspect
-lifecycle state. Zero-value handles cannot start operations; construct them
-through Start and Database.Snapshot.
-
-Multiple clients can connect to one DB up to the guest-advertised session
-capacity (16 for the current guest, not a permanent API guarantee).
-Each connection has its own guest session and transaction state. A connection
-beyond capacity receives MySQL error 1040; closing a client releases its slot
-after guest cleanup. Different sessions may have queries in flight together,
-without a throughput guarantee. Close the database/sql pool before
-WaitDisconnected when taking a snapshot. DSN sets `interpolateParams=true` for
-driver-side parameter interpolation through the supported text protocol. This
-is not server prepared-statement support; explicit Prepare remains unsupported.
-
-A host QueryTimeout or client context cancellation while SQL runs invalidates
-that database instance. Forced reclamation of non-cooperative in-process guest
-execution and hard failure containment are not guaranteed. A client disconnect during SQL is
-also fatal; a normal disconnect while idle leaves the DB usable. Do not retry
-SQL against an invalidated instance: close it and start or fork another.
-`db.Closed()` becomes true, and `db.Err()` reports ErrUnusable with the
-underlying cause. For a host timeout, `errors.Is(db.Err(), context.DeadlineExceeded)`
-is true. A caller context deadline or explicit cancellation is returned by the
-MySQL driver as the caller's context error; the host sees the connection loss
-and invalidates the instance. Snapshot and WaitDisconnected reject invalidated
-instances; Close remains idempotent; normal cooperative shutdown releases runtime
-resources and temporary files. Signal handlers are not installed in the caller process.
-
-## Opt-in integration verification
-
-Run default generated-Go acceptance without a native override:
-
-```sh
-GOTOOLCHAIN=go1.26.8 python scripts/verify.py integration
-```
-
-This runs normal full-guest SQL/Snapshot/Fork/lifecycle tests, Python
-multi-client checks and focused handwritten/runtime FD/MemFS/thread/TLS/futex
-race coverage. The full generated guest is not Go `-race` clean; its documented
-shared-memory adaptation problem is not suppressed or presented as passing.
-Forced query-timeout reclamation remains a separate diagnostic, not a guarantee.
-The module pins the test driver `github.com/go-sql-driver/mysql` to v1.9.3;
-applications register their own driver. See [development](development.md#local-verification).
-
-## Failure diagnostics
-
-Use `errors.As(err, &hostError)` with `var hostError *mariamem.HostError` to read
-`Code` and, when available, the failed startup `Stage`. Startup codes distinguish
-`unsupported_platform`, `native_unavailable`, `artifact_mismatch`, `guest_start`,
-`guest_connection`, and `host_start`. Messages include the failing input or
-boundary, and guest greeting failures retain a bounded stderr tail. Causes remain
-available through `errors.Is`/`errors.As`, including filesystem and context errors.
-Artifact mismatch covers existing manifest/hash/guest metadata checks; the Go
-module does not enforce equality with a Python distribution version.
-
-Session capacity exhaustion remains recoverable MySQL error 1040 from the driver.
-Ordinary SQL errors do not invalidate a Database. Interrupted active SQL still
-invalidates the entire Database: `db.Err()` matches `mariamem.ErrUnusable` and
-retains its cause. `Close()` remains safe and idempotent. Stage names provide
-diagnostic context rather than a stable inventory of runtime internals.
-
-For startup failures, read the category/stage and retained guest diagnostics.
-Remove retired runtime overrides; use the supported generated-Go module.
-Startup failure does not return a usable database. Retry Start after correcting
-the reported input. Existing lifecycle errors remain controlled and unwrap-able.
+See [local verification](development.md#local-verification) for scoped
+development checks, and [candidate migration notes](../release/NOTES-v0.4.4.md)
+for removed metadata/class-fixture interfaces. The full generated guest is not
+Go race-detector clean; focused checks do not establish general race cleanliness.

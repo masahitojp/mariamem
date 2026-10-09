@@ -157,10 +157,13 @@ func TestDogfood(t *testing.T) {
 		check(t, template.Closed() && template.Err() == nil, "snapshot did not consume template cleanly")
 		result["template_snapshot_ms"] = milliseconds(begin)
 		t.Cleanup(func() {
-			path := snapshot.Path()
 			require(t, snapshot.Close())
-			_, err := os.Stat(path)
-			check(t, os.IsNotExist(err), "snapshot files remain")
+			require(t, snapshot.Close())
+			child, err := snapshot.Fork(context.Background())
+			if child != nil {
+				require(t, child.Close())
+			}
+			check(t, errors.Is(err, mariamem.ErrClosed), "closed snapshot accepted Fork")
 		})
 	}
 	run := func(name string, test func(*testing.T, *application)) {

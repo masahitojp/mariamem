@@ -19,6 +19,7 @@ import (
 	"github.com/masahitojp/mariamem/internal/generatedgo"
 	"github.com/masahitojp/mariamem/internal/host"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
+	"github.com/masahitojp/mariamem/internal/snapshot"
 )
 
 type request struct {
@@ -35,11 +36,16 @@ type incoming struct {
 }
 
 func run() error {
-	restore := flag.String("snapshot", "", "validated cold snapshot to restore")
+	restore := flag.String("snapshot", "", "cold snapshot to import")
+	preparedFD := flag.Int("prepared-fd", -1, "internal owned descriptor handoff")
+	snapshotInfo := flag.Bool("snapshot-info", false, "compiled snapshot compatibility identity")
 	queryTimeout := flag.Duration("query-timeout", 30*time.Second, "query/session timeout")
 	startupTimeout := flag.Duration("startup-timeout", 120*time.Second, "startup timeout")
 	shutdownTimeout := flag.Duration("shutdown-timeout", 30*time.Second, "shutdown timeout")
 	flag.Parse()
+	if *snapshotInfo {
+		return json.NewEncoder(os.Stdout).Encode(map[string]any{"wasm_sha256": runtimekind.GuestSHA256, "snapshot_version": 1})
+	}
 	if *queryTimeout <= 0 || *startupTimeout <= 0 || *shutdownTimeout <= 0 {
 		return errors.New("timeouts must be positive")
 	}
@@ -48,9 +54,38 @@ func run() error {
 	owner, cancelOwner := context.WithCancel(signals)
 	defer cancelOwner()
 	ctx, cancel := context.WithTimeout(owner, *startupTimeout)
-	s, err := host.StartGenerated(ctx, *restore, *queryTimeout, os.Stderr)
+	defer cancel()
+	var backing *snapshot.Owned
+	var err error
+	if *preparedFD >= 0 {
+		if *restore != "" || *preparedFD < 3 {
+			return errors.New("invalid owned handoff")
+		}
+		f := os.NewFile(uintptr(*preparedFD), "owned-handoff")
+		if f == nil {
+			return errors.New("invalid owned handoff descriptor")
+		}
+		var handoff snapshot.Handoff
+		err = json.NewDecoder(io.LimitReader(f, 1<<20)).Decode(&handoff)
+		err = errors.Join(err, f.Close())
+		if err == nil {
+			backing, err = snapshot.ReceiveInherited(handoff, runtimekind.GuestSHA256)
+		}
+	} else if *restore != "" {
+		backing, err = snapshot.Import(*restore, runtimekind.GuestSHA256)
+	}
+	if err != nil {
+		return err
+	}
+	s, err := host.StartGenerated(ctx, backing, *queryTimeout, os.Stderr)
+	err = errors.Join(err, backing.Close())
 	cancel()
 	if err != nil {
+		if s != nil {
+			cleanup, stop := context.WithTimeout(context.Background(), *shutdownTimeout)
+			err = errors.Join(err, s.Close(cleanup))
+			stop()
+		}
 		code, stage := "host_start", "host_setup"
 		var detail *diagnostic.Error
 		if errors.As(err, &detail) {

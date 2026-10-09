@@ -26,6 +26,7 @@ import (
 var out, helper string
 var vmMaps, liveGC bool
 var ctx context.Context
+var snapshotPath string
 
 func must(err error) {
 	if err != nil {
@@ -52,7 +53,7 @@ func checkpoint(name string, snap *mariamem.Snapshot) {
 	bytes, files := int64(0), 0
 	inventory := map[string]int64{}
 	if snap != nil {
-		must(filepath.WalkDir(snap.Path(), func(p string, d os.DirEntry, e error) error {
+		must(filepath.WalkDir(snapshotPath, func(p string, d os.DirEntry, e error) error {
 			if e != nil {
 				return e
 			}
@@ -62,7 +63,7 @@ func checkpoint(name string, snap *mariamem.Snapshot) {
 					return e
 				}
 				bytes += s.Size()
-				inventory[strings.TrimPrefix(p, snap.Path()+"/")] = s.Size()
+				inventory[strings.TrimPrefix(p, snapshotPath+"/")] = s.Size()
 				files++
 			}
 			return nil
@@ -135,7 +136,8 @@ func prepare() *mariamem.Snapshot {
 	checkpoint("base_ready", nil)
 	query(db, true)
 	checkpoint("fixture_disconnected", nil)
-	snap, e := db.Snapshot(ctx, mariamem.SnapshotOptions{})
+	snapshotPath = filepath.Join(out, "prepared")
+	snap, e := db.Snapshot(ctx, mariamem.SnapshotOptions{Destination: snapshotPath})
 	must(e)
 	// API returns only after export, guest join, publication and hash validation.
 	checkpoint("snapshot_published_source_handle_retained", snap)
@@ -172,7 +174,8 @@ func main() {
 		must(e)
 		must(os.WriteFile(filepath.Join(out, "trace-"+t.Operation+"-"+strconv.FormatInt(time.Now().UnixNano(), 10)+".json"), b, 0600))
 	})
-	info := map[string]any{"scenario": *mode, "workers": *n, "go": runtime.Version(), "pid": os.Getpid(), "runtime": "direct-linked generated-Go", "profile_rate": runtime.MemProfileRate, "vmmap": vmMaps, "live_gc": liveGC}
+	info := map[string]any{"scenario": *mode, "workers": *n, "go": runtime.Version(), "pid": os.Getpid(), "runtime": "direct-linked generated-Go", "profile_rate": runtime.MemProfileRate, "vmmap": vmMaps, "live_gc": liveGC,
+		"snapshot_mode": "explicit diagnostic output plus independent owned backing; acquisition differs from historical temporary Snapshot"}
 	b, e := json.Marshal(info)
 	must(e)
 	must(os.WriteFile(filepath.Join(out, "environment.json"), b, 0600))
@@ -199,6 +202,7 @@ func main() {
 		return
 	}
 	snap := prepare()
+	defer func() { must(os.RemoveAll(snapshotPath)) }()
 	if *mode == "snapshot" {
 		collect("snapshot_retained", snap)
 		must(snap.Close())

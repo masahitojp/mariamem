@@ -167,9 +167,7 @@ func TestPublicLifecycle(t *testing.T) {
 	if err := db.Close(); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := os.Stat(filepath.Join(snap.Path(), "manifest.json")); err != nil {
-		t.Fatal(err)
-	}
+
 	type forkResult struct {
 		db  *mariamem.Database
 		err error
@@ -212,8 +210,8 @@ func TestPublicLifecycle(t *testing.T) {
 	if err := snap.Close(); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := os.Lstat(filepath.Dir(snap.Path())); !os.IsNotExist(err) {
-		t.Fatalf("temporary snapshot remains: %v", err)
+	if _, err := snap.Fork(ctx); !errors.Is(err, mariamem.ErrClosed) {
+		t.Fatalf("closed snapshot admitted startup: %v", err)
 	}
 	count(ap, 3)
 	count(bp, 2)

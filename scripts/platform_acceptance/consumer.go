@@ -59,8 +59,12 @@ func run(native string) (result error) {
 			}
 			if snap != nil {
 				errs = append(errs, snap.Close(), snap.Close())
-				if _, e := os.Stat(filepath.Dir(snap.Path())); !os.IsNotExist(e) {
-					errs = append(errs, fmt.Errorf("temporary snapshot still present: %v", e))
+				child, e := snap.Fork(context.Background())
+				if child != nil {
+					errs = append(errs, child.Close())
+				}
+				if !errors.Is(e, mariamem.ErrClosed) {
+					errs = append(errs, fmt.Errorf("closed snapshot accepted Fork: %v", e))
 				}
 			}
 			entries, e := os.ReadDir(os.TempDir())

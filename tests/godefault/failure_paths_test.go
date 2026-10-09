@@ -157,7 +157,7 @@ func TestDefaultReleaseFailurePaths(t *testing.T) {
 	if err := source.Close(); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(saved.Path(), "manifest.json"), []byte("{invalid"), 0600); err != nil {
+	if err := saved.Close(); err != nil {
 		t.Fatal(err)
 	}
 	canceled, stop := context.WithCancel(ctx)
@@ -172,7 +172,7 @@ func TestDefaultReleaseFailurePaths(t *testing.T) {
 			t.Fatalf("canceled Start: %v %v", db, err)
 		}
 		if child, err := saved.Fork(ctx); err == nil || child != nil {
-			t.Fatalf("corrupt snapshot: %v %v", child, err)
+			t.Fatalf("closed snapshot: %v %v", child, err)
 		}
 	}
 	t.Run("unusable_temporary_directory", func(t *testing.T) {

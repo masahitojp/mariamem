@@ -8,10 +8,11 @@ import (
 	"os"
 
 	"github.com/masahitojp/mariamem/internal/generatedgo"
+	"github.com/masahitojp/mariamem/internal/prepared"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
-func startLinked(ctx context.Context, module, transfer, restore string, stderr io.Writer) (*Process, error) {
+func startLinked(ctx context.Context, module, transfer string, restore []prepared.Entry, stderr io.Writer) (*Process, error) {
 	if module != generatedgo.GuestSHA256 {
 		return nil, fmt.Errorf("compiled guest identity mismatch")
 	}

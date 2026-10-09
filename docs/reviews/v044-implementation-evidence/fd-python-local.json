@@ -1,0 +1,83 @@
+{
+  "label": "candidate",
+  "forks": 1,
+  "workers": 1,
+  "tables": 64,
+  "workload": "read",
+  "prepared_files": 137,
+  "prepared_bytes": 148977486,
+  "operations": [
+    {
+      "name": "import",
+      "seconds": 0.16777420800644904
+    },
+    {
+      "name": "snapshot_close",
+      "seconds": 0.0032030000002123415
+    }
+  ],
+  "resources": {
+    "before": {
+      "45208": {
+        "rss_bytes": 29278208,
+        "primary_bytes": 18088464,
+        "file_mapping_bytes": 13975552,
+        "private_bytes": null,
+        "cpu_seconds": 0.609141542,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      }
+    },
+    "imported": {
+      "45208": {
+        "rss_bytes": 32178176,
+        "primary_bytes": 20988432,
+        "file_mapping_bytes": 13975552,
+        "private_bytes": null,
+        "cpu_seconds": 1.25073,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      }
+    },
+    "fds_4_snapshots": 551,
+    "fds_16_snapshots": 2195,
+    "all_snapshots": {
+      "45208": {
+        "rss_bytes": 37601280,
+        "primary_bytes": 26411536,
+        "file_mapping_bytes": 13975552,
+        "private_bytes": null,
+        "cpu_seconds": 4.882986833,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      }
+    },
+    "after": {
+      "45208": {
+        "rss_bytes": 37601280,
+        "primary_bytes": 26411536,
+        "file_mapping_bytes": 13975552,
+        "private_bytes": null,
+        "cpu_seconds": 5.433854167,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      }
+    }
+  },
+  "fds_before": 3,
+  "fds_snapshot": 140,
+  "fd_snapshots_requested": 16,
+  "fd_snapshots": 16,
+  "fds_all_snapshots": 2195,
+  "fd_soft_limit": 1048575,
+  "fd_hard_limit": 9223372036854775807,
+  "suite_wall_seconds": 4.73179595900001,
+  "suite_cpu_seconds": 4.391424,
+  "suite_cpu_scope": "RUSAGE_SELF + reaped RUSAGE_CHILDREN; includes DB hosts and counter-helper CPU; diagnostic-inclusive",
+  "parallel_resource_sampling": "before/after child loop only; no simultaneous-child peak sample",
+  "suite_operation_seconds": 0.17097720800666139,
+  "sum_of_operation_seconds": 0.17097720800666139,
+  "suite_product_seconds": 0.17097720800666139,
+  "diagnostic_overhead_seconds": 4.560818750993349,
+  "fds_after": 3
+}

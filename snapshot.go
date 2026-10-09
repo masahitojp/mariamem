@@ -17,10 +17,11 @@ type SnapshotOptions struct {
 	Rollback    bool
 }
 
-// Snapshot owns only snapshots created with an empty Destination. Do not copy.
+// Snapshot owns a fixed, verified baseline. Child writes never update it. Do not copy.
 type Snapshot struct {
 	mu              sync.RWMutex
 	path, temporary string
+	backing         *stored.Owned
 	opts            Options
 	closed          bool
 	closeErr        error
@@ -62,17 +63,17 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 		err = errors.Join(err, db.closeErr)
 	}
 	if err == nil {
-		_, err = stored.Validate(saved.path, db.build)
+		if saved.temporary != "" {
+			saved.backing, err = stored.AdoptCreated(saved.path, db.build)
+		} else {
+			saved.backing, err = stored.Import(saved.path, db.build)
+		}
 	}
 	if err != nil {
 		return nil, hostError(errors.Join(err, saved.Close()), "snapshot_failed", consumed)
 	}
 	return saved, nil
 }
-
-// Path returns the snapshot directory. It may no longer exist after Close for
-// a temporary snapshot.
-func (s *Snapshot) Path() string { return s.path }
 
 // Fork inherits the original DB options. Multiple startups can run concurrently.
 // The read lock pins owned files through startup; a waiting Close blocks new
@@ -82,16 +83,17 @@ func (s *Snapshot) Fork(ctx context.Context) (*Database, error) {
 	defer finishTiming()
 	s.mu.RLock()
 	defer s.mu.RUnlock()
-	if s.closed || s.path == "" {
+	if s.closed || s.backing == nil {
 		return nil, hostError(ErrClosed, "closed", true)
 	}
 	timing.Mark(ctx, "snapshot_handle_ready")
-	db, err := start(ctx, s.opts, s.path)
+	db, err := start(ctx, s.opts, s.backing)
 	timing.Mark(ctx, "startup_returned")
 	return db, err
 }
 
-// Close retains explicit destinations and removes only this handle's temp root.
+// Close releases owned backing after admitted startups. It retains explicit destinations.
+// Successfully started children remain usable after Close.
 func (s *Snapshot) Close() error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -99,8 +101,9 @@ func (s *Snapshot) Close() error {
 		return s.closeErr
 	}
 	s.closed = true
+	s.closeErr = s.backing.Close()
 	if s.temporary != "" {
-		s.closeErr = os.RemoveAll(s.temporary)
+		s.closeErr = errors.Join(s.closeErr, os.RemoveAll(s.temporary))
 	}
 	return s.closeErr
 }

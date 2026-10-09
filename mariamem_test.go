@@ -189,8 +189,18 @@ func TestSnapshotOwnership(t *testing.T) {
 			if !db.Closed() {
 				t.Fatal("source not consumed")
 			}
-			if _, err := stored.Validate(snap.Path(), db.build); err != nil {
+			if explicit {
+				if _, err := stored.Validate(snap.path, db.build); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if entries, release, err := snap.backing.Acquire(db.build); err != nil {
 				t.Fatal(err)
+			} else {
+				if len(entries) != 2 {
+					t.Fatal(entries)
+				}
+				release()
 			}
 			if snap.opts.NativeDir != db.opts.NativeDir {
 				t.Fatal("fork options not inherited")
@@ -204,7 +214,7 @@ func TestSnapshotOwnership(t *testing.T) {
 			if err := snap.Close(); err != nil {
 				t.Fatal(err)
 			}
-			_, err = os.Stat(snap.Path())
+			_, err = os.Stat(snap.path)
 			if explicit && err != nil || !explicit && !os.IsNotExist(err) {
 				t.Fatalf("ownership: %v", err)
 			}
@@ -375,7 +385,7 @@ func TestConcurrentForkCloseOwnership(t *testing.T) {
 			if err := os.WriteFile(marker, []byte("preserved"), 0600); err != nil {
 				t.Fatal(err)
 			}
-			s := &Snapshot{path: path, opts: Options{NativeDir: "unused"}}
+			s := &Snapshot{backing: &stored.Owned{}, path: path, opts: Options{NativeDir: "unused"}}
 			if temporary {
 				s.temporary = root
 			}
@@ -467,7 +477,7 @@ func TestConcurrentForkCloseOwnership(t *testing.T) {
 }
 
 func TestSequentialForkReleasesReadLock(t *testing.T) {
-	s := &Snapshot{path: t.TempDir(), opts: Options{NativeDir: "unused"}}
+	s := &Snapshot{backing: &stored.Owned{}, path: t.TempDir(), opts: Options{NativeDir: "unused"}}
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 	for i := 0; i < 2; i++ {
@@ -497,7 +507,7 @@ func TestPublicForkTimingRetainsPreparationFailureAndNestedScopes(t *testing.T) 
 	t.Setenv("MARIAMEM_TIMING_DIR", t.TempDir())
 	traces := map[string]timing.Trace{}
 	ctx := timing.WithRecorder(context.Background(), func(trace timing.Trace) { traces[trace.Operation] = trace })
-	snapshot := &Snapshot{path: t.TempDir(), opts: Options{NativeDir: t.TempDir()}}
+	snapshot := &Snapshot{backing: &stored.Owned{}, path: t.TempDir(), opts: Options{NativeDir: t.TempDir()}}
 	db, err := snapshot.Fork(ctx)
 	if err == nil || db != nil {
 		t.Fatal("missing native input unexpectedly started", db, err)

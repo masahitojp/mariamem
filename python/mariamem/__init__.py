@@ -59,40 +59,51 @@ class Database:
         host_binary, runtime, module = (resolved[key] for key in ("host_binary", "runtime", "module"))
         self._options = dict(host_binary=host_binary, query_timeout=query_timeout,
                              startup_timeout=startup_timeout, shutdown_timeout=shutdown_timeout)
-        if snapshot is not None:
-            snapshot = Snapshot.open(snapshot.path if isinstance(snapshot, Snapshot) else snapshot)
-        mark("snapshot_validated")
-        self._temporary = tempfile.TemporaryDirectory(prefix="mariamem-")
+        imported_snapshot = None
+        self._temporary = None
+        self._log = None
+        self._reader = None
         self._logs = ""
-        if log_path is None:
-            log_path = Path(self._temporary.name) / "host.log"
-        self.log_path = Path(log_path).absolute()
-        self.log_path.parent.mkdir(parents=True, exist_ok=True)
-        try:
-            self._log = self.log_path.open("xb")
-        except BaseException:
-            self._temporary.cleanup()
-            raise
         argv = [str(Path(host_binary).absolute()), "--query-timeout", f"{query_timeout}s",
                 "--startup-timeout", f"{startup_timeout}s", "--shutdown-timeout", f"{shutdown_timeout}s"]
-        if snapshot is not None:
-            argv += ["--snapshot", str(snapshot.path)]
-        mark("host_spawn_begin")
         try:
-            self._process = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                                             stderr=self._log, text=True, encoding="utf-8", bufsize=1)
-        except OSError as exc:
-            self._log.close()
-            self._temporary.cleanup()
-            raise HostError(f"Host launch failed: {argv[0]}; install the matching platform wheel/native bundle and check executable permissions. Cause: {exc}", code="host_start", stage="host_launch", closed=True) from exc
-        except BaseException:
-            self._log.close()
-            self._temporary.cleanup()
+            # A path is an import boundary; a handle retains its already-validated
+            # backing. Delay imports until here so all pre-launch failures clean up.
+            if snapshot is not None and not isinstance(snapshot, Snapshot):
+                imported_snapshot = snapshot = Snapshot.open(snapshot, host_binary=host_binary)
+            mark("snapshot_acquired")
+            self._temporary = tempfile.TemporaryDirectory(prefix="mariamem-")
+            if log_path is None:
+                log_path = Path(self._temporary.name) / "host.log"
+            self.log_path = Path(log_path).absolute()
+            self.log_path.parent.mkdir(parents=True, exist_ok=True)
+            self._log = self.log_path.open("xb")
+            mark("host_spawn_begin")
+            launcher = snapshot._spawn if snapshot is not None else subprocess.Popen
+            self._process = launcher(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                     stderr=self._log, text=True, encoding="utf-8", bufsize=1)
+        except BaseException as exc:
+            if self._log is not None:
+                self._log.close()
+            if self._temporary is not None:
+                self._temporary.cleanup()
+            if isinstance(exc, OSError):
+                raise HostError(f"Host launch failed: {argv[0]}; install the matching platform wheel and check host executable permissions and the log destination. Cause: {exc}",
+                                code="host_start", stage="host_launch", closed=True) from exc
             raise
+        finally:
+            if imported_snapshot is not None:
+                try:
+                    imported_snapshot.close()
+                except BaseException:
+                    if hasattr(self, "_process"):
+                        self._dispose()
+                    raise
         mark("host_spawn_returned")
-        self._reader = threading.Thread(target=self._read, daemon=True)
-        self._reader.start()
         try:
+            reader = threading.Thread(target=self._read, daemon=True)
+            reader.start()
+            self._reader = reader
             ready = self._receive(startup_timeout + 15)
             if ready.get("event") == "error":
                 error = ready.get("error", {})
@@ -213,8 +224,20 @@ class Database:
             finally:
                 self._dispose()
 
-    def snapshot(self, destination=None, *, rollback=False, timeout=120):
-        """Cold snapshot. Success ends this DB; precondition rejection keeps it alive."""
+    def snapshot(self, *, rollback=False, timeout=120):
+        """Fix this database as a temporary baseline; success ends this DB."""
+        return self._snapshot(None, rollback=rollback, timeout=timeout)
+
+    def snapshot_to(self, path, *, rollback=False, timeout=120):
+        """Fix and persist a baseline at a new path; success ends this DB.
+
+        The artifact remains after the returned handle is closed. Its reuse,
+        regeneration and deletion are the caller's responsibility.
+        """
+        return self._snapshot(Path(path), rollback=rollback, timeout=timeout)
+
+    def _snapshot(self, destination, *, rollback, timeout):
+        """Capture fixed files; precondition rejection preserves the source DB."""
         if not isinstance(timeout, (int, float)) or not 0 < timeout < float("inf"):
             raise ValueError("timeout must be positive and finite")
         if not isinstance(rollback, bool):
@@ -249,12 +272,13 @@ class Database:
                 raise
             self._dispose()
             try:
-                saved = Snapshot.open(destination)
+                saved = (Snapshot._created(destination, self._options, temporary)
+                         if temporary is not None
+                         else Snapshot.open(destination, host_binary=self._options["host_binary"]))
             except BaseException:
                 if temporary:
                     temporary.cleanup()
                 raise
-            saved._temporary = temporary
             saved._options = self._options.copy()
             return saved
 
@@ -274,7 +298,8 @@ class Database:
             except subprocess.TimeoutExpired:
                 self._process.kill()
                 self._process.wait(timeout=5)
-        self._reader.join(timeout=5)
+        if self._reader is not None:
+            self._reader.join(timeout=5)
         self._process.stdout.close()
         self._log.close()
         try:
@@ -294,7 +319,17 @@ class Database:
 
 
 def start(**options):
+    """Start a disposable database, optionally from a fixed baseline."""
     return Database(**options)
+
+
+def load_snapshot(path, *, host_binary=None):
+    """Load and validate a persisted baseline without starting a database.
+
+    The returned handle owns an independent template. Closing it never removes
+    the input artifact; subsequent Forks do not reread that artifact.
+    """
+    return Snapshot.open(path, host_binary=host_binary)
 
 
 from .snapshot import Snapshot

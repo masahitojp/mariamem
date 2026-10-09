@@ -2,195 +2,178 @@
 
 **Make a real MariaDB as disposable as a test double.**
 
-mariamem starts an isolated MariaDB for a test, lets an ordinary MySQL client
-connect, and disposes of the database afterward. It runs a modified MariaDB
-guest translated to generated Go; it does not reimplement MariaDB SQL or InnoDB.
-Go hosts run in the test process; Python starts the packaged Go host process.
-Both languages have public lifecycle APIs.
+mariamem gives each test its own real MariaDB, without Docker or a separately
+managed database server. Use an ordinary MySQL driver, let the application
+commit and roll back normally, then discard the database when the test ends.
+There is no SQL imitation and no automatic transaction wrapper around tests.
 
-**Direct-linked generated Go is the default v0.4.3 runtime.** Ordinary Go
-`Start(ctx, Options{})` and Python `mariamem.start()` need no Wasmer bundle,
-NativeDir or runtime download. Legacy runtime overrides are retired; generated-Go is the only supported runtime.
-See [architecture](docs/v04-generated-go-architecture.md) and
-[historical canonical measurements](benchmarks/v04-integrated-candidate.md).
-v0.4.3 preserves controlled pure-memory32 traps and mmap-backed linear memory
-for cheaper repeated disposal.
-v0.4.3 is a release candidate; the installation commands below target the
-artifacts that will be published after exact-source CI qualification. See [release notes](release/NOTES-v0.4.3.md)
-and [current product direction / roadmap](docs/project-status.md).
+Start fresh for light setup. When migrations or fixtures are expensive, prepare
+them once, fix that state as a Snapshot, and Fork independent databases for
+individual tests. Share the baseline, not previous tests' mutations.
 
-The testing workflow is Docker-free: each disposable database has its own server
-state. Prepare migrations/fixtures once with Snapshot, then Fork independent
-databases without adding rollback, schema-reset or data-cleanup logic to each
-test. Close client connections and owned database/snapshot handles normally.
+This checkout implements the **unreleased product-contract candidate**.
+The published Python version is `0.4.3`; the Go module uses the `v0.4.3` tag.
+The latest published release is [v0.4.3](https://github.com/masahitojp/mariamem/releases/tag/v0.4.3).
+The new `load_snapshot()` / `snapshot_to()` APIs and ownership contract below require the unreleased
+candidate; they are not available in the v0.4.3 installation.
 
-The canonical Python distribution version is `0.4.3`; the Go module uses
-the exact `v0.4.3` tag. Python wheels will be available from the matching GitHub Release.
-Supported platforms remain **macOS 15+ / Apple Silicon (arm64)** and
-**Ubuntu 24.04 LTS / x86_64**.
-PyPI publication is temporarily unavailable while account recovery is pending;
-GitHub Release wheels are the supported Python installation path for now.
-Other Linux distributions are not supported.
-The 0.x public API may change.
+## Installation
 
-Release CI tests Go 1.26.8 and Python 3.14 on macOS 15 arm64 and Ubuntu 24.04
-x86_64. Package minimums (Go 1.26.0, Python >=3.9) do not imply a tested matrix
-across all later language versions. Other platforms are neither supported nor
-validated by these release jobs.
+Supported platforms are **macOS 15+ / Apple Silicon (arm64)** and
+**Ubuntu 24.04 LTS / x86_64**. Other platforms are not supported.
+Release validation uses Go 1.26.8 and Python 3.14. Package minimums are
+Go 1.26.0 and Python 3.9; they are not a tested matrix of all later versions.
+Go 1.27.0/1.27.1 arm64 are unsupported due to
+[an upstream compiler issue](https://github.com/golang/go/issues/81036).
 
-## Python
-
-The v0.4.3 host-only wheel contains a Go host executable with generated-Go
-MariaDB linked in; no Wasmer/native bundle or Docker is needed. Use a virtual environment:
+For the currently published Python release, create a virtual environment and
+install the platform wheel. PyPI publication remains unavailable pending
+account recovery; GitHub Release wheels are the supported installation path.
 
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-```
 
-**macOS 15+ / arm64:**
-
-```sh
-python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.4.3/mariamem-0.4.3-py3-none-macosx_15_0_arm64.whl
-```
-
-**Ubuntu 24.04 LTS / x86_64:**
-
-```sh
-python -m pip install https://github.com/masahitojp/mariamem/releases/download/v0.4.3/mariamem-0.4.3-py3-none-linux_x86_64.whl
-```
-
-For the SQL example below and pytest fixtures, install the `test` extra using a
-PEP 508 direct reference instead of the plain command above:
-
-```sh
 # macOS arm64
 python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.3/mariamem-0.4.3-py3-none-macosx_15_0_arm64.whl'
-# Ubuntu x86_64
+
+# Ubuntu x86_64: use this instead
 python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.3/mariamem-0.4.3-py3-none-linux_x86_64.whl'
 ```
 
-The extra installs PyMySQL and pytest tools. Use the wheel rather than a Git
-source install: it contains the required platform host executable. Once PyPI
-publication becomes available, installation is expected to simplify to
-`pip install mariamem`; PyPI distribution has not been abandoned.
+The `test` extra supplies PyMySQL and pytest tools. Use the wheel rather than a
+Git source install: it includes the required platform executable.
+
+For the published Go module:
+
+```sh
+go mod init example.com/mariamem-test
+go get github.com/masahitojp/mariamem@v0.4.3
+go get github.com/go-sql-driver/mysql
+```
+
+Optional release audit assets can be downloaded separately; they are not needed
+for ordinary startup:
+
+```sh
+gh release download v0.4.3 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.3-corresponding-source.tar.gz'
+```
+
+## Start fresh
+
+Fresh means a new database in its initial state. For small fixtures it is
+usually the simplest choice.
 
 ```python
 import mariamem
 import pymysql
 
-with mariamem.start() as server:
-    with pymysql.connect(**server.connection_info()) as conn:
-        with conn.cursor() as cursor:
-            cursor.execute("CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB")
-            cursor.execute("INSERT INTO items VALUES(1)")
-            conn.commit()
-            cursor.execute("SELECT id FROM items")
-            assert cursor.fetchone() == (1,)
+with mariamem.start() as db:
+    with pymysql.connect(**db.connection_info()) as conn:
+        with conn.cursor() as cur:
+            cur.execute("CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB")
+            cur.execute("INSERT INTO items VALUES(1)")
+        conn.commit()
+        with conn.cursor() as cur:
+            cur.execute("SELECT id FROM items")
+            assert cur.fetchone() == (1,)
 ```
 
-The installed package also provides pytest fixtures for independent databases;
-see the [Python guide](docs/python.md).
+The application may use its own connections and commit normally. Close those
+connections before disposing of the database.
 
-## Go
+## Prepare once, isolate each test
 
-The module requires Go **1.26.0+**; canonical validation uses **1.26.8**.
-Go 1.27.0/1.27.1 arm64 are unsupported due to an upstream compiler regression
-(see [known limitations](#current-limits)). Add the exact released module:
+Run migrations and SQL fixtures through your normal driver, then create a
+Snapshot. Successful Snapshot creation ends the source database.
 
-```sh
-mkdir mariamem-example
-cd mariamem-example
-go mod init example.com/mariamem-example
-go get github.com/masahitojp/mariamem@v0.4.3
+```python
+with mariamem.start() as setup_db:
+    with pymysql.connect(**setup_db.connection_info()) as conn:
+        with conn.cursor() as cur:
+            cur.execute("CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB")
+            cur.execute("INSERT INTO items VALUES(1)")
+        conn.commit()
+    setup_db.wait_disconnected()
+
+    with setup_db.snapshot() as baseline:
+        with baseline.fork() as first:
+            # Starts with items(1). This test may insert, delete or change schema.
+            pass
+        with baseline.fork() as second:
+            # Still starts with items(1), regardless of first's changes.
+            pass
 ```
 
-The normal API needs no native path:
+A Snapshot is a fixed schema/data baseline, not a running database or SQL dump.
+Each Fork starts a new mutable database. Closing a child leaves the baseline
+available for later children. A modified child can create a new Snapshot; it
+never updates the original baseline.
 
-```go
-db, err := mariamem.Start(ctx, mariamem.Options{})
+The installed pytest plugin provides a function-scoped database and connection
+information. Expensive baseline preparation can be shared; mutable database
+state is isolated per test. See the [Python guide](docs/python.md) for fixture
+scopes and preparation examples, or the [Go guide](docs/go.md) for Go usage.
+
+## Reuse expensive preparation across runs
+
+Normally use `db.snapshot()` and let its context own the baseline.
+`db.snapshot_to(path)` additionally saves the fixed baseline at that path:
+
+```python
+with mariamem.start() as setup_db:
+    # Your migration/import/fixture code; commit and close all SQL connections.
+    setup_db.wait_disconnected()
+    with setup_db.snapshot_to("./prepared") as baseline:
+        with baseline.fork() as db:
+            pass
+
+# A later run: acquire the baseline without starting a database.
+with mariamem.load_snapshot("./prepared") as baseline:
+    with baseline.fork() as db:
+        pass
 ```
 
-Generated Go is ordinary module source compiled by the consumer's `go build`.
-Each DB runs directly in the caller with fresh runtime/thread/TLS/FD and private
-writable filesystem state. Normal startup does not provision an executable,
-spawn a guest subprocess or resolve/download a Wasmer bundle. Legacy `Options.NativeDir`, `MARIAMEM_NATIVE_DIR` and
-`MARIAMEM_RUNTIME=wasmer` inputs now fail explicitly. Remove them when moving
-from a historical Wasmer-based release.
+The destination must not already exist. Saved baselines are advanced reusable
+artifacts tied to the compatible MariaDB build. Keep their migration, fixture
+and source inputs reproducible. mariamem does not decide when to invalidate,
+regenerate or delete them. Closing a loaded baseline does not delete its source.
 
-Source/provenance review assets can be downloaded separately;
-they are not required for ordinary startup:
+Creation/loading completely validates the baseline and takes ownership of the
+state used by children. Later changes to a saved source cannot affect that
+owned baseline. Fork does not reread all contents for validation each time;
+damage arising in owned storage after acquisition is not guaranteed to be
+detected on every Fork.
 
-```sh
-gh release download v0.4.3 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.3-provenance.json' \
-  --pattern 'mariamem-0.4.3-corresponding-source.tar.gz'
-```
+## Important limits
 
-## Performance and resource limits
+- Close driver connections and DB/baseline handles normally. Context managers
+  and Go cleanup functions make those boundaries explicit.
+- Close clients before Snapshot creation; active operations and unresolved
+  transactions are rejected unless rollback is explicitly requested.
+  Busy/transaction precondition rejection leaves the source available;
+  successful capture ends it.
+- Multiple connections and normal commit/rollback are supported. Current
+  session capacity is 16; excess connections get recoverable MySQL error 1040.
+  This is not a permanent capacity or parallel-throughput guarantee.
+- Server-side prepared statements are unsupported.
+- Interrupted active SQL invalidates that database. Close it and start or fork
+  another. Forced reclamation of hung execution is not guaranteed.
+- This is a test database, not a production service or security boundary.
+  Saved baselines contain your test data; treat sensitive data accordingly.
+- Resource use and the Fresh/prepared crossover depend on the workload.
+  Large scans remain query work even when preparation is reused.
+- The 0.x API may change. See [candidate migration notes](release/NOTES-v0.4.4.md).
 
-Fixed Apple M1 / 16 GiB / macOS 27.0.1 arm64 / Go 1.26.8 measurements:
+You do not need runtime implementation knowledge to use these APIs.
+[Architecture](docs/v04-generated-go-architecture.md) explains the current
+implementation and technical limitations;
+[project status](docs/project-status.md) records current state and roadmap;
+[historical measurements](benchmarks/v043-characterization.md) preserve evidence.
 
-| Boundary | Wasmer reference p50 | v0.4 candidate p50 / p95 |
-| --- | ---: | ---: |
-| Start → first SQL | 308.5 ms | 38.4 / 593.7 ms |
-| prepared Fork → COUNT | 288.7 ms | 104.6 / 251.6 ms |
-| Snapshot | 404.6 ms | 399.9 / 570.8 ms |
-| ×16 CPU | 9.463 CPU-sec | 2.814 / 2.954 CPU-sec |
-| SQLAlchemy100 Fork | 43.142 s | 20.430 / 20.705 s |
-
-Thirty Start/Snapshot/Fork trials, ten scaling trials and three ORM suites per
-mode; no slow runs removed. These are reference-machine observations, not
-hardware-independent guarantees or Python end-to-end startup timings.
-Snapshot preallocation reduced diagnostic TotalAlloc by **69.6%**. Snapshot
-median is approximately unchanged versus Wasmer; its p95 is slower. Start's p95
-includes observable approximately one-second startup tails.
-
-Prepared ×16 physical footprint was **3664.7 MiB p50**; incremental footprint
-was **197.4 MiB per DB p50**. Immediate post-Close physical accounting remains
-high and is distinct from reachable Go heap. It is not claimed harmless or
-immediately reclaimable. See [canonical boundaries and identities](benchmarks/v04-integrated-candidate.md)
-and [memory-lifetime attribution](benchmarks/v04-snapshot-memory-lifetime.md).
-
-## Current limits
-
-- The full generated guest is not Go `-race` clean: **GENERAL SHARED-MEMORY MODEL
-  WORK REQUIRED**. No suppression is used; focused handwritten/runtime race
-  tests remain enabled. See the [investigation](benchmarks/direct-link-race-scope.md).
-- Go 1.27.0/1.27.1 arm64 are unsupported due to upstream issue
-  [#81036](https://github.com/golang/go/issues/81036), `LDPSW: constant is not in pool`.
-  An upstream-fixed toolchain has been verified; no mariamem workaround is used.
-- Multiple SQL clients can use one database up to the guest's session capacity
-  (16 in the current guest). An additional connection receives a
-  recoverable MySQL 1040 error; slots are reusable after guest close acknowledgement.
-  This capacity is not a permanent API guarantee. Session variables, temporary
-  tables and transactions are independent; parallel queries do not imply a
-  throughput-scaling guarantee. Normal pools need no one-connection workaround.
-- A query timeout or client context cancellation during SQL execution invalidates
-  that database instance. Forced reclamation of non-cooperative in-process guest
-  execution and hard failure containment are not guaranteed. Close it and start or
-  fork another; Go callers can
-  inspect `db.Err()` with `errors.Is(err, mariamem.ErrUnusable)` and, for a host
-  deadline, `errors.Is(err, context.DeadlineExceeded)`. Server-side prepared
-  statements are not supported.
-- Snapshots are cold: close client connections first, then wait for disconnect.
-  Unfinished transactions must be resolved before snapshotting. A successful
-  snapshot ends its source database. Temporary snapshots are
-  removed when closed; explicit destinations are retained.
-- The 0.x API may change. Native support is macOS 15+ arm64 and
-  Ubuntu 24.04 LTS / x86_64; other platforms are not supported.
-- The prepared RSA keys are public, non-secret test material. Default grant
-  bypass is unchanged; this is not production credential provisioning or a
-  claim of full public account/grant authentication support.
-- Tested ORM coverage includes SQLAlchemy 2.x and GORM 1.x dogfood suites; this
-  does not promise compatibility with every framework version or migration
-  workload. Broader consumer coverage and resource work follow evidence of
-  Disposable isolation's practical value; see the [roadmap](docs/project-status.md).
-
-Project code is [GPL-2.0-only](LICENSE); bundled components keep their own
-licenses and notices in [NOTICE](NOTICE) and
-[THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES). The guest is derived from
-[shyim/lite4mariadb](https://github.com/shyim/lite4mariadb) and MariaDB Server.
-The testing API is informed by
-[shibukawa/pgmem](https://github.com/shibukawa/pgmem). This is an independent
-project.
+Project code is [GPL-2.0-only](LICENSE); components retain their own licenses in
+[NOTICE](NOTICE) and [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES). The guest derives
+from [shyim/lite4mariadb](https://github.com/shyim/lite4mariadb) and MariaDB Server.
+The original testing API was informed by [shibukawa/pgmem](https://github.com/shibukawa/pgmem);
+mariamem's product contract is defined independently.

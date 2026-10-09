@@ -1,251 +1,133 @@
 # mariamem project status
 
-This document owns the current product hypothesis, released architecture and
-roadmap. Detailed experiments belong in linked reports; implementation tasks
-belong in issues. Version themes define direction, not implementation approval.
+This document owns current state and future direction. The
+[user guides](../README.md) own usage, [architecture](v04-generated-go-architecture.md)
+owns current HOW, [decisions](decisions/snapshot-product-contract.md) own
+continuing product constraints, and reports preserve historical evidence.
+Version themes are direction; they are not release approval.
 
-## 1. Product hypothesis / current architecture
+## Product contract
 
-> mariamem should make a real MariaDB cheap to create, safe to throw away,
-> and cheap to reclaim.
+mariamem provides disposable real MariaDB databases for tests. Each test normally
+owns one mutable DB, uses normal connections and commits/rollbacks, then discards
+the DB. Expensive migrations/fixtures may be prepared once and reused as a fixed
+Snapshot baseline. What is shared is the initial state, not previous tests'
+mutations. Fork creates an independent mutable DB; a modified child can create
+a new baseline without changing its parent.
 
-The product hypothesis is **Disposable isolation**: fresh-instance isolation can
-be cheap enough that users choose disposal over cleanup discipline. It moves
-reset responsibility from test code into the database lifecycle, reducing
-rollback/truncate/schema-reset discipline, test-to-test state leakage and failure
-cleanup burden. Clients and owned DB/Snapshot handles still require normal Close.
-Simpler tests and reviews, including tests written by coding agents, remain a
-hypothesis rather than a demonstrated AI productivity claim.
+Normal user entry points are acquisition functions and test-per-database fixtures.
+Successful Snapshot consumes its source; rejected busy/transaction preconditions
+preserve it. Close boundaries remain explicit.
 
-mariamem runs real MariaDB SQL/InnoDB for Go/Python integration tests. v0.4.0
-provides evidence for cheaper creation and ordinary isolated disposal. The
-released v0.4.2 adds evidence for cheap reclamation across bounded
-sustained generations, with exact-source release acceptance. Hard failure
-containment is not guaranteed. The guest derives from `shyim/lite4mariadb`; GPL
-corresponding source and upstream notices remain required.
+Persisted baselines are advanced derived artifacts. mariamem does not manage
+cache freshness, regeneration or deletion. Diagnostics do not define the normal
+Snapshot lifecycle. These are product choices independent of reference-project
+APIs. See the [adopted contract](decisions/snapshot-product-contract.md).
 
-Normal Go `mariamem.Start(ctx, mariamem.Options{})` directly links generated-Go
-MariaDB into the consumer process. Generated Go is ordinary module source/build
-input. Normal startup does not provision a per-DB executable, spawn a guest
-subprocess, download/discover Wasmer or require NativeDir/cache. Python's
-host-only platform wheel runs the same linked guest inside its packaged Go host.
-The v0.4.3 integration retires explicit legacy overrides; generated-Go is
-the only supported runtime.
+## Published baseline: v0.4.3
 
-```text
-Build: MariaDB / WASIX → pinned WASM intermediate → wasm2go → generated Go
-Go: consumer → Go API / host → MySQL wire → linked generated-Go MariaDB
-Python: Python API → packaged Go host → MySQL wire → linked generated-Go MariaDB
-                                                     ↓
-                                          WASIX compatibility layer
-                                                     ↓
-                                       isolated / prepared database files
-```
+[v0.4.3](https://github.com/masahitojp/mariamem/releases/tag/v0.4.3) is released
+from `dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20`.
+Generated-Go is the only supported production runtime; live Wasmer, bundle
+resolution/provisioning and native executable packaging are retired.
+Historical tags/reports retain that evidence, not a supported second runtime.
 
-**WASM is a build intermediate.** Each DB reconstructs fresh execution/thread/
-TLS/FD state and private writable files. Snapshot/Fork reuses prepared files,
-not ready heaps, live workers or waiter state; no Go process fork is used.
-Successful Snapshot consumes its source, precondition rejection keeps it usable,
-and children remain independent. Normal Close is idempotent; ordinary SQL errors
-and idle disconnects leave a DB usable. Current session capacity is 16, not a
-permanent API or throughput guarantee. See [architecture](v04-generated-go-architecture.md).
+Snapshot captures cold prepared files and Fork starts fresh MariaDB execution.
+No running heap/threads/TLS/locks/stacks are cloned. OS private file mappings
+provide page-level CoW; no custom CoW filesystem or Unix fork is implemented.
 
-Supported scope is macOS15+ arm64 and Ubuntu24.04 x86_64. Canonical acceptance
-uses Go1.26.8/Python3.14; package minimums do not imply a broad tested matrix.
-The 0.x API may change.
+The v0.4.3 characterization found per-Fork inventory/hash verification accounted
+for roughly 53–62% of ready latency. The large COUNT cost was repeated scan work,
+not an unexplained first-SQL penalty. Snapshot export and broad scans are distinct
+costs. See [characterization](../benchmarks/v043-characterization.md),
+[release baseline](../benchmarks/v043-release-baseline.md) and
+[release notes](../release/NOTES-v0.4.3.md).
+These historical measurements are not v0.4.4 performance results.
 
-## 2. Released v0.4.0 milestone
+Earlier released milestones are retained as evidence:
+[v0.4.0](../release/NOTES-v0.4.0.md) generated-Go integration,
+[v0.4.1](../release/NOTES-v0.4.1.md) distribution cleanup, and
+[v0.4.2](../release/NOTES-v0.4.2.md) disposable memory lifecycle.
 
-[v0.4.0](https://github.com/masahitojp/mariamem/releases/tag/v0.4.0) was published
-on October 3, 2026 from `39537e9bb2fbbc28315e1ff672960ad734a9e399`.
-[Release CI](https://github.com/masahitojp/mariamem/actions/runs/37109036059)
-passed both platforms, aggregate guard, publication and both public smokes.
-Go source/module, host-only Python wheels, corresponding GPL source, notices,
-provenance and hashes are published. PyPI remains unavailable; use Release wheels.
+## v0.4.4 — Product contract cleanup, implementation candidate
 
-Generated-Go/direct-link became the normal runtime, removing the normal Wasmer/
-native-bundle dependency. **Cheap to create improved materially**: Start, Fork
-and parallel CPU improved against the fixed Wasmer reference. Snapshot
-preallocation recovered the migration regression; slower tails remain recorded
-in the reports. This milestone is released and complete, but does not establish
-cheap reclamation across sustained generations.
+The product audit and maintainer decisions are complete. Implementation aligns
+ownership, language/pytest surfaces and documentation:
 
-Compatibility was preserved: core SQL/transactions/constraints, auth,
-CLIENT_FOUND_ROWS, sessions/MaxSessions, reconnect, repeated/concurrent lifecycle
-and Snapshot/Fork fixture/write/schema isolation pass. External acceptance
-includes **SQLAlchemy44/44** and **GORM32/32**, including repeated AutoMigrate.
-Directory-FD identity/rename-name-reuse, MemFS grow/truncate and focused
-handwritten/runtime race regressions remain covered.
+- Full validation at creation/import, followed by ownership of the exact backing
+  used by Fork; no full content rehash on each Fork.
+- Python `load_snapshot(path)` as normal persisted-baseline acquisition.
+- Python `snapshot()` is temporary-only; `snapshot_to(path)` fixes and persists
+  at creation time. The old `snapshot(path)` write form is removed. Go retains
+  creation-time persistence through `SnapshotOptions.Destination`.
+- Removal of mutable class-sharing fixtures and public Snapshot metadata hooks.
+- User contract separated from architecture, continuing decisions and history.
 
-For exact boundaries, p50/p95, slow runs and source identities, see
-[canonical integrated measurements](../benchmarks/v04-integrated-candidate.md),
-[Wasmer reference](../benchmarks/v04-baseline.md),
-[consumer build measurements](../benchmarks/direct-link-consumer-experience.md) and
-[release notes](../release/NOTES-v0.4.0.md). Historical readiness/migration audits
-are evidence, not pending release work or a second roadmap.
+The accepted integrity boundary excludes guaranteed detection on every Fork of
+silent media corruption arising after ownership. Supported operations do not
+mutate backing. External source edits/deletion after import cannot affect owned
+Snapshots. The resource cost is approximately one read-only FD per prepared file
+for the Snapshot lifetime.
 
-## 3. Known limitations
+The earlier OwnedPrepared spike supplies feasibility evidence, not release
+acceptance. Production correctness/lifecycle, both-platform qualification,
+FD scaling and production performance remain separate review gates. Do not carry
+spike percentages into release claims. No release is authorized by this document.
+See [unreleased notes](../release/NOTES-v0.4.4.md).
 
-- **Full generated guest is not Go `-race` clean.** The investigation verdict is
-  **GENERAL SHARED-MEMORY MODEL WORK REQUIRED**. Conflicts are not claimed
-  harmless; signature counts are not independent bug counts. No race suppression
-  or generated function/address patches are used. Full-guest `-race` is not a v0.4 release gate;
-  focused handwritten/runtime race checks remain mandatory. Preserve the
-  [race census and reduced reproducers](../benchmarks/direct-link-race-scope.md).
-- **Forced query-timeout / hard failure containment is not guaranteed.** Normal
-  cooperative Close passes; the retained forced-timeout diagnostic fails its
-  cleanup deadline. Non-cooperative in-process execution cannot currently be
-  forcibly reclaimed. Ordinary-error acceptance does not resolve this limitation.
-- **Resource accounting remains boundary-specific.** The accepted v0.4.2 candidate
-  removes repeated 2 GiB Go backing allocation and explicitly releases linear
-  memory after cooperative worker join. Go filesystem/metadata heap remains
-  GC-managed; live heap, RSS and OS physical accounting are different measures.
-  The earlier [Snapshot lifetime investigation](../benchmarks/v04-snapshot-memory-lifetime.md)
-  remains historical evidence. No GC/FreeOSMemory policy was added.
-- **Go1.27.0/1.27.1 arm64 are unsupported** because of upstream compiler issue
-  #81036 (`LDPSW: constant is not in pool`). An upstream-fixed toolchain was
-  verified previously; no mariamem compiler/generated-source workaround is used.
-- **Approximately one-second startup tails remain observable.** Earlier tracing
-  established legal guest-side condition-variable behavior; the latest campaign
-  does not prove the cause of each individual slow run. No timeout shortening or
-  forced wakeups suppress the tail.
-- **Wasmer is retired in the v0.4.3 candidate.** No supported product runtime
-  selects Wasmer. Historical reports/pins remain references; exact-source release
-  qualification and publication remain pending.
+No automatic cache management, new shared fixture, naming change, diagnostics
+API, guest upgrade or broad class redesign is included. A v0.4.5 theme should
+emerge only from a coherent issue supported by validation, not be created in
+advance.
 
-## 4. v0.4.1 — Distribution polish
+## Supported scope and limitations
 
-**Make the generated-Go distribution match the actual direct-link architecture.**
-[v0.4.1](https://github.com/masahitojp/mariamem/releases/tag/v0.4.1) is released.
-It removed unused platform executable images and directly related dead metadata,
-preserving explicit legacy fallback, Python host-only packaging and
-corresponding source/notices/provenance.
+- macOS 15+ arm64 and Ubuntu 24.04 x86_64. Canonical acceptance uses Go 1.26.8
+  and Python 3.14; minimum package versions do not imply a broad tested matrix.
+- Full generated guest is not Go race-detector clean. Preserve the
+  [race census](../benchmarks/direct-link-race-scope.md); focused handwritten
+  checks do not prove general race correctness.
+- Forced timeout/hard-failure containment is not guaranteed. Normal cooperative
+  cleanup and non-cooperative reclaim are distinct boundaries.
+- Approximately one-second startup tails remain observable; do not suppress
+  them or infer their cause from earlier individual traces.
+- Go 1.27.0/1.27.1 arm64 are unsupported due to upstream compiler issue #81036.
+- Physical footprint, RSS and reachable heap are different resource measures.
+  The v0.4.2 lifecycle releases linear memory after joined workers; filesystem
+  metadata remains GC-managed.
+- The 0.x API may change. Corresponding guest source, licenses, notices and
+  reproducible generation remain required.
 
-The completed experiment measured comparable local complete module zips of
-roughly **115 MiB → 31 MiB (~73% reduction)** with unchanged normal generated
-MariaDB code and passing consumer/package smoke. See the
-[distribution report](https://github.com/masahitojp/mariamem/blob/022011d724b6114a842b0996ed358dbb2f2d4c95/benchmarks/v041-distribution-cleanup.md).
-The exact distribution candidate passed [both-platform Release CI verify](https://github.com/masahitojp/mariamem/actions/runs/37211034305);
-publication is complete. No mmap or unrelated runtime change was included.
+## v0.5.0 — Stable guest
 
-## 5. v0.4.2 — Disposable memory lifecycle
+Select and migrate to a deliberate stable/LTS MariaDB release, refreshing
+compatible guest/WASIX/toolchain inputs with reproducible generation.
+No target version is selected here. Rerun SQL/protocol/auth/sessions/lifecycle,
+Snapshot/Fork/isolation and consumer compatibility. Repeat the full shared-memory
+race census on changed inputs; a guest upgrade is not assumed to fix it.
+Measure a new performance/resource baseline.
 
-**Make repeated create/use/Close cycles remain cheap in a long-lived process.**
-The human-approved production candidate preserves released pure-memory32 semantics
-and uses mmap on macOS arm64 / Ubuntu 24.04 x86_64. Shared memory still starts at
-256 MiB, grows without relocating its base, and has a 2 GiB maximum. Generic
-non-wrapping, width-aware bounds checks and atomic alignment produce controlled
-WASM traps; host imports see the logical range. Linear memory is released after
-cooperative worker join, including tested initialization/startup/guest-failure
-paths and repeated Close.
+## v0.6.0 — Dogfood and fixture ergonomics
 
-Native contract, focused race and product/ORM acceptance pass on both platforms.
-Bounded macOS create/use/Close and Snapshot/Fork measurements show materially
-lower sustained CPU/latency and plateauing resources, with a modest accepted
-fresh-start correctness cost. See the
-[accepted candidate report](https://github.com/masahitojp/mariamem/blob/dc939de87087cadf229f017c1a5942496aae45da/benchmarks/v042-production-candidate.md).
-[v0.4.2](https://github.com/masahitojp/mariamem/releases/tag/v0.4.2) is released
-from `3e394d5c2b18a618957a25f48434181fe9c08334`.
-Memory64, non-cooperative forced termination, Fork optimization and Wasmer
-retirement are outside this release.
+Use real consumer/workload evidence, including Django, Alembic/migrations,
+metadata-heavy and dbt-like workloads. Retain SQLAlchemy/GORM regression anchors.
+Evaluate actual preparation, per-test isolation, resource and failure costs.
 
-In or around v0.4.2, compare **mariamem fresh**, **mariamem Snapshot/Fork**,
-**Testcontainers fresh**, and **shared real MariaDB + reset/rollback** under
-repeated disposable workloads. Include fixture/migration preparation, amortization
-and failure cleanup, not only one-shot startup. Define concurrency, disk/resource
-budgets and stop conditions before runs; measure generation latency/CPU, live
-heap, RSS/physical footprint, FDs and goroutines. Keep different isolation
-contracts explicit. Existing [suite comparisons](../benchmarks/practical-suite-comparison.md)
-are reference evidence, not acceptance of a new memory implementation.
+New run-wide baseline fixture ergonomics are deferred here. Existing session
+fixtures remain worker-local under xdist. Do not promise new framework/platform
+compatibility or introduce automatic cache policy before use-case evidence.
 
-## 6. v0.4.3 — Architecture consolidation and characterization
+## Development discipline
 
-The release candidate retires live Wasmer execution, NativeDir/bundle resolution,
-cache/provisioning, legacy executable packaging and legacy release gates.
-**generated-Go is the only supported production runtime.** Legacy selectors are
-rejected; historical reports/tags and disabled reference tooling remain, not a
-supported second runtime. Required guest/converter/source licenses remain.
-See the [retirement review](../benchmarks/v043-retirement-current.md).
+Keep **Explore → Challenge → Human decision → Implement → Verify**.
+Verification scope follows the changed boundary; explain a concrete dependency
+before broadening. See [development](development.md#local-verification).
 
-Snapshot captures cold prepared files; Fork starts a fresh MariaDB runtime.
-Prepared contents use private file-backed mappings (`MAP_PRIVATE`), allowing
-OS page-level CoW. No running heap/threads/TLS/locks/stacks are cloned, no custom
-CoW filesystem is implemented, and mariamem Fork is not Unix `fork()`.
-Metadata, dirty pages, anonymous linear memory and InnoDB state are child-owned;
-OS sharing is not a public memory-usage guarantee.
+Experiments are disposable by default. Preserve compact measurements, reports,
+hashes and reproduction inputs rather than recreatable caches, completed
+worktrees/builds or source copies. Completion includes cleanup and a retained-path
+audit. See the [workspace policy](experiment-workspace.md).
 
-Measured Fork→ready includes roughly **53–62% inventory/hash validation**, about
-**1 ms mapping**, and about **35 ms minimal server initialization**. Nested
-InnoDB/plugin/open timers overlap and must not be added independently. Validation
-is an integrity design cost; these measurements do not authorize its removal.
-The 100 MiB COUNT cost is a recurring broad scan through a 16 MiB InnoDB buffer
-pool, not hidden Fork-only initialization: Fresh is comparable and immediate
-second COUNT remains slow. Snapshot bulk export/copy/hash and COUNT scan/read/
-synchronization are different mechanisms. See the
-[characterization and guidance](../benchmarks/v043-characterization.md).
-
-Small/light setup often favors Fresh; expensive migrations/business fixtures can
-be amortized with Snapshot/Fork. Large parallel prepared workloads gain isolated
-mutable children and OS sharing of clean pages, while workload reads still cost.
-These are measured guidance, not permanent crossover/performance promises.
-No Snapshot API, ownership or validation optimization is selected in this release.
-Product-validation comparisons and future optimization require separate evidence;
-AI test/review benefits remain a hypothesis. The [final generated-Go-only baseline](../benchmarks/v043-release-baseline.md)
-records the bounded canonical campaign. Exact-final-source artifact and platform
-qualification belongs to the one-shot release operation.
-
-## 7. v0.5.0 — Stable guest
-
-Move MariaDB from the current alpha lineage to a deliberately selected
-**stable/LTS release**, refreshing compatible guest/WASIX/toolchain inputs as
-needed and preserving reproducible generation. No target version is selected
-here. Prefer doing this after architecture consolidation so the upgrade does not
-need to maintain both generated-Go and legacy Wasmer paths.
-
-Rerun SQL/protocol/auth/session/lifecycle, Snapshot/Fork/isolation and consumer
-compatibility. Rerun the full shared-memory race census and reduced patterns on
-the new guest/toolchain; an upgrade is not assumed to fix the known race set.
-Record a new performance/resource baseline rather than carrying old results
-across changed inputs.
-
-## 8. v0.6.0 — Real workload breadth
-
-Expand actual consumer/workload evidence: **Django**, **Alembic/migrations**,
-metadata-heavy clients and dbt-like workloads. Retain SQLAlchemy/GORM as
-regression anchors. Use real preparation, isolation, migration and failure costs
-to decide whether further Fork/resource optimization is justified. Do not promise
-compatibility before running the consumers on supported platforms.
-
-## 9. Maintainer / tooling direction
-
-Experiment workspaces should themselves be disposable. Preserve compact reports,
-JSON/CSV evidence, checksums, selected unique profiles and reproduction inputs.
-Recreatable caches and completed build/worktree state are disposable; regeneration
-cost alone is not a KEEP reason. Experiment completion includes cleanup and
-verification of retained state. Use explicit disk budgets/free-space guards and
-resolve unexplained multi-GiB residue as cleanup debt. See the
-[workspace policy](experiment-workspace.md).
-
-Script repeated benchmark mechanics: workload/trials, fresh-process boundaries,
-environment capture and comparable baselines. Turn repeated deterministic
-workflows into repository skills where useful; hypotheses and product decisions remain
-human/model work. Audit migration-only tests/gates/docs and release toil while
-preserving current product coverage and exact-source → immutable-artifact →
-external-acceptance → guard invariants, including corresponding source/notices.
-These are maintainer practices, not extra v0.4.1 runtime scope.
-
-## 10. Longer-term options
-
-Runtime-state CoW/immutable Snapshot ownership, runtime sharing, stronger hard failure containment,
-higher session capacity and broader platforms remain evidence-driven options.
-They are not selected version goals. The selected mmap lifecycle design and its
-validated limits belong to the v0.4.2 section above. Ready-heap/live-worker reentry
-was rejected for
-v0.4; preserve the [reentry boundary](../benchmarks/reentry-feasibility.md),
-[CoW evidence](../benchmarks/cow-feasibility.md) and
-[prepared-files findings](../benchmarks/prepared-clone-feasibility.md).
-
-Toward 1.0, stabilize lifecycle/isolation/compatibility contracts through workload
-evidence. Keep **Explore → Challenge → Human decision → Implement → Verify**.
-This document defines direction; issues own concrete tasks and linked reports
-own detailed experiments. Version themes do not authorize implementation.
+CI owns exact-source build, acceptance and release qualification after handoff;
+a submitted verification run does not publish or approve a release.
+See [release workflow](releasing.md).

@@ -5,11 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"path/filepath"
 	"sync"
 
 	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/prepared"
 )
 
 var libraryMode sync.Once
@@ -17,7 +17,7 @@ var libraryMode sync.Once
 // StartInstance owns fresh execution/FS state. Completion includes all guest
 // workers, descriptor cleanup, snapshot export and prepared mapping release.
 // It does not serialize execution or forcibly kill non-cooperative Go workers.
-func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string, guestTiming bool) <-chan error {
+func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool) <-chan error {
 	// CLI diagnostic entrypoints are separate command modes, not library calls.
 	libraryMode.Do(func() { diagnostic = false })
 	done := make(chan error, 1)
@@ -48,8 +48,8 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer, restore string
 		w.SetStderr(stderr)
 		var maps *base.PreparedFiles
 		defer func() { err = errors.Join(err, w.CloseDescriptors(), maps.Close()) }()
-		if restore != "" {
-			maps, err = base.MapPreparedFiles(fs, filepath.Join(restore, "data"), "mariadb")
+		if restore != nil {
+			maps, err = base.MapPreparedHandles(fs, restore, "mariadb")
 			if err != nil {
 				return
 			}

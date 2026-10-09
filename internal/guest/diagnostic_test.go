@@ -11,7 +11,7 @@ import (
 )
 
 func TestCompiledIdentityFailure(t *testing.T) {
-	_, err := startLinked(context.Background(), "wrong-identity", "", "", io.Discard)
+	_, err := startLinked(context.Background(), "wrong-identity", "", nil, io.Discard)
 	if err == nil || !strings.Contains(err.Error(), "identity mismatch") {
 		t.Fatal(err)
 	}

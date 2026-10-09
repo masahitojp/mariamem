@@ -1,0 +1,174 @@
+{
+  "status": "LOCAL PASS; BOTH-PLATFORM CI AND PERFORMANCE PENDING",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "go": "go1.26.8",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "main_sha": "c8bd25a56e9d5221abaf40b2c98102bd60c217ae",
+  "released_v043_sha": "dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20",
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "branch": "experiment/v044-product-contract",
+  "candidate_reference": "containing Git commit; exact-SHA CI results recorded separately",
+  "checks": [
+    {
+      "name": "scripts/verify.py check",
+      "result": "PASS",
+      "python_passed": 338,
+      "python_skipped": 24,
+      "python_subtests": 6,
+      "includes": [
+        "Go tests/compile",
+        "Go vet with canonical generated exception",
+        "generated inventory/identity",
+        "public source"
+      ]
+    },
+    {
+      "name": "handwritten race",
+      "result": "PASS",
+      "packages": [
+        ".",
+        "./internal/snapshot",
+        "./internal/generatedgo/code/base",
+        "./internal/generatedgo",
+        "./internal/guest",
+        "./internal/host",
+        "./internal/mysqlwire"
+      ],
+      "full_guest_race_claim": false
+    },
+    {
+      "name": "Go integration/default",
+      "result": "PASS",
+      "command": "MARIAMEM_TEST_DEFAULT=1 GOMAXPROCS=2 go test -p 1 -tags=integration ./tests/gointegration ./tests/godefault -count=1 -timeout=4m"
+    },
+    {
+      "name": "Python owned real host",
+      "result": "PASS",
+      "tests": 18,
+      "mutation_generations": 35,
+      "parallel_workers": 4,
+      "lifecycle_fds": [
+        5,
+        5
+      ],
+      "lifecycle_threads": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Python multi-client / normal Close",
+      "result": "PASS",
+      "tests": 2,
+      "default_runtime_opt_in": true
+    },
+    {
+      "name": "Snapshot lifecycle",
+      "result": "PASS",
+      "checks": 49,
+      "evidence": "snapshot-acceptance.json"
+    },
+    {
+      "name": "benchmark gate/reducer tools",
+      "result": "PASS",
+      "tests": 3
+    },
+    {
+      "name": "release docs/version",
+      "result": "PASS",
+      "release_doc_tests": 17
+    },
+    {
+      "name": "guide references/examples",
+      "result": "PASS",
+      "markdown_files": 10,
+      "python_examples": 9,
+      "go_examples": "gofmt parsed"
+    },
+    {
+      "name": "low-FD single-baseline child lifecycle",
+      "result": "PASS",
+      "soft_limit": 256,
+      "children": 4,
+      "evidence": "fd-python-limit256-forks-local.json"
+    },
+    {
+      "name": "final public-source boundary",
+      "result": "PASS",
+      "files": 656
+    }
+  ],
+  "fd_fixture": {
+    "tables": 64,
+    "prepared_files": 137,
+    "prepared_bytes": 148977486,
+    "manifest_sha256": "2689ac11e7c48c73e8a018e1d7a7868db1f64c8b8cbee1cce3b79ed76cc921d3",
+    "notes": "actual local candidate FD scaling; not production performance comparison"
+  },
+  "known_preexisting_limit": {
+    "case": "Close during active SLEEP(0.2) on Fresh",
+    "baseline": "FAIL cleanup timeout",
+    "candidate": "FAIL cleanup timeout",
+    "both_process_pipes_reader_reclaimed": true,
+    "release_wheel_sha256": "69234460677270bf086c86dfefac319e9bce371fa0a37105c1719a40a28af480"
+  },
+  "pending": [
+    "exact-candidate native macOS and Ubuntu installed-wheel/integration qualification",
+    "production performance comparison with exact released v0.4.3"
+  ],
+  "reproduction": {
+    "environment": "Go 1.26.8; task-owned GOCACHE/GOPATH/GOTMPDIR/TMPDIR; Python venv; MARIAMEM_TEST_HOST points at freshly built candidate host",
+    "canonical": [
+      "python scripts/verify.py check",
+      "python scripts/verify.py integration"
+    ],
+    "ci": "python scripts/validate_product_candidate.py --candidate-sha FULL_CANDIDATE_SHA --workspace /tmp/mariamem-product-validation --disposable-checkout --phase all"
+  },
+  "local_binaries_sha256": {
+    "candidate-host": "a1b9a97353e44a51deb5c51afda5374564a7580af2e0a3b8fe882c6a8b080b74",
+    "candidate-bench": "a20df37c628cf6951b35d0716a317923aebd9ad4271303e7fa264e63c93681b1",
+    "process_cost": "6e33b458b0df219d4090e6d2047aa5365f0e6ae76e400aa118f409b065f9d0d8"
+  },
+  "production_source_sha256": {
+    "snapshot.go": "5e135aa71fbad550b919ba97d69947afe63dc86e5bfb9d40f719cad0cf47507f",
+    "mariamem.go": "1add1cee0deead5eef468c7b0f63f65ab3547fb7614c4532b79204994298b845",
+    "internal/snapshot/owned.go": "98f0ac27ae821654b45879cec92de05d1a4feaaa2132fb4b66c1b56a357b6437",
+    "internal/generatedgo/code/base/owned_prepared.go": "7ae03ac0aeae14505faae3e151649eb3f683ca6d63e3313109972560e3a9c388",
+    "internal/generatedgo/runtime_instance.go": "f968359a8bd53f192c12ff3f891e032bed947550909b47482d0c00cfe0bc7a17",
+    "internal/host/server.go": "c734a67d56841788dc20e31c3394f827c1acca1a59f033de43717309d26b3b0a",
+    "cmd/mariamem-host/main.go": "f54d5eb118842c206427bdfbf60c0fdb044f6accaed432dbaaf19a428e377d15",
+    "python/mariamem/__init__.py": "7235dad0ddc5de698be49acd1ad04c79b82eec2954ca51624296e520258e067c",
+    "python/mariamem/snapshot.py": "7d4f32d0d73bc325fbfe913afe2e175260953ded279fac3fa14d269a79968ec6",
+    "python/mariamem/pytest_plugin.py": "9fec70b9cd61c4994588c059c3e3e0af8dd483f888119afdf4a0fd43c15540de"
+  },
+  "evidence_provenance": {
+    "active-close-baseline.json": {
+      "original_sha256": "d672cafe6aa1c190ec05478690003ded7f5c8720e86eb973d38315dccaf07879",
+      "normalization": "workspace path replaced with ${EXPERIMENT_ROOT}"
+    },
+    "active-close-candidate.json": {
+      "original_sha256": "68d9efb38fe6583a1a529e94adc34d269022405f83171c98f90b6fe91f74b894",
+      "normalization": "workspace path replaced with ${EXPERIMENT_ROOT}"
+    },
+    "fd-go-local.json": {
+      "original_sha256": "e64dbcf7b3b4d2381afecedc82cd23b0e69aa4bdb8e8c87d40ac2701c4748120",
+      "normalization": "workspace path replaced with ${EXPERIMENT_ROOT}"
+    },
+    "fd-python-local.json": {
+      "original_sha256": "f2d09921337dd0b4a0e5b0ae5dcb254bc2e76e87bdccef5aa3663a3da61a612e",
+      "normalization": "workspace path replaced with ${EXPERIMENT_ROOT}"
+    },
+    "fd-python-limit256-local.json": {
+      "original_sha256": "611e2fa4600bf5cf6a9b109d03ad56286ca336e932fe132726837c6e836fea39",
+      "normalization": "workspace path replaced with ${EXPERIMENT_ROOT}"
+    },
+    "fd-python-limit256-forks-local.json": {
+      "original_sha256": "326871a77683db3464711f8422d3ff47a60a2c4206a90fbeceb6d5dc74ef1375",
+      "normalization": "workspace path replaced with ${EXPERIMENT_ROOT}"
+    },
+    "snapshot-acceptance.json": {
+      "original_sha256": "8c0dab1bf1ebbb8eb1b2bf520d39960356990f8feb31633c437aab0c9e9c5ffa",
+      "normalization": "disposable absolute run path removed"
+    }
+  }
+}

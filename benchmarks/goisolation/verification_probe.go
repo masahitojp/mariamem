@@ -14,6 +14,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/masahitojp/mariamem"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
 	"github.com/masahitojp/mariamem/internal/snapshot"
 )
@@ -114,32 +115,43 @@ func (r *runner) verificationRun() (err error) {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
 	defer cancel()
-	saved, err := resourceSnapshot(ctx, db)
+	root, err := os.MkdirTemp("", "mariamem-verification-")
+	if err != nil {
+		return err
+	}
+	defer func() { err = errors.Join(err, os.RemoveAll(root)) }()
+	snapshotPath := filepath.Join(root, "prepared")
+	if err = db.WaitDisconnected(ctx); err != nil {
+		return err
+	}
+	saved, err := db.Snapshot(ctx, mariamem.SnapshotOptions{Destination: snapshotPath})
 	if err != nil {
 		return err
 	}
 	defer func() { err = errors.Join(err, saved.Close()) }()
-	manifest, err := snapshot.Validate(saved.Path(), runtimekind.GuestSHA256)
+	manifest, err := snapshot.Validate(snapshotPath, runtimekind.GuestSHA256)
 	if err != nil {
 		return err
 	}
 	snapshotItems := []hashItem{}
 	for name, entry := range manifest.Entries {
 		if entry.Kind == "file" {
-			snapshotItems = append(snapshotItems, hashItem{filepath.Join(saved.Path(), "data", filepath.FromSlash(name)), *entry.Bytes, entry.SHA256})
+			snapshotItems = append(snapshotItems, hashItem{filepath.Join(snapshotPath, "data", filepath.FromSlash(name)), *entry.Bytes, entry.SHA256})
 		}
 	}
 	sort.Slice(snapshotItems, func(i, j int) bool { return snapshotItems[i].Path < snapshotItems[j].Path })
 	r.verificationEnvironment = map[string]any{"snapshot_items": snapshotItems,
+		"boundary":                 "external prepared-state validation component of acquisition; not Fork-time validation or complete copy/import latency",
+		"snapshot_mode":            "explicit diagnostic output plus independent owned backing",
 		"snapshot_inventory_count": len(manifest.Entries), "algorithm": "Go standard crypto/sha256 via production snapshot.Digest",
 		"gomaxprocs": runtime.GOMAXPROCS(0), "godebug": os.Getenv("GODEBUG"),
 		"goamd64_env": os.Getenv("GOAMD64"),
 		"go_target":   environmentCommand("go", "env", "GOAMD64", "GOARM64", "GOOS", "GOARCH"),
-		"filesystem":  environmentCommand("df", "-h", saved.Path()),
+		"filesystem":  environmentCommand("df", "-h", snapshotPath),
 		"mounts":      environmentCommand("mount")}
 	if runtime.GOOS == "linux" {
 		r.verificationEnvironment["cpu"] = environmentCommand("lscpu")
-		r.verificationEnvironment["filesystem_type"] = environmentCommand("df", "-T", saved.Path())
+		r.verificationEnvironment["filesystem_type"] = environmentCommand("df", "-T", snapshotPath)
 	} else {
 		r.verificationEnvironment["cpu"] = environmentCommand("sysctl", "hw.model", "hw.ncpu", "hw.optional.arm.FEAT_SHA256", "hw.optional.arm.FEAT_SHA512")
 	}
@@ -150,7 +162,7 @@ func (r *runner) verificationRun() (err error) {
 		items     []hashItem
 	}
 	conditions := []condition{
-		{"snapshot_full", 1, func() error { _, e := snapshot.Validate(saved.Path(), runtimekind.GuestSHA256); return e }, snapshotItems},
+		{"snapshot_full", 1, func() error { _, e := snapshot.Validate(snapshotPath, runtimekind.GuestSHA256); return e }, snapshotItems},
 	}
 	for _, dataset := range []struct {
 		name  string
@@ -189,6 +201,6 @@ func (r *runner) verificationRun() (err error) {
 		}
 	}
 	// Recheck the full production contracts after all experiments.
-	_, err = snapshot.Validate(saved.Path(), runtimekind.GuestSHA256)
+	_, err = snapshot.Validate(snapshotPath, runtimekind.GuestSHA256)
 	return err
 }

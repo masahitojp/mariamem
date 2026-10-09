@@ -1,316 +1,173 @@
-# v0.4 generated-Go default runtime
+# Current mariamem architecture
 
-Ordinary Go `Start(ctx, Options{})` directly links the generated guest into the
-consumer process; generated Go is a normal Go dependency/build input. WASM is a
-build intermediate. The published v0.4.0 runtime's functional acceptance and canonical
-measurements are recorded in the [integrated candidate](../benchmarks/v04-integrated-candidate.md);
-the [direct-link baseline](../benchmarks/v04-direct-link-baseline.md) is the preserved pre-integration reference.
+This document explains HOW the unreleased v0.4.4 candidate implements the
+[user contract](../README.md). It is not a user prerequisite.
+The [continuing product decision](decisions/snapshot-product-contract.md)
+records WHY; historical experiments are evidence rather than current requirements.
 
-**Known v0.4 limitation:** the full generated guest is not Go `-race` clean.
-The [investigation](../benchmarks/direct-link-race-scope.md) found a general shared-memory
-adaptation problem, not 149 independent bugs or harmless reports. No suppression
-is used. The full-guest diagnostic is not a v0.4 release gate; focused handwritten
-FD/filesystem/thread/TLS/futex race tests remain enabled. The
-[current roadmap](project-status.md) owns the v0.4.2 memory-contract gate and
-v0.5 guest/toolchain race-census follow-up; a backing change does not settle the
-broader adaptation problem.
-This decision does not establish production race correctness or forced reclamation of hung
-in-process execution.
+## Execution and distribution
 
-## Integrated v0.4.0 fixes
-
-Linked execution closes its host response reader after the reader joins and before
-completion notification; Close releases that FD even while a closed Database or
-Snapshot source handle remains retained. No finalizer/GC dependency is introduced.
-Cold filesystem copying pre-sizes a private exclusive destination with existing
-ftruncate, using its stable source size before the 64 KiB copy loop. Empty/sparse
-contents, offsets, grow/truncate, directory identity, rename/name reuse, independent
-Fork state and shutdown are verified. This is allocation reduction, not a new runtime-state CoW mechanism or a
-Snapshot format/API change. Guest source and generated artifacts are rebuilt with
-pinned LLVM23/WASIX/wasm2go inputs; release/generated-go-build.json and
-release/generated-go-translation.json record the new canonical input provenance.
-Substantial immediate post-Close physical accounting persists independently of
-live Go-object ownership. No production GC, mmap or allocator tuning is added.
-
-## Released v0.4.2 memory lifecycle
-
-The accepted design scopes correctness to released pure memory32. Generic
-non-wrapping effective addresses and width-aware logical bounds checks cover
-scalar/SIMD/atomic accesses; atomics retain natural-alignment checks and unused
-trapping loads remain observable. Root/worker guest failures become controlled
-runtime errors with cooperative join.
-
-On macOS arm64 and Ubuntu 24.04 x86_64, each instance reserves a stable 2 GiB
-anonymous mapping, initially enables 256 MiB, and enables additional zero-filled
-ranges before publishing logical growth. Host imports receive logical views.
-Close releases the mapping exactly once after workers join; failed unmap retains
-retryable ownership. No Go-heap 2 GiB backing, GC policy, runtime-state CoW or Snapshot format
-change is introduced. Native contract/product acceptance and bounded lifecycle
-results are in the [accepted report](https://github.com/masahitojp/mariamem/blob/dc939de87087cadf229f017c1a5942496aae45da/benchmarks/v042-production-candidate.md).
-Final release-artifact verification is still required. Memory64 and
-non-cooperative forced termination remain outside the guarantee.
-
-## Integration contract
-
-Architecture-decision source: `8b368a79eb3a0070f84168b1c70a1e2896e4a5ca`.
-Readiness audit source: `a06773e5296be5cc3c3657e9e48785fba7bd6d25`.
-Accepted architecture inputs:
-
-| Evidence | Exact SHA |
-| --- | --- |
-| Wasmer v0.4 baseline | `e3224817ccfe28add8e386f7d56d425898bf644a` |
-| generated-Go feasibility / final wire-tail characterization | `965da8c9d2702e6ecdd830d684e8463d31e94311` |
-| pre-init CoW | `8658310fce7745c7a8df04bc0aed7d7a6ce5ce14` |
-| prepared-files clone | `5676f901239c5ba4935c10061b8895216c212505` |
-| ready-state reentry stop decision | `8b368a79eb3a0070f84168b1c70a1e2896e4a5ca` |
-
-Intended model: **generated-Go execution + prepared-files reuse + fresh execution
-state**. This is an integration task, not another architecture spike. All normal
-SQL, transaction, auth, session, lifecycle and Snapshot/Fork behavior must remain.
-No ready heap, live worker, TLS or futex-waiter restoration; no Go process fork.
-
-## Build-time path
-
-Pinned MariaDB/lite4mariadb sources and canonical guest overlays → pinned WASIXCC
-0.4.7 / pinned LLVM23.1.0 WASM profile / WASIX sysroot / Binaryen133 → legacy-EH WASM intermediate → pinned
-goccy/wasm2go fork and reproducible generator patches → generated Go → platform
-ordinary Go module build input and a host-only Python wheel. v0.4.1 removed
-unused encoded executable images from the normal distribution.
-
-The legacy encoding is an internal compiler bridge. Exceptions, pthreads, shared
-memory and MariaDB semantics remain enabled. Preserve the proven compatible-O2
-post-link feature set; do not disable exceptions or transform exceptions to aborts.
-Wasmer7.4.2 does not accept this intermediate encoding. Validation must instead
-combine static WASM/import checks, generated-code compilation, reduced runtime
-contract tests and observable product acceptance against the production control.
-This is not same-runtime or byte-identical validation.
-
-Required production build provenance includes input/overlay hashes, exact tool
-versions and archives, compiler/linker/post-link settings, intermediate WASM hash,
-converter source and patch hashes, generated source inventory, Go version/settings,
-target OS/architecture and final binary checksums. Generated code is isolated from
-hand-written runtime code and regenerated automatically, with no manual edits or
-developer-local tools. Both macOS arm64 and Ubuntu24.04 x86_64 must be accepted.
-Existing MariaDB/lite4mariadb GPL-derived obligations remain; converter, Go,
-WASIX/libc, wolfSSL and other linked components require source/notices review.
-
-## Runtime path
-
-**generated-Go is the default v0.4 runtime. WASM changed from a runtime format to
-a build intermediate.** Generated Go executes MariaDB; the WASIX compatibility
-layer implements its imports. Normal startup does not discover Wasmer, consult
-native bundle caches, download a bundle or verify Wasmer provenance.
+Generated-Go is the only supported production runtime. The MariaDB guest is
+translated at build time and compiled as ordinary Go source. WASM is a build
+intermediate; no Wasmer runtime or native-bundle provisioner is used.
 
 ```text
-Build time:
-MariaDB/WASIX → pinned legacy-EH WASM → pinned wasm2go → generated Go source
+Build:
+MariaDB / WASIX → pinned WASM intermediate → wasm2go → generated Go
 
-Go runtime:
-consumer → public Go API/host → MySQL wire → directly linked generated-Go MariaDB
-Python runtime:
-Python API → packaged Go host process → MySQL wire → linked generated-Go MariaDB
-                                                     ↓
-                                        WASIX compatibility layer
-                                                     ↓
-                                     isolated/prepared database files
+Go:
+consumer → public API / host → directly linked MariaDB
+
+Python:
+wrapper → packaged Go host process → linked MariaDB
+                                      ↓
+                              WASIX compatibility layer
+                                      ↓
+                             per-database MemFS state
 ```
 
-Go production `Start(ctx, Options{})` directly creates a generated module in the
-consumer process. Generated Go is a normal Go dependency/build input. It does
-not decode, write, checksum or execute an embedded native image. Python retains
-one packaged host process per DB; that host directly runs its generated module,
-without another guest subprocess. Python host artifact verification remains.
-Execution architecture is an internal implementation detail; a child-process
-failure-containment boundary is not a public API contract.
+Go runs the guest inside the consumer process. Python has one packaged host per
+DB and no long-lived Snapshot manager. The host process is not a promise of
+general hard-failure containment. Ordinary startup needs no runtime download.
+Python host executable identity remains checked.
 
-Normal shutdown joins guest workers and closes descriptors and prepared mappings.
-Non-cooperative/hung execution cannot be forcibly reclaimed inside a Go process;
-arbitrary worker panic/abort containment remains a separate architecture decision,
-not a new guarantee. Historical force-kill tests are reference evidence only.
+Build/source provenance includes pinned inputs and overlays, toolchains,
+intermediate identity, converter patches, translated inventory and final
+platform artifacts. See [guest reproducibility](v04-guest-reproducibility.md),
+[licenses](v04-license-inventory.md) and [source provenance](guest-source-provenance.md).
+Required guest/sysroot/notices obligations remain even though Wasmer is retired.
 
-Generated-Go is the only current runtime on this v0.4.3 candidate branch.
-Legacy NativeDir/environment and Python runtime/module/cache overrides are
-rejected explicitly. Native/AOT bundle resolution, cache/materialization and
-Wasmer process startup are removed. Historical tags preserve that architecture.
+## Cold baseline acquisition
 
-Each instance receives independent guest linear memory, Module/function tables,
-thread agents, TLS, pthread bookkeeping, wait queues, clocks/timers, FD table,
-MemFS nodes/handles/offsets and session state. Immutable prepared database files
-may back private writable views. Growing files must become child-owned; closing
-one child cannot unmap or invalidate another child's files. Generated code is normally linked once into the consumer. No live Go runtime object is captured or cloned.
+Snapshot drains sessions, shuts down the source guest and exports committed
+database files. Success consumes the source DB; rejected active-client or
+transaction preconditions preserve it. Files are cold database state, not a
+captured running heap, thread, TLS, lock, stack or waiter.
 
-Verification covers platform identity, compiled guest identity (plus Python host executable checksums) and
-snapshot build identity, inventory and file hashes. Old Wasmer artifacts are
-usable only with their historical code, not a second current runtime.
+The private acquisition implementation is in
+`internal/snapshot/owned.go` and `python/mariamem/snapshot.py`.
 
-## Snapshot/Fork contract
+- Temporary capture: take over newly created implementation-owned output after
+  producer writers have stopped.
+- Persisted capture or external import: copy the external output into private
+  backing. Preserve expected manifest hashes; do not replace them with newly
+  calculated hashes from a possibly changed source.
+- Open backing read-only, remove ordinary path aliases, and completely validate
+  inventory, format, size, guest identity and content through retained FDs.
+- Successful acquisition retains those exact resources until Close.
+  Verification success is not a boolean cache associated with a pathname.
 
-Snapshot remains cold and consumes its source after acceptance. Keep existing
-active-client/transaction rejection and rollback option, destination ownership,
-context behavior, integrity checks and exact guest-build compatibility.
-Capture uses ordinary session drain/join and MariaDB shutdown, then committed
-files export; no running heap is retained.
+The independent copied backing makes later source replacement, truncation,
+editing or deletion irrelevant to the acquired Snapshot. Import does not edit
+the input. Persisted capture leaves the caller's requested output intact.
 
-Fork verifies the prepared snapshot and creates private writable file state,
-then initializes a fresh generated guest against that state. The child does not
-inherit live connections or transactions. Concurrent Fork and snapshot Close
-retain the current ownership/read-lock contract. Prepared-file mapping must not
-bypass Snapshot validation or change the build mismatch policy.
+Acquisition verifies the state actually used by children. It is not a complete
+security protocol against an adversary with control of the same user account
+and process resources. Silent media corruption after acquisition is explicitly
+outside the every-Fork detection contract.
 
-## Acceptance order
+## Fork and private child state
 
-First reproduce all v0.3 behavior through unchanged workloads. The previously found Aria
-schema-discovery issue is covered by passing GORM32 acceptance: do not use checkfirst=False or
-change GORM AutoMigrate to pass. Audit generated runtime contracts before moving
-shims into production. Then establish reproducible build and platform acceptance,
-bounded failure/cleanup behavior, and canonical public-boundary measurements.
-Benchmark only after correctness passes; retain the legal InnoDB ~1-second tail.
+Go pins the owned backing through startup. Python passes retained FDs and a
+handoff description to the packaged child host; the host verifies cheap
+structure/guest/read-only-descriptor constraints before accepting ownership.
+No original source pathname is reopened for Fork.
 
-If an existing feature cannot be implemented correctly with bounded changes,
-record the concrete discrepancy and stop integration. Keep the selected path
-disabled, avoid incomplete product benchmarks and report NOT READY.
+`internal/generatedgo/code/base/owned_prepared.go` creates independent MemFS
+nodes and writable `MAP_PRIVATE` mappings from these FDs. The verified object
+and the mapped object are the same backing resource. Clean file-backed pages
+may be shared by the OS; writes are private. This is OS page-level CoW, not a
+custom CoW filesystem or Unix `fork()`.
 
-## Historical integration evidence
+A child reconstructs MariaDB execution, anonymous linear memory, threads, TLS,
+FD tables, offsets, clocks and session state. No live connections or transactions
+are inherited. File growth can allocate/copy into child-owned Go storage
+(`memfs_growth.go`). Existing grow/truncate, rename/unlink and directory/file
+identity semantics remain required boundaries.
 
-The following records pre-release integration gates and selection bridges.
-[Project status](project-status.md) owns the published milestone and next decisions.
+Fork performs cheap structural/lifetime/guest checks, not full inventory-content
+rehashing. It does not guarantee rediscovery of later silent media corruption.
+Child changes never modify a parent or sibling baseline; snapshotting a changed
+child creates another independently acquired baseline.
 
-The opened-directory FD identity and quadratic MemFS Snapshot growth gates are
-fixed and regression-tested in the selected local candidate. SQLAlchemy/GORM,
-SQL/transactions/sessions/Snapshot/Fork and local cleanup checks pass. The earlier
-failed gates remain historical evidence in the candidate report. This does not
-replace platform release acceptance. The default runtime has now migrated;
-release/distribution cleanup remains a separate task.
+## Lifetime and resources
 
-### FD follow-up from 023796b9
+Snapshot Close blocks future starts and releases owned FDs after admitted startup
+operations. Already-started children hold their own mappings/resources and remain
+usable. Each child must be closed independently. Ordinary Close is idempotent.
+Failure paths must reclaim partial FDs, mappings, workers and wrapper resources.
 
-The opened-directory identity gate is now fixed in the isolated shim. Relative
-resolution retains a MemFS node and opens under the tree mutex; parent links
-follow rename and unlinked objects remain descriptor-owned. Pathname reuse
-cannot rebind an already opened directory. Close/dup/reuse includes the preopen
-entry. The same deterministic rename gate fails before and passes after the fix.
+Approximately **one read-only FD per prepared file** is retained for the Snapshot
+lifetime. Multiple Snapshots add their file counts; concurrent child startup adds
+transient descriptors. Practical limits depend on the caller's soft/hard FD
+limits and prepared schema/file inventory. Measure realistic counts rather than
+assuming data MiB predicts descriptor count. See the production review evidence
+for qualified counts/limits; no numeric capacity promise is made here.
 
-Integration has resumed with a **selected local production-like candidate**.
-`setup_candidate.py` validates the accepted generated Go/assembly inventory,
-applies bounded adaptations automatically, binds the compiled guest to its input
-module SHA256, builds the existing host and records provenance/checksums.
-Prepared cold files use independent MemFS nodes and MAP_PRIVATE views; new guest
-execution state is built each time. Join every worker before releasing mappings.
-No diagnostic I/O overhead, Wasmer execution, ready heap or live state cloning is
-included. The normal host-only manifest identifies generated-Go.
+The local candidate resource check used 64 InnoDB tables: 137 prepared files,
+so one Snapshot retained 137 FDs and sixteen retained 2,192 backing FDs.
+A Python soft limit of 256 allowed one such baseline, but a second import
+failed with EMFILE and reclaimed its partially opened files. Applications with
+low limits must budget their other descriptors and simultaneous baseline count.
+This is distinct from creating many children from one baseline. See the
+[production review](reviews/v044-implementation-review.md) for measurements and
+qualification status; both-platform CI is still pending.
 
-The generated source is now isolated under `internal/generatedgo` and selected
-by default. Source-to-WASM and generated source reproducibility are recorded in
-[v04 guest reproducibility](v04-guest-reproducibility.md). Generated-source build cost is documented separately; normal startup no longer
-provisions images. Source/notices/provenance and exact-byte Ubuntu/macOS15
-acceptance remain release gates. Local regression/benchmark evidence does not replace them. See the updated
-candidate report for public-boundary measurements and observed regressions.
+Temporary capture names and private import staging are recreatable storage and
+are removed. Explicit persisted outputs belong to the user and survive handle
+Close. Close releases child mappings after cooperative guest/worker shutdown.
 
-## Historical release preparation audit
+## Guest memory and known limits
 
-[The infrastructure/docs/test audit](v04-integration-audit.md) records retained
-API options, intended artifact migration, verification tiers and actual build/CI
-gaps at that historical migration point. The current retirement inventory is
-[Track A](../benchmarks/v043-wasmer-retirement.md). Ordinary startup needs no
-runtime directory; required guest/sysroot source and licensing remain.
+The unchanged v0.4.2 memory32 contract uses a stable 2 GiB anonymous reservation,
+initially enables 256 MiB, and grows the logical range without relocating it on
+macOS arm64 and Ubuntu x86_64. Bounds/width checks and atomic alignment preserve
+controlled guest traps. Close releases linear memory after cooperative worker
+join; Go metadata remains GC-managed. Physical accounting is not reachable heap
+and OS page sharing is not a zero-incremental-memory promise.
 
-The source-build reproducibility recipe and exact toolchain/input pins are in
-[guest reproducibility](v04-guest-reproducibility.md). This supersedes the earlier
-LLVM21 candidate build bridge; historical artifact pins remain explicit.
+The full generated guest is not Go race-detector clean. The
+[race census](../benchmarks/direct-link-race-scope.md) remains a documented general
+shared-memory problem; focused handwritten checks do not prove otherwise.
+Non-cooperative execution cannot be forcibly reclaimed in a Go process.
+Query interruption invalidates the DB but does not establish hard containment.
+No guest/version upgrade or guest race redesign is included in v0.4.4.
 
+## Qualification boundaries
 
-## Default build and regeneration
+Correctness/isolation/lifetime checks precede performance evaluation.
+Acceptance covers acquisition rejection, source detachment, sibling DML/DDL/
+growth/transaction isolation, repeat generations/orderings, concurrent startup,
+Close and failed initialization. Both macOS arm64 and Ubuntu x86_64 are required.
 
-The current Release CI contract is [generated-go-v1](releasing.md). On a fresh
-Linux arm64 build runner, `build_generated_guest.py` checksum-verifies downloaded
-tools and performs two independent source builds against the canonical guest
-identity. `regenerate_release_guest.py` repeats translation/adaptation/import in
-a disposable tree and compares every file with `internal/generatedgo`.
+Performance must measure the production implementation and exact v0.4.3 control,
+including creation/import, Fork-ready, suite SQL, cleanup, CPU and resources.
+Historical hash percentages are not measured speedups. Broad COUNT scans remain
+query cost; they must not be presented as ready latency. Measurements and pending
+CI qualification belong to the implementation review, not to an architecture
+claim of release readiness.
 
-```sh
-# Fresh canonical build host only; fixed /work and SDK locations must be empty.
-sudo -E "$(command -v python3)" scripts/build_generated_guest.py --repetitions 2
-# With transferred build/generated-release inputs on a Go1.26.8 builder:
-python3 scripts/regenerate_release_guest.py
-python3 scripts/verify_generated_runtime.py
-python3 scripts/build_alpha.py --ci-candidate
-```
+[Development verification](development.md#local-verification) defines mechanical
+check selection. No new filesystem durability or security guarantee is added.
 
-`release/generated-go-toolchain.json` pins tools/downloads;
-`release/generated-go-inputs.json` pins source/assembly/data inputs;
-`internal/generatedgo/provenance.json` pins resulting source. Generated code is
-intentionally committed and is normal consumer build input. Generator patches
-and bounded shim adaptations are applied automatically, never by manual edits.
-The historical image verifier remains in normal checks while old encoded assets
-are retained; **image regeneration is not part of the v0.4 default release path**.
+## Historical evidence
 
-The generated pure function packages retain dead structured-control fallthrough
-from the translator. `scripts/vet_generated.py` inspects each vet configuration, including dependency
-packages. Normal verification runs all vet analyzers except
-`unreachable` **only on `code/pN` generated functions**; handwritten API, host,
-WASIX/base shims and lifecycle code retain full vet. Generated code is compiled,
-checksum-verified and functionally exercised. Ordinary direct `go vet ./...`
-reports those translator diagnostics; the scoped canonical check makes this
-explicit rather than hiding other findings.
+These links preserve historical results rather than current operational recipes:
 
-Canonical guest generation is Go1.26.8. A local Go1.27.1 compiler failed in the
-large arm64 pure function package (LDPSW offset handling); do not silently change
-the build compiler. Ordinary consumers compile the generated packages as normal Go dependencies;
-Go1.27.0/1.27.1 arm64 are unsupported, as documented below.
+- [v0.4 integration](../benchmarks/v04-integrated-candidate.md):
+  generated-Go feasibility, preallocation and acceptance.
+- [v0.4.2 memory candidate](https://github.com/masahitojp/mariamem/blob/dc939de87087cadf229f017c1a5942496aae45da/benchmarks/v042-production-candidate.md):
+  disposable memory lifecycle.
+- [v0.4.3 retirement](../benchmarks/v043-retirement-current.md):
+  removal of Wasmer runtime/plumbing.
+- [v0.4.3 characterization](../benchmarks/v043-characterization.md):
+  per-Fork verification, mapping, initialization and recurring scans under the
+  earlier path-based acquisition contract.
+- [Historical integration audit](v04-integration-audit.md) and
+  [ready-runtime reentry investigation](../benchmarks/reentry-feasibility.md):
+  migration gates and rejected live-runtime reuse.
+- The pre-cleanup architecture narrative is available at the
+  [released v0.4.3 source](https://github.com/masahitojp/mariamem/blob/v0.4.3/docs/v04-generated-go-architecture.md).
 
-## Packaging follow-up
-
-The Go module contains generated source; v0.4.1 removed unused executable images.
-Host-only wheels contain neither Wasmer nor runtime WASM/AOT. Current Release CI
-verifies the generated-Go source/module and wheels on both supported platforms.
-Historical Wasmer notices remain reference material in repository source only;
-no corresponding-source or upstream notice obligation is considered removed.
-
-## Go toolchain support and regeneration
-
-Go 1.26.0/1.26.8 and upstream-fixed Go tip build the unchanged canonical generated
-source. **Go 1.27.0 and 1.27.1 on arm64 are unsupported**, due to upstream compiler
-regression [golang/go#81036](https://github.com/golang/go/issues/81036). Upstream fix
-`b3f5034b15a7a6f065e92d0617f7a473d5d9dcfa` was tested in both the reduced reproducer
-and the real direct-link consumer. No mariamem-side compiler/generated-code
-workaround is used. Toolchains containing that fix are expected to work; see the
-[consumer measurements](../benchmarks/direct-link-consumer-experience.md).
-
-`runtime_instance.go` and `code/base/runtime_cleanup.go` are handwritten,
-version-controlled ownership adapters, outside the unchanged WASM-transpilation
-inventory. Regeneration copies these ordinary source files automatically. Guest,
-converter, pins and generated provenance hashes remain unchanged.
-
-## Distribution and legacy consolidation
-
-The accepted v0.4.1 distribution candidate removes the unreferenced
-`internal/builtinruntime` package and image-only metadata/provisioning. Normal
-generated code and Python host-only packaging are preserved. Diagnostic guest
-CLI support for generated diagnostics remains internal. The v0.4.3 Track A
-candidate removes Wasmer execution/provisioning and active legacy build workflows,
-with historical reports and benchmark mechanics retained. No merge/release is
-implied; see the [retirement review](../benchmarks/v043-wasmer-retirement.md).
-
-## v0.4.3 consolidation and prepared-file sharing
-
-Generated-Go is the only supported production execution path. Wasmer runtime
-selection, bundle resolution/provisioning and native executable packaging are
-retired; historical reports and disabled reference tools remain intentionally.
-
-Snapshot exports and inventories cold prepared files. Fork validates them, then
-`MapPreparedFiles` (`internal/generatedgo/code/base/prepared_files.go`) creates
-independent MemFS nodes with `PROT_READ|PROT_WRITE`, file-backed `MAP_PRIVATE`
-views of the same prepared files. Clean pages can be OS-shared; writes are private.
-Growth beyond a view can allocate and copy into Go storage (`memfs_growth.go`).
-Close releases child mappings after guest/worker shutdown. Snapshot export and
-publication do perform eager materialization/copy/inventory/hash work.
-
-Fork constructs new MariaDB execution, anonymous linear memory, threads, TLS,
-locks and stacks. It does not clone a running runtime, implement a custom CoW
-filesystem or call Unix `fork()`. OS page-level CoW is an implementation detail,
-not a zero-incremental-memory guarantee. Filesystem metadata, modified pages and
-MariaDB/InnoDB state may remain private.
-
-Measured Fork validation dominates much of ready latency; mapping itself is
-small. Broad COUNT scans are workload cost, separate from readiness and Snapshot
-export. See [v0.4.3 characterization](../benchmarks/v043-characterization.md).
+Historic statements about no runtime-state CoW do not negate the current OS
+page CoW of private prepared-file mappings.

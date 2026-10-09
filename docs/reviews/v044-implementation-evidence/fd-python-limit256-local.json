@@ -1,0 +1,82 @@
+{
+  "label": "candidate",
+  "forks": 1,
+  "workers": 1,
+  "tables": 64,
+  "workload": "read",
+  "prepared_files": 137,
+  "prepared_bytes": 148977486,
+  "operations": [
+    {
+      "name": "import",
+      "seconds": 0.15198791702277958
+    },
+    {
+      "name": "snapshot_close",
+      "seconds": 0.0018247920088469982
+    }
+  ],
+  "resources": {
+    "before": {
+      "46190": {
+        "rss_bytes": 28950528,
+        "primary_bytes": 17760784,
+        "file_mapping_bytes": 13975552,
+        "private_bytes": null,
+        "cpu_seconds": 0.088883583,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      }
+    },
+    "imported": {
+      "46190": {
+        "rss_bytes": 31850496,
+        "primary_bytes": 20660752,
+        "file_mapping_bytes": 13975552,
+        "private_bytes": null,
+        "cpu_seconds": 0.223745792,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      }
+    },
+    "all_snapshots": {
+      "46190": {
+        "rss_bytes": 32309248,
+        "primary_bytes": 21119504,
+        "file_mapping_bytes": 13975552,
+        "private_bytes": null,
+        "cpu_seconds": 0.291636667,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      }
+    },
+    "after": {
+      "46190": {
+        "rss_bytes": 32309248,
+        "primary_bytes": 21119504,
+        "file_mapping_bytes": 13975552,
+        "private_bytes": null,
+        "cpu_seconds": 0.294729292,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      }
+    }
+  },
+  "fds_before": 3,
+  "fds_snapshot": 140,
+  "fd_limit_error": "[Errno 24] Too many open files: '${EXPERIMENT_ROOT}/temp/mariamem-import-9xrkt5l8/snapshot/data/data/test/additional_056.ibd'",
+  "fd_snapshots_requested": 16,
+  "fd_snapshots": 1,
+  "fds_all_snapshots": 140,
+  "fd_soft_limit": 256,
+  "fd_hard_limit": 9223372036854775807,
+  "suite_wall_seconds": 0.2553782089962624,
+  "suite_cpu_seconds": 0.22240300000000002,
+  "suite_cpu_scope": "RUSAGE_SELF + reaped RUSAGE_CHILDREN; includes DB hosts and counter-helper CPU; diagnostic-inclusive",
+  "parallel_resource_sampling": "before/after child loop only; no simultaneous-child peak sample",
+  "suite_operation_seconds": 0.15381270903162658,
+  "sum_of_operation_seconds": 0.15381270903162658,
+  "suite_product_seconds": 0.15381270903162658,
+  "diagnostic_overhead_seconds": 0.10156549996463582,
+  "fds_after": 3
+}

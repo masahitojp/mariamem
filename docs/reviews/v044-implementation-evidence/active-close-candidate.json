@@ -1,0 +1,17 @@
+{
+  "label": "v044-production-candidate",
+  "host_sha256": "a1b9a97353e44a51deb5c51afda5374564a7580af2e0a3b8fe882c6a8b080b74",
+  "mode": "Fresh; no Snapshot/backing",
+  "shutdown_timeout_seconds": 1,
+  "purpose": "diagnostic, not a correctness PASS gate",
+  "close_result": "FAIL",
+  "error": "guest cleanup timed out: context deadline exceeded",
+  "close_seconds": 11.011030666995794,
+  "query": {
+    "error": "(2013, 'Lost connection to MySQL server during query')"
+  },
+  "process_reaped": true,
+  "pipes_closed": true,
+  "reader_joined": true,
+  "logs": "mariamem: guest cleanup timed out: context deadline exceeded\n"
+}

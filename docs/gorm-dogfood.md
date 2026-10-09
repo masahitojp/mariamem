@@ -1,5 +1,9 @@
 # GORM disposable-database dogfood
 
+> Historical consumer evidence. Runtime/bundle references below describe the
+> measured source at that time. Current usage is in the [Go guide](go.md); current
+> architecture and release state are in [project status](project-status.md).
+
 ## Result and scope
 
 Ordinary GORM CRUD works with a disposable mariamem DB per test, without

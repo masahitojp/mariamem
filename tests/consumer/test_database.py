@@ -35,23 +35,22 @@ def test_snapshot_defaults():
         db.wait_disconnected()
         with db.snapshot() as saved:
             assert db.closed
-            path = saved.path
             with saved.fork() as a, saved.fork() as b:
                 execute(a.connection_info(), "INSERT INTO items VALUES(1)")
                 a.wait_disconnected()
                 assert execute(a.connection_info(), "SELECT COUNT(*) FROM items") == ((1,),)
                 assert execute(b.connection_info(), "SELECT COUNT(*) FROM items") == ((0,),)
-        assert not path.exists()
         with pytest.raises(ValueError, match="closed"):
             saved.fork()
 
 
 def test_explicit_snapshot_persists(tmp_path):
+    path = tmp_path / "saved"
     with mariamem.start() as db:
-        with db.snapshot(tmp_path / "saved") as saved:
-            path = saved.path
-    with mariamem.Snapshot.open(path) as reopened:
-        with reopened.fork() as db:
+        with db.snapshot_to(path):
+            pass
+    with mariamem.load_snapshot(path) as reopened:
+        with mariamem.start(snapshot=reopened) as db:
             assert execute(db.connection_info(), "SELECT 7") == ((7,),)
     assert path.exists()
 
@@ -71,9 +70,10 @@ def test_plugin_isolation(mariamem_connection_info, number):
             assert cur.fetchone() == (number,)
 
 
-class TestShared:
-    def test_create(self, mariamem_class_connection_info):
-        execute(mariamem_class_connection_info, "CREATE TABLE shared(id INT)")
-
-    def test_reuse(self, mariamem_class_connection_info):
-        assert execute(mariamem_class_connection_info, "SELECT COUNT(*) FROM shared") == ((0,),)
+class TestIndependent:
+    @pytest.mark.parametrize("value", [1, 2])
+    def test_each_method_gets_a_database(self, mariamem_connection_info, value):
+        # Both parameter instances must begin without a previous test's table.
+        execute(mariamem_connection_info, "CREATE TABLE independent(id INT)")
+        execute(mariamem_connection_info, f"INSERT INTO independent VALUES({value})")
+        assert execute(mariamem_connection_info, "SELECT id FROM independent") == ((value,),)
