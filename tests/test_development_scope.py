@@ -130,3 +130,36 @@ def test_workflow_has_no_external_runtime_receipt_dependency():
     assert 'fetch-depth: 0' in text
     assert "if: needs.scope.outputs.integration == 'true'" in text
     assert "check --scope '${{ needs.scope.outputs.check_scope }}'" in text
+
+
+def test_source_guarantees_run_before_compilation_exactly_once(monkeypatch):
+    calls = []
+    monkeypatch.setattr(verify, 'run', lambda argv, **kw: calls.append(argv))
+    monkeypatch.setattr(verify.subprocess, 'check_output', lambda *a, **kw: '/toolchain\n')
+    verify.check()
+    early = next(a for a in calls if 'pytest' in a)
+    assert set(verify.SOURCE_TESTS) <= set(early)
+    assert calls.index(early) < next(i for i,a in enumerate(calls) if a[0] == 'go')
+    broad = [a for a in calls if 'pytest' in a][-1]
+    assert 'tests' in broad
+    assert {'--ignore='+p for p in verify.SOURCE_TESTS} <= set(broad)
+    assert len(verify.SOURCE_TESTS) == len(set(verify.SOURCE_TESTS))
+    import release_preparation_checks as preparation
+    assert set(verify.SOURCE_TESTS) <= set(preparation.TESTS)
+    assert len(preparation.TESTS) == len(set(preparation.TESTS))
+
+
+@pytest.mark.parametrize('boundary', ['inventory', 'source_oracles'])
+def test_source_failure_stops_before_any_go_execution(monkeypatch, boundary):
+    calls = []
+    def run(argv, **kw):
+        calls.append(argv)
+        if (boundary == 'inventory' and 'scripts/verify_generated_runtime.py' in argv or
+                boundary == 'source_oracles' and set(verify.SOURCE_TESTS) <= set(argv)):
+            raise RuntimeError('source boundary rejected')
+    monkeypatch.setattr(verify, 'run', run)
+    monkeypatch.setattr(verify.subprocess, 'check_output',
+                        lambda *a, **kw: pytest.fail('Go environment queried after failure'))
+    with pytest.raises(RuntimeError, match='source boundary rejected'):
+        verify.check()
+    assert all(a[0] != 'go' for a in calls)

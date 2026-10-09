@@ -15,6 +15,23 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 OLD = 'example.com/mariamem-spike/generated'
 NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
+# Canonical installer ownership boundary; the verifier consumes this same list.
+HANDWRITTEN_FILES = (
+    'code/base/owned_prepared.go',
+    'code/base/owned_prepared_test.go',
+    'runtime_instance.go',
+    'runtime_instance_test.go',
+    'code/base/runtime_cleanup.go',
+    'code/base/host_memory_test.go',
+    'memory_backing_unix.go',
+    'memory_backing_other.go',
+    'memory_lifetime.go',
+    'memory_backing_test.go',
+    'memory_controlled_test.go',
+    'memory_host_test.go',
+    'code/base/memory_mapping.go',
+    'code/base/memory_mapping_test.go',
+)
 
 
 def adapt_driver(text):
@@ -90,7 +107,7 @@ def main():
         'files_sha256':inventory},indent=2)+'\n')
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.
-    for name in ('code/base/owned_prepared.go', 'code/base/owned_prepared_test.go', 'runtime_instance.go', 'runtime_instance_test.go', 'code/base/runtime_cleanup.go', 'code/base/host_memory_test.go', 'memory_backing_unix.go', 'memory_backing_other.go', 'memory_lifetime.go', 'memory_backing_test.go', 'memory_controlled_test.go', 'memory_host_test.go', 'code/base/memory_mapping.go', 'code/base/memory_mapping_test.go'):
+    for name in HANDWRITTEN_FILES:
         shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)
     print('Installed checksum-bound generated runtime:',len(inventory),'files')
 

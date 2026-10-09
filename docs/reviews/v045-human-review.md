@@ -2,6 +2,9 @@
 
 ## Recommendation
 
+The later [final stabilization review](v045-verification-economics.md) owns the
+current release-preparation recommendation; this report preserves completed P2 findings.
+
 **READY for Human Review; merge/release and Snapshot optimization remain unapproved.**
 The six [audit decisions and inventories](https://github.com/masahitojp/mariamem/blob/d7b1c0f60591843b0e72327fba7c62d26b7a3ee4/docs/reviews/development-infrastructure-audit.md)
 remain the primary input. Approved Decisions A/B are implemented in the existing
@@ -220,8 +223,8 @@ guest race redesign remain separate future questions, not additions to this rele
 **Human question: accept this infrastructure/measurement candidate for v0.4.5
 integration and subsequent release preparation, leaving Snapshot optimization deferred?**
 
-Compact evidence: [raw measurements and selected traces](v045-measurements/measurements.json),
-[crossover CSV](v045-measurements/crossover.csv), [checksums](v045-measurements/sha256.json),
+Compact evidence: [raw measurements and selected traces](../../benchmarks/v045-measurements/measurements.json),
+[crossover CSV](../../benchmarks/v045-measurements/crossover.csv), [checksums](../../benchmarks/v045-measurements/sha256.json),
 and linked P0/P1/native reports above. Orchestration/commands, binary identities,
 input SHAs, artifact manifests and dependencies are preserved in the JSON; replace
 `<repository>` with a clean checkout root and recreate task-owned scratch. No

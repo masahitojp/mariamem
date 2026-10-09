@@ -109,6 +109,8 @@ Snapshot attribution, exact binary/input identities and all retained tails.
 Its numbers are local observations, not release benchmark promises. Fresh wins
 for the measured light setup even at 32 tests; fixture preparation cost, data
 size and reuse count determine whether preparing once is worthwhile.
+The [benchmark document](../v045-measurement.md) owns final conditions, raw
+evidence and reproduction; no Snapshot optimization is adopted in v0.4.5.
 
 `main.go -lifecycle fresh|fork` executes the same deterministic fixture and SQL
 oracle for each instance. `fresh` starts and prepares every DB; `fork` prepares

@@ -75,6 +75,33 @@ varies; these are responsibility boundaries, not latency promises. Measurement
 uses OwnedPrepared's Fresh control/capture/import and process counters rather
 than the historical native/Wasmer practical-suite orchestrator.
 
+### Generated-source changes: before expensive verification
+
+The installer `scripts/generate_runtime.py` owns adaptation and the
+`HANDWRITTEN_FILES` boundary; generated `main.go` is output even though it is host
+glue. Edit the canonical recipe first. `verify_generated_runtime.py` reports actual
+changed output paths. Independent clean-installer tests derive expected handwritten
+files from repository source minus provenance, so a shared list cannot confirm
+its own omission. New glue must be carried into clean regeneration.
+
+Full `verify.py check` runs generated/inclusion/adapter, distribution-license and
+Python-mirror oracles before Go compilation and excludes those same suites from
+later pytest. For a source/provenance repair, the focused source-only check is:
+
+```sh
+python3 scripts/verify_generated_runtime.py
+python3 -m pytest tests/test_generated_runtime_inventory.py \
+  tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+```
+
+A changed provenance hash requires inspecting the content/input delta, not blindly
+refreshing license hashes or performing a fresh attribution audit by default.
+Guest/dependency/license changes require review; a justified source-only continuity
+record must retain historical audit identities. Reviewed evidence changes may also
+require distribution inventory and Python mirrors. Regeneration, runtime behavior,
+final artifacts and public distribution still have their own gates. See the
+[change-impact/economics review](reviews/v045-verification-economics.md).
+
 ### Runtime, artifact and publication responsibilities
 
 Native **Runtime qualification (v1)** uses the existing workflow file

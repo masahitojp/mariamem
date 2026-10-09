@@ -10,6 +10,11 @@ import tempfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
+# Existing source-only oracles run before generated-Go compilation. The later
+# broad pytest invocation excludes these owners, not their guarantees.
+SOURCE_TESTS = ["tests/test_generated_runtime_inventory.py",
+                "tests/test_distribution_licenses.py",
+                "tests/test_packaging_license_mirrors.py"]
 BENCHMARKS = {
     "envelope": "memory_envelope.py",
     "competitive": "testcontainers_compare.py",
@@ -44,6 +49,11 @@ def check(scope="full"):
         return
     run([sys.executable, "scripts/check_version.py"])
     run([sys.executable, "scripts/verify_generated_runtime.py"])
+    env = os.environ.copy()
+    env.pop("MARIAMEM_TEST_HOST", None)
+    env.pop("MARIAMEM_NATIVE_DIR", None)
+    env["PYTHONPATH"] = str(ROOT / "python")
+    run([sys.executable, "-m", "pytest", *SOURCE_TESTS, "-q"], env=env)
     run(["go", "test", "-p", "1", "./..."])
     # wasm2go emits dead structured-control fallthrough. Retain every other
     # analyzer there; handwritten runtime/shim/API packages retain full vet.
@@ -56,7 +66,8 @@ def check(scope="full"):
     env.pop("MARIAMEM_TEST_HOST", None)
     env.pop("MARIAMEM_NATIVE_DIR", None)
     env["PYTHONPATH"] = str(ROOT / "python")
-    run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer", "--ignore=tests/historical", "-q"], env=env)
+    run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer", "--ignore=tests/historical",
+         *("--ignore=" + path for path in SOURCE_TESTS), "-q"], env=env)
     run([sys.executable, "scripts/check_public.py"])
 
 

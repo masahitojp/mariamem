@@ -2,9 +2,11 @@
 import importlib.util
 import json
 from pathlib import Path
+import sys
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT/'scripts'))
 spec = importlib.util.spec_from_file_location('generated_runtime_inventory', ROOT/'scripts/verify_generated_runtime.py')
 verifier = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(verifier)
@@ -99,6 +101,18 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
 def test_repository_inventory_matches_committed_provenance():
     # Synthetic negative cases cannot detect an edited real generated file.
     verifier.main()
+
+
+def test_generated_edit_reports_the_file_and_does_not_bless_it(canonical):
+    (canonical/'internal/generatedgo/entry.go').write_text('changed')
+    with pytest.raises(ValueError, match='entry.go.*canonical generator/adapter'):
+        verifier.main()
+
+
+def test_generated_source_cannot_be_hidden_as_handwritten(canonical, monkeypatch):
+    monkeypatch.setattr(verifier, 'HANDWRITTEN_FILES', ('entry.go',))
+    with pytest.raises(ValueError, match='ownership overlaps'):
+        verifier.main()
 
 
 def test_pinned_driver_adapter_contains_snapshot_attribution():

@@ -78,6 +78,16 @@ Light preparation favors Fresh; expensive data preparation benefits from reuse.
 Snapshot traversal reduction is deferred, not implemented. Main merge and release
 remain human decisions, and final artifacts still require Release CI qualification.
 
+The [final verification-economics review](reviews/v045-verification-economics.md)
+keeps distinct source/runtime/artifact/publication guarantees and moves existing
+source/license/mirror checks before expensive compilation. Generated output and
+license records are unchanged; evidence trust-scope redesign is deferred to later
+Fast Feedback work. The [measurement document](../benchmarks/v045-measurement.md)
+owns exact conditions/reproduction. No Snapshot optimization is adopted.
+The [agreed v0.4.6 handoff](reviews/v046-handoff.md) covers Go persisted-baseline
+loading, comparable language documentation/examples and subsequent realistic
+Product Validation; those changes are not part of v0.4.5.
+
 ## Supported scope and limitations
 
 - macOS 15+ arm64 and Ubuntu 24.04 x86_64. Canonical acceptance uses Go 1.26.8

@@ -1,0 +1,628 @@
+{
+  "base_source": "02573816dfe37edd76df6f7400a0d05bd915637f",
+  "qualified_runtime_source": "34eaea1df86b57765a4d8b0840845a33d539065f",
+  "qualification_run": 37994377940,
+  "scope": "source-only/tooling improvement; no new runtime/artifact or speedup qualification",
+  "timing": [
+    {
+      "platform": "darwin-arm64",
+      "artifact_pin": {
+        "id": 11647207825,
+        "zip_sha256": "396513bbe5b5f8363bb3a4779e8ff8c2bdf545014bea647549ddcc46c3401818"
+      },
+      "job": {
+        "completed_at": "2026-10-09T22:00:43Z",
+        "conclusion": "success",
+        "id": 114036525974,
+        "name": "Runtime qualification \u2014 darwin-arm64",
+        "started_at": "2026-10-09T21:35:48Z",
+        "steps": [
+          {
+            "completed_at": "2026-10-09T21:35:51Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "started_at": "2026-10-09T21:35:49Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:36:00Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 2,
+            "started_at": "2026-10-09T21:35:51Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:36:01Z",
+            "conclusion": "success",
+            "name": "Freeze candidate identity and native platform",
+            "number": 3,
+            "started_at": "2026-10-09T21:36:00Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:36:03Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 4,
+            "started_at": "2026-10-09T21:36:01Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:36:03Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 5,
+            "started_at": "2026-10-09T21:36:03Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:36:07Z",
+            "conclusion": "success",
+            "name": "Install deterministic validation dependencies",
+            "number": 6,
+            "started_at": "2026-10-09T21:36:03Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T22:00:35Z",
+            "conclusion": "success",
+            "name": "Source and runtime correctness (no artifacts or benchmarks)",
+            "number": 7,
+            "started_at": "2026-10-09T21:36:07Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T22:00:37Z",
+            "conclusion": "success",
+            "name": "Upload compact decision evidence",
+            "number": 8,
+            "started_at": "2026-10-09T22:00:35Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T22:00:37Z",
+            "conclusion": "success",
+            "name": "Remove disposable scratch after interruption",
+            "number": 9,
+            "started_at": "2026-10-09T22:00:37Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T22:00:37Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 16,
+            "started_at": "2026-10-09T22:00:37Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T22:00:38Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 17,
+            "started_at": "2026-10-09T22:00:37Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T22:00:38Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 18,
+            "started_at": "2026-10-09T22:00:38Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T22:00:41Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "started_at": "2026-10-09T22:00:38Z",
+            "status": "completed"
+          }
+        ]
+      },
+      "commands": [
+        {
+          "argv": [
+            "/Library/Frameworks/Python.framework/Versions/3.14/bin/python",
+            "scripts/verify.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "name": "source-unit-checks",
+          "seconds": 587.5441290829999
+        },
+        {
+          "argv": [
+            "/Library/Frameworks/Python.framework/Versions/3.14/bin/python",
+            "scripts/verify.py",
+            "integration"
+          ],
+          "exit_code": 0,
+          "name": "runtime-integration",
+          "seconds": 856.910054125
+        }
+      ],
+      "inputs_total_seconds": 1453.323850916,
+      "stages": [
+        {
+          "stage": "source-unit-checks.log",
+          "sha256": "2b8b4945ea32c14ce343cef6111e36cc2f88e6192e5118b15014c6531bf412a2",
+          "go_package_times": [
+            {
+              "package": "github.com/masahitojp/mariamem",
+              "test_process_seconds": 0.081
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/benchmarks/goisolation",
+              "test_process_seconds": 0.024
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/artifacts",
+              "test_process_seconds": 0.009
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/generatedgo",
+              "test_process_seconds": 0.275
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/generatedgo/code/base",
+              "test_process_seconds": 1.046
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/guest",
+              "test_process_seconds": 0.01
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/host",
+              "test_process_seconds": 0.016
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/snapshot",
+              "test_process_seconds": 0.149
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/timing",
+              "test_process_seconds": 0.01
+            }
+          ],
+          "go_test_process_seconds_sum": 1.62,
+          "pytest_reported_seconds": [
+            28.14
+          ],
+          "boundary": "package times omit compiler/linker; stage lacks per-command clocks; snapshots.py has no elapsed output"
+        },
+        {
+          "stage": "runtime-integration.log",
+          "sha256": "788c7a2cd66bfe56dc756ce25ede04841aea2a06f3139fd320eda207155f4de8",
+          "go_package_times": [
+            {
+              "package": "github.com/masahitojp/mariamem/internal/generatedgo/code/base",
+              "test_process_seconds": 2.294
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/generatedgo",
+              "test_process_seconds": 1.837
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/guest",
+              "test_process_seconds": 1.091
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/host",
+              "test_process_seconds": 1.168
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/snapshot",
+              "test_process_seconds": 1.233
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/tests/gointegration",
+              "test_process_seconds": 16.746
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/tests/godefault",
+              "test_process_seconds": 4.667
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/tests/generatedmemory",
+              "test_process_seconds": 1.366
+            }
+          ],
+          "go_test_process_seconds_sum": 30.401999999999997,
+          "pytest_reported_seconds": [
+            32.54
+          ],
+          "boundary": "package times omit compiler/linker; stage lacks per-command clocks; snapshots.py has no elapsed output"
+        }
+      ],
+      "checksum_inventory_verified": true
+    },
+    {
+      "platform": "ubuntu24.04-x86_64",
+      "artifact_pin": {
+        "id": 11646798854,
+        "zip_sha256": "751a92e98a373acaaad45089faceba7eeb1877115458d0390abb6f0ae7c9640c"
+      },
+      "job": {
+        "completed_at": "2026-10-09T21:53:35Z",
+        "conclusion": "success",
+        "id": 114036525726,
+        "name": "Runtime qualification \u2014 ubuntu24.04-x86_64",
+        "started_at": "2026-10-09T21:35:40Z",
+        "steps": [
+          {
+            "completed_at": "2026-10-09T21:35:43Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "started_at": "2026-10-09T21:35:41Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:35:51Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 2,
+            "started_at": "2026-10-09T21:35:43Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:35:51Z",
+            "conclusion": "success",
+            "name": "Freeze candidate identity and native platform",
+            "number": 3,
+            "started_at": "2026-10-09T21:35:51Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:35:54Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 4,
+            "started_at": "2026-10-09T21:35:51Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:35:54Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 5,
+            "started_at": "2026-10-09T21:35:54Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:36:02Z",
+            "conclusion": "success",
+            "name": "Install deterministic validation dependencies",
+            "number": 6,
+            "started_at": "2026-10-09T21:35:54Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:53:31Z",
+            "conclusion": "success",
+            "name": "Source and runtime correctness (no artifacts or benchmarks)",
+            "number": 7,
+            "started_at": "2026-10-09T21:36:02Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:53:32Z",
+            "conclusion": "success",
+            "name": "Upload compact decision evidence",
+            "number": 8,
+            "started_at": "2026-10-09T21:53:31Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:53:32Z",
+            "conclusion": "success",
+            "name": "Remove disposable scratch after interruption",
+            "number": 9,
+            "started_at": "2026-10-09T21:53:32Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:53:33Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 16,
+            "started_at": "2026-10-09T21:53:32Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:53:33Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "number": 17,
+            "started_at": "2026-10-09T21:53:33Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:53:33Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "number": 18,
+            "started_at": "2026-10-09T21:53:33Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-09T21:53:33Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "started_at": "2026-10-09T21:53:33Z",
+            "status": "completed"
+          }
+        ]
+      },
+      "commands": [
+        {
+          "argv": [
+            "/opt/hostedtoolcache/Python/3.14.8/x64/bin/python",
+            "scripts/verify.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "name": "source-unit-checks",
+          "seconds": 419.87000688
+        },
+        {
+          "argv": [
+            "/opt/hostedtoolcache/Python/3.14.8/x64/bin/python",
+            "scripts/verify.py",
+            "integration"
+          ],
+          "exit_code": 0,
+          "name": "runtime-integration",
+          "seconds": 622.941127696
+        }
+      ],
+      "inputs_total_seconds": 1045.34675616,
+      "stages": [
+        {
+          "stage": "source-unit-checks.log",
+          "sha256": "d28e37676a3943910fcb91409aac42aeb58b89f9915951b9862b1d04a78451f5",
+          "go_package_times": [
+            {
+              "package": "github.com/masahitojp/mariamem",
+              "test_process_seconds": 0.014
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/benchmarks/goisolation",
+              "test_process_seconds": 0.004
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/artifacts",
+              "test_process_seconds": 0.002
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/generatedgo",
+              "test_process_seconds": 0.097
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/generatedgo/code/base",
+              "test_process_seconds": 1.018
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/guest",
+              "test_process_seconds": 0.003
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/host",
+              "test_process_seconds": 0.007
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/snapshot",
+              "test_process_seconds": 0.108
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/timing",
+              "test_process_seconds": 0.004
+            }
+          ],
+          "go_test_process_seconds_sum": 1.2570000000000001,
+          "pytest_reported_seconds": [
+            16.8
+          ],
+          "boundary": "package times omit compiler/linker; stage lacks per-command clocks; snapshots.py has no elapsed output"
+        },
+        {
+          "stage": "runtime-integration.log",
+          "sha256": "70dbb914d5e860c4748e40249de129be0bc51c5336bff3f8788bd93b6473aae9",
+          "go_package_times": [
+            {
+              "package": "github.com/masahitojp/mariamem/internal/generatedgo/code/base",
+              "test_process_seconds": 2.187
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/generatedgo",
+              "test_process_seconds": 1.635
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/guest",
+              "test_process_seconds": 1.009
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/host",
+              "test_process_seconds": 1.016
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/internal/snapshot",
+              "test_process_seconds": 1.164
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/tests/gointegration",
+              "test_process_seconds": 20.331
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/tests/godefault",
+              "test_process_seconds": 8.948
+            },
+            {
+              "package": "github.com/masahitojp/mariamem/tests/generatedmemory",
+              "test_process_seconds": 1.953
+            }
+          ],
+          "go_test_process_seconds_sum": 38.243,
+          "pytest_reported_seconds": [
+            50.14
+          ],
+          "boundary": "package times omit compiler/linker; stage lacks per-command clocks; snapshots.py has no elapsed output"
+        }
+      ],
+      "checksum_inventory_verified": true
+    }
+  ],
+  "early_failure": {
+    "base_source": "02573816dfe37edd76df6f7400a0d05bd915637f",
+    "mutation": "append whitespace to license evidence; no dependency/license obligation changed",
+    "real_guest_executed": false,
+    "go_compilation_executed": false,
+    "before": {
+      "seconds_to_observed_boundary": 0.32516191696049646,
+      "result": "old source checks reached Go before license validation",
+      "commands": [
+        [
+          "<repository>/build/experiment-work/v045-economics/temp/venv/bin/python",
+          "scripts/check_version.py"
+        ],
+        [
+          "<repository>/build/experiment-work/v045-economics/temp/venv/bin/python",
+          "scripts/verify_generated_runtime.py"
+        ],
+        [
+          "go",
+          "test",
+          "-p",
+          "1",
+          "./..."
+        ]
+      ],
+      "details": [
+        {
+          "command": [
+            "<repository>/build/experiment-work/v045-economics/temp/venv/bin/python",
+            "scripts/check_version.py"
+          ],
+          "exit_code": 0,
+          "seconds": 0.06343291699886322,
+          "output": "Release version: Python 0.4.4; Git/Go v0.4.4\n"
+        },
+        {
+          "command": [
+            "<repository>/build/experiment-work/v045-economics/temp/venv/bin/python",
+            "scripts/verify_generated_runtime.py"
+          ],
+          "exit_code": 0,
+          "seconds": 0.26168474997393787,
+          "output": "PASS: generated source inventory, pinned inputs and guest identity\n"
+        }
+      ]
+    },
+    "after": {
+      "seconds_to_observed_boundary": 1.1816587090143003,
+      "result": "source-only oracle rejected changed evidence",
+      "commands": [
+        [
+          "<repository>/build/experiment-work/v045-economics/temp/venv/bin/python",
+          "scripts/check_version.py"
+        ],
+        [
+          "<repository>/build/experiment-work/v045-economics/temp/venv/bin/python",
+          "scripts/verify_generated_runtime.py"
+        ],
+        [
+          "<repository>/build/experiment-work/v045-economics/temp/venv/bin/python",
+          "-m",
+          "pytest",
+          "tests/test_generated_runtime_inventory.py",
+          "tests/test_distribution_licenses.py",
+          "tests/test_packaging_license_mirrors.py",
+          "-q"
+        ]
+      ],
+      "details": [
+        {
+          "command": [
+            "<repository>/build/experiment-work/v045-economics/temp/venv/bin/python",
+            "scripts/check_version.py"
+          ],
+          "exit_code": 0,
+          "seconds": 0.047898124961648136,
+          "output": "Release version: Python 0.4.4; Git/Go v0.4.4\n"
+        },
+        {
+          "command": [
+            "<repository>/build/experiment-work/v045-economics/temp/venv/bin/python",
+            "scripts/verify_generated_runtime.py"
+          ],
+          "exit_code": 0,
+          "seconds": 0.17284375004237518,
+          "output": "PASS: generated source inventory, pinned inputs and guest identity\n"
+        },
+        {
+          "command": [
+            "<repository>/build/experiment-work/v045-economics/temp/venv/bin/python",
+            "-m",
+            "pytest",
+            "tests/test_generated_runtime_inventory.py",
+            "tests/test_distribution_licenses.py",
+            "tests/test_packaging_license_mirrors.py",
+            "-q"
+          ],
+          "exit_code": 1,
+          "seconds": 0.9607195419957861,
+          "output": "\n        actual = {p.name for p in (root/'licenses').iterdir() if p.is_file()}\n        if actual != set(normal) | set(legacy):\n            raise ValueError('unclassified/missing license file')\n        for name, checksum in {**normal, **legacy}.items():\n            if Path(name).name != name or digest(root/'licenses'/name) != checksum:\n                raise ValueError('license bytes differ: '+name)\n        classes = {'DISTRIBUTED / DERIVED', 'BUILD-ONLY', 'LEGACY-ONLY', 'UNUSED'}\n        if not set(value['components'].values()) <= classes:\n            raise ValueError('unknown component classification')\n        if digest(root/'release/generated-license-evidence.json') != value['evidence_sha256']:\n>           raise ValueError('license evidence identity differs')\nE           ValueError: license evidence identity differs\n\nscripts/distribution_licenses.py:28: ValueError\n_________ test_evidence_bound_to_unchanged_guest_and_generated_source __________\n\n    def test_evidence_bound_to_unchanged_guest_and_generated_source():\n        from common import digest\n>       value=inventory(ROOT)\n              ^^^^^^^^^^^^^^^\n\ntests/test_distribution_licenses.py:47: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nroot = PosixPath('<worktree>')\n\n    def inventory(root):\n        root = Path(root)\n        value = json.loads((root/'release/distribution-licenses.json').read_text())\n        if value['version'] != 1 or value['contract'] != 'generated-go-v1':\n            raise ValueError('unknown license inventory contract')\n        normal, legacy = value['distributed_notices'], value['legacy_notices']\n        if set(normal) & set(legacy):\n            raise ValueError('overlapping license inventory')\n        actual = {p.name for p in (root/'licenses').iterdir() if p.is_file()}\n        if actual != set(normal) | set(legacy):\n            raise ValueError('unclassified/missing license file')\n        for name, checksum in {**normal, **legacy}.items():\n            if Path(name).name != name or digest(root/'licenses'/name) != checksum:\n                raise ValueError('license bytes differ: '+name)\n        classes = {'DISTRIBUTED / DERIVED', 'BUILD-ONLY', 'LEGACY-ONLY', 'UNUSED'}\n        if not set(value['components'].values()) <= classes:\n            raise ValueError('unknown component classification')\n        if digest(root/'release/generated-license-evidence.json') != value['evidence_sha256']:\n>           raise ValueError('license evidence identity differs')\nE           ValueError: license evidence identity differs\n\nscripts/distribution_licenses.py:28: ValueError\n=========================== short test summary info ============================\nFAILED tests/test_distribution_licenses.py::test_distribution_partition_and_source_inputs\nFAILED tests/test_distribution_licenses.py::test_evidence_bound_to_unchanged_guest_and_generated_source\n2 failed, 14 passed in 0.29s\n"
+        }
+      ]
+    },
+    "evidence_restored_sha256": "7affc7cb098af927041ebac680ad4e5a948082ea0eaa68708feebb88817a00da",
+    "interpretation": "Before: intercepted at Go, not an old full-check duration. After: actual source-only rejection before any Go command. Existing cold CI times are separate evidence, not an asserted measured speedup."
+  },
+  "focused": {
+    "suite": "generated ownership/license mirrors/development ordering/runtime sources/release helper checks",
+    "passed": 110,
+    "pytest_seconds": 1.21,
+    "junit_sha256": "0ae7be3adc71a7805f59e8c48e8c72aab2becbc2c78b387a06d63e366f51c4b1"
+  },
+  "measurements_repeated": false,
+  "focused_identity_and_source": {
+    "passed": 217,
+    "pytest_seconds": 10.79,
+    "junit_sha256": "8c5700ef28dd82bbb7553aa3dcaabeafc9ef337ad7ebae4c338444ef9c225cd7",
+    "overlap_note": "overlaps the 110-case source/helper run; do not sum as unique cases"
+  },
+  "changed_tooling_sha256": {
+    "scripts/generate_runtime.py": "7a9080a802abf2ca926bce9ddf73c9f43d57f17445bd11ad4e670480d6491ace",
+    "scripts/verify_generated_runtime.py": "7ed76bdb2274056ee60c826ded0d4d2ef89b17425e51436efcd2e3d9e5bd7e2b",
+    "scripts/verify.py": "6924f45c869d354a90847757abdd2f23c34e414bc84ffa717642346c0caf71a1",
+    "scripts/release_preparation_checks.py": "5b739221391cc937ecc51f5f7699cb2eb4160d23f7b945249e89e80099575d0c",
+    "tests/test_development_scope.py": "ac0ee38c29c38709f9f0e8d4507aa9394c9f2adfcd1aaa9c38968848cc303b1e",
+    "tests/test_generated_runtime_inventory.py": "9dcd15ee737300701568a9e19a8f67488a48c34672c9675b2337dd8315330c26"
+  },
+  "preserved_runtime_and_license_bytes": {
+    "internal/generatedgo/provenance.json": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60",
+    "release/generated-go-inputs.json": "c882412a8d97fd497c4cb4057211b80f906643347c258811043403e88f1e7205",
+    "release/generated-license-evidence.json": "7affc7cb098af927041ebac680ad4e5a948082ea0eaa68708feebb88817a00da",
+    "release/distribution-licenses.json": "853b52f4bcf84f89076fee5e3b838b45d35cbd1b77b10521f1ad48ef9a94a80c",
+    "python/license-inventory.json": "853b52f4bcf84f89076fee5e3b838b45d35cbd1b77b10521f1ad48ef9a94a80c"
+  },
+  "actual_release_preparation": {
+    "command": "python scripts/release_preparation_checks.py",
+    "result": "PASS",
+    "pytest_passed": 207,
+    "pytest_seconds": 10.14,
+    "benchmark_helper_tests": 3,
+    "scope": "metadata/source/tooling only; no artifacts, runtime build or publication",
+    "other_checks": [
+      "generated inventory",
+      "version v0.4.4 unchanged",
+      "public-source",
+      "diff"
+    ]
+  }
+}
