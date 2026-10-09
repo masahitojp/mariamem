@@ -33,5 +33,10 @@
       "platform": "darwin-arm64",
       "zip_sha256": "b8ab3ddd8e877439dd210aa821cac897601e708c0e8b82e5f89c8b8f975a2d2e"
     }
-  ]
+  ],
+  "compact_csv_transform": "CRLF to LF only; parsed rows equal original CI artifact",
+  "original_ci_csv_sha256": {
+    "ci-macos-performance.csv": "32bfb7bfae4eb118d14b20d11aab195130313e340627957160f40d31a7bb6b91",
+    "ci-ubuntu-performance.csv": "663bce9abaabaa48f930bc5f2d1fb0c830cc95413e13aff242830aac48696a63"
+  }
 }
