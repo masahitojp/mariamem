@@ -39,8 +39,9 @@ Nested scopes are not additive. Logical counters are not physical I/O; read and
 hash remain a combined interval where they use the same streaming operation.
 No copy/hash/lifecycle operation is removed or reordered. `Publish` retains its
 existing interface; the internal context variant carries diagnostics. The
-handwritten generated-Go execution adapter changes, but the compiled guest,
-generated code and child filesystem implementation do not.
+installer-generated execution adapter changes, but the compiled guest, transpiled
+core and child filesystem implementation do not. The initial checkpoint omitted
+the installer/provenance update; see [CI repair](v045-generated-driver-repair.md).
 
 Focused tests prove traced/untraced published manifests agree, logical copy and
 hash pass counts match known input, and corrupt published content still fails

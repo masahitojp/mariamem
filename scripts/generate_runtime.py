@@ -17,6 +17,34 @@ OLD = 'example.com/mariamem-spike/generated'
 NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
 
 
+def adapt_driver(text):
+    text = text.replace('package main', 'package generatedgo', 1)
+    text = text.replace('\t"crypto/sha256"\n', '').replace('\t"io"\n', '')
+    text = text.replace('func main() {', 'func run(args []string) {', 1).replace('os.Args', 'args')
+    begin = text.index('func verifyCompiledGuest(name string) {')
+    text = text[:begin]+'''func verifyCompiledGuest(name string) {
+ if name != GuestSHA256 { panic("compiled guest identity mismatch") }
+}
+'''
+    text = text.replace('SPIKE', 'generated-Go')
+    text = text.replace('m := generated.NewWithWASI(h, nil, h)', 'm, release, allocErr := newMemoryModule(h)\n\tif allocErr != nil { panic(allocErr) }\n\tvar memoryErr error\n\tdefer func(){ releaseMemoryModule(m, release, &memoryErr); if memoryErr != nil { panic(memoryErr) } }()')
+    # Export attribution belongs to this deterministic adapter, not a manual
+    # edit of its generated output. Reject an unexpected pinned driver shape.
+    changes = (
+        ('import (\n', 'import (\n\t"context"\n'),
+        ('\t"os"\n', '\t"os"\n\t"github.com/masahitojp/mariamem/internal/timing"\n'),
+        ('\tvar walk func(string, string) error\n', '\tctx, finishTiming := timing.Begin(context.Background(), "snapshot_export")\n\tdefer finishTiming()\n\tvar walk func(string, string) error\n'),
+        ('\t\tb := make([]byte, st.Size())\n', '\t\ttiming.Mark(ctx, "allocation_begin")\n\t\tb := make([]byte, st.Size())\n\t\ttiming.Mark(ctx, "allocation_done")\n'),
+        ('\t\t_, e = f.ReadAt(b, 0)\n', '\t\t_, e = f.ReadAt(b, 0)\n\t\ttiming.Work(ctx, "data_read", int64(len(b)), 1)\n'),
+        ('\t\treturn os.WriteFile(dst, b, 0600)\n', '\t\te = os.WriteFile(dst, b, 0600)\n\t\ttiming.Work(ctx, "data_materialized", int64(len(b)), 1)\n\t\treturn e\n'),
+    )
+    for old, new in changes:
+        if text.count(old) != 1:
+            raise ValueError('pinned export driver fragment changed: ' + repr(old))
+        text = text.replace(old, new, 1)
+    return text
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-module', type=Path, required=True)
@@ -45,16 +73,7 @@ def main():
             text = text.replace('//go:embed data.bin\nvar wasm2goData_data_bin []byte',
                 'var wasm2goData_data_bin = []byte("'+''.join('\\x%02x'%b for b in data)+'")')
         elif name == 'main.go':
-            text = text.replace('package main', 'package generatedgo', 1)
-            text = text.replace('\t"crypto/sha256"\n', '').replace('\t"io"\n', '')
-            text = text.replace('func main() {', 'func run(args []string) {', 1).replace('os.Args', 'args')
-            begin = text.index('func verifyCompiledGuest(name string) {')
-            text = text[:begin]+'''func verifyCompiledGuest(name string) {
- if name != GuestSHA256 { panic("compiled guest identity mismatch") }
-}
-'''
-            text = text.replace('SPIKE', 'generated-Go')
-            text = text.replace('m := generated.NewWithWASI(h, nil, h)', 'm, release, allocErr := newMemoryModule(h)\n\tif allocErr != nil { panic(allocErr) }\n\tvar memoryErr error\n\tdefer func(){ releaseMemoryModule(m, release, &memoryErr); if memoryErr != nil { panic(memoryErr) } }()')
+            text = adapt_driver(text)
         elif name in ('fs_contract_test.go', 'guest_identity.go'):
             text = text.replace('package main', 'package generatedgo', 1)
         target.parent.mkdir(parents=True, exist_ok=True)

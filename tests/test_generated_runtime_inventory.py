@@ -94,3 +94,29 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
     assert actual == handwritten | set(installed) | {'provenance.json'}
     for name in handwritten:
         assert (output/name).read_bytes() == (canonical/name).read_bytes()
+
+
+def test_repository_inventory_matches_committed_provenance():
+    # Synthetic negative cases cannot detect an edited real generated file.
+    verifier.main()
+
+
+def test_pinned_driver_adapter_contains_snapshot_attribution():
+    import hashlib
+    spec = importlib.util.spec_from_file_location('driver_installer', ROOT/'scripts/generate_runtime.py')
+    installer = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(installer)
+    raw = (ROOT/'tests/fixtures/generated-driver.go.txt').read_bytes()
+    pins = json.loads((ROOT/'release/generated-go-inputs.json').read_text())
+    assert hashlib.sha256(raw).hexdigest() == pins['candidate_files_sha256']['main.go']
+    adapted = installer.adapt_driver(raw.decode().replace(installer.OLD, installer.NEW))
+    canonical = (ROOT/'internal/generatedgo/main.go').read_text()
+    # Compare the changed export boundary before gofmt, without a Go prerequisite
+    # for Python-only checks. Exact whole-driver pinned-gofmt bytes are recorded
+    # in repair evidence; existing memory glue also has gofmt-normalized semicolons.
+    def export_body(text):
+        return text[text.index('func exportTransfer('):text.index('func verifyCompiledGuest(')]
+    assert ''.join(export_body(adapted).split()) == ''.join(export_body(canonical).split())
+    assert '"context"' in adapted and '"github.com/masahitojp/mariamem/internal/timing"' in adapted
+    with pytest.raises(ValueError, match='driver fragment changed'):
+        installer.adapt_driver(raw.decode().replace('return os.WriteFile(dst, b, 0600)', 'return nil'))
