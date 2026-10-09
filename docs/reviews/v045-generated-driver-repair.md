@@ -56,3 +56,28 @@ with tempfile.TemporaryDirectory() as directory:
 PY
 python3 scripts/verify_generated_runtime.py
 ```
+
+## License binding follow-up
+
+[Run 37970490930](https://github.com/masahitojp/mariamem/actions/runs/37970490930)
+passed generated inventory, ordinary Go checks and vet on both OSes, then failed
+one Python check: license attribution still referred to the old provenance hash
+(490 PASS/31 skips/1 FAIL). Runtime integration was not started. This is another
+missed dependency in the prior repair, not a runtime test failure.
+
+Compare the qualified `8a30e184` provenance with current source: only `main.go`
+differs; guest/input pins and every other inventoried source file are identical.
+Record this source-only continuity separately in license evidence, retaining all
+historical audit/host/nm records verbatim. Update its current provenance binding,
+the distribution inventory's evidence hash and the committed Python inventory
+mirror. No new linked-host/symbol audit, runtime or artifact approval is claimed.
+Tests bind the continuity record to the changed driver and the unchanged inventory.
+
+Canonical `verify.py check --scope python` PASS: 491 tests, 31 skips (20.20 s
+pytest); version/public-source/diff checks PASS. Initial sandbox execution was
+blocked by watchdog process-group signaling; rerun with that permission succeeded.
+A packaging mirror inconsistency was also caught and fixed before submission.
+The previous focused list omitted license consumers; running this canonical
+Python/tooling boundary catches those consumers without compiling the guest.
+Future adapter/provenance changes must check license evidence and packaging
+mirrors as well as generated inventory. Native integration remains pending.

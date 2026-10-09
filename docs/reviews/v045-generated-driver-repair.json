@@ -29,5 +29,40 @@
     "toolchain": "go1.26.8",
     "byte_equal_to_candidate": true,
     "guest_or_transpiled_core_changed": false
+  },
+  "license_binding_followup": {
+    "run_id": 37970490930,
+    "source_commit": "7ab8fabae31b74309235429b4ea600910d772a80",
+    "receipts": [
+      {
+        "artifact": "runtime-darwin-arm64-7ab8fabae31b74309235429b4ea600910d772a80",
+        "source_check_seconds": 682.8669761670001,
+        "source_check_exit": 1,
+        "log_sha256": "5c718e52cef772ac5d4bb666509f5be355eb0cd372504679e7a2cb0af7b31668",
+        "runtime_integration_started": false,
+        "failure": "test_distribution_licenses.py: generated provenance binding stale; 490 PASS, 31 skipped, 1 FAIL"
+      },
+      {
+        "artifact": "runtime-ubuntu24.04-x86_64-7ab8fabae31b74309235429b4ea600910d772a80",
+        "source_check_seconds": 399.005546892,
+        "source_check_exit": 1,
+        "log_sha256": "44574bec5c36c7c3ce4ab17f957eb0eddf264a93f684525ed315afc228238a01",
+        "runtime_integration_started": false,
+        "failure": "test_distribution_licenses.py: generated provenance binding stale; 490 PASS, 31 skipped, 1 FAIL"
+      }
+    ],
+    "repair": "Source-only continuity record, current provenance binding, distribution inventory binding and Python mirror. Historical audit/host records unchanged.",
+    "canonical_python_check": {
+      "result": "PASS",
+      "passed": 491,
+      "skipped": 31,
+      "pytest_seconds": 20.2
+    },
+    "changed_runtime_files": false,
+    "not_claimed": [
+      "new guest/link/nm audit",
+      "runtime integration qualification",
+      "release artifact qualification"
+    ]
   }
 }

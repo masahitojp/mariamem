@@ -49,6 +49,15 @@ def test_evidence_bound_to_unchanged_guest_and_generated_source():
     pins=json.loads((ROOT/'release/generated-go-inputs.json').read_text())
     assert evidence['guest_sha256']==pins['guest_sha256']
     assert evidence['generated_provenance_sha256']==digest(ROOT/'internal/generatedgo/provenance.json')
+    continuity=evidence['snapshot_attribution_source_check']
+    provenance=json.loads((ROOT/'internal/generatedgo/provenance.json').read_text())
+    assert set(continuity['changed_files']) == {'main.go'}
+    assert continuity['generated_provenance_sha256'] == evidence['generated_provenance_sha256']
+    assert continuity['changed_files']['main.go']['after'] == provenance['files_sha256']['main.go']
+    import hashlib
+    unchanged={name:sha for name,sha in provenance['files_sha256'].items() if name!='main.go'}
+    assert continuity['unchanged_generated_inventory_sha256'] == hashlib.sha256(
+        json.dumps(unchanged,sort_keys=True,separators=(',',':')).encode()).hexdigest()
     for row in evidence['retained_symbols'].values():
         assert row['generated_definitions'] and any(x['host_symbol_retained'] for x in row['examples'])
         for example in row['examples']:
