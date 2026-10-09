@@ -1,0 +1,63 @@
+{
+  "full_proof_sha256": "f57f2e17103523ade698f5c5a8655617912f7ec340ae6b5ca042009d1c4e61ab",
+  "intent_sha256": "ef9be3c9b807612cf29d874a574420930ee95041b31a12a3db5e14929d5c8c31",
+  "platforms": {
+    "darwin-arm64": {
+      "artifact_id": 11603187831,
+      "checksums_sha256": "9a3975fe06d94a2d8c691aa48e759605adc1c9ee18d9c367632833cd8274d29a",
+      "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+      "original_wheel_sha256": "8bdafe517ccc4bbd233618a8c165a42b4d5bfcf1eef4d179731d9c2f6e4395ae",
+      "zip_sha256": "b8ab3ddd8e877439dd210aa821cac897601e708c0e8b82e5f89c8b8f975a2d2e"
+    },
+    "ubuntu24.04-x86_64": {
+      "artifact_id": 11603625656,
+      "checksums_sha256": "65c255025d4fd19a390dcf696d03316e6daf3de775dca66cacbb15df8bece9ae",
+      "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+      "original_wheel_sha256": "95306c08a78cdae0a4dbb8d7bdd7cbc7793eda11302b9320c5e2b8e326444a03",
+      "zip_sha256": "76c933c3b4d646157e209e9c6a92fc6a532e3ea80568531ae261c0b4f444cd68"
+    }
+  },
+  "release_source_commit": "dd0e55658fd51a18e3f595cd77a0db205f38b7c6",
+  "result": "PASS",
+  "reviewed_changed_paths": [
+    ".github/workflows/check.yml",
+    ".github/workflows/release-candidate-ready.yml",
+    ".github/workflows/v044-product-validation.yml",
+    "benchmarks/ownedprepared/README.md",
+    "benchmarks/ownedprepared/test_tools.py",
+    "docs/development.md",
+    "docs/project-status.md",
+    "docs/releasing.md",
+    "docs/reviews/git-identity-prevention.md",
+    "docs/reviews/v044-implementation-evidence/CI-SHA256SUMS.json",
+    "docs/reviews/v044-implementation-evidence/ci-final-summary.json",
+    "docs/reviews/v044-implementation-evidence/ci-macos-capture.json",
+    "docs/reviews/v044-implementation-evidence/ci-macos-fd-scaling.json",
+    "docs/reviews/v044-implementation-evidence/ci-macos-performance.csv",
+    "docs/reviews/v044-implementation-evidence/ci-ubuntu-capture.json",
+    "docs/reviews/v044-implementation-evidence/ci-ubuntu-fd-scaling.json",
+    "docs/reviews/v044-implementation-evidence/ci-ubuntu-performance.csv",
+    "docs/reviews/v044-implementation-review.md",
+    "docs/reviews/v044-release-runtime-reuse-design.md",
+    "docs/reviews/v044-runtime-reuse-verification.md",
+    "release/baselines/v0.4.3.json",
+    "release/runtime-validation.json",
+    "scripts/generated_release.py",
+    "scripts/git_identity.py",
+    "scripts/release_generated_ci.py",
+    "scripts/release_plan.py",
+    "scripts/release_preparation_checks.py",
+    "scripts/release_prepare.py",
+    "scripts/runtime_validation.py",
+    "scripts/validate_product_candidate.py",
+    "tests/test_generated_release.py",
+    "tests/test_git_identity.py",
+    "tests/test_release_plan.py",
+    "tests/test_release_prepare.py",
+    "tests/test_runtime_validation.py"
+  ],
+  "run_id": 37898847164,
+  "runtime_basis_commit": "c5f43106a8054bb59a2da9184a1c2103fe1a1d9f",
+  "source_inventory_files": 675,
+  "version": 1
+}

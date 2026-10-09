@@ -36,3 +36,11 @@ requires their bytes/modes to be unchanged. Unknown omissions remain failures.
 
 Live proof: `python scripts/runtime_validation.py --candidate-sha <clean HEAD>`.
 CI freezes that proof into each handoff, recording both source identities.
+
+Authenticated live check: PASS at integration commit
+`dd0e55658fd51a18e3f595cd77a0db205f38b7c6`; both pinned native ZIPs and all
+657 original source hashes matched Git. The compact
+[live proof](v044-runtime-reuse-live-proof.json) records the tested runtime basis,
+integration source, original artifact identities and changed-path proof.
+Final metadata preparation must authenticate its own final SHA again before push;
+this integration check is not a claim that runtime tests ran at that SHA.
