@@ -76,7 +76,9 @@ def submit(root, version, operation='release'):
     require((root / notes).is_file() and re.search(r'^#\s+.*' + re.escape(version) + r'(?:\s|$)',
             (root / notes).read_text(), re.MULTILINE), 'release notes must identify requested tag')
     if paths:
-        run([sys.executable, 'scripts/verify.py', 'check'], root)
+        checks = ('scripts/release_preparation_checks.py' if
+                  (root / 'release/runtime-validation.json').is_file() else 'scripts/verify.py')
+        run([sys.executable, checks, *([] if checks.endswith('release_preparation_checks.py') else ['check'])], root)
         run(['git', 'diff', '--check'], root)
         run(['git', 'diff', '--cached', '--check'], root)
         run(['git', 'add', '--', *sorted(paths)], root)
@@ -84,6 +86,8 @@ def submit(root, version, operation='release'):
     require(not run(['git', 'status', '--porcelain'], root), 'tree not clean after preparation commit')
     candidate = run(['git', 'rev-parse', 'HEAD'], root)
     require(re.fullmatch('[0-9a-f]{40}', candidate) is not None, 'candidate is not an exact SHA')
+    if (root / 'release/runtime-validation.json').is_file():
+        run([sys.executable, 'scripts/runtime_validation.py', '--candidate-sha', candidate], root)
     run(['git', 'push', 'origin', 'main'], root)
     remote = run(['git', 'ls-remote', 'origin', 'refs/heads/main'], root).split()
     require(remote == [candidate, 'refs/heads/main'], 'remote main does not equal candidate; no dispatch')

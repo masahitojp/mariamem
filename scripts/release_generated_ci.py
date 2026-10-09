@@ -17,15 +17,21 @@ from generated_release import (CONTRACT,PLATFORMS,checkout,guard,check_aggregate
                                require,read,write,stage,verify_build,verify_source,verify_wheel,version)
 
 EVIDENCE={'build/release/generated-acceptance.json','build/release/generated-acceptance.log',
-          'tests/evidence/alpha.json','build/release/ci-ready.json','build/release/ci-guard.log'}
+          'tests/evidence/alpha.json','build/release/ci-ready.json','build/release/ci-guard.log',
+          'build/release/runtime-validation.json'}
 
 
 def handoff_paths(root,platform):
     source=read(root/'build/release/generated-source.json')
     wheel,_=verify_wheel(root,platform)
-    return ['build/generated-release','build/release/generated-source.json',
+    paths=['build/generated-release','build/release/generated-source.json',
             'build/release/'+source['file'],wheel.relative_to(root).as_posix(),
             'tests/evidence/alpha-wheel.json']
+    from runtime_validation import read_intent, verify_frozen, PROOF
+    if read_intent(root):
+        verify_frozen(root,read(root/'tests/evidence/alpha-wheel.json')['source_commit'])
+        paths.append(PROOF)
+    return paths
 
 
 def freeze(root,commit,platform,output):
@@ -41,7 +47,8 @@ def allowed(name,directory=False):
     exact={'build/generated-release/guest.json','build/generated-release/regeneration.json',
            'build/generated-release/mariamem.wasm','build/generated-release/link.txt',
            'build/generated-release/flags.make','build/generated-release/CMakeCache.txt',
-           'build/release/generated-source.json','tests/evidence/alpha-wheel.json'}
+           'build/release/generated-source.json','tests/evidence/alpha-wheel.json',
+           'build/release/runtime-validation.json'}
     acceptable=name in exact or (name.startswith('build/release/mariamem-') and name.endswith('-corresponding-source.tar.gz') and len(Path(name).parts)==3)
     acceptable=acceptable or (name.startswith('build/dist/mariamem-') and name.endswith('.whl') and len(Path(name).parts)==3)
     if directory: acceptable=name in {'build','build/generated-release','build/release','build/dist','tests','tests/evidence'}

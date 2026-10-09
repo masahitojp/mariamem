@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "repository": "masahitojp/mariamem",
+  "workflow": ".github/workflows/v044-product-validation.yml",
+  "basis_commit": "c5f43106a8054bb59a2da9184a1c2103fe1a1d9f",
+  "run_id": 37898847164,
+  "artifacts": {
+    "darwin-arm64": {
+      "id": 11603187831,
+      "zip_sha256": "b8ab3ddd8e877439dd210aa821cac897601e708c0e8b82e5f89c8b8f975a2d2e"
+    },
+    "ubuntu24.04-x86_64": {
+      "id": 11603625656,
+      "zip_sha256": "76c933c3b4d646157e209e9c6a92fc6a532e3ea80568531ae261c0b4f444cd68"
+    }
+  }
+}

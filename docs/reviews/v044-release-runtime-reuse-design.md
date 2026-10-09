@@ -1,8 +1,10 @@
 # v0.4.4 — Runtime evidence reuse before release
 
-**PROPOSAL ONLY.** The maintainer stopped release dispatch to review this design.
-No workflow/guard/runtime implementation is changed by this report. v0.4.4 is
-not published and package metadata remains 0.4.3.
+**APPROVED FOR IMPLEMENTATION.** The maintainer approved runtime evidence reuse
+with fresh exact-version artifact/consumer gates. The implementation changes only
+release/development verification tooling; it does not change the accepted runtime.
+Publication remains a one-shot Release CI handoff after focused checks. The facts
+below record the state at proposal time.
 
 ## Recommendation
 

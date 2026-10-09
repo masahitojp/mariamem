@@ -6,8 +6,25 @@ on:
     branches: [main]
 permissions:
   contents: read
+  actions: read
 jobs:
+  scope:
+    runs-on: ubuntu-24.04
+    outputs:
+      reused: ${{ steps.runtime.outputs.reused }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - id: runtime
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/runtime_validation.py --candidate-sha '${{ github.sha }}' --development --github-output
   check:
+    needs: scope
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
@@ -19,9 +36,16 @@ jobs:
         with:
           python-version: '3.14'
       - run: python -m pip install 'pytest>=7' 'PyMySQL>=1.1,<2'
-      - run: python scripts/verify.py check
+      - run: |
+          if [ '${{ needs.scope.outputs.reused }}' = true ]; then
+            python scripts/release_preparation_checks.py
+          else
+            python scripts/verify.py check
+          fi
 
   integration:
+    needs: scope
+    if: needs.scope.outputs.reused != 'true'
     runs-on: macos-15
     timeout-minutes: 15
     steps:

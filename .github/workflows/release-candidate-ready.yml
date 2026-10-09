@@ -44,6 +44,7 @@ jobs:
     outputs:
       source_sha: ${{ steps.source.outputs.sha }}
       mode: ${{ steps.plan.outputs.mode }}
+      runtime_reused: ${{ steps.plan.outputs.runtime_reused }}
       candidate_run: ${{ steps.plan.outputs.candidate_run }}
       evidence_run: ${{ steps.plan.outputs.evidence_run }}
     steps:
@@ -73,6 +74,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ steps.source.outputs.sha }}
+          fetch-depth: 0
           path: candidate-source
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
@@ -102,6 +104,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ needs.resolve.outputs.source_sha }}
+          fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: 1.26.8
@@ -153,6 +156,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ needs.resolve.outputs.source_sha }}
+          fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: 1.26.8
@@ -165,11 +169,19 @@ jobs:
           name: release-generated-inputs-${{ needs.resolve.outputs.source_sha }}
           path: build/
       - name: Build generated-Go host-only wheel
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           python -m pip install setuptools==80.9.0 wheel==0.45.1
           python -m pip install pytest==8.4.2 pytest-xdist==3.8.0 PyMySQL==1.2.3
-          GOTOOLCHAIN=go1.26.8 python scripts/verify.py check
-          GOTOOLCHAIN=go1.26.8 python scripts/verify.py integration
+          if [ '${{ needs.resolve.outputs.runtime_reused }}' = true ]; then
+            python scripts/runtime_validation.py --candidate-sha '${{ needs.resolve.outputs.source_sha }}' \
+              --output build/release/runtime-validation.json
+            python scripts/release_preparation_checks.py
+          else
+            GOTOOLCHAIN=go1.26.8 python scripts/verify.py check
+            GOTOOLCHAIN=go1.26.8 python scripts/verify.py integration
+          fi
           python scripts/verify_generated_runtime.py
           python scripts/build_alpha.py --ci-candidate
           python scripts/release_generated_ci.py freeze \
@@ -201,6 +213,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ needs.resolve.outputs.source_sha }}
+          fetch-depth: 0
           path: candidate-source
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
@@ -243,6 +256,8 @@ jobs:
       - id: guard
         name: Exact platform guard — READY / NOT READY
         if: always() && steps.restore.outcome == 'success'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           mkdir -p candidate-source/build/release
           set -o pipefail
@@ -271,6 +286,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ needs.resolve.outputs.source_sha }}
+          fetch-depth: 0
           path: candidate-source
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
@@ -290,6 +306,7 @@ jobs:
         if: always()
         env:
           SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           python candidate-source/scripts/release_generated_ci.py guard --root candidate-source --candidate-sha "$SOURCE_SHA"
           cat candidate-source/build/release/ci-ready.json >> "$GITHUB_STEP_SUMMARY"
@@ -332,8 +349,8 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ needs.resolve.outputs.source_sha }}
-          path: candidate-source
           fetch-depth: 0
+          path: candidate-source
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.14'
@@ -383,6 +400,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ needs.resolve.outputs.source_sha }}
+          fetch-depth: 0
           path: candidate-source
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:

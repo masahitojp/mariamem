@@ -236,6 +236,13 @@ def test_aggregate_common_source_and_provenance_must_match(tmp_path,monkeypatch)
     monkeypatch.setattr(release,'notices',lambda *a:{})
     ready=release.check_aggregate(tmp_path,'a'*40)
     assert ready['contract']==release.CONTRACT and set(ready['assets'])==release.expected_names('0.4.0')
+    runtime={'runtime_basis_commit':'b'*40,'release_source_commit':'a'*40,'run_id':7,'platforms':{}}
+    records[release.DARWIN]['runtime_validation']=runtime
+    with pytest.raises(ValueError,match='runtime evidence differs'):
+        release.check_aggregate(tmp_path,'a'*40)
+    records[release.UBUNTU]['runtime_validation']=runtime
+    ready=release.check_aggregate(tmp_path,'a'*40)
+    assert ready['platforms'][release.DARWIN]['runtime_validation']==runtime
     records[release.UBUNTU]['assets'][release.source_name('0.4.0')]='0'*64
     with pytest.raises(ValueError,match='archive differs'):release.check_aggregate(tmp_path,'a'*40)
     records[release.UBUNTU]['assets'][release.source_name('0.4.0')]='e'*64

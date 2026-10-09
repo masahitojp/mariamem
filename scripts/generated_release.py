@@ -236,12 +236,17 @@ def guard(root, commit, platform):
     checkout(root,commit); build=verify_build(root,commit); source=verify_source(root,commit)
     wheel,record=verify_wheel(root,platform,commit)
     acceptance=verify_acceptance(root,commit,platform,record['sha256'])
-    return {'version':3,'contract':CONTRACT,'result':'READY','source_commit':commit,'platform':platform,
+    from runtime_validation import verify_frozen
+    runtime=verify_frozen(root,commit)
+    result={'version':3,'contract':CONTRACT,'result':'READY','source_commit':commit,'platform':platform,
             'git_tag':version(root)['GIT_TAG'],'python_version':version(root)['PYTHON_VERSION'],
             'assets':{source['file']:source['sha256'],wheel.name:record['sha256']},
             'guest_sha256':build['guest']['guest_sha256'],'build_evidence_sha256':digest(root/'build/generated-release/guest.json'),
             'regeneration_sha256':digest(root/'build/generated-release/regeneration.json'),
             'notices':notices(root),'acceptance_sha256':acceptance,'wheel_record':record}
+    if runtime is not None:
+        result['runtime_validation']=runtime
+    return result
 
 
 def check_aggregate(root,commit):
@@ -254,6 +259,7 @@ def check_aggregate(root,commit):
     for record in records.values():
         for key in ('source_commit','git_tag','python_version','guest_sha256','build_evidence_sha256','regeneration_sha256','notices'):
             require(record[key]==first[key],'common source/provenance differs: '+key)
+        require(record.get('runtime_validation')==first.get('runtime_validation'),'runtime evidence differs')
         for name,value in record['assets'].items():
             require(name not in assets or assets[name]==value,'common source archive differs')
             assets[name]=value

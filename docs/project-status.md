@@ -79,12 +79,14 @@ production performance on macOS arm64 and Ubuntu x86_64 for exact source
 identity-tooling/docs changes do not acquire a new runtime test claim merely
 by being integrated. Prior spike measurements remain feasibility evidence.
 
-Release was authorized, then dispatch was explicitly stopped to design reuse
-of unchanged runtime evidence. The existing Release CI only reuses exact-source,
-exact-version READY/artifacts; Product CI is not such a receipt. Version remains
-0.4.3 and v0.4.4 is not published. See the
-[proposed reuse boundary](reviews/v044-release-runtime-reuse-design.md) and
-[unreleased notes](../release/NOTES-v0.4.4.md).
+Release is authorized. The approved reuse route authenticates the unchanged
+runtime against the exact Product CI source and both native artifacts. It records
+the tested runtime basis separately from the final release source, while retaining
+fresh final-version artifact/consumer/source/license guards. Invalid reuse intent
+stops before build instead of repeating runtime qualification. Publication remains
+pending one-shot Release CI. See the [reuse boundary](reviews/v044-release-runtime-reuse-design.md),
+[tooling checks](reviews/v044-runtime-reuse-verification.md) and
+[release notes](../release/NOTES-v0.4.4.md).
 
 No automatic cache management, new shared fixture, naming change, diagnostics
 API, guest upgrade or broad class redesign is included. A v0.4.5 theme should

@@ -17,6 +17,7 @@ import zipfile
 from check_public import public_files
 from ci_release_reuse import GitHub, WORKFLOW
 from generated_release import CONTRACT, PLATFORMS, checkout, expected_names, read, require, version
+from runtime_validation import read_intent, validate as validate_runtime
 
 
 def ready_bundle(archive, commit, canonical):
@@ -96,8 +97,12 @@ def plan(root, commit, operation, mode='auto', candidate_run=None, evidence_run=
     require(mode in {'auto', 'full', 'acceptance-only', 'guard-only'}, 'unknown recovery mode')
     checkout(root, commit)
     canonical = version(root)
+    # An explicit runtime-reuse intent fails closed. Never silently fall back
+    # to another runtime campaign if its evidence or equivalence is invalid.
+    runtime = validate_runtime(root, commit) if read_intent(root) else None
     result = {'source_sha': commit, 'version': canonical['GIT_TAG'], 'operation': operation,
               'mode': 'full', 'candidate_run': '', 'evidence_run': '', 'reused_ready_run': '',
+              'runtime_reused': str(runtime is not None).lower(),
               'reason': 'no reusable exact-SHA READY'}
     if mode != 'auto':
         if mode != 'full':

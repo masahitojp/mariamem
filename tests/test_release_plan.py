@@ -228,3 +228,23 @@ def test_workflow_normal_defaults_names_and_guard_remain():
     assert 'candidate-source/build/release/qualification.json' in workflow
     assert '[[ "$CANDIDATE_REF" =~ ^[0-9a-f]{40}$ ]] || exit 1' in workflow
     assert 'test "$sha" = "$CANDIDATE_REF"' in workflow
+
+
+def test_explicit_runtime_intent_failure_never_falls_back(candidate, monkeypatch):
+    monkeypatch.setattr(planner, 'read_intent', lambda root: {'explicit': True})
+    def fail(*args):
+        raise ValueError('invalid runtime evidence')
+    monkeypatch.setattr(planner, 'validate_runtime', fail)
+    api = FixtureGitHub()
+    monkeypatch.setattr(api, 'json', lambda path: pytest.fail('must stop before READY discovery'))
+    with pytest.raises(ValueError, match='invalid runtime evidence'):
+        selected(candidate, api)
+
+
+@pytest.mark.parametrize('ready_reuse', [False, True])
+def test_runtime_proof_is_distinct_from_exact_ready(candidate, monkeypatch, ready_reuse):
+    monkeypatch.setattr(planner, 'read_intent', lambda root: {'explicit': True})
+    monkeypatch.setattr(planner, 'validate_runtime', lambda *args: {'result': 'PASS'})
+    result = selected(candidate, FixtureGitHub(bundle(ready()) if ready_reuse else None))
+    assert result['runtime_reused'] == 'true'
+    assert result['mode'] == ('guard-only' if ready_reuse else 'full')

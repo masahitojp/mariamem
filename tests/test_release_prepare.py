@@ -205,3 +205,27 @@ def test_stable_uniqueness(prepared, monkeypatch, kind):
     monkeypatch.setattr(release, "run", run)
     with pytest.raises(ValueError, match="already exists"):
         release.preflight(root, "v0.1.0")
+
+
+def test_runtime_intent_uses_focused_checks_and_authenticates_before_push(prepared):
+    root, calls, _ = prepared
+    (root / 'release/runtime-validation.json').write_text('{}')
+    release.submit(root, TAG)
+    assert [sys.executable, 'scripts/release_preparation_checks.py'] in calls
+    assert [sys.executable, 'scripts/verify.py', 'check'] not in calls
+    validation = [sys.executable, 'scripts/runtime_validation.py', '--candidate-sha', SHA]
+    assert calls.index(validation) < next(i for i, c in enumerate(calls) if c[:2] == ['git', 'push'])
+
+
+def test_invalid_runtime_intent_never_pushes_or_dispatches(prepared, monkeypatch):
+    root, calls, original = prepared
+    (root / 'release/runtime-validation.json').write_text('{}')
+    def run(args, directory):
+        if len(args) > 1 and args[1] == 'scripts/runtime_validation.py':
+            calls.append(args)
+            raise ValueError('invalid runtime evidence')
+        return original(args, directory)
+    monkeypatch.setattr(release, 'run', run)
+    with pytest.raises(ValueError, match='invalid runtime evidence'):
+        release.submit(root, TAG)
+    assert not any(c[:2] == ['git', 'push'] or c[:3] == ['gh', 'workflow', 'run'] for c in calls)
