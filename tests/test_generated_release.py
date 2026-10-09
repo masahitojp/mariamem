@@ -297,3 +297,61 @@ def test_newer_local_macos_is_not_minimum_platform_release_evidence(tmp_path,mon
     release.write(tmp_path/'build/release/generated-acceptance.json',report)
     with pytest.raises(ValueError,match='macOS acceptance environment'):
         release.verify_acceptance(tmp_path,'a'*40,'darwin-arm64','b'*64)
+
+
+@pytest.mark.parametrize('mode', ['candidate','published'])
+def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_path,monkeypatch,mode):
+    import generated_release_acceptance as acceptance
+    from consumer_acceptance import MODULE
+    from types import SimpleNamespace
+    root=tmp_path/'source'; root.mkdir()
+    for name in ('tests/godefault/default_test.go','tests/consumer/gorm/go.mod',
+                 'tests/consumer/test_generated_platform.py','tests/consumer/test_sqlalchemy_dogfood.py',
+                 'scripts/guest_smoke/main.go'):
+        file=root/name; file.parent.mkdir(parents=True,exist_ok=True); file.write_text('fixture')
+    wheel=root/'accepted.whl'; wheel.write_bytes(b'accepted')
+    record={'sha256':digest(wheel),'manifest':{'package_version':'0.4.5'}}
+    metadata={'GIT_TAG':'v0.4.5','PYTHON_VERSION':'0.4.5'}
+    proof={'status':'PUBLISHED','source_commit':'a'*40,'git_tag':'v0.4.5',
+           'platforms':{'darwin-arm64':{'result':'READY','wheel_record':record}}}
+    for name,value in [('checkout',lambda *a:None),('verify_wheel',lambda *a:(wheel,record)),
+                       ('version',lambda *a:metadata),('source_inventory',lambda *a:{}),
+                       ('harness_inventory',lambda *a:{}),('environment',lambda *a:{}),
+                       ('prepare_proxy',lambda *a:root)]:
+        monkeypatch.setattr(acceptance,name,value)
+    resolved={'Path':MODULE,'Version':'v0.4.5','Sum':'h1:fixture','Origin':{'Hash':'a'*40},'Dir':str(root)}
+    monkeypatch.setattr(acceptance.subprocess,'check_output',lambda argv,**kw:
+                        'go version go1.26.8 darwin/arm64' if argv[:2]==['go','version'] else json.dumps(resolved))
+    identity=[]
+    monkeypatch.setattr(acceptance,'verify_module_files',lambda *a:identity.append(a) or {'library':'hash'})
+    commands=[]
+    def execute(argv,**kwargs):
+        commands.append(argv)
+        env=kwargs['env']
+        if 'DOGFOOD_EVIDENCE' in env and argv[0]=='go':
+            Path(env['DOGFOOD_EVIDENCE']).write_text(json.dumps({'passed':True,'cases':list(range(8))}))
+        if '--junitxml' in argv:
+            Path(argv[argv.index('--junitxml')+1]).write_text('<testsuites><testsuite tests="11" failures="0" errors="0" skipped="0"/></testsuites>')
+        if '--public-smoke' in argv:
+            release.write(root/'tests/evidence/public-wheel-smoke.json',{'passed':True,'installed_files_match_wheel':True,
+                          'wheel_sha256':record['sha256'],'version':'0.4.5'})
+        return SimpleNamespace(returncode=0)
+    monkeypatch.setattr(acceptance.subprocess,'run',execute)
+    output=tmp_path/'result.json'
+    if mode=='published':
+        with pytest.raises(ValueError,match='accepted artifact proof'):
+            acceptance.accept(root,'a'*40,'darwin-arm64',output,mode=mode)
+        assert not commands and not output.exists()
+    report=acceptance.accept(root,'a'*40,'darwin-arm64',output,mode=mode,publication=proof)
+    assert report['result']=='PASS'
+    if mode=='candidate':
+        assert report['gorm_cases']==32 and report['sqlalchemy_cases']==44
+        assert set(report['steps'])==release.STEPS
+        assert sum('DOGFOOD' not in str(c) and '--junitxml' in c for c in commands)==4
+        assert not identity and not any('--public-smoke' in c for c in commands)
+    else:
+        assert len(identity)==1
+        assert set(report['steps'])=={'public_go_smoke','public_wheel_smoke'}
+        assert not any('pytest' in c or '--junitxml' in c for c in commands)
+        assert ['go','run','.'] in commands
+        assert any('--public-smoke' in c for c in commands)

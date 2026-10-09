@@ -1,5 +1,9 @@
 # v0.4.4 runtime-evidence reuse — focused verification
 
+Historical v0.4.4 evidence. Its original intent is now archived at
+[v044-runtime-validation-intent.json](v044-runtime-validation-intent.json);
+these receipts do not satisfy the v0.4.5 runtime-only contract.
+
 Runtime basis: `c5f43106a8054bb59a2da9184a1c2103fe1a1d9f`.
 Original both-platform evidence: [Product CI 37898847164](https://github.com/masahitojp/mariamem/actions/runs/37898847164).
 Artifact IDs/digests are pinned in `release/runtime-validation.json`.

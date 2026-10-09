@@ -26,8 +26,8 @@ Library callers use `require_commit()` for exact candidate inputs and
 `verify_release_pin()` for release baselines. Update the checked pin once rather
 than copying constants among workflows/harnesses.
 
-The product-validation workflow and runner perform this preflight before tools,
-builds or performance work. Identity failures should cost Git checks, not a build.
+The runtime-qualification workflow and comparison tools perform this preflight
+before tools, builds or performance work. Identity failures should cost Git checks, not a build.
 
 ## Local verification
 
@@ -67,6 +67,37 @@ qualification receipt. Explicit release reuse still requires authenticated proof
 | SDK, SQL, ownership, VFS, guest/generated code, build inputs, unknown files | full `verify.py check` then relevant `integration` | real guest for integration; minutes plus cold compile |
 | final module/wheel packaging and version | installed-consumer/release artifact qualification | exact final artifacts, separate from runtime reuse |
 | latency/resource question | one identity-bound manual benchmark after relevant correctness | one campaign at a time; sample dependent |
+
+### Runtime, artifact and publication responsibilities
+
+Native **Runtime qualification (v1)** uses the existing workflow file
+`.github/workflows/v044-product-validation.yml` and
+`scripts/validate_product_candidate.py`. The filename preserves its registered
+Actions entry; its new receipt contract does not accept old Product CI evidence.
+It runs full `check` and `integration` on macOS15 arm64 and Ubuntu24.04 x86_64,
+without building release artifacts or running performance comparisons.
+
+Receipts bind the exact commit/tree, every tracked input, guest, toolchain,
+commands, native environment, and authenticated artifact IDs/ZIP digests. Both
+platforms are required. Runtime receipts are retained for 90 days; expiration
+still rejects explicit release reuse. Development uses the local diff selector
+and has no dependency on those receipts. No v0.4.4-specific intent is active;
+its original bytes are archived as historical evidence.
+
+Final-artifact qualification retains GORM32, SQLAlchemy44, installed pytest/xdist
+and normal external Go consumers against the exact candidate module/wheel.
+Post-publication smoke first authenticates accepted READY/provenance/asset hashes,
+public module tag/commit **and library bytes**, and installed package/host bytes.
+Only then does it run minimal Start/SELECT1/Snapshot/Fork/Close, rather than the
+ORM suites again. Missing or differing identity stops; it does not downgrade or
+mark unexecuted ORM cases passed. Candidate artifact guards still require all
+full consumer stages. Publication smoke has a distinct report contract.
+
+Qualification is an explicit CI handoff, not a normal per-change developer task.
+After submission, return the run/candidate identity and stop; do not supervise CI.
+A cold qualification costs compilation plus both check/integration runs; measure
+actual feedback latency before publishing an estimate. Manual measurement is
+separate and requires matching correctness first.
 
 Narrow check scopes are explicit scope assertions, not automatic safety proofs.
 Do not use them for runtime-affecting inputs. New files default conservatively in

@@ -128,7 +128,7 @@ def restore_all(root,commit,candidate_run,evidence_run):
 
 def public_smoke(root,commit,platform,publication,repository):
     from generated_release_acceptance import accept
-    from published_assets import verify_downloads
+    from published_assets import verify_downloads, verify_publication
     from generated_release import expected_names
     record=read(publication); require(record['status']=='PUBLISHED' and record['source_commit']==commit,'publication not accepted')
     require(set(record['assets'])==expected_names(version(root)['PYTHON_VERSION'])|{'SHA256SUMS'},'published asset contract differs')
@@ -139,12 +139,12 @@ def public_smoke(root,commit,platform,publication,repository):
         # The existing frozen wheel metadata is reconstructed from accepted
         # release provenance, never from a new build of a public artifact.
         provenance=read(work/f"mariamem-{record['python_version']}-provenance.json")
-        require(provenance['contract']==CONTRACT and provenance['source_commit']==commit,'public provenance differs')
+        verify_publication(record,provenance,commit,version(root),repository)
         wheel_record=provenance['platforms'][platform]['wheel_record']
         destination=root/wheel_record['wheel']; destination.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(work/destination.name,destination)
         write(root/'tests/evidence/alpha-wheel.json',wheel_record)
-        accept(root,commit,platform,root/'build/release/ci-public-smoke.json',mode='published')
+        accept(root,commit,platform,root/'build/release/ci-public-smoke.json',mode='published',publication=record)
 
 
 def main():

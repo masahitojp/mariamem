@@ -32,8 +32,30 @@ func main() {
 	if err := pool.Close(); err != nil {
 		panic(err)
 	}
-	if err := db.Close(); err != nil {
+	baseline, err := db.Snapshot(ctx, mariamem.SnapshotOptions{})
+	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Start, SELECT 1, Close: PASS")
+	defer baseline.Close()
+	child, err := baseline.Fork(ctx)
+	if err != nil {
+		panic(err)
+	}
+	pool, err = sql.Open("mysql", child.DSN())
+	if err != nil {
+		panic(err)
+	}
+	if err := pool.QueryRowContext(ctx, "SELECT 1").Scan(&one); err != nil {
+		panic(err)
+	}
+	if one != 1 {
+		panic("child SELECT 1 failed")
+	}
+	if err := pool.Close(); err != nil {
+		panic(err)
+	}
+	if err := child.Close(); err != nil {
+		panic(err)
+	}
+	fmt.Println("Start, SELECT 1, Snapshot, Fork, SELECT 1, Close: PASS")
 }

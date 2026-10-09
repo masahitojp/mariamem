@@ -48,8 +48,9 @@ global Python installation.
    do not create a new commit just to submit it. CI automatically reuses valid
    exact-SHA READY/artifacts or performs full qualification in that same run.
    A reviewed `release/runtime-validation.json` may authenticate unchanged runtime
-   inputs against pinned both-platform Product CI evidence. Submit validates it
-   before push; CI validates it before build and in the guards. Missing/invalid
+   inputs against pinned both-platform `runtime-qualification-v1` evidence.
+   Intent version2 is required; historical Product receipts are never relabelled.
+   Submit validates it before push; CI validates it before build and in the guards. Missing/invalid
    evidence stops instead of triggering duplicate runtime qualification. This
    reuses runtime evidence only: exact final-version artifacts, external consumers,
    licenses/source/provenance and public smoke remain required. Report tested

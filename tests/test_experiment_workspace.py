@@ -466,3 +466,15 @@ def test_disposable_data_reappearing_after_cleanup_not_kept(repo):
     assert workspace.classify(path, repo)[0] == 'DELETE'
     workspace.cleanup(path, repo)
     assert not (path / 'temp').exists()
+
+
+def test_owned_readonly_cache_cleanup_does_not_follow_external_link(tmp_path):
+    external=tmp_path/'external'; external.mkdir()
+    (external/'source').write_text('unique external source')
+    scratch=tmp_path/'scratch'; scratch.mkdir()
+    cache=scratch/'pkg/mod/module@v1'; cache.mkdir(parents=True)
+    (cache/'source.go').write_text('recreatable module source')
+    (scratch/'external-link').symlink_to(external,target_is_directory=True)
+    cache.chmod(0o555); cache.parent.chmod(0o555)
+    workspace.remove_disposable_tree(scratch)
+    assert not scratch.exists() and (external/'source').read_text()=='unique external source'

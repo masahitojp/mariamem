@@ -324,12 +324,30 @@ def validate_temp(path, repo):
     return temp
 
 
+def remove_disposable_tree(path):
+    """Remove an already-authorized owned tree, including readonly Go cache dirs.
+
+    Ownership/preservation checks belong to the caller. Do not follow symlinks
+    or change file permissions outside that tree. Also usable by the CI runner.
+    """
+    path = Path(path)
+    if path.is_symlink() or path.is_file():
+        path.unlink()
+        return
+    if not path.exists():
+        return
+    for parent, _, _ in os.walk(path, followlinks=False):
+        directory = Path(parent)
+        directory.chmod(directory.stat().st_mode | 0o200)
+    shutil.rmtree(path)
+
+
 def discard_temp(path, repo):
     temp = validate_temp(path, repo)
     sources = scratch_evidence(temp, path, repo)
     export_files(path, temp, sources, 'temp')
     if temp.exists():
-        shutil.rmtree(temp)
+        remove_disposable_tree(temp)
 
 
 def check_worktree(path, repo):

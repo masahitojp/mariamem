@@ -22,7 +22,10 @@ def test_documentation_needs_no_runtime_receipt(path):
 
 
 @pytest.mark.parametrize('path', [
-    'scripts/experiment_workspace.py', 'scripts/runtime_validation.py',
+    'scripts/experiment_workspace.py', 'scripts/generated_release_acceptance.py',
+    'scripts/release_generated_ci.py', 'scripts/validate_product_candidate.py',
+    'tests/consumer/run_sqlalchemy.py', 'tests/consumer/run_gorm.py',
+    'tests/verify_alpha.py', '.github/workflows/v044-product-validation.yml', 'scripts/runtime_validation.py',
     'tests/test_runtime_validation.py', '.github/workflows/check.yml',
     '.agents/skills/experiment-workspace/SKILL.md',
 ])
@@ -37,7 +40,7 @@ def test_tooling_remains_checked_without_runtime_qualification(path):
     'guest/source.patch', 'guest/inputs.json', 'go.mod',
     'scripts/generate_runtime.py', 'scripts/build_alpha.py',
     'scripts/verify.py', 'tests/test_python_wire.py', 'tests/support/wire_acceptance.py',
-    'tests/gointegration/lifecycle_test.go', 'tests/consumer/run_sqlalchemy.py',
+    'tests/gointegration/lifecycle_test.go', 'tests/consumer/test_sqlalchemy_dogfood.py',
     'new-unknown-input.json', 'scripts/new_helper.py', 'tests/test_new_guest_case.py', '../README.md',
 ])
 def test_runtime_and_unknown_changes_do_not_silently_downgrade(path):

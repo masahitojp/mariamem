@@ -1,219 +1,129 @@
 #!/usr/bin/env python3
-"""Bounded v0.4.4 qualification, with no tag, merge, release or guest rebuild.
+"""Runtime-only exact-source qualification; no artifacts, comparison or publication.
 
-Run correctness before comparison on one platform. The candidate and published
-v0.4.3 are built from exact source; measurements never compete on this machine.
+This replaces the v0.4.4 combined Product runner. Historical receipts cannot
+satisfy runtime-qualification-v1. Measurement remains a separate manual task.
 """
 import argparse
 import hashlib
 import json
 import os
 from pathlib import Path
-import platform
-import re
-import shutil
-import stat
 import subprocess
 import sys
-import tarfile
 import time
 
-from git_identity import read_release_pin, require_commit, verify_release_pin
+from consumer_acceptance import environment
+from git_identity import require_commit
+from experiment_workspace import remove_disposable_tree
+from runtime_validation import CONTRACT, BOUNDARIES, WORKFLOW, tree, source_inventory
 
-ROOT=Path(__file__).resolve().parents[1]
-BASELINE_PIN=read_release_pin(ROOT/'release/baselines/v0.4.3.json')
-BASELINE=BASELINE_PIN.source_commit
+ROOT = Path(__file__).resolve().parents[1]
 
 
-def write(path,value):
-    path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps(value,indent=2,sort_keys=True)+'\n')
+def write(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, indent=2, sort_keys=True) + '\n')
 
 
 def sha256(path):
-    digest=hashlib.sha256()
-    with path.open('rb') as stream:
-        for chunk in iter(lambda:stream.read(1024*1024),b''):
-            digest.update(chunk)
-    return digest.hexdigest()
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def remove_disposable_tree(path):
-    """Remove owned scratch, including Go's read-only module directories.
-
-    Only directory permissions need changing to unlink contents. Do not follow
-    symlinks into resources outside the disposable tree.
-    """
-    if path.is_symlink():
-        path.unlink()
-        return
-    if not path.exists():
-        return
-    for parent, _, _ in os.walk(path, followlinks=False):
-        directory=Path(parent)
-        directory.chmod(directory.stat().st_mode | stat.S_IWUSR)
-    shutil.rmtree(path)
+def qualify(root, candidate, workspace, native_platform):
+    require_commit(root, candidate)
+    if subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip() != candidate:
+        raise ValueError('source must be exact candidate')
+    if subprocess.check_output(['git', 'status', '--porcelain'], cwd=root, text=True).strip():
+        raise ValueError('source must be clean')
+    if workspace == root or workspace.is_relative_to(root):
+        raise ValueError('workspace must be outside disposable source checkout')
+    env_info = environment(native_platform)
+    if native_platform == 'darwin-arm64':
+        valid = env_info['system'] == 'Darwin' and env_info['architecture'] == 'arm64' and env_info['product_version'].startswith('15.')
+    else:
+        valid = env_info['system'] == 'Linux' and env_info['architecture'] == 'x86_64' and env_info['distribution'] == 'ubuntu' and env_info['version_id'] == '24.04'
+    if not valid:
+        raise ValueError('requires actual minimum supported native platform')
+    if not sys.version.startswith('3.14.'):
+        raise ValueError('requires Python3.14')
+    evidence, scratch = workspace/'evidence', workspace/'scratch'
+    if scratch.exists() or (evidence/'inputs.json').exists():
+        raise ValueError('refuse stale qualification evidence/scratch')
+    # Authenticate every tracked input and mode, not an installed-wheel subset.
+    inventory = source_inventory(root, candidate)
+    git_tree = tree(root, candidate)
+    evidence.mkdir(parents=True, exist_ok=True)
+    scratch.mkdir()
+    # No ambient pytest selection or Go/runtime override may narrow the oracle.
+    env = {k:v for k,v in os.environ.items() if k not in ('GH_TOKEN','GITHUB_TOKEN')
+           and not k.startswith(('GO','MARIAMEM_','MYSQLMEM_','WASMER_','WASIX_',
+                                 'DYLD_','LD_','PYTEST','PYTHON'))}
+    env.update(GOTOOLCHAIN='go1.26.8', GOMAXPROCS='2', GOENV='off', GOWORK='off',
+               GOFLAGS='', GOEXPERIMENT='', CGO_ENABLED='1',
+               GOCACHE=str(scratch/'gocache'), GOPATH=str(scratch/'gopath'),
+               TMPDIR=str(scratch), GOTMPDIR=str(scratch), PIP_NO_CACHE_DIR='1',
+               PYTHONDONTWRITEBYTECODE='1')
+    inputs = {'version':1, 'contract':CONTRACT, 'result':'FAIL', 'candidate_sha':candidate,
+              'native_platform':native_platform, 'environment':env_info, 'python':sys.version,
+              'guest_sha256':json.loads((root/'release/generated-go-inputs.json').read_text())['guest_sha256'],
+              'git_tree_sha256':hashlib.sha256(json.dumps(git_tree, sort_keys=True, separators=(',', ':')).encode()).hexdigest(),
+              'harness_sha256':{n:inventory[n] for n in inventory if
+                               n in (WORKFLOW, 'scripts/verify.py', 'scripts/validate_product_candidate.py') or
+                               n.startswith(('tests/', 'scripts/vet_generated.py'))},
+              'started_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())}
+    write(evidence/'source-inventory.json', inventory)
+    inputs['source_inventory_sha256'] = sha256(evidence/'source-inventory.json')
+    commands=[]
+    write(evidence/'correctness.json', {'version':1, 'contract':CONTRACT, 'result':'NOT READY', 'candidate_sha':candidate})
+    started=time.monotonic()
+    try:
+        inputs['go_version'] = subprocess.check_output(['go','version'],cwd=root,env=env,text=True).strip()
+        write(evidence/'inputs.json', inputs)
+        for name, command in (('source-unit-checks','check'), ('runtime-integration','integration')):
+            argv=[sys.executable,'scripts/verify.py',command]
+            record={'name':name,'argv':argv}; commands.append(record)
+            write(evidence/'commands.json',commands)
+            print('+',name,flush=True)
+            begun=time.monotonic()
+            with (evidence/(name+'.log')).open('w') as stream:
+                result=subprocess.run(argv,cwd=root,env=env,stdout=stream,stderr=subprocess.STDOUT)
+            record.update(exit_code=result.returncode,seconds=time.monotonic()-begun)
+            write(evidence/'commands.json',commands)
+            if result.returncode:
+                raise RuntimeError(name+' failed; see its log')
+        if inventory != source_inventory(root,candidate) or subprocess.check_output(['git','status','--porcelain'],cwd=root,text=True).strip():
+            raise ValueError('source changed during qualification')
+        inputs['result']='PASS'
+        write(evidence/'correctness.json', {'version':1,'contract':CONTRACT,'result':'PASS',
+                                         'candidate_sha':candidate,'boundaries':sorted(BOUNDARIES)})
+    except Exception as error:
+        inputs['error']=str(error)
+        raise
+    finally:
+        inputs['total_seconds']=time.monotonic()-started
+        write(evidence/'inputs.json',inputs)
+        # This entry explicitly requires a disposable checkout. Build products
+        # and test-owned synthetic repositories are recreatable, never receipts.
+        remove_disposable_tree(scratch)
+        for p in (root/'tests/runs', root/'tests/evidence'):
+            remove_disposable_tree(p)
+        if (root/'build').exists():
+            for p in (root/'build').iterdir():
+                if p.name != 'go.mod': remove_disposable_tree(p)
+        write(evidence/'cleanup.json', {'scratch_removed':not scratch.exists()})
+        write(evidence/'SHA256SUMS.json',{p.name:sha256(p) for p in sorted(evidence.iterdir())
+                                         if p.is_file() and p.name!='SHA256SUMS.json'})
 
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--candidate-sha',required=True)
-    parser.add_argument('--baseline-commit-sha',default=BASELINE,choices=(BASELINE,))
-    parser.add_argument('--workspace',type=Path,required=True,help='disposable parent outside source checkout')
-    parser.add_argument('--disposable-checkout',action='store_true',required=True,help='allow cleanup of outputs in an otherwise disposable source checkout')
-    parser.add_argument('--phase',choices=('all','correctness','performance'),default='all')
+    parser.add_argument('--platform',required=True,choices=('darwin-arm64','ubuntu24.04-x86_64'))
+    parser.add_argument('--workspace',type=Path,required=True)
+    parser.add_argument('--disposable-checkout',action='store_true',required=True)
     args=parser.parse_args()
-    if not re.fullmatch('[0-9a-f]{40}',args.candidate_sha):
-        parser.error('exact 40-character candidate SHA required')
-    workspace=args.workspace.resolve()
-    if workspace==ROOT or ROOT in workspace.parents:
-        parser.error('workspace must be outside candidate source checkout')
-    actual=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
-    if actual!=args.candidate_sha or subprocess.check_output(['git','diff','--name-only','HEAD'],cwd=ROOT,text=True).strip():
-        parser.error('source must be the exact clean candidate')
-    machine=(platform.system(),platform.machine())
-    if machine not in (('Darwin','arm64'),('Linux','x86_64')):
-        parser.error('requires native macOS arm64 or Ubuntu x86_64')
-    if machine[0]=='Linux' and ('ID=ubuntu' not in Path('/etc/os-release').read_text() or 'VERSION_ID="24.04"' not in Path('/etc/os-release').read_text()):
-        parser.error('canonical Linux qualification requires Ubuntu 24.04')
-    # Validate object kinds and the release relationship before creating scratch
-    # or building anything. Hexadecimal shape alone does not identify a commit.
-    try:
-        require_commit(ROOT,args.candidate_sha)
-        verify_release_pin(ROOT,BASELINE_PIN,fetch_remote='origin')
-    except ValueError as error:
-        parser.error(str(error))
-    evidence=workspace/'evidence'
-    scratch=workspace/'scratch'
-    evidence.mkdir(parents=True,exist_ok=True)
-    if scratch.exists():
-        parser.error('scratch already exists; use a new disposable workspace')
-    scratch.mkdir()
-    env=dict(os.environ,GOTOOLCHAIN='go1.26.8',GOMAXPROCS='2',CGO_ENABLED='1',
-             GOCACHE=str(scratch/'go-cache'),GOPATH=str(scratch/'go-path'),PIP_NO_CACHE_DIR='1')
-    for key in ('MARIAMEM_RUNTIME','MARIAMEM_NATIVE_DIR','MARIAMEM_TEST_HOST','PYTHONPATH',
-                'MARIAMEM_TIMING_DIR','MARIAMEM_INIT_DIAGNOSTICS','MARIAMEM_MEMORY_DIAGNOSTICS'):
-        env.pop(key,None)
-    commands=json.loads((evidence/'commands.json').read_text()) if (evidence/'commands.json').exists() else []
-    metadata=dict(candidate_sha=actual,baseline_commit_sha=args.baseline_commit_sha,
-                  baseline_tag_object_sha=BASELINE_PIN.tag_object_sha,
-                  guest_sha256=json.loads((ROOT/'release/generated-go-inputs.json').read_text())['guest_sha256'],
-                  platform=platform.platform(),machine=platform.machine(),python=sys.version,
-                  measured_at_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
-                  contract='v044-ownedprepared-product-validation',phase=args.phase)
-    if (evidence/'inputs.json').exists():
-        previous=json.loads((evidence/'inputs.json').read_text())
-        if previous.get('candidate_sha')!=actual or previous.get('baseline_commit_sha')!=args.baseline_commit_sha:
-            parser.error('evidence workspace belongs to another source pair')
-        metadata.update({key:value for key,value in previous.items() if key not in ('phase','result','error')})
-    write(evidence/'inputs.json',metadata)
-    def run(name,argv,*,cwd=ROOT,extra_env=None):
-        command=[str(arg) for arg in argv]
-        record=dict(name=name,argv=command,cwd=str(cwd))
-        commands.append(record);write(evidence/'commands.json',commands)
-        print('+',name,' '.join(command),flush=True)
-        begun=time.monotonic()
-        with (evidence/(name+'.log')).open('w') as output:
-            result=subprocess.run(command,cwd=cwd,env=dict(env,**(extra_env or {})),stdout=output,stderr=subprocess.STDOUT)
-        record.update(seconds=time.monotonic()-begun,exit_code=result.returncode)
-        write(evidence/'commands.json',commands)
-        if result.returncode:
-            raise RuntimeError(f'{name} failed: exit {result.returncode}; see {name}.log')
-    try:
-        helper=scratch/'process_cost'
-        run('build-counter',['cc','-O2','-o',helper,'benchmarks/tools/process_cost.c'])
-        host=scratch/'candidate-host'
-        run('build-host',['go','build','-p','1','-trimpath','-o',host,'./cmd/mariamem-host'],extra_env={'CGO_ENABLED':'0'})
-        gate_path=evidence/'correctness.json'
-        if args.phase in ('all','correctness'):
-            write(gate_path,dict(result='NOT READY',candidate_sha=actual,baseline_commit_sha=args.baseline_commit_sha))
-            # Runtime ownership/host handoff and pytest teardown changed. These
-            # are their canonical source, handwritten-race and real-runtime gates.
-            run('validation-tools',[sys.executable,'benchmarks/ownedprepared/test_tools.py'])
-            run('source-unit-checks',[sys.executable,'scripts/verify.py','check'])
-            run('runtime-integration',[sys.executable,'scripts/verify.py','integration'],
-                extra_env={'MARIAMEM_PROCESS_COST':str(helper)})
-            run('wheel-build',[sys.executable,'scripts/build_alpha.py','--ci-candidate'])
-            wheel_record=json.loads((ROOT/'tests/evidence/alpha-wheel.json').read_text())
-            wheel=ROOT/wheel_record['wheel']
-            metadata['wheel_sha256']=sha256(wheel)
-            venv=scratch/'consumer-venv'
-            run('consumer-venv',[sys.executable,'-m','venv',venv])
-            python=venv/'bin/python'
-            run('consumer-install',[python,'-m','pip','install','--no-cache-dir',wheel,
-                                    'pytest==8.4.2','pytest-xdist==3.8.0','PyMySQL==1.2.3'])
-            run('installed-pytest',[python,'tests/verify_alpha.py'])
-            for name in ('alpha.json','alpha-wheel.json','alpha-serial.log','alpha-parallel.log',
-                         'alpha-migration.log','alpha-failure-cleanup.log','snapshots.json'):
-                source=ROOT/'tests/evidence'/name
-                if source.exists():
-                    shutil.copy2(source,evidence/name)
-            write(gate_path,dict(result='PASS',candidate_sha=actual,baseline_commit_sha=args.baseline_commit_sha,
-                                 boundaries=['source/unit','handwritten races','Go real SQL/lifecycle',
-                                             'Python import/isolation/lifecycle','installed pytest/xdist']))
-        if args.phase in ('all','performance'):
-            gate=json.loads(gate_path.read_text())
-            if gate.get('result')!='PASS' or gate.get('candidate_sha')!=actual:
-                raise RuntimeError('performance requires PASS correctness for this exact candidate')
-            baseline=scratch/'baseline'
-            baseline.mkdir()
-            archive=scratch/'baseline.tar'
-            run('archive-baseline',['git','archive','--format=tar','-o',archive,args.baseline_commit_sha])
-            with tarfile.open(archive) as source:
-                source.extractall(baseline,filter='data')
-            archive.unlink()
-            if json.loads((baseline/'release/generated-go-inputs.json').read_text())['guest_sha256']!=metadata['guest_sha256']:
-                raise RuntimeError('comparison guest changed; this qualification requires the existing guest')
-            shared=baseline/'benchmarks/ownedprepared'
-            shared.mkdir(parents=True)
-            shutil.copy2(ROOT/'benchmarks/ownedprepared/main.go',shared/'main.go')
-            candidate_bench=scratch/'candidate-bench'
-            baseline_bench=scratch/'baseline-bench'
-            baseline_host=scratch/'baseline-host'
-            run('candidate-bench',['go','build','-p','1','-trimpath','-o',candidate_bench,'./benchmarks/ownedprepared'])
-            run('baseline-bench',['go','build','-p','1','-trimpath','-o',baseline_bench,'./benchmarks/ownedprepared'],cwd=baseline)
-            # Match candidate-host and published wheel builds, not the CGo-enabled
-            # Go measurement process. The two Python hosts must use identical flags.
-            run('baseline-host',['go','build','-p','1','-trimpath','-o',baseline_host,'./cmd/mariamem-host'],
-                cwd=baseline,extra_env={'CGO_ENABLED':'0'})
-            metadata['binaries_sha256']={name:sha256(path) for name,path in {
-                'candidate-bench':candidate_bench,'baseline-bench':baseline_bench,
-                'candidate-host':host,'baseline-host':baseline_host,'process_cost':helper}.items()}
-            run('comparison',[sys.executable,'benchmarks/ownedprepared/run_compare.py',
-                              '--baseline-root',baseline,'--baseline-bench',baseline_bench,
-                              '--candidate-bench',candidate_bench,'--baseline-host',baseline_host,
-                              '--candidate-host',host,'--helper',helper,'--scratch',scratch/'measure',
-                              '--out',evidence/'performance','--trials','3','--forks','16',
-                              '--correctness-evidence',gate_path,'--candidate-sha',actual])
-        metadata['result']='PASS'
-    except Exception as error:
-        metadata.update(result='FAIL',error=str(error))
-        raise
-    finally:
-        metadata['harness_sha256']={str(path.relative_to(ROOT)):sha256(path) for path in
-            sorted((ROOT/'benchmarks/ownedprepared').glob('*')) if path.is_file()}
-        write(evidence/'inputs.json',metadata)
-        remove_disposable_tree(scratch)
-        # build_alpha creates disposable build/package copies in the checkout.
-        # This runner requires an exact CI checkout; never deletes user work.
-        if (ROOT/'build').exists():
-            for path in (ROOT/'build').iterdir():
-                if path.name=='go.mod':
-                    continue # tracked nested-module boundary
-                if path.is_dir():
-                    shutil.rmtree(path)
-                else:
-                    path.unlink()
-        for path in (ROOT/'python/mariamem/_native',ROOT/'python/build',ROOT/'python/mariamem.egg-info',ROOT/'tests/runs'):
-            if path.exists():
-                shutil.rmtree(path)
-        for path in list(ROOT.rglob('__pycache__'))+list(ROOT.rglob('.pytest_cache')):
-            shutil.rmtree(path)
-        write(evidence/'cleanup.json',dict(scratch_removed=not scratch.exists(),
-              recreated_build_removed=not (ROOT/'build').exists() or not any(path.name!='go.mod' for path in (ROOT/'build').iterdir()),retained_large_paths=[]))
-        write(evidence/'SHA256SUMS.json',{str(path.relative_to(evidence)):sha256(path)
-               for path in sorted(evidence.rglob('*')) if path.is_file() and path.name!='SHA256SUMS.json'})
+    qualify(ROOT,args.candidate_sha,args.workspace.resolve(),args.platform)
 
 
-if __name__=='__main__':
-    main()
+if __name__=='__main__': main()

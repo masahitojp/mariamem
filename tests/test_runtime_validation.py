@@ -23,7 +23,7 @@ def digest(data):
 
 
 def intent():
-    return {'version': 1, 'repository': 'masahitojp/mariamem', 'workflow': runtime.WORKFLOW,
+    return {'version': 2, 'repository': 'masahitojp/mariamem', 'workflow': runtime.WORKFLOW,
             'basis_commit': SHA, 'run_id': 7,
             'artifacts': {p: {'id': i + 1, 'zip_sha256': 'b' * 64}
                           for i, p in enumerate(runtime.PLATFORMS)}}
@@ -31,29 +31,23 @@ def intent():
 
 def records(platform):
     mac = platform == runtime.PLATFORMS[0]
+    inventory = {n: 'd'*64 for n in ('mariamem.go', 'scripts/verify.py',
+                 'scripts/validate_product_candidate.py', runtime.WORKFLOW)}
     return {
-        'inputs.json': {'result': 'PASS', 'candidate_sha': SHA,
-            'contract': 'v044-ownedprepared-product-validation', 'python': '3.14.2',
-            'machine': 'arm64' if mac else 'x86_64',
-            'platform': 'macOS-15.7-arm64' if mac else 'Linux-6.8-x86_64',
-            'guest_sha256': 'c' * 64},
-        'correctness.json': {'result': 'PASS', 'candidate_sha': SHA,
-            'boundaries': ['source/unit', 'handwritten races', 'Go real SQL/lifecycle',
-                           'Python import/isolation/lifecycle', 'installed pytest/xdist']},
-        'alpha-wheel.json': {'source_commit': SHA, 'manifest': {'platform': platform},
-            'source_files_sha256': {'mariamem.go': 'd' * 64}, 'sha256': 'e' * 64,
-            'archive_checks_passed': True,
-            'host_buildinfo': 'host: go1.26.8\nCGO_ENABLED=0\n-trimpath=true\nGOOS=' +
-                ('darwin\nGOARCH=arm64' if mac else 'linux\nGOARCH=amd64') +
-                '\nvcs.revision=' + SHA + '\nvcs.modified=false'},
-        'alpha.json': {'passed': True, 'installed_files_match_wheel': True,
-            'consumer_outside_repository': True, 'native_overrides': False,
-            'wheel_sha256': 'e' * 64,
-            'runs': [{'name': n} for n in ['serial', 'parallel', 'migration', 'failure-cleanup']]},
-        'snapshots.json': {'passed': True, 'checks': list(range(49))},
-        'commands.json': [{'name': n, 'exit_code': 0} for n in
-            ['validation-tools', 'source-unit-checks', 'runtime-integration',
-             'wheel-build', 'installed-pytest', 'comparison']],
+        'inputs.json': {'version':1, 'result':'PASS', 'candidate_sha':SHA,
+            'contract':runtime.CONTRACT, 'python':'3.14.2', 'native_platform':platform,
+            'environment': {'system':'Darwin' if mac else 'Linux',
+                'architecture':'arm64' if mac else 'x86_64',
+                'product_version':'15.7', 'distribution':'ubuntu', 'version_id':'24.04'},
+            'go_version':'go version go1.26.8 ' + ('darwin/arm64' if mac else 'linux/amd64'),
+            'guest_sha256':'c'*64, 'git_tree_sha256':'f'*64,
+            'source_inventory_sha256':digest(json.dumps(inventory).encode()),
+            'harness_sha256':{n:h for n,h in inventory.items() if n!='mariamem.go'}},
+        'correctness.json': {'version':1, 'contract':runtime.CONTRACT, 'result':'PASS',
+            'candidate_sha':SHA, 'boundaries':sorted(runtime.BOUNDARIES)},
+        'source-inventory.json':inventory,
+        'commands.json':[{'name':n, 'exit_code':0, 'argv':['python','scripts/verify.py',c]}
+                         for n,c in [('source-unit-checks','check'),('runtime-integration','integration')]],
     }
 
 
@@ -79,10 +73,10 @@ class API:
         self.pin['artifacts'][platform]['zip_sha256'] = digest(self.payload)
         self.run = {'path': runtime.WORKFLOW, 'repository': {'full_name': self.pin['repository']},
                     'status': 'completed', 'conclusion': 'success', 'head_sha': SHA}
-        self.jobs = [{'name': 'Product contract — ' + p, 'status': 'completed', 'conclusion': 'success'}
+        self.jobs = [{'name': 'Runtime qualification — ' + p, 'status': 'completed', 'conclusion': 'success'}
                      for p in runtime.PLATFORMS]
         self.artifacts = [{'id': self.pin['artifacts'][platform]['id'],
-            'name': f'v044-product-{platform}-{SHA}', 'expired': False,
+            'name': f'runtime-{platform}-{SHA}', 'expired': False,
             'digest': 'sha256:' + digest(self.payload), 'size_in_bytes': len(self.payload)}]
         self.downloads = 0
 
@@ -102,10 +96,10 @@ class API:
 def test_authenticated_native_archive(tmp_path, platform):
     api = API(platform)
     target = tmp_path / 'proof.zip'
-    runtime.fetch_product(api, api.pin, platform, target)
+    runtime.fetch_qualification(api, api.pin, platform, target)
     inventory, receipt = runtime.evidence(target, api.pin, platform)
-    assert inventory == {'mariamem.go': 'd' * 64}
-    assert receipt['original_wheel_sha256'] == 'e' * 64
+    assert inventory == records(platform)['source-inventory.json']
+    assert receipt['contract'] == runtime.CONTRACT
     assert receipt['zip_sha256'] == digest(api.payload)
 
 
@@ -127,7 +121,7 @@ def test_origin_failures_stop_before_download(tmp_path, kind):
     if kind == 'oversize': api.artifacts[0]['size_in_bytes'] = 9 * 1024 * 1024
     if kind == 'duplicate': api.artifacts *= 2
     with pytest.raises(ValueError):
-        runtime.fetch_product(api, api.pin, p, tmp_path / 'proof.zip')
+        runtime.fetch_qualification(api, api.pin, p, tmp_path / 'proof.zip')
     assert api.downloads == 0
 
 
@@ -135,32 +129,32 @@ def test_changed_zip_rejected(tmp_path):
     api = API(runtime.PLATFORMS[0])
     api.payload += b'tampered'
     with pytest.raises(ValueError, match='ZIP digest'):
-        runtime.fetch_product(api, api.pin, runtime.PLATFORMS[0], tmp_path / 'proof.zip')
+        runtime.fetch_qualification(api, api.pin, runtime.PLATFORMS[0], tmp_path / 'proof.zip')
 
 
-@pytest.mark.parametrize('kind', ['result', 'source', 'coverage', 'python', 'platform', 'machine',
-    'toolchain', 'cgo', 'vcs', 'installed', 'wheel', 'suite', 'snapshots', 'commands'])
+@pytest.mark.parametrize('kind', ['source','failed','contract','version','coverage','platform','python',
+    'go','environment','guest','tree','inventory','harness','command','command-args','missing-command'])
 def test_receipt_failures(tmp_path, kind):
-    p = runtime.PLATFORMS[0]
-    data = records(p)
-    if kind == 'result': data['correctness.json']['result'] = 'FAIL'
-    if kind == 'source': data['alpha-wheel.json']['source_commit'] = 'f' * 40
-    if kind == 'coverage': data['correctness.json']['boundaries'].pop()
-    if kind == 'python': data['inputs.json']['python'] = '3.13.0'
-    if kind == 'platform': data['alpha-wheel.json']['manifest']['platform'] = runtime.PLATFORMS[1]
-    if kind == 'machine': data['inputs.json']['machine'] = 'x86_64'
-    if kind == 'toolchain': data['alpha-wheel.json']['host_buildinfo'] = 'go1.27.1'
-    if kind == 'cgo': data['alpha-wheel.json']['host_buildinfo'] = data['alpha-wheel.json']['host_buildinfo'].replace('CGO_ENABLED=0', 'CGO_ENABLED=1')
-    if kind == 'vcs': data['alpha-wheel.json']['host_buildinfo'] = data['alpha-wheel.json']['host_buildinfo'].replace('vcs.modified=false', 'vcs.modified=true')
-    if kind == 'installed': data['alpha.json']['installed_files_match_wheel'] = False
-    if kind == 'wheel': data['alpha.json']['wheel_sha256'] = 'f' * 64
-    if kind == 'suite': data['alpha.json']['runs'].pop()
-    if kind == 'snapshots': data['snapshots.json']['checks'].pop()
-    if kind == 'commands': data['commands.json'][0]['exit_code'] = 1
-    target = tmp_path / 'proof.zip'
-    target.write_bytes(archive(data))
-    with pytest.raises(ValueError):
-        runtime.evidence(target, intent(), p)
+    p=runtime.PLATFORMS[0]; data=records(p)
+    if kind=='source': data['correctness.json']['candidate_sha']='f'*40
+    if kind=='failed': data['inputs.json']['result']='FAIL'
+    if kind=='contract': data['inputs.json']['contract']='v044-ownedprepared-product-validation'
+    if kind=='version': data['inputs.json']['version']=0
+    if kind=='coverage': data['correctness.json']['boundaries'].pop()
+    if kind=='platform': data['inputs.json']['native_platform']=runtime.PLATFORMS[1]
+    if kind=='python': data['inputs.json']['python']='3.13.9'
+    if kind=='go': data['inputs.json']['go_version']='go version go1.27.1 darwin/arm64'
+    if kind=='environment': data['inputs.json']['environment']['product_version']='27.0'
+    if kind=='guest': data['inputs.json']['guest_sha256']='not-a-hash'
+    if kind=='tree': data['inputs.json']['git_tree_sha256']='not-a-hash'
+    if kind=='inventory': data['source-inventory.json'].pop('mariamem.go')
+    if kind=='harness': data['inputs.json']['harness_sha256']={}
+    if kind=='command': data['commands.json'][0]['exit_code']=1
+    if kind=='command-args': data['commands.json'][1]['argv'].append('--scope=docs')
+    if kind=='missing-command': data['commands.json'].pop()
+    target=tmp_path/'proof.zip';target.write_bytes(archive(data))
+    with pytest.raises((ValueError,KeyError)):
+        runtime.evidence(target,intent(),p)
 
 
 @pytest.mark.parametrize('kind', ['missing-hash', 'wrong-hash', 'traversal', 'duplicate', 'symlink'])
@@ -240,12 +234,11 @@ def test_real_git_equivalence_and_source_authentication(repository, monkeypatch)
     candidate = git('rev-parse', 'HEAD')
     inventory = {n: digest(subprocess.check_output(['git', 'show', basis + ':' + n], cwd=root))
                  for n in runtime.tree(root, basis)}
-    monkeypatch.setattr(runtime, 'fetch_product', lambda *args: None)
-    monkeypatch.setattr(runtime, 'evidence', lambda *args: (inventory, {'guest_sha256': 'c' * 64}))
+    monkeypatch.setattr(runtime, 'fetch_qualification', lambda *args: None)
+    monkeypatch.setattr(runtime, 'evidence', lambda *args: (inventory, {'guest_sha256': 'c' * 64, 'git_tree_sha256':runtime.digest_bytes(json.dumps(runtime.tree(root,basis),sort_keys=True,separators=(',',':')).encode())}))
     proof = runtime.validate(root, candidate, api=object())
     assert proof['runtime_basis_commit'] == basis and proof['release_source_commit'] == candidate
     assert runtime.VERSION_FILE in proof['reviewed_changed_paths']
-    assert not runtime.development_changed(root, candidate, pin)
     git('tag', '-a', 'annotated', '-m', 'not a commit')
     with pytest.raises(ValueError, match='commit'):
         runtime.validate(root, git('rev-parse', 'annotated'), api=object())
@@ -255,7 +248,6 @@ def test_real_git_equivalence_and_source_authentication(repository, monkeypatch)
     git('add', '.')
     git('commit', '-qm', 'genuine runtime change')
     changed = git('rev-parse', 'HEAD')
-    assert runtime.development_changed(root, changed, pin)
     with pytest.raises(ValueError, match='unreviewed tree change'):
         runtime.validate(root, changed, api=object())
 
@@ -308,8 +300,8 @@ def test_git_change_and_basis_inventory_fail_closed(repository, monkeypatch, kin
     if kind == 'missing-inventory': inventory.pop('mariamem.go')
     git('add', '.')
     git('commit', '-qm', 'candidate')
-    monkeypatch.setattr(runtime, 'fetch_product', lambda *args: None)
-    monkeypatch.setattr(runtime, 'evidence', lambda *args: (inventory, {'guest_sha256': 'c' * 64}))
+    monkeypatch.setattr(runtime, 'fetch_qualification', lambda *args: None)
+    monkeypatch.setattr(runtime, 'evidence', lambda *args: (inventory, {'guest_sha256': 'c' * 64, 'git_tree_sha256':runtime.digest_bytes(json.dumps(runtime.tree(root,basis),sort_keys=True,separators=(',',':')).encode())}))
     with pytest.raises(ValueError):
         runtime.validate(root, git('rev-parse', 'HEAD'), api=object())
 
@@ -329,183 +321,88 @@ def test_guard_cannot_return_ready_without_valid_runtime_proof(tmp_path, monkeyp
         release.guard(tmp_path, SHA, runtime.PLATFORMS[0])
 
 
-RECIPE = '''import shutil
-for name in ('runtime_instance.go', 'runtime_instance_test.go'):
-    shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)
-'''
-FIXED_RECIPE = RECIPE.replace("('runtime_instance.go',", "('code/base/owned_prepared.go', 'code/base/owned_prepared_test.go', 'runtime_instance.go',")
+# The qualification runner's fail-closed / partial initialization owner.
+import unittest
+from types import SimpleNamespace
+from unittest.mock import patch
+import tempfile
+import validate_product_candidate as runner
 
 
-def test_recipe_repair_is_narrower_than_a_tooling_exemption():
-    runtime.verify_handwritten_recipe(RECIPE, FIXED_RECIPE)
-    assert not runtime.exempt(runtime.HANDWRITTEN_RECIPE)
-    old, new = {runtime.HANDWRITTEN_RECIPE: 'a'*64}, {runtime.HANDWRITTEN_RECIPE: 'b'*64}
-    with pytest.raises(ValueError, match='missing generated recipe'):
-        runtime.compare_inventory(old, new, VERSION, VERSION)
-    assert runtime.compare_inventory(old, new, VERSION, VERSION, RECIPE, FIXED_RECIPE)
+def load_runner():
+    return runner
 
 
-@pytest.mark.parametrize('change', [
-    "shutil.copy2(ROOT/'other'/name, out/name)",
-    "shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)\nbuild_new_guest()",
-    "shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)\nGOTOOLCHAIN='other'",
-])
-def test_recipe_repair_cannot_hide_new_build_logic(change):
-    altered = FIXED_RECIPE.replace("shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)", change)
-    with pytest.raises(ValueError, match='recipe logic changed'):
-        runtime.verify_handwritten_recipe(RECIPE, altered)
+class QualificationRunnerTest(unittest.TestCase):
+    def test_failed_runner_never_writes_pass_and_preserves_tracked_boundary(self):
+        module=load_runner()
+        with tempfile.TemporaryDirectory() as temporary:
+            base=Path(temporary)
+            source=base/'source';source.mkdir()
+            (source/'build').mkdir();(source/'build/go.mod').write_text('module disposable-build\n')
+            (source/'release').mkdir()
+            (source/'release/generated-go-inputs.json').write_text(json.dumps(dict(guest_sha256='c'*64)))
+            workspace=base/'work'
+            def output(command,**kwargs):
+                if command[:2]==['go','version']: return 'go version go1.26.8 darwin/arm64\n'
+                return SHA+'\n' if command[1:3]==['rev-parse','HEAD'] else ''
+            inventory={name:'c'*64 for name in (module.WORKFLOW, 'scripts/verify.py', 'scripts/validate_product_candidate.py')}
+            with patch.object(module.sys,'version','3.14.8'),\
+                 patch.object(module,'environment',return_value=dict(system='Darwin',architecture='arm64',product_version='15.7')),\
+                 patch.dict(module.os.environ,{'PYTEST_ADDOPTS':'-k never','GOFLAGS':'-tags=skip','MARIAMEM_TEST_HOST':'wrong'}),\
+                 patch.object(module,'require_commit'),\
+                 patch.object(module,'source_inventory',return_value=inventory),\
+                 patch.object(module,'tree',return_value={}),\
+                 patch.object(module.subprocess,'check_output',side_effect=output),\
+                 patch.object(module.subprocess,'run',return_value=SimpleNamespace(returncode=1)) as execute:
+                with self.assertRaisesRegex(RuntimeError,'source-unit-checks failed'):
+                    module.qualify(source,SHA,workspace,'darwin-arm64')
+            execution=execute.call_args.kwargs['env']
+            self.assertNotIn('PYTEST_ADDOPTS',execution)
+            self.assertNotIn('MARIAMEM_TEST_HOST',execution)
+            self.assertEqual(execution['GOFLAGS'],'')
+            self.assertEqual(execution['CGO_ENABLED'],'1')
+            report=json.loads((workspace/'evidence/inputs.json').read_text())
+            self.assertEqual(report['result'],'FAIL')
+            self.assertEqual(json.loads((workspace/'evidence/correctness.json').read_text())['result'],'NOT READY')
+            self.assertFalse((workspace/'scratch').exists())
+            self.assertTrue((source/'build/go.mod').exists())
+
+    def test_bad_candidate_identity_stops_before_scratch_or_build(self):
+        module=load_runner()
+        with tempfile.TemporaryDirectory() as temporary:
+            workspace=Path(temporary)/'work'
+            with patch.object(module,'require_commit',side_effect=ValueError('wrong candidate identity')),\
+                 patch.object(module.subprocess,'run') as execute:
+                with self.assertRaisesRegex(ValueError,'wrong candidate identity'):
+                    module.qualify(Path(temporary),SHA,workspace,'darwin-arm64')
+                execute.assert_not_called()
+            self.assertFalse(workspace.exists())
 
 
-@pytest.mark.parametrize('new', [RECIPE,
-    FIXED_RECIPE.replace("'code/base/owned_prepared_test.go', ", ''),
-    FIXED_RECIPE.replace("'runtime_instance_test.go'", "'different.go'"),
-    FIXED_RECIPE.replace("'runtime_instance_test.go'", "'runtime_instance.go'"),
-    FIXED_RECIPE + RECIPE,
-])
-def test_recipe_missing_extra_duplicate_or_ambiguous_glue_rejected(new):
-    with pytest.raises(ValueError):
-        runtime.verify_handwritten_recipe(RECIPE, new)
+@pytest.mark.parametrize('version', [1, True, 0, '2'])
+def test_historical_or_ambiguous_intent_is_not_new_qualification(tmp_path,version):
+    data=intent(); data['version']=version
+    path=tmp_path/runtime.INTENT; path.parent.mkdir(parents=True); path.write_text(json.dumps(data))
+    with pytest.raises(ValueError,match='intent version'): runtime.read_intent(tmp_path)
 
 
-def test_real_recipe_carries_only_already_committed_glue():
-    import ast
-    source = (ROOT/runtime.HANDWRITTEN_RECIPE).read_text()
-    original = source.replace("'code/base/owned_prepared.go', 'code/base/owned_prepared_test.go', ", '', 1)
-    runtime.verify_handwritten_recipe(original, source)
-    assert ast.dump(ast.parse(original)) != ast.dump(ast.parse(source))
+def test_runtime_reuse_does_not_exempt_recipes_consumers_or_executable_docs():
+    for name in ('scripts/generated_guest_recipe.py','scripts/generated_release_acceptance.py',
+                 'tests/consumer/run_sqlalchemy.py',runtime.WORKFLOW,'docs/hidden_runtime.py'):
+        with pytest.raises(ValueError,match='unreviewed source change'):
+            runtime.compare_inventory({name:'a'*64},{name:'b'*64},VERSION,VERSION)
 
 
-def test_repaired_recipe_development_scope_and_release_validation(repository, monkeypatch):
-    root, git, _ = repository
-    (root/'scripts').mkdir()
-    (root/runtime.HANDWRITTEN_RECIPE).write_text(RECIPE)
-    git('add', '.')
-    git('commit', '-qm', 'original installer')
-    basis = git('rev-parse', 'HEAD')
-    inventory = {n: digest(subprocess.check_output(['git','show',basis+':'+n],cwd=root))
-                 for n in runtime.tree(root,basis)}
-    pin = intent()
-    pin['basis_commit'] = basis
-    (root/runtime.INTENT).write_text(json.dumps(pin))
-    (root/runtime.HANDWRITTEN_RECIPE).write_text(FIXED_RECIPE)
-    git('add', '.')
-    git('commit', '-qm', 'carry tested handwritten files')
-    candidate = git('rev-parse', 'HEAD')
-    assert not runtime.development_changed(root, candidate, pin)
-    monkeypatch.setattr(runtime, 'fetch_product', lambda *a: None)
-    monkeypatch.setattr(runtime, 'evidence', lambda *a: (inventory, {'guest_sha256':'c'*64}))
-    proof = runtime.validate(root, candidate, api=object())
-    assert runtime.HANDWRITTEN_RECIPE in proof['reviewed_changed_paths']
-    (root/runtime.HANDWRITTEN_RECIPE).write_text(FIXED_RECIPE+'\nbuild_new_guest()\n')
-    git('add', '.')
-    git('commit', '-qm', 'different recipe')
-    changed = git('rev-parse', 'HEAD')
-    assert runtime.development_changed(root, changed, pin)  # ordinary future code checks remain
-    with pytest.raises(ValueError, match='recipe logic changed'):
-        runtime.validate(root, changed, api=object())
-
-
-def original_sqlalchemy_fixture():
-    current = (ROOT / runtime.SQLALCHEMY_HARNESS).read_text()
-    assert current.count('            yield snapshot\n') == 1
-    return current.replace('            yield snapshot\n',
-                           '            saved = snapshot.path\n            yield snapshot\n'
-                           '        assert not saved.exists()\n', 1)
-
-
-def test_sqlalchemy_fixture_repair_is_exact():
-    current = (ROOT / runtime.SQLALCHEMY_HARNESS).read_text()
-    original = original_sqlalchemy_fixture()
-    runtime.verify_sqlalchemy_fixture(original, current)
-    old, new = {runtime.SQLALCHEMY_HARNESS:'a'*64}, {runtime.SQLALCHEMY_HARNESS:'b'*64}
-    with pytest.raises(ValueError, match='missing SQLAlchemy harness'):
-        runtime.compare_inventory(old, new, VERSION, VERSION)
-    assert runtime.compare_inventory(old, new, VERSION, VERSION,
-                                     old_harness=original, new_harness=current)
-    for altered in (current.replace('            prepare(engine)', '            pass'),
-                    current.replace('yield snapshot', 'yield None'),
-                    current.replace('template.wait_disconnected()', 'pass'),
-                    current.replace('engine.dispose()', 'pass'),
-                    current + '\nassert False\n'):
-        with pytest.raises(ValueError, match='consumer logic changed'):
-            runtime.verify_sqlalchemy_fixture(original, altered)
-
-
-@pytest.mark.parametrize('finish', ['normal', 'close', 'error'])
-def test_actual_consumer_prepared_fixture_needs_no_public_path(finish):
-    import ast
-    from contextlib import contextmanager
-    from types import SimpleNamespace
-    source = ast.parse((ROOT / runtime.SQLALCHEMY_HARNESS).read_text())
-    fixture = next(n for n in source.body if isinstance(n, ast.FunctionDef) and n.name == 'prepared')
-    fixture.decorator_list = []
-    events = []
-    snapshot = object()  # intentionally no path, manifest or validation API
-    @contextmanager
-    def owned_snapshot():
-        events.append('snapshot-enter')
-        try:
-            yield snapshot
-        finally:
-            events.append('snapshot-close')
-    db = SimpleNamespace(diagnostics={}, log_path=Path('/fixture/log'),
-                         wait_disconnected=lambda: events.append('disconnected'),
-                         snapshot=owned_snapshot)
-    @contextmanager
-    def start():
-        events.append('database-enter')
-        try:
-            yield db
-        finally:
-            events.append('database-close')
-    namespace = {'mariamem':SimpleNamespace(start=start),
-                 'time':SimpleNamespace(monotonic=lambda:1),
-                 'engine_for':lambda *_:SimpleNamespace(dispose=lambda:events.append('dispose')),
-                 'prepare':lambda _:events.append('prepare'),
-                 'reaped':lambda *_:events.append('reaped')}
-    exec(compile(ast.Module(body=[fixture], type_ignores=[]), '<actual prepared fixture>', 'exec'), namespace)
-    audit = {'mode':'fork', 'templates':[]}
-    generator = namespace['prepared'](audit)
-    assert next(generator) is snapshot
-    assert events == ['database-enter', 'prepare', 'dispose', 'disconnected', 'snapshot-enter', 'reaped']
-    if finish == 'normal':
-        with pytest.raises(StopIteration):
-            next(generator)
-    elif finish == 'close':
-        generator.close()
-    else:
-        with pytest.raises(RuntimeError, match='test failure'):
-            generator.throw(RuntimeError('test failure'))
-    assert events[-2:] == ['snapshot-close', 'database-close']
-    assert len(audit['templates']) == 1
-
-
-def test_consumer_fixture_repair_development_and_release_scope(repository, monkeypatch):
-    root, git, _ = repository
-    (root / 'tests/consumer').mkdir(parents=True)
-    original = original_sqlalchemy_fixture()
-    (root / runtime.SQLALCHEMY_HARNESS).write_text(original)
-    git('add', '.')
-    git('commit', '-qm', 'original consumer')
-    basis = git('rev-parse', 'HEAD')
-    inventory = {n:digest(subprocess.check_output(['git','show',basis+':'+n],cwd=root))
-                 for n in runtime.tree(root,basis)}
-    pin = intent()
-    pin['basis_commit'] = basis
-    (root/runtime.INTENT).write_text(json.dumps(pin))
-    current = (ROOT/runtime.SQLALCHEMY_HARNESS).read_text()
-    (root/runtime.SQLALCHEMY_HARNESS).write_text(current)
-    git('add', '.')
-    git('commit', '-qm', 'remove obsolete path probe')
-    candidate = git('rev-parse', 'HEAD')
-    assert not runtime.development_changed(root, candidate, pin)
-    monkeypatch.setattr(runtime, 'fetch_product', lambda *a:None)
-    monkeypatch.setattr(runtime, 'evidence', lambda *a:(inventory, {'guest_sha256':'c'*64}))
-    assert runtime.SQLALCHEMY_HARNESS in runtime.validate(root, candidate, api=object())['reviewed_changed_paths']
-    (root/runtime.SQLALCHEMY_HARNESS).write_text(current.replace('            prepare(engine)', '            pass'))
-    git('add', '.')
-    git('commit', '-qm', 'different consumer setup')
-    changed = git('rev-parse', 'HEAD')
-    assert runtime.development_changed(root, changed, pin)
-    with pytest.raises(ValueError, match='consumer logic changed'):
-        runtime.validate(root, changed, api=object())
+def test_existing_workflow_owns_only_versioned_native_runtime_qualification():
+    workflow=(ROOT/runtime.WORKFLOW).read_text()
+    for value in ('Runtime qualification (v1)','Runtime qualification —',
+                  'runner: macos-15','runner: ubuntu-24.04',
+                  'platform: darwin-arm64','platform: ubuntu24.04-x86_64',
+                  'runtime-${{ matrix.platform }}-', 'retention-days: 90'):
+        assert value in workflow
+    assert workflow.index('Freeze candidate identity') < workflow.index('actions/setup-go')
+    assert 'test "$CANDIDATE" = "$GITHUB_SHA"' in workflow
+    for historical in ('run_compare.py','build_alpha.py','--phase','--baseline','performance-correctness'):
+        assert historical not in workflow
+    assert 'scripts/validate_product_candidate.py --candidate-sha' in workflow

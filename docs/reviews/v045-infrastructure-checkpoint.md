@@ -25,7 +25,7 @@ has begun. v0.4.5 is not yet release-ready.
   handwritten carry/repro-tool negatives PASS. Full new source-to-WASM reproduction
   and Ubuntu execution are not claimed. [Compact evidence](v045-p0-evidence.json).
 
-## Why stop here
+## Historical checkpoint: why work stopped here
 
 The next changes cross the task's explicit review checkpoints: removing required
 checks from a stage, materially changing reusable CI evidence, and changing the
@@ -100,6 +100,14 @@ full public acceptance rather than silently narrowing it.
 
 **Human question:** Keep full final-artifact consumers and narrow only the subsequent
 public smoke under these exact-byte/public-origin conditions?
+
+## Approval and continuation
+
+The maintainer approved Decisions A and B: migrate the existing Product workflow
+to strict runtime-only qualification, retain full final-artifact consumers, and
+narrow publication smoke only with exact accepted identities. See
+[v045-p1 implementation/evidence](v045-p1-runtime-artifact-migration.md).
+No merge/release or Snapshot optimization was approved.
 
 ## Remaining sequence after review
 

@@ -1,5 +1,9 @@
 # v0.4.4 — Runtime evidence reuse before release
 
+Historical v0.4.4 evidence. Its original intent is now archived at
+[v044-runtime-validation-intent.json](v044-runtime-validation-intent.json);
+these receipts do not satisfy the v0.4.5 runtime-only contract.
+
 **APPROVED FOR IMPLEMENTATION.** The maintainer approved runtime evidence reuse
 with fresh exact-version artifact/consumer gates. The implementation changes only
 release/development verification tooling; it does not change the accepted runtime.

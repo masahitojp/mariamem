@@ -13,11 +13,10 @@ import shutil
 import subprocess
 import sys
 import tempfile
-import xml.etree.ElementTree as ET
 from common import ROOT, digest
 from consumer_module import MODULE, prepare_proxy
 from generated_release import CONTRACT, STEPS, checkout, require, source_inventory, verify_wheel, version, write
-from consumer_acceptance import isolated_env, bind_remote_origin, environment
+from consumer_acceptance import isolated_env, bind_remote_origin, environment, verify_module_files, ORM_MODES, verify_gorm_cases, verify_sqlalchemy_cases
 
 
 def harness_inventory(root):
@@ -25,12 +24,13 @@ def harness_inventory(root):
            root/'scripts/consumer_acceptance.py',root/'tests/verify_alpha.py',
            *sorted((root/'tests/godefault').glob('*.go')),
            root/'tests/consumer/test_database.py',root/'tests/consumer/test_generated_platform.py',
-           root/'tests/consumer/test_sqlalchemy_dogfood.py',
+           root/'tests/consumer/test_sqlalchemy_dogfood.py', root/'scripts/guest_smoke/main.go',
+           root/'tests/consumer/sqlalchemy-requirements.txt',
            *sorted((root/'tests/consumer/gorm').glob('*'))]
     return {p.relative_to(root).as_posix():digest(p) for p in paths if p.is_file()}
 
 
-def accept(root, commit, platform, output, mode='candidate', wheel=None, go_build_jobs=None):
+def accept(root, commit, platform, output, mode='candidate', wheel=None, go_build_jobs=None, publication=None):
     root=root.resolve(); output=output.resolve()
     require(not output.exists(),'refuse stale acceptance evidence')
     require(mode in ('candidate','published'),'unknown acceptance mode')
@@ -38,7 +38,15 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None, go_buil
     selected,record=verify_wheel(root,platform,commit)
     if wheel is not None:
         require(wheel.resolve()==selected.resolve(),'selected wheel differs from frozen metadata')
-    metadata=version(root); report={'contract':CONTRACT,'result':'FAIL','source_commit':commit,'mode':mode,
+    metadata=version(root)
+    if mode=='published':
+        require(publication is not None and publication.get('status')=='PUBLISHED'
+                and publication.get('source_commit')==commit
+                and publication.get('git_tag')==metadata['GIT_TAG']
+                and publication['platforms'][platform]['result']=='READY'
+                and publication['platforms'][platform]['wheel_record']==record,
+                'published smoke requires exact accepted artifact proof')
+    report={'contract':CONTRACT if mode=='candidate' else 'published-distribution-smoke-v1','result':'FAIL','source_commit':commit,'mode':mode,
              'platform':platform,'python_version':metadata['PYTHON_VERSION'],'module_version':metadata['GIT_TAG'],
              'wheel_sha256':record['sha256'],'go_source_sha256':source_inventory(root),
              'harness_sha256':harness_inventory(root),'steps':{},'runtime_overrides':False,
@@ -75,47 +83,60 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None, go_buil
                 resolved=json.loads(subprocess.check_output(['go','list','-m','-json',MODULE],cwd=project,env=env,text=True))
                 remote=json.loads(subprocess.check_output(['go','list','-m','-json',MODULE+'@'+tag],cwd=project,env={**env,'GOPROXY':'direct'},text=True))
                 report['public_module']=bind_remote_origin(resolved,remote,commit,tag)
+                report['public_module_files']=verify_module_files(resolved,root)
             run(['go','mod','tidy'],project,env)
             resolved=json.loads(subprocess.check_output(['go','list','-m','-json',MODULE],cwd=project,env=env,text=True))
             require(resolved['Version']==tag and 'Replace' not in resolved,'consumer module substituted')
-            # These normal-path tests also reject cache/provisioning use, exercise
-            # auth/errors/corruption/reconnect and retain closed handles explicitly.
-            run(['go','test','-tags=integration','-count=1','-timeout=5m','-v','.'],project,env)
-            report['steps'].update(go_default='PASS',go_snapshot_failure_lifecycle='PASS')
-            gorm=work/'gorm'; shutil.copytree(root/'tests/consumer/gorm',gorm)
-            run(['go','mod','edit','-require',MODULE+'@'+tag],gorm,env)
-            run(['go','mod','tidy'],gorm,env)
-            count=0
-            for index,mode_name in enumerate(('start','fork','fork','start')):
-                evidence=work/f'gorm-{index}.json'
-                run(['go','test','-mod=readonly','-v','-count=1','-timeout=3m','.'],gorm,
-                    {**env,'DOGFOOD_ZERO_OPTIONS':'1','DOGFOOD_MODE':mode_name,'DOGFOOD_EVIDENCE':str(evidence)})
-                data=json.loads(evidence.read_text()); require(data['passed'] and len(data['cases'])==8,'GORM cases differ')
-                count+=len(data['cases'])
-            report['gorm_cases']=count; report['steps']['gorm']='PASS'
+            if mode=='candidate':
+                # These normal-path tests also reject cache/provisioning use, exercise
+                # auth/errors/corruption/reconnect and retain closed handles explicitly.
+                run(['go','test','-tags=integration','-count=1','-timeout=5m','-v','.'],project,env)
+                report['steps'].update(go_default='PASS',go_snapshot_failure_lifecycle='PASS')
+                gorm=work/'gorm'; shutil.copytree(root/'tests/consumer/gorm',gorm)
+                run(['go','mod','edit','-require',MODULE+'@'+tag],gorm,env)
+                run(['go','mod','tidy'],gorm,env)
+                count=0
+                for index,mode_name in enumerate(ORM_MODES):
+                    evidence=work/f'gorm-{index}.json'
+                    run(['go','test','-mod=readonly','-v','-count=1','-timeout=3m','.'],gorm,
+                        {**env,'DOGFOOD_ZERO_OPTIONS':'1','DOGFOOD_MODE':mode_name,'DOGFOOD_EVIDENCE':str(evidence)})
+                    count+=verify_gorm_cases(evidence)
+                report['gorm_cases']=count; report['steps']['gorm']='PASS'
+            else:
+                for source in project.glob('*.go'): source.unlink()
+                shutil.copyfile(root/'scripts/guest_smoke/main.go',project/'main.go')
+                run(['go','run','.'],project,env)
+                report['steps']['public_go_smoke']='PASS'
             venv=work/'venv'; run([sys.executable,'-m','venv',venv],work,env)
             python=venv/'bin/python'
-            run([python,'-m','pip','install',str(selected)+'[test]','SQLAlchemy==2.0.54','pytest==8.4.2',
-                 'pytest-xdist==3.8.0','PyMySQL==1.2.3'],work,env)
-            run([python,root/'tests/verify_alpha.py'],work,env)
-            shutil.copyfile(root/'tests/consumer/test_generated_platform.py',work/'test_generated_platform.py')
-            run([python,'-m','pytest','-q',work/'test_generated_platform.py'],work,env)
-            report['steps']['installed_wheel']='PASS'
-            shutil.copyfile(root/'tests/consumer/test_sqlalchemy_dogfood.py',work/'test_sqlalchemy_dogfood.py')
-            count=0
-            for index,mode_name in enumerate(('start','fork','fork','start')):
-                junit=work/f'sqlalchemy-{index}.xml'
-                run([python,'-m','pytest','-q','test_sqlalchemy_dogfood.py','--junitxml',junit],work,
-                    {**env,'DOGFOOD_MODE':mode_name,'DOGFOOD_EVIDENCE':str(work/f'sqlalchemy-{index}.json')})
-                suites=list(ET.parse(junit).getroot().iter('testsuite'))
-                require(sum(int(s.get('tests',0)) for s in suites)==11 and
-                        all(int(s.get(k,0))==0 for s in suites for k in ('failures','errors','skipped')),'SQLAlchemy cases differ')
-                count+=11
-            report['sqlalchemy_cases']=count; report['steps']['sqlalchemy']='PASS'
+            if mode=='candidate':
+                run([python,'-m','pip','install',str(selected)+'[test]','-r',root/'tests/consumer/sqlalchemy-requirements.txt',
+                     'pytest-xdist==3.8.0'],work,env)
+                run([python,root/'tests/verify_alpha.py'],work,env)
+                shutil.copyfile(root/'tests/consumer/test_generated_platform.py',work/'test_generated_platform.py')
+                run([python,'-m','pytest','-q',work/'test_generated_platform.py'],work,env)
+                report['steps']['installed_wheel']='PASS'
+                shutil.copyfile(root/'tests/consumer/test_sqlalchemy_dogfood.py',work/'test_sqlalchemy_dogfood.py')
+                count=0
+                for index,mode_name in enumerate(ORM_MODES):
+                    junit=work/f'sqlalchemy-{index}.xml'
+                    run([python,'-m','pytest','-q','test_sqlalchemy_dogfood.py','--junitxml',junit],work,
+                        {**env,'DOGFOOD_MODE':mode_name,'DOGFOOD_EVIDENCE':str(work/f'sqlalchemy-{index}.json')})
+                    count+=verify_sqlalchemy_cases(junit)
+                report['sqlalchemy_cases']=count; report['steps']['sqlalchemy']='PASS'
+            else:
+                run([python,'-m','pip','install',selected,'PyMySQL==1.2.3'],work,env)
+                run([python,root/'tests/verify_alpha.py','--public-smoke'],work,env)
+                installed=json.loads((root/'tests/evidence/public-wheel-smoke.json').read_text())
+                require(installed['passed'] and installed['installed_files_match_wheel']
+                        and installed['wheel_sha256']==record['sha256']
+                        and installed['version']==metadata['PYTHON_VERSION'], 'public installed-wheel smoke differs')
+                report['steps']['public_wheel_smoke']='PASS'
             report['runtime_cache_entries']=sorted(p.name for p in cache.iterdir())
             require(not report['runtime_cache_entries'],'ordinary consumers unexpectedly used runtime cache: '+
                     ', '.join(report['runtime_cache_entries']))
-        require(set(report['steps'])==STEPS,'missing acceptance stage')
+        required=STEPS if mode=='candidate' else {'public_go_smoke','public_wheel_smoke'}
+        require(set(report['steps'])==required,'missing acceptance stage')
         require(digest(selected)==report['wheel_sha256'],'wheel changed during acceptance')
         report['result']='PASS'
     except Exception as exc:

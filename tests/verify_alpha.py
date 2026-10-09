@@ -18,12 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 wheel_record = json.loads((ROOT / "tests/evidence/alpha-wheel.json").read_text())
 wheel_path = ROOT / wheel_record["wheel"]
 assert hashlib.sha256(wheel_path.read_bytes()).hexdigest() == wheel_record["sha256"]
-with zipfile.ZipFile(wheel_path) as archive:
-    for name in archive.namelist():
-        if "/mariamem/" in name:
-            relative = name.split("/mariamem/", 1)[1]
-            installed = Path(mariamem.__file__).parent / relative
-            assert installed.read_bytes() == archive.read(name), f"installed wheel mismatch: {relative}"
+sys.path.insert(0, str(ROOT / 'scripts'))
+from consumer_acceptance import verify_installed_files
+verify_installed_files(wheel_path, Path(mariamem.__file__).parent)
 report = {"version": importlib.metadata.version("mariamem"), "runs": [],
           "wheel_sha256": wheel_record["sha256"], "installed_files_match_wheel": True}
 audit_plugin = '''import json
@@ -129,9 +126,31 @@ def test_setup(broken):
         report["consumer_outside_repository"] = True
 
 
+def public_smoke():
+    import pymysql
+    assert importlib.metadata.version('mariamem') == wheel_record['manifest']['package_version']
+    with mariamem.start() as db:
+        with pymysql.connect(**db.connection_info()) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT 1')
+                assert cursor.fetchone() == (1,)
+        db.wait_disconnected()
+        with db.snapshot() as baseline:
+            with baseline.fork() as child:
+                with pymysql.connect(**child.connection_info()) as connection:
+                    with connection.cursor() as cursor:
+                        cursor.execute('SELECT 1')
+                        assert cursor.fetchone() == (1,)
+    report.update(passed=True, mode='published-minimal', installed_files_match_wheel=True)
+
+
 if __name__ == "__main__":
+    smoke = sys.argv[1:] == ['--public-smoke']
+    if sys.argv[1:] and not smoke:
+        raise SystemExit('unsupported arguments')
     try:
-        main()
+        public_smoke() if smoke else main()
     finally:
         report.setdefault("passed", False)
-        (ROOT / "tests/evidence/alpha.json").write_text(json.dumps(report, indent=2) + "\n")
+        name = 'public-wheel-smoke.json' if smoke else 'alpha.json'
+        (ROOT / "tests/evidence" / name).write_text(json.dumps(report, indent=2) + "\n")

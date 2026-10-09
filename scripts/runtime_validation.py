@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Authenticate Product CI runtime evidence separately from final release artifacts."""
+"""Authenticate runtime-only qualification; never relabel historical Product evidence."""
 import argparse
 import ast
 import hashlib
@@ -22,29 +22,14 @@ PROOF = 'build/release/runtime-validation.json'
 WORKFLOW = '.github/workflows/v044-product-validation.yml'
 PLATFORMS = ('darwin-arm64', 'ubuntu24.04-x86_64')
 VERSION_FILE = 'python/mariamem/_version.py'
-HANDWRITTEN_RECIPE = 'scripts/generate_runtime.py'
-SQLALCHEMY_HARNESS = 'tests/consumer/test_sqlalchemy_dogfood.py'
-OWNED_GLUE = ('code/base/owned_prepared.go', 'code/base/owned_prepared_test.go')
+CONTRACT = 'runtime-qualification-v1'
 FIELDS = {'MAJOR', 'MINOR', 'PATCH', 'STAGE', 'SERIAL'}
-# These tracked historical outputs are excluded by the Product receipt's
-# public_files selector. They remain protected by the full Git tree comparison;
-# this is not an exemption allowing them to change or new omissions to appear.
+# Runtime receipts inventory every tracked file. Restored release platform trees
+# intentionally omit these repository-only / ignored historical tracked paths.
 BASIS_OMISSIONS = {'build/go.mod', 'benchmarks/results/direct-link-consumer-experience.json'}
-# Reviewed exceptions, not a blanket scripts/tests/release exclusion.
-EXCEPTIONS = {
-    'README.md', 'AGENTS.md', '.agents/skills/release/SKILL.md',
-    '.github/workflows/check.yml', '.github/workflows/release-candidate-ready.yml', WORKFLOW,
-    'benchmarks/ownedprepared/README.md', 'benchmarks/ownedprepared/test_tools.py',
-    'release/baselines/v0.4.3.json', INTENT,
-    'scripts/git_identity.py', 'scripts/validate_product_candidate.py',
-    'scripts/runtime_validation.py', 'scripts/release_preparation_checks.py',
-    'scripts/release_plan.py', 'scripts/release_prepare.py',
-    'scripts/generated_release.py', 'scripts/release_generated_ci.py',
-    'tests/test_git_identity.py', 'tests/test_runtime_validation.py',
-    'tests/test_release_plan.py', 'tests/test_release_prepare.py',
-    'tests/test_generated_release.py', 'tests/test_ci_publication_workflow.py',
-    'tests/test_generated_runtime_inventory.py',
-}
+EXCEPTIONS = {'README.md', 'AGENTS.md', '.agents/skills/release/SKILL.md', INTENT}
+BOUNDARIES = {'source/unit', 'handwritten races', 'Go real SQL/lifecycle',
+              'Python wire/import/isolation/lifecycle', 'memory32 traps'}
 
 
 def require(ok, message):
@@ -63,7 +48,7 @@ def read_intent(root):
     data = json.loads(path.read_text())
     require(isinstance(data, dict) and set(data) == {'version', 'repository', 'workflow', 'basis_commit', 'run_id', 'artifacts'},
             'invalid intent schema')
-    require(type(data['version']) is int and data['version'] == 1, 'unknown intent version')
+    require(type(data['version']) is int and data['version'] == 2, 'unknown intent version')
     require(data['repository'] == 'masahitojp/mariamem' and data['workflow'] == WORKFLOW,
             'wrong repository/workflow')
     require(isinstance(data['basis_commit'], str) and re.fullmatch('[0-9a-f]{40}', data['basis_commit']),
@@ -77,7 +62,7 @@ def read_intent(root):
 
 
 def exempt(name):
-    return name in EXCEPTIONS or name.startswith('docs/') or (
+    return name in EXCEPTIONS or (name.startswith('docs/') and Path(name).suffix in ('.md', '.json', '.csv')) or (
         name.startswith('release/NOTES-') and name.endswith('.md'))
 
 
@@ -98,83 +83,23 @@ def version_logic(source):
     return ast.dump(ast.Module(body=body, type_ignores=[]), include_attributes=False)
 
 
-def verify_handwritten_recipe(old_source, new_source):
-    """Allow only carrying the already-tested OwnedPrepared glue into regen.
-
-    Unlike tooling exceptions this cannot bypass changes to translation, imports,
-    gofmt, input pins or provenance. The rest of the recipe's AST must be identical.
-    """
-    old, new = ast.parse(old_source), ast.parse(new_source)
-    def copy_loop(tree):
-        loops = [n for n in ast.walk(tree) if isinstance(n, ast.For)
-                 and isinstance(n.iter, ast.Tuple)
-                 and any(isinstance(e, ast.Constant) and e.value == 'runtime_instance.go'
-                         for e in n.iter.elts)]
-        require(len(loops) == 1, 'handwritten copy loop missing/ambiguous')
-        loop = loops[0]
-        require(all(isinstance(e, ast.Constant) and isinstance(e.value, str)
-                    for e in loop.iter.elts), 'invalid handwritten copy list')
-        names = tuple(e.value for e in loop.iter.elts)
-        require(len(names) == len(set(names)), 'duplicate handwritten copy')
-        return loop, names
-    old_loop, old_names = copy_loop(old)
-    new_loop, new_names = copy_loop(new)
-    require(not set(OWNED_GLUE) & set(old_names), 'unexpected original handwritten recipe')
-    require(new_names == OWNED_GLUE + old_names, 'unreviewed handwritten recipe changes')
-    new_loop.iter = old_loop.iter
-    require(ast.dump(new, include_attributes=False) == ast.dump(old, include_attributes=False),
-            'generated recipe logic changed')
-
-
-def verify_sqlalchemy_fixture(old_source, new_source):
-    """Only remove the obsolete public Snapshot.path cleanup probe.
-
-    Compare the entire module, preserving setup, context ownership, all SQL
-    assertions and process cleanup. This is not a general consumer exemption.
-    """
-    old, new = ast.parse(old_source), ast.parse(new_source)
-    fixtures = [n for n in old.body if isinstance(n, ast.FunctionDef) and n.name == 'prepared']
-    require(len(fixtures) == 1, 'prepared fixture missing/ambiguous')
-    probes = [ast.parse('saved = snapshot.path').body[0],
-              ast.parse('assert not saved.exists()').body[0]]
-    removed = []
-    for probe in probes:
-        matches = [n for n in ast.walk(fixtures[0])
-                   if ast.dump(n, include_attributes=False) == ast.dump(probe, include_attributes=False)]
-        require(len(matches) == 1, 'obsolete Snapshot.path probe missing/ambiguous')
-        removed.extend(matches)
-    class RemoveProbe(ast.NodeTransformer):
-        def visit(self, node):
-            return None if any(node is n for n in removed) else super().visit(node)
-    old = RemoveProbe().visit(old)
-    require(ast.dump(old, include_attributes=False) == ast.dump(new, include_attributes=False),
-            'SQLAlchemy consumer logic changed')
-
-
-CONDITIONAL_CHECKS = {HANDWRITTEN_RECIPE: verify_handwritten_recipe,
-                      SQLALCHEMY_HARNESS: verify_sqlalchemy_fixture}
-
-
-def compare_inventory(basis, current, old_version, new_version, old_recipe=None, new_recipe=None,
-                      old_harness=None, new_harness=None):
+def compare_inventory(basis, current, old_version, new_version):
     require(all(sha(v) for v in basis.values()), 'invalid basis inventory hash')
     require(all(sha(v) for v in current.values()), 'invalid candidate inventory hash')
     changed = sorted(n for n in set(basis) | set(current) if basis.get(n) != current.get(n))
     for name in changed:
         if name == VERSION_FILE:
-            require(name in basis and name in current
-                    and version_logic(old_version) == version_logic(new_version), 'version logic changed')
-        elif name == HANDWRITTEN_RECIPE:
-            require(name in basis and name in current and old_recipe is not None
-                    and new_recipe is not None, 'missing generated recipe')
-            verify_handwritten_recipe(old_recipe, new_recipe)
-        elif name == SQLALCHEMY_HARNESS:
-            require(name in basis and name in current and old_harness is not None
-                    and new_harness is not None, 'missing SQLAlchemy harness')
-            verify_sqlalchemy_fixture(old_harness, new_harness)
+            require(name in basis and name in current and
+                    version_logic(old_version) == version_logic(new_version), 'version logic changed')
         else:
-            require(exempt(name), 'changed unreviewed input: ' + name)
+            require(exempt(name), 'unreviewed source change: ' + name)
     return changed
+
+
+def source_inventory(root, commit):
+    return {name: hashlib.sha256(subprocess.check_output(
+        ['git', 'show', commit + ':' + name], cwd=root)).hexdigest()
+        for name in tree(root, commit)}
 
 
 def git(root, *args):
@@ -187,29 +112,7 @@ def tree(root, commit):
             for part in output.split(b'\0') if part}
 
 
-def development_changed(root, commit, intent):
-    """Genuine later code edits use normal development tests, never release reuse."""
-    require_commit(root, commit)
-    require_commit(root, intent['basis_commit'])
-    old, new = tree(root, intent['basis_commit']), tree(root, commit)
-    if any(old.get(n) != new.get(n) and n != VERSION_FILE and n not in CONDITIONAL_CHECKS and not exempt(n)
-           for n in set(old) | set(new)):
-        return True
-    for name, check in CONDITIONAL_CHECKS.items():
-        if old.get(name) == new.get(name):
-            continue
-        if name not in old or name not in new or old[name].split()[:2] != new[name].split()[:2]:
-            return True
-        try:
-            check(git(root, 'show', intent['basis_commit'] + ':' + name),
-                  (Path(root) / name).read_text())
-        except (ValueError, SyntaxError):
-            return True
-    return version_logic(git(root, 'show', intent['basis_commit'] + ':' + VERSION_FILE)) != version_logic(
-        (Path(root) / VERSION_FILE).read_text())
-
-
-def fetch_product(api, intent, platform, destination):
+def fetch_qualification(api, intent, platform, destination):
     run = intent['run_id']
     info = api.json(f'/actions/runs/{run}')
     require(info.get('path', '').split('@', 1)[0] == WORKFLOW
@@ -225,7 +128,7 @@ def fetch_product(api, intent, platform, destination):
             break
         page += 1
     for target in PLATFORMS:
-        matches = [j for j in jobs if j.get('name') == 'Product contract — ' + target]
+        matches = [j for j in jobs if j.get('name') == 'Runtime qualification — ' + target]
         require(len(matches) == 1 and matches[0].get('status') == 'completed'
                 and matches[0].get('conclusion') == 'success', 'native job missing/failed: ' + target)
     entries = []
@@ -237,9 +140,9 @@ def fetch_product(api, intent, platform, destination):
             break
         page += 1
     pin = intent['artifacts'][platform]
-    name = f"v044-product-{platform}-{intent['basis_commit']}"
+    name = f"runtime-{platform}-{intent['basis_commit']}"
     matches = [a for a in entries if a.get('name') == name]
-    require(len(matches) == 1, 'missing/ambiguous Product artifact')
+    require(len(matches) == 1, 'missing/ambiguous runtime artifact')
     artifact = matches[0]
     require(artifact.get('id') == pin['id'] and artifact.get('expired') is False
             and artifact.get('digest') == 'sha256:' + pin['zip_sha256'], 'artifact expired/identity changed')
@@ -251,7 +154,7 @@ def fetch_product(api, intent, platform, destination):
             written += len(chunk)
             require(written <= 8 * 1024 * 1024, 'oversized download')
             output.write(chunk)
-    require(digest(destination) == pin['zip_sha256'], 'Product ZIP digest differs')
+    require(digest(destination) == pin['zip_sha256'], 'runtime ZIP digest differs')
 
 
 def evidence(archive, intent, platform):
@@ -268,48 +171,56 @@ def evidence(archive, intent, platform):
     require(set(files) - {'SHA256SUMS.json'} == set(hashes), 'incomplete checksum inventory')
     require(all(sha(h) and hashlib.sha256(files[n]).hexdigest() == h for n, h in hashes.items()),
             'evidence checksum differs')
-    data = {n: json.loads(files[n]) for n in ('inputs.json', 'correctness.json', 'alpha-wheel.json',
-                                            'alpha.json', 'snapshots.json', 'commands.json')}
-    inputs, correct, wheel = (data[n] for n in ('inputs.json', 'correctness.json', 'alpha-wheel.json'))
+    inputs = json.loads(files['inputs.json'])
+    correct = json.loads(files['correctness.json'])
+    commands = json.loads(files['commands.json'])
+    inventory = json.loads(files['source-inventory.json'])
     basis = intent['basis_commit']
-    require(inputs['result'] == correct['result'] == 'PASS' and
-            inputs['candidate_sha'] == correct['candidate_sha'] == wheel['source_commit'] == basis,
+    require(inputs.get('contract') == correct.get('contract') == CONTRACT
+            and type(inputs.get('version')) is int and type(correct.get('version')) is int
+            and inputs['version'] == correct['version'] == 1,
+            'historical/unknown qualification contract')
+    require(inputs.get('result') == correct.get('result') == 'PASS'
+            and inputs.get('candidate_sha') == correct.get('candidate_sha') == basis,
             'receipt result/source differs')
-    require(inputs['contract'] == 'v044-ownedprepared-product-validation'
-            and set(correct['boundaries']) == {'source/unit', 'handwritten races', 'Go real SQL/lifecycle',
-                                              'Python import/isolation/lifecycle', 'installed pytest/xdist'},
-            'runtime coverage incomplete')
-    require(inputs['python'].startswith('3.14.') and wheel['manifest']['platform'] == platform,
-            'wrong Python/native platform')
-    require(sha(inputs['guest_sha256']) and sha(wheel['sha256']), 'invalid guest/wheel identity')
-    require((platform == PLATFORMS[0] and inputs['machine'] == 'arm64'
-             and inputs['platform'].startswith('macOS-15.')) or
-            (platform == PLATFORMS[1] and inputs['machine'] == 'x86_64'
-             and inputs['platform'].startswith('Linux-')), 'wrong native environment')
-    build = wheel['host_buildinfo']
-    goos, goarch = ('darwin', 'arm64') if platform == PLATFORMS[0] else ('linux', 'amd64')
-    require(all(v in build for v in ('go1.26.8\n', 'CGO_ENABLED=0', '-trimpath=true',
-                                     'GOOS=' + goos, 'GOARCH=' + goarch,
-                                     'vcs.revision=' + basis, 'vcs.modified=false')), 'build settings differ')
-    alpha = data['alpha.json']
-    require(wheel['archive_checks_passed'] and alpha['passed'] and
-            alpha['installed_files_match_wheel'] and alpha['consumer_outside_repository'] and
-            alpha['native_overrides'] is False and alpha['wheel_sha256'] == wheel['sha256'],
-            'installed-wheel boundary failed')
-    require({r['name'] for r in alpha['runs']} == {'serial', 'parallel', 'migration', 'failure-cleanup'},
-            'installed suites missing')
-    require(data['snapshots.json']['passed'] and len(data['snapshots.json']['checks']) == 49,
-            'Snapshot acceptance incomplete')
-    commands = data['commands.json']
-    require(all(c.get('exit_code') == 0 for c in commands), 'a qualification command failed')
-    require({'validation-tools', 'source-unit-checks', 'runtime-integration', 'wheel-build',
-             'installed-pytest', 'comparison'} <= {c['name'] for c in commands}, 'commands missing')
-    return wheel['source_files_sha256'], {
+    require(set(correct.get('boundaries', [])) == BOUNDARIES, 'runtime coverage incomplete')
+    require(inputs.get('native_platform') == platform and inputs.get('python', '').startswith('3.14.')
+            and inputs.get('go_version') == 'go version go1.26.8 ' +
+                ('darwin/arm64' if platform == PLATFORMS[0] else 'linux/amd64'), 'wrong toolchain/platform')
+    env = inputs.get('environment', {})
+    require((platform == PLATFORMS[0] and env.get('system') == 'Darwin'
+             and env.get('architecture') == 'arm64' and env.get('product_version', '').startswith('15.'))
+            or (platform == PLATFORMS[1] and env.get('system') == 'Linux'
+                and env.get('architecture') == 'x86_64' and env.get('distribution') == 'ubuntu'
+                and env.get('version_id') == '24.04'), 'wrong native environment')
+    require(sha(inputs.get('guest_sha256')) and sha(inputs.get('git_tree_sha256')),
+            'invalid guest/tree identity')
+    require(isinstance(inventory, dict) and inventory and all(sha(v) for v in inventory.values()),
+            'invalid source inventory')
+    require(digest_bytes(files['source-inventory.json']) == inputs.get('source_inventory_sha256'),
+            'inventory binding differs')
+    require(isinstance(commands, list) and len(commands) == 2
+            and {c.get('name') for c in commands} == {'source-unit-checks', 'runtime-integration'},
+            'commands missing/duplicated')
+    for c in commands:
+        expected = 'check' if c['name'] == 'source-unit-checks' else 'integration'
+        require(type(c.get('exit_code')) is int and c['exit_code'] == 0 and c.get('argv', [])[1:] == ['scripts/verify.py', expected],
+                'qualification command failed/substituted')
+    harness = inputs.get('harness_sha256', {})
+    require(harness and all(inventory.get(n) == h for n, h in harness.items())
+            and 'scripts/verify.py' in harness and 'scripts/validate_product_candidate.py' in harness
+            and WORKFLOW in harness, 'harness identity incomplete/differs')
+    return inventory, {
         'zip_sha256': intent['artifacts'][platform]['zip_sha256'],
         'artifact_id': intent['artifacts'][platform]['id'],
-        'checksums_sha256': hashlib.sha256(files['SHA256SUMS.json']).hexdigest(),
-        'original_wheel_sha256': wheel['sha256'], 'guest_sha256': inputs['guest_sha256'],
+        'checksums_sha256': digest_bytes(files['SHA256SUMS.json']),
+        'guest_sha256': inputs['guest_sha256'], 'git_tree_sha256': inputs['git_tree_sha256'],
+        'contract': CONTRACT,
     }
+
+
+def digest_bytes(value):
+    return hashlib.sha256(value).hexdigest()
 
 
 def validate(root, commit, api=None):
@@ -326,17 +237,16 @@ def validate(root, commit, api=None):
     old_tree, new_tree = tree(repository, intent['basis_commit']), tree(repository, commit)
     for n in set(old_tree) | set(new_tree):
         if old_tree.get(n) != new_tree.get(n):
-            require(n == VERSION_FILE or n in CONDITIONAL_CHECKS or exempt(n), 'unreviewed tree change: ' + n)
-            if n == VERSION_FILE:
-                require(old_tree[n].split()[0] == new_tree[n].split()[0] == '100644', 'version type/mode changed')
-            if n in CONDITIONAL_CHECKS:
-                require(n in old_tree and n in new_tree and old_tree[n].split()[:2] == new_tree[n].split()[:2],
-                        'conditional input type/mode changed')
-                CONDITIONAL_CHECKS[n](git(repository, 'show', intent['basis_commit'] + ':' + n),
-                                          (root / n).read_text())
+            require(n == VERSION_FILE or exempt(n), 'unreviewed tree change: ' + n)
+            if n in old_tree and n in new_tree:
+                require(old_tree[n].split()[:2] == new_tree[n].split()[:2], 'source type/mode changed: ' + n)
     old_version = git(repository, 'show', intent['basis_commit'] + ':' + VERSION_FILE)
     require(version_logic(old_version) == version_logic((root / VERSION_FILE).read_text()), 'version logic changed')
-    current = {p.relative_to(root).as_posix(): digest(p) for p in public_files(root)}
+    current = source_inventory(repository, commit)
+    actual = {p.relative_to(root).as_posix(): digest(p) for p in public_files(root)}
+    require(set(actual) == set(new_tree) - REPOSITORY_ONLY_FILES - BASIS_OMISSIONS,
+            'candidate source inventory incomplete/untracked')
+    require(all(current.get(n) == h for n, h in actual.items()), 'candidate source files differ from Git')
     if api is None:
         token = os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
         if not token and not os.environ.get('GITHUB_ACTIONS'):
@@ -347,34 +257,20 @@ def validate(root, commit, api=None):
     with tempfile.TemporaryDirectory(prefix='mariamem-runtime-evidence-') as temporary:
         for platform in PLATFORMS:
             archive = Path(temporary) / (platform + '.zip')
-            fetch_product(api, intent, platform, archive)
+            fetch_qualification(api, intent, platform, archive)
             inventory, receipt = evidence(archive, intent, platform)
             inventories.append(inventory)
             receipts[platform] = receipt
     require(inventories[0] == inventories[1], 'native source inventories differ')
     basis_inventory = inventories[0]
-    expected_names = set(old_tree) - REPOSITORY_ONLY_FILES - BASIS_OMISSIONS
-    require(set(basis_inventory) == expected_names, 'basis source inventory incomplete')
-    # Authenticate the basis against Git, not just a runner's claimed hash map.
-    for name, expected in basis_inventory.items():
-        if old_tree.get(name) == new_tree.get(name) and name in current:
-            actual = current[name]
-        else:
-            raw = subprocess.check_output(['git', 'show', intent['basis_commit'] + ':' + name], cwd=repository)
-            actual = hashlib.sha256(raw).hexdigest()
-        require(actual == expected, 'basis source hash differs: ' + name)
-    changed = compare_inventory(basis_inventory, current, old_version, (root / VERSION_FILE).read_text(),
-                                git(repository, 'show', intent['basis_commit'] + ':' + HANDWRITTEN_RECIPE)
-                                if HANDWRITTEN_RECIPE in old_tree else None,
-                                (root / HANDWRITTEN_RECIPE).read_text()
-                                if (root / HANDWRITTEN_RECIPE).is_file() else None,
-                                git(repository, 'show', intent['basis_commit'] + ':' + SQLALCHEMY_HARNESS)
-                                if SQLALCHEMY_HARNESS in old_tree else None,
-                                (root / SQLALCHEMY_HARNESS).read_text()
-                                if (root / SQLALCHEMY_HARNESS).is_file() else None)
+    require(basis_inventory == source_inventory(repository, intent['basis_commit']),
+            'basis source inventory incomplete/hash differs')
+    tree_hash = digest_bytes(json.dumps(old_tree, sort_keys=True, separators=(',', ':')).encode())
+    require(all(r['git_tree_sha256'] == tree_hash for r in receipts.values()), 'basis Git tree differs')
+    changed = compare_inventory(basis_inventory, current, old_version, (root / VERSION_FILE).read_text())
     guest = json.loads((root / 'release/generated-go-inputs.json').read_text())['guest_sha256']
     require(all(r['guest_sha256'] == guest for r in receipts.values()), 'guest identity differs')
-    return {'version': 1, 'result': 'PASS', 'runtime_basis_commit': intent['basis_commit'],
+    return {'version': 2, 'contract': CONTRACT, 'result': 'PASS', 'runtime_basis_commit': intent['basis_commit'],
             'release_source_commit': commit, 'run_id': intent['run_id'],
             'intent_sha256': digest(root / INTENT), 'platforms': receipts,
             'reviewed_changed_paths': changed, 'release_source_inventory': current}
@@ -395,13 +291,10 @@ def main():
     parser.add_argument('--candidate-sha', required=True)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--github-output', action='store_true')
-    parser.add_argument('--development', action='store_true',
-                        help='genuine code edits run normal development checks; release never uses this')
     args = parser.parse_args()
     try:
         intent = read_intent(args.root)
-        changed = bool(intent and args.development and development_changed(args.root, args.candidate_sha, intent))
-        result = validate(args.root, args.candidate_sha) if intent and not changed else None
+        result = validate(args.root, args.candidate_sha) if intent else None
         if result and args.output:
             args.output.parent.mkdir(parents=True, exist_ok=True)
             args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + '\n')

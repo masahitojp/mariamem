@@ -15,6 +15,11 @@ from git_identity import require_commit
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {
+    'tests/verify_alpha.py', 'tests/consumer/run_gorm.py', 'tests/consumer/run_sqlalchemy.py',
+    'scripts/generated_release_acceptance.py', 'scripts/release_generated_ci.py',
+    'scripts/validate_product_candidate.py', 'scripts/guest_smoke/main.go',
+    '.github/workflows/v044-product-validation.yml',
+    'benchmarks/ownedprepared/test_tools.py',
     'scripts/published_assets.py', 'benchmarks/measurement_summary.py',
     'benchmarks/v04_candidate.py',
     'scripts/development_scope.py', 'scripts/check_public.py', 'scripts/check_version.py',
@@ -82,7 +87,9 @@ def boundary(path):
     p = Path(path)
     if p.is_absolute() or '..' in p.parts:
         return 'runtime'
-    if path in ('README.md', 'CONTRIBUTING.md') or (path.startswith('docs/') and p.suffix == '.md'):
+    if path in ('README.md', 'CONTRIBUTING.md',
+                'docs/reviews/v044-runtime-validation-intent.json',
+                'docs/reviews/v045-p1-evidence.json') or (path.startswith('docs/') and p.suffix == '.md'):
         return 'docs'
     if path in TOOLING:
         return 'python'

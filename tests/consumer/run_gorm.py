@@ -9,6 +9,10 @@ import subprocess
 import tempfile
 import time
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'scripts'))
+from consumer_acceptance import ORM_MODES, verify_gorm_cases, verify_sqlalchemy_cases
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -36,7 +40,7 @@ def main():
                            cwd=project, env=env, check=True)
         if args.zero_options:
             env["DOGFOOD_ZERO_OPTIONS"] = "1"
-        for index, mode in enumerate(("start", "fork", "fork", "start"), 1):
+        for index, mode in enumerate(ORM_MODES, 1):
             name = f"{index}-{mode}"
             begin = time.monotonic()
             result = subprocess.run(
@@ -47,9 +51,11 @@ def main():
                 capture_output=True, text=True, timeout=240)
             (output / f"{name}.txt").write_text(result.stdout + result.stderr)
             evidence_path=output/f"{name}.json"
-            evidence=json.loads(evidence_path.read_text()) if evidence_path.exists() else {}
-            valid=evidence.get("passed") and len(evidence.get("cases",[]))==8
-            runs.append({"name": name, "exit_code": result.returncode if valid else 1, "cases":len(evidence.get("cases",[])),
+            try:
+                cases=verify_gorm_cases(evidence_path); valid=True
+            except (ValueError, OSError):
+                cases=0; valid=False
+            runs.append({"name": name, "exit_code": result.returncode if valid else 1, "cases":cases,
                          "runner_seconds": time.monotonic() - begin})
             print(json.dumps(runs[-1]), flush=True)
     (output / "summary.json").write_text(json.dumps(runs, indent=2) + "\n")

@@ -11,6 +11,10 @@ import tempfile
 import time
 import xml.etree.ElementTree as ET
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'scripts'))
+from consumer_acceptance import ORM_MODES, verify_gorm_cases, verify_sqlalchemy_cases
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -30,7 +34,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix="mariamem-sqlalchemy-") as temporary:
         project = Path(temporary)
         shutil.copy(source, project / source.name)
-        for index, mode in enumerate(("start", "fork", "fork", "start")):
+        for index, mode in enumerate(ORM_MODES):
             name = f"{index + 1}-{mode}"
             evidence = output / f"{name}.json"
             junit = output / f"{name}.xml"
@@ -42,7 +46,11 @@ def main():
                 capture_output=True, text=True, timeout=180)
             (output / f"{name}.log").write_text(result.stdout + result.stderr)
             counts = [dict(suite.attrib) for suite in ET.parse(junit).getroot().iter("testsuite")] if junit.exists() else []
-            runs.append({"name": name, "mode": mode, "returncode": result.returncode,
+            try:
+                verify_sqlalchemy_cases(junit); valid=True
+            except (ValueError, OSError, ET.ParseError):
+                valid=False
+            runs.append({"name": name, "mode": mode, "returncode": result.returncode if valid else 1,
                          "suite_seconds": time.monotonic() - started, "junit": counts})
             print(f"{name}: exit={result.returncode}; {counts}; log={output / f'{name}.log'}", flush=True)
     report = {"source_commit": subprocess.check_output(

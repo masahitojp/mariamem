@@ -1,0 +1,99 @@
+{
+  "audit_source": "d7b1c0f60591843b0e72327fba7c62d26b7a3ee4",
+  "branch": "experiment/v045-infrastructure",
+  "changed_input_sha256": {
+    ".github/workflows/v044-product-validation.yml": "9286bfa847b6b1c6d8f5a8daedcf400c169dc2e66b177efa14745fa294e46be7",
+    "benchmarks/ownedprepared/test_tools.py": "c1d57fff261f65bd872fadd029d2f7f326be02d00042e9f81e2093faac165e9d",
+    "scripts/consumer_acceptance.py": "ea4898c2dfb243fdad9ea082aa4f713586b4dcab2ffa615bcfc6fdaaf8323692",
+    "scripts/development_scope.py": "116549954b2b206db2491216daf863f6746d56947631221d65848a4dcbd252d6",
+    "scripts/experiment_workspace.py": "e638c25574024f2f6a6c08535384029c2578eac570e2829b11b67df1b646e675",
+    "scripts/generated_release_acceptance.py": "eff4123c5e9d5ceeb7e8f80353189bb6f6fd87dfe3b91e5d54d0ce2602900f97",
+    "scripts/guest_smoke/main.go": "35c9911f6e0abd27624c2b8facfcb45b318ebae873905f9113bef692e3eb2aa8",
+    "scripts/published_assets.py": "5471e97d524efe4b8f9fa0d35cc48d62490f67ebb426602a8263572fd3e35870",
+    "scripts/release_generated_ci.py": "5eb5af087a807a426264fad5f2a17b884689e3956d1e4801ba510047e970f3b1",
+    "scripts/runtime_validation.py": "660295ae3669f710fd6a8779ad535a0585bbb02407982f99b4047ac2df4ee85a",
+    "scripts/validate_product_candidate.py": "cec2f0bce8342ec17f74aef76954176d6d21933054767f5c304746755a3a234d",
+    "tests/consumer/run_gorm.py": "6ea90d725839539d3aeeb2f3ef48b9f5839a5541649618b15fb1428898270b5a",
+    "tests/consumer/run_sqlalchemy.py": "40d180fa8a0f895549e063bf7f60516fed91a0c7c7633cebbe30e86e382500ac",
+    "tests/test_consumer_acceptance.py": "497744432b87d4b5820f168b05505e60196376a46cb02c0c7d694273441ff3aa",
+    "tests/test_development_scope.py": "76d0bbb4a0b1865c72107b852cb9eebb4cf1e12658562d6f4db71dd2361bd0a8",
+    "tests/test_experiment_workspace.py": "eb44445822295ccdd1d251fab4344972387cf08471e1e742e5c499684e10c113",
+    "tests/test_generated_release.py": "70848fd8a441e84cafde74c7027ba89ccad4d0a9cde8022f1b31c12031785888",
+    "tests/test_published_assets.py": "d8fbcc6bce91dadee74d4d833118adbd9a033001dc2743618016ec81b43df794",
+    "tests/test_runtime_validation.py": "32259f6112fc76447d5a7188d4ec530f639f0cb8b10917cc0214010010763d9b",
+    "tests/verify_alpha.py": "9d3cc88d7a37897ec8faab27d082dbda25424f2dc38965a2cd33e6190c4ede98"
+  },
+  "checks": [
+    {
+      "junit_sha256": "d9e0c5277a102455b2af46c2e2d9cf36905827a83f5ddcaa5f72858e45b1b566",
+      "name": "focused identity/orchestration/cleanup/repro unit tests",
+      "passed": 254,
+      "seconds": 15.908,
+      "skipped": 0
+    },
+    {
+      "name": "source Python check",
+      "passed": 486,
+      "pytest_seconds": 19.69,
+      "scope_note": "Last broad Python check; subsequent qualification-environment/workflow regression additions also passed in focused tests.",
+      "skipped": 31,
+      "whole_entry": {
+        "command": [
+          "python",
+          "scripts/verify.py",
+          "check",
+          "--scope",
+          "python"
+        ],
+        "excluded_attempt": "Resolving the venv interpreter symlink selected system Python without pytest; excluded from results.",
+        "exit_code": 0,
+        "measurement_scope": "local warm source/tooling feedback; excludes cold prerequisites and CI queue/native qualification",
+        "seconds": 27.643041333009023
+      }
+    },
+    {
+      "name": "committed generated input/guest/source inventory",
+      "result": "PASS"
+    },
+    {
+      "name": "both repository Skill validators",
+      "result": "PASS"
+    },
+    {
+      "name": "Development/qualification/Release workflow YAML parse",
+      "result": "PASS"
+    },
+    {
+      "name": "public-source/version/diff boundary",
+      "result": "PASS"
+    }
+  ],
+  "guest_or_generated_source_changed": false,
+  "native_qualification": "PENDING fresh macOS15 arm64 + Ubuntu24.04 x86_64 Actions execution",
+  "not_claimed": [
+    "actual newly built final-artifact acceptance",
+    "public smoke execution",
+    "fresh source-to-WASM regeneration",
+    "Snapshot characterization",
+    "Fresh/Fork crossover",
+    "Product Validation"
+  ],
+  "old_intent_archived_byte_identical": true,
+  "parent_commit": "1063440d48010487bca6bd3d96a1882a6415ef43",
+  "preserved_candidate_oracles": {
+    "external_go_lifecycle": true,
+    "gorm_cases": 32,
+    "installed_pytest_xdist": true,
+    "sqlalchemy_cases": 44
+  },
+  "production_runtime_changed": false,
+  "released_baseline": "8ede4ad65def07436b64801076004ff80aec0799",
+  "runtime_contract": "runtime-qualification-v1",
+  "runtime_intent_version": 2,
+  "tools": {
+    "pymysql": "1.2.3",
+    "pytest": "8.4.2",
+    "python": "3.14.8",
+    "yaml_validator": "PyYAML6.0.3"
+  }
+}

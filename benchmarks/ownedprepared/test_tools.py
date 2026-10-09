@@ -41,9 +41,9 @@ class EvidenceToolsTest(unittest.TestCase):
             git('tag','-a','v0.4.3','-m','published')
             tag=git('rev-parse','refs/tags/v0.4.3')
             self.assertNotEqual(tag,commit)
-            from git_identity import ReleasePin
+            from git_identity import ReleasePin, verify_release_pin
             def verify(tag_object,source_commit):
-                return module.verify_release_pin(repository,ReleasePin('v0.4.3',tag_object,source_commit)).source_commit
+                return verify_release_pin(repository,ReleasePin('v0.4.3',tag_object,source_commit)).source_commit
             self.assertEqual(verify(tag,commit),commit)
             # Reproduce the CI bug: a tag object cannot be the expected commit.
             with self.assertRaisesRegex(ValueError,'must be distinct'):
@@ -54,22 +54,6 @@ class EvidenceToolsTest(unittest.TestCase):
                 verify(tag,git('rev-parse','HEAD'))
             with self.assertRaisesRegex(ValueError,'annotated tag object'):
                 verify(commit,git('rev-parse','HEAD'))
-
-    def test_cleanup_removes_read_only_module_cache_without_following_links(self):
-        module=load_runner()
-        with tempfile.TemporaryDirectory() as temporary:
-            base=Path(temporary)
-            external=base/'external';external.mkdir()
-            (external/'source').write_text('keep outside owned scratch\n')
-            scratch=base/'scratch';scratch.mkdir()
-            cache=scratch/'go-path/pkg/mod/example@v1';cache.mkdir(parents=True)
-            (cache/'source.go').write_text('package example\n')
-            (scratch/'external-link').symlink_to(external,target_is_directory=True)
-            cache.chmod(0o555)
-            cache.parent.chmod(0o555)
-            module.remove_disposable_tree(scratch)
-            self.assertFalse(scratch.exists())
-            self.assertTrue((external/'source').exists())
 
     def test_comparison_rejects_failed_and_other_candidate_gates(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -86,56 +70,6 @@ class EvidenceToolsTest(unittest.TestCase):
                 self.assertNotEqual(process.returncode,0)
                 self.assertIn('correctness gate is not PASS',process.stderr)
                 self.assertFalse((root/'out').exists())
-
-    def test_failed_runner_never_writes_pass_and_preserves_tracked_boundary(self):
-        module=load_runner()
-        with tempfile.TemporaryDirectory() as temporary:
-            base=Path(temporary)
-            source=base/'source';source.mkdir()
-            (source/'build').mkdir();(source/'build/go.mod').write_text('module disposable-build\n')
-            (source/'benchmarks/ownedprepared').mkdir(parents=True)
-            (source/'release').mkdir()
-            (source/'release/generated-go-inputs.json').write_text(json.dumps(dict(guest_sha256='c'*64)))
-            workspace=base/'work'
-            argv=['candidate-runner','--candidate-sha',SHA,'--workspace',str(workspace),
-                  '--disposable-checkout','--phase','correctness']
-            def output(command,**kwargs):
-                return SHA+'\n' if command[1:3]==['rev-parse','HEAD'] else ''
-            with patch.object(module,'ROOT',source),patch.object(sys,'argv',argv),\
-                 patch.object(module.platform,'system',return_value='Darwin'),\
-                 patch.object(module.platform,'machine',return_value='arm64'),\
-                 patch.object(module,'require_commit'),\
-                 patch.object(module,'verify_release_pin'),\
-                 patch.object(module.subprocess,'check_output',side_effect=output),\
-                 patch.object(module.subprocess,'run',return_value=SimpleNamespace(returncode=1)):
-                with self.assertRaisesRegex(RuntimeError,'build-counter failed'):
-                    module.main()
-            report=json.loads((workspace/'evidence/inputs.json').read_text())
-            self.assertEqual(report['result'],'FAIL')
-            self.assertFalse((workspace/'evidence/correctness.json').exists())
-            self.assertFalse((workspace/'scratch').exists())
-            self.assertTrue((source/'build/go.mod').exists())
-
-    def test_bad_release_identity_stops_before_scratch_or_build(self):
-        module=load_runner()
-        with tempfile.TemporaryDirectory() as temporary:
-            workspace=Path(temporary)/'work'
-            argv=['candidate-runner','--candidate-sha',SHA,'--workspace',str(workspace),
-                  '--disposable-checkout','--phase','correctness']
-            def output(command,**kwargs):
-                return SHA+'\n' if command[1:3]==['rev-parse','HEAD'] else ''
-            with patch.object(sys,'argv',argv),\
-                 patch.object(module.platform,'system',return_value='Darwin'),\
-                 patch.object(module.platform,'machine',return_value='arm64'),\
-                 patch.object(module.subprocess,'check_output',side_effect=output),\
-                 patch.object(module,'require_commit'),\
-                 patch.object(module,'verify_release_pin',side_effect=ValueError('wrong release identity')),\
-                 patch.object(module.subprocess,'run') as execute:
-                with self.assertRaises(SystemExit) as error:
-                    module.main()
-                self.assertEqual(error.exception.code,2)
-                execute.assert_not_called()
-            self.assertFalse(workspace.exists())
 
     def test_summary_requires_complete_trials_and_keeps_parallel_wall_distinct(self):
         with tempfile.TemporaryDirectory() as temporary:

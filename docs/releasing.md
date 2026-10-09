@@ -110,11 +110,11 @@ Wasmer/source approval is not reused to approve changed bytes.
 ## Reviewed runtime evidence reuse
 
 `release/runtime-validation.json` is an explicit reviewed intent, not a skip-tests
-switch. It pins the successful Product CI run, source commit, both native artifact
+switch. Version2 pins a successful `runtime-qualification-v1` run, source commit, both native artifact
 IDs and ZIP digests. `runtime_validation.py` authenticates the run/workflow/jobs,
 internal checksums and full source inventories, then compares the tested source
 with the exact release checkout. Unknown changed paths fail closed; only reviewed
-non-runtime tooling/docs and the five version constants are exempt. Runtime,
+documentation paths and the five version constants are exempt; arbitrary tooling changes are not. Runtime,
 guest, dependency, build recipe and consumer harness changes invalidate reuse.
 
 The frozen proof records `runtime_basis_commit` separately from
@@ -126,8 +126,10 @@ notices/licenses, provenance, publication and public smoke remain fresh gates.
 For this explicit intent, missing/expired/incomplete/changed evidence stops before
 expensive work; there is no automatic runtime fallback. Local metadata preparation
 uses `release_preparation_checks.py` and authenticates reuse before main push.
-Development CI uses that same proof to avoid repeated integration for the approved
-integration/metadata commit; genuine later runtime edits still run normal checks.
+Development CI selects checks from its local event diff and never downloads this
+proof. The old v0.4.4 intent is historical; old Product receipts cannot satisfy the
+new runtime-only contract. No explicit intent means the existing full release
+qualification route; an invalid explicit intent stops.
 Remove or replace the tracked intent through review when qualifying changed
 runtime inputs. The ordinary no-intent release path is unchanged.
 
