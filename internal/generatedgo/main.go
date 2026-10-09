@@ -2,10 +2,12 @@
 package generatedgo
 
 import (
+	"context"
 	"encoding/binary"
 	"fmt"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/timing"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -452,6 +454,8 @@ func exportTransfer(fs *base.MemFS, dest string) error {
 	} else if e != nil {
 		return e
 	}
+	ctx, finishTiming := timing.Begin(context.Background(), "snapshot_export")
+	defer finishTiming()
 	var walk func(string, string) error
 	walk = func(src, dst string) error {
 		f, e := fs.OpenFile(src, os.O_RDONLY, 0)
@@ -478,12 +482,17 @@ func exportTransfer(fs *base.MemFS, dest string) error {
 			}
 			return nil
 		}
+		timing.Mark(ctx, "allocation_begin")
 		b := make([]byte, st.Size())
+		timing.Mark(ctx, "allocation_done")
 		_, e = f.ReadAt(b, 0)
+		timing.Work(ctx, "data_read", int64(len(b)), 1)
 		if e != nil && len(b) > 0 {
 			return e
 		}
-		return os.WriteFile(dst, b, 0600)
+		e = os.WriteFile(dst, b, 0600)
+		timing.Work(ctx, "data_materialized", int64(len(b)), 1)
+		return e
 	}
 	return walk("snapshot-out/data", filepath.Join(dest, "data"))
 }

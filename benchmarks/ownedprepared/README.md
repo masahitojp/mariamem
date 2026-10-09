@@ -1,4 +1,22 @@
-# Owned prepared-state production qualification
+# Historical OwnedPrepared comparison and reusable measurement primitives
+
+## Current responsibility (v0.4.5)
+
+The v0.4.4 comparison below is historical evidence. The existing Product workflow
+has become runtime-only qualification, with a new receipt contract. It no longer
+builds wheels or compares performance. `validate_product_candidate.py --phase`
+is not a current command. Use [developer verification roles](../../docs/development.md#local-verification).
+
+For manual measurement, reuse `main.go` (deterministic payload, full-public
+Snapshot/Fork/SQL/cleanup timers), `import_measure.py` (Python temporary/persisted
+Snapshot and import/child suites), the existing timing trace and
+`benchmarks/tools/process_cost.c`. No measurement creates runtime qualification.
+Pin the actual source commit with `git_identity.require_commit` before building;
+record source/toolchain/binary/harness hashes and matching correctness evidence.
+Old `run_compare.py` is a historical v0.4.3/v0.4.4 campaign, not the new runtime
+verifier or an instruction to rebuild both releases on every change.
+
+## Historical v0.4.4 campaign
 
 This is a bounded comparison after correctness acceptance, not release approval.
 It builds the exact production candidate and released v0.4.3 commit
@@ -57,7 +75,10 @@ summed operation time overlaps and is **not** wall latency. Parallel resource
 probes sample before/after the child loop, **not a simultaneous-child peak**.
 FD enumeration and profiling never occur inside ready timing.
 
-## Reproduction
+## Historical reproduction
+
+The following runner/workflow syntax belongs to the tested v0.4.4 source.
+It is not executable with the current runtime-only runner.
 
 Use a fresh disposable checkout at the exact candidate SHA, installed Go 1.26.8,
 Python 3.14, native C tools and the dependency versions pinned in the workflow.

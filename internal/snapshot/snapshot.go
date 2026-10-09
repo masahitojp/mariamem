@@ -145,6 +145,7 @@ func inventory(ctx context.Context, root string) (map[string]Entry, error) {
 		items = append(items, item{path, name, entry})
 		return nil
 	})
+	timing.Mark(ctx, "enumeration_complete")
 	// WalkDir retains lexical ordering and rejects links/special files. Hash only
 	// collected regular files; all hashes still complete before manifest comparison.
 	err := VerifyIndependent(len(items), func(i int) error {
@@ -214,11 +215,19 @@ func ValidateTimed(ctx context.Context, path, build string) (*Manifest, error) {
 	return &m, nil
 }
 func Publish(transfer, destination, build string) error {
+	return PublishContext(context.Background(), transfer, destination, build)
+}
+
+// PublishContext adds opt-in diagnostics; the copy/hash/error contract is unchanged.
+func PublishContext(ctx context.Context, transfer, destination, build string) error {
+	ctx, finishTiming := timing.Begin(ctx, "snapshot_publish")
+	defer finishTiming()
 	source := filepath.Join(transfer, "data")
-	entries, err := Inventory(source)
+	entries, err := inventory(ctx, source)
 	if err != nil {
 		return err
 	}
+	timing.Mark(ctx, "source_inventory_hashed")
 	target := filepath.Join(destination, "data")
 	err = filepath.WalkDir(source, func(path string, d os.DirEntry, err error) error {
 		if err != nil {
@@ -244,16 +253,19 @@ func Publish(transfer, destination, build string) error {
 		if err != nil {
 			return err
 		}
-		_, err = io.Copy(f, in)
+		n, err := io.Copy(f, in)
+		timing.Work(ctx, "copy_materialized", n, 1)
 		return errors.Join(err, f.Close())
 	})
 	if err != nil {
 		return err
 	}
-	copied, err := Inventory(target)
+	timing.Mark(ctx, "copy_complete")
+	copied, err := inventory(ctx, target)
 	if err != nil {
 		return err
 	}
+	timing.Mark(ctx, "target_inventory_hashed")
 	if !reflect.DeepEqual(entries, copied) {
 		return errors.New("snapshot copy mismatch")
 	}

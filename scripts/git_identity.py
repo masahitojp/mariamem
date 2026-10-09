@@ -88,6 +88,32 @@ def verify_release_pin(repository, pin, *, fetch_remote=None):
     return identity
 
 
+def verify_go_binary(repository, binary, expected_commit, *, go='go', toolchain='go1.26.8'):
+    """Reject wrong/dirty/missing Go stamping before consuming a built binary.
+
+    A .git-file worktree may be invisible to a pinned Go version's VCS scanner;
+    never substitute the caller's HEAD for the binary's actual embedded identity.
+    """
+    require_commit(repository, expected_commit)
+    if _git(repository, 'rev-parse', 'HEAD') != expected_commit or _git(repository, 'status', '--porcelain'):
+        raise ValueError('binary source checkout must be exact and clean')
+    info = subprocess.check_output([str(go), 'version', '-m', str(binary)], cwd=repository, text=True)
+    lines = info.splitlines()
+    if not lines or lines[0].rsplit(' ', 1)[-1] != toolchain:
+        raise ValueError('binary toolchain identity differs')
+    settings = {}
+    for line in lines[1:]:
+        fields = line.strip().split('\t')
+        if len(fields) == 2 and fields[0] == 'build' and '=' in fields[1]:
+            key, value = fields[1].split('=', 1)
+            if key in settings:
+                raise ValueError('duplicate binary build identity')
+            settings[key] = value
+    if settings.get('vcs') != 'git' or settings.get('vcs.revision') != expected_commit or settings.get('vcs.modified') != 'false':
+        raise ValueError('binary build identity differs from exact clean source')
+    return info
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=ROOT)

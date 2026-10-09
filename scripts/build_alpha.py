@@ -37,6 +37,13 @@ subprocess.run([str(args.go), "build", "-p", "1", "-trimpath", "-o", str(host), 
                                              **({"MACOSX_DEPLOYMENT_TARGET": f"{major}.0"}
                                                 if major is not None else {}),
                                              GOCACHE=os.environ.get("GOCACHE", str(ROOT / "build/gocache"))))
+# Reject the embedded source identity before packaging/using the host.
+if args.ci_candidate:
+    from generated_release import checkout, source_inventory
+    from git_identity import verify_go_binary
+    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    checkout(ROOT, commit)
+    buildinfo = verify_go_binary(ROOT, host, commit, go=args.go)
 binary_minimums = ({p.name: check_binary(p, major) for p in (host,)}
                    if major is not None else {})
 linux_dependencies = ({p.name: elf_dependencies(p) for p in (host,)}
@@ -86,12 +93,6 @@ with zipfile.ZipFile(wheel) as archive:
                 "sha256": hashlib.sha256(wheel.read_bytes()).hexdigest(),
                 "binary_minimum_macos": binary_minimums, "linux_dependencies": linux_dependencies, "files": names, "manifest": manifest, "archive_checks_passed": True}
 if args.ci_candidate:
-    from generated_release import checkout, source_inventory
-    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    checkout(ROOT, commit)
-    buildinfo = subprocess.check_output([str(args.go), "version", "-m", str(host)], cwd=ROOT, text=True)
-    if "vcs.revision="+commit not in buildinfo or "vcs.modified=false" not in buildinfo:
-        raise ValueError("host executable is not built from the exact clean candidate")
     evidence.update(source_commit=commit, source_files_sha256=source_inventory(ROOT),
                     host_buildinfo=buildinfo)
 (ROOT / "tests/evidence/alpha-wheel.json").write_text(json.dumps(evidence, indent=2) + "\n")

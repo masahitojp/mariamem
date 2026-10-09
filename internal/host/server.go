@@ -253,7 +253,7 @@ func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool
 		return true, err
 	}
 	timing.Mark(ctx, "guest_stopped")
-	err = snapshot.Publish(s.transfer, path, s.build)
+	err = snapshot.PublishContext(ctx, s.transfer, path, s.build)
 	timing.Mark(ctx, "snapshot_published")
 	return true, err
 }

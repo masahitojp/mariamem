@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"sync"
@@ -294,6 +295,21 @@ func TestOwnedModifiedChildCreatesNewBaseline(t *testing.T) {
 	if os.Getenv("MARIAMEM_TEST_DEFAULT") != "1" {
 		t.Skip("real generated-Go gate")
 	}
+	// Exercise the same lineage/isolation oracle with Snapshot attribution on.
+	// Other ownership tests retain the default diagnostic-disabled path.
+	traceDir := t.TempDir()
+	t.Setenv("MARIAMEM_TIMING_DIR", traceDir)
+	t.Cleanup(func() {
+		if t.Failed() {
+			return
+		}
+		for _, operation := range []string{"public_snapshot", "snapshot_export", "snapshot_publish"} {
+			paths, err := filepath.Glob(filepath.Join(traceDir, "*-"+operation+"-*.json"))
+			if err != nil || len(paths) != 2 {
+				t.Errorf("Snapshot attribution %s: paths=%v error=%v", operation, paths, err)
+			}
+		}
+	})
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 	source, err := mariamem.Start(ctx, mariamem.Options{})

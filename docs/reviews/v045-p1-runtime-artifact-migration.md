@@ -79,8 +79,10 @@ the forthcoming feedback-latency measurement, not guessed from local unit timing
 
 ## Remaining P1/P2 work
 
-Native qualification is pending at submission. Reconcile its actual evidence and
-feedback latency before declaring P1 complete. Full fresh WASM rebuild/regeneration
+Native qualification completed successfully for exact source `8a30e184890ba686caba65d1876aee829a4a178a`.
+Both native artifact digests/checksums, source inventories, guest/tree and command
+receipts were authenticated using the shared verifier. See [native results and
+feedback latency](v045-native-qualification.md). Full fresh WASM rebuild/regeneration
 has not been claimed for this branch; upstream/generated inputs are unchanged and
 source-inventory/inclusion oracles run now. Release's reproducible build remains
 required. Historical native adapters with retained regression/import consumers

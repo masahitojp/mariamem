@@ -8,7 +8,7 @@ import unittest
 
 SCRIPTS = Path(__file__).resolve().parents[1] / 'scripts'
 sys.path.insert(0, str(SCRIPTS))
-from git_identity import inspect_ref, read_release_pin, ReleasePin, require_commit, verify_release_pin
+from git_identity import inspect_ref, read_release_pin, ReleasePin, require_commit, verify_release_pin, verify_go_binary
 
 
 class GitIdentityTest(unittest.TestCase):
@@ -97,6 +97,28 @@ class GitIdentityTest(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('tag name', result.stderr)
         self.assertFalse(output.exists())
+
+    def test_binary_identity_never_uses_parent_checkout_or_a_verified_flag(self):
+        from unittest.mock import patch
+        correct = f'/tmp/host: go1.26.8\n\tbuild\tvcs=git\n\tbuild\tvcs.revision={self.commit}\n\tbuild\tvcs.modified=false\n'
+        with patch('git_identity.subprocess.check_output',return_value=correct):
+            self.assertEqual(verify_go_binary(self.root, '/tmp/host', self.commit),correct)
+        variants = [correct.replace(self.commit,'a'*40), correct.replace('modified=false','modified=true'),
+                    correct.replace('go1.26.8','go1.27.1'), correct.replace('vcs=git','vcs=unknown'),
+                    correct.replace(f'\tbuild\tvcs.revision={self.commit}\n',''),
+                    correct+'\tbuild\tvcs.revision='+self.commit+'\n']
+        for info in variants:
+            with self.subTest(info=info), patch('git_identity.subprocess.check_output',return_value=info):
+                with self.assertRaisesRegex(ValueError,'identity'):
+                    verify_go_binary(self.root, '/tmp/host', self.commit)
+
+    def test_dirty_source_stops_before_querying_binary(self):
+        from unittest.mock import patch
+        (self.root/'source').write_text('unverified edit')
+        with patch('git_identity.subprocess.check_output') as query:
+            with self.assertRaisesRegex(ValueError,'exact and clean'):
+                verify_go_binary(self.root, '/tmp/host', self.commit)
+            query.assert_not_called()
 
 
 if __name__ == '__main__':

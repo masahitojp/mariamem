@@ -31,6 +31,8 @@ type Snapshot struct {
 // It forwards ctx unchanged: no default snapshot timeout is imposed. The existing
 // copy/hash phase is not context-interruptible. Precondition rejection leaves DB alive.
 func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapshot, error) {
+	ctx, finishTiming := timing.Begin(ctx, "public_snapshot")
+	defer finishTiming()
 	db.mu.Lock()
 	defer db.mu.Unlock()
 	if err := db.invalidLocked(); err != nil {
@@ -56,12 +58,15 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 			return nil, err
 		}
 	}
+	timing.Mark(ctx, "destination_ready")
 	consumed, err := db.server.Snapshot(ctx, saved.path, opts.Rollback)
+	timing.Mark(ctx, "host_snapshot_returned")
 	if consumed {
 		db.closed = true
 		db.closeErr = hostError(db.removeTemporary(), "close", true)
 		err = errors.Join(err, db.closeErr)
 	}
+	timing.Mark(ctx, "source_cleanup_done")
 	if err == nil {
 		if saved.temporary != "" {
 			saved.backing, err = stored.AdoptCreated(saved.path, db.build)
@@ -69,6 +74,7 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 			saved.backing, err = stored.Import(saved.path, db.build)
 		}
 	}
+	timing.Mark(ctx, "owned_backing_acquired")
 	if err != nil {
 		return nil, hostError(errors.Join(err, saved.Close()), "snapshot_failed", consumed)
 	}
