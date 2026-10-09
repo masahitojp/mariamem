@@ -50,7 +50,7 @@ Earlier released milestones are retained as evidence:
 [v0.4.1](../release/NOTES-v0.4.1.md) distribution cleanup, and
 [v0.4.2](../release/NOTES-v0.4.2.md) disposable memory lifecycle.
 
-## v0.4.4 — Product contract cleanup, implementation candidate
+## v0.4.4 — Accepted product contract, release preparation
 
 The product audit and maintainer decisions are complete. Implementation aligns
 ownership, language/pytest surfaces and documentation:
@@ -70,11 +70,21 @@ mutate backing. External source edits/deletion after import cannot affect owned
 Snapshots. The resource cost is approximately one read-only FD per prepared file
 for the Snapshot lifetime.
 
-The earlier OwnedPrepared spike supplies feasibility evidence, not release
-acceptance. Production correctness/lifecycle, both-platform qualification,
-FD scaling and production performance remain separate review gates. Do not carry
-spike percentages into release claims. No release is authorized by this document.
-See [unreleased notes](../release/NOTES-v0.4.4.md).
+The maintainer accepted this implementation, API cleanup and FD trade-off.
+[Product CI](https://github.com/masahitojp/mariamem/actions/runs/37898847164)
+passed correctness/lifecycle, installed pytest/xdist, resource scaling and
+production performance on macOS arm64 and Ubuntu x86_64 for exact source
+`c5f43106a8054bb59a2da9184a1c2103fe1a1d9f`. See the
+[accepted runtime review](reviews/v044-implementation-review.md). Later
+identity-tooling/docs changes do not acquire a new runtime test claim merely
+by being integrated. Prior spike measurements remain feasibility evidence.
+
+Release was authorized, then dispatch was explicitly stopped to design reuse
+of unchanged runtime evidence. The existing Release CI only reuses exact-source,
+exact-version READY/artifacts; Product CI is not such a receipt. Version remains
+0.4.3 and v0.4.4 is not published. See the
+[proposed reuse boundary](reviews/v044-release-runtime-reuse-design.md) and
+[unreleased notes](../release/NOTES-v0.4.4.md).
 
 No automatic cache management, new shared fixture, naming change, diagnostics
 API, guest upgrade or broad class redesign is included. A v0.4.5 theme should
@@ -96,6 +106,12 @@ advance.
 - Physical footprint, RSS and reachable heap are different resource measures.
   The v0.4.2 lifecycle releases linear memory after joined workers; filesystem
   metadata remains GC-managed.
+- Live Snapshots retain roughly one FD per prepared file. The 64-table fixture
+  had 137 files and released its backing FDs after Close on both platforms.
+  Many simultaneously retained baselines, especially file-heavy schemas, may
+  approach process FD limits. Gather real workload evidence and improve the
+  resource model if pressure is demonstrated; this is accepted and non-blocking
+  for v0.4.4, not a reason by itself to create v0.4.5.
 - The 0.x API may change. Corresponding guest source, licenses, notices and
   reproducible generation remain required.
 

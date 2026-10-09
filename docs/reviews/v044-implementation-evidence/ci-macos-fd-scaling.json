@@ -1,0 +1,242 @@
+[
+  {
+    "boundary": "go",
+    "label": "baseline",
+    "tables": 64,
+    "prepared_files": 137,
+    "prepared_bytes": 148977503,
+    "fd_snapshots": 16,
+    "fd_snapshots_requested": 16,
+    "fd_limit_error": null,
+    "fds_before": 5,
+    "fds_snapshot": 6,
+    "fds_all_snapshots": 6,
+    "fds_after": 6,
+    "fd_soft_limit": 10240,
+    "fd_hard_limit": 9223372036854775807,
+    "resources": {
+      "after": {
+        "cpu_seconds": 13.391693458,
+        "cpu_timebase_denom": 3,
+        "cpu_timebase_numer": 125,
+        "file_mapping_bytes": 77119488,
+        "primary_bytes": 585124736,
+        "private_bytes": null,
+        "rss_bytes": 771145728
+      },
+      "all_snapshots": {
+        "cpu_seconds": 13.203857083,
+        "cpu_timebase_denom": 3,
+        "cpu_timebase_numer": 125,
+        "file_mapping_bytes": 77119488,
+        "primary_bytes": 585321344,
+        "private_bytes": null,
+        "rss_bytes": 771129344
+      },
+      "before": {
+        "cpu_seconds": 0.017315,
+        "cpu_timebase_denom": 3,
+        "cpu_timebase_numer": 125,
+        "file_mapping_bytes": 77119488,
+        "primary_bytes": 4228480,
+        "private_bytes": null,
+        "rss_bytes": 7749632
+      },
+      "fds_16_snapshots": 6,
+      "fds_4_snapshots": 6,
+      "snapshot": {
+        "cpu_seconds": 1.009200083,
+        "cpu_timebase_denom": 3,
+        "cpu_timebase_numer": 125,
+        "file_mapping_bytes": 77119488,
+        "primary_bytes": 469993792,
+        "private_bytes": null,
+        "rss_bytes": 500678656
+      }
+    }
+  },
+  {
+    "boundary": "go",
+    "label": "candidate",
+    "tables": 64,
+    "prepared_files": 137,
+    "prepared_bytes": 148977503,
+    "fd_snapshots": 16,
+    "fd_snapshots_requested": 16,
+    "fd_limit_error": null,
+    "fds_before": 5,
+    "fds_snapshot": 143,
+    "fds_all_snapshots": 2198,
+    "fds_after": 6,
+    "fd_soft_limit": 10240,
+    "fd_hard_limit": 9223372036854775807,
+    "resources": {
+      "after": {
+        "cpu_seconds": 13.243361292,
+        "cpu_timebase_denom": 3,
+        "cpu_timebase_numer": 125,
+        "file_mapping_bytes": 77135872,
+        "primary_bytes": 582929344,
+        "private_bytes": null,
+        "rss_bytes": 819445760
+      },
+      "all_snapshots": {
+        "cpu_seconds": 13.183332083,
+        "cpu_timebase_denom": 3,
+        "cpu_timebase_numer": 125,
+        "file_mapping_bytes": 77135872,
+        "primary_bytes": 588499904,
+        "private_bytes": null,
+        "rss_bytes": 819445760
+      },
+      "before": {
+        "cpu_seconds": 0.02005425,
+        "cpu_timebase_denom": 3,
+        "cpu_timebase_numer": 125,
+        "file_mapping_bytes": 77135872,
+        "primary_bytes": 4474240,
+        "private_bytes": null,
+        "rss_bytes": 8044544
+      },
+      "fds_16_snapshots": 2198,
+      "fds_4_snapshots": 554,
+      "snapshot": {
+        "cpu_seconds": 0.668562667,
+        "cpu_timebase_denom": 3,
+        "cpu_timebase_numer": 125,
+        "file_mapping_bytes": 77135872,
+        "primary_bytes": 469944640,
+        "private_bytes": null,
+        "rss_bytes": 500449280
+      }
+    }
+  },
+  {
+    "boundary": "import",
+    "label": "baseline",
+    "tables": 64,
+    "prepared_files": 137,
+    "prepared_bytes": 148977503,
+    "fd_snapshots": 16,
+    "fd_snapshots_requested": 16,
+    "fd_limit_error": null,
+    "fds_before": 3,
+    "fds_snapshot": 3,
+    "fds_all_snapshots": 3,
+    "fds_after": 3,
+    "fd_soft_limit": 10240,
+    "fd_hard_limit": 9223372036854775807,
+    "resources": {
+      "before": {
+        "61058": {
+          "rss_bytes": 27508736,
+          "primary_bytes": 18023488,
+          "file_mapping_bytes": 18628608,
+          "private_bytes": null,
+          "cpu_seconds": 0.135071167,
+          "cpu_timebase_numer": 125,
+          "cpu_timebase_denom": 3
+        }
+      },
+      "imported": {
+        "61058": {
+          "rss_bytes": 30064640,
+          "primary_bytes": 18203712,
+          "file_mapping_bytes": 18628608,
+          "private_bytes": null,
+          "cpu_seconds": 0.229347875,
+          "cpu_timebase_numer": 125,
+          "cpu_timebase_denom": 3
+        }
+      },
+      "fds_4_snapshots": 3,
+      "fds_16_snapshots": 3,
+      "all_snapshots": {
+        "61058": {
+          "rss_bytes": 38158336,
+          "primary_bytes": 19842176,
+          "file_mapping_bytes": 18628608,
+          "private_bytes": null,
+          "cpu_seconds": 1.61499425,
+          "cpu_timebase_numer": 125,
+          "cpu_timebase_denom": 3
+        }
+      },
+      "after": {
+        "61058": {
+          "rss_bytes": 38158336,
+          "primary_bytes": 19842176,
+          "file_mapping_bytes": 18628608,
+          "private_bytes": null,
+          "cpu_seconds": 1.622401083,
+          "cpu_timebase_numer": 125,
+          "cpu_timebase_denom": 3
+        }
+      }
+    }
+  },
+  {
+    "boundary": "import",
+    "label": "candidate",
+    "tables": 64,
+    "prepared_files": 137,
+    "prepared_bytes": 148977503,
+    "fd_snapshots": 16,
+    "fd_snapshots_requested": 16,
+    "fd_limit_error": null,
+    "fds_before": 3,
+    "fds_snapshot": 140,
+    "fds_all_snapshots": 2195,
+    "fds_after": 3,
+    "fd_soft_limit": 10240,
+    "fd_hard_limit": 9223372036854775807,
+    "resources": {
+      "before": {
+        "61067": {
+          "rss_bytes": 27951104,
+          "primary_bytes": 18482304,
+          "file_mapping_bytes": 18628608,
+          "private_bytes": null,
+          "cpu_seconds": 0.098029083,
+          "cpu_timebase_numer": 125,
+          "cpu_timebase_denom": 3
+        }
+      },
+      "imported": {
+        "61067": {
+          "rss_bytes": 36782080,
+          "primary_bytes": 20251840,
+          "file_mapping_bytes": 18628608,
+          "private_bytes": null,
+          "cpu_seconds": 0.317212083,
+          "cpu_timebase_numer": 125,
+          "cpu_timebase_denom": 3
+        }
+      },
+      "fds_4_snapshots": 551,
+      "fds_16_snapshots": 2195,
+      "all_snapshots": {
+        "61067": {
+          "rss_bytes": 41844736,
+          "primary_bytes": 22758592,
+          "file_mapping_bytes": 18628608,
+          "private_bytes": null,
+          "cpu_seconds": 4.873671292,
+          "cpu_timebase_numer": 125,
+          "cpu_timebase_denom": 3
+        }
+      },
+      "after": {
+        "61067": {
+          "rss_bytes": 41844736,
+          "primary_bytes": 22758592,
+          "file_mapping_bytes": 18628608,
+          "private_bytes": null,
+          "cpu_seconds": 4.930341083,
+          "cpu_timebase_numer": 125,
+          "cpu_timebase_denom": 3
+        }
+      }
+    }
+  }
+]

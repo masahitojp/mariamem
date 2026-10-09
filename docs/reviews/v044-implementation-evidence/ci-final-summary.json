@@ -1,0 +1,37 @@
+{
+  "candidate_sha": "c5f43106a8054bb59a2da9184a1c2103fe1a1d9f",
+  "baseline_commit_sha": "c8bd25a56e9d5221abaf40b2c98102bd60c217ae",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/37898847164",
+  "result": "PASS",
+  "platforms": {
+    "macos-arm64": "PASS",
+    "ubuntu-x86_64": "PASS"
+  },
+  "original_hashes_verified_per_platform": 146,
+  "recommendation": "READY FOR v0.4.4 RELEASE PREP",
+  "merge_main": false,
+  "publication": false,
+  "identity_guard_source_commit": "69f852d94a73642f35c6d20e89ec638826a3f26f",
+  "result_scope": "Product CI runtime/correctness/performance; not Release CI READY",
+  "runtime_candidate_integrated_locally": true,
+  "integration_head_before_design": "69f852d94a73642f35c6d20e89ec638826a3f26f",
+  "dispatch_stopped_by_maintainer": true,
+  "focused_checks": {
+    "identity": 10,
+    "harness": 6,
+    "release_tooling": 107,
+    "runtime_rerun": false
+  },
+  "github_artifacts": [
+    {
+      "id": 11603625656,
+      "platform": "ubuntu24.04-x86_64",
+      "zip_sha256": "76c933c3b4d646157e209e9c6a92fc6a532e3ea80568531ae261c0b4f444cd68"
+    },
+    {
+      "id": 11603187831,
+      "platform": "darwin-arm64",
+      "zip_sha256": "b8ab3ddd8e877439dd210aa821cac897601e708c0e8b82e5f89c8b8f975a2d2e"
+    }
+  ]
+}

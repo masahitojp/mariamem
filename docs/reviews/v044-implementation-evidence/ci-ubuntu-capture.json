@@ -1,0 +1,74 @@
+[
+  {
+    "payload_mib": 0,
+    "label": "baseline",
+    "trials": 3,
+    "snapshot_ms": 497.1101859996452,
+    "persisted_snapshot_ms": 507.82344300023396,
+    "acquisition_ms": 121.70519599976615,
+    "source_ready_ms": 310.29221700009657,
+    "suite_product_s": 1.7457965939997848,
+    "suite_cpu_s": 1.9479279999999999,
+    "suite_cpu_scope": "RUSAGE_SELF + reaped RUSAGE_CHILDREN; includes DB hosts and counter-helper CPU; diagnostic-inclusive"
+  },
+  {
+    "payload_mib": 0,
+    "label": "candidate",
+    "trials": 3,
+    "snapshot_ms": 500.31072299998414,
+    "persisted_snapshot_ms": 552.3071210000126,
+    "acquisition_ms": 177.72585600005186,
+    "source_ready_ms": 83.74646899983418,
+    "suite_product_s": 1.4230792790003761,
+    "suite_cpu_s": 1.581719,
+    "suite_cpu_scope": "RUSAGE_SELF + reaped RUSAGE_CHILDREN; includes DB hosts and counter-helper CPU; diagnostic-inclusive"
+  },
+  {
+    "payload_mib": 10,
+    "label": "baseline",
+    "trials": 3,
+    "snapshot_ms": 589.1352540002117,
+    "persisted_snapshot_ms": 590.3985519998969,
+    "acquisition_ms": 138.51368199993885,
+    "source_ready_ms": 350.2643189999617,
+    "suite_product_s": 2.0228401940003096,
+    "suite_cpu_s": 2.22606,
+    "suite_cpu_scope": "RUSAGE_SELF + reaped RUSAGE_CHILDREN; includes DB hosts and counter-helper CPU; diagnostic-inclusive"
+  },
+  {
+    "payload_mib": 10,
+    "label": "candidate",
+    "trials": 3,
+    "snapshot_ms": 597.213432999979,
+    "persisted_snapshot_ms": 652.120578999984,
+    "acquisition_ms": 199.86135499993907,
+    "source_ready_ms": 83.48389000002499,
+    "suite_product_s": 1.6496169760002886,
+    "suite_cpu_s": 1.819414,
+    "suite_cpu_scope": "RUSAGE_SELF + reaped RUSAGE_CHILDREN; includes DB hosts and counter-helper CPU; diagnostic-inclusive"
+  },
+  {
+    "payload_mib": 100,
+    "label": "baseline",
+    "trials": 3,
+    "snapshot_ms": 966.7385259999719,
+    "persisted_snapshot_ms": 970.4870609998579,
+    "acquisition_ms": 226.58728900023561,
+    "source_ready_ms": 515.2629629997136,
+    "suite_product_s": 3.203551439999046,
+    "suite_cpu_s": 3.437577,
+    "suite_cpu_scope": "RUSAGE_SELF + reaped RUSAGE_CHILDREN; includes DB hosts and counter-helper CPU; diagnostic-inclusive"
+  },
+  {
+    "payload_mib": 100,
+    "label": "candidate",
+    "trials": 3,
+    "snapshot_ms": 969.7929700000714,
+    "persisted_snapshot_ms": 1065.0008600000547,
+    "acquisition_ms": 326.1818010000752,
+    "source_ready_ms": 82.95788399982484,
+    "suite_product_s": 2.5675507309997556,
+    "suite_cpu_s": 2.766598,
+    "suite_cpu_scope": "RUSAGE_SELF + reaped RUSAGE_CHILDREN; includes DB hosts and counter-helper CPU; diagnostic-inclusive"
+  }
+]
