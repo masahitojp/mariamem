@@ -93,8 +93,13 @@ stopped before publication at generated-source reproduction. Runtime evidence re
 and both independent source-to-WASM builds passed. The regeneration copy list
 omitted two already-tested handwritten OwnedPrepared files; the
 [scoped tooling fix](reviews/v044-regeneration-fix.md) preserves runtime sources
-and guards. Full reproduction still requires the next Release CI run; diagnosis
-does not automatically redispatch.
+and guards. The subsequent run
+[37918195197](https://github.com/masahitojp/mariamem/actions/runs/37918195197)
+passed full reproduction and offline source closure, then stopped before
+publication on a stale `Snapshot.path` reference in SQLAlchemy Fork-mode fixture
+setup on both platforms. The [consumer fixture repair](reviews/v044-sqlalchemy-fixture-fix.md)
+preserves all SQL cases and requires fresh final-artifact ORM acceptance;
+diagnosis does not automatically redispatch.
 
 No automatic cache management, new shared fixture, naming change, diagnostics
 API, guest upgrade or broad class redesign is included. A v0.4.5 theme should

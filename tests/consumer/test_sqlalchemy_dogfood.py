@@ -139,9 +139,7 @@ def prepared(audit):
             reaped(template, pids, directory)
             record["setup_snapshot_ms"] = (time.monotonic() - started) * 1000
             audit["templates"].append(record)
-            saved = snapshot.path
             yield snapshot
-        assert not saved.exists()
 
 
 @pytest.fixture

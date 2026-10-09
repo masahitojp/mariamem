@@ -402,3 +402,109 @@ def test_repaired_recipe_development_scope_and_release_validation(repository, mo
     assert runtime.development_changed(root, changed, pin)  # ordinary future code checks remain
     with pytest.raises(ValueError, match='recipe logic changed'):
         runtime.validate(root, changed, api=object())
+
+
+def original_sqlalchemy_fixture():
+    current = (ROOT / runtime.SQLALCHEMY_HARNESS).read_text()
+    assert current.count('            yield snapshot\n') == 1
+    return current.replace('            yield snapshot\n',
+                           '            saved = snapshot.path\n            yield snapshot\n'
+                           '        assert not saved.exists()\n', 1)
+
+
+def test_sqlalchemy_fixture_repair_is_exact():
+    current = (ROOT / runtime.SQLALCHEMY_HARNESS).read_text()
+    original = original_sqlalchemy_fixture()
+    runtime.verify_sqlalchemy_fixture(original, current)
+    old, new = {runtime.SQLALCHEMY_HARNESS:'a'*64}, {runtime.SQLALCHEMY_HARNESS:'b'*64}
+    with pytest.raises(ValueError, match='missing SQLAlchemy harness'):
+        runtime.compare_inventory(old, new, VERSION, VERSION)
+    assert runtime.compare_inventory(old, new, VERSION, VERSION,
+                                     old_harness=original, new_harness=current)
+    for altered in (current.replace('            prepare(engine)', '            pass'),
+                    current.replace('yield snapshot', 'yield None'),
+                    current.replace('template.wait_disconnected()', 'pass'),
+                    current.replace('engine.dispose()', 'pass'),
+                    current + '\nassert False\n'):
+        with pytest.raises(ValueError, match='consumer logic changed'):
+            runtime.verify_sqlalchemy_fixture(original, altered)
+
+
+@pytest.mark.parametrize('finish', ['normal', 'close', 'error'])
+def test_actual_consumer_prepared_fixture_needs_no_public_path(finish):
+    import ast
+    from contextlib import contextmanager
+    from types import SimpleNamespace
+    source = ast.parse((ROOT / runtime.SQLALCHEMY_HARNESS).read_text())
+    fixture = next(n for n in source.body if isinstance(n, ast.FunctionDef) and n.name == 'prepared')
+    fixture.decorator_list = []
+    events = []
+    snapshot = object()  # intentionally no path, manifest or validation API
+    @contextmanager
+    def owned_snapshot():
+        events.append('snapshot-enter')
+        try:
+            yield snapshot
+        finally:
+            events.append('snapshot-close')
+    db = SimpleNamespace(diagnostics={}, log_path=Path('/fixture/log'),
+                         wait_disconnected=lambda: events.append('disconnected'),
+                         snapshot=owned_snapshot)
+    @contextmanager
+    def start():
+        events.append('database-enter')
+        try:
+            yield db
+        finally:
+            events.append('database-close')
+    namespace = {'mariamem':SimpleNamespace(start=start),
+                 'time':SimpleNamespace(monotonic=lambda:1),
+                 'engine_for':lambda *_:SimpleNamespace(dispose=lambda:events.append('dispose')),
+                 'prepare':lambda _:events.append('prepare'),
+                 'reaped':lambda *_:events.append('reaped')}
+    exec(compile(ast.Module(body=[fixture], type_ignores=[]), '<actual prepared fixture>', 'exec'), namespace)
+    audit = {'mode':'fork', 'templates':[]}
+    generator = namespace['prepared'](audit)
+    assert next(generator) is snapshot
+    assert events == ['database-enter', 'prepare', 'dispose', 'disconnected', 'snapshot-enter', 'reaped']
+    if finish == 'normal':
+        with pytest.raises(StopIteration):
+            next(generator)
+    elif finish == 'close':
+        generator.close()
+    else:
+        with pytest.raises(RuntimeError, match='test failure'):
+            generator.throw(RuntimeError('test failure'))
+    assert events[-2:] == ['snapshot-close', 'database-close']
+    assert len(audit['templates']) == 1
+
+
+def test_consumer_fixture_repair_development_and_release_scope(repository, monkeypatch):
+    root, git, _ = repository
+    (root / 'tests/consumer').mkdir(parents=True)
+    original = original_sqlalchemy_fixture()
+    (root / runtime.SQLALCHEMY_HARNESS).write_text(original)
+    git('add', '.')
+    git('commit', '-qm', 'original consumer')
+    basis = git('rev-parse', 'HEAD')
+    inventory = {n:digest(subprocess.check_output(['git','show',basis+':'+n],cwd=root))
+                 for n in runtime.tree(root,basis)}
+    pin = intent()
+    pin['basis_commit'] = basis
+    (root/runtime.INTENT).write_text(json.dumps(pin))
+    current = (ROOT/runtime.SQLALCHEMY_HARNESS).read_text()
+    (root/runtime.SQLALCHEMY_HARNESS).write_text(current)
+    git('add', '.')
+    git('commit', '-qm', 'remove obsolete path probe')
+    candidate = git('rev-parse', 'HEAD')
+    assert not runtime.development_changed(root, candidate, pin)
+    monkeypatch.setattr(runtime, 'fetch_product', lambda *a:None)
+    monkeypatch.setattr(runtime, 'evidence', lambda *a:(inventory, {'guest_sha256':'c'*64}))
+    assert runtime.SQLALCHEMY_HARNESS in runtime.validate(root, candidate, api=object())['reviewed_changed_paths']
+    (root/runtime.SQLALCHEMY_HARNESS).write_text(current.replace('            prepare(engine)', '            pass'))
+    git('add', '.')
+    git('commit', '-qm', 'different consumer setup')
+    changed = git('rev-parse', 'HEAD')
+    assert runtime.development_changed(root, changed, pin)
+    with pytest.raises(ValueError, match='consumer logic changed'):
+        runtime.validate(root, changed, api=object())

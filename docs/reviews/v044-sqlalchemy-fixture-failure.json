@@ -1,0 +1,31 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/37918195197",
+  "release_source_commit": "182bb716af21fd756b74e5f7aff637c1903d434e",
+  "runtime_basis_commit": "c5f43106a8054bb59a2da9184a1c2103fe1a1d9f",
+  "platforms": {
+    "mac": {
+      "log_sha256": "350d2db9be6c52df44cd6c7ff5c2d6bff29d654b1c2fa7aaf6f70a75348f223e",
+      "report_sha256": "28f2a575f826b40a3c9a39410cef248cf96e97657be0dac28e844ea9af7c5c67",
+      "completed_steps": {
+        "go_default": "PASS",
+        "go_snapshot_failure_lifecycle": "PASS",
+        "gorm": "PASS",
+        "installed_wheel": "PASS"
+      },
+      "failure": "Command '['/private/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/mariamem-v04-acceptance-xo56gmoo/venv/bin/python', '-m', 'pytest', '-q', 'test_sqlalchemy_dogfood.py', '--junitxml', '/private/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/mariamem-v04-acceptance-xo56gmoo/sqlalchemy-1.xml']' returned non-zero exit status 1.",
+      "inner_failure": "test_sqlalchemy_dogfood.py:142: AttributeError: 'Snapshot' object has no attribute 'path'"
+    },
+    "ubuntu": {
+      "log_sha256": "84479b58069cfc5a05aed5ab3f6fb80d444f37595f55db13b27d40506f4bd4f9",
+      "report_sha256": "bf4c8255701d2ee28bebc5c22fb59b4781f37420dfc4e52f5de5fdd8cf60ef30",
+      "completed_steps": {
+        "go_default": "PASS",
+        "go_snapshot_failure_lifecycle": "PASS",
+        "gorm": "PASS",
+        "installed_wheel": "PASS"
+      },
+      "failure": "Command '['/tmp/mariamem-v04-acceptance-9hzb3tka/venv/bin/python', '-m', 'pytest', '-q', 'test_sqlalchemy_dogfood.py', '--junitxml', '/tmp/mariamem-v04-acceptance-9hzb3tka/sqlalchemy-1.xml']' returned non-zero exit status 1.",
+      "inner_failure": "test_sqlalchemy_dogfood.py:142: AttributeError: 'Snapshot' object has no attribute 'path'"
+    }
+  }
+}

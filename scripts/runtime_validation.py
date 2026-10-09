@@ -23,6 +23,7 @@ WORKFLOW = '.github/workflows/v044-product-validation.yml'
 PLATFORMS = ('darwin-arm64', 'ubuntu24.04-x86_64')
 VERSION_FILE = 'python/mariamem/_version.py'
 HANDWRITTEN_RECIPE = 'scripts/generate_runtime.py'
+SQLALCHEMY_HARNESS = 'tests/consumer/test_sqlalchemy_dogfood.py'
 OWNED_GLUE = ('code/base/owned_prepared.go', 'code/base/owned_prepared_test.go')
 FIELDS = {'MAJOR', 'MINOR', 'PATCH', 'STAGE', 'SERIAL'}
 # These tracked historical outputs are excluded by the Product receipt's
@@ -125,7 +126,37 @@ def verify_handwritten_recipe(old_source, new_source):
             'generated recipe logic changed')
 
 
-def compare_inventory(basis, current, old_version, new_version, old_recipe=None, new_recipe=None):
+def verify_sqlalchemy_fixture(old_source, new_source):
+    """Only remove the obsolete public Snapshot.path cleanup probe.
+
+    Compare the entire module, preserving setup, context ownership, all SQL
+    assertions and process cleanup. This is not a general consumer exemption.
+    """
+    old, new = ast.parse(old_source), ast.parse(new_source)
+    fixtures = [n for n in old.body if isinstance(n, ast.FunctionDef) and n.name == 'prepared']
+    require(len(fixtures) == 1, 'prepared fixture missing/ambiguous')
+    probes = [ast.parse('saved = snapshot.path').body[0],
+              ast.parse('assert not saved.exists()').body[0]]
+    removed = []
+    for probe in probes:
+        matches = [n for n in ast.walk(fixtures[0])
+                   if ast.dump(n, include_attributes=False) == ast.dump(probe, include_attributes=False)]
+        require(len(matches) == 1, 'obsolete Snapshot.path probe missing/ambiguous')
+        removed.extend(matches)
+    class RemoveProbe(ast.NodeTransformer):
+        def visit(self, node):
+            return None if any(node is n for n in removed) else super().visit(node)
+    old = RemoveProbe().visit(old)
+    require(ast.dump(old, include_attributes=False) == ast.dump(new, include_attributes=False),
+            'SQLAlchemy consumer logic changed')
+
+
+CONDITIONAL_CHECKS = {HANDWRITTEN_RECIPE: verify_handwritten_recipe,
+                      SQLALCHEMY_HARNESS: verify_sqlalchemy_fixture}
+
+
+def compare_inventory(basis, current, old_version, new_version, old_recipe=None, new_recipe=None,
+                      old_harness=None, new_harness=None):
     require(all(sha(v) for v in basis.values()), 'invalid basis inventory hash')
     require(all(sha(v) for v in current.values()), 'invalid candidate inventory hash')
     changed = sorted(n for n in set(basis) | set(current) if basis.get(n) != current.get(n))
@@ -137,6 +168,10 @@ def compare_inventory(basis, current, old_version, new_version, old_recipe=None,
             require(name in basis and name in current and old_recipe is not None
                     and new_recipe is not None, 'missing generated recipe')
             verify_handwritten_recipe(old_recipe, new_recipe)
+        elif name == SQLALCHEMY_HARNESS:
+            require(name in basis and name in current and old_harness is not None
+                    and new_harness is not None, 'missing SQLAlchemy harness')
+            verify_sqlalchemy_fixture(old_harness, new_harness)
         else:
             require(exempt(name), 'changed unreviewed input: ' + name)
     return changed
@@ -157,17 +192,17 @@ def development_changed(root, commit, intent):
     require_commit(root, commit)
     require_commit(root, intent['basis_commit'])
     old, new = tree(root, intent['basis_commit']), tree(root, commit)
-    if any(old.get(n) != new.get(n) and n not in (VERSION_FILE, HANDWRITTEN_RECIPE) and not exempt(n)
+    if any(old.get(n) != new.get(n) and n != VERSION_FILE and n not in CONDITIONAL_CHECKS and not exempt(n)
            for n in set(old) | set(new)):
         return True
-    if old.get(HANDWRITTEN_RECIPE) != new.get(HANDWRITTEN_RECIPE):
-        if HANDWRITTEN_RECIPE not in old or HANDWRITTEN_RECIPE not in new:
-            return True
-        if old[HANDWRITTEN_RECIPE].split()[:2] != new[HANDWRITTEN_RECIPE].split()[:2]:
+    for name, check in CONDITIONAL_CHECKS.items():
+        if old.get(name) == new.get(name):
+            continue
+        if name not in old or name not in new or old[name].split()[:2] != new[name].split()[:2]:
             return True
         try:
-            verify_handwritten_recipe(git(root, 'show', intent['basis_commit'] + ':' + HANDWRITTEN_RECIPE),
-                                      (Path(root) / HANDWRITTEN_RECIPE).read_text())
+            check(git(root, 'show', intent['basis_commit'] + ':' + name),
+                  (Path(root) / name).read_text())
         except (ValueError, SyntaxError):
             return True
     return version_logic(git(root, 'show', intent['basis_commit'] + ':' + VERSION_FILE)) != version_logic(
@@ -291,13 +326,13 @@ def validate(root, commit, api=None):
     old_tree, new_tree = tree(repository, intent['basis_commit']), tree(repository, commit)
     for n in set(old_tree) | set(new_tree):
         if old_tree.get(n) != new_tree.get(n):
-            require(n in (VERSION_FILE, HANDWRITTEN_RECIPE) or exempt(n), 'unreviewed tree change: ' + n)
+            require(n == VERSION_FILE or n in CONDITIONAL_CHECKS or exempt(n), 'unreviewed tree change: ' + n)
             if n == VERSION_FILE:
                 require(old_tree[n].split()[0] == new_tree[n].split()[0] == '100644', 'version type/mode changed')
-            if n == HANDWRITTEN_RECIPE:
+            if n in CONDITIONAL_CHECKS:
                 require(n in old_tree and n in new_tree and old_tree[n].split()[:2] == new_tree[n].split()[:2],
-                        'generated recipe type/mode changed')
-                verify_handwritten_recipe(git(repository, 'show', intent['basis_commit'] + ':' + n),
+                        'conditional input type/mode changed')
+                CONDITIONAL_CHECKS[n](git(repository, 'show', intent['basis_commit'] + ':' + n),
                                           (root / n).read_text())
     old_version = git(repository, 'show', intent['basis_commit'] + ':' + VERSION_FILE)
     require(version_logic(old_version) == version_logic((root / VERSION_FILE).read_text()), 'version logic changed')
@@ -332,7 +367,11 @@ def validate(root, commit, api=None):
                                 git(repository, 'show', intent['basis_commit'] + ':' + HANDWRITTEN_RECIPE)
                                 if HANDWRITTEN_RECIPE in old_tree else None,
                                 (root / HANDWRITTEN_RECIPE).read_text()
-                                if (root / HANDWRITTEN_RECIPE).is_file() else None)
+                                if (root / HANDWRITTEN_RECIPE).is_file() else None,
+                                git(repository, 'show', intent['basis_commit'] + ':' + SQLALCHEMY_HARNESS)
+                                if SQLALCHEMY_HARNESS in old_tree else None,
+                                (root / SQLALCHEMY_HARNESS).read_text()
+                                if (root / SQLALCHEMY_HARNESS).is_file() else None)
     guest = json.loads((root / 'release/generated-go-inputs.json').read_text())['guest_sha256']
     require(all(r['guest_sha256'] == guest for r in receipts.values()), 'guest identity differs')
     return {'version': 1, 'result': 'PASS', 'runtime_basis_commit': intent['basis_commit'],
