@@ -3,7 +3,8 @@
 Accepted product decisions, not a new design proposal. Main remains unchanged.
 
 - Main input: `c8bd25a56e9d5221abaf40b2c98102bd60c217ae`.
-- Released performance input: `dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20` (v0.4.3).
+- Released performance commit: `c8bd25a56e9d5221abaf40b2c98102bd60c217ae` (v0.4.3).
+  Published annotated tag object: `dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20`.
 - Proven spike input: `730b64db7059d0374e2e00680416de77cdb346eb`;
   review/evidence: `09443d4de999b833cddc2ca536d43f9120130c79`.
 - Work branch: `experiment/v044-product-contract`.

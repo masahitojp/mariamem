@@ -19,7 +19,8 @@ import tarfile
 import time
 
 ROOT=Path(__file__).resolve().parents[1]
-BASELINE='dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20'
+BASELINE='c8bd25a56e9d5221abaf40b2c98102bd60c217ae'
+BASELINE_TAG_OBJECT='dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20'
 
 
 def write(path,value):
@@ -33,6 +34,17 @@ def sha256(path):
         for chunk in iter(lambda:stream.read(1024*1024),b''):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def verify_release_baseline(repository, tag_object, expected_commit):
+    """Pin both the published annotated tag object and its source commit."""
+    kind=subprocess.check_output(['git','cat-file','-t',tag_object],cwd=repository,text=True).strip()
+    if kind!='tag':
+        raise RuntimeError('published baseline must be the pinned annotated tag object')
+    commit=subprocess.check_output(['git','rev-parse',tag_object+'^{commit}'],cwd=repository,text=True).strip()
+    if commit!=expected_commit:
+        raise RuntimeError('published baseline tag does not match the pinned release commit')
+    return commit
 
 
 def remove_disposable_tree(path):
@@ -86,6 +98,7 @@ def main():
         env.pop(key,None)
     commands=json.loads((evidence/'commands.json').read_text()) if (evidence/'commands.json').exists() else []
     metadata=dict(candidate_sha=actual,baseline_sha=args.baseline_sha,
+                  baseline_tag_object_sha=BASELINE_TAG_OBJECT,
                   guest_sha256=json.loads((ROOT/'release/generated-go-inputs.json').read_text())['guest_sha256'],
                   platform=platform.platform(),machine=platform.machine(),python=sys.version,
                   measured_at_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
@@ -146,10 +159,8 @@ def main():
                 raise RuntimeError('performance requires PASS correctness for this exact candidate')
             baseline=scratch/'baseline'
             baseline.mkdir()
-            run('fetch-baseline',['git','fetch','--no-tags','origin',args.baseline_sha])
-            peeled=subprocess.check_output(['git','rev-parse',args.baseline_sha+'^{commit}'],cwd=ROOT,text=True).strip()
-            if peeled!=args.baseline_sha:
-                raise RuntimeError('baseline must be an exact commit SHA')
+            run('fetch-baseline',['git','fetch','--no-tags','origin',BASELINE_TAG_OBJECT])
+            verify_release_baseline(ROOT,BASELINE_TAG_OBJECT,args.baseline_sha)
             archive=scratch/'baseline.tar'
             run('archive-baseline',['git','archive','--format=tar','-o',archive,args.baseline_sha])
             with tarfile.open(archive) as source:
@@ -165,7 +176,10 @@ def main():
             baseline_host=scratch/'baseline-host'
             run('candidate-bench',['go','build','-p','1','-trimpath','-o',candidate_bench,'./benchmarks/ownedprepared'])
             run('baseline-bench',['go','build','-p','1','-trimpath','-o',baseline_bench,'./benchmarks/ownedprepared'],cwd=baseline)
-            run('baseline-host',['go','build','-p','1','-trimpath','-o',baseline_host,'./cmd/mariamem-host'],cwd=baseline)
+            # Match candidate-host and published wheel builds, not the CGo-enabled
+            # Go measurement process. The two Python hosts must use identical flags.
+            run('baseline-host',['go','build','-p','1','-trimpath','-o',baseline_host,'./cmd/mariamem-host'],
+                cwd=baseline,extra_env={'CGO_ENABLED':'0'})
             metadata['binaries_sha256']={name:sha256(path) for name,path in {
                 'candidate-bench':candidate_bench,'baseline-bench':baseline_bench,
                 'candidate-host':host,'baseline-host':baseline_host,'process_cost':helper}.items()}

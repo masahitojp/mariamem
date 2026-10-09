@@ -1,10 +1,11 @@
 {
   "active-close-baseline.json": "d672cafe6aa1c190ec05478690003ded7f5c8720e86eb973d38315dccaf07879",
   "active-close-candidate.json": "68d9efb38fe6583a1a529e94adc34d269022405f83171c98f90b6fe91f74b894",
+  "ci-failure-summary.json": "a8c0cfb91f8f461d7e3d9cf8ab92c4fb285a2658b1af51405fa4d7e56770570e",
   "fd-go-local.json": "e64dbcf7b3b4d2381afecedc82cd23b0e69aa4bdb8e8c87d40ac2701c4748120",
   "fd-python-limit256-forks-local.json": "326871a77683db3464711f8422d3ff47a60a2c4206a90fbeceb6d5dc74ef1375",
   "fd-python-limit256-local.json": "94c253a56c5f25ce66f97bef472f631d4457046bc22bd1929ac5c1f1d6d2730c",
   "fd-python-local.json": "f2d09921337dd0b4a0e5b0ae5dcb254bc2e76e87bdccef5aa3663a3da61a612e",
-  "local-checks.json": "a7065d467e06e347f925b6dc42a6edb6bfda8549a6bdf06cf7d58b65268318a5",
+  "local-checks.json": "b73341e064263b7554927c76c1087faebe13f794909a74c091404e01e8e7cec5",
   "snapshot-acceptance.json": "df734fe11bbba592051bc4d783ba20c42f093b914c81a52fac13c89efbadb27b"
 }

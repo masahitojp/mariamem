@@ -1,0 +1,30 @@
+{
+  "job_url": "https://github.com/masahitojp/mariamem/actions/runs/37896161422/job/113707869702",
+  "candidate_sha": "62df064e3ff6be45abb0e1bbc4181009dcfb1603",
+  "platform": "Ubuntu 24.04 x86_64",
+  "correctness": "PASS",
+  "correctness_boundaries": [
+    "source/unit",
+    "handwritten races",
+    "Go real SQL/lifecycle",
+    "Python import/isolation/lifecycle",
+    "installed pytest/xdist"
+  ],
+  "performance": "NOT RUN; stopped before comparison",
+  "failure": "baseline must be an exact commit SHA",
+  "cause": "annotated tag object incorrectly used as exact source commit",
+  "published_tag_object_sha": "dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20",
+  "published_commit_sha": "c8bd25a56e9d5221abaf40b2c98102bd60c217ae",
+  "cleanup": {
+    "recreated_build_removed": true,
+    "retained_large_paths": [],
+    "scratch_removed": true
+  },
+  "regression_tests": "5 tooling tests PASS including annotated-tag/source identity and mismatch rejection",
+  "qualification_reuse": false,
+  "source_artifact_sha256": {
+    "correctness.json": "73da0c49e3aa5d705f279f751a134e72f0fc2432436953a871de9d8ad9da529e",
+    "inputs.json": "f158ebf2fc6f44968bf8f2c283e9fd9623cc12b20af7ce4d71abb339045d56c7",
+    "cleanup.json": "1906ba58ff4b330af620a3a87824d78a1463de6c810b72d21fc1ee963eabe76d"
+  }
+}

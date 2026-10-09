@@ -137,7 +137,8 @@ guest migration と guest-wide races は v0.5+ の別境界。active-SQL interru
 ## 8. Inputs, evidence and reproduction
 
 - Main baseline: `c8bd25a56e9d5221abaf40b2c98102bd60c217ae`。
-- Exact released v0.4.3: `dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20`。
+- Exact released v0.4.3 commit: `c8bd25a56e9d5221abaf40b2c98102bd60c217ae`。
+  Annotated tag object: `dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20`。
 - Unchanged guest: `33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008`。
 - Branch: `experiment/v044-product-contract`。候補は本 report を含む commit。
 - [implementation plan](v044-implementation-plan.md)。
@@ -155,5 +156,17 @@ local cleanup で Go module cache の read-only directories を確認したた�
 CI scratch removal も directory permissions を戻して削除する処理へ補正しました。
 read-only cache の回収と外部 symlink target の保護を含む tooling **4 tests PASS**。
 runtime/guest の追加変更はありません。
+
+## CI failure correction
+
+[Ubuntu job](https://github.com/masahitojp/mariamem/actions/runs/37896161422/job/113707869702)
+は候補 `62df064e3ff6be45abb0e1bbc4181009dcfb1603` の correctness / installed pytest
+を PASS しました。performance 開始前に停止した原因は、harness が annotated tag
+object を source commit と誤認していたことです。`baseline_sha` を上記 release
+commit に補正し、公開 tag object がその commit を指すことも独立に確認します。
+実際の annotated tag を使い、誤った commit・tag/commit の取り違えを拒否する
+回帰テストを追加しました。runtime の追加変更はなく、修正候補は別の exact-SHA
+CI で再検証します。旧候補の PASS を新候補の qualification へ流用しません。
+Python 比較の両 host build も同じ `CGO_ENABLED=0` に揃えました。
 
 **V0.4.4 NOT READY — BOTH-PLATFORM CI ACCEPTANCE AND EXACT v0.4.3 PERFORMANCE PENDING**

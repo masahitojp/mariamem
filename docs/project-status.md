@@ -27,7 +27,8 @@ APIs. See the [adopted contract](decisions/snapshot-product-contract.md).
 ## Published baseline: v0.4.3
 
 [v0.4.3](https://github.com/masahitojp/mariamem/releases/tag/v0.4.3) is released
-from `dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20`.
+from commit `c8bd25a56e9d5221abaf40b2c98102bd60c217ae`.
+Its annotated tag object is `dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20`.
 Generated-Go is the only supported production runtime; live Wasmer, bundle
 resolution/provisioning and native executable packaging are retired.
 Historical tags/reports retain that evidence, not a supported second runtime.

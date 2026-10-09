@@ -41,7 +41,7 @@ jobs:
           esac
           echo "CANDIDATE_SHA=$CANDIDATE" >> "$GITHUB_ENV"
           echo "VALIDATION=$RUNNER_TEMP/v044-product-validation" >> "$GITHUB_ENV"
-          echo "Candidate: $CANDIDATE; baseline v0.4.3: dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20" >> "$GITHUB_STEP_SUMMARY"
+          echo "Candidate: $CANDIDATE; baseline v0.4.3 commit: c8bd25a56e9d5221abaf40b2c98102bd60c217ae" >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.8'

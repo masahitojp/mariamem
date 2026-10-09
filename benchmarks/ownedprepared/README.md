@@ -2,7 +2,10 @@
 
 This is a bounded comparison after correctness acceptance, not release approval.
 It builds the exact production candidate and released v0.4.3 commit
-`dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20` using the same Go measurement source.
+`c8bd25a56e9d5221abaf40b2c98102bd60c217ae` using the same Go measurement source.
+The published annotated tag object is
+`dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20`; it is checked separately and must
+resolve to that exact commit. Tag-object identity is not source-commit identity.
 Python uses each commit's SDK and exact host binary. No previous spike numbers
 are treated as production results.
 

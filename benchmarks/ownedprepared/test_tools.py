@@ -22,6 +22,32 @@ def load_runner():
 
 
 class EvidenceToolsTest(unittest.TestCase):
+    def test_annotated_release_tag_is_distinct_from_the_pinned_source_commit(self):
+        module=load_runner()
+        with tempfile.TemporaryDirectory() as temporary:
+            repository=Path(temporary)
+            def git(*args):
+                return subprocess.check_output(['git','-C',str(repository),
+                    '-c','user.name=Fixture','-c','user.email=fixture@example.invalid',
+                    '-c','commit.gpgsign=false','-c','tag.gpgsign=false',*args],text=True).strip()
+            git('init','-q')
+            (repository/'source').write_text('released\n')
+            git('add','source');git('commit','-qm','released')
+            commit=git('rev-parse','HEAD')
+            git('tag','-a','v0.4.3','-m','published')
+            tag=git('rev-parse','refs/tags/v0.4.3')
+            self.assertNotEqual(tag,commit)
+            self.assertEqual(module.verify_release_baseline(repository,tag,commit),commit)
+            # Reproduce the CI bug: a tag object cannot be the expected commit.
+            with self.assertRaisesRegex(RuntimeError,'pinned release commit'):
+                module.verify_release_baseline(repository,tag,tag)
+            (repository/'source').write_text('later source\n')
+            git('commit','-qam','later')
+            with self.assertRaisesRegex(RuntimeError,'pinned release commit'):
+                module.verify_release_baseline(repository,tag,git('rev-parse','HEAD'))
+            with self.assertRaisesRegex(RuntimeError,'annotated tag object'):
+                module.verify_release_baseline(repository,commit,commit)
+
     def test_cleanup_removes_read_only_module_cache_without_following_links(self):
         module=load_runner()
         with tempfile.TemporaryDirectory() as temporary:

@@ -4,7 +4,7 @@
   "go": "go1.26.8",
   "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
   "main_sha": "c8bd25a56e9d5221abaf40b2c98102bd60c217ae",
-  "released_v043_sha": "dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20",
+  "released_v043_sha": "c8bd25a56e9d5221abaf40b2c98102bd60c217ae",
   "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
   "branch": "experiment/v044-product-contract",
   "candidate_reference": "containing Git commit; exact-SHA CI results recorded separately",
@@ -170,5 +170,7 @@
       "original_sha256": "8c0dab1bf1ebbb8eb1b2bf520d39960356990f8feb31633c437aab0c9e9c5ffa",
       "normalization": "disposable absolute run path removed"
     }
-  }
+  },
+  "released_v043_tag_object_sha": "dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20",
+  "identity_correction": "original report confused the published annotated-tag object with its source commit; raw observations and production source hashes unchanged"
 }
