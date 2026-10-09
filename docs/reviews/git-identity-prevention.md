@@ -33,5 +33,14 @@ are self-cleaning; completion preserves only reports/identity JSON/Git history.
 This branch derives from candidate `c5f43106a8054bb59a2da9184a1c2103fe1a1d9f`.
 It is `experiment/v044-git-identity-guard`, kept separate so the already-submitted
 v0.4.4 qualification is not restarted by a tooling-only change. No main merge or
-release occurs. Its exact-source platform qualification is not claimed; folding
-it into a release candidate requires that candidate's normal qualification.
+release occurs. The maintainer clarified that integrating this tooling-only
+change does not require another macOS/Ubuntu runtime acceptance cycle. Preserve
+the v0.4.4 runtime candidate's acceptance evidence, identifying its source SHA;
+do not relabel that evidence as a platform run on the later integration SHA.
+
+After integration, check the final main source identity and the pinned release
+identity using the shared tool, and run the focused identity/runner tests to prove
+tag-object rejection and failure before build. Check affected workflow syntax
+and the final diff. Expand runtime verification only if integration changes a
+runtime dependency. Explicit publication remains a separate Release CI handoff;
+this scope decision neither authorizes release nor alters that workflow.
