@@ -1,0 +1,24 @@
+{
+  "run_id": 37914496989,
+  "candidate_sha": "fc5811324c3cc72b277023d95550bbfd85d73935",
+  "job_id": 113767555707,
+  "full_log_sha256": "943a7b600a18d99a00a703550d382b986135f4f99af4120c7debeb9db0b2bccd",
+  "failure_excerpt": [
+    "guest\tReproduce generated Go and verify GPL source closure offline\t2026-10-09T10:11:56.0643761Z Installed checksum-bound generated runtime: 62 files",
+    "guest\tReproduce generated Go and verify GPL source closure offline\t2026-10-09T10:11:56.3627336Z ##[error]    raise ValueError('regenerated output differs from committed source (including ownership glue)')",
+    "guest\tReproduce generated Go and verify GPL source closure offline\t2026-10-09T10:11:56.3634212Z ValueError: regenerated output differs from committed source (including ownership glue)",
+    "guest\tReproduce generated Go and verify GPL source closure offline\t2026-10-09T10:11:56.3736659Z ##[error]Process completed with exit code 1."
+  ],
+  "recipe_missing_files": [
+    "code/base/owned_prepared.go",
+    "code/base/owned_prepared_test.go"
+  ],
+  "runtime_reused": true,
+  "independent_source_to_wasm_builds": "PASS",
+  "publication": "SKIPPED",
+  "prepared_handwritten_files": 14,
+  "previous_installer_copies": 12,
+  "focused_pytest_cases": 195,
+  "product_tools_cases": 6,
+  "full_regeneration_after_fix": "not run locally; required on next Release CI"
+}

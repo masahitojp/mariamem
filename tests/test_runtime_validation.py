@@ -326,3 +326,79 @@ def test_guard_cannot_return_ready_without_valid_runtime_proof(tmp_path, monkeyp
     monkeypatch.setattr(runtime, 'verify_frozen', fail)
     with pytest.raises(ValueError, match='frozen runtime proof'):
         release.guard(tmp_path, SHA, runtime.PLATFORMS[0])
+
+
+RECIPE = '''import shutil
+for name in ('runtime_instance.go', 'runtime_instance_test.go'):
+    shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)
+'''
+FIXED_RECIPE = RECIPE.replace("('runtime_instance.go',", "('code/base/owned_prepared.go', 'code/base/owned_prepared_test.go', 'runtime_instance.go',")
+
+
+def test_recipe_repair_is_narrower_than_a_tooling_exemption():
+    runtime.verify_handwritten_recipe(RECIPE, FIXED_RECIPE)
+    assert not runtime.exempt(runtime.HANDWRITTEN_RECIPE)
+    old, new = {runtime.HANDWRITTEN_RECIPE: 'a'*64}, {runtime.HANDWRITTEN_RECIPE: 'b'*64}
+    with pytest.raises(ValueError, match='missing generated recipe'):
+        runtime.compare_inventory(old, new, VERSION, VERSION)
+    assert runtime.compare_inventory(old, new, VERSION, VERSION, RECIPE, FIXED_RECIPE)
+
+
+@pytest.mark.parametrize('change', [
+    "shutil.copy2(ROOT/'other'/name, out/name)",
+    "shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)\nbuild_new_guest()",
+    "shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)\nGOTOOLCHAIN='other'",
+])
+def test_recipe_repair_cannot_hide_new_build_logic(change):
+    altered = FIXED_RECIPE.replace("shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)", change)
+    with pytest.raises(ValueError, match='recipe logic changed'):
+        runtime.verify_handwritten_recipe(RECIPE, altered)
+
+
+@pytest.mark.parametrize('new', [RECIPE,
+    FIXED_RECIPE.replace("'code/base/owned_prepared_test.go', ", ''),
+    FIXED_RECIPE.replace("'runtime_instance_test.go'", "'different.go'"),
+    FIXED_RECIPE.replace("'runtime_instance_test.go'", "'runtime_instance.go'"),
+    FIXED_RECIPE + RECIPE,
+])
+def test_recipe_missing_extra_duplicate_or_ambiguous_glue_rejected(new):
+    with pytest.raises(ValueError):
+        runtime.verify_handwritten_recipe(RECIPE, new)
+
+
+def test_real_recipe_carries_only_already_committed_glue():
+    import ast
+    source = (ROOT/runtime.HANDWRITTEN_RECIPE).read_text()
+    original = source.replace("'code/base/owned_prepared.go', 'code/base/owned_prepared_test.go', ", '', 1)
+    runtime.verify_handwritten_recipe(original, source)
+    assert ast.dump(ast.parse(original)) != ast.dump(ast.parse(source))
+
+
+def test_repaired_recipe_development_scope_and_release_validation(repository, monkeypatch):
+    root, git, _ = repository
+    (root/'scripts').mkdir()
+    (root/runtime.HANDWRITTEN_RECIPE).write_text(RECIPE)
+    git('add', '.')
+    git('commit', '-qm', 'original installer')
+    basis = git('rev-parse', 'HEAD')
+    inventory = {n: digest(subprocess.check_output(['git','show',basis+':'+n],cwd=root))
+                 for n in runtime.tree(root,basis)}
+    pin = intent()
+    pin['basis_commit'] = basis
+    (root/runtime.INTENT).write_text(json.dumps(pin))
+    (root/runtime.HANDWRITTEN_RECIPE).write_text(FIXED_RECIPE)
+    git('add', '.')
+    git('commit', '-qm', 'carry tested handwritten files')
+    candidate = git('rev-parse', 'HEAD')
+    assert not runtime.development_changed(root, candidate, pin)
+    monkeypatch.setattr(runtime, 'fetch_product', lambda *a: None)
+    monkeypatch.setattr(runtime, 'evidence', lambda *a: (inventory, {'guest_sha256':'c'*64}))
+    proof = runtime.validate(root, candidate, api=object())
+    assert runtime.HANDWRITTEN_RECIPE in proof['reviewed_changed_paths']
+    (root/runtime.HANDWRITTEN_RECIPE).write_text(FIXED_RECIPE+'\nbuild_new_guest()\n')
+    git('add', '.')
+    git('commit', '-qm', 'different recipe')
+    changed = git('rev-parse', 'HEAD')
+    assert runtime.development_changed(root, changed, pin)  # ordinary future code checks remain
+    with pytest.raises(ValueError, match='recipe logic changed'):
+        runtime.validate(root, changed, api=object())

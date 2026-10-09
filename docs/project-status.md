@@ -88,6 +88,14 @@ pending one-shot Release CI. See the [reuse boundary](reviews/v044-release-runti
 [tooling checks](reviews/v044-runtime-reuse-verification.md) and
 [release notes](../release/NOTES-v0.4.4.md).
 
+The first release run [37914496989](https://github.com/masahitojp/mariamem/actions/runs/37914496989)
+stopped before publication at generated-source reproduction. Runtime evidence reuse
+and both independent source-to-WASM builds passed. The regeneration copy list
+omitted two already-tested handwritten OwnedPrepared files; the
+[scoped tooling fix](reviews/v044-regeneration-fix.md) preserves runtime sources
+and guards. Full reproduction still requires the next Release CI run; diagnosis
+does not automatically redispatch.
+
 No automatic cache management, new shared fixture, naming change, diagnostics
 API, guest upgrade or broad class redesign is included. A v0.4.5 theme should
 emerge only from a coherent issue supported by validation, not be created in

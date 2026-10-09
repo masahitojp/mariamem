@@ -22,6 +22,8 @@ PROOF = 'build/release/runtime-validation.json'
 WORKFLOW = '.github/workflows/v044-product-validation.yml'
 PLATFORMS = ('darwin-arm64', 'ubuntu24.04-x86_64')
 VERSION_FILE = 'python/mariamem/_version.py'
+HANDWRITTEN_RECIPE = 'scripts/generate_runtime.py'
+OWNED_GLUE = ('code/base/owned_prepared.go', 'code/base/owned_prepared_test.go')
 FIELDS = {'MAJOR', 'MINOR', 'PATCH', 'STAGE', 'SERIAL'}
 # These tracked historical outputs are excluded by the Product receipt's
 # public_files selector. They remain protected by the full Git tree comparison;
@@ -40,6 +42,7 @@ EXCEPTIONS = {
     'tests/test_git_identity.py', 'tests/test_runtime_validation.py',
     'tests/test_release_plan.py', 'tests/test_release_prepare.py',
     'tests/test_generated_release.py', 'tests/test_ci_publication_workflow.py',
+    'tests/test_generated_runtime_inventory.py',
 }
 
 
@@ -94,7 +97,35 @@ def version_logic(source):
     return ast.dump(ast.Module(body=body, type_ignores=[]), include_attributes=False)
 
 
-def compare_inventory(basis, current, old_version, new_version):
+def verify_handwritten_recipe(old_source, new_source):
+    """Allow only carrying the already-tested OwnedPrepared glue into regen.
+
+    Unlike tooling exceptions this cannot bypass changes to translation, imports,
+    gofmt, input pins or provenance. The rest of the recipe's AST must be identical.
+    """
+    old, new = ast.parse(old_source), ast.parse(new_source)
+    def copy_loop(tree):
+        loops = [n for n in ast.walk(tree) if isinstance(n, ast.For)
+                 and isinstance(n.iter, ast.Tuple)
+                 and any(isinstance(e, ast.Constant) and e.value == 'runtime_instance.go'
+                         for e in n.iter.elts)]
+        require(len(loops) == 1, 'handwritten copy loop missing/ambiguous')
+        loop = loops[0]
+        require(all(isinstance(e, ast.Constant) and isinstance(e.value, str)
+                    for e in loop.iter.elts), 'invalid handwritten copy list')
+        names = tuple(e.value for e in loop.iter.elts)
+        require(len(names) == len(set(names)), 'duplicate handwritten copy')
+        return loop, names
+    old_loop, old_names = copy_loop(old)
+    new_loop, new_names = copy_loop(new)
+    require(not set(OWNED_GLUE) & set(old_names), 'unexpected original handwritten recipe')
+    require(new_names == OWNED_GLUE + old_names, 'unreviewed handwritten recipe changes')
+    new_loop.iter = old_loop.iter
+    require(ast.dump(new, include_attributes=False) == ast.dump(old, include_attributes=False),
+            'generated recipe logic changed')
+
+
+def compare_inventory(basis, current, old_version, new_version, old_recipe=None, new_recipe=None):
     require(all(sha(v) for v in basis.values()), 'invalid basis inventory hash')
     require(all(sha(v) for v in current.values()), 'invalid candidate inventory hash')
     changed = sorted(n for n in set(basis) | set(current) if basis.get(n) != current.get(n))
@@ -102,6 +133,10 @@ def compare_inventory(basis, current, old_version, new_version):
         if name == VERSION_FILE:
             require(name in basis and name in current
                     and version_logic(old_version) == version_logic(new_version), 'version logic changed')
+        elif name == HANDWRITTEN_RECIPE:
+            require(name in basis and name in current and old_recipe is not None
+                    and new_recipe is not None, 'missing generated recipe')
+            verify_handwritten_recipe(old_recipe, new_recipe)
         else:
             require(exempt(name), 'changed unreviewed input: ' + name)
     return changed
@@ -122,9 +157,19 @@ def development_changed(root, commit, intent):
     require_commit(root, commit)
     require_commit(root, intent['basis_commit'])
     old, new = tree(root, intent['basis_commit']), tree(root, commit)
-    if any(old.get(n) != new.get(n) and n != VERSION_FILE and not exempt(n)
+    if any(old.get(n) != new.get(n) and n not in (VERSION_FILE, HANDWRITTEN_RECIPE) and not exempt(n)
            for n in set(old) | set(new)):
         return True
+    if old.get(HANDWRITTEN_RECIPE) != new.get(HANDWRITTEN_RECIPE):
+        if HANDWRITTEN_RECIPE not in old or HANDWRITTEN_RECIPE not in new:
+            return True
+        if old[HANDWRITTEN_RECIPE].split()[:2] != new[HANDWRITTEN_RECIPE].split()[:2]:
+            return True
+        try:
+            verify_handwritten_recipe(git(root, 'show', intent['basis_commit'] + ':' + HANDWRITTEN_RECIPE),
+                                      (Path(root) / HANDWRITTEN_RECIPE).read_text())
+        except (ValueError, SyntaxError):
+            return True
     return version_logic(git(root, 'show', intent['basis_commit'] + ':' + VERSION_FILE)) != version_logic(
         (Path(root) / VERSION_FILE).read_text())
 
@@ -246,9 +291,14 @@ def validate(root, commit, api=None):
     old_tree, new_tree = tree(repository, intent['basis_commit']), tree(repository, commit)
     for n in set(old_tree) | set(new_tree):
         if old_tree.get(n) != new_tree.get(n):
-            require(n == VERSION_FILE or exempt(n), 'unreviewed tree change: ' + n)
+            require(n in (VERSION_FILE, HANDWRITTEN_RECIPE) or exempt(n), 'unreviewed tree change: ' + n)
             if n == VERSION_FILE:
                 require(old_tree[n].split()[0] == new_tree[n].split()[0] == '100644', 'version type/mode changed')
+            if n == HANDWRITTEN_RECIPE:
+                require(n in old_tree and n in new_tree and old_tree[n].split()[:2] == new_tree[n].split()[:2],
+                        'generated recipe type/mode changed')
+                verify_handwritten_recipe(git(repository, 'show', intent['basis_commit'] + ':' + n),
+                                          (root / n).read_text())
     old_version = git(repository, 'show', intent['basis_commit'] + ':' + VERSION_FILE)
     require(version_logic(old_version) == version_logic((root / VERSION_FILE).read_text()), 'version logic changed')
     current = {p.relative_to(root).as_posix(): digest(p) for p in public_files(root)}
@@ -278,7 +328,11 @@ def validate(root, commit, api=None):
             raw = subprocess.check_output(['git', 'show', intent['basis_commit'] + ':' + name], cwd=repository)
             actual = hashlib.sha256(raw).hexdigest()
         require(actual == expected, 'basis source hash differs: ' + name)
-    changed = compare_inventory(basis_inventory, current, old_version, (root / VERSION_FILE).read_text())
+    changed = compare_inventory(basis_inventory, current, old_version, (root / VERSION_FILE).read_text(),
+                                git(repository, 'show', intent['basis_commit'] + ':' + HANDWRITTEN_RECIPE)
+                                if HANDWRITTEN_RECIPE in old_tree else None,
+                                (root / HANDWRITTEN_RECIPE).read_text()
+                                if (root / HANDWRITTEN_RECIPE).is_file() else None)
     guest = json.loads((root / 'release/generated-go-inputs.json').read_text())['guest_sha256']
     require(all(r['guest_sha256'] == guest for r in receipts.values()), 'guest identity differs')
     return {'version': 1, 'result': 'PASS', 'runtime_basis_commit': intent['basis_commit'],
