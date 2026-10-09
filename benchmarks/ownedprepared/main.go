@@ -56,7 +56,8 @@ func pool(db *mariamem.Database) *sql.DB {
 func disconnect(db *mariamem.Database, p *sql.DB) { must(p.Close()); must(db.WaitDisconnected(ctx)) }
 func main() {
 	payload := flag.Int("payload-mib", 0, "deterministic payload MiB")
-	n := flag.Int("forks", 16, "children")
+	n := flag.Int("forks", 16, "instances")
+	lifecycle := flag.String("lifecycle", "fork", "fork or fresh; same fixture/SQL/cleanup")
 	workers := flag.Int("workers", 1, "concurrent children (serial phases never compete)")
 	workload := flag.String("workload", "read", "read, crud, or app-connections")
 	tables := flag.Int("tables", 1, "prepared InnoDB table count")
@@ -66,10 +67,10 @@ func main() {
 	helper := flag.String("helper", "", "existing OS process-counter helper")
 	export := flag.String("export", "", "fixture provisioning only: explicit output artifact")
 	flag.Parse()
-	if *out == "" || *n < 1 || *workers < 1 || *tables < 1 || (*workload != "read" && *workload != "crud" && *workload != "app-connections") {
+	if (*lifecycle != "fork" && *lifecycle != "fresh") || (*lifecycle == "fresh" && (*export != "" || *fdSnapshots != 0)) || *payload < 0 || *out == "" || *n < 1 || *workers < 1 || *tables < 1 || (*workload != "read" && *workload != "crud" && *workload != "app-connections") {
 		panic("out and positive forks required")
 	}
-	result := map[string]any{"label": *label, "payload_mib": *payload, "forks": *n, "go": runtime.Version(), "goos": runtime.GOOS, "goarch": runtime.GOARCH, "fds_before": fds(), "workers": *workers, "workload": *workload, "tables": *tables}
+	result := map[string]any{"label": *label, "payload_mib": *payload, "forks": *n, "go": runtime.Version(), "goos": runtime.GOOS, "goarch": runtime.GOARCH, "fds_before": fds(), "workers": *workers, "workload": *workload, "tables": *tables, "lifecycle": *lifecycle}
 	operations := []map[string]any{}
 	var operationsMu sync.Mutex
 	resources := map[string]any{}
@@ -98,13 +99,11 @@ func main() {
 	}
 	total := time.Now()
 	totalCPU := cpu()
-	var db *mariamem.Database
-	measure("prepare_start", func() { var e error; db, e = mariamem.Start(ctx, mariamem.Options{}); must(e) })
 	rows := *payload * 1024
 	if rows == 0 {
 		rows = 1
 	}
-	measure("prepare_setup", func() {
+	prepare := func(db *mariamem.Database) {
 		p := pool(db)
 		_, e := p.Exec("CREATE TABLE characterization(id INT PRIMARY KEY,payload VARBINARY(1024)) ENGINE=InnoDB")
 		must(e)
@@ -128,16 +127,21 @@ func main() {
 			must(e)
 		}
 		disconnect(db, p)
-	})
+	}
 	var saved *mariamem.Snapshot
-	measure("snapshot", func() {
-		var e error
-		saved, e = db.Snapshot(ctx, mariamem.SnapshotOptions{Destination: *export})
-		must(e)
-	})
-	result["fds_snapshot"] = fds()
-	result["prepare_seconds"] = time.Since(total).Seconds()
-	probe("snapshot")
+	if *lifecycle == "fork" {
+		var db *mariamem.Database
+		measure("prepare_start", func() { var e error; db, e = mariamem.Start(ctx, mariamem.Options{}); must(e) })
+		measure("prepare_setup", func() { prepare(db) })
+		measure("snapshot", func() {
+			var e error
+			saved, e = db.Snapshot(ctx, mariamem.SnapshotOptions{Destination: *export})
+			must(e)
+		})
+		result["fds_snapshot"] = fds()
+		result["prepare_seconds"] = time.Since(total).Seconds()
+		probe("snapshot")
+	}
 	if *fdSnapshots > 0 {
 		if *workers != 1 {
 			panic("FD scaling is a separate serial resource phase")
@@ -179,7 +183,12 @@ func main() {
 	} else {
 		work := func(i int) {
 			var child *mariamem.Database
-			measure(fmt.Sprintf("fork_ready_%02d", i), func() { var e error; child, e = saved.Fork(ctx); must(e) })
+			if *lifecycle == "fresh" {
+				measure(fmt.Sprintf("fresh_ready_%02d", i), func() { var e error; child, e = mariamem.Start(ctx, mariamem.Options{}); must(e) })
+				measure(fmt.Sprintf("fresh_setup_%02d", i), func() { prepare(child) })
+			} else {
+				measure(fmt.Sprintf("fork_ready_%02d", i), func() { var e error; child, e = saved.Fork(ctx); must(e) })
+			}
 			if i == 0 && *workers == 1 {
 				probe("first_ready")
 			}
@@ -188,7 +197,7 @@ func main() {
 				p = pool(child)
 				var value string
 				must(p.QueryRow("SELECT payload FROM characterization WHERE id=0").Scan(&value))
-				if len(value) != 1024 {
+				if value != strings.Repeat("0123456789abcdef", 64) {
 					panic("fixture mismatch")
 				}
 			})
@@ -262,11 +271,16 @@ func main() {
 			close(jobs)
 			wg.Wait()
 		}
-		result["fork_suite_wall_seconds"] = time.Since(loopBegin).Seconds()
+		result["instance_suite_wall_seconds"] = time.Since(loopBegin).Seconds()
+		if *lifecycle == "fork" {
+			result["fork_suite_wall_seconds"] = result["instance_suite_wall_seconds"]
+		}
 		probe("children_closed")
 	}
 
-	measure("snapshot_close", func() { must(saved.Close()) })
+	if saved != nil {
+		measure("snapshot_close", func() { must(saved.Close()) })
+	}
 	runtime.GC()
 	result["suite_seconds"] = time.Since(total).Seconds()
 	result["suite_cpu_seconds"] = cpu() - totalCPU
@@ -293,7 +307,7 @@ func main() {
 	}
 	product := sum
 	if *workers > 1 {
-		product = preparation + result["fork_suite_wall_seconds"].(float64) + closing
+		product = preparation + result["instance_suite_wall_seconds"].(float64) + closing
 	}
 	result["suite_product_seconds"] = product
 	result["diagnostic_overhead_seconds"] = result["suite_seconds"].(float64) - product

@@ -100,3 +100,20 @@ branch, CI owns execution; human review resumes after the results are available.
 Durable output contains exact source SHAs, binary/harness hashes, command records,
 PASS/FAIL gates, small OS probes, input manifests, raw measurements, reduced CSV/JSON
 and cleanup status. No persisted database contents are retained as evidence.
+
+## Actual Fresh/prepared crossover (v0.4.5)
+
+`main.go -lifecycle fresh|fork` executes the same deterministic fixture and SQL
+oracle for each instance. `fresh` starts and prepares every DB; `fork` prepares
+one DB, creates a temporary Snapshot and starts every child from it. Both allow
+real application commits/rollback and discard each DB. `-forks` is the instance
+count in either mode, retained as a harness flag rather than a public API name.
+`-workers` controls suite concurrency, not a simultaneous-worker peak sampler.
+
+Compare `suite_product_seconds` and preserve full wall time, CPU and probes.
+Preparation, SQL and cleanup are measured, never estimated by subtracting hash
+latency. Fresh has no Snapshot creation/close phase. The default remains `fork`;
+FD scaling and artifact provisioning apply only to `fork`. `instance_suite_wall_seconds`
+names the common child-loop boundary; the old `fork_suite_wall_seconds` is retained
+for Fork results. A point-read verifies exact fixture bytes before mutations, so
+same-length changes in a previous child cannot masquerade as unchanged input.
