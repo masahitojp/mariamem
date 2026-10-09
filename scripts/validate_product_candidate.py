@@ -12,6 +12,7 @@ from pathlib import Path
 import platform
 import re
 import shutil
+import stat
 import subprocess
 import sys
 import tarfile
@@ -32,6 +33,23 @@ def sha256(path):
         for chunk in iter(lambda:stream.read(1024*1024),b''):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def remove_disposable_tree(path):
+    """Remove owned scratch, including Go's read-only module directories.
+
+    Only directory permissions need changing to unlink contents. Do not follow
+    symlinks into resources outside the disposable tree.
+    """
+    if path.is_symlink():
+        path.unlink()
+        return
+    if not path.exists():
+        return
+    for parent, _, _ in os.walk(path, followlinks=False):
+        directory=Path(parent)
+        directory.chmod(directory.stat().st_mode | stat.S_IWUSR)
+    shutil.rmtree(path)
 
 
 def main():
@@ -165,7 +183,7 @@ def main():
         metadata['harness_sha256']={str(path.relative_to(ROOT)):sha256(path) for path in
             sorted((ROOT/'benchmarks/ownedprepared').glob('*')) if path.is_file()}
         write(evidence/'inputs.json',metadata)
-        shutil.rmtree(scratch)
+        remove_disposable_tree(scratch)
         # build_alpha creates disposable build/package copies in the checkout.
         # This runner requires an exact CI checkout; never deletes user work.
         if (ROOT/'build').exists():

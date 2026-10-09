@@ -73,7 +73,8 @@ jobs:
         run: |
           import os
           from pathlib import Path
-          import shutil
+          import runpy
           path=Path(os.environ['RUNNER_TEMP'])/'v044-product-validation'/'scratch'
           if path.exists():
-              shutil.rmtree(path)
+              cleanup=runpy.run_path('scripts/validate_product_candidate.py')['remove_disposable_tree']
+              cleanup(path)

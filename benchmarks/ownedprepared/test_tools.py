@@ -22,6 +22,22 @@ def load_runner():
 
 
 class EvidenceToolsTest(unittest.TestCase):
+    def test_cleanup_removes_read_only_module_cache_without_following_links(self):
+        module=load_runner()
+        with tempfile.TemporaryDirectory() as temporary:
+            base=Path(temporary)
+            external=base/'external';external.mkdir()
+            (external/'source').write_text('keep outside owned scratch\n')
+            scratch=base/'scratch';scratch.mkdir()
+            cache=scratch/'go-path/pkg/mod/example@v1';cache.mkdir(parents=True)
+            (cache/'source.go').write_text('package example\n')
+            (scratch/'external-link').symlink_to(external,target_is_directory=True)
+            cache.chmod(0o555)
+            cache.parent.chmod(0o555)
+            module.remove_disposable_tree(scratch)
+            self.assertFalse(scratch.exists())
+            self.assertTrue((external/'source').exists())
+
     def test_comparison_rejects_failed_and_other_candidate_gates(self):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary)

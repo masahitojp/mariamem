@@ -151,4 +151,9 @@ Git history と compact evidence のみ保持します。cleanup 結果と CI ru
 handoff 時の回答・workspace receipt に記録します。CI が実行を所有し、完了結果で
 Human Review を再開します。release/merge の自動実行はありません。
 
+local cleanup で Go module cache の read-only directories を確認したため、
+CI scratch removal も directory permissions を戻して削除する処理へ補正しました。
+read-only cache の回収と外部 symlink target の保護を含む tooling **4 tests PASS**。
+runtime/guest の追加変更はありません。
+
 **V0.4.4 NOT READY — BOTH-PLATFORM CI ACCEPTANCE AND EXACT v0.4.3 PERFORMANCE PENDING**
