@@ -1,9 +1,7 @@
 # Python usage
 
-This guide describes the unreleased product-contract candidate.
-For published Python `0.4.3` wheels and supported platforms, see
-[installation](../README.md#installation). `load_snapshot()` and the new ownership
-contract require the candidate.
+This guide describes Python `0.4.4`. For wheels and supported platforms, see
+[installation](../README.md#installation).
 
 ## A disposable database
 

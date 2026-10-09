@@ -1,7 +1,7 @@
 # Releasing mariamem
 
-The canonical package version is `v0.4.3`; Python spelling is `0.4.3`.
-The [tracked notes](../release/NOTES-v0.4.3.md) describe this version. A normal
+The canonical package version is `v0.4.4`; Python spelling is `0.4.4`.
+The [tracked notes](../release/NOTES-v0.4.4.md) describe this version. A normal
 release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
 
@@ -45,7 +45,7 @@ GitHub Release wheels are the current Python distribution channel.
 
 These four assets plus SHA256SUMS replace native-bundle/AOT assets on the normal
 release path. Wasmer runtime, bundle resolution and legacy wheel packaging are retired on the
-v0.4.3 candidate branch. Prior tags/reports and retained historical notice
+v0.4.3 release. Prior tags/reports and retained historical notice
 fixtures are comparison references, not current runtime or release gates.
 No legacy evidence substitutes for generated-Go acceptance.
 
@@ -193,8 +193,8 @@ reuse regression tests simulate a symlinked system temporary directory on every
 platform, independently of CI `TMPDIR` overrides.
 
 Artifacts expire after 14 days. Invalid inputs never produce READY. In normal
-auto mode unusable previous inputs trigger full qualification; explicit recovery
-fails closed. Reuse executes the exact candidate
+auto mode unusable previous exact-SHA READY inputs trigger full qualification;
+explicit runtime reuse intent and recovery fail closed. Reuse executes the exact candidate
 scripts; a candidate-script fix needs a new source candidate, not a silent
 reinterpretation of old evidence.
 

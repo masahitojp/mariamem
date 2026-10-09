@@ -11,11 +11,9 @@ Start fresh for light setup. When migrations or fixtures are expensive, prepare
 them once, fix that state as a Snapshot, and Fork independent databases for
 individual tests. Share the baseline, not previous tests' mutations.
 
-This checkout implements the **unreleased product-contract candidate**.
-The published Python version is `0.4.3`; the Go module uses the `v0.4.3` tag.
-The latest published release is [v0.4.3](https://github.com/masahitojp/mariamem/releases/tag/v0.4.3).
-The new `load_snapshot()` / `snapshot_to()` APIs and ownership contract below require the unreleased
-candidate; they are not available in the v0.4.3 installation.
+The Python package version is `0.4.4`; the Go module uses the `v0.4.4` tag.
+See the [release](https://github.com/masahitojp/mariamem/releases/tag/v0.4.4)
+and [release notes](release/NOTES-v0.4.4.md).
 
 ## Installation
 
@@ -35,10 +33,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 # macOS arm64
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.3/mariamem-0.4.3-py3-none-macosx_15_0_arm64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.4/mariamem-0.4.4-py3-none-macosx_15_0_arm64.whl'
 
 # Ubuntu x86_64: use this instead
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.3/mariamem-0.4.3-py3-none-linux_x86_64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.4/mariamem-0.4.4-py3-none-linux_x86_64.whl'
 ```
 
 The `test` extra supplies PyMySQL and pytest tools. Use the wheel rather than a
@@ -48,7 +46,7 @@ For the published Go module:
 
 ```sh
 go mod init example.com/mariamem-test
-go get github.com/masahitojp/mariamem@v0.4.3
+go get github.com/masahitojp/mariamem@v0.4.4
 go get github.com/go-sql-driver/mysql
 ```
 
@@ -56,8 +54,8 @@ Optional release audit assets can be downloaded separately; they are not needed
 for ordinary startup:
 
 ```sh
-gh release download v0.4.3 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.3-corresponding-source.tar.gz'
+gh release download v0.4.4 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.4-corresponding-source.tar.gz'
 ```
 
 ## Start fresh
@@ -164,7 +162,7 @@ detected on every Fork.
   Saved baselines contain your test data; treat sensitive data accordingly.
 - Resource use and the Fresh/prepared crossover depend on the workload.
   Large scans remain query work even when preparation is reused.
-- The 0.x API may change. See [candidate migration notes](release/NOTES-v0.4.4.md).
+- The 0.x API may change. See [release notes](release/NOTES-v0.4.4.md).
 
 You do not need runtime implementation knowledge to use these APIs.
 [Architecture](docs/v04-generated-go-architecture.md) explains the current

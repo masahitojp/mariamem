@@ -1,7 +1,7 @@
 # Go usage
 
-This guide describes the unreleased product-contract candidate.
-[Installation](../README.md#installation) uses the published module tag `v0.4.3`.
+This guide describes `v0.4.4`.
+[Installation](../README.md#installation) uses the published module tag `v0.4.4`.
 The public package is `github.com/masahitojp/mariamem`.
 
 ## Start fresh
@@ -172,17 +172,13 @@ internal mechanisms.
 Install the published module and optional release audit files with:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.4.3
-gh release download v0.4.3 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.3-corresponding-source.tar.gz'
+go get github.com/masahitojp/mariamem@v0.4.4
+gh release download v0.4.4 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.4-corresponding-source.tar.gz'
 ```
 
 Runtime details belong in [architecture](v04-generated-go-architecture.md).
-Retired `Options.NativeDir`, `MARIAMEM_NATIVE_DIR` and Wasmer selectors are
-rejected; no native path is needed for ordinary Start. Historical executions
-require their matching old tags.
-
 See [local verification](development.md#local-verification) for scoped
-development checks, and [candidate migration notes](../release/NOTES-v0.4.4.md)
+development checks, and [release notes](../release/NOTES-v0.4.4.md)
 for removed metadata/class-fixture interfaces. The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.
