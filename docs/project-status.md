@@ -68,6 +68,16 @@ verification infrastructure; no performance optimization is approved in advance.
 No guest upgrade or new product feature is included. A reusable runtime-evidence
 model or reduction of required checks needs a focused Human Review first.
 
+Approved runtime-only qualification and identity-bound publication smoke have
+been implemented on dedicated branches. Both-native qualification passed for
+`34eaea1df86b57765a4d8b0840845a33d539065f`; exact tested and measurement harness
+identities remain distinct. The [v0.4.5 Human Review packet](reviews/v045-human-review.md)
+records restored wire ownership, canonical checks, CI feedback latency, source
+reproduction scope and completed local Snapshot/crossover/product measurements.
+Light preparation favors Fresh; expensive data preparation benefits from reuse.
+Snapshot traversal reduction is deferred, not implemented. Main merge and release
+remain human decisions, and final artifacts still require Release CI qualification.
+
 ## Supported scope and limitations
 
 - macOS 15+ arm64 and Ubuntu 24.04 x86_64. Canonical acceptance uses Go 1.26.8

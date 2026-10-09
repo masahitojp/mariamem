@@ -103,6 +103,13 @@ and cleanup status. No persisted database contents are retained as evidence.
 
 ## Actual Fresh/prepared crossover (v0.4.5)
 
+The [completed v0.4.5 review](../../docs/reviews/v045-human-review.md) preserves
+actual sequential Fresh/Fork suites, parallel and multi-connection controls,
+Snapshot attribution, exact binary/input identities and all retained tails.
+Its numbers are local observations, not release benchmark promises. Fresh wins
+for the measured light setup even at 32 tests; fixture preparation cost, data
+size and reuse count determine whether preparing once is worthwhile.
+
 `main.go -lifecycle fresh|fork` executes the same deterministic fixture and SQL
 oracle for each instance. `fresh` starts and prepares every DB; `fork` prepares
 one DB, creates a temporary Snapshot and starts every child from it. Both allow

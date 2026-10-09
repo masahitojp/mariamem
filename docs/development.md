@@ -68,6 +68,13 @@ qualification receipt. Explicit release reuse still requires authenticated proof
 | final module/wheel packaging and version | installed-consumer/release artifact qualification | exact final artifacts, separate from runtime reuse |
 | latency/resource question | one identity-bound manual benchmark after relevant correctness | one campaign at a time; sample dependent |
 
+The [v0.4.5 measured feedback and scope](reviews/v045-human-review.md) records
+one cold native qualification at approximately 18 minutes Ubuntu / 25 minutes
+macOS, versus seconds for warm focused tooling checks. Queue/build/cache state
+varies; these are responsibility boundaries, not latency promises. Measurement
+uses OwnedPrepared's Fresh control/capture/import and process counters rather
+than the historical native/Wasmer practical-suite orchestrator.
+
 ### Runtime, artifact and publication responsibilities
 
 Native **Runtime qualification (v1)** uses the existing workflow file

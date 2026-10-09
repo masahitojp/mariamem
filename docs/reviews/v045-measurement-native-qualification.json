@@ -1,0 +1,580 @@
+{
+  "artifact_pins": {
+    "darwin-arm64": {
+      "id": 11647207825,
+      "zip_sha256": "396513bbe5b5f8363bb3a4779e8ff8c2bdf545014bea647549ddcc46c3401818"
+    },
+    "ubuntu24.04-x86_64": {
+      "id": 11646798854,
+      "zip_sha256": "751a92e98a373acaaad45089faceba7eeb1877115458d0390abb6f0ae7c9640c"
+    }
+  },
+  "conclusion": "success",
+  "contract": "runtime-qualification-v1",
+  "head_sha": "34eaea1df86b57765a4d8b0840845a33d539065f",
+  "identity_result": "PASS",
+  "jobs": [
+    {
+      "completed_at": "2026-10-09T21:53:35Z",
+      "conclusion": "success",
+      "id": 114036525726,
+      "name": "Runtime qualification \u2014 ubuntu24.04-x86_64",
+      "started_at": "2026-10-09T21:35:40Z",
+      "steps": [
+        {
+          "completed_at": "2026-10-09T21:35:43Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "started_at": "2026-10-09T21:35:41Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:35:51Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "number": 2,
+          "started_at": "2026-10-09T21:35:43Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:35:51Z",
+          "conclusion": "success",
+          "name": "Freeze candidate identity and native platform",
+          "number": 3,
+          "started_at": "2026-10-09T21:35:51Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:35:54Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "number": 4,
+          "started_at": "2026-10-09T21:35:51Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:35:54Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "number": 5,
+          "started_at": "2026-10-09T21:35:54Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:36:02Z",
+          "conclusion": "success",
+          "name": "Install deterministic validation dependencies",
+          "number": 6,
+          "started_at": "2026-10-09T21:35:54Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:53:31Z",
+          "conclusion": "success",
+          "name": "Source and runtime correctness (no artifacts or benchmarks)",
+          "number": 7,
+          "started_at": "2026-10-09T21:36:02Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:53:32Z",
+          "conclusion": "success",
+          "name": "Upload compact decision evidence",
+          "number": 8,
+          "started_at": "2026-10-09T21:53:31Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:53:32Z",
+          "conclusion": "success",
+          "name": "Remove disposable scratch after interruption",
+          "number": 9,
+          "started_at": "2026-10-09T21:53:32Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:53:33Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "number": 16,
+          "started_at": "2026-10-09T21:53:32Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:53:33Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "number": 17,
+          "started_at": "2026-10-09T21:53:33Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:53:33Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "number": 18,
+          "started_at": "2026-10-09T21:53:33Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:53:33Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "started_at": "2026-10-09T21:53:33Z",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "completed_at": "2026-10-09T22:00:43Z",
+      "conclusion": "success",
+      "id": 114036525974,
+      "name": "Runtime qualification \u2014 darwin-arm64",
+      "started_at": "2026-10-09T21:35:48Z",
+      "steps": [
+        {
+          "completed_at": "2026-10-09T21:35:51Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "started_at": "2026-10-09T21:35:49Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:36:00Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "number": 2,
+          "started_at": "2026-10-09T21:35:51Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:36:01Z",
+          "conclusion": "success",
+          "name": "Freeze candidate identity and native platform",
+          "number": 3,
+          "started_at": "2026-10-09T21:36:00Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:36:03Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "number": 4,
+          "started_at": "2026-10-09T21:36:01Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:36:03Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "number": 5,
+          "started_at": "2026-10-09T21:36:03Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T21:36:07Z",
+          "conclusion": "success",
+          "name": "Install deterministic validation dependencies",
+          "number": 6,
+          "started_at": "2026-10-09T21:36:03Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T22:00:35Z",
+          "conclusion": "success",
+          "name": "Source and runtime correctness (no artifacts or benchmarks)",
+          "number": 7,
+          "started_at": "2026-10-09T21:36:07Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T22:00:37Z",
+          "conclusion": "success",
+          "name": "Upload compact decision evidence",
+          "number": 8,
+          "started_at": "2026-10-09T22:00:35Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T22:00:37Z",
+          "conclusion": "success",
+          "name": "Remove disposable scratch after interruption",
+          "number": 9,
+          "started_at": "2026-10-09T22:00:37Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T22:00:37Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "number": 16,
+          "started_at": "2026-10-09T22:00:37Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T22:00:38Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "number": 17,
+          "started_at": "2026-10-09T22:00:37Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T22:00:38Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "number": 18,
+          "started_at": "2026-10-09T22:00:38Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-10-09T22:00:41Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "started_at": "2026-10-09T22:00:38Z",
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "platforms": {
+    "darwin-arm64": {
+      "cleanup.json": {
+        "scratch_removed": true
+      },
+      "commands.json": [
+        {
+          "argv": [
+            "/Library/Frameworks/Python.framework/Versions/3.14/bin/python",
+            "scripts/verify.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "name": "source-unit-checks",
+          "seconds": 587.5441290829999
+        },
+        {
+          "argv": [
+            "/Library/Frameworks/Python.framework/Versions/3.14/bin/python",
+            "scripts/verify.py",
+            "integration"
+          ],
+          "exit_code": 0,
+          "name": "runtime-integration",
+          "seconds": 856.910054125
+        }
+      ],
+      "correctness.json": {
+        "boundaries": [
+          "Go real SQL/lifecycle",
+          "Python wire/import/isolation/lifecycle",
+          "handwritten races",
+          "memory32 traps",
+          "source/unit"
+        ],
+        "candidate_sha": "34eaea1df86b57765a4d8b0840845a33d539065f",
+        "contract": "runtime-qualification-v1",
+        "result": "PASS",
+        "version": 1
+      },
+      "inputs.json": {
+        "candidate_sha": "34eaea1df86b57765a4d8b0840845a33d539065f",
+        "contract": "runtime-qualification-v1",
+        "environment": {
+          "architecture": "arm64",
+          "product_version": "15.7.9",
+          "system": "Darwin"
+        },
+        "git_tree_sha256": "6ebae675098ce8307ca1d40769be92f21b9af1731b04eb23e769bc4682428591",
+        "go_version": "go version go1.26.8 darwin/arm64",
+        "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+        "harness_sha256": {
+          ".github/workflows/v044-product-validation.yml": "9286bfa847b6b1c6d8f5a8daedcf400c169dc2e66b177efa14745fa294e46be7",
+          "scripts/validate_product_candidate.py": "cec2f0bce8342ec17f74aef76954176d6d21933054767f5c304746755a3a234d",
+          "scripts/verify.py": "1071d0ee2ee33d4286296c162c4457759a763935b30ed7285eeaf999afc1499d",
+          "scripts/vet_generated.py": "68ed8bd78a52937afcc63953e8c89c0d5fb55d4f54c860f6806d366874889f57",
+          "tests/conftest.py": "1f334d644921b31879f01987dd3b2ff6a8bc4ff145d9763f9646d652c0919b3e",
+          "tests/consumer/gorm/dogfood_test.go": "2ff23e3cc846288b905651a1f02fb0b6309188f9c8ad4116055f797201e82232",
+          "tests/consumer/gorm/go.mod": "736d209375887bec36531ca36d1a90bbc4cffdf848c137e1b2ae76f42a5a3a10",
+          "tests/consumer/gorm/go.sum": "cc6dd80c9aad5de80dc9d1e85dcff41b9ed6096d983bed4971ff029c6faeab4f",
+          "tests/consumer/run_gorm.py": "6ea90d725839539d3aeeb2f3ef48b9f5839a5541649618b15fb1428898270b5a",
+          "tests/consumer/run_sqlalchemy.py": "40d180fa8a0f895549e063bf7f60516fed91a0c7c7633cebbe30e86e382500ac",
+          "tests/consumer/run_zero_setup.py": "369d077c4b930345b0ce304db280691a7f345bef171d0f47392605006cb185e7",
+          "tests/consumer/sqlalchemy-requirements.txt": "fe76b0276e78df9b2d07352c4fb826c02b70269f1c0e869b1e2e6233166ed600",
+          "tests/consumer/test_database.py": "67e01c9ee8b31b910ed43353e0fa22841344810b79cf25ea131c5917c0d377b8",
+          "tests/consumer/test_generated_platform.py": "a325c1da0ff261b54290ebb7b8dd7423d4e5bf91192e65d3bfa72da4ea47df5b",
+          "tests/consumer/test_sqlalchemy_dogfood.py": "2d8c46797f43ae3cdc2a9495fab6c79bc80e8f3f63922c5b9c541c1a235aa691",
+          "tests/consumer/test_ubuntu.py": "a12c719e3e71b356e9ed446f73701a26b8831bde5901f800c690d9c96c0b53c5",
+          "tests/diagnostics/active_query_close.py": "783e2173ca77553506dfe2479fd7dc94428cd3157af52a9afb370dca1e6bcbde",
+          "tests/fixtures/generated-driver.go.txt": "9935e86c8a67409426c67e7a68707e76118c4fdd012a83fcfd20eedf71ba2b31",
+          "tests/generatedmemory/pure_memory32_test.go": "4f50aa9d899f79b77389f539882a7af96659e3a27b62a88caa9f3bbd00b47a0e",
+          "tests/godefault/default_test.go": "853939ffdefc46d690359a62f60538cf8bfac10518328fd4e5aa51706cfdfca6",
+          "tests/godefault/failure_paths_test.go": "8beadbd99ed76bf08da8bd6d911943df992181b6507bb1f8d945cabf172eb4f3",
+          "tests/godefault/fd_lifetime_test.go": "99ef8deea62ffabe3d12faef14c1d799191095c72e7ce0ecc88ff14aeaffdd09",
+          "tests/gointegration/lifecycle_test.go": "20a4c61d92472ded06e6186dee439376649f48db504ee3b13155eeb47d12992b",
+          "tests/gointegration/multiclient_test.go": "0264a0f3e68c4e4e2e07df8fc35c8ba9e71ffce19ca5100c20302af0bc3fb7b5",
+          "tests/gointegration/owned_prepared_test.go": "170f41a32f00bcb162d59875c35d295709610e3f37b674cb53b5410e9f2b08cf",
+          "tests/historical/README.md": "72363ffbb03eae09e3c6303928f4af6ac026d9c16b760a70cd48dc5f6b4cc9a6",
+          "tests/historical/test_benchmark_artifacts.py": "28ed40f3f523b3454fccabad77b9a97c1185e2c55e836129829885c933f28d02",
+          "tests/historical/test_ci_guest_source.py": "0df126720eb884d36438af421bd4f64f011b1d462550d9b09e2db3e525c7a517",
+          "tests/historical/test_ci_release.py": "d98cc6464ea26696b800b27c07d39b129555cfda25ea6897731be3b1a573a7e5",
+          "tests/historical/test_ci_release_platforms.py": "f09937d87d77a1c62c46a3321cd808f30f5483b474a1f847c5e78c3b48aa2256",
+          "tests/historical/test_ci_release_public_smoke.py": "4e2a338f03f092d114ca3fa7a77c2ea4e62cfd43f48d560950c8e4783f194170",
+          "tests/historical/test_fast_tranche_acceptance.py": "7395cf63dbe7c72210489ab34201c8b3fb7597ff0565b9a24a787d203e78ab22",
+          "tests/historical/test_guest_build_boundary.py": "5015bcaed0c1988850490da6a2a7964ccafa8864c023668f652ff969d9af8ef8",
+          "tests/historical/test_guest_start_diagnostic.py": "87bd5cb80d00a38ba5f865b737b2639f77d295cf1a6fa99630d87dfdce8f2ea1",
+          "tests/historical/test_linux_runtime_notices.py": "059c819db42602f24fe0c4c2590bf47c3bf97395408cd45b3dc27b54c3a8d3ad",
+          "tests/historical/test_native_package.py": "f868b311932347885e4fb85400c06c21271101981d632db79c4d84ed4f05e5a4",
+          "tests/historical/test_platform_acceptance.py": "ee8f44dba0558eac993fb57c0b0b54957cd5d75ca9421ab4799f430b7c17a275",
+          "tests/historical/test_release_consumer_smoke.py": "c7210190914bf6bd1251c22b8cfaf9f55894ec401bc670a9b404590aceea038f",
+          "tests/historical/test_runtime_notices.py": "9b9061ba207d0bcfc840700ad960acfeef40fdd63df797bc4c2bd57014b02faf",
+          "tests/historical/test_ubuntu_acceptance.py": "69b5cdafdd408773a4a0b73e7e81ea453b997df2027728d9c677a99f75da02ed",
+          "tests/historical/test_v03_acceptance.py": "b09732faed0f29498598933484ac848ffb18db0bffd99012dfda2c7b374617b2",
+          "tests/historical/wasmer_timeout_test.go": "b80f86c42aba14df17ea8a80fde900e98fd439c0a0e8be2a34835ebf58bff858",
+          "tests/historical/wasmer_zero_setup_test.go": "3dfe3da392dfdae8b43f805f23cd3d1ba81b6ae8fbcc2c61140eeddec71b1e8c",
+          "tests/integration.py": "1396f1933e5b5447611e37c5335f40ac52daea3272632e4ec6a67b826ab98519",
+          "tests/snapshots.py": "685f48f9f82e35d828ff5e0fd749af71c1ec969cadbfb735a1258656355238b0",
+          "tests/support/wire_acceptance.py": "28556a7512730ec0b0afbee9fe736665e86f5efbb4e3f8da5bbe622ee5dd786d",
+          "tests/test_benchmark_inputs.py": "11fab4773e6f498fdf9d22994cd287f4322b0d981b881c2db1a241d1114263c8",
+          "tests/test_ci_publication_workflow.py": "fe24d5dbc1ad82ae6a27f97874e5b7eaf07af77fd0e095a986fe5a486541c6d0",
+          "tests/test_ci_release_publish.py": "f62c4e19ac2a5e6faeb1ba0de02ecbb7efdb8a0d6400715bd40967e3b66eee3d",
+          "tests/test_ci_release_reuse.py": "ae7cfb9e7e3331c669465e1c85bc023748d728404f097c333f4bbefd40edcd3c",
+          "tests/test_competitive_benchmark.py": "ebd482ca6e773af7f7384ccc9d331d1fa339a1f929ad2e318fde654cefc25123",
+          "tests/test_consumer_acceptance.py": "497744432b87d4b5820f168b05505e60196376a46cb02c0c7d694273441ff3aa",
+          "tests/test_deployment.py": "a313994ceec4ae80fcb8119775889ad0e3b079320e4effda619b8fd3f0100aa8",
+          "tests/test_development_cleanup.py": "d58fe3cb747d91ac2164ce8625a38f25bb5ccbd715dac65886853b6294aaf1d8",
+          "tests/test_development_scope.py": "76d0bbb4a0b1865c72107b852cb9eebb4cf1e12658562d6f4db71dd2361bd0a8",
+          "tests/test_distribution_licenses.py": "c32a783b10f9f51db446c66d7589d91ddbc6560f62481a73dec0037c558bbc13",
+          "tests/test_experiment_workspace.py": "eb44445822295ccdd1d251fab4344972387cf08471e1e742e5c499684e10c113",
+          "tests/test_final_latency.py": "99ede21a2121e83c41ee37452bf785631e7034e32234cf5f8938d8b6495fb44d",
+          "tests/test_generated_default.py": "e29c12fa91603befbb0133454ab9679f0fdf0652db45df0b1fa705fb817bcc01",
+          "tests/test_generated_release.py": "70848fd8a441e84cafde74c7027ba89ccad4d0a9cde8022f1b31c12031785888",
+          "tests/test_generated_runtime_inventory.py": "e82726c131ce1d97c218728e9f809541424d672fb5b7cc8309a48663cad9e5c7",
+          "tests/test_git_identity.py": "582149fb57b77f4550e9a86ba50b0fcdae901253d0872c1bba64540039e7a1d8",
+          "tests/test_go_isolation.py": "d905099dbcacfc5a47e4414dd3a5957be8f5a4f2ecbf01dcdf504358e8ca9829",
+          "tests/test_guest_auth_hooks.py": "e58addcf60468068bbc42f791f9c29894cf294a9d5f006d41fcea011036897be",
+          "tests/test_guest_provenance.py": "65c998d0127185b471fa4f6e028e1fb783ce26f1b8e420c8fb81593be19fb693",
+          "tests/test_guest_repro_tools.py": "3695877802200d4a068c1a90937f8d6358aa6de2af4719fe828c2f9ed0c2f342",
+          "tests/test_guest_startup_timing.py": "c5f6b04532ee101c152d88c8c9e41a9c95ebc467a19526a9bf7bfd7b0ad25f8f",
+          "tests/test_init_diagnostics.py": "c594e0ab6b776a5e533c5ece0369c2a953a681688a540d4a5698b2f61df868ba",
+          "tests/test_isolation_baseline.py": "d5a56cf23859cc22d3c35216e6718376ea1a6db6e89954ed42400d156f6ecfbe",
+          "tests/test_measurement_summary.py": "921aba2452adc8fc85d98d78d9a2208537b944e4c279c37ba7a2e7ef229c3689",
+          "tests/test_memory_envelope.py": "8ad1b52d3b33193173110ef6f30f59cd61227c619613f73456898a4261c8ef35",
+          "tests/test_native_target.py": "985424684cbdde86a39dd3f532f2205e9f246cf22aa269aef2e780c9dd3502de",
+          "tests/test_owned_snapshot.py": "36ec5fe37e0b1d9af01ebc7c739d958786bb6f1e28d11e57a287d4bab2eea726",
+          "tests/test_owned_snapshot_unit.py": "9e7fad21d75a1e80792c2567e7c343b20f4fd4758970abecaf5253081deba49f",
+          "tests/test_packaging_license_mirrors.py": "be0047a0e305310b2396c637fc2d5552b8e826ac508dbd7cbdb051f7b41deb1a",
+          "tests/test_practical_suites.py": "2660e3b485f3c05baebc70e487f082ce2c50131622284b00e059549db35815ce",
+          "tests/test_prepared_auth_keys.py": "b9f406421d394b20ff2d3c63247670eb2bbcb13164be0f8dab63fb5d3ee9afdb",
+          "tests/test_published_assets.py": "d8fbcc6bce91dadee74d4d833118adbd9a033001dc2743618016ec81b43df794",
+          "tests/test_python_diagnostics.py": "deb401373790f7301defc714819a2ff81b752e0bff4e91d0a5027cd149e4a04a",
+          "tests/test_python_multiclient.py": "28624cdb1dd7077366c5350c85b42014092b8bc7a2b90f0bde6ccfb9012b682b",
+          "tests/test_python_timeout.py": "b86434747c7ddf2e2771b3bb1d70eac5b824d632c8ee24cabae01493c53349fb",
+          "tests/test_python_wire.py": "73bcde817a6a1b411305c4d6a6c949a142739acc1377a877d4f5ec074b062fc5",
+          "tests/test_release_docs.py": "d6d283a798d1f8b9b326c4dc892cb46c165102434d3dfc959cf1652a5146a261",
+          "tests/test_release_plan.py": "a7ceb9726f1a19e9b1b0d6752cfb09ba1fccf2cc58cbdd636782cfcbab65d1a2",
+          "tests/test_release_prepare.py": "58b94fb5b252ad6e1265406b265b88a4973d9ccc0e167aa65af8286977d4c854",
+          "tests/test_release_tools.py": "425cb48854fdad81cae40e6690673c2947d0bbd7637d46bf01f9e996e41dde00",
+          "tests/test_release_version.py": "abf7b5085505953d332200155bb83758d085fc086ebf1d5a8bbfd584b487891c",
+          "tests/test_runtime_sources.py": "e0beb1d6685e311be10f56572668437d62e583352e5cb1869801c6c98fd94a16",
+          "tests/test_runtime_validation.py": "32259f6112fc76447d5a7188d4ec530f639f0cb8b10917cc0214010010763d9b",
+          "tests/test_snapshot_copy.py": "b23d112bb45593434314c15fdf2519141d6d3950082dbddb602cc236bdf4799f",
+          "tests/test_v04_direct_link_report.py": "915738a1a64a834eba417756a2f5336291ba85943270452f59968eb5ec5075db",
+          "tests/test_v04_verification_scope.py": "868c715c61734b15285b9c4a7457ee9c602dbb0997aa1c46df3d5ac94a71a194",
+          "tests/test_verification_report.py": "13c5264fea20a6dac11d673f70c7e5f5c133161adc595808ceb4cf3f42e312a8",
+          "tests/test_vet_generated.py": "cfad9b45eeb159aa7cdb9bbe686a0f1c5b5391fde270d34f9b1966866db90f0c",
+          "tests/verify_alpha.py": "9d3cc88d7a37897ec8faab27d082dbda25424f2dc38965a2cd33e6190c4ede98"
+        },
+        "native_platform": "darwin-arm64",
+        "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+        "result": "PASS",
+        "source_inventory_sha256": "af6845575ae1ecdb8cc01b9302957678b88e531b48e02191649025694ee27820",
+        "started_at_utc": "2026-10-09T21:36:20Z",
+        "total_seconds": 1453.323850916,
+        "version": 1
+      },
+      "receipt": {
+        "artifact_id": 11647207825,
+        "checksums_sha256": "ebd3fb2d3a08722e9213177721c1d79627fa3d9f95735ea3602c265422f9b1e6",
+        "contract": "runtime-qualification-v1",
+        "git_tree_sha256": "6ebae675098ce8307ca1d40769be92f21b9af1731b04eb23e769bc4682428591",
+        "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+        "zip_sha256": "396513bbe5b5f8363bb3a4779e8ff8c2bdf545014bea647549ddcc46c3401818"
+      }
+    },
+    "ubuntu24.04-x86_64": {
+      "cleanup.json": {
+        "scratch_removed": true
+      },
+      "commands.json": [
+        {
+          "argv": [
+            "/opt/hostedtoolcache/Python/3.14.8/x64/bin/python",
+            "scripts/verify.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "name": "source-unit-checks",
+          "seconds": 419.87000688
+        },
+        {
+          "argv": [
+            "/opt/hostedtoolcache/Python/3.14.8/x64/bin/python",
+            "scripts/verify.py",
+            "integration"
+          ],
+          "exit_code": 0,
+          "name": "runtime-integration",
+          "seconds": 622.941127696
+        }
+      ],
+      "correctness.json": {
+        "boundaries": [
+          "Go real SQL/lifecycle",
+          "Python wire/import/isolation/lifecycle",
+          "handwritten races",
+          "memory32 traps",
+          "source/unit"
+        ],
+        "candidate_sha": "34eaea1df86b57765a4d8b0840845a33d539065f",
+        "contract": "runtime-qualification-v1",
+        "result": "PASS",
+        "version": 1
+      },
+      "inputs.json": {
+        "candidate_sha": "34eaea1df86b57765a4d8b0840845a33d539065f",
+        "contract": "runtime-qualification-v1",
+        "environment": {
+          "architecture": "x86_64",
+          "distribution": "ubuntu",
+          "system": "Linux",
+          "version_id": "24.04"
+        },
+        "git_tree_sha256": "6ebae675098ce8307ca1d40769be92f21b9af1731b04eb23e769bc4682428591",
+        "go_version": "go version go1.26.8 linux/amd64",
+        "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+        "harness_sha256": {
+          ".github/workflows/v044-product-validation.yml": "9286bfa847b6b1c6d8f5a8daedcf400c169dc2e66b177efa14745fa294e46be7",
+          "scripts/validate_product_candidate.py": "cec2f0bce8342ec17f74aef76954176d6d21933054767f5c304746755a3a234d",
+          "scripts/verify.py": "1071d0ee2ee33d4286296c162c4457759a763935b30ed7285eeaf999afc1499d",
+          "scripts/vet_generated.py": "68ed8bd78a52937afcc63953e8c89c0d5fb55d4f54c860f6806d366874889f57",
+          "tests/conftest.py": "1f334d644921b31879f01987dd3b2ff6a8bc4ff145d9763f9646d652c0919b3e",
+          "tests/consumer/gorm/dogfood_test.go": "2ff23e3cc846288b905651a1f02fb0b6309188f9c8ad4116055f797201e82232",
+          "tests/consumer/gorm/go.mod": "736d209375887bec36531ca36d1a90bbc4cffdf848c137e1b2ae76f42a5a3a10",
+          "tests/consumer/gorm/go.sum": "cc6dd80c9aad5de80dc9d1e85dcff41b9ed6096d983bed4971ff029c6faeab4f",
+          "tests/consumer/run_gorm.py": "6ea90d725839539d3aeeb2f3ef48b9f5839a5541649618b15fb1428898270b5a",
+          "tests/consumer/run_sqlalchemy.py": "40d180fa8a0f895549e063bf7f60516fed91a0c7c7633cebbe30e86e382500ac",
+          "tests/consumer/run_zero_setup.py": "369d077c4b930345b0ce304db280691a7f345bef171d0f47392605006cb185e7",
+          "tests/consumer/sqlalchemy-requirements.txt": "fe76b0276e78df9b2d07352c4fb826c02b70269f1c0e869b1e2e6233166ed600",
+          "tests/consumer/test_database.py": "67e01c9ee8b31b910ed43353e0fa22841344810b79cf25ea131c5917c0d377b8",
+          "tests/consumer/test_generated_platform.py": "a325c1da0ff261b54290ebb7b8dd7423d4e5bf91192e65d3bfa72da4ea47df5b",
+          "tests/consumer/test_sqlalchemy_dogfood.py": "2d8c46797f43ae3cdc2a9495fab6c79bc80e8f3f63922c5b9c541c1a235aa691",
+          "tests/consumer/test_ubuntu.py": "a12c719e3e71b356e9ed446f73701a26b8831bde5901f800c690d9c96c0b53c5",
+          "tests/diagnostics/active_query_close.py": "783e2173ca77553506dfe2479fd7dc94428cd3157af52a9afb370dca1e6bcbde",
+          "tests/fixtures/generated-driver.go.txt": "9935e86c8a67409426c67e7a68707e76118c4fdd012a83fcfd20eedf71ba2b31",
+          "tests/generatedmemory/pure_memory32_test.go": "4f50aa9d899f79b77389f539882a7af96659e3a27b62a88caa9f3bbd00b47a0e",
+          "tests/godefault/default_test.go": "853939ffdefc46d690359a62f60538cf8bfac10518328fd4e5aa51706cfdfca6",
+          "tests/godefault/failure_paths_test.go": "8beadbd99ed76bf08da8bd6d911943df992181b6507bb1f8d945cabf172eb4f3",
+          "tests/godefault/fd_lifetime_test.go": "99ef8deea62ffabe3d12faef14c1d799191095c72e7ce0ecc88ff14aeaffdd09",
+          "tests/gointegration/lifecycle_test.go": "20a4c61d92472ded06e6186dee439376649f48db504ee3b13155eeb47d12992b",
+          "tests/gointegration/multiclient_test.go": "0264a0f3e68c4e4e2e07df8fc35c8ba9e71ffce19ca5100c20302af0bc3fb7b5",
+          "tests/gointegration/owned_prepared_test.go": "170f41a32f00bcb162d59875c35d295709610e3f37b674cb53b5410e9f2b08cf",
+          "tests/historical/README.md": "72363ffbb03eae09e3c6303928f4af6ac026d9c16b760a70cd48dc5f6b4cc9a6",
+          "tests/historical/test_benchmark_artifacts.py": "28ed40f3f523b3454fccabad77b9a97c1185e2c55e836129829885c933f28d02",
+          "tests/historical/test_ci_guest_source.py": "0df126720eb884d36438af421bd4f64f011b1d462550d9b09e2db3e525c7a517",
+          "tests/historical/test_ci_release.py": "d98cc6464ea26696b800b27c07d39b129555cfda25ea6897731be3b1a573a7e5",
+          "tests/historical/test_ci_release_platforms.py": "f09937d87d77a1c62c46a3321cd808f30f5483b474a1f847c5e78c3b48aa2256",
+          "tests/historical/test_ci_release_public_smoke.py": "4e2a338f03f092d114ca3fa7a77c2ea4e62cfd43f48d560950c8e4783f194170",
+          "tests/historical/test_fast_tranche_acceptance.py": "7395cf63dbe7c72210489ab34201c8b3fb7597ff0565b9a24a787d203e78ab22",
+          "tests/historical/test_guest_build_boundary.py": "5015bcaed0c1988850490da6a2a7964ccafa8864c023668f652ff969d9af8ef8",
+          "tests/historical/test_guest_start_diagnostic.py": "87bd5cb80d00a38ba5f865b737b2639f77d295cf1a6fa99630d87dfdce8f2ea1",
+          "tests/historical/test_linux_runtime_notices.py": "059c819db42602f24fe0c4c2590bf47c3bf97395408cd45b3dc27b54c3a8d3ad",
+          "tests/historical/test_native_package.py": "f868b311932347885e4fb85400c06c21271101981d632db79c4d84ed4f05e5a4",
+          "tests/historical/test_platform_acceptance.py": "ee8f44dba0558eac993fb57c0b0b54957cd5d75ca9421ab4799f430b7c17a275",
+          "tests/historical/test_release_consumer_smoke.py": "c7210190914bf6bd1251c22b8cfaf9f55894ec401bc670a9b404590aceea038f",
+          "tests/historical/test_runtime_notices.py": "9b9061ba207d0bcfc840700ad960acfeef40fdd63df797bc4c2bd57014b02faf",
+          "tests/historical/test_ubuntu_acceptance.py": "69b5cdafdd408773a4a0b73e7e81ea453b997df2027728d9c677a99f75da02ed",
+          "tests/historical/test_v03_acceptance.py": "b09732faed0f29498598933484ac848ffb18db0bffd99012dfda2c7b374617b2",
+          "tests/historical/wasmer_timeout_test.go": "b80f86c42aba14df17ea8a80fde900e98fd439c0a0e8be2a34835ebf58bff858",
+          "tests/historical/wasmer_zero_setup_test.go": "3dfe3da392dfdae8b43f805f23cd3d1ba81b6ae8fbcc2c61140eeddec71b1e8c",
+          "tests/integration.py": "1396f1933e5b5447611e37c5335f40ac52daea3272632e4ec6a67b826ab98519",
+          "tests/snapshots.py": "685f48f9f82e35d828ff5e0fd749af71c1ec969cadbfb735a1258656355238b0",
+          "tests/support/wire_acceptance.py": "28556a7512730ec0b0afbee9fe736665e86f5efbb4e3f8da5bbe622ee5dd786d",
+          "tests/test_benchmark_inputs.py": "11fab4773e6f498fdf9d22994cd287f4322b0d981b881c2db1a241d1114263c8",
+          "tests/test_ci_publication_workflow.py": "fe24d5dbc1ad82ae6a27f97874e5b7eaf07af77fd0e095a986fe5a486541c6d0",
+          "tests/test_ci_release_publish.py": "f62c4e19ac2a5e6faeb1ba0de02ecbb7efdb8a0d6400715bd40967e3b66eee3d",
+          "tests/test_ci_release_reuse.py": "ae7cfb9e7e3331c669465e1c85bc023748d728404f097c333f4bbefd40edcd3c",
+          "tests/test_competitive_benchmark.py": "ebd482ca6e773af7f7384ccc9d331d1fa339a1f929ad2e318fde654cefc25123",
+          "tests/test_consumer_acceptance.py": "497744432b87d4b5820f168b05505e60196376a46cb02c0c7d694273441ff3aa",
+          "tests/test_deployment.py": "a313994ceec4ae80fcb8119775889ad0e3b079320e4effda619b8fd3f0100aa8",
+          "tests/test_development_cleanup.py": "d58fe3cb747d91ac2164ce8625a38f25bb5ccbd715dac65886853b6294aaf1d8",
+          "tests/test_development_scope.py": "76d0bbb4a0b1865c72107b852cb9eebb4cf1e12658562d6f4db71dd2361bd0a8",
+          "tests/test_distribution_licenses.py": "c32a783b10f9f51db446c66d7589d91ddbc6560f62481a73dec0037c558bbc13",
+          "tests/test_experiment_workspace.py": "eb44445822295ccdd1d251fab4344972387cf08471e1e742e5c499684e10c113",
+          "tests/test_final_latency.py": "99ede21a2121e83c41ee37452bf785631e7034e32234cf5f8938d8b6495fb44d",
+          "tests/test_generated_default.py": "e29c12fa91603befbb0133454ab9679f0fdf0652db45df0b1fa705fb817bcc01",
+          "tests/test_generated_release.py": "70848fd8a441e84cafde74c7027ba89ccad4d0a9cde8022f1b31c12031785888",
+          "tests/test_generated_runtime_inventory.py": "e82726c131ce1d97c218728e9f809541424d672fb5b7cc8309a48663cad9e5c7",
+          "tests/test_git_identity.py": "582149fb57b77f4550e9a86ba50b0fcdae901253d0872c1bba64540039e7a1d8",
+          "tests/test_go_isolation.py": "d905099dbcacfc5a47e4414dd3a5957be8f5a4f2ecbf01dcdf504358e8ca9829",
+          "tests/test_guest_auth_hooks.py": "e58addcf60468068bbc42f791f9c29894cf294a9d5f006d41fcea011036897be",
+          "tests/test_guest_provenance.py": "65c998d0127185b471fa4f6e028e1fb783ce26f1b8e420c8fb81593be19fb693",
+          "tests/test_guest_repro_tools.py": "3695877802200d4a068c1a90937f8d6358aa6de2af4719fe828c2f9ed0c2f342",
+          "tests/test_guest_startup_timing.py": "c5f6b04532ee101c152d88c8c9e41a9c95ebc467a19526a9bf7bfd7b0ad25f8f",
+          "tests/test_init_diagnostics.py": "c594e0ab6b776a5e533c5ece0369c2a953a681688a540d4a5698b2f61df868ba",
+          "tests/test_isolation_baseline.py": "d5a56cf23859cc22d3c35216e6718376ea1a6db6e89954ed42400d156f6ecfbe",
+          "tests/test_measurement_summary.py": "921aba2452adc8fc85d98d78d9a2208537b944e4c279c37ba7a2e7ef229c3689",
+          "tests/test_memory_envelope.py": "8ad1b52d3b33193173110ef6f30f59cd61227c619613f73456898a4261c8ef35",
+          "tests/test_native_target.py": "985424684cbdde86a39dd3f532f2205e9f246cf22aa269aef2e780c9dd3502de",
+          "tests/test_owned_snapshot.py": "36ec5fe37e0b1d9af01ebc7c739d958786bb6f1e28d11e57a287d4bab2eea726",
+          "tests/test_owned_snapshot_unit.py": "9e7fad21d75a1e80792c2567e7c343b20f4fd4758970abecaf5253081deba49f",
+          "tests/test_packaging_license_mirrors.py": "be0047a0e305310b2396c637fc2d5552b8e826ac508dbd7cbdb051f7b41deb1a",
+          "tests/test_practical_suites.py": "2660e3b485f3c05baebc70e487f082ce2c50131622284b00e059549db35815ce",
+          "tests/test_prepared_auth_keys.py": "b9f406421d394b20ff2d3c63247670eb2bbcb13164be0f8dab63fb5d3ee9afdb",
+          "tests/test_published_assets.py": "d8fbcc6bce91dadee74d4d833118adbd9a033001dc2743618016ec81b43df794",
+          "tests/test_python_diagnostics.py": "deb401373790f7301defc714819a2ff81b752e0bff4e91d0a5027cd149e4a04a",
+          "tests/test_python_multiclient.py": "28624cdb1dd7077366c5350c85b42014092b8bc7a2b90f0bde6ccfb9012b682b",
+          "tests/test_python_timeout.py": "b86434747c7ddf2e2771b3bb1d70eac5b824d632c8ee24cabae01493c53349fb",
+          "tests/test_python_wire.py": "73bcde817a6a1b411305c4d6a6c949a142739acc1377a877d4f5ec074b062fc5",
+          "tests/test_release_docs.py": "d6d283a798d1f8b9b326c4dc892cb46c165102434d3dfc959cf1652a5146a261",
+          "tests/test_release_plan.py": "a7ceb9726f1a19e9b1b0d6752cfb09ba1fccf2cc58cbdd636782cfcbab65d1a2",
+          "tests/test_release_prepare.py": "58b94fb5b252ad6e1265406b265b88a4973d9ccc0e167aa65af8286977d4c854",
+          "tests/test_release_tools.py": "425cb48854fdad81cae40e6690673c2947d0bbd7637d46bf01f9e996e41dde00",
+          "tests/test_release_version.py": "abf7b5085505953d332200155bb83758d085fc086ebf1d5a8bbfd584b487891c",
+          "tests/test_runtime_sources.py": "e0beb1d6685e311be10f56572668437d62e583352e5cb1869801c6c98fd94a16",
+          "tests/test_runtime_validation.py": "32259f6112fc76447d5a7188d4ec530f639f0cb8b10917cc0214010010763d9b",
+          "tests/test_snapshot_copy.py": "b23d112bb45593434314c15fdf2519141d6d3950082dbddb602cc236bdf4799f",
+          "tests/test_v04_direct_link_report.py": "915738a1a64a834eba417756a2f5336291ba85943270452f59968eb5ec5075db",
+          "tests/test_v04_verification_scope.py": "868c715c61734b15285b9c4a7457ee9c602dbb0997aa1c46df3d5ac94a71a194",
+          "tests/test_verification_report.py": "13c5264fea20a6dac11d673f70c7e5f5c133161adc595808ceb4cf3f42e312a8",
+          "tests/test_vet_generated.py": "cfad9b45eeb159aa7cdb9bbe686a0f1c5b5391fde270d34f9b1966866db90f0c",
+          "tests/verify_alpha.py": "9d3cc88d7a37897ec8faab27d082dbda25424f2dc38965a2cd33e6190c4ede98"
+        },
+        "native_platform": "ubuntu24.04-x86_64",
+        "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+        "result": "PASS",
+        "source_inventory_sha256": "af6845575ae1ecdb8cc01b9302957678b88e531b48e02191649025694ee27820",
+        "started_at_utc": "2026-10-09T21:36:05Z",
+        "total_seconds": 1045.34675616,
+        "version": 1
+      },
+      "receipt": {
+        "artifact_id": 11646798854,
+        "checksums_sha256": "83a4252eb711f787ef39736d98e08b4ad26c738c39277475e9a3b4697d4d518c",
+        "contract": "runtime-qualification-v1",
+        "git_tree_sha256": "6ebae675098ce8307ca1d40769be92f21b9af1731b04eb23e769bc4682428591",
+        "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+        "zip_sha256": "751a92e98a373acaaad45089faceba7eeb1877115458d0390abb6f0ae7c9640c"
+      }
+    }
+  },
+  "run_id": 37994377940,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/37994377940",
+  "scope": "runtime source qualification only; not new final-artifact/public smoke/performance evidence",
+  "status": "completed",
+  "tracked_input_count": 705
+}
