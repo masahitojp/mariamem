@@ -1,0 +1,128 @@
+{
+  "37924209669": {
+    "url": "https://github.com/masahitojp/mariamem/actions/runs/37924209669",
+    "head_sha": "8ede4ad65def07436b64801076004ff80aec0799",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "resolve",
+        "conclusion": "success",
+        "started_at": "2026-10-09T11:31:03Z",
+        "completed_at": "2026-10-09T11:31:42Z",
+        "seconds": 39.0
+      },
+      {
+        "name": "guest",
+        "conclusion": "success",
+        "started_at": "2026-10-09T11:31:46Z",
+        "completed_at": "2026-10-09T11:48:03Z",
+        "seconds": 977.0
+      },
+      {
+        "name": "candidate (ubuntu24.04-x86_64, ubuntu-24.04)",
+        "conclusion": "success",
+        "started_at": "2026-10-09T11:48:05Z",
+        "completed_at": "2026-10-09T11:53:05Z",
+        "seconds": 300.0
+      },
+      {
+        "name": "candidate (darwin-arm64, macos-15)",
+        "conclusion": "success",
+        "started_at": "2026-10-09T11:48:10Z",
+        "completed_at": "2026-10-09T11:54:28Z",
+        "seconds": 378.0
+      },
+      {
+        "name": "verification (ubuntu24.04-x86_64, ubuntu-24.04)",
+        "conclusion": "success",
+        "started_at": "2026-10-09T11:54:30Z",
+        "completed_at": "2026-10-09T12:03:27Z",
+        "seconds": 537.0
+      },
+      {
+        "name": "verification (darwin-arm64, macos-15)",
+        "conclusion": "success",
+        "started_at": "2026-10-09T11:54:37Z",
+        "completed_at": "2026-10-09T12:06:41Z",
+        "seconds": 724.0
+      },
+      {
+        "name": "aggregate",
+        "conclusion": "success",
+        "started_at": "2026-10-09T12:06:43Z",
+        "completed_at": "2026-10-09T12:18:13Z",
+        "seconds": 690.0
+      },
+      {
+        "name": "publication",
+        "conclusion": "success",
+        "started_at": "2026-10-09T12:18:15Z",
+        "completed_at": "2026-10-09T12:33:41Z",
+        "seconds": 926.0
+      },
+      {
+        "name": "public_smoke (darwin-arm64, macos-15)",
+        "conclusion": "success",
+        "started_at": "2026-10-09T12:33:49Z",
+        "completed_at": "2026-10-09T12:43:32Z",
+        "seconds": 583.0
+      },
+      {
+        "name": "public_smoke (ubuntu24.04-x86_64, ubuntu-24.04)",
+        "conclusion": "success",
+        "started_at": "2026-10-09T12:33:44Z",
+        "completed_at": "2026-10-09T12:39:10Z",
+        "seconds": 326.0
+      }
+    ]
+  },
+  "37898847164": {
+    "url": "https://github.com/masahitojp/mariamem/actions/runs/37898847164",
+    "head_sha": "c5f43106a8054bb59a2da9184a1c2103fe1a1d9f",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "Product contract \u2014 ubuntu24.04-x86_64",
+        "conclusion": "success",
+        "started_at": "2026-10-09T07:24:39Z",
+        "completed_at": "2026-10-09T08:06:47Z",
+        "seconds": 2528.0
+      },
+      {
+        "name": "Product contract \u2014 darwin-arm64",
+        "conclusion": "success",
+        "started_at": "2026-10-09T07:24:45Z",
+        "completed_at": "2026-10-09T08:13:09Z",
+        "seconds": 2904.0
+      }
+    ]
+  },
+  "37923564388": {
+    "url": "https://github.com/masahitojp/mariamem/actions/runs/37923564388",
+    "head_sha": "8ede4ad65def07436b64801076004ff80aec0799",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "scope",
+        "conclusion": "success",
+        "started_at": "2026-10-09T11:24:53Z",
+        "completed_at": "2026-10-09T11:25:08Z",
+        "seconds": 15.0
+      },
+      {
+        "name": "check",
+        "conclusion": "success",
+        "started_at": "2026-10-09T11:25:10Z",
+        "completed_at": "2026-10-09T11:26:20Z",
+        "seconds": 70.0
+      },
+      {
+        "name": "integration",
+        "conclusion": "skipped",
+        "started_at": "2026-10-09T11:25:08Z",
+        "completed_at": "2026-10-09T11:25:08Z",
+        "seconds": 0.0
+      }
+    ]
+  }
+}
