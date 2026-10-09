@@ -6,6 +6,10 @@ It builds the exact production candidate and released v0.4.3 commit
 The published annotated tag object is
 `dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20`; it is checked separately and must
 resolve to that exact commit. Tag-object identity is not source-commit identity.
+The machine-readable source of truth is `release/baselines/v0.4.3.json`.
+Workflow and runner use `scripts/git_identity.py` to validate it before building.
+The runner's optional override is explicitly named `--baseline-commit-sha` and
+must equal the checked source commit.
 Python uses each commit's SDK and exact host binary. No previous spike numbers
 are treated as production results.
 

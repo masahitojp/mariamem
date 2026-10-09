@@ -5,6 +5,30 @@ Build products and downloaded inputs live under ignored `build/`. Use Go1.26.8
 and Python with pytest/PyMySQL; Go1.27.0/1.27.1 arm64 remain unsupported because
 of upstream go#81036. Product platforms are macOS15+ arm64 and Ubuntu24.04 x86_64.
 
+## Git source identity
+
+A hexadecimal SHA identifies an object, not necessarily source code. Annotated
+release tags have their own object SHA; checkout, archive and measurement inputs
+use the target **commit**. The shared tool prints both identities explicitly:
+
+```sh
+python3 scripts/git_identity.py inspect HEAD
+python3 scripts/git_identity.py inspect v0.4.3
+python3 scripts/git_identity.py verify-release \
+  --pin release/baselines/v0.4.3.json --fetch origin
+```
+
+`inspect` is local/read-only. `--fetch origin` explicitly fetches the immutable
+tag object, without moving a branch. Do not take the first remote tag-listing SHA
+as a source commit. Baseline records use `release_tag`, `tag_object_sha` and
+`source_commit`; duplicate, reversed or mismatched identities fail verification.
+Library callers use `require_commit()` for exact candidate inputs and
+`verify_release_pin()` for release baselines. Update the checked pin once rather
+than copying constants among workflows/harnesses.
+
+The product-validation workflow and runner perform this preflight before tools,
+builds or performance work. Identity failures should cost Git checks, not a build.
+
 ## Local verification
 
 Choose verification from the changed boundary, not the file extension or the

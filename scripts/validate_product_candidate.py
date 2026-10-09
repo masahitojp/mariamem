@@ -18,9 +18,11 @@ import sys
 import tarfile
 import time
 
+from git_identity import read_release_pin, require_commit, verify_release_pin
+
 ROOT=Path(__file__).resolve().parents[1]
-BASELINE='c8bd25a56e9d5221abaf40b2c98102bd60c217ae'
-BASELINE_TAG_OBJECT='dd84ca4e9e0f2802766dd2f46d1c6ab24a41dc20'
+BASELINE_PIN=read_release_pin(ROOT/'release/baselines/v0.4.3.json')
+BASELINE=BASELINE_PIN.source_commit
 
 
 def write(path,value):
@@ -34,17 +36,6 @@ def sha256(path):
         for chunk in iter(lambda:stream.read(1024*1024),b''):
             digest.update(chunk)
     return digest.hexdigest()
-
-
-def verify_release_baseline(repository, tag_object, expected_commit):
-    """Pin both the published annotated tag object and its source commit."""
-    kind=subprocess.check_output(['git','cat-file','-t',tag_object],cwd=repository,text=True).strip()
-    if kind!='tag':
-        raise RuntimeError('published baseline must be the pinned annotated tag object')
-    commit=subprocess.check_output(['git','rev-parse',tag_object+'^{commit}'],cwd=repository,text=True).strip()
-    if commit!=expected_commit:
-        raise RuntimeError('published baseline tag does not match the pinned release commit')
-    return commit
 
 
 def remove_disposable_tree(path):
@@ -67,7 +58,7 @@ def remove_disposable_tree(path):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--candidate-sha',required=True)
-    parser.add_argument('--baseline-sha',default=BASELINE,choices=(BASELINE,))
+    parser.add_argument('--baseline-commit-sha',default=BASELINE,choices=(BASELINE,))
     parser.add_argument('--workspace',type=Path,required=True,help='disposable parent outside source checkout')
     parser.add_argument('--disposable-checkout',action='store_true',required=True,help='allow cleanup of outputs in an otherwise disposable source checkout')
     parser.add_argument('--phase',choices=('all','correctness','performance'),default='all')
@@ -85,6 +76,13 @@ def main():
         parser.error('requires native macOS arm64 or Ubuntu x86_64')
     if machine[0]=='Linux' and ('ID=ubuntu' not in Path('/etc/os-release').read_text() or 'VERSION_ID="24.04"' not in Path('/etc/os-release').read_text()):
         parser.error('canonical Linux qualification requires Ubuntu 24.04')
+    # Validate object kinds and the release relationship before creating scratch
+    # or building anything. Hexadecimal shape alone does not identify a commit.
+    try:
+        require_commit(ROOT,args.candidate_sha)
+        verify_release_pin(ROOT,BASELINE_PIN,fetch_remote='origin')
+    except ValueError as error:
+        parser.error(str(error))
     evidence=workspace/'evidence'
     scratch=workspace/'scratch'
     evidence.mkdir(parents=True,exist_ok=True)
@@ -97,15 +95,15 @@ def main():
                 'MARIAMEM_TIMING_DIR','MARIAMEM_INIT_DIAGNOSTICS','MARIAMEM_MEMORY_DIAGNOSTICS'):
         env.pop(key,None)
     commands=json.loads((evidence/'commands.json').read_text()) if (evidence/'commands.json').exists() else []
-    metadata=dict(candidate_sha=actual,baseline_sha=args.baseline_sha,
-                  baseline_tag_object_sha=BASELINE_TAG_OBJECT,
+    metadata=dict(candidate_sha=actual,baseline_commit_sha=args.baseline_commit_sha,
+                  baseline_tag_object_sha=BASELINE_PIN.tag_object_sha,
                   guest_sha256=json.loads((ROOT/'release/generated-go-inputs.json').read_text())['guest_sha256'],
                   platform=platform.platform(),machine=platform.machine(),python=sys.version,
                   measured_at_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
                   contract='v044-ownedprepared-product-validation',phase=args.phase)
     if (evidence/'inputs.json').exists():
         previous=json.loads((evidence/'inputs.json').read_text())
-        if previous.get('candidate_sha')!=actual or previous.get('baseline_sha')!=args.baseline_sha:
+        if previous.get('candidate_sha')!=actual or previous.get('baseline_commit_sha')!=args.baseline_commit_sha:
             parser.error('evidence workspace belongs to another source pair')
         metadata.update({key:value for key,value in previous.items() if key not in ('phase','result','error')})
     write(evidence/'inputs.json',metadata)
@@ -128,7 +126,7 @@ def main():
         run('build-host',['go','build','-p','1','-trimpath','-o',host,'./cmd/mariamem-host'],extra_env={'CGO_ENABLED':'0'})
         gate_path=evidence/'correctness.json'
         if args.phase in ('all','correctness'):
-            write(gate_path,dict(result='NOT READY',candidate_sha=actual,baseline_sha=args.baseline_sha))
+            write(gate_path,dict(result='NOT READY',candidate_sha=actual,baseline_commit_sha=args.baseline_commit_sha))
             # Runtime ownership/host handoff and pytest teardown changed. These
             # are their canonical source, handwritten-race and real-runtime gates.
             run('validation-tools',[sys.executable,'benchmarks/ownedprepared/test_tools.py'])
@@ -150,7 +148,7 @@ def main():
                 source=ROOT/'tests/evidence'/name
                 if source.exists():
                     shutil.copy2(source,evidence/name)
-            write(gate_path,dict(result='PASS',candidate_sha=actual,baseline_sha=args.baseline_sha,
+            write(gate_path,dict(result='PASS',candidate_sha=actual,baseline_commit_sha=args.baseline_commit_sha,
                                  boundaries=['source/unit','handwritten races','Go real SQL/lifecycle',
                                              'Python import/isolation/lifecycle','installed pytest/xdist']))
         if args.phase in ('all','performance'):
@@ -159,10 +157,8 @@ def main():
                 raise RuntimeError('performance requires PASS correctness for this exact candidate')
             baseline=scratch/'baseline'
             baseline.mkdir()
-            run('fetch-baseline',['git','fetch','--no-tags','origin',BASELINE_TAG_OBJECT])
-            verify_release_baseline(ROOT,BASELINE_TAG_OBJECT,args.baseline_sha)
             archive=scratch/'baseline.tar'
-            run('archive-baseline',['git','archive','--format=tar','-o',archive,args.baseline_sha])
+            run('archive-baseline',['git','archive','--format=tar','-o',archive,args.baseline_commit_sha])
             with tarfile.open(archive) as source:
                 source.extractall(baseline,filter='data')
             archive.unlink()

@@ -17,7 +17,11 @@ SHA='a'*40
 def load_runner():
     spec=importlib.util.spec_from_file_location('candidate_runner',ROOT/'scripts/validate_product_candidate.py')
     module=importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    sys.path.insert(0,str(ROOT/'scripts'))
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.path.pop(0)
     return module
 
 
@@ -37,16 +41,19 @@ class EvidenceToolsTest(unittest.TestCase):
             git('tag','-a','v0.4.3','-m','published')
             tag=git('rev-parse','refs/tags/v0.4.3')
             self.assertNotEqual(tag,commit)
-            self.assertEqual(module.verify_release_baseline(repository,tag,commit),commit)
+            from git_identity import ReleasePin
+            def verify(tag_object,source_commit):
+                return module.verify_release_pin(repository,ReleasePin('v0.4.3',tag_object,source_commit)).source_commit
+            self.assertEqual(verify(tag,commit),commit)
             # Reproduce the CI bug: a tag object cannot be the expected commit.
-            with self.assertRaisesRegex(RuntimeError,'pinned release commit'):
-                module.verify_release_baseline(repository,tag,tag)
+            with self.assertRaisesRegex(ValueError,'must be distinct'):
+                verify(tag,tag)
             (repository/'source').write_text('later source\n')
             git('commit','-qam','later')
-            with self.assertRaisesRegex(RuntimeError,'pinned release commit'):
-                module.verify_release_baseline(repository,tag,git('rev-parse','HEAD'))
-            with self.assertRaisesRegex(RuntimeError,'annotated tag object'):
-                module.verify_release_baseline(repository,commit,commit)
+            with self.assertRaisesRegex(ValueError,'pinned release commit'):
+                verify(tag,git('rev-parse','HEAD'))
+            with self.assertRaisesRegex(ValueError,'annotated tag object'):
+                verify(commit,git('rev-parse','HEAD'))
 
     def test_cleanup_removes_read_only_module_cache_without_following_links(self):
         module=load_runner()
@@ -97,6 +104,8 @@ class EvidenceToolsTest(unittest.TestCase):
             with patch.object(module,'ROOT',source),patch.object(sys,'argv',argv),\
                  patch.object(module.platform,'system',return_value='Darwin'),\
                  patch.object(module.platform,'machine',return_value='arm64'),\
+                 patch.object(module,'require_commit'),\
+                 patch.object(module,'verify_release_pin'),\
                  patch.object(module.subprocess,'check_output',side_effect=output),\
                  patch.object(module.subprocess,'run',return_value=SimpleNamespace(returncode=1)):
                 with self.assertRaisesRegex(RuntimeError,'build-counter failed'):
@@ -106,6 +115,27 @@ class EvidenceToolsTest(unittest.TestCase):
             self.assertFalse((workspace/'evidence/correctness.json').exists())
             self.assertFalse((workspace/'scratch').exists())
             self.assertTrue((source/'build/go.mod').exists())
+
+    def test_bad_release_identity_stops_before_scratch_or_build(self):
+        module=load_runner()
+        with tempfile.TemporaryDirectory() as temporary:
+            workspace=Path(temporary)/'work'
+            argv=['candidate-runner','--candidate-sha',SHA,'--workspace',str(workspace),
+                  '--disposable-checkout','--phase','correctness']
+            def output(command,**kwargs):
+                return SHA+'\n' if command[1:3]==['rev-parse','HEAD'] else ''
+            with patch.object(sys,'argv',argv),\
+                 patch.object(module.platform,'system',return_value='Darwin'),\
+                 patch.object(module.platform,'machine',return_value='arm64'),\
+                 patch.object(module.subprocess,'check_output',side_effect=output),\
+                 patch.object(module,'require_commit'),\
+                 patch.object(module,'verify_release_pin',side_effect=ValueError('wrong release identity')),\
+                 patch.object(module.subprocess,'run') as execute:
+                with self.assertRaises(SystemExit) as error:
+                    module.main()
+                self.assertEqual(error.exception.code,2)
+                execute.assert_not_called()
+            self.assertFalse(workspace.exists())
 
     def test_summary_requires_complete_trials_and_keeps_parallel_wall_distinct(self):
         with tempfile.TemporaryDirectory() as temporary:

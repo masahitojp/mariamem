@@ -14,6 +14,13 @@ Use small spikes to reduce uncertainty before expensive architectural changes.
 
 Mechanical verification belongs in deterministic scripts and CI where possible.
 
+Git source identity must be checked before builds/benchmarks. A 40-character SHA
+and the first `ls-remote refs/tags/...` row do not prove commit identity. Use
+`scripts/git_identity.py` and named `source_commit` / `tag_object_sha` fields;
+release-baseline pins belong in `release/baselines/`. See
+`docs/development.md#git-source-identity`. Do not hand-copy a tag object into a
+candidate/source-commit field.
+
 Use `docs/development.md#local-verification` to choose the canonical check for
 the changed boundary; release acceptance and benchmarks are separate.
 
