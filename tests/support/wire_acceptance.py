@@ -29,7 +29,7 @@ def exercise(conn, events, api_version=1):
                        "types": [type(value).__name__ for value in row]})
         cur.execute("SELECT LAST_INSERT_ID()")
         assert cur.fetchone() == (1,)
-        # Test engine semantics; protocol lastrowid is explicitly unsupported.
+        # Engine identity complements the insert-ID protocol assertions above.
         cur.execute("SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA='test' AND TABLE_NAME='wire_probe'")
         assert cur.fetchone() == ("InnoDB",)
         # Generic schema discovery: wildcard/enumeration must agree with exact

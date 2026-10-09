@@ -284,8 +284,9 @@ def test_workflow_requires_proof_before_expensive_work():
     assert 'scripts/release_preparation_checks.py' in workflow
     assert 'python scripts/verify.py integration' in workflow
     development = (ROOT / '.github/workflows/check.yml').read_text()
-    assert '--development --github-output' in development
-    assert "if: needs.scope.outputs.reused != 'true'" in development
+    assert 'scripts/runtime_validation.py' not in development
+    assert 'scripts/development_scope.py' in development
+    assert "if: needs.scope.outputs.integration == 'true'" in development
     assert 'scripts/verify.py integration' in development
 
 

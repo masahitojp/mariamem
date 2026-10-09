@@ -29,6 +29,7 @@ def test_default_acceptance_preserves_focused_runtime_race_gate(monkeypatch):
         assert '-race' not in argv
         assert env['MARIAMEM_TEST_DEFAULT'] == '1'
     assert any('tests/test_python_multiclient.py' in c[0] for c in calls)
+    assert any('tests/test_python_wire.py' in c[0] for c in calls)
     assert any('tests/test_python_timeout.py::test_normal_close_is_idempotent' in c[0] for c in calls)
 
 

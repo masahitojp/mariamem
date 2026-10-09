@@ -27,7 +27,21 @@ def run(argv, *, env=None):
     subprocess.run([str(arg) for arg in argv], cwd=ROOT, env=env, check=True)
 
 
-def check():
+def check(scope="full"):
+    if scope not in ("full", "python", "docs"):
+        raise ValueError("unknown check scope")
+    if scope != "full":
+        run([sys.executable, "scripts/check_version.py"])
+        if scope == "python":
+            env = os.environ.copy()
+            env.pop("MARIAMEM_TEST_HOST", None)
+            env.pop("MARIAMEM_NATIVE_DIR", None)
+            env["PYTHONPATH"] = str(ROOT / "python")
+            run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer",
+                 "--ignore=tests/historical", "-q"], env=env)
+        run([sys.executable, "scripts/check_public.py"])
+        run(["git", "diff", "--check"])
+        return
     run([sys.executable, "scripts/check_version.py"])
     run([sys.executable, "scripts/verify_generated_runtime.py"])
     run(["go", "test", "-p", "1", "./..."])
@@ -74,14 +88,16 @@ def integration():
         print("Forced query-timeout reclamation remains a separate diagnostic; "
               "normal Close remains required.", flush=True)
         run([sys.executable, "-m", "pytest", timeout_test,
-             "tests/test_python_multiclient.py", "tests/test_owned_snapshot.py", "-q"], env=env)
+             "tests/test_python_multiclient.py", "tests/test_python_wire.py",
+             "tests/test_owned_snapshot.py", "-q"], env=env)
         run([sys.executable, "tests/snapshots.py"], env=env)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    commands.add_parser("check", help="lightweight Go/Python/public-source checks")
+    checks = commands.add_parser("check", help="source checks; full includes generated Go compile/vet")
+    checks.add_argument("--scope", choices=("full", "python", "docs"), default="full")
     commands.add_parser("integration", help="normal guest acceptance, focused runtime race and Python lifecycle checks")
     release = commands.add_parser("release-check", help="release guard; verify a local or CI candidate")
     release.add_argument("--ci-candidate-sha")
@@ -93,7 +109,7 @@ def main():
     if args.command != "bench" and extra:
         parser.error("unexpected arguments: " + " ".join(extra))
     if args.command == "check":
-        check()
+        check(args.scope)
     elif args.command == "integration":
         integration()
     elif args.command == "release-check":

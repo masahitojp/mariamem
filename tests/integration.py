@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Real Go host + Python wrapper + PyMySQL + WASIX acceptance checks."""
+"""Historical mixed wire/lifecycle/forced-containment investigation.
+
+Supported protocol/session oracles now run in test_python_wire.py through
+verify.py integration. Forced containment is not a current product guarantee;
+reproduce this original combined investigation with its historical source.
+See docs/reviews/v045-wire-coverage.md for each invariant's maintained owner.
+"""
 import json
 import os
 from pathlib import Path
@@ -181,4 +187,4 @@ def main():
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit("Historical investigation; use scripts/verify.py integration for current supported wire/lifecycle checks. Forced-containment diagnostics remain separate.")
