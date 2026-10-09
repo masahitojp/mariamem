@@ -8,7 +8,7 @@ No runtime/API/guest source was changed by this tooling integration. New checks
 cover the release proof boundary; no local runtime acceptance or benchmark was
 repeated.
 
-- `python scripts/release_preparation_checks.py`: PASS, 175 pytest cases and
+- `python scripts/release_preparation_checks.py`: PASS, 177 pytest cases and
   6 Product runner/identity tool cases; version, public-source boundary,
   generated-source inventory and clean diff checks passed.
 - Strict YAML duplicate-key validation and `bash -n` for all changed workflow
@@ -28,5 +28,11 @@ publication and public smoke. This report does not claim those later gates passe
 or that the final integration SHA ran the original runtime campaign.
 
 Reproduce focused checks with Python 3.14, pytest 8.4.2 and PyMySQL 1.2.3.
+The tested tree contains two tracked historical outputs excluded from the
+original public-source receipt: `build/go.mod` and
+`benchmarks/results/direct-link-consumer-experience.json`. Only those exact names
+are omitted from receipt completeness; the full Git tree comparison still
+requires their bytes/modes to be unchanged. Unknown omissions remain failures.
+
 Live proof: `python scripts/runtime_validation.py --candidate-sha <clean HEAD>`.
 CI freezes that proof into each handoff, recording both source identities.

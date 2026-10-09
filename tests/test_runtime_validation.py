@@ -151,7 +151,6 @@ def test_receipt_failures(tmp_path, kind):
     if kind == 'machine': data['inputs.json']['machine'] = 'x86_64'
     if kind == 'toolchain': data['alpha-wheel.json']['host_buildinfo'] = 'go1.27.1'
     if kind == 'cgo': data['alpha-wheel.json']['host_buildinfo'] = data['alpha-wheel.json']['host_buildinfo'].replace('CGO_ENABLED=0', 'CGO_ENABLED=1')
-    if kind == 'vcs': data['alpha-wheel.json']['host_buildinfo'] += '\n'
     if kind == 'vcs': data['alpha-wheel.json']['host_buildinfo'] = data['alpha-wheel.json']['host_buildinfo'].replace('vcs.modified=false', 'vcs.modified=true')
     if kind == 'installed': data['alpha.json']['installed_files_match_wheel'] = False
     if kind == 'wheel': data['alpha.json']['wheel_sha256'] = 'f' * 64
@@ -178,14 +177,19 @@ def test_archive_structure_rejected(tmp_path, kind):
         info.external_attr = 0o120777 << 16
         extras = [(info, b'target')]
     target = tmp_path / 'proof.zip'
-    target.write_bytes(archive(records(p), extras, mutate))
+    if kind == 'duplicate':
+        with pytest.warns(UserWarning, match='Duplicate name'):
+            target.write_bytes(archive(records(p), extras, mutate))
+    else:
+        target.write_bytes(archive(records(p), extras, mutate))
     with pytest.raises(ValueError):
         runtime.evidence(target, intent(), p)
 
 
 @pytest.mark.parametrize('path', ['mariamem.go', 'snapshot.go', 'python/mariamem/_api.py',
     'go.mod', 'release/generated-go-inputs.json', 'scripts/build_alpha.py',
-    'tests/gointegration/isolation_test.go', 'unexpected.py'])
+    'tests/gointegration/isolation_test.go', 'build/go.mod',
+    'benchmarks/results/direct-link-consumer-experience.json', 'unexpected.py'])
 def test_unreviewed_source_changes_rejected(path):
     with pytest.raises(ValueError, match='unreviewed'):
         runtime.compare_inventory({path: 'a' * 64}, {path: 'b' * 64}, VERSION, VERSION)

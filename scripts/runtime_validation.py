@@ -23,6 +23,10 @@ WORKFLOW = '.github/workflows/v044-product-validation.yml'
 PLATFORMS = ('darwin-arm64', 'ubuntu24.04-x86_64')
 VERSION_FILE = 'python/mariamem/_version.py'
 FIELDS = {'MAJOR', 'MINOR', 'PATCH', 'STAGE', 'SERIAL'}
+# These tracked historical outputs are excluded by the Product receipt's
+# public_files selector. They remain protected by the full Git tree comparison;
+# this is not an exemption allowing them to change or new omissions to appear.
+BASIS_OMISSIONS = {'build/go.mod', 'benchmarks/results/direct-link-consumer-experience.json'}
 # Reviewed exceptions, not a blanket scripts/tests/release exclusion.
 EXCEPTIONS = {
     'README.md', 'AGENTS.md', '.agents/skills/release/SKILL.md',
@@ -264,7 +268,7 @@ def validate(root, commit, api=None):
             receipts[platform] = receipt
     require(inventories[0] == inventories[1], 'native source inventories differ')
     basis_inventory = inventories[0]
-    expected_names = set(old_tree) - REPOSITORY_ONLY_FILES
+    expected_names = set(old_tree) - REPOSITORY_ONLY_FILES - BASIS_OMISSIONS
     require(set(basis_inventory) == expected_names, 'basis source inventory incomplete')
     # Authenticate the basis against Git, not just a runner's claimed hash map.
     for name, expected in basis_inventory.items():
