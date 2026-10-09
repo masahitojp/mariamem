@@ -55,17 +55,34 @@ without a concrete dependency found by focused verification. Documentation-only
 changes need wording/reference and diff/status checks, not runtime tests. These
 rules leave runtime-change and explicitly requested release gates intact.
 
+The development workflow chooses from a local event diff, without downloading
+historical release or Product CI artifacts. Unknown inputs and unavailable/empty
+diffs select full check plus integration. This selection is not a reusable runtime
+qualification receipt. Explicit release reuse still requires authenticated proof.
+
+| Changed boundary | Canonical check | Guest / approximate cost |
+| --- | --- | --- |
+| ordinary documentation | wording/references/diff; `verify.py check --scope docs` for version/public boundary | no guest, seconds |
+| explicitly classified Python tooling/policy and its unit suites | `verify.py check --scope python` or narrower named pytest owners | no real guest; current broad Python subset about 23 s, cold prerequisites vary |
+| SDK, SQL, ownership, VFS, guest/generated code, build inputs, unknown files | full `verify.py check` then relevant `integration` | real guest for integration; minutes plus cold compile |
+| final module/wheel packaging and version | installed-consumer/release artifact qualification | exact final artifacts, separate from runtime reuse |
+| latency/resource question | one identity-bound manual benchmark after relevant correctness | one campaign at a time; sample dependent |
+
+Narrow check scopes are explicit scope assertions, not automatic safety proofs.
+Do not use them for runtime-affecting inputs. New files default conservatively in
+`scripts/development_scope.py` until their responsibility is assigned.
+
 ```sh
 GOTOOLCHAIN=go1.26.8 python3 scripts/verify.py check
 GOTOOLCHAIN=go1.26.8 python3 scripts/verify.py integration
 ```
 
-`check` runs Go tests/vet, checkout Python tests, generated identity,
+`check` defaults to the complete source check: Go tests/vet, checkout Python tests, generated identity,
 version consistency and public-source validation. Historical Wasmer fixtures
 under `tests/historical` are excluded; they are not a current release gate.
 `integration` always uses the compiled generated guest: SQL/auth/sessions,
 Snapshot/Fork, lifecycle/memory32 traps, focused runtime/thread/TLS/futex races,
-and Python normal Close/multi-client tests. Retired native/runtime environment
+and Python normal Close/multi-client/wire metadata/protocol tests. Retired native/runtime environment
 overrides are cleared by the harness; public APIs reject them explicitly.
 Installed-wheel SQLAlchemy and outside-checkout GORM remain separate acceptance.
 
@@ -121,7 +138,7 @@ second current runtime. See [benchmark notes](../benchmarks/README.md).
 Use independent experiment branches/worktrees and explicit disk/resource guards.
 Preserve compact JSON/CSV, final reports and checksums; dispose owned temp/build
 outputs after finalization. Confirm shared-cache inactivity, preserve unique evidence, then delete
-recreatable caches; regeneration cost is not a KEEP reason. See [safe cleanup](development-cleanup.md) and [project status](project-status.md).
+recreatable caches; regeneration cost is not a KEEP reason. See [workspace cleanup](experiment-workspace.md) and [project status](project-status.md).
 
 ## Historical runtime material
 

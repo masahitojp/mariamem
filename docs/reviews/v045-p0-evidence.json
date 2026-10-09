@@ -1,0 +1,87 @@
+{
+  "baseline_source_commit": "8ede4ad65def07436b64801076004ff80aec0799",
+  "audit_source_commit": "d7b1c0f60591843b0e72327fba7c62d26b7a3ee4",
+  "production_runtime_changed": false,
+  "guest_or_generated_source_changed": false,
+  "platform": "darwin-arm64",
+  "tools": {
+    "go": "1.26.8",
+    "python": "3.14.8",
+    "pytest": "9.1.1",
+    "pymysql": "1.2.3"
+  },
+  "checks": [
+    {
+      "name": "source Python check",
+      "passed": 466,
+      "skipped": 31,
+      "subtests_passed": 12,
+      "seconds": 23.24,
+      "command": "PYTHONPATH=python python scripts/verify.py check --scope python"
+    },
+    {
+      "name": "wire migration real current guest",
+      "passed": 7,
+      "skipped": 0,
+      "seconds": 2.42,
+      "command": "MARIAMEM_TEST_DEFAULT=1 MARIAMEM_TEST_HOST=<Go1.26.8 built host> PYTHONPATH=python GOMAXPROCS=2 python -m pytest tests/test_python_wire.py -q"
+    },
+    {
+      "name": "final focused scope/release/asset/reducer/repro tests",
+      "passed": 143,
+      "seconds": 4.31,
+      "command": "PYTHONPATH=python python -m pytest tests/test_development_scope.py tests/test_runtime_validation.py tests/test_v04_verification_scope.py tests/test_published_assets.py tests/test_measurement_summary.py tests/test_generated_runtime_inventory.py tests/test_guest_repro_tools.py tests/test_release_docs.py -q"
+    },
+    {
+      "name": "canonical committed generated inventory",
+      "result": "PASS",
+      "command": "python scripts/verify_generated_runtime.py"
+    },
+    {
+      "name": "public source boundary",
+      "result": "PASS",
+      "files": 689,
+      "command": "python scripts/check_public.py"
+    },
+    {
+      "name": "diff whitespace",
+      "result": "PASS",
+      "command": "git diff --check"
+    },
+    {
+      "name": "final documentation/public boundary",
+      "result": "PASS",
+      "files": 691,
+      "command": "python scripts/verify.py check --scope docs"
+    },
+    {
+      "name": "Development workflow YAML parse",
+      "result": "PASS",
+      "command": "ruby YAML.load_file(.github/workflows/check.yml)"
+    }
+  ],
+  "not_run": [
+    "Ubuntu runtime execution",
+    "full source-to-WASM regeneration",
+    "full platform acceptance",
+    "Snapshot characterization",
+    "crossover",
+    "product comparison"
+  ],
+  "limitations": [
+    "First sandbox wire attempt could not bind localhost; counted as environmental error, not correctness evidence.",
+    "Existing v0.4.4 reproduction evidence remains historical exact-source evidence; new tools/tests are not claimed to have received a full rebuild."
+  ],
+  "changed_input_sha256": {
+    "scripts/development_scope.py": "dcfd58d73284347187823251c16a2097f17bf972bcd97136435f3681439cbee7",
+    "scripts/verify.py": "1071d0ee2ee33d4286296c162c4457759a763935b30ed7285eeaf999afc1499d",
+    "scripts/published_assets.py": "83debad726453347674682875719fbb2a7c12c8ec57139a92c79b1cd7dc1b87d",
+    ".github/workflows/check.yml": "8fad0e0f86a81305011f4d480ad0b443b70930cce405ed903c35639d30d61677",
+    "tests/test_python_wire.py": "73bcde817a6a1b411305c4d6a6c949a142739acc1377a877d4f5ec074b062fc5",
+    "tests/support/wire_acceptance.py": "28556a7512730ec0b0afbee9fe736665e86f5efbb4e3f8da5bbe622ee5dd786d",
+    "benchmarks/measurement_summary.py": "80c1be8329b836f6090353e501dd97403fea500f06223153e9a99555c145c582"
+  },
+  "runtime_inventory_count": 115,
+  "runtime_inventory_sha256": "d8663ff3de27e702cd616cf733fd51733ad218dd3dd27c8a055c6545fc48251b",
+  "p0_commit": "00785e7dba74c2095de975bc07810b049a53bdcd"
+}

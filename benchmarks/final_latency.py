@@ -15,9 +15,7 @@ from isolation_baseline import percentile, summarize, summarize_stages
 from stage_report import render as render_stages
 
 
-def distribution(values):
-    return {'count': len(values), 'min': min(values), 'p50': percentile(values, .5),
-            'p95': percentile(values, .95), 'max': max(values)}
+from measurement_summary import distribution
 
 
 def runner_metadata(native):

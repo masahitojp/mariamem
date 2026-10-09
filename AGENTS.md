@@ -61,7 +61,7 @@ For an explicitly versioned release request, use the repository-local
 `.agents/skills/release/SKILL.md` (`$release vX.Y.Z-alpha.N`). It prepares and
 submits the existing workflow; it never chooses the release version.
 
-0.2 architecture experiments use `experiment/<short-purpose>` branches (for
+Architecture experiments use `experiment/<short-purpose>` branches (for
 example `experiment/wasix-continuation` or `experiment/storage-overlay`). Main
 remains the stable product/measurement baseline: production behavior,
 instrumentation, benchmarks, diagnostics, analysis and low-risk tooling.

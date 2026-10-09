@@ -128,7 +128,7 @@ def restore_all(root,commit,candidate_run,evidence_run):
 
 def public_smoke(root,commit,platform,publication,repository):
     from generated_release_acceptance import accept
-    from ci_release_public_smoke import verify_downloads
+    from published_assets import verify_downloads
     from generated_release import expected_names
     record=read(publication); require(record['status']=='PUBLISHED' and record['source_commit']==commit,'publication not accepted')
     require(set(record['assets'])==expected_names(version(root)['PYTHON_VERSION'])|{'SHA256SUMS'},'published asset contract differs')

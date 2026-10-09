@@ -11,9 +11,9 @@ from pathlib import Path
 import subprocess
 from types import SimpleNamespace
 from _common import ROOT, environment
-from final_latency import distribution
+from measurement_summary import distribution
 from isolation_baseline import percentile
-from memory_envelope import summarize
+from measurement_summary import summarize_resources as summarize
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
@@ -46,7 +46,7 @@ def main():
     report['helper_sha256']=hashlib.sha256(helper.read_bytes()).hexdigest()
     report['helper_source_sha256']=hashlib.sha256((ROOT/'benchmarks/tools/process_cost.c').read_bytes()).hexdigest()
     if not native:report['boundary']='public Go Start/Fork; compiled guest identity + snapshot verification + MySQL wire + first SQL; 1000-row fixture; same process hosts all instances'
-    report['harness_sha256']={str(f.relative_to(ROOT)):hashlib.sha256(f.read_bytes()).hexdigest() for f in [Path(__file__),*sorted((ROOT/'benchmarks/goisolation').glob('*.go'))]}
+    report['harness_sha256']={str(f.relative_to(ROOT)):hashlib.sha256(f.read_bytes()).hexdigest() for f in [Path(__file__),ROOT/'benchmarks/measurement_summary.py',*sorted((ROOT/'benchmarks/goisolation').glob('*.go'))]}
     env=os.environ.copy()
     for k in ['MARIAMEM_TIMING_DIR','MARIAMEM_INIT_DIAGNOSTICS','MARIAMEM_MEMORY_DIAGNOSTICS','MARIAMEM_COST_HELPER','MARIAMEM_NATIVE_DIR','MARIAMEM_RUNTIME']:env.pop(k,None)
     def save():out.write_text(json.dumps(report,indent=2)+'\n')
