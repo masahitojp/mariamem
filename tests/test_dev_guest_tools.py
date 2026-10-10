@@ -147,3 +147,25 @@ def test_missing_installation_provenance_rejected(tmp_path):
 def test_external_release_namespace_rejected(tmp_path):
     with pytest.raises(ValueError,match='namespace'):
         dev.external_output(tmp_path/'source',tmp_path/'other-checkout/build/generated-release')
+
+
+def test_historical_guest_origin_allows_only_bound_host_stage_changes(tmp_path):
+    root=tmp_path/'repo';(root/'scripts').mkdir(parents=True)
+    (root/'guest').mkdir()
+    (root/'scripts/dev_guest.py').write_text('old host stage')
+    (root/'guest/source.patch').write_text('guest patch')
+    def git(*args):
+        return subprocess.check_output(['git',*args],cwd=root,text=True)
+    git('init','-q');git('config','user.name','fixture');git('config','user.email','fixture@example.invalid')
+    git('add','.');git('commit','-qm','guest origin')
+    origin=dev.source_identity(root)
+    (root/'scripts/dev_guest.py').write_text('fixed host stage')
+    git('add','.');git('commit','-qm','host fix')
+    dev.verify_source_origin(root,origin)
+    wrong=copy.deepcopy(origin);wrong['files_sha256']['scripts/dev_guest.py']='f'*64
+    with pytest.raises(ValueError,match='historical source hash'):
+        dev.verify_source_origin(root,wrong)
+    (root/'guest/source.patch').write_text('different guest')
+    git('add','.');git('commit','-qm','guest change')
+    with pytest.raises(ValueError,match='fresh guest build'):
+        dev.verify_source_origin(root,origin)

@@ -1,4 +1,5 @@
 """Bindings for the explicit UNQUALIFIED guest route; not release evidence."""
+import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -52,11 +53,41 @@ def source_identity(root):
     return {'commit': git('rev-parse', 'HEAD').decode().strip(), 'files_sha256': files}
 
 
+def verify_source_origin(root, origin):
+    """Keep the guest's immutable origin; bind host-only fixes separately.
+
+    Unchanged source is checked against the live clean tree. For changed host
+    stage/docs/tests files, validate the old bytes against the actual Git commit.
+    Guest preparation/build/tool scripts and all other inputs still fail closed.
+    This is a narrow stage boundary, not arbitrary cross-commit receipt adoption.
+    """
+    current = source_identity(root)
+    if origin == current:
+        return
+    from git_identity import require_commit
+    try:
+        require_commit(root, origin['commit'])
+        def git(*args):
+            return subprocess.check_output(['git','-c','safe.directory='+str(root),*args],cwd=root)
+        old_names = set(git('ls-tree','-r','--name-only',origin['commit']).decode().splitlines())
+        require(set(origin['files_sha256']) == old_names, 'guest origin source inventory missing/mismatched')
+        changed = set(git('diff','--name-only',origin['commit'],current['commit']).decode().splitlines())
+        host_stages = {'scripts/dev_guest.py','scripts/generate_runtime.py','scripts/regenerate_release_guest.py'}
+        require(all(n in host_stages or n.startswith(('docs/','tests/')) for n in changed),
+                'guest source/build inputs changed; fresh guest build required')
+        for name, sha in origin['files_sha256'].items():
+            actual = (hashlib.sha256(git('show',origin['commit']+':'+name)).hexdigest()
+                      if name in changed else current['files_sha256'].get(name))
+            require(actual == sha, 'guest historical source hash mismatch: '+name)
+    except subprocess.CalledProcessError as exc:
+        raise ValueError('guest source origin is not available/verifiable') from exc
+
+
 def verify_guest(root, directory):
     directory = Path(directory)
     record = json.loads((directory/'guest.json').read_text())
     require(record['contract'] == CONTRACT and record['result'] == 'UNQUALIFIED', 'not a dev guest contract')
-    require(record['source_identity'] == source_identity(root), 'dev source identity mismatch')
+    verify_source_origin(root, record['source_identity'])
     pins = json.loads((root/'release/generated-go-toolchain.json').read_text())
     tools = record['toolchain']
     require(tools['pins_sha256'] == digest(root/'release/generated-go-toolchain.json') and
@@ -116,6 +147,7 @@ def regenerate_development(root, guest, output):
     from build_generated_guest import download
     from build_feedback import go_environment, run
     record = verify_guest(root, guest)
+    host_identity = source_identity(root)
     out = external_output(root, output)
     out.mkdir(parents=True)
     env = go_environment(dict(os.environ, GOTOOLCHAIN='go1.26.8', GOWORK='off', GOENV='off'))
@@ -144,16 +176,18 @@ def regenerate_development(root, guest, output):
         write(out/'installation-inputs.json', inputs)
         # Only committed source is copied; never old generated code/native binaries.
         product = out/'product'
-        for name in record['source_identity']['files_sha256']:
+        for name in host_identity['files_sha256']:
             if name.startswith('internal/generatedgo/'):
                 continue
             target = product/name
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(root/name, target)
+        staged_runtime = out/'generatedgo'
         runtime = product/'internal/generatedgo'
         run([sys.executable, str(root/'scripts/generate_runtime.py'), '--source-module', str(module),
-             '--development-input', str(out/'installation-inputs.json'), '--output', str(runtime)],
-            env=env, check=True, phase='dev:installation', outputs=[runtime/'provenance.json'])
+             '--development-input', str(out/'installation-inputs.json'), '--output', str(staged_runtime)],
+            env=env, check=True, phase='dev:installation', outputs=[staged_runtime/'provenance.json'])
+        shutil.move(str(staged_runtime), runtime)
         # The compiled host compatibility identity must refer to this guest too.
         kind = product/'internal/runtimekind/kind.go'
         old = json.loads((root/'release/generated-go-inputs.json').read_text())['guest_sha256']
@@ -175,10 +209,13 @@ def regenerate_development(root, guest, output):
         smoke_env = dict(env, PYTHONPATH=str(product/'python'), MARIAMEM_TEST_HOST=str(host))
         run([sys.executable, '-m', 'pytest', str(root/'tests/test_dev_guest_smoke.py'), '-q'],
             cwd=product, env=smoke_env, check=True, phase='dev:sql-smoke', inputs=[host])
-        require(verify_guest(root,guest) == record and inventory(runtime) == generated_inventory,
+        require(verify_guest(root,guest) == record and source_identity(root) == host_identity and
+                inventory(runtime) == generated_inventory and
+                all(digest(product/name) == sha for name,sha in host_sources.items()),
                 'source/guest/generated identity changed during smoke')
         write(out/'development.json', {'contract':CONTRACT, 'result':'UNQUALIFIED',
               'smoke':'PASS', 'source_identity':record['source_identity'],
+              'host_source_identity':host_identity,
               'guest_sha256':record['guest_sha256'], 'guest_record_sha256':digest(guest/'guest.json'),
               'raw_translation':raw, 'generated_inventory':generated_inventory,
               'host_source_inventory':host_sources,
