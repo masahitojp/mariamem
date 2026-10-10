@@ -32,6 +32,10 @@ func main() {
 	if err := pool.Close(); err != nil {
 		panic(err)
 	}
+	// Client Close returns before the server necessarily finishes COM_QUIT cleanup.
+	if err := db.WaitDisconnected(ctx); err != nil {
+		panic(err)
+	}
 	baseline, err := db.Snapshot(ctx, mariamem.SnapshotOptions{})
 	if err != nil {
 		panic(err)
