@@ -31,6 +31,8 @@ advanced derived artifacts: code/data inputs remain reproducible and the user
 owns freshness, regeneration and deletion policy.
 
 Python `load_snapshot(path)` acquires such a baseline without starting a DB.
+The v0.4.6 Go candidate adds `LoadSnapshot(ctx, path, opts)` with the same
+validated-owned-backing contract; syntax and options remain language-specific.
 Existing constructor/open/start entrances remain available, but ordinary guides
 prefer module acquisition and lifecycle operations. Internal path, manifest and
 validation methods are not public concepts.

@@ -1,0 +1,450 @@
+{
+  "cleanup": {
+    "all_close_calls_succeeded": true
+  },
+  "completed": true,
+  "go_build_info": {
+    "GoVersion": "go1.27.1",
+    "Path": "github.com/masahitojp/mariamem/benchmarks/competitive",
+    "Main": {
+      "Path": "github.com/masahitojp/mariamem/benchmarks/competitive",
+      "Version": "v0.0.0-20261010042815-5824ed1f205c"
+    },
+    "Deps": [
+      {
+        "Path": "dario.cat/mergo",
+        "Version": "v1.0.2",
+        "Sum": "h1:85+piFYR1tMbRrLcDwR18y4UKJ3aH1Tbzi24VRW1TK8="
+      },
+      {
+        "Path": "filippo.io/edwards25519",
+        "Version": "v1.1.0",
+        "Sum": "h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA="
+      },
+      {
+        "Path": "github.com/cenkalti/backoff/v4",
+        "Version": "v4.3.0",
+        "Sum": "h1:MyRJ/UdXutAwSAT+s3wNd7MfTIcy71VQueUuFK343L8="
+      },
+      {
+        "Path": "github.com/cespare/xxhash/v2",
+        "Version": "v2.3.0",
+        "Sum": "h1:UL815xU9SqsFlibzuggzjXhog7bL6oX9BbNZnL2UFvs="
+      },
+      {
+        "Path": "github.com/containerd/errdefs",
+        "Version": "v1.0.0",
+        "Sum": "h1:tg5yIfIlQIrxYtu9ajqY42W3lpS19XqdxRQeEwYG8PI="
+      },
+      {
+        "Path": "github.com/containerd/errdefs/pkg",
+        "Version": "v0.3.0",
+        "Sum": "h1:9IKJ06FvyNlexW690DXuQNx2KA2cUJXx151Xdx3ZPPE="
+      },
+      {
+        "Path": "github.com/containerd/log",
+        "Version": "v0.1.0",
+        "Sum": "h1:TCJt7ioM2cr/tfR8GPbGf9/VRAX8D2B4PjzCpfX540I="
+      },
+      {
+        "Path": "github.com/containerd/platforms",
+        "Version": "v0.2.1",
+        "Sum": "h1:zvwtM3rz2YHPQsF2CHYM8+KtB5dvhISiXh5ZpSBQv6A="
+      },
+      {
+        "Path": "github.com/cpuguy83/dockercfg",
+        "Version": "v0.3.2",
+        "Sum": "h1:DlJTyZGBDlXqUZ2Dk2Q3xHs/FtnooJJVaad2S9GKorA="
+      },
+      {
+        "Path": "github.com/distribution/reference",
+        "Version": "v0.6.0",
+        "Sum": "h1:0IXCQ5g4/QMHHkarYzh5l+u8T3t73zM5QvfrDyIgxBk="
+      },
+      {
+        "Path": "github.com/docker/docker",
+        "Version": "v28.5.1+incompatible",
+        "Sum": "h1:Bm8DchhSD2J6PsFzxC35TZo4TLGR2PdW/E69rU45NhM="
+      },
+      {
+        "Path": "github.com/docker/go-connections",
+        "Version": "v0.6.0",
+        "Sum": "h1:LlMG9azAe1TqfR7sO+NJttz1gy6KO7VJBh+pMmjSD94="
+      },
+      {
+        "Path": "github.com/docker/go-units",
+        "Version": "v0.5.0",
+        "Sum": "h1:69rxXcBk27SvSaaxTtLh/8llcHD8vYHT7WSdRZ/jvr4="
+      },
+      {
+        "Path": "github.com/ebitengine/purego",
+        "Version": "v0.8.4",
+        "Sum": "h1:CF7LEKg5FFOsASUj0+QwaXf8Ht6TlFxg09+S9wz0omw="
+      },
+      {
+        "Path": "github.com/felixge/httpsnoop",
+        "Version": "v1.1.0",
+        "Sum": "h1:3YtUj32ZZkqZtt3sZZsClsymw/QDuVfpNhoA31zeORc="
+      },
+      {
+        "Path": "github.com/go-logr/logr",
+        "Version": "v1.4.4",
+        "Sum": "h1:tG4xh9yMsRCAiodLVTxyrkzSZ9+o0L1Kg/+cPVcbP/8="
+      },
+      {
+        "Path": "github.com/go-logr/stdr",
+        "Version": "v1.2.2",
+        "Sum": "h1:hSWxHoqTgW2S2qGc0LTAI563KZ5YKYRhT3MFKZMbjag="
+      },
+      {
+        "Path": "github.com/go-sql-driver/mysql",
+        "Version": "v1.9.3",
+        "Sum": "h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo="
+      },
+      {
+        "Path": "github.com/google/uuid",
+        "Version": "v1.6.0",
+        "Sum": "h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0="
+      },
+      {
+        "Path": "github.com/klauspost/compress",
+        "Version": "v1.18.0",
+        "Sum": "h1:c/Cqfb0r+Yi+JtIEq73FWXVkRonBlf0CRNYc8Zttxdo="
+      },
+      {
+        "Path": "github.com/magiconair/properties",
+        "Version": "v1.8.10",
+        "Sum": "h1:s31yESBquKXCV9a/ScB3ESkOjUYYv+X0rg8SYxI99mE="
+      },
+      {
+        "Path": "github.com/masahitojp/mariamem",
+        "Version": "v0.2.0-alpha.1",
+        "Replace": {
+          "Path": "../..",
+          "Version": "(devel)"
+        }
+      },
+      {
+        "Path": "github.com/moby/docker-image-spec",
+        "Version": "v1.3.1",
+        "Sum": "h1:jMKff3w6PgbfSa69GfNg+zN/XLhfXJGnEx3Nl2EsFP0="
+      },
+      {
+        "Path": "github.com/moby/go-archive",
+        "Version": "v0.1.0",
+        "Sum": "h1:Kk/5rdW/g+H8NHdJW2gsXyZ7UnzvJNOy6VKJqueWdcQ="
+      },
+      {
+        "Path": "github.com/moby/patternmatcher",
+        "Version": "v0.6.0",
+        "Sum": "h1:GmP9lR19aU5GqSSFko+5pRqHi+Ohk1O69aFiKkVGiPk="
+      },
+      {
+        "Path": "github.com/moby/sys/sequential",
+        "Version": "v0.6.0",
+        "Sum": "h1:qrx7XFUd/5DxtqcoH1h438hF5TmOvzC/lspjy7zgvCU="
+      },
+      {
+        "Path": "github.com/moby/sys/user",
+        "Version": "v0.4.0",
+        "Sum": "h1:jhcMKit7SA80hivmFJcbB1vqmw//wU61Zdui2eQXuMs="
+      },
+      {
+        "Path": "github.com/moby/term",
+        "Version": "v0.5.0",
+        "Sum": "h1:xt8Q1nalod/v7BqbG21f8mQPqH+xAaC9C3N3wfWbVP0="
+      },
+      {
+        "Path": "github.com/morikuni/aec",
+        "Version": "v1.0.0",
+        "Sum": "h1:nP9CBfwrvYnBRgY6qfDQkygYDmYwOilePFkwzv4dU8A="
+      },
+      {
+        "Path": "github.com/opencontainers/go-digest",
+        "Version": "v1.0.0",
+        "Sum": "h1:apOUWs51W5PlhuyGyz9FCeeBIOUDA/6nW8Oi/yOhh5U="
+      },
+      {
+        "Path": "github.com/opencontainers/image-spec",
+        "Version": "v1.1.1",
+        "Sum": "h1:y0fUlFfIZhPF1W537XOLg0/fcx6zcHCJwooC2xJA040="
+      },
+      {
+        "Path": "github.com/pkg/errors",
+        "Version": "v0.9.1",
+        "Sum": "h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4="
+      },
+      {
+        "Path": "github.com/shirou/gopsutil/v4",
+        "Version": "v4.25.6",
+        "Sum": "h1:kLysI2JsKorfaFPcYmcJqbzROzsBWEOAtw6A7dIfqXs="
+      },
+      {
+        "Path": "github.com/sirupsen/logrus",
+        "Version": "v1.9.3",
+        "Sum": "h1:dueUQJ1C2q9oE3F7wvmSGAaVtTmUizReu6fjN8uqzbQ="
+      },
+      {
+        "Path": "github.com/stretchr/testify",
+        "Version": "v1.12.1",
+        "Sum": "h1:EuwCh5fleGS7H32xRwO3wRGT7DxrDhLAT6FF8MpWDWE="
+      },
+      {
+        "Path": "github.com/testcontainers/testcontainers-go",
+        "Version": "v0.40.0",
+        "Sum": "h1:pSdJYLOVgLE8YdUY2FHQ1Fxu+aMnb6JfVz1mxk7OeMU="
+      },
+      {
+        "Path": "github.com/testcontainers/testcontainers-go/modules/mariadb",
+        "Version": "v0.40.0",
+        "Sum": "h1:JEzyItNjVyQ+ok2oXwwX4ZUCLa0U1kwQAnnDzndpq7w="
+      },
+      {
+        "Path": "github.com/tklauser/go-sysconf",
+        "Version": "v0.3.12",
+        "Sum": "h1:0QaGUFOdQaIVdPgfITYzaTegZvdCjmYO52cSFAEVmqU="
+      },
+      {
+        "Path": "go.opentelemetry.io/auto/sdk",
+        "Version": "v1.2.1",
+        "Sum": "h1:jXsnJ4Lmnqd11kwkBV2LgLoFMZKizbCi5fNZ/ipaZ64="
+      },
+      {
+        "Path": "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp",
+        "Version": "v0.71.0",
+        "Sum": "h1:3g7B90UzBltIDKq1/5mrTGxTnOFDV0ICOhLoxiZ8jlg="
+      },
+      {
+        "Path": "go.opentelemetry.io/otel",
+        "Version": "v1.46.0",
+        "Sum": "h1:FHt5/CDyVxi/8IM1CH7VE/rRgq3kLHa2mSTVMO8AWyc="
+      },
+      {
+        "Path": "go.opentelemetry.io/otel/metric",
+        "Version": "v1.46.0",
+        "Sum": "h1:yBnkXvgV7AXFILZc5K6IZe/CBFF3OS7BJ8ov6/lj0K8="
+      },
+      {
+        "Path": "go.opentelemetry.io/otel/trace",
+        "Version": "v1.46.0",
+        "Sum": "h1:OULy7ccdJnZtJ0UDYFOIGaCmiWzJ8Vi2G/Rsu60qs1c="
+      },
+      {
+        "Path": "go.yaml.in/yaml/v3",
+        "Version": "v3.0.5",
+        "Sum": "h1:N6y/pJk8buWs9NY5ERU2HSMfm+IuD/OtfdAnq6kESPw="
+      },
+      {
+        "Path": "golang.org/x/crypto",
+        "Version": "v0.54.0",
+        "Sum": "h1:YLIA59K4fiNzHzjnZt2tUJQjQtUWfWbeHBqKtk3eScw="
+      },
+      {
+        "Path": "golang.org/x/sys",
+        "Version": "v0.48.0",
+        "Sum": "h1:bbX/i/6MgT9BVLM9RT1thmxL04yeTAhbEz4SyadbXoo="
+      }
+    ],
+    "Settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "DefaultGODEBUG",
+        "Value": "tracebacklabels=0,x509sslcertoverrideplatform=0"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "1"
+      },
+      {
+        "Key": "CGO_CFLAGS"
+      },
+      {
+        "Key": "CGO_CPPFLAGS"
+      },
+      {
+        "Key": "CGO_CXXFLAGS"
+      },
+      {
+        "Key": "CGO_LDFLAGS"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "arm64"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "darwin"
+      },
+      {
+        "Key": "GOARM64",
+        "Value": "v8.0"
+      },
+      {
+        "Key": "vcs",
+        "Value": "git"
+      },
+      {
+        "Key": "vcs.revision",
+        "Value": "5824ed1f205c84fc67574d6896afba412b57188b"
+      },
+      {
+        "Key": "vcs.time",
+        "Value": "2026-10-10T04:28:15Z"
+      },
+      {
+        "Key": "vcs.modified",
+        "Value": "false"
+      }
+    ]
+  },
+  "mode": "testcontainers-schema-reset",
+  "runner_cpu_seconds": 0.156864,
+  "runner_maxrss_raw": 23511040,
+  "samples": [
+    {
+      "cleanup_seconds": 0.000081583,
+      "container_id": "2ba1340e296649557ce187f048d9a9ad8c9fc107a25682048f97afe45a36c385",
+      "fixture_ready_seconds": 0.016086542,
+      "observed_test_wall_seconds": 0.070230375,
+      "ready_cost": {
+        "cgroup_v2_memory_peak_bytes": 160808960,
+        "cpu_seconds": 5.37556,
+        "mechanism": "Docker cgroup since container creation; includes entrypoint/init",
+        "memory_stats": {
+          "active_anon": 129449984,
+          "active_file": 0,
+          "anon": 129728512,
+          "anon_thp": 98566144,
+          "file": 11644928,
+          "file_dirty": 2605056,
+          "file_mapped": 69632,
+          "file_writeback": 0,
+          "inactive_anon": 0,
+          "inactive_file": 11636736,
+          "kernel_stack": 229376,
+          "pgactivate": 0,
+          "pgdeactivate": 0,
+          "pgfault": 91775,
+          "pglazyfree": 0,
+          "pglazyfreed": 0,
+          "pgmajfault": 0,
+          "pgrefill": 0,
+          "pgscan": 0,
+          "pgsteal": 0,
+          "shmem": 0,
+          "slab": 2111880,
+          "slab_reclaimable": 1640456,
+          "slab_unreclaimable": 471424,
+          "sock": 0,
+          "thp_collapse_alloc": 0,
+          "thp_fault_alloc": 241,
+          "unevictable": 0,
+          "workingset_activate": 0,
+          "workingset_nodereclaim": 0,
+          "workingset_refault": 0
+        },
+        "memory_usage_bytes": 145387520,
+        "peak_memory_bytes_if_available": 0
+      },
+      "resource_observation_seconds": 0.049604334,
+      "schema_reset_migration_fixture_seconds": 0.015633625,
+      "test": 0,
+      "test_sql_seconds": 0.001439959
+    },
+    {
+      "cleanup_seconds": 0.000027625,
+      "container_id": "2ba1340e296649557ce187f048d9a9ad8c9fc107a25682048f97afe45a36c385",
+      "fixture_ready_seconds": 0.015327875,
+      "observed_test_wall_seconds": 0.016757041,
+      "schema_reset_migration_fixture_seconds": 0.014756542,
+      "test": 1,
+      "test_sql_seconds": 0.001399209
+    },
+    {
+      "cleanup_seconds": 0.000021458,
+      "container_id": "2ba1340e296649557ce187f048d9a9ad8c9fc107a25682048f97afe45a36c385",
+      "fixture_ready_seconds": 0.017305333,
+      "observed_test_wall_seconds": 0.018900625,
+      "schema_reset_migration_fixture_seconds": 0.016872959,
+      "test": 2,
+      "test_sql_seconds": 0.001570458
+    },
+    {
+      "cleanup_seconds": 0.000111625,
+      "container_id": "2ba1340e296649557ce187f048d9a9ad8c9fc107a25682048f97afe45a36c385",
+      "fixture_ready_seconds": 0.015964916,
+      "observed_test_wall_seconds": 0.068344833,
+      "ready_cost": {
+        "cgroup_v2_memory_peak_bytes": 160808960,
+        "cpu_seconds": 5.401939,
+        "mechanism": "Docker cgroup since container creation; includes entrypoint/init",
+        "memory_stats": {
+          "active_anon": 130011136,
+          "active_file": 0,
+          "anon": 130027520,
+          "anon_thp": 98566144,
+          "file": 11653120,
+          "file_dirty": 2605056,
+          "file_mapped": 69632,
+          "file_writeback": 0,
+          "inactive_anon": 0,
+          "inactive_file": 11649024,
+          "kernel_stack": 229376,
+          "pgactivate": 0,
+          "pgdeactivate": 0,
+          "pgfault": 93050,
+          "pglazyfree": 0,
+          "pglazyfreed": 0,
+          "pgmajfault": 0,
+          "pgrefill": 0,
+          "pgscan": 0,
+          "pgsteal": 0,
+          "shmem": 0,
+          "slab": 2119304,
+          "slab_reclaimable": 1643120,
+          "slab_unreclaimable": 476184,
+          "sock": 0,
+          "thp_collapse_alloc": 0,
+          "thp_fault_alloc": 243,
+          "unevictable": 0,
+          "workingset_activate": 0,
+          "workingset_nodereclaim": 0,
+          "workingset_refault": 0
+        },
+        "memory_usage_bytes": 145956864,
+        "peak_memory_bytes_if_available": 0
+      },
+      "resource_observation_seconds": 0.051139834,
+      "schema_reset_migration_fixture_seconds": 0.015579708,
+      "test": 3,
+      "test_sql_seconds": 0.001125958
+    }
+  ],
+  "schema_version": 1,
+  "server_settings": {
+    "aria_pagecache_buffer_size": "134217728",
+    "innodb_buffer_pool_size": "134217728",
+    "innodb_flush_log_at_trx_commit": "1",
+    "key_buffer_size": "134217728",
+    "skip_grant_tables": "OFF",
+    "sync_binlog": "0"
+  },
+  "server_version": "12.3.3-MariaDB-ubu2404",
+  "setup": {
+    "first_sql_seconds": 6.510293584
+  },
+  "setup_wall_seconds": 6.510619958,
+  "source_commit": "ff43ffef6ded67b3f37079831acc9f8e5bad8226",
+  "suite_cleanup_seconds": 0.186094125,
+  "suite_wall_seconds": 6.872712875,
+  "tests": 4,
+  "waited_children_cpu_seconds": 0.043774,
+  "waited_children_maxrss_raw": 29933568
+}

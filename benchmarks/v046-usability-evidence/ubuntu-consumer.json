@@ -1,0 +1,56 @@
+{
+  "source_identity": "8f19dd85cd6e39b94c32b6bf66ae0c9b03e09e6b56687b4dc9e375088fc212c2",
+  "sdk_sha256": "ecbadb99091a3f46e31f5f934b068b1864eafa7995211b39eaddf76996045fe5",
+  "execution": "linux/amd64 Ubuntu24.04 under Docker Desktop arm64 emulation",
+  "GOTOOLCHAIN": "local",
+  "compiler": "go version go1.27.2 linux/amd64",
+  "image_digest": "sha256:534baea6a22c03a63003dbc8dbe78fe34bc0d7e595d9a9dc9834884ff530eb55",
+  "external_module": {
+    "Path": "github.com/masahitojp/mariamem",
+    "Version": "v0.4.5",
+    "Time": "2026-09-29T00:00:00Z",
+    "Dir": "/w/temp/linux-gomodcache/github.com/masahitojp/mariamem@v0.4.5",
+    "GoMod": "/w/temp/linux-gomodcache/cache/download/github.com/masahitojp/mariamem/@v/v0.4.5.mod",
+    "GoVersion": "1.26.0",
+    "Sum": "h1:F7IL82bLBLJh8XoJsKpjf04IhLyjLZ6L7x+bbAmAuP8=",
+    "GoModSum": "h1:aexYk5YouQtRKB87Wnb+gPmSvbN6NmVG8P+w+ylpn2E="
+  },
+  "ordinary_build": "PASS",
+  "ordinary_app": "Start, SELECT 1, Snapshot, Fork, SELECT 1, Close: PASS",
+  "tests": [
+    "=== RUN   TestDefaultNoBundleAndForkIsolation",
+    "--- PASS: TestDefaultNoBundleAndForkIsolation (4.98s)",
+    "=== RUN   TestDefaultRepeatedConcurrentLifecycle",
+    "--- PASS: TestDefaultRepeatedConcurrentLifecycle (1.33s)",
+    "=== RUN   TestDefaultReleaseFailurePaths",
+    "[mysql] 2026/10/10 04:19:58 connection.go:706 closing bad idle connection: EOF",
+    "[mysql] 2026/10/10 04:19:58 connection.go:706 closing bad idle connection: EOF",
+    "=== RUN   TestDefaultReleaseFailurePaths/unusable_temporary_directory",
+    "=== NAME  TestDefaultReleaseFailurePaths",
+    "    failure_paths_test.go:210: FDs=13\u219213 goroutines=2\u21922",
+    "--- PASS: TestDefaultReleaseFailurePaths (6.45s)",
+    "    --- PASS: TestDefaultReleaseFailurePaths/unusable_temporary_directory (0.00s)",
+    "=== RUN   TestClosedDatabaseRetainedPipeLifetime",
+    "    fd_lifetime_test.go:100: retained closed handles=6 descriptors before=13 after=13",
+    "--- PASS: TestClosedDatabaseRetainedPipeLifetime (5.38s)",
+    "=== RUN   TestLoadSnapshotPersistedLifecycle",
+    "--- PASS: TestLoadSnapshotPersistedLifecycle (4.89s)",
+    "=== RUN   TestExternalTransactionsAndCleanup",
+    "    transactions_test.go:19: compiler=go1.27.2 GOTOOLCHAIN=local",
+    "    transactions_test.go:37: sessions=2,3 goroutines before=2 after=2 temporary_entries=0",
+    "--- PASS: TestExternalTransactionsAndCleanup (3.35s)",
+    "PASS"
+  ],
+  "cleanup": {
+    "FD": [
+      13,
+      13
+    ],
+    "goroutines": [
+      2,
+      2
+    ],
+    "temporary_entries": 0,
+    "ordinary_residue": ""
+  }
+}

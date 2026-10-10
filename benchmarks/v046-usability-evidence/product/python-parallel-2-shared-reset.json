@@ -1,0 +1,63 @@
+{
+  "mode": "shared-reset",
+  "rows": 10240,
+  "tables": 8,
+  "workers": 4,
+  "count": 4,
+  "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+  "samples": [
+    {
+      "index": 0,
+      "ready_seconds": 0.03785954200429842,
+      "server_version": "12.3.3-MariaDB-ubu2404",
+      "prepare_seconds": 1.1424318750505336,
+      "sql_seconds": 0.1043593329959549,
+      "resource_observation_seconds": 1.374981366097927e-06,
+      "cleanup_seconds": 0.07233391603222117,
+      "test_seconds": 1.3569947920041159
+    },
+    {
+      "index": 1,
+      "ready_seconds": 0.037717250001151115,
+      "server_version": "12.3.3-MariaDB-ubu2404",
+      "prepare_seconds": 1.1464261660003103,
+      "sql_seconds": 0.09671891701873392,
+      "resource_observation_seconds": 9.59029421210289e-07,
+      "cleanup_seconds": 0.07719645800534636,
+      "test_seconds": 1.3580685000051744
+    },
+    {
+      "index": 2,
+      "ready_seconds": 0.037725666945334524,
+      "server_version": "12.3.3-MariaDB-ubu2404",
+      "prepare_seconds": 1.1355947920237668,
+      "sql_seconds": 0.10050866700476035,
+      "resource_observation_seconds": 3.7497375160455704e-07,
+      "cleanup_seconds": 0.0741789999883622,
+      "test_seconds": 1.3480168329551816
+    },
+    {
+      "index": 3,
+      "ready_seconds": 0.037359834008384496,
+      "server_version": "12.3.3-MariaDB-ubu2404",
+      "prepare_seconds": 1.2247587500023656,
+      "sql_seconds": 0.07619308400899172,
+      "resource_observation_seconds": 6.249756552278996e-07,
+      "cleanup_seconds": 0.06349316600244492,
+      "test_seconds": 1.4018112500198185
+    }
+  ],
+  "completed": true,
+  "shared_start_seconds": 6.637312042003032,
+  "shared_resource_observation_seconds": 0.013899417011998594,
+  "shared_after_sql_resources": {
+    "memory_bytes": 191488000,
+    "cpu_seconds": 6.366972
+  },
+  "suite_wall_seconds": 8.277125499967951,
+  "runner_and_reaped_host_cpu_seconds": 0.743881,
+  "cpu_scope": "Python runner + reaped host/helper children; excludes Docker daemon/VM/container CPU",
+  "resource_observation_scope": "after-SQL sample, not peak; container CPU since start, shared cumulative; OS helper returns RSS/physical footprint",
+  "suite_resource_observation_seconds": 3.3339601941406727e-06,
+  "source_commit": "ff43ffef6ded67b3f37079831acc9f8e5bad8226"
+}

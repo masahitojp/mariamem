@@ -9,7 +9,7 @@ External-module consumers passed on **macOS arm64** using Go **1.26.8,
 1.27.0, 1.27.1 and 1.27.2**, with `GOTOOLCHAIN=local` and actual compiler versions
 recorded. Coverage included import/build, Start/SQL/Close, Snapshot/Fork,
 multiple connections, commit/rollback and cleanup. These are accepted product
-results; a separate reduced compiler reproducer does not invalidate them.
+results.
 
 **Ubuntu 24.04 x86_64 / Go 1.27.2** passed the same bounded external consumer
 checks, including the new Go `LoadSnapshot` lifecycle. Actual compiler:
@@ -23,3 +23,7 @@ These checks use an exact-source private module-proxy fixture without a Go
 `replace` directive. Public-tag/artifact consumer qualification remains a final
 release gate. Supported platforms and release evidence are separate from the
 minimum language directive. No generated/runtime workaround is included.
+
+The new `LoadSnapshot` API also passed focused macOS consumer/lifecycle checks
+with Go 1.26.8 and 1.27.1. See the [v0.4.6 review](reviews/v046-human-review.md)
+for exact scope, Ubuntu evidence and release gates.

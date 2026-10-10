@@ -125,10 +125,9 @@ fixture hashes, trials, workers, and phase boundaries. Measure setup, Snapshot,
 startup, SQL, cleanup, suite total, CPU and resource footprint. Keep parallel
 scalability measurements separate from simultaneous benchmark campaigns.
 
-The earlier native/container pilot used different MariaDB versions and is not a
-comparable performance result. Pin comparable versions where practical; if
-guarantees or workloads cannot be fairly aligned, return that concrete issue to
-Human Review rather than treating all approaches as equivalent. Separate results
+The accepted bounded comparison uses native MariaDB 12.3.3 and embedded 13.1.
+Record version/settings and isolation differences. Use measured time differences
+to assess product usefulness, without attributing them to engine-speed superiority. Separate results
 where isolation deliberately differs. Container acquisition/image pull conditions
 must be reported separately from warm suite runs.
 
@@ -140,8 +139,8 @@ universal size threshold. No Snapshot optimization is authorized.
 
 ## Ordered implementation gates
 
-1. Finish v0.4.5 publication; rebase this plan onto released main and inspect
-   actual differences. No automatic main integration.
+1. Implementation uses pinned main `0fef33c752053d3bd1e180f9e46f4a301cfcd5eb`;
+   no automatic main integration or publication.
 2. Finalize minimal Load wrapper, implement it and focused import/lifetime tests.
 3. Execute A–F semantic scenarios in Go/Python; record exact native evidence.
 4. Align README/guides, execute public examples, inspect links and scope.
@@ -151,4 +150,6 @@ universal size threshold. No Snapshot optimization is authorized.
 
 No new APIs beyond Go loading, guest migration, cache management, shared mutable
 fixtures, CI trust-model redesign, Fast Feedback redesign or Snapshot optimization.
-This planning branch is not a release candidate.
+Implementation and bounded validation are recorded in
+[v0.4.6 Human Review](v046-human-review.md). Final-artifact qualification and
+release preparation remain separate.

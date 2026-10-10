@@ -24,7 +24,7 @@ cache freshness, regeneration or deletion. Diagnostics do not define the normal
 Snapshot lifecycle. These are product choices independent of reference-project
 APIs. See the [adopted contract](decisions/snapshot-product-contract.md).
 
-## Published baseline: v0.4.4
+## Previous architecture baseline: v0.4.4
 
 [v0.4.4](https://github.com/masahitojp/mariamem/releases/tag/v0.4.4) is released
 from source `8ede4ad65def07436b64801076004ff80aec0799`; annotated tag object
@@ -54,7 +54,20 @@ release repairs remain evidence, not instructions for the current user lifecycle
 See [v0.4.3 characterization](../benchmarks/v043-characterization.md) and the
 [v0.4.4 review reports](reviews/v044-release-runtime-reuse-design.md).
 
-## v0.4.5 — Infrastructure stabilization and measurement, in progress
+## v0.4.6 — Product usability and validation, Human Review candidate
+
+The [implementation review](reviews/v046-human-review.md) records the Go
+`LoadSnapshot` candidate, Go/Python scenario acceptance and bounded product
+comparisons. Go 1.26.0, mysql client v1.9.3 and generated runtime inputs remain
+unchanged. Ubuntu Go 1.27.2 consumer execution passed under x86_64 emulation;
+native final-artifact qualification remains a release gate. No merge or release
+is authorized by these measurements.
+
+## Published baseline: v0.4.5 — Infrastructure stabilization and measurement
+
+v0.4.5 is published from `d992e26a6d110ceeb54f69d71acd1358c72abb1b`.
+The [public smoke recovery report](reviews/v045-public-smoke-recovery.md) records
+macOS success and the corrected Ubuntu smoke success with distinct identities.
 
 The [infrastructure audit](https://github.com/masahitojp/mariamem/blob/d7b1c0f60591843b0e72327fba7c62d26b7a3ee4/docs/reviews/development-infrastructure-audit.md)
 and [bounded plan](reviews/v045-stabilization-plan.md) own the work sequence.

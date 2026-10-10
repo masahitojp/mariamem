@@ -1,0 +1,418 @@
+{
+  "source_commit": "ff43ffef6ded67b3f37079831acc9f8e5bad8226",
+  "go": "go version go1.27.1 darwin/arm64",
+  "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+  "docker_endpoint_kind": "unix socket",
+  "max_workers": 4,
+  "container_memory_limit": "768m (Python adapter)",
+  "disk_budget_gib": 12,
+  "minimum_free_gib": 8,
+  "trials": 3,
+  "benchmark_campaigns_concurrent": false,
+  "binary_sha256": {
+    "mariamem-host": "8070748075f9f979028fbd130e62c4759b815a579f51fe9336c0b2f68c72e0da",
+    "ownedprepared": "acfe7b034607074cc77b046eaf3d92d8fc54ecbba0b6847dcd8005f386ad173c",
+    "competitive": "f0dceea0d3b1d69f25fd5c3cb4f100a146eee3623af80270e08c5ceea726ded6"
+  },
+  "host": {
+    "os": "macOS Darwin 27.0.0",
+    "arch": "arm64",
+    "ram_bytes": 17179869184
+  },
+  "go_binary_source_commit": "5824ed1f205c84fc67574d6896afba412b57188b",
+  "steps": [
+    {
+      "name": "pilot-go-mariamem-fresh",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "0c83b57406421e7638bbfe5c1dfabf2579b9b41df7ba9014ea9064aee5c85295"
+    },
+    {
+      "name": "pilot-go-mariamem-prepared",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "85daa3c1e7005baa35ea1b96a99b8e4d9ede505d5fa994530e2912353b0bdc0d"
+    },
+    {
+      "name": "pilot-go-testcontainers-fresh",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "dc00d54baf7c1a015d348cf95d53ceca1b948d2613800f5e8e72675ba3c0964a"
+    },
+    {
+      "name": "pilot-go-testcontainers-schema-reset",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "437d6f0222a4a6e97e729d3eee7d6e6382ca02e9234ddbf8d9e56793ad5f340a"
+    },
+    {
+      "name": "pilot-python-fresh",
+      "returncode": 0,
+      "seconds": 2.9653761659865268
+    },
+    {
+      "name": "pilot-python-fork",
+      "returncode": 0,
+      "seconds": 1.84412062499905
+    },
+    {
+      "name": "pilot-python-testcontainers",
+      "returncode": 0,
+      "seconds": 9.944228749955073
+    },
+    {
+      "name": "pilot-python-shared-reset",
+      "returncode": 0,
+      "seconds": 7.600386665959377
+    },
+    {
+      "name": "go-light-0-fresh",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "d9dfcdaf7bab2f7a043977507948fc3c4e078f28865b5e126440b00100d6019e"
+    },
+    {
+      "name": "go-light-0-fork",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "421b375ecec2a7a6ead99631b1ab2b89a312a42d543584386be1937a59294286"
+    },
+    {
+      "name": "python-light-0-fresh",
+      "returncode": 0,
+      "seconds": 1.79455216700444
+    },
+    {
+      "name": "python-light-0-fork",
+      "returncode": 0,
+      "seconds": 3.796443375002127
+    },
+    {
+      "name": "python-light-0-testcontainers",
+      "returncode": 0,
+      "seconds": 19.939165999996476
+    },
+    {
+      "name": "python-light-0-shared-reset",
+      "returncode": 0,
+      "seconds": 7.960279334045481
+    },
+    {
+      "name": "go-fixture-0-fresh",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "90a868516a8ab18e210b765d328c89b483bb28425316ead33182c5d8f25cec0d"
+    },
+    {
+      "name": "go-fixture-0-fork",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "771f80e3129fabd8d148ffda52c5cb2f4043d7821d08a158cfd271115d25dfe1"
+    },
+    {
+      "name": "python-fixture-0-fresh",
+      "returncode": 0,
+      "seconds": 5.404341749963351
+    },
+    {
+      "name": "python-fixture-0-fork",
+      "returncode": 0,
+      "seconds": 4.014171125018038
+    },
+    {
+      "name": "python-fixture-0-testcontainers",
+      "returncode": 0,
+      "seconds": 22.583220791013446
+    },
+    {
+      "name": "python-fixture-0-shared-reset",
+      "returncode": 0,
+      "seconds": 12.443771583028138
+    },
+    {
+      "name": "go-parallel-0-fresh",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "67bd26971d4017a860240f49aab3a105722512e7a72c8915d01295c7f5d1bb7b"
+    },
+    {
+      "name": "go-parallel-0-fork",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "3416cafe9ab388ba6ef9e5b13db4dd5f28f5b5ac5a3485ef6cc896bc65311c6c"
+    },
+    {
+      "name": "python-parallel-0-fresh",
+      "returncode": 0,
+      "seconds": 3.5320326250512153
+    },
+    {
+      "name": "python-parallel-0-fork",
+      "returncode": 0,
+      "seconds": 2.9531160829938017
+    },
+    {
+      "name": "python-parallel-0-testcontainers",
+      "returncode": 0,
+      "seconds": 11.340052416955587
+    },
+    {
+      "name": "python-parallel-0-shared-reset",
+      "returncode": 0,
+      "seconds": 9.310429957986344
+    },
+    {
+      "name": "go-native-fixture-0-mariamem-fresh",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "6b20605bb0a130dfef743264e9fdb72cb5387407b5e625bb656a5b4c498a4198"
+    },
+    {
+      "name": "go-native-fixture-0-mariamem-prepared",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "8521817beaf6f57b296b5c6f3a753f5b7f64c938f19bc4728e286c0bec6682d0"
+    },
+    {
+      "name": "go-native-fixture-0-testcontainers-fresh",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "6f3245e2b5f8fc0737fd7d5fa29e32d881d24c0b39f2694cfe25dc7b59d3904e"
+    },
+    {
+      "name": "go-native-fixture-0-testcontainers-schema-reset",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "25d8b672bec1dd1f1134413c9656f9cde3e2144541bfac112daf0a5086140730"
+    },
+    {
+      "name": "go-light-1-fork",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "41d4e91dec776d6a0d2c6d27296a3e3b1cbf93769c28c0f8d7a67308a7a8ccfa"
+    },
+    {
+      "name": "go-light-1-fresh",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "56d7e87822e424ae37a11629d67ea6d3e22471f1e35e90f29d05c6f0108599e4"
+    },
+    {
+      "name": "python-light-1-fork",
+      "returncode": 0,
+      "seconds": 3.0529262910131365
+    },
+    {
+      "name": "python-light-1-testcontainers",
+      "returncode": 0,
+      "seconds": 23.920965083001647
+    },
+    {
+      "name": "python-light-1-shared-reset",
+      "returncode": 0,
+      "seconds": 9.119511291966774
+    },
+    {
+      "name": "python-light-1-fresh",
+      "returncode": 0,
+      "seconds": 1.9515017910161987
+    },
+    {
+      "name": "go-fixture-1-fork",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "96ec16cef8c907968040115244296dd99070fd702a54fa60e01d9fc9d851998a"
+    },
+    {
+      "name": "go-fixture-1-fresh",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "fe6bb1a595c24f914cb9d7849ff99cfd9db4bf80acc0d378060155926ee06dfe"
+    },
+    {
+      "name": "python-fixture-1-fork",
+      "returncode": 0,
+      "seconds": 4.198773832991719
+    },
+    {
+      "name": "python-fixture-1-testcontainers",
+      "returncode": 0,
+      "seconds": 36.81689654197544
+    },
+    {
+      "name": "python-fixture-1-shared-reset",
+      "returncode": 0,
+      "seconds": 10.139487750013359
+    },
+    {
+      "name": "python-fixture-1-fresh",
+      "returncode": 0,
+      "seconds": 5.079344458004925
+    },
+    {
+      "name": "go-parallel-1-fork",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "4615c57bbf96dd3748eaee7cb67bc36638147626868e435062361e5fca1c2886"
+    },
+    {
+      "name": "go-parallel-1-fresh",
+      "returncode": 0,
+      "reuse": true,
+      "sha256": "ffd8d629dff2577474bc4cb72e4bc0d5a7cf511413e3085a6bd7275fe86359fc"
+    },
+    {
+      "name": "python-parallel-1-fork",
+      "returncode": 0,
+      "seconds": 2.951562666974496
+    },
+    {
+      "name": "python-parallel-1-testcontainers",
+      "returncode": 0,
+      "seconds": 10.56305141595658
+    },
+    {
+      "name": "python-parallel-1-shared-reset",
+      "returncode": 0,
+      "seconds": 10.142157583963126
+    },
+    {
+      "name": "python-parallel-1-fresh",
+      "returncode": 0,
+      "seconds": 3.7641179999918677
+    },
+    {
+      "name": "go-native-fixture-1-mariamem-fresh",
+      "returncode": 0,
+      "seconds": 2.0841963330167346
+    },
+    {
+      "name": "go-native-fixture-1-mariamem-prepared",
+      "returncode": 0,
+      "seconds": 1.9642334579839371
+    },
+    {
+      "name": "go-native-fixture-1-testcontainers-fresh",
+      "returncode": 0,
+      "seconds": 25.105507916014176
+    },
+    {
+      "name": "go-native-fixture-1-testcontainers-schema-reset",
+      "returncode": 0,
+      "seconds": 8.414463708992116
+    },
+    {
+      "name": "go-light-2-fresh",
+      "returncode": 0,
+      "seconds": 2.0632847079541534
+    },
+    {
+      "name": "go-light-2-fork",
+      "returncode": 0,
+      "seconds": 1.99626966600772
+    },
+    {
+      "name": "python-light-2-testcontainers",
+      "returncode": 0,
+      "seconds": 28.652345333015546
+    },
+    {
+      "name": "python-light-2-shared-reset",
+      "returncode": 0,
+      "seconds": 9.166666458011605
+    },
+    {
+      "name": "python-light-2-fresh",
+      "returncode": 0,
+      "seconds": 1.9146225409931503
+    },
+    {
+      "name": "python-light-2-fork",
+      "returncode": 0,
+      "seconds": 2.9787893749889918
+    },
+    {
+      "name": "go-fixture-2-fresh",
+      "returncode": 0,
+      "seconds": 5.2126308340230025
+    },
+    {
+      "name": "go-fixture-2-fork",
+      "returncode": 0,
+      "seconds": 3.976353833975736
+    },
+    {
+      "name": "python-fixture-2-testcontainers",
+      "returncode": 0,
+      "seconds": 25.86673879099544
+    },
+    {
+      "name": "python-fixture-2-shared-reset",
+      "returncode": 0,
+      "seconds": 11.268933499988634
+    },
+    {
+      "name": "python-fixture-2-fresh",
+      "returncode": 0,
+      "seconds": 7.987397667020559
+    },
+    {
+      "name": "python-fixture-2-fork",
+      "returncode": 0,
+      "seconds": 4.98249450000003
+    },
+    {
+      "name": "go-parallel-2-fresh",
+      "returncode": 0,
+      "seconds": 5.060926541977096
+    },
+    {
+      "name": "go-parallel-2-fork",
+      "returncode": 0,
+      "seconds": 8.05562366702361
+    },
+    {
+      "name": "python-parallel-2-testcontainers",
+      "returncode": 0,
+      "seconds": 20.482591040956322
+    },
+    {
+      "name": "python-parallel-2-shared-reset",
+      "returncode": 0,
+      "seconds": 10.920464332972188
+    },
+    {
+      "name": "python-parallel-2-fresh",
+      "returncode": 0,
+      "seconds": 3.9096787919988856
+    },
+    {
+      "name": "python-parallel-2-fork",
+      "returncode": 0,
+      "seconds": 5.010644958005287
+    },
+    {
+      "name": "go-native-fixture-2-mariamem-fresh",
+      "returncode": 0,
+      "seconds": 3.2514918340020813
+    },
+    {
+      "name": "go-native-fixture-2-mariamem-prepared",
+      "returncode": 0,
+      "seconds": 3.6999627090408467
+    },
+    {
+      "name": "go-native-fixture-2-testcontainers-fresh",
+      "returncode": 0,
+      "seconds": 52.67695533297956
+    },
+    {
+      "name": "go-native-fixture-2-testcontainers-schema-reset",
+      "returncode": 0,
+      "seconds": 11.532461124996189
+    }
+  ],
+  "large_trials": 1,
+  "nonpilot_results": 72,
+  "production_source_identity": "8f19dd85cd6e39b94c32b6bf66ae0c9b03e09e6b56687b4dc9e375088fc212c2"
+}
