@@ -20,7 +20,7 @@ def test_publication_job_gate_and_handoff():
     assert 'release_generated_ci.py guard' in publication
     assert '--ready candidate-source/build/release/ci-ready.json' in publication
     assert 'config user.name' in publication and 'args+=(--dry-run)' not in publication
-    assert 'options: [verify, release]' in before
+    assert 'options: [verify, release, public-smoke-recovery]' in before
     assert "if: always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'" in publication
     assert 'build_alpha.py' not in publication and 'build_generated_guest.py' not in publication
     assert 'release-candidate-${{ matrix.platform }}-' in before

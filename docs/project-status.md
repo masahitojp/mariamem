@@ -54,14 +54,14 @@ release repairs remain evidence, not instructions for the current user lifecycle
 See [v0.4.3 characterization](../benchmarks/v043-characterization.md) and the
 [v0.4.4 review reports](reviews/v044-release-runtime-reuse-design.md).
 
-## v0.4.6 — Product usability and validation, Human Review candidate
+## v0.4.6 — Product usability and validation, integration qualification
 
-The [implementation review](reviews/v046-human-review.md) records the Go
-`LoadSnapshot` candidate, Go/Python scenario acceptance and bounded product
-comparisons. Go 1.26.0, mysql client v1.9.3 and generated runtime inputs remain
+The PO approved the [implementation review](reviews/v046-human-review.md), Go
+`LoadSnapshot`, Go/Python scenario acceptance and bounded product comparisons.
+The [integration review](reviews/v046-release-qualification.md) owns final gates. Go 1.26.0, mysql client v1.9.3 and generated runtime inputs remain
 unchanged. Ubuntu Go 1.27.2 consumer execution passed under x86_64 emulation;
-native final-artifact qualification remains a release gate. No merge or release
-is authorized by these measurements.
+native final-artifact qualification remains a release gate. Integration qualification is authorized on a work branch only. Main merge,
+final version metadata, tags and publication require the final Human Decision.
 
 ## Published baseline: v0.4.5 — Infrastructure stabilization and measurement
 

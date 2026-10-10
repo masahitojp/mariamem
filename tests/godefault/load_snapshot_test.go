@@ -1,6 +1,6 @@
 //go:build integration
 
-package gointegration_test
+package godefault
 
 import (
 	"context"
@@ -16,9 +16,8 @@ import (
 )
 
 func TestLoadSnapshotPersistedLifecycle(t *testing.T) {
-	if os.Getenv("MARIAMEM_TEST_DEFAULT") != "1" {
-		t.Skip("set MARIAMEM_TEST_DEFAULT=1")
-	}
+	t.Setenv("MARIAMEM_NATIVE_DIR", "")
+	t.Setenv("MARIAMEM_RUNTIME", "")
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 	setup, err := mariamem.Start(ctx, mariamem.Options{})

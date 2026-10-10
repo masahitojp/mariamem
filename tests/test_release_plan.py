@@ -219,7 +219,8 @@ def test_auto_does_not_accept_manual_run_ids(candidate):
 
 def test_workflow_normal_defaults_names_and_guard_remain():
     workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
-    assert 'options: [verify, release]' in workflow and 'default: auto' in workflow
+    assert 'options: [verify, release, public-smoke-recovery]' in workflow
+    assert 'default: verify' in workflow and 'default: auto' in workflow
     assert "run-name: '${{ inputs.operation }} -- ${{ inputs.label || inputs.candidate_ref }}'" in workflow
     assert 'python scripts/release_plan.py' in workflow
     assert 'candidate-source/scripts/release_generated_ci.py guard' in workflow
