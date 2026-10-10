@@ -40,7 +40,7 @@ def main():
     for command, phase, outputs in zip(commands,
             ['regenerate:translation', 'regenerate:memory32-fixture',
              'regenerate:source-adapter', 'regenerate:installation'],
-            [[out/'translation/input-manifest.json'], [], [], [out/'generatedgo/provenance.json]]):
+            [[out/'translation/input-manifest.json'], [], [], [out/'generatedgo/provenance.json']]):
         observed_run([sys.executable,*map(str,command)],cwd=ROOT,env=env,check=True,
                      phase=phase, inputs=[guest/'mariamem.wasm', ROOT/'release/generated-go-inputs.json'],
                      outputs=outputs)

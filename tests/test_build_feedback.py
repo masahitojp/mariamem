@@ -242,3 +242,16 @@ def test_release_guard_rejects_unqualified_receipts(tmp_path,failure):
     reason={'dev-contract':'wrong build contract','single-pass':'independent rebuild',
             'wrong-hash':'guest identity differs'}[failure]
     with pytest.raises(ValueError,match=reason):release.verify_build(tmp_path,commit)
+
+
+@pytest.mark.parametrize("script", [
+    "scripts/verify.py", "scripts/build_alpha.py",
+    "scripts/build_generated_guest.py", "scripts/regenerate_release_guest.py",
+    "benchmarks/spikes/generated-go-integration/translate_guest.py",
+])
+def test_observed_entrypoint_imports_and_parses_without_build(script):
+    # Catch syntax/import failures before downloading or compiling a real guest.
+    result = subprocess.run([sys.executable, str(ROOT/script), "--help"],
+                            cwd=ROOT, capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+    assert "usage:" in result.stdout
