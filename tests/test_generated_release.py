@@ -13,6 +13,66 @@ import release_generated_ci as ci
 from common import digest
 
 
+@pytest.mark.parametrize('failure', ['sha','type','other-file','symlink','dirty'])
+def test_smoke_repair_fails_closed(tmp_path,monkeypatch,failure):
+    source='a'*40; repair='b'*40
+    monkeypatch.setattr(ci,'checkout',lambda *a: (_ for _ in ()).throw(ValueError('dirty')) if failure=='dirty' else None)
+    def git(argv,**kwargs):
+        if 'cat-file' in argv: return 'tag' if failure=='type' else 'commit'
+        if 'diff' in argv: return 'mariamem.go' if failure=='other-file' else 'scripts/guest_smoke/main.go'
+        if 'ls-tree' in argv: return ('120000' if failure=='symlink' else '100644')+' blob hash\tscripts/guest_smoke/main.go'
+        return b'fixed consumer'
+    monkeypatch.setattr(ci.subprocess,'check_output',git)
+    with pytest.raises(ValueError): ci.verify_smoke_repair(tmp_path,source,'v0.4.5' if failure=='sha' else repair)
+
+
+def test_smoke_repair_supplies_exact_git_bytes(tmp_path,monkeypatch):
+    monkeypatch.setattr(ci,'checkout',lambda *a:None)
+    def git(argv,**kwargs):
+        if 'cat-file' in argv: return 'commit'
+        if 'diff' in argv: return 'scripts/guest_smoke/main.go'
+        if 'ls-tree' in argv: return '100644 blob hash\tscripts/guest_smoke/main.go'
+        assert argv[-1]=='b'*40+':scripts/guest_smoke/main.go'
+        return b'fixed consumer'
+    monkeypatch.setattr(ci.subprocess,'check_output',git)
+    assert ci.verify_smoke_repair(tmp_path,'a'*40,'b'*40)==b'fixed consumer'
+
+
+@pytest.mark.parametrize('failure', [None,'workflow','source','unfinished','event','job','archive','receipt'])
+def test_recovery_publication_authentication(tmp_path,failure):
+    class API:
+        def json(self,path):
+            if '/jobs?' in path:
+                return {'jobs':[{'name':'publication','conclusion':'failure' if failure=='job' else 'success'}]}
+            return {'path':'wrong.yml' if failure=='workflow' else '.github/workflows/release-candidate-ready.yml',
+                    'head_sha':'b'*40 if failure=='source' else 'a'*40,
+                    'status':'in_progress' if failure=='unfinished' else 'completed',
+                    'event':'push' if failure=='event' else 'workflow_dispatch','conclusion':'failure'}
+        def artifact(self,run,name,commit,destination):
+            assert name=='release-publication-'+'a'*40
+            with zipfile.ZipFile(destination,'w') as archive:
+                archive.writestr('wrong.json' if failure=='archive' else 'ci-publication.json',
+                                 json.dumps({'status':'PUBLISHED','source_commit':'b'*40 if failure=='receipt' else 'a'*40}))
+            return {'run_id':run,'artifact_id':123,'zip_sha256':digest(destination)}
+    if failure:
+        with pytest.raises(ValueError): ci.authenticated_publication(API(),123,'a'*40,tmp_path/'receipt.zip')
+    else:
+        record,proof=ci.authenticated_publication(API(),123,'a'*40,tmp_path/'receipt.zip')
+        assert record['status']=='PUBLISHED' and proof['artifact_id']==123
+
+
+def test_recovery_workflow_has_no_qualification_or_publication_dependencies():
+    workflow=(ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
+    job=workflow.split('  public_smoke_recovery:\n',1)[1].split('  public_smoke:\n',1)[0]
+    assert '    needs:' not in job
+    assert '      contents: read\n      actions: read' in job
+    assert 'runs-on: ubuntu-24.04' in job
+    assert "if: inputs.operation != 'public-smoke-recovery'" in workflow
+    commands=job
+    assert 'recover-public-smoke' in commands
+    assert all(name not in commands for name in ('build_alpha','ci_release_publish','restore-platform',' guard '))
+
+
 def test_minimum_artifact_set():
     names=release.expected_names('0.4.0')
     assert names=={'mariamem-0.4.0-py3-none-macosx_15_0_arm64.whl',
@@ -299,8 +359,8 @@ def test_newer_local_macos_is_not_minimum_platform_release_evidence(tmp_path,mon
         release.verify_acceptance(tmp_path,'a'*40,'darwin-arm64','b'*64)
 
 
-@pytest.mark.parametrize('mode', ['candidate','published'])
-def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_path,monkeypatch,mode):
+@pytest.mark.parametrize('mode,recovered', [('candidate',False),('published',False),('published',True)])
+def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_path,monkeypatch,mode,recovered):
     import generated_release_acceptance as acceptance
     from consumer_acceptance import MODULE
     from types import SimpleNamespace
@@ -327,6 +387,8 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
     commands=[]
     def execute(argv,**kwargs):
         commands.append(argv)
+        if recovered and argv==['go','run','.']:
+            assert (kwargs['cwd']/'main.go').read_bytes()==b'corrected smoke'
         env=kwargs['env']
         if 'DOGFOOD_EVIDENCE' in env and argv[0]=='go':
             Path(env['DOGFOOD_EVIDENCE']).write_text(json.dumps({'passed':True,'cases':list(range(8))}))
@@ -342,7 +404,17 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
         with pytest.raises(ValueError,match='accepted artifact proof'):
             acceptance.accept(root,'a'*40,'darwin-arm64',output,mode=mode)
         assert not commands and not output.exists()
-    report=acceptance.accept(root,'a'*40,'darwin-arm64',output,mode=mode,publication=proof)
+    extra={}
+    if recovered:
+        program=tmp_path/'fixed.go'; program.write_bytes(b'corrected smoke')
+        extra={'smoke_program':program,'recovery':{'published_source_commit':'a'*40,
+                'smoke_program_sha256':digest(program),'tooling_source_commit':'b'*40,
+                'tooling_files_sha256':{'scripts/generated_release_acceptance.py':'c'*64}}}
+    report=acceptance.accept(root,'a'*40,'darwin-arm64',output,mode=mode,publication=proof,**extra)
+    if recovered:
+        assert report['source_commit']=='a'*40
+        assert report['recovery']['tooling_source_commit']=='b'*40
+        assert report['harness_sha256']['scripts/guest_smoke/main.go']==digest(program)
     assert report['result']=='PASS'
     if mode=='candidate':
         assert report['gorm_cases']==32 and report['sqlalchemy_cases']==44

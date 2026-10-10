@@ -30,10 +30,13 @@ def harness_inventory(root):
     return {p.relative_to(root).as_posix():digest(p) for p in paths if p.is_file()}
 
 
-def accept(root, commit, platform, output, mode='candidate', wheel=None, go_build_jobs=None, publication=None):
+def accept(root, commit, platform, output, mode='candidate', wheel=None, go_build_jobs=None, publication=None,
+           smoke_program=None, recovery=None):
     root=root.resolve(); output=output.resolve()
     require(not output.exists(),'refuse stale acceptance evidence')
     require(mode in ('candidate','published'),'unknown acceptance mode')
+    require(smoke_program is None or (mode == 'published' and recovery is not None),
+            'smoke override requires authenticated published recovery')
     if mode=='candidate': checkout(root,commit)
     selected,record=verify_wheel(root,platform,commit)
     if wheel is not None:
@@ -51,6 +54,13 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None, go_buil
              'wheel_sha256':record['sha256'],'go_source_sha256':source_inventory(root),
              'harness_sha256':harness_inventory(root),'steps':{},'runtime_overrides':False,
              'outside_checkout':True,'environment':environment(platform)}
+    if smoke_program is not None:
+        require(recovery.get('published_source_commit') == commit
+                and recovery.get('smoke_program_sha256') == digest(smoke_program),
+                'recovery program/source identity differs')
+        report['recovery'] = recovery
+        report['harness_sha256'].update(recovery.get('tooling_files_sha256', {}))
+        report['harness_sha256']['scripts/guest_smoke/main.go'] = digest(smoke_program)
     log=output.with_suffix('.log'); log.parent.mkdir(parents=True,exist_ok=True)
     def run(command,cwd,env):
         with log.open('a') as stream:
@@ -104,7 +114,7 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None, go_buil
                 report['gorm_cases']=count; report['steps']['gorm']='PASS'
             else:
                 for source in project.glob('*.go'): source.unlink()
-                shutil.copyfile(root/'scripts/guest_smoke/main.go',project/'main.go')
+                shutil.copyfile(smoke_program or root/'scripts/guest_smoke/main.go',project/'main.go')
                 run(['go','run','.'],project,env)
                 report['steps']['public_go_smoke']='PASS'
             venv=work/'venv'; run([sys.executable,'-m','venv',venv],work,env)

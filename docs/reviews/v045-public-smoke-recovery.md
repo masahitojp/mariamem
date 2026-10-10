@@ -1,4 +1,4 @@
-# v0.4.5 public smoke recovery — Human Review
+# v0.4.5 public smoke recovery — approved implementation
 
 ## Observed failure
 
@@ -29,7 +29,20 @@ Rerunning it therefore always uses the published candidate's old program, even
 if main or another branch contains the fix. Republishing a version, moving its
 tag or rerunning build/artifact qualification is not an appropriate remedy.
 
-## Proposed bounded recovery, not implemented
+## Approved bounded recovery
+
+The maintainer approved this recovery. The existing workflow now provides the
+advanced `public-smoke-recovery` operation with one read-only Ubuntu job and no
+dependencies on qualification/publication jobs. Normal `verify`/`release` paths
+are unchanged. Source verification and artifact transport reuse existing helpers.
+
+Focused tooling/identity/consumer tests: 120 passed in 6.11 seconds. Workflow YAML
+was parsed and its read-only, dependency-free recovery boundary checked. The
+original publication was also authenticated with the actual helper against
+GitHub: artifact `11657378044`, ZIP SHA256
+`bff47a5acc2842d82e01c5a5711abb8227cdf74c8eebf417db8f961c03211abe`.
+Native corrected Ubuntu smoke is pending CI; no local full runtime qualification
+or release rebuild was performed.
 
 Extend the existing Release workflow with an explicit advanced smoke-only
 recovery path. Keep normal `verify` and `release` operations unchanged. Do not
@@ -66,13 +79,14 @@ and actual program handoff. Native Ubuntu smoke then validates the published
 distribution with the corrected harness. Broader runtime acceptance has no
 concrete dependency on this repair and is not required.
 
-## Human decision
+## Decision and remaining gate
 
-Approve the smoke-only recovery extension to the existing workflow, preserving
-separate published-source and repaired-harness identities? This changes an
-execution boundary and therefore requires review before implementation, under
-the approved v0.4.5 rule for material evidence-model changes.
+Approved: smoke-only recovery extending the existing workflow, preserving
+separate published-source, repaired-program and tooling identities. The actual
+program source is `973a6741876052ff9d8ca7374bee11436ad88d37`; subsequent tooling
+and report commits are not used as the program source because their diff includes
+other files. The workflow validates this distinction mechanically.
 
-Until that decision and successful recovery, status is: v0.4.5 published,
+Until successful recovery, status is: v0.4.5 published,
 Ubuntu public smoke incomplete. No API/runtime defect is demonstrated by this
 failure; it demonstrates a smoke precondition violation.

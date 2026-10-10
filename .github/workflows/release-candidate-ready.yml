@@ -8,7 +8,7 @@ on:
         required: true
         default: verify
         type: choice
-        options: [verify, release]
+        options: [verify, release, public-smoke-recovery]
       label:
         description: Display only (version -- short SHA); never used for identity
         required: false
@@ -35,11 +35,16 @@ on:
         description: Remotely fetchable exact candidate (full 40-character SHA)
         required: true
         type: string
+      smoke_ref:
+        description: Advanced public-smoke recovery only — exact Go smoke repair commit
+        required: false
+        type: string
 permissions:
   contents: read
   actions: read
 jobs:
   resolve:
+    if: inputs.operation != 'public-smoke-recovery'
     runs-on: ubuntu-24.04
     outputs:
       source_sha: ${{ steps.source.outputs.sha }}
@@ -381,6 +386,49 @@ jobs:
         with:
           name: release-publication-${{ needs.resolve.outputs.source_sha }}
           path: candidate-source/build/release/ci-publication.json
+          if-no-files-found: warn
+          retention-days: 14
+  public_smoke_recovery:
+    if: inputs.operation == 'public-smoke-recovery'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ inputs.candidate_ref }}
+          fetch-depth: 0
+          path: published-source
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: 1.26.8
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Recover only public smoke against immutable published artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ inputs.candidate_ref }}
+          PUBLICATION_RUN: ${{ inputs.candidate_run }}
+          SMOKE_REF: ${{ inputs.smoke_ref }}
+        run: |
+          python scripts/release_generated_ci.py recover-public-smoke --root published-source \
+            --candidate-sha "$SOURCE_SHA" --platform ubuntu24.04-x86_64 \
+            --repository "$GITHUB_REPOSITORY" --candidate-run "$PUBLICATION_RUN" --smoke-ref "$SMOKE_REF"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: public-smoke-recovery-${{ inputs.candidate_ref }}-${{ github.sha }}
+          path: |
+            published-source/build/release/ci-public-smoke-recovery.json
+            published-source/build/release/ci-public-smoke-recovery.log
           if-no-files-found: warn
           retention-days: 14
   public_smoke:

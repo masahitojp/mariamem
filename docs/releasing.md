@@ -170,6 +170,16 @@ only explicit recovery requires `candidate_run` / `evidence_run`. There is no
 silent rebuild fallback in manually selected reuse modes. The publisher's local
 `--dry-run` remains available for fixtures/preflight, outside the normal ceremony.
 
+An explicitly approved `operation=public-smoke-recovery` is a read-only advanced
+recovery for an already published release whose Ubuntu smoke failed. Supply its
+exact `candidate_ref`, original publication `candidate_run`, and a full
+`smoke_ref` differing only in `scripts/guest_smoke/main.go`. The workflow uses
+the dispatch commit's tooling, authenticates the original successful publication
+and immutable receipt, and checks public artifact/module/installed identities
+with the corrected program. It records published, smoke and tooling SHAs
+separately. It never builds, qualifies artifacts, tags or publishes; normal
+operations remain `verify` and `release`. Missing or invalid proof fails closed.
+
 Previously, the documented verify-before-release ceremony repeated builds and
 acceptance, while manual reuse required run IDs. In
 [this v0.4.2 reuse attempt](https://github.com/masahitojp/mariamem/actions/runs/37380087403),

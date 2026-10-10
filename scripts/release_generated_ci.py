@@ -126,7 +126,7 @@ def restore_all(root,commit,candidate_run,evidence_run):
         restore_platform(project,commit,platform,'guard-only',candidate_run=candidate_run,evidence_run=evidence_run)
 
 
-def public_smoke(root,commit,platform,publication,repository):
+def public_smoke(root,commit,platform,publication,repository,smoke_program=None,recovery=None):
     from generated_release_acceptance import accept
     from published_assets import verify_downloads, verify_publication
     from generated_release import expected_names
@@ -144,18 +144,87 @@ def public_smoke(root,commit,platform,publication,repository):
         destination=root/wheel_record['wheel']; destination.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(work/destination.name,destination)
         write(root/'tests/evidence/alpha-wheel.json',wheel_record)
-        accept(root,commit,platform,root/'build/release/ci-public-smoke.json',mode='published',publication=record)
+        output=root/'build/release'/('ci-public-smoke-recovery.json' if recovery else 'ci-public-smoke.json')
+        accept(root,commit,platform,output,mode='published',publication=record,
+               smoke_program=smoke_program,recovery=recovery)
+
+
+def verify_smoke_repair(root,commit,repair):
+    """Only a pinned consumer program can differ; accepted checkout stays intact."""
+    import re
+    require(re.fullmatch('[0-9a-f]{40}',repair or '') is not None,'full smoke repair SHA required')
+    checkout(root,commit)
+    def git(*args):
+        return subprocess.check_output(['git','-C',str(root),*args],text=True).strip()
+    require(git('cat-file','-t',repair)=='commit','smoke repair must be a commit')
+    paths=git('diff','--name-only','--no-renames',commit,repair).splitlines()
+    require(paths==['scripts/guest_smoke/main.go'],'repair must change only the Go smoke program')
+    require(git('ls-tree',repair,'scripts/guest_smoke/main.go').startswith('100644 blob '),
+            'repair program must be a regular file')
+    return subprocess.check_output(['git','-C',str(root),'show',repair+':scripts/guest_smoke/main.go'])
+
+
+def authenticated_publication(api,run,commit,destination):
+    """A failed overall smoke run can still have a successful publication job."""
+    from ci_release_reuse import WORKFLOW
+    require(run and int(run)>0,'original publication run required')
+    info=api.json(f'/actions/runs/{run}')
+    require(info.get('path','').split('@',1)[0]==WORKFLOW
+            and info.get('head_sha')==commit and info.get('status')=='completed'
+            and info.get('event')=='workflow_dispatch','original publication run identity differs')
+    jobs=[]; page=1
+    while True:
+        batch=api.json(f'/actions/runs/{run}/jobs?filter=all&per_page=100&page={page}')['jobs']
+        jobs.extend(batch)
+        if len(batch)<100: break
+        page+=1
+    require(any(j.get('name')=='publication' and j.get('conclusion')=='success' for j in jobs),
+            'original publication job did not succeed')
+    proof=api.artifact(run,'release-publication-'+commit,commit,destination)
+    with zipfile.ZipFile(destination) as archive:
+        require(archive.namelist()==['ci-publication.json'],'unexpected publication archive inventory')
+        member=archive.infolist()[0]
+        require(stat.S_IFMT(member.external_attr>>16) in (0,stat.S_IFREG)
+                and member.file_size<4*1024*1024,'unsafe publication receipt')
+        record=json.loads(archive.read(member))
+    require(record.get('status')=='PUBLISHED' and record.get('source_commit')==commit,
+            'publication receipt source/status differs')
+    return record,proof
+
+
+def recover_public_smoke(root,commit,platform,repository,run,repair):
+    from native_target import UBUNTU
+    require(platform==UBUNTU,'this recovery targets the remaining Ubuntu smoke')
+    program=verify_smoke_repair(root,commit,repair)
+    with tempfile.TemporaryDirectory(prefix='mariamem-public-recovery-') as temporary:
+        work=Path(temporary).resolve()
+        api=GitHub(repository,os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN'))
+        record,proof=authenticated_publication(api,run,commit,work/'publication.zip')
+        publication=work/'ci-publication.json'; write(publication,record)
+        fixed=work/'main.go'; fixed.write_bytes(program)
+        tools=Path(__file__).resolve().parents[1]
+        tooling_sha=subprocess.check_output(['git','-C',str(tools),'rev-parse','HEAD'],text=True).strip()
+        checkout(tools,tooling_sha)
+        recovery={'publication':proof,'published_source_commit':commit,
+                  'smoke_source_commit':repair,'smoke_program_sha256':digest(fixed),
+                  'tooling_source_commit':tooling_sha,'publication_repeated':False,
+                  'tooling_files_sha256':{p:digest(tools/p) for p in (
+                      'scripts/release_generated_ci.py','scripts/generated_release_acceptance.py',
+                      'scripts/published_assets.py','scripts/consumer_acceptance.py',
+                      'scripts/ci_release_reuse.py')}}
+        public_smoke(root,commit,platform,publication,repository,fixed,recovery)
 
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('command',choices=('source','freeze','restore-platform','restore','guard','public-smoke'))
+    p.add_argument('command',choices=('source','freeze','restore-platform','restore','guard','public-smoke','recover-public-smoke'))
     p.add_argument('--root',type=Path,default=ROOT); p.add_argument('--candidate-sha',required=True)
     p.add_argument('--platform',choices=PLATFORMS); p.add_argument('--output',type=Path)
     p.add_argument('--mode',choices=('full','acceptance-only','guard-only'),default='full')
     p.add_argument('--handoff',type=Path); p.add_argument('--handoff-sha256')
     p.add_argument('--candidate-run',type=int); p.add_argument('--evidence-run',type=int)
     p.add_argument('--publication',type=Path); p.add_argument('--repository')
+    p.add_argument('--smoke-ref')
     a=p.parse_args(); root=a.root.resolve()
     try:
         if a.command=='source': package_source(root,a.candidate_sha)
@@ -165,6 +234,8 @@ def main():
             require(a.platform,'platform required'); restore_platform(root,a.candidate_sha,a.platform,a.mode,a.handoff,a.handoff_sha256,a.candidate_run,a.evidence_run)
         elif a.command=='restore': restore_all(root,a.candidate_sha,a.candidate_run,a.evidence_run)
         elif a.command=='public-smoke': public_smoke(root,a.candidate_sha,a.platform,a.publication,a.repository)
+        elif a.command=='recover-public-smoke':
+            recover_public_smoke(root,a.candidate_sha,a.platform,a.repository,a.candidate_run,a.smoke_ref)
         else:
             result=guard(root,a.candidate_sha,a.platform) if a.platform else check_aggregate(root,a.candidate_sha)
             if a.platform: write(root/'build/release/ci-ready.json',result)
