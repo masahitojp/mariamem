@@ -2,8 +2,9 @@
 
 Generated-Go is the only supported runtime since the published v0.4.3 release.
 Build products and downloaded inputs live under ignored `build/`. Use Go1.26.8
-and Python with pytest/PyMySQL; Go1.27.0/1.27.1 arm64 remain unsupported because
-of upstream go#81036. Product platforms are macOS15+ arm64 and Ubuntu24.04 x86_64.
+and Python with pytest/PyMySQL. macOS arm64 external consumers also passed with
+Go 1.27.0/1.27.1/1.27.2; see [compatibility](go-compatibility.md). Product
+platforms are macOS15+ arm64 and Ubuntu24.04 x86_64.
 
 ## Git source identity
 

@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/masahitojp/mariamem/internal/artifacts"
+	"github.com/masahitojp/mariamem/internal/runtimekind"
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
@@ -25,6 +27,35 @@ type Snapshot struct {
 	opts            Options
 	closed          bool
 	closeErr        error
+}
+
+// LoadSnapshot validates and imports a persisted baseline without starting MariaDB.
+// The returned Snapshot owns an independent copy of the verified backing; changing
+// or deleting path after success does not affect Fork. Close never deletes path.
+// opts configures subsequent Forks. Copying/hashing is not interruptible: ctx is
+// checked before import and after it, releasing acquired resources on cancellation.
+func LoadSnapshot(ctx context.Context, path string, opts Options) (*Snapshot, error) {
+	opts, err := opts.defaults()
+	if err != nil {
+		return nil, err
+	}
+	if err = ctx.Err(); err != nil {
+		return nil, err
+	}
+	if err = rejectLegacyRuntime(opts.NativeDir); err != nil {
+		return nil, hostError(err, "artifacts", false)
+	}
+	if err = artifacts.ValidatePlatform(ctx); err != nil {
+		return nil, hostError(err, "platform", false)
+	}
+	backing, err := stored.Import(path, runtimekind.GuestSHA256)
+	if err != nil {
+		return nil, hostError(err, "snapshot_failed", false)
+	}
+	if err = ctx.Err(); err != nil {
+		return nil, errors.Join(err, backing.Close())
+	}
+	return &Snapshot{backing: backing, opts: opts}, nil
 }
 
 // Snapshot consumes the DB on success, or on failure after host acceptance.

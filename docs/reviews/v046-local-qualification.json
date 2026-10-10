@@ -1,0 +1,56 @@
+{
+  "contract": "local-development-checks-v1",
+  "release_ready": false,
+  "main_baseline": "0fef33c752053d3bd1e180f9e46f4a301cfcd5eb",
+  "product_basis": "2432abd5439d8daa2ead9676c8c2561ad807b280",
+  "canonical_version": "0.4.5",
+  "version_change_authorized": false,
+  "go_version": "go version go1.26.8 darwin/arm64",
+  "GOTOOLCHAIN": "local",
+  "host_scope": "macOS27 arm64; not minimum-platform artifact acceptance",
+  "checks": {
+    "focused_tooling_tests": {
+      "passed": 125
+    },
+    "canonical_python_check": {
+      "command": "scripts/verify.py check --scope python",
+      "passed": 515,
+      "skipped": 35,
+      "reason_skipped": "opt-in real-host/runtime cases; CI integration still required"
+    },
+    "focused_workflow_recheck": {
+      "passed": 80
+    },
+    "go_load_snapshot_unit": {
+      "command": "go test -p 1 . -run TestLoadSnapshot -count=1",
+      "result": "PASS",
+      "test_seconds": 1.261
+    },
+    "go_persisted_lifecycle": {
+      "command": "go test -p 1 -tags=integration ./tests/godefault -run TestLoadSnapshotPersistedLifecycle -count=1 -timeout=3m",
+      "result": "PASS",
+      "test_seconds": 1.717
+    },
+    "corrected_smoke": {
+      "command": "go run -p 1 ./scripts/guest_smoke",
+      "result": "PASS"
+    },
+    "generated_identity": "PASS",
+    "public_source_and_version": "PASS",
+    "performance_checksums": 485,
+    "diff_check": "PASS"
+  },
+  "input_sha256": {
+    "snapshot.go": "95635dc19eaebe4d761762ae45843c31a95ad44f8f5848508dae0f50754dc9c9",
+    "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+    "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4",
+    "scripts/guest_smoke/main.go": "fced6fa7b4eb1be691b7608f76e0befab778f3932b86e4842c621c27578a40ae",
+    "scripts/generated_release_acceptance.py": "89f533580181b090a50e298b375da9a9c7819366a08ddfcab2c03d450f70185a",
+    "tests/godefault/load_snapshot_test.go": "2b91cf5eba8e6f467077c88b2968cb68493cfb05e8f05d8183b759612ea2b2cc"
+  },
+  "pending": [
+    "native macOS15 and Ubuntu24.04 runtime/artifact acceptance",
+    "final Human Decision and version0.4.6 artifact qualification",
+    "publication-time public distribution smoke"
+  ]
+}

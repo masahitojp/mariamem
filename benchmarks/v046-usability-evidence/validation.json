@@ -1,0 +1,22 @@
+{
+  "mac_compiler": "go1.27.1 darwin/arm64 GOTOOLCHAIN=local",
+  "new_API_go1268": "root LoadSnapshot and integration persisted lifecycle passed; internal package filtered run had no matching tests",
+  "root_and_snapshot_unit": "PASS",
+  "go_scenarios": "PASS",
+  "python_scenarios": 26,
+  "documentation_and_python_unit": "33 passed, 6 subtests passed",
+  "snapshot_owned_race": "PASS",
+  "source_license_oracles": 16,
+  "go_vet": "PASS",
+  "historical_go_compatibility": "macOS Go1.26.8/1.27.0/1.27.1/1.27.2 accepted prior results; not rerun",
+  "discarded_attempts": [
+    {
+      "reason": "parallel testcontainers Ryuk bootstrap race HTTP409",
+      "fix_commit": "5824ed1f205c84fc67574d6896afba412b57188b"
+    },
+    {
+      "reason": "Docker stats observation interval contaminated Python timings",
+      "fix_commit": "ff43ffef6ded67b3f37079831acc9f8e5bad8226"
+    }
+  ]
+}

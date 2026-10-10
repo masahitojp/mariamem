@@ -31,19 +31,6 @@ func clockSeconds(raw string) (float64, error) {
 	}
 	return total, nil
 }
-func runtimePID() (int, error) {
-	b, e := exec.Command("ps", "-axo", "pid=,ppid=,comm=").Output()
-	if e != nil {
-		return 0, e
-	}
-	for _, line := range strings.Split(string(b), "\n") {
-		f := strings.Fields(line)
-		if len(f) >= 3 && f[1] == strconv.Itoa(os.Getpid()) && strings.Contains(strings.Join(f[2:], " "), "wasmer") {
-			return strconv.Atoi(f[0])
-		}
-	}
-	return 0, errors.New("Wasmer child not observable")
-}
 func verifyAndMutate(ctx context.Context, p *sql.DB) error {
 	var count, chars int
 	if e := p.QueryRowContext(ctx, "SELECT COUNT(*), SUM(CHAR_LENGTH(payload)) FROM benchmark_rows").Scan(&count, &chars); e != nil {
@@ -264,10 +251,8 @@ func runSuite(mode string, count int, native, image, output string) (err error) 
 		if i == 0 || i == count-1 || mode == "testcontainers-fresh" {
 			observer := time.Now()
 			if backend == "mariamem" {
-				o.pid, e = runtimePID()
-				if e != nil {
-					return e
-				}
+				// Generated-Go executes in this process, not a Wasmer child.
+				o.pid = os.Getpid()
 			}
 			cost := costs(o, 100)
 			if o.container != "" {
@@ -331,12 +316,8 @@ func runSuite(mode string, count int, native, image, output string) (err error) 
 	var host syscall.Rusage
 	syscall.Getrusage(syscall.RUSAGE_SELF, &host)
 	report["runner_maxrss_raw"] = host.Maxrss
-	if backend == "mariamem" {
-		if _, e := runtimePID(); e == nil {
-			return errors.New("Wasmer child remains after cleanup")
-		}
-	}
-	report["cleanup"] = map[string]any{"all_close_calls_succeeded": true, "no_observed_wasmer_child": backend == "mariamem"}
+	report["cleanup"] = map[string]any{"all_close_calls_succeeded": true}
+
 	if report["server_version"] == "" {
 		return errors.New("server version missing")
 	}

@@ -92,9 +92,7 @@ with mariamem.start() as setup_db:
 ```
 
 `snapshot()` fixes the state temporarily; `snapshot_to(path)` fixes it and
-persists the baseline at creation time. The previous `snapshot(path)` form is
-removed; migrate those calls to `snapshot_to(path)`. There is no later save or
-persist operation on an existing baseline.
+persists the baseline at creation time. There is no later save or persist operation on an existing baseline.
 An explicit destination must not already exist and is retained after the handle
 closes. It contains database files, not SQL statements, and is tied to the
 compatible MariaDB build.
@@ -129,6 +127,9 @@ Creation/import performs full validation; later Forks reuse that owned state.
 Silent damage arising in owned storage is not guaranteed to be detected on
 every Fork. This is a lifecycle/integrity contract, not a security boundary
 against another process controlled by the same user.
+
+For the equivalent Go acquisition API, see [Go persistence](go.md#persist-expensive-preparation).
+The ownership/isolation contract is the same; syntax and optional settings differ.
 
 ## pytest fixtures
 
@@ -176,9 +177,7 @@ class TestUsers:
 ```
 
 Either order, or either test alone, sees the same baseline. A class groups tests;
-it does not share one mutable database. The previous
-`mariamem_class_fork` and `mariamem_class_connection_info` fixtures are removed:
-use the function-scoped equivalents.
+it does not share one mutable database. Use the function-scoped fixtures for per-test mutable state.
 
 Each pytest-xdist worker has its own session fixtures and therefore prepares
 its own baseline. There is no automatic run-wide baseline, cross-worker cache

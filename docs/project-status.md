@@ -24,7 +24,7 @@ cache freshness, regeneration or deletion. Diagnostics do not define the normal
 Snapshot lifecycle. These are product choices independent of reference-project
 APIs. See the [adopted contract](decisions/snapshot-product-contract.md).
 
-## Published baseline: v0.4.4
+## Previous architecture baseline: v0.4.4
 
 [v0.4.4](https://github.com/masahitojp/mariamem/releases/tag/v0.4.4) is released
 from source `8ede4ad65def07436b64801076004ff80aec0799`; annotated tag object
@@ -54,7 +54,25 @@ release repairs remain evidence, not instructions for the current user lifecycle
 See [v0.4.3 characterization](../benchmarks/v043-characterization.md) and the
 [v0.4.4 review reports](reviews/v044-release-runtime-reuse-design.md).
 
-## v0.4.5 — Infrastructure stabilization and measurement, in progress
+## v0.4.6 — Product usability and validation, release preparation
+
+The maintainer approved the [implementation review](reviews/v046-human-review.md),
+Go `LoadSnapshot`, language guides, bounded product comparisons, main integration
+and v0.4.6 release. [Integration qualification](reviews/v046-release-qualification.md)
+records the exact evidence boundary: source
+`8c07a9bd3278f7c8d2c633c38b7c41377d43100a` passed native macOS/Ubuntu, source reproduction,
+private-artifact consumers and aggregate READY in
+[verify run 38033500776](https://github.com/masahitojp/mariamem/actions/runs/38033500776).
+Those artifacts retain 0.4.5 metadata and are not the final v0.4.6 distribution.
+Final-version qualification, publication and public smoke belong to Release CI.
+Go minimum 1.26.0, mysql client v1.9.3, guest, generated runtime and Snapshot format
+remain unchanged. No Snapshot or filesystem optimization is part of this release.
+
+## Published baseline: v0.4.5 — Infrastructure stabilization and measurement
+
+v0.4.5 is published from `d992e26a6d110ceeb54f69d71acd1358c72abb1b`.
+The [public smoke recovery report](reviews/v045-public-smoke-recovery.md) records
+macOS success and the corrected Ubuntu smoke success with distinct identities.
 
 The [infrastructure audit](https://github.com/masahitojp/mariamem/blob/d7b1c0f60591843b0e72327fba7c62d26b7a3ee4/docs/reviews/development-infrastructure-audit.md)
 and [bounded plan](reviews/v045-stabilization-plan.md) own the work sequence.
@@ -75,8 +93,8 @@ identities remain distinct. The [v0.4.5 Human Review packet](reviews/v045-human-
 records restored wire ownership, canonical checks, CI feedback latency, source
 reproduction scope and completed local Snapshot/crossover/product measurements.
 Light preparation favors Fresh; expensive data preparation benefits from reuse.
-Snapshot traversal reduction is deferred, not implemented. Main merge and release
-remain human decisions, and final artifacts still require Release CI qualification.
+Snapshot traversal reduction was deferred, not implemented. Release CI qualified
+and published v0.4.5; the recovery report above records final public smoke.
 
 The [final verification-economics review](reviews/v045-verification-economics.md)
 keeps distinct source/runtime/artifact/publication guarantees and moves existing
@@ -99,7 +117,9 @@ Product Validation; those changes are not part of v0.4.5.
   cleanup and non-cooperative reclaim are distinct boundaries.
 - Approximately one-second startup tails remain observable; do not suppress
   them or infer their cause from earlier individual traces.
-- Go 1.27.0/1.27.1 arm64 are unsupported due to upstream compiler issue #81036.
+- External consumer checks passed on macOS arm64 with Go 1.26.8 and
+  1.27.0/1.27.1/1.27.2. See [compatibility](go-compatibility.md); minimum Go
+  and driver versions are unchanged.
 - Physical footprint, RSS and reachable heap are different resource measures.
   The v0.4.2 lifecycle releases linear memory after joined workers; filesystem
   metadata remains GC-managed.

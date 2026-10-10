@@ -118,7 +118,9 @@ must first describe the intended artifacts.
 - Forced query-timeout reclamation/hard failure containment for non-cooperative
   in-process execution is not guaranteed. The retained diagnostic is known to
   fail its cleanup deadline; it is not run or fixed by this audit.
-- Go1.27.0/1.27.1 arm64 are unsupported due to upstream `LDPSW: constant is not
+- Historical qualification limitation (superseded for current consumer use by
+  [the completed Go compatibility checks](go-compatibility.md)): Go1.27.0/1.27.1
+  arm64 were classified unsupported due to upstream `LDPSW: constant is not
   in pool`; upstream fix `b3f5034b15a7a6f065e92d0617f7a473d5d9dcfa` was tested
   previously. No mariamem compiler/generated-source workaround is used.
 - macOS post-Close physical footprint is distinct from live Go heap. Preserve

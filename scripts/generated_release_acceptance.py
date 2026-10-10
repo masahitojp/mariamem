@@ -102,6 +102,14 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None, go_buil
                 # auth/errors/corruption/reconnect and retain closed handles explicitly.
                 run(['go','test','-tags=integration','-count=1','-timeout=5m','-v','.'],project,env)
                 report['steps'].update(go_default='PASS',go_snapshot_failure_lifecycle='PASS')
+                # Exercise the exact public smoke program before publication too.
+                # This includes the server-side COM_QUIT drain fixed in v0.4.5.
+                smoke=work/'go-smoke'; smoke.mkdir()
+                for name in ('go.mod','go.sum'):
+                    shutil.copyfile(project/name,smoke/name)
+                shutil.copyfile(root/'scripts/guest_smoke/main.go',smoke/'main.go')
+                run(['go','run','.'],smoke,env)
+                report['candidate_go_smoke']='PASS'
                 gorm=work/'gorm'; shutil.copytree(root/'tests/consumer/gorm',gorm)
                 run(['go','mod','edit','-require',MODULE+'@'+tag],gorm,env)
                 run(['go','mod','tidy'],gorm,env)

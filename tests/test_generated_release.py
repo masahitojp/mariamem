@@ -360,7 +360,8 @@ def test_newer_local_macos_is_not_minimum_platform_release_evidence(tmp_path,mon
 
 
 @pytest.mark.parametrize('mode,recovered', [('candidate',False),('published',False),('published',True)])
-def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_path,monkeypatch,mode,recovered):
+@pytest.mark.parametrize('smoke_failure', [False, True])
+def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_path,monkeypatch,mode,recovered,smoke_failure):
     import generated_release_acceptance as acceptance
     from consumer_acceptance import MODULE
     from types import SimpleNamespace
@@ -387,8 +388,12 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
     commands=[]
     def execute(argv,**kwargs):
         commands.append(argv)
+        if argv==['go','mod','tidy']:
+            (kwargs['cwd']/'go.sum').write_text('fixture sum')
         if recovered and argv==['go','run','.']:
             assert (kwargs['cwd']/'main.go').read_bytes()==b'corrected smoke'
+        if smoke_failure and argv==['go','run','.']:
+            raise acceptance.subprocess.CalledProcessError(1, argv)
         env=kwargs['env']
         if 'DOGFOOD_EVIDENCE' in env and argv[0]=='go':
             Path(env['DOGFOOD_EVIDENCE']).write_text(json.dumps({'passed':True,'cases':list(range(8))}))
@@ -410,6 +415,11 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
         extra={'smoke_program':program,'recovery':{'published_source_commit':'a'*40,
                 'smoke_program_sha256':digest(program),'tooling_source_commit':'b'*40,
                 'tooling_files_sha256':{'scripts/generated_release_acceptance.py':'c'*64}}}
+    if smoke_failure:
+        with pytest.raises(acceptance.subprocess.CalledProcessError):
+            acceptance.accept(root,'a'*40,'darwin-arm64',output,mode=mode,publication=proof,**extra)
+        assert json.loads(output.read_text())['result']=='FAIL'
+        return
     report=acceptance.accept(root,'a'*40,'darwin-arm64',output,mode=mode,publication=proof,**extra)
     if recovered:
         assert report['source_commit']=='a'*40
@@ -418,6 +428,8 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
     assert report['result']=='PASS'
     if mode=='candidate':
         assert report['gorm_cases']==32 and report['sqlalchemy_cases']==44
+        assert report['candidate_go_smoke']=='PASS'
+        assert ['go','run','.'] in commands
         assert set(report['steps'])==release.STEPS
         assert sum('DOGFOOD' not in str(c) and '--junitxml' in c for c in commands)==4
         assert not identity and not any('--public-smoke' in c for c in commands)
