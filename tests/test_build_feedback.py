@@ -1,5 +1,6 @@
 """Observer correctness and task env boundaries; no MariaDB guest required."""
 import hashlib
+import errno
 import json
 import os
 from pathlib import Path
@@ -149,6 +150,16 @@ def test_no_wait4_falls_back_without_changing_result(tmp_path,monkeypatch):
     result=feedback.run([sys.executable,'-c','print("ok")'],env=observed_env(tmp_path),capture_output=True,text=True)
     assert result.stdout=='ok\n' and result.returncode==0
     assert records(tmp_path)[0]['resources']['status']=='Unavailable'
+
+
+def test_denied_counters_and_bad_diagnostic_do_not_change_command(tmp_path,monkeypatch,capfd):
+    def denied(*a):raise OSError(errno.ENOSYS,'counters unavailable')
+    monkeypatch.setattr(os,'wait4',denied)
+    assert feedback.run([sys.executable,'-c','pass'],env=observed_env(tmp_path)).returncode==0
+    assert records(tmp_path)[0]['resources']['status']=='Unavailable'
+    assert feedback.run([sys.executable,'-c','pass'],env=observed_env(tmp_path),
+                        tools={'unserializable':object()}).returncode==0
+    assert 'phase observation unavailable' in capfd.readouterr().err
 
 
 def owned_workspace(tmp_path):

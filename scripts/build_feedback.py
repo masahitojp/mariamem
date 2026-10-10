@@ -58,6 +58,10 @@ class _UsagePopen(subprocess.Popen):
             pid, status, usage = os.wait4(self.pid, wait_flags)
         except ChildProcessError:
             return self.pid, 0  # Same Popen semantics; resources unavailable.
+        except OSError as exc:
+            if exc.errno in (errno.ENOSYS, errno.EPERM):
+                return super()._try_wait(wait_flags)  # Counters denied, normal wait still works.
+            raise
         if pid == self.pid:
             self.usage = usage
         return pid, status
@@ -142,7 +146,7 @@ def _append(path, record):
         with path.open('a') as stream:
             fcntl.flock(stream, fcntl.LOCK_EX)
             stream.write(json.dumps(record, sort_keys=True)+'\n')
-    except (OSError, ValueError) as exc:
+    except (OSError, ValueError, TypeError) as exc:
         # Diagnostic write failure must not replace the command's result.
         print('phase observation unavailable: '+str(exc), file=sys.stderr)
 
@@ -165,7 +169,8 @@ def run(argv, *, phase=None, inputs=(), outputs=(), tools=None, root=ROOT,
     process = None
     start = time.monotonic()
     try:
-        if not (hasattr(os, 'wait4') and hasattr(subprocess.Popen, '_try_wait') and
+        if not (sys.implementation.name == 'cpython' and hasattr(os, 'wait4') and
+                hasattr(subprocess.Popen, '_try_wait') and
                 platform.system() in ('Darwin', 'Linux')):
             result = subprocess.run(argv, check=check, input=input,
                                    capture_output=capture_output, timeout=timeout, **kwargs)
