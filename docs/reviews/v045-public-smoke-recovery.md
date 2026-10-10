@@ -41,8 +41,15 @@ was parsed and its read-only, dependency-free recovery boundary checked. The
 original publication was also authenticated with the actual helper against
 GitHub: artifact `11657378044`, ZIP SHA256
 `bff47a5acc2842d82e01c5a5711abb8227cdf74c8eebf417db8f961c03211abe`.
-Native corrected Ubuntu smoke is pending CI; no local full runtime qualification
-or release rebuild was performed.
+Native corrected Ubuntu smoke passed in
+[recovery run 38021032245](https://github.com/masahitojp/mariamem/actions/runs/38021032245),
+job `114121843802`. Published source is `d992e26a6d110ceeb54f69d71acd1358c72abb1b`,
+program source `973a6741876052ff9d8ca7374bee11436ad88d37`, and tooling source
+`135b791e3153cf02081b053337ec298a16e0c7ae`. Both public Go and installed-wheel
+smoke passed; runtime cache inventory was empty. The accepted Ubuntu wheel hash
+remained `aa5ddc7e96e7a28f380b791d9b52a19a800d73d2329a4adbedd41316a75a0d0f`.
+All build, qualification and publication jobs were skipped in this recovery.
+No local full runtime qualification or release rebuild was performed.
 
 Extend the existing Release workflow with an explicit advanced smoke-only
 recovery path. Keep normal `verify` and `release` operations unchanged. Do not
@@ -87,6 +94,9 @@ program source is `973a6741876052ff9d8ca7374bee11436ad88d37`; subsequent tooling
 and report commits are not used as the program source because their diff includes
 other files. The workflow validates this distinction mechanically.
 
-Until successful recovery, status is: v0.4.5 published,
-Ubuntu public smoke incomplete. No API/runtime defect is demonstrated by this
-failure; it demonstrates a smoke precondition violation.
+Final status: v0.4.5 published; macOS public smoke passed in original release run
+`38014576300`, and Ubuntu public smoke passed in separate recovery run
+`38021032245`. The original failed run remains failed; it is not relabelled.
+The repair and recovery tooling remain on their dedicated branch, not main or
+the published tag. No API/runtime defect was demonstrated by this failure;
+it demonstrated a smoke precondition violation.
