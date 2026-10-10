@@ -223,6 +223,19 @@ host Go build-info revision; stale receipts fail even when package/guest version
 match. Both guards bind source, harness, platform and wheel hashes before aggregate READY. Public smoke later downloads accepted bytes and
 checks the public Go tag's origin commit; it cannot modify the release.
 
+Public Go consumers use `GOPROXY=https://proxy.golang.org,direct`; successful
+consumer acquisition alone does not distinguish proxy delivery from direct
+fallback. After required consumer smoke passes, `ci-public-smoke.json` records a
+separate best-effort request to the official proxy's version `.info` endpoint.
+The module path comes from `go.mod`, and the version from the authenticated
+publication tag. The report includes the HTTP status and version-specific
+pkg.go.dev documentation URL. A successful version response is proxy acquisition
+confirmation and discovery promotion, **not** confirmation of documentation
+listing. pkg.go.dev indexing is asynchronous and remains `NOT_CHECKED` by CI.
+The request has a five-second timeout, no polling/retries, and errors cannot fail
+consumer smoke or require another release/runtime verification. See the
+[official discovery guidance](https://pkg.go.dev/about#adding-a-package).
+
 ## Known limitations and release preparation
 
 Full generated guest `-race` remains **GENERAL SHARED-MEMORY MODEL WORK REQUIRED**;

@@ -366,6 +366,7 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
     from consumer_acceptance import MODULE
     from types import SimpleNamespace
     root=tmp_path/'source'; root.mkdir()
+    (root/'go.mod').write_text('module '+MODULE+'\n')
     for name in ('tests/godefault/default_test.go','tests/consumer/gorm/go.mod',
                  'tests/consumer/test_generated_platform.py','tests/consumer/test_sqlalchemy_dogfood.py',
                  'scripts/guest_smoke/main.go'):
@@ -384,6 +385,11 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
     monkeypatch.setattr(acceptance.subprocess,'check_output',lambda argv,**kw:
                         'go version go1.26.8 darwin/arm64' if argv[:2]==['go','version'] else json.dumps(resolved))
     identity=[]
+    discovery=[]
+    def unavailable_proxy(url, timeout):
+        discovery.append((url, timeout))
+        raise TimeoutError('temporary proxy timeout')
+    monkeypatch.setattr(acceptance, 'urlopen', unavailable_proxy)
     monkeypatch.setattr(acceptance,'verify_module_files',lambda *a:identity.append(a) or {'library':'hash'})
     commands=[]
     def execute(argv,**kwargs):
@@ -419,6 +425,7 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
         with pytest.raises(acceptance.subprocess.CalledProcessError):
             acceptance.accept(root,'a'*40,'darwin-arm64',output,mode=mode,publication=proof,**extra)
         assert json.loads(output.read_text())['result']=='FAIL'
+        assert not discovery
         return
     report=acceptance.accept(root,'a'*40,'darwin-arm64',output,mode=mode,publication=proof,**extra)
     if recovered:
@@ -433,9 +440,59 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
         assert set(report['steps'])==release.STEPS
         assert sum('DOGFOOD' not in str(c) and '--junitxml' in c for c in commands)==4
         assert not identity and not any('--public-smoke' in c for c in commands)
+        assert not discovery and 'pkg_go_dev_discovery' not in report
     else:
         assert len(identity)==1
         assert set(report['steps'])=={'public_go_smoke','public_wheel_smoke'}
         assert not any('pytest' in c or '--junitxml' in c for c in commands)
         assert ['go','run','.'] in commands
         assert any('--public-smoke' in c for c in commands)
+        assert report['public_module_fetch']=={'goproxy':'https://proxy.golang.org,direct',
+                   'direct_fallback_allowed':True, 'actual_transport':'NOT_OBSERVED'}
+        assert discovery==[('https://proxy.golang.org/'+MODULE+'/@v/v0.4.5.info', 5)]
+        assert report['pkg_go_dev_discovery']['proxy_fetch_result']=='NOT_CONFIRMED'
+        assert report['pkg_go_dev_discovery']['pkg_go_dev_listing']=='NOT_CHECKED'
+        assert report['pkg_go_dev_discovery']['error']=='temporary proxy timeout'
+        assert json.loads(output.read_text())['result']=='PASS'
+
+
+@pytest.mark.parametrize('outcome', ['success', 'http404', 'http503', 'timeout', 'invalid-json', 'wrong-version'])
+def test_pkg_go_dev_discovery_records_proxy_result_without_listing_gate(tmp_path,monkeypatch,outcome):
+    import generated_release_acceptance as acceptance
+    from urllib.error import HTTPError
+    module='example.com/Team/Database/v2'
+    tag='v2.3.4-Preview.1'
+    (tmp_path/'go.mod').write_text('// module comment\nmodule "'+module+'" // module path\n\ngo 1.26.0\n')
+    url='https://proxy.golang.org/example.com/!team/!database/v2/@v/v2.3.4-!preview.1.info'
+    class Response(io.BytesIO):
+        status=200
+    responses=[]
+    def fetch(actual,timeout):
+        assert actual==url and timeout==5
+        if outcome.startswith('http'):
+            raise HTTPError(url,int(outcome[4:]),'temporary HTTP error',{},None)
+        if outcome=='timeout': raise TimeoutError('timeout')
+        payload=b'not JSON' if outcome=='invalid-json' else json.dumps({'Version': 'v2.3.3' if outcome=='wrong-version' else tag}).encode()
+        response=Response(payload); responses.append(response); return response
+    monkeypatch.setattr(acceptance, 'urlopen', fetch)
+    report=acceptance.request_pkg_go_dev_discovery(tmp_path,tag)
+    assert report['module_path']==module and report['module_version']==tag
+    assert report['proxy_url']==url
+    assert report['documentation_url']=='https://pkg.go.dev/'+module+'@'+tag
+    assert report['required'] is False and report['pkg_go_dev_listing']=='NOT_CHECKED'
+    expected_status=None if outcome=='timeout' else int(outcome[4:]) if outcome.startswith('http') else 200
+    assert report['proxy_http_status']==expected_status
+    assert report['proxy_fetch_result']==('PASS' if outcome=='success' else 'NOT_CONFIRMED')
+    assert report['discovery_result']==('REQUESTED' if outcome=='success' else 'NOT_CONFIRMED')
+    assert bool(report.get('error'))==(outcome!='success')
+    assert all(response.closed for response in responses)
+
+
+def test_pkg_go_dev_discovery_missing_module_is_nonfatal(tmp_path,monkeypatch):
+    import generated_release_acceptance as acceptance
+    (tmp_path/'go.mod').write_text('go 1.26.0\n')
+    def unexpected(*a,**kw): raise AssertionError('must not fetch without module identity')
+    monkeypatch.setattr(acceptance, 'urlopen', unexpected)
+    report=acceptance.request_pkg_go_dev_discovery(tmp_path,'v9.8.7')
+    assert report['proxy_http_status'] is None and report['discovery_result']=='NOT_CONFIRMED'
+    assert report['error']=='go.mod module directive missing'

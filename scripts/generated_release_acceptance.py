@@ -9,14 +9,51 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
 import tempfile
+from urllib.error import HTTPError
+from urllib.parse import quote
+from urllib.request import urlopen
 from common import ROOT, digest
 from consumer_module import MODULE, prepare_proxy
 from generated_release import CONTRACT, STEPS, checkout, require, source_inventory, verify_wheel, version, write
 from consumer_acceptance import isolated_env, bind_remote_origin, environment, verify_module_files, ORM_MODES, verify_gorm_cases, verify_sqlalchemy_cases
+
+
+def request_pkg_go_dev_discovery(root, tag):
+    """Best-effort official proxy request; it is not pkg.go.dev qualification.
+
+    https://pkg.go.dev/about#adding-a-package recommends a proxy endpoint request.
+    A consumer's GOPROXY may fall back to direct; this request records the proxy
+    result explicitly. Indexing is asynchronous: never wait/retry or gate smoke.
+    """
+    report={'module_version':tag, 'proxy_http_status':None,
+            'proxy_fetch_result':'NOT_CONFIRMED', 'discovery_result':'NOT_CONFIRMED',
+            'pkg_go_dev_listing':'NOT_CHECKED', 'required':False}
+    try:
+        match=re.search(r'^\s*module\s+(\S+)', (root/'go.mod').read_text(), re.MULTILINE)
+        if not match: raise ValueError('go.mod module directive missing')
+        module=match.group(1).strip('"`')
+        # The Go proxy protocol escapes uppercase ASCII as !lowercase.
+        escape=lambda value: ''.join('!'+c.lower() if 'A' <= c <= 'Z' else c for c in value)
+        url='https://proxy.golang.org/'+quote(escape(module), safe='/!')+'/@v/'+quote(escape(tag), safe='!')+'.info'
+        report.update(module_path=module, proxy_url=url,
+                      documentation_url='https://pkg.go.dev/'+quote(module, safe='/')+'@'+quote(tag, safe=''))
+        with urlopen(url, timeout=5) as response:
+            report['proxy_http_status']=response.status
+            info=json.loads(response.read(16384))
+        if report['proxy_http_status'] != 200 or info.get('Version') != tag:
+            raise ValueError('proxy response does not confirm the requested version')
+        report.update(proxy_fetch_result='PASS', discovery_result='REQUESTED')
+    except HTTPError as exc:
+        report.update(proxy_http_status=exc.code, error=str(exc))
+        exc.close()
+    except Exception as exc:
+        report['error']=str(exc)
+    return report
 
 
 def harness_inventory(root):
@@ -89,6 +126,8 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None, go_buil
                 shutil.copyfile(source,project/source.name)
             if mode=='candidate': run(['go','mod','download',MODULE+'@'+tag],project,{**env,'GOPROXY':proxy.as_uri()})
             else:
+                report['public_module_fetch']={'goproxy':env['GOPROXY'], 'direct_fallback_allowed':True,
+                                               'actual_transport':'NOT_OBSERVED'}
                 run(['go','mod','download',MODULE+'@'+tag],project,env)
                 resolved=json.loads(subprocess.check_output(['go','list','-m','-json',MODULE],cwd=project,env=env,text=True))
                 remote=json.loads(subprocess.check_output(['go','list','-m','-json',MODULE+'@'+tag],cwd=project,env={**env,'GOPROXY':'direct'},text=True))
@@ -156,6 +195,8 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None, go_buil
         required=STEPS if mode=='candidate' else {'public_go_smoke','public_wheel_smoke'}
         require(set(report['steps'])==required,'missing acceptance stage')
         require(digest(selected)==report['wheel_sha256'],'wheel changed during acceptance')
+        if mode=='published':
+            report['pkg_go_dev_discovery']=request_pkg_go_dev_discovery(root, publication['git_tag'])
         report['result']='PASS'
     except Exception as exc:
         report['error']=str(exc); raise
