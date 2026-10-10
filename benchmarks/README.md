@@ -1,5 +1,22 @@
 # Optional lifecycle benchmarks
 
+## Recent measurement and discovery reports
+
+- [Go 1.26.8 vs 1.27.2](../docs/benchmarks/go126-vs-go127.md): same-source
+  macOS arm64 suite timings, CPU, allocation and RSS. No consistent practical
+  toolchain speedup was demonstrated. The linked evidence retains trial JSON,
+  statistics, profile summaries, hashes and reproduction commands.
+- [memfs optimization discovery](../docs/reviews/memfs-optimization-discovery.md):
+  source comparison with pinned pglite-go. Fresh allocation is primarily attributed
+  to `Fd_allocate → Truncate → resizeMemData`; allocation share is not a speedup
+  estimate. Candidate improvements remain unimplemented and unapproved.
+
+These reports retain their original measured/inspected source identities.
+Publishing the reports on main does not qualify main's runtime or approve an
+optimization. Reproduction uses the pinned measurement source, not current HEAD.
+
+## Benchmark scope
+
 Current generated-Go measurements use `go-isolation` with no `--native-dir`.
 Historical Wasmer sections below retain accounting/harness design as reference;
 use their pinned old source tags for reproduction. They are not current product

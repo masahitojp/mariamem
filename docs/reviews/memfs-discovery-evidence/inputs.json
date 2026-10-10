@@ -40,42 +40,50 @@
     "profile-1268-fresh-alloc-top.txt": {
       "source_commit": "d5edef0b619c7a07f16cf85cd228dc23fd6687c6",
       "source_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1268-fresh-alloc-top.txt",
-      "sha256": "e7848e2378119f3ac8889dd63ca38d028bb77de2059da763250267cf81d4772d"
+      "sha256": "e7848e2378119f3ac8889dd63ca38d028bb77de2059da763250267cf81d4772d",
+      "retained_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1268-fresh-alloc-top.txt"
     },
     "profile-1272-fresh-alloc-top.txt": {
       "source_commit": "d5edef0b619c7a07f16cf85cd228dc23fd6687c6",
       "source_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1272-fresh-alloc-top.txt",
-      "sha256": "db974eb2f1923ee7ba702db5df914559af9733dc43519dc1f711f9eb53aa1eb6"
+      "sha256": "db974eb2f1923ee7ba702db5df914559af9733dc43519dc1f711f9eb53aa1eb6",
+      "retained_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1272-fresh-alloc-top.txt"
     },
     "profile-1268-fork-alloc-top.txt": {
       "source_commit": "d5edef0b619c7a07f16cf85cd228dc23fd6687c6",
       "source_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1268-fork-alloc-top.txt",
-      "sha256": "1ad2ab980019bf43491686154cf9558d0a947fa5f716e1cbbf27acd54ab44b4c"
+      "sha256": "1ad2ab980019bf43491686154cf9558d0a947fa5f716e1cbbf27acd54ab44b4c",
+      "retained_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1268-fork-alloc-top.txt"
     },
     "profile-1272-fork-alloc-top.txt": {
       "source_commit": "d5edef0b619c7a07f16cf85cd228dc23fd6687c6",
       "source_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1272-fork-alloc-top.txt",
-      "sha256": "6b843c416781a8f446fcdfe030a4ad615f79fb6a913634ad9e5d6c5f3dda99f5"
+      "sha256": "6b843c416781a8f446fcdfe030a4ad615f79fb6a913634ad9e5d6c5f3dda99f5",
+      "retained_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1272-fork-alloc-top.txt"
     },
     "profile-1268-fresh-cpu-top.txt": {
       "source_commit": "d5edef0b619c7a07f16cf85cd228dc23fd6687c6",
       "source_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1268-fresh-cpu-top.txt",
-      "sha256": "84393a0bb9becb2a52f2eb392582574ee02ad4a3c160b13d59a2b831bcab17b6"
+      "sha256": "84393a0bb9becb2a52f2eb392582574ee02ad4a3c160b13d59a2b831bcab17b6",
+      "retained_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1268-fresh-cpu-top.txt"
     },
     "profile-1272-fresh-cpu-top.txt": {
       "source_commit": "d5edef0b619c7a07f16cf85cd228dc23fd6687c6",
       "source_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1272-fresh-cpu-top.txt",
-      "sha256": "f5326848be0e512863e35770f24c57143eb0e8586d630ff4c10bfc520abfb896"
+      "sha256": "f5326848be0e512863e35770f24c57143eb0e8586d630ff4c10bfc520abfb896",
+      "retained_path": "docs/benchmarks/go126-vs-go127-evidence/profile-1272-fresh-cpu-top.txt"
     },
     "profile-checksums.json": {
       "source_commit": "d5edef0b619c7a07f16cf85cd228dc23fd6687c6",
       "source_path": "docs/benchmarks/go126-vs-go127-evidence/profile-checksums.json",
-      "sha256": "f77bd892f5a1ed1477b3174a7292d392aa968d90432eda2f1f340a75e9dcd0c8"
+      "sha256": "f77bd892f5a1ed1477b3174a7292d392aa968d90432eda2f1f340a75e9dcd0c8",
+      "retained_path": "docs/benchmarks/go126-vs-go127-evidence/profile-checksums.json"
     },
     "profile.py": {
       "source_commit": "d5edef0b619c7a07f16cf85cd228dc23fd6687c6",
       "source_path": "docs/benchmarks/go126-vs-go127-evidence/profile.py",
-      "sha256": "0d6c0dd282a260d35adce05af08f19bf8abc3e9e40ac032f3c3a8bc422f062f9"
+      "sha256": "0d6c0dd282a260d35adce05af08f19bf8abc3e9e40ac032f3c3a8bc422f062f9",
+      "retained_path": "docs/benchmarks/go126-vs-go127-evidence/profile.py"
     }
   },
   "arithmetic_model": {

@@ -60,6 +60,12 @@ historical release or Product CI artifacts. Unknown inputs and unavailable/empty
 diffs select full check plus integration. This selection is not a reusable runtime
 qualification receipt. Explicit release reuse still requires authenticated proof.
 
+Archived Go-toolchain/memfs measurement data has explicit documentation scope in
+the local selector. Its three saved reproduction recipes have tooling scope;
+they are not runtime qualification commands. Unknown code or other evidence
+directories remain conservative. Adding these reports must not rerun unchanged
+MariaDB integration merely because their JSON/profile summaries are new files.
+
 | Changed boundary | Canonical check | Guest / approximate cost |
 | --- | --- | --- |
 | ordinary documentation | wording/references/diff; `verify.py check --scope docs` for version/public boundary | no guest, seconds |

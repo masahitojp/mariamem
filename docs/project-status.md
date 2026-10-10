@@ -112,6 +112,22 @@ Product Validation; those changes are not part of v0.4.5.
 - The 0.x API may change. Corresponding guest source, licenses, notices and
   reproducible generation remain required.
 
+## Performance evidence and pending optimization questions
+
+The [Go 1.26.8 / 1.27.2 comparison](benchmarks/go126-vs-go127.md) retains
+same-source macOS arm64 suite/resource results and reproduction evidence.
+No consistent practical speedup was demonstrated; these observations do not
+change the supported toolchain policy or qualify the current main SHA.
+
+The [memfs discovery](reviews/memfs-optimization-discovery.md) follows the
+roughly 80% Fresh allocation attribution to `resizeMemData`. Existing profile
+callers place almost all of it under `Fd_allocate → Truncate`, so allocation
+share alone does not justify a growth-factor change. First allocation,
+reallocation/copy and retained capacity need separate attribution before an
+implementation decision. Local changes remain candidates; replacing the whole
+VFS is not recommended. No optimization is approved or implemented by retaining
+these reports. The [benchmark index](../benchmarks/README.md) links both.
+
 ## v0.5.0 — Stable guest
 
 Select and migrate to a deliberate stable/LTS MariaDB release, refreshing

@@ -22,6 +22,37 @@ def test_documentation_needs_no_runtime_receipt(path):
 
 
 @pytest.mark.parametrize('path', [
+    'benchmarks/README.md',
+    'docs/benchmarks/go126-vs-go127-evidence/raw/fixture-fresh-00-1268.json',
+    'docs/benchmarks/go126-vs-go127-evidence/statistics.csv',
+    'docs/benchmarks/go126-vs-go127-evidence/profile-1268-fresh-alloc-top.txt',
+    'docs/benchmarks/go126-vs-go127-evidence/SHA256SUMS',
+    'docs/reviews/memfs-discovery-evidence/inputs.json',
+])
+def test_archived_measurement_data_is_documentation(path):
+    assert scope.select([path])['check_scope'] == 'docs'
+    assert not scope.select([path])['integration']
+
+
+@pytest.mark.parametrize('name', ['build.py', 'profile.py', 'summarize.py'])
+def test_known_reproduction_recipes_are_tooling(name):
+    result = scope.select(['docs/benchmarks/go126-vs-go127-evidence/' + name])
+    assert result['check_scope'] == 'python' and not result['integration']
+
+
+@pytest.mark.parametrize('path', [
+    'docs/new-evidence.json',
+    'docs/benchmarks/go126-vs-go127-evidence/runtime.go',
+    'docs/benchmarks/go126-vs-go127-evidence/new_helper.py',
+    'docs/reviews/memfs-discovery-evidence/guest.wasm',
+    'docs/benchmarks/go126-vs-go127-evidence-other/inputs.json',
+])
+def test_evidence_scope_does_not_exempt_unknown_code_or_directories(path):
+    result = scope.select([path])
+    assert result['check_scope'] == 'full' and result['integration']
+
+
+@pytest.mark.parametrize('path', [
     'scripts/experiment_workspace.py', 'scripts/generated_release_acceptance.py',
     'scripts/release_generated_ci.py', 'scripts/validate_product_candidate.py',
     'tests/consumer/run_sqlalchemy.py', 'tests/consumer/run_gorm.py',

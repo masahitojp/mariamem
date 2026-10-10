@@ -15,6 +15,11 @@ from git_identity import require_commit
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {
+    # Archived measurement recipes; reproduction explicitly checks out its
+    # pinned source and does not execute these in runtime/release qualification.
+    'docs/benchmarks/go126-vs-go127-evidence/build.py',
+    'docs/benchmarks/go126-vs-go127-evidence/profile.py',
+    'docs/benchmarks/go126-vs-go127-evidence/summarize.py',
     'tests/verify_alpha.py', 'tests/consumer/run_gorm.py', 'tests/consumer/run_sqlalchemy.py',
     'scripts/generated_release_acceptance.py', 'scripts/release_generated_ci.py',
     'scripts/validate_product_candidate.py', 'scripts/guest_smoke/main.go',
@@ -87,7 +92,15 @@ def boundary(path):
     p = Path(path)
     if p.is_absolute() or '..' in p.parts:
         return 'runtime'
+    # Reviewed, inert measurement data only. Other docs inputs/extensions still
+    # fail closed; this is not a blanket exemption for documentation directories.
+    if any(path.startswith(prefix) for prefix in (
+            'docs/benchmarks/go126-vs-go127-evidence/',
+            'docs/reviews/memfs-discovery-evidence/')) and (
+            p.suffix in ('.json', '.csv', '.txt') or p.name == 'SHA256SUMS'):
+        return 'docs'
     if path in ('README.md', 'CONTRIBUTING.md',
+                'benchmarks/README.md',
                 'docs/reviews/v044-runtime-validation-intent.json',
                 'docs/reviews/v045-p1-evidence.json') or (path.startswith('docs/') and p.suffix == '.md'):
         return 'docs'

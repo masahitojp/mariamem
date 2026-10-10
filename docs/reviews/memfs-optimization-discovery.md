@@ -3,6 +3,7 @@
 日付: 2026-10-10。改善実装・新規性能計測・CI dispatch は行っていない。
 `main`、v0.4.6 candidate、release workflow/tooling は変更していない。
 調査ブランチ: `experiment/memfs-discovery`。
+後に報告・証拠だけをmainへ集約した。改善実装の採用やv0.4.6 candidateの統合ではない。
 
 ## 結論と判断材料
 
@@ -275,9 +276,12 @@ source内容の更新とlicense依存追加は別であり、hashを合わせる
 
 ## 7. 再現・保存・cleanup
 
-既存profileの実行コマンドは [profile.py](memfs-discovery-evidence/profile.py) を保存した。
+既存profileの実行コマンドは [profile.py](../benchmarks/go126-vs-go127-evidence/profile.py) を保存した。
 これは元campaignの再現手順であり、今回実行していない。
-profileのraw binary checksumとsummary checksumを保存。原結果はGitのpinned revisionで参照可能。
+profileのraw binary checksumとsummary checksumを保存。
+共有profileと再現手順は [Go比較証拠](../benchmarks/go126-vs-go127-evidence/README.md) に集約し、
+この調査のinputs.jsonは `retained_path` と原保存commit/hashで同じ内容を参照する。
+重複コピーは保持しない。原結果はGitのpinned revisionでも参照可能。
 
 外部sourceの再取得:
 
@@ -295,6 +299,6 @@ EOF>capの場合 `growth = cap (<1 MiB) else floor(cap×(factor−1))`、
 保存物はこの報告、入力/hash/model JSON、選択した既存profile summaryと再現コマンドのみ。
 専用workspaceの外部sourceはhelperで削除済み。receiptと小さなcleanup証拠だけ残した。
 helperの `retained_large_paths=[]` / `cleanup_debt=[]` を確認。build全体は約30 MiB、
-今回の保存profile証拠は約40 KiB。今回のworkspaceに1 GiB超の保持物はない。
+元調査の選択profile証拠は約40 KiB（main集約時に共通保存物への参照へ変更）。今回のworkspaceに1 GiB超の保持物はない。
 既存v0.4.6作業・結果は所有範囲外で変更していない。
 文書・参照・JSON/hash・diff/statusを検証し、変更していないruntimeの再build/testは行わない。
