@@ -1,6 +1,6 @@
 # Python usage
 
-This guide describes Python `0.4.4`. For wheels and supported platforms, see
+This guide describes Python `0.4.5`. For wheels and supported platforms, see
 [installation](../README.md#installation).
 
 ## A disposable database

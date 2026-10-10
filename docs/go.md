@@ -1,7 +1,7 @@
 # Go usage
 
-This guide describes `v0.4.4`.
-[Installation](../README.md#installation) uses the published module tag `v0.4.4`.
+This guide describes `v0.4.5`.
+[Installation](../README.md#installation) uses the published module tag `v0.4.5`.
 The public package is `github.com/masahitojp/mariamem`.
 
 ## Start fresh
@@ -121,7 +121,7 @@ from independent owned backing, so changes to the saved output cannot affect it.
 The Go API does not currently expose arbitrary path-based reopening.
 Python's `load_snapshot(path)` provides that acquisition boundary. This is an
 existing language-surface asymmetry; the ownership/isolation contract is the
-same where the concepts exist. A new Go import API is not added in v0.4.4.
+same where the concepts exist. A new Go import API is not added in v0.4.5.
 
 Saved baselines contain database files tied to the compatible guest build.
 They are advanced derived artifacts; retain their migration/fixture/source
@@ -172,13 +172,13 @@ internal mechanisms.
 Install the published module and optional release audit files with:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.4.4
-gh release download v0.4.4 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.4-corresponding-source.tar.gz'
+go get github.com/masahitojp/mariamem@v0.4.5
+gh release download v0.4.5 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.5-corresponding-source.tar.gz'
 ```
 
 Runtime details belong in [architecture](v04-generated-go-architecture.md).
 See [local verification](development.md#local-verification) for scoped
-development checks, and [release notes](../release/NOTES-v0.4.4.md)
-for removed metadata/class-fixture interfaces. The full generated guest is not
+development checks, and [release notes](../release/NOTES-v0.4.5.md)
+for changes in this version. The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.

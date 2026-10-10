@@ -2,7 +2,7 @@
 
 MAJOR = 0
 MINOR = 4
-PATCH = 4
+PATCH = 5
 STAGE = ""
 SERIAL = 0
 
