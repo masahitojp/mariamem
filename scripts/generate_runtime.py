@@ -72,7 +72,7 @@ def main():
     if args.development_input:
         from dev_guest import external_output, install_inputs
         external_output(ROOT, args.output)
-        pins = install_inputs(json.loads(args.development_input.read_text()), src)
+        pins = install_inputs(json.loads(args.development_input.read_text()), src, ROOT)
     else:
         pins = json.loads((ROOT/'release/generated-go-inputs.json').read_text())
     files = {str(p.relative_to(src)): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -113,7 +113,8 @@ def main():
         'files_sha256':inventory}
     if args.development_input:
         provenance.update(contract=pins['contract'], result='UNQUALIFIED',
-                          dev_inputs_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest())
+                          dev_inputs_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest(),
+                          input_manifest_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest())
     (out/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.

@@ -23,7 +23,7 @@ def main():
     a=p.parse_args(); guest=a.guest_dir.resolve(); out=a.output.resolve()
     if a.development:
         from dev_guest import regenerate_development
-        regenerate_development(ROOT, guest, out)
+        regenerate_development(ROOT, guest, a.output)
         return
     pins=json.loads((ROOT/'release/generated-go-inputs.json').read_text())
     record=json.loads((guest/'guest.json').read_text())

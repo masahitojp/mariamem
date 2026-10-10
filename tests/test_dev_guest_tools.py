@@ -81,7 +81,8 @@ def test_stale_generated_candidate_cannot_be_installed(tmp_path):
     (module/'generated/data.bin').write_bytes(b'data')
     (module/'generated/a.go').write_text('original')
     record={'contract':dev.CONTRACT,'result':'UNQUALIFIED','source_inventory':dev.inventory(module),
-            'data_sha256':digest(module/'generated/data.bin')}
+            'data_sha256':digest(module/'generated/data.bin'), 'guest_record_sha256':'a'*64,
+            'translation_record_sha256':'b'*64, 'guest_sha256':'c'*64}
     assert dev.install_inputs(record,module)==record
     (module/'generated/a.go').write_text('old guest')
     with pytest.raises(ValueError,match='candidate source'):dev.install_inputs(record,module)
@@ -92,11 +93,11 @@ def test_translation_binds_guest_converter_patches_and_complete_inventory(tmp_pa
     patches=root/'benchmarks/spikes/wasm2go';patches.mkdir(parents=True)
     (patches/'p.patch').write_bytes(b'patch')
     dev.write(root/'release/generated-go-toolchain.json',{'archives':{'converter':{'sha256':'a'*64}}})
-    dev.write(root/'release/generated-go-translation.json',{'patches_sha256':{'p.patch':'ignored'}})
+    dev.write(root/'release/generated-go-translation.json',{'patches_sha256':{'p.patch':'ignored'},'converter_commit':'c'*40})
     out=tmp_path/'out';(out/'module/generated').mkdir(parents=True)
     (out/'guest.wasm').write_bytes(b'guest');(out/'wasm2go').write_bytes(b'converter')
     (out/'module/generated/generated.go').write_text('guest-code')
-    record={'guest_sha256':digest(out/'guest.wasm'),'converter_archive_sha256':'a'*64,
+    record={'guest_sha256':digest(out/'guest.wasm'),'converter_commit':'c'*40,'converter_archive_sha256':'a'*64,
             'patched_converter_sha256':digest(out/'wasm2go'),
             'patches_sha256':{'p.patch':digest(patches/'p.patch')},
             'files_sha256':dev.inventory(out/'module/generated')}
@@ -135,3 +136,14 @@ def test_dev_and_release_entrypoints_parse():
         result=subprocess.run([sys.executable,str(ROOT/script),'--help'],capture_output=True,text=True)
         assert result.returncode==0,result.stderr
         assert '--development' in result.stdout
+
+
+def test_missing_installation_provenance_rejected(tmp_path):
+    module=tmp_path/'module';module.mkdir()
+    with pytest.raises((ValueError,KeyError)):
+        dev.install_inputs({'contract':dev.CONTRACT,'result':'UNQUALIFIED'},module)
+
+
+def test_external_release_namespace_rejected(tmp_path):
+    with pytest.raises(ValueError,match='namespace'):
+        dev.external_output(tmp_path/'source',tmp_path/'other-checkout/build/generated-release')

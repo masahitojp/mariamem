@@ -80,7 +80,8 @@ def verify_translation(root, out, guest_sha):
     patches = root/'benchmarks/spikes/wasm2go'
     require(raw['guest_sha256'] == guest_sha and digest(out/'guest.wasm') == guest_sha,
             'translation guest identity mismatch')
-    require(raw['converter_archive_sha256'] == tools['archives']['converter']['sha256'] and
+    require(raw['converter_commit'] == json.loads((root/'release/generated-go-translation.json').read_text())['converter_commit'] and
+            raw['converter_archive_sha256'] == tools['archives']['converter']['sha256'] and
             raw['patched_converter_sha256'] == digest(out/'wasm2go') and
             raw['patches_sha256'] == {name:digest(patches/name) for name in raw['patches_sha256']} and
             set(raw['patches_sha256']) == set(json.loads((root/'release/generated-go-translation.json').read_text())['patches_sha256']),
@@ -89,8 +90,19 @@ def verify_translation(root, out, guest_sha):
     return raw
 
 
-def install_inputs(record, module):
+def install_inputs(record, module, root=None):
     require(record['contract'] == CONTRACT and record['result'] == 'UNQUALIFIED', 'not dev installation inputs')
+    for key in ('guest_record_sha256', 'translation_record_sha256', 'guest_sha256'):
+        require(len(record[key]) == 64 and all(c in '0123456789abcdef' for c in record[key]), 'invalid dev provenance: '+key)
+    if root is not None:
+        guest = Path(record['guest_directory'])
+        translation = Path(record['translation_directory'])
+        actual = verify_guest(root, guest)
+        require(digest(guest/'guest.json') == record['guest_record_sha256'] and
+                actual['guest_sha256'] == record['guest_sha256'], 'dev acquisition provenance mismatch')
+        verify_translation(root, translation, record['guest_sha256'])
+        require(digest(translation/'input-manifest.json') == record['translation_record_sha256'],
+                'dev translation provenance mismatch')
     require(record['source_inventory'] == inventory(module), 'dev candidate source identity mismatch')
     require(record['data_sha256'] == digest(module/'generated/data.bin'), 'dev data identity mismatch')
     return record
@@ -126,6 +138,7 @@ def regenerate_development(root, guest, output):
                   'source_inventory':inventory(module), 'data_sha256':digest(module/'generated/data.bin'),
                   'candidate_files_sha256':{p.relative_to(module).as_posix():digest(p)
                        for suffix in ('*.go','*.s') for p in module.rglob(suffix)},
+                  'guest_directory':str(guest), 'translation_directory':str(translation),
                   'guest_record_sha256':digest(guest/'guest.json'),
                   'translation_record_sha256':digest(translation/'input-manifest.json')}
         write(out/'installation-inputs.json', inputs)
