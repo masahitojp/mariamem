@@ -1,0 +1,32 @@
+File: bench1272
+Type: alloc_space
+Time: 2026-10-10 15:19:00 JST
+Showing nodes accounting for 5.73GB, 98.64% of 5.80GB total
+Dropped 207 nodes (cum <= 0.03GB)
+Showing top 25 nodes out of 85
+      flat  flat%   sum%        cum   cum%
+    4.62GB 79.55% 79.55%     4.62GB 79.55%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.resizeMemData
+    0.43GB  7.35% 86.90%     0.43GB  7.35%  github.com/go-sql-driver/mysql.reserveBuffer (inline)
+    0.22GB  3.84% 90.74%     0.65GB 11.19%  github.com/go-sql-driver/mysql.(*mysqlConn).interpolateParams
+    0.21GB  3.54% 94.28%     0.21GB  3.54%  github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).read
+    0.19GB  3.21% 97.49%     0.19GB  3.22%  github.com/masahitojp/mariamem/internal/guest.(*Process).Call
+    0.03GB  0.52% 98.01%     0.72GB 12.40%  main.main.func4
+    0.02GB  0.38% 98.39%     0.05GB  0.93%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait
+    0.01GB  0.24% 98.64%     0.03GB  0.55%  time.NewTimer
+         0     0% 98.64%     0.69GB 11.86%  database/sql.(*DB).Exec (inline)
+         0     0% 98.64%     0.69GB 11.86%  database/sql.(*DB).ExecContext
+         0     0% 98.64%     0.69GB 11.86%  database/sql.(*DB).ExecContext.func1
+         0     0% 98.64%     0.69GB 11.86%  database/sql.(*DB).exec
+         0     0% 98.64%     0.69GB 11.85%  database/sql.(*DB).execDC
+         0     0% 98.64%     0.69GB 11.85%  database/sql.(*DB).execDC.func2
+         0     0% 98.64%     0.69GB 11.86%  database/sql.(*DB).retry
+         0     0% 98.64%     0.67GB 11.61%  database/sql.ctxDriverExec
+         0     0% 98.64%     0.69GB 11.85%  database/sql.withLock
+         0     0% 98.64%     0.66GB 11.45%  github.com/go-sql-driver/mysql.(*mysqlConn).Exec
+         0     0% 98.64%     0.67GB 11.61%  github.com/go-sql-driver/mysql.(*mysqlConn).ExecContext
+         0     0% 98.64%     0.43GB  7.35%  github.com/go-sql-driver/mysql.escapeStringBackslash
+         0     0% 98.64%     0.05GB  0.93%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait
+         0     0% 98.64%     2.94GB 50.61%  github.com/masahitojp/mariamem/internal/generatedgo.StartInstance.func2
+         0     0% 98.64%     2.93GB 50.51%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0% 98.64%     2.93GB 50.51%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0% 98.64%     4.62GB 79.53%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_allocate

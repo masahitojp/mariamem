@@ -1,0 +1,33 @@
+File: bench1272
+Type: cpu
+Time: 2026-10-10 15:18:44 JST
+Duration: 16.26s, Total samples = 15.36s (94.46%)
+Showing nodes accounting for 14.34s, 93.36% of 15.36s total
+Dropped 392 nodes (cum <= 0.08s)
+Showing top 25 nodes out of 213
+      flat  flat%   sum%        cum   cum%
+     3.77s 24.54% 24.54%      3.77s 24.54%  runtime.pthread_cond_signal
+     1.89s 12.30% 36.85%      1.89s 12.30%  syscall.rawsyscalln
+     1.83s 11.91% 48.76%      1.83s 11.91%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)
+     1.16s  7.55% 56.32%      1.16s  7.55%  runtime.memmove
+     1.13s  7.36% 63.67%      1.13s  7.36%  runtime.pthread_cond_wait
+     0.97s  6.32% 69.99%      2.79s 18.16%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA
+     0.72s  4.69% 74.67%      0.72s  4.69%  runtime.memclrNoHeapPointers
+     0.71s  4.62% 79.30%      2.57s 16.73%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn14210
+     0.49s  3.19% 82.49%      0.49s  3.19%  runtime.usleep
+     0.31s  2.02% 84.51%      0.59s  3.84%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn645
+     0.31s  2.02% 86.52%      0.89s  5.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn610
+     0.20s  1.30% 87.83%      0.44s  2.86%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+     0.13s  0.85% 88.67%      0.51s  3.32%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn995
+     0.10s  0.65% 89.32%      0.17s  1.11%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn18132
+     0.10s  0.65% 89.97%      0.18s  1.17%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn7971
+     0.08s  0.52% 90.49%      0.08s  0.52%  runtime.kevent
+     0.08s  0.52% 91.02%      0.08s  0.52%  runtime.madvise
+     0.07s  0.46% 91.47%      0.18s  1.17%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn7972
+     0.06s  0.39% 91.86%      0.24s  1.56%  github.com/go-sql-driver/mysql.escapeStringBackslash
+     0.05s  0.33% 92.19%      4.32s 28.12%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn21647
+     0.05s  0.33% 92.51%      0.30s  1.95%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16741
+     0.04s  0.26% 92.77%      2.67s 17.38%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14212
+     0.03s   0.2% 92.97%      0.22s  1.43%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn455
+     0.03s   0.2% 93.16%      0.08s  0.52%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18097
+     0.03s   0.2% 93.36%      0.08s  0.52%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18194
