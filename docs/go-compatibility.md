@@ -3,7 +3,7 @@
 The module minimum remains **Go 1.26.0**. `go-sql-driver/mysql v1.9.3`
 is a development/test client dependency; the production library does not import
 it or require it to serve the MySQL wire protocol. Applications choose their
-own compatible client driver. No dependency upgrade is planned for v0.4.6.
+own compatible client driver. v0.4.6 made no dependency upgrade.
 
 External-module consumers passed on **macOS arm64** using Go **1.26.8,
 1.27.0, 1.27.1 and 1.27.2**, with `GOTOOLCHAIN=local` and actual compiler versions
@@ -17,11 +17,15 @@ checks, including the new Go `LoadSnapshot` lifecycle. Actual compiler:
 This was real execution under Docker Desktop Rosetta x86_64 emulation on an
 arm64 Mac, not cross-compilation or native x86_64 release qualification.
 Cleanup returned goroutines 2 → 2 and left no runtime temporary entries.
-Final supported-platform artifact qualification remains a native CI gate.
+Final v0.4.6 artifact qualification and public-tag smoke passed on native
+macOS15 arm64 and Ubuntu24.04 x86_64 using Go1.26.8 in
+[Release CI](https://github.com/masahitojp/mariamem/actions/runs/38040418075),
+source `b56be17206b6beef18f55c8ea39b254638da8590`. This does not extend native
+release qualification to Go1.27.2 on Ubuntu.
 
 These checks use an exact-source private module-proxy fixture without a Go
-`replace` directive. Public-tag/artifact consumer qualification remains a final
-release gate. Supported platforms and release evidence are separate from the
+`replace` directive. The completed public-tag/artifact release qualification
+is separate evidence. Supported platforms and release evidence are separate from the
 minimum language directive. No generated/runtime workaround is included.
 
 The new `LoadSnapshot` API also passed focused macOS consumer/lifecycle checks

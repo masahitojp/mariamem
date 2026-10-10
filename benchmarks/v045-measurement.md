@@ -66,6 +66,37 @@ spike/runtime numbers have their own source/machine/sample conditions. pgmem's
 Snapshot figure is architectural context, not a comparable target. Broad repeated
 COUNT remains query work (~280 ms on the local 100 MiB case), outside Fork-ready.
 
+## Snapshot lifecycle research boundary
+
+Post-v0.4.6 reconciliation (2026-10-10): this section maps existing evidence to
+future questions; it adds no measurements and leaves all original data/SHAs intact.
+The host/export/publish code was compared with the released source before using
+these boundaries. The [pgmem review](../docs/reviews/pgmem-vfs-design-review.md)
+describes stop → VFS Clone → restart of the original server. mariamem's successful
+cold Snapshot consumes its source. pgmem's ~10 ms reference is not a matched
+experiment or a target derived from these observations.
+
+| Stage | Existing evidence | Still not isolated / future question |
+| --- | --- | --- |
+| Full public Snapshot | Public operation median and `public_snapshot` trace | Not a missing total; reuse it rather than timing only the host |
+| Quiesce / guest shutdown | Host `sessions_drained`, `export_acknowledged`, `guest_stopped` marks; inspected guest joins workers and calls `l4m_close` before snapshot-copy | Pure guest shutdown versus guest snapshot-copy/ack/wait within the host envelope |
+| Export | Nested `snapshot_export` trace, allocation marks and data-read/materialized byte counters | Guest-side snapshot-copy is not the same as this host file export; existing allocation-call intervals do not isolate later page touches |
+| Enumeration | Existing inventory trace (~0.2–0.3 ms) | Already bounded; no new enumeration campaign justified |
+| Materialization / copying | Export write counters and publish `copy_materialized` bytes; measured copy interval | `io.Copy` combines reading and writing; isolate only if attribution would change a decision |
+| Validation / hash | Source/target inventory read-hash intervals, traversal counters and inspected acquisition | Streaming read versus hash CPU; counts are logical data passes, not physical disk reads |
+| Publish / owned acquisition / cleanup | `snapshot_publish` total and source/target/copy marks; public `source_cleanup_done` and `owned_backing_acquired` marks | Final manifest serialization/write/rename and detailed cleanup are residuals, not separately timed categories; inspect significance before new instrumentation |
+| Fork startup / recovery | Separate Fork-ready/startup timings | Outside Snapshot creation; do not add this to Snapshot or compare it with VFS Clone alone |
+
+Here **publish** means committing the Snapshot manifest after materialization and
+validation, not publishing a GitHub release. The host/export and substage timers
+are nested; they cannot be added as independent costs. Temporary acquisition and
+persisted import have different copying paths. Research should reuse the existing
+harness and traces, add only a decision-relevant missing boundary, and obtain a
+separate Human Decision before changing traversal count, source lifecycle or
+InnoDB shutdown mode. The [MemFS Decision](../docs/reviews/memfs-architecture-decision.md)
+owns storage measurement/PoC gates. Neither research thread delays stable-guest
+migration in v0.5.0.
+
 ## Actual suite crossover
 
 Includes preparation, SQL and disposal in both modes. For serial Go suites the

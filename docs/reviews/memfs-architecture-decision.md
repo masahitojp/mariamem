@@ -326,8 +326,8 @@ local links、diff/statusを確認。新benchmark、runtime build/test、CI disp
 main/v0.4.6候補を変更せず、文書とhashを独立branchへcommit/push。
 取得sourceと完了worktreeはGit-aware cleanupし、compact証拠・refsだけ保持する。
 
-[pgreview]: https://github.com/masahitojp/mariamem/blob/55c5639aa43e6cad72a53d313c58a5e2ba9bdb20/docs/reviews/pgmem-vfs-design-review.md
-[blockreview]: https://github.com/masahitojp/mariamem/blob/9edb01a726345909a3590a42e10258c9cc28dc33/docs/reviews/block-storage-design-discovery.md
+[pgreview]: pgmem-vfs-design-review.md
+[blockreview]: block-storage-design-discovery.md
 [v046review]: https://github.com/masahitojp/mariamem/blob/8c07a9bd3278f7c8d2c633c38b7c41377d43100a/docs/reviews/v046-human-review.md
 [pglite]: https://github.com/moriyoshi/pglite-go/blob/c6b3b5d4ae4744e97eb320ff03e1a1d472b4522f/vfs/file.go#L49
 [pgmem]: https://github.com/shibukawa/pgmem/blob/3433a40bd4167daea2d8e364666bd5fcf18ef654/internal/vfs/vfs.go#L681

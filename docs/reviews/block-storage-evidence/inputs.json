@@ -1,0 +1,493 @@
+{
+  "mariamem_baseline": "f306fa697edb8410973d1a61ec3ebbcb16ac0e7d",
+  "sources": [
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "LICENSE",
+      "bytes": 1049,
+      "git_blob": "951ea468ff4ca834f5223b7bd952ea2b51dc1c1a",
+      "sha256": "30521ababd165290d8cd711f5fb716440c8209f3b96ce6db40322549058f6579"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "package.json",
+      "bytes": 1159,
+      "git_blob": "f177bfc14d5b5d1784b1378db0fd53cf4bbc87a2",
+      "sha256": "e682bd96ed0deccf07ee3ff2c04c971e5012a8efcf8843160756d383b927b104"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/index.js",
+      "bytes": 140,
+      "git_blob": "ed32e9d151af09cac07887a12ed2f4bc843a0a5c",
+      "sha256": "2d1079534598bf771a32e59bba5b80c28d89937e3bd5b3e5e50da21f804d9777"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/indexeddb/backend.js",
+      "bytes": 2092,
+      "git_blob": "d38f6aa00a25d4dafc89097f7e6976d877e7c53b",
+      "sha256": "cc26381ac4fb4761a9aba28e749fbb24b3287cb19210d29b87c9c334d56214c2"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/indexeddb/file-ops-fallback.js",
+      "bytes": 6861,
+      "git_blob": "6bdd539e392569e2d80373213ce64d22794a0402",
+      "sha256": "fc08c7462645067b78131acb010471e871f6c0139e897f95437c258003e1ff52"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/indexeddb/file-ops.js",
+      "bytes": 6488,
+      "git_blob": "d8b25482675ca7fecc6c69190645f1479cd38188",
+      "sha256": "ba0157a4d073ccefb4b3cafa2f3fd7aedac57e2d800210b9532a71f9b1c32fa8"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/indexeddb/main-thread.js",
+      "bytes": 241,
+      "git_blob": "5efe199e6c5a43cd58e2224b41308341b2fd8d40",
+      "sha256": "f60d6351d1d9983cceb7fdfac240340ad6056349a00881d955ed3cc835e2bb17"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/indexeddb/shared-channel.js",
+      "bytes": 5688,
+      "git_blob": "25bdf83d4d928e1a0f6359604612ea32290243a4",
+      "sha256": "6915a4c1af735f1d0c8feb7e19cfdfa4317abce16f2c66d680dee5dd39a0303f"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/indexeddb/shared-channel.test.js",
+      "bytes": 3896,
+      "git_blob": "7563da091f50747ce528d255f4a344717843d99e",
+      "sha256": "a787ae31393f1e9fc65d136f6ca8fb120df7e3459abc82d455cf0aa467705bf3"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/indexeddb/worker.js",
+      "bytes": 21074,
+      "git_blob": "480aaa61abca668f4d473f690651882fb800a2c9",
+      "sha256": "734724c774a361364a92ba649c9f60eb3a3f8ac26a744041fcffca309903d0ca"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/main-thread-module.js",
+      "bytes": 1890,
+      "git_blob": "074a94a25733c06ffd6dc0cb93696e6ddd09e359",
+      "sha256": "ac908a924e621071dcc67db4a06b71c060df6d5eae99f7585713b19c1d246099"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/memory/backend.js",
+      "bytes": 2433,
+      "git_blob": "d0f86722ba8c8836246b5a0ed7b3d10f2d864e47",
+      "sha256": "4ac8d06110b4166a8ee13ff4e718d18a7e0811b0ce4f2c4dd466482a6bf4263d"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/sqlite-file.js",
+      "bytes": 12406,
+      "git_blob": "3504e8bdae787c78800fd5e326724c2678ff6742",
+      "sha256": "b15732e760656d72e97bf979fb95cfb6a7888ef84fdf2289ac2708f01074235b"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/sqlite-file.test.js",
+      "bytes": 7710,
+      "git_blob": "bb14797d20d1af7d47004e34219ccac8eeac371b",
+      "sha256": "f120728cc9a621b84295feea205f366aae62ea3412f6c28746afd4a37e951948"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/sqlite-fs.js",
+      "bytes": 5688,
+      "git_blob": "3f016fd98d74f8233328fef89ebe1616a37d9d27",
+      "sha256": "7c7d3f465771b95cb747545aba93f04bda7588bb5b57e7a83bd7b7d0e48aa3ee"
+    },
+    {
+      "repo": "jlongster/absurd-sql",
+      "source_commit": "1bff34fc3482a78955f00640f080bd7ec7852828",
+      "path": "src/sqlite-util.js",
+      "bytes": 1316,
+      "git_blob": "2da4ab4f7ef1bd978c549a92b837dad6339ae0e6",
+      "sha256": "d7a01932f9fd9146999efd5689e84c8c3567a9e55a33c82d65d69b6873381967"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "Cargo.toml",
+      "bytes": 3819,
+      "git_blob": "167ce8ee8b2f84e090b20a128edc3b52148ed670",
+      "sha256": "aa3c42d80e67f4a1cf96b1090d2370ec397cd40d243b29d7adc48278f1ed6cab"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "LICENSE.md",
+      "bytes": 34523,
+      "git_blob": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/cleanup.rs",
+      "bytes": 3723,
+      "git_blob": "e335212189f041ebac2699729cda4549c8fc05dd",
+      "sha256": "80e661be9c32bb5544de4b458da4fa755401932ec14c7fb1cdb911d96612637f"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/allocation.rs",
+      "bytes": 12650,
+      "git_blob": "263101c7d8621529d74086d03bee7e5a6b08638d",
+      "sha256": "a4b8605ba9ff7ea114c81af1d71d854c2aca7f5bbcb958914ef9377b92f18c51"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/auto_sync.rs",
+      "bytes": 31497,
+      "git_blob": "3d1e0bf764d69184aa3cd42968cdb3f1e0ec93f3",
+      "sha256": "ba9862ae47514bca7e3e7fb29c3248753ad54f4865beb6cec56e48e9baa586df"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/backend_detect.rs",
+      "bytes": 3562,
+      "git_blob": "387b0913d2403290f3379d3d801880972ab43682",
+      "sha256": "334bf70c2ea98f25f6972eb79854c37bcdb4fa0050fb41b6af8e1792836207b6"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/block_info.rs",
+      "bytes": 2632,
+      "git_blob": "fc10f09a248d67aebe58c8b40c0d1e56ca80923c",
+      "sha256": "910f12a97034b624f354b96b72ce3dbeba63e0d19cf87f00c6912e5f6f996715"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/block_storage.rs",
+      "bytes": 103896,
+      "git_blob": "36f3d5c049ca8a79cd39f56b4d56f634c94b82c5",
+      "sha256": "7de0d8244b1ec57e9354d79aa2dd9c667847f40dbad89c52e45c9edfaf3de4f8"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/broadcast_notifications.rs",
+      "bytes": 6132,
+      "git_blob": "3523ffe82a1e6e0f7d0a9538caa0ef44bdb169e8",
+      "sha256": "c48ce1a48c862b9fbbd4c2b5724c393660d1f24631ccab6080619bbba4406201"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/constructors.rs",
+      "bytes": 24046,
+      "git_blob": "03c5fc0fb7cc597e3b0669d3eceadee2b98646ed",
+      "sha256": "47a41e84bc7146ebaa3585079793a7a7d2adcd83be62f49d485e812448344b2d"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/coordination_metrics.rs",
+      "bytes": 10475,
+      "git_blob": "4893b899166fed987f432bff3ca4bc05543a152e",
+      "sha256": "4e856df41be04c217cee274084a9f438127b3d5a1d43bf6a75f95c754a752c32"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/export.rs",
+      "bytes": 24806,
+      "git_blob": "39f06e87b53a7648e4ad5b6aabdd95bf3aff6f70",
+      "sha256": "e3481d8c17de7106ffa27c99068d43dbe12c26be221b514b6323877904f7128b"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/export_import_lock.rs",
+      "bytes": 2981,
+      "git_blob": "56f54c8ddd4349422c86de576d97d5f436b5fa0c",
+      "sha256": "65e5ed14c4f0705d35c434efb6720a90aa8d23e367e6dad2183758f263222f59"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/fs_persist.rs",
+      "bytes": 46961,
+      "git_blob": "f8901bcbddbff165eeb2f3f12aef7abceaf06415",
+      "sha256": "01d3ba4c2ae95f5bafb4683433f1ea3371d95db01ec48295e289c9fd4bc5aa58"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/hybrid_store.rs",
+      "bytes": 5492,
+      "git_blob": "6e1d1730fcc6b26cc07613c969abb5fd4908fbfc",
+      "sha256": "017a56f1f9ca6f7a119243327ad3f631d264405f16ebcd94f74df0700cda98a1"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/import.rs",
+      "bytes": 21983,
+      "git_blob": "19c8bfdae8be017dc1e444e33cdd0cad0cfdc2c9",
+      "sha256": "e8cb6550642f96da4daddcfb0c7450e2c064bc064d69f73b840ac527966ffd50"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/indexeddb_queue.rs",
+      "bytes": 3532,
+      "git_blob": "52b5c9aaed439629252b9313bdc8404f37cdb2dc",
+      "sha256": "5949077861778f3eec00661b75a785e26e7358f9746358e98c47bd7376127e00"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/io_operations.rs",
+      "bytes": 29456,
+      "git_blob": "97ec459a37bed7d8da02d6b699ad56e9426b43e7",
+      "sha256": "2db7c80781373526367e5f56bd9970fdb2be383aadd138979106b00783202d0e"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/leader_election.rs",
+      "bytes": 31650,
+      "git_blob": "24ce45ea99a27250985f4dd6e2007f60b69dbe0e",
+      "sha256": "b27dadb529db7603d89a888787f05a9a0a1ff2d9b9dbf7c9e0b182eefdd16d08"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/metadata.rs",
+      "bytes": 8254,
+      "git_blob": "d12f69827239427cc45b4620c7268bf47d92554d",
+      "sha256": "3f9630086ca57091257dc0815852fdea083887b6bef7ae8795e0c358a3a1e412"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/mod.rs",
+      "bytes": 1519,
+      "git_blob": "a11011fb0e9b867a2fc65911b2fa5006c019d643",
+      "sha256": "8efbaaa008de25a7df3eff0d6651cec8feb90cee8e6a7fc5b28e31f27d3375a1"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/mvcc_queue.rs",
+      "bytes": 3843,
+      "git_blob": "9c5efe8143dad844adc10da94046d621d1c7bc91",
+      "sha256": "8d87b1ed51868c273ef990baff1809c7700bd06b18da3ab8a9c07e88bbc121dd"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/observability.rs",
+      "bytes": 6962,
+      "git_blob": "fbecf6d7d2d267718bc8c53bd9488f41f279e343",
+      "sha256": "3b81ffac29409115a91423662abe0c8d7b117d6e22bf82b0ec09ded2687ad37f"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/optimistic_updates.rs",
+      "bytes": 6500,
+      "git_blob": "e94cc035a447dcdd9362b18afb04049fb78ab4bc",
+      "sha256": "da86fd514f02ae5597f4d2196fe99a4deddda3502dec37909c58ac894a511e42"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/recovery.rs",
+      "bytes": 21580,
+      "git_blob": "1442db7d9dad7c93772371b5ff652d8ba1398a80",
+      "sha256": "4c498c528b94ada3e8f52129b28ae872f42453716051e74d977b12cb36af5c77"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/reentrancy_handler.rs",
+      "bytes": 4593,
+      "git_blob": "53892a4848248b804326f4a59151368349c2f79b",
+      "sha256": "67b7f787769e98e016496cc5ac7b018c2a7a26e459bd0ca934310ce2ecff5149"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/retry_logic.rs",
+      "bytes": 7394,
+      "git_blob": "54aba554d9fb94477dcd3ecede2ec855c5eb1f93",
+      "sha256": "e974c593945ca3319676338f929c49145a3781efe369e5ec1c548f65e880b703"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/sync_operations.rs",
+      "bytes": 10192,
+      "git_blob": "9ecdd0c7881a3987811bf606a809c125b4d5b141",
+      "sha256": "9c63cfd95a0ec953f1084428a1c4c2df27d227efbd9ecdce15138b9b2dbc6457"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/vfs_sync.rs",
+      "bytes": 3475,
+      "git_blob": "b01581c8e73b6d00e18aa9e2b4e5174f9741efcb",
+      "sha256": "947c367708d0ac9227c5a4e052d7e799d62f7e0492a5ea186db800a4ad4ddb0f"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/wasm_auto_sync.rs",
+      "bytes": 9496,
+      "git_blob": "f5e1c16a882bfb52e12bda7a11b9940d18d9ba6d",
+      "sha256": "a54286279a6d8b54c266af902124395248c91b9462d91fabe045dd3c962aa8d6"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/wasm_indexeddb.rs",
+      "bytes": 83720,
+      "git_blob": "83456e852d25373f62550d88a6b8a0af87dcba67",
+      "sha256": "d281007d99be93b9f6a70c5ff533a5bc36f91c07ff2d1ccc0b6c33115b3da6a1"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/wasm_opfs.rs",
+      "bytes": 16620,
+      "git_blob": "ceb156d14dac8c462124b1c29c4d8f9de79d8f34",
+      "sha256": "1d60c2ea41fc3391c6235ba8856e7c3b14beeedc9f3e0ea210371c9c303e24e3"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/wasm_vfs_sync.rs",
+      "bytes": 17183,
+      "git_blob": "6dd5a19515ccbc64ee032a9c8ced1d093bc5829e",
+      "sha256": "129c69184c5405412b7d1e818470fe26ac7713a0090e836e3a3149dde3436336"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/storage/write_queue.rs",
+      "bytes": 7120,
+      "git_blob": "823b4c1d068020893ab1027077ce2110cb05f39e",
+      "sha256": "0fb5dc0d1c95ecced8c711afc5608b865ecd092724a619aa0f6fb16abbf1209f"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/types.rs",
+      "bytes": 8082,
+      "git_blob": "5e4b61be9c502e1cc7a43e558fed17c048e557a0",
+      "sha256": "d11c35e63ff638427e16c2e7fa08845bd7d2b1d0e1c2eafcc0b731598056ba30"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/vfs/indexeddb_vfs.rs",
+      "bytes": 75890,
+      "git_blob": "41897b78ea7c2f255772adb166d845e8170e59af",
+      "sha256": "997c4a257e7a49f2ec8161eb25bd946a49ca75c4f4c945b49c7f985246580be6"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "src/vfs/mod.rs",
+      "bytes": 61,
+      "git_blob": "d9e61d0713660dad4ad0b18e731c766ba255b8fc",
+      "sha256": "516000398671d2f7f487fa31366117fb85779d177bf5b2043bce12a90189f95d"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "tests/block_integrity_tests.rs",
+      "bytes": 2945,
+      "git_blob": "4a02e76a813141e8f709fc7f9e09a00b21341aa0",
+      "sha256": "2e909e2a306ecafa3004cee2b4dd6cab42c56d57637eb644c751df1b7fbc8dc5"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "tests/lru_cache_tests.rs",
+      "bytes": 3044,
+      "git_blob": "0bdf60bd535deee3f6e92cc85d90988ef50db872",
+      "sha256": "29be4d22fd3c25b4dfd8f2dcaed883db641dca86c13ca355869005c94368059a"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "tests/partial_block_write_test.rs",
+      "bytes": 1793,
+      "git_blob": "78b4ad6c0bba8953b9ec55c62271d910100ee8f4",
+      "sha256": "3aec7760c17ee7864b04223efaaa275f681f7525ff27ab529bf0792c5284eeb9"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "tests/recovery_invalid_size_deletion_tests.rs",
+      "bytes": 2268,
+      "git_blob": "3926756d961943702aa595233ebe0e7776be0cc8",
+      "sha256": "a96a34854b5ed8e5e05f0a2d3a9dc9626b204a0d346094ce2fd6e1adcfd4719c"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "tests/recovery_invalid_size_tests.rs",
+      "bytes": 2499,
+      "git_blob": "1ce362f19dd85136da94d6cf0b533add0b7a65b3",
+      "sha256": "32f3d27f0cc4260082348a768cdd44f0f802ecf20fa2e6b8744c89cb543e5de9"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "tests/telemetry_memory_allocation_test.rs",
+      "bytes": 10727,
+      "git_blob": "edd41a54c4ac1dde90f34d04261ff59f22b793b0",
+      "sha256": "f0105e2ffe677d7b51977d1aeb30cc9e489ac6e21749c715fb809115865e5023"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "tests/test_block_allocation.rs",
+      "bytes": 4059,
+      "git_blob": "af5bf6fcf03b06cd4fd5e142d6858a404ad46c0f",
+      "sha256": "6f63ac415836c93c952d9246ada80cb37c12166075fa2064e39d60c2b52312e7"
+    },
+    {
+      "repo": "npiesco/absurder-sql",
+      "source_commit": "1113358cc4c69fc980ceb1334fb3e9330c330dd1",
+      "path": "tests/vfs_write_buffering_tests.rs",
+      "bytes": 15851,
+      "git_blob": "bc32e29d3ff517963b34db70faec87621aa13cd4",
+      "sha256": "24bee8e8c902dfa2bd4580230153946b4df276cd1868caf51519f72927c43035"
+    }
+  ]
+}

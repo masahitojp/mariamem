@@ -24,6 +24,32 @@ cache freshness, regeneration or deletion. Diagnostics do not define the normal
 Snapshot lifecycle. These are product choices independent of reference-project
 APIs. See the [adopted contract](decisions/snapshot-product-contract.md).
 
+## Current published release: v0.4.6 — Product usability and validation
+
+[v0.4.6](https://github.com/masahitojp/mariamem/releases/tag/v0.4.6) was published
+on 2026-10-10 from source `b56be17206b6beef18f55c8ea39b254638da8590`;
+annotated tag object `09d7b82e1900318dde45d08bebd9328ea35e6ef7`.
+The [release run](https://github.com/masahitojp/mariamem/actions/runs/38040418075)
+passed source reproduction, both native platform artifact/consumer qualification,
+aggregate READY, publication and public smoke on macOS15 arm64 and Ubuntu24.04
+x86_64. The released tag peels to that exact source; main matched it at this
+post-release documentation review. These results qualify the released source,
+not later documentation commits.
+
+Go `LoadSnapshot(ctx, path, opts)` completes persisted-baseline acquisition.
+Go/Python guides and [bounded product comparisons](../benchmarks/v046-product-validation.md)
+cover Fresh, preparation reuse, optional persistence and independent children.
+Go minimum 1.26.0, mysql client v1.9.3, guest, generated runtime and Snapshot format
+remain unchanged. Release validation uses Go1.26.8 and Python3.14; accepted
+Go1.27 consumer scope is documented in [compatibility](go-compatibility.md).
+No Snapshot or filesystem optimization is included.
+
+The earlier [integration verify run](https://github.com/masahitojp/mariamem/actions/runs/38033500776)
+qualified source `8c07a9bd3278f7c8d2c633c38b7c41377d43100a` with private 0.4.5-labelled
+artifacts. It is historical preparation evidence, not the final v0.4.6 artifact
+identity. See [integration history](reviews/v046-release-qualification.md) and
+[release notes](../release/NOTES-v0.4.6.md).
+
 ## Previous architecture baseline: v0.4.4
 
 [v0.4.4](https://github.com/masahitojp/mariamem/releases/tag/v0.4.4) is released
@@ -54,21 +80,7 @@ release repairs remain evidence, not instructions for the current user lifecycle
 See [v0.4.3 characterization](../benchmarks/v043-characterization.md) and the
 [v0.4.4 review reports](reviews/v044-release-runtime-reuse-design.md).
 
-## v0.4.6 — Product usability and validation, release preparation
-
-The maintainer approved the [implementation review](reviews/v046-human-review.md),
-Go `LoadSnapshot`, language guides, bounded product comparisons, main integration
-and v0.4.6 release. [Integration qualification](reviews/v046-release-qualification.md)
-records the exact evidence boundary: source
-`8c07a9bd3278f7c8d2c633c38b7c41377d43100a` passed native macOS/Ubuntu, source reproduction,
-private-artifact consumers and aggregate READY in
-[verify run 38033500776](https://github.com/masahitojp/mariamem/actions/runs/38033500776).
-Those artifacts retain 0.4.5 metadata and are not the final v0.4.6 distribution.
-Final-version qualification, publication and public smoke belong to Release CI.
-Go minimum 1.26.0, mysql client v1.9.3, guest, generated runtime and Snapshot format
-remain unchanged. No Snapshot or filesystem optimization is part of this release.
-
-## Published baseline: v0.4.5 — Infrastructure stabilization and measurement
+## Previous release: v0.4.5 — Infrastructure stabilization and measurement
 
 v0.4.5 is published from `d992e26a6d110ceeb54f69d71acd1358c72abb1b`.
 The [public smoke recovery report](reviews/v045-public-smoke-recovery.md) records
@@ -139,14 +151,41 @@ same-source macOS arm64 suite/resource results and reproduction evidence.
 No consistent practical speedup was demonstrated; these observations do not
 change the supported toolchain policy or qualify the current main SHA.
 
-The [memfs discovery](reviews/memfs-optimization-discovery.md) follows the
-roughly 80% Fresh allocation attribution to `resizeMemData`. Existing profile
-callers place almost all of it under `Fd_allocate → Truncate`, so allocation
-share alone does not justify a growth-factor change. First allocation,
-reallocation/copy and retained capacity need separate attribution before an
-implementation decision. Local changes remain candidates; replacing the whole
-VFS is not recommended. No optimization is approved or implemented by retaining
-these reports. The [benchmark index](../benchmarks/README.md) links both.
+The [memfs Architecture Decision](reviews/memfs-architecture-decision.md) is the
+single decision/routing reference. Retain current memfs + MAP_PRIVATE, defer full
+VFS replacement and mmap-prefix/tail, and consider growth-factor or sparse/chunk
+PoCs only after its limited-measurement gates. This is technical direction,
+**not Human implementation approval**. Its [memfs/pglite](reviews/memfs-optimization-discovery.md),
+[pgmem](reviews/pgmem-vfs-design-review.md) and
+[block-storage](reviews/block-storage-design-discovery.md) reports are historical
+inputs with pinned source hashes. The observed ~4.62 GiB is cumulative allocation
+across 20 Fresh DBs including fixture work; it is not retained memory or an
+estimate of removable allocation. The [benchmark index](../benchmarks/README.md)
+already owns measurement navigation; no duplicate report is introduced.
+
+### Research handoff — independent of v0.5.0 guest migration
+
+**MemFS limited measurement:** use the existing Decision's §7 as the sole scope
+and acceptance reference: file/phase initial allocations, reallocations/copied
+bytes, unique write coverage, child-only mapped detach and corresponding
+wall/CPU/Peak RSS. This work remains unperformed and needs separate authorization;
+do not create a second measurement plan or backend implementation here.
+
+**Snapshot lifecycle/shutdown:** pgmem stops its server, clones VFS state, then
+restarts the original; mariamem consumes the source on successful cold Snapshot.
+The [existing Snapshot characterization](../benchmarks/v045-measurement.md#snapshot-lifecycle-research-boundary)
+already measures the public operation, host/export envelope, materialization,
+read/hash, copying and owned acquisition. Reuse those traces first. Remaining
+questions are pure shutdown versus guest snapshot-copy inside that envelope,
+read versus hashing CPU in combined intervals, and any decision-relevant
+unattributed manifest/cleanup residual. Fork startup/recovery is a separate
+operation. The pgmem ~10 ms reference has different lifecycle/storage boundaries
+and is not a comparable mariamem performance result. Restarting the source or
+changing InnoDB shutdown mode is not approved.
+
+Neither research item blocks v0.5.0. Performance PoCs, if later authorized,
+require their own correctness and product-benefit decision; stable-guest behavior
+must be rechecked before integrating an optimization selected on the old guest.
 
 ## v0.5.0 — Stable guest
 
