@@ -1,0 +1,57 @@
+{
+  "artifact_sizes": {
+    "installed_runtime_bytes": 233180315,
+    "translated_source_bytes": 211914411
+  },
+  "binary_bytes": 101050242,
+  "binary_sha256": "ab20b9bb57bf99aaacb70ea20264e5a060ba8d1da93cc90f989cde714c5822e3",
+  "contract": "development-unqualified-v1",
+  "generated_inventory": {
+    "files": 77,
+    "sorted_compact_json_sha256": "02b06a70e5c3b27170b10cfdd30127b0f982df2ce61bc8a7d2f108a4e508b235"
+  },
+  "go_buildinfo": "$WORK/temp/dev-native-v2/mariamem-dev-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "guest_record_sha256": "775d6ec3d59b1954e0b5e0def10080c7015c98593ab4bb8eff3f4e921dc664ee",
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "host_source_identity": {
+    "commit": "62a6f95709f1ebfd0153f10d7c68f3221741f9e0",
+    "files_sha256": {
+      "files": 1328,
+      "sorted_compact_json_sha256": "32accc912191ff3511eb44fc73bce571c85b45ab98f07f0569849c88d05cdad8"
+    }
+  },
+  "host_source_inventory": {
+    "files": 1328,
+    "sorted_compact_json_sha256": "69992f839f26730566c6af6ab0bc65ef8038d65dbf592247aff9878d31e29089"
+  },
+  "installation_inputs_sha256": "75b079fe5c5c74ad8fa2f866df230220f2159e5d5ee25124dd276feef74693c9",
+  "original_record_sha256": "13b13a20b55fc507f40e90d780452956756fd57f732cad2d5eb268f20ebcb0aa",
+  "raw_translation": {
+    "converter_archive_sha256": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f",
+    "converter_commit": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+    "files_sha256": {
+      "files": 51,
+      "sorted_compact_json_sha256": "2020af6d33d42bcb43a0d2cfb720defb35aee0a8a016776faf5998d4d3912042"
+    },
+    "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+    "patched_converter_sha256": "d00c317a156a2a4f8093b993455ffb33c3dfd13128d59f64134b6835213f9e12",
+    "patches_sha256": {
+      "controlled-thread-traps.patch": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+      "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+      "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+      "imported-memory.patch": "d342ffb1c09af27b215c0c26a26e4056b14a5e2a54d5ee8a084af719e2227639",
+      "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
+      "pure-memory32.patch": "097952ab11b4a07a939586d9f4a4b1037b890d6e43aaa4f4fa6ce1d6bc588815",
+      "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31"
+    }
+  },
+  "result": "UNQUALIFIED",
+  "smoke": "PASS",
+  "source_identity": {
+    "commit": "594edd37723f625ae9726766ba6b1ec806e2faaa",
+    "files_sha256": {
+      "files": 1328,
+      "sorted_compact_json_sha256": "882d3f14a19081b1d7799b7111555735186a3b9e3d745aad76460df50279a091"
+    }
+  }
+}

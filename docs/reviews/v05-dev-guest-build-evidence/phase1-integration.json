@@ -1,0 +1,31 @@
+{
+  "main_integration_commit": "70ac70ce0a4ccda403aa290dffa1d0bac0d8728b",
+  "previous_main": "b1666e4a6f4b3b77269b294de0fe225031ad12ce",
+  "method": "approved exact candidate fast-forward",
+  "canonical_python_check": "563 passed, 35 skipped, 18 subtests passed",
+  "generated_identity_check": "PASS",
+  "runtime_changed": false,
+  "release_workflows_guards_changed": false,
+  "check_log_sha256": "a8f4f387df0076422b0de50c78a255f86eb08a23ae53b04cff85ed428208cab7",
+  "changed_files": [
+    "benchmarks/spikes/generated-go-integration/translate_guest.py",
+    "docs/development.md",
+    "docs/reviews/v05-dev-guest-build-design.md",
+    "docs/reviews/v05-fast-feedback-assessment.md",
+    "docs/reviews/v05-fast-feedback-phase1-evidence/cache-validation.json",
+    "docs/reviews/v05-fast-feedback-phase1-evidence/hardware.json",
+    "docs/reviews/v05-fast-feedback-phase1-evidence/host-comparison.json",
+    "docs/reviews/v05-fast-feedback-phase1-evidence/host-warm-paired.json",
+    "docs/reviews/v05-fast-feedback-phase1-evidence/linux-observer-probe.json",
+    "docs/reviews/v05-fast-feedback-phase1-evidence/observer-overhead.json",
+    "docs/reviews/v05-fast-feedback-phase1-evidence/verification.json",
+    "docs/reviews/v05-fast-feedback-phase1-evidence/wheel-phases.json",
+    "docs/reviews/v05-fast-feedback-phase1.md",
+    "scripts/build_alpha.py",
+    "scripts/build_feedback.py",
+    "scripts/build_generated_guest.py",
+    "scripts/regenerate_release_guest.py",
+    "scripts/verify.py",
+    "tests/test_build_feedback.py"
+  ]
+}

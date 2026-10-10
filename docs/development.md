@@ -171,7 +171,69 @@ supervised prepared workspace can use this disk guard for each iteration; altern
 `experiment_workspace.py run` supervises one whole campaign and then completes it.
 Do not reuse a completed receipt or retain the task cache after completion.
 See [phase 1 evidence](reviews/v05-fast-feedback-phase1.md) and the
-[design-only dev guest proposal](reviews/v05-dev-guest-build-design.md).
+[approved dev guest design](reviews/v05-dev-guest-build-design.md) and
+[implementation validation](reviews/v05-dev-guest-build-validation.md).
+
+### Single-pass unqualified guest development
+
+This is a developer route, not a release qualification command. First prepare
+an owned experiment workspace and commit the exact source/patch/tool inputs.
+Use a fresh Linux arm64/root builder with the existing build prerequisites,
+empty `/work` and no existing `/root/.wasixcc`. Source can be mounted read-only,
+with a writable task build staging directory. If overriding the `build/` mount,
+carry the tracked `build/go.mod` into it unchanged.
+
+```sh
+# In that fresh builder; both paths must be absolute.
+export MARIAMEM_PHASE_TRACE=/absolute/task/evidence/guest-phases.jsonl
+python3 scripts/build_generated_guest.py \
+  --development-output /absolute/task/temp/dev-guest
+```
+
+Do not specify `--repetitions`: development performs exactly one build. Default
+execution without this option remains the accepted two-build Release recipe.
+The dev output contains observed WASM, linked WASM and `guest.json` marked
+`development-unqualified-v1` / `UNQUALIFIED`, plus actual compiler/source/patch
+identities. Matching the accepted hash does not qualify a single build.
+
+Copy/preserve those bound files and the exact clean source checkout. On a
+supported native product platform, activate pytest/PyMySQL, choose Go1.26.8 and
+set the task cache environment documented above:
+
+```sh
+export MARIAMEM_PHASE_TRACE="$MARIAMEM_DEV_WORKSPACE/evidence/native-phases.jsonl"
+python3 scripts/regenerate_release_guest.py --development \
+  --guest-dir "$MARIAMEM_DEV_WORKSPACE/temp/dev-guest" \
+  --output "$MARIAMEM_DEV_WORKSPACE/temp/dev-native"
+```
+
+The output must be fresh, outside the source checkout and outside reserved
+Release/canonical namespaces. The existing converter/adapter/installer produce
+an isolated source copy; old generated source and native binaries are excluded.
+Only the copy's guest compatibility constant is bound to the observed dev hash.
+The route builds a fresh host, checks its identity, then explicitly selects the
+small SQL/transaction/Snapshot/Fork/Close test. `development.json` is emitted
+only on complete success and remains UNQUALIFIED. `failure.json` records failed
+generation; partial output is never a completion proof.
+
+Guest-origin and host-stage identities are recorded separately. With unchanged
+source, all tracked bytes and the commit are verified directly. A later clean
+commit may reuse a guest only when differences are confined to docs/tests and
+three host-stage scripts (`dev_guest.py`, `generate_runtime.py`,
+`regenerate_release_guest.py`). Changed original bytes are verified against the
+actual historical Git tree; the native stage is independently bound to its
+current clean tree. Guest preparation/build/patch/tool inputs, other scripts,
+and Go source changes require a fresh guest. No receipt is relabeled or promoted.
+This narrow boundary permits fixing the host pipeline without repeating the C
+build; it is not a general cross-commit artifact cache. Valid downloads and Go
+compiler cache can be reused within the active task; discard failed/partial
+C and translated output before retrying.
+
+Before Release adoption, accept the exact source/recipe and perform independent
+clean two-build reproduction, accepted input verification, current runtime/race/
+trap/platform checks and final consumers/source/license/artifact guards. Dev
+receipts cannot substitute for any of those guarantees. Preserve compact result
+records and delete task SDK/source/object/product/cache/container state afterward.
 
 ### Runtime, artifact and publication responsibilities
 

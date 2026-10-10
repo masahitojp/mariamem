@@ -1,0 +1,12 @@
+[
+  {
+    "case": "real-dev-contract",
+    "result": "REJECTED",
+    "error": "wrong build contract"
+  },
+  {
+    "case": "relabeled-single-build",
+    "result": "REJECTED",
+    "error": "independent rebuild evidence missing/different"
+  }
+]

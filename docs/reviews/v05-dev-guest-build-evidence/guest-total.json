@@ -1,0 +1,8 @@
+{
+  "guest_wall_seconds_clock_estimate": 919.253905,
+  "start": "2026-10-10T21:58:02.595020923Z",
+  "end": "2026-10-10T22:13:21.848925+00:00",
+  "boundary": "Docker StartedAt to guest.json publication mtime; wall clock estimate, not monotonic; includes checks/download/setup/source/build",
+  "guest_input_hash_matches_canonical": true,
+  "source_commit": "594edd37723f625ae9726766ba6b1ec806e2faaa"
+}

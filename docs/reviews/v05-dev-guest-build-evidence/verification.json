@@ -1,0 +1,17 @@
+{
+  "tooling_focused": "119 passed in 8.24s",
+  "generated_inventory": "PASS",
+  "real_sql_smoke": "1 passed in 1.75s",
+  "owned_lifetime": "3 passed; Close/FD handoff/child survival/startup failure/new baseline",
+  "session_tests_initial": "3 skipped without MARIAMEM_TEST_DEFAULT=1",
+  "session_tests_explicit": "3 passed in 1.46s",
+  "guest_source": "594edd37723f625ae9726766ba6b1ec806e2faaa",
+  "native_source": "62a6f95709f1ebfd0153f10d7c68f3221741f9e0",
+  "guards": "existing generated_release.verify_build rejected actual dev receipt and relabeled single-build receipt",
+  "initial_native_failure": {
+    "wall_seconds": 97.93,
+    "reason": "reserved internal output namespace; fixed staged install then move into disposable product",
+    "success_receipt": false
+  },
+  "scope": "No native Ubuntu qualification or full guest race qualification claimed"
+}

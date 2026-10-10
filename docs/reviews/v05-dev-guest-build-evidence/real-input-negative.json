@@ -1,0 +1,26 @@
+[
+  {
+    "case": "source",
+    "result": "REJECTED",
+    "error": "ValueError",
+    "message": "Git identity check failed: fatal: git cat-file: could not get object info"
+  },
+  {
+    "case": "wasm",
+    "result": "REJECTED",
+    "error": "ValueError",
+    "message": "dev Wasm identity mismatch"
+  },
+  {
+    "case": "tool",
+    "result": "REJECTED",
+    "error": "ValueError",
+    "message": "dev toolchain identity mismatch"
+  },
+  {
+    "case": "missing",
+    "result": "REJECTED",
+    "error": "FileNotFoundError",
+    "message": "[Errno 2] No such file or directory: '$WORK/temp/negative-missing/guest.json'"
+  }
+]
