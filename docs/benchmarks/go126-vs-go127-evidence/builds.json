@@ -1,0 +1,28 @@
+{
+  "source_commit": "80a37385f9d1eda6604358dd5ba2235feb0b26ca",
+  "flags": [
+    "-p",
+    "1",
+    "-trimpath",
+    "-buildvcs=false"
+  ],
+  "sdk1272_sha256": "76812b213b1b2302c978d28fa52fa92d541704b9e7d9d5db8002c50e4018c4c5",
+  "builds": {
+    "1268": {
+      "version": "go version go1.26.8 darwin/arm64",
+      "seconds": 4.5605131249758415,
+      "returncode": 0,
+      "sha256": "2d4e2d2ae14d6722be71ed40321d86dec26cd4fd57fdfa5226fc3f419431e339",
+      "binary_bytes": 104838850,
+      "build_info": "TEMP/bench1268: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+    },
+    "1272": {
+      "version": "go version go1.27.2 darwin/arm64",
+      "seconds": 4.6427577920258045,
+      "returncode": 0,
+      "sha256": "45efa69bc07bf9925ad1cff08202983552b7903f19eaac0af1e0d291ec566562",
+      "binary_bytes": 107265394,
+      "build_info": "TEMP/bench1272: go1.27.2\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+    }
+  }
+}
