@@ -1,8 +1,7 @@
 # Go usage
 
-Installation below uses the published `v0.4.5`. `LoadSnapshot` describes the
-development candidate; it is not available in that published module.
-[Installation](../README.md#installation) uses the published module tag `v0.4.5`.
+Installation below uses `v0.4.6`. See [installation](../README.md#installation)
+for supported platforms and the published module.
 The public package is `github.com/masahitojp/mariamem`.
 
 ## Start fresh
@@ -125,7 +124,7 @@ if err := saved.Close(); err != nil {
 }
 // Successful Snapshot has ended setupDB; the saved artifact remains.
 
-// Development candidate: reopen without starting a server.
+// Load the baseline without starting a server.
 baseline, err := mariamem.LoadSnapshot(ctx, "./prepared", mariamem.Options{})
 if err != nil {
     return err
@@ -199,13 +198,13 @@ internal mechanisms.
 Install the published module and optional release audit files with:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.4.5
-gh release download v0.4.5 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.5-corresponding-source.tar.gz'
+go get github.com/masahitojp/mariamem@v0.4.6
+gh release download v0.4.6 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.6-corresponding-source.tar.gz'
 ```
 
 Runtime details belong in [architecture](v04-generated-go-architecture.md).
 See [local verification](development.md#local-verification) for scoped
-development checks, and [release notes](../release/NOTES-v0.4.5.md)
+development checks, and [release notes](../release/NOTES-v0.4.6.md)
 for changes in this version. The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.

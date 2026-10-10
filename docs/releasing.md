@@ -1,7 +1,7 @@
 # Releasing mariamem
 
-The canonical package version is `v0.4.5`; Python spelling is `0.4.5`.
-The [tracked notes](../release/NOTES-v0.4.5.md) describe this version. A normal
+The canonical package version is `v0.4.6`; Python spelling is `0.4.6`.
+The [tracked notes](../release/NOTES-v0.4.6.md) describe this version. A normal
 release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
 
