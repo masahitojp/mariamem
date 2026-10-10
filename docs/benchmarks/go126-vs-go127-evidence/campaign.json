@@ -1,0 +1,4176 @@
+{
+  "source_commit": "80a37385f9d1eda6604358dd5ba2235feb0b26ca",
+  "env": {
+    "GOTOOLCHAIN": "local",
+    "GOMAXPROCS": "8",
+    "GOGC": "100",
+    "GOMEMLIMIT": "off",
+    "GODEBUG": ""
+  },
+  "steps": [
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 99,
+      "version": "1268",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 2.8205376669648103
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 99,
+      "version": "1272",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 2.9702831670292653
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 99,
+      "version": "1268",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 1.9844685409916565
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 99,
+      "version": "1272",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 1.9535887080128305
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 0,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.251372792001348
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 0,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2127047079848126
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 0,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9960196670144796
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 0,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0127324169734493
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 1,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.008366791997105
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 1,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.073311082960572
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 1,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2789445830276236
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 1,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2687674579792656
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 2,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2896063330117613
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 2,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.265282332955394
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 2,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0823855830240063
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 2,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.031125042005442
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 3,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0070903749438003
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 3,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9809896660153754
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 3,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2860625829780474
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 3,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2769770000013523
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 4,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2738662080373615
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 4,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2531267500016838
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 4,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9700269580353051
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 4,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.001303833036218
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 5,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9471926669939421
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 5,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.972640291962307
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 5,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2409261249704286
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 5,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2828536659944803
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 6,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9907682500197552
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 6,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2977266669622622
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 6,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0558210000162944
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 6,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0047924580285326
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 7,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9705089170020074
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 7,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.935437542037107
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 7,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2577362079755403
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 7,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2373195419786498
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 8,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.212602167041041
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 8,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.241283834038768
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 8,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9839694160036743
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 8,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0141510409885086
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 9,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0110669580171816
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 9,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0215168750146404
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 9,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.280895915988367
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 9,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.274886625004001
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 10,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2941594999865629
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 10,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.255796458979603
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 10,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9879544579889625
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 10,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0102742080343887
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 11,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9845154579961672
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 11,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.981704166973941
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 11,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.293190666998271
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 11,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2506122079794295
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 12,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.256513832951896
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 12,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2584982909611426
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 12,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0336236669681966
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 12,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0945055420161225
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 13,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.015430791012477
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 13,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.014889249985572
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 13,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2739258750225417
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 13,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.356461958028376
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 14,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2570181249757297
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 14,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2719194579985924
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 14,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.042084167012945
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 14,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9642808749922551
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 15,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9976279590046033
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 15,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0082712080329657
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 15,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2741237499867566
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 15,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2726669590338133
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 16,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.3001320830080658
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 16,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2852940839948133
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 16,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.016838249983266
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 16,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0221078749746084
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 17,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.133958625025116
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 17,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0860617909929715
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 17,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2913347500143573
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 17,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2851643330068327
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 18,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.5894898750120774
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 18,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2906700409948826
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 18,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0867828329792246
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 18,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.051156333007384
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 19,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.791303040983621
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 19,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.963003209035378
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 19,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2793997499975376
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 19,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.269939375051763
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 20,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.264153708005324
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 20,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2618881249800324
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 20,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.004623332992196
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 20,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.973240708000958
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 21,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9626457080012187
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 21,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.962801459012553
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 21,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.294912250014022
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 21,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2848926250007935
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 22,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2850647500017658
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 22,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2891684580245055
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 22,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9958150410093367
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 22,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9619962919969112
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 23,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0263842080021277
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 23,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0106030000024475
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 23,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2787789999856614
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 23,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.295652374974452
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 24,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0315106250345707
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 24,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2828922080225311
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 24,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0164045420242473
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 24,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9953068750328384
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 25,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0313634159974754
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 25,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9793357499875128
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 25,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2570028330083005
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 25,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2513561659725383
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 26,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2274933339795098
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 26,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2295525830122642
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 26,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0248727499856614
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 26,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.009737625019625
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 27,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9843380829552189
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 27,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0487567500094883
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 27,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.505716499988921
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 27,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2748809580225497
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 28,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.283754708012566
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 28,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2844308750354685
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 28,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0785469590337016
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 28,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9857240830315277
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 29,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.005408584023826
+    },
+    {
+      "case": "light",
+      "mode": "fork",
+      "trial": 29,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.9900086669949815
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 29,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2874881659517996
+    },
+    {
+      "case": "light",
+      "mode": "fresh",
+      "trial": 29,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 1.2739008750068024
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 99,
+      "version": "1268",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 3.534462249954231
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 99,
+      "version": "1272",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 3.599412499985192
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 99,
+      "version": "1268",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 2.831987458979711
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 99,
+      "version": "1272",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 2.7357748330105096
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 0,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.5729178749606945
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 0,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.613564957980998
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 0,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8425192499998957
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 0,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.819305582961533
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 1,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8266964579815976
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 1,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8382241660146974
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 1,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.384734750026837
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 1,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.388779208995402
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 2,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.375036375015043
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 2,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.320741624978837
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 2,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.815316082967911
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 2,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.81057241698727
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 3,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.845703249971848
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 3,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.815205833001528
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 3,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.6685046249767765
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 3,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.413235582993366
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 4,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.330950458010193
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 4,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.549158042005729
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 4,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.834667208022438
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 4,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.835191207996104
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 5,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9195331250084564
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 5,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8349467089865357
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 5,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.486672541999724
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 5,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.577830750029534
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 6,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 5.29524120897986
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 6,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.445605207991321
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 6,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8514781669946387
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 6,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.915201709023677
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 7,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8872806659783237
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 7,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.869480542023666
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 7,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.458645917009562
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 7,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.621118500013836
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 8,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.50038195803063
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 8,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.522970416001044
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 8,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.961781958991196
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 8,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8983067920198664
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 9,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.3809920420171693
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 9,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.074331665993668
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 9,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.9044433329836465
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 9,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.51494179200381
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 10,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.53080512501765
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 10,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.486626291996799
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 10,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8538177080336027
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 10,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.891926209034864
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 11,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.831151125021279
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 11,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.898548250028398
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 11,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.470209542021621
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 11,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.446288916980848
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 12,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.484586125006899
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 12,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.4715879170107655
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 12,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8710286249988712
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 12,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8706408330472186
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 13,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9125695420079865
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 13,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.846898124960717
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 13,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.852026458014734
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 13,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.519080625032075
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 14,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.398914208984934
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 14,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.433660458016675
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 14,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.884050207969267
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 14,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0770282920566387
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 15,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0939115830115043
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 15,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8961508329957724
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 15,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.4279232500121
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 15,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.621792625053786
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 16,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.458326583961025
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 16,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.436558415996842
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 16,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.854321541963145
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 16,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.883881042012945
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 17,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8686400409787893
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 17,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.093966124986764
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 17,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.50439770804951
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 17,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.838128541014157
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 18,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.564055999973789
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 18,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.797921833000146
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 18,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.084241667005699
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 18,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.075567084015347
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 19,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.912638083973434
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 19,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9393365839496255
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 19,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.592599458002951
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 19,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.5648025830159895
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 20,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.49028545798501
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 20,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.578698374971282
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 20,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.907234707963653
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 20,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9250878340099007
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 21,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8643084170180373
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 21,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.871477833017707
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 21,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.4566912919981405
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 21,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.466769249993376
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 22,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.459804750047624
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 22,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.498103209014516
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 22,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9839265000191517
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 22,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9155575420008972
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 23,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9717572500230744
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 23,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9058576250099577
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 23,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 5.530115417030174
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 23,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.994031083013397
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 24,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.604749625024851
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 24,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.548216749972198
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 24,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9861711250268854
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 24,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9546598750166595
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 25,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.906508832995314
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 25,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0469333329820074
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 25,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.698143457993865
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 25,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.614445250015706
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 26,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.712039875041228
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 26,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.5817372080055065
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 26,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9361529590096325
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 26,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.906640458968468
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 27,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.849174791947007
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 27,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.912679457978811
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 27,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.522436292027123
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 27,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.530620208999608
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 28,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.651222874992527
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 28,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.758026542025618
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 28,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9625697910087183
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 28,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.18765199999325
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 29,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0561902089975774
+    },
+    {
+      "case": "fixture",
+      "mode": "fork",
+      "trial": 29,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9291659999871626
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 29,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.61134579195641
+    },
+    {
+      "case": "fixture",
+      "mode": "fresh",
+      "trial": 29,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.71454412501771
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 99,
+      "version": "1268",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 3.132437332998961
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 99,
+      "version": "1272",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 3.0536447500344366
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 99,
+      "version": "1268",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 2.892318250029348
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 99,
+      "version": "1272",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 2.104732666979544
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 0,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.076183040975593
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 0,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.2028462499729358
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 0,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.129736916976981
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 0,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.119249499985017
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 1,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.946445624984335
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 1,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.895240708021447
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 1,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.128774207958486
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 1,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.7115816670120694
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 2,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.2172748330049217
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 2,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.1036789169884287
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 2,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9508775420254096
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 2,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.858746042009443
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 3,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.092410375014879
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 3,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.8580480410018936
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 3,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.111213124997448
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 3,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.944951208017301
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 4,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.365575500007253
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 4,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.107856417016592
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 4,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9174060419900343
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 4,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.925709250033833
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 5,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.014504584018141
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 5,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.1736463329871185
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 5,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9371187500073574
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 5,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9352529169991612
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 6,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.3497737089637667
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 6,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.301586457993835
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 6,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0852274580392987
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 6,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1774439999717288
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 7,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0293967920006253
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 7,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.2001678330125287
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 7,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.403558791964315
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 7,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.372755165968556
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 8,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.516071624995675
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 8,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.6626279579941183
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 8,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.2536972090019844
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 8,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.000526459014509
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 9,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0780553329968825
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 9,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.974728208966553
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 9,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.6118158750468865
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 9,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.414055500004906
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 10,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.3021073330310173
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 10,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.4404198339907452
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 10,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0422508750343695
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 10,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0709931250312366
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 11,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.112649207992945
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 11,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0453395409858786
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 11,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.390388875035569
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 11,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.512637374980841
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 12,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.6524961660034023
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 12,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.4943921249941923
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 12,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.1436852909973823
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 12,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.1661732920329086
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 13,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.25241824996192
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 13,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.1755731250159442
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 13,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.496609667025041
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 13,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.426047374960035
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 14,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.506967000022996
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 14,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.4333942499943078
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 14,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.5013118329807185
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 14,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.306750792020466
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 15,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.028675540990662
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 15,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0374895830173045
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 15,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.193346875021234
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 15,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.3508437090204097
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 16,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.291974375024438
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 16,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.1914662499912083
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 16,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.045339000003878
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 16,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.2655778329935856
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 17,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.092067124962341
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 17,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0724083330133
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 17,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.6716370839858428
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 17,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.3967432909994386
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 18,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.3787186659756117
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 18,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.5657449580030516
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 18,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.2424082920188084
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 18,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.083516916958615
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 19,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.1386779170134105
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 19,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.098451917001512
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 19,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.3812180000240915
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 19,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 4.246675957983825
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 20,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.6855994999641553
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 20,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.394549040996935
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 20,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.017893207957968
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 20,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.191221165994648
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 21,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.337929041008465
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 21,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.561528416990768
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 21,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.9085999999661
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 21,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.6910363330389373
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 22,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.2540291670011356
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 22,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.234485415974632
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 22,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.053969291970134
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 22,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9770977920270525
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 23,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0268213330418803
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 23,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1689676670357585
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 23,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.3328050000127405
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 23,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.132490499992855
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 24,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.3553405000129715
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 24,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.3528806670219637
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 24,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.917953334050253
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 24,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1465061250492
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 25,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.127548874996137
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 25,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.0208254589815624
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 25,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.182148625026457
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 25,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.4439003330189735
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 26,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.2853938750340603
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 26,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.220620499982033
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 26,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9815876659704372
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 26,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9671937920502387
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 27,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9425458750338294
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 27,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.243932166020386
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 27,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.125198249996174
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 27,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.2294213749701157
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 28,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.1698759580031037
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 28,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.231753208034206
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 28,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.0558873339905404
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 28,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.146527375036385
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 29,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1310152080259286
+    },
+    {
+      "case": "parallel",
+      "mode": "fork",
+      "trial": 29,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.9660586250247434
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 29,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.221279958030209
+    },
+    {
+      "case": "parallel",
+      "mode": "fresh",
+      "trial": 29,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 3.1926763330120593
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 99,
+      "version": "1268",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 41.13324704201659
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 99,
+      "version": "1272",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 38.31157320801867
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 99,
+      "version": "1268",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 14.89861362503143
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 99,
+      "version": "1272",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 15.005615582980681
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 0,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 34.94713987503201
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 0,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 34.14662933303043
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 0,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 15.034814209036995
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 0,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 15.85693499998888
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 1,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 15.165347333007958
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 1,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 14.978456332988571
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 1,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 36.904143874999136
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 1,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 39.164950917009264
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 2,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 48.35010270902421
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 2,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 36.72268912498839
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 2,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 15.078268624958582
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 2,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 16.808926375000738
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 3,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 16.488890292006545
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 3,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 16.624927250028122
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 3,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 40.90775962499902
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 3,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 34.368597416963894
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 4,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 37.79901733301813
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 4,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 40.98891862499295
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 4,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 16.56110729201464
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 4,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 14.819558374991175
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 5,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 14.663276250008494
+    },
+    {
+      "case": "large",
+      "mode": "fork",
+      "trial": 5,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 14.780642250028905
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 5,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 35.99849866697332
+    },
+    {
+      "case": "large",
+      "mode": "fresh",
+      "trial": 5,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 35.64410387503449
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 99,
+      "version": "1268",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 2.1575192909804173
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 99,
+      "version": "1272",
+      "warmup": true,
+      "returncode": 0,
+      "seconds": 2.8475668749888428
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 0,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.180510917038191
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 0,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1951040840358473
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 1,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.2859555830364116
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 1,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.460911583970301
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 2,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.443331209011376
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 2,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.5313355419784784
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 3,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.4042324170004576
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 3,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.422023208986502
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 4,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.407037874974776
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 4,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1496321670128964
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 5,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.3733989580068737
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 5,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.260061333014164
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 6,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.126384417002555
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 6,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.244028166984208
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 7,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.2381612909957767
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 7,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.187651249987539
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 8,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.122664458001964
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 8,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.2380918330163695
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 9,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.175607500015758
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 9,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1550100829917938
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 10,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.231757167028263
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 10,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.184249457961414
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 11,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.382076332985889
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 11,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1284051660331897
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 12,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.410726292000618
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 12,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1153005830128677
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 13,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.179310749983415
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 13,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.151490415970329
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 14,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.2061439579701982
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 14,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.409028500027489
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 15,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.301877500023693
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 15,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.3922427499783225
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 16,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.2329664579592645
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 16,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1718754160101525
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 17,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.312213499972131
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 17,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1624322090065107
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 18,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1518878749920987
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 18,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.2240634580375627
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 19,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.3006549589917995
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 19,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.6141023749951273
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 20,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.83619679097319
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 20,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.74788720801007
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 21,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.5490111249964684
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 21,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.664469499955885
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 22,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.428334125026595
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 22,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.5962701669777744
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 23,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.64256587496493
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 23,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.5648897499777377
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 24,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1823775420198217
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 24,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.256470291991718
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 25,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.3957721670158207
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 25,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1439343329984695
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 26,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1215599169954658
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 26,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1769956659991294
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 27,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.268324874981772
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 27,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.196904042037204
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 28,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.2041779999854043
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 28,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.110210291983094
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 29,
+      "version": "1272",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1424724170356058
+    },
+    {
+      "case": "load",
+      "mode": "fork",
+      "trial": 29,
+      "version": "1268",
+      "warmup": false,
+      "returncode": 0,
+      "seconds": 2.1404718750272878
+    }
+  ],
+  "disk": {
+    "owned_bytes": 2051952640,
+    "free_bytes": 88868237312,
+    "peak_owned_bytes": 2601836544,
+    "minimum_free_bytes": 88321495040
+  }
+}

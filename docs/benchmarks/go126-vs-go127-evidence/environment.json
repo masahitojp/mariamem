@@ -1,0 +1,29 @@
+{
+  "source_commit": "80a37385f9d1eda6604358dd5ba2235feb0b26ca",
+  "accepted_candidate": "2432abd5439d8daa2ead9676c8c2561ad807b280",
+  "platform": "macOS Darwin 27.0.0 arm64",
+  "cpu_count": 8,
+  "ram_bytes": 17179869184,
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "matched_trees": {
+    "internal/generatedgo/code": "1d64ce79962d1a94e1c33efde227401e2349cbf6",
+    "internal/generatedgo/memory_backing_unix.go": "d710bb17d11995b34255c4b6fc16a0afad182d5d",
+    "internal/generatedgo/memory_lifetime.go": "ffd100cb9c559e24fdc0bd7ed2811d1cc4e302fe",
+    "internal": "029631f42a49f40adf03b48f9aec6227c661782b",
+    "guest": "5a36a1ea4d6bbe8a8ae52e931d3e42963c0e5b9b",
+    "snapshot.go": "4569cfe89bb0ffa181ef0e7c89445d72c4c8c1d3",
+    "go.mod": "2cc7c2686cec981c6e4d0dd704ad7c25bee957c2",
+    "go.sum": "4bcdcfa5bbfa06a5650c37bcf20162564b788c98"
+  },
+  "nonproduction_changes": [
+    "opt-in benchmark metrics",
+    "ABBA existing-harness runner",
+    "approval documentation"
+  ],
+  "compiler_only_factor": true,
+  "buildvcs": false,
+  "source_identity_note": "VCS auto annotation differed between tools in preflight; disabled for both. Source bound by verified commit/tree identities; preflight timings excluded",
+  "warm_cache": true,
+  "large_trials_per_toolchain_mode": 6,
+  "normal_trials_per_toolchain_mode": 30
+}

@@ -1,0 +1,31 @@
+{
+  "successful_timed_suites": 444,
+  "excluded_warmups": 18,
+  "counts": {
+    "light-fresh-1268": 30,
+    "fixture-fresh-1268": 30,
+    "load-fork-1272": 30,
+    "parallel-fresh-1272": 30,
+    "fixture-fork-1272": 30,
+    "parallel-fork-1268": 30,
+    "large-fork-1272": 6,
+    "light-fork-1272": 30,
+    "light-fresh-1272": 30,
+    "fixture-fresh-1272": 30,
+    "parallel-fresh-1268": 30,
+    "large-fresh-1272": 6,
+    "light-fork-1268": 30,
+    "fixture-fork-1268": 30,
+    "parallel-fork-1272": 30,
+    "large-fork-1268": 6,
+    "load-fork-1268": 30,
+    "large-fresh-1268": 6
+  },
+  "runtime_version_and_source_label": "all exact matches",
+  "SQL_oracles": "fixture values/count; commit visibility; rollback preservation; every suite passed",
+  "budgets": "no disk/RSS cell limit/timeout violation",
+  "invalid_preflight": "sandbox listen denied; excluded setup error, not a guest/Go failure",
+  "profile_count": 8,
+  "main_merged": false,
+  "version_bumped": false
+}
