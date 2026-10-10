@@ -1,6 +1,7 @@
 # Go usage
 
-This guide describes `v0.4.5`.
+Installation below uses the published `v0.4.5`. `LoadSnapshot` describes the
+development candidate; it is not available in that published module.
 [Installation](../README.md#installation) uses the published module tag `v0.4.5`.
 The public package is `github.com/masahitojp/mariamem`.
 
@@ -106,22 +107,48 @@ separately. Close is idempotent. Do not copy DB or Snapshot handles.
 An empty `SnapshotOptions.Destination` makes temporary, implementation-owned
 capture storage. Closing the handle releases it.
 
-An explicit Destination additionally persists the fixed baseline:
+An explicit Destination additionally persists the fixed baseline. Close all
+SQL clients and wait for disconnect cleanup before capture:
 
 ```go
-baseline, err := setupDB.Snapshot(ctx, mariamem.SnapshotOptions{
+if err := setupDB.WaitDisconnected(ctx); err != nil {
+    return err
+}
+saved, err := setupDB.Snapshot(ctx, mariamem.SnapshotOptions{
     Destination: "./prepared",
 })
+if err != nil {
+    return err
+}
+if err := saved.Close(); err != nil {
+    return err
+}
+// Successful Snapshot has ended setupDB; the saved artifact remains.
+
+// Development candidate: reopen without starting a server.
+baseline, err := mariamem.LoadSnapshot(ctx, "./prepared", mariamem.Options{})
+if err != nil {
+    return err
+}
+defer baseline.Close()
+child, err := baseline.Fork(ctx)
+if err != nil {
+    return err
+}
+defer child.Close()
+// Connect with sql.Open("mysql", child.DSN()), commit/rollback normally,
+// and close the connection pool before closing child.
 ```
 
-The destination must not already exist. Snapshot Close leaves this artifact
-intact while releasing the handle's owned resources. The returned handle forks
-from independent owned backing, so changes to the saved output cannot affect it.
-
-The Go API does not currently expose arbitrary path-based reopening.
-Python's `load_snapshot(path)` provides that acquisition boundary. This is an
-existing language-surface asymmetry; the ownership/isolation contract is the
-same where the concepts exist. A new Go import API is not added in v0.4.5.
+The destination must not already exist. Loading validates the entire artifact
+and owns an independent backing. Changing or deleting the original path after
+success cannot affect Fork. Closing the handle releases backing FDs, leaves the
+saved artifact untouched, and does not close children already started. Options
+configure those children. Invalid input returns a `*HostError` with code
+`snapshot_failed`; cancellation is detectable with
+`errors.Is(err, context.Canceled)`. Copy/hash is not interruptible: context is
+checked before and after import, and acquired resources are released if
+cancellation is observed after import.
 
 Saved baselines contain database files tied to the compatible guest build.
 They are advanced derived artifacts; retain their migration/fixture/source

@@ -1,0 +1,25 @@
+# Go toolchain compatibility
+
+The module minimum remains **Go 1.26.0**. `go-sql-driver/mysql v1.9.3`
+is a development/test client dependency; the production library does not import
+it or require it to serve the MySQL wire protocol. Applications choose their
+own compatible client driver. No dependency upgrade is planned for v0.4.6.
+
+External-module consumers passed on **macOS arm64** using Go **1.26.8,
+1.27.0, 1.27.1 and 1.27.2**, with `GOTOOLCHAIN=local` and actual compiler versions
+recorded. Coverage included import/build, Start/SQL/Close, Snapshot/Fork,
+multiple connections, commit/rollback and cleanup. These are accepted product
+results; a separate reduced compiler reproducer does not invalidate them.
+
+**Ubuntu 24.04 x86_64 / Go 1.27.2** passed the same bounded external consumer
+checks, including the new Go `LoadSnapshot` lifecycle. Actual compiler:
+`go version go1.27.2 linux/amd64`, `GOTOOLCHAIN=local`, `CGO_ENABLED=1`.
+This was real execution under Docker Desktop Rosetta x86_64 emulation on an
+arm64 Mac, not cross-compilation or native x86_64 release qualification.
+Cleanup returned goroutines 2 → 2 and left no runtime temporary entries.
+Final supported-platform artifact qualification remains a native CI gate.
+
+These checks use an exact-source private module-proxy fixture without a Go
+`replace` directive. Public-tag/artifact consumer qualification remains a final
+release gate. Supported platforms and release evidence are separate from the
+minimum language directive. No generated/runtime workaround is included.

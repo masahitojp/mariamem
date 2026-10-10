@@ -99,7 +99,9 @@ Product Validation; those changes are not part of v0.4.5.
   cleanup and non-cooperative reclaim are distinct boundaries.
 - Approximately one-second startup tails remain observable; do not suppress
   them or infer their cause from earlier individual traces.
-- Go 1.27.0/1.27.1 arm64 are unsupported due to upstream compiler issue #81036.
+- External consumer checks passed on macOS arm64 with Go 1.26.8 and
+  1.27.0/1.27.1/1.27.2. See [compatibility](go-compatibility.md); minimum Go
+  and driver versions are unchanged.
 - Physical footprint, RSS and reachable heap are different resource measures.
   The v0.4.2 lifecycle releases linear memory after joined workers; filesystem
   metadata remains GC-managed.

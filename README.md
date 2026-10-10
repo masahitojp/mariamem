@@ -21,8 +21,9 @@ Supported platforms are **macOS 15+ / Apple Silicon (arm64)** and
 **Ubuntu 24.04 LTS / x86_64**. Other platforms are not supported.
 Release validation uses Go 1.26.8 and Python 3.14. Package minimums are
 Go 1.26.0 and Python 3.9; they are not a tested matrix of all later versions.
-Go 1.27.0/1.27.1 arm64 are unsupported due to
-[an upstream compiler issue](https://github.com/golang/go/issues/81036).
+External Go consumers passed on macOS arm64 with Go 1.26.8 and
+1.27.0/1.27.1/1.27.2. See [toolchain compatibility](docs/go-compatibility.md)
+for the exact tested scope; the module minimum remains Go 1.26.0.
 
 For the currently published Python release, create a virtual environment and
 install the platform wheel. PyPI publication remains unavailable pending
@@ -78,6 +79,36 @@ with mariamem.start() as db:
             assert cur.fetchone() == (1,)
 ```
 
+The same disposable database in Go:
+
+```go
+package example
+
+import (
+    "context"
+    "database/sql"
+    "testing"
+
+    _ "github.com/go-sql-driver/mysql"
+    "github.com/masahitojp/mariamem"
+)
+
+func TestItems(t *testing.T) {
+    ctx := context.Background()
+    db, err := mariamem.Start(ctx, mariamem.Options{})
+    if err != nil { t.Fatal(err) }
+    defer func() { if err := db.Close(); err != nil { t.Error(err) } }()
+    pool, err := sql.Open("mysql", db.DSN())
+    if err != nil { t.Fatal(err) }
+    defer pool.Close()
+    if _, err = pool.ExecContext(ctx, "CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB"); err != nil { t.Fatal(err) }
+    if _, err = pool.ExecContext(ctx, "INSERT INTO items VALUES(1)"); err != nil { t.Fatal(err) }
+    var id int
+    if err = pool.QueryRowContext(ctx, "SELECT id FROM items").Scan(&id); err != nil { t.Fatal(err) }
+    if id != 1 { t.Fatalf("id = %d", id) }
+}
+```
+
 The application may use its own connections and commit normally. Close those
 connections before disposing of the database.
 
@@ -109,14 +140,16 @@ Each Fork starts a new mutable database. Closing a child leaves the baseline
 available for later children. A modified child can create a new Snapshot; it
 never updates the original baseline.
 
-The installed pytest plugin provides a function-scoped database and connection
-information. Expensive baseline preparation can be shared; mutable database
-state is isolated per test. See the [Python guide](docs/python.md) for fixture
-scopes and preparation examples, or the [Go guide](docs/go.md) for Go usage.
+Both languages provide preparation and independent child acquisition. See the
+[Go guide](docs/go.md#prepare-once-fork-independent-databases) and
+[Python guide](docs/python.md#share-preparation-isolate-mutations). Python pytest
+fixture integration is described in the Python guide.
 
 ## Reuse expensive preparation across runs
 
-Normally use `db.snapshot()` and let its context own the baseline.
+Persistence is optional. Go uses `SnapshotOptions.Destination` and, in the
+development candidate, `LoadSnapshot(ctx, path, opts)`; see the [Go guide](docs/go.md#persist-expensive-preparation).
+For Python, normally use `db.snapshot()` and let its context own the baseline.
 `db.snapshot_to(path)` additionally saves the fixed baseline at that path:
 
 ```python
