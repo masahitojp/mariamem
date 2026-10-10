@@ -132,7 +132,7 @@ def main():
                     pid=db.diagnostics['host_pid']
                     row['after_sql_resources']=json.loads(subprocess.check_output([args.helper,str(pid)]))[str(pid)]
                 if container:
-                    stats=container.get_wrapped_container().stats(stream=False)
+                    stats=container.get_wrapped_container().stats(stream=False, one_shot=True)
                     row['container_after_sql_resources']={
                         'memory_bytes':stats['memory_stats'].get('usage'),
                         'cpu_seconds':stats['cpu_stats']['cpu_usage']['total_usage']/1e9}
@@ -152,7 +152,9 @@ def main():
         else:
             with ThreadPoolExecutor(max_workers=args.workers) as pool:list(pool.map(work,range(args.count)))
         if shared:
-            stats=shared.get_wrapped_container().stats(stream=False)
+            t=time.perf_counter()
+            stats=shared.get_wrapped_container().stats(stream=False, one_shot=True)
+            report['shared_resource_observation_seconds']=time.perf_counter()-t
             report['shared_after_sql_resources']={
                 'memory_bytes':stats['memory_stats'].get('usage'),
                 'cpu_seconds':stats['cpu_stats']['cpu_usage']['total_usage']/1e9}
