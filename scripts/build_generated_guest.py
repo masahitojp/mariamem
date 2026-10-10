@@ -41,11 +41,19 @@ def download(pin, directory):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repetitions', type=int, default=2)
+    parser.add_argument('--development-output', type=Path, help='explicit external UNQUALIFIED single-build output; never release evidence')
     args = parser.parse_args()
     if platform.system() != 'Linux' or platform.machine() != 'aarch64' or os.geteuid() != 0:
         parser.error('requires root on a fresh Linux arm64 build runner (not a product platform)')
+    development = args.development_output is not None
+    if development and args.repetitions != 2:
+        parser.error('development route has exactly one build; do not specify --repetitions')
     if args.repetitions < 2:
         parser.error('release generation requires at least two independent source builds')
+    if development:
+        from dev_guest import external_output, source_identity, CONTRACT
+        out = external_output(ROOT, args.development_output)
+        identity = source_identity(ROOT)
     pins = json.loads(PIN.read_text())
     expected = json.loads((ROOT/'release/generated-go-inputs.json').read_text())['guest_sha256']
     work = Path('/work')
@@ -96,15 +104,17 @@ def main():
         toolchain['versions'][key] = subprocess.check_output(command,env=env,text=True).strip()
     toolchain['environment']={k:env[k] for k in ('PATH','LD_LIBRARY_PATH','LC_ALL','TZ','SOURCE_DATE_EPOCH')}
     results = []
-    out = ROOT/'build/generated-release'; out.mkdir()
+    if not development:
+        out = ROOT/'build/generated-release'
+    out.mkdir(parents=True)
     shell = ROOT/'benchmarks/spikes/wasm2go/legacy_eh_toolchain.sh'
-    for trial in range(args.repetitions):
+    for trial in range(1 if development else args.repetitions):
         observed_run([sys.executable, ROOT/'scripts/prepare_guest.py'], env=env, check=True,
                      phase=f'guest:prepare:{trial}', inputs=[ROOT/'release/inputs.lock.json',
                      ROOT/'guest/source.patch'], outputs=[ROOT/'build/prepared-source.json'],
                      tools=toolchain['versions'])
         prepared = json.loads((ROOT/'build/prepared-source.json').read_text())
-        if prepared.get('experimental_patch'):
+        if not development and prepared.get('experimental_patch'):
             raise ValueError('experimental source patches are forbidden')
         shutil.move(str(ROOT/'build/source'), work/'source')
         linked = work/'artifact/mariamem-legacy-eh.wasm'
@@ -116,12 +126,14 @@ def main():
                      phase=f'guest:wasm-postopt:{trial}', inputs=[linked, shell],
                      outputs=[guest], tools=toolchain['versions'])
         result = {'linked_sha256':digest(linked),'guest_sha256':digest(guest)}
-        if result['guest_sha256'] != expected:
+        if not development and result['guest_sha256'] != expected:
             raise ValueError('canonical WASM differs; never adopt new guest bytes silently: '+str(result))
         if results and result != results[0]:
             raise ValueError('independent source rebuild differs')
         results.append(result)
         shutil.copy2(guest,out/'mariamem.wasm')
+        if development:
+            shutil.copy2(linked,out/'linked.wasm')
         for name in ('link.txt','flags.make','CMakeCache.txt'):
             shutil.copy2(work/'artifact'/name,out/name)
         shutil.rmtree(work/'source'); shutil.rmtree(ROOT/'build/unpack')
@@ -130,6 +142,11 @@ def main():
               'guest_bytes':(out/'mariamem.wasm').stat().st_size,'repetitions':results,
               'prepared_source':prepared,'toolchain':toolchain,
               'canonical_build_sha256':digest(ROOT/'release/generated-go-build.json')}
+    if development:
+        if source_identity(ROOT) != identity:
+            raise ValueError('source changed during development build')
+        record.update(contract=CONTRACT, result='UNQUALIFIED', source_identity=identity,
+                      guest_sha256=results[0]['guest_sha256'])
     (out/'guest.json').write_text(json.dumps(record,indent=2,sort_keys=True)+'\n')
     print(json.dumps(record,indent=2))
 

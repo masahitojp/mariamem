@@ -19,7 +19,12 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--guest-dir',type=Path,default=ROOT/'build/generated-release')
     p.add_argument('--output',type=Path,default=ROOT/'build/release-regeneration')
+    p.add_argument('--development', action='store_true', help='isolated UNQUALIFIED translation/host/SQL route; explicit external --output required')
     a=p.parse_args(); guest=a.guest_dir.resolve(); out=a.output.resolve()
+    if a.development:
+        from dev_guest import regenerate_development
+        regenerate_development(ROOT, guest, out)
+        return
     pins=json.loads((ROOT/'release/generated-go-inputs.json').read_text())
     record=json.loads((guest/'guest.json').read_text())
     if digest(guest/'mariamem.wasm') != pins['guest_sha256'] or record['guest_sha256'] != pins['guest_sha256']:

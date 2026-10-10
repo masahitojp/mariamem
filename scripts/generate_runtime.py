@@ -66,9 +66,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-module', type=Path, required=True)
     parser.add_argument('--output', type=Path, default=ROOT/'internal/generatedgo')
+    parser.add_argument('--development-input', type=Path, help='explicit verified UNQUALIFIED candidate inventory')
     args = parser.parse_args()
-    pins = json.loads((ROOT/'release/generated-go-inputs.json').read_text())
     src = args.source_module.resolve()
+    if args.development_input:
+        from dev_guest import external_output, install_inputs
+        external_output(ROOT, args.output)
+        pins = install_inputs(json.loads(args.development_input.read_text()), src)
+    else:
+        pins = json.loads((ROOT/'release/generated-go-inputs.json').read_text())
     files = {str(p.relative_to(src)): hashlib.sha256(p.read_bytes()).hexdigest()
              for suffix in ('*.go', '*.s') for p in src.rglob(suffix)}
     if files != pins['candidate_files_sha256']:
@@ -102,9 +108,13 @@ def main():
     subprocess.run([str(go_root/'bin/gofmt'),'-w', *map(str,out.rglob('*.go'))], check=True)
     inventory = {str(p.relative_to(out)):hashlib.sha256(p.read_bytes()).hexdigest()
                  for p in sorted(out.rglob('*')) if p.is_file()}
-    (out/'provenance.json').write_text(json.dumps({'guest_sha256':pins['guest_sha256'],
+    provenance = {'guest_sha256':pins['guest_sha256'],
         'input_manifest_sha256':hashlib.sha256((ROOT/'release/generated-go-inputs.json').read_bytes()).hexdigest(),
-        'files_sha256':inventory},indent=2)+'\n')
+        'files_sha256':inventory}
+    if args.development_input:
+        provenance.update(contract=pins['contract'], result='UNQUALIFIED',
+                          dev_inputs_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest())
+    (out/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.
     for name in HANDWRITTEN_FILES:
