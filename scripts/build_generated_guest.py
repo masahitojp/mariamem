@@ -15,6 +15,7 @@ import sys
 import urllib.request
 from common import ROOT, digest, extract
 from install_guest_toolchain import inventory
+from build_feedback import run as observed_run
 
 PIN = ROOT / 'release/generated-go-toolchain.json'
 
@@ -58,7 +59,8 @@ def main():
     extract(archives['wasixcc'], sdk/'bin')
     # SDK release is flat; the installer creates its named compiler wrappers.
     driver = sdk/'bin/wasixccenv'
-    subprocess.run([driver, 'install-executables', sdk/'bin'], check=True)
+    observed_run([driver, 'install-executables', sdk/'bin'], check=True,
+                 phase='guest:sdk-install', inputs=[PIN])
     (sdk/'sysroot').mkdir()
     for archive_key, variant in [('sysroot', 'sysroot-eh'), ('sysroot_pic', 'sysroot-ehpic')]:
         unpack = sdk/(variant+'-unpack')
@@ -74,8 +76,9 @@ def main():
     recipe = ROOT/'benchmarks/spikes/generated-go-integration/prepare_llvm23.py'
     # The checksum-verified official LLVM23 and ICU archives are prepared by
     # the same accepted header profile, including the native-only NEON exclusion.
-    subprocess.run([sys.executable, recipe, '--llvm-archive', archives['llvm'],
-                    '--icu-package', archives['icu'], '--output', sdk/'llvm'], check=True)
+    observed_run([sys.executable, recipe, '--llvm-archive', archives['llvm'],
+                  '--icu-package', archives['icu'], '--output', sdk/'llvm'], check=True,
+                 phase='guest:llvm-prepare', inputs=[PIN, recipe])
     llvm_prefix = next((sdk/'llvm').iterdir())
     llvm_prefix.rename(sdk/'llvm-prepared')
     (sdk/'llvm').rmdir()
@@ -96,15 +99,22 @@ def main():
     out = ROOT/'build/generated-release'; out.mkdir()
     shell = ROOT/'benchmarks/spikes/wasm2go/legacy_eh_toolchain.sh'
     for trial in range(args.repetitions):
-        subprocess.run([sys.executable, ROOT/'scripts/prepare_guest.py'], env=env, check=True)
+        observed_run([sys.executable, ROOT/'scripts/prepare_guest.py'], env=env, check=True,
+                     phase=f'guest:prepare:{trial}', inputs=[ROOT/'release/inputs.lock.json',
+                     ROOT/'guest/source.patch'], outputs=[ROOT/'build/prepared-source.json'],
+                     tools=toolchain['versions'])
         prepared = json.loads((ROOT/'build/prepared-source.json').read_text())
         if prepared.get('experimental_patch'):
             raise ValueError('experimental source patches are forbidden')
         shutil.move(str(ROOT/'build/source'), work/'source')
-        subprocess.run(['bash', shell, 'build-no-postopt'], env=env, check=True)
-        subprocess.run(['bash', shell, 'postopt'], env=env, check=True)
         linked = work/'artifact/mariamem-legacy-eh.wasm'
         guest = work/'artifact/mariamem-legacy-eh-O2-compatible.wasm'
+        observed_run(['bash', shell, 'build-no-postopt'], env=env, check=True,
+                     phase=f'guest:compile-link:{trial}', inputs=[PIN, shell, ROOT/'build/prepared-source.json'],
+                     outputs=[linked], tools=toolchain['versions'])
+        observed_run(['bash', shell, 'postopt'], env=env, check=True,
+                     phase=f'guest:wasm-postopt:{trial}', inputs=[linked, shell],
+                     outputs=[guest], tools=toolchain['versions'])
         result = {'linked_sha256':digest(linked),'guest_sha256':digest(guest)}
         if result['guest_sha256'] != expected:
             raise ValueError('canonical WASM differs; never adopt new guest bytes silently: '+str(result))

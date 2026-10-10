@@ -11,8 +11,11 @@ from pathlib import Path
 import shutil
 import subprocess
 import tarfile
+import sys
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[2]/'scripts'))
+from build_feedback import go_environment, run as observed_run
 CONVERTER_SHA = '1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f'
 
 
@@ -45,17 +48,20 @@ def main():
     with tarfile.open(args.converter_archive) as archive:
         archive.extractall(converter, filter='data')
     source = next(converter.iterdir())
-    env = dict(os.environ, GOTOOLCHAIN='go1.26.8', GOWORK='off')
+    env = go_environment(dict(os.environ, GOTOOLCHAIN='go1.26.8', GOWORK='off'))
     patches = HERE.parent/'wasm2go'
     for name in ['imported-memory.patch','import-function-index.patch','relaxed-madd.patch','pure-memory32.patch','controlled-thread-traps.patch','host-logical-memory.patch','linear-memory-owner.patch']:
         subprocess.run(['git','apply','--unidiff-zero',str(patches/name)],cwd=source,check=True)
     binary = out/'wasm2go'
-    subprocess.run(['go','build','-mod=readonly','-trimpath','-buildvcs=false','-o',str(binary),'./cmd/wasm2go'],cwd=source,env=env,check=True)
+    observed_run(['go','build','-mod=readonly','-trimpath','-buildvcs=false','-o',str(binary),'./cmd/wasm2go'],cwd=source,env=env,check=True,
+                 phase='translate:converter-build', inputs=[args.converter_archive], outputs=[binary])
     module = out/'module'
     module.mkdir()
     (module/'go.mod').write_text('module example.com/mariamem-spike\n\ngo 1.26.0\n')
     generated = module/'generated'
-    subprocess.run([str(binary),'-pure','-i',str(args.guest.resolve()),'-out-dir',str(generated),'-pkg','generated','-import','example.com/mariamem-spike/generated'],env=env,check=True)
+    observed_run([str(binary),'-pure','-i',str(args.guest.resolve()),'-out-dir',str(generated),'-pkg','generated','-import','example.com/mariamem-spike/generated'],env=env,check=True,
+                 phase='translate:wasm2go', inputs=[args.guest, binary],
+                 outputs=[generated/'main.go', generated/'alias.go'])
     (generated/'base/spike_wait.go').write_text('package base\nfunc SpikeWait(m *Module) { if p := m.Threads.WaitThreads(); p != nil { panic(p) } }\n')
     shutil.copyfile(patches/'wait-contract-test.go.txt',generated/'base/spike_contract_test.go')
     inventory = {str(p.relative_to(generated)):sha(p) for p in sorted(generated.rglob('*')) if p.is_file()}

@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+from build_feedback import go_environment, run as observed_run
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,7 +30,11 @@ BENCHMARKS = {
 
 def run(argv, *, env=None):
     print("+", " ".join(map(str, argv)), flush=True)
-    subprocess.run([str(arg) for arg in argv], cwd=ROOT, env=env, check=True)
+    outputs = ([argv[argv.index('-o')+1]] if argv[:2] == ['go', 'build'] and '-o' in argv else [])
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                         ROOT/'internal/generatedgo/provenance.json'])
 
 
 def check(scope="full"):
@@ -57,7 +62,8 @@ def check(scope="full"):
     run(["go", "test", "-p", "1", "./..."])
     # wasm2go emits dead structured-control fallthrough. Retain every other
     # analyzer there; handwritten runtime/shim/API packages retain full vet.
-    tool_dir = subprocess.check_output(["go", "env", "GOTOOLDIR"], cwd=ROOT, text=True).strip()
+    tool_dir = subprocess.check_output(["go", "env", "GOTOOLDIR"], cwd=ROOT,
+                                      env=go_environment(), text=True).strip()
     env = dict(os.environ, MARIAMEM_VET_TOOL=str(Path(tool_dir)/"vet"))
     run(["go", "vet", "-p", "1", "-vettool="+str(ROOT/"scripts/vet_generated.py"), "./..."], env=env)
     # Opt-in real-host pytest cases must stay skipped in the ordinary check,

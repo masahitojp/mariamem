@@ -8,6 +8,7 @@ import subprocess
 import sys
 from common import ROOT, digest
 from build_generated_guest import download
+from build_feedback import go_environment, run as observed_run
 
 
 def inventory(root):
@@ -25,7 +26,7 @@ def main():
         p.error('unaccepted guest identity')
     tools=json.loads((ROOT/'release/generated-go-toolchain.json').read_text())
     converter=download(tools['archives']['converter'],ROOT/'build/downloads')
-    env=dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='')
+    env=go_environment(dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT=''))
     out.mkdir(parents=True,exist_ok=False)
     spike=ROOT/'benchmarks/spikes/generated-go-integration'
     commands=[
@@ -36,8 +37,13 @@ def main():
       [spike/'setup_candidate.py','--source-only','--source-module',out/'translation/module',
        '--guest',guest/'mariamem.wasm','--input-manifest',ROOT/'release/generated-go-translation.json','--output',out/'candidate'],
       [ROOT/'scripts/generate_runtime.py','--source-module',out/'candidate/module','--output',out/'generatedgo']]
-    for command in commands:
-        subprocess.run([sys.executable,*map(str,command)],cwd=ROOT,env=env,check=True)
+    for command, phase, outputs in zip(commands,
+            ['regenerate:translation', 'regenerate:memory32-fixture',
+             'regenerate:source-adapter', 'regenerate:installation'],
+            [[out/'translation/input-manifest.json'], [], [], [out/'generatedgo/provenance.json]]):
+        observed_run([sys.executable,*map(str,command)],cwd=ROOT,env=env,check=True,
+                     phase=phase, inputs=[guest/'mariamem.wasm', ROOT/'release/generated-go-inputs.json'],
+                     outputs=outputs)
     if inventory(out/'generatedgo') != inventory(ROOT/'internal/generatedgo'):
         raise ValueError('regenerated output differs from committed source (including ownership glue)')
     proof={'contract':'generated-go-v1','source_commit':record['source_commit'],

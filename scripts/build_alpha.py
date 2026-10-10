@@ -15,6 +15,7 @@ from deployment import check_binary
 from release_version import PYTHON_VERSION
 from native_target import current_target, platform_fields, elf_dependencies
 from distribution_licenses import paths as license_paths
+from build_feedback import go_environment, run as observed_run
 
 ROOT = Path(__file__).resolve().parents[1]
 target = current_target(ROOT)
@@ -31,12 +32,16 @@ if args.runtime is not None or args.module is not None: parser.error("legacy Was
 (ROOT / "build").mkdir(exist_ok=True)
 (ROOT / "tests/evidence").mkdir(parents=True, exist_ok=True)
 host = ROOT / "build/mariamem-host"
-subprocess.run([str(args.go), "build", "-p", "1", "-trimpath", "-o", str(host), "./cmd/mariamem-host"],
-               cwd=ROOT, check=True, env=dict(os.environ, CGO_ENABLED="0", GOTOOLCHAIN="go1.26.8",
+build_env = dict(os.environ, CGO_ENABLED="0", GOTOOLCHAIN="go1.26.8",
                                              GOOS=target["goos"], GOARCH=target["goarch"],
                                              **({"MACOSX_DEPLOYMENT_TARGET": f"{major}.0"}
-                                                if major is not None else {}),
-                                             GOCACHE=os.environ.get("GOCACHE", str(ROOT / "build/gocache"))))
+                                                if major is not None else {}))
+build_env = go_environment(build_env)
+build_env.setdefault('GOCACHE', str(ROOT/'build/gocache'))
+observed_run([str(args.go), "build", "-p", "1", "-trimpath", "-o", str(host), "./cmd/mariamem-host"],
+             cwd=ROOT, check=True, env=build_env, phase='wheel:go-host-build', outputs=[host],
+             inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                     ROOT/'internal/generatedgo/provenance.json'])
 # Reject the embedded source identity before packaging/using the host.
 if args.ci_candidate:
     from generated_release import checkout, source_inventory
@@ -64,12 +69,13 @@ manifest = {"version": 1, "package_version": PYTHON_VERSION, **platform_fields(t
 for name in ("LICENSE", "NOTICE", "THIRD_PARTY_LICENSES"):
     shutil.copy2(ROOT / name, ROOT / "python" / name)
 shutil.copytree(ROOT / "licenses", ROOT / "python/licenses", dirs_exist_ok=True)
-subprocess.run([sys.executable, "-m", "pip", "wheel", "--no-deps", "--no-build-isolation",
+wheel = ROOT / "build/dist" / f"mariamem-{PYTHON_VERSION}-py3-none-{wheel_platform}.whl"
+observed_run([sys.executable, "-m", "pip", "wheel", "--no-deps", "--no-build-isolation",
                 "--no-cache-dir", "--wheel-dir", str(ROOT / "build/dist"), str(ROOT / "python")],
                check=True, env=dict(os.environ, PIP_DISABLE_PIP_VERSION_CHECK="1",
-                                    MARIAMEM_WHEEL_PLATFORM=wheel_platform))
+                                    MARIAMEM_WHEEL_PLATFORM=wheel_platform),
+               phase='wheel:package', inputs=[native/'manifest.json'], outputs=[wheel])
 print(json.dumps(manifest, indent=2))
-wheel = ROOT / "build/dist" / f"mariamem-{PYTHON_VERSION}-py3-none-{wheel_platform}.whl"
 with zipfile.ZipFile(wheel) as archive:
     names = archive.namelist()
     metadata = archive.read(f"mariamem-{PYTHON_VERSION}.dist-info/WHEEL").decode()

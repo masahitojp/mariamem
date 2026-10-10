@@ -109,6 +109,65 @@ require distribution inventory and Python mirrors. Regeneration, runtime behavio
 final artifacts and public distribution still have their own gates. See the
 [change-impact/economics review](reviews/v045-verification-economics.md).
 
+### Optional development observations and task-local Go cache
+
+Fast feedback does not qualify a release. Fast = changed-owner tests and a small
+real-guest smoke where needed; Focused = relevant correctness/failure boundaries;
+Full = canonical check/integration, required native qualification and final release
+source/artifact/consumer guards. Omitted initial checks still run at that Full boundary.
+
+The existing commands can write opt-in JSONL phase observations with
+`MARIAMEM_PHASE_TRACE` set to an absolute output path. Records include command wall
+time, exit/exception, actual Go version for Go commands, source/diff and explicit
+input/output hashes. macOS/Linux `wait4` reports user/system CPU and RSS high-water
+marks; this is child rusage with OS-dependent descendant attribution, not simultaneous
+process-tree memory. Unsupported/unavailable counters are null with a reason.
+Parent/child phase records can overlap; do not sum nested intervals/resources.
+Observer metadata/hash overhead is recorded separately from command wall time.
+Write failures warn and preserve the command result. OFF uses ordinary subprocess
+execution, without resource probes or extra hashes. These records are diagnostics,
+never a substitute for provenance or qualification receipts.
+
+For one active task, use the existing experiment workspace, not a permanent cache:
+
+```sh
+python3 scripts/experiment_workspace.py prepare guest-feedback \
+  --branch experiment/guest-feedback --min-free-gib 16 --budget-gib 12
+cd build/experiment-work/guest-feedback/worktree
+export MARIAMEM_DEV_WORKSPACE="$(cd .. && pwd -P)"
+export MARIAMEM_PHASE_TRACE="$MARIAMEM_DEV_WORKSPACE/evidence/phases.jsonl"
+export GOTOOLCHAIN=go1.26.8
+export GOCACHE="$MARIAMEM_DEV_WORKSPACE/temp/gocache"
+export GOPATH="$MARIAMEM_DEV_WORKSPACE/temp/gopath"
+export GOMODCACHE="$MARIAMEM_DEV_WORKSPACE/temp/modcache"
+python3 scripts/verify.py check
+```
+
+Choose the actual changed boundary before running that full check. `verify.py`,
+regeneration/translation and wheel host-build callers also derive these cache paths
+when only `MARIAMEM_DEV_WORKSPACE` is set; conflicting paths, other checkouts,
+completed workspaces and symlinked cache roots are rejected. Direct Go commands
+need the explicit exports above. Go keys compatible build results; race/CGO/flags,
+toolchain and platform changes still cause needed work. External cgo inputs may
+require explicit invalidation. Generation/provenance checks remain mandatory for
+their changed boundary; the Go compiler cache cannot validate a stale guest recipe.
+Host binaries are rebuilt through Go, not reused because an old file exists.
+
+Focused commands can use the same existing verification runner for observation:
+
+```sh
+PYTHONPATH=scripts python3 -c 'from verify import run; run(["go", "test", "-p", "1", "./internal/snapshot", "-count=1"])'
+PYTHONPATH=scripts python3 -c 'import sys; from verify import run; run([sys.executable, "-m", "pytest", "tests/test_build_feedback.py", "-q"])'
+```
+
+Unset `MARIAMEM_PHASE_TRACE` to disable observation; unset workspace/cache variables
+to return to the previous cache defaults. Do not opt Release/runtime qualification
+into this developer cache path; existing isolated qualification environments and
+guards remain authoritative. Use the existing workspace disk guard for expensive
+commands and finalize/cleanup after preserving compact measurements.
+See [phase 1 evidence](reviews/v05-fast-feedback-phase1.md) and the
+[design-only dev guest proposal](reviews/v05-dev-guest-build-design.md).
+
 ### Runtime, artifact and publication responsibilities
 
 Native **Runtime qualification (v1)** uses the existing workflow file
