@@ -2,7 +2,7 @@
 
 ## Decision packet
 
-**Recommend accepting the development route for main.** The current guest completed
+**Accepted for main integration on 2026-10-11.** The current guest completed
 one C/WASM build, fresh translation/installation/native compilation, SELECT 1,
 commit/rollback and three isolated Fork generations. This is **UNQUALIFIED**, not
 Release evidence. MariaDB stable-version exploration can be the next separate task.
@@ -12,10 +12,11 @@ Phase 1 is already integrated/pushed to main
 Canonical Python check: **563 passed, 35 skipped, 18 subtests passed**; generated
 inventory/input/guest identity passed. Its 19 changed files and check-log hash are
 in [integration evidence](v05-dev-guest-build-evidence/phase1-integration.json).
-Phase 2 remains on `experiment/v05-dev-guest-build`, awaiting Human Review.
-
-Human question: **May this bounded UNQUALIFIED development route be integrated,
-with Release qualification unchanged?**
+Phase 2 was fast-forwarded into main at
+`ee48a2a50fe71e79564ab1dde42c45594f220438` after explicit Human approval.
+Integration introduces no new implementation delta. The exact guest/native
+execution identities below remain the tested identities; this approval/status
+update is documentation only. Release qualification is unchanged.
 
 ## What changed
 
@@ -161,8 +162,10 @@ Dev output cannot substitute for these checks. No Release guard was changed.
 
 Task-owned downloaded SDK/toolchains, sources/objects, translation/product copies,
 private hosts, logs, venv and Go caches are disposable after compact evidence and
-pushed commits. Final workspace receipt is kept outside the worktree; see final
-handoff for removal result. Existing user Docker image/global Go toolchain are
+pushed commits. Cleanup removed 6,365,577,216 bytes (approximately 5.93 GiB),
+including the completed worktree and task caches. Compact evidence and the
+completed workspace receipt remain; no task-owned path over 1 GiB remains.
+Existing user Docker image/global Go toolchain are
 protected; no Docker/global cache pruning is authorized.
 
 This validates the current guest and build route, not a new MariaDB version.

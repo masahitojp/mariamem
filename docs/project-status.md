@@ -189,6 +189,16 @@ must be rechecked before integrating an optimization selected on the old guest.
 
 ## v0.5.0 — Stable guest
 
+Fast Feedback phase timing and task-local Go cache reuse were integrated at
+`70ac70ce0a4ccda403aa290dffa1d0bac0d8728b`. The approved single-pass development
+guest route was integrated at `ee48a2a50fe71e79564ab1dde42c45594f220438`.
+It builds into isolated external outputs, records actual source/tool/artifact
+identities and runs a freshly generated host smoke. Results remain UNQUALIFIED;
+independent Release builds and qualification guards are unchanged. The current
+guest passed Linux arm64 build and macOS arm64 native smoke; this does not qualify
+a new guest or native Ubuntu runtime. See [validation and exact measured identities](reviews/v05-dev-guest-build-validation.md)
+and [development commands](development.md#single-pass-unqualified-guest-development).
+
 Select and migrate to a deliberate stable/LTS MariaDB release, refreshing
 compatible guest/WASIX/toolchain inputs with reproducible generation.
 No target version is selected here. Rerun SQL/protocol/auth/sessions/lifecycle,
