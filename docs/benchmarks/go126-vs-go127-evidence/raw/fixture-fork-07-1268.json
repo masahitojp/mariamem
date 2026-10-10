@@ -1,0 +1,280 @@
+{
+ "diagnostic_overhead_seconds": 0.051192788000000045,
+ "fds_after": 6,
+ "fds_before": 5,
+ "fds_snapshot": 31,
+ "fork_suite_wall_seconds": 0.760897083,
+ "forks": 4,
+ "go": "go1.26.8",
+ "go_memory": {
+  "heap_alloc_bytes": 14919784,
+  "heap_sys_bytes": 573865984,
+  "mallocs_delta": 156790,
+  "num_gc_delta": 7,
+  "pause_ns_delta": 517459,
+  "process_peak_rss_bytes": 687636480,
+  "total_alloc_delta": 702098824
+ },
+ "goarch": "arm64",
+ "goos": "darwin",
+ "instance_suite_wall_seconds": 0.760897083,
+ "label": "80a37385f9d1eda6604358dd5ba2235feb0b26ca",
+ "lifecycle": "fork",
+ "operations": [
+  {
+   "cpu_seconds": 0.055216,
+   "name": "prepare_start",
+   "seconds": 0.0612255
+  },
+  {
+   "cpu_seconds": 0.667262,
+   "name": "prepare_setup",
+   "seconds": 0.633220792
+  },
+  {
+   "cpu_seconds": 0.4517539999999999,
+   "name": "snapshot",
+   "seconds": 0.444510417
+  },
+  {
+   "cpu_seconds": 0.051709000000000005,
+   "name": "fork_ready_00",
+   "seconds": 0.061045292
+  },
+  {
+   "cpu_seconds": 0.005178000000000127,
+   "name": "point_use_00",
+   "seconds": 0.002431292
+  },
+  {
+   "cpu_seconds": 0.05892300000000006,
+   "name": "count_use_00",
+   "seconds": 0.033781792
+  },
+  {
+   "cpu_seconds": 0.11672300000000013,
+   "name": "mutation_00",
+   "seconds": 0.073170125
+  },
+  {
+   "cpu_seconds": 0.0034039999999999626,
+   "name": "child_close_00",
+   "seconds": 0.008503959
+  },
+  {
+   "cpu_seconds": 0.0540989999999999,
+   "name": "fork_ready_01",
+   "seconds": 0.06156875
+  },
+  {
+   "cpu_seconds": 0.013382000000000005,
+   "name": "point_use_01",
+   "seconds": 0.004932333
+  },
+  {
+   "cpu_seconds": 0.07851600000000003,
+   "name": "count_use_01",
+   "seconds": 0.033533375
+  },
+  {
+   "cpu_seconds": 0.09961500000000001,
+   "name": "mutation_01",
+   "seconds": 0.064614
+  },
+  {
+   "cpu_seconds": 0.003130000000000077,
+   "name": "child_close_01",
+   "seconds": 0.008279875
+  },
+  {
+   "cpu_seconds": 0.06309399999999998,
+   "name": "fork_ready_02",
+   "seconds": 0.06826375
+  },
+  {
+   "cpu_seconds": 0.014401000000000108,
+   "name": "point_use_02",
+   "seconds": 0.004759875
+  },
+  {
+   "cpu_seconds": 0.08829199999999982,
+   "name": "count_use_02",
+   "seconds": 0.035633834
+  },
+  {
+   "cpu_seconds": 0.11664999999999992,
+   "name": "mutation_02",
+   "seconds": 0.071761541
+  },
+  {
+   "cpu_seconds": 0.003441999999999945,
+   "name": "child_close_02",
+   "seconds": 0.008440209
+  },
+  {
+   "cpu_seconds": 0.06316600000000006,
+   "name": "fork_ready_03",
+   "seconds": 0.07277475
+  },
+  {
+   "cpu_seconds": 0.005053000000000196,
+   "name": "point_use_03",
+   "seconds": 0.0022725
+  },
+  {
+   "cpu_seconds": 0.09608799999999995,
+   "name": "count_use_03",
+   "seconds": 0.039748583
+  },
+  {
+   "cpu_seconds": 0.10718899999999998,
+   "name": "mutation_03",
+   "seconds": 0.069855917
+  },
+  {
+   "cpu_seconds": 0.0032039999999997626,
+   "name": "child_close_03",
+   "seconds": 0.0084275
+  },
+  {
+   "cpu_seconds": 0.002608000000000388,
+   "name": "snapshot_close",
+   "seconds": 0.002608792
+  }
+ ],
+ "parallel_resource_sampling": "before/after child loop only; no simultaneous-child peak sample",
+ "payload_mib": 10,
+ "prepare_seconds": 1.139068,
+ "resources": {
+  "after": {
+   "cpu_seconds": 2.269365292,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77430784,
+   "primary_bytes": 384779344,
+   "private_bytes": null,
+   "rss_bytes": 585564160
+  },
+  "before": {
+   "cpu_seconds": 0.006266833,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77430784,
+   "primary_bytes": 4358792,
+   "private_bytes": null,
+   "rss_bytes": 10960896
+  },
+  "children_closed": {
+   "cpu_seconds": 2.264204167,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77430784,
+   "primary_bytes": 384762960,
+   "private_bytes": null,
+   "rss_bytes": 585547776
+  },
+  "closed_first": {
+   "cpu_seconds": 1.453009833,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77430784,
+   "primary_bytes": 544588856,
+   "private_bytes": null,
+   "rss_bytes": 582926336
+  },
+  "first_ready": {
+   "cpu_seconds": 1.253751708,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 242712576,
+   "primary_bytes": 622445912,
+   "private_bytes": null,
+   "rss_bytes": 668532736
+  },
+  "snapshot": {
+   "cpu_seconds": 1.183311083,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77430784,
+   "primary_bytes": 542311480,
+   "private_bytes": null,
+   "rss_bytes": 577060864
+  }
+ },
+ "sql_details": [
+  {
+   "name": "insert",
+   "seconds": 0.0005955
+  },
+  {
+   "name": "update",
+   "seconds": 0.000504709
+  },
+  {
+   "name": "commit",
+   "seconds": 0.000188792
+  },
+  {
+   "name": "rollback",
+   "seconds": 0.000214916
+  },
+  {
+   "name": "insert",
+   "seconds": 0.000543583
+  },
+  {
+   "name": "update",
+   "seconds": 0.000407958
+  },
+  {
+   "name": "commit",
+   "seconds": 0.000173875
+  },
+  {
+   "name": "rollback",
+   "seconds": 0.00018375
+  },
+  {
+   "name": "insert",
+   "seconds": 0.000589583
+  },
+  {
+   "name": "update",
+   "seconds": 0.00043125
+  },
+  {
+   "name": "commit",
+   "seconds": 0.00017575
+  },
+  {
+   "name": "rollback",
+   "seconds": 0.0001975
+  },
+  {
+   "name": "insert",
+   "seconds": 0.000564333
+  },
+  {
+   "name": "update",
+   "seconds": 0.000412208
+  },
+  {
+   "name": "commit",
+   "seconds": 0.000174417
+  },
+  {
+   "name": "rollback",
+   "seconds": 0.000169958
+  }
+ ],
+ "suite_cpu_scope": "RUSAGE_SELF; benchmark/diagnostic overhead included; counter-helper child CPU excluded",
+ "suite_cpu_seconds": 2.26181,
+ "suite_n1_seconds": 1.3459055,
+ "suite_operation_seconds": 1.875364753,
+ "suite_product_seconds": 1.875364753,
+ "suite_seconds": 1.926557541,
+ "sum_of_operation_seconds": 1.875364753,
+ "tables": 8,
+ "workers": 1,
+ "workload": "app-connections"
+}

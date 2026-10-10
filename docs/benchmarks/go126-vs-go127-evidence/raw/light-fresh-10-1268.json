@@ -1,0 +1,268 @@
+{
+ "diagnostic_overhead_seconds": 0.027592377000000057,
+ "fds_after": 6,
+ "fds_before": 5,
+ "forks": 4,
+ "go": "go1.26.8",
+ "go_memory": {
+  "heap_alloc_bytes": 158486752,
+  "heap_sys_bytes": 385220608,
+  "mallocs_delta": 27053,
+  "num_gc_delta": 5,
+  "pause_ns_delta": 397291,
+  "process_peak_rss_bytes": 302104576,
+  "total_alloc_delta": 633348048
+ },
+ "goarch": "arm64",
+ "goos": "darwin",
+ "instance_suite_wall_seconds": 0.333605792,
+ "label": "80a37385f9d1eda6604358dd5ba2235feb0b26ca",
+ "lifecycle": "fresh",
+ "operations": [
+  {
+   "cpu_seconds": 0.046363,
+   "name": "fresh_ready_00",
+   "seconds": 0.053985125
+  },
+  {
+   "cpu_seconds": 0.015986000000000007,
+   "name": "fresh_setup_00",
+   "seconds": 0.008047583
+  },
+  {
+   "cpu_seconds": 0.0014340000000000047,
+   "name": "point_use_00",
+   "seconds": 0.001611666
+  },
+  {
+   "cpu_seconds": 0.0002370000000000011,
+   "name": "count_use_00",
+   "seconds": 0.00030975
+  },
+  {
+   "cpu_seconds": 0.0023940000000000072,
+   "name": "mutation_00",
+   "seconds": 0.003149084
+  },
+  {
+   "cpu_seconds": 0.0034269999999999995,
+   "name": "child_close_00",
+   "seconds": 0.008391875
+  },
+  {
+   "cpu_seconds": 0.046294,
+   "name": "fresh_ready_01",
+   "seconds": 0.056140583
+  },
+  {
+   "cpu_seconds": 0.011758000000000018,
+   "name": "fresh_setup_01",
+   "seconds": 0.006657875
+  },
+  {
+   "cpu_seconds": 0.0010930000000000106,
+   "name": "point_use_01",
+   "seconds": 0.00119075
+  },
+  {
+   "cpu_seconds": 0.00019900000000000473,
+   "name": "count_use_01",
+   "seconds": 0.000288042
+  },
+  {
+   "cpu_seconds": 0.0020850000000000035,
+   "name": "mutation_01",
+   "seconds": 0.002998375
+  },
+  {
+   "cpu_seconds": 0.003258000000000011,
+   "name": "child_close_01",
+   "seconds": 0.00835075
+  },
+  {
+   "cpu_seconds": 0.052188999999999985,
+   "name": "fresh_ready_02",
+   "seconds": 0.058543708
+  },
+  {
+   "cpu_seconds": 0.011164000000000007,
+   "name": "fresh_setup_02",
+   "seconds": 0.006640459
+  },
+  {
+   "cpu_seconds": 0.0025469999999999937,
+   "name": "point_use_02",
+   "seconds": 0.001356125
+  },
+  {
+   "cpu_seconds": 0.00022900000000000698,
+   "name": "count_use_02",
+   "seconds": 0.000305583
+  },
+  {
+   "cpu_seconds": 0.004073999999999994,
+   "name": "mutation_02",
+   "seconds": 0.004614334
+  },
+  {
+   "cpu_seconds": 0.003229999999999983,
+   "name": "child_close_02",
+   "seconds": 0.008253208
+  },
+  {
+   "cpu_seconds": 0.056278999999999996,
+   "name": "fresh_ready_03",
+   "seconds": 0.065141417
+  },
+  {
+   "cpu_seconds": 0.01071500000000003,
+   "name": "fresh_setup_03",
+   "seconds": 0.006621083
+  },
+  {
+   "cpu_seconds": 0.0007939999999999614,
+   "name": "point_use_03",
+   "seconds": 0.001130666
+  },
+  {
+   "cpu_seconds": 0.00019200000000002548,
+   "name": "count_use_03",
+   "seconds": 0.000257666
+  },
+  {
+   "cpu_seconds": 0.0018960000000000088,
+   "name": "mutation_03",
+   "seconds": 0.002818
+  },
+  {
+   "cpu_seconds": 0.0032320000000000126,
+   "name": "child_close_03",
+   "seconds": 0.008403
+  }
+ ],
+ "parallel_resource_sampling": "before/after child loop only; no simultaneous-child peak sample",
+ "payload_mib": 0,
+ "resources": {
+  "after": {
+   "cpu_seconds": 0.294887458,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77430784,
+   "primary_bytes": 177832800,
+   "private_bytes": null,
+   "rss_bytes": 223002624
+  },
+  "before": {
+   "cpu_seconds": 0.006125875,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77430784,
+   "primary_bytes": 4342408,
+   "private_bytes": null,
+   "rss_bytes": 10944512
+  },
+  "children_closed": {
+   "cpu_seconds": 0.29231225,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77430784,
+   "primary_bytes": 183452512,
+   "private_bytes": null,
+   "rss_bytes": 222838784
+  },
+  "closed_first": {
+   "cpu_seconds": 0.079720542,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77430784,
+   "primary_bytes": 13370088,
+   "private_bytes": null,
+   "rss_bytes": 50528256
+  },
+  "first_ready": {
+   "cpu_seconds": 0.071344708,
+   "cpu_timebase_denom": 3,
+   "cpu_timebase_numer": 125,
+   "file_mapping_bytes": 77430784,
+   "primary_bytes": 92177344,
+   "private_bytes": null,
+   "rss_bytes": 125091840
+  }
+ },
+ "sql_details": [
+  {
+   "name": "insert",
+   "seconds": 0.000351542
+  },
+  {
+   "name": "update",
+   "seconds": 0.000409792
+  },
+  {
+   "name": "commit",
+   "seconds": 0.000147417
+  },
+  {
+   "name": "rollback",
+   "seconds": 0.000200625
+  },
+  {
+   "name": "insert",
+   "seconds": 0.000332667
+  },
+  {
+   "name": "update",
+   "seconds": 0.000328875
+  },
+  {
+   "name": "commit",
+   "seconds": 0.000179125
+  },
+  {
+   "name": "rollback",
+   "seconds": 0.000193875
+  },
+  {
+   "name": "insert",
+   "seconds": 0.000831042
+  },
+  {
+   "name": "update",
+   "seconds": 0.000582666
+  },
+  {
+   "name": "commit",
+   "seconds": 0.000261
+  },
+  {
+   "name": "rollback",
+   "seconds": 0.00021375
+  },
+  {
+   "name": "insert",
+   "seconds": 0.000310125
+  },
+  {
+   "name": "update",
+   "seconds": 0.000313292
+  },
+  {
+   "name": "commit",
+   "seconds": 0.00014625
+  },
+  {
+   "name": "rollback",
+   "seconds": 0.000173916
+  }
+ ],
+ "suite_cpu_scope": "RUSAGE_SELF; benchmark/diagnostic overhead included; counter-helper child CPU excluded",
+ "suite_cpu_seconds": 0.286755,
+ "suite_n1_seconds": 0.0863985,
+ "suite_operation_seconds": 0.3152067069999999,
+ "suite_product_seconds": 0.3152067069999999,
+ "suite_seconds": 0.342799084,
+ "sum_of_operation_seconds": 0.3152067069999999,
+ "tables": 1,
+ "workers": 1,
+ "workload": "app-connections"
+}
