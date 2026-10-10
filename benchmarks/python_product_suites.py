@@ -16,7 +16,7 @@ import time
 
 import mariamem
 import pymysql
-from testcontainers.core.container import DockerContainer
+from testcontainers.core.container import DockerContainer, Reaper
 from testcontainers.core.wait_strategies import LogMessageWaitStrategy
 
 
@@ -65,6 +65,7 @@ def main():
     parser.add_argument('--payload-mib',type=int,default=0)
     parser.add_argument('--tables',type=int,default=1)
     parser.add_argument('--out',type=Path,required=True)
+    parser.add_argument('--helper',help='existing OS process-counter helper')
     args=parser.parse_args()
     if min(args.count,args.workers,args.tables)<1 or args.payload_mib<0 or '@sha256:' not in args.image:
         parser.error('positive bounded counts and digest-pinned image required')
@@ -89,6 +90,11 @@ def main():
         except BaseException:
             container.stop();raise
     try:
+        if args.mode=='testcontainers':
+            # Testcontainers Python initializes its process singleton without a
+            # thread lock. Acquire once before admitting concurrent starts.
+            t=time.perf_counter();Reaper.get_instance()
+            report['reaper_setup_seconds']=time.perf_counter()-t
         if args.mode=='fork':
             t=time.perf_counter()
             with mariamem.start(host_binary=args.host) as db:
@@ -121,6 +127,16 @@ def main():
                 if args.mode!='fork':prepare(info,rows,args.tables)
                 row['prepare_seconds']=time.perf_counter()-t
                 t=time.perf_counter();use(info,rows);row['sql_seconds']=time.perf_counter()-t
+                t=time.perf_counter()
+                if db and args.helper:
+                    pid=db.diagnostics['host_pid']
+                    row['after_sql_resources']=json.loads(subprocess.check_output([args.helper,str(pid)]))[str(pid)]
+                if container:
+                    stats=container.get_wrapped_container().stats(stream=False)
+                    row['container_after_sql_resources']={
+                        'memory_bytes':stats['memory_stats'].get('usage'),
+                        'cpu_seconds':stats['cpu_stats']['cpu_usage']['total_usage']/1e9}
+                row['resource_observation_seconds']=time.perf_counter()-t
             finally:
                 t=time.perf_counter()
                 if db:db.close()
@@ -135,6 +151,11 @@ def main():
             for i in range(args.count):work(i)
         else:
             with ThreadPoolExecutor(max_workers=args.workers) as pool:list(pool.map(work,range(args.count)))
+        if shared:
+            stats=shared.get_wrapped_container().stats(stream=False)
+            report['shared_after_sql_resources']={
+                'memory_bytes':stats['memory_stats'].get('usage'),
+                'cpu_seconds':stats['cpu_stats']['cpu_usage']['total_usage']/1e9}
         report['completed']=True
     finally:
         if baseline:baseline.close()
@@ -142,6 +163,8 @@ def main():
         report['suite_wall_seconds']=time.perf_counter()-start
         report['runner_and_reaped_host_cpu_seconds']=cpu()-before
         report['cpu_scope']='Python runner + reaped host/helper children; excludes Docker daemon/VM/container CPU'
+        report['resource_observation_scope']='after-SQL sample, not peak; container CPU since start, shared cumulative; OS helper returns RSS/physical footprint'
+        report['suite_resource_observation_seconds']=sum(r.get('resource_observation_seconds',0) for r in report['samples'])
         report['source_commit']=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
         report['samples'].sort(key=lambda r:r['index'])
         args.out.parent.mkdir(parents=True,exist_ok=True)
