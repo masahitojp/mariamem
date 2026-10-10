@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"runtime/pprof"
 	"strings"
 	"sync"
 	"syscall"
@@ -66,7 +67,27 @@ func main() {
 	label := flag.String("label", "", "exact candidate/baseline label")
 	helper := flag.String("helper", "", "existing OS process-counter helper")
 	export := flag.String("export", "", "fixture provisioning only: explicit output artifact")
+	detail := flag.Bool("toolchain-metrics", false, "benchmark-only SQL/heap/GC counters")
+	load := flag.Bool("load-roundtrip", false, "benchmark-only persisted import timing")
+	profile := flag.String("cpu-profile", "", "diagnostic CPU profile; excluded from timing campaign")
+	allocProfile := flag.String("alloc-profile", "", "diagnostic sampled allocations profile")
 	flag.Parse()
+	if *profile != "" {
+		f, e := os.Create(*profile)
+		must(e)
+		must(pprof.StartCPUProfile(f))
+		defer f.Close()
+		defer pprof.StopCPUProfile()
+	}
+	if *load {
+		if *lifecycle != "fork" {
+			panic("load requires fork")
+		}
+		dir, e := os.MkdirTemp("", "toolchain-load-")
+		must(e)
+		defer os.RemoveAll(dir)
+		*export = dir + "/prepared"
+	}
 	if (*lifecycle != "fork" && *lifecycle != "fresh") || (*lifecycle == "fresh" && (*export != "" || *fdSnapshots != 0)) || *payload < 0 || *out == "" || *n < 1 || *workers < 1 || *tables < 1 || (*workload != "read" && *workload != "crud" && *workload != "app-connections") {
 		panic("out and positive forks required")
 	}
@@ -95,6 +116,23 @@ func main() {
 		} // global process CPU overlaps concurrent operations
 		operationsMu.Lock()
 		operations = append(operations, map[string]any{"name": name, "seconds": elapsed, "cpu_seconds": cpuValue})
+		operationsMu.Unlock()
+	}
+	var beforeMem runtime.MemStats
+	if *detail {
+		runtime.ReadMemStats(&beforeMem)
+	}
+	details := []map[string]any{}
+	detailMeasure := func(name string, f func()) {
+		if !*detail {
+			f()
+			return
+		}
+		t := time.Now()
+		f()
+		elapsed := time.Since(t).Seconds()
+		operationsMu.Lock()
+		details = append(details, map[string]any{"name": name, "seconds": elapsed})
 		operationsMu.Unlock()
 	}
 	total := time.Now()
@@ -138,6 +176,10 @@ func main() {
 			saved, e = db.Snapshot(ctx, mariamem.SnapshotOptions{Destination: *export})
 			must(e)
 		})
+		if *load {
+			must(saved.Close())
+			measure("load_snapshot", func() { var e error; saved, e = mariamem.LoadSnapshot(ctx, *export, mariamem.Options{}); must(e) })
+		}
 		result["fds_snapshot"] = fds()
 		result["prepare_seconds"] = time.Since(total).Seconds()
 		probe("snapshot")
@@ -219,11 +261,17 @@ func main() {
 					}
 					tx, e := application.BeginTx(ctx, nil)
 					must(e)
-					_, e = tx.Exec("INSERT INTO characterization VALUES (?,?)", rows, strings.Repeat("c", 1024))
+					detailMeasure("insert", func() {
+						_, e = tx.Exec("INSERT INTO characterization VALUES (?,?)", rows, strings.Repeat("c", 1024))
+						must(e)
+					})
 					must(e)
-					_, e = tx.Exec("UPDATE characterization SET payload=? WHERE id=0", strings.Repeat("u", 1024))
+					detailMeasure("update", func() {
+						_, e = tx.Exec("UPDATE characterization SET payload=? WHERE id=0", strings.Repeat("u", 1024))
+						must(e)
+					})
 					must(e)
-					must(tx.Commit())
+					detailMeasure("commit", func() { must(tx.Commit()) })
 					var got int
 					must(p.QueryRow("SELECT COUNT(*) FROM characterization").Scan(&got))
 					if got != rows+1 {
@@ -235,7 +283,7 @@ func main() {
 					must(e)
 					_, e = tx.Exec("DELETE FROM characterization WHERE id=0")
 					must(e)
-					must(tx.Rollback())
+					detailMeasure("rollback", func() { must(tx.Rollback()) })
 					must(p.QueryRow("SELECT COUNT(*) FROM characterization").Scan(&got))
 					if got != rows {
 						panic("rollback changed state")
@@ -281,7 +329,21 @@ func main() {
 	if saved != nil {
 		measure("snapshot_close", func() { must(saved.Close()) })
 	}
+	if *detail {
+		var m runtime.MemStats
+		runtime.ReadMemStats(&m)
+		var usage syscall.Rusage
+		must(syscall.Getrusage(syscall.RUSAGE_SELF, &usage))
+		result["go_memory"] = map[string]any{"heap_alloc_bytes": m.HeapAlloc, "heap_sys_bytes": m.HeapSys, "total_alloc_delta": m.TotalAlloc - beforeMem.TotalAlloc, "mallocs_delta": m.Mallocs - beforeMem.Mallocs, "num_gc_delta": m.NumGC - beforeMem.NumGC, "pause_ns_delta": m.PauseTotalNs - beforeMem.PauseTotalNs, "process_peak_rss_bytes": usage.Maxrss}
+		result["sql_details"] = details
+	}
 	runtime.GC()
+	if *allocProfile != "" {
+		f, e := os.Create(*allocProfile)
+		must(e)
+		must(pprof.Lookup("allocs").WriteTo(f, 0))
+		must(f.Close())
+	}
 	result["suite_seconds"] = time.Since(total).Seconds()
 	result["suite_cpu_seconds"] = cpu() - totalCPU
 	result["suite_cpu_scope"] = "RUSAGE_SELF; benchmark/diagnostic overhead included; counter-helper child CPU excluded"

@@ -1,5 +1,12 @@
 # v0.4.6 — Product Usability & Validation / Human Review
 
+## Human decision（承認済み）
+
+POはGo LoadSnapshot、ガイド、互換性・型・Product Validation結果、既知の制約と
+v0.6.0への積み残しをすべて承認した。追加のHuman Review承認待ちはない。
+統合準備を進めるがmainへの統合・version更新・tag・publishは別工程。
+Go toolchain性能調査はこの承認とは独立した証拠として管理する。
+
 ## 推薦
 
 Go `LoadSnapshot` と利用ガイドの整備を採用候補とする。Go最低版、mysqlドライバー、
