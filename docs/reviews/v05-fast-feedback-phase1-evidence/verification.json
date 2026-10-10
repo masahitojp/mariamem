@@ -1,0 +1,31 @@
+{
+  "measurement_source": "928506d62030587e75efd6284553b2fadf54b20e",
+  "runtime_source": "b56be17206b6beef18f55c8ea39b254638da8590",
+  "focused": "279 unique cases passed: 273 original + sandbox-only case rerun 1 + five entrypoint cases; observer subset 27 passed after final syntax correction",
+  "mac_observer_python": "CPython 3.14.8",
+  "linux_observer_python": "CPython 3.12.3, Linux arm64 container; not native Ubuntu qualification",
+  "new_runtime_qualification": false,
+  "input_sha256": {
+    "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+    "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4",
+    "internal/generatedgo/provenance.json": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60",
+    "release/generated-go-inputs.json": "c882412a8d97fd497c4cb4057211b80f906643347c258811043403e88f1e7205",
+    "release/generated-go-toolchain.json": "7b7953ff4825e9af913bb7bac94a774b8abe54c7a1a04b9c8bfcb6a38e669802",
+    "guest/source.patch": "595341525825860a398c3dc3f7c9660264af4db79ec487902d51e3d1d3bd5e0f"
+  },
+  "focused_implementation_source": "5eb0a936587a7e9086a683461aaac2d1403bbaea",
+  "candidate_identity_negative": {
+    "source": "5eb0a936587a7e9086a683461aaac2d1403bbaea",
+    "embedded_revision": "b1666e4a6f4b3b77269b294de0fe225031ad12ce",
+    "result": "REJECTED before packaging: binary build identity differs from exact clean source",
+    "meaning": "Existing Go VCS worktree scanner limitation; no Release qualification claimed; guard unchanged"
+  },
+  "implementation_source": "58abd6973ca4199ab1fd59cb9fdeb70e61be2c88",
+  "source_and_docs_checks": [
+    "verify.py check --scope docs",
+    "verify_generated_runtime.py",
+    "changed Python AST parse",
+    "report links and JSON parse",
+    "git diff --check"
+  ]
+}

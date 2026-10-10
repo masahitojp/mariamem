@@ -1,0 +1,8 @@
+{
+  "cpu": "Apple M1",
+  "logical_cpus": 8,
+  "memory_bytes": 17179869184,
+  "performance_concurrency": "sequential, GOMAXPROCS=2, go -p 1",
+  "os": "macOS arm64; precise version in measurement records",
+  "qualification": "No native Ubuntu x86_64 runtime acceptance claimed"
+}

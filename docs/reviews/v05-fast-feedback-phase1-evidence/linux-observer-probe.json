@@ -1,0 +1,21 @@
+{
+  "result": "PASS",
+  "system": "Linux-7.0.14-linuxkit-aarch64-with-glibc2.39",
+  "python": "3.12.3",
+  "architecture": "aarch64",
+  "image": "mariamem-wasix-build:0.4.7 (pre-existing, no new image build)",
+  "cases": [
+    "streams",
+    "nonzero exit 17",
+    "SIGTERM -15",
+    "timeout/partial output",
+    "wait4 CPU/RSS"
+  ],
+  "network": "none",
+  "runtime_acceptance": false,
+  "resources_example": {
+    "peak_rss_bytes": 17321984,
+    "user_seconds": 0.001836,
+    "system_seconds": 0.005508
+  }
+}

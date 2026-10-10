@@ -140,7 +140,9 @@ export GOTOOLCHAIN=go1.26.8
 export GOCACHE="$MARIAMEM_DEV_WORKSPACE/temp/gocache"
 export GOPATH="$MARIAMEM_DEV_WORKSPACE/temp/gopath"
 export GOMODCACHE="$MARIAMEM_DEV_WORKSPACE/temp/modcache"
-python3 scripts/verify.py check
+python3 scripts/experiment_disk.py --work-dir "$MARIAMEM_DEV_WORKSPACE" \
+  --min-free-gib 16 --budget-gib 12 --timeout 1200 -- \
+  python3 scripts/verify.py check
 ```
 
 Choose the actual changed boundary before running that full check. `verify.py`,
@@ -164,7 +166,10 @@ Unset `MARIAMEM_PHASE_TRACE` to disable observation; unset workspace/cache varia
 to return to the previous cache defaults. Do not opt Release/runtime qualification
 into this developer cache path; existing isolated qualification environments and
 guards remain authoritative. Use the existing workspace disk guard for expensive
-commands and finalize/cleanup after preserving compact measurements.
+commands and finalize/cleanup after preserving compact measurements. A manually
+supervised prepared workspace can use this disk guard for each iteration; alternatively
+`experiment_workspace.py run` supervises one whole campaign and then completes it.
+Do not reuse a completed receipt or retain the task cache after completion.
 See [phase 1 evidence](reviews/v05-fast-feedback-phase1.md) and the
 [design-only dev guest proposal](reviews/v05-dev-guest-build-design.md).
 

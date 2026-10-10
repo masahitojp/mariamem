@@ -1,0 +1,245 @@
+{
+  "source_commit": "928506d62030587e75efd6284553b2fadf54b20e",
+  "system": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "architecture": "arm64",
+  "logical_cpus": 8,
+  "go126": "$GO126",
+  "go127": "$GO127",
+  "trials": "one cold per condition; three warm; paired overhead trials",
+  "results": [
+    {
+      "case": "before-paired-warm-0",
+      "argv": [
+        "$GO126",
+        "build",
+        "-x",
+        "-p",
+        "1",
+        "-o",
+        "$WORK/temp/measured-host",
+        "./cmd/mariamem-host"
+      ],
+      "go_version": "go version go1.26.8 darwin/arm64",
+      "wall_seconds": 0.6467548329383135,
+      "operation_total_seconds": 0.6467845420120284,
+      "observer_seconds_excluding_append": 0,
+      "resources": {
+        "status": "Available",
+        "user_seconds": 0.181282,
+        "system_seconds": 0.197273,
+        "peak_rss_bytes": 27230208,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS"
+      },
+      "compile_invocations": 0,
+      "compiled_packages": [],
+      "log_sha256": "1990e84e50acc1d210007412978c3f797caf25e02a42fde9ee801fba8e5e4f34",
+      "artifact_sha256": "f6dd5dfc8c9d42107c70785e487c4a8352a9e44435ea7a09bc31a442b13ed5a0",
+      "artifact_bytes": 101099826,
+      "cache": "$WORK/temp/baseline-gocache",
+      "inputs_sha256": {
+        "$SOURCE/go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+        "$SOURCE/internal/generatedgo/provenance.json": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60"
+      }
+    },
+    {
+      "case": "after-paired-warm-0",
+      "argv": [
+        "$GO126",
+        "build",
+        "-x",
+        "-p",
+        "1",
+        "-o",
+        "$WORK/temp/measured-host",
+        "./cmd/mariamem-host"
+      ],
+      "go_version": "go version go1.26.8 darwin/arm64",
+      "wall_seconds": 0.36683387495577335,
+      "operation_total_seconds": 0.5042623749468476,
+      "observer_seconds_excluding_append": 0.13369675003923476,
+      "resources": {
+        "peak_rss_bytes": 28295168,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+        "status": "Available",
+        "system_seconds": 0.155275,
+        "user_seconds": 0.17349199999999998
+      },
+      "compile_invocations": 0,
+      "compiled_packages": [],
+      "log_sha256": "83e6622e8f3ce8bec5ce96ff644c4ff3ae5e7943a954b2b75f8b9c4ac6eda976",
+      "artifact_sha256": "f6dd5dfc8c9d42107c70785e487c4a8352a9e44435ea7a09bc31a442b13ed5a0",
+      "artifact_bytes": 101099826,
+      "cache": "$WORK/temp/gocache",
+      "inputs_sha256": {
+        "$SOURCE/go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+        "$SOURCE/internal/generatedgo/provenance.json": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60"
+      }
+    },
+    {
+      "case": "before-paired-warm-1",
+      "argv": [
+        "$GO126",
+        "build",
+        "-x",
+        "-p",
+        "1",
+        "-o",
+        "$WORK/temp/measured-host",
+        "./cmd/mariamem-host"
+      ],
+      "go_version": "go version go1.26.8 darwin/arm64",
+      "wall_seconds": 0.2895157909952104,
+      "operation_total_seconds": 0.2896027910755947,
+      "observer_seconds_excluding_append": 0,
+      "resources": {
+        "status": "Available",
+        "user_seconds": 0.170458,
+        "system_seconds": 0.14252399999999998,
+        "peak_rss_bytes": 28114944,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS"
+      },
+      "compile_invocations": 0,
+      "compiled_packages": [],
+      "log_sha256": "02fb73e98ef51cfd9464f21234dbe08be0ff392313ccda78cb7fdee10597f2e9",
+      "artifact_sha256": "f6dd5dfc8c9d42107c70785e487c4a8352a9e44435ea7a09bc31a442b13ed5a0",
+      "artifact_bytes": 101099826,
+      "cache": "$WORK/temp/baseline-gocache",
+      "inputs_sha256": {
+        "$SOURCE/go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+        "$SOURCE/internal/generatedgo/provenance.json": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60"
+      }
+    },
+    {
+      "case": "after-paired-warm-1",
+      "argv": [
+        "$GO126",
+        "build",
+        "-x",
+        "-p",
+        "1",
+        "-o",
+        "$WORK/temp/measured-host",
+        "./cmd/mariamem-host"
+      ],
+      "go_version": "go version go1.26.8 darwin/arm64",
+      "wall_seconds": 0.29539845895487815,
+      "operation_total_seconds": 0.39802458393387496,
+      "observer_seconds_excluding_append": 0.10196395800448954,
+      "resources": {
+        "peak_rss_bytes": 27836416,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+        "status": "Available",
+        "system_seconds": 0.143342,
+        "user_seconds": 0.175427
+      },
+      "compile_invocations": 0,
+      "compiled_packages": [],
+      "log_sha256": "25cb189e5ef9039af734efa8f44253c6e0c314709a47faecaf773a494dbc86d2",
+      "artifact_sha256": "f6dd5dfc8c9d42107c70785e487c4a8352a9e44435ea7a09bc31a442b13ed5a0",
+      "artifact_bytes": 101099826,
+      "cache": "$WORK/temp/gocache",
+      "inputs_sha256": {
+        "$SOURCE/go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+        "$SOURCE/internal/generatedgo/provenance.json": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60"
+      }
+    },
+    {
+      "case": "before-paired-warm-2",
+      "argv": [
+        "$GO126",
+        "build",
+        "-x",
+        "-p",
+        "1",
+        "-o",
+        "$WORK/temp/measured-host",
+        "./cmd/mariamem-host"
+      ],
+      "go_version": "go version go1.26.8 darwin/arm64",
+      "wall_seconds": 0.29189362504985183,
+      "operation_total_seconds": 0.29192708409391344,
+      "observer_seconds_excluding_append": 0,
+      "resources": {
+        "status": "Available",
+        "user_seconds": 0.169961,
+        "system_seconds": 0.14492,
+        "peak_rss_bytes": 28147712,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS"
+      },
+      "compile_invocations": 0,
+      "compiled_packages": [],
+      "log_sha256": "4a0c0f6ce10550996b8a87baa74e6e7d9d4fed9a11986ed66ce0c550643c32a8",
+      "artifact_sha256": "f6dd5dfc8c9d42107c70785e487c4a8352a9e44435ea7a09bc31a442b13ed5a0",
+      "artifact_bytes": 101099826,
+      "cache": "$WORK/temp/baseline-gocache",
+      "inputs_sha256": {
+        "$SOURCE/go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+        "$SOURCE/internal/generatedgo/provenance.json": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60"
+      }
+    },
+    {
+      "case": "after-paired-warm-2",
+      "argv": [
+        "$GO126",
+        "build",
+        "-x",
+        "-p",
+        "1",
+        "-o",
+        "$WORK/temp/measured-host",
+        "./cmd/mariamem-host"
+      ],
+      "go_version": "go version go1.26.8 darwin/arm64",
+      "wall_seconds": 0.2968262500362471,
+      "operation_total_seconds": 0.40005633293185383,
+      "observer_seconds_excluding_append": 0.10253920801915228,
+      "resources": {
+        "peak_rss_bytes": 27803648,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+        "status": "Available",
+        "system_seconds": 0.150556,
+        "user_seconds": 0.170882
+      },
+      "compile_invocations": 0,
+      "compiled_packages": [],
+      "log_sha256": "233b145b37938d358e20b827d340f6579b6f9d27db77d09fa61bcb528e0e0a59",
+      "artifact_sha256": "f6dd5dfc8c9d42107c70785e487c4a8352a9e44435ea7a09bc31a442b13ed5a0",
+      "artifact_bytes": 101099826,
+      "cache": "$WORK/temp/gocache",
+      "inputs_sha256": {
+        "$SOURCE/go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+        "$SOURCE/internal/generatedgo/provenance.json": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60"
+      }
+    },
+    {
+      "case": "existing-wheel-warm",
+      "argv": [
+        "$WORK/temp/venv/bin/python",
+        "$SOURCE/scripts/build_alpha.py",
+        "--go",
+        "$GO126"
+      ],
+      "go_version": "go version go1.26.8 darwin/arm64",
+      "wall_seconds": 4.851052290992811,
+      "operation_total_seconds": 4.9546201669145375,
+      "observer_seconds_excluding_append": 0.10284533398225904,
+      "resources": {
+        "peak_rss_bytes": 328122368,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+        "status": "Available",
+        "system_seconds": 0.622366,
+        "user_seconds": 3.959226
+      },
+      "compile_invocations": 0,
+      "compiled_packages": [],
+      "log_sha256": "1d613d13b6c14871e5d459982c4e4445d31d7ab15b488d3a9e266dc655405f19",
+      "artifact_sha256": "e17401b96a342a3909b35dcde466f3fd44988c9dc000791c89babf1fa19a7dac",
+      "artifact_bytes": 101050242,
+      "cache": "$WORK/temp/gocache",
+      "inputs_sha256": {
+        "$SOURCE/go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+        "$SOURCE/internal/generatedgo/provenance.json": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60"
+      }
+    }
+  ]
+}

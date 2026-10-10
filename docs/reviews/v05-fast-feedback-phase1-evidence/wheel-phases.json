@@ -1,0 +1,398 @@
+[
+  {
+    "argv": [
+      "$GO126",
+      "build",
+      "-p",
+      "1",
+      "-trimpath",
+      "-o",
+      "$SOURCE/build/mariamem-host",
+      "./cmd/mariamem-host"
+    ],
+    "context": {
+      "architecture": "arm64",
+      "git_status": [],
+      "go_environment": {
+        "CGO_ENABLED": "0",
+        "GOARCH": "arm64",
+        "GOCACHE": "$WORK/temp/gocache",
+        "GOENV": "off",
+        "GOEXPERIMENT": "",
+        "GOFLAGS": "",
+        "GOMODCACHE": "$WORK/temp/modcache",
+        "GOOS": "darwin",
+        "GOPATH": "$WORK/temp/gopath",
+        "GOTOOLCHAIN": "go1.26.8",
+        "GOWORK": "off"
+      },
+      "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "source_commit": "928506d62030587e75efd6284553b2fadf54b20e",
+      "system": "Darwin",
+      "tools": {
+        "go": "go version go1.26.8 darwin/arm64"
+      },
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cwd": "$SOURCE",
+    "inputs": {
+      "$SOURCE/go.mod": {
+        "bytes": 148,
+        "sha256": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975"
+      },
+      "$SOURCE/internal/generatedgo/provenance.json": {
+        "bytes": 6234,
+        "sha256": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60"
+      },
+      "$SOURCE/release/generated-go-inputs.json": {
+        "bytes": 6566,
+        "sha256": "c882412a8d97fd497c4cb4057211b80f906643347c258811043403e88f1e7205"
+      }
+    },
+    "kind": "diagnostic-not-qualification",
+    "observer_seconds_excluding_append": 0.09178141702432185,
+    "outputs": {
+      "$SOURCE/build/mariamem-host": {
+        "bytes": 101050242,
+        "sha256": "e17401b96a342a3909b35dcde466f3fd44988c9dc000791c89babf1fa19a7dac"
+      }
+    },
+    "phase": "wheel:go-host-build",
+    "pid": 87390,
+    "resources": {
+      "peak_rss_bytes": 2348072960,
+      "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+      "status": "Available",
+      "system_seconds": 5.691602,
+      "user_seconds": 200.045468
+    },
+    "returncode": 0,
+    "started_at_utc": "2026-10-10T14:07:41Z",
+    "version": 1,
+    "wall_seconds": 131.5653264579596
+  },
+  {
+    "argv": [
+      "$WORK/temp/venv/bin/python",
+      "-m",
+      "pip",
+      "wheel",
+      "--no-deps",
+      "--no-build-isolation",
+      "--no-cache-dir",
+      "--wheel-dir",
+      "$SOURCE/build/dist",
+      "$SOURCE/python"
+    ],
+    "context": {
+      "architecture": "arm64",
+      "git_status": [],
+      "go_environment": {
+        "CGO_ENABLED": "1",
+        "GOARCH": null,
+        "GOCACHE": "$WORK/temp/gocache",
+        "GOENV": "off",
+        "GOEXPERIMENT": "",
+        "GOFLAGS": "",
+        "GOMODCACHE": "$WORK/temp/modcache",
+        "GOOS": null,
+        "GOPATH": "$WORK/temp/gopath",
+        "GOTOOLCHAIN": "go1.26.8",
+        "GOWORK": "off"
+      },
+      "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "source_commit": "928506d62030587e75efd6284553b2fadf54b20e",
+      "system": "Darwin",
+      "tools": {},
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cwd": "$SOURCE",
+    "inputs": {
+      "$SOURCE/python/mariamem/_native/manifest.json": {
+        "bytes": 362,
+        "sha256": "ac4d0869bb385b74790c4ce7f76d6d0e11c262489607a19e2b38df1052fd8a58"
+      }
+    },
+    "kind": "diagnostic-not-qualification",
+    "observer_seconds_excluding_append": 0.09632754093036056,
+    "outputs": {
+      "$SOURCE/build/dist/mariamem-0.4.6-py3-none-macosx_15_0_arm64.whl": {
+        "bytes": 49453680,
+        "sha256": "c7579c0e6fefe80318465fda1ec297ced11b592d1db80ac954a59e79b2c7eec1"
+      }
+    },
+    "phase": "wheel:package",
+    "pid": 87390,
+    "resources": {
+      "peak_rss_bytes": 240156672,
+      "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+      "status": "Available",
+      "system_seconds": 0.235347,
+      "user_seconds": 3.357981
+    },
+    "returncode": 0,
+    "started_at_utc": "2026-10-10T14:09:53Z",
+    "version": 1,
+    "wall_seconds": 3.7632446669740602
+  },
+  {
+    "argv": [
+      "$WORK/temp/venv/bin/python",
+      "$SOURCE/scripts/build_alpha.py",
+      "--go",
+      "$GO126"
+    ],
+    "context": {
+      "architecture": "arm64",
+      "git_status": [],
+      "go_environment": {
+        "CGO_ENABLED": "1",
+        "GOARCH": null,
+        "GOCACHE": "$WORK/temp/gocache",
+        "GOENV": "off",
+        "GOEXPERIMENT": "",
+        "GOFLAGS": "",
+        "GOMODCACHE": "$WORK/temp/modcache",
+        "GOOS": null,
+        "GOPATH": "$WORK/temp/gopath",
+        "GOTOOLCHAIN": "go1.26.8",
+        "GOWORK": "off"
+      },
+      "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "source_commit": "928506d62030587e75efd6284553b2fadf54b20e",
+      "system": "Darwin",
+      "tools": {},
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cwd": "$SOURCE",
+    "inputs": {
+      "$SOURCE/go.mod": {
+        "bytes": 148,
+        "sha256": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975"
+      },
+      "$SOURCE/internal/generatedgo/provenance.json": {
+        "bytes": 6234,
+        "sha256": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60"
+      }
+    },
+    "kind": "diagnostic-not-qualification",
+    "observer_seconds_excluding_append": 0.08324700000230223,
+    "outputs": {
+      "$SOURCE/build/mariamem-host": {
+        "bytes": 101050242,
+        "sha256": "e17401b96a342a3909b35dcde466f3fd44988c9dc000791c89babf1fa19a7dac"
+      }
+    },
+    "phase": "existing-wheel-build",
+    "pid": 83584,
+    "resources": {
+      "peak_rss_bytes": 2348072960,
+      "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+      "status": "Available",
+      "system_seconds": 6.123695,
+      "user_seconds": 203.825733
+    },
+    "returncode": 0,
+    "started_at_utc": "2026-10-10T14:07:40Z",
+    "version": 1,
+    "wall_seconds": 136.1992293749936
+  },
+  {
+    "argv": [
+      "$GO126",
+      "build",
+      "-p",
+      "1",
+      "-trimpath",
+      "-o",
+      "$SOURCE/build/mariamem-host",
+      "./cmd/mariamem-host"
+    ],
+    "context": {
+      "architecture": "arm64",
+      "git_status": [],
+      "go_environment": {
+        "CGO_ENABLED": "0",
+        "GOARCH": "arm64",
+        "GOCACHE": "$WORK/temp/gocache",
+        "GOENV": "off",
+        "GOEXPERIMENT": "",
+        "GOFLAGS": "-x",
+        "GOMODCACHE": "$WORK/temp/modcache",
+        "GOOS": "darwin",
+        "GOPATH": "$WORK/temp/gopath",
+        "GOTOOLCHAIN": "go1.26.8",
+        "GOWORK": "off"
+      },
+      "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "source_commit": "928506d62030587e75efd6284553b2fadf54b20e",
+      "system": "Darwin",
+      "tools": {
+        "go": "go version go1.26.8 darwin/arm64"
+      },
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cwd": "$SOURCE",
+    "inputs": {
+      "$SOURCE/go.mod": {
+        "bytes": 148,
+        "sha256": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975"
+      },
+      "$SOURCE/internal/generatedgo/provenance.json": {
+        "bytes": 6234,
+        "sha256": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60"
+      },
+      "$SOURCE/release/generated-go-inputs.json": {
+        "bytes": 6566,
+        "sha256": "c882412a8d97fd497c4cb4057211b80f906643347c258811043403e88f1e7205"
+      }
+    },
+    "kind": "diagnostic-not-qualification",
+    "observer_seconds_excluding_append": 0.13091237505432218,
+    "outputs": {
+      "$SOURCE/build/mariamem-host": {
+        "bytes": 101050242,
+        "sha256": "e17401b96a342a3909b35dcde466f3fd44988c9dc000791c89babf1fa19a7dac"
+      }
+    },
+    "phase": "wheel:go-host-build",
+    "pid": 91272,
+    "resources": {
+      "peak_rss_bytes": 27787264,
+      "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+      "status": "Available",
+      "system_seconds": 0.152934,
+      "user_seconds": 0.178454
+    },
+    "returncode": 0,
+    "started_at_utc": "2026-10-10T14:12:31Z",
+    "version": 1,
+    "wall_seconds": 0.36522525001782924
+  },
+  {
+    "argv": [
+      "$WORK/temp/venv/bin/python",
+      "-m",
+      "pip",
+      "wheel",
+      "--no-deps",
+      "--no-build-isolation",
+      "--no-cache-dir",
+      "--wheel-dir",
+      "$SOURCE/build/dist",
+      "$SOURCE/python"
+    ],
+    "context": {
+      "architecture": "arm64",
+      "git_status": [],
+      "go_environment": {
+        "CGO_ENABLED": "1",
+        "GOARCH": null,
+        "GOCACHE": "$WORK/temp/gocache",
+        "GOENV": "off",
+        "GOEXPERIMENT": "",
+        "GOFLAGS": "-x",
+        "GOMODCACHE": "$WORK/temp/modcache",
+        "GOOS": null,
+        "GOPATH": "$WORK/temp/gopath",
+        "GOTOOLCHAIN": "go1.26.8",
+        "GOWORK": "off"
+      },
+      "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "source_commit": "928506d62030587e75efd6284553b2fadf54b20e",
+      "system": "Darwin",
+      "tools": {},
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cwd": "$SOURCE",
+    "inputs": {
+      "$SOURCE/python/mariamem/_native/manifest.json": {
+        "bytes": 362,
+        "sha256": "ac4d0869bb385b74790c4ce7f76d6d0e11c262489607a19e2b38df1052fd8a58"
+      }
+    },
+    "kind": "diagnostic-not-qualification",
+    "observer_seconds_excluding_append": 0.08090887498110533,
+    "outputs": {
+      "$SOURCE/build/dist/mariamem-0.4.6-py3-none-macosx_15_0_arm64.whl": {
+        "bytes": 49453680,
+        "sha256": "b348285195090bd877185858c6c6cfb587f0c843a1576a2fb04a35e60a537472"
+      }
+    },
+    "phase": "wheel:package",
+    "pid": 91272,
+    "resources": {
+      "peak_rss_bytes": 239910912,
+      "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+      "status": "Available",
+      "system_seconds": 0.286636,
+      "user_seconds": 3.347882
+    },
+    "returncode": 0,
+    "started_at_utc": "2026-10-10T14:12:32Z",
+    "version": 1,
+    "wall_seconds": 3.8036031250376254
+  },
+  {
+    "argv": [
+      "$WORK/temp/venv/bin/python",
+      "$SOURCE/scripts/build_alpha.py",
+      "--go",
+      "$GO126"
+    ],
+    "context": {
+      "architecture": "arm64",
+      "git_status": [],
+      "go_environment": {
+        "CGO_ENABLED": "1",
+        "GOARCH": null,
+        "GOCACHE": "$WORK/temp/gocache",
+        "GOENV": "off",
+        "GOEXPERIMENT": "",
+        "GOFLAGS": "-x",
+        "GOMODCACHE": "$WORK/temp/modcache",
+        "GOOS": null,
+        "GOPATH": "$WORK/temp/gopath",
+        "GOTOOLCHAIN": "go1.26.8",
+        "GOWORK": "off"
+      },
+      "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "source_commit": "928506d62030587e75efd6284553b2fadf54b20e",
+      "system": "Darwin",
+      "tools": {},
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cwd": "$SOURCE",
+    "inputs": {
+      "$SOURCE/go.mod": {
+        "bytes": 148,
+        "sha256": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975"
+      },
+      "$SOURCE/internal/generatedgo/provenance.json": {
+        "bytes": 6234,
+        "sha256": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60"
+      }
+    },
+    "kind": "diagnostic-not-qualification",
+    "observer_seconds_excluding_append": 0.10284533398225904,
+    "outputs": {
+      "$SOURCE/build/mariamem-host": {
+        "bytes": 101050242,
+        "sha256": "e17401b96a342a3909b35dcde466f3fd44988c9dc000791c89babf1fa19a7dac"
+      }
+    },
+    "phase": "existing-wheel-warm",
+    "pid": 91137,
+    "resources": {
+      "peak_rss_bytes": 328122368,
+      "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+      "status": "Available",
+      "system_seconds": 0.622366,
+      "user_seconds": 3.959226
+    },
+    "returncode": 0,
+    "started_at_utc": "2026-10-10T14:12:31Z",
+    "version": 1,
+    "wall_seconds": 4.851052290992811
+  }
+]
