@@ -1,0 +1,51 @@
+[
+  {
+    "patch": "controlled-thread-traps.patch",
+    "sha256": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+    "individual_upstream_check": true,
+    "stderr": "",
+    "scope": "individual dry-run only, not ordered series validation or runtime qualification"
+  },
+  {
+    "patch": "host-logical-memory.patch",
+    "sha256": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+    "individual_upstream_check": true,
+    "stderr": "",
+    "scope": "individual dry-run only, not ordered series validation or runtime qualification"
+  },
+  {
+    "patch": "import-function-index.patch",
+    "sha256": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+    "individual_upstream_check": true,
+    "stderr": "",
+    "scope": "individual dry-run only, not ordered series validation or runtime qualification"
+  },
+  {
+    "patch": "imported-memory.patch",
+    "sha256": "d342ffb1c09af27b215c0c26a26e4056b14a5e2a54d5ee8a084af719e2227639",
+    "individual_upstream_check": true,
+    "stderr": "",
+    "scope": "individual dry-run only, not ordered series validation or runtime qualification"
+  },
+  {
+    "patch": "linear-memory-owner.patch",
+    "sha256": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
+    "individual_upstream_check": true,
+    "stderr": "",
+    "scope": "individual dry-run only, not ordered series validation or runtime qualification"
+  },
+  {
+    "patch": "pure-memory32.patch",
+    "sha256": "097952ab11b4a07a939586d9f4a4b1037b890d6e43aaa4f4fa6ce1d6bc588815",
+    "individual_upstream_check": false,
+    "stderr": "error: patch failed: $UPSTREAM/internal/codegen/helpers/helpers.go:1259\nerror: $UPSTREAM/internal/codegen/helpers/helpers.go: patch does not apply",
+    "scope": "individual dry-run only, not ordered series validation or runtime qualification"
+  },
+  {
+    "patch": "relaxed-madd.patch",
+    "sha256": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
+    "individual_upstream_check": true,
+    "stderr": "",
+    "scope": "individual dry-run only, not ordered series validation or runtime qualification"
+  }
+]

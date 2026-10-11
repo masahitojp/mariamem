@@ -1,0 +1,127 @@
+[
+  {
+    "path": "README.md",
+    "upstream_sha256": "9eb4886e618749369bcaa3c97f7bea61676b3ae950f590815c2238f6e457e7ce",
+    "fork_sha256": "6022ecd7574a41b4f8f0061d2937e6b3a5a2b2dcea2ef8e8b12a2f3056c8903d"
+  },
+  {
+    "path": "README_ABOUT_FORK.md",
+    "upstream_sha256": null,
+    "fork_sha256": "8b1243d92c5815c1cc5b3d4b6bbb698dc331a5f40715c11d49d9fe1a28d43c4f"
+  },
+  {
+    "path": "cmd/wasm2go/main.go",
+    "upstream_sha256": "808b589b6f1d6698f106567234c37ba8b88872e8647bb5ff49e32119d6ebb623",
+    "fork_sha256": "1e400e084fd1e3510872688704e43aba4f1cf8c40f967a2a1c37b453142fe15b"
+  },
+  {
+    "path": "internal/codegen/addrconsts_test.go",
+    "upstream_sha256": null,
+    "fork_sha256": "2f50b0d75f51f8f9bd67f38518b81aa7fea9076247524cf193a474e332013ec2"
+  },
+  {
+    "path": "internal/codegen/emit_memops.go",
+    "upstream_sha256": "fc79711e30e6d0008b96e7a6dec77d03993891ea0dfffa8181e92c04227c878b",
+    "fork_sha256": "fe72d260b0ad601e2c0c27649b8566d3fe5edb1df0cdd11e7f08906cc9b9cd19"
+  },
+  {
+    "path": "internal/codegen/emit_ssa.go",
+    "upstream_sha256": "3a2caa211deba87eba34592f08d5cc53e4a265e80b7ff4cba793aa6af9afff51",
+    "fork_sha256": "606039ca9554550fece180b9d0d7057d5bc8484fd0bee14fffad5cf911a05b43"
+  },
+  {
+    "path": "internal/codegen/groupfiles.go",
+    "upstream_sha256": null,
+    "fork_sha256": "9d16a0da3edc93fff86a50c7f646b43a554822f8ec99de92cf0e04956fb31afd"
+  },
+  {
+    "path": "internal/codegen/groupfiles_test.go",
+    "upstream_sha256": null,
+    "fork_sha256": "7dc763084c9b3a183893f5c89fbd57eb9a4e9f9fe400916314dacd6e0e2d4f5a"
+  },
+  {
+    "path": "internal/codegen/helpers/helpers.go",
+    "upstream_sha256": "787994480cc303bdcf677f3ea2865216564ee15721eb36d727b03e53a4d82862",
+    "fork_sha256": "8a385889d4dff91926b1d193b3de38a565d3706f130e161a14f1f3541c12c977"
+  },
+  {
+    "path": "internal/codegen/multipkg.go",
+    "upstream_sha256": "e3568301af783b4624b5a39d1130ea0e217ac76baffde9d585e44f9bb457aa02",
+    "fork_sha256": "e2702c17262b30f0d81ebc4505557d37e8f57fd06eb4fb68ad37d75aca49496b"
+  },
+  {
+    "path": "internal/codegen/symnames_test.go",
+    "upstream_sha256": null,
+    "fork_sha256": "32cd797c9e30844ee532f0d62fec5c4f6cf8f6a49e9d518638fbc3844e6e2067"
+  },
+  {
+    "path": "internal/codegen/symnames_unit_test.go",
+    "upstream_sha256": null,
+    "fork_sha256": "cf0579d8594e91ac3865d44ee402a3e79355682468ef137d768685c3bcaa7b06"
+  },
+  {
+    "path": "internal/codegen/translate.go",
+    "upstream_sha256": "5fe280c6bdabbda92d411b2e36e3fe1ee85af0ad888e63be96bf129030a99a9a",
+    "fork_sha256": "f84fb1451c945dc9f7b0de7446b671cf842c854d06aaeab387cc59febef44662"
+  },
+  {
+    "path": "internal/codegen/translate_linkname.go",
+    "upstream_sha256": "acbd9c86a378f1809940773f9a4a7dfd8a60328ed4cbd5863b1d082c79ef45cb",
+    "fork_sha256": "c3d833830a01ac948065814d72104f67a55e194d85db569da4f1bbe5a6e1920c"
+  },
+  {
+    "path": "internal/gcasm/capture.go",
+    "upstream_sha256": "5253005537e719ca9f5f58cf026c07274b114bedf54799b5643d7a44e1ef1c14",
+    "fork_sha256": "a84beb271fddbd3b78b1710a5323e20bf8deac305caff5d8d64c4404fb3967cc"
+  },
+  {
+    "path": "internal/gcasm/capture_align_test.go",
+    "upstream_sha256": null,
+    "fork_sha256": "2983a9703dbbe4b81fffa9055f6c7c616dbe07fcd8daecd9082960e0b9481d95"
+  },
+  {
+    "path": "internal/gcasm/transform.go",
+    "upstream_sha256": "f521d96f3835717b2f4d7157beb46f354f16091af474a8fb3a312ddc3e2df58f",
+    "fork_sha256": "4128199ab86191918f7d953d8acc0141903eeaa011725a46ba42b19d34db8016"
+  },
+  {
+    "path": "internal/gcasm/transform_a64gen_strip.go",
+    "upstream_sha256": "e7494680a309e8244fdc7fe6aae9b96449c06286144c8b453565c863f4d249d4",
+    "fork_sha256": "b99418fc4b0a22a41adaf41df6341368cbb2a67e023b3af2a49a970cf5ed8a8e"
+  },
+  {
+    "path": "internal/wasm/ir.go",
+    "upstream_sha256": "445bebcb5a974336a9406ebf4fe3e965593f3f7da82415d3b9c9ab8fa6470b0d",
+    "fork_sha256": "763bde55d28ad0c19c667f9a1733b885109e25353602ba0529ccdc2bd4425b9f"
+  },
+  {
+    "path": "internal/wasm/parser.go",
+    "upstream_sha256": "a1bcbc41493732732bfb932996341e3b0deccf8e8989e4d687c84914df20e51b",
+    "fork_sha256": "def6f70c421719887909e80c0833aa72070e9baec723b5d0a810098518eaf4b6"
+  },
+  {
+    "path": "internal/wasm/wasm_test.go",
+    "upstream_sha256": "ac4ff9d39a8f0e25ba7bfe90ead9888c52909a6f51168a58e719e8568c2f6f0a",
+    "fork_sha256": "309585a1c233f40687e2014b27e7e84e7bdfb0ff097532c1a11dcde960f9e17b"
+  },
+  {
+    "path": "testdata/symnames.wasm",
+    "upstream_sha256": null,
+    "fork_sha256": "a2265ea66940c0d65ab04dc8e9c83df313d28bbddac7b4b27839571d8220f4f5"
+  },
+  {
+    "path": "testdata/symnames.wat",
+    "upstream_sha256": null,
+    "fork_sha256": "4136150402c2014b448391a4cf4dd4d1f4087efbbf41e7fbd51b5cf82da10b75"
+  },
+  {
+    "path": "testdata/symnames2.wasm",
+    "upstream_sha256": null,
+    "fork_sha256": "f48b987b6ea316d651d3d5a09e5fa23319c38112df167b2ab703b80876ca2574"
+  },
+  {
+    "path": "testdata/symnames2.wat",
+    "upstream_sha256": null,
+    "fork_sha256": "4655dd5793cf5a53cf72b1bb37cb712b50f1ab15d0e983487be4539a659666be"
+  }
+]

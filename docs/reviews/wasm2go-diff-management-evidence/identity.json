@@ -1,0 +1,20 @@
+{
+  "mariamem_source_commit": "386a62c3669e37bb8aaad58cd0aca8da893b3d80",
+  "fork_commit": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+  "upstream_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+  "pglite_commit": "c6b3b5d4ae4744e97eb320ff03e1a1d472b4522f",
+  "binaryen_commit": "fba5005a132d85d578be5bd010e0487ed8e2ce3e",
+  "relaxed_simd_spec_commit": "c3f9359af2cd607cc46b0a3274f90ea52543a2f2",
+  "status": "ahead",
+  "ahead_by": 14,
+  "behind_by": 0,
+  "merge_base": "730057c146463f663e8774587bc96fb2bea91af8",
+  "changed_files": 25,
+  "runtime_verification_performed": false,
+  "wasm_or_converter_changes_performed": false,
+  "archives_sha256": {
+    "fork": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f",
+    "upstream": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+    "pglite": "cd32f6aacde57e7f35c486906abd4a2c179e7e85255dcf4f80df4ec3c7344060"
+  }
+}
