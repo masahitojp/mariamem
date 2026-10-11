@@ -31,3 +31,14 @@ minimum language directive. No generated/runtime workaround is included.
 The new `LoadSnapshot` API also passed focused macOS consumer/lifecycle checks
 with Go 1.26.8 and 1.27.1. See the [v0.4.6 review](reviews/v046-human-review.md)
 for exact scope, Ubuntu evidence and release gates.
+
+## v0.4.7 candidate qualification
+
+The upstream-converter migration retains the same minimum Go and driver pins.
+Its external artifact acceptance now runs the existing consumer lifecycle and
+public smoke program with both canonical Go1.26.8 and explicitly selected
+Go1.27.2 (`GOTOOLCHAIN=local` for the latter). Both native release runners use
+that same check. Earlier v0.4.6 compatibility evidence is historical, not proof
+for a new generated artifact. See the [candidate review](reviews/v047-upstream-migration.md)
+for actual local results and pending native CI gates; an uncompleted CI run does
+not establish Ubuntu or minimum-macOS acceptance.
