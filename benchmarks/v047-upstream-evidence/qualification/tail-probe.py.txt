@@ -1,0 +1,23 @@
+"""Bounded follow-up of observed Fresh startup/resource tails; original matrix is unchanged."""
+import json,os,subprocess,sys
+from pathlib import Path
+root=Path.cwd();w=root.parent;out=w/'evidence/tail-probe';out.mkdir(exist_ok=False)
+sys.path.insert(0,str(root/'scripts'))
+from experiment_disk import DiskGuard,run_guarded
+sdk='/toolchains/module-cache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin'
+env=dict(os.environ,PATH=sdk+':'+os.environ['PATH'],GOTOOLCHAIN='local',TMPDIR=str(w/'temp/tmp'))
+env.pop('GOMAXPROCS',None)
+records=[]
+for case,size,workers in [('light',0,1),('parallel',10,4)]:
+ for trial in range(4):
+  for state in (('v046','v047') if trial%2==0 else ('v047','v046')):
+   name=f'{state}-go-{case}-{trial}-fresh';dest=out/(name+'.json')
+   command=[str(w/'temp/binaries'/state/'ownedprepared'),'-payload-mib',str(size),'-tables',str(1 if case=='light' else 8),'-workers',str(workers),'-forks','4','-workload','app-connections','-lifecycle','fresh','-go-resources','-helper',str(w/'temp/binaries/process-cost'),'-out',str(dest)]
+   guard=DiskGuard(w,20,24)
+   with (out/(name+'.log')).open('w') as log:rc=run_guarded(command,guard,cwd=root,env=env,output=log,timeout=900,interval=5)
+   records.append({'name':name,'command':command,'returncode':rc,'disk':guard.check()})
+   (out/'inputs.json').write_text(json.dumps({'purpose':__doc__,'actual_go':subprocess.check_output(['go','version'],env=env,text=True).strip(),'cells':records},indent=2)+'\n')
+   if rc:raise SystemExit(rc)
+   d=json.loads(dest.read_text());m=d['go_resource_observation']['after']['linear_memory_virtual']
+   assert m['active_mappings']==0 and m['creates']==m['releases'] and not m['release_failures']
+   print(name,d['suite_product_seconds'],flush=True)

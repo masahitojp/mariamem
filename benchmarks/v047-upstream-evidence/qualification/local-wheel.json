@@ -1,0 +1,17 @@
+{
+  "command": [
+    "../temp/venv/bin/python",
+    "scripts/build_alpha.py",
+    "--ci-candidate"
+  ],
+  "returncode": 1,
+  "seconds": 6.905825166963041,
+  "source_commit": "6097c2cf821a18a445738604675de7c96b814d26",
+  "disk": {
+    "owned_bytes": 10343919616,
+    "free_bytes": 78718345216,
+    "peak_owned_bytes": 10343919616,
+    "minimum_free_bytes": 78718345216
+  },
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

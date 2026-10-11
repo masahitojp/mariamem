@@ -1,0 +1,20 @@
+
+wasm2go: SSA optimization + memory promotion summary
+  SSA instructions:            1064 -> 1028  (-3.4% folded)
+  emit form:                    192 structured / 0 goto  (100.0% structured)
+  SSA-lowered functions:        192
+  functions with a frame:         0  (0 non-escaping)
+  total memory accesses:         75
+  promoted (y/x):                 3 / 75  (  4.0%)
+    frame:                        0  (  0.0%)
+    rodata:                       3  (  4.0%)
+  slab (not promoted):           72  ( 96.0%)
+  top un-promoted functions:
+    fn186                        slab=4      frame=0     total=4
+    fn0                          slab=1      frame=0     total=1
+    fn1                          slab=1      frame=0     total=1
+    fn2                          slab=1      frame=0     total=1
+    fn3                          slab=1      frame=0     total=1
+
+generated memory matrix PASS; host survives all expected traps; grow/max/state PASS
+PASS: 2472 cases; 1693 guest traps; host exit 0

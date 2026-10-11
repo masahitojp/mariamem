@@ -1,0 +1,11 @@
+{
+  "command": [
+    "go",
+    "mod",
+    "download"
+  ],
+  "returncode": 0,
+  "seconds": 1.360411832924001,
+  "source_commit": "7031ed928627d203bbdbd33a75adfb40dc70b2f2",
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

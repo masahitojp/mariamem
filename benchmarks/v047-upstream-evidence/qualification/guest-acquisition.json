@@ -1,0 +1,29 @@
+{
+  "run": 38040418075,
+  "artifact": 11665901597,
+  "entries": {
+    "CMakeCache.txt": {
+      "bytes": 60350,
+      "sha256": "873dea1c3d026fe3c78bb20430b0a1c67f014699fb0972bb7bdbeffa9ba413c7"
+    },
+    "flags.make": {
+      "bytes": 607,
+      "sha256": "69eaaffdf3a881b44a842c30fa84b4cd6c34b1ba4263cf07b71d63acb69cfdc4"
+    },
+    "guest.json": {
+      "bytes": 6306,
+      "sha256": "df29b3e3dcd33ddc7dda2f31c9ec533114f3d00ce26e4d2a6e6b3ccb172e830a"
+    },
+    "link.txt": {
+      "bytes": 1055,
+      "sha256": "e30e6728b2219aac5829d25d1d0ff1df21df67394a3a5e2e8482b0c5221ef1d1"
+    },
+    "mariamem.wasm": {
+      "bytes": 18560271,
+      "sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008"
+    }
+  },
+  "retrieved_bytes": 5373952,
+  "seconds": 12.34209200006444,
+  "crc_verified": true
+}

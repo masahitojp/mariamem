@@ -1,0 +1,20 @@
+{
+  "command": [
+    "go",
+    "-C",
+    "../temp/converter-preflight/wasm2go-730057c146463f663e8774587bc96fb2bea91af8",
+    "build",
+    "-p",
+    "1",
+    "-mod=readonly",
+    "-trimpath",
+    "-buildvcs=false",
+    "-o",
+    "../wasm2go",
+    "./cmd/wasm2go"
+  ],
+  "returncode": 0,
+  "seconds": 12.04401458404027,
+  "source_commit": "58b4831c4654ef04c4c251c121cbe45c59239c27",
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

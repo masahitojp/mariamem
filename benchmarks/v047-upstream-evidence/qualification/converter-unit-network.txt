@@ -1,0 +1,5 @@
+go: downloading github.com/tetratelabs/wazero v1.11.0
+go: downloading golang.org/x/sys v0.38.0
+ok  	github.com/goccy/wasm2go/internal/codegen	0.384s
+ok  	github.com/goccy/wasm2go/internal/ssa	0.072s
+ok  	github.com/goccy/wasm2go/internal/ssa/pass	0.066s

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "../temp/venv/bin/python",
+    "scripts/regenerate_release_guest.py",
+    "--guest-dir",
+    "../temp/released-guest",
+    "--output",
+    "../temp/independent-regeneration"
+  ],
+  "returncode": 0,
+  "seconds": 113.37589108303655,
+  "source_commit": "7031ed928627d203bbdbd33a75adfb40dc70b2f2",
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

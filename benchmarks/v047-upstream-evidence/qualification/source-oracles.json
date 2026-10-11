@@ -1,0 +1,16 @@
+{
+  "command": [
+    "../temp/venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_generated_runtime_inventory.py",
+    "tests/test_distribution_licenses.py",
+    "tests/test_packaging_license_mirrors.py",
+    "tests/test_upstream_translation.py",
+    "-q"
+  ],
+  "returncode": 0,
+  "seconds": 1.23669016698841,
+  "source_commit": "69b54ace69224928a36f2e78d024989223267756",
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

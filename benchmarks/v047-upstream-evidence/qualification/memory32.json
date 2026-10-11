@@ -1,0 +1,14 @@
+{
+  "command": [
+    "../temp/venv/bin/python",
+    "benchmarks/spikes/memory-candidate/check_fixture.py",
+    "--converter",
+    "../temp/converter-preflight/wasm2go",
+    "--output",
+    "../temp/memory32"
+  ],
+  "returncode": 0,
+  "seconds": 2.622693125042133,
+  "source_commit": "58b4831c4654ef04c4c251c121cbe45c59239c27",
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

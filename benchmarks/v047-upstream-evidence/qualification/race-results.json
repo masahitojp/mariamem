@@ -1,0 +1,58 @@
+{
+  "v046": {
+    "returncode": 0,
+    "raw_sha256": "9ed510f906047350595987d51283f2fe61eba506148383c3313fc611d270a287",
+    "command": [
+      "go",
+      "test",
+      "-race",
+      "-p",
+      "1",
+      "-tags=integration",
+      "./tests/godefault",
+      "-run",
+      "TestDefault(NoBundleAndForkIsolation|RepeatedConcurrentLifecycle)$",
+      "-count=1",
+      "-v",
+      "-timeout=3m"
+    ],
+    "source_commit": "b56be17206b6beef18f55c8ea39b254638da8590",
+    "race_reported": false,
+    "summary_lines": [
+      "=== RUN   TestDefaultNoBundleAndForkIsolation",
+      "--- PASS: TestDefaultNoBundleAndForkIsolation (6.88s)",
+      "=== RUN   TestDefaultRepeatedConcurrentLifecycle",
+      "--- PASS: TestDefaultRepeatedConcurrentLifecycle (9.59s)",
+      "PASS",
+      "ok  \tgithub.com/masahitojp/mariamem/tests/godefault\t19.725s"
+    ]
+  },
+  "v047": {
+    "returncode": 0,
+    "raw_sha256": "3ff441f6aa4773d61ef69c3950eb225c219bedac6d2cc18d034b0fdf3bb4cb11",
+    "command": [
+      "go",
+      "test",
+      "-race",
+      "-p",
+      "1",
+      "-tags=integration",
+      "./tests/godefault",
+      "-run",
+      "TestDefault(NoBundleAndForkIsolation|RepeatedConcurrentLifecycle)$",
+      "-count=1",
+      "-v",
+      "-timeout=3m"
+    ],
+    "source_commit": "6097c2cf821a18a445738604675de7c96b814d26",
+    "race_reported": false,
+    "summary_lines": [
+      "=== RUN   TestDefaultNoBundleAndForkIsolation",
+      "--- PASS: TestDefaultNoBundleAndForkIsolation (6.76s)",
+      "=== RUN   TestDefaultRepeatedConcurrentLifecycle",
+      "--- PASS: TestDefaultRepeatedConcurrentLifecycle (9.79s)",
+      "PASS",
+      "ok  \tgithub.com/masahitojp/mariamem/tests/godefault\t19.222s"
+    ]
+  }
+}

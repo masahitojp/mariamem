@@ -1,0 +1,14 @@
+{
+  "signature_definition": "Read race logs without running/altering the guest; retain compact signatures.\n\nSignature = unordered pair of (R/W, first generated frame, first guest frame,\nactual sync/atomic operation). Absolute addresses, goroutine IDs and deep\nrecursive stacks do not split a signature. This is an observation census,\nnot static alias proof. Diagnostics never become production matching rules.\n",
+  "logs": [
+    {
+      "file": "v046-race.log",
+      "sha256": "9ed510f906047350595987d51283f2fe61eba506148383c3313fc611d270a287",
+      "reports": 0,
+      "signatures": 0,
+      "unparsed": 0
+    }
+  ],
+  "unique_signatures": 0,
+  "records": []
+}

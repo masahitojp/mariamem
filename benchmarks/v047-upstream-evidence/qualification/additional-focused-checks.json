@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "record_kind": "console-result transcription; not final-SHA CI evidence",
+  "scope": [
+    "tests/test_generated_release.py",
+    "tests/test_ci_release_reuse.py",
+    "tests/test_runtime_validation.py"
+  ],
+  "command": "python -m pytest tests/test_generated_release.py tests/test_ci_release_reuse.py tests/test_runtime_validation.py -q",
+  "passed": 131,
+  "seconds": 8.62,
+  "tested_change_commit": "6097c2cf821a18a445738604675de7c96b814d26"
+}

@@ -1,0 +1,486 @@
+{
+  "purpose": "Bounded follow-up of observed Fresh startup/resource tails; original matrix is unchanged.",
+  "actual_go": "go version go1.26.8 darwin/arm64",
+  "cells": [
+    {
+      "name": "v046-go-light-0-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v046/ownedprepared",
+        "-payload-mib",
+        "0",
+        "-tables",
+        "1",
+        "-workers",
+        "1",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v046-go-light-0-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290140672,
+        "free_bytes": 78491684864,
+        "peak_owned_bytes": 11290140672,
+        "minimum_free_bytes": 78491684864
+      }
+    },
+    {
+      "name": "v047-go-light-0-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v047/ownedprepared",
+        "-payload-mib",
+        "0",
+        "-tables",
+        "1",
+        "-workers",
+        "1",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v047-go-light-0-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290161152,
+        "free_bytes": 78490484736,
+        "peak_owned_bytes": 11290161152,
+        "minimum_free_bytes": 78490484736
+      }
+    },
+    {
+      "name": "v047-go-light-1-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v047/ownedprepared",
+        "-payload-mib",
+        "0",
+        "-tables",
+        "1",
+        "-workers",
+        "1",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v047-go-light-1-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290173440,
+        "free_bytes": 78494785536,
+        "peak_owned_bytes": 11290173440,
+        "minimum_free_bytes": 78490574848
+      }
+    },
+    {
+      "name": "v046-go-light-1-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v046/ownedprepared",
+        "-payload-mib",
+        "0",
+        "-tables",
+        "1",
+        "-workers",
+        "1",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v046-go-light-1-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290185728,
+        "free_bytes": 78494453760,
+        "peak_owned_bytes": 11290185728,
+        "minimum_free_bytes": 78494453760
+      }
+    },
+    {
+      "name": "v046-go-light-2-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v046/ownedprepared",
+        "-payload-mib",
+        "0",
+        "-tables",
+        "1",
+        "-workers",
+        "1",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v046-go-light-2-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290198016,
+        "free_bytes": 78494601216,
+        "peak_owned_bytes": 11290198016,
+        "minimum_free_bytes": 78494433280
+      }
+    },
+    {
+      "name": "v047-go-light-2-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v047/ownedprepared",
+        "-payload-mib",
+        "0",
+        "-tables",
+        "1",
+        "-workers",
+        "1",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v047-go-light-2-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290214400,
+        "free_bytes": 78493851648,
+        "peak_owned_bytes": 11290214400,
+        "minimum_free_bytes": 78493757440
+      }
+    },
+    {
+      "name": "v047-go-light-3-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v047/ownedprepared",
+        "-payload-mib",
+        "0",
+        "-tables",
+        "1",
+        "-workers",
+        "1",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v047-go-light-3-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290230784,
+        "free_bytes": 78493167616,
+        "peak_owned_bytes": 11290230784,
+        "minimum_free_bytes": 78493167616
+      }
+    },
+    {
+      "name": "v046-go-light-3-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v046/ownedprepared",
+        "-payload-mib",
+        "0",
+        "-tables",
+        "1",
+        "-workers",
+        "1",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v046-go-light-3-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290247168,
+        "free_bytes": 78493196288,
+        "peak_owned_bytes": 11290247168,
+        "minimum_free_bytes": 78493040640
+      }
+    },
+    {
+      "name": "v046-go-parallel-0-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v046/ownedprepared",
+        "-payload-mib",
+        "10",
+        "-tables",
+        "8",
+        "-workers",
+        "4",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v046-go-parallel-0-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290255360,
+        "free_bytes": 78493233152,
+        "peak_owned_bytes": 11290255360,
+        "minimum_free_bytes": 78493167616
+      }
+    },
+    {
+      "name": "v047-go-parallel-0-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v047/ownedprepared",
+        "-payload-mib",
+        "10",
+        "-tables",
+        "8",
+        "-workers",
+        "4",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v047-go-parallel-0-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290267648,
+        "free_bytes": 78493106176,
+        "peak_owned_bytes": 11290267648,
+        "minimum_free_bytes": 78493106176
+      }
+    },
+    {
+      "name": "v047-go-parallel-1-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v047/ownedprepared",
+        "-payload-mib",
+        "10",
+        "-tables",
+        "8",
+        "-workers",
+        "4",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v047-go-parallel-1-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290275840,
+        "free_bytes": 78491680768,
+        "peak_owned_bytes": 11290275840,
+        "minimum_free_bytes": 78491680768
+      }
+    },
+    {
+      "name": "v046-go-parallel-1-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v046/ownedprepared",
+        "-payload-mib",
+        "10",
+        "-tables",
+        "8",
+        "-workers",
+        "4",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v046-go-parallel-1-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290284032,
+        "free_bytes": 78491516928,
+        "peak_owned_bytes": 11290284032,
+        "minimum_free_bytes": 78491516928
+      }
+    },
+    {
+      "name": "v046-go-parallel-2-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v046/ownedprepared",
+        "-payload-mib",
+        "10",
+        "-tables",
+        "8",
+        "-workers",
+        "4",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v046-go-parallel-2-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290292224,
+        "free_bytes": 78491684864,
+        "peak_owned_bytes": 11290292224,
+        "minimum_free_bytes": 78491504640
+      }
+    },
+    {
+      "name": "v047-go-parallel-2-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v047/ownedprepared",
+        "-payload-mib",
+        "10",
+        "-tables",
+        "8",
+        "-workers",
+        "4",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v047-go-parallel-2-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290300416,
+        "free_bytes": 78491529216,
+        "peak_owned_bytes": 11290300416,
+        "minimum_free_bytes": 78491529216
+      }
+    },
+    {
+      "name": "v047-go-parallel-3-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v047/ownedprepared",
+        "-payload-mib",
+        "10",
+        "-tables",
+        "8",
+        "-workers",
+        "4",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v047-go-parallel-3-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290312704,
+        "free_bytes": 78490341376,
+        "peak_owned_bytes": 11290312704,
+        "minimum_free_bytes": 78490341376
+      }
+    },
+    {
+      "name": "v046-go-parallel-3-fresh",
+      "command": [
+        "/workspace/v047/temp/binaries/v046/ownedprepared",
+        "-payload-mib",
+        "10",
+        "-tables",
+        "8",
+        "-workers",
+        "4",
+        "-forks",
+        "4",
+        "-workload",
+        "app-connections",
+        "-lifecycle",
+        "fresh",
+        "-go-resources",
+        "-helper",
+        "/workspace/v047/temp/binaries/process-cost",
+        "-out",
+        "/workspace/v047/evidence/tail-probe/v046-go-parallel-3-fresh.json"
+      ],
+      "returncode": 0,
+      "disk": {
+        "owned_bytes": 11290320896,
+        "free_bytes": 78490423296,
+        "peak_owned_bytes": 11290320896,
+        "minimum_free_bytes": 78490423296
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+==================
+WARNING: DATA RACE
+Read at 0x00c0000bc000 by goroutine 8:
+  example.com/racevisibility.TestVisibility.func1()
+      /workspace/v047/temp/race-visibility/visibility_test.go:7 +0xcc
+
+Previous write at 0x00c0000bc000 by goroutine 9:
+  example.com/racevisibility.TestVisibility.func1()
+      /workspace/v047/temp/race-visibility/visibility_test.go:7 +0x88
+
+Goroutine 8 (running) created at:
+  example.com/racevisibility.TestVisibility()
+      /workspace/v047/temp/race-visibility/visibility_test.go:7 +0x248
+  testing.tRunner()
+      /toolchains/module-cache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      /toolchains/module-cache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+
+Goroutine 9 (finished) created at:
+  example.com/racevisibility.TestVisibility()
+      /workspace/v047/temp/race-visibility/visibility_test.go:7 +0x248
+  testing.tRunner()
+      /toolchains/module-cache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      /toolchains/module-cache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+==================
+--- FAIL: TestVisibility (0.00s)
+    testing.go:1712: race detected during execution of test
+FAIL
+FAIL	example.com/racevisibility	0.331s
+FAIL

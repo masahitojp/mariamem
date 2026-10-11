@@ -1,0 +1,16 @@
+v046-go-light-0-fresh 0.529727372
+v047-go-light-0-fresh 0.46718245399999986
+v047-go-light-1-fresh 0.31564071200000005
+v046-go-light-1-fresh 0.5105469189999999
+v046-go-light-2-fresh 0.353812335
+v047-go-light-2-fresh 0.505309542
+v047-go-light-3-fresh 0.31163183499999997
+v046-go-light-3-fresh 0.309988957
+v046-go-parallel-0-fresh 1.7853866250000001
+v047-go-parallel-0-fresh 1.850262834
+v047-go-parallel-1-fresh 1.794143125
+v046-go-parallel-1-fresh 1.843526333
+v046-go-parallel-2-fresh 1.780896166
+v047-go-parallel-2-fresh 1.0059735
+v047-go-parallel-3-fresh 1.769837292
+v046-go-parallel-3-fresh 1.7551270410000002

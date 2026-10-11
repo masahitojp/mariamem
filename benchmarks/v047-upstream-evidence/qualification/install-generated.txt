@@ -1,0 +1,9 @@
+Installed FD audit. Stable directory-object adaptation installed; FD contracts must PASS.
+/workspace/v047/temp/candidate/module
+Installed checksum-bound generated runtime: 62 files
+{
+  "code/base/base.go": {
+    "before": "966192fa209033269e5d500b59830e8fe896e50c1d94498f196150285ecef003",
+    "after": "3f1952f72479e1c2c6c5e51378347332a0f2c49362c6a454733050ba61fedee3"
+  }
+}

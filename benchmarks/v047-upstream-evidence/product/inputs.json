@@ -1,0 +1,1465 @@
+{
+  "source_commits": {
+    "v046": "b56be17206b6beef18f55c8ea39b254638da8590",
+    "v047": "40d9de4f04b0e74c71657a5533558411dfb181d6"
+  },
+  "candidate_binary_source_commit": "2e3182598f8d2d2e3ab3b649f2c839c80660972b",
+  "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+  "disk_guard_interval_seconds": 5,
+  "trials": 3,
+  "large_trials": 1,
+  "suite_count": 4,
+  "runtime_gomaxprocs": "Go default on same host",
+  "go": "go version go1.26.8 darwin/arm64",
+  "binary_sha256": {
+    "process-cost": "6fe68101d7a580d2c7f4e08f267556b6482c2bd8b167cad3fc5f79c1eb5b46d7",
+    "v046/competitive": "a81dd7c61e7c659066faca88d5291744d44a3d5f46f2be37f8aec1ee74633928",
+    "v046/mariamem-host": "ab20b9bb57bf99aaacb70ea20264e5a060ba8d1da93cc90f989cde714c5822e3",
+    "v046/ownedprepared": "93f670b93e9b8a7830ae4886f3df7c8f7e1e3ea83abde4ee2694f0a7e40209f7",
+    "v047/competitive": "05783c2d00f56c023e249c5c32eb594095a6d6377cb12b994b57d16aae552355",
+    "v047/mariamem-host": "13a39938b12ff67ee37729559e9ab7e2ccee35bf407f917c394b67b25dec3c65",
+    "v047/ownedprepared": "f924b88b9c29d8688c8120eb3e3a28397c278a2c7e3ef2e78e2f491413eb500a"
+  },
+  "note": "Native anchors contain no translator and are run once per original cell, referenced by both states. New heap observations use identical harness bytes for both states. Historical v046 measurements are separate.",
+  "host": {
+    "uname": "Darwin MacBookAir 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:05:27 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T8103 arm64",
+    "ram_bytes": 17179869184
+  },
+  "observation_sources_sha256": {
+    "benchmarks/ownedprepared/main.go": "d871520d9b78cc5329883d4d6a034ec882629d77aba7abc9d2c603e6500b0d5a",
+    "benchmarks/ownedprepared/resources.go": "38130a59ef787516142528d3eef997e648322ab7f3cc45a4f2f4a529f7188f6c",
+    "benchmarks/python_product_suites.py": "f0d0e98a213bcebd423c913ce204e86d9af5ee11967cdfe905e739f7ff4d5102"
+  },
+  "cells": [
+    {
+      "name": "pilot-v046-go-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.083754042047076,
+      "disk": {
+        "owned_bytes": 11288723456,
+        "free_bytes": 77396664320,
+        "peak_owned_bytes": 11288723456,
+        "minimum_free_bytes": 77396598784
+      }
+    },
+    {
+      "name": "pilot-v046-python-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.066732583916746,
+      "disk": {
+        "owned_bytes": 11288784896,
+        "free_bytes": 77399478272,
+        "peak_owned_bytes": 11288784896,
+        "minimum_free_bytes": 77395578880
+      }
+    },
+    {
+      "name": "pilot-v046-go-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.10352879203856,
+      "disk": {
+        "owned_bytes": 11288793088,
+        "free_bytes": 77399302144,
+        "peak_owned_bytes": 11578396672,
+        "minimum_free_bytes": 77399302144
+      }
+    },
+    {
+      "name": "pilot-v046-python-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.076509084086865,
+      "disk": {
+        "owned_bytes": 11288797184,
+        "free_bytes": 77399027712,
+        "peak_owned_bytes": 11433594880,
+        "minimum_free_bytes": 77399027712
+      }
+    },
+    {
+      "name": "pilot-v047-go-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.034543916000985,
+      "disk": {
+        "owned_bytes": 11288805376,
+        "free_bytes": 77398683648,
+        "peak_owned_bytes": 11288805376,
+        "minimum_free_bytes": 77398683648
+      }
+    },
+    {
+      "name": "pilot-v047-python-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.067575624911115,
+      "disk": {
+        "owned_bytes": 11288809472,
+        "free_bytes": 77397581824,
+        "peak_owned_bytes": 11288809472,
+        "minimum_free_bytes": 77397581824
+      }
+    },
+    {
+      "name": "pilot-v047-go-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.128696125000715,
+      "disk": {
+        "owned_bytes": 11288817664,
+        "free_bytes": 77397610496,
+        "peak_owned_bytes": 11578421248,
+        "minimum_free_bytes": 77397450752
+      }
+    },
+    {
+      "name": "pilot-v047-python-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.0846829999936745,
+      "disk": {
+        "owned_bytes": 11288821760,
+        "free_bytes": 77397360640,
+        "peak_owned_bytes": 11433619456,
+        "minimum_free_bytes": 77397360640
+      }
+    },
+    {
+      "name": "pilot-anchor-python-testcontainers",
+      "returncode": 0,
+      "elapsed_seconds": 12.927631709026173,
+      "disk": {
+        "owned_bytes": 11288829952,
+        "free_bytes": 77397041152,
+        "peak_owned_bytes": 11288829952,
+        "minimum_free_bytes": 77384777728
+      }
+    },
+    {
+      "name": "pilot-anchor-python-shared-reset",
+      "returncode": 0,
+      "elapsed_seconds": 12.818872458999977,
+      "disk": {
+        "owned_bytes": 11288834048,
+        "free_bytes": 78470455296,
+        "peak_owned_bytes": 11288834048,
+        "minimum_free_bytes": 77396996096
+      }
+    },
+    {
+      "name": "pilot-anchor-go-testcontainers-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 12.753801832906902,
+      "disk": {
+        "owned_bytes": 11288846336,
+        "free_bytes": 78471581696,
+        "peak_owned_bytes": 11288846336,
+        "minimum_free_bytes": 78464901120
+      }
+    },
+    {
+      "name": "pilot-anchor-go-testcontainers-schema-reset",
+      "returncode": 0,
+      "elapsed_seconds": 7.156862959032878,
+      "disk": {
+        "owned_bytes": 11288858624,
+        "free_bytes": 78471315456,
+        "peak_owned_bytes": 11288858624,
+        "minimum_free_bytes": 78471315456
+      }
+    },
+    {
+      "name": "v046-go-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.064769083983265,
+      "disk": {
+        "owned_bytes": 11288870912,
+        "free_bytes": 78471970816,
+        "peak_owned_bytes": 11288870912,
+        "minimum_free_bytes": 78471282688
+      }
+    },
+    {
+      "name": "v047-go-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.12495679105632,
+      "disk": {
+        "owned_bytes": 11288883200,
+        "free_bytes": 78472241152,
+        "peak_owned_bytes": 11288883200,
+        "minimum_free_bytes": 78471745536
+      }
+    },
+    {
+      "name": "v047-go-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.077062541968189,
+      "disk": {
+        "owned_bytes": 11288895488,
+        "free_bytes": 78471897088,
+        "peak_owned_bytes": 11433684992,
+        "minimum_free_bytes": 78471897088
+      }
+    },
+    {
+      "name": "v046-go-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.13462129200343,
+      "disk": {
+        "owned_bytes": 11288907776,
+        "free_bytes": 78469066752,
+        "peak_owned_bytes": 11433697280,
+        "minimum_free_bytes": 78469066752
+      }
+    },
+    {
+      "name": "v046-python-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.0732774999924,
+      "disk": {
+        "owned_bytes": 11288911872,
+        "free_bytes": 78468173824,
+        "peak_owned_bytes": 11288911872,
+        "minimum_free_bytes": 78468173824
+      }
+    },
+    {
+      "name": "v047-python-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.082280542002991,
+      "disk": {
+        "owned_bytes": 11288915968,
+        "free_bytes": 78468014080,
+        "peak_owned_bytes": 11288915968,
+        "minimum_free_bytes": 78468014080
+      }
+    },
+    {
+      "name": "v047-python-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.032630792004056,
+      "disk": {
+        "owned_bytes": 11288920064,
+        "free_bytes": 78467809280,
+        "peak_owned_bytes": 11433717760,
+        "minimum_free_bytes": 78467809280
+      }
+    },
+    {
+      "name": "v046-python-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.064669624902308,
+      "disk": {
+        "owned_bytes": 11288924160,
+        "free_bytes": 78466605056,
+        "peak_owned_bytes": 11288924160,
+        "minimum_free_bytes": 78466605056
+      }
+    },
+    {
+      "name": "anchor-python-light-0-testcontainers",
+      "returncode": 0,
+      "elapsed_seconds": 35.69482891703956,
+      "disk": {
+        "owned_bytes": 11288936448,
+        "free_bytes": 78466076672,
+        "peak_owned_bytes": 11288936448,
+        "minimum_free_bytes": 78451023872
+      }
+    },
+    {
+      "name": "anchor-python-light-0-shared-reset",
+      "returncode": 0,
+      "elapsed_seconds": 7.188734291936271,
+      "disk": {
+        "owned_bytes": 11288944640,
+        "free_bytes": 78469869568,
+        "peak_owned_bytes": 11288944640,
+        "minimum_free_bytes": 78466060288
+      }
+    },
+    {
+      "name": "v046-go-fixture-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.037888040998951,
+      "disk": {
+        "owned_bytes": 11288956928,
+        "free_bytes": 78469795840,
+        "peak_owned_bytes": 11288956928,
+        "minimum_free_bytes": 78469795840
+      }
+    },
+    {
+      "name": "v047-go-fixture-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.097401833976619,
+      "disk": {
+        "owned_bytes": 11288969216,
+        "free_bytes": 78469328896,
+        "peak_owned_bytes": 11288969216,
+        "minimum_free_bytes": 78469328896
+      }
+    },
+    {
+      "name": "v047-go-fixture-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.08011670911219,
+      "disk": {
+        "owned_bytes": 11288981504,
+        "free_bytes": 78469320704,
+        "peak_owned_bytes": 11288981504,
+        "minimum_free_bytes": 78469320704
+      }
+    },
+    {
+      "name": "v046-go-fixture-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.0539875000249594,
+      "disk": {
+        "owned_bytes": 11288993792,
+        "free_bytes": 78468837376,
+        "peak_owned_bytes": 11288993792,
+        "minimum_free_bytes": 78468837376
+      }
+    },
+    {
+      "name": "v046-python-fixture-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.043856041971594,
+      "disk": {
+        "owned_bytes": 11288997888,
+        "free_bytes": 78468755456,
+        "peak_owned_bytes": 11288997888,
+        "minimum_free_bytes": 78468755456
+      }
+    },
+    {
+      "name": "v047-python-fixture-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.07301779196132,
+      "disk": {
+        "owned_bytes": 11289001984,
+        "free_bytes": 78467760128,
+        "peak_owned_bytes": 11289001984,
+        "minimum_free_bytes": 78467760128
+      }
+    },
+    {
+      "name": "v047-python-fixture-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.121020665974356,
+      "disk": {
+        "owned_bytes": 11289006080,
+        "free_bytes": 78467653632,
+        "peak_owned_bytes": 11289006080,
+        "minimum_free_bytes": 78467653632
+      }
+    },
+    {
+      "name": "v046-python-fixture-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.062752249999903,
+      "disk": {
+        "owned_bytes": 11289010176,
+        "free_bytes": 78467497984,
+        "peak_owned_bytes": 11289010176,
+        "minimum_free_bytes": 78467497984
+      }
+    },
+    {
+      "name": "anchor-python-fixture-0-testcontainers",
+      "returncode": 0,
+      "elapsed_seconds": 30.171487707993947,
+      "disk": {
+        "owned_bytes": 11289018368,
+        "free_bytes": 78464274432,
+        "peak_owned_bytes": 11289018368,
+        "minimum_free_bytes": 78447878144
+      }
+    },
+    {
+      "name": "anchor-python-fixture-0-shared-reset",
+      "returncode": 0,
+      "elapsed_seconds": 12.961205667001195,
+      "disk": {
+        "owned_bytes": 11289022464,
+        "free_bytes": 78463942656,
+        "peak_owned_bytes": 11289022464,
+        "minimum_free_bytes": 78448357376
+      }
+    },
+    {
+      "name": "v046-go-parallel-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.166501541971229,
+      "disk": {
+        "owned_bytes": 11289030656,
+        "free_bytes": 78463942656,
+        "peak_owned_bytes": 11289030656,
+        "minimum_free_bytes": 78463938560
+      }
+    },
+    {
+      "name": "v047-go-parallel-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.094402040936984,
+      "disk": {
+        "owned_bytes": 11289038848,
+        "free_bytes": 78463041536,
+        "peak_owned_bytes": 11289038848,
+        "minimum_free_bytes": 78462853120
+      }
+    },
+    {
+      "name": "v047-go-parallel-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.137682042084634,
+      "disk": {
+        "owned_bytes": 11289047040,
+        "free_bytes": 78463029248,
+        "peak_owned_bytes": 11289047040,
+        "minimum_free_bytes": 78462582784
+      }
+    },
+    {
+      "name": "v046-go-parallel-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.06240654096473,
+      "disk": {
+        "owned_bytes": 11289059328,
+        "free_bytes": 78462681088,
+        "peak_owned_bytes": 11289059328,
+        "minimum_free_bytes": 78462681088
+      }
+    },
+    {
+      "name": "v046-python-parallel-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.126783875050023,
+      "disk": {
+        "owned_bytes": 11289063424,
+        "free_bytes": 78462828544,
+        "peak_owned_bytes": 11289063424,
+        "minimum_free_bytes": 78462672896
+      }
+    },
+    {
+      "name": "v047-python-parallel-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.128287084051408,
+      "disk": {
+        "owned_bytes": 11289071616,
+        "free_bytes": 78462447616,
+        "peak_owned_bytes": 11289071616,
+        "minimum_free_bytes": 78462447616
+      }
+    },
+    {
+      "name": "v047-python-parallel-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.062759583932348,
+      "disk": {
+        "owned_bytes": 11289075712,
+        "free_bytes": 78462418944,
+        "peak_owned_bytes": 11289075712,
+        "minimum_free_bytes": 78462406656
+      }
+    },
+    {
+      "name": "v046-python-parallel-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.116863875067793,
+      "disk": {
+        "owned_bytes": 11289079808,
+        "free_bytes": 78462423040,
+        "peak_owned_bytes": 11289079808,
+        "minimum_free_bytes": 78462423040
+      }
+    },
+    {
+      "name": "anchor-python-parallel-0-testcontainers",
+      "returncode": 0,
+      "elapsed_seconds": 12.998776208958589,
+      "disk": {
+        "owned_bytes": 11289083904,
+        "free_bytes": 78462513152,
+        "peak_owned_bytes": 11289083904,
+        "minimum_free_bytes": 78415982592
+      }
+    },
+    {
+      "name": "anchor-python-parallel-0-shared-reset",
+      "returncode": 0,
+      "elapsed_seconds": 12.965012292028405,
+      "disk": {
+        "owned_bytes": 11289088000,
+        "free_bytes": 78462513152,
+        "peak_owned_bytes": 11289088000,
+        "minimum_free_bytes": 78432854016
+      }
+    },
+    {
+      "name": "v046-go-large-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 30.069555833004415,
+      "disk": {
+        "owned_bytes": 11289100288,
+        "free_bytes": 78461034496,
+        "peak_owned_bytes": 11289100288,
+        "minimum_free_bytes": 78461034496
+      }
+    },
+    {
+      "name": "v047-go-large-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 30.096796999918297,
+      "disk": {
+        "owned_bytes": 11289112576,
+        "free_bytes": 78459908096,
+        "peak_owned_bytes": 11289112576,
+        "minimum_free_bytes": 78459908096
+      }
+    },
+    {
+      "name": "v047-go-large-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 12.871844041976146,
+      "disk": {
+        "owned_bytes": 11289128960,
+        "free_bytes": 78459883520,
+        "peak_owned_bytes": 11824209920,
+        "minimum_free_bytes": 78195204096
+      }
+    },
+    {
+      "name": "v046-go-large-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 12.825796540942974,
+      "disk": {
+        "owned_bytes": 11289141248,
+        "free_bytes": 78459691008,
+        "peak_owned_bytes": 11564376064,
+        "minimum_free_bytes": 78459691008
+      }
+    },
+    {
+      "name": "v046-python-large-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 30.14332454209216,
+      "disk": {
+        "owned_bytes": 11289145344,
+        "free_bytes": 78458138624,
+        "peak_owned_bytes": 11289145344,
+        "minimum_free_bytes": 78458138624
+      }
+    },
+    {
+      "name": "v047-python-large-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 30.174806417082436,
+      "disk": {
+        "owned_bytes": 11289153536,
+        "free_bytes": 78461833216,
+        "peak_owned_bytes": 11289153536,
+        "minimum_free_bytes": 78458081280
+      }
+    },
+    {
+      "name": "v047-python-large-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 12.857941624941304,
+      "disk": {
+        "owned_bytes": 11289161728,
+        "free_bytes": 78461812736,
+        "peak_owned_bytes": 11564404736,
+        "minimum_free_bytes": 78461710336
+      }
+    },
+    {
+      "name": "v046-python-large-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 12.920189208933152,
+      "disk": {
+        "owned_bytes": 11289165824,
+        "free_bytes": 78461730816,
+        "peak_owned_bytes": 11389849600,
+        "minimum_free_bytes": 78461730816
+      }
+    },
+    {
+      "name": "anchor-python-large-0-testcontainers",
+      "returncode": 0,
+      "elapsed_seconds": 35.94859191693831,
+      "disk": {
+        "owned_bytes": 11289235456,
+        "free_bytes": 78464036864,
+        "peak_owned_bytes": 11289235456,
+        "minimum_free_bytes": 78383239168
+      }
+    },
+    {
+      "name": "anchor-python-large-0-shared-reset",
+      "returncode": 0,
+      "elapsed_seconds": 18.651317749987356,
+      "disk": {
+        "owned_bytes": 11289239552,
+        "free_bytes": 78463803392,
+        "peak_owned_bytes": 11289239552,
+        "minimum_free_bytes": 78332456960
+      }
+    },
+    {
+      "name": "v046-go-native-fixture-0-mariamem-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.0874810829991475,
+      "disk": {
+        "owned_bytes": 11289251840,
+        "free_bytes": 78463217664,
+        "peak_owned_bytes": 11289251840,
+        "minimum_free_bytes": 78463217664
+      }
+    },
+    {
+      "name": "v047-go-native-fixture-0-mariamem-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.111011583008803,
+      "disk": {
+        "owned_bytes": 11289264128,
+        "free_bytes": 78463356928,
+        "peak_owned_bytes": 11289264128,
+        "minimum_free_bytes": 78463197184
+      }
+    },
+    {
+      "name": "v046-go-native-fixture-0-mariamem-prepared",
+      "returncode": 0,
+      "elapsed_seconds": 7.107153499964625,
+      "disk": {
+        "owned_bytes": 11289276416,
+        "free_bytes": 78463324160,
+        "peak_owned_bytes": 11579076608,
+        "minimum_free_bytes": 78463324160
+      }
+    },
+    {
+      "name": "v047-go-native-fixture-0-mariamem-prepared",
+      "returncode": 0,
+      "elapsed_seconds": 7.072438250062987,
+      "disk": {
+        "owned_bytes": 11289288704,
+        "free_bytes": 78463262720,
+        "peak_owned_bytes": 11543298048,
+        "minimum_free_bytes": 78463262720
+      }
+    },
+    {
+      "name": "anchor-go-native-fixture-0-testcontainers-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 30.05524916597642,
+      "disk": {
+        "owned_bytes": 11289305088,
+        "free_bytes": 78461177856,
+        "peak_owned_bytes": 11289305088,
+        "minimum_free_bytes": 78449291264
+      }
+    },
+    {
+      "name": "anchor-go-native-fixture-0-testcontainers-schema-reset",
+      "returncode": 0,
+      "elapsed_seconds": 7.1457302500493824,
+      "disk": {
+        "owned_bytes": 11289321472,
+        "free_bytes": 78462451712,
+        "peak_owned_bytes": 11289321472,
+        "minimum_free_bytes": 78446477312
+      }
+    },
+    {
+      "name": "v047-go-light-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.140282750013284,
+      "disk": {
+        "owned_bytes": 11289333760,
+        "free_bytes": 78462468096,
+        "peak_owned_bytes": 11289333760,
+        "minimum_free_bytes": 78462423040
+      }
+    },
+    {
+      "name": "v046-go-light-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.046696042059921,
+      "disk": {
+        "owned_bytes": 11289346048,
+        "free_bytes": 78465290240,
+        "peak_owned_bytes": 11289346048,
+        "minimum_free_bytes": 78462242816
+      }
+    },
+    {
+      "name": "v046-go-light-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.106962542049587,
+      "disk": {
+        "owned_bytes": 11289358336,
+        "free_bytes": 78465097728,
+        "peak_owned_bytes": 11547488256,
+        "minimum_free_bytes": 78465052672
+      }
+    },
+    {
+      "name": "v047-go-light-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.131160625023767,
+      "disk": {
+        "owned_bytes": 11289374720,
+        "free_bytes": 78462304256,
+        "peak_owned_bytes": 11434164224,
+        "minimum_free_bytes": 78462304256
+      }
+    },
+    {
+      "name": "v047-python-light-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.118479500059038,
+      "disk": {
+        "owned_bytes": 11289382912,
+        "free_bytes": 78462472192,
+        "peak_owned_bytes": 11289382912,
+        "minimum_free_bytes": 78462271488
+      }
+    },
+    {
+      "name": "v046-python-light-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.099301417008974,
+      "disk": {
+        "owned_bytes": 11289387008,
+        "free_bytes": 78462083072,
+        "peak_owned_bytes": 11289387008,
+        "minimum_free_bytes": 78462083072
+      }
+    },
+    {
+      "name": "v046-python-light-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.065642499946989,
+      "disk": {
+        "owned_bytes": 11289391104,
+        "free_bytes": 78461882368,
+        "peak_owned_bytes": 11434188800,
+        "minimum_free_bytes": 78461882368
+      }
+    },
+    {
+      "name": "v047-python-light-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.14301358407829,
+      "disk": {
+        "owned_bytes": 11289395200,
+        "free_bytes": 78461886464,
+        "peak_owned_bytes": 11289395200,
+        "minimum_free_bytes": 78461886464
+      }
+    },
+    {
+      "name": "anchor-python-light-1-testcontainers",
+      "returncode": 0,
+      "elapsed_seconds": 24.313416417106055,
+      "disk": {
+        "owned_bytes": 11289407488,
+        "free_bytes": 78460788736,
+        "peak_owned_bytes": 11289407488,
+        "minimum_free_bytes": 78455529472
+      }
+    },
+    {
+      "name": "anchor-python-light-1-shared-reset",
+      "returncode": 0,
+      "elapsed_seconds": 12.893141041975468,
+      "disk": {
+        "owned_bytes": 11289411584,
+        "free_bytes": 78462717952,
+        "peak_owned_bytes": 11289411584,
+        "minimum_free_bytes": 78450319360
+      }
+    },
+    {
+      "name": "v047-go-fixture-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.083143875002861,
+      "disk": {
+        "owned_bytes": 11289423872,
+        "free_bytes": 78462472192,
+        "peak_owned_bytes": 11289423872,
+        "minimum_free_bytes": 78448427008
+      }
+    },
+    {
+      "name": "v046-go-fixture-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.062825916917063,
+      "disk": {
+        "owned_bytes": 11289436160,
+        "free_bytes": 78462472192,
+        "peak_owned_bytes": 11289436160,
+        "minimum_free_bytes": 78462455808
+      }
+    },
+    {
+      "name": "v046-go-fixture-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.067951333010569,
+      "disk": {
+        "owned_bytes": 11289448448,
+        "free_bytes": 78461374464,
+        "peak_owned_bytes": 11289448448,
+        "minimum_free_bytes": 78461374464
+      }
+    },
+    {
+      "name": "v047-go-fixture-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.084966499940492,
+      "disk": {
+        "owned_bytes": 11289460736,
+        "free_bytes": 78461308928,
+        "peak_owned_bytes": 11289460736,
+        "minimum_free_bytes": 78461308928
+      }
+    },
+    {
+      "name": "v047-python-fixture-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.0946380000095814,
+      "disk": {
+        "owned_bytes": 11289464832,
+        "free_bytes": 78461198336,
+        "peak_owned_bytes": 11289464832,
+        "minimum_free_bytes": 78461198336
+      }
+    },
+    {
+      "name": "v046-python-fixture-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.066664249985479,
+      "disk": {
+        "owned_bytes": 11289468928,
+        "free_bytes": 78461153280,
+        "peak_owned_bytes": 11289468928,
+        "minimum_free_bytes": 78461153280
+      }
+    },
+    {
+      "name": "v046-python-fixture-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.0709092079196125,
+      "disk": {
+        "owned_bytes": 11289473024,
+        "free_bytes": 78459752448,
+        "peak_owned_bytes": 11289473024,
+        "minimum_free_bytes": 78459752448
+      }
+    },
+    {
+      "name": "v047-python-fixture-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.054091207915917,
+      "disk": {
+        "owned_bytes": 11289481216,
+        "free_bytes": 78459789312,
+        "peak_owned_bytes": 11289481216,
+        "minimum_free_bytes": 78459736064
+      }
+    },
+    {
+      "name": "anchor-python-fixture-1-testcontainers",
+      "returncode": 0,
+      "elapsed_seconds": 30.088401249959134,
+      "disk": {
+        "owned_bytes": 11289665536,
+        "free_bytes": 78462713856,
+        "peak_owned_bytes": 11289665536,
+        "minimum_free_bytes": 78443884544
+      }
+    },
+    {
+      "name": "anchor-python-fixture-1-shared-reset",
+      "returncode": 0,
+      "elapsed_seconds": 12.874586165999062,
+      "disk": {
+        "owned_bytes": 11289669632,
+        "free_bytes": 78462230528,
+        "peak_owned_bytes": 11289669632,
+        "minimum_free_bytes": 78450274304
+      }
+    },
+    {
+      "name": "v047-go-parallel-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.086494708084501,
+      "disk": {
+        "owned_bytes": 11289677824,
+        "free_bytes": 78462259200,
+        "peak_owned_bytes": 11289677824,
+        "minimum_free_bytes": 78462218240
+      }
+    },
+    {
+      "name": "v046-go-parallel-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.1423760410398245,
+      "disk": {
+        "owned_bytes": 11289686016,
+        "free_bytes": 78462414848,
+        "peak_owned_bytes": 11289686016,
+        "minimum_free_bytes": 78462230528
+      }
+    },
+    {
+      "name": "v046-go-parallel-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.106223959010094,
+      "disk": {
+        "owned_bytes": 11289694208,
+        "free_bytes": 78462152704,
+        "peak_owned_bytes": 11289694208,
+        "minimum_free_bytes": 78462152704
+      }
+    },
+    {
+      "name": "v047-go-parallel-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.069352415972389,
+      "disk": {
+        "owned_bytes": 11289702400,
+        "free_bytes": 78462234624,
+        "peak_owned_bytes": 11289702400,
+        "minimum_free_bytes": 78462140416
+      }
+    },
+    {
+      "name": "v047-python-parallel-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.1243161669699475,
+      "disk": {
+        "owned_bytes": 11289706496,
+        "free_bytes": 78462169088,
+        "peak_owned_bytes": 11289706496,
+        "minimum_free_bytes": 78462169088
+      }
+    },
+    {
+      "name": "v046-python-parallel-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.074311458971351,
+      "disk": {
+        "owned_bytes": 11289710592,
+        "free_bytes": 78463934464,
+        "peak_owned_bytes": 11289710592,
+        "minimum_free_bytes": 78462201856
+      }
+    },
+    {
+      "name": "v046-python-parallel-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.040006250026636,
+      "disk": {
+        "owned_bytes": 11289714688,
+        "free_bytes": 78462615552,
+        "peak_owned_bytes": 11289714688,
+        "minimum_free_bytes": 78462615552
+      }
+    },
+    {
+      "name": "v047-python-parallel-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.049404374905862,
+      "disk": {
+        "owned_bytes": 11289718784,
+        "free_bytes": 78462406656,
+        "peak_owned_bytes": 11289718784,
+        "minimum_free_bytes": 78462406656
+      }
+    },
+    {
+      "name": "anchor-python-parallel-1-testcontainers",
+      "returncode": 0,
+      "elapsed_seconds": 13.037384082912467,
+      "disk": {
+        "owned_bytes": 11289722880,
+        "free_bytes": 78461595648,
+        "peak_owned_bytes": 11289722880,
+        "minimum_free_bytes": 78415273984
+      }
+    },
+    {
+      "name": "anchor-python-parallel-1-shared-reset",
+      "returncode": 0,
+      "elapsed_seconds": 12.925529290921986,
+      "disk": {
+        "owned_bytes": 11289726976,
+        "free_bytes": 78465531904,
+        "peak_owned_bytes": 11289726976,
+        "minimum_free_bytes": 78451257344
+      }
+    },
+    {
+      "name": "v046-go-native-fixture-1-mariamem-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.1191993749234825,
+      "disk": {
+        "owned_bytes": 11289743360,
+        "free_bytes": 78464499712,
+        "peak_owned_bytes": 11289743360,
+        "minimum_free_bytes": 78464430080
+      }
+    },
+    {
+      "name": "v047-go-native-fixture-1-mariamem-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.0920615419745445,
+      "disk": {
+        "owned_bytes": 11289755648,
+        "free_bytes": 78464507904,
+        "peak_owned_bytes": 11289755648,
+        "minimum_free_bytes": 78464417792
+      }
+    },
+    {
+      "name": "v046-go-native-fixture-1-mariamem-prepared",
+      "returncode": 0,
+      "elapsed_seconds": 7.122892459039576,
+      "disk": {
+        "owned_bytes": 11289767936,
+        "free_bytes": 78463909888,
+        "peak_owned_bytes": 11406766080,
+        "minimum_free_bytes": 78463770624
+      }
+    },
+    {
+      "name": "v047-go-native-fixture-1-mariamem-prepared",
+      "returncode": 0,
+      "elapsed_seconds": 7.17794787499588,
+      "disk": {
+        "owned_bytes": 11289780224,
+        "free_bytes": 78463750144,
+        "peak_owned_bytes": 11579580416,
+        "minimum_free_bytes": 78463614976
+      }
+    },
+    {
+      "name": "anchor-go-native-fixture-1-testcontainers-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 24.276248916983604,
+      "disk": {
+        "owned_bytes": 11289796608,
+        "free_bytes": 78446698496,
+        "peak_owned_bytes": 11289796608,
+        "minimum_free_bytes": 78446698496
+      }
+    },
+    {
+      "name": "anchor-go-native-fixture-1-testcontainers-schema-reset",
+      "returncode": 0,
+      "elapsed_seconds": 7.146079375059344,
+      "disk": {
+        "owned_bytes": 11289812992,
+        "free_bytes": 78461759488,
+        "peak_owned_bytes": 11289812992,
+        "minimum_free_bytes": 78446669824
+      }
+    },
+    {
+      "name": "v046-go-light-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.040615124977194,
+      "disk": {
+        "owned_bytes": 11289825280,
+        "free_bytes": 78461935616,
+        "peak_owned_bytes": 11289825280,
+        "minimum_free_bytes": 78461693952
+      }
+    },
+    {
+      "name": "v047-go-light-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.078941999934614,
+      "disk": {
+        "owned_bytes": 11289837568,
+        "free_bytes": 78462128128,
+        "peak_owned_bytes": 11289837568,
+        "minimum_free_bytes": 78462070784
+      }
+    },
+    {
+      "name": "v047-go-light-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.072392042027786,
+      "disk": {
+        "owned_bytes": 11289849856,
+        "free_bytes": 78462300160,
+        "peak_owned_bytes": 11557650432,
+        "minimum_free_bytes": 78462115840
+      }
+    },
+    {
+      "name": "v046-go-light-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.055338082951494,
+      "disk": {
+        "owned_bytes": 11289862144,
+        "free_bytes": 78462242816,
+        "peak_owned_bytes": 11434651648,
+        "minimum_free_bytes": 78462234624
+      }
+    },
+    {
+      "name": "v046-python-light-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.06385287491139,
+      "disk": {
+        "owned_bytes": 11289866240,
+        "free_bytes": 78462156800,
+        "peak_owned_bytes": 11289866240,
+        "minimum_free_bytes": 78462156800
+      }
+    },
+    {
+      "name": "v047-python-light-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.098318750038743,
+      "disk": {
+        "owned_bytes": 11289870336,
+        "free_bytes": 78461886464,
+        "peak_owned_bytes": 11289870336,
+        "minimum_free_bytes": 78461886464
+      }
+    },
+    {
+      "name": "v047-python-light-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.172883291030303,
+      "disk": {
+        "owned_bytes": 11289874432,
+        "free_bytes": 78461792256,
+        "peak_owned_bytes": 11424186368,
+        "minimum_free_bytes": 78461792256
+      }
+    },
+    {
+      "name": "v046-python-light-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.039154792088084,
+      "disk": {
+        "owned_bytes": 11289878528,
+        "free_bytes": 78461612032,
+        "peak_owned_bytes": 11289878528,
+        "minimum_free_bytes": 78461612032
+      }
+    },
+    {
+      "name": "anchor-python-light-2-testcontainers",
+      "returncode": 0,
+      "elapsed_seconds": 24.300663249916397,
+      "disk": {
+        "owned_bytes": 11289886720,
+        "free_bytes": 78461857792,
+        "peak_owned_bytes": 11289886720,
+        "minimum_free_bytes": 78456614912
+      }
+    },
+    {
+      "name": "anchor-python-light-2-shared-reset",
+      "returncode": 0,
+      "elapsed_seconds": 12.868513167020865,
+      "disk": {
+        "owned_bytes": 11289890816,
+        "free_bytes": 78461280256,
+        "peak_owned_bytes": 11289890816,
+        "minimum_free_bytes": 78449160192
+      }
+    },
+    {
+      "name": "v046-go-fixture-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.118911458062939,
+      "disk": {
+        "owned_bytes": 11289903104,
+        "free_bytes": 78460985344,
+        "peak_owned_bytes": 11289903104,
+        "minimum_free_bytes": 78460985344
+      }
+    },
+    {
+      "name": "v047-go-fixture-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.0346731670433655,
+      "disk": {
+        "owned_bytes": 11289915392,
+        "free_bytes": 78460936192,
+        "peak_owned_bytes": 11289915392,
+        "minimum_free_bytes": 78460936192
+      }
+    },
+    {
+      "name": "v047-go-fixture-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.009439166984521,
+      "disk": {
+        "owned_bytes": 11289927680,
+        "free_bytes": 78460952576,
+        "peak_owned_bytes": 11289927680,
+        "minimum_free_bytes": 78460936192
+      }
+    },
+    {
+      "name": "v046-go-fixture-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.166562999947928,
+      "disk": {
+        "owned_bytes": 11289939968,
+        "free_bytes": 78460796928,
+        "peak_owned_bytes": 11289939968,
+        "minimum_free_bytes": 78460702720
+      }
+    },
+    {
+      "name": "v046-python-fixture-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.170447834068909,
+      "disk": {
+        "owned_bytes": 11289944064,
+        "free_bytes": 78349848576,
+        "peak_owned_bytes": 11289944064,
+        "minimum_free_bytes": 78349848576
+      }
+    },
+    {
+      "name": "v047-python-fixture-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.210026416927576,
+      "disk": {
+        "owned_bytes": 11289948160,
+        "free_bytes": 78314790912,
+        "peak_owned_bytes": 11289948160,
+        "minimum_free_bytes": 78314790912
+      }
+    },
+    {
+      "name": "v047-python-fixture-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.157293458934873,
+      "disk": {
+        "owned_bytes": 11289952256,
+        "free_bytes": 78503866368,
+        "peak_owned_bytes": 11289952256,
+        "minimum_free_bytes": 78487384064
+      }
+    },
+    {
+      "name": "v046-python-fixture-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 6.975354833062738,
+      "disk": {
+        "owned_bytes": 11289960448,
+        "free_bytes": 78485004288,
+        "peak_owned_bytes": 11289960448,
+        "minimum_free_bytes": 78485004288
+      }
+    },
+    {
+      "name": "anchor-python-fixture-2-testcontainers",
+      "returncode": 0,
+      "elapsed_seconds": 24.31921337498352,
+      "disk": {
+        "owned_bytes": 11289964544,
+        "free_bytes": 78494646272,
+        "peak_owned_bytes": 11289964544,
+        "minimum_free_bytes": 78483283968
+      }
+    },
+    {
+      "name": "anchor-python-fixture-2-shared-reset",
+      "returncode": 0,
+      "elapsed_seconds": 12.855634875013493,
+      "disk": {
+        "owned_bytes": 11289968640,
+        "free_bytes": 78496329728,
+        "peak_owned_bytes": 11289968640,
+        "minimum_free_bytes": 78484537344
+      }
+    },
+    {
+      "name": "v046-go-parallel-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.244686207966879,
+      "disk": {
+        "owned_bytes": 11289976832,
+        "free_bytes": 78496587776,
+        "peak_owned_bytes": 11289976832,
+        "minimum_free_bytes": 78496313344
+      }
+    },
+    {
+      "name": "v047-go-parallel-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.2029668329050764,
+      "disk": {
+        "owned_bytes": 11289989120,
+        "free_bytes": 78496370688,
+        "peak_owned_bytes": 11289989120,
+        "minimum_free_bytes": 78496370688
+      }
+    },
+    {
+      "name": "v047-go-parallel-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.0801424159435555,
+      "disk": {
+        "owned_bytes": 11289997312,
+        "free_bytes": 78495752192,
+        "peak_owned_bytes": 11289997312,
+        "minimum_free_bytes": 78495752192
+      }
+    },
+    {
+      "name": "v046-go-parallel-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.073906209086999,
+      "disk": {
+        "owned_bytes": 11290005504,
+        "free_bytes": 78495473664,
+        "peak_owned_bytes": 11290005504,
+        "minimum_free_bytes": 78495473664
+      }
+    },
+    {
+      "name": "v046-python-parallel-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.1506568340118974,
+      "disk": {
+        "owned_bytes": 11290009600,
+        "free_bytes": 78495641600,
+        "peak_owned_bytes": 11290009600,
+        "minimum_free_bytes": 78495440896
+      }
+    },
+    {
+      "name": "v047-python-parallel-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.159589332994074,
+      "disk": {
+        "owned_bytes": 11290013696,
+        "free_bytes": 78495330304,
+        "peak_owned_bytes": 11290013696,
+        "minimum_free_bytes": 78495330304
+      }
+    },
+    {
+      "name": "v047-python-parallel-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.122045167023316,
+      "disk": {
+        "owned_bytes": 11290017792,
+        "free_bytes": 78495166464,
+        "peak_owned_bytes": 11290017792,
+        "minimum_free_bytes": 78495166464
+      }
+    },
+    {
+      "name": "v046-python-parallel-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 7.050264084013179,
+      "disk": {
+        "owned_bytes": 11290021888,
+        "free_bytes": 78494785536,
+        "peak_owned_bytes": 11290021888,
+        "minimum_free_bytes": 78494785536
+      }
+    },
+    {
+      "name": "anchor-python-parallel-2-testcontainers",
+      "returncode": 0,
+      "elapsed_seconds": 13.057248375029303,
+      "disk": {
+        "owned_bytes": 11290030080,
+        "free_bytes": 78493945856,
+        "peak_owned_bytes": 11290030080,
+        "minimum_free_bytes": 78445920256
+      }
+    },
+    {
+      "name": "anchor-python-parallel-2-shared-reset",
+      "returncode": 0,
+      "elapsed_seconds": 7.170596083975397,
+      "disk": {
+        "owned_bytes": 11290034176,
+        "free_bytes": 78493483008,
+        "peak_owned_bytes": 11290034176,
+        "minimum_free_bytes": 78493483008
+      }
+    },
+    {
+      "name": "v046-go-native-fixture-2-mariamem-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.080501583986916,
+      "disk": {
+        "owned_bytes": 11290046464,
+        "free_bytes": 78491365376,
+        "peak_owned_bytes": 11290046464,
+        "minimum_free_bytes": 78491365376
+      }
+    },
+    {
+      "name": "v047-go-native-fixture-2-mariamem-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 7.085803791997023,
+      "disk": {
+        "owned_bytes": 11290058752,
+        "free_bytes": 78491631616,
+        "peak_owned_bytes": 11290058752,
+        "minimum_free_bytes": 78491279360
+      }
+    },
+    {
+      "name": "v046-go-native-fixture-2-mariamem-prepared",
+      "returncode": 0,
+      "elapsed_seconds": 7.090811083908193,
+      "disk": {
+        "owned_bytes": 11290071040,
+        "free_bytes": 78491299840,
+        "peak_owned_bytes": 11502792704,
+        "minimum_free_bytes": 78491299840
+      }
+    },
+    {
+      "name": "v047-go-native-fixture-2-mariamem-prepared",
+      "returncode": 0,
+      "elapsed_seconds": 7.1241873749531806,
+      "disk": {
+        "owned_bytes": 11290083328,
+        "free_bytes": 78490226688,
+        "peak_owned_bytes": 11577851904,
+        "minimum_free_bytes": 78490157056
+      }
+    },
+    {
+      "name": "anchor-go-native-fixture-2-testcontainers-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 24.540000916924328,
+      "disk": {
+        "owned_bytes": 11290107904,
+        "free_bytes": 78487932928,
+        "peak_owned_bytes": 11290107904,
+        "minimum_free_bytes": 78476013568
+      }
+    },
+    {
+      "name": "anchor-go-native-fixture-2-testcontainers-schema-reset",
+      "returncode": 0,
+      "elapsed_seconds": 7.126991500030272,
+      "disk": {
+        "owned_bytes": 11290124288,
+        "free_bytes": 78487379968,
+        "peak_owned_bytes": 11290124288,
+        "minimum_free_bytes": 78471389184
+      }
+    }
+  ]
+}

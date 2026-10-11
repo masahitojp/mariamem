@@ -58,10 +58,36 @@ No release guard or evidence trust model has been weakened.
 
 ## Qualification status
 
-Local source checks and canonical integration passed on macOS arm64. Detailed
-consumer, race and paired product evidence is being collected. Native macOS15 /
-Ubuntu24.04 final-artifact qualification remains a separate CI gate; this newer
-local macOS host is not evidence for the minimum macOS release.
+Local macOS27.0.1 arm64 results (actual execution):
+
+| Boundary | Result | Evidence / limits |
+| --- | --- | --- |
+| Nine-patch application + converter focused tests | PASS | Clean pinned upstream archive; emitter/SSA/export tests |
+| Independent canonical regeneration | PASS | All committed outputs byte-identical; unchanged guest hash |
+| Pure memory32 matrix | PASS | 2,472 cases, 1,693 expected traps, grow/max/state; host exit 0 |
+| `verify.py check` | PASS | Go tests/vet, 570 Python PASS / 36 SKIP / 18 subtests, public source/oracles |
+| `verify.py integration` | PASS | Handwritten/runtime race targets; Go integration/default/generated-memory; 27 Python and 49 Snapshot checks |
+| New consumer/guard focused tests | PASS | 131 tests; missing Go1.27 evidence / wrong compiler rejected |
+| Actual host-only wheel build | PASS | SHA-bound independent checkout, notices/licenses/archive identity |
+| External Go1.26.8 / Go1.27.2 | PASS / PASS | Exact private module proxy, no replace; default/LoadSnapshot failure lifecycle and public smoke |
+| Installed Python3.14 wheel / GORM / SQLAlchemy | PASS | 32 GORM and 44 SQLAlchemy cases; runtime cache remains empty |
+| Paired production-backed race census | Executed; limited visibility | Both tests PASS / zero reported signatures; see boundary below |
+| Paired Product Validation | SQL/cleanup PASS; high-water review open | 118 original +16 bounded follow-up cells; [resource/tail report](../../benchmarks/v047-product-validation.md) |
+| Native macOS15 and Ubuntu24.04 artifacts | PENDING CI | Local macOS27 does not satisfy exact macOS15 guard; no cross-compile substituted |
+| Public tag / public wheel smoke | NOT RUN | Publication explicitly unauthorized |
+
+The local wheel and external consumer source was
+`6097c2cf821a18a445738604675de7c96b814d26`; later changes are benchmark observation,
+reports and reproduction only. Final CI must bind final source/artifacts itself.
+The wheel SHA-256 was `7e34165214504eba15df4207cfb90ee863d2f1c4e3a75acb84bf0f2317f49258`.
+An initial worktree wheel attempt was correctly rejected for absent VCS build
+stamping. An independent `.git` directory checkout of the same SHA passed;
+the identity guard was not bypassed. Initial offline dependency failures were
+retried with network access and are not runtime failures.
+
+Native macOS15 / Ubuntu24.04 final-artifact qualification remains a separate CI
+gate. Exact-source corresponding GPL source, both platform artifacts, archive
+hashes and guard READY will be evaluated by the existing verify workflow.
 
 The existing zero-length bulk-memory bounds edge case and full-generated-guest
 shared-memory race limitation remain known boundaries. Focused race PASS is not
@@ -85,3 +111,46 @@ focused owner/thread tests, controlled-trap fixtures and byte-identical guest
 access instructions provide complementary evidence, not a race-freedom proof.
 No race suppression, address-specific patch, alternate production backing or
 translator race adaptation was introduced.
+
+## Human Review / release boundary
+
+The minimum-maintenance change is upstream + ordered purpose-specific patches,
+not a new guest or runtime design. Keep patch responsibilities separate; future
+upstream updates must clean-apply, regenerate independently and rerun these
+semantics/consumer gates. The export-name collision policy and imported-memory
+metadata ordering are explicit integration requirements, not optional patches.
+There is no current shibukawa URL/pin in production scripts or generated input
+pins; historical diagnostics and attribution intentionally preserve it.
+
+Final release readiness is **BLOCKED pending native Release CI qualification
+and Human review of the measured parallel high-water envelope**.
+Local PASS supports submission, not publication. The existing workflow will run
+`operation=verify` for the final pushed candidate, with no main merge/tag/publish.
+It must independently accept macOS15 arm64 and Ubuntu24.04 x86_64 artifacts, both
+Go toolchains, installed wheels/ORM, source/NOTICE/provenance and release guard.
+The agent stops on successful CI submission per AGENTS.md; no intermediate
+acceptance-only or guard-only dispatch is requested.
+
+Known boundaries remain full guest-race observability/freedom, pre-existing
+zero-length bulk-memory edge cases and non-cooperative forced termination.
+No new correctness defect has been established by the local gates; the historical
+race signatures cannot honestly be marked resolved. A Human decision should
+retain those limitations explicitly rather than treating a zero-report mmap run
+as their removal. The MariaDB guest upgrade, handshake changes, VFS/Snapshot
+optimization, memory64 and broader compatibility work remain separate tasks.
+
+## Product/resource decision
+
+[The comparison](../../benchmarks/v047-product-validation.md) preserves original
+three-trial normal cells and one large trial. SQL/transactions and mapping release
+passed; cumulative allocation and final live heap are unchanged to the measured
+precision. Full original data and a separate four-pair tail follow-up are retained.
+Do not summarize the result as an unconditional performance/resource PASS:
+four-parallel candidate Peak RSS reached about948 MiB versus baseline823 MiB in
+the follow-up, despite medians813/815 MiB and equal cumulative allocation. Typical
+CPU/wall cost does not show a sustained tax, but peak/tail frequency and causality
+remain INCONCLUSIVE. No optimization was attempted.
+
+Human decision after native CI: accept this measured transient upper envelope
+with the known race-observation limits, or request a separate bounded resource
+investigation before release. Publication remains unauthorized in this task.

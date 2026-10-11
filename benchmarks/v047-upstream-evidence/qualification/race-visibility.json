@@ -1,0 +1,16 @@
+{
+  "command": [
+    "../temp/venv/bin/python",
+    "../evidence/race-visibility.py"
+  ],
+  "returncode": 0,
+  "seconds": 7.8273438749602064,
+  "source_commit": "6097c2cf821a18a445738604675de7c96b814d26",
+  "disk": {
+    "owned_bytes": 11771764736,
+    "free_bytes": 77004800000,
+    "peak_owned_bytes": 11771764736,
+    "minimum_free_bytes": 77004800000
+  },
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

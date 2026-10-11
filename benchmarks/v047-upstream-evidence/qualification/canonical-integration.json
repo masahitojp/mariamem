@@ -1,0 +1,11 @@
+{
+  "command": [
+    "../temp/venv/bin/python",
+    "scripts/verify.py",
+    "integration"
+  ],
+  "returncode": 0,
+  "seconds": 571.3935395409353,
+  "source_commit": "ebfd8e1d414a64ce58e31780ac368893a8adf1f0",
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

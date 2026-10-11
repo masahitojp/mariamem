@@ -1,0 +1,14 @@
+import json,os,subprocess,hashlib
+from pathlib import Path
+root=Path.cwd();w=root.parent;ev=w/'evidence';results={}
+for label,tree in [('v046',w/'temp/baseline'),('v047',root)]:
+ log=ev/(label+'-race.log')
+ command=['go','test','-race','-p','1','-tags=integration','./tests/godefault','-run','TestDefault(NoBundleAndForkIsolation|RepeatedConcurrentLifecycle)$','-count=1','-v','-timeout=3m']
+ with log.open('w') as out:r=subprocess.run(command,cwd=tree,env=dict(os.environ,GORACE='halt_on_error=0'),stdout=out,stderr=subprocess.STDOUT,timeout=1200)
+ results[label]={'returncode':r.returncode,'raw_sha256':hashlib.sha256(log.read_bytes()).hexdigest(),'command':command,'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=tree,text=True).strip()}
+ subprocess.run([os.sys.executable,str(root/'benchmarks/spikes/direct-link/race_census.py'),'--log',str(log),'--source-root',str(tree),'--output',str(ev/(label+'-race.json'))],check=True)
+ text=log.read_text();results[label]['race_reported']='WARNING: DATA RACE' in text
+ results[label]['summary_lines']=[line for line in text.splitlines() if line.startswith(('===','---','FAIL','PASS','ok ')) or 'race detected during execution' in line]
+ (ev/'race-results.json').write_text(json.dumps(results,indent=2)+'\n')
+ if r.returncode not in (0,1) or ('WARNING: DATA RACE' not in text and r.returncode):raise SystemExit('unexpected race campaign failure')
+print(json.dumps(results,indent=2))

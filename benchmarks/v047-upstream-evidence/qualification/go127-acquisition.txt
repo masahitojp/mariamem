@@ -1,0 +1,2 @@
+go: downloading go1.27.2 (darwin/arm64)
+go version go1.27.2 darwin/arm64

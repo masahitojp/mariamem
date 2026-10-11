@@ -1,0 +1,12 @@
+{
+  "main": "386a62c3669e37bb8aaad58cd0aca8da893b3d80",
+  "release_source": "b56be17206b6beef18f55c8ea39b254638da8590",
+  "release_tag_object": "09d7b82e1900318dde45d08bebd9328ea35e6ef7",
+  "track_a_final": "9a130274bff87d4a814cc1cac6c6cb6c1cc62a5f",
+  "track_a_tested": "c06e908aef1055ca718b6da0212bb578c51a1a48",
+  "guest": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "disk_budget_gib": 24,
+  "minimum_free_gib": 20,
+  "guest_source_changes": false,
+  "handshake_branch_included": false
+}

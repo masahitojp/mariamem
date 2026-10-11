@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/workspace/v047/worktree/scripts/build_alpha.py", line 51, in <module>
+    buildinfo = verify_go_binary(ROOT, host, commit, go=args.go)
+  File "/workspace/v047/worktree/scripts/git_identity.py", line 113, in verify_go_binary
+    raise ValueError('binary build identity differs from exact clean source')
+ValueError: binary build identity differs from exact clean source

@@ -1,0 +1,7 @@
+go: downloading github.com/tetratelabs/wazero v1.11.0
+# github.com/goccy/wasm2go/internal/codegen
+internal/codegen/brtable_switch_test.go:11:2: github.com/tetratelabs/wazero@v1.11.0: Get "https://proxy.golang.org/github.com/tetratelabs/wazero/@v/v1.11.0.zip": dial tcp: lookup proxy.golang.org: no such host
+FAIL	github.com/goccy/wasm2go/internal/codegen [setup failed]
+ok  	github.com/goccy/wasm2go/internal/ssa	0.310s
+ok  	github.com/goccy/wasm2go/internal/ssa/pass	0.274s
+FAIL

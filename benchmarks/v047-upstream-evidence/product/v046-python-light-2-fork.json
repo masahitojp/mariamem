@@ -1,0 +1,94 @@
+{
+  "mode": "fork",
+  "rows": 1,
+  "tables": 1,
+  "workers": 1,
+  "count": 4,
+  "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+  "samples": [
+    {
+      "index": 0,
+      "ready_seconds": 0.062312624999322,
+      "server_version": "13.1.0-MariaDB-embedded",
+      "prepare_seconds": 7.920898497104645e-07,
+      "sql_seconds": 0.026034125010482967,
+      "after_sql_resources": {
+        "rss_bytes": 126746624,
+        "primary_bytes": 88015664,
+        "file_mapping_bytes": 219480064,
+        "private_bytes": null,
+        "cpu_seconds": 0.066276833,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      },
+      "resource_observation_seconds": 0.009295167052187026,
+      "cleanup_seconds": 0.00427933398168534,
+      "test_seconds": 0.10192629101220518
+    },
+    {
+      "index": 1,
+      "ready_seconds": 0.05889637500513345,
+      "server_version": "13.1.0-MariaDB-embedded",
+      "prepare_seconds": 9.170034900307655e-07,
+      "sql_seconds": 0.01609754201490432,
+      "after_sql_resources": {
+        "rss_bytes": 126418944,
+        "primary_bytes": 87769952,
+        "file_mapping_bytes": 219480064,
+        "private_bytes": null,
+        "cpu_seconds": 0.062370958,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      },
+      "resource_observation_seconds": 0.008968709036707878,
+      "cleanup_seconds": 0.004324459005147219,
+      "test_seconds": 0.08829200000036508
+    },
+    {
+      "index": 2,
+      "ready_seconds": 0.05947924999054521,
+      "server_version": "13.1.0-MariaDB-embedded",
+      "prepare_seconds": 5.830079317092896e-07,
+      "sql_seconds": 0.016053208033554256,
+      "after_sql_resources": {
+        "rss_bytes": 126599168,
+        "primary_bytes": 87884640,
+        "file_mapping_bytes": 219480064,
+        "private_bytes": null,
+        "cpu_seconds": 0.063055875,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      },
+      "resource_observation_seconds": 0.008730791043490171,
+      "cleanup_seconds": 0.004393625073134899,
+      "test_seconds": 0.08866012503858656
+    },
+    {
+      "index": 3,
+      "ready_seconds": 0.06259899993892759,
+      "server_version": "13.1.0-MariaDB-embedded",
+      "prepare_seconds": 5.419133231043816e-07,
+      "sql_seconds": 0.016028083045966923,
+      "after_sql_resources": {
+        "rss_bytes": 126435328,
+        "primary_bytes": 87769952,
+        "file_mapping_bytes": 219480064,
+        "private_bytes": null,
+        "cpu_seconds": 0.065826792,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      },
+      "resource_observation_seconds": 0.009014624985866249,
+      "cleanup_seconds": 0.004285416100174189,
+      "test_seconds": 0.09193058300297707
+    }
+  ],
+  "completed": true,
+  "prepare_snapshot_seconds": 0.5895525839878246,
+  "suite_wall_seconds": 0.9654211669694632,
+  "runner_and_reaped_host_cpu_seconds": 0.9166679999999999,
+  "cpu_scope": "Python runner + reaped host/helper children; excludes Docker daemon/VM/container CPU",
+  "resource_observation_scope": "after-SQL sample, not peak; container CPU since start, shared cumulative; OS helper returns RSS/physical footprint",
+  "suite_resource_observation_seconds": 0.036009292118251324,
+  "source_commit": "b56be17206b6beef18f55c8ea39b254638da8590"
+}

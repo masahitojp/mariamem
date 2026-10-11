@@ -1,0 +1,14 @@
+{
+  "go_suites": 56,
+  "fd_deltas": [
+    1
+  ],
+  "goroutine_deltas_including_observer": [
+    1
+  ],
+  "prepared_mapping_extent_deltas": [
+    0
+  ],
+  "all_linear_mappings_released": true,
+  "max_final_heap_alloc_bytes": 571976
+}

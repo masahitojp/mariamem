@@ -1,0 +1,6 @@
+=== RUN   TestDefaultNoBundleAndForkIsolation
+--- PASS: TestDefaultNoBundleAndForkIsolation (6.88s)
+=== RUN   TestDefaultRepeatedConcurrentLifecycle
+--- PASS: TestDefaultRepeatedConcurrentLifecycle (9.59s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/godefault	19.725s

@@ -46,3 +46,18 @@ for s in summary:
 with (a.directory.parent/'comparison.csv').open('w') as out:
  w=csv.DictWriter(out,fieldnames=list(paired[0]));w.writeheader();w.writerows(paired)
 print(json.dumps({'cells':len(rows),'groups':len(groups),'mapping_release_all_balanced':all(r['active_mappings_after']==0 and r['mapping_creates']==r['mapping_releases'] and r['release_failures']==0 for r in rows if r['active_mappings_after'] is not None)},indent=2))
+
+# Ready and SQL costs stay separate; concurrent operation CPU is not additive.
+import re
+phases={}
+for r in rows:
+ d=json.loads((a.directory/r['file']).read_text())
+ for op in d.get('operations',[]):
+  key=(r['state'],r['language'],r['case'],r['mode'],re.sub(r'_\d+$','',op['name']))
+  phases.setdefault(key,[]).append(op['seconds'])
+phase_rows=[]
+for key,values in sorted(phases.items()):
+ phase_rows.append(dict(zip(['state','language','case','mode','phase'],key),n=len(values),p50=statistics.median(values),p95=q(values,.95),minimum=min(values),maximum=max(values)))
+if phase_rows:
+ with (a.directory.parent/'phases.csv').open('w') as out:
+  w=csv.DictWriter(out,fieldnames=list(phase_rows[0]));w.writeheader();w.writerows(phase_rows)

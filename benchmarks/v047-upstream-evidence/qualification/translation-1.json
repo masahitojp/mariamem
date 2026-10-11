@@ -1,0 +1,18 @@
+{
+  "command": [
+    "../temp/venv/bin/python",
+    "benchmarks/spikes/generated-go-integration/translate_guest.py",
+    "--guest",
+    "../temp/released-guest/mariamem.wasm",
+    "--guest-sha256",
+    "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+    "--converter-archive",
+    "../temp/upstream.tar.gz",
+    "--output",
+    "../temp/translation-1"
+  ],
+  "returncode": 0,
+  "seconds": 83.66281129198615,
+  "source_commit": "69b54ace69224928a36f2e78d024989223267756",
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

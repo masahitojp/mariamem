@@ -1,0 +1,12 @@
+{
+  "command": [
+    "env",
+    "GOTOOLCHAIN=go1.27.2",
+    "go",
+    "version"
+  ],
+  "returncode": 0,
+  "seconds": 13.814464792027138,
+  "source_commit": "ebfd8e1d414a64ce58e31780ac368893a8adf1f0",
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

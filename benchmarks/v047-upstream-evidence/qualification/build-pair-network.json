@@ -1,0 +1,16 @@
+{
+  "command": [
+    "../temp/venv/bin/python",
+    "../evidence/build-pair.py"
+  ],
+  "returncode": 0,
+  "seconds": 411.3708648340544,
+  "source_commit": "9681161a6313484f5b98009f030535112bd1fa51",
+  "disk": {
+    "owned_bytes": 9402310656,
+    "free_bytes": 79644172288,
+    "peak_owned_bytes": 9640259584,
+    "minimum_free_bytes": 79406424064
+  },
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

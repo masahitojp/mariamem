@@ -1,0 +1,20 @@
+{
+  "command": [
+    "go",
+    "-C",
+    "../temp/converter-preflight/wasm2go-730057c146463f663e8774587bc96fb2bea91af8",
+    "test",
+    "-p",
+    "1",
+    "./internal/codegen",
+    "./internal/ssa",
+    "./internal/ssa/pass",
+    "-run",
+    "Test(PureMemory32RetainsIndividualStores|MemoryAccessWidths|TrappingLoadIsObservable|DCEKeepsTrappingLoad|ExportMethodNameCollisionPreservation)$",
+    "-count=1"
+  ],
+  "returncode": 0,
+  "seconds": 14.476091291056946,
+  "source_commit": "58b4831c4654ef04c4c251c121cbe45c59239c27",
+  "actual_go": "go version go1.26.8 darwin/arm64"
+}

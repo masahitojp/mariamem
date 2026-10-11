@@ -1,0 +1,81 @@
++ /workspace/v047/temp/venv/bin/python scripts/check_version.py
+Release version: Python 0.4.7; Git/Go v0.4.7
++ /workspace/v047/temp/venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ /workspace/v047/temp/venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+................                                                         [100%]
+16 passed in 0.44s
++ go test -p 1 ./...
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+# github.com/masahitojp/mariamem/benchmarks/defaultsanity
+benchmarks/defaultsanity/main.go:15:2: github.com/go-sql-driver/mysql@v1.9.3: Get "https://proxy.golang.org/github.com/go-sql-driver/mysql/@v/v1.9.3.zip": dial tcp: lookup proxy.golang.org: no such host
+FAIL	github.com/masahitojp/mariamem/benchmarks/defaultsanity [setup failed]
+# github.com/masahitojp/mariamem/benchmarks/goisolation
+benchmarks/defaultsanity/main.go:15:2: github.com/go-sql-driver/mysql@v1.9.3: Get "https://proxy.golang.org/github.com/go-sql-driver/mysql/@v/v1.9.3.zip": dial tcp: lookup proxy.golang.org: no such host
+FAIL	github.com/masahitojp/mariamem/benchmarks/goisolation [setup failed]
+# github.com/masahitojp/mariamem/benchmarks/memorylifetime
+benchmarks/defaultsanity/main.go:15:2: github.com/go-sql-driver/mysql@v1.9.3: Get "https://proxy.golang.org/github.com/go-sql-driver/mysql/@v/v1.9.3.zip": dial tcp: lookup proxy.golang.org: no such host
+FAIL	github.com/masahitojp/mariamem/benchmarks/memorylifetime [setup failed]
+# github.com/masahitojp/mariamem/benchmarks/ownedprepared
+benchmarks/defaultsanity/main.go:15:2: github.com/go-sql-driver/mysql@v1.9.3: Get "https://proxy.golang.org/github.com/go-sql-driver/mysql/@v/v1.9.3.zip": dial tcp: lookup proxy.golang.org: no such host
+FAIL	github.com/masahitojp/mariamem/benchmarks/ownedprepared [setup failed]
+# github.com/masahitojp/mariamem/benchmarks/snapshotallocation
+benchmarks/defaultsanity/main.go:15:2: github.com/go-sql-driver/mysql@v1.9.3: Get "https://proxy.golang.org/github.com/go-sql-driver/mysql/@v/v1.9.3.zip": dial tcp: lookup proxy.golang.org: no such host
+FAIL	github.com/masahitojp/mariamem/benchmarks/snapshotallocation [setup failed]
+# github.com/masahitojp/mariamem/scripts/guest_smoke
+benchmarks/defaultsanity/main.go:15:2: github.com/go-sql-driver/mysql@v1.9.3: Get "https://proxy.golang.org/github.com/go-sql-driver/mysql/@v/v1.9.3.zip": dial tcp: lookup proxy.golang.org: no such host
+FAIL	github.com/masahitojp/mariamem/scripts/guest_smoke [setup failed]
+# github.com/masahitojp/mariamem/scripts/platform_acceptance
+benchmarks/defaultsanity/main.go:15:2: github.com/go-sql-driver/mysql@v1.9.3: Get "https://proxy.golang.org/github.com/go-sql-driver/mysql/@v/v1.9.3.zip": dial tcp: lookup proxy.golang.org: no such host
+FAIL	github.com/masahitojp/mariamem/scripts/platform_acceptance [setup failed]
+# github.com/masahitojp/mariamem/scripts/ubuntu_acceptance
+benchmarks/defaultsanity/main.go:15:2: github.com/go-sql-driver/mysql@v1.9.3: Get "https://proxy.golang.org/github.com/go-sql-driver/mysql/@v/v1.9.3.zip": dial tcp: lookup proxy.golang.org: no such host
+FAIL	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance [setup failed]
+ok  	github.com/masahitojp/mariamem	1.170s
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/artifacts	0.241s
+?   	github.com/masahitojp/mariamem/internal/diagnostic	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.907s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.265s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	0.763s
+ok  	github.com/masahitojp/mariamem/internal/host	0.304s
+?   	github.com/masahitojp/mariamem/internal/mysqlwire	[no test files]
+?   	github.com/masahitojp/mariamem/internal/prepared	[no test files]
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	0.420s
+ok  	github.com/masahitojp/mariamem/internal/timing	0.258s
+FAIL
+Traceback (most recent call last):
+  File "/workspace/v047/worktree/scripts/verify.py", line 150, in <module>
+    main()
+    ~~~~^^
+  File "/workspace/v047/worktree/scripts/verify.py", line 129, in main
+    check(args.scope)
+    ~~~~~^^^^^^^^^^^^
+  File "/workspace/v047/worktree/scripts/verify.py", line 62, in check
+    run(["go", "test", "-p", "1", "./..."])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/v047/worktree/scripts/verify.py", line 34, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/v047/worktree/scripts/build_feedback.py", line 200, in run
+    raise subprocess.CalledProcessError(retcode, process.args,
+                                        output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['go', 'test', '-p', '1', './...']' returned non-zero exit status 1.

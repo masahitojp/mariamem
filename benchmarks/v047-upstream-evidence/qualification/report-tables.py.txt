@@ -1,0 +1,32 @@
+import csv
+from pathlib import Path
+rows=list(csv.DictReader(open('../evidence/summary.csv')))
+def item(state,lang,case,mode,metric):return next(r for r in rows if (r['state'],r['language'],r['case'],r['mode'],r['metric'])==(state,lang,case,mode,metric))
+def val(*args,field='p50'):return float(item(*args)[field])
+cases=['light','fixture','parallel','large'];lines=['\n## Completed original matrix\n','118 non-pilot cells plus 12 warm-up pilots completed; all SQL/transaction oracles passed.\nNormal cells have n=3, large n=1. Numbers below are descriptive, not significance tests.\n','| Language / case / mode | n | v0.4.6 wall p50 / p95 (s) | Candidate wall p50 / p95 (s) | Median delta | CPU median (s), base → candidate |','| --- | ---: | ---: | ---: | ---: | ---: |']
+for lang in ['go','python']:
+ for case in cases:
+  for mode in ['fresh','fork']:
+   b=item('v046',lang,case,mode,'wall_seconds');c=item('v047',lang,case,mode,'wall_seconds')
+   cpu=[val(s,lang,case,mode,'cpu_seconds') for s in ['v046','v047']]
+   lines.append(f"| {lang} / {case} / {mode} | {c['n']} | {float(b['p50']):.3f} / {float(b['p95']):.3f} | {float(c['p50']):.3f} / {float(c['p95']):.3f} | {100*(float(c['p50'])/float(b['p50'])-1):+.1f}% | {cpu[0]:.3f} → {cpu[1]:.3f} |")
+lines += ['\n## Go resource comparison\n','All entries are median **base → candidate**. MiB uses 2^20; allocation GiB uses 2^30.\nPhysical footprint is a final phase sample, not a peak.\n','| Case / mode | Peak RSS MiB | Sampled heap peak MiB | Cumulative alloc GiB | Final live heap MiB | Final physical footprint MiB |','| --- | ---: | ---: | ---: | ---: | ---: |']
+for case in cases:
+ for mode in ['fresh','fork']:
+  cells=[]
+  for metric,scale,precision in [('process_peak_rss_bytes',2**20,1),('sampled_peak_go_heap_objects_bytes',2**20,1),('cumulative_alloc_bytes',2**30,3),('after_heap_alloc_bytes',2**20,2),('after_primary_bytes',2**20,1)]:
+   vs=[val(s,'go',case,mode,metric)/scale for s in ['v046','v047']]
+   cells.append(f'{vs[0]:.{precision}f} → {vs[1]:.{precision}f}')
+  lines.append('| '+case+' / '+mode+' | '+' | '.join(cells)+' |')
+lines += ['\n## Native anchors (one shared measurement set)\n','| Python case | Testcontainers fresh p50 (s) | Shared schema reset p50 (s) |','| --- | ---: | ---: |']
+for case in cases:
+ lines.append(f"| {case} | {val('anchor','python',case,'testcontainers','wall_seconds'):.3f} | {val('anchor','python',case,'shared-reset','wall_seconds'):.3f} |")
+lines+=['\nSeparate Go 1,000-row fixture, n=3 suite medians (s): '+', '.join(f"{state}/{mode} {val(state,'go','native-fixture',mode,'wall_seconds'):.3f}" for state,mode in [('v046','mariamem-fresh'),('v047','mariamem-fresh'),('v046','mariamem-prepared'),('v047','mariamem-prepared'),('anchor','testcontainers-fresh'),('anchor','testcontainers-schema-reset')])+'.\n']
+phases=list(csv.DictReader(open('../evidence/phases.csv')))
+lines+=['\n## Startup versus work\n','Go per-operation wall p50 / p95 (milliseconds). Normal ready/query entries combine\n12 observations clustered within three suites; Snapshot has three observations.\nConcurrent phase durations overlap and are not summed.\n','| Case / mode / phase | v0.4.6 | Candidate |','| --- | ---: | ---: |']
+for case,mode,phase in [('light','fresh','fresh_ready'),('light','fork','fork_ready'),('fixture','fresh','fresh_ready'),('fixture','fork','fork_ready'),('fixture','fork','snapshot'),('parallel','fresh','fresh_ready'),('parallel','fork','fork_ready'),('large','fork','fork_ready'),('large','fork','count_use')]:
+ vs=[]
+ for state in ['v046','v047']:
+  r=next(r for r in phases if (r['state'],r['case'],r['mode'],r['phase'])==(state,case,mode,phase));vs.append(f"{1000*float(r['p50']):.1f} / {1000*float(r['p95']):.1f}")
+ lines.append('| '+f'{case} / {mode} / {phase}'+' | '+' | '.join(vs)+' |')
+p=Path('benchmarks/v047-product-validation.md');s=p.read_text().split('\n## Completed original matrix')[0];p.write_text(s+'\n'.join(lines)+'\n')

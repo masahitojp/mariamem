@@ -1,0 +1,8 @@
+package visibility
+import("os";"sync";"syscall";"testing")
+func TestVisibility(t *testing.T) {
+ b:=make([]byte,65536)
+ if os.Getenv("BACKING")=="mmap" {var e error;b,e=syscall.Mmap(-1,0,65536,syscall.PROT_READ|syscall.PROT_WRITE,syscall.MAP_PRIVATE|syscall.MAP_ANON);if e!=nil {t.Fatal(e)};defer syscall.Munmap(b)}
+ var w sync.WaitGroup;w.Add(2)
+ for k:=0;k<2;k++ {go func(){defer w.Done();for i:=0;i<10000;i++ {b[0]++}}()};w.Wait()
+}

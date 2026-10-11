@@ -1,0 +1,13 @@
+import hashlib,json,os,shutil,subprocess
+from pathlib import Path
+root=Path.cwd();w=root.parent;temp=w/'temp';out=temp/'binaries';out.mkdir(exist_ok=True)
+baseline=temp/'baseline'
+for n in ('main.go','resources.go'):shutil.copyfile(root/'benchmarks/ownedprepared'/n,baseline/'benchmarks/ownedprepared'/n)
+record={};env=dict(os.environ,CGO_ENABLED='1',GOTOOLCHAIN='local')
+for label,tree in [('v047',root),('v046',baseline)]:
+ d=out/label;d.mkdir(exist_ok=True)
+ for name,package,cwd in [('mariamem-host','./cmd/mariamem-host',tree),('ownedprepared','./benchmarks/ownedprepared',tree),('competitive','.',tree/'benchmarks/competitive')]:
+  subprocess.run(['go','build','-p','1','-trimpath','-buildvcs=false','-o',str(d/name),package],cwd=cwd,env=env,check=True)
+  record[label+'/'+name]={'sha256':hashlib.sha256((d/name).read_bytes()).hexdigest(),'build_info':subprocess.check_output(['go','version','-m',str(d/name)],text=True)}
+subprocess.run(['cc','-O2','-o',str(out/'process-cost'),'benchmarks/tools/process_cost.c'],check=True)
+(w/'evidence/paired-builds.json').write_text(json.dumps(record,indent=2)+'\n')

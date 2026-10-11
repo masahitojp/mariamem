@@ -1,0 +1,74 @@
+{
+  "mode": "testcontainers",
+  "rows": 10240,
+  "tables": 8,
+  "workers": 4,
+  "count": 4,
+  "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+  "samples": [
+    {
+      "index": 0,
+      "ready_seconds": 8.621920000063255,
+      "server_version": "12.3.3-MariaDB-ubu2404",
+      "prepare_seconds": 0.3235458330018446,
+      "sql_seconds": 0.03375333303119987,
+      "container_after_sql_resources": {
+        "memory_bytes": 155131904,
+        "cpu_seconds": 6.034139
+      },
+      "resource_observation_seconds": 0.003754958976060152,
+      "cleanup_seconds": 0.12874683400150388,
+      "test_seconds": 9.111725791939534
+    },
+    {
+      "index": 1,
+      "ready_seconds": 5.495440792059526,
+      "server_version": "12.3.3-MariaDB-ubu2404",
+      "prepare_seconds": 0.303480333997868,
+      "sql_seconds": 0.032688540988601744,
+      "container_after_sql_resources": {
+        "memory_bytes": 155004928,
+        "cpu_seconds": 3.006755
+      },
+      "resource_observation_seconds": 0.004386833985336125,
+      "cleanup_seconds": 0.12869333301205188,
+      "test_seconds": 5.964695125003345
+    },
+    {
+      "index": 2,
+      "ready_seconds": 6.476412457996048,
+      "server_version": "12.3.3-MariaDB-ubu2404",
+      "prepare_seconds": 0.2590482080122456,
+      "sql_seconds": 0.055293458979576826,
+      "container_after_sql_resources": {
+        "memory_bytes": 153509888,
+        "cpu_seconds": 3.796724
+      },
+      "resource_observation_seconds": 0.0047177920350804925,
+      "cleanup_seconds": 0.1386002090293914,
+      "test_seconds": 6.934077332960442
+    },
+    {
+      "index": 3,
+      "ready_seconds": 3.6309136669151485,
+      "server_version": "12.3.3-MariaDB-ubu2404",
+      "prepare_seconds": 0.4273336249170825,
+      "sql_seconds": 0.04464941693004221,
+      "container_after_sql_resources": {
+        "memory_bytes": 156315648,
+        "cpu_seconds": 2.888683
+      },
+      "resource_observation_seconds": 0.00683979201130569,
+      "cleanup_seconds": 0.1625307499198243,
+      "test_seconds": 4.272275957977399
+    }
+  ],
+  "completed": true,
+  "reaper_setup_seconds": 0.13223012490198016,
+  "suite_wall_seconds": 9.245224082958885,
+  "runner_and_reaped_host_cpu_seconds": 0.9101829999999999,
+  "cpu_scope": "Python runner + reaped host/helper children; excludes Docker daemon/VM/container CPU",
+  "resource_observation_scope": "after-SQL sample, not peak; container CPU since start, shared cumulative; OS helper returns RSS/physical footprint",
+  "suite_resource_observation_seconds": 0.01969937700778246,
+  "source_commit": "40d9de4f04b0e74c71657a5533558411dfb181d6"
+}
