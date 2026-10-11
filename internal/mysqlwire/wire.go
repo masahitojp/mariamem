@@ -298,12 +298,14 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		}
 		return r, e
 	}
-	r, err = query([]byte("SELECT CONNECTION_ID()"), false)
+	// Read the identity from this guest/session so guest upgrades cannot leave
+	// a stale server version in the handshake. Keep this a single query.
+	r, err = query([]byte("SELECT CONNECTION_ID(), VERSION()"), false)
 	if err != nil {
 		return err
 	}
-	if !r.OK || len(r.Rows) != 1 || len(r.Rows[0]) != 1 || r.Rows[0][0] == nil {
-		return errors.New("invalid connection ID response")
+	if !r.OK || len(r.Rows) != 1 || len(r.Rows[0]) != 2 || r.Rows[0][0] == nil || r.Rows[0][1] == nil {
+		return errors.New("invalid connection identity response")
 	}
 	idBytes, err := hex.DecodeString(r.Rows[0][0].Hex)
 	if err != nil {
@@ -313,6 +315,13 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 	if err != nil {
 		return err
 	}
+	serverVersion, err := hex.DecodeString(r.Rows[0][1].Hex)
+	if err != nil {
+		return err
+	}
+	if len(serverVersion) == 0 || bytes.IndexByte(serverVersion, 0) >= 0 {
+		return errors.New("invalid server version response")
+	}
 	status := r.Status
 	salt := make([]byte, 20)
 	if _, err = rand.Read(salt); err != nil {
@@ -321,7 +330,9 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 	for i := range salt {
 		salt[i] = 33 + salt[i]%90
 	}
-	b := append([]byte("\x0a13.1.0-MariaDB-mariamem\x00"), le32(uint32(id))...)
+	b := append([]byte{10}, serverVersion...)
+	b = append(b, 0)
+	b = append(b, le32(uint32(id))...)
 	b = append(b, salt[:8]...)
 	b = append(b, 0)
 	b = append(b, le16(uint16(capabilities&0xffff))...)
