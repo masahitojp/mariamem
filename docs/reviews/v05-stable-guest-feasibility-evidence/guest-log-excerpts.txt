@@ -1,0 +1,25 @@
+1: Disk preflight OK: 88.83 GiB free, 1.59 GiB owned
+10: patching file CMakeLists.txt
+11: patching file cmake/os/Emscripten.cmake
+12: patching file cmake/os/WASIX.cmake
+13: patching file cmake/pcre.cmake
+14: patching file configure.cmake
+15: patching file include/my_global.h
+16: patching file include/my_stacktrace.h
+17: patching file libmysqld/libmysql.c
+18: patching file mysys/CMakeLists.txt
+19: patching file mysys/my_largepage.c
+20: patching file mysys/my_lock.c
+21: patching file mysys/my_timezone.cc
+22: patching file mysys/my_virtual_mem.c
+23: patching file sql/sql_plugin.cc
+24: patching file storage/innobase/fil/fil0fil.cc
+25: patching file storage/innobase/log/log0log.cc
+26: patching file storage/innobase/os/os0file.cc
+27: patching file storage/maria/ma_loghandler.c
+28: patching file wasm/lite4mariadb.c
+29: Hunk #2 succeeded at 347 with fuzz 2.
+30: patching file wasm/CMakeLists.txt
+31: patching file mysys/my_lib.c
+26463: ==> Artifact:
+26464: -rwxr-xr-x 1 root root 21816229 Oct 11 03:08 /work/source/wasm/dist/lite4mariadb.wasix.wasm

@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "detected": "wrong build contract",
+  "guest_receipt": "unchanged bytes of actual guest.json",
+  "regeneration_receipt": "unchanged bytes of actual development.json via dedicated negative input alias",
+  "note": "Existing verify_build rejects dev contract before release guest/hash/rebuild evidence checks; no accepted receipt or canonical path modified."
+}

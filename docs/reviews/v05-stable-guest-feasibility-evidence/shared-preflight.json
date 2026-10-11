@@ -1,0 +1,82 @@
+{
+  "build_tools": {
+    "archives": {
+      "binaryen": {
+        "file": "binaryen-version_133-aarch64-linux.tar.gz",
+        "sha256": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
+        "url": "https://github.com/WebAssembly/binaryen/releases/download/version_133/binaryen-version_133-aarch64-linux.tar.gz"
+      },
+      "converter": {
+        "file": "wasm2go-fork.tar.gz",
+        "sha256": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f",
+        "url": "https://codeload.github.com/shibukawa/wasm2go-fork/tar.gz/ac98bcf00c17d8531f0c071a9836d0b50975e7ff"
+      },
+      "icu": {
+        "file": "libicu70_70.1-2_arm64.deb",
+        "sha256": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174",
+        "url": "https://ports.ubuntu.com/ubuntu-ports/pool/main/i/icu/libicu70_70.1-2_arm64.deb"
+      },
+      "llvm": {
+        "file": "LLVM-23.1.0-Linux-ARM64.tar.xz",
+        "sha256": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4",
+        "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.0/LLVM-23.1.0-Linux-ARM64.tar.xz"
+      },
+      "sysroot": {
+        "file": "sysroot-eh.tar.gz",
+        "sha256": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4",
+        "url": "https://github.com/wasix-org/wasix-libc/releases/download/v2026-07-03.1/sysroot-eh.tar.gz"
+      },
+      "sysroot_pic": {
+        "file": "sysroot-ehpic.tar.gz",
+        "sha256": "54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0",
+        "url": "https://github.com/wasix-org/wasix-libc/releases/download/v2026-07-03.1/sysroot-ehpic.tar.gz"
+      },
+      "wasixcc": {
+        "file": "wasixcc-aarch64-unknown-linux-gnu.tar.gz",
+        "sha256": "b4cf06f3ce00a0b2bdc376de24324bac2c963f4672914bf9a1ba99000a4866a7",
+        "url": "https://github.com/wasix-org/wasixcc/releases/download/v0.4.7/wasixcc-aarch64-unknown-linux-gnu.tar.gz"
+      }
+    },
+    "binaryen": "version_133",
+    "contract": "generated-go-v1",
+    "go": "1.26.8",
+    "llvm": "23.1.0",
+    "llvm_revision": "ea7d852a70e8bdfaf601d6626a760f9771b2c4b4",
+    "sysroot": "v2026-07-03.1",
+    "sysroot_variant": "sysroot-eh",
+    "sysroot_variants": [
+      "sysroot-eh",
+      "sysroot-ehpic"
+    ],
+    "wasixcc": "0.4.7"
+  },
+  "converter_commit": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "host": {
+    "machine": "arm64",
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]"
+  },
+  "integrated_dev_guest": "ee48a2a50fe71e79564ab1dde42c45594f220438",
+  "integrated_fast_feedback": "70ac70ce0a4ccda403aa290dffa1d0bac0d8728b",
+  "main_sha": "386a62c3669e37bb8aaad58cd0aca8da893b3d80",
+  "main_tree": "a31443495e6e80de5f21e016cbe5f647350c6c70",
+  "release_guard_changed": false,
+  "release_guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "release_source_sha": "b56be17206b6beef18f55c8ea39b254638da8590",
+  "release_tag_object": "09d7b82e1900318dde45d08bebd9328ea35e6ef7",
+  "release_tree": "9e13e7cf97ad966331eff83a4fc3dd8bb92bda97",
+  "remote_main_sha": "386a62c3669e37bb8aaad58cd0aca8da893b3d80",
+  "sha256": {
+    "guest/source.patch": "595341525825860a398c3dc3f7c9660264af4db79ec487902d51e3d1d3bd5e0f",
+    "release/generated-go-build.json": "09121869e401b1ae2e67dff943d02df6f57c6c0568c05878017056ae1551cf40",
+    "release/generated-go-inputs.json": "c882412a8d97fd497c4cb4057211b80f906643347c258811043403e88f1e7205",
+    "release/generated-go-toolchain.json": "7b7953ff4825e9af913bb7bac94a774b8abe54c7a1a04b9c8bfcb6a38e669802",
+    "release/generated-go-translation.json": "e17a18ddef2ad2084b0bfe48d855b7c9ef9812a15f586b9669bf994a20c9e959",
+    "release/inputs.lock.json": "bad72fcb09d919a20216ef8bb566b72f6369e46abfbc33a91ad1120f96152680",
+    "scripts/build_generated_guest.py": "4c32bd3300a7967b98119f63701155de25ccbd86fa8ea1a926e6e7cd20be7e00",
+    "scripts/dev_guest.py": "7c9813b79a0e4c74e52c525ed9d49eeb7b69b8eb81d73279105bebb57048a14e",
+    "scripts/generate_runtime.py": "88ee3d0d938cf311032f6b3053ec47a0d71cfd22d3f75fcb0cf01f30025a8af3"
+  },
+  "uncommitted_root": ""
+}

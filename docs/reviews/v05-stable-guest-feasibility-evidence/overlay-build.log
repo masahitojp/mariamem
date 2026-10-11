@@ -1,0 +1,40 @@
+Disk preflight OK: 81.45 GiB free, 7.19 GiB owned
+..F........................                                              [100%]
+=================================== FAILURES ===================================
+_________ test_text_protocol_values_metadata_flags_and_error_recovery __________
+
+wire_db = <mariamem.Database object at 0x10b02d750>
+
+    def test_text_protocol_values_metadata_flags_and_error_recovery(wire_db):
+        events = []
+        with connect(wire_db) as conn:
+>           wire_acceptance.exercise(conn, events, api_version=2)
+
+../../worktree/tests/test_python_wire.py:40:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+conn = <pymysql.connections.Connection object at 0x10aefd2b0>, events = []
+api_version = 2
+
+    def exercise(conn, events, api_version=1):
+        conn.ping(reconnect=False)
+        conn.select_db("test")
+        with conn.cursor() as cur:
+            cur.execute("SELECT 1 AS one, VERSION() AS version")
+            one, version = cur.fetchone()
+>           assert one == 1 and version == "13.1.0-MariaDB-embedded", (one, version)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: (1, '12.3.3-MariaDB-embedded')
+
+../../worktree/tests/support/wire_acceptance.py:13: AssertionError
+=========================== short test summary info ============================
+FAILED ../../worktree/tests/test_python_wire.py::test_text_protocol_values_metadata_flags_and_error_recovery
+1 failed, 26 passed in 43.79s
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v05-stable-guest-feasibility/evidence/overlay-command.py", line 20, in <module>
+    run([sys.executable,'-m','pytest',str(WORK/'worktree/tests/test_dev_guest_smoke.py'),str(WORK/'worktree/tests/test_python_wire.py'),str(WORK/'worktree/tests/test_owned_snapshot.py'),'-q','-ra'],cwd=new,env=env,check=True,phase='overlay:guest-wire-ownership')
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v05-stable-guest-feasibility/worktree/scripts/build_feedback.py", line 200, in run
+    raise subprocess.CalledProcessError(retcode, process.args,
+                                        output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v05-stable-guest-feasibility/temp/venv/bin/python', '-m', 'pytest', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v05-stable-guest-feasibility/worktree/tests/test_dev_guest_smoke.py', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v05-stable-guest-feasibility/worktree/tests/test_python_wire.py', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v05-stable-guest-feasibility/worktree/tests/test_owned_snapshot.py', '-q', '-ra']' returned non-zero exit status 1.

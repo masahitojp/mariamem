@@ -1,0 +1,26 @@
+{
+  "contract": "development-handshake-overlay-v1",
+  "result": "UNQUALIFIED",
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "original_guest_record_sha256": "82feaa0b13e01850da25de3582c82c6d9fe088e78bff1d4410b7fd8db5e3ed89",
+  "original_development_record_sha256": "2330f78ce4dcf41abb268f0b2c567817bb639f9d7a2675eed254d40d2da74b6a",
+  "original_host_source_commit": "334fb2670e3f86f1a5c8be5dbe770330f3ccddcc",
+  "only_changed_file": "internal/mysqlwire/wire.go",
+  "old_source_sha256": "b299f8ee0e5655007fb4b35a9b97e6d3e47804878d66adca6761ebfafd38b55f",
+  "new_source_sha256": "972b93e401e9f45df39a43da0daede12b45db3c6695e29a02cc4b6199a9c40da",
+  "replacement": {
+    "old": "13.1.0-MariaDB-mariamem",
+    "new": "12.3.3-MariaDB-mariamem"
+  },
+  "note": "Original development receipt covers the unchanged-host binary, not this separately bound overlay.",
+  "smoke": "PASS",
+  "focused_summary": "26 passed in initial run; 1 fixed-version assertion failure; all 7 wire tests rerun PASS after exact-version fixture adapter",
+  "fixture_sha256": "d85163f61029b1fde155abb70b428e7588c56c600a002c157c513a79ad422e66",
+  "binary_sha256": "0cbb36eac31bcd4336a704585932daa1648183d25dcd8b1897e49679ea1be5b4",
+  "binary_bytes": 99597586,
+  "go_buildinfo": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v05-stable-guest-feasibility/temp/mariamem-stable-version-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "changed_files": [
+    "internal/mysqlwire/wire.go"
+  ],
+  "source_inventory_sha256": "7eef762ff0806bd0926830b974313a6110e1d98099b2b33fc8e1f5dad6e815ae"
+}

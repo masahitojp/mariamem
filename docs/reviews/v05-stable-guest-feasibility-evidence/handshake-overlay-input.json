@@ -1,0 +1,16 @@
+{
+  "contract": "development-handshake-overlay-v1",
+  "result": "UNQUALIFIED",
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "original_guest_record_sha256": "82feaa0b13e01850da25de3582c82c6d9fe088e78bff1d4410b7fd8db5e3ed89",
+  "original_development_record_sha256": "2330f78ce4dcf41abb268f0b2c567817bb639f9d7a2675eed254d40d2da74b6a",
+  "original_host_source_commit": "334fb2670e3f86f1a5c8be5dbe770330f3ccddcc",
+  "only_changed_file": "internal/mysqlwire/wire.go",
+  "old_source_sha256": "b299f8ee0e5655007fb4b35a9b97e6d3e47804878d66adca6761ebfafd38b55f",
+  "new_source_sha256": "972b93e401e9f45df39a43da0daede12b45db3c6695e29a02cc4b6199a9c40da",
+  "replacement": {
+    "old": "13.1.0-MariaDB-mariamem",
+    "new": "12.3.3-MariaDB-mariamem"
+  },
+  "note": "Original development receipt covers the unchanged-host binary, not this separately bound overlay."
+}

@@ -24,6 +24,9 @@ def test_dev_fresh_transactions_snapshot_children_and_close():
                 expected = os.environ.get('MARIAMEM_DEV_EXPECTED_VERSION')
                 if expected:
                     assert version.startswith(expected), version
+                handshake = os.environ.get('MARIAMEM_DEV_EXPECTED_HANDSHAKE_VERSION')
+                if handshake:
+                    assert c.get_server_info().startswith(handshake), c.get_server_info()
                 evidence = os.environ.get('MARIAMEM_DEV_SQL_VERSION_EVIDENCE')
                 if evidence:
                     Path(evidence).write_text(json.dumps({'sql_version': version,

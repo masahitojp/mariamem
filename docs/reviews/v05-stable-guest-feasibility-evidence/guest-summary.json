@@ -1,0 +1,135 @@
+{
+  "contract": "development-unqualified-v1",
+  "result": "UNQUALIFIED",
+  "source_identity": {
+    "commit": "334fb2670e3f86f1a5c8be5dbe770330f3ccddcc",
+    "inventory_count": 1344
+  },
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "guest_bytes": 18367999,
+  "repetitions": [
+    {
+      "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+      "linked_sha256": "3b63079109c895f3e90895f86b57e48d9f8e14f13ce945021c88e20c4f4fd9ba"
+    }
+  ],
+  "toolchain": {
+    "archives_sha256": {
+      "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
+      "converter": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f",
+      "icu": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174",
+      "llvm": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4",
+      "sysroot": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4",
+      "sysroot_pic": "54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0",
+      "wasixcc": "b4cf06f3ce00a0b2bdc376de24324bac2c963f4672914bf9a1ba99000a4866a7"
+    },
+    "contract": "generated-go-v1",
+    "environment": {
+      "LC_ALL": "C",
+      "LD_LIBRARY_PATH": "/root/.wasixcc/llvm/lib",
+      "PATH": "/root/.wasixcc/bin:/usr/bin:/bin",
+      "SOURCE_DATE_EPOCH": "0",
+      "TZ": "UTC"
+    },
+    "host": "linux-arm64",
+    "pins_sha256": "7b7953ff4825e9af913bb7bac94a774b8abe54c7a1a04b9c8bfcb6a38e669802",
+    "sysroot": {
+      "entries": 4985,
+      "inventory_sha256": "ec9f4eec4cc3f5d019531a8b3d6dbfb524b2661ba5a2046b9d8ce89378bf29dc"
+    },
+    "versions": {
+      "binaryen": "wasm-opt version 133 (version_133)",
+      "bison": "bison (GNU Bison) 3.8.2\nWritten by Robert Corbett and Richard Stallman.\n\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+      "cmake": "cmake version 3.28.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+      "lld": "LLD 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)",
+      "llvm": "clang version 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /root/.wasixcc/llvm/bin",
+      "make": "GNU Make 4.3\nBuilt for aarch64-unknown-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+      "python": "Python 3.12.3",
+      "wasixcc": "wasixcc 0.4.7"
+    }
+  },
+  "prepared_source": {
+    "experimental_patch": {
+      "file": "guest/experimental.patch",
+      "sha256": "ab093eda151087978d850f094abe69db990e6bc24fe4eff323e00f28b8a11b88"
+    },
+    "inputs_lock_sha256": "a46309096247ea9851ed7ac070184b4de74af29cdde08b90e39e0707ade39614",
+    "modified_files": {
+      "CMakeLists.txt": "6c70d280b3a7a1736d5ba7260fb113a44e8f094d23c9de9dd4ec0da3ce88402d",
+      "cmake/libfmt.cmake": "436e87408474a62f2c344ea6de4ccbcc02e65f900f00a8474073513c082da765",
+      "cmake/os/Emscripten.cmake": "af8159bccbfa7d33a5860091fb3c3a716b58df5a2daf57892d6970fb5feb3675",
+      "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+      "cmake/pcre.cmake": "ed0dbf1f78b8fe86ed04e1a85cdeaeec3b2b9c271b0ee4a5f9eb036d43eb0907",
+      "configure.cmake": "f14251cbb6717181cfd4a9e26fabd0d49399b762ce81f6e6cfdcbc224f5c0ff8",
+      "include/mariamem_init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
+      "include/my_global.h": "60aaa58fee20a00cb09737eb45a09b3882eaaa6564f9d7bfae77662c07434b9b",
+      "include/my_stacktrace.h": "8437a3f83abbb3cc6e29fbf588a8e0c8507820c3a066ba8707198da7f925861f",
+      "libmysqld/lib_sql.cc": "70a2321943f5853c794646248ac6ebcb3cd35e40a443e93eec31bb004833d2c4",
+      "libmysqld/libmysql.c": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+      "mysys/CMakeLists.txt": "9cb50fe418b6557872329ee9a4ab30e24b168eabdc0f4b6d04eeb99a7088ef94",
+      "mysys/my_largepage.c": "a70dfe799d6e7091f4d5c8f8221a658171a309658010ef4c46dbf9ca832bbe4b",
+      "mysys/my_lib.c": "d00d2647d98e49272c6652e0dc5a88438d86da5856c6007d70f0047a994f0f26",
+      "mysys/my_lock.c": "7aed29f87e0ad6bc7978ce4794c0f10b1c99a52903c207ee49314632e60ecc46",
+      "mysys/my_timezone.cc": "6777513d495db9a832b52f248455156b79dfa1a778fc86b2aa6e14d90c15ad50",
+      "mysys/my_virtual_mem.c": "656b0881b22e0aecb492b55f1cfc61e583304ed17b60bbb758ac3ee53a84067b",
+      "plugin/auth_mysql_sha2/mysql_sha2.c": "2dfb8b6e0ca9bc26e1aa6ab50c8009f0d5be850d3d7ad0c56b9413b4acc3928e",
+      "plugin/auth_mysql_sha2/ssl_stuff.c": "8621b8bbb5cab82eb32b736938fcfebf66a09a4acd388bcca5be8c2962ff0d02",
+      "sql/mysqld.cc": "091d40a8edf55f470ee36b185ea7e5eccccd09f4283e66b49d7b57c86ddd3d0b",
+      "sql/sql_plugin.cc": "a8811caebf288bf5257e7ffe5669c44ae27e607af5cf31adbb7e8631b7d85443",
+      "storage/innobase/fil/fil0fil.cc": "6bb2290f8de022054bb3ffa84a12d528270c0bce999f385667ad8a30af216cbb",
+      "storage/innobase/handler/ha_innodb.cc": "7f5498c5e856fc0fa6e9dd3d95674ea64c884b0d246b8755329a99d17b87173c",
+      "storage/innobase/log/log0log.cc": "c193ece2c236840e84e61336126051e0c9ac031d4e133855483832780022205c",
+      "storage/innobase/os/os0file.cc": "4b8515af8e247a22fde4bf8524ab6e68932f436dbc25290e6dcb8d4987ca2c73",
+      "storage/innobase/srv/srv0start.cc": "bca5515ad8421103ff8fa675d420dbc0e105e12585aece0057401bef55350c2d",
+      "storage/maria/ha_maria.cc": "465fe7518073e467a97710e48626fbf4dbdd15f28ec20d2d074087b6d7871c36",
+      "storage/maria/ma_loghandler.c": "515a8afc9aef1cccd7055028441aae249021835c49f5dd1353982d7fc8542281",
+      "wasm/CMakeLists.txt": "c202123fef2d0ac6ec8da5d659d488907aaff4b8040a5a6e514255c3d47fd254",
+      "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
+      "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
+      "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
+      "wasm/prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
+      "wasm/resident.inc": "7dfee608541002f4fca74b6eeceb8a0b54f22e0b04b5d1e254391b970e6af634",
+      "wasm/snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
+      "wasm/startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
+      "wasm/wire_api.inc": "d21bea6b0bb9d3f044fa88170899f0b52f99aa0c73aa51f54a7e7004b858e344"
+    },
+    "overlays": {
+      "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
+      "experimental.patch": "ab093eda151087978d850f094abe69db990e6bc24fe4eff323e00f28b8a11b88",
+      "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
+      "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
+      "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
+      "resident.inc": "7dfee608541002f4fca74b6eeceb8a0b54f22e0b04b5d1e254391b970e6af634",
+      "snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
+      "source.patch": "595341525825860a398c3dc3f7c9660264af4db79ec487902d51e3d1d3bd5e0f",
+      "stable-input.json": "cd5d995e60094bb12e952a819dc9b0b96a4f23a1362e951cf1f079c0b99f8839",
+      "startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
+      "test-auth-keypair.json": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be",
+      "wire_core.inc": "dafdc569959bc21821ddf39533116f2a62eab2441c9280a675be3065db58278f"
+    },
+    "stable_source": {
+      "candidate": "MariaDB 12.3.3",
+      "portability_source_base": "b2a8c2234dbc276fe3947633c9ffea454badf48f",
+      "recipe_files_sha256": {
+        "wasm/CMakeLists.txt": "f317e2786a12b2cfdd7c0de8d4b3d3c05b6aa9ee4f0a8aad909898b6d218f437",
+        "wasm/COPYING": "240a15a1d0f34d3abca462cdb7e5fb89470967563f16b0e71169e51c1e74cf2b",
+        "wasm/build-wasix.sh": "2d6c9407361e560e1b5623e611d570e233d25333dcf90340068682af8b6bf782",
+        "wasm/lite4mariadb.c": "c0a959b6755d3463de31d9d08d2a43031cc418a332768a0956ebfd5046e15526",
+        "wasm/platforms/Platform/WASIX.cmake": "24d0ba74185453b0624c4a381c9bc2f67f19071e54d3b5e55e553136271419f7",
+        "wasm/wasix-toolchain.cmake": "114c296e33df8bb68bab6797d1b40b11834a2c3cfe1e934ffbe87037816c32ea"
+      },
+      "recipe_source_commit": "24be9371a2f6c71250a2356631ad6feab2280b02",
+      "schema": 1,
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "tag_object_sha": "bd852bcd567fedc89ad4521e2f1a64c7a1e0d0f0"
+    }
+  },
+  "host_platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "cpu": "Apple M1",
+  "host_ram_bytes": 17179869184,
+  "vm": "Docker Linux aarch64, 8 CPU, 7.75 GiB; JOBS3",
+  "guest_record_sha256": "82feaa0b13e01850da25de3582c82c6d9fe088e78bff1d4410b7fd8db5e3ed89",
+  "host_cpu_count": 8,
+  "environment_observation": "sysctl -n machdep.cpu.brand_string hw.memsize hw.ncpu"
+}

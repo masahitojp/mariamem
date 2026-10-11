@@ -321,7 +321,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 	for i := range salt {
 		salt[i] = 33 + salt[i]%90
 	}
-	b := append([]byte("\x0a13.1.0-MariaDB-mariamem\x00"), le32(uint32(id))...)
+	b := append([]byte("\x0a12.3.3-MariaDB-mariamem\x00"), le32(uint32(id))...)
 	b = append(b, salt[:8]...)
 	b = append(b, 0)
 	b = append(b, le16(uint16(capabilities&0xffff))...)

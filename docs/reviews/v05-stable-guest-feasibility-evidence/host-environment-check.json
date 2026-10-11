@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-10-11T03:22:32.462204+00:00",
+  "method": "sysctl -n machdep.cpu.brand_string hw.memsize hw.ncpu",
+  "host_cpu": "Apple M1",
+  "host_memory_bytes": 17179869184,
+  "host_logical_cpu_count": 8,
+  "host_system": "macOS 27.0.1 arm64",
+  "scope": "Native host, not Docker guest build VM allocation."
+}
