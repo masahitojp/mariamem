@@ -2,7 +2,7 @@
 
 結論: **FEASIBLE WITH PATCHES**。MariaDB **12.3.3 LTS** は現行converterを
 固定したまま、単発Wasm build → Go変換 → native host → 実SQL / transaction /
-Snapshot / Fork / LoadSnapshotまで成立した。正式採用・release適格性の判断は別である。
+Snapshot / Fork / Python `load_snapshot()`まで成立した。正式採用・release適格性の判断は別である。
 Track Aのconverterや生成物は使っていない。全成果物は **UNQUALIFIED**。
 
 ## Human Review
