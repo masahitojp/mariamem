@@ -1,0 +1,21 @@
+{
+  "product_runtime_changes": false,
+  "baseline_source_commit": "808df8b614906a9cd918229e2754d33a5a76dc4b",
+  "probe_source_commit": "4b67095bdca276fc69e47bff518e59786062c3e7",
+  "prepared_dependency_sha256": "973b1f28efcaefdbaf41fd4606eef25550ebc5606923a9386a5d56eb585459a3",
+  "probe_template_sha256": "ebb091b2980691372c8b62862f01b788ec700bdb140dc3ca986e621c4b6956f2",
+  "go_runtime_source": {
+    "toolchain": "go1.26.8",
+    "path": "src/runtime/race_arm64.s",
+    "sha256": "3e8912642e96527e850368187d0ee58ff9c16fe62d9566a306dba50657cfc0e7",
+    "ordinary_range_gate_lines": [
+      148,
+      175
+    ],
+    "atomic_range_gate_lines": [
+      392,
+      417
+    ]
+  },
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c"
+}

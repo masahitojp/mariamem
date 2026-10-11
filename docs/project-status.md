@@ -230,6 +230,14 @@ is implemented for the single 12.3.3 input: ordered hash-bound patches with
 preimage/postimage verification. The handshake reads the running guest's VERSION()
 without an old-version fallback. Saved old-guest Snapshots require recreation.
 
+The [bounded correctness judgment](reviews/v050-correctness-judgment.md)
+reproduces fd_allocate data loss, zero-length bulk trap omissions and load-only
+subword CAS writes. Three bounded corrections are recommended before qualification;
+no production fix has been approved/applied in that judgment. The same conflicting
+accesses report races on Go heap and none on production mmap backing under the
+observed Go1.26.8 macOS arm64 detector. Shared-memory semantics and acceptance of
+that documented observation limit require a separate Human decision.
+
 Follow-up correctness decisions, both-native final qualification, Product
 Validation and Human Review remain. Shared-memory race census/semantics and
 observation limits remain separate work; a guest upgrade is not assumed to fix

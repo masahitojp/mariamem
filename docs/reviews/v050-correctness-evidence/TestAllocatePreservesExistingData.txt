@@ -1,0 +1,31 @@
+=== RUN   TestAllocatePreservesExistingData
+=== RUN   TestAllocatePreservesExistingData/memfs/inside
+    probe_test.go:30: errno=0 size=4 data="0123"
+    probe_test.go:31: allocation destroyed existing bytes
+=== RUN   TestAllocatePreservesExistingData/memfs/zero
+    probe_test.go:30: errno=0 size=0 data=""
+    probe_test.go:31: allocation destroyed existing bytes
+=== RUN   TestAllocatePreservesExistingData/memfs/unsigned-wrap
+    probe_test.go:30: errno=0 size=0 data=""
+    probe_test.go:31: allocation destroyed existing bytes
+    probe_test.go:32: unsigned range overflow accepted
+=== RUN   TestAllocatePreservesExistingData/native/inside
+    probe_test.go:30: errno=0 size=4 data="0123"
+    probe_test.go:31: allocation destroyed existing bytes
+=== RUN   TestAllocatePreservesExistingData/native/zero
+    probe_test.go:30: errno=0 size=0 data=""
+    probe_test.go:31: allocation destroyed existing bytes
+=== RUN   TestAllocatePreservesExistingData/native/unsigned-wrap
+    probe_test.go:30: errno=0 size=0 data=""
+    probe_test.go:31: allocation destroyed existing bytes
+    probe_test.go:32: unsigned range overflow accepted
+--- FAIL: TestAllocatePreservesExistingData (0.00s)
+    --- FAIL: TestAllocatePreservesExistingData/memfs/inside (0.00s)
+    --- FAIL: TestAllocatePreservesExistingData/memfs/zero (0.00s)
+    --- FAIL: TestAllocatePreservesExistingData/memfs/unsigned-wrap (0.00s)
+    --- FAIL: TestAllocatePreservesExistingData/native/inside (0.00s)
+    --- FAIL: TestAllocatePreservesExistingData/native/zero (0.00s)
+    --- FAIL: TestAllocatePreservesExistingData/native/unsigned-wrap (0.00s)
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.104s
+FAIL
