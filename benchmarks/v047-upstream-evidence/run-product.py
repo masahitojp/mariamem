@@ -15,14 +15,15 @@ env=dict(os.environ,DOCKER_HOST=endpoint,GOTOOLCHAIN='local')
 env.pop('GOMAXPROCS',None)
 roots={'v046':a.baseline.resolve(),'v047':root};bins=a.binaries.resolve();helper=bins/'process-cost'
 sha=lambda f:hashlib.sha256(f.read_bytes()).hexdigest()
-identity={'source_commits':{k:subprocess.check_output(['git','rev-parse','HEAD'],cwd=v,text=True).strip() for k,v in roots.items()},'image':image,'trials':3,'large_trials':1,'suite_count':4,'runtime_gomaxprocs':'Go default on same host','go':subprocess.check_output(['go','version'],text=True).strip(),'binary_sha256':{str(f.relative_to(bins)):sha(f) for f in sorted(bins.rglob('*')) if f.is_file()},'note':'Native anchors contain no translator and are run once per original cell, referenced by both states. New heap observations use identical harness bytes for both states. Historical v046 measurements are separate.','cells':[]}
+identity={'source_commits':{k:subprocess.check_output(['git','rev-parse','HEAD'],cwd=v,text=True).strip() for k,v in roots.items()},'image':image,'disk_guard_interval_seconds':5,'trials':3,'large_trials':1,'suite_count':4,'runtime_gomaxprocs':'Go default on same host','go':subprocess.check_output(['go','version'],text=True).strip(),'binary_sha256':{str(f.relative_to(bins)):sha(f) for f in sorted(bins.rglob('*')) if f.is_file()},'note':'Native anchors contain no translator and are run once per original cell, referenced by both states. New heap observations use identical harness bytes for both states. Historical v046 measurements are separate.','cells':[]}
 (out/'inputs.json').write_text(json.dumps(identity,indent=2)+'\n')
 def run(name,command,state='v047'):
  print('RUN',name,flush=True);t=time.monotonic()
  cellenv=dict(env,PYTHONPATH=str(roots[state]/'python'))
+ guard=DiskGuard(work,20,24)
  with (out/(name+'.log')).open('w') as log:
-  code=run_guarded(list(map(str,command)),DiskGuard(work,20,24),cwd=roots[state],env=cellenv,output=log,timeout=900)
- record={'name':name,'returncode':code,'elapsed_seconds':time.monotonic()-t}
+  code=run_guarded(list(map(str,command)),guard,cwd=roots[state],env=cellenv,output=log,timeout=900,interval=5)
+ record={'name':name,'returncode':code,'elapsed_seconds':time.monotonic()-t,'disk':guard.check()}
  identity['cells'].append(record);(out/'inputs.json').write_text(json.dumps(identity,indent=2)+'\n')
  if code:raise SystemExit(f'{name} failed: {code}')
  data=json.loads((out/(name+'.json')).read_text())
