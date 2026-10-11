@@ -1,0 +1,32 @@
+{
+  "workspace_before_kib": 11028072,
+  "temp_before_kib": 10096732,
+  "worktree_before_kib": 929012,
+  "baseline_observer_files_identical_to_committed_candidate": true,
+  "artifact_clone_source": "6097c2cf821a18a445738604675de7c96b814d26",
+  "temp_categories": [
+    "artifact-source",
+    "baseline",
+    "binaries",
+    "candidate",
+    "converter-preflight",
+    "gocache",
+    "gopath",
+    "gotmp",
+    "independent-regeneration",
+    "installed",
+    "memory32",
+    "modcache",
+    "race-visibility",
+    "released-guest",
+    "tmp",
+    "translation-1",
+    "upstream.tar.gz",
+    "venv"
+  ],
+  "unique_results_preserved": "committed product/tail/qualification evidence plus snapshot-checks logs; no unique source in disposable trees",
+  "temp_removed": true,
+  "ignored_disposable_file_count": 194,
+  "workspace_after_scratch_removal_kib": 263244,
+  "candidate_worktree_pending": "remove with Git after final evidence commit/push; keep compact evidence only"
+}

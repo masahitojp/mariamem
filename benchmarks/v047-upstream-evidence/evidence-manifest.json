@@ -108,6 +108,12 @@
     "path_normalized": false
   },
   {
+    "file": "qualification/cleanup-local.json",
+    "original_sha256": "b8e5214fb82736c41f518672e0a3b60e358b57860e64bd61aa9c78dd7040b3db",
+    "retained_sha256": "b8e5214fb82736c41f518672e0a3b60e358b57860e64bd61aa9c78dd7040b3db",
+    "path_normalized": false
+  },
+  {
     "file": "comparison.csv",
     "original_sha256": "3033d600e986f0251efe70b727dc041a378a417908a1c670c1294895c33d2e9c",
     "retained_sha256": "3033d600e986f0251efe70b727dc041a378a417908a1c670c1294895c33d2e9c",
@@ -156,6 +162,12 @@
     "path_normalized": false
   },
   {
+    "file": "qualification/final-public-check.txt",
+    "original_sha256": "c1b3910606eb4a5ba3ad4a64b2787948189ddd716a4cdd2cca0e8dc3c71b26e4",
+    "retained_sha256": "c1b3910606eb4a5ba3ad4a64b2787948189ddd716a4cdd2cca0e8dc3c71b26e4",
+    "path_normalized": false
+  },
+  {
     "file": "qualification/generated-delta.json",
     "original_sha256": "1e620bf2a7e721166e3bc11a78d219e52ce6baa7a2bc6ad979a7643a9f2ab00c",
     "retained_sha256": "1e620bf2a7e721166e3bc11a78d219e52ce6baa7a2bc6ad979a7643a9f2ab00c",
@@ -177,6 +189,12 @@
     "file": "qualification/guest-acquisition.json",
     "original_sha256": "427eb60b07968bcbb9d6e07240a53bdfc9f1b216b889e8ca6e41d6f6a78d5e4b",
     "retained_sha256": "427eb60b07968bcbb9d6e07240a53bdfc9f1b216b889e8ca6e41d6f6a78d5e4b",
+    "path_normalized": false
+  },
+  {
+    "file": "qualification/historical-startup-tail-comparison.json",
+    "original_sha256": "06c00ea27bb20929edc5195ec9a8feb9165263ee6817790890c3447ad269f53a",
+    "retained_sha256": "06c00ea27bb20929edc5195ec9a8feb9165263ee6817790890c3447ad269f53a",
     "path_normalized": false
   },
   {

@@ -154,3 +154,22 @@ remain INCONCLUSIVE. No optimization was attempted.
 Human decision after native CI: accept this measured transient upper envelope
 with the known race-observation limits, or request a separate bounded resource
 investigation before release. Publication remains unauthorized in this task.
+
+## Disposable workspace closeout
+
+Local builds/measurements stopped before cleanup. The exact baseline worktree's
+only source changes were the same two committed benchmark observer files; these
+were checked byte-for-byte, reverted, then removed using `git worktree remove`.
+The independent artifact checkout was clean at6097c2c, already retained in the
+pushed candidate history. Recreated converter/extracted source, guest copies,
+Go build/module caches, SDK copies, venv, binaries, generated copies and test
+Snapshot directories were removed after preserving compact results/checksums.
+
+[Cleanup receipt](../../benchmarks/v047-upstream-evidence/qualification/cleanup-local.json)
+records allocated usage: **10.52 GiB before →0.25 GiB after scratch cleanup**;
+the remaining candidate source worktree is below1 GiB and will be removed with
+Git after this final commit/push. Compact evidence remains outside the disposable
+checkout. No active benchmark/container remains, and no shared/pre-existing
+user cache or other task checkout was deleted. Guard peaks stayed within the
+24 GiB workspace budget and20 GiB free-space floor; no runtime/performance
+optimization was introduced during closeout.

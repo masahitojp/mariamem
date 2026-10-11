@@ -1,0 +1,427 @@
+{
+  "main_reference": "386a62c3669e37bb8aaad58cd0aca8da893b3d80",
+  "historical_file": "benchmarks/v045-measurements/measurements.json",
+  "historical_sha256": "133420d6937f0452a701b404deaaac752827026a6d2cf36f333678e9c6ed237a",
+  "historical_runtime_source": "34eaea1df86b57765a4d8b0840845a33d539065f",
+  "historical_harness_source": "f0a06f4d0e39756fe7839783fc00dbcc2a8ca0c9",
+  "historical_ready_tails": [
+    {
+      "record": "go-10-0.json",
+      "cpu_seconds": 0.106725,
+      "name": "prepare_start",
+      "seconds": 1.144065458
+    },
+    {
+      "record": "go-100-0.json",
+      "cpu_seconds": 0.080844,
+      "name": "prepare_start",
+      "seconds": 1.144268292
+    },
+    {
+      "record": "migration64-0-4-1-read-fresh-0.json",
+      "cpu_seconds": 0.09439700000000001,
+      "name": "fresh_ready_00",
+      "seconds": 1.094445125
+    },
+    {
+      "record": "suite-10-8-4-app-connections-fresh-0.json",
+      "cpu_seconds": null,
+      "name": "fresh_ready_00",
+      "seconds": 1.102457709
+    },
+    {
+      "record": "suite-10-8-4-app-connections-fresh-0.json",
+      "cpu_seconds": null,
+      "name": "fresh_ready_02",
+      "seconds": 1.102520541
+    },
+    {
+      "record": "suite-10-8-4-app-connections-fresh-0.json",
+      "cpu_seconds": null,
+      "name": "fresh_ready_03",
+      "seconds": 1.113303084
+    },
+    {
+      "record": "suite-10-8-4-app-connections-fresh-0.json",
+      "cpu_seconds": null,
+      "name": "fresh_ready_01",
+      "seconds": 1.130252625
+    },
+    {
+      "record": "suite-10-8-4-app-connections-fresh-0.json",
+      "cpu_seconds": null,
+      "name": "fresh_ready_05",
+      "seconds": 1.075633166
+    }
+  ],
+  "light_ready_distributions": {
+    "product/v046": {
+      "n": 12,
+      "median_seconds": 0.0625383335,
+      "min_seconds": 0.05087875,
+      "max_seconds": 0.145270292,
+      "observations": [
+        {
+          "record": "v046-go-light-0-fresh.json",
+          "cpu_seconds": 0.048168,
+          "name": "fresh_ready_00",
+          "seconds": 0.06346725
+        },
+        {
+          "record": "v046-go-light-0-fresh.json",
+          "cpu_seconds": 0.044769,
+          "name": "fresh_ready_01",
+          "seconds": 0.057764916
+        },
+        {
+          "record": "v046-go-light-0-fresh.json",
+          "cpu_seconds": 0.050704,
+          "name": "fresh_ready_02",
+          "seconds": 0.058379375
+        },
+        {
+          "record": "v046-go-light-0-fresh.json",
+          "cpu_seconds": 0.05451299999999998,
+          "name": "fresh_ready_03",
+          "seconds": 0.063487959
+        },
+        {
+          "record": "v046-go-light-1-fresh.json",
+          "cpu_seconds": 0.07857,
+          "name": "fresh_ready_00",
+          "seconds": 0.145270292
+        },
+        {
+          "record": "v046-go-light-1-fresh.json",
+          "cpu_seconds": 0.04461200000000001,
+          "name": "fresh_ready_01",
+          "seconds": 0.052814959
+        },
+        {
+          "record": "v046-go-light-1-fresh.json",
+          "cpu_seconds": 0.05412,
+          "name": "fresh_ready_02",
+          "seconds": 0.063184542
+        },
+        {
+          "record": "v046-go-light-1-fresh.json",
+          "cpu_seconds": 0.06609499999999999,
+          "name": "fresh_ready_03",
+          "seconds": 0.089512041
+        },
+        {
+          "record": "v046-go-light-2-fresh.json",
+          "cpu_seconds": 0.07635,
+          "name": "fresh_ready_00",
+          "seconds": 0.137929833
+        },
+        {
+          "record": "v046-go-light-2-fresh.json",
+          "cpu_seconds": 0.042603000000000016,
+          "name": "fresh_ready_01",
+          "seconds": 0.05087875
+        },
+        {
+          "record": "v046-go-light-2-fresh.json",
+          "cpu_seconds": 0.04599400000000001,
+          "name": "fresh_ready_02",
+          "seconds": 0.053485208
+        },
+        {
+          "record": "v046-go-light-2-fresh.json",
+          "cpu_seconds": 0.05385900000000002,
+          "name": "fresh_ready_03",
+          "seconds": 0.061892125
+        }
+      ]
+    },
+    "product/v047": {
+      "n": 12,
+      "median_seconds": 0.0586127915,
+      "min_seconds": 0.050619375,
+      "max_seconds": 1.159310541,
+      "observations": [
+        {
+          "record": "v047-go-light-0-fresh.json",
+          "cpu_seconds": 0.04344,
+          "name": "fresh_ready_00",
+          "seconds": 0.05257625
+        },
+        {
+          "record": "v047-go-light-0-fresh.json",
+          "cpu_seconds": 0.043321,
+          "name": "fresh_ready_01",
+          "seconds": 0.05370625
+        },
+        {
+          "record": "v047-go-light-0-fresh.json",
+          "cpu_seconds": 0.04628299999999999,
+          "name": "fresh_ready_02",
+          "seconds": 0.056575625
+        },
+        {
+          "record": "v047-go-light-0-fresh.json",
+          "cpu_seconds": 0.05408199999999996,
+          "name": "fresh_ready_03",
+          "seconds": 0.064666125
+        },
+        {
+          "record": "v047-go-light-1-fresh.json",
+          "cpu_seconds": 0.07858599999999999,
+          "name": "fresh_ready_00",
+          "seconds": 0.172376917
+        },
+        {
+          "record": "v047-go-light-1-fresh.json",
+          "cpu_seconds": 0.04804,
+          "name": "fresh_ready_01",
+          "seconds": 0.062752209
+        },
+        {
+          "record": "v047-go-light-1-fresh.json",
+          "cpu_seconds": 0.048380000000000006,
+          "name": "fresh_ready_02",
+          "seconds": 0.056545292
+        },
+        {
+          "record": "v047-go-light-1-fresh.json",
+          "cpu_seconds": 0.05899099999999999,
+          "name": "fresh_ready_03",
+          "seconds": 0.076707375
+        },
+        {
+          "record": "v047-go-light-2-fresh.json",
+          "cpu_seconds": 0.117602,
+          "name": "fresh_ready_00",
+          "seconds": 1.159310541
+        },
+        {
+          "record": "v047-go-light-2-fresh.json",
+          "cpu_seconds": 0.042089000000000015,
+          "name": "fresh_ready_01",
+          "seconds": 0.050619375
+        },
+        {
+          "record": "v047-go-light-2-fresh.json",
+          "cpu_seconds": 0.04509999999999997,
+          "name": "fresh_ready_02",
+          "seconds": 0.053145167
+        },
+        {
+          "record": "v047-go-light-2-fresh.json",
+          "cpu_seconds": 0.05152100000000004,
+          "name": "fresh_ready_03",
+          "seconds": 0.060649958
+        }
+      ]
+    },
+    "tail-probe/v046": {
+      "n": 16,
+      "median_seconds": 0.061911875,
+      "min_seconds": 0.051392209,
+      "max_seconds": 0.171474667,
+      "observations": [
+        {
+          "record": "v046-go-light-0-fresh.json",
+          "cpu_seconds": 0.08044599999999999,
+          "name": "fresh_ready_00",
+          "seconds": 0.171474667
+        },
+        {
+          "record": "v046-go-light-0-fresh.json",
+          "cpu_seconds": 0.056288000000000005,
+          "name": "fresh_ready_01",
+          "seconds": 0.062014041
+        },
+        {
+          "record": "v046-go-light-0-fresh.json",
+          "cpu_seconds": 0.05530700000000002,
+          "name": "fresh_ready_02",
+          "seconds": 0.062619416
+        },
+        {
+          "record": "v046-go-light-0-fresh.json",
+          "cpu_seconds": 0.06388700000000003,
+          "name": "fresh_ready_03",
+          "seconds": 0.077246583
+        },
+        {
+          "record": "v046-go-light-1-fresh.json",
+          "cpu_seconds": 0.086247,
+          "name": "fresh_ready_00",
+          "seconds": 0.167973833
+        },
+        {
+          "record": "v046-go-light-1-fresh.json",
+          "cpu_seconds": 0.05128500000000001,
+          "name": "fresh_ready_01",
+          "seconds": 0.060075292
+        },
+        {
+          "record": "v046-go-light-1-fresh.json",
+          "cpu_seconds": 0.04655099999999998,
+          "name": "fresh_ready_02",
+          "seconds": 0.054580083
+        },
+        {
+          "record": "v046-go-light-1-fresh.json",
+          "cpu_seconds": 0.059184000000000014,
+          "name": "fresh_ready_03",
+          "seconds": 0.080427916
+        },
+        {
+          "record": "v046-go-light-2-fresh.json",
+          "cpu_seconds": 0.050864,
+          "name": "fresh_ready_00",
+          "seconds": 0.061809709
+        },
+        {
+          "record": "v046-go-light-2-fresh.json",
+          "cpu_seconds": 0.047199000000000005,
+          "name": "fresh_ready_01",
+          "seconds": 0.057001084
+        },
+        {
+          "record": "v046-go-light-2-fresh.json",
+          "cpu_seconds": 0.04896299999999998,
+          "name": "fresh_ready_02",
+          "seconds": 0.058862875
+        },
+        {
+          "record": "v046-go-light-2-fresh.json",
+          "cpu_seconds": 0.068165,
+          "name": "fresh_ready_03",
+          "seconds": 0.085619166
+        },
+        {
+          "record": "v046-go-light-3-fresh.json",
+          "cpu_seconds": 0.044403,
+          "name": "fresh_ready_00",
+          "seconds": 0.051392209
+        },
+        {
+          "record": "v046-go-light-3-fresh.json",
+          "cpu_seconds": 0.04256199999999999,
+          "name": "fresh_ready_01",
+          "seconds": 0.051697417
+        },
+        {
+          "record": "v046-go-light-3-fresh.json",
+          "cpu_seconds": 0.048565,
+          "name": "fresh_ready_02",
+          "seconds": 0.056853209
+        },
+        {
+          "record": "v046-go-light-3-fresh.json",
+          "cpu_seconds": 0.056336,
+          "name": "fresh_ready_03",
+          "seconds": 0.069405083
+        }
+      ]
+    },
+    "tail-probe/v047": {
+      "n": 16,
+      "median_seconds": 0.058535937499999996,
+      "min_seconds": 0.051551875,
+      "max_seconds": 0.167314,
+      "observations": [
+        {
+          "record": "v047-go-light-0-fresh.json",
+          "cpu_seconds": 0.08223799999999999,
+          "name": "fresh_ready_00",
+          "seconds": 0.141437291
+        },
+        {
+          "record": "v047-go-light-0-fresh.json",
+          "cpu_seconds": 0.049717,
+          "name": "fresh_ready_01",
+          "seconds": 0.058718875
+        },
+        {
+          "record": "v047-go-light-0-fresh.json",
+          "cpu_seconds": 0.048172999999999994,
+          "name": "fresh_ready_02",
+          "seconds": 0.061505333
+        },
+        {
+          "record": "v047-go-light-0-fresh.json",
+          "cpu_seconds": 0.062150999999999984,
+          "name": "fresh_ready_03",
+          "seconds": 0.081795291
+        },
+        {
+          "record": "v047-go-light-1-fresh.json",
+          "cpu_seconds": 0.041797,
+          "name": "fresh_ready_00",
+          "seconds": 0.051551875
+        },
+        {
+          "record": "v047-go-light-1-fresh.json",
+          "cpu_seconds": 0.047029,
+          "name": "fresh_ready_01",
+          "seconds": 0.057817
+        },
+        {
+          "record": "v047-go-light-1-fresh.json",
+          "cpu_seconds": 0.04474500000000001,
+          "name": "fresh_ready_02",
+          "seconds": 0.055910167
+        },
+        {
+          "record": "v047-go-light-1-fresh.json",
+          "cpu_seconds": 0.05576300000000001,
+          "name": "fresh_ready_03",
+          "seconds": 0.06654875
+        },
+        {
+          "record": "v047-go-light-2-fresh.json",
+          "cpu_seconds": 0.08832,
+          "name": "fresh_ready_00",
+          "seconds": 0.167314
+        },
+        {
+          "record": "v047-go-light-2-fresh.json",
+          "cpu_seconds": 0.046507999999999994,
+          "name": "fresh_ready_01",
+          "seconds": 0.054950208
+        },
+        {
+          "record": "v047-go-light-2-fresh.json",
+          "cpu_seconds": 0.047480999999999995,
+          "name": "fresh_ready_02",
+          "seconds": 0.05495425
+        },
+        {
+          "record": "v047-go-light-2-fresh.json",
+          "cpu_seconds": 0.061838000000000004,
+          "name": "fresh_ready_03",
+          "seconds": 0.0821625
+        },
+        {
+          "record": "v047-go-light-3-fresh.json",
+          "cpu_seconds": 0.049545,
+          "name": "fresh_ready_00",
+          "seconds": 0.058353
+        },
+        {
+          "record": "v047-go-light-3-fresh.json",
+          "cpu_seconds": 0.04532900000000001,
+          "name": "fresh_ready_01",
+          "seconds": 0.053500209
+        },
+        {
+          "record": "v047-go-light-3-fresh.json",
+          "cpu_seconds": 0.046804999999999986,
+          "name": "fresh_ready_02",
+          "seconds": 0.055095625
+        },
+        {
+          "record": "v047-go-light-3-fresh.json",
+          "cpu_seconds": 0.05408400000000002,
+          "name": "fresh_ready_03",
+          "seconds": 0.062760375
+        }
+      ]
+    }
+  }
+}

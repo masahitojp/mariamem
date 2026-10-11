@@ -170,6 +170,52 @@ plausible explanation, **not a demonstrated cause**. The experiment does not pro
 that translator/build layout has no effect on peak/tail frequency. A resident
 peak increase is different from retaining more live objects after Close.
 
+## Historical startup-tail comparison (no additional campaign)
+
+Checked against pinned main `386a62c3669e37bb8aaad58cd0aca8da893b3d80`:
+[project status](../docs/project-status.md) explicitly retains approximately
+one-second startup tails. [v0.4.5 measurement](v045-measurement.md) and its
+[raw measurements](v045-measurements/measurements.json) establish that this shape
+predates the translator migration. The derived observations and source hash are
+in [the comparison record](v047-upstream-evidence/qualification/historical-startup-tail-comparison.json).
+
+| Ready-stage observations | Ordinary range | Near-one-second observations |
+| --- | --- | --- |
+| v0.4.5, Fresh 64-table schema suite, 3 suites ×4 DB | 48.7–64.5 ms (11/12) | 1094.4 ms (1/12), ready CPU94.4 ms |
+| v0.4.5, parent preparation before 10/100 MiB fixtures | Fresh Start, before fixture setup | 1144.1 /1144.3 ms, ready CPU106.7 /80.8 ms |
+| v0.4.5, 10 MiB /8 DB /4 workers, 3 suites | 74.5–132.1 ms (19/24) | 1075.6–1130.3 ms (5/24), all in one suite |
+| Current exact v0.4.6, Light, 3 suites ×4 DB | 50.9–145.3 ms (12/12) | None in these Light samples |
+| Current candidate, Light, 3 suites ×4 DB | 50.6–172.4 ms (11/12) | 1159.3 ms (1/12), ready CPU117.6 ms |
+| Follow-up exact v0.4.6 /candidate, 4 suites ×4 DB each | 51.4–171.5 /51.6–167.3 ms | None in either set of16 |
+
+The reported **1.16 s is one Start-to-ready operation**, not the four-DB suite
+or a SQL execution. Current ready medians are62.5 /58.6 ms; follow-up medians
+61.9 /58.5 ms. Historical `fresh_ready` and `prepare_start` also surround the
+public `Start` call, before setup/query. The distribution shape is compatible:
+a tens-of-milliseconds group and occasional roughly one-second excess, without
+a matching one-second CPU increase. It is not proof of an identical statistical
+distribution or failure mechanism. The original candidate's0.331 s CPU number
+above is **whole-suite CPU**, not ready CPU.
+
+Both campaigns use macOS27 arm64 and Go1.26.8, but historical measurements set
+`GOMAXPROCS=2`; the current pair uses the default8. Historical source/harness
+identities and fixture/DB counts differ, and current suites add the lightweight
+resource observer. A64-table schema suite and preparation of a10/100 MiB fixture
+are not identical to current Light. Do not pool these samples, compare tail
+incidence as a regression rate, or treat the small-sample interpolated p95 as a
+stable tail estimate. The closer controlled comparison remains the paired
+v0.4.6/candidate campaign and its already completed four-pair follow-up.
+
+[Earlier futex/pthread investigation](wasm2go-feasibility.md#mysql-wire-startup-tail-characterization)
+correlated specific **instrumented historical** slow starts with page-cleaner /
+condition-variable ordering and a one-second timer. It also left uninstrumented
+samples causally unclassified. No equivalent wait/wake trace was collected for
+the current1.159 s observation. That connection remains a hypothesis; duration
+alone does not identify a futex defect, pthread defect or translator regression.
+No new tracing, optimization or large campaign is justified here. The separate
+parallel RSS high-water difference remains reported above and is not explained
+away by a known startup-tail shape.
+
 ## Assessment and limits
 
 - **Correctness / ownership: PASS within the scenarios.** Every SQL/transaction

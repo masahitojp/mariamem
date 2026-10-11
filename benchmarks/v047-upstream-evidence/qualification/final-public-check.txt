@@ -1,0 +1,5 @@
++ /opt/homebrew/opt/python@3.14/bin/python3.14 scripts/check_version.py
+Release version: Python 0.4.7; Git/Go v0.4.7
++ /opt/homebrew/opt/python@3.14/bin/python3.14 scripts/check_public.py
+Public source check passed: 1576 files
++ git diff --check
