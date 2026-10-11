@@ -1,0 +1,6 @@
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	2.342s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	4.722s
+ok  	github.com/masahitojp/mariamem/internal/guest	3.128s
+ok  	github.com/masahitojp/mariamem/internal/host	1.295s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.280s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.619s

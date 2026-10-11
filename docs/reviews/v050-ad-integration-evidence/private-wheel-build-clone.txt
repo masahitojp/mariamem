@@ -1,0 +1,21 @@
+Processing ./python
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: mariamem
+  Building wheel for mariamem (pyproject.toml): started
+  Building wheel for mariamem (pyproject.toml): finished with status 'done'
+  Created wheel for mariamem: filename=mariamem-0.4.7-py3-none-macosx_15_0_arm64.whl size=48775724 sha256=31855cb9d86d95365ed6678b77056091458e0e979bdc1bcdf6a4647a0ef78e6b
+  Stored in directory: /private/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/pip-ephem-wheel-cache-jb9i_i2x/wheels/14/46/d7/9c66b12a91b043fe6d60ff734d2949498afdedf3df2f61df8d
+Successfully built mariamem
+{
+  "version": 1,
+  "package_version": "0.4.7",
+  "platform": "darwin-arm64",
+  "minimum_macos": 15,
+  "runtime_kind": "generated-go",
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "public_release_ready": false,
+  "sha256": {
+    "mariamem-host": "25f11e240405253e280f965a833bb5f58808208c825e6d7d77dba36f903ca139"
+  }
+}

@@ -6,7 +6,7 @@
     "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
-  "audit_source_commit": "098b0144ed50835da792ba811d11e0a1c8b000b2",
+  "audit_source_commit": "83a6ede966db7f1bbc3a827ca58f5581c0f5dd7c",
   "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
   "linked_sha256": "3b63079109c895f3e90895f86b57e48d9f8e14f13ce945021c88e20c4f4fd9ba",
   "symbol_map_sha256": "9072658996738894b86effc9b60911db92b413d35cb3c7863f3851666bb645b6",
@@ -356,9 +356,9 @@
   },
   "result": "PASS",
   "host_check": {
-    "source_commit": "098b0144ed50835da792ba811d11e0a1c8b000b2",
-    "sha256": "607f33b30ef996b68a425e96dae5ab552b4ef13745a5d8bb8b47648d95aa8c0f",
-    "buildinfo": "mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.4.8-0.20261011170251-098b0144ed50\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=098b0144ed50835da792ba811d11e0a1c8b000b2\n\tbuild\tvcs.time=2026-10-11T17:02:51Z\n\tbuild\tvcs.modified=false\n",
+    "source_commit": "83a6ede966db7f1bbc3a827ca58f5581c0f5dd7c",
+    "sha256": "25f11e240405253e280f965a833bb5f58808208c825e6d7d77dba36f903ca139",
+    "buildinfo": "mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.4.8-0.20261011184610-83a6ede966db\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=83a6ede966db7f1bbc3a827ca58f5581c0f5dd7c\n\tbuild\tvcs.time=2026-10-11T18:46:10Z\n\tbuild\tvcs.modified=false\n",
     "note": "Diagnostic attribution, not new release approval."
   }
 }
