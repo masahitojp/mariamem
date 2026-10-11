@@ -64,10 +64,10 @@ func TestAtomicNeighbor8(t *testing.T) {probeAtomicConflict(t,8,true)}
 func TestAtomicNeighbor16(t *testing.T) {probeAtomicConflict(t,16,true)}
 func probeAtomicConflict(t *testing.T,bits int,neighbor bool) {
  m:=probeModule();ForceContendedAtomics(m);m.Memory[66]=123
- var wg sync.WaitGroup;start:=make(chan struct{});wg.Add(2)
+ var sum uint64;var wg sync.WaitGroup;start:=make(chan struct{});wg.Add(2)
  go func(){defer wg.Done();<-start;for i:=0;i<10000;i++ {if bits==8 {AtomicLoad32_8u(m,66,0)} else {AtomicLoad32_16u(m,66,0)}}}()
- go func(){defer wg.Done();<-start;var v byte;for i:=0;i<10000;i++ {if neighbor {m.Memory[65]=byte(i)} else {v=m.Memory[66]}};_ = v}()
- close(start);wg.Wait();if m.Memory[66]!=123 {t.Fatal("target changed")}
+ go func(){defer wg.Done();<-start;for i:=0;i<10000;i++ {if neighbor {m.Memory[65]=byte(i)} else {sum+=uint64(m.Memory[66])}}}()
+ close(start);wg.Wait();if m.Memory[66]!=123 {t.Fatal("target changed")};if !neighbor && sum!=1230000 {t.Fatal("reader result",sum)}
 }
 // Wider read-only extraction is a diagnostic alternative, not a proposed fix.
 func TestReadOnlyWordNeighbor(t *testing.T) {
