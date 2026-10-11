@@ -219,6 +219,10 @@ def verify_acceptance(root, commit, platform, wheel_hash):
     require(report['sqlalchemy_cases']==44 and report['gorm_cases']==32,'ORM acceptance counts differ')
     require(report['outside_checkout'] and not report['runtime_overrides'] and report['module_version']==version(root)['GIT_TAG'],'consumer boundary differs')
     require(report['go_version'].startswith('go version go1.26.8 '),'consumer Go toolchain differs')
+    compatibility=report.get('go127_consumer',{})
+    require(compatibility.get('result')=='PASS' and compatibility.get('GOTOOLCHAIN')=='local'
+            and compatibility.get('actual_go','').startswith('go version go1.27.2 '),
+            'Go1.27 external consumer evidence missing/failed')
     env=report['environment']
     if platform==DARWIN:
         require(env['system']=='Darwin' and env['architecture']=='arm64' and env['product_version'].startswith('15.'),'wrong macOS acceptance environment')

@@ -67,6 +67,25 @@ def harness_inventory(root):
     return {p.relative_to(root).as_posix():digest(p) for p in paths if p.is_file()}
 
 
+def check_go127_consumer(project, smoke, env, run):
+    """Rebuild the same external module with an explicit newer compiler.
+
+    Acquisition may use Go's checksum-verified toolchain mechanism. Execution
+    must use that compiler with automatic switching disabled.
+    """
+    sdk=Path(subprocess.check_output(['go','env','GOROOT'], cwd=project,
+        env={**env,'GOTOOLCHAIN':'go1.27.2'}, text=True).strip())
+    compiler=str(sdk/'bin/go')
+    local={**env,'GOTOOLCHAIN':'local'}
+    actual=subprocess.check_output([compiler,'version'], env=local, text=True).strip()
+    require(actual.startswith('go version go1.27.2 '), 'compatibility compiler differs')
+    run([compiler,'test','-tags=integration','-count=1','-timeout=5m','-v','.'],project,local)
+    run([compiler,'run','.'],smoke,local)
+    return {'result':'PASS','actual_go':actual,'GOTOOLCHAIN':'local',
+            'scope':'same exact-source external module, default/LoadSnapshot lifecycle and public smoke',
+            'minimum_go_unchanged':'1.26.0'}
+
+
 def accept(root, commit, platform, output, mode='candidate', wheel=None, go_build_jobs=None, publication=None,
            smoke_program=None, recovery=None):
     root=root.resolve(); output=output.resolve()
@@ -149,6 +168,7 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None, go_buil
                 shutil.copyfile(root/'scripts/guest_smoke/main.go',smoke/'main.go')
                 run(['go','run','.'],smoke,env)
                 report['candidate_go_smoke']='PASS'
+                report['go127_consumer']=check_go127_consumer(project,smoke,env,run)
                 gorm=work/'gorm'; shutil.copytree(root/'tests/consumer/gorm',gorm)
                 run(['go','mod','edit','-require',MODULE+'@'+tag],gorm,env)
                 run(['go','mod','tidy'],gorm,env)

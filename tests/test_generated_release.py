@@ -353,9 +353,14 @@ def test_newer_local_macos_is_not_minimum_platform_release_evidence(tmp_path,mon
             'go_source_sha256':{},'harness_sha256':{},'steps':{k:'PASS' for k in release.STEPS},
             'sqlalchemy_cases':44,'gorm_cases':32,'outside_checkout':True,'runtime_overrides':False,
             'module_version':'v0.4.0','go_version':'go version go1.26.8 darwin/arm64',
+            'go127_consumer':{'result':'PASS','GOTOOLCHAIN':'local','actual_go':'go version go1.27.2 darwin/arm64'},
             'environment':{'system':'Darwin','architecture':'arm64','product_version':'27.0.1'}}
     release.write(tmp_path/'build/release/generated-acceptance.json',report)
     with pytest.raises(ValueError,match='macOS acceptance environment'):
+        release.verify_acceptance(tmp_path,'a'*40,'darwin-arm64','b'*64)
+    del report['go127_consumer']
+    release.write(tmp_path/'build/release/generated-acceptance.json',report)
+    with pytest.raises(ValueError,match='Go1.27 external consumer evidence missing/failed'):
         release.verify_acceptance(tmp_path,'a'*40,'darwin-arm64','b'*64)
 
 
@@ -379,7 +384,8 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
     for name,value in [('checkout',lambda *a:None),('verify_wheel',lambda *a:(wheel,record)),
                        ('version',lambda *a:metadata),('source_inventory',lambda *a:{}),
                        ('harness_inventory',lambda *a:{}),('environment',lambda *a:{}),
-                       ('prepare_proxy',lambda *a:root)]:
+                       ('prepare_proxy',lambda *a:root),
+                       ('check_go127_consumer',lambda *a:{'result':'PASS','GOTOOLCHAIN':'local'})]:
         monkeypatch.setattr(acceptance,name,value)
     resolved={'Path':MODULE,'Version':'v0.4.5','Sum':'h1:fixture','Origin':{'Hash':'a'*40},'Dir':str(root)}
     monkeypatch.setattr(acceptance.subprocess,'check_output',lambda argv,**kw:
@@ -436,6 +442,7 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
     if mode=='candidate':
         assert report['gorm_cases']==32 and report['sqlalchemy_cases']==44
         assert report['candidate_go_smoke']=='PASS'
+        assert report['go127_consumer']['result']=='PASS'
         assert ['go','run','.'] in commands
         assert set(report['steps'])==release.STEPS
         assert sum('DOGFOOD' not in str(c) and '--junitxml' in c for c in commands)==4
@@ -496,3 +503,28 @@ def test_pkg_go_dev_discovery_missing_module_is_nonfatal(tmp_path,monkeypatch):
     report=acceptance.request_pkg_go_dev_discovery(tmp_path,'v9.8.7')
     assert report['proxy_http_status'] is None and report['discovery_result']=='NOT_CONFIRMED'
     assert report['error']=='go.mod module directive missing'
+
+
+@pytest.mark.parametrize('version', ['go1.27.2', 'go1.26.8'])
+def test_go127_consumer_uses_explicit_compiler_and_local_switching(tmp_path,monkeypatch,version):
+    import generated_release_acceptance as acceptance
+    calls=[]
+    def output(argv,**kw):
+        if argv==['go','env','GOROOT']:
+            assert kw['env']['GOTOOLCHAIN']=='go1.27.2'
+            return str(tmp_path/'sdk')
+        assert argv==[str(tmp_path/'sdk/bin/go'),'version']
+        assert kw['env']['GOTOOLCHAIN']=='local'
+        return 'go version '+version+' linux/amd64'
+    monkeypatch.setattr(acceptance.subprocess,'check_output',output)
+    def run(argv,cwd,env):
+        assert argv[0]==str(tmp_path/'sdk/bin/go') and env['GOTOOLCHAIN']=='local'
+        calls.append((argv,cwd))
+    if version!='go1.27.2':
+        with pytest.raises(ValueError,match='compatibility compiler differs'):
+            acceptance.check_go127_consumer(tmp_path,tmp_path/'smoke',{},run)
+        assert not calls
+    else:
+        record=acceptance.check_go127_consumer(tmp_path,tmp_path/'smoke',{},run)
+        assert record['result']=='PASS' and record['GOTOOLCHAIN']=='local'
+        assert len(calls)==2 and calls[0][0][1]=='test' and calls[1][0][1]=='run'
