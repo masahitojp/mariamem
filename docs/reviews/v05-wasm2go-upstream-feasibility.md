@@ -61,8 +61,22 @@ candidateの成功として流用しない。full guest race-detector cleanと�
 
 ## Verification / resource results
 
-検証継続中。最終結果ではsource-only checks、generated fixture、実SQL、Snapshot／Fork／
-LoadSnapshot、concurrent sessions、Close／cleanupを別々に記録する。
+検証継続中。実guestの変換／native compileはTrack Bの重い工程と競合しないよう順番待ち。
+先行した小fixtureの結果は次のとおり。これをMariaDB全体の検証成功として扱わない。
+
+| 検証 | 結果 | 実測境界 |
+| --- | --- | --- |
+| patch-owned emitter／SSA regressions | PASS | 4 tests、2.082 s |
+| memory32 reference | PASS | 2,472 rows（1,693 expected traps）、golden一致 |
+| bounds／grow | PASS | scalar／atomic／SIMD、非wrap offset、failed growth、zero fill |
+| Wait／PageCleaner ordering | PASS | 2 tests、2 subcases、100回compare-registration通知競合 |
+
+Wait fixtureは同じpatched upstream binaryで既存`threads.wat`を変換し、canonical fixtureの
+private field/function名だけを適合した。登録後の通知は2.3 µs、登録前の通知にはpermitが
+残らず正当な1.002 s timeoutになった。notifyの0／1 count、2 waiterも確認した。
+これは小moduleにおけるfutex publicationの実測であり、実MariaDB WASIX threadについては
+この時点ではstatic reasoningのみ。実guestのSQL／Snapshot／Fork／LoadSnapshot／
+concurrent sessions／Close／cleanupは最終結果で別々に記録する。
 
 既存のbulk zero-length bounds仕様gap、非協調的trap reclaim／full guest Go race既知制約は
 今回の移行で解決したとみなさない。macOS arm64実験はUbuntu qualificationの代用ではない。
