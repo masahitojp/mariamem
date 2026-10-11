@@ -25,7 +25,7 @@ GUEST = '33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008'
 SERIES = ['imported-memory.patch', 'import-function-index.patch', 'relaxed-madd.patch',
           'upstream-pure-memory32.patch', 'controlled-thread-traps.patch',
           'host-logical-memory.patch', 'linear-memory-owner.patch',
-          'upstream-helper-bridge.patch']
+          'upstream-helper-bridge.patch', 'upstream-export-collision.patch']
 
 
 def sha(path):
@@ -92,7 +92,7 @@ def main():
         observed['patched_converter_sha256'] = sha(binary)
         # Retain patch-owned emitter/SSA regressions, not unrelated gcasm tests.
         run(['go','test','-p','1','./internal/codegen','./internal/ssa','./internal/ssa/pass',
-             '-run','Test(PureMemory32RetainsIndividualStores|MemoryAccessWidths|TrappingLoadIsObservable|DCEKeepsTrappingLoad)$',
+             '-run','Test(PureMemory32RetainsIndividualStores|MemoryAccessWidths|TrappingLoadIsObservable|DCEKeepsTrappingLoad|ExportMethodNameCollisionPreservation)$',
              '-count=1'],
             cwd=source,env=env,check=True,phase='upstream:converter-regressions')
         run([sys.executable,str(ROOT/'benchmarks/spikes/memory-candidate/check_fixture.py'),
