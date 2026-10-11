@@ -1,0 +1,7 @@
+{
+  "result": "PASS: rejected",
+  "exception": "wrong build contract",
+  "source": "3ecdf2d4f27be6c983a648088d2ee6a5d0ad86bf",
+  "actual_dev_receipts_unmodified": true,
+  "qualification_claim": false
+}

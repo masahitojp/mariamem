@@ -1,0 +1,53 @@
+{
+  "123": {
+    "fuzz": 0,
+    "same_outputs_as_full_variant_after_comment_normalization": {
+      "CMakeLists.txt": true,
+      "cmake/os/Emscripten.cmake": true,
+      "cmake/os/WASIX.cmake": true,
+      "cmake/pcre.cmake": true,
+      "configure.cmake": true,
+      "include/my_global.h": true,
+      "include/my_stacktrace.h": true,
+      "libmysqld/libmysql.c": true,
+      "mysys/CMakeLists.txt": true,
+      "mysys/my_largepage.c": true,
+      "mysys/my_lock.c": true,
+      "mysys/my_timezone.cc": true,
+      "mysys/my_virtual_mem.c": true,
+      "sql/sql_plugin.cc": true,
+      "storage/innobase/fil/fil0fil.cc": true,
+      "storage/innobase/log/log0log.cc": true,
+      "storage/innobase/os/os0file.cc": true,
+      "storage/maria/ma_loghandler.c": true
+    }
+  },
+  "132": {
+    "fuzz": 0,
+    "same_outputs_as_full_variant_after_comment_normalization": {
+      "CMakeLists.txt": true,
+      "cmake/os/Emscripten.cmake": true,
+      "cmake/os/WASIX.cmake": true,
+      "cmake/pcre.cmake": true,
+      "configure.cmake": true,
+      "include/my_global.h": true,
+      "include/my_stacktrace.h": true,
+      "libmysqld/libmysql.c": true,
+      "mysys/CMakeLists.txt": true,
+      "mysys/my_largepage.c": true,
+      "mysys/my_lock.c": true,
+      "mysys/my_timezone.cc": true,
+      "mysys/my_virtual_mem.c": true,
+      "sql/sql_plugin.cc": true,
+      "storage/innobase/fil/fil0fil.cc": true,
+      "storage/innobase/log/log0log.cc": true,
+      "storage/innobase/os/os0file.cc": true,
+      "storage/maria/ma_loghandler.c": true
+    }
+  },
+  "common_sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+  "variants": {
+    "123": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22",
+    "132": "f3c8fbecf6328e313cdd936425615551ebfc868f6837aa1a6c0d0c7fa73f39ee"
+  }
+}

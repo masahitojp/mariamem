@@ -1,0 +1,28 @@
+{
+  "original_native_dev_smoke": {
+    "passed": 2,
+    "seconds": 3.1
+  },
+  "version_overlay_initial_focused": {
+    "passed": 26,
+    "failed": 1,
+    "seconds": 43.79,
+    "cause": "Historical wire fixture required SQL13.1.0; actual SQL12.3.3. Guest/ownership tests passed."
+  },
+  "exact_version_wire_followup": {
+    "passed": 7,
+    "seconds": 2.23
+  },
+  "dev_tools": {
+    "passed": 21,
+    "seconds": 0.67
+  },
+  "boundaries": {
+    "os": "macOS arm64 native; Linux arm64 guest compilation",
+    "release_qualification": false,
+    "race_detector": false,
+    "canonical_generated_runtime_changed": false,
+    "canonical_guest_source_patch_changed": false,
+    "accepted_hashes_changed": false
+  }
+}

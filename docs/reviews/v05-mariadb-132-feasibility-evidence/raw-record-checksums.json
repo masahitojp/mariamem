@@ -1,0 +1,14 @@
+{
+  "guest.log": {
+    "sha256": "8d8d52566708eff731bd16ffe91f575d9630ca21ff88581b46fc57771f2b84eb",
+    "bytes": 1811067
+  },
+  "native.log": {
+    "sha256": "63bbf6c40176606211c66a537045f67f26f3bc1cd86529885d041e2b3761f589",
+    "bytes": 14312
+  },
+  "acceptance.xml": {
+    "sha256": "0e5b1305081214b8a5f506e4716b3654441563e65cf86a2054a50884d2fc9ae6",
+    "bytes": 3387
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "workspace_before_bytes": 7966781440,
+  "temp_deleted_bytes": 7701114880,
+  "workspace_after_temp_cleanup_bytes": 265666560,
+  "reclaimed_bytes": 7701114880,
+  "removed": [
+    "temp/linux-root (SDK/LLVM/Binaryen)",
+    "temp/linux-work (guest build/artifacts)",
+    "temp/builder-build (downloads/staging)",
+    "temp/dev-guest (Wasm/receipts reduced to hashes/summaries)",
+    "temp/dev-native (converter/generated/product/host copies)",
+    "temp/gocache,modcache,gopath,go-tmp,tmp",
+    "temp/venv",
+    "temp/pristine*,patch-check,common-*,split-*,expected-* (source-only probes)",
+    "task source archives and patches duplicated in scratch"
+  ],
+  "retained": {
+    "evidence": "compact measured results, hashes, exact source IDs, reproduction commands",
+    "worktree": "commit/push report and final docs validation before Git-aware removal"
+  },
+  "task_paths_over_1gib": []
+}

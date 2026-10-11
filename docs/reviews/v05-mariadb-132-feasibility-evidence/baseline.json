@@ -1,0 +1,7 @@
+{
+  "main": "386a62c3669e37bb8aaad58cd0aca8da893b3d80",
+  "comparison": "5f14221463b6400e72e72a115bd1cc1a3acee88d",
+  "canonical_checkout": "40b7f17fc2a0301562e716ab010652079cec4def",
+  "budget_gib": 24,
+  "min_free_gib": 20
+}

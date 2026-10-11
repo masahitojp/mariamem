@@ -1,0 +1,53 @@
+{
+  "binary_bytes": 101522738,
+  "binary_sha256": "9615870ea0f1b9d9d86caf7e6f6460edb0df391e3fdde6e5236235a29918c5fa",
+  "contract": "development-unqualified-v1",
+  "generated_inventory": {
+    "entries": 77,
+    "sha256": "866d1f1222338d139d6cf333c951fca82774af8c465f74013781d182f7b164dd"
+  },
+  "go_buildinfo": "/workspace/mariamem/build/experiment-work/v05-mariadb-132-feasibility/temp/dev-native/mariamem-dev-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "guest_record_sha256": "a7ca06efd01753e648e1958c3859a9195b2ce23588d9813499245805cfa1c235",
+  "guest_sha256": "285f2be34cdf768d3c8ed06d96e347ceb7a0b13e8bdd6a43bdfd37ebdd8cc097",
+  "host_source_identity": {
+    "commit": "3ecdf2d4f27be6c983a648088d2ee6a5d0ad86bf",
+    "inventory": {
+      "entries": 1344,
+      "sha256": "5d0661baa3831eeb09eca5777a456adfa2ed3f9bb5d0592d5fe9e990b49513d6"
+    }
+  },
+  "host_source_inventory": {
+    "entries": 1344,
+    "sha256": "5c6b17919fb6a250a677869057bc6cf6413ea023403d6e4c3f69b95c8b612ac5"
+  },
+  "installation_inputs_sha256": "b57e8ab93ba9ebfb19e8073b95a6234d4152c4f871c81f7b372d1ba49ba25d10",
+  "raw_translation": {
+    "converter_archive_sha256": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f",
+    "converter_commit": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+    "files_sha256": {
+      "entries": 51,
+      "sha256": "580c19ec0c36fc71976fabcbe5dfb3aadf53923820f2a3ade0b8d5cbac3f15f6"
+    },
+    "guest_sha256": "285f2be34cdf768d3c8ed06d96e347ceb7a0b13e8bdd6a43bdfd37ebdd8cc097",
+    "patched_converter_sha256": "d00c317a156a2a4f8093b993455ffb33c3dfd13128d59f64134b6835213f9e12",
+    "patches_sha256": {
+      "controlled-thread-traps.patch": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+      "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+      "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+      "imported-memory.patch": "d342ffb1c09af27b215c0c26a26e4056b14a5e2a54d5ee8a084af719e2227639",
+      "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
+      "pure-memory32.patch": "097952ab11b4a07a939586d9f4a4b1037b890d6e43aaa4f4fa6ce1d6bc588815",
+      "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31"
+    }
+  },
+  "result": "UNQUALIFIED",
+  "smoke": "PASS",
+  "source_identity": {
+    "commit": "3ecdf2d4f27be6c983a648088d2ee6a5d0ad86bf",
+    "inventory": {
+      "entries": 1344,
+      "sha256": "5d0661baa3831eeb09eca5777a456adfa2ed3f9bb5d0592d5fe9e990b49513d6"
+    }
+  },
+  "receipt_sha256": "3d0ec732564bc141292c44e389f209e5c2b86d2c0fc5eeb25c792cd1bbbbdd99"
+}

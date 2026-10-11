@@ -1,0 +1,78 @@
+{
+  "baseline": "386a62c3669e37bb8aaad58cd0aca8da893b3d80",
+  "comparison_sha": "5f14221463b6400e72e72a115bd1cc1a3acee88d",
+  "fixed_files": {
+    "guest/source.patch": "595341525825860a398c3dc3f7c9660264af4db79ec487902d51e3d1d3bd5e0f",
+    "release/generated-go-toolchain.json": "7b7953ff4825e9af913bb7bac94a774b8abe54c7a1a04b9c8bfcb6a38e669802",
+    "release/generated-go-inputs.json": "c882412a8d97fd497c4cb4057211b80f906643347c258811043403e88f1e7205",
+    "release/generated-go-translation.json": "e17a18ddef2ad2084b0bfe48d855b7c9ef9812a15f586b9669bf994a20c9e959",
+    "release/generated-go-build.json": "09121869e401b1ae2e67dff943d02df6f57c6c0568c05878017056ae1551cf40",
+    "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+    "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4",
+    "internal/mysqlwire/wire.go": "b299f8ee0e5655007fb4b35a9b97e6d3e47804878d66adca6761ebfafd38b55f"
+  },
+  "converter_patches": {
+    "imported-memory.patch": "d342ffb1c09af27b215c0c26a26e4056b14a5e2a54d5ee8a084af719e2227639",
+    "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+    "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
+    "pure-memory32.patch": "097952ab11b4a07a939586d9f4a4b1037b890d6e43aaa4f4fa6ce1d6bc588815",
+    "controlled-thread-traps.patch": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+    "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+    "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5"
+  },
+  "tools": {
+    "contract": "generated-go-v1",
+    "go": "1.26.8",
+    "llvm": "23.1.0",
+    "llvm_revision": "ea7d852a70e8bdfaf601d6626a760f9771b2c4b4",
+    "wasixcc": "0.4.7",
+    "sysroot": "v2026-07-03.1",
+    "sysroot_variant": "sysroot-eh",
+    "binaryen": "version_133",
+    "archives": {
+      "wasixcc": {
+        "file": "wasixcc-aarch64-unknown-linux-gnu.tar.gz",
+        "url": "https://github.com/wasix-org/wasixcc/releases/download/v0.4.7/wasixcc-aarch64-unknown-linux-gnu.tar.gz",
+        "sha256": "b4cf06f3ce00a0b2bdc376de24324bac2c963f4672914bf9a1ba99000a4866a7"
+      },
+      "sysroot": {
+        "file": "sysroot-eh.tar.gz",
+        "url": "https://github.com/wasix-org/wasix-libc/releases/download/v2026-07-03.1/sysroot-eh.tar.gz",
+        "sha256": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4"
+      },
+      "binaryen": {
+        "file": "binaryen-version_133-aarch64-linux.tar.gz",
+        "url": "https://github.com/WebAssembly/binaryen/releases/download/version_133/binaryen-version_133-aarch64-linux.tar.gz",
+        "sha256": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8"
+      },
+      "llvm": {
+        "file": "LLVM-23.1.0-Linux-ARM64.tar.xz",
+        "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.0/LLVM-23.1.0-Linux-ARM64.tar.xz",
+        "sha256": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4"
+      },
+      "icu": {
+        "file": "libicu70_70.1-2_arm64.deb",
+        "url": "https://ports.ubuntu.com/ubuntu-ports/pool/main/i/icu/libicu70_70.1-2_arm64.deb",
+        "sha256": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174"
+      },
+      "converter": {
+        "file": "wasm2go-fork.tar.gz",
+        "url": "https://codeload.github.com/shibukawa/wasm2go-fork/tar.gz/ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+        "sha256": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f"
+      },
+      "sysroot_pic": {
+        "file": "sysroot-ehpic.tar.gz",
+        "url": "https://github.com/wasix-org/wasix-libc/releases/download/v2026-07-03.1/sysroot-ehpic.tar.gz",
+        "sha256": "54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0"
+      }
+    },
+    "sysroot_variants": [
+      "sysroot-eh",
+      "sysroot-ehpic"
+    ]
+  },
+  "host": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "scope": "13.2.0 Preview; not product qualification",
+  "official_source": "https://archive.mariadb.org/mariadb-13.2.0/source/mariadb-13.2.0.tar.gz",
+  "official_sha256": "5b6a588e86f1169fef44760846b6e9e96b08d7a7e52fb4b887c5feb06ca39f3a"
+}

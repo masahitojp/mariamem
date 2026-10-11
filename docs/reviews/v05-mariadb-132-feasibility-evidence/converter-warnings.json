@@ -1,0 +1,9 @@
+{
+  "ssa_cap_count": 236,
+  "selected_messages": [
+    "wasm2go: SSA fixpoint cap reached at function Fn5559",
+    "wasm2go: SSA fixpoint cap reached at function Fn7065",
+    "wasm2go: f16 gather sites at bases [12420432] were not verified (no static table image, no init-loop coverage) \u2014 the table-keyed rewrites stayed OFF there"
+  ],
+  "no_extra_converter_patch": true
+}

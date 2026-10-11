@@ -1,0 +1,92 @@
+[
+  {
+    "file": "CMakeLists.txt",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "cmake/os/Emscripten.cmake",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "cmake/os/WASIX.cmake",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "cmake/pcre.cmake",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "configure.cmake",
+    "same_patch_bytes": false,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "include/my_global.h",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "include/my_stacktrace.h",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "libmysqld/libmysql.c",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "mysys/CMakeLists.txt",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "mysys/my_largepage.c",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "mysys/my_lock.c",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "mysys/my_timezone.cc",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "mysys/my_virtual_mem.c",
+    "same_patch_bytes": false,
+    "same_added_removed_lines": false
+  },
+  {
+    "file": "sql/sql_plugin.cc",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "storage/innobase/fil/fil0fil.cc",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "storage/innobase/log/log0log.cc",
+    "same_patch_bytes": false,
+    "same_added_removed_lines": false
+  },
+  {
+    "file": "storage/innobase/os/os0file.cc",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  },
+  {
+    "file": "storage/maria/ma_loghandler.c",
+    "same_patch_bytes": true,
+    "same_added_removed_lines": true
+  }
+]

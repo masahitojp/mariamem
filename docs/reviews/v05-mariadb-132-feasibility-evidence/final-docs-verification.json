@@ -1,0 +1,11 @@
+{
+  "canonical_entrypoint": "python3 scripts/verify.py check --scope docs",
+  "result": "PASS",
+  "public_files_before_this_record": 1382,
+  "report_relative_links": "PASS",
+  "notes": [
+    "Public boundary first rejected copied .log files; retained compact text/JSON and normalized local paths, then passed.",
+    "guest/experimental.patch preserves upstream whitespace in unified-diff context; no source bytes were altered to silence patch-context whitespace.",
+    "No full Release qualification, broad race/trap tests, or SQL performance benchmark was run."
+  ]
+}

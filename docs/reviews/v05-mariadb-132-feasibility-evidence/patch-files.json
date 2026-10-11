@@ -1,0 +1,92 @@
+[
+  {
+    "file": "CMakeLists.txt",
+    "before_sha256": "af2f0b553a7c4b9b2babea18b7448bef3f5846150f56908db262ec0e3ce935df",
+    "after_sha256": "e3220fbdc2ddde6346ed4ac12e1e7aa981074ca247ac9e978e1fa27d2ed9bc4d"
+  },
+  {
+    "file": "cmake/os/Emscripten.cmake",
+    "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "after_sha256": "af8159bccbfa7d33a5860091fb3c3a716b58df5a2daf57892d6970fb5feb3675"
+  },
+  {
+    "file": "cmake/os/WASIX.cmake",
+    "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "after_sha256": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826"
+  },
+  {
+    "file": "cmake/pcre.cmake",
+    "before_sha256": "f694c627b8f51788495cfa91210405bf762728e3a338e80fc8b3708bf29ce681",
+    "after_sha256": "869b4f50cb8345cafd399d139f80640dd3d3ea6e2c08f8b8930741ab524d82e0"
+  },
+  {
+    "file": "configure.cmake",
+    "before_sha256": "cb45e51f7987591b6c5508218a54a0d93fff6dd54bf2fab42fc87aff33abc9f4",
+    "after_sha256": "8bbb6636d9b0ef5094288dcc3de17a80e51fd2721a5b5003774d2f746daebb41"
+  },
+  {
+    "file": "include/my_global.h",
+    "before_sha256": "fc4d434c83576a251088ba695ca9b84c3219229e6e3975348e20070bc7a12a13",
+    "after_sha256": "60aaa58fee20a00cb09737eb45a09b3882eaaa6564f9d7bfae77662c07434b9b"
+  },
+  {
+    "file": "include/my_stacktrace.h",
+    "before_sha256": "b7179553374c94fe2e6bb70c0e3ed086c664210a41bbcbcc9e30896a5dd96cb7",
+    "after_sha256": "8437a3f83abbb3cc6e29fbf588a8e0c8507820c3a066ba8707198da7f925861f"
+  },
+  {
+    "file": "libmysqld/libmysql.c",
+    "before_sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+    "after_sha256": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865"
+  },
+  {
+    "file": "mysys/CMakeLists.txt",
+    "before_sha256": "ddc4b71aeaf74ff2fe609425694517094a64a855e52ba0adc94d1843bde9d04d",
+    "after_sha256": "9cb50fe418b6557872329ee9a4ab30e24b168eabdc0f4b6d04eeb99a7088ef94"
+  },
+  {
+    "file": "mysys/my_largepage.c",
+    "before_sha256": "7375cc5e78ddc18d2aa584b8855e84cff9faf4b0b7f32336257795c2a76f39e6",
+    "after_sha256": "a70dfe799d6e7091f4d5c8f8221a658171a309658010ef4c46dbf9ca832bbe4b"
+  },
+  {
+    "file": "mysys/my_lock.c",
+    "before_sha256": "5f42e8210a6c64d4c0ad9aa64f6386598d955c057705cd747fa17f0b3fa68532",
+    "after_sha256": "7aed29f87e0ad6bc7978ce4794c0f10b1c99a52903c207ee49314632e60ecc46"
+  },
+  {
+    "file": "mysys/my_timezone.cc",
+    "before_sha256": "106825479a77729174569afa8c270c018709a422da48d6b41577395614ab4095",
+    "after_sha256": "6777513d495db9a832b52f248455156b79dfa1a778fc86b2aa6e14d90c15ad50"
+  },
+  {
+    "file": "mysys/my_virtual_mem.c",
+    "before_sha256": "88f26c781f18ff863eb3b4dda29d852d6ad2a0bacd726257a2038ffb2441183d",
+    "after_sha256": "ea8d8902f9ac07987defed73e64a3dd974705f94e24bb29728c07797d75855d0"
+  },
+  {
+    "file": "sql/sql_plugin.cc",
+    "before_sha256": "67cbe23562a976fdc240851e59a6cf2e495d4114807c9c81b5a6bfa632b20fa0",
+    "after_sha256": "5daa81c60be8278bb81c423b4f63afd034ba67502a7b0d0f4a1c6ff67b6a944f"
+  },
+  {
+    "file": "storage/innobase/fil/fil0fil.cc",
+    "before_sha256": "c7c180898ad82fe4f668b387360ef1dd3e31257274762b082c21abc5b524cb5b",
+    "after_sha256": "ec7797b294e86fc0926a5d2dc00be6f1d3f7b6dae7cb0bc0743333a624649d37"
+  },
+  {
+    "file": "storage/innobase/log/log0log.cc",
+    "before_sha256": "147fc86b55df22c545cc88e0ff0e3a3259c8f0b0c9263cc98d518616f2e7c796",
+    "after_sha256": "6948187944bf350dae550cfb8c03559d68e7c198bebf960b6ad2cf34a60e01fe"
+  },
+  {
+    "file": "storage/innobase/os/os0file.cc",
+    "before_sha256": "6ad774c7950dfcc5f051abf6901f55f6158c2a0a8fbfb403aa737ad797ebfefd",
+    "after_sha256": "4b8515af8e247a22fde4bf8524ab6e68932f436dbc25290e6dcb8d4987ca2c73"
+  },
+  {
+    "file": "storage/maria/ma_loghandler.c",
+    "before_sha256": "3084201abe2577ed521cbabaa622677e1c9d1b4a9e77c23c60d39d786bc0657b",
+    "after_sha256": "515a8afc9aef1cccd7055028441aae249021835c49f5dd1353982d7fc8542281"
+  }
+]

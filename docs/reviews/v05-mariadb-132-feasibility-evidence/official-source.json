@@ -1,0 +1,10 @@
+{
+  "url": "https://archive.mariadb.org/mariadb-13.2.0/source/mariadb-13.2.0.tar.gz",
+  "public_checksum_url": "https://archive.mariadb.org/mariadb-13.2.0/source/sha256sums.txt",
+  "actual_sha256": "5b6a588e86f1169fef44760846b6e9e96b08d7a7e52fb4b887c5feb06ca39f3a",
+  "bytes": 223600018,
+  "git_tag_advertised": false,
+  "git_source_sha": null,
+  "VERSION": "MYSQL_VERSION_MAJOR=13\nMYSQL_VERSION_MINOR=2\nMYSQL_VERSION_PATCH=0\nSERVER_MATURITY=alpha\n",
+  "signature_verified": false
+}
