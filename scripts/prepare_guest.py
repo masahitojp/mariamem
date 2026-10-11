@@ -7,6 +7,7 @@ import subprocess
 from common import ROOT, LOCK, digest, extract, fetch
 from guest_init_hooks import instrument
 from guest_experiment import patch_files
+from guest_input import descriptor, apply_series
 from prepared_auth_keys import write_header
 from guest_auth_hooks import prepare as prepare_auth_source
 
@@ -15,9 +16,17 @@ if source.exists():
     raise SystemExit("build/source already exists; move it aside before preparing a fresh tree")
 work = ROOT / "build/unpack"
 work.mkdir(parents=True, exist_ok=False)
-for name in ("lite4mariadb", "libmariadb", "wolfssl"):
+guest_input = descriptor(ROOT, LOCK)
+for name in (guest_input["source_input"], "lite4mariadb", "libmariadb", "wolfssl"):
     extract(fetch(name), work / name)
-main = next((work / "lite4mariadb").iterdir())
+recipe = next((work / "lite4mariadb").iterdir())
+main = next((work / guest_input["source_input"]).iterdir())
+for name, expected in guest_input["recipe_files_sha256"].items():
+    if digest(recipe / name) != expected:
+        raise ValueError("guest recipe file identity mismatch: " + name)
+    target = main / name
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(recipe / name, target)
 shutil.move(str(main), source)
 for name, relative in (("libmariadb", "libmariadb"), ("wolfssl", "extra/wolfssl/wolfssl")):
     target = source / relative
@@ -27,7 +36,8 @@ for name, relative in (("libmariadb", "libmariadb"), ("wolfssl", "extra/wolfssl/
 for name, expected in LOCK["pristine_files"].items():
     if digest(source / name) != expected:
         raise ValueError(f"unexpected upstream file: {name}")
-subprocess.run(["patch", "-p1", "-i", str(ROOT / "guest/source.patch")], cwd=source, check=True)
+portability_series = apply_series(ROOT, source, guest_input)
+subprocess.run(["patch", "--batch", "--forward", "--fuzz=0", "-p1", "-i", str(ROOT / "guest/source.patch")], cwd=source, check=True)
 # A disposable experiment patch is separate from the canonical product patch.
 experimental = ROOT / "guest/experimental.patch"
 experimental_files = patch_files(ROOT)
@@ -61,10 +71,11 @@ for name, cmake in (("pcre2", "cmake/pcre.cmake"), ("libfmt", "cmake/libfmt.cmak
     if text.count(entry["url"]) != 1:
         raise ValueError(f"unexpected dependency URL in {cmake}")
     path.write_text(text.replace(entry["url"], "${CMAKE_SOURCE_DIR}/mariamem-dependencies/" + entry["file"]))
-manifest = {"inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
+manifest = {"guest_input": guest_input, "portability_series": portability_series,
+            "inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
             "overlays": {p.name: digest(p) for p in sorted((ROOT / "guest").iterdir()) if p.is_file()},
             "modified_files": {name: digest(source / name) for name in
-                               (*LOCK["pristine_files"], "wasm/wire_api.inc", "wasm/resident.inc",
+                               (*LOCK["pristine_files"], *(name for patch in portability_series for name in patch["after_sha256"]), "wasm/wire_api.inc", "wasm/resident.inc",
                                 "wasm/snapshot_fs.inc", "wasm/startup_timing.inc", "wasm/init_diagnostics.inc",
                                 "wasm/prepared_auth_keys.inc", auth_header, *auth_files,
                                 "include/mariamem_init_diagnostics.h", *diagnostic_files,

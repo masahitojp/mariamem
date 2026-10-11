@@ -77,6 +77,9 @@ def verify_build(root, commit, directory=None):
     require(len(guest['repetitions'])>=2 and all(r==guest['repetitions'][0] for r in guest['repetitions']),'independent rebuild evidence missing/different')
     require(guest['repetitions'][0]=={'guest_sha256':pins['guest_sha256'],'linked_sha256':canonical['linked_guest_sha256']},'linked guest differs')
     prepared=guest['prepared_source']
+    from guest_input import descriptor
+    guest_input=descriptor(root, read(root/'release/inputs.lock.json'))
+    require(prepared.get('guest_input')==guest_input and prepared.get('portability_series')==guest_input['patches'], 'guest portability input/series differs')
     require(not prepared.get('experimental_patch') and 'experimental.patch' not in prepared['overlays'],'experimental guest patch')
     require(prepared['modified_files']==canonical['prepared_source']['modified_files'],'modified guest source differs')
     require(prepared['overlays']=={p.name:digest(p) for p in (root/'guest').iterdir() if p.is_file()},'source overlays differ')
