@@ -216,6 +216,12 @@ Snapshot/Fork/isolation and consumer compatibility. Repeat the full shared-memor
 race census on changed inputs; a guest upgrade is not assumed to fix it.
 Measure a new performance/resource baseline.
 
+The maintainer approved **common portability patches plus minimal source-specific
+hunk variants** on 2026-10-12. The [guest patch management decision](decisions/guest-patch-management.md)
+owns the rationale, exact-input selection policy and starting inventory for future
+patch reviews. The common/variant management mechanism remains unimplemented;
+the existing experiments retain their monolithic experimental patches.
+
 ## v0.6.0 — Dogfood and fixture ergonomics
 
 Use real consumer/workload evidence, including Django, Alembic/migrations,

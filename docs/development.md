@@ -338,6 +338,13 @@ Preserve compact JSON/CSV, final reports and checksums; dispose owned temp/build
 outputs after finalization. Confirm shared-cache inactivity, preserve unique evidence, then delete
 recreatable caches; regeneration cost is not a KEEP reason. See [workspace cleanup](experiment-workspace.md) and [project status](project-status.md).
 
+## Guest patch maintenance
+
+Guest portability maintenance follows the approved
+[common plus source-specific patch policy](decisions/guest-patch-management.md).
+Use its inventory and review fields when updating MariaDB inputs or removing
+upstreamed fixes; distinguish source-application evidence from runtime qualification.
+
 ## Historical runtime material
 
 The removed legacy guest-build/platform/Ubuntu workflows exist in prior tags.
