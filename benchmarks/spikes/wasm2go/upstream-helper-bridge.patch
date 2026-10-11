@@ -1,9 +1,13 @@
 --- a/internal/codegen/helpers/helpers.go
 +++ b/internal/codegen/helpers/helpers.go
-@@ -1344,6 +1344,13 @@
+@@ -1344,6 +1344,17 @@
  	return m.threads != nil && m.threads.nextTID.Load() != 0
  }
  
++// memBound is always guest-visible logical size in mariamem. The fork's
++// non-shared backing-slice alias contract is deliberately not imported.
++func memBound(m *Module) uint64 { return m.memSize.Load() }
++
 +// forceContendedAtomics is used by deterministic host-side Wait fixtures.
 +// Production WASIX threads use threadSpawn to publish contention normally.
 +func forceContendedAtomics(m *Module) {
