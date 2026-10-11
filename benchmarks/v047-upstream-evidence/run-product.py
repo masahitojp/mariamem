@@ -15,7 +15,7 @@ env=dict(os.environ,DOCKER_HOST=endpoint,GOTOOLCHAIN='local')
 env.pop('GOMAXPROCS',None)
 roots={'v046':a.baseline.resolve(),'v047':root};bins=a.binaries.resolve();helper=bins/'process-cost'
 sha=lambda f:hashlib.sha256(f.read_bytes()).hexdigest()
-identity={'source_commits':{k:subprocess.check_output(['git','rev-parse','HEAD'],cwd=v,text=True).strip() for k,v in roots.items()},'image':image,'disk_guard_interval_seconds':5,'trials':3,'large_trials':1,'suite_count':4,'runtime_gomaxprocs':'Go default on same host','go':subprocess.check_output(['go','version'],text=True).strip(),'binary_sha256':{str(f.relative_to(bins)):sha(f) for f in sorted(bins.rglob('*')) if f.is_file()},'note':'Native anchors contain no translator and are run once per original cell, referenced by both states. New heap observations use identical harness bytes for both states. Historical v046 measurements are separate.','cells':[]}
+identity={'source_commits':{k:subprocess.check_output(['git','rev-parse','HEAD'],cwd=v,text=True).strip() for k,v in roots.items()},'image':image,'disk_guard_interval_seconds':5,'trials':3,'large_trials':1,'suite_count':4,'runtime_gomaxprocs':'Go default on same host','go':subprocess.check_output(['go','version'],text=True).strip(),'binary_sha256':{str(f.relative_to(bins)):sha(f) for f in sorted(bins.rglob('*')) if f.is_file()},'note':'Native anchors contain no translator and are run once per original cell, referenced by both states. New heap observations use identical harness bytes for both states. Historical v046 measurements are separate.','host':{'uname':subprocess.check_output(['uname','-a'],text=True).strip(),'ram_bytes':int(subprocess.check_output(['sysctl','-n','hw.memsize'],text=True))},'observation_sources_sha256':{str(f.relative_to(root)):sha(f) for f in [root/'benchmarks/ownedprepared/main.go',root/'benchmarks/ownedprepared/resources.go',root/'benchmarks/python_product_suites.py']},'cells':[]}
 (out/'inputs.json').write_text(json.dumps(identity,indent=2)+'\n')
 def run(name,command,state='v047'):
  print('RUN',name,flush=True);t=time.monotonic()
@@ -31,6 +31,19 @@ def run(name,command,state='v047'):
  obs=data.get('go_resource_observation',{})
  if obs.get('process_peak_rss_bytes',0)>8*1024**3:raise SystemExit('Stop: completed cell exceeded 8GiB process RSS budget')
  print('PASS',name,flush=True)
+# Warm-up/SQL-oracle pilots are retained separately, excluded from suite summaries.
+for state in ('v046','v047'):
+ for mode in ('fresh','fork'):
+  name=f'pilot-{state}-go-{mode}'
+  run(name,[bins/state/'ownedprepared','-payload-mib',0,'-tables',1,'-workers',1,'-forks',1,'-workload','app-connections','-lifecycle',mode,'-go-resources','-helper',helper,'-out',out/(name+'.json')],state)
+  name=f'pilot-{state}-python-{mode}'
+  run(name,[sys.executable,root/'benchmarks/python_product_suites.py','--count',1,'--mode',mode,'--host',bins/state/'mariamem-host','--image',image,'--helper',helper,'--out',out/(name+'.json')],state)
+for mode in ('testcontainers','shared-reset'):
+ name=f'pilot-anchor-python-{mode}'
+ run(name,[sys.executable,root/'benchmarks/python_product_suites.py','--count',1,'--mode',mode,'--host',bins/'v047/mariamem-host','--image',image,'--helper',helper,'--out',out/(name+'.json')])
+for mode in ('testcontainers-fresh','testcontainers-schema-reset'):
+ name=f'pilot-anchor-go-{mode}'
+ run(name,[bins/'v047/competitive','--suite-mode',mode,'--suite-count',1,'--image',image,'--json',out/(name+'.json')])
 for trial in range(3):
  cases=[('light',0,1,1),('fixture',10,8,1),('parallel',10,8,4)]
  if trial==0:cases.append(('large',100,8,1))
