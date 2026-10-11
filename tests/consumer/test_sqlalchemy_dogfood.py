@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import sys
 import time
 
@@ -160,10 +161,22 @@ def app(request, prepared, audit):
             assert connection.scalar(select(func.count()).select_from(Address)) == 1
             assert connection.scalar(select(User.name)) == "seed@example.test"
             record["server_version"] = connection.scalar(text("SELECT VERSION()"))
+            # The DBAPI exposes the greeting; SQLAlchemy deliberately probes
+            # SELECT VERSION() for vendor/version detection. Record both.
+            record["handshake_version"] = connection.connection.driver_connection.get_server_info()
+            expected_version = tuple(map(int, re.match(
+                r"^(\d+)\.(\d+)\.(\d+)-MariaDB", record["server_version"]).groups()))
+            assert record["handshake_version"] == record["server_version"]
+            assert engine.dialect.is_mariadb is True
+            assert engine.dialect.server_version_info == expected_version
+            assert engine.dialect.insert_returning is True
+            assert engine.dialect.delete_returning is True
         record["ready_ms"] = (time.monotonic() - started) * 1000
         record["dialect"] = {"name": engine.dialect.name,
                              "is_mariadb": engine.dialect.is_mariadb,
-                             "version": engine.dialect.server_version_info}
+                             "version": engine.dialect.server_version_info,
+                             "insert_returning": engine.dialect.insert_returning,
+                             "delete_returning": engine.dialect.delete_returning}
         record["pool"] = {"class": type(engine.pool).__name__,
                           "size": engine.pool.size(),
                           "max_overflow": engine.pool._max_overflow}
