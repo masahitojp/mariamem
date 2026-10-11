@@ -66,3 +66,22 @@ local macOS host is not evidence for the minimum macOS release.
 The existing zero-length bulk-memory bounds edge case and full-generated-guest
 shared-memory race limitation remain known boundaries. Focused race PASS is not
 full guest race freedom. No general forced termination/reclaim work is included.
+
+## Race observation boundary
+
+The same `-race` default Fork/isolation and repeated-concurrent-lifecycle tests
+were run against exact v0.4.6 and the candidate. Both completed with zero
+reported signatures. This does **not** mean the historical 149 guest signatures
+were fixed: that old census used a different guest and Go-heap backing.
+Go1.26.8 `runtime/race.go:isvalidaddr` accepts heap/data ranges, not arbitrary
+syscall mmap memory. A separate positive-control probe performs the same
+unsynchronized byte update on Go heap versus anonymous mmap: the heap run
+fails with race reports; mmap exits without a report. The difference is
+observability, not correctness.
+
+Consequently: no newly reported race in this pair, no resolved historical
+signature claimed, and full mmap guest-race coverage remains unproven. The
+focused owner/thread tests, controlled-trap fixtures and byte-identical guest
+access instructions provide complementary evidence, not a race-freedom proof.
+No race suppression, address-specific patch, alternate production backing or
+translator race adaptation was introduced.

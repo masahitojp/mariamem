@@ -6,6 +6,7 @@ p.add_argument('--baseline',type=Path,required=True)
 p.add_argument('--binaries',type=Path,required=True)
 p.add_argument('--workspace',type=Path,required=True)
 p.add_argument('--output',type=Path,required=True)
+p.add_argument('--candidate-binary-source',required=True,help='commit used to build frozen candidate binaries')
 a=p.parse_args();root=Path(__file__).resolve().parents[2];work=a.workspace.resolve();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
 sys.path.insert(0,str(root/'scripts'))
 from experiment_disk import DiskGuard,run_guarded
@@ -15,7 +16,7 @@ env=dict(os.environ,DOCKER_HOST=endpoint,GOTOOLCHAIN='local')
 env.pop('GOMAXPROCS',None)
 roots={'v046':a.baseline.resolve(),'v047':root};bins=a.binaries.resolve();helper=bins/'process-cost'
 sha=lambda f:hashlib.sha256(f.read_bytes()).hexdigest()
-identity={'source_commits':{k:subprocess.check_output(['git','rev-parse','HEAD'],cwd=v,text=True).strip() for k,v in roots.items()},'image':image,'disk_guard_interval_seconds':5,'trials':3,'large_trials':1,'suite_count':4,'runtime_gomaxprocs':'Go default on same host','go':subprocess.check_output(['go','version'],text=True).strip(),'binary_sha256':{str(f.relative_to(bins)):sha(f) for f in sorted(bins.rglob('*')) if f.is_file()},'note':'Native anchors contain no translator and are run once per original cell, referenced by both states. New heap observations use identical harness bytes for both states. Historical v046 measurements are separate.','host':{'uname':subprocess.check_output(['uname','-a'],text=True).strip(),'ram_bytes':int(subprocess.check_output(['sysctl','-n','hw.memsize'],text=True))},'observation_sources_sha256':{str(f.relative_to(root)):sha(f) for f in [root/'benchmarks/ownedprepared/main.go',root/'benchmarks/ownedprepared/resources.go',root/'benchmarks/python_product_suites.py']},'cells':[]}
+identity={'source_commits':{k:subprocess.check_output(['git','rev-parse','HEAD'],cwd=v,text=True).strip() for k,v in roots.items()},'candidate_binary_source_commit':a.candidate_binary_source,'image':image,'disk_guard_interval_seconds':5,'trials':3,'large_trials':1,'suite_count':4,'runtime_gomaxprocs':'Go default on same host','go':subprocess.check_output(['go','version'],text=True).strip(),'binary_sha256':{str(f.relative_to(bins)):sha(f) for f in sorted(bins.rglob('*')) if f.is_file()},'note':'Native anchors contain no translator and are run once per original cell, referenced by both states. New heap observations use identical harness bytes for both states. Historical v046 measurements are separate.','host':{'uname':subprocess.check_output(['uname','-a'],text=True).strip(),'ram_bytes':int(subprocess.check_output(['sysctl','-n','hw.memsize'],text=True))},'observation_sources_sha256':{str(f.relative_to(root)):sha(f) for f in [root/'benchmarks/ownedprepared/main.go',root/'benchmarks/ownedprepared/resources.go',root/'benchmarks/python_product_suites.py']},'cells':[]}
 (out/'inputs.json').write_text(json.dumps(identity,indent=2)+'\n')
 def run(name,command,state='v047'):
  print('RUN',name,flush=True);t=time.monotonic()
