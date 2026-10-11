@@ -1,0 +1,19 @@
+from pathlib import Path
+import os, sys
+root=Path.cwd()
+ws=root.parent
+sys.path.insert(0,str(root/'scripts'))
+from build_feedback import go_environment, run
+env=go_environment(dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT=''))
+module=ws/'temp/thread-fixture/module'
+module.mkdir(parents=True,exist_ok=True)
+(module/'go.mod').write_text('module example.com/thread-fixture\n\ngo 1.26.0\n')
+wat=root/'benchmarks/spikes/wasm2go/threads.wat'
+wasm=module.parent/'threads.wasm'
+run([str(ws/'temp/wabt/wabt-1.0.42/bin/wat2wasm'),'--enable-threads',str(wat),'-o',str(wasm)],env=env,check=True,phase='upstream:thread-fixture-wat',inputs=[wat],outputs=[wasm])
+(module/'fixture').mkdir(exist_ok=True)
+run([str(ws/'temp/bridge-wasm2go'),'-pure','-i',str(wasm),'-o',str(module/'fixture/fixture.go'),'-pkg','fixture','-import','example.com/thread-fixture/fixture'],env=env,check=True,phase='upstream:thread-fixture-translation',inputs=[wasm,ws/'temp/bridge-wasm2go'])
+text=(root/'benchmarks/spikes/wasm2go/wait-contract-test.go.txt').read_text().replace('package base','package fixture')
+for old,new in [('Memory:','memory:'),('MemSize:','memSize:'),('MemShared:','memShared:'),('Threads:','threads:'),('m.Threads','m.threads'),('ThreadPool','threadPool'),('ForceContendedAtomics','forceContendedAtomics'),('AtomicPtr32At','atomicPtr32At'),('AtomicNotify','atomicNotify'),('AtomicWait32At','atomicWait32At'),('AtomicWait','atomicWait')]: text=text.replace(old,new)
+(module/'fixture/wait_contract_test.go').write_text(text)
+run(['go','test','-p','1','./fixture','-run','Test(WaitContract|PageCleanerOrdering)$','-count=1','-timeout=15s','-v'],cwd=module,env=env,check=True,phase='upstream:thread-fixture-check',inputs=[ws/'temp/bridge-wasm2go',module/'fixture/wait_contract_test.go'])

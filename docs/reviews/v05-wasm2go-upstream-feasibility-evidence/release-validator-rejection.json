@@ -1,0 +1,14 @@
+{
+  "tested_source_commit": "c06e908aef1055ca718b6da0212bb578c51a1a48",
+  "validator": "scripts/verify_generated_runtime.py",
+  "validator_sha256": "7ed76bdb2274056ee60c826ded0d4d2ef89b17425e51436efcd2e3d9e5bd7e2b",
+  "candidate_validator_sha256": "7ed76bdb2274056ee60c826ded0d4d2ef89b17425e51436efcd2e3d9e5bd7e2b",
+  "validator_unchanged": true,
+  "canonical_manifest_sha256": "c882412a8d97fd497c4cb4057211b80f906643347c258811043403e88f1e7205",
+  "candidate_canonical_manifest_sha256": "c882412a8d97fd497c4cb4057211b80f906643347c258811043403e88f1e7205",
+  "canonical_manifest_unchanged": true,
+  "experimental_input_manifest_sha256": "b14231938555d364936ba2aa00defce0ed26aaaa35c720b41a7dd20d621982a9",
+  "process_exit": 1,
+  "rejection": "ValueError: input manifest changed",
+  "assertion": "experiment digest differs from canonical accepted input; unchanged Release source validator rejects before build"
+}

@@ -1,0 +1,39 @@
+[
+  {
+    "log": "full-pipeline.log",
+    "sha256": "6e895566bc05247adbcd3a86d472d1a5ff9613f81c39d284bcbb168ad41a94d7",
+    "bytes": 15972,
+    "ssa_fixpoint_cap_warnings": 236,
+    "table_rewrite_warning": null,
+    "failure_excerpt": [
+      "wasm2go: translate: wasm2go: exports \"_ZNKSt3__220__time_get_c_storageIcE3__xEv\" and \"_ZNKSt3__220__time_get_c_storageIcE3__XEv\" both mangle to method name \"ZNKSt3_220TimeGetCStorageIcE3XEv\"; rename one in the wasm to avoid the collision"
+    ]
+  },
+  {
+    "log": "full-pipeline2.log",
+    "sha256": "2ca41aa5d280c18ebb1a4757f6a8ebd11ff2bd98f86deb53255b76f47c5a6251",
+    "bytes": 17963,
+    "ssa_fixpoint_cap_warnings": 236,
+    "table_rewrite_warning": "wasm2go: f16 gather sites at bases [12418928] were not verified (no static table image, no init-loop coverage) \u2014 the table-keyed rewrites stayed OFF there",
+    "failure_excerpt": [
+      "internal/generatedgo/code/base/base.go:1106:17: m.MemSize undefined (type *Module has no field or method MemSize)",
+      "internal/generatedgo/code/base/base.go:1136:4: m.MemMu undefined (type *Module has no field or method MemMu)",
+      "internal/generatedgo/code/base/base.go:1137:10: m.MemMu undefined (type *Module has no field or method MemMu)",
+      "internal/generatedgo/code/base/base.go:1138:11: m.MemSize undefined (type *Module has no field or method MemSize)",
+      "internal/generatedgo/code/base/base.go:1147:7: m.MaxMem undefined (type *Module has no field or method MaxMem)",
+      "internal/generatedgo/code/base/base.go:1153:7: m.MemShared undefined (type *Module has no field or method MemShared)",
+      "internal/generatedgo/code/base/base.go:1155:26: m.Memory undefined (type *Module has no field or method Memory)",
+      "internal/generatedgo/code/base/base.go:1158:8: m.PrepareMemoryGrow undefined (type *Module has no field or method PrepareMemoryGrow)",
+      "internal/generatedgo/code/base/base.go:1159:16: m.PrepareMemoryGrow undefined (type *Module has no field or method PrepareMemoryGrow)",
+      "internal/generatedgo/code/base/base.go:1163:5: m.MemSize undefined (type *Module has no field or method MemSize)"
+    ]
+  },
+  {
+    "log": "full-pipeline3.log",
+    "sha256": "66f2707c7447877556ff82efcb8f23c5c5edeb0837aa0d60358511dc98977ddd",
+    "bytes": 15345,
+    "ssa_fixpoint_cap_warnings": 236,
+    "table_rewrite_warning": "wasm2go: f16 gather sites at bases [12418928] were not verified (no static table image, no init-loop coverage) \u2014 the table-keyed rewrites stayed OFF there",
+    "failure_excerpt": []
+  }
+]

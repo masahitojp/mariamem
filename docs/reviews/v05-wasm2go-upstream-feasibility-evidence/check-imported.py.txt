@@ -1,0 +1,18 @@
+from pathlib import Path
+import os,sys
+root=Path.cwd();ws=root.parent
+sys.path.insert(0,str(root/'scripts'))
+from build_feedback import go_environment,run
+env=go_environment(dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT=''))
+source=ws/'temp/upstream-run2/converter/wasm2go-730057c146463f663e8774587bc96fb2bea91af8'
+binary=ws/'temp/imported-wasm2go'
+run(['go','build','-p','1','-mod=readonly','-trimpath','-buildvcs=false','-o',str(binary),'./cmd/wasm2go'],cwd=source,env=env,check=True,phase='upstream:imported-converter-build')
+out=ws/'temp/imported-fixture';out.mkdir(exist_ok=True);(out/'fixture').mkdir(exist_ok=True)
+(out/'go.mod').write_text('module example.com/imported-fixture\n\ngo 1.26.0\n')
+original=root/'benchmarks/spikes/wasm2go/imported-memory.wat'
+wat=out/'imported-grow.wat'
+wat.write_text(original.read_text().rstrip()[:-1]+'\n  (func (export \"grow\") (param i32) (result i32) local.get 0 memory.grow)\n  (func (export \"size\") (result i32) memory.size))\n')
+run([str(ws/'temp/wabt/wabt-1.0.42/bin/wat2wasm'),'--enable-threads',str(wat),'-o',str(out/'fixture.wasm')],env=env,check=True,phase='upstream:imported-wat')
+run([str(binary),'-pure','-i',str(out/'fixture.wasm'),'-o',str(out/'fixture/fixture.go'),'-pkg','fixture','-import','example.com/imported-fixture/fixture'],env=env,check=True,phase='upstream:imported-fixture-translation')
+(out/'fixture/imported_test.go').write_text('package fixture\nimport "testing"\nfunc TestImportedMemoryConstructorAndGrow(t *testing.T){m:=New(nil); if m.Run()!=42 || m.Size()!=1 {t.Fatal("imported constructor")}; child:=*m; p:=m.M;if memoryInBounds(&child,65536,0,4){t.Fatal("ungrown tail")};if m.Grow(1)!=1 || child.Size()!=2 || m.M!=p || child.M!=p || !memoryInBounds(&child,65536,0,4){t.Fatal("shared size publication/stable pointer")}; if m.Grow(1)!=-1 || child.Size()!=2 {t.Fatal("failed max grow changed size")}}\n')
+run(['go','test','-p','1','./fixture','-count=1','-v'],cwd=out,env=env,check=True,phase='upstream:imported-constructor-grow',inputs=[wat,binary,out/'fixture/fixture.go',out/'fixture/imported_test.go'])

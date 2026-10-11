@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "observed_at_utc": "2026-10-11T03:20:48.582853+00:00",
+  "main_sha": "386a62c3669e37bb8aaad58cd0aca8da893b3d80",
+  "release_tag_object": "09d7b82e1900318dde45d08bebd9328ea35e6ef7",
+  "release_source_sha": "b56be17206b6beef18f55c8ea39b254638da8590",
+  "root_checkout": "40b7f17fc2a0301562e716ab010652079cec4def",
+  "root_git_status": "",
+  "protected_sha256": {
+    "guest/source.patch": "595341525825860a398c3dc3f7c9660264af4db79ec487902d51e3d1d3bd5e0f",
+    "release/generated-go-build.json": "09121869e401b1ae2e67dff943d02df6f57c6c0568c05878017056ae1551cf40",
+    "release/generated-go-inputs.json": "c882412a8d97fd497c4cb4057211b80f906643347c258811043403e88f1e7205",
+    "release/generated-go-toolchain.json": "7b7953ff4825e9af913bb7bac94a774b8abe54c7a1a04b9c8bfcb6a38e669802",
+    "release/generated-go-translation.json": "e17a18ddef2ad2084b0bfe48d855b7c9ef9812a15f586b9669bf994a20c9e959",
+    "release/inputs.lock.json": "bad72fcb09d919a20216ef8bb566b72f6369e46abfbc33a91ad1120f96152680",
+    "scripts/build_generated_guest.py": "4c32bd3300a7967b98119f63701155de25ccbd86fa8ea1a926e6e7cd20be7e00",
+    "scripts/dev_guest.py": "7c9813b79a0e4c74e52c525ed9d49eeb7b69b8eb81d73279105bebb57048a14e",
+    "scripts/generate_runtime.py": "88ee3d0d938cf311032f6b3053ec47a0d71cfd22d3f75fcb0cf01f30025a8af3"
+  },
+  "canonical_generated_tree": "18307596bad7e43f7c29280fbe25c239004b4715",
+  "note": "Protected baseline source and release identity comparison; not runtime qualification of experiment/report commits."
+}

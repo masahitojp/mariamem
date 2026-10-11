@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v05-upstream-feasibility/worktree/../temp/upstream-run3/product/scripts/verify_generated_runtime.py", line 41, in <module>
+    main()
+    ~~~~^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v05-upstream-feasibility/worktree/../temp/upstream-run3/product/scripts/verify_generated_runtime.py", line 24, in main
+    require(record['input_manifest_sha256'] == digest(pins), 'input manifest changed')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v05-upstream-feasibility/worktree/../temp/upstream-run3/product/scripts/verify_generated_runtime.py", line 17, in require
+    raise ValueError(message)
+ValueError: input manifest changed

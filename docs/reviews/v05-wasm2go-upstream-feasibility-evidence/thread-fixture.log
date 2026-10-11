@@ -1,0 +1,12 @@
+=== RUN   TestWaitContract
+--- PASS: TestWaitContract (0.00s)
+=== RUN   TestPageCleanerOrdering
+=== RUN   TestPageCleanerOrdering/signal-before-registration
+    wait_contract_test.go:174: signal_delivered=false wait_result=2 elapsed=1.001905667s
+=== RUN   TestPageCleanerOrdering/registered-before-signal
+    wait_contract_test.go:174: signal_delivered=true wait_result=0 elapsed=2.292µs
+--- PASS: TestPageCleanerOrdering (1.00s)
+    --- PASS: TestPageCleanerOrdering/signal-before-registration (1.00s)
+    --- PASS: TestPageCleanerOrdering/registered-before-signal (0.00s)
+PASS
+ok  	example.com/thread-fixture/fixture	1.382s

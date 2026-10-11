@@ -1,0 +1,7 @@
+{
+  "phase": "upstream:go-concrete-guest-memory",
+  "stage": "dependency download before test setup",
+  "cause": "sandbox DNS proxy.golang.org unavailable",
+  "runtime_tests_executed": false,
+  "action": "focused retry with network/localhost access; no code patch"
+}

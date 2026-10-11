@@ -1,0 +1,23 @@
+from pathlib import Path
+import os,sys,json,hashlib,subprocess
+root=Path.cwd();ws=root.parent
+sys.path.insert(0,str(root/'scripts'))
+from build_feedback import go_environment,run
+out=ws/'temp/upstream-run3';product=out/'product';host=out/'mariamem-experiment-host'
+candidate=json.loads((out/'candidate.json').read_text());assert hashlib.sha256(host.read_bytes()).hexdigest()==candidate['binary_sha256']
+env=go_environment(dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='',MARIAMEM_TEST_DEFAULT='1',MARIAMEM_TEST_HOST=str(host),PYTHONPATH=str(product/'python'),TMPDIR=str(ws/'temp')))
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+record={'result':'UNQUALIFIED','source_commit':candidate['source_commit'],'guest_sha256':candidate['guest_sha256'],'converter_sha256':candidate['patched_converter_sha256'],'host_sha256':sha(host),'runtime_inventory':candidate['installed_inventory'],'test_files':{p.relative_to(product).as_posix():sha(p) for p in product.rglob('*') if p.is_file() and ('tests' in p.relative_to(product).parts or p.name.endswith('_test.go'))}}
+record['go_version_m']=subprocess.check_output(['go','version','-m',str(host)],env=env,text=True)
+record['host_snapshot_info']=subprocess.check_output([str(host),'--snapshot-info'],env=env,text=True)
+(ws/'evidence/runtime-check-identity.json').write_text(json.dumps(record,indent=2)+'\n')
+steps=[('upstream:go-host-contract',['go','test','-p','1','./internal/generatedgo/code/base','./internal/generatedgo','-count=1','-timeout=3m','-v']),('upstream:go-concrete-guest-memory',['go','test','-p','1','-tags=integration','./tests/generatedmemory','-count=1','-timeout=3m','-v']),('upstream:go-owned-public-lifecycle',['go','test','-p','1','-tags=integration','./tests/gointegration','./tests/godefault','-count=1','-timeout=4m','-v']),('upstream:python-owned-wire-sessions',[sys.executable,'-m','pytest','tests/test_dev_guest_smoke.py','tests/test_owned_snapshot.py','tests/test_python_multiclient.py','tests/test_python_wire.py','-v'])]
+results=[]
+for phase,argv in steps:
+ log=ws/'evidence'/f"{phase.split(':')[1]}.log"
+ with log.open('w') as stream:
+  result=run(argv,cwd=product,env=env,phase=phase,inputs=[host,out/'candidate.json'],stdout=stream,stderr=subprocess.STDOUT,timeout=360)
+ results.append({'phase':phase,'returncode':result.returncode,'log':log.name})
+ if result.returncode:break
+(ws/'evidence/runtime-check-results.json').write_text(json.dumps(results,indent=2)+'\n')
+assert all(r['returncode']==0 for r in results),'focused candidate check failure'

@@ -1,0 +1,5 @@
+=== RUN   TestDistinctCollidingExports
+--- PASS: TestDistinctCollidingExports (0.00s)
+PASS
+ok  	example.com/collision/fixture	0.314s
+PASS: deterministic wrapper source; distinct export return values 1 and 2; generated SHA256 b8ef583e41b6e46c0aa00f4f0eac72f25e45d432c4c4c7bd9fa9c83d4684ac52

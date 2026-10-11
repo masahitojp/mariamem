@@ -1,0 +1,13 @@
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+go: downloading filippo.io/edwards25519 v1.1.0
+=== RUN   TestPureMemory32GeneratedTraps
+    pure_memory32_test.go:87: root and worker generated traps survived; worker visibility, grow and private TLS/stack globals pass
+--- PASS: TestPureMemory32GeneratedTraps (0.01s)
+=== RUN   TestPureMemory32CRUDSessionsAndFork
+--- PASS: TestPureMemory32CRUDSessionsAndFork (0.65s)
+=== RUN   TestPureMemory32Auth
+--- PASS: TestPureMemory32Auth (0.06s)
+=== RUN   TestPureMemory32RepeatedClose
+--- PASS: TestPureMemory32RepeatedClose (0.21s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.809s

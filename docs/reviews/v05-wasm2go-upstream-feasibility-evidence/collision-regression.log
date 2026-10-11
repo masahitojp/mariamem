@@ -1,0 +1,4 @@
+=== RUN   TestExportMethodNameCollisionPreservation
+--- PASS: TestExportMethodNameCollisionPreservation (0.02s)
+PASS
+ok  	github.com/goccy/wasm2go/internal/codegen	0.397s

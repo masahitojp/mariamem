@@ -1,0 +1,22 @@
+[
+  {
+    "phase": "upstream:go-host-contract",
+    "returncode": 0,
+    "log": "go-host-contract.log"
+  },
+  {
+    "phase": "upstream:go-concrete-guest-memory",
+    "returncode": 0,
+    "log": "go-concrete-guest-memory.log"
+  },
+  {
+    "phase": "upstream:go-owned-public-lifecycle",
+    "returncode": 0,
+    "log": "go-owned-public-lifecycle.log"
+  },
+  {
+    "phase": "upstream:python-owned-wire-sessions",
+    "returncode": 0,
+    "log": "python-owned-wire-sessions.log"
+  }
+]

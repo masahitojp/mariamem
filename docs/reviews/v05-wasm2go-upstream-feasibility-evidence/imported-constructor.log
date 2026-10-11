@@ -1,0 +1,18 @@
+
+wasm2go: SSA optimization + memory promotion summary
+  SSA instructions:              11 -> 10  (-9.1% folded)
+  emit form:                      3 structured / 0 goto  (100.0% structured)
+  SSA-lowered functions:          3
+  functions with a frame:         0  (0 non-escaping)
+  total memory accesses:          2
+  promoted (y/x):                 1 / 2  ( 50.0%)
+    frame:                        0  (  0.0%)
+    rodata:                       1  ( 50.0%)
+  slab (not promoted):            1  ( 50.0%)
+  top un-promoted functions:
+    fn0                          slab=1      frame=0     total=2
+
+=== RUN   TestImportedMemoryConstructorAndGrow
+--- PASS: TestImportedMemoryConstructorAndGrow (0.00s)
+PASS
+ok  	example.com/imported-fixture/fixture	0.268s

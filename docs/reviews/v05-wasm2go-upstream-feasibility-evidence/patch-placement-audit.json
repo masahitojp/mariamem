@@ -1,0 +1,84 @@
+[
+  {
+    "patch": "upstream-imported-memory.patch",
+    "source_file": "cmd/wasm2go/main.go",
+    "checks": {
+      "mod.Memories = append(mod.Memories, imp.Memory)": true,
+      "transpile.Translate(": true,
+      "metadata_before_translate": true
+    },
+    "method": "static placement/purpose inspection; not runtime qualification"
+  },
+  {
+    "patch": "import-function-index.patch",
+    "source_file": "internal/codegen/emit_ssa.go",
+    "checks": {
+      "candidate.Kind != wasm.ImportFunc": true,
+      "if !found": true
+    },
+    "method": "static placement/purpose inspection; not runtime qualification"
+  },
+  {
+    "patch": "relaxed-madd.patch",
+    "source_file": "internal/wasm/instr.go",
+    "checks": {
+      "0x107 (relaxed_madd) in wasm parser": true,
+      "FMA helper has both lanes": true
+    },
+    "method": "static placement/purpose inspection; not runtime qualification"
+  },
+  {
+    "patch": "upstream-pure-memory32.patch",
+    "source_file": "internal/codegen/helpers/helpers.go",
+    "checks": {
+      "func memoryInBounds": true,
+      "func wasm_trap_memory_oob": true
+    },
+    "method": "static placement/purpose inspection; not runtime qualification"
+  },
+  {
+    "patch": "controlled-thread-traps.patch",
+    "source_file": "internal/codegen/helpers/helpers.go",
+    "checks": {
+      "WaitThreads() any": true,
+      "recover()": true
+    },
+    "method": "static placement/purpose inspection; not runtime qualification"
+  },
+  {
+    "patch": "host-logical-memory.patch",
+    "source_file": "internal/codegen/helpers/helpers.go",
+    "checks": {
+      "bound := memBound(m)": true,
+      "f(m.memory[:bound:bound])": true
+    },
+    "method": "static placement/purpose inspection; not runtime qualification"
+  },
+  {
+    "patch": "linear-memory-owner.patch",
+    "source_file": "internal/codegen/translate.go",
+    "checks": {
+      "prepareMemoryGrow": true,
+      "threadStart": true
+    },
+    "method": "static placement/purpose inspection; not runtime qualification"
+  },
+  {
+    "patch": "upstream-helper-bridge.patch",
+    "source_file": "internal/codegen/helpers/helpers.go",
+    "checks": {
+      "func memBound(m *Module) uint64 { return m.memSize.Load() }": true,
+      "func forceContendedAtomics": true
+    },
+    "method": "static placement/purpose inspection; not runtime qualification"
+  },
+  {
+    "patch": "upstream-export-collision.patch",
+    "source_file": "internal/codegen/translate.go",
+    "checks": {
+      "MangleID(exp.Name)": true,
+      "methodName += \"_\"": true
+    },
+    "method": "static placement/purpose inspection; not runtime qualification"
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "run_id": 38040418075,
+  "artifact_id": 11665901597,
+  "artifact_name": "release-generated-inputs-b56be17206b6beef18f55c8ea39b254638da8590",
+  "artifact_bytes": 344886628,
+  "retrieved_bytes": 5439488,
+  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+  "guest_bytes": 18560271,
+  "entries_read": [
+    {
+      "name": "generated-release/CMakeCache.txt",
+      "compressed": 12131,
+      "bytes": 60350
+    },
+    {
+      "name": "generated-release/flags.make",
+      "compressed": 354,
+      "bytes": 607
+    },
+    {
+      "name": "generated-release/guest.json",
+      "compressed": 2907,
+      "bytes": 6306
+    },
+    {
+      "name": "generated-release/link.txt",
+      "compressed": 392,
+      "bytes": 1055
+    },
+    {
+      "name": "generated-release/mariamem.wasm",
+      "compressed": 5338287,
+      "bytes": 18560271
+    }
+  ],
+  "wall_seconds": 14.391941125039011,
+  "acquisition": "bounded streaming ZIP early-stop; per-entry CRC and final guest SHA verified"
+}

@@ -1,0 +1,14 @@
+{
+  "exception": "CalledProcessError",
+  "message": "Command '['go', 'build', '-p', '1', '-trimpath', '-buildvcs=false', '-o', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v05-upstream-feasibility/temp/upstream-run2/mariamem-experiment-host', './cmd/mariamem-host']' returned non-zero exit status 1.",
+  "result": "FAILED",
+  "source_commit": "3f538ea",
+  "phase": "upstream:generated-go-compilation",
+  "cause": "zero-context imported-memory patch applied after Translate, not before",
+  "compile_errors": [
+    "Module.MemSize undefined",
+    "Module.MemMu undefined",
+    "Module.Memory undefined"
+  ],
+  "fix": "context-bound patch immediately after wasm.Parse, before all Translate paths"
+}

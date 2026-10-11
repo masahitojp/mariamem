@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "row_count": 2472,
+  "expected_trap_count": 1693,
+  "keys": [
+    "op",
+    "addr",
+    "grow",
+    "trap",
+    "value",
+    "before",
+    "after"
+  ],
+  "actual_projection_sha256": "10ff9c3e2c2c1ab0c6fa68a0f64a107b8ff6d7092a69af3dc7dede6675ed4d63",
+  "reference_file_sha256": "f554cf58a0b5c598bb890aa60173e692063b15ff7bfdfdccdf1829557180038d",
+  "actual_raw_jsonl_sha256": "741141909c39497de8d86240a603b778ab00395c241c0c8c1a0c68f58bef3bc0",
+  "additional_checks": [
+    "stable base pointer across repeated memory.grow",
+    "zero-filled growth",
+    "maximum bound valid accesses",
+    "failed growth preserves size and contents",
+    "host survives expected traps"
+  ],
+  "raw_policy": "2472-row recreatable raw JSONL reduced to projection hash and existing pinned reference"
+}

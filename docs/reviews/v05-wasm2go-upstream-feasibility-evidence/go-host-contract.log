@@ -1,0 +1,101 @@
+=== RUN   TestHostImportLogicalMemory
+=== RUN   TestHostImportLogicalMemory/random_crossing
+=== RUN   TestHostImportLogicalMemory/random_past_end
+=== RUN   TestHostImportLogicalMemory/random_unsigned_overflow
+=== RUN   TestHostImportLogicalMemory/clock_crossing
+=== RUN   TestHostImportLogicalMemory/args_output_crossing
+=== RUN   TestHostImportLogicalMemory/env_output_crossing
+=== RUN   TestHostImportLogicalMemory/fd_output_crossing
+=== RUN   TestHostImportLogicalMemory/iovec_table_crossing
+--- PASS: TestHostImportLogicalMemory (0.00s)
+    --- PASS: TestHostImportLogicalMemory/random_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/random_past_end (0.00s)
+    --- PASS: TestHostImportLogicalMemory/random_unsigned_overflow (0.00s)
+    --- PASS: TestHostImportLogicalMemory/clock_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/args_output_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/env_output_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/fd_output_crossing (0.00s)
+    --- PASS: TestHostImportLogicalMemory/iovec_table_crossing (0.00s)
+=== RUN   TestMemFSGrowthAmortizedCopy
+--- PASS: TestMemFSGrowthAmortizedCopy (0.01s)
+=== RUN   TestMemFSGrowthZeroFillAndOffsets
+--- PASS: TestMemFSGrowthZeroFillAndOffsets (0.00s)
+=== RUN   TestMappingFailureOwnership
+--- PASS: TestMappingFailureOwnership (0.00s)
+=== RUN   TestMappingInitialCleanupFailureRetainsOwner
+--- PASS: TestMappingInitialCleanupFailureRetainsOwner (0.00s)
+=== RUN   TestOwnedPrivateViewsGrowthAndRelease
+--- PASS: TestOwnedPrivateViewsGrowthAndRelease (0.01s)
+=== RUN   TestOwnedPartialMappingFailure
+    owned_prepared_test.go:139: OS file-map counter omitted; acceptance sets MARIAMEM_PROCESS_COST
+    owned_prepared_test.go:145: OS file-map counter omitted; acceptance sets MARIAMEM_PROCESS_COST
+    owned_prepared_test.go:146: 100 partial mapping failures: file-backed VM bytes 0 -> 0
+--- PASS: TestOwnedPartialMappingFailure (0.00s)
+=== RUN   TestOwnedMappedTruncateRenameUnlinkIdentity
+--- PASS: TestOwnedMappedTruncateRenameUnlinkIdentity (0.00s)
+=== RUN   TestPreparedFilePrivateViews
+--- PASS: TestPreparedFilePrivateViews (0.00s)
+=== RUN   TestPreparedFilesRejectPartialInvalidTree
+--- PASS: TestPreparedFilesRejectPartialInvalidTree (0.00s)
+=== RUN   TestPreparedGrowthOwnershipAndZeroFill
+--- PASS: TestPreparedGrowthOwnershipAndZeroFill (0.00s)
+=== RUN   TestRelativeDirectoryMovedParentIdentity
+--- PASS: TestRelativeDirectoryMovedParentIdentity (0.00s)
+=== RUN   TestRelativeDirectoryIdentityDuringRename
+--- PASS: TestRelativeDirectoryIdentityDuringRename (0.00s)
+=== RUN   TestRelativeDirectoryRenameNestedAndParent
+--- PASS: TestRelativeDirectoryRenameNestedAndParent (0.00s)
+=== RUN   TestRelativeDirectoryUnlinkAndNameReuse
+--- PASS: TestRelativeDirectoryUnlinkAndNameReuse (0.00s)
+=== RUN   TestRelativeFileUnlinkKeepsOpenObject
+--- PASS: TestRelativeFileUnlinkKeepsOpenObject (0.00s)
+=== RUN   TestRelativeDirectoryCloseAndFDReuse
+--- PASS: TestRelativeDirectoryCloseAndFDReuse (0.00s)
+=== RUN   TestRelativeDirectoryConcurrentRename
+--- PASS: TestRelativeDirectoryConcurrentRename (0.00s)
+=== RUN   TestRelativeDirectoryStatReadlinkAndInvalidFD
+--- PASS: TestRelativeDirectoryStatReadlinkAndInvalidFD (0.00s)
+=== RUN   TestWaitContract
+--- PASS: TestWaitContract (0.00s)
+=== RUN   TestPageCleanerOrdering
+=== RUN   TestPageCleanerOrdering/signal-before-registration
+    spike_contract_test.go:174: signal_delivered=false wait_result=2 elapsed=1.003094542s
+=== RUN   TestPageCleanerOrdering/registered-before-signal
+    spike_contract_test.go:174: signal_delivered=true wait_result=0 elapsed=1.75µs
+--- PASS: TestPageCleanerOrdering (1.00s)
+    --- PASS: TestPageCleanerOrdering/signal-before-registration (1.00s)
+    --- PASS: TestPageCleanerOrdering/registered-before-signal (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.328s
+=== RUN   TestReadlinkRegularAndMissing
+--- PASS: TestReadlinkRegularAndMissing (0.00s)
+=== RUN   TestMappedMemoryContract
+    memory_backing_test.go:121: contract PASS, Go constructor TotalAlloc delta=284112; post-unmap protection probe returned cannot allocate memory; counters=map[active_mappings:0 active_reserved_bytes:0 active_rw_bytes:0 creates:1 grow_calls:3 grow_failures:0 peak_total_rw_bytes:2147483648 release_failures:0 releases:1]
+--- PASS: TestMappedMemoryContract (0.01s)
+=== RUN   TestMappedMemoryWorkerGrowAndFutex
+--- PASS: TestMappedMemoryWorkerGrowAndFutex (0.03s)
+=== RUN   TestMappedMemoryInitializationFailure
+--- PASS: TestMappedMemoryInitializationFailure (0.00s)
+=== RUN   TestMappedMemoryFailedExecutionJoinsBeforeRelease
+--- PASS: TestMappedMemoryFailedExecutionJoinsBeforeRelease (0.00s)
+=== RUN   TestMappedControlledTrapsRelease
+--- PASS: TestMappedControlledTrapsRelease (0.04s)
+=== RUN   TestMappedFailureErrorOwnershipPreserved
+--- PASS: TestMappedFailureErrorOwnershipPreserved (0.00s)
+=== RUN   TestMappedControlledWorkerTrapWaitsForPeer
+--- PASS: TestMappedControlledWorkerTrapWaitsForPeer (0.01s)
+=== RUN   TestMappedHostImportLogicalBuffers
+    memory_host_test.go:67: invalid imports returned EFAULT without touching PROT_NONE; grow and repeated release pass
+--- PASS: TestMappedHostImportLogicalBuffers (0.00s)
+=== RUN   TestControlledGuestMemoryTraps
+--- PASS: TestControlledGuestMemoryTraps (0.00s)
+=== RUN   TestControlledGuestJoinBeforeCleanup
+--- PASS: TestControlledGuestJoinBeforeCleanup (0.02s)
+=== RUN   TestControlledGuestPartialInitialization
+--- PASS: TestControlledGuestPartialInitialization (0.00s)
+=== RUN   TestControlledGuestFailedWorkerWithRunningPeer
+--- PASS: TestControlledGuestFailedWorkerWithRunningPeer (0.01s)
+=== RUN   TestControlledGuestFirstWorkerTrap
+--- PASS: TestControlledGuestFirstWorkerTrap (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	1.200s

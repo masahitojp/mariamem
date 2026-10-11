@@ -1,5 +1,14 @@
 # v0.5.x Track A — goccy upstream feasibility
 
+**結論: FEASIBLE WITH ADDITIONAL PATCHES（macOS arm64）。**
+固定した現行guestに対し、本家＋9パッチからnative hostを作成し、Go 51 tests／Python 27 testsが
+PASSした。小fixtureだけでなくSQL、transaction、Snapshot／Fork／LoadSnapshot、concurrent
+sessions、Close／cleanupを確認した。mainへの統合・Ubuntu確認・Release Qualificationは未実施。
+
+Humanへの推奨は、本家＋管理パッチへの移行を次の採用候補として進めること。fork依存は
+解消できるが、上流追従時に2つのcontext portとexport命名契約を保守する責任は残る。
+**判断事項: この9パッチ構成を移行候補として採用し、両OS／Release検証へ進めるか。**
+
 この実験は本家converter移行だけを扱う。MariaDB guest更新を扱うTrack Bと生成物・cache・
 結論を共有しない。main、v0.4.6 tag、canonical inputs、Release guardは変更していない。
 結果はUNQUALIFIEDであり、採用・Release Qualificationとは別の判断である。
@@ -13,7 +22,10 @@
 - current converter fork: `ac98bcf00c17d8531f0c071a9836d0b50975e7ff`。
 - upstream source commit: `730057c146463f663e8774587bc96fb2bea91af8`。
 - upstream archive SHA256: `1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f`。
-- Go: 1.26.8、`-pure`、runtime/host/wireはmainと同じ。
+- 実runtime入力source: `c06e908aef1055ca718b6da0212bb578c51a1a48`。
+- 実converter binary: `c5a19963e22dcbda06035b2da7252030f54c384e7a2456192dacdf87045e74df`。
+- 実host binary: `13a39938b12ff67ee37729559e9ab7e2ccee35bf407f917c394b67b25dec3c65`。
+- Go: 1.26.8、`-pure`、Host/Wireとruntime設定はmainと同じ。generated Goは候補converterから再生成。
 - 最新forkのGo1.27 experimental SIMD、gcasm body conversion、layout optionsは採用しない。
 
 Git identity helperでmain/releaseのtag-objectとsource-commitを区別し、本家commitも実体を
@@ -22,7 +34,7 @@ Git identity helperでmain/releaseのtag-objectとsource-commitを区別し、�
 
 ## Smallest patch series
 
-1. `imported-memory.patch` — unchanged。
+1. `upstream-imported-memory.patch` — metadata追加の位置を本家CLIへcontext付きでport。
 2. `import-function-index.patch` — unchanged。
 3. `relaxed-madd.patch` — unchanged。
 4. `upstream-pure-memory32.patch` — canonical pure-memory32のhelper contextだけを本家へport。
@@ -30,6 +42,11 @@ Git identity helperでmain/releaseのtag-objectとsource-commitを区別し、�
 6. `host-logical-memory.patch` — unchanged。
 7. `linear-memory-owner.patch` — unchanged。
 8. `upstream-helper-bridge.patch` — host logical boundと既存Wait fixture能力。
+9. `upstream-export-collision.patch` — forkと同じsuffixで両exportを保持。
+
+5パッチはcanonicalとbyte一致、2つはcontext port、2つはforkから必要な能力を保持する。
+[保守形式の調査](https://github.com/masahitojp/mariamem/blob/40b7f17/docs/reviews/wasm2go-diff-management.md)
+で「必要なら移植」としていたexport衝突を現行guestで実証した。
 
 本家のbulk fill/copyは既に`memSize.Load()`を使用する。forkの非shared memoryについて
 backing slice全体をaddressableにする契約は取り込まない。通常load/store、atomic、SIMDは
@@ -44,6 +61,17 @@ production WASIX threadは既存`threadSpawn`のcontention publicationを使う�
 初回の小fixtureはcompileで`undefined: memBound`を検出した。helper contextのportだけ
 ではhost patchの依存を満たさないことを実行で確認し、bridgeへ最小関数を追加した。
 変換成功をcorrectness成功とみなさず、この失敗と修正後の検証を区別して保存する。
+
+実guestの初回変換（`16d87ca`／8パッチ）はC++ exportの`__xEv`／`__XEv`が同名Go methodに
+mangleされ、fail-closedで停止した。forkと同じ命名hunkを追加し、両exportの返り値1／2を
+実generated Goで確認、2回生成のbyte一致も確認した。Wasmのrename／stripは行わない。
+
+次のnative compile（`3f538ea`）はmemory fields欠落で失敗した。context無しのcanonical
+imported-memory hunkが、本家ではTranslate後のSidecars loop内へ挿入されていたためだった。
+`c06e908`はParse直後へのcontext-bound portに置換し、Translateより前であることをrunnerで
+確認する。既存imported-memory fixtureをgrow／size exportで補い、constructor、guest-visible
+size、shared copyへのgrowth publication、stable pointer、失敗したgrowthのstate維持をPASS。
+これはWasm exported functionの実行であり、SQL検証とは区別する。全patchの静的配置監査も保存した。
 
 ## Experiment adapter
 
@@ -61,22 +89,60 @@ candidateの成功として流用しない。full guest race-detector cleanと�
 
 ## Verification / resource results
 
-検証継続中。実guestの変換／native compileはTrack Bの重い工程と競合しないよう順番待ち。
-先行した小fixtureの結果は次のとおり。これをMariaDB全体の検証成功として扱わない。
-
-| 検証 | 結果 | 実測境界 |
+| 検証境界 | 結果 | 証拠 |
 | --- | --- | --- |
-| patch-owned emitter／SSA regressions | PASS | 4 tests、2.082 s |
-| memory32 reference | PASS | 2,472 rows（1,693 expected traps）、golden一致 |
-| bounds／grow | PASS | scalar／atomic／SIMD、非wrap offset、failed growth、zero fill |
-| Wait／PageCleaner ordering | PASS | 2 tests、2 subcases、100回compare-registration通知競合 |
+| patch-owned emitter／SSA＋export命名 | PASS | 5 tests、実generated Goで異なる返り値1／2、生成byte一致 |
+| memory32 reference | PASS | 2,472 rows、1,693 expected traps、golden一致 |
+| 小shared memory／futex | PASS | constructor/grow、logical bound、100回通知競合、Wait/PageCleaner |
+| Go base／runtime ownership | PASS | 35 top-level tests、skip 0 |
+| 実guest traps／thread／SQL | PASS | 4 tests、root/worker trap、grow、private TLS/stack、CRUD/sessions/auth |
+| Go public owned/lifecycle/load | PASS | 12 tests、skip 0 |
+| Python explicit fresh host | PASS | 27 tests、skip 0、35.71 s |
+| unchanged Release source validator | REJECT as intended | `input manifest changed`、canonical pins／validator byte一致 |
 
-Wait fixtureは同じpatched upstream binaryで既存`threads.wat`を変換し、canonical fixtureの
-private field/function名だけを適合した。登録後の通知は2.3 µs、登録前の通知にはpermitが
-残らず正当な1.002 s timeoutになった。notifyの0／1 count、2 waiterも確認した。
-これは小moduleにおけるfutex publicationの実測であり、実MariaDB WASIX threadについては
-この時点ではstatic reasoningのみ。実guestのSQL／Snapshot／Fork／LoadSnapshot／
-concurrent sessions／Close／cleanupは最終結果で別々に記録する。
+子のINSERT／UPDATE／DELETE、schema変更、8 MiB growth、commit／rollback、順序変更、
+繰り返し／parallel siblings、元path削除後のimport ownership、Fork/Close race、startup／partial
+failure cleanupを既存testsで確認した。Go failure pathsはFD 6→6／goroutine 2→2、閉じたhandleを
+保持した試験もFD 6→6。Python owner EOFがhostをreapし、reader／pipe／logの終了もPASS。
+
+小Wait fixtureでは登録前signalがpermitを残さず正当な約1 s timeout、登録後は約2 µsでwake。
+実guestのworker visibility／TLS独立性／memory.grow／trap relayは別のconcrete guest testsで検証。
+いずれもfull guest Go race-cleanを証明する試験ではない。
+
+runtime checksはisolated product内のfresh generated sourceとexplicit hostを使用し、binary hash／
+Go compiler／host `--snapshot-info`／test input hashesでbindした。検証後のruntime inventoryも
+作成直後と一致した。最終report commitはdocs/evidenceのみで、runtime tested sourceは上記
+`c06e908`である。初回失敗やsandbox DNS不足によるtest-setup未実行も別receiptへ残した。
+
+## Resource observations
+
+Apple M1、16 GiB RAM、8 CPU、macOS 27.0.1 arm64、GOMAXPROCS=2、専用Go cache。
+計測は1回のfeasibility試行で、benchmark比較／高速化率ではない。
+
+| 最終成功工程 | Wall | User / System CPU | Peak RSS |
+| --- | ---: | ---: | ---: |
+| Wasm→Go | 69.19 s | 77.44 / 10.66 s | 3.94 GB |
+| Generated Go→native host | 125.44 s | 193.29 / 4.00 s | 2.50 GB |
+| Go base/runtime tests（初回test archive compile込み） | 179.03 s | 259.36 / 7.76 s | 3.45 GB |
+| concrete guest tests | 9.44 s | 6.10 / 1.85 s | 0.65 GB |
+| Go public lifecycle tests | 18.89 s | 14.55 / 5.25 s | 1.06 GB |
+
+native hostは101,050,242 bytes。Peakはwait4 child high-water markであり、全processの同時RSS合計
+ではない。native buildの`-trimpath`と通常Go testの別cache archive生成費を含む。thread fixtureは
+軽量先行、guest変換／native compileはTrack B終了後に実行し、競合を避けた。
+SSA fixpoint cap warnings、未検証f16 table rewriteがOFFのwarningを保存し、新たな対応成功と
+主張しない。本家＋patchはfork削減の保守候補であり、runtime速度改善は測定していない。
+
+## Remaining boundary / recommendation
+
+本家だけでは現行guestを変換できず、export命名追加とimported-memory context portが必要。
+既存7パッチの安全目的を保持した9パッチなら、固定guestでcorrectness実証が成立した。
+大きなfork全体を保持するより差分の責任を説明しやすいが、patch本数の減少ではない。
+upstream source変更時にはcontext port、helper互換性、wrapper命名、同じfixturesの再実行が必要。
+
+Ubuntu x86_64、独立再生成、source/license/provenanceの正式更新、最終artifact qualificationは
+移行採用後の別gate。今回はcanonical accepted pins／guest／main／tagを変更せず、unchanged
+Release validatorで実験manifestが拒否されることを確認した。Track Bとの組合せは未検証。
 
 既存のbulk zero-length bounds仕様gap、非協調的trap reclaim／full guest Go race既知制約は
 今回の移行で解決したとみなさない。macOS arm64実験はUbuntu qualificationの代用ではない。
@@ -96,8 +162,17 @@ env -u GOPATH -u GOCACHE -u GOMODCACHE \
   benchmarks/spikes/upstream-feasibility/run.py \
   --archive /absolute/owned-workspace/temp/upstream.tar.gz \
   --guest /absolute/owned-workspace/temp/released-guest/mariamem.wasm \
-  --output /absolute/owned-workspace/temp/upstream-run
+  --output /absolute/owned-workspace/temp/upstream-run3
 ```
 
 source checkoutをcommitしてから実行する。Release資格を得る経路ではなく、sourceやartifact
 identityを偽装してrelease helperへ渡してはならない。
+
+
+## Evidence / cleanup
+
+[compact evidence](v05-wasm2go-upstream-feasibility-evidence/)にfixed identity、patch manifest、
+失敗境界、resource phases、test logs／test input hashes、再現用小fixture commandsを保存した。
+raw source／Wasm／Go caches／binary／product copyは再生成可能であり保持対象ではない。
+workspace coordinatorがcommit/push後に所有済みtempとworktreeを削除する。
+このreport branchへmulti-GiB生成物を含めていない。最終cleanup receiptはcoordinatorが報告する。
