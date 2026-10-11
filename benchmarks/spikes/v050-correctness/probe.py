@@ -14,7 +14,7 @@ prepared=module/'internal/prepared';prepared.mkdir(parents=True);shutil.copy2(RO
 (module/'go.mod').write_text('module github.com/masahitojp/mariamem\n\ngo 1.26.0\n')
 env=dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='',GOMAXPROCS='2')
 checks=[('TestAllocateControls',False),('TestAllocatePreservesExistingData',False),('TestZeroBulkBounds',False),('TestAtomicValuesAndBounds',False)]
-checks += [(name,race) for race in (False,True) for name in ['TestAtomicReadRead8','TestAtomicReadRead16','TestAtomicNeighbor8','TestAtomicNeighbor16','TestReadOnlyWordNeighbor']]
+checks += [(name,race) for race in (False,True) for name in ['TestAtomicReadRead8','TestAtomicReadRead16','TestAtomicNeighbor8','TestAtomicNeighbor16','TestReadOnlyWordNeighbor','TestMappedAtomicReadRead8','TestMappedAtomicReadRead16','TestMappedAtomicNeighbor8','TestMappedAtomicNeighbor16','TestHeapPlainConflict','TestMappedPlainConflict']]
 rows=[]
 for name,race in checks:
  cmd=['go','test','-p','1',*(('-race',) if race else ()),'-count=1','-v','-run','^'+name+'$','./internal/generatedgo/code/base']
