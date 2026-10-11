@@ -122,6 +122,13 @@
       "version": "7.4.2",
       "sha256": "07271f7ecf449135bbd44cfe9f38a65e54ab25f1564a9c6bd2d0d5cca5743963",
       "kind": "runtime-binary"
+    },
+    {
+      "name": "mariadb-stable",
+      "file": "mariadb-12.3.3-source.tar.gz",
+      "url": "https://codeload.github.com/MariaDB/server/tar.gz/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "revision": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845"
     }
   ],
   "pristine_files": {

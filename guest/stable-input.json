@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "candidate": "MariaDB 12.3.3",
+  "tag_object_sha": "bd852bcd567fedc89ad4521e2f1a64c7a1e0d0f0",
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "recipe_source_commit": "24be9371a2f6c71250a2356631ad6feab2280b02",
+  "portability_source_base": "b2a8c2234dbc276fe3947633c9ffea454badf48f",
+  "recipe_files_sha256": {
+    "wasm/CMakeLists.txt": "f317e2786a12b2cfdd7c0de8d4b3d3c05b6aa9ee4f0a8aad909898b6d218f437",
+    "wasm/COPYING": "240a15a1d0f34d3abca462cdb7e5fb89470967563f16b0e71169e51c1e74cf2b",
+    "wasm/build-wasix.sh": "2d6c9407361e560e1b5623e611d570e233d25333dcf90340068682af8b6bf782",
+    "wasm/lite4mariadb.c": "c0a959b6755d3463de31d9d08d2a43031cc418a332768a0956ebfd5046e15526",
+    "wasm/platforms/Platform/WASIX.cmake": "24d0ba74185453b0624c4a381c9bc2f67f19071e54d3b5e55e553136271419f7",
+    "wasm/wasix-toolchain.cmake": "114c296e33df8bb68bab6797d1b40b11834a2c3cfe1e934ffbe87037816c32ea"
+  }
+}

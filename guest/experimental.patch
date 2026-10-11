@@ -1,0 +1,580 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -451,7 +451,9 @@
+ # Add bundled wolfssl/wolfcrypt or system openssl.
+ MYSQL_CHECK_SSL()
+ # Add readline or libedit.
+-MYSQL_CHECK_READLINE()
++IF(NOT EMSCRIPTEN AND NOT WASIX)
++  MYSQL_CHECK_READLINE()
++ENDIF()
+ 
+ SET(MALLOC_LIBRARY "system")
+ 
+@@ -490,7 +492,9 @@
+ 
+ UNSET (MYSQLD_STATIC_PLUGIN_LIBS CACHE)
+ 
+-INCLUDE(mariadb_connector_c) # this does ADD_SUBDIRECTORY(libmariadb)
++IF(NOT EMSCRIPTEN AND NOT WASIX)
++  INCLUDE(mariadb_connector_c) # this does ADD_SUBDIRECTORY(libmariadb)
++ENDIF()
+ 
+ INCLUDE(cpack_tgz)
+ INCLUDE(cpack_rpm)
+@@ -508,26 +512,34 @@
+ ADD_SUBDIRECTORY(vio)
+ ADD_SUBDIRECTORY(mysys)
+ ADD_SUBDIRECTORY(mysys_ssl)
+-ADD_SUBDIRECTORY(client)
++IF(NOT EMSCRIPTEN AND NOT WASIX)
++  ADD_SUBDIRECTORY(client)
++ENDIF()
+ ADD_SUBDIRECTORY(libservices)
+ ADD_SUBDIRECTORY(sql/share)
+ 
+ IF(NOT WITHOUT_SERVER)
+-  ADD_SUBDIRECTORY(tests)
++  IF(NOT EMSCRIPTEN AND NOT WASIX)
++    ADD_SUBDIRECTORY(tests)
++  ENDIF()
+   ADD_SUBDIRECTORY(sql)
+   OPTION (WITH_EMBEDDED_SERVER "Compile MariaDB with embedded server" OFF)
+   IF(WITH_EMBEDDED_SERVER)
+     ADD_SUBDIRECTORY(libmysqld)
+-    ADD_SUBDIRECTORY(libmysqld/examples)
+-    ADD_SUBDIRECTORY(unittest/embedded)
++    IF(NOT EMSCRIPTEN AND NOT WASIX)
++      ADD_SUBDIRECTORY(libmysqld/examples)
++      ADD_SUBDIRECTORY(unittest/embedded)
++    ENDIF()
+   ENDIF(WITH_EMBEDDED_SERVER)
+   IF(NOT WIN32)
+     ADD_FEATURE_INFO(EMBEDDED_SERVER WITH_EMBEDDED_SERVER "Embedded MariaDB Server Library")
+   ENDIF()
+ 
+-  ADD_SUBDIRECTORY(mysql-test)
+-  ADD_SUBDIRECTORY(mysql-test/lib/My/SafeProcess)
+-  ADD_SUBDIRECTORY(sql-bench)
++  IF(NOT EMSCRIPTEN AND NOT WASIX)
++    ADD_SUBDIRECTORY(mysql-test)
++    ADD_SUBDIRECTORY(mysql-test/lib/My/SafeProcess)
++    ADD_SUBDIRECTORY(sql-bench)
++  ENDIF()
+   IF(WIN32)
+     ADD_SUBDIRECTORY(win/upgrade_wizard)
+     ADD_SUBDIRECTORY(win/packaging)
+@@ -536,18 +548,26 @@
+ 
+ ADD_SUBDIRECTORY(extra)
+ 
+-IF(UNIX)
++IF(UNIX AND NOT EMSCRIPTEN AND NOT WASIX)
+   ADD_SUBDIRECTORY(man)
++ENDIF()
++
++IF((EMSCRIPTEN OR WASIX) AND WITH_EMBEDDED_SERVER)
++  ADD_SUBDIRECTORY(wasm)
+ ENDIF()
+ 
+ IF (NOT WITHOUT_ABI_CHECK)
+     INCLUDE(cmake/abi_check.cmake)
+ ENDIF()
+ INCLUDE(cmake/tags.cmake)
+-INCLUDE(for_clients)
++IF(NOT EMSCRIPTEN AND NOT WASIX)
++  INCLUDE(for_clients)
++ENDIF()
+ ADD_SUBDIRECTORY(scripts)
+-ADD_SUBDIRECTORY(support-files)
+-ADD_SUBDIRECTORY(extra/aws_sdk)
++IF(NOT EMSCRIPTEN AND NOT WASIX)
++  ADD_SUBDIRECTORY(support-files)
++  ADD_SUBDIRECTORY(extra/aws_sdk)
++ENDIF()
+ 
+ IF(NOT CMAKE_CROSSCOMPILING OR DEFINED CMAKE_CROSSCOMPILING_EMULATOR)
+   SET(EXPORTED comp_err comp_sql factorial uca-dump)
+@@ -618,7 +638,7 @@
+ You have linked MariaDB with ${NON_DISTRIBUTABLE_WARNING} libraries!  You may not distribute the resulting binary. If you do, you will put yourself into a legal problem with the Free Software Foundation.")
+ ENDIF()
+ 
+-IF(NOT WITHOUT_SERVER)
++IF(NOT WITHOUT_SERVER AND NOT EMSCRIPTEN AND NOT WASIX)
+   # Define target for minimal mtr-testable build
+   ADD_CUSTOM_TARGET(minbuild)
+   ADD_DEPENDENCIES(minbuild
+--- /dev/null
++++ b/cmake/os/Emscripten.cmake
+@@ -0,0 +1,66 @@
++# Copyright (c) 2026 MariaDB
++#
++# Emscripten / WebAssembly target. Included because CMAKE_SYSTEM_NAME is
++# "Emscripten" when configured with emcmake.
++
++SET(SYSTEM_TYPE "Emscripten")
++SET(_FILE_OFFSET_BITS 64)
++SET(_GNU_SOURCE 1)
++
++# wasm32: do not pick up host x86 CRC / WolfSSL Intel asm.
++SET(CMAKE_SYSTEM_PROCESSOR "wasm32")
++
++# emcmake injects a Node emulator. pthread-enabled WASM binaries are not
++# usable as host tools (gen_lex_hash, comp_err, …); use native ones instead.
++UNSET(CMAKE_CROSSCOMPILING_EMULATOR)
++UNSET(CMAKE_CROSSCOMPILING_EMULATOR CACHE)
++
++# Embedded server in one WASM module; no dlopen plugins, no shared libs.
++SET(WITH_EMBEDDED_SERVER ON CACHE BOOL "Compile MariaDB with embedded server" FORCE)
++SET(DISABLE_SHARED ON CACHE BOOL "Don't build shared libraries" FORCE)
++SET(WITHOUT_DYNAMIC_PLUGINS 1)
++SET(WITH_NONE ON)
++SET(WITH_UNIT_TESTS OFF CACHE BOOL "Compile MySQL with unit tests" FORCE)
++SET(WITH_WSREP OFF CACHE BOOL "WSREP replication API" FORCE)
++SET(SECURITY_HARDENED OFF CACHE BOOL "Use security-enhancing compiler features" FORCE)
++SET(ENABLED_PROFILING OFF CACHE BOOL "Enable profiling" FORCE)
++SET(WITH_INNODB_PMEM OFF CACHE BOOL "Support memory-mapped InnoDB redo log" FORCE)
++SET(WITH_NUMA OFF CACHE STRING "Build with non-uniform memory access" FORCE)
++SET(WITH_URING OFF CACHE BOOL "Require that io_uring be used" FORCE)
++SET(WITH_LIBAIO OFF CACHE BOOL "Require that libaio is used" FORCE)
++SET(WITH_SYSTEMD "no" CACHE STRING "Enable systemd scripts and notification support" FORCE)
++SET(WITH_SSL "bundled" CACHE STRING "SSL library" FORCE)
++SET(WITH_ZLIB "bundled" CACHE STRING "Use bundled zlib" FORCE)
++SET(WITH_PCRE "bundled" CACHE STRING "Which pcre to use" FORCE)
++SET(WITH_LIBFMT "bundled" CACHE STRING "Which libfmt to use" FORCE)
++SET(WITHOUT_ABI_CHECK ON)
++SET(FEATURE_SUMMARY OFF CACHE BOOL "Print feature summary" FORCE)
++SET(UPDATE_SUBMODULES OFF CACHE BOOL "Update submodules automatically" FORCE)
++SET(ENABLE_DTRACE OFF CACHE BOOL "Enable dtrace" FORCE)
++
++# Host-only storage engines / plugins (WITH_NONE already drops non-DEFAULT).
++SET(PLUGIN_COLUMNSTORE "NO" CACHE STRING "How to build plugin COLUMNSTORE")
++SET(PLUGIN_ROCKSDB "NO" CACHE STRING "How to build plugin ROCKSDB")
++SET(PLUGIN_MROONGA "NO" CACHE STRING "How to build plugin MROONGA")
++SET(PLUGIN_SPIDER "NO" CACHE STRING "How to build plugin SPIDER")
++SET(PLUGIN_CONNECT "NO" CACHE STRING "How to build plugin CONNECT")
++SET(PLUGIN_OQGRAPH "NO" CACHE STRING "How to build plugin OQGRAPH")
++SET(PLUGIN_SPHINX "NO" CACHE STRING "How to build plugin SPHINX")
++SET(PLUGIN_FEDERATED "NO" CACHE STRING "How to build plugin FEDERATED")
++SET(PLUGIN_FEDERATEDX "NO" CACHE STRING "How to build plugin FEDERATEDX")
++SET(PLUGIN_S3 "NO" CACHE STRING "How to build plugin S3")
++SET(PLUGIN_DUCKDB "NO" CACHE STRING "How to build plugin DUCKDB")
++SET(PLUGIN_VIDEX "NO" CACHE STRING "How to build plugin VIDEX")
++SET(PLUGIN_PERFSCHEMA "NO" CACHE STRING "How to build plugin PERFSCHEMA")
++SET(PLUGIN_AUTH_GSSAPI "NO" CACHE STRING "How to build plugin AUTH_GSSAPI")
++SET(PLUGIN_AUTH_PAM "NO" CACHE STRING "How to build plugin AUTH_PAM")
++SET(PLUGIN_CRACKLIB_PASSWORD_CHECK "NO" CACHE STRING "How to build plugin CRACKLIB_PASSWORD_CHECK")
++SET(PLUGIN_HASHICORP "NO" CACHE STRING "How to build plugin HASHICORP")
++
++# Simulated AIO (tpool non-Linux path) — no io_uring / libaio.
++# Threads are required by InnoDB's tpool / page cleaner.
++ADD_COMPILE_OPTIONS(-pthread -fexceptions -fno-strict-aliasing)
++ADD_LINK_OPTIONS(-pthread -fexceptions)
++
++# Do not pass -Wl,--no-undefined; Emscripten JS glue provides some symbols.
++SET(LINK_FLAG_NO_UNDEFINED "")
+--- /dev/null
++++ b/cmake/os/WASIX.cmake
+@@ -0,0 +1,63 @@
++# Copyright (c) 2026 MariaDB
++#
++# WASIX / WebAssembly target (wasix-libc, Wasmer runtime). Included because
++# CMAKE_SYSTEM_NAME is "WASIX" when configured with wasm/wasix-toolchain.cmake.
++
++SET(SYSTEM_TYPE "WASIX")
++SET(_FILE_OFFSET_BITS 64)
++SET(_GNU_SOURCE 1)
++
++# wasm32: do not pick up host x86 CRC / WolfSSL Intel asm.
++SET(CMAKE_SYSTEM_PROCESSOR "wasm32")
++
++# Embedded server in one WASM module; no dlopen plugins, no shared libs.
++SET(WITH_EMBEDDED_SERVER ON CACHE BOOL "Compile MariaDB with embedded server" FORCE)
++SET(DISABLE_SHARED ON CACHE BOOL "Don't build shared libraries" FORCE)
++SET(WITHOUT_DYNAMIC_PLUGINS 1)
++SET(WITH_NONE ON)
++SET(WITH_UNIT_TESTS OFF CACHE BOOL "Compile MySQL with unit tests" FORCE)
++SET(WITH_WSREP OFF CACHE BOOL "WSREP replication API" FORCE)
++SET(SECURITY_HARDENED OFF CACHE BOOL "Use security-enhancing compiler features" FORCE)
++SET(ENABLED_PROFILING OFF CACHE BOOL "Enable profiling" FORCE)
++SET(WITH_INNODB_PMEM OFF CACHE BOOL "Support memory-mapped InnoDB redo log" FORCE)
++SET(WITH_NUMA OFF CACHE STRING "Build with non-uniform memory access" FORCE)
++SET(WITH_URING OFF CACHE BOOL "Require that io_uring be used" FORCE)
++SET(WITH_LIBAIO OFF CACHE BOOL "Require that libaio is used" FORCE)
++SET(WITH_SYSTEMD "no" CACHE STRING "Enable systemd scripts and notification support" FORCE)
++SET(WITH_SSL "bundled" CACHE STRING "SSL library" FORCE)
++SET(WITH_ZLIB "bundled" CACHE STRING "Use bundled zlib" FORCE)
++SET(WITH_PCRE "bundled" CACHE STRING "Which pcre to use" FORCE)
++SET(WITH_LIBFMT "bundled" CACHE STRING "Which libfmt to use" FORCE)
++SET(WITHOUT_ABI_CHECK ON)
++SET(FEATURE_SUMMARY OFF CACHE BOOL "Print feature summary" FORCE)
++SET(UPDATE_SUBMODULES OFF CACHE BOOL "Update submodules automatically" FORCE)
++SET(ENABLE_DTRACE OFF CACHE BOOL "Enable dtrace" FORCE)
++# wasix-libc's <stdio.h> has no P_tmpdir macro; use a literal default.
++SET(TMPDIR "/tmp" CACHE PATH "PATH to MySQL TMP dir" FORCE)
++
++# Host-only storage engines / plugins (WITH_NONE already drops non-DEFAULT).
++SET(PLUGIN_COLUMNSTORE "NO" CACHE STRING "How to build plugin COLUMNSTORE")
++SET(PLUGIN_ROCKSDB "NO" CACHE STRING "How to build plugin ROCKSDB")
++SET(PLUGIN_MROONGA "NO" CACHE STRING "How to build plugin MROONGA")
++SET(PLUGIN_SPIDER "NO" CACHE STRING "How to build plugin SPIDER")
++SET(PLUGIN_CONNECT "NO" CACHE STRING "How to build plugin CONNECT")
++SET(PLUGIN_OQGRAPH "NO" CACHE STRING "How to build plugin OQGRAPH")
++SET(PLUGIN_SPHINX "NO" CACHE STRING "How to build plugin SPHINX")
++SET(PLUGIN_FEDERATED "NO" CACHE STRING "How to build plugin FEDERATED")
++SET(PLUGIN_FEDERATEDX "NO" CACHE STRING "How to build plugin FEDERATEDX")
++SET(PLUGIN_S3 "NO" CACHE STRING "How to build plugin S3")
++SET(PLUGIN_DUCKDB "NO" CACHE STRING "How to build plugin DUCKDB")
++SET(PLUGIN_VIDEX "NO" CACHE STRING "How to build plugin VIDEX")
++SET(PLUGIN_PERFSCHEMA "NO" CACHE STRING "How to build plugin PERFSCHEMA")
++SET(PLUGIN_AUTH_GSSAPI "NO" CACHE STRING "How to build plugin AUTH_GSSAPI")
++SET(PLUGIN_AUTH_PAM "NO" CACHE STRING "How to build plugin AUTH_PAM")
++SET(PLUGIN_CRACKLIB_PASSWORD_CHECK "NO" CACHE STRING "How to build plugin CRACKLIB_PASSWORD_CHECK")
++SET(PLUGIN_HASHICORP "NO" CACHE STRING "How to build plugin HASHICORP")
++
++# Simulated AIO (tpool non-Linux path) — no io_uring / libaio.
++# Threads are required by InnoDB's tpool / page cleaner.
++ADD_COMPILE_OPTIONS(-pthread -fexceptions -fno-strict-aliasing)
++ADD_LINK_OPTIONS(-pthread -fexceptions)
++
++# wasm-ld provides all symbols statically; no undefined-symbol dance needed.
++SET(LINK_FLAG_NO_UNDEFINED "")
+--- a/cmake/pcre.cmake
++++ b/cmake/pcre.cmake
+@@ -62,6 +62,12 @@
+     SET(CMAKE_MSVC_RUNTIME_LIBRARY_ARG)
+   ENDIF()
+ 
++  IF(CMAKE_TOOLCHAIN_FILE)
++    SET(PCRE2_TOOLCHAIN_ARG "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}")
++  ELSE()
++    SET(PCRE2_TOOLCHAIN_ARG)
++  ENDIF()
++
+   ExternalProject_Add(
+     pcre2
+     PREFIX   "${dir}"
+@@ -80,6 +86,7 @@
+       "-DCMAKE_C_FLAGS_RELEASE=${pcre2_flags_RELEASE}"
+       "-DCMAKE_C_FLAGS_MINSIZEREL=${pcre2_flags_MINSIZEREL}"
+       "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
++      ${PCRE2_TOOLCHAIN_ARG}
+       ${CMAKE_MSVC_RUNTIME_LIBRARY_ARG}
+       ${stdlibs}
+       ${byproducts}
+--- a/configure.cmake
++++ b/configure.cmake
+@@ -1003,3 +1003,25 @@
+   MY_CHECK_AND_SET_COMPILER_FLAG("-no-ansi-alias")
+   MY_CHECK_AND_SET_COMPILER_FLAG("-fp-model precise")
+ ENDIF()
++
++IF(EMSCRIPTEN OR WASIX)
++  # Host-only syscalls: force off even if a compile-time probe succeeded.
++  # (Probes compile-check only in cross builds, so they pass spuriously.)
++  SET(HAVE_DLOPEN FALSE)
++  SET(HAVE_DLADDR FALSE)
++  SET(HAVE_LIBAIO_H)
++  UNSET(HAVE_LIBAIO)
++  SET(HAVE_URING)
++  SET(HAVE_SYSTEMD)
++  SET(HAVE_FORK FALSE)
++  SET(HAVE_VFORK FALSE)
++  SET(HAVE_NICE FALSE)
++  SET(HAVE_LINUX_UNISTD_H)
++  SET(HAVE_FALLOC_PUNCH_HOLE_AND_KEEP_SIZE)
++  SET(HAVE_DTRACE FALSE)
++  IF(WASIX)
++    # wasix-libc has fcntl() but no file locking (F_SETLK & friends);
++    # my_lock() short-circuits to a no-op under __wasi__.
++    SET(HAVE_FCNTL FALSE)
++  ENDIF()
++ENDIF()
+--- a/include/my_global.h
++++ b/include/my_global.h
+@@ -310,6 +310,15 @@
+ #ifdef HAVE_FCNTL_H
+ #include <fcntl.h>
+ #endif
++#if defined(__wasi__) && !defined(F_RDLCK)
++/* wasix-libc declares fcntl() but omits the lock constants in its default
++   headers. Embedded builds never lock files (my_lock() is a no-op without
++   HAVE_FCNTL); the constants are only used as flag values. */
++#define F_RDLCK 0
++#define F_WRLCK 1
++#define F_UNLCK 2
++#define F_TO_EOF 0x3FFFFFFF
++#endif
+ #ifdef HAVE_SYS_STAT_H
+ #include <sys/stat.h>
+ #endif
+@@ -1083,8 +1092,10 @@
+ #endif
+ #ifndef HAVE_DLADDR
+ #define dladdr(A, B) 0
++#if !defined(__EMSCRIPTEN__) && !defined(__wasi__)
+ /* Dummy definition in case we're missing dladdr() */
+ typedef struct { const char *dli_fname, dli_fbase; } Dl_info;
++#endif
+ #endif
+ #else
+ #define dlerror() "No support for dynamic loading (static build?)"
+@@ -1092,8 +1103,10 @@
+ #define dlsym(A,B) 0
+ #define dlclose(A) 0
+ #define dladdr(A, B) 0
++#if !defined(__EMSCRIPTEN__) && !defined(__wasi__)
+ /* Dummy definition in case we're missing dladdr() */
+ typedef struct { const char *dli_fname, dli_fbase; } Dl_info;
++#endif
+ #endif
+ 
+ /*
+--- a/include/my_stacktrace.h
++++ b/include/my_stacktrace.h
+@@ -59,7 +59,9 @@
+ # define my_setup_stacktrace()
+ #endif /* ! (defined(HAVE_STACKTRACE) || defined(HAVE_BACKTRACE)) */
+ 
+-#ifndef _WIN32
++#if !defined(_WIN32) && !defined(__wasi__)
++/* WASIX lacks the pieces this needs (POLLRDBAND, dladdr/Dl_info);
++   address resolving is only used for crash reports anyway. */
+ #define MY_ADDR_RESOLVE_FORK
+ #endif
+ 
+--- a/libmysqld/libmysql.c
++++ b/libmysqld/libmysql.c
+@@ -432,8 +432,12 @@
+   {
+ #ifdef HAVE_GETPWUID
+     struct passwd *skr;
+-    const char *str;
+-    if ((str=getlogin()) == NULL)
++    const char *str= NULL;
++#ifndef __wasi__
++    /* wasix-libc declares getlogin() but does not implement it */
++    str= getlogin();
++#endif
++    if (str == NULL)
+     {
+       if ((skr=getpwuid(geteuid())) != NULL)
+ 	str=skr->pw_name;
+--- a/mysys/CMakeLists.txt
++++ b/mysys/CMakeLists.txt
+@@ -76,6 +76,8 @@
+       COMPILE_FLAGS "-march=armv8-a+crc+crypto"
+   )
+   ENDIF()
++ELSEIF(EMSCRIPTEN OR WASIX)
++  # Software CRC32 via zlib; WASM has no PCLMUL / SSE4.2.
+ ELSEIF(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|amd64|i386|i686")
+   SET(MYSYS_SOURCES ${MYSYS_SOURCES} crc32/crc32_x86.c crc32/crc32c_x86.cc)
+   IF(CMAKE_C_COMPILER_ID STREQUAL "GNU" AND CMAKE_C_COMPILER_VERSION VERSION_LESS "5")
+--- a/mysys/my_largepage.c
++++ b/mysys/my_largepage.c
+@@ -20,7 +20,7 @@
+ #ifdef __linux__
+ #include <dirent.h>
+ #endif
+-#if defined(__linux__) || defined(MAP_ALIGNED)
++#if defined(__linux__) || defined(MAP_ALIGNED) || defined(__EMSCRIPTEN__) || defined(__wasi__)
+ #include "my_bit.h"
+ #endif
+ #ifdef HAVE_LINUX_MMAN_H
+@@ -434,6 +434,17 @@
+ {
+   char *ptr;
+   DBUG_ENTER("my_large_virtual_alloc");
++
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++  /* WASM has no useful PROT_NONE reservation; allocate committed pages. */
++  {
++    void *p= NULL;
++    if (posix_memalign(&p, 4096, *size))
++      DBUG_RETURN(NULL);
++    memset(p, 0, *size);
++    DBUG_RETURN(p);
++  }
++#endif
+ 
+   if (my_use_large_pages)
+   {
+--- a/mysys/my_lock.c
++++ b/mysys/my_lock.c
+@@ -155,7 +155,11 @@
+       DBUG_RETURN(0);
+   }
+ #else
+-#if defined(HAVE_FCNTL)
++#if defined(__wasi__)
++  /* WASIX has no POSIX file locking (no fcntl F_SETLK, no lockf).
++     The embedded server is single-process, so pretend success. */
++  DBUG_RETURN(0);
++#elif defined(HAVE_FCNTL)
+   {
+     struct flock lock;
+ 
+--- a/mysys/my_timezone.cc
++++ b/mysys/my_timezone.cc
+@@ -175,7 +175,12 @@
+   tzset();
+   t= time(NULL);
+   localtime_r(&t, &tm);
++#ifdef HAVE_TZNAME
+   const char *tz_name= tzname[tm.tm_isdst != 0 ? 1 : 0];
++#else
++  /* WASI has no timezone tables; the embedded server runs in UTC. */
++  const char *tz_name= "UTC";
++#endif
+   snprintf(sys_timezone, size, "%s", tz_name);
+ }
+ 
+--- a/mysys/my_virtual_mem.c
++++ b/mysys/my_virtual_mem.c
+@@ -78,7 +78,19 @@
+ */
+ char *my_virtual_mem_commit(char *ptr, size_t size)
+ {
+-#ifdef _WIN32
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++  /* Preserve 12.3's NULL allocation contract without unsupported mmap flags. */
++  if (!ptr)
++  {
++    void *p= NULL;
++    if (posix_memalign(&p, 4096, size))
++      return NULL;
++    memset(p, 0, size);
++    ptr= p;
++  }
++  update_malloc_size(size, 0);
++  return ptr;
++#elif defined(_WIN32)
+   if (!ptr)
+     return VirtualAlloc(NULL, size, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+   if (my_use_large_pages)
+@@ -144,7 +156,11 @@
+ 
+ void my_virtual_mem_decommit(char *ptr, size_t size)
+ {
+-#ifdef _WIN32
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++  (void) ptr;
++  update_malloc_size(-(longlong) size, 0);
++  return;
++#elif defined(_WIN32)
+   DBUG_ASSERT(is_memory_committed(ptr, size));
+   if (!my_use_large_pages)
+   {
+@@ -185,7 +201,10 @@
+ 
+ void my_virtual_mem_release(char *ptr, size_t size)
+ {
+-#ifdef _WIN32
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++  free(ptr);
++  return;
++#elif defined(_WIN32)
+   if (!VirtualFree(ptr, 0, MEM_RELEASE))
+   {
+     my_error(EE_BADMEMORYRELEASE, MYF(ME_ERROR_LOG_ONLY), ptr, size,
+@@ -204,6 +223,10 @@
+ 
+ void my_virtual_mem_protect(void *ptr, size_t size, enum my_vmem_prot prot)
+ {
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++  /* WASIX linear memory cannot provide page-level protection. */
++  (void) ptr; (void) size; (void) prot;
++#else
+   int res __attribute__((unused));
+ #ifdef _WIN32
+   DWORD old_prot;
+@@ -212,4 +235,5 @@
+   res= mprotect(ptr, size, prot ? PROT_READ | PROT_WRITE : PROT_READ);
+ #endif
+   DBUG_ASSERT(res == 0); // bad ptr or size alignment, neither should be possible
+-}
++#endif
++}
+--- a/sql/sql_plugin.cc
++++ b/sql/sql_plugin.cc
+@@ -499,7 +499,7 @@
+   DBUG_RETURN(tmp);
+ }
+ #else
+-static struct st_plugin_dl *plugin_dl_find(const LEX_STRING *)
++static struct st_plugin_dl *plugin_dl_find(const LEX_CSTRING *)
+ {
+   return 0;
+ }
+--- a/storage/innobase/fil/fil0fil.cc
++++ b/storage/innobase/fil/fil0fil.cc
+@@ -1804,11 +1804,18 @@
+ 		return NULL;
+ 	}
+ 
+-	/* If the name is a relative or absolute path, do not prepend "./". */
+-	if (path[0] == '.'
++	/* If the name is an absolute path, use it as is. The embedded
++	server sets fil_path_to_mysql_datadir to an absolute datadir
++	(instead of "./"), so redo-logged absolute file names would
++	otherwise get the datadir prepended a second time. */
++	if (name.size() && is_absolute_path(name.data())) {
++		path = NULL;
++		path_len = 0;
++	}
++	/* If the name is a relative path, do not prepend "./". */
++	else if (path[0] == '.'
+ 	    && (path[1] == '\0' || path[1] == '/' IF_WIN(|| path[1] == '\\',))
+-	    && name.size() && (name.data()[0] == '.'
+-			       || is_absolute_path(name.data()))) {
++	    && name.size() && name.data()[0] == '.') {
+ 		path = NULL;
+ 		path_len = 0;
+ 	}
+--- a/storage/innobase/log/log0log.cc
++++ b/storage/innobase/log/log0log.cc
+@@ -342,7 +342,10 @@
+         log.close();
+         log_buffered= false;
+         log_maybe_unbuffered= true;
+-        IF_WIN(,mprotect(ptr, size_t(size), PROT_READ));
++#if !defined(_WIN32) && !defined(__wasi__)
++        /* Same WASIX protection limitation as lite4mariadb's newer source. */
++        mprotect(ptr, size_t(size), PROT_READ);
++#endif
+       }
+ # endif
+       buf= static_cast<byte*>(ptr);
+--- a/storage/innobase/os/os0file.cc
++++ b/storage/innobase/os/os0file.cc
+@@ -332,7 +332,14 @@
+   ssize_t execute_low(const IORequest& request, ssize_t n);
+ };
+ 
+-#ifndef _WIN32 /* On Microsoft Windows, mandatory locking is used */
++#if defined(__wasi__)
++/** WASIX has no file locking; the embedded server is single-process,
++so there is nothing to exclude. */
++int os_file_lock(int fd, const char *name) noexcept
++{
++	return(0);
++}
++#elif !defined(_WIN32) /* On Microsoft Windows, mandatory locking is used */
+ /** Obtain an exclusive lock on a file.
+ @param fd      file descriptor
+ @param name    file name
+--- a/storage/maria/ma_loghandler.c
++++ b/storage/maria/ma_loghandler.c
+@@ -28,8 +28,9 @@
+   On Windows, neither my_open() nor mysql_file_sync() work for directories.
+   Also there is no need to flush filesystem changes ,i.e to sync()
+   directories.
+-*/
+-#ifdef _WIN32
++  WASIX cannot fsync() a directory either (EISDIR in wasix-libc).
++*/
++#if defined(_WIN32) || defined(__wasi__)
+ #define sync_dir(A,B) 0
+ #else
+ #define sync_dir(A,B) mysql_file_sync(A,B)

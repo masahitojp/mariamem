@@ -15,9 +15,23 @@ if source.exists():
     raise SystemExit("build/source already exists; move it aside before preparing a fresh tree")
 work = ROOT / "build/unpack"
 work.mkdir(parents=True, exist_ok=False)
-for name in ("lite4mariadb", "libmariadb", "wolfssl"):
+stable_descriptor = ROOT / 'guest/stable-input.json'
+stable = json.loads(stable_descriptor.read_text()) if stable_descriptor.exists() else None
+for name in ("lite4mariadb", "libmariadb", "wolfssl", *(("mariadb-stable",) if stable else ())):
     extract(fetch(name), work / name)
 main = next((work / "lite4mariadb").iterdir())
+if stable:
+    recipe = main
+    main = next((work / 'mariadb-stable').iterdir())
+    pin = next(p for p in LOCK['inputs'] if p['name'] == 'mariadb-stable')
+    if pin['revision'] != stable['source_commit']:
+        raise ValueError('stable source descriptor/lock identity mismatch')
+    for name, expected in stable['recipe_files_sha256'].items():
+        if digest(recipe / name) != expected:
+            raise ValueError('stable recipe file identity mismatch: ' + name)
+        target = main / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(recipe / name, target)
 shutil.move(str(main), source)
 for name, relative in (("libmariadb", "libmariadb"), ("wolfssl", "extra/wolfssl/wolfssl")):
     target = source / relative
@@ -27,11 +41,17 @@ for name, relative in (("libmariadb", "libmariadb"), ("wolfssl", "extra/wolfssl/
 for name, expected in LOCK["pristine_files"].items():
     if digest(source / name) != expected:
         raise ValueError(f"unexpected upstream file: {name}")
-subprocess.run(["patch", "-p1", "-i", str(ROOT / "guest/source.patch")], cwd=source, check=True)
 # A disposable experiment patch is separate from the canonical product patch.
 experimental = ROOT / "guest/experimental.patch"
 experimental_files = patch_files(ROOT)
-if experimental.exists():
+if stable and not experimental.exists():
+    raise ValueError('stable guest requires its explicit portability patch')
+# The stable core first acquires lite4's portability guards, then the unchanged
+# canonical mariamem overlay. Ordinary preparation keeps its existing order.
+if stable:
+    subprocess.run(["patch", "-p1", "--fuzz=0", "-i", str(experimental)], cwd=source, check=True)
+subprocess.run(["patch", "-p1", "-i", str(ROOT / "guest/source.patch")], cwd=source, check=True)
+if experimental.exists() and not stable:
     subprocess.run(["patch", "-p1", "-i", str(experimental)], cwd=source, check=True)
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
 (source / "wasm/wire_api.inc").write_text(
@@ -71,6 +91,8 @@ manifest = {"inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
                                 "cmake/pcre.cmake", "cmake/libfmt.cmake", *experimental_files)}}
 if experimental.exists():
     manifest["experimental_patch"] = {"file": "guest/experimental.patch", "sha256": digest(experimental)}
+if stable:
+    manifest['stable_source'] = stable
 (ROOT / "build/prepared-source.json").write_text(json.dumps(manifest, indent=2) + "\n")
 shutil.copy2(ROOT / "release/inputs.lock.json", ROOT / "build/preparation-inputs.lock.json")
 print("Prepared build/source from pinned archives; all guest dependencies are local.")
