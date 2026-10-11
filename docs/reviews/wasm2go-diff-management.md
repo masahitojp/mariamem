@@ -5,14 +5,23 @@
 **短期はAの固定commitを維持。次の実装候補はB「goccy本家＋必要最小パッチ」。
 Dは入力形式・未対応命令に限定して併用候補とし、Cの独自forkは現時点で作らない。**
 
-理由は、現行forkの大きな変更群がmariamemで使っていない生成レイアウト機能で、
+理由は、現行の固定forkの大きな変更群がmariamemで使っていない生成レイアウト機能で、
 一方trap・shared memory・host境界・メモリ所有権の修正は変換器/生成runtime側に必要だから。
 Dだけでconverter修正をなくす案は推奨しない。Bは静的調査では有望だが、まだ移行実装も
 実行qualificationもしていない。現在の動作を置き換える承認とは区別する。
 
+**Go 1.27追加調査後も推奨順序は維持するが、Bの対象を「現行生成経路」に限定する。**
+fork最新版には未採用の実験的SIMD生成経路があり、これを単なる不要なlayout差分として
+扱わない。本家へ移行しても現行のGo 1.27 consumer互換性を維持できるかは検証が必要で、
+新SIMD経路の採用・性能効果は別の判断である。「Go 1.27にはfork全体が必須」とも
+「本家がforkのGo 1.27対応をすべて取り込み済み」とも結論しない。
+
 - main baseline: `386a62c3669e37bb8aaad58cd0aca8da893b3d80`。
 - 現行fork: `ac98bcf00c17d8531f0c071a9836d0b50975e7ff`。
 - 本家: `730057c146463f663e8774587bc96fb2bea91af8`。調査時の本家HEADでもあり、forkのmerge base。
+- 追加調査時のfork `pgmem` HEAD: `afce8816c9b777d3a6301fa842f4ad369066a095`。
+  現行pinより8 commits ahead、本家より22 ahead／0 behind。以下の初回archive比較・
+  patch dry-runは現行pinが対象で、最新版の再検証結果ではない。
 - pglite-go: `c6b3b5d4ae4744e97eb320ff03e1a1d472b4522f`。
 - Binaryen version_133: `fba5005a132d85d578be5bd010e0487ed8e2ce3e`。
 - 固定SHA・archive hash・25ファイルのblob差分・14 commitsの分類は
@@ -41,6 +50,7 @@ forkの`main`は本家mirrorで、機能branchは`pgmem`。
 | --- | --- | --- | --- | --- | --- |
 | export名のGo識別子衝突をsuffixで解決 | 常時有効な修正だが、現行guestで必要な衝突は今回未実証 | 既存修正を保持 | 実際のexport集合を確認し必要な場合だけ移植 | 同修正を自社保守 | 必須exportを残すstrip/renameなら候補。host ABIとDCE roots維持が必要 |
 | Go1.27 gcasm header／未知jump table fallback | canonicalは`-pure`、native asm変換を選択しない | 未使用変更も含む | 現行routeには持ち込まない。将来asm使用時に別評価 | 不要な保守を抱えやすい | guest rewriteではGo compiler header問題を直せない |
+| 最新forkの`-simd=go127`と後続修正（現行pin外） | 現行CLIに指定なし。mariamemの性能効果は未測定 | pinを更新して自動採用しない。必要性が実証されたら選択的に評価 | 現行移行では持ち込まない。将来SIMD経路が必要なら別port／upstream待ちの費用を再評価 | 実験API追従とhelper generatorの自社保守が追加 | Wasm命令変更ではGoのvector ABI／inlining／listing互換性を代替できない |
 | caller-provided memory向けInitData | 現行productionに`InitData`呼び出しなし。`NewWithMemory`とactive data初期化は必要 | 追加APIも保持 | 不使用APIは省く候補。Fresh ctorの初期化を実行で確認する | 同じ判断が必要 | host-owned memoryの初期化/寿命をguestだけで代替できない |
 | symbol名＋固定chunks＋name section parser | 現行CLIは`-pure`のみ。これらはopt-inでOFF | 他製品向け機能も保持 | オプション群と専用parser/testsを持ち込まない候補 | 独自forkに持ち込む理由なし | Wasmを書き換える問題ではない |
 | group-files＋Windows device名修正2件 | 上記opt-in機能に従属しOFF | 保持 | 対象機能ごと省く候補 | 同左 | 不要 |
@@ -51,6 +61,47 @@ forkの`main`は本家mirrorで、機能branchは`pgmem`。
 生成layout変更は主にGoソースのdiff/Git転送量対策。現行で有効になっていないので、
 それを除くことによるstartup/SQL速度改善は主張しない。オプションOFFでも共有emitterの
 変更はあるため、Bで生成物のbyte identityが必ず同じになるとも主張しない。
+
+### Go 1.27対応の分類と本家反映状況
+
+2026-10-11にGitHubのcommit差分・current source・PR一覧を確認した。
+本家反映状況は上記730057c時点。forkの最新機能とmariamemのpinを分けた
+[追加証拠](wasm2go-diff-management-evidence/go127-followup.json)を保存する。
+
+| 分類 | commit | 確認できた変更 | 本家／現行mariamem |
+| --- | --- | --- | --- |
+| 既存Wasm SIMD命令対応 | 本家[`f30ec29`](https://github.com/goccy/wasm2go/commit/f30ec292fd4ea1737263c30ed97157e4593796db)、PR #40 | Wasm SIMDをamd64／arm64のnative asmへlowering | 本家にmerge済み、固定forkに継承。Go 1.27専用機能ではない |
+| arm64 FHM dispatch | 本家[`730057c`](https://github.com/goccy/wasm2go/commit/730057c146463f663e8774587bc96fb2bea91af8)、PR #69 | CPUのFEAT_FHM検出とFMLAL/FMLSL assembly override選択 | 本家にmerge済み、固定forkに継承。Go 1.27 listing修正とは別 |
+| Assembly生成の互換性 | fork[`5cdcb44`](https://github.com/shibukawa/wasm2go-fork/commit/5cdcb4463f44092c5200eb87120250cc1416ac9f) | `go tool compile -S`のSRODATA headerの`align=0xM`を許可。amd64／arm64で未知jump-table形状を関数単位のpure-Go fallbackへ送る | 本家未反映。現行pinには含むがcanonical `-pure`はgcasmの関数本体変換を使わない |
+| Go 1.27実験的SIMD生成 | fork[`f6c5882`](https://github.com/shibukawa/wasm2go-fork/commit/f6c58821fe445d8201bd7a3eaa161891e64b4013) | `-simd=go127`、`simd/archsimd`、v128をvector register上で扱うhelperと二重の生成body | 本家未反映。現行pin外、mariamem未採用 |
+| SIMD bounds checkのinline化 | fork[`101ae3a`](https://github.com/shibukawa/wasm2go-fork/commit/101ae3a19796e59fc90470150a2ce63b3e02f631) | trap込みの短いbounds helperにしてinlinerの費用を削減 | 本家未反映、現行pin外。新SIMD経路の性能対策 |
+| compilerの定数／zero vector生成対策 | fork[`2868889`](https://github.com/shibukawa/wasm2go-fork/commit/2868889b72ed3895dcd5a5b55073e3547e9e79dd)、[`c0f51a6`](https://github.com/shibukawa/wasm2go-fork/commit/c0f51a67cc894c3e6960502b3e645a6fec8f34e5) | package変数でBroadcast再生成とlegacy SSEのzero-value moveを避ける | 本家未反映、現行pin外。compilerそのものの修正ではなくhelper生成の対策 |
+| Go runtimeに関する注意 | fork[`636a813`](https://github.com/shibukawa/wasm2go-fork/commit/636a813ef228f05627198ae8b0bebc12788439ce) | AVX-512環境のasync preemptionとSSE/AVX遷移に関する注意をREADMEへ追加 | 文書のみ。Go runtime修正ではなく、mariamemに設定変更を推奨する根拠でもない |
+
+`5cdcb44`はPlan 9 Assemblyの新命令追加ではなく、compiler listingの解析と変換失敗の
+扱いを直す。本家の[capture.go](https://github.com/goccy/wasm2go/blob/730057c146463f663e8774587bc96fb2bea91af8/internal/gcasm/capture.go#L78)
+はまだ`align`なしの正規表現。本家にも既存のfallbackはあるが、このcommitはその対象となる
+未知形状を増やす。追加testはsynthetic header／jump-table captureであり、あらゆる
+Go 1.27 compiler出力やABIへの包括的互換性を証明するものではない。
+
+`-simd=go127`は`goexperiment.simd && go1.27 && !go1.28 && (amd64 || arm64)`
+で選択され、他条件では従来のpair-carrier bodyを使う。`-pure`、multi-package出力が必要で、
+v128のimport／export signature／globalは非対応。amd64のvector版はAVX2を要求する。
+[`6f872ef`](https://github.com/shibukawa/wasm2go-fork/commit/6f872ef08ff70011ce335f52b3536752193ab336)
+はCLIのlayout選択、grouped-files／memory64テスト、Go 1.27 amd64／arm64 CI定義を追加。
+helper differential testとmodule両経路実行testは存在するが、今回は実行結果を再取得せず、
+mariamemのqualificationや性能値として扱わない。
+
+最新[`afce881`](https://github.com/shibukawa/wasm2go-fork/commit/afce8816c9b777d3a6301fa842f4ad369066a095)
+はv128 accessesにもpgmemの`memBound`契約を広げる。これ自体は一般的なGo compiler
+互換性修正ではない。mariamemのlogical bounds patchと同時に評価が必要で、SIMD高速化と
+一緒にbounds契約を黙って変更してはいけない。
+
+**現行Go 1.27 consumer互換性、新しいGo SIMD利用、gcasm生成互換性は独立の要求。**
+canonical生成はGo1.26.8で`-pure`を使い、SIMD helper `.s`は残るがgcasmの関数本体
+capture/transformを使わない。mariamemの`relaxed-madd.patch`もWasm命令の対応であり、
+Go 1.27 SIMD生成機能やcompiler互換性修正ではない。その他の一般的なGo 1.27 ABI／
+compiler変更を一括吸収するfork修正は、確認したcommit群には見つからなかった。
 
 ## 2. mariamemの7パッチ — 各方式で置き換えられるか
 
@@ -80,10 +131,10 @@ Snapshotのprepared database files/MAP_PRIVATE所有権とは別資源であり�
 
 | 方式 | 強み | 更新・再現性・保守コスト | 判断 |
 | --- | --- | --- | --- |
-| A 固定shibukawa fork継続 | 実guestが通った正確なbaseline。移行自体のリスクを増やさない | 本家→fork→ローカル7パッチの2段差分を毎回読む。forkのオプションOFF変更も確認。現行はarchive/patch/hash pinsで再現可能 | **短期継続**。guest更新とconverter全面移行を同時にしない |
-| B goccy本家＋最小patch | 1本のbaseと目的別series。不要なpgmem layout/API契約を抱えない。汎用bug fixをupstreamへ戻しやすい | emitter/SSA/helperの内部context変更でpatch衝突は残る。必要なsemantics修正はmariamem保守。初回は再生成・資格確認が必要 | **推奨する移行候補**。静的根拠は強い、runtime同値性は未確認 |
+| A 固定shibukawa fork継続 | 実guestが通った正確なbaseline。移行自体のリスクを増やさない。新SIMD経路を将来評価する選択肢も残る | 本家→fork→ローカル7パッチの2段差分を毎回読む。forkのオプションOFF変更も確認。現行はarchive/patch/hash pinsで再現可能。最新版への更新時は実験的archsimdとbounds差分を個別評価 | **短期継続**。guest更新とconverter全面移行を同時にしない。Go 1.27 consumer利用だけを理由に最新forkへ更新しない |
+| B goccy本家＋最小patch | 1本のbaseと目的別series。不要なpgmem layout/API契約を抱えない。汎用bug fixをupstreamへ戻しやすい | emitter/SSA/helperの内部context変更でpatch衝突は残る。必要なsemantics修正はmariamem保守。初回は再生成・資格確認が必要。将来archsimdを求めるなら追加port／upstream待ちという費用が発生 | **現行routeの推奨移行候補**。静的根拠は強い、runtime同値性は未確認。実験SIMDの利益が実証されたらAとの費用比較をやり直す |
 | C mariamem独自fork | 結合した内部修正/fixturesを同じGit履歴で扱いやすい | repository/release/security/license/build ownership追加。upstream追従は消えない。Bと同じcode保守＋独自forkの管理責任 | **今は不要**。seriesが実際に維持困難と分かった場合のみ再評価 |
-| D guest/compiler/限定Wasm処理 | 入力形状・特定の未対応命令ならconverter差分を減らせる | compiler/library/postoptの全段に影響。新しいguest hash、source→Wasm再現性、rewriterの仕様/版本、両OS/runtime/SQL qualificationが必要。rewrite自体の保守が移動する | **限定併用候補**。2つの小patchをなくすために汎用rewriterを新設しない |
+| D guest/compiler/限定Wasm処理 | 入力形状・特定の未対応命令ならconverter差分を減らせる | compiler/library/postoptの全段に影響。新しいguest hash、source→Wasm再現性、rewriterの仕様/版本、両OS/runtime/SQL qualificationが必要。rewrite自体の保守が移動する。Go listing解析やarchsimd register利用は解消しない | **限定併用候補**。2つの小patchをなくすために汎用rewriterを新設しない |
 
 差分数や行数だけで最小化しない。「7 converter patches→1巨大Wasm rewriter」は保守負担が
 増え得る。Bでもqualification費用は消えず、converterを変えれば生成source/input identityが
@@ -175,6 +226,12 @@ Dを試す順序は「標準toolの意味保存設定で済むか→限定され
 `memBound`/fixture依存だけを整理して移植する。optional pgmem layoutや未使用InitDataを
 持ち込まない方針で、Fresh初期化・trap/thread/futex・owned growthを確認する。
 ここで生成/実行同値性や保守費用が期待に合わなければAへ戻せる。
+
+Go 1.27 consumer検証はBでも維持するが、新SIMD経路はこの最小portへ混ぜない。
+将来`-simd=go127`を評価するなら、helper differentialだけでなくmariamemのtrap／
+logical bounds／shared growth／thread fixture、両OS、通常buildへのfallbackを確認し、
+実guestでの利益と実験API・AVX2要件・compiler/runtime制約の維持費を比べる別判断とする。
+今回の追加調査はA〜Dの実装承認やfork pin更新ではない。
 
 Dのmadd/metadata処理は、Bと同時に変更しない。新guestで具体的なinstruction障害が出て
 標準設定が使える場合、または明確に小さい意味保存rewriteが示せる場合だけ別spikeとする。

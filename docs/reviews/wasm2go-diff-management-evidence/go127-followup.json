@@ -1,0 +1,67 @@
+{
+  "observed_date": "2026-10-11",
+  "scope": "Read-only GitHub source/history inspection; no converter/runtime build or new qualification",
+  "mariamem_main_baseline": "386a62c3669e37bb8aaad58cd0aca8da893b3d80",
+  "upstream_head": "730057c146463f663e8774587bc96fb2bea91af8",
+  "fork_main_head": "730057c146463f663e8774587bc96fb2bea91af8",
+  "mariamem_converter_pin": "ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
+  "fork_pgmem_head": "afce8816c9b777d3a6301fa842f4ad369066a095",
+  "comparisons": {
+    "upstream_to_latest_fork": {"ahead": 22, "behind": 0, "merge_base": "730057c146463f663e8774587bc96fb2bea91af8"},
+    "mariamem_pin_to_latest_fork": {"ahead": 8, "behind": 0}
+  },
+  "assembly_compatibility": {
+    "commit": "5cdcb4463f44092c5200eb87120250cc1416ac9f",
+    "category": "Go compiler listing capture and per-function transform fallback",
+    "changes": ["Accept optional align=0xM suffix in SRODATA header", "Wrap unrecognized amd64/arm64 jump-table shape errors with existing errUnsupportedJumpTable"],
+    "upstream_reflected": false,
+    "in_mariamem_pin": true,
+    "upstream_capture_regex": "^([^\\s]+) SRODATA (?:static )?(?:dupok )?size=(\\d+)$",
+    "test_scope": "Synthetic Go 1.27 data header and jump-table capture regression; not comprehensive compiler/ABI qualification",
+    "files": ["internal/gcasm/capture.go", "internal/gcasm/capture_align_test.go", "internal/gcasm/transform.go", "internal/gcasm/transform_a64gen_strip.go"]
+  },
+  "upstream_simd": [
+    {"commit": "f30ec292fd4ea1737263c30ed97157e4593796db", "pr": 40, "category": "Wasm SIMD native asm lowering; not Go 1.27-specific", "merged": true},
+    {"commit": "730057c146463f663e8774587bc96fb2bea91af8", "pr": 69, "category": "arm64 FHM CPU feature detection and assembly override dispatch", "merged": true}
+  ],
+  "post_pin_commits": [
+    {"sha": "f6c58821fe445d8201bd7a3eaa161891e64b4013", "category": "Optional -simd=go127 archsimd generator", "upstream_reflected": false},
+    {"sha": "77f0fb747bcdfcbdd8b36aa6ec0d833faac780a6", "category": "Generated SIMD helper gofmt", "upstream_reflected": false},
+    {"sha": "101ae3a19796e59fc90470150a2ce63b3e02f631", "category": "Bounds-check inlining in new SIMD helpers", "upstream_reflected": false},
+    {"sha": "2868889b72ed3895dcd5a5b55073e3547e9e79dd", "category": "Avoid repeated compiler Broadcast using package constants", "upstream_reflected": false},
+    {"sha": "c0f51a67cc894c3e6960502b3e645a6fec8f34e5", "category": "Avoid zero-vector legacy SSE move in new SIMD helpers", "upstream_reflected": false},
+    {"sha": "636a813ef228f05627198ae8b0bebc12788439ce", "category": "Document Go 1.27 AVX-512 async-preemption caveat; no runtime fix", "upstream_reflected": false},
+    {"sha": "6f872ef08ff70011ce335f52b3536752193ab336", "category": "CLI layout, differential tests, amd64/arm64 Go 1.27 CI definition", "upstream_reflected": false},
+    {"sha": "afce8816c9b777d3a6301fa842f4ad369066a095", "category": "Extend pgmem memBound semantics to v128; not compiler compatibility", "upstream_reflected": false}
+  ],
+  "new_simd_contract": {
+    "option": "-simd=go127",
+    "build_constraint": "goexperiment.simd && go1.27 && !go1.28 && (amd64 || arm64)",
+    "fallback": "Pair-carrier implementation under negated constraint",
+    "requires": ["-pure", "multi-package output", "AVX2 on amd64"],
+    "unsupported": ["v128 import/export signatures", "v128 globals", "outline combination"],
+    "test_definitions": ["internal/codegen/helpers/simd_g_go127_matrix_test.go", "transpile/gosimd_test.go", ".github/workflows/ci.yml:test-simd"],
+    "test_results_retrieved": false,
+    "mariamem_performance_measured": false
+  },
+  "mariamem_current_route": {
+    "generation_toolchain": "go1.26.8",
+    "pure": true,
+    "simd_go127_selected": false,
+    "gcasm_body_capture_used": false,
+    "simd_helper_assembly_present": true,
+    "relaxed_madd_patch_category": "Local Wasm instruction support, not Go compiler compatibility"
+  },
+  "reproduction_reads": [
+    "gh api repos/goccy/wasm2go/commits/HEAD",
+    "gh api repos/shibukawa/wasm2go-fork/branches",
+    "gh api repos/shibukawa/wasm2go-fork/compare/ac98bcf00c17d8531f0c071a9836d0b50975e7ff...afce8816c9b777d3a6301fa842f4ad369066a095",
+    "gh api repos/goccy/wasm2go/compare/730057c146463f663e8774587bc96fb2bea91af8...shibukawa:afce8816c9b777d3a6301fa842f4ad369066a095",
+    "gh api repos/shibukawa/wasm2go-fork/commits/5cdcb4463f44092c5200eb87120250cc1416ac9f",
+    "gh api repos/shibukawa/wasm2go-fork/commits/f6c58821fe445d8201bd7a3eaa161891e64b4013",
+    "gh api 'repos/goccy/wasm2go/contents/internal/gcasm/capture.go?ref=730057c146463f663e8774587bc96fb2bea91af8'",
+    "gh api 'repos/shibukawa/wasm2go-fork/contents/README_ABOUT_FORK.md?ref=afce8816c9b777d3a6301fa842f4ad369066a095'",
+    "gh api 'repos/shibukawa/wasm2go-fork/contents/.github/workflows/ci.yml?ref=afce8816c9b777d3a6301fa842f4ad369066a095'",
+    "gh api 'repos/goccy/wasm2go/pulls?state=all&per_page=100'"
+  ]
+}
