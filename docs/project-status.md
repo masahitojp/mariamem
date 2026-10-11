@@ -187,6 +187,16 @@ Neither research item blocks v0.5.0. Performance PoCs, if later authorized,
 require their own correctness and product-benefit decision; stable-guest behavior
 must be rechecked before integrating an optimization selected on the old guest.
 
+## v0.4.7 — Upstream converter migration (candidate)
+
+The approved scope replaces the pinned shibukawa converter fork with pinned
+`goccy/wasm2go` plus nine maintained patches. MariaDB guest identity, public APIs,
+Snapshot format and minimum Go version remain unchanged from v0.4.6. Independent
+regeneration, runtime/consumer checks and same-scenario product/resource comparisons
+must precede the Human release decision. Native macOS/Ubuntu artifact qualification
+remains CI-owned. No guest upgrade, handshake experiment or VFS optimization is
+part of this candidate; the current published release above remains v0.4.6.
+
 ## v0.5.0 — Stable guest
 
 Fast Feedback phase timing and task-local Go cache reuse were integrated at
