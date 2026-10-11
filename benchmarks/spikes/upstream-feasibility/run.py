@@ -22,7 +22,7 @@ from git_identity import require_commit
 UPSTREAM = '730057c146463f663e8774587bc96fb2bea91af8'
 ARCHIVE = '1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f'
 GUEST = '33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008'
-SERIES = ['imported-memory.patch', 'import-function-index.patch', 'relaxed-madd.patch',
+SERIES = ['upstream-imported-memory.patch', 'import-function-index.patch', 'relaxed-madd.patch',
           'upstream-pure-memory32.patch', 'controlled-thread-traps.patch',
           'host-logical-memory.patch', 'linear-memory-owner.patch',
           'upstream-helper-bridge.patch', 'upstream-export-collision.patch']
@@ -82,6 +82,11 @@ def main():
                 check=True,phase='upstream:patch-check:'+name)
             run(['git','apply','--unidiff-zero',str(patches/name)],cwd=source,
                 check=True,phase='upstream:patch:'+name)
+        cli = (source/'cmd/wasm2go/main.go').read_text()
+        if not (cli.index('mod, err := wasm.Parse(r)') <
+                cli.index('mod.Memories = append(mod.Memories, imp.Memory)') <
+                cli.index('transpile.Translate(')):
+            raise ValueError('imported-memory metadata must precede translation')
         observed['patched_source_inventory'] = {
             p.relative_to(source).as_posix():sha(p) for p in sorted(source.rglob('*'))
             if p.is_file() and '.git' not in p.relative_to(source).parts}
