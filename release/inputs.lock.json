@@ -122,6 +122,12 @@
       "version": "7.4.2",
       "sha256": "07271f7ecf449135bbd44cfe9f38a65e54ab25f1564a9c6bd2d0d5cca5743963",
       "kind": "runtime-binary"
+    },
+    {
+      "name": "mariadb-stable",
+      "file": "mariadb-13.2.0.tar.gz",
+      "url": "https://archive.mariadb.org/mariadb-13.2.0/source/mariadb-13.2.0.tar.gz",
+      "sha256": "5b6a588e86f1169fef44760846b6e9e96b08d7a7e52fb4b887c5feb06ca39f3a"
     }
   ],
   "pristine_files": {
