@@ -1,0 +1,9 @@
+{
+  "release_tag": "mariadb-12.3.3",
+  "tag_object_sha": "bd852bcd567fedc89ad4521e2f1a64c7a1e0d0f0",
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "source_type": "commit",
+  "archive_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+  "signature_verified": false,
+  "signature_reason": "unknown_key"
+}

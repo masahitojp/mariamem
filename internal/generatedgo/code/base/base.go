@@ -2307,368 +2307,375 @@ func Simd_p_v128_store64_lane(m *Module, addr int32, offset int32, lane int32, v
 
 //go:noinline
 func Simd_p_fx0(m *Module) {
-	n0 := Simd_v128_load(m, 15278040, 0)
-	_ = Simd_v128_store(m, 24270324, 0, n0)
-	n2 := Simd_v128_load(m, 15278024, 0)
-	_ = Simd_v128_store(m, 24270308, 0, n2)
-	n4 := Simd_v128_load(m, 15278008, 0)
-	_ = Simd_v128_store(m, 24270292, 0, n4)
+	n0 := Simd_v128_load(m, 15211260, 0)
+	_ = Simd_v128_store(m, 24215796, 0, n0)
+	n2 := Simd_v128_load(m, 15211244, 0)
+	_ = Simd_v128_store(m, 24215780, 0, n2)
+	n4 := Simd_v128_load(m, 15211228, 0)
+	_ = Simd_v128_store(m, 24215764, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx1(m *Module) {
-	n0 := Simd_v128_load(m, 15278692, 0)
-	_ = Simd_v128_store(m, 24270344, 0, n0)
-	n2 := Simd_v128_load(m, 15278708, 0)
-	_ = Simd_v128_store(m, 24270360, 0, n2)
-	n4 := Simd_v128_load(m, 15278724, 0)
-	_ = Simd_v128_store(m, 24270376, 0, n4)
+	n0 := Simd_v128_load(m, 15211896, 0)
+	_ = Simd_v128_store(m, 24215848, 0, n0)
+	n2 := Simd_v128_load(m, 15211880, 0)
+	_ = Simd_v128_store(m, 24215832, 0, n2)
+	n4 := Simd_v128_load(m, 15211864, 0)
+	_ = Simd_v128_store(m, 24215816, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx2(m *Module) {
-	n0 := Simd_v128_load(m, 15278972, 0)
-	_ = Simd_v128_store(m, 24270396, 0, n0)
-	n2 := Simd_v128_load(m, 15278988, 0)
-	_ = Simd_v128_store(m, 24270412, 0, n2)
-	n4 := Simd_v128_load(m, 15279004, 0)
-	_ = Simd_v128_store(m, 24270428, 0, n4)
+	n0 := Simd_v128_load(m, 15212152, 0)
+	_ = Simd_v128_store(m, 24215900, 0, n0)
+	n2 := Simd_v128_load(m, 15212136, 0)
+	_ = Simd_v128_store(m, 24215884, 0, n2)
+	n4 := Simd_v128_load(m, 15212120, 0)
+	_ = Simd_v128_store(m, 24215868, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx3(m *Module) {
-	n0 := Simd_v128_load(m, 15279364, 0)
-	_ = Simd_v128_store(m, 24270480, 0, n0)
-	n2 := Simd_v128_load(m, 15279348, 0)
-	_ = Simd_v128_store(m, 24270464, 0, n2)
-	n4 := Simd_v128_load(m, 15279332, 0)
-	_ = Simd_v128_store(m, 24270448, 0, n4)
+	n0 := Simd_v128_load(m, 15212488, 0)
+	_ = Simd_v128_store(m, 24215952, 0, n0)
+	n2 := Simd_v128_load(m, 15212472, 0)
+	_ = Simd_v128_store(m, 24215936, 0, n2)
+	n4 := Simd_v128_load(m, 15212456, 0)
+	_ = Simd_v128_store(m, 24215920, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx4(m *Module) {
-	n0 := Simd_v128_load(m, 15279416, 0)
-	_ = Simd_v128_store(m, 24270532, 0, n0)
-	n2 := Simd_v128_load(m, 15279400, 0)
-	_ = Simd_v128_store(m, 24270516, 0, n2)
-	n4 := Simd_v128_load(m, 15279384, 0)
-	_ = Simd_v128_store(m, 24270500, 0, n4)
+	n0 := Simd_v128_load(m, 15212540, 0)
+	_ = Simd_v128_store(m, 24216004, 0, n0)
+	n2 := Simd_v128_load(m, 15212524, 0)
+	_ = Simd_v128_store(m, 24215988, 0, n2)
+	n4 := Simd_v128_load(m, 15212508, 0)
+	_ = Simd_v128_store(m, 24215972, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx5(m *Module) {
-	n0 := Simd_v128_load(m, 15280292, 0)
-	_ = Simd_v128_store(m, 24270584, 0, n0)
-	n2 := Simd_v128_load(m, 15280276, 0)
-	_ = Simd_v128_store(m, 24270568, 0, n2)
-	n4 := Simd_v128_load(m, 15280260, 0)
-	_ = Simd_v128_store(m, 24270552, 0, n4)
+	n0 := Simd_v128_load(m, 15213336, 0)
+	_ = Simd_v128_store(m, 24216056, 0, n0)
+	n2 := Simd_v128_load(m, 15213320, 0)
+	_ = Simd_v128_store(m, 24216040, 0, n2)
+	n4 := Simd_v128_load(m, 15213304, 0)
+	_ = Simd_v128_store(m, 24216024, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx6(m *Module) {
-	n0 := Simd_v128_load(m, 15280344, 0)
-	_ = Simd_v128_store(m, 24270636, 0, n0)
-	n2 := Simd_v128_load(m, 15280328, 0)
-	_ = Simd_v128_store(m, 24270620, 0, n2)
-	n4 := Simd_v128_load(m, 15280312, 0)
-	_ = Simd_v128_store(m, 24270604, 0, n4)
+	n0 := Simd_v128_load(m, 15213388, 0)
+	_ = Simd_v128_store(m, 24216108, 0, n0)
+	n2 := Simd_v128_load(m, 15213372, 0)
+	_ = Simd_v128_store(m, 24216092, 0, n2)
+	n4 := Simd_v128_load(m, 15213356, 0)
+	_ = Simd_v128_store(m, 24216076, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx7(m *Module) {
-	n0 := Simd_v128_load(m, 15279868, 0)
-	_ = Simd_v128_store(m, 24270688, 0, n0)
-	n2 := Simd_v128_load(m, 15279852, 0)
-	_ = Simd_v128_store(m, 24270672, 0, n2)
-	n4 := Simd_v128_load(m, 15279836, 0)
-	_ = Simd_v128_store(m, 24270656, 0, n4)
+	n0 := Simd_v128_load(m, 15212952, 0)
+	_ = Simd_v128_store(m, 24216160, 0, n0)
+	n2 := Simd_v128_load(m, 15212936, 0)
+	_ = Simd_v128_store(m, 24216144, 0, n2)
+	n4 := Simd_v128_load(m, 15212920, 0)
+	_ = Simd_v128_store(m, 24216128, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx8(m *Module) {
-	n0 := Simd_v128_load(m, 15279920, 0)
-	_ = Simd_v128_store(m, 24270740, 0, n0)
-	n2 := Simd_v128_load(m, 15279904, 0)
-	_ = Simd_v128_store(m, 24270724, 0, n2)
-	n4 := Simd_v128_load(m, 15279888, 0)
-	_ = Simd_v128_store(m, 24270708, 0, n4)
+	n0 := Simd_v128_load(m, 15213004, 0)
+	_ = Simd_v128_store(m, 24216212, 0, n0)
+	n2 := Simd_v128_load(m, 15212988, 0)
+	_ = Simd_v128_store(m, 24216196, 0, n2)
+	n4 := Simd_v128_load(m, 15212972, 0)
+	_ = Simd_v128_store(m, 24216180, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx9(m *Module) {
-	n0 := Simd_v128_load(m, 15284748, 0)
-	_ = Simd_v128_store(m, 24270792, 0, n0)
-	n2 := Simd_v128_load(m, 15284732, 0)
-	_ = Simd_v128_store(m, 24270776, 0, n2)
-	n4 := Simd_v128_load(m, 15284716, 0)
-	_ = Simd_v128_store(m, 24270760, 0, n4)
+	n0 := Simd_v128_load(m, 15217464, 0)
+	_ = Simd_v128_store(m, 24216264, 0, n0)
+	n2 := Simd_v128_load(m, 15217448, 0)
+	_ = Simd_v128_store(m, 24216248, 0, n2)
+	n4 := Simd_v128_load(m, 15217432, 0)
+	_ = Simd_v128_store(m, 24216232, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx10(m *Module) {
-	n0 := Simd_v128_load(m, 15285724, 0)
-	_ = Simd_v128_store(m, 24270844, 0, n0)
-	n2 := Simd_v128_load(m, 15285708, 0)
-	_ = Simd_v128_store(m, 24270828, 0, n2)
-	n4 := Simd_v128_load(m, 15285692, 0)
-	_ = Simd_v128_store(m, 24270812, 0, n4)
+	n0 := Simd_v128_load(m, 15218360, 0)
+	_ = Simd_v128_store(m, 24216316, 0, n0)
+	n2 := Simd_v128_load(m, 15218344, 0)
+	_ = Simd_v128_store(m, 24216300, 0, n2)
+	n4 := Simd_v128_load(m, 15218328, 0)
+	_ = Simd_v128_store(m, 24216284, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx11(m *Module) {
-	n0 := Simd_v128_load(m, 15283708, 0)
-	_ = Simd_v128_store(m, 24270896, 0, n0)
-	n2 := Simd_v128_load(m, 15283692, 0)
-	_ = Simd_v128_store(m, 24270880, 0, n2)
-	n4 := Simd_v128_load(m, 15283676, 0)
-	_ = Simd_v128_store(m, 24270864, 0, n4)
+	n0 := Simd_v128_load(m, 15216520, 0)
+	_ = Simd_v128_store(m, 24216368, 0, n0)
+	n2 := Simd_v128_load(m, 15216504, 0)
+	_ = Simd_v128_store(m, 24216352, 0, n2)
+	n4 := Simd_v128_load(m, 15216488, 0)
+	_ = Simd_v128_store(m, 24216336, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx12(m *Module) {
-	n0 := Simd_v128_load(m, 15281256, 0)
-	_ = Simd_v128_store(m, 24270948, 0, n0)
-	n2 := Simd_v128_load(m, 15281240, 0)
-	_ = Simd_v128_store(m, 24270932, 0, n2)
-	n4 := Simd_v128_load(m, 15281224, 0)
-	_ = Simd_v128_store(m, 24270916, 0, n4)
+	n0 := Simd_v128_load(m, 15214240, 0)
+	_ = Simd_v128_store(m, 24216420, 0, n0)
+	n2 := Simd_v128_load(m, 15214224, 0)
+	_ = Simd_v128_store(m, 24216404, 0, n2)
+	n4 := Simd_v128_load(m, 15214208, 0)
+	_ = Simd_v128_store(m, 24216388, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx13(m *Module) {
-	n0 := Simd_v128_load(m, 15281400, 0)
-	_ = Simd_v128_store(m, 24271000, 0, n0)
-	n2 := Simd_v128_load(m, 15281384, 0)
-	_ = Simd_v128_store(m, 24270984, 0, n2)
-	n4 := Simd_v128_load(m, 15281368, 0)
-	_ = Simd_v128_store(m, 24270968, 0, n4)
+	n0 := Simd_v128_load(m, 15214384, 0)
+	_ = Simd_v128_store(m, 24216472, 0, n0)
+	n2 := Simd_v128_load(m, 15214368, 0)
+	_ = Simd_v128_store(m, 24216456, 0, n2)
+	n4 := Simd_v128_load(m, 15214352, 0)
+	_ = Simd_v128_store(m, 24216440, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx14(m *Module) {
-	n0 := Simd_v128_load(m, 15281544, 0)
-	_ = Simd_v128_store(m, 24271052, 0, n0)
-	n2 := Simd_v128_load(m, 15281528, 0)
-	_ = Simd_v128_store(m, 24271036, 0, n2)
-	n4 := Simd_v128_load(m, 15281512, 0)
-	_ = Simd_v128_store(m, 24271020, 0, n4)
+	n0 := Simd_v128_load(m, 15214528, 0)
+	_ = Simd_v128_store(m, 24216524, 0, n0)
+	n2 := Simd_v128_load(m, 15214512, 0)
+	_ = Simd_v128_store(m, 24216508, 0, n2)
+	n4 := Simd_v128_load(m, 15214496, 0)
+	_ = Simd_v128_store(m, 24216492, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx15(m *Module) {
-	n0 := Simd_v128_load(m, 15281596, 0)
-	_ = Simd_v128_store(m, 24271104, 0, n0)
-	n2 := Simd_v128_load(m, 15281580, 0)
-	_ = Simd_v128_store(m, 24271088, 0, n2)
-	n4 := Simd_v128_load(m, 15281564, 0)
-	_ = Simd_v128_store(m, 24271072, 0, n4)
+	n0 := Simd_v128_load(m, 15214580, 0)
+	_ = Simd_v128_store(m, 24216576, 0, n0)
+	n2 := Simd_v128_load(m, 15214564, 0)
+	_ = Simd_v128_store(m, 24216560, 0, n2)
+	n4 := Simd_v128_load(m, 15214548, 0)
+	_ = Simd_v128_store(m, 24216544, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx16(m *Module) {
-	n0 := Simd_v128_load(m, 15282196, 0)
-	_ = Simd_v128_store(m, 24271156, 0, n0)
-	n2 := Simd_v128_load(m, 15282180, 0)
-	_ = Simd_v128_store(m, 24271140, 0, n2)
-	n4 := Simd_v128_load(m, 15282164, 0)
-	_ = Simd_v128_store(m, 24271124, 0, n4)
+	n0 := Simd_v128_load(m, 15215144, 0)
+	_ = Simd_v128_store(m, 24216628, 0, n0)
+	n2 := Simd_v128_load(m, 15215128, 0)
+	_ = Simd_v128_store(m, 24216612, 0, n2)
+	n4 := Simd_v128_load(m, 15215112, 0)
+	_ = Simd_v128_store(m, 24216596, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx17(m *Module) {
-	n0 := Simd_v128_load(m, 15281956, 0)
-	_ = Simd_v128_store(m, 24271208, 0, n0)
-	n2 := Simd_v128_load(m, 15281940, 0)
-	_ = Simd_v128_store(m, 24271192, 0, n2)
-	n4 := Simd_v128_load(m, 15281924, 0)
-	_ = Simd_v128_store(m, 24271176, 0, n4)
+	n0 := Simd_v128_load(m, 15214920, 0)
+	_ = Simd_v128_store(m, 24216680, 0, n0)
+	n2 := Simd_v128_load(m, 15214904, 0)
+	_ = Simd_v128_store(m, 24216664, 0, n2)
+	n4 := Simd_v128_load(m, 15214888, 0)
+	_ = Simd_v128_store(m, 24216648, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx18(m *Module) {
-	n0 := Simd_v128_load(m, 15282008, 0)
-	_ = Simd_v128_store(m, 24271260, 0, n0)
-	n2 := Simd_v128_load(m, 15281992, 0)
-	_ = Simd_v128_store(m, 24271244, 0, n2)
-	n4 := Simd_v128_load(m, 15281976, 0)
-	_ = Simd_v128_store(m, 24271228, 0, n4)
+	n0 := Simd_v128_load(m, 15214972, 0)
+	_ = Simd_v128_store(m, 24216732, 0, n0)
+	n2 := Simd_v128_load(m, 15214956, 0)
+	_ = Simd_v128_store(m, 24216716, 0, n2)
+	n4 := Simd_v128_load(m, 15214940, 0)
+	_ = Simd_v128_store(m, 24216700, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx19(m *Module) {
-	n0 := Simd_v128_load(m, 15286284, 0)
-	_ = Simd_v128_store(m, 24271312, 0, n0)
-	n2 := Simd_v128_load(m, 15286268, 0)
-	_ = Simd_v128_store(m, 24271296, 0, n2)
-	n4 := Simd_v128_load(m, 15286252, 0)
-	_ = Simd_v128_store(m, 24271280, 0, n4)
+	n0 := Simd_v128_load(m, 15218888, 0)
+	_ = Simd_v128_store(m, 24216784, 0, n0)
+	n2 := Simd_v128_load(m, 15218872, 0)
+	_ = Simd_v128_store(m, 24216768, 0, n2)
+	n4 := Simd_v128_load(m, 15218856, 0)
+	_ = Simd_v128_store(m, 24216752, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx20(m *Module) {
-	n0 := Simd_v128_load(m, 15286776, 0)
-	_ = Simd_v128_store(m, 24271364, 0, n0)
-	n2 := Simd_v128_load(m, 15286760, 0)
-	_ = Simd_v128_store(m, 24271348, 0, n2)
-	n4 := Simd_v128_load(m, 15286744, 0)
-	_ = Simd_v128_store(m, 24271332, 0, n4)
+	n0 := Simd_v128_load(m, 15219344, 0)
+	_ = Simd_v128_store(m, 24216836, 0, n0)
+	n2 := Simd_v128_load(m, 15219328, 0)
+	_ = Simd_v128_store(m, 24216820, 0, n2)
+	n4 := Simd_v128_load(m, 15219312, 0)
+	_ = Simd_v128_store(m, 24216804, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx21(m *Module) {
-	n0 := Simd_v128_load(m, 15287228, 0)
-	_ = Simd_v128_store(m, 24271416, 0, n0)
-	n2 := Simd_v128_load(m, 15287212, 0)
-	_ = Simd_v128_store(m, 24271400, 0, n2)
-	n4 := Simd_v128_load(m, 15287196, 0)
-	_ = Simd_v128_store(m, 24271384, 0, n4)
+	n0 := Simd_v128_load(m, 15219768, 0)
+	_ = Simd_v128_store(m, 24216888, 0, n0)
+	n2 := Simd_v128_load(m, 15219752, 0)
+	_ = Simd_v128_store(m, 24216872, 0, n2)
+	n4 := Simd_v128_load(m, 15219736, 0)
+	_ = Simd_v128_store(m, 24216856, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx22(m *Module) {
-	n0 := Simd_v128_load(m, 15287588, 0)
-	_ = Simd_v128_store(m, 24271468, 0, n0)
-	n2 := Simd_v128_load(m, 15287572, 0)
-	_ = Simd_v128_store(m, 24271452, 0, n2)
-	n4 := Simd_v128_load(m, 15287556, 0)
-	_ = Simd_v128_store(m, 24271436, 0, n4)
+	n0 := Simd_v128_load(m, 15220104, 0)
+	_ = Simd_v128_store(m, 24216940, 0, n0)
+	n2 := Simd_v128_load(m, 15220088, 0)
+	_ = Simd_v128_store(m, 24216924, 0, n2)
+	n4 := Simd_v128_load(m, 15220072, 0)
+	_ = Simd_v128_store(m, 24216908, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx23(m *Module) {
-	n0 := Simd_v128_load(m, 15288064, 0)
-	_ = Simd_v128_store(m, 24271520, 0, n0)
-	n2 := Simd_v128_load(m, 15288048, 0)
-	_ = Simd_v128_store(m, 24271504, 0, n2)
-	n4 := Simd_v128_load(m, 15288032, 0)
-	_ = Simd_v128_store(m, 24271488, 0, n4)
+	n0 := Simd_v128_load(m, 15220544, 0)
+	_ = Simd_v128_store(m, 24216992, 0, n0)
+	n2 := Simd_v128_load(m, 15220528, 0)
+	_ = Simd_v128_store(m, 24216976, 0, n2)
+	n4 := Simd_v128_load(m, 15220512, 0)
+	_ = Simd_v128_store(m, 24216960, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx24(m *Module) {
-	n0 := Simd_v128_load(m, 15288392, 0)
-	_ = Simd_v128_store(m, 24271572, 0, n0)
-	n2 := Simd_v128_load(m, 15288376, 0)
-	_ = Simd_v128_store(m, 24271556, 0, n2)
-	n4 := Simd_v128_load(m, 15288360, 0)
-	_ = Simd_v128_store(m, 24271540, 0, n4)
+	n0 := Simd_v128_load(m, 15220848, 0)
+	_ = Simd_v128_store(m, 24217044, 0, n0)
+	n2 := Simd_v128_load(m, 15220832, 0)
+	_ = Simd_v128_store(m, 24217028, 0, n2)
+	n4 := Simd_v128_load(m, 15220816, 0)
+	_ = Simd_v128_store(m, 24217012, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx25(m *Module) {
-	n0 := Simd_v128_load(m, 15288668, 0)
-	_ = Simd_v128_store(m, 24271624, 0, n0)
-	n2 := Simd_v128_load(m, 15288652, 0)
-	_ = Simd_v128_store(m, 24271608, 0, n2)
-	n4 := Simd_v128_load(m, 15288636, 0)
-	_ = Simd_v128_store(m, 24271592, 0, n4)
+	n0 := Simd_v128_load(m, 15221112, 0)
+	_ = Simd_v128_store(m, 24217096, 0, n0)
+	n2 := Simd_v128_load(m, 15221096, 0)
+	_ = Simd_v128_store(m, 24217080, 0, n2)
+	n4 := Simd_v128_load(m, 15221080, 0)
+	_ = Simd_v128_store(m, 24217064, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx26(m *Module) {
-	n0 := Simd_v128_load(m, 15289160, 0)
-	_ = Simd_v128_store(m, 24271676, 0, n0)
-	n2 := Simd_v128_load(m, 15289144, 0)
-	_ = Simd_v128_store(m, 24271660, 0, n2)
-	n4 := Simd_v128_load(m, 15289128, 0)
-	_ = Simd_v128_store(m, 24271644, 0, n4)
+	n0 := Simd_v128_load(m, 15221568, 0)
+	_ = Simd_v128_store(m, 24217148, 0, n0)
+	n2 := Simd_v128_load(m, 15221552, 0)
+	_ = Simd_v128_store(m, 24217132, 0, n2)
+	n4 := Simd_v128_load(m, 15221536, 0)
+	_ = Simd_v128_store(m, 24217116, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx27(m *Module) {
-	n0 := Simd_v128_load(m, 15287824, 0)
-	_ = Simd_v128_store(m, 24271728, 0, n0)
-	n2 := Simd_v128_load(m, 15287808, 0)
-	_ = Simd_v128_store(m, 24271712, 0, n2)
-	n4 := Simd_v128_load(m, 15287792, 0)
-	_ = Simd_v128_store(m, 24271696, 0, n4)
+	n0 := Simd_v128_load(m, 15220320, 0)
+	_ = Simd_v128_store(m, 24217200, 0, n0)
+	n2 := Simd_v128_load(m, 15220304, 0)
+	_ = Simd_v128_store(m, 24217184, 0, n2)
+	n4 := Simd_v128_load(m, 15220288, 0)
+	_ = Simd_v128_store(m, 24217168, 0, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx28(m *Module, p0, p0h uint64) {
-	n0 := Simd_v128_load(m, 15289700, 0)
-	_ = Simd_v128_store(m, 24271780, 0, n0)
-	n2 := Simd_v128_load(m, 15289684, 0)
-	_ = Simd_v128_store(m, 24271764, 0, n2)
-	n4 := Simd_v128_load(m, 15289668, 0)
-	_ = Simd_v128_store(m, 24271748, 0, n4)
-	_ = Simd_v128_store(m, 24271832, 0, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, 24271816, 0, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, 24271800, 0, [2]uint64{p0, p0h})
+	n0 := Simd_v128_load(m, 15222072, 0)
+	_ = Simd_v128_store(m, 24217252, 0, n0)
+	n2 := Simd_v128_load(m, 15222056, 0)
+	_ = Simd_v128_store(m, 24217236, 0, n2)
+	n4 := Simd_v128_load(m, 15222040, 0)
+	_ = Simd_v128_store(m, 24217220, 0, n4)
+	_ = Simd_v128_store(m, 24217304, 0, [2]uint64{p0, p0h})
+	_ = Simd_v128_store(m, 24217288, 0, [2]uint64{p0, p0h})
+	_ = Simd_v128_store(m, 24217272, 0, [2]uint64{p0, p0h})
 	return
 }
 
 //go:noinline
-func Simd_p_fx29(m *Module) {
-	n0 := Simd_v128_load(m, 23933208, 0)
-	_ = Simd_v128_store(m, 23933256, 0, n0)
+func Simd_p_fx29(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx30(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx30(m *Module) {
+	n0 := Simd_v128_load(m, 23864816, 0)
+	_ = Simd_v128_store(m, 23864864, 0, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx31(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_v128_or([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, 24012784, 0, n0)
-	n2 := Simd_v128_load(m, 24012928, 0)
+	_ = Simd_v128_store(m, 23944736, 0, n0)
+	n2 := Simd_v128_load(m, 23944880, 0)
 	return n2[0], n2[1]
 }
 
 //go:noinline
-func Simd_p_fx31(m *Module, p0, p0h uint64) {
-	n0 := Simd_v128_load(m, 24013384, 0)
-	n1 := Simd_v128_or(n0, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, 24013384, 0, n1)
-	return
-}
-
-//go:noinline
 func Simd_p_fx32(m *Module, p0, p0h uint64) {
-	n0 := Simd_v128_load(m, 24013180, 0)
+	n0 := Simd_v128_load(m, 23945336, 0)
 	n1 := Simd_v128_or(n0, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, 24013180, 0, n1)
+	_ = Simd_v128_store(m, 23945336, 0, n1)
 	return
 }
 
 //go:noinline
-func Simd_p_fx33(m *Module, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_load(m, 24012808, 0)
+func Simd_p_fx33(m *Module, p0, p0h uint64) {
+	n0 := Simd_v128_load(m, 23945132, 0)
+	n1 := Simd_v128_or(n0, [2]uint64{p0, p0h})
+	_ = Simd_v128_store(m, 23945132, 0, n1)
+	return
+}
+
+//go:noinline
+func Simd_p_fx34(m *Module, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_load(m, 23944760, 0)
 	n1 := Simd_v128_or(n0, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, 24012940, 0, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, 24012808, 0, n1)
+	_ = Simd_v128_store(m, 23944892, 0, [2]uint64{p0, p0h})
+	_ = Simd_v128_store(m, 23944760, 0, n1)
 	return
 }
 
 //go:noinline
-func Simd_p_fx34(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx35(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_ne([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_i64x2_extend_low_i32x4_s(n0)
 	n2 := Simd_v128_or([2]uint64{p0, p0h}, n1)
@@ -2676,44 +2683,88 @@ func Simd_p_fx34(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uin
 }
 
 //go:noinline
-func Simd_p_fx35(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 12561344)
+func Simd_p_fx36(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 12557296)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx36(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx37(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 4)
 	n1 := Simd_v128_and([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx37(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx38(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i32x4_splat(s4)
+	n1 := Simd_v128_load32_zero(m, s0, 0)
+	n2 := Simd_v128_load32_lane(m, s1, 0, 1, n1)
+	n3 := Simd_v128_load32_lane(m, s2, 0, 2, n2)
+	n4 := Simd_v128_load32_lane(m, s3, 0, 3, n3)
+	n5 := Simd_i32x4_eq(n4, n0)
+	n6 := Simd_i32x4_sub([2]uint64{p0, p0h}, n5)
+	return n6[0], n6[1]
+}
+
+//go:noinline
+func Simd_p_fx39(m *Module, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{1084818905618843912, 216736831629295872})
+	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx40(m *Module, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{216736831696667908, 216736831629295872})
+	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx41(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 96)
 	_ = Simd_v128_store(m, s1, 92, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx38(m *Module, s0 int32) {
+func Simd_p_fx42(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 12)
+	_ = Simd_v128_store(m, s1, 3416, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx43(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 520)
+	_ = Simd_v128_store(m, s1, 632, n0)
+	n2 := Simd_v128_load(m, s0, 504)
+	_ = Simd_v128_store(m, s1, 616, n2)
+	n4 := Simd_v128_load(m, s0, 488)
+	_ = Simd_v128_store(m, s1, 600, n4)
+	return
+}
+
+//go:noinline
+func Simd_p_fx44(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 380)
 	_ = Simd_v128_store(m, s0, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx39(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 216)
+func Simd_p_fx45(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 220)
 	_ = Simd_v128_store(m, s1, 16, n0)
-	n2 := Simd_v128_load(m, s0, 200)
+	n2 := Simd_v128_load(m, s0, 204)
 	_ = Simd_v128_store(m, s1, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx40(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx46(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 36)
 	_ = Simd_v128_store(m, s1, 40, n0)
 	n2 := Simd_v128_load(m, s0, 20)
@@ -2722,16 +2773,16 @@ func Simd_p_fx40(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx41(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx47(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 60)
-	_ = Simd_v128_store(m, s1, 1684, n0)
+	_ = Simd_v128_store(m, s1, 1668, n0)
 	n2 := Simd_v128_load(m, s0, 44)
-	_ = Simd_v128_store(m, s1, 1668, n2)
+	_ = Simd_v128_store(m, s1, 1652, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx42(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
+func Simd_p_fx48(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
 	n0 := Simd_scalar_i32_add(s0, s1)
 	n1 := Simd_v128_load(m, n0, 0)
 	n2 := Simd_scalar_i32_add(s2, s1)
@@ -2744,65 +2795,58 @@ func Simd_p_fx42(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
 }
 
 //go:noinline
-func Simd_p_fx43(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 752)
+func Simd_p_fx49(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 736)
 	_ = Simd_v128_store(m, s1, 32, n0)
-	n2 := Simd_v128_load(m, s0, 736)
+	n2 := Simd_v128_load(m, s0, 720)
 	_ = Simd_v128_store(m, s1, 16, n2)
-	n4 := Simd_v128_load(m, s0, 720)
+	n4 := Simd_v128_load(m, s0, 704)
 	_ = Simd_v128_store(m, s1, 0, n4)
 	return
 }
 
 //go:noinline
-func Simd_p_fx44(m *Module, s0 int32, s1 int32) (uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 752)
-	_ = Simd_v128_store(m, s1, 1392, n0)
-	n2 := Simd_v128_load(m, s0, 736)
-	_ = Simd_v128_store(m, s1, 1376, n2)
-	n4 := Simd_v128_load(m, s0, 720)
+func Simd_p_fx50(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 736)
+	_ = Simd_v128_store(m, s1, 1376, n0)
+	n2 := Simd_v128_load(m, s0, 720)
+	_ = Simd_v128_store(m, s1, 1360, n2)
+	n4 := Simd_v128_load(m, s0, 704)
 	return n4[0], n4[1]
 }
 
 //go:noinline
-func Simd_p_fx45(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 504)
-	_ = Simd_v128_store(m, s1, 616, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx46(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx51(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_eq(n0, [2]uint64{p0, p0h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx47(m *Module, s0 int32, p0, p0h uint64) {
-	n0 := Simd_v128_load(m, s0, 10168)
+func Simd_p_fx52(m *Module, s0 int32, p0, p0h uint64) {
+	n0 := Simd_v128_load(m, s0, 10096)
 	n1 := Simd_i64x2_add(n0, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, s0, 10168, n1)
+	_ = Simd_v128_store(m, s0, 10096, n1)
 	return
 }
 
 //go:noinline
-func Simd_p_fx48(m *Module, s0 int32, p0, p0h uint64) {
-	n0 := Simd_v128_load(m, s0, 10152)
+func Simd_p_fx53(m *Module, s0 int32, p0, p0h uint64) {
+	n0 := Simd_v128_load(m, s0, 10080)
 	n1 := Simd_i64x2_add(n0, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, s0, 10152, n1)
+	_ = Simd_v128_store(m, s0, 10080, n1)
 	return
 }
 
 //go:noinline
-func Simd_p_fx49(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx54(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 112, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx50(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx55(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -2811,14 +2855,14 @@ func Simd_p_fx50(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx51(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx56(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 624, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx52(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx57(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_v128_xor([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n1)
@@ -2827,28 +2871,7 @@ func Simd_p_fx52(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uin
 }
 
 //go:noinline
-func Simd_p_fx53(m *Module, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{1084818905618843912, 216736831629295872})
-	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
-	return n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx54(m *Module, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{216736831696667908, 216736831629295872})
-	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
-	return n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx55(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 352, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx56(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx58(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_v128_load32_lane(m, s1, 0, 1, n0)
 	n2 := Simd_v128_load32_lane(m, s2, 0, 2, n1)
@@ -2858,58 +2881,58 @@ func Simd_p_fx56(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint
 }
 
 //go:noinline
-func Simd_p_fx57(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx59(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 4)
 	_ = Simd_v128_store(m, s1, 4, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx58(m *Module, s0 int32) {
+func Simd_p_fx60(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0+224, 0)
 	_ = Simd_v128_store(m, s0+252, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx59(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx61(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 344)
 	_ = Simd_v128_store(m, s1, 20, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx60(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx62(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 12)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx61(m *Module, s0 int32) {
+func Simd_p_fx63(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 224)
-	_ = Simd_v128_store(m, s0, 1568, n0)
+	_ = Simd_v128_store(m, s0, 1552, n0)
 	n2 := Simd_v128_load(m, s0, 208)
-	_ = Simd_v128_store(m, s0, 1552, n2)
+	_ = Simd_v128_store(m, s0, 1536, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx62(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx64(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx63(m *Module, s0 int32) {
+func Simd_p_fx65(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s0, 380, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx64(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx66(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i32x4_lt_u(n1, [2]uint64{p1, p1h})
@@ -2917,37 +2940,21 @@ func Simd_p_fx64(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, u
 }
 
 //go:noinline
-func Simd_p_fx65(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 0, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx66(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
-	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
-	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
-	n2 := Simd_i32x4_extend_low_i16x8_u(n1)
-	n3 := Simd_i32x4_add([2]uint64{p0, p0h}, n2)
-	return n3[0], n3[1]
-}
-
-//go:noinline
 func Simd_p_fx67(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load_rng(m, s0, 0, 0, 32)
-	n1 := Simd_v128_load_nc(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 168, n1)
-	_ = Simd_v128_store(m, s1, 152, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx68(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	n2 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 16, n2)
 	return
+}
+
+//go:noinline
+func Simd_p_fx68(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
+	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
+	n2 := Simd_i32x4_extend_low_i16x8_u(n1)
+	n3 := Simd_i32x4_add([2]uint64{p0, p0h}, n2)
+	return n3[0], n3[1]
 }
 
 //go:noinline
@@ -3001,29 +3008,38 @@ func Simd_p_fx74(m *Module, s0 int32) {
 
 //go:noinline
 func Simd_p_fx75(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load_rng(m, s0, 0, 0, 32)
+	n1 := Simd_v128_load_nc(m, s0, 16)
+	_ = Simd_v128_store(m, s1, 168, n1)
+	_ = Simd_v128_store(m, s1, 152, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx76(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx76(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx77(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
-	_ = Simd_v128_store(m, s1, 240, n0)
+	_ = Simd_v128_store(m, s1, 144, n0)
 	n2 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 224, n2)
+	_ = Simd_v128_store(m, s1, 128, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx77(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx78(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx78(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx79(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 20)
 	_ = Simd_v128_store(m, s1, 20, n0)
 	n2 := Simd_v128_load(m, s0, 36)
@@ -3036,358 +3052,294 @@ func Simd_p_fx78(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx79(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 4496)
-	_ = Simd_v128_store(m, s1, 4496, n0)
-	return
-}
-
-//go:noinline
 func Simd_p_fx80(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 4532)
-	_ = Simd_v128_store(m, s1, 4532, n0)
-	n2 := Simd_v128_load(m, s0, 4516)
-	_ = Simd_v128_store(m, s1, 4516, n2)
+	n0 := Simd_v128_load(m, s0, 4456)
+	_ = Simd_v128_store(m, s1, 4456, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx81(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 4492)
+	_ = Simd_v128_store(m, s1, 4492, n0)
+	n2 := Simd_v128_load(m, s0, 4476)
+	_ = Simd_v128_store(m, s1, 4476, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx82(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx82(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 2592)
+func Simd_p_fx83(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 2432)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx83(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx84(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 2592, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx84(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, s0, 2248)
-	_ = Simd_v128_store(m, s0, 1520, n0)
+	_ = Simd_v128_store(m, s1, 2432, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx85(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, s0, 2232)
-	_ = Simd_v128_store(m, s0, 1536, n0)
+	n0 := Simd_v128_load(m, s0, 2144)
+	_ = Simd_v128_store(m, s0, 1424, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx86(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, s0, 2216)
-	_ = Simd_v128_store(m, s0, 1552, n0)
+	n0 := Simd_v128_load(m, s0, 2128)
+	_ = Simd_v128_store(m, s0, 1440, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx87(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 4752)
-	_ = Simd_v128_store(m, s1, 1236, n0)
-	n2 := Simd_v128_load(m, s0, 4736)
-	_ = Simd_v128_store(m, s1, 1220, n2)
-	n4 := Simd_v128_load(m, s0, 4720)
-	_ = Simd_v128_store(m, s1, 1204, n4)
+func Simd_p_fx87(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, s0, 2112)
+	_ = Simd_v128_store(m, s0, 1456, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx88(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 800, n0)
+	n0 := Simd_v128_load(m, s0, 4716)
+	_ = Simd_v128_store(m, s1, 1220, n0)
+	n2 := Simd_v128_load(m, s0, 4700)
+	_ = Simd_v128_store(m, s1, 1204, n2)
+	n4 := Simd_v128_load(m, s0, 4684)
+	_ = Simd_v128_store(m, s1, 1188, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx89(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 768, n0)
+	_ = Simd_v128_store(m, s1, 720, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx90(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 736, n0)
+	_ = Simd_v128_store(m, s1, 688, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx91(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 64, n0)
+	_ = Simd_v128_store(m, s1, 656, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx92(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 4408)
-	_ = Simd_v128_store(m, s1, 16, n0)
+	n0 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s1, 64, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx93(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0+2528, 0)
+	n0 := Simd_v128_load(m, s0, 4248)
+	_ = Simd_v128_store(m, s1, 16, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx94(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0+2368, 0)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx94(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx95(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 2592, n0)
+	_ = Simd_v128_store(m, s0, 2432, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx95(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx96(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load32_lane(m, s0, 0, 1, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, s1, 2592, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx96(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 4800)
-	_ = Simd_v128_store(m, s1, 1284, n0)
-	n2 := Simd_v128_load(m, s0, 4784)
-	_ = Simd_v128_store(m, s1, 1268, n2)
-	n4 := Simd_v128_load(m, s0, 4768)
-	_ = Simd_v128_store(m, s1, 1252, n4)
+	_ = Simd_v128_store(m, s1, 2432, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx97(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 4800)
-	_ = Simd_v128_store(m, s1, 1288, n0)
-	n2 := Simd_v128_load(m, s0, 4784)
-	_ = Simd_v128_store(m, s1, 1272, n2)
-	n4 := Simd_v128_load(m, s0, 4768)
-	_ = Simd_v128_store(m, s1, 1256, n4)
+	n0 := Simd_v128_load(m, s0, 4764)
+	_ = Simd_v128_store(m, s1, 1268, n0)
+	n2 := Simd_v128_load(m, s0, 4748)
+	_ = Simd_v128_store(m, s1, 1252, n2)
+	n4 := Simd_v128_load(m, s0, 4732)
+	_ = Simd_v128_store(m, s1, 1236, n4)
 	return
 }
 
 //go:noinline
 func Simd_p_fx98(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 4752)
-	_ = Simd_v128_store(m, s1, 1240, n0)
-	n2 := Simd_v128_load(m, s0, 4736)
-	_ = Simd_v128_store(m, s1, 1224, n2)
-	n4 := Simd_v128_load(m, s0, 4720)
-	_ = Simd_v128_store(m, s1, 1208, n4)
+	n0 := Simd_v128_load(m, s0, 4764)
+	_ = Simd_v128_store(m, s1, 1272, n0)
+	n2 := Simd_v128_load(m, s0, 4748)
+	_ = Simd_v128_store(m, s1, 1256, n2)
+	n4 := Simd_v128_load(m, s0, 4732)
+	_ = Simd_v128_store(m, s1, 1240, n4)
 	return
 }
 
 //go:noinline
-func Simd_p_fx99(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx99(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 4716)
+	_ = Simd_v128_store(m, s1, 1224, n0)
+	n2 := Simd_v128_load(m, s0, 4700)
+	_ = Simd_v128_store(m, s1, 1208, n2)
+	n4 := Simd_v128_load(m, s0, 4684)
+	_ = Simd_v128_store(m, s1, 1192, n4)
+	return
+}
+
+//go:noinline
+func Simd_p_fx100(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx100(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx101(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{1084818905618843912, 216736831629295872})
 	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx101(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx102(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{216736831696667908, 216736831629295872})
 	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx102(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 23996864, 0)
+func Simd_p_fx103(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 23928544, 0)
 	_ = Simd_v128_store(m, s0, 12, n0)
-	n2 := Simd_v128_load(m, 23996880, 0)
+	n2 := Simd_v128_load(m, 23928560, 0)
 	_ = Simd_v128_store(m, s0, 28, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx103(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 2672)
+func Simd_p_fx104(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 2512)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx104(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx105(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 2672, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx105(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, s0, 2328)
-	_ = Simd_v128_store(m, s0, 1552, n0)
+	_ = Simd_v128_store(m, s1, 2512, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx106(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, s0, 2312)
-	_ = Simd_v128_store(m, s0, 1568, n0)
+	n0 := Simd_v128_load(m, s0, 2224)
+	_ = Simd_v128_store(m, s0, 1456, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx107(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, s0, 2296)
-	_ = Simd_v128_store(m, s0, 1584, n0)
+	n0 := Simd_v128_load(m, s0, 2208)
+	_ = Simd_v128_store(m, s0, 1472, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx108(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 1104, n0)
+func Simd_p_fx108(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, s0, 2192)
+	_ = Simd_v128_store(m, s0, 1488, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx109(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 864, n0)
+	_ = Simd_v128_store(m, s1, 1008, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx110(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+func Simd_p_fx110(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s1, 784, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx111(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 2176, n0)
+	_ = Simd_v128_store(m, s1, 2064, n0)
 	return n0[0], n0[1]
 }
 
 //go:noinline
-func Simd_p_fx111(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 640, n0)
-	return
-}
-
-//go:noinline
 func Simd_p_fx112(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load32_zero(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 2608, n0)
-	_ = Simd_v128_store(m, s1, 448, n0)
+	n0 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s1, 576, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx113(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load32_zero(m, s0, 0)
+	_ = Simd_v128_store(m, s1, 2448, n0)
+	_ = Simd_v128_store(m, s1, 448, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx114(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 176, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx114(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 4488)
+func Simd_p_fx115(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 4328)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx115(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0+2608, 0)
+func Simd_p_fx116(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0+2448, 0)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx116(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 24)
-	_ = Simd_v128_store(m, s1, 40, n0)
-	n2 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 24, n2)
-	n4 := Simd_v128_load(m, s0, 44)
-	_ = Simd_v128_store(m, s1, 60, n4)
-	return
-}
-
-//go:noinline
-func Simd_p_fx117(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 60)
-	_ = Simd_v128_store(m, s1, 76, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx118(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 96)
-	_ = Simd_v128_store(m, s1, 112, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx119(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 116)
-	_ = Simd_v128_store(m, s1, 132, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx120(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 24)
-	_ = Simd_v128_store(m, s1, 176, n0)
-	n2 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 160, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx121(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 44)
-	_ = Simd_v128_store(m, s1, 196, n0)
-	n2 := Simd_v128_load(m, s0, 60)
-	_ = Simd_v128_store(m, s1, 212, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx122(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 96)
-	_ = Simd_v128_store(m, s1, 248, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx123(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 116)
-	_ = Simd_v128_store(m, s1, 268, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx124(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx117(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load32_lane(m, s0, 0, 1, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, s1, 2672, n0)
+	_ = Simd_v128_store(m, s1, 2512, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx125(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx118(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i32x4_gt_u(n1, [2]uint64{p1, p1h})
@@ -3395,7 +3347,7 @@ func Simd_p_fx125(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, 
 }
 
 //go:noinline
-func Simd_p_fx126(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx119(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 40)
 	_ = Simd_v128_store(m, s1, 40, n0)
 	n2 := Simd_v128_load(m, s0, 24)
@@ -3404,7 +3356,7 @@ func Simd_p_fx126(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx127(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx120(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	n2 := Simd_v128_load(m, s0, 16)
@@ -3415,7 +3367,7 @@ func Simd_p_fx127(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx128(m *Module, s0 int32, s1 int32, s2 int32) {
+func Simd_p_fx121(m *Module, s0 int32, s1 int32, s2 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_scalar_i32_add(s1, s2)
 	n2 := Simd_v128_load(m, n1, 0)
@@ -3426,7 +3378,7 @@ func Simd_p_fx128(m *Module, s0 int32, s1 int32, s2 int32) {
 }
 
 //go:noinline
-func Simd_p_fx129(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx122(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_load(m, s1, 0)
 	_ = Simd_v128_store(m, s0, 0, n1)
@@ -3435,14 +3387,14 @@ func Simd_p_fx129(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx130(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx123(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_splat(s0)
 	n1 := Simd_v128_and([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx131(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx124(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n1)
@@ -3451,28 +3403,28 @@ func Simd_p_fx131(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx132(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx125(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{1084818905618843912, 216736831629295872})
 	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx133(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx126(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{216736831696667908, 216736831629295872})
 	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx134(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 8803412, 0)
+func Simd_p_fx127(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 8799116, 0)
 	_ = Simd_v128_store(m, s0, 336, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx135(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32, s6 int32, s7 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx128(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32, s6 int32, s7 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_v128_load32_lane(m, s1, 0, 1, n0)
 	n2 := Simd_v128_load32_lane(m, s2, 0, 2, n1)
@@ -3485,7 +3437,7 @@ func Simd_p_fx135(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s
 }
 
 //go:noinline
-func Simd_p_fx136(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+func Simd_p_fx129(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 	n0 := Simd_scalar_i32_shl(s1, 5)
 	n1 := Simd_scalar_i32_add(s0, n0)
 	n2 := Simd_v128_load(m, n1, 0)
@@ -3493,7 +3445,7 @@ func Simd_p_fx136(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx137(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64) {
+func Simd_p_fx130(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	n2 := Simd_v128_or(n0, n1)
@@ -3503,7 +3455,7 @@ func Simd_p_fx137(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx138(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
+func Simd_p_fx131(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_add([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -3512,7 +3464,7 @@ func Simd_p_fx138(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx139(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
+func Simd_p_fx132(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
 	n0 := Simd_i32x4_sub([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_sub([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -3521,49 +3473,49 @@ func Simd_p_fx139(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx140(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx133(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx141(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx134(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{216736831696667908, 216736831629295872})
 	n1 := Simd_i64x2_extend_low_i32x4_u(n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx142(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx135(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i64x2_shr_u([2]uint64{p0, p0h}, 32)
 	n1 := Simd_i64x2_add(n0, [2]uint64{p1, p1h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx143(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx136(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i64x2_add(n0, [2]uint64{p2, p2h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx144(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx137(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i64x2_add([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx145(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx138(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_i64x2_add([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx146(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx139(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i32x4_shl(n0, 31)
 	n2 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, n0, [2]uint64{1374179596971150604, 1952900979675763988})
@@ -3574,28 +3526,28 @@ func Simd_p_fx146(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx147(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12471712, 0)
+func Simd_p_fx140(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12469296, 0)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx148(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12471736, 0)
+func Simd_p_fx141(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12469320, 0)
 	_ = Simd_v128_store(m, s0, 24, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx149(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx142(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_mul([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx150(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx143(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 56, n0)
 	n2 := Simd_v128_load(m, s0, 16)
@@ -3606,21 +3558,21 @@ func Simd_p_fx150(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx151(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx144(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx152(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx145(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	_ = Simd_v128_store(m, s0, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx153(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx146(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p0, p0h}, [2]uint64{795458214199165184, 216736831629295872})
 	n2 := Simd_v128_load32_lane(m, s0, 16, 2, n1)
@@ -3630,42 +3582,42 @@ func Simd_p_fx153(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx154(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 23931576, 0)
+func Simd_p_fx147(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 23863192, 0)
 	_ = Simd_v128_store(m, s0, 144, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx155(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 23931560, 0)
+func Simd_p_fx148(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 23863176, 0)
 	_ = Simd_v128_store(m, s0, 128, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx156(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx149(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 3176, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx157(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 23932464, 0)
+func Simd_p_fx150(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 23864080, 0)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx158(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx151(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	_ = Simd_v128_store(m, s0, 32, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx159(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx152(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s1, 0, n1)
@@ -3673,21 +3625,21 @@ func Simd_p_fx159(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx160(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx153(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 6, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx161(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx154(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 192, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx162(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx155(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 56)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 40)
@@ -3698,7 +3650,7 @@ func Simd_p_fx162(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx163(m *Module, s0 int32) {
+func Simd_p_fx156(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 56)
 	_ = Simd_v128_store(m, s0, 112, n0)
 	n2 := Simd_v128_load(m, s0, 40)
@@ -3709,7 +3661,7 @@ func Simd_p_fx163(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx164(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx157(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{795458214199165184, 1952900979608391952})
 	n1 := Simd_v128_and(n0, [2]uint64{p2, p2h})
 	n2 := Simd_i32x4_add(n1, [2]uint64{p3, p3h})
@@ -3717,14 +3669,14 @@ func Simd_p_fx164(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx165(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx158(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{1084818905618843912, 216736831629295872})
 	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx166(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx159(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	n2 := Simd_v128_load(m, s0, 16)
@@ -3738,21 +3690,35 @@ func Simd_p_fx166(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx167(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 23932464, 0)
+func Simd_p_fx160(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 23864080, 0)
 	_ = Simd_v128_store(m, s0, 1092, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx168(m *Module, s0 int32) {
+func Simd_p_fx161(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 1092)
-	_ = Simd_v128_store(m, 23932464, 0, n0)
+	_ = Simd_v128_store(m, 23864080, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx169(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx162(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0+12541904, 0)
+	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
+	return n0[0], n0[1], n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx163(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0+12541920, 0)
+	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
+	return n0[0], n0[1], n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx164(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 160)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 144)
@@ -3761,7 +3727,7 @@ func Simd_p_fx169(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx170(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx165(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 160, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -3770,21 +3736,7 @@ func Simd_p_fx170(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx171(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_load(m, s0+12521248, 0)
-	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
-	return n0[0], n0[1], n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx172(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_load(m, s0+12521264, 0)
-	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
-	return n0[0], n0[1], n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx173(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx166(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_load(m, s1, 0)
 	n2 := Simd_v128_not(n1)
@@ -3794,7 +3746,7 @@ func Simd_p_fx173(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx174(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx167(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_load(m, s1, 0)
 	n2 := Simd_v128_or(n0, n1)
@@ -3803,21 +3755,21 @@ func Simd_p_fx174(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx175(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx168(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i16x8_splat(s0)
 	n1 := Simd_v128_andnot([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx176(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx169(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i16x8_splat(s0)
 	n1 := Simd_v128_or(n0, [2]uint64{p0, p0h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx177(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
+func Simd_p_fx170(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
 	n0 := Simd_i32x4_splat(s1)
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p1, p1h}, [2]uint64{1374179596769034496, 0})
 	n2 := Simd_i8x16_shuffle(n1, [2]uint64{p2, p2h}, [2]uint64{506097522914230528, 319951120})
@@ -3832,7 +3784,7 @@ func Simd_p_fx177(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64,
 }
 
 //go:noinline
-func Simd_p_fx178(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
+func Simd_p_fx171(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
 	n0 := Simd_v128_not([2]uint64{p0, p0h})
 	n1 := Simd_i32x4_splat(s1)
 	n2 := Simd_i8x16_shuffle(n1, [2]uint64{p1, p1h}, [2]uint64{1374179596769034496, 0})
@@ -3849,7 +3801,7 @@ func Simd_p_fx178(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64,
 }
 
 //go:noinline
-func Simd_p_fx179(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx172(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load_rng(m, s0, 0, 0, 32)
 	n1 := Simd_v128_load_nc(m, s0, 16)
 	n2 := Simd_i8x16_shuffle(n0, n1, [2]uint64{795458214199165184, 1952900979608391952})
@@ -3862,7 +3814,7 @@ func Simd_p_fx179(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx180(m *Module, s0 int32) {
+func Simd_p_fx173(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 88)
 	n1 := Simd_v128_not(n0)
 	_ = Simd_v128_store(m, s0, 88, n1)
@@ -3873,7 +3825,7 @@ func Simd_p_fx180(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx181(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx174(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 1, n0)
 	n2 := Simd_v128_load(m, s0, 16)
@@ -3882,7 +3834,7 @@ func Simd_p_fx181(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx182(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx175(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_ne([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and(n0, [2]uint64{p2, p2h})
 	n2 := Simd_i32x4_ne([2]uint64{p3, p3h}, [2]uint64{p1, p1h})
@@ -3892,212 +3844,154 @@ func Simd_p_fx182(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx183(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_i32x4_splat(s4)
-	n1 := Simd_v128_load32_zero(m, s0, 0)
-	n2 := Simd_v128_load32_lane(m, s1, 0, 1, n1)
-	n3 := Simd_v128_load32_lane(m, s2, 0, 2, n2)
-	n4 := Simd_v128_load32_lane(m, s3, 0, 3, n3)
-	n5 := Simd_i32x4_eq(n4, n0)
-	n6 := Simd_i32x4_sub([2]uint64{p0, p0h}, n5)
-	return n6[0], n6[1]
-}
-
-//go:noinline
-func Simd_p_fx184(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 128)
-	n1 := Simd_f64x2_add(n0, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, s0, 128, n1)
-	n3 := Simd_v128_load(m, s0, 144)
-	n4 := Simd_f64x2_add(n3, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 144, n4)
-	return n1[0], n1[1], n4[0], n4[1]
-}
-
-//go:noinline
-func Simd_p_fx185(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 80)
-	n1 := Simd_f64x2_gt(n0, [2]uint64{p0, p0h})
-	return n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx186(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
-	n0 := Simd_f64x2_ge([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	n1 := Simd_v128_not(n0)
-	n2 := Simd_f64x2_le([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
-	n3 := Simd_v128_not(n2)
-	n4 := Simd_i8x16_shuffle(n1, n3, [2]uint64{795458214199165184, 1952900979608391952})
-	return n4[0], n4[1]
-}
-
-//go:noinline
-func Simd_p_fx187(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_load(m, s0, 80)
-	n1 := Simd_f64x2_add(n0, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, s0, 80, n1)
-	n3 := Simd_v128_load(m, s0, 96)
-	n4 := Simd_f64x2_add(n3, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 96, n4)
-	return
-}
-
-//go:noinline
-func Simd_p_fx188(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 96)
-	n1 := Simd_f64x2_lt(n0, [2]uint64{p0, p0h})
-	return n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx189(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, s0, 80)
+func Simd_p_fx176(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, s0, 584)
 	_ = Simd_v128_store(m, s0, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx190(m *Module, s0 int32) {
+func Simd_p_fx177(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 24)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx191(m *Module, s0 int32) {
+func Simd_p_fx178(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s0, 24, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx192(m *Module, s0 int32) {
+func Simd_p_fx179(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s0, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx193(m *Module, s0 int32) {
+func Simd_p_fx180(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 384)
 	_ = Simd_v128_store(m, s0, 352, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx194(m *Module, s0 int32) {
+func Simd_p_fx181(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 384)
 	_ = Simd_v128_store(m, s0, 336, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx195(m *Module, s0 int32) {
+func Simd_p_fx182(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 384)
 	_ = Simd_v128_store(m, s0, 320, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx196(m *Module, s0 int32) {
+func Simd_p_fx183(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 456)
 	_ = Simd_v128_store(m, s0, 24, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx197(m *Module, s0 int32) {
+func Simd_p_fx184(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 456)
 	_ = Simd_v128_store(m, s0, 72, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx198(m *Module, s0 int32) {
+func Simd_p_fx185(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 456)
 	_ = Simd_v128_store(m, s0, 120, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx199(m *Module, s0 int32) {
+func Simd_p_fx186(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 416)
 	_ = Simd_v128_store(m, s0, 96, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx200(m *Module, s0 int32) {
+func Simd_p_fx187(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 456)
 	_ = Simd_v128_store(m, s0, 168, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx201(m *Module, s0 int32) {
+func Simd_p_fx188(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 416)
 	_ = Simd_v128_store(m, s0, 144, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx202(m *Module, s0 int32) {
+func Simd_p_fx189(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 456)
 	_ = Simd_v128_store(m, s0, 232, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx203(m *Module, s0 int32) {
+func Simd_p_fx190(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 424)
 	_ = Simd_v128_store(m, s0, 200, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx204(m *Module, s0 int32) {
+func Simd_p_fx191(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 456)
 	_ = Simd_v128_store(m, s0, 296, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx205(m *Module, s0 int32) {
+func Simd_p_fx192(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 424)
 	_ = Simd_v128_store(m, s0, 264, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx206(m *Module, s0 int32) {
+func Simd_p_fx193(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 72)
 	_ = Simd_v128_store(m, s0, 24, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx207(m *Module, s0 int32) {
+func Simd_p_fx194(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 600)
 	_ = Simd_v128_store(m, s0, 24, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx208(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx195(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx209(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx196(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx210(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx197(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i32x4_lt_u(n1, [2]uint64{p1, p1h})
@@ -4105,7 +3999,7 @@ func Simd_p_fx210(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, 
 }
 
 //go:noinline
-func Simd_p_fx211(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx198(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 21)
 	_ = Simd_v128_store(m, s1, 66, n0)
 	n2 := Simd_v128_load(m, s0, 37)
@@ -4116,60 +4010,53 @@ func Simd_p_fx211(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx212(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx199(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 112, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx213(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 12, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx214(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx200(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 4)
-	_ = Simd_v128_store(m, s1, 256, n0)
+	_ = Simd_v128_store(m, s1, 224, n0)
 	n2 := Simd_v128_load(m, s0, 20)
-	_ = Simd_v128_store(m, s1, 272, n2)
+	_ = Simd_v128_store(m, s1, 240, n2)
 	n4 := Simd_v128_load(m, s0, 36)
-	_ = Simd_v128_store(m, s1, 288, n4)
+	_ = Simd_v128_store(m, s1, 256, n4)
 	return
 }
 
 //go:noinline
-func Simd_p_fx215(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx201(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 36)
-	_ = Simd_v128_store(m, s1, 340, n0)
+	_ = Simd_v128_store(m, s1, 308, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx216(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx202(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 36)
-	_ = Simd_v128_store(m, s1, 524, n0)
+	_ = Simd_v128_store(m, s1, 492, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx217(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
+func Simd_p_fx203(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_scalar_i32_add(s1, s2)
 	n2 := Simd_v128_load(m, n1, 0)
 	n3 := Simd_i32x4_add(n0, n2)
 	_ = Simd_v128_store(m, s0, 0, n3)
-	n5 := Simd_v128_load(m, s2+23941272, 0)
+	n5 := Simd_v128_load(m, s2+23872872, 0)
 	n6 := Simd_v128_load(m, s3+16, 0)
 	n7 := Simd_i32x4_add(n5, n6)
-	_ = Simd_v128_store(m, s2+23941272, 0, n7)
+	_ = Simd_v128_store(m, s2+23872872, 0, n7)
 	return
 }
 
 //go:noinline
-func Simd_p_fx218(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx204(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i64x2_add(n0, [2]uint64{p0, p0h})
 	n2 := Simd_v128_load(m, s1, 0)
@@ -4178,35 +4065,35 @@ func Simd_p_fx218(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64)
 }
 
 //go:noinline
-func Simd_p_fx219(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx205(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 1248, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx220(m *Module, s0 int32) {
+func Simd_p_fx206(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 120)
 	_ = Simd_v128_store(m, s0, 72, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx221(m *Module, s0 int32) {
+func Simd_p_fx207(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 104)
 	_ = Simd_v128_store(m, s0, 32, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx222(m *Module, s0 int32) {
+func Simd_p_fx208(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 88)
 	_ = Simd_v128_store(m, s0, 56, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx223(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx209(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 32)
@@ -4219,21 +4106,21 @@ func Simd_p_fx223(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx224(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx210(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 168)
 	_ = Simd_v128_store(m, s1, 168, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx225(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx211(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 200)
 	_ = Simd_v128_store(m, s1, 200, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx226(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx212(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 60)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 44)
@@ -4242,7 +4129,7 @@ func Simd_p_fx226(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx227(m *Module, s0 int32) {
+func Simd_p_fx213(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 56)
 	_ = Simd_v128_store(m, s0, 24, n0)
 	n2 := Simd_v128_load(m, s0, 40)
@@ -4251,16 +4138,16 @@ func Simd_p_fx227(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx228(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx214(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 88, n0)
+	_ = Simd_v128_store(m, s1, 84, n0)
 	n2 := Simd_v128_load(m, s0, 24)
-	_ = Simd_v128_store(m, s1, 104, n2)
+	_ = Simd_v128_store(m, s1, 100, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx229(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx215(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 684)
 	_ = Simd_v128_store(m, s1, 560, n0)
 	n2 := Simd_v128_load(m, s0, 700)
@@ -4269,7 +4156,7 @@ func Simd_p_fx229(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx230(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx216(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 80)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	n2 := Simd_v128_load(m, s0, 96)
@@ -4278,7 +4165,7 @@ func Simd_p_fx230(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx231(m *Module, s0 int32) {
+func Simd_p_fx217(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 40)
 	_ = Simd_v128_store(m, s0, 248, n0)
 	n2 := Simd_v128_load(m, s0, 24)
@@ -4289,7 +4176,7 @@ func Simd_p_fx231(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx232(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx218(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 424)
 	_ = Simd_v128_store(m, s1, 40, n0)
 	n2 := Simd_v128_load(m, s0, 408)
@@ -4300,7 +4187,7 @@ func Simd_p_fx232(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx233(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx219(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 400, n0)
 	n2 := Simd_v128_load(m, s0, 32)
@@ -4311,7 +4198,7 @@ func Simd_p_fx233(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx234(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx220(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 368)
 	_ = Simd_v128_store(m, s1, 40, n0)
 	n2 := Simd_v128_load(m, s0, 352)
@@ -4322,7 +4209,7 @@ func Simd_p_fx234(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx235(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx221(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 344)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 360)
@@ -4333,14 +4220,14 @@ func Simd_p_fx235(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx236(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx222(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 12)
 	_ = Simd_v128_store(m, s1, 128, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx237(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx223(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 116)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 132)
@@ -4349,14 +4236,14 @@ func Simd_p_fx237(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx238(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx224(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 128)
 	_ = Simd_v128_store(m, s1, 12, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx239(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx225(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 64)
 	_ = Simd_v128_store(m, s1, 132, n0)
 	n2 := Simd_v128_load(m, s0, 48)
@@ -4365,84 +4252,84 @@ func Simd_p_fx239(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx240(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx226(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 216, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx241(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx227(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 264, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx242(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx228(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 180)
 	_ = Simd_v128_store(m, s1, 180, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx243(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx229(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 212)
 	_ = Simd_v128_store(m, s1, 212, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx244(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx230(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 244)
 	_ = Simd_v128_store(m, s1, 244, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx245(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx231(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 272)
 	_ = Simd_v128_store(m, s1, 272, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx246(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx232(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 476)
 	_ = Simd_v128_store(m, s1, 476, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx247(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx233(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 508)
 	_ = Simd_v128_store(m, s1, 508, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx248(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx234(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 540)
 	_ = Simd_v128_store(m, s1, 540, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx249(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx235(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 568)
 	_ = Simd_v128_store(m, s1, 568, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx250(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx236(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 344)
 	_ = Simd_v128_store(m, s1, 928, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx251(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx237(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_load(m, s1, 0)
 	n2 := Simd_v128_and(n0, n1)
@@ -4451,14 +4338,14 @@ func Simd_p_fx251(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx252(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx238(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 80, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx253(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
+func Simd_p_fx239(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_ne([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and(n0, [2]uint64{p2, p2h})
 	n2 := Simd_i32x4_ne([2]uint64{p3, p3h}, [2]uint64{p4, p4h})
@@ -4468,7 +4355,7 @@ func Simd_p_fx253(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx254(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx240(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i32x4_lt_u(n1, [2]uint64{p1, p1h})
@@ -4476,7 +4363,7 @@ func Simd_p_fx254(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, 
 }
 
 //go:noinline
-func Simd_p_fx255(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx241(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 1744)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 1728)
@@ -4489,7 +4376,7 @@ func Simd_p_fx255(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx256(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx242(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 24)
 	_ = Simd_v128_store(m, s1, 1776, n0)
 	n2 := Simd_v128_load(m, s0, 8)
@@ -4498,7 +4385,7 @@ func Simd_p_fx256(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx257(m *Module, s0 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx243(m *Module, s0 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n1)
@@ -4506,14 +4393,14 @@ func Simd_p_fx257(m *Module, s0 int32) (uint64, uint64, uint64, uint64, uint64, 
 }
 
 //go:noinline
-func Simd_p_fx258(m *Module, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx244(m *Module, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_i16x8_extend_high_i8x16_u([2]uint64{p0, p0h})
 	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
 	return n0[0], n0[1], n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx259(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx245(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shr_s([2]uint64{p2, p2h}, 7)
 	n1 := Simd_v128_bitselect([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, n0)
 	n2 := Simd_i8x16_shuffle(n1, n1, [2]uint64{1084818905618843912, 0})
@@ -4526,14 +4413,14 @@ func Simd_p_fx259(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (ui
 }
 
 //go:noinline
-func Simd_p_fx260(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx246(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_splat(s0)
 	n1 := Simd_i8x16_max_u([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx261(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx247(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_splat(s1)
 	n1 := Simd_v128_load(m, s0, 0)
 	n2 := Simd_i8x16_shuffle(n1, [2]uint64{p0, p0h}, [2]uint64{795458214199165184, 216736831629295872})
@@ -4546,14 +4433,14 @@ func Simd_p_fx261(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64)
 }
 
 //go:noinline
-func Simd_p_fx262(m *Module, s0 int32) {
+func Simd_p_fx248(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 120)
 	_ = Simd_v128_store(m, s0, 96, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx263(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx249(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_i32x4_extend_low_i16x8_s(n0)
 	n2 := Simd_v128_load32_zero(m, s1, 0)
@@ -4564,14 +4451,14 @@ func Simd_p_fx263(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx264(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx250(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{1084818905618843912, 506097522914230528})
 	n1 := Simd_i64x2_add([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx265(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64) {
+func Simd_p_fx251(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64) {
 	n0 := Simd_i64x2_eq([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and(n0, [2]uint64{p2, p2h})
 	n2 := Simd_i64x2_eq([2]uint64{p3, p3h}, [2]uint64{p4, p4h})
@@ -4581,7 +4468,7 @@ func Simd_p_fx265(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx266(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx252(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0+16, 0)
 	n1 := Simd_i32x4_extend_low_i16x8_s(n0)
 	n2 := Simd_v128_load32_zero(m, s1+16, 0)
@@ -4598,7 +4485,7 @@ func Simd_p_fx266(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx267(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx253(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 38)
 	_ = Simd_v128_store(m, s1, 38, n0)
 	n2 := Simd_v128_load(m, s0, 54)
@@ -4609,37 +4496,23 @@ func Simd_p_fx267(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx268(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx254(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 38)
 	_ = Simd_v128_store(m, s1, 38, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx269(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 10166768, 0)
+func Simd_p_fx255(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 10164352, 0)
 	_ = Simd_v128_store(m, s0, 16, n0)
-	n2 := Simd_v128_load(m, 10166752, 0)
+	n2 := Simd_v128_load(m, 10164336, 0)
 	_ = Simd_v128_store(m, s0, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx270(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 92)
-	_ = Simd_v128_store(m, s1, 92, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx271(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 112)
-	_ = Simd_v128_store(m, s1, 112, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx272(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx256(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 24)
 	n1 := Simd_v128_load32_lane(m, s1, 24, 1, n0)
 	n2 := Simd_v128_load32_lane(m, s2, 24, 2, n1)
@@ -4652,48 +4525,111 @@ func Simd_p_fx272(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uin
 }
 
 //go:noinline
-func Simd_p_fx273(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_v128_load32_zero(m, s0+15185704, 0)
-	n1 := Simd_v128_load32_lane(m, s0+15185832, 0, 1, n0)
-	n2 := Simd_v128_load32_lane(m, s0+15185960, 0, 2, n1)
-	n3 := Simd_v128_load32_lane(m, s0+15186088, 0, 3, n2)
-	n4 := Simd_i32x4_add(n3, [2]uint64{p0, p0h})
-	return n4[0], n4[1]
+func Simd_p_fx257(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 88)
+	_ = Simd_v128_store(m, s1, 88, n0)
+	return
 }
 
 //go:noinline
-func Simd_p_fx274(m *Module, s0 int32, p0, p0h uint64) {
-	n0 := Simd_v128_load(m, 24091488, 0)
+func Simd_p_fx258(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 24020896, 0)
+	_ = Simd_v128_store(m, s0, 248, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx259(m *Module, s0 int32, p0, p0h uint64) {
+	n0 := Simd_v128_load(m, 24020960, 0)
 	_ = Simd_v128_store(m, s0, 8, n0)
 	_ = Simd_v128_store(m, s0, 64, [2]uint64{p0, p0h})
 	return
 }
 
 //go:noinline
-func Simd_p_fx275(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 24091488, 0)
+func Simd_p_fx260(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 24020960, 0)
 	_ = Simd_v128_store(m, s0, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx276(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx261(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx277(m *Module, s0 int32) {
+func Simd_p_fx262(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, 24091504, 0, n0)
-	n2 := Simd_v128_load(m, 24091296, 0)
-	_ = Simd_v128_store(m, 24091424, 0, n2)
+	_ = Simd_v128_store(m, 24020976, 0, n0)
+	n2 := Simd_v128_load(m, 24020768, 0)
+	_ = Simd_v128_store(m, 24020896, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx278(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
+func Simd_p_fx263(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i32x4_splat(s0)
+	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx264(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_i32x4_shl([2]uint64{p0, p0h}, 1)
+	n1 := Simd_i32x4_add(n0, [2]uint64{p1, p1h})
+	n2 := Simd_i32x4_shr_u(n1, 3)
+	return n1[0], n1[1], n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx265(m *Module, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i16x8_extend_low_i8x16_u([2]uint64{p0, p0h})
+	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx266(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+	n0 := Simd_v128_andnot([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	n1 := Simd_i32x4_add(n0, [2]uint64{p2, p2h})
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx267(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 24021552, 0)
+	n1 := Simd_v128_load(m, s0, 72)
+	n2 := Simd_i32x4_add(n0, n1)
+	_ = Simd_v128_store(m, 24021552, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx268(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 13349784, 0)
+	_ = Simd_v128_store(m, s0, 102, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx269(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 13349816, 0)
+	_ = Simd_v128_store(m, s0, 102, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx270(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 2)
+	_ = Simd_v128_store(m, s1, 0, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx271(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_shl([2]uint64{p3, p3h}, 31)
 	n1 := Simd_i32x4_shr_s(n0, 31)
 	n2 := Simd_v128_bitselect([2]uint64{p1, p1h}, [2]uint64{p2, p2h}, n1)
@@ -4704,28 +4640,28 @@ func Simd_p_fx278(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx279(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx272(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_max_u([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx280(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx273(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx281(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx274(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx282(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx275(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_v128_load32_lane(m, s1, 0, 1, n0)
 	n2 := Simd_v128_load32_lane(m, s2, 0, 2, n1)
@@ -4738,14 +4674,14 @@ func Simd_p_fx282(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uin
 }
 
 //go:noinline
-func Simd_p_fx283(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx276(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1+8, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx284(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
+func Simd_p_fx277(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p0, p0h}, [2]uint64{72060901246895878, 72058693566333184})
 	n2 := Simd_i16x8_eq(n1, [2]uint64{p3, p3h})
@@ -4756,103 +4692,88 @@ func Simd_p_fx284(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx285(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_i32x4_splat(s0)
-	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
-	return n1[0], n1[1]
+func Simd_p_fx278(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_v128_load32_zero(m, s0+15121448, 0)
+	n1 := Simd_v128_load32_lane(m, s0+15121576, 0, 1, n0)
+	n2 := Simd_v128_load32_lane(m, s0+15121704, 0, 2, n1)
+	n3 := Simd_v128_load32_lane(m, s0+15121832, 0, 3, n2)
+	n4 := Simd_i32x4_add(n3, [2]uint64{p0, p0h})
+	return n4[0], n4[1]
 }
 
 //go:noinline
-func Simd_p_fx286(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_i32x4_shl([2]uint64{p0, p0h}, 1)
-	n1 := Simd_i32x4_add(n0, [2]uint64{p1, p1h})
-	n2 := Simd_i32x4_shr_u(n1, 3)
-	return n1[0], n1[1], n2[0], n2[1]
+func Simd_p_fx279(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_v128_load32_zero(m, s0, 0)
+	n1 := Simd_v128_load32_lane(m, s1+24061312, 0, 1, n0)
+	n2 := Simd_v128_load32_lane(m, s1+24061376, 0, 2, n1)
+	n3 := Simd_v128_load32_lane(m, s1+24061440, 0, 3, n2)
+	n4 := Simd_i32x4_add(n3, [2]uint64{p0, p0h})
+	return n4[0], n4[1]
 }
 
 //go:noinline
-func Simd_p_fx287(m *Module, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_i16x8_extend_low_i8x16_u([2]uint64{p0, p0h})
-	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
-	return n1[0], n1[1]
+func Simd_p_fx280(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_v128_load32_zero(m, s0, 0)
+	n1 := Simd_v128_load32_lane(m, s1+24069568, 0, 1, n0)
+	n2 := Simd_v128_load32_lane(m, s1+24069632, 0, 2, n1)
+	n3 := Simd_v128_load32_lane(m, s1+24069696, 0, 3, n2)
+	n4 := Simd_i32x4_add(n3, [2]uint64{p0, p0h})
+	return n4[0], n4[1]
 }
 
 //go:noinline
-func Simd_p_fx288(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
-	n0 := Simd_v128_andnot([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	n1 := Simd_i32x4_add(n0, [2]uint64{p2, p2h})
-	return n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx289(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 24123264, 0)
-	n1 := Simd_v128_load(m, s0, 72)
-	n2 := Simd_i32x4_add(n0, n1)
-	_ = Simd_v128_store(m, 24123264, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx290(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 13362520, 0)
-	_ = Simd_v128_store(m, s0, 102, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx291(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 13362552, 0)
-	_ = Simd_v128_store(m, s0, 102, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx292(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 2)
-	_ = Simd_v128_store(m, s1, 0, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx293(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx281(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 180, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx294(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx282(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 212, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx295(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx283(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 244, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx296(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx284(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 272, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx297(m *Module, s0 int32, s1 int32, s2 int32) {
+func Simd_p_fx285(m *Module, s0 int32, s1 int32, s2 int32) {
 	n0 := Simd_scalar_i32_add(s0, s1)
 	n1 := Simd_v128_load(m, n0, 0)
-	n2 := Simd_scalar_i32_add(s2, s1)
+	n2 := Simd_scalar_i32_add(s1, s2)
 	_ = Simd_v128_store(m, n2, 0, n1)
 	return
 }
 
 //go:noinline
-func Simd_p_fx298(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx286(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, s0, 112)
+	_ = Simd_v128_store(m, s0, 136, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx287(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 8)
+	_ = Simd_v128_store(m, s1, 120, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx288(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 876)
 	_ = Simd_v128_store(m, s1, 372, n0)
 	n2 := Simd_v128_load(m, s0, 860)
@@ -4861,21 +4782,30 @@ func Simd_p_fx298(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx299(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx289(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 64)
 	_ = Simd_v128_store(m, s1, 33, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx300(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx290(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0+18, 0)
+	_ = Simd_v128_store(m, s1, 68, n0)
+	n2 := Simd_v128_load(m, s0+2, 0)
+	_ = Simd_v128_store(m, s1, 52, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx291(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and(n0, [2]uint64{p2, p2h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx301(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx292(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_xor([2]uint64{p0, p0h}, n0)
 	n2 := Simd_v128_or(n1, [2]uint64{p1, p1h})
@@ -4883,7 +4813,7 @@ func Simd_p_fx301(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, 
 }
 
 //go:noinline
-func Simd_p_fx302(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx293(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{1084818905618843912, 0})
 	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
 	n2 := Simd_i8x16_shuffle(n1, n1, [2]uint64{117835012, 0})
@@ -4894,21 +4824,21 @@ func Simd_p_fx302(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx303(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx294(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{1, 0})
 	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx304(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx295(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	return n0[0], n0[1], n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx305(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
+func Simd_p_fx296(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
 	n0 := Simd_v128_xor([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_xor([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	n2 := Simd_v128_load(m, s0, 0)
@@ -4925,14 +4855,14 @@ func Simd_p_fx305(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx306(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx297(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_eq([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i16x8_extend_low_i8x16_s(n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx307(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx298(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_eq([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_i16x8_extend_low_i8x16_s(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_s(n1)
@@ -4943,7 +4873,7 @@ func Simd_p_fx307(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (ui
 }
 
 //go:noinline
-func Simd_p_fx308(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx299(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 28)
 	n1 := Simd_v128_load32_lane(m, s0, 8, 1, n0)
 	n2 := Simd_v128_load32_zero(m, s1, 21)
@@ -4952,7 +4882,7 @@ func Simd_p_fx308(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx309(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64) {
+func Simd_p_fx300(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_ne([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i8x16_ne([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	n2 := Simd_v128_or(n0, n1)
@@ -4963,7 +4893,7 @@ func Simd_p_fx309(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx310(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx301(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 312, n0)
 	n2 := Simd_v128_load(m, s0, 24)
@@ -4972,64 +4902,73 @@ func Simd_p_fx310(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx311(m *Module, s0 int32) {
+func Simd_p_fx302(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 280)
 	_ = Simd_v128_store(m, s0, 296, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx312(m *Module, s0 int32) {
+func Simd_p_fx303(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 296)
 	_ = Simd_v128_store(m, s0, 280, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx313(m *Module, s0 int32) {
+func Simd_p_fx304(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 280)
 	_ = Simd_v128_store(m, s0, 14, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx314(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12406384, 16)
+func Simd_p_fx305(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 16)
+	_ = Simd_v128_store(m, s1, 68, n0)
+	n2 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s1, 52, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx306(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12403968, 16)
 	_ = Simd_v128_store(m, s0, 80, n0)
-	n2 := Simd_v128_load(m, 12406384, 0)
+	n2 := Simd_v128_load(m, 12403968, 0)
 	_ = Simd_v128_store(m, s0, 64, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx315(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12406432, 16)
+func Simd_p_fx307(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12404016, 16)
 	_ = Simd_v128_store(m, s0, 80, n0)
-	n2 := Simd_v128_load(m, 12406432, 0)
+	n2 := Simd_v128_load(m, 12404016, 0)
 	_ = Simd_v128_store(m, s0, 64, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx316(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12406448, 0)
+func Simd_p_fx308(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12404032, 0)
 	_ = Simd_v128_store(m, s0, 128, n0)
-	n2 := Simd_v128_load(m, 12406432, 0)
+	n2 := Simd_v128_load(m, 12404016, 0)
 	_ = Simd_v128_store(m, s0, 112, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx317(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12406400, 0)
+func Simd_p_fx309(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12403984, 0)
 	_ = Simd_v128_store(m, s0, 128, n0)
-	n2 := Simd_v128_load(m, 12406384, 0)
+	n2 := Simd_v128_load(m, 12403968, 0)
 	_ = Simd_v128_store(m, s0, 112, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx318(m *Module, s0 int32, p0, p0h uint64) {
+func Simd_p_fx310(m *Module, s0 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p0, p0h}, [2]uint64{289644378169868803, 868365760874482187})
 	_ = Simd_v128_store(m, s0, 0, n1)
@@ -5037,7 +4976,7 @@ func Simd_p_fx318(m *Module, s0 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx319(m *Module, s0 int32, s1 int32, s2 int32) {
+func Simd_p_fx311(m *Module, s0 int32, s1 int32, s2 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_load(m, s1, 0)
 	n2 := Simd_v128_xor(n0, n1)
@@ -5046,7 +4985,7 @@ func Simd_p_fx319(m *Module, s0 int32, s1 int32, s2 int32) {
 }
 
 //go:noinline
-func Simd_p_fx320(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx312(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_load(m, s1, 0)
 	n2 := Simd_v128_xor(n0, n1)
@@ -5055,14 +4994,14 @@ func Simd_p_fx320(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx321(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx313(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx322(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx314(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	n1 := Simd_v128_load(m, s1, 0)
 	n2 := Simd_v128_xor(n0, n1)
@@ -5071,14 +5010,14 @@ func Simd_p_fx322(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx323(m *Module, s0 int32) {
+func Simd_p_fx315(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s0, 32, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx324(m *Module, s0 int32) {
+func Simd_p_fx316(m *Module, s0 int32) {
 	n0 := Simd_v128_load_rng(m, s0, 32, 16, 32)
 	n1 := Simd_v128_load_nc(m, s0, 16)
 	n2 := Simd_v128_xor(n0, n1)
@@ -5087,14 +5026,14 @@ func Simd_p_fx324(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx325(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx317(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 64)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx326(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx318(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_i32x4_splat(s0)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	_ = Simd_v128_store(m, s1, 16, n0)
@@ -5102,7 +5041,7 @@ func Simd_p_fx326(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx327(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx319(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i32x4_splat(s1)
@@ -5111,7 +5050,7 @@ func Simd_p_fx327(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64)
 }
 
 //go:noinline
-func Simd_p_fx328(m *Module, s0 int32, s1 int32, s2 int32) {
+func Simd_p_fx320(m *Module, s0 int32, s1 int32, s2 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_load(m, s1, 0)
 	n2 := Simd_v128_xor(n0, n1)
@@ -5132,7 +5071,7 @@ func Simd_p_fx328(m *Module, s0 int32, s1 int32, s2 int32) {
 }
 
 //go:noinline
-func Simd_p_fx329(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx321(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	n1 := Simd_v128_load(m, s2, s1)
 	n2 := Simd_v128_xor(n0, n1)
@@ -5141,7 +5080,7 @@ func Simd_p_fx329(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, ui
 }
 
 //go:noinline
-func Simd_p_fx330(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32) {
+func Simd_p_fx322(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i32x4_shr_u(n0, s2)
 	n2 := Simd_v128_load(m, s1, 0)
@@ -5154,7 +5093,7 @@ func Simd_p_fx330(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32) {
 }
 
 //go:noinline
-func Simd_p_fx331(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
+func Simd_p_fx323(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
 	n0 := Simd_v128_load_rng(m, s0, 0, 0, 20)
 	n1 := Simd_i32x4_shr_u(n0, s1)
 	n2 := Simd_v128_load_nc(m, s0+4, 0)
@@ -5165,7 +5104,7 @@ func Simd_p_fx331(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
 }
 
 //go:noinline
-func Simd_p_fx332(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx324(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_andnot([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p0, p0h})
 	n2 := Simd_v128_load_rng(m, s0+4, 0, -4, 20)
@@ -5175,14 +5114,14 @@ func Simd_p_fx332(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, 
 }
 
 //go:noinline
-func Simd_p_fx333(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx325(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_or([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx334(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx326(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i64x2_shr_u([2]uint64{p0, p0h}, 31)
 	n1 := Simd_v128_and(n0, [2]uint64{p1, p1h})
 	n2 := Simd_i64x2_add(n1, [2]uint64{p2, p2h})
@@ -5190,7 +5129,7 @@ func Simd_p_fx334(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (ui
 }
 
 //go:noinline
-func Simd_p_fx335(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx327(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i64x2_shl([2]uint64{p0, p0h}, 1)
 	n1 := Simd_v128_and(n0, [2]uint64{p1, p1h})
 	n2 := Simd_i64x2_add(n1, [2]uint64{p2, p2h})
@@ -5198,7 +5137,7 @@ func Simd_p_fx335(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (ui
 }
 
 //go:noinline
-func Simd_p_fx336(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx328(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load_rng(m, s0, 0, 0, 20)
 	n1 := Simd_i32x4_shr_u(n0, 16)
 	n2 := Simd_v128_load_nc(m, s1, 0)
@@ -5209,7 +5148,7 @@ func Simd_p_fx336(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx337(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx329(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i32x4_add(n0, [2]uint64{p1, p1h})
@@ -5218,7 +5157,7 @@ func Simd_p_fx337(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64)
 }
 
 //go:noinline
-func Simd_p_fx338(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) {
+func Simd_p_fx330(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and([2]uint64{p2, p2h}, [2]uint64{p1, p1h})
 	n2 := Simd_i16x8_narrow_i32x4_u(n0, n1)
@@ -5231,49 +5170,222 @@ func Simd_p_fx338(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx339(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 96, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx340(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 112, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx341(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 48, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx342(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 64, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx343(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx331(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
+func Simd_p_fx332(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	n1 := Simd_v128_and([2]uint64{p2, p2h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 0, n0)
+	_ = Simd_v128_store(m, s0, 16, n1)
+	return
+}
+
+//go:noinline
+func Simd_p_fx333(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 32, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx334(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 48, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx335(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 64, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx336(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 80, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx337(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 96, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx338(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 112, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx339(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 128, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx340(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 144, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx341(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 160, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx342(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 176, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx343(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 192, n0)
+	return
+}
+
+//go:noinline
 func Simd_p_fx344(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 208, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx345(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 224, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx346(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 240, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx347(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 256, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx348(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
+	n0 := Simd_i32x4_splat(s0)
+	n1 := Simd_v128_and([2]uint64{p0, p0h}, n0)
+	n2 := Simd_v128_and([2]uint64{p2, p2h}, n0)
+	n3 := Simd_i32x4_add([2]uint64{p1, p1h}, n2)
+	n4 := Simd_v128_and([2]uint64{p4, p4h}, n0)
+	n5 := Simd_i32x4_add([2]uint64{p3, p3h}, n4)
+	n6 := Simd_v128_load(m, s1, 256)
+	n7 := Simd_i32x4_add(n1, n6)
+	_ = Simd_v128_store(m, s1, 256, n7)
+	_ = Simd_v128_store(m, s1, 240, n3)
+	_ = Simd_v128_store(m, s1, 224, n5)
+	return n0[0], n0[1]
+}
+
+//go:noinline
+func Simd_p_fx349(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) {
+	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
+	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
+	n2 := Simd_v128_and([2]uint64{p4, p4h}, [2]uint64{p2, p2h})
+	n3 := Simd_i32x4_add([2]uint64{p3, p3h}, n2)
+	n4 := Simd_v128_and([2]uint64{p6, p6h}, [2]uint64{p2, p2h})
+	n5 := Simd_i32x4_add([2]uint64{p5, p5h}, n4)
+	_ = Simd_v128_store(m, s0, 208, n1)
+	_ = Simd_v128_store(m, s0, 192, n3)
+	_ = Simd_v128_store(m, s0, 176, n5)
+	return
+}
+
+//go:noinline
+func Simd_p_fx350(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) {
+	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
+	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
+	n2 := Simd_v128_and([2]uint64{p4, p4h}, [2]uint64{p2, p2h})
+	n3 := Simd_i32x4_add([2]uint64{p3, p3h}, n2)
+	n4 := Simd_v128_and([2]uint64{p6, p6h}, [2]uint64{p2, p2h})
+	n5 := Simd_i32x4_add([2]uint64{p5, p5h}, n4)
+	_ = Simd_v128_store(m, s0, 160, n1)
+	_ = Simd_v128_store(m, s0, 144, n3)
+	_ = Simd_v128_store(m, s0, 128, n5)
+	return
+}
+
+//go:noinline
+func Simd_p_fx351(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) {
+	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
+	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
+	n2 := Simd_v128_and([2]uint64{p4, p4h}, [2]uint64{p2, p2h})
+	n3 := Simd_i32x4_add([2]uint64{p3, p3h}, n2)
+	n4 := Simd_v128_and([2]uint64{p6, p6h}, [2]uint64{p2, p2h})
+	n5 := Simd_i32x4_add([2]uint64{p5, p5h}, n4)
+	_ = Simd_v128_store(m, s0, 112, n1)
+	_ = Simd_v128_store(m, s0, 96, n3)
+	_ = Simd_v128_store(m, s0, 80, n5)
+	return
+}
+
+//go:noinline
+func Simd_p_fx352(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) {
+	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
+	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
+	n2 := Simd_v128_and([2]uint64{p4, p4h}, [2]uint64{p2, p2h})
+	n3 := Simd_i32x4_add([2]uint64{p3, p3h}, n2)
+	n4 := Simd_v128_and([2]uint64{p6, p6h}, [2]uint64{p2, p2h})
+	n5 := Simd_i32x4_add([2]uint64{p5, p5h}, n4)
+	_ = Simd_v128_store(m, s0, 64, n1)
+	_ = Simd_v128_store(m, s0, 48, n3)
+	_ = Simd_v128_store(m, s0, 32, n5)
+	return
+}
+
+//go:noinline
+func Simd_p_fx353(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) {
+	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
+	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
+	n2 := Simd_v128_and([2]uint64{p4, p4h}, [2]uint64{p2, p2h})
+	n3 := Simd_i32x4_add([2]uint64{p3, p3h}, n2)
+	_ = Simd_v128_store(m, s0, 16, n1)
+	_ = Simd_v128_store(m, s0, 0, n3)
+	n6 := Simd_v128_load(m, s1, 1144)
+	n7 := Simd_v128_and(n6, [2]uint64{p2, p2h})
+	n8 := Simd_i32x4_add([2]uint64{p5, p5h}, n7)
+	_ = Simd_v128_store(m, s0, 272, n8)
+	return
+}
+
+//go:noinline
+func Simd_p_fx354(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx345(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
+func Simd_p_fx355(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and([2]uint64{p2, p2h}, [2]uint64{p1, p1h})
 	n2 := Simd_v128_and([2]uint64{p3, p3h}, [2]uint64{p1, p1h})
@@ -5284,149 +5396,63 @@ func Simd_p_fx345(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx346(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 144, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx347(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 160, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx348(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 176, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx349(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 192, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx350(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 208, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx351(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx356(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 336, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx352(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx357(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 352, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx353(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx358(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 368, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx354(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx359(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 384, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx355(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx360(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 400, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx356(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 240, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx357(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 256, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx358(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx361(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 272, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx359(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx362(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 288, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx360(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx363(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 304, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx361(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	n1 := Simd_v128_and([2]uint64{p2, p2h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 0, n0)
-	_ = Simd_v128_store(m, s0, 16, n1)
-	return
-}
-
-//go:noinline
-func Simd_p_fx362(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 32, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx363(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 80, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx364(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 128, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx365(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 224, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx366(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx364(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and([2]uint64{p2, p2h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 192, n0)
@@ -5435,112 +5461,112 @@ func Simd_p_fx366(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx367(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx365(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 320, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx368(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx366(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 480, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx369(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx367(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 496, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx370(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx368(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 512, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx371(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx369(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 528, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx372(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx370(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 544, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx373(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx371(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 416, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx374(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx372(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 432, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx375(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx373(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 448, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx376(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx374(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 560, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx377(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx375(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 576, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx378(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx376(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 592, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx379(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx377(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 608, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx380(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx378(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 624, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx381(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx379(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 640, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx382(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) {
+func Simd_p_fx380(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and([2]uint64{p2, p2h}, [2]uint64{p1, p1h})
 	n2 := Simd_v128_and([2]uint64{p3, p3h}, [2]uint64{p1, p1h})
@@ -5557,9 +5583,25 @@ func Simd_p_fx382(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx383(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx381(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0+2916, 0, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx382(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	n1 := Simd_v128_and([2]uint64{p2, p2h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 16, n0)
+	_ = Simd_v128_store(m, s0, 0, n1)
+	return
+}
+
+//go:noinline
+func Simd_p_fx383(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 464, n0)
 	return
 }
 
@@ -5718,49 +5760,436 @@ func Simd_p_fx394(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx395(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx395(m *Module) {
+	n0 := Simd_v128_load(m, 12477524, 0)
+	_ = Simd_v128_store(m, 15469568, 0, n0)
+	n2 := Simd_v128_load(m, 12477508, 0)
+	_ = Simd_v128_store(m, 15469552, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx396(m *Module) {
+	n0 := Simd_v128_load(m, 12477556, 0)
+	_ = Simd_v128_store(m, 15469600, 0, n0)
+	n2 := Simd_v128_load(m, 12477572, 0)
+	_ = Simd_v128_store(m, 15469616, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx397(m *Module) {
+	n0 := Simd_v128_load(m, 12477588, 0)
+	_ = Simd_v128_store(m, 15469632, 0, n0)
+	n2 := Simd_v128_load(m, 12477604, 0)
+	_ = Simd_v128_store(m, 15469648, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx398(m *Module) {
+	n0 := Simd_v128_load(m, 12477644, 0)
+	_ = Simd_v128_store(m, 15469688, 0, n0)
+	n2 := Simd_v128_load(m, 12477628, 0)
+	_ = Simd_v128_store(m, 15469672, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx399(m *Module) {
+	n0 := Simd_v128_load(m, 12477668, 0)
+	_ = Simd_v128_store(m, 15469712, 0, n0)
+	n2 := Simd_v128_load(m, 12477684, 0)
+	_ = Simd_v128_store(m, 15469728, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx400(m *Module) {
+	n0 := Simd_v128_load(m, 12477708, 0)
+	_ = Simd_v128_store(m, 15469752, 0, n0)
+	n2 := Simd_v128_load(m, 12477724, 0)
+	_ = Simd_v128_store(m, 15469768, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx401(m *Module) {
+	n0 := Simd_v128_load(m, 12477764, 0)
+	_ = Simd_v128_store(m, 15469808, 0, n0)
+	n2 := Simd_v128_load(m, 12477748, 0)
+	_ = Simd_v128_store(m, 15469792, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx402(m *Module) {
+	n0 := Simd_v128_load(m, 12477804, 0)
+	_ = Simd_v128_store(m, 15469848, 0, n0)
+	n2 := Simd_v128_load(m, 12477788, 0)
+	_ = Simd_v128_store(m, 15469832, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx403(m *Module) {
+	n0 := Simd_v128_load(m, 12477844, 0)
+	_ = Simd_v128_store(m, 15469888, 0, n0)
+	n2 := Simd_v128_load(m, 12477828, 0)
+	_ = Simd_v128_store(m, 15469872, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx404(m *Module) {
+	n0 := Simd_v128_load(m, 12477884, 0)
+	_ = Simd_v128_store(m, 15469928, 0, n0)
+	n2 := Simd_v128_load(m, 12477868, 0)
+	_ = Simd_v128_store(m, 15469912, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx405(m *Module) {
+	n0 := Simd_v128_load(m, 12477924, 0)
+	_ = Simd_v128_store(m, 15469968, 0, n0)
+	n2 := Simd_v128_load(m, 12477908, 0)
+	_ = Simd_v128_store(m, 15469952, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx406(m *Module) {
+	n0 := Simd_v128_load(m, 12477964, 0)
+	_ = Simd_v128_store(m, 15470008, 0, n0)
+	n2 := Simd_v128_load(m, 12477948, 0)
+	_ = Simd_v128_store(m, 15469992, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx407(m *Module) {
+	n0 := Simd_v128_load(m, 12478004, 0)
+	_ = Simd_v128_store(m, 15470048, 0, n0)
+	n2 := Simd_v128_load(m, 12477988, 0)
+	_ = Simd_v128_store(m, 15470032, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx408(m *Module) {
+	n0 := Simd_v128_load(m, 12478044, 0)
+	_ = Simd_v128_store(m, 15470088, 0, n0)
+	n2 := Simd_v128_load(m, 12478028, 0)
+	_ = Simd_v128_store(m, 15470072, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx409(m *Module) {
+	n0 := Simd_v128_load(m, 12478084, 0)
+	_ = Simd_v128_store(m, 15470128, 0, n0)
+	n2 := Simd_v128_load(m, 12478068, 0)
+	_ = Simd_v128_store(m, 15470112, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx410(m *Module) {
+	n0 := Simd_v128_load(m, 12478124, 0)
+	_ = Simd_v128_store(m, 15470168, 0, n0)
+	n2 := Simd_v128_load(m, 12478108, 0)
+	_ = Simd_v128_store(m, 15470152, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx411(m *Module) {
+	n0 := Simd_v128_load(m, 12478164, 0)
+	_ = Simd_v128_store(m, 15470208, 0, n0)
+	n2 := Simd_v128_load(m, 12478148, 0)
+	_ = Simd_v128_store(m, 15470192, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx412(m *Module) {
+	n0 := Simd_v128_load(m, 12478204, 0)
+	_ = Simd_v128_store(m, 15470248, 0, n0)
+	n2 := Simd_v128_load(m, 12478188, 0)
+	_ = Simd_v128_store(m, 15470232, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx413(m *Module) {
+	n0 := Simd_v128_load(m, 12478244, 0)
+	_ = Simd_v128_store(m, 15470288, 0, n0)
+	n2 := Simd_v128_load(m, 12478228, 0)
+	_ = Simd_v128_store(m, 15470272, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx414(m *Module) {
+	n0 := Simd_v128_load(m, 12478284, 0)
+	_ = Simd_v128_store(m, 15470328, 0, n0)
+	n2 := Simd_v128_load(m, 12478268, 0)
+	_ = Simd_v128_store(m, 15470312, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx415(m *Module) {
+	n0 := Simd_v128_load(m, 12478324, 0)
+	_ = Simd_v128_store(m, 15470368, 0, n0)
+	n2 := Simd_v128_load(m, 12478308, 0)
+	_ = Simd_v128_store(m, 15470352, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx416(m *Module) {
+	n0 := Simd_v128_load(m, 12478364, 0)
+	_ = Simd_v128_store(m, 15470408, 0, n0)
+	n2 := Simd_v128_load(m, 12478348, 0)
+	_ = Simd_v128_store(m, 15470392, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx417(m *Module) {
+	n0 := Simd_v128_load(m, 12478404, 0)
+	_ = Simd_v128_store(m, 15470448, 0, n0)
+	n2 := Simd_v128_load(m, 12478388, 0)
+	_ = Simd_v128_store(m, 15470432, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx418(m *Module) {
+	n0 := Simd_v128_load(m, 12478444, 0)
+	_ = Simd_v128_store(m, 15470488, 0, n0)
+	n2 := Simd_v128_load(m, 12478428, 0)
+	_ = Simd_v128_store(m, 15470472, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx419(m *Module) {
+	n0 := Simd_v128_load(m, 12478484, 0)
+	_ = Simd_v128_store(m, 15470528, 0, n0)
+	n2 := Simd_v128_load(m, 12478468, 0)
+	_ = Simd_v128_store(m, 15470512, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx420(m *Module) {
+	n0 := Simd_v128_load(m, 12478524, 0)
+	_ = Simd_v128_store(m, 15470568, 0, n0)
+	n2 := Simd_v128_load(m, 12478508, 0)
+	_ = Simd_v128_store(m, 15470552, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx421(m *Module) {
+	n0 := Simd_v128_load(m, 12478564, 0)
+	_ = Simd_v128_store(m, 15470608, 0, n0)
+	n2 := Simd_v128_load(m, 12478548, 0)
+	_ = Simd_v128_store(m, 15470592, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx422(m *Module) {
+	n0 := Simd_v128_load(m, 12478604, 0)
+	_ = Simd_v128_store(m, 15470648, 0, n0)
+	n2 := Simd_v128_load(m, 12478588, 0)
+	_ = Simd_v128_store(m, 15470632, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx423(m *Module) {
+	n0 := Simd_v128_load(m, 12478644, 0)
+	_ = Simd_v128_store(m, 15470688, 0, n0)
+	n2 := Simd_v128_load(m, 12478628, 0)
+	_ = Simd_v128_store(m, 15470672, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx424(m *Module) {
+	n0 := Simd_v128_load(m, 12478684, 0)
+	_ = Simd_v128_store(m, 15470728, 0, n0)
+	n2 := Simd_v128_load(m, 12478668, 0)
+	_ = Simd_v128_store(m, 15470712, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx425(m *Module) {
+	n0 := Simd_v128_load(m, 12478724, 0)
+	_ = Simd_v128_store(m, 15470768, 0, n0)
+	n2 := Simd_v128_load(m, 12478708, 0)
+	_ = Simd_v128_store(m, 15470752, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx426(m *Module) {
+	n0 := Simd_v128_load(m, 12478764, 0)
+	_ = Simd_v128_store(m, 15470808, 0, n0)
+	n2 := Simd_v128_load(m, 12478748, 0)
+	_ = Simd_v128_store(m, 15470792, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx427(m *Module) {
+	n0 := Simd_v128_load(m, 12478804, 0)
+	_ = Simd_v128_store(m, 15470848, 0, n0)
+	n2 := Simd_v128_load(m, 12478788, 0)
+	_ = Simd_v128_store(m, 15470832, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx428(m *Module) {
+	n0 := Simd_v128_load(m, 12478844, 0)
+	_ = Simd_v128_store(m, 15470888, 0, n0)
+	n2 := Simd_v128_load(m, 12478828, 0)
+	_ = Simd_v128_store(m, 15470872, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx429(m *Module) {
+	n0 := Simd_v128_load(m, 12478884, 0)
+	_ = Simd_v128_store(m, 15470928, 0, n0)
+	n2 := Simd_v128_load(m, 12478868, 0)
+	_ = Simd_v128_store(m, 15470912, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx430(m *Module) {
+	n0 := Simd_v128_load(m, 12478924, 0)
+	_ = Simd_v128_store(m, 15470968, 0, n0)
+	n2 := Simd_v128_load(m, 12478908, 0)
+	_ = Simd_v128_store(m, 15470952, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx431(m *Module) {
+	n0 := Simd_v128_load(m, 12478964, 0)
+	_ = Simd_v128_store(m, 15471008, 0, n0)
+	n2 := Simd_v128_load(m, 12478948, 0)
+	_ = Simd_v128_store(m, 15470992, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx432(m *Module) {
+	n0 := Simd_v128_load(m, 12479004, 0)
+	_ = Simd_v128_store(m, 15471048, 0, n0)
+	n2 := Simd_v128_load(m, 12478988, 0)
+	_ = Simd_v128_store(m, 15471032, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx433(m *Module) {
+	n0 := Simd_v128_load(m, 12479044, 0)
+	_ = Simd_v128_store(m, 15471088, 0, n0)
+	n2 := Simd_v128_load(m, 12479028, 0)
+	_ = Simd_v128_store(m, 15471072, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx434(m *Module) {
+	n0 := Simd_v128_load(m, 12479084, 0)
+	_ = Simd_v128_store(m, 15471128, 0, n0)
+	n2 := Simd_v128_load(m, 12479068, 0)
+	_ = Simd_v128_store(m, 15471112, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx435(m *Module) {
+	n0 := Simd_v128_load(m, 12479124, 0)
+	_ = Simd_v128_store(m, 15471168, 0, n0)
+	n2 := Simd_v128_load(m, 12479108, 0)
+	_ = Simd_v128_store(m, 15471152, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx436(m *Module) {
+	n0 := Simd_v128_load(m, 12479164, 0)
+	_ = Simd_v128_store(m, 15471208, 0, n0)
+	n2 := Simd_v128_load(m, 12479148, 0)
+	_ = Simd_v128_store(m, 15471192, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx437(m *Module) {
+	n0 := Simd_v128_load(m, 12479204, 0)
+	_ = Simd_v128_store(m, 15471248, 0, n0)
+	n2 := Simd_v128_load(m, 12479188, 0)
+	_ = Simd_v128_store(m, 15471232, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx438(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	_ = Simd_v128_store(m, s0, 49, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx396(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx439(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	_ = Simd_v128_store(m, s0, 65, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx397(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx440(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	_ = Simd_v128_store(m, s0, 81, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx398(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx441(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	_ = Simd_v128_store(m, s0, 97, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx399(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx442(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	_ = Simd_v128_store(m, s0, 20, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx400(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx443(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	_ = Simd_v128_store(m, s0, 36, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx401(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx444(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 1404)
 	_ = Simd_v128_store(m, s1, 168, n0)
 	n2 := Simd_v128_load(m, s0, 1388)
@@ -5769,7 +6198,7 @@ func Simd_p_fx401(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx402(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx445(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 1888)
 	_ = Simd_v128_store(m, s1, 120, n0)
 	n2 := Simd_v128_load(m, s0, 1904)
@@ -5778,7 +6207,7 @@ func Simd_p_fx402(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx403(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx446(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 160)
 	_ = Simd_v128_store(m, s1, 8, n0)
 	n2 := Simd_v128_load(m, s0, 176)
@@ -5787,7 +6216,7 @@ func Simd_p_fx403(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx404(m *Module, s0 int32, p0, p0h uint64) {
+func Simd_p_fx447(m *Module, s0 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i64x2_add(n0, [2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s0, 0, n1)
@@ -5795,7 +6224,7 @@ func Simd_p_fx404(m *Module, s0 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx405(m *Module, s0 int32) {
+func Simd_p_fx448(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 12)
 	n1 := Simd_v128_not(n0)
 	_ = Simd_v128_store(m, s0, 12, n1)
@@ -5806,7 +6235,7 @@ func Simd_p_fx405(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx406(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx449(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 12)
 	n1 := Simd_v128_load(m, s1, 24)
 	n2 := Simd_v128_or(n0, n1)
@@ -5819,7 +6248,7 @@ func Simd_p_fx406(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx407(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx450(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 12)
 	n1 := Simd_v128_load(m, s1, 24)
 	n2 := Simd_v128_and(n0, n1)
@@ -5832,7 +6261,7 @@ func Simd_p_fx407(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx408(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx451(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 17)
 	_ = Simd_v128_store(m, s1, 28, n0)
 	n2 := Simd_v128_load(m, s0, s2)
@@ -5841,27 +6270,14 @@ func Simd_p_fx408(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint
 }
 
 //go:noinline
-func Simd_p_fx409(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 48)
-	_ = Simd_v128_store(m, s1, 496, n0)
-	n2 := Simd_v128_load(m, s0, 32)
-	_ = Simd_v128_store(m, s1, 480, n2)
-	n4 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 464, n4)
-	n6 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 448, n6)
-	return
-}
-
-//go:noinline
-func Simd_p_fx410(m *Module, s0 int32) {
+func Simd_p_fx452(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 40)
 	_ = Simd_v128_store(m, s0, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx411(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx453(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_i8x16_eq(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i16x8_extend_low_i8x16_s(n1)
@@ -5871,7 +6287,7 @@ func Simd_p_fx411(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, 
 }
 
 //go:noinline
-func Simd_p_fx412(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx454(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i16x8_extend_low_i8x16_s([2]uint64{p0, p0h})
 	n1 := Simd_i32x4_extend_low_i16x8_s(n0)
 	n2 := Simd_v128_or([2]uint64{p3, p3h}, n1)
@@ -5883,7 +6299,7 @@ func Simd_p_fx412(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx413(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx455(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i8x16_eq(n0, [2]uint64{p2, p2h})
 	n2 := Simd_i16x8_extend_low_i8x16_s(n1)
@@ -5892,7 +6308,7 @@ func Simd_p_fx413(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (ui
 }
 
 //go:noinline
-func Simd_p_fx414(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
+func Simd_p_fx456(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_eq([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n1)
@@ -5905,7 +6321,7 @@ func Simd_p_fx414(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx415(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx457(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_ne([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i16x8_extend_low_i8x16_s(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_s(n1)
@@ -5913,7 +6329,7 @@ func Simd_p_fx415(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx416(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx458(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_v128_andnot([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_v128_and(n0, [2]uint64{p3, p3h})
 	n2 := Simd_i32x4_add([2]uint64{p0, p0h}, n1)
@@ -5921,7 +6337,7 @@ func Simd_p_fx416(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx417(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx459(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i16x8_extend_low_i8x16_u([2]uint64{p1, p1h})
 	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
 	n2 := Simd_v128_and(n1, [2]uint64{p2, p2h})
@@ -5930,28 +6346,28 @@ func Simd_p_fx417(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (ui
 }
 
 //go:noinline
-func Simd_p_fx418(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx460(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx419(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx461(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx420(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx462(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx421(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx463(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s1, 8, n0)
 	n2 := Simd_v128_load(m, s0, 64)
@@ -5960,7 +6376,7 @@ func Simd_p_fx421(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx422(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx464(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s1, 52, n0)
 	n2 := Simd_v128_load(m, s0, 64)
@@ -5969,7 +6385,7 @@ func Simd_p_fx422(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx423(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx465(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s1, 36, n0)
 	n2 := Simd_v128_load(m, s0, 64)
@@ -5978,7 +6394,7 @@ func Simd_p_fx423(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx424(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx466(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 8, n0)
 	n2 := Simd_v128_load(m, s0, 24)
@@ -5987,42 +6403,51 @@ func Simd_p_fx424(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx425(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx467(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 20)
 	_ = Simd_v128_store(m, s1, 60, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx426(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx468(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 52)
 	_ = Simd_v128_store(m, s1, 44, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx427(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx469(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 20)
 	_ = Simd_v128_store(m, s1, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx428(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx470(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 20)
 	_ = Simd_v128_store(m, s1, 44, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx429(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 8804379, 0)
+func Simd_p_fx471(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 352)
+	_ = Simd_v128_store(m, s1, 16, n0)
+	n2 := Simd_v128_load(m, s0, 336)
+	_ = Simd_v128_store(m, s1, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx472(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 8800004, 0)
 	_ = Simd_v128_store(m, s0, 928, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx430(m *Module, s0 int32, s1 int32, s2 int32) {
+func Simd_p_fx473(m *Module, s0 int32, s1 int32, s2 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_scalar_i32_shl(s2, 4)
 	n2 := Simd_scalar_i32_add(s1, n1)
@@ -6031,28 +6456,28 @@ func Simd_p_fx430(m *Module, s0 int32, s1 int32, s2 int32) {
 }
 
 //go:noinline
-func Simd_p_fx431(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx474(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 28)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx432(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 13250560, 0)
-	_ = Simd_v128_store(m, s0, 1312, n0)
+func Simd_p_fx475(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 13238512, 0)
+	_ = Simd_v128_store(m, s0, 128, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx433(m *Module, s0 int32, p0, p0h uint64) {
+func Simd_p_fx476(m *Module, s0 int32, p0, p0h uint64) {
 	n0 := Simd_i32x4_extend_low_i16x8_u([2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx434(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+func Simd_p_fx477(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 1724)
 	n1 := Simd_v128_load(m, s1, 140)
 	_ = Simd_v128_store(m, s0, 1724, n1)
@@ -6060,16 +6485,16 @@ func Simd_p_fx434(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx435(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 13257264, 0)
+func Simd_p_fx478(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 13244800, 0)
 	_ = Simd_v128_store(m, s0, 16, n0)
-	n2 := Simd_v128_load(m, 13257248, 0)
+	n2 := Simd_v128_load(m, 13244784, 0)
 	_ = Simd_v128_store(m, s0, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx436(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx479(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load_rng(m, s0, 0, 0, 32)
 	n1 := Simd_v128_load_nc(m, s0, 16)
 	n2 := Simd_i8x16_shuffle(n0, n1, [2]uint64{1084535218666537729, 2241977984075764497})
@@ -6079,7 +6504,7 @@ func Simd_p_fx436(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, 
 }
 
 //go:noinline
-func Simd_p_fx437(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
+func Simd_p_fx480(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_add([2]uint64{p0, p0h}, [2]uint64{p3, p3h})
 	n1 := Simd_i8x16_lt_u(n0, [2]uint64{p4, p4h})
 	n2 := Simd_v128_bitselect([2]uint64{p1, p1h}, [2]uint64{p2, p2h}, n1)
@@ -6090,7 +6515,7 @@ func Simd_p_fx437(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx438(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx481(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i8x16_lt_u(n0, [2]uint64{p2, p2h})
 	n2 := Simd_v128_and(n1, [2]uint64{p3, p3h})
@@ -6099,44 +6524,68 @@ func Simd_p_fx438(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx439(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 216)
+func Simd_p_fx482(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 220)
 	_ = Simd_v128_store(m, s1, 2376, n0)
-	n2 := Simd_v128_load(m, s0, 200)
+	n2 := Simd_v128_load(m, s0, 204)
 	_ = Simd_v128_store(m, s1, 2360, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx440(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 8926697, 0)
+func Simd_p_fx483(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 8923571, 0)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx441(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx484(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 36)
 	_ = Simd_v128_store(m, s1, 36, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx442(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 340)
-	_ = Simd_v128_store(m, s1, 340, n0)
+func Simd_p_fx485(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 112)
+	_ = Simd_v128_store(m, s1, 112, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx443(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 524)
-	_ = Simd_v128_store(m, s1, 524, n0)
+func Simd_p_fx486(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 204)
+	_ = Simd_v128_store(m, s1, 204, n0)
+	n2 := Simd_v128_load(m, s0, 188)
+	_ = Simd_v128_store(m, s1, 188, n2)
+	n4 := Simd_v128_load(m, s0, 172)
+	_ = Simd_v128_store(m, s1, 172, n4)
+	n6 := Simd_v128_load(m, s0, 224)
+	_ = Simd_v128_store(m, s1, 224, n6)
+	n8 := Simd_v128_load(m, s0, 240)
+	_ = Simd_v128_store(m, s1, 240, n8)
+	n10 := Simd_v128_load(m, s0, 256)
+	_ = Simd_v128_store(m, s1, 256, n10)
 	return
 }
 
 //go:noinline
-func Simd_p_fx444(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx487(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 300)
+	_ = Simd_v128_store(m, s1, 300, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx488(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 492)
+	_ = Simd_v128_store(m, s1, 492, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx489(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p0, p0h}, [2]uint64{66051, 0})
 	n2 := Simd_i8x16_eq(n1, [2]uint64{p1, p1h})
@@ -6148,25 +6597,71 @@ func Simd_p_fx444(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx445(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx490(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 24)
+	_ = Simd_v128_store(m, s1, 352, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx491(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 88, n0)
+	_ = Simd_v128_store(m, s1, 240, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx492(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 16)
+	_ = Simd_v128_store(m, s1, 216, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx493(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 16)
+	_ = Simd_v128_store(m, s1, 168, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx494(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 8)
+	_ = Simd_v128_store(m, s1, 144, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx495(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 16)
+	_ = Simd_v128_store(m, s1, 576, n0)
 	n2 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 72, n2)
+	_ = Simd_v128_store(m, s1, 560, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx446(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 72)
-	_ = Simd_v128_store(m, s1, 88, n0)
-	n2 := Simd_v128_load(m, s0, 88)
-	_ = Simd_v128_store(m, s1, 104, n2)
+func Simd_p_fx496(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 168)
+	_ = Simd_v128_store(m, s1, 4, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx447(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx497(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 48)
+	_ = Simd_v128_store(m, s1, 496, n0)
+	n2 := Simd_v128_load(m, s0, 32)
+	_ = Simd_v128_store(m, s1, 480, n2)
+	n4 := Simd_v128_load(m, s0, 16)
+	_ = Simd_v128_store(m, s1, 464, n4)
+	n6 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s1, 448, n6)
+	return
+}
+
+//go:noinline
+func Simd_p_fx498(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p0, p0h}, [2]uint64{579005069656919567, 283686952306183})
 	_ = Simd_v128_store(m, s1, 0, n1)
@@ -6174,7 +6669,7 @@ func Simd_p_fx447(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx448(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx499(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_shr_u([2]uint64{p1, p1h}, 12)
 	n1 := Simd_v128_and(n0, [2]uint64{p2, p2h})
 	n2 := Simd_i32x4_add([2]uint64{p0, p0h}, n1)
@@ -6182,14 +6677,24 @@ func Simd_p_fx448(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (ui
 }
 
 //go:noinline
-func Simd_p_fx449(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 24091424, 0)
-	_ = Simd_v128_store(m, s0, 248, n0)
+func Simd_p_fx500(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 0)
+	n1 := Simd_i32x4_ne(n0, [2]uint64{p1, p1h})
+	n2 := Simd_i32x4_sub([2]uint64{p0, p0h}, n1)
+	return n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx501(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 24)
+	_ = Simd_v128_store(m, s1, 24, n0)
+	n2 := Simd_v128_load(m, s0, 8)
+	_ = Simd_v128_store(m, s1, 8, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx450(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
+func Simd_p_fx502(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_v128_load32_lane(m, s1, 0, 1, n0)
 	n2 := Simd_v128_load32_lane(m, s2, 0, 2, n1)
@@ -6197,7 +6702,7 @@ func Simd_p_fx450(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx451(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx503(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{283686952306183, 0})
 	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
 	n2 := Simd_v128_xor(n1, [2]uint64{p2, p2h})
@@ -6209,14 +6714,14 @@ func Simd_p_fx451(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx452(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx504(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{434320308619640833, 1013041691324254217})
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p1, p1h}, [2]uint64{72060901246895878, 72058693566333184})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx453(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx505(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
 	n2 := Simd_v128_or([2]uint64{p0, p0h}, n1)
@@ -6224,47 +6729,14 @@ func Simd_p_fx453(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (ui
 }
 
 //go:noinline
-func Simd_p_fx454(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 0)
-	n1 := Simd_i32x4_ne(n0, [2]uint64{p1, p1h})
-	n2 := Simd_i32x4_sub([2]uint64{p0, p0h}, n1)
-	return n2[0], n2[1]
-}
-
-//go:noinline
-func Simd_p_fx455(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 24)
-	_ = Simd_v128_store(m, s1, 24, n0)
-	n2 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 8, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx456(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 24089688, 0)
-	_ = Simd_v128_store(m, s0, 8, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx457(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 13364568, 0)
-	_ = Simd_v128_store(m, s0, 16, n0)
-	n2 := Simd_v128_load(m, 13364584, 0)
-	_ = Simd_v128_store(m, s0, 32, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx458(m *Module, s0 int32) {
+func Simd_p_fx506(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s0, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx459(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx507(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{117835012, 0})
 	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n1)
@@ -6272,7 +6744,7 @@ func Simd_p_fx459(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx460(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx508(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_i16x8_shr_u([2]uint64{p0, p0h}, 8)
 	n1 := Simd_i8x16_shuffle([2]uint64{p1, p1h}, n0, [2]uint64{1374164143712502016, 1663524835064808708})
 	n2 := Simd_v128_and(n1, [2]uint64{p2, p2h})
@@ -6284,84 +6756,93 @@ func Simd_p_fx460(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx461(m *Module, s0 int32) {
+func Simd_p_fx509(m *Module, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{1084818905618843912, 216736831629295872})
+	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
+	n2 := Simd_i8x16_shuffle(n1, n1, [2]uint64{216736831696667908, 216736831629295872})
+	n3 := Simd_i32x4_add(n1, n2)
+	return n3[0], n3[1]
+}
+
+//go:noinline
+func Simd_p_fx510(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 304)
 	_ = Simd_v128_store(m, s0+128, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx462(m *Module, s0 int32) {
+func Simd_p_fx511(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 280)
 	_ = Simd_v128_store(m, s0, 88, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx463(m *Module, s0 int32) {
+func Simd_p_fx512(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 344)
 	_ = Simd_v128_store(m, s0, 32, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx464(m *Module, s0 int32) {
+func Simd_p_fx513(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 364)
 	_ = Simd_v128_store(m, s0, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx465(m *Module) {
-	n0 := Simd_v128_load(m, 24091296, 0)
-	_ = Simd_v128_store(m, 24091424, 0, n0)
+func Simd_p_fx514(m *Module) {
+	n0 := Simd_v128_load(m, 24020768, 0)
+	_ = Simd_v128_store(m, 24020896, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx466(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx515(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 160)
 	_ = Simd_v128_store(m, s1, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx467(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx516(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 160)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx468(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx517(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 4)
 	_ = Simd_v128_store(m, s1, 80, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx469(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx518(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_or(n0, [2]uint64{p2, p2h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx470(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 24123264, 0)
+func Simd_p_fx519(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 24021552, 0)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx471(m *Module, s0 int32) {
+func Simd_p_fx520(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, 24268264, 0, n0)
+	_ = Simd_v128_store(m, 24214376, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx472(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+func Simd_p_fx521(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 8)
 	n1 := Simd_v128_load(m, s1, 8)
 	_ = Simd_v128_store(m, s0, 8, n1)
@@ -6369,7 +6850,7 @@ func Simd_p_fx472(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx473(m *Module, s0 int32) {
+func Simd_p_fx522(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_not(n0)
 	_ = Simd_v128_store(m, s0, 0, n1)
@@ -6377,7 +6858,7 @@ func Simd_p_fx473(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx474(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx523(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 96, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -6386,16 +6867,16 @@ func Simd_p_fx474(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx475(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx524(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 80)
-	_ = Simd_v128_store(m, s1, 88, n0)
+	_ = Simd_v128_store(m, s1, 84, n0)
 	n2 := Simd_v128_load(m, s0, 96)
-	_ = Simd_v128_store(m, s1, 104, n2)
+	_ = Simd_v128_store(m, s1, 100, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx476(m *Module, s0 int32) {
+func Simd_p_fx525(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 20)
 	_ = Simd_v128_store(m, s0, 56, n0)
 	n2 := Simd_v128_load(m, s0, 4)
@@ -6404,21 +6885,14 @@ func Simd_p_fx476(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx477(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, s0, 112)
-	_ = Simd_v128_store(m, s0, 136, n0)
-	return
+func Simd_p_fx526(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i32x4_splat(s0)
+	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
+	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx478(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 120, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx479(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+func Simd_p_fx527(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 	n0 := Simd_i8x16_splat(s0)
 	n1 := Simd_i8x16_splat(s1)
 	n2 := Simd_i8x16_shuffle(n0, n1, [2]uint64{1152939097061330944, 1152939097061330944})
@@ -6426,7 +6900,7 @@ func Simd_p_fx479(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx480(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx528(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_load(m, s1, 0)
 	n2 := Simd_i8x16_shuffle(n1, n1, [2]uint64{p0, p0h})
@@ -6437,14 +6911,21 @@ func Simd_p_fx480(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx481(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 8724917, 0)
+func Simd_p_fx529(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 8721388, 0)
 	_ = Simd_v128_store(m, s0, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx482(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx530(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+	n0 := Simd_v128_xor([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, s1, n0)
+	return n0[0], n0[1]
+}
+
+//go:noinline
+func Simd_p_fx531(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 80)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 64)
@@ -6453,7 +6934,7 @@ func Simd_p_fx482(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx483(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx532(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s2, 16, n0)
 	n2 := Simd_v128_load(m, s0, 64)
@@ -6469,7 +6950,7 @@ func Simd_p_fx483(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32) (
 }
 
 //go:noinline
-func Simd_p_fx484(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx533(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 69)
 	_ = Simd_v128_store(m, s1, 81, n0)
 	n2 := Simd_v128_load(m, s0, 125)
@@ -6480,14 +6961,14 @@ func Simd_p_fx484(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx485(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx534(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 157)
 	_ = Simd_v128_store(m, s1, 149, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx486(m *Module, s0 int32) {
+func Simd_p_fx535(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 117)
 	_ = Simd_v128_store(m, s0, 184, n0)
 	n2 := Simd_v128_load(m, s0, 101)
@@ -6496,7 +6977,7 @@ func Simd_p_fx486(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx487(m *Module, s0 int32) {
+func Simd_p_fx536(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 149)
 	_ = Simd_v128_store(m, s0, 224, n0)
 	n2 := Simd_v128_load(m, s0, 133)
@@ -6505,7 +6986,7 @@ func Simd_p_fx487(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx488(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx537(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 44)
 	_ = Simd_v128_store(m, s1, 56, n0)
 	n2 := Simd_v128_load(m, s0, 28)
@@ -6514,23 +6995,14 @@ func Simd_p_fx488(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx489(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx538(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 200)
 	_ = Simd_v128_store(m, s1, 284, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx490(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0+18, 0)
-	_ = Simd_v128_store(m, s1, 68, n0)
-	n2 := Simd_v128_load(m, s0+2, 0)
-	_ = Simd_v128_store(m, s1, 52, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx491(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx539(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0+18, 0)
 	_ = Simd_v128_store(m, s1, 36, n0)
 	n2 := Simd_v128_load(m, s0+2, 0)
@@ -6539,7 +7011,7 @@ func Simd_p_fx491(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx492(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx540(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_i8x16_eq(n0, [2]uint64{p1, p1h})
 	n2 := Simd_i16x8_extend_low_i8x16_s(n1)
@@ -6553,14 +7025,14 @@ func Simd_p_fx492(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx493(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx541(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_shl([2]uint64{p0, p0h}, 31)
 	n1 := Simd_i32x4_shr_s(n0, 31)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx494(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
+func Simd_p_fx542(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 64)
 	n1 := Simd_scalar_i32_add(s1, s2)
 	_ = Simd_v128_store(m, n1, 0, n0)
@@ -6568,7 +7040,7 @@ func Simd_p_fx494(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx495(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx543(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 36, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -6577,7 +7049,7 @@ func Simd_p_fx495(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx496(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx544(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 196)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 180)
@@ -6586,7 +7058,7 @@ func Simd_p_fx496(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx497(m *Module, s0 int32, s1 int32, s2 int32) {
+func Simd_p_fx545(m *Module, s0 int32, s1 int32, s2 int32) {
 	n0 := Simd_i8x16_splat(s2)
 	n1 := Simd_v128_load(m, s0, 0)
 	n2 := Simd_v128_load(m, s1, 0)
@@ -6597,14 +7069,14 @@ func Simd_p_fx497(m *Module, s0 int32, s1 int32, s2 int32) {
 }
 
 //go:noinline
-func Simd_p_fx498(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx546(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 500)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx499(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx547(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_splat(s1)
 	n1 := Simd_i32x4_lt_u([2]uint64{p0, p0h}, [2]uint64{p2, p2h})
 	n2 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p5, p5h})
@@ -6627,106 +7099,106 @@ func Simd_p_fx499(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64,
 }
 
 //go:noinline
-func Simd_p_fx500(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12405208, 0)
+func Simd_p_fx548(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12402792, 0)
 	_ = Simd_v128_store(m, s0, 8304, n0)
-	n2 := Simd_v128_load(m, 12405224, 0)
+	n2 := Simd_v128_load(m, 12402808, 0)
 	_ = Simd_v128_store(m, s0, 8320, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx501(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12405416, 0)
+func Simd_p_fx549(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12403000, 0)
 	_ = Simd_v128_store(m, s0, 8320, n0)
-	n2 := Simd_v128_load(m, 12405400, 0)
+	n2 := Simd_v128_load(m, 12402984, 0)
 	_ = Simd_v128_store(m, s0, 8304, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx502(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12405256, 0)
+func Simd_p_fx550(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12402840, 0)
 	_ = Simd_v128_store(m, s0, 8320, n0)
-	n2 := Simd_v128_load(m, 12405240, 0)
+	n2 := Simd_v128_load(m, 12402824, 0)
 	_ = Simd_v128_store(m, s0, 8304, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx503(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12405288, 0)
+func Simd_p_fx551(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12402872, 0)
 	_ = Simd_v128_store(m, s0, 8320, n0)
-	n2 := Simd_v128_load(m, 12405272, 0)
+	n2 := Simd_v128_load(m, 12402856, 0)
 	_ = Simd_v128_store(m, s0, 8304, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx504(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12405320, 0)
+func Simd_p_fx552(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12402904, 0)
 	_ = Simd_v128_store(m, s0, 8320, n0)
-	n2 := Simd_v128_load(m, 12405304, 0)
+	n2 := Simd_v128_load(m, 12402888, 0)
 	_ = Simd_v128_store(m, s0, 8304, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx505(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12405352, 0)
+func Simd_p_fx553(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12402936, 0)
 	_ = Simd_v128_store(m, s0, 8320, n0)
-	n2 := Simd_v128_load(m, 12405336, 0)
+	n2 := Simd_v128_load(m, 12402920, 0)
 	_ = Simd_v128_store(m, s0, 8304, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx506(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12405384, 0)
+func Simd_p_fx554(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12402968, 0)
 	_ = Simd_v128_store(m, s0, 16, n0)
-	n2 := Simd_v128_load(m, 12405368, 0)
+	n2 := Simd_v128_load(m, 12402952, 0)
 	_ = Simd_v128_store(m, s0, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx507(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12405416, 0)
+func Simd_p_fx555(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12403000, 0)
 	_ = Simd_v128_store(m, s0, 16, n0)
-	n2 := Simd_v128_load(m, 12405400, 0)
+	n2 := Simd_v128_load(m, 12402984, 0)
 	_ = Simd_v128_store(m, s0, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx508(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12405448, 0)
+func Simd_p_fx556(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12403032, 0)
 	_ = Simd_v128_store(m, s0, 16, n0)
-	n2 := Simd_v128_load(m, 12405432, 0)
+	n2 := Simd_v128_load(m, 12403016, 0)
 	_ = Simd_v128_store(m, s0, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx509(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12405480, 0)
+func Simd_p_fx557(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12403064, 0)
 	_ = Simd_v128_store(m, s0, 16, n0)
-	n2 := Simd_v128_load(m, 12405464, 0)
+	n2 := Simd_v128_load(m, 12403048, 0)
 	_ = Simd_v128_store(m, s0, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx510(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12405512, 0)
+func Simd_p_fx558(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12403096, 0)
 	_ = Simd_v128_store(m, s0, 16, n0)
-	n2 := Simd_v128_load(m, 12405496, 0)
+	n2 := Simd_v128_load(m, 12403080, 0)
 	_ = Simd_v128_store(m, s0, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx511(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx559(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_and(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i32x4_add(n1, [2]uint64{p1, p1h})
@@ -6737,7 +7209,7 @@ func Simd_p_fx511(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx512(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx560(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_ge_u([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_v128_not([2]uint64{p3, p3h})
 	n2 := Simd_v128_or(n0, n1)
@@ -6746,21 +7218,21 @@ func Simd_p_fx512(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx513(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx561(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{1084818905618843912, 216736831629295872})
 	n1 := Simd_v128_and([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx514(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx562(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{216736831696667908, 216736831629295872})
 	n1 := Simd_v128_and([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx515(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx563(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 36)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 20)
@@ -6769,7 +7241,7 @@ func Simd_p_fx515(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx516(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx564(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 20, n0)
 	n2 := Simd_v128_load(m, s0, 16)
@@ -6778,30 +7250,43 @@ func Simd_p_fx516(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx517(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 68, n0)
-	n2 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 52, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx518(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx565(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx519(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12417984, 0)
+func Simd_p_fx566(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12415568, 0)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx520(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx567(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12416096, 0)
+	_ = Simd_v128_store(m, s0, 168, n0)
+	_ = Simd_v128_store(m, s0, 184, n0)
+	_ = Simd_v128_store(m, s0, 200, n0)
+	_ = Simd_v128_store(m, s0, 216, n0)
+	_ = Simd_v128_store(m, s0, 232, n0)
+	_ = Simd_v128_store(m, s0, 248, n0)
+	_ = Simd_v128_store(m, s0, 264, n0)
+	_ = Simd_v128_store(m, s0, 280, n0)
+	_ = Simd_v128_store(m, s0, 312, n0)
+	_ = Simd_v128_store(m, s0, 296, n0)
+	_ = Simd_v128_store(m, s0, 360, n0)
+	_ = Simd_v128_store(m, s0, 344, n0)
+	_ = Simd_v128_store(m, s0, 328, n0)
+	_ = Simd_v128_store(m, s0, 376, n0)
+	_ = Simd_v128_store(m, s0, 392, n0)
+	_ = Simd_v128_store(m, s0, 408, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx568(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_i16x8_extend_low_i8x16_u([2]uint64{p0, p0h})
 	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
 	n2 := Simd_i32x4_add(n1, [2]uint64{p1, p1h})
@@ -6809,7 +7294,7 @@ func Simd_p_fx520(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, ui
 }
 
 //go:noinline
-func Simd_p_fx521(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
+func Simd_p_fx569(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p2, p2h})
 	n2 := Simd_v128_xor(n0, n1)
@@ -6827,7 +7312,7 @@ func Simd_p_fx521(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx522(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx570(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_v128_xor([2]uint64{p0, p0h}, n0)
 	n2 := Simd_i32x4_shr_u(n1, 8)
@@ -6837,7 +7322,7 @@ func Simd_p_fx522(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx523(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx571(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_xor(n0, [2]uint64{p2, p2h})
 	n2 := Simd_i32x4_shr_u(n1, 8)
@@ -6847,7 +7332,7 @@ func Simd_p_fx523(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx524(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx572(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p2, p2h})
 	n2 := Simd_v128_xor(n0, n1)
@@ -6858,7 +7343,7 @@ func Simd_p_fx524(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx525(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx573(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_eq([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i16x8_extend_low_i8x16_s(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_s(n1)
@@ -6867,7 +7352,7 @@ func Simd_p_fx525(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx526(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx574(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_sub([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_sub([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -6880,7 +7365,7 @@ func Simd_p_fx526(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx527(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx575(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_add([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -6893,7 +7378,7 @@ func Simd_p_fx527(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64,
 }
 
 //go:noinline
-func Simd_p_fx528(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx576(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_add([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -6906,7 +7391,7 @@ func Simd_p_fx528(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx529(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx577(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_sub([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_sub([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -6919,7 +7404,7 @@ func Simd_p_fx529(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx530(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx578(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_add([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -6932,7 +7417,7 @@ func Simd_p_fx530(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx531(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx579(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_add([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -6945,7 +7430,7 @@ func Simd_p_fx531(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx532(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx580(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_sub([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_sub([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -6958,7 +7443,7 @@ func Simd_p_fx532(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx533(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx581(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_add([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -6971,7 +7456,7 @@ func Simd_p_fx533(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx534(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx582(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 24)
@@ -6982,7 +7467,7 @@ func Simd_p_fx534(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx535(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx583(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -6993,7 +7478,7 @@ func Simd_p_fx535(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64)
 }
 
 //go:noinline
-func Simd_p_fx536(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx584(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 16)
@@ -7002,21 +7487,21 @@ func Simd_p_fx536(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx537(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx585(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i8x16_eq(n0, [2]uint64{p0, p0h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx538(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx586(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 76)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx539(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx587(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	n2 := Simd_v128_load(m, s0, 16)
@@ -7029,7 +7514,7 @@ func Simd_p_fx539(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx540(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx588(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s0, 0, n1)
@@ -7040,7 +7525,7 @@ func Simd_p_fx540(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx541(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx589(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_extend_low_i16x8_u([2]uint64{p1, p1h})
 	n1 := Simd_i32x4_eq([2]uint64{p0, p0h}, n0)
 	n2 := Simd_v128_and(n1, [2]uint64{p2, p2h})
@@ -7052,94 +7537,7 @@ func Simd_p_fx541(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (ui
 }
 
 //go:noinline
-func Simd_p_fx542(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
-	n0 := Simd_i32x4_splat(s0)
-	n1 := Simd_v128_and([2]uint64{p0, p0h}, n0)
-	n2 := Simd_v128_and([2]uint64{p2, p2h}, n0)
-	n3 := Simd_i32x4_add([2]uint64{p1, p1h}, n2)
-	n4 := Simd_v128_and([2]uint64{p4, p4h}, n0)
-	n5 := Simd_i32x4_add([2]uint64{p3, p3h}, n4)
-	n6 := Simd_v128_load(m, s1, 256)
-	n7 := Simd_i32x4_add(n1, n6)
-	_ = Simd_v128_store(m, s1, 256, n7)
-	_ = Simd_v128_store(m, s1, 240, n3)
-	_ = Simd_v128_store(m, s1, 224, n5)
-	return n0[0], n0[1]
-}
-
-//go:noinline
-func Simd_p_fx543(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) {
-	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
-	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
-	n2 := Simd_v128_and([2]uint64{p4, p4h}, [2]uint64{p2, p2h})
-	n3 := Simd_i32x4_add([2]uint64{p3, p3h}, n2)
-	n4 := Simd_v128_and([2]uint64{p6, p6h}, [2]uint64{p2, p2h})
-	n5 := Simd_i32x4_add([2]uint64{p5, p5h}, n4)
-	_ = Simd_v128_store(m, s0, 208, n1)
-	_ = Simd_v128_store(m, s0, 192, n3)
-	_ = Simd_v128_store(m, s0, 176, n5)
-	return
-}
-
-//go:noinline
-func Simd_p_fx544(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) {
-	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
-	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
-	n2 := Simd_v128_and([2]uint64{p4, p4h}, [2]uint64{p2, p2h})
-	n3 := Simd_i32x4_add([2]uint64{p3, p3h}, n2)
-	n4 := Simd_v128_and([2]uint64{p6, p6h}, [2]uint64{p2, p2h})
-	n5 := Simd_i32x4_add([2]uint64{p5, p5h}, n4)
-	_ = Simd_v128_store(m, s0, 160, n1)
-	_ = Simd_v128_store(m, s0, 144, n3)
-	_ = Simd_v128_store(m, s0, 128, n5)
-	return
-}
-
-//go:noinline
-func Simd_p_fx545(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) {
-	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
-	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
-	n2 := Simd_v128_and([2]uint64{p4, p4h}, [2]uint64{p2, p2h})
-	n3 := Simd_i32x4_add([2]uint64{p3, p3h}, n2)
-	n4 := Simd_v128_and([2]uint64{p6, p6h}, [2]uint64{p2, p2h})
-	n5 := Simd_i32x4_add([2]uint64{p5, p5h}, n4)
-	_ = Simd_v128_store(m, s0, 112, n1)
-	_ = Simd_v128_store(m, s0, 96, n3)
-	_ = Simd_v128_store(m, s0, 80, n5)
-	return
-}
-
-//go:noinline
-func Simd_p_fx546(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) {
-	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
-	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
-	n2 := Simd_v128_and([2]uint64{p4, p4h}, [2]uint64{p2, p2h})
-	n3 := Simd_i32x4_add([2]uint64{p3, p3h}, n2)
-	n4 := Simd_v128_and([2]uint64{p6, p6h}, [2]uint64{p2, p2h})
-	n5 := Simd_i32x4_add([2]uint64{p5, p5h}, n4)
-	_ = Simd_v128_store(m, s0, 64, n1)
-	_ = Simd_v128_store(m, s0, 48, n3)
-	_ = Simd_v128_store(m, s0, 32, n5)
-	return
-}
-
-//go:noinline
-func Simd_p_fx547(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) {
-	n0 := Simd_v128_and([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
-	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
-	n2 := Simd_v128_and([2]uint64{p4, p4h}, [2]uint64{p2, p2h})
-	n3 := Simd_i32x4_add([2]uint64{p3, p3h}, n2)
-	_ = Simd_v128_store(m, s0, 16, n1)
-	_ = Simd_v128_store(m, s0, 0, n3)
-	n6 := Simd_v128_load(m, s1, 1144)
-	n7 := Simd_v128_and(n6, [2]uint64{p2, p2h})
-	n8 := Simd_i32x4_add([2]uint64{p5, p5h}, n7)
-	_ = Simd_v128_store(m, s0, 272, n8)
-	return
-}
-
-//go:noinline
-func Simd_p_fx548(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx590(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0+1352, 0)
 	n1 := Simd_v128_and(n0, [2]uint64{p0, p0h})
 	n2 := Simd_v128_load(m, s1, 0)
@@ -7154,98 +7552,98 @@ func Simd_p_fx548(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx549(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx591(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 4, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx550(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx592(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 20, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx551(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx593(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 36, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx552(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx594(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 52, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx553(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx595(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 68, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx554(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx596(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 84, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx555(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx597(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 100, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx556(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx598(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 116, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx557(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx599(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 132, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx558(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx600(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 148, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx559(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx601(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 164, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx560(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx602(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 180, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx561(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx603(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 196, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx562(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx604(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0+1952, 0)
 	n1 := Simd_v128_and(n0, [2]uint64{p0, p0h})
 	n2 := Simd_v128_load(m, s1, 0)
@@ -7260,23 +7658,7 @@ func Simd_p_fx562(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx563(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	n1 := Simd_v128_and([2]uint64{p2, p2h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 16, n0)
-	_ = Simd_v128_store(m, s0, 0, n1)
-	return
-}
-
-//go:noinline
-func Simd_p_fx564(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
-	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, 464, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx565(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx605(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 96)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 80)
@@ -7285,7 +7667,7 @@ func Simd_p_fx565(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx566(m *Module, s0 int32, p0, p0h uint64) {
+func Simd_p_fx606(m *Module, s0 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 168)
 	n1 := Simd_i64x2_add(n0, [2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s0, 168, n1)
@@ -7293,7 +7675,7 @@ func Simd_p_fx566(m *Module, s0 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx567(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx607(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 28, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -7302,394 +7684,7 @@ func Simd_p_fx567(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx568(m *Module) {
-	n0 := Simd_v128_load(m, 12479940, 0)
-	_ = Simd_v128_store(m, 15537952, 0, n0)
-	n2 := Simd_v128_load(m, 12479924, 0)
-	_ = Simd_v128_store(m, 15537936, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx569(m *Module) {
-	n0 := Simd_v128_load(m, 12479972, 0)
-	_ = Simd_v128_store(m, 15537984, 0, n0)
-	n2 := Simd_v128_load(m, 12479988, 0)
-	_ = Simd_v128_store(m, 15538000, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx570(m *Module) {
-	n0 := Simd_v128_load(m, 12480004, 0)
-	_ = Simd_v128_store(m, 15538016, 0, n0)
-	n2 := Simd_v128_load(m, 12480020, 0)
-	_ = Simd_v128_store(m, 15538032, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx571(m *Module) {
-	n0 := Simd_v128_load(m, 12480060, 0)
-	_ = Simd_v128_store(m, 15538072, 0, n0)
-	n2 := Simd_v128_load(m, 12480044, 0)
-	_ = Simd_v128_store(m, 15538056, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx572(m *Module) {
-	n0 := Simd_v128_load(m, 12480084, 0)
-	_ = Simd_v128_store(m, 15538096, 0, n0)
-	n2 := Simd_v128_load(m, 12480100, 0)
-	_ = Simd_v128_store(m, 15538112, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx573(m *Module) {
-	n0 := Simd_v128_load(m, 12480124, 0)
-	_ = Simd_v128_store(m, 15538136, 0, n0)
-	n2 := Simd_v128_load(m, 12480140, 0)
-	_ = Simd_v128_store(m, 15538152, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx574(m *Module) {
-	n0 := Simd_v128_load(m, 12480180, 0)
-	_ = Simd_v128_store(m, 15538192, 0, n0)
-	n2 := Simd_v128_load(m, 12480164, 0)
-	_ = Simd_v128_store(m, 15538176, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx575(m *Module) {
-	n0 := Simd_v128_load(m, 12480220, 0)
-	_ = Simd_v128_store(m, 15538232, 0, n0)
-	n2 := Simd_v128_load(m, 12480204, 0)
-	_ = Simd_v128_store(m, 15538216, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx576(m *Module) {
-	n0 := Simd_v128_load(m, 12480260, 0)
-	_ = Simd_v128_store(m, 15538272, 0, n0)
-	n2 := Simd_v128_load(m, 12480244, 0)
-	_ = Simd_v128_store(m, 15538256, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx577(m *Module) {
-	n0 := Simd_v128_load(m, 12480300, 0)
-	_ = Simd_v128_store(m, 15538312, 0, n0)
-	n2 := Simd_v128_load(m, 12480284, 0)
-	_ = Simd_v128_store(m, 15538296, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx578(m *Module) {
-	n0 := Simd_v128_load(m, 12480340, 0)
-	_ = Simd_v128_store(m, 15538352, 0, n0)
-	n2 := Simd_v128_load(m, 12480324, 0)
-	_ = Simd_v128_store(m, 15538336, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx579(m *Module) {
-	n0 := Simd_v128_load(m, 12480380, 0)
-	_ = Simd_v128_store(m, 15538392, 0, n0)
-	n2 := Simd_v128_load(m, 12480364, 0)
-	_ = Simd_v128_store(m, 15538376, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx580(m *Module) {
-	n0 := Simd_v128_load(m, 12480420, 0)
-	_ = Simd_v128_store(m, 15538432, 0, n0)
-	n2 := Simd_v128_load(m, 12480404, 0)
-	_ = Simd_v128_store(m, 15538416, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx581(m *Module) {
-	n0 := Simd_v128_load(m, 12480460, 0)
-	_ = Simd_v128_store(m, 15538472, 0, n0)
-	n2 := Simd_v128_load(m, 12480444, 0)
-	_ = Simd_v128_store(m, 15538456, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx582(m *Module) {
-	n0 := Simd_v128_load(m, 12480500, 0)
-	_ = Simd_v128_store(m, 15538512, 0, n0)
-	n2 := Simd_v128_load(m, 12480484, 0)
-	_ = Simd_v128_store(m, 15538496, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx583(m *Module) {
-	n0 := Simd_v128_load(m, 12480540, 0)
-	_ = Simd_v128_store(m, 15538552, 0, n0)
-	n2 := Simd_v128_load(m, 12480524, 0)
-	_ = Simd_v128_store(m, 15538536, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx584(m *Module) {
-	n0 := Simd_v128_load(m, 12480580, 0)
-	_ = Simd_v128_store(m, 15538592, 0, n0)
-	n2 := Simd_v128_load(m, 12480564, 0)
-	_ = Simd_v128_store(m, 15538576, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx585(m *Module) {
-	n0 := Simd_v128_load(m, 12480620, 0)
-	_ = Simd_v128_store(m, 15538632, 0, n0)
-	n2 := Simd_v128_load(m, 12480604, 0)
-	_ = Simd_v128_store(m, 15538616, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx586(m *Module) {
-	n0 := Simd_v128_load(m, 12480660, 0)
-	_ = Simd_v128_store(m, 15538672, 0, n0)
-	n2 := Simd_v128_load(m, 12480644, 0)
-	_ = Simd_v128_store(m, 15538656, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx587(m *Module) {
-	n0 := Simd_v128_load(m, 12480700, 0)
-	_ = Simd_v128_store(m, 15538712, 0, n0)
-	n2 := Simd_v128_load(m, 12480684, 0)
-	_ = Simd_v128_store(m, 15538696, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx588(m *Module) {
-	n0 := Simd_v128_load(m, 12480740, 0)
-	_ = Simd_v128_store(m, 15538752, 0, n0)
-	n2 := Simd_v128_load(m, 12480724, 0)
-	_ = Simd_v128_store(m, 15538736, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx589(m *Module) {
-	n0 := Simd_v128_load(m, 12480780, 0)
-	_ = Simd_v128_store(m, 15538792, 0, n0)
-	n2 := Simd_v128_load(m, 12480764, 0)
-	_ = Simd_v128_store(m, 15538776, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx590(m *Module) {
-	n0 := Simd_v128_load(m, 12480820, 0)
-	_ = Simd_v128_store(m, 15538832, 0, n0)
-	n2 := Simd_v128_load(m, 12480804, 0)
-	_ = Simd_v128_store(m, 15538816, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx591(m *Module) {
-	n0 := Simd_v128_load(m, 12480860, 0)
-	_ = Simd_v128_store(m, 15538872, 0, n0)
-	n2 := Simd_v128_load(m, 12480844, 0)
-	_ = Simd_v128_store(m, 15538856, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx592(m *Module) {
-	n0 := Simd_v128_load(m, 12480900, 0)
-	_ = Simd_v128_store(m, 15538912, 0, n0)
-	n2 := Simd_v128_load(m, 12480884, 0)
-	_ = Simd_v128_store(m, 15538896, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx593(m *Module) {
-	n0 := Simd_v128_load(m, 12480940, 0)
-	_ = Simd_v128_store(m, 15538952, 0, n0)
-	n2 := Simd_v128_load(m, 12480924, 0)
-	_ = Simd_v128_store(m, 15538936, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx594(m *Module) {
-	n0 := Simd_v128_load(m, 12480980, 0)
-	_ = Simd_v128_store(m, 15538992, 0, n0)
-	n2 := Simd_v128_load(m, 12480964, 0)
-	_ = Simd_v128_store(m, 15538976, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx595(m *Module) {
-	n0 := Simd_v128_load(m, 12481020, 0)
-	_ = Simd_v128_store(m, 15539032, 0, n0)
-	n2 := Simd_v128_load(m, 12481004, 0)
-	_ = Simd_v128_store(m, 15539016, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx596(m *Module) {
-	n0 := Simd_v128_load(m, 12481060, 0)
-	_ = Simd_v128_store(m, 15539072, 0, n0)
-	n2 := Simd_v128_load(m, 12481044, 0)
-	_ = Simd_v128_store(m, 15539056, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx597(m *Module) {
-	n0 := Simd_v128_load(m, 12481100, 0)
-	_ = Simd_v128_store(m, 15539112, 0, n0)
-	n2 := Simd_v128_load(m, 12481084, 0)
-	_ = Simd_v128_store(m, 15539096, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx598(m *Module) {
-	n0 := Simd_v128_load(m, 12481140, 0)
-	_ = Simd_v128_store(m, 15539152, 0, n0)
-	n2 := Simd_v128_load(m, 12481124, 0)
-	_ = Simd_v128_store(m, 15539136, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx599(m *Module) {
-	n0 := Simd_v128_load(m, 12481180, 0)
-	_ = Simd_v128_store(m, 15539192, 0, n0)
-	n2 := Simd_v128_load(m, 12481164, 0)
-	_ = Simd_v128_store(m, 15539176, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx600(m *Module) {
-	n0 := Simd_v128_load(m, 12481220, 0)
-	_ = Simd_v128_store(m, 15539232, 0, n0)
-	n2 := Simd_v128_load(m, 12481204, 0)
-	_ = Simd_v128_store(m, 15539216, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx601(m *Module) {
-	n0 := Simd_v128_load(m, 12481260, 0)
-	_ = Simd_v128_store(m, 15539272, 0, n0)
-	n2 := Simd_v128_load(m, 12481244, 0)
-	_ = Simd_v128_store(m, 15539256, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx602(m *Module) {
-	n0 := Simd_v128_load(m, 12481300, 0)
-	_ = Simd_v128_store(m, 15539312, 0, n0)
-	n2 := Simd_v128_load(m, 12481284, 0)
-	_ = Simd_v128_store(m, 15539296, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx603(m *Module) {
-	n0 := Simd_v128_load(m, 12481340, 0)
-	_ = Simd_v128_store(m, 15539352, 0, n0)
-	n2 := Simd_v128_load(m, 12481324, 0)
-	_ = Simd_v128_store(m, 15539336, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx604(m *Module) {
-	n0 := Simd_v128_load(m, 12481380, 0)
-	_ = Simd_v128_store(m, 15539392, 0, n0)
-	n2 := Simd_v128_load(m, 12481364, 0)
-	_ = Simd_v128_store(m, 15539376, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx605(m *Module) {
-	n0 := Simd_v128_load(m, 12481420, 0)
-	_ = Simd_v128_store(m, 15539432, 0, n0)
-	n2 := Simd_v128_load(m, 12481404, 0)
-	_ = Simd_v128_store(m, 15539416, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx606(m *Module) {
-	n0 := Simd_v128_load(m, 12481460, 0)
-	_ = Simd_v128_store(m, 15539472, 0, n0)
-	n2 := Simd_v128_load(m, 12481444, 0)
-	_ = Simd_v128_store(m, 15539456, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx607(m *Module) {
-	n0 := Simd_v128_load(m, 12481500, 0)
-	_ = Simd_v128_store(m, 15539512, 0, n0)
-	n2 := Simd_v128_load(m, 12481484, 0)
-	_ = Simd_v128_store(m, 15539496, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx608(m *Module) {
-	n0 := Simd_v128_load(m, 12481540, 0)
-	_ = Simd_v128_store(m, 15539552, 0, n0)
-	n2 := Simd_v128_load(m, 12481524, 0)
-	_ = Simd_v128_store(m, 15539536, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx609(m *Module) {
-	n0 := Simd_v128_load(m, 12481580, 0)
-	_ = Simd_v128_store(m, 15539592, 0, n0)
-	n2 := Simd_v128_load(m, 12481564, 0)
-	_ = Simd_v128_store(m, 15539576, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx610(m *Module) {
-	n0 := Simd_v128_load(m, 12481620, 0)
-	_ = Simd_v128_store(m, 15539632, 0, n0)
-	n2 := Simd_v128_load(m, 12481604, 0)
-	_ = Simd_v128_store(m, 15539616, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx611(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx608(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -7700,7 +7695,7 @@ func Simd_p_fx611(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx612(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) {
+func Simd_p_fx609(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) {
 	n0 := Simd_scalar_i32_add(s0, s1)
 	n1 := Simd_v128_load(m, n0, 0)
 	n2 := Simd_i8x16_shuffle(n1, [2]uint64{p0, p0h}, [2]uint64{579005069656919567, 283686952306183})
@@ -7709,14 +7704,14 @@ func Simd_p_fx612(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx613(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx610(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_ne([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i64x2_extend_low_i32x4_s(n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx614(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx611(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i8x16_splat(s0)
 	n2 := Simd_i8x16_eq(n1, [2]uint64{p2, p2h})
@@ -7735,7 +7730,7 @@ func Simd_p_fx614(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64,
 }
 
 //go:noinline
-func Simd_p_fx615(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx612(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i8x16_splat(s0)
 	n2 := Simd_i8x16_eq(n1, [2]uint64{p3, p3h})
@@ -7746,7 +7741,7 @@ func Simd_p_fx615(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx616(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx613(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_xor([2]uint64{p0, p0h}, n0)
 	n2 := Simd_i32x4_shr_u(n1, 8)
@@ -7754,7 +7749,7 @@ func Simd_p_fx616(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, 
 }
 
 //go:noinline
-func Simd_p_fx617(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx614(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_shr_u([2]uint64{p0, p0h}, 24)
 	n1 := Simd_i32x4_shr_u([2]uint64{p0, p0h}, 16)
 	n2 := Simd_i8x16_shuffle(n0, n1, [2]uint64{22007412428800, 30837865191432})
@@ -7762,7 +7757,7 @@ func Simd_p_fx617(m *Module, p0, p0h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx618(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx615(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_shl([2]uint64{p2, p2h}, 31)
 	n1 := Simd_i32x4_shr_s(n0, 31)
 	n2 := Simd_v128_bitselect([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, n1)
@@ -7772,14 +7767,60 @@ func Simd_p_fx618(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (ui
 }
 
 //go:noinline
-func Simd_p_fx619(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx616(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 24, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx620(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx617(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 128)
+	n1 := Simd_f64x2_add(n0, [2]uint64{p0, p0h})
+	_ = Simd_v128_store(m, s0, 128, n1)
+	n3 := Simd_v128_load(m, s0, 144)
+	n4 := Simd_f64x2_add(n3, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 144, n4)
+	return n1[0], n1[1], n4[0], n4[1]
+}
+
+//go:noinline
+func Simd_p_fx618(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 80)
+	n1 := Simd_f64x2_gt(n0, [2]uint64{p0, p0h})
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx619(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+	n0 := Simd_f64x2_ge([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	n1 := Simd_v128_not(n0)
+	n2 := Simd_f64x2_le([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
+	n3 := Simd_v128_not(n2)
+	n4 := Simd_i8x16_shuffle(n1, n3, [2]uint64{795458214199165184, 1952900979608391952})
+	return n4[0], n4[1]
+}
+
+//go:noinline
+func Simd_p_fx620(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_v128_load(m, s0, 80)
+	n1 := Simd_f64x2_add(n0, [2]uint64{p0, p0h})
+	_ = Simd_v128_store(m, s0, 80, n1)
+	n3 := Simd_v128_load(m, s0, 96)
+	n4 := Simd_f64x2_add(n3, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 96, n4)
+	return
+}
+
+//go:noinline
+func Simd_p_fx621(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 96)
+	n1 := Simd_f64x2_lt(n0, [2]uint64{p0, p0h})
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx622(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 24, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -7788,63 +7829,63 @@ func Simd_p_fx620(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx621(m *Module, s0 int32) {
+func Simd_p_fx623(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 104)
 	_ = Simd_v128_store(m, s0, 40, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx622(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx624(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 776)
 	_ = Simd_v128_store(m, s1, 24, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx623(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 768)
-	_ = Simd_v128_store(m, s1, 16, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx624(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 768)
-	_ = Simd_v128_store(m, s1, 24, n0)
-	return
-}
-
-//go:noinline
 func Simd_p_fx625(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 760)
+	n0 := Simd_v128_load(m, s0, 768)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx626(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 760)
+	n0 := Simd_v128_load(m, s0, 768)
 	_ = Simd_v128_store(m, s1, 24, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx627(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 752)
+	n0 := Simd_v128_load(m, s0, 760)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx628(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 752)
+	n0 := Simd_v128_load(m, s0, 760)
 	_ = Simd_v128_store(m, s1, 24, n0)
 	return
 }
 
 //go:noinline
 func Simd_p_fx629(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 752)
+	_ = Simd_v128_store(m, s1, 16, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx630(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 752)
+	_ = Simd_v128_store(m, s1, 24, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx631(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 40)
 	_ = Simd_v128_store(m, s1, 36, n0)
 	n2 := Simd_v128_load(m, s0, 56)
@@ -7853,23 +7894,14 @@ func Simd_p_fx629(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx630(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 352)
-	_ = Simd_v128_store(m, s1, 16, n0)
-	n2 := Simd_v128_load(m, s0, 336)
-	_ = Simd_v128_store(m, s1, 0, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx631(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0+544, 0)
-	_ = Simd_v128_store(m, s1, 16464, n0)
-	return
-}
-
-//go:noinline
 func Simd_p_fx632(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0+544, 0)
+	_ = Simd_v128_store(m, s1, 16360, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx633(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 53)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 37)
@@ -7880,95 +7912,49 @@ func Simd_p_fx632(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx633(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx634(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 236, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx634(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 84)
-	_ = Simd_v128_store(m, s1, 24, n0)
-	n2 := Simd_v128_load(m, s0, 68)
-	_ = Simd_v128_store(m, s1, 8, n2)
-	return
-}
-
-//go:noinline
 func Simd_p_fx635(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 140)
-	_ = Simd_v128_store(m, s1, 0, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx636(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 216)
-	_ = Simd_v128_store(m, s1, 0, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx637(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 244)
-	_ = Simd_v128_store(m, s1, 0, n0)
-	n2 := Simd_v128_load(m, s0, 260)
-	_ = Simd_v128_store(m, s1, 16, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx638(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, s0, 296)
-	_ = Simd_v128_store(m, s0, 152, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx639(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 324)
-	_ = Simd_v128_store(m, s1, 0, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx640(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 832)
 	_ = Simd_v128_store(m, s1, 832, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx641(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx636(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 816)
 	_ = Simd_v128_store(m, s1, 816, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx642(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx637(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx643(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx638(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s1, 40, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx644(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx639(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 40)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx645(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx640(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 904, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -7977,14 +7963,14 @@ func Simd_p_fx645(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx646(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx641(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{1084818905618843912, 506097522914230528})
 	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx647(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx642(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i8x16_shuffle(n0, n0, [2]uint64{1084818905618843912, 0})
 	n2 := Simd_i8x16_max_u(n0, n1)
@@ -7996,14 +7982,14 @@ func Simd_p_fx647(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx648(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx643(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i64x2_ne(n0, [2]uint64{p2, p2h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx649(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
+func Simd_p_fx644(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and([2]uint64{p2, p2h}, [2]uint64{p1, p1h})
 	n2 := Simd_i16x8_narrow_i32x4_u(n0, n1)
@@ -8015,109 +8001,77 @@ func Simd_p_fx649(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx650(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx645(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 184)
 	_ = Simd_v128_store(m, s1, 184, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx651(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 56)
-	_ = Simd_v128_store(m, s1, 32, n0)
-	n2 := Simd_v128_load(m, s0, 40)
-	_ = Simd_v128_store(m, s1, 16, n2)
-	n4 := Simd_v128_load(m, s0, 24)
-	_ = Simd_v128_store(m, s1, 0, n4)
-	return
-}
-
-//go:noinline
-func Simd_p_fx652(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 0, n0)
-	_ = Simd_v128_store(m, s1, 16, [2]uint64{p0, p0h})
-	return
-}
-
-//go:noinline
-func Simd_p_fx653(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 32, n0)
-	n2 := Simd_v128_load(m, s0, 24)
-	_ = Simd_v128_store(m, s1, 48, n2)
-	n4 := Simd_v128_load(m, s0, 40)
-	_ = Simd_v128_store(m, s1, 64, n4)
-	return
-}
-
-//go:noinline
-func Simd_p_fx654(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 576, n0)
-	n2 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 560, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx655(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 168)
-	_ = Simd_v128_store(m, s1, 4, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx656(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx646(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 272)
 	_ = Simd_v128_store(m, s1, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx657(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx647(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0+180, 0)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx658(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx648(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0+212, 0)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx659(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx649(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
+	n0 := Simd_v128_load(m, s0, 0)
+	n1 := Simd_scalar_i32_add(s1, s2)
+	n2 := Simd_v128_load(m, n1, 0)
+	n3 := Simd_i32x4_add(n0, n2)
+	_ = Simd_v128_store(m, s0, 0, n3)
+	n5 := Simd_v128_load(m, s0+16, 0)
+	n6 := Simd_v128_load(m, s3+16, 0)
+	n7 := Simd_i32x4_add(n5, n6)
+	_ = Simd_v128_store(m, s0+16, 0, n7)
+	return
+}
+
+//go:noinline
+func Simd_p_fx650(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 4, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx660(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx651(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	return n0[0], n0[1], n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx661(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx652(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx662(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx653(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 344)
 	_ = Simd_v128_store(m, s1, 64, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx663(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx654(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0+422, 0)
 	n1 := Simd_i32x4_extend_low_i16x8_s(n0)
 	n2 := Simd_i64x2_extmul_low_i32x4_s(n1, n1)
@@ -8138,7 +8092,7 @@ func Simd_p_fx663(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx664(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx655(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_i32x4_extend_low_i16x8_s(n0)
 	n2 := Simd_i64x2_extmul_low_i32x4_s(n1, n1)
@@ -8147,14 +8101,14 @@ func Simd_p_fx664(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, 
 }
 
 //go:noinline
-func Simd_p_fx665(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx656(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{1084818905618843912, 506097522914230528})
 	n1 := Simd_i64x2_add([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx666(m *Module, s0 int32) (uint64, uint64) {
+func Simd_p_fx657(m *Module, s0 int32) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_v128_load32_lane(m, s0+1, 0, 1, n0)
 	n2 := Simd_v128_load32_lane(m, s0+2, 0, 2, n1)
@@ -8162,14 +8116,14 @@ func Simd_p_fx666(m *Module, s0 int32) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx667(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx658(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p1, p1h}, [2]uint64{p2, p2h}, [2]uint64{1374179596971150604, 1952900979675763988})
 	n1 := Simd_i32x4_sub([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx668(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64) {
+func Simd_p_fx659(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_lt_u([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	n1 := Simd_v128_bitselect([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, n0)
 	n2 := Simd_i32x4_gt_u([2]uint64{p2, p2h}, [2]uint64{p5, p5h})
@@ -8178,35 +8132,51 @@ func Simd_p_fx668(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx669(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx660(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_lt_u(n0, [2]uint64{p2, p2h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx670(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx661(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_lt_u(n0, [2]uint64{p2, p2h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx671(m *Module, s0 int32, p0, p0h uint64) {
-	n0 := Simd_v128_load32_lane(m, 0, 15268608, 1, [2]uint64{p0, p0h})
+func Simd_p_fx662(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, s1)
+	_ = Simd_v128_store(m, s2, s1, n0)
+	return n0[0], n0[1]
+}
+
+//go:noinline
+func Simd_p_fx663(m *Module, s0 int32, p0, p0h uint64) {
+	n0 := Simd_v128_load32_lane(m, 0, 15102140, 1, [2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s0, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx672(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 144, n0)
+func Simd_p_fx664(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 13350792, 0)
+	_ = Simd_v128_store(m, s0, 16, n0)
+	n2 := Simd_v128_load(m, 13350808, 0)
+	_ = Simd_v128_store(m, s0, 32, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx673(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx665(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 24019176, 0)
+	_ = Simd_v128_store(m, s0, 8, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx666(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 36)
 	_ = Simd_v128_store(m, s1, 172, n0)
 	n2 := Simd_v128_load(m, s0, 52)
@@ -8215,103 +8185,21 @@ func Simd_p_fx673(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx674(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx667(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 96)
 	_ = Simd_v128_store(m, s1, 232, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx675(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx668(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 116)
 	_ = Simd_v128_store(m, s1, 252, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx676(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 160, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx677(m *Module, s0 int32, s1 int32, s2 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 144, n0)
-	n2 := Simd_v128_load(m, s2, 44)
-	_ = Simd_v128_store(m, s1, 180, n2)
-	n4 := Simd_v128_load(m, s2, 60)
-	_ = Simd_v128_store(m, s1, 196, n4)
-	return
-}
-
-//go:noinline
-func Simd_p_fx678(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 88)
-	_ = Simd_v128_store(m, s1, 224, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx679(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 40, n0)
-	n2 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 24, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx680(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 60, n0)
-	n2 := Simd_v128_load(m, s0, 24)
-	_ = Simd_v128_store(m, s1, 76, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx681(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 88)
-	_ = Simd_v128_store(m, s1, 104, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx682(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 132, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx683(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 24, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx684(m *Module, s0 int32, s1 int32, s2 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 8, n0)
-	n2 := Simd_v128_load(m, s2, 8)
-	_ = Simd_v128_store(m, s1, 44, n2)
-	n4 := Simd_v128_load(m, s2, 24)
-	_ = Simd_v128_store(m, s1, 60, n4)
-	return
-}
-
-//go:noinline
-func Simd_p_fx685(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 88, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx686(m *Module, s0 int32, p0, p0h uint64) {
+func Simd_p_fx669(m *Module, s0 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 48)
 	n1 := Simd_f64x2_mul(n0, [2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s0, 48, n1)
@@ -8322,7 +8210,7 @@ func Simd_p_fx686(m *Module, s0 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx687(m *Module, s0 int32, p0, p0h uint64) {
+func Simd_p_fx670(m *Module, s0 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 56)
 	n1 := Simd_f64x2_add([2]uint64{p0, p0h}, n0)
 	_ = Simd_v128_store(m, s0, 56, n1)
@@ -8330,7 +8218,7 @@ func Simd_p_fx687(m *Module, s0 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx688(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx671(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_load(m, s0, 8)
 	n1 := Simd_f64x2_add([2]uint64{p0, p0h}, n0)
 	_ = Simd_v128_store(m, s0, 8, n1)
@@ -8341,7 +8229,7 @@ func Simd_p_fx688(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx689(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx672(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 572)
 	_ = Simd_v128_store(m, s1, 84, n0)
 	n2 := Simd_v128_load(m, s0, 556)
@@ -8350,49 +8238,42 @@ func Simd_p_fx689(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx690(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx673(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0+16, 0)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx691(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx674(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0+16, 0)
 	_ = Simd_v128_store(m, s1+16, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx692(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx675(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{1084818905618843912, 506097522914230528})
 	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx693(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_i32x4_splat(s0)
-	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
-	return n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx694(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 8719187, 0)
+func Simd_p_fx676(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 8715748, 0)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx695(m *Module, s0 int32) {
+func Simd_p_fx677(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, 8407581, 0)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx696(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx678(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, n0, [2]uint64{1948679894439893000, 2238040585792199692})
 	n2 := Simd_i8x16_shuffle([2]uint64{p1, p1h}, n0, [2]uint64{1369958511735279616, 1659319203087586308})
@@ -8402,7 +8283,7 @@ func Simd_p_fx696(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64)
 }
 
 //go:noinline
-func Simd_p_fx697(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx679(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{1663540288323457296, 506097522914230528})
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p2, p2h}, [2]uint64{938188073609731092, 1082868419285884438})
 	n2 := Simd_i8x16_shuffle(n0, [2]uint64{p2, p2h}, [2]uint64{648827382257424400, 793507727933577746})
@@ -8412,7 +8293,7 @@ func Simd_p_fx697(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx698(m *Module, s0 int32, s1 int32, s2 int32) {
+func Simd_p_fx680(m *Module, s0 int32, s1 int32, s2 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	_ = Simd_v128_store(m, s2, 0, n0)
@@ -8420,7 +8301,7 @@ func Simd_p_fx698(m *Module, s0 int32, s1 int32, s2 int32) {
 }
 
 //go:noinline
-func Simd_p_fx699(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+func Simd_p_fx681(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
 	n0 := Simd_v128_load(m, s0, 16)
 	n1 := Simd_i8x16_eq(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i8x16_eq(n0, [2]uint64{p1, p1h})
@@ -8521,7 +8402,7 @@ func Simd_p_fx699(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx700(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx682(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p0, p0h}, [2]uint64{795458214199165184, 216736831629295872})
 	n2 := Simd_v128_load32_lane(m, s0, 16, 2, n1)
@@ -8537,7 +8418,7 @@ func Simd_p_fx700(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx701(m *Module, s0 int32) {
+func Simd_p_fx683(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 136)
 	_ = Simd_v128_store(m, s0+32, 0, n0)
 	n2 := Simd_v128_load(m, s0, 152)
@@ -8546,14 +8427,7 @@ func Simd_p_fx701(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx702(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
-	n0 := Simd_v128_xor([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	_ = Simd_v128_store(m, s0, s1, n0)
-	return n0[0], n0[1]
-}
-
-//go:noinline
-func Simd_p_fx703(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx684(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 56)
 	_ = Simd_v128_store(m, s1, 56, n0)
 	n2 := Simd_v128_load(m, s0, 40)
@@ -8562,7 +8436,39 @@ func Simd_p_fx703(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx704(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx685(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 100)
+	_ = Simd_v128_store(m, s1, s2, n0)
+	n2 := Simd_v128_load(m, s0, s2)
+	_ = Simd_v128_store(m, s1, 68, n2)
+	return n0[0], n0[1], n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx686(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i32x4_splat(s0)
+	n1 := Simd_i32x4_ge_u(n0, [2]uint64{p0, p0h})
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx687(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+	n0 := Simd_v128_bitselect([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
+	n1 := Simd_i8x16_shuffle(n0, n0, [2]uint64{1084818905618843912, 216736831629295872})
+	n2 := Simd_i32x4_add(n0, n1)
+	return n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx688(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_bitselect([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
+	n1 := Simd_i8x16_shuffle(n0, n0, [2]uint64{1084818905618843912, 216736831629295872})
+	n2 := Simd_i32x4_add(n0, n1)
+	return n0[0], n0[1], n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx689(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 68)
 	_ = Simd_v128_store(m, s1, 27, n0)
 	n2 := Simd_v128_load(m, s0, 52)
@@ -8571,7 +8477,7 @@ func Simd_p_fx704(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx705(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx690(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 165)
 	_ = Simd_v128_store(m, s1, 480, n0)
 	n2 := Simd_v128_load(m, s0, 181)
@@ -8582,7 +8488,7 @@ func Simd_p_fx705(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx706(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
+func Simd_p_fx691(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
 	n0 := Simd_v128_load(m, s0, 181)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 197)
@@ -8601,14 +8507,14 @@ func Simd_p_fx706(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
 }
 
 //go:noinline
-func Simd_p_fx707(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx692(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 560)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx708(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx693(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 36)
 	_ = Simd_v128_store(m, s1+17, 0, n0)
 	n2 := Simd_v128_load(m, s0, 20)
@@ -8621,14 +8527,14 @@ func Simd_p_fx708(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx709(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx694(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 2368)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx710(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx695(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 36)
 	_ = Simd_v128_store(m, s1+18, 0, n0)
 	n2 := Simd_v128_load(m, s0, 20)
@@ -8641,14 +8547,14 @@ func Simd_p_fx710(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx711(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+func Simd_p_fx696(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 2368)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return n0[0], n0[1]
 }
 
 //go:noinline
-func Simd_p_fx712(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx697(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 36)
 	_ = Simd_v128_store(m, s1+19, 0, n0)
 	n2 := Simd_v128_load(m, s0, 20)
@@ -8661,7 +8567,7 @@ func Simd_p_fx712(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx713(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx698(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 84, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -8670,7 +8576,7 @@ func Simd_p_fx713(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx714(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx699(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 84)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	n2 := Simd_v128_load(m, s0, 68)
@@ -8679,7 +8585,7 @@ func Simd_p_fx714(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx715(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx700(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 84, n0)
 	n2 := Simd_v128_load(m, s0, 16)
@@ -8688,7 +8594,7 @@ func Simd_p_fx715(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx716(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx701(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s2, s3, n0)
 	n2 := Simd_v128_load(m, s0, s3)
@@ -8699,7 +8605,7 @@ func Simd_p_fx716(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s
 }
 
 //go:noinline
-func Simd_p_fx717(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx702(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	n1 := Simd_v128_load(m, s2, s1)
 	n2 := Simd_v128_xor(n0, n1)
@@ -8708,14 +8614,14 @@ func Simd_p_fx717(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint
 }
 
 //go:noinline
-func Simd_p_fx718(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+func Simd_p_fx703(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 	n0 := Simd_scalar_i32_add(s0, s1)
 	n1 := Simd_v128_load(m, n0, 0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx719(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx704(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i8x16_ne(n0, [2]uint64{p1, p1h})
 	n2 := Simd_i16x8_extend_low_i8x16_s(n1)
@@ -8725,29 +8631,7 @@ func Simd_p_fx719(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, 
 }
 
 //go:noinline
-func Simd_p_fx720(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12418512, 0)
-	_ = Simd_v128_store(m, s0, 168, n0)
-	_ = Simd_v128_store(m, s0, 184, n0)
-	_ = Simd_v128_store(m, s0, 200, n0)
-	_ = Simd_v128_store(m, s0, 216, n0)
-	_ = Simd_v128_store(m, s0, 232, n0)
-	_ = Simd_v128_store(m, s0, 248, n0)
-	_ = Simd_v128_store(m, s0, 264, n0)
-	_ = Simd_v128_store(m, s0, 280, n0)
-	_ = Simd_v128_store(m, s0, 312, n0)
-	_ = Simd_v128_store(m, s0, 296, n0)
-	_ = Simd_v128_store(m, s0, 360, n0)
-	_ = Simd_v128_store(m, s0, 344, n0)
-	_ = Simd_v128_store(m, s0, 328, n0)
-	_ = Simd_v128_store(m, s0, 376, n0)
-	_ = Simd_v128_store(m, s0, 392, n0)
-	_ = Simd_v128_store(m, s0, 408, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx721(m *Module, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx705(m *Module, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i16x8_extend_high_i8x16_u([2]uint64{p0, p0h})
 	n1 := Simd_i32x4_extend_high_i16x8_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n0)
@@ -8756,7 +8640,7 @@ func Simd_p_fx721(m *Module, p0, p0h uint64) (uint64, uint64, uint64, uint64, ui
 }
 
 //go:noinline
-func Simd_p_fx722(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx706(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i16x8_extend_high_i8x16_u(n0)
 	n2 := Simd_i32x4_extend_high_i16x8_u(n1)
@@ -8765,7 +8649,7 @@ func Simd_p_fx722(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, ui
 }
 
 //go:noinline
-func Simd_p_fx723(m *Module, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx707(m *Module, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i16x8_extend_low_i8x16_u([2]uint64{p0, p0h})
 	n1 := Simd_i32x4_extend_high_i16x8_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n0)
@@ -8773,7 +8657,7 @@ func Simd_p_fx723(m *Module, p0, p0h uint64) (uint64, uint64, uint64, uint64, ui
 }
 
 //go:noinline
-func Simd_p_fx724(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx708(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{1948679894439893000, 2238040585792199692})
 	n1 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{1369958511735279616, 1659319203087586308})
 	_ = Simd_v128_store(m, s0, s1, n0)
@@ -8782,8 +8666,8 @@ func Simd_p_fx724(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx725(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_load32_zero(m, s0+12418864, 0)
+func Simd_p_fx709(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load32_zero(m, s0+12416448, 0)
 	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n1)
 	n3 := Simd_i32x4_add(n2, [2]uint64{p0, p0h})
@@ -8792,7 +8676,7 @@ func Simd_p_fx725(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, 
 }
 
 //go:noinline
-func Simd_p_fx726(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx710(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_shr_s([2]uint64{p0, p0h}, 3)
 	n1 := Simd_v128_load32_zero(m, s0, 0)
 	n2 := Simd_v128_load32_lane(m, s1, 0, 1, n1)
@@ -8802,7 +8686,7 @@ func Simd_p_fx726(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uin
 }
 
 //go:noinline
-func Simd_p_fx727(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
+func Simd_p_fx711(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
 	n0 := Simd_i16x8_extend_low_i8x16_u([2]uint64{p1, p1h})
 	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
 	n2 := Simd_v128_and([2]uint64{p0, p0h}, n1)
@@ -8813,7 +8697,7 @@ func Simd_p_fx727(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx728(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx712(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s2, s1, n0)
 	n2 := Simd_v128_load(m, s0, s3)
@@ -8830,7 +8714,7 @@ func Simd_p_fx728(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s
 }
 
 //go:noinline
-func Simd_p_fx729(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
+func Simd_p_fx713(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 32)
@@ -8847,7 +8731,7 @@ func Simd_p_fx729(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64,
 }
 
 //go:noinline
-func Simd_p_fx730(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx714(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, n0, [2]uint64{1948679894439893000, 2238040585792199692})
 	n2 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, n0, [2]uint64{1369958511735279616, 1659319203087586308})
@@ -8857,49 +8741,49 @@ func Simd_p_fx730(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx731(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx715(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0+632, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx732(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx716(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0+16, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx733(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx717(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0+316, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx734(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx718(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 96)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx735(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx719(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 96, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx736(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx720(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 120, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx737(m *Module, s0 int32, p0, p0h uint64) {
+func Simd_p_fx721(m *Module, s0 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 184)
 	n1 := Simd_i64x2_add(n0, [2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s0, 184, n1)
@@ -8907,14 +8791,7 @@ func Simd_p_fx737(m *Module, s0 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx738(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, s1)
-	_ = Simd_v128_store(m, s2, s1, n0)
-	return n0[0], n0[1]
-}
-
-//go:noinline
-func Simd_p_fx739(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx722(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{518, 0})
 	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n1)
@@ -8937,7 +8814,15 @@ func Simd_p_fx739(m *Module, p0, p0h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx740(m *Module, s0 int32, p0, p0h uint64) {
+func Simd_p_fx723(m *Module, s0 int32, p0, p0h uint64) {
+	n0 := Simd_v128_load(m, s0, 208)
+	n1 := Simd_i64x2_add(n0, [2]uint64{p0, p0h})
+	_ = Simd_v128_store(m, s0, 208, n1)
+	return
+}
+
+//go:noinline
+func Simd_p_fx724(m *Module, s0 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 192)
 	n1 := Simd_i64x2_add(n0, [2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s0, 192, n1)
@@ -8945,7 +8830,7 @@ func Simd_p_fx740(m *Module, s0 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx741(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64) {
+func Simd_p_fx725(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n1)
@@ -8987,7 +8872,7 @@ func Simd_p_fx741(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx742(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx726(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 168, n0)
 	n2 := Simd_v128_load(m, s0, 16)
@@ -8998,7 +8883,7 @@ func Simd_p_fx742(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx743(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx727(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p0, p0h}, [2]uint64{579005069656919567, 283686952306183})
 	_ = Simd_v128_store(m, s2, s1, n1)
@@ -9006,7 +8891,7 @@ func Simd_p_fx743(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) (uint
 }
 
 //go:noinline
-func Simd_p_fx744(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx728(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 56)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	n2 := Simd_v128_load(m, s0, 40)
@@ -9017,28 +8902,54 @@ func Simd_p_fx744(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx745(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx729(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 512)
-	_ = Simd_v128_store(m, s1, 224, n0)
+	_ = Simd_v128_store(m, s1, 192, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx746(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx730(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_f64x2_add(n0, [2]uint64{p0, p0h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx747(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx731(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_splat(s0)
 	n1 := Simd_v128_xor([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx748(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx732(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 4492)
+	_ = Simd_v128_store(m, s1, 4492, n0)
+	n2 := Simd_v128_load(m, s0, 4476)
+	return n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx733(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 56)
+	_ = Simd_v128_store(m, s0, 24, n0)
+	n2 := Simd_v128_load(m, s0, 40)
+	_ = Simd_v128_store(m, s0, 8, n2)
+	return n0[0], n0[1], n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx734(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 8)
+	_ = Simd_v128_store(m, s1, 84, n0)
+	n2 := Simd_v128_load(m, s0, 24)
+	_ = Simd_v128_store(m, s1, 100, n2)
+	return n0[0], n0[1], n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx735(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	n0 := Simd_i32x4_splat(s1)
 	n1 := Simd_i32x4_min_u(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i16x8_narrow_i32x4_u(n1, n1)
@@ -9049,53 +8960,35 @@ func Simd_p_fx748(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx749(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 56)
-	_ = Simd_v128_store(m, s0, 24, n0)
-	n2 := Simd_v128_load(m, s0, 40)
-	_ = Simd_v128_store(m, s0, 8, n2)
-	return n0[0], n0[1], n2[0], n2[1]
-}
-
-//go:noinline
-func Simd_p_fx750(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 88, n0)
-	n2 := Simd_v128_load(m, s0, 24)
-	_ = Simd_v128_store(m, s1, 104, n2)
-	return n0[0], n0[1], n2[0], n2[1]
-}
-
-//go:noinline
-func Simd_p_fx751(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx736(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_xor(n0, [2]uint64{p0, p0h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx752(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx737(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{1084818905618843912, 216736831629295872})
 	n1 := Simd_v128_xor([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx753(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx738(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{216736831696667908, 216736831629295872})
 	n1 := Simd_v128_xor([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx754(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx739(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 344)
 	_ = Simd_v128_store(m, s1, 24, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx755(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx740(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_load(m, s0, 96)
 	n1 := Simd_f64x2_add(n0, [2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s0, 96, n1)
@@ -9106,14 +8999,44 @@ func Simd_p_fx755(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx756(m *Module, s0 int32) {
+func Simd_p_fx741(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 60)
+	_ = Simd_v128_store(m, s1, 60, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx742(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 84)
+	_ = Simd_v128_store(m, s1, 84, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx743(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 260)
+	_ = Simd_v128_store(m, s1, 260, n0)
+	n2 := Simd_v128_load(m, s0, 244)
+	_ = Simd_v128_store(m, s1, 244, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx744(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 328)
+	_ = Simd_v128_store(m, s1, 328, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx745(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s0, 24, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx757(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx746(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_i16x8_extend_low_i8x16_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n1)
@@ -9122,35 +9045,21 @@ func Simd_p_fx757(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx758(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx747(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_add(n0, [2]uint64{p2, p2h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx759(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 64)
-	_ = Simd_v128_store(m, s1, 64, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx760(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 88)
-	_ = Simd_v128_store(m, s1, 88, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx761(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx748(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 124)
 	_ = Simd_v128_store(m, s1, 124, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx762(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx749(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 184)
 	_ = Simd_v128_store(m, s1, 184, n0)
 	n2 := Simd_v128_load(m, s0, 200)
@@ -9159,28 +9068,35 @@ func Simd_p_fx762(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx763(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx750(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 256)
 	_ = Simd_v128_store(m, s1, 256, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx764(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx751(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 312)
 	_ = Simd_v128_store(m, s1, 312, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx765(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx752(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 368)
+	_ = Simd_v128_store(m, s1, 368, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx753(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 392)
 	_ = Simd_v128_store(m, s1, 392, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx766(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx754(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_i8x16_eq(n0, [2]uint64{p1, p1h})
 	n2 := Simd_i16x8_extend_low_i8x16_u(n1)
@@ -9191,14 +9107,14 @@ func Simd_p_fx766(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx767(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx755(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 20)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx768(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx756(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 228)
 	_ = Simd_v128_store(m, s1, 56, n0)
 	n2 := Simd_v128_load(m, s0, 212)
@@ -9211,18 +9127,18 @@ func Simd_p_fx768(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx769(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 23939136, 0)
+func Simd_p_fx757(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 23870752, 0)
 	_ = Simd_v128_store(m, s0, 98, n0)
-	n2 := Simd_v128_load(m, 23939120, 0)
+	n2 := Simd_v128_load(m, 23870736, 0)
 	_ = Simd_v128_store(m, s0, 82, n2)
-	n4 := Simd_v128_load(m, 23939104, 0)
+	n4 := Simd_v128_load(m, 23870720, 0)
 	_ = Simd_v128_store(m, s0, 66, n4)
 	return
 }
 
 //go:noinline
-func Simd_p_fx770(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx758(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 36)
 	_ = Simd_v128_store(m, s1, 24, n0)
 	n2 := Simd_v128_load(m, s0, 20)
@@ -9231,7 +9147,7 @@ func Simd_p_fx770(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx771(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx759(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 112)
 	_ = Simd_v128_store(m, s1, 476, n0)
 	n2 := Simd_v128_load(m, s0, 96)
@@ -9240,7 +9156,7 @@ func Simd_p_fx771(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx772(m *Module, s0 int32, s1 int32, s2 int32) {
+func Simd_p_fx760(m *Module, s0 int32, s1 int32, s2 int32) {
 	n0 := Simd_v128_load(m, s0, 76)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	n2 := Simd_v128_load(m, s0, 96)
@@ -9251,7 +9167,7 @@ func Simd_p_fx772(m *Module, s0 int32, s1 int32, s2 int32) {
 }
 
 //go:noinline
-func Simd_p_fx773(m *Module, s0 int32, s1 int32, s2 int32) {
+func Simd_p_fx761(m *Module, s0 int32, s1 int32, s2 int32) {
 	n0 := Simd_v128_load(m, s0, 76)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	n2 := Simd_v128_load(m, s0, 96)
@@ -9262,21 +9178,7 @@ func Simd_p_fx773(m *Module, s0 int32, s1 int32, s2 int32) {
 }
 
 //go:noinline
-func Simd_p_fx774(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	n1 := Simd_scalar_i32_add(s1, s2)
-	n2 := Simd_v128_load(m, n1, 0)
-	n3 := Simd_i32x4_add(n0, n2)
-	_ = Simd_v128_store(m, s0, 0, n3)
-	n5 := Simd_v128_load(m, s0+16, 0)
-	n6 := Simd_v128_load(m, s3+16, 0)
-	n7 := Simd_i32x4_add(n5, n6)
-	_ = Simd_v128_store(m, s0+16, 0, n7)
-	return
-}
-
-//go:noinline
-func Simd_p_fx775(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx762(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 592)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 576)
@@ -9289,51 +9191,23 @@ func Simd_p_fx775(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx776(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx763(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 344)
-	_ = Simd_v128_store(m, s1, 4200, n0)
+	_ = Simd_v128_store(m, s1, 4168, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx777(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 8884794, 0)
+func Simd_p_fx764(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 8881869, 0)
 	_ = Simd_v128_store(m, s0, 320, n0)
-	n2 := Simd_v128_load(m, 8884778, 0)
+	n2 := Simd_v128_load(m, 8881853, 0)
 	_ = Simd_v128_store(m, s0, 304, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx778(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 168, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx779(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 216, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx780(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 240, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx781(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 24)
-	_ = Simd_v128_store(m, s1, 352, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx782(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx765(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 24)
 	_ = Simd_v128_store(m, s1, 24, n0)
 	n2 := Simd_v128_load(m, s0, 8)
@@ -9344,21 +9218,14 @@ func Simd_p_fx782(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx783(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 60)
-	_ = Simd_v128_store(m, s1, 60, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx784(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx766(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 96)
 	_ = Simd_v128_store(m, s1, 96, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx785(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx767(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 132)
 	_ = Simd_v128_store(m, s1, 132, n0)
 	n2 := Simd_v128_load(m, s0, 116)
@@ -9367,7 +9234,7 @@ func Simd_p_fx785(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx786(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx768(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0+24, 0)
 	n1 := Simd_i32x4_extend_low_i16x8_s(n0)
 	n2 := Simd_i64x2_extmul_low_i32x4_s(n1, n1)
@@ -9388,7 +9255,7 @@ func Simd_p_fx786(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx787(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx769(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_i32x4_extend_low_i16x8_s(n0)
 	n2 := Simd_i64x2_extmul_low_i32x4_s(n1, n1)
@@ -9397,7 +9264,35 @@ func Simd_p_fx787(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx788(m *Module, s0 int32) {
+func Simd_p_fx770(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 12)
+	_ = Simd_v128_store(m, s1, 8, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx771(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 8)
+	_ = Simd_v128_store(m, s1, 12, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx772(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 8)
+	_ = Simd_v128_store(m, s1, 56, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx773(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s1, 36, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx774(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0+48, 0)
 	_ = Simd_v128_store(m, s0, 16, n0)
 	n2 := Simd_v128_load(m, s0+32, 0)
@@ -9406,28 +9301,30 @@ func Simd_p_fx788(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx789(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 56, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx790(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx775(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 12)
-	_ = Simd_v128_store(m, s1, 8, n0)
+	_ = Simd_v128_store(m, s1, 36, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx791(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 12, n0)
-	return
+func Simd_p_fx776(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, 13350792, s0)
+	_ = Simd_v128_store(m, s1, s2, n0)
+	n2 := Simd_v128_load(m, 13350808, s0)
+	_ = Simd_v128_store(m, s1, 32, n2)
+	return n0[0], n0[1], n2[0], n2[1]
 }
 
 //go:noinline
-func Simd_p_fx792(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx777(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+	n0 := Simd_v128_load(m, 24019176, 0)
+	_ = Simd_v128_store(m, s0, s1, n0)
+	return n0[0], n0[1]
+}
+
+//go:noinline
+func Simd_p_fx778(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p0, p0h}, [2]uint64{795458214199165184, 216736831629295872})
 	n2 := Simd_v128_load32_lane(m, s0, 16, 2, n1)
@@ -9438,37 +9335,21 @@ func Simd_p_fx792(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, 
 }
 
 //go:noinline
-func Simd_p_fx793(m *Module, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{1084818905618843912, 216736831629295872})
-	n1 := Simd_i32x4_add([2]uint64{p0, p0h}, n0)
-	n2 := Simd_i8x16_shuffle(n1, n1, [2]uint64{216736831696667908, 216736831629295872})
-	n3 := Simd_i32x4_add(n1, n2)
-	return n3[0], n3[1]
-}
-
-//go:noinline
-func Simd_p_fx794(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 8925523, 0)
+func Simd_p_fx779(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 8922413, 0)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx795(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 13362544, 0)
+func Simd_p_fx780(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 13349808, 0)
 	_ = Simd_v128_store(m, s0, 94, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx796(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 12)
-	_ = Simd_v128_store(m, s1, 36, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx797(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx781(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	n2 := Simd_v128_load(m, s0+16, 0)
@@ -9477,71 +9358,14 @@ func Simd_p_fx797(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx798(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 176)
-	_ = Simd_v128_store(m, s1, 24, n0)
-	n2 := Simd_v128_load(m, s0, 160)
-	_ = Simd_v128_store(m, s1, 8, n2)
-	n4 := Simd_v128_load(m, s0, 196)
-	_ = Simd_v128_store(m, s1, 44, n4)
-	return
-}
-
-//go:noinline
-func Simd_p_fx799(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 212)
-	_ = Simd_v128_store(m, s1, 60, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx800(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 248)
-	_ = Simd_v128_store(m, s1, 96, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx801(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 268)
+func Simd_p_fx782(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 116)
 	_ = Simd_v128_store(m, s1, 116, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx802(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 40)
-	_ = Simd_v128_store(m, s1, 24, n0)
-	n2 := Simd_v128_load(m, s0, 24)
-	_ = Simd_v128_store(m, s1, 8, n2)
-	n4 := Simd_v128_load(m, s0, 60)
-	_ = Simd_v128_store(m, s1, 44, n4)
-	return
-}
-
-//go:noinline
-func Simd_p_fx803(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 76)
-	_ = Simd_v128_store(m, s1, 60, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx804(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 112)
-	_ = Simd_v128_store(m, s1, 96, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx805(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 132)
-	_ = Simd_v128_store(m, s1, 116, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx806(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx783(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	_ = Simd_v128_store(m, s0, 0, [2]uint64{p0, p0h})
@@ -9549,7 +9373,7 @@ func Simd_p_fx806(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx807(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx784(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i8x16_shuffle(n0, [2]uint64{p0, p0h}, [2]uint64{434320308619640833, 1013041691324254217})
 	_ = Simd_v128_store(m, s1, 48, n1)
@@ -9557,7 +9381,7 @@ func Simd_p_fx807(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx808(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx785(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_v128_load32_lane(m, s1, 0, 1, n0)
 	n2 := Simd_v128_load32_lane(m, s2, 0, 2, n1)
@@ -9567,28 +9391,28 @@ func Simd_p_fx808(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uin
 }
 
 //go:noinline
-func Simd_p_fx809(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx786(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 24)
 	_ = Simd_v128_store(m, s1, 144, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx810(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx787(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{72058693667390724, 72058693566333184})
 	n1 := Simd_i16x8_max_u([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx811(m *Module, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx788(m *Module, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{72058693566333698, 72058693566333184})
 	n1 := Simd_i16x8_max_u([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx812(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx789(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i16x8_extend_low_i8x16_u([2]uint64{p1, p1h})
 	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
 	n2 := Simd_i32x4_add([2]uint64{p0, p0h}, n1)
@@ -9596,21 +9420,21 @@ func Simd_p_fx812(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx813(m *Module, s0 int32) (uint64, uint64) {
+func Simd_p_fx790(m *Module, s0 int32) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 72)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return n0[0], n0[1]
 }
 
 //go:noinline
-func Simd_p_fx814(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
+func Simd_p_fx791(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s2, 88, n0)
 	return n0[0], n0[1]
 }
 
 //go:noinline
-func Simd_p_fx815(m *Module, s0 int32) {
+func Simd_p_fx792(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 88)
 	_ = Simd_v128_store(m, s0, 32, n0)
 	n2 := Simd_v128_load(m, s0, 72)
@@ -9619,7 +9443,7 @@ func Simd_p_fx815(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx816(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx793(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 576)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 560)
@@ -9628,7 +9452,7 @@ func Simd_p_fx816(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx817(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx794(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	n1 := Simd_v128_load(m, s2, s1)
 	_ = Simd_v128_store(m, s0, s1, n1)
@@ -9637,7 +9461,7 @@ func Simd_p_fx817(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint
 }
 
 //go:noinline
-func Simd_p_fx818(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx795(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load_rng(m, s0+384, 0, 0, 1336)
 	n1 := Simd_i64x2_add([2]uint64{p0, p0h}, n0)
 	n2 := Simd_v128_load_nc(m, s0+824, 0)
@@ -9650,28 +9474,28 @@ func Simd_p_fx818(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx819(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx796(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_i64x2_add([2]uint64{p0, p0h}, n0)
 	return n0[0], n0[1], n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx820(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 8807811, 0)
+func Simd_p_fx797(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 8805861, 0)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx821(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+func Simd_p_fx798(m *Module, s0 int32, s1 int32) (uint64, uint64) {
 	n0 := Simd_v128_load(m, 8407581, s0)
 	_ = Simd_v128_store(m, s1, s0, n0)
 	return n0[0], n0[1]
 }
 
 //go:noinline
-func Simd_p_fx822(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx799(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	n1 := Simd_v128_not(n0)
 	_ = Simd_v128_store(m, s0, s1, n1)
@@ -9679,7 +9503,7 @@ func Simd_p_fx822(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx823(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx800(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	n1 := Simd_v128_load(m, s2, s1)
 	n2 := Simd_i8x16_shuffle(n1, n1, [2]uint64{p0, p0h})
@@ -9690,7 +9514,7 @@ func Simd_p_fx823(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) (uint
 }
 
 //go:noinline
-func Simd_p_fx824(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx801(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 184, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -9699,7 +9523,7 @@ func Simd_p_fx824(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx825(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx802(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 224, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -9708,39 +9532,7 @@ func Simd_p_fx825(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx826(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 100)
-	_ = Simd_v128_store(m, s1, s2, n0)
-	n2 := Simd_v128_load(m, s0, s2)
-	_ = Simd_v128_store(m, s1, 68, n2)
-	return n0[0], n0[1], n2[0], n2[1]
-}
-
-//go:noinline
-func Simd_p_fx827(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_i32x4_splat(s0)
-	n1 := Simd_i32x4_ge_u(n0, [2]uint64{p0, p0h})
-	return n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx828(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
-	n0 := Simd_v128_bitselect([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
-	n1 := Simd_i8x16_shuffle(n0, n0, [2]uint64{1084818905618843912, 216736831629295872})
-	n2 := Simd_i32x4_add(n0, n1)
-	return n2[0], n2[1]
-}
-
-//go:noinline
-func Simd_p_fx829(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_bitselect([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
-	n1 := Simd_i8x16_shuffle(n0, n0, [2]uint64{1084818905618843912, 216736831629295872})
-	n2 := Simd_i32x4_add(n0, n1)
-	return n0[0], n0[1], n2[0], n2[1]
-}
-
-//go:noinline
-func Simd_p_fx830(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx803(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 133)
 	_ = Simd_v128_store(m, s1, 197, n0)
 	n2 := Simd_v128_load(m, s0, 117)
@@ -9751,7 +9543,7 @@ func Simd_p_fx830(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx831(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx804(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 68)
 	_ = Simd_v128_store(m, s1, 240, n0)
 	n2 := Simd_v128_load(m, s0, 52)
@@ -9764,7 +9556,7 @@ func Simd_p_fx831(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint
 }
 
 //go:noinline
-func Simd_p_fx832(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx805(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 68)
 	_ = Simd_v128_store(m, s1, 240, n0)
 	n2 := Simd_v128_load(m, s0, 52)
@@ -9777,7 +9569,7 @@ func Simd_p_fx832(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx833(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx806(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 112)
 	_ = Simd_v128_store(m, s1, 628, n0)
 	n2 := Simd_v128_load(m, s0, 96)
@@ -9790,7 +9582,7 @@ func Simd_p_fx833(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx834(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx807(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s2, s1, n0)
 	n2 := Simd_v128_load(m, s0, s3)
@@ -9803,7 +9595,7 @@ func Simd_p_fx834(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s
 }
 
 //go:noinline
-func Simd_p_fx835(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32, s6 int32, s7 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx808(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32, s6 int32, s7 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s2, s1, n0)
 	n2 := Simd_v128_load(m, s0, s3)
@@ -9816,7 +9608,7 @@ func Simd_p_fx835(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s
 }
 
 //go:noinline
-func Simd_p_fx836(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx809(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load_rng(m, s0, 20, 20, 48)
 	n1 := Simd_v128_load_nc(m, s0, 36)
 	n2 := Simd_v128_load_nc(m, s0, 52)
@@ -9829,14 +9621,14 @@ func Simd_p_fx836(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx837(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx810(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 500, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx838(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx811(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 940)
 	_ = Simd_v128_store(m, s1, 76, n0)
 	n2 := Simd_v128_load(m, s0, 64)
@@ -9845,14 +9637,14 @@ func Simd_p_fx838(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx839(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx812(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 84)
 	_ = Simd_v128_store(m, s1, 56, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx840(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx813(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 28)
 	_ = Simd_v128_store(m, s1, 28, n0)
 	n2 := Simd_v128_load(m, s0, 12)
@@ -9861,7 +9653,7 @@ func Simd_p_fx840(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx841(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx814(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 133)
 	_ = Simd_v128_store(m, s1, 42, n0)
 	n2 := Simd_v128_load(m, s0, 117)
@@ -9872,7 +9664,7 @@ func Simd_p_fx841(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx842(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx815(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 28)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 12)
@@ -9881,7 +9673,7 @@ func Simd_p_fx842(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx843(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx816(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 10)
 	_ = Simd_v128_store(m, s1, 101, n0)
 	n2 := Simd_v128_load(m, s0, 26)
@@ -9892,7 +9684,7 @@ func Simd_p_fx843(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx844(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx817(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 27)
 	_ = Simd_v128_store(m, s1, 68, n0)
 	n2 := Simd_v128_load(m, s0, 11)
@@ -9901,16 +9693,16 @@ func Simd_p_fx844(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx845(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 15069664, 0)
+func Simd_p_fx818(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 15003872, 0)
 	_ = Simd_v128_store(m, s0, 27, n0)
-	n2 := Simd_v128_load(m, 15069648, 0)
+	n2 := Simd_v128_load(m, 15003856, 0)
 	_ = Simd_v128_store(m, s0, 11, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx846(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
+func Simd_p_fx819(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s2)
 	n1 := Simd_v128_load_rng(m, s0, 0, 0, 32)
 	n2 := Simd_v128_load_nc(m, s0, 16)
@@ -9924,14 +9716,14 @@ func Simd_p_fx846(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx847(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx820(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_xor(n0, [2]uint64{p2, p2h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx848(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx821(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_splat(s2)
 	n1 := Simd_v128_load_rng(m, s0, 0, 0, 72)
 	n2 := Simd_v128_load_nc(m, s0, 16)
@@ -9942,7 +9734,7 @@ func Simd_p_fx848(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint
 }
 
 //go:noinline
-func Simd_p_fx849(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx822(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_v128_bitselect([2]uint64{p0, p0h}, n0, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 0, n1)
@@ -9950,7 +9742,7 @@ func Simd_p_fx849(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, 
 }
 
 //go:noinline
-func Simd_p_fx850(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx823(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_bitselect([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_v128_bitselect([2]uint64{p3, p3h}, [2]uint64{p4, p4h}, [2]uint64{p2, p2h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -9961,7 +9753,7 @@ func Simd_p_fx850(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64,
 }
 
 //go:noinline
-func Simd_p_fx851(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx824(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_i32x4_neg([2]uint64{p0, p0h})
 	n1 := Simd_i32x4_neg([2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -9970,7 +9762,7 @@ func Simd_p_fx851(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx852(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx825(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	n1 := Simd_v128_xor(n0, [2]uint64{p0, p0h})
 	n2 := Simd_v128_xor(n0, [2]uint64{p1, p1h})
@@ -9980,14 +9772,14 @@ func Simd_p_fx852(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx853(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, uint64) {
+func Simd_p_fx826(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s2, s3, n0)
 	return n0[0], n0[1]
 }
 
 //go:noinline
-func Simd_p_fx854(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx827(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s2, s1, n0)
 	n2 := Simd_v128_load(m, s0, s3)
@@ -9998,7 +9790,7 @@ func Simd_p_fx854(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, p0, p0h uin
 }
 
 //go:noinline
-func Simd_p_fx855(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx828(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s2, s1, n0)
 	n2 := Simd_v128_load(m, s0, s3)
@@ -10013,7 +9805,7 @@ func Simd_p_fx855(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, p
 }
 
 //go:noinline
-func Simd_p_fx856(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx829(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s2, s1, n0)
 	n2 := Simd_v128_load(m, s0, s3)
@@ -10022,7 +9814,7 @@ func Simd_p_fx856(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, ui
 }
 
 //go:noinline
-func Simd_p_fx857(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
+func Simd_p_fx830(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
 	n0 := Simd_i16x8_gt_u([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
 	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
 	n2 := Simd_v128_and(n1, [2]uint64{p3, p3h})
@@ -10043,7 +9835,7 @@ func Simd_p_fx857(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx858(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx831(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_i16x8_extend_low_i8x16_u([2]uint64{p1, p1h})
 	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
 	n2 := Simd_v128_or([2]uint64{p0, p0h}, n1)
@@ -10055,7 +9847,7 @@ func Simd_p_fx858(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) (uint64, 
 }
 
 //go:noinline
-func Simd_p_fx859(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx832(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 160)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	n2 := Simd_v128_load(m, s0, 144)
@@ -10066,7 +9858,7 @@ func Simd_p_fx859(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint
 }
 
 //go:noinline
-func Simd_p_fx860(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
+func Simd_p_fx833(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
 	n0 := Simd_v128_or([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_or(n0, [2]uint64{p2, p2h})
 	n2 := Simd_v128_or(n1, [2]uint64{p3, p3h})
@@ -10077,29 +9869,14 @@ func Simd_p_fx860(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx861(m *Module, s0 int32) {
+func Simd_p_fx834(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 28)
 	_ = Simd_v128_store(m, s0, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx862(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 224, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx863(m *Module, s0 int32, p0, p0h uint64) {
-	n0 := Simd_v128_load(m, s0, 208)
-	n1 := Simd_i64x2_add(n0, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, s0, 208, n1)
-	return
-}
-
-//go:noinline
-func Simd_p_fx864(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx835(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 32)
@@ -10110,7 +9887,7 @@ func Simd_p_fx864(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx865(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx836(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	_ = Simd_v128_store(m, s0, 16, [2]uint64{p0, p0h})
 	n1 := Simd_v128_load(m, s1, 56)
 	_ = Simd_v128_store(m, s0, 32, n1)
@@ -10119,7 +9896,14 @@ func Simd_p_fx865(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx866(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx837(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 344)
+	_ = Simd_v128_store(m, s1, 28, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx838(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 72)
 	n1 := Simd_v128_load(m, s1, 56)
 	n2 := Simd_f64x2_add(n0, n1)
@@ -10128,7 +9912,7 @@ func Simd_p_fx866(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx867(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx839(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 24)
 	n1 := Simd_v128_load(m, s1, 8)
 	n2 := Simd_f64x2_add(n0, n1)
@@ -10141,7 +9925,7 @@ func Simd_p_fx867(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx868(m *Module, s0 int32) {
+func Simd_p_fx840(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s0, 48, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -10150,16 +9934,16 @@ func Simd_p_fx868(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx869(m *Module, s0 int32) {
-	n0 := Simd_v128_load_rng(m, s0, 184, 160, 40)
-	n1 := Simd_v128_load_nc(m, s0, 160)
-	_ = Simd_v128_store(m, s0, 184, n1)
-	_ = Simd_v128_store(m, s0, 160, n0)
+func Simd_p_fx841(m *Module, s0 int32) {
+	n0 := Simd_v128_load_rng(m, s0, 176, 152, 40)
+	n1 := Simd_v128_load_nc(m, s0, 152)
+	_ = Simd_v128_store(m, s0, 176, n1)
+	_ = Simd_v128_store(m, s0, 152, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx870(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx842(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 144)
 	_ = Simd_v128_store(m, s1, 144, n0)
 	n2 := Simd_v128_load(m, s0, 160)
@@ -10170,7 +9954,7 @@ func Simd_p_fx870(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx871(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx843(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 152)
 	_ = Simd_v128_store(m, s1, 152, n0)
 	n2 := Simd_v128_load(m, s0, 168)
@@ -10181,14 +9965,21 @@ func Simd_p_fx871(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx872(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx844(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 4)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx873(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx845(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, s0, 120)
+	_ = Simd_v128_store(m, s0, 92, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx846(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 136, n0)
 	n2 := Simd_v128_load(m, s0, 24)
@@ -10197,14 +9988,14 @@ func Simd_p_fx873(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx874(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx847(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 168, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx875(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx848(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load_rng(m, s0, s1, 0, 32)
 	n1 := Simd_v128_load_nc(m, s0, s2)
 	n2 := Simd_i8x16_shuffle(n0, n1, [2]uint64{1084535218666537729, 2241977984075764497})
@@ -10213,7 +10004,7 @@ func Simd_p_fx875(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint
 }
 
 //go:noinline
-func Simd_p_fx876(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
+func Simd_p_fx849(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_add([2]uint64{p3, p3h}, [2]uint64{p4, p4h})
 	n1 := Simd_i8x16_lt_u(n0, [2]uint64{p5, p5h})
 	n2 := Simd_v128_bitselect([2]uint64{p1, p1h}, [2]uint64{p2, p2h}, n1)
@@ -10225,7 +10016,7 @@ func Simd_p_fx876(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx877(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx850(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i8x16_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i8x16_ge_u(n0, [2]uint64{p2, p2h})
 	n2 := Simd_v128_and(n1, [2]uint64{p3, p3h})
@@ -10234,14 +10025,14 @@ func Simd_p_fx877(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx878(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx851(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 240)
 	_ = Simd_v128_store(m, s1, 240, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx879(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx852(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s0, 48, n0)
 	n2 := Simd_v128_load(m, s0, 80)
@@ -10250,14 +10041,14 @@ func Simd_p_fx879(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx880(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx853(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 232)
 	_ = Simd_v128_store(m, s1, 232, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx881(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx854(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 284)
 	_ = Simd_v128_store(m, s1, 284, n0)
 	n2 := Simd_v128_load(m, s0, 268)
@@ -10266,30 +10057,14 @@ func Simd_p_fx881(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx882(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx855(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 352)
 	_ = Simd_v128_store(m, s1, 352, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx883(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 260)
-	_ = Simd_v128_store(m, s1, 260, n0)
-	n2 := Simd_v128_load(m, s0, 244)
-	_ = Simd_v128_store(m, s1, 244, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx884(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 328)
-	_ = Simd_v128_store(m, s1, 328, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx885(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx856(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 316)
 	_ = Simd_v128_store(m, s1, 316, n0)
 	n2 := Simd_v128_load(m, s0, 300)
@@ -10298,14 +10073,14 @@ func Simd_p_fx885(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx886(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx857(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 280)
 	_ = Simd_v128_store(m, s1, 280, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx887(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx858(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 340)
 	_ = Simd_v128_store(m, s1, 340, n0)
 	n2 := Simd_v128_load(m, s0, 324)
@@ -10314,17 +10089,7 @@ func Simd_p_fx887(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx888(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
-	n0 := Simd_i32x4_add([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
-	_ = Simd_v128_store(m, s0, 16, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, s0, 0, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, s0, 32, [2]uint64{p0, p0h})
-	_ = Simd_v128_store(m, s0, 8, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx889(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx859(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 152)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 136)
@@ -10333,16 +10098,7 @@ func Simd_p_fx889(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx890(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, s1)
-	_ = Simd_v128_store(m, s2, 48, n0)
-	n2 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s2, 32, n2)
-	return n0[0], n0[1], n2[0], n2[1]
-}
-
-//go:noinline
-func Simd_p_fx891(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
+func Simd_p_fx860(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_splat(s0)
 	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i32x4_lt_u(n1, [2]uint64{p1, p1h})
@@ -10354,28 +10110,30 @@ func Simd_p_fx891(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx892(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx861(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, s1)
+	_ = Simd_v128_store(m, s2, 48, n0)
+	n2 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s2, 32, n2)
+	return n0[0], n0[1], n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx862(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 256)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx893(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx863(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 312)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx894(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 368)
-	_ = Simd_v128_store(m, s1, 368, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx895(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx864(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 56)
 	_ = Simd_v128_store(m, s0, 136, n0)
 	n2 := Simd_v128_load(m, s0, 40)
@@ -10384,7 +10142,7 @@ func Simd_p_fx895(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx896(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx865(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 20)
 	_ = Simd_v128_store(m, s0, 96, n0)
 	n2 := Simd_v128_load(m, s0, s1)
@@ -10393,7 +10151,7 @@ func Simd_p_fx896(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint
 }
 
 //go:noinline
-func Simd_p_fx897(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx866(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 204)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 188)
@@ -10402,7 +10160,7 @@ func Simd_p_fx897(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx898(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx867(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 184)
 	_ = Simd_v128_store(m, s1, 184, n0)
 	n2 := Simd_v128_load(m, s0, 200)
@@ -10413,28 +10171,80 @@ func Simd_p_fx898(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx899(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx868(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 12)
 	_ = Simd_v128_store(m, s1, 280, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx900(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx869(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 16)
+	_ = Simd_v128_store(m, s1, 0, n0)
+	return n0[0], n0[1]
+}
+
+//go:noinline
+func Simd_p_fx870(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 20)
 	_ = Simd_v128_store(m, s1, 280, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx901(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx871(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load32_zero(m, s0, 0)
+	n1 := Simd_i8x16_eq(n0, [2]uint64{p1, p1h})
+	n2 := Simd_i16x8_extend_low_i8x16_u(n1)
+	n3 := Simd_i32x4_extend_low_i16x8_u(n2)
+	n4 := Simd_v128_and(n3, [2]uint64{p2, p2h})
+	n5 := Simd_i32x4_add([2]uint64{p0, p0h}, n4)
+	return n0[0], n0[1], n5[0], n5[1]
+}
+
+//go:noinline
+func Simd_p_fx872(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i32x4_splat(s0)
+	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx873(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load32_zero(m, s0, s1)
+	n1 := Simd_i8x16_eq(n0, [2]uint64{p0, p0h})
+	n2 := Simd_i16x8_extend_low_i8x16_s(n1)
+	n3 := Simd_i32x4_extend_low_i16x8_s(n2)
+	return n0[0], n0[1], n3[0], n3[1]
+}
+
+//go:noinline
+func Simd_p_fx874(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_i32x4_shl([2]uint64{p3, p3h}, s2)
+	n1 := Simd_i32x4_shr_s(n0, s2)
+	n2 := Simd_v128_bitselect([2]uint64{p1, p1h}, [2]uint64{p2, p2h}, n1)
+	n3 := Simd_i8x16_shuffle(n2, [2]uint64{p3, p3h}, [2]uint64{p4, p4h})
+	n4 := Simd_i32x4_max_u(n2, n3)
+	_ = Simd_v128_store(m, s0, s1, [2]uint64{p0, p0h})
+	return n2[0], n2[1], n4[0], n4[1]
+}
+
+//go:noinline
+func Simd_p_fx875(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx876(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 552)
 	_ = Simd_v128_store(m, s1, 552, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx902(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx877(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 212)
 	_ = Simd_v128_store(m, s1, 212, n0)
 	n2 := Simd_v128_load(m, s0, 228)
@@ -10443,7 +10253,7 @@ func Simd_p_fx902(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx903(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx878(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 132)
 	_ = Simd_v128_store(m, s1, 132, n0)
 	n2 := Simd_v128_load(m, s0, 148)
@@ -10452,7 +10262,16 @@ func Simd_p_fx903(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx904(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx879(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 140)
+	_ = Simd_v128_store(m, s1, 140, n0)
+	n2 := Simd_v128_load(m, s0, 156)
+	_ = Simd_v128_store(m, s1, 156, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx880(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 98)
 	_ = Simd_v128_store(m, s1, 34, n0)
 	n2 := Simd_v128_load(m, s0, 82)
@@ -10463,42 +10282,53 @@ func Simd_p_fx904(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx905(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 13243380, 0)
+func Simd_p_fx881(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 13231428, 0)
 	_ = Simd_v128_store(m, s0, 24, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx906(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx882(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 4)
+	_ = Simd_v128_store(m, s1, 4, n0)
+	n2 := Simd_v128_load(m, s0, 20)
+	_ = Simd_v128_store(m, s1, 20, n2)
+	n4 := Simd_v128_load(m, s0, 36)
+	_ = Simd_v128_store(m, s1, 36, n4)
+	return
+}
+
+//go:noinline
+func Simd_p_fx883(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 9)
 	_ = Simd_v128_store(m, s1, 25, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx907(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+func Simd_p_fx884(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
 	n0 := Simd_f64x2_div([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_f64x2_div(n0, [2]uint64{p2, p2h})
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx908(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
+func Simd_p_fx885(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
 	n0 := Simd_f64x2_neg([2]uint64{p1, p1h})
 	n1 := Simd_f64x2_mul([2]uint64{p0, p0h}, n0)
 	return n1[0], n1[1]
 }
 
 //go:noinline
-func Simd_p_fx909(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 13254456, 0)
-	_ = Simd_v128_store(m, s0, 4904, n0)
+func Simd_p_fx886(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 13242268, 0)
+	_ = Simd_v128_store(m, s0, 4872, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx910(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx887(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 52)
 	_ = Simd_v128_store(m, s1, 24, n0)
 	n2 := Simd_v128_load(m, s0, 36)
@@ -10507,15 +10337,7 @@ func Simd_p_fx910(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx911(m *Module, s0 int32, s1 int32) (uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 4532)
-	_ = Simd_v128_store(m, s1, 4532, n0)
-	n2 := Simd_v128_load(m, s0, 4516)
-	return n2[0], n2[1]
-}
-
-//go:noinline
-func Simd_p_fx912(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx888(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 44)
 	_ = Simd_v128_store(m, s1, 44, n0)
 	n2 := Simd_v128_load(m, s0, 60)
@@ -10524,51 +10346,60 @@ func Simd_p_fx912(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx913(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx889(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 12)
 	_ = Simd_v128_store(m, s1, 4, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx914(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx890(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0+8, 0)
 	_ = Simd_v128_store(m, s1+12, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx915(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx891(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+	n0 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s1, 0, n0)
+	_ = Simd_v128_store(m, s1, 16, [2]uint64{p0, p0h})
+	return
+}
+
+//go:noinline
+func Simd_p_fx892(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 18)
 	_ = Simd_v128_store(m, s1, 64, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx916(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, s1)
-	_ = Simd_v128_store(m, s2, 504, n0)
-	n2 := Simd_v128_load(m, s3+544, s1)
-	_ = Simd_v128_store(m, s2, 544, n2)
-	return n0[0], n0[1], n2[0], n2[1]
-}
-
-//go:noinline
-func Simd_p_fx917(m *Module, s0 int32) (uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 1344)
-	_ = Simd_v128_store(m, s0, 528, n0)
-	return n0[0], n0[1]
-}
-
-//go:noinline
-func Simd_p_fx918(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 36, n0)
+func Simd_p_fx893(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) {
+	n0 := Simd_i32x4_add([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
+	_ = Simd_v128_store(m, s0, 16, [2]uint64{p0, p0h})
+	_ = Simd_v128_store(m, s0, 0, [2]uint64{p0, p0h})
+	_ = Simd_v128_store(m, s0, 32, [2]uint64{p0, p0h})
+	_ = Simd_v128_store(m, s0, 8, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx919(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx894(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+	n0 := Simd_v128_load(m, s0+528, 0)
+	_ = Simd_v128_store(m, s1, 528, n0)
+	return n0[0], n0[1]
+}
+
+//go:noinline
+func Simd_p_fx895(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0+196, 0)
+	_ = Simd_v128_store(m, s1, 0, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx896(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and(n0, [2]uint64{p2, p2h})
 	n2 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p3, p3h})
@@ -10577,16 +10408,16 @@ func Simd_p_fx919(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx920(m *Module) {
-	n0 := Simd_v128_load(m, 15275820, 0)
-	_ = Simd_v128_store(m, 15275864, 0, n0)
-	n2 := Simd_v128_load(m, 15275836, 0)
-	_ = Simd_v128_store(m, 15275880, 0, n2)
+func Simd_p_fx897(m *Module) {
+	n0 := Simd_v128_load(m, 15209132, 0)
+	_ = Simd_v128_store(m, 15209176, 0, n0)
+	n2 := Simd_v128_load(m, 15209148, 0)
+	_ = Simd_v128_store(m, 15209192, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx921(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+func Simd_p_fx898(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s0, 0, [2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s1, 8, n0)
@@ -10594,7 +10425,7 @@ func Simd_p_fx921(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx922(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx899(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -10603,14 +10434,14 @@ func Simd_p_fx922(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx923(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx900(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
-	_ = Simd_v128_store(m, s1, 224, n0)
+	_ = Simd_v128_store(m, s1, 192, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx924(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx901(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i16x8_extend_low_i8x16_u([2]uint64{p0, p0h})
 	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
 	n2 := Simd_i32x4_mul(n1, [2]uint64{p1, p1h})
@@ -10620,7 +10451,7 @@ func Simd_p_fx924(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx925(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx902(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_lt_u([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	n1 := Simd_v128_bitselect([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, n0)
 	n2 := Simd_i32x4_shl([2]uint64{p5, p5h}, 31)
@@ -10631,7 +10462,14 @@ func Simd_p_fx925(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx926(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx903(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 328)
+	_ = Simd_v128_store(m, s1, 24, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx904(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_eq([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and(n0, [2]uint64{p2, p2h})
 	n2 := Simd_i32x4_eq([2]uint64{p0, p0h}, [2]uint64{p3, p3h})
@@ -10641,7 +10479,25 @@ func Simd_p_fx926(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx927(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx905(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 72)
+	_ = Simd_v128_store(m, s1, 16, n0)
+	n2 := Simd_v128_load(m, s0, 56)
+	_ = Simd_v128_store(m, s1, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx906(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, s0, 32)
+	_ = Simd_v128_store(m, s0, 72, n0)
+	n2 := Simd_v128_load(m, s0, 16)
+	_ = Simd_v128_store(m, s0, 56, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx907(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64) {
 	_ = Simd_v128_store(m, s0+44, 0, [2]uint64{p0, p0h})
 	_ = Simd_v128_store(m, s0+60, 0, [2]uint64{p1, p1h})
 	n2 := Simd_v128_load(m, s1, 0)
@@ -10650,21 +10506,14 @@ func Simd_p_fx927(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx928(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx908(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 252, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx929(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_i32x4_splat(s0)
-	n1 := Simd_i32x4_add(n0, [2]uint64{p0, p0h})
-	return n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx930(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx909(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 	n0 := Simd_v128_load32_zero(m, s0, 0)
 	n1 := Simd_i8x16_eq(n0, [2]uint64{p0, p0h})
 	n2 := Simd_i16x8_extend_low_i8x16_s(n1)
@@ -10673,7 +10522,7 @@ func Simd_p_fx930(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
 }
 
 //go:noinline
-func Simd_p_fx931(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
+func Simd_p_fx910(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_shl([2]uint64{p3, p3h}, 31)
 	n1 := Simd_i32x4_shr_s(n0, 31)
 	n2 := Simd_v128_bitselect([2]uint64{p1, p1h}, [2]uint64{p2, p2h}, n1)
@@ -10684,14 +10533,25 @@ func Simd_p_fx931(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h u
 }
 
 //go:noinline
-func Simd_p_fx932(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64) {
-	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{p1, p1h})
-	n1 := Simd_v128_or([2]uint64{p0, p0h}, n0)
-	return n1[0], n1[1]
+func Simd_p_fx911(m *Module, s0 int32, s1 int32, s2 int32) {
+	n0 := Simd_v128_load(m, s0, 16)
+	_ = Simd_v128_store(m, s1, 16, n0)
+	n2 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s1, 0, n2)
+	n4 := Simd_v128_load(m, s0, 32)
+	_ = Simd_v128_store(m, s2, 0, n4)
+	return
 }
 
 //go:noinline
-func Simd_p_fx933(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx912(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+	n0 := Simd_i8x16_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	_ = Simd_v128_store(m, s0, 0, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx913(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 68)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 52)
@@ -10700,7 +10560,7 @@ func Simd_p_fx933(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx934(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
+func Simd_p_fx914(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	n2 := Simd_v128_load(m, s0, 16)
@@ -10715,7 +10575,7 @@ func Simd_p_fx934(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64,
 }
 
 //go:noinline
-func Simd_p_fx935(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
+func Simd_p_fx915(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	_ = Simd_v128_store(m, s0, 48, [2]uint64{p0, p0h})
@@ -10726,7 +10586,7 @@ func Simd_p_fx935(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64,
 }
 
 //go:noinline
-func Simd_p_fx936(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
+func Simd_p_fx916(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -10739,7 +10599,7 @@ func Simd_p_fx936(m *Module, s0 int32, s1 int32, p0, p0h uint64, p1, p1h uint64,
 }
 
 //go:noinline
-func Simd_p_fx937(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx917(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 100)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 84)
@@ -10748,7 +10608,7 @@ func Simd_p_fx937(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx938(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx918(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 28)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 12)
@@ -10757,7 +10617,7 @@ func Simd_p_fx938(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx939(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx919(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 197)
 	_ = Simd_v128_store(m, s1, 133, n0)
 	n2 := Simd_v128_load(m, s0, 181)
@@ -10768,7 +10628,7 @@ func Simd_p_fx939(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx940(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx920(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 32)
@@ -10777,7 +10637,7 @@ func Simd_p_fx940(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx941(m *Module, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx921(m *Module, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i16x8_extend_high_i8x16_u([2]uint64{p0, p0h})
 	n1 := Simd_i32x4_extend_high_i16x8_u(n0)
 	n2 := Simd_i32x4_extend_low_i16x8_u(n0)
@@ -10788,7 +10648,7 @@ func Simd_p_fx941(m *Module, p0, p0h uint64) (uint64, uint64, uint64, uint64, ui
 }
 
 //go:noinline
-func Simd_p_fx942(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx922(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i16x8_extend_high_i8x16_u(n0)
 	n2 := Simd_i32x4_extend_high_i16x8_u(n1)
@@ -10800,7 +10660,7 @@ func Simd_p_fx942(m *Module, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, ui
 }
 
 //go:noinline
-func Simd_p_fx943(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx923(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{1948679894439893000, 2238040585792199692})
 	n1 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{1369958511735279616, 1659319203087586308})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -10809,14 +10669,14 @@ func Simd_p_fx943(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 }
 
 //go:noinline
-func Simd_p_fx944(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 12417984, 0)
+func Simd_p_fx924(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 12415568, 0)
 	_ = Simd_v128_store(m, s0, 16, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx945(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx925(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 48, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -10825,7 +10685,7 @@ func Simd_p_fx945(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx946(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx926(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s5 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	_ = Simd_v128_store(m, s2, s3, n0)
 	n2 := Simd_v128_load(m, s0, s4)
@@ -10838,7 +10698,7 @@ func Simd_p_fx946(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32, s
 }
 
 //go:noinline
-func Simd_p_fx947(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx927(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s0, 80, n0)
 	n2 := Simd_v128_load(m, s0, s1)
@@ -10847,7 +10707,7 @@ func Simd_p_fx947(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx948(m *Module, s0 int32, s1 int32, s2 int32) {
+func Simd_p_fx928(m *Module, s0 int32, s1 int32, s2 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	n2 := Simd_v128_load(m, s0, 16)
@@ -10860,7 +10720,7 @@ func Simd_p_fx948(m *Module, s0 int32, s1 int32, s2 int32) {
 }
 
 //go:noinline
-func Simd_p_fx949(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx929(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_sub([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_i32x4_sub([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
 	_ = Simd_v128_store(m, s0, 16, n0)
@@ -10873,7 +10733,7 @@ func Simd_p_fx949(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx950(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx930(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_i32x4_neg([2]uint64{p0, p0h})
 	n1 := Simd_i32x4_neg([2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, s1, n0)
@@ -10882,7 +10742,7 @@ func Simd_p_fx950(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p
 }
 
 //go:noinline
-func Simd_p_fx951(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
+func Simd_p_fx931(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64) {
 	n0 := Simd_i32x4_eq([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	n1 := Simd_v128_and(n0, [2]uint64{p2, p2h})
 	n2 := Simd_i32x4_eq([2]uint64{p3, p3h}, [2]uint64{p1, p1h})
@@ -10892,7 +10752,7 @@ func Simd_p_fx951(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3,
 }
 
 //go:noinline
-func Simd_p_fx952(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx932(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_scalar_i32_add(s0, s1)
 	n1 := Simd_v128_load(m, n0, 0)
 	_ = Simd_v128_store(m, s0, 0, n1)
@@ -10900,23 +10760,23 @@ func Simd_p_fx952(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx953(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
+func Simd_p_fx933(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64) {
 	n0 := Simd_v128_and([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
 	_ = Simd_v128_store(m, s0, 864, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx954(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 10166800, 0)
+func Simd_p_fx934(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 10164384, 0)
 	_ = Simd_v128_store(m, s0, 16, n0)
-	n2 := Simd_v128_load(m, 10166784, 0)
+	n2 := Simd_v128_load(m, 10164368, 0)
 	_ = Simd_v128_store(m, s0, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx955(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx935(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 28, n0)
 	n2 := Simd_v128_load(m, s0, 0)
@@ -10925,7 +10785,7 @@ func Simd_p_fx955(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx956(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx936(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s1, 40, n0)
 	n2 := Simd_v128_load(m, s0, 32)
@@ -10939,14 +10799,14 @@ func Simd_p_fx956(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx957(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
+func Simd_p_fx937(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 6)
 	_ = Simd_v128_store(m, s1, s2, n0)
 	return n0[0], n0[1]
 }
 
 //go:noinline
-func Simd_p_fx958(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx938(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 56)
 	_ = Simd_v128_store(m, s0, 112, n0)
 	n2 := Simd_v128_load(m, s0, 40)
@@ -10957,7 +10817,7 @@ func Simd_p_fx958(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64
 }
 
 //go:noinline
-func Simd_p_fx959(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) (uint64, uint64) {
+func Simd_p_fx939(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) (uint64, uint64) {
 	_ = Simd_v128_store(m, s0, 16, [2]uint64{p0, p0h})
 	n1 := Simd_v128_load(m, s1, 56)
 	_ = Simd_v128_store(m, s0, 32, n1)
@@ -10966,16 +10826,16 @@ func Simd_p_fx959(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64) (uint
 }
 
 //go:noinline
-func Simd_p_fx960(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx940(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	n2 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, 23933256, 0, n2)
+	_ = Simd_v128_store(m, 23864864, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx961(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx941(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 48)
 	_ = Simd_v128_store(m, s1, 112, n0)
 	n2 := Simd_v128_load(m, s0, 32)
@@ -10988,7 +10848,7 @@ func Simd_p_fx961(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx962(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx942(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 660)
 	_ = Simd_v128_store(m, s1, 40, n0)
 	n2 := Simd_v128_load(m, s0, 676)
@@ -10997,7 +10857,7 @@ func Simd_p_fx962(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx963(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx943(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 676)
 	_ = Simd_v128_store(m, s1, 56, n0)
 	n2 := Simd_v128_load(m, s0, 660)
@@ -11006,7 +10866,7 @@ func Simd_p_fx963(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx964(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx944(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 64)
 	n1 := Simd_v128_load(m, s1, s2)
 	n2 := Simd_v128_xor(n0, n1)
@@ -11016,16 +10876,16 @@ func Simd_p_fx964(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint
 }
 
 //go:noinline
-func Simd_p_fx965(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 164)
+func Simd_p_fx945(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 156)
 	_ = Simd_v128_store(m, s1, 16, n0)
-	n2 := Simd_v128_load(m, s0, 148)
+	n2 := Simd_v128_load(m, s0, 140)
 	_ = Simd_v128_store(m, s1, 0, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx966(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx946(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 24)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 8)
@@ -11034,14 +10894,14 @@ func Simd_p_fx966(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint
 }
 
 //go:noinline
-func Simd_p_fx967(m *Module, s0 int32) {
+func Simd_p_fx947(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s0, 536, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx968(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx948(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 56)
 	n1 := Simd_v128_load(m, s1, 56)
 	n2 := Simd_f64x2_add(n0, n1)
@@ -11050,7 +10910,7 @@ func Simd_p_fx968(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx969(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx949(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	n1 := Simd_v128_load(m, s1, 8)
 	n2 := Simd_f64x2_add(n0, n1)
@@ -11063,14 +10923,7 @@ func Simd_p_fx969(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx970(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, s0, 124)
-	_ = Simd_v128_store(m, s0, 96, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx971(m *Module, s0 int32) {
+func Simd_p_fx950(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 56)
 	_ = Simd_v128_store(m, s0, 16, n0)
 	n2 := Simd_v128_load(m, s0, 40)
@@ -11079,46 +10932,54 @@ func Simd_p_fx971(m *Module, s0 int32) {
 }
 
 //go:noinline
-func Simd_p_fx972(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx951(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
-	_ = Simd_v128_store(m, s1, 88, n0)
+	_ = Simd_v128_store(m, s1, 84, n0)
 	n2 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 104, n2)
+	_ = Simd_v128_store(m, s1, 100, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx973(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 164)
-	_ = Simd_v128_store(m, s1, 164, n0)
+func Simd_p_fx952(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 160)
+	_ = Simd_v128_store(m, s1, 160, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx974(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 188)
-	_ = Simd_v128_store(m, s1, 188, n0)
-	n2 := Simd_v128_load(m, s0, 204)
-	_ = Simd_v128_store(m, s1, 204, n2)
+func Simd_p_fx953(m *Module, s0 int32, s1 int32, p0, p0h uint64) {
+	_ = Simd_v128_store(m, s0, 160, [2]uint64{p0, p0h})
+	n1 := Simd_v128_load(m, s1, 196)
+	_ = Simd_v128_store(m, s0, 196, n1)
+	n3 := Simd_v128_load(m, s1, 180)
+	_ = Simd_v128_store(m, s0, 180, n3)
 	return
 }
 
 //go:noinline
-func Simd_p_fx975(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 116)
-	_ = Simd_v128_store(m, s1, 116, n0)
+func Simd_p_fx954(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 108)
+	_ = Simd_v128_store(m, s1, 108, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx976(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx955(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 136)
+	_ = Simd_v128_store(m, s1, 136, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx956(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 176)
 	_ = Simd_v128_store(m, s1, 176, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx977(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx957(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 136)
 	_ = Simd_v128_store(m, s1, 136, n0)
 	n2 := Simd_v128_load(m, s0, 152)
@@ -11127,28 +10988,28 @@ func Simd_p_fx977(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx978(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx958(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 144)
 	_ = Simd_v128_store(m, s1, 144, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx979(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx959(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 192)
 	_ = Simd_v128_store(m, s1, 192, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx980(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx960(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 172)
 	_ = Simd_v128_store(m, s1, 172, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx981(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx961(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 176)
 	_ = Simd_v128_store(m, s1, 176, n0)
 	n2 := Simd_v128_load(m, s0, 192)
@@ -11157,7 +11018,7 @@ func Simd_p_fx981(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx982(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx962(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 20)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 4)
@@ -11166,7 +11027,7 @@ func Simd_p_fx982(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx983(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx963(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 144)
 	_ = Simd_v128_store(m, s1, 144, n0)
 	n2 := Simd_v128_load(m, s0, 160)
@@ -11175,7 +11036,7 @@ func Simd_p_fx983(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx984(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx964(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, s1)
 	n1 := Simd_v128_load(m, s2, s3)
 	_ = Simd_v128_store(m, s0, s1, n1)
@@ -11183,68 +11044,21 @@ func Simd_p_fx984(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, ui
 }
 
 //go:noinline
-func Simd_p_fx985(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx965(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 56)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx986(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx966(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 32)
 	_ = Simd_v128_store(m, s1, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx987(m *Module, s0 int32, s1 int32) (uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 16)
-	_ = Simd_v128_store(m, s1, 0, n0)
-	return n0[0], n0[1]
-}
-
-//go:noinline
-func Simd_p_fx988(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_load32_zero(m, s0, 0)
-	n1 := Simd_i8x16_eq(n0, [2]uint64{p1, p1h})
-	n2 := Simd_i16x8_extend_low_i8x16_u(n1)
-	n3 := Simd_i32x4_extend_low_i16x8_u(n2)
-	n4 := Simd_v128_and(n3, [2]uint64{p2, p2h})
-	n5 := Simd_i32x4_add([2]uint64{p0, p0h}, n4)
-	return n0[0], n0[1], n5[0], n5[1]
-}
-
-//go:noinline
-func Simd_p_fx989(m *Module, s0 int32, s1 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_v128_load32_zero(m, s0, s1)
-	n1 := Simd_i8x16_eq(n0, [2]uint64{p0, p0h})
-	n2 := Simd_i16x8_extend_low_i8x16_s(n1)
-	n3 := Simd_i32x4_extend_low_i16x8_s(n2)
-	return n0[0], n0[1], n3[0], n3[1]
-}
-
-//go:noinline
-func Simd_p_fx990(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) (uint64, uint64, uint64, uint64) {
-	n0 := Simd_i32x4_shl([2]uint64{p3, p3h}, s2)
-	n1 := Simd_i32x4_shr_s(n0, s2)
-	n2 := Simd_v128_bitselect([2]uint64{p1, p1h}, [2]uint64{p2, p2h}, n1)
-	n3 := Simd_i8x16_shuffle(n2, [2]uint64{p3, p3h}, [2]uint64{p4, p4h})
-	n4 := Simd_i32x4_max_u(n2, n3)
-	_ = Simd_v128_store(m, s0, s1, [2]uint64{p0, p0h})
-	return n2[0], n2[1], n4[0], n4[1]
-}
-
-//go:noinline
-func Simd_p_fx991(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 140)
-	_ = Simd_v128_store(m, s1, 140, n0)
-	n2 := Simd_v128_load(m, s0, 156)
-	_ = Simd_v128_store(m, s1, 156, n2)
-	return
-}
-
-//go:noinline
-func Simd_p_fx992(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx967(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 8, n0)
 	n2 := Simd_v128_load(m, s0, 20)
@@ -11255,25 +11069,28 @@ func Simd_p_fx992(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx993(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 4)
-	_ = Simd_v128_store(m, s1, 4, n0)
-	n2 := Simd_v128_load(m, s0, 20)
-	_ = Simd_v128_store(m, s1, 20, n2)
-	n4 := Simd_v128_load(m, s0, 36)
-	_ = Simd_v128_store(m, s1, 36, n4)
-	return
-}
-
-//go:noinline
-func Simd_p_fx994(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx968(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 132)
 	_ = Simd_v128_store(m, s1, 132, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx995(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx969(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 164)
+	_ = Simd_v128_store(m, s1, 164, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx970(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 8673490, 0)
+	_ = Simd_v128_store(m, s0, 0, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx971(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 20)
 	n1 := Simd_f64x2_sub([2]uint64{p0, p0h}, n0)
 	n2 := Simd_f64x2_mul(n1, n1)
@@ -11281,7 +11098,7 @@ func Simd_p_fx995(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, 
 }
 
 //go:noinline
-func Simd_p_fx996(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx972(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 0)
 	n1 := Simd_f64x2_sub([2]uint64{p0, p0h}, n0)
 	n2 := Simd_f64x2_mul(n1, n1)
@@ -11289,7 +11106,7 @@ func Simd_p_fx996(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, 
 }
 
 //go:noinline
-func Simd_p_fx997(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx973(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0+16, 0)
 	n1 := Simd_f64x2_sub([2]uint64{p0, p0h}, n0)
 	n2 := Simd_f64x2_mul(n1, n1)
@@ -11297,7 +11114,7 @@ func Simd_p_fx997(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, 
 }
 
 //go:noinline
-func Simd_p_fx998(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
+func Simd_p_fx974(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load(m, s0, 25)
 	n1 := Simd_f64x2_sub([2]uint64{p0, p0h}, n0)
 	n2 := Simd_f64x2_mul(n1, n1)
@@ -11305,7 +11122,7 @@ func Simd_p_fx998(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, 
 }
 
 //go:noinline
-func Simd_p_fx999(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64) {
+func Simd_p_fx975(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, uint64, uint64, uint64) {
 	n0 := Simd_v128_load_rng(m, s0, 0, 0, 32)
 	n1 := Simd_f64x2_sub([2]uint64{p0, p0h}, n0)
 	n2 := Simd_f64x2_mul(n1, n1)
@@ -11316,37 +11133,37 @@ func Simd_p_fx999(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64, uint64, 
 }
 
 //go:noinline
-func Simd_p_fx1000(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 4516)
-	_ = Simd_v128_store(m, s1, 4516, n0)
-	n2 := Simd_v128_load(m, s0, 4532)
-	_ = Simd_v128_store(m, s1, 4532, n2)
+func Simd_p_fx976(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 4476)
+	_ = Simd_v128_store(m, s1, 4476, n0)
+	n2 := Simd_v128_load(m, s0, 4492)
+	_ = Simd_v128_store(m, s1, 4492, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1001(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx977(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 16)
 	_ = Simd_v128_store(m, s1, 12, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1002(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx978(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 4, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1003(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 8897687, 0)
+func Simd_p_fx979(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 8894756, 0)
 	_ = Simd_v128_store(m, s0, 96, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1004(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx980(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 12)
 	_ = Simd_v128_store(m, s1, 12, n0)
 	n2 := Simd_v128_load(m, s0, 28)
@@ -11355,49 +11172,58 @@ func Simd_p_fx1004(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx1005(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 23996864, 0)
+func Simd_p_fx981(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 23928544, 0)
 	_ = Simd_v128_store(m, s0, 12, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1006(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 23996880, 0)
+func Simd_p_fx982(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 23928560, 0)
 	_ = Simd_v128_store(m, s0, 28, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1007(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx983(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1, 136, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1008(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0+196, 0)
-	_ = Simd_v128_store(m, s1, 0, n0)
+func Simd_p_fx984(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 84)
+	_ = Simd_v128_store(m, s1, 24, n0)
+	n2 := Simd_v128_load(m, s0, 68)
+	_ = Simd_v128_store(m, s1, 8, n2)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1009(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx985(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 0)
 	_ = Simd_v128_store(m, s1+196, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1010(m *Module, s0 int32) {
-	n0 := Simd_v128_load(m, 13369840, 0)
+func Simd_p_fx986(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 1344)
+	_ = Simd_v128_store(m, s1, 16, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx987(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, 13355584, 0)
 	_ = Simd_v128_store(m, s0, 0, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1011(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx988(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 44)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 28)
@@ -11406,37 +11232,64 @@ func Simd_p_fx1011(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx1012(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 24)
-	_ = Simd_v128_store(m, s1, 8, n0)
+func Simd_p_fx989(m *Module, s0 int32, s1 int32) (uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 160)
+	_ = Simd_v128_store(m, s1, 160, n0)
+	n2 := Simd_v128_load(m, s0, 176)
+	return n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx990(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 15)
+	_ = Simd_v128_store(m, s1, 84, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1013(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 52)
-	_ = Simd_v128_store(m, s1, 44, n0)
-	n2 := Simd_v128_load(m, s0, 68)
-	_ = Simd_v128_store(m, s1, 60, n2)
+func Simd_p_fx991(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 126)
+	_ = Simd_v128_store(m, s1, 126, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1014(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 96)
-	_ = Simd_v128_store(m, s1, 88, n0)
+func Simd_p_fx992(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 106)
+	_ = Simd_v128_store(m, s1, 106, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1015(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx993(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 0)
+	n1 := Simd_i32x4_max_u([2]uint64{p0, p0h}, n0)
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx994(m *Module, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{1084818905618843912, 216736831629295872})
+	n1 := Simd_i32x4_max_u([2]uint64{p0, p0h}, n0)
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx995(m *Module, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{216736831696667908, 216736831629295872})
+	n1 := Simd_i32x4_max_u([2]uint64{p0, p0h}, n0)
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx996(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 24)
 	_ = Simd_v128_store(m, s1, 32, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1016(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx997(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 8)
 	_ = Simd_v128_store(m, s1, 16, n0)
 	n2 := Simd_v128_load(m, s0, 44)
@@ -11447,53 +11300,294 @@ func Simd_p_fx1016(m *Module, s0 int32, s1 int32) {
 }
 
 //go:noinline
-func Simd_p_fx1017(m *Module, s0 int32, s1 int32) {
+func Simd_p_fx998(m *Module, s0 int32, s1 int32) {
 	n0 := Simd_v128_load(m, s0, 88)
 	_ = Simd_v128_store(m, s1, 96, n0)
 	return
 }
 
 //go:noinline
-func Simd_p_fx1018(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 134)
-	_ = Simd_v128_store(m, s1, 134, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx1019(m *Module, s0 int32, s1 int32) {
-	n0 := Simd_v128_load(m, s0, 328)
-	_ = Simd_v128_store(m, s1, 24, n0)
-	return
-}
-
-//go:noinline
-func Simd_p_fx1020(m *Module, s0 int32, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_v128_load(m, s0, 0)
-	n1 := Simd_i32x4_max_u([2]uint64{p0, p0h}, n0)
-	return n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx1021(m *Module, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{1084818905618843912, 216736831629295872})
-	n1 := Simd_i32x4_max_u([2]uint64{p0, p0h}, n0)
-	return n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx1022(m *Module, p0, p0h uint64) (uint64, uint64) {
-	n0 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, [2]uint64{p0, p0h}, [2]uint64{216736831696667908, 216736831629295872})
-	n1 := Simd_i32x4_max_u([2]uint64{p0, p0h}, n0)
-	return n1[0], n1[1]
-}
-
-//go:noinline
-func Simd_p_fx1023(m *Module, s0 int32) {
+func Simd_p_fx999(m *Module, s0 int32) {
 	n0 := Simd_v128_load(m, s0, 60)
 	_ = Simd_v128_store(m, s0, 24, n0)
 	n2 := Simd_v128_load(m, s0, 44)
 	_ = Simd_v128_store(m, s0, 8, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx1000(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 24)
+	_ = Simd_v128_store(m, s1, 16, n0)
+	n2 := Simd_v128_load(m, s0, 8)
+	_ = Simd_v128_store(m, s1, 0, n2)
+	return n0[0], n0[1], n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx1001(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 60)
+	_ = Simd_v128_store(m, s0, 24, n0)
+	n2 := Simd_v128_load(m, s0, 44)
+	_ = Simd_v128_store(m, s0, 8, n2)
+	return n0[0], n0[1], n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx1002(m *Module, s0 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 64)
+	_ = Simd_v128_store(m, s0, 24, n0)
+	n2 := Simd_v128_load(m, s0, 48)
+	_ = Simd_v128_store(m, s0, 8, n2)
+	return n0[0], n0[1], n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx1003(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64) (uint64, uint64) {
+	n0 := Simd_i32x4_eq([2]uint64{p1, p1h}, [2]uint64{p2, p2h})
+	n1 := Simd_v128_bitselect([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, n0)
+	_ = Simd_v128_store(m, 24221016, 0, n1)
+	return n1[0], n1[1]
+}
+
+//go:noinline
+func Simd_p_fx1004(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 208)
+	_ = Simd_v128_store(m, s1, 208, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx1005(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, 23928544, s0)
+	_ = Simd_v128_store(m, s1, 12, n0)
+	n2 := Simd_v128_load(m, 23928560, s0)
+	_ = Simd_v128_store(m, s1, 28, n2)
+	return n0[0], n0[1], n2[0], n2[1]
+}
+
+//go:noinline
+func Simd_p_fx1006(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64) {
+	n0 := Simd_i32x4_splat(s0)
+	n1 := Simd_i8x16_splat(s1)
+	n2 := Simd_v128_and(n0, n1)
+	n3 := Simd_i32x4_splat(s2)
+	n4 := Simd_v128_xor(n2, n3)
+	return n4[0], n4[1]
+}
+
+//go:noinline
+func Simd_p_fx1007(m *Module, s0 int32, s1 int32, s2 int32) {
+	n0 := Simd_v128_load(m, s0, 16)
+	_ = Simd_v128_store(m, s1, 16, n0)
+	n2 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s1, 0, n2)
+	n4 := Simd_v128_load(m, s2, 0)
+	_ = Simd_v128_store(m, s1, 32, n4)
+	n6 := Simd_v128_load(m, s2, 16)
+	_ = Simd_v128_store(m, s1, 48, n6)
+	return
+}
+
+//go:noinline
+func Simd_p_fx1008(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load_rng(m, s0, 36, 20, 48)
+	n1 := Simd_v128_load_nc(m, s0, 20)
+	n2 := Simd_v128_load_nc(m, s0, 52)
+	_ = Simd_v128_store(m, s1, 32, n2)
+	n4 := Simd_v128_load(m, s0, 68)
+	_ = Simd_v128_store(m, s1, 48, n4)
+	_ = Simd_v128_store(m, s1, 0, n1)
+	_ = Simd_v128_store(m, s1, 16, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx1009(m *Module, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64, p5, p5h uint64, p6, p6h uint64) (uint64, uint64) {
+	n0 := Simd_v128_xor([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	n1 := Simd_v128_xor(n0, [2]uint64{p2, p2h})
+	n2 := Simd_v128_xor(n1, [2]uint64{p3, p3h})
+	n3 := Simd_v128_xor(n2, [2]uint64{p4, p4h})
+	n4 := Simd_v128_xor(n3, [2]uint64{p5, p5h})
+	n5 := Simd_v128_and(n4, [2]uint64{p6, p6h})
+	return n5[0], n5[1]
+}
+
+//go:noinline
+func Simd_p_fx1010(m *Module, p0, p0h uint64) (uint64, uint64) {
+	n0 := Simd_i16x8_extend_low_i8x16_u([2]uint64{p0, p0h})
+	n1 := Simd_i32x4_extend_low_i16x8_u(n0)
+	n2 := Simd_i32x4_shr_u(n1, 2)
+	n3 := Simd_i8x16_shuffle([2]uint64{p0, p0h}, n1, [2]uint64{117835012, 0})
+	n4 := Simd_i16x8_extend_low_i8x16_u(n3)
+	n5 := Simd_i32x4_extend_low_i16x8_u(n4)
+	n6 := Simd_i32x4_shr_u(n5, 2)
+	n7 := Simd_i32x4_shr_u(n1, 1)
+	n8 := Simd_v128_xor(n2, n7)
+	n9 := Simd_i32x4_shr_u(n1, 3)
+	n10 := Simd_v128_xor(n8, n9)
+	n11 := Simd_i32x4_shr_u(n1, 4)
+	n12 := Simd_v128_xor(n10, n11)
+	n13 := Simd_i32x4_shr_u(n1, 5)
+	n14 := Simd_v128_xor(n12, n13)
+	n15 := Simd_i32x4_shr_u(n1, 6)
+	n16 := Simd_v128_xor(n14, n15)
+	n17 := Simd_i32x4_shr_u(n1, 7)
+	n18 := Simd_v128_xor(n16, n17)
+	n19 := Simd_v128_xor(n18, n1)
+	n20 := Simd_i32x4_shr_u(n5, 1)
+	n21 := Simd_v128_xor(n6, n20)
+	n22 := Simd_i32x4_shr_u(n5, 3)
+	n23 := Simd_v128_xor(n21, n22)
+	n24 := Simd_i32x4_shr_u(n5, 4)
+	n25 := Simd_v128_xor(n23, n24)
+	n26 := Simd_i32x4_shr_u(n5, 5)
+	n27 := Simd_v128_xor(n25, n26)
+	n28 := Simd_i32x4_shr_u(n5, 6)
+	n29 := Simd_v128_xor(n27, n28)
+	n30 := Simd_i32x4_shr_u(n5, 7)
+	n31 := Simd_v128_xor(n29, n30)
+	n32 := Simd_v128_xor(n31, n5)
+	n33 := Simd_v128_and(n19, n32)
+	n34 := Simd_i8x16_shuffle(n33, n33, [2]uint64{1084818905618843912, 216736831629295872})
+	n35 := Simd_v128_and(n33, n34)
+	return n35[0], n35[1]
+}
+
+//go:noinline
+func Simd_p_fx1011(m *Module, s0 int32, s1 int32, s2 int32, s3 int32, s4 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 80)
+	_ = Simd_v128_store(m, s1, s2, n0)
+	n2 := Simd_v128_load(m, s0, 64)
+	_ = Simd_v128_store(m, s1, s3, n2)
+	n4 := Simd_v128_load(m, s0, s2)
+	_ = Simd_v128_store(m, s1, 16, n4)
+	n6 := Simd_v128_load(m, s0, s3)
+	_ = Simd_v128_store(m, s1, s4, n6)
+	return n0[0], n0[1], n2[0], n2[1], n4[0], n4[1], n6[0], n6[1]
+}
+
+//go:noinline
+func Simd_p_fx1012(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, s0, 14)
+	_ = Simd_v128_store(m, s0, 280, n0)
+	return
+}
+
+//go:noinline
+func Simd_p_fx1013(m *Module, s0 int32) {
+	n0 := Simd_v128_load(m, s0, 16)
+	_ = Simd_v128_store(m, s0, 80, n0)
+	n2 := Simd_v128_load(m, s0, 0)
+	_ = Simd_v128_store(m, s0, 64, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx1014(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 80)
+	_ = Simd_v128_store(m, s1, 48, n0)
+	n2 := Simd_v128_load(m, s0, 64)
+	_ = Simd_v128_store(m, s1, 32, n2)
+	n4 := Simd_v128_load(m, s0, 48)
+	_ = Simd_v128_store(m, s1, 16, n4)
+	n6 := Simd_v128_load(m, s0, 32)
+	_ = Simd_v128_store(m, s1, 0, n6)
+	return
+}
+
+//go:noinline
+func Simd_p_fx1015(m *Module, s0 int32, s1 int32, s2 int32) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+	n0 := Simd_i32x4_splat(s2)
+	n1 := Simd_v128_load_rng(m, s0, 0, 0, 32)
+	n2 := Simd_v128_load_nc(m, s0, 16)
+	n3 := Simd_v128_load(m, s1, 16)
+	n4 := Simd_v128_bitselect(n2, n3, n0)
+	_ = Simd_v128_store(m, s1, 16, n4)
+	return n1[0], n1[1], n2[0], n2[1], n3[0], n3[1], n0[0], n0[1]
+}
+
+//go:noinline
+func Simd_p_fx1016(m *Module, s0 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64, p4, p4h uint64) {
+	n0 := Simd_v128_bitselect([2]uint64{p0, p0h}, [2]uint64{p1, p1h}, [2]uint64{p2, p2h})
+	n1 := Simd_v128_bitselect([2]uint64{p3, p3h}, [2]uint64{p4, p4h}, [2]uint64{p2, p2h})
+	_ = Simd_v128_store(m, s0, 16, n0)
+	_ = Simd_v128_store(m, s0, 0, n1)
+	return
+}
+
+//go:noinline
+func Simd_p_fx1017(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+	n0 := Simd_i32x4_add([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	n1 := Simd_i32x4_add([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
+	_ = Simd_v128_store(m, s0, 16, n0)
+	_ = Simd_v128_store(m, s0, 0, n1)
+	n4 := Simd_v128_load_rng(m, s1, 0, 0, 112)
+	n5 := Simd_v128_load_nc(m, s2, 0)
+	n6 := Simd_v128_load_nc(m, s1, 16)
+	n7 := Simd_v128_load_nc(m, s2, 16)
+	return n4[0], n4[1], n5[0], n5[1], n6[0], n6[1], n7[0], n7[1]
+}
+
+//go:noinline
+func Simd_p_fx1018(m *Module, s0 int32, s1 int32, s2 int32, p0, p0h uint64, p1, p1h uint64, p2, p2h uint64, p3, p3h uint64) (uint64, uint64, uint64, uint64, uint64, uint64, uint64, uint64) {
+	n0 := Simd_i32x4_sub([2]uint64{p0, p0h}, [2]uint64{p1, p1h})
+	n1 := Simd_i32x4_sub([2]uint64{p2, p2h}, [2]uint64{p3, p3h})
+	_ = Simd_v128_store(m, s0, 16, n0)
+	_ = Simd_v128_store(m, s0, 0, n1)
+	n4 := Simd_v128_load_rng(m, s1, 0, 0, 32)
+	n5 := Simd_v128_load_rng(m, s2+128, 0, 0, 32)
+	n6 := Simd_v128_load_nc(m, s1, 16)
+	n7 := Simd_v128_load_nc(m, s2+128, 16)
+	return n4[0], n4[1], n5[0], n5[1], n6[0], n6[1], n7[0], n7[1]
+}
+
+//go:noinline
+func Simd_p_fx1019(m *Module, s0 int32, s1 int32) (uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 64)
+	_ = Simd_v128_store(m, s1, 64, n0)
+	n2 := Simd_v128_load_rng(m, s0, 48, 32, 32)
+	n3 := Simd_v128_load_nc(m, s0, 32)
+	return n2[0], n2[1], n3[0], n3[1]
+}
+
+//go:noinline
+func Simd_p_fx1020(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 56)
+	_ = Simd_v128_store(m, s1, 32, n0)
+	n2 := Simd_v128_load(m, s0, 40)
+	_ = Simd_v128_store(m, s1, 16, n2)
+	n4 := Simd_v128_load(m, s0, 24)
+	_ = Simd_v128_store(m, s1, 0, n4)
+	return
+}
+
+//go:noinline
+func Simd_p_fx1021(m *Module, s0 int32, s1 int32, s2 int32, s3 int32) (uint64, uint64, uint64, uint64, uint64, uint64) {
+	n0 := Simd_v128_load(m, s0, 32)
+	_ = Simd_v128_store(m, s1, 168, n0)
+	n2 := Simd_v128_load(m, s0, 16)
+	_ = Simd_v128_store(m, s1, 152, n2)
+	n4 := Simd_v128_load(m, s0, s2)
+	_ = Simd_v128_store(m, s1, s3, n4)
+	return n0[0], n0[1], n2[0], n2[1], n4[0], n4[1]
+}
+
+//go:noinline
+func Simd_p_fx1022(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 1496)
+	_ = Simd_v128_store(m, s1, 16, n0)
+	n2 := Simd_v128_load(m, s0, 1512)
+	_ = Simd_v128_store(m, s1, 0, n2)
+	return
+}
+
+//go:noinline
+func Simd_p_fx1023(m *Module, s0 int32, s1 int32) {
+	n0 := Simd_v128_load(m, s0, 24)
+	_ = Simd_v128_store(m, s1, 16, n0)
+	n2 := Simd_v128_load(m, s0, 8)
+	_ = Simd_v128_store(m, s1, 0, n2)
 	return
 }
 

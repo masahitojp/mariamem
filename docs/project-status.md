@@ -24,7 +24,17 @@ cache freshness, regeneration or deletion. Diagnostics do not define the normal
 Snapshot lifecycle. These are product choices independent of reference-project
 APIs. See the [adopted contract](decisions/snapshot-product-contract.md).
 
-## Current published release: v0.4.6 — Product usability and validation
+## Current published release: v0.4.7 — Upstream converter migration
+
+[v0.4.7](https://github.com/masahitojp/mariamem/releases/tag/v0.4.7) was published
+on 2026-10-11 from source `e0be06f3a20c72cbb5a9be27971280c80a3ec357`;
+annotated tag object `c201bf577440440253155e665def9c25ac5064f0`.
+It adopts pinned goccy/wasm2go plus nine maintained patches on the unchanged
+13.1.0 guest. Its published source is the A–D execution baseline; the former
+candidate notes below preserve preparation scope. A–D changes are unqualified
+until their own final native qualification and Human Review.
+
+## Previous release: v0.4.6 — Product usability and validation
 
 [v0.4.6](https://github.com/masahitojp/mariamem/releases/tag/v0.4.6) was published
 on 2026-10-10 from source `b56be17206b6beef18f55c8ea39b254638da8590`;
@@ -189,13 +199,13 @@ must be rechecked before integrating an optimization selected on the old guest.
 
 ## v0.4.7 — Upstream converter migration (candidate)
 
-The approved scope replaces the pinned shibukawa converter fork with pinned
+The released scope replaces the pinned shibukawa converter fork with pinned
 `goccy/wasm2go` plus nine maintained patches. MariaDB guest identity, public APIs,
 Snapshot format and minimum Go version remain unchanged from v0.4.6. Independent
 regeneration, runtime/consumer checks and same-scenario product/resource comparisons
 must precede the Human release decision. Native macOS/Ubuntu artifact qualification
 remains CI-owned. No guest upgrade, handshake experiment or VFS optimization is
-part of this candidate; the current published release above remains v0.4.6.
+part of v0.4.7. Historical candidate measurements qualify only their recorded inputs.
 
 ## v0.5.0 — Stable guest
 
@@ -209,18 +219,21 @@ guest passed Linux arm64 build and macOS arm64 native smoke; this does not quali
 a new guest or native Ubuntu runtime. See [validation and exact measured identities](reviews/v05-dev-guest-build-validation.md)
 and [development commands](development.md#single-pass-unqualified-guest-development).
 
-Select and migrate to a deliberate stable/LTS MariaDB release, refreshing
-compatible guest/WASIX/toolchain inputs with reproducible generation.
-No target version is selected here. Rerun SQL/protocol/auth/sessions/lifecycle,
-Snapshot/Fork/isolation and consumer compatibility. Repeat the full shared-memory
-race census on changed inputs; a guest upgrade is not assumed to fix it.
-Measure a new performance/resource baseline.
+The maintainer authorized A–D integration of exactly MariaDB **12.3.3** on
+2026-10-12, retaining the v0.4.7 goccy converter pin and nine patches. Selection
+is an exact source input, not an LTS classification or a multi-series promise.
+The [A–D integration report](reviews/v050-ad-integration.md) owns adopted inputs,
+reproduction, local checks and remaining work. This branch is not release-qualified.
 
-The maintainer approved **common portability patches plus minimal source-specific
-hunk variants** on 2026-10-12. The [guest patch management decision](decisions/guest-patch-management.md)
-owns the rationale, exact-input selection policy and starting inventory for future
-patch reviews. The common/variant management mechanism remains unimplemented;
-the existing experiments retain their monolithic experimental patches.
+The approved [common portability plus minimal source-specific hunk policy](decisions/guest-patch-management.md)
+is implemented for the single 12.3.3 input: ordered hash-bound patches with
+preimage/postimage verification. The handshake reads the running guest's VERSION()
+without an old-version fallback. Saved old-guest Snapshots require recreation.
+
+Follow-up correctness decisions, both-native final qualification, Product
+Validation and Human Review remain. Shared-memory race census/semantics and
+observation limits remain separate work; a guest upgrade is not assumed to fix
+existing races. No release-ready or performance claim follows from A–D checks.
 
 ## v0.6.0 — Dogfood and fixture ergonomics
 

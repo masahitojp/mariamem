@@ -42,33 +42,23 @@ def test_unclassified_changed_and_missing_notices_fail(tmp_path):
     with pytest.raises(ValueError,match='missing'):inventory(tmp_path)
 
 
-def test_evidence_bound_to_unchanged_guest_and_generated_source():
+def test_evidence_bound_to_adopted_guest_and_generated_source():
     from common import digest
-    value=inventory(ROOT)
+    inventory(ROOT)
     evidence=json.loads((ROOT/'release/generated-license-evidence.json').read_text())
     pins=json.loads((ROOT/'release/generated-go-inputs.json').read_text())
-    assert evidence['guest_sha256']==pins['guest_sha256']
+    build=json.loads((ROOT/'release/generated-go-build.json').read_text())
+    assert evidence['guest_sha256']==pins['guest_sha256']==build['guest_sha256']
+    assert evidence['linked_sha256']==build['linked_guest_sha256']
     assert evidence['generated_provenance_sha256']==digest(ROOT/'internal/generatedgo/provenance.json')
-    continuity=evidence['snapshot_attribution_source_check']
-    provenance=json.loads((ROOT/'internal/generatedgo/provenance.json').read_text())
-    assert set(continuity['changed_files']) == {'main.go'}
-    migration=evidence['upstream_migration_source_check']
-    assert continuity['generated_provenance_sha256'] == migration['previous_generated_provenance_sha256']
-    assert migration['generated_provenance_sha256'] == evidence['generated_provenance_sha256']
-    baseline=migration['baseline_generated_files_sha256']
-    assert set(migration['changed_files']) == {'code/base/base.go'}
-    expected=dict(baseline)
-    for name, change in migration['changed_files'].items():
-        assert baseline[name] == change['before']
-        expected[name]=change['after']
-    assert expected == provenance['files_sha256']
-    assert continuity['changed_files']['main.go']['after'] == baseline['main.go']
-    import hashlib
-    unchanged={name:sha for name,sha in baseline.items() if name!='main.go'}
-    assert continuity['unchanged_generated_inventory_sha256'] == hashlib.sha256(
-        json.dumps(unchanged,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    assert evidence['audit_source_commit']==evidence['host_check']['source_commit']
+    assert evidence['symbol_map_entries'] > 0
+    assert evidence['historical_evidence']['source_commit']=='e0be06f3a20c72cbb5a9be27971280c80a3ec357'
+    assert set(evidence['retained_symbols']) == {'MariaDB','lite4mariadb','WASIX libc',
+        'wolfSSL','zlib','PCRE2','fmt','libc++','libc++abi','libunwind','compiler-rt','dlmalloc'}
     for row in evidence['retained_symbols'].values():
-        assert row['generated_definitions'] and any(x['host_symbol_retained'] for x in row['examples'])
+        assert row['generated_definitions'] and row['host_named_definitions']
+        assert any(x['host_symbol_retained'] for x in row['examples'])
         for example in row['examples']:
             assert ('func '+example['generated_function']+'(') in (ROOT/example['generated_file']).read_text()
 

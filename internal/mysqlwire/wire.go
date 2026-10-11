@@ -254,6 +254,28 @@ type Activity struct {
 	Cleanup func()
 }
 
+func connectionIdentity(r guest.Result) (uint32, []byte, error) {
+	if !r.OK || len(r.Rows) != 1 || len(r.Rows[0]) != 2 || r.Rows[0][0] == nil || r.Rows[0][1] == nil {
+		return 0, nil, errors.New("invalid connection identity response")
+	}
+	idBytes, err := hex.DecodeString(r.Rows[0][0].Hex)
+	if err != nil {
+		return 0, nil, err
+	}
+	id, err := strconv.ParseUint(string(idBytes), 10, 32)
+	if err != nil {
+		return 0, nil, err
+	}
+	serverVersion, err := hex.DecodeString(r.Rows[0][1].Hex)
+	if err != nil {
+		return 0, nil, err
+	}
+	if len(serverVersion) == 0 || bytes.IndexByte(serverVersion, 0) >= 0 {
+		return 0, nil, errors.New("invalid server version response")
+	}
+	return uint32(id), serverVersion, nil
+}
+
 func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, closing func() bool, activity Activity) (err error) {
 	call := func(op byte, sql []byte) (guest.Result, error) {
 		ctx, cancel := context.WithTimeout(context.Background(), timeout)
@@ -304,23 +326,9 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 	if err != nil {
 		return err
 	}
-	if !r.OK || len(r.Rows) != 1 || len(r.Rows[0]) != 2 || r.Rows[0][0] == nil || r.Rows[0][1] == nil {
-		return errors.New("invalid connection identity response")
-	}
-	idBytes, err := hex.DecodeString(r.Rows[0][0].Hex)
+	id, serverVersion, err := connectionIdentity(r)
 	if err != nil {
 		return err
-	}
-	id, err := strconv.ParseUint(string(idBytes), 10, 32)
-	if err != nil {
-		return err
-	}
-	serverVersion, err := hex.DecodeString(r.Rows[0][1].Hex)
-	if err != nil {
-		return err
-	}
-	if len(serverVersion) == 0 || bytes.IndexByte(serverVersion, 0) >= 0 {
-		return errors.New("invalid server version response")
 	}
 	status := r.Status
 	salt := make([]byte, 20)

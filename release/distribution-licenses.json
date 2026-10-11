@@ -59,7 +59,7 @@
   "legacy_source_inputs": [
     "wasmer-source"
   ],
-  "evidence_sha256": "d6be8ec2d2b3601a77d34e437b967508a0cb9f54373b68aa74c374b9f00f9067",
+  "evidence_sha256": "76a6a8eeb2cb340d7a43595fc73dd3f1c42a45eb50f09e47f33c3340035667e4",
   "upstream_notice_files": {
     "LLVM-compiler-rt-LICENSE.txt": {
       "input": "llvm-project",
@@ -118,8 +118,12 @@
       "path": "LICENCE.md"
     },
     "zlib-LICENSE.txt": {
-      "input": "lite4mariadb",
+      "input": "mariadb",
       "path": "zlib/LICENSE"
+    },
+    "GPL-2.0-only.txt": {
+      "input": "mariadb",
+      "path": "COPYING"
     }
   }
 }

@@ -1,9 +1,9 @@
 {
   "main_source_commit": "098b0144ed50835da792ba811d11e0a1c8b000b2",
   "v047": {
-    "object_sha": "c201bf577440440253155e665def9c25ac5064f0",
     "object_type": "tag",
-    "source_commit": "e0be06f3a20c72cbb5a9be27971280c80a3ec357"
+    "source_commit": "e0be06f3a20c72cbb5a9be27971280c80a3ec357",
+    "tag_object_sha": "c201bf577440440253155e665def9c25ac5064f0"
   },
   "main_vs_v047": " docs/decisions/guest-patch-management.md | 133 +++++++++++++++++++++++++++++++\n docs/development.md                      |   7 ++\n docs/project-status.md                   |   6 ++\n 3 files changed, 146 insertions(+)\n",
   "original_guest_inputs": {
@@ -224,5 +224,31 @@
   "handshake_commit": "920c5bdaf14ae3a6126aeb2a79a36f5382cccda5",
   "orm_commit": "fc6f4ad88f2a1622ed138a98c18a7cd250c1b69d",
   "initial_worktrees": "$REPOSITORY                                                    098b014 [main]\n$REPOSITORY/build/experiment-work/v050-ad-integration/worktree 098b014 [experiment/v050-ad-integration]\n",
-  "initial_dirty_paths": []
+  "initial_dirty_paths": [],
+  "original_guest_source_input": {
+    "name": "lite4mariadb",
+    "file": "lite4mariadb-source.tar.gz",
+    "url": "https://codeload.github.com/shyim/lite4mariadb/tar.gz/24be9371a2f6c71250a2356631ad6feab2280b02",
+    "revision": "24be9371a2f6c71250a2356631ad6feab2280b02",
+    "sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd"
+  },
+  "original_guest_sql_version": "13.1.0-MariaDB-embedded",
+  "original_converter_patches_sha256": {
+    "imported-memory.patch": "9e05149ed2ad75780ee939a7caa577f420d151855ab723498ec60c533f805d40",
+    "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+    "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
+    "pure-memory32.patch": "7b0bf47f257d51ed842483e1ae2c6cb9a45fb009d7114679f9ed32ff76378694",
+    "controlled-thread-traps.patch": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+    "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+    "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
+    "helper-bridge.patch": "934246d80d37a596b43d786065b168aa3d94af62ae3130bd5a9c422ce7e5783b",
+    "export-collision.patch": "2e4866056a3e65c7be0fbc343207157319f609391b07cb8123bed4ab2b2f8f93"
+  },
+  "local_environment": {
+    "system": "Darwin",
+    "architecture": "arm64",
+    "product_version": "27.0.1",
+    "guest_builder": "Linux aarch64 / Ubuntu24.04 container",
+    "native_ubuntu_x86_64": "SKIP: unavailable native runner"
+  }
 }
