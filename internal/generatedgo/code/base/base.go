@@ -1418,7 +1418,7 @@ func MemoryFill(m *Module, dst int32, val int32, n int32) {
 		return
 	}
 	end := uint64(uint32(dst)) + uint64(uint32(n))
-	if end > MemBound(m) {
+	if end > m.MemSize.Load() {
 		Wasm_trap_memfill_oob()
 	}
 	b := m.Memory[uint32(dst):uint32(end)]
@@ -1442,7 +1442,7 @@ func MemoryCopy(m *Module, dst int32, src int32, n int32) {
 	}
 	srcEnd := uint64(uint32(src)) + uint64(uint32(n))
 	dstEnd := uint64(uint32(dst)) + uint64(uint32(n))
-	if size := MemBound(m); srcEnd > size || dstEnd > size {
+	if size := m.MemSize.Load(); srcEnd > size || dstEnd > size {
 		Wasm_trap_memcopy_oob()
 	}
 	copy(m.Memory[uint32(dst):uint32(dstEnd)], m.Memory[uint32(src):uint32(srcEnd)])
@@ -1459,14 +1459,6 @@ func Wasm_trap_atomic_wait_forever() {
 	panic("wasm: blocking atomic wait with no other agents (wasi-threads not enabled)")
 }
 
-// memBound is the highest address a bounds-checked bulk or atomic access
-// may reach. A shared memory's slice spans the whole declared maximum from
-// the start, so only memSize says how much of it the guest may touch (and
-// reading it atomically keeps growth race-free without a lock). Otherwise
-// the slice is the truth: an embedder that maps the whole growable range
-// up front and aliases shared segments above the guest-visible size into
-// it keeps every byte of the slice addressable, exactly as the unchecked
-// load/store paths do.
 // memoryEA is the shared non-wrapping logical-bound rule. Subtractions make
 // both additions safe. This rule is used by the pure memory32 lowering.
 func MemoryInBounds(m *Module, addr, offset, size uint64) bool {
@@ -1483,13 +1475,6 @@ func MemoryEA(m *Module, addr, offset, size uint64) uint64 {
 //go:noinline
 func Wasm_trap_memory_oob() { panic("wasm: memory access out of bounds") }
 
-func MemBound(m *Module) uint64 {
-	if m.MemShared {
-		return m.MemSize.Load()
-	}
-	return uint64(len(m.Memory))
-}
-
 // atomicEA bounds- and alignment-checks an atomic access and returns the
 // effective address.
 // Atomic and thread helpers are all //go:noinline: several take func-literal
@@ -1501,6 +1486,7 @@ func MemBound(m *Module) uint64 {
 //go:noinline
 func AtomicEA(m *Module, addr int32, offset int32, size uint64) uint64 {
 	ea := uint64(uint32(addr)) + uint64(uint32(offset))
+
 	if !MemoryInBounds(m, uint64(uint32(addr)), uint64(uint32(offset)), size) {
 		Wasm_trap_atomic_oob()
 	}
@@ -1539,13 +1525,12 @@ func AtomicsContended(m *Module) bool {
 	return m.Threads != nil && m.Threads.nextTID.Load() != 0
 }
 
-// forceContendedAtomics makes every atomic helper of m take its LOCKed
-// path from now on, as if a wasi thread had been spawned. For an embedder
-// that shares part of m's linear memory with OTHER instances (several
-// single-threaded modules aliasing one segment, the way processes share
-// System V memory): no thread of m ever exists, yet the atomics in the
-// shared range race with those instances' goroutines. Host-facing API;
-// nothing in the generated code calls it.
+// memBound is always guest-visible logical size in mariamem. The fork's
+// non-shared backing-slice alias contract is deliberately not imported.
+func MemBound(m *Module) uint64 { return m.MemSize.Load() }
+
+// forceContendedAtomics is used by deterministic host-side Wait fixtures.
+// Production WASIX threads use threadSpawn to publish contention normally.
 func ForceContendedAtomics(m *Module) {
 	if m.Threads == nil {
 		m.Threads = &ThreadPool{}

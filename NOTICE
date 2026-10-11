@@ -29,8 +29,10 @@ before public distribution. See docs/releasing.md and THIRD_PARTY_LICENSES.
 
 The v0.4.0 default direct-links generated Go in Go consumers and
 links it into the host-only Python wheel. WASM is a build intermediate; normal
-execution does not include Wasmer/AOT runtime assets. It uses goccy/wasm2go via the
-shibukawa/wasm2go-fork commit ac98bcf00c17d8531f0c071a9836d0b50975e7ff.
+execution does not include Wasmer/AOT runtime assets. It uses goccy/wasm2go commit
+730057c146463f663e8774587bc96fb2bea91af8 with nine mariamem-managed patches.
+Selected compatibility changes derive from shibukawa/wasm2go-fork commit
+ac98bcf00c17d8531f0c071a9836d0b50975e7ff; the fork is no longer a build input.
 Its preserved MIT notice is in licenses/wasm2go-MIT.txt (Masaaki Goshima).
 This does not remove MariaDB/lite4mariadb corresponding-source obligations.
 

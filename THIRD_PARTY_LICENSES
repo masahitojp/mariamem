@@ -19,7 +19,10 @@ LLVM runtime libraries    compiler-rt, libc++, libc++abi, libunwind: individual
                           original Apache-2.0-with-LLVM-exception and legacy texts
                           in licenses/LLVM-*-LICENSE.txt, pinned runtime sources.
 wasm2go helpers/runtime   MIT (Masaaki Goshima); copied/generated helpers, SIMD
-                          and filesystem support, from fork ac98bcf00c17d8531f0c071a9836d0b50975e7ff.
+                          and filesystem support, from upstream
+                          730057c146463f663e8774587bc96fb2bea91af8 + nine patches.
+                          Selected fork-derived compatibility changes retain MIT
+                          attribution; see NOTICE and the migration report.
 Go runtime                BSD-3-Clause; linked into Python host/consumer binary.
 pgmem fixture design     MIT attribution retained for referenced lifecycle/
                           pytest fixture design (not a bundled PostgreSQL engine).

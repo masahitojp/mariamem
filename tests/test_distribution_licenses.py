@@ -52,10 +52,19 @@ def test_evidence_bound_to_unchanged_guest_and_generated_source():
     continuity=evidence['snapshot_attribution_source_check']
     provenance=json.loads((ROOT/'internal/generatedgo/provenance.json').read_text())
     assert set(continuity['changed_files']) == {'main.go'}
-    assert continuity['generated_provenance_sha256'] == evidence['generated_provenance_sha256']
-    assert continuity['changed_files']['main.go']['after'] == provenance['files_sha256']['main.go']
+    migration=evidence['upstream_migration_source_check']
+    assert continuity['generated_provenance_sha256'] == migration['previous_generated_provenance_sha256']
+    assert migration['generated_provenance_sha256'] == evidence['generated_provenance_sha256']
+    baseline=migration['baseline_generated_files_sha256']
+    assert set(migration['changed_files']) == {'code/base/base.go'}
+    expected=dict(baseline)
+    for name, change in migration['changed_files'].items():
+        assert baseline[name] == change['before']
+        expected[name]=change['after']
+    assert expected == provenance['files_sha256']
+    assert continuity['changed_files']['main.go']['after'] == baseline['main.go']
     import hashlib
-    unchanged={name:sha for name,sha in provenance['files_sha256'].items() if name!='main.go'}
+    unchanged={name:sha for name,sha in baseline.items() if name!='main.go'}
     assert continuity['unchanged_generated_inventory_sha256'] == hashlib.sha256(
         json.dumps(unchanged,sort_keys=True,separators=(',',':')).encode()).hexdigest()
     for row in evidence['retained_symbols'].values():
