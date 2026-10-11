@@ -34,9 +34,9 @@
       "sha256": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174"
     },
     "converter": {
-      "file": "wasm2go-fork.tar.gz",
-      "url": "https://codeload.github.com/shibukawa/wasm2go-fork/tar.gz/ac98bcf00c17d8531f0c071a9836d0b50975e7ff",
-      "sha256": "1fcd91eecc66e367495d91f34644c68df1ff856a786d00c24fa66061c3dbce0f"
+      "file": "wasm2go-upstream.tar.gz",
+      "url": "https://codeload.github.com/goccy/wasm2go/tar.gz/730057c146463f663e8774587bc96fb2bea91af8",
+      "sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f"
     },
     "sysroot_pic": {
       "file": "sysroot-ehpic.tar.gz",

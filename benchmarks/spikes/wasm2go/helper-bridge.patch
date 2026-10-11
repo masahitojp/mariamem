@@ -1,0 +1,30 @@
+--- a/internal/codegen/helpers/helpers.go
++++ b/internal/codegen/helpers/helpers.go
+@@ -1344,6 +1344,17 @@
+ 	return m.threads != nil && m.threads.nextTID.Load() != 0
+ }
+ 
++// memBound is always guest-visible logical size in mariamem. The fork's
++// non-shared backing-slice alias contract is deliberately not imported.
++func memBound(m *Module) uint64 { return m.memSize.Load() }
++
++// forceContendedAtomics is used by deterministic host-side Wait fixtures.
++// Production WASIX threads use threadSpawn to publish contention normally.
++func forceContendedAtomics(m *Module) {
++	if m.threads == nil { m.threads = &threadPool{} }
++	if m.threads.nextTID.Load() == 0 { m.threads.nextTID.Store(1) }
++}
++
+ // atomicSubword32 runs op on the byte lanes [shift, shift+bits) of the
+ // aligned 32-bit word containing ea, via a CAS loop; returns the OLD lane
+ // value zero-extended. Little-endian lane math.
+--- a/internal/codegen/translate.go
++++ b/internal/codegen/translate.go
+@@ -371,6 +371,7 @@
+ 	// module has a memory so the API is uniformly available.
+ 	if len(m.Memories) > 0 {
+ 		t.helpers["accessMemory"] = true
++		t.helpers["forceContendedAtomics"] = true
+ 		// The Module struct's memMu field needs "sync" — register it
+ 		// HERE, not only in emitModuleStruct: the multi-package path
+ 		// snapshots base's import set after emitHelpers but BEFORE

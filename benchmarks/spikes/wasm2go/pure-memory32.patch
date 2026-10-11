@@ -101,49 +101,6 @@
  		},
  	}
  	ptr := &ast.CallExpr{
---- a/internal/codegen/helpers/helpers.go
-+++ b/internal/codegen/helpers/helpers.go
-@@ -1259,6 +1259,22 @@
- // up front and aliases shared segments above the guest-visible size into
- // it keeps every byte of the slice addressable, exactly as the unchecked
- // load/store paths do.
-+// memoryEA is the shared non-wrapping logical-bound rule. Subtractions make
-+// both additions safe. This rule is used by the pure memory32 lowering.
-+func memoryInBounds(m *Module, addr, offset, size uint64) bool {
-+	bound := m.memSize.Load()
-+	return addr <= bound && offset <= bound-addr && size <= bound-addr-offset
-+}
-+func memoryEA(m *Module, addr, offset, size uint64) uint64 {
-+	if !memoryInBounds(m, addr, offset, size) {
-+		wasm_trap_memory_oob()
-+	}
-+	return addr + offset
-+}
-+
-+//go:noinline
-+func wasm_trap_memory_oob() { panic("wasm: memory access out of bounds") }
-+
- func memBound(m *Module) uint64 {
- 	if m.memShared {
- 		return m.memSize.Load()
-@@ -1277,7 +1293,7 @@
- //go:noinline
- func atomicEA(m *Module, addr int32, offset int32, size uint64) uint64 {
- 	ea := uint64(uint32(addr)) + uint64(uint32(offset))
--	if ea+size > memBound(m) {
-+	if !memoryInBounds(m, uint64(uint32(addr)), uint64(uint32(offset)), size) {
- 		wasm_trap_atomic_oob()
- 	}
- 	if ea&(size-1) != 0 {
-@@ -2606,7 +2622,7 @@
- 	// Same shape as atomicEA, minus the alignment trap: SIMD memory access
- 	// is alignment-hint-only, never trapping on misalignment.
- 	ea := uint64(uint32(addr)) + uint64(uint32(offset))
--	if ea+size > m.memSize.Load() {
-+	if !memoryInBounds(m, uint64(uint32(addr)), uint64(uint32(offset)), size) {
- 		wasm_trap_simd_oob()
- 	}
- 	return ea
 --- /dev/null
 +++ b/internal/codegen/memory_store_order_test.go
 @@ -0,0 +1,65 @@
@@ -367,3 +324,46 @@
  }
  
  // String produces a short "v3 = OpAdd32 v1 v2" rendering.
+--- a/internal/codegen/helpers/helpers.go
++++ b/internal/codegen/helpers/helpers.go
+@@ -1251,6 +1251,22 @@
+ 	panic("wasm: blocking atomic wait with no other agents (wasi-threads not enabled)")
+ }
+ 
++// memoryEA is the shared non-wrapping logical-bound rule. Subtractions make
++// both additions safe. This rule is used by the pure memory32 lowering.
++func memoryInBounds(m *Module, addr, offset, size uint64) bool {
++	bound := m.memSize.Load()
++	return addr <= bound && offset <= bound-addr && size <= bound-addr-offset
++}
++func memoryEA(m *Module, addr, offset, size uint64) uint64 {
++	if !memoryInBounds(m, addr, offset, size) {
++		wasm_trap_memory_oob()
++	}
++	return addr + offset
++}
++
++//go:noinline
++func wasm_trap_memory_oob() { panic("wasm: memory access out of bounds") }
++
+ // atomicEA bounds- and alignment-checks an atomic access and returns the
+ // effective address.
+ // Atomic and thread helpers are all //go:noinline: several take func-literal
+@@ -1266,7 +1282,7 @@
+ 	// declared maximum from the start, so only memSize says how much of it
+ 	// the guest may touch — and reading it atomically is what keeps growth
+ 	// race-free without a lock on this path.
+-	if ea+size > m.memSize.Load() {
++	if !memoryInBounds(m, uint64(uint32(addr)), uint64(uint32(offset)), size) {
+ 		wasm_trap_atomic_oob()
+ 	}
+ 	if ea&(size-1) != 0 {
+@@ -2579,7 +2595,7 @@
+ 	// Same shape as atomicEA, minus the alignment trap: SIMD memory access
+ 	// is alignment-hint-only, never trapping on misalignment.
+ 	ea := uint64(uint32(addr)) + uint64(uint32(offset))
+-	if ea+size > m.memSize.Load() {
++	if !memoryInBounds(m, uint64(uint32(addr)), uint64(uint32(offset)), size) {
+ 		wasm_trap_simd_oob()
+ 	}
+ 	return ea

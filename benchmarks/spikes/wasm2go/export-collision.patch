@@ -1,0 +1,63 @@
+--- a/internal/codegen/translate.go
++++ b/internal/codegen/translate.go
+@@ -3434,9 +3434,16 @@
+ 		}
+ 		ft := t.mod.FuncTypeOf(exp.Index)
+ 		methodName := ExportMethodName(exp.Name)
+-		if prev, dup := emittedMethods[methodName]; dup {
+-			return nil, fmt.Errorf("wasm2go: exports %q and %q both mangle to method name %q; rename one in the wasm to avoid the collision",
+-				prev, exp.Name, methodName)
++		if _, dup := emittedMethods[methodName]; dup {
++			// Two export names mangle to the same Go identifier (e.g.
++			// relation_close vs RelationClose): keep both by suffixing the
++			// later one with its own export name, which — unlike the
++			// function index — does not change when the module is
++			// rebuilt.
++			methodName = fmt.Sprintf("%s_%s", methodName, MangleID(exp.Name))
++			for _, dup := emittedMethods[methodName]; dup; _, dup = emittedMethods[methodName] {
++				methodName += "_"
++			}
+ 		}
+ 		emittedMethods[methodName] = exp.Name
+ 
+--- a/internal/codegen/options_test.go
++++ b/internal/codegen/options_test.go
+@@ -70,11 +70,9 @@
+ 	}
+ }
+ 
+-// TestExportMethodNameCollisionDetection synthesises a module whose
+-// two exports mangle to the same Go method name and confirms that
+-// Translate surfaces a clear error rather than emitting duplicate
+-// methods that fail to compile.
+-func TestExportMethodNameCollisionDetection(t *testing.T) {
++// TestExportMethodNameCollisionPreservation retains both exports with
++// deterministic wrappers, matching the mariamem accepted fork contract.
++func TestExportMethodNameCollisionPreservation(t *testing.T) {
+ 	// Hand-rolled minimal wasm with two exports named "XAlloc" and
+ 	// "x_alloc" — both mangle to "XAlloc" via ExportMethodName.
+ 	src := []byte{
+@@ -96,14 +94,16 @@
+ 	if err != nil {
+ 		t.Fatalf("parse: %v", err)
+ 	}
+-	_, err = codegen.Translate(io.Discard, m, codegen.Options{
+-		Package: "pkg", OutputImportPath: "gentest/pkg",
+-	})
+-	if err == nil {
+-		t.Fatalf("expected collision error, got nil")
++	var first, second bytes.Buffer
++	for _, buf := range []*bytes.Buffer{&first, &second} {
++		_, err = codegen.Translate(buf, m, codegen.Options{
++			Package: "pkg", OutputImportPath: "gentest/pkg",
++		})
++		if err != nil { t.Fatalf("translate: %v", err) }
+ 	}
+-	if !strings.Contains(err.Error(), "mangle") {
+-		t.Errorf("error %v does not mention the mangle collision", err)
++	if first.String() != second.String() { t.Fatal("nondeterministic wrappers") }
++	for _, signature := range []string{"func (m *Module) XAlloc(", "func (m *Module) XAlloc_x_alloc("} {
++		if strings.Count(first.String(), signature) != 1 { t.Fatalf("missing/duplicate wrapper: %s", signature) }
+ 	}
+ }
+ 
