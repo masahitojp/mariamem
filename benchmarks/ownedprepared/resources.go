@@ -1,6 +1,7 @@
 package main
 
 import (
+	generatedbase "github.com/masahitojp/mariamem/internal/generatedgo/code/base"
 	"runtime"
 	"runtime/metrics"
 	"syscall"
@@ -15,7 +16,8 @@ func goResourcePoint() map[string]any {
 	return map[string]any{"heap_alloc_bytes": m.HeapAlloc, "heap_inuse_bytes": m.HeapInuse,
 		"heap_sys_bytes": m.HeapSys, "heap_released_bytes": m.HeapReleased,
 		"total_alloc_bytes": m.TotalAlloc, "mallocs": m.Mallocs, "num_gc": m.NumGC,
-		"pause_total_ns": m.PauseTotalNs, "goroutines": runtime.NumGoroutine()}
+		"pause_total_ns": m.PauseTotalNs, "goroutines": runtime.NumGoroutine(),
+		"linear_memory_virtual": generatedbase.MemoryMappingStats()}
 }
 
 func sampleGoResources() func() map[string]any {
