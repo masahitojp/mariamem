@@ -41,6 +41,13 @@ HANDWRITTEN_FILES = (
 )
 
 
+def handwritten_owner(root, name):
+    filename = Path(name).name
+    if filename.startswith('narrow_load_') or filename in {'fd_allocate_test.go','bulk_bounds_test.go'}:
+        return root/'scripts/runtime_correctness'/(filename+'.txt')
+    return root/'internal/generatedgo'/name
+
+
 def adapt_driver(text):
     text = text.replace('package main', 'package generatedgo', 1)
     text = text.replace('\t"crypto/sha256"\n', '').replace('\t"io"\n', '')
@@ -129,9 +136,7 @@ def main():
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.
     for name in HANDWRITTEN_FILES:
-        owner = (ROOT/'scripts/runtime_correctness'/(Path(name).name+'.txt')
-                 if Path(name).name.startswith('narrow_load_') or Path(name).name in {'fd_allocate_test.go','bulk_bounds_test.go'}
-                 else ROOT/'internal/generatedgo'/name)
+        owner = handwritten_owner(ROOT, name)
         shutil.copy2(owner, out/name)
     print('Installed checksum-bound generated runtime:',len(inventory),'files')
 

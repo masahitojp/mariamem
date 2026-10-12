@@ -74,6 +74,8 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
         target = project/'internal/generatedgo'/name
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes((canonical/name).read_bytes())
+    import shutil
+    shutil.copytree(ROOT/'scripts/runtime_correctness', project/'scripts/runtime_correctness')
     (module/'generated/base').mkdir(parents=True)
     unit = module/'generated/base/unit.go'
     unit.write_text('package base\n')

@@ -6,12 +6,12 @@
     "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
-  "audit_source_commit": "83a6ede966db7f1bbc3a827ca58f5581c0f5dd7c",
+  "audit_source_commit": "ae80130b0ea7d20e86b132538d23eabf13660186",
   "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
   "linked_sha256": "3b63079109c895f3e90895f86b57e48d9f8e14f13ce945021c88e20c4f4fd9ba",
   "symbol_map_sha256": "9072658996738894b86effc9b60911db92b413d35cb3c7863f3851666bb645b6",
   "symbol_map_entries": 21693,
-  "generated_provenance_sha256": "c583b4646f1fd708ce7209578ac67efdaa99f7a9b47dc75080aecdd2f1ac51e5",
+  "generated_provenance_sha256": "151554ea369a513cee5a6686fc92a6d47f7162fa00550d349b9d836a57ac6da3",
   "method": "Same pinned Binaryen -O2 recipe with only --symbolmap; mapped WASM SHA256 equals adopted canonical guest",
   "retained_symbols": {
     "MariaDB": {
@@ -356,9 +356,14 @@
   },
   "result": "PASS",
   "host_check": {
-    "source_commit": "83a6ede966db7f1bbc3a827ca58f5581c0f5dd7c",
-    "sha256": "25f11e240405253e280f965a833bb5f58808208c825e6d7d77dba36f903ca139",
-    "buildinfo": "mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.4.8-0.20261011184610-83a6ede966db\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=83a6ede966db7f1bbc3a827ca58f5581c0f5dd7c\n\tbuild\tvcs.time=2026-10-11T18:46:10Z\n\tbuild\tvcs.modified=false\n",
+    "source_commit": "ae80130b0ea7d20e86b132538d23eabf13660186",
+    "sha256": "5ed8689b69570c5b23b4f7950aef022d8308c1ed6b312356bf06a7d7cbe01e27",
+    "buildinfo": "mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.4.8-0.20261012014552-ae80130b0ea7\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=ae80130b0ea7d20e86b132538d23eabf13660186\n\tbuild\tvcs.time=2026-10-12T01:45:52Z\n\tbuild\tvcs.modified=false\n",
     "note": "Diagnostic attribution, not new release approval."
+  },
+  "previous_attribution": {
+    "source_commit": "808df8b614906a9cd918229e2754d33a5a76dc4b",
+    "path": "release/generated-license-evidence.json",
+    "sha256": "d7f5ad61be485786f8c9f23e50e34577e0a79dd0dd11fda99b33e98b9ab6c4e5"
   }
 }
