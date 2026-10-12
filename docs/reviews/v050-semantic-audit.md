@@ -1,5 +1,11 @@
 # v0.5.0 bounded shared-access semantic investigation
 
+**Current technical recommendation:** see the [Human Review judgment](v050-human-review.md)
+and [J1 decision detail](v050-join-decision.md). They supersede this report's earlier
+J1 acceptance handoff: fix T1/T2 and complete one bounded J1 technical decision
+before final Qualification; J1 repair is conditional on its findings. Original
+receipts and coverage dispositions below are unchanged.
+
 This is the result of the approved [R1–R5 investigation contract](v050-access-review.md),
 not release qualification. The question is whether the fixed runtime preserves
 the relevant Wasm operations and the guest's synchronization/lifetime contracts.
@@ -75,7 +81,7 @@ and no target was dropped to close the investigation.
 | R1: ordinary/atomic reads | 65 ordinary-read statements in Fn88/93/130 classified; bounded mapping supported for pinned macOS code and valid guest ownership | Heap race reports alone do not justify a mutex rewrite or a user restriction |
 | R2: native/Go ordering | Compiler memory-effect boundary and arm64 acquire/release/barrier composition documented; existing litmus/value receipts reused | Retain exact-width fix; no new whole-engine serialization justified by this evidence |
 | R3: CV/rwlock/wait ABI | Actual protocol functions pass the named schedule/ownership checks; **T1 positive timeout boundary FAIL** | Recommend a small owner fix and regression oracle before qualification |
-| R4: launch/host/drain | Normal launch transition and host backing drain supported; **T2 ID exhaustion FAIL**; **J1 fast guest join publication unresolved** | Bound ID allocation before qualification; J1 needs an explicit engineering decision, not an invented SQL-failure claim |
+| R4: launch/host/drain | Normal launch transition and host backing drain supported; **T2 ID exhaustion FAIL**; **J1 fast guest join publication unresolved** | Bound ID allocation before qualification; J1 needs the [bounded comparison](v050-join-decision.md) before Qualification; no SQL failure is claimed |
 | R5: target and access routes | 65 functions / 147 sites / 28 targets reconciled; 47 indirect calls in the 17 writer functions classified; source lifecycle/raw/bulk/host routes recorded | Replaces the old generic `Source/lifetime review required` entries; dependencies T1/T2/J1 remain visible |
 
 Target-level “supported” describes the local ownership/access argument. It does
@@ -467,21 +473,22 @@ failure probability is inferred from any of these categories.
 
 ## Human decision and separate implementation scope
 
-The recommendation is now concrete: retain the accepted exact-width work;
-address **T1 and T2 with bounded owner fixes**, retaining the failing oracles and
-canonical independent regeneration, before final qualification. These findings
-do not justify classifying mariamem as unsuitable for development or publishing
-a vague warning that ordinary SQL is unsafe. Their triggering conditions and
-the distinction between reproduced helper behavior and hypothetical SQL harm
-belong in this development judgment record.
+The [current Human Review judgment](v050-human-review.md) owns the recommendation:
+retain accepted exact-width work, repair T1/T2 through their owners and perform
+one bounded J1 comparison before final Qualification. J1 is not an established
+translation defect and a third repair is not assumed. Its ordinary resident
+shutdown route, conditional user consequence, missing allocation/last-access
+premises, comparison task and estimated cost are in the
+[J1 decision detail](v050-join-decision.md).
 
-J1 is the remaining decision about the strength of the guest completion
-guarantee. Accepting this investigated limitation for v0.5.0 versus requiring a
-specific join/publication argument or change is a Human choice. It is not a
-request to accept an unexamined list of internal components. If stronger work
-is chosen, scope it to that fast branch and its actual callers; do not restart
-an open-ended full shared-memory investigation. No broader design is required
-solely because a detector cannot see mmap/assembly.
+This replaces the original report's recommendation to leave J1 acceptance to
+Human choice without those evaluation materials. The reason is decision quality
+and ordinary-use reachability, not a newly reproduced J1 failure. The later
+conversational “close three points” did not explain that change and must not be
+read as three proved defects. R1–R5 coverage remains complete under its approved
+exit criteria; the remaining J1 correctness decision is explicit unfinished work.
 
-This task stops at that review boundary. Fix completion, final native
-Qualification, Product Validation and release approval remain separate.
+No product fix or additional runtime experiment is included in this documentation
+update. Fix completion, final native Qualification, Product Validation and the
+Human release decision remain separate. The evidence does not support positioning
+mariamem as unsuitable for development or publishing a vague ordinary-SQL warning.

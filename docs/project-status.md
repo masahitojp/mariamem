@@ -216,9 +216,14 @@ original families. Its dispositions distinguish supported mappings, two
 reproduced helper boundary defects (positive timeout overflow and exhausted
 thread IDs), and one investigated unresolved fast guest join/publication edge.
 No SQL harm was reproduced by the two new boundary fixtures. Coverage completion
-is not general shared-memory conformance or release readiness. The recommended
-next work is bounded owner fixes for the two defects, plus an explicit Human
-choice about the remaining join guarantee, before final qualification.
+is not general shared-memory conformance or release readiness. The
+[Human Review judgment](reviews/v050-human-review.md) now recommends two
+bounded owner fixes plus one **2–3 hour J1 comparison task** before final
+qualification. It supplies normal shutdown reachability, conditional user harm,
+specific missing premises and estimated repair cost. J1 is not a third proved
+translation defect; repair depends on the comparison. This explicitly replaces
+the earlier unsubstantiated handoff of J1 acceptance to Human choice; no new
+runtime experiment or product implementation is part of the judgment update.
 
 The [assessment review](reviews/v050-access-review.md) preserves why the earlier
 investigation and progression recommendation were incomplete, and the finite

@@ -10,7 +10,8 @@ used as an acceptance criterion; hourly reports were cancelled by the Human.
 The review below records the earlier incomplete assessment and the contract
 which governed that follow-up. The prior recommendation to proceed directly to
 Qualification/Product Validation remains superseded by the follow-up's concrete
-T1/T2 fix recommendation and J1 Human decision.
+T1/T2 fix recommendation and the
+[current bounded J1 decision task](v050-human-review.md).
 
 The strongest concern with further investigation is an unfinishable demand to
 prove that no failure can occur in any execution. That must not be the exit
