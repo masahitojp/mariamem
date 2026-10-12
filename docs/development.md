@@ -9,10 +9,14 @@ platforms are macOS15+ arm64 and Ubuntu24.04 x86_64.
 ## Human Review recommendations
 
 Codex owns the engineering recommendation; the Human owns the final decision.
-Open with one concrete action: fix now, proceed with an explicit limitation,
-narrow the supported scope, or investigate a specific question that could change
-the decision. Explain why that action fits the available evidence and product
-use. A list of findings followed by "the Human can choose" is not sufficient.
+Normally keep the opening to at most three sentences containing only one
+recommended action, its decisive reason, and the next decision point. Name the
+action explicitly: implement a specified fix, proceed with an explicit limitation,
+narrow the supported scope, or investigate a specific question without implementing
+a fix. "Bounded validation" alone does not say whether to change code or only
+study it. Put detailed facts, risks, alternatives and validation conditions later,
+with evidence links. A list of findings followed by "the Human can choose" is not
+sufficient.
 This reporting rule does not add another approval gate to work already authorized.
 
 Separate **confirmed facts**, **inference**, and **unknowns**. In particular,
@@ -51,21 +55,35 @@ what to recommend if that scope yields no decisive result. Do not use proof of
 general correctness as an indefinite stop condition. Concrete unresolved
 requirements can still block release; identify the requirement and exit evidence.
 
-Use this reusable outline, merging lines when a short recommendation suffices:
+Include **one strongest reasonable objection** to the recommendation: the best
+reason a competent engineer could choose a different conclusion. Present its
+evidence, costs or assumptions fairly, not a token objection or weak straw man.
+Briefly explain how current evidence weighs against it and what finding would
+make it decisive. If it outweighs the case for the recommendation, revise the
+recommendation before submitting the review. Keep one recommendation; do not
+add an objection list that transfers the engineering judgment back to the Human.
+
+Use this outline selectively; it is not a required table or set of headings:
 
 ```text
-Recommendation: I recommend <one action> because <decisive reason>.
+Opening (normally <=3 sentences): I recommend <explicit action>.
+<Decisive reason>. Next, decide <specific decision point>.
+
+Supporting detail / evidence links:
 Evidence: Confirmed <facts>; inference <interpretation>; unknown <gaps>.
 User impact: <affected users/workflows>; observed <harm>; possible <harm/mechanism>.
 Priority: <qualitative likelihood/exposure and severity>, justified by <evidence>.
 Trade-off: Recommended <cost/residual risk>; alternative <cost/residual risk>;
            prefer the recommendation because <reason>.
+Strongest objection: <best reason to choose differently>.
+Assessment: <current evidence-based response>; change the recommendation if <finding>.
 Decision boundary: Reverse if <evidence>; finish when <bounded exit condition>.
-Human decision: Approve <specific action/scope>, or choose <concrete alternative>?
+Human decision: Approve <the recommended action/scope>?
 ```
 
-A small change may use a few sentences combining these points, without headings
-or a separate report. A material architecture/release decision should link the
+A small change may use a few lines: a short opening followed by the strongest
+objection and assessment, combining any necessary detail rather than filling
+every outline field. A material architecture/release decision should link the
 fixed-source evidence, relevant tests and limitations; put detailed traces/tables
 after the recommendation. Use enough detail to make the choice understandable,
 not a mandatory scorecard or a new task tracker. Close with one explicit Human
