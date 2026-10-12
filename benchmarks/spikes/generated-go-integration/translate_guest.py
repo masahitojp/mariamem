@@ -18,7 +18,7 @@ sys.path.insert(0, str(HERE.parents[2]/'scripts'))
 from build_feedback import go_environment, run as observed_run
 CONVERTER_SHA = '1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f'
 
-PATCHES = ['imported-memory.patch','import-function-index.patch','relaxed-madd.patch','pure-memory32.patch','controlled-thread-traps.patch','host-logical-memory.patch','linear-memory-owner.patch','helper-bridge.patch','export-collision.patch','fd-allocate-preservation.patch']
+PATCHES = ['imported-memory.patch','import-function-index.patch','relaxed-madd.patch','pure-memory32.patch','controlled-thread-traps.patch','host-logical-memory.patch','linear-memory-owner.patch','helper-bridge.patch','export-collision.patch','fd-allocate-preservation.patch','zero-bulk-bounds.patch']
 
 def sha(path):
     h = hashlib.sha256()

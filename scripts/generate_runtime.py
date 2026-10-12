@@ -18,6 +18,7 @@ NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
 # Canonical installer ownership boundary; the verifier consumes this same list.
 HANDWRITTEN_FILES = (
     'code/base/fd_allocate_test.go',
+    'code/base/bulk_bounds_test.go',
     'code/base/owned_prepared.go',
     'code/base/owned_prepared_test.go',
     'runtime_instance.go',
@@ -120,8 +121,8 @@ def main():
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.
     for name in HANDWRITTEN_FILES:
-        owner = (ROOT/'scripts/runtime_correctness/fd_allocate_test.go'
-                 if name == 'code/base/fd_allocate_test.go' else ROOT/'internal/generatedgo'/name)
+        owner = (ROOT/'scripts/runtime_correctness'/Path(name).name
+                 if Path(name).name in {'fd_allocate_test.go','bulk_bounds_test.go'} else ROOT/'internal/generatedgo'/name)
         shutil.copy2(owner, out/name)
     print('Installed checksum-bound generated runtime:',len(inventory),'files')
 
