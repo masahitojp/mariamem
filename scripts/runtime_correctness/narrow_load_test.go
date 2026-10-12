@@ -21,6 +21,7 @@ func TestNarrowAtomicValuesBounds(t *testing.T){
  for _,contended:=range []bool{false,true}{if contended{ForceContendedAtomics(m)}
   for lane:=int32(0);lane<4;lane++ {if got:=AtomicLoad32_8u(m,64+lane,0);got!=int32(m.Memory[64+lane]){t.Fatal(got)}}
   for _,lane:=range []int32{0,2}{if got:=AtomicLoad32_16u(m,64+lane,0);got!=int32(binary.LittleEndian.Uint16(m.Memory[64+lane:])){t.Fatal(got)}}
+  if AtomicLoad32_16u(m,65534,0)!=0xfe00{t.Fatal("last valid halfword")}
   if AtomicLoad32_8u(m,65535,0)!=254{t.Fatal("last valid byte")}
   for _,f:=range []func(){func(){AtomicLoad32_8u(m,65536,0)},func(){AtomicLoad32_8u(m,-1,0)},func(){AtomicLoad32_8u(m,-1,1)},func(){AtomicLoad32_16u(m,65,0)},func(){AtomicLoad32_16u(m,65536,0)}}{narrowMustTrap(t,f)}
  }}

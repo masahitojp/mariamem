@@ -1,5 +1,5 @@
 diff --git a/internal/codegen/wasip1_native.go b/internal/codegen/wasip1_native.go
-index 45fe002..c593402 100644
+index 45fe002..1c9a210 100644
 --- a/internal/codegen/wasip1_native.go
 +++ b/internal/codegen/wasip1_native.go
 @@ -166,6 +166,8 @@ func (o osFS) join(name string) string {
@@ -90,7 +90,7 @@ index 45fe002..c593402 100644
  	bufs, ok := w.iovecSlices(m, iovs, iovsLen)
  	nwrittenSlice := w.memSlice(m, nwrittenPtr, 4)
  	if !ok || nwrittenSlice == nil {
-@@ -1995,18 +2030,29 @@ func (w *WasiStubs) Fd_advise(m *Module, fd int32, offset, length int64, advice
+@@ -1995,18 +2030,31 @@ func (w *WasiStubs) Fd_advise(m *Module, fd int32, offset, length int64, advice
  }
  
  func (w *WasiStubs) Fd_allocate(m *Module, fd int32, offset, length int64) int32 {
@@ -114,6 +114,8 @@ index 45fe002..c593402 100644
 + start, count := uint64(offset), uint64(length)
 + if start > uint64(1<<63-1) || count > uint64(1<<63-1)-start { return 27 } // EFBIG
 + end := int64(start + count)
++ // Empty allocation is a validated no-op, even past the current EOF.
++ if count == 0 { end = 0 }
 + if allocator, ok := op.f.(interface { Allocate(int64) error }); ok {
 +  return mapOSError(allocator.Allocate(end))
 + }
@@ -132,7 +134,7 @@ index 45fe002..c593402 100644
  }
  
  // Path_chmod is a NON-STANDARD host import (module wasi_snapshot_preview1,
-@@ -3137,6 +3183,7 @@ func (t *translator) emitWasip1Native() ([]ast.Decl, []string, error) {
+@@ -3137,6 +3185,7 @@ func (t *translator) emitWasip1Native() ([]ast.Decl, []string, error) {
  			"memSlice":                true,
  			"logicalMemory":           true,
  			"mapOSError":              true,
@@ -140,7 +142,7 @@ index 45fe002..c593402 100644
  			"mapExecError":            true,
  			"encodeWaitStatus":        true,
  			"totalBytesPlusNul":       true,
-@@ -3205,7 +3252,7 @@ func (t *translator) emitWasip1Native() ([]ast.Decl, []string, error) {
+@@ -3205,7 +3254,7 @@ func (t *translator) emitWasip1Native() ([]ast.Decl, []string, error) {
  			"writeFilestat":           true,
  			"Error":                   true,
  		},
@@ -149,7 +151,7 @@ index 45fe002..c593402 100644
  		keepConstAll: true,
  	})
  	if err != nil {
-@@ -3511,8 +3558,9 @@ func (w *WasiStubs) iovecSlices64(m *Module, iovs, iovsLen int64) ([][]byte, boo
+@@ -3511,8 +3560,9 @@ func (w *WasiStubs) iovecSlices64(m *Module, iovs, iovsLen int64) ([][]byte, boo
  
  func (w *WasiStubs) Fd_write64(m *Module, fd int64, iovs int64, iovsLen int64, nwrittenPtr int64) int32 {
  	w.mu.Lock()

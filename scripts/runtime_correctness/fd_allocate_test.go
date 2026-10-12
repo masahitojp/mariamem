@@ -15,7 +15,7 @@ func allocationModule() *Module {
 }
 func TestAllocationContracts(t *testing.T) {
  for _,kind:=range []string{"memory","native"} {for _,c:=range []struct{name string;off,n int64;size int64;reject bool}{
-  {"inside",0,4,16,false},{"zero",0,0,16,false},{"zero-beyond",32,0,32,false},
+  {"inside",0,4,16,false},{"zero",0,0,16,false},{"zero-beyond",32,0,16,false},
   {"grow",16,16,32,false},{"unsigned-wrap",-1,1,16,true},{"signed-limit",1<<63-1,1,16,true},
  } {t.Run(kind+"/"+c.name,func(t *testing.T){
   var f File;var err error
