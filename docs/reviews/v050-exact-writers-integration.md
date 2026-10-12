@@ -24,8 +24,11 @@ The approved design baseline is source commit
 implementation and all tests/workflow are committed at
 `f66727dda49d1b4ca2c7e814e218587c051f7f97` on
 `experiment/v050-exact-writers-integration`. Subsequent report commits do not
-change that runtime. Root main `098b0144ed50835da792ba811d11e0a1c8b000b2` and
-other tasks' workspaces were left untouched. Source identities were checked as
+change that runtime. Main at task start was
+`098b0144ed50835da792ba811d11e0a1c8b000b2`; concurrent documentation work
+advanced it to `920fb99ca2de5ac2e07863e39365749098ac122f` before cleanup.
+Those changes are separate from this branch and were not overwritten or merged.
+Source identities were checked as
 commit objects with `scripts/git_identity.py`, rather than inferred from tag
 objects. The tested private host's VCS stamp is the implementation commit with
 `vcs.modified=false`; the control host is the clean design baseline.

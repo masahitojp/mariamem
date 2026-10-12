@@ -1028,6 +1028,10 @@
     "artifact-identities.json": {
       "saved_sha256": "73c835ffe83899e6984637dbe8cced72417f3a3ab9b4cb9881853af0cc57aa68",
       "saved_bytes": 1097
+    },
+    "cleanup-converter-identity.json": {
+      "saved_sha256": "552b0aa49861c97900fef37e9f42e2fb2aea79d155fb0b906fb4ae39d83365c0",
+      "saved_bytes": 1740
     }
   }
 }

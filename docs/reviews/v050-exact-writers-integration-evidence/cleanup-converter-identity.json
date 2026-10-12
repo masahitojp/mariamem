@@ -1,0 +1,23 @@
+{
+  "archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+  "patches_sha256": {
+    "imported-memory.patch": "9e05149ed2ad75780ee939a7caa577f420d151855ab723498ec60c533f805d40",
+    "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+    "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
+    "pure-memory32.patch": "7b0bf47f257d51ed842483e1ae2c6cb9a45fb009d7114679f9ed32ff76378694",
+    "controlled-thread-traps.patch": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+    "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+    "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
+    "helper-bridge.patch": "934246d80d37a596b43d786065b168aa3d94af62ae3130bd5a9c422ce7e5783b",
+    "export-collision.patch": "2e4866056a3e65c7be0fbc343207157319f609391b07cb8123bed4ab2b2f8f93",
+    "fd-allocate-preservation.patch": "84582c8c9684026735a04117e00a48905f10aef736fb4178c26c79d804b797e6",
+    "zero-bulk-bounds.patch": "85c05f04b24a03e3f65b86b73e8682221615ab10df1d66bde05157d3348813eb"
+  },
+  "files": 420,
+  "verified_recreated_source": [
+    "temp/independent-regeneration/translation/converter/wasm2go-730057c146463f663e8774587bc96fb2bea91af8",
+    "temp/narrow-fixture-first/converter-source/wasm2go-730057c146463f663e8774587bc96fb2bea91af8",
+    "temp/translation-first/converter/wasm2go-730057c146463f663e8774587bc96fb2bea91af8"
+  ],
+  "reason": "Tar-extracted converter checkouts have no commits; all untracked bytes exactly reproduced from fixed archive plus existing ordered patches. No unique source changes."
+}
