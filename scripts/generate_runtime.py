@@ -19,6 +19,7 @@ NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
 HANDWRITTEN_FILES = (
     'code/base/fd_allocate_test.go',
     'code/base/bulk_bounds_test.go',
+    'code/base/narrow_load_test.go',
     'code/base/narrow_load_supported.go',
     'code/base/narrow_load_other.go',
     'code/base/narrow_load_darwin_arm64.s',
