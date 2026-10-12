@@ -1,6 +1,6 @@
 {
   "benchmarks/spikes/v050-access-paths/mutex_probe.py": "63eea9cdafd5380c1a9426c15ca40086cda607a23542dfa552783e422450705d",
   "benchmarks/spikes/v050-access-paths/mutex_probe_test.go.txt": "099a7e2f0d03d4cbe57f840382c68c680a9f6df1a091eea3090bfa9b8bb89e12",
-  "benchmarks/spikes/v050-access-paths/scan.py": "f2ca0f5f11dcd00d28182798307261b65e9cdc921775b480dbc00e6f01ec1954",
+  "benchmarks/spikes/v050-access-paths/scan.py": "7050c3a65ef4956b6ee84a99014b3e8bff697f8702ce3b932bee96a0ee145081",
   "benchmarks/spikes/v050-access-paths/test_scan.py": "24b3165d23313ee03a5d5f249ae5a863de6ff19ce89061505b42b1ffe4032ee9"
 }

@@ -147,7 +147,7 @@ def main():
     assert len(functions) == 21628, "defined function scope changed"
     inventory = []
     for fn in sorted(family):
-        inventory.append({**functions[fn], "fn": fn, "family": family[fn], "writers": by_function[fn],
+        inventory.append({**functions[fn], "fn": fn, "family": family[fn], "writers": [{key: row[key] for key in ("line", "helper", "statement")} for row in by_function[fn]],
                           "direct_callers": sorted(callers[fn]),
                           "verdict": "Source/lifetime review required; graph is not an alias or safety proof"})
     save(out, "writer-inventory.json", inventory)

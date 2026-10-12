@@ -2,9 +2,9 @@
   "normalization": "Local task/home paths replaced; trailing whitespace removed; full direct graph JSON minified without semantic edits. Superseded/setup attempts are not semantic verdicts.",
   "files": {
     "writer-inventory.json": {
-      "raw_sha256": "635f2e0d579717ae82c422b9fc13a967722fbab86505d91ec18e2099accc88fe",
-      "saved_sha256": "635f2e0d579717ae82c422b9fc13a967722fbab86505d91ec18e2099accc88fe",
-      "raw_bytes": 392428
+      "raw_sha256": "5e306b79f960a1d08abbdb859711751b5c2ae62e62d1f3635262edfa5a1676da",
+      "saved_sha256": "5e306b79f960a1d08abbdb859711751b5c2ae62e62d1f3635262edfa5a1676da",
+      "raw_bytes": 66627
     },
     "generated-accesses.json": {
       "raw_sha256": "9ea2e5b0128ade2a78057ba2710e78a420d7daca65af9d2f9aeedb950a911284",
@@ -121,11 +121,6 @@
       "saved_sha256": "099def0ffac413984ec840cb2d630bef4c9e7887aaa28680bfb93687fc588d57",
       "raw_bytes": 10908
     },
-    "ubuntu-narrow-native-reference-results.json": {
-      "raw_sha256": "1e4577387baad24943841e4324b5d09be54e93372bec918d5354a2ffd3a58e97",
-      "saved_sha256": "1e4577387baad24943841e4324b5d09be54e93372bec918d5354a2ffd3a58e97",
-      "raw_bytes": 405012
-    },
     "ubuntu-narrow-native-mmap.txt": {
       "raw_sha256": "2bfb7ed2275c7f44e25dde98205912a9b88f23f572647a15e04b0ad8e52a9d0a",
       "saved_sha256": "2bfb7ed2275c7f44e25dde98205912a9b88f23f572647a15e04b0ad8e52a9d0a",
@@ -179,7 +174,7 @@
       "saved_bytes": 72
     },
     "tool-source-identity.json": {
-      "saved_sha256": "fcf38727f3a69e4d535c51ca1b4c23860178dadc417e861ceef6973331d34511",
+      "saved_sha256": "7f938caa62cd9d6eae0a49f9658c53a6c7504edee6ac4e149ef6d33ea0a69653",
       "saved_bytes": 499
     }
   }
