@@ -129,7 +129,7 @@ def main():
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.
     for name in HANDWRITTEN_FILES:
-        owner = (ROOT/'scripts/runtime_correctness'/Path(name).name
+        owner = (ROOT/'scripts/runtime_correctness'/(Path(name).name+'.txt')
                  if Path(name).name.startswith('narrow_load_') or Path(name).name in {'fd_allocate_test.go','bulk_bounds_test.go'}
                  else ROOT/'internal/generatedgo'/name)
         shutil.copy2(owner, out/name)
