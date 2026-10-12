@@ -1,0 +1,6 @@
+heap value PASS exit 0 race reports 0
+heap-race value PASS exit 1 race reports 22
+heap-control value PASS exit 0 race reports 0
+mmap value PASS exit 0 race reports 0
+mmap-race value PASS exit 0 race reports 0
+mmap-control value PASS exit 0 race reports 0

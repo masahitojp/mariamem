@@ -1,0 +1,85 @@
+package probe
+
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"os"
+	"runtime"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"unsafe"
+)
+
+// Observe host dispatch only; never wrap or rewrite a guest memory access.
+type observer struct {
+	*host
+	waits atomic.Uint64
+}
+
+func (h *observer) Futex_wait(m *base.Module, addr, expected, timeout, result int32) int32 {
+	h.waits.Add(1)
+	return h.host.Futex_wait(m, addr, expected, timeout, result)
+}
+
+func TestRealGuestNormalMutex(t *testing.T) {
+	const size = 65536
+	memory := make([]byte, size)
+	if os.Getenv("PROBE_BACKING") == "mmap" {
+		mapping, err := base.NewMemoryMapping(size, size)
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer mapping.Close()
+		memory = mapping.Bytes()
+	}
+	h := &observer{host: &host{}}
+	m := &base.Module{Memory: memory, M: unsafe.Pointer(unsafe.SliceData(memory)), MemShared: true, MaxMem: size, Threads: &base.ThreadPool{}, MemSize: &atomic.Uint64{}, MemMu: &sync.Mutex{}}
+	m.MemSize.Store(size)
+	m.Wasix_32v1 = h
+	if os.Getenv("PROBE_OBSERVE") == "0" {
+		m.Wasix_32v1 = h.host
+	}
+	base.ForceContendedAtomics(m)
+	const mutex = 64
+	const payload = 256
+	var workers sync.WaitGroup
+	for agent := 0; agent < 4; agent++ {
+		child := *m
+		child.G0 = int32(size - 1024 - 4096*agent)
+		child.G1 = int32(1024 + 256*agent)
+		// Fn90 reads the per-agent pthread pointer at TLS+4. Leaving this
+		// unset would falsely alias every cancellation byte at address 36.
+		self := int32(3072 + 256*agent)
+		*(*int32)(unsafe.Add(child.M, uintptr(child.G1+4))) = self
+		workers.Add(1)
+		go func() {
+			defer workers.Done()
+			for i := 0; i < 500; i++ {
+				if rc := Fn93(&child, mutex); rc != 0 {
+					t.Errorf("lock=%d", rc)
+					return
+				}
+				value := (*uint32)(unsafe.Add(child.M, payload))
+				*value = *value + 1
+				runtime.Gosched() // Force contention; finite timing is not a memory-model proof.
+				if rc := Fn130(&child, mutex); rc != 0 {
+					t.Errorf("unlock=%d", rc)
+					return
+				}
+			}
+		}()
+	}
+	workers.Wait()
+	value := *(*uint32)(unsafe.Add(m.M, payload))
+	encoded, _ := json.Marshal(map[string]any{"backing": os.Getenv("PROBE_BACKING"), "observe": os.Getenv("PROBE_OBSERVE") != "0", "value": value, "wait_calls": h.waits.Load(), "agents": 4, "updates": 2000})
+	fmt.Println("OBS " + string(encoded))
+	if value != 2000 {
+		t.Fatalf("protected value=%d", value)
+	}
+	if os.Getenv("PROBE_OBSERVE") != "0" && h.waits.Load() == 0 {
+		t.Fatal("contended wait path was not exercised")
+	}
+	runtime.KeepAlive(memory)
+}

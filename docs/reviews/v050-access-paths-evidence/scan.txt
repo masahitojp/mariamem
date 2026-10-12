@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "$TASK/worktree/benchmarks/spikes/v050-access-paths/scan.py", line 169, in <module>
+    main()
+    ~~~~^^
+  File "$TASK/worktree/benchmarks/spikes/v050-access-paths/scan.py", line 107, in main
+    assert digest(raw) == provenance["generated_files_sha256"][relative.removeprefix("internal/generatedgo/")]
+                          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'generated_files_sha256'

@@ -1,5 +1,11 @@
 # v0.5.0 exact-width narrow writer integration
 
+Follow-up: the previously pending Ubuntu native run at this report's exact
+source completed successfully. The [access-path Human Review](v050-access-paths.md)
+records that receipt, the deeper lifecycle/source tracing and a remaining
+mutex mixed-access diagnostic. The original handoff statuses below retain
+their original evidence-time scope.
+
 The maintainer approved formal adoption after the
 [design and bounded verification](v050-exact-writers-design.md). This change
 removes the extra neighboring-byte memory operands from generated 8/16-bit

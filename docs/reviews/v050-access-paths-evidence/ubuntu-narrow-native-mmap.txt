@@ -1,0 +1,7 @@
+=== RUN   TestConvertedNarrowWasmOracle
+PASS 1305 real Wasm reference cases
+--- PASS: TestConvertedNarrowWasmOracle (0.13s)
+=== RUN   TestConvertedNarrowConcurrent
+--- PASS: TestConvertedNarrowConcurrent (0.00s)
+PASS
+ok  	example.com/narrowfixture/fixture	0.132s
