@@ -1,5 +1,10 @@
 # v0.5.0 access paths: Human Review
 
+**Superseded assessment:** the [subsequent scope and exit-criteria review](v050-access-review.md)
+withdraws the progression recommendation below. The requested overall path
+investigation is incomplete; this report remains intermediate evidence under
+its recorded scope. The historical observations and receipts are preserved.
+
 **Decision now: proceed to final Qualification and Product Validation with an
 explicit general shared-memory limitation, or require broader engine work first.**
 I recommend proceeding with the existing exact-width candidate, without a

@@ -209,16 +209,17 @@ part of v0.4.7. Historical candidate measurements qualify only their recorded in
 
 ## v0.5.0 — Stable guest
 
-The dedicated branch's [access-path Human Review](reviews/v050-access-paths.md)
-inventories all 65 generated narrow-writer functions and follows important
-target lifecycles. It distinguishes atomic live accesses, source-supported
-initialization/teardown exclusion and remaining pointer/ordering limits. A
-byte-preserved real-guest mutex dependency fixture keeps correct protected
-values but reports ordinary/atomic conflicts on Go heap; mmap silence is not
-safety evidence. Both native platforms passed the preceding narrow integration
-checks. Human choice about the stated general shared-memory limitation and
-progression to Qualification/Product Validation remains open; no release
-approval or broader implementation is implied.
+The dedicated branch's [access-path assessment review](reviews/v050-access-review.md)
+finds the requested overall investigation incomplete and withdraws the prior
+recommendation to proceed to Qualification/Product Validation. The
+[earlier report](reviews/v050-access-paths.md) retains the 65-function/147-site
+inventory, selected lifecycle tracing and isolated mutex mixed-access evidence.
+Those results do not establish that mutex is the only remaining concern. The
+Human requested finite exit criteria before further investigation: reconcile
+all relevant targets and supporting paths with evidence-backed dispositions,
+including specifically investigated unresolved questions. Universal absence of
+failures is not the completion criterion. Prior exact-width fixes and their
+bounded checks remain; no broader implementation or release is approved here.
 
 On the dedicated v0.5.0 experiment branch, the maintainer approved formal
 exact-width narrow atomic writer integration after bounded design verification.
