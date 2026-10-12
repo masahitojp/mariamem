@@ -8,63 +8,38 @@ platforms are macOS15+ arm64 and Ubuntu24.04 x86_64.
 
 ## Human Review recommendations
 
-Codex owns the engineering recommendation; the Human owns the final decision.
-Before writing, identify **one question the Human is uncertain about**, such as
-"Should this be fixed before release?" Use it to select the information that
-matters; it need not appear as a separate heading in the report.
+Identify **one decision needed from the Human now** before writing. Open with
+your short recommendation and decisive reason. Make the action explicit: adopt
+and implement a candidate, investigate a question, or accept a stated limitation.
+Do not combine candidate adoption with later release approval. Codex offers a
+grounded recommendation; the Human decides and uses it to explore the evidence
+from the PO's perspective. This does not add approval gates to authorized work.
 
-Answer that question directly in a short opening. The opening alone should make
-the recommended action, decisive reason and requested approval/rejection clear.
-Use as much space as needed to be understandable, without a sentence quota or
-fixed headings. Say whether to implement a fix, proceed with a limitation, narrow
-support, or investigate a specified question without changing code. "Bounded
-validation" alone is ambiguous. Describe user consequences before introducing
-terms such as exact-width or AHI. A findings list followed by "the Human can
-choose" leaves the engineering judgment unfinished.
-This reporting rule does not add another approval gate to work already authorized.
+In the opening, include the strongest material objection when a reasonable
+alternative could change the decision, followed immediately by why you still
+recommend the action or what would change it. Revise the recommendation if the
+objection wins; do not invent one for a small decision with no substantive
+alternative. State the rationale once. Use user impact before internal terms.
+There is no sentence/character limit or required table: the opening alone must
+show **what to decide, why you recommend it, and the main concern**.
 
-Keep these as **author checks, not mandatory report fields**. Include what changes
-the decision in the body; move technical explanations, traces and supporting
-evidence links after it:
+Link technical evidence, detailed validation conditions and remaining work in
+the report afterward. Keep these as author checks, not mandatory opening fields:
 
-- Separate confirmed facts, inference and unknowns. A specification discrepancy,
-  execution in a real workload and reproduced user-visible harm are distinct
-  claims. Cite fixed-source evidence and tests; detector blind spots and finite
-  passing tests do not establish the missing property.
-- Translate the issue into affected workflows and consequences: wrong results,
-  hangs, crashes, latency, resource pressure or cleanup responsibility. Label
-  observed harm versus possible harm and explain the latter's mechanism and scope.
-- Assess likelihood and severity qualitatively with reasons. Reachability supports
-  exposure, not a measured failure probability. Do not invent probabilities or
-  abandon a priority judgment because frequency is unknown. Neither unknowns nor
-  unreproduced harm automatically settle whether to block or accept a limitation.
-- Compare costs, delay/scope loss and residual risks of the recommendation and
-  the strongest practical alternative; explain why one is preferable.
-- State reversal evidence and completion conditions. Further investigation needs
-  a decision-changing question, bounded scope and an exit recommendation even if
-  inconclusive. General correctness proof is not an indefinite stop condition;
-  a concrete unmet requirement can still block release with a stated exit test.
+- Distinguish facts, inference and unknowns, including specification differences,
+  real-workload reachability and reproduced user harm. Translate possible harm
+  into user consequences without presenting it as observed.
+- Assess likelihood/severity with reasons, not invented probabilities. Compare
+  alternative costs and residual risks. Uncertainty does not excuse withholding
+  a recommendation or automatically make an issue acceptable or blocking.
+- State reversal evidence and bounded investigation/exit conditions, including
+  what to recommend if inconclusive. General correctness proof is not an indefinite
+  gate; finite tests or detector blind spots do not prove the missing property.
 
-Show **one strongest reasonable objection only if it could change the Human's
-decision**. Present the best case for the alternative fairly, immediately followed
-by why the recommendation still holds or what evidence would reverse it. If the
-objection wins, change the recommendation before submission. Do not invent an
-objection for the format or accumulate objections and unknowns instead of choosing
-one recommendation.
-
-A small review can fit in a few lines. A material architecture/release review
-needs links to fixed-source evidence and relevant tests, with detail afterward;
-neither requires a long template or table. Before submitting, check:
-
-- Can someone reading only the opening say what they would approve or reject?
-- Does any included objection help that decision, with an immediate assessment?
-- Can the reader follow links to the technical basis and its limits?
-
-After approval, record the resulting product direction in the appropriate current
-decision/status document. `project-status.md` owns decided product direction,
-not the deliberation template. Preserve historical reports; later evidence or
-changed recommendations belong in a dated follow-up linked to the originals.
-An illustrative use of this format does not supersede an active technical review.
+Before submitting, check that the opening makes the approval/rejection clear,
+any objection helps that decision, and links lead to the evidence and its limits.
+Record approved product direction in current decision/status documents; preserve
+historical reviews. Format examples do not supersede active technical decisions.
 
 ## Git source identity
 

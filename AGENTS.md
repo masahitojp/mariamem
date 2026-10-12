@@ -14,16 +14,12 @@ Use small spikes to reduce uncertainty before expensive architectural changes.
 
 Mechanical verification belongs in deterministic scripts and CI where possible.
 
-Before writing Human Review, identify one question the Human is deciding.
-Answer it directly in a short opening: one recommended action, the decisive
-reason and exactly what to approve or reject. Use user consequences before
-internal terminology; make implementation versus investigation explicit.
-Keep facts, inference, risk, alternatives and exit conditions as author checks;
-show decision-changing information first and link technical evidence afterward.
-Include one strong objection only when a reasonable alternative could change
-the decision, immediately followed by your assessment or reversal condition.
-Keep one recommendation; the Human retains final authority. Honest uncertainty
-must not become an unprioritized list or an indefinite correctness-proof gate.
+Human Review opens with one decision needed now, a short recommendation and its
+decisive reason, plus the strongest material objection and your assessment when
+one exists. Do not repeat the rationale; link technical evidence and remaining
+conditions afterward. Keep candidate adoption separate from later release approval.
+Use no fixed length: the opening must explain what to decide, why, and the main
+concern. Codex recommends; the Human decides and explores the evidence as PO.
 Use the scalable format in `docs/development.md#human-review-recommendations`.
 Keep approved product direction in `docs/project-status.md`; preserve historical
 reviews under their original evidence and decision context.
