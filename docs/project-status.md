@@ -233,7 +233,12 @@ without an old-version fallback. Saved old-guest Snapshots require recreation.
 The [bounded correctness judgment](reviews/v050-correctness-judgment.md)
 reproduces fd_allocate data loss, zero-length bulk trap omissions and load-only
 subword CAS writes. Three bounded corrections are recommended before qualification;
-no production fix has been approved/applied in that judgment. The same conflicting
+no production fix was applied in that judgment. The maintainer subsequently
+authorized the [three bounded corrections and feasibility study](reviews/v050-correctness-fixes.md).
+Those owner changes, independent regeneration and local checks are complete;
+no general shared-memory guarantee or RELEASE READY status follows.
+Human review chooses whether to retain the stated limits or require a broader
+design before final Qualification and Product Validation. The same conflicting
 accesses report races on Go heap and none on production mmap backing under the
 observed Go1.26.8 macOS arm64 detector. Shared-memory semantics and acceptance of
 that documented observation limit require a separate Human decision.

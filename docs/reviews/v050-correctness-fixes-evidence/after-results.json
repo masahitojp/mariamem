@@ -1,0 +1,275 @@
+{
+  "source_commit": "a4bf7afbf2af91d9562cda575d2308344e2c22e1",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "toolchain": "go1.26.8",
+  "canonical_helpers_sha256": {
+    "audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
+    "base.go": "2f336d438520c1fabae86b4aaf2de014c334425d88e038da839442cdb793010b",
+    "cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+    "cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+    "cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+    "cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+    "cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+    "memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
+    "memory_mapping.go": "388e8cf70e3387db7143f9081b9e62c6ddb3edf52e4adbff223be1f9a8020cc7",
+    "narrow_load_darwin_arm64.s": "0e5f92aaa6767c173b90b3432ce6866291a96e1b3e26a3a43c7b23de96cdd5a9",
+    "narrow_load_linux_amd64.s": "7a4c1ba99109aa8870db20bdd6eee26515362d292738ec0008b5fa4c43d0956f",
+    "narrow_load_other.go": "49b7b233f4380992c11c0d9ab6cd7442db1d2401c8428d33389fcf320fb626c7",
+    "narrow_load_supported.go": "53a04e996c7edafe5a21c28c35d4fa9f9661c8854d4d1aaca5029af83331d342",
+    "owned_prepared.go": "7ae03ac0aeae14505faae3e151649eb3f683ca6d63e3313109972560e3a9c388",
+    "prepared_files.go": "9f860253f7cb682b274492129e1fc7e8c64d62dcc47c7c39e42ee347675629cc",
+    "relative.go": "c63c1839d91812712e64642699bba33879ff9386f46a33196c1319d21a78d36e",
+    "runtime_cleanup.go": "40886ea6b6c24316f4fd73d451674c815bc7b26717e1b635362b2170d010d75c",
+    "sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+    "sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+    "sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+    "simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+    "simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c",
+    "simd_asm_decls_amd64.go": "456cefd6896b1021a6dbf813a381165ec99efb3cd7b66a34a4e97ef31b23802e",
+    "simd_asm_decls_arm64.go": "8e9dd950f0c3282a924cf961e055db631536f883f2c05cccef44c4974d99abee",
+    "simd_fallback.go": "0bb864d570bc9286d87290c55ef52e7082c114e6f3730ae86415e15bbff849ad",
+    "simd_pair.go": "ffa8c2aac9e0a61608fca859ea8a7493b42dca47babed99c28762573c8d0a916",
+    "simd_relaxed.go": "ce4ddfb367e686107aa8dbcba8ced4bb5b591106cec94d0950f5e588b1235152",
+    "simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+    "simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+    "simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+    "spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862"
+  },
+  "checks": [
+    {
+      "test": "TestAllocateControls",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAllocateControls.txt",
+      "log_sha256": "043fb68591b05df449b46d08bdc740ca873c9ccf2aa7dcf5f6cfa9248c152d1c",
+      "race_report": false
+    },
+    {
+      "test": "TestAllocatePreservesExistingData",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAllocatePreservesExistingData.txt",
+      "log_sha256": "26e76d6c03180ad752f345e1003bcc3e8e663891bd67d80a07054b7ca159c2ff",
+      "race_report": false
+    },
+    {
+      "test": "TestZeroBulkBounds",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestZeroBulkBounds.txt",
+      "log_sha256": "eaaa5713713a4c30505d8ea9e056398785029ea4242ffb70358f65052a8d90e1",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicValuesAndBounds",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicValuesAndBounds.txt",
+      "log_sha256": "50052e38858445a6373bd28451aa97cac4cb604a840f355bb02b57d720831e8d",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicReadRead8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicReadRead8.txt",
+      "log_sha256": "23b2db86281201a91ab2931649ccb68b8f6973513379fab10466d58cc1f95b8e",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicReadRead16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicReadRead16.txt",
+      "log_sha256": "455635aac43c875bdebc98236f405954ed98e832a984c4824496ca0393ac7289",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicNeighbor8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicNeighbor8.txt",
+      "log_sha256": "46c4b63cc0fbde20ef76d20e6306899e185e53b7e704108eeee7d5d84f998c7e",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicNeighbor16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicNeighbor16.txt",
+      "log_sha256": "b7e3f9b43c721d525cb78f7934e1422a37d903e7485c66bbcfac27fa0c2ec1d1",
+      "race_report": false
+    },
+    {
+      "test": "TestReadOnlyWordNeighbor",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestReadOnlyWordNeighbor.txt",
+      "log_sha256": "e3958f2e10b86949467841ebf414a82ca5dd7ef735b972931caa39e136cd663d",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicReadRead8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead8.txt",
+      "log_sha256": "98e151abe8f2009fbf740e4ea3290cec3eaa841a160429fa63f0a1173a47902c",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicReadRead16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead16.txt",
+      "log_sha256": "9900a74c5f4f8378ac49768359e4ca11899f2d7b872d7507469f6fa04f5eb1a1",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor8.txt",
+      "log_sha256": "d681b445aa2b63fe8b72911601995afae11d5a3a3b6d32dde5b846d7a0534c7f",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor16.txt",
+      "log_sha256": "9ffada89a2e57d6a280c5a8e77c1e9cda1b135e9af8cc9aeeef8f1fa4519248f",
+      "race_report": false
+    },
+    {
+      "test": "TestHeapPlainConflict",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestHeapPlainConflict.txt",
+      "log_sha256": "dd0d0977ace9d50416db1c6d97a69109f82f7beb0ba5fcbfeb8c1f443b088b9e",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedPlainConflict",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedPlainConflict.txt",
+      "log_sha256": "9b609a40e36e08b3adb041dc7a4948f6b3e76f028064fd0cf8a9492983b1f055",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicReadRead8",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicReadRead8-race.txt",
+      "log_sha256": "a8c87ac9598e130e7401e526a1d65f849e0d5cba727b28c15d8b99f7dc24a4c9",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicReadRead16",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicReadRead16-race.txt",
+      "log_sha256": "7aabeebc8bb41ea9daba065560f8cd012f342d3da9aabf0b238ed7d4217c8aab",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicNeighbor8",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicNeighbor8-race.txt",
+      "log_sha256": "c4786c9b0086a76595bc72357177f0521b79d8b3f3b85064974134671a71a174",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicNeighbor16",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicNeighbor16-race.txt",
+      "log_sha256": "0b6eefd29c05c9139a01a6c18589d877e413810550fdb453907b4beeed028195",
+      "race_report": false
+    },
+    {
+      "test": "TestReadOnlyWordNeighbor",
+      "race": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestReadOnlyWordNeighbor-race.txt",
+      "log_sha256": "7da11a48ad935e09ee1187c29697e5106f82f1d4a501a2815ba7a646355404bc",
+      "race_report": true
+    },
+    {
+      "test": "TestMappedAtomicReadRead8",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead8-race.txt",
+      "log_sha256": "25889cca4be817d5b65745a27a3977bdce4bfc629201b5c4e627fc80a781e1dc",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicReadRead16",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead16-race.txt",
+      "log_sha256": "7fb9dde83aa9fa7ad03eea876fe5c72370da549a747f37b9f3b8769bc6b385e4",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor8",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor8-race.txt",
+      "log_sha256": "4152f89ab7af957b608e5a8410c8a3b051c4d41b3418fcfa8d02824cd46b7a31",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor16",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor16-race.txt",
+      "log_sha256": "ef6bc65b758e25551851afa4177a451f7b5257db25bb8b061117de3a088666ca",
+      "race_report": false
+    },
+    {
+      "test": "TestHeapPlainConflict",
+      "race": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestHeapPlainConflict-race.txt",
+      "log_sha256": "d7a3ac63adfd3ce822b6891ff16684b7cd75f6bed37a6e3d7057dbf3fd3b4fb0",
+      "race_report": true
+    },
+    {
+      "test": "TestMappedPlainConflict",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedPlainConflict-race.txt",
+      "log_sha256": "2dc9d198efbc3af79d2df3ad78182ca0fff5fa861dedd1000c52afac891ccea7",
+      "race_report": false
+    }
+  ],
+  "scope": "Unmodified helper semantics and reduced host-memory conflicts; not full guest qualification or race census."
+}

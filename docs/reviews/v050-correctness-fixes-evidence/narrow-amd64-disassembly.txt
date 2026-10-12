@@ -1,0 +1,15 @@
+TEXT narrowcandidate.load8.abi0(SB) $TASK/temp/narrow-candidate/narrow_amd64.s
+  narrow_amd64.s:3	0x52f5a0		488b442408		MOVQ 0x8(SP), AX
+  narrow_amd64.s:4	0x52f5a5		0faef0			MFENCE
+  narrow_amd64.s:5	0x52f5a8		0fb608			MOVZX 0(AX), CX
+  narrow_amd64.s:6	0x52f5ab		0faef0			MFENCE
+  narrow_amd64.s:7	0x52f5ae		894c2410		MOVL CX, 0x10(SP)
+  narrow_amd64.s:8	0x52f5b2		c3			RET
+
+TEXT narrowcandidate.load16.abi0(SB) $TASK/temp/narrow-candidate/narrow_amd64.s
+  narrow_amd64.s:10	0x52f5c0		488b442408		MOVQ 0x8(SP), AX
+  narrow_amd64.s:11	0x52f5c5		0faef0			MFENCE
+  narrow_amd64.s:12	0x52f5c8		0fb708			MOVZX 0(AX), CX
+  narrow_amd64.s:13	0x52f5cb		0faef0			MFENCE
+  narrow_amd64.s:14	0x52f5ce		894c2410		MOVL CX, 0x10(SP)
+  narrow_amd64.s:15	0x52f5d2		c3			RET

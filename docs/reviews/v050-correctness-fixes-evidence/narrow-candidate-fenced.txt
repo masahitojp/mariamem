@@ -1,0 +1,8 @@
+=== RUN   TestValues
+--- PASS: TestValues (0.00s)
+=== RUN   TestNeighbor
+--- PASS: TestNeighbor (0.00s)
+=== RUN   TestPublishAcquire
+--- PASS: TestPublishAcquire (0.00s)
+PASS
+ok  	narrowcandidate	0.343s

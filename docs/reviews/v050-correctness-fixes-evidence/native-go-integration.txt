@@ -1,0 +1,11 @@
+--- FAIL: TestPublicLifecycle (0.00s)
+    lifecycle_test.go:24: set MARIAMEM_TEST_DEFAULT=1 for generated-Go integration
+--- FAIL: TestMultipleClientIsolationAndCapacity (0.00s)
+    multiclient_test.go:63: set MARIAMEM_TEST_DEFAULT=1
+--- FAIL: TestMultipleClientSnapshotAndShutdown (0.00s)
+    multiclient_test.go:252: set MARIAMEM_TEST_DEFAULT=1
+FAIL
+FAIL	github.com/masahitojp/mariamem/tests/gointegration	0.776s
+ok  	github.com/masahitojp/mariamem/tests/godefault	4.856s
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.692s
+FAIL

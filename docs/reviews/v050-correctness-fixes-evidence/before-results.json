@@ -1,0 +1,271 @@
+{
+  "source_commit": "f14764cee0aa90dadf9c624cfeaf59c04b6c740f",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "toolchain": "go1.26.8",
+  "canonical_helpers_sha256": {
+    "audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
+    "base.go": "8dc6392a5eb5196b8fc126d2347a31373890e396246a9af3932279a90f412f74",
+    "cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+    "cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+    "cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+    "cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+    "cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+    "memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
+    "memory_mapping.go": "388e8cf70e3387db7143f9081b9e62c6ddb3edf52e4adbff223be1f9a8020cc7",
+    "owned_prepared.go": "7ae03ac0aeae14505faae3e151649eb3f683ca6d63e3313109972560e3a9c388",
+    "prepared_files.go": "9f860253f7cb682b274492129e1fc7e8c64d62dcc47c7c39e42ee347675629cc",
+    "relative.go": "61d67c5ee85fc73d28745e17b8eaab4d0d6e1c63f28969a1e8c66983db8fbd80",
+    "runtime_cleanup.go": "40886ea6b6c24316f4fd73d451674c815bc7b26717e1b635362b2170d010d75c",
+    "sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+    "sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+    "sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+    "simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+    "simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c",
+    "simd_asm_decls_amd64.go": "456cefd6896b1021a6dbf813a381165ec99efb3cd7b66a34a4e97ef31b23802e",
+    "simd_asm_decls_arm64.go": "8e9dd950f0c3282a924cf961e055db631536f883f2c05cccef44c4974d99abee",
+    "simd_fallback.go": "0bb864d570bc9286d87290c55ef52e7082c114e6f3730ae86415e15bbff849ad",
+    "simd_pair.go": "ffa8c2aac9e0a61608fca859ea8a7493b42dca47babed99c28762573c8d0a916",
+    "simd_relaxed.go": "ce4ddfb367e686107aa8dbcba8ced4bb5b591106cec94d0950f5e588b1235152",
+    "simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+    "simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+    "simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+    "spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862"
+  },
+  "checks": [
+    {
+      "test": "TestAllocateControls",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAllocateControls.txt",
+      "log_sha256": "1d81a7465a8e1ed203903f1593faedfbc2159685a1321aaa489ea4caa029a7ae",
+      "race_report": false
+    },
+    {
+      "test": "TestAllocatePreservesExistingData",
+      "race": false,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestAllocatePreservesExistingData.txt",
+      "log_sha256": "93bf5d1521a2924ba02975e1bcbbc1419a578d2783acbc3b40b4f2c7646312be",
+      "race_report": false
+    },
+    {
+      "test": "TestZeroBulkBounds",
+      "race": false,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestZeroBulkBounds.txt",
+      "log_sha256": "de2740bf167a7eeade01d211bf3def9e9e5aa5c369c441bd4777b26cd563844b",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicValuesAndBounds",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicValuesAndBounds.txt",
+      "log_sha256": "5700a6145e6483647234d29b1eeb3d5829c06bfa9702c12bd16b63703108a0ef",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicReadRead8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicReadRead8.txt",
+      "log_sha256": "6528329d1338a4a3aec2183e4f4d68e27f69eb1c102c0b3d2b66f2c95c2dee9d",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicReadRead16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicReadRead16.txt",
+      "log_sha256": "9fcce93c80b515b79424808ca8a20bcb118a8106387c0c73befd046cc99f0674",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicNeighbor8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicNeighbor8.txt",
+      "log_sha256": "124c8bf44e3b5b6a8bc5ec4da53718eaa64196cd8efa6126bce82cb6366a2ab0",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicNeighbor16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicNeighbor16.txt",
+      "log_sha256": "fb3d97d7774c4cb8451975b252feaf348520d263b8ad78b41607b1d56b3b7334",
+      "race_report": false
+    },
+    {
+      "test": "TestReadOnlyWordNeighbor",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestReadOnlyWordNeighbor.txt",
+      "log_sha256": "c8a347a7df4fb998d67507e4272a5b78a44003b8b72724075b43f37ae536c03b",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicReadRead8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead8.txt",
+      "log_sha256": "b91b20c905397a119905eaf547cd631a65a332f812e16d16cea7f4507a1f8386",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicReadRead16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead16.txt",
+      "log_sha256": "e5f200d8c3c9984ff603ceaffdbedd50d6c6d4c0f12fc4abcdd2e1a5ae5bfaf0",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor8.txt",
+      "log_sha256": "b00b8176fe55a0a7a67a3e0626dbc94fc65863277531505ed979877834e5ca7b",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor16.txt",
+      "log_sha256": "b6e297a7e04d0944e8601b45227b9536b8420ab8583f997f74244e9013a92dea",
+      "race_report": false
+    },
+    {
+      "test": "TestHeapPlainConflict",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestHeapPlainConflict.txt",
+      "log_sha256": "ae6843c97947cbccb59b3552cfb68657159b081eacef30a32955d7b12b8737d0",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedPlainConflict",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedPlainConflict.txt",
+      "log_sha256": "a4bd3a108381f629810fa525e1f9c48a3b967ffb3fa4ec8f4888dc28b6daec82",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicReadRead8",
+      "race": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestAtomicReadRead8-race.txt",
+      "log_sha256": "7e5ccc7787ee41ce2cb725157296786e51ebc94aaebb9dcfc871b4700b72f6d3",
+      "race_report": true
+    },
+    {
+      "test": "TestAtomicReadRead16",
+      "race": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestAtomicReadRead16-race.txt",
+      "log_sha256": "59e2af26ce6c96747ff86f545f03070c674b50e50de20af6175ebfe34e9f0236",
+      "race_report": true
+    },
+    {
+      "test": "TestAtomicNeighbor8",
+      "race": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestAtomicNeighbor8-race.txt",
+      "log_sha256": "288d6dc5cdc3338a3a48c6953923d97d5f4c1e517168f32be48e15c07ca07210",
+      "race_report": true
+    },
+    {
+      "test": "TestAtomicNeighbor16",
+      "race": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestAtomicNeighbor16-race.txt",
+      "log_sha256": "047b37eb86c419900a82c22ac5fac27c43bfa9cfde709cc45e87109cc28b2acf",
+      "race_report": true
+    },
+    {
+      "test": "TestReadOnlyWordNeighbor",
+      "race": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestReadOnlyWordNeighbor-race.txt",
+      "log_sha256": "e7c9b67c830673b87ea9bcb0eb051b520c55e7460d55147d67378ba586c04aa9",
+      "race_report": true
+    },
+    {
+      "test": "TestMappedAtomicReadRead8",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead8-race.txt",
+      "log_sha256": "787377adde0ee346c1a7cde01f800f13338417a95d7e8d50fa9e67dd282f8aeb",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicReadRead16",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead16-race.txt",
+      "log_sha256": "744fa80b2a4a2105076e91d28477cd98353c692111a815cdc17cd86ec965de03",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor8",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor8-race.txt",
+      "log_sha256": "6112764afacabc28d3cbedc09ba423c2584f88e0b178b88d27877ccf2ee72363",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor16",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor16-race.txt",
+      "log_sha256": "ef6bc65b758e25551851afa4177a451f7b5257db25bb8b061117de3a088666ca",
+      "race_report": false
+    },
+    {
+      "test": "TestHeapPlainConflict",
+      "race": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestHeapPlainConflict-race.txt",
+      "log_sha256": "7516a53961da28e6474e5cc5d444ebc582afb101172ddda0618e0728651e55e5",
+      "race_report": true
+    },
+    {
+      "test": "TestMappedPlainConflict",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedPlainConflict-race.txt",
+      "log_sha256": "ed339c9ef8ebba5b8574b33adf011755edaf7909a82c8f2aecf23ea987286f1c",
+      "race_report": false
+    }
+  ],
+  "scope": "Unmodified helper semantics and reduced host-memory conflicts; not full guest qualification or race census."
+}

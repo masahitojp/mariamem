@@ -1,0 +1,46 @@
+=== RUN   TestValues
+--- PASS: TestValues (0.00s)
+=== RUN   TestNeighbor
+--- PASS: TestNeighbor (0.00s)
+=== RUN   TestPublishAcquire
+==================
+WARNING: DATA RACE
+Read at 0x00c0000123ec by goroutine 13:
+  narrowcandidate.TestPublishAcquire()
+      $TASK/temp/narrow-candidate/narrow_test.go:26 +0x218
+  testing.tRunner()
+      $TASK/temp/modcache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      $TASK/temp/modcache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+
+Previous write at 0x00c0000123ec by goroutine 14:
+  narrowcandidate.TestPublishAcquire.func1()
+      $TASK/temp/narrow-candidate/narrow_test.go:24 +0x70
+
+Goroutine 13 (running) created at:
+  testing.(*T).Run()
+      $TASK/temp/modcache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x7bc
+  testing.runTests.func1()
+      $TASK/temp/modcache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2585 +0x74
+  testing.tRunner()
+      $TASK/temp/modcache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.runTests()
+      $TASK/temp/modcache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2583 +0x7a0
+  testing.(*M).Run()
+      $TASK/temp/modcache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2443 +0xb38
+  main.main()
+      _testmain.go:50 +0x100
+
+Goroutine 14 (finished) created at:
+  narrowcandidate.TestPublishAcquire()
+      $TASK/temp/narrow-candidate/narrow_test.go:24 +0x1dc
+  testing.tRunner()
+      $TASK/temp/modcache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      $TASK/temp/modcache/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+==================
+    testing.go:1712: race detected during execution of test
+--- FAIL: TestPublishAcquire (0.01s)
+FAIL
+exit status 1
+FAIL	narrowcandidate	0.273s

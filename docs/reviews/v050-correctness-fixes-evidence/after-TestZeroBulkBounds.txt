@@ -1,0 +1,40 @@
+=== RUN   TestZeroBulkBounds
+=== RUN   TestZeroBulkBounds/fill/at-end
+    probe_test.go:51: trap=false want=false
+=== RUN   TestZeroBulkBounds/fill/dst-past
+    probe_test.go:51: trap=true want=true
+=== RUN   TestZeroBulkBounds/fill/unsigned-dst
+    probe_test.go:51: trap=true want=true
+=== RUN   TestZeroBulkBounds/copy/at-end
+    probe_test.go:51: trap=false want=false
+=== RUN   TestZeroBulkBounds/copy/dst-past
+    probe_test.go:51: trap=true want=true
+=== RUN   TestZeroBulkBounds/copy/unsigned-dst
+    probe_test.go:51: trap=true want=true
+=== RUN   TestZeroBulkBounds/copy/src-past
+    probe_test.go:51: trap=true want=true
+=== RUN   TestZeroBulkBounds/init/at-end
+    probe_test.go:51: trap=false want=false
+=== RUN   TestZeroBulkBounds/init/dst-past
+    probe_test.go:51: trap=true want=true
+=== RUN   TestZeroBulkBounds/init/unsigned-dst
+    probe_test.go:51: trap=true want=true
+=== RUN   TestZeroBulkBounds/init/src-past
+    probe_test.go:51: trap=true want=true
+=== RUN   TestZeroBulkBounds/init/dropped-src-past
+    probe_test.go:51: trap=true want=true
+--- PASS: TestZeroBulkBounds (0.00s)
+    --- PASS: TestZeroBulkBounds/fill/at-end (0.00s)
+    --- PASS: TestZeroBulkBounds/fill/dst-past (0.00s)
+    --- PASS: TestZeroBulkBounds/fill/unsigned-dst (0.00s)
+    --- PASS: TestZeroBulkBounds/copy/at-end (0.00s)
+    --- PASS: TestZeroBulkBounds/copy/dst-past (0.00s)
+    --- PASS: TestZeroBulkBounds/copy/unsigned-dst (0.00s)
+    --- PASS: TestZeroBulkBounds/copy/src-past (0.00s)
+    --- PASS: TestZeroBulkBounds/init/at-end (0.00s)
+    --- PASS: TestZeroBulkBounds/init/dst-past (0.00s)
+    --- PASS: TestZeroBulkBounds/init/unsigned-dst (0.00s)
+    --- PASS: TestZeroBulkBounds/init/src-past (0.00s)
+    --- PASS: TestZeroBulkBounds/init/dropped-src-past (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.112s

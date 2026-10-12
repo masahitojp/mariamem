@@ -1,0 +1,44 @@
+{
+  "baseline_source_commit": "808df8b614906a9cd918229e2754d33a5a76dc4b",
+  "recipe_source_commit": "1f4cd6100efe9d7e51bda153e49b61e1dadbfbd1",
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+  "original_nine_patch_bytes": "IDENTICAL",
+  "ordered_patch_names": [
+    "imported-memory.patch",
+    "import-function-index.patch",
+    "relaxed-madd.patch",
+    "pure-memory32.patch",
+    "controlled-thread-traps.patch",
+    "host-logical-memory.patch",
+    "linear-memory-owner.patch",
+    "helper-bridge.patch",
+    "export-collision.patch",
+    "fd-allocate-preservation.patch",
+    "zero-bulk-bounds.patch"
+  ],
+  "generated_file_delta": [
+    "code/base/base.go",
+    "code/base/relative.go"
+  ],
+  "canonical_data_identity_unchanged": true,
+  "files_sha256": {
+    "scripts/runtime_atomic_loads.py": "eda6bde0c5158e310792ab9891353d7a281e254a182150788138500311868b40",
+    "scripts/generate_runtime.py": "2f4f6dbc9b4fd228bfaf5ab352c84ac1457929284602cd5d34a6c5849c42999b",
+    "scripts/verify_generated_runtime.py": "588a597b038a2788080d80247205aaab35e7045395bf70abcbd99f3bb6db8f47",
+    "release/generated-go-inputs.json": "0654e7211449d00d3b9e722f3dd2ebd9af173e00ebcc29ec0f42f23eaf00428d",
+    "release/generated-go-translation.json": "5c15e214623a2c86eb58dda448722d1b3ac30969cf8e97243639629f9a532fa1",
+    "release/generated-go-build.json": "5b996c5344152810bfb1aceb97599a36f96db9f0d6f555dd17c178986ed83d88",
+    "internal/generatedgo/provenance.json": "151554ea369a513cee5a6686fc92a6d47f7162fa00550d349b9d836a57ac6da3",
+    "benchmarks/spikes/generated-go-integration/patch_memfs.py": "7964afaecdf858a9746411257bc4d7da110837d4aa35deab33e334ae20b024ec",
+    "benchmarks/spikes/generated-go-integration/relative-fd-base.go.txt": "c63c1839d91812712e64642699bba33879ff9386f46a33196c1319d21a78d36e",
+    "scripts/runtime_correctness/narrow_load_other.go.txt": "49b7b233f4380992c11c0d9ab6cd7442db1d2401c8428d33389fcf320fb626c7",
+    "scripts/runtime_correctness/narrow_load_supported.go.txt": "53a04e996c7edafe5a21c28c35d4fa9f9661c8854d4d1aaca5029af83331d342",
+    "scripts/runtime_correctness/narrow_load_test.go.txt": "87744a96f49f180a6a10ef2c4730c96f87f9cc88ac76eecc94b9a2dc1e5d566b",
+    "scripts/runtime_correctness/fd_allocate_test.go.txt": "0a3c9391708d99baf7b83c3eea234d9947e33ee993eb469f374feba0fda09fdd",
+    "scripts/runtime_correctness/narrow_load_darwin_arm64.s.txt": "0e5f92aaa6767c173b90b3432ce6866291a96e1b3e26a3a43c7b23de96cdd5a9",
+    "scripts/runtime_correctness/bulk_bounds_test.go.txt": "81ae586bce2e72eec5dbd9ebd33fee05ae26106256131957dcdcaadfea46280c",
+    "scripts/runtime_correctness/narrow_load_linux_amd64.s.txt": "7a4c1ba99109aa8870db20bdd6eee26515362d292738ec0008b5fa4c43d0956f"
+  },
+  "native_host_source_commit": "ae80130b0ea7d20e86b132538d23eabf13660186"
+}
