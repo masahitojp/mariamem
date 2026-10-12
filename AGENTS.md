@@ -14,17 +14,16 @@ Use small spikes to reduce uncertainty before expensive architectural changes.
 
 Mechanical verification belongs in deterministic scripts and CI where possible.
 
-Human Review requires an engineering recommendation, not only observations and
-caveats. Normally open in at most three sentences: one recommended action, its
-decisive reason, and the next decision point. State whether the action implements
-a fix or only investigates. Put evidence, user impact, risk and alternatives
-afterward. Include the strongest reasonable objection, assess it fairly and
-state what would change the recommendation; change it if the objection wins.
-Distinguish facts, inference and unknowns. End with the exact
-decision requested from the Human, who retains final authority. Do not leave the
-Human to construct the technical recommendation. Bound any proposed investigation
-by a decision-changing question and an exit condition; neither unreproduced harm
-nor lack of a general correctness proof settles the decision by itself.
+Before writing Human Review, identify one question the Human is deciding.
+Answer it directly in a short opening: one recommended action, the decisive
+reason and exactly what to approve or reject. Use user consequences before
+internal terminology; make implementation versus investigation explicit.
+Keep facts, inference, risk, alternatives and exit conditions as author checks;
+show decision-changing information first and link technical evidence afterward.
+Include one strong objection only when a reasonable alternative could change
+the decision, immediately followed by your assessment or reversal condition.
+Keep one recommendation; the Human retains final authority. Honest uncertainty
+must not become an unprioritized list or an indefinite correctness-proof gate.
 Use the scalable format in `docs/development.md#human-review-recommendations`.
 Keep approved product direction in `docs/project-status.md`; preserve historical
 reviews under their original evidence and decision context.

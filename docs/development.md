@@ -9,85 +9,56 @@ platforms are macOS15+ arm64 and Ubuntu24.04 x86_64.
 ## Human Review recommendations
 
 Codex owns the engineering recommendation; the Human owns the final decision.
-Normally keep the opening to at most three sentences containing only one
-recommended action, its decisive reason, and the next decision point. Name the
-action explicitly: implement a specified fix, proceed with an explicit limitation,
-narrow the supported scope, or investigate a specific question without implementing
-a fix. "Bounded validation" alone does not say whether to change code or only
-study it. Put detailed facts, risks, alternatives and validation conditions later,
-with evidence links. A list of findings followed by "the Human can choose" is not
-sufficient.
+Before writing, identify **one question the Human is uncertain about**, such as
+"Should this be fixed before release?" Use it to select the information that
+matters; it need not appear as a separate heading in the report.
+
+Answer that question directly in a short opening. The opening alone should make
+the recommended action, decisive reason and requested approval/rejection clear.
+Use as much space as needed to be understandable, without a sentence quota or
+fixed headings. Say whether to implement a fix, proceed with a limitation, narrow
+support, or investigate a specified question without changing code. "Bounded
+validation" alone is ambiguous. Describe user consequences before introducing
+terms such as exact-width or AHI. A findings list followed by "the Human can
+choose" leaves the engineering judgment unfinished.
 This reporting rule does not add another approval gate to work already authorized.
 
-Separate **confirmed facts**, **inference**, and **unknowns**. In particular,
-keep these three questions distinct: is there a specification/implementation
-discrepancy; does a real product workload reach the affected path; and has a
-user-visible failure been reproduced? Cite the source, input identities and
-tests that establish each claim. Passing finite tests does not prove general
-correctness, and a specification discrepancy alone does not establish observed
-SQL corruption. A detector blind spot or incomplete coverage is an evidence
-limit, not a successful test of the missing property.
+Keep these as **author checks, not mandatory report fields**. Include what changes
+the decision in the body; move technical explanations, traces and supporting
+evidence links after it:
 
-Translate the phenomenon into the affected user's workflow and disadvantage:
-wrong results, failed transactions, hangs, crashes, latency, resource pressure or
-cleanup responsibility. Label observed harm separately from plausible harm;
-state the mechanism supporting the latter. Identify relevant workload,
-configuration, platform and lifecycle boundaries. If impact is unknown, explain
-what is missing rather than presenting a hypothetical failure as confirmed.
+- Separate confirmed facts, inference and unknowns. A specification discrepancy,
+  execution in a real workload and reproduced user-visible harm are distinct
+  claims. Cite fixed-source evidence and tests; detector blind spots and finite
+  passing tests do not establish the missing property.
+- Translate the issue into affected workflows and consequences: wrong results,
+  hangs, crashes, latency, resource pressure or cleanup responsibility. Label
+  observed harm versus possible harm and explain the latter's mechanism and scope.
+- Assess likelihood and severity qualitatively with reasons. Reachability supports
+  exposure, not a measured failure probability. Do not invent probabilities or
+  abandon a priority judgment because frequency is unknown. Neither unknowns nor
+  unreproduced harm automatically settle whether to block or accept a limitation.
+- Compare costs, delay/scope loss and residual risks of the recommendation and
+  the strongest practical alternative; explain why one is preferable.
+- State reversal evidence and completion conditions. Further investigation needs
+  a decision-changing question, bounded scope and an exit recommendation even if
+  inconclusive. General correctness proof is not an indefinite stop condition;
+  a concrete unmet requirement can still block release with a stated exit test.
 
-Give a qualitative assessment of likelihood and severity, with its basis and
-limits. For example, an affected path executed in ordinary transactions supports
-exposure, but does not measure the likelihood of harmful interleaving. A
-source-level synchronization argument or representative failure oracle may
-support a low-risk assessment; absence of failure in a small sample alone may
-not. "Unknown" is valid for frequency, but still explain the priority justified
-by reachability, potential severity, available mitigations and cost of delay.
-Do not invent probabilities, use unsupported risk labels, or abandon judgment
-only because the risk cannot be quantified. Neither every unknown nor every
-unreproduced failure is automatically a blocker or an acceptable limitation.
+Show **one strongest reasonable objection only if it could change the Human's
+decision**. Present the best case for the alternative fairly, immediately followed
+by why the recommendation still holds or what evidence would reverse it. If the
+objection wins, change the recommendation before submission. Do not invent an
+objection for the format or accumulate objections and unknowns instead of choosing
+one recommendation.
 
-Compare the recommendation with the strongest practical alternative. Include
-implementation/validation cost, delay or scope loss, and the residual risk of
-each; explain why the recommendation is preferable. State what evidence would
-reverse it and what would finish the investigation. If recommending more study,
-name the decision-changing question, fixed scope and stop conditions, including
-what to recommend if that scope yields no decisive result. Do not use proof of
-general correctness as an indefinite stop condition. Concrete unresolved
-requirements can still block release; identify the requirement and exit evidence.
+A small review can fit in a few lines. A material architecture/release review
+needs links to fixed-source evidence and relevant tests, with detail afterward;
+neither requires a long template or table. Before submitting, check:
 
-Include **one strongest reasonable objection** to the recommendation: the best
-reason a competent engineer could choose a different conclusion. Present its
-evidence, costs or assumptions fairly, not a token objection or weak straw man.
-Briefly explain how current evidence weighs against it and what finding would
-make it decisive. If it outweighs the case for the recommendation, revise the
-recommendation before submitting the review. Keep one recommendation; do not
-add an objection list that transfers the engineering judgment back to the Human.
-
-Use this outline selectively; it is not a required table or set of headings:
-
-```text
-Opening (normally <=3 sentences): I recommend <explicit action>.
-<Decisive reason>. Next, decide <specific decision point>.
-
-Supporting detail / evidence links:
-Evidence: Confirmed <facts>; inference <interpretation>; unknown <gaps>.
-User impact: <affected users/workflows>; observed <harm>; possible <harm/mechanism>.
-Priority: <qualitative likelihood/exposure and severity>, justified by <evidence>.
-Trade-off: Recommended <cost/residual risk>; alternative <cost/residual risk>;
-           prefer the recommendation because <reason>.
-Strongest objection: <best reason to choose differently>.
-Assessment: <current evidence-based response>; change the recommendation if <finding>.
-Decision boundary: Reverse if <evidence>; finish when <bounded exit condition>.
-Human decision: Approve <the recommended action/scope>?
-```
-
-A small change may use a few lines: a short opening followed by the strongest
-objection and assessment, combining any necessary detail rather than filling
-every outline field. A material architecture/release decision should link the
-fixed-source evidence, relevant tests and limitations; put detailed traces/tables
-after the recommendation. Use enough detail to make the choice understandable,
-not a mandatory scorecard or a new task tracker. Close with one explicit Human
-decision rather than asking the Human to derive the technical recommendation.
+- Can someone reading only the opening say what they would approve or reject?
+- Does any included objection help that decision, with an immediate assessment?
+- Can the reader follow links to the technical basis and its limits?
 
 After approval, record the resulting product direction in the appropriate current
 decision/status document. `project-status.md` owns decided product direction,
