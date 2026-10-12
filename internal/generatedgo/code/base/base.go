@@ -1381,13 +1381,12 @@ func I64_extend32_s(x int64) int64 { return int64(int32(x)) }
 //go:noinline
 func MemoryInit(m *Module, seg int, dst int32, src int32, n int32) {
 	data := m.DataSegs[seg]
-	if n == 0 {
-		return
-	}
-	if data == nil ||
-		uint64(uint32(src))+uint64(uint32(n)) > uint64(len(data)) ||
+	if uint64(uint32(src))+uint64(uint32(n)) > uint64(len(data)) ||
 		uint64(uint32(dst))+uint64(uint32(n)) > m.MemSize.Load() {
 		Wasm_trap_meminit_oob()
+	}
+	if n == 0 {
+		return
 	}
 
 	if end := uint32(dst) + uint32(n); end > m.DataEnd {
@@ -1414,12 +1413,12 @@ func DataDrop(m *Module, seg int) {
 }
 
 func MemoryFill(m *Module, dst int32, val int32, n int32) {
-	if n == 0 {
-		return
-	}
 	end := uint64(uint32(dst)) + uint64(uint32(n))
 	if end > m.MemSize.Load() {
 		Wasm_trap_memfill_oob()
+	}
+	if n == 0 {
+		return
 	}
 	b := m.Memory[uint32(dst):uint32(end)]
 	v := byte(val)
@@ -1437,13 +1436,13 @@ func MemoryFill(m *Module, dst int32, val int32, n int32) {
 }
 
 func MemoryCopy(m *Module, dst int32, src int32, n int32) {
-	if n == 0 {
-		return
-	}
 	srcEnd := uint64(uint32(src)) + uint64(uint32(n))
 	dstEnd := uint64(uint32(dst)) + uint64(uint32(n))
 	if size := m.MemSize.Load(); srcEnd > size || dstEnd > size {
 		Wasm_trap_memcopy_oob()
+	}
+	if n == 0 {
+		return
 	}
 	copy(m.Memory[uint32(dst):uint32(dstEnd)], m.Memory[uint32(src):uint32(srcEnd)])
 }
@@ -1783,12 +1782,12 @@ func SpinAgentsAdd(delta int32) {
 
 //go:noinline
 func AtomicLoad32_8u(m *Module, addr int32, offset int32) int32 {
-	return int32(AtomicSubword32(m, AtomicEA(m, addr, offset, 1), 8, func(old uint32) uint32 { return old }))
+	return int32(atomicRead8At(unsafe.Add(m.M, uintptr(AtomicEA(m, addr, offset, 1)))))
 }
 
 //go:noinline
 func AtomicLoad32_16u(m *Module, addr int32, offset int32) int32 {
-	return int32(AtomicSubword32(m, AtomicEA(m, addr, offset, 2), 16, func(old uint32) uint32 { return old }))
+	return int32(atomicRead16At(unsafe.Add(m.M, uintptr(AtomicEA(m, addr, offset, 2)))))
 }
 
 //go:noinline
@@ -11754,6 +11753,8 @@ func (o osFS) join(name string) string {
 	return filepath.Join(o.root, name)
 }
 func (o osFS) OpenFile(name string, flag int, perm os.FileMode) (File, error) {
+	nativeFileResizeMu.Lock()
+	defer nativeFileResizeMu.Unlock()
 	f, err := os.OpenFile(o.join(name), flag, perm)
 	if err != nil {
 		return nil, err
@@ -11872,7 +11873,7 @@ func (fsys *MemFS) OpenFile(name string, flag int, perm os.FileMode) (File, erro
 			node.modTime = time.Now()
 		}
 	}
-	f := &memFile{fsys: fsys, node: node}
+	f := &memFile{fsys: fsys, node: node, writable: flag&(os.O_WRONLY|os.O_RDWR) != 0}
 	if flag&os.O_APPEND != 0 {
 		f.off = int64(len(node.data))
 	}
@@ -12044,10 +12045,39 @@ func (e memDirEntry) Info() (os.FileInfo, error) { return e.n.info(), nil }
 
 // memFile is an open handle into a MemFS node.
 type memFile struct {
-	fsys   *MemFS
-	node   *memNode
-	off    int64
-	dirOff int
+	writable bool
+	fsys     *MemFS
+	node     *memNode
+	off      int64
+	dirOff   int
+}
+
+// Allocate grows under the same node lock as WriteAt and Truncate. It never
+// changes the handle position and never shrinks data, including mapped backing.
+func (f *memFile) Allocate(end int64) error {
+	f.fsys.mu.Lock()
+	defer f.fsys.mu.Unlock()
+	if !f.writable {
+		return syscall.EBADF
+	}
+	if f.node.dir {
+		return syscall.EISDIR
+	}
+	if end > int64(len(f.node.data)) {
+		f.node.data = resizeMemData(f.node.data, end)
+		f.node.modTime = time.Now()
+	}
+	return nil
+}
+
+var nativeFileResizeMu sync.Mutex
+
+func lockNativeFileResize(f File) func() {
+	if _, ok := f.(*os.File); ok {
+		nativeFileResizeMu.Lock()
+		return nativeFileResizeMu.Unlock
+	}
+	return func() {}
 }
 
 func (f *memFile) Name() string { return f.node.name }
@@ -13163,6 +13193,8 @@ func (w *WasiStubs) Fd_filestat_set_size(m *Module, fd int32, size int64) int32 
 	if op == nil || op.f == nil {
 		return _wasiEBADF
 	}
+	unlock := lockNativeFileResize(op.f)
+	defer unlock()
 	if err := op.f.Truncate(size); err != nil {
 		return mapOSError(err)
 	}
@@ -13435,6 +13467,8 @@ func (w *WasiStubs) Fd_pwrite(m *Module, fd, iovs, iovsLen int32, offset int64, 
 	if op == nil || op.f == nil {
 		return _wasiEBADF
 	}
+	unlock := lockNativeFileResize(op.f)
+	defer unlock()
 	iovBytes := uint64(uint32(iovsLen)) * 8
 	if iovBytes > 0x7fffffff {
 		return _wasiEFAULT
@@ -13514,8 +13548,12 @@ func (w *WasiStubs) Fd_tell(m *Module, fd, offsetPtr int32) int32 {
 
 func (w *WasiStubs) Fd_write(m *Module, fd, iovs, iovsLen, nwrittenPtr int32) int32 {
 	w.mu.Lock()
-	dst, _ := w.fdDstLocked(fd)
+	dst, op := w.fdDstLocked(fd)
 	w.mu.Unlock()
+	if op != nil && op.f != nil {
+		unlock := lockNativeFileResize(op.f)
+		defer unlock()
+	}
 	bufs, ok := w.iovecSlices(m, iovs, iovsLen)
 	nwrittenSlice := w.memSlice(m, nwrittenPtr, 4)
 	if !ok || nwrittenSlice == nil {
@@ -13575,8 +13613,38 @@ func (w *WasiStubs) Fd_allocate(m *Module, fd int32, offset, length int64) int32
 		return _wasiEBADF
 	}
 
-	if err := op.f.Truncate(offset + length); err != nil {
+	start, count := uint64(offset), uint64(length)
+	if start > uint64(1<<63-1) || count > uint64(1<<63-1)-start {
+		return 27
+	}
+	end := int64(start + count)
+
+	if count == 0 {
+		end = 0
+	}
+	if allocator, ok := op.f.(interface{ Allocate(int64) error }); ok {
+		return mapOSError(allocator.Allocate(end))
+	}
+	if _, ok := op.f.(*os.File); !ok {
+		return _wasiENOTSUP
+	}
+	unlock := lockNativeFileResize(op.f)
+	defer unlock()
+
+	if _, err := op.f.Write(nil); err != nil {
 		return mapOSError(err)
+	}
+	info, err := op.f.Stat()
+	if err != nil {
+		return mapOSError(err)
+	}
+	if info.IsDir() {
+		return _wasiEISDIR
+	}
+	if end > info.Size() {
+		if err := op.f.Truncate(end); err != nil {
+			return mapOSError(err)
+		}
 	}
 	return _wasiESUCCESS
 }
@@ -14686,8 +14754,12 @@ func (w *WasiStubs) iovecSlices64(m *Module, iovs, iovsLen int64) ([][]byte, boo
 
 func (w *WasiStubs) Fd_write64(m *Module, fd int64, iovs int64, iovsLen int64, nwrittenPtr int64) int32 {
 	w.mu.Lock()
-	dst, _ := w.fdDstLocked(int32(fd))
+	dst, op := w.fdDstLocked(int32(fd))
 	w.mu.Unlock()
+	if op != nil && op.f != nil {
+		unlock := lockNativeFileResize(op.f)
+		defer unlock()
+	}
 	bufs, ok := w.iovecSlices64(m, iovs, iovsLen)
 
 	nwrittenSlice := w.memSlice64(m, nwrittenPtr, 8)

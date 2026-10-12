@@ -1,10 +1,10 @@
 {
   "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
-  "input_manifest_sha256": "cc6adf34611f6fb58f6e825ff4ce479ec17ca75c2ee670718b0aa7cc01cff744",
+  "input_manifest_sha256": "0654e7211449d00d3b9e722f3dd2ebd9af173e00ebcc29ec0f42f23eaf00428d",
   "files_sha256": {
     "code/alias.go": "75c9b6d91baa07783b81b576f40ed719a53832678849130247404726361875af",
     "code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
-    "code/base/base.go": "8dc6392a5eb5196b8fc126d2347a31373890e396246a9af3932279a90f412f74",
+    "code/base/base.go": "2f336d438520c1fabae86b4aaf2de014c334425d88e038da839442cdb793010b",
     "code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
     "code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
     "code/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
@@ -15,7 +15,7 @@
     "code/base/prepared_files.go": "9f860253f7cb682b274492129e1fc7e8c64d62dcc47c7c39e42ee347675629cc",
     "code/base/prepared_files_test.go": "540bf350e2aaa9276ef7266980d6c637ca06b2ce62dbb9b1e84da1a5410ec7ef",
     "code/base/prepared_growth_test.go": "4c1122c2f378b35787c48debbe2053f5d0b7eabaf706f71bb3fdb8beef8f1d93",
-    "code/base/relative.go": "61d67c5ee85fc73d28745e17b8eaab4d0d6e1c63f28969a1e8c66983db8fbd80",
+    "code/base/relative.go": "c63c1839d91812712e64642699bba33879ff9386f46a33196c1319d21a78d36e",
     "code/base/relative_contract_test.go": "f3f731925741da0bd9dd528b57972e5aaf721410090c83ab524cb75f44f87ba2",
     "code/base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
     "code/base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
