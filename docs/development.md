@@ -6,10 +6,47 @@ and Python with pytest/PyMySQL. macOS arm64 external consumers also passed with
 Go 1.27.0/1.27.1/1.27.2; see [compatibility](go-compatibility.md). Product
 platforms are macOS15+ arm64 and Ubuntu24.04 x86_64.
 
+## Scope and completion
+
+Start from the requested targets, deliverables and exit criteria; keep a compact
+record sufficient to compare the request with results. Clarify materially
+ambiguous boundaries before relying on them to stop. Completion means fulfilling
+that scope, not finishing a self-selected subset or merely exhausting a budget.
+
+Change investigation order, tools, grouping and equivalent checks autonomously
+when coverage and exit criteria are preserved. Grouping needs evidence that the
+same reasoning applies to every included route. Omitting targets, replacing
+requested detailed analysis with an inventory/sample, or weakening exit criteria
+is a scope reduction: explain what changes, why and its decision impact, and
+obtain explicit agreement before treating the reduced work as the task. Silence
+is not agreement. Continue unaffected authorized work while that decision is open;
+do not ask permission for routine method changes.
+
+Before a completion report or Human Review, reconcile requested work with actual
+results, using brief prose or a coverage table as needed. Distinguish inventoried,
+traced/analyzed and validated work; counts, passing probes and a later caveat do
+not establish unperformed coverage. State remaining targets and their decision
+impact. An investigated-but-unresolved conclusion can satisfy agreed investigation
+criteria with evidence of the analysis; an uninvestigated target cannot.
+
+If submitting incomplete work, open with **what remains, why submit now and what
+decision it limits**, before the recommendation. Label it intermediate/partial,
+link evidence and propose the next bounded action or an explicit scope decision.
+Do not imply readiness dependent on missing work. Budgets and blockers justify
+a progress submission, not a silent change to completion criteria.
+
+When challenged, answer the actual question first: what was requested, what was
+done and what remains; acknowledge and correct any overstated completion claim.
+Whether the requested investigation is complete is separate from whether general
+safety is provable. Do not replace a coverage question with a stronger demand for
+universal proof, or use that proof's impossibility to excuse missing analysis.
+
 ## Human Review recommendations
 
 Identify **one decision needed from the Human now** before writing. Open with
-your short recommendation and decisive reason. Make the action explicit: adopt
+your short recommendation and decisive reason; incomplete work follows the
+[scope and completion](#scope-and-completion) opening rule first. Make the action
+explicit: adopt
 and implement a candidate, investigate a question, or accept a stated limitation.
 Do not combine candidate adoption with later release approval. Codex offers a
 grounded recommendation; the Human decides and uses it to explore the evidence
