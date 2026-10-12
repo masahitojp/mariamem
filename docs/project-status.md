@@ -220,6 +220,10 @@ all relevant targets and supporting paths with evidence-backed dispositions,
 including specifically investigated unresolved questions. Universal absence of
 failures is not the completion criterion. Prior exact-width fixes and their
 bounded checks remain; no broader implementation or release is approved here.
+The review now provides five concrete remaining questions with requirement,
+implementation, evidence, decisive check and stopping conditions. It proposes
+a five-hour investigation cap with an initial one-hour checkpoint, not a promise
+of completed conformance within that time; no new experiment has run under it.
 
 On the dedicated v0.5.0 experiment branch, the maintainer approved formal
 exact-width narrow atomic writer integration after bounded design verification.

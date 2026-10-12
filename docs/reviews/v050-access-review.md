@@ -13,6 +13,10 @@ else as generically unproved does not fulfill the requested investigation.
 The contract below separates coverage, correctness conclusions and unresolved
 engineering questions. It does not withdraw the approved exact-width fixes.
 
+The [concrete worklist](#concrete-worklist-and-cost-boundary) below is the current
+execution boundary. It replaces the unsupported conversational 6–10 hour
+completion estimate with explicit questions and a capped investigation budget.
+
 ## Review basis and findings
 
 Reviewed source commit: `b779ce77216d5f4f5d4441cedfa626d826e2c725`, checked as a
@@ -154,6 +158,184 @@ change, compiler/ISA argument or formal verification; report that need rather
 than extending stress testing indefinitely. The Human chooses such additional
 engineering after seeing concrete remaining questions. Existing authorization
 to investigate does not need to be requested again.
+
+## Concrete worklist and cost boundary
+
+The engineering question is preservation of the relevant Wasm behavior by the
+fixed translated runtime. A Go detector report is not itself a demonstration
+of a Wasm-forbidden result. A successful SQL run is not a proof of preservation.
+An allegation of a defect needs a requirement, an implementation location and
+an actual semantic difference or a specific missing argument. No probability
+of SQL failure has been measured.
+
+The [Wasm threads overview](https://github.com/WebAssembly/threads/blob/main/proposals/threads/Overview.md#atomic-memory-accesses)
+specifies sequentially consistent atomic operations and separately describes
+wait/notify; thread creation/join belongs to the embedder. The
+[Go memory model](https://go.dev/ref/mem) specifies synchronization and constrains
+the behavior of racy reads; detecting a Go race does not identify which original
+Wasm property, if any, was violated. The work must distinguish Wasm instruction
+semantics from the pinned WASIX import ABI and product lifetime contract.
+Before judging a disputed case, record the precise applicable specification
+clause/version; these live links are orientation, not a frozen conformance suite.
+
+Already established work is retained: bounded allocation/bulk/load corrections,
+native narrow writer operand widths and value/boundary oracles, formal independent
+regeneration, saved SQL/consumer checks and the existing native platform receipts.
+There is no reason in this review to repeat all of those. Existing store-buffering,
+IRIW, publication and mixed-width tests in the
+[writer study](v050-exact-writers-design.md) already passed their bounded patterns;
+R2 must identify a missing argument, not merely demand more of the same tests.
+
+### R1 — Does ordinary/atomic mixing change allowed reads or synchronization?
+
+- **Evidence:** [generated statements](v050-access-paths-evidence/generated-excerpts.txt)
+  and [mutex fixture receipt](v050-access-paths-evidence/mutex-results.json).
+- **Concrete basis:** Fn93 mutex lock, Fn130 unlock and Fn88 futex adapter use
+  ordinary word reads alongside atomic updates. The copied NORMAL-mutex fixture
+  reports heap conflicts while its 2,000 protected updates finish correctly.
+- **Requirement:** generated reads and updates must preserve the applicable
+  Wasm permitted-value/order rules; a preliminary read used by a retry loop must
+  not be mistaken for the operation which acquires a lock or publishes data.
+- **Question:** which ordinary reads influence correctness directly, and which
+  are checked again by CAS or the host wait? Does Go compilation preserve the
+  needed access/order property at those specific sites?
+- **Method/output:** a statement-level table for these three functions identifying
+  each read's consumer, revalidation, required property and implementation
+  argument. Use an isolated check only for a named unresolved property. A
+  counterexample must identify a Wasm-forbidden outcome, not just a race warning.
+- **Stop:** record supported mapping, a concrete violation, or the exact compiler/
+  mapping guarantee that cannot be established and the change needed to supply
+  it. Do not keep repeating the 2,000-update fixture to seek reassurance.
+- **Allocated investigation time:** 60 minutes.
+
+### R2 — Do native narrow atomics and Go atomics compose with the required order?
+
+- **Evidence:** [native primitive owners](../../scripts/runtime_correctness/narrow_write_darwin_arm64.s.txt)
+  and [existing ordering results](v050-exact-writers-design.md#verification-and-actual-identities).
+- **Concrete basis:** 8/16-bit accesses use native assembly while full-width
+  operations use Go atomic primitives. On arm64, the narrow helpers contain
+  DMB and acquire/release instructions. Existing ordering/value tests passed.
+- **Requirement:** the combined execution must respect the Wasm atomic ordering
+  and required publication of surrounding data, not just use the right width.
+- **Question:** is the argument complete across the Go call/compiler boundary,
+  the selected ISA instructions and the surrounding ordinary payload accesses?
+- **Method/output:** reuse saved disassembly and existing tests; document the
+  composition argument and any exact missing compiler/ISA premise. Only a new
+  untested pattern warrants another small fixture. Do not re-audit the already
+  established operand-width correction without contradictory evidence.
+- **Stop:** one mapping argument or a specifically unsupported premise with an
+  implementation remedy. A missing race-detector annotation is recorded as an
+  observation limit, not automatically as a product semantic defect.
+- **Allocated investigation time:** 45 minutes.
+
+### R3 — Do the actual wait/notify protocols preserve their contract?
+
+- **Evidence:** [AtomicWait and wake implementation](../../internal/generatedgo/code/base/base.go),
+  [host import mapping](../../internal/generatedgo/main.go) and
+  [function graph](v050-access-paths-evidence/direct-call-graph.json).
+- **Concrete basis:** `AtomicWait` compares/registers under `parkMu`; wake uses
+  the same lock. WASIX `Futex_wait` converts timeout/result values and writes a
+  result byte. The earlier check covered a NORMAL mutex, not the full CV route.
+  The graph identifies Fn218/226 condition waits, Fn220 signal and Fn4052
+  broadcast, besides Fn88/89 and the mutex functions. It also identifies rwlock
+  Fn209–213; disposition of their use belongs here/R5, not a presumed new defect.
+- **Requirement:** distinguish the imported WASIX futex ABI from direct Wasm
+  wait/notify. Preserve compare/register/wake behavior and the applicable timeout
+  and return-value rules. Retrying a source-level predicate is part of its protocol.
+- **Question:** do guest-side checks, host wait registration, wake, timeout and
+  return conversion leave a concrete route to a missed notification or incorrect
+  result? Identify which cancellation/error cases this guest actually invokes.
+- **Method/output:** one transition table and a caller/ABI map. Reuse existing
+  wait tests and add deterministic schedule checks only for missing transitions.
+  Do not assume every generic helper branch is used by this fixed shared guest.
+- **Stop:** disposition of each applicable transition; any missing transition
+  analysis is explicitly unfinished. Never infer fairness or a latency bound
+  from finite runs; those are not the property under review.
+- **Allocated investigation time:** 45 minutes.
+
+### R4 — Is memory shared and retired at the correct lifecycle boundaries?
+
+- **Evidence:** [AtomicsContended, ThreadLaunch and WaitThreads](../../internal/generatedgo/code/base/base.go)
+  and [earlier lifetime review](v050-access-paths.md#important-target-paths).
+- **Concrete basis:** full-width atomic helpers can use ordinary accesses before
+  `AtomicsContended` becomes true. `ThreadLaunch` changes `nextTID` before the Go
+  child starts. `WaitThreads` waits for workers. Guest join is separately Fn221;
+  start/exit and host access are not proved by the counter alone.
+- **Requirement:** the ordinary fast path must have no concurrent peer; completed
+  initialization must be visible before use, and backing/object retirement must
+  follow the applicable completion protocol.
+- **Question:** can another guest agent or host callback access relevant memory
+  before the transition, or after the asserted drain? Does each reviewed lifetime
+  argument use the real completion event rather than a timestamp?
+- **Method/output:** enumerate actual launch/host entry and completion routes;
+  reuse prior startup/cleanup evidence. Trace only callbacks which can reach the
+  relevant memory. Include object reuse/drain dependencies from R5 in this map.
+- **Stop:** supported lifecycle edges or named missing edges with a specific
+  consequence; generic distrust of all allocation/lifetime code is not an item.
+- **Allocated investigation time:** 30 minutes.
+
+### R5 — Have all relevant guest target families been accounted for?
+
+- **Evidence:** [complete writer inventory](v050-access-paths-evidence/writer-inventory.json)
+  and [selected source references](v050-access-paths-evidence/source-references.json).
+- **Concrete basis:** the complete 65-function/147-site inventory has 14 primary
+  families. Important target narratives exist; several remaining families have
+  declarations and references but lack completed ownership/lifetime arguments.
+- **Requirement:** the investigation's claims must apply to every inventoried
+  target, including ordinary/bulk/host overlaps and supporting synchronization,
+  rather than just paths reached by the earlier SQL scenarios.
+- **Question:** does each target use a protocol already covered by R1–R4, an
+  independent supported protocol, or a concrete additional access mechanism?
+- **Method/output:** reconcile all sites into one ledger using the existing
+  inventory, 716 source references and graph. Cover guard, pool, view, purge,
+  encryption, file, recovery, load, startup/shutdown, deadlock, AHI, buffer/I/O,
+  checkpoint and table-cache families. Trace relevant callback registrations and
+  whole-object/raw accesses; do not resolve all 24,025 indirect-call lines merely
+  because they exist. An unresolved relevant callback gets a concrete target set
+  and object relationship. Unobserved functions are not called unreachable.
+- **Stop:** every site maps to a substantiated disposition and dependencies. If
+  that cannot be achieved within the allocation, enumerate the exact unfinished
+  targets. Do not label the overall investigation complete in that case.
+- **Allocated investigation time:** 90 minutes.
+
+These are five work packages, not five established defects. Possible user
+consequences depend on a demonstrated violation: R1/R2 concern observed values
+and publication, R3 concerns waits/results, R4 concerns lifecycle access. R5 is
+a coverage obligation and creates no additional failure claim by itself.
+
+### Cost and stopping discipline
+
+The first investigation allocation is **300 minutes maximum**: R1 60, R2 45,
+R3 45, R4 30, R5 90 and final evidence/report 30. This is a budget to produce
+dispositions, not a promise to resolve every guarantee or complete every target
+within five hours. The previous conversational 6–10 hour completion estimate
+was not supported by a task-level estimate and is withdrawn. Do not replace it
+with an equally unjustified claim of guaranteed five-hour completion.
+
+Begin by laying out R5's target ledger, then answer the shared R1–R4 dependencies
+once and reuse those answers in it. Report a checkpoint after the first hour:
+closed questions, exact open questions and allocation consumed. At each package's
+allocation, record its disposition or concrete unfinished work. At 300 minutes,
+stop and report, even if an item remains unfinished. No unannounced extension
+or new stress campaign is included. Actual compiler/build time counts against
+the allocation; do not discard failed setup time to appear within budget.
+
+The report must distinguish: supported mapping; confirmed semantic violation;
+investigated but specifically unresolved; and not yet investigated. Only the
+last category prevents coverage-complete status, while any unresolved guarantee
+still prevents claiming that guarantee. A new issue may enter the list only
+with its requirement, exact code/path, evidence and decisive check; otherwise
+it is not a release blocker. A concrete defect found during the work is reported
+immediately. Its fix is separately scoped instead of silently lengthening this
+investigation. This cap is an explicit cost boundary, not a claim that safety
+follows from time spent.
+
+Current scope is macOS execution and existing native Ubuntu receipts. New Ubuntu
+experiments, guest-wide race census, final Qualification, Product Validation,
+runtime changes and publication are not hidden inside this allocation. Platform
+gaps stay labelled, without weakening or re-running unrelated existing checks.
+This document is the requested pre-experiment worklist; no R1–R5 completion is
+claimed by having written it.
 
 ## Status of this review
 
