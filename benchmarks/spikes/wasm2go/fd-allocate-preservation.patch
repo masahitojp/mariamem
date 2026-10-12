@@ -1,5 +1,5 @@
 diff --git a/internal/codegen/wasip1_native.go b/internal/codegen/wasip1_native.go
-index 45fe002..128fb66 100644
+index 45fe002..c593402 100644
 --- a/internal/codegen/wasip1_native.go
 +++ b/internal/codegen/wasip1_native.go
 @@ -166,6 +166,8 @@ func (o osFS) join(name string) string {
@@ -132,3 +132,31 @@ index 45fe002..128fb66 100644
  }
  
  // Path_chmod is a NON-STANDARD host import (module wasi_snapshot_preview1,
+@@ -3137,6 +3183,7 @@ func (t *translator) emitWasip1Native() ([]ast.Decl, []string, error) {
+ 			"memSlice":                true,
+ 			"logicalMemory":           true,
+ 			"mapOSError":              true,
++            "lockNativeFileResize": true,
+ 			"mapExecError":            true,
+ 			"encodeWaitStatus":        true,
+ 			"totalBytesPlusNul":       true,
+@@ -3205,7 +3252,7 @@ func (t *translator) emitWasip1Native() ([]ast.Decl, []string, error) {
+ 			"writeFilestat":           true,
+ 			"Error":                   true,
+ 		},
+-		keepVarNames: map[string]bool{},
++		keepVarNames: map[string]bool{"nativeFileResizeMu": true},
+ 		keepConstAll: true,
+ 	})
+ 	if err != nil {
+@@ -3511,8 +3558,9 @@ func (w *WasiStubs) iovecSlices64(m *Module, iovs, iovsLen int64) ([][]byte, boo
+ 
+ func (w *WasiStubs) Fd_write64(m *Module, fd int64, iovs int64, iovsLen int64, nwrittenPtr int64) int32 {
+ 	w.mu.Lock()
+-	dst, _ := w.fdDstLocked(int32(fd))
++	dst, op := w.fdDstLocked(int32(fd))
+ 	w.mu.Unlock()
++ if op != nil && op.f != nil { unlock := lockNativeFileResize(op.f); defer unlock() }
+ 	bufs, ok := w.iovecSlices64(m, iovs, iovsLen)
+ 	// nwritten is a 64-bit __wasi_size_t.
+ 	nwrittenSlice := w.memSlice64(m, nwrittenPtr, 8)
