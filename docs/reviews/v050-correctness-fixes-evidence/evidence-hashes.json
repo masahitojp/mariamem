@@ -1,5 +1,5 @@
 {
-  "path_normalization": "$TASK and $CLEAN_CLONE only; original bytes hashes preserved",
+  "path_normalization": "Paths replaced with $TASK and $CLEAN_CLONE; trailing whitespace stripped for Git source hygiene. Original byte hashes preserved.",
   "files": {
     "before-results.json": {
       "original_sha256": "4c0d90df0b15509b8a12dd7b7e4797c7b37d132bf1f368b179322b21d3a5b09e",
@@ -387,11 +387,11 @@
     },
     "narrow-arm64-disassembly.txt": {
       "original_sha256": "87e7ee48dc5c07a51b458251fe05f07c0e94311cb9fc8f58cbcb7a4174a496b4",
-      "saved_sha256": "6ce2b25b4cbb6acec716324fc672ada68179b7681428e6cd84ba683b2468d247"
+      "saved_sha256": "9bf0d9d20d67f6ed33acb012d6260884438142f960c13b43832d66c2fabfeb65"
     },
     "narrow-amd64-disassembly.txt": {
       "original_sha256": "19eb00b806e61d736362246214b9cfff42c4377b351c842a0ddba8be3a04b2e5",
-      "saved_sha256": "76baf6ffc0e6a0a07fb97e6ac575ffcd79516d61df66fe2fb8e61ef1c1113505"
+      "saved_sha256": "9ea160dab877acf03407e367e4f2ded663760ff957c01ef367cd6a921b7fe075"
     },
     "final-boundaries.txt": {
       "original_sha256": "fefb178f021fb75ed5342bd0e8ed67583c94ef0ae3b1fe680ae22ca38caf6272",
