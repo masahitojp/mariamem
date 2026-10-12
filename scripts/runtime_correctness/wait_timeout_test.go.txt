@@ -1,0 +1,91 @@
+package base
+
+import (
+	"fmt"
+	"runtime"
+	"sync/atomic"
+	"testing"
+	"time"
+	"unsafe"
+)
+
+func waitTimeoutModule() *Module {
+	memory := make([]byte, 65536)
+	size := &atomic.Uint64{}
+	size.Store(uint64(len(memory)))
+	m := &Module{Memory: memory, M: unsafe.Pointer(&memory[0]), MemSize: size, MemShared: true, Threads: &ThreadPool{}}
+	ForceContendedAtomics(m)
+	return m
+}
+
+func TestWaitTimeoutPositiveRange(t *testing.T) {
+	const boundary = int64(1<<63-1) - int64(time.Millisecond)
+	for _, timeout := range []int64{boundary - 1, boundary, boundary + 1, 1<<63 - 1, -1} {
+		for _, width := range []int{32, 64} {
+			t.Run(fmt.Sprintf("%d/%d", timeout, width), func(t *testing.T) {
+				m := waitTimeoutModule()
+				done := make(chan int32, 1)
+				go func() {
+					if width == 32 {
+						done <- AtomicWait32At(m, 64, 0, timeout)
+					} else {
+						done <- AtomicWait64At(m, 64, 0, timeout)
+					}
+				}()
+				deadline := time.Now().Add(time.Second)
+				for {
+					m.Threads.parkMu.Lock()
+					parked := len(m.Threads.parked[64]) != 0
+					m.Threads.parkMu.Unlock()
+					if parked {
+						break
+					}
+					select {
+					case rc := <-done:
+						t.Fatalf("positive or indefinite wait returned %d before notify", rc)
+					default:
+					}
+					if time.Now().After(deadline) {
+						t.Fatal("wait did not register")
+					}
+					runtime.Gosched()
+				}
+				// Cleanup remains necessary if a boundary failure is reproduced.
+				t.Cleanup(func() { AtomicNotify(m, 64, 0, 1) })
+				select {
+				case rc := <-done:
+					t.Fatalf("positive or indefinite wait returned %d before notify", rc)
+				case <-time.After(10 * time.Millisecond):
+				}
+				AtomicNotify(m, 64, 0, 1)
+				select {
+				case rc := <-done:
+					if rc != 0 {
+						t.Fatalf("notified wait returned %d", rc)
+					}
+				case <-time.After(time.Second):
+					t.Fatal("notification did not finish wait")
+				}
+			})
+		}
+	}
+}
+
+func TestWaitTimeoutZeroShortAndMismatch(t *testing.T) {
+	for _, timeout := range []int64{0, 1, int64(time.Millisecond)} {
+		m := waitTimeoutModule()
+		if rc := AtomicWait32At(m, 64, 0, timeout); rc != 2 {
+			t.Fatalf("timeout %d returned %d", timeout, rc)
+		}
+		m.Threads.parkMu.Lock()
+		left := len(m.Threads.parked[64])
+		m.Threads.parkMu.Unlock()
+		if left != 0 {
+			t.Fatal("expired wait remains registered")
+		}
+	}
+	m := waitTimeoutModule()
+	if rc := AtomicWait32At(m, 64, 1, 1<<63-1); rc != 1 {
+		t.Fatalf("mismatch returned %d", rc)
+	}
+}

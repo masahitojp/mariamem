@@ -14,7 +14,8 @@
     "helper-bridge.patch": "934246d80d37a596b43d786065b168aa3d94af62ae3130bd5a9c422ce7e5783b",
     "export-collision.patch": "2e4866056a3e65c7be0fbc343207157319f609391b07cb8123bed4ab2b2f8f93",
     "fd-allocate-preservation.patch": "84582c8c9684026735a04117e00a48905f10aef736fb4178c26c79d804b797e6",
-    "zero-bulk-bounds.patch": "85c05f04b24a03e3f65b86b73e8682221615ab10df1d66bde05157d3348813eb"
+    "zero-bulk-bounds.patch": "85c05f04b24a03e3f65b86b73e8682221615ab10df1d66bde05157d3348813eb",
+    "wait-timeout-range.patch": "980da7652e8b22322cc639a9b39efffaf3a1035b5fdea1467593bf0e50dff5ff"
   },
   "files_sha256": {
     "alias.go": "f8c244ceb79fdf37a78a029bd041d3b99389814adb1281cfe1f8c7a92e7268f8",
