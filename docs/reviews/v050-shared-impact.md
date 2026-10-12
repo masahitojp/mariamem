@@ -1,5 +1,10 @@
 # v0.5.0 real-guest shared-memory impact: Human decision material
 
+Follow-up: the Human requested additional design and verification instead of
+accepting the unquantified limitation. See the
+[exact-width writer candidate and validation](v050-exact-writers-design.md).
+The observations below retain their original scope and identities.
+
 **Decision remains open.** In the fixed MariaDB 12.3.3 guest, narrowed 8/16-bit
 atomic **writers** still operate on aligned 32-bit words in Generated Go. The
 bounded parallel SQL scenarios executed several of those paths, including

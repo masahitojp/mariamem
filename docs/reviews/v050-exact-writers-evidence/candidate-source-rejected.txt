@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "$TASK/temp/observed-candidate/scripts/verify_generated_runtime.py", line 46, in <module>
+    main()
+    ~~~~^^
+  File "$TASK/temp/observed-candidate/scripts/verify_generated_runtime.py", line 39, in main
+    require(not changed, 'generated source inventory changed: ' + ', '.join(changed) +
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            '; edit the canonical generator/adapter, then regenerate; do not refresh provenance to bless an unexplained edit')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$TASK/temp/observed-candidate/scripts/verify_generated_runtime.py", line 17, in require
+    raise ValueError(message)
+ValueError: generated source inventory changed: code/base/base.go, code/base/experimental_exact_writers.go, code/base/experimental_exact_writers_amd64.s, code/base/experimental_exact_writers_arm64.s; edit the canonical generator/adapter, then regenerate; do not refresh provenance to bless an unexplained edit

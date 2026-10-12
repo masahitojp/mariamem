@@ -1,0 +1,33 @@
+[
+  {
+    "name": "canonical-source",
+    "exit_code": 0,
+    "expected_success": true
+  },
+  {
+    "name": "candidate-source-rejected",
+    "exit_code": 1,
+    "expected_success": false
+  },
+  {
+    "name": "candidate-repeat-rejected",
+    "exit_code": 1,
+    "expected_success": false
+  },
+  {
+    "name": "independent-prototype-source-identity",
+    "result": "PASS",
+    "adapted_base_sha256": "cd9d121cfe654ea4185f6b47ef657a62a9926eaca4644c397bad9087461d1779"
+  },
+  {
+    "name": "public-source-existing-failure",
+    "exit_code": 1,
+    "expected_success": false
+  },
+  {
+    "name": "public-source-scoped-new-and-touched-files",
+    "result": "PASS",
+    "file_count": 59,
+    "scope": "Does not replace the full public-source guard; existing tracked .log failure remains."
+  }
+]

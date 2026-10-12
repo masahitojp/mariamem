@@ -1,0 +1,5 @@
+=== RUN   TestOrdinaryTargetDiagnostic
+OBS ordinary-target checksum 1474507 ASM hidden
+--- PASS: TestOrdinaryTargetDiagnostic (0.00s)
+PASS
+ok  	example.com/narrowwriters	1.109s

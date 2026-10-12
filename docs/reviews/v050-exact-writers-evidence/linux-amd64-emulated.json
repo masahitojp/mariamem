@@ -1,0 +1,20 @@
+{
+  "image": "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+  "image_platform": "linux/arm64",
+  "binary_platform": "linux/amd64",
+  "host": "macOS arm64; amd64 binary executed through container emulation",
+  "native_ubuntu_x86_64": "SKIP: no native runner; this does not replace it",
+  "binary_sha256": "693f5293c28352dd4d3733c6704c605cc829065dc1d454f76638a41f7f9bb2d3",
+  "checks": [
+    {
+      "backing": "heap",
+      "exit_code": 0,
+      "log_sha256": "00fea7ef36d67e854738a1f01a862fbeb2f7dc8950d7ce24947d254a31263ef6"
+    },
+    {
+      "backing": "mmap",
+      "exit_code": 0,
+      "log_sha256": "60ffa41f5d089138bf246b845dc867a79c77e0e571734f679b031d912ae877e3"
+    }
+  ]
+}

@@ -1,0 +1,296 @@
+{
+  "source_commit": "753a015b9affa9fd8d19cff34e68feec7eabe5ae",
+  "source_templates": {
+    "ops.go.txt": "bb19bdaf421d2da1e3a64135c538f9ad4487a193b39de8b91354fb35dc3380d4",
+    "ops_amd64.s.txt": "6761ab84885d9eb49d37eabdda1b87149039f6696bed5ed2f05e1e5673ca5d86",
+    "ops_arm64.s.txt": "4ef4b55a71fd7474151dc0dbb13102a9de949057fe384bcb53121d67b95050ea",
+    "ops_test.go.txt": "c470d45bcc15ae43e6eac20d3ea17568c3fd8b54509c4459e80e02721fa7f1f7"
+  },
+  "mapping_sha256": "388e8cf70e3387db7143f9081b9e62c6ddb3edf52e4adbff223be1f9a8020cc7",
+  "go": {
+    "key": "go-version",
+    "exit_code": 0,
+    "race_reports": 0,
+    "log_sha256": "2a108602dfb6c84352966f25ca6d598d3711bad8845923baf6308b1dd09d06a1",
+    "observations": []
+  },
+  "checks": [
+    {
+      "key": "heap",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "b0801a485e9b78ab4b0a6d19e49be8686782f050ba3ce06c9f55fc16d112b5fb",
+      "observations": [
+        "OBS neighbor bits=8 op=store retries=0",
+        "OBS neighbor bits=8 op=add retries=0",
+        "OBS neighbor bits=8 op=sub retries=0",
+        "OBS neighbor bits=8 op=and retries=0",
+        "OBS neighbor bits=8 op=or retries=0",
+        "OBS neighbor bits=8 op=xor retries=0",
+        "OBS neighbor bits=8 op=xchg retries=0",
+        "OBS neighbor bits=8 op=cmp retries=0",
+        "OBS neighbor bits=16 op=store retries=0",
+        "OBS neighbor bits=16 op=add retries=0",
+        "OBS neighbor bits=16 op=sub retries=0",
+        "OBS neighbor bits=16 op=and retries=0",
+        "OBS neighbor bits=16 op=or retries=0",
+        "OBS neighbor bits=16 op=xor retries=0",
+        "OBS neighbor bits=16 op=xchg retries=0",
+        "OBS neighbor bits=16 op=cmp retries=0",
+        "OBS target bits=8 retries=0",
+        "OBS target bits=16 retries=0"
+      ]
+    },
+    {
+      "key": "heap-OrdinaryTargetDiagnostic",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "62f6e09466868b0f6ae3c048e923ec11569e0e7c8d10b5cb8c2883d34abed96d",
+      "observations": [
+        "OBS ordinary-target checksum 0 ASM hidden"
+      ]
+    },
+    {
+      "key": "heap-PlainPublicationDiagnostic",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "38d146ee5a2f9bb6fe7ee106f49fac5f7265cc27b930ff336ec557db26c1d65e",
+      "observations": [
+        "OBS plain publication; detector cannot see ASM synchronization"
+      ]
+    },
+    {
+      "key": "heap-RaceControl",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "eb0b3d0a07222bfafb49232d0c9bdcb9cd1c3b7d5493ae20395cbb8a152a4847",
+      "observations": [
+        "OBS instrumented-control 0"
+      ]
+    },
+    {
+      "key": "heap-WideNeighborDiagnostic",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "e77fac6c268732de23c30282f4fb9ae82ce4d11ee84df7a746611b2b22c97cfb",
+      "observations": [
+        "OBS old-wide-mask diagnostic"
+      ]
+    },
+    {
+      "key": "heap-race",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "c9c2de9ba17512f5726373659d948e7f03f7cabbe540fe4dc474f723a30b20b4",
+      "observations": [
+        "OBS neighbor bits=8 op=store retries=0",
+        "OBS neighbor bits=8 op=add retries=0",
+        "OBS neighbor bits=8 op=sub retries=0",
+        "OBS neighbor bits=8 op=and retries=0",
+        "OBS neighbor bits=8 op=or retries=0",
+        "OBS neighbor bits=8 op=xor retries=0",
+        "OBS neighbor bits=8 op=xchg retries=0",
+        "OBS neighbor bits=8 op=cmp retries=0",
+        "OBS neighbor bits=16 op=store retries=0",
+        "OBS neighbor bits=16 op=add retries=0",
+        "OBS neighbor bits=16 op=sub retries=0",
+        "OBS neighbor bits=16 op=and retries=0",
+        "OBS neighbor bits=16 op=or retries=0",
+        "OBS neighbor bits=16 op=xor retries=0",
+        "OBS neighbor bits=16 op=xchg retries=0",
+        "OBS neighbor bits=16 op=cmp retries=0",
+        "OBS target bits=8 retries=20",
+        "OBS target bits=16 retries=27"
+      ]
+    },
+    {
+      "key": "heap-OrdinaryTargetDiagnostic-race",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "c7f297835868aba691b09cfece4e2105b722bbb4553f76210058dc1cafcfaaca",
+      "observations": [
+        "OBS ordinary-target checksum 1474507 ASM hidden"
+      ]
+    },
+    {
+      "key": "heap-PlainPublicationDiagnostic-race",
+      "exit_code": 1,
+      "race_reports": 1,
+      "log_sha256": "ae46402f39997aeb31ff436f3ce47103a30381794972821cb0f8008b6e5aac58",
+      "observations": [
+        "OBS plain publication; detector cannot see ASM synchronization"
+      ]
+    },
+    {
+      "key": "heap-RaceControl-race",
+      "exit_code": 1,
+      "race_reports": 1,
+      "log_sha256": "2c1ca5a409a38cd0981734b04ce0406e62588b2ba3993e54504004f8021b39f9",
+      "observations": [
+        "OBS instrumented-control 150000"
+      ]
+    },
+    {
+      "key": "heap-WideNeighborDiagnostic-race",
+      "exit_code": 1,
+      "race_reports": 1,
+      "log_sha256": "2f48ad664593b0177e9e2c90fda7db3dd9ababefa6a854419104d4e448be65ce",
+      "observations": [
+        "OBS old-wide-mask diagnostic"
+      ]
+    },
+    {
+      "key": "mmap",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "b65d5f4d172008464b2aa4f6dfe401253e3c509d94289641821cec6384ba15e9",
+      "observations": [
+        "OBS neighbor bits=8 op=store retries=0",
+        "OBS neighbor bits=8 op=add retries=0",
+        "OBS neighbor bits=8 op=sub retries=0",
+        "OBS neighbor bits=8 op=and retries=0",
+        "OBS neighbor bits=8 op=or retries=0",
+        "OBS neighbor bits=8 op=xor retries=0",
+        "OBS neighbor bits=8 op=xchg retries=0",
+        "OBS neighbor bits=8 op=cmp retries=0",
+        "OBS neighbor bits=16 op=store retries=0",
+        "OBS neighbor bits=16 op=add retries=0",
+        "OBS neighbor bits=16 op=sub retries=0",
+        "OBS neighbor bits=16 op=and retries=0",
+        "OBS neighbor bits=16 op=or retries=0",
+        "OBS neighbor bits=16 op=xor retries=0",
+        "OBS neighbor bits=16 op=xchg retries=0",
+        "OBS neighbor bits=16 op=cmp retries=0",
+        "OBS target bits=8 retries=61540",
+        "OBS target bits=16 retries=62668"
+      ]
+    },
+    {
+      "key": "mmap-OrdinaryTargetDiagnostic",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "f27d35247a6fe40f6424c6f15dae47cf45ea9bead422479692309726a3ce0789",
+      "observations": [
+        "OBS ordinary-target checksum 0 ASM hidden"
+      ]
+    },
+    {
+      "key": "mmap-PlainPublicationDiagnostic",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "44cf6f34993f3ab467be3f0d970070d08b8279c650cd94ef3e10de281a81142b",
+      "observations": [
+        "OBS plain publication; detector cannot see ASM synchronization"
+      ]
+    },
+    {
+      "key": "mmap-RaceControl",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "5e27d88323d76deab71938d4dabc3cbb107a7d4f725a4f0b6727f2fb5ece3cef",
+      "observations": [
+        "OBS instrumented-control 0"
+      ]
+    },
+    {
+      "key": "mmap-WideNeighborDiagnostic",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "26127d2196409c501158e53fd87034c70de74a36db0675901ee434ed369b78d8",
+      "observations": [
+        "OBS old-wide-mask diagnostic"
+      ]
+    },
+    {
+      "key": "mmap-race",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "4ead5b9f4cd97876604016017a36f09215f6b9d029865a97238f541889f723d3",
+      "observations": [
+        "OBS neighbor bits=8 op=store retries=0",
+        "OBS neighbor bits=8 op=add retries=0",
+        "OBS neighbor bits=8 op=sub retries=0",
+        "OBS neighbor bits=8 op=and retries=0",
+        "OBS neighbor bits=8 op=or retries=0",
+        "OBS neighbor bits=8 op=xor retries=0",
+        "OBS neighbor bits=8 op=xchg retries=0",
+        "OBS neighbor bits=8 op=cmp retries=0",
+        "OBS neighbor bits=16 op=store retries=0",
+        "OBS neighbor bits=16 op=add retries=0",
+        "OBS neighbor bits=16 op=sub retries=0",
+        "OBS neighbor bits=16 op=and retries=0",
+        "OBS neighbor bits=16 op=or retries=0",
+        "OBS neighbor bits=16 op=xor retries=0",
+        "OBS neighbor bits=16 op=xchg retries=0",
+        "OBS neighbor bits=16 op=cmp retries=0",
+        "OBS target bits=8 retries=38",
+        "OBS target bits=16 retries=10"
+      ]
+    },
+    {
+      "key": "mmap-OrdinaryTargetDiagnostic-race",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "3c12e630f7f38f76d6177c9a30dc4e7a01931a91bf666703f6be3a6e478357ec",
+      "observations": [
+        "OBS ordinary-target checksum 1296363 ASM hidden"
+      ]
+    },
+    {
+      "key": "mmap-PlainPublicationDiagnostic-race",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "99ee1f36be2f94a9fb8481be33bde9387e55a3bbffc6736e78dbb3cc053d002e",
+      "observations": [
+        "OBS plain publication; detector cannot see ASM synchronization"
+      ]
+    },
+    {
+      "key": "mmap-RaceControl-race",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "9c51c349f4fb4312954a59b41f745a5184aa5a74e9ecb784c516fbd645eab4d4",
+      "observations": [
+        "OBS instrumented-control 375407"
+      ]
+    },
+    {
+      "key": "mmap-WideNeighborDiagnostic-race",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "9d9054bf1af420d80ae10bf5d2231448c30e38fcc58bf2bc7e230866048e7aea",
+      "observations": [
+        "OBS old-wide-mask diagnostic"
+      ]
+    },
+    {
+      "key": "native-vet",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "observations": []
+    },
+    {
+      "key": "native-build",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "observations": []
+    },
+    {
+      "key": "linux-amd64-build",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "observations": []
+    },
+    {
+      "key": "go-version",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "2a108602dfb6c84352966f25ca6d598d3711bad8845923baf6308b1dd09d06a1",
+      "observations": []
+    }
+  ],
+  "scope": "Standalone exact-width candidate, not production adoption or general shared-memory proof"
+}

@@ -1,0 +1,75 @@
+TEXT example.com/narrowwriters.read8.abi0(SB) $TASK/temp/candidate-final/module/ops_arm64.s
+  ops_arm64.s:3		0x100112930		f94007e0		MOVD 8(RSP), R0
+  ops_arm64.s:4		0x100112934		d5033bbf		DMB $11
+  ops_arm64.s:5		0x100112938		08dffc01		LDARB (R0), R1
+  ops_arm64.s:6		0x10011293c		d5033bbf		DMB $11
+  ops_arm64.s:7		0x100112940		b90013e1		MOVW R1, 16(RSP)
+  ops_arm64.s:8		0x100112944		d65f03c0		RET
+  ops_arm64.s:8		0x100112948		00000000		?
+  ops_arm64.s:8		0x10011294c		00000000		?
+
+TEXT example.com/narrowwriters.read16.abi0(SB) $TASK/temp/candidate-final/module/ops_arm64.s
+  ops_arm64.s:10	0x100112950		f94007e0		MOVD 8(RSP), R0
+  ops_arm64.s:11	0x100112954		d5033bbf		DMB $11
+  ops_arm64.s:12	0x100112958		48dffc01		LDARH (R0), R1
+  ops_arm64.s:13	0x10011295c		d5033bbf		DMB $11
+  ops_arm64.s:14	0x100112960		b90013e1		MOVW R1, 16(RSP)
+  ops_arm64.s:15	0x100112964		d65f03c0		RET
+  ops_arm64.s:15	0x100112968		00000000		?
+  ops_arm64.s:15	0x10011296c		00000000		?
+
+TEXT example.com/narrowwriters.write8.abi0(SB) $TASK/temp/candidate-final/module/ops_arm64.s
+  ops_arm64.s:17	0x100112970		f94007e0		MOVD 8(RSP), R0
+  ops_arm64.s:18	0x100112974		b94013e1		MOVWU 16(RSP), R1
+  ops_arm64.s:19	0x100112978		d5033bbf		DMB $11
+  ops_arm64.s:20	0x10011297c		089ffc01		STLRB R1, (R0)
+  ops_arm64.s:21	0x100112980		d5033bbf		DMB $11
+  ops_arm64.s:22	0x100112984		d65f03c0		RET
+  ops_arm64.s:22	0x100112988		00000000		?
+  ops_arm64.s:22	0x10011298c		00000000		?
+
+TEXT example.com/narrowwriters.write16.abi0(SB) $TASK/temp/candidate-final/module/ops_arm64.s
+  ops_arm64.s:24	0x100112990		f94007e0		MOVD 8(RSP), R0
+  ops_arm64.s:25	0x100112994		b94013e1		MOVWU 16(RSP), R1
+  ops_arm64.s:26	0x100112998		d5033bbf		DMB $11
+  ops_arm64.s:27	0x10011299c		489ffc01		STLRH R1, (R0)
+  ops_arm64.s:28	0x1001129a0		d5033bbf		DMB $11
+  ops_arm64.s:29	0x1001129a4		d65f03c0		RET
+  ops_arm64.s:29	0x1001129a8		00000000		?
+  ops_arm64.s:29	0x1001129ac		00000000		?
+
+TEXT example.com/narrowwriters.cmp8.abi0(SB) $TASK/temp/candidate-final/module/ops_arm64.s
+  ops_arm64.s:31	0x1001129b0		f94007e0		MOVD 8(RSP), R0
+  ops_arm64.s:32	0x1001129b4		b94013e1		MOVWU 16(RSP), R1
+  ops_arm64.s:33	0x1001129b8		92401c21		AND $255, R1, R1
+  ops_arm64.s:34	0x1001129bc		b94017e2		MOVWU 20(RSP), R2
+  ops_arm64.s:35	0x1001129c0		d5033bbf		DMB $11
+  ops_arm64.s:37	0x1001129c4		085ffc03		LDAXRB (R0), R3
+  ops_arm64.s:38	0x1001129c8		6b01007f		CMPW R1, R3
+  ops_arm64.s:39	0x1001129cc		54000081		BNE 4(PC)
+  ops_arm64.s:40	0x1001129d0		0804fc02		STLXRB R2, (R0), R4
+  ops_arm64.s:41	0x1001129d4		b5ffff84		CBNZ R4, -4(PC)
+  ops_arm64.s:42	0x1001129d8		14000002		JMP 2(PC)
+  ops_arm64.s:44	0x1001129dc		d5033f5f		CLREX $15
+  ops_arm64.s:46	0x1001129e0		d5033bbf		DMB $11
+  ops_arm64.s:47	0x1001129e4		b9001be3		MOVW R3, 24(RSP)
+  ops_arm64.s:48	0x1001129e8		d65f03c0		RET
+  ops_arm64.s:48	0x1001129ec		00000000		?
+
+TEXT example.com/narrowwriters.cmp16.abi0(SB) $TASK/temp/candidate-final/module/ops_arm64.s
+  ops_arm64.s:50	0x1001129f0		f94007e0		MOVD 8(RSP), R0
+  ops_arm64.s:51	0x1001129f4		b94013e1		MOVWU 16(RSP), R1
+  ops_arm64.s:52	0x1001129f8		92403c21		AND $65535, R1, R1
+  ops_arm64.s:53	0x1001129fc		b94017e2		MOVWU 20(RSP), R2
+  ops_arm64.s:54	0x100112a00		d5033bbf		DMB $11
+  ops_arm64.s:56	0x100112a04		485ffc03		LDAXRH (R0), R3
+  ops_arm64.s:57	0x100112a08		6b01007f		CMPW R1, R3
+  ops_arm64.s:58	0x100112a0c		54000081		BNE 4(PC)
+  ops_arm64.s:59	0x100112a10		4804fc02		STLXRH R2, (R0), R4
+  ops_arm64.s:60	0x100112a14		b5ffff84		CBNZ R4, -4(PC)
+  ops_arm64.s:61	0x100112a18		14000002		JMP 2(PC)
+  ops_arm64.s:63	0x100112a1c		d5033f5f		CLREX $15
+  ops_arm64.s:65	0x100112a20		d5033bbf		DMB $11
+  ops_arm64.s:66	0x100112a24		b9001be3		MOVW R3, 24(RSP)
+  ops_arm64.s:67	0x100112a28		d65f03c0		RET
+  ops_arm64.s:67	0x100112a2c		00000000		?

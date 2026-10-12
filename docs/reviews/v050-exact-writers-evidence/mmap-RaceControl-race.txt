@@ -1,0 +1,5 @@
+=== RUN   TestRaceControl
+OBS instrumented-control 375407
+--- PASS: TestRaceControl (0.00s)
+PASS
+ok  	example.com/narrowwriters	1.091s
