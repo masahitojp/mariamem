@@ -27,7 +27,8 @@ pins=json.loads((ROOT/'release/generated-go-translation.json').read_text())
 assert hashlib.sha256(converter.read_bytes()).hexdigest()==pins['patched_converter_sha256'], 'converter differs from canonical fixed input'
 subprocess.run([str(converter),'-pure','-i',str(fixture),'-out-dir',str(module/'fixture'),'-pkg','fixture','-import','example.com/feasibility/fixture'],check=True)
 base=module/'fixture/base';f=base/'base.go';f.write_text(apply(f.read_text()))
-for src in (ROOT/'scripts/runtime_correctness').glob('narrow_load*'):
+for src in (ROOT/'scripts/runtime_correctness').glob('narrow_*'):
+ if not src.name.endswith(('.go.txt', '.s.txt')):continue
  if src.name.endswith('_test.go.txt'):continue
  shutil.copy2(src,base/src.name.removesuffix('.txt'))
 shutil.copy2(ROOT/'internal/generatedgo/code/base/memory_mapping.go',base/'memory_mapping.go')

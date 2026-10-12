@@ -26,8 +26,8 @@ func TestMatrix(t *testing.T){
  }}()
  close(start);wg.Wait();final:=int(m.Memory[66]);if bits==16{final|=int(m.Memory[67])<<8}
  if relation=="neighbor"{wanted:=123;if kind=="rmw"||kind=="cmpxchg"{wanted=count&mask};if bad||final!=wanted{t.Errorf("value contract failed: bad=%v final=%d want=%d",bad,final,wanted)}}
- span:=bits/8;if kind=="store"||kind=="rmw"||kind=="cmpxchg"{span=4};if kind=="shadow"{span=1}
- record:=map[string]any{"operation":kind,"relation":relation,"backing":backing,"requested_bits":bits,"iterations":count,"physical_access_bytes":span,"target_offset":66,"neighbor_offset":65,"final_value":final,"checksum":sum,"value_failure":bad,"asm_observation_limit":kind=="load"}
+ span:=bits/8;if kind=="shadow"{span=1}
+ record:=map[string]any{"operation":kind,"relation":relation,"backing":backing,"requested_bits":bits,"iterations":count,"operand_access_bytes":span,"target_offset":66,"neighbor_offset":65,"final_value":final,"checksum":sum,"value_failure":bad,"asm_observation_limit":kind!="shadow"}
  encoded,_:=json.Marshal(record);fmt.Println("OBS "+string(encoded))
 }
 func TestStoreBuffering(t *testing.T){

@@ -4,7 +4,7 @@
   "files_sha256": {
     "code/alias.go": "75c9b6d91baa07783b81b576f40ed719a53832678849130247404726361875af",
     "code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
-    "code/base/base.go": "2f336d438520c1fabae86b4aaf2de014c334425d88e038da839442cdb793010b",
+    "code/base/base.go": "b43554887688b079987c77ed954dd62ad75ec9616c7df0f5979d81e4cc5c8932",
     "code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
     "code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
     "code/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",

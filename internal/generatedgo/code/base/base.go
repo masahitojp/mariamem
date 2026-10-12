@@ -1539,28 +1539,27 @@ func ForceContendedAtomics(m *Module) {
 	}
 }
 
-// atomicSubword32 runs op on the byte lanes [shift, shift+bits) of the
-// aligned 32-bit word containing ea, via a CAS loop; returns the OLD lane
-// value zero-extended. Little-endian lane math.
+// atomicSubword32 uses a native exact-width load/CAS loop at checked ea.
+// Only 8/16-bit operands are supported here; returns the OLD lane zero-extended.
+// Full-width atomics use their separate existing cores.
 //
 //go:noinline
 func AtomicSubword32(m *Module, ea uint64, bits uint, op func(old uint32) uint32) uint32 {
-	word := (*uint32)(unsafe.Add(m.M, uintptr(ea&^3)))
-	shift := uint(ea&3) * 8
-	mask := uint32(1)<<bits - 1
-	if !AtomicsContended(m) {
-		cur := *word
-		lane := (cur >> shift) & mask
-		*word = (cur &^ (mask << shift)) | ((op(lane) & mask) << shift)
-		return lane
+	p := unsafe.Add(m.M, uintptr(ea))
+	read, compare := atomicRead8At, atomicCmp8At
+	if bits == 16 {
+		read, compare = atomicRead16At, atomicCmp16At
+	} else if bits != 8 {
+		panic("mariamem: invalid narrow atomic width")
 	}
+	mask := uint32(1)<<bits - 1
+	old := read(p)
 	for {
-		cur := atomic.LoadUint32(word)
-		lane := (cur >> shift) & mask
-		next := (cur &^ (mask << shift)) | ((op(lane) & mask) << shift)
-		if atomic.CompareAndSwapUint32(word, cur, next) {
-			return lane
+		seen := compare(p, old, op(old)&mask)
+		if seen == old {
+			return old
 		}
+		old = seen
 	}
 }
 
@@ -1797,13 +1796,13 @@ func AtomicLoad64_32u(m *Module, addr int32, offset int32) int64 {
 
 //go:noinline
 func AtomicStore32_8(m *Module, addr int32, offset int32, v int32) int32 {
-	AtomicSubword32(m, AtomicEA(m, addr, offset, 1), 8, func(uint32) uint32 { return uint32(v) })
+	atomicWrite8At(unsafe.Add(m.M, uintptr(AtomicEA(m, addr, offset, 1))), uint32(v))
 	return 0
 }
 
 //go:noinline
 func AtomicStore32_16(m *Module, addr int32, offset int32, v int32) int32 {
-	AtomicSubword32(m, AtomicEA(m, addr, offset, 2), 16, func(uint32) uint32 { return uint32(v) })
+	atomicWrite16At(unsafe.Add(m.M, uintptr(AtomicEA(m, addr, offset, 2))), uint32(v))
 	return 0
 }
 

@@ -146,10 +146,11 @@ def test_pinned_driver_adapter_contains_snapshot_attribution():
     with pytest.raises(ValueError, match='driver fragment changed'):
         installer.adapt_driver(raw.decode().replace('return os.WriteFile(dst, b, 0600)', 'return nil'))
 
+@pytest.mark.parametrize('family', ['narrow_load', 'narrow_write'])
 @pytest.mark.parametrize('change', ['output', 'owner', 'missing'])
-def test_template_owned_primitive_rejects_drift(canonical, change):
-    owner = canonical/'scripts/runtime_correctness/narrow_load_darwin_arm64.s.txt'
-    output = canonical/'internal/generatedgo/code/base/narrow_load_darwin_arm64.s'
+def test_template_owned_primitive_rejects_drift(canonical, change, family):
+    owner = canonical/f'scripts/runtime_correctness/{family}_darwin_arm64.s.txt'
+    output = canonical/f'internal/generatedgo/code/base/{family}_darwin_arm64.s'
     if change == 'output': output.write_text('changed')
     elif change == 'owner': owner.write_text('changed')
     else: owner.unlink()

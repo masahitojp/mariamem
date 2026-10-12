@@ -24,6 +24,11 @@ HANDWRITTEN_FILES = (
     'code/base/narrow_load_other.go',
     'code/base/narrow_load_darwin_arm64.s',
     'code/base/narrow_load_linux_amd64.s',
+    'code/base/narrow_write_supported.go',
+    'code/base/narrow_write_other.go',
+    'code/base/narrow_write_darwin_arm64.s',
+    'code/base/narrow_write_linux_amd64.s',
+    'code/base/narrow_write_test.go',
     'code/base/owned_prepared.go',
     'code/base/owned_prepared_test.go',
     'runtime_instance.go',
@@ -43,7 +48,7 @@ HANDWRITTEN_FILES = (
 
 def handwritten_owner(root, name):
     filename = Path(name).name
-    if filename.startswith('narrow_load_') or filename in {'fd_allocate_test.go','bulk_bounds_test.go'}:
+    if filename.startswith(('narrow_load_', 'narrow_write_')) or filename in {'fd_allocate_test.go','bulk_bounds_test.go'}:
         return root/'scripts/runtime_correctness'/(filename+'.txt')
     return root/'internal/generatedgo'/name
 
