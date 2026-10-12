@@ -14,14 +14,9 @@ Use small spikes to reduce uncertainty before expensive architectural changes.
 
 Mechanical verification belongs in deterministic scripts and CI where possible.
 
-Judge completion against the requested scope and agreed exit criteria. Adjust
-methods and priorities autonomously; explicitly obtain agreement before omitting
-requested targets or weakening exit criteria. Before completion/Human Review,
-reconcile requested work with results. An incomplete submission must open with
-remaining work, why it is submitted now and the effect on the decision. Answer
-scope/completion challenges directly, without substituting universal safety proof.
-See `docs/development.md#scope-and-completion`; small spikes and proportional
-verification do not authorize silently narrowing an investigation.
+Judge completion against the requested scope. Obtain agreement before reducing
+that scope. Report confirmed results and unfinished work accurately.
+See `docs/development.md#scope-and-completion`.
 
 Human Review opens with one decision needed now, a short recommendation and its
 decisive reason, plus the strongest material objection and your assessment when
