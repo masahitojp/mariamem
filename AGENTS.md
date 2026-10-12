@@ -14,6 +14,18 @@ Use small spikes to reduce uncertainty before expensive architectural changes.
 
 Mechanical verification belongs in deterministic scripts and CI where possible.
 
+Human Review requires an engineering recommendation, not only observations and
+caveats. Start with one recommended action; distinguish facts, inference and
+unknowns, translate them into user impact, and explain likelihood, severity,
+alternatives and residual risk in proportion to the evidence. End with the exact
+decision requested from the Human, who retains final authority. Do not leave the
+Human to construct the technical recommendation. Bound any proposed investigation
+by a decision-changing question and an exit condition; neither unreproduced harm
+nor lack of a general correctness proof settles the decision by itself.
+Use the scalable format in `docs/development.md#human-review-recommendations`.
+Keep approved product direction in `docs/project-status.md`; preserve historical
+reviews under their original evidence and decision context.
+
 Git source identity must be checked before builds/benchmarks. A 40-character SHA
 and the first `ls-remote refs/tags/...` row do not prove commit identity. Use
 `scripts/git_identity.py` and named `source_commit` / `tag_object_sha` fields;

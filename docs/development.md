@@ -6,6 +6,77 @@ and Python with pytest/PyMySQL. macOS arm64 external consumers also passed with
 Go 1.27.0/1.27.1/1.27.2; see [compatibility](go-compatibility.md). Product
 platforms are macOS15+ arm64 and Ubuntu24.04 x86_64.
 
+## Human Review recommendations
+
+Codex owns the engineering recommendation; the Human owns the final decision.
+Open with one concrete action: fix now, proceed with an explicit limitation,
+narrow the supported scope, or investigate a specific question that could change
+the decision. Explain why that action fits the available evidence and product
+use. A list of findings followed by "the Human can choose" is not sufficient.
+This reporting rule does not add another approval gate to work already authorized.
+
+Separate **confirmed facts**, **inference**, and **unknowns**. In particular,
+keep these three questions distinct: is there a specification/implementation
+discrepancy; does a real product workload reach the affected path; and has a
+user-visible failure been reproduced? Cite the source, input identities and
+tests that establish each claim. Passing finite tests does not prove general
+correctness, and a specification discrepancy alone does not establish observed
+SQL corruption. A detector blind spot or incomplete coverage is an evidence
+limit, not a successful test of the missing property.
+
+Translate the phenomenon into the affected user's workflow and disadvantage:
+wrong results, failed transactions, hangs, crashes, latency, resource pressure or
+cleanup responsibility. Label observed harm separately from plausible harm;
+state the mechanism supporting the latter. Identify relevant workload,
+configuration, platform and lifecycle boundaries. If impact is unknown, explain
+what is missing rather than presenting a hypothetical failure as confirmed.
+
+Give a qualitative assessment of likelihood and severity, with its basis and
+limits. For example, an affected path executed in ordinary transactions supports
+exposure, but does not measure the likelihood of harmful interleaving. A
+source-level synchronization argument or representative failure oracle may
+support a low-risk assessment; absence of failure in a small sample alone may
+not. "Unknown" is valid for frequency, but still explain the priority justified
+by reachability, potential severity, available mitigations and cost of delay.
+Do not invent probabilities, use unsupported risk labels, or abandon judgment
+only because the risk cannot be quantified. Neither every unknown nor every
+unreproduced failure is automatically a blocker or an acceptable limitation.
+
+Compare the recommendation with the strongest practical alternative. Include
+implementation/validation cost, delay or scope loss, and the residual risk of
+each; explain why the recommendation is preferable. State what evidence would
+reverse it and what would finish the investigation. If recommending more study,
+name the decision-changing question, fixed scope and stop conditions, including
+what to recommend if that scope yields no decisive result. Do not use proof of
+general correctness as an indefinite stop condition. Concrete unresolved
+requirements can still block release; identify the requirement and exit evidence.
+
+Use this reusable outline, merging lines when a short recommendation suffices:
+
+```text
+Recommendation: I recommend <one action> because <decisive reason>.
+Evidence: Confirmed <facts>; inference <interpretation>; unknown <gaps>.
+User impact: <affected users/workflows>; observed <harm>; possible <harm/mechanism>.
+Priority: <qualitative likelihood/exposure and severity>, justified by <evidence>.
+Trade-off: Recommended <cost/residual risk>; alternative <cost/residual risk>;
+           prefer the recommendation because <reason>.
+Decision boundary: Reverse if <evidence>; finish when <bounded exit condition>.
+Human decision: Approve <specific action/scope>, or choose <concrete alternative>?
+```
+
+A small change may use a few sentences combining these points, without headings
+or a separate report. A material architecture/release decision should link the
+fixed-source evidence, relevant tests and limitations; put detailed traces/tables
+after the recommendation. Use enough detail to make the choice understandable,
+not a mandatory scorecard or a new task tracker. Close with one explicit Human
+decision rather than asking the Human to derive the technical recommendation.
+
+After approval, record the resulting product direction in the appropriate current
+decision/status document. `project-status.md` owns decided product direction,
+not the deliberation template. Preserve historical reports; later evidence or
+changed recommendations belong in a dated follow-up linked to the originals.
+An illustrative use of this format does not supersede an active technical review.
+
 ## Git source identity
 
 A hexadecimal SHA identifies an object, not necessarily source code. Annotated
