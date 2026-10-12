@@ -19,6 +19,10 @@ NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
 HANDWRITTEN_FILES = (
     'code/base/fd_allocate_test.go',
     'code/base/bulk_bounds_test.go',
+    'code/base/narrow_load_supported.go',
+    'code/base/narrow_load_other.go',
+    'code/base/narrow_load_darwin_arm64.s',
+    'code/base/narrow_load_linux_amd64.s',
     'code/base/owned_prepared.go',
     'code/base/owned_prepared_test.go',
     'runtime_instance.go',
@@ -93,6 +97,9 @@ def main():
         # The driver regression belongs alongside the handwritten host adapter.
         target = out/('code/'+name[len('generated/'):] if name.startswith('generated/') else name)
         text = source.read_text().replace(OLD, NEW)
+        if name == 'generated/base/base.go':
+            from runtime_atomic_loads import apply as narrow_loads
+            text = narrow_loads(text)
         if name == 'generated/generated.go':
             text = text.replace('\t_ "embed"\n', '')
             text = text.replace('//go:embed data.bin\nvar wasm2goData_data_bin []byte',
@@ -122,7 +129,8 @@ def main():
     # output. Carry it into clean regenerated trees without modifying that output.
     for name in HANDWRITTEN_FILES:
         owner = (ROOT/'scripts/runtime_correctness'/Path(name).name
-                 if Path(name).name in {'fd_allocate_test.go','bulk_bounds_test.go'} else ROOT/'internal/generatedgo'/name)
+                 if Path(name).name.startswith('narrow_load_') or Path(name).name in {'fd_allocate_test.go','bulk_bounds_test.go'}
+                 else ROOT/'internal/generatedgo'/name)
         shutil.copy2(owner, out/name)
     print('Installed checksum-bound generated runtime:',len(inventory),'files')
 

@@ -1,0 +1,15 @@
+#include "textflag.h"
+TEXT ·load8(SB), NOSPLIT, $0-12
+ MOVD p+0(FP), R0
+ DMB $0xb
+ LDARB (R0), R1
+ DMB $0xb
+ MOVW R1, ret+8(FP)
+ RET
+TEXT ·load16(SB), NOSPLIT, $0-12
+ MOVD p+0(FP), R0
+ DMB $0xb
+ LDARH (R0), R1
+ DMB $0xb
+ MOVW R1, ret+8(FP)
+ RET
