@@ -1,0 +1,620 @@
+{
+  "image_id": "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+  "versions": {
+    "lld": "WASIX LLD 21.1.2",
+    "binaryen": "wasm-opt version 133 (version_133)",
+    "go": "go version go1.26.8 darwin/arm64"
+  },
+  "commands": [
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "<workspace>/worktree/benchmarks/spikes/v050-semantic-audit/fences.py",
+        "--output",
+        "<workspace>/temp/fences-receipt-v2",
+        "--libc",
+        "<workspace>/temp/libc.a"
+      ],
+      "cwd": null,
+      "exit_code": 0,
+      "stdout": "fence.wasm 40 1bfa988b062b0e829ff923e171d71e8803261974ee45e2a7a8edc79664de1788\nfence-multi.wasm 1053741 8c665b326bfa91f120447f795f71d0f7b4284728789b9b46d0d5ce56c55ee63f\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "<workspace>/temp/fences-receipt-v2:/work",
+        "-w",
+        "/work",
+        "--entrypoint",
+        "/root/.wasixcc/llvm/bin/wasm-ld",
+        "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+        "--version"
+      ],
+      "cwd": null,
+      "exit_code": 0,
+      "stdout": "WASIX LLD 21.1.2\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "<workspace>/temp/fences-receipt-v2:/work",
+        "-w",
+        "/work",
+        "--entrypoint",
+        "/root/.wasixcc/binaryen/bin/wasm-opt",
+        "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+        "--version"
+      ],
+      "cwd": null,
+      "exit_code": 0,
+      "stdout": "wasm-opt version 133 (version_133)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "go",
+        "version"
+      ],
+      "cwd": null,
+      "exit_code": 0,
+      "stdout": "go version go1.26.8 darwin/arm64\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "<workspace>/temp/fences-receipt-v2:/work",
+        "-w",
+        "/work",
+        "--entrypoint",
+        "/root/.wasixcc/llvm/bin/wasm-ld",
+        "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+        "--no-entry",
+        "--allow-undefined",
+        "--shared-memory",
+        "--export=__tl_unlock",
+        "--export=__tl_sync",
+        "pthread_create.o",
+        "-o",
+        "linked.wasm"
+      ],
+      "cwd": null,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "<workspace>/temp/fences-receipt-v2:/work",
+        "-w",
+        "/work",
+        "--entrypoint",
+        "/root/.wasixcc/binaryen/bin/wasm-opt",
+        "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+        "-O2",
+        "--enable-threads",
+        "--enable-mutable-globals",
+        "--enable-bulk-memory",
+        "--enable-bulk-memory-opt",
+        "--enable-exception-handling",
+        "--enable-simd",
+        "--enable-relaxed-simd",
+        "--enable-extended-const",
+        "linked.wasm",
+        "-o",
+        "optimized.wasm"
+      ],
+      "cwd": null,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "go",
+        "run",
+        "./cmd/audit-opcodes",
+        "<workspace>/temp/fences-receipt-v2/pthread_create.o",
+        "<workspace>/temp/fences-receipt-v2/pthread_join.o",
+        "<workspace>/temp/fences-receipt-v2/linked.wasm",
+        "<workspace>/temp/fences-receipt-v2/optimized.wasm"
+      ],
+      "cwd": "<workspace>/temp/converter/wasm2go-730057c146463f663e8774587bc96fb2bea91af8",
+      "exit_code": 0,
+      "stdout": "{\"functions\":[{\"body_sha256\":\"d5b195f64c57734ff2fa95f80d19ebdeec65b4b63bef240eb63601236fc65c6c\",\"defined_index\":0,\"fences\":[],\"opcodes\":{\"02\":2,\"03\":1,\"0b\":4,\"0d\":3,\"0f\":1,\"10\":1,\"20\":3,\"22\":3,\"23\":1,\"28\":4,\"36\":1,\"41\":12,\"45\":1,\"46\":1,\"6a\":2,\"fe.48\":2}},{\"body_sha256\":\"7c7bc82e806c950b74582d4e3136a3f409921e5ba4af2bd63f60d035192339ee\",\"defined_index\":1,\"fences\":[35,49],\"opcodes\":{\"02\":2,\"0b\":3,\"0d\":2,\"0f\":1,\"10\":1,\"1a\":1,\"20\":1,\"22\":1,\"28\":2,\"36\":2,\"41\":8,\"45\":2,\"6a\":1,\"fe.03\":2}},{\"body_sha256\":\"2b0f7603e38344cecb518450ed884073d52582ef5c42287c0253789c09c35441\",\"defined_index\":2,\"fences\":[3],\"opcodes\":{\"02\":1,\"0b\":2,\"0d\":2,\"10\":2,\"1a\":1,\"20\":1,\"22\":1,\"28\":2,\"41\":7,\"45\":2,\"fe.03\":1}},{\"body_sha256\":\"07d0c60294052e690c88dde8d54dd486decbf3ebd0654d4ebb340c33d63c70ce\",\"defined_index\":3,\"fences\":[518,528],\"opcodes\":{\"00\":3,\"02\":10,\"03\":4,\"0b\":15,\"0c\":2,\"0d\":15,\"10\":15,\"11\":1,\"1a\":2,\"20\":55,\"21\":4,\"22\":14,\"23\":1,\"28\":20,\"36\":14,\"3a\":3,\"41\":37,\"45\":5,\"46\":3,\"47\":3,\"48\":1,\"6a\":8,\"fe.03\":2,\"fe.48\":4}},{\"body_sha256\":\"009bc9beede2682f9ca6f3ceea4fe148f2bdf57278d8aa22dcc4d60070c3e17e\",\"defined_index\":4,\"fences\":[],\"opcodes\":{\"0b\":1,\"20\":3,\"22\":1,\"23\":1,\"28\":2,\"36\":2,\"41\":1,\"6a\":1}},{\"body_sha256\":\"19e315574857d08449b25067c65a0cd253ab67a45abcf6e1699b7e2269a6714c\",\"defined_index\":5,\"fences\":[],\"opcodes\":{\"0b\":1,\"20\":1,\"23\":1,\"28\":2,\"36\":1,\"41\":1,\"6a\":1}},{\"body_sha256\":\"50203e49201f26942d00cc34c7f67874ca8c32b68a9296a903e1cbe1e8e1e00c\",\"defined_index\":6,\"fences\":[],\"opcodes\":{\"00\":1,\"0b\":1,\"10\":1,\"11\":1,\"20\":5,\"22\":1,\"23\":1,\"28\":3,\"36\":1,\"41\":1,\"6a\":1,\"fe.17\":1}},{\"body_sha256\":\"eb89f54554dbbca539d4bea86b235a0e7c42392c5318cfa68fa9e4c600ee0c88\",\"defined_index\":7,\"fences\":[1365,1379],\"opcodes\":{\"02\":29,\"03\":2,\"0b\":32,\"0c\":9,\"0d\":31,\"10\":11,\"1a\":1,\"1b\":3,\"20\":147,\"21\":28,\"22\":35,\"23\":4,\"24\":2,\"28\":35,\"29\":2,\"2d\":1,\"36\":48,\"37\":4,\"3a\":3,\"41\":114,\"42\":2,\"45\":14,\"46\":1,\"48\":1,\"49\":2,\"4a\":5,\"4b\":2,\"6a\":33,\"6b\":13,\"6c\":1,\"71\":8,\"74\":1,\"76\":1,\"fc\":3,\"fe.03\":2,\"fe.17\":1,\"fe.48\":2}}],\"path\":\"<workspace>/temp/fences-receipt-v2/pthread_create.o\"}\n{\"functions\":[{\"body_sha256\":\"9f78dacbecef39014f0a224daf05951484a74e97db1d5cf09e68d3a970a4d776\",\"defined_index\":0,\"fences\":[],\"opcodes\":{\"0b\":1,\"10\":1,\"20\":2,\"41\":1}},{\"body_sha256\":\"047c09d9531ac33311737ebeca6bd01752e37890ad0c652c610f5be6a52ff95b\",\"defined_index\":1,\"fences\":[],\"opcodes\":{\"00\":1,\"02\":7,\"03\":1,\"0b\":9,\"0c\":2,\"0d\":10,\"10\":8,\"1a\":4,\"20\":23,\"21\":3,\"22\":4,\"23\":1,\"24\":2,\"28\":7,\"36\":1,\"41\":17,\"45\":4,\"46\":3,\"47\":1,\"4e\":1,\"6a\":3,\"6b\":1}},{\"body_sha256\":\"901f5fe0635489a1939bf8b85cc7720be5e97226ecc2d8bbda656b565bcc8506\",\"defined_index\":2,\"fences\":[],\"opcodes\":{\"02\":1,\"0b\":2,\"0d\":1,\"10\":1,\"20\":4,\"21\":2,\"28\":1,\"41\":3,\"46\":1}}],\"path\":\"<workspace>/temp/fences-receipt-v2/pthread_join.o\"}\n{\"functions\":[{\"body_sha256\":\"8d7a32e145ad83bd8d99e038f36cdc246412889e296c6cc9fe6dc38fc85ec95f\",\"defined_index\":0,\"fences\":[],\"opcodes\":{\"02\":3,\"0b\":4,\"0c\":1,\"0e\":1,\"1a\":2,\"41\":12,\"42\":1,\"fc\":1,\"fe.00\":1,\"fe.01\":1,\"fe.17\":1,\"fe.48\":1}},{\"body_sha256\":\"888f5fd0eb34b8dc3dea59f11ae53de471e9228e2010d14ffb1fd9b64fa0ae46\",\"defined_index\":1,\"fences\":[35,49],\"opcodes\":{\"02\":2,\"0b\":3,\"0d\":2,\"0f\":1,\"10\":1,\"1a\":1,\"20\":1,\"22\":1,\"28\":2,\"36\":2,\"41\":8,\"45\":2,\"6a\":1,\"fe.03\":2}},{\"body_sha256\":\"73481c672f68eee16b70fc6d7939d0d2c237f4a2e2c07af00899d11d959d2ad4\",\"defined_index\":2,\"fences\":[3],\"opcodes\":{\"02\":1,\"0b\":2,\"0d\":2,\"10\":2,\"1a\":1,\"20\":1,\"22\":1,\"28\":2,\"41\":7,\"45\":2,\"fe.03\":1}}],\"path\":\"<workspace>/temp/fences-receipt-v2/linked.wasm\"}\n{\"functions\":[{\"body_sha256\":\"f3489204db24c29338783e92a0fcab8ac48f64bd697b0008d7c7bdef1e53f2cc\",\"defined_index\":0,\"fences\":[],\"opcodes\":{\"02\":3,\"0b\":4,\"0c\":1,\"0e\":1,\"1a\":2,\"37\":1,\"41\":10,\"42\":2,\"fe.00\":1,\"fe.01\":1,\"fe.17\":1,\"fe.48\":1}},{\"body_sha256\":\"54193866c9015063e703c7ed7bc7f81417b631d0106f9cd52d6053498e05bd95\",\"defined_index\":1,\"fences\":[],\"opcodes\":{\"04\":2,\"0b\":3,\"0f\":1,\"10\":1,\"1a\":1,\"20\":1,\"22\":1,\"28\":2,\"36\":2,\"41\":8,\"6b\":1}},{\"body_sha256\":\"10afa149cfd4bc13c75afb831c9e95f7a5bdf14dc9ff395bf92f3806149dc04f\",\"defined_index\":2,\"fences\":[],\"opcodes\":{\"02\":1,\"0b\":2,\"0d\":2,\"10\":2,\"1a\":1,\"20\":1,\"22\":1,\"28\":2,\"41\":7,\"45\":2}}],\"path\":\"<workspace>/temp/fences-receipt-v2/optimized.wasm\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<workspace>/temp/wasm2go",
+        "-pure",
+        "-i",
+        "<workspace>/temp/fences-receipt-v2/fence.wasm",
+        "-import",
+        "example.com/fence",
+        "-pkg",
+        "generated",
+        "-o",
+        "<workspace>/temp/fences-receipt-v2/single/fence.go"
+      ],
+      "cwd": null,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<workspace>/temp/wasm2go",
+        "-pure",
+        "-keep-dead-funcs",
+        "-i",
+        "<workspace>/temp/fences-receipt-v2/fence-multi.wasm",
+        "-import",
+        "example.com/fence",
+        "-pkg",
+        "generated",
+        "-out-dir",
+        "<workspace>/temp/fences-receipt-v2/multi"
+      ],
+      "cwd": null,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "decoded": [
+    {
+      "functions": [
+        {
+          "body_sha256": "d5b195f64c57734ff2fa95f80d19ebdeec65b4b63bef240eb63601236fc65c6c",
+          "defined_index": 0,
+          "fences": [],
+          "opcodes": {
+            "02": 2,
+            "03": 1,
+            "0b": 4,
+            "0d": 3,
+            "0f": 1,
+            "10": 1,
+            "20": 3,
+            "22": 3,
+            "23": 1,
+            "28": 4,
+            "36": 1,
+            "41": 12,
+            "45": 1,
+            "46": 1,
+            "6a": 2,
+            "fe.48": 2
+          }
+        },
+        {
+          "body_sha256": "7c7bc82e806c950b74582d4e3136a3f409921e5ba4af2bd63f60d035192339ee",
+          "defined_index": 1,
+          "fences": [
+            35,
+            49
+          ],
+          "opcodes": {
+            "02": 2,
+            "0b": 3,
+            "0d": 2,
+            "0f": 1,
+            "10": 1,
+            "1a": 1,
+            "20": 1,
+            "22": 1,
+            "28": 2,
+            "36": 2,
+            "41": 8,
+            "45": 2,
+            "6a": 1,
+            "fe.03": 2
+          }
+        },
+        {
+          "body_sha256": "2b0f7603e38344cecb518450ed884073d52582ef5c42287c0253789c09c35441",
+          "defined_index": 2,
+          "fences": [
+            3
+          ],
+          "opcodes": {
+            "02": 1,
+            "0b": 2,
+            "0d": 2,
+            "10": 2,
+            "1a": 1,
+            "20": 1,
+            "22": 1,
+            "28": 2,
+            "41": 7,
+            "45": 2,
+            "fe.03": 1
+          }
+        },
+        {
+          "body_sha256": "07d0c60294052e690c88dde8d54dd486decbf3ebd0654d4ebb340c33d63c70ce",
+          "defined_index": 3,
+          "fences": [
+            518,
+            528
+          ],
+          "opcodes": {
+            "00": 3,
+            "02": 10,
+            "03": 4,
+            "0b": 15,
+            "0c": 2,
+            "0d": 15,
+            "10": 15,
+            "11": 1,
+            "1a": 2,
+            "20": 55,
+            "21": 4,
+            "22": 14,
+            "23": 1,
+            "28": 20,
+            "36": 14,
+            "3a": 3,
+            "41": 37,
+            "45": 5,
+            "46": 3,
+            "47": 3,
+            "48": 1,
+            "6a": 8,
+            "fe.03": 2,
+            "fe.48": 4
+          }
+        },
+        {
+          "body_sha256": "009bc9beede2682f9ca6f3ceea4fe148f2bdf57278d8aa22dcc4d60070c3e17e",
+          "defined_index": 4,
+          "fences": [],
+          "opcodes": {
+            "0b": 1,
+            "20": 3,
+            "22": 1,
+            "23": 1,
+            "28": 2,
+            "36": 2,
+            "41": 1,
+            "6a": 1
+          }
+        },
+        {
+          "body_sha256": "19e315574857d08449b25067c65a0cd253ab67a45abcf6e1699b7e2269a6714c",
+          "defined_index": 5,
+          "fences": [],
+          "opcodes": {
+            "0b": 1,
+            "20": 1,
+            "23": 1,
+            "28": 2,
+            "36": 1,
+            "41": 1,
+            "6a": 1
+          }
+        },
+        {
+          "body_sha256": "50203e49201f26942d00cc34c7f67874ca8c32b68a9296a903e1cbe1e8e1e00c",
+          "defined_index": 6,
+          "fences": [],
+          "opcodes": {
+            "00": 1,
+            "0b": 1,
+            "10": 1,
+            "11": 1,
+            "20": 5,
+            "22": 1,
+            "23": 1,
+            "28": 3,
+            "36": 1,
+            "41": 1,
+            "6a": 1,
+            "fe.17": 1
+          }
+        },
+        {
+          "body_sha256": "eb89f54554dbbca539d4bea86b235a0e7c42392c5318cfa68fa9e4c600ee0c88",
+          "defined_index": 7,
+          "fences": [
+            1365,
+            1379
+          ],
+          "opcodes": {
+            "02": 29,
+            "03": 2,
+            "0b": 32,
+            "0c": 9,
+            "0d": 31,
+            "10": 11,
+            "1a": 1,
+            "1b": 3,
+            "20": 147,
+            "21": 28,
+            "22": 35,
+            "23": 4,
+            "24": 2,
+            "28": 35,
+            "29": 2,
+            "2d": 1,
+            "36": 48,
+            "37": 4,
+            "3a": 3,
+            "41": 114,
+            "42": 2,
+            "45": 14,
+            "46": 1,
+            "48": 1,
+            "49": 2,
+            "4a": 5,
+            "4b": 2,
+            "6a": 33,
+            "6b": 13,
+            "6c": 1,
+            "71": 8,
+            "74": 1,
+            "76": 1,
+            "fc": 3,
+            "fe.03": 2,
+            "fe.17": 1,
+            "fe.48": 2
+          }
+        }
+      ],
+      "path": "<workspace>/temp/fences-receipt-v2/pthread_create.o"
+    },
+    {
+      "functions": [
+        {
+          "body_sha256": "9f78dacbecef39014f0a224daf05951484a74e97db1d5cf09e68d3a970a4d776",
+          "defined_index": 0,
+          "fences": [],
+          "opcodes": {
+            "0b": 1,
+            "10": 1,
+            "20": 2,
+            "41": 1
+          }
+        },
+        {
+          "body_sha256": "047c09d9531ac33311737ebeca6bd01752e37890ad0c652c610f5be6a52ff95b",
+          "defined_index": 1,
+          "fences": [],
+          "opcodes": {
+            "00": 1,
+            "02": 7,
+            "03": 1,
+            "0b": 9,
+            "0c": 2,
+            "0d": 10,
+            "10": 8,
+            "1a": 4,
+            "20": 23,
+            "21": 3,
+            "22": 4,
+            "23": 1,
+            "24": 2,
+            "28": 7,
+            "36": 1,
+            "41": 17,
+            "45": 4,
+            "46": 3,
+            "47": 1,
+            "4e": 1,
+            "6a": 3,
+            "6b": 1
+          }
+        },
+        {
+          "body_sha256": "901f5fe0635489a1939bf8b85cc7720be5e97226ecc2d8bbda656b565bcc8506",
+          "defined_index": 2,
+          "fences": [],
+          "opcodes": {
+            "02": 1,
+            "0b": 2,
+            "0d": 1,
+            "10": 1,
+            "20": 4,
+            "21": 2,
+            "28": 1,
+            "41": 3,
+            "46": 1
+          }
+        }
+      ],
+      "path": "<workspace>/temp/fences-receipt-v2/pthread_join.o"
+    },
+    {
+      "functions": [
+        {
+          "body_sha256": "8d7a32e145ad83bd8d99e038f36cdc246412889e296c6cc9fe6dc38fc85ec95f",
+          "defined_index": 0,
+          "fences": [],
+          "opcodes": {
+            "02": 3,
+            "0b": 4,
+            "0c": 1,
+            "0e": 1,
+            "1a": 2,
+            "41": 12,
+            "42": 1,
+            "fc": 1,
+            "fe.00": 1,
+            "fe.01": 1,
+            "fe.17": 1,
+            "fe.48": 1
+          }
+        },
+        {
+          "body_sha256": "888f5fd0eb34b8dc3dea59f11ae53de471e9228e2010d14ffb1fd9b64fa0ae46",
+          "defined_index": 1,
+          "fences": [
+            35,
+            49
+          ],
+          "opcodes": {
+            "02": 2,
+            "0b": 3,
+            "0d": 2,
+            "0f": 1,
+            "10": 1,
+            "1a": 1,
+            "20": 1,
+            "22": 1,
+            "28": 2,
+            "36": 2,
+            "41": 8,
+            "45": 2,
+            "6a": 1,
+            "fe.03": 2
+          }
+        },
+        {
+          "body_sha256": "73481c672f68eee16b70fc6d7939d0d2c237f4a2e2c07af00899d11d959d2ad4",
+          "defined_index": 2,
+          "fences": [
+            3
+          ],
+          "opcodes": {
+            "02": 1,
+            "0b": 2,
+            "0d": 2,
+            "10": 2,
+            "1a": 1,
+            "20": 1,
+            "22": 1,
+            "28": 2,
+            "41": 7,
+            "45": 2,
+            "fe.03": 1
+          }
+        }
+      ],
+      "path": "<workspace>/temp/fences-receipt-v2/linked.wasm"
+    },
+    {
+      "functions": [
+        {
+          "body_sha256": "f3489204db24c29338783e92a0fcab8ac48f64bd697b0008d7c7bdef1e53f2cc",
+          "defined_index": 0,
+          "fences": [],
+          "opcodes": {
+            "02": 3,
+            "0b": 4,
+            "0c": 1,
+            "0e": 1,
+            "1a": 2,
+            "37": 1,
+            "41": 10,
+            "42": 2,
+            "fe.00": 1,
+            "fe.01": 1,
+            "fe.17": 1,
+            "fe.48": 1
+          }
+        },
+        {
+          "body_sha256": "54193866c9015063e703c7ed7bc7f81417b631d0106f9cd52d6053498e05bd95",
+          "defined_index": 1,
+          "fences": [],
+          "opcodes": {
+            "04": 2,
+            "0b": 3,
+            "0f": 1,
+            "10": 1,
+            "1a": 1,
+            "20": 1,
+            "22": 1,
+            "28": 2,
+            "36": 2,
+            "41": 8,
+            "6b": 1
+          }
+        },
+        {
+          "body_sha256": "10afa149cfd4bc13c75afb831c9e95f7a5bdf14dc9ff395bf92f3806149dc04f",
+          "defined_index": 2,
+          "fences": [],
+          "opcodes": {
+            "02": 1,
+            "0b": 2,
+            "0d": 2,
+            "10": 2,
+            "1a": 1,
+            "20": 1,
+            "22": 1,
+            "28": 2,
+            "41": 7,
+            "45": 2
+          }
+        }
+      ],
+      "path": "<workspace>/temp/fences-receipt-v2/optimized.wasm"
+    }
+  ],
+  "fence_counts": {
+    "pthread_create.o": 7,
+    "pthread_join.o": 0,
+    "linked.wasm": 3,
+    "optimized.wasm": 0
+  },
+  "converter_fence_sites": {
+    "single": [
+      {
+        "file": "single/generated_pure.go",
+        "line": 6,
+        "statement": "v1 = atomicFence(m)"
+      }
+    ],
+    "multi": [
+      {
+        "file": "multi/p1/p1_pure.go",
+        "line": 11,
+        "statement": "v1 = base.AtomicFence(m)"
+      }
+    ]
+  },
+  "converter_binary_sha256": "2e127643180dbf5f7c96875497b7e8a080d93bbb7b8b3711c55165d8828146a6",
+  "libc_sha256": "e0837c66fecab3cef5d8d202939c6125986685e9d8e589f90a253f5f18a17af9",
+  "decoder_sha256": "8608ed5640632e700bfd587c4bfed88bddb96502d07d36fceb5b05b82dd2e5e7",
+  "output_sha256": {
+    "fence-multi.wasm": "8c665b326bfa91f120447f795f71d0f7b4284728789b9b46d0d5ce56c55ee63f",
+    "fence.wasm": "1bfa988b062b0e829ff923e171d71e8803261974ee45e2a7a8edc79664de1788",
+    "linked.wasm": "674a0b1ba1e89b71c9de006ac80e76819ef21f5f3735d52f550d1d100c3e9753",
+    "multi/alias.go": "82759088e8d812a5e6f6fe2cd313e5f8dfbd2639ebf2c39d0b14f43b60913f4b",
+    "multi/base/base.go": "03f67fe81c16a920f684c1c68188640d48d03872328a105d533b90800e097a1c",
+    "multi/base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+    "multi/base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+    "multi/base/sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+    "multi/generated.go": "e59f3294cd7782b015f680ba5fcfb63c4ee348be46a019da8e685cefebb3616d",
+    "multi/p0/p0.go": "ec3b04c67525d4bb28c1c15f4060ec40b310b56efb5c004a9aa68123f1683ffd",
+    "multi/p0/p0_pure.go": "b9707a577d96c67c74b9d311439ceb39c849fde6356fa05ebd602f20dd5fa5b0",
+    "multi/p1/p1.go": "ca59079ad535ebdbabc9489406200df20a0eed265741d23e8ab4529c9df7a102",
+    "multi/p1/p1_pure.go": "bf8ca5048800db15bb4ba0ab194826bd219ab175c7de7c4c211c7807afe99c5c",
+    "optimized.wasm": "1138744f9497a8f4dc6aa81fcc0a3eccfa995c6178836a04844df2029de1ce28",
+    "pthread_create.o": "260780b103b5d91bbb7cbc378084b2b57670a83c54eaea6a1d78b67b097d50ec",
+    "pthread_join.o": "82675b44a03fa5eb539e984ab4c88cb4a170e8b7507a39116a234cff79129f15",
+    "single/fence.go": "6da1989f2a82f7eb2e9de50cc443a90ab45e1cf26fbf177e91dde9c78fd4cf6d",
+    "single/generated_pure.go": "abe8d7be88df2d1b718a2f38eb3f6fdb691d9bd68896b417417ceab95f655631",
+    "single/sharedimage.go": "dbb9db278d05fc6c4fa54f340cec61fffca53c4677d1e111952ec7de6c81b20f",
+    "single/sharedimage_mmap.go": "49dcfa0ae7d5020bd580c784d679fe1377c5cb48505387a054e3e8f01c5f1a13",
+    "single/sharedimage_nommap.go": "1dec78b1f095f951c8aacad2264d95b82ba2ffa4c63180297ec82b7cf2f5c84f"
+  },
+  "scope": "small pinned-libc link/optimization reduction and converter fixtures; no full adopted-guest build"
+}

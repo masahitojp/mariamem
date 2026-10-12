@@ -1,0 +1,23 @@
+=== RUN   TestThreadIdentityBoundaries
+=== RUN   TestThreadIdentityBoundaries/first-valid
+    audit_thread_boundary_test.go:27: previous=0 returned=1 child_ran=true contended=true
+=== RUN   TestThreadIdentityBoundaries/last-valid
+    audit_thread_boundary_test.go:27: previous=536870910 returned=536870911 child_ran=true contended=true
+=== RUN   TestThreadIdentityBoundaries/reserved-bits
+    audit_thread_boundary_test.go:27: previous=536870911 returned=536870912 child_ran=true contended=true
+    audit_thread_boundary_test.go:35: invalid successful wasi-threads TID 536870912
+=== RUN   TestThreadIdentityBoundaries/negative-error
+    audit_thread_boundary_test.go:27: previous=2147483647 returned=-2147483648 child_ran=true contended=true
+    audit_thread_boundary_test.go:30: spawn reported failure but child ran
+=== RUN   TestThreadIdentityBoundaries/zero-wrap
+    audit_thread_boundary_test.go:27: previous=-1 returned=0 child_ran=true contended=false
+    audit_thread_boundary_test.go:35: invalid successful wasi-threads TID 0
+--- FAIL: TestThreadIdentityBoundaries (0.00s)
+    --- PASS: TestThreadIdentityBoundaries/first-valid (0.00s)
+    --- PASS: TestThreadIdentityBoundaries/last-valid (0.00s)
+    --- FAIL: TestThreadIdentityBoundaries/reserved-bits (0.00s)
+    --- FAIL: TestThreadIdentityBoundaries/negative-error (0.00s)
+    --- FAIL: TestThreadIdentityBoundaries/zero-wrap (0.00s)
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.084s
+FAIL

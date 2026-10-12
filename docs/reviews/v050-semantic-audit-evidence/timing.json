@@ -1,0 +1,36 @@
+{
+  "started_utc": "2026-10-12T16:33:47Z",
+  "stop_utc": "2026-10-12T21:33:47Z",
+  "source_commit": "67549402ff4d4a5ddda2a3a56961e12828c8ffa5",
+  "runtime_commit": "f66727dda49d1b4ca2c7e814e218587c051f7f97",
+  "packages": [
+    {
+      "item": "R1",
+      "coverage": "65 ordinary-read statements; supported for pinned compiled scope"
+    },
+    {
+      "item": "R2",
+      "coverage": "compiler/ISA composition argument; prior bounded litmus receipts reused"
+    },
+    {
+      "item": "R3",
+      "coverage": "transition table and isolated actual guest protocols; T1 confirmed violation"
+    },
+    {
+      "item": "R4",
+      "coverage": "launch/host/drain routes; T2 confirmed violation; J1 investigated unresolved"
+    },
+    {
+      "item": "R5",
+      "coverage": "65 functions / 147 sites / 28 targets / 14 original families; lifecycle and callback dispositions"
+    }
+  ],
+  "hourly_reporting": "cancelled by Human before rest",
+  "other_checkout_initial": "chore/review-scope-accountability at 3adf8cb50d63e5836826cfcf1c99745b1ad7383c",
+  "scope": "R1-R5 as approved; no scope reduction",
+  "timing_method": "wall-clock start/end; tasks overlapped in one agent, no invented per-item hours",
+  "investigation_finished_utc": "2026-10-12T21:29:27.460662+00:00",
+  "investigation_elapsed_seconds": 17740.46094,
+  "disposition": "COMPLETE coverage under approved R1-R5 exit criteria; T1/T2 violation, J1 investigated unresolved; not fix completion or release readiness",
+  "remaining_operations": "evidence preservation, commit/push and owned-workspace cleanup"
+}

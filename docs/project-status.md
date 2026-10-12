@@ -209,28 +209,31 @@ part of v0.4.7. Historical candidate measurements qualify only their recorded in
 
 ## v0.5.0 — Stable guest
 
-The dedicated branch's [access-path assessment review](reviews/v050-access-review.md)
-finds the requested overall investigation incomplete and withdraws the prior
-recommendation to proceed to Qualification/Product Validation. The
-[earlier report](reviews/v050-access-paths.md) retains the 65-function/147-site
-inventory, selected lifecycle tracing and isolated mutex mixed-access evidence.
-Those results do not establish that mutex is the only remaining concern. The
-Human requested finite exit criteria before further investigation: reconcile
-all relevant targets and supporting paths with evidence-backed dispositions,
-including specifically investigated unresolved questions. Universal absence of
-failures is not the completion criterion. Prior exact-width fixes and their
-bounded checks remain; no broader implementation or release is approved here.
-The review now provides five concrete remaining questions with requirement,
-implementation, evidence, decisive check and stopping conditions. It proposes
-a five-hour investigation cap with an initial one-hour checkpoint, not a promise
-of completed conformance within that time; no new experiment has run under it.
+The approved bounded [R1–R5 semantic investigation](reviews/v050-semantic-audit.md)
+now supplies the missing per-target access/lifetime and supporting-protocol
+review: 65 functions, 147 narrow writer sites, 28 target records and all 14
+original families. Its dispositions distinguish supported mappings, two
+reproduced helper boundary defects (positive timeout overflow and exhausted
+thread IDs), and one investigated unresolved fast guest join/publication edge.
+No SQL harm was reproduced by the two new boundary fixtures. Coverage completion
+is not general shared-memory conformance or release readiness. The recommended
+next work is bounded owner fixes for the two defects, plus an explicit Human
+choice about the remaining join guarantee, before final qualification.
+
+The [assessment review](reviews/v050-access-review.md) preserves why the earlier
+investigation and progression recommendation were incomplete, and the finite
+contract used to finish this investigation. No scope reduction was made; the
+five-hour cap was a stopping budget, not a completion test. Hourly reporting was
+cancelled by the Human. Prior exact-width fixes remain; this task changes no
+product implementation and performs no final Qualification/Product Validation.
 
 On the dedicated v0.5.0 experiment branch, the maintainer approved formal
 exact-width narrow atomic writer integration after bounded design verification.
 The [integration report](reviews/v050-exact-writers-integration.md) records the
 unchanged accepted 12.3.3 guest, independently regenerated runtime, retained
-failure oracles and local regression/consumer results. Native Ubuntu development
-verification is pending CI handoff. This branch work does not qualify main or
+failure oracles and local regression/consumer results. Native Ubuntu focused development
+verification subsequently passed in the linked Development CI receipt; this
+does not qualify the new macOS-only protocol fixtures. This branch work does not qualify main or
 establish general shared-memory correctness; final Qualification, Product
 Validation and the Human release decision remain separate. The roadmap and
 earlier management-stage statements below retain their historical scope.

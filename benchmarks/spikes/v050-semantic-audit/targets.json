@@ -1,0 +1,273 @@
+{
+  "guard": {
+    "protocol": "P01", "field": "libc++abi guard byte 0", "neighbors": "byte 1 init-state, bytes 4..7 thread id; GlobalMutex implementation",
+    "lifecycle": "zero before first static initialization; acquire/release through guard protocol; process-lifetime guard storage",
+    "access": "atomic byte test/publication; ordinary init-state under global mutex; no widened native operand after exact-width integration",
+    "aliases": "compiler-created guard object, separate from guarded object's payload; zero initialization before publication, not live whole-object clearing",
+    "callbacks": "initializer executes outside guard internals, completion publishes via guard release; exception route aborts guard and wakes waiters",
+    "depends": ["R1", "R2", "R3"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "partially initialized shared object or initialization hang",
+    "evidence": ["v050-access-paths.md: guard and LLVM source identities", "v050-exact-writers-design.md: exact byte operands and publication tests"]
+  },
+  "pool-pending": {
+    "protocol": "P02", "field": "thread_pool_generic.m_thread_creation_pending +408", "neighbors": "other pool members; source atomic_flag, no live four-byte alias found",
+    "lifecycle": "constructor initializes before worker publication; add_thread claims flag, worker_main/error path clears; worker_end removes under pool mutex; destructor waits m_cv_no_threads before free",
+    "access": "atomic test_and_set/clear only while live; active/standby lists and shutdown protected by m_mtx",
+    "aliases": "pool self passed to std::thread; whole-object construction is before worker; destructor uses count/CV rather than elapsed time",
+    "callbacks": "m_worker_init_callback/my_thread_init, destroy/my_thread_end; task.execute virtual dispatch; maintenance timer disarmed before pool destruction",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope; thread resource join edge separately unresolved in R4",
+    "consequence_if_broken": "worker creation suppression/retry or shutdown stall; no reproduced SQL failure",
+    "evidence": ["tpool/tpool_generic.cc: worker_main, worker_end, add_thread, destructor", "tpool/task.cc: task reference wait", "storage/innobase/srv/srv0srv.cc: srv_thread_pool_init/end"]
+  },
+  "read-view": {
+    "protocol": "P03", "field": "ReadView.m_open +40; trx_t.read_view +1384", "neighbors": "snapshot transaction-id bounds/list; source layout and generated offsets corroborated",
+    "lifecycle": "TrxFactory constructor zeroes before registration; trx pool reuse does not rerun constructor over a registered live trx; owner opens/closes, purge snapshots under mutex; deregistration/freeze/reference retirement before destruction",
+    "access": "atomic open flag; owner transaction builds view; append_to under m_mutex; close from commit/connection cleanup",
+    "aliases": "whole trx zero is constructor phase; pool reuse/reset and read_view copy are separately traced, not assumed harmless memcpy",
+    "callbacks": "ha_innobase external/store/close callbacks route to the same transaction lifecycle; external_lock's threadpool submit is a distinct task object",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "wrong transaction visibility or premature reclamation; neither reproduced",
+    "evidence": ["v050-access-paths.md: ReadView/TrxFactory and deregistration", "storage/innobase/include/read0types.h", "storage/innobase/include/trx0sys.h", "storage/innobase/trx/trx0trx.cc"]
+  },
+  "purge-enabled": {
+    "protocol": "P04", "field": "purge_sys.m_enabled at 24020809", "neighbors": "ordinary m_initialized at 24020808; atomic skipped_rseg/active at +1/+2",
+    "lifecycle": "create/constructor before purge tasks; coordinator startup enables after recovery; shutdown disables and waits task groups before close/reset",
+    "access": "atomic enable/load/disable; ordinary whole-object init is earlier phase, not a simultaneous writer",
+    "aliases": "Fn18531 variable address resolves to 24020809; whole purge reset and initialized byte require task drain, supplied by shutdown task waits",
+    "callbacks": "coordinator task and worker task registered with threadpool; disable precedes task wait; task refcount/CV prevents destruction with queued callbacks",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "purge runs during teardown or stops making progress; no reproduced harm",
+    "evidence": ["storage/innobase/include/trx0purge.h", "storage/innobase/trx/trx0purge.cc", "storage/innobase/srv/srv0srv.cc: srv_purge_shutdown", "v050-access-paths.md: purge lifecycle"]
+  },
+  "purge-skipped": {
+    "protocol": "P04", "field": "purge_sys.skipped_rseg at 24020810", "neighbors": "m_enabled and m_active atomic bytes; preceding m_initialized ordinary byte",
+    "lifecycle": "initial true/reset before coordinator; live worker/coordinator atomic flag; same purge disable-and-task-drain lifecycle as enabled",
+    "access": "atomic accesses in free_history/trx_lists_init and coordinator; no widened update after integration",
+    "aliases": "whole-object create/close confined by purge task lifecycle; host does not receive this metadata address",
+    "callbacks": "purge coordinator/worker task routes, P04", "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "purge skips/retries history work incorrectly; no reproduced harm",
+    "evidence": ["storage/innobase/include/trx0purge.h", "storage/innobase/trx/trx0purge.cc", "storage/innobase/trx/trx0rseg.cc"]
+  },
+  "purge-active": {
+    "protocol": "P04", "field": "purge_sys.m_active at 24020811", "neighbors": "other purge byte flags",
+    "lifecycle": "coordinator activity claim/clear; pause/resume/FTS and shutdown use the existing task lifecycle, followed by group wait before close",
+    "access": "atomic flag separates coordinator state from ordinary purge lists protected by their latches",
+    "aliases": "global object's initialization/reset is phase-separated; no file I/O or SIMD payload aliases this metadata",
+    "callbacks": "coordinator callback and purge task dispatch", "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "purge overlap or progress stall; no reproduced harm",
+    "evidence": ["storage/innobase/include/trx0purge.h", "storage/innobase/trx/trx0purge.cc", "storage/innobase/srv/srv0srv.cc"]
+  },
+  "purge-count": {
+    "protocol": "P04", "field": "srv_purge_thread_count_changed at 24215400", "neighbors": "separate thread count/configuration state",
+    "lifecycle": "global initialization; variable update/coordinator/shutdown requests; no individual free",
+    "access": "atomic flag; underlying requested count read/update under purge_thread_count_mtx",
+    "aliases": "flag is a work hint, not the sole publication of ordinary count; global metadata not I/O buffer",
+    "callbacks": "innodb_purge_threads_update setter, purge_coordinator_callback, shutdown", "depends": ["R1", "R2", "R3"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "wrong purge concurrency/progress, not direct evidence of data corruption",
+    "evidence": ["storage/innobase/srv/srv0srv.cc: 1366-1410", "storage/innobase/handler/ha_innodb.cc: innodb_purge_threads_update"]
+  },
+  "file-flush": {
+    "protocol": "P05", "field": "fil_system.need_unflushed_spaces at 15104498", "neighbors": "fil-system configuration fields; distinct requested byte",
+    "lifecycle": "global construction and startup options; runtime doublewrite/write-through updates; system closes after I/O drain",
+    "access": "Atomic_relaxed<bool>; underlying file/space list mutations use fil_system.mutex and space references",
+    "aliases": "fsync/read/write imports receive file payload/temporary result storage, not this metadata byte; fil_system reset occurs after close-all",
+    "callbacks": "doublewrite/write-through sysvar setters and system-space shrink; source setter is used for each inlined writer",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "flush tracking behavior changes; this is not proof of persisted data loss",
+    "evidence": ["storage/innobase/include/fil0fil.h", "storage/innobase/fil/fil0fil.cc", "storage/innobase/fsp/fsp0fsp.cc: fsp_system_tablespace_truncate", "storage/innobase/srv/srv0start.cc: innodb_shutdown"]
+  },
+  "file-corrupt": {
+    "protocol": "P05", "field": "fil_space_t.is_corrupted +139", "neighbors": "ordinary space state fields; flag is not a four-byte word",
+    "lifecycle": "space constructed before registry insertion; acquire/release references prevent close while in use; stopping/close waits before free",
+    "access": "atomic_flag test_and_set; corruption warning and state observation; file bookkeeping under fil_system.mutex",
+    "aliases": "whole space initialization before registration; actual I/O buffer is page/frame, not fil_space metadata",
+    "callbacks": "read/write completion holds space reference and releases after recovery callback; set_corrupted direct helper",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "lost/duplicate corruption reporting or invalid space lifetime; not reproduced",
+    "evidence": ["storage/innobase/fil/fil0fil.cc: set_corrupted/acquire/release/close", "storage/innobase/os/os0file.cc: completion callbacks"]
+  },
+  "file-extend": {
+    "protocol": "P05", "field": "fil_node_t.being_extended +24", "neighbors": "size/max-size and file-chain metadata; layout corroborated from source",
+    "lifecycle": "node under referenced fil_space; acquire fil_system.mutex, mark extending, release mutex for I/O, reacquire and clear; close/delete checks prevent retirement while extending",
+    "access": "atomic bool; extension/rename/close coordination also uses fil_system.mutex, referenced space and retry loop",
+    "aliases": "file I/O does not target node storage; no live whole-node copy found in extend/close routes",
+    "callbacks": "fil_space_extend_must_retry; synchronous host file operation returns before clearing the flag",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "conflicting file-size updates or operation stall; not reproduced",
+    "evidence": ["storage/innobase/include/fil0fil.h: fil_node_t", "storage/innobase/fil/fil0fil.cc: fil_space_extend_must_retry"]
+  },
+  "encrypt-rotate": {
+    "protocol": "P06", "field": "srv_encrypt_rotate at 24021288", "neighbors": "global encryption configuration, not per-page crypto data",
+    "lifecycle": "global initial false; key-version threshold only sets true; encryption worker count/CV drained before crypt cleanup",
+    "access": "Atomic_relaxed<bool> monotonic request; per-space key/rotation state protected separately by crypt mutex and worker-count protocol",
+    "aliases": "inlined recovery writer Fn17371 is this global, not page_recv_t; plugin key-version callback receives numeric key id, not address of flag",
+    "callbacks": "encryption_handler.encryption_key_get_latest_version_func; metadata table field-store callbacks write table fields, not rotation flag",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "rotation scheduling delayed/repeated; no observed encryption or SQL corruption",
+    "evidence": ["storage/innobase/fil/fil0crypt.cc: key_get_latest_version, fil_crypt_set_thread_cnt, cleanup", "sql/encryption.cc: handler registration"]
+  },
+  "recovery-on": {
+    "protocol": "P07", "field": "recv_sys.recovery_on at 15102238", "neighbors": "recv_sys mutex and parsing/recovery state",
+    "lifecycle": "startup sets active before recovery work; apply waits/collects outstanding pages; debug_free after successful apply or empty new-db path; abort returns before success cleanup; final close after I/O drain",
+    "access": "atomic flag; actual map/node ownership follows recovery-page protocol",
+    "aliases": "recv_sys close/reset after os_aio_free; flag reset is not permission to free an in-flight node",
+    "callbacks": "startup/create-log, read/fake recovery completions; corrupt paths return to abort shutdown",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "recovery phase observed incorrectly; no reproduced lost recovery data",
+    "evidence": ["storage/innobase/log/log0recv.cc: apply/debug_free/wait_for_pool", "storage/innobase/srv/srv0start.cc: startup error returns and innodb_shutdown"]
+  },
+  "recovery-page": {
+    "protocol": "P07", "field": "page_recv_t.being_processed at map-node +24, or page_recv_t +0", "neighbors": "skip_read bool, last_offset uint16, ordinary log-record list",
+    "lifecycle": "construct map node under recv mutex; 0 unclaimed, 1 owned by recovery, -1 finished; collector erases only negative state; callbacks make -1 their last node access; wait_for_pool drains I/O before GC/clear",
+    "access": "atomic int8 state; node data initialized before claim; owner reads/mutates payload, completion publishes -1; collectors use mutex plus state check",
+    "aliases": "IORequest.slot in fake_io_callback is deliberately cast to page_recv_t*, not buf_tmp_buffer_t; eight Fn18218 stores mark completion; map erase/clear and trim are phase/claim checked",
+    "callbacks": "os_fake_read registers fake_io_callback table slot 12508 -> Fn18218; real read_complete -> recv_recover_page; callback releases space/read slot after last node touch",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "redo applied to reused/freed node or missed redo; not reproduced",
+    "evidence": ["storage/innobase/include/log0recv.h: page_recv_t", "storage/innobase/log/log0recv.cc: erase, garbage_collect, recover, apply_batch, apply", "storage/innobase/os/os0file.cc: fake_io_callback/os_fake_read", "internal/generatedgo/code/p6/p6.go: table slot 12508"]
+  },
+  "load-abort": {
+    "protocol": "P08", "field": "buf_load_abort_flag at 24051142", "neighbors": "global buffer-load state",
+    "lifecycle": "global flag, reset on load start and after observing abort; waitable task max one; buf_load_dump_end waits at shutdown",
+    "access": "Atomic_relaxed<bool> abort hint; data pages use independent buffer-pool ownership",
+    "aliases": "no page data published solely by flag; global not freed individually; resize requests abort before changing pool",
+    "callbacks": "buf_dump_load_task, buffer_pool_load_abort sysvar setter, resize callback",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "prefetch abort delayed or load stopped early; no evidence of wrong query result",
+    "evidence": ["storage/innobase/buf/buf0dump.cc: buf_load, buf_load_abort, buf_load_dump_end", "storage/innobase/handler/ha_innodb.cc: buffer pool callbacks"]
+  },
+  "deadlock-request": {
+    "protocol": "P09", "field": "Deadlock::to_be_checked at 24051920", "neighbors": "global deadlock subsystem state",
+    "lifecycle": "global init; dequeue requests/check clears; shutdown after transactions and background work drained",
+    "access": "atomic request flag; graph/list scan under lock_sys.wait_mutex/wr_lock, not flag-only publication",
+    "aliases": "ordinary lock graph/list distinct from request byte; shutdown reset does not race active lock work under the drain contract",
+    "callbacks": "lock dequeue, deadlock_check, innodb_shutdown; no direct host pointer escape of flag",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "deadlock detection delayed or repeated; hang possibility is conditional, not reproduced",
+    "evidence": ["storage/innobase/lock/lock0lock.cc: Deadlock and deadlock_check", "storage/innobase/srv/srv0start.cc: shutdown"]
+  },
+  "deadlock-victim": {
+    "protocol": "P09", "field": "trx_t.was_chosen_as_deadlock_victim +192", "neighbors": "transaction state; source atomic flag/bool",
+    "lifecycle": "TrxFactory-before-registration initialization; mark victim under lock-system protocol; commit/reset before reuse; unregister/freeze/references before pool destruction",
+    "access": "atomic victim indication plus transaction lock/wait protocol",
+    "aliases": "Fn18241 second store is victim reset, not read-view flag; whole-trx constructor/reuse handled by P03 lifecycle",
+    "callbacks": "Deadlock::report; transaction commit_persist; SQL rollback/connection lifetime follows transaction ownership",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "wrong transaction selected/aborted or stalled waiter; not reproduced",
+    "evidence": ["storage/innobase/include/trx0trx.h", "storage/innobase/lock/lock0lock.cc", "storage/innobase/trx/trx0trx.cc"]
+  },
+  "ahi-enabled": {
+    "protocol": "P10", "field": "btr_sea.enabled at 15138752", "neighbors": "global AHI configuration",
+    "lifecycle": "initialize before AHI use; disable under partition latches before resizing/freeing hash structures; enable after construction; disable before dict/buffer shutdown",
+    "access": "atomic flag and partition/index/page latch protocol; flag alone does not protect lifetime",
+    "aliases": "AHI metadata distinct from page bytes; global flag never memcpy-published during live use",
+    "callbacks": "adaptive_hash_index_cells sysvar callback disable/resize/enable; read search helper verifies latch/state",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "invalid hash lookup or lifecycle overlap; no reproduced harm in saved AHI-on runs",
+    "evidence": ["storage/innobase/btr/btr0sea.cc", "storage/innobase/include/btr0sea.h", "storage/innobase/handler/ha_innodb.cc: AHI update"]
+  },
+  "ahi-analysis": {
+    "protocol": "P10", "field": "dict_index_t search_info.hash_analysis +68", "neighbors": "atomic n_hash_potential +69, last_hash_succ +70; ordinary search metadata",
+    "lifecycle": "index construct before cache insertion; concurrent heuristic updates; clone assigns into a new unpublished index; cache removal/latches before free",
+    "access": "Atomic_relaxed byte store/add; advisory hash-build counter; real hash structure under latches",
+    "aliases": "dict_index_t::clone whole assignment targets fresh object; not live overwrite of original; no host I/O writes into index metadata",
+    "callbacks": "search_info_update/search_leaf; sysvar disable follows AHI lifecycle",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "AHI build heuristic changes; width overlap alone does not imply wrong SQL results",
+    "evidence": ["storage/innobase/include/btr0sea.h", "storage/innobase/btr/btr0sea.cc", "storage/innobase/dict/dict0mem.cc", "v050-access-paths.md: AHI clone/removal"]
+  },
+  "ahi-potential": {
+    "protocol": "P10", "field": "dict_index_t search_info.n_hash_potential +69", "neighbors": "atomic bytes +68/+70",
+    "lifecycle": "same index construct/cache/clone/removal lifecycle as ahi-analysis",
+    "access": "atomic relaxed heuristic count; latch-protected hash operations validate actual structure",
+    "aliases": "new-object clone is phase-separated; exact-width operand excludes adjacent byte modification",
+    "callbacks": "search_info_update/search_leaf", "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "hash-build heuristic changes; no reproduced user harm",
+    "evidence": ["storage/innobase/include/btr0sea.h", "storage/innobase/btr/btr0sea.cc", "v050-access-paths.md: AHI lifecycle"]
+  },
+  "ahi-success": {
+    "protocol": "P10", "field": "dict_index_t search_info.last_hash_succ +70", "neighbors": "atomic counters +68/+69",
+    "lifecycle": "same index constructor/cache publication/removal protocol",
+    "access": "atomic last-search hint; actual page/key validity checked by search/latch protocol",
+    "aliases": "no live whole-index copying identified in clone path; copy destination unpublished",
+    "callbacks": "search_info_update/search_leaf", "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "search heuristic selection changes; not evidence of incorrect query data",
+    "evidence": ["storage/innobase/include/btr0sea.h", "storage/innobase/btr/btr0cur.cc", "v050-access-paths.md: AHI lifecycle"]
+  },
+  "ahi-block": {
+    "protocol": "P10", "field": "buf_block_t.n_hash_helps +220 (uint16)", "neighbors": "block metadata, separate from page/frame byte storage",
+    "lifecycle": "new block descriptors zeroed before free-list insertion; free/withdraw owns block before reset; shrink removes/withdraws before freeing chunk; AHI disabled/latches acquired during resize",
+    "access": "atomic uint16 heuristic counter/reset; buffer page state/io_fix/hash latches determine reuse",
+    "aliases": "buf_relocate copies buf_page_t prefix, not the trailing n_hash_helps; resize memset initializes new descriptors or debug-clears withdrawn blocks, not active frames",
+    "callbacks": "buffer-pool size update, page free and AHI build; I/O callback receives page payload, not +220 descriptor bytes",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "heuristic state reset/lifetime error; actual wrong SQL result not reproduced",
+    "evidence": ["storage/innobase/include/buf0buf.h", "storage/innobase/buf/buf0buf.cc: resize and buf_relocate", "storage/innobase/buf/buf0lru.cc"]
+  },
+  "cleaner-idle": {
+    "protocol": "P11", "field": "page_cleaner_idle_flag at 15209600", "neighbors": "global cleaner state",
+    "lifecycle": "initialize before cleaner; clear on wake, set around idle wait; shutdown waits active flag/CV under flush_list_mutex",
+    "access": "atomic flag; predicate/mutation under flush_list_mutex and done/wakeup CVs",
+    "aliases": "global metadata distinct from actual page buffers; no ordinary live whole-object copy identified",
+    "callbacks": "page_cleaner_wakeup, flush_wait/ahead, cleaner worker", "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "unnecessary/missed cleaner wake or shutdown stall; not reproduced",
+    "evidence": ["storage/innobase/buf/buf0flu.cc", "storage/innobase/log/log0log.cc: logs_empty_and_mark_files_at_shutdown"]
+  },
+  "cleaner-active": {
+    "protocol": "P11", "field": "buf_page_cleaner_is_active at 24088372", "neighbors": "global buffer/cleaner state",
+    "lifecycle": "set before thread creation; worker clears under flush_list_mutex then signals completion; shutdown waits before freeing buffer pool",
+    "access": "atomic completion flag plus mutex/CV; full host worker join additionally precedes backing unmap",
+    "aliases": "ordinary buffer payload not published solely by relaxed flag; actual completion wait holds mutex",
+    "callbacks": "innodb_init and cleaner exit", "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "premature buffer-pool teardown or close hang; not reproduced",
+    "evidence": ["storage/innobase/buf/buf0flu.cc", "storage/innobase/log/log0log.cc", "storage/innobase/srv/srv0start.cc"]
+  },
+  "lru-scan": {
+    "protocol": "P11", "field": "buf_pool.try_LRU_scan at 15209756", "neighbors": "LRU_warned at +1; exact byte operand",
+    "lifecycle": "global buffer pool startup; cleaner/free-block/resize resets; buffer pool closes after cleaner and I/O drain",
+    "access": "atomic advisory scan flag; actual lists protected by pool/flush/hash locks",
+    "aliases": "Fn18136 contains both block halfword reset and this unrelated global flag; whole buffer initialization before startup, resize acts on list-owned descriptors",
+    "callbacks": "flush/free-block and resize callbacks", "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "redundant/skipped LRU scan or delay; no demonstrated wrong result",
+    "evidence": ["storage/innobase/buf/buf0flu.cc", "storage/innobase/buf/buf0lru.cc", "storage/innobase/buf/buf0buf.cc"]
+  },
+  "lru-warned": {
+    "protocol": "P11", "field": "buf_pool.LRU_warned at 15209757", "neighbors": "try_LRU_scan preceding byte",
+    "lifecycle": "buffer pool lifetime; warning set and cleaner/resize reset",
+    "access": "atomic diagnostic flag; actual buffer lists independent locks",
+    "aliases": "exact byte operation avoids adjacent scan flag; no payload alias",
+    "callbacks": "LRU_warn, cleaner, resize", "depends": ["R2", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "warning repeated/suppressed; not data corruption evidence",
+    "evidence": ["storage/innobase/buf/buf0flu.cc", "storage/innobase/buf/buf0buf.cc"]
+  },
+  "io-reserved": {
+    "protocol": "P11", "field": "buf_tmp_buffer_t.reserved +0, slot stride 16", "neighbors": "ordinary crypt/comp/out buffer pointers",
+    "lifecycle": "slot array initialized before I/O; exchange(true) owns slot, release false after last use; io_slots destructors wait in-use count before buffer pool io_buf close",
+    "access": "atomic exchange/store; surrounding ordinary pointer fields are owned while reserved; actual Wasm atomic operations are SC even where source spells relaxed",
+    "aliases": "all eleven Fn18114 narrow sites are reservation fields, not fil_space corruption; host reads/writes pointed-to buffers, not reserved byte/pointer metadata; array memset is creation phase",
+    "callbacks": "read_io_callback/write_io_callback release slots after completion; table dispatch registered in os_aio; fake_io_callback uses recovery-page instead",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "two I/O operations share scratch buffer or premature free; neither reproduced",
+    "evidence": ["storage/innobase/include/buf0buf.h: buf_tmp_buffer_t", "storage/innobase/buf/buf0buf.cc: io_buf_t", "storage/innobase/os/os0file.cc: io_slots destructor and callbacks", "tpool/task.cc"]
+  },
+  "checkpoint": {
+    "protocol": "P12", "field": "log_sys.need_checkpoint at 24088732", "neighbors": "log state, latches, LSN values",
+    "lifecycle": "log initialization, concurrent request/check/clear, log_sys.close after cleaner/tasks/IO shutdown",
+    "access": "atomic request flag; actual checkpoint and LSN state protected by log latch, atomics and flush completion CV",
+    "aliases": "flag does not solely publish ordinary redo data; redo byte buffers passed to host are separate allocations",
+    "callbacks": "mtr finish_writer, log_free_check and flush_ahead/flush_wait inlined requests",
+    "depends": ["R1", "R2", "R3", "R4"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "checkpoint scheduling/progress changes; persisted corruption not demonstrated",
+    "evidence": ["storage/innobase/include/log0log.h: need_checkpoint/set_check_for_checkpoint", "storage/innobase/log/log0log.cc", "storage/innobase/mtr/mtr0mtr.cc"]
+  },
+  "cache-warning": {
+    "protocol": "P13", "field": "tc_contention_warning_reported at 24215400+5596 = 24220996", "neighbors": "global table-cache diagnostic state",
+    "lifecycle": "global initialization, first exchange sets warning; no individual object free",
+    "access": "std::atomic<bool> exchange only; actual table-cache entries protected by cache mutex",
+    "aliases": "Fn20878 uses base 0 plus literal offset; no table row or index aliases global warning byte",
+    "callbacks": "Table_cache_instance::lock_and_check_contention emits warning, no metadata pointer escape",
+    "depends": ["R1", "R2"], "disposition": "supported for stated scope",
+    "consequence_if_broken": "duplicate/missing contention warning; no direct SQL-data consequence identified",
+    "evidence": ["sql/table_cache.cc: tc_contention_warning_reported/lock_and_check_contention"]
+  }
+}

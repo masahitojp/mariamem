@@ -1,0 +1,24 @@
+=== RUN   TestGuestConditionSignal
+=== RUN   TestGuestConditionSignal/before-host-registration
+    probe_test.go:142: guest CV signal before-host-registration, futex address=33484788, payload=42
+=== RUN   TestGuestConditionSignal/registered
+    probe_test.go:142: guest CV signal registered, futex address=33484788, payload=42
+--- PASS: TestGuestConditionSignal (0.00s)
+    --- PASS: TestGuestConditionSignal/before-host-registration (0.00s)
+    --- PASS: TestGuestConditionSignal/registered (0.00s)
+=== RUN   TestGuestConditionBroadcast
+--- PASS: TestGuestConditionBroadcast (0.00s)
+=== RUN   TestGuestConditionTimeout
+--- PASS: TestGuestConditionTimeout (0.00s)
+=== RUN   TestGuestRWLock
+--- PASS: TestGuestRWLock (0.00s)
+=== RUN   TestGuestConditionControl
+--- PASS: TestGuestConditionControl (0.00s)
+=== RUN   TestGuestOwnedMutexTypes
+=== RUN   TestGuestOwnedMutexTypes/recursive
+=== RUN   TestGuestOwnedMutexTypes/errorcheck
+--- PASS: TestGuestOwnedMutexTypes (0.00s)
+    --- PASS: TestGuestOwnedMutexTypes/recursive (0.00s)
+    --- PASS: TestGuestOwnedMutexTypes/errorcheck (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/probe	0.114s

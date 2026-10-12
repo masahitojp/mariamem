@@ -1,0 +1,37 @@
+{
+  "initial_words": {
+    "13347140": 0,
+    "13347200": 0,
+    "13347260": 0,
+    "14952812": 10146976,
+    "10146980": 316
+  },
+  "table": {
+    "316": {
+      "fn": 664,
+      "symbol": "my_strnncoll_utf8mb3_general1400_as_ci"
+    },
+    "1513": {
+      "fn": 12376,
+      "symbol": "_Z17sql_print_warningPKcz"
+    },
+    "1514": {
+      "fn": 12377,
+      "symbol": "_Z15sql_print_errorPKcz"
+    },
+    "12493": {
+      "fn": 18168,
+      "symbol": "_ZL26purge_coordinator_callbackPv"
+    },
+    "12508": {
+      "fn": 18218,
+      "symbol": "_ZL16fake_io_callbackPv"
+    },
+    "12746": {
+      "fn": 18565,
+      "symbol": "_ZL30innodb_buffer_pool_size_updateP3THDP16st_mysql_sys_varPvPKv"
+    }
+  },
+  "data_sha256": "beafc9db1153a7261d09b09074383b497147fe87c5034df62c592cb241b7ad4f",
+  "limit": "Initial data plus explicit source registration; not a dynamic callback trace or proof about arbitrary plugin replacement."
+}

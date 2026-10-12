@@ -1,0 +1,197 @@
+{
+  "normalization": "replace absolute owned-workspace prefix with <workspace> and strip trailing whitespace in text logs; nested receipt hashes remain raw artifact/log hashes",
+  "files": {
+    "source.json": {
+      "raw_source": "source.json",
+      "raw_sha256": "8471d75151aebf2a620feaba6d3330313aa7cc1b2c483643fb549e698fd0ae16",
+      "saved_sha256": "5a56249c03883147101ad1a05b621f8679090eae1f91af61284c29dcac6b58e2",
+      "raw_bytes": 4575,
+      "saved_bytes": 4423,
+      "normalized": true
+    },
+    "source-inputs.json": {
+      "raw_source": "source-inputs.json",
+      "raw_sha256": "8af5d685ede63723d606e700d7e712b5ab3a9dac6a2682a443fdee6b972773aa",
+      "saved_sha256": "8af5d685ede63723d606e700d7e712b5ab3a9dac6a2682a443fdee6b972773aa",
+      "raw_bytes": 1453,
+      "saved_bytes": 1453,
+      "normalized": false
+    },
+    "converter-patches.json": {
+      "raw_source": "converter-patches.json",
+      "raw_sha256": "07f8bbff4af7260f2f52ecdb41c38fefeeee31fc864f066f3202e5840551a314",
+      "saved_sha256": "07f8bbff4af7260f2f52ecdb41c38fefeeee31fc864f066f3202e5840551a314",
+      "raw_bytes": 1426,
+      "saved_bytes": 1426,
+      "normalized": false
+    },
+    "source-verification.json": {
+      "raw_source": "source-verification.json",
+      "raw_sha256": "266080d3a5568f0437abfabf393b977aa7e3428706ac0f33f01d18d797540f15",
+      "saved_sha256": "266080d3a5568f0437abfabf393b977aa7e3428706ac0f33f01d18d797540f15",
+      "raw_bytes": 8713,
+      "saved_bytes": 8713,
+      "normalized": false
+    },
+    "source-anchors.json": {
+      "raw_source": "source-anchors.json",
+      "raw_sha256": "68e843ace91f3e89554c7118d0b4c1a805b54331d05768e386c05f43c1a7c2fc",
+      "saved_sha256": "68e843ace91f3e89554c7118d0b4c1a805b54331d05768e386c05f43c1a7c2fc",
+      "raw_bytes": 455617,
+      "saved_bytes": 455617,
+      "normalized": false
+    },
+    "writer-ledger.json": {
+      "raw_source": "writer-ledger.json",
+      "raw_sha256": "74960fcf776274f01f07673573777dd3c930145e12754d565ecb4c943ab21da6",
+      "saved_sha256": "74960fcf776274f01f07673573777dd3c930145e12754d565ecb4c943ab21da6",
+      "raw_bytes": 96320,
+      "saved_bytes": 96320,
+      "normalized": false
+    },
+    "ordinary-reads.json": {
+      "raw_source": "ordinary-reads.json",
+      "raw_sha256": "c326eaf5f32cded3b2a1674dbfa01199f033f51c822b6d98b202f4b8d35e7810",
+      "saved_sha256": "c326eaf5f32cded3b2a1674dbfa01199f033f51c822b6d98b202f4b8d35e7810",
+      "raw_bytes": 15245,
+      "saved_bytes": 15245,
+      "normalized": false
+    },
+    "coverage.json": {
+      "raw_source": "coverage.json",
+      "raw_sha256": "da0eacc00cdc16e7a44dd808d9d9cf17badbcc5c21feec87cccfb991a1e0f079",
+      "saved_sha256": "da0eacc00cdc16e7a44dd808d9d9cf17badbcc5c21feec87cccfb991a1e0f079",
+      "raw_bytes": 2625,
+      "saved_bytes": 2625,
+      "normalized": false
+    },
+    "thread-list-accesses.json": {
+      "raw_source": "thread-list-accesses.json",
+      "raw_sha256": "64345cf4466b52d7bc585ad34325605cc4f81f50229f84861455b444a9ad813d",
+      "saved_sha256": "64345cf4466b52d7bc585ad34325605cc4f81f50229f84861455b444a9ad813d",
+      "raw_bytes": 19919,
+      "saved_bytes": 19919,
+      "normalized": false
+    },
+    "indirect-calls.json": {
+      "raw_source": "indirect-calls.json",
+      "raw_sha256": "9a4ef2c4a577e1dff6951b1e0e4e2d293455d939ab7aeec663516c11c9819f77",
+      "saved_sha256": "9a4ef2c4a577e1dff6951b1e0e4e2d293455d939ab7aeec663516c11c9819f77",
+      "raw_bytes": 38387,
+      "saved_bytes": 38387,
+      "normalized": false
+    },
+    "callback-data.json": {
+      "raw_source": "callback-data.json",
+      "raw_sha256": "a6a9749a10c14056b1e2d65ab4b2191c81d80e8e547328345a32a00db4044f53",
+      "saved_sha256": "a6a9749a10c14056b1e2d65ab4b2191c81d80e8e547328345a32a00db4044f53",
+      "raw_bytes": 930,
+      "saved_bytes": 930,
+      "normalized": false
+    },
+    "fence-results.json": {
+      "raw_source": "fence-results.json",
+      "raw_sha256": "5bab3566a11fe8b1992481e3f5de375de7f2a93d4a447674f3300d0e3b13a633",
+      "saved_sha256": "474eec975c5a76aa18b5cf1aeae0db3443cb9cd3ab55d5b4578f2d1d3bcb6ec0",
+      "raw_bytes": 23424,
+      "saved_bytes": 21448,
+      "normalized": true
+    },
+    "timing.json": {
+      "raw_source": "timing.json",
+      "raw_sha256": "fcaaf0a3a7e03ff9fdab5783e43bef89240187cfa8754c3b44aaa1c64311e98c",
+      "saved_sha256": "fcaaf0a3a7e03ff9fdab5783e43bef89240187cfa8754c3b44aaa1c64311e98c",
+      "raw_bytes": 1569,
+      "saved_bytes": 1569,
+      "normalized": false
+    },
+    "checks.json": {
+      "raw_source": "checks.json",
+      "raw_sha256": "024d8346f7acb0d655dbce243b93302e72d8a7ea4d00910af23f79f028455ea3",
+      "saved_sha256": "fbadefe901e672615492d0db2a46ec56185ac2f02da92501c606ddda751d58e3",
+      "raw_bytes": 1439,
+      "saved_bytes": 1363,
+      "normalized": true
+    },
+    "probe-results.json": {
+      "raw_source": "final-probe-v2/probe-results.json",
+      "raw_sha256": "c14c8c88578a92fec35e6232f474cb7ebb8536f44df168026ce9ca96aa753665",
+      "saved_sha256": "aed067af821fe6a581e721d5b553fa3f327e21f1b66b4f0537a27069d9d0e13c",
+      "raw_bytes": 17147,
+      "saved_bytes": 17071,
+      "normalized": true
+    },
+    "protocol-heap.txt": {
+      "raw_source": "final-probe-v2/protocol-heap.txt",
+      "raw_sha256": "e1bd0cbc7fb77269ed16bce28aa1d30490232e893be33b307755af0a12dfef98",
+      "saved_sha256": "e1bd0cbc7fb77269ed16bce28aa1d30490232e893be33b307755af0a12dfef98",
+      "raw_bytes": 1142,
+      "saved_bytes": 1142,
+      "normalized": false
+    },
+    "protocol-heap-race.txt": {
+      "raw_source": "final-probe-v2/protocol-heap-race.txt",
+      "raw_sha256": "9fbd4cf0d8fcb81ffba9309534f64dab50ce4c1121f02e5048ed27205f84cec0",
+      "saved_sha256": "9fbd4cf0d8fcb81ffba9309534f64dab50ce4c1121f02e5048ed27205f84cec0",
+      "raw_bytes": 1142,
+      "saved_bytes": 1142,
+      "normalized": false
+    },
+    "protocol-mmap.txt": {
+      "raw_source": "final-probe-v2/protocol-mmap.txt",
+      "raw_sha256": "eca3aa7d8c3e2593e7ebdb9cafcd5ca51c593980feb42ee67cf35d506bf6ee3b",
+      "saved_sha256": "eca3aa7d8c3e2593e7ebdb9cafcd5ca51c593980feb42ee67cf35d506bf6ee3b",
+      "raw_bytes": 1142,
+      "saved_bytes": 1142,
+      "normalized": false
+    },
+    "protocol-mmap-race.txt": {
+      "raw_source": "final-probe-v2/protocol-mmap-race.txt",
+      "raw_sha256": "9469e5323ad762aa55b3341d5755efda06888a087c45e9d344402ea9c7f4d889",
+      "saved_sha256": "9469e5323ad762aa55b3341d5755efda06888a087c45e9d344402ea9c7f4d889",
+      "raw_bytes": 1142,
+      "saved_bytes": 1142,
+      "normalized": false
+    },
+    "timeout-boundary.txt": {
+      "raw_source": "final-probe-v2/timeout-boundary.txt",
+      "raw_sha256": "d87cd80463f28974855ff8b733961ed2c9c07876aa6f940e76b1046ffe56c8f1",
+      "saved_sha256": "d87cd80463f28974855ff8b733961ed2c9c07876aa6f940e76b1046ffe56c8f1",
+      "raw_bytes": 302,
+      "saved_bytes": 302,
+      "normalized": false
+    },
+    "thread-boundary.txt": {
+      "raw_source": "final-probe-v2/thread-boundary.txt",
+      "raw_sha256": "1df7310f5f14696f94067485ab45a1893c0dd0267779dc3747b25125a2d1999d",
+      "saved_sha256": "1df7310f5f14696f94067485ab45a1893c0dd0267779dc3747b25125a2d1999d",
+      "raw_bytes": 1482,
+      "saved_bytes": 1482,
+      "normalized": false
+    },
+    "probe-vet.txt": {
+      "raw_source": "final-probe-v2/probe-vet.txt",
+      "raw_sha256": "e4624bbdb4ac38814ede4b4667850c2ab8b6dd312f4bfacb4273a01463a64092",
+      "saved_sha256": "e4624bbdb4ac38814ede4b4667850c2ab8b6dd312f4bfacb4273a01463a64092",
+      "raw_bytes": 200,
+      "saved_bytes": 200,
+      "normalized": false
+    },
+    "probe-compile.txt": {
+      "raw_source": "final-probe-v2/probe-compile.txt",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_bytes": 0,
+      "saved_bytes": 0,
+      "normalized": false
+    },
+    "mutex-arm64-disassembly.txt": {
+      "raw_source": "final-probe-v2/mutex-arm64-disassembly.txt",
+      "raw_sha256": "8be0a4e441aa2aa9c2c3d9f071db43ba54c5fd6601ceeae89c94a7dbe07fd0e6",
+      "saved_sha256": "66cfcac2d9d41a4892d57a09c7ce7e0bfc3ce1917ba7177276f756146e86b424",
+      "raw_bytes": 134553,
+      "saved_bytes": 117747,
+      "normalized": true
+    }
+  }
+}

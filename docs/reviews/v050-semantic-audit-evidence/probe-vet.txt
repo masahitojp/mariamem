@@ -1,0 +1,4 @@
+probe/guest_functions.go:2603:4: unreachable code
+probe/guest_functions.go:2656:6: unreachable code
+probe/guest_functions.go:2702:7: unreachable code
+probe/guest_functions.go:3220:3: unreachable code

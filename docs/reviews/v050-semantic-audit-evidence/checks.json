@@ -1,0 +1,47 @@
+[
+  {
+    "command": [
+      "python3",
+      "scripts/verify_generated_runtime.py"
+    ],
+    "exit_code": 0,
+    "stdout": "PASS: generated source inventory, pinned inputs and guest identity\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "-c",
+      "from pathlib import Path; files=sorted(Path('benchmarks/spikes/v050-semantic-audit').glob('*.py')); [compile(p.read_text(),str(p),'exec') for p in files]; print('PASS Python syntax:',len(files),'files')"
+    ],
+    "exit_code": 0,
+    "stdout": "PASS Python syntax: 8 files\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "<workspace>/temp/gopath/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/gofmt",
+      "-d",
+      "benchmarks/spikes/v050-semantic-audit/opcodes.go.txt",
+      "benchmarks/spikes/v050-semantic-audit/protocol_test.go.txt",
+      "benchmarks/spikes/v050-semantic-audit/thread_boundary_test.go.txt",
+      "benchmarks/spikes/v050-semantic-audit/timeout_test.go.txt"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "scripts/check_public.py"
+    ],
+    "exit_code": 0,
+    "stdout": "Public source check passed: 2158 files",
+    "stage": "before final report cross-reference update"
+  },
+  {
+    "check": "local report/recipe links and saved evidence hashes",
+    "result": "PASS"
+  }
+]

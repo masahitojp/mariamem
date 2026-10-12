@@ -1,0 +1,68 @@
+{
+  "sources": [
+    {
+      "name": "mariadb",
+      "archive_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+      "directory": "<workspace>/temp/mariadb/server-83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    },
+    {
+      "name": "wasix-libc",
+      "archive_sha256": "55091ce6af5b549b3c97f61592bd2506e6a7e5da3588cb2f77a64388468ad231",
+      "directory": "<workspace>/temp/wasix/wasix-libc-2026-07-03.1"
+    }
+  ],
+  "patches": [
+    {
+      "file": "guest/patches/common-portability.patch",
+      "sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+      "before_sha256": {
+        "CMakeLists.txt": "ba2f1d28cb662e240f533158fb71a876f87ad3bbbbe7c14b67cc3ba3cfbf8222",
+        "cmake/os/Emscripten.cmake": null,
+        "cmake/os/WASIX.cmake": null,
+        "cmake/pcre.cmake": "f694c627b8f51788495cfa91210405bf762728e3a338e80fc8b3708bf29ce681",
+        "configure.cmake": "98b0926c7a4f7346080765cf64efd316288455185b2c2b812d79d130f8bc8d3e",
+        "include/my_global.h": "fc4d434c83576a251088ba695ca9b84c3219229e6e3975348e20070bc7a12a13",
+        "include/my_stacktrace.h": "b7179553374c94fe2e6bb70c0e3ed086c664210a41bbcbcc9e30896a5dd96cb7",
+        "libmysqld/libmysql.c": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+        "mysys/CMakeLists.txt": "ddc4b71aeaf74ff2fe609425694517094a64a855e52ba0adc94d1843bde9d04d",
+        "mysys/my_largepage.c": "7375cc5e78ddc18d2aa584b8855e84cff9faf4b0b7f32336257795c2a76f39e6",
+        "mysys/my_lock.c": "5f42e8210a6c64d4c0ad9aa64f6386598d955c057705cd747fa17f0b3fa68532",
+        "mysys/my_timezone.cc": "106825479a77729174569afa8c270c018709a422da48d6b41577395614ab4095",
+        "mysys/my_virtual_mem.c": "88f26c781f18ff863eb3b4dda29d852d6ad2a0bacd726257a2038ffb2441183d",
+        "sql/sql_plugin.cc": "26ca2b661e3934016ed8da8faea155398efe3330c20270cec1e8a5f109a0377c",
+        "storage/innobase/fil/fil0fil.cc": "fcab85397990f72624ed57b77d667c15f64fcd9fcd26bb8f37a366407f1bab1c",
+        "storage/innobase/os/os0file.cc": "6ad774c7950dfcc5f051abf6901f55f6158c2a0a8fbfb403aa737ad797ebfefd",
+        "storage/maria/ma_loghandler.c": "3084201abe2577ed521cbabaa622677e1c9d1b4a9e77c23c60d39d786bc0657b"
+      },
+      "after_sha256": {
+        "CMakeLists.txt": "6c70d280b3a7a1736d5ba7260fb113a44e8f094d23c9de9dd4ec0da3ce88402d",
+        "cmake/os/Emscripten.cmake": "af8159bccbfa7d33a5860091fb3c3a716b58df5a2daf57892d6970fb5feb3675",
+        "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+        "cmake/pcre.cmake": "869b4f50cb8345cafd399d139f80640dd3d3ea6e2c08f8b8930741ab524d82e0",
+        "configure.cmake": "f14251cbb6717181cfd4a9e26fabd0d49399b762ce81f6e6cfdcbc224f5c0ff8",
+        "include/my_global.h": "60aaa58fee20a00cb09737eb45a09b3882eaaa6564f9d7bfae77662c07434b9b",
+        "include/my_stacktrace.h": "8437a3f83abbb3cc6e29fbf588a8e0c8507820c3a066ba8707198da7f925861f",
+        "libmysqld/libmysql.c": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+        "mysys/CMakeLists.txt": "9cb50fe418b6557872329ee9a4ab30e24b168eabdc0f4b6d04eeb99a7088ef94",
+        "mysys/my_largepage.c": "a70dfe799d6e7091f4d5c8f8221a658171a309658010ef4c46dbf9ca832bbe4b",
+        "mysys/my_lock.c": "7aed29f87e0ad6bc7978ce4794c0f10b1c99a52903c207ee49314632e60ecc46",
+        "mysys/my_timezone.cc": "6777513d495db9a832b52f248455156b79dfa1a778fc86b2aa6e14d90c15ad50",
+        "mysys/my_virtual_mem.c": "ea8d8902f9ac07987defed73e64a3dd974705f94e24bb29728c07797d75855d0",
+        "sql/sql_plugin.cc": "26146bcb7abe172c1fbc6b78f0a37b0157a0f90752717cc81170e7386984ca77",
+        "storage/innobase/fil/fil0fil.cc": "6bb2290f8de022054bb3ffa84a12d528270c0bce999f385667ad8a30af216cbb",
+        "storage/innobase/os/os0file.cc": "4b8515af8e247a22fde4bf8524ab6e68932f436dbc25290e6dcb8d4987ca2c73",
+        "storage/maria/ma_loghandler.c": "515a8afc9aef1cccd7055028441aae249021835c49f5dd1353982d7fc8542281"
+      }
+    },
+    {
+      "file": "guest/patches/12.3.3-redo.patch",
+      "sha256": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22",
+      "before_sha256": {
+        "storage/innobase/log/log0log.cc": "999ed3b38d49d9d4f4de50e4244f5bcc7a802aa6a41d4861834d99ed49f47a07"
+      },
+      "after_sha256": {
+        "storage/innobase/log/log0log.cc": "c193ece2c236840e84e61336126051e0c9ac031d4e133855483832780022205c"
+      }
+    }
+  ]
+}

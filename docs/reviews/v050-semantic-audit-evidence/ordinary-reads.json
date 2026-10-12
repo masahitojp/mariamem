@@ -1,0 +1,457 @@
+[
+  {
+    "fn": 88,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 402,
+    "class": "futex-precheck",
+    "statement": "v24 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))"
+  },
+  {
+    "fn": 88,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 415,
+    "class": "host-result-local",
+    "statement": "v33 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8)), 31, 1))))"
+  },
+  {
+    "fn": 88,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 419,
+    "class": "futex-timeout-recheck",
+    "statement": "v34 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1001,
+    "class": "immutable-mutex-type",
+    "statement": "v8 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 1))))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1025,
+    "class": "immutable-mutex-type",
+    "statement": "v20 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1058,
+    "class": "immutable-mutex-type",
+    "statement": "v39 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 1))))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1066,
+    "class": "immutable-mutex-type",
+    "statement": "v31 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1088,
+    "class": "immutable-mutex-type",
+    "statement": "v50 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1089,
+    "class": "owner-test-before-cas",
+    "statement": "v51 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1092,
+    "class": "agent-local-self-tid",
+    "statement": "v57 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v54+int32(4))), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1093,
+    "class": "agent-local-self-tid",
+    "statement": "v58 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v57)), 20, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1109,
+    "class": "owner-local-robust-list",
+    "statement": "v143 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v57)), 72, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1121,
+    "class": "waiter-robust-acquire-hint",
+    "statement": "v130 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1153,
+    "class": "owner-local-recursion",
+    "statement": "v64 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1166,
+    "class": "owner-local-recursion",
+    "statement": "v76 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1218,
+    "class": "owner-local-robust-list",
+    "statement": "v95 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v57)), 76, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1245,
+    "class": "waiter-robust-acquire-hint",
+    "statement": "v100 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1286,
+    "class": "waiter-robust-acquire-hint",
+    "statement": "v121 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1357,
+    "class": "lock-spin-precheck",
+    "statement": "v193 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v184)), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1366,
+    "class": "immutable-mutex-type",
+    "statement": "v211 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 1))))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1377,
+    "class": "waiter-spin-hint",
+    "statement": "v196 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1385,
+    "class": "lock-spin-precheck",
+    "statement": "v197 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v184)), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1393,
+    "class": "waiter-spin-hint",
+    "statement": "v200 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1430,
+    "class": "immutable-mutex-type",
+    "statement": "v222 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1431,
+    "class": "owner-test-before-cas",
+    "statement": "v223 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1434,
+    "class": "agent-local-self-tid",
+    "statement": "v229 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v226+int32(4))), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1435,
+    "class": "agent-local-self-tid",
+    "statement": "v230 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v229)), 20, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1451,
+    "class": "owner-local-robust-list",
+    "statement": "v315 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v229)), 72, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1463,
+    "class": "waiter-robust-acquire-hint",
+    "statement": "v302 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1495,
+    "class": "owner-local-recursion",
+    "statement": "v236 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1508,
+    "class": "owner-local-recursion",
+    "statement": "v248 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1560,
+    "class": "owner-local-robust-list",
+    "statement": "v267 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v229)), 76, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1587,
+    "class": "waiter-robust-acquire-hint",
+    "statement": "v272 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1628,
+    "class": "waiter-robust-acquire-hint",
+    "statement": "v293 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1698,
+    "class": "lock-spin-precheck",
+    "statement": "v372 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v184)), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1712,
+    "class": "immutable-mutex-type",
+    "statement": "v458 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 1))))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1730,
+    "class": "agent-local-self-tid",
+    "statement": "v381 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v204+v355)), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1731,
+    "class": "agent-local-self-tid",
+    "statement": "v382 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v381)), 20, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1743,
+    "class": "waiter-cas-loop",
+    "statement": "v392 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1799,
+    "class": "agent-local-cancel",
+    "statement": "v424 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v405)), 12, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1806,
+    "class": "waiter-cas-loop",
+    "statement": "v437 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1852,
+    "class": "immutable-mutex-type",
+    "statement": "v469 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1853,
+    "class": "owner-test-before-cas",
+    "statement": "v470 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1856,
+    "class": "agent-local-self-tid",
+    "statement": "v476 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v473+int32(4))), 0, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1857,
+    "class": "agent-local-self-tid",
+    "statement": "v477 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v476)), 20, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1873,
+    "class": "owner-local-robust-list",
+    "statement": "v562 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v476)), 72, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1885,
+    "class": "waiter-robust-acquire-hint",
+    "statement": "v549 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1917,
+    "class": "owner-local-recursion",
+    "statement": "v483 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1930,
+    "class": "owner-local-recursion",
+    "statement": "v495 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 1982,
+    "class": "owner-local-robust-list",
+    "statement": "v514 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v476)), 76, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 2009,
+    "class": "waiter-robust-acquire-hint",
+    "statement": "v519 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 93,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 2050,
+    "class": "waiter-robust-acquire-hint",
+    "statement": "v540 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2294,
+    "class": "immutable-mutex-type",
+    "statement": "v9 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2296,
+    "class": "unlock-waiter-hint",
+    "statement": "v12 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2303,
+    "class": "release-cas-loop",
+    "statement": "v75 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v66)), 0, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2330,
+    "class": "agent-local-self-tid",
+    "statement": "v21 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v18+int32(4))), 0, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2331,
+    "class": "agent-local-self-tid",
+    "statement": "v22 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v21)), 20, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2332,
+    "class": "unlock-owner-check",
+    "statement": "v23 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2343,
+    "class": "owner-local-robust-list",
+    "statement": "v52 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 12, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2344,
+    "class": "owner-local-robust-list",
+    "statement": "v53 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 16, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2356,
+    "class": "release-cas-loop",
+    "statement": "v75 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v66)), 0, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2382,
+    "class": "owner-local-recursion",
+    "statement": "v31 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2389,
+    "class": "owner-local-robust-list",
+    "statement": "v52 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 12, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2390,
+    "class": "owner-local-robust-list",
+    "statement": "v53 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 16, 4)))"
+  },
+  {
+    "fn": 130,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 2402,
+    "class": "release-cas-loop",
+    "statement": "v75 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v66)), 0, 4)))"
+  }
+]

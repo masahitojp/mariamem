@@ -1,10 +1,16 @@
 # v0.5.0 access-path assessment and investigation exit criteria
 
-**Current assessment: the requested access-path investigation is incomplete.**
-The previous recommendation to proceed to Qualification/Product Validation is
-withdrawn. The next step is to establish a finite investigation contract before
-additional experiments. This is an engineering review, not a request to accept
-an unspecified product risk or a decision about publication.
+**Follow-up:** the approved bounded R1–R5 work is reported in the
+[semantic investigation](v050-semantic-audit.md). It supplies per-target and
+supporting-route dispositions, two reproduced helper boundary defects and one
+specifically investigated unresolved join/publication edge. Coverage completion
+is separate from fix completion and release judgment. The five-hour cap was not
+used as an acceptance criterion; hourly reports were cancelled by the Human.
+
+The review below records the earlier incomplete assessment and the contract
+which governed that follow-up. The prior recommendation to proceed directly to
+Qualification/Product Validation remains superseded by the follow-up's concrete
+T1/T2 fix recommendation and J1 Human decision.
 
 The strongest concern with further investigation is an unfinishable demand to
 prove that no failure can occur in any execution. That must not be the exit
