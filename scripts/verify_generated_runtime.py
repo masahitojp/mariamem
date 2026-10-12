@@ -32,6 +32,7 @@ def main():
     for name in handwritten:
         owner = handwritten_owner(ROOT, name)
         if owner != source/name:
+            require(owner.is_file() and (source/name).is_file(), 'template-owned source/output missing: '+name)
             require(digest(owner) == digest(source/name), 'template-owned handwritten output changed: '+name)
     expected = record['files_sha256']
     changed = sorted(n for n in set(inventory) | set(expected) if inventory.get(n) != expected.get(n))

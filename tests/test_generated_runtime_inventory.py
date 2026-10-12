@@ -16,6 +16,15 @@ spec.loader.exec_module(verifier)
 def canonical(tmp_path, monkeypatch):
     source = tmp_path/'internal/generatedgo'
     source.mkdir(parents=True)
+    # Minimal inert inventory still stages each independently owned primitive.
+    # Use the owner directory, not the installer's list, to catch omissions.
+    import shutil
+    owner = tmp_path/'scripts/runtime_correctness'
+    shutil.copytree(ROOT/'scripts/runtime_correctness', owner)
+    for template in owner.glob('*.txt'):
+        target = source/'code/base'/template.name.removesuffix('.txt')
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(template, target)
     pins = tmp_path/'release/generated-go-inputs.json'
     pins.parent.mkdir()
     pins.write_text(json.dumps({'guest_sha256': 'a'*64}))
@@ -136,3 +145,13 @@ def test_pinned_driver_adapter_contains_snapshot_attribution():
     assert '"context"' in adapted and '"github.com/masahitojp/mariamem/internal/timing"' in adapted
     with pytest.raises(ValueError, match='driver fragment changed'):
         installer.adapt_driver(raw.decode().replace('return os.WriteFile(dst, b, 0600)', 'return nil'))
+
+@pytest.mark.parametrize('change', ['output', 'owner', 'missing'])
+def test_template_owned_primitive_rejects_drift(canonical, change):
+    owner = canonical/'scripts/runtime_correctness/narrow_load_darwin_arm64.s.txt'
+    output = canonical/'internal/generatedgo/code/base/narrow_load_darwin_arm64.s'
+    if change == 'output': output.write_text('changed')
+    elif change == 'owner': owner.write_text('changed')
+    else: owner.unlink()
+    with pytest.raises(ValueError, match='template-owned'):
+        verifier.main()
