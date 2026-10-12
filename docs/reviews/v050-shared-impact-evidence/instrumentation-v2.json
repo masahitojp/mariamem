@@ -1,0 +1,960 @@
+{
+  "baseline_source_commit": "82f3c2bcef1518dadf5138a03e11dcfeb3db2de6",
+  "changes": {
+    "cmd/mariamem-host/main.go": {
+      "after_sha256": "8b245a7a6a46c4df54b00be171a1d8edc5194ddf5495a45eec3850ceb1262d98",
+      "before_sha256": "f54d5eb118842c206427bdfbf60c0fdb044f6accaed432dbaaf19a428e377d15"
+    },
+    "internal/generatedgo/code/base/base.go": {
+      "after_sha256": "2e94058234806bc0da5161aaaba7d35ea6af26681392d825d2afcea4dba8c146",
+      "before_sha256": "2f336d438520c1fabae86b4aaf2de014c334425d88e038da839442cdb793010b"
+    },
+    "internal/generatedgo/code/p0/p0_pure.go": {
+      "after_sha256": "4b500253e1c1600b4970b0aa980d0deb11e95a110fa788718cf09210f3f43192",
+      "before_sha256": "ce95b31f08932f74c4731098badc5a83305736523bbebe1a88835fefbc374bce"
+    },
+    "internal/generatedgo/code/p1/p1_pure.go": {
+      "after_sha256": "99cce2d56cf51ee9161a6ff2735d153ee0af04f1526516cd812b9cac97982bd2",
+      "before_sha256": "4b42efd1c7e00f2ab854cd2cf1094e483738f36b3faa02fa16aaec969b8de4aa"
+    },
+    "internal/generatedgo/code/p2/p2_pure.go": {
+      "after_sha256": "f505c9bf1566f16b51db7267a75182ac4e05a372ff391ff15b5ec88b65ca3fb1",
+      "before_sha256": "a894b24d0eef8fda28c8135a9863d544eca49db6ba63fb1117be25cbd2e99cef"
+    },
+    "internal/generatedgo/code/p3/p3_pure.go": {
+      "after_sha256": "c1036f5d15eedc125f60c76c3f6931ba077a05c6973e2cfa33eab884e85f1d6a",
+      "before_sha256": "0cd1833b6ba0a9e1e6261965d05a04a8527896c24988e9161013cdb347667781"
+    },
+    "internal/generatedgo/code/p4/p4_pure.go": {
+      "after_sha256": "f49e9bd20f1851a0defd276969581c50551f5af5a3be83550ff387742acad774",
+      "before_sha256": "21ae87a502d3c3de7a179fd0691329f7246275a67e0b4971b4eb4290859a56d8"
+    },
+    "internal/generatedgo/code/p5/p5_pure.go": {
+      "after_sha256": "a4858ee7dfc2a84a1512980abf954e4106efdb5c0553bfa4ae18864f03af418e",
+      "before_sha256": "8f99ee297e51ccfddfb5920c2618fd73250d5978fdf6e7076ffecc8012a22667"
+    },
+    "internal/generatedgo/code/p6/p6_pure.go": {
+      "after_sha256": "da34f6786b4b1c14f615a51a916fa9f2f9d2ea2b23cdfbd330d6ebd44593dc28",
+      "before_sha256": "56887ba1820ab563b2422067ce03bf375510136de838a8949814e0e2b9383bac"
+    },
+    "internal/generatedgo/code/p7/p7_pure.go": {
+      "after_sha256": "76cd10f0d42293ca2b2c829d6bf0d7cfde49cafe0cb88c878e004c1131d41de6",
+      "before_sha256": "96f86021b005f7c7b6387062c02a6515e45cccdbf798c645e2d14db0405973ba"
+    },
+    "internal/generatedgo/code/p8/p8_pure.go": {
+      "after_sha256": "73c39380823dbe01169f54b03984c53a339ece45f36597e982c81e4a955b3ed3",
+      "before_sha256": "a66568b4f13a1cddc44eab5b823d860266645dab8dc4f9e68d984a0e6197d760"
+    }
+  },
+  "observer_sha256": "4be7ff11edcc8b3c1091e3b9f4b719122bf9cd09903f181c139beff644a1d54c",
+  "selected_ordinary_functions": [
+    4053,
+    4054,
+    4055,
+    16535,
+    16537,
+    16684,
+    17161,
+    17770,
+    17772,
+    17888,
+    17889,
+    17950,
+    17994,
+    18010,
+    18090,
+    18114,
+    18168,
+    18218,
+    18221,
+    18241,
+    18497,
+    18500,
+    18511,
+    20878
+  ],
+  "sites": [
+    {
+      "file": "internal/generatedgo/code/p0/p0_pure.go",
+      "fn": 18241,
+      "line": 653670,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p0/p0_pure.go",
+      "fn": 18241,
+      "line": 661367,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p0/p0_pure.go",
+      "fn": 18509,
+      "line": 676270,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p0/p0_pure.go",
+      "fn": 18509,
+      "line": 677279,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p0/p0_pure.go",
+      "fn": 18509,
+      "line": 677415,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p0/p0_pure.go",
+      "fn": 18509,
+      "line": 677929,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p0/p0_pure.go",
+      "fn": 18509,
+      "line": 686443,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17161,
+      "line": 784462,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17161,
+      "line": 786846,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17161,
+      "line": 786857,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17161,
+      "line": 788383,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17218,
+      "line": 808204,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17218,
+      "line": 808838,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17251,
+      "line": 811549,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17251,
+      "line": 811921,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17251,
+      "line": 812102,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17371,
+      "line": 828504,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17950,
+      "line": 910772,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17950,
+      "line": 913197,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17950,
+      "line": 913205,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17950,
+      "line": 915837,
+      "operation": "AtomicRmwAdd32_8u"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 17950,
+      "line": 917898,
+      "operation": "AtomicRmwAdd32_8u"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 18497,
+      "line": 957702,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 18565,
+      "line": 960528,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 18565,
+      "line": 962446,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 18565,
+      "line": 962468,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "fn": 18565,
+      "line": 962687,
+      "operation": "AtomicStore32_16"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 17151,
+      "line": 839876,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 17405,
+      "line": 866039,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 17405,
+      "line": 867817,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 17405,
+      "line": 867910,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 17461,
+      "line": 884986,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18010,
+      "line": 959617,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18010,
+      "line": 959760,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18010,
+      "line": 959825,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18010,
+      "line": 960046,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18010,
+      "line": 960169,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18010,
+      "line": 961300,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18010,
+      "line": 962096,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18010,
+      "line": 962216,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18114,
+      "line": 967425,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18114,
+      "line": 967534,
+      "operation": "AtomicRmwXchg32_8u"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18114,
+      "line": 967817,
+      "operation": "AtomicRmwXchg32_8u"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18114,
+      "line": 967936,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18114,
+      "line": 967961,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18114,
+      "line": 968141,
+      "operation": "AtomicRmwXchg32_8u"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18114,
+      "line": 968237,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18114,
+      "line": 968337,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18114,
+      "line": 969378,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18114,
+      "line": 969404,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18114,
+      "line": 969409,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "fn": 18231,
+      "line": 987500,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 17245,
+      "line": 854829,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 17245,
+      "line": 855993,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 17368,
+      "line": 863969,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 17368,
+      "line": 864117,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 17368,
+      "line": 864858,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 17388,
+      "line": 865714,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 17440,
+      "line": 877980,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 17440,
+      "line": 880619,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 17770,
+      "line": 924649,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 17889,
+      "line": 938578,
+      "operation": "AtomicStore32_16"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 18136,
+      "line": 969046,
+      "operation": "AtomicStore32_16"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 18136,
+      "line": 969118,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 18136,
+      "line": 969168,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 18136,
+      "line": 969228,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 18136,
+      "line": 969278,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 18221,
+      "line": 976651,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 18355,
+      "line": 996733,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "fn": 18531,
+      "line": 1019684,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 16537,
+      "line": 825116,
+      "operation": "AtomicRmwXchg32_8u"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 16537,
+      "line": 825605,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17453,
+      "line": 932312,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17453,
+      "line": 932749,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17811,
+      "line": 982947,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17812,
+      "line": 984122,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17888,
+      "line": 989736,
+      "operation": "AtomicStore32_16"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17888,
+      "line": 989760,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17888,
+      "line": 989769,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17888,
+      "line": 989786,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17888,
+      "line": 989795,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17888,
+      "line": 989844,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17888,
+      "line": 989847,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17888,
+      "line": 989872,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 17888,
+      "line": 989875,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 18002,
+      "line": 1003889,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 18022,
+      "line": 1008051,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "fn": 18022,
+      "line": 1008720,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 17377,
+      "line": 961910,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 17410,
+      "line": 963769,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 17410,
+      "line": 963843,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 17412,
+      "line": 964180,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 17412,
+      "line": 964273,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 17472,
+      "line": 970096,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 17472,
+      "line": 970335,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 17877,
+      "line": 1005271,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 18005,
+      "line": 1014940,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 18005,
+      "line": 1015489,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 18122,
+      "line": 1021045,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 18168,
+      "line": 1022482,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 18168,
+      "line": 1022993,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 18180,
+      "line": 1023264,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 18180,
+      "line": 1023291,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "fn": 18500,
+      "line": 1046814,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 16535,
+      "line": 891100,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 16684,
+      "line": 901402,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 16684,
+      "line": 901447,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 16684,
+      "line": 901493,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 16684,
+      "line": 901539,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 16684,
+      "line": 901547,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 17772,
+      "line": 970935,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 17772,
+      "line": 970947,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 18218,
+      "line": 1005604,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 18218,
+      "line": 1005696,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 18218,
+      "line": 1005789,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 18218,
+      "line": 1005882,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 18218,
+      "line": 1006004,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 18218,
+      "line": 1006096,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 18218,
+      "line": 1006189,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 18218,
+      "line": 1006282,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "fn": 18511,
+      "line": 1025062,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 4054,
+      "line": 270244,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 17240,
+      "line": 893135,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 17408,
+      "line": 908136,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 17880,
+      "line": 934849,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 17994,
+      "line": 941307,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 17994,
+      "line": 941341,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 17994,
+      "line": 941371,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 17994,
+      "line": 941400,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 17994,
+      "line": 941434,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 18006,
+      "line": 941887,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 18006,
+      "line": 941971,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 18080,
+      "line": 947902,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 18090,
+      "line": 948817,
+      "operation": "AtomicRmwXchg32_8u"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 18090,
+      "line": 948888,
+      "operation": "AtomicRmwXchg32_8u"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 18090,
+      "line": 948953,
+      "operation": "AtomicRmwXchg32_8u"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 18566,
+      "line": 964846,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 18580,
+      "line": 964980,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "fn": 20878,
+      "line": 1080957,
+      "operation": "AtomicRmwXchg32_8u"
+    },
+    {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "fn": 17221,
+      "line": 334660,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "fn": 17437,
+      "line": 338614,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "fn": 17463,
+      "line": 338864,
+      "operation": "AtomicRmwXchg32_8u"
+    },
+    {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "fn": 18008,
+      "line": 344492,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "fn": 18008,
+      "line": 344497,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "fn": 18570,
+      "line": 352673,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "fn": 18572,
+      "line": 352737,
+      "operation": "AtomicStore32_8"
+    },
+    {
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "fn": 18595,
+      "line": 353130,
+      "operation": "AtomicStore32_8"
+    }
+  ]
+}

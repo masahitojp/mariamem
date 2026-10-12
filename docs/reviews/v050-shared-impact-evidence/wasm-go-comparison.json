@@ -1,0 +1,499 @@
+[
+  {
+    "fn": 4054,
+    "symbol": "__cxa_guard_release",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 16535,
+    "symbol": "_ZN5tpool19thread_pool_generic11worker_mainEPNS_11worker_dataE",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 16537,
+    "symbol": "_ZN5tpool19thread_pool_generic10add_threadEv",
+    "operation": "AtomicRmwXchg32_8u",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 16537,
+    "symbol": "_ZN5tpool19thread_pool_generic10add_threadEv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 16684,
+    "symbol": "_ZN8ReadView4openEP5trx_t",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 5
+  },
+  {
+    "fn": 17151,
+    "symbol": "_ZNK11purge_sys_t8iterator12free_historyEv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17161,
+    "symbol": "_Z9trx_purgeP5trx_tmm",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 4,
+    "generated_occurrences": 4
+  },
+  {
+    "fn": 17218,
+    "symbol": "_Z30fsp_system_tablespace_truncateb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 0,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 17221,
+    "symbol": "_ZN12fil_system_t19set_use_doublewriteEm",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17240,
+    "symbol": "_Z27fil_space_create_crypt_data16fil_encryption_tj",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17245,
+    "symbol": "_Z15fil_encrypt_bufP17fil_space_crypt_tmmPKhmPhb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 17251,
+    "symbol": "_ZL16fil_crypt_threadv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 3,
+    "generated_occurrences": 3
+  },
+  {
+    "fn": 17368,
+    "symbol": "_ZN10recv_sys_t16recover_deferredERKNSt3__214__map_iteratorINS0_15__tree_iteratorINS0_12__value_typeIK9page_id_t11page_recv_tEEPNS0_11__tree_nodeIS7_PvEElEEEERKNS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEERP11buf_block_t",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 3,
+    "generated_occurrences": 3
+  },
+  {
+    "fn": 17371,
+    "symbol": "_ZL17recv_recover_pageP11buf_block_tR5mtr_tR11page_recv_tP11fil_space_ty",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17377,
+    "symbol": "_ZN10recv_sys_t10debug_freeEv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17388,
+    "symbol": "_ZN10recv_sys_t11parse_storeE9page_id_tPKhm",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17405,
+    "symbol": "_ZN10recv_sys_t5applyEb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 3,
+    "generated_occurrences": 3
+  },
+  {
+    "fn": 17408,
+    "symbol": "_ZN10recv_sys_t19free_corrupted_pageE9page_id_tRK10fil_node_t",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17410,
+    "symbol": "_Z17recv_recover_pageP11fil_space_tP10buf_page_t",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 17412,
+    "symbol": "_ZN10recv_sys_t7recoverE9page_id_tP5mtr_tP7dberr_t",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 17437,
+    "symbol": "_Z14buf_load_abortv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17440,
+    "symbol": "_ZL8buf_loadv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 17453,
+    "symbol": "_ZL15create_log_fileby",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 17461,
+    "symbol": "_Z15innodb_shutdownv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17463,
+    "symbol": "_ZNK11fil_space_t13set_corruptedEv",
+    "operation": "AtomicRmwXchg32_8u",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17472,
+    "symbol": "_ZL27fil_space_extend_must_retryP11fil_space_tP10fil_node_tjPb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 17770,
+    "symbol": "_ZN8DeadlockL6reportEP5trx_tb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17772,
+    "symbol": "_ZN10lock_sys_t14deadlock_checkEv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 17811,
+    "symbol": "_ZL26lock_rec_dequeue_from_pageP9ib_lock_tb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17812,
+    "symbol": "_ZL18lock_table_dequeueP9ib_lock_tb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17877,
+    "symbol": "_ZN7btr_sea16disable_and_lockEv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17880,
+    "symbol": "_ZN7btr_sea6enableEb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17888,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "operation": "AtomicStore32_16",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17888,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 8,
+    "generated_occurrences": 8
+  },
+  {
+    "fn": 17889,
+    "symbol": "_ZL32btr_search_build_page_hash_indexP12dict_index_tP11buf_block_tRN7btr_sea9partitionEj",
+    "operation": "AtomicStore32_16",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 17950,
+    "symbol": "_ZN9btr_cur_t11search_leafEPK8dtuple_t15page_cur_mode_t14btr_latch_modeP5mtr_t",
+    "operation": "AtomicRmwAdd32_8u",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 17950,
+    "symbol": "_ZN9btr_cur_t11search_leafEPK8dtuple_t15page_cur_mode_t14btr_latch_modeP5mtr_t",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 3,
+    "generated_occurrences": 3
+  },
+  {
+    "fn": 17994,
+    "symbol": "_ZN10buf_pool_t19page_cleaner_wakeupEb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 5
+  },
+  {
+    "fn": 18002,
+    "symbol": "_Z20buf_flush_list_spaceP11fil_space_tPm",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18005,
+    "symbol": "_Z14buf_flush_waityb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 18006,
+    "symbol": "_Z15buf_flush_aheadyb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 18008,
+    "symbol": "_ZN10buf_pool_t8LRU_warnEv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 18010,
+    "symbol": "_ZL22buf_flush_page_cleanerv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 8,
+    "generated_occurrences": 8
+  },
+  {
+    "fn": 18022,
+    "symbol": "_ZN5mtr_t13finish_writerILb0EEENSt3__24pairIyyEEPS_m",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 18080,
+    "symbol": "_Z14log_free_checkv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18090,
+    "symbol": "_ZN10buf_pool_t8io_buf_t7reserveEb",
+    "operation": "AtomicRmwXchg32_8u",
+    "wasm_occurrences": 3,
+    "generated_occurrences": 3
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "operation": "AtomicRmwXchg32_8u",
+    "wasm_occurrences": 3,
+    "generated_occurrences": 3
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 8,
+    "generated_occurrences": 8
+  },
+  {
+    "fn": 18122,
+    "symbol": "_Z22buf_LRU_get_free_block11buf_LRU_get",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18136,
+    "symbol": "_Z32buf_LRU_block_free_non_file_pageP11buf_block_t",
+    "operation": "AtomicStore32_16",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18136,
+    "symbol": "_Z32buf_LRU_block_free_non_file_pageP11buf_block_t",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 4
+  },
+  {
+    "fn": 18168,
+    "symbol": "_ZL26purge_coordinator_callbackPv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 18180,
+    "symbol": "_Z18srv_purge_shutdownv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 18218,
+    "symbol": "_ZL16fake_io_callbackPv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 8
+  },
+  {
+    "fn": 18221,
+    "symbol": "_ZL17write_io_callbackPv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18231,
+    "symbol": "_Z26trx_lists_init_at_db_startv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18241,
+    "symbol": "_ZN5trx_t14commit_persistEv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 2
+  },
+  {
+    "fn": 18355,
+    "symbol": "_ZL37i_s_tablespaces_encryption_fill_tableP3THDP10TABLE_LISTP4Item",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18497,
+    "symbol": "_ZN11ha_innobase13external_lockEP3THDi",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18500,
+    "symbol": "_ZN11ha_innobase10store_lockEP3THDPP16st_thr_lock_data13thr_lock_type",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18509,
+    "symbol": "_ZL11innodb_initPv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 5,
+    "generated_occurrences": 5
+  },
+  {
+    "fn": 18511,
+    "symbol": "_ZL25innobase_close_connectionP3THD",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18531,
+    "symbol": "_ZL24innodb_ddl_recovery_doneP10handlerton",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18565,
+    "symbol": "_ZL30innodb_buffer_pool_size_updateP3THDP16st_mysql_sys_varPvPKv",
+    "operation": "AtomicStore32_16",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18565,
+    "symbol": "_ZL30innodb_buffer_pool_size_updateP3THDP16st_mysql_sys_varPvPKv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 2,
+    "generated_occurrences": 3
+  },
+  {
+    "fn": 18566,
+    "symbol": "_ZL39innodb_adaptive_hash_index_cells_updateP3THDP16st_mysql_sys_varPvPKv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18570,
+    "symbol": "_ZL22buffer_pool_load_abortP3THDP16st_mysql_sys_varPvPKv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 0,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18572,
+    "symbol": "_ZL25innodb_doublewrite_updateP3THDP16st_mysql_sys_varPvPKv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18580,
+    "symbol": "_ZL37innodb_data_file_write_through_updateP3THDP16st_mysql_sys_varPvPKv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 18595,
+    "symbol": "_ZL27innodb_purge_threads_updateP3THDP16st_mysql_sys_varPvPKv",
+    "operation": "AtomicStore32_8",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  },
+  {
+    "fn": 20878,
+    "symbol": "_ZN20Table_cache_instance25lock_and_check_contentionEjj",
+    "operation": "AtomicRmwXchg32_8u",
+    "wasm_occurrences": 1,
+    "generated_occurrences": 1
+  }
+]

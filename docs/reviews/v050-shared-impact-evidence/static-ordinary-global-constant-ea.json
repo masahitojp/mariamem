@@ -1,0 +1,42 @@
+[
+  {
+    "fn": 17461,
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "line": 884191,
+    "ea": 24020808,
+    "width": 1,
+    "statement": "v726 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 24020808, 0, 1))))"
+  },
+  {
+    "fn": 17461,
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "line": 884257,
+    "ea": 24020808,
+    "width": 1,
+    "statement": "*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 24020808, 0, 1))) = uint8(v747)"
+  },
+  {
+    "fn": 18231,
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "line": 988032,
+    "ea": 24020808,
+    "width": 1,
+    "statement": "*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 24020808, 0, 1))) = uint8(v476)"
+  },
+  {
+    "fn": 65,
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "line": 45498,
+    "ea": 24020811,
+    "width": 1,
+    "statement": "*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 24020811, 0, 1))) = uint8(v46409)"
+  },
+  {
+    "fn": 65,
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "line": 45499,
+    "ea": 24020808,
+    "width": 2,
+    "statement": "*(*uint16)(unsafe.Add(mBase, base.MemoryEA(m, 24020808, 0, 2))) = uint16(v46409)"
+  }
+]

@@ -1,0 +1,877 @@
+[
+  {
+    "fn": 4054,
+    "symbol": "__cxa_guard_release",
+    "wat_line": 1040482,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 16535,
+    "symbol": "_ZN5tpool19thread_pool_generic11worker_mainEPNS_11worker_dataE",
+    "wat_line": 4300457,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=408"
+  },
+  {
+    "fn": 16537,
+    "symbol": "_ZN5tpool19thread_pool_generic10add_threadEv",
+    "wat_line": 4301078,
+    "opcode": "i32.atomic.rmw8.xchg_u",
+    "attributes": "offset=408"
+  },
+  {
+    "fn": 16537,
+    "symbol": "_ZN5tpool19thread_pool_generic10add_threadEv",
+    "wat_line": 4301616,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=408"
+  },
+  {
+    "fn": 16684,
+    "symbol": "_ZN8ReadView4openEP5trx_t",
+    "wat_line": 4375303,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=40"
+  },
+  {
+    "fn": 16684,
+    "symbol": "_ZN8ReadView4openEP5trx_t",
+    "wat_line": 4375428,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=40"
+  },
+  {
+    "fn": 17151,
+    "symbol": "_ZNK11purge_sys_t8iterator12free_historyEv",
+    "wat_line": 4674481,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17161,
+    "symbol": "_Z9trx_purgeP5trx_tmm",
+    "wat_line": 4680686,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17161,
+    "symbol": "_Z9trx_purgeP5trx_tmm",
+    "wat_line": 4682317,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17161,
+    "symbol": "_Z9trx_purgeP5trx_tmm",
+    "wat_line": 4682388,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17161,
+    "symbol": "_Z9trx_purgeP5trx_tmm",
+    "wat_line": 4684176,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17221,
+    "symbol": "_ZN12fil_system_t19set_use_doublewriteEm",
+    "wat_line": 4732326,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17240,
+    "symbol": "_Z27fil_space_create_crypt_data16fil_encryption_tj",
+    "wat_line": 4739142,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17245,
+    "symbol": "_Z15fil_encrypt_bufP17fil_space_crypt_tmmPKhmPhb",
+    "wat_line": 4740019,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17245,
+    "symbol": "_Z15fil_encrypt_bufP17fil_space_crypt_tmmPKhmPhb",
+    "wat_line": 4740401,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17251,
+    "symbol": "_ZL16fil_crypt_threadv",
+    "wat_line": 4743496,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17251,
+    "symbol": "_ZL16fil_crypt_threadv",
+    "wat_line": 4743861,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17251,
+    "symbol": "_ZL16fil_crypt_threadv",
+    "wat_line": 4744001,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17368,
+    "symbol": "_ZN10recv_sys_t16recover_deferredERKNSt3__214__map_iteratorINS0_15__tree_iteratorINS0_12__value_typeIK9page_id_t11page_recv_tEEPNS0_11__tree_nodeIS7_PvEElEEEERKNS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEERP11buf_block_t",
+    "wat_line": 4775256,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17368,
+    "symbol": "_ZN10recv_sys_t16recover_deferredERKNSt3__214__map_iteratorINS0_15__tree_iteratorINS0_12__value_typeIK9page_id_t11page_recv_tEEPNS0_11__tree_nodeIS7_PvEElEEEERKNS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEERP11buf_block_t",
+    "wat_line": 4775362,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17368,
+    "symbol": "_ZN10recv_sys_t16recover_deferredERKNSt3__214__map_iteratorINS0_15__tree_iteratorINS0_12__value_typeIK9page_id_t11page_recv_tEEPNS0_11__tree_nodeIS7_PvEElEEEERKNS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEERP11buf_block_t",
+    "wat_line": 4776323,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17371,
+    "symbol": "_ZL17recv_recover_pageP11buf_block_tR5mtr_tR11page_recv_tP11fil_space_ty",
+    "wat_line": 4784430,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17377,
+    "symbol": "_ZN10recv_sys_t10debug_freeEv",
+    "wat_line": 4785830,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17388,
+    "symbol": "_ZN10recv_sys_t11parse_storeE9page_id_tPKhm",
+    "wat_line": 4788567,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17405,
+    "symbol": "_ZN10recv_sys_t5applyEb",
+    "wat_line": 4800545,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17405,
+    "symbol": "_ZN10recv_sys_t5applyEb",
+    "wat_line": 4801089,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17405,
+    "symbol": "_ZN10recv_sys_t5applyEb",
+    "wat_line": 4801126,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17408,
+    "symbol": "_ZN10recv_sys_t19free_corrupted_pageE9page_id_tRK10fil_node_t",
+    "wat_line": 4805238,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17410,
+    "symbol": "_Z17recv_recover_pageP11fil_space_tP10buf_page_t",
+    "wat_line": 4805562,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17410,
+    "symbol": "_Z17recv_recover_pageP11fil_space_tP10buf_page_t",
+    "wat_line": 4805674,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17412,
+    "symbol": "_ZN10recv_sys_t7recoverE9page_id_tP5mtr_tP7dberr_t",
+    "wat_line": 4805834,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17412,
+    "symbol": "_ZN10recv_sys_t7recoverE9page_id_tP5mtr_tP7dberr_t",
+    "wat_line": 4805960,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17437,
+    "symbol": "_Z14buf_load_abortv",
+    "wat_line": 4824221,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17440,
+    "symbol": "_ZL8buf_loadv",
+    "wat_line": 4824402,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17440,
+    "symbol": "_ZL8buf_loadv",
+    "wat_line": 4825517,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17453,
+    "symbol": "_ZL15create_log_fileby",
+    "wat_line": 4833281,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17461,
+    "symbol": "_Z15innodb_shutdownv",
+    "wat_line": 4837035,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17463,
+    "symbol": "_ZNK11fil_space_t13set_corruptedEv",
+    "wat_line": 4838781,
+    "opcode": "i32.atomic.rmw8.xchg_u",
+    "attributes": "offset=139"
+  },
+  {
+    "fn": 17472,
+    "symbol": "_ZL27fil_space_extend_must_retryP11fil_space_tP10fil_node_tjPb",
+    "wat_line": 4840280,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17472,
+    "symbol": "_ZL27fil_space_extend_must_retryP11fil_space_tP10fil_node_tjPb",
+    "wat_line": 4840444,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=24"
+  },
+  {
+    "fn": 17770,
+    "symbol": "_ZN8DeadlockL6reportEP5trx_tb",
+    "wat_line": 5044780,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=192"
+  },
+  {
+    "fn": 17772,
+    "symbol": "_ZN10lock_sys_t14deadlock_checkEv",
+    "wat_line": 5045832,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17772,
+    "symbol": "_ZN10lock_sys_t14deadlock_checkEv",
+    "wat_line": 5045854,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17811,
+    "symbol": "_ZL26lock_rec_dequeue_from_pageP9ib_lock_tb",
+    "wat_line": 5059549,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17812,
+    "symbol": "_ZL18lock_table_dequeueP9ib_lock_tb",
+    "wat_line": 5060301,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17877,
+    "symbol": "_ZN7btr_sea16disable_and_lockEv",
+    "wat_line": 5077153,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17880,
+    "symbol": "_ZN7btr_sea6enableEb",
+    "wat_line": 5077779,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 17888,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "wat_line": 5081011,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=68"
+  },
+  {
+    "fn": 17888,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "wat_line": 5081187,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=68"
+  },
+  {
+    "fn": 17888,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "wat_line": 5081198,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=69"
+  },
+  {
+    "fn": 17888,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "wat_line": 5081220,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=68"
+  },
+  {
+    "fn": 17888,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "wat_line": 5081228,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=69"
+  },
+  {
+    "fn": 17888,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "wat_line": 5081244,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=69"
+  },
+  {
+    "fn": 17888,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "wat_line": 5081263,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=70"
+  },
+  {
+    "fn": 17888,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "wat_line": 5081326,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=70"
+  },
+  {
+    "fn": 17888,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "wat_line": 5081370,
+    "opcode": "i32.atomic.store16",
+    "attributes": "offset=220"
+  },
+  {
+    "fn": 17889,
+    "symbol": "_ZL32btr_search_build_page_hash_indexP12dict_index_tP11buf_block_tRN7btr_sea9partitionEj",
+    "wat_line": 5082282,
+    "opcode": "i32.atomic.store16",
+    "attributes": "offset=220"
+  },
+  {
+    "fn": 17950,
+    "symbol": "_ZN9btr_cur_t11search_leafEPK8dtuple_t15page_cur_mode_t14btr_latch_modeP5mtr_t",
+    "wat_line": 5125771,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=69"
+  },
+  {
+    "fn": 17950,
+    "symbol": "_ZN9btr_cur_t11search_leafEPK8dtuple_t15page_cur_mode_t14btr_latch_modeP5mtr_t",
+    "wat_line": 5125783,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=70"
+  },
+  {
+    "fn": 17950,
+    "symbol": "_ZN9btr_cur_t11search_leafEPK8dtuple_t15page_cur_mode_t14btr_latch_modeP5mtr_t",
+    "wat_line": 5125847,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=70"
+  },
+  {
+    "fn": 17950,
+    "symbol": "_ZN9btr_cur_t11search_leafEPK8dtuple_t15page_cur_mode_t14btr_latch_modeP5mtr_t",
+    "wat_line": 5128484,
+    "opcode": "i32.atomic.rmw8.add_u",
+    "attributes": "offset=68"
+  },
+  {
+    "fn": 17950,
+    "symbol": "_ZN9btr_cur_t11search_leafEPK8dtuple_t15page_cur_mode_t14btr_latch_modeP5mtr_t",
+    "wat_line": 5130017,
+    "opcode": "i32.atomic.rmw8.add_u",
+    "attributes": "offset=68"
+  },
+  {
+    "fn": 17994,
+    "symbol": "_ZN10buf_pool_t19page_cleaner_wakeupEb",
+    "wat_line": 5171261,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18002,
+    "symbol": "_Z20buf_flush_list_spaceP11fil_space_tPm",
+    "wat_line": 5174806,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18005,
+    "symbol": "_Z14buf_flush_waityb",
+    "wat_line": 5175551,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18005,
+    "symbol": "_Z14buf_flush_waityb",
+    "wat_line": 5175684,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18006,
+    "symbol": "_Z15buf_flush_aheadyb",
+    "wat_line": 5175791,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18006,
+    "symbol": "_Z15buf_flush_aheadyb",
+    "wat_line": 5175796,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18008,
+    "symbol": "_ZN10buf_pool_t8LRU_warnEv",
+    "wat_line": 5175852,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18008,
+    "symbol": "_ZN10buf_pool_t8LRU_warnEv",
+    "wat_line": 5175866,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18010,
+    "symbol": "_ZL22buf_flush_page_cleanerv",
+    "wat_line": 5176270,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18010,
+    "symbol": "_ZL22buf_flush_page_cleanerv",
+    "wat_line": 5176449,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18010,
+    "symbol": "_ZL22buf_flush_page_cleanerv",
+    "wat_line": 5176713,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18010,
+    "symbol": "_ZL22buf_flush_page_cleanerv",
+    "wat_line": 5177995,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18010,
+    "symbol": "_ZL22buf_flush_page_cleanerv",
+    "wat_line": 5178114,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18010,
+    "symbol": "_ZL22buf_flush_page_cleanerv",
+    "wat_line": 5178316,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18010,
+    "symbol": "_ZL22buf_flush_page_cleanerv",
+    "wat_line": 5178381,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18010,
+    "symbol": "_ZL22buf_flush_page_cleanerv",
+    "wat_line": 5178494,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18022,
+    "symbol": "_ZN5mtr_t13finish_writerILb0EEENSt3__24pairIyyEEPS_m",
+    "wat_line": 5184048,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18022,
+    "symbol": "_ZN5mtr_t13finish_writerILb0EEENSt3__24pairIyyEEPS_m",
+    "wat_line": 5184498,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18080,
+    "symbol": "_Z14log_free_checkv",
+    "wat_line": 5197940,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18090,
+    "symbol": "_ZN10buf_pool_t8io_buf_t7reserveEb",
+    "wat_line": 5200065,
+    "opcode": "i32.atomic.rmw8.xchg_u",
+    "attributes": ""
+  },
+  {
+    "fn": 18090,
+    "symbol": "_ZN10buf_pool_t8io_buf_t7reserveEb",
+    "wat_line": 5200122,
+    "opcode": "i32.atomic.rmw8.xchg_u",
+    "attributes": ""
+  },
+  {
+    "fn": 18090,
+    "symbol": "_ZN10buf_pool_t8io_buf_t7reserveEb",
+    "wat_line": 5200173,
+    "opcode": "i32.atomic.rmw8.xchg_u",
+    "attributes": ""
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "wat_line": 5210203,
+    "opcode": "i32.atomic.rmw8.xchg_u",
+    "attributes": ""
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "wat_line": 5210428,
+    "opcode": "i32.atomic.rmw8.xchg_u",
+    "attributes": ""
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "wat_line": 5210525,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "wat_line": 5210549,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "wat_line": 5210682,
+    "opcode": "i32.atomic.rmw8.xchg_u",
+    "attributes": ""
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "wat_line": 5210770,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "wat_line": 5210925,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "wat_line": 5211553,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "wat_line": 5211968,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "wat_line": 5212002,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18114,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "wat_line": 5212017,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18122,
+    "symbol": "_Z22buf_LRU_get_free_block11buf_LRU_get",
+    "wat_line": 5214497,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18136,
+    "symbol": "_Z32buf_LRU_block_free_non_file_pageP11buf_block_t",
+    "wat_line": 5218436,
+    "opcode": "i32.atomic.store16",
+    "attributes": "offset=220"
+  },
+  {
+    "fn": 18136,
+    "symbol": "_Z32buf_LRU_block_free_non_file_pageP11buf_block_t",
+    "wat_line": 5218588,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18168,
+    "symbol": "_ZL26purge_coordinator_callbackPv",
+    "wat_line": 5230445,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18168,
+    "symbol": "_ZL26purge_coordinator_callbackPv",
+    "wat_line": 5230707,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18180,
+    "symbol": "_Z18srv_purge_shutdownv",
+    "wat_line": 5231558,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18180,
+    "symbol": "_Z18srv_purge_shutdownv",
+    "wat_line": 5231666,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18218,
+    "symbol": "_ZL16fake_io_callbackPv",
+    "wat_line": 5241553,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18221,
+    "symbol": "_ZL17write_io_callbackPv",
+    "wat_line": 5242744,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18231,
+    "symbol": "_Z26trx_lists_init_at_db_startv",
+    "wat_line": 5248853,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18241,
+    "symbol": "_ZN5trx_t14commit_persistEv",
+    "wat_line": 5262213,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=1384"
+  },
+  {
+    "fn": 18241,
+    "symbol": "_ZN5trx_t14commit_persistEv",
+    "wat_line": 5263370,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=192"
+  },
+  {
+    "fn": 18355,
+    "symbol": "_ZL37i_s_tablespaces_encryption_fill_tableP3THDP10TABLE_LISTP4Item",
+    "wat_line": 5304402,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18497,
+    "symbol": "_ZN11ha_innobase13external_lockEP3THDi",
+    "wat_line": 5373450,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=1384"
+  },
+  {
+    "fn": 18500,
+    "symbol": "_ZN11ha_innobase10store_lockEP3THDPP16st_thr_lock_data13thr_lock_type",
+    "wat_line": 5374403,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=1384"
+  },
+  {
+    "fn": 18509,
+    "symbol": "_ZL11innodb_initPv",
+    "wat_line": 5381128,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18509,
+    "symbol": "_ZL11innodb_initPv",
+    "wat_line": 5382016,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18509,
+    "symbol": "_ZL11innodb_initPv",
+    "wat_line": 5382143,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18509,
+    "symbol": "_ZL11innodb_initPv",
+    "wat_line": 5382493,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18509,
+    "symbol": "_ZL11innodb_initPv",
+    "wat_line": 5388628,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18511,
+    "symbol": "_ZL25innobase_close_connectionP3THD",
+    "wat_line": 5399107,
+    "opcode": "i32.atomic.store8",
+    "attributes": "offset=1384"
+  },
+  {
+    "fn": 18531,
+    "symbol": "_ZL24innodb_ddl_recovery_doneP10handlerton",
+    "wat_line": 5406403,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18565,
+    "symbol": "_ZL30innodb_buffer_pool_size_updateP3THDP16st_mysql_sys_varPvPKv",
+    "wat_line": 5415417,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18565,
+    "symbol": "_ZL30innodb_buffer_pool_size_updateP3THDP16st_mysql_sys_varPvPKv",
+    "wat_line": 5415430,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18565,
+    "symbol": "_ZL30innodb_buffer_pool_size_updateP3THDP16st_mysql_sys_varPvPKv",
+    "wat_line": 5415623,
+    "opcode": "i32.atomic.store16",
+    "attributes": "offset=220"
+  },
+  {
+    "fn": 18566,
+    "symbol": "_ZL39innodb_adaptive_hash_index_cells_updateP3THDP16st_mysql_sys_varPvPKv",
+    "wat_line": 5416677,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18572,
+    "symbol": "_ZL25innodb_doublewrite_updateP3THDP16st_mysql_sys_varPvPKv",
+    "wat_line": 5417365,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18580,
+    "symbol": "_ZL37innodb_data_file_write_through_updateP3THDP16st_mysql_sys_varPvPKv",
+    "wat_line": 5417766,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 18595,
+    "symbol": "_ZL27innodb_purge_threads_updateP3THDP16st_mysql_sys_varPvPKv",
+    "wat_line": 5419679,
+    "opcode": "i32.atomic.store8",
+    "attributes": ""
+  },
+  {
+    "fn": 20878,
+    "symbol": "_ZN20Table_cache_instance25lock_and_check_contentionEjj",
+    "wat_line": 5731502,
+    "opcode": "i32.atomic.rmw8.xchg_u",
+    "attributes": "offset=24220996"
+  }
+]

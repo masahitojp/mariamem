@@ -1,0 +1,22 @@
+{
+  "wasm_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "wat_sha256": "5a2a644add6c538180c83762b8973775e261ddf662ba6027ae497ae276fe855c",
+  "function_map_sha256": "9072658996738894b86effc9b60911db92b413d35cb3c7863f3851666bb645b6",
+  "imports": 65,
+  "definitions": 21628,
+  "wasm_sites": 125,
+  "generated_sites": 147,
+  "wasm_counts": {
+    "i32.atomic.store8": 110,
+    "i32.atomic.rmw8.xchg_u": 9,
+    "i32.atomic.store16": 4,
+    "i32.atomic.rmw8.add_u": 2
+  },
+  "generated_counts": {
+    "AtomicStore32_8": 132,
+    "AtomicRmwAdd32_8u": 2,
+    "AtomicStore32_16": 4,
+    "AtomicRmwXchg32_8u": 9
+  },
+  "warning": "Counts differ when control flow/callees are expanded. Direct and table callers are conservative edges, not path or field ownership proofs. Disassembly must be produced from this same Wasm by recorded Binaryen command."
+}
