@@ -124,7 +124,7 @@ func (d *Directory) OpenFile(name string, flag int, perm os.FileMode) (File, err
 		n.data = n.data[:0]
 		n.modTime = time.Now()
 	}
-	f := &memFile{fsys: d.fs, node: n}
+	f := &memFile{fsys: d.fs, node: n, writable: flag&(os.O_WRONLY|os.O_RDWR) != 0}
 	if flag&os.O_APPEND != 0 {
 		f.off = int64(len(n.data))
 	}

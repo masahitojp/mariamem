@@ -76,4 +76,6 @@ func (w *WasiStubs) pathOpenOnFS(fsys relativeFileSystem, rel, policyPath string
 		copy(grown, f.node.data)
 		f.node.data = grown
 	}''', '''	f.node.data = resizeMemData(f.node.data, size)''')
+
+    change("  allocation := make([]byte, end)\n  copy(allocation, f.node.data)\n  f.node.data = allocation", "  f.node.data = resizeMemData(f.node.data, end)")
     return text
