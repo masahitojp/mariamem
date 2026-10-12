@@ -1,0 +1,78 @@
+{
+  "source_commit": "f66727dda49d1b4ca2c7e814e218587c051f7f97",
+  "runs": [
+    {
+      "name": "1-start",
+      "mode": "start",
+      "returncode": 0,
+      "suite_seconds": 7.701508833095431,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "7.170",
+          "timestamp": "2026-10-12T21:50:45.929554+09:00",
+          "hostname": "MacBookAir"
+        }
+      ]
+    },
+    {
+      "name": "2-fork",
+      "mode": "fork",
+      "returncode": 0,
+      "suite_seconds": 3.267238707980141,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "2.860",
+          "timestamp": "2026-10-12T21:50:53.616024+09:00",
+          "hostname": "MacBookAir"
+        }
+      ]
+    },
+    {
+      "name": "3-fork",
+      "mode": "fork",
+      "returncode": 0,
+      "suite_seconds": 2.3116345829330385,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.893",
+          "timestamp": "2026-10-12T21:50:56.838044+09:00",
+          "hostname": "MacBookAir"
+        }
+      ]
+    },
+    {
+      "name": "4-start",
+      "mode": "start",
+      "returncode": 0,
+      "suite_seconds": 7.722913332981989,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "7.265",
+          "timestamp": "2026-10-12T21:50:59.195498+09:00",
+          "hostname": "MacBookAir"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

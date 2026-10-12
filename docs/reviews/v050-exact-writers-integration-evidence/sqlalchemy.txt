@@ -1,0 +1,4 @@
+1-start: exit=0; [{'name': 'pytest', 'errors': '0', 'failures': '0', 'skipped': '0', 'tests': '11', 'time': '7.170', 'timestamp': '2026-10-12T21:50:45.929554+09:00', 'hostname': 'MacBookAir'}]; log=$TASK/temp/sqlalchemy/1-start.log
+2-fork: exit=0; [{'name': 'pytest', 'errors': '0', 'failures': '0', 'skipped': '0', 'tests': '11', 'time': '2.860', 'timestamp': '2026-10-12T21:50:53.616024+09:00', 'hostname': 'MacBookAir'}]; log=$TASK/temp/sqlalchemy/2-fork.log
+3-fork: exit=0; [{'name': 'pytest', 'errors': '0', 'failures': '0', 'skipped': '0', 'tests': '11', 'time': '1.893', 'timestamp': '2026-10-12T21:50:56.838044+09:00', 'hostname': 'MacBookAir'}]; log=$TASK/temp/sqlalchemy/3-fork.log
+4-start: exit=0; [{'name': 'pytest', 'errors': '0', 'failures': '0', 'skipped': '0', 'tests': '11', 'time': '7.265', 'timestamp': '2026-10-12T21:50:59.195498+09:00', 'hostname': 'MacBookAir'}]; log=$TASK/temp/sqlalchemy/4-start.log

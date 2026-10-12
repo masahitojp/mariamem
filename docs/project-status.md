@@ -209,6 +209,16 @@ part of v0.4.7. Historical candidate measurements qualify only their recorded in
 
 ## v0.5.0 — Stable guest
 
+On the dedicated v0.5.0 experiment branch, the maintainer approved formal
+exact-width narrow atomic writer integration after bounded design verification.
+The [integration report](reviews/v050-exact-writers-integration.md) records the
+unchanged accepted 12.3.3 guest, independently regenerated runtime, retained
+failure oracles and local regression/consumer results. Native Ubuntu development
+verification is pending CI handoff. This branch work does not qualify main or
+establish general shared-memory correctness; final Qualification, Product
+Validation and the Human release decision remain separate. The roadmap and
+earlier management-stage statements below retain their historical scope.
+
 Fast Feedback phase timing and task-local Go cache reuse were integrated at
 `70ac70ce0a4ccda403aa290dffa1d0bac0d8728b`. The approved single-pass development
 guest route was integrated at `ee48a2a50fe71e79564ab1dde42c45594f220438`.

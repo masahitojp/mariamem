@@ -1,5 +1,11 @@
 # v0.5.0: reduce adjacent-access uncertainty before adoption
 
+Follow-up: the maintainer approved formal adoption. The
+[integration report](v050-exact-writers-integration.md) records canonical
+generation, independent byte equality and final-runtime local regressions.
+Native Ubuntu verification is handed to CI and remains pending in that report;
+the results below retain their original isolated-spike scope.
+
 **Human direction:** request additional design and verification instead of
 accepting the unquantified shared-memory limitation. Starting point:
 `753a015b9affa9fd8d19cff34e68feec7eabe5ae` and the

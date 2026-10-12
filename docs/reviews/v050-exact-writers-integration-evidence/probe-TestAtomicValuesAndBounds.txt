@@ -1,0 +1,4 @@
+=== RUN   TestAtomicValuesAndBounds
+--- PASS: TestAtomicValuesAndBounds (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.084s

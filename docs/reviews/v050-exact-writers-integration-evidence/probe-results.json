@@ -1,0 +1,279 @@
+{
+  "source_commit": "f66727dda49d1b4ca2c7e814e218587c051f7f97",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "toolchain": "go1.26.8",
+  "canonical_helpers_sha256": {
+    "audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
+    "base.go": "b43554887688b079987c77ed954dd62ad75ec9616c7df0f5979d81e4cc5c8932",
+    "cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+    "cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+    "cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+    "cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+    "cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+    "memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
+    "memory_mapping.go": "388e8cf70e3387db7143f9081b9e62c6ddb3edf52e4adbff223be1f9a8020cc7",
+    "narrow_load_darwin_arm64.s": "0e5f92aaa6767c173b90b3432ce6866291a96e1b3e26a3a43c7b23de96cdd5a9",
+    "narrow_load_linux_amd64.s": "7a4c1ba99109aa8870db20bdd6eee26515362d292738ec0008b5fa4c43d0956f",
+    "narrow_load_other.go": "49b7b233f4380992c11c0d9ab6cd7442db1d2401c8428d33389fcf320fb626c7",
+    "narrow_load_supported.go": "53a04e996c7edafe5a21c28c35d4fa9f9661c8854d4d1aaca5029af83331d342",
+    "narrow_write_darwin_arm64.s": "8c7f1579987ad56f6bc71b5210ebd252b747d1ecd4044ff8a0c3ed6d39742e89",
+    "narrow_write_linux_amd64.s": "a189e25e3f4fd8f19f245345b052e8ddcf87fd4b649250365ffa44f3d94c9f19",
+    "narrow_write_other.go": "e66dd1978ec60a9c16f302e9d461ba77e370519b6c95275ed9832b085f8fa4de",
+    "narrow_write_supported.go": "3a0c9b33fbc99a343943c3996a23ad1879c36dde88d9903bd13f94a9ec3bb18d",
+    "owned_prepared.go": "7ae03ac0aeae14505faae3e151649eb3f683ca6d63e3313109972560e3a9c388",
+    "prepared_files.go": "9f860253f7cb682b274492129e1fc7e8c64d62dcc47c7c39e42ee347675629cc",
+    "relative.go": "c63c1839d91812712e64642699bba33879ff9386f46a33196c1319d21a78d36e",
+    "runtime_cleanup.go": "40886ea6b6c24316f4fd73d451674c815bc7b26717e1b635362b2170d010d75c",
+    "sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+    "sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+    "sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+    "simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+    "simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c",
+    "simd_asm_decls_amd64.go": "456cefd6896b1021a6dbf813a381165ec99efb3cd7b66a34a4e97ef31b23802e",
+    "simd_asm_decls_arm64.go": "8e9dd950f0c3282a924cf961e055db631536f883f2c05cccef44c4974d99abee",
+    "simd_fallback.go": "0bb864d570bc9286d87290c55ef52e7082c114e6f3730ae86415e15bbff849ad",
+    "simd_pair.go": "ffa8c2aac9e0a61608fca859ea8a7493b42dca47babed99c28762573c8d0a916",
+    "simd_relaxed.go": "ce4ddfb367e686107aa8dbcba8ced4bb5b591106cec94d0950f5e588b1235152",
+    "simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+    "simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+    "simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+    "spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862"
+  },
+  "checks": [
+    {
+      "test": "TestAllocateControls",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAllocateControls.txt",
+      "log_sha256": "2bcc5671d0486188286ded44b46001da7ad31ac75f0e3f05402f37514572c705",
+      "race_report": false
+    },
+    {
+      "test": "TestAllocatePreservesExistingData",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAllocatePreservesExistingData.txt",
+      "log_sha256": "515c51c09f4393c078cd8973f7c621d831f1aefcb869259e4f98692ede2eb8e7",
+      "race_report": false
+    },
+    {
+      "test": "TestZeroBulkBounds",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestZeroBulkBounds.txt",
+      "log_sha256": "daa7c74d0be3d5c61187db765a1389916198e1076f16a78246e734c618a1c509",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicValuesAndBounds",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicValuesAndBounds.txt",
+      "log_sha256": "86d3c71e5ba717e7be33b8a114c8ada3af549fbc01188f1820c434e578dc5c8c",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicReadRead8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicReadRead8.txt",
+      "log_sha256": "3fea394f304cdf4b23f6694ef0de4c3728ea93fe15c0ac49f7c94bc4d1d1261c",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicReadRead16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicReadRead16.txt",
+      "log_sha256": "faa2af0ec55017a9e86a0952e614a25689a044f8e79a717461e8e62276fce8fd",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicNeighbor8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicNeighbor8.txt",
+      "log_sha256": "c53ed686dce07fc0c2bc91542f395a4c5eb1cdcfc5eacfe749c5fe336b1e2a1d",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicNeighbor16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicNeighbor16.txt",
+      "log_sha256": "8475e2d43b1189489d2aeebb41d9d2708127be2d6a9b1e2957d9867c316871a2",
+      "race_report": false
+    },
+    {
+      "test": "TestReadOnlyWordNeighbor",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestReadOnlyWordNeighbor.txt",
+      "log_sha256": "e261dc3f994b5da9b3e8450f2fe69e1061dbfbc137e8f88d7e1e7d0331be4fc1",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicReadRead8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead8.txt",
+      "log_sha256": "98e151abe8f2009fbf740e4ea3290cec3eaa841a160429fa63f0a1173a47902c",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicReadRead16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead16.txt",
+      "log_sha256": "f2399652bd06a8616769aa0fbcfd395731eb29ad329bb24e08fe3ef280b7d703",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor8",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor8.txt",
+      "log_sha256": "fe6bc9ea471602cea20b35ccdb8b2b1c9292e73215bbf6f77706181a60f19a3a",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor16",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor16.txt",
+      "log_sha256": "5ba4b1f2356c3bf17e060dd440c45be33ca05629271fb9c26d21b38a7a337d8c",
+      "race_report": false
+    },
+    {
+      "test": "TestHeapPlainConflict",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestHeapPlainConflict.txt",
+      "log_sha256": "29a32673d79d3971b816bba2d2ff823eb96276eaf96d727139d886333324fb56",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedPlainConflict",
+      "race": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedPlainConflict.txt",
+      "log_sha256": "306d9fd32c42155f05eaa142640fa0b06e6b909be0a7998a959dda2bee1a73a6",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicReadRead8",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicReadRead8-race.txt",
+      "log_sha256": "3ad20a2fe7072e3616d51c69c899294c7e441caa64add8b4fed4f0cc2f9b9c52",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicReadRead16",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicReadRead16-race.txt",
+      "log_sha256": "45cf499369adfabc7012dcf123a44ca48e1799869720bbf9ea27c1bac94e4859",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicNeighbor8",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicNeighbor8-race.txt",
+      "log_sha256": "6d74487df487b0c1aba294f88cf7d41dc94578c79f444acc139d011f02e53a91",
+      "race_report": false
+    },
+    {
+      "test": "TestAtomicNeighbor16",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestAtomicNeighbor16-race.txt",
+      "log_sha256": "09f567f6fbf9c86d87655044e65ef8bd7fc525574eb7d364c3e1d23b663c6615",
+      "race_report": false
+    },
+    {
+      "test": "TestReadOnlyWordNeighbor",
+      "race": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestReadOnlyWordNeighbor-race.txt",
+      "log_sha256": "34dc5227e512fe4280f59ef8297b98377869d4b46d7f4748638197058f030149",
+      "race_report": true
+    },
+    {
+      "test": "TestMappedAtomicReadRead8",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead8-race.txt",
+      "log_sha256": "8795a5221a51db0bf2ccc2e215c335308176360b65a2c0de8855c3ab9b09c809",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicReadRead16",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicReadRead16-race.txt",
+      "log_sha256": "3ed9f9b2fe9ec8c64e041772572364b2d754a67ed695db86bb2b1dd45217cdfc",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor8",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor8-race.txt",
+      "log_sha256": "43da31cda6de50e5079136e32cc4c4e8ca527a3fba98ead68b75fa89681059ee",
+      "race_report": false
+    },
+    {
+      "test": "TestMappedAtomicNeighbor16",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedAtomicNeighbor16-race.txt",
+      "log_sha256": "c7f49dfa4061f845504a0f8022a14b85ff16fcaf96f7f21f7824cf3c22684a64",
+      "race_report": false
+    },
+    {
+      "test": "TestHeapPlainConflict",
+      "race": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "log": "TestHeapPlainConflict-race.txt",
+      "log_sha256": "aee66642edbfa71edd55fa6a69dd055376f2e10d8f7fd400e64a448f1eee755c",
+      "race_report": true
+    },
+    {
+      "test": "TestMappedPlainConflict",
+      "race": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "log": "TestMappedPlainConflict-race.txt",
+      "log_sha256": "5318976303f0b9dc074bef7a0f9d4b1b7289f985595c20c8024eea939babcd01",
+      "race_report": false
+    }
+  ],
+  "scope": "Unmodified helper semantics and reduced host-memory conflicts; not full guest qualification or race census."
+}

@@ -1,0 +1,22 @@
+=== RUN   TestAllocatePreservesExistingData
+=== RUN   TestAllocatePreservesExistingData/memfs/inside
+    probe_test.go:30: errno=0 size=16 data="0123456789abcdef"
+=== RUN   TestAllocatePreservesExistingData/memfs/zero
+    probe_test.go:30: errno=0 size=16 data="0123456789abcdef"
+=== RUN   TestAllocatePreservesExistingData/memfs/unsigned-wrap
+    probe_test.go:30: errno=27 size=16 data="0123456789abcdef"
+=== RUN   TestAllocatePreservesExistingData/native/inside
+    probe_test.go:30: errno=0 size=16 data="0123456789abcdef"
+=== RUN   TestAllocatePreservesExistingData/native/zero
+    probe_test.go:30: errno=0 size=16 data="0123456789abcdef"
+=== RUN   TestAllocatePreservesExistingData/native/unsigned-wrap
+    probe_test.go:30: errno=27 size=16 data="0123456789abcdef"
+--- PASS: TestAllocatePreservesExistingData (0.00s)
+    --- PASS: TestAllocatePreservesExistingData/memfs/inside (0.00s)
+    --- PASS: TestAllocatePreservesExistingData/memfs/zero (0.00s)
+    --- PASS: TestAllocatePreservesExistingData/memfs/unsigned-wrap (0.00s)
+    --- PASS: TestAllocatePreservesExistingData/native/inside (0.00s)
+    --- PASS: TestAllocatePreservesExistingData/native/zero (0.00s)
+    --- PASS: TestAllocatePreservesExistingData/native/unsigned-wrap (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.082s

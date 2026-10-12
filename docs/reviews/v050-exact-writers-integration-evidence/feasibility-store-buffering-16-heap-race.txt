@@ -1,0 +1,4 @@
+=== RUN   TestStoreBuffering
+--- PASS: TestStoreBuffering (0.01s)
+PASS
+ok  	example.com/feasibility/fixture/base	1.107s

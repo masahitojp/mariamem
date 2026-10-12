@@ -1,0 +1,37 @@
+=== RUN   TestHeapPlainConflict
+==================
+WARNING: DATA RACE
+Write at 0x00c000100040 by goroutine 10:
+  github.com/masahitojp/mariamem/internal/generatedgo/code/base.probePlainConflict.func1()
+      $TASK/temp/probe-retry/module/internal/generatedgo/code/base/probe_test.go:92 +0xb8
+
+Previous read at 0x00c000100040 by goroutine 9:
+  github.com/masahitojp/mariamem/internal/generatedgo/code/base.probePlainConflict.func1()
+      $TASK/temp/probe-retry/module/internal/generatedgo/code/base/probe_test.go:92 +0xa4
+
+Goroutine 10 (running) created at:
+  github.com/masahitojp/mariamem/internal/generatedgo/code/base.probePlainConflict()
+      $TASK/temp/probe-retry/module/internal/generatedgo/code/base/probe_test.go:92 +0x78
+  github.com/masahitojp/mariamem/internal/generatedgo/code/base.TestHeapPlainConflict()
+      $TASK/temp/probe-retry/module/internal/generatedgo/code/base/probe_test.go:95 +0x30
+  testing.tRunner()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+
+Goroutine 9 (running) created at:
+  github.com/masahitojp/mariamem/internal/generatedgo/code/base.probePlainConflict()
+      $TASK/temp/probe-retry/module/internal/generatedgo/code/base/probe_test.go:92 +0x78
+  github.com/masahitojp/mariamem/internal/generatedgo/code/base.TestHeapPlainConflict()
+      $TASK/temp/probe-retry/module/internal/generatedgo/code/base/probe_test.go:95 +0x30
+  testing.tRunner()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+==================
+    probe_test.go:93: counter=17; no serial-count assertion; detector diagnostic
+    testing.go:1712: race detected during execution of test
+--- FAIL: TestHeapPlainConflict (0.00s)
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.113s
+FAIL

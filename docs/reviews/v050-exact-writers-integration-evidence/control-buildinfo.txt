@@ -1,0 +1,14 @@
+../temp/control-host: go1.26.8
+	path	github.com/masahitojp/mariamem/cmd/mariamem-host
+	mod	github.com/masahitojp/mariamem	v0.4.8-0.20261012104620-a64d8b78d38f
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	-trimpath=true
+	build	CGO_ENABLED=0
+	build	GOARCH=arm64
+	build	GOOS=darwin
+	build	GOARM64=v8.0
+	build	vcs=git
+	build	vcs.revision=a64d8b78d38f4047793b6d2f3f9e7f80bc4edf76
+	build	vcs.time=2026-10-12T10:46:20Z
+	build	vcs.modified=false

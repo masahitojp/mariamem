@@ -1,0 +1,5 @@
+=== RUN   TestMatrix
+OBS {"asm_observation_limit":false,"backing":"heap","checksum":1275573,"final_value":128,"iterations":10000,"neighbor_offset":65,"operand_access_bytes":1,"operation":"shadow","relation":"overlap","requested_bits":8,"target_offset":66,"value_failure":false}
+--- PASS: TestMatrix (0.00s)
+PASS
+ok  	example.com/feasibility/fixture/base	0.088s

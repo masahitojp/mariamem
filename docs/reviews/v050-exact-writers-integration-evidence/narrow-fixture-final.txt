@@ -1,0 +1,9 @@
+wasm2go: dead-function elimination — dropped 1 of 45 defined functions (2.2%)
+Traceback (most recent call last):
+  File "$TASK/worktree/scripts/runtime_correctness/narrow_fixture.py", line 133, in <module>
+    if __name__=="__main__":main()
+                            ~~~~^^
+  File "$TASK/worktree/scripts/runtime_correctness/narrow_fixture.py", line 122, in main
+    if r.returncode:raise RuntimeError(log)
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: build cache is required, but could not be located: GOCACHE is not an absolute path

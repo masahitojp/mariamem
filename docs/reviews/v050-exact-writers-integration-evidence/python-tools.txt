@@ -1,0 +1,15 @@
+attrs==26.1.0
+execnet==2.1.2
+iniconfig==2.3.1
+mariamem @ file://$TASK/temp/native-source/build/dist/mariamem-0.4.7-py3-none-macosx_15_0_arm64.whl#sha256=f4b815826a9302687264e1cd9993a71bfbbcf5c17618d33d4701e1ab6f9be816
+packaging==26.3
+pluggy==1.6.0
+Pygments==2.21.0
+PyMySQL==1.2.3
+pytest==8.4.2
+pytest-subtests==0.15.0
+pytest-xdist==3.8.0
+setuptools==84.0.0
+SQLAlchemy==2.0.54
+typing_extensions==4.16.0
+wheel==0.48.0

@@ -1,0 +1,20 @@
++ go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot -count=1
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	2.696s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	3.751s
+ok  	github.com/masahitojp/mariamem/internal/guest	2.545s
+ok  	github.com/masahitojp/mariamem/internal/host	1.300s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.292s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.678s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	14.631s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	6.124s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.787s
++ go build -p 1 -o $TMPDIR ./cmd/mariamem-host
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ $TASK/temp/venv/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py -q
+............................                                             [100%]
+28 passed in 51.77s
++ $TASK/temp/venv/bin/python tests/snapshots.py
+{"passed": true, "checks": 49, "error": null, "evidence": "$TASK/worktree/tests/evidence/snapshots.json"}

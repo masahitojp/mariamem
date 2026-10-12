@@ -1,0 +1,346 @@
+{
+  "driver_sha256": "866323b0dc022cb7687e97fa56a225953ede48754554c4d8d029bbba0ebf8c33",
+  "runs": {
+    "guest-control-default-final": {
+      "observe": false,
+      "result": "PASS",
+      "cases": [
+        {
+          "name": "four_connections_read_write",
+          "seconds": 0.051407833001576364,
+          "result": "PASS",
+          "value": {
+            "workers": 4,
+            "commits": 120,
+            "values": [
+              [
+                1,
+                30
+              ],
+              [
+                2,
+                30
+              ],
+              [
+                3,
+                30
+              ],
+              [
+                4,
+                30
+              ]
+            ]
+          }
+        },
+        {
+          "name": "competing_update_rollback_commit",
+          "seconds": 0.07366895803716034,
+          "result": "PASS",
+          "value": {
+            "blocked_before_rollback": true,
+            "final": 1
+          }
+        },
+        {
+          "name": "readview_commit_visibility",
+          "seconds": 0.01700987503863871,
+          "result": "PASS",
+          "value": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "name": "parallel_connection_start_end",
+          "seconds": 0.08637899998575449,
+          "result": "PASS",
+          "value": {
+            "connections": 32,
+            "all_rolled_back": true
+          }
+        },
+        {
+          "name": "parallel_repeated_index_reads",
+          "seconds": 0.2007266660220921,
+          "result": "PASS",
+          "value": {
+            "indexed_queries": 1000
+          }
+        }
+      ],
+      "startup_seconds": 1.4427257910137996,
+      "version": "12.3.3-MariaDB-embedded",
+      "ahi_initial": [
+        [
+          "innodb_adaptive_hash_index",
+          "OFF"
+        ]
+      ],
+      "ahi_active": [
+        [
+          "innodb_adaptive_hash_index",
+          "OFF"
+        ]
+      ],
+      "close_seconds": 0.014073750004172325,
+      "binary_sha256": "72964668a9e3f497690ef8d9f5ea9b3ce5ae207fb5162383044c2cb26fe0230a"
+    },
+    "guest-candidate-default-final": {
+      "observe": false,
+      "result": "PASS",
+      "cases": [
+        {
+          "name": "four_connections_read_write",
+          "seconds": 0.04506399994716048,
+          "result": "PASS",
+          "value": {
+            "workers": 4,
+            "commits": 120,
+            "values": [
+              [
+                1,
+                30
+              ],
+              [
+                2,
+                30
+              ],
+              [
+                3,
+                30
+              ],
+              [
+                4,
+                30
+              ]
+            ]
+          }
+        },
+        {
+          "name": "competing_update_rollback_commit",
+          "seconds": 0.07684179197531193,
+          "result": "PASS",
+          "value": {
+            "blocked_before_rollback": true,
+            "final": 1
+          }
+        },
+        {
+          "name": "readview_commit_visibility",
+          "seconds": 0.016417459002695978,
+          "result": "PASS",
+          "value": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "name": "parallel_connection_start_end",
+          "seconds": 0.09527349995914847,
+          "result": "PASS",
+          "value": {
+            "connections": 32,
+            "all_rolled_back": true
+          }
+        },
+        {
+          "name": "parallel_repeated_index_reads",
+          "seconds": 0.21629891695920378,
+          "result": "PASS",
+          "value": {
+            "indexed_queries": 1000
+          }
+        }
+      ],
+      "startup_seconds": 1.1203705000225455,
+      "version": "12.3.3-MariaDB-embedded",
+      "ahi_initial": [
+        [
+          "innodb_adaptive_hash_index",
+          "OFF"
+        ]
+      ],
+      "ahi_active": [
+        [
+          "innodb_adaptive_hash_index",
+          "OFF"
+        ]
+      ],
+      "close_seconds": 0.014403583947569132,
+      "binary_sha256": "0d858ac5a3d2d88e7f6bd923657ef1ccc89bbe321d8d6f824855e8b0cee68703"
+    },
+    "guest-control-ahi-final": {
+      "observe": false,
+      "result": "PASS",
+      "cases": [
+        {
+          "name": "four_connections_read_write",
+          "seconds": 0.05373145791236311,
+          "result": "PASS",
+          "value": {
+            "workers": 4,
+            "commits": 120,
+            "values": [
+              [
+                1,
+                30
+              ],
+              [
+                2,
+                30
+              ],
+              [
+                3,
+                30
+              ],
+              [
+                4,
+                30
+              ]
+            ]
+          }
+        },
+        {
+          "name": "competing_update_rollback_commit",
+          "seconds": 0.0838834170717746,
+          "result": "PASS",
+          "value": {
+            "blocked_before_rollback": true,
+            "final": 1
+          }
+        },
+        {
+          "name": "readview_commit_visibility",
+          "seconds": 0.017012667027302086,
+          "result": "PASS",
+          "value": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "name": "parallel_connection_start_end",
+          "seconds": 0.09781145805027336,
+          "result": "PASS",
+          "value": {
+            "connections": 32,
+            "all_rolled_back": true
+          }
+        },
+        {
+          "name": "parallel_repeated_index_reads",
+          "seconds": 0.21442141698207706,
+          "result": "PASS",
+          "value": {
+            "indexed_queries": 1000
+          }
+        }
+      ],
+      "startup_seconds": 0.050998332910239697,
+      "version": "12.3.3-MariaDB-embedded",
+      "ahi_initial": [
+        [
+          "innodb_adaptive_hash_index",
+          "OFF"
+        ]
+      ],
+      "ahi_active": [
+        [
+          "innodb_adaptive_hash_index",
+          "ON"
+        ]
+      ],
+      "close_seconds": 0.013383999932557344,
+      "binary_sha256": "72964668a9e3f497690ef8d9f5ea9b3ce5ae207fb5162383044c2cb26fe0230a"
+    },
+    "guest-candidate-ahi-final": {
+      "observe": false,
+      "result": "PASS",
+      "cases": [
+        {
+          "name": "four_connections_read_write",
+          "seconds": 0.055024500004947186,
+          "result": "PASS",
+          "value": {
+            "workers": 4,
+            "commits": 120,
+            "values": [
+              [
+                1,
+                30
+              ],
+              [
+                2,
+                30
+              ],
+              [
+                3,
+                30
+              ],
+              [
+                4,
+                30
+              ]
+            ]
+          }
+        },
+        {
+          "name": "competing_update_rollback_commit",
+          "seconds": 0.08260729105677456,
+          "result": "PASS",
+          "value": {
+            "blocked_before_rollback": true,
+            "final": 1
+          }
+        },
+        {
+          "name": "readview_commit_visibility",
+          "seconds": 0.016667415970005095,
+          "result": "PASS",
+          "value": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "name": "parallel_connection_start_end",
+          "seconds": 0.09321662492584437,
+          "result": "PASS",
+          "value": {
+            "connections": 32,
+            "all_rolled_back": true
+          }
+        },
+        {
+          "name": "parallel_repeated_index_reads",
+          "seconds": 0.228009375045076,
+          "result": "PASS",
+          "value": {
+            "indexed_queries": 1000
+          }
+        }
+      ],
+      "startup_seconds": 0.04876104206778109,
+      "version": "12.3.3-MariaDB-embedded",
+      "ahi_initial": [
+        [
+          "innodb_adaptive_hash_index",
+          "OFF"
+        ]
+      ],
+      "ahi_active": [
+        [
+          "innodb_adaptive_hash_index",
+          "ON"
+        ]
+      ],
+      "close_seconds": 0.013395542046055198,
+      "binary_sha256": "0d858ac5a3d2d88e7f6bd923657ef1ccc89bbe321d8d6f824855e8b0cee68703"
+    }
+  },
+  "interpretation": "Same scenario outputs; cold and observer timing variation is not a performance comparison."
+}

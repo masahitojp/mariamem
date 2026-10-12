@@ -1,0 +1,33 @@
+=== RUN   TestMatrix
+==================
+WARNING: DATA RACE
+Read at 0x00c000100042 by goroutine 8:
+  example.com/feasibility/fixture/base.TestMatrix.func1()
+      $TASK/temp/feasibility-retry/module/fixture/base/matrix_test.go:20 +0x2dc
+
+Previous write at 0x00c000100042 by goroutine 9:
+  example.com/feasibility/fixture/base.TestMatrix.func2()
+      $TASK/temp/feasibility-retry/module/fixture/base/matrix_test.go:25 +0x1ac
+
+Goroutine 8 (running) created at:
+  example.com/feasibility/fixture/base.TestMatrix()
+      $TASK/temp/feasibility-retry/module/fixture/base/matrix_test.go:14 +0x3dc
+  testing.tRunner()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+
+Goroutine 9 (finished) created at:
+  example.com/feasibility/fixture/base.TestMatrix()
+      $TASK/temp/feasibility-retry/module/fixture/base/matrix_test.go:24 +0x55c
+  testing.tRunner()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+==================
+OBS {"asm_observation_limit":false,"backing":"heap","checksum":1280000,"final_value":128,"iterations":10000,"neighbor_offset":65,"operand_access_bytes":1,"operation":"shadow","relation":"overlap","requested_bits":8,"target_offset":66,"value_failure":false}
+    testing.go:1712: race detected during execution of test
+--- FAIL: TestMatrix (0.00s)
+FAIL
+FAIL	example.com/feasibility/fixture/base	0.089s
+FAIL

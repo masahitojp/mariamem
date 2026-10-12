@@ -1,0 +1,4 @@
+=== RUN   TestMappedAtomicNeighbor8
+--- PASS: TestMappedAtomicNeighbor8 (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.140s

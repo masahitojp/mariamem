@@ -1,0 +1,8 @@
+=== RUN   TestAllocateControls
+=== RUN   TestAllocateControls/memfs
+=== RUN   TestAllocateControls/native
+--- PASS: TestAllocateControls (0.00s)
+    --- PASS: TestAllocateControls/memfs (0.00s)
+    --- PASS: TestAllocateControls/native (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.275s

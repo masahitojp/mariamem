@@ -1,0 +1,5 @@
+=== RUN   TestHeapPlainConflict
+    probe_test.go:93: counter=201; no serial-count assertion; detector diagnostic
+--- PASS: TestHeapPlainConflict (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.092s

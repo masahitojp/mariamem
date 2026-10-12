@@ -1,0 +1,131 @@
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicRead8At.abi0(SB) github.com/masahitojp/mariamem/internal/generatedgo/code/base/narrow_load_darwin_arm64.s
+  narrow_load_darwin_arm64.s:3	0x1001789e0		f94007e0		MOVD 8(RSP), R0
+  narrow_load_darwin_arm64.s:4	0x1001789e4		d5033bbf		DMB $11
+  narrow_load_darwin_arm64.s:5	0x1001789e8		08dffc01		LDARB (R0), R1
+  narrow_load_darwin_arm64.s:6	0x1001789ec		d5033bbf		DMB $11
+  narrow_load_darwin_arm64.s:7	0x1001789f0		b90013e1		MOVW R1, 16(RSP)
+  narrow_load_darwin_arm64.s:8	0x1001789f4		d65f03c0		RET
+  narrow_load_darwin_arm64.s:8	0x1001789f8		00000000		?
+  narrow_load_darwin_arm64.s:8	0x1001789fc		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicRead16At.abi0(SB) github.com/masahitojp/mariamem/internal/generatedgo/code/base/narrow_load_darwin_arm64.s
+  narrow_load_darwin_arm64.s:10	0x100178a00		f94007e0		MOVD 8(RSP), R0
+  narrow_load_darwin_arm64.s:11	0x100178a04		d5033bbf		DMB $11
+  narrow_load_darwin_arm64.s:12	0x100178a08		48dffc01		LDARH (R0), R1
+  narrow_load_darwin_arm64.s:13	0x100178a0c		d5033bbf		DMB $11
+  narrow_load_darwin_arm64.s:14	0x100178a10		b90013e1		MOVW R1, 16(RSP)
+  narrow_load_darwin_arm64.s:15	0x100178a14		d65f03c0		RET
+  narrow_load_darwin_arm64.s:15	0x100178a18		00000000		?
+  narrow_load_darwin_arm64.s:15	0x100178a1c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicWrite8At.abi0(SB) github.com/masahitojp/mariamem/internal/generatedgo/code/base/narrow_write_darwin_arm64.s
+  narrow_write_darwin_arm64.s:3	0x100178a20		f94007e0		MOVD 8(RSP), R0
+  narrow_write_darwin_arm64.s:4	0x100178a24		b94013e1		MOVWU 16(RSP), R1
+  narrow_write_darwin_arm64.s:5	0x100178a28		d5033bbf		DMB $11
+  narrow_write_darwin_arm64.s:6	0x100178a2c		089ffc01		STLRB R1, (R0)
+  narrow_write_darwin_arm64.s:7	0x100178a30		d5033bbf		DMB $11
+  narrow_write_darwin_arm64.s:8	0x100178a34		d65f03c0		RET
+  narrow_write_darwin_arm64.s:8	0x100178a38		00000000		?
+  narrow_write_darwin_arm64.s:8	0x100178a3c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicWrite16At.abi0(SB) github.com/masahitojp/mariamem/internal/generatedgo/code/base/narrow_write_darwin_arm64.s
+  narrow_write_darwin_arm64.s:10	0x100178a40		f94007e0		MOVD 8(RSP), R0
+  narrow_write_darwin_arm64.s:11	0x100178a44		b94013e1		MOVWU 16(RSP), R1
+  narrow_write_darwin_arm64.s:12	0x100178a48		d5033bbf		DMB $11
+  narrow_write_darwin_arm64.s:13	0x100178a4c		489ffc01		STLRH R1, (R0)
+  narrow_write_darwin_arm64.s:14	0x100178a50		d5033bbf		DMB $11
+  narrow_write_darwin_arm64.s:15	0x100178a54		d65f03c0		RET
+  narrow_write_darwin_arm64.s:15	0x100178a58		00000000		?
+  narrow_write_darwin_arm64.s:15	0x100178a5c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicCmp8At.abi0(SB) github.com/masahitojp/mariamem/internal/generatedgo/code/base/narrow_write_darwin_arm64.s
+  narrow_write_darwin_arm64.s:17	0x100178a60		f94007e0		MOVD 8(RSP), R0
+  narrow_write_darwin_arm64.s:18	0x100178a64		b94013e1		MOVWU 16(RSP), R1
+  narrow_write_darwin_arm64.s:19	0x100178a68		92401c21		AND $255, R1, R1
+  narrow_write_darwin_arm64.s:20	0x100178a6c		b94017e2		MOVWU 20(RSP), R2
+  narrow_write_darwin_arm64.s:21	0x100178a70		d5033bbf		DMB $11
+  narrow_write_darwin_arm64.s:23	0x100178a74		085ffc03		LDAXRB (R0), R3
+  narrow_write_darwin_arm64.s:24	0x100178a78		6b01007f		CMPW R1, R3
+  narrow_write_darwin_arm64.s:25	0x100178a7c		54000081		BNE 4(PC)
+  narrow_write_darwin_arm64.s:26	0x100178a80		0804fc02		STLXRB R2, (R0), R4
+  narrow_write_darwin_arm64.s:27	0x100178a84		b5ffff84		CBNZ R4, -4(PC)
+  narrow_write_darwin_arm64.s:28	0x100178a88		14000002		JMP 2(PC)
+  narrow_write_darwin_arm64.s:30	0x100178a8c		d5033f5f		CLREX $15
+  narrow_write_darwin_arm64.s:32	0x100178a90		d5033bbf		DMB $11
+  narrow_write_darwin_arm64.s:33	0x100178a94		b9001be3		MOVW R3, 24(RSP)
+  narrow_write_darwin_arm64.s:34	0x100178a98		d65f03c0		RET
+  narrow_write_darwin_arm64.s:34	0x100178a9c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicCmp16At.abi0(SB) github.com/masahitojp/mariamem/internal/generatedgo/code/base/narrow_write_darwin_arm64.s
+  narrow_write_darwin_arm64.s:36	0x100178aa0		f94007e0		MOVD 8(RSP), R0
+  narrow_write_darwin_arm64.s:37	0x100178aa4		b94013e1		MOVWU 16(RSP), R1
+  narrow_write_darwin_arm64.s:38	0x100178aa8		92403c21		AND $65535, R1, R1
+  narrow_write_darwin_arm64.s:39	0x100178aac		b94017e2		MOVWU 20(RSP), R2
+  narrow_write_darwin_arm64.s:40	0x100178ab0		d5033bbf		DMB $11
+  narrow_write_darwin_arm64.s:42	0x100178ab4		485ffc03		LDAXRH (R0), R3
+  narrow_write_darwin_arm64.s:43	0x100178ab8		6b01007f		CMPW R1, R3
+  narrow_write_darwin_arm64.s:44	0x100178abc		54000081		BNE 4(PC)
+  narrow_write_darwin_arm64.s:45	0x100178ac0		4804fc02		STLXRH R2, (R0), R4
+  narrow_write_darwin_arm64.s:46	0x100178ac4		b5ffff84		CBNZ R4, -4(PC)
+  narrow_write_darwin_arm64.s:47	0x100178ac8		14000002		JMP 2(PC)
+  narrow_write_darwin_arm64.s:49	0x100178acc		d5033f5f		CLREX $15
+  narrow_write_darwin_arm64.s:51	0x100178ad0		d5033bbf		DMB $11
+  narrow_write_darwin_arm64.s:52	0x100178ad4		b9001be3		MOVW R3, 24(RSP)
+  narrow_write_darwin_arm64.s:53	0x100178ad8		d65f03c0		RET
+  narrow_write_darwin_arm64.s:53	0x100178adc		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicRead8At(SB) <autogenerated>
+  <autogenerated>:1	0x100179f30		f81e0ffe		MOVD.W R30, -32(RSP)
+  <autogenerated>:1	0x100179f34		f81f83fd		MOVD R29, -8(RSP)
+  <autogenerated>:1	0x100179f38		d10023fd		SUB $8, RSP, R29
+  <autogenerated>:1	0x100179f3c		f90007e0		MOVD R0, 8(RSP)
+  <autogenerated>:1	0x100179f40		97fffaa8		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicRead8At.abi0(SB)
+  <autogenerated>:1	0x100179f44		b94013e0		MOVWU 16(RSP), R0
+  <autogenerated>:1	0x100179f48		f85f83fd		MOVD -8(RSP), R29
+  <autogenerated>:1	0x100179f4c		f84207fe		MOVD.P 32(RSP), R30
+  <autogenerated>:1	0x100179f50		d65f03c0		RET
+  <autogenerated>:1	0x100179f54		00000000		?
+  <autogenerated>:1	0x100179f58		00000000		?
+  <autogenerated>:1	0x100179f5c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicRead16At(SB) <autogenerated>
+  <autogenerated>:1	0x100179f60		f81e0ffe		MOVD.W R30, -32(RSP)
+  <autogenerated>:1	0x100179f64		f81f83fd		MOVD R29, -8(RSP)
+  <autogenerated>:1	0x100179f68		d10023fd		SUB $8, RSP, R29
+  <autogenerated>:1	0x100179f6c		f90007e0		MOVD R0, 8(RSP)
+  <autogenerated>:1	0x100179f70		97fffaa4		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicRead16At.abi0(SB)
+  <autogenerated>:1	0x100179f74		b94013e0		MOVWU 16(RSP), R0
+  <autogenerated>:1	0x100179f78		f85f83fd		MOVD -8(RSP), R29
+  <autogenerated>:1	0x100179f7c		f84207fe		MOVD.P 32(RSP), R30
+  <autogenerated>:1	0x100179f80		d65f03c0		RET
+  <autogenerated>:1	0x100179f84		00000000		?
+  <autogenerated>:1	0x100179f88		00000000		?
+  <autogenerated>:1	0x100179f8c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicCmp8At(SB) <autogenerated>
+  <autogenerated>:1	0x100179f90		f81d0ffe		MOVD.W R30, -48(RSP)
+  <autogenerated>:1	0x100179f94		f81f83fd		MOVD R29, -8(RSP)
+  <autogenerated>:1	0x100179f98		d10023fd		SUB $8, RSP, R29
+  <autogenerated>:1	0x100179f9c		f90007e0		MOVD R0, 8(RSP)
+  <autogenerated>:1	0x100179fa0		29020be1		STPW (R1, R2), 16(RSP)
+  <autogenerated>:1	0x100179fa4		97fffaaf		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicCmp8At.abi0(SB)
+  <autogenerated>:1	0x100179fa8		b9401be0		MOVWU 24(RSP), R0
+  <autogenerated>:1	0x100179fac		f85f83fd		MOVD -8(RSP), R29
+  <autogenerated>:1	0x100179fb0		f84307fe		MOVD.P 48(RSP), R30
+  <autogenerated>:1	0x100179fb4		d65f03c0		RET
+  <autogenerated>:1	0x100179fb8		00000000		?
+  <autogenerated>:1	0x100179fbc		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicCmp16At(SB) <autogenerated>
+  <autogenerated>:1	0x100179fc0		f81d0ffe		MOVD.W R30, -48(RSP)
+  <autogenerated>:1	0x100179fc4		f81f83fd		MOVD R29, -8(RSP)
+  <autogenerated>:1	0x100179fc8		d10023fd		SUB $8, RSP, R29
+  <autogenerated>:1	0x100179fcc		f90007e0		MOVD R0, 8(RSP)
+  <autogenerated>:1	0x100179fd0		29020be1		STPW (R1, R2), 16(RSP)
+  <autogenerated>:1	0x100179fd4		97fffab3		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicCmp16At.abi0(SB)
+  <autogenerated>:1	0x100179fd8		b9401be0		MOVWU 24(RSP), R0
+  <autogenerated>:1	0x100179fdc		f85f83fd		MOVD -8(RSP), R29
+  <autogenerated>:1	0x100179fe0		f84307fe		MOVD.P 48(RSP), R30
+  <autogenerated>:1	0x100179fe4		d65f03c0		RET
+  <autogenerated>:1	0x100179fe8		00000000		?
+  <autogenerated>:1	0x100179fec		00000000		?
