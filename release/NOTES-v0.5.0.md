@@ -24,7 +24,7 @@ for the tested runtime basis. The approved
 [Product Verification](../benchmarks/v050-product-verification.md) passed its
 SQL and cleanup checks. Timings were mixed, including an existing startup tail;
 these results do not establish a general speed or allocation improvement.
-Release CI must qualify the final integrated source before publication.
+The final integrated source receives its own Release CI qualification before publication.
 
 The existing limits on forced cleanup of non-cooperative workers and full-guest
 race-detector coverage remain. The bounded current-guest investigation found no
