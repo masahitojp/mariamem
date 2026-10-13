@@ -13,7 +13,10 @@ it is not duplicated here.
 [`analyze.py`](../spikes/startup-tail-v050/analyze.py), which demands all
 four startup instances and checks the early empty-list signal/timeout order.
 `excluded-pilot.json` records why the initial broad event trace cannot be
-classified. It was not pooled with the narrowed traces.
+classified. Its exact raw bytes remain compressed in
+`excluded-pilot-raw.json.gz` (decompressed SHA-256
+`d8b6cb6fb9e702b571f5d33257256d89d8ef1a5606f110a880ffb7dafb6f4f53`).
+It was not pooled with the narrowed traces.
 
 `comparison-go.jsonl` and `comparison-python.jsonl` hold 30 balanced blocks
 each, one JSON line per four-DB suite. `comparison-summary.json` is the output

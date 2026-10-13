@@ -49,7 +49,8 @@ question and does not remeasure a 12.3.3-versus-13.1 rate difference.
   uninstrumented frequency study. See [observations](v050-startup-tail-wakeup-evidence/observations.jsonl),
   [ordered reduction](v050-startup-tail-wakeup-evidence/ordering-summary.json),
   [raw traces](v050-startup-tail-wakeup-evidence/) and the
-  [excluded pilot record](v050-startup-tail-wakeup-evidence/excluded-pilot.json).
+  [excluded pilot record](v050-startup-tail-wakeup-evidence/excluded-pilot.json)
+  and [compressed raw trace](v050-startup-tail-wakeup-evidence/excluded-pilot-raw.json.gz).
 
 | Trial / instance | cleaner target=0 read | target=12288 set / empty-list signal | mutex acquired, live target=12288 | waiter registered | timed wait return | result |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
