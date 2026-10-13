@@ -137,8 +137,11 @@ Product Validation; those changes are not part of v0.4.5.
   checks do not prove general race correctness.
 - Forced timeout/hard-failure containment is not guaranteed. Normal cooperative
   cleanup and non-cooperative reclaim are distinct boundaries.
-- Approximately one-second startup tails remain observable; do not suppress
-  them or infer their cause from earlier individual traces.
+- Published v0.5.0 still has an observed approximately one-second startup
+  mode. The [page-cleaner source correction candidate](reviews/v050-startup-tail-source-fix-integration.md)
+  addresses its directly traced early-signal ordering and reduced the mode in
+  bounded macOS Fresh comparisons; final candidate CI and Ubuntu validation
+  have not adopted it yet.
 - External consumer checks passed on macOS arm64 with Go 1.26.8 and
   1.27.0/1.27.1/1.27.2. See [compatibility](go-compatibility.md); minimum Go
   and driver versions are unchanged.
