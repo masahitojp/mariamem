@@ -11,9 +11,8 @@ Start fresh for light setup. When migrations or fixtures are expensive, prepare
 them once, fix that state as a Snapshot, and Fork independent databases for
 individual tests. Share the baseline, not previous tests' mutations.
 
-This branch prepares Python `0.4.7` and the Go module tag `v0.4.7`; they are not published yet.
-See the [release](https://github.com/masahitojp/mariamem/releases/tag/v0.4.7)
-and [release notes](release/NOTES-v0.4.7.md).
+This branch prepares Python `0.5.0` and the Go module tag `v0.5.0` for qualification.
+They are not published yet. See the [release notes](release/NOTES-v0.5.0.md).
 
 ## Installation
 
@@ -25,29 +24,29 @@ External Go consumers passed on macOS arm64 with Go 1.26.8 and
 1.27.0/1.27.1/1.27.2. See [toolchain compatibility](docs/go-compatibility.md)
 for the exact tested scope; the module minimum remains Go 1.26.0.
 
-For the currently published Python release, create a virtual environment and
-install the platform wheel. PyPI publication remains unavailable pending
-account recovery; GitHub Release wheels are the supported installation path.
+After publication, create a virtual environment and install the platform wheel.
+PyPI publication remains unavailable pending account recovery; GitHub Release
+wheels are the supported installation path.
 
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
 
 # macOS arm64
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.7/mariamem-0.4.7-py3-none-macosx_15_0_arm64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.5.0/mariamem-0.5.0-py3-none-macosx_15_0_arm64.whl'
 
 # Ubuntu x86_64: use this instead
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.4.7/mariamem-0.4.7-py3-none-linux_x86_64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.5.0/mariamem-0.5.0-py3-none-linux_x86_64.whl'
 ```
 
 The `test` extra supplies PyMySQL and pytest tools. Use the wheel rather than a
 Git source install: it includes the required platform executable.
 
-For the published Go module:
+After publication, for the Go module:
 
 ```sh
 go mod init example.com/mariamem-test
-go get github.com/masahitojp/mariamem@v0.4.7
+go get github.com/masahitojp/mariamem@v0.5.0
 go get github.com/go-sql-driver/mysql
 ```
 
@@ -55,8 +54,8 @@ Optional release audit assets can be downloaded separately; they are not needed
 for ordinary startup:
 
 ```sh
-gh release download v0.4.7 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.7-corresponding-source.tar.gz'
+gh release download v0.5.0 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.0-corresponding-source.tar.gz'
 ```
 
 ## Start fresh
@@ -195,7 +194,7 @@ detected on every Fork.
   Saved baselines contain your test data; treat sensitive data accordingly.
 - Resource use and the Fresh/prepared crossover depend on the workload.
   Large scans remain query work even when preparation is reused.
-- The 0.x API may change. See [release notes](release/NOTES-v0.4.7.md).
+- The 0.x API may change. See [release notes](release/NOTES-v0.5.0.md).
 
 You do not need runtime implementation knowledge to use these APIs.
 [Architecture](docs/v04-generated-go-architecture.md) explains the current

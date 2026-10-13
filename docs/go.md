@@ -1,7 +1,7 @@
 # Go usage
 
-Installation below uses `v0.4.7`. See [installation](../README.md#installation)
-for supported platforms and the published module.
+Installation below uses candidate `v0.5.0` after publication. See
+[installation](../README.md#installation) for supported platforms.
 The public package is `github.com/masahitojp/mariamem`.
 
 ## Start fresh
@@ -195,16 +195,16 @@ internal mechanisms.
 
 ## Development and compatibility
 
-Install the published module and optional release audit files with:
+After publication, install the module and optional release audit files with:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.4.7
-gh release download v0.4.7 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.4.7-corresponding-source.tar.gz'
+go get github.com/masahitojp/mariamem@v0.5.0
+gh release download v0.5.0 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.0-corresponding-source.tar.gz'
 ```
 
 Runtime details belong in [architecture](v04-generated-go-architecture.md).
 See [local verification](development.md#local-verification) for scoped
-development checks, and [release notes](../release/NOTES-v0.4.7.md)
+development checks, and [release notes](../release/NOTES-v0.5.0.md)
 for changes in this version. The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.
