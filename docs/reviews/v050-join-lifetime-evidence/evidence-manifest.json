@@ -27,6 +27,11 @@
     "normalization": "derived input/verification summary with input hashes",
     "saved_sha256": "7e7e6a61ee6c62758f199572b91704aad19398f90637a5e92777e36307e2430b"
   },
+  "implementation-source.json": {
+    "normalization": "typed source commit identity after runtime/evidence commit; this follow-up adds only this receipt",
+    "raw_sha256": "baaf733cea1075a558f6f653834edb0f0e3107cfcd9ff703c3a3b8a5c2d2ba01",
+    "saved_sha256": "baaf733cea1075a558f6f653834edb0f0e3107cfcd9ff703c3a3b8a5c2d2ba01"
+  },
   "independent-regeneration.json": {
     "normalization": "workspace/user paths replaced; trailing whitespace stripped",
     "raw_sha256": "cc070729e90ccc780d37ceea498a42cca2d54009901c2058aa301facde36185c",
