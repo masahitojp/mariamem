@@ -1,10 +1,10 @@
 {
-  "source_commit": "f14764cee0aa90dadf9c624cfeaf59c04b6c740f",
+  "compiled_guest_source_scope": "MariaDB 12.3.3 canonical portability series; no experimental.patch",
   "completed": true,
   "full_guest_regeneration": true,
-  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
-  "guest_size": 18367999,
-  "linked_guest_sha256": "3b63079109c895f3e90895f86b57e48d9f8e14f13ce945021c88e20c4f4fd9ba",
+  "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+  "guest_size": 18368013,
+  "linked_guest_sha256": "d3022ab3b5f41ffba26b5c4172616ceb4f087c02ffe18569a701ae48fa0bbd53",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.3",
@@ -129,7 +129,7 @@
       "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
       "resident.inc": "7dfee608541002f4fca74b6eeceb8a0b54f22e0b04b5d1e254391b970e6af634",
       "snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
-      "source.patch": "ebd587caa6308f1c2152b7dbc74f4c17dd672c6b50bfac5ceb77ffdced6a01b2",
+      "source.patch": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16",
       "startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
       "test-auth-keypair.json": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be",
       "wire_core.inc": "dafdc569959bc21821ddf39533116f2a62eab2441c9280a675be3065db58278f"
@@ -191,14 +191,15 @@
   },
   "repetitions": [
     {
-      "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
-      "linked_sha256": "3b63079109c895f3e90895f86b57e48d9f8e14f13ce945021c88e20c4f4fd9ba"
+      "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+      "linked_sha256": "d3022ab3b5f41ffba26b5c4172616ceb4f087c02ffe18569a701ae48fa0bbd53"
     },
     {
-      "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
-      "linked_sha256": "3b63079109c895f3e90895f86b57e48d9f8e14f13ce945021c88e20c4f4fd9ba"
+      "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+      "linked_sha256": "d3022ab3b5f41ffba26b5c4172616ceb4f087c02ffe18569a701ae48fa0bbd53"
     }
   ],
+  "source_commit": "00702fc87141f48b681e6f01459a0ab4deb7877c",
   "toolchain": {
     "archives_sha256": {
       "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
@@ -233,6 +234,5 @@
       "python": "Python 3.12.3",
       "wasixcc": "wasixcc 0.4.7"
     }
-  },
-  "compiled_guest_source_scope": "MariaDB 12.3.3 canonical portability series; no experimental.patch"
+  }
 }

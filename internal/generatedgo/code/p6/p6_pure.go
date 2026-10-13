@@ -3846,6 +3846,206 @@ L33:
 	;
 	goto L29
 }
+func Fn116(m *base.Module, l0 int32, l1 int64, l2 int64, l3 int32) {
+	mBase := m.M
+	_ = mBase
+	var v8 int32
+	_ = v8
+	var v10 int32
+	_ = v10
+	var v14 int32
+	_ = v14
+	var v15 int32
+	_ = v15
+	var v16 int32
+	_ = v16
+	var v21 int64
+	_ = v21
+	var v30 int64
+	_ = v30
+	var v31 int64
+	_ = v31
+	var v35 int32
+	_ = v35
+	var v57 int32
+	_ = v57
+	var v67 int32
+	_ = v67
+	var v74 int32
+	_ = v74
+	var v78 int32
+	_ = v78
+	var v87 int32
+	_ = v87
+	var v88 int64
+	_ = v88
+	var v89 int64
+	_ = v89
+	var v93 int32
+	_ = v93
+	var v95 int32
+	_ = v95
+	var v99 int32
+	_ = v99
+	var v100 int32
+	_ = v100
+	var v101 int32
+	_ = v101
+	var v106 int64
+	_ = v106
+	var v108 int32
+	_ = v108
+	var v118 int64
+	_ = v118
+	var v119 int64
+	_ = v119
+	var v121 int64
+	_ = v121
+	var v122 int64
+	_ = v122
+	var v123 int32
+	_ = v123
+	var v127 int32
+	_ = v127
+	var v140 int64
+	_ = v140
+	var v141 int64
+	_ = v141
+	var v147 int64
+	_ = v147
+	var v148 int64
+	_ = v148
+	var v149 int32
+	_ = v149
+	var v153 int32
+	_ = v153
+	var v166 int64
+	_ = v166
+	var v167 int64
+	_ = v167
+	v8 = m.G0
+	v10 = v8 - int32(32)
+	m.G0 = v10
+	v14 = base.I32_wrap_i64(int64(base.Ui64(l2) >> (uint(int64(48)) % 64)))
+	v15 = int32(32767)
+	v16 = v14 & v15
+	if v16 == v15 {
+		v166 = l1
+		v167 = l2
+	} else {
+		if v16 == int32(0) {
+			v21 = int64(0)
+			v30 = l2 & int64(9223372036854775807)
+			v31 = int64(9223090561878065152)
+			if v30 == v31 {
+				v35 = base.B2i32(l1 != v21)
+			} else {
+				v35 = base.B2i32(base.Ui64(v31) < base.Ui64(v30))
+			}
+			if v35 != 0 {
+				v74 = int32(1)
+				v78 = v74
+			} else {
+				if l1|v21|(v30|int64(0)) == int64(0) {
+					v78 = int32(0)
+				} else {
+					if int64(0) <= l2&v21 {
+						if l2 == v21 {
+							v57 = base.B2i32(base.Ui64(l1) < base.Ui64(v21))
+						} else {
+							v57 = base.B2i32(l2 < v21)
+						}
+						if v57 != 0 {
+							v78 = int32(-1)
+						} else {
+							v78 = base.B2i32(l1^v21|(l2^v21) != int64(0))
+						}
+					} else {
+						if l2 == v21 {
+							v67 = base.B2i32(base.Ui64(v21) < base.Ui64(l1))
+						} else {
+							v67 = base.B2i32(v21 < l2)
+						}
+						if v67 != 0 {
+							v78 = int32(-1)
+						} else {
+							v74 = base.B2i32(l1^v21|(l2^v21) != int64(0))
+							v78 = v74
+						}
+					}
+				}
+			}
+			if v78 == int32(0) {
+				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l3)), 0, 4))) = int32(0)
+				v166 = l1
+				v167 = l2
+			} else {
+				Fn115(m, v10, l1, l2, int64(0), int64(4645181540655955968))
+				mBase = m.M
+				v87 = v10 + int32(16)
+				v88 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v10)), 0, 8)))
+				v89 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v10)), 8, 8)))
+				v93 = m.G0
+				v95 = v93 - int32(32)
+				m.G0 = v95
+				v99 = base.I32_wrap_i64(int64(base.Ui64(v89) >> (uint(int64(48)) % 64)))
+				v100 = int32(32767)
+				v101 = v99 & v100
+				if v101 == v100 {
+					v140 = v88
+					v141 = v89
+				} else {
+					if v101 == int32(0) {
+						v106 = int64(0)
+						v108 = Fn110(m, v88, v89, v106, v106)
+						mBase = m.M
+						if v108 == int32(0) {
+							*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l3)), 0, 4))) = int32(0)
+							v140 = v88
+							v141 = v89
+						} else {
+							Fn115(m, v95, v88, v89, int64(0), int64(4645181540655955968))
+							mBase = m.M
+							v118 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v95)), 0, 8)))
+							v119 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v95)), 8, 8)))
+							Fn116(m, v95+int32(16), v118, v119, l3)
+							mBase = m.M
+							v121 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v95)), 24, 8)))
+							v122 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v95)), 16, 8)))
+							v123 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l3)), 0, 4)))
+							*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l3)), 0, 4))) = v123 - int32(120)
+							v140 = v122
+							v141 = v121
+						}
+					} else {
+						v127 = int32(16382)
+						*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l3)), 0, 4))) = v101 - v127
+						v140 = v88
+						v141 = v89&int64(281474976710655) | base.I64_extend_i32_u(v99&int32(32768)|v127)<<(uint(int64(48))%64)
+					}
+				}
+				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v87)), 0, 8))) = v140
+				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v87)), 8, 8))) = v141
+				m.G0 = v95 + int32(32)
+				v147 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v10)), 24, 8)))
+				v148 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v10)), 16, 8)))
+				v149 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l3)), 0, 4)))
+				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l3)), 0, 4))) = v149 - int32(120)
+				v166 = v148
+				v167 = v147
+			}
+		} else {
+			v153 = int32(16382)
+			*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l3)), 0, 4))) = v16 - v153
+			v166 = l1
+			v167 = l2&int64(281474976710655) | base.I64_extend_i32_u(v14&int32(32768)|v153)<<(uint(int64(48))%64)
+		}
+	}
+	*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 8))) = v166
+	*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 8))) = v167
+	m.G0 = v10 + int32(32)
+	return
+}
 func Fn123(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 	mBase := m.M
 	_ = mBase
@@ -54626,353 +54826,6 @@ L57:
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4))) = int32(4)
 	goto L1
 }
-func Fn799(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32) int32 {
-	mBase := m.M
-	_ = mBase
-	var v11 int32
-	_ = v11
-	var v13 int32
-	_ = v13
-	var v15 int32
-	_ = v15
-	var v18 int32
-	_ = v18
-	var v19 int32
-	_ = v19
-	var v21 int32
-	_ = v21
-	var v28 int32
-	_ = v28
-	var v31 int32
-	_ = v31
-	var v32 int32
-	_ = v32
-	var v33 int32
-	_ = v33
-	var v36 int32
-	_ = v36
-	var v39 int32
-	_ = v39
-	var v40 int32
-	_ = v40
-	var v44 int32
-	_ = v44
-	var v47 int32
-	_ = v47
-	var v48 int32
-	_ = v48
-	var v49 int32
-	_ = v49
-	var v51 int32
-	_ = v51
-	var v53 int32
-	_ = v53
-	var v54 int32
-	_ = v54
-	var v55 int32
-	_ = v55
-	var v57 int32
-	_ = v57
-	var v58 int32
-	_ = v58
-	var v59 int32
-	_ = v59
-	var v60 int32
-	_ = v60
-	var v65 int32
-	_ = v65
-	var v66 int32
-	_ = v66
-	var v67 int32
-	_ = v67
-	var v69 int32
-	_ = v69
-	var v75 int32
-	_ = v75
-	var v77 int32
-	_ = v77
-	var v79 int32
-	_ = v79
-	var v83 int32
-	_ = v83
-	var v92 int32
-	_ = v92
-	var v95 int32
-	_ = v95
-	var v98 int32
-	_ = v98
-	var v99 int32
-	_ = v99
-	var v103 int32
-	_ = v103
-	var v104 int32
-	_ = v104
-	var v105 int32
-	_ = v105
-	var v106 int32
-	_ = v106
-	var v108 int32
-	_ = v108
-	var v110 int32
-	_ = v110
-	var v111 int32
-	_ = v111
-	var v112 int32
-	_ = v112
-	var v114 int32
-	_ = v114
-	var v115 int32
-	_ = v115
-	var v116 int32
-	_ = v116
-	var v117 int32
-	_ = v117
-	var v120 int32
-	_ = v120
-	var v137 int32
-	_ = v137
-	var v144 int32
-	_ = v144
-	var v149 int32
-	_ = v149
-	var v160 int32
-	_ = v160
-	v11 = m.G0
-	v13 = v11 - int32(16)
-	m.G0 = v13
-	v15 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 12, 4)))
-	if v15 == int32(0) {
-		goto L3
-	} else {
-		goto L4
-	}
-L1:
-	;
-	m.G0 = v13 + int32(16)
-	return v160
-L2:
-	;
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l4)), 0, 4))) = v137
-	v149 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v144+int32(8))), 0, 4)))
-	v160 = v149
-	goto L1
-L3:
-	;
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l4)), 0, 4))) = int32(-1)
-	v160 = int32(0)
-	goto L1
-L4:
-	;
-	v18 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))
-	v19 = int32(1)
-	v21 = (v18 - v19) & l1
-	if base.Ui32(v21) < base.Ui32(v15) {
-		goto L5
-	} else {
-		goto L6
-	}
-L5:
-	;
-	v28 = v21
-	goto L7
-L6:
-	;
-	v28 = (int32(base.Ui32(v18)>>(uint(v19)%32)) - v19) & l1
-	goto L7
-L7:
-	;
-	if l3 == int32(0) {
-		goto L8
-	} else {
-		goto L9
-	}
-L8:
-	;
-	v31 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))
-	v32 = v31
-	goto L10
-L9:
-	;
-	v32 = l3
-	goto L10
-L10:
-	;
-	v33 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4)))
-	v36 = v33 + v28*int32(12)
-	v39 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v36+int32(8))), 0, 4)))
-	v40 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 48, 4)))
-	if v40 != 0 {
-		goto L12
-	} else {
-		goto L13
-	}
-L11:
-	;
-	v55 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 60, 4)))
-	v57 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v55)), 108, 4)))
-	v58 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v57)), 4, 4)))
-	v59 = m.T0[v58].(func(*base.Module, int32, int32, int32, int32, int32, int32) int32)(m, v55, v53, v54, l2, v32, int32(0))
-	mBase = m.M
-	v60 = m.ExcPending
-	if v60 != 0 {
-		goto L15
-	} else {
-		goto L17
-	}
-L12:
-	;
-	v44 = m.T0[v40].(func(*base.Module, int32, int32, int32) int32)(m, v39, v13+int32(12), int32(1))
-	mBase = m.M
-	v47 = m.ExcPending
-	if v47 != 0 {
-		goto L15
-	} else {
-		goto L16
-	}
-L13:
-	;
-	goto L14
-L14:
-	;
-	v49 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v13)), 12, 4))) = v49
-	v51 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))
-	v53 = v39 + v51
-	v54 = v49
-	goto L11
-L15:
-	;
-	return int32(0)
-L16:
-	;
-	v48 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v13)), 12, 4)))
-	v53 = v44
-	v54 = v48
-	goto L11
-L17:
-	;
-	if v59 == int32(0) {
-		v137 = v28
-		v144 = v36
-		goto L2
-	} else {
-		goto L18
-	}
-L18:
-	;
-	v65 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v36+int32(4))), 0, 4)))
-	v66 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))
-	v67 = int32(1)
-	v69 = v65 & (v66 - v67)
-	v75 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 12, 4)))
-	if base.Ui32(v69) < base.Ui32(v75) {
-		goto L19
-	} else {
-		goto L20
-	}
-L19:
-	;
-	v77 = v69
-	goto L21
-L20:
-	;
-	v77 = (int32(base.Ui32(v66)>>(uint(v67)%32)) - v67) & v65
-	goto L21
-L21:
-	;
-	if v77 != v28 {
-		goto L3
-	} else {
-		goto L22
-	}
-L22:
-	;
-	v79 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v36)), 0, 4)))
-	if v79 == int32(-1) {
-		goto L3
-	} else {
-		goto L23
-	}
-L23:
-	;
-	v83 = v79
-	goto L24
-L24:
-	;
-	v92 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4)))
-	v95 = v92 + v83*int32(12)
-	v98 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v95+int32(8))), 0, 4)))
-	v99 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 48, 4)))
-	if v99 != 0 {
-		goto L27
-	} else {
-		goto L28
-	}
-L25:
-	;
-	goto L3
-L26:
-	;
-	v112 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 60, 4)))
-	v114 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v112)), 108, 4)))
-	v115 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v114)), 4, 4)))
-	v116 = m.T0[v115].(func(*base.Module, int32, int32, int32, int32, int32, int32) int32)(m, v112, v110, v111, l2, v32, int32(0))
-	mBase = m.M
-	v117 = m.ExcPending
-	if v117 != 0 {
-		goto L15
-	} else {
-		goto L31
-	}
-L27:
-	;
-	v103 = m.T0[v99].(func(*base.Module, int32, int32, int32) int32)(m, v98, v13+int32(12), int32(1))
-	mBase = m.M
-	v104 = m.ExcPending
-	if v104 != 0 {
-		goto L15
-	} else {
-		goto L30
-	}
-L28:
-	;
-	goto L29
-L29:
-	;
-	v106 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v13)), 12, 4))) = v106
-	v108 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4)))
-	v110 = v98 + v108
-	v111 = v106
-	goto L26
-L30:
-	;
-	v105 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v13)), 12, 4)))
-	v110 = v103
-	v111 = v105
-	goto L26
-L31:
-	;
-	if v116 == int32(0) {
-		v137 = v83
-		v144 = v95
-		goto L2
-	} else {
-		goto L32
-	}
-L32:
-	;
-	v120 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v95)), 0, 4)))
-	if v120 != int32(-1) {
-		v83 = v120
-		goto L24
-	} else {
-		goto L33
-	}
-L33:
-	;
-	goto L25
-}
 func Fn810(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32 {
 	mBase := m.M
 	_ = mBase
@@ -69873,100 +69726,6 @@ func Fn982(m *base.Module, l0 int32) int32 {
 		}
 	}
 	return v17 - v124
-}
-func Fn985(m *base.Module, l0 int32) int32 {
-	mBase := m.M
-	_ = mBase
-	var v7 int64
-	_ = v7
-	var v10 int64
-	_ = v10
-	var v11 int32
-	_ = v11
-	var v12 int32
-	_ = v12
-	var v15 int64
-	_ = v15
-	var v20 int32
-	_ = v20
-	var v23 int32
-	_ = v23
-	var v26 int32
-	_ = v26
-	var v27 int32
-	_ = v27
-	var v28 int32
-	_ = v28
-	var v29 int32
-	_ = v29
-	var v40 int64
-	_ = v40
-	var v41 int32
-	_ = v41
-	var v42 int32
-	_ = v42
-	var v43 int64
-	_ = v43
-	var v46 int64
-	_ = v46
-	var v53 int32
-	_ = v53
-	var v55 int32
-	_ = v55
-	v7 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 104, 8)))
-	v10 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 112, 8)))
-	v11 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))
-	v12 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 40, 4)))
-	v15 = v10 + base.I64_extend_i32_s(v11-v12)
-	if base.B2i32(v7 != int64(0))&base.B2i32(v7 <= v15) == int32(0) {
-		v20 = Fn740(m, l0)
-		mBase = m.M
-		v23 = m.ExcPending
-		if v23 != 0 {
-			return int32(0)
-		} else {
-			if int32(0) <= v20 {
-				v40 = v15 + int64(1)
-				v41 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))
-				v42 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 8, 4)))
-				v43 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 104, 8)))
-				if v43 == int64(0) {
-					v53 = v42
-				} else {
-					v46 = v43 - v40
-					if base.I64_extend_i32_s(v42-v41) <= v46 {
-						v53 = v42
-					} else {
-						v53 = v41 + base.I32_wrap_i64(v46)
-					}
-				}
-				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 100, 4))) = v53
-				v55 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 40, 4)))
-				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 112, 8))) = v40 + base.I64_extend_i32_s(v55-v41)
-				if base.Ui32(v41) <= base.Ui32(v55) {
-					*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v41-int32(1))), 0, 1))) = uint8(v20)
-				} else {
-				}
-				return v20
-			} else {
-				v26 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 40, 4)))
-				v27 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 4, 4)))
-				v28 = v27
-				v29 = v26
-				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 104, 8))) = int64(-1)
-				*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 100, 4))) = v28
-				*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 112, 8))) = v15 + base.I64_extend_i32_s(v29-v28)
-				return int32(-1)
-			}
-		}
-	} else {
-		v28 = v11
-		v29 = v12
-		*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 104, 8))) = int64(-1)
-		*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 100, 4))) = v28
-		*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 112, 8))) = v15 + base.I64_extend_i32_s(v29-v28)
-		return int32(-1)
-	}
 }
 func Fn991(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {
 	mBase := m.M
@@ -312353,6 +312112,323 @@ L31:
 	;
 	v130 = v124
 	goto L20
+}
+func Fn4746(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32 {
+	mBase := m.M
+	_ = mBase
+	var v11 int32
+	_ = v11
+	var v12 int32
+	_ = v12
+	var v13 int32
+	_ = v13
+	var v15 int32
+	_ = v15
+	var v17 int32
+	_ = v17
+	var v20 int32
+	_ = v20
+	var v23 int32
+	_ = v23
+	var v26 int32
+	_ = v26
+	var v28 int32
+	_ = v28
+	var v31 int32
+	_ = v31
+	var v34 int32
+	_ = v34
+	var v37 int32
+	_ = v37
+	var v41 int32
+	_ = v41
+	var v42 int32
+	_ = v42
+	var v43 int32
+	_ = v43
+	var v50 int32
+	_ = v50
+	var v51 int32
+	_ = v51
+	var v52 int32
+	_ = v52
+	var v56 int32
+	_ = v56
+	var v57 int32
+	_ = v57
+	var v59 int32
+	_ = v59
+	var v61 int32
+	_ = v61
+	var v63 int32
+	_ = v63
+	var v64 int32
+	_ = v64
+	var v66 int32
+	_ = v66
+	var v68 int32
+	_ = v68
+	var v69 int32
+	_ = v69
+	var v73 int32
+	_ = v73
+	var v81 int32
+	_ = v81
+	var v85 int32
+	_ = v85
+	var v87 int32
+	_ = v87
+	var v93 int32
+	_ = v93
+	var v94 int32
+	_ = v94
+	var v107 int32
+	_ = v107
+	var v109 int32
+	_ = v109
+	var v111 int32
+	_ = v111
+	var v113 int32
+	_ = v113
+	var v114 int32
+	_ = v114
+	var v115 int32
+	_ = v115
+	var v119 int32
+	_ = v119
+	var v120 int32
+	_ = v120
+	var v133 int32
+	_ = v133
+	var v142 int32
+	_ = v142
+	var v146 int32
+	_ = v146
+	var v147 int32
+	_ = v147
+	var v160 int32
+	_ = v160
+	var v166 int32
+	_ = v166
+	var v169 int32
+	_ = v169
+	var v177 int32
+	_ = v177
+	v11 = m.G0
+	v12 = int32(16)
+	v13 = v11 - v12
+	m.G0 = v13
+	v15 = int32(-1)
+	v17 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15364044, 0, 4)))
+	v20 = Fn968(m, v12, v12)
+	mBase = m.M
+	v23 = m.ExcPending
+	if v23 != 0 {
+		goto L1
+	} else {
+		goto L2
+	}
+L1:
+	;
+	return int32(0)
+L2:
+	;
+	v26 = int32(2)
+	v28 = int32(base.Ui32(l2)>>(uint(int32(1))%32)) | int32(base.Ui32(l2)>>(uint(v26)%32))
+	v31 = int32(base.Ui32(v28)>>(uint(v26)%32)) | v28
+	v34 = int32(base.Ui32(v31)>>(uint(int32(4))%32)) | v31
+	v37 = int32(base.Ui32(v34)>>(uint(int32(8))%32)) | v34
+	v41 = (int32(base.Ui32(v37)>>(uint(int32(16))%32)) | v37) & l2
+	v42 = Fn4733(m, l0, v41)
+	mBase = m.M
+	v43 = m.ExcPending
+	if v43 != 0 {
+		goto L1
+	} else {
+		goto L4
+	}
+L3:
+	;
+	m.G0 = v13 + int32(16)
+	return v177
+L4:
+	;
+	if v42 == int32(0) {
+		v177 = v15
+		goto L3
+	} else {
+		goto L5
+	}
+L5:
+	;
+	if v20 == int32(0) {
+		v177 = v15
+		goto L3
+	} else {
+		goto L6
+	}
+L6:
+	;
+	if l2 == int32(0) {
+		goto L7
+	} else {
+		goto L8
+	}
+L7:
+	;
+	v57 = int32(0)
+	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v20)), 8, 4))) = v57
+	v59 = int32(8949604)
+	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v20)), 4, 4))) = v59
+	v61 = int32(24)
+	v63 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(int32(base.Ui32(l2)>>(uint(v61)%32)))), 12476720, 1))))
+	v64 = int32(8)
+	v66 = int32(255)
+	v68 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(int32(base.Ui32(l2)>>(uint(v64)%32))&v66)), 12476720, 1))))
+	v69 = int32(16)
+	v73 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l2&v66)), 12476720, 1))))
+	v81 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(int32(base.Ui32(l2)>>(uint(v69)%32))&v66)), 12476720, 1))))
+	v85 = v63 | (v68<<(uint(v69)%32) | v73<<(uint(v61)%32) | v81<<(uint(v64)%32))
+	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v20)), 12, 4))) = v85
+	v87 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 92, 4)))
+	v93 = Fn4747(m, v42, v87, v85, v59, v57, v13+int32(4), l3, v57)
+	mBase = m.M
+	v94 = m.ExcPending
+	if v94 != 0 {
+		goto L1
+	} else {
+		goto L15
+	}
+L8:
+	;
+	v50 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v42)), 0, 4)))
+	if v50 != 0 {
+		goto L7
+	} else {
+		goto L9
+	}
+L9:
+	;
+	v51 = Fn4746(m, l0, v42, v41, l3)
+	mBase = m.M
+	v52 = m.ExcPending
+	if v52 != 0 {
+		goto L1
+	} else {
+		goto L10
+	}
+L10:
+	;
+	if v51 == int32(0) {
+		goto L7
+	} else {
+		goto L11
+	}
+L11:
+	;
+	Fn970(m, v20)
+	mBase = m.M
+	v56 = m.ExcPending
+	if v56 != 0 {
+		goto L1
+	} else {
+		goto L12
+	}
+L12:
+	;
+	v177 = v15
+	goto L3
+L13:
+	;
+	v166 = int32(0)
+	v169 = base.AtomicRmwCmpxchg32(m, l1, v166, v166, v160)
+	v177 = v166
+	goto L3
+L14:
+	;
+	v147 = int32(0)
+	atomic.StoreUint32((*uint32)(unsafe.Add(mBase, base.AtomicEA(m, l3, int32(0), 4))), uint32(v147))
+	atomic.StoreUint32((*uint32)(unsafe.Add(mBase, base.AtomicEA(m, l3, int32(4), 4))), uint32(v147))
+	atomic.StoreUint32((*uint32)(unsafe.Add(mBase, base.AtomicEA(m, l3, int32(8), 4))), uint32(v147))
+	v160 = v20
+	goto L13
+L15:
+	;
+	if v93 == int32(0) {
+		goto L16
+	} else {
+		goto L17
+	}
+L16:
+	;
+	goto L19
+L17:
+	;
+	goto L18
+L18:
+	;
+	v133 = int32(0)
+	atomic.StoreUint32((*uint32)(unsafe.Add(mBase, base.AtomicEA(m, l3, int32(0), 4))), uint32(v133))
+	atomic.StoreUint32((*uint32)(unsafe.Add(mBase, base.AtomicEA(m, l3, int32(4), 4))), uint32(v133))
+	atomic.StoreUint32((*uint32)(unsafe.Add(mBase, base.AtomicEA(m, l3, int32(8), 4))), uint32(v133))
+	v142 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v13)), 8, 4)))
+	if v142 == v133 {
+		v160 = v20
+		goto L13
+	} else {
+		goto L24
+	}
+L19:
+	;
+	v107 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v13)), 8, 4)))
+	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v20)), 0, 4))) = v107
+	v109 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v13)), 4, 4)))
+	v111 = base.AtomicRmwCmpxchg32(m, v109, int32(0), v107, v20)
+	if v107 == v111 {
+		goto L14
+	} else {
+		goto L21
+	}
+L20:
+	;
+	goto L18
+L21:
+	;
+	v113 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v20)), 12, 4)))
+	v114 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v20)), 4, 4)))
+	v115 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v20)), 8, 4)))
+	v119 = Fn4747(m, v42, v87, v113, v114, v115, v13+int32(4), l3, int32(0))
+	mBase = m.M
+	v120 = m.ExcPending
+	if v120 != 0 {
+		goto L1
+	} else {
+		goto L22
+	}
+L22:
+	;
+	if v119 == int32(0) {
+		goto L19
+	} else {
+		goto L23
+	}
+L23:
+	;
+	goto L20
+L24:
+	;
+	Fn970(m, v20)
+	mBase = m.M
+	v146 = m.ExcPending
+	if v146 != 0 {
+		goto L1
+	} else {
+		goto L25
+	}
+L25:
+	;
+	v160 = v142
+	goto L13
 }
 func Fn4748(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32 {
 	mBase := m.M

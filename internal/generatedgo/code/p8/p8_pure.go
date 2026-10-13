@@ -14252,6 +14252,28 @@ func Fn979(m *base.Module, l0 int32) {
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 276, 4))) = int32(128)
 	return
 }
+func Fn980(m *base.Module, l0 int32) {
+	mBase := m.M
+	_ = mBase
+	var v3 int32
+	_ = v3
+	var v5 int32
+	_ = v5
+	v3 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 272, 4)))
+	if v3 != 0 {
+		Fn970(m, v3)
+		mBase = m.M
+		v5 = m.ExcPending
+		if v5 != 0 {
+			return
+		} else {
+			*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 272, 4))) = int32(0)
+			return
+		}
+	} else {
+		return
+	}
+}
 func Fn981(m *base.Module, l0 int32) int32 {
 	return l0 + int32(8)
 }
@@ -16486,12 +16508,6 @@ func Fn1096(m *base.Module, l0 int32) int32 {
 }
 func Fn1097(m *base.Module, l0 int32) int32 {
 	return int32(8547736)
-}
-func Fn1098(m *base.Module, l0 int32) int32 {
-	mBase := m.M
-	_ = mBase
-	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 4))) = int32(12393264)
-	return l0
 }
 func Fn1099(m *base.Module, l0 int32) int32 {
 	return int32(8697752)
