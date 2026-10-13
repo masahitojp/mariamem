@@ -7,7 +7,7 @@ before installing the handoff; this is a single-guest binding, not a generic ABI
 import hashlib
 import re
 
-GUEST_SHA256 = "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c"
+GUEST_SHA256 = "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09"
 FUNCTIONS = {
     "code/p3/p3_pure.go": ("Fn153", "b1d381957fd1d352e7ab741f3e7330c5ac77e1b6f20ddd465c497f51f7389d5b"),
     "code/p8/p8_pure.go": ("Fn131", "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"),
