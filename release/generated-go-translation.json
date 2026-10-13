@@ -57,18 +57,18 @@
   "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
   "patched_converter_sha256": "430bf08585f685138e0c678ebd5a9c9f92802cc124bb01f17e0ac270a35cf2b0",
   "patches_sha256": {
+    "imported-memory.patch": "9e05149ed2ad75780ee939a7caa577f420d151855ab723498ec60c533f805d40",
+    "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+    "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
+    "pure-memory32.patch": "7b0bf47f257d51ed842483e1ae2c6cb9a45fb009d7114679f9ed32ff76378694",
     "controlled-thread-traps.patch": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+    "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+    "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
+    "helper-bridge.patch": "934246d80d37a596b43d786065b168aa3d94af62ae3130bd5a9c422ce7e5783b",
     "export-collision.patch": "2e4866056a3e65c7be0fbc343207157319f609391b07cb8123bed4ab2b2f8f93",
     "fd-allocate-preservation.patch": "84582c8c9684026735a04117e00a48905f10aef736fb4178c26c79d804b797e6",
-    "helper-bridge.patch": "934246d80d37a596b43d786065b168aa3d94af62ae3130bd5a9c422ce7e5783b",
-    "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
-    "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
-    "imported-memory.patch": "9e05149ed2ad75780ee939a7caa577f420d151855ab723498ec60c533f805d40",
-    "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
-    "pure-memory32.patch": "7b0bf47f257d51ed842483e1ae2c6cb9a45fb009d7114679f9ed32ff76378694",
-    "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
-    "thread-id-range.patch": "ef07a969971433966fd18ce246d5e515da8c5faa3f10f32e67a09108283a54cf",
+    "zero-bulk-bounds.patch": "85c05f04b24a03e3f65b86b73e8682221615ab10df1d66bde05157d3348813eb",
     "wait-timeout-range.patch": "980da7652e8b22322cc639a9b39efffaf3a1035b5fdea1467593bf0e50dff5ff",
-    "zero-bulk-bounds.patch": "85c05f04b24a03e3f65b86b73e8682221615ab10df1d66bde05157d3348813eb"
+    "thread-id-range.patch": "ef07a969971433966fd18ce246d5e515da8c5faa3f10f32e67a09108283a54cf"
   }
 }
