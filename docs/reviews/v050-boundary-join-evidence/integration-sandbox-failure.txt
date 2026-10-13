@@ -1,0 +1,62 @@
++ go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot -count=1
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	2.633s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	3.738s
+ok  	github.com/masahitojp/mariamem/internal/guest	2.561s
+ok  	github.com/masahitojp/mariamem/internal/host	1.303s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.299s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.552s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+--- FAIL: TestPublicLifecycle (0.10s)
+    lifecycle_test.go:74: mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted
+        listen tcp4 127.0.0.1:0: bind: operation not permitted
+--- FAIL: TestMultipleClientIsolationAndCapacity (0.06s)
+    multiclient_test.go:69: mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted
+        listen tcp4 127.0.0.1:0: bind: operation not permitted
+--- FAIL: TestMultipleClientSnapshotAndShutdown (0.07s)
+    multiclient_test.go:258: mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted
+        listen tcp4 127.0.0.1:0: bind: operation not permitted
+--- FAIL: TestOwnedManyOrderParallelAndClose (0.08s)
+    owned_prepared_test.go:152: mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted
+        listen tcp4 127.0.0.1:0: bind: operation not permitted
+--- FAIL: TestOwnedForkCloseRace (0.08s)
+    owned_prepared_test.go:247: mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted
+        listen tcp4 127.0.0.1:0: bind: operation not permitted
+--- FAIL: TestOwnedModifiedChildCreatesNewBaseline (0.07s)
+    owned_prepared_test.go:317: mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted
+        listen tcp4 127.0.0.1:0: bind: operation not permitted
+--- FAIL: TestRepresentativeTypes (0.07s)
+    type_compatibility_test.go:28: mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted
+        listen tcp4 127.0.0.1:0: bind: operation not permitted
+FAIL
+FAIL	github.com/masahitojp/mariamem/tests/gointegration	1.345s
+FAIL
+Traceback (most recent call last):
+  File "<worktree>/scripts/verify.py", line 150, in <module>
+    main()
+    ~~~~^^
+  File "<worktree>/scripts/verify.py", line 131, in main
+    integration()
+    ~~~~~~~~~~~^^
+  File "<worktree>/scripts/verify.py", line 92, in integration
+    run([*command, "-tags=integration", "./tests/gointegration",
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         "-count=1", "-timeout=3m"], env=env)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>/scripts/verify.py", line 34, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['go', 'test', '-tags=integration', './tests/gointegration', '-count=1', '-timeout=3m']' returned non-zero exit status 1.

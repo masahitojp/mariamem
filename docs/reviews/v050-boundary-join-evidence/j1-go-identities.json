@@ -1,0 +1,203 @@
+{
+  "functions": {
+    "70": {
+      "direct_callees": [],
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "indirect_calls": 0,
+      "line": 51,
+      "symbol": "strlen",
+      "body_sha256": "47ba5e1d7be44ac9662758b9cc680e5662669ccba378a82f48cfd307c5e69577",
+      "source_sha256": "96f86021b005f7c7b6387062c02a6515e45cccdbf798c645e2d14db0405973ba"
+    },
+    "82": {
+      "direct_callees": [
+        70
+      ],
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "indirect_calls": 0,
+      "line": 89,
+      "symbol": "__wasi_callback_signal",
+      "body_sha256": "562c708a64754cbccf47f4541067799c2d7b5f2d889967502b58f665019e91d6",
+      "source_sha256": "a66568b4f13a1cddc44eab5b823d860266645dab8dc4f9e68d984a0e6197d760"
+    },
+    "83": {
+      "direct_callees": [],
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "indirect_calls": 0,
+      "line": 96,
+      "symbol": "__wasi_thread_signal",
+      "body_sha256": "cfc7270830464fe17550f454f5f7997e3b3ff6187be39c7be0e8ba96ed9f2f0e",
+      "source_sha256": "a66568b4f13a1cddc44eab5b823d860266645dab8dc4f9e68d984a0e6197d760"
+    },
+    "88": {
+      "direct_callees": [],
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "indirect_calls": 0,
+      "line": 360,
+      "symbol": "__wasilibc_futex_wait_wasix",
+      "body_sha256": "ac026b7a87074505570b736c84be4f152e032517bb3044b4e91f13152cd38c8e",
+      "source_sha256": "96f86021b005f7c7b6387062c02a6515e45cccdbf798c645e2d14db0405973ba"
+    },
+    "89": {
+      "direct_callees": [],
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "indirect_calls": 0,
+      "line": 126,
+      "symbol": "__wasilibc_futex_wake_wasix",
+      "body_sha256": "c58abbba6e168b46625b88f82160a366e001f522865946361bd8aa1b67762aff",
+      "source_sha256": "a66568b4f13a1cddc44eab5b823d860266645dab8dc4f9e68d984a0e6197d760"
+    },
+    "97": {
+      "direct_callees": [
+        88
+      ],
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "indirect_calls": 0,
+      "line": 11,
+      "symbol": "__lock",
+      "body_sha256": "6ac6e4a4b985715cd98e4cf0336144d805c02279109534e42c8d38471591690e",
+      "source_sha256": "8f99ee297e51ccfddfb5920c2618fd73250d5978fdf6e7076ffecc8012a22667"
+    },
+    "131": {
+      "direct_callees": [],
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "indirect_calls": 0,
+      "line": 1084,
+      "symbol": "sched_yield",
+      "body_sha256": "a36a8f2f1967e9ede1ad29ebb11b2e913f15aa43c705b0dabffd8df3208baf05",
+      "source_sha256": "a66568b4f13a1cddc44eab5b823d860266645dab8dc4f9e68d984a0e6197d760"
+    },
+    "135": {
+      "direct_callees": [],
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "indirect_calls": 0,
+      "line": 1115,
+      "symbol": "_Exit",
+      "body_sha256": "ec907ef1e059e78f2f52fca1802f16984078be72c07e267840916855380748e8",
+      "source_sha256": "a66568b4f13a1cddc44eab5b823d860266645dab8dc4f9e68d984a0e6197d760"
+    },
+    "150": {
+      "direct_callees": [
+        82,
+        83,
+        97,
+        135
+      ],
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "indirect_calls": 0,
+      "line": 1349,
+      "symbol": "abort",
+      "body_sha256": "802e7e39f86f1042d4f493393e08c24000f7215c10cb57ec5e70d2f3fec35fc8",
+      "source_sha256": "a66568b4f13a1cddc44eab5b823d860266645dab8dc4f9e68d984a0e6197d760"
+    },
+    "151": {
+      "direct_callees": [
+        150
+      ],
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "indirect_calls": 0,
+      "line": 1392,
+      "symbol": "sbrk",
+      "body_sha256": "d4ca851e5f7825cad9f74eb72510dee0149719a2a9c993dd9c0b2c4dcd0a9bb9",
+      "source_sha256": "a66568b4f13a1cddc44eab5b823d860266645dab8dc4f9e68d984a0e6197d760"
+    },
+    "152": {
+      "direct_callees": [
+        131,
+        151
+      ],
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "indirect_calls": 0,
+      "line": 9710,
+      "symbol": "dlmalloc",
+      "body_sha256": "888c411469fee5e606299aab19b65deeab91f641f89febd9ed7598abed880c3e",
+      "source_sha256": "4b42efd1c7e00f2ab854cd2cf1094e483738f36b3faa02fa16aaec969b8de4aa"
+    },
+    "153": {
+      "direct_callees": [
+        131
+      ],
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "indirect_calls": 0,
+      "line": 1165,
+      "symbol": "dlfree",
+      "body_sha256": "289be1ed38e33ffe382e449b72d9da844f25a39b82f309326399d145f0114164",
+      "source_sha256": "0cd1833b6ba0a9e1e6261965d05a04a8527896c24988e9161013cdb347667781"
+    },
+    "158": {
+      "direct_callees": [],
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "indirect_calls": 0,
+      "line": 1524,
+      "symbol": "malloc_usable_size",
+      "body_sha256": "cc8f5ed649c428af2cb46f8f7ae57f749ab4a090993f5235f50494dec6fe5bb6",
+      "source_sha256": "a66568b4f13a1cddc44eab5b823d860266645dab8dc4f9e68d984a0e6197d760"
+    },
+    "217": {
+      "direct_callees": [
+        89
+      ],
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "indirect_calls": 0,
+      "line": 3721,
+      "symbol": "__tl_unlock",
+      "body_sha256": "22729d36b252ff290ed7fb9d10688cf11275a57c21db2b83b35ff6618123c655",
+      "source_sha256": "a66568b4f13a1cddc44eab5b823d860266645dab8dc4f9e68d984a0e6197d760"
+    },
+    "221": {
+      "direct_callees": [
+        88,
+        89,
+        153,
+        158
+      ],
+      "file": "internal/generatedgo/code/p7/p7_pure.go",
+      "indirect_calls": 0,
+      "line": 7556,
+      "symbol": "__pthread_join",
+      "body_sha256": "931ea1cd369404576d28308f7c7cd0cb92090dffadabd75e179ed0e30f80f93b",
+      "source_sha256": "96f86021b005f7c7b6387062c02a6515e45cccdbf798c645e2d14db0405973ba"
+    }
+  },
+  "copied_source_sha256": {
+    "internal/generatedgo/code/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+    "internal/generatedgo/code/base/simd_relaxed.go": "ce4ddfb367e686107aa8dbcba8ced4bb5b591106cec94d0950f5e588b1235152",
+    "internal/generatedgo/code/base/simd_pair.go": "ffa8c2aac9e0a61608fca859ea8a7493b42dca47babed99c28762573c8d0a916",
+    "internal/generatedgo/code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
+    "internal/generatedgo/code/base/cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+    "internal/generatedgo/code/base/simd_asm_decls_arm64.go": "8e9dd950f0c3282a924cf961e055db631536f883f2c05cccef44c4974d99abee",
+    "internal/generatedgo/code/base/memory_mapping.go": "388e8cf70e3387db7143f9081b9e62c6ddb3edf52e4adbff223be1f9a8020cc7",
+    "internal/generatedgo/code/base/simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+    "internal/generatedgo/code/base/simd_fallback.go": "0bb864d570bc9286d87290c55ef52e7082c114e6f3730ae86415e15bbff849ad",
+    "internal/generatedgo/code/base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+    "internal/generatedgo/code/base/prepared_files.go": "9f860253f7cb682b274492129e1fc7e8c64d62dcc47c7c39e42ee347675629cc",
+    "internal/generatedgo/code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+    "internal/generatedgo/code/base/narrow_load_supported.go": "53a04e996c7edafe5a21c28c35d4fa9f9661c8854d4d1aaca5029af83331d342",
+    "internal/generatedgo/code/base/simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+    "internal/generatedgo/code/base/owned_prepared.go": "7ae03ac0aeae14505faae3e151649eb3f683ca6d63e3313109972560e3a9c388",
+    "internal/generatedgo/code/base/narrow_write_linux_amd64.s": "a189e25e3f4fd8f19f245345b052e8ddcf87fd4b649250365ffa44f3d94c9f19",
+    "internal/generatedgo/code/base/narrow_write_supported.go": "3a0c9b33fbc99a343943c3996a23ad1879c36dde88d9903bd13f94a9ec3bb18d",
+    "internal/generatedgo/code/base/sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+    "internal/generatedgo/code/base/runtime_cleanup.go": "40886ea6b6c24316f4fd73d451674c815bc7b26717e1b635362b2170d010d75c",
+    "internal/generatedgo/code/base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+    "internal/generatedgo/code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+    "internal/generatedgo/code/base/narrow_write_darwin_arm64.s": "8c7f1579987ad56f6bc71b5210ebd252b747d1ecd4044ff8a0c3ed6d39742e89",
+    "internal/generatedgo/code/base/simd_asm_decls_amd64.go": "456cefd6896b1021a6dbf813a381165ec99efb3cd7b66a34a4e97ef31b23802e",
+    "internal/generatedgo/code/base/relative.go": "c63c1839d91812712e64642699bba33879ff9386f46a33196c1319d21a78d36e",
+    "internal/generatedgo/code/base/narrow_load_linux_amd64.s": "7a4c1ba99109aa8870db20bdd6eee26515362d292738ec0008b5fa4c43d0956f",
+    "internal/generatedgo/code/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
+    "internal/generatedgo/code/base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+    "internal/generatedgo/code/base/base.go": "b43554887688b079987c77ed954dd62ad75ec9616c7df0f5979d81e4cc5c8932",
+    "internal/generatedgo/code/base/spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862",
+    "internal/generatedgo/code/base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+    "internal/generatedgo/code/base/narrow_load_darwin_arm64.s": "0e5f92aaa6767c173b90b3432ce6866291a96e1b3e26a3a43c7b23de96cdd5a9",
+    "internal/generatedgo/code/base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+    "internal/generatedgo/code/base/simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c",
+    "internal/generatedgo/code/base/narrow_load_other.go": "49b7b233f4380992c11c0d9ab6cd7442db1d2401c8428d33389fcf320fb626c7",
+    "internal/generatedgo/code/base/narrow_write_other.go": "e66dd1978ec60a9c16f302e9d461ba77e370519b6c95275ed9832b085f8fa4de",
+    "internal/prepared/entry.go": "973b1f28efcaefdbaf41fd4606eef25550ebc5606923a9386a5d56eb585459a3"
+  },
+  "host_source_sha256": "ab9f7485fbcf37650e99262487f37a5085ac84652596d22f540b87d09cd2b233",
+  "observer": "one callback after AtomicNotify, before canonical output byte store; disposable fixture only",
+  "test_sha256": "0462414cdc4aa1fc8848ec099d7180a3eeacde02c287864d2ec73aad66dc0d87"
+}

@@ -1,0 +1,15 @@
+=== RUN   TestJoinAllocationLastAccess
+=== RUN   TestJoinAllocationLastAccess/early-free
+    probe_test.go:96: backing=heap waiters=1 defer_reclaim=false hook=true joined=true map=268435472 reused=268435472 result=268693519 canary=1
+    probe_test.go:98: lifetime violation: replacement byte changed from 165 to 1 after join/free/reuse
+=== RUN   TestJoinAllocationLastAccess/completed-before-free
+    probe_test.go:96: backing=heap waiters=1 defer_reclaim=true hook=true joined=true map=268435472 reused=268435472 result=268693519 canary=165
+=== RUN   TestJoinAllocationLastAccess/no-post-unlock-wake
+    probe_test.go:96: backing=heap waiters=0 defer_reclaim=false hook=false joined=true map=268435472 reused=268435472 result=268693519 canary=165
+--- FAIL: TestJoinAllocationLastAccess (0.18s)
+    --- FAIL: TestJoinAllocationLastAccess/early-free (0.01s)
+    --- PASS: TestJoinAllocationLastAccess/completed-before-free (0.12s)
+    --- PASS: TestJoinAllocationLastAccess/no-post-unlock-wake (0.05s)
+FAIL
+FAIL	github.com/masahitojp/mariamem/probe	0.726s
+FAIL

@@ -1,0 +1,34 @@
+{
+  "full_adopted_input_refs": [
+    "../v050-semantic-audit-evidence/source-anchors.json",
+    "../v050-semantic-audit-evidence/source-verification.json"
+  ],
+  "slices": {
+    "pthread_create.c": {
+      "file_sha256": "aeb028b6c929d08fb3e8392ddaee97f550d4187685cfb5ce3f82728c4129e16c",
+      "ranges": [
+        {
+          "first_line": 155,
+          "last_line": 212,
+          "text": "\n\t__do_orphaned_stdio_locks();\n#ifdef __wasilibc_unmodified_upstream\n\t__dl_thread_cleanup();\n#endif\n\n\t/* Last, unlink thread from the list. This change will not be visible\n\t * until the lock is released, which only happens after SYS_exit\n\t * has been called, via the exit futex address pointing at the lock.\n\t * This needs to happen after any possible calls to LOCK() that might\n\t * skip locking if process appears single-threaded. */\n\tif (!--libc.threads_minus_1) libc.need_locks = -1;\n\tself->next->prev = self->prev;\n\tself->prev->next = self->next;\n\tself->prev = self->next = self;\n\n#ifdef __wasilibc_unmodified_upstream\n\tif (state==DT_DETACHED && self->map_base) {\n\t\t/* Detached threads must block even implementation-internal\n\t\t * signals, since they will not have a stack in their last\n\t\t * moments of existence. */\n\t\t__block_all_sigs(&set);\n\n\t\t/* Robust list will no longer be valid, and was already\n\t\t * processed above, so unregister it with the kernel. */\n\t\tif (self->robust_list.off)\n\t\t\t__syscall(SYS_set_robust_list, 0, 3*sizeof(long));\n\n\t\t/* The following call unmaps the thread's stack mapping\n\t\t * and then exits without touching the stack. */\n\t\t__unmapself(self->map_base, self->map_size);\n\t}\n#else\n\tif (state==DT_DETACHED && self->map_base) {\n\t\t// __syscall(SYS_exit) would unlock the thread, list\n\t\t// do it manually here\n\t\t__tl_unlock();\n\t\tfree(self->map_base);\n\t\tfor (;;) __wasi_thread_exit(0);\n\t}\n#endif\n\n\t/* Wake any joiner. */\n\ta_store(&self->detach_state, DT_EXITED);\n\t__wake(&self->detach_state, 1, 1);\n\n#ifdef __wasilibc_unmodified_upstream\n\tfor (;;) __syscall(SYS_exit, 0);\n#else\n\t// __syscall(SYS_exit) would unlock the thread, list\n\t// do it manually here\n\t__tl_unlock();\n\tfor (;;) __wasi_thread_exit(0);\n#endif\n}\n\nvoid __do_cleanup_push(struct __ptcb *cb)\n{"
+        },
+        {
+          "first_line": 420,
+          "last_line": 510,
+          "text": "\t\tsize_t need = libc.tls_size + __pthread_tsd_size;\n#else\n\t\tsize_t need = tls_size + pthread_size + __pthread_tsd_size;\n#endif\n\t\tsize = attr._a_stacksize;\n\t\tstack = (void *)(attr._a_stackaddr & -16);\n\t\tstack_limit = (void *)(attr._a_stackaddr - size);\n\t\t/* Use application-provided stack for TLS only when\n\t\t * it does not take more than ~12% or 2k of the\n\t\t * application's stack space. */\n\t\tif (need < size/8 && need < 2048) {\n\t\t\ttsd = stack - __pthread_tsd_size;\n#ifdef __wasilibc_unmodified_upstream\n\t\t\tstack = tsd - libc.tls_size;\n#else\n\t\t\tnew_pthread = tsd - pthread_size;\n\t\t\tstack = new_pthread - tls_size;\n#endif\n\t\t\tmemset(stack, 0, need);\n\t\t} else {\n\t\t\tsize = ROUND(need);\n\t\t}\n\t\tguard = 0;\n\t} else {\n\t\tguard = ROUND(attr._a_guardsize);\n\t\tsize = guard + ROUND(attr._a_stacksize\n#ifdef __wasilibc_unmodified_upstream\n\t\t\t+ libc.tls_size +  __pthread_tsd_size);\n#else\n\t\t\t+ tls_size + pthread_size +  __pthread_tsd_size);\n#endif\n\t}\n\n\tif (!tsd) {\n#ifdef __wasilibc_unmodified_upstream\n\t\tif (guard) {\n\t\t\tmap = __mmap(0, size, PROT_NONE, MAP_PRIVATE|MAP_ANON, -1, 0);\n\t\t\tif (map == MAP_FAILED) goto fail;\n\t\t\tif (__mprotect(map+guard, size-guard, PROT_READ|PROT_WRITE)\n\t\t\t    && errno != ENOSYS) {\n\t\t\t\t__munmap(map, size);\n\t\t\t\tgoto fail;\n\t\t\t}\n\t\t} else {\n\t\t\tmap = __mmap(0, size, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANON, -1, 0);\n\t\t\tif (map == MAP_FAILED) goto fail;\n\t\t}\n#else\n\t\tif (guard) {\n\t\t\tmap = malloc(guard + size + guard);\n\t\t\tif (!map) goto fail;\n\t\t} else {\n\t\t\tmap = malloc(size);\n\t\t\tif (!map) goto fail;\n\t\t}\n#endif\n\t\ttsd = map + guard + size - __pthread_tsd_size;\n\t\tmemset(tsd, 0, __pthread_tsd_size);\n\t\tnew_pthread = tsd - pthread_size;\n\t\tmemset(new_pthread, 0, pthread_size);\n\t\tif (!stack) {\n#ifdef __wasilibc_unmodified_upstream\n\t\t\tstack = tsd - libc.tls_size;\n#else\n\t\t\tstack = new_pthread - tls_size;\n#endif\n\t\t\tstack_limit = map + guard;\n\t\t}\n\t}\n\n#ifdef __wasilibc_unmodified_upstream\n\tnew = __copy_tls(tsd - libc.tls_size);\n#else\n\t// See comments on start_args.pthread_self_ptr for how TLS is handled in WASIX threads.\n\tnew_tls_base = new_pthread - tls_size;\n\tnew_tls_base += tls_align;\n\tnew_tls_base -= (uintptr_t)new_tls_base & (tls_align - 1);\n\n\tnew = new_pthread;\n\tnew = (void*)new + pthread_align;\n\tnew -= (uintptr_t)new & (pthread_align - 1);\n\t\n#endif\n\tnew->map_base = map;\n\tnew->map_size = size;\n\tnew->stack = stack;\n\tnew->stack_size = stack - stack_limit;\n\tnew->guard_size = guard;\n\tnew->self = new;\n\tnew->tsd = (void *)tsd;\n\tnew->locale = &libc.global_locale;"
+        }
+      ]
+    },
+    "pthread_join.c": {
+      "file_sha256": "82dd5fc9712be15e7c0ba2372def06ed2fc3b07771983e83d36c1d2547ca6433",
+      "ranges": [
+        {
+          "first_line": 1,
+          "last_line": 50,
+          "text": "#define _GNU_SOURCE\n#include \"pthread_impl.h\"\n#ifdef __wasilibc_unmodified_upstream\n#include <sys/mman.h>\n#endif\n\n#ifdef __wasilibc_unmodified_upstream\nstatic void dummy1(pthread_t t)\n{\n}\nweak_alias(dummy1, __tl_sync);\n#endif\n\nstatic int __pthread_timedjoin_np(pthread_t t, void **res, const struct timespec *at)\n{\n\tint state, cs, r = 0;\n\t__pthread_testcancel();\n\t__pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &cs);\n\tif (cs == PTHREAD_CANCEL_ENABLE) __pthread_setcancelstate(cs, 0);\n\twhile ((state = t->detach_state) && r != ETIMEDOUT && r != EINVAL) {\n\t\tif (state >= DT_DETACHED) a_crash();\n\t\tr = __timedwait_cp(&t->detach_state, state, CLOCK_REALTIME, at, 1);\n\t}\n\t__pthread_setcancelstate(cs, 0);\n\tif (r == ETIMEDOUT || r == EINVAL) return r;\n\t__tl_sync(t);\n\tif (res) *res = t->result;\n#ifdef __wasilibc_unmodified_upstream\n\tif (t->map_base) __munmap(t->map_base, t->map_size);\n#else\n\tif (t->map_base) free(t->map_base);\n#endif\n\treturn 0;\n}\n\nint __pthread_join(pthread_t t, void **res)\n{\n\treturn __pthread_timedjoin_np(t, res, 0);\n}\n\nstatic int __pthread_tryjoin_np(pthread_t t, void **res)\n{\n\treturn t->detach_state==DT_JOINABLE ? EBUSY : __pthread_join(t, res);\n}\n\nweak_alias(__pthread_tryjoin_np, pthread_tryjoin_np);\nweak_alias(__pthread_timedjoin_np, pthread_timedjoin_np);\nweak_alias(__pthread_join, pthread_join);"
+        }
+      ]
+    }
+  },
+  "wasix_archive_sha256": "55091ce6af5b549b3c97f61592bd2506e6a7e5da3588cb2f77a64388468ad231"
+}

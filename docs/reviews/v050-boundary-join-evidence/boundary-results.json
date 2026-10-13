@@ -1,0 +1,34 @@
+{
+  "wasm_sha256": "93f44ac11cc76da8ed6db85c1b98243c5f7f9668883c3a218e496d1bd73569fc",
+  "converter_sha256": "430bf08585f685138e0c678ebd5a9c9f92802cc124bb01f17e0ac270a35cf2b0",
+  "raw_base_sha256": "52c903765b6443dd388665066793fd1f0a63dc12066028bf3bfaec637ef5345f",
+  "checks": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-count=1",
+        "-timeout=30s",
+        "-v",
+        "./fixture/base"
+      ],
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "b32e603e0b42590c3e7cc3789782298fce3006a49efc6c4a9236d61c15b5e6f3"
+    },
+    {
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-timeout=30s",
+        "-v",
+        "./fixture/base"
+      ],
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "60f837f967dc2e8b519fd0f2407de5687359b1c0ef31277e4bc07e8f0ea32b40"
+    }
+  ]
+}

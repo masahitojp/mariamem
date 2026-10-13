@@ -1,5 +1,12 @@
 # v0.5.0 J1 completion/reclamation decision detail
 
+**Current disposition:** the authorized bounded comparison is now complete.
+It reproduces a shared original-Wasm/Go allocation-lifetime violation under a
+forced import schedule. No natural SQL failure or Go-only forbidden outcome is
+claimed. The [result and finite repair recommendation](v050-boundary-join-fixes.md)
+and [short Human Review](v050-human-review.md) supersede the unresolved judgment
+below. The following is the historical work/decision plan, retained unchanged.
+
 Decision basis: `ccd75706fae112f1cd811f426ba7ca7dbfc3fe8a`, with unchanged runtime
 `f66727dda49d1b4ca2c7e814e218587c051f7f97` and the
 [fixed guest/converter/provenance identities](v050-semantic-audit.md#scope-completion-and-identities).

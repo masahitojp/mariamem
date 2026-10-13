@@ -1,5 +1,10 @@
 # v0.5.0 bounded shared-access semantic investigation
 
+**Follow-up:** the [owner fixes and bounded J1 comparison](v050-boundary-join-fixes.md)
+now repair T1/T2 and establish a shared guest lifetime failure in original Wasm
+and translated Go. This report retains the original R1–R5 observations; use
+[Human Review](v050-human-review.md) for the current progression recommendation.
+
 **Current technical recommendation:** see the [Human Review judgment](v050-human-review.md)
 and [J1 decision detail](v050-join-decision.md). They supersede this report's earlier
 J1 acceptance handoff: fix T1/T2 and complete one bounded J1 technical decision

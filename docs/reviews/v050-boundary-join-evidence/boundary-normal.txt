@@ -1,0 +1,75 @@
+=== RUN   TestThreadIdentityBoundaries
+=== RUN   TestThreadIdentityBoundaries/first-valid
+    audit_thread_boundary_test.go:27: previous=0 returned=1 child_ran=true contended=true
+=== RUN   TestThreadIdentityBoundaries/last-valid
+    audit_thread_boundary_test.go:27: previous=536870910 returned=536870911 child_ran=true contended=true
+=== RUN   TestThreadIdentityBoundaries/reserved-bits
+    audit_thread_boundary_test.go:27: previous=536870911 returned=-1 child_ran=false contended=false
+=== RUN   TestThreadIdentityBoundaries/negative-error
+    audit_thread_boundary_test.go:27: previous=2147483647 returned=-1 child_ran=false contended=false
+=== RUN   TestThreadIdentityBoundaries/zero-wrap
+    audit_thread_boundary_test.go:27: previous=-1 returned=-1 child_ran=false contended=false
+--- PASS: TestThreadIdentityBoundaries (0.00s)
+    --- PASS: TestThreadIdentityBoundaries/first-valid (0.00s)
+    --- PASS: TestThreadIdentityBoundaries/last-valid (0.00s)
+    --- PASS: TestThreadIdentityBoundaries/reserved-bits (0.00s)
+    --- PASS: TestThreadIdentityBoundaries/negative-error (0.00s)
+    --- PASS: TestThreadIdentityBoundaries/zero-wrap (0.00s)
+=== RUN   TestPositiveTimeoutMustNotExpireBeforeNotification
+--- PASS: TestPositiveTimeoutMustNotExpireBeforeNotification (0.02s)
+=== RUN   TestGeneratedWait64PositiveRange
+=== RUN   TestGeneratedWait64PositiveRange/9223372036853775806/wait64
+=== RUN   TestGeneratedWait64PositiveRange/9223372036853775807/wait64
+=== RUN   TestGeneratedWait64PositiveRange/9223372036853775808/wait64
+=== RUN   TestGeneratedWait64PositiveRange/9223372036854775807/wait64
+=== RUN   TestGeneratedWait64PositiveRange/-1/wait64
+--- PASS: TestGeneratedWait64PositiveRange (0.06s)
+    --- PASS: TestGeneratedWait64PositiveRange/9223372036853775806/wait64 (0.01s)
+    --- PASS: TestGeneratedWait64PositiveRange/9223372036853775807/wait64 (0.01s)
+    --- PASS: TestGeneratedWait64PositiveRange/9223372036853775808/wait64 (0.01s)
+    --- PASS: TestGeneratedWait64PositiveRange/9223372036854775807/wait64 (0.01s)
+    --- PASS: TestGeneratedWait64PositiveRange/-1/wait64 (0.01s)
+=== RUN   TestThreadIdentityFailureBeforeLaunch
+=== RUN   TestThreadIdentityFailureBeforeLaunch/536870911
+=== RUN   TestThreadIdentityFailureBeforeLaunch/536870912
+=== RUN   TestThreadIdentityFailureBeforeLaunch/2147483647
+=== RUN   TestThreadIdentityFailureBeforeLaunch/-1
+--- PASS: TestThreadIdentityFailureBeforeLaunch (0.00s)
+    --- PASS: TestThreadIdentityFailureBeforeLaunch/536870911 (0.00s)
+    --- PASS: TestThreadIdentityFailureBeforeLaunch/536870912 (0.00s)
+    --- PASS: TestThreadIdentityFailureBeforeLaunch/2147483647 (0.00s)
+    --- PASS: TestThreadIdentityFailureBeforeLaunch/-1 (0.00s)
+=== RUN   TestThreadIdentityConcurrentAllocationAndExhaustion
+=== RUN   TestThreadIdentityConcurrentAllocationAndExhaustion/0
+=== RUN   TestThreadIdentityConcurrentAllocationAndExhaustion/536870901
+--- PASS: TestThreadIdentityConcurrentAllocationAndExhaustion (0.00s)
+    --- PASS: TestThreadIdentityConcurrentAllocationAndExhaustion/0 (0.00s)
+    --- PASS: TestThreadIdentityConcurrentAllocationAndExhaustion/536870901 (0.00s)
+=== RUN   TestThreadIdentityMissingEntryDoesNotAllocate
+--- PASS: TestThreadIdentityMissingEntryDoesNotAllocate (0.00s)
+=== RUN   TestWaitTimeoutPositiveRange
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775806/wait32
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775806/common64
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775807/wait32
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775807/common64
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775808/wait32
+=== RUN   TestWaitTimeoutPositiveRange/9223372036853775808/common64
+=== RUN   TestWaitTimeoutPositiveRange/9223372036854775807/wait32
+=== RUN   TestWaitTimeoutPositiveRange/9223372036854775807/common64
+=== RUN   TestWaitTimeoutPositiveRange/-1/wait32
+=== RUN   TestWaitTimeoutPositiveRange/-1/common64
+--- PASS: TestWaitTimeoutPositiveRange (0.11s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775806/wait32 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775806/common64 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775807/wait32 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775807/common64 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775808/wait32 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036853775808/common64 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036854775807/wait32 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/9223372036854775807/common64 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/-1/wait32 (0.01s)
+    --- PASS: TestWaitTimeoutPositiveRange/-1/common64 (0.01s)
+=== RUN   TestWaitTimeoutZeroShortAndMismatch
+--- PASS: TestWaitTimeoutZeroShortAndMismatch (0.00s)
+PASS
+ok  	example.com/waitfixture/fixture/base	0.435s

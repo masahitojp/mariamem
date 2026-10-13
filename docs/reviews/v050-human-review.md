@@ -1,31 +1,30 @@
 # v0.5.0 shared-memory technical judgment for Human Review
 
-**Original question:** R1–R5 support the reviewed Wasm access/order/ownership
-mappings for this fixed guest and runtime. Two reproduced wait/thread-spawn
-boundary violations still prevent an unconditional positive judgment. J1 remains
-an unresolved completion/reclamation argument on normal shutdown; **no
-Wasm-forbidden translated outcome or user harm is established for J1**.
+**Original question:** T1/T2 now repair the two demonstrated Wasm/helper-ABI
+boundary violations. R1–R5 support the reviewed mappings for this fixed guest;
+this is not general shared-memory conformance. The bounded J1 comparison finds
+premature allocation reuse in both original Wasm and translated Go, with a later
+write changing a replacement byte. It does not demonstrate a Go-only outcome
+forbidden by the original Wasm, or a normal SQL failure.
 
-**Condition for final verification — recommended:** fix T1/T2 and verify canonical
-independent regeneration; complete one bounded comparison of the actual optimized
-Wasm and translated J1 exit/join/free path before Qualification. Repair J1 only
-if that comparison establishes a translation violation or unsafe guest lifetime.
-I recommend additional confirmation first. This tightens the earlier “T1/T2
-fixes, J1 left to Human acceptance,” which lacked an assessable normal-use and
-last-access case. It is a correction to the recommendation, **not a newly
-reproduced J1 failure**. “Close three points” means two fixes and a supported
-J1 decision, not three mandatory fixes.
+**Condition for final verification — recommended:** complete a limited
+worker-completion/reclamation repair and its existing failure oracle before
+Qualification. T1/T2 repair and independent regeneration are complete. J1's
+technical comparison is complete; its production repair is not implemented.
+This replaces the earlier unresolved J1 handoff: the previously stated
+“repair if shared unsafe lifetime is found” condition is now met by evidence.
+I recommend that repair, not acceptance based on functional PASS or detector
+silence. A reviewed completion protocol is a separate 4–8 engineer-hour task,
+not another whole-guest investigation or an approval to publish.
 
-**Strongest objection:** no J1 translation counterexample exists, the optimized
-Wasm itself lacks the disputed fences, and host join protects backing retirement.
-A speculative patch could change guest identity without fixing a mismatch.
-That rules out declaring J1 broken or demanding redesign; it does not establish
-safe guest allocation reuse before host join. Recommend a **2–3 engineer-hour
-J1 task, capped at three hours**, with an exact result or explicitly unfinished
-premise. The cap never becomes PASS.
+**Strongest objection:** the original Wasm shows the same failure, and the
+forced schedule is not a natural SQL reproduction. That prevents calling this
+a new converter mismatch or assigning a failure probability. It does not supply
+safe reclamation: the exiting worker can write after guest join/free while host
+backing drain occurs later. This judgment concerns the candidate's lifetime
+contract, not whether users should stop using mariamem for development.
 
-[Detailed consequences, ordinary reachability, evidence, missing premises,
-work/acceptance criteria and repair costs](v050-join-decision.md);
-[R1–R5 results](v050-semantic-audit.md#per-item-disposition) and
-[fixed identities](v050-semantic-audit.md#scope-completion-and-identities).
-This update adds no runtime experiment or implementation.
+[Changes, exact reproduction, verification, unperformed scope and finite remedy](v050-boundary-join-fixes.md);
+[R1–R5](v050-semantic-audit.md#per-item-disposition);
+[historical J1 work/decision plan](v050-join-decision.md).
+No final Qualification, Product Validation or release readiness is claimed.

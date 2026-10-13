@@ -1,0 +1,79 @@
+{
+  "original_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "fixture_sha256": "d7bfa121c30d584cc8a5115fc5d4478d4c71db390b572806ca8cf90fab90f360",
+  "change": "exports plus removal of automatic start only; all function bodies unchanged",
+  "unchanged_sections": [
+    {
+      "section": 1,
+      "sha256": "611dc3e097ac5fb9d423abe52c294018cf0d31d24c903a71a5f67eb880dbb08c"
+    },
+    {
+      "section": 2,
+      "sha256": "53b99d5d891bf81dd448e12780ddcd59e9c081c538a0c39bb664a678bafc5759"
+    },
+    {
+      "section": 3,
+      "sha256": "ffb50bee1802af4abb9cb4fc9532015cb933789194c5121ec089de17e04615b7"
+    },
+    {
+      "section": 4,
+      "sha256": "d8b9858e6853ac0cafdabb21acedacb4e2b2e85feecbeefa437d33c06a7ad53c"
+    },
+    {
+      "section": 13,
+      "sha256": "05db080e1731333104a194aa843eccbd7d90ba445e20e9484bfb2097fda8e038"
+    },
+    {
+      "section": 6,
+      "sha256": "e2b1dc224f7ffc837054dd3356ee84c103079a7f921cd3ea9113944957365d92"
+    },
+    {
+      "section": 9,
+      "sha256": "5fb422f766b4737ef2a38270a91d794352547397e60b2dbb8ec12bd654de4b35"
+    },
+    {
+      "section": 12,
+      "sha256": "084fed08b978af4d7d196a7446a86b58009e636b611db16211b65a9aadff29c5"
+    },
+    {
+      "section": 10,
+      "sha256": "acd1e7b7dbdfb46c8aa26053868b7a33a5eeee883cdb8ac1214afa985dc13785"
+    },
+    {
+      "section": 11,
+      "sha256": "c09e5331f0baa3c31ea57501c78f488b9945c1bccfbb48198287e13a06462ad2"
+    },
+    {
+      "section": 0,
+      "sha256": "addfa5eb7f595f2cd26c8cd82fb5fd8d3542993132c700850a1a72f97e68abbb"
+    },
+    {
+      "section": 0,
+      "sha256": "d00636c5e3895fc00e0ef41adf45665e5ab295820a308fadf3943f8f997a97ff"
+    },
+    {
+      "section": 0,
+      "sha256": "a619618b2feb364dd86682d71ee03427ae8891935045204f3ca6aeb7d3dd8f9b"
+    },
+    {
+      "section": 0,
+      "sha256": "13e47462c8b9b9123f661fc000d16f3fd10c01e4f034d06fcc570d5298e00cd4"
+    },
+    {
+      "section": 0,
+      "sha256": "49c8bcb4d1f8a1992bbeb8af3d45b0b416cac046fc737aee3644f005ae54c2fd"
+    },
+    {
+      "section": 0,
+      "sha256": "7e76948ac5cfdc1ee232fda915535572b4939cee193c8a85426eeb5963e80753"
+    },
+    {
+      "section": 0,
+      "sha256": "9905559488c528d14fe6be4692f790475ca24b598322e72ff54155855fa35f79"
+    },
+    {
+      "section": 0,
+      "sha256": "83197e2b9fc2977b18cee86cea82e5bcb4bea0c62de8d53e9fdf80895f271ab3"
+    }
+  ]
+}

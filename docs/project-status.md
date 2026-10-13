@@ -217,13 +217,16 @@ reproduced helper boundary defects (positive timeout overflow and exhausted
 thread IDs), and one investigated unresolved fast guest join/publication edge.
 No SQL harm was reproduced by the two new boundary fixtures. Coverage completion
 is not general shared-memory conformance or release readiness. The
-[Human Review judgment](reviews/v050-human-review.md) now recommends two
-bounded owner fixes plus one **2–3 hour J1 comparison task** before final
-qualification. It supplies normal shutdown reachability, conditional user harm,
-specific missing premises and estimated repair cost. J1 is not a third proved
-translation defect; repair depends on the comparison. This explicitly replaces
-the earlier unsubstantiated handoff of J1 acceptance to Human choice; no new
-runtime experiment or product implementation is part of the judgment update.
+[boundary fixes and J1 decision](reviews/v050-boundary-join-fixes.md) record
+owner repairs for both demonstrated defects and exact independent regeneration.
+The bounded J1 comparison now reproduces premature allocation reuse in the
+actual original Wasm and translated Go under a forced import schedule; no
+Go-only forbidden outcome or natural SQL harm is established. The
+[Human Review judgment](reviews/v050-human-review.md) recommends a limited
+completion/reclamation repair before final Qualification, with a finite owner
+scope and 4–8 engineer-hour estimate. That repair is not implemented or approved
+by this result; no whole-guest re-investigation is requested. Functional PASS
+and detector silence do not close the reproduced lifetime failure.
 
 The [assessment review](reviews/v050-access-review.md) preserves why the earlier
 investigation and progression recommendation were incomplete, and the finite

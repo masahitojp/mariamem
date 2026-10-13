@@ -1,0 +1,138 @@
+{
+  "baseline-boundaries.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "73cd3a57eea5dfa65b79f9d95d537fe7bebefa4de8f24b86e1bb017aff7040cc",
+    "saved_sha256": "73cd3a57eea5dfa65b79f9d95d537fe7bebefa4de8f24b86e1bb017aff7040cc"
+  },
+  "boundary-normal.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "b32e603e0b42590c3e7cc3789782298fce3006a49efc6c4a9236d61c15b5e6f3",
+    "saved_sha256": "b32e603e0b42590c3e7cc3789782298fce3006a49efc6c4a9236d61c15b5e6f3"
+  },
+  "boundary-race.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "60f837f967dc2e8b519fd0f2407de5687359b1c0ef31277e4bc07e8f0ea32b40",
+    "saved_sha256": "60f837f967dc2e8b519fd0f2407de5687359b1c0ef31277e4bc07e8f0ea32b40"
+  },
+  "boundary-results.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "a87282943e14a4549ebff7bd2edee92e160bb3a3ac726cf2286122cd946038a4",
+    "saved_sha256": "a87282943e14a4549ebff7bd2edee92e160bb3a3ac726cf2286122cd946038a4"
+  },
+  "builder-source.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "f072709744e3230db71d8cddff06cca861722d74ef73133788af9f93f4d06c98",
+    "saved_sha256": "f072709744e3230db71d8cddff06cca861722d74ef73133788af9f93f4d06c98"
+  },
+  "fast-feedback-python-resume.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "d7617ac64d003bbd64d8a07b01260bc689d1c5200f8246631d4a7b7d1e158d00",
+    "saved_sha256": "d7617ac64d003bbd64d8a07b01260bc689d1c5200f8246631d4a7b7d1e158d00"
+  },
+  "fast-feedback-retry.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "8c762f149ab1bf50d4d92d45ce001bc06e083d6e2907d8f98a367102eab8415e",
+    "saved_sha256": "1978530cbf10fef7e5974faab0dce082dc8c981846ec9638c0cb18e40e02ebda"
+  },
+  "generated-delta.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "48cbe362855628db2c82b3ea16250e961153204de7a7406c1c68334960d27610",
+    "saved_sha256": "48cbe362855628db2c82b3ea16250e961153204de7a7406c1c68334960d27610"
+  },
+  "guest-build-receipt.json": {
+    "normalization": "derived identity or verification summary; input hashes recorded in content",
+    "saved_sha256": "57e4c649e809cebc8661768848710a4907466f55895c82a01763384498121fb9"
+  },
+  "identities.json": {
+    "normalization": "derived identity or verification summary; input hashes recorded in content",
+    "saved_sha256": "b4682113742e562f4d192e6bab91eaac9b0b6a4f0e9f0f1bbc42102f3d605e37"
+  },
+  "independent-final.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "aa076b21dd9d65fed56e5390055eed41ced501a6f77aadcb0ecf186a435fb844",
+    "saved_sha256": "97f2386846586f778d8ca3720a7dd37fb9e67b3c784cd1b10287df1c68519945"
+  },
+  "independent-regeneration.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "ec8f77543d8d50c65c5ee9a762d70bd058a5d88718800ec1070c6f907c32f6d5",
+    "saved_sha256": "ec8f77543d8d50c65c5ee9a762d70bd058a5d88718800ec1070c6f907c32f6d5"
+  },
+  "integration-sandbox-failure.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "c286b6af748d2292bf6c1299d2dcd4894783742604dd94625ab14c8bb98f30c3",
+    "saved_sha256": "4520a0197ffad0518a1213630b4b75eb2684554642c95c471a3eaebeec893025"
+  },
+  "integration.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "e312161a00953b56de5d0fce7a60826b8c3d4d8f709b58e70394c97b0e7614c2",
+    "saved_sha256": "54e7036d1b2455c1e366fbc8b2eea1dc3c58edc8e85c3b2452baea90a7ee6bf8"
+  },
+  "j1-decoded.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "b779998f6e47d85a6690f81b5a074f9ca32724b09c7d006c0ed95a1ca5256a59",
+    "saved_sha256": "b779998f6e47d85a6690f81b5a074f9ca32724b09c7d006c0ed95a1ca5256a59"
+  },
+  "j1-go-heap-race.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "0f56179a763f174a6e2800c688cce2877e749d1c76430985da9429eaba6dc993",
+    "saved_sha256": "0f56179a763f174a6e2800c688cce2877e749d1c76430985da9429eaba6dc993"
+  },
+  "j1-go-heap.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "9aec7f374349fe7384e1d6b09a86b0cf208673aecf84e20681b2b5578215324f",
+    "saved_sha256": "9aec7f374349fe7384e1d6b09a86b0cf208673aecf84e20681b2b5578215324f"
+  },
+  "j1-go-identities.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "c670bcc0eded606966153807a9dc438a2752c1cd6e2503698728d631f7454695",
+    "saved_sha256": "c670bcc0eded606966153807a9dc438a2752c1cd6e2503698728d631f7454695"
+  },
+  "j1-go-mmap-race.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "65019c6126a3f956c7ad57438805ce50c421f35389cbb70c1f064139fc7d4979",
+    "saved_sha256": "65019c6126a3f956c7ad57438805ce50c421f35389cbb70c1f064139fc7d4979"
+  },
+  "j1-go-mmap.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "40d8f6c60f2dd39b40437170b153da523983066354142471f51eed1dc1d8c0b2",
+    "saved_sha256": "40d8f6c60f2dd39b40437170b153da523983066354142471f51eed1dc1d8c0b2"
+  },
+  "j1-original.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "757b5bbcb33eaa8fff36dd72245165fb0657c81594935b0e03070441171b86fe",
+    "saved_sha256": "757b5bbcb33eaa8fff36dd72245165fb0657c81594935b0e03070441171b86fe"
+  },
+  "j1-results.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "97bfd043cba37813800aec0cbddaa3e01dcdb850b75ba64675fb0afa041096dc",
+    "saved_sha256": "97bfd043cba37813800aec0cbddaa3e01dcdb850b75ba64675fb0afa041096dc"
+  },
+  "j1-wasm-sections.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "871e6de620fee2ac913ceac2eeb0513fdd95961085a27c48597346aaa67f5adc",
+    "saved_sha256": "871e6de620fee2ac913ceac2eeb0513fdd95961085a27c48597346aaa67f5adc"
+  },
+  "lifetime-source-slices.json": {
+    "normalization": "derived identity or verification summary; input hashes recorded in content",
+    "saved_sha256": "9af5934c8ca0718a1bfc47b02067cdf57667e6ced22315e57c60b08e26d6b23e"
+  },
+  "snapshots.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "9593563810d1acb4c9f94a4c86ed0ec992a806a9d2a2f9614050a77f327d894b",
+    "saved_sha256": "b7224c489a1e211ebb77a336282e2d4dcf0ccff1a625b7e741e8b4936796a002"
+  },
+  "source-guards-fixed.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "96532562c4a1d9d0c7cdf9e78fc421ebb8d8b46e34d9956497969864e1c78682",
+    "saved_sha256": "96532562c4a1d9d0c7cdf9e78fc421ebb8d8b46e34d9956497969864e1c78682"
+  },
+  "timing.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace removed",
+    "raw_sha256": "8c59b507be0bebdbc5fde97673f47ec12e01b0a18d9e7719d50e964de7d0b9bf",
+    "saved_sha256": "8c59b507be0bebdbc5fde97673f47ec12e01b0a18d9e7719d50e964de7d0b9bf"
+  },
+  "verification.json": {
+    "normalization": "derived identity or verification summary; input hashes recorded in content",
+    "saved_sha256": "c5851b81a657912cabba1ba4014ffaa3d1b13f9e5c3821a54a7d937ee13ea0e1"
+  }
+}
