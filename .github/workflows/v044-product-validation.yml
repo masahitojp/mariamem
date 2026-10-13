@@ -12,6 +12,7 @@ permissions:
   contents: read
 jobs:
   qualify:
+    if: github.ref != 'refs/heads/experiment/startup-tail-ubuntu-v050'
     name: Runtime qualification — ${{ matrix.platform }}
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 90
@@ -77,3 +78,67 @@ jobs:
           path=Path(os.environ['RUNNER_TEMP'])/'runtime-qualification'/'scratch'
           if path.exists():
               remove_disposable_tree(path)
+
+  ubuntu-startup-tail-probe:
+    if: github.ref == 'refs/heads/experiment/startup-tail-ubuntu-v050'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ inputs.candidate_ref }}
+          fetch-depth: 0
+      - name: Assert runtime source is the reviewed candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = x86_64
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "${{ inputs.candidate_ref }}" = "$GITHUB_SHA"
+          test "$(git diff --name-only 8d1628f533b573de3124660613b69703040043d9 HEAD | sort)" = $'.github/workflows/v044-product-validation.yml\nbenchmarks/startup_tail_ubuntu_compare.py'
+          python3 scripts/git_identity.py inspect v0.5.0
+          mkdir -p "$RUNNER_TEMP/startup-tail-evidence"
+          git diff --name-only 8d1628f533b573de3124660613b69703040043d9 HEAD > "$RUNNER_TEMP/startup-tail-evidence/source-diff.txt"
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Install regression test dependencies
+        run: python -m pip install --no-cache-dir pytest==8.4.2 PyMySQL==1.2.3
+      - name: Ubuntu SQL, Snapshot/Fork and Close regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify.py integration 2>&1 | tee "$RUNNER_TEMP/startup-tail-evidence/integration.log"
+      - name: Build exact-source baseline and candidate benchmark binaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          git worktree add --detach "$RUNNER_TEMP/v050-baseline" 44100ec676c8c9064f32f3a01bd9a990d487bb61
+          git -C "$RUNNER_TEMP/v050-baseline" rev-parse HEAD > "$RUNNER_TEMP/startup-tail-evidence/baseline-commit.txt"
+          git rev-parse HEAD > "$RUNNER_TEMP/startup-tail-evidence/probe-commit.txt"
+          go build -p 1 -o "$RUNNER_TEMP/v050-candidate-bench" ./benchmarks/ownedprepared
+          cd "$RUNNER_TEMP/v050-baseline"
+          go build -p 1 -o "$RUNNER_TEMP/v050-baseline-bench" ./benchmarks/ownedprepared
+        env:
+          GOTOOLCHAIN: local
+      - name: Balanced four-parallel Fresh comparison
+        shell: bash
+        run: |
+          set -euo pipefail
+          python benchmarks/startup_tail_ubuntu_compare.py \
+            --baseline "$RUNNER_TEMP/v050-baseline-bench" \
+            --candidate "$RUNNER_TEMP/v050-candidate-bench" \
+            --evidence "$RUNNER_TEMP/startup-tail-evidence" --blocks 30 \
+            2>&1 | tee "$RUNNER_TEMP/startup-tail-evidence/measurement.log"
+      - name: Upload Ubuntu review evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: ubuntu-startup-tail-${{ github.sha }}
+          path: ${{ runner.temp }}/startup-tail-evidence
+          if-no-files-found: error
+          retention-days: 90
