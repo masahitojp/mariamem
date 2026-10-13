@@ -822,6 +822,7 @@ type Module struct {
 	Threads                *ThreadPool
 	PrepareMemoryGrow      func(uint64, uint64) error
 	ThreadStart            func(*Module, int32, int32)
+	ThreadLifetime         *ThreadLifetime
 }
 
 func I32(x int32) int32 { return x }

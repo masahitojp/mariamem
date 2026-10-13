@@ -1163,6 +1163,9 @@ func Fn115(m *base.Module, l0 int32, l1 int64, l2 int64, l3 int64, l4 int64) {
 	return
 }
 func Fn153(m *base.Module, l0 int32) {
+	if base.DeferThreadAllocationFree(m, l0) {
+		return
+	}
 	mBase := m.M
 	_ = mBase
 	var v13 int32

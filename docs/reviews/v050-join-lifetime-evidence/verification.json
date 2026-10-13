@@ -1,0 +1,57 @@
+{
+  "J1_repair": "COMPLETE within authorized scope",
+  "Ubuntu_native": "SKIP unavailable; prior CI not relabelled for new code",
+  "actual_function_matrix": [
+    {
+      "backing": "heap",
+      "cases": 4,
+      "evidence": "j1-final-heap.txt",
+      "oracle": "PASS",
+      "race_reports": 0
+    },
+    {
+      "backing": "mmap",
+      "cases": 4,
+      "evidence": "j1-final-mmap.txt",
+      "oracle": "PASS",
+      "race_reports": 0
+    },
+    {
+      "backing": "heap-race",
+      "cases": 4,
+      "evidence": "j1-final-heap-race.txt",
+      "oracle": "PASS",
+      "race_reports": 0
+    },
+    {
+      "backing": "mmap-race",
+      "cases": 4,
+      "evidence": "j1-final-mmap-race.txt",
+      "oracle": "PASS",
+      "race_reports": 0
+    }
+  ],
+  "baseline_oracle": "FAIL required lifetime property; expected reproduction, 2 controls PASS",
+  "fast_feedback": {
+    "go_test_and_vet": "PASS",
+    "initial_failures": "synthetic installer fixture pre-new-guard, DNS dependency timeout, sandbox process-control limits; retained as environment/harness failures, not runtime PASS",
+    "public_source": "PASS separately checked after docs",
+    "python": "588 passed,37 skipped,18 subtests",
+    "result": "PASS all required stages",
+    "runner_limit": "full runner stopped at sandbox-owned-process ps/kill prohibition; exact remaining Python stage rerun outside sandbox"
+  },
+  "final_qualification_product_validation_release": "NOT PERFORMED outside scope",
+  "full_guest_race_census": "NOT PERFORMED outside scope; detector silence is not safety evidence",
+  "guest_snapshot_identity": "UNCHANGED; no snapshot migration or guard weakening",
+  "independent_regeneration": "PASS all generated and handwritten files equal; memory32 regression 2472 cases / 1693 expected traps",
+  "integration": {
+    "python_cases": 28,
+    "result": "PASS",
+    "scope": "focused runtime race; full guest SQL/transaction/parallel/isolation/normal Close; Snapshot/Fork; Python lifecycle",
+    "snapshot_checks": 49
+  },
+  "known_corrective_items_after_T1_T2_J1": "NONE in agreed current-guest R1\u2013R5 contract",
+  "macOS15_minimum_OS": "SKIP this host is macOS27",
+  "owner_unit_tests": "PASS race; last body defer, return/Goexit/panic, self reclaim, parallel joins, failed spawn, completed/address reuse, independent DB, invalid bindings, allocator failure, dead-TLS yield",
+  "source_binding_and_ownership": "PASS 28 tests; original inclusion checks preserved and required raw ABI fixture supplied"
+}

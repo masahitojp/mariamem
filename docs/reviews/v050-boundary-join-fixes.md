@@ -1,5 +1,9 @@
 # v0.5.0 boundary fixes and J1 decision
 
+**Follow-up:** the Human subsequently authorized the [J1 production repair](v050-join-lifetime-fix.md).
+The original counterexample and decision context below are retained unchanged;
+use [Human Review](v050-human-review.md) for the current candidate handoff.
+
 The two demonstrated converter boundary defects are repaired at their owners.
 The bounded J1 comparison establishes a guest allocation-lifetime failure in
 both the actual Wasm and its translated Go, not a newly demonstrated Go-only

@@ -12,7 +12,9 @@ import (
 // Constructor ownership transfers only after all generated initialization succeeds.
 func newMemoryModule(h *host) (m *base.Module, release func() error, err error) {
 	return initializeMemoryModule(func() (*base.MemoryMapping, error) { return base.NewMemoryMapping(generated.InitialMemoryBytes, 2<<30) }, func(b *base.MemoryMapping) *base.Module {
-		return generated.NewWithMemory(h, nil, h, b.Bytes(), generated.InitialMemoryBytes)
+		m := generated.NewWithMemory(h, nil, h, b.Bytes(), generated.InitialMemoryBytes)
+		installGuestThreadLifetime(m)
+		return m
 	})
 }
 func initializeMemoryModule(reserve func() (*base.MemoryMapping, error), initialize func(*base.MemoryMapping) *base.Module) (m *base.Module, release func() error, err error) {

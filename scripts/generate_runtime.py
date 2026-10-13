@@ -21,6 +21,9 @@ HANDWRITTEN_FILES = (
     'code/base/bulk_bounds_test.go',
     'code/base/wait_timeout_test.go',
     'code/base/thread_identity_test.go',
+    'code/base/thread_lifetime.go',
+    'code/base/thread_lifetime_test.go',
+    'runtime_thread_lifetime.go',
     'code/base/narrow_load_test.go',
     'code/base/narrow_load_supported.go',
     'code/base/narrow_load_other.go',
@@ -100,6 +103,8 @@ def main():
              for suffix in ('*.go', '*.s') for p in src.rglob(suffix)}
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
+    from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
+    thread_lifetime_inputs(pins['guest_sha256'], files)
     data = (src/'generated/data.bin').read_bytes()
     if hashlib.sha256(data).hexdigest() != pins['data_sha256']:
         parser.error('initial guest data identity mismatch')
@@ -123,6 +128,8 @@ def main():
             text = adapt_driver(text)
         elif name in ('fs_contract_test.go', 'guest_identity.go'):
             text = text.replace('package main', 'package generatedgo', 1)
+        from runtime_thread_lifetime import apply as thread_lifetime
+        text = thread_lifetime(str(target.relative_to(out)), text)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.

@@ -1,0 +1,8 @@
+[
+  "code/p3/p3_pure.go: reject changed bound function",
+  "code/p8/p8_pure.go: reject changed bound function",
+  "code/p5/p5_pure.go: reject changed bound function",
+  "reject duplicate Module installation",
+  "reject guest/inventory mismatch",
+  "reject guest/inventory mismatch"
+]

@@ -88,12 +88,31 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
     (module/'generated/base').mkdir(parents=True)
     unit = module/'generated/base/unit.go'
     unit.write_text('package base\n')
+    # The installer now binds a real single-guest allocation ABI. Keep this
+    # inclusion test small while supplying checked raw function preimages;
+    # do not mock/disable that input guard or reduce the ownership assertions.
+    import re
+    from runtime_atomic_loads import SUBWORD, CMP
+    from runtime_thread_lifetime import FUNCTIONS, GUEST_SHA256, function
+    (module/'generated/base/base.go').write_text(
+        'package base\ntype Module struct {\n\tThreadStart func(*Module, int32, int32)\n}\n'
+        + SUBWORD + '\n' + CMP + '\n'
+        + 'func (w *WasiStubs) Sched_yield(m *Module) int32 {\n\truntime.Gosched()\n\treturn _wasiESUCCESS\n}\n'
+        + 'const _wasiESUCCESS int32 = 0\n')
+    for relative, (fn, _) in FUNCTIONS.items():
+        body = function((canonical/relative).read_text(), fn)
+        if fn == 'Fn153':
+            body = re.sub(r'(func Fn153\(m \*base.Module, l0 int32\) \{\n)\s*if base.DeferThreadAllocationFree\(m, l0\) \{\s*return\s*\}\n', r'\1', body, count=1)
+        target = module/'generated'/relative.removeprefix('code/')
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text('package generated\n'+body)
     data = b'fixture data'
     (module/'generated/data.bin').write_bytes(data)
     (project/'release').mkdir()
     (project/'release/generated-go-inputs.json').write_text(json.dumps({
-        'candidate_files_sha256': {'generated/base/unit.go': hashlib.sha256(unit.read_bytes()).hexdigest()},
-        'data_sha256': hashlib.sha256(data).hexdigest(), 'guest_sha256': 'a'*64}))
+        'candidate_files_sha256': {p.relative_to(module).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+                                   for p in module.rglob('*.go')},
+        'data_sha256': hashlib.sha256(data).hexdigest(), 'guest_sha256': GUEST_SHA256}))
     monkeypatch.setattr(installer, 'ROOT', project)
     monkeypatch.setattr(sys, 'argv', ['generate_runtime.py', '--source-module', str(module), '--output', str(output)])
     monkeypatch.setattr(installer.subprocess, 'check_output', lambda *a, **k: str(tmp_path/'go')+'\n')

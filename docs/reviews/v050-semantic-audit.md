@@ -1,5 +1,9 @@
 # v0.5.0 bounded shared-access semantic investigation
 
+**Current implementation follow-up:** [J1 repair](v050-join-lifetime-fix.md)
+closes the last identified corrective item after T1/T2. Historical observations
+and unresolved-at-the-time dispositions below remain unchanged.
+
 **Follow-up:** the [owner fixes and bounded J1 comparison](v050-boundary-join-fixes.md)
 now repair T1/T2 and establish a shared guest lifetime failure in original Wasm
 and translated Go. This report retains the original R1–R5 observations; use

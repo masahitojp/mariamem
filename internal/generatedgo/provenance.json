@@ -4,7 +4,7 @@
   "files_sha256": {
     "code/alias.go": "75c9b6d91baa07783b81b576f40ed719a53832678849130247404726361875af",
     "code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
-    "code/base/base.go": "e8d46c765980586e9fb7d7452e85ffb9d86b64bcdf1bbc5b154bdca515da1181",
+    "code/base/base.go": "8b092f6215c75f842c1a9804313527639214276e1c8c74876f427ddc19fd0d63",
     "code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
     "code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
     "code/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
@@ -44,7 +44,7 @@
     "code/p2/p2_pure.go": "a894b24d0eef8fda28c8135a9863d544eca49db6ba63fb1117be25cbd2e99cef",
     "code/p3/alias.go": "838d9ede77d00b79de88be5c58aecff0beb5bf28e60059498925d280075b44bb",
     "code/p3/p3.go": "0413460b1de8889a93c1344be4e8143798d806ab702b20a942b45065bb83149b",
-    "code/p3/p3_pure.go": "0cd1833b6ba0a9e1e6261965d05a04a8527896c24988e9161013cdb347667781",
+    "code/p3/p3_pure.go": "55e55c041c485fef349ed6e17dadac93c2c1c8fd7fa4ec47f99d5ec1ac60023c",
     "code/p4/alias.go": "a4213d755dd0c7993ca62338eec0e8f57e2bd8ae89672d73f19acb28866f81dd",
     "code/p4/p4.go": "0f966c897adfbe579ba0bdabb427843a5fed39fd204a916f4860eedb93b77a4a",
     "code/p4/p4_pure.go": "21ae87a502d3c3de7a179fd0691329f7246275a67e0b4971b4eb4290859a56d8",

@@ -1,30 +1,26 @@
-# v0.5.0 shared-memory technical judgment for Human Review
+# v0.5.0 Human Review — completed J1 candidate
 
-**Original question:** T1/T2 now repair the two demonstrated Wasm/helper-ABI
-boundary violations. R1–R5 support the reviewed mappings for this fixed guest;
-this is not general shared-memory conformance. The bounded J1 comparison finds
-premature allocation reuse in both original Wasm and translated Go, with a later
-write changing a replacement byte. It does not demonstrate a Go-only outcome
-forbidden by the original Wasm, or a normal SQL failure.
+**Decision now: adopt the J1 repair candidate and proceed to the already planned
+final Qualification and Product Validation. I recommend adoption.** An exiting
+worker can no longer overwrite a replacement allocation in the preserved failure
+oracle: reclamation waits for the last guest/host memory access, including unwind
+and detached self-exit. The previously identified T1/T2 fixes remain intact.
 
-**Condition for final verification — recommended:** complete a limited
-worker-completion/reclamation repair and its existing failure oracle before
-Qualification. T1/T2 repair and independent regeneration are complete. J1's
-technical comparison is complete; its production repair is not implemented.
-This replaces the earlier unresolved J1 handoff: the previously stated
-“repair if shared unsafe lifetime is found” condition is now met by evidence.
-I recommend that repair, not acceptance based on functional PASS or detector
-silence. A reviewed completion protocol is a separate 4–8 engineer-hour task,
-not another whole-guest investigation or an approval to publish.
+**Strongest objection:** the repair adds allocator lookup/synchronization and
+changes deallocation timing; its performance/resource cost has not been measured.
+The original failure was shared by Wasm and Go, not a demonstrated Go-only defect.
+I still recommend the limited owner repair because it removes the concrete
+lifetime failure without changing guest inputs or broadening the engine design.
+Product Validation must assess its cost before a release decision.
 
-**Strongest objection:** the original Wasm shows the same failure, and the
-forced schedule is not a natural SQL reproduction. That prevents calling this
-a new converter mismatch or assigning a failure probability. It does not supply
-safe reclamation: the exiting worker can write after guest join/free while host
-backing drain occurs later. This judgment concerns the candidate's lifetime
-contract, not whether users should stop using mariamem for development.
+For the original question, the agreed current-guest R1–R5 investigation now has
+no outstanding identified access/ownership correction after T1/T2/J1. Scoped
+repair verification is complete; final platform/artifact/consumer Qualification
+and Product Validation are not. No whole-guest re-investigation is recommended
+on these fixed inputs. This candidate adoption is separate from release approval.
 
-[Changes, exact reproduction, verification, unperformed scope and finite remedy](v050-boundary-join-fixes.md);
-[R1–R5](v050-semantic-audit.md#per-item-disposition);
-[historical J1 work/decision plan](v050-join-decision.md).
-No final Qualification, Product Validation or release readiness is claimed.
+[Implementation, lifetime argument, semantic differences and limits](v050-join-lifetime-fix.md);
+[exact identities and verification](v050-join-lifetime-evidence/verification.json);
+[historical J1 before/after decision](v050-boundary-join-fixes.md);
+[R1–R5 evidence](v050-semantic-audit.md).
+No main merge, tag, publication or RELEASE READY judgment is included.

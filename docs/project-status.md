@@ -209,31 +209,32 @@ part of v0.4.7. Historical candidate measurements qualify only their recorded in
 
 ## v0.5.0 — Stable guest
 
-The approved bounded [R1–R5 semantic investigation](reviews/v050-semantic-audit.md)
-now supplies the missing per-target access/lifetime and supporting-protocol
-review: 65 functions, 147 narrow writer sites, 28 target records and all 14
-original families. Its dispositions distinguish supported mappings, two
-reproduced helper boundary defects (positive timeout overflow and exhausted
-thread IDs), and one investigated unresolved fast guest join/publication edge.
-No SQL harm was reproduced by the two new boundary fixtures. Coverage completion
-is not general shared-memory conformance or release readiness. The
-[boundary fixes and J1 decision](reviews/v050-boundary-join-fixes.md) record
-owner repairs for both demonstrated defects and exact independent regeneration.
-The bounded J1 comparison now reproduces premature allocation reuse in the
-actual original Wasm and translated Go under a forced import schedule; no
-Go-only forbidden outcome or natural SQL harm is established. The
-[Human Review judgment](reviews/v050-human-review.md) recommends a limited
-completion/reclamation repair before final Qualification, with a finite owner
-scope and 4–8 engineer-hour estimate. That repair is not implemented or approved
-by this result; no whole-guest re-investigation is requested. Functional PASS
-and detector silence do not close the reproduced lifetime failure.
+The maintainer authorized the limited J1 completion/reclamation repair after the
+paired counterexample. The [implemented candidate](reviews/v050-join-lifetime-fix.md)
+binds worker map reclamation to final agent access, covering delayed wake,
+detached self-exit and unwind. Guest/raw converter inputs remain unchanged;
+owned generated edits are independently reproduced. T1/T2/J1 close the identified
+corrective items in the agreed current-guest investigation. Candidate adoption
+and the planned final Qualification/Product Validation remain the
+[Human Review handoff](reviews/v050-human-review.md), not release approval.
+
+The bounded [R1–R5 investigation](reviews/v050-semantic-audit.md) supplied the
+per-target access/lifetime and supporting-protocol review: 65 functions, 147
+narrow writer sites, 28 target records and all 14 original families. Its original
+result supported the reviewed mappings while identifying T1/T2 and leaving J1
+unresolved. The [subsequent paired comparison](reviews/v050-boundary-join-fixes.md)
+confirmed premature allocation reuse in original Wasm and Go under a forced
+schedule. No Go-only forbidden outcome or natural SQL harm was established.
+Those historical findings led to the authorized repair above. Coverage and local
+repair verification do not replace final release qualification.
 
 The [assessment review](reviews/v050-access-review.md) preserves why the earlier
 investigation and progression recommendation were incomplete, and the finite
 contract used to finish this investigation. No scope reduction was made; the
 five-hour cap was a stopping budget, not a completion test. Hourly reporting was
-cancelled by the Human. Prior exact-width fixes remain; this task changes no
-product implementation and performs no final Qualification/Product Validation.
+cancelled by the Human. Prior exact-width fixes remain; the investigation itself
+changed no product implementation. The later owner fixes are recorded separately
+above; no final Qualification/Product Validation has yet been performed.
 
 On the dedicated v0.5.0 experiment branch, the maintainer approved formal
 exact-width narrow atomic writer integration after bounded design verification.
