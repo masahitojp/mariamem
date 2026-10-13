@@ -110,9 +110,11 @@ candidate's only tail was block zero: **all four** ready times were
 1.102–1.103 s, while that block's released arm also had all four at
 1.123–1.125 s. It was not guest-phase traced, so its cause is unknown;
 do not label it the page-cleaner mechanism or claim the candidate removes
-every startup tail. A separate first candidate smoke also had four slow
-ready times, followed by a successful smoke with ready 0.245 s; neither
-smoke is pooled into the 30-block comparison. The paired fast-baseline
+every startup tail. A separate
+[first candidate smoke](v050-startup-tail-wakeup-evidence/candidate-smoke-initial.json)
+also had four slow ready times, followed by a
+[fast smoke](v050-startup-tail-wakeup-evidence/candidate-smoke.json) with
+ready 0.245 s; neither is pooled into the 30-block comparison. The paired fast-baseline
 median differences of +12–13 ms suggest no large fixed-cost benefit and
 do not establish a regression under other workloads. No Ubuntu, long-run,
 or product release qualification was performed.

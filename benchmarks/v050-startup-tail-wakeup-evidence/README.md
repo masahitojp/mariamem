@@ -20,8 +20,9 @@ each, one JSON line per four-DB suite. `comparison-summary.json` is the output
 of [`reduce_compare.py`](../spikes/startup-tail-v050/reduce_compare.py). The
 runner [`compare.py`](../spikes/startup-tail-v050/compare.py) checks exact
 baseline/candidate binary hashes, process success, four ready samples, and
-Python's completed SQL/version oracle before writing a record. `candidate-smoke.json`
-is a separate successful four-DB candidate run, not one of the paired samples.
+Python's completed SQL/version oracle before writing a record.
+`candidate-smoke-initial.json` and `candidate-smoke.json` are separate
+successful four-DB candidate runs, not paired samples.
 No failed trial was silently retried. Go ready ends at Start; Python ready also
 includes the first connection and `SELECT 1, VERSION()`.
 
