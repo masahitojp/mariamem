@@ -1,0 +1,36 @@
+{
+  "go": {
+    "baseline": {
+      "suites": 30,
+      "tail_suites": 24,
+      "tail_starts": 31,
+      "starts": 120,
+      "wall_median_seconds": 1.7506581875
+    },
+    "candidate": {
+      "suites": 30,
+      "tail_suites": 0,
+      "tail_starts": 0,
+      "starts": 120,
+      "wall_median_seconds": 0.947379229
+    },
+    "paired_candidate_minus_baseline_wall_median_seconds": -0.7873903959999999
+  },
+  "python": {
+    "baseline": {
+      "suites": 30,
+      "tail_suites": 23,
+      "tail_starts": 33,
+      "starts": 120,
+      "wall_median_seconds": 1.7888358540367335
+    },
+    "candidate": {
+      "suites": 30,
+      "tail_suites": 0,
+      "tail_starts": 0,
+      "starts": 120,
+      "wall_median_seconds": 1.0661498954868875
+    },
+    "paired_candidate_minus_baseline_wall_median_seconds": -0.7177842925302684
+  }
+}

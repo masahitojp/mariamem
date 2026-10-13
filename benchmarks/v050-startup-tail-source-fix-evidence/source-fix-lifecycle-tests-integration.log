@@ -1,0 +1,15 @@
+=== RUN   TestDefaultReleaseFailurePaths
+[mysql] 2026/10/14 03:20:07 connection.go:706 closing bad idle connection: EOF
+[mysql] 2026/10/14 03:20:07 connection.go:706 closing bad idle connection: EOF
+=== RUN   TestDefaultReleaseFailurePaths/unusable_temporary_directory
+=== NAME  TestDefaultReleaseFailurePaths
+    failure_paths_test.go:210: FDs=6→6 goroutines=2→2
+--- PASS: TestDefaultReleaseFailurePaths (0.80s)
+    --- PASS: TestDefaultReleaseFailurePaths/unusable_temporary_directory (0.07s)
+=== RUN   TestClosedDatabaseRetainedPipeLifetime
+    fd_lifetime_test.go:100: retained closed handles=6 descriptors before=6 after=6
+--- PASS: TestClosedDatabaseRetainedPipeLifetime (0.88s)
+=== RUN   TestLoadSnapshotPersistedLifecycle
+--- PASS: TestLoadSnapshotPersistedLifecycle (0.81s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/godefault	3.716s

@@ -1,0 +1,18 @@
+{
+  "blocks": 30,
+  "language": "go",
+  "binaries": {
+    "baseline_go": "d7e5d57a2649e7cbd589d581938f13ff35c6072e595bc1b8677d258170045f99",
+    "baseline_host": "dceddc32adb5c8e5128f8134645ec1e0fa025ddd74c24b750ab1cbc145bac7db",
+    "candidate_go": "e6a7c9a330ca7fce6202a2aa9732f541e6857e5c5b5364506d6461e374329ac4",
+    "candidate_host": "89278ac72c0c2badc019c13a3e62adb202f971a68ffe571570066cecaa83721c"
+  },
+  "baseline_source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+  "candidate_source_commit": "ad83e0039415a9277363d4cbdb32f21107cfbf13",
+  "candidate_guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "payload_mib": 10,
+  "tables": 8,
+  "workers": 4,
+  "fresh_databases": 4
+}
