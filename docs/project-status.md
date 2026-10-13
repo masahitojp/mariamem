@@ -216,8 +216,12 @@ Independent guest builds/Go regeneration, both native platform suites, external
 consumers and aggregate source/license/artifact guards passed; CI returned READY.
 The [qualification report](reviews/v050-final-qualification.md) preserves exact
 receipts and distinguishes the workflow source from the tested candidate.
-The maintainer requested Human Review before Product Validation; that campaign
-and the release decision remain pending in the [review](reviews/v050-human-review.md).
+After that Human Review, the maintainer authorized Product Verification.
+The [approved 80-cell campaign](../benchmarks/v050-product-verification.md)
+is complete: SQL/isolation oracles and bounded cleanup pass; timing is mixed,
+including an adverse Go parallel-Fresh median under the existing startup tail.
+Candidate acceptance/integration and the release decision remain in the
+[review](reviews/v050-human-review.md).
 
 The maintainer authorized the limited J1 completion/reclamation repair after the
 paired counterexample. The [implemented candidate](reviews/v050-join-lifetime-fix.md)
@@ -226,7 +230,8 @@ detached self-exit and unwind. Guest/raw converter inputs remain unchanged;
 owned generated edits are independently reproduced. T1/T2/J1 close the identified
 corrective items in the agreed current-guest investigation. Candidate adoption
 and the later qualification evidence remain separate from release approval.
-Product Validation is the next [Human Review handoff](reviews/v050-human-review.md).
+Completed Product Verification is the next
+[candidate acceptance handoff](reviews/v050-human-review.md).
 
 The bounded [R1–R5 investigation](reviews/v050-semantic-audit.md) supplied the
 per-target access/lifetime and supporting-protocol review: 65 functions, 147
@@ -245,7 +250,8 @@ five-hour cap was a stopping budget, not a completion test. Hourly reporting was
 cancelled by the Human. Prior exact-width fixes remain; the investigation itself
 changed no product implementation. The later owner fixes are recorded separately
 above. Final Qualification has subsequently passed for the exact candidate
-recorded above; Product Validation remains pending.
+recorded above; the subsequently approved Product Verification is complete as
+recorded at the top of this section.
 
 On the dedicated v0.5.0 experiment branch, the maintainer approved formal
 exact-width narrow atomic writer integration after bounded design verification.

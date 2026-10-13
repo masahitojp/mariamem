@@ -1,0 +1,27 @@
+{
+  "owner": "mariamem-experiment-v1",
+  "name": "v050-product-verification",
+  "repo": "<user-root>/src/mysqlmem/publish/mariamem",
+  "state": "completed",
+  "base_sha": "3adf8cb50d63e5836826cfcf1c99745b1ad7383c",
+  "created": 1791883925.952319,
+  "min_free_gib": 20.0,
+  "budget_gib": 24.0,
+  "disposable": [
+    "temp",
+    "worktree"
+  ],
+  "evidence": "evidence",
+  "branch": "experiment/v050-product-verification",
+  "command": [
+    "python3",
+    "<workspace>/worktree/benchmarks/v050-product-evidence/build-pair.py",
+    "--workspace",
+    "<workspace>",
+    "--go-root",
+    "<user-root>/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64"
+  ],
+  "returncode": 0,
+  "peak_owned_bytes": 2751365120,
+  "minimum_free_bytes": 81993781248
+}

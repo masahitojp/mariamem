@@ -1,0 +1,732 @@
+{
+  "derived_files": {
+    "verification/startup-observations.json": {
+      "method": "Extract wall/CPU/ready timings from existing retained approved cells; no additional runs.",
+      "saved_sha256": "b2435e1714e735428f5a1a237c4c171988a15ffc8596f16bcece6f1536bf7e19"
+    }
+  },
+  "files": {
+    "cells.csv": {
+      "normalized": true,
+      "original_bytes": 11988,
+      "original_sha256": "0944519ca10d92d0d15ac299af484fa39d466802bfb40aab9c2c557e2029c084",
+      "saved_bytes": 11907,
+      "saved_sha256": "c40a5142a995f2094f2c5e01f353a966f66b551fdf48e5e1f84c4935477a3b00"
+    },
+    "comparison.csv": {
+      "normalized": true,
+      "original_bytes": 15889,
+      "original_sha256": "efba98922e412d8695f6f1d077ec56e5c8214ecdacec6c79c08df7b17eed2cc7",
+      "saved_bytes": 15720,
+      "saved_sha256": "66a23a90ab1fdca1a866dce5bc102ceb51b38554b877a45079e0dbbe4c7f13e0"
+    },
+    "phases.csv": {
+      "normalized": true,
+      "original_bytes": 10602,
+      "original_sha256": "238d025298d6d837fdae777879e09f94c252f9088897487de40c4791a97bcc65",
+      "saved_bytes": 10481,
+      "saved_sha256": "f400550af642c1390746f2628953ea26202e23809912924f0ba91158085b4818"
+    },
+    "product/inputs.json": {
+      "normalized": false,
+      "original_bytes": 27600,
+      "original_sha256": "2eca0cabab368ac4e998d22e484e1e603bd27c62cd1a676ead827bc70ef119fc",
+      "saved_bytes": 27600,
+      "saved_sha256": "2eca0cabab368ac4e998d22e484e1e603bd27c62cd1a676ead827bc70ef119fc"
+    },
+    "product/pilot-v047-go-light-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 7869,
+      "original_sha256": "086b0ea11fb8805039d296cd1c67b6d5bf65e9afd2bbba81431eb49e5ad61b8d",
+      "saved_bytes": 7869,
+      "saved_sha256": "086b0ea11fb8805039d296cd1c67b6d5bf65e9afd2bbba81431eb49e5ad61b8d"
+    },
+    "product/pilot-v047-go-light-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 6718,
+      "original_sha256": "d59f1dd2bff2b90946ffe8c14db5c9c036cd464c7c6d2b582bdc57af1aeb81f9",
+      "saved_bytes": 6718,
+      "saved_sha256": "d59f1dd2bff2b90946ffe8c14db5c9c036cd464c7c6d2b582bdc57af1aeb81f9"
+    },
+    "product/pilot-v047-python-light-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 1389,
+      "original_sha256": "d2d6b73774afbf27b9b9558edc72e9bd330a277052d9bbf0fdcfa9b0fb1bdde0",
+      "saved_bytes": 1389,
+      "saved_sha256": "d2d6b73774afbf27b9b9558edc72e9bd330a277052d9bbf0fdcfa9b0fb1bdde0"
+    },
+    "product/pilot-v047-python-light-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 1340,
+      "original_sha256": "b873517a0e4616aa0f73d2e389c8a6fce0c85d3ca72d3f3dd8aed6d1b3bde127",
+      "saved_bytes": 1340,
+      "saved_sha256": "b873517a0e4616aa0f73d2e389c8a6fce0c85d3ca72d3f3dd8aed6d1b3bde127"
+    },
+    "product/pilot-v050-go-light-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 7850,
+      "original_sha256": "7fdef76afaea8258c7f6d427a65e78859eb37172c51eee81247fcb156f19dd84",
+      "saved_bytes": 7850,
+      "saved_sha256": "7fdef76afaea8258c7f6d427a65e78859eb37172c51eee81247fcb156f19dd84"
+    },
+    "product/pilot-v050-go-light-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 6718,
+      "original_sha256": "db170c505867879d1403bde7f376b95777ff009a8ca92020b87f905e33c2fe68",
+      "saved_bytes": 6718,
+      "saved_sha256": "db170c505867879d1403bde7f376b95777ff009a8ca92020b87f905e33c2fe68"
+    },
+    "product/pilot-v050-python-light-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 1385,
+      "original_sha256": "a5b9c7aceb7247cceccc41423fed6802ed1f123bb13a8e1220e53ddd8db1baf7",
+      "saved_bytes": 1385,
+      "saved_sha256": "a5b9c7aceb7247cceccc41423fed6802ed1f123bb13a8e1220e53ddd8db1baf7"
+    },
+    "product/pilot-v050-python-light-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 1338,
+      "original_sha256": "8082e8ceed438347cba00324434d6df6741a19d4d3d0c0eede0e277e66299f9d",
+      "saved_bytes": 1338,
+      "saved_sha256": "8082e8ceed438347cba00324434d6df6741a19d4d3d0c0eede0e277e66299f9d"
+    },
+    "product/v047-go-fixture-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 9391,
+      "original_sha256": "dead0da65ef110211e3c870f494e052a5a76c24722187aa60a3b4322a8483071",
+      "saved_bytes": 9391,
+      "saved_sha256": "dead0da65ef110211e3c870f494e052a5a76c24722187aa60a3b4322a8483071"
+    },
+    "product/v047-go-fixture-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8514,
+      "original_sha256": "afec0371ac939624a8def596d44c049dc8fb45dc8ba47c61967fe839136f9587",
+      "saved_bytes": 8514,
+      "saved_sha256": "afec0371ac939624a8def596d44c049dc8fb45dc8ba47c61967fe839136f9587"
+    },
+    "product/v047-go-fixture-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 9373,
+      "original_sha256": "c4db7c0c0392bb5e529b8c6c41d8f61a36dcf1a43551793ed73ca1fde4662d48",
+      "saved_bytes": 9373,
+      "saved_sha256": "c4db7c0c0392bb5e529b8c6c41d8f61a36dcf1a43551793ed73ca1fde4662d48"
+    },
+    "product/v047-go-fixture-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8533,
+      "original_sha256": "1c9cc82ec752eaaba297c9f924d1c47628940a9fd0772dfcceb176a949125c50",
+      "saved_bytes": 8533,
+      "saved_sha256": "1c9cc82ec752eaaba297c9f924d1c47628940a9fd0772dfcceb176a949125c50"
+    },
+    "product/v047-go-fixture-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 9393,
+      "original_sha256": "7d84663f4d39a533326e0391eefe6169f132d132e278a90de1f4b26b09b24b6b",
+      "saved_bytes": 9393,
+      "saved_sha256": "7d84663f4d39a533326e0391eefe6169f132d132e278a90de1f4b26b09b24b6b"
+    },
+    "product/v047-go-fixture-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8522,
+      "original_sha256": "f288eafebfba178a9ed87c9e669bb3d22ae3d52e6fe9a5ccbbf7bd7678a363a6",
+      "saved_bytes": 8522,
+      "saved_sha256": "f288eafebfba178a9ed87c9e669bb3d22ae3d52e6fe9a5ccbbf7bd7678a363a6"
+    },
+    "product/v047-go-large-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 9422,
+      "original_sha256": "2aa06417837812013809bd58783188dcda73b89f7d2ab4b6856adb533685fd47",
+      "saved_bytes": 9422,
+      "saved_sha256": "2aa06417837812013809bd58783188dcda73b89f7d2ab4b6856adb533685fd47"
+    },
+    "product/v047-go-large-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8526,
+      "original_sha256": "f1bdecefa821c6347402104327fad2c966d9468175f557dc6b57cf151e6a504c",
+      "saved_bytes": 8526,
+      "saved_sha256": "f1bdecefa821c6347402104327fad2c966d9468175f557dc6b57cf151e6a504c"
+    },
+    "product/v047-go-light-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 9402,
+      "original_sha256": "e5bd923bbc2706e77e6ff1dfdc1d58b8fb91b324fc268d9351a009d975faf608",
+      "saved_bytes": 9402,
+      "saved_sha256": "e5bd923bbc2706e77e6ff1dfdc1d58b8fb91b324fc268d9351a009d975faf608"
+    },
+    "product/v047-go-light-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8578,
+      "original_sha256": "646f8abec6a5c5a892754344172c1646a423edffe823382bb23a7b13548c42d1",
+      "saved_bytes": 8578,
+      "saved_sha256": "646f8abec6a5c5a892754344172c1646a423edffe823382bb23a7b13548c42d1"
+    },
+    "product/v047-go-light-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 9387,
+      "original_sha256": "a8f1262c840a7882b99468828c4c67aa54302c968221d26d0764024cc2480ddc",
+      "saved_bytes": 9387,
+      "saved_sha256": "a8f1262c840a7882b99468828c4c67aa54302c968221d26d0764024cc2480ddc"
+    },
+    "product/v047-go-light-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8549,
+      "original_sha256": "066bcd9e992de8a3db918af215b9efe1582af8dae98baf1fcf9ad6b31d51bec2",
+      "saved_bytes": 8549,
+      "saved_sha256": "066bcd9e992de8a3db918af215b9efe1582af8dae98baf1fcf9ad6b31d51bec2"
+    },
+    "product/v047-go-light-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 9411,
+      "original_sha256": "9f21c4fbf748e7c4f37c6a647d6f90d528ec41fca5541eab336f215fba6a10cc",
+      "saved_bytes": 9411,
+      "saved_sha256": "9f21c4fbf748e7c4f37c6a647d6f90d528ec41fca5541eab336f215fba6a10cc"
+    },
+    "product/v047-go-light-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8562,
+      "original_sha256": "7ab75db709e740c1d474657d8ec5b379d6ec633265ebe85081f85a371623c915",
+      "saved_bytes": 8562,
+      "saved_sha256": "7ab75db709e740c1d474657d8ec5b379d6ec633265ebe85081f85a371623c915"
+    },
+    "product/v047-go-parallel-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 7426,
+      "original_sha256": "ce846b2f225f9b8c3cb0e3a00b9c6235e10edda883e469410adf8816e0748fcc",
+      "saved_bytes": 7426,
+      "saved_sha256": "ce846b2f225f9b8c3cb0e3a00b9c6235e10edda883e469410adf8816e0748fcc"
+    },
+    "product/v047-go-parallel-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 6578,
+      "original_sha256": "7a58724448b6e7ceed95a364957069631c62384273f17679130d1ea305a51063",
+      "saved_bytes": 6578,
+      "saved_sha256": "7a58724448b6e7ceed95a364957069631c62384273f17679130d1ea305a51063"
+    },
+    "product/v047-go-parallel-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 7414,
+      "original_sha256": "b6c6fd480ad03c9c7e0576fb2cad5c68d6d4aba5ccff860fa3c1a8105a18b0ea",
+      "saved_bytes": 7414,
+      "saved_sha256": "b6c6fd480ad03c9c7e0576fb2cad5c68d6d4aba5ccff860fa3c1a8105a18b0ea"
+    },
+    "product/v047-go-parallel-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 6578,
+      "original_sha256": "26f1481af2b6ad216c456142b120d743758664b7e398236f7e33dbe0ea6f600e",
+      "saved_bytes": 6578,
+      "saved_sha256": "26f1481af2b6ad216c456142b120d743758664b7e398236f7e33dbe0ea6f600e"
+    },
+    "product/v047-go-parallel-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 7443,
+      "original_sha256": "e8d4ee895d167f9ee71825039c23479814f2dbd52da64d95ebcaed0daef87ba4",
+      "saved_bytes": 7443,
+      "saved_sha256": "e8d4ee895d167f9ee71825039c23479814f2dbd52da64d95ebcaed0daef87ba4"
+    },
+    "product/v047-go-parallel-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 6583,
+      "original_sha256": "912afd5d1325adccebbbbc3fe0faca4f69e30fdde54cb890307306a1f4361b19",
+      "saved_bytes": 6583,
+      "saved_sha256": "912afd5d1325adccebbbbc3fe0faca4f69e30fdde54cb890307306a1f4361b19"
+    },
+    "product/v047-python-fixture-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 3331,
+      "original_sha256": "a134166087f8a5d9a7b20fde22c620b4ebef12b1c2c07bcbbaa6a16550188b59",
+      "saved_bytes": 3331,
+      "saved_sha256": "a134166087f8a5d9a7b20fde22c620b4ebef12b1c2c07bcbbaa6a16550188b59"
+    },
+    "product/v047-python-fixture-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3255,
+      "original_sha256": "cd23eb5a9cb0584143e1db8c20673b20dbd1ba24342e1380772db6e12a23d313",
+      "saved_bytes": 3255,
+      "saved_sha256": "cd23eb5a9cb0584143e1db8c20673b20dbd1ba24342e1380772db6e12a23d313"
+    },
+    "product/v047-python-fixture-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 3324,
+      "original_sha256": "093a7ab90efdc52b9fdaf87d91474bc36efc17bbbfa3ddca196db03abbbc3eb2",
+      "saved_bytes": 3324,
+      "saved_sha256": "093a7ab90efdc52b9fdaf87d91474bc36efc17bbbfa3ddca196db03abbbc3eb2"
+    },
+    "product/v047-python-fixture-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3271,
+      "original_sha256": "d827de67f0293d3886b5f0cd8c06db077d37e95a533e0d974b4d2c65396c7b80",
+      "saved_bytes": 3271,
+      "saved_sha256": "d827de67f0293d3886b5f0cd8c06db077d37e95a533e0d974b4d2c65396c7b80"
+    },
+    "product/v047-python-fixture-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 3323,
+      "original_sha256": "fbfe18f3f86ee761338252b61fb04f02d9f0918978db32b560b716e2fa19a496",
+      "saved_bytes": 3323,
+      "saved_sha256": "fbfe18f3f86ee761338252b61fb04f02d9f0918978db32b560b716e2fa19a496"
+    },
+    "product/v047-python-fixture-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3267,
+      "original_sha256": "aee4115191f303b66ce9006617f62eb27c2e7b48025c049b476cd66b264522b3",
+      "saved_bytes": 3267,
+      "saved_sha256": "aee4115191f303b66ce9006617f62eb27c2e7b48025c049b476cd66b264522b3"
+    },
+    "product/v047-python-large-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 3319,
+      "original_sha256": "eefe8edffe65cf99bbf9605e982dc65a085382bd3cda1bf48615cca5b11d8e1a",
+      "saved_bytes": 3319,
+      "saved_sha256": "eefe8edffe65cf99bbf9605e982dc65a085382bd3cda1bf48615cca5b11d8e1a"
+    },
+    "product/v047-python-large-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3248,
+      "original_sha256": "0550aa5fda63c6cb3f67c409427b8d596d43558cbf3afb896e5e26c544dc6d71",
+      "saved_bytes": 3248,
+      "saved_sha256": "0550aa5fda63c6cb3f67c409427b8d596d43558cbf3afb896e5e26c544dc6d71"
+    },
+    "product/v047-python-light-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 3334,
+      "original_sha256": "717d470964ef579e2ffe09d58a259919696dc3eed0edeb6ed4541bad5847acaf",
+      "saved_bytes": 3334,
+      "saved_sha256": "717d470964ef579e2ffe09d58a259919696dc3eed0edeb6ed4541bad5847acaf"
+    },
+    "product/v047-python-light-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3281,
+      "original_sha256": "370335f1d552f93567d7fdb94746448e87df015a6334b5a37fc542b73c10c711",
+      "saved_bytes": 3281,
+      "saved_sha256": "370335f1d552f93567d7fdb94746448e87df015a6334b5a37fc542b73c10c711"
+    },
+    "product/v047-python-light-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 3322,
+      "original_sha256": "1bab858707c3cdfe5f37eb7cb4f4dcaff7dd1b8eeaf40edb0d0a048e74fead68",
+      "saved_bytes": 3322,
+      "saved_sha256": "1bab858707c3cdfe5f37eb7cb4f4dcaff7dd1b8eeaf40edb0d0a048e74fead68"
+    },
+    "product/v047-python-light-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3276,
+      "original_sha256": "a4e10709dac529497d275adda24cd4ea4ad6a51b33aa1b707a70e640bd279fd0",
+      "saved_bytes": 3276,
+      "saved_sha256": "a4e10709dac529497d275adda24cd4ea4ad6a51b33aa1b707a70e640bd279fd0"
+    },
+    "product/v047-python-light-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 3335,
+      "original_sha256": "8b1ab0690c6aeca8933bea5b80660547052d4e42297b13cf01ee64a326c9bda7",
+      "saved_bytes": 3335,
+      "saved_sha256": "8b1ab0690c6aeca8933bea5b80660547052d4e42297b13cf01ee64a326c9bda7"
+    },
+    "product/v047-python-light-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3267,
+      "original_sha256": "e87b5ef6b6b5c9e9497c06f60913b0a3c97090c09a4b92eb871e57f896ef8a45",
+      "saved_bytes": 3267,
+      "saved_sha256": "e87b5ef6b6b5c9e9497c06f60913b0a3c97090c09a4b92eb871e57f896ef8a45"
+    },
+    "product/v047-python-parallel-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 3314,
+      "original_sha256": "8c58115960c905324bf1ee4d6b8d98c579d2501f9ba2478f90661f89ea9344fb",
+      "saved_bytes": 3314,
+      "saved_sha256": "8c58115960c905324bf1ee4d6b8d98c579d2501f9ba2478f90661f89ea9344fb"
+    },
+    "product/v047-python-parallel-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3266,
+      "original_sha256": "9595bec633f244fd2dd71dd0ae81bc7ca34603529d92371c88fd0ecee3a22440",
+      "saved_bytes": 3266,
+      "saved_sha256": "9595bec633f244fd2dd71dd0ae81bc7ca34603529d92371c88fd0ecee3a22440"
+    },
+    "product/v047-python-parallel-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 3320,
+      "original_sha256": "07ff5d8eaeca21810f7927a44c5ba6a2dd32cdd6105515a85260a33998af5d57",
+      "saved_bytes": 3320,
+      "saved_sha256": "07ff5d8eaeca21810f7927a44c5ba6a2dd32cdd6105515a85260a33998af5d57"
+    },
+    "product/v047-python-parallel-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3257,
+      "original_sha256": "abe83e7e612da51095ca6a23631564670a89e0ee9d84087a6e4fc2c3648a2daa",
+      "saved_bytes": 3257,
+      "saved_sha256": "abe83e7e612da51095ca6a23631564670a89e0ee9d84087a6e4fc2c3648a2daa"
+    },
+    "product/v047-python-parallel-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 3324,
+      "original_sha256": "2bd37c8818f9b593113d6a4ac713506c3f8534e05638b57e23dce5474c379db5",
+      "saved_bytes": 3324,
+      "saved_sha256": "2bd37c8818f9b593113d6a4ac713506c3f8534e05638b57e23dce5474c379db5"
+    },
+    "product/v047-python-parallel-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3252,
+      "original_sha256": "e619883a3391c18a24a9b94aae50dc914d2d0f87922e4f64c5f8379613309499",
+      "saved_bytes": 3252,
+      "saved_sha256": "e619883a3391c18a24a9b94aae50dc914d2d0f87922e4f64c5f8379613309499"
+    },
+    "product/v050-go-fixture-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 9387,
+      "original_sha256": "b30fe593881a4ed0a2325d96cafda1ba06a0fddc8e4e5d92cbdf46246b52dd39",
+      "saved_bytes": 9387,
+      "saved_sha256": "b30fe593881a4ed0a2325d96cafda1ba06a0fddc8e4e5d92cbdf46246b52dd39"
+    },
+    "product/v050-go-fixture-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8568,
+      "original_sha256": "dbde0f04bb448ba280048f98ceae5b181a3491d766144004abb3f5ec19af7ce0",
+      "saved_bytes": 8568,
+      "saved_sha256": "dbde0f04bb448ba280048f98ceae5b181a3491d766144004abb3f5ec19af7ce0"
+    },
+    "product/v050-go-fixture-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 9406,
+      "original_sha256": "1a30cb64892e1a35b60fdfe9110700d9d0529223e9e0fd8666b192b5f4d6510b",
+      "saved_bytes": 9406,
+      "saved_sha256": "1a30cb64892e1a35b60fdfe9110700d9d0529223e9e0fd8666b192b5f4d6510b"
+    },
+    "product/v050-go-fixture-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8517,
+      "original_sha256": "0974b37c4768a6b075a72e3a0bbadd0983c3a22d2d197c5e2de3db4f941ded12",
+      "saved_bytes": 8517,
+      "saved_sha256": "0974b37c4768a6b075a72e3a0bbadd0983c3a22d2d197c5e2de3db4f941ded12"
+    },
+    "product/v050-go-fixture-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 9396,
+      "original_sha256": "340caec1294b7d8767200376b9ba664497cb40cea7c05ab2f4f4461bb72dc1bb",
+      "saved_bytes": 9396,
+      "saved_sha256": "340caec1294b7d8767200376b9ba664497cb40cea7c05ab2f4f4461bb72dc1bb"
+    },
+    "product/v050-go-fixture-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8531,
+      "original_sha256": "1d275c6a0d20e03fc91cd63b92cd755069f8f3db156216ba21263c84752ed0a8",
+      "saved_bytes": 8531,
+      "saved_sha256": "1d275c6a0d20e03fc91cd63b92cd755069f8f3db156216ba21263c84752ed0a8"
+    },
+    "product/v050-go-large-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 9408,
+      "original_sha256": "d10d1eaba7d20fcfd8de52deea3310487064ef0ca012d6585313d908f5142532",
+      "saved_bytes": 9408,
+      "saved_sha256": "d10d1eaba7d20fcfd8de52deea3310487064ef0ca012d6585313d908f5142532"
+    },
+    "product/v050-go-large-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8557,
+      "original_sha256": "b31bb36beed07ad81c938d332f35dcbb2aebb97b29f3587a49b8ae5fcbd51de2",
+      "saved_bytes": 8557,
+      "saved_sha256": "b31bb36beed07ad81c938d332f35dcbb2aebb97b29f3587a49b8ae5fcbd51de2"
+    },
+    "product/v050-go-light-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 9410,
+      "original_sha256": "137dfe81b6ee2ded35c13ef96abc49e25966faffa1c04a299631c8d02fb89de9",
+      "saved_bytes": 9410,
+      "saved_sha256": "137dfe81b6ee2ded35c13ef96abc49e25966faffa1c04a299631c8d02fb89de9"
+    },
+    "product/v050-go-light-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8537,
+      "original_sha256": "fae891b41c732b0b5128728d1a76224fa50e41436f9974bbe0ead7a1cd12b43b",
+      "saved_bytes": 8537,
+      "saved_sha256": "fae891b41c732b0b5128728d1a76224fa50e41436f9974bbe0ead7a1cd12b43b"
+    },
+    "product/v050-go-light-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 9417,
+      "original_sha256": "734b7b41bc39b48fef3ca8e93e9f1c8dc530f5fb90c80aaa4a2f513f17a92ff7",
+      "saved_bytes": 9417,
+      "saved_sha256": "734b7b41bc39b48fef3ca8e93e9f1c8dc530f5fb90c80aaa4a2f513f17a92ff7"
+    },
+    "product/v050-go-light-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8564,
+      "original_sha256": "2ded68e0876446f291fe74f61c85c047c1bd0909d691ec4436c5c84f6c6c63b9",
+      "saved_bytes": 8564,
+      "saved_sha256": "2ded68e0876446f291fe74f61c85c047c1bd0909d691ec4436c5c84f6c6c63b9"
+    },
+    "product/v050-go-light-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 9419,
+      "original_sha256": "11997f710a7aef0ed7a5f5459b72cd210cecc1488fd48fd0a4991b1f1ea8a0ed",
+      "saved_bytes": 9419,
+      "saved_sha256": "11997f710a7aef0ed7a5f5459b72cd210cecc1488fd48fd0a4991b1f1ea8a0ed"
+    },
+    "product/v050-go-light-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 8564,
+      "original_sha256": "c582487b87980b03d5b8d6f6bb6a698e22ccee14301a32c8dd3ca200c38b31e4",
+      "saved_bytes": 8564,
+      "saved_sha256": "c582487b87980b03d5b8d6f6bb6a698e22ccee14301a32c8dd3ca200c38b31e4"
+    },
+    "product/v050-go-parallel-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 7438,
+      "original_sha256": "70aaa932c6f98281291eca03d3930f87803e8fbbc06200af75a395629610a368",
+      "saved_bytes": 7438,
+      "saved_sha256": "70aaa932c6f98281291eca03d3930f87803e8fbbc06200af75a395629610a368"
+    },
+    "product/v050-go-parallel-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 6578,
+      "original_sha256": "38cc1393920a1da9f81b58d929ca0a664bbc77f6f49e7d9530d2ff2c2b94b1f0",
+      "saved_bytes": 6578,
+      "saved_sha256": "38cc1393920a1da9f81b58d929ca0a664bbc77f6f49e7d9530d2ff2c2b94b1f0"
+    },
+    "product/v050-go-parallel-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 7431,
+      "original_sha256": "6f2fcf3c12144c1d7ab75cbd653b628dc1978f794d5e6e86161b5d48342cc47a",
+      "saved_bytes": 7431,
+      "saved_sha256": "6f2fcf3c12144c1d7ab75cbd653b628dc1978f794d5e6e86161b5d48342cc47a"
+    },
+    "product/v050-go-parallel-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 6587,
+      "original_sha256": "d1f26e1d83f75a344f70e1b9d7d99f880ddc951d5816d2b3bc2bad97e341817e",
+      "saved_bytes": 6587,
+      "saved_sha256": "d1f26e1d83f75a344f70e1b9d7d99f880ddc951d5816d2b3bc2bad97e341817e"
+    },
+    "product/v050-go-parallel-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 7418,
+      "original_sha256": "b393a1cc1786e5401da303eedfede56cde1e8d7ded218a77d988d4ea085628ed",
+      "saved_bytes": 7418,
+      "saved_sha256": "b393a1cc1786e5401da303eedfede56cde1e8d7ded218a77d988d4ea085628ed"
+    },
+    "product/v050-go-parallel-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 6575,
+      "original_sha256": "3c15b7c57e2d956546379592bca731ae0cfb7de5300a4330d882c956a733d4f3",
+      "saved_bytes": 6575,
+      "saved_sha256": "3c15b7c57e2d956546379592bca731ae0cfb7de5300a4330d882c956a733d4f3"
+    },
+    "product/v050-python-fixture-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 3320,
+      "original_sha256": "4b7ca9f48387ef7587c94a910c16c1be7c62997f8a8716ebd8694ee0d08a7503",
+      "saved_bytes": 3320,
+      "saved_sha256": "4b7ca9f48387ef7587c94a910c16c1be7c62997f8a8716ebd8694ee0d08a7503"
+    },
+    "product/v050-python-fixture-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3255,
+      "original_sha256": "9c1ce086d076b9d0cdc6b30e61310eb583590ba6b994b05b12bf4c8e2fb70381",
+      "saved_bytes": 3255,
+      "saved_sha256": "9c1ce086d076b9d0cdc6b30e61310eb583590ba6b994b05b12bf4c8e2fb70381"
+    },
+    "product/v050-python-fixture-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 3323,
+      "original_sha256": "e51f9a3bfd7c16d1421eb4472ea21477ce2690a9a5d8e301d62d15d5c110e6d1",
+      "saved_bytes": 3323,
+      "saved_sha256": "e51f9a3bfd7c16d1421eb4472ea21477ce2690a9a5d8e301d62d15d5c110e6d1"
+    },
+    "product/v050-python-fixture-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3257,
+      "original_sha256": "0a3870c34c6ddf8b62113de94383cf792a14ad0e37d73aa0458895d092e71559",
+      "saved_bytes": 3257,
+      "saved_sha256": "0a3870c34c6ddf8b62113de94383cf792a14ad0e37d73aa0458895d092e71559"
+    },
+    "product/v050-python-fixture-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 3326,
+      "original_sha256": "ff4eb696ca134f2157a1895ed2ddc16dc560fa3496eff0b8030895a83b830aba",
+      "saved_bytes": 3326,
+      "saved_sha256": "ff4eb696ca134f2157a1895ed2ddc16dc560fa3496eff0b8030895a83b830aba"
+    },
+    "product/v050-python-fixture-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3267,
+      "original_sha256": "24cfcdcc98f0ad7df129769a2dbe0c5b67e79ba950532d50a7df8007b6fe2706",
+      "saved_bytes": 3267,
+      "saved_sha256": "24cfcdcc98f0ad7df129769a2dbe0c5b67e79ba950532d50a7df8007b6fe2706"
+    },
+    "product/v050-python-large-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 3321,
+      "original_sha256": "65f110aa907b2ccb88df9e3bdefe1f5d56b0b1a7c8c52cf45bd5fa3085182760",
+      "saved_bytes": 3321,
+      "saved_sha256": "65f110aa907b2ccb88df9e3bdefe1f5d56b0b1a7c8c52cf45bd5fa3085182760"
+    },
+    "product/v050-python-large-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3242,
+      "original_sha256": "2287c2d6eed92ebb3c0de2700f2759533c8353e3b981c6513d06e9d4b7cdde94",
+      "saved_bytes": 3242,
+      "saved_sha256": "2287c2d6eed92ebb3c0de2700f2759533c8353e3b981c6513d06e9d4b7cdde94"
+    },
+    "product/v050-python-light-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 3332,
+      "original_sha256": "2f25d5069a7d5dc9bb4219b021c1deee968f2367455488cd8fbc7c3bc8deea85",
+      "saved_bytes": 3332,
+      "saved_sha256": "2f25d5069a7d5dc9bb4219b021c1deee968f2367455488cd8fbc7c3bc8deea85"
+    },
+    "product/v050-python-light-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3274,
+      "original_sha256": "d66a78fae8717cdd45a253eebe693afcc794ffb0adfa559ef1db010dfe27e0af",
+      "saved_bytes": 3274,
+      "saved_sha256": "d66a78fae8717cdd45a253eebe693afcc794ffb0adfa559ef1db010dfe27e0af"
+    },
+    "product/v050-python-light-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 3322,
+      "original_sha256": "2f188c9c32bda76655dad0359fa5d1775a8f4af64a605235b7024a8c84d28917",
+      "saved_bytes": 3322,
+      "saved_sha256": "2f188c9c32bda76655dad0359fa5d1775a8f4af64a605235b7024a8c84d28917"
+    },
+    "product/v050-python-light-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3262,
+      "original_sha256": "5557f69a308a6995973a71aaf2b2b0cc31b3652b91dc95b91e193e6c2ed2e3c7",
+      "saved_bytes": 3262,
+      "saved_sha256": "5557f69a308a6995973a71aaf2b2b0cc31b3652b91dc95b91e193e6c2ed2e3c7"
+    },
+    "product/v050-python-light-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 3328,
+      "original_sha256": "50d06ecc1af53d11d39e97a76e42ef2e1934e42d3b459100bdfa9128b6a6214d",
+      "saved_bytes": 3328,
+      "saved_sha256": "50d06ecc1af53d11d39e97a76e42ef2e1934e42d3b459100bdfa9128b6a6214d"
+    },
+    "product/v050-python-light-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3281,
+      "original_sha256": "dd4ed16aaa2516ae1155386473db05cc32c98b8cafa6e6db3885339044262685",
+      "saved_bytes": 3281,
+      "saved_sha256": "dd4ed16aaa2516ae1155386473db05cc32c98b8cafa6e6db3885339044262685"
+    },
+    "product/v050-python-parallel-0-fork.json": {
+      "normalized": false,
+      "original_bytes": 3320,
+      "original_sha256": "90763377fae37eab7f1280c720ccf3e023928392aed0d397cb75ae4d2b1ec7c0",
+      "saved_bytes": 3320,
+      "saved_sha256": "90763377fae37eab7f1280c720ccf3e023928392aed0d397cb75ae4d2b1ec7c0"
+    },
+    "product/v050-python-parallel-0-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3262,
+      "original_sha256": "38fb72644740bc1fccdadd2af58a1fac30f011ebcc3bad694a77aa7794bdddcc",
+      "saved_bytes": 3262,
+      "saved_sha256": "38fb72644740bc1fccdadd2af58a1fac30f011ebcc3bad694a77aa7794bdddcc"
+    },
+    "product/v050-python-parallel-1-fork.json": {
+      "normalized": false,
+      "original_bytes": 3336,
+      "original_sha256": "e708d5071092b80bdf33a9923cbab2b3e0af977a1da556d759cf2291c5773d17",
+      "saved_bytes": 3336,
+      "saved_sha256": "e708d5071092b80bdf33a9923cbab2b3e0af977a1da556d759cf2291c5773d17"
+    },
+    "product/v050-python-parallel-1-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3255,
+      "original_sha256": "4ef306fe1b389c37462c76f983b3c8befd0052e31be0cde7468a8e0ea8c410d1",
+      "saved_bytes": 3255,
+      "saved_sha256": "4ef306fe1b389c37462c76f983b3c8befd0052e31be0cde7468a8e0ea8c410d1"
+    },
+    "product/v050-python-parallel-2-fork.json": {
+      "normalized": false,
+      "original_bytes": 3331,
+      "original_sha256": "19ddcc2341b35079cdd4dde405ce2ce4b9aae4ffe102690ba28d0dbe753ca146",
+      "saved_bytes": 3331,
+      "saved_sha256": "19ddcc2341b35079cdd4dde405ce2ce4b9aae4ffe102690ba28d0dbe753ca146"
+    },
+    "product/v050-python-parallel-2-fresh.json": {
+      "normalized": false,
+      "original_bytes": 3252,
+      "original_sha256": "97da630fefbe61f40e4b35ecb063eea6e9c25d37b4f67f8f7f3eca6dcd9a4046",
+      "saved_bytes": 3252,
+      "saved_sha256": "97da630fefbe61f40e4b35ecb063eea6e9c25d37b4f67f8f7f3eca6dcd9a4046"
+    },
+    "summary.csv": {
+      "normalized": true,
+      "original_bytes": 25523,
+      "original_sha256": "c32999b1ad84aecf6d01454b2627437de50bd1595049fc61cde9f14cfefce279",
+      "saved_bytes": 25186,
+      "saved_sha256": "72f04e7699214b96d77af9ae7c4aa3f22246254f62419fcb249656ca40480d33"
+    },
+    "verification/baseline-identity.json": {
+      "normalized": false,
+      "original_bytes": 181,
+      "original_sha256": "a4f34b979cb2a86137babb79fbb5aef09d18155c3b57042ec9ce659f06dea348",
+      "saved_bytes": 181,
+      "saved_sha256": "a4f34b979cb2a86137babb79fbb5aef09d18155c3b57042ec9ce659f06dea348"
+    },
+    "verification/build-console.txt": {
+      "normalized": false,
+      "original_bytes": 258,
+      "original_sha256": "465502f2aeeb042bf55bdf7176d0316569752c5bf85768c11063edd3d709f560",
+      "saved_bytes": 258,
+      "saved_sha256": "465502f2aeeb042bf55bdf7176d0316569752c5bf85768c11063edd3d709f560"
+    },
+    "verification/build-pair.json": {
+      "normalized": true,
+      "original_bytes": 3793,
+      "original_sha256": "18e4cf3a4853d1f59d12fc46102052e50ca96f70ceb22439d312b631856ab804",
+      "saved_bytes": 3465,
+      "saved_sha256": "33600fc73b8ab33d9bfea553a5e5da2ffc521722eaec6f5f0cf01c23e0e4e0ed"
+    },
+    "verification/build-workspace-receipt.json": {
+      "normalized": true,
+      "original_bytes": 929,
+      "original_sha256": "d57b0222766b684b846d6c593d6846834bef93813d49c9d6f0bbeb18a8899fe6",
+      "saved_bytes": 757,
+      "saved_sha256": "383342e611e3fae05af6e4ad0f05d9f3364f5e1d8c7e913854377577f6a6d61c"
+    },
+    "verification/product-console.txt": {
+      "normalized": false,
+      "original_bytes": 5361,
+      "original_sha256": "4eeb4f6a2b6ecb9bbc59e44c0008b53a572426698c5a07178a6b77b6aefd9910",
+      "saved_bytes": 5361,
+      "saved_sha256": "4eeb4f6a2b6ecb9bbc59e44c0008b53a572426698c5a07178a6b77b6aefd9910"
+    },
+    "verification/python-dependencies-install.txt": {
+      "normalized": false,
+      "original_bytes": 4342,
+      "original_sha256": "8e13516ac1e6800ff699e8258589bee2f2397b371aa98f2a93367a12d8469ba2",
+      "saved_bytes": 4342,
+      "saved_sha256": "8e13516ac1e6800ff699e8258589bee2f2397b371aa98f2a93367a12d8469ba2"
+    },
+    "verification/python-dependencies.txt": {
+      "normalized": false,
+      "original_bytes": 278,
+      "original_sha256": "091866a7dbd7d46f99535f2d6140185a8c1d67ffc38f17a132eb86d78268d720",
+      "saved_bytes": 278,
+      "saved_sha256": "091866a7dbd7d46f99535f2d6140185a8c1d67ffc38f17a132eb86d78268d720"
+    },
+    "verification/reducer-check.txt": {
+      "normalized": false,
+      "original_bytes": 101,
+      "original_sha256": "d691be087f684ad3c19ceb1d3d669a1dad476fc4c00f3b35fc6f109abe6e69dd",
+      "saved_bytes": 101,
+      "saved_sha256": "d691be087f684ad3c19ceb1d3d669a1dad476fc4c00f3b35fc6f109abe6e69dd"
+    },
+    "verification/reducer-result.json": {
+      "normalized": false,
+      "original_bytes": 74,
+      "original_sha256": "0d420972e03b0bf82d5334bb5487cd0d3ae1c19ce2d1a52c236bd23a6953bdac",
+      "saved_bytes": 74,
+      "saved_sha256": "0d420972e03b0bf82d5334bb5487cd0d3ae1c19ce2d1a52c236bd23a6953bdac"
+    },
+    "verification/resource-invariants.json": {
+      "normalized": false,
+      "original_bytes": 843,
+      "original_sha256": "c2a2b5f1c4a3fe9f11851dbbdc38041321627e5d411b3495566c65eca18a40d3",
+      "saved_bytes": 843,
+      "saved_sha256": "c2a2b5f1c4a3fe9f11851dbbdc38041321627e5d411b3495566c65eca18a40d3"
+    }
+  },
+  "normalization": "Replace task workspace and user/compiler root prefixes in retained text; raw and saved SHA256 are distinct. Values and source identities remain unchanged. CSV line endings are normalized from CRLF to LF; numeric/cell contents unchanged."
+}

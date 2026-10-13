@@ -1,0 +1,1 @@
+PASS: unchanged historical sample reduces to exact zero paired deltas; original raw sample untouched

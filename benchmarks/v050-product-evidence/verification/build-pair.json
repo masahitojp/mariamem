@@ -1,0 +1,43 @@
+{
+  "go": "go version go1.26.8 darwin/arm64",
+  "flags": [
+    "-p",
+    "1",
+    "-trimpath",
+    "-buildvcs=false"
+  ],
+  "CGO_ENABLED": "1",
+  "states": {
+    "v047": {
+      "source_commit": "e0be06f3a20c72cbb5a9be27971280c80a3ec357",
+      "tree_sha": "9661f764e8b213f630954f73abfc96cadbd6ca0a",
+      "guest": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
+      "generated_provenance_sha256": "d048e7b718bdfd5dc7269f3c859fbe3d94dbb385d39373798432ff359b9a0515",
+      "binary_sha256": {
+        "ownedprepared": "f924b88b9c29d8688c8120eb3e3a28397c278a2c7e3ef2e78e2f491413eb500a",
+        "mariamem-host": "13a39938b12ff67ee37729559e9ab7e2ccee35bf407f917c394b67b25dec3c65"
+      },
+      "go_build_info": {
+        "ownedprepared": "<workspace>/temp/binaries/v047/ownedprepared: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+        "mariamem-host": "<workspace>/temp/binaries/v047/mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+      }
+    },
+    "v050": {
+      "source_commit": "bb637c49e6d6b50ec6761dead172a35f0b051f7e",
+      "tree_sha": "825a7b9d5bced16e6638449ebd2caa46ceb976aa",
+      "guest": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+      "generated_provenance_sha256": "5172cc89b7823bb59eef9d86972d74bfa68ac87b26bd9f12dd37aad3f717883c",
+      "binary_sha256": {
+        "ownedprepared": "528e8aa0e28b563d960e3a472d6e117617972ea58178dcee1411e28ba6aca244",
+        "mariamem-host": "b2b8a9e88e238ede252d8290897b269ce7c09823e6fd9622fdb9a0dcde48dc66"
+      },
+      "go_build_info": {
+        "ownedprepared": "<workspace>/temp/binaries/v050/ownedprepared: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+        "mariamem-host": "<workspace>/temp/binaries/v050/mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+      }
+    }
+  },
+  "identical_observers": true,
+  "process_helper_sha256": "6fe68101d7a580d2c7f4e08f267556b6482c2bd8b167cad3fc5f79c1eb5b46d7",
+  "cc_version": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n"
+}

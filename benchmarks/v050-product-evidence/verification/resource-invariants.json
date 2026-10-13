@@ -1,0 +1,24 @@
+{
+  "normal_cells": 80,
+  "pilots": 8,
+  "sql_oracles": "PASS: unchanged harness exits 0; complete four-test suites",
+  "source_labels_and_python_source_commits": "PASS",
+  "linear_memory_mapping_creates": 180,
+  "linear_memory_mapping_releases": 180,
+  "all_go_cells_active_mapping_after": 0,
+  "all_go_cells_release_failures": 0,
+  "all_go_cells_fd_delta": 1,
+  "all_go_cells_goroutine_delta": 1,
+  "expected_residual": "One-time network poll FD and still-running observer; existing harness behavior.",
+  "go_final_heap_max_bytes": 568616,
+  "go_process_peak_rss_max_bytes": 1266352128,
+  "python_versions": {
+    "v047": [
+      "13.1.0-MariaDB-embedded"
+    ],
+    "v050": [
+      "12.3.3-MariaDB-embedded"
+    ]
+  },
+  "scope": "40 measured Go cells and 40 measured Python cells; no general lifetime/race proof or long-run soak claim."
+}
