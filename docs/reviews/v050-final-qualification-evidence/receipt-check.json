@@ -1,0 +1,99 @@
+{
+  "artifact_archives": {
+    "darwin": {
+      "artifact_id": 11799728915,
+      "bytes": 308624,
+      "zip_sha256": "b76230120db3b33bd9682b6b1161875771ebaf1308eed1e0ef63075a24632b54"
+    },
+    "ready": {
+      "artifact_id": 11800637832,
+      "bytes": 204308,
+      "zip_sha256": "b5fc70ceece4a10f27a62169bd47bc586aba09cc9abefa279a2a492a8241e2f0"
+    },
+    "ubuntu": {
+      "artifact_id": 11800133048,
+      "bytes": 308788,
+      "zip_sha256": "f972c36e38f8ec8117f35cc408145a8ee018ffcf501e91ae823497c094114d1d"
+    }
+  },
+  "mode": "full",
+  "normalization": {
+    "ci-ready.json": {
+      "guard_review_basis": "Original artifact bytes, before normalization; saved copy is not byte-identical.",
+      "original_sha256": "2f2ab831a98c1ed8a7938f2457b4359e79b767f1c3d6084f4004fb7e858fbdfe",
+      "rule": "Replace absolute runner home prefixes with <runner-root>/; preserve original identities and values elsewhere.",
+      "saved_sha256": "0e94b779bf14072b85004acfa46cbcfb90085b9ad7f954bda0c230ee863dec75"
+    }
+  },
+  "operation": "verify",
+  "platforms": {
+    "darwin-arm64": {
+      "environment": {
+        "architecture": "arm64",
+        "product_version": "15.7.9",
+        "system": "Darwin"
+      },
+      "go127_consumer": {
+        "GOTOOLCHAIN": "local",
+        "actual_go": "go version go1.27.2 darwin/arm64",
+        "minimum_go_unchanged": "1.26.0",
+        "result": "PASS",
+        "scope": "same exact-source external module, default/LoadSnapshot lifecycle and public smoke"
+      },
+      "go_source_files": 2235,
+      "gorm_cases": 32,
+      "sqlalchemy_cases": 44,
+      "steps": {
+        "go_default": "PASS",
+        "go_snapshot_failure_lifecycle": "PASS",
+        "gorm": "PASS",
+        "installed_wheel": "PASS",
+        "sqlalchemy": "PASS"
+      },
+      "wheel_source_files": 2235
+    },
+    "ubuntu24.04-x86_64": {
+      "environment": {
+        "architecture": "x86_64",
+        "distribution": "ubuntu",
+        "system": "Linux",
+        "version_id": "24.04"
+      },
+      "go127_consumer": {
+        "GOTOOLCHAIN": "local",
+        "actual_go": "go version go1.27.2 linux/amd64",
+        "minimum_go_unchanged": "1.26.0",
+        "result": "PASS",
+        "scope": "same exact-source external module, default/LoadSnapshot lifecycle and public smoke"
+      },
+      "go_source_files": 2235,
+      "gorm_cases": 32,
+      "sqlalchemy_cases": 44,
+      "steps": {
+        "go_default": "PASS",
+        "go_snapshot_failure_lifecycle": "PASS",
+        "gorm": "PASS",
+        "installed_wheel": "PASS",
+        "sqlalchemy": "PASS"
+      },
+      "wheel_source_files": 2235
+    }
+  },
+  "run_id": 38366609671,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/38366609671",
+  "saved_files_sha256": {
+    "SHA256SUMS": "d3012ab04a5274ad98ff865af1ae21ad1f4fa9af8017d1d7771debd1087ca0c3",
+    "ci-ready.json": "0e94b779bf14072b85004acfa46cbcfb90085b9ad7f954bda0c230ee863dec75",
+    "darwin-acceptance.json": "6103fd9025d54de6cafab66d8df6b484edd9ceffaaacc42a978cf37a4be8e0de",
+    "qualification.json": "18169e74488d9b76a618a909905d8fb11c81e9fd17bea6762dc2c7f488423952",
+    "ubuntu-acceptance.json": "386ac7e67e2600bcfffd2df8fcea69274c99db42a0a295aeaf42c659c6cd292a"
+  },
+  "source_commit": "bb637c49e6d6b50ec6761dead172a35f0b051f7e",
+  "verified": {
+    "acceptance_digests_match_ready": true,
+    "source_inventories_match_exact_git_commit": true,
+    "wheel_identity_matches_acceptance": true,
+    "zip_digests_match_api": true
+  },
+  "workflow_source_commit": "3adf8cb50d63e5836826cfcf1c99745b1ad7383c"
+}

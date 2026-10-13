@@ -1,26 +1,31 @@
-# v0.5.0 Human Review — completed J1 candidate
+# v0.5.0 Human Review — after final Qualification
 
-**Decision now: adopt the J1 repair candidate and proceed to the already planned
-final Qualification and Product Validation. I recommend adoption.** An exiting
-worker can no longer overwrite a replacement allocation in the preserved failure
-oracle: reclamation waits for the last guest/host memory access, including unwind
-and detached self-exit. The previously identified T1/T2 fixes remain intact.
+**Decision now: proceed to Product Validation on the qualified candidate.
+I recommend proceeding.** Exact source
+`bb637c49e6d6b50ec6761dead172a35f0b051f7e` passed final Qualification on
+macOS15 arm64 and Ubuntu24.04 x86_64. Both native runtime/consumer suites and
+the aggregate artifact/source guard passed. The agreed current-guest R1–R5
+investigation has no outstanding identified access/ownership correction after
+T1/T2/J1; final Qualification found no new blocker.
 
-**Strongest objection:** the repair adds allocator lookup/synchronization and
-changes deallocation timing; its performance/resource cost has not been measured.
-The original failure was shared by Wasm and Go, not a demonstrated Go-only defect.
-I still recommend the limited owner repair because it removes the concrete
-lifetime failure without changing guest inputs or broadening the engine design.
-Product Validation must assess its cost before a release decision.
+**Strongest objection:** tests can pass while startup, parallel test throughput
+or resource use becomes worse. The guest upgrade and the J1 reclamation owner
+have not yet been measured in the final configuration. This is a reason to run
+the planned Product Validation before release approval. It does not call for
+repeating the completed access-path investigation on the same inputs.
 
-For the original question, the agreed current-guest R1–R5 investigation now has
-no outstanding identified access/ownership correction after T1/T2/J1. Scoped
-repair verification is complete; final platform/artifact/consumer Qualification
-and Product Validation are not. No whole-guest re-investigation is recommended
-on these fixed inputs. This candidate adoption is separate from release approval.
+Use the existing [v0.4.7 paired product scenarios](../../benchmarks/v047-product-validation.md)
+to compare released v0.4.7 with this candidate on the same machine/toolchain:
+Go/Python Fresh and Fork, light setup, 10 MiB serial/four-parallel, and the
+100 MiB supplementary scenario. Retain SQL/commit/rollback/isolation oracles,
+timing distributions, CPU and separately interpreted memory/FD/cleanup evidence.
+Measure the complete upgrade's user cost; do not attribute every difference to
+J1. A concrete failure or material regression needs a bounded diagnosis and
+Human decision; it must not be hidden by averaging or changing the oracle.
 
-[Implementation, lifetime argument, semantic differences and limits](v050-join-lifetime-fix.md);
-[exact identities and verification](v050-join-lifetime-evidence/verification.json);
-[historical J1 before/after decision](v050-boundary-join-fixes.md);
-[R1–R5 evidence](v050-semantic-audit.md).
-No main merge, tag, publication or RELEASE READY judgment is included.
+[Qualification evidence and exact candidate identity](v050-final-qualification.md);
+[J1 implementation and limits](v050-join-lifetime-fix.md);
+[R1–R5 technical judgment](v050-semantic-audit.md).
+CI's `READY` is its artifact/qualification verdict. Product Validation and the
+Human release decision remain pending. The prior candidate-adoption review is
+[preserved at its original commit](https://github.com/masahitojp/mariamem/blob/c427ed7619e07fae080037d7e254bb0cf5a0fb25/docs/reviews/v050-human-review.md).
