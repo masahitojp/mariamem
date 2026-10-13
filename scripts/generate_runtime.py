@@ -20,6 +20,7 @@ HANDWRITTEN_FILES = (
     'code/base/fd_allocate_test.go',
     'code/base/bulk_bounds_test.go',
     'code/base/wait_timeout_test.go',
+    'code/base/thread_identity_test.go',
     'code/base/narrow_load_test.go',
     'code/base/narrow_load_supported.go',
     'code/base/narrow_load_other.go',
@@ -49,7 +50,7 @@ HANDWRITTEN_FILES = (
 
 def handwritten_owner(root, name):
     filename = Path(name).name
-    if filename.startswith(('narrow_load_', 'narrow_write_')) or filename in {'fd_allocate_test.go','bulk_bounds_test.go','wait_timeout_test.go'}:
+    if filename.startswith(('narrow_load_', 'narrow_write_')) or filename in {'fd_allocate_test.go','bulk_bounds_test.go','wait_timeout_test.go','thread_identity_test.go'}:
         return root/'scripts/runtime_correctness'/(filename+'.txt')
     return root/'internal/generatedgo'/name
 

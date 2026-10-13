@@ -1,0 +1,25 @@
+--- a/internal/codegen/helpers/helpers.go
++++ b/internal/codegen/helpers/helpers.go
+@@ -2536,7 +2536,21 @@
+ //
+ //go:noinline
+ func threadLaunch(m *Module, body func(child *Module, tid int32)) int32 {
+-	tid := m.threads.nextTID.Add(1)
++	// wasi.thread-spawn reserves zero and the upper three ID bits. Reject
++	// exhaustion before adding a worker or starting it; failed spawn must
++	// not race the guest's allocation cleanup. Never recycle IDs or reset
++	// the contention marker after workers finish.
++	var tid int32
++	for {
++		previous := m.threads.nextTID.Load()
++		if previous < 0 || previous >= (1<<29)-1 {
++			return -1
++		}
++		tid = previous + 1
++		if m.threads.nextTID.CompareAndSwap(previous, tid) {
++			break
++		}
++	}
+ 	m.threads.wg.Add(1)
+ 	// The agent runs on a struct COPY: same memory (the slice header is
+ 	// immutable for a shared memory), same pointered shared state

@@ -6,15 +6,17 @@ sys.path.insert(0,str(ROOT/'scripts/runtime_correctness'))
 from narrow_fixture import u,vec,sec,typ
 
 def fixture():
- types=[typ([0x7f,0x7f,0x7e],[0x7f]),typ([0x7f],[0x7f]),typ([0x7f,0x7f],[]),typ([],[]),typ([0x7f,0x7e,0x7e],[0x7f]),typ([0x7f,0x7f],[0x7f])]
+ types=[typ([0x7f,0x7f,0x7e],[0x7f]),typ([0x7f],[0x7f]),typ([0x7f,0x7f],[]),typ([],[]),typ([0x7f,0x7e,0x7e],[0x7f]),typ([0x7f,0x7f],[0x7f]),typ([0x7f,0x7f,0x7f],[0x7f])]
  imp=vec([u(4)+b'wasi'+u(12)+b'thread-spawn'+b'\0'+u(1)])
  code=b'\0\x20\0\x20\x01\x20\x02\xfe\x01\x02\0\x0b'
  bodies=[u(len(code))+code,b'\x02\0\x0b']
  wait64=b'\0\x20\0\x20\x01\x20\x02\xfe\x02\x03\0\x0b';notify=b'\0\x20\0\x20\x01\xfe\0\x02\0\x0b'
  bodies.extend([u(len(wait64))+wait64,u(len(notify))+notify])
+ spawn=b'\0\x20\0\x10\0\x0b';load=b'\0\x20\0\xfe\x10\x02\0\x0b';bodies.extend([u(len(spawn))+spawn,u(len(load))+load])
+ cmp=b'\0\x20\0\x20\x01\x20\x02\xfe\x48\x02\0\x0b';bodies.append(u(len(cmp))+cmp)
  pad=b'\0'+b'\x01'*(1<<20)+b'\x0b';bodies.append(u(len(pad))+pad)
- exports=vec([u(4)+b'Wait'+b'\0'+u(1),u(5)+b'Spawn'+b'\0'+u(0),u(17)+b'wasi_thread_start'+b'\0'+u(2),u(6)+b'Wait64'+b'\0'+u(3),u(6)+b'Notify'+b'\0'+u(4),u(6)+b'memory'+b'\x02\0'])
- return b'\0asm\x01\0\0\0'+sec(1,vec(types))+sec(2,imp)+sec(3,vec([u(0),u(2),u(4),u(5),u(3)]))+sec(5,b'\x01\x03\x01\x02')+sec(7,exports)+sec(10,vec(bodies))
+ exports=vec([u(4)+b'Wait'+b'\0'+u(1),u(5)+b'Spawn'+b'\0'+u(5),u(17)+b'wasi_thread_start'+b'\0'+u(2),u(6)+b'Wait64'+b'\0'+u(3),u(6)+b'Notify'+b'\0'+u(4),u(4)+b'Load'+b'\0'+u(6),u(3)+b'Cmp'+b'\0'+u(7),u(6)+b'memory'+b'\x02\0'])
+ return b'\0asm\x01\0\0\0'+sec(1,vec(types))+sec(2,imp)+sec(3,vec([u(0),u(2),u(4),u(5),u(1),u(1),u(6),u(3)]))+sec(5,b'\x01\x03\x01\x02')+sec(7,exports)+sec(10,vec(bodies))
 
 def main():
  p=argparse.ArgumentParser();p.add_argument('--scope',choices=['wait','thread','all'],default='all');p.add_argument('--converter',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()

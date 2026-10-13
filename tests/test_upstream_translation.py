@@ -26,7 +26,7 @@ def test_ordered_upstream_identity():
         'imported-memory.patch', 'import-function-index.patch', 'relaxed-madd.patch',
         'pure-memory32.patch', 'controlled-thread-traps.patch', 'host-logical-memory.patch',
         'linear-memory-owner.patch', 'helper-bridge.patch', 'export-collision.patch',
-        'fd-allocate-preservation.patch', 'zero-bulk-bounds.patch', 'wait-timeout-range.patch',
+        'fd-allocate-preservation.patch', 'zero-bulk-bounds.patch', 'wait-timeout-range.patch', 'thread-id-range.patch',
     ]
     for name, digest in translation['patches_sha256'].items():
         assert hashlib.sha256((ROOT/'benchmarks/spikes/wasm2go'/name).read_bytes()).hexdigest() == digest
