@@ -1,0 +1,276 @@
+package probe
+
+import (
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"os"
+	"runtime"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"time"
+	"unsafe"
+)
+
+type waitEvent struct {
+	addr int32
+	gate chan struct{}
+}
+type observedHost struct {
+	*host
+	events chan waitEvent
+	gate   bool
+}
+
+func (h *observedHost) Futex_wait(m *base.Module, a, b, c, d int32) int32 {
+	e := waitEvent{addr: a}
+	if h.gate {
+		e.gate = make(chan struct{})
+	}
+	h.events <- e
+	if e.gate != nil {
+		<-e.gate
+	}
+	return h.host.Futex_wait(m, a, b, c, d)
+}
+func module(t *testing.T) *base.Module {
+	t.Helper()
+	const size = 32 * 1024 * 1024
+	memory := make([]byte, size)
+	if os.Getenv("PROBE_BACKING") == "mmap" {
+		p, err := base.NewMemoryMapping(size, size)
+		if err != nil {
+			t.Fatal(err)
+		}
+		t.Cleanup(func() { p.Close() })
+		memory = p.Bytes()
+	}
+	m := &base.Module{Memory: memory, M: unsafe.Pointer(unsafe.SliceData(memory)), MemShared: true, MaxMem: size, Threads: &base.ThreadPool{}, MemSize: &atomic.Uint64{}, MemMu: &sync.Mutex{}}
+	m.MemSize.Store(size)
+	m.Wasix_32v1 = &host{}
+	m.Wasi_snapshot_preview1 = &base.WasiStubs{}
+	base.ForceContendedAtomics(m)
+	return agent(m, 0)
+}
+func agent(m *base.Module, id int) *base.Module {
+	c := *m
+	c.G0 = int32(len(m.Memory) - 4096 - id*65536)
+	c.G1 = int32(4096 + id*1024)
+	self := c.G1 + 512
+	*(*int32)(unsafe.Add(c.M, uintptr(c.G1+4))) = self
+	*(*int32)(unsafe.Add(c.M, uintptr(self+20))) = int32(id + 1)
+	*(*int32)(unsafe.Add(c.M, uintptr(self+72))) = self + 72
+	return &c
+}
+func event(t *testing.T, h *observedHost) waitEvent {
+	t.Helper()
+	select {
+	case e := <-h.events:
+		return e
+	case <-time.After(time.Second):
+		t.Fatal("no guest futex call")
+		return waitEvent{}
+	}
+}
+func result(t *testing.T, ch <-chan int32) int32 {
+	t.Helper()
+	select {
+	case r := <-ch:
+		return r
+	case <-time.After(time.Second):
+		t.Fatal("guest protocol did not finish")
+		return -999
+	}
+}
+func parked(t *testing.T, m *base.Module, a int32) {
+	t.Helper()
+	limit := time.Now().Add(time.Second)
+	for base.AuditParked(m, uint64(a)) == 0 {
+		if time.Now().After(limit) {
+			t.Fatal("wait queue empty")
+		}
+		runtime.Gosched()
+	}
+}
+
+func TestGuestConditionSignal(t *testing.T) {
+	for _, early := range []bool{true, false} {
+		label := "registered"
+		if early {
+			label = "before-host-registration"
+		}
+		t.Run(label, func(t *testing.T) {
+			m := module(t)
+			const mutex, cv, payload = 64, 128, 256
+			h := &observedHost{host: &host{}, events: make(chan waitEvent, 16), gate: early}
+			m.Wasix_32v1 = h
+			if Fn202(m, mutex, 0) != 0 || Fn203(m, cv) != 0 {
+				t.Fatal("init")
+			}
+			child := agent(m, 1)
+			done := make(chan int32, 1)
+			go func() {
+				if rc := Fn93(child, mutex); rc != 0 {
+					done <- rc
+					return
+				}
+				rc := Fn226(child, cv, mutex)
+				if *(*int32)(unsafe.Add(child.M, payload)) != 42 {
+					done <- 999
+					return
+				}
+				Fn130(child, mutex)
+				done <- rc
+			}()
+			e := event(t, h)
+			if !early {
+				parked(t, m, e.addr)
+			}
+			if Fn93(m, mutex) != 0 {
+				t.Fatal("parent lock")
+			}
+			*(*int32)(unsafe.Add(m.M, payload)) = 42
+			if Fn220(m, cv) != 0 {
+				t.Fatal("signal")
+			}
+			Fn130(m, mutex)
+			if early {
+				close(e.gate)
+			}
+			if rc := result(t, done); rc != 0 {
+				t.Fatalf("wait/payload=%d", rc)
+			}
+			t.Logf("guest CV signal %s, futex address=%d, payload=42", label, e.addr)
+		})
+	}
+}
+func TestGuestConditionBroadcast(t *testing.T) {
+	m := module(t)
+	const mutex, cv = 64, 128
+	Fn202(m, mutex, 0)
+	Fn203(m, cv)
+	h := &observedHost{host: &host{}, events: make(chan waitEvent, 16)}
+	m.Wasix_32v1 = h
+	done := make(chan int32, 2)
+	for i := 1; i <= 2; i++ {
+		c := agent(m, i)
+		go func() { Fn93(c, mutex); rc := Fn226(c, cv, mutex); Fn130(c, mutex); done <- rc }()
+		e := event(t, h)
+		parked(t, m, e.addr)
+	}
+	Fn93(m, mutex)
+	rc := Fn4052(m, cv)
+	Fn130(m, mutex)
+	if rc != 0 {
+		t.Fatal(rc)
+	}
+	for i := 0; i < 2; i++ {
+		if rc := result(t, done); rc != 0 {
+			t.Fatal(rc)
+		}
+	}
+}
+func TestGuestConditionTimeout(t *testing.T) {
+	m := module(t)
+	const mutex, cv, ts = 64, 128, 256
+	Fn202(m, mutex, 0)
+	Fn203(m, cv)
+	Fn93(m, mutex)
+	// Absolute deadline in the past, then invalid nanosecond field. Both return
+	// with caller ownership unchanged/reacquired, checked via a different agent.
+	if rc := Fn218(m, cv, mutex, ts); rc != 73 {
+		t.Fatalf("expired=%d", rc)
+	}
+	c := agent(m, 1)
+	if rc := Fn69(c, mutex); rc != 10 {
+		t.Fatalf("mutex not reacquired: %d", rc)
+	}
+	*(*int32)(unsafe.Add(m.M, ts+8)) = 1000000000
+	if rc := Fn218(m, cv, mutex, ts); rc != 28 {
+		t.Fatalf("invalid timespec=%d", rc)
+	}
+	Fn130(m, mutex)
+}
+func TestGuestRWLock(t *testing.T) {
+	m := module(t)
+	const rw = 64
+	h := &observedHost{host: &host{}, events: make(chan waitEvent, 16)}
+	m.Wasix_32v1 = h
+	if rc := Fn212(m, rw); rc != 0 {
+		t.Fatal(rc)
+	}
+	c := agent(m, 1)
+	if rc := Fn209(c, rw); rc != 10 {
+		t.Fatalf("writer while reader=%d", rc)
+	}
+	done := make(chan int32, 1)
+	go func() { Fn210(c, rw); Fn211(c, rw); done <- 0 }()
+	e := event(t, h)
+	parked(t, m, e.addr)
+	Fn211(m, rw)
+	if rc := result(t, done); rc != 0 {
+		t.Fatal(rc)
+	}
+	if rc := Fn209(m, rw); rc != 0 {
+		t.Fatal(rc)
+	}
+	if rc := Fn212(c, rw); rc != 10 {
+		t.Fatalf("reader while writer=%d", rc)
+	}
+	Fn211(m, rw)
+}
+
+func TestGuestConditionControl(t *testing.T) {
+	m := module(t)
+	const mutex, cv = 64, 128
+	Fn202(m, mutex, 0)
+	Fn203(m, cv)
+	c := agent(m, 1)
+	entered := make(chan struct{})
+	done := make(chan int32, 1)
+	go func() { Fn93(c, mutex); close(entered); rc := Fn226(c, cv, mutex); Fn130(c, mutex); done <- rc }()
+	<-entered
+	// The guest inserts its node before releasing this mutex. No host observer.
+	Fn93(m, mutex)
+	if rc := Fn220(m, cv); rc != 0 {
+		t.Fatal(rc)
+	}
+	Fn130(m, mutex)
+	if rc := result(t, done); rc != 0 {
+		t.Fatal(rc)
+	}
+}
+func TestGuestOwnedMutexTypes(t *testing.T) {
+	for _, kind := range []int32{1, 2} {
+		t.Run(map[int32]string{1: "recursive", 2: "errorcheck"}[kind], func(t *testing.T) {
+			m := module(t)
+			c := agent(m, 1)
+			const mu, attr = 64, 128
+			*(*int32)(unsafe.Add(m.M, attr)) = kind
+			Fn202(m, mu, attr)
+			if rc := Fn93(m, mu); rc != 0 {
+				t.Fatal(rc)
+			}
+			if rc := Fn130(c, mu); rc != 63 {
+				t.Fatalf("non-owner unlock=%d", rc)
+			}
+			if kind == 1 {
+				if rc := Fn93(m, mu); rc != 0 {
+					t.Fatal(rc)
+				}
+				Fn130(m, mu)
+			} else {
+				if rc := Fn93(m, mu); rc != 16 {
+					t.Fatalf("recursive errorcheck=%d", rc)
+				}
+			}
+			if rc := Fn69(c, mu); rc != 10 {
+				t.Fatalf("non-owner trylock=%d", rc)
+			}
+			Fn130(m, mu)
+			if rc := Fn93(c, mu); rc != 0 {
+				t.Fatal(rc)
+			}
+			Fn130(c, mu)
+		})
+	}
+}

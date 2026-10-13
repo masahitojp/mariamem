@@ -1,0 +1,521 @@
+{
+  "wasm_sha256": "9d0a25d359771adac1496a0c2ec744ba5d96183796b15868fc94e4d8deba22e4",
+  "reference_sha256": "1e4577387baad24943841e4324b5d09be54e93372bec918d5354a2ffd3a58e97",
+  "cases": 1305,
+  "converter": {
+    "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+    "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+    "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+    "patched_converter_sha256": "2e127643180dbf5f7c96875497b7e8a080d93bbb7b8b3711c55165d8828146a6",
+    "patches_sha256": {
+      "imported-memory.patch": "9e05149ed2ad75780ee939a7caa577f420d151855ab723498ec60c533f805d40",
+      "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+      "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
+      "pure-memory32.patch": "7b0bf47f257d51ed842483e1ae2c6cb9a45fb009d7114679f9ed32ff76378694",
+      "controlled-thread-traps.patch": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+      "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+      "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
+      "helper-bridge.patch": "934246d80d37a596b43d786065b168aa3d94af62ae3130bd5a9c422ce7e5783b",
+      "export-collision.patch": "2e4866056a3e65c7be0fbc343207157319f609391b07cb8123bed4ab2b2f8f93",
+      "fd-allocate-preservation.patch": "84582c8c9684026735a04117e00a48905f10aef736fb4178c26c79d804b797e6",
+      "zero-bulk-bounds.patch": "85c05f04b24a03e3f65b86b73e8682221615ab10df1d66bde05157d3348813eb"
+    },
+    "files_sha256": {
+      "alias.go": "f8c244ceb79fdf37a78a029bd041d3b99389814adb1281cfe1f8c7a92e7268f8",
+      "base/base.go": "7594d3c1e85fc6f0ec2c98966355df88e4c38dd8006b081fadcfe74e7e535c57",
+      "base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+      "base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+      "base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+      "base/cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+      "base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+      "base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+      "base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+      "base/sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+      "base/simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+      "base/simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c",
+      "base/simd_asm_decls_amd64.go": "8cd739faed219b86305f36152639461265627ddf3ce99ece79af31172ee4a023",
+      "base/simd_asm_decls_arm64.go": "b8233d5f511991ce47dbd3aa82f17004f9f0a001af5c3feba18f3bf2be1f514d",
+      "base/simd_fallback.go": "83141bdc4d20c44bc2b62312c29d8b34164c75542bc9590729b77d7b342a675d",
+      "base/simd_pair.go": "f4ebb41696ef6bb57709ee4e44622572159745382a06d49630278503fed479db",
+      "base/simd_relaxed.go": "84b1a59cccf949026fefa74e4377176839e4d09fde0bac9b192e2754abe8fdd9",
+      "base/simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+      "base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+      "base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+      "base/spike_contract_test.go": "2ea04d8502569740c3d7f779c5a3c9cbdbbc46f4ed8606bd80ba272494d0b947",
+      "base/spike_wait.go": "c2b80910af482014de9e54f587bed748b36a0678ff7146a9f6b4110f95baf730",
+      "data.bin": "beafc9db1153a7261d09b09074383b497147fe87c5034df62c592cb241b7ad4f",
+      "generated.go": "3f51d75c8392c9f558945f5f0b9704042cf8e79746b3b43138608534a1d566f4",
+      "p0/alias.go": "b403d0a154ba6834fcc59a771998abee92a9dc932d5ed12d997441f4d355297c",
+      "p0/p0.go": "b52e83ca0f1cf9564d980e6a8984d90f80204ce58d2e82a0f85b530d0c60c95f",
+      "p0/p0_pure.go": "bf177fadecf49b3c4a866dd86bd570e008fb390281cf2bd0abe949ebb81325aa",
+      "p1/alias.go": "fe1c8252b4f5e9cb95906793edfc1a1135f883353626bd43d033977c1f9ffb77",
+      "p1/p1.go": "f67954a0ea089a390f92fd136aed19f0b679275716158f8850b320ca75029d0f",
+      "p1/p1_pure.go": "2f18fc88f93fe4e606227a9cce9d4d22660ed76062f9a9e23557dcb02b86cc93",
+      "p2/alias.go": "cab6aeeae6177d21446c93450f6c7d705338152106aac69c8d684c72e2e86649",
+      "p2/p2.go": "35946703e10448e3496c31c07bff684f46e07bd9f3941aef0a685ca3549b1141",
+      "p2/p2_pure.go": "2e39e1f2930ea513674510a56718eabc3d7e9bd167d1a8eb6b3aa874ee054382",
+      "p3/alias.go": "ffaa0de8a20f91f800eaac438dd7b4dd15151385648a7803b77163ebfb441e52",
+      "p3/p3.go": "16d0ddc86836c8e2e4c9b0ed0bdec88f25850c9a4b92735920cdeaf45e1b393f",
+      "p3/p3_pure.go": "c6ef73e4c85eb39bbad9c534efc13201f6891c418443be4f997668e5969a3fec",
+      "p4/alias.go": "680303bd11a866a315f1c88f71449ed0954f293d5c44576c18d00157a5d07025",
+      "p4/p4.go": "39b1c26deb46fcfd893d1d6712446debfe79cf83a24b12bf3a7e5790f821010f",
+      "p4/p4_pure.go": "e70350bb972cd67875aa861537a88d5fa955940f20731625632e535e18cc9b11",
+      "p5/alias.go": "de79c26bf9748e026810eaa2421046326c0fdeabf53706876bbb1742b4b8a3cf",
+      "p5/p5.go": "7766d529de65c7ecc4dfbb48064353048fb6a6013cd3329870049806bb8ebf62",
+      "p5/p5_pure.go": "a13b31685b88e2000e489b20b66eb23448a1e975b12fd539d7c897d65596bf15",
+      "p6/alias.go": "f697c4dd62ccaa868697277520dc2e776ea28c83aa61a355e62e0f74d45641b8",
+      "p6/p6.go": "59cd2926859e3e013a6a732b7f504ca18f540a8bff35e28188bd4b36f75af8d8",
+      "p6/p6_pure.go": "0307320e1c69e1baa0137aaec2a8a76b8a7fe10c8a926c47e0376d798ef36e34",
+      "p7/alias.go": "37fbff5a2200946b9a823c370eb3a544685ee762025a073d637dc3f04392948f",
+      "p7/p7.go": "f6befdcc276b8ee9a9009314c04a424f01d1e1d370c7820782e379379e86c811",
+      "p7/p7_pure.go": "6460c65fdf60282000d932d2eed92674c6dd79864b794bab349f499ec58eb8f3",
+      "p8/alias.go": "535d5f6d94e2a3df216c87366fe6f1b979305bebef376c1f70f9132c61167d02",
+      "p8/p8.go": "411f495c778ff6389adc704f9ecaa7a723928503119753e19b12e39a90fed030",
+      "p8/p8_pure.go": "5b29826107f9c2ae1ad3aa4a0c6cc3e63469de731b0da7e49b9576c3fc064978"
+    }
+  },
+  "exported_operations": [
+    {
+      "name": "Load32_8",
+      "op": "load",
+      "bits": 8,
+      "result": 32,
+      "code": 18,
+      "type": false,
+      "argc": 1
+    },
+    {
+      "name": "Store32_8",
+      "op": "store",
+      "bits": 8,
+      "result": 32,
+      "code": 25,
+      "type": 2,
+      "argc": 2
+    },
+    {
+      "name": "Add32_8",
+      "op": "add",
+      "bits": 8,
+      "result": 32,
+      "code": 32,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Sub32_8",
+      "op": "sub",
+      "bits": 8,
+      "result": 32,
+      "code": 39,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "And32_8",
+      "op": "and",
+      "bits": 8,
+      "result": 32,
+      "code": 46,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Or32_8",
+      "op": "or",
+      "bits": 8,
+      "result": 32,
+      "code": 53,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Xor32_8",
+      "op": "xor",
+      "bits": 8,
+      "result": 32,
+      "code": 60,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Xchg32_8",
+      "op": "xchg",
+      "bits": 8,
+      "result": 32,
+      "code": 67,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Cmp32_8",
+      "op": "cmp",
+      "bits": 8,
+      "result": 32,
+      "code": 74,
+      "type": 6,
+      "argc": 3
+    },
+    {
+      "name": "Load32_16",
+      "op": "load",
+      "bits": 16,
+      "result": 32,
+      "code": 19,
+      "type": false,
+      "argc": 1
+    },
+    {
+      "name": "Store32_16",
+      "op": "store",
+      "bits": 16,
+      "result": 32,
+      "code": 26,
+      "type": 2,
+      "argc": 2
+    },
+    {
+      "name": "Add32_16",
+      "op": "add",
+      "bits": 16,
+      "result": 32,
+      "code": 33,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Sub32_16",
+      "op": "sub",
+      "bits": 16,
+      "result": 32,
+      "code": 40,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "And32_16",
+      "op": "and",
+      "bits": 16,
+      "result": 32,
+      "code": 47,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Or32_16",
+      "op": "or",
+      "bits": 16,
+      "result": 32,
+      "code": 54,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Xor32_16",
+      "op": "xor",
+      "bits": 16,
+      "result": 32,
+      "code": 61,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Xchg32_16",
+      "op": "xchg",
+      "bits": 16,
+      "result": 32,
+      "code": 68,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Cmp32_16",
+      "op": "cmp",
+      "bits": 16,
+      "result": 32,
+      "code": 75,
+      "type": 6,
+      "argc": 3
+    },
+    {
+      "name": "Load64_8",
+      "op": "load",
+      "bits": 8,
+      "result": 64,
+      "code": 20,
+      "type": true,
+      "argc": 1
+    },
+    {
+      "name": "Store64_8",
+      "op": "store",
+      "bits": 8,
+      "result": 64,
+      "code": 27,
+      "type": 3,
+      "argc": 2
+    },
+    {
+      "name": "Add64_8",
+      "op": "add",
+      "bits": 8,
+      "result": 64,
+      "code": 34,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Sub64_8",
+      "op": "sub",
+      "bits": 8,
+      "result": 64,
+      "code": 41,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "And64_8",
+      "op": "and",
+      "bits": 8,
+      "result": 64,
+      "code": 48,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Or64_8",
+      "op": "or",
+      "bits": 8,
+      "result": 64,
+      "code": 55,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Xor64_8",
+      "op": "xor",
+      "bits": 8,
+      "result": 64,
+      "code": 62,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Xchg64_8",
+      "op": "xchg",
+      "bits": 8,
+      "result": 64,
+      "code": 69,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Cmp64_8",
+      "op": "cmp",
+      "bits": 8,
+      "result": 64,
+      "code": 76,
+      "type": 7,
+      "argc": 3
+    },
+    {
+      "name": "Load64_16",
+      "op": "load",
+      "bits": 16,
+      "result": 64,
+      "code": 21,
+      "type": true,
+      "argc": 1
+    },
+    {
+      "name": "Store64_16",
+      "op": "store",
+      "bits": 16,
+      "result": 64,
+      "code": 28,
+      "type": 3,
+      "argc": 2
+    },
+    {
+      "name": "Add64_16",
+      "op": "add",
+      "bits": 16,
+      "result": 64,
+      "code": 35,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Sub64_16",
+      "op": "sub",
+      "bits": 16,
+      "result": 64,
+      "code": 42,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "And64_16",
+      "op": "and",
+      "bits": 16,
+      "result": 64,
+      "code": 49,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Or64_16",
+      "op": "or",
+      "bits": 16,
+      "result": 64,
+      "code": 56,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Xor64_16",
+      "op": "xor",
+      "bits": 16,
+      "result": 64,
+      "code": 63,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Xchg64_16",
+      "op": "xchg",
+      "bits": 16,
+      "result": 64,
+      "code": 70,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Cmp64_16",
+      "op": "cmp",
+      "bits": 16,
+      "result": 64,
+      "code": 77,
+      "type": 7,
+      "argc": 3
+    },
+    {
+      "name": "Load32",
+      "op": "load",
+      "bits": 32,
+      "result": 32,
+      "code": 16,
+      "type": 0,
+      "argc": 1
+    },
+    {
+      "name": "Store32",
+      "op": "store",
+      "bits": 32,
+      "result": 32,
+      "code": 23,
+      "type": 2,
+      "argc": 2
+    },
+    {
+      "name": "Add32",
+      "op": "add",
+      "bits": 32,
+      "result": 32,
+      "code": 30,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Cmp32",
+      "op": "cmp",
+      "bits": 32,
+      "result": 32,
+      "code": 72,
+      "type": 6,
+      "argc": 3
+    },
+    {
+      "name": "Load64",
+      "op": "load",
+      "bits": 64,
+      "result": 64,
+      "code": 17,
+      "type": 1,
+      "argc": 1
+    },
+    {
+      "name": "Store64",
+      "op": "store",
+      "bits": 64,
+      "result": 64,
+      "code": 24,
+      "type": 3,
+      "argc": 2
+    },
+    {
+      "name": "Add64",
+      "op": "add",
+      "bits": 64,
+      "result": 64,
+      "code": 31,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Cmp64",
+      "op": "cmp",
+      "bits": 64,
+      "result": 64,
+      "code": 73,
+      "type": 7,
+      "argc": 3
+    }
+  ],
+  "raw_base_sha256": "f91c232be7aa46a303beb0158e3dffa27c9d58216735188d3f0c39135909722b",
+  "adapted_base_sha256": "83019b7139e95788d358aa433b71d06ad7247aee0de9c46f2a09cde980616204",
+  "checks": [
+    {
+      "name": "heap",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "5e3cd72b0b9615b93305ac138c7c9244a33d4aa7c763ad86a8b8f3ac02f17dd2"
+    },
+    {
+      "name": "heap-race",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "907af006dc063cef5d3dda3cf8fd5b42498df791cd310b765624f78794f4b692"
+    },
+    {
+      "name": "mmap",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "6f73a7d0533c7e461d5882ae8477cc2a953446ec95aefe5fd6a36232e6ff40df"
+    },
+    {
+      "name": "mmap-race",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "5813571d781f9fd082b89216bfe7ce0dc654593346974413bdc7b1c007041e7f"
+    }
+  ],
+  "go_version": "go version go1.26.8 darwin/arm64",
+  "reference_engine": "v26.9.0",
+  "owner_sha256": {
+    "scripts/runtime_atomic_loads.py": "5ec21237a556b10c7afa37c6ce5ae047f1338a5857614015542d40edc56eeceb",
+    "scripts/runtime_correctness/narrow_reference.js": "ab7a4a70db9f31c82f8b9a2b2896722bffbec29576d9f24595bd0a605c5232e1",
+    "tests/fixtures/narrow-atomic-driver.go.txt": "580adaa5b2a70a0fa3bcd4d4786d759643a06c63636282d534c01a9a42721aa8",
+    "scripts/runtime_correctness/narrow_write_supported.go.txt": "3a0c9b33fbc99a343943c3996a23ad1879c36dde88d9903bd13f94a9ec3bb18d",
+    "scripts/runtime_correctness/narrow_load_other.go.txt": "49b7b233f4380992c11c0d9ab6cd7442db1d2401c8428d33389fcf320fb626c7",
+    "scripts/runtime_correctness/narrow_load_supported.go.txt": "53a04e996c7edafe5a21c28c35d4fa9f9661c8854d4d1aaca5029af83331d342",
+    "scripts/runtime_correctness/narrow_write_other.go.txt": "e66dd1978ec60a9c16f302e9d461ba77e370519b6c95275ed9832b085f8fa4de",
+    "scripts/runtime_correctness/narrow_load_test.go.txt": "87744a96f49f180a6a10ef2c4730c96f87f9cc88ac76eecc94b9a2dc1e5d566b",
+    "scripts/runtime_correctness/narrow_write_test.go.txt": "c720856d6dcc0224239ab6c1a4ced3afe6596c255d7eb0d71fe4ea3a9bb171b6",
+    "scripts/runtime_correctness/narrow_write_linux_amd64.s.txt": "a189e25e3f4fd8f19f245345b052e8ddcf87fd4b649250365ffa44f3d94c9f19",
+    "scripts/runtime_correctness/narrow_write_darwin_arm64.s.txt": "8c7f1579987ad56f6bc71b5210ebd252b747d1ecd4044ff8a0c3ed6d39742e89",
+    "scripts/runtime_correctness/narrow_load_darwin_arm64.s.txt": "0e5f92aaa6767c173b90b3432ce6866291a96e1b3e26a3a43c7b23de96cdd5a9",
+    "scripts/runtime_correctness/narrow_load_linux_amd64.s.txt": "7a4c1ba99109aa8870db20bdd6eee26515362d292738ec0008b5fa4c43d0956f"
+  },
+  "scope": "Real memory32 Wasm exports, i32/i64 values, all narrow families plus full-width controls; no general mixed-access proof"
+}

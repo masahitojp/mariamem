@@ -1,5 +1,6 @@
 """MySQL text protocol regression cases, promoted from the initial investigation."""
 import datetime
+import re
 import time
 from decimal import Decimal
 import pymysql
@@ -10,7 +11,8 @@ def exercise(conn, events, api_version=1):
     with conn.cursor() as cur:
         cur.execute("SELECT 1 AS one, VERSION() AS version")
         one, version = cur.fetchone()
-        assert one == 1 and version == "13.1.0-MariaDB-embedded", (one, version)
+        assert one == 1 and re.fullmatch(r"\d+\.\d+\.\d+-MariaDB-embedded", version), (one, version)
+        assert conn.get_server_info() == version, (conn.get_server_info(), version)
         cur.execute("CREATE TABLE wire_probe (id INT PRIMARY KEY AUTO_INCREMENT, "
                     "txt VARCHAR(80), b VARBINARY(16), n INT NULL, amount DECIMAL(10,2), "
                     "dt DATETIME, u BIGINT UNSIGNED) ENGINE=InnoDB")

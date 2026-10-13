@@ -1,0 +1,28 @@
+package narrow
+import (
+ "encoding/binary"
+ "sync"
+ "sync/atomic"
+ "testing"
+ "unsafe"
+)
+func TestValues(t *testing.T) {
+ b:=make([]byte,8);copy(b,[]byte{0,0x80,0xff,0x91,0x57,0xfe,0xff,0xff})
+ for i:=0;i<len(b);i++ {if v:=load8(unsafe.Pointer(&b[i]));v!=uint32(b[i]) {t.Fatal(i,v)}}
+ for i:=0;i<len(b);i+=2 {if v:=load16(unsafe.Pointer(&b[i]));v!=uint32(binary.LittleEndian.Uint16(b[i:])) {t.Fatal(i,v)}}
+}
+func TestNeighbor(t *testing.T) {
+ for _,width:=range []int{1,2} {b:=make([]byte,8);b[2]=123;b[3]=4;var wg sync.WaitGroup;wg.Add(2)
+ go func(){defer wg.Done();for i:=0;i<100000;i++ {b[1]=byte(i)}}()
+ go func(){defer wg.Done();for i:=0;i<100000;i++ {var v uint32;if width==1 {v=load8(unsafe.Pointer(&b[2]))}else{v=load16(unsafe.Pointer(&b[2]))};want:=uint32(123);if width==2 {want+=4<<8};if v!=want {t.Errorf("neighbor changed load: %x",v);return}}}()
+ wg.Wait()
+ }
+}
+func TestPublishAcquire(t *testing.T) {
+ for _,width:=range []int{1,2} {for repeat:=0;repeat<100;repeat++ {
+ var flag uint32;var payload uint32;var wg sync.WaitGroup;wg.Add(1)
+ go func(){defer wg.Done();payload=0x12345678;atomic.StoreUint32(&flag,1)}()
+ for {var seen uint32;if width==1 {seen=load8(unsafe.Pointer(&flag))}else{seen=load16(unsafe.Pointer(&flag))};if seen!=0 {break}}
+ if payload!=0x12345678 {t.Fatal("publication failed")};wg.Wait()
+ }}
+}

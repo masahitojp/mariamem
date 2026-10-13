@@ -1,0 +1,146 @@
+package narrow
+
+import (
+ "encoding/binary"
+ "fmt"
+ "os"
+ "runtime"
+ "sync"
+ "sync/atomic"
+ "testing"
+ "unsafe"
+)
+
+func memory(t *testing.T)[]byte{
+ t.Helper()
+ if os.Getenv("BACKING")!="mmap"{return make([]byte,131072)}
+ owner,e:=NewMemoryMapping(65536,131072);if e!=nil{t.Fatal(e)}
+ t.Cleanup(func(){if e:=owner.Close();e!=nil{t.Error(e)}})
+ return owner.Bytes()
+}
+func pointer(b []byte,ea int)unsafe.Pointer{return unsafe.Pointer(&b[ea])}
+func trap(t *testing.T,f func()){t.Helper();did:=false;func(){defer func(){did=recover()!=nil}();f()}();if !did{t.Fatal("missing bounds/alignment trap")}}
+func raw(b []byte,ea,bits int)uint32{if bits==8{return uint32(b[ea])};return uint32(binary.LittleEndian.Uint16(b[ea:]))}
+func TestValuesAndBounds(t *testing.T){
+ for _,bits:=range []int{8,16}{b:=memory(t);width:=bits/8
+  for ea:=64;ea<68;ea+=width{
+   for _,v:=range []uint32{0,1,0x80,0x91ff,0xffffffff}{
+    for i:=60;i<72;i++{b[i]=0x57}
+    p:=checked(b,65536,int32(ea),0,bits);store(p,bits,v)
+    if got:=load(p,bits);got!=v&mask(bits){t.Fatal(bits,got,v)}
+    for i:=60;i<72;i++{if (i<ea||i>=ea+width)&&b[i]!=0x57{t.Fatal("neighbor changed",i)}}
+    old:=cmp(p,bits,v,0xfedc);if old!=v&mask(bits)||load(p,bits)!=0xfedc&mask(bits){t.Fatal("cmp success/truncation")}
+    old=cmp(p,bits,0,0x80);if old!=0xfedc&mask(bits)||load(p,bits)!=old{t.Fatal("cmp mismatch")}
+    for _,op:=range []string{"add","sub","and","or","xor","xchg"}{
+     store(p,bits,v);old,_=rmw(p,bits,op,0xa51f)
+     want:=uint32(0xa51f);switch op{case "add":want=(v&mask(bits))+want;case "sub":want=(v&mask(bits))-want;case "and":want=v&want;case "or":want=v|want;case "xor":want=v^want}
+     if old!=v&mask(bits)||load(p,bits)!=want&mask(bits){t.Fatal(op,bits,old,load(p,bits),want)}
+    }
+   }
+  }
+  p:=checked(b,65536,65536-int32(width),0,bits);store(p,bits,0x81fe);if load(p,bits)!=0x81fe&mask(bits){t.Fatal("last address")}
+  for _,a:=range []int32{65536,-1}{trap(t,func(){checked(b,65536,a,0,bits)})}
+  trap(t,func(){checked(b,65536,-1,1,bits)})
+  trap(t,func(){checked(b,65536,1,-1,bits)})
+  if bits==16{trap(t,func(){checked(b,65536,65,0,bits)});trap(t,func(){checked(b,65535,65534,0,bits)})}
+ }
+}
+func TestDisjointOrdinaryNeighbor(t *testing.T){
+ for _,bits:=range []int{8,16}{for _,op:=range []string{"store","add","sub","and","or","xor","xchg","cmp"}{
+  b:=memory(t);p:=pointer(b,66);store(p,bits,0);var wg sync.WaitGroup;wg.Add(2);gate:=make(chan struct{});var retries uint64
+  go func(){defer wg.Done();<-gate;for i:=0;i<10000;i++{
+   if op=="store"{store(p,bits,uint32(i))}else if op=="cmp"{cmp(p,bits,uint32(i)&mask(bits),uint32(i+1))}else{_,r:=rmw(p,bits,op,1);retries+=r}
+  }}()
+  go func(){defer wg.Done();<-gate;for i:=0;i<10000;i++{b[65]=byte(i);_ = b[64]}}()
+  close(gate);wg.Wait()
+  if b[65]!=byte(9999&255)||b[64]!=0{t.Fatal("neighbor state")}
+  if op=="add"||op=="cmp"{if load(p,bits)!=10000&mask(bits){t.Fatal("counter")}}
+  fmt.Printf("OBS neighbor bits=%d op=%s retries=%d\n",bits,op,retries)
+ }}
+}
+func TestSameTargetAtomic(t *testing.T){
+ for _,bits:=range []int{8,16}{b:=memory(t);p:=pointer(b,66);var wg sync.WaitGroup;var retries atomic.Uint64;wg.Add(4)
+  for k:=0;k<4;k++{go func(){defer wg.Done();for i:=0;i<10000;i++{_,r:=rmw(p,bits,"add",1);retries.Add(r)}}()}
+  wg.Wait();if load(p,bits)!=40000&mask(bits){t.Fatal("lost atomic increment")}
+  fmt.Printf("OBS target bits=%d retries=%d\n",bits,retries.Load())
+ }
+}
+func TestMixedSizeAtomic(t *testing.T){
+ b:=memory(t);p:=pointer(b,66);q:=pointer(b,67);store(p,16,0xaa55);var wg sync.WaitGroup;wg.Add(2);var bad atomic.Bool
+ go func(){defer wg.Done();for i:=0;i<20000;i++{store(p,16,0xaa55);v:=load(p,16);if v!=0xaa55&&v!=0x7755{bad.Store(true)}}}()
+ go func(){defer wg.Done();for i:=0;i<20000;i++{store(q,8,0x77)}}()
+ wg.Wait();if bad.Load(){t.Fatal("torn atomic halfword value")}
+}
+func TestSCStoreBuffering(t *testing.T){
+ for _,bits:=range []int{8,16}{b:=memory(t);x,y:=pointer(b,64),pointer(b,128)
+  for trial:=0;trial<1000;trial++{store(x,bits,0);store(y,bits,0);var a,c uint32;var wg sync.WaitGroup;wg.Add(2);gate:=make(chan struct{})
+   go func(){defer wg.Done();<-gate;store(x,bits,1);a=load(y,bits)}()
+   go func(){defer wg.Done();<-gate;store(y,bits,1);c=load(x,bits)}()
+   close(gate);wg.Wait();if a==0&&c==0{t.Fatal("SC forbidden store buffering")}
+  }
+ }
+}
+func TestSCIRIW(t *testing.T){
+ for _,bits:=range []int{8,16}{b:=memory(t);x,y:=pointer(b,64),pointer(b,128)
+  for trial:=0;trial<1000;trial++{store(x,bits,0);store(y,bits,0);var a,c,d,e uint32;var wg sync.WaitGroup;wg.Add(4);gate:=make(chan struct{})
+   go func(){defer wg.Done();<-gate;store(x,bits,1)}()
+   go func(){defer wg.Done();<-gate;store(y,bits,1)}()
+   go func(){defer wg.Done();<-gate;a=load(x,bits);c=load(y,bits)}()
+   go func(){defer wg.Done();<-gate;d=load(y,bits);e=load(x,bits)}()
+   close(gate);wg.Wait();if a==1&&c==0&&d==1&&e==0{t.Fatal("SC forbidden IRIW")}
+  }
+ }
+}
+func TestPublication(t *testing.T){
+ for _,bits:=range []int{8,16}{b:=memory(t);flag:=pointer(b,64);payload:=(*uint32)(pointer(b,128))
+  for trial:=0;trial<1000;trial++{store(flag,bits,0);atomic.StoreUint32(payload,0);var wg sync.WaitGroup;wg.Add(1)
+   go func(){defer wg.Done();atomic.StoreUint32(payload,0x12345678);store(flag,bits,1)}()
+   for load(flag,bits)==0{runtime.Gosched()}
+   if atomic.LoadUint32(payload)!=0x12345678{t.Fatal("publication")}
+   wg.Wait()
+  }
+ }
+}
+
+func TestMixedWidthSC(t *testing.T){
+ for _,bits:=range []int{8,16}{for _,large:=range []int{32,64}{b:=memory(t);x:=pointer(b,64);y:=pointer(b,128)
+  wideStore:=func(v uint64){if large==32{atomic.StoreUint32((*uint32)(y),uint32(v))}else{atomic.StoreUint64((*uint64)(y),v)}}
+  wideLoad:=func()uint64{if large==32{return uint64(atomic.LoadUint32((*uint32)(y)))};return atomic.LoadUint64((*uint64)(y))}
+  for trial:=0;trial<1000;trial++{store(x,bits,0);wideStore(0);var a uint64;var c uint32;var wg sync.WaitGroup;wg.Add(2);gate:=make(chan struct{})
+   go func(){defer wg.Done();<-gate;rmw(x,bits,"xchg",1);a=wideLoad()}()
+   go func(){defer wg.Done();<-gate;wideStore(1);c=load(x,bits)}()
+   close(gate);wg.Wait();if a==0&&c==0{t.Fatal("mixed-width SC forbidden result",bits,large)}
+  }
+ }}
+}
+
+// Diagnostic cases remain separate from the valid adjacent-access contract.
+// Assembly accesses are invisible; zero reports are not a mixed-access proof.
+func TestOrdinaryTargetDiagnostic(t *testing.T){
+ b:=memory(t);p:=pointer(b,66);var wg sync.WaitGroup;wg.Add(2);var sum uint64
+ go func(){defer wg.Done();for i:=0;i<10000;i++{store(p,8,uint32(i))}}()
+ go func(){defer wg.Done();for i:=0;i<10000;i++{sum+=uint64(b[66])}}()
+ wg.Wait();fmt.Println("OBS ordinary-target checksum",sum,"ASM hidden")
+}
+func TestPlainPublicationDiagnostic(t *testing.T){
+ b:=memory(t);flag:=pointer(b,64);payload:=(*uint32)(pointer(b,128))
+ for trial:=0;trial<100;trial++{store(flag,8,0);*payload=0;var wg sync.WaitGroup;wg.Add(1)
+  go func(){defer wg.Done();*payload=0x12345678;store(flag,8,1)}()
+  for load(flag,8)==0{runtime.Gosched()}
+  if *payload!=0x12345678{t.Fatal("plain publication value")}
+  wg.Wait()
+ }
+ fmt.Println("OBS plain publication; detector cannot see ASM synchronization")
+}
+func TestRaceControl(t *testing.T){
+ b:=memory(t);var wg sync.WaitGroup;wg.Add(2);var sum uint64
+ go func(){defer wg.Done();for i:=0;i<10000;i++{b[66]=byte(i)}}()
+ go func(){defer wg.Done();for i:=0;i<10000;i++{sum+=uint64(b[66])}}()
+ wg.Wait();fmt.Println("OBS instrumented-control",sum)
+}
+func TestWideNeighborDiagnostic(t *testing.T){
+ b:=memory(t);p:=(*uint32)(pointer(b,64));var wg sync.WaitGroup;wg.Add(2)
+ go func(){defer wg.Done();for i:=0;i<10000;i++{for{old:=atomic.LoadUint32(p);next:=(old&^uint32(0xff0000))|uint32(byte(i))<<16;if atomic.CompareAndSwapUint32(p,old,next){break}}}}()
+ go func(){defer wg.Done();for i:=0;i<10000;i++{b[65]=byte(i)}}()
+ wg.Wait();fmt.Println("OBS old-wide-mask diagnostic")
+}

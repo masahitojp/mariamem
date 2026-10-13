@@ -1,0 +1,23 @@
+{
+  "build_origin_source_commit": "9dd38e03495ab0b87d2e8d62328bc5d8bf84fc64",
+  "canonical_build_provenance": "PASS",
+  "negative_checks": {
+    "wrong-contract": {
+      "result": "PASS",
+      "rejection": "wrong build contract"
+    },
+    "one-build": {
+      "result": "PASS",
+      "rejection": "independent rebuild evidence missing/different"
+    },
+    "experimental": {
+      "result": "PASS",
+      "rejection": "experimental guest patch"
+    },
+    "different-source-commit": {
+      "result": "PASS",
+      "rejection": "build source differs"
+    }
+  },
+  "offline_source_preparation": "PASS"
+}

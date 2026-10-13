@@ -1,0 +1,53 @@
+#include "textflag.h"
+TEXT ·atomicWrite8At(SB), NOSPLIT, $0-12
+ MOVD p+0(FP), R0
+ MOVWU v+8(FP), R1
+ DMB $0xb
+ STLRB R1, (R0)
+ DMB $0xb
+ RET
+TEXT ·atomicWrite16At(SB), NOSPLIT, $0-12
+ MOVD p+0(FP), R0
+ MOVWU v+8(FP), R1
+ DMB $0xb
+ STLRH R1, (R0)
+ DMB $0xb
+ RET
+TEXT ·atomicCmp8At(SB), NOSPLIT, $0-20
+ MOVD p+0(FP), R0
+ MOVWU expected+8(FP), R1
+ AND $255, R1, R1
+ MOVWU replacement+12(FP), R2
+ DMB $0xb
+cmp8loop:
+ LDAXRB (R0), R3
+ CMPW R1, R3
+ BNE cmp8miss
+ STLXRB R2, (R0), R4
+ CBNZ R4, cmp8loop
+ B cmp8done
+cmp8miss:
+ CLREX $15
+cmp8done:
+ DMB $0xb
+ MOVW R3, ret+16(FP)
+ RET
+TEXT ·atomicCmp16At(SB), NOSPLIT, $0-20
+ MOVD p+0(FP), R0
+ MOVWU expected+8(FP), R1
+ AND $65535, R1, R1
+ MOVWU replacement+12(FP), R2
+ DMB $0xb
+cmp16loop:
+ LDAXRH (R0), R3
+ CMPW R1, R3
+ BNE cmp16miss
+ STLXRH R2, (R0), R4
+ CBNZ R4, cmp16loop
+ B cmp16done
+cmp16miss:
+ CLREX $15
+cmp16done:
+ DMB $0xb
+ MOVW R3, ret+16(FP)
+ RET

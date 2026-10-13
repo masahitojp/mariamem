@@ -1,0 +1,164 @@
+diff --git a/internal/codegen/wasip1_native.go b/internal/codegen/wasip1_native.go
+index 45fe002..1c9a210 100644
+--- a/internal/codegen/wasip1_native.go
++++ b/internal/codegen/wasip1_native.go
+@@ -166,6 +166,8 @@ func (o osFS) join(name string) string {
+ 	return filepath.Join(o.root, name)
+ }
+ func (o osFS) OpenFile(name string, flag int, perm os.FileMode) (File, error) {
++ nativeFileResizeMu.Lock()
++ defer nativeFileResizeMu.Unlock()
+ 	f, err := os.OpenFile(o.join(name), flag, perm)
+ 	if err != nil {
+ 		return nil, err
+@@ -283,7 +285,7 @@ func (fsys *MemFS) OpenFile(name string, flag int, perm os.FileMode) (File, erro
+ 			node.modTime = time.Now()
+ 		}
+ 	}
+-	f := &memFile{fsys: fsys, node: node}
++	f := &memFile{fsys: fsys, node: node, writable: flag&(os.O_WRONLY|os.O_RDWR) != 0}
+ 	if flag&os.O_APPEND != 0 {
+ 		f.off = int64(len(node.data))
+ 	}
+@@ -448,12 +450,40 @@ func (e memDirEntry) Info() (os.FileInfo, error) { return e.n.info(), nil }
+ 
+ // memFile is an open handle into a MemFS node.
+ type memFile struct {
++	writable bool
+ 	fsys   *MemFS
+ 	node   *memNode
+ 	off    int64
+ 	dirOff int
+ }
+ 
++// Allocate grows under the same node lock as WriteAt and Truncate. It never
++// changes the handle position and never shrinks data, including mapped backing.
++func (f *memFile) Allocate(end int64) error {
++ f.fsys.mu.Lock()
++ defer f.fsys.mu.Unlock()
++ if !f.writable { return syscall.EBADF }
++ if f.node.dir { return syscall.EISDIR }
++ if end > int64(len(f.node.data)) {
++  allocation := make([]byte, end)
++  copy(allocation, f.node.data)
++  f.node.data = allocation
++  f.node.modTime = time.Now()
++ }
++ return nil
++}
++
++// Native logical growth is serialized with every native WASI write/resize/open.
++// This is not a storage-reservation or foreign-process coordination guarantee.
++var nativeFileResizeMu sync.Mutex
++func lockNativeFileResize(f File) func() {
++ if _, ok := f.(*os.File); ok {
++  nativeFileResizeMu.Lock()
++  return nativeFileResizeMu.Unlock
++ }
++ return func() {}
++}
++
+ func (f *memFile) Name() string { return f.node.name }
+ func (f *memFile) Close() error { return nil }
+ func (f *memFile) Sync() error  { return nil }
+@@ -1580,6 +1610,8 @@ func (w *WasiStubs) Fd_filestat_set_size(m *Module, fd int32, size int64) int32
+ 	if op == nil || op.f == nil {
+ 		return _wasiEBADF
+ 	}
++	unlock := lockNativeFileResize(op.f)
++	defer unlock()
+ 	if err := op.f.Truncate(size); err != nil {
+ 		return mapOSError(err)
+ 	}
+@@ -1861,6 +1893,8 @@ func (w *WasiStubs) Fd_pwrite(m *Module, fd, iovs, iovsLen int32, offset int64,
+ 	if op == nil || op.f == nil {
+ 		return _wasiEBADF
+ 	}
++	unlock := lockNativeFileResize(op.f)
++	defer unlock()
+ 	iovBytes := uint64(uint32(iovsLen)) * 8
+ 	if iovBytes > 0x7fffffff {
+ 		return _wasiEFAULT
+@@ -1940,8 +1974,9 @@ func (w *WasiStubs) Fd_tell(m *Module, fd, offsetPtr int32) int32 {
+ 
+ func (w *WasiStubs) Fd_write(m *Module, fd, iovs, iovsLen, nwrittenPtr int32) int32 {
+ 	w.mu.Lock()
+-	dst, _ := w.fdDstLocked(fd)
++	dst, op := w.fdDstLocked(fd)
+ 	w.mu.Unlock()
++	if op != nil && op.f != nil { unlock := lockNativeFileResize(op.f); defer unlock() }
+ 	bufs, ok := w.iovecSlices(m, iovs, iovsLen)
+ 	nwrittenSlice := w.memSlice(m, nwrittenPtr, 4)
+ 	if !ok || nwrittenSlice == nil {
+@@ -1995,18 +2030,31 @@ func (w *WasiStubs) Fd_advise(m *Module, fd int32, offset, length int64, advice
+ }
+ 
+ func (w *WasiStubs) Fd_allocate(m *Module, fd int32, offset, length int64) int32 {
+-	w.mu.Lock()
+-	op := w.fdTable[fd]
+-	w.mu.Unlock()
+-	if op == nil || op.f == nil {
+-		return _wasiEBADF
+-	}
+-	// fallocate "reserves" space; the portable equivalent is Truncate
+-	// to offset+length so the file is at least the requested size.
+-	if err := op.f.Truncate(offset + length); err != nil {
+-		return mapOSError(err)
+-	}
+-	return _wasiESUCCESS
++ w.mu.Lock()
++ op := w.fdTable[fd]
++ w.mu.Unlock()
++ if op == nil || op.f == nil { return _wasiEBADF }
++ // WASI filesize is u64. Reject overflow and ranges not representable by File.
++ start, count := uint64(offset), uint64(length)
++ if start > uint64(1<<63-1) || count > uint64(1<<63-1)-start { return 27 } // EFBIG
++ end := int64(start + count)
++ // Empty allocation is a validated no-op, even past the current EOF.
++ if count == 0 { end = 0 }
++ if allocator, ok := op.f.(interface { Allocate(int64) error }); ok {
++  return mapOSError(allocator.Allocate(end))
++ }
++ if _, ok := op.f.(*os.File); !ok { return _wasiENOTSUP }
++ unlock := lockNativeFileResize(op.f)
++ defer unlock()
++ // A zero-byte write validates access mode without changing size or position.
++ if _, err := op.f.Write(nil); err != nil { return mapOSError(err) }
++ info, err := op.f.Stat()
++ if err != nil { return mapOSError(err) }
++ if info.IsDir() { return _wasiEISDIR }
++ if end > info.Size() {
++  if err := op.f.Truncate(end); err != nil { return mapOSError(err) }
++ }
++ return _wasiESUCCESS
+ }
+ 
+ // Path_chmod is a NON-STANDARD host import (module wasi_snapshot_preview1,
+@@ -3137,6 +3185,7 @@ func (t *translator) emitWasip1Native() ([]ast.Decl, []string, error) {
+ 			"memSlice":                true,
+ 			"logicalMemory":           true,
+ 			"mapOSError":              true,
++            "lockNativeFileResize": true,
+ 			"mapExecError":            true,
+ 			"encodeWaitStatus":        true,
+ 			"totalBytesPlusNul":       true,
+@@ -3205,7 +3254,7 @@ func (t *translator) emitWasip1Native() ([]ast.Decl, []string, error) {
+ 			"writeFilestat":           true,
+ 			"Error":                   true,
+ 		},
+-		keepVarNames: map[string]bool{},
++		keepVarNames: map[string]bool{"nativeFileResizeMu": true},
+ 		keepConstAll: true,
+ 	})
+ 	if err != nil {
+@@ -3511,8 +3560,9 @@ func (w *WasiStubs) iovecSlices64(m *Module, iovs, iovsLen int64) ([][]byte, boo
+ 
+ func (w *WasiStubs) Fd_write64(m *Module, fd int64, iovs int64, iovsLen int64, nwrittenPtr int64) int32 {
+ 	w.mu.Lock()
+-	dst, _ := w.fdDstLocked(int32(fd))
++	dst, op := w.fdDstLocked(int32(fd))
+ 	w.mu.Unlock()
++ if op != nil && op.f != nil { unlock := lockNativeFileResize(op.f); defer unlock() }
+ 	bufs, ok := w.iovecSlices64(m, iovs, iovsLen)
+ 	// nwritten is a 64-bit __wasi_size_t.
+ 	nwrittenSlice := w.memSlice64(m, nwrittenPtr, 8)

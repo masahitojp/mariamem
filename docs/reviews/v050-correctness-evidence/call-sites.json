@@ -1,0 +1,285 @@
+{
+  "source_commit": "808df8b614906a9cd918229e2754d33a5a76dc4b",
+  "method": "Static direct helper call sites in canonical *_pure.go; no dynamic reachability claim",
+  "counts": {
+    "Fd_allocate": 1,
+    "AtomicLoad32_8u": 451,
+    "AtomicLoad32_16u": 1,
+    "MemoryFill": 6161,
+    "MemoryCopy": 6282,
+    "MemoryInit": 5
+  },
+  "sites": {
+    "Fd_allocate": [
+      {
+        "file": "internal/generatedgo/code/p5/p5_pure.go",
+        "function": "Fn18201",
+        "line": 1027112,
+        "call": "v47 = m.Wasi_snapshot_preview1.Fd_allocate(m, l1, v41, v42)"
+      }
+    ],
+    "AtomicLoad32_8u": [
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 12558,
+        "call": "v356 = base.AtomicLoad32_8u(m, int32(23865312), v352)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 12589,
+        "call": "v568 = base.AtomicLoad32_8u(m, int32(23865336), int32(0))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 15238,
+        "call": "v4406 = base.AtomicLoad32_8u(m, int32(23928176), v1194)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 17054,
+        "call": "v8590 = base.AtomicLoad32_8u(m, int32(23969324), v7382)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 46500,
+        "call": "v48829 = base.AtomicLoad32_8u(m, int32(24219756), v47846)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 46510,
+        "call": "v48854 = base.AtomicLoad32_8u(m, int32(24219832), int32(0))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn14401",
+        "line": 317573,
+        "call": "v14 = base.AtomicLoad32_8u(m, int32(23943960), int32(0))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn14521",
+        "line": 359107,
+        "call": "v13556 = base.AtomicLoad32_8u(m, int32(23969364), int32(0))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn17118",
+        "line": 577928,
+        "call": "v70 = base.AtomicLoad32_8u(m, v63, int32(1384))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn17122",
+        "line": 582066,
+        "call": "v34 = base.AtomicLoad32_8u(m, int32(15102238), int32(0))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn17558",
+        "line": 619014,
+        "call": "v12314 = base.AtomicLoad32_8u(m, int32(24020811), int32(0))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn17558",
+        "line": 619067,
+        "call": "v12325 = base.AtomicLoad32_8u(m, int32(24020811), int32(0))"
+      }
+    ],
+    "AtomicLoad32_16u": [
+      {
+        "file": "internal/generatedgo/code/p4/p4_pure.go",
+        "function": "Fn17888",
+        "line": 989701,
+        "call": "v41 = base.AtomicLoad32_16u(m, v25, int32(220))"
+      }
+    ],
+    "MemoryFill": [
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 14099,
+        "call": "base.MemoryFill(m, int32(23871736), int32(0), int32(132))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 14113,
+        "call": "base.MemoryFill(m, int32(23872720), int32(0), int32(132))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 16235,
+        "call": "base.MemoryFill(m, int32(23936280), v6740, v6762)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 16264,
+        "call": "base.MemoryFill(m, int32(23937544), v6740, v6762)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 16265,
+        "call": "base.MemoryFill(m, int32(23936872), v6740, int32(161))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 45381,
+        "call": "base.MemoryFill(m, int32(24019920), v46247, int32(84))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 45462,
+        "call": "base.MemoryFill(m, int32(24020576), v46359, int32(84))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 45694,
+        "call": "base.MemoryFill(m, int32(24051288), v46677, int32(84))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 45896,
+        "call": "base.MemoryFill(m, int32(24214816), v46970, int32(84))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn5560",
+        "line": 62808,
+        "call": "base.MemoryFill(m, v138+int32(776), v142, v153)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn5560",
+        "line": 62817,
+        "call": "base.MemoryFill(m, v138+int32(1728), v142, v153)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn5560",
+        "line": 63096,
+        "call": "base.MemoryFill(m, v697, int32(0), int32(72))"
+      }
+    ],
+    "MemoryCopy": [
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 12259,
+        "call": "base.MemoryCopy(m, v77, v69, v84)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 15232,
+        "call": "base.MemoryCopy(m, v4385, v4387, int32(116))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn65",
+        "line": 15233,
+        "call": "base.MemoryCopy(m, int32(23927984), int32(14952480), int32(112))"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn4356",
+        "line": 47698,
+        "call": "base.MemoryCopy(m, v62, l5, v96)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn4356",
+        "line": 47870,
+        "call": "base.MemoryCopy(m, v356-v46, v353, v46)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn4356",
+        "line": 48122,
+        "call": "base.MemoryCopy(m, v62, l4, v59)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn4356",
+        "line": 48232,
+        "call": "base.MemoryCopy(m, l4, v62, v535)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn4356",
+        "line": 48313,
+        "call": "base.MemoryCopy(m, l4, v62, v592)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn4356",
+        "line": 48579,
+        "call": "base.MemoryCopy(m, l5, l5-v620, v754)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn4356",
+        "line": 48613,
+        "call": "base.MemoryCopy(m, v353, v775-v50, v50)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn4356",
+        "line": 48649,
+        "call": "base.MemoryCopy(m, v795+v377, v805, v806)"
+      },
+      {
+        "file": "internal/generatedgo/code/p0/p0_pure.go",
+        "function": "Fn4356",
+        "line": 48834,
+        "call": "base.MemoryCopy(m, v986-v46, v983, v46)"
+      }
+    ],
+    "MemoryInit": [
+      {
+        "file": "internal/generatedgo/code/p5/p5_pure.go",
+        "function": "Fn216",
+        "line": 3701,
+        "call": "base.MemoryInit(m, 2, v11, v3, int32(497))"
+      },
+      {
+        "file": "internal/generatedgo/code/p7/p7_pure.go",
+        "function": "Fn67",
+        "line": 33,
+        "call": "base.MemoryInit(m, 0, int32(8388608), v7, int32(6207334))"
+      },
+      {
+        "file": "internal/generatedgo/code/p7/p7_pure.go",
+        "function": "Fn67",
+        "line": 34,
+        "call": "base.MemoryInit(m, 1, int32(14595968), v7, int32(642620))"
+      },
+      {
+        "file": "internal/generatedgo/code/p7/p7_pure.go",
+        "function": "Fn67",
+        "line": 37,
+        "call": "base.MemoryInit(m, 2, v14, v7, int32(497))"
+      },
+      {
+        "file": "internal/generatedgo/code/p8/p8_pure.go",
+        "function": "Fn66",
+        "line": 12,
+        "call": "base.MemoryInit(m, 2, l0, int32(0), int32(497))"
+      }
+    ]
+  },
+  "note": "Counts cover all direct calls. Sites retain first 12 per helper; full location listing is reproducible from canonical source."
+}

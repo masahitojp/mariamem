@@ -1,0 +1,9 @@
+test_changed_archive_rejected (test_scan.SourceIdentityTests.test_changed_archive_rejected) ... ok
+test_pristine_and_registered_patch (test_scan.SourceIdentityTests.test_pristine_and_registered_patch) ... ok
+test_unknown_source_rejected (test_scan.SourceIdentityTests.test_unknown_source_rejected) ... ok
+test_writer_families_are_disjoint (test_scan.SourceIdentityTests.test_writer_families_are_disjoint) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.133s
+
+OK

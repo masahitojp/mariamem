@@ -1,0 +1,26 @@
+{
+  "T1_T2_boundary_oracles": "PASS normal and race; original R3/R4 oracles unchanged",
+  "canonical_source_and_license": "PASS: canonical inventory check plus 22 source guard tests",
+  "independent_regeneration": "PASS: all generated and owned files equal; 2472 memory matrix cases / 1693 expected guest traps",
+  "fast_feedback": {
+    "stages": "PASS: version, canonical, source guards, Go test, vet and resumed Python (582 passed,37 skipped,18 subtests); public-source checked separately",
+    "original_runner_exit": "FAIL at collection: missing PyMySQL while installation was pending; retained log",
+    "resume": "completed exact remaining pytest stage after fixed PyMySQL install; completed Go stages were not repeated",
+    "python_skips": "37 opt-in/environment-specific skips in source Fast Feedback; real-host required lifecycle subset separately executed in integration. This is not a full Python consumer/ORM qualification."
+  },
+  "integration": {
+    "result": "PASS",
+    "command": "python scripts/verify.py integration",
+    "runner_exit_code": 0,
+    "scope": "focused runtime race; SQL/transaction/connection/isolation/owned Snapshot; default guest; generated-memory traps; Python 28 cases and 49 Snapshot checks",
+    "initial_attempt": "FAIL: sandbox denied localhost bind; identical canonical command rerun outside sandbox",
+    "evidence": "integration.txt"
+  },
+  "J1_confirmation": "COMPLETE scoped comparison; lifetime oracle FAIL in original Wasm and Go; two controls PASS",
+  "J1_repair": "NOT IMPLEMENTED: limited completion/reclamation design required",
+  "J1_natural_scenario_trace": "NOT PERFORMED: conditional J1c not needed to decide paired actual-body lifetime counterexample; does not establish natural SQL harm/frequency",
+  "Ubuntu_native": "SKIP: unavailable",
+  "macOS15_minimum_OS": "SKIP: current host macOS27 arm64",
+  "final_qualification_and_product_validation": "NOT PERFORMED: outside scope",
+  "release_guard_scope": "Existing source/provenance/license invariants PASS; final qualification/READY guard not invoked"
+}

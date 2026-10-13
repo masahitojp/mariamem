@@ -1,0 +1,78 @@
+{
+  "original_wasm": {
+    "node": "v26.9.0",
+    "checks": [
+      {
+        "engine": "original-Wasm/Node",
+        "waiters": 1,
+        "defer_reclaim": false,
+        "hook_called": true,
+        "joined": true,
+        "map": 268435472,
+        "reused": 268435472,
+        "stack_result_address": 268693519,
+        "replacement_canary": 1,
+        "lifetime_oracle": "FAIL",
+        "scope": "original function bodies; forced host-import schedule, seeded valid heap allocation and pthread layout; not full SQL guest run"
+      },
+      {
+        "engine": "original-Wasm/Node",
+        "waiters": 1,
+        "defer_reclaim": true,
+        "hook_called": true,
+        "joined": true,
+        "map": 268435472,
+        "reused": 268435472,
+        "stack_result_address": 268693519,
+        "replacement_canary": 165,
+        "lifetime_oracle": "PASS",
+        "scope": "original function bodies; forced host-import schedule, seeded valid heap allocation and pthread layout; not full SQL guest run"
+      },
+      {
+        "engine": "original-Wasm/Node",
+        "waiters": 0,
+        "defer_reclaim": false,
+        "hook_called": false,
+        "joined": true,
+        "map": 268435472,
+        "reused": 268435472,
+        "stack_result_address": 268693519,
+        "replacement_canary": 165,
+        "lifetime_oracle": "PASS",
+        "scope": "original function bodies; forced host-import schedule, seeded valid heap allocation and pthread layout; not full SQL guest run"
+      }
+    ]
+  },
+  "translated_go": [
+    {
+      "backing": "heap",
+      "correctness_oracle": "FAIL",
+      "control_passes": 2,
+      "race_reports": 0,
+      "log_sha256": "9aec7f374349fe7384e1d6b09a86b0cf208673aecf84e20681b2b5578215324f"
+    },
+    {
+      "backing": "mmap",
+      "correctness_oracle": "FAIL",
+      "control_passes": 2,
+      "race_reports": 0,
+      "log_sha256": "40d8f6c60f2dd39b40437170b153da523983066354142471f51eed1dc1d8c0b2"
+    },
+    {
+      "backing": "heap-race",
+      "correctness_oracle": "FAIL",
+      "control_passes": 2,
+      "race_reports": 0,
+      "log_sha256": "0f56179a763f174a6e2800c688cce2877e749d1c76430985da9429eaba6dc993"
+    },
+    {
+      "backing": "mmap-race",
+      "correctness_oracle": "FAIL",
+      "control_passes": 2,
+      "race_reports": 0,
+      "log_sha256": "65019c6126a3f956c7ad57438805ce50c421f35389cbb70c1f064139fc7d4979"
+    }
+  ],
+  "scope": "exact allocator/join/unlock bodies; seeded allocation/thread metadata and deterministic host-import interleaving; no actual SQL harm or natural-schedule trace",
+  "conclusion": "same replacement-allocation byte corruption in original Wasm and translated Go; shared guest lifetime violation, not evidence of a Wasm-forbidden Go-only outcome"
+}

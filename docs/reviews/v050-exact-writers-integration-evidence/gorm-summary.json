@@ -1,0 +1,26 @@
+[
+  {
+    "name": "1-start",
+    "exit_code": 0,
+    "cases": 8,
+    "runner_seconds": 156.94872791692615
+  },
+  {
+    "name": "2-fork",
+    "exit_code": 0,
+    "cases": 8,
+    "runner_seconds": 3.7612475419882685
+  },
+  {
+    "name": "3-fork",
+    "exit_code": 0,
+    "cases": 8,
+    "runner_seconds": 2.745993458898738
+  },
+  {
+    "name": "4-start",
+    "exit_code": 0,
+    "cases": 8,
+    "runner_seconds": 2.3183192919241264
+  }
+]

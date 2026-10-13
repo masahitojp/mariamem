@@ -1,0 +1,381 @@
++ <workspace>/temp/venv/bin/python scripts/check_version.py
+Release version: Python 0.4.7; Git/Go v0.4.7
++ <workspace>/temp/venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ <workspace>/temp/venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+......................                                                   [100%]
+22 passed in 0.97s
++ go test -p 1 ./...
+ok  	github.com/masahitojp/mariamem	(cached)
+?   	github.com/masahitojp/mariamem/benchmarks/defaultsanity	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/goisolation	0.333s
+?   	github.com/masahitojp/mariamem/benchmarks/memorylifetime	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/ownedprepared	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotallocation	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/artifacts	(cached)
+?   	github.com/masahitojp/mariamem/internal/diagnostic	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	(cached)
+ok  	github.com/masahitojp/mariamem/internal/host	(cached)
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	(cached)
+?   	github.com/masahitojp/mariamem/internal/prepared	[no test files]
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	(cached)
+ok  	github.com/masahitojp/mariamem/internal/timing	(cached)
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
++ go vet -p 1 -vettool=<worktree>/scripts/vet_generated.py ./...
++ <workspace>/temp/venv/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py -q
+........................................................................ [ 11%]
+.....s.................................................................. [ 23%]
+...........................F............................................ [ 34%]
+........................................................................sss......................................................... [ 55%]
+ssssssssssssssssss................................................ [ 66%]
+.......sssssssssss...................................................... [ 77%]
+........................................................................ [ 89%]
+................................................s..sss.............      [100%]
+=================================== FAILURES ===================================
+_______________ test_watchdog_and_success_stop_owned_descendants _______________
+
+group = 10719, signum = <Signals.SIGKILL: 9>
+
+    def signal_group(group, signum):
+        try:
+>           os.killpg(group, signum)
+E           PermissionError: [Errno 1] Operation not permitted
+
+scripts/experiment_disk.py:25: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+command = ['<workspace>/temp/venv/bin/python', '-c', ...ess.Popen([sys.executable,"-c","import time,pathlib; time.sleep(.4); pathlib.Path(\'escaped\').write_text(\'bad\')"])']
+guard = <experiment_disk.DiskGuard object at 0x1075805d0>
+cwd = PosixPath('/private/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/pytest-of-masahito/pytest-63/test_watchdog_and_success_stop0/repo/build/guard')
+env = None, output = None, interval = 0.01, timeout = 900
+
+    def run_guarded(command, guard, *, cwd=None, env=None, output=None, interval=0.5, timeout=900):
+        if not command or not all(math.isfinite(v) and v > 0 for v in (interval, timeout)):
+            raise ValueError('command, positive interval and timeout are required')
+        guard.check()  # Fail before spawning anything.
+        previous = signal.getsignal(signal.SIGTERM)
+
+        def interrupted(signum, frame):
+            raise DiskLimit('experiment interrupted; owned child group will be stopped')
+
+        signal.signal(signal.SIGTERM, interrupted)
+        process = None
+        try:
+            process = subprocess.Popen(command, cwd=cwd, env=env, stdout=output,
+                                       stderr=subprocess.STDOUT if output is not None else None,
+                                       start_new_session=True)
+            deadline = time.monotonic() + timeout
+            while process.poll() is None:
+                guard.check()
+                if time.monotonic() >= deadline:
+                    raise DiskLimit('experiment watchdog stopped the owned child group')
+                time.sleep(interval)
+            guard.check()
+            return process.returncode
+        finally:
+            try:
+                if process is not None:
+                    try:
+>                       stop_group(process)
+
+scripts/experiment_disk.py:132:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts/experiment_disk.py:101: in stop_group
+    signal_group(process.pid, signal.SIGKILL)
+scripts/experiment_disk.py:31: in signal_group
+    rows = subprocess.check_output(['ps', '-A', '-o', 'pgid=,stat='], text=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py:473: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py:555: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Popen: returncode: 255 args: ['ps', '-A', '-o', 'pgid=,stat=']>
+args = ['ps', '-A', '-o', 'pgid=,stat='], executable = b'ps', preexec_fn = None
+close_fds = True, pass_fds = (), cwd = None, env = None, startupinfo = None
+creationflags = 0, shell = False, p2cread = -1, p2cwrite = -1, c2pread = 11
+c2pwrite = 12, errread = -1, errwrite = -1, restore_signals = True, gid = None
+gids = None, uid = None, umask = -1, start_new_session = False
+process_group = -1
+
+    def _execute_child(self, args, executable, preexec_fn, close_fds,
+                       pass_fds, cwd, env,
+                       startupinfo, creationflags, shell,
+                       p2cread, p2cwrite,
+                       c2pread, c2pwrite,
+                       errread, errwrite,
+                       restore_signals,
+                       gid, gids, uid, umask,
+                       start_new_session, process_group):
+        """Execute program (POSIX version)"""
+
+        if isinstance(args, (str, bytes)):
+            args = [args]
+        elif isinstance(args, os.PathLike):
+            if shell:
+                raise TypeError('path-like args is not allowed when '
+                                'shell is true')
+            args = [args]
+        else:
+            args = list(args)
+
+        if shell:
+            # On Android the default shell is at '/system/bin/sh'.
+            unix_shell = ('/system/bin/sh' if
+                      hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+            args = [unix_shell, "-c"] + args
+            if executable:
+                args[0] = executable
+
+        if executable is None:
+            executable = args[0]
+
+        sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+        if (_USE_POSIX_SPAWN
+                and os.path.dirname(executable)
+                and preexec_fn is None
+                and (not close_fds or _HAVE_POSIX_SPAWN_CLOSEFROM)
+                and not pass_fds
+                and cwd is None
+                and (p2cread == -1 or p2cread > 2)
+                and (c2pwrite == -1 or c2pwrite > 2)
+                and (errwrite == -1 or errwrite > 2)
+                and not start_new_session
+                and process_group == -1
+                and gid is None
+                and gids is None
+                and uid is None
+                and umask < 0):
+            self._posix_spawn(args, executable, env, restore_signals, close_fds,
+                              p2cread, p2cwrite,
+                              c2pread, c2pwrite,
+                              errread, errwrite)
+            return
+
+        orig_executable = executable
+
+        # For transferring possible exec failure from child to parent.
+        # Data format: "exception name:hex errno:description"
+        # Pickle is not used; it is complex and involves memory allocation.
+        errpipe_read, errpipe_write = os.pipe()
+        # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+        low_fds_to_close = []
+        while errpipe_write < 3:
+            low_fds_to_close.append(errpipe_write)
+            errpipe_write = os.dup(errpipe_write)
+        for low_fd in low_fds_to_close:
+            os.close(low_fd)
+        try:
+            try:
+                # We must avoid complex work that could involve
+                # malloc or free in the child process to avoid
+                # potential deadlocks, thus we do all this here.
+                # and pass it to fork_exec()
+
+                if env is not None:
+                    env_list = []
+                    for k, v in env.items():
+                        k = os.fsencode(k)
+                        if b'=' in k:
+                            raise ValueError("illegal environment variable name")
+                        env_list.append(k + b'=' + os.fsencode(v))
+                else:
+                    env_list = None  # Use execv instead of execve.
+                executable = os.fsencode(executable)
+                if os.path.dirname(executable):
+                    executable_list = (executable,)
+                else:
+                    # This matches the behavior of os._execvpe().
+                    executable_list = tuple(
+                        os.path.join(os.fsencode(dir), executable)
+                        for dir in os.get_exec_path(env))
+                fds_to_keep = set(pass_fds)
+                fds_to_keep.add(errpipe_write)
+                self.pid = _fork_exec(
+                        args, executable_list,
+                        close_fds, tuple(sorted(map(int, fds_to_keep))),
+                        cwd, env_list,
+                        p2cread, p2cwrite, c2pread, c2pwrite,
+                        errread, errwrite,
+                        errpipe_read, errpipe_write,
+                        restore_signals, start_new_session,
+                        process_group, gid, gids, uid, umask,
+                        preexec_fn)
+                self._child_created = True
+            finally:
+                # be sure the FD is closed no matter what
+                os.close(errpipe_write)
+
+            self._close_pipe_fds(p2cread, p2cwrite,
+                                 c2pread, c2pwrite,
+                                 errread, errwrite)
+
+            # Wait for exec to fail or succeed; possibly raising an
+            # exception (limited in size)
+            errpipe_data = bytearray()
+            while True:
+                part = os.read(errpipe_read, 50000)
+                errpipe_data += part
+                if not part or len(errpipe_data) > 50000:
+                    break
+        finally:
+            # be sure the FD is closed no matter what
+            os.close(errpipe_read)
+
+        if errpipe_data:
+            try:
+                pid, sts = os.waitpid(self.pid, 0)
+                if pid == self.pid:
+                    self._handle_exitstatus(sts)
+                else:
+                    self.returncode = sys.maxsize
+            except ChildProcessError:
+                pass
+
+            try:
+                exception_name, hex_errno, err_msg = (
+                        errpipe_data.split(b':', 2))
+                # The encoding here should match the encoding
+                # written in by the subprocess implementations
+                # like _posixsubprocess
+                err_msg = err_msg.decode()
+            except ValueError:
+                exception_name = b'SubprocessError'
+                hex_errno = b'0'
+                err_msg = 'Bad exception data from child: {!r}'.format(
+                              bytes(errpipe_data))
+            child_exception_type = getattr(
+                    builtins, exception_name.decode('ascii'),
+                    SubprocessError)
+            if issubclass(child_exception_type, OSError) and hex_errno:
+                errno_num = int(hex_errno, 16)
+                if err_msg == "noexec:chdir":
+                    err_msg = ""
+                    # The error must be from chdir(cwd).
+                    err_filename = cwd
+                elif err_msg == "noexec":
+                    err_msg = ""
+                    err_filename = None
+                else:
+                    err_filename = orig_executable
+                if errno_num != 0:
+                    err_msg = os.strerror(errno_num)
+                if err_filename is not None:
+>                   raise child_exception_type(errno_num, err_msg, err_filename)
+E                   PermissionError: [Errno 1] Operation not permitted: 'ps'
+
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py:1990: PermissionError
+
+The above exception was the direct cause of the following exception:
+
+repo = PosixPath('/private/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/pytest-of-masahito/pytest-63/test_watchdog_and_success_stop0/repo')
+
+    def test_watchdog_and_success_stop_owned_descendants(repo):
+        owned = repo / 'build/guard'
+        owned.mkdir(parents=True)
+        guard = disk.DiskGuard(owned, 0.000001, 0.1)
+        with pytest.raises(disk.DiskLimit, match='watchdog'):
+            disk.run_guarded([sys.executable, '-c', 'import time; time.sleep(10)'], guard, interval=0.01, timeout=0.05)
+        marker = owned / 'escaped'
+        child = "import time,pathlib; time.sleep(.4); pathlib.Path('escaped').write_text('bad')"
+        parent = 'import subprocess,sys; subprocess.Popen([sys.executable,"-c",' + repr(child) + '])'
+>       assert disk.run_guarded([sys.executable, '-c', parent], guard, cwd=owned, interval=0.01) == 0
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_experiment_workspace.py:153:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+command = ['<workspace>/temp/venv/bin/python', '-c', ...ess.Popen([sys.executable,"-c","import time,pathlib; time.sleep(.4); pathlib.Path(\'escaped\').write_text(\'bad\')"])']
+guard = <experiment_disk.DiskGuard object at 0x1075805d0>
+cwd = PosixPath('/private/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/pytest-of-masahito/pytest-63/test_watchdog_and_success_stop0/repo/build/guard')
+env = None, output = None, interval = 0.01, timeout = 900
+
+    def run_guarded(command, guard, *, cwd=None, env=None, output=None, interval=0.5, timeout=900):
+        if not command or not all(math.isfinite(v) and v > 0 for v in (interval, timeout)):
+            raise ValueError('command, positive interval and timeout are required')
+        guard.check()  # Fail before spawning anything.
+        previous = signal.getsignal(signal.SIGTERM)
+
+        def interrupted(signum, frame):
+            raise DiskLimit('experiment interrupted; owned child group will be stopped')
+
+        signal.signal(signal.SIGTERM, interrupted)
+        process = None
+        try:
+            process = subprocess.Popen(command, cwd=cwd, env=env, stdout=output,
+                                       stderr=subprocess.STDOUT if output is not None else None,
+                                       start_new_session=True)
+            deadline = time.monotonic() + timeout
+            while process.poll() is None:
+                guard.check()
+                if time.monotonic() >= deadline:
+                    raise DiskLimit('experiment watchdog stopped the owned child group')
+                time.sleep(interval)
+            guard.check()
+            return process.returncode
+        finally:
+            try:
+                if process is not None:
+                    try:
+                        stop_group(process)
+                    except BaseException as exc:
+>                       raise ProcessStopError('cannot confirm child-group shutdown; retain scratch for manual review') from exc
+E                       experiment_disk.ProcessStopError: cannot confirm child-group shutdown; retain scratch for manual review
+
+scripts/experiment_disk.py:134: ProcessStopError
+=========================== short test summary info ============================
+FAILED tests/test_experiment_workspace.py::test_watchdog_and_success_stop_owned_descendants
+1 failed, 587 passed, 37 skipped, 18 subtests passed in 34.82s
+Traceback (most recent call last):
+  File "<worktree>/scripts/verify.py", line 150, in <module>
+    main()
+    ~~~~^^
+  File "<worktree>/scripts/verify.py", line 129, in main
+    check(args.scope)
+    ~~~~~^^^^^^^^^^^^
+  File "<worktree>/scripts/verify.py", line 75, in check
+    run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer", "--ignore=tests/historical",
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         *("--ignore=" + path for path in SOURCE_TESTS), "-q"], env=env)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>/scripts/verify.py", line 34, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<workspace>/temp/venv/bin/python', '-m', 'pytest', 'tests', '--ignore=tests/consumer', '--ignore=tests/historical', '--ignore=tests/test_generated_runtime_inventory.py', '--ignore=tests/test_distribution_licenses.py', '--ignore=tests/test_packaging_license_mirrors.py', '-q']' returned non-zero exit status 1.

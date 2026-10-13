@@ -1,0 +1,191 @@
+{
+  "candidate_input_source_commit": "be61d940e4c5b8b81b5ed1a73561d00fef76831c",
+  "canonical_base_sha256": "e8d46c765980586e9fb7d7452e85ffb9d86b64bcdf1bbc5b154bdca515da1181",
+  "canonical_install_identity": {
+    "object_sha": "89e6484a4a59a55fe61df9f309ebb135ec2b94fd",
+    "object_type": "commit",
+    "source_commit": "89e6484a4a59a55fe61df9f309ebb135ec2b94fd"
+  },
+  "canonical_provenance_sha256": "e713edf8f5fa862047e39346cd4a748393643e7a94b9a10562cd045d6d510fee",
+  "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+  "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+  "fixture_owner_sha256": {
+    "benchmarks/spikes/v050-join-check/README.md": "163553eaee5a548e42ffed232f347c3f23c9e7741a66a7d456a5019fe3074dcb",
+    "benchmarks/spikes/v050-join-check/decode.go.txt": "7b0333fd45df9dda631647b002f5ed96aa24f6004fdf175721e42f7ffbff45b9",
+    "benchmarks/spikes/v050-join-check/export_fixture.py": "c471fb9624f3b5ae408e75c22d2c12115b8a3ece5595a3f165f64af1129acadf",
+    "benchmarks/spikes/v050-join-check/original.js": "831096092718846028e4e12dc14b0959865e5b99c58b664fbfc2df853801d131",
+    "benchmarks/spikes/v050-join-check/package.py": "1fe06bcbe6ebc8d25ec8ce8f60dafc9d4a9d73de3c866f644e8120801d506415",
+    "benchmarks/spikes/v050-join-check/probe_test.go.txt": "0462414cdc4aa1fc8848ec099d7180a3eeacde02c287864d2ec73aad66dc0d87"
+  },
+  "guest_build_raw_log_sha256": "5455a84c04ac15ec210dc7d669ade35de6fc0d7ce08f5d1a6adb564e6df80402",
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "independent_generated_inventory": {
+    "code/alias.go": "75c9b6d91baa07783b81b576f40ed719a53832678849130247404726361875af",
+    "code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
+    "code/base/base.go": "e8d46c765980586e9fb7d7452e85ffb9d86b64bcdf1bbc5b154bdca515da1181",
+    "code/base/bulk_bounds_test.go": "81ae586bce2e72eec5dbd9ebd33fee05ae26106256131957dcdcaadfea46280c",
+    "code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+    "code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+    "code/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+    "code/base/cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+    "code/base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+    "code/base/fd_allocate_test.go": "0a3c9391708d99baf7b83c3eea234d9947e33ee993eb469f374feba0fda09fdd",
+    "code/base/host_memory_test.go": "a9d5e8abd543f3a56ff6abde0e75600f12e40e523a355aec552a4549dfc4e4da",
+    "code/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
+    "code/base/memfs_growth_test.go": "2c7c1954fa9a952d7e182c2b721fe9330c6d935b34f9aa9f45a35a6c8501f4c4",
+    "code/base/memory_mapping.go": "388e8cf70e3387db7143f9081b9e62c6ddb3edf52e4adbff223be1f9a8020cc7",
+    "code/base/memory_mapping_test.go": "6a7afb89d60c2247b722e86f0bf2da7b4cc08803671f8123a77b858a1b06aeba",
+    "code/base/narrow_load_darwin_arm64.s": "0e5f92aaa6767c173b90b3432ce6866291a96e1b3e26a3a43c7b23de96cdd5a9",
+    "code/base/narrow_load_linux_amd64.s": "7a4c1ba99109aa8870db20bdd6eee26515362d292738ec0008b5fa4c43d0956f",
+    "code/base/narrow_load_other.go": "49b7b233f4380992c11c0d9ab6cd7442db1d2401c8428d33389fcf320fb626c7",
+    "code/base/narrow_load_supported.go": "53a04e996c7edafe5a21c28c35d4fa9f9661c8854d4d1aaca5029af83331d342",
+    "code/base/narrow_load_test.go": "87744a96f49f180a6a10ef2c4730c96f87f9cc88ac76eecc94b9a2dc1e5d566b",
+    "code/base/narrow_write_darwin_arm64.s": "8c7f1579987ad56f6bc71b5210ebd252b747d1ecd4044ff8a0c3ed6d39742e89",
+    "code/base/narrow_write_linux_amd64.s": "a189e25e3f4fd8f19f245345b052e8ddcf87fd4b649250365ffa44f3d94c9f19",
+    "code/base/narrow_write_other.go": "e66dd1978ec60a9c16f302e9d461ba77e370519b6c95275ed9832b085f8fa4de",
+    "code/base/narrow_write_supported.go": "3a0c9b33fbc99a343943c3996a23ad1879c36dde88d9903bd13f94a9ec3bb18d",
+    "code/base/narrow_write_test.go": "c720856d6dcc0224239ab6c1a4ced3afe6596c255d7eb0d71fe4ea3a9bb171b6",
+    "code/base/owned_prepared.go": "7ae03ac0aeae14505faae3e151649eb3f683ca6d63e3313109972560e3a9c388",
+    "code/base/owned_prepared_test.go": "1bef884421a17c364faca5102407deafa80b5600759a5ba0247ac643722d15bc",
+    "code/base/prepared_files.go": "9f860253f7cb682b274492129e1fc7e8c64d62dcc47c7c39e42ee347675629cc",
+    "code/base/prepared_files_test.go": "540bf350e2aaa9276ef7266980d6c637ca06b2ce62dbb9b1e84da1a5410ec7ef",
+    "code/base/prepared_growth_test.go": "4c1122c2f378b35787c48debbe2053f5d0b7eabaf706f71bb3fdb8beef8f1d93",
+    "code/base/relative.go": "c63c1839d91812712e64642699bba33879ff9386f46a33196c1319d21a78d36e",
+    "code/base/relative_contract_test.go": "f3f731925741da0bd9dd528b57972e5aaf721410090c83ab524cb75f44f87ba2",
+    "code/base/runtime_cleanup.go": "40886ea6b6c24316f4fd73d451674c815bc7b26717e1b635362b2170d010d75c",
+    "code/base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+    "code/base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+    "code/base/sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+    "code/base/simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+    "code/base/simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c",
+    "code/base/simd_asm_decls_amd64.go": "456cefd6896b1021a6dbf813a381165ec99efb3cd7b66a34a4e97ef31b23802e",
+    "code/base/simd_asm_decls_arm64.go": "8e9dd950f0c3282a924cf961e055db631536f883f2c05cccef44c4974d99abee",
+    "code/base/simd_fallback.go": "0bb864d570bc9286d87290c55ef52e7082c114e6f3730ae86415e15bbff849ad",
+    "code/base/simd_pair.go": "ffa8c2aac9e0a61608fca859ea8a7493b42dca47babed99c28762573c8d0a916",
+    "code/base/simd_relaxed.go": "ce4ddfb367e686107aa8dbcba8ced4bb5b591106cec94d0950f5e588b1235152",
+    "code/base/simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+    "code/base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+    "code/base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+    "code/base/spike_contract_test.go": "2ea04d8502569740c3d7f779c5a3c9cbdbbc46f4ed8606bd80ba272494d0b947",
+    "code/base/spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862",
+    "code/base/thread_identity_test.go": "e544ab6caed39b416e8475cc453637cde5f5e092d7e1f671d231bb34945f4d03",
+    "code/base/wait_timeout_test.go": "bc55d663c8f53886769a6e59d9b47fb0b68cafd063e8e6101f599128729859a8",
+    "code/generated.go": "9787fbff0efec6a1621fc26d80fd463e204c803b529d8e154dbb9e95c410a0b6",
+    "code/p0/alias.go": "bbc7cea37776e4270ad83677e69371c882c3fbddaa2daa784bc3d5feaef6f03f",
+    "code/p0/p0.go": "d11b408bfc934505cfc43ed2b735878fd3862121f86c3a772fa83a522c2e1f93",
+    "code/p0/p0_pure.go": "ce95b31f08932f74c4731098badc5a83305736523bbebe1a88835fefbc374bce",
+    "code/p1/alias.go": "19765026b027f2bbcac1626754b06f7d4bd2b831be5842a852711c407a0a79f5",
+    "code/p1/p1.go": "36d70dfdec3224447d6b9adada00e3d2e0c6bcb53f5e5115d1036421bbdd2f9a",
+    "code/p1/p1_pure.go": "4b42efd1c7e00f2ab854cd2cf1094e483738f36b3faa02fa16aaec969b8de4aa",
+    "code/p2/alias.go": "419c80dcc68ffe07a0fa8964592f937beb3a2a240b8712ebaa2454c914a16545",
+    "code/p2/p2.go": "bd00b5e4f7dd51b2576e92e0b91e61819f76a34f5b64f2ca96a6601ed2ea725e",
+    "code/p2/p2_pure.go": "a894b24d0eef8fda28c8135a9863d544eca49db6ba63fb1117be25cbd2e99cef",
+    "code/p3/alias.go": "838d9ede77d00b79de88be5c58aecff0beb5bf28e60059498925d280075b44bb",
+    "code/p3/p3.go": "0413460b1de8889a93c1344be4e8143798d806ab702b20a942b45065bb83149b",
+    "code/p3/p3_pure.go": "0cd1833b6ba0a9e1e6261965d05a04a8527896c24988e9161013cdb347667781",
+    "code/p4/alias.go": "a4213d755dd0c7993ca62338eec0e8f57e2bd8ae89672d73f19acb28866f81dd",
+    "code/p4/p4.go": "0f966c897adfbe579ba0bdabb427843a5fed39fd204a916f4860eedb93b77a4a",
+    "code/p4/p4_pure.go": "21ae87a502d3c3de7a179fd0691329f7246275a67e0b4971b4eb4290859a56d8",
+    "code/p5/alias.go": "7017d20447a3282b2f58b0bbb2804c9566cef80f8f363a0d382634ed9c861a3f",
+    "code/p5/p5.go": "d5c27fd8352df464c8327f5d4e8391ba9d4e88967bb6620ee8c42021ea495d3f",
+    "code/p5/p5_pure.go": "8f99ee297e51ccfddfb5920c2618fd73250d5978fdf6e7076ffecc8012a22667",
+    "code/p6/alias.go": "9d3c6e9bbef1dd23253e90f1fd0d27ce460904014446fd4f40813f6e9f12042f",
+    "code/p6/p6.go": "0f389fa8e9971ff443fbfe2d28938133bf4632c327448ff0023982ea5bec7606",
+    "code/p6/p6_pure.go": "56887ba1820ab563b2422067ce03bf375510136de838a8949814e0e2b9383bac",
+    "code/p7/alias.go": "506aca49dffbf8efd22cda93c08f548cac2c25d74436b262d55759ac1eea68fe",
+    "code/p7/p7.go": "60a82d5102d6729f2e886c968f8e5c24d3e0e79625df0cf30ae815e1f6339c15",
+    "code/p7/p7_pure.go": "96f86021b005f7c7b6387062c02a6515e45cccdbf798c645e2d14db0405973ba",
+    "code/p8/alias.go": "efa13738361e5db35fafdd02f991e69593306fb5227580d57dc0d93aada4cb5b",
+    "code/p8/p8.go": "98b59b600c84c230f224e2debeaf97e32bafec5c8f7d9b616e0da3ce3322ad92",
+    "code/p8/p8_pure.go": "a66568b4f13a1cddc44eab5b823d860266645dab8dc4f9e68d984a0e6197d760",
+    "entry.go": "bf01316ea629d43e6094b620d6d62a166da7901e449e9b62614c2ccd2431866a",
+    "fs_contract_test.go": "3576133358a407286ddac38586b879fbd4bcc4947ffc0d9bbd5b14d93eeba7ac",
+    "guest_identity.go": "539d8df179609355666a3976a084998471c1db7384323c4e1150d55588d3ea6a",
+    "main.go": "ab9f7485fbcf37650e99262487f37a5085ac84652596d22f540b87d09cd2b233",
+    "memory_backing_other.go": "6154e3dca091a6a0413b578d19dd70f689da56e82dd3d98bda0481a913578183",
+    "memory_backing_test.go": "028179e04212820c32d67610100cca2d1fc8432c9371cc778a8546be7d572443",
+    "memory_backing_unix.go": "5d8432a00850b0f3799d3cc747e8127734e8b14a597c414e89b95d210da8a0b6",
+    "memory_controlled_test.go": "3a96b12b1792dc8b1553bdf4ef58704449a79211e36e43971065a430bfbfeb4f",
+    "memory_host_test.go": "05af1cab0a14123388fab91e7bbb5f0661c4f98ffd9e564b53d5cdc90e8be960",
+    "memory_lifetime.go": "77182b237acc877164e3b2b98c5c195e77ae81c038888ec1c00de17fe52de997",
+    "provenance.json": "e713edf8f5fa862047e39346cd4a748393643e7a94b9a10562cd045d6d510fee",
+    "runtime_instance.go": "f968359a8bd53f192c12ff3f891e032bed947550909b47482d0c00cfe0bc7a17",
+    "runtime_instance_test.go": "aac489ed53bc7f2b4f0cdc811c76ca38e191820e8a46b230887c1347e9e349b7"
+  },
+  "input_manifest_sha256": "cbe5cb4c8f491575db2d0efc36cf3e4c604e8da3138555d96cdbd8e23cbe412a",
+  "j1_components_note": "pre-T1/T2 base; allocator/join/unlock and wake adapter identical to final source. Not a whole-source qualification.",
+  "j1_observed_base_sha256": "b43554887688b079987c77ed954dd62ad75ec9616c7df0f5979d81e4cc5c8932",
+  "native_environment": {
+    "arch": "arm64",
+    "go": "1.26.8",
+    "macOS15_native": "SKIP: this host is macOS27",
+    "node": "26.9.0",
+    "os": "macOS27.0.1",
+    "python": "3.14",
+    "ubuntu_native": "SKIP: not available"
+  },
+  "oracle_owner_sha256": {
+    "thread_boundary_test.go.txt": "8d2f4fefbd27ba3d0ea035fad9738b115338eef60668fea5c4d16d1eead61eb6",
+    "timeout_test.go.txt": "ba4871180243f5396b83fb0d5160f60dac58d1c399b68a64f23a55ecab51836d"
+  },
+  "ordered_patches": [
+    [
+      "imported-memory.patch",
+      "9e05149ed2ad75780ee939a7caa577f420d151855ab723498ec60c533f805d40"
+    ],
+    [
+      "import-function-index.patch",
+      "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654"
+    ],
+    [
+      "relaxed-madd.patch",
+      "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31"
+    ],
+    [
+      "pure-memory32.patch",
+      "7b0bf47f257d51ed842483e1ae2c6cb9a45fb009d7114679f9ed32ff76378694"
+    ],
+    [
+      "controlled-thread-traps.patch",
+      "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad"
+    ],
+    [
+      "host-logical-memory.patch",
+      "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce"
+    ],
+    [
+      "linear-memory-owner.patch",
+      "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5"
+    ],
+    [
+      "helper-bridge.patch",
+      "934246d80d37a596b43d786065b168aa3d94af62ae3130bd5a9c422ce7e5783b"
+    ],
+    [
+      "export-collision.patch",
+      "2e4866056a3e65c7be0fbc343207157319f609391b07cb8123bed4ab2b2f8f93"
+    ],
+    [
+      "fd-allocate-preservation.patch",
+      "84582c8c9684026735a04117e00a48905f10aef736fb4178c26c79d804b797e6"
+    ],
+    [
+      "zero-bulk-bounds.patch",
+      "85c05f04b24a03e3f65b86b73e8682221615ab10df1d66bde05157d3348813eb"
+    ],
+    [
+      "wait-timeout-range.patch",
+      "980da7652e8b22322cc639a9b39efffaf3a1035b5fdea1467593bf0e50dff5ff"
+    ],
+    [
+      "thread-id-range.patch",
+      "ef07a969971433966fd18ce246d5e515da8c5faa3f10f32e67a09108283a54cf"
+    ]
+  ],
+  "owner_commits": [
+    "bec75c55aa0c42ee88e1df38123ae2f04e268e08",
+    "be61d940e4c5b8b81b5ed1a73561d00fef76831c"
+  ],
+  "patched_converter_sha256": "430bf08585f685138e0c678ebd5a9c9f92802cc124bb01f17e0ac270a35cf2b0",
+  "source_commit_baseline": "446d24a463da976aeb1112af8e796f0b613c31ce"
+}

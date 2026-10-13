@@ -1,0 +1,35 @@
+=== RUN   TestValuesAndBounds
+--- PASS: TestValuesAndBounds (0.00s)
+=== RUN   TestDisjointOrdinaryNeighbor
+OBS neighbor bits=8 op=store retries=0
+OBS neighbor bits=8 op=add retries=0
+OBS neighbor bits=8 op=sub retries=0
+OBS neighbor bits=8 op=and retries=0
+OBS neighbor bits=8 op=or retries=0
+OBS neighbor bits=8 op=xor retries=0
+OBS neighbor bits=8 op=xchg retries=0
+OBS neighbor bits=8 op=cmp retries=0
+OBS neighbor bits=16 op=store retries=0
+OBS neighbor bits=16 op=add retries=0
+OBS neighbor bits=16 op=sub retries=0
+OBS neighbor bits=16 op=and retries=0
+OBS neighbor bits=16 op=or retries=0
+OBS neighbor bits=16 op=xor retries=0
+OBS neighbor bits=16 op=xchg retries=0
+OBS neighbor bits=16 op=cmp retries=0
+--- PASS: TestDisjointOrdinaryNeighbor (0.01s)
+=== RUN   TestSameTargetAtomic
+OBS target bits=8 retries=31483
+OBS target bits=16 retries=63847
+--- PASS: TestSameTargetAtomic (0.01s)
+=== RUN   TestMixedSizeAtomic
+--- PASS: TestMixedSizeAtomic (0.00s)
+=== RUN   TestSCStoreBuffering
+--- PASS: TestSCStoreBuffering (0.00s)
+=== RUN   TestSCIRIW
+--- PASS: TestSCIRIW (0.00s)
+=== RUN   TestPublication
+--- PASS: TestPublication (0.00s)
+=== RUN   TestMixedWidthSC
+--- PASS: TestMixedWidthSC (0.00s)
+PASS

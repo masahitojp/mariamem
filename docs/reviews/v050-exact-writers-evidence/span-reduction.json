@@ -1,0 +1,239 @@
+{
+  "prior_receipt_sha256": "b0badc173fb44e96fd9c28c7a5aa62d847a2f9da7193cd0a042c8e6de0c1efde",
+  "interpretation": "Apply candidate machine operand widths to prior address examples only. No fresh candidate address trace, timing or whole-guest safety claim.",
+  "runs": {
+    "targeted-ahi": {
+      "selected_pair_examples": [
+        {
+          "word": 651557684,
+          "writer_fn": 17888,
+          "writer_ea": 651557686,
+          "writer_requested": 1,
+          "other_fn": 17950,
+          "other_ea": 651557685,
+          "other_kind": "atomic-load",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 651557684,
+          "writer_fn": 17888,
+          "writer_ea": 651557686,
+          "writer_requested": 1,
+          "other_fn": 17888,
+          "other_ea": 651557684,
+          "other_kind": "subword-store",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 651557684,
+          "writer_fn": 17950,
+          "writer_ea": 651557684,
+          "writer_requested": 1,
+          "other_fn": 17888,
+          "other_ea": 651557685,
+          "other_kind": "atomic-load",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 651557684,
+          "writer_fn": 17950,
+          "writer_ea": 651557684,
+          "writer_requested": 1,
+          "other_fn": 17950,
+          "other_ea": 651557685,
+          "other_kind": "atomic-load",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        }
+      ],
+      "disjoint_with_exact_spans": 4,
+      "still_overlap_at_requested_bytes": 0
+    },
+    "targeted-default": {
+      "selected_pair_examples": [
+        {
+          "word": 24020808,
+          "writer_fn": 18531,
+          "writer_ea": 24020809,
+          "writer_requested": 1,
+          "other_fn": 17161,
+          "other_ea": 24020811,
+          "other_kind": "subword-store",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 24020808,
+          "writer_fn": 17161,
+          "writer_ea": 24020811,
+          "writer_requested": 1,
+          "other_fn": 18531,
+          "other_ea": 24020809,
+          "other_kind": "subword-store",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 24020808,
+          "writer_fn": 17161,
+          "writer_ea": 24020811,
+          "writer_requested": 1,
+          "other_fn": 17461,
+          "other_ea": 24020808,
+          "other_kind": "ordinary-load",
+          "other_span": 1,
+          "prior_relation": "ordinary",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 24020808,
+          "writer_fn": 17161,
+          "writer_ea": 24020811,
+          "writer_requested": 1,
+          "other_fn": 65,
+          "other_ea": 24020811,
+          "other_kind": "ordinary-store",
+          "other_span": 1,
+          "prior_relation": "ordinary",
+          "exact_candidate_operand_overlap": true,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 24020808,
+          "writer_fn": 17161,
+          "writer_ea": 24020811,
+          "writer_requested": 1,
+          "other_fn": 18231,
+          "other_ea": 24020810,
+          "other_kind": "subword-store",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 24020808,
+          "writer_fn": 17161,
+          "writer_ea": 24020811,
+          "writer_requested": 1,
+          "other_fn": 18180,
+          "other_ea": 24020809,
+          "other_kind": "subword-store",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 24020808,
+          "writer_fn": 17161,
+          "writer_ea": 24020811,
+          "writer_requested": 1,
+          "other_fn": 18231,
+          "other_ea": 24020808,
+          "other_kind": "ordinary-store",
+          "other_span": 1,
+          "prior_relation": "ordinary",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 24020808,
+          "writer_fn": 18231,
+          "writer_ea": 24020810,
+          "writer_requested": 1,
+          "other_fn": 17161,
+          "other_ea": 24020811,
+          "other_kind": "subword-store",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 24020808,
+          "writer_fn": 18231,
+          "writer_ea": 24020810,
+          "writer_requested": 1,
+          "other_fn": 18168,
+          "other_ea": 24020809,
+          "other_kind": "atomic-load",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 24020808,
+          "writer_fn": 18180,
+          "writer_ea": 24020809,
+          "writer_requested": 1,
+          "other_fn": 17161,
+          "other_ea": 24020811,
+          "other_kind": "subword-store",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 15209756,
+          "writer_fn": 18136,
+          "writer_ea": 15209756,
+          "writer_requested": 1,
+          "other_fn": 18010,
+          "other_ea": 15209757,
+          "other_kind": "subword-store",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 15209756,
+          "writer_fn": 18010,
+          "writer_ea": 15209757,
+          "writer_requested": 1,
+          "other_fn": 18136,
+          "other_ea": 15209756,
+          "other_kind": "subword-store",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        },
+        {
+          "word": 15209756,
+          "writer_fn": 18010,
+          "writer_ea": 15209757,
+          "writer_requested": 1,
+          "other_fn": 18509,
+          "other_ea": 15209756,
+          "other_kind": "subword-store",
+          "other_span": 1,
+          "prior_relation": "adjacent-atomic",
+          "exact_candidate_operand_overlap": false,
+          "simultaneity_or_happens_before": "UNPROVEN"
+        }
+      ],
+      "disjoint_with_exact_spans": 12,
+      "still_overlap_at_requested_bytes": 1
+    }
+  }
+}

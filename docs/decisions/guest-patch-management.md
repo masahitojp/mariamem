@@ -3,7 +3,9 @@
 状態: **2026-10-12 maintainer承認済みの管理方針**。
 方式B「共通のportability差分＋必要最小限の系列固有hunk」を採用する。
 この文書を、今後のパッチ棚卸し・guest更新時の判断基準とする。
-管理機構の実装は未着手。各実験は現在、1本の`guest/experimental.patch`を保持している。
+12.3.3の正式経路は`guest/input.json`に入力・順序・patch/preimage/postimage hashを固定し、
+共通portabilityと12.3.3 redo variantを適用する。過去実験の一体型`guest/experimental.patch`は
+当時の証拠として保持する。13.2.0の採用や複数系列の公開選択は実装しない。
 guestの製品採用、複数系列のサポート、Release qualificationはそれぞれの検証結果で判断する。
 
 ## 比較した方式と採用理由
@@ -118,6 +120,9 @@ thread/trap/race censusと独立再生成の必要性は既存の開発・Releas
 共通化の適用成功を、これらの実行検証やRelease資格の代わりにしない。
 
 ## 調査証拠と現在の実装状態
+
+12.3.3正式経路の採用入力・実装・今回の検証は
+[A–D統合報告](../reviews/v050-ad-integration.md)を参照。
 
 - [12.3.3 feasibility報告](https://github.com/masahitojp/mariamem/blob/5f14221463b6400e72e72a115bd1cc1a3acee88d/docs/reviews/v05-stable-guest-feasibility.md)
   は実build、SQL、所有権・lifecycle検証と残るVM契約の限界を記録する。

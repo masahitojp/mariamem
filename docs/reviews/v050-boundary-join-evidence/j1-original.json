@@ -1,0 +1,44 @@
+{
+  "node": "v26.9.0",
+  "checks": [
+    {
+      "engine": "original-Wasm/Node",
+      "waiters": 1,
+      "defer_reclaim": false,
+      "hook_called": true,
+      "joined": true,
+      "map": 268435472,
+      "reused": 268435472,
+      "stack_result_address": 268693519,
+      "replacement_canary": 1,
+      "lifetime_oracle": "FAIL",
+      "scope": "original function bodies; forced host-import schedule, seeded valid heap allocation and pthread layout; not full SQL guest run"
+    },
+    {
+      "engine": "original-Wasm/Node",
+      "waiters": 1,
+      "defer_reclaim": true,
+      "hook_called": true,
+      "joined": true,
+      "map": 268435472,
+      "reused": 268435472,
+      "stack_result_address": 268693519,
+      "replacement_canary": 165,
+      "lifetime_oracle": "PASS",
+      "scope": "original function bodies; forced host-import schedule, seeded valid heap allocation and pthread layout; not full SQL guest run"
+    },
+    {
+      "engine": "original-Wasm/Node",
+      "waiters": 0,
+      "defer_reclaim": false,
+      "hook_called": false,
+      "joined": true,
+      "map": 268435472,
+      "reused": 268435472,
+      "stack_result_address": 268693519,
+      "replacement_canary": 165,
+      "lifetime_oracle": "PASS",
+      "scope": "original function bodies; forced host-import schedule, seeded valid heap allocation and pthread layout; not full SQL guest run"
+    }
+  ]
+}

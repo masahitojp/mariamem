@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "$TASK/worktree/benchmarks/spikes/v050-exact-writers/install_candidate.py", line 26, in <module>
+    assert digest(base) == record["files_sha256"]["code/base/base.go"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

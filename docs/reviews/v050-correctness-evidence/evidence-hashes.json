@@ -1,0 +1,117 @@
+{
+  "path_normalization": "$TASK replaces only the owned workspace path",
+  "files": {
+    "results.json": {
+      "original_sha256": "51586f6d678e499e10749a59d87ce70f3d108d5e65b31f9fec8649609045bc97",
+      "saved_sha256": "51586f6d678e499e10749a59d87ce70f3d108d5e65b31f9fec8649609045bc97"
+    },
+    "TestAllocateControls.txt": {
+      "original_sha256": "739ee747efd04fb79a58187aa00623de25bba42dc5746142133c7f794cdcc9f6",
+      "saved_sha256": "739ee747efd04fb79a58187aa00623de25bba42dc5746142133c7f794cdcc9f6"
+    },
+    "TestAllocatePreservesExistingData.txt": {
+      "original_sha256": "5075997c26573f062d1f74938daf08059c880abe817fb045a0d20b96bd7a9130",
+      "saved_sha256": "5075997c26573f062d1f74938daf08059c880abe817fb045a0d20b96bd7a9130"
+    },
+    "TestAtomicNeighbor16-race.txt": {
+      "original_sha256": "8b2dc95dca40040a4cef206d44e6b3fe38af45b2c0d58502c2194b6f2749fa54",
+      "saved_sha256": "08f0e42df88ab0a642a3a9969f2d990f3924ec0dbc7cd458dcff3855d887c93d"
+    },
+    "TestAtomicNeighbor16.txt": {
+      "original_sha256": "869bed13acc8f3475b1f3d8847044a0c70ed53f1d8126181fb8716869d151878",
+      "saved_sha256": "869bed13acc8f3475b1f3d8847044a0c70ed53f1d8126181fb8716869d151878"
+    },
+    "TestAtomicNeighbor8-race.txt": {
+      "original_sha256": "11a6956862dc3998cc98ba4cac983d199c2d8ef737c165ddb999b4c8cba761d2",
+      "saved_sha256": "42a9497dc35a50d3dc6a3a6ed6cb1ec1a7ba3a233a8a8ad17b18abf78f44b07d"
+    },
+    "TestAtomicNeighbor8.txt": {
+      "original_sha256": "93f1ad62361f63d8ca68ce79b66119f35c14616b9303f0eb2232c90b09baad24",
+      "saved_sha256": "93f1ad62361f63d8ca68ce79b66119f35c14616b9303f0eb2232c90b09baad24"
+    },
+    "TestAtomicReadRead16-race.txt": {
+      "original_sha256": "99b8d8194652a27b682e0b20d7c037a4ca3cf3c6d3236194a6a595c352778e97",
+      "saved_sha256": "22caf2d60cd99df46e46847918763cb44af8521a02ade6b8c4685bd006a74580"
+    },
+    "TestAtomicReadRead16.txt": {
+      "original_sha256": "455635aac43c875bdebc98236f405954ed98e832a984c4824496ca0393ac7289",
+      "saved_sha256": "455635aac43c875bdebc98236f405954ed98e832a984c4824496ca0393ac7289"
+    },
+    "TestAtomicReadRead8-race.txt": {
+      "original_sha256": "996728d762609594f0975fbe7d60cf3927a7fd364940b9f01b866cf01d39fce2",
+      "saved_sha256": "784b54fba9b937f41f84c5b4e63bfc98bcd3f305b6220f5cd691a2958a958a87"
+    },
+    "TestAtomicReadRead8.txt": {
+      "original_sha256": "c06d8985c0f077ebf9e02e1849ff8c5cdb10df51b10e477fb48e0d46921e0c30",
+      "saved_sha256": "c06d8985c0f077ebf9e02e1849ff8c5cdb10df51b10e477fb48e0d46921e0c30"
+    },
+    "TestAtomicValuesAndBounds.txt": {
+      "original_sha256": "52239be672c68560ddba98b5f6b16ea3c0e8dec13e3ed98ecb5826922d40ab69",
+      "saved_sha256": "52239be672c68560ddba98b5f6b16ea3c0e8dec13e3ed98ecb5826922d40ab69"
+    },
+    "TestHeapPlainConflict-race.txt": {
+      "original_sha256": "bf879298b48404b392ef0a5a7fbc8faa807a26702a482a3f95a02efab9dcb617",
+      "saved_sha256": "25c7f21d83d525c74a9e6fed2dd249f17b8a9fb547fe92d854df22ba143afff6"
+    },
+    "TestHeapPlainConflict.txt": {
+      "original_sha256": "361a0638a0930e97f922e2c223b8b32298d2d0b9133efbda169548d25593e8bd",
+      "saved_sha256": "361a0638a0930e97f922e2c223b8b32298d2d0b9133efbda169548d25593e8bd"
+    },
+    "TestMappedAtomicNeighbor16-race.txt": {
+      "original_sha256": "14edf40859971fb0297799dc5391afcda80290c926db56f5a5a8468ec73faaf0",
+      "saved_sha256": "14edf40859971fb0297799dc5391afcda80290c926db56f5a5a8468ec73faaf0"
+    },
+    "TestMappedAtomicNeighbor16.txt": {
+      "original_sha256": "5505613071fe52b941ace05cf845621cea96c89369aa73cb69316c2fb6e0a6b2",
+      "saved_sha256": "5505613071fe52b941ace05cf845621cea96c89369aa73cb69316c2fb6e0a6b2"
+    },
+    "TestMappedAtomicNeighbor8-race.txt": {
+      "original_sha256": "e17118f81278d063a881d0dd933b35b1bf75047a8223ea4d3cb2edbd6c94ac75",
+      "saved_sha256": "e17118f81278d063a881d0dd933b35b1bf75047a8223ea4d3cb2edbd6c94ac75"
+    },
+    "TestMappedAtomicNeighbor8.txt": {
+      "original_sha256": "b2fd1bf218f415083dbb79d340ea24e384458bbfebbd039efe34408e60b3e4ca",
+      "saved_sha256": "b2fd1bf218f415083dbb79d340ea24e384458bbfebbd039efe34408e60b3e4ca"
+    },
+    "TestMappedAtomicReadRead16-race.txt": {
+      "original_sha256": "664eb28c819dc37a3c79a5a1ebc693951863e97b9c0ffcf66e5616b50c63e72b",
+      "saved_sha256": "664eb28c819dc37a3c79a5a1ebc693951863e97b9c0ffcf66e5616b50c63e72b"
+    },
+    "TestMappedAtomicReadRead16.txt": {
+      "original_sha256": "9900a74c5f4f8378ac49768359e4ca11899f2d7b872d7507469f6fa04f5eb1a1",
+      "saved_sha256": "9900a74c5f4f8378ac49768359e4ca11899f2d7b872d7507469f6fa04f5eb1a1"
+    },
+    "TestMappedAtomicReadRead8-race.txt": {
+      "original_sha256": "eebb14b96fd4151a5f1a1db9399eff079160539d31ff5cc5100eda3fc5a6aee8",
+      "saved_sha256": "eebb14b96fd4151a5f1a1db9399eff079160539d31ff5cc5100eda3fc5a6aee8"
+    },
+    "TestMappedAtomicReadRead8.txt": {
+      "original_sha256": "828d9416b4c64d0f8b155a07f4d37b460df99d21be41fed7d569acd6e1dc242b",
+      "saved_sha256": "828d9416b4c64d0f8b155a07f4d37b460df99d21be41fed7d569acd6e1dc242b"
+    },
+    "TestMappedPlainConflict-race.txt": {
+      "original_sha256": "a05544a127c7cdb859021e2413082092fc3d99579ed2d53daeb0d29dcde76651",
+      "saved_sha256": "a05544a127c7cdb859021e2413082092fc3d99579ed2d53daeb0d29dcde76651"
+    },
+    "TestMappedPlainConflict.txt": {
+      "original_sha256": "f88c23da6d2d7ad522c2ee6d80983b1d8330317e80263388341da0e9e2bdc937",
+      "saved_sha256": "f88c23da6d2d7ad522c2ee6d80983b1d8330317e80263388341da0e9e2bdc937"
+    },
+    "TestReadOnlyWordNeighbor-race.txt": {
+      "original_sha256": "22b3a8d037147f10bb2bf19a55c74a0b61dcefa8ad015176eaf1b90eb250c58f",
+      "saved_sha256": "c6b08d877ec2124abc1be29cf4fc8406d9646f1bc5f7f3273b8f0870fd8840d0"
+    },
+    "TestReadOnlyWordNeighbor.txt": {
+      "original_sha256": "4ef8a6baaee7bc7d16d3bd37f0ca9d9406ac0195844ea5c8c85b668d31dfcf60",
+      "saved_sha256": "4ef8a6baaee7bc7d16d3bd37f0ca9d9406ac0195844ea5c8c85b668d31dfcf60"
+    },
+    "TestZeroBulkBounds.txt": {
+      "original_sha256": "85bc5ed8fac928f9e3a5483193ad45422cc31a10db7838bbbc9d8500b5beb5ee",
+      "saved_sha256": "85bc5ed8fac928f9e3a5483193ad45422cc31a10db7838bbbc9d8500b5beb5ee"
+    },
+    "identity.json": {
+      "original_sha256": "1dcf5bcd60b2738885d430c53c23d770962804a81887a89b353497c2bb7703a5",
+      "saved_sha256": "1dcf5bcd60b2738885d430c53c23d770962804a81887a89b353497c2bb7703a5"
+    }
+  }
+}

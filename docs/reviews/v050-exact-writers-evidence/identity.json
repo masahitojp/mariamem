@@ -1,0 +1,249 @@
+{
+  "baseline_source_commit": "753a015b9affa9fd8d19cff34e68feec7eabe5ae",
+  "starting_fix_commit": "82f3c2bcef1518dadf5138a03e11dcfeb3db2de6",
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "host_binary_sha256": {
+    "control-host": "6b80e2b4f5d9e7022a91e413c180e03b06d30ce1338f2769207a88cea8dfec85",
+    "candidate-host": "e8d7a789ba46638b4d423a6f5c113a646b45283b516cd84b817f4462db6ec974"
+  },
+  "standalone_binary_sha256": {
+    "native.test": "3aebe1028704cc58f90405db808e176d7b10dc26c967fbcf69e1baad14d144ef",
+    "linux-amd64.test": "693f5293c28352dd4d3733c6704c605cc829065dc1d454f76638a41f7f9bb2d3"
+  },
+  "canonical_provenance_sha256": "151554ea369a513cee5a6686fc92a6d47f7162fa00550d349b9d836a57ac6da3",
+  "source_templates": {
+    "ops.go.txt": "bb19bdaf421d2da1e3a64135c538f9ad4487a193b39de8b91354fb35dc3380d4",
+    "ops_amd64.s.txt": "6761ab84885d9eb49d37eabdda1b87149039f6696bed5ed2f05e1e5673ca5d86",
+    "ops_arm64.s.txt": "4ef4b55a71fd7474151dc0dbb13102a9de949057fe384bcb53121d67b95050ea",
+    "ops_test.go.txt": "c470d45bcc15ae43e6eac20d3ea17568c3fd8b54509c4459e80e02721fa7f1f7"
+  },
+  "host_build_flags": "GOTOOLCHAIN=go1.26.8 go build -p 1 -buildvcs=false; source identity is recorded independently",
+  "ownership": "Prototype only; canonical generator/inputs/output/provenance unchanged. Candidate rejects canonical verifier. Independent adapter output identity matched.",
+  "saved_files": {
+    "results.json": {
+      "raw_sha256": "3f344403f159ae7b69d5de6bf1803c16898fc7ce6d8f2b3d2ec36edcba4a2fa1",
+      "saved_sha256": "3f344403f159ae7b69d5de6bf1803c16898fc7ce6d8f2b3d2ec36edcba4a2fa1",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "candidate-installation.json": {
+      "raw_sha256": "79ac6fbb2589c418dbc5bf7c78a18b2dbaf98df452b4c4ba692c62480b6c59f3",
+      "saved_sha256": "79ac6fbb2589c418dbc5bf7c78a18b2dbaf98df452b4c4ba692c62480b6c59f3",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "observed-independent-installation.json": {
+      "raw_sha256": "7b93d0f894f2fa0f2d72fffc179ddf3f1f560e67a3b6af9fc41228a5c3d53bbf",
+      "saved_sha256": "7b93d0f894f2fa0f2d72fffc179ddf3f1f560e67a3b6af9fc41228a5c3d53bbf",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "heap-OrdinaryTargetDiagnostic.txt": {
+      "raw_sha256": "62f6e09466868b0f6ae3c048e923ec11569e0e7c8d10b5cb8c2883d34abed96d",
+      "saved_sha256": "62f6e09466868b0f6ae3c048e923ec11569e0e7c8d10b5cb8c2883d34abed96d",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "heap-PlainPublicationDiagnostic-race.txt": {
+      "raw_sha256": "ae46402f39997aeb31ff436f3ce47103a30381794972821cb0f8008b6e5aac58",
+      "saved_sha256": "5f09248f1ec5b3744d8f3181fc0d95fa329bc3fd9a9c758de365123665ee4f52",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "mmap-PlainPublicationDiagnostic.txt": {
+      "raw_sha256": "44cf6f34993f3ab467be3f0d970070d08b8279c650cd94ef3e10de281a81142b",
+      "saved_sha256": "44cf6f34993f3ab467be3f0d970070d08b8279c650cd94ef3e10de281a81142b",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "heap-RaceControl.txt": {
+      "raw_sha256": "eb0b3d0a07222bfafb49232d0c9bdcb9cd1c3b7d5493ae20395cbb8a152a4847",
+      "saved_sha256": "eb0b3d0a07222bfafb49232d0c9bdcb9cd1c3b7d5493ae20395cbb8a152a4847",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "heap-WideNeighborDiagnostic.txt": {
+      "raw_sha256": "e77fac6c268732de23c30282f4fb9ae82ce4d11ee84df7a746611b2b22c97cfb",
+      "saved_sha256": "e77fac6c268732de23c30282f4fb9ae82ce4d11ee84df7a746611b2b22c97cfb",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "linux-amd64-build.txt": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "heap-RaceControl-race.txt": {
+      "raw_sha256": "2c1ca5a409a38cd0981734b04ce0406e62588b2ba3993e54504004f8021b39f9",
+      "saved_sha256": "492cc22cc6a1e5311681c992137e225448196dae747d9fb01851a899ee39cdc3",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "native-build.txt": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "go-version.txt": {
+      "raw_sha256": "2a108602dfb6c84352966f25ca6d598d3711bad8845923baf6308b1dd09d06a1",
+      "saved_sha256": "2a108602dfb6c84352966f25ca6d598d3711bad8845923baf6308b1dd09d06a1",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "heap-PlainPublicationDiagnostic.txt": {
+      "raw_sha256": "38d146ee5a2f9bb6fe7ee106f49fac5f7265cc27b930ff336ec557db26c1d65e",
+      "saved_sha256": "38d146ee5a2f9bb6fe7ee106f49fac5f7265cc27b930ff336ec557db26c1d65e",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "mmap-OrdinaryTargetDiagnostic.txt": {
+      "raw_sha256": "f27d35247a6fe40f6424c6f15dae47cf45ea9bead422479692309726a3ce0789",
+      "saved_sha256": "f27d35247a6fe40f6424c6f15dae47cf45ea9bead422479692309726a3ce0789",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "mmap-PlainPublicationDiagnostic-race.txt": {
+      "raw_sha256": "99ee1f36be2f94a9fb8481be33bde9387e55a3bbffc6736e78dbb3cc053d002e",
+      "saved_sha256": "99ee1f36be2f94a9fb8481be33bde9387e55a3bbffc6736e78dbb3cc053d002e",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "native-vet.txt": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "mmap-WideNeighborDiagnostic-race.txt": {
+      "raw_sha256": "9d9054bf1af420d80ae10bf5d2231448c30e38fcc58bf2bc7e230866048e7aea",
+      "saved_sha256": "9d9054bf1af420d80ae10bf5d2231448c30e38fcc58bf2bc7e230866048e7aea",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "mmap-RaceControl.txt": {
+      "raw_sha256": "5e27d88323d76deab71938d4dabc3cbb107a7d4f725a4f0b6727f2fb5ece3cef",
+      "saved_sha256": "5e27d88323d76deab71938d4dabc3cbb107a7d4f725a4f0b6727f2fb5ece3cef",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "mmap-WideNeighborDiagnostic.txt": {
+      "raw_sha256": "26127d2196409c501158e53fd87034c70de74a36db0675901ee434ed369b78d8",
+      "saved_sha256": "26127d2196409c501158e53fd87034c70de74a36db0675901ee434ed369b78d8",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "mmap-RaceControl-race.txt": {
+      "raw_sha256": "9c51c349f4fb4312954a59b41f745a5184aa5a74e9ecb784c516fbd645eab4d4",
+      "saved_sha256": "9c51c349f4fb4312954a59b41f745a5184aa5a74e9ecb784c516fbd645eab4d4",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "heap-WideNeighborDiagnostic-race.txt": {
+      "raw_sha256": "2f48ad664593b0177e9e2c90fda7db3dd9ababefa6a854419104d4e448be65ce",
+      "saved_sha256": "32576484671c0b746acde6d9564c61cc622fb48dedd932548fe2110c28504f82",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "mmap.txt": {
+      "raw_sha256": "b65d5f4d172008464b2aa4f6dfe401253e3c509d94289641821cec6384ba15e9",
+      "saved_sha256": "b65d5f4d172008464b2aa4f6dfe401253e3c509d94289641821cec6384ba15e9",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "heap-OrdinaryTargetDiagnostic-race.txt": {
+      "raw_sha256": "c7f297835868aba691b09cfece4e2105b722bbb4553f76210058dc1cafcfaaca",
+      "saved_sha256": "c7f297835868aba691b09cfece4e2105b722bbb4553f76210058dc1cafcfaaca",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "mmap-OrdinaryTargetDiagnostic-race.txt": {
+      "raw_sha256": "3c12e630f7f38f76d6177c9a30dc4e7a01931a91bf666703f6be3a6e478357ec",
+      "saved_sha256": "3c12e630f7f38f76d6177c9a30dc4e7a01931a91bf666703f6be3a6e478357ec",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "mmap-race.txt": {
+      "raw_sha256": "4ead5b9f4cd97876604016017a36f09215f6b9d029865a97238f541889f723d3",
+      "saved_sha256": "4ead5b9f4cd97876604016017a36f09215f6b9d029865a97238f541889f723d3",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "heap-race.txt": {
+      "raw_sha256": "c9c2de9ba17512f5726373659d948e7f03f7cabbe540fe4dc474f723a30b20b4",
+      "saved_sha256": "c9c2de9ba17512f5726373659d948e7f03f7cabbe540fe4dc474f723a30b20b4",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "heap.txt": {
+      "raw_sha256": "b0801a485e9b78ab4b0a6d19e49be8686782f050ba3ce06c9f55fc16d112b5fb",
+      "saved_sha256": "b0801a485e9b78ab4b0a6d19e49be8686782f050ba3ce06c9f55fc16d112b5fb",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "guest-comparison.json": {
+      "raw_sha256": "54de7b1aae7720cbfd49f1d3b8bbc875596f2f80147cd8778daadee9dd8c3288",
+      "saved_sha256": "54de7b1aae7720cbfd49f1d3b8bbc875596f2f80147cd8778daadee9dd8c3288",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "linux-amd64-emulated.json": {
+      "raw_sha256": "84cb87d9cf94a4f5a4a7487d29593b45c83d35f330dd83157e86978bf422ffa4",
+      "saved_sha256": "84cb87d9cf94a4f5a4a7487d29593b45c83d35f330dd83157e86978bf422ffa4",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "span-reduction.json": {
+      "raw_sha256": "114bd48258939317a5a7e1d2f78c2271ae12cdeeafb3653dcef05cae4be79ffb",
+      "saved_sha256": "114bd48258939317a5a7e1d2f78c2271ae12cdeeafb3653dcef05cae4be79ffb",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "ownership-checks.json": {
+      "raw_sha256": "a2d1ad7573925fb074ee5edb1656ddd13159ed33afa9f6f9bb0181763c0aeec0",
+      "saved_sha256": "a2d1ad7573925fb074ee5edb1656ddd13159ed33afa9f6f9bb0181763c0aeec0",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "public-source-existing-failure.txt": {
+      "raw_sha256": "469aeb9c917cccbb8174cc5aab6456c0bc343739ddda0b14ddbc4364b45eacb2",
+      "saved_sha256": "8a2984783e0b67e328e79002cdf93a24b583660941672218c68682ad7b03b9a0",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "linux-amd64-writer-disassembly.txt": {
+      "raw_sha256": "e03e56e55387b2662766af25c7f846616c56b6cb2a6469c1b01577c5b3dc827e",
+      "saved_sha256": "1806b2dc2ccedbcdd0a8dbc50ed9fe11c32272f3a5195490628bb2dfb235298f",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "guest-control-default-final.txt": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "candidate-base-tests.txt": {
+      "raw_sha256": "b4a25c4b2c431078f0a7f48f80fd5fbc8c1025523e289eaee55ec6163c940ae3",
+      "saved_sha256": "b4a25c4b2c431078f0a7f48f80fd5fbc8c1025523e289eaee55ec6163c940ae3",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "guest-control-ahi-final.txt": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "guest-candidate-default-final.txt": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "linux-amd64-emulated-mmap.txt": {
+      "raw_sha256": "60ffa41f5d089138bf246b845dc867a79c77e0e571734f679b031d912ae877e3",
+      "saved_sha256": "60ffa41f5d089138bf246b845dc867a79c77e0e571734f679b031d912ae877e3",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "canonical-source.txt": {
+      "raw_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "saved_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "candidate-source-rejected.txt": {
+      "raw_sha256": "3cdf6b9b6805b454e22fd4b9d9064a5ccd2ad533cf1fbba93f6fecbc18ba7949",
+      "saved_sha256": "d39683677a1e323c2c3fe8d8d3a042c55f29b319da95ecb7ea91b089de425209",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "linux-amd64-emulated-heap.txt": {
+      "raw_sha256": "00fea7ef36d67e854738a1f01a862fbeb2f7dc8950d7ce24947d254a31263ef6",
+      "saved_sha256": "00fea7ef36d67e854738a1f01a862fbeb2f7dc8950d7ce24947d254a31263ef6",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "guest-candidate-ahi-final.txt": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "saved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "candidate-repeat-rejected.txt": {
+      "raw_sha256": "43b5de5303994e7625de79a7d512871cb3aa7e739bbae19951915e7fac4b5f57",
+      "saved_sha256": "46adff130f08abbebead6baf6b3b863a123fb86fa3a0d9cbbaebdc752b06c962",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "native-writer-disassembly.txt": {
+      "raw_sha256": "c1ce4cca7a0bf0522fa6a09084887bf3a2c500f20115cb1ef5677e787c8a3665",
+      "saved_sha256": "87efe65f9bb0f050e3de4c7330e27fd1505e65b26e68c1add6247f26d552d4aa",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    },
+    "guest-writer-disassembly.txt": {
+      "raw_sha256": "ad4dcb124964d9883aeb2a408be156dbf33f3a8e9bda79d8c6cf1bb1ab9409c2",
+      "saved_sha256": "f520bdcbb0591865cc4718e532762824039bc4f0cdad227b0da04def1ebdb1b8",
+      "path_normalization": "task/user-home prefixes replaced and trailing whitespace trimmed; raw and saved hashes recorded"
+    }
+  }
+}

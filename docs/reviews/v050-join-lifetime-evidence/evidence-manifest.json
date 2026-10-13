@@ -1,0 +1,104 @@
+{
+  "baseline-source.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "0b1b881ecee28ea9fc67d7b831824075c7980196bd84d73f1e1023101203beb8",
+    "saved_sha256": "0b1b881ecee28ea9fc67d7b831824075c7980196bd84d73f1e1023101203beb8"
+  },
+  "fast-feedback-final.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "c8009ba51a001f253ce7f2622b6d54896210aacabe9825ad09db78c1d30d707e",
+    "saved_sha256": "245983e48a2b71e7a8f3ad121bfee9c8ed9777066efb360e33c0608ed8ec495a"
+  },
+  "fast-feedback-python-retry.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "e40d68e649c5ee0f6042404951baa243d51ea262e547a06ea0cc972a6cecd7ce",
+    "saved_sha256": "e40d68e649c5ee0f6042404951baa243d51ea262e547a06ea0cc972a6cecd7ce"
+  },
+  "generated-delta.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "bba0b424608749d82f7f3a3b7d743ee334ecbd76d8b0e4776b47d0bc370a3eea",
+    "saved_sha256": "bba0b424608749d82f7f3a3b7d743ee334ecbd76d8b0e4776b47d0bc370a3eea"
+  },
+  "guest-build-receipt.json": {
+    "normalization": "derived input/verification summary with input hashes",
+    "saved_sha256": "15457cdf1a5fd917fb5b1c12645e4dff4dcf0cf7fa5ac834d9b77524957303bb"
+  },
+  "identities.json": {
+    "normalization": "derived input/verification summary with input hashes",
+    "saved_sha256": "7e7e6a61ee6c62758f199572b91704aad19398f90637a5e92777e36307e2430b"
+  },
+  "implementation-source.json": {
+    "normalization": "typed source commit identity after runtime/evidence commit; this follow-up adds only this receipt",
+    "raw_sha256": "baaf733cea1075a558f6f653834edb0f0e3107cfcd9ff703c3a3b8a5c2d2ba01",
+    "saved_sha256": "baaf733cea1075a558f6f653834edb0f0e3107cfcd9ff703c3a3b8a5c2d2ba01"
+  },
+  "independent-regeneration.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "cc070729e90ccc780d37ceea498a42cca2d54009901c2058aa301facde36185c",
+    "saved_sha256": "cc070729e90ccc780d37ceea498a42cca2d54009901c2058aa301facde36185c"
+  },
+  "independent.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "4ae6f781ad17e57be6f906a5a251754fd6087b83b8f34eeed608fe04b36a7cb0",
+    "saved_sha256": "a67f1c9512bcd021c7be3062b7130468d14e7054afe138c0e61767477d081f9c"
+  },
+  "installer-mutations.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "19c85a85219064003acc1c0f1129f53167a56ad4244052de5b15f878a402ff84",
+    "saved_sha256": "19c85a85219064003acc1c0f1129f53167a56ad4244052de5b15f878a402ff84"
+  },
+  "integration.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "ae8f54ebc0083ee2b4c2a60a2eef81bbacd1b2bb53e48db76a090d698c6b68ac",
+    "saved_sha256": "db483cabf3ddceb5ed7b281786a332b9b7266b9e6e33bc38be557fea34ff3ea3"
+  },
+  "j1-baseline-heap.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "e26dc45d932787ac6066ec054cd8d42ed14a778c971d103978a6e5593cfe8976",
+    "saved_sha256": "e26dc45d932787ac6066ec054cd8d42ed14a778c971d103978a6e5593cfe8976"
+  },
+  "j1-final-heap-race.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "72fb692a50eeb56e764464a25b137e8a694748e67a3135f535c007d47e6dc75f",
+    "saved_sha256": "72fb692a50eeb56e764464a25b137e8a694748e67a3135f535c007d47e6dc75f"
+  },
+  "j1-final-heap.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "a73956dfd12ef8ce7c30e8cc3f0c305774c64e517c7a4a18d562ba22aa799667",
+    "saved_sha256": "a73956dfd12ef8ce7c30e8cc3f0c305774c64e517c7a4a18d562ba22aa799667"
+  },
+  "j1-final-mmap-race.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "45671aa377b443777b2f690c361f18de4b4bd70ed86dae49271762ee4abc46d4",
+    "saved_sha256": "45671aa377b443777b2f690c361f18de4b4bd70ed86dae49271762ee4abc46d4"
+  },
+  "j1-final-mmap.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "4b801d96fae2bab07642e089493aa6e68df9fde78a4076dfe0cad2fce122baf6",
+    "saved_sha256": "4b801d96fae2bab07642e089493aa6e68df9fde78a4076dfe0cad2fce122baf6"
+  },
+  "lifetime-spike-final.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "5d1a38a2ca6cc1650f6288abf61338e48cfcbce3c716c7a6c7d869d5103b2d2e",
+    "saved_sha256": "5d1a38a2ca6cc1650f6288abf61338e48cfcbce3c716c7a6c7d869d5103b2d2e"
+  },
+  "probe-identities.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "a494d27140f50f00877b9ce1ea50ec4b345ed5bcb57bf1b0b7a256e0663c2591",
+    "saved_sha256": "a494d27140f50f00877b9ce1ea50ec4b345ed5bcb57bf1b0b7a256e0663c2591"
+  },
+  "snapshots.json": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "4d8f85af9bffb29a6390bb1db7e42a31ced2b845825848186b24582e321f84ae",
+    "saved_sha256": "47110feb3c20dd983fc634049fc08d9d9521537cef46a4260df5f640531f07db"
+  },
+  "source-tests-fixed.txt": {
+    "normalization": "workspace/user paths replaced; trailing whitespace stripped",
+    "raw_sha256": "0e1e0b4a31e3715c76190a360213d67f1ecc0ac539dde1f8e746bc8dfc82698f",
+    "saved_sha256": "0e1e0b4a31e3715c76190a360213d67f1ecc0ac539dde1f8e746bc8dfc82698f"
+  },
+  "verification.json": {
+    "normalization": "derived input/verification summary with input hashes",
+    "saved_sha256": "7dc588b876379d99b4983b74c9bbf7d271dfa9a1aff4e7539f68dc04c8d970f5"
+  }
+}

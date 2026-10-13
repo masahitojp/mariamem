@@ -24,7 +24,17 @@ cache freshness, regeneration or deletion. Diagnostics do not define the normal
 Snapshot lifecycle. These are product choices independent of reference-project
 APIs. See the [adopted contract](decisions/snapshot-product-contract.md).
 
-## Current published release: v0.4.6 — Product usability and validation
+## Current published release: v0.4.7 — Upstream converter migration
+
+[v0.4.7](https://github.com/masahitojp/mariamem/releases/tag/v0.4.7) was published
+on 2026-10-11 from source `e0be06f3a20c72cbb5a9be27971280c80a3ec357`;
+annotated tag object `c201bf577440440253155e665def9c25ac5064f0`.
+It adopts pinned goccy/wasm2go plus nine maintained patches on the unchanged
+13.1.0 guest. Its published source is the A–D execution baseline; the former
+candidate notes below preserve preparation scope. A–D changes were unqualified at that stage; later Qualification and
+Product Verification are recorded below.
+
+## Previous release: v0.4.6 — Product usability and validation
 
 [v0.4.6](https://github.com/masahitojp/mariamem/releases/tag/v0.4.6) was published
 on 2026-10-10 from source `b56be17206b6beef18f55c8ea39b254638da8590`;
@@ -189,15 +199,68 @@ must be rechecked before integrating an optimization selected on the old guest.
 
 ## v0.4.7 — Upstream converter migration (candidate)
 
-The approved scope replaces the pinned shibukawa converter fork with pinned
+The released scope replaces the pinned shibukawa converter fork with pinned
 `goccy/wasm2go` plus nine maintained patches. MariaDB guest identity, public APIs,
 Snapshot format and minimum Go version remain unchanged from v0.4.6. Independent
 regeneration, runtime/consumer checks and same-scenario product/resource comparisons
 must precede the Human release decision. Native macOS/Ubuntu artifact qualification
 remains CI-owned. No guest upgrade, handshake experiment or VFS optimization is
-part of this candidate; the current published release above remains v0.4.6.
+part of v0.4.7. Historical candidate measurements qualify only their recorded inputs.
 
 ## v0.5.0 — Stable guest
+
+Final Qualification passed for exact candidate source
+`bb637c49e6d6b50ec6761dead172a35f0b051f7e` in
+[verify run 38366609671](https://github.com/masahitojp/mariamem/actions/runs/38366609671).
+Independent guest builds/Go regeneration, both native platform suites, external
+consumers and aggregate source/license/artifact guards passed; CI returned READY.
+The [qualification report](reviews/v050-final-qualification.md) preserves exact
+receipts and distinguishes the workflow source from the tested candidate.
+After that Human Review, the maintainer authorized Product Verification.
+The [approved 80-cell campaign](../benchmarks/v050-product-verification.md)
+is complete: SQL/isolation oracles and bounded cleanup pass; timing is mixed,
+including an adverse Go parallel-Fresh median under the existing startup tail.
+The [Human Review](reviews/v050-human-review.md) recommends adoption. The
+maintainer accepted that recommendation and authorized v0.5.0 release submission;
+Release CI must qualify the final integrated source before publication.
+
+The maintainer authorized the limited J1 completion/reclamation repair after the
+paired counterexample. The [implemented candidate](reviews/v050-join-lifetime-fix.md)
+binds worker map reclamation to final agent access, covering delayed wake,
+detached self-exit and unwind. Guest/raw converter inputs remain unchanged;
+owned generated edits are independently reproduced. T1/T2/J1 close the identified
+corrective items in the agreed current-guest investigation. Candidate adoption and Qualification were separate from the subsequent release
+authorization, as recorded in the [Human Review](reviews/v050-human-review.md).
+
+The bounded [R1–R5 investigation](reviews/v050-semantic-audit.md) supplied the
+per-target access/lifetime and supporting-protocol review: 65 functions, 147
+narrow writer sites, 28 target records and all 14 original families. Its original
+result supported the reviewed mappings while identifying T1/T2 and leaving J1
+unresolved. The [subsequent paired comparison](reviews/v050-boundary-join-fixes.md)
+confirmed premature allocation reuse in original Wasm and Go under a forced
+schedule. No Go-only forbidden outcome or natural SQL harm was established.
+Those historical findings led to the authorized repair above. Coverage and local
+repair verification do not replace final release qualification.
+
+The [assessment review](reviews/v050-access-review.md) preserves why the earlier
+investigation and progression recommendation were incomplete, and the finite
+contract used to finish this investigation. No scope reduction was made; the
+five-hour cap was a stopping budget, not a completion test. Hourly reporting was
+cancelled by the Human. Prior exact-width fixes remain; the investigation itself
+changed no product implementation. The later owner fixes are recorded separately
+above. Final Qualification has subsequently passed for the exact candidate
+recorded above; the subsequently approved Product Verification is complete as
+recorded at the top of this section.
+
+On the dedicated v0.5.0 experiment branch, the maintainer approved formal
+exact-width narrow atomic writer integration after bounded design verification.
+The [integration report](reviews/v050-exact-writers-integration.md) records the
+unchanged accepted 12.3.3 guest, independently regenerated runtime, retained
+failure oracles and local regression/consumer results. Native Ubuntu focused development
+verification subsequently passed in the linked Development CI receipt; this
+does not qualify the new macOS-only protocol fixtures. At that stage the branch work did not qualify main or establish general
+shared-memory correctness. The later Qualification and Product Verification are
+recorded above. The roadmap below retains its historical scope.
 
 Fast Feedback phase timing and task-local Go cache reuse were integrated at
 `70ac70ce0a4ccda403aa290dffa1d0bac0d8728b`. The approved single-pass development
@@ -209,18 +272,34 @@ guest passed Linux arm64 build and macOS arm64 native smoke; this does not quali
 a new guest or native Ubuntu runtime. See [validation and exact measured identities](reviews/v05-dev-guest-build-validation.md)
 and [development commands](development.md#single-pass-unqualified-guest-development).
 
-Select and migrate to a deliberate stable/LTS MariaDB release, refreshing
-compatible guest/WASIX/toolchain inputs with reproducible generation.
-No target version is selected here. Rerun SQL/protocol/auth/sessions/lifecycle,
-Snapshot/Fork/isolation and consumer compatibility. Repeat the full shared-memory
-race census on changed inputs; a guest upgrade is not assumed to fix it.
-Measure a new performance/resource baseline.
+The maintainer authorized A–D integration of exactly MariaDB **12.3.3** on
+2026-10-12, retaining the v0.4.7 goccy converter pin and nine patches. Selection
+is an exact source input, not an LTS classification or a multi-series promise.
+The [A–D integration report](reviews/v050-ad-integration.md) owns adopted inputs,
+reproduction, local checks and remaining work. This branch is not release-qualified.
 
-The maintainer approved **common portability patches plus minimal source-specific
-hunk variants** on 2026-10-12. The [guest patch management decision](decisions/guest-patch-management.md)
-owns the rationale, exact-input selection policy and starting inventory for future
-patch reviews. The common/variant management mechanism remains unimplemented;
-the existing experiments retain their monolithic experimental patches.
+The approved [common portability plus minimal source-specific hunk policy](decisions/guest-patch-management.md)
+is implemented for the single 12.3.3 input: ordered hash-bound patches with
+preimage/postimage verification. The handshake reads the running guest's VERSION()
+without an old-version fallback. Saved old-guest Snapshots require recreation.
+
+The [bounded correctness judgment](reviews/v050-correctness-judgment.md)
+reproduces fd_allocate data loss, zero-length bulk trap omissions and load-only
+subword CAS writes. Three bounded corrections are recommended before qualification;
+no production fix was applied in that judgment. The maintainer subsequently
+authorized the [three bounded corrections and feasibility study](reviews/v050-correctness-fixes.md).
+Those owner changes, independent regeneration and local checks are complete;
+no general shared-memory guarantee or RELEASE READY status follows.
+Human review chooses whether to retain the stated limits or require a broader
+design before final Qualification and Product Validation. The same conflicting
+accesses report races on Go heap and none on production mmap backing under the
+observed Go1.26.8 macOS arm64 detector. Shared-memory semantics and acceptance of
+that documented observation limit require a separate Human decision.
+
+These earlier A–D checks alone did not qualify a release. Their follow-up
+correctness work, both-native Qualification and Product Verification are linked
+above. Full shared-memory race census and startup-tail improvements remain
+separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Dogfood and fixture ergonomics
 

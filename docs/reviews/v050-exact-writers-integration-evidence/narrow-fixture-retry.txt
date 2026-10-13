@@ -1,0 +1,5 @@
+wasm2go: dead-function elimination — dropped 1 of 45 defined functions (2.2%)
+heap PASS 1305 Wasm reference cases
+heap-race PASS 1305 Wasm reference cases
+mmap PASS 1305 Wasm reference cases
+mmap-race PASS 1305 Wasm reference cases

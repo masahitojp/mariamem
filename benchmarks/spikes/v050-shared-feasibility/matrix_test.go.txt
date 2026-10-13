@@ -1,0 +1,41 @@
+package base
+import("encoding/json";"fmt";"os";"sync";"sync/atomic";"testing";"unsafe")
+func matrixModule(t *testing.T,backing string)*Module{
+ t.Helper();var b []byte
+ if backing=="mmap"{owner,e:=NewMemoryMapping(65536,131072);if e!=nil{t.Fatal(e)};b=owner.Bytes();t.Cleanup(func(){if e:=owner.Close();e!=nil{t.Error(e)}})}else{b=make([]byte,131072)}
+ size:=new(atomic.Uint64);size.Store(65536);m:=&Module{Memory:b,M:unsafe.Pointer(&b[0]),MemSize:size,MemShared:true,Threads:&ThreadPool{}}
+ m.Threads.nextTID.Store(1);return m
+}
+func TestMatrix(t *testing.T){
+ kind:=os.Getenv("STUDY_OP");relation:=os.Getenv("STUDY_RELATION");backing:=os.Getenv("STUDY_BACKING");bits:=8;if os.Getenv("STUDY_BITS")=="16"{bits=16}
+ m:=matrixModule(t,backing);mask:=(1<<bits)-1;const count=10000
+ initial:=123;if kind=="rmw"||kind=="cmpxchg"{initial=0};m.Memory[66]=byte(initial)
+ var wg sync.WaitGroup;start:=make(chan struct{});wg.Add(2);bad:=false;sum:=uint64(0)
+ go func(){defer wg.Done();<-start;for i:=0;i<count;i++{
+  switch kind{
+  case "load":var value int32;if bits==8{value=AtomicLoad32_8u(m,66,0)}else{value=AtomicLoad32_16u(m,66,0)};if relation=="neighbor"&&value!=123{bad=true}
+  case "store":if bits==8{AtomicStore32_8(m,66,0,123)}else{AtomicStore32_16(m,66,0,123)}
+  case "rmw":if bits==8{AtomicRmwAdd32_8u(m,66,0,1)}else{AtomicRmwAdd32_16u(m,66,0,1)}
+  case "cmpxchg":expected:=int32(i&mask);replacement:=int32((i+1)&mask);var old int32;if bits==8{old=AtomicRmwCmpxchg32_8u(m,66,0,expected,replacement)}else{old=AtomicRmwCmpxchg32_16u(m,66,0,expected,replacement)};if old!=expected{bad=true}
+  case "shadow":sum+=uint64(m.Memory[66])
+  default:panic(kind)
+  }
+ }}()
+ go func(){defer wg.Done();<-start;for i:=0;i<count;i++{
+  if relation=="neighbor"{m.Memory[65]=byte(i)}else if kind=="load"||kind=="shadow"{m.Memory[66]=byte(127+(i&1))}else{sum+=uint64(m.Memory[66])}
+ }}()
+ close(start);wg.Wait();final:=int(m.Memory[66]);if bits==16{final|=int(m.Memory[67])<<8}
+ if relation=="neighbor"{wanted:=123;if kind=="rmw"||kind=="cmpxchg"{wanted=count&mask};if bad||final!=wanted{t.Errorf("value contract failed: bad=%v final=%d want=%d",bad,final,wanted)}}
+ span:=bits/8;if kind=="shadow"{span=1}
+ record:=map[string]any{"operation":kind,"relation":relation,"backing":backing,"requested_bits":bits,"iterations":count,"operand_access_bytes":span,"target_offset":66,"neighbor_offset":65,"final_value":final,"checksum":sum,"value_failure":bad,"asm_observation_limit":kind!="shadow"}
+ encoded,_:=json.Marshal(record);fmt.Println("OBS "+string(encoded))
+}
+func TestStoreBuffering(t *testing.T){
+ backing:=os.Getenv("STUDY_BACKING");bits:=8;if os.Getenv("STUDY_BITS")=="16"{bits=16};m:=matrixModule(t,backing);for trial:=0;trial<1000;trial++{
+  atomic.StoreUint32((*uint32)(unsafe.Add(m.M,64)),0);atomic.StoreUint32((*uint32)(unsafe.Add(m.M,128)),0)
+  var wg sync.WaitGroup;wg.Add(2);start:=make(chan struct{});var a,b int32
+  go func(){defer wg.Done();<-start;if bits==8{AtomicStore32_8(m,64,0,1);a=AtomicLoad32_8u(m,128,0)}else{AtomicStore32_16(m,64,0,1);a=AtomicLoad32_16u(m,128,0)}}()
+  go func(){defer wg.Done();<-start;if bits==8{AtomicStore32_8(m,128,0,1);b=AtomicLoad32_8u(m,64,0)}else{AtomicStore32_16(m,128,0,1);b=AtomicLoad32_16u(m,64,0)}}()
+  close(start);wg.Wait();if a==0&&b==0{t.Fatal("SC forbidden store-buffering result")}
+ }
+}

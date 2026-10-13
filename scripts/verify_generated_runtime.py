@@ -3,7 +3,7 @@
 import hashlib
 import json
 from pathlib import Path
-from generate_runtime import HANDWRITTEN_FILES
+from generate_runtime import HANDWRITTEN_FILES, handwritten_owner
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -29,6 +29,11 @@ def main():
             'generated/handwritten ownership overlaps; review the installer boundary')
     inventory = {str(p.relative_to(source)):digest(p) for p in source.rglob('*')
                  if p.is_file() and p.name != 'provenance.json' and str(p.relative_to(source)) not in handwritten}
+    for name in handwritten:
+        owner = handwritten_owner(ROOT, name)
+        if owner != source/name:
+            require(owner.is_file() and (source/name).is_file(), 'template-owned source/output missing: '+name)
+            require(digest(owner) == digest(source/name), 'template-owned handwritten output changed: '+name)
     expected = record['files_sha256']
     changed = sorted(n for n in set(inventory) | set(expected) if inventory.get(n) != expected.get(n))
     require(not changed, 'generated source inventory changed: ' + ', '.join(changed) +

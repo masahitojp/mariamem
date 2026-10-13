@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "$TASK/worktree/benchmarks/spikes/v050-access-paths/mutex_probe.py", line 108, in <module>
+    main()
+    ~~~~^^
+  File "$TASK/worktree/benchmarks/spikes/v050-access-paths/mutex_probe.py", line 91, in main
+    assert observations and observations[-1]["value"] == 2000 and observations[-1]["wait_calls"] > 0, log[-4000:]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: FAIL	github.com/masahitojp/mariamem/probe [build failed]
+FAIL
+# github.com/masahitojp/mariamem/probe [github.com/masahitojp/mariamem/probe.test]
+probe/probe_test.go:28:18: mapping.Memory undefined (type *base.MemoryMapping has no field or method Memory, but does have unexported field memory)
+probe/probe_test.go:33:15: cannot use h (variable of type *observer) as base.Wasix_32v1Imports value in assignment: *observer does not implement base.Wasix_32v1Imports (missing method Callback_signal)
+probe/probe_test.go:34:7: undefined: base.ForceAtomicSharedContended

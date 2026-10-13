@@ -1,0 +1,18 @@
+{
+  "contract": "disposable-exact-writer-candidate",
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "baseline_base_sha256": "2f336d438520c1fabae86b4aaf2de014c334425d88e038da839442cdb793010b",
+  "adapted_base_sha256": "cd9d121cfe654ea4185f6b47ef657a62a9926eaca4644c397bad9087461d1779",
+  "templates": {
+    "ops.go.txt": "bb19bdaf421d2da1e3a64135c538f9ad4487a193b39de8b91354fb35dc3380d4",
+    "ops_amd64.s.txt": "6761ab84885d9eb49d37eabdda1b87149039f6696bed5ed2f05e1e5673ca5d86",
+    "ops_arm64.s.txt": "4ef4b55a71fd7474151dc0dbb13102a9de949057fe384bcb53121d67b95050ea",
+    "ops_test.go.txt": "c470d45bcc15ae43e6eac20d3ea17568c3fd8b54509c4459e80e02721fa7f1f7"
+  },
+  "added_files": {
+    "experimental_exact_writers_amd64.s": "ae210b25f3d4d710db0d2be98263b85df9f548fda2aa8d65422f79d02f33a9ee",
+    "experimental_exact_writers.go": "0971e35f6114c1f151a61644832e26a66ce678c57e6f13ce917f80d2892cdf2d",
+    "experimental_exact_writers_arm64.s": "4ddb902a8494c3292a14733308866f3a72f7a8aa7b08e5215345c6800c677487"
+  },
+  "ownership": "Canonical verifier must reject this disposable copy. No provenance refreshed; no product adoption."
+}

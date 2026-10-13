@@ -1,0 +1,13 @@
+{
+  "started_utc": "2026-10-12T23:38:49+00:00",
+  "j1_stop_utc": "2026-10-13T02:38:49+00:00",
+  "baseline_source_commit": "446d24a463da976aeb1112af8e796f0b613c31ce",
+  "scope": [
+    "T1 positive timer overflow owner fix",
+    "T2 bounded TID allocation owner fix",
+    "J1a/b/c limited confirmation; conditional remedy only after evidence"
+  ],
+  "budget_does_not_mean_complete": true,
+  "j1_confirmation_finished_utc": "2026-10-13T01:47:57.071223+00:00",
+  "j1_disposition": "COMPLETE scoped confirmation: shared guest lifetime violation reproduced in actual Wasm and Go; no Go-only forbidden outcome shown; ordinary-SQL/natural-branch observation not performed because actual-body counterexample decides the lifetime question"
+}

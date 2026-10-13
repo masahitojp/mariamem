@@ -1,0 +1,30 @@
+{
+  "code/base/base.go": {
+    "before": "2f336d438520c1fabae86b4aaf2de014c334425d88e038da839442cdb793010b",
+    "after": "b43554887688b079987c77ed954dd62ad75ec9616c7df0f5979d81e4cc5c8932"
+  },
+  "code/base/narrow_write_darwin_arm64.s": {
+    "before": null,
+    "after": "8c7f1579987ad56f6bc71b5210ebd252b747d1ecd4044ff8a0c3ed6d39742e89"
+  },
+  "code/base/narrow_write_linux_amd64.s": {
+    "before": null,
+    "after": "a189e25e3f4fd8f19f245345b052e8ddcf87fd4b649250365ffa44f3d94c9f19"
+  },
+  "code/base/narrow_write_other.go": {
+    "before": null,
+    "after": "e66dd1978ec60a9c16f302e9d461ba77e370519b6c95275ed9832b085f8fa4de"
+  },
+  "code/base/narrow_write_supported.go": {
+    "before": null,
+    "after": "3a0c9b33fbc99a343943c3996a23ad1879c36dde88d9903bd13f94a9ec3bb18d"
+  },
+  "code/base/narrow_write_test.go": {
+    "before": null,
+    "after": "c720856d6dcc0224239ab6c1a4ced3afe6596c255d7eb0d71fe4ea3a9bb171b6"
+  },
+  "provenance.json": {
+    "before": "151554ea369a513cee5a6686fc92a6d47f7162fa00550d349b9d836a57ac6da3",
+    "after": "98e389d019f4a2d09350bace9c8c691de8926bcffb9d1781c9d9ce1880b64a97"
+  }
+}

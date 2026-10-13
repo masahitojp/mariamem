@@ -1,0 +1,1346 @@
+[
+  {
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "fn": 18241,
+    "line": 653670,
+    "statement": "base.AtomicStore32_8(m, v5762, int32(1384), v5798)"
+  },
+  {
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "fn": 18241,
+    "line": 661367,
+    "statement": "base.AtomicStore32_8(m, v5762, int32(192), v7205)"
+  },
+  {
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "fn": 18509,
+    "line": 676270,
+    "statement": "base.AtomicStore32_8(m, int32(15104498), v2722, v2728)"
+  },
+  {
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "fn": 18509,
+    "line": 677279,
+    "statement": "base.AtomicStore32_8(m, int32(15209756), int32(0), v3917)"
+  },
+  {
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "fn": 18509,
+    "line": 677307,
+    "statement": "v3946 = base.AtomicLoad32_8u(m, int32(15138752), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "fn": 18509,
+    "line": 677415,
+    "statement": "base.AtomicStore32_8(m, int32(24088732), v4082, v4082)"
+  },
+  {
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "fn": 18509,
+    "line": 677929,
+    "statement": "base.AtomicStore32_8(m, int32(24088372), v4534, v4541)"
+  },
+  {
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "fn": 18509,
+    "line": 686443,
+    "statement": "base.AtomicStore32_8(m, int32(15102238), int32(0), v12194)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17161,
+    "line": 784462,
+    "statement": "base.AtomicStore32_8(m, int32(24020811), v385, v384)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17161,
+    "line": 786846,
+    "statement": "base.AtomicStore32_8(m, int32(24020811), v1996, v1996)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17161,
+    "line": 786857,
+    "statement": "base.AtomicStore32_8(m, int32(24020811), int32(0), v2123)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17161,
+    "line": 788383,
+    "statement": "base.AtomicStore32_8(m, int32(24020811), v3408, v3408)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17218,
+    "line": 808204,
+    "statement": "base.AtomicStore32_8(m, int32(15104498), v3841, v3857)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17218,
+    "line": 808838,
+    "statement": "base.AtomicStore32_8(m, int32(15104498), v4332, v4352)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17251,
+    "line": 810929,
+    "statement": "v301 = base.AtomicLoad32_8u(m, int32(24021288), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17251,
+    "line": 811527,
+    "statement": "v618 = base.AtomicLoad32_8u(m, int32(24021288), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17251,
+    "line": 811549,
+    "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v623)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17251,
+    "line": 811895,
+    "statement": "v944 = base.AtomicLoad32_8u(m, int32(24021288), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17251,
+    "line": 811921,
+    "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v949)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17251,
+    "line": 812076,
+    "statement": "v1016 = base.AtomicLoad32_8u(m, int32(24021288), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17251,
+    "line": 812102,
+    "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v1021)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17251,
+    "line": 812277,
+    "statement": "v1110 = base.AtomicLoad32_8u(m, int32(24021288), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17371,
+    "line": 828482,
+    "statement": "v8395 = base.AtomicLoad32_8u(m, int32(24021288), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17371,
+    "line": 828504,
+    "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v8400)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 910688,
+    "statement": "v60 = base.AtomicLoad32_8u(m, int32(15138752), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 910718,
+    "statement": "v71 = base.AtomicLoad32_8u(m, v63, int32(70))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 910736,
+    "statement": "v75 = base.AtomicLoad32_8u(m, v63, int32(69))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 910772,
+    "statement": "base.AtomicStore32_8(m, v63, int32(70), v2668)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 912200,
+    "statement": "v1634 = base.AtomicLoad32_8u(m, int32(15138752), v1633)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 913188,
+    "statement": "v2441 = base.AtomicLoad32_8u(m, v63, int32(69))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 913197,
+    "statement": "base.AtomicStore32_8(m, v63, int32(69), v2445)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 913205,
+    "statement": "base.AtomicStore32_8(m, v63, int32(70), v2448)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 913303,
+    "statement": "v2718 = base.AtomicLoad32_8u(m, int32(15138752), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 915829,
+    "statement": "v4687 = base.AtomicLoad32_8u(m, v4675, int32(68))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 915837,
+    "statement": "v4692 = base.AtomicRmwAdd32_8u(m, v4675, int32(68), int32(1))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 917466,
+    "statement": "v6108 = base.AtomicLoad32_8u(m, int32(15138752), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 917890,
+    "statement": "v6129 = base.AtomicLoad32_8u(m, v6114, int32(68))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "line": 917898,
+    "statement": "v6134 = base.AtomicRmwAdd32_8u(m, v6114, int32(68), int32(1))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 18497,
+    "line": 954481,
+    "statement": "v693 = base.AtomicLoad32_8u(m, int32(24020809), v692)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 18497,
+    "line": 957212,
+    "statement": "v2698 = base.AtomicLoad32_8u(m, int32(24020809), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 18497,
+    "line": 957702,
+    "statement": "base.AtomicStore32_8(m, v40, int32(1384), v3052)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 18565,
+    "line": 960528,
+    "statement": "base.AtomicStore32_8(m, int32(24051142), int32(0), v643)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 18565,
+    "line": 962437,
+    "statement": "v2142 = base.AtomicLoad32_8u(m, int32(15209757), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 18565,
+    "line": 962446,
+    "statement": "base.AtomicStore32_8(m, int32(15209756), v2155, v2155)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 18565,
+    "line": 962468,
+    "statement": "base.AtomicStore32_8(m, int32(15209757), v2148, v2148)"
+  },
+  {
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 18565,
+    "line": 962687,
+    "statement": "base.AtomicStore32_16(m, v2524, int32(220), v2552)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17151,
+    "line": 838853,
+    "statement": "v863 = base.AtomicLoad32_8u(m, int32(24020810), v860)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17151,
+    "line": 839819,
+    "statement": "v1657 = base.AtomicLoad32_8u(m, int32(24020810), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17151,
+    "line": 839876,
+    "statement": "base.AtomicStore32_8(m, int32(24020810), int32(0), v1680)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17405,
+    "line": 865974,
+    "statement": "v746 = base.AtomicLoad32_8u(m, v724, int32(24))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17405,
+    "line": 866039,
+    "statement": "base.AtomicStore32_8(m, v1449, int32(24), v1450)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17405,
+    "line": 867788,
+    "statement": "v1826 = base.AtomicLoad32_8u(m, v1804, int32(24))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17405,
+    "line": 867817,
+    "statement": "base.AtomicStore32_8(m, v2147, v2149, v2148)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17405,
+    "line": 867910,
+    "statement": "base.AtomicStore32_8(m, v2042, int32(24), v2043)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17461,
+    "line": 883196,
+    "statement": "v171 = base.AtomicLoad32_8u(m, v122, int32(24))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17461,
+    "line": 883449,
+    "statement": "v379 = base.AtomicLoad32_8u(m, int32(24020809), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17461,
+    "line": 884337,
+    "statement": "v782 = base.AtomicLoad32_8u(m, v766, int32(1384))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17461,
+    "line": 884986,
+    "statement": "base.AtomicStore32_8(m, int32(24051920), v1205, v1205)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 959617,
+    "statement": "base.AtomicStore32_8(m, int32(24088372), v1416, v1416)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 959667,
+    "statement": "v99 = base.AtomicLoad32_8u(m, int32(15209756), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 959727,
+    "statement": "v119 = base.AtomicLoad32_8u(m, int32(15209600), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 959760,
+    "statement": "base.AtomicStore32_8(m, int32(15209757), v129, v129)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 959825,
+    "statement": "base.AtomicStore32_8(m, int32(15209600), v1176, v1160)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 960016,
+    "statement": "v252 = base.AtomicLoad32_8u(m, int32(15209756), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 960046,
+    "statement": "base.AtomicStore32_8(m, int32(15209600), v267, v267)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 960169,
+    "statement": "base.AtomicStore32_8(m, int32(15209600), v385, v385)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 960231,
+    "statement": "v322 = base.AtomicLoad32_8u(m, int32(15209600), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 961171,
+    "statement": "v966 = base.AtomicLoad32_8u(m, int32(15209756), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 961300,
+    "statement": "base.AtomicStore32_8(m, int32(15209756), int32(0), v1048)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 961369,
+    "statement": "v1082 = base.AtomicLoad32_8u(m, int32(15209756), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 961600,
+    "statement": "v1236 = base.AtomicLoad32_8u(m, int32(15102238), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 961609,
+    "statement": "v1239 = base.AtomicLoad32_8u(m, int32(24088732), v1238)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 961878,
+    "statement": "v1356 = base.AtomicLoad32_8u(m, int32(15209756), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 962043,
+    "statement": "v1504 = base.AtomicLoad32_8u(m, int32(15209756), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 962096,
+    "statement": "base.AtomicStore32_8(m, int32(15209600), v1521, v1521)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 962104,
+    "statement": "v1536 = base.AtomicLoad32_8u(m, int32(15209756), v1521)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 962216,
+    "statement": "base.AtomicStore32_8(m, int32(15209756), int32(0), v1574)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 962285,
+    "statement": "v1608 = base.AtomicLoad32_8u(m, int32(15209756), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "line": 962674,
+    "statement": "v1808 = base.AtomicLoad32_8u(m, int32(15102238), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "line": 967425,
+    "statement": "base.AtomicStore32_8(m, v106, v987, v987)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "line": 967534,
+    "statement": "v129 = base.AtomicRmwXchg32_8u(m, v106, v128, v127)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "line": 967817,
+    "statement": "v290 = base.AtomicRmwXchg32_8u(m, v267, v289, v288)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "line": 967936,
+    "statement": "base.AtomicStore32_8(m, v267, v357, v357)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "line": 967961,
+    "statement": "base.AtomicStore32_8(m, v267, v366, v366)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "line": 968141,
+    "statement": "v501 = base.AtomicRmwXchg32_8u(m, v478, v500, v499)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "line": 968237,
+    "statement": "base.AtomicStore32_8(m, v563, v587, v587)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "line": 968337,
+    "statement": "base.AtomicStore32_8(m, v106, v685, v685)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "line": 969378,
+    "statement": "base.AtomicStore32_8(m, v1247, v1292, v1292)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "line": 969404,
+    "statement": "base.AtomicStore32_8(m, v1247, v1306, v1306)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "line": 969409,
+    "statement": "base.AtomicStore32_8(m, v1247, v1313, v1313)"
+  },
+  {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18231,
+    "line": 987500,
+    "statement": "base.AtomicStore32_8(m, int32(24020810), v45, v46)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17245,
+    "line": 854822,
+    "statement": "v69 = base.AtomicLoad32_8u(m, int32(24021288), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17245,
+    "line": 854829,
+    "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v74)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17245,
+    "line": 855986,
+    "statement": "v671 = base.AtomicLoad32_8u(m, int32(24021288), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17245,
+    "line": 855993,
+    "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v676)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17368,
+    "line": 863969,
+    "statement": "base.AtomicStore32_8(m, v124, int32(24), v125)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17368,
+    "line": 864117,
+    "statement": "base.AtomicStore32_8(m, v207, int32(24), v208)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17368,
+    "line": 864858,
+    "statement": "base.AtomicStore32_8(m, v729, int32(24), v730)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17388,
+    "line": 865713,
+    "statement": "v321 = base.AtomicLoad32_8u(m, v100, v320)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17388,
+    "line": 865714,
+    "statement": "base.AtomicStore32_8(m, v192, int32(24), v321)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17440,
+    "line": 877980,
+    "statement": "base.AtomicStore32_8(m, int32(24051142), v1, v1)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17440,
+    "line": 880609,
+    "statement": "v1231 = base.AtomicLoad32_8u(m, int32(24051142), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17440,
+    "line": 880619,
+    "statement": "base.AtomicStore32_8(m, int32(24051142), v1238, v1238)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17440,
+    "line": 880756,
+    "statement": "v1323 = base.AtomicLoad32_8u(m, int32(24051142), v1322)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17770,
+    "line": 924649,
+    "statement": "base.AtomicStore32_8(m, v157, int32(192), v600)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17770,
+    "line": 925727,
+    "statement": "v1004 = base.AtomicLoad32_8u(m, v605, int32(192))"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17889,
+    "line": 937866,
+    "statement": "v24 = base.AtomicLoad32_8u(m, int32(15138752), v5)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17889,
+    "line": 937958,
+    "statement": "v66 = base.AtomicLoad32_8u(m, int32(15138752), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17889,
+    "line": 938343,
+    "statement": "v676 = base.AtomicLoad32_8u(m, int32(15138752), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17889,
+    "line": 938553,
+    "statement": "v316 = base.AtomicLoad32_8u(m, int32(15138752), v315)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17889,
+    "line": 938578,
+    "statement": "base.AtomicStore32_16(m, l1, int32(220), v321)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18136,
+    "line": 969046,
+    "statement": "base.AtomicStore32_16(m, l0, int32(220), v2)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18136,
+    "line": 969118,
+    "statement": "base.AtomicStore32_8(m, int32(15209756), v83, v78)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18136,
+    "line": 969168,
+    "statement": "base.AtomicStore32_8(m, int32(15209756), v83, v78)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18136,
+    "line": 969228,
+    "statement": "base.AtomicStore32_8(m, int32(15209756), v83, v78)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18136,
+    "line": 969278,
+    "statement": "base.AtomicStore32_8(m, int32(15209756), v83, v78)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18221,
+    "line": 976651,
+    "statement": "base.AtomicStore32_8(m, v276, v277, v277)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18221,
+    "line": 977209,
+    "statement": "v511 = base.AtomicLoad32_8u(m, int32(15104498), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18355,
+    "line": 996705,
+    "statement": "v215 = base.AtomicLoad32_8u(m, int32(24021288), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18355,
+    "line": 996733,
+    "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v220)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18531,
+    "line": 1019684,
+    "statement": "base.AtomicStore32_8(m, v851, v853, v852)"
+  },
+  {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18531,
+    "line": 1019685,
+    "statement": "v857 = base.AtomicLoad32_8u(m, v851, v853)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 16537,
+    "line": 825116,
+    "statement": "v83 = base.AtomicRmwXchg32_8u(m, l0, int32(408), v81)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 16537,
+    "line": 825605,
+    "statement": "base.AtomicStore32_8(m, l0, int32(408), v327)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17453,
+    "line": 932312,
+    "statement": "base.AtomicStore32_8(m, int32(15102238), v740, v740)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17453,
+    "line": 932749,
+    "statement": "base.AtomicStore32_8(m, int32(15102238), v740, v740)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17811,
+    "line": 982947,
+    "statement": "base.AtomicStore32_8(m, int32(24051920), int32(0), v389)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17812,
+    "line": 984122,
+    "statement": "base.AtomicStore32_8(m, int32(24051920), int32(0), v370)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 989701,
+    "statement": "v41 = base.AtomicLoad32_16u(m, v25, int32(220))"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 989721,
+    "statement": "v56 = base.AtomicLoad32_8u(m, v23, int32(69))"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 989736,
+    "statement": "base.AtomicStore32_16(m, v25, int32(220), v231)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 989760,
+    "statement": "base.AtomicStore32_8(m, v23, int32(70), v214)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 989769,
+    "statement": "base.AtomicStore32_8(m, v23, int32(70), v184)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 989786,
+    "statement": "base.AtomicStore32_8(m, v23, int32(69), v155)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 989795,
+    "statement": "base.AtomicStore32_8(m, v23, int32(68), v63)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 989844,
+    "statement": "base.AtomicStore32_8(m, v23, int32(68), v130)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 989847,
+    "statement": "base.AtomicStore32_8(m, v23, int32(69), v135)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 989872,
+    "statement": "base.AtomicStore32_8(m, v23, int32(68), v112)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 989875,
+    "statement": "base.AtomicStore32_8(m, v23, int32(69), v112)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "line": 990172,
+    "statement": "v365 = base.AtomicLoad32_8u(m, int32(15138752), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 18002,
+    "line": 1003889,
+    "statement": "base.AtomicStore32_8(m, int32(15209756), v171, v181)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 18022,
+    "line": 1008051,
+    "statement": "base.AtomicStore32_8(m, int32(24088732), int32(0), v621)"
+  },
+  {
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 18022,
+    "line": 1008720,
+    "statement": "base.AtomicStore32_8(m, int32(24088732), int32(0), v1287)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17377,
+    "line": 961910,
+    "statement": "base.AtomicStore32_8(m, int32(15102238), v1, v1)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17410,
+    "line": 963766,
+    "statement": "v120 = base.AtomicLoad32_8u(m, v109, int32(24))"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17410,
+    "line": 963769,
+    "statement": "base.AtomicStore32_8(m, v109, int32(24), v191)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17410,
+    "line": 963843,
+    "statement": "base.AtomicStore32_8(m, v259, v282, v281)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17412,
+    "line": 964076,
+    "statement": "v15 = base.AtomicLoad32_8u(m, int32(15102238), v4)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17412,
+    "line": 964161,
+    "statement": "v47 = base.AtomicLoad32_8u(m, v35, int32(24))"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17412,
+    "line": 964180,
+    "statement": "base.AtomicStore32_8(m, v48, int32(24), v60)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17412,
+    "line": 964273,
+    "statement": "base.AtomicStore32_8(m, v150, int32(24), v151)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17472,
+    "line": 970055,
+    "statement": "v22 = base.AtomicLoad32_8u(m, l1, int32(24))"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17472,
+    "line": 970096,
+    "statement": "base.AtomicStore32_8(m, l1, int32(24), v75)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17472,
+    "line": 970258,
+    "statement": "v158 = base.AtomicLoad32_8u(m, l1, int32(24))"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17472,
+    "line": 970335,
+    "statement": "base.AtomicStore32_8(m, l1, int32(24), v166)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17877,
+    "line": 1005190,
+    "statement": "v124 = base.AtomicLoad32_8u(m, int32(15138752), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17877,
+    "line": 1005271,
+    "statement": "base.AtomicStore32_8(m, int32(15138752), v126, v126)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18005,
+    "line": 1014940,
+    "statement": "base.AtomicStore32_8(m, int32(15209600), v163, v163)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18005,
+    "line": 1015489,
+    "statement": "base.AtomicStore32_8(m, int32(24088732), v329, v332)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18122,
+    "line": 1021045,
+    "statement": "base.AtomicStore32_8(m, int32(15209756), v80, v80)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18122,
+    "line": 1021066,
+    "statement": "v73 = base.AtomicLoad32_8u(m, int32(15209756), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18168,
+    "line": 1022442,
+    "statement": "v32 = base.AtomicLoad32_8u(m, int32(24020809), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18168,
+    "line": 1022482,
+    "statement": "base.AtomicStore32_8(m, int32(24215400), v44, v44)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18168,
+    "line": 1022738,
+    "statement": "v167 = base.AtomicLoad32_8u(m, int32(24020809), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18168,
+    "line": 1022762,
+    "statement": "v274 = base.AtomicLoad32_8u(m, int32(24215400), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18168,
+    "line": 1022993,
+    "statement": "base.AtomicStore32_8(m, int32(24215400), v283, v283)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18180,
+    "line": 1023200,
+    "statement": "v12 = base.AtomicLoad32_8u(m, int32(24020809), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18180,
+    "line": 1023264,
+    "statement": "base.AtomicStore32_8(m, int32(24215400), int32(0), v29)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18180,
+    "line": 1023291,
+    "statement": "base.AtomicStore32_8(m, int32(24020809), v156, v156)"
+  },
+  {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18500,
+    "line": 1046814,
+    "statement": "base.AtomicStore32_8(m, v7, int32(1384), v49)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 16535,
+    "line": 891100,
+    "statement": "base.AtomicStore32_8(m, l0, int32(408), v25)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 16684,
+    "line": 901352,
+    "statement": "v13 = base.AtomicLoad32_8u(m, l0, int32(40))"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 16684,
+    "line": 901402,
+    "statement": "base.AtomicStore32_8(m, l0, int32(40), v82)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 16684,
+    "line": 901447,
+    "statement": "base.AtomicStore32_8(m, l0, int32(40), v82)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 16684,
+    "line": 901493,
+    "statement": "base.AtomicStore32_8(m, l0, int32(40), v82)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 16684,
+    "line": 901539,
+    "statement": "base.AtomicStore32_8(m, l0, int32(40), v82)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 16684,
+    "line": 901547,
+    "statement": "base.AtomicStore32_8(m, l0, int32(40), v32)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 17772,
+    "line": 970907,
+    "statement": "v12 = base.AtomicLoad32_8u(m, int32(24051920), v1)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 17772,
+    "line": 970935,
+    "statement": "base.AtomicStore32_8(m, int32(24051920), v520, v520)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 17772,
+    "line": 970947,
+    "statement": "base.AtomicStore32_8(m, int32(24051920), v480, v480)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 18218,
+    "line": 1005604,
+    "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 18218,
+    "line": 1005696,
+    "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 18218,
+    "line": 1005789,
+    "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 18218,
+    "line": 1005882,
+    "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 18218,
+    "line": 1006004,
+    "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 18218,
+    "line": 1006096,
+    "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 18218,
+    "line": 1006189,
+    "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 18218,
+    "line": 1006282,
+    "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+  },
+  {
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 18511,
+    "line": 1025062,
+    "statement": "base.AtomicStore32_8(m, v13, int32(1384), v35)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 4054,
+    "line": 270244,
+    "statement": "base.AtomicStore32_8(m, l0, v2, v8)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17240,
+    "line": 893128,
+    "statement": "v72 = base.AtomicLoad32_8u(m, int32(24021288), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17240,
+    "line": 893135,
+    "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v77)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17408,
+    "line": 908087,
+    "statement": "v14 = base.AtomicLoad32_8u(m, int32(15102238), v3)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17408,
+    "line": 908136,
+    "statement": "base.AtomicStore32_8(m, v33, int32(24), v52)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17880,
+    "line": 934849,
+    "statement": "base.AtomicStore32_8(m, int32(15138752), int32(0), v62)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17994,
+    "line": 941275,
+    "statement": "v8 = base.AtomicLoad32_8u(m, int32(15209600), v7)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17994,
+    "line": 941307,
+    "statement": "base.AtomicStore32_8(m, int32(15209600), v72, v72)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17994,
+    "line": 941341,
+    "statement": "base.AtomicStore32_8(m, int32(15209600), v72, v72)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17994,
+    "line": 941371,
+    "statement": "base.AtomicStore32_8(m, int32(15209600), v72, v72)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17994,
+    "line": 941400,
+    "statement": "base.AtomicStore32_8(m, int32(15209600), v72, v72)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17994,
+    "line": 941434,
+    "statement": "base.AtomicStore32_8(m, int32(15209600), v72, v72)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18006,
+    "line": 941887,
+    "statement": "base.AtomicStore32_8(m, int32(15209600), v50, v50)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18006,
+    "line": 941928,
+    "statement": "v23 = base.AtomicLoad32_8u(m, int32(15209600), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18006,
+    "line": 941971,
+    "statement": "base.AtomicStore32_8(m, int32(24088732), v39, v42)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18080,
+    "line": 947642,
+    "statement": "v7 = base.AtomicLoad32_8u(m, int32(24088732), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18080,
+    "line": 947708,
+    "statement": "v23 = base.AtomicLoad32_8u(m, int32(24088732), int32(0))"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18080,
+    "line": 947733,
+    "statement": "v98 = base.AtomicLoad32_8u(m, int32(24088732), v97)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18080,
+    "line": 947902,
+    "statement": "base.AtomicStore32_8(m, int32(24088732), v118, v118)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18090,
+    "line": 948817,
+    "statement": "v17 = base.AtomicRmwXchg32_8u(m, v13, v16, v15)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18090,
+    "line": 948888,
+    "statement": "v47 = base.AtomicRmwXchg32_8u(m, v43, v46, v45)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18090,
+    "line": 948953,
+    "statement": "v73 = base.AtomicRmwXchg32_8u(m, v69, v72, v71)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18566,
+    "line": 964846,
+    "statement": "base.AtomicStore32_8(m, int32(15138752), v37, v35)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18566,
+    "line": 964847,
+    "statement": "v41 = base.AtomicLoad32_8u(m, int32(15138752), v37)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18580,
+    "line": 964980,
+    "statement": "base.AtomicStore32_8(m, int32(15104498), int32(0), v28)"
+  },
+  {
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 20878,
+    "line": 1080957,
+    "statement": "v190 = base.AtomicRmwXchg32_8u(m, int32(0), int32(24220996), v188)"
+  },
+  {
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 17221,
+    "line": 334660,
+    "statement": "base.AtomicStore32_8(m, int32(15104498), v11, v17)"
+  },
+  {
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 17437,
+    "line": 338614,
+    "statement": "base.AtomicStore32_8(m, int32(24051142), int32(0), v2)"
+  },
+  {
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 17463,
+    "line": 338864,
+    "statement": "v14 = base.AtomicRmwXchg32_8u(m, l0, int32(139), v12)"
+  },
+  {
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 18008,
+    "line": 344492,
+    "statement": "base.AtomicStore32_8(m, int32(15209756), v1, v1)"
+  },
+  {
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 18008,
+    "line": 344493,
+    "statement": "v8 = base.AtomicLoad32_8u(m, int32(15209757), v1)"
+  },
+  {
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 18008,
+    "line": 344497,
+    "statement": "base.AtomicStore32_8(m, int32(15209757), int32(0), v13)"
+  },
+  {
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 18570,
+    "line": 352673,
+    "statement": "base.AtomicStore32_8(m, int32(24051142), int32(0), v13)"
+  },
+  {
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 18572,
+    "line": 352737,
+    "statement": "base.AtomicStore32_8(m, int32(15104498), v18, v24)"
+  },
+  {
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 18595,
+    "line": 353130,
+    "statement": "base.AtomicStore32_8(m, int32(24215400), int32(0), v12)"
+  }
+]

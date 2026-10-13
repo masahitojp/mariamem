@@ -1,0 +1,43 @@
+#include "textflag.h"
+TEXT ·read8(SB), NOSPLIT, $0-12
+ MOVQ p+0(FP), AX
+ MFENCE
+ MOVBLZX (AX), CX
+ MFENCE
+ MOVL CX, ret+8(FP)
+ RET
+TEXT ·read16(SB), NOSPLIT, $0-12
+ MOVQ p+0(FP), AX
+ MFENCE
+ MOVWLZX (AX), CX
+ MFENCE
+ MOVL CX, ret+8(FP)
+ RET
+TEXT ·write8(SB), NOSPLIT, $0-12
+ MOVQ p+0(FP), BX
+ MOVL v+8(FP), AX
+ XCHGB AX, (BX)
+ RET
+TEXT ·write16(SB), NOSPLIT, $0-12
+ MOVQ p+0(FP), BX
+ MOVL v+8(FP), AX
+ XCHGW AX, (BX)
+ RET
+TEXT ·cmp8(SB), NOSPLIT, $0-20
+ MOVQ p+0(FP), BX
+ MOVL expected+8(FP), AX
+ MOVL replacement+12(FP), CX
+ LOCK
+ CMPXCHGB CX, (BX)
+ MOVBLZX AX, AX
+ MOVL AX, ret+16(FP)
+ RET
+TEXT ·cmp16(SB), NOSPLIT, $0-20
+ MOVQ p+0(FP), BX
+ MOVL expected+8(FP), AX
+ MOVL replacement+12(FP), CX
+ LOCK
+ CMPXCHGW CX, (BX)
+ MOVWLZX AX, AX
+ MOVL AX, ret+16(FP)
+ RET

@@ -1,0 +1,61 @@
+Excerpt: last 60 lines; complete original SHA256 is recorded in evidence-hashes.json.
+      "sql/sql_plugin.cc": "a8811caebf288bf5257e7ffe5669c44ae27e607af5cf31adbb7e8631b7d85443",
+      "storage/innobase/fil/fil0fil.cc": "6bb2290f8de022054bb3ffa84a12d528270c0bce999f385667ad8a30af216cbb",
+      "storage/innobase/os/os0file.cc": "4b8515af8e247a22fde4bf8524ab6e68932f436dbc25290e6dcb8d4987ca2c73",
+      "storage/maria/ma_loghandler.c": "515a8afc9aef1cccd7055028441aae249021835c49f5dd1353982d7fc8542281",
+      "storage/innobase/log/log0log.cc": "c193ece2c236840e84e61336126051e0c9ac031d4e133855483832780022205c",
+      "wasm/wire_api.inc": "d21bea6b0bb9d3f044fa88170899f0b52f99aa0c73aa51f54a7e7004b858e344",
+      "wasm/resident.inc": "7dfee608541002f4fca74b6eeceb8a0b54f22e0b04b5d1e254391b970e6af634",
+      "wasm/snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
+      "wasm/startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
+      "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
+      "wasm/prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
+      "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
+      "plugin/auth_mysql_sha2/mysql_sha2.c": "2dfb8b6e0ca9bc26e1aa6ab50c8009f0d5be850d3d7ad0c56b9413b4acc3928e",
+      "plugin/auth_mysql_sha2/ssl_stuff.c": "8621b8bbb5cab82eb32b736938fcfebf66a09a4acd388bcca5be8c2962ff0d02",
+      "include/mariamem_init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
+      "libmysqld/lib_sql.cc": "70a2321943f5853c794646248ac6ebcb3cd35e40a443e93eec31bb004833d2c4",
+      "sql/mysqld.cc": "091d40a8edf55f470ee36b185ea7e5eccccd09f4283e66b49d7b57c86ddd3d0b",
+      "storage/maria/ha_maria.cc": "465fe7518073e467a97710e48626fbf4dbdd15f28ec20d2d074087b6d7871c36",
+      "storage/innobase/handler/ha_innodb.cc": "7f5498c5e856fc0fa6e9dd3d95674ea64c884b0d246b8755329a99d17b87173c",
+      "storage/innobase/srv/srv0start.cc": "bca5515ad8421103ff8fa675d420dbc0e105e12585aece0057401bef55350c2d",
+      "cmake/libfmt.cmake": "436e87408474a62f2c344ea6de4ccbcc02e65f900f00a8474073513c082da765"
+    }
+  },
+  "toolchain": {
+    "contract": "generated-go-v1",
+    "pins_sha256": "01bf46c4fd10d022a58badb4834bdac5a7d9d7f53cd88499882e8542c69d7ef9",
+    "host": "linux-arm64",
+    "versions": {
+      "wasixcc": "wasixcc 0.4.7",
+      "llvm": "clang version 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /root/.wasixcc/llvm/bin",
+      "lld": "LLD 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)",
+      "binaryen": "wasm-opt version 133 (version_133)",
+      "cmake": "cmake version 3.28.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+      "bison": "bison (GNU Bison) 3.8.2\nWritten by Robert Corbett and Richard Stallman.\n\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+      "make": "GNU Make 4.3\nBuilt for aarch64-unknown-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+      "python": "Python 3.12.3"
+    },
+    "sysroot": {
+      "entries": 4985,
+      "inventory_sha256": "ec9f4eec4cc3f5d019531a8b3d6dbfb524b2661ba5a2046b9d8ce89378bf29dc"
+    },
+    "archives_sha256": {
+      "wasixcc": "b4cf06f3ce00a0b2bdc376de24324bac2c963f4672914bf9a1ba99000a4866a7",
+      "sysroot": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4",
+      "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
+      "llvm": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4",
+      "icu": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174",
+      "converter": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+      "sysroot_pic": "54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0"
+    },
+    "environment": {
+      "PATH": "/root/.wasixcc/bin:/usr/bin:/bin",
+      "LD_LIBRARY_PATH": "/root/.wasixcc/llvm/lib",
+      "LC_ALL": "C",
+      "TZ": "UTC",
+      "SOURCE_DATE_EPOCH": "0"
+    }
+  },
+  "canonical_build_sha256": "09121869e401b1ae2e67dff943d02df6f57c6c0568c05878017056ae1551cf40"
+}

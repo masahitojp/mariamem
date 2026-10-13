@@ -24,6 +24,12 @@ class Provenance(unittest.TestCase):
         (self.root / "build/downloads").mkdir(parents=True)
         self.lock = copy.deepcopy(LOCK)
         self.evidence = json.loads((ROOT / EVIDENCE).read_text())
+        # This ledger records the historical WASM/AOT build, not the current
+        # generated-Go guest. Reproduce that source inventory in the fixture.
+        self.lock["inputs"] = [e for e in self.lock["inputs"]
+                               if e["name"] in self.evidence["source_archives"]
+                               or e["name"] == "wasmer-source"
+                               or e.get("kind") == "runtime-binary"]
         for entry in self.lock["inputs"]:
             if entry["name"] not in self.evidence["source_archives"]:
                 continue

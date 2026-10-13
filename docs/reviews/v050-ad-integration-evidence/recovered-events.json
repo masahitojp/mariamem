@@ -1,0 +1,34 @@
+{
+  "recovered_preflight_events": [
+    {
+      "stage": "native generation",
+      "result": "FAIL then corrected",
+      "reason": "inherited GOPATH conflicted with task workspace; recreated only failed translation output and selected task cache paths"
+    },
+    {
+      "stage": "Python integration selection",
+      "result": "10 SKIP then executed PASS",
+      "reason": "MARIAMEM_TEST_DEFAULT=1 required by existing wire/session/Close fixtures"
+    },
+    {
+      "stage": "old Snapshot harness",
+      "result": "assertion corrected",
+      "reason": "existing guard rejected with Snapshot WASM build mismatch; the harness initially expected different wording; product guard unchanged"
+    },
+    {
+      "stage": "handshake unit compilation",
+      "result": "interrupted and rerun PASS",
+      "reason": "avoided concurrent replacement of old generated source; final test executed against new runtime"
+    },
+    {
+      "stage": "historical AOT provenance fixtures",
+      "result": "2 FAIL then corrected; full check PASS",
+      "reason": "Fixture reconstructed its historical source inventory instead of adding current MariaDB input to an old ledger; product verifier unchanged."
+    },
+    {
+      "stage": "Go .git-file worktree stamping",
+      "result": "two wheel builds rejected by unchanged exact-source guard; independent clone PASS",
+      "reason": "Nested worktree reports parent SHA; external worktree omits VCS. Clean .git-directory clone at 83a6ede produced verified host/wheel. Earlier diagnostic host attribution superseded."
+    }
+  ]
+}

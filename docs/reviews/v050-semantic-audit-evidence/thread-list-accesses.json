@@ -1,0 +1,695 @@
+[
+  {
+    "fn": 21692,
+    "line": 1007313,
+    "statement": "v4280 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007408,
+    "statement": "Fn94(m, int32(15243132), v4284, v4280)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007418,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007477,
+    "statement": "v4364 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007572,
+    "statement": "Fn94(m, int32(15243132), v4368, v4364)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007582,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007641,
+    "statement": "v4448 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007736,
+    "statement": "Fn94(m, int32(15243132), v4452, v4448)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007746,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007805,
+    "statement": "v4532 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007900,
+    "statement": "Fn94(m, int32(15243132), v4536, v4532)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007910,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1007969,
+    "statement": "v4616 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008064,
+    "statement": "Fn94(m, int32(15243132), v4620, v4616)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008074,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008133,
+    "statement": "v4700 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008228,
+    "statement": "Fn94(m, int32(15243132), v4704, v4700)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008238,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008297,
+    "statement": "v4784 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008392,
+    "statement": "Fn94(m, int32(15243132), v4788, v4784)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008402,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008461,
+    "statement": "v4868 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008556,
+    "statement": "Fn94(m, int32(15243132), v4872, v4868)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008566,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008625,
+    "statement": "v4952 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008720,
+    "statement": "Fn94(m, int32(15243132), v4956, v4952)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008730,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008789,
+    "statement": "v5036 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008884,
+    "statement": "Fn94(m, int32(15243132), v5040, v5036)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008894,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1008953,
+    "statement": "v5120 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009048,
+    "statement": "Fn94(m, int32(15243132), v5124, v5120)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009058,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009117,
+    "statement": "v5204 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009212,
+    "statement": "Fn94(m, int32(15243132), v5208, v5204)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009222,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009281,
+    "statement": "v5288 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009376,
+    "statement": "Fn94(m, int32(15243132), v5292, v5288)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009386,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009445,
+    "statement": "v5372 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009540,
+    "statement": "Fn94(m, int32(15243132), v5376, v5372)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009550,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009609,
+    "statement": "v5456 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009704,
+    "statement": "Fn94(m, int32(15243132), v5460, v5456)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009714,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009773,
+    "statement": "v5540 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009868,
+    "statement": "Fn94(m, int32(15243132), v5544, v5540)",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 21692,
+    "line": 1009878,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "symbol": "_start"
+  },
+  {
+    "fn": 5542,
+    "line": 348217,
+    "statement": "v1715 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "symbol": "_ZL8clean_upbb"
+  },
+  {
+    "fn": 5542,
+    "line": 348312,
+    "statement": "Fn94(m, int32(15243132), v1719, v1715)",
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "symbol": "_ZL8clean_upbb"
+  },
+  {
+    "fn": 5542,
+    "line": 348322,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "symbol": "_ZL8clean_upbb"
+  },
+  {
+    "fn": 243,
+    "line": 9565,
+    "statement": "v420 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "symbol": "__wrap_pthread_create"
+  },
+  {
+    "fn": 243,
+    "line": 9574,
+    "statement": "v425 = base.AtomicRmwCmpxchg32(m, v422, int32(15243132), v422, v418)",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "symbol": "__wrap_pthread_create"
+  },
+  {
+    "fn": 243,
+    "line": 9586,
+    "statement": "v443 = int32(15243132)",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "symbol": "__wrap_pthread_create"
+  },
+  {
+    "fn": 243,
+    "line": 9596,
+    "statement": "v508 = base.AtomicRmwCmpxchg32(m, v505, int32(15243132), v505, v418)",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "symbol": "__wrap_pthread_create"
+  },
+  {
+    "fn": 243,
+    "line": 9608,
+    "statement": "v477 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "symbol": "__wrap_pthread_create"
+  },
+  {
+    "fn": 243,
+    "line": 9633,
+    "statement": "v452 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "symbol": "__wrap_pthread_create"
+  },
+  {
+    "fn": 243,
+    "line": 9655,
+    "statement": "v455 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "symbol": "__wrap_pthread_create"
+  },
+  {
+    "fn": 243,
+    "line": 9704,
+    "statement": "v485 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "symbol": "__wrap_pthread_create"
+  },
+  {
+    "fn": 243,
+    "line": 9881,
+    "statement": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4))) = v613",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "symbol": "__wrap_pthread_create"
+  },
+  {
+    "fn": 243,
+    "line": 9890,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "symbol": "__wrap_pthread_create"
+  },
+  {
+    "fn": 216,
+    "line": 3782,
+    "statement": "v332 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4333,
+    "statement": "v337 = base.AtomicRmwCmpxchg32(m, v334, int32(15243132), v334, v330)",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4354,
+    "statement": "v348 = int32(15243132)",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4364,
+    "statement": "v413 = base.AtomicRmwCmpxchg32(m, v410, int32(15243132), v410, v330)",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4376,
+    "statement": "v382 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4401,
+    "statement": "v357 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4423,
+    "statement": "v360 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4472,
+    "statement": "v390 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4749,
+    "statement": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4))) = int32(0)",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4758,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4784,
+    "statement": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4))) = int32(0)",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4793,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4865,
+    "statement": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4))) = int32(0)",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 216,
+    "line": 4874,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "symbol": "wasi_thread_start"
+  },
+  {
+    "fn": 221,
+    "line": 7736,
+    "statement": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "symbol": "__pthread_join"
+  },
+  {
+    "fn": 221,
+    "line": 7926,
+    "statement": "v169 = int32(15243132)",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "symbol": "__pthread_join"
+  },
+  {
+    "fn": 221,
+    "line": 7943,
+    "statement": "v203 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "symbol": "__pthread_join"
+  },
+  {
+    "fn": 221,
+    "line": 7968,
+    "statement": "v178 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "symbol": "__pthread_join"
+  },
+  {
+    "fn": 221,
+    "line": 7990,
+    "statement": "v181 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "symbol": "__pthread_join"
+  },
+  {
+    "fn": 221,
+    "line": 8039,
+    "statement": "v211 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "symbol": "__pthread_join"
+  },
+  {
+    "fn": 221,
+    "line": 8071,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "symbol": "__pthread_join"
+  },
+  {
+    "fn": 18658,
+    "line": 970059,
+    "statement": "v127 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "symbol": "_ZN8feedbackL4freeEPv"
+  },
+  {
+    "fn": 18658,
+    "line": 970154,
+    "statement": "Fn94(m, int32(15243132), v131, v127)",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "symbol": "_ZN8feedbackL4freeEPv"
+  },
+  {
+    "fn": 18658,
+    "line": 970164,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "symbol": "_ZN8feedbackL4freeEPv"
+  },
+  {
+    "fn": 217,
+    "line": 3733,
+    "statement": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4))) = int32(0)",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "__tl_unlock"
+  },
+  {
+    "fn": 217,
+    "line": 3736,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "__tl_unlock"
+  },
+  {
+    "fn": 3754,
+    "line": 99275,
+    "statement": "v63 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "__pthread_detach"
+  },
+  {
+    "fn": 3754,
+    "line": 99374,
+    "statement": "Fn94(m, int32(15243132), v67, v63)",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "__pthread_detach"
+  },
+  {
+    "fn": 3754,
+    "line": 99384,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "__pthread_detach"
+  },
+  {
+    "fn": 3790,
+    "line": 100354,
+    "statement": "v62 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "wolfSSL_JoinThread"
+  },
+  {
+    "fn": 3790,
+    "line": 100453,
+    "statement": "Fn94(m, int32(15243132), v66, v62)",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "wolfSSL_JoinThread"
+  },
+  {
+    "fn": 3790,
+    "line": 100463,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "wolfSSL_JoinThread"
+  },
+  {
+    "fn": 4870,
+    "line": 122133,
+    "statement": "v92 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "ma_service_thread_control_end"
+  },
+  {
+    "fn": 4870,
+    "line": 122228,
+    "statement": "Fn94(m, int32(15243132), v96, v92)",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "ma_service_thread_control_end"
+  },
+  {
+    "fn": 4870,
+    "line": 122238,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "ma_service_thread_control_end"
+  },
+  {
+    "fn": 16483,
+    "line": 322960,
+    "statement": "v61 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15243132, 0, 4)))",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "_ZNSt3__26thread4joinEv"
+  },
+  {
+    "fn": 16483,
+    "line": 323059,
+    "statement": "Fn94(m, int32(15243132), v65, v61)",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "_ZNSt3__26thread4joinEv"
+  },
+  {
+    "fn": 16483,
+    "line": 323069,
+    "statement": "Fn89(m, int32(15243132), int32(1))",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "symbol": "_ZNSt3__26thread4joinEv"
+  }
+]

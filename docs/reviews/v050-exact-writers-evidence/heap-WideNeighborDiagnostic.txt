@@ -1,0 +1,5 @@
+=== RUN   TestWideNeighborDiagnostic
+OBS old-wide-mask diagnostic
+--- PASS: TestWideNeighborDiagnostic (0.00s)
+PASS
+ok  	example.com/narrowwriters	0.082s

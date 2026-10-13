@@ -1,0 +1,6 @@
+package narrow
+import "unsafe"
+//go:noescape
+func load8(p unsafe.Pointer) uint32
+//go:noescape
+func load16(p unsafe.Pointer) uint32

@@ -1,0 +1,5 @@
+=== RUN   TestPlainPublicationDiagnostic
+OBS plain publication; detector cannot see ASM synchronization
+--- PASS: TestPlainPublicationDiagnostic (0.00s)
+PASS
+ok  	example.com/narrowwriters	0.081s

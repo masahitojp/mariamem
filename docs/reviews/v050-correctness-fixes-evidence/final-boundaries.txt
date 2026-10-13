@@ -1,0 +1,98 @@
+=== RUN   TestBulkBoundsAndEffects
+=== RUN   TestBulkBoundsAndEffects/fill/end
+=== RUN   TestBulkBoundsAndEffects/fill/past-dst
+=== RUN   TestBulkBoundsAndEffects/fill/unsigned-dst
+=== RUN   TestBulkBoundsAndEffects/fill/unsigned-length
+=== RUN   TestBulkBoundsAndEffects/fill/one-valid
+=== RUN   TestBulkBoundsAndEffects/fill/one-invalid
+=== RUN   TestBulkBoundsAndEffects/copy/end
+=== RUN   TestBulkBoundsAndEffects/copy/past-dst
+=== RUN   TestBulkBoundsAndEffects/copy/unsigned-dst
+=== RUN   TestBulkBoundsAndEffects/copy/end-src
+=== RUN   TestBulkBoundsAndEffects/copy/past-src
+=== RUN   TestBulkBoundsAndEffects/copy/unsigned-length
+=== RUN   TestBulkBoundsAndEffects/copy/one-valid
+=== RUN   TestBulkBoundsAndEffects/copy/one-invalid
+=== RUN   TestBulkBoundsAndEffects/init/end
+=== RUN   TestBulkBoundsAndEffects/init/past-dst
+=== RUN   TestBulkBoundsAndEffects/init/unsigned-dst
+=== RUN   TestBulkBoundsAndEffects/init/end-src
+=== RUN   TestBulkBoundsAndEffects/init/past-src
+=== RUN   TestBulkBoundsAndEffects/init/unsigned-length
+=== RUN   TestBulkBoundsAndEffects/init/one-valid
+=== RUN   TestBulkBoundsAndEffects/init/one-invalid
+=== RUN   TestBulkBoundsAndEffects/init/dropped-empty
+=== RUN   TestBulkBoundsAndEffects/init/dropped-past
+=== RUN   TestBulkBoundsAndEffects/init/dropped-copy
+--- PASS: TestBulkBoundsAndEffects (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/end (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/past-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/unsigned-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/unsigned-length (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/one-valid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/fill/one-invalid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/end (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/past-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/unsigned-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/end-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/past-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/unsigned-length (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/one-valid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/copy/one-invalid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/end (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/past-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/unsigned-dst (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/end-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/past-src (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/unsigned-length (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/one-valid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/one-invalid (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/dropped-empty (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/dropped-past (0.00s)
+    --- PASS: TestBulkBoundsAndEffects/init/dropped-copy (0.00s)
+=== RUN   TestAllocationContracts
+=== RUN   TestAllocationContracts/memory/inside
+=== RUN   TestAllocationContracts/memory/zero
+=== RUN   TestAllocationContracts/memory/zero-beyond
+=== RUN   TestAllocationContracts/memory/grow
+=== RUN   TestAllocationContracts/memory/unsigned-wrap
+=== RUN   TestAllocationContracts/memory/signed-limit
+=== RUN   TestAllocationContracts/native/inside
+=== RUN   TestAllocationContracts/native/zero
+=== RUN   TestAllocationContracts/native/zero-beyond
+=== RUN   TestAllocationContracts/native/grow
+=== RUN   TestAllocationContracts/native/unsigned-wrap
+=== RUN   TestAllocationContracts/native/signed-limit
+--- PASS: TestAllocationContracts (0.00s)
+    --- PASS: TestAllocationContracts/memory/inside (0.00s)
+    --- PASS: TestAllocationContracts/memory/zero (0.00s)
+    --- PASS: TestAllocationContracts/memory/zero-beyond (0.00s)
+    --- PASS: TestAllocationContracts/memory/grow (0.00s)
+    --- PASS: TestAllocationContracts/memory/unsigned-wrap (0.00s)
+    --- PASS: TestAllocationContracts/memory/signed-limit (0.00s)
+    --- PASS: TestAllocationContracts/native/inside (0.00s)
+    --- PASS: TestAllocationContracts/native/zero (0.00s)
+    --- PASS: TestAllocationContracts/native/zero-beyond (0.00s)
+    --- PASS: TestAllocationContracts/native/grow (0.00s)
+    --- PASS: TestAllocationContracts/native/unsigned-wrap (0.00s)
+    --- PASS: TestAllocationContracts/native/signed-limit (0.00s)
+=== RUN   TestAllocationReadonlyAndInvalid
+=== RUN   TestAllocationReadonlyAndInvalid/memory
+=== RUN   TestAllocationReadonlyAndInvalid/native
+--- PASS: TestAllocationReadonlyAndInvalid (0.00s)
+    --- PASS: TestAllocationReadonlyAndInvalid/memory (0.00s)
+    --- PASS: TestAllocationReadonlyAndInvalid/native (0.00s)
+=== RUN   TestAllocationConcurrentHandles
+=== RUN   TestAllocationConcurrentHandles/memory
+=== RUN   TestAllocationConcurrentHandles/native
+--- PASS: TestAllocationConcurrentHandles (0.01s)
+    --- PASS: TestAllocationConcurrentHandles/memory (0.00s)
+    --- PASS: TestAllocationConcurrentHandles/native (0.01s)
+=== RUN   TestNarrowAtomicValuesBounds
+--- PASS: TestNarrowAtomicValuesBounds (0.00s)
+=== RUN   TestNarrowAtomicReadonlyMapping
+--- PASS: TestNarrowAtomicReadonlyMapping (0.00s)
+=== RUN   TestNarrowAtomicPublication
+--- PASS: TestNarrowAtomicPublication (0.04s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.376s

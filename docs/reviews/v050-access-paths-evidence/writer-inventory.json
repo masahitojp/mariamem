@@ -1,0 +1,3246 @@
+[
+  {
+    "direct_callees": [
+      89,
+      93,
+      130,
+      219,
+      1063,
+      1135
+    ],
+    "direct_callers": [
+      65,
+      6038,
+      6041,
+      6328,
+      6762,
+      6780,
+      7517,
+      7518,
+      8229,
+      8409,
+      8530,
+      8531,
+      8532,
+      8534,
+      8959,
+      9005,
+      9212,
+      9213,
+      9214,
+      9221,
+      9226,
+      9254,
+      9324,
+      10137,
+      10140,
+      10154,
+      10162,
+      10217,
+      10220,
+      10223,
+      10226,
+      10229,
+      10234,
+      10237,
+      10240,
+      10241,
+      10243,
+      10267,
+      10272,
+      10277,
+      10279,
+      10281,
+      10283,
+      10285,
+      10287,
+      10288,
+      10292,
+      10296,
+      10298,
+      10300,
+      10302,
+      10303,
+      10305,
+      10306,
+      10394,
+      10398,
+      10405,
+      10407,
+      10433,
+      10443,
+      10454,
+      10455,
+      10466,
+      10490,
+      10491,
+      10492,
+      10493,
+      10500,
+      10501,
+      10502,
+      10503,
+      10532,
+      10619,
+      10621,
+      10623,
+      10625,
+      10627,
+      10629,
+      10631,
+      10633,
+      10635,
+      10637,
+      10639,
+      10641,
+      10643,
+      10645,
+      10664,
+      14110,
+      14332,
+      14333,
+      14336,
+      14401,
+      14521,
+      15269,
+      16455,
+      16459,
+      16472,
+      16487,
+      16774,
+      17836,
+      18050,
+      18160,
+      18454,
+      18457,
+      18838,
+      18839,
+      18840,
+      19008,
+      19032,
+      19042,
+      19043,
+      19061,
+      19072,
+      19073,
+      19074,
+      19111,
+      19115,
+      19118,
+      19147,
+      19155,
+      19175,
+      19185,
+      19197,
+      19200,
+      19201,
+      19207,
+      19216,
+      19230,
+      19233,
+      19235,
+      19257,
+      19273,
+      19279,
+      19294,
+      19299,
+      19309,
+      19312,
+      19313,
+      19316,
+      19322,
+      19328,
+      19331,
+      19333,
+      19351,
+      19352,
+      19353,
+      19354,
+      19357,
+      19359,
+      19361,
+      19368,
+      19376,
+      19383,
+      19396,
+      19403,
+      19410,
+      19411,
+      19412,
+      19415,
+      19419,
+      19428,
+      19431,
+      19433,
+      19466,
+      19475,
+      19482,
+      19490,
+      19496,
+      19503,
+      19504,
+      19505,
+      19508,
+      19511,
+      19516,
+      19519,
+      19521,
+      20052,
+      20071,
+      20103,
+      20104,
+      20105,
+      20106,
+      20107,
+      20108,
+      20109,
+      20110,
+      20111,
+      20112,
+      20465,
+      20473,
+      20707,
+      20765,
+      20766,
+      20767,
+      21484
+    ],
+    "family": "guard",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 4054,
+    "indirect_calls": 0,
+    "line": 270196,
+    "symbol": "__cxa_guard_release",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 270244,
+        "statement": "base.AtomicStore32_8(m, l0, v2, v8)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      16495,
+      16499,
+      16501,
+      16534
+    ],
+    "direct_callers": [],
+    "family": "pool",
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 16535,
+    "indirect_calls": 3,
+    "line": 890981,
+    "symbol": "_ZN5tpool19thread_pool_generic11worker_mainEPNS_11worker_dataE",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 891100,
+        "statement": "base.AtomicStore32_8(m, l0, int32(408), v25)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      143,
+      1105,
+      1121,
+      1123,
+      1135,
+      16482,
+      16484,
+      16495,
+      16496,
+      16499,
+      16500,
+      16501,
+      16519,
+      16538
+    ],
+    "direct_callers": [
+      16536,
+      16543
+    ],
+    "family": "pool",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 16537,
+    "indirect_calls": 1,
+    "line": 824712,
+    "symbol": "_ZN5tpool19thread_pool_generic10add_threadEv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicRmwXchg32_8u",
+        "line": 825116,
+        "statement": "v83 = base.AtomicRmwXchg32_8u(m, l0, int32(408), v81)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 825605,
+        "statement": "base.AtomicStore32_8(m, l0, int32(408), v327)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      5460,
+      16685
+    ],
+    "direct_callers": [
+      17118,
+      17130,
+      17558,
+      18383,
+      18483,
+      18500,
+      18506,
+      18529
+    ],
+    "family": "view",
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 16684,
+    "indirect_calls": 0,
+    "line": 901292,
+    "symbol": "_ZN8ReadView4openEP5trx_t",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 901402,
+        "statement": "base.AtomicStore32_8(m, l0, int32(40), v82)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 901447,
+        "statement": "base.AtomicStore32_8(m, l0, int32(40), v82)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 901493,
+        "statement": "base.AtomicStore32_8(m, l0, int32(40), v82)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 901539,
+        "statement": "base.AtomicStore32_8(m, l0, int32(40), v82)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 901547,
+        "statement": "base.AtomicStore32_8(m, l0, int32(40), v32)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      153,
+      158,
+      16436,
+      16561,
+      16562,
+      16566,
+      16642,
+      16734,
+      16739,
+      17167,
+      17168,
+      17201,
+      17203,
+      17901,
+      17921,
+      17927,
+      18025,
+      18031,
+      18040,
+      18080,
+      18104,
+      18131,
+      18236
+    ],
+    "direct_callers": [
+      17153,
+      18171
+    ],
+    "family": "purge",
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17151,
+    "indirect_calls": 0,
+    "line": 837015,
+    "symbol": "_ZNK11purge_sys_t8iterator12free_historyEv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 839876,
+        "statement": "base.AtomicStore32_8(m, int32(24020810), int32(0), v1680)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      93,
+      130,
+      131,
+      153,
+      158,
+      238,
+      269,
+      1067,
+      1135,
+      4585,
+      5540,
+      5654,
+      16436,
+      16523,
+      16524,
+      16530,
+      16566,
+      16686,
+      17154,
+      17155,
+      17156,
+      17157,
+      17159,
+      17160,
+      17162,
+      17163,
+      17164,
+      17165,
+      18102,
+      18164,
+      18233
+    ],
+    "direct_callers": [
+      18168
+    ],
+    "family": "purge",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17161,
+    "indirect_calls": 1,
+    "line": 782504,
+    "symbol": "_Z9trx_purgeP5trx_tmm",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 784462,
+        "statement": "base.AtomicStore32_8(m, int32(24020811), v385, v384)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 786846,
+        "statement": "base.AtomicStore32_8(m, int32(24020811), v1996, v1996)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 786857,
+        "statement": "base.AtomicStore32_8(m, int32(24020811), int32(0), v2123)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 788383,
+        "statement": "base.AtomicStore32_8(m, int32(24020811), v3408, v3408)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      93,
+      130,
+      153,
+      158,
+      238,
+      1067,
+      1135,
+      12375,
+      12376,
+      12377,
+      12607,
+      16427,
+      17025,
+      17032,
+      17055,
+      17146,
+      17204,
+      17208,
+      17216,
+      17217,
+      17222,
+      17223,
+      17224,
+      17500,
+      17616,
+      17673,
+      17803,
+      17927,
+      18016,
+      18025,
+      18031,
+      18035,
+      18041,
+      18104,
+      18225,
+      18228,
+      18244,
+      18257
+    ],
+    "direct_callers": [
+      18180,
+      18509
+    ],
+    "family": "file",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17218,
+    "indirect_calls": 3,
+    "line": 802436,
+    "symbol": "_Z30fsp_system_tablespace_truncateb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 808204,
+        "statement": "base.AtomicStore32_8(m, int32(15104498), v3841, v3857)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 808838,
+        "statement": "base.AtomicStore32_8(m, int32(15104498), v4332, v4352)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130
+    ],
+    "direct_callers": [],
+    "family": "file",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 17221,
+    "indirect_calls": 0,
+    "line": 334630,
+    "symbol": "_ZN12fil_system_t19set_use_doublewriteEm",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 334660,
+        "statement": "base.AtomicStore32_8(m, int32(15104498), v11, v17)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      237,
+      1150
+    ],
+    "direct_callers": [
+      17145,
+      17241
+    ],
+    "family": "encryption",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17240,
+    "indirect_calls": 1,
+    "line": 893027,
+    "symbol": "_Z27fil_space_create_crypt_data16fil_encryption_tj",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 893135,
+        "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v77)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      93,
+      130,
+      219,
+      8812,
+      16436,
+      16593,
+      20905
+    ],
+    "direct_callers": [
+      17090,
+      17246
+    ],
+    "family": "encryption",
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17245,
+    "indirect_calls": 2,
+    "line": 853953,
+    "symbol": "_Z15fil_encrypt_bufP17fil_space_crypt_tmmPKhmPhb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 854829,
+        "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v74)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 855993,
+        "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v676)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      71,
+      80,
+      89,
+      93,
+      130,
+      153,
+      158,
+      218,
+      219,
+      220,
+      237,
+      238,
+      265,
+      266,
+      269,
+      963,
+      1135,
+      1150,
+      16436,
+      16559,
+      17200,
+      17244,
+      17249,
+      17253,
+      17254,
+      17470,
+      17883,
+      18002,
+      18025,
+      18031,
+      18040,
+      18102,
+      18104,
+      18237
+    ],
+    "direct_callers": [],
+    "family": "encryption",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17251,
+    "indirect_calls": 3,
+    "line": 808899,
+    "symbol": "_ZL16fil_crypt_threadv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 811549,
+        "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v623)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 811921,
+        "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v949)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 812102,
+        "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v1021)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      16432,
+      16559,
+      17091,
+      17241,
+      17369,
+      17370,
+      17476,
+      18025,
+      18098,
+      18199,
+      18201,
+      18546,
+      18559
+    ],
+    "direct_callers": [
+      17405,
+      18509
+    ],
+    "family": "recovery",
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17368,
+    "indirect_calls": 0,
+    "line": 863473,
+    "symbol": "_ZN10recv_sys_t16recover_deferredERKNSt3__214__map_iteratorINS0_15__tree_iteratorINS0_12__value_typeIK9page_id_t11page_recv_tEEPNS0_11__tree_nodeIS7_PvEElEEEERKNS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEERP11buf_block_t",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 863969,
+        "statement": "base.AtomicStore32_8(m, v124, int32(24), v125)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 864117,
+        "statement": "base.AtomicStore32_8(m, v207, int32(24), v208)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 864858,
+        "statement": "base.AtomicStore32_8(m, v729, int32(24), v730)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      153,
+      158,
+      237,
+      1150,
+      12375,
+      12377,
+      16430,
+      16432,
+      16436,
+      17091,
+      17359,
+      17418,
+      17489,
+      17994,
+      18031,
+      18097,
+      18098,
+      18139,
+      18421,
+      18559
+    ],
+    "direct_callers": [
+      17369,
+      17410,
+      18218
+    ],
+    "family": "recovery",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17371,
+    "indirect_calls": 1,
+    "line": 815375,
+    "symbol": "_ZL17recv_recover_pageP11buf_block_tR5mtr_tR11page_recv_tP11fil_space_ty",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 828504,
+        "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v8400)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      153,
+      158,
+      238,
+      241,
+      762,
+      1135,
+      16436,
+      17357,
+      18064,
+      18069,
+      18072
+    ],
+    "direct_callers": [
+      18509
+    ],
+    "family": "recovery",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17377,
+    "indirect_calls": 0,
+    "line": 961781,
+    "symbol": "_ZN10recv_sys_t10debug_freeEv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 961910,
+        "statement": "base.AtomicStore32_8(m, int32(15102238), v1, v1)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      153,
+      158,
+      236,
+      269,
+      922,
+      1114,
+      1120,
+      1135,
+      16435,
+      17091,
+      17378,
+      17380,
+      17382,
+      17628,
+      18122,
+      18400,
+      18559
+    ],
+    "direct_callers": [
+      17392,
+      17429
+    ],
+    "family": "recovery",
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17388,
+    "indirect_calls": 0,
+    "line": 864897,
+    "symbol": "_ZN10recv_sys_t11parse_storeE9page_id_tPKhm",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 865714,
+        "statement": "base.AtomicStore32_8(m, v192, int32(24), v321)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      71,
+      89,
+      92,
+      93,
+      130,
+      153,
+      158,
+      209,
+      218,
+      238,
+      1067,
+      1135,
+      12377,
+      16436,
+      16499,
+      16501,
+      16729,
+      16731,
+      16887,
+      17367,
+      17368,
+      17372,
+      17375,
+      17380,
+      17381,
+      17406,
+      17407,
+      17409,
+      17467,
+      17472,
+      17489,
+      17995,
+      18017,
+      18116,
+      18122,
+      18124,
+      18136,
+      18205,
+      18213,
+      18215,
+      18217
+    ],
+    "direct_callers": [
+      17392,
+      17429,
+      17454,
+      18509
+    ],
+    "family": "recovery",
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17405,
+    "indirect_calls": 1,
+    "line": 863518,
+    "symbol": "_ZN10recv_sys_t5applyEb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 866039,
+        "statement": "base.AtomicStore32_8(m, v1449, int32(24), v1450)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 867817,
+        "statement": "base.AtomicStore32_8(m, v2147, v2149, v2148)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 867910,
+        "statement": "base.AtomicStore32_8(m, v2042, int32(24), v2043)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      1135,
+      17409
+    ],
+    "direct_callers": [
+      16729,
+      18114,
+      18220
+    ],
+    "family": "recovery",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17408,
+    "indirect_calls": 2,
+    "line": 908025,
+    "symbol": "_ZN10recv_sys_t19free_corrupted_pageE9page_id_tRK10fil_node_t",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 908136,
+        "statement": "base.AtomicStore32_8(m, v33, int32(24), v52)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      17371,
+      17379,
+      18025,
+      18031,
+      18095
+    ],
+    "direct_callers": [
+      18114
+    ],
+    "family": "recovery",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17410,
+    "indirect_calls": 0,
+    "line": 963393,
+    "symbol": "_Z17recv_recover_pageP11fil_space_tP10buf_page_t",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 963769,
+        "statement": "base.AtomicStore32_8(m, v109, int32(24), v191)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 963843,
+        "statement": "base.AtomicStore32_8(m, v259, v282, v281)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      17369,
+      18025,
+      18045,
+      18104,
+      18122,
+      18125,
+      18138
+    ],
+    "direct_callers": [
+      16742,
+      16994,
+      17433,
+      18509
+    ],
+    "family": "recovery",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17412,
+    "indirect_calls": 0,
+    "line": 963953,
+    "symbol": "_ZN10recv_sys_t7recoverE9page_id_tP5mtr_tP7dberr_t",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 964180,
+        "statement": "base.AtomicStore32_8(m, v48, int32(24), v60)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 964273,
+        "statement": "base.AtomicStore32_8(m, v150, int32(24), v151)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [],
+    "direct_callers": [],
+    "family": "load",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 17437,
+    "indirect_calls": 0,
+    "line": 338610,
+    "symbol": "_Z14buf_load_abortv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 338614,
+        "statement": "base.AtomicStore32_8(m, int32(24051142), int32(0), v2)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      95,
+      96,
+      130,
+      153,
+      158,
+      197,
+      199,
+      236,
+      238,
+      922,
+      1067,
+      1135,
+      10165,
+      10457,
+      16209,
+      16366,
+      16420,
+      16428,
+      16733,
+      17435,
+      17442,
+      17444,
+      17445,
+      17446,
+      17458,
+      17483,
+      17489,
+      17644,
+      18216,
+      18559,
+      18608
+    ],
+    "direct_callers": [
+      17439
+    ],
+    "family": "load",
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17440,
+    "indirect_calls": 0,
+    "line": 877147,
+    "symbol": "_ZL8buf_loadv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 877980,
+        "statement": "base.AtomicStore32_8(m, int32(24051142), v1, v1)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 880619,
+        "statement": "base.AtomicStore32_8(m, int32(24051142), v1238, v1238)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      130,
+      153,
+      158,
+      12377,
+      16432,
+      16751,
+      17091,
+      17457,
+      18016,
+      18020,
+      18063,
+      18064,
+      18073,
+      18193,
+      18198,
+      18201,
+      18546,
+      18559
+    ],
+    "direct_callers": [
+      17454,
+      18509
+    ],
+    "family": "startup-shutdown",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17453,
+    "indirect_calls": 0,
+    "line": 930655,
+    "symbol": "_ZL15create_log_fileby",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 932312,
+        "statement": "base.AtomicStore32_8(m, int32(15102238), v740, v740)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 932749,
+        "statement": "base.AtomicStore32_8(m, int32(15102238), v740, v740)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      93,
+      94,
+      130,
+      153,
+      158,
+      183,
+      238,
+      269,
+      764,
+      970,
+      1135,
+      4141,
+      4744,
+      12375,
+      12376,
+      12377,
+      13893,
+      16432,
+      16436,
+      16618,
+      16625,
+      17091,
+      17144,
+      17170,
+      17250,
+      17318,
+      17374,
+      17460,
+      17473,
+      17478,
+      17480,
+      17486,
+      17673,
+      17685,
+      17761,
+      17874,
+      17879,
+      18067,
+      18081,
+      18137,
+      18146,
+      18180,
+      18198,
+      18212,
+      18228,
+      18400,
+      18493,
+      18559
+    ],
+    "direct_callers": [
+      18509,
+      18517
+    ],
+    "family": "startup-shutdown",
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 17461,
+    "indirect_calls": 4,
+    "line": 881389,
+    "symbol": "_Z15innodb_shutdownv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 884986,
+        "statement": "base.AtomicStore32_8(m, int32(24051920), v1205, v1205)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      1135,
+      12377
+    ],
+    "direct_callers": [
+      17184,
+      17186,
+      17187,
+      17189,
+      17191,
+      17192,
+      17193,
+      17198,
+      17199,
+      17202,
+      17504,
+      18114
+    ],
+    "family": "file",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 17463,
+    "indirect_calls": 0,
+    "line": 338828,
+    "symbol": "_ZNK11fil_space_t13set_corruptedEv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicRmwXchg32_8u",
+        "line": 338864,
+        "statement": "v14 = base.AtomicRmwXchg32_8u(m, l0, int32(139), v12)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      269,
+      1135,
+      16436,
+      17469,
+      18192,
+      18199,
+      18201
+    ],
+    "direct_callers": [
+      17405,
+      17470,
+      17477
+    ],
+    "family": "file",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17472,
+    "indirect_calls": 0,
+    "line": 969875,
+    "symbol": "_ZL27fil_space_extend_must_retryP11fil_space_tP10fil_node_tjPb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 970096,
+        "statement": "base.AtomicStore32_8(m, l1, int32(24), v75)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 970335,
+        "statement": "base.AtomicStore32_8(m, l1, int32(24), v166)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      93,
+      129,
+      130,
+      153,
+      158,
+      198,
+      207,
+      219,
+      236,
+      238,
+      1135,
+      1486,
+      14066,
+      16209,
+      16419,
+      16430,
+      16436,
+      16558,
+      17091,
+      17811,
+      17812,
+      17813,
+      17829,
+      17830,
+      18247,
+      18475,
+      18559
+    ],
+    "direct_callers": [
+      17769,
+      17772
+    ],
+    "family": "deadlock",
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17770,
+    "indirect_calls": 0,
+    "line": 923838,
+    "symbol": "_ZN8DeadlockL6reportEP5trx_tb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 924649,
+        "statement": "base.AtomicStore32_8(m, v157, int32(192), v600)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      93,
+      130,
+      153,
+      158,
+      16566,
+      17770
+    ],
+    "direct_callers": [
+      16802,
+      17769,
+      17827,
+      18230,
+      18510
+    ],
+    "family": "deadlock",
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 17772,
+    "indirect_calls": 0,
+    "line": 970557,
+    "symbol": "_ZN10lock_sys_t14deadlock_checkEv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 970935,
+        "statement": "base.AtomicStore32_8(m, int32(24051920), v520, v520)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 970947,
+        "statement": "base.AtomicStore32_8(m, int32(24051920), v480, v480)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      1067,
+      16436,
+      17807,
+      17808
+    ],
+    "direct_callers": [
+      16802,
+      17037,
+      17770,
+      17773,
+      18230,
+      18524
+    ],
+    "family": "deadlock",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17811,
+    "indirect_calls": 0,
+    "line": 982168,
+    "symbol": "_ZL26lock_rec_dequeue_from_pageP9ib_lock_tb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 982947,
+        "statement": "base.AtomicStore32_8(m, int32(24051920), int32(0), v389)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      1135,
+      16436,
+      17765,
+      17768,
+      17808,
+      17814
+    ],
+    "direct_callers": [
+      16802,
+      17770,
+      17773,
+      17826,
+      18230,
+      18524
+    ],
+    "family": "deadlock",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17812,
+    "indirect_calls": 0,
+    "line": 983330,
+    "symbol": "_ZL18lock_table_dequeueP9ib_lock_tb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 984122,
+        "statement": "base.AtomicStore32_8(m, int32(24051920), int32(0), v370)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      92,
+      93,
+      130,
+      212,
+      238,
+      1135,
+      16566,
+      17814,
+      17874,
+      17876,
+      18115
+    ],
+    "direct_callers": [
+      17879,
+      18566
+    ],
+    "family": "ahi",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 17877,
+    "indirect_calls": 0,
+    "line": 1004805,
+    "symbol": "_ZN7btr_sea16disable_and_lockEv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1005271,
+        "statement": "base.AtomicStore32_8(m, int32(15138752), v126, v126)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      16566,
+      17873,
+      17878
+    ],
+    "direct_callers": [
+      17430,
+      18509,
+      18565,
+      18587
+    ],
+    "family": "ahi",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17880,
+    "indirect_calls": 0,
+    "line": 934666,
+    "symbol": "_ZN7btr_sea6enableEb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 934849,
+        "statement": "base.AtomicStore32_8(m, int32(15138752), int32(0), v62)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      1135,
+      16565,
+      17875,
+      17881,
+      17884,
+      17885,
+      17886,
+      17889,
+      18122,
+      18138
+    ],
+    "direct_callers": [
+      17950
+    ],
+    "family": "ahi",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 17888,
+    "indirect_calls": 0,
+    "line": 989443,
+    "symbol": "_ZNK9btr_cur_t18search_info_updateEv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_16",
+        "line": 989736,
+        "statement": "base.AtomicStore32_16(m, v25, int32(220), v231)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 989760,
+        "statement": "base.AtomicStore32_8(m, v23, int32(70), v214)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 989769,
+        "statement": "base.AtomicStore32_8(m, v23, int32(70), v184)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 989786,
+        "statement": "base.AtomicStore32_8(m, v23, int32(69), v155)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 989795,
+        "statement": "base.AtomicStore32_8(m, v23, int32(68), v63)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 989844,
+        "statement": "base.AtomicStore32_8(m, v23, int32(68), v130)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 989847,
+        "statement": "base.AtomicStore32_8(m, v23, int32(69), v135)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 989872,
+        "statement": "base.AtomicStore32_8(m, v23, int32(68), v112)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 989875,
+        "statement": "base.AtomicStore32_8(m, v23, int32(69), v112)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      1135,
+      16565,
+      16566,
+      17875,
+      17881,
+      17884,
+      17885,
+      17886,
+      18122,
+      18138
+    ],
+    "direct_callers": [
+      17888,
+      17890
+    ],
+    "family": "ahi",
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 17889,
+    "indirect_calls": 0,
+    "line": 937441,
+    "symbol": "_ZL32btr_search_build_page_hash_indexP12dict_index_tP11buf_block_tRN7btr_sea9partitionEj",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_16",
+        "line": 938578,
+        "statement": "base.AtomicStore32_16(m, l1, int32(220), v321)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      750,
+      1135,
+      16436,
+      16559,
+      16560,
+      16561,
+      16562,
+      16563,
+      16565,
+      16734,
+      17597,
+      17598,
+      17599,
+      17600,
+      17611,
+      17732,
+      17883,
+      17888,
+      17894,
+      17895,
+      17944,
+      17945,
+      17947,
+      17948,
+      17951,
+      18034,
+      18040,
+      18045,
+      18082,
+      18083,
+      18095,
+      18103,
+      18104,
+      18129,
+      18131,
+      18135,
+      18146
+    ],
+    "direct_callers": [
+      16717,
+      16720,
+      16838,
+      16960,
+      16967,
+      16969,
+      17038,
+      17118,
+      17119,
+      17130,
+      17137,
+      17145,
+      17633,
+      17647,
+      17651,
+      17653,
+      17655,
+      17708,
+      17709,
+      17718,
+      17722,
+      17730,
+      18518
+    ],
+    "family": "ahi",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 17950,
+    "indirect_calls": 0,
+    "line": 907680,
+    "symbol": "_ZN9btr_cur_t11search_leafEPK8dtuple_t15page_cur_mode_t14btr_latch_modeP5mtr_t",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 910772,
+        "statement": "base.AtomicStore32_8(m, v63, int32(70), v2668)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 913197,
+        "statement": "base.AtomicStore32_8(m, v63, int32(69), v2445)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 913205,
+        "statement": "base.AtomicStore32_8(m, v63, int32(70), v2448)"
+      },
+      {
+        "helper": "AtomicRmwAdd32_8u",
+        "line": 915837,
+        "statement": "v4692 = base.AtomicRmwAdd32_8u(m, v4675, int32(68), int32(1))"
+      },
+      {
+        "helper": "AtomicRmwAdd32_8u",
+        "line": 917898,
+        "statement": "v6134 = base.AtomicRmwAdd32_8u(m, v6114, int32(68), int32(1))"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      219
+    ],
+    "direct_callers": [
+      17371,
+      18031,
+      18035,
+      18122,
+      18565,
+      18581,
+      18582,
+      18583
+    ],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 17994,
+    "indirect_calls": 0,
+    "line": 941219,
+    "symbol": "_ZN10buf_pool_t19page_cleaner_wakeupEb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 941307,
+        "statement": "base.AtomicStore32_8(m, int32(15209600), v72, v72)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 941341,
+        "statement": "base.AtomicStore32_8(m, int32(15209600), v72, v72)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 941371,
+        "statement": "base.AtomicStore32_8(m, int32(15209600), v72, v72)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 941400,
+        "statement": "base.AtomicStore32_8(m, int32(15209600), v72, v72)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 941434,
+        "statement": "base.AtomicStore32_8(m, int32(15209600), v72, v72)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      93,
+      130,
+      219,
+      1135,
+      16436,
+      16559,
+      17235,
+      17476,
+      17999,
+      18001,
+      18003,
+      18213
+    ],
+    "direct_callers": [
+      17077,
+      17251,
+      17254,
+      17494,
+      18497
+    ],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 18002,
+    "indirect_calls": 0,
+    "line": 1003467,
+    "symbol": "_Z20buf_flush_list_spaceP11fil_space_tPm",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1003889,
+        "statement": "base.AtomicStore32_8(m, int32(15209756), v171, v181)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      92,
+      93,
+      130,
+      209,
+      218,
+      219,
+      1135,
+      18074,
+      18213
+    ],
+    "direct_callers": [
+      18017,
+      18080
+    ],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18005,
+    "indirect_calls": 0,
+    "line": 1014622,
+    "symbol": "_Z14buf_flush_waityb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1014940,
+        "statement": "base.AtomicStore32_8(m, int32(15209600), v163, v163)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1015489,
+        "statement": "base.AtomicStore32_8(m, int32(24088732), v329, v332)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      93,
+      130,
+      219
+    ],
+    "direct_callers": [
+      17106,
+      18014,
+      18031,
+      18581,
+      18584
+    ],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18006,
+    "indirect_calls": 0,
+    "line": 941821,
+    "symbol": "_Z15buf_flush_aheadyb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 941887,
+        "statement": "base.AtomicStore32_8(m, int32(15209600), v50, v50)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 941971,
+        "statement": "base.AtomicStore32_8(m, int32(24088732), v39, v42)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      1135,
+      12376,
+      18009
+    ],
+    "direct_callers": [
+      18010,
+      18122,
+      18123
+    ],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 18008,
+    "indirect_calls": 0,
+    "line": 344476,
+    "symbol": "_ZN10buf_pool_t8LRU_warnEv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 344492,
+        "statement": "base.AtomicStore32_8(m, int32(15209756), v1, v1)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 344497,
+        "statement": "base.AtomicStore32_8(m, int32(15209757), int32(0), v13)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      71,
+      80,
+      89,
+      92,
+      93,
+      130,
+      209,
+      218,
+      219,
+      220,
+      238,
+      265,
+      266,
+      750,
+      963,
+      1135,
+      16499,
+      16501,
+      17235,
+      17281,
+      17473,
+      18008,
+      18012,
+      18013,
+      18014,
+      18074,
+      18213
+    ],
+    "direct_callers": [],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18010,
+    "indirect_calls": 0,
+    "line": 958370,
+    "symbol": "_ZL22buf_flush_page_cleanerv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 959617,
+        "statement": "base.AtomicStore32_8(m, int32(24088372), v1416, v1416)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 959760,
+        "statement": "base.AtomicStore32_8(m, int32(15209757), v129, v129)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 959825,
+        "statement": "base.AtomicStore32_8(m, int32(15209600), v1176, v1160)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 960046,
+        "statement": "base.AtomicStore32_8(m, int32(15209600), v267, v267)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 960169,
+        "statement": "base.AtomicStore32_8(m, int32(15209600), v385, v385)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 961300,
+        "statement": "base.AtomicStore32_8(m, int32(15209756), int32(0), v1048)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 962096,
+        "statement": "base.AtomicStore32_8(m, int32(15209600), v1521, v1521)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 962216,
+        "statement": "base.AtomicStore32_8(m, int32(15209756), int32(0), v1574)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      71,
+      89,
+      92,
+      209,
+      212,
+      269,
+      1135,
+      12377,
+      18070
+    ],
+    "direct_callers": [],
+    "family": "checkpoint",
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "fn": 18022,
+    "indirect_calls": 0,
+    "line": 1006519,
+    "symbol": "_ZN5mtr_t13finish_writerILb0EEENSt3__24pairIyyEEPS_m",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1008051,
+        "statement": "base.AtomicStore32_8(m, int32(24088732), int32(0), v621)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1008720,
+        "statement": "base.AtomicStore32_8(m, int32(24088732), int32(0), v1287)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      92,
+      93,
+      130,
+      209,
+      1135,
+      13899,
+      13900,
+      16523,
+      16524,
+      18005
+    ],
+    "direct_callers": [
+      16884,
+      16930,
+      16970,
+      16972,
+      16984,
+      17036,
+      17038,
+      17039,
+      17043,
+      17044,
+      17045,
+      17048,
+      17145,
+      17151,
+      17153,
+      17323,
+      17430,
+      17717,
+      17721,
+      17985
+    ],
+    "family": "checkpoint",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18080,
+    "indirect_calls": 0,
+    "line": 947525,
+    "symbol": "_Z14log_free_checkv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 947902,
+        "statement": "base.AtomicStore32_8(m, int32(24088732), v118, v118)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      17235,
+      18213,
+      18216
+    ],
+    "direct_callers": [
+      18000,
+      18114
+    ],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18090,
+    "indirect_calls": 0,
+    "line": 948700,
+    "symbol": "_ZN10buf_pool_t8io_buf_t7reserveEb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicRmwXchg32_8u",
+        "line": 948817,
+        "statement": "v17 = base.AtomicRmwXchg32_8u(m, v13, v16, v15)"
+      },
+      {
+        "helper": "AtomicRmwXchg32_8u",
+        "line": 948888,
+        "statement": "v47 = base.AtomicRmwXchg32_8u(m, v43, v46, v45)"
+      },
+      {
+        "helper": "AtomicRmwXchg32_8u",
+        "line": 948953,
+        "statement": "v73 = base.AtomicRmwXchg32_8u(m, v69, v72, v71)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      153,
+      158,
+      239,
+      1135,
+      12375,
+      12377,
+      16427,
+      16432,
+      16436,
+      16559,
+      16754,
+      17064,
+      17091,
+      17235,
+      17248,
+      17257,
+      17408,
+      17410,
+      17463,
+      18085,
+      18090,
+      18097,
+      18098,
+      18139,
+      18213,
+      18400,
+      18559
+    ],
+    "direct_callers": [
+      16729,
+      18220
+    ],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18114,
+    "indirect_calls": 0,
+    "line": 965746,
+    "symbol": "_ZN10buf_page_t13read_completeERK10fil_node_tb",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 967425,
+        "statement": "base.AtomicStore32_8(m, v106, v987, v987)"
+      },
+      {
+        "helper": "AtomicRmwXchg32_8u",
+        "line": 967534,
+        "statement": "v129 = base.AtomicRmwXchg32_8u(m, v106, v128, v127)"
+      },
+      {
+        "helper": "AtomicRmwXchg32_8u",
+        "line": 967817,
+        "statement": "v290 = base.AtomicRmwXchg32_8u(m, v267, v289, v288)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 967936,
+        "statement": "base.AtomicStore32_8(m, v267, v357, v357)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 967961,
+        "statement": "base.AtomicStore32_8(m, v267, v366, v366)"
+      },
+      {
+        "helper": "AtomicRmwXchg32_8u",
+        "line": 968141,
+        "statement": "v501 = base.AtomicRmwXchg32_8u(m, v478, v500, v499)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 968237,
+        "statement": "base.AtomicStore32_8(m, v563, v587, v587)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 968337,
+        "statement": "base.AtomicStore32_8(m, v106, v685, v685)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 969378,
+        "statement": "base.AtomicStore32_8(m, v1247, v1292, v1292)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 969404,
+        "statement": "base.AtomicStore32_8(m, v1247, v1306, v1306)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 969409,
+        "statement": "base.AtomicStore32_8(m, v1247, v1313, v1313)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      80,
+      93,
+      130,
+      218,
+      17994,
+      18008,
+      18087,
+      18123,
+      18124
+    ],
+    "direct_callers": [
+      16588,
+      16671,
+      16721,
+      16728,
+      16732,
+      16733,
+      16734,
+      17176,
+      17177,
+      17182,
+      17205,
+      17214,
+      17388,
+      17405,
+      17412,
+      17888,
+      17889,
+      17892,
+      17916,
+      18100,
+      18142,
+      18509
+    ],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18122,
+    "indirect_calls": 0,
+    "line": 1020834,
+    "symbol": "_Z22buf_LRU_get_free_block11buf_LRU_get",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1021045,
+        "statement": "base.AtomicStore32_8(m, int32(15209756), v80, v80)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      219,
+      16723,
+      18088
+    ],
+    "direct_callers": [
+      16723,
+      16724,
+      16730,
+      16732,
+      16733,
+      17405,
+      18100,
+      18125,
+      18138,
+      18139,
+      18565
+    ],
+    "family": "ahi",
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18136,
+    "indirect_calls": 0,
+    "line": 968976,
+    "symbol": "_Z32buf_LRU_block_free_non_file_pageP11buf_block_t",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_16",
+        "line": 969046,
+        "statement": "base.AtomicStore32_16(m, l0, int32(220), v2)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 969118,
+        "statement": "base.AtomicStore32_8(m, int32(15209756), v83, v78)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 969168,
+        "statement": "base.AtomicStore32_8(m, int32(15209756), v83, v78)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 969228,
+        "statement": "base.AtomicStore32_8(m, int32(15209756), v83, v78)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 969278,
+        "statement": "base.AtomicStore32_8(m, int32(15209756), v83, v78)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      71,
+      93,
+      130,
+      13738,
+      16499,
+      16501,
+      16530,
+      17152,
+      17153,
+      17161,
+      17511,
+      18163,
+      18165,
+      18225
+    ],
+    "direct_callers": [],
+    "family": "purge",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18168,
+    "indirect_calls": 1,
+    "line": 1022213,
+    "symbol": "_ZL26purge_coordinator_callbackPv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1022482,
+        "statement": "base.AtomicStore32_8(m, int32(24215400), v44, v44)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1022993,
+        "statement": "base.AtomicStore32_8(m, int32(24215400), v283, v283)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      71,
+      93,
+      130,
+      153,
+      158,
+      13893,
+      16436,
+      16499,
+      16501,
+      16530,
+      16531,
+      17218,
+      17511
+    ],
+    "direct_callers": [
+      17452,
+      17460,
+      17461
+    ],
+    "family": "purge",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18180,
+    "indirect_calls": 1,
+    "line": 1023037,
+    "symbol": "_Z18srv_purge_shutdownv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1023264,
+        "statement": "base.AtomicStore32_8(m, int32(24215400), int32(0), v29)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1023291,
+        "statement": "base.AtomicStore32_8(m, int32(24020809), v156, v156)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      1135,
+      16495,
+      16499,
+      16501,
+      16559,
+      17371,
+      18025,
+      18040
+    ],
+    "direct_callers": [],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 18218,
+    "indirect_calls": 0,
+    "line": 1005380,
+    "symbol": "_ZL16fake_io_callbackPv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1005604,
+        "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1005696,
+        "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1005789,
+        "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1005882,
+        "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1006004,
+        "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1006096,
+        "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1006189,
+        "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1006282,
+        "statement": "base.AtomicStore32_8(m, v111, int32(0), v148)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      93,
+      130,
+      219,
+      1135,
+      16430,
+      16495,
+      16499,
+      16501,
+      16559,
+      17091,
+      17473,
+      17504,
+      17628,
+      18070,
+      18125,
+      18192,
+      18400,
+      18559
+    ],
+    "direct_callers": [],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18221,
+    "indirect_calls": 0,
+    "line": 975759,
+    "symbol": "_ZL17write_io_callbackPv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 976651,
+        "statement": "base.AtomicStore32_8(m, v276, v277, v277)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      71,
+      80,
+      89,
+      93,
+      130,
+      238,
+      1067,
+      4737,
+      4738,
+      4745,
+      5654,
+      12375,
+      16430,
+      16436,
+      16558,
+      16565,
+      16566,
+      16686,
+      16736,
+      16942,
+      17091,
+      17140,
+      17141,
+      17173,
+      17673,
+      17676,
+      17685,
+      17799,
+      18025,
+      18031,
+      18043,
+      18104,
+      18131,
+      18142,
+      18145,
+      18225,
+      18226,
+      18227,
+      18232,
+      18233,
+      18234,
+      18400,
+      18421,
+      18492,
+      18559
+    ],
+    "direct_callers": [
+      18509
+    ],
+    "family": "purge",
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "fn": 18231,
+    "indirect_calls": 0,
+    "line": 986281,
+    "symbol": "_Z26trx_lists_init_at_db_startv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 987500,
+        "statement": "base.AtomicStore32_8(m, int32(24020810), v45, v46)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      92,
+      93,
+      130,
+      150,
+      153,
+      158,
+      212,
+      761,
+      1135,
+      12377,
+      16436,
+      16558,
+      16560,
+      16563,
+      16565,
+      16566,
+      16637,
+      16641,
+      16709,
+      16710,
+      16737,
+      16761,
+      16838,
+      16843,
+      16844,
+      16862,
+      16942,
+      16944,
+      16946,
+      16956,
+      16957,
+      16981,
+      16982,
+      16983,
+      17167,
+      17168,
+      17174,
+      17201,
+      17338,
+      17714,
+      17715,
+      17716,
+      17724,
+      17726,
+      17727,
+      17732,
+      17739,
+      17743,
+      17775,
+      17900,
+      17901,
+      17921,
+      17927,
+      17964,
+      18025,
+      18031,
+      18070,
+      18102,
+      18104,
+      18142,
+      18145,
+      18146,
+      18225,
+      18228,
+      18230,
+      18236,
+      18242,
+      18243,
+      18246,
+      18256
+    ],
+    "direct_callers": [
+      16802,
+      17145,
+      18244,
+      18246
+    ],
+    "family": "view",
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "fn": 18241,
+    "indirect_calls": 0,
+    "line": 649792,
+    "symbol": "_ZN5trx_t14commit_persistEv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 653670,
+        "statement": "base.AtomicStore32_8(m, v5762, int32(1384), v5798)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 661367,
+        "statement": "base.AtomicStore32_8(m, v5762, int32(192), v7205)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      70,
+      89,
+      92,
+      93,
+      129,
+      130,
+      191,
+      212,
+      219,
+      14067,
+      15170,
+      17253
+    ],
+    "direct_callers": [],
+    "family": "encryption",
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18355,
+    "indirect_calls": 12,
+    "line": 995795,
+    "symbol": "_ZL37i_s_tablespaces_encryption_fill_tableP3THDP10TABLE_LISTP4Item",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 996733,
+        "statement": "base.AtomicStore32_8(m, int32(24021288), int32(0), v220)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      70,
+      89,
+      103,
+      164,
+      197,
+      198,
+      199,
+      269,
+      710,
+      922,
+      5512,
+      13792,
+      16430,
+      16431,
+      16436,
+      16496,
+      16499,
+      16501,
+      16531,
+      16566,
+      16939,
+      17091,
+      17101,
+      17103,
+      17462,
+      17469,
+      18002,
+      18195,
+      18213,
+      18296,
+      18378,
+      18382,
+      18401,
+      18405,
+      18417,
+      18498,
+      18559
+    ],
+    "direct_callers": [],
+    "family": "view",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 18497,
+    "indirect_calls": 2,
+    "line": 951843,
+    "symbol": "_ZN11ha_innobase13external_lockEP3THDi",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 957702,
+        "statement": "base.AtomicStore32_8(m, v40, int32(1384), v3052)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      16436,
+      16684,
+      18255,
+      18296,
+      18378,
+      18401
+    ],
+    "direct_callers": [],
+    "family": "view",
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "fn": 18500,
+    "indirect_calls": 0,
+    "line": 1046663,
+    "symbol": "_ZN11ha_innobase10store_lockEP3THDPP16st_thr_lock_data13thr_lock_type",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1046814,
+        "statement": "base.AtomicStore32_8(m, v7, int32(1384), v49)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      70,
+      71,
+      89,
+      92,
+      93,
+      129,
+      130,
+      153,
+      158,
+      176,
+      189,
+      209,
+      212,
+      227,
+      236,
+      237,
+      238,
+      239,
+      711,
+      761,
+      763,
+      795,
+      922,
+      1067,
+      1068,
+      1135,
+      4139,
+      4334,
+      4730,
+      5539,
+      5540,
+      5663,
+      5815,
+      10026,
+      10034,
+      10035,
+      10116,
+      10204,
+      10698,
+      12375,
+      12376,
+      12377,
+      16427,
+      16429,
+      16430,
+      16432,
+      16436,
+      16482,
+      16484,
+      16499,
+      16501,
+      16550,
+      16558,
+      16566,
+      16568,
+      16569,
+      16618,
+      16623,
+      16625,
+      16629,
+      16630,
+      16749,
+      16750,
+      16751,
+      16753,
+      16992,
+      16994,
+      16999,
+      17025,
+      17034,
+      17051,
+      17055,
+      17091,
+      17146,
+      17164,
+      17165,
+      17169,
+      17171,
+      17176,
+      17179,
+      17183,
+      17196,
+      17218,
+      17232,
+      17241,
+      17250,
+      17283,
+      17365,
+      17368,
+      17370,
+      17373,
+      17375,
+      17376,
+      17377,
+      17405,
+      17409,
+      17412,
+      17417,
+      17418,
+      17419,
+      17421,
+      17422,
+      17430,
+      17433,
+      17449,
+      17450,
+      17452,
+      17453,
+      17454,
+      17455,
+      17456,
+      17458,
+      17459,
+      17461,
+      17467,
+      17468,
+      17473,
+      17476,
+      17479,
+      17481,
+      17483,
+      17485,
+      17486,
+      17489,
+      17497,
+      17499,
+      17504,
+      17507,
+      17517,
+      17644,
+      17647,
+      17650,
+      17654,
+      17673,
+      17674,
+      17799,
+      17803,
+      17880,
+      17921,
+      17927,
+      17964,
+      18011,
+      18025,
+      18028,
+      18031,
+      18034,
+      18041,
+      18048,
+      18061,
+      18062,
+      18064,
+      18070,
+      18073,
+      18104,
+      18122,
+      18125,
+      18138,
+      18140,
+      18142,
+      18145,
+      18146,
+      18185,
+      18188,
+      18193,
+      18196,
+      18198,
+      18199,
+      18202,
+      18207,
+      18224,
+      18225,
+      18228,
+      18231,
+      18236,
+      18244,
+      18246,
+      18257,
+      18367,
+      18400,
+      18536,
+      18537,
+      18538,
+      18546,
+      18559,
+      19931
+    ],
+    "direct_callers": [],
+    "family": "startup-shutdown",
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "fn": 18509,
+    "indirect_calls": 8,
+    "line": 661919,
+    "symbol": "_ZL11innodb_initPv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 676270,
+        "statement": "base.AtomicStore32_8(m, int32(15104498), v2722, v2728)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 677279,
+        "statement": "base.AtomicStore32_8(m, int32(15209756), int32(0), v3917)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 677415,
+        "statement": "base.AtomicStore32_8(m, int32(24088732), v4082, v4082)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 677929,
+        "statement": "base.AtomicStore32_8(m, int32(24088372), v4534, v4541)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 686443,
+        "statement": "base.AtomicStore32_8(m, int32(15102238), int32(0), v12194)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      130,
+      1135,
+      4738,
+      13738,
+      16558,
+      17056,
+      17826,
+      18228
+    ],
+    "direct_callers": [],
+    "family": "view",
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "fn": 18511,
+    "indirect_calls": 0,
+    "line": 1024785,
+    "symbol": "_ZL25innobase_close_connectionP3THD",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1025062,
+        "statement": "base.AtomicStore32_8(m, v13, int32(1384), v35)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      89,
+      153,
+      158,
+      1067,
+      12377,
+      16427,
+      16499,
+      16501,
+      16790,
+      16801,
+      16802,
+      16820,
+      17055,
+      17631,
+      17633,
+      17634,
+      17650,
+      17673,
+      17801,
+      17803,
+      17940,
+      18025,
+      18031,
+      18198,
+      18225,
+      18228,
+      18257,
+      18367
+    ],
+    "direct_callers": [],
+    "family": "startup-shutdown",
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "fn": 18531,
+    "indirect_calls": 1,
+    "line": 1017671,
+    "symbol": "_ZL24innodb_ddl_recovery_doneP10handlerton",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 1019684,
+        "statement": "base.AtomicStore32_8(m, v851, v853, v852)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      70,
+      71,
+      89,
+      93,
+      130,
+      131,
+      153,
+      158,
+      218,
+      237,
+      710,
+      711,
+      763,
+      764,
+      1135,
+      12375,
+      12377,
+      13792,
+      16436,
+      16566,
+      16722,
+      16724,
+      16725,
+      17673,
+      17754,
+      17775,
+      17879,
+      17880,
+      17994,
+      17995,
+      17996,
+      18087,
+      18089,
+      18132,
+      18136,
+      18137
+    ],
+    "direct_callers": [],
+    "family": "buffer-io",
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "fn": 18565,
+    "indirect_calls": 0,
+    "line": 958065,
+    "symbol": "_ZL30innodb_buffer_pool_size_updateP3THDP16st_mysql_sys_varPvPKv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 960528,
+        "statement": "base.AtomicStore32_8(m, int32(24051142), int32(0), v643)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 962446,
+        "statement": "base.AtomicStore32_8(m, int32(15209756), v2155, v2155)"
+      },
+      {
+        "helper": "AtomicStore32_8",
+        "line": 962468,
+        "statement": "base.AtomicStore32_8(m, int32(15209757), v2148, v2148)"
+      },
+      {
+        "helper": "AtomicStore32_16",
+        "line": 962687,
+        "statement": "base.AtomicStore32_16(m, v2524, int32(220), v2552)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      1135,
+      17873,
+      17874,
+      17877,
+      17878
+    ],
+    "direct_callers": [],
+    "family": "ahi",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18566,
+    "indirect_calls": 0,
+    "line": 964697,
+    "symbol": "_ZL39innodb_adaptive_hash_index_cells_updateP3THDP16st_mysql_sys_varPvPKv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 964846,
+        "statement": "base.AtomicStore32_8(m, int32(15138752), v37, v35)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130
+    ],
+    "direct_callers": [],
+    "family": "load",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 18570,
+    "indirect_calls": 0,
+    "line": 352651,
+    "symbol": "_ZL22buffer_pool_load_abortP3THDP16st_mysql_sys_varPvPKv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 352673,
+        "statement": "base.AtomicStore32_8(m, int32(24051142), int32(0), v13)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130
+    ],
+    "direct_callers": [],
+    "family": "file",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 18572,
+    "indirect_calls": 0,
+    "line": 352700,
+    "symbol": "_ZL25innodb_doublewrite_updateP3THDP16st_mysql_sys_varPvPKv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 352737,
+        "statement": "base.AtomicStore32_8(m, int32(15104498), v18, v24)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      130,
+      17487
+    ],
+    "direct_callers": [],
+    "family": "file",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 18580,
+    "indirect_calls": 0,
+    "line": 964937,
+    "symbol": "_ZL37innodb_data_file_write_through_updateP3THDP16st_mysql_sys_varPvPKv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 964980,
+        "statement": "base.AtomicStore32_8(m, int32(15104498), int32(0), v28)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      16499,
+      16501
+    ],
+    "direct_callers": [],
+    "family": "purge",
+    "file": "internal/generatedgo/code/p8/p8_pure.go",
+    "fn": 18595,
+    "indirect_calls": 0,
+    "line": 353110,
+    "symbol": "_ZL27innodb_purge_threads_updateP3THDP16st_mysql_sys_varPvPKv",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicStore32_8",
+        "line": 353130,
+        "statement": "base.AtomicStore32_8(m, int32(24215400), int32(0), v12)"
+      }
+    ]
+  },
+  {
+    "direct_callees": [
+      93,
+      12375,
+      12376
+    ],
+    "direct_callers": [
+      13406,
+      20886
+    ],
+    "family": "table-cache",
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "fn": 20878,
+    "indirect_calls": 0,
+    "line": 1080154,
+    "symbol": "_ZN20Table_cache_instance25lock_and_check_contentionEjj",
+    "verdict": "Source/lifetime review required; graph is not an alias or safety proof",
+    "writers": [
+      {
+        "helper": "AtomicRmwXchg32_8u",
+        "line": 1080957,
+        "statement": "v190 = base.AtomicRmwXchg32_8u(m, int32(0), int32(24220996), v188)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,38 @@
+=== RUN   TestWorkerReclaimWaitsForLastAccess
+--- PASS: TestWorkerReclaimWaitsForLastAccess (0.01s)
+=== RUN   TestDetachedSelfReclaimEndsBeforePoolCompletion
+=== RUN   TestDetachedSelfReclaimEndsBeforePoolCompletion/return
+=== RUN   TestDetachedSelfReclaimEndsBeforePoolCompletion/goexit
+=== RUN   TestDetachedSelfReclaimEndsBeforePoolCompletion/panic
+--- PASS: TestDetachedSelfReclaimEndsBeforePoolCompletion (0.00s)
+    --- PASS: TestDetachedSelfReclaimEndsBeforePoolCompletion/return (0.00s)
+    --- PASS: TestDetachedSelfReclaimEndsBeforePoolCompletion/goexit (0.00s)
+    --- PASS: TestDetachedSelfReclaimEndsBeforePoolCompletion/panic (0.00s)
+=== RUN   TestCompletedJoinAddressReuseAndIndependentDB
+--- PASS: TestCompletedJoinAddressReuseAndIndependentDB (0.00s)
+=== RUN   TestConcurrentWorkerReclaims
+--- PASS: TestConcurrentWorkerReclaims (0.00s)
+=== RUN   TestFailedSpawnDoesNotRegisterAllocation
+--- PASS: TestFailedSpawnDoesNotRegisterAllocation (0.00s)
+=== RUN   TestCallerOwnedStackHasNoTrackedFree
+--- PASS: TestCallerOwnedStackHasNoTrackedFree (0.00s)
+=== RUN   TestReclaimerAddressReuseDoesNotEraseNewGeneration
+--- PASS: TestReclaimerAddressReuseDoesNotEraseNewGeneration (0.00s)
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs/arg-oob
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs/td-oob
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs/empty
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs/map-oob
+=== RUN   TestWorkerAllocationBindingRejectsInvalidInputs/duplicate
+--- PASS: TestWorkerAllocationBindingRejectsInvalidInputs (0.00s)
+    --- PASS: TestWorkerAllocationBindingRejectsInvalidInputs/arg-oob (0.00s)
+    --- PASS: TestWorkerAllocationBindingRejectsInvalidInputs/td-oob (0.00s)
+    --- PASS: TestWorkerAllocationBindingRejectsInvalidInputs/empty (0.00s)
+    --- PASS: TestWorkerAllocationBindingRejectsInvalidInputs/map-oob (0.00s)
+    --- PASS: TestWorkerAllocationBindingRejectsInvalidInputs/duplicate (0.00s)
+=== RUN   TestDeferredAllocatorFailureIsRetained
+--- PASS: TestDeferredAllocatorFailureIsRetained (0.00s)
+=== RUN   TestLateReclaimerYieldCannotWriteDeadTLS
+--- PASS: TestLateReclaimerYieldCannotWriteDeadTLS (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.347s

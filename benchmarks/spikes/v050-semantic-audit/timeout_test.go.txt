@@ -1,0 +1,47 @@
+package base
+
+import (
+	"runtime"
+	"sync/atomic"
+	"testing"
+	"time"
+	"unsafe"
+)
+
+// This is a defect reproduction, not a passing regression oracle. The command
+// must fail on the reviewed implementation when positive timeout overflows.
+func TestPositiveTimeoutMustNotExpireBeforeNotification(t *testing.T) {
+	mem := make([]byte, 65536)
+	sz := &atomic.Uint64{}
+	sz.Store(uint64(len(mem)))
+	m := &Module{Memory: mem, M: unsafe.Pointer(&mem[0]), MemSize: sz, MemShared: true, Threads: &ThreadPool{}}
+	ForceContendedAtomics(m)
+	done := make(chan int32, 1)
+	go func() { done <- AtomicWait32At(m, 64, 0, 1<<63-1) }()
+	deadline := time.Now().Add(time.Second)
+	for AuditParked(m, 64) == 0 {
+		select {
+		case rc := <-done:
+			t.Fatalf("positive ~292-year timeout returned %d before notification", rc)
+		default:
+		}
+		if time.Now().After(deadline) {
+			t.Fatal("waiter did not register")
+		}
+		runtime.Gosched()
+	}
+	select {
+	case rc := <-done:
+		t.Fatalf("positive ~292-year timeout returned %d before notification", rc)
+	case <-time.After(20 * time.Millisecond):
+	}
+	AtomicNotify(m, 64, 0, 1)
+	select {
+	case rc := <-done:
+		if rc != 0 {
+			t.Fatalf("notified wait=%d", rc)
+		}
+	case <-time.After(time.Second):
+		t.Fatal("notified waiter did not finish")
+	}
+}

@@ -1,0 +1,43 @@
+=== RUN   TestPlainPublicationDiagnostic
+==================
+WARNING: DATA RACE
+Read at 0x00c000180080 by goroutine 7:
+  example.com/narrowwriters.TestPlainPublicationDiagnostic()
+      $TASK/temp/candidate-final/module/ops_test.go:130 +0x1c8
+  testing.tRunner()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+
+Previous write at 0x00c000180080 by goroutine 8:
+  example.com/narrowwriters.TestPlainPublicationDiagnostic.func1()
+      $TASK/temp/candidate-final/module/ops_test.go:128 +0x74
+
+Goroutine 7 (running) created at:
+  testing.(*T).Run()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x7bc
+  testing.runTests.func1()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2585 +0x74
+  testing.tRunner()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.runTests()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2583 +0x7a0
+  testing.(*M).Run()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2443 +0xb38
+  main.main()
+      _testmain.go:68 +0x100
+
+Goroutine 8 (finished) created at:
+  example.com/narrowwriters.TestPlainPublicationDiagnostic()
+      $TASK/temp/candidate-final/module/ops_test.go:128 +0x1a8
+  testing.tRunner()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+==================
+OBS plain publication; detector cannot see ASM synchronization
+    testing.go:1712: race detected during execution of test
+--- FAIL: TestPlainPublicationDiagnostic (0.00s)
+FAIL
+FAIL	example.com/narrowwriters	0.098s
+FAIL

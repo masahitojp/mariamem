@@ -1,0 +1,275 @@
+{
+  "basis": "Existing approved matrix only; no added benchmark runs. Startup >=1s is descriptive grouping, not a pass/fail threshold.",
+  "records": [
+    {
+      "file": "v047-go-parallel-0-fresh.json",
+      "wall_seconds": 1.796386875,
+      "cpu_seconds": 3.48611,
+      "ready_seconds": {
+        "fresh_ready_02": 0.133064959,
+        "fresh_ready_01": 0.133064417,
+        "fresh_ready_00": 0.133069708,
+        "fresh_ready_03": 1.125581
+      }
+    },
+    {
+      "file": "v047-go-parallel-1-fresh.json",
+      "wall_seconds": 0.936286416,
+      "cpu_seconds": 3.840319,
+      "ready_seconds": {
+        "fresh_ready_00": 0.13188275,
+        "fresh_ready_01": 0.131939917,
+        "fresh_ready_03": 0.132072083,
+        "fresh_ready_02": 0.132996792
+      }
+    },
+    {
+      "file": "v047-go-parallel-2-fresh.json",
+      "wall_seconds": 0.95337475,
+      "cpu_seconds": 3.7524749999999996,
+      "ready_seconds": {
+        "fresh_ready_03": 0.151287667,
+        "fresh_ready_02": 0.151290375,
+        "fresh_ready_00": 0.151288417,
+        "fresh_ready_01": 0.15131875
+      }
+    },
+    {
+      "file": "v047-python-parallel-0-fresh.json",
+      "wall_seconds": 1.8354072499787435,
+      "cpu_seconds": 3.6502809999999997,
+      "ready_seconds": {
+        "0": 1.1178835419705138,
+        "1": 1.1176891250070184,
+        "2": 0.15353762498125434,
+        "3": 0.15349395794328302
+      }
+    },
+    {
+      "file": "v047-python-parallel-1-fresh.json",
+      "wall_seconds": 0.997119708918035,
+      "cpu_seconds": 4.193419,
+      "ready_seconds": {
+        "0": 0.18105041701346636,
+        "1": 0.18092491698917001,
+        "2": 0.1807789159938693,
+        "3": 0.18075591698288918
+      }
+    },
+    {
+      "file": "v047-python-parallel-2-fresh.json",
+      "wall_seconds": 1.9083399589871988,
+      "cpu_seconds": 3.771172,
+      "ready_seconds": {
+        "0": 0.1807330420706421,
+        "1": 1.169391791918315,
+        "2": 1.1686291249934584,
+        "3": 1.1692974590696394
+      }
+    },
+    {
+      "file": "v047-go-parallel-0-fork.json",
+      "wall_seconds": 2.375711042,
+      "cpu_seconds": 2.14474,
+      "ready_seconds": {
+        "prepare_start": 1.11348075,
+        "fork_ready_00": 0.085826083,
+        "fork_ready_03": 0.087069084,
+        "fork_ready_01": 0.092440542,
+        "fork_ready_02": 0.09487275
+      }
+    },
+    {
+      "file": "v047-go-parallel-1-fork.json",
+      "wall_seconds": 1.270533417,
+      "cpu_seconds": 2.177232,
+      "ready_seconds": {
+        "prepare_start": 0.053333,
+        "fork_ready_03": 0.120705292,
+        "fork_ready_02": 0.120930541,
+        "fork_ready_01": 0.134006583,
+        "fork_ready_00": 0.137571958
+      }
+    },
+    {
+      "file": "v047-go-parallel-2-fork.json",
+      "wall_seconds": 2.391387251,
+      "cpu_seconds": 2.2108079999999997,
+      "ready_seconds": {
+        "prepare_start": 1.166,
+        "fork_ready_03": 0.10190175,
+        "fork_ready_02": 0.10193025,
+        "fork_ready_01": 0.102442625,
+        "fork_ready_00": 0.109722416
+      }
+    },
+    {
+      "file": "v047-python-light-0-fresh.json",
+      "wall_seconds": 0.47639991610776633,
+      "cpu_seconds": 0.46466199999999996,
+      "ready_seconds": {
+        "0": 0.14240770798642188,
+        "1": 0.055305249989032745,
+        "2": 0.053746541030704975,
+        "3": 0.05743212497327477
+      }
+    },
+    {
+      "file": "v047-python-light-1-fresh.json",
+      "wall_seconds": 0.3741862499155104,
+      "cpu_seconds": 0.42313999999999996,
+      "ready_seconds": {
+        "0": 0.06426966702565551,
+        "1": 0.05331533309072256,
+        "2": 0.05372583295684308,
+        "3": 0.05344225000590086
+      }
+    },
+    {
+      "file": "v047-python-light-2-fresh.json",
+      "wall_seconds": 0.37325287505518645,
+      "cpu_seconds": 0.424231,
+      "ready_seconds": {
+        "0": 0.055117957992479205,
+        "1": 0.056440999964252114,
+        "2": 0.05766179203055799,
+        "3": 0.05400366603862494
+      }
+    },
+    {
+      "file": "v050-go-parallel-0-fresh.json",
+      "wall_seconds": 1.762692125,
+      "cpu_seconds": 3.234389,
+      "ready_seconds": {
+        "fresh_ready_01": 0.135167792,
+        "fresh_ready_03": 0.135192333,
+        "fresh_ready_02": 1.109615916,
+        "fresh_ready_00": 1.109629167
+      }
+    },
+    {
+      "file": "v050-go-parallel-1-fresh.json",
+      "wall_seconds": 1.8080663750000001,
+      "cpu_seconds": 3.308108,
+      "ready_seconds": {
+        "fresh_ready_01": 0.132257584,
+        "fresh_ready_02": 0.132287709,
+        "fresh_ready_00": 1.117190666,
+        "fresh_ready_03": 1.118337833
+      }
+    },
+    {
+      "file": "v050-go-parallel-2-fresh.json",
+      "wall_seconds": 0.961177292,
+      "cpu_seconds": 3.703163,
+      "ready_seconds": {
+        "fresh_ready_00": 0.165386,
+        "fresh_ready_02": 0.165384375,
+        "fresh_ready_03": 0.165384167,
+        "fresh_ready_01": 0.1653825
+      }
+    },
+    {
+      "file": "v050-python-parallel-0-fresh.json",
+      "wall_seconds": 1.030394957982935,
+      "cpu_seconds": 4.186815999999999,
+      "ready_seconds": {
+        "0": 0.16380704194307327,
+        "1": 0.1635404999833554,
+        "2": 0.16322137496899813,
+        "3": 0.1631328749936074
+      }
+    },
+    {
+      "file": "v050-python-parallel-1-fresh.json",
+      "wall_seconds": 1.0065731250215322,
+      "cpu_seconds": 4.24657,
+      "ready_seconds": {
+        "0": 0.1621322080027312,
+        "1": 0.16199729195795953,
+        "2": 0.16196500009391457,
+        "3": 0.16200962499715388
+      }
+    },
+    {
+      "file": "v050-python-parallel-2-fresh.json",
+      "wall_seconds": 1.8810251670656726,
+      "cpu_seconds": 3.728195,
+      "ready_seconds": {
+        "0": 1.1403840410057455,
+        "1": 0.18172591703478247,
+        "2": 1.1466923330444843,
+        "3": 1.1387542909942567
+      }
+    },
+    {
+      "file": "v050-go-parallel-0-fork.json",
+      "wall_seconds": 1.3013150420000001,
+      "cpu_seconds": 2.0916989999999998,
+      "ready_seconds": {
+        "prepare_start": 0.049999625,
+        "fork_ready_00": 0.104059334,
+        "fork_ready_02": 0.105679291,
+        "fork_ready_03": 0.119043166,
+        "fork_ready_01": 0.127153167
+      }
+    },
+    {
+      "file": "v050-go-parallel-1-fork.json",
+      "wall_seconds": 1.3472508760000002,
+      "cpu_seconds": 2.135604,
+      "ready_seconds": {
+        "prepare_start": 0.116833292,
+        "fork_ready_02": 0.099855,
+        "fork_ready_00": 0.10266875,
+        "fork_ready_03": 0.108203458,
+        "fork_ready_01": 0.111008292
+      }
+    },
+    {
+      "file": "v050-go-parallel-2-fork.json",
+      "wall_seconds": 1.2582864580000002,
+      "cpu_seconds": 2.055209,
+      "ready_seconds": {
+        "prepare_start": 0.049855708,
+        "fork_ready_00": 0.10011375,
+        "fork_ready_02": 0.100455834,
+        "fork_ready_01": 0.100582375,
+        "fork_ready_03": 0.100883208
+      }
+    },
+    {
+      "file": "v050-python-light-0-fresh.json",
+      "wall_seconds": 0.48743316694162786,
+      "cpu_seconds": 0.4699169999999999,
+      "ready_seconds": {
+        "0": 0.14514595794025809,
+        "1": 0.06142233300488442,
+        "2": 0.05286566691938788,
+        "3": 0.05873908300418407
+      }
+    },
+    {
+      "file": "v050-python-light-1-fresh.json",
+      "wall_seconds": 0.48058045806828886,
+      "cpu_seconds": 0.45853,
+      "ready_seconds": {
+        "0": 0.1499631250044331,
+        "1": 0.0536189170088619,
+        "2": 0.052577916998416185,
+        "3": 0.05807362508494407
+      }
+    },
+    {
+      "file": "v050-python-light-2-fresh.json",
+      "wall_seconds": 0.36978404107503593,
+      "cpu_seconds": 0.41967999999999994,
+      "ready_seconds": {
+        "0": 0.05756154202390462,
+        "1": 0.0556671250378713,
+        "2": 0.0535886250436306,
+        "3": 0.05513466603588313
+      }
+    }
+  ]
+}

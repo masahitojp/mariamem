@@ -368,6 +368,20 @@ func TestDogfood(t *testing.T) {
 		var version string
 		require(t, a.orm.Raw("SELECT VERSION()").Scan(&version).Error)
 		a.record.Details["server_version"] = version
+		// GORM detects MariaDB from SELECT VERSION(), independently of the
+		// greeting consumed by go-sql-driver/mysql.
+		dialect, ok := a.orm.Dialector.(*mysql.Dialector)
+		check(t, ok, "unexpected GORM dialect")
+		check(t, dialect.ServerVersion == version && strings.Contains(version, "MariaDB"), "MariaDB version detection")
+		check(t, dialect.DontSupportRenameIndex && dialect.DontSupportRenameColumn &&
+			dialect.DontSupportForShareClause && dialect.DontSupportNullAsDefaultValue, "MariaDB feature detection")
+		a.record.Details["dialect_version"] = dialect.ServerVersion
+		a.record.Details["mariadb_feature_flags"] = map[string]bool{
+			"dont_support_rename_index":  dialect.DontSupportRenameIndex,
+			"dont_support_rename_column": dialect.DontSupportRenameColumn,
+			"dont_support_for_share":     dialect.DontSupportForShareClause,
+			"dont_support_null_default":  dialect.DontSupportNullAsDefaultValue,
+		}
 	})
 	run("08_shutdown_with_pool", func(t *testing.T, a *application) {
 		conn, err := a.pool.Conn(ctx)

@@ -1,0 +1,14 @@
+{
+  "files_sha256": {
+    "guest/input.json": "242dd470815fe2edbaf65bf5ff48c2042f6858120349c45696fa002bad76d869",
+    "guest/patches/common-portability.patch": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+    "guest/patches/12.3.3-redo.patch": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22",
+    "guest/source.patch": "ebd587caa6308f1c2152b7dbc74f4c17dd672c6b50bfac5ceb77ffdced6a01b2",
+    "release/generated-go-inputs.json": "cc6adf34611f6fb58f6e825ff4ce479ec17ca75c2ee670718b0aa7cc01cff744",
+    "release/generated-go-translation.json": "b5b363eadd4f8dd40d4bee9cd591e46dcb584be0d78cf50e5ea522dd843b36db",
+    "release/generated-go-build.json": "6b4f42058998a6ab82c826fd2a96775846281e845faa63b142d145befef2791d",
+    "release/generated-go-toolchain.json": "01bf46c4fd10d022a58badb4834bdac5a7d9d7f53cd88499882e8542c69d7ef9",
+    "internal/generatedgo/provenance.json": "c583b4646f1fd708ce7209578ac67efdaa99f7a9b47dc75080aecdd2f1ac51e5",
+    "release/generated-license-evidence.json": "d7f5ad61be485786f8c9f23e50e34577e0a79dd0dd11fda99b33e98b9ab6c4e5"
+  }
+}

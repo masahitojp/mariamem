@@ -1,0 +1,5 @@
+=== RUN   TestRealGuestNormalMutex
+OBS {"agents":4,"backing":"mmap","observe":true,"updates":2000,"value":2000,"wait_calls":2302}
+--- PASS: TestRealGuestNormalMutex (0.02s)
+PASS
+ok  	github.com/masahitojp/mariamem/probe	1.147s

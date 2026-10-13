@@ -1,0 +1,30 @@
+{
+  "$TASK/worktree/release/generated-go-inputs.json": {
+    "sha256": "0654e7211449d00d3b9e722f3dd2ebd9af173e00ebcc29ec0f42f23eaf00428d",
+    "bytes": 6566
+  },
+  "$TASK/worktree/release/generated-go-toolchain.json": {
+    "sha256": "01bf46c4fd10d022a58badb4834bdac5a7d9d7f53cd88499882e8542c69d7ef9",
+    "bytes": 2192
+  },
+  "$TASK/worktree/release/generated-go-translation.json": {
+    "sha256": "5c15e214623a2c86eb58dda448722d1b3ac30969cf8e97243639629f9a532fa1",
+    "bytes": 6170
+  },
+  "$TASK/worktree/internal/generatedgo/provenance.json": {
+    "sha256": "98e389d019f4a2d09350bace9c8c691de8926bcffb9d1781c9d9ce1880b64a97",
+    "bytes": 6234
+  },
+  "$TASK/temp/control-host": {
+    "sha256": "72964668a9e3f497690ef8d9f5ea9b3ce5ae207fb5162383044c2cb26fe0230a",
+    "bytes": 99615090
+  },
+  "$TASK/temp/candidate-host": {
+    "sha256": "0d858ac5a3d2d88e7f6bd923657ef1ccc89bbe321d8d6f824855e8b0cee68703",
+    "bytes": 99615682
+  },
+  "$TASK/temp/narrow-fixture-retry/fixture.wasm": {
+    "sha256": "9d0a25d359771adac1496a0c2ec744ba5d96183796b15868fc94e4d8deba22e4",
+    "bytes": 1049657
+  }
+}

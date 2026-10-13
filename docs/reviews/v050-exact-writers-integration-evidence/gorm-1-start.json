@@ -1,0 +1,353 @@
+{
+  "arch": "arm64",
+  "cases": [
+    {
+      "name": "01_commit_without_cleanup",
+      "ready_ms": 80.702792,
+      "setup_ms": 8.033125,
+      "total_ms": 118.37075,
+      "endpoint": {
+        "Host": "127.0.0.1",
+        "Port": 60786,
+        "User": "root",
+        "Password": "",
+        "Database": "test"
+      },
+      "pool": {
+        "MaxOpenConnections": 0,
+        "OpenConnections": 1,
+        "InUse": 0,
+        "Idle": 1,
+        "WaitCount": 0,
+        "WaitDuration": 0,
+        "MaxIdleClosed": 0,
+        "MaxIdleTimeClosed": 0,
+        "MaxLifetimeClosed": 0
+      },
+      "details": {
+        "committed_users": 2,
+        "runtime_children_after": null
+      },
+      "cleanup": true,
+      "passed": true
+    },
+    {
+      "name": "02_next_test_clean",
+      "ready_ms": 52.361083,
+      "setup_ms": 4.134667,
+      "total_ms": 82.520917,
+      "endpoint": {
+        "Host": "127.0.0.1",
+        "Port": 60788,
+        "User": "root",
+        "Password": "",
+        "Database": "test"
+      },
+      "pool": {
+        "MaxOpenConnections": 0,
+        "OpenConnections": 1,
+        "InUse": 0,
+        "Idle": 1,
+        "WaitCount": 0,
+        "WaitDuration": 0,
+        "MaxIdleClosed": 0,
+        "MaxIdleTimeClosed": 0,
+        "MaxLifetimeClosed": 0
+      },
+      "details": {
+        "prior_committed_rows": 0,
+        "runtime_children_after": null
+      },
+      "cleanup": true,
+      "passed": true
+    },
+    {
+      "name": "03_crud_relationships",
+      "ready_ms": 63.020625,
+      "setup_ms": 3.463208,
+      "total_ms": 99.174333,
+      "endpoint": {
+        "Host": "127.0.0.1",
+        "Port": 60790,
+        "User": "root",
+        "Password": "",
+        "Database": "test"
+      },
+      "pool": {
+        "MaxOpenConnections": 0,
+        "OpenConnections": 1,
+        "InUse": 0,
+        "Idle": 1,
+        "WaitCount": 0,
+        "WaitDuration": 0,
+        "MaxIdleClosed": 0,
+        "MaxIdleTimeClosed": 0,
+        "MaxLifetimeClosed": 0
+      },
+      "details": {
+        "runtime_children_after": null
+      },
+      "cleanup": true,
+      "passed": true
+    },
+    {
+      "name": "04_explicit_rollback",
+      "ready_ms": 65.723333,
+      "setup_ms": 3.207917,
+      "total_ms": 96.634375,
+      "endpoint": {
+        "Host": "127.0.0.1",
+        "Port": 60792,
+        "User": "root",
+        "Password": "",
+        "Database": "test"
+      },
+      "pool": {
+        "MaxOpenConnections": 0,
+        "OpenConnections": 1,
+        "InUse": 0,
+        "Idle": 1,
+        "WaitCount": 0,
+        "WaitDuration": 0,
+        "MaxIdleClosed": 0,
+        "MaxIdleTimeClosed": 0,
+        "MaxLifetimeClosed": 0
+      },
+      "details": {
+        "runtime_children_after": null
+      },
+      "cleanup": true,
+      "passed": true
+    },
+    {
+      "name": "05_constraint_errors_recoverable",
+      "ready_ms": 71.684708,
+      "setup_ms": 3.63675,
+      "total_ms": 103.8145,
+      "endpoint": {
+        "Host": "127.0.0.1",
+        "Port": 60794,
+        "User": "root",
+        "Password": "",
+        "Database": "test"
+      },
+      "pool": {
+        "MaxOpenConnections": 0,
+        "OpenConnections": 1,
+        "InUse": 0,
+        "Idle": 1,
+        "WaitCount": 0,
+        "WaitDuration": 0,
+        "MaxIdleClosed": 0,
+        "MaxIdleTimeClosed": 0,
+        "MaxLifetimeClosed": 0
+      },
+      "details": {
+        "mysql_error_codes": [
+          1062,
+          1048,
+          1452
+        ],
+        "runtime_children_after": null
+      },
+      "cleanup": true,
+      "passed": true
+    },
+    {
+      "name": "06_normal_pool_sessions",
+      "ready_ms": 61.213625,
+      "setup_ms": 3.312542,
+      "total_ms": 93.28775,
+      "endpoint": {
+        "Host": "127.0.0.1",
+        "Port": 60796,
+        "User": "root",
+        "Password": "",
+        "Database": "test"
+      },
+      "pool": {
+        "MaxOpenConnections": 0,
+        "OpenConnections": 2,
+        "InUse": 0,
+        "Idle": 2,
+        "WaitCount": 0,
+        "WaitDuration": 0,
+        "MaxIdleClosed": 0,
+        "MaxIdleTimeClosed": 0,
+        "MaxLifetimeClosed": 0
+      },
+      "details": {
+        "initial_connection_ids": [
+          2,
+          3
+        ],
+        "reused_connection_ids": [
+          3,
+          2
+        ],
+        "reused_session_variables": [
+          {
+            "Int64": 0,
+            "Valid": false
+          },
+          {
+            "Int64": 17,
+            "Valid": true
+          }
+        ],
+        "runtime_children_after": null
+      },
+      "cleanup": true,
+      "passed": true
+    },
+    {
+      "name": "07_idempotent_migrate_introspection",
+      "ready_ms": 59.305584,
+      "setup_ms": 4.821459,
+      "total_ms": 101.971667,
+      "endpoint": {
+        "Host": "127.0.0.1",
+        "Port": 60799,
+        "User": "root",
+        "Password": "",
+        "Database": "test"
+      },
+      "pool": {
+        "MaxOpenConnections": 0,
+        "OpenConnections": 1,
+        "InUse": 0,
+        "Idle": 1,
+        "WaitCount": 0,
+        "WaitDuration": 0,
+        "MaxIdleClosed": 0,
+        "MaxIdleTimeClosed": 0,
+        "MaxLifetimeClosed": 0
+      },
+      "details": {
+        "dialect_version": "12.3.3-MariaDB-embedded",
+        "gorm_discovery_queries": [
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT count(*) FROM information_schema.tables WHERE table_schema = 'test' AND table_name = 'users' AND table_type = 'BASE TABLE'",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT count(*) FROM information_schema.tables WHERE table_schema = 'test' AND table_name = 'users' AND table_type = 'BASE TABLE'",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'test' AND table_name = 'users' ORDER BY ORDINAL_POSITION",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "\nSELECT\n\tTABLE_NAME,\n\tCOLUMN_NAME,\n\tINDEX_NAME,\n\tNON_UNIQUE \nFROM\n\tinformation_schema.STATISTICS \nWHERE\n\tTABLE_SCHEMA = 'test' \n\tAND TABLE_NAME = 'users' \nORDER BY\n\tINDEX_NAME,\n\tSEQ_IN_INDEX",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'test' AND table_name = 'users' AND constraint_name = 'uni_users_name'",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'test' AND table_name = 'users' AND index_name = 'idx_users_name'",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'test' AND table_name = 'users' AND index_name = 'idx_users_name'",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT count(*) FROM information_schema.tables WHERE table_schema = 'test' AND table_name = 'addresses' AND table_type = 'BASE TABLE'",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'test' AND table_name = 'addresses' ORDER BY ORDINAL_POSITION",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'test' AND table_name = 'addresses' AND constraint_name = 'fk_users_addresses'",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT count(*) FROM information_schema.tables WHERE table_schema = 'test' AND table_name = 'users' AND table_type = 'BASE TABLE'",
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1",
+          "SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'test' AND table_name = 'addresses' AND constraint_name = 'fk_users_addresses'"
+        ],
+        "mariadb_feature_flags": {
+          "dont_support_for_share": true,
+          "dont_support_null_default": true,
+          "dont_support_rename_column": true,
+          "dont_support_rename_index": true
+        },
+        "migration_diagnostics": {
+          "SELECT DATABASE()": [
+            "test"
+          ],
+          "SELECT SCHEMA_NAME FROM information_schema.schemata": [
+            "information_schema",
+            "test"
+          ],
+          "SELECT SCHEMA_NAME FROM information_schema.schemata WHERE SCHEMA_NAME='test'": [
+            "test"
+          ],
+          "SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1": [
+            "test"
+          ],
+          "SELECT SCHEMA_NAME from information_schema.schemata where SCHEMA_NAME LIKE 'test%' ORDER BY SCHEMA_NAME='test' DESC,SCHEMA_NAME limit 1": [
+            "test"
+          ],
+          "SELECT VERSION()": [
+            "12.3.3-MariaDB-embedded"
+          ],
+          "SELECT count(*) FROM information_schema.tables WHERE table_schema = 'test' AND table_name = 'users' AND table_type = 'BASE TABLE'": [
+            "1"
+          ],
+          "SHOW DATABASES": [
+            "information_schema",
+            "test"
+          ],
+          "SHOW TABLES": [
+            "addresses",
+            "users"
+          ],
+          "gorm_current_database": "test",
+          "gorm_has_users": true
+        },
+        "runtime_children_after": null,
+        "server_version": "12.3.3-MariaDB-embedded"
+      },
+      "cleanup": true,
+      "passed": true
+    },
+    {
+      "name": "08_shutdown_with_pool",
+      "ready_ms": 68.698833,
+      "setup_ms": 3.742833,
+      "total_ms": 93.464125,
+      "endpoint": {
+        "Host": "127.0.0.1",
+        "Port": 60801,
+        "User": "root",
+        "Password": "",
+        "Database": "test"
+      },
+      "pool": {
+        "MaxOpenConnections": 0,
+        "OpenConnections": 0,
+        "InUse": 0,
+        "Idle": 0,
+        "WaitCount": 0,
+        "WaitDuration": 0,
+        "MaxIdleClosed": 0,
+        "MaxIdleTimeClosed": 0,
+        "MaxLifetimeClosed": 0
+      },
+      "details": {
+        "pool_before_runtime_close": {
+          "MaxOpenConnections": 0,
+          "OpenConnections": 2,
+          "InUse": 1,
+          "Idle": 1,
+          "WaitCount": 0,
+          "WaitDuration": 0,
+          "MaxIdleClosed": 0,
+          "MaxIdleTimeClosed": 0,
+          "MaxLifetimeClosed": 0
+        },
+        "runtime_children_after": null
+      },
+      "cleanup": true,
+      "passed": true
+    }
+  ],
+  "go": "go1.26.8",
+  "mode": "start",
+  "modules": "{\n\t\"Path\": \"mariamem-dogfood/gorm\",\n\t\"Main\": true,\n\t\"Dir\": \"/private$TMPDIR",\n\t\"GoMod\": \"/private$TMPDIR",\n\t\"GoVersion\": \"1.26.0\"\n}\n{\n\t\"Path\": \"filippo.io/edwards25519\",\n\t\"Version\": \"v1.1.0\",\n\t\"Time\": \"2023-12-10T19:13:24Z\",\n\t\"Indirect\": true,\n\t\"Dir\": \"$USERHOME/.go/pkg/mod/filippo.io/edwards25519@v1.1.0\",\n\t\"GoMod\": \"$USERHOME/.go/pkg/mod/cache/download/filippo.io/edwards25519/@v/v1.1.0.mod\",\n\t\"GoVersion\": \"1.20\",\n\t\"Sum\": \"h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\",\n\t\"GoModSum\": \"h1:BxyFTGdWcka3PhytdK4V28tE5sGfRvvvRV7EaN4VDT4=\"\n}\n{\n\t\"Path\": \"github.com/go-sql-driver/mysql\",\n\t\"Version\": \"v1.9.3\",\n\t\"Time\": \"2025-06-13T06:20:32Z\",\n\t\"Dir\": \"$USERHOME/.go/pkg/mod/github.com/go-sql-driver/mysql@v1.9.3\",\n\t\"GoMod\": \"$USERHOME/.go/pkg/mod/cache/download/github.com/go-sql-driver/mysql/@v/v1.9.3.mod\",\n\t\"GoVersion\": \"1.21.0\",\n\t\"Sum\": \"h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\",\n\t\"GoModSum\": \"h1:qn46aNg1333BRMNU69Lq93t8du/dwxI64Gl8i5p1WMU=\"\n}\n{\n\t\"Path\": \"github.com/jinzhu/inflection\",\n\t\"Version\": \"v1.0.0\",\n\t\"Time\": \"2019-06-03T04:28:36Z\",\n\t\"Indirect\": true,\n\t\"Dir\": \"$USERHOME/.go/pkg/mod/github.com/jinzhu/inflection@v1.0.0\",\n\t\"GoMod\": \"$USERHOME/.go/pkg/mod/cache/download/github.com/jinzhu/inflection/@v/v1.0.0.mod\",\n\t\"Sum\": \"h1:K317FqzuhWc8YvSVlFMCCUb36O/S9MCKRDI7QkRKD/E=\",\n\t\"GoModSum\": \"h1:h+uFLlag+Qp1Va5pdKtLDYj+kHp5pxUVkryuEj+Srlc=\"\n}\n{\n\t\"Path\": \"github.com/jinzhu/now\",\n\t\"Version\": \"v1.1.5\",\n\t\"Time\": \"2022-03-17T06:16:25Z\",\n\t\"Indirect\": true,\n\t\"Dir\": \"$USERHOME/.go/pkg/mod/github.com/jinzhu/now@v1.1.5\",\n\t\"GoMod\": \"$USERHOME/.go/pkg/mod/cache/download/github.com/jinzhu/now/@v/v1.1.5.mod\",\n\t\"GoVersion\": \"1.12\",\n\t\"Sum\": \"h1:/o9tlHleP7gOFmsnYNz3RGnqzefHA47wQpKrrdTIwXQ=\",\n\t\"GoModSum\": \"h1:d3SSVoowX0Lcu0IBviAWJpolVfI5UJVZZ7cO71lE/z8=\"\n}\n{\n\t\"Path\": \"github.com/masahitojp/mariamem\",\n\t\"Version\": \"v0.2.1-0.20260929104630-d036296708ae\",\n\t\"Replace\": {\n\t\t\"Path\": \"$TASK/temp/native-source\",\n\t\t\"Dir\": \"$TASK/temp/native-source\",\n\t\t\"GoMod\": \"$TASK/temp/native-source/go.mod\",\n\t\t\"GoVersion\": \"1.26.0\"\n\t},\n\t\"Dir\": \"$TASK/temp/native-source\",\n\t\"GoMod\": \"$TASK/temp/native-source/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n{\n\t\"Path\": \"github.com/mattn/go-sqlite3\",\n\t\"Version\": \"v1.14.22\",\n\t\"Time\": \"2024-02-02T17:00:28Z\",\n\t\"Indirect\": true\n}\n{\n\t\"Path\": \"golang.org/x/mod\",\n\t\"Version\": \"v0.17.0\",\n\t\"Time\": \"2024-03-15T15:59:16Z\",\n\t\"Indirect\": true\n}\n{\n\t\"Path\": \"golang.org/x/sync\",\n\t\"Version\": \"v0.9.0\",\n\t\"Time\": \"2024-11-01T00:46:18Z\",\n\t\"Indirect\": true\n}\n{\n\t\"Path\": \"golang.org/x/text\",\n\t\"Version\": \"v0.20.0\",\n\t\"Time\": \"2024-11-07T21:27:58Z\",\n\t\"Indirect\": true,\n\t\"Dir\": \"$USERHOME/.go/pkg/mod/golang.org/x/text@v0.20.0\",\n\t\"GoMod\": \"$USERHOME/.go/pkg/mod/cache/download/golang.org/x/text/@v/v0.20.0.mod\",\n\t\"GoVersion\": \"1.18\",\n\t\"Sum\": \"h1:gK/Kv2otX8gz+wn7Rmb3vT96ZwuoxnQlY+HlJVj7Qug=\",\n\t\"GoModSum\": \"h1:D4IsuqiFMhST5bX19pQ9ikHC2GsaKyk/oF+pn3ducp4=\"\n}\n{\n\t\"Path\": \"golang.org/x/tools\",\n\t\"Version\": \"v0.21.1-0.20240508182429-e35e4ccd0d2d\",\n\t\"Time\": \"2024-05-08T18:24:29Z\",\n\t\"Indirect\": true\n}\n{\n\t\"Path\": \"gorm.io/driver/mysql\",\n\t\"Version\": \"v1.6.0\",\n\t\"Time\": \"2025-06-04T07:33:30Z\",\n\t\"Dir\": \"$USERHOME/.go/pkg/mod/gorm.io/driver/mysql@v1.6.0\",\n\t\"GoMod\": \"$USERHOME/.go/pkg/mod/cache/download/gorm.io/driver/mysql/@v/v1.6.0.mod\",\n\t\"GoVersion\": \"1.18\",\n\t\"Sum\": \"h1:eNbLmNTpPpTOVZi8MMxCi2aaIm0ZpInbORNXDwyLGvg=\",\n\t\"GoModSum\": \"h1:D/oCC2GWK3M/dqoLxnOlaNKmXz8WNTfcS9y5ovaSqKo=\"\n}\n{\n\t\"Path\": \"gorm.io/driver/sqlite\",\n\t\"Version\": \"v1.6.0\",\n\t\"Time\": \"2025-06-04T07:51:08Z\",\n\t\"Indirect\": true\n}\n{\n\t\"Path\": \"gorm.io/gorm\",\n\t\"Version\": \"v1.31.1\",\n\t\"Time\": \"2025-11-02T14:09:18Z\",\n\t\"Dir\": \"$USERHOME/.go/pkg/mod/gorm.io/gorm@v1.31.1\",\n\t\"GoMod\": \"$USERHOME/.go/pkg/mod/cache/download/gorm.io/gorm/@v/v1.31.1.mod\",\n\t\"GoVersion\": \"1.18\",\n\t\"Sum\": \"h1:7CA8FTFz/gRfgqgpeKIBcervUn3xSyPUmr6B2WXJ7kg=\",\n\t\"GoModSum\": \"h1:XyQVbO2k6YkOis7C2437jSit3SsDK72s7n7rsSHd+Gs=\"\n}\n",
+  "native_manifest": {
+    "runtime_kind": "generated-go",
+    "selection": "built-in"
+  },
+  "os": "darwin",
+  "passed": true,
+  "runtime_children_after": null,
+  "total_ms": 789.825917
+}

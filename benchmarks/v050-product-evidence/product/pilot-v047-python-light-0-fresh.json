@@ -1,0 +1,36 @@
+{
+  "mode": "fresh",
+  "rows": 1,
+  "tables": 1,
+  "workers": 1,
+  "count": 1,
+  "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+  "samples": [
+    {
+      "index": 0,
+      "ready_seconds": 1.3375830829609185,
+      "server_version": "13.1.0-MariaDB-embedded",
+      "prepare_seconds": 0.010196165996603668,
+      "sql_seconds": 0.01778958400245756,
+      "after_sql_resources": {
+        "rss_bytes": 122847232,
+        "primary_bytes": 91308872,
+        "file_mapping_bytes": 74629120,
+        "private_bytes": null,
+        "cpu_seconds": 0.079947208,
+        "cpu_timebase_numer": 125,
+        "cpu_timebase_denom": 3
+      },
+      "resource_observation_seconds": 0.009171999990940094,
+      "cleanup_seconds": 0.005242833052761853,
+      "test_seconds": 1.3799891660455614
+    }
+  ],
+  "completed": true,
+  "suite_wall_seconds": 1.3805928330402821,
+  "runner_and_reaped_host_cpu_seconds": 0.13079900000000003,
+  "cpu_scope": "Python runner + reaped host/helper children; excludes Docker daemon/VM/container CPU",
+  "resource_observation_scope": "after-SQL sample, not peak; container CPU since start, shared cumulative; OS helper returns RSS/physical footprint",
+  "suite_resource_observation_seconds": 0.009171999990940094,
+  "source_commit": "e0be06f3a20c72cbb5a9be27971280c80a3ec357"
+}

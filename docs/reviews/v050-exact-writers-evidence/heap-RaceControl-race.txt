@@ -1,0 +1,33 @@
+=== RUN   TestRaceControl
+==================
+WARNING: DATA RACE
+Read at 0x00c000180042 by goroutine 9:
+  example.com/narrowwriters.TestRaceControl.func2()
+      $TASK/temp/candidate-final/module/ops_test.go:138 +0xa4
+
+Previous write at 0x00c000180042 by goroutine 8:
+  example.com/narrowwriters.TestRaceControl.func1()
+      $TASK/temp/candidate-final/module/ops_test.go:137 +0x94
+
+Goroutine 9 (running) created at:
+  example.com/narrowwriters.TestRaceControl()
+      $TASK/temp/candidate-final/module/ops_test.go:138 +0x1f8
+  testing.tRunner()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+
+Goroutine 8 (finished) created at:
+  example.com/narrowwriters.TestRaceControl()
+      $TASK/temp/candidate-final/module/ops_test.go:137 +0x120
+  testing.tRunner()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      $USERHOME/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/src/testing/testing.go:2101 +0x34
+==================
+OBS instrumented-control 150000
+    testing.go:1712: race detected during execution of test
+--- FAIL: TestRaceControl (0.00s)
+FAIL
+FAIL	example.com/narrowwriters	0.094s
+FAIL

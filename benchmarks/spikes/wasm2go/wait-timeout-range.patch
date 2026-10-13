@@ -1,0 +1,20 @@
+--- a/internal/codegen/helpers/helpers.go
++++ b/internal/codegen/helpers/helpers.go
+@@ -2114,7 +2114,16 @@
+ 	// (test262 asserts lapse >= timeout), so a timer that fires at exactly the
+ 	// requested nanosecond can look EARLY once both ends truncate. Late by a
+ 	// millisecond is spec-legal; early is not.
+-	timer := time.NewTimer(time.Duration(timeout) + time.Millisecond)
++	// Saturate the clock-granularity allowance at Go's positive duration
++	// limit. A requested positive timeout must never wrap into an expired timer.
++	const maxWait = time.Duration(1<<63 - 1)
++	duration := time.Duration(timeout)
++	if duration > maxWait-time.Millisecond {
++		duration = maxWait
++	} else {
++		duration += time.Millisecond
++	}
++	timer := time.NewTimer(duration)
+ 	defer timer.Stop()
+ 	select {
+ 	case <-ch:

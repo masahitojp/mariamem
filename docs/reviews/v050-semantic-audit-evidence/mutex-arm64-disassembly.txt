@@ -1,0 +1,1687 @@
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32At(SB) <workspace>/temp/protocol-receipt-v2/module/internal/generatedgo/code/base/base.go
+  base.go:1643		0x100117670		f9400b90		MOVD 16(R28), R16
+  base.go:1643		0x100117674		eb3063ff		CMP R16, RSP
+  base.go:1643		0x100117678		54000709		BLS 56(PC)
+  base.go:1643		0x10011767c		f81e0ffe		MOVD.W R30, -32(RSP)
+  base.go:1643		0x100117680		f81f83fd		MOVD R29, -8(RSP)
+  base.go:1643		0x100117684		d10023fd		SUB $8, RSP, R29
+  base.go:1524		0x100117688		f90017e0		MOVD R0, 40(RSP)
+  base.go:1524		0x10011768c		b9003be2		MOVW R2, 56(RSP)
+  base.go:1524		0x100117690		b9003fe3		MOVW R3, 60(RSP)
+  base.go:1644		0x100117694		97fffff3		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicPtr32At(SB)
+  base.go:1524		0x100117698		f94017e2		MOVD 40(RSP), R2
+  base.go:1524		0x10011769c		f945e042		MOVD 3008(R2), R2
+  base.go:1524		0x1001176a0		b40000a2		CBZ R2, 5(PC)
+  type.go:80		0x1001176a4		88dffc41		LDARW (R2), R1
+  base.go:1524		0x1001176a8		7100003f		CMPW $0, R1
+  base.go:1524		0x1001176ac		9a9f07e1		CSET NE, R1
+  base.go:1524		0x1001176b0		14000002		JMP 2(PC)
+  base.go:1645		0x1001176b4		aa1f03e1		MOVD ZR, R1
+  base.go:1645		0x1001176b8		36000081		TBZ $0, R1, 4(PC)
+  base.go:1645		0x1001176bc		b9803be1		MOVW 56(RSP), R1
+  base.go:1645		0x1001176c0		b9803fe2		MOVW 60(RSP), R2
+  base.go:1645		0x1001176c4		1400000b		JMP 11(PC)
+  base.go:1646		0x1001176c8		b9400001		MOVWU (R0), R1
+  base.go:1647		0x1001176cc		b9803be2		MOVW 56(RSP), R2
+  base.go:1647		0x1001176d0		6b01005f		CMPW R1, R2
+  base.go:1647		0x1001176d4		54000061		BNE 3(PC)
+  base.go:1648		0x1001176d8		b9803fe2		MOVW 60(RSP), R2
+  base.go:1648		0x1001176dc		b9000002		MOVW R2, (R0)
+  base.go:1650		0x1001176e0		aa0103e0		MOVD R1, R0
+  base.go:1650		0x1001176e4		f85f83fd		MOVD -8(RSP), R29
+  base.go:1650		0x1001176e8		f84207fe		MOVD.P 32(RSP), R30
+  base.go:1650		0x1001176ec		d65f03c0		RET
+  base.go:1653		0x1001176f0		88dffc03		LDARW (R0), R3
+  base.go:1654		0x1001176f4		6b01007f		CMPW R1, R3
+  base.go:1654		0x1001176f8		54000281		BNE 20(PC)
+  base.go:1657		0x1001176fc		d0000fbb		ADRP 2056192(PC), R27
+  base.go:1657		0x100117700		397cbf64		MOVBU 3887(R27), R4
+  base.go:1657		0x100117704		360000c4		TBZ $0, R4, 6(PC)
+  base.go:1657		0x100117708		93407c7b		SXTW R3, R27
+  base.go:1657		0x10011770c		88fbfc02		?
+  base.go:1657		0x100117710		6b03037f		CMPW R3, R27
+  base.go:1657		0x100117714		9a9f17e4		CSET EQ, R4
+  base.go:1657		0x100117718		14000007		JMP 7(PC)
+  base.go:1657		0x10011771c		885ffc1b		LDAXRW (R0), R27
+  base.go:1657		0x100117720		6b03037f		CMPW R3, R27
+  base.go:1657		0x100117724		54000061		BNE 3(PC)
+  base.go:1657		0x100117728		881bfc02		STLXRW R2, (R0), R27
+  base.go:1657		0x10011772c		b5ffff9b		CBNZ R27, -4(PC)
+  base.go:1657		0x100117730		9a9f17e4		CSET EQ, R4
+  base.go:1657		0x100117734		3607fde4		TBZ $0, R4, -17(PC)
+  base.go:1658		0x100117738		aa0303e0		MOVD R3, R0
+  base.go:1658		0x10011773c		f85f83fd		MOVD -8(RSP), R29
+  base.go:1658		0x100117740		f84207fe		MOVD.P 32(RSP), R30
+  base.go:1658		0x100117744		d65f03c0		RET
+  base.go:1655		0x100117748		aa0303e0		MOVD R3, R0
+  base.go:1655		0x10011774c		f85f83fd		MOVD -8(RSP), R29
+  base.go:1655		0x100117750		f84207fe		MOVD.P 32(RSP), R30
+  base.go:1655		0x100117754		d65f03c0		RET
+  base.go:1643		0x100117758		a90087e0		STP (R0, R1), 8(RSP)
+  base.go:1643		0x10011775c		29030fe2		STPW (R2, R3), 24(RSP)
+  base.go:1643		0x100117760		aa1e03e3		MOVD R30, R3
+  base.go:1643		0x100117764		97fda06f		CALL runtime.morestack_noctxt.abi0(SB)
+  base.go:1643		0x100117768		a94087e0		LDP 8(RSP), (R0, R1)
+  base.go:1643		0x10011776c		29430fe2		LDPW 24(RSP), (R2, R3)
+  base.go:1643		0x100117770		17ffffc0		JMP github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32At(SB)
+  base.go:1643		0x100117774		00000000		?
+  base.go:1643		0x100117778		00000000		?
+  base.go:1643		0x10011777c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/probe.Fn88(SB) <workspace>/temp/protocol-receipt-v2/module/probe/guest_functions.go
+  guest_functions.go:784	0x10011a810		f9400b90		MOVD 16(R28), R16
+  guest_functions.go:784	0x10011a814		eb3063ff		CMP R16, RSP
+  guest_functions.go:784	0x10011a818		54000f09		BLS 120(PC)
+  guest_functions.go:784	0x10011a81c		f81b0ffe		MOVD.W R30, -80(RSP)
+  guest_functions.go:784	0x10011a820		f81f83fd		MOVD R29, -8(RSP)
+  guest_functions.go:784	0x10011a824		d10023fd		SUB $8, RSP, R29
+  guest_functions.go:785	0x10011a828		b9805004		MOVW 80(R0), R4
+  guest_functions.go:808	0x10011a82c		d1008085		SUB $32, R4, R5
+  guest_functions.go:785	0x10011a830		f9401006		MOVD 32(R0), R6
+  guest_functions.go:809	0x10011a834		b9005005		MOVW R5, 80(R0)
+  guest_functions.go:810	0x10011a838		7200043f		TSTW $3, R1
+  guest_functions.go:810	0x10011a83c		54000d21		BNE 105(PC)
+  guest_functions.go:810	0x10011a840		f9002fe0		MOVD R0, 88(RSP)
+  guest_functions.go:810	0x10011a844		b90063e1		MOVW R1, 96(RSP)
+  guest_functions.go:810	0x10011a848		b90067e2		MOVW R2, 100(RSP)
+  guest_functions.go:810	0x10011a84c		f90037e3		MOVD R3, 104(RSP)
+  guest_functions.go:785	0x10011a850		f90023e6		MOVD R6, 64(RSP)
+  guest_functions.go:785	0x10011a854		b9002fe4		MOVW R4, 44(RSP)
+  guest_functions.go:816	0x10011a858		2a0503e1		MOVW R5, R1
+  guest_functions.go:816	0x10011a85c		f9001fe1		MOVD R1, 56(RSP)
+  guest_functions.go:816	0x10011a860		b24013e2		ORR $31, ZR, R2
+  guest_functions.go:816	0x10011a864		b24003e3		ORR $1, ZR, R3
+  guest_functions.go:816	0x10011a868		97fff31e		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:816	0x10011a86c		f94023e4		MOVD 64(RSP), R4
+  guest_functions.go:816	0x10011a870		3820689f		MOVB ZR, (R4)(R0)
+  guest_functions.go:817	0x10011a874		f94037e5		MOVD 104(RSP), R5
+  guest_functions.go:817	0x10011a878		f10000bf		CMP $0, R5
+  guest_functions.go:817	0x10011a87c		5400014d		BLE 10(PC)
+  guest_functions.go:818	0x10011a880		f9402fe0		MOVD 88(RSP), R0
+  guest_functions.go:818	0x10011a884		f9401fe1		MOVD 56(RSP), R1
+  guest_functions.go:818	0x10011a888		b27c03e2		ORR $16, ZR, R2
+  guest_functions.go:818	0x10011a88c		b27d03e3		ORR $8, ZR, R3
+  guest_functions.go:818	0x10011a890		97fff314		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:818	0x10011a894		f94037e4		MOVD 104(RSP), R4
+  guest_functions.go:818	0x10011a898		f94023e5		MOVD 64(RSP), R5
+  guest_functions.go:818	0x10011a89c		f82068a4		MOVD R4, (R5)(R0)
+  guest_functions.go:819	0x10011a8a0		14000008		JMP 8(PC)
+  guest_functions.go:822	0x10011a8a4		f9402fe0		MOVD 88(RSP), R0
+  guest_functions.go:822	0x10011a8a8		f9401fe1		MOVD 56(RSP), R1
+  guest_functions.go:822	0x10011a8ac		b27c03e2		ORR $16, ZR, R2
+  guest_functions.go:822	0x10011a8b0		b24003e3		ORR $1, ZR, R3
+  guest_functions.go:822	0x10011a8b4		97fff30b		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:822	0x10011a8b8		f94023e4		MOVD 64(RSP), R4
+  guest_functions.go:822	0x10011a8bc		3820689f		MOVB ZR, (R4)(R0)
+  guest_functions.go:825	0x10011a8c0		f9402fe0		MOVD 88(RSP), R0
+  guest_functions.go:825	0x10011a8c4		f9401fe1		MOVD 56(RSP), R1
+  guest_functions.go:825	0x10011a8c8		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:825	0x10011a8cc		b24003e3		ORR $1, ZR, R3
+  guest_functions.go:825	0x10011a8d0		97fff304		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:817	0x10011a8d4		f94037e4		MOVD 104(RSP), R4
+  guest_functions.go:817	0x10011a8d8		f100009f		CMP $0, R4
+  guest_functions.go:817	0x10011a8dc		9a9fd7e4		CSET GT, R4
+  guest_functions.go:825	0x10011a8e0		f94023e5		MOVD 64(RSP), R5
+  guest_functions.go:825	0x10011a8e4		382068a4		MOVB R4, (R5)(R0)
+  guest_functions.go:826	0x10011a8e8		b98063e4		MOVW 96(RSP), R4
+  guest_functions.go:826	0x10011a8ec		2a0403e1		MOVW R4, R1
+  guest_functions.go:826	0x10011a8f0		f9001be1		MOVD R1, 48(RSP)
+  guest_functions.go:826	0x10011a8f4		f9402fe0		MOVD 88(RSP), R0
+  guest_functions.go:826	0x10011a8f8		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:826	0x10011a8fc		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:826	0x10011a900		97fff2f8		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:826	0x10011a904		f94023e4		MOVD 64(RSP), R4
+  guest_functions.go:826	0x10011a908		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:827	0x10011a90c		b98067e3		MOVW 100(RSP), R3
+  guest_functions.go:827	0x10011a910		6b04007f		CMPW R4, R3
+  guest_functions.go:827	0x10011a914		54000581		BNE 44(PC)
+  guest_functions.go:832	0x10011a918		f9402fe1		MOVD 88(RSP), R1
+  guest_functions.go:832	0x10011a91c		912e003b		ADD $2944, R1, R27
+  guest_functions.go:832	0x10011a920		a9400366		LDP (R27), (R6, R0)
+  guest_functions.go:832	0x10011a924		f94020c6		MOVD 64(R6), R6
+  guest_functions.go:832	0x10011a928		b9802fe7		MOVW 44(RSP), R7
+  guest_functions.go:832	0x10011a92c		d10060e4		SUB $24, R7, R4
+  guest_functions.go:832	0x10011a930		d10004e5		SUB $1, R7, R5
+  guest_functions.go:832	0x10011a934		b98063e2		MOVW 96(RSP), R2
+  guest_functions.go:832	0x10011a938		d63f00c0		CALL (R6)
+  guest_functions.go:834	0x10011a93c		72003c1f		TSTW $65535, R0
+  guest_functions.go:834	0x10011a940		54000060		BEQ 3(PC)
+  guest_functions.go:835	0x10011a944		97fff2a7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.Wasm_trap_unreachable(SB)
+  guest_functions.go:836	0x10011a948		1400002b		JMP 43(PC)
+  guest_functions.go:833	0x10011a94c		f9402fe0		MOVD 88(RSP), R0
+  guest_functions.go:833	0x10011a950		f9401004		MOVD 32(R0), R4
+  guest_functions.go:833	0x10011a954		f90023e4		MOVD R4, 64(RSP)
+  guest_functions.go:839	0x10011a958		f9401fe1		MOVD 56(RSP), R1
+  guest_functions.go:839	0x10011a95c		b24013e2		ORR $31, ZR, R2
+  guest_functions.go:839	0x10011a960		b24003e3		ORR $1, ZR, R3
+  guest_functions.go:839	0x10011a964		97fff2df		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:839	0x10011a968		f94023e4		MOVD 64(RSP), R4
+  guest_functions.go:839	0x10011a96c		38606885		MOVBU (R4)(R0), R5
+  guest_functions.go:840	0x10011a970		34000065		CBZW R5, 3(PC)
+  guest_functions.go:850	0x10011a974		aa1f03e4		MOVD ZR, R4
+  guest_functions.go:840	0x10011a978		1400000c		JMP 12(PC)
+  guest_functions.go:843	0x10011a97c		f9402fe0		MOVD 88(RSP), R0
+  guest_functions.go:843	0x10011a980		f9401be1		MOVD 48(RSP), R1
+  guest_functions.go:843	0x10011a984		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:843	0x10011a988		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:843	0x10011a98c		97fff2d5		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:843	0x10011a990		f94023e4		MOVD 64(RSP), R4
+  guest_functions.go:843	0x10011a994		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:844	0x10011a998		b98067e5		MOVW 100(RSP), R5
+  guest_functions.go:844	0x10011a99c		6b0400bf		CMPW R4, R5
+  guest_functions.go:844	0x10011a9a0		92800904		MOVD $-73, R4
+  guest_functions.go:844	0x10011a9a4		9a9f0084		CSEL EQ, R4, ZR, R4
+  guest_functions.go:850	0x10011a9a8		b9802fe1		MOVW 44(RSP), R1
+  guest_functions.go:850	0x10011a9ac		f9402fe2		MOVD 88(RSP), R2
+  guest_functions.go:850	0x10011a9b0		b9005041		MOVW R1, 80(R2)
+  guest_functions.go:851	0x10011a9b4		aa0403e0		MOVD R4, R0
+  guest_functions.go:851	0x10011a9b8		f85f83fd		MOVD -8(RSP), R29
+  guest_functions.go:851	0x10011a9bc		f84507fe		MOVD.P 80(RSP), R30
+  guest_functions.go:851	0x10011a9c0		d65f03c0		RET
+  guest_functions.go:829	0x10011a9c4		b9802fe1		MOVW 44(RSP), R1
+  guest_functions.go:829	0x10011a9c8		f9402fe2		MOVD 88(RSP), R2
+  guest_functions.go:829	0x10011a9cc		b9005041		MOVW R1, 80(R2)
+  guest_functions.go:830	0x10011a9d0		928000a0		MOVD $-6, R0
+  guest_functions.go:830	0x10011a9d4		f85f83fd		MOVD -8(RSP), R29
+  guest_functions.go:830	0x10011a9d8		f84507fe		MOVD.P 80(RSP), R30
+  guest_functions.go:830	0x10011a9dc		d65f03c0		RET
+  guest_functions.go:812	0x10011a9e0		b9005004		MOVW R4, 80(R0)
+  guest_functions.go:813	0x10011a9e4		92800360		MOVD $-28, R0
+  guest_functions.go:813	0x10011a9e8		f85f83fd		MOVD -8(RSP), R29
+  guest_functions.go:813	0x10011a9ec		f84507fe		MOVD.P 80(RSP), R30
+  guest_functions.go:813	0x10011a9f0		d65f03c0		RET
+  guest_functions.go:836	0x10011a9f4		14000000		JMP 0(PC)
+  guest_functions.go:784	0x10011a9f8		f90007e0		MOVD R0, 8(RSP)
+  guest_functions.go:784	0x10011a9fc		29020be1		STPW (R1, R2), 16(RSP)
+  guest_functions.go:784	0x10011aa00		f9000fe3		MOVD R3, 24(RSP)
+  guest_functions.go:784	0x10011aa04		aa1e03e3		MOVD R30, R3
+  guest_functions.go:784	0x10011aa08		97fd93c6		CALL runtime.morestack_noctxt.abi0(SB)
+  guest_functions.go:784	0x10011aa0c		f94007e0		MOVD 8(RSP), R0
+  guest_functions.go:784	0x10011aa10		29420be1		LDPW 16(RSP), (R1, R2)
+  guest_functions.go:784	0x10011aa14		f9400fe3		MOVD 24(RSP), R3
+  guest_functions.go:784	0x10011aa18		17ffff7e		JMP github.com/masahitojp/mariamem/probe.Fn88(SB)
+  guest_functions.go:784	0x10011aa1c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/probe.Fn93(SB) <workspace>/temp/protocol-receipt-v2/module/probe/guest_functions.go
+  guest_functions.go:968	0x10011ac30		f9400b90		MOVD 16(R28), R16
+  guest_functions.go:968	0x10011ac34		d10243f1		SUB $144, RSP, R17
+  guest_functions.go:968	0x10011ac38		eb10023f		CMP R16, R17
+  guest_functions.go:968	0x10011ac3c		54008cc9		BLS 1126(PC)
+  guest_functions.go:968	0x10011ac40		d10443f4		SUB $272, RSP, R20
+  guest_functions.go:968	0x10011ac44		a93ffa9d		STP (R29, R30), -8(R20)
+  guest_functions.go:968	0x10011ac48		9100029f		MOVD R20, RSP
+  guest_functions.go:968	0x10011ac4c		d10023fd		SUB $8, RSP, R29
+  guest_functions.go:1233	0x10011ac50		f9008fe0		MOVD R0, 280(RSP)
+  guest_functions.go:1233	0x10011ac54		b90123e1		MOVW R1, 288(RSP)
+  guest_functions.go:969	0x10011ac58		f9401004		MOVD 32(R0), R4
+  guest_functions.go:969	0x10011ac5c		f90083e4		MOVD R4, 256(RSP)
+  guest_functions.go:1232	0x10011ac60		2a0103e1		MOVW R1, R1
+  guest_functions.go:1232	0x10011ac64		f9007fe1		MOVD R1, 248(RSP)
+  guest_functions.go:1232	0x10011ac68		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1232	0x10011ac6c		b24003e3		ORR $1, ZR, R3
+  guest_functions.go:1232	0x10011ac70		97fff21c		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1232	0x10011ac74		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1232	0x10011ac78		38606885		MOVBU (R4)(R0), R5
+  guest_functions.go:1233	0x10011ac7c		72000cbf		TSTW $15, R5
+  guest_functions.go:1233	0x10011ac80		54000141		BNE 10(PC)
+  guest_functions.go:1244	0x10011ac84		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1244	0x10011ac88		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:1244	0x10011ac8c		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:1244	0x10011ac90		aa1f03e3		MOVD ZR, R3
+  guest_functions.go:1244	0x10011ac94		d2800144		MOVD $10, R4
+  guest_functions.go:1244	0x10011ac98		97fff2ba		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:1245	0x10011ac9c		35000060		CBNZW R0, 3(PC)
+  guest_functions.go:1240	0x10011aca0		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:1247	0x10011aca4		14000145		JMP 325(PC)
+  guest_functions.go:1256	0x10011aca8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1256	0x10011acac		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1256	0x10011acb0		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1256	0x10011acb4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1256	0x10011acb8		97fff20a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1256	0x10011acbc		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1256	0x10011acc0		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1257	0x10011acc4		72000cbf		TSTW $15, R5
+  guest_functions.go:1257	0x10011acc8		540001e1		BNE 15(PC)
+  guest_functions.go:1276	0x10011accc		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1276	0x10011acd0		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:1276	0x10011acd4		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:1276	0x10011acd8		aa1f03e3		MOVD ZR, R3
+  guest_functions.go:1276	0x10011acdc		d2800144		MOVD $10, R4
+  guest_functions.go:1276	0x10011ace0		97fff2a8		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:1277	0x10011ace4		34002680		CBZW R0, 308(PC)
+  guest_functions.go:1297	0x10011ace8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1297	0x10011acec		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1297	0x10011acf0		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1297	0x10011acf4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1297	0x10011acf8		97fff1fa		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1297	0x10011acfc		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1297	0x10011ad00		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1289	0x10011ad04		b9009be5		MOVW R5, 152(RSP)
+  guest_functions.go:1289	0x10011ad08		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1289	0x10011ad0c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1289	0x10011ad10		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1289	0x10011ad14		b24003e3		ORR $1, ZR, R3
+  guest_functions.go:1289	0x10011ad18		97fff1f2		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1289	0x10011ad1c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1289	0x10011ad20		38606885		MOVBU (R4)(R0), R5
+  guest_functions.go:1290	0x10011ad24		72000cbf		TSTW $15, R5
+  guest_functions.go:1290	0x10011ad28		54000181		BNE 12(PC)
+  guest_functions.go:1311	0x10011ad2c		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1311	0x10011ad30		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:1311	0x10011ad34		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:1311	0x10011ad38		aa1f03e3		MOVD ZR, R3
+  guest_functions.go:1311	0x10011ad3c		d2800144		MOVD $10, R4
+  guest_functions.go:1311	0x10011ad40		97fff290		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:1312	0x10011ad44		d2800145		MOVD $10, R5
+  guest_functions.go:1312	0x10011ad48		8a050005		AND R5, R0, R5
+  guest_functions.go:1588	0x10011ad4c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1302	0x10011ad50		aa0503e0		MOVD R5, R0
+  guest_functions.go:1313	0x10011ad54		14000111		JMP 273(PC)
+  guest_functions.go:1319	0x10011ad58		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1319	0x10011ad5c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1319	0x10011ad60		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1319	0x10011ad64		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1319	0x10011ad68		97fff1de		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1319	0x10011ad6c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1319	0x10011ad70		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:1319	0x10011ad74		b90053e4		MOVW R4, 80(RSP)
+  guest_functions.go:1320	0x10011ad78		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1320	0x10011ad7c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1320	0x10011ad80		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:1320	0x10011ad84		aa0203e3		MOVD R2, R3
+  guest_functions.go:1320	0x10011ad88		97fff1d6		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1320	0x10011ad8c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1320	0x10011ad90		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:1320	0x10011ad94		b9004fe4		MOVW R4, 76(RSP)
+  guest_functions.go:1321	0x10011ad98		92407484		AND $1073741823, R4, R4
+  guest_functions.go:1321	0x10011ad9c		b90047e4		MOVW R4, 68(RSP)
+  guest_functions.go:1322	0x10011ada0		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1322	0x10011ada4		b9805404		MOVW 84(R0), R4
+  guest_functions.go:1323	0x10011ada8		91001084		ADD $4, R4, R4
+  guest_functions.go:1323	0x10011adac		2a0403e1		MOVW R4, R1
+  guest_functions.go:1323	0x10011adb0		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1323	0x10011adb4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1323	0x10011adb8		97fff1ca		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1323	0x10011adbc		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1323	0x10011adc0		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:1323	0x10011adc4		b90033e4		MOVW R4, 48(RSP)
+  guest_functions.go:1324	0x10011adc8		2a0403e1		MOVW R4, R1
+  guest_functions.go:1324	0x10011adcc		f9007be1		MOVD R1, 240(RSP)
+  guest_functions.go:1324	0x10011add0		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1324	0x10011add4		d2800282		MOVD $20, R2
+  guest_functions.go:1324	0x10011add8		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1324	0x10011addc		97fff1c1		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1324	0x10011ade0		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1324	0x10011ade4		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1324	0x10011ade8		b9002fe5		MOVW R5, 44(RSP)
+  guest_functions.go:1325	0x10011adec		b98047e6		MOVW 68(RSP), R6
+  guest_functions.go:1325	0x10011adf0		6b0600bf		CMPW R6, R5
+  guest_functions.go:1325	0x10011adf4		54000060		BEQ 3(PC)
+  guest_functions.go:1439	0x10011adf8		b98053e0		MOVW 80(RSP), R0
+  guest_functions.go:1326	0x10011adfc		14000011		JMP 17(PC)
+  guest_functions.go:1370	0x10011ae00		b98053e0		MOVW 80(RSP), R0
+  guest_functions.go:1370	0x10011ae04		36180180		TBZ $3, R0, 12(PC)
+  guest_functions.go:1384	0x10011ae08		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1384	0x10011ae0c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1384	0x10011ae10		d2800282		MOVD $20, R2
+  guest_functions.go:1384	0x10011ae14		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1384	0x10011ae18		97fff1b2		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1384	0x10011ae1c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1384	0x10011ae20		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1385	0x10011ae24		37f80f05		TBNZ $31, R5, 120(PC)
+  guest_functions.go:1377	0x10011ae28		b98053e0		MOVW 80(RSP), R0
+  guest_functions.go:1461	0x10011ae2c		b9802fe5		MOVW 44(RSP), R5
+  guest_functions.go:1362	0x10011ae30		b98047e6		MOVW 68(RSP), R6
+  guest_functions.go:1377	0x10011ae34		92400407		AND $3, R0, R7
+  guest_functions.go:1377	0x10011ae38		710004ff		CMPW $1, R7
+  guest_functions.go:1377	0x10011ae3c		54000b20		BEQ 89(PC)
+  guest_functions.go:1362	0x10011ae40		b27f73e7		MOVD $1073741822, R7
+  guest_functions.go:1362	0x10011ae44		6b0700df		CMPW R7, R6
+  guest_functions.go:1362	0x10011ae48		54000061		BNE 3(PC)
+  guest_functions.go:1362	0x10011ae4c		b27d0be0		ORR $56, ZR, R0
+  guest_functions.go:1364	0x10011ae50		140000d2		JMP 210(PC)
+  guest_functions.go:1411	0x10011ae54		35000a26		CBNZW R6, 81(PC)
+  guest_functions.go:1425	0x10011ae58		b9804fe1		MOVW 76(RSP), R1
+  guest_functions.go:1425	0x10011ae5c		34000041		CBZW R1, 2(PC)
+  guest_functions.go:1439	0x10011ae60		361009c0		TBZ $2, R0, 78(PC)
+  guest_functions.go:1418	0x10011ae64		36380520		TBZ $7, R0, 41(PC)
+  guest_functions.go:1449	0x10011ae68		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1449	0x10011ae6c		f9407be1		MOVD 240(RSP), R1
+  guest_functions.go:1449	0x10011ae70		d2800982		MOVD $76, R2
+  guest_functions.go:1449	0x10011ae74		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1449	0x10011ae78		97fff19a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1449	0x10011ae7c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1449	0x10011ae80		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1450	0x10011ae84		35000125		CBNZW R5, 9(PC)
+  guest_functions.go:1469	0x10011ae88		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1469	0x10011ae8c		f9407be1		MOVD 240(RSP), R1
+  guest_functions.go:1469	0x10011ae90		d2800982		MOVD $76, R2
+  guest_functions.go:1469	0x10011ae94		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1469	0x10011ae98		97fff192		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1469	0x10011ae9c		92800164		MOVD $-12, R4
+  guest_functions.go:1469	0x10011aea0		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1469	0x10011aea4		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1476	0x10011aea8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1476	0x10011aeac		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1476	0x10011aeb0		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:1476	0x10011aeb4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1476	0x10011aeb8		97fff18a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1476	0x10011aebc		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1476	0x10011aec0		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:1476	0x10011aec4		b900e3e4		MOVW R4, 224(RSP)
+  guest_functions.go:1477	0x10011aec8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1477	0x10011aecc		f9407be1		MOVD 240(RSP), R1
+  guest_functions.go:1477	0x10011aed0		d2800a02		MOVD $80, R2
+  guest_functions.go:1477	0x10011aed4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1477	0x10011aed8		97fff182		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1477	0x10011aedc		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:1477	0x10011aee0		91004024		ADD $16, R1, R4
+  guest_functions.go:1477	0x10011aee4		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1477	0x10011aee8		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1485	0x10011aeec		b9802fe4		MOVW 44(RSP), R4
+  guest_functions.go:1485	0x10011aef0		b2618086		ORR $-2147483648, R4, R6
+  guest_functions.go:1478	0x10011aef4		b980e3e7		MOVW 224(RSP), R7
+  guest_functions.go:1478	0x10011aef8		710000ff		CMPW $0, R7
+  guest_functions.go:1493	0x10011aefc		9a8410c4		CSEL NE, R6, R4, R4
+  guest_functions.go:1461	0x10011af00		b9804fe1		MOVW 76(RSP), R1
+  guest_functions.go:1461	0x10011af04		aa0403e5		MOVD R4, R5
+  guest_functions.go:1461	0x10011af08		92620026		AND $1073741824, R1, R6
+  guest_functions.go:1461	0x10011af0c		aa0600a4		ORR R6, R5, R4
+  guest_functions.go:1461	0x10011af10		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1461	0x10011af14		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:1461	0x10011af18		aa0103e3		MOVD R1, R3
+  guest_functions.go:1461	0x10011af1c		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:1461	0x10011af20		97fff218		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:1462	0x10011af24		b9804fe5		MOVW 76(RSP), R5
+  guest_functions.go:1462	0x10011af28		6b05001f		CMPW R5, R0
+  guest_functions.go:1462	0x10011af2c		54000081		BNE 4(PC)
+  guest_functions.go:1509	0x10011af30		b98053e0		MOVW 80(RSP), R0
+  guest_functions.go:1509	0x10011af34		361808e0		TBZ $3, R0, 71(PC)
+  guest_functions.go:1509	0x10011af38		1400003c		JMP 60(PC)
+  guest_functions.go:1497	0x10011af3c		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1497	0x10011af40		f9407be1		MOVD 240(RSP), R1
+  guest_functions.go:1497	0x10011af44		d2800a02		MOVD $80, R2
+  guest_functions.go:1497	0x10011af48		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1497	0x10011af4c		97fff165		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1497	0x10011af50		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1497	0x10011af54		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:1499	0x10011af58		b98053e5		MOVW 80(RSP), R5
+  guest_functions.go:1499	0x10011af5c		927e04a5		AND $12, R5, R5
+  guest_functions.go:1499	0x10011af60		710030bf		CMPW $12, R5
+  guest_functions.go:1499	0x10011af64		54000161		BNE 11(PC)
+  guest_functions.go:1517	0x10011af68		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1517	0x10011af6c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1517	0x10011af70		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:1517	0x10011af74		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1517	0x10011af78		97fff15a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1517	0x10011af7c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1517	0x10011af80		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1518	0x10011af84		34000065		CBZW R5, 3(PC)
+  guest_functions.go:1518	0x10011af88		b27d0be0		ORR $56, ZR, R0
+  guest_functions.go:1520	0x10011af8c		14000083		JMP 131(PC)
+  guest_functions.go:1529	0x10011af90		d2800140		MOVD $10, R0
+  guest_functions.go:1530	0x10011af94		14000081		JMP 129(PC)
+  guest_functions.go:1530	0x10011af98		d2800140		MOVD $10, R0
+  guest_functions.go:1436	0x10011af9c		1400007f		JMP 127(PC)
+  guest_functions.go:1397	0x10011afa0		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1397	0x10011afa4		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1397	0x10011afa8		d2800282		MOVD $20, R2
+  guest_functions.go:1397	0x10011afac		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1397	0x10011afb0		97fff14c		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1397	0x10011afb4		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1397	0x10011afb8		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1398	0x10011afbc		b27f77e6		MOVD $2147483646, R6
+  guest_functions.go:1398	0x10011afc0		6b0600bf		CMPW R6, R5
+  guest_functions.go:1398	0x10011afc4		54000069		BLS 3(PC)
+  guest_functions.go:1398	0x10011afc8		b27f07e0		ORR $6, ZR, R0
+  guest_functions.go:1400	0x10011afcc		14000073		JMP 115(PC)
+  guest_functions.go:1397	0x10011afd0		b9002be5		MOVW R5, 40(RSP)
+  guest_functions.go:1406	0x10011afd4		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1406	0x10011afd8		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1406	0x10011afdc		d2800282		MOVD $20, R2
+  guest_functions.go:1406	0x10011afe0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1406	0x10011afe4		97fff13f		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1406	0x10011afe8		b9802be4		MOVW 40(RSP), R4
+  guest_functions.go:1406	0x10011afec		91000484		ADD $1, R4, R4
+  guest_functions.go:1406	0x10011aff0		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1406	0x10011aff4		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1588	0x10011aff8		aa0503e4		MOVD R5, R4
+  guest_functions.go:1332	0x10011affc		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:1408	0x10011b000		14000066		JMP 102(PC)
+  guest_functions.go:1392	0x10011b004		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1392	0x10011b008		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1392	0x10011b00c		d2800282		MOVD $20, R2
+  guest_functions.go:1392	0x10011b010		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1392	0x10011b014		97fff133		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1392	0x10011b018		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1392	0x10011b01c		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:1393	0x10011b020		b9804fe5		MOVW 76(RSP), R5
+  guest_functions.go:1393	0x10011b024		926200a5		AND $1073741824, R5, R5
+  guest_functions.go:1352	0x10011b028		b900dfe5		MOVW R5, 220(RSP)
+  guest_functions.go:1352	0x10011b02c		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1352	0x10011b030		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1352	0x10011b034		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:1352	0x10011b038		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1352	0x10011b03c		97fff129		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1352	0x10011b040		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1352	0x10011b044		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1353	0x10011b048		350008e5		CBNZW R5, 71(PC)
+  guest_functions.go:1340	0x10011b04c		b980dfe5		MOVW 220(RSP), R5
+  guest_functions.go:1340	0x10011b050		b900dbe5		MOVW R5, 216(RSP)
+  guest_functions.go:1340	0x10011b054		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1340	0x10011b058		f9407be1		MOVD 240(RSP), R1
+  guest_functions.go:1340	0x10011b05c		d2800902		MOVD $72, R2
+  guest_functions.go:1340	0x10011b060		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1340	0x10011b064		97fff11f		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1340	0x10011b068		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1340	0x10011b06c		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:1340	0x10011b070		b900d7e4		MOVW R4, 212(RSP)
+  guest_functions.go:1341	0x10011b074		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1341	0x10011b078		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1341	0x10011b07c		b27c03e2		ORR $16, ZR, R2
+  guest_functions.go:1341	0x10011b080		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1341	0x10011b084		97fff117		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1341	0x10011b088		b980d7e4		MOVW 212(RSP), R4
+  guest_functions.go:1341	0x10011b08c		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1341	0x10011b090		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1343	0x10011b094		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1343	0x10011b098		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1343	0x10011b09c		b27e07e2		ORR $12, ZR, R2
+  guest_functions.go:1343	0x10011b0a0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1343	0x10011b0a4		97fff10f		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1342	0x10011b0a8		b98033e4		MOVW 48(RSP), R4
+  guest_functions.go:1342	0x10011b0ac		91012084		ADD $72, R4, R4
+  guest_functions.go:1343	0x10011b0b0		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1343	0x10011b0b4		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1344	0x10011b0b8		b98123e6		MOVW 288(RSP), R6
+  guest_functions.go:1344	0x10011b0bc		910040c7		ADD $16, R6, R7
+  guest_functions.go:1344	0x10011b0c0		b900d3e7		MOVW R7, 208(RSP)
+  guest_functions.go:1345	0x10011b0c4		b980d7e8		MOVW 212(RSP), R8
+  guest_functions.go:1345	0x10011b0c8		6b04011f		CMPW R4, R8
+  guest_functions.go:1345	0x10011b0cc		54000140		BEQ 10(PC)
+  guest_functions.go:1560	0x10011b0d0		d1001104		SUB $4, R8, R4
+  guest_functions.go:1560	0x10011b0d4		2a0403e1		MOVW R4, R1
+  guest_functions.go:1560	0x10011b0d8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1560	0x10011b0dc		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1560	0x10011b0e0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1560	0x10011b0e4		97fff0ff		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1560	0x10011b0e8		b980d3e4		MOVW 208(RSP), R4
+  guest_functions.go:1560	0x10011b0ec		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1560	0x10011b0f0		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1567	0x10011b0f4		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1567	0x10011b0f8		f9407be1		MOVD 240(RSP), R1
+  guest_functions.go:1567	0x10011b0fc		d2800902		MOVD $72, R2
+  guest_functions.go:1567	0x10011b100		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1567	0x10011b104		97fff0f7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1567	0x10011b108		b980d3e4		MOVW 208(RSP), R4
+  guest_functions.go:1567	0x10011b10c		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1567	0x10011b110		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1569	0x10011b114		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1569	0x10011b118		f9407be1		MOVD 240(RSP), R1
+  guest_functions.go:1569	0x10011b11c		d2800a02		MOVD $80, R2
+  guest_functions.go:1569	0x10011b120		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1569	0x10011b124		97fff0ef		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1569	0x10011b128		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1569	0x10011b12c		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:1570	0x10011b130		b980dbe0		MOVW 216(RSP), R0
+  guest_functions.go:1570	0x10011b134		35000060		CBNZW R0, 3(PC)
+  guest_functions.go:1336	0x10011b138		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:1572	0x10011b13c		14000017		JMP 23(PC)
+  guest_functions.go:1578	0x10011b140		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1578	0x10011b144		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1578	0x10011b148		d2800282		MOVD $20, R2
+  guest_functions.go:1578	0x10011b14c		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1578	0x10011b150		97fff0e4		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1578	0x10011b154		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1578	0x10011b158		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:1578	0x10011b15c		b27f13e0		ORR $62, ZR, R0
+  guest_functions.go:1580	0x10011b160		1400000e		JMP 14(PC)
+  guest_functions.go:1540	0x10011b164		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1540	0x10011b168		f9407be1		MOVD 240(RSP), R1
+  guest_functions.go:1540	0x10011b16c		d2800a02		MOVD $80, R2
+  guest_functions.go:1540	0x10011b170		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1540	0x10011b174		97fff0db		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1540	0x10011b178		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1540	0x10011b17c		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:1541	0x10011b180		b98053e5		MOVW 80(RSP), R5
+  guest_functions.go:1541	0x10011b184		927e00a5		AND $4, R5, R5
+  guest_functions.go:1541	0x10011b188		710000bf		CMPW $0, R5
+  guest_functions.go:1556	0x10011b18c		b27d0be5		ORR $56, ZR, R5
+  guest_functions.go:1556	0x10011b190		d2800146		MOVD $10, R6
+  guest_functions.go:1556	0x10011b194		9a8610a0		CSEL NE, R5, R6, R0
+  guest_functions.go:1302	0x10011b198		7100281f		CMPW $10, R0
+  guest_functions.go:1302	0x10011b19c		540000e1		BNE 7(PC)
+  guest_functions.go:1583	0x10011b1a0		b98123e5		MOVW 288(RSP), R5
+  guest_functions.go:1583	0x10011b1a4		910010a6		ADD $4, R5, R6
+  guest_functions.go:1583	0x10011b1a8		b900cfe6		MOVW R6, 204(RSP)
+  guest_functions.go:1583	0x10011b1ac		92800c60		MOVD $-100, R0
+  guest_functions.go:1585	0x10011b1b0		14000007		JMP 7(PC)
+  guest_functions.go:1271	0x10011b1b4		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:1240	0x10011b1b8		a97ffbfd		LDP -8(RSP), (R29, R30)
+  guest_functions.go:1240	0x10011b1bc		910443ff		ADD $272, RSP, RSP
+  guest_functions.go:1240	0x10011b1c0		d65f03c0		RET
+  guest_functions.go:1632	0x10011b1c4		910008a0		ADD $2, R5, R0
+  guest_functions.go:1588	0x10011b1c8		b980cfe6		MOVW 204(RSP), R6
+  guest_functions.go:1588	0x10011b1cc		b900cbe0		MOVW R0, 200(RSP)
+  guest_functions.go:1588	0x10011b1d0		2a0603e1		MOVW R6, R1
+  guest_functions.go:1588	0x10011b1d4		f9007be1		MOVD R1, 240(RSP)
+  guest_functions.go:1588	0x10011b1d8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1588	0x10011b1dc		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1588	0x10011b1e0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1588	0x10011b1e4		97fff0bf		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1588	0x10011b1e8		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1588	0x10011b1ec		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1589	0x10011b1f0		34000385		CBZW R5, 28(PC)
+  guest_functions.go:1608	0x10011b1f4		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1608	0x10011b1f8		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1608	0x10011b1fc		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:1608	0x10011b200		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1608	0x10011b204		97fff0b7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1608	0x10011b208		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1608	0x10011b20c		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1609	0x10011b210		35000285		CBNZW R5, 20(PC)
+  guest_functions.go:1616	0x10011b214		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1616	0x10011b218		f9407be1		MOVD 240(RSP), R1
+  guest_functions.go:1616	0x10011b21c		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1616	0x10011b220		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1616	0x10011b224		97fff0af		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1616	0x10011b228		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1616	0x10011b22c		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1617	0x10011b230		34000185		CBZW R5, 12(PC)
+  guest_functions.go:1624	0x10011b234		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1624	0x10011b238		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1624	0x10011b23c		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:1624	0x10011b240		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1624	0x10011b244		97fff0a7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1624	0x10011b248		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1624	0x10011b24c		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1625	0x10011b250		35000085		CBNZW R5, 4(PC)
+  guest_functions.go:1633	0x10011b254		b980cbe5		MOVW 200(RSP), R5
+  guest_functions.go:1633	0x10011b258		310008bf		CMNW $2, R5
+  guest_functions.go:1633	0x10011b25c		54fffb41		BNE -38(PC)
+  guest_functions.go:1596	0x10011b260		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1596	0x10011b264		b9805404		MOVW 84(R0), R4
+  guest_functions.go:1596	0x10011b268		b900c7e4		MOVW R4, 196(RSP)
+  guest_functions.go:1597	0x10011b26c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1597	0x10011b270		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1597	0x10011b274		b24003e3		ORR $1, ZR, R3
+  guest_functions.go:1597	0x10011b278		97fff09a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1597	0x10011b27c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1597	0x10011b280		38606885		MOVBU (R4)(R0), R5
+  guest_functions.go:1598	0x10011b284		72000cbf		TSTW $15, R5
+  guest_functions.go:1598	0x10011b288		54000181		BNE 12(PC)
+  guest_functions.go:1653	0x10011b28c		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1653	0x10011b290		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:1653	0x10011b294		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:1653	0x10011b298		aa1f03e3		MOVD ZR, R3
+  guest_functions.go:1653	0x10011b29c		d2800144		MOVD $10, R4
+  guest_functions.go:1653	0x10011b2a0		97fff138		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:1654	0x10011b2a4		d2800145		MOVD $10, R5
+  guest_functions.go:1654	0x10011b2a8		8a050005		AND R5, R0, R5
+  guest_functions.go:1929	0x10011b2ac		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1644	0x10011b2b0		aa0503e0		MOVD R5, R0
+  guest_functions.go:1655	0x10011b2b4		14000111		JMP 273(PC)
+  guest_functions.go:1661	0x10011b2b8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1661	0x10011b2bc		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1661	0x10011b2c0		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1661	0x10011b2c4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1661	0x10011b2c8		97fff086		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1661	0x10011b2cc		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1661	0x10011b2d0		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:1661	0x10011b2d4		b900c3e4		MOVW R4, 192(RSP)
+  guest_functions.go:1662	0x10011b2d8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1662	0x10011b2dc		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1662	0x10011b2e0		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:1662	0x10011b2e4		aa0203e3		MOVD R2, R3
+  guest_functions.go:1662	0x10011b2e8		97fff07e		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1662	0x10011b2ec		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1662	0x10011b2f0		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:1662	0x10011b2f4		b900bfe4		MOVW R4, 188(RSP)
+  guest_functions.go:1663	0x10011b2f8		92407484		AND $1073741823, R4, R4
+  guest_functions.go:1663	0x10011b2fc		b900bbe4		MOVW R4, 184(RSP)
+  guest_functions.go:1664	0x10011b300		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1664	0x10011b304		b9805404		MOVW 84(R0), R4
+  guest_functions.go:1665	0x10011b308		91001084		ADD $4, R4, R4
+  guest_functions.go:1665	0x10011b30c		2a0403e1		MOVW R4, R1
+  guest_functions.go:1665	0x10011b310		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1665	0x10011b314		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1665	0x10011b318		97fff072		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1665	0x10011b31c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1665	0x10011b320		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:1665	0x10011b324		b900b7e4		MOVW R4, 180(RSP)
+  guest_functions.go:1666	0x10011b328		2a0403e1		MOVW R4, R1
+  guest_functions.go:1666	0x10011b32c		f90077e1		MOVD R1, 232(RSP)
+  guest_functions.go:1666	0x10011b330		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1666	0x10011b334		d2800282		MOVD $20, R2
+  guest_functions.go:1666	0x10011b338		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1666	0x10011b33c		97fff069		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1666	0x10011b340		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1666	0x10011b344		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1666	0x10011b348		b900b3e5		MOVW R5, 176(RSP)
+  guest_functions.go:1667	0x10011b34c		b980bbe6		MOVW 184(RSP), R6
+  guest_functions.go:1667	0x10011b350		6b0600bf		CMPW R6, R5
+  guest_functions.go:1667	0x10011b354		54000060		BEQ 3(PC)
+  guest_functions.go:1781	0x10011b358		b980c3e0		MOVW 192(RSP), R0
+  guest_functions.go:1668	0x10011b35c		14000011		JMP 17(PC)
+  guest_functions.go:1712	0x10011b360		b980c3e0		MOVW 192(RSP), R0
+  guest_functions.go:1712	0x10011b364		36180180		TBZ $3, R0, 12(PC)
+  guest_functions.go:1726	0x10011b368		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1726	0x10011b36c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1726	0x10011b370		d2800282		MOVD $20, R2
+  guest_functions.go:1726	0x10011b374		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1726	0x10011b378		97fff05a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1726	0x10011b37c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1726	0x10011b380		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1727	0x10011b384		37f80f05		TBNZ $31, R5, 120(PC)
+  guest_functions.go:1719	0x10011b388		b980c3e0		MOVW 192(RSP), R0
+  guest_functions.go:1803	0x10011b38c		b980b3e5		MOVW 176(RSP), R5
+  guest_functions.go:1704	0x10011b390		b980bbe6		MOVW 184(RSP), R6
+  guest_functions.go:1719	0x10011b394		92400407		AND $3, R0, R7
+  guest_functions.go:1719	0x10011b398		710004ff		CMPW $1, R7
+  guest_functions.go:1719	0x10011b39c		54000b20		BEQ 89(PC)
+  guest_functions.go:1704	0x10011b3a0		b27f73e7		MOVD $1073741822, R7
+  guest_functions.go:1704	0x10011b3a4		6b0700df		CMPW R7, R6
+  guest_functions.go:1704	0x10011b3a8		54000061		BNE 3(PC)
+  guest_functions.go:1704	0x10011b3ac		b27d0be0		ORR $56, ZR, R0
+  guest_functions.go:1706	0x10011b3b0		140000d2		JMP 210(PC)
+  guest_functions.go:1753	0x10011b3b4		35000a26		CBNZW R6, 81(PC)
+  guest_functions.go:1767	0x10011b3b8		b980bfe1		MOVW 188(RSP), R1
+  guest_functions.go:1767	0x10011b3bc		34000041		CBZW R1, 2(PC)
+  guest_functions.go:1781	0x10011b3c0		361009c0		TBZ $2, R0, 78(PC)
+  guest_functions.go:1760	0x10011b3c4		36380520		TBZ $7, R0, 41(PC)
+  guest_functions.go:1791	0x10011b3c8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1791	0x10011b3cc		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:1791	0x10011b3d0		d2800982		MOVD $76, R2
+  guest_functions.go:1791	0x10011b3d4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1791	0x10011b3d8		97fff042		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1791	0x10011b3dc		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1791	0x10011b3e0		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1792	0x10011b3e4		35000125		CBNZW R5, 9(PC)
+  guest_functions.go:1811	0x10011b3e8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1811	0x10011b3ec		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:1811	0x10011b3f0		d2800982		MOVD $76, R2
+  guest_functions.go:1811	0x10011b3f4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1811	0x10011b3f8		97fff03a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1811	0x10011b3fc		92800164		MOVD $-12, R4
+  guest_functions.go:1811	0x10011b400		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1811	0x10011b404		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1818	0x10011b408		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1818	0x10011b40c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1818	0x10011b410		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:1818	0x10011b414		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1818	0x10011b418		97fff032		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1818	0x10011b41c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1818	0x10011b420		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:1818	0x10011b424		b900abe4		MOVW R4, 168(RSP)
+  guest_functions.go:1819	0x10011b428		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1819	0x10011b42c		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:1819	0x10011b430		d2800a02		MOVD $80, R2
+  guest_functions.go:1819	0x10011b434		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1819	0x10011b438		97fff02a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1819	0x10011b43c		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:1819	0x10011b440		91004024		ADD $16, R1, R4
+  guest_functions.go:1819	0x10011b444		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1819	0x10011b448		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1827	0x10011b44c		b980b3e4		MOVW 176(RSP), R4
+  guest_functions.go:1827	0x10011b450		b2618086		ORR $-2147483648, R4, R6
+  guest_functions.go:1820	0x10011b454		b980abe7		MOVW 168(RSP), R7
+  guest_functions.go:1820	0x10011b458		710000ff		CMPW $0, R7
+  guest_functions.go:1835	0x10011b45c		9a8410c4		CSEL NE, R6, R4, R4
+  guest_functions.go:1803	0x10011b460		b980bfe1		MOVW 188(RSP), R1
+  guest_functions.go:1803	0x10011b464		aa0403e5		MOVD R4, R5
+  guest_functions.go:1803	0x10011b468		92620026		AND $1073741824, R1, R6
+  guest_functions.go:1803	0x10011b46c		aa0600a4		ORR R6, R5, R4
+  guest_functions.go:1803	0x10011b470		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1803	0x10011b474		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:1803	0x10011b478		aa0103e3		MOVD R1, R3
+  guest_functions.go:1803	0x10011b47c		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:1803	0x10011b480		97fff0c0		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:1804	0x10011b484		b980bfe5		MOVW 188(RSP), R5
+  guest_functions.go:1804	0x10011b488		6b05001f		CMPW R5, R0
+  guest_functions.go:1804	0x10011b48c		54000081		BNE 4(PC)
+  guest_functions.go:1851	0x10011b490		b980c3e0		MOVW 192(RSP), R0
+  guest_functions.go:1851	0x10011b494		361808e0		TBZ $3, R0, 71(PC)
+  guest_functions.go:1851	0x10011b498		1400003c		JMP 60(PC)
+  guest_functions.go:1839	0x10011b49c		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1839	0x10011b4a0		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:1839	0x10011b4a4		d2800a02		MOVD $80, R2
+  guest_functions.go:1839	0x10011b4a8		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1839	0x10011b4ac		97fff00d		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1839	0x10011b4b0		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1839	0x10011b4b4		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:1841	0x10011b4b8		b980c3e5		MOVW 192(RSP), R5
+  guest_functions.go:1841	0x10011b4bc		927e04a5		AND $12, R5, R5
+  guest_functions.go:1841	0x10011b4c0		710030bf		CMPW $12, R5
+  guest_functions.go:1841	0x10011b4c4		54000161		BNE 11(PC)
+  guest_functions.go:1859	0x10011b4c8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1859	0x10011b4cc		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1859	0x10011b4d0		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:1859	0x10011b4d4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1859	0x10011b4d8		97fff002		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1859	0x10011b4dc		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1859	0x10011b4e0		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1860	0x10011b4e4		34000065		CBZW R5, 3(PC)
+  guest_functions.go:1860	0x10011b4e8		b27d0be0		ORR $56, ZR, R0
+  guest_functions.go:1862	0x10011b4ec		14000083		JMP 131(PC)
+  guest_functions.go:1871	0x10011b4f0		d2800140		MOVD $10, R0
+  guest_functions.go:1872	0x10011b4f4		14000081		JMP 129(PC)
+  guest_functions.go:1872	0x10011b4f8		d2800140		MOVD $10, R0
+  guest_functions.go:1778	0x10011b4fc		1400007f		JMP 127(PC)
+  guest_functions.go:1739	0x10011b500		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1739	0x10011b504		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1739	0x10011b508		d2800282		MOVD $20, R2
+  guest_functions.go:1739	0x10011b50c		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1739	0x10011b510		97ffeff4		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1739	0x10011b514		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1739	0x10011b518		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1740	0x10011b51c		b27f77e6		MOVD $2147483646, R6
+  guest_functions.go:1740	0x10011b520		6b0600bf		CMPW R6, R5
+  guest_functions.go:1740	0x10011b524		54000069		BLS 3(PC)
+  guest_functions.go:1740	0x10011b528		b27f07e0		ORR $6, ZR, R0
+  guest_functions.go:1742	0x10011b52c		14000073		JMP 115(PC)
+  guest_functions.go:1739	0x10011b530		b900afe5		MOVW R5, 172(RSP)
+  guest_functions.go:1748	0x10011b534		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1748	0x10011b538		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1748	0x10011b53c		d2800282		MOVD $20, R2
+  guest_functions.go:1748	0x10011b540		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1748	0x10011b544		97ffefe7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1748	0x10011b548		b980afe4		MOVW 172(RSP), R4
+  guest_functions.go:1748	0x10011b54c		91000484		ADD $1, R4, R4
+  guest_functions.go:1748	0x10011b550		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1748	0x10011b554		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1929	0x10011b558		aa0503e4		MOVD R5, R4
+  guest_functions.go:1674	0x10011b55c		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:1750	0x10011b560		14000066		JMP 102(PC)
+  guest_functions.go:1734	0x10011b564		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1734	0x10011b568		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1734	0x10011b56c		d2800282		MOVD $20, R2
+  guest_functions.go:1734	0x10011b570		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1734	0x10011b574		97ffefdb		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1734	0x10011b578		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1734	0x10011b57c		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:1735	0x10011b580		b980bfe5		MOVW 188(RSP), R5
+  guest_functions.go:1735	0x10011b584		926200a5		AND $1073741824, R5, R5
+  guest_functions.go:1694	0x10011b588		b900a7e5		MOVW R5, 164(RSP)
+  guest_functions.go:1694	0x10011b58c		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1694	0x10011b590		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1694	0x10011b594		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:1694	0x10011b598		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1694	0x10011b59c		97ffefd1		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1694	0x10011b5a0		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1694	0x10011b5a4		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1695	0x10011b5a8		350008e5		CBNZW R5, 71(PC)
+  guest_functions.go:1682	0x10011b5ac		b980a7e5		MOVW 164(RSP), R5
+  guest_functions.go:1682	0x10011b5b0		b900a3e5		MOVW R5, 160(RSP)
+  guest_functions.go:1682	0x10011b5b4		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1682	0x10011b5b8		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:1682	0x10011b5bc		d2800902		MOVD $72, R2
+  guest_functions.go:1682	0x10011b5c0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1682	0x10011b5c4		97ffefc7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1682	0x10011b5c8		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1682	0x10011b5cc		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:1682	0x10011b5d0		b9009fe4		MOVW R4, 156(RSP)
+  guest_functions.go:1683	0x10011b5d4		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1683	0x10011b5d8		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1683	0x10011b5dc		b27c03e2		ORR $16, ZR, R2
+  guest_functions.go:1683	0x10011b5e0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1683	0x10011b5e4		97ffefbf		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1683	0x10011b5e8		b9809fe4		MOVW 156(RSP), R4
+  guest_functions.go:1683	0x10011b5ec		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1683	0x10011b5f0		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1685	0x10011b5f4		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1685	0x10011b5f8		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1685	0x10011b5fc		b27e07e2		ORR $12, ZR, R2
+  guest_functions.go:1685	0x10011b600		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1685	0x10011b604		97ffefb7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1684	0x10011b608		b980b7e4		MOVW 180(RSP), R4
+  guest_functions.go:1684	0x10011b60c		91012084		ADD $72, R4, R4
+  guest_functions.go:1685	0x10011b610		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1685	0x10011b614		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1686	0x10011b618		b98123e6		MOVW 288(RSP), R6
+  guest_functions.go:1686	0x10011b61c		910040c7		ADD $16, R6, R7
+  guest_functions.go:1686	0x10011b620		b90097e7		MOVW R7, 148(RSP)
+  guest_functions.go:1687	0x10011b624		b9809fe8		MOVW 156(RSP), R8
+  guest_functions.go:1687	0x10011b628		6b04011f		CMPW R4, R8
+  guest_functions.go:1687	0x10011b62c		54000140		BEQ 10(PC)
+  guest_functions.go:1902	0x10011b630		d1001104		SUB $4, R8, R4
+  guest_functions.go:1902	0x10011b634		2a0403e1		MOVW R4, R1
+  guest_functions.go:1902	0x10011b638		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1902	0x10011b63c		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1902	0x10011b640		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1902	0x10011b644		97ffefa7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1902	0x10011b648		b98097e4		MOVW 148(RSP), R4
+  guest_functions.go:1902	0x10011b64c		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1902	0x10011b650		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1909	0x10011b654		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1909	0x10011b658		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:1909	0x10011b65c		d2800902		MOVD $72, R2
+  guest_functions.go:1909	0x10011b660		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1909	0x10011b664		97ffef9f		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1909	0x10011b668		b98097e4		MOVW 148(RSP), R4
+  guest_functions.go:1909	0x10011b66c		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:1909	0x10011b670		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1911	0x10011b674		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1911	0x10011b678		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:1911	0x10011b67c		d2800a02		MOVD $80, R2
+  guest_functions.go:1911	0x10011b680		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1911	0x10011b684		97ffef97		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1911	0x10011b688		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1911	0x10011b68c		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:1912	0x10011b690		b980a3e0		MOVW 160(RSP), R0
+  guest_functions.go:1912	0x10011b694		35000060		CBNZW R0, 3(PC)
+  guest_functions.go:1678	0x10011b698		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:1914	0x10011b69c		14000017		JMP 23(PC)
+  guest_functions.go:1920	0x10011b6a0		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1920	0x10011b6a4		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1920	0x10011b6a8		d2800282		MOVD $20, R2
+  guest_functions.go:1920	0x10011b6ac		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1920	0x10011b6b0		97ffef8c		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1920	0x10011b6b4		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1920	0x10011b6b8		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:1920	0x10011b6bc		b27f13e0		ORR $62, ZR, R0
+  guest_functions.go:1922	0x10011b6c0		1400000e		JMP 14(PC)
+  guest_functions.go:1882	0x10011b6c4		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1882	0x10011b6c8		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:1882	0x10011b6cc		d2800a02		MOVD $80, R2
+  guest_functions.go:1882	0x10011b6d0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1882	0x10011b6d4		97ffef83		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1882	0x10011b6d8		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1882	0x10011b6dc		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:1883	0x10011b6e0		b980c3e5		MOVW 192(RSP), R5
+  guest_functions.go:1883	0x10011b6e4		927e00a5		AND $4, R5, R5
+  guest_functions.go:1883	0x10011b6e8		710000bf		CMPW $0, R5
+  guest_functions.go:1898	0x10011b6ec		b27d0be5		ORR $56, ZR, R5
+  guest_functions.go:1898	0x10011b6f0		d2800146		MOVD $10, R6
+  guest_functions.go:1898	0x10011b6f4		9a8610a0		CSEL NE, R5, R6, R0
+  guest_functions.go:1644	0x10011b6f8		7100281f		CMPW $10, R0
+  guest_functions.go:1644	0x10011b6fc		54ffd5e1		BNE -337(PC)
+  guest_functions.go:1929	0x10011b700		f90083e4		MOVD R4, 256(RSP)
+  guest_functions.go:1929	0x10011b704		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1929	0x10011b708		f9407be1		MOVD 240(RSP), R1
+  guest_functions.go:1929	0x10011b70c		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1929	0x10011b710		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1929	0x10011b714		97ffef73		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1929	0x10011b718		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1929	0x10011b71c		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1930	0x10011b720		924074a6		AND $1073741823, R5, R6
+  guest_functions.go:1932	0x10011b724		710000bf		CMPW $0, R5
+  guest_functions.go:1932	0x10011b728		9a9f07e7		CSET NE, R7
+  guest_functions.go:1932	0x10011b72c		b9809be8		MOVW 152(RSP), R8
+  guest_functions.go:1932	0x10011b730		721e011f		TSTW $4, R8
+  guest_functions.go:1932	0x10011b734		9a9f17e9		CSET EQ, R9
+  guest_functions.go:1932	0x10011b738		8a070127		AND R7, R9, R7
+  guest_functions.go:1932	0x10011b73c		aa0600e7		ORR R6, R7, R7
+  guest_functions.go:1932	0x10011b740		34000f27		CBZW R7, 121(PC)
+  guest_functions.go:1929	0x10011b744		b90093e5		MOVW R5, 144(RSP)
+  guest_functions.go:1951	0x10011b748		92400507		AND $3, R8, R7
+  guest_functions.go:1951	0x10011b74c		710008ff		CMPW $2, R7
+  guest_functions.go:1951	0x10011b750		540002e1		BNE 23(PC)
+  guest_functions.go:1930	0x10011b754		b9008fe6		MOVW R6, 140(RSP)
+  guest_functions.go:1961	0x10011b758		b980c7e4		MOVW 196(RSP), R4
+  guest_functions.go:1961	0x10011b75c		91001084		ADD $4, R4, R4
+  guest_functions.go:1961	0x10011b760		2a0403e1		MOVW R4, R1
+  guest_functions.go:1961	0x10011b764		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1961	0x10011b768		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1961	0x10011b76c		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1961	0x10011b770		97ffef5c		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1961	0x10011b774		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1961	0x10011b778		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:1962	0x10011b77c		2a0403e1		MOVW R4, R1
+  guest_functions.go:1962	0x10011b780		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1962	0x10011b784		d2800282		MOVD $20, R2
+  guest_functions.go:1962	0x10011b788		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1962	0x10011b78c		97ffef55		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1962	0x10011b790		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1962	0x10011b794		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:1963	0x10011b798		b9808fe6		MOVW 140(RSP), R6
+  guest_functions.go:1963	0x10011b79c		6b0600bf		CMPW R6, R5
+  guest_functions.go:1963	0x10011b7a0		54003120		BEQ 393(PC)
+  guest_functions.go:1983	0x10011b7a4		b98093e5		MOVW 144(RSP), R5
+  guest_functions.go:1932	0x10011b7a8		b9809be8		MOVW 152(RSP), R8
+  guest_functions.go:1974	0x10011b7ac		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1974	0x10011b7b0		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1974	0x10011b7b4		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:1974	0x10011b7b8		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:1974	0x10011b7bc		97ffef49		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1974	0x10011b7c0		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1974	0x10011b7c4		b8a06883		MOVW (R4)(R0), R3
+  guest_functions.go:1974	0x10011b7c8		b9008be3		MOVW R3, 136(RSP)
+  guest_functions.go:1975	0x10011b7cc		91000464		ADD $1, R3, R4
+  guest_functions.go:1975	0x10011b7d0		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1975	0x10011b7d4		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:1975	0x10011b7d8		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:1975	0x10011b7dc		97ffefe9		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:1976	0x10011b7e0		b9808be4		MOVW 136(RSP), R4
+  guest_functions.go:1976	0x10011b7e4		6b04001f		CMPW R4, R0
+  guest_functions.go:1976	0x10011b7e8		54fffe21		BNE -15(PC)
+  guest_functions.go:1983	0x10011b7ec		b98093e3		MOVW 144(RSP), R3
+  guest_functions.go:1983	0x10011b7f0		b2618064		ORR $-2147483648, R3, R4
+  guest_functions.go:1983	0x10011b7f4		b90087e4		MOVW R4, 132(RSP)
+  guest_functions.go:1985	0x10011b7f8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1985	0x10011b7fc		b980cfe1		MOVW 204(RSP), R1
+  guest_functions.go:1985	0x10011b800		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1985	0x10011b804		97ffefdf		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:1986	0x10011b808		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1986	0x10011b80c		b9805005		MOVW 80(R0), R5
+  guest_functions.go:1986	0x10011b810		b90083e5		MOVW R5, 128(RSP)
+  guest_functions.go:1987	0x10011b814		d10080a6		SUB $32, R5, R6
+  guest_functions.go:1987	0x10011b818		b9007fe6		MOVW R6, 124(RSP)
+  guest_functions.go:1988	0x10011b81c		b9005006		MOVW R6, 80(R0)
+  guest_functions.go:1989	0x10011b820		d10050a2		SUB $20, R5, R2
+  guest_functions.go:1989	0x10011b824		b24003e1		ORR $1, ZR, R1
+  guest_functions.go:1989	0x10011b828		97fffcc2		CALL github.com/masahitojp/mariamem/probe.Fn90(SB)
+  guest_functions.go:1991	0x10011b82c		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1991	0x10011b830		b980cfe1		MOVW 204(RSP), R1
+  guest_functions.go:1991	0x10011b834		b98087e2		MOVW 132(RSP), R2
+  guest_functions.go:1991	0x10011b838		92800003		MOVD $-1, R3
+  guest_functions.go:1991	0x10011b83c		97fffbf5		CALL github.com/masahitojp/mariamem/probe.Fn88(SB)
+  guest_functions.go:1991	0x10011b840		b9007be0		MOVW R0, 120(RSP)
+  guest_functions.go:1992	0x10011b844		f9408fe5		MOVD 280(RSP), R5
+  guest_functions.go:1992	0x10011b848		f94010a6		MOVD 32(R5), R6
+  guest_functions.go:1992	0x10011b84c		f90083e6		MOVD R6, 256(RSP)
+  guest_functions.go:1993	0x10011b850		aa1f03e6		MOVD ZR, R6
+  guest_functions.go:1993	0x10011b854		cb0000c7		SUB R0, R6, R7
+  guest_functions.go:1993	0x10011b858		b90077e7		MOVW R7, 116(RSP)
+  guest_functions.go:1994	0x10011b85c		927bf807		AND $-17, R0, R7
+  guest_functions.go:1994	0x10011b860		b900e7e7		MOVW R7, 228(RSP)
+  guest_functions.go:2030	0x10011b864		b9807fe7		MOVW 124(RSP), R7
+  guest_functions.go:2030	0x10011b868		2a0703e1		MOVW R7, R1
+  guest_functions.go:2030	0x10011b86c		aa0503e0		MOVD R5, R0
+  guest_functions.go:2030	0x10011b870		b27e07e2		ORR $12, ZR, R2
+  guest_functions.go:2030	0x10011b874		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2030	0x10011b878		97ffef1a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2030	0x10011b87c		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:2030	0x10011b880		b8a068a1		MOVW (R5)(R0), R1
+  guest_functions.go:2031	0x10011b884		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2031	0x10011b888		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2031	0x10011b88c		97fffca9		CALL github.com/masahitojp/mariamem/probe.Fn90(SB)
+  guest_functions.go:2032	0x10011b890		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2032	0x10011b894		f9401005		MOVD 32(R0), R5
+  guest_functions.go:2032	0x10011b898		f90083e5		MOVD R5, 256(RSP)
+  guest_functions.go:2033	0x10011b89c		b98083e6		MOVW 128(RSP), R6
+  guest_functions.go:2033	0x10011b8a0		b9005006		MOVW R6, 80(R0)
+  guest_functions.go:1994	0x10011b8a4		b980e7e6		MOVW 228(RSP), R6
+  guest_functions.go:1994	0x10011b8a8		31006cdf		CMNW $27, R6
+  guest_functions.go:2015	0x10011b8ac		b98077e6		MOVW 116(RSP), R6
+  guest_functions.go:2015	0x10011b8b0		9a9f00c7		CSEL EQ, R6, ZR, R7
+  guest_functions.go:2015	0x10011b8b4		b9807be8		MOVW 120(RSP), R8
+  guest_functions.go:2015	0x10011b8b8		3101251f		CMNW $73, R8
+  guest_functions.go:2030	0x10011b8bc		9a8610e6		CSEL NE, R7, R6, R6
+  guest_functions.go:2030	0x10011b8c0		b90073e6		MOVW R6, 112(RSP)
+  guest_functions.go:1994	0x10011b8c4		14000002		JMP 2(PC)
+  guest_functions.go:2037	0x10011b8c8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2037	0x10011b8cc		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2037	0x10011b8d0		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:2037	0x10011b8d4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2037	0x10011b8d8		97ffef02		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2037	0x10011b8dc		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2037	0x10011b8e0		b8a06883		MOVW (R4)(R0), R3
+  guest_functions.go:2037	0x10011b8e4		b9006fe3		MOVW R3, 108(RSP)
+  guest_functions.go:2038	0x10011b8e8		d1000464		SUB $1, R3, R4
+  guest_functions.go:2038	0x10011b8ec		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2038	0x10011b8f0		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:2038	0x10011b8f4		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:2038	0x10011b8f8		97ffefa2		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:2039	0x10011b8fc		b9806fe4		MOVW 108(RSP), R4
+  guest_functions.go:2039	0x10011b900		6b04001f		CMPW R4, R0
+  guest_functions.go:2039	0x10011b904		54fffe21		BNE -15(PC)
+  guest_functions.go:2046	0x10011b908		b98073e4		MOVW 112(RSP), R4
+  guest_functions.go:2046	0x10011b90c		71006c9f		CMPW $27, R4
+  guest_functions.go:2053	0x10011b910		54000061		BNE 3(PC)
+  guest_functions.go:1943	0x10011b914		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2047	0x10011b918		14000003		JMP 3(PC)
+  guest_functions.go:2056	0x10011b91c		35002584		CBNZW R4, 300(PC)
+  guest_functions.go:1943	0x10011b920		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1943	0x10011b924		f90083e4		MOVD R4, 256(RSP)
+  guest_functions.go:1943	0x10011b928		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:1943	0x10011b92c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:1943	0x10011b930		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:1943	0x10011b934		b24003e3		ORR $1, ZR, R3
+  guest_functions.go:1943	0x10011b938		97ffeeea		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:1943	0x10011b93c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:1943	0x10011b940		38606885		MOVBU (R4)(R0), R5
+  guest_functions.go:1944	0x10011b944		72000cbf		TSTW $15, R5
+  guest_functions.go:1944	0x10011b948		54000181		BNE 12(PC)
+  guest_functions.go:2075	0x10011b94c		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2075	0x10011b950		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:2075	0x10011b954		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:2075	0x10011b958		aa1f03e3		MOVD ZR, R3
+  guest_functions.go:2075	0x10011b95c		d2800144		MOVD $10, R4
+  guest_functions.go:2075	0x10011b960		97ffef88		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:2076	0x10011b964		d2800145		MOVD $10, R5
+  guest_functions.go:2076	0x10011b968		8a050005		AND R5, R0, R5
+  guest_functions.go:1929	0x10011b96c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2067	0x10011b970		aa0503e0		MOVD R5, R0
+  guest_functions.go:2077	0x10011b974		14000111		JMP 273(PC)
+  guest_functions.go:2083	0x10011b978		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2083	0x10011b97c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2083	0x10011b980		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2083	0x10011b984		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2083	0x10011b988		97ffeed6		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2083	0x10011b98c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2083	0x10011b990		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2083	0x10011b994		b9006be4		MOVW R4, 104(RSP)
+  guest_functions.go:2084	0x10011b998		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2084	0x10011b99c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2084	0x10011b9a0		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:2084	0x10011b9a4		aa0203e3		MOVD R2, R3
+  guest_functions.go:2084	0x10011b9a8		97ffeece		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2084	0x10011b9ac		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2084	0x10011b9b0		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2084	0x10011b9b4		b90067e4		MOVW R4, 100(RSP)
+  guest_functions.go:2085	0x10011b9b8		92407484		AND $1073741823, R4, R4
+  guest_functions.go:2085	0x10011b9bc		b90063e4		MOVW R4, 96(RSP)
+  guest_functions.go:2086	0x10011b9c0		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2086	0x10011b9c4		b9805404		MOVW 84(R0), R4
+  guest_functions.go:2087	0x10011b9c8		91001084		ADD $4, R4, R4
+  guest_functions.go:2087	0x10011b9cc		2a0403e1		MOVW R4, R1
+  guest_functions.go:2087	0x10011b9d0		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2087	0x10011b9d4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2087	0x10011b9d8		97ffeec2		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2087	0x10011b9dc		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2087	0x10011b9e0		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2087	0x10011b9e4		b9005fe4		MOVW R4, 92(RSP)
+  guest_functions.go:2088	0x10011b9e8		2a0403e1		MOVW R4, R1
+  guest_functions.go:2088	0x10011b9ec		f90077e1		MOVD R1, 232(RSP)
+  guest_functions.go:2088	0x10011b9f0		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2088	0x10011b9f4		d2800282		MOVD $20, R2
+  guest_functions.go:2088	0x10011b9f8		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2088	0x10011b9fc		97ffeeb9		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2088	0x10011ba00		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2088	0x10011ba04		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:2088	0x10011ba08		b9005be5		MOVW R5, 88(RSP)
+  guest_functions.go:2089	0x10011ba0c		b98063e6		MOVW 96(RSP), R6
+  guest_functions.go:2089	0x10011ba10		6b0600bf		CMPW R6, R5
+  guest_functions.go:2089	0x10011ba14		54000060		BEQ 3(PC)
+  guest_functions.go:2203	0x10011ba18		b9806be0		MOVW 104(RSP), R0
+  guest_functions.go:2090	0x10011ba1c		14000011		JMP 17(PC)
+  guest_functions.go:2134	0x10011ba20		b9806be0		MOVW 104(RSP), R0
+  guest_functions.go:2134	0x10011ba24		36180180		TBZ $3, R0, 12(PC)
+  guest_functions.go:2148	0x10011ba28		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2148	0x10011ba2c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2148	0x10011ba30		d2800282		MOVD $20, R2
+  guest_functions.go:2148	0x10011ba34		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2148	0x10011ba38		97ffeeaa		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2148	0x10011ba3c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2148	0x10011ba40		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:2149	0x10011ba44		37f80f05		TBNZ $31, R5, 120(PC)
+  guest_functions.go:2141	0x10011ba48		b9806be0		MOVW 104(RSP), R0
+  guest_functions.go:2225	0x10011ba4c		b9805be5		MOVW 88(RSP), R5
+  guest_functions.go:2126	0x10011ba50		b98063e6		MOVW 96(RSP), R6
+  guest_functions.go:2141	0x10011ba54		92400407		AND $3, R0, R7
+  guest_functions.go:2141	0x10011ba58		710004ff		CMPW $1, R7
+  guest_functions.go:2141	0x10011ba5c		54000b20		BEQ 89(PC)
+  guest_functions.go:2126	0x10011ba60		b27f73e7		MOVD $1073741822, R7
+  guest_functions.go:2126	0x10011ba64		6b0700df		CMPW R7, R6
+  guest_functions.go:2126	0x10011ba68		54000061		BNE 3(PC)
+  guest_functions.go:2126	0x10011ba6c		b27d0be0		ORR $56, ZR, R0
+  guest_functions.go:2128	0x10011ba70		140000d2		JMP 210(PC)
+  guest_functions.go:2175	0x10011ba74		35000a26		CBNZW R6, 81(PC)
+  guest_functions.go:2189	0x10011ba78		b98067e1		MOVW 100(RSP), R1
+  guest_functions.go:2189	0x10011ba7c		34000041		CBZW R1, 2(PC)
+  guest_functions.go:2203	0x10011ba80		361009c0		TBZ $2, R0, 78(PC)
+  guest_functions.go:2182	0x10011ba84		36380520		TBZ $7, R0, 41(PC)
+  guest_functions.go:2213	0x10011ba88		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2213	0x10011ba8c		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:2213	0x10011ba90		d2800982		MOVD $76, R2
+  guest_functions.go:2213	0x10011ba94		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2213	0x10011ba98		97ffee92		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2213	0x10011ba9c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2213	0x10011baa0		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:2214	0x10011baa4		35000125		CBNZW R5, 9(PC)
+  guest_functions.go:2233	0x10011baa8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2233	0x10011baac		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:2233	0x10011bab0		d2800982		MOVD $76, R2
+  guest_functions.go:2233	0x10011bab4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2233	0x10011bab8		97ffee8a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2233	0x10011babc		92800164		MOVD $-12, R4
+  guest_functions.go:2233	0x10011bac0		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:2233	0x10011bac4		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:2240	0x10011bac8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2240	0x10011bacc		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2240	0x10011bad0		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:2240	0x10011bad4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2240	0x10011bad8		97ffee82		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2240	0x10011badc		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2240	0x10011bae0		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2240	0x10011bae4		b9004be4		MOVW R4, 72(RSP)
+  guest_functions.go:2241	0x10011bae8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2241	0x10011baec		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:2241	0x10011baf0		d2800a02		MOVD $80, R2
+  guest_functions.go:2241	0x10011baf4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2241	0x10011baf8		97ffee7a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2241	0x10011bafc		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:2241	0x10011bb00		91004024		ADD $16, R1, R4
+  guest_functions.go:2241	0x10011bb04		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:2241	0x10011bb08		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:2249	0x10011bb0c		b9805be4		MOVW 88(RSP), R4
+  guest_functions.go:2249	0x10011bb10		b2618086		ORR $-2147483648, R4, R6
+  guest_functions.go:2242	0x10011bb14		b9804be7		MOVW 72(RSP), R7
+  guest_functions.go:2242	0x10011bb18		710000ff		CMPW $0, R7
+  guest_functions.go:2257	0x10011bb1c		9a8410c4		CSEL NE, R6, R4, R4
+  guest_functions.go:2225	0x10011bb20		b98067e1		MOVW 100(RSP), R1
+  guest_functions.go:2225	0x10011bb24		aa0403e5		MOVD R4, R5
+  guest_functions.go:2225	0x10011bb28		92620026		AND $1073741824, R1, R6
+  guest_functions.go:2225	0x10011bb2c		aa0600a4		ORR R6, R5, R4
+  guest_functions.go:2225	0x10011bb30		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2225	0x10011bb34		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:2225	0x10011bb38		aa0103e3		MOVD R1, R3
+  guest_functions.go:2225	0x10011bb3c		b98123e1		MOVW 288(RSP), R1
+  guest_functions.go:2225	0x10011bb40		97ffef10		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:2226	0x10011bb44		b98067e5		MOVW 100(RSP), R5
+  guest_functions.go:2226	0x10011bb48		6b05001f		CMPW R5, R0
+  guest_functions.go:2226	0x10011bb4c		54000081		BNE 4(PC)
+  guest_functions.go:2273	0x10011bb50		b9806be0		MOVW 104(RSP), R0
+  guest_functions.go:2273	0x10011bb54		361808e0		TBZ $3, R0, 71(PC)
+  guest_functions.go:2273	0x10011bb58		1400003c		JMP 60(PC)
+  guest_functions.go:2261	0x10011bb5c		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2261	0x10011bb60		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:2261	0x10011bb64		d2800a02		MOVD $80, R2
+  guest_functions.go:2261	0x10011bb68		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2261	0x10011bb6c		97ffee5d		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2261	0x10011bb70		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2261	0x10011bb74		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:2263	0x10011bb78		b9806be5		MOVW 104(RSP), R5
+  guest_functions.go:2263	0x10011bb7c		927e04a5		AND $12, R5, R5
+  guest_functions.go:2263	0x10011bb80		710030bf		CMPW $12, R5
+  guest_functions.go:2263	0x10011bb84		54000161		BNE 11(PC)
+  guest_functions.go:2281	0x10011bb88		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2281	0x10011bb8c		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2281	0x10011bb90		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:2281	0x10011bb94		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2281	0x10011bb98		97ffee52		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2281	0x10011bb9c		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2281	0x10011bba0		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:2282	0x10011bba4		34000065		CBZW R5, 3(PC)
+  guest_functions.go:2282	0x10011bba8		b27d0be0		ORR $56, ZR, R0
+  guest_functions.go:2284	0x10011bbac		14000083		JMP 131(PC)
+  guest_functions.go:2293	0x10011bbb0		d2800140		MOVD $10, R0
+  guest_functions.go:2294	0x10011bbb4		14000081		JMP 129(PC)
+  guest_functions.go:2294	0x10011bbb8		d2800140		MOVD $10, R0
+  guest_functions.go:2200	0x10011bbbc		1400007f		JMP 127(PC)
+  guest_functions.go:2161	0x10011bbc0		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2161	0x10011bbc4		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2161	0x10011bbc8		d2800282		MOVD $20, R2
+  guest_functions.go:2161	0x10011bbcc		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2161	0x10011bbd0		97ffee44		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2161	0x10011bbd4		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2161	0x10011bbd8		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:2162	0x10011bbdc		b27f77e6		MOVD $2147483646, R6
+  guest_functions.go:2162	0x10011bbe0		6b0600bf		CMPW R6, R5
+  guest_functions.go:2162	0x10011bbe4		54000069		BLS 3(PC)
+  guest_functions.go:2162	0x10011bbe8		b27f07e0		ORR $6, ZR, R0
+  guest_functions.go:2164	0x10011bbec		14000073		JMP 115(PC)
+  guest_functions.go:2161	0x10011bbf0		b90057e5		MOVW R5, 84(RSP)
+  guest_functions.go:2170	0x10011bbf4		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2170	0x10011bbf8		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2170	0x10011bbfc		d2800282		MOVD $20, R2
+  guest_functions.go:2170	0x10011bc00		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2170	0x10011bc04		97ffee37		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2170	0x10011bc08		b98057e4		MOVW 84(RSP), R4
+  guest_functions.go:2170	0x10011bc0c		91000484		ADD $1, R4, R4
+  guest_functions.go:2170	0x10011bc10		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:2170	0x10011bc14		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:1929	0x10011bc18		aa0503e4		MOVD R5, R4
+  guest_functions.go:2096	0x10011bc1c		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:2172	0x10011bc20		14000066		JMP 102(PC)
+  guest_functions.go:2156	0x10011bc24		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2156	0x10011bc28		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2156	0x10011bc2c		d2800282		MOVD $20, R2
+  guest_functions.go:2156	0x10011bc30		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2156	0x10011bc34		97ffee2b		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2156	0x10011bc38		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2156	0x10011bc3c		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:2157	0x10011bc40		b98067e5		MOVW 100(RSP), R5
+  guest_functions.go:2157	0x10011bc44		926200a5		AND $1073741824, R5, R5
+  guest_functions.go:2116	0x10011bc48		b90043e5		MOVW R5, 64(RSP)
+  guest_functions.go:2116	0x10011bc4c		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2116	0x10011bc50		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2116	0x10011bc54		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:2116	0x10011bc58		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2116	0x10011bc5c		97ffee21		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2116	0x10011bc60		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2116	0x10011bc64		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:2117	0x10011bc68		350008e5		CBNZW R5, 71(PC)
+  guest_functions.go:2104	0x10011bc6c		b98043e5		MOVW 64(RSP), R5
+  guest_functions.go:2104	0x10011bc70		b9003fe5		MOVW R5, 60(RSP)
+  guest_functions.go:2104	0x10011bc74		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2104	0x10011bc78		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:2104	0x10011bc7c		d2800902		MOVD $72, R2
+  guest_functions.go:2104	0x10011bc80		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2104	0x10011bc84		97ffee17		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2104	0x10011bc88		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2104	0x10011bc8c		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2104	0x10011bc90		b9003be4		MOVW R4, 56(RSP)
+  guest_functions.go:2105	0x10011bc94		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2105	0x10011bc98		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2105	0x10011bc9c		b27c03e2		ORR $16, ZR, R2
+  guest_functions.go:2105	0x10011bca0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2105	0x10011bca4		97ffee0f		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2105	0x10011bca8		b9803be4		MOVW 56(RSP), R4
+  guest_functions.go:2105	0x10011bcac		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:2105	0x10011bcb0		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:2107	0x10011bcb4		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2107	0x10011bcb8		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2107	0x10011bcbc		b27e07e2		ORR $12, ZR, R2
+  guest_functions.go:2107	0x10011bcc0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2107	0x10011bcc4		97ffee07		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2106	0x10011bcc8		b9805fe4		MOVW 92(RSP), R4
+  guest_functions.go:2106	0x10011bccc		91012084		ADD $72, R4, R4
+  guest_functions.go:2107	0x10011bcd0		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:2107	0x10011bcd4		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:2108	0x10011bcd8		b98123e6		MOVW 288(RSP), R6
+  guest_functions.go:2108	0x10011bcdc		910040c7		ADD $16, R6, R7
+  guest_functions.go:2108	0x10011bce0		b90037e7		MOVW R7, 52(RSP)
+  guest_functions.go:2109	0x10011bce4		b9803be8		MOVW 56(RSP), R8
+  guest_functions.go:2109	0x10011bce8		6b04011f		CMPW R4, R8
+  guest_functions.go:2109	0x10011bcec		54000140		BEQ 10(PC)
+  guest_functions.go:2324	0x10011bcf0		d1001104		SUB $4, R8, R4
+  guest_functions.go:2324	0x10011bcf4		2a0403e1		MOVW R4, R1
+  guest_functions.go:2324	0x10011bcf8		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2324	0x10011bcfc		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2324	0x10011bd00		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2324	0x10011bd04		97ffedf7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2324	0x10011bd08		b98037e4		MOVW 52(RSP), R4
+  guest_functions.go:2324	0x10011bd0c		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:2324	0x10011bd10		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:2331	0x10011bd14		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2331	0x10011bd18		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:2331	0x10011bd1c		d2800902		MOVD $72, R2
+  guest_functions.go:2331	0x10011bd20		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2331	0x10011bd24		97ffedef		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2331	0x10011bd28		b98037e4		MOVW 52(RSP), R4
+  guest_functions.go:2331	0x10011bd2c		f94083e5		MOVD 256(RSP), R5
+  guest_functions.go:2331	0x10011bd30		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:2333	0x10011bd34		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2333	0x10011bd38		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:2333	0x10011bd3c		d2800a02		MOVD $80, R2
+  guest_functions.go:2333	0x10011bd40		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2333	0x10011bd44		97ffede7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2333	0x10011bd48		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2333	0x10011bd4c		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:2334	0x10011bd50		b9803fe0		MOVW 60(RSP), R0
+  guest_functions.go:2334	0x10011bd54		35000060		CBNZW R0, 3(PC)
+  guest_functions.go:2100	0x10011bd58		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:2336	0x10011bd5c		14000017		JMP 23(PC)
+  guest_functions.go:2342	0x10011bd60		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2342	0x10011bd64		f9407fe1		MOVD 248(RSP), R1
+  guest_functions.go:2342	0x10011bd68		d2800282		MOVD $20, R2
+  guest_functions.go:2342	0x10011bd6c		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2342	0x10011bd70		97ffeddc		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2342	0x10011bd74		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2342	0x10011bd78		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:2342	0x10011bd7c		b27f13e0		ORR $62, ZR, R0
+  guest_functions.go:2344	0x10011bd80		1400000e		JMP 14(PC)
+  guest_functions.go:2304	0x10011bd84		f9408fe0		MOVD 280(RSP), R0
+  guest_functions.go:2304	0x10011bd88		f94077e1		MOVD 232(RSP), R1
+  guest_functions.go:2304	0x10011bd8c		d2800a02		MOVD $80, R2
+  guest_functions.go:2304	0x10011bd90		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2304	0x10011bd94		97ffedd3		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2304	0x10011bd98		f94083e4		MOVD 256(RSP), R4
+  guest_functions.go:2304	0x10011bd9c		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:2305	0x10011bda0		b9806be5		MOVW 104(RSP), R5
+  guest_functions.go:2305	0x10011bda4		927e00a5		AND $4, R5, R5
+  guest_functions.go:2305	0x10011bda8		710000bf		CMPW $0, R5
+  guest_functions.go:2320	0x10011bdac		b27d0be5		ORR $56, ZR, R5
+  guest_functions.go:2320	0x10011bdb0		d2800146		MOVD $10, R6
+  guest_functions.go:2320	0x10011bdb4		9a8610a0		CSEL NE, R5, R6, R0
+  guest_functions.go:2067	0x10011bdb8		7100281f		CMPW $10, R0
+  guest_functions.go:2067	0x10011bdbc		54ffca20		BEQ -431(PC)
+  guest_functions.go:2067	0x10011bdc0		17fffcfe		JMP -770(PC)
+  guest_functions.go:2067	0x10011bdc4		b27c03e0		ORR $16, ZR, R0
+  guest_functions.go:1971	0x10011bdc8		17fffcfc		JMP -772(PC)
+  guest_functions.go:1271	0x10011bdcc		aa0403e0		MOVD R4, R0
+  guest_functions.go:2058	0x10011bdd0		17fffcfa		JMP -774(PC)
+  guest_functions.go:968	0x10011bdd4		f90007e0		MOVD R0, 8(RSP)
+  guest_functions.go:968	0x10011bdd8		b90013e1		MOVW R1, 16(RSP)
+  guest_functions.go:968	0x10011bddc		aa1e03e3		MOVD R30, R3
+  guest_functions.go:968	0x10011bde0		97fd8ed0		CALL runtime.morestack_noctxt.abi0(SB)
+  guest_functions.go:968	0x10011bde4		f94007e0		MOVD 8(RSP), R0
+  guest_functions.go:968	0x10011bde8		b98013e1		MOVW 16(RSP), R1
+  guest_functions.go:968	0x10011bdec		17fffb91		JMP github.com/masahitojp/mariamem/probe.Fn93(SB)
+
+TEXT github.com/masahitojp/mariamem/probe.Fn130(SB) <workspace>/temp/protocol-receipt-v2/module/probe/guest_functions.go
+  guest_functions.go:2543	0x10011c060		f9400b90		MOVD 16(R28), R16
+  guest_functions.go:2543	0x10011c064		eb3063ff		CMP R16, RSP
+  guest_functions.go:2543	0x10011c068		540029e9		BLS 335(PC)
+  guest_functions.go:2543	0x10011c06c		f8180ffe		MOVD.W R30, -128(RSP)
+  guest_functions.go:2543	0x10011c070		f81f83fd		MOVD R29, -8(RSP)
+  guest_functions.go:2543	0x10011c074		d10023fd		SUB $8, RSP, R29
+  guest_functions.go:2591	0x10011c078		f90047e0		MOVD R0, 136(RSP)
+  guest_functions.go:2591	0x10011c07c		b90093e1		MOVW R1, 144(RSP)
+  guest_functions.go:2544	0x10011c080		f9401004		MOVD 32(R0), R4
+  guest_functions.go:2544	0x10011c084		f9003be4		MOVD R4, 112(RSP)
+  guest_functions.go:2587	0x10011c088		2a0103e1		MOVW R1, R1
+  guest_functions.go:2587	0x10011c08c		f90037e1		MOVD R1, 104(RSP)
+  guest_functions.go:2587	0x10011c090		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2587	0x10011c094		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2587	0x10011c098		97ffed12		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2587	0x10011c09c		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2587	0x10011c0a0		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2587	0x10011c0a4		b90033e4		MOVW R4, 48(RSP)
+  guest_functions.go:2589	0x10011c0a8		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2589	0x10011c0ac		f94037e1		MOVD 104(RSP), R1
+  guest_functions.go:2589	0x10011c0b0		b27d03e2		ORR $8, ZR, R2
+  guest_functions.go:2589	0x10011c0b4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2589	0x10011c0b8		97ffed0a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2589	0x10011c0bc		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2589	0x10011c0c0		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:2589	0x10011c0c4		b9005be5		MOVW R5, 88(RSP)
+  guest_functions.go:2591	0x10011c0c8		b98033e6		MOVW 48(RSP), R6
+  guest_functions.go:2591	0x10011c0cc		72000cdf		TSTW $15, R6
+  guest_functions.go:2591	0x10011c0d0		540000a1		BNE 5(PC)
+  guest_functions.go:2594	0x10011c0d4		b98093e6		MOVW 144(RSP), R6
+  guest_functions.go:2594	0x10011c0d8		910010c6		ADD $4, R6, R6
+  guest_functions.go:2594	0x10011c0dc		b9003be6		MOVW R6, 56(RSP)
+  guest_functions.go:2595	0x10011c0e0		14000112		JMP 274(PC)
+  guest_functions.go:2622	0x10011c0e4		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2622	0x10011c0e8		b9805404		MOVW 84(R0), R4
+  guest_functions.go:2623	0x10011c0ec		91001084		ADD $4, R4, R4
+  guest_functions.go:2623	0x10011c0f0		2a0403e1		MOVW R4, R1
+  guest_functions.go:2623	0x10011c0f4		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2623	0x10011c0f8		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2623	0x10011c0fc		97ffecf9		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2623	0x10011c100		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2623	0x10011c104		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2623	0x10011c108		b90057e4		MOVW R4, 84(RSP)
+  guest_functions.go:2624	0x10011c10c		2a0403e1		MOVW R4, R1
+  guest_functions.go:2624	0x10011c110		f90033e1		MOVD R1, 96(RSP)
+  guest_functions.go:2624	0x10011c114		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2624	0x10011c118		d2800282		MOVD $20, R2
+  guest_functions.go:2624	0x10011c11c		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2624	0x10011c120		97ffecf0		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2624	0x10011c124		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2624	0x10011c128		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2624	0x10011c12c		b90053e4		MOVW R4, 80(RSP)
+  guest_functions.go:2625	0x10011c130		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2625	0x10011c134		f94037e1		MOVD 104(RSP), R1
+  guest_functions.go:2625	0x10011c138		b27e03e2		ORR $4, ZR, R2
+  guest_functions.go:2625	0x10011c13c		aa0203e3		MOVD R2, R3
+  guest_functions.go:2625	0x10011c140		97ffece8		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2625	0x10011c144		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2625	0x10011c148		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:2626	0x10011c14c		924074a6		AND $1073741823, R5, R6
+  guest_functions.go:2626	0x10011c150		b98053e7		MOVW 80(RSP), R7
+  guest_functions.go:2626	0x10011c154		6b0600ff		CMPW R6, R7
+  guest_functions.go:2626	0x10011c158		54001361		BNE 155(PC)
+  guest_functions.go:2625	0x10011c15c		b9004fe5		MOVW R5, 76(RSP)
+  guest_functions.go:2630	0x10011c160		b98033e6		MOVW 48(RSP), R6
+  guest_functions.go:2630	0x10011c164		924004c7		AND $3, R6, R7
+  guest_functions.go:2630	0x10011c168		710004ff		CMPW $1, R7
+  guest_functions.go:2630	0x10011c16c		54000800		BEQ 64(PC)
+  guest_functions.go:2631	0x10011c170		36380146		TBZ $7, R6, 10(PC)
+  guest_functions.go:2632	0x10011c174		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2632	0x10011c178		f94033e1		MOVD 96(RSP), R1
+  guest_functions.go:2632	0x10011c17c		d2800a02		MOVD $80, R2
+  guest_functions.go:2632	0x10011c180		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2632	0x10011c184		97ffecd7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2632	0x10011c188		b98093e4		MOVW 144(RSP), R4
+  guest_functions.go:2632	0x10011c18c		91004085		ADD $16, R4, R5
+  guest_functions.go:2632	0x10011c190		f9403be6		MOVD 112(RSP), R6
+  guest_functions.go:2632	0x10011c194		b82068c5		MOVW R5, (R6)(R0)
+  guest_functions.go:2636	0x10011c198		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2636	0x10011c19c		f94037e1		MOVD 104(RSP), R1
+  guest_functions.go:2636	0x10011c1a0		b27e07e2		ORR $12, ZR, R2
+  guest_functions.go:2636	0x10011c1a4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2636	0x10011c1a8		97ffecce		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2635	0x10011c1ac		b98033e4		MOVW 48(RSP), R4
+  guest_functions.go:2635	0x10011c1b0		d3638884		LSL $29, R4, R4
+  guest_functions.go:2635	0x10011c1b4		b9005fe4		MOVW R4, 92(RSP)
+  guest_functions.go:2636	0x10011c1b8		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2636	0x10011c1bc		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2636	0x10011c1c0		b90043e4		MOVW R4, 64(RSP)
+  guest_functions.go:2637	0x10011c1c4		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2637	0x10011c1c8		f94037e1		MOVD 104(RSP), R1
+  guest_functions.go:2637	0x10011c1cc		b27c03e2		ORR $16, ZR, R2
+  guest_functions.go:2637	0x10011c1d0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2637	0x10011c1d4		97ffecc3		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2637	0x10011c1d8		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2637	0x10011c1dc		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2637	0x10011c1e0		b9003fe4		MOVW R4, 60(RSP)
+  guest_functions.go:2638	0x10011c1e4		b98043e4		MOVW 64(RSP), R4
+  guest_functions.go:2638	0x10011c1e8		2a0403e1		MOVW R4, R1
+  guest_functions.go:2638	0x10011c1ec		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2638	0x10011c1f0		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2638	0x10011c1f4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2638	0x10011c1f8		97ffecba		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2638	0x10011c1fc		b9803fe4		MOVW 60(RSP), R4
+  guest_functions.go:2638	0x10011c200		f9403be5		MOVD 112(RSP), R5
+  guest_functions.go:2638	0x10011c204		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:2639	0x10011c208		b98057e6		MOVW 84(RSP), R6
+  guest_functions.go:2639	0x10011c20c		910120c6		ADD $72, R6, R6
+  guest_functions.go:2635	0x10011c210		b9805fe7		MOVW 92(RSP), R7
+  guest_functions.go:2635	0x10011c214		b9804fe8		MOVW 76(RSP), R8
+  guest_functions.go:2635	0x10011c218		8a0804e7		AND R8<<1, R7, R7
+  guest_functions.go:2639	0x10011c21c		6b06009f		CMPW R6, R4
+  guest_functions.go:2639	0x10011c220		54000180		BEQ 12(PC)
+  guest_functions.go:2635	0x10011c224		b9005fe7		MOVW R7, 92(RSP)
+  guest_functions.go:2643	0x10011c228		d1001084		SUB $4, R4, R4
+  guest_functions.go:2643	0x10011c22c		2a0403e1		MOVW R4, R1
+  guest_functions.go:2643	0x10011c230		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2643	0x10011c234		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2643	0x10011c238		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2643	0x10011c23c		97ffeca9		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2643	0x10011c240		b98043e4		MOVW 64(RSP), R4
+  guest_functions.go:2643	0x10011c244		f9403be5		MOVD 112(RSP), R5
+  guest_functions.go:2643	0x10011c248		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:2635	0x10011c24c		b9805fe7		MOVW 92(RSP), R7
+  guest_functions.go:2635	0x10011c250		935f7ce4		SBFX $31, R7, $1, R4
+  guest_functions.go:2635	0x10011c254		927f7484		AND $2147483646, R4, R4
+  guest_functions.go:2635	0x10011c258		b90047e4		MOVW R4, 68(RSP)
+  guest_functions.go:2647	0x10011c25c		b98093e6		MOVW 144(RSP), R6
+  guest_functions.go:2647	0x10011c260		910010c6		ADD $4, R6, R6
+  guest_functions.go:2647	0x10011c264		b9003be6		MOVW R6, 56(RSP)
+  guest_functions.go:2648	0x10011c268		14000086		JMP 134(PC)
+  guest_functions.go:2675	0x10011c26c		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2675	0x10011c270		f94037e1		MOVD 104(RSP), R1
+  guest_functions.go:2675	0x10011c274		d2800282		MOVD $20, R2
+  guest_functions.go:2675	0x10011c278		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2675	0x10011c27c		97ffec99		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2675	0x10011c280		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2675	0x10011c284		b8a06885		MOVW (R4)(R0), R5
+  guest_functions.go:2676	0x10011c288		35000825		CBNZW R5, 65(PC)
+  guest_functions.go:2677	0x10011c28c		b98033e0		MOVW 48(RSP), R0
+  guest_functions.go:2677	0x10011c290		36380140		TBZ $7, R0, 10(PC)
+  guest_functions.go:2678	0x10011c294		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2678	0x10011c298		f94033e1		MOVD 96(RSP), R1
+  guest_functions.go:2678	0x10011c29c		d2800a02		MOVD $80, R2
+  guest_functions.go:2678	0x10011c2a0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2678	0x10011c2a4		97ffec8f		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2678	0x10011c2a8		b98093e4		MOVW 144(RSP), R4
+  guest_functions.go:2678	0x10011c2ac		91004085		ADD $16, R4, R5
+  guest_functions.go:2678	0x10011c2b0		f9403be6		MOVD 112(RSP), R6
+  guest_functions.go:2678	0x10011c2b4		b82068c5		MOVW R5, (R6)(R0)
+  guest_functions.go:2682	0x10011c2b8		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2682	0x10011c2bc		f94037e1		MOVD 104(RSP), R1
+  guest_functions.go:2682	0x10011c2c0		b27e07e2		ORR $12, ZR, R2
+  guest_functions.go:2682	0x10011c2c4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2682	0x10011c2c8		97ffec86		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2681	0x10011c2cc		b98033e4		MOVW 48(RSP), R4
+  guest_functions.go:2681	0x10011c2d0		d3638884		LSL $29, R4, R4
+  guest_functions.go:2681	0x10011c2d4		b9005fe4		MOVW R4, 92(RSP)
+  guest_functions.go:2682	0x10011c2d8		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2682	0x10011c2dc		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2682	0x10011c2e0		b90043e4		MOVW R4, 64(RSP)
+  guest_functions.go:2683	0x10011c2e4		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2683	0x10011c2e8		f94037e1		MOVD 104(RSP), R1
+  guest_functions.go:2683	0x10011c2ec		b27c03e2		ORR $16, ZR, R2
+  guest_functions.go:2683	0x10011c2f0		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2683	0x10011c2f4		97ffec7b		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2683	0x10011c2f8		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2683	0x10011c2fc		b8a06884		MOVW (R4)(R0), R4
+  guest_functions.go:2683	0x10011c300		b9003fe4		MOVW R4, 60(RSP)
+  guest_functions.go:2684	0x10011c304		b98043e4		MOVW 64(RSP), R4
+  guest_functions.go:2684	0x10011c308		2a0403e1		MOVW R4, R1
+  guest_functions.go:2684	0x10011c30c		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2684	0x10011c310		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2684	0x10011c314		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2684	0x10011c318		97ffec72		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2684	0x10011c31c		b9803fe4		MOVW 60(RSP), R4
+  guest_functions.go:2684	0x10011c320		f9403be5		MOVD 112(RSP), R5
+  guest_functions.go:2684	0x10011c324		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:2685	0x10011c328		b98057e6		MOVW 84(RSP), R6
+  guest_functions.go:2685	0x10011c32c		910120c6		ADD $72, R6, R6
+  guest_functions.go:2681	0x10011c330		b9805fe7		MOVW 92(RSP), R7
+  guest_functions.go:2681	0x10011c334		b9804fe8		MOVW 76(RSP), R8
+  guest_functions.go:2681	0x10011c338		8a0804e7		AND R8<<1, R7, R7
+  guest_functions.go:2685	0x10011c33c		6b06009f		CMPW R6, R4
+  guest_functions.go:2685	0x10011c340		54000180		BEQ 12(PC)
+  guest_functions.go:2681	0x10011c344		b9005fe7		MOVW R7, 92(RSP)
+  guest_functions.go:2689	0x10011c348		d1001084		SUB $4, R4, R4
+  guest_functions.go:2689	0x10011c34c		2a0403e1		MOVW R4, R1
+  guest_functions.go:2689	0x10011c350		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2689	0x10011c354		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2689	0x10011c358		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2689	0x10011c35c		97ffec61		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2689	0x10011c360		b98043e4		MOVW 64(RSP), R4
+  guest_functions.go:2689	0x10011c364		f9403be5		MOVD 112(RSP), R5
+  guest_functions.go:2689	0x10011c368		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:2681	0x10011c36c		b9805fe7		MOVW 92(RSP), R7
+  guest_functions.go:2681	0x10011c370		935f7ce4		SBFX $31, R7, $1, R4
+  guest_functions.go:2681	0x10011c374		927f7484		AND $2147483646, R4, R4
+  guest_functions.go:2681	0x10011c378		b90047e4		MOVW R4, 68(RSP)
+  guest_functions.go:2693	0x10011c37c		b98093e6		MOVW 144(RSP), R6
+  guest_functions.go:2693	0x10011c380		910010c6		ADD $4, R6, R6
+  guest_functions.go:2693	0x10011c384		b9003be6		MOVW R6, 56(RSP)
+  guest_functions.go:2694	0x10011c388		14000014		JMP 20(PC)
+  guest_functions.go:2675	0x10011c38c		b9004be5		MOVW R5, 72(RSP)
+  guest_functions.go:2721	0x10011c390		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2721	0x10011c394		f94037e1		MOVD 104(RSP), R1
+  guest_functions.go:2721	0x10011c398		d2800282		MOVD $20, R2
+  guest_functions.go:2721	0x10011c39c		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2721	0x10011c3a0		97ffec50		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2721	0x10011c3a4		b9804be4		MOVW 72(RSP), R4
+  guest_functions.go:2721	0x10011c3a8		d1000484		SUB $1, R4, R4
+  guest_functions.go:2721	0x10011c3ac		f9403be5		MOVD 112(RSP), R5
+  guest_functions.go:2721	0x10011c3b0		b82068a4		MOVW R4, (R5)(R0)
+  guest_functions.go:2722	0x10011c3b4		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:2722	0x10011c3b8		f85f83fd		MOVD -8(RSP), R29
+  guest_functions.go:2722	0x10011c3bc		f84807fe		MOVD.P 128(RSP), R30
+  guest_functions.go:2722	0x10011c3c0		d65f03c0		RET
+  guest_functions.go:2628	0x10011c3c4		b24017e0		ORR $63, ZR, R0
+  guest_functions.go:2628	0x10011c3c8		f85f83fd		MOVD -8(RSP), R29
+  guest_functions.go:2628	0x10011c3cc		f84807fe		MOVD.P 128(RSP), R30
+  guest_functions.go:2628	0x10011c3d0		d65f03c0		RET
+  guest_functions.go:2695	0x10011c3d4		b9803be6		MOVW 56(RSP), R6
+  guest_functions.go:2695	0x10011c3d8		2a0603e1		MOVW R6, R1
+  guest_functions.go:2695	0x10011c3dc		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2695	0x10011c3e0		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2695	0x10011c3e4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2695	0x10011c3e8		97ffec3e		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2695	0x10011c3ec		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2695	0x10011c3f0		b8a06883		MOVW (R4)(R0), R3
+  guest_functions.go:2695	0x10011c3f4		b90037e3		MOVW R3, 52(RSP)
+  guest_functions.go:2696	0x10011c3f8		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2696	0x10011c3fc		b9803be1		MOVW 56(RSP), R1
+  guest_functions.go:2696	0x10011c400		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2696	0x10011c404		b98047e4		MOVW 68(RSP), R4
+  guest_functions.go:2696	0x10011c408		97ffecde		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:2697	0x10011c40c		b98037e4		MOVW 52(RSP), R4
+  guest_functions.go:2697	0x10011c410		6b04001f		CMPW R4, R0
+  guest_functions.go:2697	0x10011c414		54fffe01		BNE -16(PC)
+  guest_functions.go:2706	0x10011c418		b98033e0		MOVW 48(RSP), R0
+  guest_functions.go:2706	0x10011c41c		36380120		TBZ $7, R0, 9(PC)
+  guest_functions.go:2708	0x10011c420		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2708	0x10011c424		f94033e1		MOVD 96(RSP), R1
+  guest_functions.go:2708	0x10011c428		d2800a02		MOVD $80, R2
+  guest_functions.go:2708	0x10011c42c		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2708	0x10011c430		97ffec2c		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2708	0x10011c434		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2708	0x10011c438		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:2712	0x10011c43c		b98037e4		MOVW 52(RSP), R4
+  guest_functions.go:2712	0x10011c440		b9805be3		MOVW 88(RSP), R3
+  guest_functions.go:2712	0x10011c444		7100007f		CMPW $0, R3
+  guest_functions.go:2712	0x10011c448		9a9f17e3		CSET EQ, R3
+  guest_functions.go:2712	0x10011c44c		7100009f		CMPW $0, R4
+  guest_functions.go:2712	0x10011c450		9a9fb7e4		CSET GE, R4
+  guest_functions.go:2712	0x10011c454		6a03009f		TSTW R3, R4
+  guest_functions.go:2712	0x10011c458		540000a1		BNE 5(PC)
+  guest_functions.go:2715	0x10011c45c		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2715	0x10011c460		b9803be1		MOVW 56(RSP), R1
+  guest_functions.go:2715	0x10011c464		b24003e2		ORR $1, ZR, R2
+  guest_functions.go:2715	0x10011c468		97fff96e		CALL github.com/masahitojp/mariamem/probe.Fn89(SB)
+  guest_functions.go:2719	0x10011c46c		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:2719	0x10011c470		f85f83fd		MOVD -8(RSP), R29
+  guest_functions.go:2719	0x10011c474		f84807fe		MOVD.P 128(RSP), R30
+  guest_functions.go:2719	0x10011c478		d65f03c0		RET
+  guest_functions.go:2649	0x10011c47c		b9803be6		MOVW 56(RSP), R6
+  guest_functions.go:2649	0x10011c480		2a0603e1		MOVW R6, R1
+  guest_functions.go:2649	0x10011c484		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2649	0x10011c488		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2649	0x10011c48c		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2649	0x10011c490		97ffec14		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2649	0x10011c494		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2649	0x10011c498		b8a06883		MOVW (R4)(R0), R3
+  guest_functions.go:2649	0x10011c49c		b90037e3		MOVW R3, 52(RSP)
+  guest_functions.go:2650	0x10011c4a0		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2650	0x10011c4a4		b9803be1		MOVW 56(RSP), R1
+  guest_functions.go:2650	0x10011c4a8		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2650	0x10011c4ac		b98047e4		MOVW 68(RSP), R4
+  guest_functions.go:2650	0x10011c4b0		97ffecb4		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:2651	0x10011c4b4		b98037e4		MOVW 52(RSP), R4
+  guest_functions.go:2651	0x10011c4b8		6b04001f		CMPW R4, R0
+  guest_functions.go:2651	0x10011c4bc		54fffe01		BNE -16(PC)
+  guest_functions.go:2660	0x10011c4c0		b98033e0		MOVW 48(RSP), R0
+  guest_functions.go:2660	0x10011c4c4		36380120		TBZ $7, R0, 9(PC)
+  guest_functions.go:2662	0x10011c4c8		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2662	0x10011c4cc		f94033e1		MOVD 96(RSP), R1
+  guest_functions.go:2662	0x10011c4d0		d2800a02		MOVD $80, R2
+  guest_functions.go:2662	0x10011c4d4		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2662	0x10011c4d8		97ffec02		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2662	0x10011c4dc		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2662	0x10011c4e0		b820689f		MOVW ZR, (R4)(R0)
+  guest_functions.go:2666	0x10011c4e4		b98037e4		MOVW 52(RSP), R4
+  guest_functions.go:2666	0x10011c4e8		b9805be3		MOVW 88(RSP), R3
+  guest_functions.go:2666	0x10011c4ec		7100007f		CMPW $0, R3
+  guest_functions.go:2666	0x10011c4f0		9a9f17e3		CSET EQ, R3
+  guest_functions.go:2666	0x10011c4f4		7100009f		CMPW $0, R4
+  guest_functions.go:2666	0x10011c4f8		9a9fb7e4		CSET GE, R4
+  guest_functions.go:2666	0x10011c4fc		6a03009f		TSTW R3, R4
+  guest_functions.go:2666	0x10011c500		540000a1		BNE 5(PC)
+  guest_functions.go:2669	0x10011c504		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2669	0x10011c508		b9803be1		MOVW 56(RSP), R1
+  guest_functions.go:2669	0x10011c50c		b24003e2		ORR $1, ZR, R2
+  guest_functions.go:2669	0x10011c510		97fff944		CALL github.com/masahitojp/mariamem/probe.Fn89(SB)
+  guest_functions.go:2673	0x10011c514		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:2673	0x10011c518		f85f83fd		MOVD -8(RSP), R29
+  guest_functions.go:2673	0x10011c51c		f84807fe		MOVD.P 128(RSP), R30
+  guest_functions.go:2673	0x10011c520		d65f03c0		RET
+  guest_functions.go:2596	0x10011c524		b9803be6		MOVW 56(RSP), R6
+  guest_functions.go:2596	0x10011c528		2a0603e1		MOVW R6, R1
+  guest_functions.go:2596	0x10011c52c		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2596	0x10011c530		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2596	0x10011c534		b27e03e3		ORR $4, ZR, R3
+  guest_functions.go:2596	0x10011c538		97ffebea		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA(SB)
+  guest_functions.go:2596	0x10011c53c		f9403be4		MOVD 112(RSP), R4
+  guest_functions.go:2596	0x10011c540		b8a06883		MOVW (R4)(R0), R3
+  guest_functions.go:2596	0x10011c544		b90037e3		MOVW R3, 52(RSP)
+  guest_functions.go:2597	0x10011c548		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2597	0x10011c54c		b9803be1		MOVW 56(RSP), R1
+  guest_functions.go:2597	0x10011c550		aa1f03e2		MOVD ZR, R2
+  guest_functions.go:2597	0x10011c554		aa1f03e4		MOVD ZR, R4
+  guest_functions.go:2597	0x10011c558		97ffec8a		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32(SB)
+  guest_functions.go:2598	0x10011c55c		b98037e4		MOVW 52(RSP), R4
+  guest_functions.go:2598	0x10011c560		6b04001f		CMPW R4, R0
+  guest_functions.go:2598	0x10011c564		54fffe01		BNE -16(PC)
+  guest_functions.go:2613	0x10011c568		b9805be3		MOVW 88(RSP), R3
+  guest_functions.go:2613	0x10011c56c		7100007f		CMPW $0, R3
+  guest_functions.go:2613	0x10011c570		9a9f17e3		CSET EQ, R3
+  guest_functions.go:2613	0x10011c574		7100009f		CMPW $0, R4
+  guest_functions.go:2613	0x10011c578		9a9fb7e4		CSET GE, R4
+  guest_functions.go:2613	0x10011c57c		6a03009f		TSTW R3, R4
+  guest_functions.go:2613	0x10011c580		540000a1		BNE 5(PC)
+  guest_functions.go:2616	0x10011c584		f94047e0		MOVD 136(RSP), R0
+  guest_functions.go:2616	0x10011c588		b9803be1		MOVW 56(RSP), R1
+  guest_functions.go:2616	0x10011c58c		b24003e2		ORR $1, ZR, R2
+  guest_functions.go:2616	0x10011c590		97fff924		CALL github.com/masahitojp/mariamem/probe.Fn89(SB)
+  guest_functions.go:2620	0x10011c594		aa1f03e0		MOVD ZR, R0
+  guest_functions.go:2620	0x10011c598		f85f83fd		MOVD -8(RSP), R29
+  guest_functions.go:2620	0x10011c59c		f84807fe		MOVD.P 128(RSP), R30
+  guest_functions.go:2620	0x10011c5a0		d65f03c0		RET
+  guest_functions.go:2543	0x10011c5a4		f90007e0		MOVD R0, 8(RSP)
+  guest_functions.go:2543	0x10011c5a8		b90013e1		MOVW R1, 16(RSP)
+  guest_functions.go:2543	0x10011c5ac		aa1e03e3		MOVD R30, R3
+  guest_functions.go:2543	0x10011c5b0		97fd8cdc		CALL runtime.morestack_noctxt.abi0(SB)
+  guest_functions.go:2543	0x10011c5b4		f94007e0		MOVD 8(RSP), R0
+  guest_functions.go:2543	0x10011c5b8		b98013e1		MOVW 16(RSP), R1
+  guest_functions.go:2543	0x10011c5bc		17fffea9		JMP github.com/masahitojp/mariamem/probe.Fn130(SB)

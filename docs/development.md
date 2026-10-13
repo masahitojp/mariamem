@@ -46,7 +46,7 @@ the report afterward. Keep these as author checks, not mandatory opening fields:
 - Assess likelihood/severity with reasons, not invented probabilities. Compare
   alternative costs and residual risks. Uncertainty does not excuse withholding
   a recommendation or automatically make an issue acceptable or blocking.
-- State reversal evidence and bounded investigation/exit conditions, including
+- State reversal evidence, bounded investigation scope and exit conditions, including
   what to recommend if inconclusive. General correctness proof is not an indefinite
   gate; finite tests or detector blind spots do not prove the missing property.
 
@@ -344,7 +344,9 @@ No force-kill or guest race adaptation is added by runtime retirement.
 
 WASM is a build intermediate; WASIX libc/sysroot and LLVM runtime sources remain
 required. Retiring the Wasmer execution engine does not retire those sources,
-thread imports, converter or notices. Current exact recipes/pins remain unchanged:
+thread imports, converter or notices. The canonical guest input is now MariaDB 12.3.3; the v0.4.7 converter and
+toolchain pins remain unchanged. See the [integration record](reviews/v050-ad-integration.md).
+Canonical commands:
 
 - `scripts/build_generated_guest.py`: two independent source-to-WASM builds on
   a fresh Linux arm64 builder; this is a build platform, not the Ubuntu product.
@@ -393,6 +395,10 @@ Guest portability maintenance follows the approved
 [common plus source-specific patch policy](decisions/guest-patch-management.md).
 Use its inventory and review fields when updating MariaDB inputs or removing
 upstreamed fixes; distinguish source-application evidence from runtime qualification.
+`guest/input.json` binds the sole adopted source/archive, six lite4 recipe files
+and ordered portability patches with preimage/postimage hashes. `prepare_guest.py`
+rejects changed inputs and applies portability then canonical source.patch without
+fuzz. Release provenance compares that descriptor/series with the actual build.
 
 ## Historical runtime material
 

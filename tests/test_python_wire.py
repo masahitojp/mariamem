@@ -34,6 +34,21 @@ def execute(conn, sql):
         return cur.fetchall()
 
 
+def test_handshake_identity_matches_guest_across_sessions(wire_db):
+    def check(conn):
+        ((connection_id, version),) = execute(conn, "SELECT CONNECTION_ID(), VERSION()")
+        assert conn.thread_id() == connection_id
+        assert conn.get_server_info() == version
+        return connection_id
+
+    with connect(wire_db) as first, connect(wire_db) as second:
+        assert check(first) != check(second)
+    wire_db.wait_disconnected()
+    with connect(wire_db) as reconnected:
+        check(reconnected)
+    wire_db.wait_disconnected()
+
+
 def test_text_protocol_values_metadata_flags_and_error_recovery(wire_db):
     events = []
     with connect(wire_db) as conn:

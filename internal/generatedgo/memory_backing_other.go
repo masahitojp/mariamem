@@ -9,5 +9,7 @@ import (
 
 // Keep the previous allocation model outside the two supported platforms.
 func newMemoryModule(h *host) (*base.Module, func() error, error) {
-	return generated.NewWithWASI(h, nil, h), func() error { return nil }, nil
+	m := generated.NewWithWASI(h, nil, h)
+	installGuestThreadLifetime(m)
+	return m, func() error { return nil }, nil
 }

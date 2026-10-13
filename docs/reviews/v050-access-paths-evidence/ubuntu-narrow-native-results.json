@@ -1,0 +1,467 @@
+{
+  "wasm_sha256": "9d0a25d359771adac1496a0c2ec744ba5d96183796b15868fc94e4d8deba22e4",
+  "reference_sha256": "1e4577387baad24943841e4324b5d09be54e93372bec918d5354a2ffd3a58e97",
+  "cases": 1305,
+  "converter": {
+    "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+    "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+    "patches_sha256": {
+      "imported-memory.patch": "9e05149ed2ad75780ee939a7caa577f420d151855ab723498ec60c533f805d40",
+      "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+      "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
+      "pure-memory32.patch": "7b0bf47f257d51ed842483e1ae2c6cb9a45fb009d7114679f9ed32ff76378694",
+      "controlled-thread-traps.patch": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+      "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+      "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
+      "helper-bridge.patch": "934246d80d37a596b43d786065b168aa3d94af62ae3130bd5a9c422ce7e5783b",
+      "export-collision.patch": "2e4866056a3e65c7be0fbc343207157319f609391b07cb8123bed4ab2b2f8f93",
+      "fd-allocate-preservation.patch": "84582c8c9684026735a04117e00a48905f10aef736fb4178c26c79d804b797e6",
+      "zero-bulk-bounds.patch": "85c05f04b24a03e3f65b86b73e8682221615ab10df1d66bde05157d3348813eb"
+    },
+    "patched_converter_sha256": "6a04f5b4bdec3dedd0184a7a19610583525c33e12b2ae0ca5212d9d7900eb693"
+  },
+  "exported_operations": [
+    {
+      "name": "Load32_8",
+      "op": "load",
+      "bits": 8,
+      "result": 32,
+      "code": 18,
+      "type": false,
+      "argc": 1
+    },
+    {
+      "name": "Store32_8",
+      "op": "store",
+      "bits": 8,
+      "result": 32,
+      "code": 25,
+      "type": 2,
+      "argc": 2
+    },
+    {
+      "name": "Add32_8",
+      "op": "add",
+      "bits": 8,
+      "result": 32,
+      "code": 32,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Sub32_8",
+      "op": "sub",
+      "bits": 8,
+      "result": 32,
+      "code": 39,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "And32_8",
+      "op": "and",
+      "bits": 8,
+      "result": 32,
+      "code": 46,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Or32_8",
+      "op": "or",
+      "bits": 8,
+      "result": 32,
+      "code": 53,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Xor32_8",
+      "op": "xor",
+      "bits": 8,
+      "result": 32,
+      "code": 60,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Xchg32_8",
+      "op": "xchg",
+      "bits": 8,
+      "result": 32,
+      "code": 67,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Cmp32_8",
+      "op": "cmp",
+      "bits": 8,
+      "result": 32,
+      "code": 74,
+      "type": 6,
+      "argc": 3
+    },
+    {
+      "name": "Load32_16",
+      "op": "load",
+      "bits": 16,
+      "result": 32,
+      "code": 19,
+      "type": false,
+      "argc": 1
+    },
+    {
+      "name": "Store32_16",
+      "op": "store",
+      "bits": 16,
+      "result": 32,
+      "code": 26,
+      "type": 2,
+      "argc": 2
+    },
+    {
+      "name": "Add32_16",
+      "op": "add",
+      "bits": 16,
+      "result": 32,
+      "code": 33,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Sub32_16",
+      "op": "sub",
+      "bits": 16,
+      "result": 32,
+      "code": 40,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "And32_16",
+      "op": "and",
+      "bits": 16,
+      "result": 32,
+      "code": 47,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Or32_16",
+      "op": "or",
+      "bits": 16,
+      "result": 32,
+      "code": 54,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Xor32_16",
+      "op": "xor",
+      "bits": 16,
+      "result": 32,
+      "code": 61,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Xchg32_16",
+      "op": "xchg",
+      "bits": 16,
+      "result": 32,
+      "code": 68,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Cmp32_16",
+      "op": "cmp",
+      "bits": 16,
+      "result": 32,
+      "code": 75,
+      "type": 6,
+      "argc": 3
+    },
+    {
+      "name": "Load64_8",
+      "op": "load",
+      "bits": 8,
+      "result": 64,
+      "code": 20,
+      "type": true,
+      "argc": 1
+    },
+    {
+      "name": "Store64_8",
+      "op": "store",
+      "bits": 8,
+      "result": 64,
+      "code": 27,
+      "type": 3,
+      "argc": 2
+    },
+    {
+      "name": "Add64_8",
+      "op": "add",
+      "bits": 8,
+      "result": 64,
+      "code": 34,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Sub64_8",
+      "op": "sub",
+      "bits": 8,
+      "result": 64,
+      "code": 41,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "And64_8",
+      "op": "and",
+      "bits": 8,
+      "result": 64,
+      "code": 48,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Or64_8",
+      "op": "or",
+      "bits": 8,
+      "result": 64,
+      "code": 55,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Xor64_8",
+      "op": "xor",
+      "bits": 8,
+      "result": 64,
+      "code": 62,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Xchg64_8",
+      "op": "xchg",
+      "bits": 8,
+      "result": 64,
+      "code": 69,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Cmp64_8",
+      "op": "cmp",
+      "bits": 8,
+      "result": 64,
+      "code": 76,
+      "type": 7,
+      "argc": 3
+    },
+    {
+      "name": "Load64_16",
+      "op": "load",
+      "bits": 16,
+      "result": 64,
+      "code": 21,
+      "type": true,
+      "argc": 1
+    },
+    {
+      "name": "Store64_16",
+      "op": "store",
+      "bits": 16,
+      "result": 64,
+      "code": 28,
+      "type": 3,
+      "argc": 2
+    },
+    {
+      "name": "Add64_16",
+      "op": "add",
+      "bits": 16,
+      "result": 64,
+      "code": 35,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Sub64_16",
+      "op": "sub",
+      "bits": 16,
+      "result": 64,
+      "code": 42,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "And64_16",
+      "op": "and",
+      "bits": 16,
+      "result": 64,
+      "code": 49,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Or64_16",
+      "op": "or",
+      "bits": 16,
+      "result": 64,
+      "code": 56,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Xor64_16",
+      "op": "xor",
+      "bits": 16,
+      "result": 64,
+      "code": 63,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Xchg64_16",
+      "op": "xchg",
+      "bits": 16,
+      "result": 64,
+      "code": 70,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Cmp64_16",
+      "op": "cmp",
+      "bits": 16,
+      "result": 64,
+      "code": 77,
+      "type": 7,
+      "argc": 3
+    },
+    {
+      "name": "Load32",
+      "op": "load",
+      "bits": 32,
+      "result": 32,
+      "code": 16,
+      "type": 0,
+      "argc": 1
+    },
+    {
+      "name": "Store32",
+      "op": "store",
+      "bits": 32,
+      "result": 32,
+      "code": 23,
+      "type": 2,
+      "argc": 2
+    },
+    {
+      "name": "Add32",
+      "op": "add",
+      "bits": 32,
+      "result": 32,
+      "code": 30,
+      "type": 4,
+      "argc": 2
+    },
+    {
+      "name": "Cmp32",
+      "op": "cmp",
+      "bits": 32,
+      "result": 32,
+      "code": 72,
+      "type": 6,
+      "argc": 3
+    },
+    {
+      "name": "Load64",
+      "op": "load",
+      "bits": 64,
+      "result": 64,
+      "code": 17,
+      "type": 1,
+      "argc": 1
+    },
+    {
+      "name": "Store64",
+      "op": "store",
+      "bits": 64,
+      "result": 64,
+      "code": 24,
+      "type": 3,
+      "argc": 2
+    },
+    {
+      "name": "Add64",
+      "op": "add",
+      "bits": 64,
+      "result": 64,
+      "code": 31,
+      "type": 5,
+      "argc": 2
+    },
+    {
+      "name": "Cmp64",
+      "op": "cmp",
+      "bits": 64,
+      "result": 64,
+      "code": 73,
+      "type": 7,
+      "argc": 3
+    }
+  ],
+  "raw_base_sha256": "f91c232be7aa46a303beb0158e3dffa27c9d58216735188d3f0c39135909722b",
+  "adapted_base_sha256": "83019b7139e95788d358aa433b71d06ad7247aee0de9c46f2a09cde980616204",
+  "checks": [
+    {
+      "name": "heap",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "0cdcfcc2de3a565665def991f8e2f7834ac57fe9bb75b39d086a80a214c0e654"
+    },
+    {
+      "name": "heap-race",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "767bfa6e1a366a362dc86a5c98211085e0a9c8d05788788e8acd778c720b319b"
+    },
+    {
+      "name": "mmap",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "2bfb7ed2275c7f44e25dde98205912a9b88f23f572647a15e04b0ad8e52a9d0a"
+    },
+    {
+      "name": "mmap-race",
+      "exit_code": 0,
+      "race_reports": 0,
+      "log_sha256": "0b6577fcc2fd9aef86ab4b4b2bf604ddd54aff390fc36816d3565aca37cdceed"
+    }
+  ],
+  "go_version": "go version go1.26.8 linux/amd64",
+  "reference_engine": "v22.23.3",
+  "owner_sha256": {
+    "scripts/runtime_atomic_loads.py": "5ec21237a556b10c7afa37c6ce5ae047f1338a5857614015542d40edc56eeceb",
+    "scripts/runtime_correctness/narrow_reference.js": "ab7a4a70db9f31c82f8b9a2b2896722bffbec29576d9f24595bd0a605c5232e1",
+    "tests/fixtures/narrow-atomic-driver.go.txt": "580adaa5b2a70a0fa3bcd4d4786d759643a06c63636282d534c01a9a42721aa8",
+    "scripts/runtime_correctness/narrow_write_other.go.txt": "e66dd1978ec60a9c16f302e9d461ba77e370519b6c95275ed9832b085f8fa4de",
+    "scripts/runtime_correctness/narrow_load_test.go.txt": "87744a96f49f180a6a10ef2c4730c96f87f9cc88ac76eecc94b9a2dc1e5d566b",
+    "scripts/runtime_correctness/narrow_load_supported.go.txt": "53a04e996c7edafe5a21c28c35d4fa9f9661c8854d4d1aaca5029af83331d342",
+    "scripts/runtime_correctness/narrow_load_other.go.txt": "49b7b233f4380992c11c0d9ab6cd7442db1d2401c8428d33389fcf320fb626c7",
+    "scripts/runtime_correctness/narrow_write_test.go.txt": "c720856d6dcc0224239ab6c1a4ced3afe6596c255d7eb0d71fe4ea3a9bb171b6",
+    "scripts/runtime_correctness/narrow_write_supported.go.txt": "3a0c9b33fbc99a343943c3996a23ad1879c36dde88d9903bd13f94a9ec3bb18d",
+    "scripts/runtime_correctness/narrow_load_linux_amd64.s.txt": "7a4c1ba99109aa8870db20bdd6eee26515362d292738ec0008b5fa4c43d0956f",
+    "scripts/runtime_correctness/narrow_load_darwin_arm64.s.txt": "0e5f92aaa6767c173b90b3432ce6866291a96e1b3e26a3a43c7b23de96cdd5a9",
+    "scripts/runtime_correctness/narrow_write_darwin_arm64.s.txt": "8c7f1579987ad56f6bc71b5210ebd252b747d1ecd4044ff8a0c3ed6d39742e89",
+    "scripts/runtime_correctness/narrow_write_linux_amd64.s.txt": "a189e25e3f4fd8f19f245345b052e8ddcf87fd4b649250365ffa44f3d94c9f19"
+  },
+  "scope": "Real memory32 Wasm exports, i32/i64 values, all narrow families plus full-width controls; no general mixed-access proof"
+}

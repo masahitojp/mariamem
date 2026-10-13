@@ -1,18 +1,24 @@
 {
   "version": 1,
-  "audit_source_commit": "05d85afccefdb61f448ea68e9b29a6e20bcba053",
-  "linked_sha256": "94b2ae2ba97f424faf419daf4e819f2dfeefc8640b529ae19a98ee3579cb7d1b",
-  "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
-  "symbol_map_sha256": "fbb3db9c1f593db376cdbd38a8e8b172baef108cbf0b86101c257e26d3f2a8fb",
-  "symbol_map_entries": 21859,
   "binaryen": "version_133",
-  "method": "canonical -O2 recipe with --symbolmap; resulting WASM is byte-identical to canonical guest",
-  "generated_provenance_sha256": "d048e7b718bdfd5dc7269f3c859fbe3d94dbb385d39373798432ff359b9a0515",
+  "limitations": [
+    "Regex counts are lower bounds/examples, not archive member or byte attribution.",
+    "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
+    "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
+  ],
+  "audit_source_commit": "ae80130b0ea7d20e86b132538d23eabf13660186",
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "linked_sha256": "3b63079109c895f3e90895f86b57e48d9f8e14f13ce945021c88e20c4f4fd9ba",
+  "symbol_map_sha256": "9072658996738894b86effc9b60911db92b413d35cb3c7863f3851666bb645b6",
+  "symbol_map_entries": 21693,
+  "generated_provenance_sha256": "5172cc89b7823bb59eef9d86972d74bfa68ac87b26bd9f12dd37aad3f717883c",
+  "method": "Same pinned Binaryen -O2 recipe with only --symbolmap; mapped WASM SHA256 equals adopted canonical guest",
   "retained_symbols": {
     "MariaDB": {
       "pattern": "^(mysql_server_init|mysql_real_query)$",
       "named_matches": 2,
       "generated_definitions": 2,
+      "host_named_definitions": 2,
       "examples": [
         {
           "index": 5726,
@@ -24,22 +30,22 @@
         {
           "index": 5790,
           "symbol": "mysql_real_query",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
           "generated_function": "Fn5790",
           "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 2
+      ]
     },
     "lite4mariadb": {
       "pattern": "^l4m_",
       "named_matches": 7,
       "generated_definitions": 7,
+      "host_named_definitions": 4,
       "examples": [
         {
           "index": 244,
           "symbol": "l4m_open",
-          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
           "generated_function": "Fn244",
           "host_symbol_retained": true
         },
@@ -57,13 +63,13 @@
           "generated_function": "Fn246",
           "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 4
+      ]
     },
     "WASIX libc": {
       "pattern": "^(pthread_|__pthread|__wasi|__wasilibc|__imported_wasix_)",
       "named_matches": 79,
       "generated_definitions": 51,
+      "host_named_definitions": 39,
       "examples": [
         {
           "index": 69,
@@ -86,216 +92,216 @@
           "generated_function": "Fn72",
           "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 40
+      ]
     },
     "wolfSSL": {
       "pattern": "^(wolfSSL_|wc_|wolfCrypt)",
       "named_matches": 1982,
       "generated_definitions": 1982,
+      "host_named_definitions": 344,
       "examples": [
         {
-          "index": 1247,
+          "index": 1253,
           "symbol": "wolfSSL_ResourceFree",
           "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn1247",
+          "generated_function": "Fn1253",
           "host_symbol_retained": true
         },
         {
-          "index": 1325,
+          "index": 1331,
           "symbol": "wolfSSL_ERR_func_error_string",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1325",
+          "generated_function": "Fn1331",
           "host_symbol_retained": true
         },
         {
-          "index": 1379,
+          "index": 1385,
           "symbol": "wolfSSL_CTX_set_groups",
           "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-          "generated_function": "Fn1379",
+          "generated_function": "Fn1385",
           "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 344
+      ]
     },
     "zlib": {
       "pattern": "^(deflate|inflate|crc32|adler32)",
       "named_matches": 15,
       "generated_definitions": 15,
+      "host_named_definitions": 14,
       "examples": [
         {
-          "index": 4476,
+          "index": 4478,
           "symbol": "crc32_z",
           "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn4476",
+          "generated_function": "Fn4478",
           "host_symbol_retained": true
         },
         {
-          "index": 5944,
+          "index": 6716,
           "symbol": "adler32",
           "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
-          "generated_function": "Fn5944",
+          "generated_function": "Fn6716",
           "host_symbol_retained": true
         },
         {
-          "index": 5952,
+          "index": 6724,
           "symbol": "deflateInit_",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn5952",
+          "generated_function": "Fn6724",
           "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 14
+      ]
     },
     "PCRE2": {
       "pattern": "^_?pcre2_",
       "named_matches": 23,
       "generated_definitions": 23,
+      "host_named_definitions": 8,
       "examples": [
         {
-          "index": 7222,
+          "index": 7212,
           "symbol": "pcre2_match_data_free_8",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn7222",
+          "generated_function": "Fn7212",
           "host_symbol_retained": true
         },
         {
-          "index": 7223,
-          "symbol": "pcre2_get_ovector_pointer_8",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn7223",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 7225,
+          "index": 7215,
           "symbol": "_pcre2_strncmp_8",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn7225",
+          "generated_function": "Fn7215",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 7220,
+          "symbol": "_pcre2_compile_process_capture_list",
+          "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
+          "generated_function": "Fn7220",
           "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 9
+      ]
     },
     "fmt": {
       "pattern": "^_ZN3fmt",
-      "named_matches": 61,
-      "generated_definitions": 61,
+      "named_matches": 62,
+      "generated_definitions": 62,
+      "host_named_definitions": 59,
       "examples": [
         {
-          "index": 10779,
-          "symbol": "_ZN3fmt3v1219basic_memory_bufferIcLm500ENS0_6detail9allocatorIcEEE4growERNS2_6bufferIcEEm",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn10779",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 11154,
-          "symbol": "_ZN3fmt3v126detail5writeIcNS0_14basic_appenderIcEEiTnNSt3__29enable_ifIXaaaasr11is_integralIT1_EE5valuentsr3std7is_sameIS7_bEE5valuentsr3std7is_sameIS7_T_EE5valueEiE4typeELi0EEET0_SB_S7_",
-          "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-          "generated_function": "Fn11154",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 11155,
-          "symbol": "_ZN3fmt3v126detail5writeIcNS0_14basic_appenderIcEEjTnNSt3__29enable_ifIXaaaasr11is_integralIT1_EE5valuentsr3std7is_sameIS7_bEE5valuentsr3std7is_sameIS7_T_EE5valueEiE4typeELi0EEET0_SB_S7_",
+          "index": 10759,
+          "symbol": "_ZN3fmt3v1219basic_memory_bufferIcLm500E12my_allocatorIcEE4growERNS0_6detail6bufferIcEEm",
           "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-          "generated_function": "Fn11155",
+          "generated_function": "Fn10759",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 11130,
+          "symbol": "_ZN3fmt3v126detail5valueINS0_7contextEE13format_customI6StringEEvPvRNS0_13parse_contextIcEERS3_",
+          "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+          "generated_function": "Fn11130",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 11131,
+          "symbol": "_ZN3fmt3v126detail18parse_format_specsIcEEPKT_S5_S5_RNS1_20dynamic_format_specsIS3_EERNS0_13parse_contextIS3_EENS1_4typeE",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn11131",
           "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 58
+      ]
     },
     "libc++": {
       "pattern": "^_ZNSt3__2",
-      "named_matches": 775,
-      "generated_definitions": 775,
+      "named_matches": 756,
+      "generated_definitions": 756,
+      "host_named_definitions": 358,
       "examples": [
         {
-          "index": 4582,
-          "symbol": "_ZNSt3__221__throw_runtime_errorEPKc",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn4582",
-          "host_symbol_retained": true
-        },
-        {
-          "index": 4583,
-          "symbol": "_ZNSt3__212__next_primeEm",
-          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn4583",
-          "host_symbol_retained": true
-        },
-        {
           "index": 4584,
-          "symbol": "_ZNSt3__222__throw_overflow_errorB8ne200100EPKc",
+          "symbol": "_ZNSt3__221__throw_runtime_errorEPKc",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
           "generated_function": "Fn4584",
           "host_symbol_retained": true
+        },
+        {
+          "index": 4585,
+          "symbol": "_ZNSt3__212__next_primeEm",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn4585",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 4586,
+          "symbol": "_ZNSt3__222__throw_overflow_errorB8ne200100EPKc",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn4586",
+          "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 375
+      ]
     },
     "libc++abi": {
       "pattern": "^__cxa_",
       "named_matches": 27,
       "generated_definitions": 27,
+      "host_named_definitions": 14,
       "examples": [
         {
-          "index": 1073,
+          "index": 1078,
           "symbol": "__cxa_pure_virtual",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1073",
+          "generated_function": "Fn1078",
           "host_symbol_retained": true
         },
         {
-          "index": 1108,
+          "index": 1114,
           "symbol": "__cxa_allocate_exception",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1108",
+          "generated_function": "Fn1114",
           "host_symbol_retained": true
         },
         {
-          "index": 1109,
+          "index": 1115,
           "symbol": "__cxa_free_exception",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1109",
+          "generated_function": "Fn1115",
           "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 14
+      ]
     },
     "libunwind": {
       "pattern": "^_Unwind_",
-      "named_matches": 6,
-      "generated_definitions": 6,
+      "named_matches": 7,
+      "generated_definitions": 7,
+      "host_named_definitions": 7,
       "examples": [
         {
-          "index": 1100,
+          "index": 1105,
           "symbol": "_Unwind_CallPersonality",
           "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn1100",
+          "generated_function": "Fn1105",
           "host_symbol_retained": true
         },
         {
-          "index": 1101,
+          "index": 1106,
           "symbol": "_Unwind_RaiseException",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1101",
+          "generated_function": "Fn1106",
           "host_symbol_retained": true
         },
         {
-          "index": 1102,
+          "index": 1107,
           "symbol": "_Unwind_DeleteException",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1102",
+          "generated_function": "Fn1107",
           "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 6
+      ]
     },
     "compiler-rt": {
       "pattern": "^__(ashlti3|fixunstfsi|floatunsitf|fixtfsi|floatsitf|udivti3|multi3)$",
       "named_matches": 5,
       "generated_definitions": 5,
+      "host_named_definitions": 3,
       "examples": [
         {
           "index": 113,
@@ -314,17 +320,17 @@
         {
           "index": 171,
           "symbol": "__multi3",
-          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
           "generated_function": "Fn171",
           "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 3
+      ]
     },
     "dlmalloc": {
       "pattern": "^(dlmalloc|dlfree|dlrealloc)",
       "named_matches": 2,
       "generated_definitions": 2,
+      "host_named_definitions": 2,
       "examples": [
         {
           "index": 152,
@@ -340,750 +346,75 @@
           "generated_function": "Fn153",
           "host_symbol_retained": true
         }
-      ],
-      "host_named_definitions": 2
+      ]
     }
   },
-  "limitations": [
-    "Regex counts are lower bounds/examples, not archive member or byte attribution.",
-    "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
-    "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
-  ],
+  "historical_evidence": {
+    "source_commit": "e0be06f3a20c72cbb5a9be27971280c80a3ec357",
+    "path": "release/generated-license-evidence.json",
+    "sha256": "d6be8ec2d2b3601a77d34e437b967508a0cb9f54373b68aa74c374b9f00f9067"
+  },
+  "result": "PASS",
   "host_check": {
-    "source_commit": "14145820a43835d7412556119613350f46dbee33",
-    "sha256": "eb2757f875b61ed264448c34ed32688cbcbf4f9a5c72776f501ef5a149856fac",
-    "go_version": "1.26.8",
-    "platform": "darwin-arm64",
-    "note": "Historical released-runtime attribution only; see memory32_candidate_check for regenerated inventory. Not a new release artifact approval."
+    "source_commit": "ae80130b0ea7d20e86b132538d23eabf13660186",
+    "sha256": "5ed8689b69570c5b23b4f7950aef022d8308c1ed6b312356bf06a7d7cbe01e27",
+    "buildinfo": "mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.4.8-0.20261012014552-ae80130b0ea7\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=ae80130b0ea7d20e86b132538d23eabf13660186\n\tbuild\tvcs.time=2026-10-12T01:45:52Z\n\tbuild\tvcs.modified=false\n",
+    "note": "Diagnostic attribution, not new release approval."
   },
-  "memory32_candidate_check": {
-    "base": "547fb1a6c01e5edb0daa27de273a2e94e66eb098",
-    "prototype_basis": "49817bb8c918be6215f6dfe5a4bdce98ab8d77ab",
-    "probe_sha256": "102cfc89a7cb417475f8468234a29ab68bc5dc443be2155254f7efc182043ccf",
-    "generated_provenance_sha256": "6076a3152fa3d26adf1486ed9cfd3a5deafb30a0a780396615b1da5316ba058d",
-    "examples": [
-      {
-        "component": "MariaDB",
-        "function": "Fn5726",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "MariaDB",
-        "function": "Fn5790",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "lite4mariadb",
-        "function": "Fn244",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "lite4mariadb",
-        "function": "Fn245",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "lite4mariadb",
-        "function": "Fn246",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "WASIX libc",
-        "function": "Fn69",
-        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "WASIX libc",
-        "function": "Fn71",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "WASIX libc",
-        "function": "Fn72",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "wolfSSL",
-        "function": "Fn1247",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "wolfSSL",
-        "function": "Fn1325",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "wolfSSL",
-        "function": "Fn1379",
-        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "zlib",
-        "function": "Fn4476",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "zlib",
-        "function": "Fn5944",
-        "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "zlib",
-        "function": "Fn5952",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "PCRE2",
-        "function": "Fn7222",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "PCRE2",
-        "function": "Fn7223",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "PCRE2",
-        "function": "Fn7225",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "fmt",
-        "function": "Fn10779",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "fmt",
-        "function": "Fn11154",
-        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "fmt",
-        "function": "Fn11155",
-        "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++",
-        "function": "Fn4582",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++",
-        "function": "Fn4583",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++",
-        "function": "Fn4584",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++abi",
-        "function": "Fn1073",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++abi",
-        "function": "Fn1108",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++abi",
-        "function": "Fn1109",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libunwind",
-        "function": "Fn1100",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libunwind",
-        "function": "Fn1101",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libunwind",
-        "function": "Fn1102",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "compiler-rt",
-        "function": "Fn113",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "compiler-rt",
-        "function": "Fn170",
-        "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "compiler-rt",
-        "function": "Fn171",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "dlmalloc",
-        "function": "Fn152",
-        "generated_file": "internal/generatedgo/code/p1/p1_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "dlmalloc",
-        "function": "Fn153",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      }
+  "previous_attribution": {
+    "source_commit": "808df8b614906a9cd918229e2754d33a5a76dc4b",
+    "path": "release/generated-license-evidence.json",
+    "sha256": "d7f5ad61be485786f8c9f23e50e34577e0a79dd0dd11fda99b33e98b9ab6c4e5"
+  },
+  "source_only_continuity": {
+    "basis_source_commit": "a64d8b78d38f4047793b6d2f3f9e7f80bc4edf76",
+    "previous_generated_provenance_sha256": "151554ea369a513cee5a6686fc92a6d47f7162fa00550d349b9d836a57ac6da3",
+    "current_generated_provenance_sha256": "98e389d019f4a2d09350bace9c8c691de8926bcffb9d1781c9d9ce1880b64a97",
+    "changed_generated_files": [
+      "code/base/base.go"
     ],
-    "note": "Same pinned guest and function map; generated definitions and positive native retention rechecked against the measured candidate probe. No release approval."
-  },
-  "controlled_traps_check": {
-    "basis": "56be628bf2d976048c5ea6d1949879781ed75342",
-    "host_sha256": "6c49755517c7f36310bd3b5bf38eaaf1d2b47dbd9bbffd5d708626904b100f8e",
-    "generated_provenance_sha256": "250dce69ed0497e9802b3137bab8bae3aae5338cb1388ca08148b485151b35d2",
-    "examples": [
-      {
-        "component": "MariaDB",
-        "function": "Fn5726",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "MariaDB",
-        "function": "Fn5790",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "lite4mariadb",
-        "function": "Fn244",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "lite4mariadb",
-        "function": "Fn245",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "lite4mariadb",
-        "function": "Fn246",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "WASIX libc",
-        "function": "Fn69",
-        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "WASIX libc",
-        "function": "Fn71",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "WASIX libc",
-        "function": "Fn72",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "wolfSSL",
-        "function": "Fn1247",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "wolfSSL",
-        "function": "Fn1325",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "wolfSSL",
-        "function": "Fn1379",
-        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "zlib",
-        "function": "Fn4476",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "zlib",
-        "function": "Fn5944",
-        "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "zlib",
-        "function": "Fn5952",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "PCRE2",
-        "function": "Fn7222",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "PCRE2",
-        "function": "Fn7223",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "PCRE2",
-        "function": "Fn7225",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "fmt",
-        "function": "Fn10779",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "fmt",
-        "function": "Fn11154",
-        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "fmt",
-        "function": "Fn11155",
-        "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++",
-        "function": "Fn4582",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++",
-        "function": "Fn4583",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++",
-        "function": "Fn4584",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++abi",
-        "function": "Fn1073",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++abi",
-        "function": "Fn1108",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++abi",
-        "function": "Fn1109",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libunwind",
-        "function": "Fn1100",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libunwind",
-        "function": "Fn1101",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libunwind",
-        "function": "Fn1102",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "compiler-rt",
-        "function": "Fn113",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "compiler-rt",
-        "function": "Fn170",
-        "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "compiler-rt",
-        "function": "Fn171",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "dlmalloc",
-        "function": "Fn152",
-        "generated_file": "internal/generatedgo/code/p1/p1_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "dlmalloc",
-        "function": "Fn153",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      }
-    ],
-    "note": "Heap-only correctness candidate. Positive native retention rechecked; not release approval."
-  },
-  "production_memory_contract_check": {
-    "guest_sha256": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
-    "host_sha256": "d688fa027b905aadd8a0d48ba980fb8d0bcbf9c3395a5c274399683840896c9e",
-    "generated_provenance_sha256": "372f89df575c3e76125925e352e0c816e6a593942f9f23f1f0f56308e394c6b0",
-    "examples": [
-      {
-        "component": "MariaDB",
-        "function": "Fn5726",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "MariaDB",
-        "function": "Fn5790",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "lite4mariadb",
-        "function": "Fn244",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "lite4mariadb",
-        "function": "Fn245",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "lite4mariadb",
-        "function": "Fn246",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "WASIX libc",
-        "function": "Fn69",
-        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "WASIX libc",
-        "function": "Fn71",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "WASIX libc",
-        "function": "Fn72",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "wolfSSL",
-        "function": "Fn1247",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "wolfSSL",
-        "function": "Fn1325",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "wolfSSL",
-        "function": "Fn1379",
-        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "zlib",
-        "function": "Fn4476",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "zlib",
-        "function": "Fn5944",
-        "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "zlib",
-        "function": "Fn5952",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "PCRE2",
-        "function": "Fn7222",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "PCRE2",
-        "function": "Fn7223",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "PCRE2",
-        "function": "Fn7225",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "fmt",
-        "function": "Fn10779",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "fmt",
-        "function": "Fn11154",
-        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "fmt",
-        "function": "Fn11155",
-        "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++",
-        "function": "Fn4582",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++",
-        "function": "Fn4583",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++",
-        "function": "Fn4584",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++abi",
-        "function": "Fn1073",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++abi",
-        "function": "Fn1108",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libc++abi",
-        "function": "Fn1109",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libunwind",
-        "function": "Fn1100",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libunwind",
-        "function": "Fn1101",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "libunwind",
-        "function": "Fn1102",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "compiler-rt",
-        "function": "Fn113",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "compiler-rt",
-        "function": "Fn170",
-        "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "compiler-rt",
-        "function": "Fn171",
-        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "dlmalloc",
-        "function": "Fn152",
-        "generated_file": "internal/generatedgo/code/p1/p1_pure.go",
-        "candidate_symbol_retained": true
-      },
-      {
-        "component": "dlmalloc",
-        "function": "Fn153",
-        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-        "candidate_symbol_retained": true
-      }
-    ],
-    "note": "Pure memory32 and logical host buffers; production candidate, not release approval."
-  },
-  "snapshot_attribution_source_check": {
-    "basis_source": "8a30e184890ba686caba65d1876aee829a4a178a",
-    "previous_generated_provenance_sha256": "372f89df575c3e76125925e352e0c816e6a593942f9f23f1f0f56308e394c6b0",
-    "generated_provenance_sha256": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60",
-    "changed_files": {
-      "main.go": {
-        "before": "f146447319d1d259086f437de9140e0fd4ad055fc28aa8ade54a2a3b9a2975ba",
-        "after": "ab9f7485fbcf37650e99262487f37a5085ac84652596d22f540b87d09cd2b233"
-      }
-    },
-    "unchanged_generated_inventory_sha256": "08c8bf8aca62791728c62739f72cd5f5dd95368e000e3fe96f656aebd792a7ab",
-    "scope": "Source-only continuity: guest/input pins, all transpiled library definitions and notices unchanged; only opt-in driver diagnostics added. Historical host/nm and audit records retained verbatim. No new linked-host attribution or runtime/release qualification claimed."
-  },
-  "upstream_migration_source_check": {
-    "guest": "33d351b4edaddce9dd52db375c6c3f2a5ff13c259bc6788794daf5bf8bf3e008",
-    "changed_files": {
+    "source_delta": {
       "code/base/base.go": {
-        "before": "966192fa209033269e5d500b59830e8fe896e50c1d94498f196150285ecef003",
-        "after": "3f1952f72479e1c2c6c5e51378347332a0f2c49362c6a454733050ba61fedee3"
+        "before": "2f336d438520c1fabae86b4aaf2de014c334425d88e038da839442cdb793010b",
+        "after": "b43554887688b079987c77ed954dd62ad75ec9616c7df0f5979d81e4cc5c8932"
+      },
+      "code/base/narrow_write_darwin_arm64.s": {
+        "before": null,
+        "after": "8c7f1579987ad56f6bc71b5210ebd252b747d1ecd4044ff8a0c3ed6d39742e89"
+      },
+      "code/base/narrow_write_linux_amd64.s": {
+        "before": null,
+        "after": "a189e25e3f4fd8f19f245345b052e8ddcf87fd4b649250365ffa44f3d94c9f19"
+      },
+      "code/base/narrow_write_other.go": {
+        "before": null,
+        "after": "e66dd1978ec60a9c16f302e9d461ba77e370519b6c95275ed9832b085f8fa4de"
+      },
+      "code/base/narrow_write_supported.go": {
+        "before": null,
+        "after": "3a0c9b33fbc99a343943c3996a23ad1879c36dde88d9903bd13f94a9ec3bb18d"
+      },
+      "code/base/narrow_write_test.go": {
+        "before": null,
+        "after": "c720856d6dcc0224239ab6c1a4ced3afe6596c255d7eb0d71fe4ea3a9bb171b6"
+      },
+      "provenance.json": {
+        "before": "151554ea369a513cee5a6686fc92a6d47f7162fa00550d349b9d836a57ac6da3",
+        "after": "98e389d019f4a2d09350bace9c8c691de8926bcffb9d1781c9d9ce1880b64a97"
       }
     },
-    "baseline_generated_files_sha256": {
-      "code/alias.go": "52026958d5a3ee0c85d325e1c22ecfd9d6d860843e8e2aa160d8d46a9b0d23bd",
-      "code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
-      "code/base/base.go": "966192fa209033269e5d500b59830e8fe896e50c1d94498f196150285ecef003",
-      "code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
-      "code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
-      "code/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
-      "code/base/cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
-      "code/base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
-      "code/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
-      "code/base/memfs_growth_test.go": "2c7c1954fa9a952d7e182c2b721fe9330c6d935b34f9aa9f45a35a6c8501f4c4",
-      "code/base/prepared_files.go": "9f860253f7cb682b274492129e1fc7e8c64d62dcc47c7c39e42ee347675629cc",
-      "code/base/prepared_files_test.go": "540bf350e2aaa9276ef7266980d6c637ca06b2ce62dbb9b1e84da1a5410ec7ef",
-      "code/base/prepared_growth_test.go": "4c1122c2f378b35787c48debbe2053f5d0b7eabaf706f71bb3fdb8beef8f1d93",
-      "code/base/relative.go": "61d67c5ee85fc73d28745e17b8eaab4d0d6e1c63f28969a1e8c66983db8fbd80",
-      "code/base/relative_contract_test.go": "f3f731925741da0bd9dd528b57972e5aaf721410090c83ab524cb75f44f87ba2",
-      "code/base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
-      "code/base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
-      "code/base/sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
-      "code/base/simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
-      "code/base/simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c",
-      "code/base/simd_asm_decls_amd64.go": "456cefd6896b1021a6dbf813a381165ec99efb3cd7b66a34a4e97ef31b23802e",
-      "code/base/simd_asm_decls_arm64.go": "8e9dd950f0c3282a924cf961e055db631536f883f2c05cccef44c4974d99abee",
-      "code/base/simd_fallback.go": "0bb864d570bc9286d87290c55ef52e7082c114e6f3730ae86415e15bbff849ad",
-      "code/base/simd_pair.go": "ffa8c2aac9e0a61608fca859ea8a7493b42dca47babed99c28762573c8d0a916",
-      "code/base/simd_relaxed.go": "ce4ddfb367e686107aa8dbcba8ced4bb5b591106cec94d0950f5e588b1235152",
-      "code/base/simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
-      "code/base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
-      "code/base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
-      "code/base/spike_contract_test.go": "2ea04d8502569740c3d7f779c5a3c9cbdbbc46f4ed8606bd80ba272494d0b947",
-      "code/base/spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862",
-      "code/generated.go": "cce8d2f92994d12370730d74fe9a491a9c8243b14a29e7435f9fe8841bee9b92",
-      "code/p0/alias.go": "0aadaa332fcd99e3c40e6a6b57b803a5f028572609a9afb6ab915a0db36627ae",
-      "code/p0/p0.go": "90e46c953e66e730b8578b59e5706657c56101e53eba9a03c16788aa32485558",
-      "code/p0/p0_pure.go": "dc7b6254242dc89eca4f62012be97f435d3d2c980564a598a66475ae9a688512",
-      "code/p1/alias.go": "14c983dff4d407fc93de68a2fb013e8bb52ca87465353809486b27da941a3be8",
-      "code/p1/p1.go": "ac3cb18646389801b2ad42d26ba2ebf5a33ab99e96c16e03fcc4abb08ff7b356",
-      "code/p1/p1_pure.go": "cb0ffd1f400a3c3b7dd98d854f73cfccc9acc86ceddb00e4ee994a2dce4326fa",
-      "code/p2/alias.go": "c3fc7ced2a7d4fe6f6d439426263b8f6b8869f3570d570cd58c48f804fc25185",
-      "code/p2/p2.go": "d186b895fda4ccd6d466b12df3c8e6f13f27395735032adce4ee64648358b3c6",
-      "code/p2/p2_pure.go": "6a3b4f305f338617d2052c7f79c40922c979501e9bdc2492735f96d5752acbf4",
-      "code/p3/alias.go": "4938fff195558ce1de24f861ccf376907c7f9edd4f6ede30e31a77b5b1479b11",
-      "code/p3/p3.go": "aa6a06ace6e3418d18dc36c70edc675b773ea8170ebc3048397d3aa1b863a8af",
-      "code/p3/p3_pure.go": "0a067412fe2bfd29f09c057d87c9f48024917b29508e786ba7a52bc52e66b880",
-      "code/p4/alias.go": "91cd78871da8078d787ca28755f84269ba74d7c5e1d282c0d1f9147337cb3ffb",
-      "code/p4/p4.go": "7cba5657ac43d37c774dbe894d7dfd6f4c26300994c0a7995fd77f0f23bb2057",
-      "code/p4/p4_pure.go": "5e9b0bd0b1045547748bb959e2fd9030aefc787bd481170fdfa8886ea8dab7dd",
-      "code/p5/alias.go": "b4725c546ce49d7fd6e9f21d752948a4fd11ba6e33c471871f1b5975ba142427",
-      "code/p5/p5.go": "5b23a299c111f1ec38126010c2c8a50dacaa3a699af198a80b30bd1964dfb9ee",
-      "code/p5/p5_pure.go": "bdb5a9c38645ecbf52ab3c7ab09af6d9e3d3fb370915c08200e751c161627a4b",
-      "code/p6/alias.go": "a496fa9d6a1d212a7e0883f57b7fdfefd36b0a5021c0eb07b2ab1476d30cfc43",
-      "code/p6/p6.go": "eb67352f2fbbdc7da17dba8cb4f5617664dde0ee69a4aa2275b6f163a3068bc4",
-      "code/p6/p6_pure.go": "c954f284fad9fbf078eae76e214d07e4257e7028ce970893db40f8f7ccd53656",
-      "code/p7/alias.go": "c533921defbafe134e01f61c7f7ce9372ae7104dec9c3d8b8a8e086597b27494",
-      "code/p7/p7.go": "41c6ca9bb9fbf75040e1624958048ab071a0cdb21fd78e9f0389ba6bad3e226c",
-      "code/p7/p7_pure.go": "684e3c3b29a6cfb8592bf09c9310dadb9859d9ae8d1867844ead8cb5b9b27f84",
-      "code/p8/alias.go": "e8fd767f1c316184f9d2f6021147d437c9c730d881ae89e057dfda2b2f042048",
-      "code/p8/p8.go": "a396c747803557cbd95746620afc51fca8ca99e763a1d9129b851d3f12a9c911",
-      "code/p8/p8_pure.go": "35ca39226cc80d0e24d2051f217f5674dc09ba627cafdedcee281c72a177a03d",
-      "entry.go": "459431d32cd2d3290546bb2a88191ab0b101ee7c27b645ab8b2709cfa9bc360e",
-      "fs_contract_test.go": "3576133358a407286ddac38586b879fbd4bcc4947ffc0d9bbd5b14d93eeba7ac",
-      "guest_identity.go": "dbdff84b8730b6efbef2860a727512370d9083b082967712f82bad287c24642f",
-      "main.go": "ab9f7485fbcf37650e99262487f37a5085ac84652596d22f540b87d09cd2b233"
-    },
-    "basis_source_commit": "b56be17206b6beef18f55c8ea39b254638da8590",
-    "previous_generated_provenance_sha256": "cce377ec67a464d5fbe7da8237790ceb4bb5fa574d84813f90d34afd9ce86d60",
-    "generated_provenance_sha256": "d048e7b718bdfd5dc7269f3c859fbe3d94dbb385d39373798432ff359b9a0515",
-    "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
-    "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
-    "upstream_mit_matches": true,
-    "scope": "Unchanged guest and all generated MariaDB bodies. Only base.go helper changes: logical MemSize bulk bounds and equivalent shared-memory bridge. Existing source/symbol/license audits remain historical; this record is source continuity, not runtime or artifact qualification."
+    "reason": "Native exact-width narrow writer installation only; guest, linked artifact, converter pin/patches, guest function bodies and distributed notice bytes unchanged. Historical audit and host facts retained; not a fresh linked-library audit or release qualification."
+  },
+  "boundary_wait_thread_source_refresh": {
+    "previous_generated_provenance_sha256": "98e389d019f4a2d09350bace9c8c691de8926bcffb9d1781c9d9ce1880b64a97",
+    "generated_provenance_sha256": "e713edf8f5fa862047e39346cd4a748393643e7a94b9a10562cd045d6d510fee",
+    "source_commit": "be61d940e4c5b8b81b5ed1a73561d00fef76831c",
+    "scope": "T1/T2 helper owner corrections and two owned tests; guest function/data and distributed notice/library identities unchanged; prior linked-symbol/host audit facts remain historical"
+  },
+  "thread_lifetime_source_refresh": {
+    "basis_source_commit": "8086d902d97ffe3d65326658ff45cab9540a737a",
+    "previous_generated_provenance_sha256": "e713edf8f5fa862047e39346cd4a748393643e7a94b9a10562cd045d6d510fee",
+    "generated_provenance_sha256": "5172cc89b7823bb59eef9d86972d74bfa68ac87b26bd9f12dd37aad3f717883c",
+    "method": "Same accepted guest and raw converter/13-patch input. Owned installer adds a private Module field and pre-allocator worker-map handoff; generated source independently reproduced. Original library/source/notice identities unchanged."
   }
 }

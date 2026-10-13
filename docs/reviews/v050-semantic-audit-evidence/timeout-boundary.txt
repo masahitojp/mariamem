@@ -1,0 +1,6 @@
+=== RUN   TestPositiveTimeoutMustNotExpireBeforeNotification
+    audit_timeout_test.go:25: positive ~292-year timeout returned 2 before notification
+--- FAIL: TestPositiveTimeoutMustNotExpireBeforeNotification (0.00s)
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.269s
+FAIL

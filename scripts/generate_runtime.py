@@ -17,6 +17,23 @@ OLD = 'example.com/mariamem-spike/generated'
 NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
 # Canonical installer ownership boundary; the verifier consumes this same list.
 HANDWRITTEN_FILES = (
+    'code/base/fd_allocate_test.go',
+    'code/base/bulk_bounds_test.go',
+    'code/base/wait_timeout_test.go',
+    'code/base/thread_identity_test.go',
+    'code/base/thread_lifetime.go',
+    'code/base/thread_lifetime_test.go',
+    'runtime_thread_lifetime.go',
+    'code/base/narrow_load_test.go',
+    'code/base/narrow_load_supported.go',
+    'code/base/narrow_load_other.go',
+    'code/base/narrow_load_darwin_arm64.s',
+    'code/base/narrow_load_linux_amd64.s',
+    'code/base/narrow_write_supported.go',
+    'code/base/narrow_write_other.go',
+    'code/base/narrow_write_darwin_arm64.s',
+    'code/base/narrow_write_linux_amd64.s',
+    'code/base/narrow_write_test.go',
     'code/base/owned_prepared.go',
     'code/base/owned_prepared_test.go',
     'runtime_instance.go',
@@ -32,6 +49,13 @@ HANDWRITTEN_FILES = (
     'code/base/memory_mapping.go',
     'code/base/memory_mapping_test.go',
 )
+
+
+def handwritten_owner(root, name):
+    filename = Path(name).name
+    if filename.startswith(('narrow_load_', 'narrow_write_')) or filename in {'fd_allocate_test.go','bulk_bounds_test.go','wait_timeout_test.go','thread_identity_test.go'}:
+        return root/'scripts/runtime_correctness'/(filename+'.txt')
+    return root/'internal/generatedgo'/name
 
 
 def adapt_driver(text):
@@ -79,6 +103,8 @@ def main():
              for suffix in ('*.go', '*.s') for p in src.rglob(suffix)}
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
+    from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
+    thread_lifetime_inputs(pins['guest_sha256'], files)
     data = (src/'generated/data.bin').read_bytes()
     if hashlib.sha256(data).hexdigest() != pins['data_sha256']:
         parser.error('initial guest data identity mismatch')
@@ -91,6 +117,9 @@ def main():
         # The driver regression belongs alongside the handwritten host adapter.
         target = out/('code/'+name[len('generated/'):] if name.startswith('generated/') else name)
         text = source.read_text().replace(OLD, NEW)
+        if name == 'generated/base/base.go':
+            from runtime_atomic_loads import apply as narrow_loads
+            text = narrow_loads(text)
         if name == 'generated/generated.go':
             text = text.replace('\t_ "embed"\n', '')
             text = text.replace('//go:embed data.bin\nvar wasm2goData_data_bin []byte',
@@ -99,6 +128,8 @@ def main():
             text = adapt_driver(text)
         elif name in ('fs_contract_test.go', 'guest_identity.go'):
             text = text.replace('package main', 'package generatedgo', 1)
+        from runtime_thread_lifetime import apply as thread_lifetime
+        text = thread_lifetime(str(target.relative_to(out)), text)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.
@@ -119,7 +150,8 @@ def main():
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.
     for name in HANDWRITTEN_FILES:
-        shutil.copy2(ROOT/'internal/generatedgo'/name, out/name)
+        owner = handwritten_owner(ROOT, name)
+        shutil.copy2(owner, out/name)
     print('Installed checksum-bound generated runtime:',len(inventory),'files')
 
 

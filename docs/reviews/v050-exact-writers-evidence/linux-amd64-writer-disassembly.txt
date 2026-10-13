@@ -1,0 +1,45 @@
+TEXT example.com/narrowwriters.read8.abi0(SB) $TASK/temp/candidate-final/module/ops_amd64.s
+  ops_amd64.s:3		0x535400		488b442408		MOVQ 0x8(SP), AX
+  ops_amd64.s:4		0x535405		0faef0			MFENCE
+  ops_amd64.s:5		0x535408		0fb608			MOVZX 0(AX), CX
+  ops_amd64.s:6		0x53540b		0faef0			MFENCE
+  ops_amd64.s:7		0x53540e		894c2410		MOVL CX, 0x10(SP)
+  ops_amd64.s:8		0x535412		c3			RET
+
+TEXT example.com/narrowwriters.read16.abi0(SB) $TASK/temp/candidate-final/module/ops_amd64.s
+  ops_amd64.s:10	0x535420		488b442408		MOVQ 0x8(SP), AX
+  ops_amd64.s:11	0x535425		0faef0			MFENCE
+  ops_amd64.s:12	0x535428		0fb708			MOVZX 0(AX), CX
+  ops_amd64.s:13	0x53542b		0faef0			MFENCE
+  ops_amd64.s:14	0x53542e		894c2410		MOVL CX, 0x10(SP)
+  ops_amd64.s:15	0x535432		c3			RET
+
+TEXT example.com/narrowwriters.write8.abi0(SB) $TASK/temp/candidate-final/module/ops_amd64.s
+  ops_amd64.s:17	0x535440		488b5c2408		MOVQ 0x8(SP), BX
+  ops_amd64.s:18	0x535445		8b442410		MOVL 0x10(SP), AX
+  ops_amd64.s:19	0x535449		8603			XCHGB AL, 0(BX)
+  ops_amd64.s:20	0x53544b		c3			RET
+
+TEXT example.com/narrowwriters.write16.abi0(SB) $TASK/temp/candidate-final/module/ops_amd64.s
+  ops_amd64.s:22	0x535460		488b5c2408		MOVQ 0x8(SP), BX
+  ops_amd64.s:23	0x535465		8b442410		MOVL 0x10(SP), AX
+  ops_amd64.s:24	0x535469		668703			XCHGW AX, 0(BX)
+  ops_amd64.s:25	0x53546c		c3			RET
+
+TEXT example.com/narrowwriters.cmp8.abi0(SB) $TASK/temp/candidate-final/module/ops_amd64.s
+  ops_amd64.s:27	0x535480		488b5c2408		MOVQ 0x8(SP), BX
+  ops_amd64.s:28	0x535485		8b442410		MOVL 0x10(SP), AX
+  ops_amd64.s:29	0x535489		8b4c2414		MOVL 0x14(SP), CX
+  ops_amd64.s:30	0x53548d		f00fb00b		LOCK CMPXCHGB CL, 0(BX)
+  ops_amd64.s:32	0x535491		0fb6c0			MOVZX AL, AX
+  ops_amd64.s:33	0x535494		89442418		MOVL AX, 0x18(SP)
+  ops_amd64.s:34	0x535498		c3			RET
+
+TEXT example.com/narrowwriters.cmp16.abi0(SB) $TASK/temp/candidate-final/module/ops_amd64.s
+  ops_amd64.s:36	0x5354a0		488b5c2408		MOVQ 0x8(SP), BX
+  ops_amd64.s:37	0x5354a5		8b442410		MOVL 0x10(SP), AX
+  ops_amd64.s:38	0x5354a9		8b4c2414		MOVL 0x14(SP), CX
+  ops_amd64.s:39	0x5354ad		f0660fb10b		CMPXCHGW CX, 0(BX)
+  ops_amd64.s:41	0x5354b2		0fb7c0			MOVZX AX, AX
+  ops_amd64.s:42	0x5354b5		89442418		MOVL AX, 0x18(SP)
+  ops_amd64.s:43	0x5354b9		c3			RET

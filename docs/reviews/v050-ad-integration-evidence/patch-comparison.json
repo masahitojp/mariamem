@@ -1,0 +1,35 @@
+{
+  "comparison_commits": [
+    "5f14221463b6400e72e72a115bd1cc1a3acee88d",
+    "06ad7abf8c38248ceff0b0105af02c010f51f4fc"
+  ],
+  "unit": "per-file unified diff bytes, excluding canonical overlay",
+  "original_files": 18,
+  "byte_identical_file_diffs": [
+    "CMakeLists.txt",
+    "cmake/os/Emscripten.cmake",
+    "cmake/os/WASIX.cmake",
+    "cmake/pcre.cmake",
+    "include/my_global.h",
+    "include/my_stacktrace.h",
+    "libmysqld/libmysql.c",
+    "mysys/CMakeLists.txt",
+    "mysys/my_largepage.c",
+    "mysys/my_lock.c",
+    "mysys/my_timezone.cc",
+    "sql/sql_plugin.cc",
+    "storage/innobase/fil/fil0fil.cc",
+    "storage/innobase/os/os0file.cc",
+    "storage/maria/ma_loghandler.c"
+  ],
+  "different_file_diffs": [
+    "configure.cmake",
+    "mysys/my_virtual_mem.c",
+    "storage/innobase/log/log0log.cc"
+  ],
+  "adopted_common_files": 17,
+  "adopted_variant_files": 1,
+  "old_vs_adopted_patched_source_differences": {
+    "mysys/my_virtual_mem.c": "--- \n+++ \n@@ -79,7 +79,7 @@\n char *my_virtual_mem_commit(char *ptr, size_t size)\n {\n #if defined(__EMSCRIPTEN__) || defined(__wasi__)\n-  /* Preserve 12.3's NULL allocation contract without unsupported mmap flags. */\n+  /* Preserve the NULL allocation contract without unsupported mmap flags. */\n   if (!ptr)\n   {\n     void *p= NULL;\n"
+  }
+}

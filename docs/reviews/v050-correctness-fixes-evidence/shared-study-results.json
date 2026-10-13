@@ -1,0 +1,1719 @@
+{
+  "fixture_sha256": "267d533a042e1027be6499b447dd2cfa911d9b54b116a6dfee95cba22240d523",
+  "converter_sha256": "2e127643180dbf5f7c96875497b7e8a080d93bbb7b8b3711c55165d8828146a6",
+  "scope": "Limited real-opcode lowering; no full guest census or general shared-memory proof",
+  "checks": [
+    {
+      "key": "load-neighbor-8-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 1,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "e11562a0c2f397f45ab13d197a0e6705a104baed494465e47bf1dd4827e98048"
+    },
+    {
+      "key": "load-overlap-8-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "6533e7bd91481d632d37d03037ea4b652f520a6bd5ab1075161e0c24179a21bf"
+    },
+    {
+      "key": "store-neighbor-8-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "b33bbce5251ce2670ff907a9be68ef173cf33a3e68937c4a8432bd863fbb85bd"
+    },
+    {
+      "key": "store-overlap-8-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 1230000,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "39a2d396a96670f06d3ba4ce21002b22cef159ea273fce2801e11e864c46594e"
+    },
+    {
+      "key": "rmw-neighbor-8-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "684572a51b819e98a35d85bde8074f40c85da5cba98ca579533a66b98d26faad"
+    },
+    {
+      "key": "rmw-overlap-8-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 1179403,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "cbdefa25bf4a52409c3b2ae54e1424739ea5a1a468a1e3bd1ff8220671db0593"
+    },
+    {
+      "key": "cmpxchg-neighbor-8-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "9747cf42b0ce5fb552738589ab5bde3e4e21db736c92ccaa0f6d23c0c7c98d0e"
+    },
+    {
+      "key": "cmpxchg-overlap-8-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "c79cdbae2d8f29afc1752d0c9ed2c4191ad3266d8bb8c276598c77537adbed7f"
+    },
+    {
+      "key": "shadow-overlap-8-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 1277014,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "shadow",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "5150fffcee7bf5117f71154c9c35bab8d6edee2d410d1a61bd4721c99be5d23e"
+    },
+    {
+      "key": "store-buffering-8-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "trials": 1000
+    },
+    {
+      "key": "load-neighbor-16-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 2,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "3ae0091afcf72f69ddba34e38a89fd0dbb192d9eb91641160b7ec4c1a2f5d5b7"
+    },
+    {
+      "key": "load-overlap-16-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 2,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "efccdc34aa3cefe5c095beac07524556c385ff8e06bbd6394a2bbdbfc8f12d85"
+    },
+    {
+      "key": "store-neighbor-16-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "08d957fcf531acf887d81a08642b94718e97bd8ae15d0178974e0ab49578e1b4"
+    },
+    {
+      "key": "store-overlap-16-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 1230000,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "e1838dd2cb3599c9d298fabd1ab18243d56bed401adcce24674a4e7d348ad7c2"
+    },
+    {
+      "key": "rmw-neighbor-16-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "324f979aba04def819ef943b2b3c4f587ef7a3e1ad182af9b3df5f400bff5d65"
+    },
+    {
+      "key": "rmw-overlap-16-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 1051892,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "f466ac8dc53f8c4bb97b26faecdcad74f6c609af78bf6154be472d2fe00552ac"
+    },
+    {
+      "key": "cmpxchg-neighbor-16-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "8c192c4f843c0de3da0562996b28cbd3543b1496790c1bfac91bc580be86977d"
+    },
+    {
+      "key": "cmpxchg-overlap-16-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 887464,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "ff9c9a955c141144235ea0116329740e6e7702160ac364f1a875690847db7761"
+    },
+    {
+      "key": "shadow-overlap-16-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 1279258,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "shadow",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "3e22895a8efaaa89ae9b37f23d82b1bb7ddb234d3ad39cd77a1e9ebfd5971d61"
+    },
+    {
+      "key": "store-buffering-16-heap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "trials": 1000
+    },
+    {
+      "key": "load-neighbor-8-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 1,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "4177cea61affc59aae29e1d6fb89726dfdde5d871619bb857f439f54a86139d1"
+    },
+    {
+      "key": "load-overlap-8-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "bf5dde2d5b3d5405e8d2fdf341a2a7a4792836f7983acdc83a67a258e6e89724"
+    },
+    {
+      "key": "store-neighbor-8-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "941292560380ac7d3bc746ef6510ea8e94b26e41207ce8266a0e4e15dd1fc84a"
+    },
+    {
+      "key": "store-overlap-8-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1230000,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "b4051db7bcaffcdebb0f3bd44c6f7c1f6711d74b935f5f51b83eb5b3ab20f660"
+    },
+    {
+      "key": "rmw-neighbor-8-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "3213da66014af93bc9580b0f6567d8b517b62ef8c25c38ff98acf12bb0d3b32f"
+    },
+    {
+      "key": "rmw-overlap-8-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1287123,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "cff73416c17765e84546050e12e1521515e5b82df52f56fe6b68d2b0926c8896"
+    },
+    {
+      "key": "cmpxchg-neighbor-8-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "0a5a6bab9547bd3ae93c6df7e0254973c5aa13f923858b594c24b970a07089f6"
+    },
+    {
+      "key": "cmpxchg-overlap-8-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "e46b75353782adc5c51eb7623e1a107008c0752a69505ebf8ee8f67e5636e62f"
+    },
+    {
+      "key": "shadow-overlap-8-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1278446,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "shadow",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "25add54bead77982581882b6b51afde1a0a1bd755655191fbe704620bd428ef7"
+    },
+    {
+      "key": "store-buffering-8-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "trials": 1000
+    },
+    {
+      "key": "load-neighbor-16-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 2,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "12f42080232d5ce144c5aa88d3af26cf08c821d5941dafe6d87894716284810d"
+    },
+    {
+      "key": "load-overlap-16-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 2,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "365b826bb14204f0747166535376a7b9324286fe18e0c2e08816fb017a9edf45"
+    },
+    {
+      "key": "store-neighbor-16-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "8463161f403643180ae9388249974d50041b8e309f8c1944fcfeb927f1deb8eb"
+    },
+    {
+      "key": "store-overlap-16-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1230000,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "c8e8e4c84dd88dc48dfc9d4ae0b5fbc2d1b3118c620228e2e19f26d75b384d0e"
+    },
+    {
+      "key": "rmw-neighbor-16-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "51ec8d8effd8e2cbee974e98a3ab9e06c7ea26159e784a00b8d40ca0220c1218"
+    },
+    {
+      "key": "rmw-overlap-16-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "15e9b1e701ed0e3962061bb666f3546bc77806a7248d9f05ce72b2deb952ac13"
+    },
+    {
+      "key": "cmpxchg-neighbor-16-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "97825259a3328cffbcbde3645fb1e1eb83b677de0ed28e52eac96b038aee1d2c"
+    },
+    {
+      "key": "cmpxchg-overlap-16-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 407682,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "7e47154dcc3883138423d344bece1b8fdffe5914438f276c7f82df5a1cb1f2e0"
+    },
+    {
+      "key": "shadow-overlap-16-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1276772,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "shadow",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "0f0f352113d73f2c6494f9fc9de74283fc61fd1bb466c55a94454fae08ee7b07"
+    },
+    {
+      "key": "store-buffering-16-mmap",
+      "race": false,
+      "exit_code": 0,
+      "race_reports": 0,
+      "trials": 1000
+    },
+    {
+      "key": "load-neighbor-8-heap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 1,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "e60b6e2a8b8b66661039dc94f34b2f55b9eb65253152f8c72c258f6a079e407b"
+    },
+    {
+      "key": "load-overlap-8-heap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "8f705cf86c0068d39872a1d78b01ede57c3e90cb3ef70d070ab294a4727ebeae"
+    },
+    {
+      "key": "store-neighbor-8-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 2,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "4b8d4a9aa58bbbe44792552f67351964170bafbf422e8d622a27634e412754a6"
+    },
+    {
+      "key": "store-overlap-8-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 1,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 1230000,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "66afbe4d0fc7966c9f8497f4837ac61a9acecba46468cfca2acccf4f46c081ce"
+    },
+    {
+      "key": "rmw-neighbor-8-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 2,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "319d49e54bda0f31b1e4e4a881ffe0437346cc850abccdc73e3dc8f91a6c153b"
+    },
+    {
+      "key": "rmw-overlap-8-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 1,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 1386707,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "19ce96b40e97ffd63154e4cbe045135440a7b8cdf9ecc5b53055d54ece4debe9"
+    },
+    {
+      "key": "cmpxchg-neighbor-8-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 2,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "8972f0e24d0608f8aeb82a885dea5a50b105a24b563d2f9c7ec85d48aae882a0"
+    },
+    {
+      "key": "cmpxchg-overlap-8-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 1,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "a990cc9e640a0a222aa5f396ea2d414d5e244f4dbab8582a3e0e16a48385d6f2"
+    },
+    {
+      "key": "shadow-overlap-8-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 1,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 1230000,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "shadow",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "e0cc44c752b780875467c2fff464c6500317f3dfc231f0619641a047332dd551"
+    },
+    {
+      "key": "store-buffering-8-heap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "trials": 1000
+    },
+    {
+      "key": "load-neighbor-16-heap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 2,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "d5177ec2e9f04d3fc374f23fc291dd1e29ca6a0b91fd9a74277c51a018b3ec57"
+    },
+    {
+      "key": "load-overlap-16-heap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 2,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "83be5031f0e6e21b3ed5151242c9611dfaea6ffebba9017535cf3ed9cf8ed14b"
+    },
+    {
+      "key": "store-neighbor-16-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 2,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "9724d4df7e1d557e548813ef5da0c825578b1dbe7a2c3c3b739f371bffb159d7"
+    },
+    {
+      "key": "store-overlap-16-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 1,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 1230000,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "4ef45557f116609328fc94d4ba2ab34f526c80b0549a73075fc19a054761462c"
+    },
+    {
+      "key": "rmw-neighbor-16-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 2,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "fb98f7252fb87d0a695e56dd0e4f06f18b04edb299ae5dcdfcebfe61606183a1"
+    },
+    {
+      "key": "rmw-overlap-16-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 1,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "f99e2392609c15b732380a3b69f143cbe84f767a5fad75a112385387a16faa8c"
+    },
+    {
+      "key": "cmpxchg-neighbor-16-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 2,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "d5ccf3eb71c39295147021640ed6e7bd01f45f3979c962a5f1ca8468c38d6abb"
+    },
+    {
+      "key": "cmpxchg-overlap-16-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 1,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 0,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "80c2298602cac8e8376901b9d29fe77f8afdf5d089ce34436d01c0376e1b39ab"
+    },
+    {
+      "key": "shadow-overlap-16-heap-race",
+      "race": true,
+      "exit_code": 1,
+      "race_reports": 1,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "heap",
+          "checksum": 1280000,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "shadow",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "60c56ebcea81ff715443bd0050c3d4e4ed1c15d76f7a0d201ea54a4006439b0d"
+    },
+    {
+      "key": "store-buffering-16-heap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "trials": 1000
+    },
+    {
+      "key": "load-neighbor-8-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 1,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "6b71a56b10e374dd2bac4d79298846fd3360444b3392c63467ee30f0027837fd"
+    },
+    {
+      "key": "load-overlap-8-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "4b3d29b983fb6fd01cc5be422ca348730fe95f0dfd3cc18ff855c6ff12140800"
+    },
+    {
+      "key": "store-neighbor-8-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "6b465072ea375a5ccec97abccf87e054f535b7c81a0b3c80413ce5634045d7fc"
+    },
+    {
+      "key": "store-overlap-8-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1230000,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "318e4318c33507329deb20cae8eabeff72104df15d978e7aab5f1c78f1650639"
+    },
+    {
+      "key": "rmw-neighbor-8-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "d7bdd769617b07b739ff12ef2aea4d5246f1bd5bd09754ce8572ab13ed78c715"
+    },
+    {
+      "key": "rmw-overlap-8-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1236695,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "6c22e17eb5ffebab3943a246931d6e2162116fbed0cb58ae9492a19dedc6be1c"
+    },
+    {
+      "key": "cmpxchg-neighbor-8-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "95d7a6e1623d0379ad2c90ebea4027182fb89ac5bb91d86e14ef652e7e04927f"
+    },
+    {
+      "key": "cmpxchg-overlap-8-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1199563,
+          "final_value": 16,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "7b617bbaeee0609eb367e10523f25021988c81fa633e0ccf48b44cfa67098e95"
+    },
+    {
+      "key": "shadow-overlap-8-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1276872,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "shadow",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 8,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "4e1270247e6fb768b31c192b6d13262a1c6a1e0bb642851d62809119a0017348"
+    },
+    {
+      "key": "store-buffering-8-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "trials": 1000
+    },
+    {
+      "key": "load-neighbor-16-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 2,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "edfc972938fdd26d334330aea96a6e219f50caef88f368783f6bf4735725b5ff"
+    },
+    {
+      "key": "load-overlap-16-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": true,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "load",
+          "physical_access_bytes": 2,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "99371aa1bcc10815bb5fe46c8069fbd511cd58ef84326158ebdcbfaf207e7ebf"
+    },
+    {
+      "key": "store-neighbor-16-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "af9af606fa12326513963194ecf975dcfb27d480ca2732ff6242a58060099d33"
+    },
+    {
+      "key": "store-overlap-16-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1230000,
+          "final_value": 123,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "store",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "d5a48a19701569a391a22674cfb60c8fad9583b1f826f07f5ed768a8ffc9c40f"
+    },
+    {
+      "key": "rmw-neighbor-16-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "c306a5f8e000c625378a5720dff0dc8b3af44e799ef1635039a384d15c75a607"
+    },
+    {
+      "key": "rmw-overlap-16-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1168397,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "rmw",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "272eb4e7799be5ddfb5de1c38d3044ef4afa3f74ead1d7cb97124ed397f342da"
+    },
+    {
+      "key": "cmpxchg-neighbor-16-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 0,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "neighbor",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "e4040eed1d308d0f246d6a92400062609cd088d532d451c227b5eccaa0b4f023"
+    },
+    {
+      "key": "cmpxchg-overlap-16-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1135694,
+          "final_value": 10000,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "cmpxchg",
+          "physical_access_bytes": 4,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "75523bbbb62bab47a45dbacd3234a95c3704496352e51d5162b6593fc8ffac5b"
+    },
+    {
+      "key": "shadow-overlap-16-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "observations": [
+        {
+          "asm_observation_limit": false,
+          "backing": "mmap",
+          "checksum": 1277318,
+          "final_value": 128,
+          "iterations": 10000,
+          "neighbor_offset": 65,
+          "operation": "shadow",
+          "physical_access_bytes": 1,
+          "relation": "overlap",
+          "requested_bits": 16,
+          "target_offset": 66,
+          "value_failure": false
+        }
+      ],
+      "log_sha256": "d88728d81465bf977a74357de1a417f7cfaa375b82e4989d2b8cbf5dd258daf2"
+    },
+    {
+      "key": "store-buffering-16-mmap-race",
+      "race": true,
+      "exit_code": 0,
+      "race_reports": 0,
+      "trials": 1000
+    }
+  ]
+}

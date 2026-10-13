@@ -1,0 +1,137 @@
+package fixture
+
+import (
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	base "example.com/narrowfixture/fixture/base"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"unsafe"
+)
+
+type oracleCase struct {
+	Name          string
+	Bits, Result  int
+	Addr          int32
+	Initial       string
+	Args          []string
+	Before, After string
+	Trap          bool
+	Old           string
+}
+
+var operations = map[string]func(*base.Module, int32, []uint64) uint64{
+	/*REGISTRY*/
+}
+
+func fixtureMemory(t *testing.T) (*base.Module, func()) {
+	t.Helper()
+	var b []byte
+	close := func() {}
+	if os.Getenv("FIXTURE_BACKING") == "mmap" {
+		owner, e := base.NewMemoryMapping(65536, 131072)
+		if e != nil {
+			t.Fatal(e)
+		}
+		b = owner.Bytes()
+		close = func() {
+			if e := owner.Close(); e != nil {
+				t.Error(e)
+			}
+		}
+	} else {
+		b = make([]byte, 131072)
+	}
+	size := new(atomic.Uint64)
+	size.Store(65536)
+	m := &base.Module{Memory: b, M: unsafe.Pointer(&b[0]), MemSize: size, MemMu: new(sync.Mutex), MemShared: true, Threads: &base.ThreadPool{}}
+	base.ForceContendedAtomics(m)
+	return m, close
+}
+func sum(b []byte) string { s := sha256.Sum256(b); return hex.EncodeToString(s[:]) }
+func TestConvertedNarrowWasmOracle(t *testing.T) {
+	data, e := os.ReadFile("reference-results.json")
+	if e != nil {
+		t.Fatal(e)
+	}
+	var cases []oracleCase
+	if e = json.Unmarshal(data, &cases); e != nil {
+		t.Fatal(e)
+	}
+	for _, c := range cases {
+		func() {
+			m, close := fixtureMemory(t)
+			defer close()
+			for i := 60; i < 80; i++ {
+				m.Memory[i] = 0x57
+			}
+			v, e := strconv.ParseUint(c.Initial, 16, 64)
+			if e != nil {
+				t.Fatal(e)
+			}
+			width := c.Bits / 8
+			if c.Addr >= 0 && uint64(uint32(c.Addr))+uint64(width) <= 65536 {
+				for i := 0; i < width; i++ {
+					m.Memory[int(c.Addr)+i] = byte(v >> uint(8*i))
+				}
+			}
+			if sum(m.Memory[:65536]) != c.Before {
+				t.Fatal("oracle initial identity", c.Name)
+			}
+			args := []uint64{}
+			for _, a := range c.Args {
+				x, e := strconv.ParseUint(a, 16, 64)
+				if e != nil {
+					t.Fatal(e)
+				}
+				args = append(args, x)
+			}
+			var got uint64
+			trapped := false
+			func() {
+				defer func() {
+					if p := recover(); p != nil {
+						s := fmt.Sprint(p)
+						if !strings.Contains(s, "wasm:") || (!strings.Contains(s, "out of bounds") && !strings.Contains(s, "unaligned")) {
+							panic(p)
+						}
+						trapped = true
+					}
+				}()
+				got = operations[c.Name](m, c.Addr, args)
+			}()
+			want, e := strconv.ParseUint(c.Old, 16, 64)
+			if e != nil {
+				t.Fatal(e)
+			}
+			if trapped != c.Trap || got != want || sum(m.Memory[:65536]) != c.After {
+				t.Fatalf("Wasm mismatch %+v got old=%x trap=%v", c, got, trapped)
+			}
+		}()
+	}
+	fmt.Println("PASS", len(cases), "real Wasm reference cases")
+}
+func TestConvertedNarrowConcurrent(t *testing.T) {
+	m, close := fixtureMemory(t)
+	defer close()
+	var wg sync.WaitGroup
+	wg.Add(4)
+	for worker := 0; worker < 4; worker++ {
+		go func() {
+			defer wg.Done()
+			for i := 0; i < 10000; i++ {
+				Add64_16(m, 66, 1)
+			}
+		}()
+	}
+	wg.Wait()
+	if Load64_16(m, 66) != 40000 {
+		t.Fatal("lost i64 narrow increment")
+	}
+}

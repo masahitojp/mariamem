@@ -1,0 +1,96 @@
+package base
+
+import (
+ "bytes"
+ "encoding/binary"
+ "os"
+ "sync"
+ "sync/atomic"
+ "testing"
+ "unsafe"
+)
+
+func probeModule() *Module {
+ b:=make([]byte,131072); size:=new(atomic.Uint64);size.Store(65536)
+ return &Module{Memory:b,M:unsafe.Pointer(&b[0]),MemSize:size,MemShared:true,MemMu:new(sync.Mutex),MaxMem:131072,DataSegs:[][]byte{[]byte("abc")}}
+}
+func probeTrap(f func()) (trap bool) {defer func(){trap=recover()!=nil}();f();return}
+func probeFile(t *testing.T, backend string) File {
+ t.Helper(); var f File;var err error
+ if backend=="memfs" {f,err=NewMemFS().OpenFile("fixture",os.O_CREATE|os.O_RDWR,0600)} else {f,err=os.CreateTemp(t.TempDir(),"fixture")}
+ if err!=nil {t.Fatal(err)};t.Cleanup(func(){f.Close()})
+ if _,err=f.Write([]byte("0123456789abcdef"));err!=nil {t.Fatal(err)}
+ return f
+}
+func TestAllocatePreservesExistingData(t *testing.T) {
+ for _,backend:=range []string{"memfs","native"} {for _,c:=range []struct{name string;off,n int64}{{"inside",0,4},{"zero",0,0},{"unsigned-wrap",-1,1}} {t.Run(backend+"/"+c.name,func(t *testing.T){
+  f:=probeFile(t,backend);w:=DefaultWASI();w.fdTable[4]=&wasiOpen{f:f}
+  rc:=w.Fd_allocate(nil,4,c.off,c.n);st,err:=f.Stat();if err!=nil {t.Fatal(err)}
+  b:=make([]byte,16);n,_:=f.ReadAt(b,0)
+  t.Logf("errno=%d size=%d data=%q",rc,st.Size(),b[:n])
+  if st.Size()!=16 || !bytes.Equal(b,[]byte("0123456789abcdef")) {t.Error("allocation destroyed existing bytes")}
+  if c.off<0 && rc==0 {t.Error("unsigned range overflow accepted")}
+ })}}
+}
+func TestAllocateControls(t *testing.T) {
+ for _,backend:=range []string{"memfs","native"} {t.Run(backend,func(t *testing.T){
+  f:=probeFile(t,backend);w:=DefaultWASI();w.fdTable[4]=&wasiOpen{f:f}
+  if rc:=w.Fd_allocate(nil,4,16,16);rc!=0 {t.Fatal(rc)}
+  st,_:=f.Stat();b:=make([]byte,32);f.ReadAt(b,0)
+  if st.Size()!=32 || string(b[:16])!="0123456789abcdef" || !bytes.Equal(b[16:],make([]byte,16)) {t.Fatal("growth changed contents")}
+  if rc:=w.Fd_allocate(nil,999,0,4);rc!=8 {t.Fatal("invalid fd",rc)}
+ })}
+}
+func TestZeroBulkBounds(t *testing.T) {
+ for _,op:=range []string{"fill","copy","init"} {for _,c:=range []struct{name string;dst,src int32;drop bool;wantTrap bool}{
+  {"at-end",65536,0,false,false},{"dst-past",65537,0,false,true},{"unsigned-dst",-1,0,false,true},
+  {"src-past",0,65537,false,true},{"dropped-src-past",0,1,true,true},
+ } {if op=="fill" && (c.name=="src-past"||c.drop) {continue};if op=="copy" && c.drop {continue}
+ t.Run(op+"/"+c.name,func(t *testing.T){m:=probeModule();if c.drop {DataDrop(m,0)};before:=append([]byte(nil),m.Memory...)
+  trap:=probeTrap(func(){switch op {case "fill":MemoryFill(m,c.dst,0,0);case "copy":MemoryCopy(m,c.dst,c.src,0);case "init":MemoryInit(m,0,c.dst,c.src,0)}})
+  t.Logf("trap=%v want=%v",trap,c.wantTrap);if trap!=c.wantTrap {t.Error("zero-length bounds differ from WASM")};if !bytes.Equal(before,m.Memory) {t.Error("memory changed")}
+ })}}
+}
+func TestAtomicValuesAndBounds(t *testing.T) {
+ for _,contended:=range []bool{false,true} {m:=probeModule();if contended {ForceContendedAtomics(m)};copy(m.Memory[64:68],[]byte{0xab,0xcd,0xef,0x98})
+  for lane:=int32(0);lane<4;lane++ {if got:=AtomicLoad32_8u(m,64+lane,0);got!=int32(m.Memory[64+lane]) {t.Fatal(got)}}
+  for _,lane:=range []int32{0,2} {if got:=AtomicLoad32_16u(m,64+lane,0);got!=int32(binary.LittleEndian.Uint16(m.Memory[64+lane:])) {t.Fatal(got)}}
+  for _,f:=range []func(){func(){AtomicLoad32_8u(m,65536,0)},func(){AtomicLoad32_16u(m,65535,0)},func(){AtomicLoad32_16u(m,65,0)}} {if !probeTrap(f) {t.Error("expected bounds/alignment trap")}}
+ }
+}
+func TestAtomicReadRead8(t *testing.T) {probeAtomicConflict(t,8,false)}
+func TestAtomicReadRead16(t *testing.T) {probeAtomicConflict(t,16,false)}
+func TestAtomicNeighbor8(t *testing.T) {probeAtomicConflict(t,8,true)}
+func TestAtomicNeighbor16(t *testing.T) {probeAtomicConflict(t,16,true)}
+func probeAtomicConflict(t *testing.T,bits int,neighbor bool) {probeAtomicConflictOn(t,bits,neighbor,probeModule())}
+func probeAtomicConflictOn(t *testing.T,bits int,neighbor bool,m *Module) {
+ ForceContendedAtomics(m);m.Memory[66]=123
+ var sum uint64;var wg sync.WaitGroup;start:=make(chan struct{});wg.Add(2)
+ go func(){defer wg.Done();<-start;for i:=0;i<10000;i++ {if bits==8 {AtomicLoad32_8u(m,66,0)} else {AtomicLoad32_16u(m,66,0)}}}()
+ go func(){defer wg.Done();<-start;for i:=0;i<10000;i++ {if neighbor {m.Memory[65]=byte(i)} else {sum+=uint64(m.Memory[66])}}}()
+ close(start);wg.Wait();if m.Memory[66]!=123 {t.Fatal("target changed")};if !neighbor && sum!=1230000 {t.Fatal("reader result",sum)}
+}
+// Wider read-only extraction is a diagnostic alternative, not a proposed fix.
+func TestReadOnlyWordNeighbor(t *testing.T) {
+ m:=probeModule();m.Memory[66]=123;var wg sync.WaitGroup;start:=make(chan struct{});wg.Add(2)
+ go func(){defer wg.Done();<-start;for i:=0;i<10000;i++ {_=atomic.LoadUint32((*uint32)(unsafe.Add(m.M,64)))}}()
+ go func(){defer wg.Done();<-start;for i:=0;i<10000;i++ {m.Memory[65]=byte(i)}}()
+ close(start);wg.Wait()
+}
+
+func probeMappedModule(t *testing.T) *Module {
+ t.Helper();owner,err:=NewMemoryMapping(65536,131072);if err!=nil {t.Fatal(err)}
+ t.Cleanup(func(){if err:=owner.Close();err!=nil {t.Error(err)}})
+ m:=probeModule();m.Memory=owner.Bytes();m.M=unsafe.Pointer(&m.Memory[0]);return m
+}
+func TestMappedAtomicReadRead8(t *testing.T) {probeAtomicConflictOn(t,8,false,probeMappedModule(t))}
+func TestMappedAtomicReadRead16(t *testing.T) {probeAtomicConflictOn(t,16,false,probeMappedModule(t))}
+func TestMappedAtomicNeighbor8(t *testing.T) {probeAtomicConflictOn(t,8,true,probeMappedModule(t))}
+func TestMappedAtomicNeighbor16(t *testing.T) {probeAtomicConflictOn(t,16,true,probeMappedModule(t))}
+func probePlainConflict(t *testing.T,m *Module) {
+ var wg sync.WaitGroup;start:=make(chan struct{});wg.Add(2)
+ for worker:=0;worker<2;worker++ {go func(){defer wg.Done();<-start;for i:=0;i<10000;i++ {m.Memory[64]++}}()}
+ close(start);wg.Wait();t.Logf("counter=%d; no serial-count assertion; detector diagnostic",m.Memory[64])
+}
+func TestHeapPlainConflict(t *testing.T) {probePlainConflict(t,probeModule())}
+func TestMappedPlainConflict(t *testing.T) {probePlainConflict(t,probeMappedModule(t))}

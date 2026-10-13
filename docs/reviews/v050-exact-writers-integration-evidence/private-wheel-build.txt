@@ -1,0 +1,22 @@
+go: writing stat cache: open $USERHOME/.go/pkg/mod/cache/download/github.com/masahitojp/mariamem/@v/v0.4.8-0.20261012121909-f66727dda49d.info362910753.tmp: operation not permitted
+Processing ./python
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: mariamem
+  Building wheel for mariamem (pyproject.toml): started
+  Building wheel for mariamem (pyproject.toml): finished with status 'done'
+  Created wheel for mariamem: filename=mariamem-0.4.7-py3-none-macosx_15_0_arm64.whl size=48778196 sha256=f4b815826a9302687264e1cd9993a71bfbbcf5c17618d33d4701e1ab6f9be816
+  Stored in directory: /private$TMPDIR
+Successfully built mariamem
+{
+  "version": 1,
+  "package_version": "0.4.7",
+  "platform": "darwin-arm64",
+  "minimum_macos": 15,
+  "runtime_kind": "generated-go",
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "public_release_ready": false,
+  "sha256": {
+    "mariamem-host": "0d858ac5a3d2d88e7f6bd923657ef1ccc89bbe321d8d6f824855e8b0cee68703"
+  }
+}

@@ -1,0 +1,50 @@
+=== RUN   TestZeroBulkBounds
+=== RUN   TestZeroBulkBounds/fill/at-end
+    probe_test.go:51: trap=false want=false
+=== RUN   TestZeroBulkBounds/fill/dst-past
+    probe_test.go:51: trap=false want=true
+    probe_test.go:51: zero-length bounds differ from WASM
+=== RUN   TestZeroBulkBounds/fill/unsigned-dst
+    probe_test.go:51: trap=false want=true
+    probe_test.go:51: zero-length bounds differ from WASM
+=== RUN   TestZeroBulkBounds/copy/at-end
+    probe_test.go:51: trap=false want=false
+=== RUN   TestZeroBulkBounds/copy/dst-past
+    probe_test.go:51: trap=false want=true
+    probe_test.go:51: zero-length bounds differ from WASM
+=== RUN   TestZeroBulkBounds/copy/unsigned-dst
+    probe_test.go:51: trap=false want=true
+    probe_test.go:51: zero-length bounds differ from WASM
+=== RUN   TestZeroBulkBounds/copy/src-past
+    probe_test.go:51: trap=false want=true
+    probe_test.go:51: zero-length bounds differ from WASM
+=== RUN   TestZeroBulkBounds/init/at-end
+    probe_test.go:51: trap=false want=false
+=== RUN   TestZeroBulkBounds/init/dst-past
+    probe_test.go:51: trap=false want=true
+    probe_test.go:51: zero-length bounds differ from WASM
+=== RUN   TestZeroBulkBounds/init/unsigned-dst
+    probe_test.go:51: trap=false want=true
+    probe_test.go:51: zero-length bounds differ from WASM
+=== RUN   TestZeroBulkBounds/init/src-past
+    probe_test.go:51: trap=false want=true
+    probe_test.go:51: zero-length bounds differ from WASM
+=== RUN   TestZeroBulkBounds/init/dropped-src-past
+    probe_test.go:51: trap=false want=true
+    probe_test.go:51: zero-length bounds differ from WASM
+--- FAIL: TestZeroBulkBounds (0.00s)
+    --- PASS: TestZeroBulkBounds/fill/at-end (0.00s)
+    --- FAIL: TestZeroBulkBounds/fill/dst-past (0.00s)
+    --- FAIL: TestZeroBulkBounds/fill/unsigned-dst (0.00s)
+    --- PASS: TestZeroBulkBounds/copy/at-end (0.00s)
+    --- FAIL: TestZeroBulkBounds/copy/dst-past (0.00s)
+    --- FAIL: TestZeroBulkBounds/copy/unsigned-dst (0.00s)
+    --- FAIL: TestZeroBulkBounds/copy/src-past (0.00s)
+    --- PASS: TestZeroBulkBounds/init/at-end (0.00s)
+    --- FAIL: TestZeroBulkBounds/init/dst-past (0.00s)
+    --- FAIL: TestZeroBulkBounds/init/unsigned-dst (0.00s)
+    --- FAIL: TestZeroBulkBounds/init/src-past (0.00s)
+    --- FAIL: TestZeroBulkBounds/init/dropped-src-past (0.00s)
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.089s
+FAIL

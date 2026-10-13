@@ -1,0 +1,273 @@
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicSubword32(SB) $TASK/temp/observed-candidate/internal/generatedgo/code/base/base.go
+  base.go:1547		0x1001326d0		f9400b90		MOVD 16(R28), R16
+  base.go:1547		0x1001326d4		eb3063ff		CMP R16, RSP
+  base.go:1547		0x1001326d8		54000789		BLS 60(PC)
+  base.go:1547		0x1001326dc		f81c0ffe		MOVD.W R30, -64(RSP)
+  base.go:1547		0x1001326e0		f81f83fd		MOVD R29, -8(RSP)
+  base.go:1547		0x1001326e4		d10023fd		SUB $8, RSP, R29
+  base.go:1550		0x1001326e8		f90033e3		MOVD R3, 96(RSP)
+  base.go:1548		0x1001326ec		f9401004		MOVD 32(R0), R4
+  base.go:1548		0x1001326f0		8b010080		ADD R1, R4, R0
+  base.go:1550		0x1001326f4		f100405f		CMP $16, R2
+  base.go:1550		0x1001326f8		540000c1		BNE 6(PC)
+  base.go:1550		0x1001326fc		d001d6c1		ADRP 61710336(PC), R1
+  base.go:1550		0x100132700		912d6021		ADD $2904, R1, R1
+  base.go:1550		0x100132704		d001d6c4		ADRP 61710336(PC), R4
+  base.go:1550		0x100132708		912d2084		ADD $2888, R4, R4
+  base.go:1550		0x10013270c		14000007		JMP 7(PC)
+  base.go:1550		0x100132710		f100205f		CMP $8, R2
+  base.go:1550		0x100132714		540004e1		BNE 39(PC)
+  base.go:1550		0x100132718		d001d6c1		ADRP 61710336(PC), R1
+  base.go:1550		0x10013271c		912d8021		ADD $2912, R1, R1
+  base.go:1550		0x100132720		d001d6c4		ADRP 61710336(PC), R4
+  base.go:1550		0x100132724		912d4084		ADD $2896, R4, R4
+  base.go:1550		0x100132728		f9002fe2		MOVD R2, 88(RSP)
+  base.go:1548		0x10013272c		f90017e0		MOVD R0, 40(RSP)
+  base.go:1551		0x100132730		f9001be4		MOVD R4, 48(RSP)
+  base.go:1551		0x100132734		b24003e3		ORR $1, ZR, R3
+  base.go:1551		0x100132738		9ac22062		LSL R2, R3, R2
+  base.go:1551		0x10013273c		b90027e2		MOVW R2, 36(RSP)
+  base.go:1552		0x100132740		f9400022		MOVD (R1), R2
+  base.go:1552		0x100132744		aa0103fa		MOVD R1, R26
+  base.go:1552		0x100132748		d63f0040		CALL (R2)
+  base.go:1551		0x10013274c		f9402fe1		MOVD 88(RSP), R1
+  base.go:1551		0x100132750		f101003f		CMP $64, R1
+  base.go:1551		0x100132754		b94027e1		MOVWU 36(RSP), R1
+  base.go:1551		0x100132758		9a9f3021		CSEL LO, R1, ZR, R1
+  base.go:1551		0x10013275c		d1000421		SUB $1, R1, R1
+  base.go:1551		0x100132760		b90023e1		MOVW R1, 32(RSP)
+  base.go:1551		0x100132764		b9001fe0		MOVW R0, 28(RSP)
+  base.go:1554		0x100132768		f94033fa		MOVD 96(RSP), R26
+  base.go:1554		0x10013276c		f9400341		MOVD (R26), R1
+  base.go:1554		0x100132770		d63f0020		CALL (R1)
+  base.go:1554		0x100132774		f9401bfa		MOVD 48(RSP), R26
+  base.go:1554		0x100132778		f9400341		MOVD (R26), R1
+  base.go:1554		0x10013277c		b94023e2		MOVWU 32(RSP), R2
+  base.go:1554		0x100132780		8a020002		AND R2, R0, R2
+  base.go:1554		0x100132784		f94017e0		MOVD 40(RSP), R0
+  base.go:1554		0x100132788		aa0103e3		MOVD R1, R3
+  base.go:1554		0x10013278c		b9401fe1		MOVWU 28(RSP), R1
+  base.go:1554		0x100132790		d63f0060		CALL (R3)
+  base.go:1555		0x100132794		b9401fe1		MOVWU 28(RSP), R1
+  base.go:1555		0x100132798		6b01001f		CMPW R1, R0
+  base.go:1555		0x10013279c		54fffe41		BNE -14(PC)
+  base.go:1555		0x1001327a0		aa0103e0		MOVD R1, R0
+  base.go:1555		0x1001327a4		f85f83fd		MOVD -8(RSP), R29
+  base.go:1555		0x1001327a8		f84407fe		MOVD.P 64(RSP), R30
+  base.go:1555		0x1001327ac		d65f03c0		RET
+  base.go:1550		0x1001327b0		d001d460		ADRP 61399040(PC), R0
+  base.go:1550		0x1001327b4		913a0000		ADD $3712, R0, R0
+  base.go:1550		0x1001327b8		d001d781		ADRP 61808640(PC), R1
+  base.go:1550		0x1001327bc		910b4021		ADD $720, R1, R1
+  base.go:1550		0x1001327c0		97fd1a6c		CALL runtime.gopanic(SB)
+  base.go:1550		0x1001327c4		d503201f		NOOP
+  base.go:1547		0x1001327c8		a90087e0		STP (R0, R1), 8(RSP)
+  base.go:1547		0x1001327cc		a9018fe2		STP (R2, R3), 24(RSP)
+  base.go:1547		0x1001327d0		aa1e03e3		MOVD R30, R3
+  base.go:1547		0x1001327d4		97fd3023		CALL runtime.morestack_noctxt.abi0(SB)
+  base.go:1547		0x1001327d8		a94087e0		LDP 8(RSP), (R0, R1)
+  base.go:1547		0x1001327dc		a9418fe2		LDP 24(RSP), (R2, R3)
+  base.go:1547		0x1001327e0		17ffffbc		JMP github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicSubword32(SB)
+  base.go:1547		0x1001327e4		00000000		?
+  base.go:1547		0x1001327e8		00000000		?
+  base.go:1547		0x1001327ec		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicStore32_8(SB) $TASK/temp/observed-candidate/internal/generatedgo/code/base/base.go
+  base.go:1792		0x1001332c0		f9400b90		MOVD 16(R28), R16
+  base.go:1792		0x1001332c4		eb3063ff		CMP R16, RSP
+  base.go:1792		0x1001332c8		54000269		BLS 19(PC)
+  base.go:1792		0x1001332cc		f81d0ffe		MOVD.W R30, -48(RSP)
+  base.go:1792		0x1001332d0		f81f83fd		MOVD R29, -8(RSP)
+  base.go:1792		0x1001332d4		d10023fd		SUB $8, RSP, R29
+  base.go:1794		0x1001332d8		f9001fe0		MOVD R0, 56(RSP)
+  base.go:1794		0x1001332dc		b9004be3		MOVW R3, 72(RSP)
+  base.go:1793		0x1001332e0		b24003e3		ORR $1, ZR, R3
+  base.go:1793		0x1001332e4		97fffcc7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicEA(SB)
+  base.go:1793		0x1001332e8		f9401fe4		MOVD 56(RSP), R4
+  base.go:1793		0x1001332ec		f9401084		MOVD 32(R4), R4
+  base.go:1793		0x1001332f0		8b000084		ADD R0, R4, R4
+  base.go:1793		0x1001332f4		f90007e4		MOVD R4, 8(RSP)
+  base.go:1793		0x1001332f8		b9804be4		MOVW 72(RSP), R4
+  base.go:1793		0x1001332fc		b90013e4		MOVW R4, 16(RSP)
+  base.go:1793		0x100133300		940115c8		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterWrite8.abi0(SB)
+  base.go:1794		0x100133304		aa1f03e0		MOVD ZR, R0
+  base.go:1794		0x100133308		f85f83fd		MOVD -8(RSP), R29
+  base.go:1794		0x10013330c		f84307fe		MOVD.P 48(RSP), R30
+  base.go:1794		0x100133310		d65f03c0		RET
+  base.go:1792		0x100133314		f90007e0		MOVD R0, 8(RSP)
+  base.go:1792		0x100133318		29020be1		STPW (R1, R2), 16(RSP)
+  base.go:1792		0x10013331c		b9001be3		MOVW R3, 24(RSP)
+  base.go:1792		0x100133320		aa1e03e3		MOVD R30, R3
+  base.go:1792		0x100133324		97fd2d4f		CALL runtime.morestack_noctxt.abi0(SB)
+  base.go:1792		0x100133328		f94007e0		MOVD 8(RSP), R0
+  base.go:1792		0x10013332c		29420be1		LDPW 16(RSP), (R1, R2)
+  base.go:1792		0x100133330		b9801be3		MOVW 24(RSP), R3
+  base.go:1792		0x100133334		17ffffe3		JMP github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicStore32_8(SB)
+  base.go:1792		0x100133338		00000000		?
+  base.go:1792		0x10013333c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicStore32_16(SB) $TASK/temp/observed-candidate/internal/generatedgo/code/base/base.go
+  base.go:1798		0x100133340		f9400b90		MOVD 16(R28), R16
+  base.go:1798		0x100133344		eb3063ff		CMP R16, RSP
+  base.go:1798		0x100133348		54000269		BLS 19(PC)
+  base.go:1798		0x10013334c		f81d0ffe		MOVD.W R30, -48(RSP)
+  base.go:1798		0x100133350		f81f83fd		MOVD R29, -8(RSP)
+  base.go:1798		0x100133354		d10023fd		SUB $8, RSP, R29
+  base.go:1800		0x100133358		f9001fe0		MOVD R0, 56(RSP)
+  base.go:1800		0x10013335c		b9004be3		MOVW R3, 72(RSP)
+  base.go:1799		0x100133360		b27f03e3		ORR $2, ZR, R3
+  base.go:1799		0x100133364		97fffca7		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicEA(SB)
+  base.go:1799		0x100133368		f9401fe4		MOVD 56(RSP), R4
+  base.go:1799		0x10013336c		f9401084		MOVD 32(R4), R4
+  base.go:1799		0x100133370		8b000084		ADD R0, R4, R4
+  base.go:1799		0x100133374		f90007e4		MOVD R4, 8(RSP)
+  base.go:1799		0x100133378		b9804be4		MOVW 72(RSP), R4
+  base.go:1799		0x10013337c		b90013e4		MOVW R4, 16(RSP)
+  base.go:1799		0x100133380		940115b0		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterWrite16.abi0(SB)
+  base.go:1800		0x100133384		aa1f03e0		MOVD ZR, R0
+  base.go:1800		0x100133388		f85f83fd		MOVD -8(RSP), R29
+  base.go:1800		0x10013338c		f84307fe		MOVD.P 48(RSP), R30
+  base.go:1800		0x100133390		d65f03c0		RET
+  base.go:1798		0x100133394		f90007e0		MOVD R0, 8(RSP)
+  base.go:1798		0x100133398		29020be1		STPW (R1, R2), 16(RSP)
+  base.go:1798		0x10013339c		b9001be3		MOVW R3, 24(RSP)
+  base.go:1798		0x1001333a0		aa1e03e3		MOVD R30, R3
+  base.go:1798		0x1001333a4		97fd2d2f		CALL runtime.morestack_noctxt.abi0(SB)
+  base.go:1798		0x1001333a8		f94007e0		MOVD 8(RSP), R0
+  base.go:1798		0x1001333ac		29420be1		LDPW 16(RSP), (R1, R2)
+  base.go:1798		0x1001333b0		b9801be3		MOVW 24(RSP), R3
+  base.go:1798		0x1001333b4		17ffffe3		JMP github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicStore32_16(SB)
+  base.go:1798		0x1001333b8		00000000		?
+  base.go:1798		0x1001333bc		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterRead8.abi0(SB) $TASK/temp/observed-candidate/internal/generatedgo/code/base/experimental_exact_writers_arm64.s
+  experimental_exact_writers_arm64.s:3	0x1001789e0		f94007e0		MOVD 8(RSP), R0
+  experimental_exact_writers_arm64.s:4	0x1001789e4		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:5	0x1001789e8		08dffc01		LDARB (R0), R1
+  experimental_exact_writers_arm64.s:6	0x1001789ec		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:7	0x1001789f0		b90013e1		MOVW R1, 16(RSP)
+  experimental_exact_writers_arm64.s:8	0x1001789f4		d65f03c0		RET
+  experimental_exact_writers_arm64.s:8	0x1001789f8		00000000		?
+  experimental_exact_writers_arm64.s:8	0x1001789fc		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterRead16.abi0(SB) $TASK/temp/observed-candidate/internal/generatedgo/code/base/experimental_exact_writers_arm64.s
+  experimental_exact_writers_arm64.s:10	0x100178a00		f94007e0		MOVD 8(RSP), R0
+  experimental_exact_writers_arm64.s:11	0x100178a04		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:12	0x100178a08		48dffc01		LDARH (R0), R1
+  experimental_exact_writers_arm64.s:13	0x100178a0c		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:14	0x100178a10		b90013e1		MOVW R1, 16(RSP)
+  experimental_exact_writers_arm64.s:15	0x100178a14		d65f03c0		RET
+  experimental_exact_writers_arm64.s:15	0x100178a18		00000000		?
+  experimental_exact_writers_arm64.s:15	0x100178a1c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterWrite8.abi0(SB) $TASK/temp/observed-candidate/internal/generatedgo/code/base/experimental_exact_writers_arm64.s
+  experimental_exact_writers_arm64.s:17	0x100178a20		f94007e0		MOVD 8(RSP), R0
+  experimental_exact_writers_arm64.s:18	0x100178a24		b94013e1		MOVWU 16(RSP), R1
+  experimental_exact_writers_arm64.s:19	0x100178a28		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:20	0x100178a2c		089ffc01		STLRB R1, (R0)
+  experimental_exact_writers_arm64.s:21	0x100178a30		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:22	0x100178a34		d65f03c0		RET
+  experimental_exact_writers_arm64.s:22	0x100178a38		00000000		?
+  experimental_exact_writers_arm64.s:22	0x100178a3c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterWrite16.abi0(SB) $TASK/temp/observed-candidate/internal/generatedgo/code/base/experimental_exact_writers_arm64.s
+  experimental_exact_writers_arm64.s:24	0x100178a40		f94007e0		MOVD 8(RSP), R0
+  experimental_exact_writers_arm64.s:25	0x100178a44		b94013e1		MOVWU 16(RSP), R1
+  experimental_exact_writers_arm64.s:26	0x100178a48		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:27	0x100178a4c		489ffc01		STLRH R1, (R0)
+  experimental_exact_writers_arm64.s:28	0x100178a50		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:29	0x100178a54		d65f03c0		RET
+  experimental_exact_writers_arm64.s:29	0x100178a58		00000000		?
+  experimental_exact_writers_arm64.s:29	0x100178a5c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterCmp8.abi0(SB) $TASK/temp/observed-candidate/internal/generatedgo/code/base/experimental_exact_writers_arm64.s
+  experimental_exact_writers_arm64.s:31	0x100178a60		f94007e0		MOVD 8(RSP), R0
+  experimental_exact_writers_arm64.s:32	0x100178a64		b94013e1		MOVWU 16(RSP), R1
+  experimental_exact_writers_arm64.s:33	0x100178a68		92401c21		AND $255, R1, R1
+  experimental_exact_writers_arm64.s:34	0x100178a6c		b94017e2		MOVWU 20(RSP), R2
+  experimental_exact_writers_arm64.s:35	0x100178a70		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:37	0x100178a74		085ffc03		LDAXRB (R0), R3
+  experimental_exact_writers_arm64.s:38	0x100178a78		6b01007f		CMPW R1, R3
+  experimental_exact_writers_arm64.s:39	0x100178a7c		54000081		BNE 4(PC)
+  experimental_exact_writers_arm64.s:40	0x100178a80		0804fc02		STLXRB R2, (R0), R4
+  experimental_exact_writers_arm64.s:41	0x100178a84		b5ffff84		CBNZ R4, -4(PC)
+  experimental_exact_writers_arm64.s:42	0x100178a88		14000002		JMP 2(PC)
+  experimental_exact_writers_arm64.s:44	0x100178a8c		d5033f5f		CLREX $15
+  experimental_exact_writers_arm64.s:46	0x100178a90		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:47	0x100178a94		b9001be3		MOVW R3, 24(RSP)
+  experimental_exact_writers_arm64.s:48	0x100178a98		d65f03c0		RET
+  experimental_exact_writers_arm64.s:48	0x100178a9c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterCmp16.abi0(SB) $TASK/temp/observed-candidate/internal/generatedgo/code/base/experimental_exact_writers_arm64.s
+  experimental_exact_writers_arm64.s:50	0x100178aa0		f94007e0		MOVD 8(RSP), R0
+  experimental_exact_writers_arm64.s:51	0x100178aa4		b94013e1		MOVWU 16(RSP), R1
+  experimental_exact_writers_arm64.s:52	0x100178aa8		92403c21		AND $65535, R1, R1
+  experimental_exact_writers_arm64.s:53	0x100178aac		b94017e2		MOVWU 20(RSP), R2
+  experimental_exact_writers_arm64.s:54	0x100178ab0		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:56	0x100178ab4		485ffc03		LDAXRH (R0), R3
+  experimental_exact_writers_arm64.s:57	0x100178ab8		6b01007f		CMPW R1, R3
+  experimental_exact_writers_arm64.s:58	0x100178abc		54000081		BNE 4(PC)
+  experimental_exact_writers_arm64.s:59	0x100178ac0		4804fc02		STLXRH R2, (R0), R4
+  experimental_exact_writers_arm64.s:60	0x100178ac4		b5ffff84		CBNZ R4, -4(PC)
+  experimental_exact_writers_arm64.s:61	0x100178ac8		14000002		JMP 2(PC)
+  experimental_exact_writers_arm64.s:63	0x100178acc		d5033f5f		CLREX $15
+  experimental_exact_writers_arm64.s:65	0x100178ad0		d5033bbf		DMB $11
+  experimental_exact_writers_arm64.s:66	0x100178ad4		b9001be3		MOVW R3, 24(RSP)
+  experimental_exact_writers_arm64.s:67	0x100178ad8		d65f03c0		RET
+  experimental_exact_writers_arm64.s:67	0x100178adc		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterRead8(SB) <autogenerated>
+  <autogenerated>:1	0x100179f70		f81e0ffe		MOVD.W R30, -32(RSP)
+  <autogenerated>:1	0x100179f74		f81f83fd		MOVD R29, -8(RSP)
+  <autogenerated>:1	0x100179f78		d10023fd		SUB $8, RSP, R29
+  <autogenerated>:1	0x100179f7c		f90007e0		MOVD R0, 8(RSP)
+  <autogenerated>:1	0x100179f80		97fffa98		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterRead8.abi0(SB)
+  <autogenerated>:1	0x100179f84		b94013e0		MOVWU 16(RSP), R0
+  <autogenerated>:1	0x100179f88		f85f83fd		MOVD -8(RSP), R29
+  <autogenerated>:1	0x100179f8c		f84207fe		MOVD.P 32(RSP), R30
+  <autogenerated>:1	0x100179f90		d65f03c0		RET
+  <autogenerated>:1	0x100179f94		00000000		?
+  <autogenerated>:1	0x100179f98		00000000		?
+  <autogenerated>:1	0x100179f9c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterRead16(SB) <autogenerated>
+  <autogenerated>:1	0x100179fa0		f81e0ffe		MOVD.W R30, -32(RSP)
+  <autogenerated>:1	0x100179fa4		f81f83fd		MOVD R29, -8(RSP)
+  <autogenerated>:1	0x100179fa8		d10023fd		SUB $8, RSP, R29
+  <autogenerated>:1	0x100179fac		f90007e0		MOVD R0, 8(RSP)
+  <autogenerated>:1	0x100179fb0		97fffa94		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterRead16.abi0(SB)
+  <autogenerated>:1	0x100179fb4		b94013e0		MOVWU 16(RSP), R0
+  <autogenerated>:1	0x100179fb8		f85f83fd		MOVD -8(RSP), R29
+  <autogenerated>:1	0x100179fbc		f84207fe		MOVD.P 32(RSP), R30
+  <autogenerated>:1	0x100179fc0		d65f03c0		RET
+  <autogenerated>:1	0x100179fc4		00000000		?
+  <autogenerated>:1	0x100179fc8		00000000		?
+  <autogenerated>:1	0x100179fcc		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterCmp8(SB) <autogenerated>
+  <autogenerated>:1	0x100179fd0		f81d0ffe		MOVD.W R30, -48(RSP)
+  <autogenerated>:1	0x100179fd4		f81f83fd		MOVD R29, -8(RSP)
+  <autogenerated>:1	0x100179fd8		d10023fd		SUB $8, RSP, R29
+  <autogenerated>:1	0x100179fdc		f90007e0		MOVD R0, 8(RSP)
+  <autogenerated>:1	0x100179fe0		29020be1		STPW (R1, R2), 16(RSP)
+  <autogenerated>:1	0x100179fe4		97fffa9f		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterCmp8.abi0(SB)
+  <autogenerated>:1	0x100179fe8		b9401be0		MOVWU 24(RSP), R0
+  <autogenerated>:1	0x100179fec		f85f83fd		MOVD -8(RSP), R29
+  <autogenerated>:1	0x100179ff0		f84307fe		MOVD.P 48(RSP), R30
+  <autogenerated>:1	0x100179ff4		d65f03c0		RET
+  <autogenerated>:1	0x100179ff8		00000000		?
+  <autogenerated>:1	0x100179ffc		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterCmp16(SB) <autogenerated>
+  <autogenerated>:1	0x10017a000		f81d0ffe		MOVD.W R30, -48(RSP)
+  <autogenerated>:1	0x10017a004		f81f83fd		MOVD R29, -8(RSP)
+  <autogenerated>:1	0x10017a008		d10023fd		SUB $8, RSP, R29
+  <autogenerated>:1	0x10017a00c		f90007e0		MOVD R0, 8(RSP)
+  <autogenerated>:1	0x10017a010		29020be1		STPW (R1, R2), 16(RSP)
+  <autogenerated>:1	0x10017a014		97fffaa3		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.exactWriterCmp16.abi0(SB)
+  <autogenerated>:1	0x10017a018		b9401be0		MOVWU 24(RSP), R0
+  <autogenerated>:1	0x10017a01c		f85f83fd		MOVD -8(RSP), R29
+  <autogenerated>:1	0x10017a020		f84307fe		MOVD.P 48(RSP), R30
+  <autogenerated>:1	0x10017a024		d65f03c0		RET
+  <autogenerated>:1	0x10017a028		00000000		?
+  <autogenerated>:1	0x10017a02c		00000000		?

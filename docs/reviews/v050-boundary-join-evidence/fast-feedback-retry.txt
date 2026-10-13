@@ -1,0 +1,145 @@
++ <workspace>/temp/venv/bin/python scripts/check_version.py
+Release version: Python 0.4.7; Git/Go v0.4.7
++ <workspace>/temp/venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ <workspace>/temp/venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+......................                                                   [100%]
+22 passed in 0.66s
++ go test -p 1 ./...
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+go: downloading filippo.io/edwards25519 v1.1.0
+ok  	github.com/masahitojp/mariamem	(cached)
+?   	github.com/masahitojp/mariamem/benchmarks/defaultsanity	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/goisolation	0.618s
+?   	github.com/masahitojp/mariamem/benchmarks/memorylifetime	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/ownedprepared	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotallocation	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/artifacts	(cached)
+?   	github.com/masahitojp/mariamem/internal/diagnostic	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.714s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	(cached)
+ok  	github.com/masahitojp/mariamem/internal/host	(cached)
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	(cached)
+?   	github.com/masahitojp/mariamem/internal/prepared	[no test files]
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	(cached)
+ok  	github.com/masahitojp/mariamem/internal/timing	(cached)
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
++ go vet -p 1 -vettool=<worktree>/scripts/vet_generated.py ./...
++ <workspace>/temp/venv/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py -q
+
+==================================== ERRORS ====================================
+________________ ERROR collecting tests/test_dev_guest_smoke.py ________________
+ImportError while importing test module '<worktree>/tests/test_dev_guest_smoke.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_dev_guest_smoke.py:4: in <module>
+    import pymysql
+E   ModuleNotFoundError: No module named 'pymysql'
+________________ ERROR collecting tests/test_owned_snapshot.py _________________
+ImportError while importing test module '<worktree>/tests/test_owned_snapshot.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_owned_snapshot.py:15: in <module>
+    import pymysql
+E   ModuleNotFoundError: No module named 'pymysql'
+______________ ERROR collecting tests/test_python_multiclient.py _______________
+ImportError while importing test module '<worktree>/tests/test_python_multiclient.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_python_multiclient.py:9: in <module>
+    import pymysql
+E   ModuleNotFoundError: No module named 'pymysql'
+________________ ERROR collecting tests/test_python_timeout.py _________________
+ImportError while importing test module '<worktree>/tests/test_python_timeout.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_python_timeout.py:10: in <module>
+    import pymysql
+E   ModuleNotFoundError: No module named 'pymysql'
+__________________ ERROR collecting tests/test_python_wire.py __________________
+ImportError while importing test module '<worktree>/tests/test_python_wire.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_python_wire.py:10: in <module>
+    import pymysql
+E   ModuleNotFoundError: No module named 'pymysql'
+______________ ERROR collecting tests/test_type_compatibility.py _______________
+ImportError while importing test module '<worktree>/tests/test_type_compatibility.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_type_compatibility.py:8: in <module>
+    import pymysql
+E   ModuleNotFoundError: No module named 'pymysql'
+=========================== short test summary info ============================
+ERROR tests/test_dev_guest_smoke.py
+ERROR tests/test_owned_snapshot.py
+ERROR tests/test_python_multiclient.py
+ERROR tests/test_python_timeout.py
+ERROR tests/test_python_wire.py
+ERROR tests/test_type_compatibility.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 6 errors during collection !!!!!!!!!!!!!!!!!!!!
+6 errors in 0.75s
+Traceback (most recent call last):
+  File "<worktree>/scripts/verify.py", line 150, in <module>
+    main()
+    ~~~~^^
+  File "<worktree>/scripts/verify.py", line 129, in main
+    check(args.scope)
+    ~~~~~^^^^^^^^^^^^
+  File "<worktree>/scripts/verify.py", line 75, in check
+    run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer", "--ignore=tests/historical",
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         *("--ignore=" + path for path in SOURCE_TESTS), "-q"], env=env)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>/scripts/verify.py", line 34, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<workspace>/temp/venv/bin/python', '-m', 'pytest', 'tests', '--ignore=tests/consumer', '--ignore=tests/historical', '--ignore=tests/test_generated_runtime_inventory.py', '--ignore=tests/test_distribution_licenses.py', '--ignore=tests/test_packaging_license_mirrors.py', '-q']' returned non-zero exit status 2.

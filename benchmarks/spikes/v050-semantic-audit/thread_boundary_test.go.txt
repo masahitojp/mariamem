@@ -1,0 +1,42 @@
+package base
+
+import (
+	"sync/atomic"
+	"testing"
+)
+
+// Seed the allocator immediately before finite representational boundaries.
+// This does not claim that billions of real guest threads were run.
+func TestThreadIdentityBoundaries(t *testing.T) {
+	for _, tc := range []struct {
+		name     string
+		previous int32
+	}{
+		{"first-valid", 0}, {"last-valid", 1<<29 - 2},
+		{"reserved-bits", 1<<29 - 1}, {"negative-error", 1<<31 - 1},
+		{"zero-wrap", -1},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			m := &Module{Threads: &ThreadPool{}}
+			m.Threads.nextTID.Store(tc.previous)
+			var ran, contended atomic.Bool
+			tid := ThreadLaunch(m, func(c *Module, _ int32) { ran.Store(true); contended.Store(AtomicsContended(c)) })
+			if p := m.Threads.WaitThreads(); p != nil {
+				t.Fatal(p)
+			}
+			t.Logf("previous=%d returned=%d child_ran=%v contended=%v", tc.previous, tid, ran.Load(), contended.Load())
+			if tid < 0 {
+				if ran.Load() {
+					t.Fatal("spawn reported failure but child ran")
+				}
+				return
+			}
+			if tid == 0 || tid >= 1<<29 {
+				t.Fatalf("invalid successful wasi-threads TID %d", tid)
+			}
+			if !ran.Load() || !contended.Load() {
+				t.Fatal("valid child did not enter contended mode")
+			}
+		})
+	}
+}

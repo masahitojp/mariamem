@@ -1,0 +1,19 @@
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicRead8At.abi0(SB) $CLEAN_CLONE/internal/generatedgo/code/base/narrow_load_darwin_arm64.s
+  narrow_load_darwin_arm64.s:3	0x100172030		f94007e0		MOVD 8(RSP), R0
+  narrow_load_darwin_arm64.s:4	0x100172034		d5033bbf		DMB $11
+  narrow_load_darwin_arm64.s:5	0x100172038		08dffc01		LDARB (R0), R1
+  narrow_load_darwin_arm64.s:6	0x10017203c		d5033bbf		DMB $11
+  narrow_load_darwin_arm64.s:7	0x100172040		b90013e1		MOVW R1, 16(RSP)
+  narrow_load_darwin_arm64.s:8	0x100172044		d65f03c0		RET
+  narrow_load_darwin_arm64.s:8	0x100172048		00000000		?
+  narrow_load_darwin_arm64.s:8	0x10017204c		00000000		?
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.atomicRead16At.abi0(SB) $CLEAN_CLONE/internal/generatedgo/code/base/narrow_load_darwin_arm64.s
+  narrow_load_darwin_arm64.s:10	0x100172050		f94007e0		MOVD 8(RSP), R0
+  narrow_load_darwin_arm64.s:11	0x100172054		d5033bbf		DMB $11
+  narrow_load_darwin_arm64.s:12	0x100172058		48dffc01		LDARH (R0), R1
+  narrow_load_darwin_arm64.s:13	0x10017205c		d5033bbf		DMB $11
+  narrow_load_darwin_arm64.s:14	0x100172060		b90013e1		MOVW R1, 16(RSP)
+  narrow_load_darwin_arm64.s:15	0x100172064		d65f03c0		RET
+  narrow_load_darwin_arm64.s:15	0x100172068		00000000		?
+  narrow_load_darwin_arm64.s:15	0x10017206c		00000000		?

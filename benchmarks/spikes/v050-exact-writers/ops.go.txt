@@ -1,0 +1,50 @@
+package narrow
+
+import "unsafe"
+
+// Standalone design candidate. Callers check memory32 bounds/alignment.
+// ASM reads/writes are not instrumented by the Go race detector.
+//go:noescape
+func read8(p unsafe.Pointer) uint32
+//go:noescape
+func read16(p unsafe.Pointer) uint32
+//go:noescape
+func write8(p unsafe.Pointer, v uint32)
+//go:noescape
+func write16(p unsafe.Pointer, v uint32)
+//go:noescape
+func cmp8(p unsafe.Pointer, expected, replacement uint32) uint32
+//go:noescape
+func cmp16(p unsafe.Pointer, expected, replacement uint32) uint32
+
+func mask(bits int) uint32 { return uint32(1)<<bits-1 }
+func load(p unsafe.Pointer,bits int)uint32 {if bits==8{return read8(p)};return read16(p)}
+func store(p unsafe.Pointer,bits int,v uint32){if bits==8{write8(p,v)}else{write16(p,v)}}
+func cmp(p unsafe.Pointer,bits int,e,v uint32)uint32 {if bits==8{return cmp8(p,e,v)};return cmp16(p,e,v)}
+func rmw(p unsafe.Pointer,bits int,op string,v uint32)(uint32,uint64){
+ old:=load(p,bits);var retries uint64
+ for {
+  next:=v
+  switch op {
+  case "add":next=old+v
+  case "sub":next=old-v
+  case "and":next=old&v
+  case "or":next=old|v
+  case "xor":next=old^v
+  case "xchg":
+  default:panic(op)
+  }
+  seen:=cmp(p,bits,old,next)
+  if seen==old{return old,retries}
+  old=seen;retries++
+ }
+}
+
+// Width and unsigned nonwrapping logical bounds are part of the design.
+func checked(memory []byte,logical uint64,addr,offset int32,bits int)unsafe.Pointer{
+ width:=uint64(bits/8)
+ if bits!=8&&bits!=16{panic("width")}
+ ea:=uint64(uint32(addr))+uint64(uint32(offset))
+ if ea%width!=0||ea>logical||width>logical-ea||logical>uint64(len(memory)){panic("trap")}
+ return unsafe.Pointer(&memory[ea])
+}

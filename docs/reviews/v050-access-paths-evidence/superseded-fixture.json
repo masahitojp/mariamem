@@ -1,0 +1,5 @@
+{
+  "raw_results_sha256": "f2611c911740a7d1a6a92f2678f786dd2c75ff72f3219a3bb52fa8d318cbf257",
+  "reason": "Early scaffold left pthread TLS pointers zero, creating false cancellation-byte aliasing at address 36. Source memory operations were unchanged; fixture fixed to separate per-agent pthread blocks. Only mutex-probe-verified verdicts are used.",
+  "superseded_runner_output": "mutex-probe-final.txt"
+}

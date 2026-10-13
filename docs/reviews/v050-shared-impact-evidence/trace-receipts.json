@@ -1,0 +1,1397 @@
+{
+  "targeted-ahi": {
+    "cas_retries": 0,
+    "cross_actor_extra_atomic_address_pair_combinations": 922,
+    "cross_actor_ordinary_address_pair_combinations": 10,
+    "dropped": 0,
+    "executed_functions": [
+      {
+        "count": 4834,
+        "executed_sites": [
+          653670,
+          661367
+        ],
+        "fn": 18241,
+        "symbol": "_ZN5trx_t14commit_persistEv"
+      },
+      {
+        "count": 2180,
+        "executed_sites": [
+          910772,
+          913205,
+          915837
+        ],
+        "fn": 17950,
+        "symbol": "_ZN9btr_cur_t11search_leafEPK8dtuple_t15page_cur_mode_t14btr_latch_modeP5mtr_t"
+      },
+      {
+        "count": 2156,
+        "executed_sites": [
+          901402,
+          901493,
+          901539,
+          901547
+        ],
+        "fn": 16684,
+        "symbol": "_ZN8ReadView4openEP5trx_t"
+      },
+      {
+        "count": 1182,
+        "executed_sites": [
+          969046,
+          969278
+        ],
+        "fn": 18136,
+        "symbol": "_Z32buf_LRU_block_free_non_file_pageP11buf_block_t"
+      },
+      {
+        "count": 628,
+        "executed_sites": [
+          989736,
+          989760,
+          989769,
+          989786,
+          989795
+        ],
+        "fn": 17888,
+        "symbol": "_ZNK9btr_cur_t18search_info_updateEv"
+      },
+      {
+        "count": 21,
+        "executed_sites": [
+          270244
+        ],
+        "fn": 4054,
+        "symbol": "__cxa_guard_release"
+      },
+      {
+        "count": 16,
+        "executed_sites": [
+          959617,
+          959760,
+          959825,
+          960046,
+          961300
+        ],
+        "fn": 18010,
+        "symbol": "_ZL22buf_flush_page_cleanerv"
+      },
+      {
+        "count": 15,
+        "executed_sites": [
+          825116
+        ],
+        "fn": 16537,
+        "symbol": "_ZN5tpool19thread_pool_generic10add_threadEv"
+      },
+      {
+        "count": 12,
+        "executed_sites": [
+          891100
+        ],
+        "fn": 16535,
+        "symbol": "_ZN5tpool19thread_pool_generic11worker_mainEPNS_11worker_dataE"
+      },
+      {
+        "count": 4,
+        "executed_sites": [
+          676270,
+          677279,
+          677415,
+          677929
+        ],
+        "fn": 18509,
+        "symbol": "_ZL11innodb_initPv"
+      },
+      {
+        "count": 4,
+        "executed_sites": [
+          784462,
+          788383
+        ],
+        "fn": 17161,
+        "symbol": "_Z9trx_purgeP5trx_tmm"
+      },
+      {
+        "count": 2,
+        "executed_sites": [
+          1014940
+        ],
+        "fn": 18005,
+        "symbol": "_Z14buf_flush_waityb"
+      },
+      {
+        "count": 2,
+        "executed_sites": [
+          970096,
+          970335
+        ],
+        "fn": 17472,
+        "symbol": "_ZL27fil_space_extend_must_retryP11fil_space_tP10fil_node_tjPb"
+      },
+      {
+        "count": 2,
+        "executed_sites": [
+          938578
+        ],
+        "fn": 17889,
+        "symbol": "_ZL32btr_search_build_page_hash_indexP12dict_index_tP11buf_block_tRN7btr_sea9partitionEj"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          1019684
+        ],
+        "fn": 18531,
+        "symbol": "_ZL24innodb_ddl_recovery_doneP10handlerton"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          1005271
+        ],
+        "fn": 17877,
+        "symbol": "_ZN7btr_sea16disable_and_lockEv"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          884986
+        ],
+        "fn": 17461,
+        "symbol": "_Z15innodb_shutdownv"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          987500
+        ],
+        "fn": 18231,
+        "symbol": "_Z26trx_lists_init_at_db_startv"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          932749
+        ],
+        "fn": 17453,
+        "symbol": "_ZL15create_log_fileby"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          941307
+        ],
+        "fn": 17994,
+        "symbol": "_ZN10buf_pool_t19page_cleaner_wakeupEb"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          1023291
+        ],
+        "fn": 18180,
+        "symbol": "_Z18srv_purge_shutdownv"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          961910
+        ],
+        "fn": 17377,
+        "symbol": "_ZN10recv_sys_t10debug_freeEv"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          934849
+        ],
+        "fn": 17880,
+        "symbol": "_ZN7btr_sea6enableEb"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          1022482
+        ],
+        "fn": 18168,
+        "symbol": "_ZL26purge_coordinator_callbackPv"
+      }
+    ],
+    "pair_definition": "Address footprint evidence across distinct Module agents, aggregated over lifetime; no instruction simultaneity, allocation generation or happens-before proof.",
+    "purge_timeline": [
+      {
+        "key": {
+          "actor": 90141686439944,
+          "contended": false,
+          "ea": 24020811,
+          "effective": 1,
+          "fn": 65,
+          "kind": "ordinary-store",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 45498
+        },
+        "sequence": 57
+      },
+      {
+        "key": {
+          "actor": 90141686439944,
+          "contended": false,
+          "ea": 24020808,
+          "effective": 2,
+          "fn": 65,
+          "kind": "ordinary-store",
+          "memory": 481573208064,
+          "requested": 2,
+          "site": 45499
+        },
+        "sequence": 58
+      },
+      {
+        "key": {
+          "actor": 90141686439944,
+          "contended": true,
+          "ea": 24020810,
+          "effective": 4,
+          "fn": 18231,
+          "kind": "subword-store",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 987500
+        },
+        "sequence": 150
+      },
+      {
+        "key": {
+          "actor": 90141686439944,
+          "contended": true,
+          "ea": 24020808,
+          "effective": 1,
+          "fn": 18231,
+          "kind": "ordinary-store",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 988032
+        },
+        "sequence": 151
+      },
+      {
+        "key": {
+          "actor": 90141686439944,
+          "contended": true,
+          "ea": 24020809,
+          "effective": 4,
+          "fn": 18531,
+          "kind": "subword-store",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 1019684
+        },
+        "sequence": 6752
+      },
+      {
+        "key": {
+          "actor": 90141685678088,
+          "contended": true,
+          "ea": 24020809,
+          "effective": 1,
+          "fn": 18168,
+          "kind": "atomic-load",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 1022442
+        },
+        "sequence": 6761
+      },
+      {
+        "key": {
+          "actor": 90141685678088,
+          "contended": true,
+          "ea": 24020811,
+          "effective": 4,
+          "fn": 17161,
+          "kind": "subword-store",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 784462
+        },
+        "sequence": 7178
+      },
+      {
+        "key": {
+          "actor": 90141685678088,
+          "contended": true,
+          "ea": 24020811,
+          "effective": 4,
+          "fn": 17161,
+          "kind": "subword-store",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 788383
+        },
+        "sequence": 10021
+      },
+      {
+        "key": {
+          "actor": 90141685678088,
+          "contended": true,
+          "ea": 24020809,
+          "effective": 1,
+          "fn": 18168,
+          "kind": "atomic-load",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 1022738
+        },
+        "sequence": 10063
+      },
+      {
+        "key": {
+          "actor": 90141685678088,
+          "contended": true,
+          "ea": 24020811,
+          "effective": 4,
+          "fn": 17161,
+          "kind": "subword-store",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 784462
+        },
+        "sequence": 10397
+      },
+      {
+        "key": {
+          "actor": 90141685678088,
+          "contended": true,
+          "ea": 24020811,
+          "effective": 4,
+          "fn": 17161,
+          "kind": "subword-store",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 788383
+        },
+        "sequence": 10412
+      },
+      {
+        "key": {
+          "actor": 90141686439944,
+          "contended": true,
+          "ea": 24020809,
+          "effective": 4,
+          "fn": 18180,
+          "kind": "subword-store",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 1023291
+        },
+        "sequence": 811099
+      },
+      {
+        "key": {
+          "actor": 90141686439944,
+          "contended": true,
+          "ea": 24020808,
+          "effective": 1,
+          "fn": 17461,
+          "kind": "ordinary-load",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 884191
+        },
+        "sequence": 819158
+      },
+      {
+        "key": {
+          "actor": 90141686439944,
+          "contended": true,
+          "ea": 24020808,
+          "effective": 1,
+          "fn": 17461,
+          "kind": "ordinary-store",
+          "memory": 481573208064,
+          "requested": 1,
+          "site": 884257
+        },
+        "sequence": 819159
+      }
+    ],
+    "raw_distinct_rows": 44983,
+    "raw_sha256": "44f00f9525da0b8d14e5b9ec0a3459978123e8cd6761a8594d543474cbe7cfd7",
+    "selected_address_pair_examples": [
+      {
+        "extra_footprint": true,
+        "memory": 481573208064,
+        "other": {
+          "count": 247,
+          "key": {
+            "actor": 90141685681160,
+            "contended": true,
+            "ea": 651557685,
+            "effective": 1,
+            "fn": 17950,
+            "kind": "atomic-load",
+            "memory": 481573208064,
+            "requested": 1,
+            "site": 913188
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 651557684,
+        "writer": {
+          "count": 25,
+          "key": {
+            "actor": 90141685684232,
+            "contended": true,
+            "ea": 651557686,
+            "effective": 4,
+            "fn": 17888,
+            "kind": "subword-store",
+            "memory": 481573208064,
+            "requested": 1,
+            "site": 989769
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481573208064,
+        "other": {
+          "count": 1,
+          "key": {
+            "actor": 90141685681160,
+            "contended": true,
+            "ea": 651557684,
+            "effective": 4,
+            "fn": 17888,
+            "kind": "subword-store",
+            "memory": 481573208064,
+            "requested": 1,
+            "site": 989795
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 651557684,
+        "writer": {
+          "count": 25,
+          "key": {
+            "actor": 90141685684232,
+            "contended": true,
+            "ea": 651557686,
+            "effective": 4,
+            "fn": 17888,
+            "kind": "subword-store",
+            "memory": 481573208064,
+            "requested": 1,
+            "site": 989769
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481573208064,
+        "other": {
+          "count": 25,
+          "key": {
+            "actor": 90141685684232,
+            "contended": true,
+            "ea": 651557685,
+            "effective": 1,
+            "fn": 17888,
+            "kind": "atomic-load",
+            "memory": 481573208064,
+            "requested": 1,
+            "site": 989721
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 651557684,
+        "writer": {
+          "count": 8,
+          "key": {
+            "actor": 90141685690376,
+            "contended": true,
+            "ea": 651557684,
+            "effective": 4,
+            "fn": 17950,
+            "kind": "subword-add",
+            "memory": 481573208064,
+            "requested": 1,
+            "site": 915837
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481573208064,
+        "other": {
+          "count": 247,
+          "key": {
+            "actor": 90141685681160,
+            "contended": true,
+            "ea": 651557685,
+            "effective": 1,
+            "fn": 17950,
+            "kind": "atomic-load",
+            "memory": 481573208064,
+            "requested": 1,
+            "site": 913188
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 651557684,
+        "writer": {
+          "count": 8,
+          "key": {
+            "actor": 90141685690376,
+            "contended": true,
+            "ea": 651557684,
+            "effective": 4,
+            "fn": 17950,
+            "kind": "subword-add",
+            "memory": 481573208064,
+            "requested": 1,
+            "site": 915837
+          }
+        }
+      }
+    ]
+  },
+  "targeted-default": {
+    "cas_retries": 0,
+    "cross_actor_extra_atomic_address_pair_combinations": 26,
+    "cross_actor_ordinary_address_pair_combinations": 10,
+    "dropped": 0,
+    "executed_functions": [
+      {
+        "count": 4834,
+        "executed_sites": [
+          653670,
+          661367
+        ],
+        "fn": 18241,
+        "symbol": "_ZN5trx_t14commit_persistEv"
+      },
+      {
+        "count": 2156,
+        "executed_sites": [
+          901402,
+          901493,
+          901539,
+          901547
+        ],
+        "fn": 16684,
+        "symbol": "_ZN8ReadView4openEP5trx_t"
+      },
+      {
+        "count": 1174,
+        "executed_sites": [
+          969046,
+          969278
+        ],
+        "fn": 18136,
+        "symbol": "_Z32buf_LRU_block_free_non_file_pageP11buf_block_t"
+      },
+      {
+        "count": 21,
+        "executed_sites": [
+          270244
+        ],
+        "fn": 4054,
+        "symbol": "__cxa_guard_release"
+      },
+      {
+        "count": 16,
+        "executed_sites": [
+          959617,
+          959760,
+          959825,
+          960046,
+          961300
+        ],
+        "fn": 18010,
+        "symbol": "_ZL22buf_flush_page_cleanerv"
+      },
+      {
+        "count": 8,
+        "executed_sites": [
+          891100
+        ],
+        "fn": 16535,
+        "symbol": "_ZN5tpool19thread_pool_generic11worker_mainEPNS_11worker_dataE"
+      },
+      {
+        "count": 8,
+        "executed_sites": [
+          825116
+        ],
+        "fn": 16537,
+        "symbol": "_ZN5tpool19thread_pool_generic10add_threadEv"
+      },
+      {
+        "count": 4,
+        "executed_sites": [
+          784462,
+          788383
+        ],
+        "fn": 17161,
+        "symbol": "_Z9trx_purgeP5trx_tmm"
+      },
+      {
+        "count": 4,
+        "executed_sites": [
+          676270,
+          677279,
+          677415,
+          677929
+        ],
+        "fn": 18509,
+        "symbol": "_ZL11innodb_initPv"
+      },
+      {
+        "count": 2,
+        "executed_sites": [
+          970096,
+          970335
+        ],
+        "fn": 17472,
+        "symbol": "_ZL27fil_space_extend_must_retryP11fil_space_tP10fil_node_tjPb"
+      },
+      {
+        "count": 2,
+        "executed_sites": [
+          1014940
+        ],
+        "fn": 18005,
+        "symbol": "_Z14buf_flush_waityb"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          1019684
+        ],
+        "fn": 18531,
+        "symbol": "_ZL24innodb_ddl_recovery_doneP10handlerton"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          961910
+        ],
+        "fn": 17377,
+        "symbol": "_ZN10recv_sys_t10debug_freeEv"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          932749
+        ],
+        "fn": 17453,
+        "symbol": "_ZL15create_log_fileby"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          1022482
+        ],
+        "fn": 18168,
+        "symbol": "_ZL26purge_coordinator_callbackPv"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          987500
+        ],
+        "fn": 18231,
+        "symbol": "_Z26trx_lists_init_at_db_startv"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          1023291
+        ],
+        "fn": 18180,
+        "symbol": "_Z18srv_purge_shutdownv"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          941307
+        ],
+        "fn": 17994,
+        "symbol": "_ZN10buf_pool_t19page_cleaner_wakeupEb"
+      },
+      {
+        "count": 1,
+        "executed_sites": [
+          884986
+        ],
+        "fn": 17461,
+        "symbol": "_Z15innodb_shutdownv"
+      }
+    ],
+    "pair_definition": "Address footprint evidence across distinct Module agents, aggregated over lifetime; no instruction simultaneity, allocation generation or happens-before proof.",
+    "purge_timeline": [
+      {
+        "key": {
+          "actor": 103263481004040,
+          "contended": false,
+          "ea": 24020811,
+          "effective": 1,
+          "fn": 65,
+          "kind": "ordinary-store",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 45498
+        },
+        "sequence": 57
+      },
+      {
+        "key": {
+          "actor": 103263481004040,
+          "contended": false,
+          "ea": 24020808,
+          "effective": 2,
+          "fn": 65,
+          "kind": "ordinary-store",
+          "memory": 481036337152,
+          "requested": 2,
+          "site": 45499
+        },
+        "sequence": 58
+      },
+      {
+        "key": {
+          "actor": 103263481004040,
+          "contended": true,
+          "ea": 24020810,
+          "effective": 4,
+          "fn": 18231,
+          "kind": "subword-store",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 987500
+        },
+        "sequence": 150
+      },
+      {
+        "key": {
+          "actor": 103263481004040,
+          "contended": true,
+          "ea": 24020808,
+          "effective": 1,
+          "fn": 18231,
+          "kind": "ordinary-store",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 988032
+        },
+        "sequence": 151
+      },
+      {
+        "key": {
+          "actor": 103263481004040,
+          "contended": true,
+          "ea": 24020809,
+          "effective": 4,
+          "fn": 18531,
+          "kind": "subword-store",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 1019684
+        },
+        "sequence": 7039
+      },
+      {
+        "key": {
+          "actor": 103263481064456,
+          "contended": true,
+          "ea": 24020809,
+          "effective": 1,
+          "fn": 18168,
+          "kind": "atomic-load",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 1022442
+        },
+        "sequence": 7048
+      },
+      {
+        "key": {
+          "actor": 103263481064456,
+          "contended": true,
+          "ea": 24020811,
+          "effective": 4,
+          "fn": 17161,
+          "kind": "subword-store",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 784462
+        },
+        "sequence": 7441
+      },
+      {
+        "key": {
+          "actor": 103263481064456,
+          "contended": true,
+          "ea": 24020811,
+          "effective": 4,
+          "fn": 17161,
+          "kind": "subword-store",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 788383
+        },
+        "sequence": 10355
+      },
+      {
+        "key": {
+          "actor": 103263481064456,
+          "contended": true,
+          "ea": 24020809,
+          "effective": 1,
+          "fn": 18168,
+          "kind": "atomic-load",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 1022738
+        },
+        "sequence": 10393
+      },
+      {
+        "key": {
+          "actor": 103263481064456,
+          "contended": true,
+          "ea": 24020811,
+          "effective": 4,
+          "fn": 17161,
+          "kind": "subword-store",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 784462
+        },
+        "sequence": 10729
+      },
+      {
+        "key": {
+          "actor": 103263481064456,
+          "contended": true,
+          "ea": 24020811,
+          "effective": 4,
+          "fn": 17161,
+          "kind": "subword-store",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 788383
+        },
+        "sequence": 10744
+      },
+      {
+        "key": {
+          "actor": 103263481004040,
+          "contended": true,
+          "ea": 24020809,
+          "effective": 4,
+          "fn": 18180,
+          "kind": "subword-store",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 1023291
+        },
+        "sequence": 850403
+      },
+      {
+        "key": {
+          "actor": 103263481004040,
+          "contended": true,
+          "ea": 24020808,
+          "effective": 1,
+          "fn": 17461,
+          "kind": "ordinary-load",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 884191
+        },
+        "sequence": 858527
+      },
+      {
+        "key": {
+          "actor": 103263481004040,
+          "contended": true,
+          "ea": 24020808,
+          "effective": 1,
+          "fn": 17461,
+          "kind": "ordinary-store",
+          "memory": 481036337152,
+          "requested": 1,
+          "site": 884257
+        },
+        "sequence": 858528
+      }
+    ],
+    "raw_distinct_rows": 37744,
+    "raw_sha256": "b4277dc405c203755d0aadb7be5f3fd7219ff6abf1d46a65e6268213850edcac",
+    "selected_address_pair_examples": [
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 2,
+          "key": {
+            "actor": 103263481064456,
+            "contended": true,
+            "ea": 24020811,
+            "effective": 4,
+            "fn": 17161,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 788383
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 24020808,
+        "writer": {
+          "count": 1,
+          "key": {
+            "actor": 103263481004040,
+            "contended": true,
+            "ea": 24020809,
+            "effective": 4,
+            "fn": 18531,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 1019684
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 1,
+          "key": {
+            "actor": 103263481004040,
+            "contended": true,
+            "ea": 24020809,
+            "effective": 4,
+            "fn": 18531,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 1019684
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 24020808,
+        "writer": {
+          "count": 2,
+          "key": {
+            "actor": 103263481064456,
+            "contended": true,
+            "ea": 24020811,
+            "effective": 4,
+            "fn": 17161,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 788383
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 1,
+          "key": {
+            "actor": 103263481004040,
+            "contended": true,
+            "ea": 24020808,
+            "effective": 1,
+            "fn": 17461,
+            "kind": "ordinary-load",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 884191
+          }
+        },
+        "relation": "ordinary",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 24020808,
+        "writer": {
+          "count": 2,
+          "key": {
+            "actor": 103263481064456,
+            "contended": true,
+            "ea": 24020811,
+            "effective": 4,
+            "fn": 17161,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 788383
+          }
+        }
+      },
+      {
+        "extra_footprint": false,
+        "memory": 481036337152,
+        "other": {
+          "count": 1,
+          "key": {
+            "actor": 103263481004040,
+            "contended": false,
+            "ea": 24020811,
+            "effective": 1,
+            "fn": 65,
+            "kind": "ordinary-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 45498
+          }
+        },
+        "relation": "ordinary",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 24020808,
+        "writer": {
+          "count": 2,
+          "key": {
+            "actor": 103263481064456,
+            "contended": true,
+            "ea": 24020811,
+            "effective": 4,
+            "fn": 17161,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 788383
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 1,
+          "key": {
+            "actor": 103263481004040,
+            "contended": true,
+            "ea": 24020810,
+            "effective": 4,
+            "fn": 18231,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 987500
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 24020808,
+        "writer": {
+          "count": 2,
+          "key": {
+            "actor": 103263481064456,
+            "contended": true,
+            "ea": 24020811,
+            "effective": 4,
+            "fn": 17161,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 788383
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 1,
+          "key": {
+            "actor": 103263481004040,
+            "contended": true,
+            "ea": 24020809,
+            "effective": 4,
+            "fn": 18180,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 1023291
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 24020808,
+        "writer": {
+          "count": 2,
+          "key": {
+            "actor": 103263481064456,
+            "contended": true,
+            "ea": 24020811,
+            "effective": 4,
+            "fn": 17161,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 788383
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 1,
+          "key": {
+            "actor": 103263481004040,
+            "contended": true,
+            "ea": 24020808,
+            "effective": 1,
+            "fn": 18231,
+            "kind": "ordinary-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 988032
+          }
+        },
+        "relation": "ordinary",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 24020808,
+        "writer": {
+          "count": 2,
+          "key": {
+            "actor": 103263481064456,
+            "contended": true,
+            "ea": 24020811,
+            "effective": 4,
+            "fn": 17161,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 788383
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 2,
+          "key": {
+            "actor": 103263481064456,
+            "contended": true,
+            "ea": 24020811,
+            "effective": 4,
+            "fn": 17161,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 788383
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 24020808,
+        "writer": {
+          "count": 1,
+          "key": {
+            "actor": 103263481004040,
+            "contended": true,
+            "ea": 24020810,
+            "effective": 4,
+            "fn": 18231,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 987500
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 1,
+          "key": {
+            "actor": 103263481064456,
+            "contended": true,
+            "ea": 24020809,
+            "effective": 1,
+            "fn": 18168,
+            "kind": "atomic-load",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 1022738
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 24020808,
+        "writer": {
+          "count": 1,
+          "key": {
+            "actor": 103263481004040,
+            "contended": true,
+            "ea": 24020810,
+            "effective": 4,
+            "fn": 18231,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 987500
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 2,
+          "key": {
+            "actor": 103263481064456,
+            "contended": true,
+            "ea": 24020811,
+            "effective": 4,
+            "fn": 17161,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 788383
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 24020808,
+        "writer": {
+          "count": 1,
+          "key": {
+            "actor": 103263481004040,
+            "contended": true,
+            "ea": 24020809,
+            "effective": 4,
+            "fn": 18180,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 1023291
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 1,
+          "key": {
+            "actor": 103263480736776,
+            "contended": true,
+            "ea": 15209757,
+            "effective": 4,
+            "fn": 18010,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 959760
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 15209756,
+        "writer": {
+          "count": 35,
+          "key": {
+            "actor": 103263480745992,
+            "contended": true,
+            "ea": 15209756,
+            "effective": 4,
+            "fn": 18136,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 969278
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 35,
+          "key": {
+            "actor": 103263480745992,
+            "contended": true,
+            "ea": 15209756,
+            "effective": 4,
+            "fn": 18136,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 969278
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 15209756,
+        "writer": {
+          "count": 1,
+          "key": {
+            "actor": 103263480736776,
+            "contended": true,
+            "ea": 15209757,
+            "effective": 4,
+            "fn": 18010,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 959760
+          }
+        }
+      },
+      {
+        "extra_footprint": true,
+        "memory": 481036337152,
+        "other": {
+          "count": 1,
+          "key": {
+            "actor": 103263481004040,
+            "contended": true,
+            "ea": 15209756,
+            "effective": 4,
+            "fn": 18509,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 677279
+          }
+        },
+        "relation": "adjacent-atomic",
+        "same_time_or_hb": "UNPROVEN",
+        "word": 15209756,
+        "writer": {
+          "count": 1,
+          "key": {
+            "actor": 103263480736776,
+            "contended": true,
+            "ea": 15209757,
+            "effective": 4,
+            "fn": 18010,
+            "kind": "subword-store",
+            "memory": 481036337152,
+            "requested": 1,
+            "site": 959760
+          }
+        }
+      }
+    ]
+  }
+}

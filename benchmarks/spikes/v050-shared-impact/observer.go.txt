@@ -1,0 +1,29 @@
+package base
+
+import("encoding/json";"os";"sync";"unsafe")
+var impactEnabled=os.Getenv("MARIAMEM_IMPACT_OUTPUT")!=""
+var impactMu sync.Mutex
+const impactLimit=200000
+var impactDropped uint64
+var impactSequence uint64
+var impactPurgeTimeline=[]any{}
+var impactRows=map[impactKey]uint64{}
+type impactKey struct { Fn int `json:"fn"`; Site int `json:"site"`; Actor uintptr `json:"actor"`; Memory uintptr `json:"memory"`; EA uint64 `json:"ea"`; Requested uint64 `json:"requested"`; Effective uint64 `json:"effective"`; Kind string `json:"kind"`; Contended bool `json:"contended"` }
+func impactRecord(m *Module,fn,site int,ea,requested,effective uint64,kind string){
+ if !impactEnabled{return}
+ k:=impactKey{fn,site,uintptr(unsafe.Pointer(m)),uintptr(m.M),ea,requested,effective,kind,AtomicsContended(m)}
+ impactMu.Lock();defer impactMu.Unlock()
+ if _,ok:=impactRows[k];!ok &&len(impactRows)>=impactLimit{impactDropped++;return};impactRows[k]++
+ impactSequence++
+ if ea>=24020808 && ea<24020812 { impactPurgeTimeline=append(impactPurgeTimeline,struct{Sequence uint64 `json:"sequence"`;Key impactKey `json:"key"`}{impactSequence,k}) }
+}
+func ImpactEA(m *Module,fn,site int,kind string,addr,offset,size uint64)uint64{ea:=MemoryEA(m,addr,offset,size);impactRecord(m,fn,site,ea,size,size,kind);return ea}
+func ImpactAtomicEA(m *Module,fn,site int,kind string,addr,offset int32,size uint64)uint64{ea:=AtomicEA(m,addr,offset,size);impactRecord(m,fn,site,ea,size,size,kind);return ea}
+func ImpactAtomicStore32_8(m *Module,fn,site int,addr,offset,v int32)int32{impactRecord(m,fn,site,uint64(uint32(addr))+uint64(uint32(offset)),1,4,"subword-store");return AtomicStore32_8(m,addr,offset,v)}
+func ImpactAtomicStore32_16(m *Module,fn,site int,addr,offset,v int32)int32{impactRecord(m,fn,site,uint64(uint32(addr))+uint64(uint32(offset)),2,4,"subword-store");return AtomicStore32_16(m,addr,offset,v)}
+func ImpactAtomicRmwAdd32_8u(m *Module,fn,site int,addr,offset,v int32)int32{impactRecord(m,fn,site,uint64(uint32(addr))+uint64(uint32(offset)),1,4,"subword-add");return AtomicRmwAdd32_8u(m,addr,offset,v)}
+func ImpactAtomicRmwXchg32_8u(m *Module,fn,site int,addr,offset,v int32)int32{impactRecord(m,fn,site,uint64(uint32(addr))+uint64(uint32(offset)),1,4,"subword-xchg");return AtomicRmwXchg32_8u(m,addr,offset,v)}
+func ImpactAtomicLoad32_8u(m *Module,fn,site int,addr,offset int32)int32{impactRecord(m,fn,site,uint64(uint32(addr))+uint64(uint32(offset)),1,1,"atomic-load");return AtomicLoad32_8u(m,addr,offset)}
+func ImpactAtomicLoad32_16u(m *Module,fn,site int,addr,offset int32)int32{impactRecord(m,fn,site,uint64(uint32(addr))+uint64(uint32(offset)),2,2,"atomic-load");return AtomicLoad32_16u(m,addr,offset)}
+func ImpactRetry(m *Module,ea uint64,bits uint){impactRecord(m,0,0,ea,uint64(bits/8),4,"cas-retry")}
+func ImpactDump(){if !impactEnabled{return};impactMu.Lock();defer impactMu.Unlock();rows:=[]any{};for k,n:=range impactRows{rows=append(rows,struct{Key impactKey `json:"key"`;Count uint64 `json:"count"`}{k,n})};f,e:=os.Create(os.Getenv("MARIAMEM_IMPACT_OUTPUT"));if e!=nil{panic(e)};defer f.Close();if e=json.NewEncoder(f).Encode(map[string]any{"rows":rows,"dropped":impactDropped,"purge_timeline":impactPurgeTimeline,"scope":"events before access, no memory reads, no instruction-overlap or happens-before proof"});e!=nil{panic(e)}}

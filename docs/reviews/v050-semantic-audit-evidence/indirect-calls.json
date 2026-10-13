@@ -1,0 +1,801 @@
+[
+  {
+    "fn": 16535,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 891084,
+    "statement": "m.T0[v18].(func(*base.Module))(m)",
+    "class": "pool-thread-init",
+    "argument": "pool callbacks installed by srv_thread_pool_init -> thread_pool_thread_init (my_thread_init/PFS/name); no metadata pointer argument",
+    "context": [
+      "\tv12 = v10 - int32(16)",
+      "\tm.G0 = v12",
+      "\tv14 = m.G1",
+      "\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v14+int32(380))), 0, 4))) = l0",
+      "\tv18 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 12, 4)))",
+      "\tm.T0[v18].(func(*base.Module))(m)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 16535,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 891112,
+    "statement": "m.T0[v63].(func(*base.Module))(m)",
+    "class": "pool-thread-end",
+    "argument": "thread_pool_thread_end (PFS/my_thread_end), followed by worker_end under pool mutex; lifetime P02",
+    "context": [
+      "\t\tgoto L4",
+      "\t}",
+      "L3:",
+      "\t;",
+      "\tv63 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 16, 4)))",
+      "\tm.T0[v63].(func(*base.Module))(m)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 16535,
+    "file": "internal/generatedgo/code/p6/p6_pure.go",
+    "line": 891145,
+    "statement": "m.T0[v47].(func(*base.Module, int32))(m, v43)",
+    "class": "pool-task-execute",
+    "argument": "task::execute/waitable_task::execute -> registered m_func(m_arg), followed by release; P02/P04/P07/P11 cover relevant task registrations and drain",
+    "context": [
+      "\tgoto L3",
+      "L8:",
+      "\t;",
+      "\tv46 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v43)), 0, 4)))",
+      "\tv47 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v46)), 8, 4)))",
+      "\tm.T0[v47].(func(*base.Module, int32))(m, v43)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 16537,
+    "file": "internal/generatedgo/code/p4/p4_pure.go",
+    "line": 825591,
+    "statement": "v309 = m.T0[v308].(func(*base.Module, int32) int32)(m, v230)",
+    "class": "exception-what",
+    "argument": "std::system_error::what in add_thread catch; exception-owned string is printed before pending flag clear; no narrow target address passed",
+    "context": [
+      "\t}",
+      "L93:",
+      "\t;",
+      "\tv307 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v230)), 0, 4)))",
+      "\tv308 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v307)), 8, 4)))",
+      "\tv309 = m.T0[v308].(func(*base.Module, int32) int32)(m, v230)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17161,
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "line": 788550,
+    "statement": "m.T0[v3368].(func(*base.Module, int32, int32))(m, v3365, int32(24214800))",
+    "class": "pool-submit-task",
+    "argument": "thread_pool_generic selected by non-Windows factory; submit_task uses pool mutex and task refcount; argument is task object, relevant callbacks mapped in P02/P04/P07/P11",
+    "context": [
+      "L748:",
+      "\t;",
+      "\tv3365 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv3367 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v3365)), 0, 4)))",
+      "\tv3368 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v3367)), 4, 4)))",
+      "\tm.T0[v3368].(func(*base.Module, int32, int32))(m, v3365, int32(24214800))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17218,
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "line": 804044,
+    "statement": "m.T0[v66].(func(*base.Module, int32))(m, v67)",
+    "class": "empty-function-manager",
+    "argument": "std::function cleanup of local system-table scan lambdas; fixed manager words at 13347140/13347200/13347260 are zero, branch skipped for these objects; not a live fil_system metadata callback",
+    "context": [
+      "\t\tgoto L19",
+      "\t}",
+      "L13:",
+      "\t;",
+      "\tv67 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v35)), 816, 4)))",
+      "\tm.T0[v66].(func(*base.Module, int32))(m, v67)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17218,
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "line": 804123,
+    "statement": "m.T0[v90].(func(*base.Module, int32))(m, v91)",
+    "class": "empty-function-manager",
+    "argument": "std::function cleanup of local system-table scan lambdas; fixed manager words at 13347140/13347200/13347260 are zero, branch skipped for these objects; not a live fil_system metadata callback",
+    "context": [
+      "\t\tgoto L29",
+      "\t}",
+      "L24:",
+      "\t;",
+      "\tv91 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v35)), 800, 4)))",
+      "\tm.T0[v90].(func(*base.Module, int32))(m, v91)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17218,
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "line": 804770,
+    "statement": "m.T0[v565].(func(*base.Module, int32))(m, v566)",
+    "class": "empty-function-manager",
+    "argument": "std::function cleanup of local system-table scan lambdas; fixed manager words at 13347140/13347200/13347260 are zero, branch skipped for these objects; not a live fil_system metadata callback",
+    "context": [
+      "\t\tgoto L139",
+      "\t}",
+      "L132:",
+      "\t;",
+      "\tv566 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v552)), 32, 4)))",
+      "\tm.T0[v565].(func(*base.Module, int32))(m, v566)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17240,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 893122,
+    "statement": "v68 = m.T0[v67].(func(*base.Module, int32) int32)(m, v65)",
+    "class": "encryption-key-version",
+    "argument": "encryption_handler getter receives numeric key id; returns version; caller may set global rotate flag. Plugin registration sql/encryption.cc. No flag pointer exported",
+    "context": [
+      "\t\t\t\t\t\tv61 = int32(-1)",
+      "\t\t\t\t\t\tv62 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v6)), 128, 4)))",
+      "\t\t\t\t\t\tif v62 != v61 {",
+      "\t\t\t\t\t\t\tv65 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v6)), 80, 4)))",
+      "\t\t\t\t\t\t\tv67 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24221008, 0, 4)))",
+      "\t\t\t\t\t\t\tv68 = m.T0[v67].(func(*base.Module, int32) int32)(m, v65)",
+      "\t\t\t\t\t\t\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17245,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 854816,
+    "statement": "v63 = m.T0[v62].(func(*base.Module, int32) int32)(m, v60)",
+    "class": "encryption-key-version",
+    "argument": "encryption_handler getter receives numeric key id; returns version; caller may set global rotate flag. Plugin registration sql/encryption.cc. No flag pointer exported",
+    "context": [
+      "\t\t\t\t}",
+      "\t\t\t}",
+      "\t\t} else {",
+      "\t\t\tv60 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 80, 4)))",
+      "\t\t\tv62 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24221008, 0, 4)))",
+      "\t\t\tv63 = m.T0[v62].(func(*base.Module, int32) int32)(m, v60)",
+      "\t\t\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17245,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 855980,
+    "statement": "v667 = m.T0[v666].(func(*base.Module, int32) int32)(m, v664)",
+    "class": "encryption-key-version",
+    "argument": "encryption_handler getter receives numeric key id; returns version; caller may set global rotate flag. Plugin registration sql/encryption.cc. No flag pointer exported",
+    "context": [
+      "\t\t\t}",
+      "\t\t} else {",
+      "\t\t\tv663 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090736, 0, 4)))",
+      "\t\t\tv664 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 80, 4)))",
+      "\t\t\tv666 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24221008, 0, 4)))",
+      "\t\t\tv667 = m.T0[v666].(func(*base.Module, int32) int32)(m, v664)",
+      "\t\t\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17251,
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "line": 811508,
+    "statement": "v614 = m.T0[v613].(func(*base.Module, int32) int32)(m, v611)",
+    "class": "encryption-key-version",
+    "argument": "encryption_handler getter receives numeric key id; returns version; caller may set global rotate flag. Plugin registration sql/encryption.cc. No flag pointer exported",
+    "context": [
+      "\t}",
+      "L154:",
+      "\t;",
+      "\tv611 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v551)), 80, 4)))",
+      "\tv613 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24221008, 0, 4)))",
+      "\tv614 = m.T0[v613].(func(*base.Module, int32) int32)(m, v611)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17251,
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "line": 811885,
+    "statement": "v940 = m.T0[v939].(func(*base.Module, int32) int32)(m, v937)",
+    "class": "encryption-key-version",
+    "argument": "encryption_handler getter receives numeric key id; returns version; caller may set global rotate flag. Plugin registration sql/encryption.cc. No flag pointer exported",
+    "context": [
+      "\t}",
+      "L213:",
+      "\t;",
+      "\tv937 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v931)), 80, 4)))",
+      "\tv939 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24221008, 0, 4)))",
+      "\tv940 = m.T0[v939].(func(*base.Module, int32) int32)(m, v937)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17251,
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "line": 812066,
+    "statement": "v1012 = m.T0[v1011].(func(*base.Module, int32) int32)(m, v996)",
+    "class": "encryption-key-version",
+    "argument": "encryption_handler getter receives numeric key id; returns version; caller may set global rotate flag. Plugin registration sql/encryption.cc. No flag pointer exported",
+    "context": [
+      "\t;",
+      "\tgoto L234",
+      "L234:",
+      "\t;",
+      "\tv1011 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24221008, 0, 4)))",
+      "\tv1012 = m.T0[v1011].(func(*base.Module, int32) int32)(m, v996)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17371,
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "line": 828463,
+    "statement": "v8391 = m.T0[v8390].(func(*base.Module, int32) int32)(m, v8388)",
+    "class": "encryption-key-version",
+    "argument": "encryption_handler getter receives numeric key id; returns version; caller may set global rotate flag. Plugin registration sql/encryption.cc. No flag pointer exported",
+    "context": [
+      "\tgoto L1222",
+      "L1224:",
+      "\t;",
+      "\tv8388 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v8307)), 80, 4)))",
+      "\tv8390 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24221008, 0, 4)))",
+      "\tv8391 = m.T0[v8390].(func(*base.Module, int32) int32)(m, v8388)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17405,
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "line": 868516,
+    "statement": "m.T0[v2376].(func(*base.Module, int32, int32))(m, v2372, v2348+int32(44))",
+    "class": "pool-submit-task",
+    "argument": "thread_pool_generic selected by non-Windows factory; submit_task uses pool mutex and task refcount; argument is task object, relevant callbacks mapped in P02/P04/P07/P11",
+    "context": [
+      "\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v2348)), 48, 4))) = int32(12508)",
+      "\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v2348)), 52, 4))) = v2348",
+      "\tv2372 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv2375 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v2372)), 0, 4)))",
+      "\tv2376 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v2375)), 4, 4)))",
+      "\tm.T0[v2376].(func(*base.Module, int32, int32))(m, v2372, v2348+int32(44))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17408,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 908167,
+    "statement": "m.T0[v72].(func(*base.Module, int32, int32))(m, int32(8510513), v10)",
+    "class": "corruption-log",
+    "argument": "constant table choices 1513/1514 -> sql_print_warning/sql_print_error; string/page number, after releasing recv mutex; no page_recv_t pointer passed",
+    "context": [
+      "\t\t\t\t\t\t\tif v64 != 0 {",
+      "\t\t\t\t\t\t\t\tv72 = int32(1513)",
+      "\t\t\t\t\t\t\t} else {",
+      "\t\t\t\t\t\t\t\tv72 = int32(1514)",
+      "\t\t\t\t\t\t\t}",
+      "\t\t\t\t\t\t\tm.T0[v72].(func(*base.Module, int32, int32))(m, int32(8510513), v10)",
+      "\t\t\t\t\t\t\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17408,
+    "file": "internal/generatedgo/code/p7/p7_pure.go",
+    "line": 908202,
+    "statement": "m.T0[v72].(func(*base.Module, int32, int32))(m, int32(8510513), v10)",
+    "class": "corruption-log",
+    "argument": "constant table choices 1513/1514 -> sql_print_warning/sql_print_error; string/page number, after releasing recv mutex; no page_recv_t pointer passed",
+    "context": [
+      "\t\t\t\t\t\tif v64 != 0 {",
+      "\t\t\t\t\t\t\tv72 = int32(1513)",
+      "\t\t\t\t\t\t} else {",
+      "\t\t\t\t\t\t\tv72 = int32(1514)",
+      "\t\t\t\t\t\t}",
+      "\t\t\t\t\t\tm.T0[v72].(func(*base.Module, int32, int32))(m, int32(8510513), v10)",
+      "\t\t\t\t\t\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17461,
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "line": 882944,
+    "statement": "m.T0[v71].(func(*base.Module, int32))(m, v61)",
+    "class": "aio-destructor",
+    "argument": "thread_pool.m_aio reset in os_aio_free after read/write slot destructors wait for in-use completion; P11",
+    "context": [
+      "\tgoto L18",
+      "L21:",
+      "\t;",
+      "\tv70 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v61)), 0, 4)))",
+      "\tv71 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v70)), 20, 4)))",
+      "\tm.T0[v71].(func(*base.Module, int32))(m, v61)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17461,
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "line": 883435,
+    "statement": "m.T0[v371].(func(*base.Module, int32))(m, v366)",
+    "class": "timer-destructor",
+    "argument": "rollback/master timer object deletion; timer_generic::disarm cancels pending tasks then waits task references before destructor returns; P02/P11",
+    "context": [
+      "\t}",
+      "L97:",
+      "\t;",
+      "\tv370 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v366)), 0, 4)))",
+      "\tv371 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v370)), 12, 4)))",
+      "\tm.T0[v371].(func(*base.Module, int32))(m, v366)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17461,
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "line": 886593,
+    "statement": "m.T0[v2159].(func(*base.Module, int32))(m, v2157)",
+    "class": "pool-destructor",
+    "argument": "srv_thread_pool_end deletes fixed generic pool; stops AIO/timer, wakes workers, waits count/CV before free; P02",
+    "context": [
+      "\tgoto L655",
+      "L664:",
+      "\t;",
+      "\tv2158 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v2157)), 0, 4)))",
+      "\tv2159 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v2158)), 28, 4)))",
+      "\tm.T0[v2159].(func(*base.Module, int32))(m, v2157)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 17461,
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "line": 888112,
+    "statement": "m.T0[v3144].(func(*base.Module, int32))(m, v3142)",
+    "class": "pool-destructor",
+    "argument": "srv_thread_pool_end deletes fixed generic pool; stops AIO/timer, wakes workers, waits count/CV before free; P02",
+    "context": [
+      "\tgoto L914",
+      "L919:",
+      "\t;",
+      "\tv3143 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v3142)), 0, 4)))",
+      "\tv3144 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v3143)), 28, 4)))",
+      "\tm.T0[v3144].(func(*base.Module, int32))(m, v3142)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18168,
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "line": 1022688,
+    "statement": "m.T0[v159].(func(*base.Module, int32, int32))(m, v156, int32(24215264))",
+    "class": "pool-submit-task",
+    "argument": "thread_pool_generic selected by non-Windows factory; submit_task uses pool mutex and task refcount; argument is task object, relevant callbacks mapped in P02/P04/P07/P11",
+    "context": [
+      "L38:",
+      "\t;",
+      "\tv156 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv158 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v156)), 0, 4)))",
+      "\tv159 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v158)), 4, 4)))",
+      "\tm.T0[v159].(func(*base.Module, int32, int32))(m, v156, int32(24215264))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18180,
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "line": 1023522,
+    "statement": "m.T0[v147].(func(*base.Module, int32, int32))(m, v144, int32(24215032))",
+    "class": "pool-submit-task",
+    "argument": "thread_pool_generic selected by non-Windows factory; submit_task uses pool mutex and task refcount; argument is task object, relevant callbacks mapped in P02/P04/P07/P11",
+    "context": [
+      "L47:",
+      "\t;",
+      "\tv144 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv146 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v144)), 0, 4)))",
+      "\tv147 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v146)), 4, 4)))",
+      "\tm.T0[v147].(func(*base.Module, int32, int32))(m, v144, int32(24215032))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 996695,
+    "statement": "v211 = m.T0[v210].(func(*base.Module, int32) int32)(m, v208)",
+    "class": "encryption-key-version",
+    "argument": "encryption_handler getter receives numeric key id; returns version; caller may set global rotate flag. Plugin registration sql/encryption.cc. No flag pointer exported",
+    "context": [
+      "\tgoto L49",
+      "L61:",
+      "\t;",
+      "\tv208 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v166)), 80, 4)))",
+      "\tv210 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24221008, 0, 4)))",
+      "\tv211 = m.T0[v210].(func(*base.Module, int32) int32)(m, v208)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 996923,
+    "statement": "v321 = m.T0[v320].(func(*base.Module, int32, int64, int32) int32)(m, v316, base.I64_extend_i32_u(v312), int32(1))",
+    "class": "sql-field-store",
+    "argument": "INFORMATION_SCHEMA encryption row Field::store virtual calls; receiver is table Field object, numeric/text copied from crypt state; not pointer to rotate flag",
+    "context": [
+      "\t;",
+      "\tv315 = int32(0)",
+      "\tv316 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v146)), 0, 4)))",
+      "\tv319 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v316)), 0, 4)))",
+      "\tv320 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v319)), 68, 4)))",
+      "\tv321 = m.T0[v320].(func(*base.Module, int32, int64, int32) int32)(m, v316, base.I64_extend_i32_u(v312), int32(1))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 997048,
+    "statement": "v450 = m.T0[v449].(func(*base.Module, int32, int64, int32) int32)(m, v445, v446, int32(1))",
+    "class": "sql-field-store",
+    "argument": "INFORMATION_SCHEMA encryption row Field::store virtual calls; receiver is table Field object, numeric/text copied from crypt state; not pointer to rotate flag",
+    "context": [
+      "\t;",
+      "\tv445 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v146)), 8, 4)))",
+      "\tv446 = int64(*(*uint32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v16)), 48, 4))))",
+      "\tv448 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v445)), 0, 4)))",
+      "\tv449 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v448)), 68, 4)))",
+      "\tv450 = m.T0[v449].(func(*base.Module, int32, int64, int32) int32)(m, v445, v446, int32(1))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 997063,
+    "statement": "v384 = m.T0[v383].(func(*base.Module, int32, int32, int32, int32) int32)(m, v378, v377, v379, v381)",
+    "class": "sql-field-store",
+    "argument": "INFORMATION_SCHEMA encryption row Field::store virtual calls; receiver is table Field object, numeric/text copied from crypt state; not pointer to rotate flag",
+    "context": [
+      "\tv378 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v146)), 4, 4)))",
+      "\tv379 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v16)), 40, 4)))",
+      "\tv381 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23874136, 0, 4)))",
+      "\tv382 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v378)), 0, 4)))",
+      "\tv383 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v382)), 48, 4)))",
+      "\tv384 = m.T0[v383].(func(*base.Module, int32, int32, int32, int32) int32)(m, v378, v377, v379, v381)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 997144,
+    "statement": "v423 = m.T0[v422].(func(*base.Module, int32, int32, int32, int32) int32)(m, v413, v415, v418, v420)",
+    "class": "sql-field-store",
+    "argument": "INFORMATION_SCHEMA encryption row Field::store virtual calls; receiver is table Field object, numeric/text copied from crypt state; not pointer to rotate flag",
+    "context": [
+      "\tv418 = Fn70(m, v415)",
+      "\tmBase = m.M",
+      "\tv420 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23874136, 0, 4)))",
+      "\tv421 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v413)), 0, 4)))",
+      "\tv422 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v421)), 48, 4)))",
+      "\tv423 = m.T0[v422].(func(*base.Module, int32, int32, int32, int32) int32)(m, v413, v415, v418, v420)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 997197,
+    "statement": "v457 = m.T0[v456].(func(*base.Module, int32, int64, int32) int32)(m, v452, v453, int32(1))",
+    "class": "sql-field-store",
+    "argument": "INFORMATION_SCHEMA encryption row Field::store virtual calls; receiver is table Field object, numeric/text copied from crypt state; not pointer to rotate flag",
+    "context": [
+      "\t;",
+      "\tv452 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v146)), 12, 4)))",
+      "\tv453 = int64(*(*uint32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v16)), 60, 4))))",
+      "\tv455 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v452)), 0, 4)))",
+      "\tv456 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v455)), 68, 4)))",
+      "\tv457 = m.T0[v456].(func(*base.Module, int32, int64, int32) int32)(m, v452, v453, int32(1))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 997219,
+    "statement": "v464 = m.T0[v463].(func(*base.Module, int32, int64, int32) int32)(m, v459, v460, int32(1))",
+    "class": "sql-field-store",
+    "argument": "INFORMATION_SCHEMA encryption row Field::store virtual calls; receiver is table Field object, numeric/text copied from crypt state; not pointer to rotate flag",
+    "context": [
+      "\t;",
+      "\tv459 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v146)), 16, 4)))",
+      "\tv460 = int64(*(*uint32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v16)), 52, 4))))",
+      "\tv462 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v459)), 0, 4)))",
+      "\tv463 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v462)), 68, 4)))",
+      "\tv464 = m.T0[v463].(func(*base.Module, int32, int64, int32) int32)(m, v459, v460, int32(1))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 997241,
+    "statement": "v471 = m.T0[v470].(func(*base.Module, int32, int64, int32) int32)(m, v466, v467, int32(1))",
+    "class": "sql-field-store",
+    "argument": "INFORMATION_SCHEMA encryption row Field::store virtual calls; receiver is table Field object, numeric/text copied from crypt state; not pointer to rotate flag",
+    "context": [
+      "\t;",
+      "\tv466 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v146)), 20, 4)))",
+      "\tv467 = int64(*(*uint32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v16)), 56, 4))))",
+      "\tv469 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v466)), 0, 4)))",
+      "\tv470 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v469)), 68, 4)))",
+      "\tv471 = m.T0[v470].(func(*base.Module, int32, int64, int32) int32)(m, v466, v467, int32(1))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 997263,
+    "statement": "v478 = m.T0[v477].(func(*base.Module, int32, int64, int32) int32)(m, v473, v474, int32(1))",
+    "class": "sql-field-store",
+    "argument": "INFORMATION_SCHEMA encryption row Field::store virtual calls; receiver is table Field object, numeric/text copied from crypt state; not pointer to rotate flag",
+    "context": [
+      "\t;",
+      "\tv473 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v146)), 32, 4)))",
+      "\tv474 = int64(*(*uint32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v16)), 64, 4))))",
+      "\tv476 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v473)), 0, 4)))",
+      "\tv477 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v476)), 68, 4)))",
+      "\tv478 = m.T0[v477].(func(*base.Module, int32, int64, int32) int32)(m, v473, v474, int32(1))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 997301,
+    "statement": "v488 = m.T0[v487].(func(*base.Module, int32, int64, int32) int32)(m, v480, v484, int32(1))",
+    "class": "sql-field-store",
+    "argument": "INFORMATION_SCHEMA encryption row Field::store virtual calls; receiver is table Field object, numeric/text copied from crypt state; not pointer to rotate flag",
+    "context": [
+      "\tgoto L141",
+      "L141:",
+      "\t;",
+      "\tv486 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v480)), 0, 4)))",
+      "\tv487 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v486)), 68, 4)))",
+      "\tv488 = m.T0[v487].(func(*base.Module, int32, int64, int32) int32)(m, v480, v484, int32(1))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 997372,
+    "statement": "v507 = m.T0[v506].(func(*base.Module, int32, int64, int32) int32)(m, v502, v503, int32(1))",
+    "class": "sql-field-store",
+    "argument": "INFORMATION_SCHEMA encryption row Field::store virtual calls; receiver is table Field object, numeric/text copied from crypt state; not pointer to rotate flag",
+    "context": [
+      "L150:",
+      "\t;",
+      "\tv503 = int64(*(*uint32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v16)), 72, 4))))",
+      "\tv505 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v502)), 0, 4)))",
+      "\tv506 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v505)), 68, 4)))",
+      "\tv507 = m.T0[v506].(func(*base.Module, int32, int64, int32) int32)(m, v502, v503, int32(1))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18355,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 997415,
+    "statement": "v523 = m.T0[v522].(func(*base.Module, int32, int64, int32) int32)(m, v518, v519, int32(1))",
+    "class": "sql-field-store",
+    "argument": "INFORMATION_SCHEMA encryption row Field::store virtual calls; receiver is table Field object, numeric/text copied from crypt state; not pointer to rotate flag",
+    "context": [
+      "L155:",
+      "\t;",
+      "\tv519 = int64(*(*uint32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v16)), 76, 4))))",
+      "\tv521 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v518)), 0, 4)))",
+      "\tv522 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v521)), 68, 4)))",
+      "\tv523 = m.T0[v522].(func(*base.Module, int32, int64, int32) int32)(m, v518, v519, int32(1))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18497,
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "line": 957475,
+    "statement": "m.T0[v2878].(func(*base.Module, int32, int32))(m, v2875, int32(24215032))",
+    "class": "pool-submit-task",
+    "argument": "thread_pool_generic selected by non-Windows factory; submit_task uses pool mutex and task refcount; argument is task object, relevant callbacks mapped in P02/P04/P07/P11",
+    "context": [
+      "\tv2871 = int32(1)",
+      "\tatomic.StoreUint32((*uint32)(unsafe.Add(mBase, base.AtomicEA(m, int32(24215368), int32(0), 4))), uint32(v2871))",
+      "\tv2875 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv2877 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v2875)), 0, 4)))",
+      "\tv2878 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v2877)), 4, 4)))",
+      "\tm.T0[v2878].(func(*base.Module, int32, int32))(m, v2875, int32(24215032))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18497,
+    "file": "internal/generatedgo/code/p1/p1_pure.go",
+    "line": 957956,
+    "statement": "v3250 = m.T0[v3249].(func(*base.Module, int32, int32) int32)(m, l1, v3247)",
+    "class": "thdvar-table-locks-resolve",
+    "argument": "MYSQL_THDVAR_BOOL(table_locks).resolve(thd, offset) returns per-THD option storage; does not receive ReadView pointer; owner THD in external_lock",
+    "context": [
+      "\tgoto L654",
+      "L656:",
+      "\t;",
+      "\tv3247 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15222848, 0, 4)))",
+      "\tv3249 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15222856, 0, 4)))",
+      "\tv3250 = m.T0[v3249].(func(*base.Module, int32, int32) int32)(m, l1, v3247)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18509,
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "line": 673148,
+    "statement": "v397 = m.T0[v396].(func(*base.Module, int32) int32)(m, int32(1))",
+    "class": "encryption-key-version",
+    "argument": "encryption_handler getter receives numeric key id; returns version; caller may set global rotate flag. Plugin registration sql/encryption.cc. No flag pointer exported",
+    "context": [
+      "\t\tgoto L74",
+      "\t}",
+      "L64:",
+      "\t;",
+      "\tv396 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24221008, 0, 4)))",
+      "\tv397 = m.T0[v396].(func(*base.Module, int32) int32)(m, int32(1))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18509,
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "line": 673506,
+    "statement": "v607 = m.T0[v606].(func(*base.Module, int32, int32, int32, int32, int32, int32) int32)(m, int32(14952704), v555, v557, v598, v601, int32(0))",
+    "class": "charset-compare",
+    "argument": "fixed charset handler strnncoll for option parsing; initial table resolves to my_strnncoll_utf8mb3_general1400_as_ci; string pointers, no narrow metadata target",
+    "context": [
+      "\tgoto L118",
+      "L118:",
+      "\t;",
+      "\tv605 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14952812, 0, 4)))",
+      "\tv606 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v605)), 4, 4)))",
+      "\tv607 = m.T0[v606].(func(*base.Module, int32, int32, int32, int32, int32, int32) int32)(m, int32(14952704), v555, v557, v598, v601, int32(0))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18509,
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "line": 696802,
+    "statement": "m.T0[v19427].(func(*base.Module, int32, int32))(m, v19423, v19425)",
+    "class": "pool-set-concurrency",
+    "argument": "generic pool setter takes m_mtx, used around recovery batch; not a raw callback into recovery node storage",
+    "context": [
+      "\t;",
+      "\tv19423 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv19425 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090760, 0, 4)))",
+      "\tv19426 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v19423)), 0, 4)))",
+      "\tv19427 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v19426)), 12, 4)))",
+      "\tm.T0[v19427].(func(*base.Module, int32, int32))(m, v19423, v19425)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18509,
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "line": 696833,
+    "statement": "m.T0[v19441].(func(*base.Module, int32, int32))(m, v19438, int32(0))",
+    "class": "pool-set-concurrency",
+    "argument": "generic pool setter takes m_mtx, used around recovery batch; not a raw callback into recovery node storage",
+    "context": [
+      "\tv19436 = Fn130(m, int32(15102208))",
+      "\tmBase = m.M",
+      "\tv19438 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv19440 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v19438)), 0, 4)))",
+      "\tv19441 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v19440)), 12, 4)))",
+      "\tm.T0[v19441].(func(*base.Module, int32, int32))(m, v19438, int32(0))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18509,
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "line": 700280,
+    "statement": "m.T0[v21859].(func(*base.Module, int32, int32))(m, v21856, int32(24020560))",
+    "class": "pool-submit-task",
+    "argument": "thread_pool_generic selected by non-Windows factory; submit_task uses pool mutex and task refcount; argument is task object, relevant callbacks mapped in P02/P04/P07/P11",
+    "context": [
+      "\tv21853 = int32(1)",
+      "\t*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 24020660, 0, 1))) = uint8(v21853)",
+      "\tv21856 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv21858 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v21856)), 0, 4)))",
+      "\tv21859 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v21858)), 4, 4)))",
+      "\tm.T0[v21859].(func(*base.Module, int32, int32))(m, v21856, int32(24020560))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18509,
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "line": 700336,
+    "statement": "v21893 = m.T0[v21892].(func(*base.Module, int32, int32, int32) int32)(m, v21888, int32(12330), int32(0))",
+    "class": "pool-create-timer",
+    "argument": "generic timer created with explicit maintenance callback/data; disarm and task reference wait precede destruction; P02/P11",
+    "context": [
+      "\tv21884 = int32(1)",
+      "\t*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 24051439, 0, 1))) = uint8(v21884)",
+      "\tv21888 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv21891 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v21888)), 0, 4)))",
+      "\tv21892 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v21891)), 8, 4)))",
+      "\tv21893 = m.T0[v21892].(func(*base.Module, int32, int32, int32) int32)(m, v21888, int32(12330), int32(0))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18509,
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "line": 700436,
+    "statement": "v21952 = m.T0[v21951].(func(*base.Module, int32, int32, int32) int32)(m, v21947, int32(12326), v21940)",
+    "class": "pool-create-timer",
+    "argument": "generic timer created with explicit maintenance callback/data; disarm and task reference wait precede destruction; P02/P11",
+    "context": [
+      "\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v21902)), 28, 4))) = v21938",
+      "\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24019768, 0, 4))) = v21902",
+      "\tv21947 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv21950 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v21947)), 0, 4)))",
+      "\tv21951 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v21950)), 8, 4)))",
+      "\tv21952 = m.T0[v21951].(func(*base.Module, int32, int32, int32) int32)(m, v21947, int32(12326), v21940)",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18509,
+    "file": "internal/generatedgo/code/p0/p0_pure.go",
+    "line": 702902,
+    "statement": "m.T0[v23349].(func(*base.Module, int32, int32))(m, v23346, int32(24051272))",
+    "class": "pool-submit-task",
+    "argument": "thread_pool_generic selected by non-Windows factory; submit_task uses pool mutex and task refcount; argument is task object, relevant callbacks mapped in P02/P04/P07/P11",
+    "context": [
+      "L4348:",
+      "\t;",
+      "\tv23346 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv23348 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v23346)), 0, 4)))",
+      "\tv23349 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v23348)), 4, 4)))",
+      "\tm.T0[v23349].(func(*base.Module, int32, int32))(m, v23346, int32(24051272))",
+      "\tmBase = m.M"
+    ]
+  },
+  {
+    "fn": 18531,
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "line": 1019776,
+    "statement": "m.T0[v899].(func(*base.Module, int32, int32))(m, v896, int32(24215032))",
+    "class": "pool-submit-task",
+    "argument": "thread_pool_generic selected by non-Windows factory; submit_task uses pool mutex and task refcount; argument is task object, relevant callbacks mapped in P02/P04/P07/P11",
+    "context": [
+      "L246:",
+      "\t;",
+      "\tv896 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24090748, 0, 4)))",
+      "\tv898 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v896)), 0, 4)))",
+      "\tv899 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v898)), 4, 4)))",
+      "\tm.T0[v899].(func(*base.Module, int32, int32))(m, v896, int32(24215032))",
+      "\tmBase = m.M"
+    ]
+  }
+]

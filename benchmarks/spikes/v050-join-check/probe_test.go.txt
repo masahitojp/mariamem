@@ -1,0 +1,104 @@
+package probe
+
+import (
+	_ "embed"
+	"encoding/binary"
+	base "github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"os"
+	"runtime"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"unsafe"
+)
+
+//go:embed data.bin
+var data []byte
+
+func TestJoinAllocationLastAccess(t *testing.T) {
+	for _, tc := range []struct {
+		name         string
+		waiters      int32
+		deferReclaim bool
+	}{{"early-free", 1, false}, {"completed-before-free", 1, true}, {"no-post-unlock-wake", 0, false}} {
+		t.Run(tc.name, func(t *testing.T) {
+			const initial = 256 << 20
+			const maximum = 512 << 20
+			memory := make([]byte, 0)
+			var mapping *base.MemoryMapping
+			if os.Getenv("JOIN_BACKING") == "mmap" {
+				var err error
+				mapping, err = base.NewMemoryMapping(initial, maximum)
+				if err != nil {
+					t.Fatal(err)
+				}
+				memory = mapping.Bytes()
+				defer mapping.Close()
+			} else {
+				memory = make([]byte, maximum)
+			}
+			size := &atomic.Uint64{}
+			size.Store(initial)
+			h := &host{WasiStubs: base.DefaultWASI()}
+			m := &base.Module{Memory: memory, M: unsafe.Pointer(&memory[0]), MaxMem: maximum, MemSize: size, MemMu: &sync.Mutex{}, MemShared: true, Threads: &base.ThreadPool{}, Wasix_32v1: h, Wasi_snapshot_preview1: h, G0: 8388608, G1: 32768}
+			if mapping != nil {
+				m.PrepareMemoryGrow = mapping.Grow
+			}
+			base.ForceContendedAtomics(m)
+			copy(memory[8388608:], data[:6207334])
+			copy(memory[14595968:], data[6207334:6849954])
+			copy(memory[15238592:], data[6849954:])
+			put := func(addr int32, v int32) { binary.LittleEndian.PutUint32(memory[uint32(addr):], uint32(v)) }
+			put(32772, 33024)
+			put(33024+48, 0x3fffffff)
+			ptr := Fn152(m, 262144)
+			if ptr <= 0 {
+				t.Fatal("malloc failed")
+			}
+			td := ptr + 262144 - 1024
+			put(td+28, 0)
+			put(td+40, ptr)
+			put(td+44, 262144)
+			child := *m
+			child.G0 = ptr + 262144 - 4096
+			marker := child.G0 - 1
+			put(15243132, 123)
+			put(15244240, 0)
+			put(15244244, tc.waiters)
+			hookCalled := false
+			joined := false
+			reused := int32(0)
+			reclaim := func() {
+				if rc := Fn221(m, td); rc != 0 {
+					t.Fatalf("join=%d", rc)
+				}
+				joined = true
+				reused = Fn152(m, 262144)
+				if reused != ptr {
+					t.Fatalf("allocation not reused %d/%d", ptr, reused)
+				}
+				memory[marker] = 0xa5
+			}
+			h.hook = func(c *base.Module, out int32) {
+				if c != &child || out != marker {
+					t.Fatalf("wrong result alias %d/%d", out, marker)
+				}
+				hookCalled = true
+				if !tc.deferReclaim {
+					reclaim()
+				}
+			}
+			Fn217(&child)
+			if tc.deferReclaim || tc.waiters == 0 {
+				reclaim()
+			}
+			observed := memory[marker]
+			t.Logf("backing=%s waiters=%d defer_reclaim=%v hook=%v joined=%v map=%d reused=%d result=%d canary=%d", os.Getenv("JOIN_BACKING"), tc.waiters, tc.deferReclaim, hookCalled, joined, ptr, reused, marker, observed)
+			if observed != 0xa5 {
+				t.Fatalf("lifetime violation: replacement byte changed from 165 to %d after join/free/reuse", observed)
+			}
+			runtime.KeepAlive(m)
+		})
+		runtime.GC()
+	}
+}

@@ -1,0 +1,83 @@
+package main
+
+import (
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"github.com/goccy/wasm2go/internal/wasm"
+	"os"
+)
+
+func main() {
+	f, e := os.Open(os.Args[1])
+	if e != nil {
+		panic(e)
+	}
+	m, e := wasm.Parse(f)
+	if e != nil {
+		panic(e)
+	}
+	f.Close()
+	selected := map[string]any{}
+	for _, index := range []uint32{67, 89, 152, 153, 158, 216, 217, 221, 243, 21692} {
+		fn := m.Functions[index-m.NumImportedFuncs]
+		r := wasm.NewInstrReader(fn.Body)
+		n, e := r.ReadU32()
+		if e != nil {
+			panic(e)
+		}
+		for j := uint32(0); j < n; j++ {
+			if _, e = r.ReadU32(); e != nil {
+				panic(e)
+			}
+			if _, e = r.ReadByte(); e != nil {
+				panic(e)
+			}
+		}
+		ops := []any{}
+		for !r.EOF() {
+			pos := r.Pos()
+			op, e := r.ReadByte()
+			if e != nil {
+				panic(e)
+			}
+			if e = r.SkipImmediates(op); e != nil {
+				panic(e)
+			}
+			ops = append(ops, map[string]any{"offset": pos, "hex": hex.EncodeToString(fn.Body[pos:r.Pos()])})
+		}
+		ty := m.FuncTypeOf(index)
+		params, results := []int{}, []int{}
+		for _, v := range ty.Params {
+			params = append(params, int(v))
+		}
+		for _, v := range ty.Results {
+			results = append(results, int(v))
+		}
+		selected[fmt.Sprint(index)] = map[string]any{"body_sha256": fmt.Sprintf("%x", sha256.Sum256(fn.Body)), "instructions": ops, "params": params, "results": results}
+	}
+	imports := []any{}
+	for _, i := range m.Imports {
+		x := map[string]any{"module": i.Module, "name": i.Name, "kind": int(i.Kind), "memory": i.Memory, "global": i.Global, "table": i.Table}
+		if i.Kind == wasm.ImportTag {
+			params := []string{}
+			for _, p := range m.Types[i.Tag.TypeIdx].Params {
+				switch p {
+				case 0x7f:
+					params = append(params, "i32")
+				case 0x7e:
+					params = append(params, "i64")
+				default:
+					panic("unsupported tag in bounded fixture")
+				}
+			}
+			x["tag_params"] = params
+		}
+		imports = append(imports, x)
+	}
+	result := map[string]any{"imported_functions": m.NumImportedFuncs, "imports": imports, "globals": m.Globals[:2], "start": m.Start, "selected": selected}
+	if e = json.NewEncoder(os.Stdout).Encode(result); e != nil {
+		panic(e)
+	}
+}

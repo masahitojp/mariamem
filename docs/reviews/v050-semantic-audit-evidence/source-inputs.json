@@ -1,0 +1,42 @@
+{
+  "artifacts": {
+    "mariadb.tar.gz": {
+      "sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+      "bytes": 49022246
+    },
+    "wasix.tar.gz": {
+      "sha256": "55091ce6af5b549b3c97f61592bd2506e6a7e5da3588cb2f77a64388468ad231",
+      "bytes": 1674528
+    },
+    "wasm2go.tar.gz": {
+      "sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+      "bytes": 1203214
+    },
+    "sysroot-eh.tar.gz": {
+      "sha256": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4",
+      "bytes": 6142222
+    },
+    "binaryen-source.tar.gz": {
+      "sha256": "2f3e3d9edc56751499571da073a8a81943ca3fcbc08a945d2c619a7a1d4eb88b",
+      "bytes": 7125749
+    },
+    "libc.a": {
+      "sha256": "e0837c66fecab3cef5d8d202939c6125986685e9d8e589f90a253f5f18a17af9",
+      "bytes": 1429828
+    },
+    "wasm2go": {
+      "sha256": "2e127643180dbf5f7c96875497b7e8a080d93bbb7b8b3711c55165d8828146a6",
+      "bytes": 10773138
+    }
+  },
+  "source_pins": [
+    "release/inputs.lock.json",
+    "release/generated-go-toolchain.json",
+    "guest/input.json"
+  ],
+  "binaryen_source_url": "https://codeload.github.com/WebAssembly/binaryen/tar.gz/refs/tags/version_133",
+  "native_platform": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434\n",
+  "machine": "arm64",
+  "python": "3.14.8",
+  "fence_image_id": "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f"
+}
