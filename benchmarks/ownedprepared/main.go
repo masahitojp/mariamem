@@ -18,6 +18,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
 )
 
 var ctx = context.Background()
@@ -55,6 +56,7 @@ func pool(db *mariamem.Database) *sql.DB {
 }
 func disconnect(db *mariamem.Database, p *sql.DB) { must(p.Close()); must(db.WaitDisconnected(ctx)) }
 func main() {
+	defer base.SpikeStartupDump()
 	payload := flag.Int("payload-mib", 0, "deterministic payload MiB")
 	n := flag.Int("forks", 16, "instances")
 	lifecycle := flag.String("lifecycle", "fork", "fork or fresh; same fixture/SQL/cleanup")

@@ -1,0 +1,953 @@
+{
+  "suites": 4,
+  "starts": 16,
+  "ready_slow_starts": 3,
+  "early_empty_signal_timeout_starts": 3,
+  "all_traces_complete": true,
+  "instances": [
+    {
+      "trial": 0,
+      "instance": 26603092484352,
+      "trace": "trace-000.json",
+      "trace_sha256": "c5e531949f1d3d4e2689037207ecc0534e8261c2f14f5105b8bb04c352d1a8e3",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 0,
+          "ns": 87588375,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 46,
+          "ns": 90234750,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 48,
+          "ns": 90235000,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 51,
+          "ns": 90278125,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 52,
+          "ns": 90278250,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 53,
+          "ns": 90278334,
+          "a": 446793364,
+          "b": 2,
+          "c": -1
+        },
+        "cond-wait-return": {
+          "seq": 88,
+          "ns": 95747417,
+          "a": 446793364,
+          "b": 0,
+          "c": -1
+        }
+      },
+      "wait_elapsed_ms": 5.469083,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 0,
+      "instance": 26603097260480,
+      "trace": "trace-000.json",
+      "trace_sha256": "c5e531949f1d3d4e2689037207ecc0534e8261c2f14f5105b8bb04c352d1a8e3",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 4,
+          "ns": 87606084,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 19,
+          "ns": 89317959,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 21,
+          "ns": 89318250,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 30,
+          "ns": 89478542,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 31,
+          "ns": 89478709,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 32,
+          "ns": 89478792,
+          "a": 446793364,
+          "b": 2,
+          "c": -1
+        },
+        "cond-wait-return": {
+          "seq": 75,
+          "ns": 95703625,
+          "a": 446793364,
+          "b": 0,
+          "c": -1
+        }
+      },
+      "wait_elapsed_ms": 6.224833,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 0,
+      "instance": 26603097751808,
+      "trace": "trace-000.json",
+      "trace_sha256": "c5e531949f1d3d4e2689037207ecc0534e8261c2f14f5105b8bb04c352d1a8e3",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 8,
+          "ns": 87692584,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 16,
+          "ns": 89317209,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 18,
+          "ns": 89317709,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 25,
+          "ns": 89470834,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 26,
+          "ns": 89470959,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 27,
+          "ns": 89471042,
+          "a": 446793364,
+          "b": 2,
+          "c": -1
+        },
+        "cond-wait-return": {
+          "seq": 79,
+          "ns": 95717042,
+          "a": 446793364,
+          "b": 0,
+          "c": -1
+        }
+      },
+      "wait_elapsed_ms": 6.246,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 0,
+      "instance": 26603091378496,
+      "trace": "trace-000.json",
+      "trace_sha256": "c5e531949f1d3d4e2689037207ecc0534e8261c2f14f5105b8bb04c352d1a8e3",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 12,
+          "ns": 88095875,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 34,
+          "ns": 89976625,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 36,
+          "ns": 89977667,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 42,
+          "ns": 90057000,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 43,
+          "ns": 90057125,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 44,
+          "ns": 90057334,
+          "a": 446793364,
+          "b": 2,
+          "c": 1000000000
+        },
+        "cond-wait-return": {
+          "seq": 98,
+          "ns": 95798792,
+          "a": 446793364,
+          "b": 0,
+          "c": 1000000000
+        }
+      },
+      "wait_elapsed_ms": 5.741458,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 1,
+      "instance": 30899092152384,
+      "trace": "trace-001.json",
+      "trace_sha256": "670cd5650ac306898f0deb61d2e1502badd05b1024dbeef417a150c4f8d73d1f",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 0,
+          "ns": 88779500,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 25,
+          "ns": 94888458,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 27,
+          "ns": 94888792,
+          "a": 0,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 28,
+          "ns": 94891500,
+          "a": 0,
+          "b": 12288,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 29,
+          "ns": 94891625,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 30,
+          "ns": 94892250,
+          "a": 446793364,
+          "b": 2,
+          "c": 993887000
+        },
+        "cond-wait-return": {
+          "seq": 869,
+          "ns": 1090708292,
+          "a": 446793364,
+          "b": -73,
+          "c": 993887000
+        }
+      },
+      "wait_elapsed_ms": 995.816042,
+      "observed_early_empty_signal_timeout": true
+    },
+    {
+      "trial": 1,
+      "instance": 30899091046656,
+      "trace": "trace-001.json",
+      "trace_sha256": "670cd5650ac306898f0deb61d2e1502badd05b1024dbeef417a150c4f8d73d1f",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 1,
+          "ns": 88860958,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 22,
+          "ns": 94852875,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 24,
+          "ns": 94854333,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 37,
+          "ns": 95164667,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 38,
+          "ns": 95164833,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 39,
+          "ns": 95164917,
+          "a": 446793364,
+          "b": 2,
+          "c": -1
+        },
+        "cond-wait-return": {
+          "seq": 134,
+          "ns": 106653458,
+          "a": 446793364,
+          "b": 0,
+          "c": -1
+        }
+      },
+      "wait_elapsed_ms": 11.488541,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 1,
+      "instance": 30899084878208,
+      "trace": "trace-001.json",
+      "trace_sha256": "670cd5650ac306898f0deb61d2e1502badd05b1024dbeef417a150c4f8d73d1f",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 5,
+          "ns": 91461042,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 13,
+          "ns": 93823417,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 15,
+          "ns": 93823750,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 18,
+          "ns": 93939167,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 19,
+          "ns": 93939292,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 20,
+          "ns": 93939333,
+          "a": 446793364,
+          "b": 2,
+          "c": -1
+        },
+        "cond-wait-return": {
+          "seq": 133,
+          "ns": 106639708,
+          "a": 446793364,
+          "b": 0,
+          "c": -1
+        }
+      },
+      "wait_elapsed_ms": 12.700375,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 1,
+      "instance": 30899090080960,
+      "trace": "trace-001.json",
+      "trace_sha256": "670cd5650ac306898f0deb61d2e1502badd05b1024dbeef417a150c4f8d73d1f",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 9,
+          "ns": 93259292,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 32,
+          "ns": 95052500,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 34,
+          "ns": 95052750,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 42,
+          "ns": 95215458,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 43,
+          "ns": 95215958,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 44,
+          "ns": 95216208,
+          "a": 446793364,
+          "b": 2,
+          "c": -1
+        },
+        "cond-wait-return": {
+          "seq": 135,
+          "ns": 106674667,
+          "a": 446793364,
+          "b": 0,
+          "c": -1
+        }
+      },
+      "wait_elapsed_ms": 11.458459,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 2,
+      "instance": 80824737415296,
+      "trace": "trace-002.json",
+      "trace_sha256": "61a6e79db8a777da81ac81635f4475496174e6688b92153041cb975ec485ec68",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 0,
+          "ns": 52542875,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 16,
+          "ns": 54922250,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 18,
+          "ns": 54922542,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 21,
+          "ns": 54946167,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 22,
+          "ns": 54946292,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 23,
+          "ns": 54946334,
+          "a": 446793364,
+          "b": 2,
+          "c": -1
+        },
+        "cond-wait-return": {
+          "seq": 57,
+          "ns": 59593917,
+          "a": 446793364,
+          "b": 0,
+          "c": -1
+        }
+      },
+      "wait_elapsed_ms": 4.647583,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 2,
+      "instance": 80824735130048,
+      "trace": "trace-002.json",
+      "trace_sha256": "61a6e79db8a777da81ac81635f4475496174e6688b92153041cb975ec485ec68",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 4,
+          "ns": 54126667,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 43,
+          "ns": 55925792,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 45,
+          "ns": 55926000,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 48,
+          "ns": 56056459,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 49,
+          "ns": 56056625,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 50,
+          "ns": 56056667,
+          "a": 446793364,
+          "b": 2,
+          "c": -1
+        },
+        "cond-wait-return": {
+          "seq": 87,
+          "ns": 59691375,
+          "a": 446793364,
+          "b": 0,
+          "c": -1
+        }
+      },
+      "wait_elapsed_ms": 3.634708,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 2,
+      "instance": 80824735745280,
+      "trace": "trace-002.json",
+      "trace_sha256": "61a6e79db8a777da81ac81635f4475496174e6688b92153041cb975ec485ec68",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 8,
+          "ns": 54165292,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 25,
+          "ns": 55609000,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 27,
+          "ns": 55609250,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 30,
+          "ns": 55616959,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 31,
+          "ns": 55617084,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 32,
+          "ns": 55617125,
+          "a": 446793364,
+          "b": 2,
+          "c": -1
+        },
+        "cond-wait-return": {
+          "seq": 98,
+          "ns": 59748209,
+          "a": 446793364,
+          "b": 0,
+          "c": -1
+        }
+      },
+      "wait_elapsed_ms": 4.131084,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 2,
+      "instance": 80824737882176,
+      "trace": "trace-002.json",
+      "trace_sha256": "61a6e79db8a777da81ac81635f4475496174e6688b92153041cb975ec485ec68",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 12,
+          "ns": 54220334,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 34,
+          "ns": 55709250,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 36,
+          "ns": 55709500,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 39,
+          "ns": 55717834,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 40,
+          "ns": 55717959,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 41,
+          "ns": 55718042,
+          "a": 446793364,
+          "b": 2,
+          "c": -1
+        },
+        "cond-wait-return": {
+          "seq": 74,
+          "ns": 59654750,
+          "a": 446793364,
+          "b": 0,
+          "c": -1
+        }
+      },
+      "wait_elapsed_ms": 3.936708,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 3,
+      "instance": 109484638306432,
+      "trace": "trace-003.json",
+      "trace_sha256": "3c52cdedb38e3732bbc0377a2b4a5dffc801f60f600793fee8eb2d6dec710e61",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 0,
+          "ns": 54299416,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 1,
+          "ns": 56088958,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 3,
+          "ns": 56089416,
+          "a": 0,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 4,
+          "ns": 56093333,
+          "a": 0,
+          "b": 12288,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 5,
+          "ns": 56093666,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 6,
+          "ns": 56094041,
+          "a": 446793364,
+          "b": 2,
+          "c": 998204000
+        },
+        "cond-wait-return": {
+          "seq": 505,
+          "ns": 1056316333,
+          "a": 446793364,
+          "b": -73,
+          "c": 998204000
+        }
+      },
+      "wait_elapsed_ms": 1000.222292,
+      "observed_early_empty_signal_timeout": true
+    },
+    {
+      "trial": 3,
+      "instance": 109484642985088,
+      "trace": "trace-003.json",
+      "trace_sha256": "3c52cdedb38e3732bbc0377a2b4a5dffc801f60f600793fee8eb2d6dec710e61",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 7,
+          "ns": 58888958,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 22,
+          "ns": 59944000,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 24,
+          "ns": 59944166,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 39,
+          "ns": 59972958,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 40,
+          "ns": 59973041,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 41,
+          "ns": 59973208,
+          "a": 446793364,
+          "b": 2,
+          "c": 1000000000
+        },
+        "cond-wait-return": {
+          "seq": 55,
+          "ns": 64088416,
+          "a": 446793364,
+          "b": 0,
+          "c": 1000000000
+        }
+      },
+      "wait_elapsed_ms": 4.115208,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 3,
+      "instance": 109484644598016,
+      "trace": "trace-003.json",
+      "trace_sha256": "3c52cdedb38e3732bbc0377a2b4a5dffc801f60f600793fee8eb2d6dec710e61",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 11,
+          "ns": 58928458,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 26,
+          "ns": 59949083,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 28,
+          "ns": 59949291,
+          "a": 446793352,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 33,
+          "ns": 59970208,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 35,
+          "ns": 59970416,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 36,
+          "ns": 59970500,
+          "a": 446793364,
+          "b": 2,
+          "c": -1
+        },
+        "cond-wait-return": {
+          "seq": 50,
+          "ns": 64065833,
+          "a": 446793364,
+          "b": 0,
+          "c": -1
+        }
+      },
+      "wait_elapsed_ms": 4.095333,
+      "observed_early_empty_signal_timeout": false
+    },
+    {
+      "trial": 3,
+      "instance": 109484643172608,
+      "trace": "trace-003.json",
+      "trace_sha256": "3c52cdedb38e3732bbc0377a2b4a5dffc801f60f600793fee8eb2d6dec710e61",
+      "first_flush_order": {
+        "cleaner-target-before-lock": {
+          "seq": 15,
+          "ns": 58939125,
+          "a": 0,
+          "b": 0,
+          "c": 0
+        },
+        "main-target-set": {
+          "seq": 16,
+          "ns": 59374625,
+          "a": 12288,
+          "b": 0,
+          "c": 0
+        },
+        "cond-signal-head": {
+          "seq": 18,
+          "ns": 59374791,
+          "a": 0,
+          "b": 1,
+          "c": 0
+        },
+        "cleaner-after-lock": {
+          "seq": 19,
+          "ns": 59376166,
+          "a": 0,
+          "b": 12288,
+          "c": 0
+        },
+        "cond-register": {
+          "seq": 20,
+          "ns": 59376291,
+          "a": 446793352,
+          "b": 0,
+          "c": 0
+        },
+        "cond-wait-enter": {
+          "seq": 21,
+          "ns": 59376458,
+          "a": 446793364,
+          "b": 2,
+          "c": 999563000
+        },
+        "cond-wait-return": {
+          "seq": 511,
+          "ns": 1060431083,
+          "a": 446793364,
+          "b": -73,
+          "c": 999563000
+        }
+      },
+      "wait_elapsed_ms": 1001.054625,
+      "observed_early_empty_signal_timeout": true
+    }
+  ]
+}

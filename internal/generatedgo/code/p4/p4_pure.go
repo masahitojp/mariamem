@@ -4597,6 +4597,9 @@ L52:
 L53:
 	;
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4))) = v13 + int32(8)
+	if l0 == 15209608 {
+		base.SpikeStartup(m, "cond-register", uint64(uint32(l0)), int64(v13+8), 0, 0)
+	}
 	goto L52
 L54:
 	;
@@ -4604,6 +4607,9 @@ L54:
 L55:
 	;
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v167)), 0, 4))) = v13 + int32(8)
+	if l0 == 15209608 {
+		base.SpikeStartup(m, "cond-register", uint64(uint32(l0)), int64(v13+8), int64(v167), 0)
+	}
 	goto L52
 L56:
 	;
@@ -4731,7 +4737,13 @@ L80:
 	goto L81
 L81:
 	;
+	if l0 == 15209608 {
+		base.SpikeStartup(m, "cond-wait-enter", uint64(uint32(l0)), int64(v210), int64(v208), v291)
+	}
 	v292 = Fn88(m, v210, v208, v291)
+	if l0 == 15209608 {
+		base.SpikeStartup(m, "cond-wait-return", uint64(uint32(l0)), int64(v210), int64(v292), v291)
+	}
 	mBase = m.M
 	v293 = int32(0) - v292
 	if v292&int32(-17) == int32(-27) {
@@ -4900,7 +4912,13 @@ L107:
 	goto L108
 L108:
 	;
+	if l0 == 15209608 {
+		base.SpikeStartup(m, "cond-wait-enter", uint64(uint32(l0)), int64(v210), int64(v208), v366)
+	}
 	v367 = Fn88(m, v210, v208, v366)
+	if l0 == 15209608 {
+		base.SpikeStartup(m, "cond-wait-return", uint64(uint32(l0)), int64(v210), int64(v367), v366)
+	}
 	mBase = m.M
 	v368 = int32(0) - v367
 	if v367&int32(-17) == int32(-27) {

@@ -1,0 +1,12 @@
+{
+  "excluded": true,
+  "reason": "broad futex tracing hit event cap before complete startup ordering could be verified",
+  "events": 50000,
+  "dropped": 102851,
+  "ready_seconds": [
+    0.069432792,
+    1.073658292,
+    1.073746834,
+    1.078596
+  ]
+}

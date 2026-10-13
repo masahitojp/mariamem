@@ -1,0 +1,24 @@
+{
+  "release_source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+  "release_tag_object_sha": "bfd854da1cecbe71ad761d1578b3f2c710a1c07f",
+  "parent_experiment_commit": "40c8e773592ebe914c466a7dce8fe3e57dbeb0e5",
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "diagnostic_binary_sha256": "c021e8336a50cd90004b6d7d37c3ce703f68b8d6bbd67644a8ec4c9b337fd656",
+  "stop": "3 ready >=900 ms, or 60 four-parallel suites including focused pilot",
+  "command": [
+    "-payload-mib",
+    "10",
+    "-tables",
+    "8",
+    "-workers",
+    "4",
+    "-forks",
+    "4",
+    "-workload",
+    "app-connections",
+    "-lifecycle",
+    "fresh",
+    "-label",
+    "v0.5.0"
+  ]
+}

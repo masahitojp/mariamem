@@ -1,0 +1,18 @@
+{
+  "language": "go",
+  "blocks": 30,
+  "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+  "binaries": {
+    "ownedprepared-baseline": "528e8aa0e28b563d960e3a472d6e117617972ea58178dcee1411e28ba6aca244",
+    "ownedprepared-candidate": "c81ac4da0fb6d83800741f62b4d13885332fb6feb65f4fa97518939e039229e5",
+    "mariamem-host-baseline": "b2b8a9e88e238ede252d8290897b269ce7c09823e6fd9622fdb9a0dcde48dc66",
+    "mariamem-host-candidate": "8e7038567300ed936b9240215a8631a38009081b35731a078e39595782751fea"
+  },
+  "go_version": "go1.26.8",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "payload_mib": 10,
+  "tables": 8,
+  "fresh_dbs": 4,
+  "workers": 4,
+  "candidate_boundary": "disposable generated-code hypothesis; canonical guest not rebuilt"
+}

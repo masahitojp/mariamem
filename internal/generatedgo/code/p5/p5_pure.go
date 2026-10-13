@@ -1014961,6 +1014961,7 @@ L25:
 L26:
 	;
 	atomic.StoreUint64((*uint64)(unsafe.Add(mBase, base.AtomicEA(m, int32(24088376), int32(0), 8))), uint64(v42))
+	base.SpikeStartup(m, "main-target-set", 24088376, v42, 0, 0)
 	v335 = v42
 	goto L17
 L27:
@@ -1015072,6 +1015073,7 @@ L47:
 	v97 = int64(0)
 	v98 = int32(0)
 	atomic.StoreUint64((*uint64)(unsafe.Add(mBase, base.AtomicEA(m, int32(24088376), int32(0), 8))), uint64(v97))
+	base.SpikeStartup(m, "main-target-clear", 24088376, v97, 0, 0)
 	v100 = int32(15209704)
 	v102 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209704, 0, 4)))
 	if v102 == v98 {
@@ -1015217,6 +1015219,7 @@ L76:
 	}
 L77:
 	;
+	base.SpikeStartup(m, "main-do-flush-signal-call", 15209608, 1, 0, 0)
 	v172 = Fn219(m, v166, int32(1))
 	mBase = m.M
 	goto L76

@@ -1,0 +1,93 @@
+{
+  "threshold_seconds": 0.9,
+  "languages": {
+    "go": {
+      "blocks": 30,
+      "arms": {
+        "baseline": {
+          "suites": 30,
+          "starts": 120,
+          "tail_suites": 18,
+          "tail_starts": 25,
+          "tail_suite_rate_wilson95": [
+            0.42320360253322475,
+            0.7540937188319815
+          ],
+          "suite_wall_median_seconds": 1.7545238749999998,
+          "suite_wall_min_seconds": 0.884417416,
+          "suite_wall_max_seconds": 1.9851939170000001,
+          "max_ready_median_seconds": 1.0708240205
+        },
+        "candidate": {
+          "suites": 30,
+          "starts": 120,
+          "tail_suites": 0,
+          "tail_starts": 0,
+          "tail_suite_rate_wilson95": [
+            0.0,
+            0.11351339317396876
+          ],
+          "suite_wall_median_seconds": 1.0440088335,
+          "suite_wall_min_seconds": 0.857191,
+          "suite_wall_max_seconds": 1.319935208,
+          "max_ready_median_seconds": 0.0757473335
+        }
+      },
+      "paired_tail_suites": {
+        "baseline_only_tail": 18,
+        "candidate_only_tail": 0,
+        "both_tail": 0,
+        "neither_tail": 12
+      },
+      "candidate_minus_baseline_wall_median_seconds": {
+        "all": -0.646283646,
+        "baseline_fast": 0.013267875500000026,
+        "baseline_tail": -0.7747478329999999
+      }
+    },
+    "python": {
+      "blocks": 30,
+      "arms": {
+        "baseline": {
+          "suites": 30,
+          "starts": 120,
+          "tail_suites": 26,
+          "tail_starts": 41,
+          "tail_suite_rate_wilson95": [
+            0.703186733179637,
+            0.9469034451594526
+          ],
+          "suite_wall_median_seconds": 1.8747814370435663,
+          "suite_wall_min_seconds": 1.0234529169974849,
+          "suite_wall_max_seconds": 2.1533751250244677,
+          "max_ready_median_seconds": 1.077467811992392
+        },
+        "candidate": {
+          "suites": 30,
+          "starts": 120,
+          "tail_suites": 1,
+          "tail_starts": 4,
+          "tail_suite_rate_wilson95": [
+            0.005908590381612455,
+            0.16670390991409173
+          ],
+          "suite_wall_median_seconds": 1.2114758960087784,
+          "suite_wall_min_seconds": 0.9915533330058679,
+          "suite_wall_max_seconds": 1.9998044579988346,
+          "max_ready_median_seconds": 0.09581677103415132
+        }
+      },
+      "paired_tail_suites": {
+        "baseline_only_tail": 25,
+        "candidate_only_tail": 0,
+        "both_tail": 1,
+        "neither_tail": 4
+      },
+      "candidate_minus_baseline_wall_median_seconds": {
+        "all": -0.6651132921106182,
+        "baseline_fast": 0.011548520997166634,
+        "baseline_tail": -0.6700520415324718
+      }
+    }
+  }
+}

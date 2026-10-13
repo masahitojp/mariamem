@@ -959633,6 +959633,7 @@ L10:
 L11:
 	;
 	v90 = int64(atomic.LoadUint64((*uint64)(unsafe.Add(mBase, base.AtomicEA(m, int32(24088376), int32(0), 8)))))
+	base.SpikeStartup(m, "cleaner-target-before-lock", 24088376, v90, 0, 0)
 	if v90 != int64(0) {
 		goto L13
 	} else {
@@ -959664,6 +959665,7 @@ L15:
 	;
 	v96 = Fn93(m, int32(15209536))
 	mBase = m.M
+	base.SpikeStartup(m, "cleaner-after-lock", 24088376, v90, int64(atomic.LoadUint64((*uint64)(unsafe.Add(mBase, base.AtomicEA(m, int32(24088376), int32(0), 8))))), 0)
 	v99 = base.AtomicLoad32_8u(m, int32(15209756), int32(0))
 	if v99 != int32(1) {
 		goto L18

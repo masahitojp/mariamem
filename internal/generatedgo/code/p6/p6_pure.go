@@ -9206,6 +9206,9 @@ L2:
 L3:
 	;
 	v104 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 20, 4)))
+	if l0 == 15209608 {
+		base.SpikeStartup(m, "cond-signal-head", uint64(uint32(l0)), int64(v104), int64(l1), 0)
+	}
 	v105 = int32(0)
 	v106 = base.B2i32(v104 != v105)
 	if l1 == v105 {
