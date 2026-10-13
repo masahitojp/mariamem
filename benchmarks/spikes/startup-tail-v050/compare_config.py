@@ -26,6 +26,8 @@ def sha(path: Path) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--blocks", type=int, default=30)
+    parser.add_argument("--name", choices=("config-comparison", "config-comparison-unrestricted"),
+                        default="config-comparison")
     args = parser.parse_args()
     if not 1 <= args.blocks <= 30:
         raise SystemExit("bounded comparison requires 1..30 blocks")
@@ -38,7 +40,7 @@ def main() -> None:
             raise SystemExit(f"binary identity differs: {arm}")
         if build[arm]["sql_setting"] != str(value):
             raise SystemExit(f"SQL setting not verified: {arm}")
-    destination = EVIDENCE / "config-comparison.jsonl"
+    destination = EVIDENCE / f"{args.name}.jsonl"
     if destination.exists():
         raise SystemExit("refusing existing comparison output")
     inputs = {"source_commit": SOURCE_COMMIT, "guest_sha256":
@@ -47,7 +49,7 @@ def main() -> None:
               "config_sql_probe": {str(v): build[f"flush-sync-{v}"]["sql_setting"] for v in (1, 0)},
               "fixture": "10 MiB, 8 InnoDB tables, 4 independent Fresh DBs, 4 workers, app-connections",
               "tail_threshold_seconds": .9}
-    (EVIDENCE / "config-comparison-inputs.json").write_text(json.dumps(inputs, indent=2) + "\n")
+    (EVIDENCE / f"{args.name}-inputs.json").write_text(json.dumps(inputs, indent=2) + "\n")
     env = os.environ.copy()
     env.pop("MARIAMEM_TIMING_DIR", None)
     env.pop("MARIAMEM_SPIKE_TRACE", None)
@@ -64,7 +66,7 @@ def main() -> None:
                 completed = subprocess.run(command, cwd=RELEASE, env=env,
                                            capture_output=True, text=True, timeout=90)
                 if completed.returncode:
-                    (EVIDENCE / f"config-failure-{block:02d}-{arm}.txt").write_text(completed.stderr)
+                    (EVIDENCE / f"{args.name}-failure-{block:02d}-{arm}.txt").write_text(completed.stderr)
                     raise RuntimeError(f"block {block} {arm} failed: {completed.returncode}")
                 report = json.loads(output.read_text())
                 ready = [op["seconds"] for op in report["operations"] if op["name"].startswith("fresh_ready_")]
