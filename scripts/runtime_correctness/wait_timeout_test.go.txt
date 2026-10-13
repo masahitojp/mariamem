@@ -19,18 +19,27 @@ func waitTimeoutModule() *Module {
 }
 
 func TestWaitTimeoutPositiveRange(t *testing.T) {
+	checkWaitTimeoutPositiveRange(t, map[string]func(*Module, uint64, int64) int32{
+		"wait32": func(m *Module, ea uint64, timeout int64) int32 { return AtomicWait32At(m, ea, 0, timeout) },
+		// This guest emits no wait64 wrapper. Exercise its shared parking/timer
+		// owner with a 64-bit comparison; the opcode fixture tests the wrapper.
+		"common64": func(m *Module, ea uint64, timeout int64) int32 {
+			return AtomicWait(m, ea, timeout, func() bool {
+				return atomic.LoadUint64((*uint64)(unsafe.Add(m.M, ea))) == 0
+			})
+		},
+	})
+}
+
+func checkWaitTimeoutPositiveRange(t *testing.T, widths map[string]func(*Module, uint64, int64) int32) {
 	const boundary = int64(1<<63-1) - int64(time.Millisecond)
 	for _, timeout := range []int64{boundary - 1, boundary, boundary + 1, 1<<63 - 1, -1} {
-		for _, width := range []int{32, 64} {
-			t.Run(fmt.Sprintf("%d/%d", timeout, width), func(t *testing.T) {
+		for width, wait := range widths {
+			t.Run(fmt.Sprintf("%d/%s", timeout, width), func(t *testing.T) {
 				m := waitTimeoutModule()
 				done := make(chan int32, 1)
 				go func() {
-					if width == 32 {
-						done <- AtomicWait32At(m, 64, 0, timeout)
-					} else {
-						done <- AtomicWait64At(m, 64, 0, timeout)
-					}
+					done <- wait(m, 64, timeout)
 				}()
 				deadline := time.Now().Add(time.Second)
 				for {

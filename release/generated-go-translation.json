@@ -2,7 +2,7 @@
   "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
   "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
   "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
-  "patched_converter_sha256": "2e127643180dbf5f7c96875497b7e8a080d93bbb7b8b3711c55165d8828146a6",
+  "patched_converter_sha256": "430bf08585f685138e0c678ebd5a9c9f92802cc124bb01f17e0ac270a35cf2b0",
   "patches_sha256": {
     "imported-memory.patch": "9e05149ed2ad75780ee939a7caa577f420d151855ab723498ec60c533f805d40",
     "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
@@ -20,7 +20,7 @@
   },
   "files_sha256": {
     "alias.go": "f8c244ceb79fdf37a78a029bd041d3b99389814adb1281cfe1f8c7a92e7268f8",
-    "base/base.go": "7594d3c1e85fc6f0ec2c98966355df88e4c38dd8006b081fadcfe74e7e535c57",
+    "base/base.go": "9ca2ddb6a27133cee830f53050759764d8b8665e20c8ee14a07e8b3f5d94a225",
     "base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
     "base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
     "base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",

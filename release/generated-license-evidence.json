@@ -11,7 +11,7 @@
   "linked_sha256": "3b63079109c895f3e90895f86b57e48d9f8e14f13ce945021c88e20c4f4fd9ba",
   "symbol_map_sha256": "9072658996738894b86effc9b60911db92b413d35cb3c7863f3851666bb645b6",
   "symbol_map_entries": 21693,
-  "generated_provenance_sha256": "98e389d019f4a2d09350bace9c8c691de8926bcffb9d1781c9d9ce1880b64a97",
+  "generated_provenance_sha256": "e713edf8f5fa862047e39346cd4a748393643e7a94b9a10562cd045d6d510fee",
   "method": "Same pinned Binaryen -O2 recipe with only --symbolmap; mapped WASM SHA256 equals adopted canonical guest",
   "retained_symbols": {
     "MariaDB": {
@@ -404,5 +404,11 @@
       }
     },
     "reason": "Native exact-width narrow writer installation only; guest, linked artifact, converter pin/patches, guest function bodies and distributed notice bytes unchanged. Historical audit and host facts retained; not a fresh linked-library audit or release qualification."
+  },
+  "boundary_wait_thread_source_refresh": {
+    "previous_generated_provenance_sha256": "98e389d019f4a2d09350bace9c8c691de8926bcffb9d1781c9d9ce1880b64a97",
+    "generated_provenance_sha256": "e713edf8f5fa862047e39346cd4a748393643e7a94b9a10562cd045d6d510fee",
+    "source_commit": "be61d940e4c5b8b81b5ed1a73561d00fef76831c",
+    "scope": "T1/T2 helper owner corrections and two owned tests; guest function/data and distributed notice/library identities unchanged; prior linked-symbol/host audit facts remain historical"
   }
 }

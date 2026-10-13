@@ -1944,8 +1944,20 @@ func AtomicWait(m *Module, ea uint64, timeout int64, stillEqual func() bool) int
 		<-ch
 		return 0
 	}
-
-	timer := time.NewTimer(time.Duration(timeout) + time.Millisecond)
+	// +1ms: a guest measures its own wait with millisecond-granularity clocks
+	// (test262 asserts lapse >= timeout), so a timer that fires at exactly the
+	// requested nanosecond can look EARLY once both ends truncate. Late by a
+	// millisecond is spec-legal; early is not.
+	// Saturate the clock-granularity allowance at Go's positive duration
+	// limit. A requested positive timeout must never wrap into an expired timer.
+	const maxWait = time.Duration(1<<63 - 1)
+	duration := time.Duration(timeout)
+	if duration > maxWait-time.Millisecond {
+		duration = maxWait
+	} else {
+		duration += time.Millisecond
+	}
+	timer := time.NewTimer(duration)
 	defer timer.Stop()
 	select {
 	case <-ch:
@@ -1961,7 +1973,21 @@ func AtomicWait(m *Module, ea uint64, timeout int64, stillEqual func() bool) int
 //
 //go:noinline
 func ThreadLaunch(m *Module, body func(child *Module, tid int32)) int32 {
-	tid := m.Threads.nextTID.Add(1)
+	// wasi.thread-spawn reserves zero and the upper three ID bits. Reject
+	// exhaustion before adding a worker or starting it; failed spawn must
+	// not race the guest's allocation cleanup. Never recycle IDs or reset
+	// the contention marker after workers finish.
+	var tid int32
+	for {
+		previous := m.Threads.nextTID.Load()
+		if previous < 0 || previous >= (1<<29)-1 {
+			return -1
+		}
+		tid = previous + 1
+		if m.Threads.nextTID.CompareAndSwap(previous, tid) {
+			break
+		}
+	}
 	m.Threads.wg.Add(1)
 
 	child := new(Module)

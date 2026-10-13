@@ -28,6 +28,8 @@ def main():
  for name in ('wait_timeout_test.go','thread_identity_test.go'):
   src=ROOT/'scripts/runtime_correctness'/(name+'.txt')
   if src.exists() and (a.scope=='all' or (name.startswith('wait_') and a.scope=='wait') or (name.startswith('thread_') and a.scope=='thread')):shutil.copyfile(src,base/name)
+ if a.scope in ('wait','all'):
+  (base/'generated_wait64_test.go').write_text('package base\nimport "testing"\nfunc TestGeneratedWait64PositiveRange(t *testing.T) { checkWaitTimeoutPositiveRange(t, map[string]func(*Module,uint64,int64)int32{"wait64":func(m *Module,ea uint64,timeout int64)int32{return AtomicWait64At(m,ea,0,timeout)}}) }\n')
  for name,target in [('timeout_test.go.txt','audit_timeout_test.go'),('thread_boundary_test.go.txt','audit_thread_boundary_test.go')]:
   if a.scope=='all' or (name.startswith('timeout') and a.scope=='wait') or (name.startswith('thread_') and a.scope=='thread'):shutil.copyfile(ROOT/'benchmarks/spikes/v050-semantic-audit'/name,base/target)
  (base/'audit_support_test.go').write_text('package base\nfunc AuditParked(m *Module,ea uint64) int {m.Threads.parkMu.Lock();defer m.Threads.parkMu.Unlock();return len(m.Threads.parked[ea])}\n')
