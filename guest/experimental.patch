@@ -1,0 +1,36 @@
+--- a/storage/innobase/buf/buf0flu.cc
++++ b/storage/innobase/buf/buf0flu.cc
+@@ -2593,18 +2593,23 @@
+       if (UNIV_UNLIKELY(srv_shutdown_state >= SRV_SHUTDOWN_LAST_PHASE))
+         break;
+ 
+-      if (buf_pool.page_cleaner_idle() &&
+-          (!UT_LIST_GET_LEN(buf_pool.flush_list) ||
+-           srv_max_dirty_pages_pct_lwm == 0.0))
++      /* A checkpoint target can arrive after the pre-lock read. Do not
++      sleep on a signal already delivered while acquiring this mutex. */
++      if (buf_flush_sync_lsn.load() == 0)
+       {
+-        buf_pool.LRU_warned_clear();
+-        /* We are idle; wait for buf_pool.page_cleaner_wakeup() */
+-        my_cond_wait(&buf_pool.do_flush_list,
+-                     &buf_pool.flush_list_mutex.m_mutex);
++        if (buf_pool.page_cleaner_idle() &&
++            (!UT_LIST_GET_LEN(buf_pool.flush_list) ||
++             srv_max_dirty_pages_pct_lwm == 0.0))
++        {
++          buf_pool.LRU_warned_clear();
++          /* We are idle; wait for buf_pool.page_cleaner_wakeup() */
++          my_cond_wait(&buf_pool.do_flush_list,
++                       &buf_pool.flush_list_mutex.m_mutex);
++        }
++        else
++          my_cond_timedwait(&buf_pool.do_flush_list,
++                            &buf_pool.flush_list_mutex.m_mutex, &abstime);
+       }
+-      else
+-        my_cond_timedwait(&buf_pool.do_flush_list,
+-                          &buf_pool.flush_list_mutex.m_mutex, &abstime);
+     }
+     set_timespec(abstime, 1);
+ 
