@@ -1,0 +1,12 @@
+{
+  "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+  "host_sha256": "b2b8a9e88e238ede252d8290897b269ce7c09823e6fd9622fdb9a0dcde48dc66",
+  "observer_sha256": "f0d0e98a213bcebd423c913ce204e86d9af5ee11967cdfe905e739f7ff4d5102",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "image_pin_validation_only": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+  "blocks": 60,
+  "suite_count": 4,
+  "payload_mib": 10,
+  "tables": 8,
+  "ready_boundary": "mariamem.start + SELECT 1, VERSION()"
+}

@@ -1,0 +1,12 @@
+{
+  "binary_sha256": "528e8aa0e28b563d960e3a472d6e117617972ea58178dcee1411e28ba6aca244",
+  "spike_binary_sha256": "de75d6bce5734cc9c3544d23810662763d8d6a6af141b4a6327157bb171b412d",
+  "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+  "tag_object_sha": "bfd854da1cecbe71ad761d1578b3f2c710a1c07f",
+  "plain_per_case": 0,
+  "traced_per_case": 50,
+  "thresholds_seconds": [
+    0.5,
+    0.9
+  ]
+}

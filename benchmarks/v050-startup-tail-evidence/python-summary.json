@@ -1,0 +1,82 @@
+{
+  "source": "python-paired-10mib.jsonl",
+  "blocks": 60,
+  "arms": {
+    "1": {
+      "suites": 60,
+      "starts": 240,
+      "suite_wall_median_seconds": 2.8638578539830633,
+      "ready_ge_500ms": {
+        "suites": 2,
+        "suite_rate_wilson95": [
+          0.009189319256197877,
+          0.113637742743086
+        ],
+        "starts": 2,
+        "slow_suite_wall_median": 3.8931649164878763,
+        "fast_suite_wall_median": 2.862518687499687,
+        "tail_starts_per_suite_histogram": {
+          "1": 2,
+          "0": 58
+        }
+      },
+      "ready_ge_900ms": {
+        "suites": 2,
+        "suite_rate_wilson95": [
+          0.009189319256197877,
+          0.113637742743086
+        ],
+        "starts": 2,
+        "slow_suite_wall_median": 3.8931649164878763,
+        "fast_suite_wall_median": 2.862518687499687,
+        "tail_starts_per_suite_histogram": {
+          "1": 2,
+          "0": 58
+        }
+      }
+    },
+    "4": {
+      "suites": 60,
+      "starts": 240,
+      "suite_wall_median_seconds": 1.7606350420392118,
+      "ready_ge_500ms": {
+        "suites": 42,
+        "suite_rate_wilson95": [
+          0.5749129205308552,
+          0.8010183386123089
+        ],
+        "starts": 59,
+        "slow_suite_wall_median": 1.7673256039852276,
+        "fast_suite_wall_median": 0.9287985834525898,
+        "tail_starts_per_suite_histogram": {
+          "1": 28,
+          "0": 18,
+          "2": 12,
+          "4": 1,
+          "3": 1
+        }
+      },
+      "ready_ge_900ms": {
+        "suites": 42,
+        "suite_rate_wilson95": [
+          0.5749129205308552,
+          0.8010183386123089
+        ],
+        "starts": 59,
+        "slow_suite_wall_median": 1.7673256039852276,
+        "fast_suite_wall_median": 0.9287985834525898,
+        "tail_starts_per_suite_histogram": {
+          "1": 28,
+          "0": 18,
+          "2": 12,
+          "4": 1,
+          "3": 1
+        }
+      }
+    }
+  },
+  "order": {
+    "serial_first": 30,
+    "parallel_first": 30
+  }
+}

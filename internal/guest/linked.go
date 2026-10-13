@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
+	"runtime"
+	"time"
 
 	"github.com/masahitojp/mariamem/internal/generatedgo"
 	"github.com/masahitojp/mariamem/internal/prepared"
@@ -32,11 +35,33 @@ func startLinked(ctx context.Context, module, transfer string, restore []prepare
 		return nil, err
 	}
 	timing.Mark(ctx, "linked_execution_begin")
-	execution := generatedgo.StartInstance(childIn, childOut, logs, transfer, restore, timing.Enabled(ctx))
-	return Connect(ctx, in, out, execution, func() {
+	var execution <-chan error
+	var readTiming func() ([]byte, error)
+	if timing.Enabled(ctx) {
+		// Diagnostic-only one-shot stack sample during a slow startup. This
+		// intentionally has no role in latency or frequency measurements.
+		watch := time.AfterFunc(250*time.Millisecond, func() {
+			buf := make([]byte, 2<<20)
+			n := runtime.Stack(buf, true)
+			path := filepath.Join(os.Getenv("MARIAMEM_TIMING_DIR"),
+				fmt.Sprintf("startup-stack-%d-%d.txt", os.Getpid(), time.Now().UnixNano()))
+			_ = os.WriteFile(path, buf[:n], 0600)
+		})
+		defer watch.Stop()
+		execution, readTiming = generatedgo.StartInstanceWithTiming(childIn, childOut, logs, transfer, restore)
+	} else {
+		execution = generatedgo.StartInstance(childIn, childOut, logs, transfer, restore, false)
+	}
+	p, err := Connect(ctx, in, out, execution, func() {
 		childIn.Close()
 		childOut.Close()
 	}, tail)
+	if err == nil && readTiming != nil {
+		if data, readErr := readTiming(); readErr == nil {
+			timing.RecordGuest(ctx, data)
+		}
+	}
+	return p, err
 }
 
 // Connect owns a framed transport, not a runtime executable. Completion must

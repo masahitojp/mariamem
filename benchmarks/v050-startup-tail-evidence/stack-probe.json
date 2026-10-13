@@ -1,0 +1,19 @@
+{
+  "trial": 0,
+  "ready_seconds": [
+    0.084859167,
+    0.0847185,
+    0.084806583,
+    1.104090125
+  ],
+  "suite_product_seconds": 1.7727612910000001,
+  "stack_files": [
+    "startup-stack-51471-1791903439235649000.txt"
+  ],
+  "trace_files": [
+    "51471-startup-1.json",
+    "51471-startup-2.json",
+    "51471-startup-3.json",
+    "51471-startup-7.json"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "owner": "mariamem-experiment-v1",
+  "name": "startup-tail-v050",
+  "repo": "/private/tmp/mariamem-v050-release-clone",
+  "state": "completed",
+  "base_sha": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+  "created": 1791900161.05836,
+  "min_free_gib": 20.0,
+  "budget_gib": 4.0,
+  "disposable": [
+    "temp",
+    "worktree"
+  ],
+  "evidence": "evidence",
+  "branch": "experiment/startup-tail-v050",
+  "command": [
+    "python3",
+    "../temp/paired.py"
+  ],
+  "returncode": 0,
+  "peak_owned_bytes": 486481920,
+  "minimum_free_bytes": 87693881344
+}

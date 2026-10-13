@@ -103,6 +103,14 @@ func ReadGuest(ctx context.Context, transfer string) {
 	}
 }
 
+// RecordGuest accepts an experiment-only read from the running instance's
+// private MemFS. It uses the same size and JSON checks as ReadGuest.
+func RecordGuest(ctx context.Context, data []byte) {
+	if t, ok := ctx.Value(key{}).(*Trace); ok && len(data) <= 128*1024 && json.Valid(data) {
+		t.Guest = append(json.RawMessage(nil), data...)
+	}
+}
+
 // Work records logical bytes and file visits at an existing diagnostic boundary.
 // Counters do not represent physical storage I/O or unique files.
 func Work(ctx context.Context, name string, bytes, files int64) {

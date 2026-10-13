@@ -18,9 +18,22 @@ var libraryMode sync.Once
 // workers, descriptor cleanup, snapshot export and prepared mapping release.
 // It does not serialize execution or forcibly kill non-cooperative Go workers.
 func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool) <-chan error {
+	done, _ := startInstance(in, out, stderr, transfer, restore, guestTiming, false)
+	return done
+}
+
+// StartInstanceWithTiming is an experiment-only diagnostic path. The guest
+// writes its startup record into its private MemFS before sending ready; the
+// normal host transfer directory cannot see that file.
+func StartInstanceWithTiming(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry) (<-chan error, func() ([]byte, error)) {
+	return startInstance(in, out, stderr, transfer, restore, true, true)
+}
+
+func startInstance(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming, readTiming bool) (<-chan error, func() ([]byte, error)) {
 	// CLI diagnostic entrypoints are separate command modes, not library calls.
 	libraryMode.Do(func() { diagnostic = false })
 	done := make(chan error, 1)
+	fsReady := make(chan *base.MemFS, 1)
 	go func() {
 		var err error
 		defer func() {
@@ -31,6 +44,9 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 		}()
 		w := base.DefaultWASI()
 		fs := base.NewMemFS()
+		if readTiming {
+			fsReady <- fs
+		}
 		if err = fs.MkdirAll("dev", 0755); err != nil {
 			return
 		}
@@ -68,7 +84,18 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 			err = exportTransfer(fs, transfer)
 		}
 	}()
-	return done
+	if !readTiming {
+		return done, nil
+	}
+	return done, func() ([]byte, error) {
+		fs := <-fsReady
+		f, err := fs.OpenFile("snapshot-out/startup-timing.json", 0, 0)
+		if err != nil {
+			return nil, err
+		}
+		defer f.Close()
+		return io.ReadAll(io.LimitReader(f, 128*1024+1))
+	}
 }
 
 // executeGuest is the recover boundary for both the root and joined workers.
