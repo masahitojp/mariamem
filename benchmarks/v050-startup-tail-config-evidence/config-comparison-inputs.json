@@ -1,0 +1,15 @@
+{
+  "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+  "guest_sha256": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+  "blocks": 30,
+  "binaries": {
+    "1": "8641b1eb92809b44688db56852b4ef088c6c302f834b8a5558dbabd6fb65522e",
+    "0": "d04d13e5d571ae5e6b0fd6c35d09438e4e20cfdcc9d58ef37dfc13b196896393"
+  },
+  "config_sql_probe": {
+    "1": "1",
+    "0": "0"
+  },
+  "fixture": "10 MiB, 8 InnoDB tables, 4 independent Fresh DBs, 4 workers, app-connections",
+  "tail_threshold_seconds": 0.9
+}

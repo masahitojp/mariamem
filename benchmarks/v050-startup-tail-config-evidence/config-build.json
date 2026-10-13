@@ -1,0 +1,21 @@
+{
+  "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+  "generated_go_sha256": "8f99ee297e51ccfddfb5920c2618fd73250d5978fdf6e7076ffecc8012a22667",
+  "method": "disposable translated-Go argv append; original 25 args preserved; unqualified",
+  "flush-sync-1": {
+    "generated_go_sha256": "387131f1f39b6e570aad9206de819bd68d18fd9485e6342251cfe825b1a21d59",
+    "binary_sha256": "8641b1eb92809b44688db56852b4ef088c6c302f834b8a5558dbabd6fb65522e",
+    "probe_sha256": "eed011ada37249900b675d7f157723f33ccb83d287aee0353c1ec54213958fd3",
+    "sql_setting": "1",
+    "argv_count": 26,
+    "appended_arg": "--innodb-flush-sync=1"
+  },
+  "flush-sync-0": {
+    "generated_go_sha256": "058ff669617c6874bccb46dfcd06bb7d105e679f5b5b4c60c2a90b839bedcde5",
+    "binary_sha256": "d04d13e5d571ae5e6b0fd6c35d09438e4e20cfdcc9d58ef37dfc13b196896393",
+    "probe_sha256": "6a13ebf88027e0952c50ae4f22898e27468493e756322232386faf742f0586d6",
+    "sql_setting": "0",
+    "argv_count": 26,
+    "appended_arg": "--innodb-flush-sync=0"
+  }
+}

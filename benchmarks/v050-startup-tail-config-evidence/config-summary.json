@@ -1,0 +1,29 @@
+{
+  "blocks": 30,
+  "tail_threshold_seconds": 0.9,
+  "arms": {
+    "flush-sync-1": {
+      "tail_suites": 19,
+      "tail_starts": 28,
+      "suite_wall_median_seconds": 1.860233521,
+      "fast_suite_wall_median_seconds": 1.160648709,
+      "tail_suite_wall_median_seconds": 1.937075166,
+      "ready_median_seconds": 0.0784384585
+    },
+    "flush-sync-0": {
+      "tail_suites": 29,
+      "tail_starts": 46,
+      "suite_wall_median_seconds": 1.9170661875000001,
+      "fast_suite_wall_median_seconds": 1.26892975,
+      "tail_suite_wall_median_seconds": 1.925062542,
+      "ready_median_seconds": 0.08014725
+    }
+  },
+  "paired": {
+    "both_tail": 18,
+    "on_only_tail": 1,
+    "off_only_tail": 11,
+    "neither_tail": 0,
+    "off_minus_on_wall_median_seconds": 0.1777821665
+  }
+}
