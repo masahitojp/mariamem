@@ -65,7 +65,7 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 			return
 		}
 		if transfer != "" {
-			err = exportTransfer(fs, transfer)
+			err = exportInstance(fs, transfer)
 		}
 	}()
 	return done

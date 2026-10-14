@@ -90,7 +90,12 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 		}
 	}
 	timing.Mark(ctx, "destination_ready")
-	consumed, err := db.server.Snapshot(ctx, saved.path, opts.Rollback)
+	var consumed bool
+	if saved.temporary != "" && os.Getenv("MARIAMEM_SNAPSHOT_DIRECT") == "1" {
+		saved.backing, consumed, err = db.server.SnapshotOwned(ctx, saved.path, opts.Rollback)
+	} else {
+		consumed, err = db.server.Snapshot(ctx, saved.path, opts.Rollback)
+	}
 	timing.Mark(ctx, "host_snapshot_returned")
 	if consumed {
 		db.closed = true
@@ -98,7 +103,7 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 		err = errors.Join(err, db.closeErr)
 	}
 	timing.Mark(ctx, "source_cleanup_done")
-	if err == nil {
+	if err == nil && saved.backing == nil {
 		if saved.temporary != "" {
 			saved.backing, err = stored.AdoptCreated(saved.path, db.build)
 		} else {

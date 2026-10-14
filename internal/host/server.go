@@ -203,6 +203,16 @@ func (s *Server) stopAccepting() {
 	}
 }
 func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool) (closed bool, err error) {
+	return s.snapshot(ctx, destination, rollback, nil)
+}
+
+// SnapshotOwned is an experiment-only direct temporary creation path.
+func (s *Server) SnapshotOwned(ctx context.Context, destination string, rollback bool) (owned *snapshot.Owned, closed bool, err error) {
+	closed, err = s.snapshot(ctx, destination, rollback, &owned)
+	return
+}
+
+func (s *Server) snapshot(ctx context.Context, destination string, rollback bool, owned **snapshot.Owned) (closed bool, err error) {
 	ctx, finishTiming := timing.Begin(ctx, "snapshot")
 	defer finishTiming()
 	s.mu.Lock()
@@ -246,6 +256,14 @@ func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool
 		}
 	}()
 	timing.Mark(ctx, "preconditions_destination_ready")
+	if owned != nil {
+		// Private staging request, before acceptance. On failure the source
+		// remains usable; no export command has reached the guest.
+		if err = os.WriteFile(filepath.Join(s.transfer, snapshot.DirectRequest), []byte(path), 0600); err != nil {
+			s.mu.Unlock()
+			return false, &Rejected{"destination", err.Error()}
+		}
+	}
 	s.stopAccepting()
 	s.mu.Unlock()
 	defer os.RemoveAll(s.transfer)
@@ -253,6 +271,12 @@ func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool
 		return true, err
 	}
 	timing.Mark(ctx, "guest_stopped")
+	if owned != nil {
+		// Guest and host producer have both completed. Existing acquisition
+		// unlinks aliases then verifies the exact descriptors retained for Fork.
+		*owned, err = snapshot.AdoptCreated(path, s.build)
+		return true, err
+	}
 	err = snapshot.PublishContext(ctx, s.transfer, path, s.build)
 	timing.Mark(ctx, "snapshot_published")
 	return true, err
