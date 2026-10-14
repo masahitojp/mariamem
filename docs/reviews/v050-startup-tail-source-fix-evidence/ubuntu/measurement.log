@@ -1,0 +1,82 @@
+0 baseline max_ready 1.144 wall 2.764
+0 candidate max_ready 0.21 wall 2.592
+1 candidate max_ready 0.19 wall 2.518
+1 baseline max_ready 1.134 wall 2.699
+2 baseline max_ready 1.143 wall 3.012
+2 candidate max_ready 0.149 wall 2.044
+3 candidate max_ready 0.158 wall 2.083
+3 baseline max_ready 0.178 wall 2.67
+4 baseline max_ready 1.13 wall 2.955
+4 candidate max_ready 0.157 wall 2.047
+5 candidate max_ready 0.161 wall 2.04
+5 baseline max_ready 1.128 wall 2.607
+6 baseline max_ready 1.142 wall 2.581
+6 candidate max_ready 0.176 wall 2.06
+7 candidate max_ready 0.162 wall 2.036
+7 baseline max_ready 1.13 wall 2.618
+8 baseline max_ready 1.124 wall 2.682
+8 candidate max_ready 0.143 wall 2.058
+9 candidate max_ready 0.16 wall 2.033
+9 baseline max_ready 1.138 wall 2.643
+10 baseline max_ready 1.101 wall 2.486
+10 candidate max_ready 0.145 wall 2.05
+11 candidate max_ready 0.176 wall 2.044
+11 baseline max_ready 1.153 wall 2.646
+12 baseline max_ready 1.157 wall 2.648
+12 candidate max_ready 0.165 wall 2.045
+13 candidate max_ready 0.149 wall 2.046
+13 baseline max_ready 1.124 wall 2.585
+14 baseline max_ready 1.138 wall 2.754
+14 candidate max_ready 0.15 wall 2.061
+15 candidate max_ready 0.173 wall 2.046
+15 baseline max_ready 1.135 wall 3.022
+16 baseline max_ready 1.128 wall 3.009
+16 candidate max_ready 0.14 wall 2.029
+17 candidate max_ready 0.17 wall 2.039
+17 baseline max_ready 1.116 wall 2.481
+18 baseline max_ready 1.117 wall 2.585
+18 candidate max_ready 0.161 wall 2.064
+19 candidate max_ready 0.164 wall 2.053
+19 baseline max_ready 1.117 wall 2.472
+20 baseline max_ready 1.101 wall 2.448
+20 candidate max_ready 0.176 wall 2.052
+21 candidate max_ready 0.179 wall 2.049
+21 baseline max_ready 1.135 wall 3.016
+22 baseline max_ready 1.133 wall 2.707
+22 candidate max_ready 0.148 wall 2.023
+23 candidate max_ready 0.155 wall 2.059
+23 baseline max_ready 1.1 wall 2.485
+24 baseline max_ready 1.112 wall 2.62
+24 candidate max_ready 0.148 wall 2.05
+25 candidate max_ready 0.157 wall 2.065
+25 baseline max_ready 1.1 wall 2.465
+26 baseline max_ready 1.107 wall 2.473
+26 candidate max_ready 0.155 wall 2.039
+27 candidate max_ready 0.154 wall 2.048
+27 baseline max_ready 0.152 wall 2.052
+28 baseline max_ready 1.119 wall 2.615
+28 candidate max_ready 0.147 wall 2.038
+29 candidate max_ready 0.168 wall 2.065
+29 baseline max_ready 1.145 wall 2.572
+{
+  "baseline": {
+    "suites": 30,
+    "tail_suites": 28,
+    "starts": 120,
+    "tail_starts": 61,
+    "ready_p50_seconds": 1.0914252420000001,
+    "ready_p95_nearest_rank_seconds": 1.138726074,
+    "ready_max_seconds": 1.156758865,
+    "suite_product_median_seconds": 2.619041711
+  },
+  "candidate": {
+    "suites": 30,
+    "tail_suites": 0,
+    "starts": 120,
+    "tail_starts": 0,
+    "ready_p50_seconds": 0.1443556445,
+    "ready_p95_nearest_rank_seconds": 0.17929668,
+    "ready_max_seconds": 0.209758505,
+    "suite_product_median_seconds": 2.0485598295000003
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "baseline": {
+    "suites": 30,
+    "tail_suites": 28,
+    "starts": 120,
+    "tail_starts": 61,
+    "ready_p50_seconds": 1.0914252420000001,
+    "ready_p95_nearest_rank_seconds": 1.138726074,
+    "ready_max_seconds": 1.156758865,
+    "suite_product_median_seconds": 2.619041711
+  },
+  "candidate": {
+    "suites": 30,
+    "tail_suites": 0,
+    "starts": 120,
+    "tail_starts": 0,
+    "ready_p50_seconds": 0.1443556445,
+    "ready_p95_nearest_rank_seconds": 0.17929668,
+    "ready_max_seconds": 0.209758505,
+    "suite_product_median_seconds": 2.0485598295000003
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-14T00:15:57.392943+00:00",
+  "baseline_source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+  "candidate_review_commit": "8d1628f533b573de3124660613b69703040043d9",
+  "binaries_sha256": {
+    "baseline": "8a6ec0001e433563b8f412352fdf50f457d01ebb3eb70cfaf884b1af79fd983d",
+    "candidate": "f125856d4b2e4dbbcec399b5bb45abeb5d7d5100f8007c8fbb8108bc23038959"
+  },
+  "fixture": {
+    "payload_mib": 10,
+    "tables": 8,
+    "workers": 4,
+    "fresh_databases": 4,
+    "workload": "app-connections"
+  },
+  "tail_threshold_seconds": 0.9,
+  "blocks": 30
+}

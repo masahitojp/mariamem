@@ -1,16 +1,16 @@
 # Human Review — page-cleaner startup-tail source correction
 
-**Recommendation:** accept this narrowly scoped guest-source correction for
-integration review. Users of the tested four-parallel Fresh workload saw the
-approximately one-second startup mode in 24/30 Go and 23/30 Python baseline
-suites, versus 0/30 each with the corrected 12.3.3 guest. The strongest
-objection is that these bounded macOS results do not establish a universal
-startup-latency guarantee or cover every InnoDB flush/shutdown state. I still
-recommend the correction because the exact early-signal ordering was observed
-in the current guest, the source change closes that ordering, canonical guest
-and Go regeneration matched independently, and the normal runtime integration
-passed. Ubuntu product validation and exact-final-candidate Release CI remain
-separate; no merge, tag or publication is implied by this review.
+**Recommendation:** adopt this narrowly scoped guest-source correction after
+Human Review. The approximately one-second Fresh startup mode disappeared in
+the bounded four-parallel comparisons on both macOS arm64 and Ubuntu 24.04
+x86_64; Ubuntu SQL, Snapshot/Fork and normal Close regression passed. The
+strongest objection is that these samples do not establish a universal latency
+bound or cover every InnoDB flush/shutdown state. I recommend adoption because
+the exact early-signal ordering was observed in the current guest, the source
+change closes that ordering, canonical guest and Go regeneration matched
+independently, and both tested platforms passed normal runtime integration.
+Exact-final-candidate Release CI and broader product validation remain separate;
+this review does not merge, tag or publish anything.
 
 The [ordered trace and first hypothesis](https://github.com/masahitojp/mariamem/blob/experiment/startup-tail-wakeup-v050/benchmarks/v050-startup-tail-wakeup-spike.md)
 observed a checkpoint target set and an empty-list condition signal between
@@ -74,8 +74,45 @@ found that disabling InnoDB flush sync did not mitigate the released tail.
 | Generated source, license, mirror and public-source checks | PASS | [Full check log](v050-startup-tail-source-fix-evidence/tail-verify-check-retry.txt); 588 Python passed, 37 skipped; Go tests/vet passed |
 | macOS arm64 real-guest integration | PASS | [Integration log](v050-startup-tail-source-fix-evidence/tail-verify-integration.txt); race-scoped packages, SQL, concurrent connections, Snapshot/Fork, memory boundary, normal Close, Python 28 passed, snapshot 49 checks |
 | Balanced Go/Python four-parallel Fresh comparison | PASS for this fixture | [Spike records](https://github.com/masahitojp/mariamem/blob/experiment/startup-tail-source-fix-v050/benchmarks/v050-startup-tail-source-fix-spike.md): 30 alternating pairs per language, candidate 0/30 tail suites; no failed SQL/transaction oracle |
-| Ubuntu 24.04 x86_64 product runtime | SKIP | Not available on this Mac; exact candidate CI/platform validation still required |
+| Ubuntu 24.04 x86_64 real-guest integration | PASS | [CI run](https://github.com/masahitojp/mariamem/actions/runs/38487541174), [integration log](v050-startup-tail-source-fix-evidence/ubuntu/integration.log): Go race-scoped packages, SQL and concurrent connections, Snapshot/Fork, normal Close, Python 28 passed, snapshot 49 checks |
+| Ubuntu balanced four-parallel Fresh comparison | PASS for this fixture | [Raw runs](v050-startup-tail-source-fix-evidence/ubuntu/fresh.jsonl), [summary](v050-startup-tail-source-fix-evidence/ubuntu/summary.json): baseline 28/30 tail suites and 61/120 tail Starts; candidate 0/30 and 0/120; SQL/commit/rollback oracle passed in every run |
 | Final release qualification and public consumers | NOT RUN | Separate release decision and CI responsibility |
+
+### Ubuntu x86_64 adoption check
+
+The [verification-only CI run](https://github.com/masahitojp/mariamem/actions/runs/38487541174)
+used Ubuntu 24.04 x86_64, Go 1.26.8 and Python 3.14.8. It checked out probe
+commit `5f5cdd43889130ec6d51a991486ab17fb8c03e4e`; its only differences
+from reviewed candidate `8d1628f533b573de3124660613b69703040043d9`
+were the [CI workflow and comparison script](v050-startup-tail-source-fix-evidence/ubuntu/source-diff.txt).
+The runtime guest and generated Go were unchanged. The baseline was the exact
+v0.5.0 source commit `44100ec676c8c9064f32f3a01bd9a990d487bb61`.
+[Inputs](v050-startup-tail-source-fix-evidence/ubuntu/inputs.json) retain the
+independently compiled benchmark binary hashes. The fixture matched the macOS
+probe: 10 MiB, eight tables, four parallel Fresh databases, application
+connections and commit/rollback. Thirty blocks alternated the arm order;
+no completed trial was retried or discarded. The pre-existing tail threshold
+was `ready >= 900 ms`.
+
+| Ubuntu Go Fresh startup | v0.5.0 | Source candidate |
+| --- | ---: | ---: |
+| Starts at or above 900 ms | 61/120 | 0/120 |
+| Suites with at least one such Start | 28/30 | 0/30 |
+| Start median | 1,091 ms | 144 ms |
+| Start p95, nearest rank | 1,139 ms | 179 ms |
+| Four-instance suite product median | 2.619 s | 2.049 s |
+
+The matched-block candidate-minus-baseline suite median was -0.568 s. The
+individual startup samples and suite timings are in the [raw record](v050-startup-tail-source-fix-evidence/ubuntu/fresh.jsonl);
+the [measurement log](v050-startup-tail-source-fix-evidence/ubuntu/measurement.log)
+shows all 60 successful arm runs. The candidate's Ubuntu
+`scripts/verify.py integration` passed before measurement: Go integration and
+default lifecycle suites, generated-memory checks, Python multi-client/wire/
+Snapshot/normal-Close tests (28 passed), and 49 Snapshot checks. This establishes
+no regression in the requested normal paths under this test scope. Race-scoped
+PASS does not claim general generated-guest race freedom, and 0/120 candidate
+tails does not promise a universal upper bound. The Ubuntu result strengthens
+the adoption recommendation; it does not replace final release qualification.
 
 The first `verify.py check` run failed one manifest-order test because the
 converter patch map had been serialized alphabetically during adoption. The
