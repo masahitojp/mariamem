@@ -200,6 +200,24 @@ Neither research item blocks v0.5.0. Performance PoCs, if later authorized,
 require their own correctness and product-benefit decision; stable-guest behavior
 must be rechecked before integrating an optimization selected on the old guest.
 
+**Snapshot direct-copy — Human decision, 2026-10-14:** the maintainer accepted
+stopping this investigation and its spikes at the present stage, retaining the
+current product implementation and deferring adoption of the prototype. The
+approved local spike and eight-run follow-up are complete; no further measurement,
+cause investigation or prototype work continues automatically. Resuming this
+specific optimization requires a new agreed scope and exit conditions.
+
+The [completed follow-up and evidence](https://github.com/masahitojp/mariamem/blob/b6d371232f613425b066049bb3e6f873cfee4e37/docs/reviews/snapshot-direct-copy-recheck.md)
+record a roughly 0.43-second Snapshot saving and approximately 264 MiB less
+cumulative allocation on macOS arm64, but mixed 100 MiB / 16-Fork whole-suite
+results: ordinary timing 2.2% slower, resource-observed timing 2.9% faster.
+Extra child-phase GC recurred; changed allocation/GC pacing remains a hypothesis,
+not an established cause of delay. This decision defers the current prototype
+without rejecting direct copying in general. Runtime source remains isolated on
+`experiment/snapshot-direct-copy`; its ownership/failure tests, raw measurements
+and reproduction scripts are preserved in the linked reports. Disposable build
+and measurement state has been cleaned. No release decision follows.
+
 ## v0.4.7 — Upstream converter migration (candidate)
 
 The released scope replaces the pinned shibukawa converter fork with pinned
