@@ -1,0 +1,126 @@
+{
+  "buffer_bytes": 32768,
+  "bytes_per_pass": 274746682,
+  "checksum_file_count": 11,
+  "file_count": 11,
+  "go": "go1.26.8",
+  "goarch": "arm64",
+  "gomaxprocs": 2,
+  "goos": "darwin",
+  "samples": [
+    {
+      "block": -1,
+      "mode": "read_and_sha256",
+      "wall_seconds": 0.104417292,
+      "cpu_seconds": 0.203214,
+      "bytes": 274746682
+    },
+    {
+      "block": -1,
+      "mode": "read_only",
+      "wall_seconds": 0.012960583,
+      "cpu_seconds": 0.025414999999999993,
+      "bytes": 274746682
+    },
+    {
+      "block": 0,
+      "mode": "read_only",
+      "wall_seconds": 0.013930709,
+      "cpu_seconds": 0.02728,
+      "bytes": 274746682
+    },
+    {
+      "block": 0,
+      "mode": "read_and_sha256",
+      "wall_seconds": 0.075697,
+      "cpu_seconds": 0.14587699999999998,
+      "bytes": 274746682
+    },
+    {
+      "block": 1,
+      "mode": "read_and_sha256",
+      "wall_seconds": 0.074185708,
+      "cpu_seconds": 0.14380199999999999,
+      "bytes": 274746682
+    },
+    {
+      "block": 1,
+      "mode": "read_only",
+      "wall_seconds": 0.013328041,
+      "cpu_seconds": 0.02595000000000003,
+      "bytes": 274746682
+    },
+    {
+      "block": 2,
+      "mode": "read_only",
+      "wall_seconds": 0.01375575,
+      "cpu_seconds": 0.02692899999999998,
+      "bytes": 274746682
+    },
+    {
+      "block": 2,
+      "mode": "read_and_sha256",
+      "wall_seconds": 0.074468958,
+      "cpu_seconds": 0.143528,
+      "bytes": 274746682
+    },
+    {
+      "block": 3,
+      "mode": "read_and_sha256",
+      "wall_seconds": 0.073733875,
+      "cpu_seconds": 0.14276699999999998,
+      "bytes": 274746682
+    },
+    {
+      "block": 3,
+      "mode": "read_only",
+      "wall_seconds": 0.013335625,
+      "cpu_seconds": 0.02595599999999998,
+      "bytes": 274746682
+    },
+    {
+      "block": 4,
+      "mode": "read_only",
+      "wall_seconds": 0.013209291,
+      "cpu_seconds": 0.025696000000000052,
+      "bytes": 274746682
+    },
+    {
+      "block": 4,
+      "mode": "read_and_sha256",
+      "wall_seconds": 0.074647625,
+      "cpu_seconds": 0.14464900000000003,
+      "bytes": 274746682
+    },
+    {
+      "block": 5,
+      "mode": "read_and_sha256",
+      "wall_seconds": 0.073062334,
+      "cpu_seconds": 0.14153400000000005,
+      "bytes": 274746682
+    },
+    {
+      "block": 5,
+      "mode": "read_only",
+      "wall_seconds": 0.013275917,
+      "cpu_seconds": 0.025982999999999867,
+      "bytes": 274746682
+    },
+    {
+      "block": 6,
+      "mode": "read_only",
+      "wall_seconds": 0.0134205,
+      "cpu_seconds": 0.02631899999999998,
+      "bytes": 274746682
+    },
+    {
+      "block": 6,
+      "mode": "read_and_sha256",
+      "wall_seconds": 0.073131834,
+      "cpu_seconds": 0.14172000000000007,
+      "bytes": 274746682
+    }
+  ],
+  "warmup_block": -1,
+  "workers": 2
+}

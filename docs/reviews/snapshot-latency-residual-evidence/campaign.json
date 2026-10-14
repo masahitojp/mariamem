@@ -1,0 +1,128 @@
+[
+  {
+    "name": "payload-0-trial-0",
+    "payload_mib": 0,
+    "traced": false,
+    "snapshot_seconds": 0.337196375,
+    "suite_product_seconds": 0.48425275,
+    "process_wall_seconds": 1.7487235830000003
+  },
+  {
+    "name": "payload-0-trial-1",
+    "payload_mib": 0,
+    "traced": false,
+    "snapshot_seconds": 0.340142084,
+    "suite_product_seconds": 0.46516791699999993,
+    "process_wall_seconds": 0.4779863750000004
+  },
+  {
+    "name": "payload-0-trial-2",
+    "payload_mib": 0,
+    "traced": false,
+    "snapshot_seconds": 0.336354875,
+    "suite_product_seconds": 0.464481916,
+    "process_wall_seconds": 0.47638020899999844
+  },
+  {
+    "name": "payload-0-trial-3",
+    "payload_mib": 0,
+    "traced": true,
+    "snapshot_seconds": 0.340919375,
+    "suite_product_seconds": 0.46868050099999997,
+    "process_wall_seconds": 0.4820253329999957,
+    "trace_ms": {
+      "public_total": 340.677791,
+      "host_wait": 93.205833,
+      "post_guest_transfer": 63.226875,
+      "host_wait_less_transfer": 29.978958,
+      "publish_total": 180.48499999999999,
+      "manifest_residual": 0.4084169999999858,
+      "source_cleanup": 0.06495899999998755,
+      "owned_acquisition": 63.99475000000001
+    }
+  },
+  {
+    "name": "payload-10-trial-0",
+    "payload_mib": 10,
+    "traced": false,
+    "snapshot_seconds": 0.390424583,
+    "suite_product_seconds": 1.128919499,
+    "process_wall_seconds": 1.1446447909999904
+  },
+  {
+    "name": "payload-10-trial-1",
+    "payload_mib": 10,
+    "traced": false,
+    "snapshot_seconds": 0.394063667,
+    "suite_product_seconds": 1.088319207,
+    "process_wall_seconds": 1.1015214999999898
+  },
+  {
+    "name": "payload-10-trial-2",
+    "payload_mib": 10,
+    "traced": false,
+    "snapshot_seconds": 0.39701075,
+    "suite_product_seconds": 1.079321793,
+    "process_wall_seconds": 1.0931730420000036
+  },
+  {
+    "name": "payload-10-trial-3",
+    "payload_mib": 10,
+    "traced": true,
+    "snapshot_seconds": 0.390779292,
+    "suite_product_seconds": 1.0871636679999996,
+    "process_wall_seconds": 1.1023757920000037,
+    "trace_ms": {
+      "public_total": 390.524709,
+      "host_wait": 105.145959,
+      "post_guest_transfer": 69.83012500000001,
+      "host_wait_less_transfer": 35.315833999999995,
+      "publish_total": 209.572875,
+      "manifest_residual": 0.3430409999999995,
+      "source_cleanup": 0.06658299999998007,
+      "owned_acquisition": 72.73424999999997
+    }
+  },
+  {
+    "name": "payload-100-trial-0",
+    "payload_mib": 100,
+    "traced": false,
+    "snapshot_seconds": 0.727928958,
+    "suite_product_seconds": 6.5171343749999995,
+    "process_wall_seconds": 6.541807250000005
+  },
+  {
+    "name": "payload-100-trial-1",
+    "payload_mib": 100,
+    "traced": false,
+    "snapshot_seconds": 0.711603833,
+    "suite_product_seconds": 6.531435791,
+    "process_wall_seconds": 6.554139208000009
+  },
+  {
+    "name": "payload-100-trial-2",
+    "payload_mib": 100,
+    "traced": false,
+    "snapshot_seconds": 0.689728625,
+    "suite_product_seconds": 6.538946248,
+    "process_wall_seconds": 6.562220416999992
+  },
+  {
+    "name": "payload-100-trial-3",
+    "payload_mib": 100,
+    "traced": true,
+    "snapshot_seconds": 0.751902875,
+    "suite_product_seconds": 6.6163226239999995,
+    "process_wall_seconds": 6.642499541999996,
+    "trace_ms": {
+      "public_total": 751.698667,
+      "host_wait": 157.80416599999998,
+      "post_guest_transfer": 119.808458,
+      "host_wait_less_transfer": 37.99570799999998,
+      "publish_total": 455.534333,
+      "manifest_residual": 0.3498329999999896,
+      "source_cleanup": 0.06395799999995688,
+      "owned_acquisition": 132.22308399999997
+    }
+  }
+]

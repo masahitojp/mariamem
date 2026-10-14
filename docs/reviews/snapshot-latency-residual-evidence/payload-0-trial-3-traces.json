@@ -1,0 +1,858 @@
+{
+  "public_snapshot": {
+    "operation": "public_snapshot",
+    "pid": 73148,
+    "events": [
+      {
+        "name": "begin",
+        "offset_ns": 792
+      },
+      {
+        "name": "destination_ready",
+        "offset_ns": 129750
+      },
+      {
+        "name": "host_snapshot_returned",
+        "offset_ns": 276617958
+      },
+      {
+        "name": "source_cleanup_done",
+        "offset_ns": 276682917
+      },
+      {
+        "name": "owned_backing_acquired",
+        "offset_ns": 340677667
+      },
+      {
+        "name": "end",
+        "offset_ns": 340678583
+      }
+    ]
+  },
+  "snapshot": {
+    "operation": "snapshot",
+    "pid": 73148,
+    "events": [
+      {
+        "name": "begin",
+        "offset_ns": 125
+      },
+      {
+        "name": "preconditions_destination_ready",
+        "offset_ns": 50792
+      },
+      {
+        "name": "sessions_drained",
+        "offset_ns": 98917
+      },
+      {
+        "name": "export_acknowledged",
+        "offset_ns": 93300250
+      },
+      {
+        "name": "guest_stopped",
+        "offset_ns": 93304750
+      },
+      {
+        "name": "snapshot_published",
+        "offset_ns": 273964834
+      },
+      {
+        "name": "end",
+        "offset_ns": 276382167
+      }
+    ]
+  },
+  "snapshot_publish": {
+    "operation": "snapshot_publish",
+    "pid": 73148,
+    "events": [
+      {
+        "name": "begin",
+        "offset_ns": 2000
+      },
+      {
+        "name": "inventory/./metadata",
+        "offset_ns": 13458,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/metadata",
+        "offset_ns": 103541,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/aria_log.00000001/metadata",
+        "offset_ns": 145125,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/aria_log_control/metadata",
+        "offset_ns": 150041,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ib_buffer_pool/metadata",
+        "offset_ns": 154375,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ib_logfile0/metadata",
+        "offset_ns": 161958,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ibdata1/metadata",
+        "offset_ns": 166458,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/metadata",
+        "offset_ns": 170416,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/characterization.frm/metadata",
+        "offset_ns": 204500,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/characterization.ibd/metadata",
+        "offset_ns": 209583,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/db.opt/metadata",
+        "offset_ns": 213541,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo001/metadata",
+        "offset_ns": 217375,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo002/metadata",
+        "offset_ns": 221041,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo003/metadata",
+        "offset_ns": 223916,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/plugin/metadata",
+        "offset_ns": 226833,
+        "files_touched": 1
+      },
+      {
+        "name": "enumeration_complete",
+        "offset_ns": 250041
+      },
+      {
+        "name": "inventory/data/aria_log_control/opened",
+        "offset_ns": 282791,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/aria_log_control/read_hashed",
+        "offset_ns": 291000,
+        "bytes_read": 52
+      },
+      {
+        "name": "inventory/data/aria_log_control/closed",
+        "offset_ns": 297083
+      },
+      {
+        "name": "inventory/data/aria_log.00000001/opened",
+        "offset_ns": 312125,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ib_logfile0/opened",
+        "offset_ns": 318041,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/aria_log.00000001/read_hashed",
+        "offset_ns": 325291,
+        "bytes_read": 16384
+      },
+      {
+        "name": "inventory/data/aria_log.00000001/closed",
+        "offset_ns": 327083
+      },
+      {
+        "name": "inventory/data/ib_buffer_pool/opened",
+        "offset_ns": 347166,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ib_buffer_pool/read_hashed",
+        "offset_ns": 350458,
+        "bytes_read": 752
+      },
+      {
+        "name": "inventory/data/ib_buffer_pool/closed",
+        "offset_ns": 351625
+      },
+      {
+        "name": "inventory/data/ibdata1/opened",
+        "offset_ns": 370375,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ibdata1/read_hashed",
+        "offset_ns": 6897708,
+        "bytes_read": 12582912
+      },
+      {
+        "name": "inventory/data/ibdata1/closed",
+        "offset_ns": 6903583
+      },
+      {
+        "name": "inventory/data/test/characterization.frm/opened",
+        "offset_ns": 6963625,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/characterization.frm/read_hashed",
+        "offset_ns": 6979250,
+        "bytes_read": 1976
+      },
+      {
+        "name": "inventory/data/test/characterization.frm/closed",
+        "offset_ns": 6981500
+      },
+      {
+        "name": "inventory/data/test/db.opt/opened",
+        "offset_ns": 7006625,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/db.opt/read_hashed",
+        "offset_ns": 7013958,
+        "bytes_read": 70
+      },
+      {
+        "name": "inventory/data/test/db.opt/closed",
+        "offset_ns": 7015208
+      },
+      {
+        "name": "inventory/data/undo002/opened",
+        "offset_ns": 7039833,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo002/read_hashed",
+        "offset_ns": 12399500,
+        "bytes_read": 10485760
+      },
+      {
+        "name": "inventory/data/undo002/closed",
+        "offset_ns": 12407458
+      },
+      {
+        "name": "inventory/data/ib_logfile0/read_hashed",
+        "offset_ns": 50909541,
+        "bytes_read": 100663296
+      },
+      {
+        "name": "inventory/data/ib_logfile0/closed",
+        "offset_ns": 50917416
+      },
+      {
+        "name": "inventory/data/test/characterization.ibd/opened",
+        "offset_ns": 50986958,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/characterization.ibd/read_hashed",
+        "offset_ns": 51040416,
+        "bytes_read": 65536
+      },
+      {
+        "name": "inventory/data/test/characterization.ibd/closed",
+        "offset_ns": 51042125
+      },
+      {
+        "name": "inventory/data/undo001/opened",
+        "offset_ns": 51069375,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo001/read_hashed",
+        "offset_ns": 56299875,
+        "bytes_read": 10485760
+      },
+      {
+        "name": "inventory/data/undo001/closed",
+        "offset_ns": 56304708
+      },
+      {
+        "name": "inventory/data/undo003/opened",
+        "offset_ns": 56349500,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo003/read_hashed",
+        "offset_ns": 61574625,
+        "bytes_read": 10485760
+      },
+      {
+        "name": "inventory/data/undo003/closed",
+        "offset_ns": 61578666
+      },
+      {
+        "name": "source_inventory_hashed",
+        "offset_ns": 61590833
+      },
+      {
+        "name": "copy_materialized",
+        "offset_ns": 61938416,
+        "bytes_read": 16384,
+        "files_touched": 1
+      },
+      {
+        "name": "copy_materialized",
+        "offset_ns": 62116666,
+        "bytes_read": 52,
+        "files_touched": 1
+      },
+      {
+        "name": "copy_materialized",
+        "offset_ns": 62206458,
+        "bytes_read": 752,
+        "files_touched": 1
+      },
+      {
+        "name": "copy_materialized",
+        "offset_ns": 98877541,
+        "bytes_read": 100663296,
+        "files_touched": 1
+      },
+      {
+        "name": "copy_materialized",
+        "offset_ns": 104577333,
+        "bytes_read": 12582912,
+        "files_touched": 1
+      },
+      {
+        "name": "copy_materialized",
+        "offset_ns": 105007791,
+        "bytes_read": 1976,
+        "files_touched": 1
+      },
+      {
+        "name": "copy_materialized",
+        "offset_ns": 105119875,
+        "bytes_read": 65536,
+        "files_touched": 1
+      },
+      {
+        "name": "copy_materialized",
+        "offset_ns": 105234875,
+        "bytes_read": 70,
+        "files_touched": 1
+      },
+      {
+        "name": "copy_materialized",
+        "offset_ns": 108814291,
+        "bytes_read": 10485760,
+        "files_touched": 1
+      },
+      {
+        "name": "copy_materialized",
+        "offset_ns": 112978416,
+        "bytes_read": 10485760,
+        "files_touched": 1
+      },
+      {
+        "name": "copy_materialized",
+        "offset_ns": 117011041,
+        "bytes_read": 10485760,
+        "files_touched": 1
+      },
+      {
+        "name": "copy_complete",
+        "offset_ns": 117245125
+      },
+      {
+        "name": "inventory/./metadata",
+        "offset_ns": 117262250,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/metadata",
+        "offset_ns": 117298333,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/aria_log.00000001/metadata",
+        "offset_ns": 117333208,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/aria_log_control/metadata",
+        "offset_ns": 117337958,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ib_buffer_pool/metadata",
+        "offset_ns": 117342041,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ib_logfile0/metadata",
+        "offset_ns": 117345958,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ibdata1/metadata",
+        "offset_ns": 117350375,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/metadata",
+        "offset_ns": 117353666,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/characterization.frm/metadata",
+        "offset_ns": 117386166,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/characterization.ibd/metadata",
+        "offset_ns": 117390166,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/db.opt/metadata",
+        "offset_ns": 117393833,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo001/metadata",
+        "offset_ns": 117397625,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo002/metadata",
+        "offset_ns": 117401125,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo003/metadata",
+        "offset_ns": 117404083,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/plugin/metadata",
+        "offset_ns": 117412083,
+        "files_touched": 1
+      },
+      {
+        "name": "enumeration_complete",
+        "offset_ns": 117436041
+      },
+      {
+        "name": "inventory/data/aria_log_control/opened",
+        "offset_ns": 117474833,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/aria_log_control/read_hashed",
+        "offset_ns": 117486541,
+        "bytes_read": 52
+      },
+      {
+        "name": "inventory/data/aria_log_control/closed",
+        "offset_ns": 117488541
+      },
+      {
+        "name": "inventory/data/aria_log.00000001/opened",
+        "offset_ns": 117509000,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ib_logfile0/opened",
+        "offset_ns": 117509750,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/aria_log.00000001/read_hashed",
+        "offset_ns": 117525541,
+        "bytes_read": 16384
+      },
+      {
+        "name": "inventory/data/aria_log.00000001/closed",
+        "offset_ns": 117527250
+      },
+      {
+        "name": "inventory/data/ib_buffer_pool/opened",
+        "offset_ns": 117549666,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ib_buffer_pool/read_hashed",
+        "offset_ns": 117555000,
+        "bytes_read": 752
+      },
+      {
+        "name": "inventory/data/ib_buffer_pool/closed",
+        "offset_ns": 117556208
+      },
+      {
+        "name": "inventory/data/ibdata1/opened",
+        "offset_ns": 117578791,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/ibdata1/read_hashed",
+        "offset_ns": 124136416,
+        "bytes_read": 12582912
+      },
+      {
+        "name": "inventory/data/ibdata1/closed",
+        "offset_ns": 124143083
+      },
+      {
+        "name": "inventory/data/test/characterization.frm/opened",
+        "offset_ns": 124216500,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/characterization.frm/read_hashed",
+        "offset_ns": 124233583,
+        "bytes_read": 1976
+      },
+      {
+        "name": "inventory/data/test/characterization.frm/closed",
+        "offset_ns": 124235166
+      },
+      {
+        "name": "inventory/data/test/db.opt/opened",
+        "offset_ns": 124264916,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/db.opt/read_hashed",
+        "offset_ns": 124271250,
+        "bytes_read": 70
+      },
+      {
+        "name": "inventory/data/test/db.opt/closed",
+        "offset_ns": 124272416
+      },
+      {
+        "name": "inventory/data/undo002/opened",
+        "offset_ns": 124293375,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo002/read_hashed",
+        "offset_ns": 129697291,
+        "bytes_read": 10485760
+      },
+      {
+        "name": "inventory/data/undo002/closed",
+        "offset_ns": 129703541
+      },
+      {
+        "name": "inventory/data/ib_logfile0/read_hashed",
+        "offset_ns": 168618416,
+        "bytes_read": 100663296
+      },
+      {
+        "name": "inventory/data/ib_logfile0/closed",
+        "offset_ns": 168626000
+      },
+      {
+        "name": "inventory/data/test/characterization.ibd/opened",
+        "offset_ns": 168697125,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/test/characterization.ibd/read_hashed",
+        "offset_ns": 168747791,
+        "bytes_read": 65536
+      },
+      {
+        "name": "inventory/data/test/characterization.ibd/closed",
+        "offset_ns": 168749125
+      },
+      {
+        "name": "inventory/data/undo001/opened",
+        "offset_ns": 168771166,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo001/read_hashed",
+        "offset_ns": 174244125,
+        "bytes_read": 10485760
+      },
+      {
+        "name": "inventory/data/undo001/closed",
+        "offset_ns": 174250750
+      },
+      {
+        "name": "inventory/data/undo003/opened",
+        "offset_ns": 174316125,
+        "files_touched": 1
+      },
+      {
+        "name": "inventory/data/undo003/read_hashed",
+        "offset_ns": 180053958,
+        "bytes_read": 10485760
+      },
+      {
+        "name": "inventory/data/undo003/closed",
+        "offset_ns": 180065416
+      },
+      {
+        "name": "target_inventory_hashed",
+        "offset_ns": 180078583
+      },
+      {
+        "name": "end",
+        "offset_ns": 180487000
+      }
+    ]
+  },
+  "snapshot_export": {
+    "operation": "snapshot_export",
+    "pid": 73148,
+    "events": [
+      {
+        "name": "begin",
+        "offset_ns": 1333
+      },
+      {
+        "name": "allocation_begin",
+        "offset_ns": 200916
+      },
+      {
+        "name": "allocation_done",
+        "offset_ns": 204000
+      },
+      {
+        "name": "data_read",
+        "offset_ns": 205625,
+        "bytes_read": 16384,
+        "files_touched": 1
+      },
+      {
+        "name": "data_materialized",
+        "offset_ns": 404625,
+        "bytes_read": 16384,
+        "files_touched": 1
+      },
+      {
+        "name": "allocation_begin",
+        "offset_ns": 407083
+      },
+      {
+        "name": "allocation_done",
+        "offset_ns": 407416
+      },
+      {
+        "name": "data_read",
+        "offset_ns": 407500,
+        "bytes_read": 52,
+        "files_touched": 1
+      },
+      {
+        "name": "data_materialized",
+        "offset_ns": 499708,
+        "bytes_read": 52,
+        "files_touched": 1
+      },
+      {
+        "name": "allocation_begin",
+        "offset_ns": 501916
+      },
+      {
+        "name": "allocation_done",
+        "offset_ns": 502750
+      },
+      {
+        "name": "data_read",
+        "offset_ns": 502916,
+        "bytes_read": 752,
+        "files_touched": 1
+      },
+      {
+        "name": "data_materialized",
+        "offset_ns": 575666,
+        "bytes_read": 752,
+        "files_touched": 1
+      },
+      {
+        "name": "allocation_begin",
+        "offset_ns": 576958
+      },
+      {
+        "name": "allocation_done",
+        "offset_ns": 609708
+      },
+      {
+        "name": "data_read",
+        "offset_ns": 11951500,
+        "bytes_read": 100663296,
+        "files_touched": 1
+      },
+      {
+        "name": "data_materialized",
+        "offset_ns": 45304916,
+        "bytes_read": 100663296,
+        "files_touched": 1
+      },
+      {
+        "name": "allocation_begin",
+        "offset_ns": 45315583
+      },
+      {
+        "name": "allocation_done",
+        "offset_ns": 45391583
+      },
+      {
+        "name": "data_read",
+        "offset_ns": 46703833,
+        "bytes_read": 12582912,
+        "files_touched": 1
+      },
+      {
+        "name": "data_materialized",
+        "offset_ns": 50172500,
+        "bytes_read": 12582912,
+        "files_touched": 1
+      },
+      {
+        "name": "allocation_begin",
+        "offset_ns": 50301541
+      },
+      {
+        "name": "allocation_done",
+        "offset_ns": 50302208
+      },
+      {
+        "name": "data_read",
+        "offset_ns": 50302833,
+        "bytes_read": 1976,
+        "files_touched": 1
+      },
+      {
+        "name": "data_materialized",
+        "offset_ns": 50391916,
+        "bytes_read": 1976,
+        "files_touched": 1
+      },
+      {
+        "name": "allocation_begin",
+        "offset_ns": 50393416
+      },
+      {
+        "name": "allocation_done",
+        "offset_ns": 50407166
+      },
+      {
+        "name": "data_read",
+        "offset_ns": 50409458,
+        "bytes_read": 65536,
+        "files_touched": 1
+      },
+      {
+        "name": "data_materialized",
+        "offset_ns": 50496583,
+        "bytes_read": 65536,
+        "files_touched": 1
+      },
+      {
+        "name": "allocation_begin",
+        "offset_ns": 50497958
+      },
+      {
+        "name": "allocation_done",
+        "offset_ns": 50498208
+      },
+      {
+        "name": "data_read",
+        "offset_ns": 50498291,
+        "bytes_read": 70,
+        "files_touched": 1
+      },
+      {
+        "name": "data_materialized",
+        "offset_ns": 50562333,
+        "bytes_read": 70,
+        "files_touched": 1
+      },
+      {
+        "name": "allocation_begin",
+        "offset_ns": 50563750
+      },
+      {
+        "name": "allocation_done",
+        "offset_ns": 50584625
+      },
+      {
+        "name": "data_read",
+        "offset_ns": 51928416,
+        "bytes_read": 10485760,
+        "files_touched": 1
+      },
+      {
+        "name": "data_materialized",
+        "offset_ns": 54735250,
+        "bytes_read": 10485760,
+        "files_touched": 1
+      },
+      {
+        "name": "allocation_begin",
+        "offset_ns": 54741166
+      },
+      {
+        "name": "allocation_done",
+        "offset_ns": 54760583
+      },
+      {
+        "name": "data_read",
+        "offset_ns": 56121000,
+        "bytes_read": 10485760,
+        "files_touched": 1
+      },
+      {
+        "name": "data_materialized",
+        "offset_ns": 58933666,
+        "bytes_read": 10485760,
+        "files_touched": 1
+      },
+      {
+        "name": "allocation_begin",
+        "offset_ns": 58940166
+      },
+      {
+        "name": "allocation_done",
+        "offset_ns": 58965708
+      },
+      {
+        "name": "data_read",
+        "offset_ns": 60453250,
+        "bytes_read": 10485760,
+        "files_touched": 1
+      },
+      {
+        "name": "data_materialized",
+        "offset_ns": 63108125,
+        "bytes_read": 10485760,
+        "files_touched": 1
+      },
+      {
+        "name": "end",
+        "offset_ns": 63228208
+      }
+    ]
+  }
+}

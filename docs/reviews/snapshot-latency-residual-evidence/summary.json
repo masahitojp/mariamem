@@ -1,0 +1,47 @@
+{
+  "0": {
+    "snapshot_median_ms": 337.196375,
+    "snapshot_min_ms": 336.354875,
+    "snapshot_max_ms": 340.142084,
+    "traced": {
+      "public_total": 340.677791,
+      "host_wait": 93.205833,
+      "post_guest_transfer": 63.226875,
+      "host_wait_less_transfer": 29.978958,
+      "publish_total": 180.48499999999999,
+      "manifest_residual": 0.4084169999999858,
+      "source_cleanup": 0.06495899999998755,
+      "owned_acquisition": 63.99475000000001
+    }
+  },
+  "10": {
+    "snapshot_median_ms": 394.063667,
+    "snapshot_min_ms": 390.424583,
+    "snapshot_max_ms": 397.01075000000003,
+    "traced": {
+      "public_total": 390.524709,
+      "host_wait": 105.145959,
+      "post_guest_transfer": 69.83012500000001,
+      "host_wait_less_transfer": 35.315833999999995,
+      "publish_total": 209.572875,
+      "manifest_residual": 0.3430409999999995,
+      "source_cleanup": 0.06658299999998007,
+      "owned_acquisition": 72.73424999999997
+    }
+  },
+  "100": {
+    "snapshot_median_ms": 711.603833,
+    "snapshot_min_ms": 689.728625,
+    "snapshot_max_ms": 727.928958,
+    "traced": {
+      "public_total": 751.698667,
+      "host_wait": 157.80416599999998,
+      "post_guest_transfer": 119.808458,
+      "host_wait_less_transfer": 37.99570799999998,
+      "publish_total": 455.534333,
+      "manifest_residual": 0.3498329999999896,
+      "source_cleanup": 0.06395799999995688,
+      "owned_acquisition": 132.22308399999997
+    }
+  }
+}
