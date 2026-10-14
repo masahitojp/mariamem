@@ -80,6 +80,9 @@ To estimate hash CPU without changing the runtime, one explicitly exported
 using two workers and 32 KiB buffers. It contained 11 regular files and
 274,746,682 bytes. Seven alternating pairs followed one retained warmup pair;
 every read counted the same bytes and all SHA-256 digests remained stable.
+The [artifact manifest](snapshot-latency-residual-evidence/artifact-100-manifest.json)
+binds the exact file hashes; its SHA-256 is
+`9d2f27d2a7074f86b6685537535844b76c9ef0a1d64b886af8b517337c11eae4`.
 
 | Same-file pass, warm-cache proxy | Read only | Read and SHA-256 |
 | --- | ---: | ---: |
