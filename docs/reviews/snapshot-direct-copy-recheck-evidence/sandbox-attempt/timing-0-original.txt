@@ -1,0 +1,12 @@
+panic: mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted
+	listen tcp4 127.0.0.1:0: bind: operation not permitted
+
+goroutine 1 [running]:
+main.must(...)
+	<experiment-work>/temp/source/benchmarks/ownedprepared/main.go:27
+main.main.func4()
+	<experiment-work>/temp/source/benchmarks/ownedprepared/main.go:142 +0x9c
+main.main.func2({0x1072ab8b3, 0xd}, 0x282cd17c2ee8)
+	<experiment-work>/temp/source/benchmarks/ownedprepared/main.go:98 +0x60
+main.main()
+	<experiment-work>/temp/source/benchmarks/ownedprepared/main.go:142 +0xa64

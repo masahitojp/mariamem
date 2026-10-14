@@ -206,7 +206,11 @@ spike, including preparation plus multiple Forks. The
 shorter Snapshot and ordinary whole-suite medians, plus a contrary large-fixture
 resource run. This experiment preserves final owned-file verification and does
 not adopt a new product path. The next bounded decision is recorded in that
-review; main integration and release preparation remain unapproved.
+review. The maintainer authorized that eight-run large-fixture follow-up;
+the [completed judgment](reviews/snapshot-direct-copy-recheck.md) records mixed
+whole-suite timing and recurring extra child-phase GC, recommending retention
+of the current product path. No automatic wider investigation follows;
+main integration and release preparation remain unapproved.
 
 ## v0.4.7 — Upstream converter migration (candidate)
 

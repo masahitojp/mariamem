@@ -1,0 +1,15 @@
+{
+  "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+  "command": [
+    "go",
+    "build",
+    "-p",
+    "1",
+    "-buildvcs=true",
+    "-o",
+    "<experiment-work>/temp/ownedprepared",
+    "./benchmarks/ownedprepared"
+  ],
+  "returncode": 0,
+  "seconds": 161.300838541
+}

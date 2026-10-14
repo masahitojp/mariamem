@@ -1,0 +1,6 @@
+building exact source 3341f99000246fc64ae17b4ea39118f55589de1e
+build identity verified; beginning eight runs
+Traceback (most recent call last):
+  File "<experiment-work>/temp/recheck.py", line 66, in <module>
+    if result.returncode: raise RuntimeError('scenario failed; retain failure and stop')
+RuntimeError: scenario failed; retain failure and stop

@@ -1,7 +1,11 @@
 # Temporary Snapshot direct-copy spike
 
-2026-10-14. Decision state: **continue candidate; not approved for integration**.
+2026-10-14. Historical decision state: **continue candidate; not approved for integration**.
 The approved low-cost feasibility comparison is complete on macOS arm64.
+The subsequently authorized [eight-run follow-up](snapshot-direct-copy-recheck.md)
+is complete with mixed whole-suite results and recommends retaining the current
+implementation. Its judgment supersedes the next-step recommendation below;
+the original evidence and decision context remain intact.
 
 ## Human Review
 

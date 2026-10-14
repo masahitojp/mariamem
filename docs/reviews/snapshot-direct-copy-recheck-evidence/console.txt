@@ -1,0 +1,11 @@
+building exact source 3341f99000246fc64ae17b4ea39118f55589de1e
+build identity verified; beginning eight runs
+timing-0-original Snapshot 0.889 children 17.076 suite 24.245 GC None
+timing-1-direct Snapshot 0.397 children 18.416 suite 25.322 GC None
+timing-2-direct Snapshot 0.509 children 18.259 suite 26.02 GC None
+timing-3-original Snapshot 0.871 children 18.289 suite 26.011 GC None
+resources-0-original Snapshot 0.822 children 18.204 suite 25.76 GC 10
+resources-1-direct Snapshot 0.4 children 18.411 suite 25.365 GC 27
+resources-2-direct Snapshot 0.455 children 18.018 suite 25.548 GC 25
+resources-3-original Snapshot 0.883 children 18.713 suite 26.648 GC 10
+eight runs complete

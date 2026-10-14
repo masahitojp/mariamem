@@ -1,0 +1,28 @@
+[
+  {
+    "name": "timing-0-original",
+    "mode": "original",
+    "kind": "timing",
+    "command": [
+      "<experiment-work>/temp/ownedprepared",
+      "-lifecycle",
+      "fork",
+      "-payload-mib",
+      "100",
+      "-forks",
+      "16",
+      "-workers",
+      "1",
+      "-workload",
+      "crud",
+      "-tables",
+      "1",
+      "-label",
+      "3341f99000246fc64ae17b4ea39118f55589de1e:original",
+      "-out",
+      "<experiment-work>/evidence/timing-0-original.json"
+    ],
+    "returncode": 2,
+    "process_wall_seconds": 1.4723912080000048
+  }
+]
