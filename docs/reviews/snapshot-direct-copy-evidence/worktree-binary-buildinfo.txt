@@ -1,0 +1,19 @@
+build/experiment-work/snapshot-direct-copy/temp/ownedprepared: go1.26.8
+	path	github.com/masahitojp/mariamem/benchmarks/ownedprepared
+	mod	github.com/masahitojp/mariamem	v0.5.1-0.20261014003454-2550bbe1ccf5
+	dep	filippo.io/edwards25519	v1.1.0	h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=
+	dep	github.com/go-sql-driver/mysql	v1.9.3	h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	CGO_ENABLED=1
+	build	CGO_CFLAGS=
+	build	CGO_CPPFLAGS=
+	build	CGO_CXXFLAGS=
+	build	CGO_LDFLAGS=
+	build	GOARCH=arm64
+	build	GOOS=darwin
+	build	GOARM64=v8.0
+	build	vcs=git
+	build	vcs.revision=2550bbe1ccf58f9cf65cf4cd801224907a7f9469
+	build	vcs.time=2026-10-14T00:34:54Z
+	build	vcs.modified=false

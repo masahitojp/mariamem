@@ -200,6 +200,14 @@ Neither research item blocks v0.5.0. Performance PoCs, if later authorized,
 require their own correctness and product-benefit decision; stable-guest behavior
 must be rechecked before integrating an optimization selected on the old guest.
 
+The maintainer subsequently authorized a cheap temporary-Snapshot direct-copy
+spike, including preparation plus multiple Forks. The
+[local result and Human Review](reviews/snapshot-direct-copy-spike.md) record
+shorter Snapshot and ordinary whole-suite medians, plus a contrary large-fixture
+resource run. This experiment preserves final owned-file verification and does
+not adopt a new product path. The next bounded decision is recorded in that
+review; main integration and release preparation remain unapproved.
+
 ## v0.4.7 — Upstream converter migration (candidate)
 
 The released scope replaces the pinned shibukawa converter fork with pinned

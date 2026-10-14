@@ -1,0 +1,14 @@
+{
+  "command": [
+    "<experiment-work>/temp/venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_owned_snapshot.py",
+    "-q"
+  ],
+  "returncode": 0,
+  "seconds": 45.249761541999995,
+  "scope": "unchanged Python export/import route regression; no direct-copy speedup claim",
+  "python": "Python 3.14.8",
+  "packages": "iniconfig==2.3.1\npackaging==26.3\npluggy==1.6.0\nPygments==2.21.0\nPyMySQL==1.2.3\npytest==9.1.1\n"
+}

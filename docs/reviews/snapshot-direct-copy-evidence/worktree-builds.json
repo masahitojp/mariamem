@@ -1,0 +1,34 @@
+[
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "build-benchmark",
+    "command": [
+      "go",
+      "build",
+      "-p",
+      "1",
+      "-buildvcs=true",
+      "-o",
+      "<experiment-work>/temp/ownedprepared",
+      "./benchmarks/ownedprepared"
+    ],
+    "returncode": 0,
+    "seconds": 4.400206209
+  },
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "build-python-host",
+    "command": [
+      "go",
+      "build",
+      "-p",
+      "1",
+      "-buildvcs=true",
+      "-o",
+      "<experiment-work>/temp/mariamem-host",
+      "./cmd/mariamem-host"
+    ],
+    "returncode": 0,
+    "seconds": 1.7117651659999993
+  }
+]

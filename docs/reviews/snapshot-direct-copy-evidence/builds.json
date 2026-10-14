@@ -1,0 +1,65 @@
+[
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "clone-identity",
+    "command": [
+      "python3",
+      "scripts/git_identity.py",
+      "inspect",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "seconds": 0.10195845799999992
+  },
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "build-benchmark",
+    "command": [
+      "go",
+      "build",
+      "-p",
+      "1",
+      "-buildvcs=true",
+      "-o",
+      "<experiment-work>/temp/ownedprepared",
+      "./benchmarks/ownedprepared"
+    ],
+    "returncode": 0,
+    "seconds": 162.184386458
+  },
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "clone-integration-direct",
+    "command": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "-tags=integration",
+      "./tests/gointegration",
+      "./tests/godefault",
+      "-run",
+      "TestPublicLifecycle|TestOwnedModifiedChildCreatesNewBaseline|TestDefaultNoBundleAndForkIsolation|TestLoadSnapshotPersistedLifecycle",
+      "-count=1",
+      "-v"
+    ],
+    "returncode": 0,
+    "seconds": 76.502625583
+  },
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "build-python-host",
+    "command": [
+      "go",
+      "build",
+      "-p",
+      "1",
+      "-buildvcs=true",
+      "-o",
+      "<experiment-work>/temp/mariamem-host",
+      "./cmd/mariamem-host"
+    ],
+    "returncode": 0,
+    "seconds": 2.232659625000025
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "generated-source",
+    "command": [
+      "python3",
+      "scripts/verify_generated_runtime.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.280289083
+  },
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "snapshot-race",
+    "command": [
+      "go",
+      "test",
+      "-race",
+      "-p",
+      "1",
+      "./internal/snapshot",
+      "-count=1"
+    ],
+    "returncode": 0,
+    "seconds": 3.0177326669999998
+  },
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "host-runtime-unit",
+    "command": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "./internal/host",
+      "./internal/generatedgo",
+      "-count=1"
+    ],
+    "returncode": 0,
+    "seconds": 4.479808332999999
+  },
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "integration-direct",
+    "command": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "-tags=integration",
+      "./tests/gointegration",
+      "./tests/godefault",
+      "-count=1",
+      "-v"
+    ],
+    "returncode": 0,
+    "seconds": 19.208128584
+  },
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "integration-control",
+    "command": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "-tags=integration",
+      "./tests/gointegration",
+      "./tests/godefault",
+      "-count=1",
+      "-v"
+    ],
+    "returncode": 0,
+    "seconds": 22.465391292
+  },
+  {
+    "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+    "name": "canonical-check",
+    "command": [
+      "<experiment-work>/temp/venv/bin/python",
+      "scripts/verify.py",
+      "check"
+    ],
+    "returncode": 1,
+    "seconds": 129.706493375
+  }
+]

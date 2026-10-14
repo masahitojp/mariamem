@@ -1,0 +1,7 @@
+{
+  "returncode": 0,
+  "interval_seconds": 5,
+  "timeout_seconds": 1200,
+  "peak_owned_bytes": 4759904256,
+  "minimum_free_bytes": 70189309952
+}

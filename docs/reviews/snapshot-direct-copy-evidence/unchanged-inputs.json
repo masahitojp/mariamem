@@ -1,0 +1,28 @@
+{
+  "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+  "baseline_source_commit": "2550bbe1ccf58f9cf65cf4cd801224907a7f9469",
+  "objects": {
+    "guest": {
+      "source": "054791991120434b0463948d2d1fc4d35bafed3e",
+      "baseline": "054791991120434b0463948d2d1fc4d35bafed3e"
+    },
+    "internal/generatedgo/code": {
+      "source": "8675dfef97d67f73d8c0901ed37f4244cecdec97",
+      "baseline": "8675dfef97d67f73d8c0901ed37f4244cecdec97"
+    },
+    "internal/generatedgo/provenance.json": {
+      "source": "3e16fe69bddd1ff8e24c88f85432034ea344d679",
+      "baseline": "3e16fe69bddd1ff8e24c88f85432034ea344d679"
+    },
+    "release/generated-go-inputs.json": {
+      "source": "66e3c3fb992946a4191a613a5c07b75ddd7574d9",
+      "baseline": "66e3c3fb992946a4191a613a5c07b75ddd7574d9"
+    },
+    "benchmarks/ownedprepared": {
+      "source": "41369d33a9f63716ed48894821a9c18e8421df64",
+      "baseline": "41369d33a9f63716ed48894821a9c18e8421df64"
+    }
+  },
+  "host_binary_sha256": "321f46cd99122462e3620cca4526d1bf3e43040aadea7b60c422e7509899bf0e",
+  "host_binary_buildinfo": "build/experiment-work/snapshot-direct-copy/temp/mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1-0.20261014043023-3341f9900024\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=3341f99000246fc64ae17b4ea39118f55589de1e\n\tbuild\tvcs.time=2026-10-14T04:30:23Z\n\tbuild\tvcs.modified=false\n"
+}

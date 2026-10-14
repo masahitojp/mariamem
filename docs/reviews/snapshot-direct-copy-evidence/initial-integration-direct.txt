@@ -1,0 +1,5 @@
+# github.com/masahitojp/mariamem
+./snapshot.go:95:44: db.server.SnapshotOwned undefined (type backend has no field or method SnapshotOwned)
+FAIL	github.com/masahitojp/mariamem/tests/gointegration [build failed]
+FAIL	github.com/masahitojp/mariamem/tests/godefault [build failed]
+FAIL

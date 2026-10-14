@@ -1,0 +1,59 @@
+[
+  {
+    "source_commit": "5531d044999bbd0babf651dc7f83728237e377fe",
+    "name": "generated-source",
+    "command": [
+      "python3",
+      "scripts/verify_generated_runtime.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.2499475
+  },
+  {
+    "source_commit": "5531d044999bbd0babf651dc7f83728237e377fe",
+    "name": "snapshot-race",
+    "command": [
+      "go",
+      "test",
+      "-race",
+      "-p",
+      "1",
+      "./internal/snapshot",
+      "-count=1"
+    ],
+    "returncode": 0,
+    "seconds": 2.790694292
+  },
+  {
+    "source_commit": "5531d044999bbd0babf651dc7f83728237e377fe",
+    "name": "host-runtime-unit",
+    "command": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "./internal/host",
+      "./internal/generatedgo",
+      "-count=1"
+    ],
+    "returncode": 0,
+    "seconds": 4.311089333
+  },
+  {
+    "source_commit": "5531d044999bbd0babf651dc7f83728237e377fe",
+    "name": "integration-direct",
+    "command": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "-tags=integration",
+      "./tests/gointegration",
+      "./tests/godefault",
+      "-count=1",
+      "-v"
+    ],
+    "returncode": 1,
+    "seconds": 19.572402333
+  }
+]

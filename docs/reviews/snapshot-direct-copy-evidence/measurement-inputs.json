@@ -1,0 +1,22 @@
+{
+  "source_commit": "3341f99000246fc64ae17b4ea39118f55589de1e",
+  "control_source_commit": "2550bbe1ccf58f9cf65cf4cd801224907a7f9469",
+  "comparison": "same clean prototype binary, MARIAMEM_SNAPSHOT_DIRECT=0 original path vs 1 direct path",
+  "binary_sha256": "fbf2582d7acc0aed2037a2ee25072b4e343e9e3623ebf24e1520cc92955646cf",
+  "binary_buildinfo": "<experiment-work>/temp/ownedprepared: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1-0.20261014043023-3341f9900024\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=3341f99000246fc64ae17b4ea39118f55589de1e\n\tbuild\tvcs.time=2026-10-14T04:30:23Z\n\tbuild\tvcs.modified=false\n",
+  "harness_sha256": "d871520d9b78cc5329883d4d6a034ec882629d77aba7abc9d2c603e6500b0d5a",
+  "campaign_sha256": "84b4b3fa54ffb18ebdf028221992a280a7ebafd83971ecd4586ce735bf1ff382",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "gomaxprocs": 2,
+  "trials_per_mode_per_cell": 2,
+  "order": [
+    "original",
+    "direct",
+    "direct",
+    "original"
+  ],
+  "scope": "local macOS feasibility; no release qualification; separate resources and traces",
+  "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+  "provenance_sha256": "50ae73858e6a067cdf6b1af31329a9b35330a14f6e64927b2ea84a796f8cd6f4",
+  "toolchain": "go version go1.26.8 darwin/arm64"
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "name": "snapshot-race",
+    "command": [
+      "go",
+      "test",
+      "-race",
+      "-p",
+      "1",
+      "./internal/snapshot",
+      "-count=1"
+    ],
+    "returncode": 0,
+    "seconds": 14.585097541
+  },
+  {
+    "name": "host-runtime-unit",
+    "command": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "./internal/host",
+      "./internal/generatedgo",
+      "-count=1"
+    ],
+    "returncode": 0,
+    "seconds": 212.134654708
+  },
+  {
+    "name": "integration-direct",
+    "command": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "-tags=integration",
+      "./tests/gointegration",
+      "./tests/godefault",
+      "-count=1",
+      "-v"
+    ],
+    "returncode": 1,
+    "seconds": 18.178395292000005
+  }
+]

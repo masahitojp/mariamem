@@ -1,0 +1,14 @@
+=== RUN   TestPublicLifecycle
+    lifecycle_test.go:104: driver=v1.9.3 server=12.3.3-MariaDB-embedded
+    lifecycle_test.go:281: Start, ConnectionInfo/DSN, SQL, InnoDB, commit, transaction rejection, disconnect, snapshot, concurrent/sequential fork isolation and cleanup passed
+--- PASS: TestPublicLifecycle (1.05s)
+=== RUN   TestOwnedModifiedChildCreatesNewBaseline
+--- PASS: TestOwnedModifiedChildCreatesNewBaseline (0.93s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/gointegration	3.471s
+=== RUN   TestDefaultNoBundleAndForkIsolation
+--- PASS: TestDefaultNoBundleAndForkIsolation (0.47s)
+=== RUN   TestLoadSnapshotPersistedLifecycle
+--- PASS: TestLoadSnapshotPersistedLifecycle (0.87s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/godefault	2.211s
