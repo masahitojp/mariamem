@@ -46,6 +46,7 @@ func MapPreparedHandles(fsys *MemFS, entries []prepared.Entry, prefix string) (_
 		node, e := fsys.lookup(dest)
 		if e == nil {
 			node.data = data
+			fsys.auditMap(node)
 		}
 		fsys.mu.Unlock()
 		if e != nil {

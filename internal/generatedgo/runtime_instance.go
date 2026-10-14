@@ -31,6 +31,12 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 		}()
 		w := base.DefaultWASI()
 		fs := base.NewMemFS()
+		if restore != nil {
+			fs.AuditRole("fork")
+		} else {
+			fs.AuditRole("fresh")
+		}
+		defer fs.AuditEnd()
 		if err = fs.MkdirAll("dev", 0755); err != nil {
 			return
 		}
@@ -65,6 +71,7 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 			return
 		}
 		if transfer != "" {
+			base.AuditPhase("host-export")
 			err = exportTransfer(fs, transfer)
 		}
 	}()

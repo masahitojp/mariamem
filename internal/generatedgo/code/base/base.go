@@ -11802,8 +11802,10 @@ func (o osFS) Link(a, b string) error                    { return os.Link(o.join
 // files (full per-interpreter filesystem isolation, no disk). Build one with
 // NewMemFS. Safe for concurrent use.
 type MemFS struct {
-	mu   sync.Mutex
-	root *memNode
+	mu        sync.Mutex
+	root      *memNode
+	auditID   uint64
+	auditRole string
 }
 
 // NewMemFS returns an empty in-memory filesystem with a root directory.
@@ -11820,6 +11822,7 @@ type memNode struct {
 	modTime  time.Time
 	data     []byte
 	children map[string]*memNode
+	audit    *AuditNode
 }
 
 func memSplit(name string) []string {
@@ -11895,10 +11898,12 @@ func (fsys *MemFS) OpenFile(name string, flag int, perm os.FileMode) (File, erro
 			return nil, &fs.PathError{Op: "open", Path: name, Err: fs.ErrExist}
 		}
 		if flag&os.O_TRUNC != 0 && !node.dir {
+			fsys.auditTrunc(node)
 			node.data = node.data[:0]
 			node.modTime = time.Now()
 		}
 	}
+	fsys.auditOpen(node)
 	f := &memFile{fsys: fsys, node: node, writable: flag&(os.O_WRONLY|os.O_RDWR) != 0}
 	if flag&os.O_APPEND != 0 {
 		f.off = int64(len(node.data))
@@ -11934,6 +11939,7 @@ func (fsys *MemFS) Remove(name string) error {
 	if n.dir && len(n.children) > 0 {
 		return &fs.PathError{Op: "remove", Path: name, Err: fs.ErrInvalid}
 	}
+	fsys.auditUnlink(n)
 	delete(parent.children, base)
 	return nil
 }
@@ -11963,6 +11969,7 @@ func (fsys *MemFS) Rename(oldName, newName string) error {
 	node.parent = np
 	node.name = nb
 	np.children[nb] = node
+	fsys.auditRename(node)
 	return nil
 }
 
@@ -12032,7 +12039,11 @@ func (fsys *MemFS) WriteFile(name string, data []byte, perm os.FileMode) error {
 	}
 	cp := make([]byte, len(data))
 	copy(cp, data)
+	if old := parent.children[base]; old != nil {
+		fsys.auditUnlink(old)
+	}
 	parent.children[base] = &memNode{parent: parent, name: base, mode: perm & 0o777, modTime: time.Now(), data: cp}
+	fsys.auditPopulate(parent.children[base])
 	return nil
 }
 
@@ -12071,11 +12082,12 @@ func (e memDirEntry) Info() (os.FileInfo, error) { return e.n.info(), nil }
 
 // memFile is an open handle into a MemFS node.
 type memFile struct {
-	writable bool
-	fsys     *MemFS
-	node     *memNode
-	off      int64
-	dirOff   int
+	writable    bool
+	fsys        *MemFS
+	node        *memNode
+	off         int64
+	dirOff      int
+	auditClosed bool
 }
 
 // Allocate grows under the same node lock as WriteAt and Truncate. It never
@@ -12089,8 +12101,9 @@ func (f *memFile) Allocate(end int64) error {
 	if f.node.dir {
 		return syscall.EISDIR
 	}
+	f.fsys.auditRequest(f.node, end)
 	if end > int64(len(f.node.data)) {
-		f.node.data = resizeMemData(f.node.data, end)
+		f.fsys.auditResize(f.node, end, "allocate")
 		f.node.modTime = time.Now()
 	}
 	return nil
@@ -12107,7 +12120,7 @@ func lockNativeFileResize(f File) func() {
 }
 
 func (f *memFile) Name() string { return f.node.name }
-func (f *memFile) Close() error { return nil }
+func (f *memFile) Close() error { f.auditClose(); return nil }
 func (f *memFile) Sync() error  { return nil }
 
 func (f *memFile) Stat() (os.FileInfo, error) {
@@ -12126,6 +12139,7 @@ func (f *memFile) Read(p []byte) (int, error) {
 		return 0, io.EOF
 	}
 	n := copy(p, f.node.data[f.off:])
+	f.fsys.auditIO(f.node, int(f.off), n, false)
 	f.off += int64(n)
 	return n, nil
 }
@@ -12137,6 +12151,7 @@ func (f *memFile) ReadAt(p []byte, off int64) (int, error) {
 		return 0, io.EOF
 	}
 	n := copy(p, f.node.data[off:])
+	f.fsys.auditIO(f.node, int(off), n, false)
 	if n < len(p) {
 		return n, io.EOF
 	}
@@ -12147,9 +12162,10 @@ func (f *memFile) ReadAt(p []byte, off int64) (int, error) {
 func (f *memFile) writeAt(p []byte, off int64) int {
 	end := off + int64(len(p))
 	if end > int64(len(f.node.data)) {
-		f.node.data = resizeMemData(f.node.data, end)
+		f.fsys.auditResize(f.node, end, "write-grow")
 	}
 	copy(f.node.data[off:], p)
+	f.fsys.auditIO(f.node, int(off), len(p), true)
 	f.node.modTime = time.Now()
 	return len(p)
 }
@@ -12185,7 +12201,7 @@ func (f *memFile) Seek(offset int64, whence int) (int64, error) {
 func (f *memFile) Truncate(size int64) error {
 	f.fsys.mu.Lock()
 	defer f.fsys.mu.Unlock()
-	f.node.data = resizeMemData(f.node.data, size)
+	f.fsys.auditResize(f.node, size, "truncate")
 	f.node.modTime = time.Now()
 	return nil
 }

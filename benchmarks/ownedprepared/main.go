@@ -18,6 +18,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
+	auditbase "github.com/masahitojp/mariamem/internal/generatedgo/code/base"
 )
 
 var ctx = context.Background()
@@ -94,9 +95,26 @@ func main() {
 	}
 	probe("before")
 	measure := func(name string, f func()) {
+		phase := name
+		switch {
+		case strings.HasPrefix(name, "fresh_ready") || name == "prepare_start":
+			phase = "fresh-ready"
+		case strings.HasPrefix(name, "fresh_setup") || name == "prepare_setup":
+			phase = "fixture-sql"
+		case name == "snapshot":
+			phase = "guest-snapshot"
+		case strings.HasPrefix(name, "fork_ready"):
+			phase = "fork-ready"
+		case strings.HasPrefix(name, "child_close"):
+			phase = "close"
+		default:
+			phase = "child-sql"
+		}
+		auditbase.AuditPhase(phase)
 		t, c := time.Now(), cpu()
 		f()
 		elapsed, consumed := time.Since(t).Seconds(), cpu()-c
+		auditbase.AuditCheckpoint(name)
 		var cpuValue any = consumed
 		if *workers > 1 {
 			cpuValue = nil
@@ -327,4 +345,7 @@ func main() {
 	b, e := json.MarshalIndent(result, "", " ")
 	must(e)
 	must(os.WriteFile(*out, b, 0600))
+	if path := os.Getenv("MARIAMEM_MEMFS_AUDIT_OUT"); path != "" {
+		must(auditbase.AuditSave(path))
+	}
 }

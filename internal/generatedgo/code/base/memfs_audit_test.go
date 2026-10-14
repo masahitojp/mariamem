@@ -1,0 +1,108 @@
+package base
+
+import (
+	"os"
+	"testing"
+)
+
+func TestMemFSAuditCoverageEpochAndOwnership(t *testing.T) {
+	if !auditEnabled {
+		t.Skip("measurement observer disabled")
+	}
+	fs := NewMemFS()
+	fs.AuditRole("fixture")
+	file, err := fs.OpenFile("table", os.O_CREATE|os.O_RDWR, 0600)
+	if err != nil {
+		t.Fatal(err)
+	}
+	f := file.(*memFile)
+	if err = f.Allocate(32768); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = f.WriteAt(make([]byte, 4096), 8192); err != nil {
+		t.Fatal(err)
+	} // Explicit zeros count as a write.
+	if _, err = f.WriteAt([]byte("x"), 16384); err != nil {
+		t.Fatal(err)
+	}
+	AuditCheckpoint("before-shrink")
+	p := auditState.frames[len(auditState.frames)-1].Nodes[len(auditState.nodes)-1]
+	if p.WrittenLower != 4096 || p.WrittenUpper != 8192 {
+		t.Fatalf("coverage %+v", p)
+	}
+	id := f.node.audit.ID
+	if err = fs.Rename("table", "renamed"); err != nil {
+		t.Fatal(err)
+	}
+	if f.node.audit.ID != id || f.node.audit.Path != "renamed" {
+		t.Fatal("unstable identity")
+	}
+	if err = f.Truncate(12288); err != nil {
+		t.Fatal(err)
+	}
+	if err = f.Allocate(32768); err != nil {
+		t.Fatal(err)
+	}
+	AuditCheckpoint("after-regrow")
+	p = auditState.frames[len(auditState.frames)-1].Nodes[len(auditState.nodes)-1]
+	if p.Epoch != 1 || p.WrittenLower != 4096 || p.WrittenUpper != 4096 {
+		t.Fatalf("epoch coverage %+v", p)
+	}
+	if err = fs.Remove("renamed"); err != nil {
+		t.Fatal(err)
+	}
+	if f.node.audit.Linked || f.node.audit.Handles != 1 {
+		t.Fatal("unlinked handle attribution")
+	}
+	if err = f.Close(); err != nil {
+		t.Fatal(err)
+	}
+	f.Close()
+	if f.node.audit.Handles != 0 {
+		t.Fatal("double close changed count")
+	}
+	fs.AuditEnd()
+	if !f.node.audit.Ended {
+		t.Fatal("missing lifecycle end")
+	}
+}
+
+func TestMemFSAuditResizeAccounting(t *testing.T) {
+	if !auditEnabled {
+		t.Skip("measurement observer disabled")
+	}
+	fs := NewMemFS()
+	fs.AuditRole("fixture")
+	file, err := fs.OpenFile("f", os.O_CREATE|os.O_RDWR, 0600)
+	if err != nil {
+		t.Fatal(err)
+	}
+	f := file.(*memFile)
+	f.Allocate(4096)
+	f.Allocate(8192)
+	a := f.node.audit
+	var initial, realloc, copy uint64
+	for _, s := range a.Phases {
+		initial += s.InitialCapacity
+		realloc += s.ReallocCapacity
+		copy += s.OldCopied
+	}
+	if initial != 4096 || realloc != 8192 || copy != 4096 {
+		t.Fatalf("counts %d %d %d", initial, realloc, copy)
+	}
+	// Synthetic marker tests attribution only; real mappings are covered by guest runs.
+	a.Mapped = true
+	f.Allocate(16384)
+	var detached uint64
+	for _, s := range a.Phases {
+		detached += s.Detached
+	}
+	if detached != 8192 || a.Mapped {
+		t.Fatal("detach attribution")
+	}
+	before := len(f.node.data)
+	f.Allocate(1)
+	if len(f.node.data) != before {
+		t.Fatal("observer changed allocation semantics")
+	}
+}
