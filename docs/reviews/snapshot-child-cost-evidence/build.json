@@ -1,0 +1,1 @@
+{"source_commit":"30046c949717a0eb95086cfbf0ceeb081f85e5c6","command":["go","build","-p","1","-buildvcs=true","-o","<WORKSPACE>/temp/ownedprepared","./benchmarks/ownedprepared"],"returncode":0,"seconds":249.85855174064636,"guard":{"work_dir":"<WORKSPACE>","floor":8589934592,"budget":6442450944,"peak":1906475008,"minimum_free":70451200000}}

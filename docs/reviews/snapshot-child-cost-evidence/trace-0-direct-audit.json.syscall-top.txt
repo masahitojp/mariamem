@@ -1,0 +1,31 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 426.29ms, 100% of 426.29ms total
+Dropped 317 nodes (cum <= 2.13ms)
+Showing top 25 nodes out of 119
+      flat  flat%   sum%        cum   cum%
+  291.80ms 68.45% 68.45%   291.80ms 68.45%  syscall.syscall6
+     113ms 26.51% 94.96%      113ms 26.51%  syscall.syscall
+   21.49ms  5.04%   100%    21.49ms  5.04%  syscall.syscall6X
+         0     0%   100%     2.48ms  0.58%  database/sql.(*DB).QueryContext
+         0     0%   100%     2.48ms  0.58%  database/sql.(*DB).QueryContext.func1
+         0     0%   100%     2.48ms  0.58%  database/sql.(*DB).QueryRow
+         0     0%   100%     2.48ms  0.58%  database/sql.(*DB).QueryRowContext
+         0     0%   100%     2.48ms  0.58%  database/sql.(*DB).query
+         0     0%   100%     3.23ms  0.76%  database/sql.(*DB).retry
+         0     0%   100%     3.34ms  0.78%  database/sql.withLock
+         0     0%   100%     3.61ms  0.85%  github.com/masahitojp/mariamem.(*Database).Close
+         0     0%   100%     3.61ms  0.85%  github.com/masahitojp/mariamem.(*Database).closeLocked
+         0     0%   100%   325.67ms 76.40%  github.com/masahitojp/mariamem.(*Snapshot).Fork
+         0     0%   100%   325.67ms 76.40%  github.com/masahitojp/mariamem.start
+         0     0%   100%   321.96ms 75.53%  github.com/masahitojp/mariamem/internal/artifacts.ValidatePlatform
+         0     0%   100%   321.96ms 75.53%  github.com/masahitojp/mariamem/internal/artifacts.currentTarget
+         0     0%   100%     2.72ms  0.64%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Path_open2
+         0     0%   100%    63.27ms 14.84%  github.com/masahitojp/mariamem/internal/generatedgo.StartInstance.func2
+         0     0%   100%    13.66ms  3.20%  github.com/masahitojp/mariamem/internal/generatedgo.StartInstance.func2.2
+         0     0%   100%     2.66ms  0.62%  github.com/masahitojp/mariamem/internal/generatedgo.entropyFS.OpenFile
+         0     0%   100%     7.53ms  1.77%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0%   100%     2.85ms  0.67%  github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.func2.installGuestThreadLifetime.InstallThreadLifetime.1
+         0     0%   100%    20.01ms  4.69%  github.com/masahitojp/mariamem/internal/generatedgo.releaseMemoryModule
+         0     0%   100%     7.53ms  1.77%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0%   100%    20.01ms  4.69%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Close

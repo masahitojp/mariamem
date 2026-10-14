@@ -1,0 +1,9 @@
+Focus expression matched no samples
+File: ownedprepared
+Type: cpu
+Time: 2026-10-14 20:15:21 JST
+Duration: 18.42s, Total samples = 25.12s (136.39%)
+Active filters:
+   focus=runtime\.(gc|scan|mark|sweep)
+Showing nodes accounting for 0, 0% of 25.12s total
+      flat  flat%   sum%        cum   cum%

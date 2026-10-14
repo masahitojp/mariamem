@@ -1,0 +1,17 @@
+File: ownedprepared
+Type: cpu
+Time: 2026-10-14 20:15:47 JST
+Duration: 18.42s, Total samples = 25.22s (136.91%)
+Active filters:
+   focus=runtime\.(gc|scan|mark|sweep)
+Showing nodes accounting for 0.02s, 0.079% of 25.22s total
+      flat  flat%   sum%        cum   cum%
+     0.01s  0.04%  0.04%      0.01s  0.04%  internal/runtime/atomic.(*UnsafePointer).StoreNoWB (inline)
+     0.01s  0.04% 0.079%      0.01s  0.04%  runtime.(*spanInlineMarkBits).init
+         0     0% 0.079%      0.01s  0.04%  runtime.(*atomicMSpanPointer).StoreNoWB (inline)
+         0     0% 0.079%      0.01s  0.04%  runtime.(*mheap).nextSpanForSweep
+         0     0% 0.079%      0.01s  0.04%  runtime.(*mspan).moveInlineMarks
+         0     0% 0.079%      0.01s  0.04%  runtime.(*spanSet).pop
+         0     0% 0.079%      0.01s  0.04%  runtime.(*sweepLocked).sweep
+         0     0% 0.079%      0.02s 0.079%  runtime.bgsweep
+         0     0% 0.079%      0.02s 0.079%  runtime.sweepone

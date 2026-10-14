@@ -1,6 +1,7 @@
 # Snapshot／MemFS投資判断の再評価
 
-2026-10-14。既存証拠の照合のみ。新規計測・実装なし。**Human decision pending**。
+2026-10-14。以下は追加確認を推薦した時点の投資比較。
+Humanは上限4時間の追加確認を承認した。[実行結果と終了判断](snapshot-child-cost-followup.md)を後続資料とし、以下の比較根拠は保存する。
 
 ## Human Review
 

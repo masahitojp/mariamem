@@ -1,0 +1,31 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 88.95s, 100% of 88.96s total
+Dropped 61 nodes (cum <= 0.44s)
+Showing top 25 nodes out of 52
+      flat  flat%   sum%        cum   cum%
+    71.40s 80.26% 80.26%     71.40s 80.26%  internal/poll.(*FD).Read
+    17.56s 19.74%   100%     17.56s 19.74%  internal/poll.(*FD).Accept
+         0     0%   100%     17.41s 19.57%  database/sql.(*DB).QueryContext
+         0     0%   100%     17.41s 19.57%  database/sql.(*DB).QueryContext.func1
+         0     0%   100%     17.41s 19.57%  database/sql.(*DB).QueryRow
+         0     0%   100%     17.41s 19.57%  database/sql.(*DB).QueryRowContext
+         0     0%   100%     17.41s 19.57%  database/sql.(*DB).query
+         0     0%   100%     17.39s 19.54%  database/sql.(*DB).queryDC
+         0     0%   100%     17.39s 19.54%  database/sql.(*DB).queryDC.func1
+         0     0%   100%     17.42s 19.59%  database/sql.(*DB).retry
+         0     0%   100%     17.39s 19.54%  database/sql.ctxDriverQuery
+         0     0%   100%     17.44s 19.60%  database/sql.withLock
+         0     0%   100%     17.45s 19.62%  github.com/go-sql-driver/mysql.(*buffer).fill
+         0     0%   100%     17.39s 19.54%  github.com/go-sql-driver/mysql.(*mysqlConn).QueryContext
+         0     0%   100%     17.39s 19.54%  github.com/go-sql-driver/mysql.(*mysqlConn).query
+         0     0%   100%     17.45s 19.62%  github.com/go-sql-driver/mysql.(*mysqlConn).readNext
+         0     0%   100%     17.45s 19.62%  github.com/go-sql-driver/mysql.(*mysqlConn).readPacket
+         0     0%   100%     17.45s 19.62%  github.com/go-sql-driver/mysql.(*mysqlConn).readWithTimeout
+         0     0%   100%     17.44s 19.60%  github.com/go-sql-driver/mysql.(*okHandler).readResultSetHeaderPacket
+         0     0%   100%     17.56s 19.74%  github.com/masahitojp/mariamem/internal/generatedgo.StartInstance.func2
+         0     0%   100%     17.56s 19.74%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0%   100%     17.56s 19.74%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0%   100%     17.56s 19.74%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_read
+         0     0%   100%     17.56s 19.74%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.readVec
+         0     0%   100%     17.56s 19.74%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21692

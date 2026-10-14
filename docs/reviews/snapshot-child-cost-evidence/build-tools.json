@@ -1,0 +1,1 @@
+{"command":["go","build","-p","1","-o","<WORKSPACE>/temp/tools","cmd/pprof","cmd/trace"],"returncode":0,"seconds":21.696395874023438,"guard":{"work_dir":"<WORKSPACE>","floor":8589934592,"budget":6442450944,"peak":1883234304,"minimum_free":76185600000}}
