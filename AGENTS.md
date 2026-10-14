@@ -17,6 +17,9 @@ Mechanical verification belongs in deterministic scripts and CI where possible.
 Judge completion against the requested scope. Obtain agreement before reducing
 that scope. Report confirmed results and unfinished work accurately.
 See `docs/development.md#scope-and-completion`.
+Investigation and review reports state the conclusion to the original question,
+an evidence-based recommendation, and conditions for proceeding; when no judgment
+is possible, state the missing evidence and the concrete work and cost to obtain it.
 
 Human Review opens with one decision needed now, a short recommendation and its
 decisive reason, plus the strongest material objection and your assessment when
