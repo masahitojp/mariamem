@@ -67,7 +67,11 @@ func main() {
 	helper := flag.String("helper", "", "existing OS process-counter helper")
 	export := flag.String("export", "", "fixture provisioning only: explicit output artifact")
 	observeGo := flag.Bool("go-resources", false, "sample Go heap every 25ms and process RSS high-water mark; benchmark only")
+	auditPath := flag.String("child-audit", "", "experiment-only phase metrics JSON")
+	profileMode := flag.String("child-profile", "none", "experiment-only child profile: none, cpu, trace")
 	flag.Parse()
+	audit := newChildAudit(*auditPath, *profileMode, *workers)
+	defer audit.finish()
 	if (*lifecycle != "fork" && *lifecycle != "fresh") || (*lifecycle == "fresh" && (*export != "" || *fdSnapshots != 0)) || *payload < 0 || *out == "" || *n < 1 || *workers < 1 || *tables < 1 || (*workload != "read" && *workload != "crud" && *workload != "app-connections") {
 		panic("out and positive forks required")
 	}
@@ -94,9 +98,11 @@ func main() {
 	}
 	probe("before")
 	measure := func(name string, f func()) {
+		audit.point(name + "_before")
 		t, c := time.Now(), cpu()
 		f()
 		elapsed, consumed := time.Since(t).Seconds(), cpu()-c
+		audit.point(name + "_after")
 		var cpuValue any = consumed
 		if *workers > 1 {
 			cpuValue = nil
@@ -252,6 +258,7 @@ func main() {
 			}
 			measure(fmt.Sprintf("child_close_%02d", i), func() { disconnect(child, p); must(child.Close()) })
 		}
+		audit.startChildren()
 		loopBegin := time.Now()
 		if *workers == 1 {
 			for i := 0; i < *n; i++ {
@@ -280,6 +287,7 @@ func main() {
 			wg.Wait()
 		}
 		result["instance_suite_wall_seconds"] = time.Since(loopBegin).Seconds()
+		audit.stopChildren()
 		if *lifecycle == "fork" {
 			result["fork_suite_wall_seconds"] = result["instance_suite_wall_seconds"]
 		}
@@ -289,7 +297,9 @@ func main() {
 	if saved != nil {
 		measure("snapshot_close", func() { must(saved.Close()) })
 	}
+	audit.point("before_existing_final_gc")
 	runtime.GC()
+	audit.point("after_existing_final_gc")
 	result["suite_seconds"] = time.Since(total).Seconds()
 	result["suite_cpu_seconds"] = cpu() - totalCPU
 	result["suite_cpu_scope"] = "RUSAGE_SELF; benchmark/diagnostic overhead included; counter-helper child CPU excluded"
