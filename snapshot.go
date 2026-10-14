@@ -91,8 +91,11 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 	}
 	timing.Mark(ctx, "destination_ready")
 	var consumed bool
-	if saved.temporary != "" && os.Getenv("MARIAMEM_SNAPSHOT_DIRECT") == "1" {
-		saved.backing, consumed, err = db.server.SnapshotOwned(ctx, saved.path, opts.Rollback)
+	direct, canDirect := db.server.(interface {
+		SnapshotOwned(context.Context, string, bool) (*stored.Owned, bool, error)
+	})
+	if saved.temporary != "" && os.Getenv("MARIAMEM_SNAPSHOT_DIRECT") == "1" && canDirect {
+		saved.backing, consumed, err = direct.SnapshotOwned(ctx, saved.path, opts.Rollback)
 	} else {
 		consumed, err = db.server.Snapshot(ctx, saved.path, opts.Rollback)
 	}
