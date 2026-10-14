@@ -274,7 +274,9 @@ func (s *Server) snapshot(ctx context.Context, destination string, rollback bool
 	if owned != nil {
 		// Guest and host producer have both completed. Existing acquisition
 		// unlinks aliases then verifies the exact descriptors retained for Fork.
+		_, finish := timing.Begin(ctx, "snapshot_direct_acquire")
 		*owned, err = snapshot.AdoptCreated(path, s.build)
+		finish()
 		return true, err
 	}
 	err = snapshot.PublishContext(ctx, s.transfer, path, s.build)

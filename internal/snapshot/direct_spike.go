@@ -5,6 +5,7 @@ package snapshot
 // directory. Materialization does NOT by itself confer verified ownership:
 // the caller must subsequently AdoptCreated and retain its exact descriptors.
 import (
+	"context"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -13,6 +14,8 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+
+	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 // DirectRequest is private experiment coordination inside the host-owned
@@ -20,9 +23,13 @@ import (
 const DirectRequest = ".direct-snapshot-request"
 
 func MaterializeDirect(source fs.FS, destination, build string) error {
+	ctx, finish := timing.Begin(context.Background(), "snapshot_direct_materialize")
+	defer finish()
 	buffer := make([]byte, 128*1024)
 	return materializeDirect(source, destination, build, func(w io.Writer, r io.Reader) (int64, error) {
-		return io.CopyBuffer(w, r, buffer)
+		n, err := io.CopyBuffer(w, r, buffer)
+		timing.Work(ctx, "source_hashed_and_materialized", n, 1)
+		return n, err
 	})
 }
 

@@ -303,7 +303,11 @@ func TestOwnedModifiedChildCreatesNewBaseline(t *testing.T) {
 		if t.Failed() {
 			return
 		}
-		for _, operation := range []string{"public_snapshot", "snapshot_export", "snapshot_publish"} {
+		operations := []string{"public_snapshot", "snapshot_export", "snapshot_publish"}
+		if os.Getenv("MARIAMEM_SNAPSHOT_DIRECT") == "1" {
+			operations = []string{"public_snapshot", "snapshot_direct_materialize", "snapshot_direct_acquire"}
+		}
+		for _, operation := range operations {
 			paths, err := filepath.Glob(filepath.Join(traceDir, "*-"+operation+"-*.json"))
 			if err != nil || len(paths) != 2 {
 				t.Errorf("Snapshot attribution %s: paths=%v error=%v", operation, paths, err)
