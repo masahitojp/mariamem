@@ -178,11 +178,14 @@ already owns measurement navigation; no duplicate report is introduced.
 
 ### Research handoff — independent of v0.5.0 guest migration
 
-**MemFS limited measurement:** use the existing Decision's §7 as the sole scope
-and acceptance reference: file/phase initial allocations, reallocations/copied
-bytes, unique write coverage, child-only mapped detach and corresponding
-wall/CPU/Peak RSS. This work remains unperformed and needs separate authorization;
-do not create a second measurement plan or backend implementation here.
+**MemFS limited measurement:** the maintainer authorized the existing Decision's
+§7 attribution scope. The [completed local investigation and Human Review](reviews/memfs-limited-attribution.md)
+identify initial reserve, main-table fixture reallocation/copy, bounded write
+coverage and zero mapped detach in the selected children. The actual-request
+growth model and aggregate resize timing support a recommendation to retain the
+current implementation; that recommendation awaits the Human decision. No growth,
+sparse or VFS optimization is adopted. Preserve the existing Decision's criteria
+and this evidence rather than starting a second open-ended measurement plan.
 
 **Snapshot lifecycle/shutdown:** pgmem stops its server, clones VFS state, then
 restarts the original; mariamem consumes the source on successful cold Snapshot.

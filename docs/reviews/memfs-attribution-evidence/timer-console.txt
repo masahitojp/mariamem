@@ -1,0 +1,4 @@
+Timed resize aggregate ms 11.626457
+mariadb/data/ibdata1 fresh-ready:allocate ms 0.379
+mariadb/data/ib_logfile0 fresh-ready:allocate ms 0.403
+mariadb/data/test/characterization.ibd fixture-sql:allocate ms 10.748

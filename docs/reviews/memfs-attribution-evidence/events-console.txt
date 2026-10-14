@@ -1,0 +1,69 @@
+    },
+    {
+      "phase": "fixture-sql",
+      "op": "allocate",
+      "index": 48,
+      "oldlen": 14680064,
+      "oldcap": 16000000,
+      "size": 15728640,
+      "newcap": 16000000
+    },
+    {
+      "phase": "fixture-sql",
+      "op": "allocate",
+      "index": 49,
+      "oldlen": 15728640,
+      "oldcap": 16000000,
+      "size": 16777216,
+      "newcap": 20000000
+    },
+    {
+      "phase": "fixture-sql",
+      "op": "allocate",
+      "index": 50,
+      "oldlen": 16777216,
+      "oldcap": 20000000,
+      "size": 17825792,
+      "newcap": 20000000
+    },
+    {
+      "phase": "fixture-sql",
+      "op": "allocate",
+      "index": 51,
+      "oldlen": 17825792,
+      "oldcap": 20000000,
+      "size": 18874368,
+      "newcap": 20000000
+    },
+    {
+      "phase": "fixture-sql",
+      "op": "allocate",
+      "index": 52,
+      "oldlen": 18874368,
+      "oldcap": 20000000,
+      "size": 19922944,
+      "newcap": 20000000
+    }
+  ],
+  "current_125": {
+    "capacity_allocation_bytes": 90497280,
+    "old_logical_copied_bytes": 68091904,
+    "allocation_count": 15,
+    "final_logical_bytes": 19922944,
+    "final_capacity_bytes": 20000000,
+    "final_spare_bytes": 77056,
+    "explicit_clear_bytes": 9289728
+  },
+  "candidate_150": {
+    "capacity_allocation_bytes": 69500928,
+    "old_logical_copied_bytes": 43974656,
+    "allocation_count": 12,
+    "final_logical_bytes": 19922944,
+    "final_capacity_bytes": 23887872,
+    "final_spare_bytes": 3964928,
+    "explicit_clear_bytes": 12435456
+  },
+  "allocated_saving_bytes": 20996352,
+  "copy_saving_bytes": 24117248,
+  "scope": "arithmetic on exact requested EOFs; no candidate implementation, physical/RSS/GC/suite benefit inferred"
+}

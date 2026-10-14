@@ -1,0 +1,29 @@
+observer-contracts
+process-helper
+build-control
+build-observed
+p0-t1-fresh-0-control suite 0.097 RSS MiB 121.8
+p0-t1-fresh-0-observed suite 0.102 RSS MiB 122.1
+p0-t1-fresh-1-observed suite 0.084 RSS MiB 122.1
+p0-t1-fresh-1-control suite 0.079 RSS MiB 122.0
+p0-t1-fresh-2-control suite 0.087 RSS MiB 121.8
+p0-t1-fresh-2-observed suite 0.081 RSS MiB 121.9
+p0-t1-fork-0-control suite 0.536 RSS MiB 543.1
+p0-t1-fork-0-observed suite 0.588 RSS MiB 544.1
+p0-t1-fork-1-observed suite 0.587 RSS MiB 544.1
+p0-t1-fork-1-control suite 0.558 RSS MiB 543.2
+p0-t1-fork-2-control suite 0.564 RSS MiB 543.5
+p0-t1-fork-2-observed suite 0.528 RSS MiB 544.0
+p10-t8-fresh-0-control suite 0.895 RSS MiB 223.1
+p10-t8-fresh-0-observed suite 0.893 RSS MiB 224.2
+p10-t8-fresh-1-observed suite 0.909 RSS MiB 229.8
+p10-t8-fresh-1-control suite 0.896 RSS MiB 229.4
+p10-t8-fresh-2-control suite 0.91 RSS MiB 229.0
+p10-t8-fresh-2-observed suite 0.932 RSS MiB 230.0
+p10-t8-fork-0-control suite 1.478 RSS MiB 639.5
+p10-t8-fork-0-observed suite 1.441 RSS MiB 646.8
+p10-t8-fork-1-observed suite 1.446 RSS MiB 659.9
+p10-t8-fork-1-control suite 1.347 RSS MiB 649.3
+p10-t8-fork-2-control suite 1.456 RSS MiB 639.6
+p10-t8-fork-2-observed suite 1.403 RSS MiB 660.1
+24 cases complete; no optimization performed

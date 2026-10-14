@@ -1,0 +1,812 @@
+[
+  {
+    "source": "evidence/attribution-summary.json",
+    "source_bytes": 1891897,
+    "source_sha256": "401ae6946448eaffca4d5305dc8cec65504dcedfb6a98ea1025c07e94f850bcb",
+    "archived": "attribution-summary.json",
+    "archived_bytes": 1154140,
+    "archived_sha256": "3af1dc96205d9fcc92781f050563c02dcf06747c1aed7ef88280c17534bafa74",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/build-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/build-events.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/build-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/builds.json",
+    "source_bytes": 1779,
+    "source_sha256": "a2ad47d1f38989ec77ee4f0dfbe2469af25850662d4e32f4ed0987d89330dcb6",
+    "archived": "builds.json",
+    "archived_bytes": 1125,
+    "archived_sha256": "504d70dbf55910ab89a3dacd04a1223824602981ec09f1972d35b732b5ba28fd",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/campaign.json",
+    "source_bytes": 25795,
+    "source_sha256": "75382dcc53c32aaed4612dbfc30aca2f6001bad79b23c454e0bed0b01f45437a",
+    "archived": "campaign.json",
+    "archived_bytes": 15402,
+    "archived_sha256": "e49962f8a9768b798982a90f0bf97b197f52ed3b8e72355819b96059bd25b659",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/comparison-summary.json",
+    "source_bytes": 4701,
+    "source_sha256": "6f33fae221b15c5bfbc2fa63d1a602682944f71dda7b1fc3f83cb2fb9b0a29fd",
+    "archived": "comparison-summary.json",
+    "archived_bytes": 3052,
+    "archived_sha256": "f1e20a5a2460203f1f4c5e7ad857a250093cfdaed2c6c34083b80ab718653f3c",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/console.txt",
+    "source_bytes": 1271,
+    "source_sha256": "83cfd3c15a1b06d4e511b51fde0b2294afbda61bd75e3aea47cd068165c7df42",
+    "archived": "console.txt",
+    "archived_bytes": 1271,
+    "archived_sha256": "83cfd3c15a1b06d4e511b51fde0b2294afbda61bd75e3aea47cd068165c7df42",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/events-console.txt",
+    "source_bytes": 1701,
+    "source_sha256": "f307b2886dbdd4147e309555a1e0c9e168168ffb92d968d82e594e39bde2f8f1",
+    "archived": "events-console.txt",
+    "archived_bytes": 1701,
+    "archived_sha256": "f307b2886dbdd4147e309555a1e0c9e168168ffb92d968d82e594e39bde2f8f1",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/events-contracts.txt",
+    "source_bytes": 2727,
+    "source_sha256": "9f5080fb9754dde5bfd72c38cf2b9abd9fea5b2865345bdb91b2972e8b624b04",
+    "archived": "events-contracts.txt",
+    "archived_bytes": 2727,
+    "archived_sha256": "9f5080fb9754dde5bfd72c38cf2b9abd9fea5b2865345bdb91b2972e8b624b04",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/events-guard.json",
+    "source_bytes": 145,
+    "source_sha256": "25b754bc5b678dade3183d8a8ec1ab7f4a192899ba7e9becbf4062ad5657119a",
+    "archived": "events-guard.json",
+    "archived_bytes": 124,
+    "archived_sha256": "961cb4d4866a9b556393876d795fcfb6e7903ebf9c4829d21202bdb4cde05d17",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/events-inputs.json",
+    "source_bytes": 1124,
+    "source_sha256": "32c5f65f3a6649c055323943af5d1efe8c09279db7c478a3d52e81f17d8e1746",
+    "archived": "events-inputs.json",
+    "archived_bytes": 1039,
+    "archived_sha256": "9aa76637ae401ea5138cad346f227516bc38b82d75701163354273f13d233ec1",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/events-receipts.json",
+    "source_bytes": 1760,
+    "source_sha256": "6b596edd0b6fbd367c67426a9b977346f30a33c9c960f27a904fa6ab98e3155c",
+    "archived": "events-receipts.json",
+    "archived_bytes": 1098,
+    "archived_sha256": "6b3c6b57d9c1f13e89533694a723ddadccb803f2386362dae1dd0b6cd742dbc4",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/growth-events-p10-t8-fresh-audit.json",
+    "source_bytes": 159594,
+    "source_sha256": "a0f4a09546224bd88aa05e42fd3d88461878ea4d1624d2b353559d6ead929943",
+    "archived": "growth-events-p10-t8-fresh-audit.json",
+    "archived_bytes": 118744,
+    "archived_sha256": "137bcea41de6165eeb57713514b568aa3f0bcd3acccf5f033795962c5413bbc4",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/growth-events-p10-t8-fresh.json",
+    "source_bytes": 6707,
+    "source_sha256": "80c35a7c958b32bd72fce00a4cbf962cfe2ff9a760a4d0c2eaaec2cf14a9d975",
+    "archived": "growth-events-p10-t8-fresh.json",
+    "archived_bytes": 5461,
+    "archived_sha256": "d73b75ecbf9142ac9bd5c89f529442089d8c5b4a30a58f468cec2f8f5bc68d94",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/growth-events-p10-t8-fresh.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/growth-instrumentation-replay.json",
+    "source_bytes": 1749,
+    "source_sha256": "a844ea0714a6adf83d970175384dbc04cdecdc60de2a16ac699ba2fcbdc1f7ad",
+    "archived": "growth-instrumentation-replay.json",
+    "archived_bytes": 1521,
+    "archived_sha256": "eb3ad3d8967890db7eb7978383e80a23a6bfa5b23b7815ec578a1129bbf616c2",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/growth-model-validation.json",
+    "source_bytes": 194,
+    "source_sha256": "fbbea0fe953d9aff4e330552218c7508466534ae854afe24a669cb1c5e43ae41",
+    "archived": "growth-model-validation.json",
+    "archived_bytes": 181,
+    "archived_sha256": "b89c95ec8e394dd777a2377f45f75350b5d124a0278e347fa694220986508538",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/growth-model.json",
+    "source_bytes": 10249,
+    "source_sha256": "4005a8d6f67c8a9744c025dc07655fbfd2c10a6b0de827dcb04007fd59eff217",
+    "archived": "growth-model.json",
+    "archived_bytes": 6695,
+    "archived_sha256": "504306e496b95bb7602119656cbeefc7f59c10a264a89cdc1ecd67666dcc0a96",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/guard.json",
+    "source_bytes": 145,
+    "source_sha256": "3682bc618168eea2e8526b45d085d2277b12b4e7fe6f02c408d5e0b3310b54ec",
+    "archived": "guard.json",
+    "archived_bytes": 124,
+    "archived_sha256": "9c4c477782736e4ff1d4ee9f4b11c957f45e737b5a25207f36b9cf1e4f8c463f",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/inputs.json",
+    "source_bytes": 3461,
+    "source_sha256": "c2fdfee48bbe5f312c0e5d06d73e33e9dfdfaf64593a969c6204cf0c90632bf5",
+    "archived": "inputs.json",
+    "archived_bytes": 2998,
+    "archived_sha256": "3d7a311141a830623b899e9324775fcaead6cedad04a0d211f7d9ceea72ee1ed",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/instrumentation-replay.json",
+    "source_bytes": 1761,
+    "source_sha256": "53145c49ed299643e3f7cf9bf1c0b6171f4c937657ba29a186b938eaca3f40d0",
+    "archived": "instrumentation-replay.json",
+    "archived_bytes": 1533,
+    "archived_sha256": "89bcc62b5229a6ea18140a86530f060db6a09450538bf0990fd8e6ccebed05b3",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/observer-contracts.txt",
+    "source_bytes": 2727,
+    "source_sha256": "749f5ec9ae25613bcfdae8e45da1afc007d663290300f7b7428400a25484f378",
+    "archived": "observer-contracts.txt",
+    "archived_bytes": 2727,
+    "archived_sha256": "749f5ec9ae25613bcfdae8e45da1afc007d663290300f7b7428400a25484f378",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fork-0-control.json",
+    "source_bytes": 7865,
+    "source_sha256": "45f151219f8322f58bf8d6dc7d0a5414c84db14e87983658859e885637f91199",
+    "archived": "p0-t1-fork-0-control.json",
+    "archived_bytes": 6390,
+    "archived_sha256": "e47cd3bc186b791596cd5155e4876e28c49ad3cb8e30fb4e4d34773bf463ff5e",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fork-0-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p0-t1-fork-0-observed-audit.json",
+    "source_bytes": 237577,
+    "source_sha256": "fbf28b0b6af0d82ea88b48caeab0d7007cdfc300dace07233d16e2dc502e4e20",
+    "archived": "p0-t1-fork-0-observed-audit.json",
+    "archived_bytes": 173994,
+    "archived_sha256": "1b7b3f42c1647a06f2478f74a3e8deace0179e33340cabb6ff9c90fc0b5a4b0a",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fork-0-observed.json",
+    "source_bytes": 7873,
+    "source_sha256": "02ab9dcb8a8de827a3ba6a2f08f68fc3d962fb59b9208d5e15776310b6fcd674",
+    "archived": "p0-t1-fork-0-observed.json",
+    "archived_bytes": 6398,
+    "archived_sha256": "beef4dba4e303e196117b08e2e41a98af37152d0936ecee54cd18899de13f7c0",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fork-0-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p0-t1-fork-1-control.json",
+    "source_bytes": 7883,
+    "source_sha256": "da00b2fb66a23c8cb642ace8cd2dfed0abf89be64ce0630c8d957354dbfd354e",
+    "archived": "p0-t1-fork-1-control.json",
+    "archived_bytes": 6408,
+    "archived_sha256": "fa3e36f33cd45a868fe8941b0368e48868ca328ec69657866283a40012fa6c7b",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fork-1-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p0-t1-fork-1-observed-audit.json",
+    "source_bytes": 234860,
+    "source_sha256": "5e3665bab541f1addf6567c0ef2deac77e21a281257d3e1d2d99cce5eb223aa6",
+    "archived": "p0-t1-fork-1-observed-audit.json",
+    "archived_bytes": 171932,
+    "archived_sha256": "5e35b7cac7c319a4b0fbfb298ddf0a84b053e81f378233922fa50c3e6c81b6f4",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fork-1-observed.json",
+    "source_bytes": 7877,
+    "source_sha256": "192e6eae1deb7256d0c1fb630307f8a7c3769d198a0e8f90f904c6748b82720b",
+    "archived": "p0-t1-fork-1-observed.json",
+    "archived_bytes": 6402,
+    "archived_sha256": "b53f874de8b4420afad0ad152b0f8bf8d8f85a4d631c9e23046c54e70460ff03",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fork-1-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p0-t1-fork-2-control.json",
+    "source_bytes": 7867,
+    "source_sha256": "aadf25c072d01f238f485a12448668679f7ec07e472bd1416d05af24d6def5fe",
+    "archived": "p0-t1-fork-2-control.json",
+    "archived_bytes": 6392,
+    "archived_sha256": "26f31abe7bed376dcc69f54f9a32e3d6e1fc42b17d7edac1375c49c33bc1dfca",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fork-2-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p0-t1-fork-2-observed-audit.json",
+    "source_bytes": 236683,
+    "source_sha256": "15ea59e3e0455bc41d0444b2cbcd0e90d8bec4b4d7784844ac7007f290b5dfb6",
+    "archived": "p0-t1-fork-2-observed-audit.json",
+    "archived_bytes": 173322,
+    "archived_sha256": "a953802e5ca40582e9ecb9b743135b322924f5fcc5d1f369b44b1909456e210b",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fork-2-observed.json",
+    "source_bytes": 7869,
+    "source_sha256": "b0b3ce63e59f72671b3c41d79e590836ecbd961edf5f429db56d731b9b317bfb",
+    "archived": "p0-t1-fork-2-observed.json",
+    "archived_bytes": 6394,
+    "archived_sha256": "752a4fd39cddf2668fafb468210a19c0f1d9feb53a97112fdf805fc7d5bebdf4",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fork-2-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-0-control.json",
+    "source_bytes": 6705,
+    "source_sha256": "40a07117cb24b79da48b0643971d3cfddebbb94c86bbc35c8c66477d7b19e2cd",
+    "archived": "p0-t1-fresh-0-control.json",
+    "archived_bytes": 5459,
+    "archived_sha256": "bd378af822d82977e06b6d20517e694f21273a58d02798c9bc32eecc7f591a75",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-0-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-0-observed-audit.json",
+    "source_bytes": 81622,
+    "source_sha256": "2b0dc30703c82495fcb77c4fe6f2882e661ccf30f8e36166a77d01dbb44179d6",
+    "archived": "p0-t1-fresh-0-observed-audit.json",
+    "archived_bytes": 59999,
+    "archived_sha256": "b7006718fdf5828d5794913d7bd61e3dc932765e45a4c92c75775570785d857c",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-0-observed.json",
+    "source_bytes": 6666,
+    "source_sha256": "69b4c971951061eb494a7fac62cf124996b156277d33878770d703a458bf59f3",
+    "archived": "p0-t1-fresh-0-observed.json",
+    "archived_bytes": 5420,
+    "archived_sha256": "483e58154b0f6fb77ed36d7864d42e8329c6e8b5a83742f52431f44b2f6adbfa",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-0-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-1-control.json",
+    "source_bytes": 6678,
+    "source_sha256": "06b5bf843cefdf6a8d2be229fa7f35e071b150515a2740bf33de6fbfda9c0eff",
+    "archived": "p0-t1-fresh-1-control.json",
+    "archived_bytes": 5432,
+    "archived_sha256": "97e8829d565e2f44551d2d750bc583919d4fd34587476cebce4d7bef17486aec",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-1-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-1-observed-audit.json",
+    "source_bytes": 83445,
+    "source_sha256": "6be044351427c08173f902ab1243984d6a0048b18dbb64f580c17b0903619512",
+    "archived": "p0-t1-fresh-1-observed-audit.json",
+    "archived_bytes": 61383,
+    "archived_sha256": "b830b68704bd7acaf919ceb882b5dde0d740e68429d045e6337bf53c240c0746",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-1-observed.json",
+    "source_bytes": 6669,
+    "source_sha256": "162ce36cd580c3fa3131ba30854806ae5f89081841a1a9e7563e37387594539b",
+    "archived": "p0-t1-fresh-1-observed.json",
+    "archived_bytes": 5423,
+    "archived_sha256": "51839519f580e93d6bc05ee91c96de8d999b818053d0b29a712edace2c31c6a0",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-1-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-2-control.json",
+    "source_bytes": 6709,
+    "source_sha256": "1e1c27613fbba57524719009133de425aba1a2af5211d9caa9a7a52065981ce1",
+    "archived": "p0-t1-fresh-2-control.json",
+    "archived_bytes": 5463,
+    "archived_sha256": "1067da4e49598537ee940fed0e7123da0326293e6994f13bd5ee5da12e97a7f5",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-2-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-2-observed-audit.json",
+    "source_bytes": 81632,
+    "source_sha256": "c0d1b9ffc3c540ecf153c7c57902977644e48151c50b27f8983f758f254ea751",
+    "archived": "p0-t1-fresh-2-observed-audit.json",
+    "archived_bytes": 60009,
+    "archived_sha256": "15e4dba2d706b3e7fad8638fd7ffdff2b7a2604ad777f6db749b4d432b4ee563",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-2-observed.json",
+    "source_bytes": 6701,
+    "source_sha256": "4568eaef06941292440ef7c831aa2b3db013cd0832ce9a4ab1b40aeb7403532f",
+    "archived": "p0-t1-fresh-2-observed.json",
+    "archived_bytes": 5455,
+    "archived_sha256": "8b4ef8dcde1e1cd4a80e19dbf6f34be6ee5221bcabb33b32f02bd0c86103a9b7",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p0-t1-fresh-2-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fork-0-control.json",
+    "source_bytes": 7871,
+    "source_sha256": "5cd56e36301d960f1bcc71d568c210a99859a20a29de2ff04e3d005cbafc6cd9",
+    "archived": "p10-t8-fork-0-control.json",
+    "archived_bytes": 6396,
+    "archived_sha256": "5ae082cd2347382b3f6009fa046c356cf78493a4dbf658519b87b349461b4cdb",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fork-0-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fork-0-observed-audit.json",
+    "source_bytes": 424289,
+    "source_sha256": "73622e1bbf26b4771ca4d49437ddd386074d6f198476af071a3c6a42eb4d5e9a",
+    "archived": "p10-t8-fork-0-observed-audit.json",
+    "archived_bytes": 311697,
+    "archived_sha256": "4060344f4e0f8db4d249fc080e0f7f5992e04411046313bb5195a0f7db890ac7",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fork-0-observed.json",
+    "source_bytes": 7897,
+    "source_sha256": "0b528c47a1865d41da9bb6a8b8d38ce1f076b277bc89d61156b1f2c2e0a91af0",
+    "archived": "p10-t8-fork-0-observed.json",
+    "archived_bytes": 6422,
+    "archived_sha256": "4d6bfda5991d4785023a36c170934cb079e8ca61e243e4d294b520c34b2c7b37",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fork-0-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fork-1-control.json",
+    "source_bytes": 7890,
+    "source_sha256": "9b02eea2a1af476b06681a8231d1c0bf7b1dff2340b3d9768318a5b8bf85e1ad",
+    "archived": "p10-t8-fork-1-control.json",
+    "archived_bytes": 6415,
+    "archived_sha256": "960d3746a0080b59ee14ec0d86a08e1164d450cea9b68536f147328eaa9a622c",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fork-1-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fork-1-observed-audit.json",
+    "source_bytes": 424259,
+    "source_sha256": "7e52c7616ca809f2bc8d2a48507917d6f2ffeced174745fe9c6a18bf3abff753",
+    "archived": "p10-t8-fork-1-observed-audit.json",
+    "archived_bytes": 311667,
+    "archived_sha256": "03cea15347b4c08f5deac7febdcce9b551f1da066f23482faabe0c7982d15830",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fork-1-observed.json",
+    "source_bytes": 7875,
+    "source_sha256": "d2563ecc0c4691bd4382344a10248a0ff44a81db39483ebb93d7e6da4359e16c",
+    "archived": "p10-t8-fork-1-observed.json",
+    "archived_bytes": 6400,
+    "archived_sha256": "048cd0a10473553329fe7d9de02a448bb3637560698dce1cd4ed5e5094b455f1",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fork-1-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fork-2-control.json",
+    "source_bytes": 7862,
+    "source_sha256": "79eac72304d367237fd1d54cb4ae4e1092e12d9b8eaf988387d95c560355c9be",
+    "archived": "p10-t8-fork-2-control.json",
+    "archived_bytes": 6387,
+    "archived_sha256": "66b3dd570134080623a3a77b7e2bef2ca7900a8a243000486fcab7bf92038422",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fork-2-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fork-2-observed-audit.json",
+    "source_bytes": 422136,
+    "source_sha256": "fca77a4eeed1fbac79fb8f34df62230d1b54e2c1ee16ba2b11a6ef3b85558e8b",
+    "archived": "p10-t8-fork-2-observed-audit.json",
+    "archived_bytes": 310090,
+    "archived_sha256": "97724189363ab606c0bd956b143ece39eb9023f293b3f1957d257faf2c28140b",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fork-2-observed.json",
+    "source_bytes": 7878,
+    "source_sha256": "c0703ae6e3d2252857904b8b977d997c497a31e13a0d7dc1982a1b81d3a32300",
+    "archived": "p10-t8-fork-2-observed.json",
+    "archived_bytes": 6403,
+    "archived_sha256": "2fc6a466e8e800f4cd80e32a92e957f8f268c8be2932937e8b62fb25385c770b",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fork-2-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-0-control.json",
+    "source_bytes": 6687,
+    "source_sha256": "38dcc3cd07dfe68346638adb704708e14dc2e74d6eb30b578edc03676716818c",
+    "archived": "p10-t8-fresh-0-control.json",
+    "archived_bytes": 5441,
+    "archived_sha256": "adb1e59819cfec06e3f8bdb0979c47dd2877d3dcce069beda4e778dadd065075",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-0-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-0-observed-audit.json",
+    "source_bytes": 133957,
+    "source_sha256": "b1d17355b0fcf3955f05958c8f99383f84a3e628cabaf30648469d5c7976b886",
+    "archived": "p10-t8-fresh-0-observed-audit.json",
+    "archived_bytes": 98775,
+    "archived_sha256": "0b634f00dffb59c82c36aa9fa0b30d1da379025e6d40229778bf36286e68c6fe",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-0-observed.json",
+    "source_bytes": 6699,
+    "source_sha256": "1b50ce2c184f51b3f7fbed97c8859a0f7896bfe7fe04c392cd876ae1a1037638",
+    "archived": "p10-t8-fresh-0-observed.json",
+    "archived_bytes": 5453,
+    "archived_sha256": "2ed765eec46c157fc8f6578f9522bf1b4390bd269e2796b9347b25948a953b6a",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-0-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-1-control.json",
+    "source_bytes": 6696,
+    "source_sha256": "5272348df395d091954baec0efa5006831013e0060053674d38ebff28f25cbca",
+    "archived": "p10-t8-fresh-1-control.json",
+    "archived_bytes": 5450,
+    "archived_sha256": "ad9557472f8cf402e2925d9b0e81f9bdc74cab86e39b02c91cac04417d2f3ae2",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-1-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-1-observed-audit.json",
+    "source_bytes": 133957,
+    "source_sha256": "db5ee22d6c04960f05f41fe805ca76d4541b8c11e5e63dff9ed3f168ad138e7c",
+    "archived": "p10-t8-fresh-1-observed-audit.json",
+    "archived_bytes": 98774,
+    "archived_sha256": "d44aa1a86d00ad90d9aa16b1b00ec363f3637c4698e76cc7e267220ebcfb770b",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-1-observed.json",
+    "source_bytes": 6719,
+    "source_sha256": "8a3cc6fe78fc437fa1e2faaf22ef538a584b1504472eae56414628628574e6ce",
+    "archived": "p10-t8-fresh-1-observed.json",
+    "archived_bytes": 5473,
+    "archived_sha256": "2f4c2f96ab4bc6902f7c551da2ff0800b6cbbe9f7591cdaff820446d4039a5a6",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-1-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-2-control.json",
+    "source_bytes": 6684,
+    "source_sha256": "fabe2ef773248fbafcc0d1126c1bc935f88c8b52ea4dc2544d33be46c92c82b4",
+    "archived": "p10-t8-fresh-2-control.json",
+    "archived_bytes": 5438,
+    "archived_sha256": "40fed2f790aa7c0ad9071763364ffbf4bf7e658f0639aeee855a319465107917",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-2-control.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-2-observed-audit.json",
+    "source_bytes": 133895,
+    "source_sha256": "977dfcdf125544bd3d0c4fae2725b3efada9580a285825ed92baa1bd054910f3",
+    "archived": "p10-t8-fresh-2-observed-audit.json",
+    "archived_bytes": 98713,
+    "archived_sha256": "ea72f1f1c54c1823143ec08220986fd588eac92d2f6e7138e53c08dc5c2d3224",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-2-observed.json",
+    "source_bytes": 6702,
+    "source_sha256": "d6533f14d131300a5e4f5608fc41c2263c2a3981e125f0ed258deae0f733384a",
+    "archived": "p10-t8-fresh-2-observed.json",
+    "archived_bytes": 5456,
+    "archived_sha256": "4ca93f34f2dd8dc2d296d2f0f88170d42971b4172f673f0155459a03c8e4ab67",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/p10-t8-fresh-2-observed.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/phase-medians.json",
+    "source_bytes": 7669,
+    "source_sha256": "3de194cfb199fc74f8b4c0a11545bd763143eb334f5dfb2fdebb05385c5ec52d",
+    "archived": "phase-medians.json",
+    "archived_bytes": 5958,
+    "archived_sha256": "2acf572a331416d94c259fe6cb0928b9cb7ba8fe488a00a162640c50eccd78f1",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/process-helper.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/resize-timed-p10-t8-fresh-audit.json",
+    "source_bytes": 137596,
+    "source_sha256": "d0e14e9dd6435f9507fd3de70833e4324c9370bc2ac88aea46866d573db38e01",
+    "archived": "resize-timed-p10-t8-fresh-audit.json",
+    "archived_bytes": 101540,
+    "archived_sha256": "f95b169515c170bc97faaf7121075d8a6123a5f8230196b6734faa1e75449071",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/resize-timed-p10-t8-fresh.json",
+    "source_bytes": 6694,
+    "source_sha256": "6d2b0a2ba20be5815deada59f663b86171b7f5a3f3191eb86d4f217c397d978c",
+    "archived": "resize-timed-p10-t8-fresh.json",
+    "archived_bytes": 5448,
+    "archived_sha256": "7af88ea95615fabd1b1ea1a21a58dc8425fdbb9f18cd32f1117e41626d3745be",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/resize-timed-p10-t8-fresh.txt",
+    "source_bytes": 0,
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "omitted": "empty process output; command/campaign returncode retained"
+  },
+  {
+    "source": "evidence/timer-console.txt",
+    "source_bytes": 212,
+    "source_sha256": "5ee015a7e04a310b19cf4292a3205c3f10b4e93aadcb170ce8251d0aebd157e4",
+    "archived": "timer-console.txt",
+    "archived_bytes": 212,
+    "archived_sha256": "5ee015a7e04a310b19cf4292a3205c3f10b4e93aadcb170ce8251d0aebd157e4",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/timer-guard.json",
+    "source_bytes": 145,
+    "source_sha256": "99b004f51b249c3851be05d7615b6624baf99a10d3adde40f12431e7f7167584",
+    "archived": "timer-guard.json",
+    "archived_bytes": 124,
+    "archived_sha256": "16aac1dd2e3e3c6e479099dac05c81826074fd2715eabec9a6c69bdaaa01355e",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/timer-receipt.json",
+    "source_bytes": 897,
+    "source_sha256": "7c6d32a1e7680ed575d9626a2eb9270c349d4b64eca404a0d14ddd162d26edeb",
+    "archived": "timer-receipt.json",
+    "archived_bytes": 569,
+    "archived_sha256": "f0736e93a9093247580c6e7a78e78c174fb640af62d63a5d7a00273700f21960",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "evidence/unchanged-inputs.json",
+    "source_bytes": 1186,
+    "source_sha256": "51bde02b21c3bbd2e761b873ee29e059268609541e439060f2f785249c5fdd2c",
+    "archived": "unchanged-inputs.json",
+    "archived_bytes": 1030,
+    "archived_sha256": "9325ec1461d2111ca12b0bb8a85ea53adda7dc265e3ea901ab6ca345ff87a3b4",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "temp/analyze.py",
+    "source_bytes": 4627,
+    "source_sha256": "b17c0c779efa4f5cf0c5d7b10aa9254eb66b9dc93e162e04d7feba96c82fb089",
+    "archived": "scripts/analyze.py",
+    "archived_bytes": 4627,
+    "archived_sha256": "b17c0c779efa4f5cf0c5d7b10aa9254eb66b9dc93e162e04d7feba96c82fb089",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "temp/events.py",
+    "source_bytes": 4431,
+    "source_sha256": "8837b178a9097c74f9dc783bb68867f98acca090b1f9b0775f15b7fccb08ba38",
+    "archived": "scripts/events.py",
+    "archived_bytes": 4431,
+    "archived_sha256": "8837b178a9097c74f9dc783bb68867f98acca090b1f9b0775f15b7fccb08ba38",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "temp/guard-primary.py",
+    "source_bytes": 561,
+    "source_sha256": "63228c51dbe47672891d7ba21abc9c62adf6b2b85853f31a8f5d4f60ba9767ee",
+    "archived": "scripts/guard-primary.py",
+    "archived_bytes": 561,
+    "archived_sha256": "63228c51dbe47672891d7ba21abc9c62adf6b2b85853f31a8f5d4f60ba9767ee",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "temp/guard-with-timer.py",
+    "source_bytes": 706,
+    "source_sha256": "594bdb0d2c9a725c5aa5ca426911a625dbbe1fc0d6ef1c43ed2f605470d0c015",
+    "archived": "scripts/guard-with-timer.py",
+    "archived_bytes": 706,
+    "archived_sha256": "594bdb0d2c9a725c5aa5ca426911a625dbbe1fc0d6ef1c43ed2f605470d0c015",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "temp/guard.py",
+    "source_bytes": 765,
+    "source_sha256": "a08408984beb73395871439630b76c37d30ea7264c7b5c040374e7c9677cfae3",
+    "archived": "scripts/guard.py",
+    "archived_bytes": 765,
+    "archived_sha256": "a08408984beb73395871439630b76c37d30ea7264c7b5c040374e7c9677cfae3",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "temp/phase_medians.py",
+    "source_bytes": 1471,
+    "source_sha256": "9d67698fc80e010faf2632de158052b8cf39d416c51383faa38d37bb2c5c079d",
+    "archived": "scripts/phase_medians.py",
+    "archived_bytes": 1471,
+    "archived_sha256": "9d67698fc80e010faf2632de158052b8cf39d416c51383faa38d37bb2c5c079d",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "temp/run.py",
+    "source_bytes": 5637,
+    "source_sha256": "70391feadd81488fcbfcb116dd054400dff29be01802d28ab488af92a0abeb54",
+    "archived": "scripts/run.py",
+    "archived_bytes": 5637,
+    "archived_sha256": "70391feadd81488fcbfcb116dd054400dff29be01802d28ab488af92a0abeb54",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  },
+  {
+    "source": "temp/timer.py",
+    "source_bytes": 1825,
+    "source_sha256": "9ced4353693902c904ce2cce1daf8146b8cca193e617268be378b9c05a0c4a29",
+    "archived": "scripts/timer.py",
+    "archived_bytes": 1825,
+    "archived_sha256": "9ced4353693902c904ce2cce1daf8146b8cca193e617268be378b9c05a0c4a29",
+    "normalization": "local paths/whitespace; JSON compacted without dropping keys or numeric values"
+  }
+]
