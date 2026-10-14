@@ -7,6 +7,8 @@ base=repo/'internal/generatedgo/code/base'
 records=[]
 def edit(path, replacements):
  old=path.read_text();new=old
+ expected=subprocess.check_output(['git','-C',str(repo),'show','a8137b8b444f86068d3128a291e3a848adfdfd56:'+str(path.relative_to(repo))])
+ assert path.read_bytes()==expected,('unexpected full preimage',path)
  for before,after,count in replacements:
   assert new.count(before)==count,(path,before,new.count(before))
   new=new.replace(before,after)

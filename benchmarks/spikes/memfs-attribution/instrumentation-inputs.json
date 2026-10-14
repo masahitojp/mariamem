@@ -22,7 +22,7 @@
   {
     "path": "internal/generatedgo/code/base/memfs_audit.go",
     "before_sha256": null,
-    "after_sha256": "7c6232039e55d659821ff00f8c4d668c6eb246402c24c140a0d5a455d5ea0ddb"
+    "after_sha256": "c4fab84771d1cac423a790427b05f7c3fb944cd16ccf2fef98abdf7dc53a75e4"
   },
   {
     "path": "internal/generatedgo/code/base/memfs_audit_test.go",

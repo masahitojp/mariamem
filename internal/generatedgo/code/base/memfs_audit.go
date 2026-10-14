@@ -3,6 +3,7 @@ package base
 
 import (
 	"encoding/json"
+	"fmt"
 	"math/bits"
 	"os"
 	"os/exec"
@@ -19,6 +20,7 @@ const auditMaxBytes = 1 << 30
 
 var auditEnabled = os.Getenv("MARIAMEM_MEMFS_AUDIT") == "1"
 var auditTimer = os.Getenv("MARIAMEM_MEMFS_RESIZE_TIMER") == "1"
+var auditEvents = os.Getenv("MARIAMEM_MEMFS_GROWTH_EVENTS") == "1"
 
 type AuditStats struct {
 	Calls           uint64 `json:"calls"`
@@ -263,6 +265,10 @@ func (fs *MemFS) auditResize(n *memNode, size int64, op string) {
 	n.data = resizeMemData(n.data, size)
 	if auditTimer {
 		s.ResizeNS += uint64(time.Since(start).Nanoseconds())
+	}
+	if auditEvents && strings.HasSuffix(a.Path, "/characterization.ibd") && s.Calls <= 128 {
+		key := fmt.Sprintf("_growth_event|%s|%s|%03d|%d|%d|%d|%d", auditState.phase, op, s.Calls, oldLen, oldCap, size, cap(n.data))
+		a.Phases[key] = &AuditStats{Calls: 1}
 	}
 	if size > int64(oldCap) {
 		if oldCap == 0 {
