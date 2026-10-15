@@ -1,0 +1,31 @@
+{
+  "source_commit": "a8137b8b444f86068d3128a291e3a848adfdfd56",
+  "guest_identity": {
+    "snapshot_version": 1,
+    "wasm_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09"
+  },
+  "scope": "macOS arm64, Python public API + PyMySQL, two sequential children, 100/10000 rows per table, three rotations per mode",
+  "checks": {
+    "observer_model_unit": {
+      "command": "GOTOOLCHAIN=local GOPATH=/Users/masahito/.go GOCACHE=<workspace>/temp/gocache <go1.26.8>/bin/go test ./internal/generatedgo/code/base -run ^TestCowObserver -count=1",
+      "exit_code": 0,
+      "stdout": "ok github.com/masahitojp/mariamem/internal/generatedgo/code/base 0.534s"
+    },
+    "pilot": {
+      "campaigns": 3,
+      "children": 6,
+      "passed": true
+    },
+    "campaign": {
+      "campaigns": 18,
+      "children": 36,
+      "passed": true
+    },
+    "ubuntu": "SKIP: bounded local macOS probe; not executed"
+  },
+  "notes": [
+    "Control source runtime files equal baseline; untracked experiment tooling causes vcs.modified=true. Observed overlay is separately hashed and is NOT canonical source verification.",
+    "Initial sandbox pilot failed to bind 127.0.0.1; successful measurements ran outside sandbox.",
+    "Each completed campaign verifies exact baseline content hashes after both children. No production semantics or guard changes."
+  ]
+}

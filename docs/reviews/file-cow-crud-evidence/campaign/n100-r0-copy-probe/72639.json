@@ -1,0 +1,158 @@
+{
+  "mode": "copy-probe",
+  "role": "fork",
+  "nodes": [
+    {
+      "path": "mariadb/data/aria_log.00000001",
+      "baseline_bytes": 16384,
+      "first_copy_phase": "first/close",
+      "first_copy_op": "write",
+      "phases": {
+        "first/close": {
+          "calls": 2,
+          "write_bytes": 16289,
+          "copy_bytes": 16384,
+          "copy_probe_ns": 1458
+        }
+      }
+    },
+    {
+      "path": "mariadb/data/aria_log_control",
+      "baseline_bytes": 52,
+      "first_copy_phase": "first/close",
+      "first_copy_op": "write",
+      "phases": {
+        "first/close": {
+          "calls": 1,
+          "write_bytes": 22,
+          "copy_bytes": 52,
+          "copy_probe_ns": 291
+        }
+      }
+    },
+    {
+      "path": "mariadb/data/ib_buffer_pool",
+      "baseline_bytes": 788,
+      "phases": {}
+    },
+    {
+      "path": "mariadb/data/ib_logfile0",
+      "baseline_bytes": 100663296,
+      "first_copy_phase": "first/crud",
+      "first_copy_op": "write",
+      "phases": {
+        "first/close": {
+          "calls": 4,
+          "write_bytes": 2560,
+          "copy_bytes": 0,
+          "copy_probe_ns": 0
+        },
+        "first/crud": {
+          "calls": 1,
+          "write_bytes": 1024,
+          "copy_bytes": 100663296,
+          "copy_probe_ns": 15379958
+        }
+      }
+    },
+    {
+      "path": "mariadb/data/ibdata1",
+      "baseline_bytes": 12582912,
+      "first_copy_phase": "first/close",
+      "first_copy_op": "write",
+      "phases": {
+        "first/close": {
+          "calls": 1,
+          "write_bytes": 212992,
+          "copy_bytes": 12582912,
+          "copy_probe_ns": 1771125
+        }
+      }
+    },
+    {
+      "path": "mariadb/data/test/db.opt",
+      "baseline_bytes": 70,
+      "phases": {}
+    },
+    {
+      "path": "mariadb/data/test/orders.frm",
+      "baseline_bytes": 1472,
+      "phases": {}
+    },
+    {
+      "path": "mariadb/data/test/orders.ibd",
+      "baseline_bytes": 81920,
+      "first_copy_phase": "first/close",
+      "first_copy_op": "write",
+      "phases": {
+        "first/close": {
+          "calls": 2,
+          "write_bytes": 32768,
+          "copy_bytes": 81920,
+          "copy_probe_ns": 7208
+        }
+      }
+    },
+    {
+      "path": "mariadb/data/test/users.frm",
+      "baseline_bytes": 2015,
+      "phases": {}
+    },
+    {
+      "path": "mariadb/data/test/users.ibd",
+      "baseline_bytes": 147456,
+      "first_copy_phase": "first/close",
+      "first_copy_op": "write",
+      "phases": {
+        "first/close": {
+          "calls": 2,
+          "write_bytes": 32768,
+          "copy_bytes": 147456,
+          "copy_probe_ns": 27167
+        }
+      }
+    },
+    {
+      "path": "mariadb/data/undo001",
+      "baseline_bytes": 10485760,
+      "first_copy_phase": "first/close",
+      "first_copy_op": "write",
+      "phases": {
+        "first/close": {
+          "calls": 4,
+          "write_bytes": 65536,
+          "copy_bytes": 10485760,
+          "copy_probe_ns": 1582583
+        }
+      }
+    },
+    {
+      "path": "mariadb/data/undo002",
+      "baseline_bytes": 10485760,
+      "first_copy_phase": "first/close",
+      "first_copy_op": "write",
+      "phases": {
+        "first/close": {
+          "calls": 3,
+          "write_bytes": 49152,
+          "copy_bytes": 10485760,
+          "copy_probe_ns": 1527708
+        }
+      }
+    },
+    {
+      "path": "mariadb/data/undo003",
+      "baseline_bytes": 10485760,
+      "first_copy_phase": "first/close",
+      "first_copy_op": "write",
+      "phases": {
+        "first/close": {
+          "calls": 3,
+          "write_bytes": 49152,
+          "copy_bytes": 10485760,
+          "copy_probe_ns": 1591084
+        }
+      }
+    }
+  ]
+}

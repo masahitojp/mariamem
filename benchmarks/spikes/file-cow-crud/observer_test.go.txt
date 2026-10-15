@@ -1,0 +1,27 @@
+package base
+
+import "testing"
+
+func TestCowObserverModel(t *testing.T) {
+ t.Setenv("MARIAMEM_COW_PHASE_FILE","")
+ for _,tc:=range []struct{name string; op string; size int64; payload int; want int64}{
+  {"small-write","write",1,1,16}, {"zero-write","write",0,0,0},
+  {"shrink","truncate",8,0,0}, {"truncate-zero","truncate",0,0,0},
+  {"grow","truncate",32,0,16}, {"allocate-grow","allocate",32,0,16},
+  {"allocate-existing","allocate",8,0,0}, {"open-truncate","open-truncate",0,0,0},
+ } {t.Run(tc.name,func(t *testing.T){
+  fs:=NewMemFS();fs.cow=&cowAudit{Mode:"copy-probe"}
+  n:=&memNode{name:"a",parent:fs.root,data:make([]byte,16)};n.data[0]=7
+  fs.cowMap(n);fs.cowTouch(n,tc.op,tc.size,tc.payload)
+  if got:=n.cow.Phases["startup"].CopyBytes;got!=tc.want{t.Fatalf("got %d want %d",got,tc.want)}
+  if tc.want>0{fs.cowTouch(n,"write",1,1);if n.cow.Phases["startup"].CopyBytes!=tc.want{t.Fatal("counted twice")};if n.cow.retained[0]!=7{t.Fatal("copy missing")};n.cow.retained[0]=9;if n.data[0]!=7{t.Fatal("observer aliases live backing")}}
+ })}
+}
+func TestCowObserverShrinkThenWrite(t *testing.T){
+ t.Setenv("MARIAMEM_COW_PHASE_FILE","")
+ fs:=NewMemFS();fs.cow=&cowAudit{Mode:"observe"}
+ n:=&memNode{name:"a",parent:fs.root,data:make([]byte,16)};fs.cowMap(n)
+ fs.cowTouch(n,"truncate",8,0);n.data=n.data[:8]
+ fs.cowTouch(n,"write",1,1)
+ if n.cow.Phases["startup"].CopyBytes!=8{t.Fatal("did not use shrunken prefix")}
+}

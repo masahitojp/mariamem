@@ -1,0 +1,90 @@
+// Experiment-only counterfactual file-CoW observer. It never replaces node.data.
+package base
+
+import (
+ "encoding/json"
+ "fmt"
+ "os"
+ "path/filepath"
+ "strings"
+ "time"
+)
+
+type cowStats struct {
+ Calls int `json:"calls"`
+ WriteBytes int64 `json:"write_bytes"`
+ CopyBytes int64 `json:"copy_bytes"`
+ CopyProbeNS int64 `json:"copy_probe_ns"`
+}
+type cowNode struct {
+ Path string `json:"path"`
+ BaselineBytes int64 `json:"baseline_bytes"`
+ FirstCopyPhase string `json:"first_copy_phase,omitempty"`
+ FirstCopyOp string `json:"first_copy_op,omitempty"`
+ Phases map[string]*cowStats `json:"phases"`
+ shared bool
+ retained []byte
+}
+type cowAudit struct {
+ Mode string `json:"mode"`
+ Role string `json:"role"`
+ Nodes []*cowNode `json:"nodes"`
+}
+
+func (fs *MemFS) CowAuditBegin(role string) {
+ if mode:=os.Getenv("MARIAMEM_COW_MODE"); mode!="" {
+  if mode!="observe" && mode!="copy-probe" {panic("invalid cow mode")}
+  fs.cow=&cowAudit{Mode:mode, Role:role, Nodes:[]*cowNode{}}
+ }
+}
+// Caller holds MemFS.mu; one observer per real DB, no global shared state.
+func (fs *MemFS) cowMap(n *memNode) {
+ if fs.cow==nil{return}
+ var parts []string
+ for p:=n;p!=nil && p.parent!=nil;p=p.parent{parts=append(parts,p.name)}
+ for i,j:=0,len(parts)-1;i<j;i,j=i+1,j-1{parts[i],parts[j]=parts[j],parts[i]}
+ n.cow=&cowNode{Path:strings.Join(parts,"/"),BaselineBytes:int64(len(n.data)),shared:true,Phases:map[string]*cowStats{}}
+ fs.cow.Nodes=append(fs.cow.Nodes,n.cow)
+}
+func cowPhase() string {
+ path:=os.Getenv("MARIAMEM_COW_PHASE_FILE")
+ if path==""{return "startup"}
+ b,err:=os.ReadFile(path); if err!=nil{panic(err)}
+ return strings.TrimSpace(string(b))
+}
+func (fs *MemFS) cowTouch(n *memNode, op string, size int64, payload int) {
+ if fs.cow==nil || n.cow==nil{return}
+ a:=n.cow
+ phase:=cowPhase()
+ s:=a.Phases[phase];if s==nil{s=&cowStats{};a.Phases[phase]=s}
+ s.Calls++;s.WriteBytes+=int64(payload)
+ old:=int64(len(n.data))
+ detach:=false
+ switch op {
+ case "write":detach=payload>0
+ case "open-truncate":a.shared=false
+ case "truncate":
+  if size==0{a.shared=false}else{detach=size>old}
+ case "allocate":detach=size>old
+ default:panic("unknown cow operation")
+ }
+ if !a.shared || !detach{return}
+ a.shared=false
+ a.FirstCopyPhase=phase;a.FirstCopyOp=op
+ s.CopyBytes+=old
+ if fs.cow.Mode=="copy-probe" && old>0 {
+  start:=time.Now()
+  b:=make([]byte,len(n.data));copy(b,n.data)
+  s.CopyProbeNS+=time.Since(start).Nanoseconds()
+  // Retain until DB teardown, as a child-owned file would be retained.
+  // Actual I/O still uses the original mapping: this is NOT a CoW backend.
+  a.retained=b
+ }
+}
+func (fs *MemFS) CowAuditEnd() {
+ if fs.cow==nil{return}
+ b,err:=json.MarshalIndent(fs.cow,"","  ");if err!=nil{panic(err)}
+ path:=filepath.Join(os.Getenv("MARIAMEM_COW_OUT"),fmt.Sprintf("%d.json",os.Getpid()))
+ if err=os.WriteFile(path,append(b,'\n'),0600);err!=nil{panic(err)}
+ fs.cow=nil
+}
