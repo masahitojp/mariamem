@@ -1,0 +1,18 @@
+{
+  "internal/generatedgo/code/base/base.go": {
+    "before": "8b092f6215c75f842c1a9804313527639214276e1c8c74876f427ddc19fd0d63",
+    "after": "40e30c7655dd6027c1862513ca6e5fc09f1a3a0a2c706b55b429ed3e253d5ded"
+  },
+  "internal/generatedgo/runtime_instance.go": {
+    "before": "f968359a8bd53f192c12ff3f891e032bed947550909b47482d0c00cfe0bc7a17",
+    "after": "54855dab1a17a173ced1f7d03ae7fb2d69a902794df47c4bc84d15f94f025fbd"
+  },
+  "internal/generatedgo/code/base/e_backing.go": {
+    "before": null,
+    "after": "12f273704668be93fd1ab3d6c0a194496797634059fa785bef36e0e600635552"
+  },
+  "internal/generatedgo/code/base/e_backing_test.go": {
+    "before": null,
+    "after": "ffa68d1b917fbe3712a0f6eea2ae17963c5e067f149fd3e3685a5abbbec2f91d"
+  }
+}

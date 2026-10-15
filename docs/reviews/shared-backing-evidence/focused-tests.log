@@ -1,0 +1,22 @@
+=== RUN   TestEBackingResizeAndIdentity
+--- PASS: TestEBackingResizeAndIdentity (0.00s)
+=== RUN   TestEFreezeChildrenAndLifetime
+--- PASS: TestEFreezeChildrenAndLifetime (0.00s)
+=== RUN   TestECrossProcess
+--- PASS: TestECrossProcess (0.01s)
+=== RUN   TestEFreezeRejectsMutation
+--- PASS: TestEFreezeRejectsMutation (0.00s)
+=== RUN   TestMemFSGrowthAmortizedCopy
+--- PASS: TestMemFSGrowthAmortizedCopy (0.00s)
+=== RUN   TestMemFSGrowthZeroFillAndOffsets
+--- PASS: TestMemFSGrowthZeroFillAndOffsets (0.00s)
+=== RUN   TestOwnedMappedTruncateRenameUnlinkIdentity
+--- PASS: TestOwnedMappedTruncateRenameUnlinkIdentity (0.00s)
+=== RUN   TestPreparedFilePrivateViews
+--- PASS: TestPreparedFilePrivateViews (0.00s)
+=== RUN   TestPreparedFilesRejectPartialInvalidTree
+--- PASS: TestPreparedFilesRejectPartialInvalidTree (0.00s)
+=== RUN   TestPreparedGrowthOwnershipAndZeroFill
+--- PASS: TestPreparedGrowthOwnershipAndZeroFill (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.144s

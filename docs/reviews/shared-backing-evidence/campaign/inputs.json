@@ -1,0 +1,15 @@
+{
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "pymysql": "1.2.3",
+  "source_identity": {
+    "object_sha": "a8137b8b444f86068d3128a291e3a848adfdfd56",
+    "object_type": "commit",
+    "source_commit": "a8137b8b444f86068d3128a291e3a848adfdfd56"
+  },
+  "host_sha256": {
+    "control": "6384dc96e0c8557e94ca427b33bf42eb8a9bcd0fe732f2a881ed8847a49f526f",
+    "observed": "9fde8859abd8cb2c7cdd867d6faba33d9013a5a929d6a84328aa6a656b7e3a33"
+  }
+}

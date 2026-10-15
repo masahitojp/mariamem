@@ -1,0 +1,71 @@
+{
+  "files": [
+    {
+      "bytes": 16384,
+      "name": "data/aria_log.00000001",
+      "sha256": "028056d38ee2a1e9ea9f3bdfdf2f0d662b4a3e2c0a7fa773b603d4e392760e79"
+    },
+    {
+      "bytes": 52,
+      "name": "data/aria_log_control",
+      "sha256": "1f5bd0d0b611777516e31112d585c112db50b4a026b866bed5ddb65f769f9592"
+    },
+    {
+      "bytes": 793,
+      "name": "data/ib_buffer_pool",
+      "sha256": "ef2b205a9d9fc8bb0290982a583f6a837f6862f0544bb0e9d222fb14dfff198c"
+    },
+    {
+      "bytes": 100663296,
+      "name": "data/ib_logfile0",
+      "sha256": "89a3c0ff51c5a266ed7ddc148c240ecd06a26fe111378d57af5bcd1b77cb2449"
+    },
+    {
+      "bytes": 12582912,
+      "name": "data/ibdata1",
+      "sha256": "fe44be9a5046b3a3ed6636e8227023c267f2eba7d268a26e635acfa44988b477"
+    },
+    {
+      "bytes": 70,
+      "name": "data/test/db.opt",
+      "sha256": "9d2cb1189b5fa7b46cec9d9e277c9968066915ae38a1821a451a9a098b035f3f"
+    },
+    {
+      "bytes": 1472,
+      "name": "data/test/orders.frm",
+      "sha256": "cfa199d85577fd7f50eb62be7b0ba194761c6fb13655f4ddeb4360f98d70845f"
+    },
+    {
+      "bytes": 81920,
+      "name": "data/test/orders.ibd",
+      "sha256": "86ad749b1ae0965aff457ab7a55aa04851b3ac399907d984c234f919091d1d5c"
+    },
+    {
+      "bytes": 2015,
+      "name": "data/test/users.frm",
+      "sha256": "36f374f013c94b1a41913bafd7e1e9752696f43a1565f09ed06af23b65e6c36b"
+    },
+    {
+      "bytes": 147456,
+      "name": "data/test/users.ibd",
+      "sha256": "8a7837b6e0ff64d3a3c381db15ccba7d1d34625eb9c1bdc251659680cf9da8de"
+    },
+    {
+      "bytes": 10485760,
+      "name": "data/undo001",
+      "sha256": "dc48776d6d6171903215a11c4cf52013a9220714e003021b80e0e8d5143f4f63"
+    },
+    {
+      "bytes": 10485760,
+      "name": "data/undo002",
+      "sha256": "8456bf5a92f1068d1892aacbc40cc04dd370d11e2c472891e80e901272857052"
+    },
+    {
+      "bytes": 10485760,
+      "name": "data/undo003",
+      "sha256": "d4c7cc9d1ce370f40f3f330ce4b912e76ce6cfd6859e411d2744ebbcec074a84"
+    }
+  ],
+  "freeze_ns": 13323375,
+  "inventory_equal": true
+}

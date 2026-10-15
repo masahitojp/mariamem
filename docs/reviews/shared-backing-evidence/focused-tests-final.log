@@ -1,0 +1,10 @@
+=== RUN   TestEBackingResizeAndIdentity
+--- PASS: TestEBackingResizeAndIdentity (0.00s)
+=== RUN   TestEFreezeChildrenAndLifetime
+--- PASS: TestEFreezeChildrenAndLifetime (0.01s)
+=== RUN   TestECrossProcess
+--- PASS: TestECrossProcess (0.01s)
+=== RUN   TestEFreezeRejectsMutation
+--- PASS: TestEFreezeRejectsMutation (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.363s
