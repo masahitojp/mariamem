@@ -1,0 +1,101 @@
+// Standalone component spike; not a MariaDB runtime or a production format.
+package main
+
+import (
+ "bufio"
+ "crypto/sha256"
+ "encoding/hex"
+ "encoding/json"
+ "errors"
+ "fmt"
+ "io"
+ "os"
+ "path/filepath"
+ "runtime"
+ "strconv"
+ "syscall"
+ "time"
+)
+
+const B = 16384
+const identity = "d-component-fixture-v1"
+type Ref struct { Seg int `json:"seg"`; Off int `json:"off"` }
+type File struct { Size int `json:"size"`; Refs []Ref `json:"refs"`; Hash string `json:"hash"` }
+type Manifest struct { Identity string `json:"identity"`; Files map[string]File `json:"files"`; Segments []int `json:"segments"` }
+type Request struct { Manifest Manifest `json:"manifest"`; FDs []int `json:"fds"`; Derive bool `json:"derive"`; Wait bool `json:"wait"` }
+type Store struct { mode string; f *os.File; mapped []byte; heap [][]byte; used int; capacity int; path string; packBytes int; frozen bool }
+func newStore(mode,path string,capacity int)(*Store,error){
+ s:=&Store{mode:mode,path:path,capacity:capacity};if mode!="d1"&&mode!="d2"{return nil,errors.New("mode")}
+ if mode=="d2" { var e error;s.f,e=os.OpenFile(path,os.O_CREATE|os.O_EXCL|os.O_RDWR,0600);if e!=nil{return nil,e};if e=s.f.Truncate(int64(capacity));e!=nil{s.close();return nil,e};s.mapped,e=syscall.Mmap(int(s.f.Fd()),0,capacity,syscall.PROT_READ|syscall.PROT_WRITE,syscall.MAP_SHARED);if e!=nil{s.close();return nil,e} }
+ return s,nil
+}
+func(s *Store) alloc()(int,error){
+ if s.frozen{return 0,errors.New("frozen")};if s.used+B>s.capacity{return 0,errors.New("capacity")};i:=s.used/B;s.used+=B
+ if s.mode=="d1"{s.heap=append(s.heap,make([]byte,B))};return i,nil
+}
+func(s *Store) block(i int)[]byte{if s.mode=="d1"{return s.heap[i]};return s.mapped[i*B:(i+1)*B]}
+func(s *Store) close()error{var e error;if s.mapped!=nil{e=syscall.Munmap(s.mapped);s.mapped=nil};if s.f!=nil{e=errors.Join(e,s.f.Close());s.f=nil};return e}
+func(s *Store) freeze()error{
+ if s.frozen{return errors.New("already frozen")};s.frozen=true
+ if s.mode=="d1" {var e error;s.f,e=os.OpenFile(s.path,os.O_CREATE|os.O_EXCL|os.O_RDWR,0600);if e!=nil{return e};for _,b:=range s.heap{n,e:=s.f.Write(b);s.packBytes+=n;if e!=nil{return e};if n!=len(b){return io.ErrShortWrite};if os.Getenv("D_FAULT")=="transfer"{return errors.New("injected transfer")}}} else {if e:=syscall.Munmap(s.mapped);e!=nil{return e};s.mapped=nil;if e:=s.f.Truncate(int64(s.used));e!=nil{return e};if os.Getenv("D_FAULT")=="transfer"{return errors.New("injected transfer")}}
+ if e:=s.f.Chmod(0400);e!=nil{return e};if e:=s.f.Close();e!=nil{return e};s.f=nil
+ return nil
+}
+type FS struct { files map[string]*File; store *Store; parents [][]byte; ownSeg int; copied int }
+func newFS(s *Store,parents [][]byte,m Manifest)*FS{
+ fs:=&FS{files:map[string]*File{},store:s,parents:parents,ownSeg:len(parents)}
+ for name,f:=range m.Files{v:=f;v.Refs=append([]Ref(nil),f.Refs...);fs.files[name]=&v};return fs
+}
+func(fs *FS) refBytes(r Ref)[]byte{if r.Seg<0{return nil};if r.Seg==fs.ownSeg{return fs.store.block(r.Off/B)};return fs.parents[r.Seg][r.Off:r.Off+B]}
+func(fs *FS) resize(name string,size int)error{
+ if fs.store.frozen{return errors.New("frozen")}
+ if size<0||size>1<<30{return errors.New("size")};f:=fs.files[name];if f==nil{f=&File{};fs.files[name]=f}
+ old:=f.Size;n:=(size+B-1)/B
+ if size<old && size%B!=0 {i:=size/B;if f.Refs[i].Seg>=0 {if e:=fs.own(f,i,false);e!=nil{return e};clear(fs.refBytes(f.Refs[i])[size%B:])}}
+ if n<len(f.Refs){f.Refs=f.Refs[:n]};for len(f.Refs)<n{f.Refs=append(f.Refs,Ref{Seg:-1})};f.Size=size;return nil
+}
+func(fs *FS) own(f *File,i int,full bool)error{
+ r:=f.Refs[i];if r.Seg==fs.ownSeg{return nil};slot,e:=fs.store.alloc();if e!=nil{return e}
+ if !full&&r.Seg>=0{copy(fs.store.block(slot),fs.refBytes(r));fs.copied+=B};f.Refs[i]=Ref{Seg:fs.ownSeg,Off:slot*B};return nil
+}
+func(fs *FS) write(name string,p []byte,off int)error{
+ if fs.store.frozen{return errors.New("frozen")};if off<0||off>1<<30||len(p)>(1<<30)-off{return errors.New("write range")};if len(p)==0{return nil}
+ f:=fs.files[name];if f==nil||off+len(p)>f.Size{if e:=fs.resize(name,off+len(p));e!=nil{return e};f=fs.files[name]}
+ for len(p)>0{i,in:=off/B,off%B;n:=min(len(p),B-in);if e:=fs.own(f,i,in==0&&n==B);e!=nil{return e};copy(fs.refBytes(f.Refs[i])[in:in+n],p[:n]);p=p[n:];off+=n};return nil
+}
+func(fs *FS) read(name string,p []byte,off int)(int,error){
+ f:=fs.files[name];if f==nil{return 0,os.ErrNotExist};if off<0{return 0,errors.New("offset")};if len(p)==0{return 0,nil};if off>=f.Size{return 0,io.EOF};count:=min(len(p),f.Size-off);done:=0
+ for done<count{i,in:=off/B,off%B;n:=min(count-done,B-in);b:=fs.refBytes(f.Refs[i]);if b==nil{clear(p[done:done+n])}else{copy(p[done:done+n],b[in:in+n])};done+=n;off+=n};if done<len(p){return done,io.EOF};return done,nil
+}
+func(fs *FS) manifest()Manifest{
+ m:=Manifest{Identity:identity,Files:map[string]File{},Segments:[]int{}};for _,b:=range fs.parents{m.Segments=append(m.Segments,len(b))};m.Segments=append(m.Segments,fs.store.used)
+ buf:=make([]byte,B);for name,f:=range fs.files{h:=sha256.New();for off:=0;off<f.Size;off+=B{n:=min(B,f.Size-off);if _,e:=fs.read(name,buf[:n],off);e!=nil{panic(e)};h.Write(buf[:n])};v:=*f;v.Hash=hex.EncodeToString(h.Sum(nil));v.Refs=append([]Ref{},f.Refs...);m.Files[name]=v};return m
+}
+func pattern(block int)[]byte {b:=make([]byte,B);for j:=range b{b[j]=byte((block*17+j*13+7)%251)};return b}
+func seed(fs *FS,blocks,stride int)error{
+ if e:=fs.resize("data",blocks*B);e!=nil{return e};for i:=0;i<blocks;i+=stride{if e:=fs.write("data",pattern(i),i*B);e!=nil{return e}}
+ if os.Getenv("D_FAULT")=="crash"{os.Exit(42)}
+ if e:=fs.write("tail",[]byte("tail-data"),B-3);e!=nil{return e};if e:=fs.resize("empty",0);e!=nil{return e};return fs.resize("zeros",2*1024*1024)
+}
+func stats(s *Store,fs *FS)map[string]any{var m runtime.MemStats;runtime.ReadMemStats(&m);return map[string]any{"materialized_bytes":s.used,"reserved_capacity_bytes":s.capacity,"heap_payload_bytes":len(s.heap)*B,"pack_bytes":s.packBytes,"parent_copy_bytes":fs.copied,"total_alloc_bytes":m.TotalAlloc,"num_gc":m.NumGC}}
+func output(v any){if e:=json.NewEncoder(os.Stdout).Encode(v);e!=nil{panic(e)}}
+func run()error{
+ if len(os.Args)<5{return errors.New("usage: role mode dir blocks/stride")};role,mode,dir:=os.Args[1],os.Args[2],os.Args[3];start:=time.Now()
+ if role=="produce"{
+  blocks,e:=strconv.Atoi(os.Args[4]);if e!=nil{return e};stride,e:=strconv.Atoi(os.Args[5]);if e!=nil||stride<1||blocks<1||blocks>65536{return errors.New("fixture size")}
+  capBytes:=((blocks+stride-1)/stride+16)*B;s,e:=newStore(mode,filepath.Join(dir,"segment"),capBytes);if e!=nil{return e};defer s.close();fs:=newFS(s,nil,Manifest{});if e=seed(fs,blocks,stride);e!=nil{return e};prepared:=time.Now();m:=fs.manifest();hashed:=time.Now();if e=s.freeze();e!=nil{return e};frozen:=time.Now();if os.Getenv("D_FAULT")=="after-freeze"{return errors.New("injected after-freeze")}
+  output(map[string]any{"manifest":m,"stats":stats(s,fs),"prepare_ns":prepared.Sub(start).Nanoseconds(),"source_hash_ns":hashed.Sub(prepared).Nanoseconds(),"freeze_ns":frozen.Sub(hashed).Nanoseconds()});return nil
+ }
+ if role!="child"{return errors.New("role")};scanner:=bufio.NewScanner(os.Stdin);scanner.Buffer(make([]byte,4096),16*1024*1024);if !scanner.Scan(){return errors.New("request")};var req Request;if e:=json.Unmarshal(scanner.Bytes(),&req);e!=nil{return e};if req.Manifest.Identity!=identity||len(req.FDs)!=len(req.Manifest.Segments){return errors.New("identity/FD count")}
+ parents:=[][]byte{};handles:=[]*os.File{};defer func(){for _,p:=range parents{if p!=nil{syscall.Munmap(p)}};for _,f:=range handles{f.Close()}}()
+ for i,fd:=range req.FDs{f:=os.NewFile(uintptr(fd),"parent");handles=append(handles,f);st,e:=f.Stat();if e!=nil{return e};flags,_,errno:=syscall.Syscall(syscall.SYS_FCNTL,uintptr(fd),syscall.F_GETFL,0);if errno!=0||flags&syscall.O_ACCMODE!=syscall.O_RDONLY||!st.Mode().IsRegular()||st.Size()!=int64(req.Manifest.Segments[i])||st.Sys().(*syscall.Stat_t).Nlink!=0{return errors.New("invalid inherited backing")};var p []byte;if st.Size()>0{p,e=syscall.Mmap(fd,0,int(st.Size()),syscall.PROT_READ,syscall.MAP_PRIVATE);if e!=nil{return e}};parents=append(parents,p)}
+ s,e:=newStore(mode,filepath.Join(dir,"segment"),64*B);if e!=nil{return e};defer s.close();fs:=newFS(s,parents,req.Manifest);opened:=time.Now()
+ if req.Wait{output(map[string]any{"ready":true});if !scanner.Scan()||scanner.Text()!="go"{return errors.New("continue")}}
+ work:=time.Now();probes:=map[string]string{};for _,off:=range []int{0,B-8,2*B,7*B+11}{p:=make([]byte,32);if _,e:=fs.read("data",p,off);e!=nil{return e};probes[strconv.Itoa(off)]=hex.EncodeToString(p)}
+ for _,off:=range []int{0,B-8,2*B,7*B+11}{if e:=fs.write("data",[]byte("child-private-update-0123456789AB"),off);e!=nil{return e}}
+ if e:=fs.resize("tail",2);e!=nil{return e};if e:=fs.resize("tail",B+6);e!=nil{return e};if e:=fs.write("new",[]byte("created"),3);e!=nil{return e}
+ changed:=time.Now();var m *Manifest;hashNS,freezeNS:=int64(0),int64(0)
+ if req.Derive{v:=fs.manifest();m=&v;hashed:=time.Now();hashNS=hashed.Sub(changed).Nanoseconds();if e:=s.freeze();e!=nil{return e};freezeNS=time.Since(hashed).Nanoseconds()}
+ if e:=s.close();e!=nil{return e};output(map[string]any{"manifest":m,"probes":probes,"stats":stats(s,fs),"open_ns":opened.Sub(start).Nanoseconds(),"work_ns":changed.Sub(work).Nanoseconds(),"source_hash_ns":hashNS,"freeze_ns":freezeNS});return nil
+}
+func main(){if e:=run();e!=nil{fmt.Fprintln(os.Stderr,e);os.Exit(1)}}

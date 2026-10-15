@@ -1,0 +1,41 @@
+package main
+
+import (
+ "bytes"
+ "crypto/sha256"
+ "encoding/hex"
+ "math/rand"
+ "os"
+ "path/filepath"
+ "testing"
+)
+
+func TestStorageModel(t *testing.T){
+ for _,mode:=range []string{"d1","d2"}{t.Run(mode,func(t *testing.T){
+  s,e:=newStore(mode,filepath.Join(t.TempDir(),"segment"),8192*B);if e!=nil{t.Fatal(e)};defer s.close()
+  fs:=newFS(s,nil,Manifest{});model:=[]byte{};r:=rand.New(rand.NewSource(421));if e=fs.resize("f",0);e!=nil{t.Fatal(e)}
+  for step:=0;step<2000;step++ {
+   if r.Intn(3)==0 {n:=r.Intn(5*B);if e=fs.resize("f",n);e!=nil{t.Fatal(e)};if n<=len(model){model=model[:n]}else{model=append(model,make([]byte,n-len(model))...)}} else {
+    off:=r.Intn(5*B);n:=1+r.Intn(2*B);p:=make([]byte,n);r.Read(p);if e=fs.write("f",p,off);e!=nil{t.Fatal(e)};if off+n>len(model){model=append(model,make([]byte,off+n-len(model))...)};copy(model[off:],p)
+   }
+   got:=make([]byte,len(model));if _,e=fs.read("f",got,0);e!=nil{t.Fatal(e)};if !bytes.Equal(got,model){t.Fatalf("model mismatch at step %d",step)}
+  }
+  h:=sha256.Sum256(model);m:=fs.manifest();if m.Files["f"].Hash!=hex.EncodeToString(h[:]){t.Fatal("hash")}
+  if e=fs.write("f",nil,-1);e==nil{t.Fatal("negative accepted")};if e=fs.write("f",[]byte{1},1<<30);e==nil{t.Fatal("overflow limit accepted")}
+  if e=s.freeze();e!=nil{t.Fatal(e)};if s.f!=nil||s.mapped!=nil{t.Fatal("writer survives freeze")};if e=fs.write("f",[]byte{1},0);e==nil{t.Fatal("write after freeze")}
+  payload,e:=os.ReadFile(s.path);if e!=nil{t.Fatal(e)};f:=m.Files["f"];got:=make([]byte,f.Size);for i,ref:=range f.Refs{n:=min(B,f.Size-i*B);if ref.Seg>=0{copy(got[i*B:i*B+n],payload[ref.Off:ref.Off+n])}};if !bytes.Equal(got,model){t.Fatal("freeze mismatch")}
+ })}
+}
+
+func TestParentIsolationAndFullOverwrite(t *testing.T){
+ for _,mode:=range []string{"d1","d2"}{t.Run(mode,func(t *testing.T){
+  parent:=append(pattern(0),pattern(1)...);before:=append([]byte{},parent...)
+  s,e:=newStore(mode,filepath.Join(t.TempDir(),"segment"),16*B);if e!=nil{t.Fatal(e)};defer s.close()
+  m:=Manifest{Files:map[string]File{"f":{Size:2*B,Refs:[]Ref{{Seg:0,Off:0},{Seg:0,Off:B}}}}}
+  fs:=newFS(s,[][]byte{parent},m)
+  if e=fs.write("f",make([]byte,B),0);e!=nil{t.Fatal(e)};if fs.copied!=0{t.Fatal("full overwrite read parent")}
+  if e=fs.resize("f",B+3);e!=nil{t.Fatal(e)};if e=fs.resize("f",2*B);e!=nil{t.Fatal(e)}
+  got:=make([]byte,2*B);fs.read("f",got,0);if !bytes.Equal(got[B+3:],make([]byte,B-3)){t.Fatal("old bytes regrew")}
+  if !bytes.Equal(parent,before){t.Fatal("parent mutated")};if fs.copied!=B{t.Fatal("partial block copy accounting")}
+ })}
+}
