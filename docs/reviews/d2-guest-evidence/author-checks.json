@@ -1,0 +1,9 @@
+{
+  "python_compile": "PASS",
+  "report_relative_links": "PASS",
+  "scoped_public_source": "PASS (58 files before this receipt)",
+  "full_public_source": "BLOCKED by pre-existing docs/reviews/v050-startup-tail-source-fix-evidence/ubuntu/measurement.log; guard unchanged",
+  "measured_run_and_adapter_hash": "PASS; equal to build-input template hashes",
+  "canonical_overlay_restored": "PASS; only new spike and report files remain",
+  "main_user_changes": "preserved"
+}

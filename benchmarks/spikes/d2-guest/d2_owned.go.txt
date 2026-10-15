@@ -1,0 +1,32 @@
+package snapshot
+
+import (
+ "errors"
+ "encoding/json"
+ "fmt"
+ "os"
+ "path/filepath"
+ "syscall"
+ "github.com/masahitojp/mariamem/internal/prepared"
+)
+type D2Envelope struct { Manifest Manifest `json:"manifest"`; Layout prepared.D2Layout `json:"layout"` }
+func ReceiveD2(h Handoff,build string)(_ *Owned,err error){
+ o:=&Owned{manifest:h.Manifest,d2:h.D2};defer func(){if err!=nil{err=errors.Join(err,o.Close())}}()
+ seen:=map[int]bool{};for _,d:=range h.Files{if d.FD<3||seen[d.FD]{return nil,errors.New("D2 descriptor")};seen[d.FD]=true;syscall.CloseOnExec(d.FD);o.files=append(o.files,os.NewFile(uintptr(d.FD),"d2"))}
+ if err=checkManifest(h.Manifest,build);err!=nil{return nil,err};if err=o.d2.Check();err!=nil{return nil,err};if len(o.files)!=len(o.d2.Segments){return nil,errors.New("D2 segment count")}
+ if len(h.Manifest.Entries)!=len(o.d2.Dirs)+len(o.d2.Files){return nil,errors.New("D2 manifest inventory")}
+ for _,n:=range o.d2.Dirs{if h.Manifest.Entries[n].Kind!="directory"{return nil,errors.New("D2 directory inventory")}}
+ for n,f:=range o.d2.Files{v,ok:=h.Manifest.Entries[n];if !ok||v.Kind!="file"||v.Bytes==nil||*v.Bytes!=f.Size{return nil,errors.New("D2 file inventory")}}
+ if err=o.d2Metadata();err!=nil{return nil,err};o.d2.FDs=[]int{};for _,f:=range o.files{o.d2.FDs=append(o.d2.FDs,int(f.Fd()))};return o,nil
+}
+func(o *Owned) d2Metadata()error{
+ for i,f:=range o.files{st,e:=f.Stat();if e!=nil{return e};flags,_,errno:=syscall.Syscall(syscall.SYS_FCNTL,f.Fd(),syscall.F_GETFL,0);if errno!=0||flags&syscall.O_ACCMODE!=syscall.O_RDONLY||!st.Mode().IsRegular()||st.Size()!=o.d2.Segments[i]||st.Sys().(*syscall.Stat_t).Nlink!=0{return errors.New("D2 inherited metadata")}}
+ return nil
+}
+func PublishD2(transfer,destination string)error{
+ source:=filepath.Join(transfer,"d2");items,e:=os.ReadDir(source);if e!=nil{return e};if len(items)!=2{return errors.New("D2 candidate inventory")}
+ for _,name:=range []string{"segments","d2.json"}{before,e:=os.Stat(filepath.Join(source,name));if e!=nil{return e};dest:=filepath.Join(destination,name);if e=os.Rename(filepath.Join(source,name),dest);e!=nil{return e};after,e:=os.Stat(dest);if e!=nil||!os.SameFile(before,after){return errors.New("D2 publish changed identity")}}
+ if os.Getenv("MARIAMEM_E_FAULT")=="publish_after_move"{return errors.New("injected publish_after_move")}
+ if os.Getenv("MARIAMEM_E_FAULT")=="receiver_corrupt"{raw,e:=os.ReadFile(filepath.Join(destination,"d2.json"));if e!=nil{return e};var env D2Envelope;if e=json.Unmarshal(raw,&env);e!=nil{return e};var chosen prepared.D2Ref;found:=false;for _,file:=range env.Layout.Files{for _,ref:=range file.Refs{if ref.Seg>=env.Layout.Parents&&ref.Valid>0{chosen=ref;found=true;break}};if found{break}};if !found{return errors.New("D2 missing corrupt target")};p:=filepath.Join(destination,"segments",fmt.Sprint(chosen.Seg));if e=os.Chmod(p,0600);e!=nil{return e};f,e:=os.OpenFile(p,os.O_RDWR,0);if e!=nil{return e};b:=[]byte{0};_,e=f.ReadAt(b,chosen.Off);if e==nil{b[0]^=0xff;_,e=f.WriteAt(b,chosen.Off)};return errors.Join(e,f.Close())}
+ if out:=os.Getenv("MARIAMEM_E_OUT");out!=""{return os.WriteFile(filepath.Join(out,fmt.Sprintf("%d-publish.json",os.Getpid())),[]byte(`{"success":true,"payload_copy_bytes":0,"same_directory_inode":true}`),0600)};return nil
+}

@@ -1,0 +1,60 @@
+package base
+
+import (
+ "errors"
+ "fmt"
+ "os"
+ "path/filepath"
+ "syscall"
+ "github.com/masahitojp/mariamem/internal/prepared"
+)
+type d2Segment struct{ f *os.File; data []byte; used int }
+type d2Pool struct{ dir string; own []*d2Segment; parents [][]byte; parentFiles []*os.File; frozen bool }
+func(fsys *MemFS) D2Enable()error{
+ if os.Getenv("MARIAMEM_D2")!="1"{return nil};dir,e:=os.MkdirTemp("","mariamem-d2-");if e!=nil{return e};fsys.d2=&d2Pool{dir:dir};fsys.dEnabled=true;return nil
+}
+func(p *d2Pool) alloc()([]byte,prepared.D2Ref,error){
+ if p.frozen{return nil,prepared.D2Ref{},errors.New("D2 frozen")}
+ if len(p.own)==0||p.own[len(p.own)-1].used==4<<20{
+  if len(p.own)+len(p.parents)>=4096{return nil,prepared.D2Ref{},errors.New("D2 segment limit")}
+  f,e:=os.CreateTemp(p.dir,"segment-");if e!=nil{return nil,prepared.D2Ref{},e};if e=f.Truncate(4<<20);e!=nil{f.Close();return nil,prepared.D2Ref{},e}
+  b,e:=syscall.Mmap(int(f.Fd()),0,4<<20,syscall.PROT_READ|syscall.PROT_WRITE,syscall.MAP_SHARED);if e!=nil{f.Close();return nil,prepared.D2Ref{},e};p.own=append(p.own,&d2Segment{f:f,data:b})
+ }
+ i:=len(p.own)-1;s:=p.own[i];off:=s.used;s.used+=prepared.D2Block
+ return s.data[off:s.used],prepared.D2Ref{Seg:len(p.parents)+i,Off:int64(off),Valid:prepared.D2Block},nil
+}
+func(fsys *MemFS) D2Close()error{
+ if fsys.d2==nil{return nil};p:=fsys.d2;var e error
+ for _,s:=range p.own{if s.data!=nil{e=errors.Join(e,syscall.Munmap(s.data));s.data=nil};if s.f!=nil{e=errors.Join(e,s.f.Close());s.f=nil}}
+ for _,f:=range p.parentFiles{e=errors.Join(e,f.Close())};p.parentFiles=nil
+ return errors.Join(e,os.RemoveAll(p.dir))
+}
+func(d *dStorage) original(dst []byte,at int64){
+ clear(dst);limit:=min(at+int64(len(dst)),d.backingLimit);if limit<=at{return}
+ if d.pool==nil||d.inherited==nil{copy(dst,d.backing[at:limit]);return}
+ r:=d.inherited[at/dBlockSize];if r.Seg<0{return};in:=at%dBlockSize;n:=min(limit-at,int64(r.Valid)-in);if n>0{copy(dst[:n],d.pool.parents[r.Seg][r.Off+in:r.Off+in+n])}
+}
+func MapD2Handles(fsys *MemFS,l *prepared.D2Layout,prefix string)(_ *PreparedFiles,err error){
+ if fsys.d2==nil{return nil,errors.New("D2 disabled")};if err=l.Check();err!=nil{return nil,err};if len(l.FDs)!=len(l.Segments){return nil,errors.New("D2 FD count")}
+ p:=&PreparedFiles{};defer func(){if err!=nil{err=errors.Join(err,p.Close())}}()
+ for i,n:=range l.Segments{b,e:=syscall.Mmap(l.FDs[i],0,int(n),syscall.PROT_READ,syscall.MAP_PRIVATE);if e!=nil{return nil,e};p.mappings=append(p.mappings,b);fd,e:=syscall.Dup(l.FDs[i]);if e!=nil{return nil,e};syscall.CloseOnExec(fd);fsys.d2.parentFiles=append(fsys.d2.parentFiles,os.NewFile(uintptr(fd),"d2-parent"))}
+ fsys.d2.parents=p.mappings
+ for _,name:=range l.Dirs{if e:=fsys.MkdirAll(filepath.ToSlash(filepath.Join(prefix,name)),0700);e!=nil{return nil,e}}
+ for name,f:=range l.Files{
+  dest:=filepath.ToSlash(filepath.Join(prefix,name));opened,e:=fsys.OpenFile(dest,os.O_CREATE|os.O_EXCL|os.O_RDWR,0600);if e!=nil{return nil,e};if e=opened.Close();e!=nil{return nil,e}
+  fsys.mu.Lock();node,e:=fsys.lookup(dest);if e==nil{d:=node.d;d.size=f.Size;d.backingLimit=f.Size;d.inherited=append([]prepared.D2Ref{},f.Refs...)};fsys.mu.Unlock();if e!=nil{return nil,e}
+ }
+ return p,nil
+}
+func(p *d2Pool) freeze(dir string)([]*os.File,error){
+ p.frozen=true;files:=[]*os.File{}
+ // Caller owns cleanup of returned files even on partial failure.
+ for i,s:=range p.own{
+  if e:=syscall.Munmap(s.data);e!=nil{return files,e};s.data=nil
+  if e:=s.f.Truncate(int64(s.used));e!=nil{return files,e};if e:=s.f.Chmod(0400);e!=nil{return files,e}
+  old:=s.f.Name();before,e:=s.f.Stat();if e!=nil{return files,e};if e=s.f.Close();e!=nil{return files,e};s.f=nil
+  target:=filepath.Join(dir,fmt.Sprintf("%d",len(p.parents)+i));if e=os.Rename(old,target);e!=nil{return files,e};after,e:=os.Stat(target);if e!=nil||!os.SameFile(before,after){return files,errors.New("D2 identity changed")}
+  f,e:=os.Open(target);if e!=nil{return files,e};files=append(files,f)
+ }
+ return files,nil
+}

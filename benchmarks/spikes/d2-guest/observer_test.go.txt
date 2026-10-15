@@ -1,0 +1,122 @@
+package base
+
+import (
+ "bytes"
+ "io"
+ "os"
+ "os/exec"
+ "strings"
+ "testing"
+
+ "github.com/masahitojp/mariamem/internal/prepared"
+)
+
+func eTestFS(t *testing.T)*MemFS{
+ t.Helper()
+ f:=NewMemFS()
+ if err:=f.eEnable("unit");err!=nil{t.Fatal(err)}
+ t.Cleanup(func(){if err:=f.EProbeClose();err!=nil{t.Error(err)}})
+ if err:=f.MkdirAll("mariadb",0700);err!=nil{t.Fatal(err)}
+ return f
+}
+func eRead(t *testing.T,fs *MemFS,name string)[]byte{
+ t.Helper()
+ f,e:=fs.OpenFile(name,os.O_RDONLY,0);if e!=nil{t.Fatal(e)}
+ b,e:=io.ReadAll(f);if e!=nil{t.Fatal(e)}
+ return b
+}
+func TestEBackingResizeAndIdentity(t *testing.T){
+ fs:=eTestFS(t)
+ data:=bytes.Repeat([]byte{0x5a},65536)
+ if e:=fs.WriteFile("mariadb/a",data,0600);e!=nil{t.Fatal(e)}
+ f,e:=fs.OpenFile("mariadb/a",os.O_RDWR,0);if e!=nil{t.Fatal(e)}
+ mf:=f.(*memFile);b:=mf.node.e
+ if b==nil{t.Fatal("not backed")}
+ if _,e=f.WriteAt([]byte{3},100000);e!=nil{t.Fatal(e)}
+ gotGrowth:=eRead(t,fs,"mariadb/a")
+ if !bytes.Equal(gotGrowth[:65536],data){t.Fatal("growth lost prefix")}
+ if !bytes.Equal(gotGrowth[65536:100000],make([]byte,100000-65536)) || gotGrowth[100000]!=3{t.Fatal("sparse growth not zero")}
+
+ if e=f.Truncate(100);e!=nil{t.Fatal(e)}
+ if e=f.Truncate(200);e!=nil{t.Fatal(e)}
+ got:=eRead(t,fs,"mariadb/a")
+ if !bytes.Equal(got[:100],data[:100]) || !bytes.Equal(got[100:],make([]byte,100)){t.Fatal("stale shrink bytes")}
+ if _,e=f.Seek(42,io.SeekStart);e!=nil{t.Fatal(e)}
+ if e=mf.Allocate(100);e!=nil{t.Fatal(e)}
+ if pos,e:=f.Seek(0,io.SeekCurrent);e!=nil || pos!=42{t.Fatal(pos,e)}
+ if len(mf.node.data)!=200{t.Fatal("allocation shrank")}
+ if e=mf.Allocate(300000);e!=nil{t.Fatal(e)}
+ if mf.node.e!=b{t.Fatal("backing identity changed")}
+ if !bytes.Equal(eRead(t,fs,"mariadb/a")[200:],make([]byte,300000-200)){t.Fatal("allocate growth not zero")}
+
+ if _,e=fs.OpenFile("mariadb/a",os.O_RDWR|os.O_TRUNC,0);e!=nil{t.Fatal(e)}
+ if e=f.Truncate(100);e!=nil{t.Fatal(e)}
+ if !bytes.Equal(eRead(t,fs,"mariadb/a"),make([]byte,100)){t.Fatal("O_TRUNC leaked bytes")}
+ if e=fs.Rename("mariadb/a","mariadb/b");e!=nil{t.Fatal(e)}
+ if e=fs.Remove("mariadb/b");e!=nil{t.Fatal(e)}
+ if _,e=f.WriteAt([]byte{7},0);e!=nil{t.Fatal(e)}
+ entries,owners,e:=fs.eFreeze();if e!=nil{t.Fatal(e)}
+ defer func(){for _,f:=range owners{f.Close()}}()
+ if len(entries)!=0{t.Fatal("unlinked file exported")}
+}
+func TestEFreezeChildrenAndLifetime(t *testing.T){
+ fs:=eTestFS(t)
+ data:=bytes.Repeat([]byte{0x39},65536)
+ if e:=fs.WriteFile("mariadb/a",data,0600);e!=nil{t.Fatal(e)}
+ entries,owners,e:=fs.eFreeze();if e!=nil{t.Fatal(e)}
+ if len(entries)!=1 || entries[0].Size!=int64(len(data)){t.Fatal(entries)}
+ if _,e=owners[0].WriteAt([]byte{1},0);e==nil{t.Fatal("frozen owner writable")}
+ a,b:=NewMemFS(),NewMemFS()
+ for _,f:=range []*MemFS{a,b}{f.MkdirAll("mariadb",0700)}
+ am,e:=MapPreparedHandles(a,entries,"mariadb");if e!=nil{t.Fatal(e)};defer am.Close()
+ bm,e:=MapPreparedHandles(b,entries,"mariadb");if e!=nil{t.Fatal(e)};defer bm.Close()
+ af,_:=a.OpenFile("mariadb/a",os.O_RDWR,0)
+ af.WriteAt([]byte{0x11},123)
+ if !bytes.Equal(eRead(t,b,"mariadb/a"),data){t.Fatal("sibling modified")}
+ frozen:=make([]byte,len(data))
+ if _,e=owners[0].ReadAt(frozen,0);e!=nil || !bytes.Equal(frozen,data){t.Fatal("base modified",e)}
+ // Existing private growth path materializes into heap; observe its boundary.
+ if e=af.Truncate(2*int64(len(data)));e!=nil{t.Fatal(e)}
+ if eRead(t,a,"mariadb/a")[123]!=0x11{t.Fatal("private growth lost changes")}
+ for _,f:=range owners{if e=f.Close();e!=nil{t.Fatal(e)}}
+ if e=fs.EProbeClose();e!=nil{t.Fatal(e)}
+ if eRead(t,a,"mariadb/a")[123]!=0x11 || !bytes.Equal(eRead(t,b,"mariadb/a"),data){t.Fatal("parent close invalidated child")}
+ // A derived state can be made shareable by full materialization. This is
+ // deliberately NOT evidence of a no-copy derived Snapshot.
+ derived:=eTestFS(t)
+ if e=derived.WriteFile("mariadb/a",eRead(t,a,"mariadb/a"),0600);e!=nil{t.Fatal(e)}
+ de,df,e:=derived.eFreeze();if e!=nil{t.Fatal(e)}
+ defer func(){for _,f:=range df{f.Close()}}()
+ c:=NewMemFS();c.MkdirAll("mariadb",0700)
+ cm,e:=MapPreparedHandles(c,de,"mariadb");if e!=nil{t.Fatal(e)};defer cm.Close()
+ if eRead(t,c,"mariadb/a")[123]!=0x11 || eRead(t,b,"mariadb/a")[123]!=0x39{t.Fatal("derived independence")}
+}
+func TestECrossProcess(t *testing.T){
+ if os.Getenv("E_FD_CHILD")=="1"{
+  fs:=NewMemFS();fs.MkdirAll("mariadb",0700)
+  m,e:=MapPreparedHandles(fs,[]prepared.Entry{{Name:"a",FD:3,Size:65536}},"mariadb")
+  if e!=nil{t.Fatal(e)};defer m.Close()
+  if eRead(t,fs,"mariadb/a")[0]!=0x7b{t.Fatal("wrong inherited content")}
+  f,_:=fs.OpenFile("mariadb/a",os.O_RDWR,0);f.WriteAt([]byte{1},0)
+  return
+ }
+ fs:=eTestFS(t)
+ fs.WriteFile("mariadb/a",bytes.Repeat([]byte{0x7b},65536),0600)
+ _,owners,e:=fs.eFreeze();if e!=nil{t.Fatal(e)}
+ defer func(){for _,f:=range owners{f.Close()}}()
+ cmd:=exec.Command(os.Args[0],"-test.run=^TestECrossProcess$")
+ cmd.Env=append(os.Environ(),"E_FD_CHILD=1")
+ cmd.ExtraFiles=owners
+ out,e:=cmd.CombinedOutput()
+ if e!=nil{t.Fatalf("%v: %s",e,out)}
+ data:=make([]byte,65536);owners[0].ReadAt(data,0)
+ if !bytes.Equal(data,bytes.Repeat([]byte{0x7b},65536)){t.Fatal("cross-process write leaked")}
+}
+func TestEFreezeRejectsMutation(t *testing.T){
+ fs:=eTestFS(t);fs.WriteFile("mariadb/a",[]byte{1},0600)
+ _,owners,e:=fs.eFreeze();if e!=nil{t.Fatal(e)}
+ defer func(){for _,f:=range owners{f.Close()}}()
+ f,_:=fs.OpenFile("mariadb/a",os.O_RDWR,0)
+ defer func(){v:=recover();if v==nil || !strings.Contains(v.(string),"after E freeze"){t.Fatalf("wanted explicit rejection: %v",v)}}()
+ f.WriteAt([]byte{2},0)
+}

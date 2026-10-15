@@ -1,0 +1,55 @@
+{
+  "71709-handoff.json": {
+    "bytes": 144787235,
+    "elapsed_ns": 82824709,
+    "files": 11,
+    "freeze_move_ns": 9941250,
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "source_inventory_hash_ns": 72682334,
+    "success": true
+  },
+  "71746-handoff.json": {
+    "elapsed_ns": 71086042,
+    "error": "injected before_move",
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "source_inventory_hash_ns": 71082500,
+    "success": false
+  },
+  "71748-handoff.json": {
+    "bytes": 144787234,
+    "elapsed_ns": 83155083,
+    "error": "injected after_move",
+    "files": 11,
+    "freeze_move_ns": 9771792,
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "source_inventory_hash_ns": 73377208,
+    "success": false
+  },
+  "71759-handoff.json": {
+    "bytes": 144787225,
+    "elapsed_ns": 79876000,
+    "files": 11,
+    "freeze_move_ns": 8748333,
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "source_inventory_hash_ns": 70901584,
+    "success": true
+  },
+  "71761-handoff.json": {
+    "bytes": 144787230,
+    "elapsed_ns": 78477958,
+    "files": 11,
+    "freeze_move_ns": 7286541,
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "source_inventory_hash_ns": 71035916,
+    "success": true
+  }
+}

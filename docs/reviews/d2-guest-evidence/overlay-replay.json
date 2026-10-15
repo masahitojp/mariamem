@@ -1,0 +1,1 @@
+{"status": "PASS", "files": 21, "method": "restore canonical preimages, reapply templates, compare every postimage with measured build; no second binary build"}

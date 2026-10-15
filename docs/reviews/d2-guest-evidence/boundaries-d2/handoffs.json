@@ -1,0 +1,86 @@
+{
+  "74673-handoff.json": {
+    "elapsed_ns": 125062125,
+    "freeze_move_ns": 536791,
+    "guest_cold_copy_present": false,
+    "metadata_bytes": 260147,
+    "new_payload_bytes": 5029888,
+    "parent_segments": 0,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "segments": 2,
+    "source_inventory_hash_ns": 61800125,
+    "success": true,
+    "target_inventory_hash_ns": 61388458
+  },
+  "74685-handoff.json": {
+    "elapsed_ns": 126176292,
+    "freeze_move_ns": 312541,
+    "guest_cold_copy_present": false,
+    "metadata_bytes": 260182,
+    "new_payload_bytes": 2473984,
+    "parent_segments": 2,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "segments": 3,
+    "source_inventory_hash_ns": 64360958,
+    "success": true,
+    "target_inventory_hash_ns": 60542375
+  },
+  "74711-handoff.json": {
+    "elapsed_ns": 62561209,
+    "error": "injected before_move",
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "source_inventory_hash_ns": 62553709,
+    "success": false
+  },
+  "74722-handoff.json": {
+    "elapsed_ns": 63084292,
+    "error": "injected after_move",
+    "freeze_move_ns": 606166,
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "source_inventory_hash_ns": 62291250,
+    "success": false
+  },
+  "74724-handoff.json": {
+    "elapsed_ns": 128321417,
+    "error": "D2 target hash mismatch",
+    "freeze_move_ns": 555666,
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "source_inventory_hash_ns": 65946375,
+    "success": false
+  },
+  "74733-handoff.json": {
+    "elapsed_ns": 125359875,
+    "freeze_move_ns": 565000,
+    "guest_cold_copy_present": false,
+    "metadata_bytes": 260139,
+    "new_payload_bytes": 5013504,
+    "parent_segments": 0,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "segments": 2,
+    "source_inventory_hash_ns": 61932834,
+    "success": true,
+    "target_inventory_hash_ns": 61550917
+  },
+  "74735-handoff.json": {
+    "elapsed_ns": 123920084,
+    "freeze_move_ns": 541041,
+    "guest_cold_copy_present": false,
+    "metadata_bytes": 260138,
+    "new_payload_bytes": 5013504,
+    "parent_segments": 0,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "segments": 2,
+    "source_inventory_hash_ns": 61927667,
+    "success": true,
+    "target_inventory_hash_ns": 60114291
+  }
+}

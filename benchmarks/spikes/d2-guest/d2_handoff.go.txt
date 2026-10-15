@@ -1,0 +1,47 @@
+package base
+
+import (
+ "crypto/sha256"
+ "encoding/hex"
+ "encoding/json"
+ "errors"
+ "fmt"
+ "os"
+ "path/filepath"
+ "reflect"
+ "sort"
+ "time"
+ "github.com/masahitojp/mariamem/internal/prepared"
+ "github.com/masahitojp/mariamem/internal/snapshot"
+)
+func(fsys *MemFS) D2Handoff(transfer,build string)(handled bool,err error){
+ if fsys.d2==nil{return false,nil};if _,e:=os.Stat(filepath.Join(transfer,".d2-request"));os.IsNotExist(e){return false,nil}else if e!=nil{return true,e}
+ fsys.mu.Lock();defer fsys.mu.Unlock();start:=time.Now();stats:=map[string]any{"payload_copy_bytes":0,"guest_cold_copy_present":false}
+ defer func(){stats["elapsed_ns"]=time.Since(start).Nanoseconds();stats["success"]=err==nil;if err!=nil{stats["error"]=err.Error()};if out:=os.Getenv("MARIAMEM_E_OUT");out!=""{b,e:=json.MarshalIndent(stats,"","  ");if e==nil{e=os.WriteFile(filepath.Join(out,fmt.Sprintf("%d-handoff.json",os.Getpid())),b,0600)};err=errors.Join(err,e)}}()
+ p:=fsys.d2;l:=prepared.D2Layout{Parents:len(p.parents),Files:map[string]prepared.D2File{},Dirs:[]string{},Segments:[]int64{}}
+ for _,b:=range p.parents{l.Segments=append(l.Segments,int64(len(b)))};for _,s:=range p.own{l.Segments=append(l.Segments,int64(s.used))}
+ expected:=map[string]snapshot.Entry{};root,e:=fsys.lookup("mariadb");if e!=nil{return true,e};buf:=make([]byte,dBlockSize)
+ var visit func(*memNode,string)error
+ visit=func(n *memNode,name string)error{
+  if n.dir{l.Dirs=append(l.Dirs,name);expected[name]=snapshot.Entry{Kind:"directory"};keys:=[]string{};for k:=range n.children{keys=append(keys,k)};sort.Strings(keys);for _,k:=range keys{if e:=visit(n.children[k],filepath.ToSlash(filepath.Join(name,k)));e!=nil{return e}};return nil}
+  d:=n.d;if d==nil||d.pool!=p||len(d.backing)!=0{return fmt.Errorf("D2 unbacked file %s",name)}
+  h:=sha256.New();f:=prepared.D2File{Size:d.size,Refs:[]prepared.D2Ref{}}
+  for off:=int64(0);off<d.size;off+=dBlockSize{count:=min(dBlockSize,d.size-off);if _,e:=d.readAt(buf[:count],off);e!=nil{return e};h.Write(buf[:count]);r:=prepared.D2Ref{Seg:-1};if _,ok:=d.blocks[off/dBlockSize];ok{r=d.refs[off/dBlockSize]}else if off<d.backingLimit&&d.inherited!=nil{r=d.inherited[off/dBlockSize];r.Valid=int(min(int64(r.Valid),d.backingLimit-off))};f.Refs=append(f.Refs,r)}
+  size:=d.size;expected[name]=snapshot.Entry{Kind:"file",Bytes:&size,SHA256:hex.EncodeToString(h.Sum(nil))};l.Files[name]=f;return nil
+ }
+ if err=visit(root,".");err!=nil{return true,err};if err=l.Check();err!=nil{return true,err}
+ stats["source_inventory_hash_ns"]=time.Since(start).Nanoseconds()
+ if cold,e:=fsys.lookup("snapshot-out/data");e==nil{
+  actual:=map[string]snapshot.Entry{};var scan func(*memNode,string);scan=func(n *memNode,name string){if n.dir{actual[name]=snapshot.Entry{Kind:"directory"};for k,c:=range n.children{scan(c,filepath.ToSlash(filepath.Join(name,k)))}}else{size:=int64(len(n.data));sum:=sha256.Sum256(n.data);actual[name]=snapshot.Entry{Kind:"file",Bytes:&size,SHA256:hex.EncodeToString(sum[:])}}};scan(cold,".");if !reflect.DeepEqual(actual,expected){return true,errors.New("D2 cold-copy audit mismatch")};stats["guest_cold_copy_present"]=true;stats["cold_copy_audit_equal"]=true
+ }else if !os.IsNotExist(e){return true,e}
+ if os.Getenv("MARIAMEM_E_FAULT")=="before_move"{return true,errors.New("injected before_move")}
+ dir:=filepath.Join(transfer,"d2");if err=os.Mkdir(dir,0700);err!=nil{return true,err};if err=os.Mkdir(filepath.Join(dir,"segments"),0700);err!=nil{return true,err}
+ at:=time.Now();files,e:=p.freeze(filepath.Join(dir,"segments"));defer func(){for _,f:=range files{err=errors.Join(err,f.Close())}}();if e!=nil{return true,e};stats["freeze_move_ns"]=time.Since(at).Nanoseconds();stats["same_inode_all"]=true
+ if os.Getenv("MARIAMEM_E_FAULT")=="after_move"{return true,errors.New("injected after_move")}
+ if os.Getenv("MARIAMEM_E_FAULT")=="corrupt_after_hash"{var chosen prepared.D2Ref;found:=false;for _,file:=range l.Files{for _,ref:=range file.Refs{if ref.Seg>=l.Parents&&ref.Valid>0{chosen=ref;found=true;break}};if found{break}};if !found{return true,errors.New("D2 no live corrupt target")};target:=filepath.Join(dir,"segments",fmt.Sprint(chosen.Seg));if e:=os.Chmod(target,0600);e!=nil{return true,e};f,e:=os.OpenFile(target,os.O_RDWR,0);if e!=nil{return true,e};b:=[]byte{0};_,e=f.ReadAt(b,chosen.Off);if e==nil{b[0]^=0xff;_,e=f.WriteAt(b,chosen.Off)};if e=errors.Join(e,f.Close());e!=nil{return true,e}}
+ at=time.Now();allFiles:=append(append([]*os.File{},p.parentFiles...),files...);hashes,e:=l.HashFiles(func(seg int,b []byte,off int64)error{_,e:=allFiles[seg].ReadAt(b,off);return e});if e!=nil{return true,e};for name,h:=range hashes{if expected[name].SHA256!=h{return true,errors.New("D2 target hash mismatch")}};stats["target_inventory_hash_ns"]=time.Since(at).Nanoseconds()
+ m:=snapshot.Manifest{Format:"mariamem-cold-snapshot",Version:1,WASM:build,Storage:"memory",Entries:expected};envelope:=snapshot.D2Envelope{Manifest:m,Layout:l}
+ b,e:=json.Marshal(envelope);if e!=nil{return true,e};if err=os.WriteFile(filepath.Join(dir,"d2.json"),b,0600);err!=nil{return true,err}
+ stats["segments"]=len(l.Segments);stats["parent_segments"]=l.Parents;var payload int64;for _,s:=range p.own{payload+=int64(s.used)};stats["new_payload_bytes"]=payload;stats["metadata_bytes"]=len(b)
+ return true,nil
+}

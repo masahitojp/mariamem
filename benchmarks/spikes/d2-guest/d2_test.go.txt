@@ -1,0 +1,18 @@
+package base
+import("bytes";"encoding/json";"os";"path/filepath";"testing";"strconv";"strings";"github.com/masahitojp/mariamem/internal/snapshot";"github.com/masahitojp/mariamem/internal/prepared")
+func d2Fixture(t *testing.T)*MemFS{t.Helper();t.Setenv("MARIAMEM_D2","1");fs:=NewMemFS();if e:=fs.D2Enable();e!=nil{t.Fatal(e)};t.Cleanup(func(){if e:=fs.D2Close();e!=nil{t.Error(e)}});if e:=fs.MkdirAll("mariadb/db",0700);e!=nil{t.Fatal(e)};return fs}
+func TestD2FreezeRestoreAndIsolation(t *testing.T){
+ fs:=d2Fixture(t);want:=bytes.Repeat([]byte("a"),2*prepared.D2Block+3);if e:=fs.WriteFile("mariadb/db/a",want,0600);e!=nil{t.Fatal(e)}
+ f,_:=fs.OpenFile("mariadb/db/a",os.O_RDWR,0600);f.Truncate(3);f.Truncate(int64(len(want)));want=append([]byte("aaa"),make([]byte,len(want)-3)...);dContents(t,f,want)
+ transfer:=t.TempDir();os.WriteFile(filepath.Join(transfer,".d2-request"),nil,0600);if ok,e:=fs.D2Handoff(transfer,"build");!ok||e!=nil{t.Fatal(ok,e)}
+ var envelope snapshot.D2Envelope;b,e:=os.ReadFile(filepath.Join(transfer,"d2/d2.json"));if e!=nil{t.Fatal(e)};if e=json.Unmarshal(b,&envelope);e!=nil{t.Fatal(e)}
+ l:=&envelope.Layout;for i:=range l.Segments{file,e:=os.Open(filepath.Join(transfer,"d2/segments",strconv.Itoa(i)));if e!=nil{t.Fatal(e)};defer file.Close();l.FDs=append(l.FDs,int(file.Fd()))}
+ child:=NewMemFS();if e=child.D2Enable();e!=nil{t.Fatal(e)};defer child.D2Close();p,e:=MapD2Handles(child,l,"mariadb");if e!=nil{t.Fatal(e)};defer p.Close()
+ cf,e:=child.OpenFile("mariadb/db/a",os.O_RDWR,0600);if e!=nil{t.Fatal(e)};dContents(t,cf,want);cf.WriteAt([]byte("bbb"),0);dContents(t,cf,append([]byte("bbb"),want[3:]...))
+ hashes,e:=l.Hashes(p.mappings);if e!=nil||hashes["db/a"]!=envelope.Manifest.Entries["db/a"].SHA256{t.Fatal("parent changed",e)}
+ cf.Truncate(1);cf.Truncate(13);dContents(t,cf,append([]byte("b"),make([]byte,12)...))
+}
+func TestD2FaultHash(t *testing.T){
+ fs:=d2Fixture(t);fs.WriteFile("mariadb/db/a",bytes.Repeat([]byte("x"),prepared.D2Block),0600);transfer:=t.TempDir();os.WriteFile(filepath.Join(transfer,".d2-request"),nil,0600)
+ t.Setenv("MARIAMEM_E_FAULT","corrupt_after_hash");if _,e:=fs.D2Handoff(transfer,"build");e==nil||!strings.Contains(e.Error(),"target hash mismatch"){t.Fatal("expected hash rejection",e)}
+}

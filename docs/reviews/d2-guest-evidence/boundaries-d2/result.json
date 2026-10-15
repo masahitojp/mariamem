@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "checks": [
+    "transaction-rejected-source-still-usable",
+    "two-live-children-survive-baseline-close-and-isolate",
+    "derived-retains-changes-and-sibling-isolation",
+    "snapshot-to-existing-format-import-and-fork-pass",
+    "before_move-rejected-source-closed-destination-removed",
+    "after_move-rejected-source-closed-destination-removed",
+    "corrupt_after_hash-rejected-source-closed-destination-removed",
+    "publish_after_move-rejected-source-closed-destination-removed",
+    "receiver_corrupt-rejected-source-closed-destination-removed",
+    "unchanged-python-acquisition-rejects-same-size-corruption",
+    "no-owned-runtime-temp-directories-left"
+  ],
+  "failures": [
+    {
+      "fault": "before_move",
+      "code": "snapshot_failed",
+      "message": "guest shutdown: injected before_move",
+      "closed": true
+    },
+    {
+      "fault": "after_move",
+      "code": "snapshot_failed",
+      "message": "guest shutdown: injected after_move",
+      "closed": true
+    },
+    {
+      "fault": "corrupt_after_hash",
+      "code": "snapshot_failed",
+      "message": "guest shutdown: D2 target hash mismatch",
+      "closed": true
+    },
+    {
+      "fault": "publish_after_move",
+      "code": "snapshot_failed",
+      "message": "injected publish_after_move",
+      "closed": true
+    },
+    {
+      "fault": "receiver_corrupt",
+      "code": "snapshot_failed",
+      "message": "D2 content mismatch",
+      "closed": true
+    }
+  ]
+}

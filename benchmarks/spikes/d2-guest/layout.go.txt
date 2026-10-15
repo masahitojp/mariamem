@@ -1,0 +1,38 @@
+// Experimental packed block format; never a persisted snapshot format.
+package prepared
+
+import (
+ "crypto/sha256"
+ "encoding/hex"
+ "errors"
+ "path"
+)
+const D2Block = 16384
+type D2Ref struct { Seg int `json:"seg"`; Off int64 `json:"off"`; Valid int `json:"valid"` }
+type D2File struct { Size int64 `json:"size"`; Refs []D2Ref `json:"refs"` }
+type D2Layout struct { Parents int `json:"parents"`; Segments []int64 `json:"segments"`; Files map[string]D2File `json:"files"`; Dirs []string `json:"dirs"`; FDs []int `json:"-"` }
+func(l *D2Layout) Check()error{
+ if l==nil||l.Parents<0||l.Parents>len(l.Segments)||len(l.Segments)>4096{return errors.New("D2 segments")}
+ for _,n:=range l.Segments{if n<=0||n>4<<20||n%D2Block!=0{return errors.New("D2 segment size")}}
+ names:=map[string]bool{}
+ validName:=func(n string)bool{return n!=""&&n==path.Clean(n)&&n!=".."&&!path.IsAbs(n)&&!(len(n)>3&&n[:3]=="../")}
+ for _,n:=range l.Dirs{if !validName(n)||names[n]{return errors.New("D2 directory")};names[n]=true}
+ if !names["."]{return errors.New("D2 root")}
+ for n,f:=range l.Files{
+  if !validName(n)||n=="."||names[n]||f.Size<0||f.Size>1<<40||int64(len(f.Refs))!=(f.Size+D2Block-1)/D2Block{return errors.New("D2 file range")};names[n]=true
+  for _,r:=range f.Refs{if r.Seg == -1&&r.Off==0&&r.Valid==0{continue};if r.Seg<0||r.Seg>=len(l.Segments)||r.Off<0||r.Off%D2Block!=0||r.Off>l.Segments[r.Seg]-D2Block||r.Valid<0||r.Valid>D2Block{return errors.New("D2 reference range")}}
+ }
+ dirs:=map[string]bool{};for _,n:=range l.Dirs{dirs[n]=true};for n:=range names{if n!="."&&!dirs[path.Dir(n)]{return errors.New("D2 missing parent directory")}}
+ return nil
+}
+func(l *D2Layout) Hashes(data [][]byte)(map[string]string,error){
+ if e:=l.Check();e!=nil{return nil,e};if len(data)!=len(l.Segments){return nil,errors.New("D2 mapping count")};for i,b:=range data{if int64(len(b))!=l.Segments[i]{return nil,errors.New("D2 mapping size")}}
+ result:=map[string]string{};zero:=make([]byte,D2Block)
+ for name,f:=range l.Files{h:=sha256.New();for i,r:=range f.Refs{n:=int(min(int64(D2Block),f.Size-int64(i)*D2Block));v:=min(n,r.Valid);if r.Seg>=0{h.Write(data[r.Seg][r.Off:r.Off+int64(v)])}else{v=0};h.Write(zero[:n-v])};result[name]=hex.EncodeToString(h.Sum(nil))};return result,nil
+}
+// Verify through the retained file descriptors, not a prior MAP_PRIVATE view.
+// A local macOS fault fixture observed stale mapped bytes after a pwrite.
+func(l *D2Layout) HashFiles(read func(int,[]byte,int64)error)(map[string]string,error){
+ if e:=l.Check();e!=nil{return nil,e};result:=map[string]string{};buf:=make([]byte,D2Block);zero:=make([]byte,D2Block)
+ for name,f:=range l.Files{h:=sha256.New();for i,r:=range f.Refs{n:=int(min(int64(D2Block),f.Size-int64(i)*D2Block));v:=0;if r.Seg>=0{v=min(n,r.Valid);if v>0{if e:=read(r.Seg,buf[:v],r.Off);e!=nil{return nil,e};h.Write(buf[:v])}};h.Write(zero[:n-v])};result[name]=hex.EncodeToString(h.Sum(nil))};return result,nil
+}

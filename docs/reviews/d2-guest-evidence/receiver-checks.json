@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "case": "valid",
+      "result": "accepted-clone-survives-close"
+    },
+    {
+      "case": "guest",
+      "result": "rejected",
+      "message": "D2 identity mismatch"
+    },
+    {
+      "case": "content",
+      "result": "rejected",
+      "message": "D2 content mismatch"
+    },
+    {
+      "case": "range",
+      "result": "rejected",
+      "message": "D2 reference range"
+    },
+    {
+      "case": "inventory",
+      "result": "rejected",
+      "message": "D2 inventory mismatch"
+    },
+    {
+      "case": "parent",
+      "result": "rejected",
+      "message": "D2 missing parent owner"
+    },
+    {
+      "case": "segment-size",
+      "result": "rejected",
+      "message": "D2 backing metadata"
+    }
+  ]
+}

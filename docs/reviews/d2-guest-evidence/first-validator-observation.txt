@@ -1,0 +1,1 @@
+TestD2FaultHash FAIL before fix: pwrite changed first retained file byte from 120 to 135; already mapped read-only MAP_PRIVATE view still read 120. Source hash matched stale mapped view. Final implementation verifies through retained descriptors ReadAt. Local macOS observation, not a cross-platform mmap specification.
