@@ -1,0 +1,5 @@
+{
+  "human_choice": "D+E child block I/O only; keep shared baseline and Snapshot E",
+  "d_specific_snapshot": "out_of_scope_by_explicit_human_agreement",
+  "implemented": "read-only prepared mapping plus private 16 KiB blocks for child mariadb files"
+}

@@ -1,0 +1,3 @@
+Disk preflight OK: 73.05 GiB free, 1.01 GiB owned
+n100-r-1-e PASS 1527.1
+n100-r-1-de PASS 444.1

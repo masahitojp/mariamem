@@ -1,0 +1,61 @@
+package base
+
+import (
+ "bytes"
+ "io"
+ "math"
+ "math/rand"
+ "testing"
+)
+func TestDBlockIsolationAndPartialIO(t *testing.T){
+ original:=bytes.Repeat([]byte{'x'},int(dBlockSize*3+7))
+ a,b:=newDStorage(original),newDStorage(original)
+ if n,e:=a.writeAt([]byte("abcdef"),dBlockSize-2);n!=6||e!=nil{t.Fatal(n,e)}
+ out:=make([]byte,8);a.readAt(out,dBlockSize-3)
+ if string(out)!="xabcdefx"{t.Fatalf("%q",out)}
+ b.readAt(out,dBlockSize-3);if !bytes.Equal(out,bytes.Repeat([]byte{'x'},8)){t.Fatal("sibling changed")}
+ if !bytes.Equal(original,bytes.Repeat([]byte{'x'},len(original))){t.Fatal("baseline changed")}
+ if len(a.blocks)!=2 || a.allocated!=uint64(2*dBlockSize){t.Fatal(a.allocated)}
+ a.writeAt([]byte("Y"),dBlockSize);if len(a.blocks)!=2{t.Fatal("repeated allocation")}
+}
+func TestDBlockShrinkRegrowAndHoles(t *testing.T){
+ d:=newDStorage(bytes.Repeat([]byte{'x'},int(3*dBlockSize)))
+ d.writeAt([]byte("Y"),dBlockSize+1)
+ d.resize(dBlockSize+2);d.resize(4*dBlockSize)
+ out:=make([]byte,int(3*dBlockSize));n,e:=d.readAt(out,dBlockSize)
+ if n!=len(out)||e!=nil || out[0]!='x'||out[1]!='Y'||!bytes.Equal(out[2:],make([]byte,len(out)-2)){t.Fatal("dirty tail regrow")}
+ d.resize(7);d.resize(3*dBlockSize)
+ out=make([]byte,int(3*dBlockSize));d.readAt(out,0)
+ if string(out[:7])!="xxxxxxx"||!bytes.Equal(out[7:],make([]byte,len(out)-7)){t.Fatal("clean tail regrow")}
+ d.resize(0);d.resize(128<<20)
+ if len(d.blocks)!=0{t.Fatal("truncate retained dirty blocks")}
+ out=make([]byte,17);d.readAt(out,100<<20);if !bytes.Equal(out,make([]byte,17)){t.Fatal("hole")}
+ d.writeAt([]byte("Z"),127<<20);if len(d.blocks)!=1{t.Fatal("materialized holes")}
+}
+func TestDBlockOverwriteAndEOF(t *testing.T){
+ d:=newDStorage(bytes.Repeat([]byte{'x'},int(dBlockSize)))
+ d.writeAt(bytes.Repeat([]byte{'y'},int(dBlockSize)),0)
+ if d.copied!=0{t.Fatal("full overwrite read baseline")}
+ out:=make([]byte,8);n,e:=d.readAt(out,dBlockSize-2);if n!=2||e!=io.EOF{t.Fatal(n,e)}
+ if _,e=d.readAt(out,dBlockSize);e!=io.EOF{t.Fatal(e)}
+ if _,e=d.readAt(out,-1);e==nil{t.Fatal("negative offset")}
+ if _,e=d.writeAt(out,math.MaxInt64-2);e==nil{t.Fatal("overflow")}
+ if e=d.resize(-1);e==nil{t.Fatal("negative size")}
+}
+func TestDBlockDeterministicReference(t *testing.T){
+ r:=rand.New(rand.NewSource(20261016));initial:=make([]byte,70000);r.Read(initial)
+ d:=newDStorage(initial);model:=append([]byte(nil),initial...)
+ for step:=0;step<2000;step++{
+  if r.Intn(3)==0 {
+   size:=r.Intn(100000);d.resize(int64(size))
+   next:=make([]byte,size);copy(next,model);model=next
+  } else {
+   off:=r.Intn(100000);p:=make([]byte,r.Intn(40000));r.Read(p)
+   d.writeAt(p,int64(off));end:=off+len(p)
+   if end>len(model){next:=make([]byte,end);copy(next,model);model=next}
+   copy(model[off:],p)
+  }
+  actual:=make([]byte,len(model));if len(actual)>0{if _,e:=d.readAt(actual,0);e!=nil{t.Fatal(step,e)}}
+  if !bytes.Equal(actual,model){t.Fatal("reference mismatch at",step)}
+ }
+}

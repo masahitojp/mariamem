@@ -1,0 +1,57 @@
+package base
+
+import (
+ "bytes"
+ "io"
+ "os"
+ "sync"
+ "testing"
+ "github.com/masahitojp/mariamem/internal/prepared"
+)
+func dFixture(t *testing.T)(*MemFS,*memFile,*os.File,*PreparedFiles){
+ t.Helper();t.Setenv("MARIAMEM_D","1")
+ f,e:=os.CreateTemp(t.TempDir(),"source");if e!=nil{t.Fatal(e)}
+ content:=bytes.Repeat([]byte{'x'},int(3*dBlockSize+5));if _,e=f.Write(content);e!=nil{t.Fatal(e)}
+ t.Cleanup(func(){f.Close()})
+ fs:=NewMemFS();fs.DEnable(true)
+ p,e:=MapPreparedHandles(fs,[]prepared.Entry{{Name:".",Directory:true,FD:-1},{Name:"a",FD:int(f.Fd()),Size:int64(len(content))}},"mariadb");if e!=nil{t.Fatal(e)}
+ t.Cleanup(func(){if e:=p.Close();e!=nil{t.Error(e)}})
+ opened,e:=fs.OpenFile("mariadb/a",os.O_RDWR,0600);if e!=nil{t.Fatal(e)}
+ file:=opened.(*memFile);if file.node.d==nil || file.node.data!=nil{t.Fatal("not using D")}
+ return fs,file,f,p
+}
+func dContents(t *testing.T,f File,want []byte){t.Helper();b:=make([]byte,len(want));n,e:=f.ReadAt(b,0);if e!=nil && e!=io.EOF{t.Fatal(e)};if n!=len(want)||!bytes.Equal(b,want){t.Fatalf("contents mismatch n=%d want=%d",n,len(want))}}
+func TestDIntegrationIdentity(t *testing.T){
+ fs,f,disk,_:=dFixture(t)
+ f.WriteAt([]byte("hi"),dBlockSize-1)
+ f.Seek(dBlockSize-1,io.SeekStart);b:=make([]byte,2);f.Read(b);if string(b)!="hi"{t.Fatal(string(b))}
+ fs.Rename("mariadb/a","mariadb/b");fs.Remove("mariadb/b")
+ if e:=fs.WriteFile("mariadb/a",[]byte("new"),0600);e!=nil{t.Fatal(e)}
+ replacement,_:=fs.OpenFile("mariadb/a",os.O_RDWR,0600);dContents(t,replacement,[]byte("new"))
+ f.WriteAt([]byte("old"),0);b=make([]byte,3);f.ReadAt(b,0);if string(b)!="old"{t.Fatal(string(b))}
+ original:=make([]byte,3*dBlockSize+5);disk.ReadAt(original,0);if !bytes.Equal(original,bytes.Repeat([]byte{'x'},len(original))){t.Fatal("baseline changed")}
+}
+func TestDIntegrationMetadataAndGrowth(t *testing.T){
+ fs,f,_,_:=dFixture(t)
+ f.Seek(7,io.SeekStart);f.Allocate(3*dBlockSize+7)
+ off,_:=f.Seek(0,io.SeekCurrent);if off!=7||len(f.node.d.blocks)!=0{t.Fatal("allocation copied/changed offset")}
+ f.Truncate(3);f.Truncate(13);dContents(t,f,append([]byte("xxx"),make([]byte,10)...))
+ st,_:=f.Stat();if st.Size()!=13{t.Fatal(st.Size())}
+ a,_:=fs.OpenFile("mariadb/a",os.O_RDWR|os.O_APPEND,0600);a.Write([]byte("end"));st,_=a.Stat();if st.Size()!=16{t.Fatal(st.Size())}
+ fs.OpenFile("mariadb/a",os.O_RDWR|os.O_TRUNC,0600);st,_=f.Stat();if st.Size()!=0{t.Fatal(st.Size())}
+ f.WriteAt([]byte("z"),10);dContents(t,f,append(make([]byte,10),'z'))
+ ro,_:=fs.OpenFile("mariadb/a",os.O_RDONLY,0600);if e:=ro.(interface{Allocate(int64)error}).Allocate(100);e==nil{t.Fatal("readonly allocate accepted")}
+}
+func TestDIntegrationSiblingLifetime(t *testing.T){
+ _,f,disk,_:=dFixture(t)
+ sibling:=NewMemFS();sibling.DEnable(true)
+ p,e:=MapPreparedHandles(sibling,[]prepared.Entry{{Name:".",Directory:true,FD:-1},{Name:"a",FD:int(disk.Fd()),Size:3*dBlockSize+5}},"mariadb");if e!=nil{t.Fatal(e)};defer p.Close()
+ disk.Close();other,_:=sibling.OpenFile("mariadb/a",os.O_RDWR,0600)
+ f.WriteAt([]byte("parent-child"),0);b:=make([]byte,12);other.ReadAt(b,0);if !bytes.Equal(b,bytes.Repeat([]byte{'x'},12)){t.Fatal("sibling changed")}
+ other.WriteAt([]byte("sibling"),0);b=make([]byte,12);f.ReadAt(b,0);if string(b)!="parent-child"{t.Fatal(string(b))}
+}
+func TestDIntegrationConcurrentHandles(t *testing.T){
+ fs,f,_,_:=dFixture(t);var wg sync.WaitGroup
+ for i:=0;i<64;i++{wg.Add(1);go func(i int){defer wg.Done();h,e:=fs.OpenFile("mariadb/a",os.O_RDWR,0600);if e!=nil{t.Error(e);return};h.WriteAt([]byte{'y'},int64(i))}(i)}
+ wg.Wait();b:=make([]byte,64);f.ReadAt(b,0);if !bytes.Equal(b,bytes.Repeat([]byte{'y'},64)){t.Fatal("lost update")};if len(f.node.d.blocks)!=1{t.Fatal("duplicate blocks")}
+}

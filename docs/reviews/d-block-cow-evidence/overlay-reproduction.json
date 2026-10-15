@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "baseline_source_commit": "a8137b8b444f86068d3128a291e3a848adfdfd56",
+  "overlay_reapply_identical": true,
+  "instrumentation_sha256": "7c7998ebc6d3386c79d58af618ff9d0a10ef4be56eb4d9318ac49b7746b09c23",
+  "runtime_restored": true,
+  "binary_rebuilt_twice": false
+}

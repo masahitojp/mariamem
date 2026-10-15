@@ -1,0 +1,1058 @@
+{
+  "plain": {
+    "100": {
+      "e": {
+        "whole_ms": {
+          "n": 5,
+          "median": 449.425583,
+          "min": 444.692666,
+          "max": 469.318875
+        },
+        "snapshot_ms": {
+          "n": 5,
+          "median": 249.435125,
+          "min": 242.629417,
+          "max": 251.0865
+        },
+        "setup_total_ms": {
+          "n": 5,
+          "median": 316.95966699999997,
+          "min": 311.18008299999997,
+          "max": 324.81
+        },
+        "two_children_total_ms": {
+          "n": 5,
+          "median": 126.22837499999999,
+          "min": 125.943837,
+          "max": 138.03428999999997
+        },
+        "startup_ms_per_child": {
+          "n": 10,
+          "median": 51.391125,
+          "min": 50.364709,
+          "max": 62.469917
+        },
+        "crud_ms_per_child": {
+          "n": 10,
+          "median": 3.251187,
+          "min": 2.066209,
+          "max": 4.045917
+        },
+        "close_ms_per_child": {
+          "n": 10,
+          "median": 4.563791999999999,
+          "min": 4.398375,
+          "max": 4.68475
+        },
+        "copied_bytes_per_child": {
+          "n": 10,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "allocated_bytes_per_child": {
+          "n": 10,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "private_bytes_per_child": {
+          "n": 10,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "read_blocks_per_child": {
+          "n": 10,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "write_blocks_per_child": {
+          "n": 10,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "baseline_bytes": {
+          "n": 5,
+          "median": 144953650,
+          "min": 144953645,
+          "max": 144953650
+        }
+      },
+      "de": {
+        "whole_ms": {
+          "n": 5,
+          "median": 449.156791,
+          "min": 440.865417,
+          "max": 463.587083
+        },
+        "snapshot_ms": {
+          "n": 5,
+          "median": 248.895208,
+          "min": 238.565375,
+          "max": 259.452084
+        },
+        "setup_total_ms": {
+          "n": 5,
+          "median": 307.739666,
+          "min": 303.625792,
+          "max": 333.16837499999997
+        },
+        "two_children_total_ms": {
+          "n": 5,
+          "median": 126.560456,
+          "min": 123.8105,
+          "max": 135.93183499999995
+        },
+        "startup_ms_per_child": {
+          "n": 10,
+          "median": 51.780812,
+          "min": 50.265375,
+          "max": 55.50525
+        },
+        "crud_ms_per_child": {
+          "n": 10,
+          "median": 2.9560835,
+          "min": 2.088666,
+          "max": 4.229083
+        },
+        "close_ms_per_child": {
+          "n": 10,
+          "median": 4.710875,
+          "min": 4.376166,
+          "max": 5.676
+        },
+        "copied_bytes_per_child": {
+          "n": 10,
+          "median": 49204.0,
+          "min": 49204,
+          "max": 49204
+        },
+        "allocated_bytes_per_child": {
+          "n": 10,
+          "median": 2670592.0,
+          "min": 2670592,
+          "max": 2670592
+        },
+        "private_bytes_per_child": {
+          "n": 10,
+          "median": 2670592.0,
+          "min": 2670592,
+          "max": 2670592
+        },
+        "read_blocks_per_child": {
+          "n": 10,
+          "median": 835.5,
+          "min": 730,
+          "max": 840
+        },
+        "write_blocks_per_child": {
+          "n": 10,
+          "median": 168.0,
+          "min": 167,
+          "max": 190
+        },
+        "baseline_bytes": {
+          "n": 5,
+          "median": 144953645,
+          "min": 144953640,
+          "max": 144953650
+        }
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "e_ms": 469.318875,
+          "de_ms": 449.156791,
+          "delta_ms": -20.162083999999993,
+          "delta_percent": -4.2960309235378595
+        },
+        {
+          "repeat": 1,
+          "e_ms": 453.788333,
+          "de_ms": 463.587083,
+          "delta_ms": 9.798749999999984,
+          "delta_percent": 2.159321711781423
+        },
+        {
+          "repeat": 2,
+          "e_ms": 446.986709,
+          "de_ms": 444.732958,
+          "delta_ms": -2.2537510000000225,
+          "delta_percent": -0.5042098466511724
+        },
+        {
+          "repeat": 3,
+          "e_ms": 449.425583,
+          "de_ms": 457.23870800000003,
+          "delta_ms": 7.813125000000014,
+          "delta_percent": 1.7384691249318607
+        },
+        {
+          "repeat": 4,
+          "e_ms": 444.692666,
+          "de_ms": 440.865417,
+          "delta_ms": -3.827248999999995,
+          "delta_percent": -0.8606503530687855
+        }
+      ],
+      "paired_delta_ms": {
+        "n": 5,
+        "median": -2.2537510000000225,
+        "min": -20.162083999999993,
+        "max": 9.798749999999984
+      },
+      "de_faster_pairs": 3
+    },
+    "10000": {
+      "e": {
+        "whole_ms": {
+          "n": 5,
+          "median": 1271.019333,
+          "min": 1261.218417,
+          "max": 1276.5294159999999
+        },
+        "snapshot_ms": {
+          "n": 5,
+          "median": 270.383709,
+          "min": 263.05625,
+          "max": 277.086791
+        },
+        "setup_total_ms": {
+          "n": 5,
+          "median": 1100.8593339999998,
+          "min": 1091.789624,
+          "max": 1109.122959
+        },
+        "two_children_total_ms": {
+          "n": 5,
+          "median": 160.685627,
+          "min": 159.235293,
+          "max": 164.429543
+        },
+        "startup_ms_per_child": {
+          "n": 10,
+          "median": 52.5496045,
+          "min": 49.898709,
+          "max": 54.438875
+        },
+        "crud_ms_per_child": {
+          "n": 10,
+          "median": 19.739167000000002,
+          "min": 16.501584,
+          "max": 24.230542
+        },
+        "close_ms_per_child": {
+          "n": 10,
+          "median": 4.627416500000001,
+          "min": 4.49275,
+          "max": 5.060292
+        },
+        "copied_bytes_per_child": {
+          "n": 10,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "allocated_bytes_per_child": {
+          "n": 10,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "private_bytes_per_child": {
+          "n": 10,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "read_blocks_per_child": {
+          "n": 10,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "write_blocks_per_child": {
+          "n": 10,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "baseline_bytes": {
+          "n": 5,
+          "median": 166285321,
+          "min": 166285321,
+          "max": 166285322
+        }
+      },
+      "de": {
+        "whole_ms": {
+          "n": 5,
+          "median": 1291.767625,
+          "min": 1265.075458,
+          "max": 1298.421208
+        },
+        "snapshot_ms": {
+          "n": 5,
+          "median": 276.019334,
+          "min": 271.67075,
+          "max": 289.802792
+        },
+        "setup_total_ms": {
+          "n": 5,
+          "median": 1124.766,
+          "min": 1098.316916,
+          "max": 1135.114918
+        },
+        "two_children_total_ms": {
+          "n": 5,
+          "median": 159.812751,
+          "min": 156.517583,
+          "max": 166.39604100000003
+        },
+        "startup_ms_per_child": {
+          "n": 10,
+          "median": 50.5791875,
+          "min": 49.656083,
+          "max": 55.984167
+        },
+        "crud_ms_per_child": {
+          "n": 10,
+          "median": 19.431084,
+          "min": 16.532834,
+          "max": 23.514417
+        },
+        "close_ms_per_child": {
+          "n": 10,
+          "median": 4.730625,
+          "min": 4.604542,
+          "max": 4.874333
+        },
+        "copied_bytes_per_child": {
+          "n": 10,
+          "median": 49204.0,
+          "min": 49204,
+          "max": 49204
+        },
+        "allocated_bytes_per_child": {
+          "n": 10,
+          "median": 2670592.0,
+          "min": 2670592,
+          "max": 2670592
+        },
+        "private_bytes_per_child": {
+          "n": 10,
+          "median": 2670592.0,
+          "min": 2670592,
+          "max": 2670592
+        },
+        "read_blocks_per_child": {
+          "n": 10,
+          "median": 863.0,
+          "min": 859,
+          "max": 864
+        },
+        "write_blocks_per_child": {
+          "n": 10,
+          "median": 170.0,
+          "min": 169,
+          "max": 171
+        },
+        "baseline_bytes": {
+          "n": 5,
+          "median": 166285322,
+          "min": 166285321,
+          "max": 166285327
+        }
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "e_ms": 1263.560291,
+          "de_ms": 1298.421208,
+          "delta_ms": 34.86091699999997,
+          "delta_percent": 2.758943696498292
+        },
+        {
+          "repeat": 1,
+          "e_ms": 1271.545959,
+          "de_ms": 1291.767625,
+          "delta_ms": 20.221665999999914,
+          "delta_percent": 1.5903212822840573
+        },
+        {
+          "repeat": 2,
+          "e_ms": 1271.019333,
+          "de_ms": 1277.976958,
+          "delta_ms": 6.957625000000007,
+          "delta_percent": 0.5474051274718107
+        },
+        {
+          "repeat": 3,
+          "e_ms": 1261.218417,
+          "de_ms": 1265.075458,
+          "delta_ms": 3.857040999999981,
+          "delta_percent": 0.30581863918341284
+        },
+        {
+          "repeat": 4,
+          "e_ms": 1276.5294159999999,
+          "de_ms": 1294.250374,
+          "delta_ms": 17.72095800000011,
+          "delta_percent": 1.3882138380742266
+        }
+      ],
+      "paired_delta_ms": {
+        "n": 5,
+        "median": 17.72095800000011,
+        "min": 3.857040999999981,
+        "max": 34.86091699999997
+      },
+      "de_faster_pairs": 0
+    }
+  },
+  "resources": {
+    "100": {
+      "e": {
+        "whole_ms": {
+          "n": 3,
+          "median": 438.488459,
+          "min": 431.57799900000003,
+          "max": 442.316209
+        },
+        "snapshot_ms": {
+          "n": 3,
+          "median": 243.422709,
+          "min": 240.093042,
+          "max": 244.505584
+        },
+        "setup_total_ms": {
+          "n": 3,
+          "median": 306.301833,
+          "min": 301.549875,
+          "max": 309.144458
+        },
+        "two_children_total_ms": {
+          "n": 3,
+          "median": 125.815209,
+          "min": 123.719125,
+          "max": 126.713709
+        },
+        "startup_ms_per_child": {
+          "n": 6,
+          "median": 50.496979499999995,
+          "min": 50.078667,
+          "max": 52.387833
+        },
+        "crud_ms_per_child": {
+          "n": 6,
+          "median": 2.856188,
+          "min": 2.086916,
+          "max": 3.468875
+        },
+        "close_ms_per_child": {
+          "n": 6,
+          "median": 4.5804165,
+          "min": 4.530292,
+          "max": 4.6525
+        },
+        "copied_bytes_per_child": {
+          "n": 6,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "allocated_bytes_per_child": {
+          "n": 6,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "private_bytes_per_child": {
+          "n": 6,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "read_blocks_per_child": {
+          "n": 6,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "write_blocks_per_child": {
+          "n": 6,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "baseline_bytes": {
+          "n": 3,
+          "median": 144953650,
+          "min": 144953645,
+          "max": 144953650
+        },
+        "setup": {
+          "maxrss_raw": {
+            "n": 3,
+            "median": 251.9375,
+            "min": 251.6875,
+            "max": 252.1875
+          },
+          "total_alloc_bytes": {
+            "n": 3,
+            "median": 1.1542282104492188,
+            "min": 1.1525726318359375,
+            "max": 1.173492431640625
+          },
+          "heap_alloc_bytes": {
+            "n": 3,
+            "median": 1.1542282104492188,
+            "min": 1.1525726318359375,
+            "max": 1.173492431640625
+          },
+          "heap_sys_bytes": {
+            "n": 3,
+            "median": 7.375,
+            "min": 7.25,
+            "max": 11.3125
+          },
+          "num_gc": {
+            "n": 3,
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "child": {
+          "maxrss_raw": {
+            "n": 6,
+            "median": 120.8203125,
+            "min": 120.28125,
+            "max": 121.328125
+          },
+          "total_alloc_bytes": {
+            "n": 6,
+            "median": 12.847942352294922,
+            "min": 12.814888000488281,
+            "max": 12.870643615722656
+          },
+          "heap_alloc_bytes": {
+            "n": 6,
+            "median": 12.731704711914062,
+            "min": 12.698379516601562,
+            "max": 12.754341125488281
+          },
+          "heap_sys_bytes": {
+            "n": 6,
+            "median": 19.296875,
+            "min": 15.28125,
+            "max": 19.3125
+          },
+          "num_gc": {
+            "n": 6,
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          }
+        }
+      },
+      "de": {
+        "whole_ms": {
+          "n": 3,
+          "median": 447.324167,
+          "min": 431.642542,
+          "max": 449.54979199999997
+        },
+        "snapshot_ms": {
+          "n": 3,
+          "median": 243.059584,
+          "min": 240.686208,
+          "max": 243.29
+        },
+        "setup_total_ms": {
+          "n": 3,
+          "median": 305.403459,
+          "min": 301.170418,
+          "max": 315.234541
+        },
+        "two_children_total_ms": {
+          "n": 3,
+          "median": 127.959043,
+          "min": 124.19175099999998,
+          "max": 135.231959
+        },
+        "startup_ms_per_child": {
+          "n": 6,
+          "median": 52.340021,
+          "min": 49.148875,
+          "max": 58.230667
+        },
+        "crud_ms_per_child": {
+          "n": 6,
+          "median": 2.7574585000000003,
+          "min": 2.094167,
+          "max": 3.3865
+        },
+        "close_ms_per_child": {
+          "n": 6,
+          "median": 4.6657505,
+          "min": 4.571459,
+          "max": 4.759625
+        },
+        "copied_bytes_per_child": {
+          "n": 6,
+          "median": 49204.0,
+          "min": 49204,
+          "max": 49204
+        },
+        "allocated_bytes_per_child": {
+          "n": 6,
+          "median": 2670592.0,
+          "min": 2670592,
+          "max": 2670592
+        },
+        "private_bytes_per_child": {
+          "n": 6,
+          "median": 2670592.0,
+          "min": 2670592,
+          "max": 2670592
+        },
+        "read_blocks_per_child": {
+          "n": 6,
+          "median": 837.0,
+          "min": 831,
+          "max": 841
+        },
+        "write_blocks_per_child": {
+          "n": 6,
+          "median": 168.0,
+          "min": 167,
+          "max": 169
+        },
+        "baseline_bytes": {
+          "n": 3,
+          "median": 144953645,
+          "min": 144953645,
+          "max": 144953650
+        },
+        "setup": {
+          "maxrss_raw": {
+            "n": 3,
+            "median": 251.96875,
+            "min": 251.953125,
+            "max": 252.171875
+          },
+          "total_alloc_bytes": {
+            "n": 3,
+            "median": 1.1553192138671875,
+            "min": 1.150360107421875,
+            "max": 1.15728759765625
+          },
+          "heap_alloc_bytes": {
+            "n": 3,
+            "median": 1.1553192138671875,
+            "min": 1.150360107421875,
+            "max": 1.15728759765625
+          },
+          "heap_sys_bytes": {
+            "n": 3,
+            "median": 7.34375,
+            "min": 7.3125,
+            "max": 7.375
+          },
+          "num_gc": {
+            "n": 3,
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "child": {
+          "maxrss_raw": {
+            "n": 6,
+            "median": 121.8203125,
+            "min": 121.21875,
+            "max": 122.171875
+          },
+          "total_alloc_bytes": {
+            "n": 6,
+            "median": 3.459217071533203,
+            "min": 3.439056396484375,
+            "max": 3.480865478515625
+          },
+          "heap_alloc_bytes": {
+            "n": 6,
+            "median": 3.2644004821777344,
+            "min": 3.2424697875976562,
+            "max": 3.2876510620117188
+          },
+          "heap_sys_bytes": {
+            "n": 6,
+            "median": 11.25,
+            "min": 7.25,
+            "max": 11.34375
+          },
+          "num_gc": {
+            "n": 6,
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          }
+        }
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "e_ms": 442.316209,
+          "de_ms": 431.642542,
+          "delta_ms": -10.673667000000023,
+          "delta_percent": -2.4131304218154987
+        },
+        {
+          "repeat": 1,
+          "e_ms": 438.488459,
+          "de_ms": 449.54979199999997,
+          "delta_ms": 11.06133299999999,
+          "delta_percent": 2.522605275684118
+        },
+        {
+          "repeat": 2,
+          "e_ms": 431.57799900000003,
+          "de_ms": 447.324167,
+          "delta_ms": 15.746167999999955,
+          "delta_percent": 3.6485103588424472
+        }
+      ],
+      "paired_delta_ms": {
+        "n": 3,
+        "median": 11.06133299999999,
+        "min": -10.673667000000023,
+        "max": 15.746167999999955
+      },
+      "de_faster_pairs": 1
+    },
+    "10000": {
+      "e": {
+        "whole_ms": {
+          "n": 3,
+          "median": 1266.750292,
+          "min": 1249.1970000000001,
+          "max": 1273.238042
+        },
+        "snapshot_ms": {
+          "n": 3,
+          "median": 270.744916,
+          "min": 267.474125,
+          "max": 274.563416
+        },
+        "setup_total_ms": {
+          "n": 3,
+          "median": 1099.718416,
+          "min": 1085.149874,
+          "max": 1106.188666
+        },
+        "two_children_total_ms": {
+          "n": 3,
+          "median": 160.13575100000003,
+          "min": 157.290126,
+          "max": 160.169334
+        },
+        "startup_ms_per_child": {
+          "n": 6,
+          "median": 50.1574795,
+          "min": 49.607,
+          "max": 52.969792
+        },
+        "crud_ms_per_child": {
+          "n": 6,
+          "median": 19.843604,
+          "min": 16.713125,
+          "max": 23.305292
+        },
+        "close_ms_per_child": {
+          "n": 6,
+          "median": 4.686917,
+          "min": 4.581583,
+          "max": 4.770833
+        },
+        "copied_bytes_per_child": {
+          "n": 6,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "allocated_bytes_per_child": {
+          "n": 6,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "private_bytes_per_child": {
+          "n": 6,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "read_blocks_per_child": {
+          "n": 6,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "write_blocks_per_child": {
+          "n": 6,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "baseline_bytes": {
+          "n": 3,
+          "median": 166285322,
+          "min": 166285322,
+          "max": 166285322
+        },
+        "setup": {
+          "maxrss_raw": {
+            "n": 3,
+            "median": 279.71875,
+            "min": 279.65625,
+            "max": 280.1875
+          },
+          "total_alloc_bytes": {
+            "n": 3,
+            "median": 22.89795684814453,
+            "min": 22.88982391357422,
+            "max": 22.939849853515625
+          },
+          "heap_alloc_bytes": {
+            "n": 3,
+            "median": 0.8301467895507812,
+            "min": 0.8125228881835938,
+            "max": 2.1866073608398438
+          },
+          "heap_sys_bytes": {
+            "n": 3,
+            "median": 15.1875,
+            "min": 11.21875,
+            "max": 15.21875
+          },
+          "num_gc": {
+            "n": 3,
+            "median": 11.0,
+            "min": 8.0,
+            "max": 11.0
+          }
+        },
+        "child": {
+          "maxrss_raw": {
+            "n": 6,
+            "median": 122.6484375,
+            "min": 122.0625,
+            "max": 123.09375
+          },
+          "total_alloc_bytes": {
+            "n": 6,
+            "median": 12.861312866210938,
+            "min": 12.839157104492188,
+            "max": 12.878250122070312
+          },
+          "heap_alloc_bytes": {
+            "n": 6,
+            "median": 12.744998931884766,
+            "min": 12.722854614257812,
+            "max": 12.761756896972656
+          },
+          "heap_sys_bytes": {
+            "n": 6,
+            "median": 19.296875,
+            "min": 19.28125,
+            "max": 19.3125
+          },
+          "num_gc": {
+            "n": 6,
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          }
+        }
+      },
+      "de": {
+        "whole_ms": {
+          "n": 3,
+          "median": 1268.198542,
+          "min": 1263.892542,
+          "max": 1268.4580839999999
+        },
+        "snapshot_ms": {
+          "n": 3,
+          "median": 271.602292,
+          "min": 269.723292,
+          "max": 272.250416
+        },
+        "setup_total_ms": {
+          "n": 3,
+          "median": 1099.849084,
+          "min": 1098.02825,
+          "max": 1103.3123329999999
+        },
+        "two_children_total_ms": {
+          "n": 3,
+          "median": 158.570959,
+          "min": 158.179959,
+          "max": 161.501252
+        },
+        "startup_ms_per_child": {
+          "n": 6,
+          "median": 50.567353999999995,
+          "min": 49.932334,
+          "max": 52.758792
+        },
+        "crud_ms_per_child": {
+          "n": 6,
+          "median": 19.753313,
+          "min": 16.5335,
+          "max": 23.937542
+        },
+        "close_ms_per_child": {
+          "n": 6,
+          "median": 4.735666999999999,
+          "min": 4.504125,
+          "max": 4.911625
+        },
+        "copied_bytes_per_child": {
+          "n": 6,
+          "median": 49204.0,
+          "min": 49204,
+          "max": 49204
+        },
+        "allocated_bytes_per_child": {
+          "n": 6,
+          "median": 2670592.0,
+          "min": 2670592,
+          "max": 2670592
+        },
+        "private_bytes_per_child": {
+          "n": 6,
+          "median": 2670592.0,
+          "min": 2670592,
+          "max": 2670592
+        },
+        "read_blocks_per_child": {
+          "n": 6,
+          "median": 862.0,
+          "min": 861,
+          "max": 865
+        },
+        "write_blocks_per_child": {
+          "n": 6,
+          "median": 170.0,
+          "min": 169,
+          "max": 171
+        },
+        "baseline_bytes": {
+          "n": 3,
+          "median": 166285322,
+          "min": 166285321,
+          "max": 166285322
+        },
+        "setup": {
+          "maxrss_raw": {
+            "n": 3,
+            "median": 279.875,
+            "min": 279.546875,
+            "max": 281.6875
+          },
+          "total_alloc_bytes": {
+            "n": 3,
+            "median": 22.91777801513672,
+            "min": 22.90882110595703,
+            "max": 22.926429748535156
+          },
+          "heap_alloc_bytes": {
+            "n": 3,
+            "median": 1.0585556030273438,
+            "min": 0.8416900634765625,
+            "max": 1.112518310546875
+          },
+          "heap_sys_bytes": {
+            "n": 3,
+            "median": 11.1875,
+            "min": 11.15625,
+            "max": 15.125
+          },
+          "num_gc": {
+            "n": 3,
+            "median": 11.0,
+            "min": 9.0,
+            "max": 11.0
+          }
+        },
+        "child": {
+          "maxrss_raw": {
+            "n": 6,
+            "median": 123.4296875,
+            "min": 123.15625,
+            "max": 124.28125
+          },
+          "total_alloc_bytes": {
+            "n": 6,
+            "median": 3.463115692138672,
+            "min": 3.457305908203125,
+            "max": 3.4960403442382812
+          },
+          "heap_alloc_bytes": {
+            "n": 6,
+            "median": 3.283885955810547,
+            "min": 3.2668991088867188,
+            "max": 3.33111572265625
+          },
+          "heap_sys_bytes": {
+            "n": 6,
+            "median": 9.296875,
+            "min": 7.28125,
+            "max": 11.3125
+          },
+          "num_gc": {
+            "n": 6,
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          }
+        }
+      },
+      "pairs": [
+        {
+          "repeat": 0,
+          "e_ms": 1273.238042,
+          "de_ms": 1268.198542,
+          "delta_ms": -5.039499999999862,
+          "delta_percent": -0.3958018715874861
+        },
+        {
+          "repeat": 1,
+          "e_ms": 1249.1970000000001,
+          "de_ms": 1268.4580839999999,
+          "delta_ms": 19.261083999999755,
+          "delta_percent": 1.5418772219273464
+        },
+        {
+          "repeat": 2,
+          "e_ms": 1266.750292,
+          "de_ms": 1263.892542,
+          "delta_ms": -2.8577499999998963,
+          "delta_percent": -0.22559694819473516
+        }
+      ],
+      "paired_delta_ms": {
+        "n": 3,
+        "median": -2.8577499999998963,
+        "min": -5.039499999999862,
+        "max": 19.261083999999755
+      },
+      "de_faster_pairs": 2
+    }
+  }
+}

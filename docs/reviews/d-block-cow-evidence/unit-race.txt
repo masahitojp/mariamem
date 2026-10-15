@@ -1,0 +1,18 @@
+=== RUN   TestDBlockIsolationAndPartialIO
+--- PASS: TestDBlockIsolationAndPartialIO (0.00s)
+=== RUN   TestDBlockShrinkRegrowAndHoles
+--- PASS: TestDBlockShrinkRegrowAndHoles (0.00s)
+=== RUN   TestDBlockOverwriteAndEOF
+--- PASS: TestDBlockOverwriteAndEOF (0.00s)
+=== RUN   TestDBlockDeterministicReference
+--- PASS: TestDBlockDeterministicReference (1.01s)
+=== RUN   TestDIntegrationIdentity
+--- PASS: TestDIntegrationIdentity (0.00s)
+=== RUN   TestDIntegrationMetadataAndGrowth
+--- PASS: TestDIntegrationMetadataAndGrowth (0.00s)
+=== RUN   TestDIntegrationSiblingLifetime
+--- PASS: TestDIntegrationSiblingLifetime (0.00s)
+=== RUN   TestDIntegrationConcurrentHandles
+--- PASS: TestDIntegrationConcurrentHandles (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	2.386s

@@ -1,0 +1,33 @@
+package base
+
+import (
+ "encoding/json"
+ "fmt"
+ "os"
+ "path/filepath"
+ "runtime"
+ "strings"
+ "syscall"
+)
+func (fsys *MemFS) DEnable(child bool){fsys.dEnabled=child && os.Getenv("MARIAMEM_D")=="1"}
+func (fsys *MemFS) dEnroll(n *memNode){
+ if !fsys.dEnabled || n.d!=nil || !strings.HasPrefix(eName(n),"mariadb/"){return}
+ n.d=newDStorage(nil);fsys.dNodes=append(fsys.dNodes,n)
+}
+func (n *memNode) dSize()int64{if n.d!=nil{return n.d.size};return int64(len(n.data))}
+func (fsys *MemFS) DReport(child bool) error {
+ out:=os.Getenv("MARIAMEM_E_OUT");if out==""{return nil}
+ records:=[]map[string]any{}
+ for _,n:=range fsys.dNodes {
+  d:=n.d
+  records=append(records,map[string]any{"name":eName(n),"size":d.size,"backing_bytes":len(d.backing),"backing_limit":d.backingLimit,"private_blocks":len(d.blocks),"private_bytes":int64(len(d.blocks))*dBlockSize,"allocated_bytes":d.allocated,"copied_bytes":d.copied,"read_blocks":d.reads,"write_blocks":d.writes})
+ }
+ result:=map[string]any{"child":child,"d_enabled":fsys.dEnabled,"block_size":dBlockSize,"files":records}
+ if os.Getenv("MARIAMEM_D_METRICS")=="1" {
+  var m runtime.MemStats;runtime.ReadMemStats(&m)
+  var usage syscall.Rusage;if err:=syscall.Getrusage(syscall.RUSAGE_SELF,&usage);err!=nil{return err}
+  result["maxrss_raw"]=usage.Maxrss;result["total_alloc_bytes"]=m.TotalAlloc;result["heap_alloc_bytes"]=m.HeapAlloc;result["heap_sys_bytes"]=m.HeapSys;result["num_gc"]=m.NumGC
+ }
+ data,err:=json.MarshalIndent(result,"","  ");if err!=nil{return err}
+ return os.WriteFile(filepath.Join(out,fmt.Sprintf("%d-d.json",os.Getpid())),data,0600)
+}

@@ -1,0 +1,10 @@
+=== RUN   TestDBlockIsolationAndPartialIO
+--- PASS: TestDBlockIsolationAndPartialIO (0.00s)
+=== RUN   TestDBlockShrinkRegrowAndHoles
+--- PASS: TestDBlockShrinkRegrowAndHoles (0.00s)
+=== RUN   TestDBlockOverwriteAndEOF
+--- PASS: TestDBlockOverwriteAndEOF (0.00s)
+=== RUN   TestDBlockDeterministicReference
+--- PASS: TestDBlockDeterministicReference (0.09s)
+PASS
+ok  	command-line-arguments	0.469s

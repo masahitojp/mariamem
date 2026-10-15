@@ -1,0 +1,178 @@
+{
+  "mode": "e",
+  "rows": 100,
+  "repeat": 2,
+  "warmup": false,
+  "times_ms": {
+    "setup/start": 45.89275,
+    "setup/migrate-seed": 12.234416,
+    "setup/snapshot": 243.422709,
+    "first/startup": 50.448125,
+    "first/connect": 4.195209,
+    "first/crud": 2.086916,
+    "first/disconnect": 0.029125,
+    "first/close": 4.601958,
+    "second/startup": 50.220833,
+    "second/connect": 4.217583,
+    "second/crud": 3.327959,
+    "second/disconnect": 0.029417,
+    "second/close": 4.562,
+    "baseline/close": 1.453458
+  },
+  "children": [
+    {
+      "name": "first",
+      "pid": 94983
+    },
+    {
+      "name": "second",
+      "pid": 94985
+    }
+  ],
+  "checks": [
+    "first-sql-and-isolation-pass",
+    "second-sql-and-isolation-pass",
+    "baseline-unchanged-pass"
+  ],
+  "setup_pid": 94980,
+  "guest_version": "12.3.3-MariaDB-embedded",
+  "baseline_manifest": {
+    "format": "mariamem-cold-snapshot",
+    "version": 1,
+    "wasm_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+    "source_storage": "memory",
+    "entries": {
+      ".": {
+        "kind": "directory"
+      },
+      "data": {
+        "kind": "directory"
+      },
+      "data/aria_log.00000001": {
+        "kind": "file",
+        "bytes": 16384,
+        "sha256": "fca5a5a3e858e7d99c01cb4c8d9b2de7302e2157235f7bf3fe412ef5ec8e6fc5"
+      },
+      "data/aria_log_control": {
+        "kind": "file",
+        "bytes": 52,
+        "sha256": "ec5db60ed863b79f88277612e0a5d17bc987cb6c986ebea1d4c6923646b2ed24"
+      },
+      "data/ib_buffer_pool": {
+        "kind": "file",
+        "bytes": 793,
+        "sha256": "e048796006f57ea35727a85b599838cd655ee1eb7ab1aba9582843ba593ee4ce"
+      },
+      "data/ib_logfile0": {
+        "kind": "file",
+        "bytes": 100663296,
+        "sha256": "d9a1a4b84ea1809c56ce084a8c2f7865a03ec84bef16e09ca12b221001d139d4"
+      },
+      "data/ibdata1": {
+        "kind": "file",
+        "bytes": 12582912,
+        "sha256": "a9ae9b46f64d5e721e3076a9c8e0197483bac59247a51d373303cca7d4ed15f1"
+      },
+      "data/test": {
+        "kind": "directory"
+      },
+      "data/test/db.opt": {
+        "kind": "file",
+        "bytes": 70,
+        "sha256": "9d2cb1189b5fa7b46cec9d9e277c9968066915ae38a1821a451a9a098b035f3f"
+      },
+      "data/test/orders.frm": {
+        "kind": "file",
+        "bytes": 1472,
+        "sha256": "1672aca127a288fd8644708f8c8dbf1e6e5867e12e24d4ce7e8292fe9394aa30"
+      },
+      "data/test/orders.ibd": {
+        "kind": "file",
+        "bytes": 81920,
+        "sha256": "fc6451a8555743d2047881c4141028e654effd502a177388e631f894987b2111"
+      },
+      "data/test/users.frm": {
+        "kind": "file",
+        "bytes": 2015,
+        "sha256": "8d21ab30ee067a8382b8241c990b6e614969ca5b4a9c878478d07bcd28241d7f"
+      },
+      "data/test/users.ibd": {
+        "kind": "file",
+        "bytes": 147456,
+        "sha256": "dcdbb8ece6b74b383fffb73b39dd40ae1df6404da11da2f509a67e56df1ee515"
+      },
+      "data/undo001": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "a8afac40264e62d4bfcf368e557c48880e2eef30219c9bf175d8d7df3c3e9694"
+      },
+      "data/undo002": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "5158a9db7eebac3880c737969f1f45daec991ef514d9b5c9ded3d7bfcc598b4b"
+      },
+      "data/undo003": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "78839492eb18521b6622f7d2c90b9d43c35ba472457c2cff63507db4fc80fd6e"
+      },
+      "plugin": {
+        "kind": "directory"
+      }
+    }
+  },
+  "handoff": {
+    "bytes": 144953650,
+    "elapsed_ns": 88250125,
+    "files": 13,
+    "freeze_move_ns": 13562292,
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "source_inventory_hash_ns": 74537250,
+    "success": true
+  },
+  "publish": {
+    "elapsed_ns": 65939125,
+    "payload_copy_bytes": 0,
+    "same_directory_inode": true,
+    "success": true,
+    "target_inventory_hash_ns": 65449834
+  },
+  "workflow_ms_before_validation": 430.124541,
+  "host_reports": [
+    {
+      "block_size": 16384,
+      "child": false,
+      "d_enabled": false,
+      "files": [],
+      "heap_alloc_bytes": 1210296,
+      "heap_sys_bytes": 7602176,
+      "maxrss_raw": 264175616,
+      "num_gc": 0,
+      "total_alloc_bytes": 1210296
+    },
+    {
+      "block_size": 16384,
+      "child": true,
+      "d_enabled": false,
+      "files": [],
+      "heap_alloc_bytes": 13345496,
+      "heap_sys_bytes": 20217856,
+      "maxrss_raw": 126124032,
+      "num_gc": 1,
+      "total_alloc_bytes": 13467416
+    },
+    {
+      "block_size": 16384,
+      "child": true,
+      "d_enabled": false,
+      "files": [],
+      "heap_alloc_bytes": 13371488,
+      "heap_sys_bytes": 20250624,
+      "maxrss_raw": 127221760,
+      "num_gc": 1,
+      "total_alloc_bytes": 13493640
+    }
+  ]
+}

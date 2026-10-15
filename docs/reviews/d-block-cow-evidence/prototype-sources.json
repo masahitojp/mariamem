@@ -1,0 +1,19 @@
+{
+  "block.go.txt": "17755721afc61f560bda6b9c514f1b656caa7a32380edb861b5f67b887d6d9f0",
+  "block_test.go.txt": "fa20b5940b785cbc1b64047bd166b384004ad1c86eb64d188773f31d4eaf5b14",
+  "boundaries.py": "c38c1b3d1a40f4fd218d3753b9d2e3729fdb4df26d53f3312c15e78818746827",
+  "campaign.py": "aa97fe6c87373ba99297db4385e88121d439bb8bf73021c6e3d4c1ff62bb5331",
+  "handoff.go.txt": "30b51551b2286a14bb0f77cc472a67fe4b98ddf1a78dc98739eb7808e1ee1c1b",
+  "handoff_test.go.txt": "a5778c092c25e285519ac6dee2d6579623ee5a4cff39ce38d3eea3366417df4d",
+  "instrument.py": "1890b1f84c82daccafdb13b08c68c123c61a8269f5c7ccf50a0c92d4b531dba1",
+  "instrumentation.json": "7c7998ebc6d3386c79d58af618ff9d0a10ef4be56eb4d9318ac49b7746b09c23",
+  "integration.go.txt": "603d1eec1fa097846e049052ca47eb7faf33c72fb9dac55f78a8324ce141e659",
+  "integration_test.go.txt": "1542b954196df77c4fa140eda98531f8ad0da5fdd3b19fbe321ab0d9f86b8a30",
+  "observer.go.txt": "3ea7eb203f5f5ea298256add3232997b9bac5850c11b18a772f347cc796be780",
+  "observer_test.go.txt": "c348b7626b2f80aa585dc3805d2d3051070ae51d405bc761fc047672ec3493c0",
+  "publish.go.txt": "1808f109a8bc5f7c930bd6c99baec7c1bb9c7432a04a188ecbcc5dd6cce7e066",
+  "restore.py": "dbe886fd340b3b3768c14026eec72f6f262283363faaae34e0a90dc179fabbc9",
+  "rss-calibrate.py": "67834abaabca6cd2b070464f0c0c4aa4c4234c837fc8a87d52c4a85ce7849c37",
+  "run.py": "6b14fcd1d5d61ac93cfbd46301f1e5dd1585602c6ace595eb53d5f78edaced22",
+  "summarize.py": "53b91f46d58207d852f3b5f4f6c07ec2dfcfa282e64a3346f8b46bc579f675e0"
+}

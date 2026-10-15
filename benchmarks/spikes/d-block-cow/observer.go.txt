@@ -1,0 +1,188 @@
+// Experimental E backing, installed only by exact-preimage instrument.py.
+// Failure is fatal to the experiment, never a silent heap fallback.
+// Not a production allocator, durable storage, or a qualified Snapshot backend.
+package base
+
+import (
+ "crypto/sha256"
+ "encoding/hex"
+ "encoding/json"
+ "errors"
+ "fmt"
+ "io"
+ "os"
+ "path/filepath"
+ "sort"
+ "strings"
+ "syscall"
+ "time"
+
+ "github.com/masahitojp/mariamem/internal/prepared"
+)
+
+type eBacking struct {
+ file *os.File
+ mapping []byte
+ node *memNode
+ remaps int
+}
+type eProbe struct {
+ dir string
+ files []*eBacking
+ mode string
+}
+type eRecord struct {
+ Name string
+ Logical int
+ Reserved int
+ Remaps int
+ Live bool
+}
+func (fsys *MemFS) EProbeEnable() error {
+ if os.Getenv("MARIAMEM_E_MODE")=="" { return nil }
+ return fsys.eEnable(os.Getenv("MARIAMEM_E_MODE"))
+}
+func (fsys *MemFS) eEnable(mode string) error {
+ dir,err:=os.MkdirTemp("","mariamem-e-")
+ if err!=nil{return err}
+ fsys.e=&eProbe{dir:dir,mode:mode}
+ return nil
+}
+func eName(n *memNode) string {
+ parts:=[]string{}
+ for ;n!=nil && n.parent!=nil;n=n.parent {parts=append(parts,n.name)}
+ for i,j:=0,len(parts)-1;i<j;i,j=i+1,j-1 {parts[i],parts[j]=parts[j],parts[i]}
+ return strings.Join(parts,"/")
+}
+// Called with the existing MemFS lock. The pathname is only used to enroll
+// /mariadb files; subsequent rename/unlink does not change backing identity.
+func (fsys *MemFS) eEnroll(n *memNode) {
+ if fsys.e==nil || n.e!=nil || !strings.HasPrefix(eName(n),"mariadb/") {return}
+ f,err:=os.CreateTemp(fsys.e.dir,"node-")
+ if err!=nil{panic(err)}
+ b:=&eBacking{file:f,node:n}
+ n.e=b
+ fsys.e.files=append(fsys.e.files,b)
+}
+func (fsys *MemFS) eResize(n *memNode,want int64) []byte {
+ if n.e==nil {return resizeMemData(n.data,want)}
+ b:=n.e
+ if b.file==nil {panic("write after E freeze")}
+ if want<0 || uint64(want)>uint64(^uint(0)>>1){panic("invalid E length")}
+ oldLen,oldCap:=len(n.data),len(b.mapping)
+ if want>int64(oldCap) {
+  growth:=oldCap
+  if oldCap>=1<<20 {growth=oldCap/4}
+  capacity:=oldCap+growth
+  if capacity<oldCap || int64(capacity)<want {capacity=int(want)}
+  if err:=b.file.Truncate(int64(capacity));err!=nil{panic(err)}
+  next,err:=syscall.Mmap(int(b.file.Fd()),0,capacity,syscall.PROT_READ|syscall.PROT_WRITE,syscall.MAP_SHARED)
+  if err!=nil{panic(err)}
+  if b.mapping!=nil {
+   if err=syscall.Munmap(b.mapping);err!=nil{_ = syscall.Munmap(next);panic(err)}
+  }
+  b.mapping=next
+  b.remaps++
+ }
+ data:=b.mapping[:int(want)]
+ // Newly extended file bytes are zero. Only stale bytes within former
+ // capacity need clearing after a logical shrink or O_TRUNC.
+ end:=int(want)
+ if end>oldCap{end=oldCap}
+ if end>oldLen{clear(data[oldLen:end])}
+ return data
+}
+func (fsys *MemFS) EProbeClose() error {
+ if fsys.e==nil{return nil}
+ fsys.mu.Lock()
+ defer fsys.mu.Unlock()
+ var err error
+ records:=[]eRecord{}
+ for _,b:=range fsys.e.files {
+  name:=eName(b.node)
+  n,lookupErr:=fsys.lookup(name)
+  records=append(records,eRecord{name,len(b.node.data),len(b.mapping),b.remaps,lookupErr==nil && n==b.node})
+ }
+ if out:=os.Getenv("MARIAMEM_E_OUT");out!="" {
+  data,e:=json.MarshalIndent(records,"","  ");err=errors.Join(err,e)
+  if e==nil{err=errors.Join(err,os.WriteFile(filepath.Join(out,fmt.Sprintf("%d-backing.json",os.Getpid())),data,0600))}
+ }
+ for _,b:=range fsys.e.files {
+  if b.mapping!=nil {err=errors.Join(err,syscall.Munmap(b.mapping));b.mapping=nil;b.node.data=nil}
+  if b.file!=nil {err=errors.Join(err,b.file.Close());b.file=nil}
+ }
+ err=errors.Join(err,os.RemoveAll(fsys.e.dir))
+ return err
+}
+// Quiescent-only proof primitive: caller has stopped all writers. Revoke shared
+// mappings, trim unused capacity, then retain read-only FDs for private children.
+// No data copy; this is NOT hooked up to the public Snapshot ownership protocol.
+func (fsys *MemFS) eFreeze() (entries []prepared.Entry, owners []*os.File, err error) {
+ fsys.mu.Lock()
+ defer fsys.mu.Unlock()
+ defer func(){if err!=nil{for _,f:=range owners{_ = f.Close()}}}()
+ for _,b:=range fsys.e.files {
+  name:=eName(b.node)
+  n,e:=fsys.lookup(name)
+  if e!=nil || n!=b.node {continue}
+  size:=len(n.data)
+  if b.mapping!=nil {
+   if err=syscall.Munmap(b.mapping);err!=nil{return}
+   b.mapping=nil;n.data=nil
+  }
+  if err=b.file.Truncate(int64(size));err!=nil{return}
+  var ro *os.File
+  ro,err=os.Open(b.file.Name())
+  if err!=nil{return}
+  owners=append(owners,ro)
+  if err=os.Remove(b.file.Name());err!=nil{return}
+  if err=b.file.Close();err!=nil{return}
+  b.file=nil
+  entries=append(entries,prepared.Entry{Name:strings.TrimPrefix(name,"mariadb/"),Size:int64(size),FD:int(ro.Fd())})
+ }
+ sort.Slice(entries,func(i,j int)bool{return entries[i].Name<entries[j].Name})
+ return
+}
+// Audit only, excluded from performance campaigns. Run after guest worker join.
+// Compare the stopped /mariadb FD contents to the guest's existing cold copy.
+func (fsys *MemFS) EProbeAudit() error {
+ if fsys.e==nil || fsys.e.mode!="audit"{return nil}
+ if _,err:=fsys.Stat("snapshot-out/data");os.IsNotExist(err){return nil}else if err!=nil{return err}
+ begin:=time.Now()
+ entries,owners,err:=fsys.eFreeze()
+ freezeNS:=time.Since(begin).Nanoseconds()
+ if err!=nil{return err}
+ defer func(){for _,f:=range owners{_ = f.Close()}}()
+ rows:=[]map[string]any{}
+ for _,entry:=range entries {
+  f,e:=fsys.OpenFile("snapshot-out/data/"+entry.Name,os.O_RDONLY,0)
+  if e!=nil{return fmt.Errorf("cold counterpart %s: %w",entry.Name,e)}
+  h:=sha256.New()
+  if _,e=io.Copy(h,f);e!=nil{return e}
+  expected:=hex.EncodeToString(h.Sum(nil))
+  var ro *os.File
+  for _,o:=range owners{if int(o.Fd())==entry.FD{ro=o}}
+  h.Reset()
+  n,e:=io.Copy(h,io.NewSectionReader(ro,0,entry.Size))
+  if e!=nil{return e}
+  actual:=hex.EncodeToString(h.Sum(nil))
+  if actual!=expected{return fmt.Errorf("frozen/cold mismatch: %s",entry.Name)}
+  rows=append(rows,map[string]any{"name":entry.Name,"bytes":n,"sha256":actual})
+ }
+ // Check the other direction too: no cold file absent from frozen inventory.
+ cold:=0
+ var walk func(string)error
+ walk=func(path string)error{
+  f,e:=fsys.OpenFile(path,os.O_RDONLY,0);if e!=nil{return e}
+  st,e:=f.Stat();if e!=nil{return e}
+  if !st.IsDir(){cold++;return nil}
+  children,e:=f.ReadDir(-1);if e!=nil{return e}
+  for _,c:=range children{if e=walk(path+"/"+c.Name());e!=nil{return e}}
+  return nil
+ }
+ if err=walk("snapshot-out/data");err!=nil{return err}
+ if cold!=len(entries){return fmt.Errorf("inventory mismatch: cold=%d frozen=%d",cold,len(entries))}
+ data,err:=json.MarshalIndent(map[string]any{"freeze_ns":freezeNS,"files":rows,"inventory_equal":true},"","  ")
+ if err!=nil{return err}
+ return os.WriteFile(filepath.Join(os.Getenv("MARIAMEM_E_OUT"),fmt.Sprintf("%d-freeze.json",os.Getpid())),data,0600)
+}

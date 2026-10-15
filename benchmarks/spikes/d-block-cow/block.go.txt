@@ -1,0 +1,79 @@
+// Experimental block storage. Its owning MemFS lock serializes all operations.
+// The immutable backing must outlive this object. No cross-process owner is
+// implemented here; that boundary is separate from the byte-storage primitive.
+package base
+
+import (
+ "io"
+ "math"
+ "syscall"
+)
+
+const dBlockSize int64 = 16 * 1024
+
+type dStorage struct {
+ size int64
+ backing []byte
+ backingLimit int64
+ blocks map[int64][]byte
+ copied uint64
+ allocated uint64
+ reads uint64
+ writes uint64
+}
+func newDStorage(backing []byte) *dStorage {
+ return &dStorage{size:int64(len(backing)),backing:backing,backingLimit:int64(len(backing)),blocks:make(map[int64][]byte)}
+}
+func (d *dStorage) resize(size int64) error {
+ if size<0{return syscall.EINVAL}
+ if size<d.size {
+  if d.backingLimit>size {d.backingLimit=size}
+  for index,b:=range d.blocks {
+   begin:=index*dBlockSize
+   if begin>=size {delete(d.blocks,index)} else if size-begin<dBlockSize {clear(b[size-begin:])}
+  }
+ }
+ d.size=size
+ return nil
+}
+func (d *dStorage) readAt(dst []byte,off int64)(int,error) {
+ if off<0{return 0,syscall.EINVAL}
+ if off>=d.size{return 0,io.EOF}
+ count:=int64(len(dst));if count>d.size-off{count=d.size-off}
+ done:=int64(0)
+ for done<count {
+  at:=off+done;index:=at/dBlockSize;in:=at%dBlockSize
+  n:=dBlockSize-in;if n>count-done{n=count-done}
+  out:=dst[done:done+n]
+  if b:=d.blocks[index];b!=nil {copy(out,b[in:in+n])} else {
+   end:=at+n;if end>d.backingLimit{end=d.backingLimit}
+   if end>at {copy(out,d.backing[at:end]);clear(out[end-at:])} else {clear(out)}
+  }
+  d.reads++;done+=n
+ }
+ if done<int64(len(dst)){return int(done),io.EOF}
+ return int(done),nil
+}
+func (d *dStorage) writeAt(src []byte,off int64)(int,error) {
+ if off<0 || int64(len(src))>math.MaxInt64-off{return 0,syscall.EINVAL}
+ end:=off+int64(len(src))
+ if end>d.size {d.size=end}
+ done:=int64(0)
+ for done<int64(len(src)) {
+  at:=off+done;index:=at/dBlockSize;in:=at%dBlockSize
+  n:=dBlockSize-in;if n>int64(len(src))-done{n=int64(len(src))-done}
+  b:=d.blocks[index]
+  if b==nil {
+   b=make([]byte,dBlockSize);d.allocated+=uint64(dBlockSize)
+   // Full-block overwrites need no read of the immutable prefix.
+   if in!=0 || n!=dBlockSize {
+    begin:=index*dBlockSize;limit:=d.backingLimit
+    if limit>begin && limit-begin>dBlockSize {limit=begin+dBlockSize}
+    if limit>begin {copy(b,d.backing[begin:limit]);d.copied+=uint64(limit-begin)}
+   }
+   d.blocks[index]=b
+  }
+  copy(b[in:in+n],src[done:done+n]);d.writes++;done+=n
+ }
+ return len(src),nil
+}

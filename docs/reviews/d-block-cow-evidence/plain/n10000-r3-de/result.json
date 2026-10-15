@@ -1,0 +1,573 @@
+{
+  "mode": "de",
+  "rows": 10000,
+  "repeat": 3,
+  "warmup": false,
+  "times_ms": {
+    "setup/start": 48.226125,
+    "setup/migrate-seed": 778.420041,
+    "setup/snapshot": 271.67075,
+    "first/startup": 52.966,
+    "first/connect": 4.049166,
+    "first/crud": 16.532834,
+    "first/disconnect": 0.034417,
+    "first/close": 4.672083,
+    "second/startup": 49.656083,
+    "second/connect": 4.230709,
+    "second/crud": 22.86475,
+    "second/disconnect": 0.033084,
+    "second/close": 4.773625,
+    "baseline/close": 1.677166
+  },
+  "children": [
+    {
+      "name": "first",
+      "pid": 94771
+    },
+    {
+      "name": "second",
+      "pid": 94773
+    }
+  ],
+  "checks": [
+    "first-sql-and-isolation-pass",
+    "second-sql-and-isolation-pass",
+    "baseline-unchanged-pass"
+  ],
+  "setup_pid": 94741,
+  "guest_version": "12.3.3-MariaDB-embedded",
+  "baseline_manifest": {
+    "format": "mariamem-cold-snapshot",
+    "version": 1,
+    "wasm_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+    "source_storage": "memory",
+    "entries": {
+      ".": {
+        "kind": "directory"
+      },
+      "data": {
+        "kind": "directory"
+      },
+      "data/aria_log.00000001": {
+        "kind": "file",
+        "bytes": 16384,
+        "sha256": "812634c91087030f6557be972fa615ac0cddb6699ed6eb669383b31ef5af38ff"
+      },
+      "data/aria_log_control": {
+        "kind": "file",
+        "bytes": 52,
+        "sha256": "98eda018e3a25a3fe8d3e687c94a70f2580a70cc3e4540f7e334f9983c03b292"
+      },
+      "data/ib_buffer_pool": {
+        "kind": "file",
+        "bytes": 502,
+        "sha256": "ff2c974412d0286dd133b3ea37b28a159b8a96ae25252c34e6de595c0715f28b"
+      },
+      "data/ib_logfile0": {
+        "kind": "file",
+        "bytes": 100663296,
+        "sha256": "05607bcca408210704fecbfe36a4b6f499dfef2ec0139fd81577a0476debc651"
+      },
+      "data/ibdata1": {
+        "kind": "file",
+        "bytes": 12582912,
+        "sha256": "660c02f991cf24bda1bbfc7c7f843fb67b037633b1b716e3ef11fbb8b5b6f241"
+      },
+      "data/test": {
+        "kind": "directory"
+      },
+      "data/test/db.opt": {
+        "kind": "file",
+        "bytes": 70,
+        "sha256": "9d2cb1189b5fa7b46cec9d9e277c9968066915ae38a1821a451a9a098b035f3f"
+      },
+      "data/test/orders.frm": {
+        "kind": "file",
+        "bytes": 1472,
+        "sha256": "577f0ac611154d23d61437bdf5182a56c0c2894d4c46ff4357641f3bc8d1c48c"
+      },
+      "data/test/orders.ibd": {
+        "kind": "file",
+        "bytes": 589824,
+        "sha256": "2f0aab250021a8bf1c3bda63b0554b9f6c4ea313624082b525d369c426f79edc"
+      },
+      "data/test/users.frm": {
+        "kind": "file",
+        "bytes": 2015,
+        "sha256": "ad932d76b69afb1455523189d0a4d2579ddfccc29500247afc8cb6c01f4aad96"
+      },
+      "data/test/users.ibd": {
+        "kind": "file",
+        "bytes": 20971520,
+        "sha256": "017b98503d762de5a845b6a9b249a789b9aa2c5a43860fcde0118ae9fa6d6cca"
+      },
+      "data/undo001": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "a8afac40264e62d4bfcf368e557c48880e2eef30219c9bf175d8d7df3c3e9694"
+      },
+      "data/undo002": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "3c866beb4a32296f11d491551dcd994069718f2c99f29740b80a3768f9b264e4"
+      },
+      "data/undo003": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "c61950c88c802586bdb840c287dd2d006fffe8ec5a7292a8362f492dbb3c99a8"
+      },
+      "plugin": {
+        "kind": "directory"
+      }
+    }
+  },
+  "handoff": {
+    "bytes": 166285327,
+    "elapsed_ns": 104728542,
+    "files": 13,
+    "freeze_move_ns": 22845625,
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "source_inventory_hash_ns": 81689709,
+    "success": true
+  },
+  "publish": {
+    "elapsed_ns": 67736500,
+    "payload_copy_bytes": 0,
+    "same_directory_inode": true,
+    "success": true,
+    "target_inventory_hash_ns": 67248709
+  },
+  "workflow_ms_before_validation": 1263.398292,
+  "host_reports": [
+    {
+      "block_size": 16384,
+      "child": false,
+      "d_enabled": false,
+      "files": []
+    },
+    {
+      "block_size": 16384,
+      "child": true,
+      "d_enabled": true,
+      "files": [
+        {
+          "allocated_bytes": 16384,
+          "backing_bytes": 16384,
+          "backing_limit": 16384,
+          "copied_bytes": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "private_blocks": 1,
+          "private_bytes": 16384,
+          "read_blocks": 2,
+          "size": 16384,
+          "write_blocks": 2
+        },
+        {
+          "allocated_bytes": 16384,
+          "backing_bytes": 52,
+          "backing_limit": 52,
+          "copied_bytes": 52,
+          "name": "mariadb/data/aria_log_control",
+          "private_blocks": 1,
+          "private_bytes": 16384,
+          "read_blocks": 1,
+          "size": 52,
+          "write_blocks": 1
+        },
+        {
+          "allocated_bytes": 0,
+          "backing_bytes": 502,
+          "backing_limit": 502,
+          "copied_bytes": 0,
+          "name": "mariadb/data/ib_buffer_pool",
+          "private_blocks": 0,
+          "private_bytes": 0,
+          "read_blocks": 2,
+          "size": 502,
+          "write_blocks": 0
+        },
+        {
+          "allocated_bytes": 32768,
+          "backing_bytes": 100663296,
+          "backing_limit": 100663296,
+          "copied_bytes": 32768,
+          "name": "mariadb/data/ib_logfile0",
+          "private_blocks": 2,
+          "private_bytes": 32768,
+          "read_blocks": 259,
+          "size": 100663296,
+          "write_blocks": 5
+        },
+        {
+          "allocated_bytes": 212992,
+          "backing_bytes": 12582912,
+          "backing_limit": 12582912,
+          "copied_bytes": 0,
+          "name": "mariadb/data/ibdata1",
+          "private_blocks": 13,
+          "private_bytes": 212992,
+          "read_blocks": 160,
+          "size": 12582912,
+          "write_blocks": 13
+        },
+        {
+          "allocated_bytes": 0,
+          "backing_bytes": 70,
+          "backing_limit": 70,
+          "copied_bytes": 0,
+          "name": "mariadb/data/test/db.opt",
+          "private_blocks": 0,
+          "private_bytes": 0,
+          "read_blocks": 1,
+          "size": 70,
+          "write_blocks": 0
+        },
+        {
+          "allocated_bytes": 0,
+          "backing_bytes": 1472,
+          "backing_limit": 1472,
+          "copied_bytes": 0,
+          "name": "mariadb/data/test/orders.frm",
+          "private_blocks": 0,
+          "private_bytes": 0,
+          "read_blocks": 2,
+          "size": 1472,
+          "write_blocks": 0
+        },
+        {
+          "allocated_bytes": 32768,
+          "backing_bytes": 589824,
+          "backing_limit": 589824,
+          "copied_bytes": 0,
+          "name": "mariadb/data/test/orders.ibd",
+          "private_blocks": 2,
+          "private_bytes": 32768,
+          "read_blocks": 25,
+          "size": 589824,
+          "write_blocks": 2
+        },
+        {
+          "allocated_bytes": 0,
+          "backing_bytes": 2015,
+          "backing_limit": 2015,
+          "copied_bytes": 0,
+          "name": "mariadb/data/test/users.frm",
+          "private_blocks": 0,
+          "private_bytes": 0,
+          "read_blocks": 2,
+          "size": 2015,
+          "write_blocks": 0
+        },
+        {
+          "allocated_bytes": 32768,
+          "backing_bytes": 20971520,
+          "backing_limit": 20971520,
+          "copied_bytes": 0,
+          "name": "mariadb/data/test/users.ibd",
+          "private_blocks": 2,
+          "private_bytes": 32768,
+          "read_blocks": 110,
+          "size": 20971520,
+          "write_blocks": 2
+        },
+        {
+          "allocated_bytes": 65536,
+          "backing_bytes": 10485760,
+          "backing_limit": 10485760,
+          "copied_bytes": 0,
+          "name": "mariadb/data/undo001",
+          "private_blocks": 4,
+          "private_bytes": 65536,
+          "read_blocks": 93,
+          "size": 10485760,
+          "write_blocks": 4
+        },
+        {
+          "allocated_bytes": 49152,
+          "backing_bytes": 10485760,
+          "backing_limit": 10485760,
+          "copied_bytes": 0,
+          "name": "mariadb/data/undo002",
+          "private_blocks": 3,
+          "private_bytes": 49152,
+          "read_blocks": 91,
+          "size": 10485760,
+          "write_blocks": 3
+        },
+        {
+          "allocated_bytes": 49152,
+          "backing_bytes": 10485760,
+          "backing_limit": 10485760,
+          "copied_bytes": 0,
+          "name": "mariadb/data/undo003",
+          "private_blocks": 3,
+          "private_bytes": 49152,
+          "read_blocks": 114,
+          "size": 10485760,
+          "write_blocks": 3
+        },
+        {
+          "allocated_bytes": 0,
+          "backing_bytes": 0,
+          "backing_limit": 0,
+          "copied_bytes": 0,
+          "name": "mariadb/data/wasmer.lower-test",
+          "private_blocks": 0,
+          "private_bytes": 0,
+          "read_blocks": 0,
+          "size": 0,
+          "write_blocks": 0
+        },
+        {
+          "allocated_bytes": 16384,
+          "backing_bytes": 0,
+          "backing_limit": 0,
+          "copied_bytes": 0,
+          "name": "mariadb/data/ddl_recovery.log",
+          "private_blocks": 1,
+          "private_bytes": 16384,
+          "read_blocks": 0,
+          "size": 9,
+          "write_blocks": 1
+        },
+        {
+          "allocated_bytes": 2129920,
+          "backing_bytes": 0,
+          "backing_limit": 0,
+          "copied_bytes": 0,
+          "name": "mariadb/data/ibtmp1",
+          "private_blocks": 130,
+          "private_bytes": 2129920,
+          "read_blocks": 0,
+          "size": 12582912,
+          "write_blocks": 130
+        },
+        {
+          "allocated_bytes": 16384,
+          "backing_bytes": 0,
+          "backing_limit": 0,
+          "copied_bytes": 0,
+          "name": "mariadb/data/ib_buffer_pool",
+          "private_blocks": 1,
+          "private_bytes": 16384,
+          "read_blocks": 0,
+          "size": 1099,
+          "write_blocks": 3
+        }
+      ]
+    },
+    {
+      "block_size": 16384,
+      "child": true,
+      "d_enabled": true,
+      "files": [
+        {
+          "allocated_bytes": 16384,
+          "backing_bytes": 16384,
+          "backing_limit": 16384,
+          "copied_bytes": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "private_blocks": 1,
+          "private_bytes": 16384,
+          "read_blocks": 2,
+          "size": 16384,
+          "write_blocks": 2
+        },
+        {
+          "allocated_bytes": 16384,
+          "backing_bytes": 52,
+          "backing_limit": 52,
+          "copied_bytes": 52,
+          "name": "mariadb/data/aria_log_control",
+          "private_blocks": 1,
+          "private_bytes": 16384,
+          "read_blocks": 1,
+          "size": 52,
+          "write_blocks": 1
+        },
+        {
+          "allocated_bytes": 0,
+          "backing_bytes": 502,
+          "backing_limit": 502,
+          "copied_bytes": 0,
+          "name": "mariadb/data/ib_buffer_pool",
+          "private_blocks": 0,
+          "private_bytes": 0,
+          "read_blocks": 2,
+          "size": 502,
+          "write_blocks": 0
+        },
+        {
+          "allocated_bytes": 32768,
+          "backing_bytes": 100663296,
+          "backing_limit": 100663296,
+          "copied_bytes": 32768,
+          "name": "mariadb/data/ib_logfile0",
+          "private_blocks": 2,
+          "private_bytes": 32768,
+          "read_blocks": 259,
+          "size": 100663296,
+          "write_blocks": 7
+        },
+        {
+          "allocated_bytes": 196608,
+          "backing_bytes": 12582912,
+          "backing_limit": 12582912,
+          "copied_bytes": 0,
+          "name": "mariadb/data/ibdata1",
+          "private_blocks": 12,
+          "private_bytes": 196608,
+          "read_blocks": 160,
+          "size": 12582912,
+          "write_blocks": 12
+        },
+        {
+          "allocated_bytes": 0,
+          "backing_bytes": 70,
+          "backing_limit": 70,
+          "copied_bytes": 0,
+          "name": "mariadb/data/test/db.opt",
+          "private_blocks": 0,
+          "private_bytes": 0,
+          "read_blocks": 1,
+          "size": 70,
+          "write_blocks": 0
+        },
+        {
+          "allocated_bytes": 0,
+          "backing_bytes": 1472,
+          "backing_limit": 1472,
+          "copied_bytes": 0,
+          "name": "mariadb/data/test/orders.frm",
+          "private_blocks": 0,
+          "private_bytes": 0,
+          "read_blocks": 2,
+          "size": 1472,
+          "write_blocks": 0
+        },
+        {
+          "allocated_bytes": 32768,
+          "backing_bytes": 589824,
+          "backing_limit": 589824,
+          "copied_bytes": 0,
+          "name": "mariadb/data/test/orders.ibd",
+          "private_blocks": 2,
+          "private_bytes": 32768,
+          "read_blocks": 26,
+          "size": 589824,
+          "write_blocks": 2
+        },
+        {
+          "allocated_bytes": 0,
+          "backing_bytes": 2015,
+          "backing_limit": 2015,
+          "copied_bytes": 0,
+          "name": "mariadb/data/test/users.frm",
+          "private_blocks": 0,
+          "private_bytes": 0,
+          "read_blocks": 2,
+          "size": 2015,
+          "write_blocks": 0
+        },
+        {
+          "allocated_bytes": 16384,
+          "backing_bytes": 20971520,
+          "backing_limit": 20971520,
+          "copied_bytes": 0,
+          "name": "mariadb/data/test/users.ibd",
+          "private_blocks": 1,
+          "private_bytes": 16384,
+          "read_blocks": 110,
+          "size": 20971520,
+          "write_blocks": 1
+        },
+        {
+          "allocated_bytes": 65536,
+          "backing_bytes": 10485760,
+          "backing_limit": 10485760,
+          "copied_bytes": 0,
+          "name": "mariadb/data/undo001",
+          "private_blocks": 4,
+          "private_bytes": 65536,
+          "read_blocks": 93,
+          "size": 10485760,
+          "write_blocks": 4
+        },
+        {
+          "allocated_bytes": 65536,
+          "backing_bytes": 10485760,
+          "backing_limit": 10485760,
+          "copied_bytes": 0,
+          "name": "mariadb/data/undo002",
+          "private_blocks": 4,
+          "private_bytes": 65536,
+          "read_blocks": 91,
+          "size": 10485760,
+          "write_blocks": 4
+        },
+        {
+          "allocated_bytes": 65536,
+          "backing_bytes": 10485760,
+          "backing_limit": 10485760,
+          "copied_bytes": 0,
+          "name": "mariadb/data/undo003",
+          "private_blocks": 4,
+          "private_bytes": 65536,
+          "read_blocks": 114,
+          "size": 10485760,
+          "write_blocks": 4
+        },
+        {
+          "allocated_bytes": 0,
+          "backing_bytes": 0,
+          "backing_limit": 0,
+          "copied_bytes": 0,
+          "name": "mariadb/data/wasmer.lower-test",
+          "private_blocks": 0,
+          "private_bytes": 0,
+          "read_blocks": 0,
+          "size": 0,
+          "write_blocks": 0
+        },
+        {
+          "allocated_bytes": 16384,
+          "backing_bytes": 0,
+          "backing_limit": 0,
+          "copied_bytes": 0,
+          "name": "mariadb/data/ddl_recovery.log",
+          "private_blocks": 1,
+          "private_bytes": 16384,
+          "read_blocks": 0,
+          "size": 9,
+          "write_blocks": 1
+        },
+        {
+          "allocated_bytes": 2129920,
+          "backing_bytes": 0,
+          "backing_limit": 0,
+          "copied_bytes": 0,
+          "name": "mariadb/data/ibtmp1",
+          "private_blocks": 130,
+          "private_bytes": 2129920,
+          "read_blocks": 0,
+          "size": 12582912,
+          "write_blocks": 130
+        },
+        {
+          "allocated_bytes": 16384,
+          "backing_bytes": 0,
+          "backing_limit": 0,
+          "copied_bytes": 0,
+          "name": "mariadb/data/ib_buffer_pool",
+          "private_blocks": 1,
+          "private_bytes": 16384,
+          "read_blocks": 0,
+          "size": 1106,
+          "write_blocks": 3
+        }
+      ]
+    }
+  ]
+}
