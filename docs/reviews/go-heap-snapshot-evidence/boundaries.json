@@ -1,0 +1,31 @@
+[
+  {
+    "label": "n100-r0-heap",
+    "checks": [
+      "transaction-reject-source-usable",
+      "parent-close-two-live-children",
+      "derived-close-child-survives-sibling-isolates",
+      "concurrent-independent-children",
+      "freeze-and-two-corruption-gates-reject",
+      "no-payload-files-or-temp-residue"
+    ],
+    "failures": [
+      {
+        "closed": true,
+        "error": "mariamem snapshot_failed: guest shutdown: injected heap freeze",
+        "fault": "freeze"
+      },
+      {
+        "closed": true,
+        "error": "mariamem snapshot_failed: guest shutdown: heap content mismatch",
+        "fault": "target_corrupt"
+      },
+      {
+        "closed": true,
+        "error": "mariamem snapshot_failed: heap content mismatch",
+        "fault": "owner_corrupt"
+      }
+    ],
+    "status": "PASS"
+  }
+]

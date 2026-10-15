@@ -1,0 +1,9 @@
+{
+  "object_sha": "87008e22693eb0cae44252f6c5d2c3c4715ac8fc",
+  "object_type": "commit",
+  "source_commit": "87008e22693eb0cae44252f6c5d2c3c4715ac8fc",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "binary_sha256": "35de9abef4cba40319cc0a86aedefb41944228edd16f45b101cd81e6b49e676c",
+  "runner_sha256": "07d04f2772c3872c0a6c39df8d78d6ff08dac38bbc13ffa52b9d3df6ac81668d"
+}

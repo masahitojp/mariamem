@@ -1,0 +1,10 @@
+package mariamem
+import("context";"errors";stored "github.com/masahitojp/mariamem/internal/snapshot";"github.com/masahitojp/mariamem/internal/runtimekind")
+// Experimental branch only. Caller holds Database.mu; public API is unchanged.
+func(db *Database)snapshotHeap(ctx context.Context,opts SnapshotOptions)(*Snapshot,error){
+ b,ok:=db.server.(interface{SnapshotHeap(context.Context,bool)(*stored.Owned,bool,error)});if !ok{return nil,errors.New("heap backend missing")}
+ backing,consumed,e:=b.SnapshotHeap(ctx,opts.Rollback);if consumed{db.closed=true;db.closeErr=hostError(db.removeTemporary(),"close",true);e=errors.Join(e,db.closeErr)}
+ if e!=nil{return nil,hostError(errors.Join(e,backing.Close()),"snapshot_failed",consumed)};return &Snapshot{opts:db.opts,backing:backing},nil
+}
+func(s *Snapshot)ExperimentHeapStats()map[string]int64{s.mu.RLock();defer s.mu.RUnlock();return s.backing.HeapStats()}
+func(s *Snapshot)ExperimentHeapVerify()error{s.mu.RLock();defer s.mu.RUnlock();return s.backing.VerifyHeap(runtimekind.GuestSHA256)}

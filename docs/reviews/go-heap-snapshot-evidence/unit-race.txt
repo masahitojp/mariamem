@@ -1,0 +1,18 @@
+=== RUN   TestDIntegrationIdentity
+--- PASS: TestDIntegrationIdentity (0.00s)
+=== RUN   TestDIntegrationMetadataAndGrowth
+--- PASS: TestDIntegrationMetadataAndGrowth (0.00s)
+=== RUN   TestDIntegrationSiblingLifetime
+--- PASS: TestDIntegrationSiblingLifetime (0.00s)
+=== RUN   TestDIntegrationConcurrentHandles
+--- PASS: TestDIntegrationConcurrentHandles (0.00s)
+=== RUN   TestHeapFreezeIsolationAndDerived
+--- PASS: TestHeapFreezeIsolationAndDerived (0.00s)
+=== RUN   TestHeapRejectCorruption
+=== RUN   TestHeapRejectCorruption/target_corrupt
+=== RUN   TestHeapRejectCorruption/owner_corrupt
+--- PASS: TestHeapRejectCorruption (0.00s)
+    --- PASS: TestHeapRejectCorruption/target_corrupt (0.00s)
+    --- PASS: TestHeapRejectCorruption/owner_corrupt (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.323s

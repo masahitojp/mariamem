@@ -1,0 +1,97 @@
+[
+  {
+    "label": "n100-r-1-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.336125,
+      "first/close": 2.646042,
+      "first/connect": 0.932042,
+      "first/crud": 3.9385,
+      "first/disconnect": 6.13475,
+      "first/startup": 56.463584,
+      "second/close": 2.757292,
+      "second/connect": 0.869042,
+      "second/crud": 6.268167,
+      "second/disconnect": 6.265791,
+      "second/startup": 52.133625,
+      "setup/migrate-seed": 17.431,
+      "setup/snapshot": 373.446875,
+      "setup/start": 66.1125
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 597.755041
+  },
+  {
+    "label": "n100-r-1-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953645,
+      "owner_verify_ns": 61870167,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3194880,
+      "source_hash_metadata_ns": 61915208,
+      "target_verify_ns": 63012833
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000375,
+      "first/close": 2.492875,
+      "first/connect": 1.237292,
+      "first/crud": 3.688542,
+      "first/disconnect": 6.266041,
+      "first/startup": 51.313208,
+      "second/close": 3.022709,
+      "second/connect": 0.878917,
+      "second/crud": 6.10425,
+      "second/disconnect": 6.259,
+      "second/startup": 50.549333,
+      "setup/migrate-seed": 14.865333,
+      "setup/snapshot": 189.797125,
+      "setup/start": 49.561125
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 386.049416
+  }
+]

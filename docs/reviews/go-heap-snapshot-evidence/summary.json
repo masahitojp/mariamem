@@ -1,0 +1,1982 @@
+{
+  "plain": {
+    "100": {
+      "control": {
+        "whole_ms": {
+          "n": 5,
+          "median": 556.119542,
+          "min": 550.174458,
+          "max": 729.213834
+        },
+        "setup/start": {
+          "n": 5,
+          "median": 48.820375,
+          "min": 47.4275,
+          "max": 51.523083
+        },
+        "setup/migrate-seed": {
+          "n": 5,
+          "median": 14.151542,
+          "min": 13.831458,
+          "max": 14.316334
+        },
+        "setup/snapshot": {
+          "n": 5,
+          "median": 354.006459,
+          "min": 345.026625,
+          "max": 529.972459
+        },
+        "baseline/close": {
+          "n": 5,
+          "median": 2.23025,
+          "min": 2.118,
+          "max": 2.3085
+        },
+        "per_child/startup": {
+          "n": 10,
+          "median": 52.806917,
+          "min": 50.980709,
+          "max": 57.492041
+        },
+        "per_child/crud": {
+          "n": 10,
+          "median": 4.662021,
+          "min": 3.795791,
+          "max": 6.817167
+        },
+        "per_child/close": {
+          "n": 10,
+          "median": 2.5656045,
+          "min": 2.511959,
+          "max": 2.724208
+        },
+        "per_child/disconnect": {
+          "n": 10,
+          "median": 6.2720625000000005,
+          "min": 5.340916,
+          "max": 6.2805
+        },
+        "two_children_ms": {
+          "n": 5,
+          "median": 135.47754100000003,
+          "min": 131.30333299999998,
+          "max": 141.49329
+        }
+      },
+      "heap": {
+        "whole_ms": {
+          "n": 5,
+          "median": 386.160626,
+          "min": 381.666625,
+          "max": 387.271333
+        },
+        "setup/start": {
+          "n": 5,
+          "median": 46.794375,
+          "min": 46.5575,
+          "max": 50.26175
+        },
+        "setup/migrate-seed": {
+          "n": 5,
+          "median": 14.410208,
+          "min": 13.900375,
+          "max": 15.1805
+        },
+        "setup/snapshot": {
+          "n": 5,
+          "median": 192.517042,
+          "min": 188.218375,
+          "max": 194.881625
+        },
+        "baseline/close": {
+          "n": 5,
+          "median": 0.0005,
+          "min": 0.000291,
+          "max": 0.0005
+        },
+        "per_child/startup": {
+          "n": 10,
+          "median": 51.025354,
+          "min": 49.658791,
+          "max": 53.621542
+        },
+        "per_child/crud": {
+          "n": 10,
+          "median": 4.948062,
+          "min": 3.583708,
+          "max": 6.123208
+        },
+        "per_child/close": {
+          "n": 10,
+          "median": 2.4428745000000003,
+          "min": 2.343416,
+          "max": 2.837208
+        },
+        "per_child/disconnect": {
+          "n": 10,
+          "median": 6.2730835,
+          "min": 6.009791,
+          "max": 6.286416
+        },
+        "two_children_ms": {
+          "n": 5,
+          "median": 130.392041,
+          "min": 129.26654,
+          "max": 135.20545900000002
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 5,
+            "median": 144953650,
+            "min": 144953645,
+            "max": 144953650
+          },
+          "owner_verify_ns": {
+            "n": 5,
+            "median": 62212333,
+            "min": 61616625,
+            "max": 65592750
+          },
+          "payload_copy_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 5,
+            "median": 3178496,
+            "min": 3162112,
+            "max": 3194880
+          },
+          "source_hash_metadata_ns": {
+            "n": 5,
+            "median": 62052042,
+            "min": 61861459,
+            "max": 66228666
+          },
+          "target_verify_ns": {
+            "n": 5,
+            "median": 62095375,
+            "min": 61620083,
+            "max": 63637666
+          }
+        }
+      },
+      "pairs": [
+        {
+          "label": "n100-r0-control",
+          "control_ms": 551.071542,
+          "heap_ms": 381.666625,
+          "delta_ms": -169.404917
+        },
+        {
+          "label": "n100-r1-control",
+          "control_ms": 560.357459,
+          "heap_ms": 387.271333,
+          "delta_ms": -173.08612599999992
+        },
+        {
+          "label": "n100-r2-control",
+          "control_ms": 556.119542,
+          "heap_ms": 384.124,
+          "delta_ms": -171.995542
+        },
+        {
+          "label": "n100-r3-control",
+          "control_ms": 729.213834,
+          "heap_ms": 386.759165,
+          "delta_ms": -342.454669
+        },
+        {
+          "label": "n100-r4-control",
+          "control_ms": 550.174458,
+          "heap_ms": 386.160626,
+          "delta_ms": -164.01383199999998
+        }
+      ],
+      "heap_faster_pairs": 5,
+      "median_delta_percent": -30.56157951018381
+    },
+    "10000": {
+      "control": {
+        "whole_ms": {
+          "n": 5,
+          "median": 1332.996875,
+          "min": 1313.200291,
+          "max": 1346.263666
+        },
+        "setup/start": {
+          "n": 5,
+          "median": 48.961333,
+          "min": 48.663167,
+          "max": 50.219334
+        },
+        "setup/migrate-seed": {
+          "n": 5,
+          "median": 741.636292,
+          "min": 740.743667,
+          "max": 752.93075
+        },
+        "setup/snapshot": {
+          "n": 5,
+          "median": 359.992375,
+          "min": 355.139708,
+          "max": 383.536459
+        },
+        "baseline/close": {
+          "n": 5,
+          "median": 2.063292,
+          "min": 1.233917,
+          "max": 2.512292
+        },
+        "per_child/startup": {
+          "n": 10,
+          "median": 54.7653335,
+          "min": 51.376125,
+          "max": 59.144292
+        },
+        "per_child/crud": {
+          "n": 10,
+          "median": 19.5970415,
+          "min": 16.135042,
+          "max": 23.558417
+        },
+        "per_child/close": {
+          "n": 10,
+          "median": 2.7007915000000002,
+          "min": 2.528583,
+          "max": 3.044042
+        },
+        "per_child/disconnect": {
+          "n": 10,
+          "median": 6.2635625,
+          "min": 5.199709,
+          "max": 6.295084
+        },
+        "two_children_ms": {
+          "n": 5,
+          "median": 169.38625299999998,
+          "min": 162.08687700000002,
+          "max": 173.97054100000003
+        }
+      },
+      "heap": {
+        "whole_ms": {
+          "n": 5,
+          "median": 1163.722498,
+          "min": 1160.628459,
+          "max": 1175.262459
+        },
+        "setup/start": {
+          "n": 5,
+          "median": 46.725416,
+          "min": 46.075917,
+          "max": 47.974417
+        },
+        "setup/migrate-seed": {
+          "n": 5,
+          "median": 735.447417,
+          "min": 733.419625,
+          "max": 747.564417
+        },
+        "setup/snapshot": {
+          "n": 5,
+          "median": 218.186708,
+          "min": 216.771417,
+          "max": 220.485917
+        },
+        "baseline/close": {
+          "n": 5,
+          "median": 0.000541,
+          "min": 0.000375,
+          "max": 0.000625
+        },
+        "per_child/startup": {
+          "n": 10,
+          "median": 51.364292,
+          "min": 49.941,
+          "max": 58.312166
+        },
+        "per_child/crud": {
+          "n": 10,
+          "median": 19.7487295,
+          "min": 16.251542,
+          "max": 24.041708
+        },
+        "per_child/close": {
+          "n": 10,
+          "median": 2.450896,
+          "min": 2.395125,
+          "max": 2.58375
+        },
+        "per_child/disconnect": {
+          "n": 10,
+          "median": 6.2689585,
+          "min": 6.262833,
+          "max": 6.303625
+        },
+        "two_children_ms": {
+          "n": 5,
+          "median": 161.92962599999998,
+          "min": 158.76275,
+          "max": 170.84204
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 5,
+            "median": 166285322,
+            "min": 166285321,
+            "max": 166285327
+          },
+          "owner_verify_ns": {
+            "n": 5,
+            "median": 71884375,
+            "min": 71322292,
+            "max": 74137667
+          },
+          "payload_copy_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 5,
+            "median": 28639232,
+            "min": 28639232,
+            "max": 28639232
+          },
+          "source_hash_metadata_ns": {
+            "n": 5,
+            "median": 71574791,
+            "min": 71473834,
+            "max": 72272083
+          },
+          "target_verify_ns": {
+            "n": 5,
+            "median": 71439875,
+            "min": 71252959,
+            "max": 74499084
+          }
+        }
+      },
+      "pairs": [
+        {
+          "label": "n10000-r0-control",
+          "control_ms": 1332.996875,
+          "heap_ms": 1171.226083,
+          "delta_ms": -161.77079200000003
+        },
+        {
+          "label": "n10000-r1-control",
+          "control_ms": 1346.263666,
+          "heap_ms": 1175.262459,
+          "delta_ms": -171.00120700000002
+        },
+        {
+          "label": "n10000-r2-control",
+          "control_ms": 1327.962208,
+          "heap_ms": 1163.722498,
+          "delta_ms": -164.23970999999983
+        },
+        {
+          "label": "n10000-r3-control",
+          "control_ms": 1313.200291,
+          "heap_ms": 1161.382333,
+          "delta_ms": -151.8179580000001
+        },
+        {
+          "label": "n10000-r4-control",
+          "control_ms": 1336.178625,
+          "heap_ms": 1160.628459,
+          "delta_ms": -175.550166
+        }
+      ],
+      "heap_faster_pairs": 5,
+      "median_delta_percent": -12.698782733455394
+    }
+  },
+  "resources": {
+    "100": {
+      "control": {
+        "whole_ms": {
+          "n": 3,
+          "median": 545.526376,
+          "min": 544.743708,
+          "max": 552.471957
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 48.929166,
+          "min": 47.140791,
+          "max": 52.759333
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 13.950458,
+          "min": 13.037875,
+          "max": 14.042458
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 344.447459,
+          "min": 342.958792,
+          "max": 345.78625
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 2.180125,
+          "min": 2.114792,
+          "max": 2.186542
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 54.416124999999994,
+          "min": 51.147166,
+          "max": 55.668125
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 5.0461670000000005,
+          "min": 3.925917,
+          "max": 6.408917
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 2.6270625,
+          "min": 2.551542,
+          "max": 2.735417
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.2732715,
+          "min": 5.114333,
+          "max": 6.28325
+        },
+        "two_children_ms": {
+          "n": 3,
+          "median": 137.776584,
+          "min": 136.98249900000002,
+          "max": 138.40121
+        },
+        "resources": {
+          "after-close": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 464176448,
+              "min": 464175360,
+              "max": 464207416
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 473399296,
+              "min": 469204992,
+              "max": 473399296
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 574783488,
+              "min": 574455808,
+              "max": 574963712
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 477897112,
+              "min": 477896584,
+              "max": 477947320
+            }
+          },
+          "after-close-gc": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 289808,
+              "min": 285112,
+              "max": 290216
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 473399296,
+              "min": 469204992,
+              "max": 473399296
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 574783488,
+              "min": 574455808,
+              "max": 574963712
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 477897496,
+              "min": 477896856,
+              "max": 477947592
+            }
+          },
+          "after-seed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 159151832,
+              "min": 159146408,
+              "max": 159155992
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 171212800,
+              "min": 167051264,
+              "max": 171245568
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 126844928,
+              "min": 126664704,
+              "max": 126943232
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 159299536,
+              "min": 159294128,
+              "max": 159303696
+            }
+          },
+          "after-snapshot": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 437723568,
+              "min": 437723512,
+              "max": 437729240
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 448266240,
+              "min": 444104704,
+              "max": 448299008
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 558301184,
+              "min": 558153728,
+              "max": 558530560
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 451450992,
+              "min": 451443648,
+              "max": 451463472
+            }
+          },
+          "after-start": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 157974144,
+              "min": 157971256,
+              "max": 157976360
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 171311104,
+              "min": 167149568,
+              "max": 171343872
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 116211712,
+              "min": 116162560,
+              "max": 116326400
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 158121864,
+              "min": 158118960,
+              "max": 158124064
+            }
+          },
+          "first-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 450946144,
+              "min": 450944816,
+              "max": 450949248
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 460816384,
+              "min": 456654848,
+              "max": 460849152
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 570933248,
+              "min": 570507264,
+              "max": 570933248
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 464669384,
+              "min": 464666568,
+              "max": 464686048
+            }
+          },
+          "first-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 450823648,
+              "min": 450820912,
+              "max": 450831456
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 460685312,
+              "min": 456491008,
+              "max": 460750848
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 568803328,
+              "min": 568672256,
+              "max": 568885248
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 464553208,
+              "min": 464543784,
+              "max": 464560816
+            }
+          },
+          "second-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 464175856,
+              "min": 464174768,
+              "max": 464206824
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 473399296,
+              "min": 469204992,
+              "max": 473399296
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 574783488,
+              "min": 574455808,
+              "max": 574963712
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 477896520,
+              "min": 477895992,
+              "max": 477946728
+            }
+          },
+          "second-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 464041392,
+              "min": 464035408,
+              "max": 464054488
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 473235456,
+              "min": 469106688,
+              "max": 473268224
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 572555264,
+              "min": 572407808,
+              "max": 572866560
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 477761528,
+              "min": 477757160,
+              "max": 477794392
+            }
+          }
+        },
+        "post_close_forced_gc_ms": {
+          "n": 3,
+          "median": 0.413542,
+          "min": 0.411333,
+          "max": 0.41975
+        }
+      },
+      "heap": {
+        "whole_ms": {
+          "n": 3,
+          "median": 392.572874,
+          "min": 387.093041,
+          "max": 396.375918
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 48.693041,
+          "min": 48.289666,
+          "max": 49.105584
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 15.52025,
+          "min": 14.80825,
+          "max": 15.558916
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 190.354625,
+          "min": 189.044958,
+          "max": 192.6475
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 0.000417,
+          "min": 0.000417,
+          "max": 0.000667
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 53.263583499999996,
+          "min": 51.870208,
+          "max": 59.662708
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 4.744291499999999,
+          "min": 3.585208,
+          "max": 6.52175
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 2.4361255,
+          "min": 2.363791,
+          "max": 2.987458
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.2702085,
+          "min": 5.258959,
+          "max": 6.296333
+        },
+        "two_children_ms": {
+          "n": 3,
+          "median": 137.576834,
+          "min": 133.77403999999999,
+          "max": 140.614291
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 3,
+            "median": 144953650,
+            "min": 144953645,
+            "max": 144953650
+          },
+          "owner_verify_ns": {
+            "n": 3,
+            "median": 63033083,
+            "min": 61697834,
+            "max": 63681875
+          },
+          "payload_copy_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 3,
+            "median": 3194880,
+            "min": 3194880,
+            "max": 3194880
+          },
+          "source_hash_metadata_ns": {
+            "n": 3,
+            "median": 62500250,
+            "min": 62346333,
+            "max": 62781583
+          },
+          "target_verify_ns": {
+            "n": 3,
+            "median": 62170458,
+            "min": 61630458,
+            "max": 63325083
+          }
+        },
+        "resources": {
+          "after-close": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 10859520,
+              "min": 7178552,
+              "max": 10906752
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16121856,
+              "min": 16089088,
+              "max": 20316160
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 135249920,
+              "min": 135184384,
+              "max": 136134656
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 15211880,
+              "min": 15177264,
+              "max": 15254624
+            }
+          },
+          "after-close-gc": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 292584,
+              "min": 286616,
+              "max": 292872
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16154624,
+              "min": 16121856,
+              "max": 20348928
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 135249920,
+              "min": 135184384,
+              "max": 136134656
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 5
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 15212152,
+              "min": 15177536,
+              "max": 15254896
+            }
+          },
+          "after-seed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 5924520,
+              "min": 5905520,
+              "max": 5929928
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 11829248,
+              "min": 11796480,
+              "max": 11829248
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 126713856,
+              "min": 126615552,
+              "max": 126730240
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 6522928,
+              "min": 6522856,
+              "max": 6529704
+            }
+          },
+          "after-snapshot": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 7322376,
+              "min": 7294080,
+              "max": 7341448
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16154624,
+              "min": 12025856,
+              "max": 16220160
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 128991232,
+              "min": 128942080,
+              "max": 129105920
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 7920712,
+              "min": 7911488,
+              "max": 7941224
+            }
+          },
+          "after-start": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 2700056,
+              "min": 2618984,
+              "max": 2735240
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 11927552,
+              "min": 7733248,
+              "max": 11993088
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 115703808,
+              "min": 115654656,
+              "max": 115736576
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 2700056,
+              "min": 2618984,
+              "max": 2735240
+            }
+          },
+          "first-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 7249792,
+              "min": 7223632,
+              "max": 7250360
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16154624,
+              "min": 16154624,
+              "max": 16220160
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 133316608,
+              "min": 133136384,
+              "max": 133464064
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 11555488,
+              "min": 11541376,
+              "max": 11570600
+            }
+          },
+          "first-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 8111096,
+              "min": 6156712,
+              "max": 9731072
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16023552,
+              "min": 15990784,
+              "max": 16056320
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 132022272,
+              "min": 131842048,
+              "max": 132136960
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 2,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 10411232,
+              "min": 10348480,
+              "max": 10477520
+            }
+          },
+          "second-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 10856752,
+              "min": 7175784,
+              "max": 10903984
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16154624,
+              "min": 16121856,
+              "max": 20316160
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 135249920,
+              "min": 135184384,
+              "max": 136134656
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 15209112,
+              "min": 15174496,
+              "max": 15251856
+            }
+          },
+          "second-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 9423680,
+              "min": 8926448,
+              "max": 9717184
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16023552,
+              "min": 15990784,
+              "max": 16023552
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 133398528,
+              "min": 133283840,
+              "max": 133480448
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 13741424,
+              "min": 13247256,
+              "max": 14022312
+            }
+          }
+        },
+        "post_close_forced_gc_ms": {
+          "n": 3,
+          "median": 0.426625,
+          "min": 0.303417,
+          "max": 0.626041
+        }
+      },
+      "pairs": [
+        {
+          "label": "n100-r0-control",
+          "control_ms": 552.471957,
+          "heap_ms": 392.572874,
+          "delta_ms": -159.89908299999996
+        },
+        {
+          "label": "n100-r1-control",
+          "control_ms": 545.526376,
+          "heap_ms": 396.375918,
+          "delta_ms": -149.15045800000001
+        },
+        {
+          "label": "n100-r2-control",
+          "control_ms": 544.743708,
+          "heap_ms": 387.093041,
+          "delta_ms": -157.65066699999994
+        }
+      ],
+      "heap_faster_pairs": 3,
+      "median_delta_percent": -28.03778308970344
+    },
+    "10000": {
+      "control": {
+        "whole_ms": {
+          "n": 3,
+          "median": 1329.369169,
+          "min": 1327.341248,
+          "max": 1361.542418
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 48.960875,
+          "min": 48.363625,
+          "max": 51.47825
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 744.580708,
+          "min": 742.322833,
+          "max": 752.57075
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 360.948708,
+          "min": 360.155542,
+          "max": 402.725916
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 2.469292,
+          "min": 2.086958,
+          "max": 2.499708
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 53.932875,
+          "min": 52.226583,
+          "max": 54.990792
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 19.495083,
+          "min": 15.875166,
+          "max": 23.234292
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 2.6806039999999998,
+          "min": 2.535625,
+          "max": 2.868458
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.270458,
+          "min": 5.220334,
+          "max": 6.30225
+        },
+        "two_children_ms": {
+          "n": 3,
+          "median": 165.61258200000003,
+          "min": 164.782001,
+          "max": 168.638541
+        },
+        "resources": {
+          "after-close": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 532604616,
+              "min": 532596872,
+              "max": 532614208
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 590741504,
+              "min": 590675968,
+              "max": 599162880
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 687292416,
+              "min": 687292416,
+              "max": 698351616
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 724351408,
+              "min": 724304472,
+              "max": 724384648
+            }
+          },
+          "after-close-gc": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 308384,
+              "min": 306736,
+              "max": 311072
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 590741504,
+              "min": 590675968,
+              "max": 599162880
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 687292416,
+              "min": 687292416,
+              "max": 698351616
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 5,
+              "min": 5,
+              "max": 5
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 724351680,
+              "min": 724304744,
+              "max": 724384920
+            }
+          },
+          "after-seed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 318835352,
+              "min": 318820896,
+              "max": 318883392
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 326172672,
+              "min": 326172672,
+              "max": 330399744
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 296910848,
+              "min": 296583168,
+              "max": 297615360
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 362979296,
+              "min": 362941040,
+              "max": 363028512
+            }
+          },
+          "after-snapshot": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 506102752,
+              "min": 506102224,
+              "max": 506103448
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 565608448,
+              "min": 565608448,
+              "max": 573997056
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 673038336,
+              "min": 672858112,
+              "max": 684228608
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 697840648,
+              "min": 697802608,
+              "max": 697890000
+            }
+          },
+          "after-start": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 157969912,
+              "min": 157965288,
+              "max": 157974896
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 171343872,
+              "min": 171311104,
+              "max": 171376640
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 116031488,
+              "min": 115982336,
+              "max": 116113408
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 158117616,
+              "min": 158112992,
+              "max": 158122584
+            }
+          },
+          "first-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 519338704,
+              "min": 519335696,
+              "max": 519339016
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 578158592,
+              "min": 578125824,
+              "max": 586579968
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 683933696,
+              "min": 683753472,
+              "max": 694992896
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 711075904,
+              "min": 711038872,
+              "max": 711123472
+            }
+          },
+          "first-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 519208376,
+              "min": 519205360,
+              "max": 519209680
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 578027520,
+              "min": 578027520,
+              "max": 586448896
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 681951232,
+              "min": 681852928,
+              "max": 692977664
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 710946880,
+              "min": 710908232,
+              "max": 710993136
+            }
+          },
+          "second-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 532604024,
+              "min": 532596280,
+              "max": 532613616
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 590741504,
+              "min": 590675968,
+              "max": 599162880
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 687292416,
+              "min": 687292416,
+              "max": 698351616
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 724350816,
+              "min": 724303880,
+              "max": 724384056
+            }
+          },
+          "second-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 532435768,
+              "min": 532431528,
+              "max": 532442232
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 590577664,
+              "min": 590544896,
+              "max": 599031808
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 684851200,
+              "min": 684818432,
+              "max": 695975936
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 724179432,
+              "min": 724135624,
+              "max": 724219304
+            }
+          }
+        },
+        "post_close_forced_gc_ms": {
+          "n": 3,
+          "median": 0.412,
+          "min": 0.389375,
+          "max": 0.417208
+        }
+      },
+      "heap": {
+        "whole_ms": {
+          "n": 3,
+          "median": 1175.331667,
+          "min": 1159.844959,
+          "max": 1188.677794
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 49.648042,
+          "min": 48.345458,
+          "max": 53.038167
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 735.163458,
+          "min": 724.851542,
+          "max": 746.94475
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 221.338792,
+          "min": 221.10575,
+          "max": 223.463875
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 0.0005,
+          "min": 0.000458,
+          "max": 0.000625
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 54.9688545,
+          "min": 50.737125,
+          "max": 55.477875
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 19.7143545,
+          "min": 16.313791,
+          "max": 23.646541
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 2.5328125000000004,
+          "min": 2.442541,
+          "max": 2.711375
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.2659375,
+          "min": 5.853334,
+          "max": 6.305958
+        },
+        "two_children_ms": {
+          "n": 3,
+          "median": 165.286539,
+          "min": 165.20991700000002,
+          "max": 169.39212700000002
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 3,
+            "median": 166285321,
+            "min": 166285321,
+            "max": 166285322
+          },
+          "owner_verify_ns": {
+            "n": 3,
+            "median": 72058375,
+            "min": 71363667,
+            "max": 73233791
+          },
+          "payload_copy_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 3,
+            "median": 28622848,
+            "min": 28622848,
+            "max": 28639232
+          },
+          "source_hash_metadata_ns": {
+            "n": 3,
+            "median": 73675709,
+            "min": 72994417,
+            "max": 76884792
+          },
+          "target_verify_ns": {
+            "n": 3,
+            "median": 72476458,
+            "min": 72269375,
+            "max": 72778875
+          }
+        },
+        "resources": {
+          "after-close": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 45729680,
+              "min": 36631328,
+              "max": 46751312
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 57933824,
+              "min": 53837824,
+              "max": 58064896
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 174342144,
+              "min": 172408832,
+              "max": 176816128
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 12
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 127912624,
+              "min": 127880216,
+              "max": 127947168
+            }
+          },
+          "after-close-gc": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 309160,
+              "min": 304520,
+              "max": 309544
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 57966592,
+              "min": 53870592,
+              "max": 58097664
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 174342144,
+              "min": 172408832,
+              "max": 176816128
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 12,
+              "min": 12,
+              "max": 13
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 127912896,
+              "min": 127880488,
+              "max": 127947440
+            }
+          },
+          "after-seed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 37961064,
+              "min": 36927176,
+              "max": 48554480
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 49348608,
+              "min": 49348608,
+              "max": 57835520
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 170131456,
+              "min": 169574400,
+              "max": 174309376
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 11
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 119122376,
+              "min": 119045432,
+              "max": 119144664
+            }
+          },
+          "after-snapshot": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 39331008,
+              "min": 38330488,
+              "max": 49957312
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 49676288,
+              "min": 49610752,
+              "max": 58130432
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 170950656,
+              "min": 170393600,
+              "max": 176390144
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 11
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 120492320,
+              "min": 120448264,
+              "max": 120547976
+            }
+          },
+          "after-start": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 2782632,
+              "min": 2723184,
+              "max": 2860504
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 7798784,
+              "min": 7798784,
+              "max": 11796480
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 115441664,
+              "min": 115310592,
+              "max": 116490240
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 2782632,
+              "min": 2723184,
+              "max": 2860504
+            }
+          },
+          "first-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 42007840,
+              "min": 32907936,
+              "max": 43036880
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 53805056,
+              "min": 49676288,
+              "max": 58032128
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 170950656,
+              "min": 170393600,
+              "max": 176390144
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 12
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 124198192,
+              "min": 124156824,
+              "max": 124225328
+            }
+          },
+          "first-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 40727432,
+              "min": 31519432,
+              "max": 41225040
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 49512448,
+              "min": 49446912,
+              "max": 57933824
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 170950656,
+              "min": 170393600,
+              "max": 176390144
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 12
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 122768320,
+              "min": 122386352,
+              "max": 122944920
+            }
+          },
+          "second-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 45726912,
+              "min": 36628560,
+              "max": 46748544
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 57933824,
+              "min": 53837824,
+              "max": 58064896
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 174342144,
+              "min": 172408832,
+              "max": 176816128
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 12
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 127909856,
+              "min": 127877448,
+              "max": 127944400
+            }
+          },
+          "second-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 44375864,
+              "min": 35086160,
+              "max": 45449568
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 53575680,
+              "min": 49479680,
+              "max": 57868288
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 171819008,
+              "min": 170950656,
+              "max": 176390144
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 12
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 126593352,
+              "min": 126335048,
+              "max": 126610880
+            }
+          }
+        },
+        "post_close_forced_gc_ms": {
+          "n": 3,
+          "median": 0.998708,
+          "min": 0.82425,
+          "max": 1.123
+        }
+      },
+      "pairs": [
+        {
+          "label": "n10000-r0-control",
+          "control_ms": 1327.341248,
+          "heap_ms": 1159.844959,
+          "delta_ms": -167.49628899999993
+        },
+        {
+          "label": "n10000-r1-control",
+          "control_ms": 1329.369169,
+          "heap_ms": 1188.677794,
+          "delta_ms": -140.6913750000001
+        },
+        {
+          "label": "n10000-r2-control",
+          "control_ms": 1361.542418,
+          "heap_ms": 1175.331667,
+          "delta_ms": -186.21075100000007
+        }
+      ],
+      "heap_faster_pairs": 3,
+      "median_delta_percent": -11.587263011062065
+    }
+  }
+}

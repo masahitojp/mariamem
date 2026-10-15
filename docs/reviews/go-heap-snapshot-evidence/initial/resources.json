@@ -1,0 +1,1352 @@
+[
+  {
+    "label": "n100-r0-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "post_close_forced_gc_ms": 0.373,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 464207416,
+        "heap_sys": 473366528,
+        "maxrss_raw": 574291968,
+        "num_gc": 3,
+        "total_alloc": 477937864
+      },
+      "after-close-gc": {
+        "heap_alloc": 290000,
+        "heap_sys": 473366528,
+        "maxrss_raw": 574291968,
+        "num_gc": 4,
+        "total_alloc": 477938136
+      },
+      "after-seed": {
+        "heap_alloc": 159155120,
+        "heap_sys": 171212800,
+        "maxrss_raw": 126664704,
+        "num_gc": 2,
+        "total_alloc": 159302808
+      },
+      "after-snapshot": {
+        "heap_alloc": 437722336,
+        "heap_sys": 448266240,
+        "maxrss_raw": 558039040,
+        "num_gc": 3,
+        "total_alloc": 451452784
+      },
+      "after-start": {
+        "heap_alloc": 157970480,
+        "heap_sys": 171311104,
+        "maxrss_raw": 115998720,
+        "num_gc": 2,
+        "total_alloc": 158118168
+      },
+      "first-closed": {
+        "heap_alloc": 450945920,
+        "heap_sys": 460816384,
+        "maxrss_raw": 570245120,
+        "num_gc": 3,
+        "total_alloc": 464676368
+      },
+      "first-started": {
+        "heap_alloc": 450832496,
+        "heap_sys": 460685312,
+        "maxrss_raw": 568672256,
+        "num_gc": 3,
+        "total_alloc": 464562944
+      },
+      "second-closed": {
+        "heap_alloc": 464206824,
+        "heap_sys": 473366528,
+        "maxrss_raw": 574291968,
+        "num_gc": 3,
+        "total_alloc": 477937272
+      },
+      "second-started": {
+        "heap_alloc": 464057112,
+        "heap_sys": 473268224,
+        "maxrss_raw": 572178432,
+        "num_gc": 3,
+        "total_alloc": 477787560
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.25075,
+      "first/close": 2.505667,
+      "first/connect": 0.945209,
+      "first/crud": 3.891166,
+      "first/disconnect": 6.2775,
+      "first/startup": 52.893667,
+      "second/close": 2.605,
+      "second/connect": 1.009583,
+      "second/crud": 5.497833,
+      "second/disconnect": 6.273834,
+      "second/startup": 53.29175,
+      "setup/migrate-seed": 14.036166,
+      "setup/snapshot": 343.080375,
+      "setup/start": 47.711042
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 542.294042
+  },
+  {
+    "label": "n100-r0-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953645,
+      "owner_verify_ns": 63591375,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3194880,
+      "source_hash_metadata_ns": 61872041,
+      "target_verify_ns": 61561208
+    },
+    "mode": "heap",
+    "post_close_forced_gc_ms": 0.446417,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 10910576,
+        "heap_sys": 16089088,
+        "maxrss_raw": 135905280,
+        "num_gc": 3,
+        "total_alloc": 15225472
+      },
+      "after-close-gc": {
+        "heap_alloc": 278840,
+        "heap_sys": 16121856,
+        "maxrss_raw": 135905280,
+        "num_gc": 4,
+        "total_alloc": 15225744
+      },
+      "after-seed": {
+        "heap_alloc": 5900928,
+        "heap_sys": 11796480,
+        "maxrss_raw": 126517248,
+        "num_gc": 2,
+        "total_alloc": 6515096
+      },
+      "after-snapshot": {
+        "heap_alloc": 7304360,
+        "heap_sys": 11993088,
+        "maxrss_raw": 128827392,
+        "num_gc": 2,
+        "total_alloc": 7918528
+      },
+      "after-start": {
+        "heap_alloc": 2810888,
+        "heap_sys": 7831552,
+        "maxrss_raw": 115654656,
+        "num_gc": 0,
+        "total_alloc": 2810888
+      },
+      "first-closed": {
+        "heap_alloc": 7235856,
+        "heap_sys": 16187392,
+        "maxrss_raw": 133644288,
+        "num_gc": 3,
+        "total_alloc": 11550752
+      },
+      "first-started": {
+        "heap_alloc": 9511240,
+        "heap_sys": 15958016,
+        "maxrss_raw": 131284992,
+        "num_gc": 2,
+        "total_alloc": 10125408
+      },
+      "second-closed": {
+        "heap_alloc": 10907808,
+        "heap_sys": 16121856,
+        "maxrss_raw": 135905280,
+        "num_gc": 3,
+        "total_alloc": 15222704
+      },
+      "second-started": {
+        "heap_alloc": 9702096,
+        "heap_sys": 15990784,
+        "maxrss_raw": 133955584,
+        "num_gc": 3,
+        "total_alloc": 14016992
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000625,
+      "first/close": 2.564917,
+      "first/connect": 1.10475,
+      "first/crud": 5.158333,
+      "first/disconnect": 5.594042,
+      "first/startup": 52.972167,
+      "second/close": 2.734583,
+      "second/connect": 0.916208,
+      "second/crud": 5.584666,
+      "second/disconnect": 6.296584,
+      "second/startup": 50.899458,
+      "setup/migrate-seed": 13.75475,
+      "setup/snapshot": 190.019208,
+      "setup/start": 47.057625
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 384.669957
+  },
+  {
+    "label": "n100-r1-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "post_close_forced_gc_ms": 0.414084,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 464195232,
+        "heap_sys": 473399296,
+        "maxrss_raw": 574619648,
+        "num_gc": 3,
+        "total_alloc": 477912608
+      },
+      "after-close-gc": {
+        "heap_alloc": 289992,
+        "heap_sys": 473399296,
+        "maxrss_raw": 574619648,
+        "num_gc": 4,
+        "total_alloc": 477912880
+      },
+      "after-seed": {
+        "heap_alloc": 159146880,
+        "heap_sys": 171212800,
+        "maxrss_raw": 126746624,
+        "num_gc": 2,
+        "total_alloc": 159294520
+      },
+      "after-snapshot": {
+        "heap_alloc": 437719168,
+        "heap_sys": 448266240,
+        "maxrss_raw": 558120960,
+        "num_gc": 3,
+        "total_alloc": 451436544
+      },
+      "after-start": {
+        "heap_alloc": 157969952,
+        "heap_sys": 171343872,
+        "maxrss_raw": 116097024,
+        "num_gc": 2,
+        "total_alloc": 158117592
+      },
+      "first-closed": {
+        "heap_alloc": 450929152,
+        "heap_sys": 460816384,
+        "maxrss_raw": 570687488,
+        "num_gc": 3,
+        "total_alloc": 464646528
+      },
+      "first-started": {
+        "heap_alloc": 450808680,
+        "heap_sys": 460718080,
+        "maxrss_raw": 568672256,
+        "num_gc": 3,
+        "total_alloc": 464526056
+      },
+      "second-closed": {
+        "heap_alloc": 464194672,
+        "heap_sys": 473399296,
+        "maxrss_raw": 574619648,
+        "num_gc": 3,
+        "total_alloc": 477912048
+      },
+      "second-started": {
+        "heap_alloc": 464039512,
+        "heap_sys": 473268224,
+        "maxrss_raw": 572719104,
+        "num_gc": 3,
+        "total_alloc": 477756888
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.127833,
+      "first/close": 2.579625,
+      "first/connect": 0.937542,
+      "first/crud": 4.283208,
+      "first/disconnect": 6.277,
+      "first/startup": 56.120083,
+      "second/close": 2.619666,
+      "second/connect": 0.869875,
+      "second/crud": 5.641,
+      "second/disconnect": 6.282208,
+      "second/startup": 53.063125,
+      "setup/migrate-seed": 13.780375,
+      "setup/snapshot": 340.41125,
+      "setup/start": 46.931667
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 541.950667
+  },
+  {
+    "label": "n100-r1-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 61660875,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3178496,
+      "source_hash_metadata_ns": 62225084,
+      "target_verify_ns": 61599667
+    },
+    "mode": "heap",
+    "post_close_forced_gc_ms": 0.600833,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 10898392,
+        "heap_sys": 16056320,
+        "maxrss_raw": 135446528,
+        "num_gc": 3,
+        "total_alloc": 15191784
+      },
+      "after-close-gc": {
+        "heap_alloc": 295344,
+        "heap_sys": 16089088,
+        "maxrss_raw": 135446528,
+        "num_gc": 4,
+        "total_alloc": 15192056
+      },
+      "after-seed": {
+        "heap_alloc": 5898736,
+        "heap_sys": 11763712,
+        "maxrss_raw": 126418944,
+        "num_gc": 2,
+        "total_alloc": 6502256
+      },
+      "after-snapshot": {
+        "heap_alloc": 7293040,
+        "heap_sys": 11960320,
+        "maxrss_raw": 128794624,
+        "num_gc": 2,
+        "total_alloc": 7896560
+      },
+      "after-start": {
+        "heap_alloc": 2765288,
+        "heap_sys": 7733248,
+        "maxrss_raw": 115441664,
+        "num_gc": 0,
+        "total_alloc": 2765288
+      },
+      "first-closed": {
+        "heap_alloc": 7228296,
+        "heap_sys": 16154624,
+        "maxrss_raw": 133906432,
+        "num_gc": 3,
+        "total_alloc": 11521688
+      },
+      "first-started": {
+        "heap_alloc": 9198384,
+        "heap_sys": 15990784,
+        "maxrss_raw": 131186688,
+        "num_gc": 2,
+        "total_alloc": 9801904
+      },
+      "second-closed": {
+        "heap_alloc": 10895624,
+        "heap_sys": 16089088,
+        "maxrss_raw": 135446528,
+        "num_gc": 3,
+        "total_alloc": 15189016
+      },
+      "second-started": {
+        "heap_alloc": 9644912,
+        "heap_sys": 15990784,
+        "maxrss_raw": 133906432,
+        "num_gc": 3,
+        "total_alloc": 13938304
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000667,
+      "first/close": 2.687167,
+      "first/connect": 0.987542,
+      "first/crud": 4.768917,
+      "first/disconnect": 6.295375,
+      "first/startup": 54.317333,
+      "second/close": 2.526959,
+      "second/connect": 0.914417,
+      "second/crud": 6.052417,
+      "second/disconnect": 6.302959,
+      "second/startup": 50.88975,
+      "setup/migrate-seed": 14.636834,
+      "setup/snapshot": 188.523958,
+      "setup/start": 46.374834
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 385.296251
+  },
+  {
+    "label": "n100-r2-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "post_close_forced_gc_ms": 0.417667,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 464193584,
+        "heap_sys": 473432064,
+        "maxrss_raw": 574586880,
+        "num_gc": 3,
+        "total_alloc": 477904792
+      },
+      "after-close-gc": {
+        "heap_alloc": 289320,
+        "heap_sys": 473432064,
+        "maxrss_raw": 574586880,
+        "num_gc": 4,
+        "total_alloc": 477905064
+      },
+      "after-seed": {
+        "heap_alloc": 159149064,
+        "heap_sys": 171278336,
+        "maxrss_raw": 126697472,
+        "num_gc": 2,
+        "total_alloc": 159296768
+      },
+      "after-snapshot": {
+        "heap_alloc": 437719048,
+        "heap_sys": 448331776,
+        "maxrss_raw": 558071808,
+        "num_gc": 3,
+        "total_alloc": 451430256
+      },
+      "after-start": {
+        "heap_alloc": 157970904,
+        "heap_sys": 171343872,
+        "maxrss_raw": 116162560,
+        "num_gc": 2,
+        "total_alloc": 158118608
+      },
+      "first-closed": {
+        "heap_alloc": 450933536,
+        "heap_sys": 460849152,
+        "maxrss_raw": 570785792,
+        "num_gc": 3,
+        "total_alloc": 464644744
+      },
+      "first-started": {
+        "heap_alloc": 450815552,
+        "heap_sys": 460750848,
+        "maxrss_raw": 568967168,
+        "num_gc": 3,
+        "total_alloc": 464526760
+      },
+      "second-closed": {
+        "heap_alloc": 464192992,
+        "heap_sys": 473432064,
+        "maxrss_raw": 574586880,
+        "num_gc": 3,
+        "total_alloc": 477904200
+      },
+      "second-started": {
+        "heap_alloc": 464050008,
+        "heap_sys": 473268224,
+        "maxrss_raw": 572801024,
+        "num_gc": 3,
+        "total_alloc": 477761216
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.541333,
+      "first/close": 2.576042,
+      "first/connect": 0.95425,
+      "first/crud": 3.765167,
+      "first/disconnect": 6.258625,
+      "first/startup": 56.447917,
+      "second/close": 2.763209,
+      "second/connect": 0.876541,
+      "second/crud": 5.1505,
+      "second/disconnect": 5.280625,
+      "second/startup": 55.173458,
+      "setup/migrate-seed": 13.34275,
+      "setup/snapshot": 375.036916,
+      "setup/start": 47.515416
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 577.695292
+  },
+  {
+    "label": "n100-r2-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953640,
+      "owner_verify_ns": 61598333,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3194880,
+      "source_hash_metadata_ns": 62994875,
+      "target_verify_ns": 61650083
+    },
+    "mode": "heap",
+    "post_close_forced_gc_ms": 0.451917,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 10904088,
+        "heap_sys": 20316160,
+        "maxrss_raw": 135495680,
+        "num_gc": 3,
+        "total_alloc": 15212272
+      },
+      "after-close-gc": {
+        "heap_alloc": 284976,
+        "heap_sys": 20348928,
+        "maxrss_raw": 135495680,
+        "num_gc": 4,
+        "total_alloc": 15212544
+      },
+      "after-seed": {
+        "heap_alloc": 5932312,
+        "heap_sys": 11730944,
+        "maxrss_raw": 126861312,
+        "num_gc": 2,
+        "total_alloc": 6529672
+      },
+      "after-snapshot": {
+        "heap_alloc": 7332416,
+        "heap_sys": 16154624,
+        "maxrss_raw": 129220608,
+        "num_gc": 2,
+        "total_alloc": 7929776
+      },
+      "after-start": {
+        "heap_alloc": 2713000,
+        "heap_sys": 12025856,
+        "maxrss_raw": 115687424,
+        "num_gc": 0,
+        "total_alloc": 2713000
+      },
+      "first-closed": {
+        "heap_alloc": 7252056,
+        "heap_sys": 16187392,
+        "maxrss_raw": 133185536,
+        "num_gc": 3,
+        "total_alloc": 11560240
+      },
+      "first-started": {
+        "heap_alloc": 9709272,
+        "heap_sys": 15958016,
+        "maxrss_raw": 132153344,
+        "num_gc": 2,
+        "total_alloc": 10306632
+      },
+      "second-closed": {
+        "heap_alloc": 10901320,
+        "heap_sys": 20348928,
+        "maxrss_raw": 135495680,
+        "num_gc": 3,
+        "total_alloc": 15209504
+      },
+      "second-started": {
+        "heap_alloc": 9464608,
+        "heap_sys": 16023552,
+        "maxrss_raw": 133185536,
+        "num_gc": 3,
+        "total_alloc": 13772792
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000583,
+      "first/close": 2.359083,
+      "first/connect": 0.894542,
+      "first/crud": 4.039584,
+      "first/disconnect": 6.144167,
+      "first/startup": 50.03075,
+      "second/close": 2.412125,
+      "second/connect": 0.923708,
+      "second/crud": 6.446666,
+      "second/disconnect": 6.259166,
+      "second/startup": 50.529083,
+      "setup/migrate-seed": 15.227542,
+      "setup/snapshot": 189.205209,
+      "setup/start": 49.355709
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 383.841208
+  },
+  {
+    "label": "n10000-r0-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "post_close_forced_gc_ms": 0.418167,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 532610216,
+        "heap_sys": 594903040,
+        "maxrss_raw": 687112192,
+        "num_gc": 4,
+        "total_alloc": 724388864
+      },
+      "after-close-gc": {
+        "heap_alloc": 311752,
+        "heap_sys": 594903040,
+        "maxrss_raw": 687112192,
+        "num_gc": 5,
+        "total_alloc": 724389136
+      },
+      "after-seed": {
+        "heap_alloc": 318876240,
+        "heap_sys": 330334208,
+        "maxrss_raw": 297074688,
+        "num_gc": 3,
+        "total_alloc": 363021560
+      },
+      "after-snapshot": {
+        "heap_alloc": 506101360,
+        "heap_sys": 569769984,
+        "maxrss_raw": 672464896,
+        "num_gc": 4,
+        "total_alloc": 697880008
+      },
+      "after-start": {
+        "heap_alloc": 157965560,
+        "heap_sys": 171311104,
+        "maxrss_raw": 115998720,
+        "num_gc": 2,
+        "total_alloc": 158113232
+      },
+      "first-closed": {
+        "heap_alloc": 519347896,
+        "heap_sys": 582352896,
+        "maxrss_raw": 683606016,
+        "num_gc": 4,
+        "total_alloc": 711126544
+      },
+      "first-started": {
+        "heap_alloc": 519207856,
+        "heap_sys": 582189056,
+        "maxrss_raw": 681361408,
+        "num_gc": 4,
+        "total_alloc": 710986504
+      },
+      "second-closed": {
+        "heap_alloc": 532609624,
+        "heap_sys": 594903040,
+        "maxrss_raw": 687112192,
+        "num_gc": 4,
+        "total_alloc": 724388272
+      },
+      "second-started": {
+        "heap_alloc": 532449120,
+        "heap_sys": 594771968,
+        "maxrss_raw": 684572672,
+        "num_gc": 4,
+        "total_alloc": 724227768
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.664583,
+      "first/close": 2.667583,
+      "first/connect": 0.905041,
+      "first/crud": 16.858917,
+      "first/disconnect": 6.258584,
+      "first/startup": 53.55675,
+      "second/close": 2.736667,
+      "second/connect": 1.006042,
+      "second/crud": 22.403458,
+      "second/disconnect": 6.266125,
+      "second/startup": 57.756291,
+      "setup/migrate-seed": 739.166041,
+      "setup/snapshot": 390.165167,
+      "setup/start": 46.679583
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 1349.109252
+  },
+  {
+    "label": "n10000-r0-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285322,
+      "owner_verify_ns": 71433042,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28639232,
+      "source_hash_metadata_ns": 73557416,
+      "target_verify_ns": 72402250
+    },
+    "mode": "heap",
+    "post_close_forced_gc_ms": 0.786375,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 36543776,
+        "heap_sys": 58032128,
+        "maxrss_raw": 176750592,
+        "num_gc": 12,
+        "total_alloc": 127857264
+      },
+      "after-close-gc": {
+        "heap_alloc": 308696,
+        "heap_sys": 58064896,
+        "maxrss_raw": 176750592,
+        "num_gc": 13,
+        "total_alloc": 127857536
+      },
+      "after-seed": {
+        "heap_alloc": 45550992,
+        "heap_sys": 49381376,
+        "maxrss_raw": 170491904,
+        "num_gc": 11,
+        "total_alloc": 119052800
+      },
+      "after-snapshot": {
+        "heap_alloc": 46953640,
+        "heap_sys": 53870592,
+        "maxrss_raw": 172605440,
+        "num_gc": 11,
+        "total_alloc": 120455448
+      },
+      "after-start": {
+        "heap_alloc": 2915320,
+        "heap_sys": 7634944,
+        "maxrss_raw": 116457472,
+        "num_gc": 0,
+        "total_alloc": 2915320
+      },
+      "first-closed": {
+        "heap_alloc": 32821352,
+        "heap_sys": 58097664,
+        "maxrss_raw": 175292416,
+        "num_gc": 12,
+        "total_alloc": 124134840
+      },
+      "first-started": {
+        "heap_alloc": 49092960,
+        "heap_sys": 53673984,
+        "maxrss_raw": 173195264,
+        "num_gc": 11,
+        "total_alloc": 122594768
+      },
+      "second-closed": {
+        "heap_alloc": 36541008,
+        "heap_sys": 58064896,
+        "maxrss_raw": 176750592,
+        "num_gc": 12,
+        "total_alloc": 127854496
+      },
+      "second-started": {
+        "heap_alloc": 35239024,
+        "heap_sys": 57901056,
+        "maxrss_raw": 175292416,
+        "num_gc": 12,
+        "total_alloc": 126552512
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000334,
+      "first/close": 2.634875,
+      "first/connect": 1.440542,
+      "first/crud": 17.394166,
+      "first/disconnect": 5.27225,
+      "first/startup": 53.319125,
+      "second/close": 2.535708,
+      "second/connect": 0.935333,
+      "second/crud": 23.205458,
+      "second/disconnect": 6.26375,
+      "second/startup": 50.555416,
+      "setup/migrate-seed": 730.392625,
+      "setup/snapshot": 220.066375,
+      "setup/start": 51.977
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1166.014042
+  },
+  {
+    "label": "n10000-r1-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "post_close_forced_gc_ms": 0.52625,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 532603496,
+        "heap_sys": 590741504,
+        "maxrss_raw": 686456832,
+        "num_gc": 4,
+        "total_alloc": 724395344
+      },
+      "after-close-gc": {
+        "heap_alloc": 308544,
+        "heap_sys": 590741504,
+        "maxrss_raw": 686456832,
+        "num_gc": 5,
+        "total_alloc": 724395616
+      },
+      "after-seed": {
+        "heap_alloc": 318935680,
+        "heap_sys": 326205440,
+        "maxrss_raw": 296910848,
+        "num_gc": 3,
+        "total_alloc": 363029752
+      },
+      "after-snapshot": {
+        "heap_alloc": 506096920,
+        "heap_sys": 565608448,
+        "maxrss_raw": 672497664,
+        "num_gc": 4,
+        "total_alloc": 697888768
+      },
+      "after-start": {
+        "heap_alloc": 157971384,
+        "heap_sys": 171376640,
+        "maxrss_raw": 116162560,
+        "num_gc": 2,
+        "total_alloc": 158119088
+      },
+      "first-closed": {
+        "heap_alloc": 519345080,
+        "heap_sys": 578158592,
+        "maxrss_raw": 683327488,
+        "num_gc": 4,
+        "total_alloc": 711136928
+      },
+      "first-started": {
+        "heap_alloc": 519203160,
+        "heap_sys": 578027520,
+        "maxrss_raw": 681279488,
+        "num_gc": 4,
+        "total_alloc": 710995008
+      },
+      "second-closed": {
+        "heap_alloc": 532602904,
+        "heap_sys": 590741504,
+        "maxrss_raw": 686456832,
+        "num_gc": 4,
+        "total_alloc": 724394752
+      },
+      "second-started": {
+        "heap_alloc": 532445984,
+        "heap_sys": 590610432,
+        "maxrss_raw": 684130304,
+        "num_gc": 4,
+        "total_alloc": 724237832
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 3.384917,
+      "first/close": 2.76225,
+      "first/connect": 0.882375,
+      "first/crud": 16.63375,
+      "first/disconnect": 5.275708,
+      "first/startup": 53.189041,
+      "second/close": 2.779083,
+      "second/connect": 0.862709,
+      "second/crud": 22.884167,
+      "second/disconnect": 6.28825,
+      "second/startup": 52.675834,
+      "setup/migrate-seed": 756.904125,
+      "setup/snapshot": 410.399375,
+      "setup/start": 48.888125
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 1383.826249
+  },
+  {
+    "label": "n10000-r1-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285322,
+      "owner_verify_ns": 71313000,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28622848,
+      "source_hash_metadata_ns": 72308458,
+      "target_verify_ns": 71280667
+    },
+    "mode": "heap",
+    "post_close_forced_gc_ms": 0.766917,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 36538416,
+        "heap_sys": 58032128,
+        "maxrss_raw": 178733056,
+        "num_gc": 12,
+        "total_alloc": 127965864
+      },
+      "after-close-gc": {
+        "heap_alloc": 308416,
+        "heap_sys": 58064896,
+        "maxrss_raw": 178733056,
+        "num_gc": 13,
+        "total_alloc": 127966136
+      },
+      "after-seed": {
+        "heap_alloc": 48039864,
+        "heap_sys": 53510144,
+        "maxrss_raw": 173850624,
+        "num_gc": 11,
+        "total_alloc": 119150200
+      },
+      "after-snapshot": {
+        "heap_alloc": 49442632,
+        "heap_sys": 58032128,
+        "maxrss_raw": 175964160,
+        "num_gc": 11,
+        "total_alloc": 120552968
+      },
+      "after-start": {
+        "heap_alloc": 2828112,
+        "heap_sys": 7864320,
+        "maxrss_raw": 115359744,
+        "num_gc": 0,
+        "total_alloc": 2828112
+      },
+      "first-closed": {
+        "heap_alloc": 32824440,
+        "heap_sys": 58064896,
+        "maxrss_raw": 177389568,
+        "num_gc": 12,
+        "total_alloc": 124251888
+      },
+      "first-started": {
+        "heap_alloc": 51879600,
+        "heap_sys": 57737216,
+        "maxrss_raw": 175964160,
+        "num_gc": 11,
+        "total_alloc": 122989936
+      },
+      "second-closed": {
+        "heap_alloc": 36535648,
+        "heap_sys": 58032128,
+        "maxrss_raw": 178733056,
+        "num_gc": 12,
+        "total_alloc": 127963096
+      },
+      "second-started": {
+        "heap_alloc": 35236904,
+        "heap_sys": 57901056,
+        "maxrss_raw": 177455104,
+        "num_gc": 12,
+        "total_alloc": 126664352
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000625,
+      "first/close": 2.621083,
+      "first/connect": 1.302709,
+      "first/crud": 16.2485,
+      "first/disconnect": 6.272125,
+      "first/startup": 50.827333,
+      "second/close": 2.51375,
+      "second/connect": 0.9485,
+      "second/crud": 22.738417,
+      "second/disconnect": 6.262875,
+      "second/startup": 50.60825,
+      "setup/migrate-seed": 727.738916,
+      "setup/snapshot": 217.552791,
+      "setup/start": 48.727208
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1154.381207
+  },
+  {
+    "label": "n10000-r2-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "post_close_forced_gc_ms": 0.3945,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 532619248,
+        "heap_sys": 611713024,
+        "maxrss_raw": 707444736,
+        "num_gc": 4,
+        "total_alloc": 724332552
+      },
+      "after-close-gc": {
+        "heap_alloc": 311560,
+        "heap_sys": 611713024,
+        "maxrss_raw": 707444736,
+        "num_gc": 5,
+        "total_alloc": 724332824
+      },
+      "after-seed": {
+        "heap_alloc": 318886992,
+        "heap_sys": 326238208,
+        "maxrss_raw": 296615936,
+        "num_gc": 3,
+        "total_alloc": 362955240
+      },
+      "after-snapshot": {
+        "heap_alloc": 506100080,
+        "heap_sys": 586612736,
+        "maxrss_raw": 693239808,
+        "num_gc": 4,
+        "total_alloc": 697813384
+      },
+      "after-start": {
+        "heap_alloc": 157973128,
+        "heap_sys": 167149568,
+        "maxrss_raw": 115998720,
+        "num_gc": 2,
+        "total_alloc": 158120816
+      },
+      "first-closed": {
+        "heap_alloc": 519350496,
+        "heap_sys": 599130112,
+        "maxrss_raw": 704135168,
+        "num_gc": 4,
+        "total_alloc": 711063800
+      },
+      "first-started": {
+        "heap_alloc": 519208968,
+        "heap_sys": 599031808,
+        "maxrss_raw": 702152704,
+        "num_gc": 4,
+        "total_alloc": 710922272
+      },
+      "second-closed": {
+        "heap_alloc": 532618656,
+        "heap_sys": 611713024,
+        "maxrss_raw": 707444736,
+        "num_gc": 4,
+        "total_alloc": 724331960
+      },
+      "second-started": {
+        "heap_alloc": 532453392,
+        "heap_sys": 611516416,
+        "maxrss_raw": 705052672,
+        "num_gc": 4,
+        "total_alloc": 724166696
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.682208,
+      "first/close": 2.749083,
+      "first/connect": 0.87425,
+      "first/crud": 16.403792,
+      "first/disconnect": 6.259166,
+      "first/startup": 56.156625,
+      "second/close": 2.675125,
+      "second/connect": 0.980084,
+      "second/crud": 22.897417,
+      "second/disconnect": 6.254583,
+      "second/startup": 57.0035,
+      "setup/migrate-seed": 737.344291,
+      "setup/snapshot": 368.29425,
+      "setup/start": 48.204958
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 1328.803542
+  },
+  {
+    "label": "n10000-r2-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285322,
+      "owner_verify_ns": 71607083,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28639232,
+      "source_hash_metadata_ns": 73567209,
+      "target_verify_ns": 72662791
+    },
+    "mode": "heap",
+    "post_close_forced_gc_ms": 1.1265,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 43830520,
+        "heap_sys": 58032128,
+        "maxrss_raw": 175063040,
+        "num_gc": 12,
+        "total_alloc": 127957680
+      },
+      "after-close-gc": {
+        "heap_alloc": 305304,
+        "heap_sys": 58064896,
+        "maxrss_raw": 175063040,
+        "num_gc": 13,
+        "total_alloc": 127957952
+      },
+      "after-seed": {
+        "heap_alloc": 35026480,
+        "heap_sys": 57769984,
+        "maxrss_raw": 173359104,
+        "num_gc": 12,
+        "total_alloc": 119153640
+      },
+      "after-snapshot": {
+        "heap_alloc": 36429240,
+        "heap_sys": 58097664,
+        "maxrss_raw": 174211072,
+        "num_gc": 12,
+        "total_alloc": 120556400
+      },
+      "after-start": {
+        "heap_alloc": 2656352,
+        "heap_sys": 7667712,
+        "maxrss_raw": 116703232,
+        "num_gc": 1,
+        "total_alloc": 2921440
+      },
+      "first-closed": {
+        "heap_alloc": 40109752,
+        "heap_sys": 58097664,
+        "maxrss_raw": 174211072,
+        "num_gc": 12,
+        "total_alloc": 124236912
+      },
+      "first-started": {
+        "heap_alloc": 38880496,
+        "heap_sys": 57901056,
+        "maxrss_raw": 174211072,
+        "num_gc": 12,
+        "total_alloc": 123007656
+      },
+      "second-closed": {
+        "heap_alloc": 43827752,
+        "heap_sys": 58032128,
+        "maxrss_raw": 175063040,
+        "num_gc": 12,
+        "total_alloc": 127954912
+      },
+      "second-started": {
+        "heap_alloc": 42066808,
+        "heap_sys": 57933824,
+        "maxrss_raw": 174211072,
+        "num_gc": 12,
+        "total_alloc": 126193968
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000791,
+      "first/close": 2.437458,
+      "first/connect": 0.909584,
+      "first/crud": 16.408417,
+      "first/disconnect": 5.21775,
+      "first/startup": 51.679541,
+      "second/close": 2.552792,
+      "second/connect": 1.144916,
+      "second/crud": 24.259375,
+      "second/disconnect": 6.266167,
+      "second/startup": 50.667958,
+      "setup/migrate-seed": 742.375417,
+      "setup/snapshot": 220.44325,
+      "setup/start": 49.31475
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1173.699792
+  }
+]

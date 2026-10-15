@@ -1,0 +1,55 @@
+[
+  {
+    "label": "n100-r0-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "export_audit_equal": 1,
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 61660666,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3194880,
+      "source_hash_metadata_ns": 62583500,
+      "target_verify_ns": 61664625
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000542,
+      "first/close": 2.377583,
+      "first/connect": 0.948959,
+      "first/crud": 3.72275,
+      "first/disconnect": 6.274,
+      "first/startup": 50.833792,
+      "second/close": 2.445958,
+      "second/connect": 0.953875,
+      "second/crud": 5.529125,
+      "second/disconnect": 6.270542,
+      "second/startup": 50.935417,
+      "setup/migrate-seed": 14.837334,
+      "setup/snapshot": 269.205458,
+      "setup/start": 46.849291
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 461.198291
+  }
+]

@@ -1,0 +1,952 @@
+[
+  {
+    "label": "n100-r0-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.278958,
+      "first/close": 2.724208,
+      "first/connect": 0.936083,
+      "first/crud": 3.936,
+      "first/disconnect": 6.25725,
+      "first/startup": 53.424541,
+      "second/close": 2.574042,
+      "second/connect": 1.051458,
+      "second/crud": 6.817167,
+      "second/disconnect": 6.2805,
+      "second/startup": 57.492041,
+      "setup/migrate-seed": 13.831458,
+      "setup/snapshot": 345.026625,
+      "setup/start": 48.425375
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 551.071542
+  },
+  {
+    "label": "n100-r0-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953645,
+      "owner_verify_ns": 61638708,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3178496,
+      "source_hash_metadata_ns": 61861459,
+      "target_verify_ns": 61620083
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000291,
+      "first/close": 2.681458,
+      "first/connect": 0.916041,
+      "first/crud": 3.583708,
+      "first/disconnect": 6.273542,
+      "first/startup": 51.196292,
+      "second/close": 2.423125,
+      "second/connect": 0.901583,
+      "second/crud": 5.357291,
+      "second/disconnect": 6.274709,
+      "second/startup": 49.658791,
+      "setup/migrate-seed": 13.900375,
+      "setup/snapshot": 188.218375,
+      "setup/start": 50.26175
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 381.666625
+  },
+  {
+    "label": "n100-r1-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.23025,
+      "first/close": 2.511959,
+      "first/connect": 0.889166,
+      "first/crud": 3.8295,
+      "first/disconnect": 6.2645,
+      "first/startup": 51.713708,
+      "second/close": 2.520583,
+      "second/connect": 0.926541,
+      "second/crud": 5.395833,
+      "second/disconnect": 6.270834,
+      "second/startup": 50.980709,
+      "setup/migrate-seed": 14.151542,
+      "setup/snapshot": 363.837542,
+      "setup/start": 48.820375
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 560.357459
+  },
+  {
+    "label": "n100-r1-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 62652166,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3194880,
+      "source_hash_metadata_ns": 62052042,
+      "target_verify_ns": 61690166
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.0005,
+      "first/close": 2.430417,
+      "first/connect": 0.930583,
+      "first/crud": 3.783625,
+      "first/disconnect": 6.272625,
+      "first/startup": 53.621542,
+      "second/close": 2.837208,
+      "second/connect": 0.914375,
+      "second/crud": 5.713,
+      "second/disconnect": 6.255375,
+      "second/startup": 52.446709,
+      "setup/migrate-seed": 15.1805,
+      "setup/snapshot": 189.463833,
+      "setup/start": 47.411791
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 387.271333
+  },
+  {
+    "label": "n100-r2-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.3085,
+      "first/close": 2.60975,
+      "first/connect": 0.872208,
+      "first/crud": 4.002792,
+      "first/disconnect": 6.273291,
+      "first/startup": 53.353416,
+      "second/close": 2.557167,
+      "second/connect": 0.871709,
+      "second/crud": 5.138709,
+      "second/disconnect": 6.273708,
+      "second/startup": 52.000167,
+      "setup/migrate-seed": 14.316334,
+      "setup/snapshot": 354.006459,
+      "setup/start": 51.523083
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 556.119542
+  },
+  {
+    "label": "n100-r2-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 61616625,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3162112,
+      "source_hash_metadata_ns": 64961541,
+      "target_verify_ns": 63637666
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000459,
+      "first/close": 2.449916,
+      "first/connect": 1.064125,
+      "first/crud": 4.342292,
+      "first/disconnect": 6.085709,
+      "first/startup": 51.010583,
+      "second/close": 2.435833,
+      "second/connect": 0.964209,
+      "second/crud": 5.676333,
+      "second/disconnect": 6.275125,
+      "second/startup": 50.087916,
+      "setup/migrate-seed": 14.033958,
+      "setup/snapshot": 193.039542,
+      "setup/start": 46.645917
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 384.124
+  },
+  {
+    "label": "n100-r3-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.118,
+      "first/close": 2.516916,
+      "first/connect": 0.863791,
+      "first/crud": 4.185333,
+      "first/disconnect": 6.275166,
+      "first/startup": 52.410209,
+      "second/close": 2.547667,
+      "second/connect": 0.985916,
+      "second/crud": 6.218459,
+      "second/disconnect": 6.270459,
+      "second/startup": 53.203625,
+      "setup/migrate-seed": 14.204791,
+      "setup/snapshot": 529.972459,
+      "setup/start": 47.4275
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 729.213834
+  },
+  {
+    "label": "n100-r3-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 65592750,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3178496,
+      "source_hash_metadata_ns": 61949500,
+      "target_verify_ns": 62095375
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.0005,
+      "first/close": 2.818375,
+      "first/connect": 0.937458,
+      "first/crud": 3.884583,
+      "first/disconnect": 6.26425,
+      "first/startup": 50.602125,
+      "second/close": 2.520958,
+      "second/connect": 0.973458,
+      "second/crud": 6.123208,
+      "second/disconnect": 6.286416,
+      "second/startup": 52.610916,
+      "setup/migrate-seed": 14.410208,
+      "setup/snapshot": 192.517042,
+      "setup/start": 46.794375
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 386.759165
+  },
+  {
+    "label": "n100-r4-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.120875,
+      "first/close": 2.5845,
+      "first/connect": 0.884917,
+      "first/crud": 3.795791,
+      "first/disconnect": 5.340916,
+      "first/startup": 56.504833,
+      "second/close": 2.682291,
+      "second/connect": 0.867417,
+      "second/crud": 5.564208,
+      "second/disconnect": 6.275834,
+      "second/startup": 52.344166,
+      "setup/migrate-seed": 14.0485,
+      "setup/snapshot": 346.475125,
+      "setup/start": 50.666375
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 550.174458
+  },
+  {
+    "label": "n100-r4-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953645,
+      "owner_verify_ns": 62212333,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3194880,
+      "source_hash_metadata_ns": 66228666,
+      "target_verify_ns": 63614625
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.0005,
+      "first/close": 2.343416,
+      "first/connect": 0.926958,
+      "first/crud": 4.538833,
+      "first/disconnect": 6.009791,
+      "first/startup": 50.346833,
+      "second/close": 2.413625,
+      "second/connect": 0.909834,
+      "second/crud": 5.425667,
+      "second/disconnect": 6.273708,
+      "second/startup": 51.040125,
+      "setup/migrate-seed": 14.479958,
+      "setup/snapshot": 194.881625,
+      "setup/start": 46.5575
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 386.160626
+  },
+  {
+    "label": "n10000-r0-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 1.828167,
+      "first/close": 2.528583,
+      "first/connect": 0.88375,
+      "first/crud": 16.456625,
+      "first/disconnect": 6.268333,
+      "first/startup": 54.875833,
+      "second/close": 3.044042,
+      "second/connect": 0.835167,
+      "second/crud": 23.457583,
+      "second/disconnect": 6.264583,
+      "second/startup": 52.5555,
+      "setup/migrate-seed": 740.743667,
+      "setup/snapshot": 374.507958,
+      "setup/start": 48.733792
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 1332.996875
+  },
+  {
+    "label": "n10000-r0-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285322,
+      "owner_verify_ns": 71322292,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28639232,
+      "source_hash_metadata_ns": 72272083,
+      "target_verify_ns": 72016083
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000625,
+      "first/close": 2.457208,
+      "first/connect": 1.003291,
+      "first/crud": 16.454625,
+      "first/disconnect": 6.263333,
+      "first/startup": 58.312166,
+      "second/close": 2.425416,
+      "second/connect": 1.149542,
+      "second/crud": 23.74375,
+      "second/disconnect": 6.263625,
+      "second/startup": 52.769084,
+      "setup/migrate-seed": 735.447417,
+      "setup/snapshot": 218.186708,
+      "setup/start": 46.725416
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1171.226083
+  },
+  {
+    "label": "n10000-r1-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.063292,
+      "first/close": 2.585417,
+      "first/connect": 0.852292,
+      "first/crud": 16.135042,
+      "first/disconnect": 6.262542,
+      "first/startup": 55.285583,
+      "second/close": 2.720333,
+      "second/connect": 1.036709,
+      "second/crud": 23.558417,
+      "second/disconnect": 6.295084,
+      "second/startup": 54.654834,
+      "setup/migrate-seed": 741.636292,
+      "setup/snapshot": 383.536459,
+      "setup/start": 49.62725
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 1346.263666
+  },
+  {
+    "label": "n10000-r1-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285327,
+      "owner_verify_ns": 74137667,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28639232,
+      "source_hash_metadata_ns": 71574791,
+      "target_verify_ns": 71439875
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000458,
+      "first/close": 2.447333,
+      "first/connect": 1.05225,
+      "first/crud": 16.3955,
+      "first/disconnect": 6.26725,
+      "first/startup": 51.603834,
+      "second/close": 2.4175,
+      "second/connect": 0.857708,
+      "second/crud": 22.593416,
+      "second/disconnect": 6.275333,
+      "second/startup": 49.941,
+      "setup/migrate-seed": 747.564417,
+      "setup/snapshot": 219.862125,
+      "setup/start": 47.974417
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1175.262459
+  },
+  {
+    "label": "n10000-r2-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.512292,
+      "first/close": 2.695375,
+      "first/connect": 1.07,
+      "first/crud": 16.203708,
+      "first/disconnect": 5.773209,
+      "first/startup": 58.243833,
+      "second/close": 2.706208,
+      "second/connect": 1.25125,
+      "second/crud": 22.626958,
+      "second/disconnect": 6.259375,
+      "second/startup": 57.140625,
+      "setup/migrate-seed": 747.356792,
+      "setup/snapshot": 355.139708,
+      "setup/start": 48.961333
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 1327.962208
+  },
+  {
+    "label": "n10000-r2-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285322,
+      "owner_verify_ns": 71884375,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28639232,
+      "source_hash_metadata_ns": 71605459,
+      "target_verify_ns": 74499084
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000541,
+      "first/close": 2.460125,
+      "first/connect": 1.229209,
+      "first/crud": 16.920334,
+      "first/disconnect": 6.26325,
+      "first/startup": 52.225791,
+      "second/close": 2.395125,
+      "second/connect": 0.996583,
+      "second/crud": 22.760375,
+      "second/disconnect": 6.270667,
+      "second/startup": 50.408167,
+      "setup/migrate-seed": 735.203666,
+      "setup/snapshot": 220.485917,
+      "setup/start": 46.075917
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1163.722498
+  },
+  {
+    "label": "n10000-r3-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 1.233917,
+      "first/close": 2.575042,
+      "first/connect": 0.951167,
+      "first/crud": 16.530917,
+      "first/disconnect": 5.199709,
+      "first/startup": 52.888708,
+      "second/close": 2.602334,
+      "second/connect": 0.897708,
+      "second/crud": 22.796875,
+      "second/disconnect": 6.268292,
+      "second/startup": 51.376125,
+      "setup/migrate-seed": 741.214792,
+      "setup/snapshot": 359.992375,
+      "setup/start": 48.663167
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 1313.200291
+  },
+  {
+    "label": "n10000-r3-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285321,
+      "owner_verify_ns": 72723500,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28639232,
+      "source_hash_metadata_ns": 71473834,
+      "target_verify_ns": 71315625
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000542,
+      "first/close": 2.41625,
+      "first/connect": 0.932958,
+      "first/crud": 16.251542,
+      "first/disconnect": 6.303625,
+      "first/startup": 50.589958,
+      "second/close": 2.454459,
+      "second/connect": 0.940083,
+      "second/crud": 22.577125,
+      "second/disconnect": 6.27175,
+      "second/startup": 50.025,
+      "setup/migrate-seed": 737.94375,
+      "setup/snapshot": 218.089875,
+      "setup/start": 46.570208
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1161.382333
+  },
+  {
+    "label": "n10000-r4-control",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "mode": "control",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 2.488208,
+      "first/close": 2.707208,
+      "first/connect": 0.908042,
+      "first/crud": 16.567125,
+      "first/disconnect": 6.259667,
+      "first/startup": 59.144292,
+      "second/close": 2.7445,
+      "second/connect": 1.182292,
+      "second/crud": 23.504583,
+      "second/disconnect": 6.277084,
+      "second/startup": 51.873375,
+      "setup/migrate-seed": 752.93075,
+      "setup/snapshot": 359.352541,
+      "setup/start": 50.219334
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 1,
+      "files": 0
+    },
+    "whole_ms": 1336.178625
+  },
+  {
+    "label": "n10000-r4-heap",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285322,
+      "owner_verify_ns": 71398333,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28639232,
+      "source_hash_metadata_ns": 71504917,
+      "target_verify_ns": 71252959
+    },
+    "mode": "heap",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 10000,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000375,
+      "first/close": 2.483542,
+      "first/connect": 1.104208,
+      "first/crud": 16.667625,
+      "first/disconnect": 6.272042,
+      "first/startup": 51.822917,
+      "second/close": 2.58375,
+      "second/connect": 1.118166,
+      "second/crud": 24.041708,
+      "second/disconnect": 6.262833,
+      "second/startup": 51.12475,
+      "setup/migrate-seed": 733.419625,
+      "setup/snapshot": 216.771417,
+      "setup/start": 46.941208
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1160.628459
+  }
+]

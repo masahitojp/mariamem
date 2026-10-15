@@ -1,0 +1,10 @@
+package host
+import("context";"errors";"os";"github.com/masahitojp/mariamem/internal/prepared";"github.com/masahitojp/mariamem/internal/snapshot")
+func(s *Server)SnapshotHeap(ctx context.Context,rollback bool)(*snapshot.Owned,bool,error){
+ s.mu.Lock()
+ if !s.SnapshotCapable(){s.mu.Unlock();return nil,false,&Rejected{"unsupported","guest does not support snapshots"}}
+ if s.closing{s.mu.Unlock();return nil,false,&Rejected{"closed","database is closing"}}
+ for _,state:=range s.clients{if state.busy{s.mu.Unlock();return nil,false,&Rejected{"busy","handshake, query or session cleanup is active"}};if state.status&1!=0&&!rollback{s.mu.Unlock();return nil,false,&Rejected{"transaction_active","commit/rollback first, or request rollback"}}}
+ audit:=os.Getenv("MARIAMEM_HEAP_AUDIT")=="1";r,release:=prepared.RegisterHeap(s.transfer,audit);defer release();s.stopAccepting();s.mu.Unlock();defer os.RemoveAll(s.transfer)
+ if e:=s.finish(ctx,audit);e!=nil{return nil,true,e};if r.Result==nil{return nil,true,errors.New("heap capture missing")};o,e:=snapshot.OwnHeap(r.Result,s.build);return o,true,e
+}

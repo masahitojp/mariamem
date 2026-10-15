@@ -1,0 +1,7 @@
+{
+  "python_syntax": "PASS",
+  "scoped_public_source_files": 38,
+  "report_links": "PASS",
+  "final_campaign_binary_and_runner_identity": "PASS",
+  "scope": "new experiment files only; no release/canonical generated-runtime qualification"
+}
