@@ -1,0 +1,100 @@
+[
+  {
+    "Name": "mariadb/data/wasmer.lower-test",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 0,
+    "Live": false
+  },
+  {
+    "Name": "mariadb/data/ddl_recovery.log",
+    "Logical": 12288,
+    "Reserved": 16384,
+    "Remaps": 3,
+    "Live": false
+  },
+  {
+    "Name": "mariadb/data/ibdata1",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 1,
+    "Live": true
+  },
+  {
+    "Name": "mariadb/data/ib_logfile0",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 1,
+    "Live": true
+  },
+  {
+    "Name": "mariadb/data/undo001",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 1,
+    "Live": true
+  },
+  {
+    "Name": "mariadb/data/undo002",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 1,
+    "Live": true
+  },
+  {
+    "Name": "mariadb/data/undo003",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 1,
+    "Live": true
+  },
+  {
+    "Name": "mariadb/data/ibtmp1",
+    "Logical": 12582912,
+    "Reserved": 12582912,
+    "Remaps": 1,
+    "Live": false
+  },
+  {
+    "Name": "mariadb/data/aria_log_control",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 2,
+    "Live": true
+  },
+  {
+    "Name": "mariadb/data/aria_log.00000001",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 2,
+    "Live": true
+  },
+  {
+    "Name": "mariadb/data/test/db.opt",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 1,
+    "Live": true
+  },
+  {
+    "Name": "mariadb/data/test/items.frm",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 1,
+    "Live": true
+  },
+  {
+    "Name": "mariadb/data/test/items.ibd",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 1,
+    "Live": true
+  },
+  {
+    "Name": "mariadb/data/ib_buffer_pool",
+    "Logical": 0,
+    "Reserved": 0,
+    "Remaps": 1,
+    "Live": true
+  }
+]

@@ -1,0 +1,112 @@
+// Experimental cold handoff: no new guest binary and no payload copying.
+// Only invoked after executeGuest has stopped and joined all workers.
+package base
+
+import (
+ "crypto/sha256"
+ "encoding/hex"
+ "encoding/json"
+ "errors"
+ "fmt"
+ "os"
+ "path/filepath"
+ "reflect"
+ "sort"
+ "syscall"
+ "time"
+
+ "github.com/masahitojp/mariamem/internal/snapshot"
+)
+
+func (fsys *MemFS) EHandoff(transfer, build string) (handled bool, err error) {
+ if fsys.e==nil || fsys.e.mode!="handoff" {return false,nil}
+ request:=filepath.Join(transfer,".e-request")
+ if _,err=os.Stat(request);os.IsNotExist(err){return false,nil}else if err!=nil{return true,err}
+ fsys.mu.Lock()
+ defer fsys.mu.Unlock()
+ start:=time.Now()
+ stats:=map[string]any{"payload_copy_bytes":0,"guest_cold_copy_present":false}
+ defer func(){
+  stats["elapsed_ns"]=time.Since(start).Nanoseconds()
+  stats["success"]=err==nil
+  if err!=nil{stats["error"]=err.Error()}
+  if out:=os.Getenv("MARIAMEM_E_OUT");out!="" {
+   data,e:=json.MarshalIndent(stats,"","  ")
+   if e==nil{e=os.WriteFile(filepath.Join(out,fmt.Sprintf("%d-handoff.json",os.Getpid())),data,0600)}
+   err=errors.Join(err,e)
+  }
+ }()
+ root,e:=fsys.lookup("mariadb")
+ if e!=nil{return true,e}
+ nodes:=map[string]*memNode{}
+ expected:=map[string]snapshot.Entry{}
+ var visit func(*memNode,string)error
+ visit=func(n *memNode,name string)error{
+  nodes[name]=n
+  if n.dir{
+   expected[name]=snapshot.Entry{Kind:"directory"}
+   keys:=make([]string,0,len(n.children));for k:=range n.children{keys=append(keys,k)};sort.Strings(keys)
+   for _,k:=range keys {if e:=visit(n.children[k],filepath.ToSlash(filepath.Join(name,k)));e!=nil{return e}}
+   return nil
+  }
+  if n.e==nil || n.e.file==nil{return fmt.Errorf("unbacked source: %s",name)}
+  size:=int64(len(n.data));sum:=sha256.Sum256(n.data)
+  expected[name]=snapshot.Entry{Kind:"file",Bytes:&size,SHA256:hex.EncodeToString(sum[:])}
+  return nil
+ }
+ if err=visit(root,".");err!=nil{return true,err}
+ stats["source_inventory_hash_ns"]=time.Since(start).Nanoseconds()
+ // Separate audit invocation uses the original guest Export, never timed as
+ // the optimized case. Prove both directory inventory and file content agree.
+ if cold,e:=fsys.lookup("snapshot-out/data");e==nil{
+  stats["guest_cold_copy_present"]=true
+  coldEntries:=map[string]snapshot.Entry{}
+  var scan func(*memNode,string)
+  scan=func(n *memNode,name string){
+   if n.dir{
+    coldEntries[name]=snapshot.Entry{Kind:"directory"}
+    for k,c:=range n.children{scan(c,filepath.ToSlash(filepath.Join(name,k)))}
+   }else{size:=int64(len(n.data));sum:=sha256.Sum256(n.data);coldEntries[name]=snapshot.Entry{Kind:"file",Bytes:&size,SHA256:hex.EncodeToString(sum[:])}}
+  }
+  scan(cold,".")
+  if !reflect.DeepEqual(coldEntries,expected){return true,errors.New("cold-copy audit mismatch")}
+  stats["cold_copy_audit_equal"]=true
+ }else if !os.IsNotExist(e){return true,e}
+ if os.Getenv("MARIAMEM_E_FAULT")=="before_move"{return true,errors.New("injected before_move")}
+ moveStart:=time.Now()
+ names:=make([]string,0,len(nodes));for name:=range nodes{names=append(names,name)};sort.Strings(names)
+ target:=filepath.Join(transfer,"data")
+ files:=0
+ var bytes int64
+ var first string
+ for _,name:=range names{
+  n:=nodes[name];dest:=filepath.Join(target,filepath.FromSlash(name))
+  if n.dir{if err=os.Mkdir(dest,0700);err!=nil{return true,err};continue}
+  b:=n.e
+  before,e:=b.file.Stat();if e!=nil{return true,e}
+  size:=*expected[name].Bytes
+  if b.mapping!=nil{if err=syscall.Munmap(b.mapping);err!=nil{return true,err};b.mapping=nil;n.data=nil}
+  if err=b.file.Truncate(size);err!=nil{return true,err}
+  if err=b.file.Chmod(0400);err!=nil{return true,err}
+  old:=b.file.Name()
+  if err=b.file.Close();err!=nil{return true,err};b.file=nil
+  if err=os.Rename(old,dest);err!=nil{return true,err}
+  after,e:=os.Lstat(dest);if e!=nil{return true,e}
+  if !os.SameFile(before,after){return true,errors.New("handoff changed file identity")}
+  files++;bytes+=size
+  if first=="" && size>0{first=dest}
+ }
+ stats["freeze_move_ns"]=time.Since(moveStart).Nanoseconds()
+ stats["files"]=files;stats["bytes"]=bytes;stats["same_inode_all"]=true
+ if os.Getenv("MARIAMEM_E_FAULT")=="after_move"{return true,errors.New("injected after_move")}
+ if os.Getenv("MARIAMEM_E_FAULT")=="corrupt_after_hash" {
+  if err=os.Chmod(first,0600);err!=nil{return true,err}
+  f,e:=os.OpenFile(first,os.O_RDWR,0);if e!=nil{return true,e}
+  b:=[]byte{0};_,e=f.ReadAt(b,0);if e==nil{b[0]^=0xff;_,e=f.WriteAt(b,0)}
+  err=errors.Join(e,f.Close());if err!=nil{return true,err}
+ }
+ m:=snapshot.Manifest{Format:"mariamem-cold-snapshot",Version:1,WASM:build,Storage:"memory",Entries:expected}
+ data,e:=json.MarshalIndent(m,"","  ");if e!=nil{return true,e}
+ if err=os.WriteFile(filepath.Join(transfer,".e-expected.json"),data,0600);err!=nil{return true,err}
+ return true,nil
+}

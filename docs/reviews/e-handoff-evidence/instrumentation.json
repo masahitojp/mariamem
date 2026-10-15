@@ -1,0 +1,34 @@
+{
+  "internal/generatedgo/code/base/base.go": {
+    "before": "8b092f6215c75f842c1a9804313527639214276e1c8c74876f427ddc19fd0d63",
+    "after": "40e30c7655dd6027c1862513ca6e5fc09f1a3a0a2c706b55b429ed3e253d5ded"
+  },
+  "internal/generatedgo/runtime_instance.go": {
+    "before": "f968359a8bd53f192c12ff3f891e032bed947550909b47482d0c00cfe0bc7a17",
+    "after": "848196eadf985046cae5b70c23b908509e88aa0c3e1c008faa6f79ea1f2ad7ce"
+  },
+  "internal/host/server.go": {
+    "before": "0dfcff4bb304e7325196b343f7db520ebaee04f3af88e019bb163c1b0ca33e5a",
+    "after": "e460bb144fe93dae6e12dc88b3bb99768b8977650cec507dae73da249fce7ba0"
+  },
+  "internal/generatedgo/code/base/e_backing.go": {
+    "before": null,
+    "after": "12f273704668be93fd1ab3d6c0a194496797634059fa785bef36e0e600635552"
+  },
+  "internal/generatedgo/code/base/e_backing_test.go": {
+    "before": null,
+    "after": "ffa68d1b917fbe3712a0f6eea2ae17963c5e067f149fd3e3685a5abbbec2f91d"
+  },
+  "internal/generatedgo/code/base/e_handoff.go": {
+    "before": null,
+    "after": "46409f43ed7fb831c86615afce8c70ad6e598e52a2c48e4ca1475349c0a5cad1"
+  },
+  "internal/generatedgo/code/base/e_handoff_test.go": {
+    "before": null,
+    "after": "27656fd22fe8b7bcff01798928b6a1d3d51696e7ce5d68cd52b6a985932d40f4"
+  },
+  "internal/snapshot/e_publish.go": {
+    "before": null,
+    "after": "1667290a8bb6ef4b37bfd9b8bae0e06933fa93f234d671676270b1e506d807c9"
+  }
+}

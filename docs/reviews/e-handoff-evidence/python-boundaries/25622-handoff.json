@@ -1,0 +1,11 @@
+{
+  "bytes": 144787225,
+  "elapsed_ns": 79823375,
+  "files": 11,
+  "freeze_move_ns": 6617542,
+  "guest_cold_copy_present": false,
+  "payload_copy_bytes": 0,
+  "same_inode_all": true,
+  "source_inventory_hash_ns": 73000000,
+  "success": true
+}

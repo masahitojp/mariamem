@@ -1,0 +1,8 @@
+{
+  "elapsed_ns": 73750500,
+  "error": "injected before_move",
+  "guest_cold_copy_present": false,
+  "payload_copy_bytes": 0,
+  "source_inventory_hash_ns": 73741250,
+  "success": false
+}

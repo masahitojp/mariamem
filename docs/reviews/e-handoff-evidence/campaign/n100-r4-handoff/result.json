@@ -1,0 +1,143 @@
+{
+  "mode": "handoff",
+  "rows": 100,
+  "repeat": 4,
+  "warmup": false,
+  "times_ms": {
+    "setup/start": 48.531,
+    "setup/migrate-seed": 18.05175,
+    "setup/snapshot": 235.524834,
+    "first/startup": 58.681333,
+    "first/connect": 4.240583,
+    "first/crud": 2.257542,
+    "first/disconnect": 0.034958,
+    "first/close": 4.008916,
+    "second/startup": 52.9305,
+    "second/connect": 4.158292,
+    "second/crud": 3.824083,
+    "second/disconnect": 0.042708,
+    "second/close": 4.127291,
+    "baseline/close": 1.266667
+  },
+  "children": [
+    {
+      "name": "first",
+      "pid": 27342
+    },
+    {
+      "name": "second",
+      "pid": 27344
+    }
+  ],
+  "checks": [
+    "first-sql-and-isolation-pass",
+    "second-sql-and-isolation-pass",
+    "baseline-unchanged-pass"
+  ],
+  "setup_pid": 27339,
+  "guest_version": "12.3.3-MariaDB-embedded",
+  "baseline_manifest": {
+    "format": "mariamem-cold-snapshot",
+    "version": 1,
+    "wasm_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+    "source_storage": "memory",
+    "entries": {
+      ".": {
+        "kind": "directory"
+      },
+      "data": {
+        "kind": "directory"
+      },
+      "data/aria_log.00000001": {
+        "kind": "file",
+        "bytes": 16384,
+        "sha256": "5a026aa070d8db3468b1e5210a4dff91d4059781ee861df5be5ae0a60cd76acb"
+      },
+      "data/aria_log_control": {
+        "kind": "file",
+        "bytes": 52,
+        "sha256": "9af59b1ec183f6a4fa108bf4540686cb3c8c7749dca81629e68cd0df164345c3"
+      },
+      "data/ib_buffer_pool": {
+        "kind": "file",
+        "bytes": 788,
+        "sha256": "966cbc4b74a05a9b18caf78aefc13546b422f7fa2532f66eae5df1094373e9c0"
+      },
+      "data/ib_logfile0": {
+        "kind": "file",
+        "bytes": 100663296,
+        "sha256": "743f656edf2853777e7fade4d1419eda786a4f2981f81cbcceac1ecc78610f42"
+      },
+      "data/ibdata1": {
+        "kind": "file",
+        "bytes": 12582912,
+        "sha256": "0e3366b002c91b4528d9aca31f4bf590e0e52f40682cf8f6d16ee409b467d23c"
+      },
+      "data/test": {
+        "kind": "directory"
+      },
+      "data/test/db.opt": {
+        "kind": "file",
+        "bytes": 70,
+        "sha256": "9d2cb1189b5fa7b46cec9d9e277c9968066915ae38a1821a451a9a098b035f3f"
+      },
+      "data/test/orders.frm": {
+        "kind": "file",
+        "bytes": 1472,
+        "sha256": "61164623d7565a2c1df1a669b98d5f18eb5d79a0d3631c8f2c6aba9118b9a122"
+      },
+      "data/test/orders.ibd": {
+        "kind": "file",
+        "bytes": 81920,
+        "sha256": "fc6451a8555743d2047881c4141028e654effd502a177388e631f894987b2111"
+      },
+      "data/test/users.frm": {
+        "kind": "file",
+        "bytes": 2015,
+        "sha256": "8b4e2f42118b8ebc9f9c88dc7807dfef7d1dd8ed8ebb57d4de705fe200f465c2"
+      },
+      "data/test/users.ibd": {
+        "kind": "file",
+        "bytes": 147456,
+        "sha256": "dcdbb8ece6b74b383fffb73b39dd40ae1df6404da11da2f509a67e56df1ee515"
+      },
+      "data/undo001": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "c24dfbd51676b30bff35ef972932d3f1798ecd6391cb4d5fe897f16aa13617b9"
+      },
+      "data/undo002": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "5158a9db7eebac3880c737969f1f45daec991ef514d9b5c9ded3d7bfcc598b4b"
+      },
+      "data/undo003": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "78839492eb18521b6622f7d2c90b9d43c35ba472457c2cff63507db4fc80fd6e"
+      },
+      "plugin": {
+        "kind": "directory"
+      }
+    }
+  },
+  "handoff": {
+    "bytes": 144953645,
+    "elapsed_ns": 81960250,
+    "files": 13,
+    "freeze_move_ns": 9346708,
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "source_inventory_hash_ns": 72458542,
+    "success": true
+  },
+  "publish": {
+    "elapsed_ns": 66555792,
+    "payload_copy_bytes": 0,
+    "same_directory_inode": true,
+    "success": true,
+    "target_inventory_hash_ns": 66076708
+  },
+  "workflow_ms_before_validation": 441.569208
+}

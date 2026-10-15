@@ -1,0 +1,1958 @@
+{
+  "n100-control": {
+    "campaigns": 5,
+    "timing_ms": {
+      "setup/start": {
+        "median": 45.640583,
+        "min": 44.451208,
+        "max": 50.771667,
+        "all": [
+          45.768042,
+          50.771667,
+          44.451208,
+          44.534542,
+          45.640583
+        ]
+      },
+      "setup/migrate-seed": {
+        "median": 18.019459,
+        "min": 16.833708,
+        "max": 20.595708,
+        "all": [
+          20.595708,
+          18.253708,
+          18.019459,
+          17.897292,
+          16.833708
+        ]
+      },
+      "setup/snapshot": {
+        "median": 378.47925,
+        "min": 361.518916,
+        "max": 396.594459,
+        "all": [
+          376.0015,
+          380.557458,
+          378.47925,
+          396.594459,
+          361.518916
+        ]
+      },
+      "first/startup": {
+        "median": 51.633,
+        "min": 49.705917,
+        "max": 53.26675,
+        "all": [
+          52.930667,
+          53.26675,
+          49.705917,
+          51.633,
+          49.929958
+        ]
+      },
+      "first/connect": {
+        "median": 4.212333,
+        "min": 4.19325,
+        "max": 4.32275,
+        "all": [
+          4.32275,
+          4.236459,
+          4.212333,
+          4.199667,
+          4.19325
+        ]
+      },
+      "first/crud": {
+        "median": 2.172833,
+        "min": 2.096625,
+        "max": 2.310208,
+        "all": [
+          2.310208,
+          2.201,
+          2.172833,
+          2.124333,
+          2.096625
+        ]
+      },
+      "first/disconnect": {
+        "median": 0.0315,
+        "min": 0.03,
+        "max": 0.041041,
+        "all": [
+          0.032958,
+          0.041041,
+          0.0315,
+          0.03075,
+          0.03
+        ]
+      },
+      "first/close": {
+        "median": 4.140333,
+        "min": 4.00775,
+        "max": 4.356292,
+        "all": [
+          4.214167,
+          4.356292,
+          4.020291,
+          4.00775,
+          4.140333
+        ]
+      },
+      "second/startup": {
+        "median": 49.890959,
+        "min": 49.404542,
+        "max": 51.40725,
+        "all": [
+          49.5085,
+          50.927958,
+          49.890959,
+          51.40725,
+          49.404542
+        ]
+      },
+      "second/connect": {
+        "median": 4.177208,
+        "min": 4.142416,
+        "max": 4.502333,
+        "all": [
+          4.502333,
+          4.2275,
+          4.142416,
+          4.177208,
+          4.160792
+        ]
+      },
+      "second/crud": {
+        "median": 3.368917,
+        "min": 3.26625,
+        "max": 3.419,
+        "all": [
+          3.28875,
+          3.26625,
+          3.368917,
+          3.419,
+          3.398334
+        ]
+      },
+      "second/disconnect": {
+        "median": 0.031458,
+        "min": 0.028375,
+        "max": 0.0345,
+        "all": [
+          0.028375,
+          0.031458,
+          0.0285,
+          0.032959,
+          0.0345
+        ]
+      },
+      "second/close": {
+        "median": 4.092917,
+        "min": 4.024416,
+        "max": 4.125916,
+        "all": [
+          4.092917,
+          4.024416,
+          4.069375,
+          4.125916,
+          4.109625
+        ]
+      },
+      "baseline/close": {
+        "median": 1.031291,
+        "min": 1.004292,
+        "max": 1.721917,
+        "all": [
+          1.721917,
+          1.037125,
+          1.025458,
+          1.004292,
+          1.031291
+        ]
+      }
+    },
+    "whole_ms": {
+      "median": 574.600542,
+      "min": 551.658583,
+      "max": 590.353542,
+      "all": [
+        574.600542,
+        582.329542,
+        568.7830829999999,
+        590.353542,
+        551.658583
+      ]
+    },
+    "backings_at_close": []
+  },
+  "n100-handoff": {
+    "campaigns": 5,
+    "timing_ms": {
+      "setup/start": {
+        "median": 48.531,
+        "min": 45.658917,
+        "max": 60.380875,
+        "all": [
+          60.380875,
+          51.759375,
+          45.658917,
+          46.296958,
+          48.531
+        ]
+      },
+      "setup/migrate-seed": {
+        "median": 18.654416,
+        "min": 13.146333,
+        "max": 25.796,
+        "all": [
+          25.796,
+          13.146333,
+          18.654416,
+          18.7385,
+          18.05175
+        ]
+      },
+      "setup/snapshot": {
+        "median": 239.911,
+        "min": 235.524834,
+        "max": 280.540583,
+        "all": [
+          280.540583,
+          245.873042,
+          239.911,
+          237.481084,
+          235.524834
+        ]
+      },
+      "first/startup": {
+        "median": 54.117833,
+        "min": 50.346291,
+        "max": 61.194875,
+        "all": [
+          61.194875,
+          54.117833,
+          50.971292,
+          50.346291,
+          58.681333
+        ]
+      },
+      "first/connect": {
+        "median": 4.275292,
+        "min": 4.167125,
+        "max": 4.32475,
+        "all": [
+          4.275292,
+          4.32475,
+          4.167125,
+          4.276416,
+          4.240583
+        ]
+      },
+      "first/crud": {
+        "median": 2.257542,
+        "min": 2.092917,
+        "max": 3.629708,
+        "all": [
+          3.629708,
+          2.2065,
+          2.272125,
+          2.092917,
+          2.257542
+        ]
+      },
+      "first/disconnect": {
+        "median": 0.039,
+        "min": 0.031583,
+        "max": 0.136959,
+        "all": [
+          0.136959,
+          0.039625,
+          0.039,
+          0.031583,
+          0.034958
+        ]
+      },
+      "first/close": {
+        "median": 4.099292,
+        "min": 4.008916,
+        "max": 4.687625,
+        "all": [
+          4.153667,
+          4.687625,
+          4.099292,
+          4.065208,
+          4.008916
+        ]
+      },
+      "second/startup": {
+        "median": 52.9305,
+        "min": 49.474709,
+        "max": 57.301084,
+        "all": [
+          57.301084,
+          55.85725,
+          50.66425,
+          49.474709,
+          52.9305
+        ]
+      },
+      "second/connect": {
+        "median": 4.160708,
+        "min": 4.132,
+        "max": 5.511333,
+        "all": [
+          5.511333,
+          4.132,
+          4.562792,
+          4.160708,
+          4.158292
+        ]
+      },
+      "second/crud": {
+        "median": 3.824083,
+        "min": 3.642375,
+        "max": 4.87625,
+        "all": [
+          3.642375,
+          4.87625,
+          3.70125,
+          3.987334,
+          3.824083
+        ]
+      },
+      "second/disconnect": {
+        "median": 0.03325,
+        "min": 0.030959,
+        "max": 0.042708,
+        "all": [
+          0.030959,
+          0.034458,
+          0.03325,
+          0.032791,
+          0.042708
+        ]
+      },
+      "second/close": {
+        "median": 4.1345,
+        "min": 4.099542,
+        "max": 4.302,
+        "all": [
+          4.1345,
+          4.194833,
+          4.302,
+          4.099542,
+          4.127291
+        ]
+      },
+      "baseline/close": {
+        "median": 1.257791,
+        "min": 1.109916,
+        "max": 1.579667,
+        "all": [
+          1.257791,
+          1.579667,
+          1.109916,
+          1.127416,
+          1.266667
+        ]
+      }
+    },
+    "whole_ms": {
+      "median": 442.835875,
+      "min": 431.324083,
+      "max": 519.278791,
+      "all": [
+        519.278791,
+        452.664042,
+        435.468583,
+        431.324083,
+        442.835875
+      ]
+    },
+    "backings_at_close": [
+      {
+        "all_nodes": 16,
+        "live_nodes": 13,
+        "logical_bytes_all": 12595200,
+        "reserved_bytes_all": 12599296,
+        "remaps": 22,
+        "files": [
+          {
+            "Name": "mariadb/data/wasmer.lower-test",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 0,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ddl_recovery.log",
+            "Logical": 12288,
+            "Reserved": 16384,
+            "Remaps": 3,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ibdata1",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_logfile0",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo002",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo003",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ibtmp1",
+            "Logical": 12582912,
+            "Reserved": 12582912,
+            "Remaps": 1,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/aria_log_control",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/aria_log.00000001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/db.opt",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 3,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_buffer_pool",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          }
+        ]
+      },
+      {
+        "all_nodes": 16,
+        "live_nodes": 13,
+        "logical_bytes_all": 12595200,
+        "reserved_bytes_all": 12599296,
+        "remaps": 22,
+        "files": [
+          {
+            "Name": "mariadb/data/wasmer.lower-test",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 0,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ddl_recovery.log",
+            "Logical": 12288,
+            "Reserved": 16384,
+            "Remaps": 3,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ibdata1",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_logfile0",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo002",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo003",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ibtmp1",
+            "Logical": 12582912,
+            "Reserved": 12582912,
+            "Remaps": 1,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/aria_log_control",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/aria_log.00000001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/db.opt",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 3,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_buffer_pool",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          }
+        ]
+      },
+      {
+        "all_nodes": 16,
+        "live_nodes": 13,
+        "logical_bytes_all": 12595200,
+        "reserved_bytes_all": 12599296,
+        "remaps": 22,
+        "files": [
+          {
+            "Name": "mariadb/data/wasmer.lower-test",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 0,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ddl_recovery.log",
+            "Logical": 12288,
+            "Reserved": 16384,
+            "Remaps": 3,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ibdata1",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_logfile0",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo002",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo003",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ibtmp1",
+            "Logical": 12582912,
+            "Reserved": 12582912,
+            "Remaps": 1,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/aria_log_control",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/aria_log.00000001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/db.opt",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 3,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_buffer_pool",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          }
+        ]
+      },
+      {
+        "all_nodes": 16,
+        "live_nodes": 13,
+        "logical_bytes_all": 12595200,
+        "reserved_bytes_all": 12599296,
+        "remaps": 22,
+        "files": [
+          {
+            "Name": "mariadb/data/wasmer.lower-test",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 0,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ddl_recovery.log",
+            "Logical": 12288,
+            "Reserved": 16384,
+            "Remaps": 3,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ibdata1",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_logfile0",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo002",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo003",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ibtmp1",
+            "Logical": 12582912,
+            "Reserved": 12582912,
+            "Remaps": 1,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/aria_log_control",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/aria_log.00000001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/db.opt",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 3,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_buffer_pool",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          }
+        ]
+      },
+      {
+        "all_nodes": 16,
+        "live_nodes": 13,
+        "logical_bytes_all": 12595200,
+        "reserved_bytes_all": 12599296,
+        "remaps": 22,
+        "files": [
+          {
+            "Name": "mariadb/data/wasmer.lower-test",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 0,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ddl_recovery.log",
+            "Logical": 12288,
+            "Reserved": 16384,
+            "Remaps": 3,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ibdata1",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_logfile0",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo002",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo003",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ibtmp1",
+            "Logical": 12582912,
+            "Reserved": 12582912,
+            "Remaps": 1,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/aria_log_control",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/aria_log.00000001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/db.opt",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 3,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_buffer_pool",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          }
+        ]
+      }
+    ]
+  },
+  "n10000-control": {
+    "campaigns": 5,
+    "timing_ms": {
+      "setup/start": {
+        "median": 48.010834,
+        "min": 45.845,
+        "max": 55.366875,
+        "all": [
+          48.010834,
+          46.876459,
+          45.845,
+          48.761917,
+          55.366875
+        ]
+      },
+      "setup/migrate-seed": {
+        "median": 795.947291,
+        "min": 791.037,
+        "max": 803.8965,
+        "all": [
+          803.8965,
+          791.037,
+          796.757334,
+          795.947291,
+          791.767583
+        ]
+      },
+      "setup/snapshot": {
+        "median": 388.658584,
+        "min": 384.852584,
+        "max": 411.498875,
+        "all": [
+          387.671125,
+          388.658584,
+          411.498875,
+          384.852584,
+          389.699083
+        ]
+      },
+      "first/startup": {
+        "median": 54.177417,
+        "min": 51.874208,
+        "max": 54.799417,
+        "all": [
+          54.799417,
+          52.448708,
+          54.448375,
+          54.177417,
+          51.874208
+        ]
+      },
+      "first/connect": {
+        "median": 4.343792,
+        "min": 4.093375,
+        "max": 4.914875,
+        "all": [
+          4.093375,
+          4.343792,
+          4.914875,
+          4.5565,
+          4.142792
+        ]
+      },
+      "first/crud": {
+        "median": 16.932875,
+        "min": 16.635042,
+        "max": 18.231333,
+        "all": [
+          16.884584,
+          16.932875,
+          18.231333,
+          17.096333,
+          16.635042
+        ]
+      },
+      "first/disconnect": {
+        "median": 0.0355,
+        "min": 0.02625,
+        "max": 0.046792,
+        "all": [
+          0.034042,
+          0.02625,
+          0.044542,
+          0.0355,
+          0.046792
+        ]
+      },
+      "first/close": {
+        "median": 4.305875,
+        "min": 4.142,
+        "max": 4.418084,
+        "all": [
+          4.142,
+          4.175209,
+          4.309917,
+          4.305875,
+          4.418084
+        ]
+      },
+      "second/startup": {
+        "median": 51.26475,
+        "min": 49.845041,
+        "max": 52.404334,
+        "all": [
+          52.146917,
+          49.845041,
+          51.26475,
+          51.126375,
+          52.404334
+        ]
+      },
+      "second/connect": {
+        "median": 4.137625,
+        "min": 4.098958,
+        "max": 4.414625,
+        "all": [
+          4.131458,
+          4.137625,
+          4.315209,
+          4.098958,
+          4.414625
+        ]
+      },
+      "second/crud": {
+        "median": 23.046334,
+        "min": 22.559375,
+        "max": 23.1385,
+        "all": [
+          23.046334,
+          22.559375,
+          23.1385,
+          23.019625,
+          23.104375
+        ]
+      },
+      "second/disconnect": {
+        "median": 0.0355,
+        "min": 0.027458,
+        "max": 0.039666,
+        "all": [
+          0.037708,
+          0.027458,
+          0.039666,
+          0.0355,
+          0.032875
+        ]
+      },
+      "second/close": {
+        "median": 4.134167,
+        "min": 4.124833,
+        "max": 4.179416,
+        "all": [
+          4.134167,
+          4.1385,
+          4.179416,
+          4.125709,
+          4.124833
+        ]
+      },
+      "baseline/close": {
+        "median": 1.13075,
+        "min": 1.124625,
+        "max": 1.255375,
+        "all": [
+          1.255375,
+          1.124625,
+          1.129,
+          1.13075,
+          1.165833
+        ]
+      }
+    },
+    "whole_ms": {
+      "median": 1404.6373330000001,
+      "min": 1391.5772909999998,
+      "max": 1426.208042,
+      "all": [
+        1409.430541,
+        1391.5772909999998,
+        1426.208042,
+        1398.9140830000001,
+        1404.6373330000001
+      ]
+    },
+    "backings_at_close": []
+  },
+  "n10000-handoff": {
+    "campaigns": 5,
+    "timing_ms": {
+      "setup/start": {
+        "median": 47.6335,
+        "min": 45.981208,
+        "max": 54.735125,
+        "all": [
+          45.981208,
+          46.489208,
+          48.859375,
+          47.6335,
+          54.735125
+        ]
+      },
+      "setup/migrate-seed": {
+        "median": 782.348334,
+        "min": 775.920792,
+        "max": 788.144875,
+        "all": [
+          775.920792,
+          785.3235,
+          782.348334,
+          788.144875,
+          781.945333
+        ]
+      },
+      "setup/snapshot": {
+        "median": 268.302709,
+        "min": 264.977125,
+        "max": 277.776708,
+        "all": [
+          268.302709,
+          265.527833,
+          277.776708,
+          272.852958,
+          264.977125
+        ]
+      },
+      "first/startup": {
+        "median": 51.675292,
+        "min": 49.796917,
+        "max": 56.214542,
+        "all": [
+          52.548708,
+          50.634166,
+          56.214542,
+          51.675292,
+          49.796917
+        ]
+      },
+      "first/connect": {
+        "median": 4.107834,
+        "min": 4.080041,
+        "max": 4.928042,
+        "all": [
+          4.080041,
+          4.080916,
+          4.928042,
+          4.377542,
+          4.107834
+        ]
+      },
+      "first/crud": {
+        "median": 16.734875,
+        "min": 16.352125,
+        "max": 19.630959,
+        "all": [
+          16.352125,
+          16.523042,
+          19.630959,
+          17.612583,
+          16.734875
+        ]
+      },
+      "first/disconnect": {
+        "median": 0.032292,
+        "min": 0.029375,
+        "max": 0.045917,
+        "all": [
+          0.032292,
+          0.029875,
+          0.03575,
+          0.045917,
+          0.029375
+        ]
+      },
+      "first/close": {
+        "median": 4.203833,
+        "min": 4.08475,
+        "max": 4.437959,
+        "all": [
+          4.08475,
+          4.098833,
+          4.203833,
+          4.437959,
+          4.223375
+        ]
+      },
+      "second/startup": {
+        "median": 50.571833,
+        "min": 49.990792,
+        "max": 53.968125,
+        "all": [
+          53.968125,
+          49.990792,
+          50.571833,
+          50.08725,
+          52.055334
+        ]
+      },
+      "second/connect": {
+        "median": 4.149334,
+        "min": 4.093042,
+        "max": 4.295,
+        "all": [
+          4.143542,
+          4.093042,
+          4.172166,
+          4.149334,
+          4.295
+        ]
+      },
+      "second/crud": {
+        "median": 22.883458,
+        "min": 22.553083,
+        "max": 23.210584,
+        "all": [
+          22.553083,
+          22.596583,
+          23.210584,
+          22.922875,
+          22.883458
+        ]
+      },
+      "second/disconnect": {
+        "median": 0.037792,
+        "min": 0.030541,
+        "max": 0.040375,
+        "all": [
+          0.034,
+          0.037792,
+          0.038583,
+          0.030541,
+          0.040375
+        ]
+      },
+      "second/close": {
+        "median": 4.181125,
+        "min": 4.137584,
+        "max": 4.502708,
+        "all": [
+          4.168583,
+          4.198625,
+          4.502708,
+          4.137584,
+          4.181125
+        ]
+      },
+      "baseline/close": {
+        "median": 1.278375,
+        "min": 1.258958,
+        "max": 1.289542,
+        "all": [
+          1.278375,
+          1.258958,
+          1.262709,
+          1.282667,
+          1.289542
+        ]
+      }
+    },
+    "whole_ms": {
+      "median": 1266.75525,
+      "min": 1258.7356670000001,
+      "max": 1283.8775420000002,
+      "all": [
+        1258.7356670000001,
+        1260.10125,
+        1283.8775420000002,
+        1275.256875,
+        1266.75525
+      ]
+    },
+    "backings_at_close": [
+      {
+        "all_nodes": 16,
+        "live_nodes": 13,
+        "logical_bytes_all": 12595200,
+        "reserved_bytes_all": 12599296,
+        "remaps": 38,
+        "files": [
+          {
+            "Name": "mariadb/data/wasmer.lower-test",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 0,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ddl_recovery.log",
+            "Logical": 12288,
+            "Reserved": 16384,
+            "Remaps": 3,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ibdata1",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_logfile0",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo002",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo003",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ibtmp1",
+            "Logical": 12582912,
+            "Reserved": 12582912,
+            "Remaps": 1,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/aria_log_control",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/aria_log.00000001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/db.opt",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 16,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 5,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_buffer_pool",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          }
+        ]
+      },
+      {
+        "all_nodes": 16,
+        "live_nodes": 13,
+        "logical_bytes_all": 12595200,
+        "reserved_bytes_all": 12599296,
+        "remaps": 38,
+        "files": [
+          {
+            "Name": "mariadb/data/wasmer.lower-test",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 0,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ddl_recovery.log",
+            "Logical": 12288,
+            "Reserved": 16384,
+            "Remaps": 3,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ibdata1",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_logfile0",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo002",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo003",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ibtmp1",
+            "Logical": 12582912,
+            "Reserved": 12582912,
+            "Remaps": 1,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/aria_log_control",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/aria_log.00000001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/db.opt",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 16,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 5,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_buffer_pool",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          }
+        ]
+      },
+      {
+        "all_nodes": 16,
+        "live_nodes": 13,
+        "logical_bytes_all": 12595200,
+        "reserved_bytes_all": 12599296,
+        "remaps": 38,
+        "files": [
+          {
+            "Name": "mariadb/data/wasmer.lower-test",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 0,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ddl_recovery.log",
+            "Logical": 12288,
+            "Reserved": 16384,
+            "Remaps": 3,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ibdata1",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_logfile0",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo002",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo003",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ibtmp1",
+            "Logical": 12582912,
+            "Reserved": 12582912,
+            "Remaps": 1,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/aria_log_control",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/aria_log.00000001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/db.opt",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 16,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 5,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_buffer_pool",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          }
+        ]
+      },
+      {
+        "all_nodes": 16,
+        "live_nodes": 13,
+        "logical_bytes_all": 12595200,
+        "reserved_bytes_all": 12599296,
+        "remaps": 38,
+        "files": [
+          {
+            "Name": "mariadb/data/wasmer.lower-test",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 0,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ddl_recovery.log",
+            "Logical": 12288,
+            "Reserved": 16384,
+            "Remaps": 3,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ibdata1",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_logfile0",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo002",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo003",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ibtmp1",
+            "Logical": 12582912,
+            "Reserved": 12582912,
+            "Remaps": 1,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/aria_log_control",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/aria_log.00000001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/db.opt",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 16,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 5,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_buffer_pool",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          }
+        ]
+      },
+      {
+        "all_nodes": 16,
+        "live_nodes": 13,
+        "logical_bytes_all": 12595200,
+        "reserved_bytes_all": 12599296,
+        "remaps": 38,
+        "files": [
+          {
+            "Name": "mariadb/data/wasmer.lower-test",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 0,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ddl_recovery.log",
+            "Logical": 12288,
+            "Reserved": 16384,
+            "Remaps": 3,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/ibdata1",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_logfile0",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo002",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/undo003",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ibtmp1",
+            "Logical": 12582912,
+            "Reserved": 12582912,
+            "Remaps": 1,
+            "Live": false
+          },
+          {
+            "Name": "mariadb/data/aria_log_control",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/aria_log.00000001",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 2,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/db.opt",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/users.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 16,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.frm",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/test/orders.ibd",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 5,
+            "Live": true
+          },
+          {
+            "Name": "mariadb/data/ib_buffer_pool",
+            "Logical": 0,
+            "Reserved": 0,
+            "Remaps": 1,
+            "Live": true
+          }
+        ]
+      }
+    ]
+  }
+}

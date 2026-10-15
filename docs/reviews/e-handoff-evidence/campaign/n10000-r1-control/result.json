@@ -1,0 +1,125 @@
+{
+  "mode": "control",
+  "rows": 10000,
+  "repeat": 1,
+  "warmup": false,
+  "times_ms": {
+    "setup/start": 46.876459,
+    "setup/migrate-seed": 791.037,
+    "setup/snapshot": 388.658584,
+    "first/startup": 52.448708,
+    "first/connect": 4.343792,
+    "first/crud": 16.932875,
+    "first/disconnect": 0.02625,
+    "first/close": 4.175209,
+    "second/startup": 49.845041,
+    "second/connect": 4.137625,
+    "second/crud": 22.559375,
+    "second/disconnect": 0.027458,
+    "second/close": 4.1385,
+    "baseline/close": 1.124625
+  },
+  "children": [
+    {
+      "name": "first",
+      "pid": 27474
+    },
+    {
+      "name": "second",
+      "pid": 27476
+    }
+  ],
+  "checks": [
+    "first-sql-and-isolation-pass",
+    "second-sql-and-isolation-pass",
+    "baseline-unchanged-pass"
+  ],
+  "setup_pid": 27444,
+  "guest_version": "12.3.3-MariaDB-embedded",
+  "baseline_manifest": {
+    "format": "mariamem-cold-snapshot",
+    "version": 1,
+    "wasm_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+    "source_storage": "memory",
+    "entries": {
+      ".": {
+        "kind": "directory"
+      },
+      "data": {
+        "kind": "directory"
+      },
+      "data/aria_log.00000001": {
+        "kind": "file",
+        "bytes": 16384,
+        "sha256": "51a381ba2da51b31b591ea20066ed6f8b1f8d84fbf2df6e543caeaf11f62ef96"
+      },
+      "data/aria_log_control": {
+        "kind": "file",
+        "bytes": 52,
+        "sha256": "a89b9df5762627e0c65aeacaa8d3bc1aa3775b3d0fc9929681b505d72214cce6"
+      },
+      "data/ib_buffer_pool": {
+        "kind": "file",
+        "bytes": 497,
+        "sha256": "a3bb3eee9c95a3e32da1375904b62604f1603b729ddadd919f2f890a0e56d64a"
+      },
+      "data/ib_logfile0": {
+        "kind": "file",
+        "bytes": 100663296,
+        "sha256": "938282cc89809ddc76b92682114a4c4c379e958cb2f7a56414ad4e5cdde9b670"
+      },
+      "data/ibdata1": {
+        "kind": "file",
+        "bytes": 12582912,
+        "sha256": "3fc02adef3257dde3a1bd763a196596cc4bc244028770f0982b7ef95f2af89e9"
+      },
+      "data/test": {
+        "kind": "directory"
+      },
+      "data/test/db.opt": {
+        "kind": "file",
+        "bytes": 70,
+        "sha256": "9d2cb1189b5fa7b46cec9d9e277c9968066915ae38a1821a451a9a098b035f3f"
+      },
+      "data/test/orders.frm": {
+        "kind": "file",
+        "bytes": 1472,
+        "sha256": "9a6cbec2472fb57abe85187f5277db5de43100e6185bfddf046c280f701c717c"
+      },
+      "data/test/orders.ibd": {
+        "kind": "file",
+        "bytes": 589824,
+        "sha256": "0ed3fc9b74193f934370e964e0d37359727859d2733e5ba74e5d6aa0d76d07b1"
+      },
+      "data/test/users.frm": {
+        "kind": "file",
+        "bytes": 2015,
+        "sha256": "7d3033410b72240987c1ca1e079285573a5f007ea3db1c19b42a2858e2277fa0"
+      },
+      "data/test/users.ibd": {
+        "kind": "file",
+        "bytes": 20971520,
+        "sha256": "92d6f7f66e716017617a7b6aa373d4f838d0af61bc60c79aca1d7db595f67293"
+      },
+      "data/undo001": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "a8afac40264e62d4bfcf368e557c48880e2eef30219c9bf175d8d7df3c3e9694"
+      },
+      "data/undo002": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "053040f66bd3e89193ef62731446e4447e55133a5410167598ea762efa21b3d5"
+      },
+      "data/undo003": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "52698d310b008e30290db16b8233449d1f509bb5be62cd40e7e6749614158bcc"
+      },
+      "plugin": {
+        "kind": "directory"
+      }
+    }
+  },
+  "workflow_ms_before_validation": 1390.452666
+}
