@@ -1,0 +1,50 @@
+{
+  "internal/generatedgo/code/base/base.go": {
+    "before": "8b092f6215c75f842c1a9804313527639214276e1c8c74876f427ddc19fd0d63",
+    "after": "c2eeaac11954b891a590982603c5e74089715a00cc65b2ec55d2e62feb76384f"
+  },
+  "internal/generatedgo/code/base/owned_prepared.go": {
+    "before": "7ae03ac0aeae14505faae3e151649eb3f683ca6d63e3313109972560e3a9c388",
+    "after": "b86685324baddc12cb38e63239208dd6be94ea64b0d4254f5043460f326ca9d3"
+  },
+  "internal/generatedgo/code/base/prepared_files.go": {
+    "before": "9f860253f7cb682b274492129e1fc7e8c64d62dcc47c7c39e42ee347675629cc",
+    "after": "2e5231e1b32528f293a99d17c0f44440da6297ae4f67ef04cff3f21fd6f3672a"
+  },
+  "internal/generatedgo/runtime_instance.go": {
+    "before": "f968359a8bd53f192c12ff3f891e032bed947550909b47482d0c00cfe0bc7a17",
+    "after": "d3a508e80ed7323863e47cb14b18b3e7a090583481fa806e744371c90f98361d"
+  },
+  "internal/host/server.go": {
+    "before": "0dfcff4bb304e7325196b343f7db520ebaee04f3af88e019bb163c1b0ca33e5a",
+    "after": "e460bb144fe93dae6e12dc88b3bb99768b8977650cec507dae73da249fce7ba0"
+  },
+  "internal/generatedgo/code/base/ce_file.go": {
+    "before": null,
+    "after": "f52c459cd7aacfaa14e6d445e4ec1afa068a2ec439300a28c72f2a28f71b2113"
+  },
+  "internal/generatedgo/code/base/ce_file_test.go": {
+    "before": null,
+    "after": "bb57d8051ca1dfd3bf75f8a24962505371687a148ae93906884aa4c775c55db3"
+  },
+  "internal/generatedgo/code/base/e_backing.go": {
+    "before": null,
+    "after": "ba0306fed89ce23d0b7ac3879dba00b119b181eb6ebd9c34409d61546f70dd22"
+  },
+  "internal/generatedgo/code/base/e_backing_test.go": {
+    "before": null,
+    "after": "ffa68d1b917fbe3712a0f6eea2ae17963c5e067f149fd3e3685a5abbbec2f91d"
+  },
+  "internal/generatedgo/code/base/e_handoff.go": {
+    "before": null,
+    "after": "46409f43ed7fb831c86615afce8c70ad6e598e52a2c48e4ca1475349c0a5cad1"
+  },
+  "internal/generatedgo/code/base/e_handoff_test.go": {
+    "before": null,
+    "after": "27656fd22fe8b7bcff01798928b6a1d3d51696e7ce5d68cd52b6a985932d40f4"
+  },
+  "internal/snapshot/e_publish.go": {
+    "before": null,
+    "after": "1667290a8bb6ef4b37bfd9b8bae0e06933fa93f234d671676270b1e506d807c9"
+  }
+}

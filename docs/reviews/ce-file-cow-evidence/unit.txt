@@ -1,0 +1,56 @@
+=== RUN   TestCEWriteOwnsAndReleases
+--- PASS: TestCEWriteOwnsAndReleases (0.00s)
+=== RUN   TestCEShrinkRegrowAndAllocate
+--- PASS: TestCEShrinkRegrowAndAllocate (0.00s)
+=== RUN   TestCETruncateZeroAndEmpty
+=== RUN   TestCETruncateZeroAndEmpty/abcdef
+=== RUN   TestCETruncateZeroAndEmpty/#00
+--- PASS: TestCETruncateZeroAndEmpty (0.00s)
+    --- PASS: TestCETruncateZeroAndEmpty/abcdef (0.00s)
+    --- PASS: TestCETruncateZeroAndEmpty/#00 (0.00s)
+=== RUN   TestCERenameUnlinkReplacement
+--- PASS: TestCERenameUnlinkReplacement (0.00s)
+=== RUN   TestCEConcurrentHandlesCopyOnce
+--- PASS: TestCEConcurrentHandlesCopyOnce (0.00s)
+=== RUN   TestCEAllocateGrowthAndZeroWrite
+--- PASS: TestCEAllocateGrowthAndZeroWrite (0.00s)
+=== RUN   TestEBackingResizeAndIdentity
+--- PASS: TestEBackingResizeAndIdentity (0.00s)
+=== RUN   TestEFreezeChildrenAndLifetime
+--- PASS: TestEFreezeChildrenAndLifetime (0.00s)
+=== RUN   TestECrossProcess
+--- PASS: TestECrossProcess (0.01s)
+=== RUN   TestEFreezeRejectsMutation
+--- PASS: TestEFreezeRejectsMutation (0.00s)
+=== RUN   TestEHandoffPublishSameFiles
+--- PASS: TestEHandoffPublishSameFiles (0.00s)
+=== RUN   TestEHandoffFailuresNoManifest
+=== RUN   TestEHandoffFailuresNoManifest/before_move
+=== RUN   TestEHandoffFailuresNoManifest/after_move
+=== RUN   TestEHandoffFailuresNoManifest/corrupt_after_hash
+=== RUN   TestEHandoffFailuresNoManifest/publish_after_move
+=== RUN   TestEHandoffFailuresNoManifest/wrong_build
+=== RUN   TestEHandoffFailuresNoManifest/extra_file
+=== RUN   TestEHandoffFailuresNoManifest/missing_file
+--- PASS: TestEHandoffFailuresNoManifest (0.02s)
+    --- PASS: TestEHandoffFailuresNoManifest/before_move (0.00s)
+    --- PASS: TestEHandoffFailuresNoManifest/after_move (0.00s)
+    --- PASS: TestEHandoffFailuresNoManifest/corrupt_after_hash (0.00s)
+    --- PASS: TestEHandoffFailuresNoManifest/publish_after_move (0.00s)
+    --- PASS: TestEHandoffFailuresNoManifest/wrong_build (0.00s)
+    --- PASS: TestEHandoffFailuresNoManifest/extra_file (0.00s)
+    --- PASS: TestEHandoffFailuresNoManifest/missing_file (0.00s)
+=== RUN   TestEHandoffExpectedHashNotReplaced
+--- PASS: TestEHandoffExpectedHashNotReplaced (0.00s)
+=== RUN   TestMemFSGrowthAmortizedCopy
+--- PASS: TestMemFSGrowthAmortizedCopy (0.01s)
+=== RUN   TestMemFSGrowthZeroFillAndOffsets
+--- PASS: TestMemFSGrowthZeroFillAndOffsets (0.00s)
+=== RUN   TestPreparedFilePrivateViews
+--- PASS: TestPreparedFilePrivateViews (0.00s)
+=== RUN   TestPreparedFilesRejectPartialInvalidTree
+--- PASS: TestPreparedFilesRejectPartialInvalidTree (0.00s)
+=== RUN   TestPreparedGrowthOwnershipAndZeroFill
+--- PASS: TestPreparedGrowthOwnershipAndZeroFill (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.640s

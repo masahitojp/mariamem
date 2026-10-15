@@ -1,0 +1,79 @@
+package base
+
+import (
+ "bytes"
+ "io"
+ "os"
+ "sync"
+ "testing"
+ "github.com/masahitojp/mariamem/internal/prepared"
+)
+func ceFixture(t *testing.T, content string) (*MemFS,*PreparedFiles,*memFile,*os.File) {
+ t.Helper();t.Setenv("MARIAMEM_CE","1")
+ disk,err:=os.CreateTemp(t.TempDir(),"baseline");if err!=nil{t.Fatal(err)}
+ if _,err=disk.WriteString(content);err!=nil{t.Fatal(err)}
+ t.Cleanup(func(){disk.Close()})
+ fs:=NewMemFS();fs.MkdirAll("/mariadb",0700);p,err:=MapPreparedHandles(fs,[]prepared.Entry{{Name:"a",FD:int(disk.Fd()),Size:int64(len(content))}},"/mariadb")
+ if err!=nil{t.Fatal(err)}
+ t.Cleanup(func(){if err:=p.Close();err!=nil{t.Error(err)}})
+ f,err:=fs.OpenFile("/mariadb/a",os.O_RDWR,0600);if err!=nil{t.Fatal(err)}
+ return fs,p,f.(*memFile),disk
+}
+func ceBytes(t *testing.T,f *memFile,want string){t.Helper();b:=make([]byte,len(want));if _,err:=f.ReadAt(b,0);err!=nil && err!=io.EOF{t.Fatal(err)};if string(b)!=want{t.Fatalf("got %q want %q",b,want)}}
+func TestCEWriteOwnsAndReleases(t *testing.T){
+ fs,p,f,disk:=ceFixture(t,"abcdef")
+ entries:=[]prepared.Entry{{Name:"a",FD:int(disk.Fd()),Size:6}}
+ other:=NewMemFS();other.MkdirAll("/mariadb",0700);p2,err:=MapPreparedHandles(other,entries,"/mariadb");if err!=nil{t.Fatal(err)};defer p2.Close()
+ if f.node.ce==nil || p.mappings[0]==nil{t.Fatal("not shared")}
+ if _,err=f.WriteAt([]byte("X"),2);err!=nil{t.Fatal(err)}
+ if f.node.ce!=nil || p.mappings[0]!=nil{t.Fatal("mapping retained")}
+ f.WriteAt([]byte("Y"),3);ceBytes(t,f,"abXYef")
+ if len(fs.ceRecords)!=1 || fs.ceRecords[0].Copied!=6{t.Fatal(fs.ceRecords)}
+ b:=make([]byte,6);disk.ReadAt(b,0);if string(b)!="abcdef"{t.Fatal("baseline changed")}
+ sibling,_:=other.OpenFile("/mariadb/a",os.O_RDWR,0600);ceBytes(t,sibling.(*memFile),"abcdef")
+ disk.Close();sibling.(*memFile).WriteAt([]byte("Z"),0);ceBytes(t,sibling.(*memFile),"Zbcdef")
+ ceBytes(t,f,"abXYef")
+}
+func TestCEShrinkRegrowAndAllocate(t *testing.T){
+ fs,_,f,_:=ceFixture(t,"abcdef")
+ f.Seek(2,io.SeekStart)
+ if err:=f.Allocate(3);err!=nil{t.Fatal(err)}
+ if f.node.ce==nil || len(fs.ceRecords)!=0{t.Fatal("in-range allocation detached")}
+ f.Truncate(3);if f.node.ce==nil{t.Fatal("shrink copied")}
+ f.Truncate(7);ceBytes(t,f,"abc\x00\x00\x00\x00")
+ off,_:=f.Seek(0,io.SeekCurrent);if off!=2{t.Fatal(off)}
+ if len(fs.ceRecords)!=1 || fs.ceRecords[0].Copied!=3 || fs.ceRecords[0].Capacity!=7{t.Fatal(fs.ceRecords)}
+}
+func TestCETruncateZeroAndEmpty(t *testing.T){
+ for _,initial:=range []string{"abcdef",""}{t.Run(initial,func(t *testing.T){
+ fs,_,f,_:=ceFixture(t,initial)
+ opened,err:=fs.OpenFile("/mariadb/a",os.O_TRUNC|os.O_RDWR,0600);if err!=nil{t.Fatal(err)};opened.Close()
+ if f.node.ce!=nil{t.Fatal("retained empty view")}
+ f.WriteAt([]byte("X"),3);ceBytes(t,f,"\x00\x00\x00X")
+ if len(fs.ceRecords)!=0{t.Fatal("copied discarded data")}
+ })}
+ fs,_,f,_:=ceFixture(t,"");f.WriteAt([]byte("X"),0);ceBytes(t,f,"X")
+ if len(fs.ceRecords)!=1 || fs.ceRecords[0].Copied!=0{t.Fatal(fs.ceRecords)}
+}
+func TestCERenameUnlinkReplacement(t *testing.T){
+ fs,_,f,disk:=ceFixture(t,"abcdef")
+ if err:=fs.Rename("/mariadb/a","/mariadb/b");err!=nil{t.Fatal(err)}
+ if err:=fs.Remove("/mariadb/b");err!=nil{t.Fatal(err)}
+ if err:=fs.WriteFile("/mariadb/b",[]byte("new"),0600);err!=nil{t.Fatal(err)}
+ f.WriteAt([]byte("X"),0);ceBytes(t,f,"Xbcdef")
+ now,_:=fs.OpenFile("/mariadb/b",os.O_RDWR,0600);ceBytes(t,now.(*memFile),"new")
+ b:=make([]byte,6);disk.ReadAt(b,0);if string(b)!="abcdef"{t.Fatal("baseline changed")}
+}
+func TestCEConcurrentHandlesCopyOnce(t *testing.T){
+ fs,_,f,_:=ceFixture(t,string(bytes.Repeat([]byte{'x'},64)))
+ var wg sync.WaitGroup
+ for i:=0;i<64;i++{wg.Add(1);go func(i int){defer wg.Done();h,err:=fs.OpenFile("/mariadb/a",os.O_RDWR,0600);if err!=nil{t.Error(err);return};_,err=h.(*memFile).WriteAt([]byte{'y'},int64(i));if err!=nil{t.Error(err)}}(i)}
+ wg.Wait();ceBytes(t,f,string(bytes.Repeat([]byte{'y'},64)));if len(fs.ceRecords)!=1{t.Fatal(fs.ceRecords)}
+}
+func TestCEAllocateGrowthAndZeroWrite(t *testing.T){
+ fs,_,f,_:=ceFixture(t,"abc")
+ f.WriteAt(nil,1);if f.node.ce==nil{t.Fatal("zero write detached")}
+ if err:=f.Allocate(7);err!=nil{t.Fatal(err)}
+ ceBytes(t,f,"abc\x00\x00\x00\x00")
+ if len(fs.ceRecords)!=1 || fs.ceRecords[0].Copied!=3{t.Fatal(fs.ceRecords)}
+}

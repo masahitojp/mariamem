@@ -1,0 +1,9 @@
+START boundaries-e
+PASS boundaries-e
+START boundaries-ce
+PASS boundaries-ce
+START plain
+PASS plain
+START resources
+PASS resources
+disk {'owned_bytes': 1082454016, 'free_bytes': 78507884544, 'peak_owned_bytes': 1194262528, 'minimum_free_bytes': 78361075712}

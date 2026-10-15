@@ -1,0 +1,79 @@
+// Experimental whole-file CoW. All node transitions hold MemFS.mu.
+package base
+
+import (
+ "encoding/json"
+ "fmt"
+ "os"
+ "path/filepath"
+ "runtime"
+ "syscall"
+ "time"
+)
+
+type ceShared struct { owner *PreparedFiles; index int }
+type ceRecord struct {
+ Name string
+ Reason string
+ Phase string
+ Copied int
+ Capacity int
+ Unmapped int
+ NS int64
+}
+func (n *memNode) ceRelease() int {
+ b:=n.ce
+ n.ce=nil
+ if b.index<0{return 0}
+ data:=b.owner.mappings[b.index]
+ if err:=syscall.Munmap(data);err!=nil{panic(err)}
+ b.owner.mappings[b.index]=nil
+ return len(data)
+}
+// Allocate once for the retained prefix and requested extent. Growth after
+// detachment uses the existing MemFS policy. No pointer to the old view survives.
+func (fsys *MemFS) ceOwn(n *memNode, want int64, reason string) {
+ if n.ce==nil{return}
+ start:=time.Now()
+ if want<0 || uint64(want)>uint64(^uint(0)>>1){panic("invalid CE length")}
+ length:=len(n.data)
+ capacity:=length
+ if int64(capacity)<want{capacity=int(want)}
+ next:=make([]byte,length,capacity)
+ copy(next,n.data)
+ n.data=next
+ unmapped:=n.ceRelease()
+ elapsed:=time.Since(start).Nanoseconds()
+ phase,_:=os.ReadFile(os.Getenv("MARIAMEM_E_PHASE_FILE"))
+ fsys.ceRecords=append(fsys.ceRecords,ceRecord{eName(n),reason,string(phase),length,capacity,unmapped,elapsed})
+}
+func (fsys *MemFS) ceResize(n *memNode,want int64) []byte {
+ if want<0 || uint64(want)>uint64(^uint(0)>>1){panic("invalid CE length")}
+ if want<=int64(len(n.data)) {
+  if want==0 {n.ceRelease();return nil}
+  return n.data[:int(want)]
+ }
+ fsys.ceOwn(n,want,"grow")
+ return resizeMemData(n.data,want)
+}
+// Resource collection is separate from plain timing campaigns. Peak RSS is
+// per host process; HeapAlloc is not a post-GC retained-memory measurement.
+func (fsys *MemFS) CEReport(child bool) error {
+ out:=os.Getenv("MARIAMEM_E_OUT")
+ if out=="" {return nil}
+ report:=map[string]any{"child":child,"ce":os.Getenv("MARIAMEM_CE")=="1","copies":fsys.ceRecords}
+ if os.Getenv("MARIAMEM_CE_METRICS")=="1" {
+  var m runtime.MemStats
+  runtime.ReadMemStats(&m)
+  var usage syscall.Rusage
+  if err:=syscall.Getrusage(syscall.RUSAGE_SELF,&usage);err!=nil{return err}
+  report["maxrss_raw"]=usage.Maxrss
+  report["total_alloc_bytes"]=m.TotalAlloc
+  report["heap_alloc_bytes"]=m.HeapAlloc
+  report["heap_sys_bytes"]=m.HeapSys
+  report["num_gc"]=m.NumGC
+ }
+ data,err:=json.MarshalIndent(report,"","  ")
+ if err!=nil{return err}
+ return os.WriteFile(filepath.Join(out,fmt.Sprintf("%d-ce.json",os.Getpid())),data,0600)
+}

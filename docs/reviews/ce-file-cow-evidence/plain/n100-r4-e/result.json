@@ -1,0 +1,160 @@
+{
+  "mode": "e",
+  "rows": 100,
+  "repeat": 4,
+  "warmup": false,
+  "times_ms": {
+    "setup/start": 46.68725,
+    "setup/migrate-seed": 12.502167,
+    "setup/snapshot": 233.533333,
+    "first/startup": 50.995709,
+    "first/connect": 4.210375,
+    "first/crud": 2.12825,
+    "first/disconnect": 0.0325,
+    "first/close": 4.654417,
+    "second/startup": 54.545583,
+    "second/connect": 4.224083,
+    "second/crud": 3.679334,
+    "second/disconnect": 0.035709,
+    "second/close": 4.693042,
+    "baseline/close": 1.666291
+  },
+  "children": [
+    {
+      "name": "first",
+      "pid": 66341
+    },
+    {
+      "name": "second",
+      "pid": 66343
+    }
+  ],
+  "checks": [
+    "first-sql-and-isolation-pass",
+    "second-sql-and-isolation-pass",
+    "baseline-unchanged-pass"
+  ],
+  "setup_pid": 66329,
+  "guest_version": "12.3.3-MariaDB-embedded",
+  "baseline_manifest": {
+    "format": "mariamem-cold-snapshot",
+    "version": 1,
+    "wasm_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+    "source_storage": "memory",
+    "entries": {
+      ".": {
+        "kind": "directory"
+      },
+      "data": {
+        "kind": "directory"
+      },
+      "data/aria_log.00000001": {
+        "kind": "file",
+        "bytes": 16384,
+        "sha256": "3c323828b8447fb41271d4b3e1cf551961bf5235dbb2d8ec2a040d429d96ff24"
+      },
+      "data/aria_log_control": {
+        "kind": "file",
+        "bytes": 52,
+        "sha256": "9d615ee42e5b74c0689a2e8fe9d3e35fc5876fe5857943558a0c835b7020b03e"
+      },
+      "data/ib_buffer_pool": {
+        "kind": "file",
+        "bytes": 793,
+        "sha256": "e048796006f57ea35727a85b599838cd655ee1eb7ab1aba9582843ba593ee4ce"
+      },
+      "data/ib_logfile0": {
+        "kind": "file",
+        "bytes": 100663296,
+        "sha256": "89a3c0ff51c5a266ed7ddc148c240ecd06a26fe111378d57af5bcd1b77cb2449"
+      },
+      "data/ibdata1": {
+        "kind": "file",
+        "bytes": 12582912,
+        "sha256": "fe44be9a5046b3a3ed6636e8227023c267f2eba7d268a26e635acfa44988b477"
+      },
+      "data/test": {
+        "kind": "directory"
+      },
+      "data/test/db.opt": {
+        "kind": "file",
+        "bytes": 70,
+        "sha256": "9d2cb1189b5fa7b46cec9d9e277c9968066915ae38a1821a451a9a098b035f3f"
+      },
+      "data/test/orders.frm": {
+        "kind": "file",
+        "bytes": 1472,
+        "sha256": "61c16a9cc3b2a689f96f4444b41ba9abf3f9884e4291e63ac884fb82ca5a18d1"
+      },
+      "data/test/orders.ibd": {
+        "kind": "file",
+        "bytes": 81920,
+        "sha256": "86ad749b1ae0965aff457ab7a55aa04851b3ac399907d984c234f919091d1d5c"
+      },
+      "data/test/users.frm": {
+        "kind": "file",
+        "bytes": 2015,
+        "sha256": "130b7b7eefd2b264758edab3e28d2c1ee527e443c377dff8803267baecae925d"
+      },
+      "data/test/users.ibd": {
+        "kind": "file",
+        "bytes": 147456,
+        "sha256": "8a7837b6e0ff64d3a3c381db15ccba7d1d34625eb9c1bdc251659680cf9da8de"
+      },
+      "data/undo001": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "dc48776d6d6171903215a11c4cf52013a9220714e003021b80e0e8d5143f4f63"
+      },
+      "data/undo002": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "8456bf5a92f1068d1892aacbc40cc04dd370d11e2c472891e80e901272857052"
+      },
+      "data/undo003": {
+        "kind": "file",
+        "bytes": 10485760,
+        "sha256": "d4c7cc9d1ce370f40f3f330ce4b912e76ce6cfd6859e411d2744ebbcec074a84"
+      },
+      "plugin": {
+        "kind": "directory"
+      }
+    }
+  },
+  "handoff": {
+    "bytes": 144953650,
+    "elapsed_ns": 80488792,
+    "files": 13,
+    "freeze_move_ns": 7682375,
+    "guest_cold_copy_present": false,
+    "payload_copy_bytes": 0,
+    "same_inode_all": true,
+    "source_inventory_hash_ns": 72641458,
+    "success": true
+  },
+  "publish": {
+    "elapsed_ns": 66484792,
+    "payload_copy_bytes": 0,
+    "same_directory_inode": true,
+    "success": true,
+    "target_inventory_hash_ns": 65979750
+  },
+  "workflow_ms_before_validation": 427.0135,
+  "host_reports": [
+    {
+      "ce": false,
+      "child": false,
+      "copies": null
+    },
+    {
+      "ce": false,
+      "child": true,
+      "copies": null
+    },
+    {
+      "ce": false,
+      "child": true,
+      "copies": null
+    }
+  ]
+}

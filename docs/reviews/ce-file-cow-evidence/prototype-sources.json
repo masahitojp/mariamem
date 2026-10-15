@@ -1,0 +1,17 @@
+{
+  "boundaries.py": "a741986130acc736941909a5d58996a0d3313de6f7c502dff58469bdb85caabc",
+  "campaign.py": "a119c771657294f59c827a3c7e1ee5861259766c92110ae2f8e6b75732295029",
+  "ce.go.txt": "9e061ed325bdb17c2363e991da22f967e58ca3404ad85fda332259604f7395ae",
+  "ce_test.go.txt": "ed760fc045422b310dfa8177db59843a57e27b6c55f00d0f561356a7033694d4",
+  "handoff.go.txt": "30b51551b2286a14bb0f77cc472a67fe4b98ddf1a78dc98739eb7808e1ee1c1b",
+  "handoff_test.go.txt": "a5778c092c25e285519ac6dee2d6579623ee5a4cff39ce38d3eea3366417df4d",
+  "instrument.py": "67f3ba01220bf9bc965206fc0babc63807c5ac6570fcacb545fad9a46e0f6911",
+  "instrumentation.json": "6b96fbc501205de5d6ef5d46b16a419afaf000e1b7aa7f09955e3eaefdcc4729",
+  "observer.go.txt": "6f9f31fa8a253189733c3206daea2e4ccee72c71e0393491097e656e9ab1d5eb",
+  "observer_test.go.txt": "c348b7626b2f80aa585dc3805d2d3051070ae51d405bc761fc047672ec3493c0",
+  "publish.go.txt": "1808f109a8bc5f7c930bd6c99baec7c1bb9c7432a04a188ecbcc5dd6cce7e066",
+  "restore.py": "dbe886fd340b3b3768c14026eec72f6f262283363faaae34e0a90dc179fabbc9",
+  "rss-calibrate.py": "67834abaabca6cd2b070464f0c0c4aa4c4234c837fc8a87d52c4a85ce7849c37",
+  "run.py": "6f0c4da41bbe9bbdd67e9589411e44b57cda58feb8de1eb7494a30803a17b7eb",
+  "summarize.py": "4da2a140f30d6e210da09622391ae1539df671c93f82c0b9e8bad88220b47e2d"
+}

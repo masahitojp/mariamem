@@ -1,0 +1,48 @@
+// Isolated experiment. Production PublishContext is untouched.
+package snapshot
+
+import (
+ "context"
+ "encoding/json"
+ "errors"
+ "os"
+ "path/filepath"
+ "reflect"
+ "time"
+ "fmt"
+)
+
+// PublishSharedExperimental consumes already frozen files. Its caller owns
+// removal of the newly created destination on every failure, as in Snapshot.
+func PublishSharedExperimental(ctx context.Context, transfer,destination,build string)(err error){
+ start:=time.Now()
+ stats:=map[string]any{"payload_copy_bytes":0}
+ defer func(){
+  stats["elapsed_ns"]=time.Since(start).Nanoseconds();stats["success"]=err==nil
+  if err!=nil{stats["error"]=err.Error()}
+  if out:=os.Getenv("MARIAMEM_E_OUT");out!=""{
+   data,e:=json.MarshalIndent(stats,"","  ")
+   if e==nil{e=os.WriteFile(filepath.Join(out,fmt.Sprintf("%d-publish.json",os.Getpid())),data,0600)}
+   err=errors.Join(err,e)
+  }
+ }()
+ b,err:=os.ReadFile(filepath.Join(transfer,".e-expected.json"));if err!=nil{return err}
+ var m Manifest
+ if err=json.Unmarshal(b,&m);err!=nil{return err}
+ if err=checkManifest(m,build);err!=nil{return err}
+ source,target:=filepath.Join(transfer,"data"),filepath.Join(destination,"data")
+ before,err:=os.Lstat(source);if err!=nil{return err}
+ if !before.IsDir(){return errors.New("handoff source is not a directory")}
+ if err=os.Rename(source,target);err!=nil{return err}
+ after,err:=os.Lstat(target);if err!=nil{return err}
+ if !os.SameFile(before,after){return errors.New("handoff directory identity changed")}
+ stats["same_directory_inode"]=true
+ if os.Getenv("MARIAMEM_E_FAULT")=="publish_after_move"{return errors.New("injected publish_after_move")}
+ verifyStart:=time.Now()
+ actual,err:=inventory(ctx,target);if err!=nil{return err}
+ stats["target_inventory_hash_ns"]=time.Since(verifyStart).Nanoseconds()
+ if !reflect.DeepEqual(actual,m.Entries){return errors.New("shared handoff content mismatch")}
+ pending:=filepath.Join(destination,"manifest.pending")
+ if err=os.WriteFile(pending,append(b,'\n'),0600);err!=nil{return err}
+ return os.Rename(pending,filepath.Join(destination,"manifest.json"))
+}

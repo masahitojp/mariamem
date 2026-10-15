@@ -1,0 +1,2 @@
+Disk preflight OK: 73.62 GiB free, 0.36 GiB owned
+go: writing stat cache: open <USER_HOME>/.go/pkg/mod/cache/download/github.com/masahitojp/mariamem/@v/v0.5.1-0.20261014074712-a8137b8b444f.info836584397.tmp: operation not permitted

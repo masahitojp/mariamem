@@ -1,0 +1,6 @@
+Collecting pymysql==1.2.3
+  Downloading pymysql-1.2.3-py3-none-any.whl (46 kB)
+Installing collected packages: pymysql
+Successfully installed pymysql-1.2.3
+WARNING: You are using pip version 21.2.4; however, version 26.0.1 is available.
+You should consider upgrading via the '<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/ce-file-cow/temp/venv/bin/python -m pip install --upgrade pip' command.

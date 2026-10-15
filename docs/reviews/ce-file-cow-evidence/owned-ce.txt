@@ -1,0 +1,13 @@
+=== RUN   TestOwnedPrivateViewsGrowthAndRelease
+--- PASS: TestOwnedPrivateViewsGrowthAndRelease (0.01s)
+=== RUN   TestOwnedPartialMappingFailure
+    owned_prepared_test.go:139: OS file-map counter omitted; acceptance sets MARIAMEM_PROCESS_COST
+    owned_prepared_test.go:145: OS file-map counter omitted; acceptance sets MARIAMEM_PROCESS_COST
+    owned_prepared_test.go:146: 100 partial mapping failures: file-backed VM bytes 0 -> 0
+--- PASS: TestOwnedPartialMappingFailure (0.00s)
+=== RUN   TestOwnedMappedTruncateRenameUnlinkIdentity
+    owned_prepared_test.go:194: mapped truncate/regrow contract changed
+--- FAIL: TestOwnedMappedTruncateRenameUnlinkIdentity (0.00s)
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.107s
+FAIL

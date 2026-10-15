@@ -1,0 +1,1 @@
+mariamem: guest shutdown: injected before_move

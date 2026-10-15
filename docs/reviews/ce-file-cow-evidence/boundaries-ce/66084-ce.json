@@ -1,0 +1,51 @@
+{
+  "ce": true,
+  "child": true,
+  "copies": [
+    {
+      "Name": "mariadb/data/aria_log.00000001",
+      "Reason": "write",
+      "Phase": "",
+      "Copied": 16384,
+      "Capacity": 16384,
+      "Unmapped": 16384,
+      "NS": 16042
+    },
+    {
+      "Name": "mariadb/data/aria_log_control",
+      "Reason": "write",
+      "Phase": "",
+      "Copied": 52,
+      "Capacity": 52,
+      "Unmapped": 52,
+      "NS": 2750
+    },
+    {
+      "Name": "mariadb/data/ib_logfile0",
+      "Reason": "write",
+      "Phase": "",
+      "Copied": 100663296,
+      "Capacity": 100663296,
+      "Unmapped": 100663296,
+      "NS": 27091458
+    },
+    {
+      "Name": "mariadb/data/ibdata1",
+      "Reason": "write",
+      "Phase": "",
+      "Copied": 12582912,
+      "Capacity": 12582912,
+      "Unmapped": 12582912,
+      "NS": 2312500
+    },
+    {
+      "Name": "mariadb/data/undo001",
+      "Reason": "write",
+      "Phase": "",
+      "Copied": 10485760,
+      "Capacity": 10485760,
+      "Unmapped": 10485760,
+      "NS": 1956958
+    }
+  ]
+}

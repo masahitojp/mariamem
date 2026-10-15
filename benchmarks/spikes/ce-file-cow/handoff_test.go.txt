@@ -1,0 +1,67 @@
+package base
+
+import (
+ "bytes"
+ "context"
+ "encoding/json"
+ "os"
+ "path/filepath"
+ "testing"
+
+ "github.com/masahitojp/mariamem/internal/snapshot"
+)
+
+func eHandoffFixture(t *testing.T)(*MemFS,string,string){
+ t.Helper()
+ fs:=eTestFS(t);fs.e.mode="handoff"
+ fs.MkdirAll("mariadb/db",0700)
+ fs.WriteFile("mariadb/db/a",bytes.Repeat([]byte{0x5a},8192),0600)
+ fs.WriteFile("mariadb/db/empty",nil,0600)
+ transfer:=t.TempDir();dest:=t.TempDir()
+ if e:=os.WriteFile(filepath.Join(transfer,".e-request"),nil,0600);e!=nil{t.Fatal(e)}
+ return fs,transfer,dest
+}
+func TestEHandoffPublishSameFiles(t *testing.T){
+ fs,transfer,dest:=eHandoffFixture(t)
+ n,_:=fs.lookup("mariadb/db/a");before,e:=n.e.file.Stat();if e!=nil{t.Fatal(e)}
+ handled,e:=fs.EHandoff(transfer,"build");if e!=nil || !handled{t.Fatal(handled,e)}
+ if e=snapshot.PublishSharedExperimental(context.Background(),transfer,dest,"build");e!=nil{t.Fatal(e)}
+ if _,e=snapshot.Validate(dest,"build");e!=nil{t.Fatal(e)}
+ after,e:=os.Stat(filepath.Join(dest,"data/db/a"));if e!=nil || !os.SameFile(before,after){t.Fatal("inode changed",e)}
+ if n.e.mapping!=nil || n.e.file!=nil{t.Fatal("writer still owned")}
+ if e=fs.EProbeClose();e!=nil{t.Fatal(e)}
+ data,e:=os.ReadFile(filepath.Join(dest,"data/db/a"));if e!=nil || !bytes.Equal(data,bytes.Repeat([]byte{0x5a},8192)){t.Fatal("source cleanup invalidated destination",e)}
+}
+func TestEHandoffFailuresNoManifest(t *testing.T){
+ for _,fault:=range []string{"before_move","after_move","corrupt_after_hash","publish_after_move","wrong_build","extra_file","missing_file"}{
+  t.Run(fault,func(t *testing.T){
+   t.Setenv("MARIAMEM_E_FAULT",fault)
+   fs,transfer,dest:=eHandoffFixture(t)
+   handled,e:=fs.EHandoff(transfer,"build")
+   if !handled{t.Fatal("silently fell back")}
+   if e==nil{
+    build:="build"
+    if fault=="wrong_build"{build="different"}
+    if fault=="extra_file"{os.WriteFile(filepath.Join(transfer,"data/unexpected"),[]byte{1},0600)}
+    if fault=="missing_file"{os.Remove(filepath.Join(transfer,"data/db/a"))}
+    e=snapshot.PublishSharedExperimental(context.Background(),transfer,dest,build)
+   }
+   if e==nil{t.Fatal("injection accepted")}
+   if _,e=os.Stat(filepath.Join(dest,"manifest.json"));!os.IsNotExist(e){t.Fatal("published failed Snapshot",e)}
+   if e=fs.EProbeClose();e!=nil{t.Fatal(e)}
+   if _,e=os.Stat(fs.e.dir);!os.IsNotExist(e){t.Fatal("source backing leaked",e)}
+  })
+ }
+}
+func TestEHandoffExpectedHashNotReplaced(t *testing.T){
+ fs,transfer,dest:=eHandoffFixture(t)
+ if _,e:=fs.EHandoff(transfer,"build");e!=nil{t.Fatal(e)}
+ b,e:=os.ReadFile(filepath.Join(transfer,".e-expected.json"));if e!=nil{t.Fatal(e)}
+ var before snapshot.Manifest;json.Unmarshal(b,&before)
+ file:=filepath.Join(transfer,"data/db/a")
+ os.Chmod(file,0600);os.WriteFile(file,bytes.Repeat([]byte{0x7f},8192),0600)
+ if e=snapshot.PublishSharedExperimental(context.Background(),transfer,dest,"build");e==nil{t.Fatal("accepted same-size corruption")}
+ b,e=os.ReadFile(filepath.Join(transfer,".e-expected.json"));if e!=nil{t.Fatal(e)}
+ var after snapshot.Manifest;json.Unmarshal(b,&after)
+ if before.Entries["db/a"].SHA256!=after.Entries["db/a"].SHA256{t.Fatal("expected digest was substituted")}
+}

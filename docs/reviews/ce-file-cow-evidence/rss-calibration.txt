@@ -1,0 +1,19 @@
+{"getrusage_maxrss_raw": 76726272, "touched_bytes": 67108864}
+        0.08 real         0.02 user         0.02 sys
+            76759040  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                5457  page reclaims
+                  41  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                  78  voluntary context switches
+                  53  involuntary context switches
+           283331690  instructions retired
+           125797337  cycles elapsed
+            73400728  peak memory footprint
