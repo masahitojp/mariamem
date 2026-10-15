@@ -344,9 +344,13 @@ def main():
     ap.add_argument("--output", type=Path, required=True)
     ap.add_argument("--scratch", type=Path, required=True)
     ap.add_argument("--boundaries-only", action="store_true")
+    ap.add_argument("--summarize-only", action="store_true")
     args = ap.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     args.scratch.mkdir(parents=True, exist_ok=True)
+    if args.summarize_only:
+        summarize(args.output)
+        return
     checks = boundaries(args.binary, args.scratch)
     (args.output / "boundaries.json").write_text(json.dumps(checks, indent=2)+"\n")
     print(f"boundary checks: {len(checks)} PASS", flush=True)
@@ -365,14 +369,21 @@ def main():
                 print(f"blocks={blocks} stride={stride} repeat={repeat} done", flush=True)
     (args.output / "raw.json").write_text(json.dumps(rows, indent=2)+"\n")
     (args.output / "pilots.json").write_text(json.dumps(pilots, indent=2)+"\n")
+    summarize(args.output)
+    assert not list(args.scratch.iterdir())
+
+
+def summarize(output):
+    rows = json.loads((output / "raw.json").read_text())
     summary = []
     for blocks in (512, 4096):
         for stride in (1, 16):
             group = {m: [r for r in rows if r["blocks"] == blocks and r["stride"] == stride and r["mode"] == m] for m in ("d1", "d2")}
             v = {"blocks": blocks, "stride": stride}
             for mode, rs in group.items():
-                v[mode] = {k: statistics.median(r[k])/1e6 for k in ("total_ns", "acquire_ns", "children_wall_ns", "cleanup_ns")}
-                v[mode].update({k: statistics.median(r["producer"][k])/1e6 for k in ("prepare_ns", "source_hash_ns", "freeze_ns")})
+                assert len(rs) == 5 and [r["repeat"] for r in rs] == list(range(5))
+                v[mode] = {k: statistics.median(r[k] for r in rs)/1e6 for k in ("total_ns", "acquire_ns", "children_wall_ns", "cleanup_ns")}
+                v[mode].update({k: statistics.median(r["producer"][k] for r in rs)/1e6 for k in ("prepare_ns", "source_hash_ns", "freeze_ns")})
                 v[mode]["total_range_ms"] = [min(r["total_ns"] for r in rs)/1e6, max(r["total_ns"] for r in rs)/1e6]
                 v[mode]["producer_stats"] = {k: statistics.median(r["producer"]["stats"][k] for r in rs) for k in rs[0]["producer"]["stats"]}
                 v[mode]["child_stats"] = {k: statistics.median(c["stats"][k] for r in rs for c in r["children"]) for k in rs[0]["children"][0]["stats"]}
@@ -380,9 +391,8 @@ def main():
             v["paired_d2_minus_d1_ms"] = diffs
             v["d2_faster_pairs"] = sum(d < 0 for d in diffs)
             summary.append(v)
-    (args.output / "summary.json").write_text(json.dumps(summary, indent=2)+"\n")
-    (args.output / "environment.json").write_text(json.dumps({"platform": platform.platform(), "machine": platform.machine(), "python": platform.python_version(), "ubuntu_x86_64": "SKIP: available Docker host is Linux aarch64; no native x86_64 runner used"}, indent=2)+"\n")
-    assert not list(args.scratch.iterdir())
+    (output / "summary.json").write_text(json.dumps(summary, indent=2)+"\n")
+    (output / "environment.json").write_text(json.dumps({"platform": platform.platform(), "machine": platform.machine(), "python": platform.python_version(), "ubuntu_x86_64": "SKIP: available Docker host is Linux aarch64; no native x86_64 runner used"}, indent=2)+"\n")
 
 
 if __name__ == "__main__":

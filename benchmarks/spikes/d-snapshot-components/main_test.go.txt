@@ -4,11 +4,23 @@ import (
  "bytes"
  "crypto/sha256"
  "encoding/hex"
+ "io"
  "math/rand"
  "os"
  "path/filepath"
  "testing"
 )
+
+func TestRangeEdges(t *testing.T){
+ for _,mode:=range []string{"d1","d2"}{t.Run(mode,func(t *testing.T){
+  s,e:=newStore(mode,filepath.Join(t.TempDir(),"segment"),16*B);if e!=nil{t.Fatal(e)};defer s.close();fs:=newFS(s,nil,Manifest{})
+  if e=fs.resize("f",B+1);e!=nil{t.Fatal(e)};p:=[]byte{9,9};n,e:=fs.read("f",p,B);if n!=1||e!=io.EOF||p[0]!=0||p[1]!=9{t.Fatal("short zero read")}
+  if n,e=fs.read("f",p,B+1);n!=0||e!=io.EOF{t.Fatal("EOF")};if _,e=fs.read("f",p,-1);e==nil{t.Fatal("negative read")}
+  if e=fs.write("f",nil,5*B);e!=nil||fs.files["f"].Size!=B+1{t.Fatal("zero write extends")}
+  if e=fs.resize("f",-1);e==nil{t.Fatal("negative size")};if e=fs.resize("f",1<<30+1);e==nil{t.Fatal("size limit")}
+  if e=s.freeze();e!=nil{t.Fatal(e)};if e=fs.resize("f",0);e==nil{t.Fatal("resize frozen")}
+ })}
+}
 
 func TestStorageModel(t *testing.T){
  for _,mode:=range []string{"d1","d2"}{t.Run(mode,func(t *testing.T){

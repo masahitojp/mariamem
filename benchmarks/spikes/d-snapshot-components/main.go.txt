@@ -37,7 +37,7 @@ func(s *Store) block(i int)[]byte{if s.mode=="d1"{return s.heap[i]};return s.map
 func(s *Store) close()error{var e error;if s.mapped!=nil{e=syscall.Munmap(s.mapped);s.mapped=nil};if s.f!=nil{e=errors.Join(e,s.f.Close());s.f=nil};return e}
 func(s *Store) freeze()error{
  if s.frozen{return errors.New("already frozen")};s.frozen=true
- if s.mode=="d1" {var e error;s.f,e=os.OpenFile(s.path,os.O_CREATE|os.O_EXCL|os.O_RDWR,0600);if e!=nil{return e};for _,b:=range s.heap{n,e:=s.f.Write(b);s.packBytes+=n;if e!=nil{return e};if n!=len(b){return io.ErrShortWrite};if os.Getenv("D_FAULT")=="transfer"{return errors.New("injected transfer")}}} else {if e:=syscall.Munmap(s.mapped);e!=nil{return e};s.mapped=nil;if e:=s.f.Truncate(int64(s.used));e!=nil{return e};if os.Getenv("D_FAULT")=="transfer"{return errors.New("injected transfer")}}
+ if s.mode=="d1" {var e error;s.f,e=os.OpenFile(s.path,os.O_CREATE|os.O_EXCL|os.O_RDWR,0600);if e!=nil{return e};if e=s.f.Truncate(int64(s.used));e!=nil{return e};if s.used>0{s.mapped,e=syscall.Mmap(int(s.f.Fd()),0,s.used,syscall.PROT_READ|syscall.PROT_WRITE,syscall.MAP_SHARED);if e!=nil{return e};for i,b:=range s.heap{s.packBytes+=copy(s.mapped[i*B:(i+1)*B],b);if os.Getenv("D_FAULT")=="transfer"{return errors.New("injected transfer")}};if e=syscall.Munmap(s.mapped);e!=nil{return e};s.mapped=nil}} else {if e:=syscall.Munmap(s.mapped);e!=nil{return e};s.mapped=nil;if e:=s.f.Truncate(int64(s.used));e!=nil{return e};if os.Getenv("D_FAULT")=="transfer"{return errors.New("injected transfer")}}
  if e:=s.f.Chmod(0400);e!=nil{return e};if e:=s.f.Close();e!=nil{return e};s.f=nil
  return nil
 }
