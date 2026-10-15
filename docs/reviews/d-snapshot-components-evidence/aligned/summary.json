@@ -1,0 +1,298 @@
+[
+  {
+    "blocks": 512,
+    "stride": 1,
+    "d1": {
+      "total_ns": 39.473709,
+      "acquire_ns": 6.986292,
+      "children_wall_ns": 9.49025,
+      "cleanup_ns": 0.596375,
+      "prepare_ns": 10.327208,
+      "source_hash_ns": 4.551917,
+      "freeze_ns": 2.002959,
+      "total_range_ms": [
+        39.197959,
+        42.169292
+      ],
+      "producer_stats": {
+        "heap_payload_bytes": 8421376,
+        "materialized_bytes": 8421376,
+        "num_gc": 2,
+        "pack_bytes": 8421376,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 8650752,
+        "total_alloc_bytes": 8676488
+      },
+      "child_stats": {
+        "heap_payload_bytes": 98304.0,
+        "materialized_bytes": 98304.0,
+        "num_gc": 0.0,
+        "pack_bytes": 0.0,
+        "parent_copy_bytes": 81920.0,
+        "reserved_capacity_bytes": 1048576.0,
+        "total_alloc_bytes": 381560.0
+      }
+    },
+    "d2": {
+      "total_ns": 39.491292,
+      "acquire_ns": 7.183834,
+      "children_wall_ns": 10.304708,
+      "cleanup_ns": 0.741125,
+      "prepare_ns": 10.590291,
+      "source_hash_ns": 4.734458,
+      "freeze_ns": 0.592167,
+      "total_range_ms": [
+        38.615834,
+        39.92325
+      ],
+      "producer_stats": {
+        "heap_payload_bytes": 0,
+        "materialized_bytes": 8421376,
+        "num_gc": 0,
+        "pack_bytes": 0,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 8650752,
+        "total_alloc_bytes": 209048
+      },
+      "child_stats": {
+        "heap_payload_bytes": 0.0,
+        "materialized_bytes": 98304.0,
+        "num_gc": 0.0,
+        "pack_bytes": 0.0,
+        "parent_copy_bytes": 81920.0,
+        "reserved_capacity_bytes": 1048576.0,
+        "total_alloc_bytes": 283016.0
+      }
+    },
+    "paired_d2_minus_d1_ms": [
+      -2.438043,
+      0.017583,
+      -0.582125,
+      0.595,
+      -1.295626
+    ],
+    "d2_faster_pairs": 3
+  },
+  {
+    "blocks": 512,
+    "stride": 16,
+    "d1": {
+      "total_ns": 25.648084,
+      "acquire_ns": 5.990625,
+      "children_wall_ns": 8.81125,
+      "cleanup_ns": 0.498125,
+      "prepare_ns": 0.68425,
+      "source_hash_ns": 4.54825,
+      "freeze_ns": 0.263542,
+      "total_range_ms": [
+        25.369208,
+        26.468124
+      ],
+      "producer_stats": {
+        "heap_payload_bytes": 557056,
+        "materialized_bytes": 557056,
+        "num_gc": 0,
+        "pack_bytes": 557056,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 786432,
+        "total_alloc_bytes": 767904
+      },
+      "child_stats": {
+        "heap_payload_bytes": 98304.0,
+        "materialized_bytes": 98304.0,
+        "num_gc": 0.0,
+        "pack_bytes": 0.0,
+        "parent_copy_bytes": 32768.0,
+        "reserved_capacity_bytes": 1048576.0,
+        "total_alloc_bytes": 348552.0
+      }
+    },
+    "d2": {
+      "total_ns": 26.155042,
+      "acquire_ns": 5.991792,
+      "children_wall_ns": 9.319667,
+      "cleanup_ns": 0.597249,
+      "prepare_ns": 0.801916,
+      "source_hash_ns": 4.551542,
+      "freeze_ns": 0.094667,
+      "total_range_ms": [
+        25.862374,
+        26.450291
+      ],
+      "producer_stats": {
+        "heap_payload_bytes": 0,
+        "materialized_bytes": 557056,
+        "num_gc": 0,
+        "pack_bytes": 0,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 786432,
+        "total_alloc_bytes": 209688
+      },
+      "child_stats": {
+        "heap_payload_bytes": 0.0,
+        "materialized_bytes": 98304.0,
+        "num_gc": 0.0,
+        "pack_bytes": 0.0,
+        "parent_copy_bytes": 32768.0,
+        "reserved_capacity_bytes": 1048576.0,
+        "total_alloc_bytes": 250408.0
+      }
+    },
+    "paired_d2_minus_d1_ms": [
+      0.715751,
+      0.60975,
+      -0.60575,
+      0.510917,
+      0.802207
+    ],
+    "d2_faster_pairs": 1
+  },
+  {
+    "blocks": 4096,
+    "stride": 1,
+    "d1": {
+      "total_ns": 233.469125,
+      "acquire_ns": 47.177167,
+      "children_wall_ns": 13.532875,
+      "cleanup_ns": 1.608624,
+      "prepare_ns": 82.738708,
+      "source_hash_ns": 32.384417,
+      "freeze_ns": 42.788625,
+      "total_range_ms": [
+        213.69725,
+        242.785875
+      ],
+      "producer_stats": {
+        "heap_payload_bytes": 67141632,
+        "materialized_bytes": 67141632,
+        "num_gc": 5,
+        "pack_bytes": 67141632,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 67371008,
+        "total_alloc_bytes": 68019368
+      },
+      "child_stats": {
+        "heap_payload_bytes": 98304.0,
+        "materialized_bytes": 98304.0,
+        "num_gc": 0.0,
+        "pack_bytes": 0.0,
+        "parent_copy_bytes": 81920.0,
+        "reserved_capacity_bytes": 1048576.0,
+        "total_alloc_bytes": 878216.0
+      }
+    },
+    "d2": {
+      "total_ns": 203.180168,
+      "acquire_ns": 46.635417,
+      "children_wall_ns": 13.649625,
+      "cleanup_ns": 1.461708,
+      "prepare_ns": 80.575,
+      "source_hash_ns": 29.948416,
+      "freeze_ns": 19.541292,
+      "total_range_ms": [
+        198.400917,
+        204.7075
+      ],
+      "producer_stats": {
+        "heap_payload_bytes": 0,
+        "materialized_bytes": 67141632,
+        "num_gc": 0,
+        "pack_bytes": 0,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 67371008,
+        "total_alloc_bytes": 514192
+      },
+      "child_stats": {
+        "heap_payload_bytes": 0.0,
+        "materialized_bytes": 98304.0,
+        "num_gc": 0.0,
+        "pack_bytes": 0.0,
+        "parent_copy_bytes": 81920.0,
+        "reserved_capacity_bytes": 1048576.0,
+        "total_alloc_bytes": 779672.0
+      }
+    },
+    "paired_d2_minus_d1_ms": [
+      -13.357917,
+      -35.068208,
+      -31.060166,
+      -38.078375,
+      -13.084248
+    ],
+    "d2_faster_pairs": 5
+  },
+  {
+    "blocks": 4096,
+    "stride": 16,
+    "d1": {
+      "total_ns": 93.818457,
+      "acquire_ns": 38.193625,
+      "children_wall_ns": 12.276541,
+      "cleanup_ns": 0.573542,
+      "prepare_ns": 5.180083,
+      "source_hash_ns": 29.817875,
+      "freeze_ns": 0.830625,
+      "total_range_ms": [
+        92.899875,
+        95.201125
+      ],
+      "producer_stats": {
+        "heap_payload_bytes": 4227072,
+        "materialized_bytes": 4227072,
+        "num_gc": 1,
+        "pack_bytes": 4227072,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 4456448,
+        "total_alloc_bytes": 4765768
+      },
+      "child_stats": {
+        "heap_payload_bytes": 98304.0,
+        "materialized_bytes": 98304.0,
+        "num_gc": 0.0,
+        "pack_bytes": 0.0,
+        "parent_copy_bytes": 32768.0,
+        "reserved_capacity_bytes": 1048576.0,
+        "total_alloc_bytes": 878296.0
+      }
+    },
+    "d2": {
+      "total_ns": 95.191125,
+      "acquire_ns": 39.179,
+      "children_wall_ns": 12.970917,
+      "cleanup_ns": 0.770708,
+      "prepare_ns": 5.213417,
+      "source_hash_ns": 29.453458,
+      "freeze_ns": 0.201375,
+      "total_range_ms": [
+        93.19625,
+        96.175166
+      ],
+      "producer_stats": {
+        "heap_payload_bytes": 0,
+        "materialized_bytes": 4227072,
+        "num_gc": 0,
+        "pack_bytes": 0,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 4456448,
+        "total_alloc_bytes": 509496
+      },
+      "child_stats": {
+        "heap_payload_bytes": 0.0,
+        "materialized_bytes": 98304.0,
+        "num_gc": 0.0,
+        "pack_bytes": 0.0,
+        "parent_copy_bytes": 32768.0,
+        "reserved_capacity_bytes": 1048576.0,
+        "total_alloc_bytes": 779672.0
+      }
+    },
+    "paired_d2_minus_d1_ms": [
+      2.735583,
+      0.974041,
+      0.14575,
+      -0.347917,
+      -0.57004
+    ],
+    "d2_faster_pairs": 2
+  }
+]

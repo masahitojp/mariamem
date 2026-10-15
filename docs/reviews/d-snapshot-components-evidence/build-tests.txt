@@ -1,0 +1,20 @@
+=== RUN   TestRangeEdges
+=== RUN   TestRangeEdges/d1
+=== RUN   TestRangeEdges/d2
+--- PASS: TestRangeEdges (0.00s)
+    --- PASS: TestRangeEdges/d1 (0.00s)
+    --- PASS: TestRangeEdges/d2 (0.00s)
+=== RUN   TestStorageModel
+=== RUN   TestStorageModel/d1
+=== RUN   TestStorageModel/d2
+--- PASS: TestStorageModel (0.11s)
+    --- PASS: TestStorageModel/d1 (0.06s)
+    --- PASS: TestStorageModel/d2 (0.05s)
+=== RUN   TestParentIsolationAndFullOverwrite
+=== RUN   TestParentIsolationAndFullOverwrite/d1
+=== RUN   TestParentIsolationAndFullOverwrite/d2
+--- PASS: TestParentIsolationAndFullOverwrite (0.00s)
+    --- PASS: TestParentIsolationAndFullOverwrite/d1 (0.00s)
+    --- PASS: TestParentIsolationAndFullOverwrite/d2 (0.00s)
+PASS
+ok  	_<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/d-snapshot-components/temp/source	0.400s

@@ -1,0 +1,18 @@
+{
+  "object_sha": "d32b4ea9eed0299010dfa25496195b9c1d8ccd75",
+  "object_type": "commit",
+  "source_commit": "d32b4ea9eed0299010dfa25496195b9c1d8ccd75",
+  "toolchain": "go version go1.26.8 darwin/arm64",
+  "files_sha256": {
+    "build.py": "62dd6f737132517008ab63c4f7dbb2fe83c33e11e33d4a2edb749278adcbc6aa",
+    "run.py": "d59457151051a40a71a07820b78067b7dc760b8807ea5de8eab9ab31624437fa",
+    "main.go.txt": "8dcc5fc01d14ee64a48c7d0380e0666e85b9584741c3d055c8ff3170618b8286",
+    "main_test.go.txt": "34dee3c62982e5c173250628b6a401d3b7137c192ae63694ea7e8d1c5a85ba39"
+  },
+  "source_worktree_modified": false,
+  "binary_sha256": "bff953d7c7c4b8853eed5002dd6ab041d2e59655f7585fabb3a13f71159c2209",
+  "formatted_source_sha256": {
+    "main.go": "5d8bc55b62b545a7e3126fd8a7cf5628d1f2688f919298c39ae88275b99ab2d2",
+    "main_test.go": "e17b4e91b280594adefc4020a850b52a411fac24ba3450c7c6a9aed15d81b369"
+  }
+}

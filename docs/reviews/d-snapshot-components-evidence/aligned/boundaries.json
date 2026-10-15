@@ -1,0 +1,196 @@
+[
+  {
+    "mode": "d1",
+    "check": "model/derived/parent-close/two-live-children/cleanup",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "spawn-close-race-8",
+    "status": "PASS",
+    "admitted": 0,
+    "rejected": 8
+  },
+  {
+    "mode": "d1",
+    "check": "bytes",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "swap",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "missing-ref",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "outside",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "overflow",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "negative",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "wrong-guest",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "extra-file",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "missing-file",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "extra-segment",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "missing-segment",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "open",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "unlink",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "hash",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "producer-transfer",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "producer-after-freeze",
+    "status": "PASS"
+  },
+  {
+    "mode": "d1",
+    "check": "producer-crash",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "model/derived/parent-close/two-live-children/cleanup",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "spawn-close-race-8",
+    "status": "PASS",
+    "admitted": 0,
+    "rejected": 8
+  },
+  {
+    "mode": "d2",
+    "check": "bytes",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "swap",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "missing-ref",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "outside",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "overflow",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "negative",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "wrong-guest",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "extra-file",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "missing-file",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "extra-segment",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "missing-segment",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "open",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "unlink",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "hash",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "producer-transfer",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "producer-after-freeze",
+    "status": "PASS"
+  },
+  {
+    "mode": "d2",
+    "check": "producer-crash",
+    "status": "PASS"
+  }
+]

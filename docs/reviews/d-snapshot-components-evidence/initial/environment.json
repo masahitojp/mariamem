@@ -1,0 +1,6 @@
+{
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "python": "3.9.6",
+  "ubuntu_x86_64": "SKIP: available Docker host is Linux aarch64; no native x86_64 runner used"
+}

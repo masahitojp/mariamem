@@ -1,0 +1,634 @@
+[
+  {
+    "mode": "d1",
+    "blocks": 512,
+    "stride": 1,
+    "logical_bytes": 10502150,
+    "verification_bytes_per_pass": 10502150,
+    "segments": 1,
+    "owner_fds": 1,
+    "total_ns": 41996833,
+    "post_children_audit_ns_excluded": 5941000,
+    "producer_wall_ns": 23331625,
+    "acquire_ns": 7276708,
+    "children_wall_ns": 10721917,
+    "cleanup_ns": 666583,
+    "child_wall_ns": [
+      5194709,
+      5523166
+    ],
+    "producer": {
+      "freeze_ns": 2102750,
+      "prepare_ns": 10853750,
+      "source_hash_ns": 4789500,
+      "stats": {
+        "heap_payload_bytes": 8421376,
+        "materialized_bytes": 8421376,
+        "num_gc": 2,
+        "pack_bytes": 8421376,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 8650752,
+        "total_alloc_bytes": 8681328
+      }
+    },
+    "children": [
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 406459,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "121f2c394653606d7a8794a1aebbc8d5e2ef010e1b2835424f5c697683909daa",
+          "16376": "2f3c495663707d8a1825323f4c596673808d9aa7b4c1cedbe8f50714212e3b48",
+          "32768": "293643505d6a7784919eabb8c5d2dfecf90b1825323f4c596673808d9aa7b4c1"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 98304,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 81920,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 381720
+        },
+        "work_ns": 21917
+      },
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 401833,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "121f2c394653606d7a8794a1aebbc8d5e2ef010e1b2835424f5c697683909daa",
+          "16376": "2f3c495663707d8a1825323f4c596673808d9aa7b4c1cedbe8f50714212e3b48",
+          "32768": "293643505d6a7784919eabb8c5d2dfecf90b1825323f4c596673808d9aa7b4c1"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 98304,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 81920,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 381400
+        },
+        "work_ns": 21291
+      }
+    ]
+  },
+  {
+    "mode": "d2",
+    "blocks": 512,
+    "stride": 1,
+    "logical_bytes": 10502150,
+    "verification_bytes_per_pass": 10502150,
+    "segments": 1,
+    "owner_fds": 1,
+    "total_ns": 46257542,
+    "post_children_audit_ns_excluded": 8630208,
+    "producer_wall_ns": 25285333,
+    "acquire_ns": 8678875,
+    "children_wall_ns": 11371875,
+    "cleanup_ns": 921459,
+    "child_wall_ns": [
+      5802208,
+      5564542
+    ],
+    "producer": {
+      "freeze_ns": 662750,
+      "prepare_ns": 12011833,
+      "source_hash_ns": 6860375,
+      "stats": {
+        "heap_payload_bytes": 0,
+        "materialized_bytes": 8421376,
+        "num_gc": 0,
+        "pack_bytes": 0,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 8650752,
+        "total_alloc_bytes": 208728
+      }
+    },
+    "children": [
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 506333,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "121f2c394653606d7a8794a1aebbc8d5e2ef010e1b2835424f5c697683909daa",
+          "16376": "2f3c495663707d8a1825323f4c596673808d9aa7b4c1cedbe8f50714212e3b48",
+          "32768": "293643505d6a7784919eabb8c5d2dfecf90b1825323f4c596673808d9aa7b4c1"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 0,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 81920,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 282776
+        },
+        "work_ns": 34875
+      },
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 484417,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "121f2c394653606d7a8794a1aebbc8d5e2ef010e1b2835424f5c697683909daa",
+          "16376": "2f3c495663707d8a1825323f4c596673808d9aa7b4c1cedbe8f50714212e3b48",
+          "32768": "293643505d6a7784919eabb8c5d2dfecf90b1825323f4c596673808d9aa7b4c1"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 0,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 81920,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 282616
+        },
+        "work_ns": 36583
+      }
+    ]
+  },
+  {
+    "mode": "d1",
+    "blocks": 512,
+    "stride": 16,
+    "logical_bytes": 10502150,
+    "verification_bytes_per_pass": 10502150,
+    "segments": 1,
+    "owner_fds": 1,
+    "total_ns": 26052375,
+    "post_children_audit_ns_excluded": 4554709,
+    "producer_wall_ns": 10990000,
+    "acquire_ns": 5977042,
+    "children_wall_ns": 8608000,
+    "cleanup_ns": 477333,
+    "child_wall_ns": [
+      4442625,
+      4162458
+    ],
+    "producer": {
+      "freeze_ns": 252750,
+      "prepare_ns": 676333,
+      "source_hash_ns": 4514459,
+      "stats": {
+        "heap_payload_bytes": 557056,
+        "materialized_bytes": 557056,
+        "num_gc": 0,
+        "pack_bytes": 557056,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 786432,
+        "total_alloc_bytes": 772760
+      }
+    },
+    "children": [
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 318208,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "0000000000000000000000000000000000000000000000000000000000000000",
+          "16376": "2f3c495663707d8a000000000000000000000000000000000000000000000000",
+          "32768": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 98304,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 32768,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 353312
+        },
+        "work_ns": 15292
+      },
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 309417,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "0000000000000000000000000000000000000000000000000000000000000000",
+          "16376": "2f3c495663707d8a000000000000000000000000000000000000000000000000",
+          "32768": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 98304,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 32768,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 348152
+        },
+        "work_ns": 14208
+      }
+    ]
+  },
+  {
+    "mode": "d2",
+    "blocks": 512,
+    "stride": 16,
+    "logical_bytes": 10502150,
+    "verification_bytes_per_pass": 10502150,
+    "segments": 1,
+    "owner_fds": 1,
+    "total_ns": 25958709,
+    "post_children_audit_ns_excluded": 4578541,
+    "producer_wall_ns": 10186208,
+    "acquire_ns": 6009542,
+    "children_wall_ns": 9173791,
+    "cleanup_ns": 589168,
+    "child_wall_ns": [
+      4660209,
+      4510042
+    ],
+    "producer": {
+      "freeze_ns": 97792,
+      "prepare_ns": 787166,
+      "source_hash_ns": 4498042,
+      "stats": {
+        "heap_payload_bytes": 0,
+        "materialized_bytes": 557056,
+        "num_gc": 0,
+        "pack_bytes": 0,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 786432,
+        "total_alloc_bytes": 209368
+      }
+    },
+    "children": [
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 395250,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "0000000000000000000000000000000000000000000000000000000000000000",
+          "16376": "2f3c495663707d8a000000000000000000000000000000000000000000000000",
+          "32768": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 0,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 32768,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 249368
+        },
+        "work_ns": 30167
+      },
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 405208,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "0000000000000000000000000000000000000000000000000000000000000000",
+          "16376": "2f3c495663707d8a000000000000000000000000000000000000000000000000",
+          "32768": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 0,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 32768,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 250328
+        },
+        "work_ns": 29833
+      }
+    ]
+  },
+  {
+    "mode": "d1",
+    "blocks": 4096,
+    "stride": 1,
+    "logical_bytes": 69222406,
+    "verification_bytes_per_pass": 69222406,
+    "segments": 1,
+    "owner_fds": 1,
+    "total_ns": 216940667,
+    "post_children_audit_ns_excluded": 36919667,
+    "producer_wall_ns": 156590417,
+    "acquire_ns": 46008625,
+    "children_wall_ns": 13032875,
+    "cleanup_ns": 1308750,
+    "child_wall_ns": [
+      6747792,
+      6280625
+    ],
+    "producer": {
+      "freeze_ns": 32555500,
+      "prepare_ns": 84700500,
+      "source_hash_ns": 32260709,
+      "stats": {
+        "heap_payload_bytes": 67141632,
+        "materialized_bytes": 67141632,
+        "num_gc": 5,
+        "pack_bytes": 67141632,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 67371008,
+        "total_alloc_bytes": 68024592
+      }
+    },
+    "children": [
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 2065125,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "121f2c394653606d7a8794a1aebbc8d5e2ef010e1b2835424f5c697683909daa",
+          "16376": "2f3c495663707d8a1825323f4c596673808d9aa7b4c1cedbe8f50714212e3b48",
+          "32768": "293643505d6a7784919eabb8c5d2dfecf90b1825323f4c596673808d9aa7b4c1"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 98304,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 81920,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 877816
+        },
+        "work_ns": 21000
+      },
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 1942459,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "121f2c394653606d7a8794a1aebbc8d5e2ef010e1b2835424f5c697683909daa",
+          "16376": "2f3c495663707d8a1825323f4c596673808d9aa7b4c1cedbe8f50714212e3b48",
+          "32768": "293643505d6a7784919eabb8c5d2dfecf90b1825323f4c596673808d9aa7b4c1"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 98304,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 81920,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 883296
+        },
+        "work_ns": 21084
+      }
+    ]
+  },
+  {
+    "mode": "d2",
+    "blocks": 4096,
+    "stride": 1,
+    "logical_bytes": 69222406,
+    "verification_bytes_per_pass": 69222406,
+    "segments": 1,
+    "owner_fds": 1,
+    "total_ns": 197586750,
+    "post_children_audit_ns_excluded": 37605167,
+    "producer_wall_ns": 136878125,
+    "acquire_ns": 45744709,
+    "children_wall_ns": 13552500,
+    "cleanup_ns": 1411416,
+    "child_wall_ns": [
+      7093584,
+      6453750
+    ],
+    "producer": {
+      "freeze_ns": 19084375,
+      "prepare_ns": 80702292,
+      "source_hash_ns": 29866875,
+      "stats": {
+        "heap_payload_bytes": 0,
+        "materialized_bytes": 67141632,
+        "num_gc": 0,
+        "pack_bytes": 0,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 67371008,
+        "total_alloc_bytes": 509816
+      }
+    },
+    "children": [
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 2157334,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "121f2c394653606d7a8794a1aebbc8d5e2ef010e1b2835424f5c697683909daa",
+          "16376": "2f3c495663707d8a1825323f4c596673808d9aa7b4c1cedbe8f50714212e3b48",
+          "32768": "293643505d6a7784919eabb8c5d2dfecf90b1825323f4c596673808d9aa7b4c1"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 0,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 81920,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 779032
+        },
+        "work_ns": 38917
+      },
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 2067250,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "121f2c394653606d7a8794a1aebbc8d5e2ef010e1b2835424f5c697683909daa",
+          "16376": "2f3c495663707d8a1825323f4c596673808d9aa7b4c1cedbe8f50714212e3b48",
+          "32768": "293643505d6a7784919eabb8c5d2dfecf90b1825323f4c596673808d9aa7b4c1"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 0,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 81920,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 780312
+        },
+        "work_ns": 38875
+      }
+    ]
+  },
+  {
+    "mode": "d1",
+    "blocks": 4096,
+    "stride": 16,
+    "logical_bytes": 69222406,
+    "verification_bytes_per_pass": 69222406,
+    "segments": 1,
+    "owner_fds": 1,
+    "total_ns": 95142375,
+    "post_children_audit_ns_excluded": 29952708,
+    "producer_wall_ns": 42894333,
+    "acquire_ns": 39533667,
+    "children_wall_ns": 12127333,
+    "cleanup_ns": 587042,
+    "child_wall_ns": [
+      6196333,
+      5926458
+    ],
+    "producer": {
+      "freeze_ns": 832208,
+      "prepare_ns": 5165750,
+      "source_hash_ns": 30053542,
+      "stats": {
+        "heap_payload_bytes": 4227072,
+        "materialized_bytes": 4227072,
+        "num_gc": 1,
+        "pack_bytes": 4227072,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 4456448,
+        "total_alloc_bytes": 4765928
+      }
+    },
+    "children": [
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 1629625,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "0000000000000000000000000000000000000000000000000000000000000000",
+          "16376": "2f3c495663707d8a000000000000000000000000000000000000000000000000",
+          "32768": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 98304,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 32768,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 877976
+        },
+        "work_ns": 15417
+      },
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 1576917,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "0000000000000000000000000000000000000000000000000000000000000000",
+          "16376": "2f3c495663707d8a000000000000000000000000000000000000000000000000",
+          "32768": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 98304,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 32768,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 883776
+        },
+        "work_ns": 13917
+      }
+    ]
+  },
+  {
+    "mode": "d2",
+    "blocks": 4096,
+    "stride": 16,
+    "logical_bytes": 69222406,
+    "verification_bytes_per_pass": 69222406,
+    "segments": 1,
+    "owner_fds": 1,
+    "total_ns": 92756625,
+    "post_children_audit_ns_excluded": 30041958,
+    "producer_wall_ns": 41239542,
+    "acquire_ns": 38342791,
+    "children_wall_ns": 12478709,
+    "cleanup_ns": 695583,
+    "child_wall_ns": [
+      6401000,
+      6073292
+    ],
+    "producer": {
+      "freeze_ns": 214000,
+      "prepare_ns": 5164167,
+      "source_hash_ns": 29424083,
+      "stats": {
+        "heap_payload_bytes": 0,
+        "materialized_bytes": 4227072,
+        "num_gc": 0,
+        "pack_bytes": 0,
+        "parent_copy_bytes": 0,
+        "reserved_capacity_bytes": 4456448,
+        "total_alloc_bytes": 509496
+      }
+    },
+    "children": [
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 1680166,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "0000000000000000000000000000000000000000000000000000000000000000",
+          "16376": "2f3c495663707d8a000000000000000000000000000000000000000000000000",
+          "32768": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 0,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 32768,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 779352
+        },
+        "work_ns": 32250
+      },
+      {
+        "freeze_ns": 0,
+        "manifest": null,
+        "open_ns": 1713041,
+        "probes": {
+          "0": "0714212e3b4855626f7c8996a3b0bdcad7e4f103101d2a3744515e6b7885929f",
+          "114699": "0000000000000000000000000000000000000000000000000000000000000000",
+          "16376": "2f3c495663707d8a000000000000000000000000000000000000000000000000",
+          "32768": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "source_hash_ns": 0,
+        "stats": {
+          "heap_payload_bytes": 0,
+          "materialized_bytes": 98304,
+          "num_gc": 0,
+          "pack_bytes": 0,
+          "parent_copy_bytes": 32768,
+          "reserved_capacity_bytes": 1048576,
+          "total_alloc_bytes": 779832
+        },
+        "work_ns": 32750
+      }
+    ]
+  }
+]

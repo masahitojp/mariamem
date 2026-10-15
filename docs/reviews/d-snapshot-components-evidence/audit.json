@@ -1,0 +1,10 @@
+{
+  "raw_rows": 40,
+  "paired_groups": 20,
+  "timing_reconciliation": "PASS",
+  "independent_sorted_medians": "PASS",
+  "copy_byte_and_fd_counters": "PASS",
+  "runtime_changed": false,
+  "initial_summary_failure": "NameError in reducer after raw/pilots saved; reduced same data after repair; no resampling",
+  "initial_launcher_failure": "wrong relative path under workspace runner; no build or measurements ran; continued with disk guard"
+}

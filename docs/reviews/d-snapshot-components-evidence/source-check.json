@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "scope": "changed spike sources, evidence and review documents only",
+  "files": 21,
+  "source_input_hashes_match": true,
+  "binary_hash_matches": true,
+  "python_syntax": "PASS",
+  "report_references": "PASS"
+}
