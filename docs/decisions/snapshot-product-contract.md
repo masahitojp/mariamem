@@ -2,6 +2,8 @@
 
 Status: maintainer-approved product contract, updated for D block storage and
 Python shared-host main adoption on 2026-10-17. Release approval remains separate.
+This contract describes adopted main. Published v0.5.0 retains the earlier
+file-backed/save-load contract; see [version differences](../changes-since-v050.md).
 
 ## Product boundary
 

@@ -1,7 +1,11 @@
 # Releasing mariamem
 
-The candidate package version is `v0.5.0`; Python spelling is `0.5.0`.
-The [tracked notes](../release/NOTES-v0.5.0.md) describe this version. A normal
+The latest published release is `v0.5.0`; Python spelling is `0.5.0`.
+The [tracked notes](../release/NOTES-v0.5.0.md) describe that released source.
+Main contains adopted changes after that release; see
+[unreleased behavior and API changes](changes-since-v050.md). The version constants
+have not been bumped, and no next release version or publication is authorized.
+A normal
 release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
 
@@ -66,7 +70,9 @@ MariaDB/WASIX source → LLVM23 legacy-EH WASM → patched pinned wasm2go
 ```
 
 Each DB reconstructs fresh execution/thread/TLS/FD state and private writable
-files. Snapshot/Fork use prepared files, not ready-heap/live-worker restoration.
+files. On main, Snapshot/Fork use immutable prepared blocks with private child
+changes, not ready-heap/live-worker restoration. The published release uses
+file-backed prepared state. Python main shares one host per root lineage.
 Python's installed host links the same guest; Go runs it in-process.
 
 ## Build and source/provenance verification

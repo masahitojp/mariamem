@@ -1,5 +1,10 @@
 # Go toolchain compatibility
 
+The recorded consumer results below belong to their stated historical sources.
+Main's adopted API removes `LoadSnapshot`; see
+[changes since the published release](changes-since-v050.md). Earlier compiler
+checks do not qualify changed runtime/artifact bytes on main.
+
 The module minimum remains **Go 1.26.0**. `go-sql-driver/mysql v1.9.3`
 is a development/test client dependency; the production library does not import
 it or require it to serve the MySQL wire protocol. Applications choose their
@@ -32,7 +37,7 @@ The new `LoadSnapshot` API also passed focused macOS consumer/lifecycle checks
 with Go 1.26.8 and 1.27.1. See the [v0.4.6 review](reviews/v046-human-review.md)
 for exact scope, Ubuntu evidence and release gates.
 
-## v0.4.7 candidate qualification
+## v0.4.7 qualification history
 
 The upstream-converter migration retains the same minimum Go and driver pins.
 Its external artifact acceptance now runs the existing consumer lifecycle and
@@ -40,5 +45,5 @@ public smoke program with both canonical Go1.26.8 and explicitly selected
 Go1.27.2 (`GOTOOLCHAIN=local` for the latter). Both native release runners use
 that same check. Earlier v0.4.6 compatibility evidence is historical, not proof
 for a new generated artifact. See the [candidate review](reviews/v047-upstream-migration.md)
-for actual local results and pending native CI gates; an uncompleted CI run does
-not establish Ubuntu or minimum-macOS acceptance.
+for its preparation results. The subsequent release is recorded in
+[project status](project-status.md#previous-release-v047--upstream-converter-migration).

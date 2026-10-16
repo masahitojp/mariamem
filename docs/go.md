@@ -1,7 +1,11 @@
 # Go usage
 
-Installation below uses candidate `v0.5.0` after publication. See
-[installation](../README.md#installation) for supported platforms.
+This guide describes current main, including adopted, unreleased changes.
+The installation command below installs published `v0.5.0`; it does not include
+main's save/load API removal or in-memory backing. The core Start/Snapshot/Fork
+examples work in both. See [API changes and migration](changes-since-v050.md),
+the [released guide](https://github.com/masahitojp/mariamem/blob/v0.5.0/docs/go.md)
+and [installation](../README.md#installation) for supported platforms.
 The public package is `github.com/masahitojp/mariamem`.
 
 ## Start fresh
@@ -109,7 +113,7 @@ with private block changes. Closing the baseline prevents new Forks and waits
 for admitted startups; started children remain usable until separately closed.
 
 Snapshot content is process-local. `SnapshotOptions.Destination` and
-`LoadSnapshot` are removed in this candidate. Re-run migrations/seed to prepare
+`LoadSnapshot` are removed on main. Re-run migrations/seed to prepare
 state in each test process. No user-managed file or daemon is required.
 Closing a handle releases its ownership; other children may still own blocks.
 Go memory reclamation and OS RSS reduction have different timing.
@@ -123,8 +127,8 @@ values are rejected. Close is idempotent and returns its stored cleanup result.
 Endpoint information remains available after Close; it does not imply the DB
 is usable.
 
-Snapshot forwards its context without adding a default timeout. The export
-deadline does not make copy/validation context-interruptible; cleanup can
+Snapshot forwards its context without adding a default timeout. The shutdown
+deadline does not make freeze/content validation context-interruptible; cleanup can
 outlast it. Successful Snapshot consumes its source; precondition rejection
 leaves it running. Failure after acceptance can consume it as well
 (`HostError.Closed`). Use `errors.Is` with `ErrBusy`,
@@ -150,7 +154,7 @@ internal mechanisms.
 
 ## Development and compatibility
 
-After publication, install the module and optional release audit files with:
+Install the published module and optional release audit files with:
 
 ```sh
 go get github.com/masahitojp/mariamem@v0.5.0
@@ -160,6 +164,7 @@ gh release download v0.5.0 --repo masahitojp/mariamem \
 
 Runtime details belong in [architecture](v04-generated-go-architecture.md).
 See [local verification](development.md#local-verification) for scoped
-development checks, and [release notes](../release/NOTES-v0.5.0.md)
-for changes in this version. The full generated guest is not
+development checks, [release notes](../release/NOTES-v0.5.0.md)
+for the published version, and [changes on main](changes-since-v050.md).
+The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.

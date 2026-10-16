@@ -11,8 +11,12 @@ Start fresh for light setup. When migrations or fixtures are expensive, prepare
 them once, fix that state as a Snapshot, and Fork independent databases for
 individual tests. Share the baseline, not previous tests' mutations.
 
-This branch prepares Python `0.5.0` and the Go module tag `v0.5.0` for qualification.
-They are not published yet. See the [release notes](release/NOTES-v0.5.0.md).
+The published release is Python `0.5.0` / Go `v0.5.0`, released on 2026-10-13.
+See its [release notes](release/NOTES-v0.5.0.md).
+This main checkout also contains adopted, unreleased changes: in-memory
+Snapshots, a shared Python host per root lineage, and removal of public save/load
+APIs. The core Start → Snapshot → Fork examples below work in both versions;
+the ownership sections describe main. See [changes since the release](docs/changes-since-v050.md).
 
 ## Installation
 
@@ -24,7 +28,7 @@ External Go consumers passed on macOS arm64 with Go 1.26.8 and
 1.27.0/1.27.1/1.27.2. See [toolchain compatibility](docs/go-compatibility.md)
 for the exact tested scope; the module minimum remains Go 1.26.0.
 
-After publication, create a virtual environment and install the platform wheel.
+To install the published release, create a virtual environment and install its platform wheel.
 PyPI publication remains unavailable pending account recovery; GitHub Release
 wheels are the supported installation path.
 
@@ -42,7 +46,7 @@ python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/r
 The `test` extra supplies PyMySQL and pytest tools. Use the wheel rather than a
 Git source install: it includes the required platform executable.
 
-After publication, for the Go module:
+For the published Go module:
 
 ```sh
 go mod init example.com/mariamem-test
@@ -144,11 +148,13 @@ Both languages provide preparation and independent child acquisition. See the
 [Python guide](docs/python.md#share-preparation-isolate-mutations). Python pytest
 fixture integration is described in the Python guide.
 
-## Reuse expensive preparation across runs
+## Reuse expensive preparation within a test session
 
 Baselines are process-local and retain fully verified immutable blocks in memory.
 Each Fork has private changes and an independent MariaDB runtime. Prepare once
-per test session; saving/loading baseline artifacts is no longer part of the API.
+per test session; saving/loading baseline artifacts is removed on main and is
+still available in the published release. Installing the release above does not
+install these unreleased changes.
 See the [Python](docs/python.md#snapshot-ownership-and-host-lifetime) and
 [Go](docs/go.md#in-memory-baseline-lifetime) guides for ownership and cleanup.
 
@@ -168,10 +174,11 @@ See the [Python](docs/python.md#snapshot-ownership-and-host-lifetime) and
 - Interrupted active SQL invalidates that database. Close it and start or fork
   another. Forced reclamation of hung execution is not guaranteed.
 - This is a test database, not a production service or security boundary.
-  Saved baselines contain your test data; treat sensitive data accordingly.
+  DBs and baselines contain your test data; treat sensitive data accordingly.
 - Resource use and the Fresh/prepared crossover depend on the workload.
   Large scans remain query work even when preparation is reused.
-- The 0.x API may change. See [release notes](release/NOTES-v0.5.0.md).
+- The 0.x API may change. See [released changes](release/NOTES-v0.5.0.md)
+  and [unreleased API changes](docs/changes-since-v050.md).
 
 You do not need runtime implementation knowledge to use these APIs.
 [Architecture](docs/v04-generated-go-architecture.md) explains the current

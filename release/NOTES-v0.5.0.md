@@ -1,5 +1,10 @@
 # mariamem v0.5.0 — MariaDB 12.3.3
 
+Published on 2026-10-13 from source `44100ec676c8c9064f32f3a01bd9a990d487bb61`.
+These notes describe the [published release](https://github.com/masahitojp/mariamem/releases/tag/v0.5.0),
+whose file-backed Snapshot and public save/load APIs remain part of that tag.
+For adopted, unreleased main changes, see [changes since v0.5.0](../docs/changes-since-v050.md).
+
 This release adopts one reproducibly built MariaDB 12.3.3 guest. The MySQL
 handshake reports the running guest's `VERSION()` string. The public Go and
 Python APIs, supported platforms and minimum Go version are unchanged.
@@ -24,7 +29,8 @@ for the tested runtime basis. The approved
 [Product Verification](../benchmarks/v050-product-verification.md) passed its
 SQL and cleanup checks. Timings were mixed, including an existing startup tail;
 these results do not establish a general speed or allocation improvement.
-The final integrated source receives its own Release CI qualification before publication.
+The published source is distinct from the earlier qualified/measured runtime
+basis and from later main commits; its release identity is recorded above.
 
 The existing limits on forced cleanup of non-cooperative workers and full-guest
 race-detector coverage remain. The bounded current-guest investigation found no

@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
+  and [current comparison harness](sharedhost/README.md): identity-bound macOS
+  preparation/Snapshot/children/Close results, resource observations and retained
+  slow trial. These adopted main changes are newer than published v0.5.0.
 - [Go 1.26.8 vs 1.27.2](../docs/benchmarks/go126-vs-go127.md): same-source
   macOS arm64 suite timings, CPU, allocation and RSS. No consistent practical
   toolchain speedup was demonstrated. The linked evidence retains trial JSON,
@@ -9,7 +13,8 @@
 - [memfs optimization discovery](../docs/reviews/memfs-optimization-discovery.md):
   source comparison with pinned pglite-go. Fresh allocation is primarily attributed
   to `Fd_allocate → Truncate → resizeMemData`; allocation share is not a speedup
-  estimate. Candidate improvements remain unimplemented and unapproved.
+  estimate. This is historical input preceding D/shared-host adoption, not a
+  statement that current main still uses the inspected contiguous MemFS.
 
 These reports retain their original measured/inspected source identities.
 Publishing the reports on main does not qualify main's runtime or approve an

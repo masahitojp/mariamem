@@ -5,6 +5,8 @@ This document owns current state and future direction. The
 owns current HOW, [decisions](decisions/snapshot-product-contract.md) own
 continuing product constraints, and reports preserve historical evidence.
 Version themes are direction; they are not release approval.
+The current published release and adopted main are distinct sources. Version
+metadata still reads 0.5.0 on main; that does not make later commits part of the tag.
 
 ## Product contract
 
@@ -37,7 +39,22 @@ or authorize publication. See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
-## Current published release: v0.4.7 — Upstream converter migration
+## Current published release: v0.5.0 — MariaDB 12.3.3
+
+[v0.5.0](https://github.com/masahitojp/mariamem/releases/tag/v0.5.0) was published
+on 2026-10-13 from source `44100ec676c8c9064f32f3a01bd9a990d487bb61`;
+annotated tag object `bfd854da1cecbe71ad761d1578b3f2c710a1c07f`.
+It adopts MariaDB 12.3.3, dynamic handshake version and the bounded correctness
+repairs. Its public Go/Python APIs and file-backed Snapshot persistence were
+retained. See the [released notes](../release/NOTES-v0.5.0.md).
+
+The startup ordering correction, D block backing, Python shared host and public
+save/load API removal are later main changes. They are adopted but unreleased;
+see [API differences and migration](changes-since-v050.md). Final combined-source
+Qualification/Product Validation and release approval remain separate. The earlier
+v0.5.0 preparation history below does not qualify later main commits.
+
+## Previous release: v0.4.7 — Upstream converter migration
 
 [v0.4.7](https://github.com/masahitojp/mariamem/releases/tag/v0.4.7) was published
 on 2026-10-11 from source `e0be06f3a20c72cbb5a9be27971280c80a3ec357`;
@@ -84,22 +101,23 @@ Its runtime basis is `c5f43106a8054bb59a2da9184a1c2103fe1a1d9f`, qualified on
 both platforms by [Product CI](https://github.com/masahitojp/mariamem/actions/runs/37898847164).
 Final source and tested runtime source are intentionally distinct identities.
 
-Creation/import validates the complete Snapshot, then mariamem owns the exact
+In that released file-backed implementation, creation/import validates the complete Snapshot, then mariamem owns the exact
 backing used by Fork. Supported operations do not mutate it. Fork does not fully
 rehash content; silent storage corruption arising after ownership is not promised
 to be re-detected on each Fork. External source edits/deletion after import do
 not affect the owned baseline. Live Snapshots retain one FD per prepared file.
 Python uses `snapshot()`, `snapshot_to(path)`, `load_snapshot(path)` and `fork()`.
-See the [contract](decisions/snapshot-product-contract.md),
+See the [then-current contract](https://github.com/masahitojp/mariamem/blob/v0.4.4/docs/decisions/snapshot-product-contract.md),
 [implementation review](reviews/v044-implementation-review.md),
 [architecture](v04-generated-go-architecture.md) and
 [release notes](../release/NOTES-v0.4.4.md).
 
 Generated-Go is the only supported production runtime since v0.4.3. Snapshot is
 cold prepared state; Fork starts fresh MariaDB execution rather than cloning
-running heap/threads/TLS/locks/stacks. Private file mappings use OS page CoW;
-there is no custom CoW filesystem or Unix fork. Historical measurements and
-release repairs remain evidence, not instructions for the current user lifecycle.
+running heap/threads/TLS/locks/stacks. The file-backed release used private
+mappings and OS page CoW; main now uses immutable blocks and private changes.
+Historical measurements and release repairs remain evidence, not instructions
+for the current user lifecycle.
 See [v0.4.3 characterization](../benchmarks/v043-characterization.md) and the
 [v0.4.4 review reports](reviews/v044-release-runtime-reuse-design.md).
 
@@ -150,11 +168,11 @@ Product Validation; those changes are not part of v0.4.5.
   checks do not prove general race correctness.
 - Forced timeout/hard-failure containment is not guaranteed. Normal cooperative
   cleanup and non-cooperative reclaim are distinct boundaries.
-- Published v0.5.0 still has an observed approximately one-second startup
-  mode. The [page-cleaner source correction candidate](reviews/v050-startup-tail-source-fix-integration.md)
-  addresses its directly traced early-signal ordering and reduced the mode in
-  bounded macOS Fresh comparisons; final candidate CI and Ubuntu validation
-  have not adopted it yet.
+- Published v0.5.0 still has an observed approximately one-second startup mode.
+  The [page-cleaner source correction](reviews/v050-startup-tail-source-fix-integration.md)
+  is adopted on main after bounded Fresh comparisons and related regression
+  passed on both native platforms. This does not establish a universal latency
+  bound; final combined-source release validation remains pending.
 - External consumer checks passed on macOS arm64 with Go 1.26.8 and
   1.27.0/1.27.1/1.27.2. See [compatibility](go-compatibility.md); minimum Go
   and driver versions are unchanged.
@@ -162,8 +180,8 @@ Product Validation; those changes are not part of v0.4.5.
   The v0.4.2 lifecycle releases linear memory after joined workers; filesystem
   metadata remains GC-managed.
 - Published file-backed Snapshots retain roughly one FD per prepared file.
-  The D memory candidate removes this backing-FD requirement; its native
-  verification status is recorded above. The 64-table fixture
+  The adopted D memory path removes this ordinary backing-FD requirement;
+  both-native verification is recorded above. The historical 64-table fixture
   had 137 files and released its backing FDs after Close on both platforms.
   Many simultaneously retained baselines, especially file-heavy schemas, may
   approach process FD limits. Gather real workload evidence and improve the
@@ -185,11 +203,10 @@ same-source macOS arm64 suite/resource results and reproduction evidence.
 No consistent practical speedup was demonstrated; these observations do not
 change the supported toolchain policy or qualify the current main SHA.
 
-The [memfs Architecture Decision](reviews/memfs-architecture-decision.md) is the
-single decision/routing reference. Retain current memfs + MAP_PRIVATE, defer full
-VFS replacement and mmap-prefix/tail, and consider growth-factor or sparse/chunk
-PoCs only after its limited-measurement gates. This is technical direction,
-**not Human implementation approval**. Its [memfs/pglite](reviews/memfs-optimization-discovery.md),
+The [memfs Architecture Decision](reviews/memfs-architecture-decision.md) was the
+v0.4.x routing reference: retain memfs + MAP_PRIVATE pending limited measurement,
+and defer broader replacement. The D adoption above supersedes that storage
+choice. Its [memfs/pglite](reviews/memfs-optimization-discovery.md),
 [pgmem](reviews/pgmem-vfs-design-review.md) and
 [block-storage](reviews/block-storage-design-discovery.md) reports are historical
 inputs with pinned source hashes. The observed ~4.62 GiB is cumulative allocation
@@ -197,7 +214,12 @@ across 20 Fresh DBs including fixture work; it is not retained memory or an
 estimate of removable allocation. The [benchmark index](../benchmarks/README.md)
 already owns measurement navigation; no duplicate report is introduced.
 
-### Research handoff — independent of v0.5.0 guest migration
+### Historical research handoff — before D/shared-host adoption
+
+The following paragraphs preserve the scope handed off before the later storage
+exploration and implementation. Their prospective language describes that stage,
+not today's remaining tasks. Current remaining work is recorded in the adoption
+report and the published-release/main distinction above.
 
 **MemFS limited measurement:** use the existing Decision's §7 as the sole scope
 and acceptance reference: file/phase initial allocations, reallocations/copied
@@ -263,7 +285,12 @@ must precede the Human release decision. Native macOS/Ubuntu artifact qualificat
 remains CI-owned. No guest upgrade, handshake experiment or VFS optimization is
 part of v0.4.7. Historical candidate measurements qualify only their recorded inputs.
 
-## v0.5.0 — Stable guest
+## v0.5.0 — Stable guest preparation history
+
+This release is now published; its final source/tag identity is recorded above.
+The following records the successive preparation inputs and decisions at the
+time. Statements that a branch was unqualified or a decision was pending refer
+to that historical stage, not a new outstanding correction or release gate.
 
 Final Qualification passed for exact candidate source
 `bb637c49e6d6b50ec6761dead172a35f0b051f7e` in

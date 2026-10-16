@@ -1,0 +1,76 @@
+# Adopted changes on main after v0.5.0
+
+Updated 2026-10-17. [v0.5.0](https://github.com/masahitojp/mariamem/releases/tag/v0.5.0)
+was published on 2026-10-13 from source
+`44100ec676c8c9064f32f3a01bd9a990d487bb61`; annotated tag object
+`bfd854da1cecbe71ad761d1578b3f2c710a1c07f`.
+The changes below are adopted on main and are not in that release's Go module
+or Python wheels. No new version is selected here. Version metadata still
+reads 0.5.0; a main checkout and the published tag therefore have different
+source identities even while their version strings match.
+
+## Behavior and API differences
+
+| Area | Published v0.5.0 | Current main |
+| --- | --- | --- |
+| MariaDB | 12.3.3 | 12.3.3; includes the page-cleaner startup ordering correction |
+| Snapshot backing | Verified file-backed prepared state | Verified immutable 16 KiB blocks in Go memory; child changes are private |
+| Python host ownership | Separate child hosts, with acquired baseline backing retained by Python | One automatically managed host per independent root lineage, retaining its baselines and DBs |
+| Reuse | During a test run and through explicit saved artifacts | Process/session-local baseline reuse; prepare again in another process/run |
+| Isolation and lifecycle | Independent MariaDB children; successful Snapshot consumes the source | Retained; normal connections, commit/rollback, independent child lifetimes and derived baselines |
+| Connection capacity | 16 per DB | 16 per DB; sharing a host does not make this a lineage-wide pool |
+
+The removed public interfaces are:
+
+| Language | Removed on main | Migration |
+| --- | --- | --- |
+| Python | `db.snapshot_to(path)` | Use `db.snapshot()` to create a live in-memory baseline |
+| Python | `mariamem.load_snapshot(path)`, `Snapshot.open(path)`, direct saved-Snapshot construction | Run migrations/seed in a setup DB, then call `snapshot()` |
+| Python | Path passed as `snapshot=` to `mariamem.start` / `Database` | Pass a live baseline handle, or call `baseline.fork()` |
+| Go | `SnapshotOptions.Destination` | Use `SnapshotOptions{}` or keep only `Rollback` |
+| Go | `LoadSnapshot(ctx, path, opts)` | Prepare with `Start`, SQL migrations/seed and `Snapshot`, then `Fork` |
+
+Python capture accepts keyword-only `rollback` and `timeout`; it accepts no
+destination argument. Positional `db.snapshot(path)` was already unsupported in
+published v0.5.0 and remains rejected; it is not a newly removed v0.5.0 API.
+Go `SnapshotOptions` contains only `Rollback`.
+Existing saved artifacts cannot be loaded by main, even if their guest identity
+matches. Retain migration/seed inputs to recreate preparation for every test
+process/session. There is no automatic cache or replacement public persistence API.
+
+The normal flow stays: start a setup DB → migrate/seed → close SQL clients and
+wait for disconnect cleanup → Snapshot → Fork each test's independent DB → Close.
+Prepare once per pytest worker/session and reuse its live baseline. Closing a
+baseline prevents new Forks; successfully started children remain usable.
+Busy/transaction precondition rejection preserves the source. Failure after
+capture acceptance can consume it; inspect `HostError.closed` / `HostError.Closed`.
+See the current [Python](python.md) and [Go](go.md) guides for examples.
+
+## Shared-host lifetime
+
+A Python root `start()`, its baseline, children and derived baselines retain one
+automatically managed host. Each DB still has an independent MariaDB runtime,
+SQL endpoint and private changes. Normal SQL errors and a child's Close do not
+close siblings. A host process crash loses all DBs/baselines in that lineage,
+so recreate preparation. Independent root starts and xdist workers use separate
+hosts. Go continues to run inside its caller's process.
+
+The host is reaped after the last owner and admitted operation finish. The
+ordinary Snapshot/Fork path does not materialize payload into temporary files.
+Logs, control directories/sockets and linear-memory mappings still exist.
+An explicit different development host binary may use a verified private
+temporary handoff; it is not a user-managed save/load interface.
+
+## Adoption and validation status
+
+The [startup correction](reviews/v050-startup-tail-source-fix-integration.md)
+and [D/shared-host implementation](reviews/d-heap-shared-host.md) are adopted
+on main. Both supported native platforms passed their relevant bounded checks.
+The D/shared-host runtime input, independently regenerated provenance, failure
+oracles and installed-consumer evidence are recorded in the implementation report.
+
+Final qualification and broader Product Validation for this combined main
+configuration have not run. The unexplained slow resource-observed trial remains
+open for final release validation. Existing general race-detector and
+non-cooperative cleanup limits remain; this documentation update neither expands
+those investigations nor starts release preparation.

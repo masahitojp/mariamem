@@ -1,3 +1,9 @@
+# Historical v0.1.0-alpha.2 notes
+
+The text below is the original alpha record. Current published notes are
+[v0.5.0](NOTES-v0.5.0.md); adopted changes after that release are documented
+[separately](../docs/changes-since-v050.md).
+
 mariamem v0.1.0-alpha.2 is an early Go and Python alpha for disposable MariaDB tests.
 The Python distribution version is 0.1.0a2.
 
