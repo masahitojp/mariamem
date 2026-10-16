@@ -26,7 +26,12 @@ def main():
         p.add_argument('--'+label+'-host', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--scratch', type=Path, required=True)
+    p.add_argument('--scales', nargs='+', choices=('small', 'medium', '100mib'), default=['small', 'medium', '100mib'])
+    p.add_argument('--plain-repeats', type=int, default=6)
+    p.add_argument('--resource-repeats', type=int, default=3)
     a = p.parse_args()
+    if min(a.plain_repeats, a.resource_repeats) < 1 or len(a.scales) != len(set(a.scales)):
+        p.error('positive repeat counts and unique scales required')
     a.output.mkdir(parents=True, exist_ok=False)
     a.scratch.mkdir(parents=True, exist_ok=True)
     source = {}
@@ -37,10 +42,11 @@ def main():
             build_info=verify_go_binary(root, host, commit))
     (a.output/'inputs.json').write_text(json.dumps(dict(sources=source,
         platform=platform.platform(), machine=platform.machine(), python=sys.version,
+        scales=a.scales, plain_repeats=a.plain_repeats, resource_repeats=a.resource_repeats,
         harness={n:hashlib.sha256((Path(__file__).parent/n).read_bytes()).hexdigest() for n in ('workflow.py', 'campaign.py')}), indent=2)+'\n')
     results = []
-    for resources, repeats in ((False, 6), (True, 3)):
-        for scale in ('small', 'medium', '100mib'):
+    for resources, repeats in ((False, a.plain_repeats), (True, a.resource_repeats)):
+        for scale in a.scales:
             for rep in range(repeats):
                 order = ('baseline', 'candidate') if rep % 2 == 0 else ('candidate', 'baseline')
                 for label in order:
@@ -85,7 +91,7 @@ def main():
                     results.append(result)
                     print(name, round(result['whole_ms'],2), flush=True)
     summary = {}
-    for scale in ('small', 'medium', '100mib'):
+    for scale in a.scales:
         cell = {}
         for label in ('baseline', 'candidate'):
             plain = [r for r in results if r['scale']==scale and r['label']==label and not r['resources_enabled']]
