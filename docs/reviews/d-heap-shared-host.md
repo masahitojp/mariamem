@@ -19,6 +19,11 @@
 既存の生データを対照として使い、原因未確定のまま「解消済み」「単なるばらつき」としない。
 新たなcorrectness欠陥が見つかれば、その影響と修正範囲を別途判断する。
 
+2026-10-17追記：[採用後の最終構成Qualification](main-storage-qualification.md)は
+`c97e55fc065f6ee7b560325077726da53e5d95d7`でPASSした。独立build／再生成、両nativeと
+aggregate guardはREADY。以下の限定検証時点の「最終Qualification未実施」は当時の記録であり、
+現在の残件は新しい利用・性能確認と遅い試行の評価。公開は行っていない。
+
 ## Human Review
 
 **今回Humanに判断してほしいのは、この候補をmainへ採用するか。推薦は採用。**

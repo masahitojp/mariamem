@@ -34,8 +34,14 @@ The shared-host crash domain and intentional public save/load API removal are
 accepted for this use. Performance comparison remains macOS-only. The unexplained
 slow resource-observed small-fixture trial remains unresolved and must be revisited
 in final release validation; it is not classified as noise or a candidate defect.
-Skipped probes remain explicit. This adoption does not start release preparation
-or authorize publication. See the
+Skipped probes remain explicit. The later authorized final configuration
+Qualification passed for exact source `c97e55fc065f6ee7b560325077726da53e5d95d7`
+in [verify run 38935990860](https://github.com/masahitojp/mariamem/actions/runs/38935990860).
+Both native platforms and the aggregate guard returned READY after full builds,
+regeneration and external acceptance. The [Qualification review](reviews/main-storage-qualification.md)
+retains receipts/SKIPs and recommends the remaining user-workflow/performance check.
+That new comparison and the unexplained slow-trial assessment remain unperformed;
+publication is not authorized. See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
@@ -50,8 +56,9 @@ retained. See the [released notes](../release/NOTES-v0.5.0.md).
 
 The startup ordering correction, D block backing, Python shared host and public
 save/load API removal are later main changes. They are adopted but unreleased;
-see [API differences and migration](changes-since-v050.md). Final combined-source
-Qualification/Product Validation and release approval remain separate. The earlier
+see [API differences and migration](changes-since-v050.md). Combined-source
+Qualification has passed for the exact SHA above; subsequent Product Validation
+and release approval remain separate. The earlier
 v0.5.0 preparation history below does not qualify later main commits.
 
 ## Previous release: v0.4.7 — Upstream converter migration

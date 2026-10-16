@@ -142,9 +142,11 @@ Its [approved design](reviews/d-heap-productization-design.md) preserves the
 scope change removing public persistence.
 
 The limited benefit comparison is macOS-only. The unexplained slow
-resource-observed trial remains for final release validation. Final Qualification
-and broader Product Validation for the combined adopted main have not run;
-v0.5.0's READY evidence does not qualify this later source.
+resource-observed trial remains for final release validation.
+[Final Qualification](reviews/main-storage-qualification.md) passed for combined
+source `c97e55fc065f6ee7b560325077726da53e5d95d7` with fresh builds and both-native
+acceptance in verify run 38935990860. Broader Product Validation remains pending;
+that technical READY result does not authorize publication or qualify later SHAs.
 [Development verification](development.md#local-verification) defines check
 selection; [releasing](releasing.md) defines exact-source publication gates.
 

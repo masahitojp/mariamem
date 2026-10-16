@@ -1,0 +1,47 @@
+{
+  "version": "0.5.0",
+  "runs": [
+    {
+      "name": "serial",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "fixture_instances_disposed": 5,
+      "final_hosts_reaped": 1
+    },
+    {
+      "name": "parallel",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "fixture_instances_disposed": 6,
+      "final_hosts_reaped": 2
+    },
+    {
+      "name": "migration",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "fixture_instances_disposed": 3,
+      "final_hosts_reaped": 1
+    },
+    {
+      "name": "failure-cleanup",
+      "tests": 2,
+      "failures": 1,
+      "errors": 1,
+      "skipped": 0,
+      "fixture_instances_disposed": 3,
+      "final_hosts_reaped": 1
+    }
+  ],
+  "wheel_sha256": "2bfdb05b4b561a28fa02c9ce4f2316564e3c38ce31b87a868b3fc27948725a49",
+  "installed_files_match_wheel": true,
+  "passed": true,
+  "runtime_bundled_in_wheel": true,
+  "native_overrides": false,
+  "consumer_outside_repository": true
+}

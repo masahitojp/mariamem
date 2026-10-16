@@ -248,11 +248,15 @@ Full generated guest `-race` remains **GENERAL SHARED-MEMORY MODEL WORK REQUIRED
 no suppression is used and it is not a v0.4 release gate. Focused handwritten
 FD/MemFS/thread/TLS/futex race coverage remains enabled in normal integration CI.
 Forced query-timeout reclamation/hard failure containment is not guaranteed.
-The ~1s legal guest-side startup tail remains observable. The current runtime releases its
+The published v0.5.0 ~1s startup mode has a source correction adopted on main;
+bounded comparisons passed on both platforms. An unexplained slower resource
+trial remains for the separate performance review. The current runtime releases its
 mmap-backed linear memory after cooperative join; remaining Go filesystem/metadata
-heap and OS accounting still differ from live allocations. Go1.27.0/1.27.1 arm64
-are unsupported due to the documented upstream
-compiler regression; no generated-source/compiler workaround is used.
+heap and OS accounting still differ from live allocations. The exact combined
+source's external Go1.27.2 consumers passed on both native platforms in
+[final Qualification](reviews/main-storage-qualification.md); canonical checks
+use Go1.26.8 and minimum Go remains 1.26.0. See
+[historical compiler compatibility scope](go-compatibility.md).
 
 For each release, submit its exact pushed SHA once with `operation=release`.
 CI collects or revalidates hosted-runner evidence before publication. Local

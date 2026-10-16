@@ -69,8 +69,14 @@ on main. Both supported native platforms passed their relevant bounded checks.
 The D/shared-host runtime input, independently regenerated provenance, failure
 oracles and installed-consumer evidence are recorded in the implementation report.
 
-Final qualification and broader Product Validation for this combined main
-configuration have not run. The unexplained slow resource-observed trial remains
+Final Qualification passed for combined source
+`c97e55fc065f6ee7b560325077726da53e5d95d7` in
+[verify run 38935990860](https://github.com/masahitojp/mariamem/actions/runs/38935990860);
+both native platforms and the aggregate guard returned READY. The
+[Qualification review](reviews/main-storage-qualification.md) retains exact
+receipts and explicit SKIPs. Broader Product Validation for this combined
+configuration has not run. The unexplained slow resource-observed trial remains
 open for final release validation. Existing general race-detector and
 non-cooperative cleanup limits remain; this documentation update neither expands
-those investigations nor starts release preparation.
+those investigations nor authorizes publication. Later documentation commits
+do not inherit exact-SHA READY by relabelling this evidence.

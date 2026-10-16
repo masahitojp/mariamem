@@ -1,0 +1,212 @@
+{
+  "run_id": 38935990860,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/38935990860",
+  "source_commit": "c97e55fc065f6ee7b560325077726da53e5d95d7",
+  "workflow_source_commit": "c97e55fc065f6ee7b560325077726da53e5d95d7",
+  "workflow_path": ".github/workflows/release-candidate-ready.yml",
+  "operation": "verify",
+  "mode": "full",
+  "result": "READY",
+  "artifact_archives": {
+    "ready": {
+      "artifact_id": 12065307981,
+      "bytes": 235092,
+      "zip_sha256": "33709e8111ea332f1d159b3aab4016b69be0ffa19af7b54a8142d244a07fdd68",
+      "name": "release-ready-c97e55fc065f6ee7b560325077726da53e5d95d7"
+    },
+    "darwin": {
+      "artifact_id": 12063959891,
+      "bytes": 354935,
+      "zip_sha256": "9daf0b953e56881f98499d8d972b552deb28227db4da893ad3b06f22dbbdcb35",
+      "name": "release-evidence-darwin-arm64-c97e55fc065f6ee7b560325077726da53e5d95d7"
+    },
+    "ubuntu": {
+      "artifact_id": 12063084669,
+      "bytes": 355028,
+      "zip_sha256": "fad1bca4ce3d3a60eb29945e810fc9e66e622c75fcc3b8d52741379a717400ab",
+      "name": "release-evidence-ubuntu24.04-x86_64-c97e55fc065f6ee7b560325077726da53e5d95d7"
+    }
+  },
+  "platforms": {
+    "darwin-arm64": {
+      "environment": {
+        "architecture": "arm64",
+        "product_version": "15.7.9",
+        "system": "Darwin"
+      },
+      "steps": {
+        "go_default": "PASS",
+        "go_snapshot_failure_lifecycle": "PASS",
+        "gorm": "PASS",
+        "installed_wheel": "PASS",
+        "sqlalchemy": "PASS"
+      },
+      "go127_consumer": {
+        "GOTOOLCHAIN": "local",
+        "actual_go": "go version go1.27.2 darwin/arm64",
+        "minimum_go_unchanged": "1.26.0",
+        "result": "PASS",
+        "scope": "same exact-source external module, default/in-memory Snapshot lifecycle and public smoke"
+      },
+      "gorm_cases": 32,
+      "sqlalchemy_cases": 44,
+      "go_source_files": 2586,
+      "wheel_source_files": 2586,
+      "wheel_sha256": "2bfdb05b4b561a28fa02c9ce4f2316564e3c38ce31b87a868b3fc27948725a49",
+      "installed_fixture_runs": [
+        {
+          "name": "serial",
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "fixture_instances_disposed": 5,
+          "final_hosts_reaped": 1
+        },
+        {
+          "name": "parallel",
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "fixture_instances_disposed": 6,
+          "final_hosts_reaped": 2
+        },
+        {
+          "name": "migration",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "fixture_instances_disposed": 3,
+          "final_hosts_reaped": 1
+        },
+        {
+          "name": "failure-cleanup",
+          "tests": 2,
+          "failures": 1,
+          "errors": 1,
+          "skipped": 0,
+          "fixture_instances_disposed": 3,
+          "final_hosts_reaped": 1
+        }
+      ]
+    },
+    "ubuntu24.04-x86_64": {
+      "environment": {
+        "architecture": "x86_64",
+        "distribution": "ubuntu",
+        "system": "Linux",
+        "version_id": "24.04"
+      },
+      "steps": {
+        "go_default": "PASS",
+        "go_snapshot_failure_lifecycle": "PASS",
+        "gorm": "PASS",
+        "installed_wheel": "PASS",
+        "sqlalchemy": "PASS"
+      },
+      "go127_consumer": {
+        "GOTOOLCHAIN": "local",
+        "actual_go": "go version go1.27.2 linux/amd64",
+        "minimum_go_unchanged": "1.26.0",
+        "result": "PASS",
+        "scope": "same exact-source external module, default/in-memory Snapshot lifecycle and public smoke"
+      },
+      "gorm_cases": 32,
+      "sqlalchemy_cases": 44,
+      "go_source_files": 2586,
+      "wheel_source_files": 2586,
+      "wheel_sha256": "a47cb9c3055a18f9997d70051cdeb5f581b5b5f8f2555a71449041da808c2bcb",
+      "installed_fixture_runs": [
+        {
+          "name": "serial",
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "fixture_instances_disposed": 5,
+          "final_hosts_reaped": 1
+        },
+        {
+          "name": "parallel",
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "fixture_instances_disposed": 6,
+          "final_hosts_reaped": 2
+        },
+        {
+          "name": "migration",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "fixture_instances_disposed": 3,
+          "final_hosts_reaped": 1
+        },
+        {
+          "name": "failure-cleanup",
+          "tests": 2,
+          "failures": 1,
+          "errors": 1,
+          "skipped": 0,
+          "fixture_instances_disposed": 3,
+          "final_hosts_reaped": 1
+        }
+      ]
+    }
+  },
+  "normalization": {
+    "ci-ready.json": {
+      "original_sha256": "55a36b39d7d051e652aceccc556d939c8388f74b4b06b356e1554537f26433b2",
+      "saved_sha256": "9cb4e8ab1244b3812a6210c6fb68bbe2d635f1d782abbabab18fc187e1fcd376",
+      "rule": "Replace absolute runner home prefix with <runner-root>/; identity review used original bytes."
+    }
+  },
+  "saved_files_sha256": {
+    "ci-ready.json": "9cb4e8ab1244b3812a6210c6fb68bbe2d635f1d782abbabab18fc187e1fcd376",
+    "qualification.json": "ded33ffa6b14e281b13a95b9cfd495c919e5e320443df4da839aa7a7d9c4d3db",
+    "SHA256SUMS": "d1a27139434c4569855629c25aa78dd81a80c2b8413d33e999b858a526136667",
+    "darwin-acceptance.json": "0f022663332f086e30fb573cbe39bec565c5a48e7323410da3df4cd73ef3a756",
+    "ubuntu-acceptance.json": "fd13f380e3cd5ab1c5a5adf1b890f314e28de35677601cf6c8dff897d097ddfd",
+    "darwin-installed.json": "517887961d62ec9d3622cd06074f2c9909b46f2a4284c013c1baf8b7ad3e6eac",
+    "ubuntu-installed.json": "f56fc562ffb65377d0ff07efe5e404eb1eac3d3fb0ab082f5f37aacc5f4df359"
+  },
+  "verified": {
+    "zip_digests_match_api": true,
+    "acceptance_digests_match_ready": true,
+    "source_inventories_match_exact_git_commit": true,
+    "wheel_identity_matches_acceptance": true,
+    "installed_fixtures_match_wheels_and_cleanup": true
+  },
+  "not_run": [
+    "publication/post-publication smoke: verify operation",
+    "new timing/resource campaign",
+    "slow resource-observed trial investigation"
+  ],
+  "version_note": "Private 0.5.0-labelled candidate artifacts are bound to this source SHA and are distinct from already published v0.5.0.",
+  "check_integration_excerpt": {
+    "darwin": {
+      "original_log_sha256": "c814c13e0d35394772974711ca314746586420258cc7f4e90f718b87b6d59b31",
+      "saved_excerpt_sha256": "d32cd8cfe3e2d71607c4f39beeb464726d0a9d9fe9a32b3a843378e53d52ee7a",
+      "rule": "Select test summaries / explicit SKIP/FAIL/forced-timeout scope lines; normalize runner home prefixes. Full logs remain at linked job."
+    },
+    "ubuntu": {
+      "original_log_sha256": "a654ff2f194e7e534054b263904d0b4567e39fc03194861b1bbe9723cd9b30c4",
+      "saved_excerpt_sha256": "82b660621e65dcf036930ad8911ba24d688f0bfb34275663062a5483b45d9f43",
+      "rule": "Select test summaries / explicit SKIP/FAIL/forced-timeout scope lines; normalize runner home prefixes. Full logs remain at linked job."
+    }
+  },
+  "check_skips": {
+    "both_platforms": "607 passed, 26 skipped in broad check; source/license/mirror 22 passed separately; integration 17 passed and Snapshot 33 checks",
+    "interpretation": "Broad check intentionally excludes real-host execution; 17 cases execute separately in integration. Other opt-in probes are not relabelled PASS.",
+    "not_executed_in_broad_check": [
+      "23 explicit real-host opt-in cases",
+      "3 pinned native authentication source-body comparison modes without build/downloads archive"
+    ],
+    "separate_integration_selection": "17 cases: owned Snapshot 7, wire 8, multiclient 1, normal Close 1. The 3 executable guide cases are skipped in broad check and are not selected by verify.py integration; they passed earlier bounded native verification, not this release run.",
+    "other_opt_in_not_selected": "dev-route smoke, representative type probe and forced query-timeout diagnostic. External consumer/ORM acceptance runs its own suites; it does not relabel omitted opt-in probes."
+  }
+}

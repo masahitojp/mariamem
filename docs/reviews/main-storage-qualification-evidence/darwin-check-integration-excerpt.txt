@@ -1,0 +1,5 @@
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-16T17:18:19.2443440Z 22 passed in 1.17s
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-16T17:27:33.7880860Z 607 passed, 26 skipped in 51.03s
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-16T17:42:10.1467650Z Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-16T17:42:47.1297610Z 17 passed in 36.46s
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-16T17:42:49.2642000Z {"passed": true, "checks": 33, "error": null, "evidence": "<runner-root>/work/mariamem/mariamem/tests/evidence/snapshots.json"}

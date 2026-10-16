@@ -1,0 +1,5 @@
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-16T17:17:52.2991351Z 22 passed in 1.03s
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-16T17:24:15.1782889Z 607 passed, 26 skipped in 35.24s
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-16T17:33:35.9830246Z Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-16T17:34:34.1326915Z 17 passed in 57.92s
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-16T17:34:36.2433504Z {"passed": true, "checks": 33, "error": null, "evidence": "<runner-root>/work/mariamem/mariamem/tests/evidence/snapshots.json"}
