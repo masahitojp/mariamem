@@ -37,3 +37,14 @@ Git checkouts with real .git directories replace them; inputs and runtime code
 are unchanged. The initial failure receipt/build metadata are retained. A locked,
 disk-guarded manual continuation uses the remaining original two-hour budget;
 completion is judged only after all 262 executions and identity checks succeed.
+
+Bounded adverse-case follow-up: the first 100 MiB Go samples were slower by
+29.0% Fresh / 13.3% Fork. Repeat only those two existing cases in three alternating
+pairs each (12 additional executions), using the same verified binaries and
+original deadline. Preserve the first observations and report the follow-up
+separately; do not expand into profiling or corrective runtime changes.
+`repeat-large.py --workspace WORK --go-root GO_ROOT` requires the original
+262-cell completion and successful continuation receipts first. `analyze.py WORK`
+checks and summarizes all 274 executions; `collect.py --workspace WORK --output
+NEW_RESULTS` preserves compact raw evidence and verifies original/stored hashes
+when normalizing local path prefixes for public source.
