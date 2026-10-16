@@ -5,8 +5,8 @@ This document owns current state and future direction. The
 owns current HOW, [decisions](decisions/snapshot-product-contract.md) own
 continuing product constraints, and reports preserve historical evidence.
 Version themes are direction; they are not release approval.
-The current published release and adopted main are distinct sources. Version
-metadata still reads 0.5.0 on main; that does not make later commits part of the tag.
+The current published release and the authorized v0.5.1 preparation are distinct
+sources. Changing version metadata does not itself publish a release.
 
 ## Product contract
 
@@ -45,8 +45,12 @@ retains receipts/SKIPs. The subsequently authorized
 completed 274 executions on those exact runtime inputs. Typical fixture reuse
 and memory improved, while 100 MiB Go Fresh retains adverse results (all four
 observations: median +7.2%). The [Product Verification Human Review](reviews/main-product-verification.md)
-recommends accepting that tradeoff and proceeding to release preparation;
-the Human decision and publication authorization remain pending. See the
+recommended accepting that tradeoff. The maintainer accepted the performance
+review and authorized preparation/release as **v0.5.1** on 2026-10-17, explicitly
+deferring the 100 MiB Go Fresh investigation until after release. Release CI
+still owns acceptance of the exact final-version source and its publication;
+neither the earlier READY nor these measurements are relabelled as that source.
+See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
@@ -63,7 +67,8 @@ The startup ordering correction, D block backing, Python shared host and public
 save/load API removal are later main changes. They are adopted but unreleased;
 see [API differences and migration](changes-since-v050.md). Combined-source
 Qualification and bounded macOS Product Verification have passed for the exact
-SHA above; the later Human Review and release approval remain separate. The earlier
+SHA above; the maintainer subsequently approved v0.5.1 preparation. Its final
+source/artifacts must pass the existing release workflow. The earlier
 v0.5.0 preparation history below does not qualify later main commits.
 
 ## Previous release: v0.4.7 — Upstream converter migration
@@ -203,6 +208,17 @@ Product Validation; those changes are not part of v0.4.5.
   reproducible generation remain required.
 
 ## Performance evidence and pending optimization questions
+
+**Approved post-v0.5.1 follow-up: 100 MiB Go Fresh.** The
+[completed paired comparison](../benchmarks/main-product-verification.md#adverse-100-mib-go-case-and-bounded-repeat)
+retains the original +29.0% wall-time trial, the three additional pairs (+1.9%
+median), and all four observations (+7.2% wall / +6.3% CPU median). Preparation
+and SQL account for the adverse intervals; storage overhead versus execution
+conditions remains unresolved. The maintainer accepted this tradeoff for
+v0.5.1; it is not an additional release gate. After release, reuse the saved
+phase/CPU/allocation data first and separately scope any profiling or runtime
+repair. Do not call the result measurement noise, promise Fresh acceleration,
+or start that new investigation during release preparation.
 
 Current storage routing follows the adopted D/shared-host contract and
 [implementation/adoption report](reviews/d-heap-shared-host.md) above. The v0.4.x

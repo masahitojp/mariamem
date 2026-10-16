@@ -1,17 +1,17 @@
-# Adopted changes on main after v0.5.0
+# v0.5.1 changes since v0.5.0
 
 Updated 2026-10-17. [v0.5.0](https://github.com/masahitojp/mariamem/releases/tag/v0.5.0)
 was published on 2026-10-13 from source
 `44100ec676c8c9064f32f3a01bd9a990d487bb61`; annotated tag object
 `bfd854da1cecbe71ad761d1578b3f2c710a1c07f`.
-The changes below are adopted on main and are not in that release's Go module
-or Python wheels. No new version is selected here. Version metadata still
-reads 0.5.0; a main checkout and the published tag therefore have different
-source identities even while their version strings match.
+The changes below are adopted on main for the authorized v0.5.1 release and are
+not in v0.5.0's Go module or Python wheels. Final-version publication is owned
+by Release CI; the earlier qualified/measured source and final release source
+remain separate identities.
 
 ## Behavior and API differences
 
-| Area | Published v0.5.0 | Current main |
+| Area | Published v0.5.0 | v0.5.1 source |
 | --- | --- | --- |
 | MariaDB | 12.3.3 | 12.3.3; includes the page-cleaner startup ordering correction |
 | Snapshot backing | Verified file-backed prepared state | Verified immutable 16 KiB blocks in Go memory; child changes are private |
@@ -22,7 +22,7 @@ source identities even while their version strings match.
 
 The removed public interfaces are:
 
-| Language | Removed on main | Migration |
+| Language | Removed in v0.5.1 | Migration |
 | --- | --- | --- |
 | Python | `db.snapshot_to(path)` | Use `db.snapshot()` to create a live in-memory baseline |
 | Python | `mariamem.load_snapshot(path)`, `Snapshot.open(path)`, direct saved-Snapshot construction | Run migrations/seed in a setup DB, then call `snapshot()` |
@@ -34,7 +34,7 @@ Python capture accepts keyword-only `rollback` and `timeout`; it accepts no
 destination argument. Positional `db.snapshot(path)` was already unsupported in
 published v0.5.0 and remains rejected; it is not a newly removed v0.5.0 API.
 Go `SnapshotOptions` contains only `Rollback`.
-Existing saved artifacts cannot be loaded by main, even if their guest identity
+Existing saved artifacts cannot be loaded by v0.5.1, even if their guest identity
 matches. Retain migration/seed inputs to recreate preparation for every test
 process/session. There is no automatic cache or replacement public persistence API.
 
@@ -74,9 +74,13 @@ Final Qualification passed for combined source
 [verify run 38935990860](https://github.com/masahitojp/mariamem/actions/runs/38935990860);
 both native platforms and the aggregate guard returned READY. The
 [Qualification review](reviews/main-storage-qualification.md) retains exact
-receipts and explicit SKIPs. Broader Product Validation for this combined
-configuration has not run. The unexplained slow resource-observed trial remains
-open for final release validation. Existing general race-detector and
-non-cooperative cleanup limits remain; this documentation update neither expands
-those investigations nor authorizes publication. Later documentation commits
-do not inherit exact-SHA READY by relabelling this evidence.
+receipts and explicit SKIPs. The later bounded macOS
+[Product Verification](../benchmarks/main-product-verification.md) completed 274
+executions; its [Human Review](reviews/main-product-verification.md) was accepted
+for v0.5.1. The earlier slow resource-observed small case did not recur in the
+bounded repeats; its cause is not established. The adverse 100 MiB Go Fresh
+observation is an explicitly approved post-release investigation. Ubuntu
+performance remains unmeasured. Existing general race-detector and
+non-cooperative cleanup limits remain. The release workflow must accept the
+exact final-version source/artifacts; later commits do not inherit exact-SHA
+READY by relabelling earlier evidence.
