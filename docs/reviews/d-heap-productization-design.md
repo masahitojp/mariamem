@@ -1,5 +1,10 @@
 # D heap＋Python共有host：製品化の設計案
 
+2026-10-17整理：承認済み設計と保存廃止への範囲変更を残す履歴資料。
+実装とmain採用は完了しており、以下の見積もり・完了条件を新しい作業計画として再開しない。
+現在の実装・検証・採用決定と残件は[統合報告](d-heap-shared-host.md)、
+現行契約は[Snapshot product contract](../decisions/snapshot-product-contract.md)を参照。
+
 2026-10-16。HumanはD＋共有hostの実装を承認。その後、保存・load APIを廃止する方針を指定。以下の旧案との差は本追記を優先する。製品採用・main統合・リリース承認とは別。
 
 ## Human Review

@@ -174,6 +174,12 @@ Product Validation; those changes are not part of v0.4.5.
 
 ## Performance evidence and pending optimization questions
 
+Current storage routing follows the adopted D/shared-host contract and
+[implementation/adoption report](reviews/d-heap-shared-host.md) above. The v0.4.x
+decision and research handoff below record earlier investigation context; their
+retain-MAP_PRIVATE and unperformed-measurement statements are not the current
+implementation or instructions to restart that work.
+
 The [Go 1.26.8 / 1.27.2 comparison](benchmarks/go126-vs-go127.md) retains
 same-source macOS arm64 suite/resource results and reproduction evidence.
 No consistent practical speedup was demonstrated; these observations do not
@@ -232,6 +238,20 @@ without rejecting direct copying in general. Runtime source remains isolated on
 `experiment/snapshot-direct-copy`; its ownership/failure tests, raw measurements
 and reproduction scripts are preserved in the linked reports. Disposable build
 and measurement state has been cleaned. No release decision follows.
+
+**Storage documentation after main adoption — 2026-10-17:** use the Product
+contract and adoption report for current behavior, validation and remaining work.
+The following older materials have distinct roles; none starts another experiment.
+
+| Material | Continuing use |
+| --- | --- |
+| [Storage design map](reviews/storage-design-directions.md) | Reference for A–F alternatives, product value and reference-project differences. Historical assumptions are labelled; D/shared-host is now adopted. |
+| [D productization design](reviews/d-heap-productization-design.md) | Approved design/scope-change history supporting the implementation. The older local draft lacking the save/load removal decision was redundant and removed. |
+| [Direct-copy investment reassessment](reviews/storage-investment-reassessment.md) | Archived reasoning and measurements from the earlier comparison. Its pending-decision wording, four-hour proposal and estimates are not current tasks. |
+
+The 2026-10-15 exploration preserved library convenience and independent real
+DBs while reopening storage/clone methods. That direction led to the D/shared-host
+adoption; it no longer represents an unselected backend or pending Human Review.
 
 ## v0.4.7 — Upstream converter migration (candidate)
 
