@@ -370,14 +370,6 @@ func (r *runner) preparedPhase(phase string, runs int) (err error) {
 				ctx = timing.WithRecorder(ctx, func(t timing.Trace) { trace = &t })
 			}
 			opts := mariamem.SnapshotOptions{}
-			if r.cfg.initDiagnostics {
-				root, e := os.MkdirTemp("", "mariamem-inventory-")
-				if e != nil {
-					return nil, e
-				}
-				defer os.RemoveAll(root)
-				opts.Destination = filepath.Join(root, "prepared")
-			}
 			begin := time.Now()
 			snapshot, e := db.Snapshot(ctx, opts)
 			elapsed := time.Since(begin).Seconds()
@@ -394,8 +386,8 @@ func (r *runner) preparedPhase(phase string, runs int) (err error) {
 			}
 			sample := map[string]any{"case": "snapshot", "workers": 1, "phase": phase, "run": i, "latency_seconds": elapsed, "stage_timings": stages, "cpu_seconds": nil, "peak_rss_bytes": nil}
 			if r.cfg.initDiagnostics {
-				sample["snapshot_inventory"] = snapshotDiagnostics(opts.Destination)
-				sample["snapshot_mode"] = "explicit diagnostic output plus independent owned backing"
+				sample["snapshot_inventory"] = nil
+				sample["snapshot_mode"] = "in-memory immutable backing; file inventory is not applicable"
 			}
 			r.samples = append(r.samples, sample)
 			return snapshot, nil

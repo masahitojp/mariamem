@@ -24,21 +24,19 @@ Successful Snapshot creation ends the source DB. Precondition rejection keeps it
 available. Closing the baseline prevents new Forks; successfully started
 children own their lifetimes and remain usable until separately closed.
 
-`snapshot()` fixes the current DB state. `snapshot_to(path)` additionally persists
-it. Persistence is requested when the baseline is created; an existing baseline has
-no later save/persist operation. Explicit persisted outputs are
-advanced derived artifacts: code/data inputs remain reproducible and the user
-owns freshness, regeneration and deletion policy.
+`snapshot()` fixes the current DB state in a process-local immutable baseline.
+The maintainer approved removing persistence and loading during the D/shared-host
+implementation on 2026-10-16. Path-taking capture such as `db.snapshot(path)` is not supported. Python
+`snapshot_to`, `load_snapshot`,
+`Snapshot.open(path)` and path-based acquisition, and Go `Destination` /
+`LoadSnapshot`, are removed in this candidate. Prepare from migration/seed inputs
+again for each test process/session. No automatic cache is introduced.
 
-Python `load_snapshot(path)` acquires such a baseline without starting a DB.
-The v0.4.6 Go candidate adds `LoadSnapshot(ctx, path, opts)` with the same
-validated-owned-backing contract; syntax and options remain language-specific.
-Existing constructor/open/start entrances remain available, but ordinary guides
-prefer module acquisition and lifecycle operations. Internal path, manifest and
-validation methods are not public concepts.
-
-Debugging artifacts and automatic cache management are separate possible
-concerns; neither defines Snapshot semantics or enters v0.4.4.
+Python automatically manages one host per independent root start lineage. DBs,
+baselines and descendants in that lineage retain it. A host crash loses that
+lineage; a normal SQL error or child Close does not close siblings. Every child
+still owns an independent MariaDB runtime and endpoint. Root starts and xdist
+workers do not share a process. Go uses its caller's process as before.
 
 ## Integrity follows ownership
 
@@ -47,9 +45,10 @@ mariamem owns the exact verified backing; supported operations never mutate it.
 Fork uses that same resource with cheap structural/lifetime/compatibility checks,
 without recomputing full content hashes.
 
-External imports cross a filesystem trust boundary. An independent internal
-copy is verified against the input's expected inventory/hashes, then owned.
-Changes/deletion of the source after successful acquisition cannot affect Fork.
+No public external import remains. An explicit different development host binary
+may use a private temporary handoff; that boundary still independently copies and
+verifies expected inventory/hashes and guest identity before ownership. It does
+not expose a user-managed baseline artifact.
 
 The contract explicitly does not promise detection on every Fork of silent
 media corruption arising after acquisition. It is not an adversarial same-user
@@ -69,12 +68,9 @@ fixtures. Fixture ergonomics are deferred to v0.6.0 dogfood evidence.
 
 ## Consequences
 
-The owned implementation holds approximately one read-only descriptor per
-prepared file for the Snapshot lifetime. External import includes a private-copy
-cost; acquire once and Fork many to amortize it. These costs must be reported
-with preparation/cleanup included rather than inferred from hash percentages.
-
-[Current architecture](../v04-generated-go-architecture.md) records HOW.
-[User guide](../python.md) records ordinary operations.
-The prior OwnedPrepared spike is feasibility evidence, not final production
-performance or release qualification.
+Ordinary baselines retain immutable Go blocks, not one backing FD per file.
+Each child separates modified blocks. Closing a baseline does not revoke blocks
+already owned by children. Public save/load behavior from v0.4.4–v0.5.0 is an
+intentional API removal; the earlier reports preserve that historical contract.
+The implementation is under verification; architecture adoption and release
+approval remain separate from this approved direction.

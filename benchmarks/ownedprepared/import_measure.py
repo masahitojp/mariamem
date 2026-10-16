@@ -1,3 +1,5 @@
+# Historical persisted-baseline probe. Use the pinned v0.4.6/v0.5.0 source to
+# reproduce its old reports; current product APIs retain only memory baselines.
 """Exact-SDK import and child-suite measurement; no public backing metadata."""
 import argparse
 from concurrent.futures import ThreadPoolExecutor
@@ -30,6 +32,7 @@ def fd_count():
 
 
 def main():
+    raise SystemExit("Persisted baseline import/capture probe is retired; use its historical pinned source")
     parser = argparse.ArgumentParser()
     parser.add_argument('--artifact', required=True)
     parser.add_argument('--host', required=True)

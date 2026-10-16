@@ -82,7 +82,7 @@ def check_go127_consumer(project, smoke, env, run):
     run([compiler,'test','-tags=integration','-count=1','-timeout=5m','-v','.'],project,local)
     run([compiler,'run','.'],smoke,local)
     return {'result':'PASS','actual_go':actual,'GOTOOLCHAIN':'local',
-            'scope':'same exact-source external module, default/LoadSnapshot lifecycle and public smoke',
+            'scope':'same exact-source external module, default/in-memory Snapshot lifecycle and public smoke',
             'minimum_go_unchanged':'1.26.0'}
 
 

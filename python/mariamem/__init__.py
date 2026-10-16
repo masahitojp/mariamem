@@ -1,12 +1,10 @@
-"""Initial Python lifecycle wrapper. SQL is sent through a MySQL driver."""
-import json
-import os
+"""Disposable independent MariaDB instances and process-local prepared baselines."""
+import math
+import shutil
 from pathlib import Path
-import queue
-import subprocess
 import threading
-import tempfile
 import time
+import uuid
 
 from ._artifacts import ArtifactError, resolve
 from ._version import PYTHON_VERSION
@@ -30,177 +28,147 @@ class TransactionActive(HostError):
     pass
 
 
+def _positive(value):
+    if not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
+        raise ValueError("timeouts must be positive and finite")
+    return value
+
+
 class Database:
     def __init__(self, *, host_binary=None, runtime=None, module=None, log_path=None,
                  wasmer_dir=None, query_timeout=30, startup_timeout=120,
                  shutdown_timeout=30, snapshot=None):
-        """Start one memory DB, optionally restoring a validated cold snapshot."""
         if wasmer_dir is not None:
             raise ValueError("wasmer_dir is retired; generated-Go requires no Wasmer cache")
-        for timeout in (query_timeout, startup_timeout, shutdown_timeout):
-            if not isinstance(timeout, (int, float)) or not 0 < timeout < float("inf"):
-                raise ValueError("timeouts must be positive and finite")
-        timing_start = time.perf_counter_ns() if os.environ.get("MARIAMEM_TIMING_DIR") else None
-        self._startup_timing = [] if timing_start is not None else None
-        def mark(name):
-            if timing_start is not None:
-                self._startup_timing.append({"name": name, "offset_ns": time.perf_counter_ns() - timing_start})
-        mark("begin")
-        self._lock = threading.Lock()
-        self._sequence = 0
-        self._closed = False
-        self._shutdown_timeout = shutdown_timeout
-        self._messages = queue.Queue()
+        for v in (query_timeout, startup_timeout, shutdown_timeout):
+            _positive(v)
+        if snapshot is not None and not isinstance(snapshot, Snapshot):
+            raise TypeError("snapshot must be a live Snapshot handle; saved snapshots are no longer supported")
         try:
             resolved = resolve(host_binary, runtime, module)
         except ArtifactError as exc:
-            raise HostError(str(exc), code=exc.code, stage="platform" if exc.code == "unsupported_platform" else "artifact_validation") from exc
-        mark("artifacts_resolved")
-        host_binary, runtime, module = (resolved[key] for key in ("host_binary", "runtime", "module"))
-        self._options = dict(host_binary=host_binary, query_timeout=query_timeout,
+            raise HostError(str(exc), code=exc.code,
+                            stage="platform" if exc.code == "unsupported_platform" else "artifact_validation") from exc
+        self._options = dict(host_binary=resolved["host_binary"], query_timeout=query_timeout,
                              startup_timeout=startup_timeout, shutdown_timeout=shutdown_timeout)
-        imported_snapshot = None
-        self._temporary = None
-        self._log = None
-        self._reader = None
+        self._shutdown_timeout = shutdown_timeout
+        self._lock = threading.RLock()
+        self._closed = False
         self._logs = ""
-        argv = [str(Path(host_binary).absolute()), "--query-timeout", f"{query_timeout}s",
-                "--startup-timeout", f"{startup_timeout}s", "--shutdown-timeout", f"{shutdown_timeout}s"]
+        self._session = None
+        self._handle = None
+        from ._session import Session
+        transfer = None
+        source_session = None
+        if snapshot is None:
+            session = Session(resolved["host_binary"])
+            try:
+                session.retain()
+            except BaseException:
+                session._finish(force=True)
+                raise
+        else:
+            # Reserve while parent Close is excluded; the host pins backing
+            # through admission/startup independently of the parent Python object.
+            with snapshot._lock:
+                if snapshot._closed:
+                    raise ValueError("Snapshot is closed")
+                session = snapshot._session
+                session.retain()
+                if str(Path(resolved["host_binary"]).absolute()) != session.binary:
+                    source_session = session
+                    try:
+                        replacement = Session(resolved["host_binary"])
+                        try:
+                            replacement.retain()
+                        except BaseException:
+                            replacement._finish(force=True)
+                            raise
+                        session = replacement
+                        if session.guest_identity != source_session.guest_identity:
+                            raise HostError("Snapshot guest identity mismatch", code="snapshot_failed", closed=False)
+                        transfer = source_session.root / ("handoff-" + uuid.uuid4().hex)
+                        source_session.request("handoff", handle=snapshot._handle, transfer_path=str(transfer))
+                    except BaseException:
+                        if transfer is not None:
+                            shutil.rmtree(transfer, ignore_errors=True)
+                        if session is not source_session:
+                            session.release()
+                        source_session.release()
+                        raise
+        self._session = session
+        self._owned_log = log_path is None
+        self.log_path = Path(log_path).absolute() if log_path is not None else session.root / ("db-" + uuid.uuid4().hex + ".log")
         try:
-            # A path is an import boundary; a handle retains its already-validated
-            # backing. Delay imports until here so all pre-launch failures clean up.
-            if snapshot is not None and not isinstance(snapshot, Snapshot):
-                imported_snapshot = snapshot = Snapshot.open(snapshot, host_binary=host_binary)
-            mark("snapshot_acquired")
-            self._temporary = tempfile.TemporaryDirectory(prefix="mariamem-")
-            if log_path is None:
-                log_path = Path(self._temporary.name) / "host.log"
-            self.log_path = Path(log_path).absolute()
             self.log_path.parent.mkdir(parents=True, exist_ok=True)
-            self._log = self.log_path.open("xb")
-            mark("host_spawn_begin")
-            launcher = snapshot._spawn if snapshot is not None else subprocess.Popen
-            self._process = launcher(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                                     stderr=self._log, text=True, encoding="utf-8", bufsize=1)
-        except BaseException as exc:
-            if self._log is not None:
-                self._log.close()
-            if self._temporary is not None:
-                self._temporary.cleanup()
-            if isinstance(exc, OSError):
-                raise HostError(f"Host launch failed: {argv[0]}; install the matching platform wheel and check host executable permissions and the log destination. Cause: {exc}",
-                                code="host_start", stage="host_launch", closed=True) from exc
+            fields = dict(log_path=str(self.log_path), query_timeout=f"{query_timeout}s",
+                          startup_timeout=f"{startup_timeout}s", shutdown_timeout=f"{shutdown_timeout}s")
+            if snapshot is None or transfer is not None:
+                if transfer is not None:
+                    fields["transfer_path"] = str(transfer)
+                reply = session.request("start", response_timeout=startup_timeout+15, **fields)
+            else:
+                reply = session.request("fork", handle=snapshot._handle, response_timeout=startup_timeout+15, **fields)
+            ready = reply["database"]
+            self._handle = ready["handle"]
+            self.id = ready["id"]
+            self.capabilities = tuple(ready["capabilities"])
+            self.diagnostics = {key: ready[key] for key in ("pid", "runtime_pid")}
+            self.diagnostics["host_pid"] = self.diagnostics.pop("pid")
+            self._connection_info = {key: ready[key] for key in ("host", "port", "user", "password", "database")}
+        except BaseException:
+            try:
+                if self._handle is not None and not session.failed:
+                    try:
+                        session.request("db_close", handle=self._handle, response_timeout=shutdown_timeout+25)
+                    except Exception:
+                        pass
+            finally:
+                self._dispose()
             raise
         finally:
-            if imported_snapshot is not None:
-                try:
-                    imported_snapshot.close()
-                except BaseException:
-                    if hasattr(self, "_process"):
-                        self._dispose()
-                    raise
-        mark("host_spawn_returned")
-        try:
-            reader = threading.Thread(target=self._read, daemon=True)
-            reader.start()
-            self._reader = reader
-            ready = self._receive(startup_timeout + 15)
-            if ready.get("event") == "error":
-                error = ready.get("error", {})
-                raise HostError(error.get("message", "Guest startup failed"),
-                                code=error.get("code", "guest_start"), stage=error.get("stage"), closed=True)
-            if ready.get("event") != "ready" or ready.get("protocol") != 1:
-                raise HostError("Host startup greeting is invalid; expected control protocol 1. Use host/runtime/guest files from the same matching platform wheel or native bundle.", code="guest_connection", stage="host_control", closed=True)
-            mark("host_control_ready")
-            self.id = ready["id"]
-            self._connection_info = {key: ready[key] for key in ("host", "port", "user", "password", "database")}
-            self.capabilities = tuple(ready["capabilities"])
-            # Diagnostic data, not the database's public identity.
-            self.diagnostics = {"host_pid": ready["pid"], "runtime_pid": ready["runtime_pid"]}
-        except BaseException as exc:
-            self._dispose()
-            if not isinstance(exc, Exception):
-                raise
-            if isinstance(exc, HostError) and exc.code not in (None, "unusable"):
-                if self._logs:
-                    exc.args = (str(exc) + "\n" + self._logs[-1024:].strip(),)
-                raise
-            message = f"Host startup failed before the expected ready handshake (exit status {self._process.returncode}); reinstall the matching platform wheel/native bundle. Cause: {exc}"
-            if self._logs:
-                message += "\n" + self._logs[-1024:].strip()
-            raise HostError(message, code="host_start", stage="host_ready", closed=True) from exc
+            if transfer is not None:
+                shutil.rmtree(transfer)
+            if source_session is not None:
+                source_session.release()
 
-    def _read(self):
-        try:
-            for line in self._process.stdout:
-                self._messages.put(json.loads(line))
-            self._messages.put(HostError(f"Database instance terminated; see {self.log_path}",
-                                         code="unusable", closed=True))
-        except Exception as exc:
-            error = HostError(f"Host control response failed: {exc}", code="guest_connection", stage="host_control", closed=True)
-            error.__cause__ = exc
-            self._messages.put(error)
-
-    def _receive(self, timeout):
-        try:
-            message = self._messages.get(timeout=timeout)
-        except queue.Empty as exc:
-            raise TimeoutError("Host control response timed out") from exc
-        if isinstance(message, Exception):
-            raise message
-        return message
-
-    def _request(self, operation, response_timeout=10, **fields):
-        if self._process.poll() is not None:
-            raise HostError(f"Database instance terminated; see {self.log_path}",
-                            code="unusable", closed=True)
-        self._sequence += 1
-        try:
-            self._process.stdin.write(json.dumps({"id": self._sequence, "op": operation, **fields}) + "\n")
-            self._process.stdin.flush()
-        except (BrokenPipeError, OSError) as exc:
-            raise HostError(f"Database instance terminated; see {self.log_path}",
-                            code="unusable", closed=True) from exc
-        reply = self._receive(response_timeout)
-        if reply.get("id") != self._sequence:
-            raise HostError("Host response ID mismatch")
-        if not reply.get("ok"):
-            error = reply.get("error", {})
-            code = error.get("code")
-            cls = {"busy": Busy, "transaction_active": TransactionActive}.get(code, HostError)
-            raise cls(error.get("message", str(error)), code=code, stage=error.get("stage"), closed=reply.get("closed", False))
-        return reply
+    def _request(self, op, response_timeout=10, **fields):
+        if self._closed:
+            raise HostError("Database is closed", code="closed", closed=True)
+        return self._session.request(op, response_timeout=response_timeout, handle=self._handle, **fields)
 
     def status(self):
         with self._lock:
-            if self._closed:
-                raise HostError("Database is closed")
-            try:
-                return self._request("status")
-            except HostError as exc:
-                if exc.closed:
-                    self._dispose()
-                raise
+            reply = self._request("status")
+            self._logs = reply.pop("logs", self._logs)
+            return reply
 
     @property
     def closed(self):
-        return self._closed or self._process.poll() is not None
+        if self._closed or self._session.failed:
+            return True
+        try:
+            self.status()
+        except HostError as exc:
+            if exc.closed:
+                return True
+            raise
+        return False
 
     @property
     def logs(self):
-        if not self._closed and self.log_path.exists():
-            return self.log_path.read_text(errors="replace")[-16384:]
-        return self._logs
+        with self._lock:
+            if not self._closed and not self._session.failed:
+                self._logs = self._request("logs").get("logs", self._logs)
+            return self._logs
 
     def connection_info(self):
         if self.closed:
-            raise HostError("Database is closed")
-        return dict(self._connection_info)
+            raise HostError("Database is closed", code="unusable", closed=True)
+        return self._connection_info.copy()
 
     def wait_disconnected(self, timeout=5):
-        """Wait for driver disconnect/session cleanup before reusing one DB."""
-        if not isinstance(timeout, (int, float)) or not 0 < timeout < float("inf"):
-            raise ValueError("timeout must be positive and finite")
+        _positive(timeout)
         deadline = time.monotonic() + timeout
         while self.status()["active_connections"]:
             if time.monotonic() >= deadline:
@@ -212,12 +180,8 @@ class Database:
             if self._closed:
                 return
             try:
-                if self._process.poll() is not None:
-                    return
-                self._request("close", self._shutdown_timeout + 25)
-                code = self._process.wait(timeout=5)
-                if code:
-                    raise HostError(f"Host exited with code {code}")
+                if not self._session.failed:
+                    self._logs = self._request("db_close", self._shutdown_timeout+25).get("logs", self._logs)
             except HostError as exc:
                 if not exc.closed:
                     raise
@@ -225,93 +189,37 @@ class Database:
                 self._dispose()
 
     def snapshot(self, *, rollback=False, timeout=120):
-        """Fix this database as a temporary baseline; success ends this DB."""
-        return self._snapshot(None, rollback=rollback, timeout=timeout)
-
-    def snapshot_to(self, path, *, rollback=False, timeout=120):
-        """Fix and persist a baseline at a new path; success ends this DB.
-
-        The artifact remains after the returned handle is closed. Its reuse,
-        regeneration and deletion are the caller's responsibility.
-        """
-        return self._snapshot(Path(path), rollback=rollback, timeout=timeout)
-
-    def _snapshot(self, destination, *, rollback, timeout):
-        """Capture fixed files; precondition rejection preserves the source DB."""
-        if not isinstance(timeout, (int, float)) or not 0 < timeout < float("inf"):
-            raise ValueError("timeout must be positive and finite")
+        """Consume this DB and own a fixed in-memory baseline for independent Forks."""
+        _positive(timeout)
         if not isinstance(rollback, bool):
             raise ValueError("rollback must be a bool")
-        temporary = None
-        if destination is None:
-            temporary = tempfile.TemporaryDirectory(prefix="mariamem-snapshot-")
-            destination = Path(temporary.name) / "snapshot"
-        destination = Path(destination).absolute()
         with self._lock:
-            if self._closed:
-                if temporary:
-                    temporary.cleanup()
-                raise HostError("Database is closed")
             try:
-                # Export/exit has a guest deadline; host copy/hash has no size-independent deadline.
-                self._request("snapshot", response_timeout=None, destination=str(destination),
-                              rollback=rollback, timeout=f"{timeout}s")
-                code = self._process.wait(timeout=5)
-                if code:
-                    raise HostError(f"Host exited with code {code}")
+                reply = self._request("snapshot", response_timeout=None, rollback=rollback, timeout=f"{timeout}s")
             except HostError as exc:
-                if temporary:
-                    temporary.cleanup()
-                if exc.closed or exc.code is None:
+                if exc.closed:
                     self._dispose()
                 raise
-            except BaseException:
-                if temporary:
-                    temporary.cleanup()
-                self._dispose()
-                raise
+            self._logs = reply.get("logs", self._logs)
+            baseline = Snapshot._from_host(self._session, reply["snapshot"], self._options)
             self._dispose()
-            try:
-                saved = (Snapshot._created(destination, self._options, temporary)
-                         if temporary is not None
-                         else Snapshot.open(destination, host_binary=self._options["host_binary"]))
-            except BaseException:
-                if temporary:
-                    temporary.cleanup()
-                raise
-            saved._options = self._options.copy()
-            return saved
+            return baseline
 
     def _dispose(self):
+        if self._closed:
+            return
         self._closed = True
-        if not self._process.stdin.closed:
-            try:
-                self._process.stdin.close()  # Owner EOF asks host to shut down guest.
-            except (BrokenPipeError, OSError):
-                pass
-        try:
-            self._process.wait(timeout=self._shutdown_timeout + 25)
-        except subprocess.TimeoutExpired:
-            self._process.terminate()
-            try:
-                self._process.wait(timeout=12)
-            except subprocess.TimeoutExpired:
-                self._process.kill()
-                self._process.wait(timeout=5)
-        if self._reader is not None:
-            self._reader.join(timeout=5)
-        self._process.stdout.close()
-        self._log.close()
         try:
             self._logs = self.log_path.read_text(errors="replace")[-16384:]
         except OSError:
-            self._logs = ""
-        finally:
-            self._temporary.cleanup()
+            pass
+        if self._owned_log:
+            self.log_path.unlink(missing_ok=True)
+        self._session.release()
 
     def __enter__(self):
-        if self._closed:
-            raise HostError("Database is closed")
+        if self.closed:
+            raise HostError("Database is closed", code="closed", closed=True)
         return self
 
     def __exit__(self, *exc):
@@ -319,17 +227,7 @@ class Database:
 
 
 def start(**options):
-    """Start a disposable database, optionally from a fixed baseline."""
     return Database(**options)
-
-
-def load_snapshot(path, *, host_binary=None):
-    """Load and validate a persisted baseline without starting a database.
-
-    The returned handle owns an independent template. Closing it never removes
-    the input artifact; subsequent Forks do not reread that artifact.
-    """
-    return Snapshot.open(path, host_binary=host_binary)
 
 
 from .snapshot import Snapshot

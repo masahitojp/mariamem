@@ -50,26 +50,7 @@ func checkpoint(name string, snap *mariamem.Snapshot) {
 			}
 		}
 	}
-	bytes, files := int64(0), 0
-	inventory := map[string]int64{}
-	if snap != nil {
-		must(filepath.WalkDir(snapshotPath, func(p string, d os.DirEntry, e error) error {
-			if e != nil {
-				return e
-			}
-			if !d.IsDir() {
-				s, e := d.Info()
-				if e != nil {
-					return e
-				}
-				bytes += s.Size()
-				inventory[strings.TrimPrefix(p, snapshotPath+"/")] = s.Size()
-				files++
-			}
-			return nil
-		}))
-	}
-	row := map[string]any{"name": name, "timestamp": time.Now().UTC(), "memstats": m, "os": counters, "goroutines": runtime.NumGoroutine(), "fds": fds, "fd_error": fmt.Sprint(e), "snapshot_bytes": bytes, "snapshot_files": files, "snapshot_inventory": inventory}
+	row := map[string]any{"name": name, "timestamp": time.Now().UTC(), "memstats": m, "os": counters, "goroutines": runtime.NumGoroutine(), "fds": fds, "fd_error": fmt.Sprint(e), "snapshot_backing": "process-local-heap", "snapshot_bytes": nil, "snapshot_files": nil, "snapshot_inventory": nil}
 	data, e := json.MarshalIndent(row, "", "  ")
 	must(e)
 	must(os.WriteFile(filepath.Join(out, name+".json"), data, 0600))
@@ -137,9 +118,9 @@ func prepare() *mariamem.Snapshot {
 	query(db, true)
 	checkpoint("fixture_disconnected", nil)
 	snapshotPath = filepath.Join(out, "prepared")
-	snap, e := db.Snapshot(ctx, mariamem.SnapshotOptions{Destination: snapshotPath})
+	snap, e := db.Snapshot(ctx, mariamem.SnapshotOptions{})
 	must(e)
-	// API returns only after export, guest join, publication and hash validation.
+	// API returns after guest join and complete immutable-backing validation.
 	checkpoint("snapshot_published_source_handle_retained", snap)
 	must(db.Close())
 	checkpoint("source_close", snap)

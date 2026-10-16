@@ -130,10 +130,10 @@ def test_owner_eof_reaps_host_and_closes_wrapper(wire_db):
     assert wire_db.id != str(wire_db.diagnostics["host_pid"])
     conn = connect(wire_db)
     try:
-        wire_db._process.stdin.close()
-        assert wire_db._process.wait(timeout=5) == 0
+        wire_db._session._process.stdin.close()
+        assert wire_db._session._process.wait(timeout=5) == 0
     finally:
         conn._force_close()
         wire_db._dispose()
-    assert wire_db._process.stdout.closed and wire_db._log.closed
-    assert not wire_db._reader.is_alive()
+    assert wire_db._session._process.stdout.closed and wire_db._session._stderr.closed
+    assert not wire_db._session._reader.is_alive()

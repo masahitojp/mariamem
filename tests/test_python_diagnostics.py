@@ -177,5 +177,5 @@ def test_invalid_host_handshake_recovery(tmp_path):
         mariamem.start(**options)
     assert failure.value.code == "guest_connection"
     assert failure.value.stage == "host_control"
-    assert "expected control protocol 1" in str(failure.value)
+    assert "expected control protocol 2" in str(failure.value)
     assert "same matching platform" in str(failure.value)

@@ -58,7 +58,7 @@ func MapPreparedFiles(fsys *MemFS, dir, prefix string) (*PreparedFiles, error) {
 		fsys.mu.Lock()
 		node, err := fsys.lookup(dest)
 		if err == nil {
-			node.data = data
+			fsys.installMappedStorage(node, data)
 		}
 		fsys.mu.Unlock()
 		return err

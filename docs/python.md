@@ -70,66 +70,41 @@ A modified child may be snapshotted into a new baseline.
 Concurrent Fork startups are supported. Closing the baseline prevents further
 Forks; successfully started children remain usable. Close each child separately.
 The baseline context releases its owned resources after admitted launches.
-For an unnamed Snapshot, temporary capture files are implementation-owned and
-cleaned up. No user-managed filesystem artifact is needed.
+Snapshot content stays in memory; no user-managed filesystem artifact is needed.
 
 `baseline.fork(**options)` inherits the preparation DB's options with supplied
 overrides. `mariamem.start(snapshot=baseline, ...)` also creates a child from the
 owned baseline, using the supplied start options. These are alternative
 creation routes, not successive steps.
 
-## Save and load a baseline
+## Snapshot ownership and host lifetime
 
-For expensive setup that should be reused across runs:
+`snapshot()` fixes a fully verified baseline in Go memory. It ends the source
+DB and retains the baseline in the automatically managed host. Fork creates a
+fresh MariaDB runtime and private changes; it does not copy running threads.
+One independent `start()` owns one host lineage. Its baseline, children and
+derived baselines share that host. Each DB has its own SQL endpoint and a limit
+of 16 simultaneous connections. The Snapshot itself uses no SQL connection.
+The host exits when the last owned handle and admitted operation finish.
 
-```python
-with mariamem.start() as setup_db:
-    # Run your migrations/import/fixtures, commit and close connections.
-    setup_db.wait_disconnected()
-    with setup_db.snapshot_to("./prepared") as baseline:
-        with baseline.fork() as db:
-            pass
-```
+SQL errors and an individual DB's normal Close do not close siblings. A host
+process crash invalidates that lineage's DBs and baselines; prepare again.
+Independent `start()` calls use independent hosts. Non-cooperative guest cleanup
+can retain resources until the lineage ends; an individual request timeout does
+not authorize killing a host with other live owners.
 
-`snapshot()` fixes the state temporarily; `snapshot_to(path)` fixes it and
-persists the baseline at creation time. There is no later save or persist operation on an existing baseline.
-An explicit destination must not already exist and is retained after the handle
-closes. It contains database files, not SQL statements, and is tied to the
-compatible MariaDB build.
+Snapshots are process-local. Saving/loading baselines, path-based acquisition,
+path-taking capture such as `db.snapshot(path)`, `snapshot_to`, `load_snapshot`
+and `Snapshot.open(path)` are unavailable in this
+candidate. Re-run migrations/seed to prepare a baseline in each test session.
+Old persisted artifacts are not inputs to this API. The library does not manage
+an automatic cache. Internal handoff for an explicitly different development
+host binary is temporary and is not a public save operation.
 
-A later run acquires the saved baseline without starting a DB:
-
-```python
-with mariamem.load_snapshot("./prepared") as baseline:
-    with baseline.fork() as db:
-        pass
-    with mariamem.start(snapshot=baseline) as another:
-        pass
-```
-
-Loading validates the complete input and owns an independent baseline.
-Changing or deleting the original path after successful loading cannot affect
-its children. Closing the baseline releases owned resources and leaves the
-original saved artifact alone.
-
-`start(snapshot="./prepared")` remains available when only one DB is needed.
-It imports and validates the path for that call, then starts a child. To create
-many children, acquire one baseline and reuse its handle instead of repeatedly
-importing the path. `load_snapshot(path, host_binary=...)` accepts an optional
-development host override.
-
-mariamem does not manage artifact freshness, cache invalidation, regeneration or
-deletion. Keep the creating migrations/fixtures and source inputs reproducible.
-The artifact is a derived input, not an undocumented replacement for fixture
-source. Do not publish baselines containing sensitive test data.
-
-Creation/import performs full validation; later Forks reuse that owned state.
-Silent damage arising in owned storage is not guaranteed to be detected on
-every Fork. This is a lifecycle/integrity contract, not a security boundary
-against another process controlled by the same user.
-
-For the equivalent Go acquisition API, see [Go persistence](go.md#persist-expensive-preparation).
-The ownership/isolation contract is the same; syntax and optional settings differ.
+Creation checks inventory, complete content and guest identity before owning
+the exact backing. Fork reuses owned immutable blocks and copies changed blocks
+privately. It does not fully hash content on every Fork. This preserves the
+existing distinction between acquisition validation and later reuse.
 
 ## pytest fixtures
 
@@ -182,7 +157,7 @@ it does not share one mutable database. Use the function-scoped fixtures for per
 Each pytest-xdist worker has its own session fixtures and therefore prepares
 its own baseline. There is no automatic run-wide baseline, cross-worker cache
 or cross-run reuse policy. Advanced projects may arrange saved artifacts and
-override the session baseline with `load_snapshot()`; coordination, freshness
+prepare the session baseline with `snapshot()`; coordination, freshness
 and cleanup remain the project's responsibility.
 
 ## Connections, timeouts and failures

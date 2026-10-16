@@ -87,7 +87,7 @@ def integration():
     # are a documented shared-memory-model limitation, not a release gate.
     run(["go", "test", "-race", "-p", "1", "./internal/generatedgo/code/base",
          "./internal/generatedgo", "./internal/guest", "./internal/host",
-         "./internal/mysqlwire", "./internal/snapshot", "-count=1"], env=env)
+         "./internal/mysqlwire", "./internal/snapshot", "./internal/control", "./internal/prepared", ".", "-count=1"], env=env)
     command = ["go", "test"]
     run([*command, "-tags=integration", "./tests/gointegration",
          "-count=1", "-timeout=3m"], env=env)

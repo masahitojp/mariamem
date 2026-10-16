@@ -17,6 +17,11 @@ OLD = 'example.com/mariamem-spike/generated'
 NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
 # Canonical installer ownership boundary; the verifier consumes this same list.
 HANDWRITTEN_FILES = (
+    'code/base/memfs.go',
+    'code/base/block_storage.go',
+    'code/base/block_storage_test.go',
+    'code/base/heap_snapshot.go',
+    'code/base/heap_snapshot_test.go',
     'code/base/fd_allocate_test.go',
     'code/base/bulk_bounds_test.go',
     'code/base/wait_timeout_test.go',
@@ -120,6 +125,14 @@ def main():
         if name == 'generated/base/base.go':
             from runtime_atomic_loads import apply as narrow_loads
             text = narrow_loads(text)
+            from runtime_memfs import apply as memfs
+            text = memfs(text)
+        if name == 'generated/base/relative.go':
+            from runtime_memfs import apply_relative
+            text = apply_relative(text)
+        if name == 'generated/base/prepared_files.go':
+            from runtime_memfs import apply_mapping
+            text = apply_mapping(text)
         if name == 'generated/generated.go':
             text = text.replace('\t_ "embed"\n', '')
             text = text.replace('//go:embed data.bin\nvar wasm2goData_data_bin []byte',

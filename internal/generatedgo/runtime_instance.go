@@ -17,7 +17,7 @@ var libraryMode sync.Once
 // StartInstance owns fresh execution/FS state. Completion includes all guest
 // workers, descriptor cleanup, snapshot export and prepared mapping release.
 // It does not serialize execution or forcibly kill non-cooperative Go workers.
-func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool) <-chan error {
+func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool, captures ...*prepared.Capture) <-chan error {
 	// CLI diagnostic entrypoints are separate command modes, not library calls.
 	libraryMode.Do(func() { diagnostic = false })
 	done := make(chan error, 1)
@@ -30,7 +30,7 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 			done <- err
 		}()
 		w := base.DefaultWASI()
-		fs := base.NewMemFS()
+		fs := base.NewBlockMemFS()
 		if err = fs.MkdirAll("dev", 0755); err != nil {
 			return
 		}
@@ -62,6 +62,14 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 		}
 		defer releaseMemoryModule(m, release, &err)
 		if err = executeGuest(m, generated.Start); err != nil {
+			return
+		}
+		if len(captures) > 0 && captures[0] != nil && captures[0].Requested() {
+			image, e := fs.FreezeHeap(GuestSHA256)
+			err = e
+			if e == nil {
+				captures[0].Complete(image)
+			}
 			return
 		}
 		if transfer != "" {

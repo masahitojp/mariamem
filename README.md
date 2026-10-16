@@ -146,35 +146,12 @@ fixture integration is described in the Python guide.
 
 ## Reuse expensive preparation across runs
 
-Persistence is optional. Go uses `SnapshotOptions.Destination` to persist and
-`LoadSnapshot(ctx, path, opts)` to load; see the [Go guide](docs/go.md#persist-expensive-preparation).
-For Python, normally use `db.snapshot()` and let its context own the baseline.
-`db.snapshot_to(path)` additionally saves the fixed baseline at that path:
+Baselines are process-local and retain fully verified immutable blocks in memory.
+Each Fork has private changes and an independent MariaDB runtime. Prepare once
+per test session; saving/loading baseline artifacts is no longer part of the API.
+See the [Python](docs/python.md#snapshot-ownership-and-host-lifetime) and
+[Go](docs/go.md#in-memory-baseline-lifetime) guides for ownership and cleanup.
 
-```python
-with mariamem.start() as setup_db:
-    # Your migration/import/fixture code; commit and close all SQL connections.
-    setup_db.wait_disconnected()
-    with setup_db.snapshot_to("./prepared") as baseline:
-        with baseline.fork() as db:
-            pass
-
-# A later run: acquire the baseline without starting a database.
-with mariamem.load_snapshot("./prepared") as baseline:
-    with baseline.fork() as db:
-        pass
-```
-
-The destination must not already exist. Saved baselines are advanced reusable
-artifacts tied to the compatible MariaDB build. Keep their migration, fixture
-and source inputs reproducible. mariamem does not decide when to invalidate,
-regenerate or delete them. Closing a loaded baseline does not delete its source.
-
-Creation/loading completely validates the baseline and takes ownership of the
-state used by children. Later changes to a saved source cannot affect that
-owned baseline. Fork does not reread all contents for validation each time;
-damage arising in owned storage after acquisition is not guaranteed to be
-detected on every Fork.
 
 ## Important limits
 

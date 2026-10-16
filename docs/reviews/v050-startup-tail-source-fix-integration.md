@@ -74,7 +74,7 @@ found that disabling InnoDB flush sync did not mitigate the released tail.
 | Generated source, license, mirror and public-source checks | PASS | [Full check log](v050-startup-tail-source-fix-evidence/tail-verify-check-retry.txt); 588 Python passed, 37 skipped; Go tests/vet passed |
 | macOS arm64 real-guest integration | PASS | [Integration log](v050-startup-tail-source-fix-evidence/tail-verify-integration.txt); race-scoped packages, SQL, concurrent connections, Snapshot/Fork, memory boundary, normal Close, Python 28 passed, snapshot 49 checks |
 | Balanced Go/Python four-parallel Fresh comparison | PASS for this fixture | [Spike records](https://github.com/masahitojp/mariamem/blob/experiment/startup-tail-source-fix-v050/benchmarks/v050-startup-tail-source-fix-spike.md): 30 alternating pairs per language, candidate 0/30 tail suites; no failed SQL/transaction oracle |
-| Ubuntu 24.04 x86_64 real-guest integration | PASS | [CI run](https://github.com/masahitojp/mariamem/actions/runs/38487541174), [integration log](v050-startup-tail-source-fix-evidence/ubuntu/integration.log): Go race-scoped packages, SQL and concurrent connections, Snapshot/Fork, normal Close, Python 28 passed, snapshot 49 checks |
+| Ubuntu 24.04 x86_64 real-guest integration | PASS | [CI run](https://github.com/masahitojp/mariamem/actions/runs/38487541174), [integration log](v050-startup-tail-source-fix-evidence/ubuntu/integration.txt): Go race-scoped packages, SQL and concurrent connections, Snapshot/Fork, normal Close, Python 28 passed, snapshot 49 checks |
 | Ubuntu balanced four-parallel Fresh comparison | PASS for this fixture | [Raw runs](v050-startup-tail-source-fix-evidence/ubuntu/fresh.jsonl), [summary](v050-startup-tail-source-fix-evidence/ubuntu/summary.json): baseline 28/30 tail suites and 61/120 tail Starts; candidate 0/30 and 0/120; SQL/commit/rollback oracle passed in every run |
 | Final release qualification and public consumers | NOT RUN | Separate release decision and CI responsibility |
 
@@ -104,7 +104,7 @@ was `ready >= 900 ms`.
 
 The matched-block candidate-minus-baseline suite median was -0.568 s. The
 individual startup samples and suite timings are in the [raw record](v050-startup-tail-source-fix-evidence/ubuntu/fresh.jsonl);
-the [measurement log](v050-startup-tail-source-fix-evidence/ubuntu/measurement.log)
+the [measurement log](v050-startup-tail-source-fix-evidence/ubuntu/measurement.txt)
 shows all 60 successful arm runs. The candidate's Ubuntu
 `scripts/verify.py integration` passed before measurement: Go integration and
 default lifecycle suites, generated-memory checks, Python multi-client/wire/

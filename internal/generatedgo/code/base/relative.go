@@ -114,6 +114,7 @@ func (d *Directory) OpenFile(name string, flag int, perm os.FileMode) (File, err
 		}
 		n = &memNode{parent: p, name: leaf, mode: perm & 0777, modTime: time.Now()}
 		p.children[leaf] = n
+		d.fs.enroll(n)
 	} else if flag&os.O_CREATE != 0 && flag&os.O_EXCL != 0 {
 		return nil, fs.ErrExist
 	}
@@ -121,12 +122,18 @@ func (d *Directory) OpenFile(name string, flag int, perm os.FileMode) (File, err
 		return nil, syscall.EISDIR
 	}
 	if flag&os.O_TRUNC != 0 {
-		n.data = n.data[:0]
+		if n.blocks != nil {
+			if e := n.blocks.resize(0); e != nil {
+				return nil, e
+			}
+		} else {
+			n.data = n.data[:0]
+		}
 		n.modTime = time.Now()
 	}
 	f := &memFile{fsys: d.fs, node: n, writable: flag&(os.O_WRONLY|os.O_RDWR) != 0}
 	if flag&os.O_APPEND != 0 {
-		f.off = int64(len(n.data))
+		f.off = n.storageSize()
 	}
 	return f, nil
 }

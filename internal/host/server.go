@@ -214,15 +214,9 @@ func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool
 		s.mu.Unlock()
 		return false, &Rejected{"closed", "database is closing"}
 	}
-	for _, state := range s.clients {
-		if state.busy {
-			s.mu.Unlock()
-			return false, &Rejected{"busy", "handshake, query or session cleanup is active"}
-		}
-		if state.status&1 != 0 && !rollback {
-			s.mu.Unlock()
-			return false, &Rejected{"transaction_active", "commit/rollback first, or request rollback"}
-		}
+	if rejected := s.snapshotPrecondition(rollback); rejected != nil {
+		s.mu.Unlock()
+		return false, rejected
 	}
 	if destination == "" {
 		s.mu.Unlock()
@@ -293,4 +287,19 @@ func (s *Server) finish(ctx context.Context, export bool) error {
 		return fmt.Errorf("session cleanup timed out: %w", err)
 	}
 	return err
+}
+
+// snapshotPrecondition requires s.mu; SQL admission uses that same lock.
+func (s *Server) snapshotPrecondition(rollback bool) error {
+	for _, state := range s.clients {
+		if state.busy {
+
+			return &Rejected{"busy", "handshake, query or session cleanup is active"}
+		}
+		if state.status&1 != 0 && !rollback {
+
+			return &Rejected{"transaction_active", "commit/rollback first, or request rollback"}
+		}
+	}
+	return nil
 }

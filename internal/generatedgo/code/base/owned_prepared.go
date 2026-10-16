@@ -12,6 +12,9 @@ import (
 // MapPreparedHandles maps the exact verified backing pinned by its owner. It
 // neither opens a pathname nor hashes content. Each child still owns its views.
 func MapPreparedHandles(fsys *MemFS, entries []prepared.Entry, prefix string) (_ *PreparedFiles, err error) {
+	if len(entries) == 1 && entries[0].Heap != nil {
+		return mapHeap(fsys, entries[0].Heap, prefix)
+	}
 	p := &PreparedFiles{}
 	defer func() {
 		if err != nil {
@@ -31,7 +34,7 @@ func MapPreparedHandles(fsys *MemFS, entries []prepared.Entry, prefix string) (_
 		}
 		var data []byte
 		if entry.Size > 0 {
-			data, err = syscall.Mmap(entry.FD, 0, int(entry.Size), syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_PRIVATE)
+			data, err = syscall.Mmap(entry.FD, 0, int(entry.Size), preparedProtection(fsys), syscall.MAP_PRIVATE)
 			if err != nil {
 				return nil, err
 			}
@@ -45,7 +48,14 @@ func MapPreparedHandles(fsys *MemFS, entries []prepared.Entry, prefix string) (_
 		fsys.mu.Lock()
 		node, e := fsys.lookup(dest)
 		if e == nil {
-			node.data = data
+			if fsys.blockStorage {
+				node.blocks = newBlockStorage()
+				node.blocks.base = data
+				node.blocks.size = entry.Size
+				node.blocks.inheritedLimit = entry.Size
+			} else {
+				node.data = data
+			}
 		}
 		fsys.mu.Unlock()
 		if e != nil {
@@ -53,4 +63,11 @@ func MapPreparedHandles(fsys *MemFS, entries []prepared.Entry, prefix string) (_
 		}
 	}
 	return p, nil
+}
+
+func preparedProtection(fs *MemFS) int {
+	if fs.blockStorage {
+		return syscall.PROT_READ
+	}
+	return syscall.PROT_READ | syscall.PROT_WRITE
 }

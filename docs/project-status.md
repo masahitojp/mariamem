@@ -19,10 +19,13 @@ Normal user entry points are acquisition functions and test-per-database fixture
 Successful Snapshot consumes its source; rejected busy/transaction preconditions
 preserve it. Close boundaries remain explicit.
 
-Persisted baselines are advanced derived artifacts. mariamem does not manage
-cache freshness, regeneration or deletion. Diagnostics do not define the normal
-Snapshot lifecycle. These are product choices independent of reference-project
-APIs. See the [adopted contract](decisions/snapshot-product-contract.md).
+The maintainer approved D block storage plus one automatically managed Python
+host per root lineage on 2026-10-16, and then removed public persistence/loading
+from the implementation scope. Baselines become process-local; preparation inputs
+remain migrations/seed. Child independence and consuming Snapshot are retained.
+Implementation/verification is in progress on `experiment/d-heap-shared-host`;
+main integration and release are not approved. See the
+[implementation design and scope change](reviews/d-heap-productization-design.md).
 
 ## Current published release: v0.4.7 — Upstream converter migration
 

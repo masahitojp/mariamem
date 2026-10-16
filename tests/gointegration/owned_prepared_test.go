@@ -303,7 +303,7 @@ func TestOwnedModifiedChildCreatesNewBaseline(t *testing.T) {
 		if t.Failed() {
 			return
 		}
-		for _, operation := range []string{"public_snapshot", "snapshot_export", "snapshot_publish"} {
+		for _, operation := range []string{"public_snapshot", "snapshot_capture", "snapshot_freeze", "snapshot_own"} {
 			paths, err := filepath.Glob(filepath.Join(traceDir, "*-"+operation+"-*.json"))
 			if err != nil || len(paths) != 2 {
 				t.Errorf("Snapshot attribution %s: paths=%v error=%v", operation, paths, err)

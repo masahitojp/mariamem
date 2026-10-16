@@ -2,9 +2,11 @@ package mariamem
 
 import (
 	"context"
+	"crypto/sha256"
 	"errors"
+	"fmt"
+	"github.com/masahitojp/mariamem/internal/prepared"
 	"os"
-	"path/filepath"
 	"strings"
 	"sync"
 	"testing"
@@ -21,14 +23,37 @@ type fakeBackend struct {
 	active   int
 	closeErr error
 	failure  error
-	snapshot func(context.Context, string, bool) (bool, error)
+	snapshot func(context.Context, bool) (*stored.Owned, bool, error)
 }
 
 func (f *fakeBackend) Close(context.Context) error { f.closes++; return f.closeErr }
 func (f *fakeBackend) Active() int                 { return f.active }
 func (f *fakeBackend) Failure() error              { return f.failure }
-func (f *fakeBackend) Snapshot(ctx context.Context, p string, r bool) (bool, error) {
-	return f.snapshot(ctx, p, r)
+func (f *fakeBackend) SnapshotHeap(ctx context.Context, r bool) (*stored.Owned, bool, error) {
+	return f.snapshot(ctx, r)
+}
+func goodBacking(t *testing.T) *stored.Owned {
+	t.Helper()
+	data := make([]byte, prepared.BlockSize)
+	copy(data, "seed")
+	block, e := prepared.TakeBlock(data, 4)
+	if e != nil {
+		t.Fatal(e)
+	}
+	digest := fmt.Sprintf("%x", sha256.Sum256(data[:4]))
+	f, e := prepared.NewHeapFile(4, []prepared.Block{block}, digest)
+	if e != nil {
+		t.Fatal(e)
+	}
+	h, e := prepared.NewHeap("test-build", []string{"."}, map[string]*prepared.HeapFile{"seed": f})
+	if e != nil {
+		t.Fatal(e)
+	}
+	o, e := stored.OwnHeap(h, "test-build")
+	if e != nil {
+		t.Fatal(e)
+	}
+	return o
 }
 func testDB(t *testing.T, f *fakeBackend) *Database {
 	t.Helper()
@@ -151,129 +176,74 @@ func TestWaitDisconnected(t *testing.T) {
 	}
 }
 func TestSnapshotOwnership(t *testing.T) {
-	for _, explicit := range []bool{false, true} {
-		t.Run(map[bool]string{false: "temporary", true: "explicit"}[explicit], func(t *testing.T) {
-			f := &fakeBackend{}
-			db := testDB(t, f)
-			transfer := t.TempDir()
-			if err := os.Mkdir(filepath.Join(transfer, "data"), 0700); err != nil {
-				t.Fatal(err)
-			}
-			if err := os.WriteFile(filepath.Join(transfer, "data", "seed"), []byte("seed"), 0600); err != nil {
-				t.Fatal(err)
-			}
-			ctx := context.Background()
-			f.snapshot = func(got context.Context, path string, rollback bool) (bool, error) {
-				if got != ctx {
-					t.Error("context replaced")
-				}
-				if _, ok := got.Deadline(); ok {
-					t.Error("implicit snapshot deadline")
-				}
-				if !rollback {
-					t.Error("rollback not forwarded")
-				}
-				if err := os.Mkdir(path, 0700); err != nil {
-					return false, err
-				}
-				return true, stored.Publish(transfer, path, db.build)
-			}
-			opts := SnapshotOptions{Rollback: true}
-			if explicit {
-				opts.Destination = filepath.Join(t.TempDir(), "saved")
-			}
-			snap, err := db.Snapshot(ctx, opts)
-			if err != nil {
-				t.Fatal(err)
-			}
-			if !db.Closed() {
-				t.Fatal("source not consumed")
-			}
-			if explicit {
-				if _, err := stored.Validate(snap.path, db.build); err != nil {
-					t.Fatal(err)
-				}
-			}
-			if entries, release, err := snap.backing.Acquire(db.build); err != nil {
-				t.Fatal(err)
-			} else {
-				if len(entries) != 2 {
-					t.Fatal(entries)
-				}
-				release()
-			}
-			if snap.opts.NativeDir != db.opts.NativeDir {
-				t.Fatal("fork options not inherited")
-			}
-			if err := db.Close(); err != nil || f.closes != 0 {
-				t.Fatal("consumed DB shut down twice")
-			}
-			if err := snap.Close(); err != nil {
-				t.Fatal(err)
-			}
-			if err := snap.Close(); err != nil {
-				t.Fatal(err)
-			}
-			_, err = os.Stat(snap.path)
-			if explicit && err != nil || !explicit && !os.IsNotExist(err) {
-				t.Fatalf("ownership: %v", err)
-			}
-			if _, err := snap.Fork(ctx); !errors.Is(err, ErrClosed) {
-				t.Fatal(err)
-			}
-		})
+	f := &fakeBackend{}
+	db := testDB(t, f)
+	ctx := context.Background()
+	f.snapshot = func(got context.Context, r bool) (*stored.Owned, bool, error) {
+		if got != ctx || !r {
+			t.Error("context/rollback not forwarded")
+		}
+		if _, ok := got.Deadline(); ok {
+			t.Error("implicit deadline")
+		}
+		return goodBacking(t), true, nil
+	}
+	snap, e := db.Snapshot(ctx, SnapshotOptions{Rollback: true})
+	if e != nil {
+		t.Fatal(e)
+	}
+	if !db.Closed() {
+		t.Fatal("source not consumed")
+	}
+	entries, release, e := snap.backing.Acquire(db.build)
+	if e != nil {
+		t.Fatal(e)
+	}
+	if len(entries) != 1 || entries[0].Heap == nil {
+		t.Fatal("not owned heap")
+	}
+	release()
+	if snap.opts != db.opts {
+		t.Fatal("options changed")
+	}
+	if e = db.Close(); e != nil || f.closes != 0 {
+		t.Fatal("double shutdown")
+	}
+	if e = snap.Close(); e != nil {
+		t.Fatal(e)
+	}
+	if e = snap.Close(); e != nil {
+		t.Fatal(e)
+	}
+	if _, e = snap.Fork(ctx); !errors.Is(e, ErrClosed) {
+		t.Fatal(e)
 	}
 }
 func TestSnapshotFailures(t *testing.T) {
 	for _, consumed := range []bool{false, true} {
-		t.Run(map[bool]string{false: "rejected", true: "accepted-failure"}[consumed], func(t *testing.T) {
-			f := &fakeBackend{}
-			db := testDB(t, f)
-			var path string
-			original := &host.Rejected{Code: "busy", Message: "active query"}
-			ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-			defer cancel()
-			f.snapshot = func(got context.Context, p string, _ bool) (bool, error) {
-				path = p
-				if got != ctx {
-					t.Error("caller deadline not forwarded")
-				}
-				return consumed, original
+		f := &fakeBackend{}
+		db := testDB(t, f)
+		original := &host.Rejected{Code: "busy", Message: "active query"}
+		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+		f.snapshot = func(got context.Context, _ bool) (*stored.Owned, bool, error) {
+			if got != ctx {
+				t.Error("context changed")
 			}
-			_, err := db.Snapshot(ctx, SnapshotOptions{})
-			var detail *HostError
-			if !errors.As(err, &detail) || detail.Closed != consumed || !errors.Is(err, original) {
-				t.Fatal(err)
-			}
-			if db.Closed() != consumed {
-				t.Fatal("wrong source state")
-			}
-			if _, err := os.Stat(filepath.Dir(path)); !os.IsNotExist(err) {
-				t.Fatal("temporary snapshot leaked")
-			}
-			db.Close()
-		})
+			return nil, consumed, original
+		}
+		_, e := db.Snapshot(ctx, SnapshotOptions{})
+		var detail *HostError
+		if !errors.As(e, &detail) || detail.Closed != consumed || !errors.Is(e, original) || db.Closed() != consumed {
+			t.Fatal(e)
+		}
+		db.Close()
+		cancel()
 	}
-	// A canceled call does not create a destination or consume the DB.
 	db := testDB(t, &fakeBackend{})
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
-	if _, err := db.Snapshot(ctx, SnapshotOptions{}); !errors.Is(err, context.Canceled) || db.Closed() {
-		t.Fatal(err)
-	}
-}
-func TestExplicitRejectionPreservesData(t *testing.T) {
-	destination := t.TempDir()
-	marker := filepath.Join(destination, "keep")
-	os.WriteFile(marker, []byte("original"), 0600)
-	f := &fakeBackend{snapshot: func(_ context.Context, path string, _ bool) (bool, error) { return false, os.Mkdir(path, 0700) }}
-	db := testDB(t, f)
-	if _, err := db.Snapshot(context.Background(), SnapshotOptions{Destination: destination}); err == nil {
-		t.Fatal("accepted existing destination")
-	}
-	b, err := os.ReadFile(marker)
-	if err != nil || string(b) != "original" || db.Closed() {
-		t.Fatal("existing data lost")
+	if _, e := db.Snapshot(ctx, SnapshotOptions{}); !errors.Is(e, context.Canceled) || db.Closed() {
+		t.Fatal(e)
 	}
 }
 func TestLogsBounded(t *testing.T) {
@@ -338,20 +308,12 @@ func TestInvalidatedState(t *testing.T) {
 	}
 }
 
-func TestSuccessfulExportWithInvalidSnapshot(t *testing.T) {
-	var destination string
-	f := &fakeBackend{snapshot: func(_ context.Context, path string, _ bool) (bool, error) {
-		destination = path
-		// An acknowledgement alone must not bypass the manifest commit marker.
-		return true, os.Mkdir(path, 0700)
-	}}
+func TestSuccessfulCaptureWithoutOwnedSnapshot(t *testing.T) {
+	f := &fakeBackend{snapshot: func(context.Context, bool) (*stored.Owned, bool, error) { return nil, true, nil }}
 	db := testDB(t, f)
-	saved, err := db.Snapshot(context.Background(), SnapshotOptions{})
-	if err == nil || saved != nil || !db.Closed() {
-		t.Fatal("invalid snapshot accepted")
-	}
-	if _, err := os.Stat(filepath.Dir(destination)); !os.IsNotExist(err) {
-		t.Fatal("invalid snapshot leaked")
+	saved, e := db.Snapshot(context.Background(), SnapshotOptions{})
+	if e == nil || saved != nil || !db.Closed() {
+		t.Fatal("unowned acknowledgement accepted")
 	}
 }
 
@@ -370,114 +332,60 @@ func (c heldStartupContext) Err() error {
 }
 
 func TestConcurrentForkCloseOwnership(t *testing.T) {
-	for _, temporary := range []bool{false, true} {
-		name := "explicit"
-		if temporary {
-			name = "temporary"
+	s := &Snapshot{backing: goodBacking(t), opts: Options{NativeDir: "unused"}}
+	entered := make(chan struct{}, 2)
+	release := make(chan struct{})
+	var once sync.Once
+	unblock := func() { once.Do(func() { close(release) }) }
+	defer unblock()
+	ctx := heldStartupContext{Context: context.Background(), entered: entered, release: release}
+	results := make(chan error, 2)
+	for i := 0; i < 2; i++ {
+		go func() { _, e := s.Fork(ctx); results <- e }()
+	}
+	for i := 0; i < 2; i++ {
+		select {
+		case <-entered:
+		case <-time.After(5 * time.Second):
+			t.Fatal("Fork serialized")
 		}
-		t.Run(name, func(t *testing.T) {
-			root := t.TempDir()
-			path := filepath.Join(root, "snapshot")
-			if err := os.Mkdir(path, 0700); err != nil {
-				t.Fatal(err)
-			}
-			marker := filepath.Join(path, "keep")
-			if err := os.WriteFile(marker, []byte("preserved"), 0600); err != nil {
-				t.Fatal(err)
-			}
-			s := &Snapshot{backing: &stored.Owned{}, path: path, opts: Options{NativeDir: "unused"}}
-			if temporary {
-				s.temporary = root
-			}
-			entered := make(chan struct{}, 2)
-			release := make(chan struct{})
-			var once sync.Once
-			unblock := func() { once.Do(func() { close(release) }) }
-			defer unblock()
-			ctx := heldStartupContext{Context: context.Background(), entered: entered, release: release}
-			results := make(chan error, 2)
-			for i := 0; i < 2; i++ {
-				go func() { _, err := s.Fork(ctx); results <- err }()
-			}
-			// Both must reach startup before either is released: no latency threshold.
-			for i := 0; i < 2; i++ {
-				select {
-				case <-entered:
-				case <-time.After(5 * time.Second):
-					t.Fatal("Fork startups were serialized")
-				}
-			}
-			closed := make(chan error, 1)
-			go func() { closed <- s.Close() }()
-			// With readers held, TryRLock fails once Close has queued its writer lock.
-			deadline := time.Now().Add(5 * time.Second)
-			for s.mu.TryRLock() {
-				s.mu.RUnlock()
-				if time.Now().After(deadline) {
-					t.Fatal("Close did not queue")
-				}
-				time.Sleep(time.Millisecond)
-			}
-			late := make(chan error, 1)
-			go func() { _, err := s.Fork(context.Background()); late <- err }()
-			select {
-			case err := <-closed:
-				t.Fatalf("Close returned during startup: %v", err)
-			default:
-			}
-			b, err := os.ReadFile(marker)
-			if err != nil || string(b) != "preserved" {
-				t.Fatal("snapshot removed during startup")
-			}
-			unblock()
-			for i := 0; i < 2; i++ {
-				select {
-				case err := <-results:
-					if !errors.Is(err, context.Canceled) {
-						t.Fatal(err)
-					}
-				case <-time.After(5 * time.Second):
-					t.Fatal("startup did not finish")
-				}
-			}
-			select {
-			case err := <-closed:
-				if err != nil {
-					t.Fatal(err)
-				}
-			case <-time.After(5 * time.Second):
-				t.Fatal("Close did not finish")
-			}
-			select {
-			case err := <-late:
-				if !errors.Is(err, ErrClosed) {
-					t.Fatalf("late Fork admitted: %v", err)
-				}
-			case <-time.After(5 * time.Second):
-				t.Fatal("late Fork did not finish")
-			}
-			if temporary {
-				if _, err := os.Lstat(root); !os.IsNotExist(err) {
-					t.Fatalf("owned snapshot retained: %v", err)
-				}
-			} else {
-				b, err := os.ReadFile(marker)
-				if err != nil || string(b) != "preserved" {
-					t.Fatal("explicit snapshot deleted")
-				}
-			}
-			if _, err := s.Fork(context.Background()); !errors.Is(err, ErrClosed) {
-				t.Fatal(err)
-			}
-			if err := s.Close(); err != nil {
-				t.Fatal(err)
-			}
-		})
+	}
+	closed := make(chan error, 1)
+	go func() { closed <- s.Close() }()
+	deadline := time.Now().Add(5 * time.Second)
+	for s.mu.TryRLock() {
+		s.mu.RUnlock()
+		if time.Now().After(deadline) {
+			t.Fatal("Close not queued")
+		}
+		time.Sleep(time.Millisecond)
+	}
+	late := make(chan error, 1)
+	go func() { _, e := s.Fork(context.Background()); late <- e }()
+	select {
+	case e := <-closed:
+		t.Fatalf("Close during startup: %v", e)
+	default:
+	}
+	unblock()
+	for i := 0; i < 2; i++ {
+		if e := <-results; !errors.Is(e, context.Canceled) {
+			t.Fatal(e)
+		}
+	}
+	if e := <-closed; e != nil {
+		t.Fatal(e)
+	}
+	if e := <-late; !errors.Is(e, ErrClosed) {
+		t.Fatal(e)
+	}
+	if _, _, e := s.backing.Acquire("test-build"); e == nil {
+		t.Fatal("closed backing available")
 	}
 }
 
 func TestSequentialForkReleasesReadLock(t *testing.T) {
-	s := &Snapshot{backing: &stored.Owned{}, path: t.TempDir(), opts: Options{NativeDir: "unused"}}
+	s := &Snapshot{backing: &stored.Owned{}, opts: Options{NativeDir: "unused"}}
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 	for i := 0; i < 2; i++ {
@@ -507,7 +415,7 @@ func TestPublicForkTimingRetainsPreparationFailureAndNestedScopes(t *testing.T) 
 	t.Setenv("MARIAMEM_TIMING_DIR", t.TempDir())
 	traces := map[string]timing.Trace{}
 	ctx := timing.WithRecorder(context.Background(), func(trace timing.Trace) { traces[trace.Operation] = trace })
-	snapshot := &Snapshot{backing: &stored.Owned{}, path: t.TempDir(), opts: Options{NativeDir: t.TempDir()}}
+	snapshot := &Snapshot{backing: &stored.Owned{}, opts: Options{NativeDir: t.TempDir()}}
 	db, err := snapshot.Fork(ctx)
 	if err == nil || db != nil {
 		t.Fatal("missing native input unexpectedly started", db, err)

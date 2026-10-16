@@ -3,13 +3,11 @@
 package gointegration_test
 
 import (
-	"bytes"
 	"context"
 	"database/sql"
 	"errors"
 	"net"
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 	"testing"
@@ -126,10 +124,9 @@ func TestPublicLifecycle(t *testing.T) {
 	}
 	// Deliberate exception to disconnect-before-snapshot: verify active-tx rejection.
 	// The wire reply can reach the client just before host session state becomes idle.
-	rejectedPath := filepath.Join(t.TempDir(), "rejected")
 	until := time.Now().Add(2 * time.Second)
 	for {
-		unexpected, snapshotErr := db.Snapshot(ctx, mariamem.SnapshotOptions{Destination: rejectedPath})
+		unexpected, snapshotErr := db.Snapshot(ctx, mariamem.SnapshotOptions{})
 		if unexpected != nil {
 			unexpected.Close()
 			t.Fatal("active transaction snapshot succeeded")
@@ -143,9 +140,6 @@ func TestPublicLifecycle(t *testing.T) {
 			t.Fatalf("transaction rejection: %v", snapshotErr)
 		}
 		break
-	}
-	if _, err := os.Lstat(rejectedPath); !os.IsNotExist(err) {
-		t.Fatalf("rejection created destination: %v", err)
 	}
 	if err := tx.Commit(); err != nil {
 		t.Fatal(err)
@@ -216,8 +210,7 @@ func TestPublicLifecycle(t *testing.T) {
 	count(ap, 3)
 	count(bp, 2)
 	disconnect(ap, a)
-	destination := filepath.Join(t.TempDir(), "explicit")
-	saved, err := a.Snapshot(ctx, mariamem.SnapshotOptions{Destination: destination})
+	saved, err := a.Snapshot(ctx, mariamem.SnapshotOptions{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -227,7 +220,7 @@ func TestPublicLifecycle(t *testing.T) {
 		}
 	})
 	if !a.Closed() {
-		t.Fatal("explicit snapshot did not consume source")
+		t.Fatal("derived snapshot did not consume source")
 	}
 	// Also retain sequential Fork coverage and verify the explicit saved image.
 	c, err := saved.Fork(ctx)
@@ -241,28 +234,10 @@ func TestPublicLifecycle(t *testing.T) {
 	if err := c.Close(); err != nil {
 		t.Fatal(err)
 	}
-	marker := filepath.Join(destination, "manifest.json")
-	before, err := os.ReadFile(marker)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := saved.Close(); err != nil {
-		t.Fatal(err)
-	}
 	if err := saved.Close(); err != nil {
 		t.Fatal(err)
 	}
 	disconnect(bp, b)
-	if _, err := b.Snapshot(ctx, mariamem.SnapshotOptions{Destination: destination}); err == nil || b.Closed() {
-		t.Fatalf("existing destination rejection: %v", err)
-	}
-	after, err := os.ReadFile(marker)
-	if err != nil || !bytes.Equal(before, after) {
-		t.Fatalf("explicit snapshot changed: %v", err)
-	}
-	if _, err := os.Stat(filepath.Join(destination, "data")); err != nil {
-		t.Fatal(err)
-	}
 	if err := b.Close(); err != nil {
 		t.Fatal(err)
 	}

@@ -101,64 +101,19 @@ Snapshot Close prevents future Forks, waits for admitted startups, and releases
 its backing. Successfully started children remain usable and must be closed
 separately. Close is idempotent. Do not copy DB or Snapshot handles.
 
-## Persist expensive preparation
+## In-memory baseline lifetime
 
-An empty `SnapshotOptions.Destination` makes temporary, implementation-owned
-capture storage. Closing the handle releases it.
+`Snapshot(ctx, SnapshotOptions{})` consumes a disconnected source DB and owns a
+fully verified immutable baseline. `Fork` creates independent MariaDB execution
+with private block changes. Closing the baseline prevents new Forks and waits
+for admitted startups; started children remain usable until separately closed.
 
-An explicit Destination additionally persists the fixed baseline. Close all
-SQL clients and wait for disconnect cleanup before capture:
+Snapshot content is process-local. `SnapshotOptions.Destination` and
+`LoadSnapshot` are removed in this candidate. Re-run migrations/seed to prepare
+state in each test process. No user-managed file or daemon is required.
+Closing a handle releases its ownership; other children may still own blocks.
+Go memory reclamation and OS RSS reduction have different timing.
 
-```go
-if err := setupDB.WaitDisconnected(ctx); err != nil {
-    return err
-}
-saved, err := setupDB.Snapshot(ctx, mariamem.SnapshotOptions{
-    Destination: "./prepared",
-})
-if err != nil {
-    return err
-}
-if err := saved.Close(); err != nil {
-    return err
-}
-// Successful Snapshot has ended setupDB; the saved artifact remains.
-
-// Load the baseline without starting a server.
-baseline, err := mariamem.LoadSnapshot(ctx, "./prepared", mariamem.Options{})
-if err != nil {
-    return err
-}
-defer baseline.Close()
-child, err := baseline.Fork(ctx)
-if err != nil {
-    return err
-}
-defer child.Close()
-// Connect with sql.Open("mysql", child.DSN()), commit/rollback normally,
-// and close the connection pool before closing child.
-```
-
-The destination must not already exist. Loading validates the entire artifact
-and owns an independent backing. Changing or deleting the original path after
-success cannot affect Fork. Closing the handle releases backing FDs, leaves the
-saved artifact untouched, and does not close children already started. Options
-configure those children. Invalid input returns a `*HostError` with code
-`snapshot_failed`; cancellation is detectable with
-`errors.Is(err, context.Canceled)`. Copy/hash is not interruptible: context is
-checked before and after import, and acquired resources are released if
-cancellation is observed after import.
-
-Saved baselines contain database files tied to the compatible guest build.
-They are advanced derived artifacts; retain their migration/fixture/source
-inputs so they can be regenerated. mariamem does not manage invalidation,
-regeneration or deletion.
-
-Creation/import fully validates the baseline and takes ownership of the exact
-state used by children. Subsequent Forks do not read every content byte again
-to validate it. Damage arising in owned storage after acquisition is not
-guaranteed to be detected on every Fork. This is not a same-user process
-security boundary.
 
 ## Lifecycle, cancellation and errors
 

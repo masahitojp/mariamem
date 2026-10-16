@@ -95,10 +95,12 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
     from runtime_atomic_loads import SUBWORD, CMP
     from runtime_thread_lifetime import FUNCTIONS, GUEST_SHA256, function
     (module/'generated/base/base.go').write_text(
-        'package base\ntype Module struct {\n\tThreadStart func(*Module, int32, int32)\n}\n'
+        'package base\nimport (\n\t"strings"\n)\ntype Module struct {\n\tThreadStart func(*Module, int32, int32)\n}\n'
         + SUBWORD + '\n' + CMP + '\n'
         + 'func (w *WasiStubs) Sched_yield(m *Module) int32 {\n\truntime.Gosched()\n\treturn _wasiESUCCESS\n}\n'
-        + 'const _wasiESUCCESS int32 = 0\n')
+        + 'const _wasiESUCCESS int32 = 0\n'
+        + (ROOT/'tests/fixtures/pinned-memfs.go.txt').read_text()
+        + '// wasiOpen is one entry\n')
     for relative, (fn, _) in FUNCTIONS.items():
         body = function((canonical/relative).read_text(), fn)
         if fn == 'Fn153':

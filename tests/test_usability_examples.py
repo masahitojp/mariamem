@@ -25,7 +25,6 @@ def test_python_lifecycle_examples(document, tmp_path):
     source = 'import mariamem\nimport pymysql\n' + '\n'.join(blocks)
     source = source.replace('mariamem.start(snapshot=baseline)', f'mariamem.start(snapshot=baseline, host_binary={host!r})')
     source = source.replace('mariamem.start()', f'mariamem.start(host_binary={host!r})')
-    source = source.replace('mariamem.load_snapshot("./prepared")', f'mariamem.load_snapshot("./prepared", host_binary={host!r})')
     env = dict(os.environ, PYTHONPATH=str(ROOT / 'python'))
     subprocess.run([sys.executable, '-c', source], cwd=tmp_path, env=env,
                    check=True, timeout=120)

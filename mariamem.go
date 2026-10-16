@@ -12,7 +12,7 @@
 // Close the SQL pool and call Database.WaitDisconnected before taking a snapshot.
 // Database.Snapshot creates a cold snapshot and closes its source database on
 // success. Snapshot.Fork starts independent databases from the saved state.
-// Closing a temporary snapshot removes its files; explicit destinations remain.
+// Snapshots are process-local baselines; persistence and loading are not supported.
 //
 // A host query timeout or client cancellation during a query invalidates that
 // database instance. Database.Err reports the reason and ErrUnusable; close it
@@ -61,7 +61,7 @@ func (o Options) defaults() (Options, error) {
 
 type backend interface {
 	Close(context.Context) error
-	Snapshot(context.Context, string, bool) (bool, error)
+	SnapshotHeap(context.Context, bool) (*stored.Owned, bool, error)
 	Active() int
 	Failure() error
 }

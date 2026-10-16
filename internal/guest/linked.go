@@ -32,11 +32,16 @@ func startLinked(ctx context.Context, module, transfer string, restore []prepare
 		return nil, err
 	}
 	timing.Mark(ctx, "linked_execution_begin")
-	execution := generatedgo.StartInstance(childIn, childOut, logs, transfer, restore, timing.Enabled(ctx))
-	return Connect(ctx, in, out, execution, func() {
+	capture := &prepared.Capture{}
+	execution := generatedgo.StartInstance(childIn, childOut, logs, transfer, restore, timing.Enabled(ctx), capture)
+	p, e := Connect(ctx, in, out, execution, func() {
 		childIn.Close()
 		childOut.Close()
 	}, tail)
+	if p != nil {
+		p.capture = capture
+	}
+	return p, e
 }
 
 // Connect owns a framed transport, not a runtime executable. Completion must

@@ -44,15 +44,10 @@ def test_snapshot_defaults():
             saved.fork()
 
 
-def test_explicit_snapshot_persists(tmp_path):
-    path = tmp_path / "saved"
-    with mariamem.start() as db:
-        with db.snapshot_to(path):
-            pass
-    with mariamem.load_snapshot(path) as reopened:
-        with mariamem.start(snapshot=reopened) as db:
-            assert execute(db.connection_info(), "SELECT 7") == ((7,),)
-    assert path.exists()
+def test_persistence_api_removed():
+    assert not hasattr(mariamem, "load_snapshot")
+    assert not hasattr(mariamem.Database, "snapshot_to")
+    assert not hasattr(mariamem.Snapshot, "open")
 
 
 @pytest.mark.parametrize("number", [1, 2])

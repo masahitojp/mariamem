@@ -15,6 +15,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/masahitojp/mariamem/internal/control"
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/generatedgo"
 	"github.com/masahitojp/mariamem/internal/host"
@@ -36,6 +37,7 @@ type incoming struct {
 }
 
 func run() error {
+	shared := flag.Bool("shared", false, "automatically managed multi-DB host")
 	restore := flag.String("snapshot", "", "cold snapshot to import")
 	preparedFD := flag.Int("prepared-fd", -1, "internal owned descriptor handoff")
 	snapshotInfo := flag.Bool("snapshot-info", false, "compiled snapshot compatibility identity")
@@ -43,6 +45,11 @@ func run() error {
 	startupTimeout := flag.Duration("startup-timeout", 120*time.Second, "startup timeout")
 	shutdownTimeout := flag.Duration("shutdown-timeout", 30*time.Second, "shutdown timeout")
 	flag.Parse()
+	if *shared {
+		ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+		defer stop()
+		return control.Run(ctx, os.Stdin, os.Stdout)
+	}
 	if *snapshotInfo {
 		return json.NewEncoder(os.Stdout).Encode(map[string]any{"wasm_sha256": runtimekind.GuestSHA256, "snapshot_version": 1})
 	}

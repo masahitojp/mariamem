@@ -68,6 +68,9 @@ func main() {
 	export := flag.String("export", "", "fixture provisioning only: explicit output artifact")
 	observeGo := flag.Bool("go-resources", false, "sample Go heap every 25ms and process RSS high-water mark; benchmark only")
 	flag.Parse()
+	if *export != "" {
+		panic("persisted fixture export was removed; prepare an in-memory baseline instead")
+	}
 	if (*lifecycle != "fork" && *lifecycle != "fresh") || (*lifecycle == "fresh" && (*export != "" || *fdSnapshots != 0)) || *payload < 0 || *out == "" || *n < 1 || *workers < 1 || *tables < 1 || (*workload != "read" && *workload != "crud" && *workload != "app-connections") {
 		panic("out and positive forks required")
 	}
@@ -143,7 +146,7 @@ func main() {
 		measure("prepare_setup", func() { prepare(db) })
 		measure("snapshot", func() {
 			var e error
-			saved, e = db.Snapshot(ctx, mariamem.SnapshotOptions{Destination: *export})
+			saved, e = db.Snapshot(ctx, mariamem.SnapshotOptions{})
 			must(e)
 		})
 		result["fds_snapshot"] = fds()

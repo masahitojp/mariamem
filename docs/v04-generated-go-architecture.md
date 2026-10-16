@@ -171,3 +171,16 @@ These links preserve historical results rather than current operational recipes:
 
 Historic statements about no runtime-state CoW do not negate the current OS
 page CoW of private prepared-file mappings.
+
+## D/shared-host implementation candidate (2026-10-16)
+
+The approved candidate replaces ordinary Snapshot file backing with immutable
+16 KiB Go heap blocks and private child modifications. Public persistence/load
+APIs are removed. Each Python root lineage automatically owns one Go host;
+its DBs keep separate MariaDB runtimes, SQL endpoints and 16-session limits.
+A baseline retains memory, not a running source DB. Go remains in its caller's
+process. Full inventory/content/guest validation and explicit Close boundaries
+remain required. Host-wide failure loses one Python lineage; normal SQL errors
+and child Close do not stop siblings. The preceding storage implementation
+sections describe the released baseline, not this unqualified candidate.
+See the [approved design and scope change](reviews/d-heap-productization-design.md).

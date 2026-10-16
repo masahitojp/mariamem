@@ -6,8 +6,6 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"os"
-	"path/filepath"
 	"testing"
 	"time"
 
@@ -15,7 +13,7 @@ import (
 	"github.com/masahitojp/mariamem"
 )
 
-func TestLoadSnapshotPersistedLifecycle(t *testing.T) {
+func TestMemorySnapshotIndependentLifecycle(t *testing.T) {
 	t.Setenv("MARIAMEM_NATIVE_DIR", "")
 	t.Setenv("MARIAMEM_RUNTIME", "")
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
@@ -43,22 +41,11 @@ func TestLoadSnapshotPersistedLifecycle(t *testing.T) {
 	if err = setup.WaitDisconnected(ctx); err != nil {
 		t.Fatal(err)
 	}
-	path := filepath.Join(t.TempDir(), "baseline")
-	saved, err := setup.Snapshot(ctx, mariamem.SnapshotOptions{Destination: path})
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err = saved.Close(); err != nil {
-		t.Fatal(err)
-	}
-	baseline, err := mariamem.LoadSnapshot(ctx, path, mariamem.Options{})
+	baseline, err := setup.Snapshot(ctx, mariamem.SnapshotOptions{})
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer baseline.Close()
-	if err = os.RemoveAll(path); err != nil {
-		t.Fatal(err)
-	}
 	first, err := baseline.Fork(ctx)
 	if err != nil {
 		t.Fatal(err)

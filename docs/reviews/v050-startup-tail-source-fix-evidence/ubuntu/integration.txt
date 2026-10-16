@@ -19,4 +19,4 @@ Forced query-timeout reclamation remains a separate diagnostic; normal Close rem
 ............................                                             [100%]
 28 passed in 38.59s
 + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python tests/snapshots.py
-{"passed": true, "checks": 49, "error": null, "evidence": "/home/runner/work/mariamem/mariamem/tests/evidence/snapshots.json"}
+{"passed": true, "checks": 49, "error": null, "evidence": "tests/evidence/snapshots.json"}

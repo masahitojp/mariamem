@@ -59,6 +59,7 @@ type response struct {
 	headerAt, decodedAt time.Time
 }
 type Process struct {
+	capture         *prepared.Capture
 	in              io.WriteCloser
 	out             io.ReadCloser
 	mu              sync.Mutex
@@ -358,3 +359,9 @@ func startupError(err error, tail *stderrTail) error {
 	}
 	return diagnostic.Wrap("guest_connection", "guest_ready", fmt.Errorf("generated-Go guest startup did not complete the expected API v2 handshake; inspect guest diagnostics. Cause: %w", err))
 }
+
+// RequestCapture precedes cooperative Shutdown; TakeCapture follows Done.
+func (p *Process) RequestCapture()             { p.capture.Request() }
+func (p *Process) TakeCapture() *prepared.Heap { return p.capture.TakeResult() }
+
+func (p *Process) DiscardCapture() { p.capture.Discard() }
