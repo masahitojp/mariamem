@@ -1,0 +1,105 @@
+{
+  "object_sha": "72400d1196c94e7372bb28af328f9fc2132a4416",
+  "object_type": "commit",
+  "source_commit": "72400d1196c94e7372bb28af328f9fc2132a4416",
+  "toolchain": "go version go1.26.8 darwin/arm64",
+  "overlay": {
+    "internal/generatedgo/code/base/base.go": {
+      "before": "8b092f6215c75f842c1a9804313527639214276e1c8c74876f427ddc19fd0d63",
+      "after": "339e594c5b1cfe5056028f150b9dd5b7addff0168122691baf734622517e4482"
+    },
+    "internal/prepared/entry.go": {
+      "before": "973b1f28efcaefdbaf41fd4606eef25550ebc5606923a9386a5d56eb585459a3",
+      "after": "b83623919fc561837ac4ec0ffa36a8f8701177c2b25f8f19cf9605a739a9e52b"
+    },
+    "internal/generatedgo/code/base/owned_prepared.go": {
+      "before": "7ae03ac0aeae14505faae3e151649eb3f683ca6d63e3313109972560e3a9c388",
+      "after": "660c06bf09dd6e8a2d2a433daf0884b50e34b3c657a7bdd0bc0f1bd3849c22c8"
+    },
+    "internal/generatedgo/runtime_instance.go": {
+      "before": "f968359a8bd53f192c12ff3f891e032bed947550909b47482d0c00cfe0bc7a17",
+      "after": "c871b0bc77c88ce243003f7c90399b73efb0ac09cdeda1b0b23bc4ee073a5533"
+    },
+    "internal/generatedgo/main.go": {
+      "before": "ab9f7485fbcf37650e99262487f37a5085ac84652596d22f540b87d09cd2b233",
+      "after": "38d986fde81ae674aa7f4dd9ec00bae0c99593e6d38bc1c9d9d1005457cb625a"
+    },
+    "internal/snapshot/owned.go": {
+      "before": "98f0ac27ae821654b45879cec92de05d1a4feaaa2132fb4b66c1b56a357b6437",
+      "after": "e2a34c452d4a8598a29d1fb20d34c9d4b14377f8dd0f8a79184b1e7b211e6e68"
+    },
+    "snapshot.go": {
+      "before": "95635dc19eaebe4d761762ae45843c31a95ad44f8f5848508dae0f50754dc9c9",
+      "after": "d9ca5e415406321642e8fb681075f4c997346b0e540814ba4558c9e7f5104999"
+    },
+    "internal/generatedgo/code/base/d_block.go": {
+      "before": null,
+      "after": "ba00b9bab5743ea30360b4715b2cd8885e7932875f114709f1fb12276d9dccb1"
+    },
+    "internal/generatedgo/code/base/c_file.go": {
+      "before": null,
+      "after": "b181c16c2b9a25d5c95522bea002389a858b1807d6dba06a637062e77297ec73"
+    },
+    "internal/prepared/storage_metrics.go": {
+      "before": null,
+      "after": "e441cce7d0d1c031c89b27f8ffa9c95ccb30f7002327d01e5e01facdf96fed44"
+    },
+    "internal/generatedgo/code/base/c_file_test.go": {
+      "before": null,
+      "after": "e1fff38f0f83a93132890c34e85bfd1051f70bd9908e7c1afe5d1d586329edd3"
+    },
+    "internal/generatedgo/code/base/d_block_test.go": {
+      "before": null,
+      "after": "db523916965bee9b8817286d5740a59ee7e42924c98ff1aec35bede33f39ecd4"
+    },
+    "internal/generatedgo/code/base/d_integration_test.go": {
+      "before": null,
+      "after": "d9101e3d059c62d6eff293a1525cdf9dac67306f93996918cdcc2f586924c198"
+    },
+    "internal/prepared/heap.go": {
+      "before": null,
+      "after": "2d212f315bf3e4f12444540557232bd87570a67d79237e027f062f77786cbf73"
+    },
+    "internal/generatedgo/code/base/heap.go": {
+      "before": null,
+      "after": "1d546a54b28d0420cfc17bc6924e3508bcd15297b7e865c480a679d53cf775b6"
+    },
+    "internal/snapshot/heap.go": {
+      "before": null,
+      "after": "5962a81a8a73be47b399442d50c4929b6f76263bb24ffd5fad1c548dca7c144b"
+    },
+    "internal/host/heap.go": {
+      "before": null,
+      "after": "a89e7e56bd86570317867962b687ae91a304845d69a73f5ccfdc59e5540737bb"
+    },
+    "heap_experiment.go": {
+      "before": null,
+      "after": "f42c1cfc9b913b376b7c88660c0de5ca6cbc7a4c6577f79eb0b58dd91c86af0e"
+    },
+    "internal/generatedgo/code/base/heap_test.go": {
+      "before": null,
+      "after": "de5b25902bc69be0a45dec338e16da2862c3bcba782887dfaf3cfbd7229c2ea6"
+    }
+  },
+  "sources": {
+    "build.py": "8431a505d2b622b33f7fdd8c14279b583bece9e9a03be219c5e6deeac9ad816c",
+    "heap_owned.go.txt": "727b1774b1b472b8a3252515a578c1b1fa145a4efe8c983278cd9062e102934b",
+    "heap.go.txt": "f085c8757657b6e6071dec33a9f40f98e11c73f7a90adaeeb4858a5282608299",
+    "heap_test.go.txt": "70e1b4e12fd5b87c7c5ad05f6200bc35ad4eea5c7d6662cf164d9ee45b1adca3",
+    "reduce.py": "fc7be27d59357289c3d9e90f733d745a014f5798a36bc5010b33e7f6f53f538d",
+    "storage_metrics.go.txt": "d8a15cf50c03ead5ceafbad646a1d75715cbf7ee16f7fdda6cd172883aa3fce9",
+    "c_file_test.go.txt": "ceac8017689635f63ff0e5a6dac3f751ff6dcfead8e7157f66a88fd406f1d631",
+    "summarize.py": "c3699ad277551ab2b51290a309fffd37b53879d611e709360b39c11246901ae3",
+    "heap_public.go.txt": "18d3383484577539a106d01cb0338daacb52a6a58ff4f4feddfc55e81810b0ed",
+    "c_file.go.txt": "356436f3d88991c93497d68875299a3fe8aaa441bf8cf7294622435526b62a6a",
+    "README.md": "49a7199038dc9111f13d90287209330a09d1e5fe21e835854f632916c1e639ce",
+    "campaign.py": "d58259eb3560a63fb1034cb2f686604c4d229a45be585f4da73c52b8ea57ae4a",
+    "instrumentation.json": "44c6157b6691114e03ccd5715bcaba39dfe3b08f3c40e6ef93fd35f57c991a09",
+    "heap_host.go.txt": "4d0a6d1bbc94f1b666bdef0d9f520383b51d37da602c532e8ff1e582c1853d55",
+    "instrument.py": "e513943673fa78473ad8c89105c31c5b991945fd9739ca176d30cf8ff511c657",
+    "heap_base.go.txt": "4ec424808bc119a3ea63352507b82840884110232c54d1ebac203de534cedfd0",
+    "restore.py": "dbe886fd340b3b3768c14026eec72f6f262283363faaae34e0a90dc179fabbc9",
+    "runner/main.go": "0bd7343ba76d1bd2d84c7534942b6192bf943b50a8bcde418b67b41052f877d1"
+  },
+  "binary_sha256": "7ef12d1e565266e9596c3e35c2915c620d0b190f598910c4574c9308b35b9d52"
+}

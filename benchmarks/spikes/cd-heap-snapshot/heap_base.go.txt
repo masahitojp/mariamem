@@ -1,0 +1,39 @@
+package base
+import("crypto/sha256";"encoding/hex";"errors";"fmt";"os";"path/filepath";"sort";"strings";"time";"github.com/masahitojp/mariamem/internal/prepared")
+func(fsys *MemFS) DEnable(child bool){fsys.dEnabled=os.Getenv("MARIAMEM_HEAP")=="1"||(child&&os.Getenv("MARIAMEM_D")=="1")}
+func eName(n *memNode)string{parts:=[]string{};for ;n!=nil&&n.parent!=nil;n=n.parent{parts=append(parts,n.name)};for i,j:=0,len(parts)-1;i<j;i,j=i+1,j-1{parts[i],parts[j]=parts[j],parts[i]};return strings.Join(parts,"/")}
+func(fsys *MemFS)dEnroll(n *memNode){if !fsys.dEnabled||n.d!=nil||!strings.HasPrefix(eName(n),"mariadb/"){return};n.d=newHeapStorage(nil);if n.d.c!=nil{n.d.c.name=eName(n)}}
+func(n *memNode)dSize()int64{if n.d!=nil{return n.d.size};return int64(len(n.data))}
+func(d *dStorage)original(dst []byte,at int64){
+ clear(dst);limit:=min(at+int64(len(dst)),d.backingLimit);if limit<=at{return}
+ if d.inherited==nil{copy(dst,d.backing[at:limit]);return}
+ r:=d.inherited[at/dBlockSize];in:=at%dBlockSize;n:=min(limit-at,int64(r.Valid)-in);if n>0{copy(dst[:n],r.Data[in:in+n])}
+}
+func MapHeap(fsys *MemFS,h *prepared.Heap,prefix string)(*PreparedFiles,error){
+ if !fsys.dEnabled{return nil,errors.New("heap disabled")};if e:=h.Check(h.Build);e!=nil{return nil,e}
+ for _,n:=range h.Dirs{if e:=fsys.MkdirAll(filepath.Join(prefix,n),0700);e!=nil{return nil,e}}
+ for n,f:=range h.Files{dest:=filepath.Join(prefix,n);fd,e:=fsys.OpenFile(dest,os.O_CREATE|os.O_EXCL|os.O_RDWR,0600);if e!=nil{return nil,e};if e=fd.Close();e!=nil{return nil,e};fsys.mu.Lock();node,e:=fsys.lookup(dest);if e==nil&&node.d==nil{e=errors.New("heap prefix not enrolled")};if e==nil{if f.File {node.d=&dStorage{size:f.Size,c:&cStorage{data:f.Data,shared:true,name:dest}}}else{node.d.size=f.Size;node.d.backingLimit=f.Size;node.d.inherited=append([]prepared.HeapBlock{},f.Blocks...)}};fsys.mu.Unlock();if e!=nil{return nil,e}}
+ return &PreparedFiles{},nil
+}
+// Called only after executeGuest has joined all workers. Copy metadata, retain
+// immutable data blocks; each later child writes into its own dStorage.blocks.
+func(fsys *MemFS) FreezeHeap(build string,audit bool)(*prepared.Heap,error){
+ fsys.mu.Lock();defer fsys.mu.Unlock();start:=time.Now();h:=&prepared.Heap{Build:build,Files:map[string]prepared.HeapFile{},Stats:map[string]int64{"payload_copy_bytes":0,"payload_file_bytes":0}}
+ root,e:=fsys.lookup("mariadb");if e!=nil{return nil,e};buf:=make([]byte,dBlockSize);var visit func(*memNode,string)error
+ visit=func(n *memNode,name string)error{
+  if n.dir{h.Dirs=append(h.Dirs,name);keys:=[]string{};for k:=range n.children{keys=append(keys,k)};sort.Strings(keys);for _,k:=range keys{if e:=visit(n.children[k],filepath.Join(name,k));e!=nil{return e}};return nil}
+  d:=n.d;if d==nil||len(d.backing)!=0{return fmt.Errorf("heap unbacked file %s",name)};f:=prepared.HeapFile{Size:d.size,Blocks:[]prepared.HeapBlock{}};sum:=sha256.New()
+  if d.c!=nil {f.File=true;f.Data=d.c.data;d.c.shared=true;h.Stats["retained_file_capacity_bytes"]+=int64(cap(f.Data))};for off:=int64(0);off<d.size;off+=dBlockSize{count:=min(dBlockSize,d.size-off);if _,e:=d.readAt(buf[:count],off);e!=nil{return e};sum.Write(buf[:count]);if f.File {continue};r:=prepared.HeapBlock{};if b:=d.blocks[off/dBlockSize];b!=nil{r=prepared.HeapBlock{Data:b,Valid:int(dBlockSize)}}else if off<d.backingLimit&&d.inherited!=nil{r=d.inherited[off/dBlockSize];r.Valid=int(min(int64(r.Valid),d.backingLimit-off))};f.Blocks=append(f.Blocks,r);if r.Data!=nil{h.Stats["retained_block_bytes"]+=dBlockSize}}
+  f.Hash=hex.EncodeToString(sum.Sum(nil));h.Files[name]=f;h.Stats["logical_bytes"]+=f.Size;return nil
+ }
+ if e=visit(root,".");e!=nil{return nil,e};h.Stats["source_hash_metadata_ns"]=time.Since(start).Nanoseconds()
+ if audit{
+  cold,e:=fsys.lookup("snapshot-out/data");if e!=nil{return nil,e};files:=0;dirs:=[]string{};var check func(*memNode,string)error
+  check=func(n *memNode,name string)error{if n.dir{dirs=append(dirs,name);for k,c:=range n.children{if e:=check(c,filepath.Join(name,k));e!=nil{return e}};return nil};f,ok:=h.Files[name];sum:=sha256.Sum256(n.data);if !ok||f.Size!=int64(len(n.data))||f.Hash!=hex.EncodeToString(sum[:]){return fmt.Errorf("heap Export audit mismatch: %s",name)};files++;return nil}
+  if e=check(cold,".");e!=nil{return nil,e};sort.Strings(dirs);expected:=append([]string{},h.Dirs...);sort.Strings(expected);if files!=len(h.Files)||strings.Join(dirs,"\x00")!=strings.Join(expected,"\x00"){return nil,errors.New("heap Export inventory mismatch")};h.Stats["export_audit_equal"]=1
+ }
+ if os.Getenv("MARIAMEM_HEAP_FAULT")=="freeze"{return nil,errors.New("injected heap freeze")}
+ if os.Getenv("MARIAMEM_HEAP_FAULT")=="target_corrupt"{for _,n:=range h.SortedFiles(){f:=h.Files[n];if f.File&&len(f.Data)>0{f.Data[0]^=255;goto corrupted};for i,b:=range f.Blocks{if b.Valid>0&&int64(i)*dBlockSize<f.Size{b.Data[0]^=255;goto corrupted}}};return nil,errors.New("missing corrupt block")}
+ corrupted:
+ at:=time.Now();if e=h.Verify(build);e!=nil{return nil,e};h.Stats["target_verify_ns"]=time.Since(at).Nanoseconds();return h,nil
+}

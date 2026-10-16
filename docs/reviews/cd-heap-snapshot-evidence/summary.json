@@ -1,0 +1,2882 @@
+{
+  "plain": {
+    "100": {
+      "C": {
+        "whole_ms": {
+          "n": 5,
+          "median": 433.748125,
+          "min": 426.719291,
+          "max": 445.655833
+        },
+        "setup/start": {
+          "n": 5,
+          "median": 50.0325,
+          "min": 48.289042,
+          "max": 53.566292
+        },
+        "setup/migrate-seed": {
+          "n": 5,
+          "median": 13.948417,
+          "min": 12.700292,
+          "max": 13.999
+        },
+        "setup/snapshot": {
+          "n": 5,
+          "median": 209.594333,
+          "min": 206.143625,
+          "max": 216.502375
+        },
+        "baseline/close": {
+          "n": 5,
+          "median": 0.000542,
+          "min": 0.000458,
+          "max": 0.000958
+        },
+        "per_child/startup": {
+          "n": 10,
+          "median": 50.984541500000006,
+          "min": 49.91275,
+          "max": 53.019958
+        },
+        "per_child/crud": {
+          "n": 10,
+          "median": 14.648458,
+          "min": 13.651417,
+          "max": 16.583417
+        },
+        "per_child/close": {
+          "n": 10,
+          "median": 7.262312,
+          "min": 6.845542,
+          "max": 7.840708
+        },
+        "per_child/disconnect": {
+          "n": 10,
+          "median": 6.2710835,
+          "min": 5.239542,
+          "max": 6.319125
+        },
+        "two_children_ms": {
+          "n": 5,
+          "median": 161.389707,
+          "min": 159.08579,
+          "max": 162.18345699999998
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 5,
+            "median": 144953650,
+            "min": 144953650,
+            "max": 144953650
+          },
+          "owner_verify_ns": {
+            "n": 5,
+            "median": 66487833,
+            "min": 63267958,
+            "max": 67388750
+          },
+          "payload_copy_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_file_capacity_bytes": {
+            "n": 5,
+            "median": 145117498,
+            "min": 145117498,
+            "max": 145117498
+          },
+          "source_hash_metadata_ns": {
+            "n": 5,
+            "median": 72817084,
+            "min": 72600500,
+            "max": 75464375
+          },
+          "target_verify_ns": {
+            "n": 5,
+            "median": 67159875,
+            "min": 66062833,
+            "max": 70227250
+          }
+        }
+      },
+      "D": {
+        "whole_ms": {
+          "n": 5,
+          "median": 385.337208,
+          "min": 380.168917,
+          "max": 389.051666
+        },
+        "setup/start": {
+          "n": 5,
+          "median": 47.901292,
+          "min": 46.07125,
+          "max": 51.269458
+        },
+        "setup/migrate-seed": {
+          "n": 5,
+          "median": 14.60175,
+          "min": 13.789208,
+          "max": 14.897084
+        },
+        "setup/snapshot": {
+          "n": 5,
+          "median": 188.475834,
+          "min": 188.033958,
+          "max": 190.981333
+        },
+        "baseline/close": {
+          "n": 5,
+          "median": 0.0005,
+          "min": 0.0005,
+          "max": 0.000541
+        },
+        "per_child/startup": {
+          "n": 10,
+          "median": 50.887603999999996,
+          "min": 49.317291,
+          "max": 56.219542
+        },
+        "per_child/crud": {
+          "n": 10,
+          "median": 5.0355620000000005,
+          "min": 3.869917,
+          "max": 7.544459
+        },
+        "per_child/close": {
+          "n": 10,
+          "median": 2.490333,
+          "min": 2.385375,
+          "max": 2.851917
+        },
+        "per_child/disconnect": {
+          "n": 10,
+          "median": 6.2625,
+          "min": 5.350125,
+          "max": 6.282833
+        },
+        "two_children_ms": {
+          "n": 5,
+          "median": 132.42095700000002,
+          "min": 129.45245899999998,
+          "max": 137.625335
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 5,
+            "median": 144953650,
+            "min": 144953650,
+            "max": 144953650
+          },
+          "owner_verify_ns": {
+            "n": 5,
+            "median": 62025875,
+            "min": 61545375,
+            "max": 63676375
+          },
+          "payload_copy_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 5,
+            "median": 3194880,
+            "min": 3162112,
+            "max": 3194880
+          },
+          "source_hash_metadata_ns": {
+            "n": 5,
+            "median": 61965584,
+            "min": 61816250,
+            "max": 62772334
+          },
+          "target_verify_ns": {
+            "n": 5,
+            "median": 61796875,
+            "min": 61692750,
+            "max": 62022625
+          }
+        }
+      },
+      "pairs": [
+        {
+          "label": "n100-r0-C",
+          "C_ms": 445.655833,
+          "D_ms": 386.777709,
+          "delta_ms": -58.87812399999996
+        },
+        {
+          "label": "n100-r1-C",
+          "C_ms": 426.719291,
+          "D_ms": 385.337208,
+          "delta_ms": -41.38208300000002
+        },
+        {
+          "label": "n100-r2-C",
+          "C_ms": 435.70125,
+          "D_ms": 389.051666,
+          "delta_ms": -46.649584000000004
+        },
+        {
+          "label": "n100-r3-C",
+          "C_ms": 433.748125,
+          "D_ms": 383.190751,
+          "delta_ms": -50.55737400000004
+        },
+        {
+          "label": "n100-r4-C",
+          "C_ms": 433.030583,
+          "D_ms": 380.168917,
+          "delta_ms": -52.86166599999996
+        }
+      ],
+      "D_faster_pairs": 5,
+      "median_delta_percent": -11.16106657521575
+    },
+    "10000": {
+      "C": {
+        "whole_ms": {
+          "n": 5,
+          "median": 1229.982751,
+          "min": 1224.539167,
+          "max": 1235.007
+        },
+        "setup/start": {
+          "n": 5,
+          "median": 49.592583,
+          "min": 47.397625,
+          "max": 57.538791
+        },
+        "setup/migrate-seed": {
+          "n": 5,
+          "median": 734.195667,
+          "min": 729.418708,
+          "max": 738.351709
+        },
+        "setup/snapshot": {
+          "n": 5,
+          "median": 237.269041,
+          "min": 234.62125,
+          "max": 243.024125
+        },
+        "baseline/close": {
+          "n": 5,
+          "median": 0.0005,
+          "min": 0.000334,
+          "max": 0.000667
+        },
+        "per_child/startup": {
+          "n": 10,
+          "median": 52.794250000000005,
+          "min": 52.3375,
+          "max": 59.634333
+        },
+        "per_child/crud": {
+          "n": 10,
+          "median": 29.970520999999998,
+          "min": 26.106958,
+          "max": 42.487042
+        },
+        "per_child/close": {
+          "n": 10,
+          "median": 11.1335415,
+          "min": 10.248625,
+          "max": 12.253
+        },
+        "per_child/disconnect": {
+          "n": 10,
+          "median": 6.264374999999999,
+          "min": 5.280416,
+          "max": 6.310083
+        },
+        "two_children_ms": {
+          "n": 5,
+          "median": 205.195958,
+          "min": 204.503584,
+          "max": 211.36046000000002
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 5,
+            "median": 166285322,
+            "min": 166285321,
+            "max": 166285322
+          },
+          "owner_verify_ns": {
+            "n": 5,
+            "median": 73827666,
+            "min": 72141041,
+            "max": 80866083
+          },
+          "payload_copy_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_file_capacity_bytes": {
+            "n": 5,
+            "median": 170772562,
+            "min": 170772561,
+            "max": 170772562
+          },
+          "source_hash_metadata_ns": {
+            "n": 5,
+            "median": 82454750,
+            "min": 81969750,
+            "max": 83707375
+          },
+          "target_verify_ns": {
+            "n": 5,
+            "median": 76743209,
+            "min": 74612542,
+            "max": 85966375
+          }
+        }
+      },
+      "D": {
+        "whole_ms": {
+          "n": 5,
+          "median": 1153.140375,
+          "min": 1147.751917,
+          "max": 1173.651291
+        },
+        "setup/start": {
+          "n": 5,
+          "median": 47.419542,
+          "min": 46.017458,
+          "max": 52.746542
+        },
+        "setup/migrate-seed": {
+          "n": 5,
+          "median": 727.276625,
+          "min": 718.024458,
+          "max": 740.080083
+        },
+        "setup/snapshot": {
+          "n": 5,
+          "median": 218.067459,
+          "min": 217.838792,
+          "max": 222.130333
+        },
+        "baseline/close": {
+          "n": 5,
+          "median": 0.000625,
+          "min": 0.000542,
+          "max": 0.000709
+        },
+        "per_child/startup": {
+          "n": 10,
+          "median": 50.8924375,
+          "min": 49.414583,
+          "max": 54.008209
+        },
+        "per_child/crud": {
+          "n": 10,
+          "median": 20.0106665,
+          "min": 16.109042,
+          "max": 23.58925
+        },
+        "per_child/close": {
+          "n": 10,
+          "median": 2.52925,
+          "min": 2.457875,
+          "max": 2.602958
+        },
+        "per_child/disconnect": {
+          "n": 10,
+          "median": 6.2753335,
+          "min": 6.255459,
+          "max": 6.298542
+        },
+        "two_children_ms": {
+          "n": 5,
+          "median": 161.625835,
+          "min": 159.949293,
+          "max": 165.121959
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 5,
+            "median": 166285322,
+            "min": 166285321,
+            "max": 166285327
+          },
+          "owner_verify_ns": {
+            "n": 5,
+            "median": 71714792,
+            "min": 71297958,
+            "max": 74970125
+          },
+          "payload_copy_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 5,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 5,
+            "median": 28639232,
+            "min": 28622848,
+            "max": 28639232
+          },
+          "source_hash_metadata_ns": {
+            "n": 5,
+            "median": 72139625,
+            "min": 71942292,
+            "max": 72636584
+          },
+          "target_verify_ns": {
+            "n": 5,
+            "median": 71439667,
+            "min": 71355709,
+            "max": 72444583
+          }
+        }
+      },
+      "pairs": [
+        {
+          "label": "n10000-r0-C",
+          "C_ms": 1235.007,
+          "D_ms": 1153.140375,
+          "delta_ms": -81.86662500000011
+        },
+        {
+          "label": "n10000-r1-C",
+          "C_ms": 1224.539167,
+          "D_ms": 1154.355792,
+          "delta_ms": -70.18337499999984
+        },
+        {
+          "label": "n10000-r2-C",
+          "C_ms": 1234.231708,
+          "D_ms": 1173.651291,
+          "delta_ms": -60.580417000000125
+        },
+        {
+          "label": "n10000-r3-C",
+          "C_ms": 1229.773751,
+          "D_ms": 1147.751917,
+          "delta_ms": -82.0218339999999
+        },
+        {
+          "label": "n10000-r4-C",
+          "C_ms": 1229.982751,
+          "D_ms": 1148.660041,
+          "delta_ms": -81.32270999999992
+        }
+      ],
+      "D_faster_pairs": 5,
+      "median_delta_percent": -6.247435253667232
+    }
+  },
+  "resources": {
+    "100": {
+      "C": {
+        "whole_ms": {
+          "n": 3,
+          "median": 438.562166,
+          "min": 434.002875,
+          "max": 438.598711
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 48.95275,
+          "min": 46.78075,
+          "max": 49.492584
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 14.182416,
+          "min": 14.142958,
+          "max": 14.425916
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 211.942208,
+          "min": 209.206958,
+          "max": 211.976208
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 0.000541,
+          "min": 0.0005,
+          "max": 0.000541
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 52.174896000000004,
+          "min": 50.919167,
+          "max": 54.066708
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 15.054270500000001,
+          "min": 13.35125,
+          "max": 15.61725
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 7.3183965,
+          "min": 7.081958,
+          "max": 7.899208
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.2626875,
+          "min": 5.862208,
+          "max": 6.27575
+        },
+        "two_children_ms": {
+          "n": 3,
+          "median": 162.721499,
+          "min": 161.047667,
+          "max": 166.23595799999998
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 3,
+            "median": 144953645,
+            "min": 144953645,
+            "max": 144953650
+          },
+          "owner_verify_ns": {
+            "n": 3,
+            "median": 65625291,
+            "min": 65346375,
+            "max": 67329708
+          },
+          "payload_copy_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_file_capacity_bytes": {
+            "n": 3,
+            "median": 145117493,
+            "min": 145117493,
+            "max": 145117498
+          },
+          "source_hash_metadata_ns": {
+            "n": 3,
+            "median": 74468958,
+            "min": 73072042,
+            "max": 75252208
+          },
+          "target_verify_ns": {
+            "n": 3,
+            "median": 67527084,
+            "min": 65427709,
+            "max": 67890083
+          }
+        },
+        "resources": {
+          "after-close": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 461549216,
+              "min": 461549152,
+              "max": 461563864
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 473333760,
+              "min": 469106688,
+              "max": 473366528
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 566722560,
+              "min": 566706176,
+              "max": 566755328
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 475835032,
+              "min": 475826640,
+              "max": 475835360
+            }
+          },
+          "after-close-gc": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 302360,
+              "min": 293872,
+              "max": 303584
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 473366528,
+              "min": 469139456,
+              "max": 473399296
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 566722560,
+              "min": 566706176,
+              "max": 566755328
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 475837048,
+              "min": 475828656,
+              "max": 475837376
+            }
+          },
+          "after-seed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 159166680,
+              "min": 159158384,
+              "max": 159169840
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 171212800,
+              "min": 166985728,
+              "max": 171245568
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 126992384,
+              "min": 126746624,
+              "max": 126992384
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 159317368,
+              "min": 159309072,
+              "max": 159320528
+            }
+          },
+          "after-snapshot": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 159267432,
+              "min": 159258312,
+              "max": 159275544
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 171442176,
+              "min": 167215104,
+              "max": 171474944
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 270172160,
+              "min": 269942784,
+              "max": 270172160
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 159418120,
+              "min": 159409000,
+              "max": 159426232
+            }
+          },
+          "after-start": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 157977544,
+              "min": 157974664,
+              "max": 157979288
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 171311104,
+              "min": 167084032,
+              "max": 171343872
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 116293632,
+              "min": 116211712,
+              "max": 116310016
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 158128232,
+              "min": 158125352,
+              "max": 158129976
+            }
+          },
+          "first-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 303339000,
+              "min": 303329360,
+              "max": 303339720
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 322371584,
+              "min": 318177280,
+              "max": 322371584
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 417955840,
+              "min": 417693696,
+              "max": 418037760
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 317615504,
+              "min": 317610888,
+              "max": 317616488
+            }
+          },
+          "first-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 172386712,
+              "min": 172376576,
+              "max": 172393312
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 183861248,
+              "min": 179634176,
+              "max": 183894016
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 272957440,
+              "min": 272662528,
+              "max": 273088512
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 172537400,
+              "min": 172527264,
+              "max": 172544000
+            }
+          },
+          "second-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 461545888,
+              "min": 461545824,
+              "max": 461560536
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 473333760,
+              "min": 469106688,
+              "max": 473366528
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 566722560,
+              "min": 566706176,
+              "max": 566755328
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 475831704,
+              "min": 475823312,
+              "max": 475832032
+            }
+          },
+          "second-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 316435072,
+              "min": 316431952,
+              "max": 316459704
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 334823424,
+              "min": 330629120,
+              "max": 334823424
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 419774464,
+              "min": 419364864,
+              "max": 420151296
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 330718096,
+              "min": 330712560,
+              "max": 330730872
+            }
+          }
+        },
+        "post_close_forced_gc_ms": {
+          "n": 3,
+          "median": 0.359333,
+          "min": 0.339917,
+          "max": 0.375334
+        },
+        "storage_counters": {
+          "after-close": {
+            "C-CoW/allocated": {
+              "n": 3,
+              "median": 289898600,
+              "min": 289898600,
+              "max": 289898600
+            },
+            "C-CoW/copied": {
+              "n": 3,
+              "median": 289898600,
+              "min": 289898600,
+              "max": 289898600
+            },
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 183162684,
+              "min": 183162684,
+              "max": 183162689
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 262183,
+              "min": 262183,
+              "max": 262183
+            }
+          },
+          "after-seed": {
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 157978184,
+              "min": 157978184,
+              "max": 157978184
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 253991,
+              "min": 253991,
+              "max": 253991
+            }
+          },
+          "after-snapshot": {
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 157995356,
+              "min": 157995356,
+              "max": 157995361
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 262183,
+              "min": 262183,
+              "max": 262183
+            }
+          },
+          "after-start": {
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 157294761,
+              "min": 157294761,
+              "max": 157294761
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 30,
+              "min": 30,
+              "max": 30
+            }
+          },
+          "first-closed": {
+            "C-CoW/allocated": {
+              "n": 3,
+              "median": 144949300,
+              "min": 144949300,
+              "max": 144949300
+            },
+            "C-CoW/copied": {
+              "n": 3,
+              "median": 144949300,
+              "min": 144949300,
+              "max": 144949300
+            },
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 170579015,
+              "min": 170579015,
+              "max": 170579020
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 262183,
+              "min": 262183,
+              "max": 262183
+            }
+          },
+          "first-started": {
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 170578277,
+              "min": 170578277,
+              "max": 170578282
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 262183,
+              "min": 262183,
+              "max": 262183
+            }
+          },
+          "second-closed": {
+            "C-CoW/allocated": {
+              "n": 3,
+              "median": 289898600,
+              "min": 289898600,
+              "max": 289898600
+            },
+            "C-CoW/copied": {
+              "n": 3,
+              "median": 289898600,
+              "min": 289898600,
+              "max": 289898600
+            },
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 183162684,
+              "min": 183162684,
+              "max": 183162689
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 262183,
+              "min": 262183,
+              "max": 262183
+            }
+          },
+          "second-started": {
+            "C-CoW/allocated": {
+              "n": 3,
+              "median": 144949300,
+              "min": 144949300,
+              "max": 144949300
+            },
+            "C-CoW/copied": {
+              "n": 3,
+              "median": 144949300,
+              "min": 144949300,
+              "max": 144949300
+            },
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 183161936,
+              "min": 183161936,
+              "max": 183161941
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 262183,
+              "min": 262183,
+              "max": 262183
+            }
+          }
+        },
+        "copy_phases": {
+          "first/startup": {
+            "bytes": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            },
+            "files": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "first/crud": {
+            "bytes": {
+              "n": 3,
+              "median": 100663296,
+              "min": 100663296,
+              "max": 100663296
+            },
+            "files": {
+              "n": 3,
+              "median": 1,
+              "min": 1,
+              "max": 1
+            }
+          },
+          "first/close": {
+            "bytes": {
+              "n": 3,
+              "median": 44286004,
+              "min": 44286004,
+              "max": 44286004
+            },
+            "files": {
+              "n": 3,
+              "median": 8,
+              "min": 8,
+              "max": 8
+            }
+          },
+          "second/startup": {
+            "bytes": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            },
+            "files": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "second/crud": {
+            "bytes": {
+              "n": 3,
+              "median": 100663296,
+              "min": 100663296,
+              "max": 100663296
+            },
+            "files": {
+              "n": 3,
+              "median": 1,
+              "min": 1,
+              "max": 1
+            }
+          },
+          "second/close": {
+            "bytes": {
+              "n": 3,
+              "median": 44286004,
+              "min": 44286004,
+              "max": 44286004
+            },
+            "files": {
+              "n": 3,
+              "median": 8,
+              "min": 8,
+              "max": 8
+            }
+          }
+        }
+      },
+      "D": {
+        "whole_ms": {
+          "n": 3,
+          "median": 383.094752,
+          "min": 382.891751,
+          "max": 388.196998
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 46.817417,
+          "min": 46.267459,
+          "max": 48.645042
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 13.927708,
+          "min": 13.505667,
+          "max": 14.523958
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 189.059083,
+          "min": 188.748458,
+          "max": 190.480375
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 0.000625,
+          "min": 0.000583,
+          "max": 0.000625
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 52.840917,
+          "min": 50.477958,
+          "max": 54.673917
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 4.9251249999999995,
+          "min": 3.776708,
+          "max": 6.05875
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 2.5086255,
+          "min": 2.428625,
+          "max": 2.809
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.2600625,
+          "min": 6.005208,
+          "max": 6.26825
+        },
+        "two_children_ms": {
+          "n": 3,
+          "median": 133.496794,
+          "min": 131.80879,
+          "max": 136.859917
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 3,
+            "median": 144953650,
+            "min": 144953650,
+            "max": 144953650
+          },
+          "owner_verify_ns": {
+            "n": 3,
+            "median": 61991792,
+            "min": 61676583,
+            "max": 63312416
+          },
+          "payload_copy_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 3,
+            "median": 3194880,
+            "min": 3194880,
+            "max": 3194880
+          },
+          "source_hash_metadata_ns": {
+            "n": 3,
+            "median": 62234584,
+            "min": 61844208,
+            "max": 62283792
+          },
+          "target_verify_ns": {
+            "n": 3,
+            "median": 61819083,
+            "min": 61736375,
+            "max": 62130792
+          }
+        },
+        "resources": {
+          "after-close": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 7326192,
+              "min": 7163680,
+              "max": 10871064
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16154624,
+              "min": 16154624,
+              "max": 16154624
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 135593984,
+              "min": 133185536,
+              "max": 135888896
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 3,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 15223760,
+              "min": 15188944,
+              "max": 15234352
+            }
+          },
+          "after-close-gc": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 287232,
+              "min": 285376,
+              "max": 287808
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16187392,
+              "min": 16187392,
+              "max": 16187392
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 135593984,
+              "min": 133185536,
+              "max": 135888896
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 5,
+              "min": 4,
+              "max": 5
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 15225616,
+              "min": 15190800,
+              "max": 15236208
+            }
+          },
+          "after-seed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 5921896,
+              "min": 5904392,
+              "max": 5971480
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 11862016,
+              "min": 11796480,
+              "max": 11862016
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 126566400,
+              "min": 126402560,
+              "max": 126566400
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 6526784,
+              "min": 6525912,
+              "max": 6532984
+            }
+          },
+          "after-snapshot": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 7318528,
+              "min": 7299336,
+              "max": 7373152
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16187392,
+              "min": 12025856,
+              "max": 16252928
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 128958464,
+              "min": 128892928,
+              "max": 128991232
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 7927584,
+              "min": 7921728,
+              "max": 7929616
+            }
+          },
+          "after-start": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 2841024,
+              "min": 2805944,
+              "max": 2867824
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 11960320,
+              "min": 11894784,
+              "max": 11960320
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 115802112,
+              "min": 115621888,
+              "max": 115900416
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 2841024,
+              "min": 2805944,
+              "max": 2867824
+            }
+          },
+          "first-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 7257808,
+              "min": 7212328,
+              "max": 7300104
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16187392,
+              "min": 16187392,
+              "max": 16252928
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 133201920,
+              "min": 131153920,
+              "max": 134119424
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 11561848,
+              "min": 11530208,
+              "max": 11572168
+            }
+          },
+          "first-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 8480992,
+              "min": 6157960,
+              "max": 9734816
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16023552,
+              "min": 15958016,
+              "max": 16089088
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 131940352,
+              "min": 130318336,
+              "max": 132251648
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 2,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 10419704,
+              "min": 10357208,
+              "max": 10425048
+            }
+          },
+          "second-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 7323024,
+              "min": 7160512,
+              "max": 10867896
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16187392,
+              "min": 16154624,
+              "max": 16187392
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 135593984,
+              "min": 133185536,
+              "max": 135888896
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 3,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 15220592,
+              "min": 15185776,
+              "max": 15231184
+            }
+          },
+          "second-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 9662864,
+              "min": 6049208,
+              "max": 9757104
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 16056320,
+              "min": 16023552,
+              "max": 16089088
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 133316608,
+              "min": 131956736,
+              "max": 134610944
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 13980744,
+              "min": 13946776,
+              "max": 14071464
+            }
+          }
+        },
+        "post_close_forced_gc_ms": {
+          "n": 3,
+          "median": 0.337959,
+          "min": 0.286083,
+          "max": 0.44275
+        },
+        "storage_counters": {
+          "after-close": {
+            "D/allocated": {
+              "n": 3,
+              "median": 10698752,
+              "min": 10698752,
+              "max": 10698752
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 98408,
+              "min": 98408,
+              "max": 98408
+            }
+          },
+          "after-seed": {
+            "D/allocated": {
+              "n": 3,
+              "median": 5144576,
+              "min": 5144576,
+              "max": 5144576
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "after-snapshot": {
+            "D/allocated": {
+              "n": 3,
+              "median": 5357568,
+              "min": 5357568,
+              "max": 5357568
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "after-start": {
+            "D/allocated": {
+              "n": 3,
+              "median": 1998848,
+              "min": 1966080,
+              "max": 2015232
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "first-closed": {
+            "D/allocated": {
+              "n": 3,
+              "median": 8028160,
+              "min": 8028160,
+              "max": 8028160
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 49204,
+              "min": 49204,
+              "max": 49204
+            }
+          },
+          "first-started": {
+            "D/allocated": {
+              "n": 3,
+              "median": 6995968,
+              "min": 6979584,
+              "max": 7012352
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "second-closed": {
+            "D/allocated": {
+              "n": 3,
+              "median": 10698752,
+              "min": 10698752,
+              "max": 10698752
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 98408,
+              "min": 98408,
+              "max": 98408
+            }
+          },
+          "second-started": {
+            "D/allocated": {
+              "n": 3,
+              "median": 9650176,
+              "min": 9584640,
+              "max": 9699328
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 49204,
+              "min": 49204,
+              "max": 49204
+            }
+          }
+        }
+      },
+      "pairs": [
+        {
+          "label": "n100-r0-C",
+          "C_ms": 434.002875,
+          "D_ms": 383.094752,
+          "delta_ms": -50.90812299999999
+        },
+        {
+          "label": "n100-r1-C",
+          "C_ms": 438.598711,
+          "D_ms": 382.891751,
+          "delta_ms": -55.70695999999998
+        },
+        {
+          "label": "n100-r2-C",
+          "C_ms": 438.562166,
+          "D_ms": 388.196998,
+          "delta_ms": -50.36516799999998
+        }
+      ],
+      "D_faster_pairs": 3,
+      "median_delta_percent": -12.647560209286258
+    },
+    "10000": {
+      "C": {
+        "whole_ms": {
+          "n": 3,
+          "median": 1225.562584,
+          "min": 1219.01125,
+          "max": 1227.818375
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 49.285459,
+          "min": 48.982375,
+          "max": 49.993583
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 734.202042,
+          "min": 732.950833,
+          "max": 737.725291
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 234.860125,
+          "min": 234.729334,
+          "max": 237.286708
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 0.000583,
+          "min": 0.000375,
+          "max": 0.00075
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 55.2455835,
+          "min": 51.540375,
+          "max": 58.399542
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 29.875479,
+          "min": 26.178875,
+          "max": 33.117833
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 10.356479,
+          "min": 9.606875,
+          "max": 10.77575
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.2576875,
+          "min": 5.516,
+          "max": 6.311083
+        },
+        "two_children_ms": {
+          "n": 3,
+          "median": 203.804,
+          "min": 200.638749,
+          "max": 207.867958
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 3,
+            "median": 166285322,
+            "min": 166285321,
+            "max": 166285322
+          },
+          "owner_verify_ns": {
+            "n": 3,
+            "median": 74158041,
+            "min": 72515000,
+            "max": 76749750
+          },
+          "payload_copy_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_file_capacity_bytes": {
+            "n": 3,
+            "median": 170772562,
+            "min": 170772561,
+            "max": 170772562
+          },
+          "source_hash_metadata_ns": {
+            "n": 3,
+            "median": 82277459,
+            "min": 82242916,
+            "max": 82366042
+          },
+          "target_verify_ns": {
+            "n": 3,
+            "median": 75149375,
+            "min": 74562750,
+            "max": 77326083
+          }
+        },
+        "resources": {
+          "after-close": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 529933032,
+              "min": 529918392,
+              "max": 529938712
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 611745792,
+              "min": 578093056,
+              "max": 615874560
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 708722688,
+              "min": 678199296,
+              "max": 709935104
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 722226856,
+              "min": 722224840,
+              "max": 722251800
+            }
+          },
+          "after-close-gc": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 312544,
+              "min": 311048,
+              "max": 322936
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 611778560,
+              "min": 578125824,
+              "max": 615907328
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 708722688,
+              "min": 678199296,
+              "max": 709935104
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 5,
+              "min": 5,
+              "max": 5
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 722228872,
+              "min": 722226856,
+              "max": 722253816
+            }
+          },
+          "after-seed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 318846992,
+              "min": 318821520,
+              "max": 318881464
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 326205440,
+              "min": 326107136,
+              "max": 330334208
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 297107456,
+              "min": 296681472,
+              "max": 297287680
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 362999872,
+              "min": 362973184,
+              "max": 363037120
+            }
+          },
+          "after-snapshot": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 318965576,
+              "min": 318939736,
+              "max": 318999728
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 326565888,
+              "min": 326500352,
+              "max": 330694656
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 428163072,
+              "min": 427753472,
+              "max": 428310528
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 363118456,
+              "min": 363091400,
+              "max": 363155384
+            }
+          },
+          "after-start": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 157976872,
+              "min": 157975240,
+              "max": 157977768
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 171311104,
+              "min": 171278336,
+              "max": 171311104
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 116097024,
+              "min": 115949568,
+              "max": 116375552
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 2,
+              "min": 2,
+              "max": 2
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 158127560,
+              "min": 158125944,
+              "max": 158128440
+            }
+          },
+          "first-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 350353960,
+              "min": 350347368,
+              "max": 350357544
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 443940864,
+              "min": 439812096,
+              "max": 443973632
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 541720576,
+              "min": 540884992,
+              "max": 541769728
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 542647784,
+              "min": 542643672,
+              "max": 542680776
+            }
+          },
+          "first-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 332078264,
+              "min": 332055272,
+              "max": 332109720
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 343048192,
+              "min": 338984960,
+              "max": 343080960
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 429113344,
+              "min": 428720128,
+              "max": 429506560
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 3,
+              "min": 3,
+              "max": 3
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 376231144,
+              "min": 376206936,
+              "max": 376265376
+            }
+          },
+          "second-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 529929704,
+              "min": 529915064,
+              "max": 529935384
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 611778560,
+              "min": 578125824,
+              "max": 615907328
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 708722688,
+              "min": 678199296,
+              "max": 709935104
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 722223528,
+              "min": 722221512,
+              "max": 722248472
+            }
+          },
+          "second-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 363451512,
+              "min": 363448336,
+              "max": 363452792
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 443711488,
+              "min": 439615488,
+              "max": 443777024
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 541769728,
+              "min": 540901376,
+              "max": 542048256
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 4,
+              "min": 4,
+              "max": 4
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 555742160,
+              "min": 555737640,
+              "max": 555786200
+            }
+          }
+        },
+        "post_close_forced_gc_ms": {
+          "n": 3,
+          "median": 0.370041,
+          "min": 0.369375,
+          "max": 0.388542
+        },
+        "storage_counters": {
+          "after-close": {
+            "C-CoW/allocated": {
+              "n": 3,
+              "median": 332562536,
+              "min": 332562536,
+              "max": 332562536
+            },
+            "C-CoW/copied": {
+              "n": 3,
+              "median": 332562536,
+              "min": 332562536,
+              "max": 332562536
+            },
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 300040587,
+              "min": 300040586,
+              "max": 300040587
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 88983591,
+              "min": 88983591,
+              "max": 88983591
+            }
+          },
+          "after-seed": {
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 274851720,
+              "min": 274851720,
+              "max": 274851720
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 88973351,
+              "min": 88973351,
+              "max": 88973351
+            }
+          },
+          "after-snapshot": {
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 274868601,
+              "min": 274868600,
+              "max": 274868601
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 88981543,
+              "min": 88981543,
+              "max": 88981543
+            }
+          },
+          "after-start": {
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 157294761,
+              "min": 157294761,
+              "max": 157294761
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 30,
+              "min": 30,
+              "max": 30
+            }
+          },
+          "first-closed": {
+            "C-CoW/allocated": {
+              "n": 3,
+              "median": 166281268,
+              "min": 166281268,
+              "max": 166281268
+            },
+            "C-CoW/copied": {
+              "n": 3,
+              "median": 166281268,
+              "min": 166281268,
+              "max": 166281268
+            },
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 287454594,
+              "min": 287454593,
+              "max": 287454594
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 88982567,
+              "min": 88982567,
+              "max": 88982567
+            }
+          },
+          "first-started": {
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 287451522,
+              "min": 287451521,
+              "max": 287451522
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 88981543,
+              "min": 88981543,
+              "max": 88981543
+            }
+          },
+          "second-closed": {
+            "C-CoW/allocated": {
+              "n": 3,
+              "median": 332562536,
+              "min": 332562536,
+              "max": 332562536
+            },
+            "C-CoW/copied": {
+              "n": 3,
+              "median": 332562536,
+              "min": 332562536,
+              "max": 332562536
+            },
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 300040587,
+              "min": 300040586,
+              "max": 300040587
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 88983591,
+              "min": 88983591,
+              "max": 88983591
+            }
+          },
+          "second-started": {
+            "C-CoW/allocated": {
+              "n": 3,
+              "median": 166281268,
+              "min": 166281268,
+              "max": 166281268
+            },
+            "C-CoW/copied": {
+              "n": 3,
+              "median": 166281268,
+              "min": 166281268,
+              "max": 166281268
+            },
+            "C-growth/allocated": {
+              "n": 3,
+              "median": 300037515,
+              "min": 300037514,
+              "max": 300037515
+            },
+            "C-growth/copied": {
+              "n": 3,
+              "median": 88982567,
+              "min": 88982567,
+              "max": 88982567
+            }
+          }
+        },
+        "copy_phases": {
+          "first/startup": {
+            "bytes": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            },
+            "files": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "first/crud": {
+            "bytes": {
+              "n": 3,
+              "median": 100663296,
+              "min": 100663296,
+              "max": 100663296
+            },
+            "files": {
+              "n": 3,
+              "median": 1,
+              "min": 1,
+              "max": 1
+            }
+          },
+          "first/close": {
+            "bytes": {
+              "n": 3,
+              "median": 65617972,
+              "min": 65617972,
+              "max": 65617972
+            },
+            "files": {
+              "n": 3,
+              "median": 8,
+              "min": 8,
+              "max": 8
+            }
+          },
+          "second/startup": {
+            "bytes": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            },
+            "files": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "second/crud": {
+            "bytes": {
+              "n": 3,
+              "median": 100663296,
+              "min": 100663296,
+              "max": 100663296
+            },
+            "files": {
+              "n": 3,
+              "median": 1,
+              "min": 1,
+              "max": 1
+            }
+          },
+          "second/close": {
+            "bytes": {
+              "n": 3,
+              "median": 65617972,
+              "min": 65617972,
+              "max": 65617972
+            },
+            "files": {
+              "n": 3,
+              "median": 8,
+              "min": 8,
+              "max": 8
+            }
+          }
+        }
+      },
+      "D": {
+        "whole_ms": {
+          "n": 3,
+          "median": 1156.688167,
+          "min": 1153.572169,
+          "max": 1156.89175
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 47.794083,
+          "min": 46.399458,
+          "max": 49.506584
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 724.5595,
+          "min": 721.269875,
+          "max": 725.982084
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 221.014416,
+          "min": 219.734625,
+          "max": 223.848583
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 0.000625,
+          "min": 0.000459,
+          "max": 0.00075
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 51.3719165,
+          "min": 50.260083,
+          "max": 52.686666
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 19.9057085,
+          "min": 16.279583,
+          "max": 24.430958
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 2.650646,
+          "min": 2.510708,
+          "max": 2.834291
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.2578545000000005,
+          "min": 5.516958,
+          "max": 6.310792
+        },
+        "two_children_ms": {
+          "n": 3,
+          "median": 161.768,
+          "min": 160.465209,
+          "max": 164.759205
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 3,
+            "median": 166285321,
+            "min": 166285321,
+            "max": 166285322
+          },
+          "owner_verify_ns": {
+            "n": 3,
+            "median": 73173541,
+            "min": 72515791,
+            "max": 75060584
+          },
+          "payload_copy_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 3,
+            "median": 28639232,
+            "min": 28639232,
+            "max": 28639232
+          },
+          "source_hash_metadata_ns": {
+            "n": 3,
+            "median": 71958708,
+            "min": 71572500,
+            "max": 72628541
+          },
+          "target_verify_ns": {
+            "n": 3,
+            "median": 71644875,
+            "min": 71348417,
+            "max": 76044333
+          }
+        },
+        "resources": {
+          "after-close": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 45671384,
+              "min": 45113968,
+              "max": 49278768
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 53805056,
+              "min": 53739520,
+              "max": 58032128
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 173572096,
+              "min": 172736512,
+              "max": 176029696
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 11
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 127924080,
+              "min": 127918248,
+              "max": 128056152
+            }
+          },
+          "after-close-gc": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 311584,
+              "min": 309192,
+              "max": 317040
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 53837824,
+              "min": 53772288,
+              "max": 58064896
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 173572096,
+              "min": 172736512,
+              "max": 176029696
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 12,
+              "min": 12,
+              "max": 12
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 127925936,
+              "min": 127920104,
+              "max": 128058008
+            }
+          },
+          "after-seed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 36888536,
+              "min": 36339880,
+              "max": 40478416
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 53510144,
+              "min": 49381376,
+              "max": 53575680
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 168574976,
+              "min": 168017920,
+              "max": 171671552
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 11
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 119141232,
+              "min": 119117896,
+              "max": 119282064
+            }
+          },
+          "after-snapshot": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 38276040,
+              "min": 37711576,
+              "max": 41866424
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 53805056,
+              "min": 49643520,
+              "max": 53870592
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 169443328,
+              "min": 169000960,
+              "max": 172556288
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 11
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 120528736,
+              "min": 120505904,
+              "max": 120653760
+            }
+          },
+          "after-start": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 2789096,
+              "min": 2748296,
+              "max": 2816024
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 11960320,
+              "min": 11927552,
+              "max": 12025856
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 115671040,
+              "min": 115654656,
+              "max": 115752960
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 2789096,
+              "min": 2748296,
+              "max": 2816024
+            }
+          },
+          "first-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 41955896,
+              "min": 41409624,
+              "max": 45564888
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 53837824,
+              "min": 53772288,
+              "max": 53837824
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 171491328,
+              "min": 169443328,
+              "max": 172556288
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 11
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 124208592,
+              "min": 124204368,
+              "max": 124351808
+            }
+          },
+          "first-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 40632160,
+              "min": 39750952,
+              "max": 44138992
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 53641216,
+              "min": 53608448,
+              "max": 53706752
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 169443328,
+              "min": 169115648,
+              "max": 172556288
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 11
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 122778472,
+              "min": 122693136,
+              "max": 122884856
+            }
+          },
+          "second-closed": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 45668216,
+              "min": 45110800,
+              "max": 49275600
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 53805056,
+              "min": 53739520,
+              "max": 58032128
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 173572096,
+              "min": 172736512,
+              "max": 176029696
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 11
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 127920912,
+              "min": 127915080,
+              "max": 128052984
+            }
+          },
+          "second-started": {
+            "heap_alloc": {
+              "n": 3,
+              "median": 44391248,
+              "min": 43495208,
+              "max": 48112224
+            },
+            "heap_sys": {
+              "n": 3,
+              "median": 53673984,
+              "min": 53575680,
+              "max": 57835520
+            },
+            "maxrss_raw": {
+              "n": 3,
+              "median": 172556288,
+              "min": 170557440,
+              "max": 173572096
+            },
+            "num_gc": {
+              "n": 3,
+              "median": 11,
+              "min": 11,
+              "max": 11
+            },
+            "total_alloc": {
+              "n": 3,
+              "median": 126643944,
+              "min": 126437392,
+              "max": 126751704
+            }
+          }
+        },
+        "post_close_forced_gc_ms": {
+          "n": 3,
+          "median": 1.109833,
+          "min": 1.022042,
+          "max": 1.124792
+        },
+        "storage_counters": {
+          "after-close": {
+            "D/allocated": {
+              "n": 3,
+              "median": 36143104,
+              "min": 36143104,
+              "max": 36143104
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 98408,
+              "min": 98408,
+              "max": 98408
+            }
+          },
+          "after-seed": {
+            "D/allocated": {
+              "n": 3,
+              "median": 30736384,
+              "min": 30736384,
+              "max": 30752768
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "after-snapshot": {
+            "D/allocated": {
+              "n": 3,
+              "median": 30801920,
+              "min": 30801920,
+              "max": 30801920
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "after-start": {
+            "D/allocated": {
+              "n": 3,
+              "median": 1949696,
+              "min": 1916928,
+              "max": 1966080
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "first-closed": {
+            "D/allocated": {
+              "n": 3,
+              "median": 33472512,
+              "min": 33472512,
+              "max": 33472512
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 49204,
+              "min": 49204,
+              "max": 49204
+            }
+          },
+          "first-started": {
+            "D/allocated": {
+              "n": 3,
+              "median": 32210944,
+              "min": 31981568,
+              "max": 32292864
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "second-closed": {
+            "D/allocated": {
+              "n": 3,
+              "median": 36143104,
+              "min": 36143104,
+              "max": 36143104
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 98408,
+              "min": 98408,
+              "max": 98408
+            }
+          },
+          "second-started": {
+            "D/allocated": {
+              "n": 3,
+              "median": 35045376,
+              "min": 34717696,
+              "max": 35160064
+            },
+            "D/copied": {
+              "n": 3,
+              "median": 49204,
+              "min": 49204,
+              "max": 49204
+            }
+          }
+        }
+      },
+      "pairs": [
+        {
+          "label": "n10000-r0-C",
+          "C_ms": 1219.01125,
+          "D_ms": 1156.89175,
+          "delta_ms": -62.119500000000016
+        },
+        {
+          "label": "n10000-r1-C",
+          "C_ms": 1227.818375,
+          "D_ms": 1156.688167,
+          "delta_ms": -71.13020800000004
+        },
+        {
+          "label": "n10000-r2-C",
+          "C_ms": 1225.562584,
+          "D_ms": 1153.572169,
+          "delta_ms": -71.99041499999998
+        }
+      ],
+      "D_faster_pairs": 3,
+      "median_delta_percent": -5.619820472587145
+    }
+  }
+}

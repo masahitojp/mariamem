@@ -1,0 +1,18 @@
+{
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "python": "3.9.6",
+  "uname": "Darwin MacBookAir 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:05:27 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T8103 arm64",
+  "main_user_changes_preserved": [
+    " M docs/project-status.md",
+    "?? docs/reviews/storage-design-directions.md",
+    "?? docs/reviews/storage-investment-reassessment.md"
+  ],
+  "source_commit": "72400d1196c94e7372bb28af328f9fc2132a4416",
+  "baseline_runtime_commit": "a8137b8b444f86068d3128a291e3a848adfdfd56",
+  "go_version": "go version go1.26.8 darwin/arm64",
+  "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+  "native_ubuntu_x86_64": "SKIP: no native environment used",
+  "initial_sandbox_build": "module fetch DNS denied, retried with approval",
+  "initial_sandbox_pilot": "localhost bind denied, not included in samples"
+}

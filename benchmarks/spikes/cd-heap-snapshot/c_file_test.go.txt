@@ -1,0 +1,29 @@
+package base
+import("bytes";"testing";"syscall";"math";"os";"io";"math/rand";"sync")
+func TestCFilePrimitive(t *testing.T){
+ parent:=[]byte("abcdef");c:=&cStorage{data:parent,shared:true};c.resize(3);if !c.shared{t.Fatal("shrink copied")};c.resize(6);if !bytes.Equal(c.data,[]byte{'a','b','c',0,0,0})||string(parent)!="abcdef"{t.Fatal("tail or isolation")}
+ c=&cStorage{data:parent,shared:true};c.writeAt([]byte("X"),2);if string(c.data)!="abXdef"||string(parent)!="abcdef"{t.Fatal("write isolation")};c.resize(0);c.resize(8);if !bytes.Equal(c.data,make([]byte,8)){t.Fatal("zero regrow")}
+ c=&cStorage{data:parent,shared:true};c.resize(0);if c.data!=nil||c.shared{t.Fatal("zero retained backing")};c.resize(4);if !bytes.Equal(c.data,make([]byte,4)){t.Fatal("zero shared regrow")}
+ if e:=c.resize(-1);e!=syscall.EINVAL{t.Fatal(e)};if _,e:=c.writeAt([]byte("xx"),math.MaxInt64);e!=syscall.EINVAL{t.Fatal(e)};if _,e:=c.readAt(make([]byte,1),-1);e!=syscall.EINVAL{t.Fatal(e)};if _,e:=c.readAt(make([]byte,1),4);e!=io.EOF{t.Fatal(e)}
+}
+func TestCFileFS(t *testing.T){
+ t.Setenv("MARIAMEM_HEAP","1");t.Setenv("MARIAMEM_HEAP_KIND","C");fs:=NewMemFS();fs.DEnable(false);fs.MkdirAll("mariadb",0700);fs.WriteFile("mariadb/a",[]byte("abcdef"),0600);h,e:=fs.FreezeHeap("fixture",false);if e!=nil{t.Fatal(e)}
+ child:=NewMemFS();child.DEnable(true);_,e=MapHeap(child,h,"mariadb");if e!=nil{t.Fatal(e)}
+ f,e:=child.OpenFile("mariadb/a",os.O_RDWR|os.O_APPEND,0600);if e!=nil{t.Fatal(e)};f.Write([]byte("G"));dContents(t,f,[]byte("abcdefG"))
+ if e=child.Rename("mariadb/a","mariadb/b");e!=nil{t.Fatal(e)};if e=child.Remove("mariadb/b");e!=nil{t.Fatal(e)};f.WriteAt([]byte("Z"),0);dContents(t,f,[]byte("ZbcdefG"));f.Close()
+ _,e=MapHeap(child,h,"other");if e==nil{t.Fatal("unsupported prefix must fail")}
+ if e=h.Verify("fixture");e!=nil{t.Fatal(e)}
+ child=NewMemFS();child.DEnable(true);_,e=MapHeap(child,h,"mariadb");if e!=nil{t.Fatal(e)};f,e=child.OpenFile("mariadb/a",os.O_RDWR|os.O_TRUNC,0600);if e!=nil{t.Fatal(e)};f.Truncate(6);dContents(t,f,make([]byte,6));f.Close();if e=h.Verify("fixture");e!=nil{t.Fatal(e)}
+}
+
+func TestCFileDeterministicReference(t *testing.T){
+ r:=rand.New(rand.NewSource(42));want:=bytes.Repeat([]byte{7},70000);original:=append([]byte{},want...);c:=&cStorage{data:original,shared:true}
+ for i:=0;i<2000;i++{if r.Intn(3)==0{size:=r.Intn(100000);if size>len(want){want=append(want,make([]byte,size-len(want))...)}else{want=want[:size]};if e:=c.resize(int64(size));e!=nil{t.Fatal(e)}}else{off:=r.Intn(100000);p:=make([]byte,r.Intn(400));r.Read(p);if off+len(p)>len(want){want=append(want,make([]byte,off+len(p)-len(want))...)};copy(want[off:],p);if _,e:=c.writeAt(p,int64(off));e!=nil{t.Fatal(e)}};if !bytes.Equal(c.data,want){t.Fatalf("step %d",i)}}
+ if !bytes.Equal(original,bytes.Repeat([]byte{7},70000)){t.Fatal("parent changed")}
+}
+func TestCFileConcurrentAndAllocate(t *testing.T){
+ t.Setenv("MARIAMEM_HEAP","1");t.Setenv("MARIAMEM_HEAP_KIND","C");fs:=NewMemFS();fs.DEnable(false);fs.MkdirAll("mariadb",0700);fs.WriteFile("mariadb/a",bytes.Repeat([]byte{'x'},100),0600);h,e:=fs.FreezeHeap("fixture",false);if e!=nil{t.Fatal(e)}
+ child:=NewMemFS();child.DEnable(true);_,e=MapHeap(child,h,"mariadb");if e!=nil{t.Fatal(e)};opened,_:=child.OpenFile("mariadb/a",os.O_RDWR,0600);f:=opened.(*memFile);f.Seek(7,io.SeekStart);f.Allocate(80);off,_:=f.Seek(0,io.SeekCurrent);if off!=7||!f.node.d.c.shared{t.Fatal("in-file Allocate detached or moved")};f.Allocate(110);dContents(t,f,append(bytes.Repeat([]byte{'x'},100),make([]byte,10)...))
+ ro,_:=child.OpenFile("mariadb/a",os.O_RDONLY,0600);if e:=ro.(interface{Allocate(int64)error}).Allocate(120);e==nil{t.Fatal("readonly allocate")}
+ var wg sync.WaitGroup;for i:=0;i<64;i++{wg.Add(1);go func(i int){defer wg.Done();fd,e:=child.OpenFile("mariadb/a",os.O_RDWR,0600);if e!=nil{t.Error(e);return};fd.WriteAt([]byte{'y'},int64(i));fd.Close()}(i)};wg.Wait();b:=make([]byte,64);f.ReadAt(b,0);if !bytes.Equal(b,bytes.Repeat([]byte{'y'},64)){t.Fatal("lost update")};f.Close();if e=h.Verify("fixture");e!=nil{t.Fatal(e)}
+}

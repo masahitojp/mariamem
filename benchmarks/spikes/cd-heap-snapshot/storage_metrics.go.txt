@@ -1,0 +1,9 @@
+package prepared
+import "sync"
+// Enabled before guest creation. Separate resource campaign only.
+var StorageMetricsEnabled bool
+var storageMetrics=struct{sync.Mutex;values map[string]uint64;copies []map[string]any;phase string}{values:map[string]uint64{}}
+func StoragePhase(p string){if !StorageMetricsEnabled{return};storageMetrics.Lock();storageMetrics.phase=p;storageMetrics.Unlock()}
+func RecordStorage(kind string,allocated,copied uint64){if !StorageMetricsEnabled{return};storageMetrics.Lock();defer storageMetrics.Unlock();storageMetrics.values[kind+"/allocated"]+=allocated;storageMetrics.values[kind+"/copied"]+=copied}
+func RecordFileCopy(name string,allocated,copied uint64){if !StorageMetricsEnabled{return};RecordStorage("C-CoW",allocated,copied);storageMetrics.Lock();defer storageMetrics.Unlock();storageMetrics.copies=append(storageMetrics.copies,map[string]any{"name":name,"phase":storageMetrics.phase,"allocated":allocated,"copied":copied})}
+func StorageMetrics()map[string]any{storageMetrics.Lock();defer storageMetrics.Unlock();m:=map[string]any{};for k,v:=range storageMetrics.values{m[k]=v};m["copies"]=append([]map[string]any{},storageMetrics.copies...);return m}

@@ -1,0 +1,106 @@
+[
+  {
+    "label": "n100-r-1-C",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953645,
+      "owner_verify_ns": 62998166,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_file_capacity_bytes": 145117493,
+      "source_hash_metadata_ns": 77333958,
+      "target_verify_ns": 71986042
+    },
+    "mode": "C",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000792,
+      "first/close": 10.123834,
+      "first/connect": 1.064166,
+      "first/crud": 28.836959,
+      "first/disconnect": 5.301791,
+      "first/startup": 54.387958,
+      "second/close": 9.079833,
+      "second/connect": 0.92025,
+      "second/crud": 19.47025,
+      "second/disconnect": 6.270709,
+      "second/startup": 54.600333,
+      "setup/migrate-seed": 19.783208,
+      "setup/snapshot": 217.626,
+      "setup/start": 65.47725
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 492.967124
+  },
+  {
+    "label": "n100-r-1-D",
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953645,
+      "owner_verify_ns": 62510334,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3194880,
+      "source_hash_metadata_ns": 63267834,
+      "target_verify_ns": 64144041
+    },
+    "mode": "D",
+    "resources": {},
+    "resources_enabled": false,
+    "rows": 100,
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000666,
+      "first/close": 2.888042,
+      "first/connect": 0.950042,
+      "first/crud": 3.915458,
+      "first/disconnect": 6.272583,
+      "first/startup": 56.095125,
+      "second/close": 2.5595,
+      "second/connect": 0.851041,
+      "second/crud": 5.826125,
+      "second/disconnect": 6.275334,
+      "second/startup": 52.251083,
+      "setup/migrate-seed": 14.666042,
+      "setup/snapshot": 193.324916,
+      "setup/start": 48.249667
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 394.142417
+  }
+]

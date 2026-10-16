@@ -1,0 +1,26 @@
+// Experiment: contiguous heap files, immutable sharing until first mutation.
+// All calls hold the owning MemFS.mu. No mmap, block map or per-block lookup.
+package base
+import("io";"math";"os";"syscall";"github.com/masahitojp/mariamem/internal/prepared")
+type cStorage struct{data []byte;shared bool;name string}
+func newHeapStorage(data []byte)*dStorage{
+ if os.Getenv("MARIAMEM_HEAP_KIND")=="C"{return &dStorage{size:int64(len(data)),c:&cStorage{data:data,shared:data!=nil}}};return newDStorage(data)
+}
+func(c *cStorage) own(want int64){
+ if !c.shared{return};capacity:=max(int64(len(c.data)),want);next:=make([]byte,len(c.data),int(capacity));copy(next,c.data)
+ prepared.RecordFileCopy(c.name,uint64(capacity),uint64(len(c.data)))
+ c.data=next;c.shared=false
+}
+func(c *cStorage)resize(size int64)error{
+ if size<0||uint64(size)>uint64(^uint(0)>>1){return syscall.EINVAL}
+ if size<=int64(len(c.data)){if size==0&&c.shared{c.data=nil;c.shared=false}else{c.data=c.data[:int(size)]};return nil}
+ c.own(size);oldLen,oldCap:=len(c.data),cap(c.data);c.data=resizeMemData(c.data,size)
+ if cap(c.data)!=oldCap{prepared.RecordStorage("C-growth",uint64(cap(c.data)),uint64(oldLen))};return nil
+}
+func(c *cStorage)readAt(dst []byte,off int64)(int,error){
+ if off<0{return 0,syscall.EINVAL};if off>=int64(len(c.data)){return 0,io.EOF};n:=copy(dst,c.data[off:]);if n<len(dst){return n,io.EOF};return n,nil
+}
+func(c *cStorage)writeAt(src []byte,off int64)(int,error){
+ if off<0||int64(len(src))>math.MaxInt64-off||uint64(off)+uint64(len(src))>uint64(^uint(0)>>1){return 0,syscall.EINVAL}
+ end:=off+int64(len(src));if len(src)>0{c.own(end)};if end>int64(len(c.data)){if e:=c.resize(end);e!=nil{return 0,e}};copy(c.data[off:],src);return len(src),nil
+}

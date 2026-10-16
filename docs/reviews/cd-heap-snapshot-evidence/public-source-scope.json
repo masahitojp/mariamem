@@ -1,0 +1,6 @@
+{
+  "scope": "new experiment files only",
+  "passed": true,
+  "files": 39,
+  "full_check": "FAIL pre-existing tracked docs/reviews/v050-startup-tail-source-fix-evidence/ubuntu/measurement.log rejected by public allowlist"
+}

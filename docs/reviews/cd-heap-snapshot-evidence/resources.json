@@ -1,0 +1,3902 @@
+[
+  {
+    "label": "n100-r0-C",
+    "after-close-storage": {
+      "C-CoW/allocated": 289898600,
+      "C-CoW/copied": 289898600,
+      "C-growth/allocated": 183162684,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "after-seed-storage": {
+      "C-growth/allocated": 157978184,
+      "C-growth/copied": 253991,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "C-growth/allocated": 157995356,
+      "C-growth/copied": 262183,
+      "copies": []
+    },
+    "after-start-storage": {
+      "C-growth/allocated": 157294761,
+      "C-growth/copied": 30,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "C-CoW/allocated": 144949300,
+      "C-CoW/copied": 144949300,
+      "C-growth/allocated": 170579015,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "first-started-storage": {
+      "C-growth/allocated": 170578277,
+      "C-growth/copied": 262183,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953645,
+      "owner_verify_ns": 67329708,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_file_capacity_bytes": 145117493,
+      "source_hash_metadata_ns": 73072042,
+      "target_verify_ns": 67527084
+    },
+    "mode": "C",
+    "post_close_forced_gc_ms": 0.339917,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 461549152,
+        "heap_sys": 473366528,
+        "maxrss_raw": 566722560,
+        "num_gc": 3,
+        "total_alloc": 475826640
+      },
+      "after-close-gc": {
+        "heap_alloc": 293872,
+        "heap_sys": 473399296,
+        "maxrss_raw": 566722560,
+        "num_gc": 4,
+        "total_alloc": 475828656
+      },
+      "after-seed": {
+        "heap_alloc": 159158384,
+        "heap_sys": 171245568,
+        "maxrss_raw": 126992384,
+        "num_gc": 2,
+        "total_alloc": 159309072
+      },
+      "after-snapshot": {
+        "heap_alloc": 159258312,
+        "heap_sys": 171474944,
+        "maxrss_raw": 270172160,
+        "num_gc": 2,
+        "total_alloc": 159409000
+      },
+      "after-start": {
+        "heap_alloc": 157974664,
+        "heap_sys": 171343872,
+        "maxrss_raw": 116293632,
+        "num_gc": 2,
+        "total_alloc": 158125352
+      },
+      "first-closed": {
+        "heap_alloc": 303339000,
+        "heap_sys": 322371584,
+        "maxrss_raw": 418037760,
+        "num_gc": 3,
+        "total_alloc": 317616488
+      },
+      "first-started": {
+        "heap_alloc": 172386712,
+        "heap_sys": 183894016,
+        "maxrss_raw": 273088512,
+        "num_gc": 2,
+        "total_alloc": 172537400
+      },
+      "second-closed": {
+        "heap_alloc": 461545824,
+        "heap_sys": 473366528,
+        "maxrss_raw": 566722560,
+        "num_gc": 3,
+        "total_alloc": 475823312
+      },
+      "second-started": {
+        "heap_alloc": 316435072,
+        "heap_sys": 334823424,
+        "maxrss_raw": 419774464,
+        "num_gc": 3,
+        "total_alloc": 330712560
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "second-closed-storage": {
+      "C-CoW/allocated": 289898600,
+      "C-CoW/copied": 289898600,
+      "C-growth/allocated": 183162684,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "second-started-storage": {
+      "C-CoW/allocated": 144949300,
+      "C-CoW/copied": 144949300,
+      "C-growth/allocated": 183161936,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.0005,
+      "first/close": 7.335834,
+      "first/connect": 1.05775,
+      "first/crud": 13.35125,
+      "first/disconnect": 6.268,
+      "first/startup": 50.919167,
+      "second/close": 7.081958,
+      "second/connect": 0.939167,
+      "second/crud": 15.481666,
+      "second/disconnect": 6.26025,
+      "second/startup": 52.352625,
+      "setup/migrate-seed": 14.182416,
+      "setup/snapshot": 211.976208,
+      "setup/start": 46.78075
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 434.002875
+  },
+  {
+    "label": "n100-r0-D",
+    "after-close-storage": {
+      "D/allocated": 10698752,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "after-seed-storage": {
+      "D/allocated": 5144576,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "D/allocated": 5357568,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-start-storage": {
+      "D/allocated": 2015232,
+      "D/copied": 0,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "D/allocated": 8028160,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "first-started-storage": {
+      "D/allocated": 7012352,
+      "D/copied": 0,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 63312416,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3194880,
+      "source_hash_metadata_ns": 62283792,
+      "target_verify_ns": 61819083
+    },
+    "mode": "D",
+    "post_close_forced_gc_ms": 0.337959,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 7326192,
+        "heap_sys": 16154624,
+        "maxrss_raw": 133185536,
+        "num_gc": 4,
+        "total_alloc": 15223760
+      },
+      "after-close-gc": {
+        "heap_alloc": 285376,
+        "heap_sys": 16187392,
+        "maxrss_raw": 133185536,
+        "num_gc": 5,
+        "total_alloc": 15225616
+      },
+      "after-seed": {
+        "heap_alloc": 5971480,
+        "heap_sys": 11862016,
+        "maxrss_raw": 126402560,
+        "num_gc": 2,
+        "total_alloc": 6525912
+      },
+      "after-snapshot": {
+        "heap_alloc": 7373152,
+        "heap_sys": 12025856,
+        "maxrss_raw": 128892928,
+        "num_gc": 2,
+        "total_alloc": 7927584
+      },
+      "after-start": {
+        "heap_alloc": 2867824,
+        "heap_sys": 11894784,
+        "maxrss_raw": 115900416,
+        "num_gc": 0,
+        "total_alloc": 2867824
+      },
+      "first-closed": {
+        "heap_alloc": 7300104,
+        "heap_sys": 16187392,
+        "maxrss_raw": 131153920,
+        "num_gc": 3,
+        "total_alloc": 11561848
+      },
+      "first-started": {
+        "heap_alloc": 6157960,
+        "heap_sys": 16089088,
+        "maxrss_raw": 130318336,
+        "num_gc": 3,
+        "total_alloc": 10419704
+      },
+      "second-closed": {
+        "heap_alloc": 7323024,
+        "heap_sys": 16154624,
+        "maxrss_raw": 133185536,
+        "num_gc": 4,
+        "total_alloc": 15220592
+      },
+      "second-started": {
+        "heap_alloc": 6049208,
+        "heap_sys": 16056320,
+        "maxrss_raw": 131956736,
+        "num_gc": 4,
+        "total_alloc": 13946776
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "second-closed-storage": {
+      "D/allocated": 10698752,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "second-started-storage": {
+      "D/allocated": 9584640,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000583,
+      "first/close": 2.428625,
+      "first/connect": 0.867833,
+      "first/crud": 3.938458,
+      "first/disconnect": 6.26825,
+      "first/startup": 52.588125,
+      "second/close": 2.501917,
+      "second/connect": 0.957292,
+      "second/crud": 5.520291,
+      "second/disconnect": 6.260041,
+      "second/startup": 50.477958,
+      "setup/migrate-seed": 14.523958,
+      "setup/snapshot": 190.480375,
+      "setup/start": 46.267459
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 383.094752
+  },
+  {
+    "label": "n100-r1-C",
+    "after-close-storage": {
+      "C-CoW/allocated": 289898600,
+      "C-CoW/copied": 289898600,
+      "C-growth/allocated": 183162684,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "after-seed-storage": {
+      "C-growth/allocated": 157978184,
+      "C-growth/copied": 253991,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "C-growth/allocated": 157995356,
+      "C-growth/copied": 262183,
+      "copies": []
+    },
+    "after-start-storage": {
+      "C-growth/allocated": 157294761,
+      "C-growth/copied": 30,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "C-CoW/allocated": 144949300,
+      "C-CoW/copied": 144949300,
+      "C-growth/allocated": 170579015,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "first-started-storage": {
+      "C-growth/allocated": 170578277,
+      "C-growth/copied": 262183,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953645,
+      "owner_verify_ns": 65346375,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_file_capacity_bytes": 145117493,
+      "source_hash_metadata_ns": 75252208,
+      "target_verify_ns": 67890083
+    },
+    "mode": "C",
+    "post_close_forced_gc_ms": 0.375334,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 461549216,
+        "heap_sys": 473333760,
+        "maxrss_raw": 566706176,
+        "num_gc": 3,
+        "total_alloc": 475835360
+      },
+      "after-close-gc": {
+        "heap_alloc": 302360,
+        "heap_sys": 473366528,
+        "maxrss_raw": 566706176,
+        "num_gc": 4,
+        "total_alloc": 475837376
+      },
+      "after-seed": {
+        "heap_alloc": 159166680,
+        "heap_sys": 171212800,
+        "maxrss_raw": 126992384,
+        "num_gc": 2,
+        "total_alloc": 159317368
+      },
+      "after-snapshot": {
+        "heap_alloc": 159267432,
+        "heap_sys": 171442176,
+        "maxrss_raw": 270172160,
+        "num_gc": 2,
+        "total_alloc": 159418120
+      },
+      "after-start": {
+        "heap_alloc": 157977544,
+        "heap_sys": 171311104,
+        "maxrss_raw": 116310016,
+        "num_gc": 2,
+        "total_alloc": 158128232
+      },
+      "first-closed": {
+        "heap_alloc": 303329360,
+        "heap_sys": 322371584,
+        "maxrss_raw": 417693696,
+        "num_gc": 3,
+        "total_alloc": 317615504
+      },
+      "first-started": {
+        "heap_alloc": 172393312,
+        "heap_sys": 183861248,
+        "maxrss_raw": 272957440,
+        "num_gc": 2,
+        "total_alloc": 172544000
+      },
+      "second-closed": {
+        "heap_alloc": 461545888,
+        "heap_sys": 473333760,
+        "maxrss_raw": 566706176,
+        "num_gc": 3,
+        "total_alloc": 475832032
+      },
+      "second-started": {
+        "heap_alloc": 316431952,
+        "heap_sys": 334823424,
+        "maxrss_raw": 419364864,
+        "num_gc": 3,
+        "total_alloc": 330718096
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "second-closed-storage": {
+      "C-CoW/allocated": 289898600,
+      "C-CoW/copied": 289898600,
+      "C-growth/allocated": 183162684,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "second-started-storage": {
+      "C-CoW/allocated": 144949300,
+      "C-CoW/copied": 144949300,
+      "C-growth/allocated": 183161936,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000541,
+      "first/close": 7.899208,
+      "first/connect": 0.892667,
+      "first/crud": 13.876708,
+      "first/disconnect": 6.263875,
+      "first/startup": 51.997167,
+      "second/close": 7.149416,
+      "second/connect": 1.010708,
+      "second/crud": 15.61725,
+      "second/disconnect": 6.2615,
+      "second/startup": 51.753,
+      "setup/migrate-seed": 14.425916,
+      "setup/snapshot": 211.942208,
+      "setup/start": 49.492584
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 438.598711
+  },
+  {
+    "label": "n100-r1-D",
+    "after-close-storage": {
+      "D/allocated": 10698752,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "after-seed-storage": {
+      "D/allocated": 5144576,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "D/allocated": 5357568,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-start-storage": {
+      "D/allocated": 1998848,
+      "D/copied": 0,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "D/allocated": 8028160,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "first-started-storage": {
+      "D/allocated": 6979584,
+      "D/copied": 0,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 61676583,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3194880,
+      "source_hash_metadata_ns": 62234584,
+      "target_verify_ns": 62130792
+    },
+    "mode": "D",
+    "post_close_forced_gc_ms": 0.44275,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 10871064,
+        "heap_sys": 16154624,
+        "maxrss_raw": 135888896,
+        "num_gc": 3,
+        "total_alloc": 15188944
+      },
+      "after-close-gc": {
+        "heap_alloc": 287232,
+        "heap_sys": 16187392,
+        "maxrss_raw": 135888896,
+        "num_gc": 4,
+        "total_alloc": 15190800
+      },
+      "after-seed": {
+        "heap_alloc": 5904392,
+        "heap_sys": 11862016,
+        "maxrss_raw": 126566400,
+        "num_gc": 2,
+        "total_alloc": 6526784
+      },
+      "after-snapshot": {
+        "heap_alloc": 7299336,
+        "heap_sys": 16252928,
+        "maxrss_raw": 128991232,
+        "num_gc": 2,
+        "total_alloc": 7921728
+      },
+      "after-start": {
+        "heap_alloc": 2841024,
+        "heap_sys": 11960320,
+        "maxrss_raw": 115802112,
+        "num_gc": 0,
+        "total_alloc": 2841024
+      },
+      "first-closed": {
+        "heap_alloc": 7212328,
+        "heap_sys": 16252928,
+        "maxrss_raw": 134119424,
+        "num_gc": 3,
+        "total_alloc": 11530208
+      },
+      "first-started": {
+        "heap_alloc": 9734816,
+        "heap_sys": 16023552,
+        "maxrss_raw": 131940352,
+        "num_gc": 2,
+        "total_alloc": 10357208
+      },
+      "second-closed": {
+        "heap_alloc": 10867896,
+        "heap_sys": 16187392,
+        "maxrss_raw": 135888896,
+        "num_gc": 3,
+        "total_alloc": 15185776
+      },
+      "second-started": {
+        "heap_alloc": 9662864,
+        "heap_sys": 16089088,
+        "maxrss_raw": 134610944,
+        "num_gc": 3,
+        "total_alloc": 13980744
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "second-closed-storage": {
+      "D/allocated": 10698752,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "second-started-storage": {
+      "D/allocated": 9650176,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000625,
+      "first/close": 2.527958,
+      "first/connect": 1.078208,
+      "first/crud": 4.329959,
+      "first/disconnect": 6.251792,
+      "first/startup": 50.574084,
+      "second/close": 2.451292,
+      "second/connect": 0.87075,
+      "second/crud": 6.05875,
+      "second/disconnect": 6.260292,
+      "second/startup": 53.093709,
+      "setup/migrate-seed": 13.505667,
+      "setup/snapshot": 189.059083,
+      "setup/start": 46.817417
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 382.891751
+  },
+  {
+    "label": "n100-r2-C",
+    "after-close-storage": {
+      "C-CoW/allocated": 289898600,
+      "C-CoW/copied": 289898600,
+      "C-growth/allocated": 183162689,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "after-seed-storage": {
+      "C-growth/allocated": 157978184,
+      "C-growth/copied": 253991,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "C-growth/allocated": 157995361,
+      "C-growth/copied": 262183,
+      "copies": []
+    },
+    "after-start-storage": {
+      "C-growth/allocated": 157294761,
+      "C-growth/copied": 30,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "C-CoW/allocated": 144949300,
+      "C-CoW/copied": 144949300,
+      "C-growth/allocated": 170579020,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "first-started-storage": {
+      "C-growth/allocated": 170578282,
+      "C-growth/copied": 262183,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 65625291,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_file_capacity_bytes": 145117498,
+      "source_hash_metadata_ns": 74468958,
+      "target_verify_ns": 65427709
+    },
+    "mode": "C",
+    "post_close_forced_gc_ms": 0.359333,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 461563864,
+        "heap_sys": 469106688,
+        "maxrss_raw": 566755328,
+        "num_gc": 3,
+        "total_alloc": 475835032
+      },
+      "after-close-gc": {
+        "heap_alloc": 303584,
+        "heap_sys": 469139456,
+        "maxrss_raw": 566755328,
+        "num_gc": 4,
+        "total_alloc": 475837048
+      },
+      "after-seed": {
+        "heap_alloc": 159169840,
+        "heap_sys": 166985728,
+        "maxrss_raw": 126746624,
+        "num_gc": 2,
+        "total_alloc": 159320528
+      },
+      "after-snapshot": {
+        "heap_alloc": 159275544,
+        "heap_sys": 167215104,
+        "maxrss_raw": 269942784,
+        "num_gc": 2,
+        "total_alloc": 159426232
+      },
+      "after-start": {
+        "heap_alloc": 157979288,
+        "heap_sys": 167084032,
+        "maxrss_raw": 116211712,
+        "num_gc": 2,
+        "total_alloc": 158129976
+      },
+      "first-closed": {
+        "heap_alloc": 303339720,
+        "heap_sys": 318177280,
+        "maxrss_raw": 417955840,
+        "num_gc": 3,
+        "total_alloc": 317610888
+      },
+      "first-started": {
+        "heap_alloc": 172376576,
+        "heap_sys": 179634176,
+        "maxrss_raw": 272662528,
+        "num_gc": 2,
+        "total_alloc": 172527264
+      },
+      "second-closed": {
+        "heap_alloc": 461560536,
+        "heap_sys": 469106688,
+        "maxrss_raw": 566755328,
+        "num_gc": 3,
+        "total_alloc": 475831704
+      },
+      "second-started": {
+        "heap_alloc": 316459704,
+        "heap_sys": 330629120,
+        "maxrss_raw": 420151296,
+        "num_gc": 3,
+        "total_alloc": 330730872
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "second-closed-storage": {
+      "C-CoW/allocated": 289898600,
+      "C-CoW/copied": 289898600,
+      "C-growth/allocated": 183162689,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "second-started-storage": {
+      "C-CoW/allocated": 144949300,
+      "C-CoW/copied": 144949300,
+      "C-growth/allocated": 183161941,
+      "C-growth/copied": 262183,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 147456,
+          "copied": 147456,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 81920,
+          "copied": 81920,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000541,
+      "first/close": 7.300959,
+      "first/connect": 1.108125,
+      "first/crud": 15.081291,
+      "first/disconnect": 6.27575,
+      "first/startup": 54.066708,
+      "second/close": 7.452709,
+      "second/connect": 0.969166,
+      "second/crud": 15.02725,
+      "second/disconnect": 5.862208,
+      "second/startup": 53.091792,
+      "setup/migrate-seed": 14.142958,
+      "setup/snapshot": 209.206958,
+      "setup/start": 48.95275
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 438.562166
+  },
+  {
+    "label": "n100-r2-D",
+    "after-close-storage": {
+      "D/allocated": 10698752,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "after-seed-storage": {
+      "D/allocated": 5144576,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "D/allocated": 5357568,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-start-storage": {
+      "D/allocated": 1966080,
+      "D/copied": 0,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "D/allocated": 8028160,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "first-started-storage": {
+      "D/allocated": 6995968,
+      "D/copied": 0,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 61991792,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3194880,
+      "source_hash_metadata_ns": 61844208,
+      "target_verify_ns": 61736375
+    },
+    "mode": "D",
+    "post_close_forced_gc_ms": 0.286083,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 7163680,
+        "heap_sys": 16154624,
+        "maxrss_raw": 135593984,
+        "num_gc": 4,
+        "total_alloc": 15234352
+      },
+      "after-close-gc": {
+        "heap_alloc": 287808,
+        "heap_sys": 16187392,
+        "maxrss_raw": 135593984,
+        "num_gc": 5,
+        "total_alloc": 15236208
+      },
+      "after-seed": {
+        "heap_alloc": 5921896,
+        "heap_sys": 11796480,
+        "maxrss_raw": 126566400,
+        "num_gc": 2,
+        "total_alloc": 6532984
+      },
+      "after-snapshot": {
+        "heap_alloc": 7318528,
+        "heap_sys": 16187392,
+        "maxrss_raw": 128958464,
+        "num_gc": 2,
+        "total_alloc": 7929616
+      },
+      "after-start": {
+        "heap_alloc": 2805944,
+        "heap_sys": 11960320,
+        "maxrss_raw": 115621888,
+        "num_gc": 0,
+        "total_alloc": 2805944
+      },
+      "first-closed": {
+        "heap_alloc": 7257808,
+        "heap_sys": 16187392,
+        "maxrss_raw": 133201920,
+        "num_gc": 3,
+        "total_alloc": 11572168
+      },
+      "first-started": {
+        "heap_alloc": 8480992,
+        "heap_sys": 15958016,
+        "maxrss_raw": 132251648,
+        "num_gc": 3,
+        "total_alloc": 10425048
+      },
+      "second-closed": {
+        "heap_alloc": 7160512,
+        "heap_sys": 16187392,
+        "maxrss_raw": 135593984,
+        "num_gc": 4,
+        "total_alloc": 15231184
+      },
+      "second-started": {
+        "heap_alloc": 9757104,
+        "heap_sys": 16023552,
+        "maxrss_raw": 133316608,
+        "num_gc": 3,
+        "total_alloc": 14071464
+      }
+    },
+    "resources_enabled": true,
+    "rows": 100,
+    "second-closed-storage": {
+      "D/allocated": 10698752,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "second-started-storage": {
+      "D/allocated": 9699328,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000625,
+      "first/close": 2.515334,
+      "first/connect": 0.9375,
+      "first/crud": 3.776708,
+      "first/disconnect": 6.005208,
+      "first/startup": 54.673917,
+      "second/close": 2.809,
+      "second/connect": 0.939083,
+      "second/crud": 5.715417,
+      "second/disconnect": 6.260084,
+      "second/startup": 53.227666,
+      "setup/migrate-seed": 13.927708,
+      "setup/snapshot": 188.748458,
+      "setup/start": 48.645042
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 388.196998
+  },
+  {
+    "label": "n10000-r0-C",
+    "after-close-storage": {
+      "C-CoW/allocated": 332562536,
+      "C-CoW/copied": 332562536,
+      "C-growth/allocated": 300040587,
+      "C-growth/copied": 88983591,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "after-seed-storage": {
+      "C-growth/allocated": 274851720,
+      "C-growth/copied": 88973351,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "C-growth/allocated": 274868601,
+      "C-growth/copied": 88981543,
+      "copies": []
+    },
+    "after-start-storage": {
+      "C-growth/allocated": 157294761,
+      "C-growth/copied": 30,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "C-CoW/allocated": 166281268,
+      "C-CoW/copied": 166281268,
+      "C-growth/allocated": 287454594,
+      "C-growth/copied": 88982567,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "first-started-storage": {
+      "C-growth/allocated": 287451522,
+      "C-growth/copied": 88981543,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285322,
+      "owner_verify_ns": 72515000,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_file_capacity_bytes": 170772562,
+      "source_hash_metadata_ns": 82242916,
+      "target_verify_ns": 77326083
+    },
+    "mode": "C",
+    "post_close_forced_gc_ms": 0.388542,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 529933032,
+        "heap_sys": 578093056,
+        "maxrss_raw": 678199296,
+        "num_gc": 4,
+        "total_alloc": 722226856
+      },
+      "after-close-gc": {
+        "heap_alloc": 322936,
+        "heap_sys": 578125824,
+        "maxrss_raw": 678199296,
+        "num_gc": 5,
+        "total_alloc": 722228872
+      },
+      "after-seed": {
+        "heap_alloc": 318846992,
+        "heap_sys": 326107136,
+        "maxrss_raw": 297107456,
+        "num_gc": 3,
+        "total_alloc": 362999872
+      },
+      "after-snapshot": {
+        "heap_alloc": 318965576,
+        "heap_sys": 326500352,
+        "maxrss_raw": 428163072,
+        "num_gc": 3,
+        "total_alloc": 363118456
+      },
+      "after-start": {
+        "heap_alloc": 157975240,
+        "heap_sys": 171311104,
+        "maxrss_raw": 115949568,
+        "num_gc": 2,
+        "total_alloc": 158125944
+      },
+      "first-closed": {
+        "heap_alloc": 350353960,
+        "heap_sys": 443940864,
+        "maxrss_raw": 541769728,
+        "num_gc": 4,
+        "total_alloc": 542647784
+      },
+      "first-started": {
+        "heap_alloc": 332078264,
+        "heap_sys": 343048192,
+        "maxrss_raw": 429113344,
+        "num_gc": 3,
+        "total_alloc": 376231144
+      },
+      "second-closed": {
+        "heap_alloc": 529929704,
+        "heap_sys": 578125824,
+        "maxrss_raw": 678199296,
+        "num_gc": 4,
+        "total_alloc": 722223528
+      },
+      "second-started": {
+        "heap_alloc": 363448336,
+        "heap_sys": 443711488,
+        "maxrss_raw": 541769728,
+        "num_gc": 4,
+        "total_alloc": 555742160
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "second-closed-storage": {
+      "C-CoW/allocated": 332562536,
+      "C-CoW/copied": 332562536,
+      "C-growth/allocated": 300040587,
+      "C-growth/copied": 88983591,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "second-started-storage": {
+      "C-CoW/allocated": 166281268,
+      "C-CoW/copied": 166281268,
+      "C-growth/allocated": 300037515,
+      "C-growth/copied": 88982567,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000583,
+      "first/close": 10.7125,
+      "first/connect": 1.088041,
+      "first/crud": 26.75175,
+      "first/disconnect": 5.516,
+      "first/startup": 51.540375,
+      "second/close": 9.902833,
+      "second/connect": 1.194,
+      "second/crud": 33.117833,
+      "second/disconnect": 6.289,
+      "second/startup": 54.526417,
+      "setup/migrate-seed": 734.202042,
+      "setup/snapshot": 234.860125,
+      "setup/start": 49.285459
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1219.01125
+  },
+  {
+    "label": "n10000-r0-D",
+    "after-close-storage": {
+      "D/allocated": 36143104,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "after-seed-storage": {
+      "D/allocated": 30752768,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "D/allocated": 30801920,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-start-storage": {
+      "D/allocated": 1949696,
+      "D/copied": 0,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "D/allocated": 33472512,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "first-started-storage": {
+      "D/allocated": 31981568,
+      "D/copied": 0,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285321,
+      "owner_verify_ns": 72515791,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28639232,
+      "source_hash_metadata_ns": 72628541,
+      "target_verify_ns": 71644875
+    },
+    "mode": "D",
+    "post_close_forced_gc_ms": 1.022042,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 45113968,
+        "heap_sys": 53805056,
+        "maxrss_raw": 173572096,
+        "num_gc": 11,
+        "total_alloc": 128056152
+      },
+      "after-close-gc": {
+        "heap_alloc": 317040,
+        "heap_sys": 53837824,
+        "maxrss_raw": 173572096,
+        "num_gc": 12,
+        "total_alloc": 128058008
+      },
+      "after-seed": {
+        "heap_alloc": 36339880,
+        "heap_sys": 53575680,
+        "maxrss_raw": 171671552,
+        "num_gc": 11,
+        "total_alloc": 119282064
+      },
+      "after-snapshot": {
+        "heap_alloc": 37711576,
+        "heap_sys": 53870592,
+        "maxrss_raw": 172556288,
+        "num_gc": 11,
+        "total_alloc": 120653760
+      },
+      "after-start": {
+        "heap_alloc": 2789096,
+        "heap_sys": 11960320,
+        "maxrss_raw": 115654656,
+        "num_gc": 0,
+        "total_alloc": 2789096
+      },
+      "first-closed": {
+        "heap_alloc": 41409624,
+        "heap_sys": 53837824,
+        "maxrss_raw": 172556288,
+        "num_gc": 11,
+        "total_alloc": 124351808
+      },
+      "first-started": {
+        "heap_alloc": 39750952,
+        "heap_sys": 53706752,
+        "maxrss_raw": 172556288,
+        "num_gc": 11,
+        "total_alloc": 122693136
+      },
+      "second-closed": {
+        "heap_alloc": 45110800,
+        "heap_sys": 53805056,
+        "maxrss_raw": 173572096,
+        "num_gc": 11,
+        "total_alloc": 128052984
+      },
+      "second-started": {
+        "heap_alloc": 43495208,
+        "heap_sys": 53673984,
+        "maxrss_raw": 172556288,
+        "num_gc": 11,
+        "total_alloc": 126437392
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "second-closed-storage": {
+      "D/allocated": 36143104,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "second-started-storage": {
+      "D/allocated": 34717696,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000459,
+      "first/close": 2.834291,
+      "first/connect": 0.985666,
+      "first/crud": 16.442375,
+      "first/disconnect": 6.169916,
+      "first/startup": 51.178916,
+      "second/close": 2.665125,
+      "second/connect": 1.1005,
+      "second/crud": 24.430958,
+      "second/disconnect": 6.264792,
+      "second/startup": 52.686666,
+      "setup/migrate-seed": 725.982084,
+      "setup/snapshot": 219.734625,
+      "setup/start": 46.399458
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1156.89175
+  },
+  {
+    "label": "n10000-r1-C",
+    "after-close-storage": {
+      "C-CoW/allocated": 332562536,
+      "C-CoW/copied": 332562536,
+      "C-growth/allocated": 300040587,
+      "C-growth/copied": 88983591,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "after-seed-storage": {
+      "C-growth/allocated": 274851720,
+      "C-growth/copied": 88973351,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "C-growth/allocated": 274868601,
+      "C-growth/copied": 88981543,
+      "copies": []
+    },
+    "after-start-storage": {
+      "C-growth/allocated": 157294761,
+      "C-growth/copied": 30,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "C-CoW/allocated": 166281268,
+      "C-CoW/copied": 166281268,
+      "C-growth/allocated": 287454594,
+      "C-growth/copied": 88982567,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "first-started-storage": {
+      "C-growth/allocated": 287451522,
+      "C-growth/copied": 88981543,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285322,
+      "owner_verify_ns": 76749750,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_file_capacity_bytes": 170772562,
+      "source_hash_metadata_ns": 82366042,
+      "target_verify_ns": 74562750
+    },
+    "mode": "C",
+    "post_close_forced_gc_ms": 0.370041,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 529918392,
+        "heap_sys": 615874560,
+        "maxrss_raw": 709935104,
+        "num_gc": 4,
+        "total_alloc": 722251800
+      },
+      "after-close-gc": {
+        "heap_alloc": 312544,
+        "heap_sys": 615907328,
+        "maxrss_raw": 709935104,
+        "num_gc": 5,
+        "total_alloc": 722253816
+      },
+      "after-seed": {
+        "heap_alloc": 318881464,
+        "heap_sys": 330334208,
+        "maxrss_raw": 297287680,
+        "num_gc": 3,
+        "total_alloc": 363037120
+      },
+      "after-snapshot": {
+        "heap_alloc": 318999728,
+        "heap_sys": 330694656,
+        "maxrss_raw": 428310528,
+        "num_gc": 3,
+        "total_alloc": 363155384
+      },
+      "after-start": {
+        "heap_alloc": 157977768,
+        "heap_sys": 171311104,
+        "maxrss_raw": 116097024,
+        "num_gc": 2,
+        "total_alloc": 158128440
+      },
+      "first-closed": {
+        "heap_alloc": 350347368,
+        "heap_sys": 443973632,
+        "maxrss_raw": 541720576,
+        "num_gc": 4,
+        "total_alloc": 542680776
+      },
+      "first-started": {
+        "heap_alloc": 332109720,
+        "heap_sys": 343080960,
+        "maxrss_raw": 429506560,
+        "num_gc": 3,
+        "total_alloc": 376265376
+      },
+      "second-closed": {
+        "heap_alloc": 529915064,
+        "heap_sys": 615907328,
+        "maxrss_raw": 709935104,
+        "num_gc": 4,
+        "total_alloc": 722248472
+      },
+      "second-started": {
+        "heap_alloc": 363452792,
+        "heap_sys": 443777024,
+        "maxrss_raw": 542048256,
+        "num_gc": 4,
+        "total_alloc": 555786200
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "second-closed-storage": {
+      "C-CoW/allocated": 332562536,
+      "C-CoW/copied": 332562536,
+      "C-growth/allocated": 300040587,
+      "C-growth/copied": 88983591,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "second-started-storage": {
+      "C-CoW/allocated": 166281268,
+      "C-CoW/copied": 166281268,
+      "C-growth/allocated": 300037515,
+      "C-growth/copied": 88982567,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.00075,
+      "first/close": 10.368541,
+      "first/connect": 0.914375,
+      "first/crud": 27.494625,
+      "first/disconnect": 6.257875,
+      "first/startup": 56.769041,
+      "second/close": 10.344417,
+      "second/connect": 0.915042,
+      "second/crud": 32.256333,
+      "second/disconnect": 6.015792,
+      "second/startup": 52.467959,
+      "setup/migrate-seed": 737.725291,
+      "setup/snapshot": 237.286708,
+      "setup/start": 48.982375
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1227.818375
+  },
+  {
+    "label": "n10000-r1-D",
+    "after-close-storage": {
+      "D/allocated": 36143104,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "after-seed-storage": {
+      "D/allocated": 30736384,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "D/allocated": 30801920,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-start-storage": {
+      "D/allocated": 1916928,
+      "D/copied": 0,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "D/allocated": 33472512,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "first-started-storage": {
+      "D/allocated": 32292864,
+      "D/copied": 0,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285321,
+      "owner_verify_ns": 73173541,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28639232,
+      "source_hash_metadata_ns": 71958708,
+      "target_verify_ns": 76044333
+    },
+    "mode": "D",
+    "post_close_forced_gc_ms": 1.109833,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 45671384,
+        "heap_sys": 53739520,
+        "maxrss_raw": 172736512,
+        "num_gc": 11,
+        "total_alloc": 127924080
+      },
+      "after-close-gc": {
+        "heap_alloc": 311584,
+        "heap_sys": 53772288,
+        "maxrss_raw": 172736512,
+        "num_gc": 12,
+        "total_alloc": 127925936
+      },
+      "after-seed": {
+        "heap_alloc": 36888536,
+        "heap_sys": 53510144,
+        "maxrss_raw": 168574976,
+        "num_gc": 11,
+        "total_alloc": 119141232
+      },
+      "after-snapshot": {
+        "heap_alloc": 38276040,
+        "heap_sys": 53805056,
+        "maxrss_raw": 169443328,
+        "num_gc": 11,
+        "total_alloc": 120528736
+      },
+      "after-start": {
+        "heap_alloc": 2748296,
+        "heap_sys": 12025856,
+        "maxrss_raw": 115671040,
+        "num_gc": 0,
+        "total_alloc": 2748296
+      },
+      "first-closed": {
+        "heap_alloc": 41955896,
+        "heap_sys": 53772288,
+        "maxrss_raw": 169443328,
+        "num_gc": 11,
+        "total_alloc": 124208592
+      },
+      "first-started": {
+        "heap_alloc": 40632160,
+        "heap_sys": 53608448,
+        "maxrss_raw": 169443328,
+        "num_gc": 11,
+        "total_alloc": 122884856
+      },
+      "second-closed": {
+        "heap_alloc": 45668216,
+        "heap_sys": 53739520,
+        "maxrss_raw": 172736512,
+        "num_gc": 11,
+        "total_alloc": 127920912
+      },
+      "second-started": {
+        "heap_alloc": 44391248,
+        "heap_sys": 53575680,
+        "maxrss_raw": 170557440,
+        "num_gc": 11,
+        "total_alloc": 126643944
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "second-closed-storage": {
+      "D/allocated": 36143104,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "second-started-storage": {
+      "D/allocated": 35045376,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.00075,
+      "first/close": 2.650167,
+      "first/connect": 0.967209,
+      "first/crud": 17.35125,
+      "first/disconnect": 5.516958,
+      "first/startup": 50.260083,
+      "second/close": 2.562,
+      "second/connect": 0.82775,
+      "second/crud": 22.460167,
+      "second/disconnect": 6.310792,
+      "second/startup": 51.558833,
+      "setup/migrate-seed": 724.5595,
+      "setup/snapshot": 223.848583,
+      "setup/start": 47.794083
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1156.688167
+  },
+  {
+    "label": "n10000-r2-C",
+    "after-close-storage": {
+      "C-CoW/allocated": 332562536,
+      "C-CoW/copied": 332562536,
+      "C-growth/allocated": 300040586,
+      "C-growth/copied": 88983591,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "after-seed-storage": {
+      "C-growth/allocated": 274851720,
+      "C-growth/copied": 88973351,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "C-growth/allocated": 274868600,
+      "C-growth/copied": 88981543,
+      "copies": []
+    },
+    "after-start-storage": {
+      "C-growth/allocated": 157294761,
+      "C-growth/copied": 30,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "C-CoW/allocated": 166281268,
+      "C-CoW/copied": 166281268,
+      "C-growth/allocated": 287454593,
+      "C-growth/copied": 88982567,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "first-started-storage": {
+      "C-growth/allocated": 287451521,
+      "C-growth/copied": 88981543,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285321,
+      "owner_verify_ns": 74158041,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_file_capacity_bytes": 170772561,
+      "source_hash_metadata_ns": 82277459,
+      "target_verify_ns": 75149375
+    },
+    "mode": "C",
+    "post_close_forced_gc_ms": 0.369375,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 529938712,
+        "heap_sys": 611745792,
+        "maxrss_raw": 708722688,
+        "num_gc": 4,
+        "total_alloc": 722224840
+      },
+      "after-close-gc": {
+        "heap_alloc": 311048,
+        "heap_sys": 611778560,
+        "maxrss_raw": 708722688,
+        "num_gc": 5,
+        "total_alloc": 722226856
+      },
+      "after-seed": {
+        "heap_alloc": 318821520,
+        "heap_sys": 326205440,
+        "maxrss_raw": 296681472,
+        "num_gc": 3,
+        "total_alloc": 362973184
+      },
+      "after-snapshot": {
+        "heap_alloc": 318939736,
+        "heap_sys": 326565888,
+        "maxrss_raw": 427753472,
+        "num_gc": 3,
+        "total_alloc": 363091400
+      },
+      "after-start": {
+        "heap_alloc": 157976872,
+        "heap_sys": 171278336,
+        "maxrss_raw": 116375552,
+        "num_gc": 2,
+        "total_alloc": 158127560
+      },
+      "first-closed": {
+        "heap_alloc": 350357544,
+        "heap_sys": 439812096,
+        "maxrss_raw": 540884992,
+        "num_gc": 4,
+        "total_alloc": 542643672
+      },
+      "first-started": {
+        "heap_alloc": 332055272,
+        "heap_sys": 338984960,
+        "maxrss_raw": 428720128,
+        "num_gc": 3,
+        "total_alloc": 376206936
+      },
+      "second-closed": {
+        "heap_alloc": 529935384,
+        "heap_sys": 611778560,
+        "maxrss_raw": 708722688,
+        "num_gc": 4,
+        "total_alloc": 722221512
+      },
+      "second-started": {
+        "heap_alloc": 363451512,
+        "heap_sys": 439615488,
+        "maxrss_raw": 540901376,
+        "num_gc": 4,
+        "total_alloc": 555737640
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "second-closed-storage": {
+      "C-CoW/allocated": 332562536,
+      "C-CoW/copied": 332562536,
+      "C-growth/allocated": 300040586,
+      "C-growth/copied": 88983591,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "second/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "second/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "second/close"
+        }
+      ]
+    },
+    "second-started-storage": {
+      "C-CoW/allocated": 166281268,
+      "C-CoW/copied": 166281268,
+      "C-growth/allocated": 300037514,
+      "C-growth/copied": 88982567,
+      "copies": [
+        {
+          "allocated": 100663296,
+          "copied": 100663296,
+          "name": "mariadb/data/ib_logfile0",
+          "phase": "first/crud"
+        },
+        {
+          "allocated": 16384,
+          "copied": 16384,
+          "name": "mariadb/data/aria_log.00000001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 52,
+          "copied": 52,
+          "name": "mariadb/data/aria_log_control",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo001",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 12582912,
+          "copied": 12582912,
+          "name": "mariadb/data/ibdata1",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo002",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 10485760,
+          "copied": 10485760,
+          "name": "mariadb/data/undo003",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 20971520,
+          "copied": 20971520,
+          "name": "mariadb/data/test/users.ibd",
+          "phase": "first/close"
+        },
+        {
+          "allocated": 589824,
+          "copied": 589824,
+          "name": "mariadb/data/test/orders.ibd",
+          "phase": "first/close"
+        }
+      ]
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000375,
+      "first/close": 10.77575,
+      "first/connect": 0.932333,
+      "first/crud": 26.178875,
+      "first/disconnect": 6.311083,
+      "first/startup": 55.96475,
+      "second/close": 9.606875,
+      "second/connect": 1.12975,
+      "second/crud": 32.3115,
+      "second/disconnect": 6.2575,
+      "second/startup": 58.399542,
+      "setup/migrate-seed": 732.950833,
+      "setup/snapshot": 234.729334,
+      "setup/start": 49.993583
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1225.562584
+  },
+  {
+    "label": "n10000-r2-D",
+    "after-close-storage": {
+      "D/allocated": 36143104,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "after-seed-storage": {
+      "D/allocated": 30736384,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-snapshot-storage": {
+      "D/allocated": 30801920,
+      "D/copied": 0,
+      "copies": []
+    },
+    "after-start-storage": {
+      "D/allocated": 1966080,
+      "D/copied": 0,
+      "copies": []
+    },
+    "checks": [
+      "version",
+      "seed",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "cleanup"
+    ],
+    "first-closed-storage": {
+      "D/allocated": 33472512,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "first-started-storage": {
+      "D/allocated": 32210944,
+      "D/copied": 0,
+      "copies": []
+    },
+    "guest": "12.3.3",
+    "heap_stats": {
+      "logical_bytes": 166285322,
+      "owner_verify_ns": 75060584,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28639232,
+      "source_hash_metadata_ns": 71572500,
+      "target_verify_ns": 71348417
+    },
+    "mode": "D",
+    "post_close_forced_gc_ms": 1.124792,
+    "resources": {
+      "after-close": {
+        "heap_alloc": 49278768,
+        "heap_sys": 58032128,
+        "maxrss_raw": 176029696,
+        "num_gc": 11,
+        "total_alloc": 127918248
+      },
+      "after-close-gc": {
+        "heap_alloc": 309192,
+        "heap_sys": 58064896,
+        "maxrss_raw": 176029696,
+        "num_gc": 12,
+        "total_alloc": 127920104
+      },
+      "after-seed": {
+        "heap_alloc": 40478416,
+        "heap_sys": 49381376,
+        "maxrss_raw": 168017920,
+        "num_gc": 11,
+        "total_alloc": 119117896
+      },
+      "after-snapshot": {
+        "heap_alloc": 41866424,
+        "heap_sys": 49643520,
+        "maxrss_raw": 169000960,
+        "num_gc": 11,
+        "total_alloc": 120505904
+      },
+      "after-start": {
+        "heap_alloc": 2816024,
+        "heap_sys": 11927552,
+        "maxrss_raw": 115752960,
+        "num_gc": 0,
+        "total_alloc": 2816024
+      },
+      "first-closed": {
+        "heap_alloc": 45564888,
+        "heap_sys": 53837824,
+        "maxrss_raw": 171491328,
+        "num_gc": 11,
+        "total_alloc": 124204368
+      },
+      "first-started": {
+        "heap_alloc": 44138992,
+        "heap_sys": 53641216,
+        "maxrss_raw": 169115648,
+        "num_gc": 11,
+        "total_alloc": 122778472
+      },
+      "second-closed": {
+        "heap_alloc": 49275600,
+        "heap_sys": 58032128,
+        "maxrss_raw": 176029696,
+        "num_gc": 11,
+        "total_alloc": 127915080
+      },
+      "second-started": {
+        "heap_alloc": 48112224,
+        "heap_sys": 57835520,
+        "maxrss_raw": 173572096,
+        "num_gc": 11,
+        "total_alloc": 126751704
+      }
+    },
+    "resources_enabled": true,
+    "rows": 10000,
+    "second-closed-storage": {
+      "D/allocated": 36143104,
+      "D/copied": 98408,
+      "copies": []
+    },
+    "second-started-storage": {
+      "D/allocated": 35160064,
+      "D/copied": 49204,
+      "copies": []
+    },
+    "status": "PASS",
+    "times_ms": {
+      "baseline/close": 0.000625,
+      "first/close": 2.651125,
+      "first/connect": 0.926083,
+      "first/crud": 16.279583,
+      "first/disconnect": 6.250917,
+      "first/startup": 52.313125,
+      "second/close": 2.510708,
+      "second/connect": 0.876959,
+      "second/crud": 22.493917,
+      "second/disconnect": 6.280583,
+      "second/startup": 51.185,
+      "setup/migrate-seed": 721.269875,
+      "setup/snapshot": 221.014416,
+      "setup/start": 49.506584
+    },
+    "tmp_after_close": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "tmp_after_snapshot": {
+      "bytes": 0,
+      "dirs": 0,
+      "files": 0
+    },
+    "whole_ms": 1153.572169
+  }
+]

@@ -1,0 +1,36 @@
+=== RUN   TestCFilePrimitive
+--- PASS: TestCFilePrimitive (0.00s)
+=== RUN   TestCFileFS
+--- PASS: TestCFileFS (0.00s)
+=== RUN   TestCFileDeterministicReference
+--- PASS: TestCFileDeterministicReference (0.04s)
+=== RUN   TestCFileConcurrentAndAllocate
+--- PASS: TestCFileConcurrentAndAllocate (0.00s)
+=== RUN   TestDIntegrationIdentity
+--- PASS: TestDIntegrationIdentity (0.00s)
+=== RUN   TestDIntegrationMetadataAndGrowth
+--- PASS: TestDIntegrationMetadataAndGrowth (0.00s)
+=== RUN   TestDIntegrationSiblingLifetime
+--- PASS: TestDIntegrationSiblingLifetime (0.00s)
+=== RUN   TestDIntegrationConcurrentHandles
+--- PASS: TestDIntegrationConcurrentHandles (0.00s)
+=== RUN   TestHeapFreezeIsolationAndDerived
+--- PASS: TestHeapFreezeIsolationAndDerived (0.00s)
+=== RUN   TestHeapRejectCorruption
+=== RUN   TestHeapRejectCorruption/target_corrupt
+=== RUN   TestHeapRejectCorruption/owner_corrupt
+--- PASS: TestHeapRejectCorruption (0.00s)
+    --- PASS: TestHeapRejectCorruption/target_corrupt (0.00s)
+    --- PASS: TestHeapRejectCorruption/owner_corrupt (0.00s)
+=== RUN   TestHeapC
+=== RUN   TestHeapC/isolation
+=== RUN   TestHeapC/corrupt
+=== RUN   TestHeapC/corrupt/target_corrupt
+=== RUN   TestHeapC/corrupt/owner_corrupt
+--- PASS: TestHeapC (0.00s)
+    --- PASS: TestHeapC/isolation (0.00s)
+    --- PASS: TestHeapC/corrupt (0.00s)
+        --- PASS: TestHeapC/corrupt/target_corrupt (0.00s)
+        --- PASS: TestHeapC/corrupt/owner_corrupt (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.381s

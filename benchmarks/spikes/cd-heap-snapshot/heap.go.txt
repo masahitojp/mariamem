@@ -1,0 +1,33 @@
+// Experiment-only immutable heap baseline. No FD or pathname in its payload.
+package prepared
+import("crypto/sha256";"encoding/hex";"errors";"io";"path";"sort";"sync")
+const HeapBlockSize=16384
+type HeapBlock struct{Data []byte; Valid int}
+type HeapFile struct{File bool; Data []byte; Size int64; Blocks []HeapBlock; Hash string}
+type Heap struct{Build string; Dirs []string; Files map[string]HeapFile; Stats map[string]int64}
+func(h *Heap) Check(build string)error{
+ if h==nil||h.Build!=build{return errors.New("heap guest identity")};dirs:=map[string]bool{}
+ valid:=func(n string)bool{return n!=""&&!path.IsAbs(n)&&path.Clean(n)==n&&n!=".."&&!(len(n)>3&&n[:3]=="../")}
+ for _,n:=range h.Dirs{if !valid(n)||dirs[n]{return errors.New("heap directory")};dirs[n]=true};if !dirs["."]{return errors.New("heap root")}
+ for _,n:=range h.Dirs{if n!="."&&!dirs[path.Dir(n)]{return errors.New("heap directory parent")}}
+ for n,f:=range h.Files{if !valid(n)||dirs[n]||!dirs[path.Dir(n)]||f.Size<0||f.Size>1<<40{return errors.New("heap file layout")};if f.File {if int64(len(f.Data))!=f.Size||len(f.Blocks)!=0{return errors.New("heap file range")}} else if f.Data!=nil||int64(len(f.Blocks))!=(f.Size+HeapBlockSize-1)/HeapBlockSize{return errors.New("heap block layout")};b,e:=hex.DecodeString(f.Hash);if e!=nil||len(b)!=32{return errors.New("heap expected hash")};for _,b:=range f.Blocks{if b.Valid<0||b.Valid>HeapBlockSize||(len(b.Data)!=HeapBlockSize&&!(b.Data==nil&&b.Valid==0)){return errors.New("heap block range")}}};return nil
+}
+func(f HeapFile) ReadAt(dst []byte,off int64)(int,error){
+ if off<0{return 0,errors.New("negative offset")};if off>=f.Size{return 0,io.EOF};count:=min(int64(len(dst)),f.Size-off);if f.File {copy(dst,f.Data[off:off+count]);if count<int64(len(dst)){return int(count),io.EOF};return int(count),nil};done:=int64(0)
+ for done<count{at:=off+done;r:=f.Blocks[at/HeapBlockSize];in:=int(at%HeapBlockSize);n:=min(count-done,int64(HeapBlockSize-in));out:=dst[done:done+n];clear(out);if in<r.Valid{copy(out,r.Data[in:min(r.Valid,in+int(n))])};done+=n};if done<int64(len(dst)){return int(done),io.EOF};return int(done),nil
+}
+func(h *Heap) Verify(build string)error{
+ if e:=h.Check(build);e!=nil{return e};buf:=make([]byte,HeapBlockSize)
+ for _,f:=range h.Files{sum:=sha256.New();for off:=int64(0);off<f.Size;off+=HeapBlockSize{n:=min(int64(len(buf)),f.Size-off);if _,e:=f.ReadAt(buf[:n],off);e!=nil{return e};sum.Write(buf[:n])};if hex.EncodeToString(sum.Sum(nil))!=f.Hash{return errors.New("heap content mismatch")}};return nil
+}
+func(h *Heap) SortedFiles()[]string{a:=[]string{};for n:=range h.Files{a=append(a,n)};sort.Strings(a);return a}
+// Only the source server owns registration. Guest completion synchronizes Result.
+// No global map retains a completed baseline after the deferred unregister.
+type HeapRequest struct{Result *Heap; Audit bool}
+var heapRequests=struct{sync.Mutex;m map[string]*HeapRequest}{m:map[string]*HeapRequest{}}
+func RegisterHeap(key string,audit bool)(*HeapRequest,func()){
+ heapRequests.Lock();defer heapRequests.Unlock();if _,ok:=heapRequests.m[key];ok{panic("duplicate heap request")};r:=&HeapRequest{Audit:audit};heapRequests.m[key]=r
+ return r,func(){heapRequests.Lock();delete(heapRequests.m,key);heapRequests.Unlock()}
+}
+func FindHeap(key string)*HeapRequest{heapRequests.Lock();defer heapRequests.Unlock();return heapRequests.m[key]}
+func HeapRequests()int{heapRequests.Lock();defer heapRequests.Unlock();return len(heapRequests.m)}
