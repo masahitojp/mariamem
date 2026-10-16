@@ -12,8 +12,9 @@ independence, reaped hosts and empty owned scratch. Small/medium reuse the earli
 Python spike's two-table seed shape; the large extension is **not** the historical
 one-table Go benchmark and its numbers must not be pooled with that benchmark.
 
-Resource runs additionally sample the sum of live descendant-host RSS every 25ms
-using `ps`. This is an observed sampled peak, not an exact high-water mark or Go
+Resource runs additionally sample the sum of live descendant-host RSS using
+`ps`, then wait 25ms. The actual interval also includes `ps` execution time.
+This is an observed sampled peak, not an exact high-water mark or Go
 reachable heap measurement. It can miss short peaks. Their wall times retain
 probe overhead and stay separate from ordinary latency. `RUSAGE_CHILDREN` maxrss
 is also retained in native OS units; it is not a simultaneous-host total.

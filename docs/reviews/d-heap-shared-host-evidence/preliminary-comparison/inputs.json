@@ -1,0 +1,29 @@
+{
+  "sources": {
+    "baseline": {
+      "identity": {
+        "object_sha": "a8137b8b444f86068d3128a291e3a848adfdfd56",
+        "object_type": "commit",
+        "source_commit": "a8137b8b444f86068d3128a291e3a848adfdfd56"
+      },
+      "host_sha256": "d60ac6cdef3dd671ad2b7755a0a6d96403edf81b41c53d671d10414e8f787cb7",
+      "build_info": "<task-workspace>/temp/baseline-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1-0.20261014074712-a8137b8b444f\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=a8137b8b444f86068d3128a291e3a848adfdfd56\n\tbuild\tvcs.time=2026-10-14T07:47:12Z\n\tbuild\tvcs.modified=false\n"
+    },
+    "candidate": {
+      "identity": {
+        "object_sha": "54fe1ee127e21d227368af6264ea69771648ad7a",
+        "object_type": "commit",
+        "source_commit": "54fe1ee127e21d227368af6264ea69771648ad7a"
+      },
+      "host_sha256": "7705bbbbe2a56ee69411e1d0dfc945b17a0ab3a10d718bc27c37bfc63b341778",
+      "build_info": "<candidate-source>/build/mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1-0.20261016121015-54fe1ee127e2\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=54fe1ee127e21d227368af6264ea69771648ad7a\n\tbuild\tvcs.time=2026-10-16T12:10:15Z\n\tbuild\tvcs.modified=false\n"
+    }
+  },
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "harness": {
+    "workflow.py": "e4dd55221d6cfaee7710fa6d83812bb6018d4307e9f2ba3a7b63df843d6cc431",
+    "campaign.py": "125cd7fb005c0b4bde566e636eaf99edaac39dab13411f3866c11688238bc2fa"
+  }
+}

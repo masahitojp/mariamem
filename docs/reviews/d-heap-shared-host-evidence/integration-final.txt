@@ -1,0 +1,86 @@
++ go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	2.995s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	3.709s
+ok  	github.com/masahitojp/mariamem/internal/guest	2.607s
+ok  	github.com/masahitojp/mariamem/internal/host	1.349s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.305s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.564s
+ok  	github.com/masahitojp/mariamem/internal/control	2.600s
+ok  	github.com/masahitojp/mariamem/internal/prepared	1.310s
+ok  	github.com/masahitojp/mariamem	2.617s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	10.416s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	3.075s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.448s
++ go build -p 1 -o <task-workspace>/temp/tmp/mariamem-integration-jgrxbrgo/mariamem-host ./cmd/mariamem-host
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ <task-workspace>/temp/venv/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py -q
+...............F                                                         [100%]
+=================================== FAILURES ===================================
+____________ test_wait_on_one_database_does_not_delay_sibling_close ____________
+
+    def test_wait_on_one_database_does_not_delay_sibling_close():
+        with prepared() as baseline:
+            with baseline.fork() as waiting, baseline.fork() as sibling:
+>               with pymysql.connect(**waiting.connection_info()) as connection, ThreadPoolExecutor(2) as pool:
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_owned_snapshot.py:211:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+../temp/venv/lib/python3.14/site-packages/pymysql/connections.py:380: in __exit__
+    self.close()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <pymysql.connections.Connection object at 0x1072cf380>
+
+    def close(self):
+        """
+        Send the quit message and close the socket.
+
+        See `Connection.close() <https://www.python.org/dev/peps/pep-0249/#Connection.close>`_
+        in the specification.
+
+        :raise Error: If the connection is already closed.
+        """
+        if self._closed:
+>           raise err.Error("Already closed")
+E           pymysql.err.Error: Already closed
+
+../temp/venv/lib/python3.14/site-packages/pymysql/connections.py:432: Error
+=========================== short test summary info ============================
+FAILED tests/test_owned_snapshot.py::test_wait_on_one_database_does_not_delay_sibling_close
+1 failed, 15 passed in 31.72s
+Traceback (most recent call last):
+  File "<candidate-worktree>/scripts/verify.py", line 150, in <module>
+    main()
+    ~~~~^^
+  File "<candidate-worktree>/scripts/verify.py", line 131, in main
+    integration()
+    ~~~~~~~~~~~^^
+  File "<candidate-worktree>/scripts/verify.py", line 107, in integration
+    run([sys.executable, "-m", "pytest", timeout_test,
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         "tests/test_python_multiclient.py", "tests/test_python_wire.py",
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         "tests/test_owned_snapshot.py", "-q"], env=env)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<candidate-worktree>/scripts/verify.py", line 34, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<candidate-worktree>/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.8_2/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<task-workspace>/temp/venv/bin/python', '-m', 'pytest', 'tests/test_python_timeout.py::test_normal_close_is_idempotent', 'tests/test_python_multiclient.py', 'tests/test_python_wire.py', 'tests/test_owned_snapshot.py', '-q']' returned non-zero exit status 1.

@@ -1,0 +1,48 @@
+{
+  "source_commit": "a6df1c8a396a7b175b634c51295acda724c57444",
+  "source_object_type": "commit",
+  "result": "LOCAL_PASS_NATIVE_UBUNTU_PENDING",
+  "checks": {
+    "canonical_check": "PASS: Go test/vet, Python 610 passed + 23 skipped + 12 subtests",
+    "integration": "PASS: Go runtime/API/race-scoped packages, Python 17 passed + 33 Snapshot checks",
+    "independent_generation": "PASS",
+    "installed_wheel": "PASS: installed bytes match wheel",
+    "installed_consumer": "PASS: 9 cases, 2 workers",
+    "guides": "PASS: 3 cases; external Go source contents verified",
+    "fixture_failure_cleanup": "PASS: expected assertion failure and fixture setup error; all final hosts reaped",
+    "sqlalchemy": "PASS: start 11 + fork 11",
+    "comparison": "PASS: all 54 final cases",
+    "ubuntu": "PENDING: native CI handoff",
+    "release_qualification": "NOT RUN"
+  },
+  "history": [
+    {
+      "result": "REJECTED",
+      "boundary": "old CI guest before build",
+      "evidence": "rejected-old-guest.json"
+    },
+    {
+      "result": "FAIL_THEN_FIXED",
+      "boundary": "startup diagnostics",
+      "evidence": "check.txt",
+      "fix": "retain code/stage/cause/exit status/stderr; update protocol expectation to 2"
+    },
+    {
+      "result": "FAIL_THEN_FIXED",
+      "boundary": "SQL wait fixture double close",
+      "evidence": "integration-final.txt",
+      "fix": "close PyMySQL connection exactly once; assertions unchanged"
+    },
+    {
+      "result": "PASS_SUPERSEDED",
+      "boundary": "preliminary complete campaign",
+      "source_commit": "54fe1ee127e21d227368af6264ea69771648ad7a",
+      "reason": "startup error closed-flag correction followed; final exact-input campaign rerun"
+    },
+    {
+      "result": "PASS",
+      "boundary": "final exact-input campaign",
+      "source_commit": "a6df1c8a396a7b175b634c51295acda724c57444"
+    }
+  ]
+}

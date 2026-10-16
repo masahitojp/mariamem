@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<candidate-worktree>/scripts/check_public.py", line 78, in <module>
+    result = check()
+  File "<candidate-worktree>/scripts/check_public.py", line 57, in check
+    paths = public_files(root)
+  File "<candidate-worktree>/scripts/check_public.py", line 49, in public_files
+    raise ValueError(f"generated/binary file in publication set: {rel}")
+ValueError: generated/binary file in publication set: docs/reviews/v050-startup-tail-source-fix-evidence/ubuntu/measurement.log

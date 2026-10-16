@@ -1,0 +1,157 @@
++ <task-workspace>/temp/venv/bin/python scripts/check_version.py
+Release version: Python 0.5.0; Git/Go v0.5.0
++ <task-workspace>/temp/venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ <task-workspace>/temp/venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+......................                                                   [100%]
+22 passed in 0.83s
++ go test -p 1 ./...
+ok  	github.com/masahitojp/mariamem	0.840s
+?   	github.com/masahitojp/mariamem/benchmarks/defaultsanity	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/goisolation	0.280s
+?   	github.com/masahitojp/mariamem/benchmarks/memorylifetime	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/ownedprepared	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotallocation	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/artifacts	(cached)
+ok  	github.com/masahitojp/mariamem/internal/control	(cached)
+?   	github.com/masahitojp/mariamem/internal/diagnostic	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.564s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	(cached)
+ok  	github.com/masahitojp/mariamem/internal/host	0.288s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	(cached)
+ok  	github.com/masahitojp/mariamem/internal/prepared	(cached)
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	0.515s
+ok  	github.com/masahitojp/mariamem/internal/timing	0.303s
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
++ go vet -p 1 -vettool=<candidate-worktree>/scripts/vet_generated.py ./...
++ <task-workspace>/temp/venv/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py -q
+........................................................................ [ 11%]
+.....s.................................................................. [ 22%]
+........................................................................ [ 34%]
+.................................................................................................................................... [ 55%]
+sssss........................................................FFF........ [ 66%]
+..Fsssssssssss.......................................................... [ 78%]
+........................................................................ [ 89%]
+............................................s..sss.............          [100%]
+=================================== FAILURES ===================================
+___________________ test_host_exec_failure_retains_os_cause ____________________
+
+tmp_path = PosixPath('<task-workspace>/temp/tmp/pytest-of-masahito/pytest-2/test_host_exec_failure_retains0')
+
+    def test_host_exec_failure_retains_os_cause(tmp_path):
+        options = host_options(tmp_path, "")
+        Path(options["host_binary"]).write_bytes(b"not an executable format")
+        with pytest.raises(mariamem.HostError) as failure:
+            mariamem.start(**options)
+        assert failure.value.code == "host_start"
+        assert failure.value.stage == "host_launch"
+        assert isinstance(failure.value.__cause__, OSError)
+>       assert "matching platform wheel" in str(failure.value)
+E       assert 'matching platform wheel' in "Host launch failed: <task-workspace>/temp/tmp/p...em/build/experiment-work/d-heap-shared-host/temp/tmp/pytest-of-masahito/pytest-2/test_host_exec_failure_retains0/host'"
+E        +  where "Host launch failed: <task-workspace>/temp/tmp/p...em/build/experiment-work/d-heap-shared-host/temp/tmp/pytest-of-masahito/pytest-2/test_host_exec_failure_retains0/host'" = str(HostError("Host launch failed: <task-workspace>/...m/build/experiment-work/d-heap-shared-host/temp/tmp/pytest-of-masahito/pytest-2/test_host_exec_failure_retains0/host'"))
+E        +    where HostError("Host launch failed: <task-workspace>/...m/build/experiment-work/d-heap-shared-host/temp/tmp/pytest-of-masahito/pytest-2/test_host_exec_failure_retains0/host'") = <ExceptionInfo HostError("Host launch failed: <user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/d-he...xperiment-work/d-heap-shared-host/temp/tmp/pytest-of-masahito/pytest-2/test_host_exec_failure_retains0/host'") tblen=4>.value
+
+tests/test_python_diagnostics.py:87: AssertionError
+___________________ test_startup_frame_preserves_guest_stage ___________________
+
+tmp_path = PosixPath('<task-workspace>/temp/tmp/pytest-of-masahito/pytest-2/test_startup_frame_preserves_g0')
+
+    def test_startup_frame_preserves_guest_stage(tmp_path):
+        options = host_options(tmp_path, '''import json
+    print(json.dumps({"event":"error", "error":{"code":"guest_start", "stage":"guest_launch", "message":"generated-Go could not start guest"}}), flush=True)
+    ''')
+        with pytest.raises(mariamem.HostError) as failure:
+            mariamem.start(**options)
+>       assert failure.value.code == "guest_start"
+E       AssertionError: assert 'unusable' == 'guest_start'
+E
+E         - guest_start
+E         + unusable
+
+tests/test_python_diagnostics.py:96: AssertionError
+____________ test_startup_eof_keeps_exit_status_and_bounded_stderr _____________
+
+tmp_path = PosixPath('<task-workspace>/temp/tmp/pytest-of-masahito/pytest-2/test_startup_eof_keeps_exit_st0')
+
+    def test_startup_eof_keeps_exit_status_and_bounded_stderr(tmp_path):
+        options = host_options(tmp_path, '''import sys
+    sys.stderr.write("x" * 5000 + "\\nloader failure\\n")
+    sys.exit(7)
+    ''')
+        with pytest.raises(mariamem.HostError) as failure:
+            mariamem.start(**options)
+>       assert failure.value.code == "host_start"
+E       AssertionError: assert 'unusable' == 'host_start'
+E
+E         - host_start
+E         + unusable
+
+tests/test_python_diagnostics.py:109: AssertionError
+_____________________ test_invalid_host_handshake_recovery _____________________
+
+tmp_path = PosixPath('<task-workspace>/temp/tmp/pytest-of-masahito/pytest-2/test_invalid_host_handshake_re0')
+
+    def test_invalid_host_handshake_recovery(tmp_path):
+        options = host_options(tmp_path, 'import json\nprint(json.dumps({"event":"ready", "protocol":99}), flush=True)\n')
+        with pytest.raises(mariamem.HostError) as failure:
+            mariamem.start(**options)
+        assert failure.value.code == "guest_connection"
+        assert failure.value.stage == "host_control"
+>       assert "expected control protocol 1" in str(failure.value)
+E       AssertionError: assert 'expected control protocol 1' in 'Expected shared host control protocol 2; use a matching host binary'
+E        +  where 'Expected shared host control protocol 2; use a matching host binary' = str(HostError('Expected shared host control protocol 2; use a matching host binary'))
+E        +    where HostError('Expected shared host control protocol 2; use a matching host binary') = <ExceptionInfo HostError('Expected shared host control protocol 2; use a matching host binary') tblen=4>.value
+
+tests/test_python_diagnostics.py:180: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_python_diagnostics.py::test_host_exec_failure_retains_os_cause
+FAILED tests/test_python_diagnostics.py::test_startup_frame_preserves_guest_stage
+FAILED tests/test_python_diagnostics.py::test_startup_eof_keeps_exit_status_and_bounded_stderr
+FAILED tests/test_python_diagnostics.py::test_invalid_host_handshake_recovery
+4 failed, 602 passed, 21 skipped, 12 subtests passed in 45.74s
+Traceback (most recent call last):
+  File "<candidate-worktree>/scripts/verify.py", line 150, in <module>
+    main()
+    ~~~~^^
+  File "<candidate-worktree>/scripts/verify.py", line 129, in main
+    check(args.scope)
+    ~~~~~^^^^^^^^^^^^
+  File "<candidate-worktree>/scripts/verify.py", line 75, in check
+    run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer", "--ignore=tests/historical",
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         *("--ignore=" + path for path in SOURCE_TESTS), "-q"], env=env)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<candidate-worktree>/scripts/verify.py", line 34, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<candidate-worktree>/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.8_2/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<task-workspace>/temp/venv/bin/python', '-m', 'pytest', 'tests', '--ignore=tests/consumer', '--ignore=tests/historical', '--ignore=tests/test_generated_runtime_inventory.py', '--ignore=tests/test_distribution_licenses.py', '--ignore=tests/test_packaging_license_mirrors.py', '-q']' returned non-zero exit status 1.

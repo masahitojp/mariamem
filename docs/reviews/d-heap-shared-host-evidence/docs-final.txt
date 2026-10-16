@@ -1,0 +1,5 @@
++ <user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/d-heap-shared-host/temp/venv/bin/python scripts/check_version.py
+Release version: Python 0.5.0; Git/Go v0.5.0
++ <user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/d-heap-shared-host/temp/venv/bin/python scripts/check_public.py
+Public source check passed: 2569 files
++ git diff --check

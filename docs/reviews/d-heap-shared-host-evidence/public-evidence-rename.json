@@ -1,0 +1,20 @@
+{
+  "reason": "comply with existing extension and local-path guards without weakening guards; original bytes remain in baseline Git history",
+  "files": [
+    {
+      "from": "docs/reviews/v050-startup-tail-source-fix-evidence/ubuntu/measurement.log",
+      "to": "docs/reviews/v050-startup-tail-source-fix-evidence/ubuntu/measurement.txt",
+      "original_sha256": "f3512eaa856d9693256c14ae0c1983b3d8bbdca20cf8480a1dacf6c02ba1cac7",
+      "published_sha256": "f3512eaa856d9693256c14ae0c1983b3d8bbdca20cf8480a1dacf6c02ba1cac7",
+      "transformation": "rename only"
+    },
+    {
+      "from": "docs/reviews/v050-startup-tail-source-fix-evidence/ubuntu/integration.log",
+      "to": "docs/reviews/v050-startup-tail-source-fix-evidence/ubuntu/integration.txt",
+      "original_sha256": "02884465d14582689bfa3d71ed75c3e5ab6e996e4ce5384b57e74faba3bc3b4d",
+      "published_sha256": "c5de42d585c134eea0ca224745bdded140eb0f66238a467b8c08ef67e3f9d5b9",
+      "transformation": "rename and replace CI absolute evidence path with repository-relative path on line 22"
+    }
+  ],
+  "original_source_commit": "a8137b8b444f86068d3128a291e3a848adfdfd56"
+}

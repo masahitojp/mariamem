@@ -1,65 +1,171 @@
-# D heap Snapshot＋Python共有host：実装記録
+# D heap Snapshot＋Python共有host：実装とHuman Review
 
-2026-10-16。`experiment/d-heap-shared-host`。**実装・検証中。採用判断はまだ求めない。**
-Human承認済みの[設計と範囲変更](d-heap-productization-design.md)を実装している。
-main統合・リリース準備は行わない。
+2026-10-16。`experiment/d-heap-shared-host`。main統合・リリース準備は行っていない。
 
-## 対象と差分
+## Human Review
 
-基点はmain `a8137b8b444f86068d3128a291e3a848adfdfd56`。
-過去のD/Python試作は設計上の根拠として参照し、実験overlayを製品コードへ
-一括取り込みしていない。guest／converter／その13パッチは変更しない。
+**Ubuntuの確認が未完了のため、今回の範囲全体を完了とは判定しない。** macOS arm64の
+実装・検証と限定比較を保存し、Ubuntuの同じ変更境界をCIへ渡す。
+次にHumanが判断するのは、両native platformの結果が揃った後に、この候補をmainへ採用するか。
+推薦は、**Ubuntuの所有・SQL・終了・consumer検証もPASSした条件で採用すること**。
+通常のライブラリ利用と独立DBを維持し、Snapshotの保存・再読込を取り除ける。
+利益の大きさは下の測定範囲で判断し、過去の試作値を今回の成果に加算しない。
 
-- MemFSの所有元を固定preimage検査付きで手書き境界へ移し、16 KiB blockを
-  親・兄弟から不変共有する。子の変更だけ私有化する。metadataと実行状態はDB別。
-- Snapshotはguest全workerの完了後に固定し、元内容・固定後・所有取得の
-  全内容検査を維持する。通常経路はpayloadの一時fileを作らない。
-- Pythonの独立したstartごとにhostを1個自動管理する。request ID、DB別制御、
-  個別cancel、遅延成功回収、参照数と最終waitを追加する。
-- Human指定で保存／loadと`db.snapshot(path)`を削除する。
-  `snapshot()`→`fork()`を残す。GoのDestination／LoadSnapshotも削除。
-  明示的な異なるhost binaryへのForkだけ、非公開の一時handoffを使用する。
-- DBあたりの接続上限16、消費型Snapshot、busy／transaction拒否時の元DB保持は維持。
+**最も強い反論は、host crashで同じ準備系統の基準と子をまとめて失う点。**
+従来は子のhostが別で基準はPython側に残った。host kill試験でも、同じ系統は失効し、
+別startのDBは継続した。再準備を許容するテスト用DBとして、この故障範囲は妥当と評価する。
+通常SQLエラー・子のClose・個別要求timeoutは、使用中の系統全体のkillへ拡大しない。
+子単位のprocess障害隔離が必要な利用には、この候補を推薦しない。
 
-host停止時は同じ系統の基準・子が失効する。別startのhostは独立する。
-個別のSQLエラー／Close／要求timeoutで、使用中の兄弟host全体をkillしない。
-任意の非協調guestを個別に強制回収する保証は追加していない。
+採用と後日のリリース承認は別。CI提出後はURLとSHAを渡して停止する。
+最終Release Qualification／重いProduct Validationは実施していない。
 
-## 再現と所有元
+## 入力と変更範囲
 
-guest Wasmは`7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09`。
-正式guest buildの独立2回で一致し、古いCI artifactの別guestは入力採用前に拒否した。
-正式translation→source adapter→`generate_runtime.py`を実行し、独立translationからも
-canonical sourceと一致した。生成物の手編集はしていない。
+| 項目 | identity／扱い |
+| --- | --- |
+| main baseline | `a8137b8b444f86068d3128a291e3a848adfdfd56` |
+| 最終実装・計測入力 | `a6df1c8a396a7b175b634c51295acda724c57444`。後続は資料と証拠の保存 |
+| 初回実装保存 | `884f692a3c45de137d5cd6a0be66523df9d0ece1` |
+| guest | MariaDB12.3.3、Wasm `7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09`。変更なし |
+| Generated Go provenance | `7c7ad7b5a14b55d3d63cb9bc2484e7c93e99860f0a1b0731104d01f8ecc94589` |
+| converter | goccy `730057c146463f663e8774587bc96fb2bea91af8`＋現行13パッチ。変更なし |
+| toolchain | Go1.26.8、Python3.14.8。既存固定WASIX／LLVM23.1.0／Binaryen133 |
 
-生成差分は`base.go`からのMemFS切り出し、`relative.go`／`prepared_files.go`の
-storage接続のみ。MariaDB由来の関数・データは同じ。
-`runtime_memfs.py`とHANDWRITTEN_FILESが変更の所有元となる。
-provenanceは`7c7ad7b5a14b55d3d63cb9bc2484e7c93e99860f0a1b0731104d01f8ecc94589`。
+[承認済み設計と保存廃止の範囲変更](d-heap-productization-design.md)に基づく。
+過去の[Python試作](https://github.com/masahitojp/mariamem/blob/6988fa575d025dbddd99a53220a3aa5261c32268/docs/reviews/python-heap-snapshot.md)と
+[C対D比較](https://github.com/masahitojp/mariamem/blob/c129476de5cf41f74abc387274fe0e28034d5fda/docs/reviews/cd-heap-snapshot.md)は
+設計根拠。実験overlay／実験registryを一括取り込みしていない。
+mainの未commitのproject-statusと設計・投資資料4件は保持し、専用worktreeで作業した。
+
+- `snapshot()`→`fork()`、消費型Snapshot、busy／transaction拒否時の元DB保持、親・兄弟の隔離を維持。
+- Human指定でPythonの`db.snapshot(path)`、`snapshot_to`、`load_snapshot`、`Snapshot.open(path)`、path-based startと、GoのDestination／LoadSnapshotを削除。保存済みartifactの互換性は提供せず、migration／seedで基準を作る。
+- Pythonは独立startごとに自動管理hostを1つ作り、基準・子・派生基準が共有。MariaDB実行・SQL endpoint・16接続上限はDB別。Goは呼出し元process内の実行を維持。
+- 子は変更blockだけ私有化。通常Snapshotはpayload一時fileを作らない。log・管理directory・socket・linear-memory mmapは引き続き使用する。
+- 明示的に異なる開発用host binaryへForkする場合だけ、privateな一時handoffを使用。両binaryはprotocol2と同guest identityが必要。公開の保存APIではない。
+- xdist worker間の共有daemon、接続上限調整、任意の非協調guestの個別強制停止は追加していない。
+
+## 所有・生成・失敗oracle
+
+`internal/prepared/heap.go`が不変16 KiB blockとinventoryを所有し、mutable sliceを公開しない。
+MemFSのlock／metadata／dirty blockは子ごとに持つ。縮小後の再拡張で切り捨てた内容を
+再表示しない。Allocateは論理サイズの拡張で、物理予約の保証ではない。
+全guest worker終了後にFreezeし、元・固定target・所有取得の3回の全内容走査を維持。
+暗黙のゼロもhash対象。Forkは同じbackingの構造・寿命・identityを確認して開始する。
+協調終了を完了したdatadirを固定するため、通常経路ではguest内のsnapshot-outへのコピーと
+host側のfile exportを呼ばない。実行中のthread／lock／connectionを保存する意味は追加しない。
+
+| 保証 | 今回の検査先 |
+| --- | --- |
+| freeze失敗・受理後の消費状態 | `base/heap_snapshot_test.go`、root `mariamem_test.go` |
+| target破損拒否 | target blockを変更し、元digestを保持するoracleで固定後Verifyが失敗 |
+| owner取得時の破損拒否 | `internal/snapshot/heap_test.go`。意図的な移譲規約違反によるbyte変更を拒否 |
+| guest identity拒否 | Heapと既存private file/importの検査を維持 |
+| 親・兄弟・派生の独立性 | block境界・sparse・shrink/regrow・並行read/write・SQL変異・10世代 |
+| 所有終了 | Capture移譲後／Closed ownerのweak reference、100 Fork後のhost FD／directory、最終reap |
+| 保存入力の検査 | 公開入口を廃止。private handoffの独立copy／期待hash／identity検査は維持 |
+
+生成物は手編集していない。`runtime_memfs.py`が固定preimage hashを検査し、MemFSを手書き
+所有元へ移す。`HANDWRITTEN_FILES`にblock storage／テストを登録した。生成差分は
+`base.go`、`relative.go`、`prepared_files.go`のみ。MariaDBの生成関数・データ・converterパッチは同じ。
 license continuityとPython mirrorも対応させた。
 
-## 検証状況
+正式guest buildの独立2回が採用Wasm／linked hashに一致。古いCI guestは入力hash不一致で
+拒否し、host生成へ使わなかった。独立translationからcanonical sourceも一致し、最終所有元
+更新後はそのraw candidateからinstallerを再実行して全ファイルを照合した。
 
-macOS arm64の初回integrationはPASS。SQL／transaction、派生基準、4並列、
-100 Fork/Close、10世代、host SIGKILL、異なるbinaryのhandoffを含む。
-通常Go単体テストもPASS。追加した診断保持・失敗回収・並行read/writeを含む
-最終候補のcheck／integration、外部consumer、規模比較は進行中。
-Ubuntu x86_64は未実行でありPASSではない。
+```sh
+python3 scripts/build_generated_guest.py --repetitions 2
+python3 scripts/regenerate_release_guest.py --guest-dir build/generated-release --output ../temp/regeneration-2
+python3 scripts/generate_runtime.py --source-module ../temp/regeneration-2/candidate/module --output ../temp/installed-final2
+python3 scripts/verify.py check
+python3 scripts/verify.py integration
+```
 
-初回正式checkでは起動診断4件が失敗し、診断保持を修正した。protocol期待値のみ
-新方式の2に変更し、終了code／cause／stderr／guest stageのassertは維持した。
-初回integrationのPASSを、その後の修正全体のPASSとして転用しない。
+guest buildは固定toolchainのcontainerで実行。
+[build記録](d-heap-shared-host-evidence/guest-build.json)、
+[生成差分](d-heap-shared-host-evidence/generation-delta.json)、
+[独立installer inventory](d-heap-shared-host-evidence/final-independent-installation.json)を参照。
+guest build receiptのsource_commitは変更のないguest入力を持つbaselineで、最終Release Qualificationではない。
 
-既存Ubuntu証拠の`.log`名は公開source guardに反するため`.txt`へ変更した。
-integration証拠内のCI絶対path1箇所はrepository相対pathへ正規化した。
-元bytesは上記main commitに残る。guardは緩めていない。
+## 検証と完了条件
 
-## 完了判定
+| 設計§6 | 判定 | 証拠／範囲 |
+| --- | --- | --- |
+| 所有とI/O | PASS・macOS | 3 seed×600操作の参照比較、block境界、穴、zero length、shrink/regrow、Allocate、rename/unlinkとopen handle、並行read/write、破損／identity oracle |
+| 制御と失敗 | PASS・macOS | out-of-order、個別cancel、遅延DB／Snapshot回収、未返却子、EOF／invalid protocol、実host kill、別DB待機中のClose、Fork／Close競合、最終reap |
+| API・consumer | PASS・macOS | 指定した削除、option継承、status／connection_info／id／capabilities／diagnostics／logs、起動エラーcode／stage／closed／cause、異binary、外部Go／installed Python／2worker |
+| 規模・資源 | PASS・macOS | 小・中、100 MiB／16 Fork、4並列、10世代、同Session100 Fork。host FD／directory増加なし。weak referenceで到達性を確認 |
+| 正式生成 | PASS | 固定guest独立2 build、独立translation／最終installer、generated source／license／mirror |
+| canonical check／integration | PASS・macOS | [check](d-heap-shared-host-evidence/check-frozen.txt)：Python610成功・23 SKIP、Go test／vet。[integration](d-heap-shared-host-evidence/integration-frozen.txt)：Python17成功、Snapshot33項目、Go／memory境界 |
+| 外部consumer・ORM | PASS・macOS | [ガイド3件](d-heap-shared-host-evidence/guides-consumer-frozen.txt)、Go module実内容一致、installed consumer9件、fixture serial／2worker／migration／失敗cleanup、SQLAlchemy start／fork各11件 |
+| 正式候補の利益 | PASS・macOS限定 | 全54試行のSQL／隔離／回収assert成功。各scaleで6通常対・3資源対。下表の範囲で改善 |
+| Ubuntu24.04 x86_64 | PENDING | `.github/workflows/sharedhost-native.yml`。未実行をPASSとしない |
+| 最終Qualification／重いProduct Validation | NOT RUN | 今回の範囲外 |
 
-設計§6の固定集合で判断する。機能・所有・制御・consumer・独立生成・規模・
-両native platform・正式候補対mainの限定比較が対象。
-未実行をPASSや完了へ置換しない。比較は
-[専用harness](../../benchmarks/sharedhost/README.md)の6通常対／3資源対を用い、
-過去の試作数値を今回の性能結果として扱わない。
+23 SKIPは通常checkがreal-host等の専用条件を要求するため。対応するintegration／installed
+consumerは別実行した。意図的なassertion失敗1件・fixture setup error1件はcleanup試験の期待結果。
+初回checkで起動診断4件が失敗したため、code／stage／cause／終了code／stderrを保持するよう修正。
+protocolの期待値だけを2へ更新した。追加待機fixtureの二重Closeも修正して再実行した。
+起動失敗のclosedフラグと基準継続も確認。
+[検証履歴](d-heap-shared-host-evidence/verification.json)へ失敗と修正を分けて残す。
 
-採用推薦と最も強い反論は、これらの結果を保存した後にHuman Reviewとして更新する。
+## 最終候補対mainの限定比較
+
+通常計測の中央値、ms。各scaleで順序を交替した6対。子起動は全子サンプルの中央値。
+
+| fixture | 準備〜全Close：main→候補 | 全体短縮 | Snapshot：main→候補 | 子起動：main→候補 |
+| --- | ---: | ---: | ---: | ---: |
+| 小・子2個 | 619.15 → 428.22 | 30.8% | 373.89 → 189.98 | 51.31 → 44.23 |
+| 中・子2個 | 3527.76 → 3297.33 | 6.5% | 407.92 → 219.34 | 51.69 → 43.44 |
+| 100 MiB・子16個 | 32963.77 → 32433.04 | 1.6% | 749.33 → 410.95 | 53.09 → 44.38 |
+
+Snapshot自体は約46〜49%短縮。通常計測では全18対で候補の全体時間が短かった。
+大規模は約30秒のseed投入が支配的で、Snapshotの約338 ms短縮が全体へ効く割合は小さい。
+これはmigrationを高速化した成果ではなく、固定と再利用の費用を減らした成果。
+子起動の差は約7〜9 msで、MariaDB起動そのものを省いたものではない。
+
+別の資源計測3対での、生存host群の合計RSSの観測最大（3試行の最大）、MiB：
+
+| fixture | main | 候補 |
+| --- | ---: | ---: |
+| 小 | 528.52 | 123.95 |
+| 中 | 606.80 | 164.73 |
+| 100 MiB | 1122.17 | 511.95 |
+
+**資源計測の小規模候補には1540.44 msの全体試行が1件ある。** 他の2件は431.47／430.59 ms、
+mainは614.67／620.37／617.82 ms。その遅い試行はprepare/start 891.08 ms、seed 284.88 ms、
+Snapshot 223.37 ms。原因は切り分けておらず、候補の影響とも単なるばらつきとも断定しない。
+通常計測6対の利益・全資源試行でのSnapshot短縮・中大規模の資源試行での全体短縮を根拠に
+推薦するが、「常に全体が速い」「tailがなくなった」とは推薦しない。
+以前の直接コピー候補での悪化原因を解明したとも扱わない。
+
+[集計](d-heap-shared-host-evidence/comparison/summary.json)、
+[全入力identity](d-heap-shared-host-evidence/comparison/inputs.json)、
+[全試行](d-heap-shared-host-evidence/comparison)を保存した。
+
+[harness](../../benchmarks/sharedhost/README.md)はfresh Python processで、準備1回→Snapshot→
+子2個（大規模16個）→全Closeを測る。2表・unique／FK・seed、子のcommit／rollback、
+exact seed bytes、兄弟隔離、host／scratch回収をassertする。100 MiBはpayload量であり、
+index・orders・DB管理fileを含む総量ではない。以前の1表Go測定やPython試作と数値を混ぜない。
+
+通常・資源計測は別試行。資源計測RSSはpsによる生存host群の合計の観測最大で、
+各ps取得後に25 ms待つ（実際の間隔はps実行時間も含む）。
+厳密なhigh-water markやGo到達可能heapではない。Python自身・filesystem page cache全体を
+含む総メモリでもない。probe込みwall timeは通常計測の中央値に混ぜず、外れ値も保存する。
+
+先行計測は`54fe1ee`入力で完走した。その後の起動失敗フラグ1行補正を含め、最終候補
+`a6df1c8`で規定回数を取り直した。先行結果も別に保存し、良い結果だけを採らない。
+
+## 後続と証拠の扱い
+
+Ubuntu nativeの所有・I/O・Go／Python／wheel／ORMの結果が残る。失敗すればその境界を修正・
+再検証し、macOSだけで全対象完了としない。今回の限定比較を全workloadの速度保証には使わない。
+接続数調整、さらにhash走査を減らす最適化、強制停止再設計は今回追加していない。
+
+既存Ubuntu証拠の`.log`名は公開source guardに反するため`.txt`へ変更し、integration証拠の
+CI絶対path1箇所をrepository相対pathへ正規化した。
+[元／公開hashと変換理由](d-heap-shared-host-evidence/public-evidence-rename.json)を保存。
+元bytesはbaseline commitに残る。guardを緩めて通したものではない。
+今回の保存用ログはlocal pathと行末空白を正規化し、元／保存hashをevidence-ledgerへ残した。
+build・download・venv・cloneは再作成可能な領域として扱い、compactな証拠と入力identityを保存する。

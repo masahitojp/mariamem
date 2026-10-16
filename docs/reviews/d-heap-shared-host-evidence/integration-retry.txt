@@ -1,0 +1,23 @@
++ go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	3.242s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	3.117s
+ok  	github.com/masahitojp/mariamem/internal/guest	2.630s
+ok  	github.com/masahitojp/mariamem/internal/host	1.324s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.304s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.462s
+ok  	github.com/masahitojp/mariamem/internal/control	2.549s
+ok  	github.com/masahitojp/mariamem/internal/prepared	1.314s
+ok  	github.com/masahitojp/mariamem	2.601s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	10.510s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	3.098s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.443s
++ go build -p 1 -o <task-workspace>/temp/tmp/mariamem-integration-ut6f3b1o/mariamem-host ./cmd/mariamem-host
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ <task-workspace>/temp/venv/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py -q
+................                                                         [100%]
+16 passed in 31.62s
++ <task-workspace>/temp/venv/bin/python tests/snapshots.py
+{"passed": true, "checks": 33, "error": null, "evidence": "<candidate-worktree>/tests/evidence/snapshots.json"}

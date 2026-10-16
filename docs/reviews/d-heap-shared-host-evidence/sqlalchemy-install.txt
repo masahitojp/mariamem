@@ -1,0 +1,9 @@
+Collecting SQLAlchemy==2.0.54
+  Using cached sqlalchemy-2.0.54-cp314-cp314-macosx_11_0_arm64.whl.metadata (9.7 kB)
+Collecting typing-extensions>=4.6.0 (from SQLAlchemy==2.0.54)
+  Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Using cached sqlalchemy-2.0.54-cp314-cp314-macosx_11_0_arm64.whl (2.2 MB)
+Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Installing collected packages: typing-extensions, SQLAlchemy
+
+Successfully installed SQLAlchemy-2.0.54 typing-extensions-4.16.0

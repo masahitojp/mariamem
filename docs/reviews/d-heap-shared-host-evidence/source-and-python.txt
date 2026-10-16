@@ -1,0 +1,16 @@
+.....................F........................                           [100%]
+=================================== FAILURES ===================================
+_______________ test_python_license_mirrors_match_source_inputs ________________
+
+    def test_python_license_mirrors_match_source_inputs():
+        root = Path(__file__).resolve().parents[1]
+>       assert (root/'python/license-inventory.json').read_bytes() == (root/'release/distribution-licenses.json').read_bytes()
+E       assert b'{\n  "versi...  }\n  }\n}\n' == b'{\n  "versi...  }\n  }\n}\n'
+E
+E         At index 3738 diff: b'f' != b'2'
+E         Use -v to get more diff
+
+tests/test_packaging_license_mirrors.py:7: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_packaging_license_mirrors.py::test_python_license_mirrors_match_source_inputs
+1 failed, 45 passed in 6.78s

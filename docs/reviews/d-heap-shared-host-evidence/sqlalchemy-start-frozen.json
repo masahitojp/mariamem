@@ -1,0 +1,579 @@
+{
+  "mode": "start",
+  "python": "3.14.8",
+  "native_dir_override": null,
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "architecture": "arm64",
+  "packages": {
+    "mariamem": "0.5.0",
+    "SQLAlchemy": "2.0.54",
+    "PyMySQL": "1.2.3",
+    "pytest": "9.1.1"
+  },
+  "cases": [
+    {
+      "test": "test_01_committed_data_without_cleanup",
+      "database_id": "87cfb4297058ba5ed687da465174365a",
+      "connects": 1,
+      "checkouts": 6,
+      "checkins": 6,
+      "resets": 6,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 132.333374931477,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 2,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_02_next_database_cannot_see_committed_data",
+      "database_id": "0fb6ea3e95b5e20bc497fc240b281848",
+      "connects": 1,
+      "checkouts": 5,
+      "checkins": 5,
+      "resets": 5,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "SELECT user_account.id, user_account.name, user_account.fullname \nFROM user_account \nWHERE user_account.name = %(name_1)s",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 113.1511249113828,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_03_update_commit_and_delete",
+      "database_id": "106c4acf66bfe80f6a2be83771ecc897",
+      "connects": 1,
+      "checkouts": 7,
+      "checkins": 7,
+      "resets": 7,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "SELECT user_account.id, user_account.name, user_account.fullname \nFROM user_account",
+        "UPDATE user_account SET fullname=%(fullname)s WHERE user_account.id = %(user_account_id)s",
+        "SELECT address.id AS address_id, address.email_address AS address_email_address, address.user_id AS address_user_id \nFROM address \nWHERE %(param_1)s = address.user_id",
+        "SELECT user_account.id, user_account.name, user_account.fullname \nFROM user_account INNER JOIN address ON user_account.id = address.user_id \nWHERE address.email_address = %(email_address_1)s",
+        "SELECT user_account.fullname \nFROM user_account",
+        "SELECT address.id, address.email_address, address.user_id \nFROM address",
+        "DELETE FROM address WHERE address.id = %(id)s",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 112.87579091731459,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_04_explicit_business_rollback",
+      "database_id": "82f5ec73fc847161ec6ca7578b26449d",
+      "connects": 1,
+      "checkouts": 6,
+      "checkins": 6,
+      "resets": 6,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "SELECT user_account.id, user_account.name, user_account.fullname \nFROM user_account \nWHERE user_account.name = %(name_1)s",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 114.08441700041294,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_05_constraint_error_is_recoverable[unique-1062]",
+      "database_id": "741ce20df548e79a292ec734f93dd376",
+      "connects": 1,
+      "checkouts": 6,
+      "checkins": 6,
+      "resets": 6,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 112.08604206331074,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_05_constraint_error_is_recoverable[not_null-1048]",
+      "database_id": "2dd3eb759bb52a5d38afcf145ffd45ed",
+      "connects": 1,
+      "checkouts": 6,
+      "checkins": 6,
+      "resets": 6,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 112.99729195889086,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_05_constraint_error_is_recoverable[foreign_key-1452]",
+      "database_id": "2dc97e0589c08702bd52747da96da608",
+      "connects": 1,
+      "checkouts": 6,
+      "checkins": 6,
+      "resets": 6,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 112.28262505028397,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_06_metadata_and_autocommit",
+      "database_id": "027c171758c0afa7efef73387fc5273a",
+      "connects": 1,
+      "checkouts": 13,
+      "checkins": 13,
+      "resets": 13,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "SHOW FULL TABLES FROM `test`",
+        "SHOW CREATE TABLE `user_account`",
+        "SHOW CREATE TABLE `address`",
+        "SHOW FULL TABLES FROM `test`",
+        "SHOW CREATE TABLE `address`",
+        "SHOW CREATE TABLE `user_account`",
+        "INSERT INTO user_account(name) VALUES ('autocommit@example.test')",
+        "SELECT COUNT(*) FROM user_account",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 113.94162499345839,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 2,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_07_normal_pool_and_session_state",
+      "database_id": "e536d6222c695ce0036387e7b001ee69",
+      "connects": 2,
+      "checkouts": 8,
+      "checkins": 8,
+      "resets": 8,
+      "closes": 2,
+      "peak_checked_out": 2,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "SELECT CONNECTION_ID()",
+        "SELECT CONNECTION_ID()",
+        "SET @dogfood_state = 42",
+        "CREATE TEMPORARY TABLE dogfood_temp(id INT)",
+        "SELECT @dogfood_state",
+        "SELECT COUNT(*) FROM dogfood_temp",
+        "INSERT INTO user_account(name) VALUES ('uncommitted@example.test')",
+        "SELECT CONNECTION_ID()",
+        "SELECT COUNT(*) FROM user_account WHERE name='uncommitted@example.test'",
+        "SELECT @dogfood_state",
+        "SELECT CONNECTION_ID()",
+        "SELECT COUNT(*) FROM user_account WHERE name='uncommitted@example.test'",
+        "SELECT @dogfood_state",
+        "SELECT COUNT(*) FROM dogfood_temp",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 111.79270897991955,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "temporary_table_survived_checkin": true,
+      "reused_session_variables": [
+        null,
+        42
+      ],
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_08_shutdown_with_idle_pool_connections",
+      "database_id": "9662d94bdf4b0f2698983985b65cc277",
+      "connects": 1,
+      "checkouts": 4,
+      "checkins": 4,
+      "resets": 4,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "SELECT 1"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 120.85099995601922,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "database_first_shutdown": "PASS",
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_09_matched_rowcount_observation",
+      "database_id": "3cb5ccf41776f0593b773c0bd63ac413",
+      "connects": 1,
+      "checkouts": 5,
+      "checkins": 5,
+      "resets": 5,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "UPDATE user_account SET name=name WHERE id=1",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 111.7035000352189,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "noop_update_rowcount": 1,
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    }
+  ],
+  "templates": [],
+  "wheel_origin": {
+    "archive_info": {
+      "hash": "sha256=f5563675bd17110864c0e2501036e870975001ef924483c25964aa7bc5167406",
+      "hashes": {
+        "sha256": "f5563675bd17110864c0e2501036e870975001ef924483c25964aa7bc5167406"
+      }
+    },
+    "url": "file://<candidate-source>/build/dist/mariamem-0.5.0-py3-none-macosx_15_0_arm64.whl"
+  },
+  "native_manifest": {
+    "version": 1,
+    "package_version": "0.5.0",
+    "platform": "darwin-arm64",
+    "minimum_macos": 15,
+    "runtime_kind": "generated-go",
+    "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+    "public_release_ready": false,
+    "sha256": {
+      "mariamem-host": "14f6cea0ab1aad8ed138d6bc5b22fc0274e92af7216207be24bdee41a4cb22c1"
+    }
+  }
+}

@@ -1,5 +1,14 @@
 # Historical OwnedPrepared comparison and reusable measurement primitives
 
+## D/shared-host candidate
+
+Public persistence/loading is removed in this candidate. `main.go` now captures
+an in-memory Snapshot; its old `--export` provisioning option and
+`import_measure.py` fail explicitly as retired. The older instructions below
+preserve their original evidence context. Use
+[the paired memory/shared-host comparison](../sharedhost/README.md) for the
+current candidate; it does not provision persisted artifacts.
+
 ## Current responsibility (v0.4.5)
 
 The v0.4.4 comparison below is historical evidence. The existing Product workflow

@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "source_commit": "a8137b8b444f86068d3128a291e3a848adfdfd56",
+  "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+  "repetitions": [
+    {
+      "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+      "linked_sha256": "d3022ab3b5f41ffba26b5c4172616ceb4f087c02ffe18569a701ae48fa0bbd53"
+    },
+    {
+      "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+      "linked_sha256": "d3022ab3b5f41ffba26b5c4172616ceb4f087c02ffe18569a701ae48fa0bbd53"
+    }
+  ],
+  "record_sha256": "ded232ee2019acc0f3f532c4b58634e390e456ee700f6be45a5af6450410d063",
+  "scope": "fixed guest reproduction; not final source qualification"
+}

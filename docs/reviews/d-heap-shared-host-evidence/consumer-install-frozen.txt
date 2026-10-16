@@ -1,0 +1,7 @@
+Processing <candidate-source>/build/dist/mariamem-0.5.0-py3-none-macosx_15_0_arm64.whl
+Installing collected packages: mariamem
+  Attempting uninstall: mariamem
+    Found existing installation: mariamem 0.5.0
+    Uninstalling mariamem-0.5.0:
+      Successfully uninstalled mariamem-0.5.0
+Successfully installed mariamem-0.5.0

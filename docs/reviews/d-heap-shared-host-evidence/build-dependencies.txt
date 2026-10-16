@@ -1,0 +1,20 @@
+Collecting setuptools
+  Using cached setuptools-84.0.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting wheel
+  Using cached wheel-0.48.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting pytest-xdist
+  Using cached pytest_xdist-3.8.0-py3-none-any.whl.metadata (3.0 kB)
+Requirement already satisfied: packaging>=24.0 in <task-workspace>/temp/venv/lib/python3.14/site-packages (from wheel) (26.3)
+Collecting execnet>=2.1 (from pytest-xdist)
+  Using cached execnet-2.1.2-py3-none-any.whl.metadata (2.9 kB)
+Requirement already satisfied: pytest>=7.0.0 in <task-workspace>/temp/venv/lib/python3.14/site-packages (from pytest-xdist) (9.1.1)
+Requirement already satisfied: iniconfig>=1.0.1 in <task-workspace>/temp/venv/lib/python3.14/site-packages (from pytest>=7.0.0->pytest-xdist) (2.3.1)
+Requirement already satisfied: pluggy<2,>=1.5 in <task-workspace>/temp/venv/lib/python3.14/site-packages (from pytest>=7.0.0->pytest-xdist) (1.7.0)
+Requirement already satisfied: pygments>=2.7.2 in <task-workspace>/temp/venv/lib/python3.14/site-packages (from pytest>=7.0.0->pytest-xdist) (2.21.0)
+Using cached setuptools-84.0.0-py3-none-any.whl (818 kB)
+Using cached wheel-0.48.0-py3-none-any.whl (33 kB)
+Using cached pytest_xdist-3.8.0-py3-none-any.whl (46 kB)
+Using cached execnet-2.1.2-py3-none-any.whl (40 kB)
+Installing collected packages: wheel, setuptools, execnet, pytest-xdist
+
+Successfully installed execnet-2.1.2 pytest-xdist-3.8.0 setuptools-84.0.0 wheel-0.48.0

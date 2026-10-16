@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "<candidate-worktree>/benchmarks/spikes/generated-go-integration/translate_guest.py", line 77, in <module>
+    main()
+    ~~~~^^
+  File "<candidate-worktree>/benchmarks/spikes/generated-go-integration/translate_guest.py", line 54, in main
+    env = go_environment(dict(os.environ, GOTOOLCHAIN='go1.26.8', GOWORK='off'))
+  File "<candidate-worktree>/scripts/build_feedback.py", line 39, in go_environment
+    raise ValueError('conflicting '+key+'; unset it before selecting task workspace')
+ValueError: conflicting GOPATH; unset it before selecting task workspace

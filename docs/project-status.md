@@ -23,9 +23,11 @@ The maintainer approved D block storage plus one automatically managed Python
 host per root lineage on 2026-10-16, and then removed public persistence/loading
 from the implementation scope. Baselines become process-local; preparation inputs
 remain migrations/seed. Child independence and consuming Snapshot are retained.
-Implementation/verification is in progress on `experiment/d-heap-shared-host`;
-main integration and release are not approved. See the
-[implementation design and scope change](reviews/d-heap-productization-design.md).
+Implementation and bounded macOS verification are saved on
+`experiment/d-heap-shared-host`; native Ubuntu verification remains pending.
+Main integration and release are not approved. See the
+[implementation results and Human Review](reviews/d-heap-shared-host.md) and
+[approved design and scope change](reviews/d-heap-productization-design.md).
 
 ## Current published release: v0.4.7 — Upstream converter migration
 
@@ -151,7 +153,9 @@ Product Validation; those changes are not part of v0.4.5.
 - Physical footprint, RSS and reachable heap are different resource measures.
   The v0.4.2 lifecycle releases linear memory after joined workers; filesystem
   metadata remains GC-managed.
-- Live Snapshots retain roughly one FD per prepared file. The 64-table fixture
+- Published file-backed Snapshots retain roughly one FD per prepared file.
+  The D memory candidate removes this backing-FD requirement; its native
+  verification status is recorded above. The 64-table fixture
   had 137 files and released its backing FDs after Close on both platforms.
   Many simultaneously retained baselines, especially file-heavy schemas, may
   approach process FD limits. Gather real workload evidence and improve the
