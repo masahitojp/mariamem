@@ -1,0 +1,113 @@
+{
+  "completed": true,
+  "started": 1792193452.120354,
+  "sources": {
+    "baseline": {
+      "identity": {
+        "object_sha": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+        "object_type": "commit",
+        "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61"
+      },
+      "tag_object_sha": "bfd854da1cecbe71ad761d1578b3f2c710a1c07f",
+      "benchmark_source_sha256": "d871520d9b78cc5329883d4d6a034ec882629d77aba7abc9d2c603e6500b0d5a",
+      "observer_source_sha256": "18e883557323b231e3deaa6fbcac4526f5706501b4739cd1ea3235f0b12adfbc",
+      "overlay_sha256": "dd5798f3179ff56713c77a3621a8f3a1ae71cdecd6a49c6b1b33731f6be6d0d4",
+      "resource_source_sha256": "38130a59ef787516142528d3eef997e648322ab7f3cc45a4f2f4a529f7188f6c",
+      "resource_observer_sha256": "3bf7359bcc5ae16ac7dccc24411a710f01f18d6f0399cd415e9a8da008781573",
+      "binaries": {
+        "observer": {
+          "sha256": "91f4bd0cdd5098e221250555adad9cf1aec9b5cc93799b0bfc3b014594a1fd6d",
+          "build_info": "<WORKSPACE>/temp/baseline-observer: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.0\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=44100ec676c8c9064f32f3a01bd9a990d487bb61\n\tbuild\tvcs.time=2026-10-13T12:07:54Z\n\tbuild\tvcs.modified=false\n"
+        }
+      }
+    },
+    "candidate": {
+      "identity": {
+        "object_sha": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+        "object_type": "commit",
+        "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb"
+      },
+      "tag_object_sha": "089b32e09608902f6d46e7ab9527d09922dcf065",
+      "benchmark_source_sha256": "34e2ec124cff43de7513773d954f5ed5ab79d9cf394e1cb9c38f967922c7be64",
+      "observer_source_sha256": "c5a564fb3e0004a801a1c1d983f8059d406f972da270077d89abd805b328a281",
+      "overlay_sha256": "f2ea5f5f27036cd782eea041b71f6be1c557b192ded360b160d67eca29a7fcef",
+      "resource_source_sha256": "38130a59ef787516142528d3eef997e648322ab7f3cc45a4f2f4a529f7188f6c",
+      "resource_observer_sha256": "3bf7359bcc5ae16ac7dccc24411a710f01f18d6f0399cd415e9a8da008781573",
+      "binaries": {
+        "observer": {
+          "sha256": "2af46e0c196a24071d7ba2d0f27071eb9a67df4e9020083fe0d6740650ceef8a",
+          "build_info": "<WORKSPACE>/temp/candidate-observer: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=7a82f338cf111d5d52538b5a3f7bf129c12e2dbb\n\tbuild\tvcs.time=2026-10-16T20:02:16Z\n\tbuild\tvcs.modified=false\n"
+        }
+      }
+    }
+  },
+  "cells": [
+    {
+      "name": "observer-0-baseline-cpu",
+      "label": "baseline",
+      "kind": "observer",
+      "trial": 0,
+      "profiled": true,
+      "returncode": 0,
+      "product_seconds": 26.125202877000003,
+      "cpu_seconds": 29.071394,
+      "result_sha256": "075d552947985c014dccf733a5953d31469b9be45bcdb2743c4b0cd38c54cf1b",
+      "profile_sha256": "4cf98a87da4dde0ef4a39ab645bc28a2a6cca9a9616ff05fe3af1e0b9e5deeb4",
+      "alloc_profile_sha256": "d712ffb1e55b98d703a621e96a061434e81f6148783fea2e96a6e79cf2804ec4"
+    },
+    {
+      "name": "observer-0-candidate-cpu",
+      "label": "candidate",
+      "kind": "observer",
+      "trial": 0,
+      "profiled": true,
+      "returncode": 0,
+      "product_seconds": 26.137822957999997,
+      "cpu_seconds": 29.379335,
+      "result_sha256": "29e8168e2ed1ab5ca4cf7d09b6d9e20990f0c4656e5b2847095a9a5bf35644d6",
+      "profile_sha256": "5b367eb99ebd2806e8412d8035722a1d51b24c675304b1b0338307c7cf017e54",
+      "alloc_profile_sha256": "223c4abcc9e46ebb8b92f38088bec9c357770a16d847e5c8239cc285c2b62624"
+    },
+    {
+      "name": "observer-1-candidate-cpu",
+      "label": "candidate",
+      "kind": "observer",
+      "trial": 1,
+      "profiled": true,
+      "returncode": 0,
+      "product_seconds": 25.702943958999995,
+      "cpu_seconds": 28.836951,
+      "result_sha256": "cd464e52cdf84de1acc4badfbec9de9f0393b9c255c612880534facddbcd6c74",
+      "profile_sha256": "4297f1add1f3e5db20b166fcee8d4937f5c4f9f199848ce6aeba676dcdfb4781",
+      "alloc_profile_sha256": "3a7a1d23a37d7bc3f0a3beb825d31ed3a2eb59e27841800b6d8fcbec5d65824e"
+    },
+    {
+      "name": "observer-1-baseline-cpu",
+      "label": "baseline",
+      "kind": "observer",
+      "trial": 1,
+      "profiled": true,
+      "returncode": 0,
+      "product_seconds": 26.459918454,
+      "cpu_seconds": 29.44912,
+      "result_sha256": "28d44ef8088359872402acf74496994819ff86bcc655802dd947ba34245ab9d4",
+      "profile_sha256": "0f6a41d0b499b93225dbec18206efe04b589f208c103711d8c75a05f93add6f6",
+      "alloc_profile_sha256": "dc7490d74a4e338aad206a77f9d11e19d5d208beadaf3c66e0981ced727da74f"
+    }
+  ],
+  "harness_source_commit": "9845c16716a467dc03bafe5d7e4cc492b648b366",
+  "runner_sha256": "887b5673722df7e304ff42903bf6758771dfd45191c3bd797a79d5dae8d4a210",
+  "host": "Darwin MacBookAir 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:05:27 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T8103 arm64",
+  "go": "go1.26.8",
+  "cgo_enabled": 0,
+  "flags": [
+    "-p",
+    "1",
+    "-trimpath",
+    "-buildvcs=true"
+  ],
+  "process_helper_sha256": "6fe68101d7a580d2c7f4e08f267556b6482c2bd8b167cad3fc5f79c1eb5b46d7",
+  "ended": 1792193779.215743,
+  "peak_owned_bytes": 2891317248,
+  "minimum_free_bytes": 71453691904
+}

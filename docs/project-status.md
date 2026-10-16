@@ -235,12 +235,17 @@ v0.5.1; it is not an additional release gate. The authorized
 [bounded post-release investigation](reviews/go-large-fresh-investigation.md)
 completed ten executions against the two released sources on macOS arm64.
 Ordinary runs did not reproduce a persistent slowdown. Profiles repeatedly
-show lower direct file-I/O CPU and higher Go heap-reuse CPU; the triggering
-allocation is not identified, and the original 32.6-second trial remains
-unexplained. A further one-hour allocation-attribution check is recommended for
-Human Review, not yet approved or executed. No runtime repair or main adoption
-is inferred. Keep the original adverse evidence; do not classify it as noise or
-promise universal Fresh acceleration.
+show lower direct MemFS read/write/copy CPU and higher Go heap-reuse CPU.
+The maintainer then approved the one-hour, maximum-two-pair allocation check;
+[all four executions and the bounded analysis are complete](reviews/go-heap-reuse-attribution.md).
+Both Fresh versions already use in-memory files: the change is contiguous-slice
+storage versus 16 KiB blocks. New cumulative allocation is about 44% lower;
+allocation profiles identify about 0.9 GiB of block storage and 2.1 GiB of SQL
+transport across four DBs. Heap-reuse CPU still loses its triggering caller at
+systemstack and remains unassigned. The agreed stop condition was reached without
+expanding scope; no runtime repair or main adoption is inferred. The original
+32.6-second cause remains unknown. Keep the original adverse evidence; do not
+classify it as noise or promise universal Fresh acceleration.
 
 Current storage routing follows the adopted D/shared-host contract and
 [implementation/adoption report](reviews/d-heap-shared-host.md) above. The v0.4.x

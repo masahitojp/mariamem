@@ -1,0 +1,26 @@
+{
+  "observer-0-baseline-cpu": {
+    "pprof_filtered_alloc_bytes": 3577482803.0,
+    "parser_filtered_alloc_bytes": 3577482803,
+    "pprof_total_alloc_bytes": 5966116699.0,
+    "parser_total_alloc_bytes": 5966116699
+  },
+  "observer-0-candidate-cpu": {
+    "pprof_filtered_alloc_bytes": 939571538.0,
+    "parser_filtered_alloc_bytes": 939571538,
+    "pprof_total_alloc_bytes": 3377434340.0,
+    "parser_total_alloc_bytes": 3377434340
+  },
+  "observer-1-candidate-cpu": {
+    "pprof_filtered_alloc_bytes": 943294341.0,
+    "parser_filtered_alloc_bytes": 943294341,
+    "pprof_total_alloc_bytes": 3352008506.0,
+    "parser_total_alloc_bytes": 3352008506
+  },
+  "observer-1-baseline-cpu": {
+    "pprof_filtered_alloc_bytes": 3573954504.0,
+    "parser_filtered_alloc_bytes": 3573954504,
+    "pprof_total_alloc_bytes": 5986708333.0,
+    "parser_total_alloc_bytes": 5986708333
+  }
+}

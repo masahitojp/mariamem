@@ -1,0 +1,85 @@
+File: baseline-observer
+Type: alloc_space
+Time: 2026-10-17 08:36:13 JST
+Showing nodes accounting for 5653.06MB, 99.01% of 5709.37MB total
+Dropped 150 nodes (cum <= 28.55MB)
+      flat  flat%   sum%        cum   cum%
+ 3407.39MB 59.68% 59.68%  3407.39MB 59.68%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.resizeMemData
+  813.80MB 14.25% 73.93%   813.80MB 14.25%  github.com/go-sql-driver/mysql.reserveBuffer (inline)
+  442.38MB  7.75% 81.68%   442.38MB  7.75%  github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).read
+  426.80MB  7.48% 89.16%   426.80MB  7.48%  github.com/masahitojp/mariamem/internal/guest.(*Process).Call
+  420.17MB  7.36% 96.52%  1233.97MB 21.61%  github.com/go-sql-driver/mysql.(*mysqlConn).interpolateParams
+   49.60MB  0.87% 97.39%  1345.47MB 23.57%  main.main.func5
+   40.92MB  0.72% 98.10%    42.42MB  0.74%  database/sql.driverArgsConnLocked
+      32MB  0.56% 98.66%    71.01MB  1.24%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait
+   19.50MB  0.34% 99.00%       39MB  0.68%  time.NewTimer
+    0.50MB 0.0088% 99.01%  1293.37MB 22.65%  database/sql.(*DB).execDC
+         0     0% 99.01%  1293.37MB 22.65%  database/sql.(*DB).Exec (inline)
+         0     0% 99.01%  1293.37MB 22.65%  database/sql.(*DB).ExecContext
+         0     0% 99.01%  1293.37MB 22.65%  database/sql.(*DB).ExecContext.func1
+         0     0% 99.01%  1293.37MB 22.65%  database/sql.(*DB).exec
+         0     0% 99.01%  1292.87MB 22.64%  database/sql.(*DB).execDC.func2
+         0     0% 99.01%  1293.37MB 22.65%  database/sql.(*DB).retry
+         0     0% 99.01%  1250.45MB 21.90%  database/sql.ctxDriverExec
+         0     0% 99.01%  1292.87MB 22.64%  database/sql.withLock
+         0     0% 99.01%  1237.39MB 21.67%  github.com/go-sql-driver/mysql.(*mysqlConn).Exec
+         0     0% 99.01%  1250.45MB 21.90%  github.com/go-sql-driver/mysql.(*mysqlConn).ExecContext
+         0     0% 99.01%   813.80MB 14.25%  github.com/go-sql-driver/mysql.escapeStringBackslash
+         0     0% 99.01%    71.01MB  1.24%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait
+         0     0% 99.01%   601.64MB 10.54%  github.com/masahitojp/mariamem/internal/generatedgo.StartInstance.func2
+         0     0% 99.01%      601MB 10.53%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0% 99.01%  2880.40MB 50.45%  github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.func2.installGuestThreadLifetime.InstallThreadLifetime.1
+         0     0% 99.01%      601MB 10.53%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0% 99.01%  3407.39MB 59.68%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_allocate
+         0     0% 99.01%  3407.39MB 59.68%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).Allocate
+         0     0% 99.01%    71.01MB  1.24%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At
+         0     0% 99.01%  2880.40MB 50.45%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+         0     0% 99.01%  2880.40MB 50.45%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+         0     0% 99.01%  2818.89MB 49.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14521
+         0     0% 99.01%  2805.26MB 49.13%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn16970
+         0     0% 99.01%  2805.26MB 49.13%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn16973
+         0     0% 99.01%  2805.26MB 49.13%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn17957
+         0     0% 99.01%   600.50MB 10.52%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn18509
+         0     0% 99.01%   600.50MB 10.52%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5560
+         0     0% 99.01%      601MB 10.53%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21692
+         0     0% 99.01%  2818.89MB 49.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5549
+         0     0% 99.01%  2805.26MB 49.13%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn7177
+         0     0% 99.01%  2805.26MB 49.13%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14089
+         0     0% 99.01%   600.50MB 10.52%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14687
+         0     0% 99.01%       96MB  1.68%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn16630
+         0     0% 99.01%  2805.26MB 49.13%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn16967
+         0     0% 99.01%  2805.26MB 49.13%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn17104
+         0     0% 99.01%      120MB  2.10%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17450
+         0     0% 99.01%  2818.89MB 49.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn256
+         0     0% 99.01%   600.50MB 10.52%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn5726
+         0     0% 99.01%   600.50MB 10.52%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn7046
+         0     0% 99.01%    59.51MB  1.04%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16534
+         0     0% 99.01%  2797.11MB 48.99%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17185
+         0     0% 99.01%   384.50MB  6.73%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17453
+         0     0% 99.01%       48MB  0.84%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17456
+         0     0% 99.01%  2805.26MB 49.13%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18419
+         0     0% 99.01%    70.51MB  1.23%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn218
+         0     0% 99.01%  2818.89MB 49.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14516
+         0     0% 99.01%       96MB  1.68%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn16626
+         0     0% 99.01%  2798.53MB 49.02%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17178
+         0     0% 99.01%  2805.26MB 49.13%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17472
+         0     0% 99.01%  3407.39MB 59.68%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn18201
+         0     0% 99.01%  2879.90MB 50.44%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn216
+         0     0% 99.01%   600.50MB 10.52%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn244
+         0     0% 99.01%  2818.89MB 49.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn262
+         0     0% 99.01%   600.50MB 10.52%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14688
+         0     0% 99.01%    61.01MB  1.07%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16535
+         0     0% 99.01%    59.51MB  1.04%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16497
+         0     0% 99.01%    61.01MB  1.07%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16539
+         0     0% 99.01%       96MB  1.68%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16627
+         0     0% 99.01%  2805.26MB 49.13%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn17477
+         0     0% 99.01%  2818.89MB 49.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5790
+         0     0% 99.01%    71.01MB  1.24%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88
+         0     0% 99.01%   445.38MB  7.80%  github.com/masahitojp/mariamem/internal/host.(*Server).accept.func1
+         0     0% 99.01%   426.80MB  7.48%  github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).callQuery.func1
+         0     0% 99.01%   445.38MB  7.80%  github.com/masahitojp/mariamem/internal/mysqlwire.Serve
+         0     0% 99.01%  1348.13MB 23.61%  main.main
+         0     0% 99.01%  1346.47MB 23.58%  main.main.func4
+         0     0% 99.01%  1346.47MB 23.58%  main.main.func9 (inline)
+         0     0% 99.01%  1345.47MB 23.57%  main.main.main.func9.func13
+         0     0% 99.01%  1348.13MB 23.61%  runtime.main

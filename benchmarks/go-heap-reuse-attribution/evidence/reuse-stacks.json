@@ -1,0 +1,90 @@
+{
+  "observer-1-candidate-cpu-raw.txt": [
+    {
+      "nanoseconds": 2240000000,
+      "frames": [
+        "runtime.madvise",
+        "runtime.sysUsedOS",
+        "runtime.sysUsed",
+        "runtime.(*mheap).allocSpan",
+        "runtime.(*mheap).alloc.func1",
+        "runtime.systemstack"
+      ]
+    },
+    {
+      "nanoseconds": 10000000,
+      "frames": [
+        "runtime.madvise",
+        "runtime.sysUsedOS",
+        "runtime.sysUsed",
+        "runtime.(*mheap).allocSpan",
+        "runtime.(*mheap).allocManual",
+        "runtime.stackalloc",
+        "runtime.copystack",
+        "runtime.shrinkstack",
+        "runtime.scanstack",
+        "runtime.markroot.func1",
+        "runtime.markroot",
+        "runtime.gcDrain",
+        "runtime.gcDrainMarkWorkerDedicated",
+        "runtime.gcBgMarkWorker.func2",
+        "runtime.systemstack"
+      ]
+    }
+  ],
+  "observer-0-baseline-cpu-raw.txt": [
+    {
+      "nanoseconds": 50000000,
+      "frames": [
+        "runtime.madvise",
+        "runtime.sysUsedOS",
+        "runtime.sysUsed",
+        "runtime.(*mheap).allocSpan",
+        "runtime.(*mheap).alloc.func1",
+        "runtime.systemstack"
+      ]
+    }
+  ],
+  "observer-0-candidate-cpu-raw.txt": [
+    {
+      "nanoseconds": 1970000000,
+      "frames": [
+        "runtime.madvise",
+        "runtime.sysUsedOS",
+        "runtime.sysUsed",
+        "runtime.(*mheap).allocSpan",
+        "runtime.(*mheap).alloc.func1",
+        "runtime.systemstack"
+      ]
+    },
+    {
+      "nanoseconds": 10000000,
+      "frames": [
+        "runtime.madvise",
+        "runtime.sysUsedOS",
+        "runtime.sysUsed",
+        "runtime.(*mheap).allocSpan",
+        "runtime.(*mheap).allocManual",
+        "runtime.stackpoolalloc",
+        "runtime.stackcacherefill",
+        "runtime.stackalloc",
+        "runtime.copystack",
+        "runtime.newstack",
+        "runtime.morestack"
+      ]
+    }
+  ],
+  "observer-1-baseline-cpu-raw.txt": [
+    {
+      "nanoseconds": 70000000,
+      "frames": [
+        "runtime.madvise",
+        "runtime.sysUsedOS",
+        "runtime.sysUsed",
+        "runtime.(*mheap).allocSpan",
+        "runtime.(*mheap).alloc.func1",
+        "runtime.systemstack"
+      ]
+    }
+  ]
+}

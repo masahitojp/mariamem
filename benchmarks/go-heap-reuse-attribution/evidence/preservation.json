@@ -1,0 +1,453 @@
+{
+  "normalization": "Task/repository/home path prefixes; .log becomes .txt; LF line endings and trailing whitespace removal. Numeric observations and sample stacks are unchanged.",
+  "collector_sha256": "782fd582282efb478a96cc4fde05e6db76c0fe24d1aa56bc8ae90950b771172b",
+  "files": [
+    {
+      "source": "analysis.json",
+      "stored": "analysis.json",
+      "original_sha256": "26ef29b4676f186abec97c786d440d636dc56e8229fd95a98b36e48b2edfa329",
+      "stored_sha256": "26ef29b4676f186abec97c786d440d636dc56e8229fd95a98b36e48b2edfa329",
+      "normalized": false
+    },
+    {
+      "source": "baseline-observer.go.txt",
+      "stored": "baseline-observer.go.txt",
+      "original_sha256": "18e883557323b231e3deaa6fbcac4526f5706501b4739cd1ea3235f0b12adfbc",
+      "stored_sha256": "18e883557323b231e3deaa6fbcac4526f5706501b4739cd1ea3235f0b12adfbc",
+      "normalized": false
+    },
+    {
+      "source": "baseline-resources.go.txt",
+      "stored": "baseline-resources.go.txt",
+      "original_sha256": "3bf7359bcc5ae16ac7dccc24411a710f01f18d6f0399cd415e9a8da008781573",
+      "stored_sha256": "3bf7359bcc5ae16ac7dccc24411a710f01f18d6f0399cd415e9a8da008781573",
+      "normalized": false
+    },
+    {
+      "source": "campaign.txt",
+      "stored": "campaign.txt",
+      "original_sha256": "f8893f8f620fbd41223b39de556b3dadfea95165ebe7c60326f8d738c65faab4",
+      "stored_sha256": "f8893f8f620fbd41223b39de556b3dadfea95165ebe7c60326f8d738c65faab4",
+      "normalized": false
+    },
+    {
+      "source": "candidate-observer.go.txt",
+      "stored": "candidate-observer.go.txt",
+      "original_sha256": "c5a564fb3e0004a801a1c1d983f8059d406f972da270077d89abd805b328a281",
+      "stored_sha256": "c5a564fb3e0004a801a1c1d983f8059d406f972da270077d89abd805b328a281",
+      "normalized": false
+    },
+    {
+      "source": "candidate-resources.go.txt",
+      "stored": "candidate-resources.go.txt",
+      "original_sha256": "3bf7359bcc5ae16ac7dccc24411a710f01f18d6f0399cd415e9a8da008781573",
+      "stored_sha256": "3bf7359bcc5ae16ac7dccc24411a710f01f18d6f0399cd415e9a8da008781573",
+      "normalized": false
+    },
+    {
+      "source": "console.log",
+      "stored": "console.txt",
+      "original_sha256": "2d94cc7f6e4e14747f44bdbb71c2983e5142ac96ad04f4daf83085cbd5154f77",
+      "stored_sha256": "aefb4db9dce362385cd1e04869315ddc090c2e6df7e42a7fd461473df3b2905f",
+      "normalized": true
+    },
+    {
+      "source": "observer-0-baseline-cpu-allocs-focused.txt",
+      "stored": "observer-0-baseline-cpu-allocs-focused.txt",
+      "original_sha256": "12c4761a8e9362fb147ded8d441b88bcf7450abc577ea81c057966bdadaa717f",
+      "stored_sha256": "12c4761a8e9362fb147ded8d441b88bcf7450abc577ea81c057966bdadaa717f",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu-allocs-objects.txt",
+      "stored": "observer-0-baseline-cpu-allocs-objects.txt",
+      "original_sha256": "90f21cdd246a3a2a67bbf796649157f197fd4ee9d9a3c91e9fa95d171b6f8b68",
+      "stored_sha256": "90f21cdd246a3a2a67bbf796649157f197fd4ee9d9a3c91e9fa95d171b6f8b68",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu-allocs-raw.txt",
+      "stored": "observer-0-baseline-cpu-allocs-raw.txt",
+      "original_sha256": "56e37bd7805591afe4b621766d9118ac2a3015f51028c057f7fc306420dd653d",
+      "stored_sha256": "abd414e139a7fd5e36582b0f70b8b1e70f613916a814beb0f8f0ddb7ac0124c2",
+      "normalized": true
+    },
+    {
+      "source": "observer-0-baseline-cpu-allocs-space.txt",
+      "stored": "observer-0-baseline-cpu-allocs-space.txt",
+      "original_sha256": "acedb4fc924874d9fcb25436ff19e12645aa14cae8c880e79837aebdba0c97cf",
+      "stored_sha256": "acedb4fc924874d9fcb25436ff19e12645aa14cae8c880e79837aebdba0c97cf",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu-allocs.pprof",
+      "stored": null,
+      "original_sha256": "d712ffb1e55b98d703a621e96a061434e81f6148783fea2e96a6e79cf2804ec4",
+      "reason": "Original binary CPU/allocation profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-0-baseline-cpu-cum.txt",
+      "stored": "observer-0-baseline-cpu-cum.txt",
+      "original_sha256": "112108dc2ad053dcbe2d497b0a45bf3dfd85e377a660a98249d56c34335fc9fb",
+      "stored_sha256": "112108dc2ad053dcbe2d497b0a45bf3dfd85e377a660a98249d56c34335fc9fb",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu-gc.txt",
+      "stored": "observer-0-baseline-cpu-gc.txt",
+      "original_sha256": "2ef142073e5637df653ce75c42e8ffc656f31d55d26a48acf5ec0f02a275482b",
+      "stored_sha256": "2ef142073e5637df653ce75c42e8ffc656f31d55d26a48acf5ec0f02a275482b",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu-raw.txt",
+      "stored": "observer-0-baseline-cpu-raw.txt",
+      "original_sha256": "3f982a81b010c3bd067e119a40f47d809c53421982b3e63bc6d798abf81388a9",
+      "stored_sha256": "742d70f03442e0d2b251ee10fd2ddfe3758249f01e6809bdf8d4de144aa7397e",
+      "normalized": true
+    },
+    {
+      "source": "observer-0-baseline-cpu-storage.txt",
+      "stored": "observer-0-baseline-cpu-storage.txt",
+      "original_sha256": "80c23f571930cc62436baefb9b16e0dcc0c2496f179540a32454aa618b451f85",
+      "stored_sha256": "80c23f571930cc62436baefb9b16e0dcc0c2496f179540a32454aa618b451f85",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu-top.txt",
+      "stored": "observer-0-baseline-cpu-top.txt",
+      "original_sha256": "5d25947f5f640fd518a34e575b9e9d81c4e44776e8b1327edc511a652769860f",
+      "stored_sha256": "5d25947f5f640fd518a34e575b9e9d81c4e44776e8b1327edc511a652769860f",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu.json",
+      "stored": "observer-0-baseline-cpu.json",
+      "original_sha256": "075d552947985c014dccf733a5953d31469b9be45bcdb2743c4b0cd38c54cf1b",
+      "stored_sha256": "075d552947985c014dccf733a5953d31469b9be45bcdb2743c4b0cd38c54cf1b",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu.pprof",
+      "stored": null,
+      "original_sha256": "4cf98a87da4dde0ef4a39ab645bc28a2a6cca9a9616ff05fe3af1e0b9e5deeb4",
+      "reason": "Original binary CPU/allocation profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-0-baseline-cpu.txt",
+      "stored": "observer-0-baseline-cpu.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu-allocs-focused.txt",
+      "stored": "observer-0-candidate-cpu-allocs-focused.txt",
+      "original_sha256": "4a823cc483af499c11ed18e324afacca714a61e5f213450ec21a9f0b101c886f",
+      "stored_sha256": "4a823cc483af499c11ed18e324afacca714a61e5f213450ec21a9f0b101c886f",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu-allocs-objects.txt",
+      "stored": "observer-0-candidate-cpu-allocs-objects.txt",
+      "original_sha256": "51dc3396fc0aeaf2c200345f96cf112e5c088144765d1c162d9833988c82401c",
+      "stored_sha256": "51dc3396fc0aeaf2c200345f96cf112e5c088144765d1c162d9833988c82401c",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu-allocs-raw.txt",
+      "stored": "observer-0-candidate-cpu-allocs-raw.txt",
+      "original_sha256": "10506bf09396b3b3f7ea16cf8663275a2d9a4003cd417b6ea6d5986b8af5d4b5",
+      "stored_sha256": "90db78b3d871a64a7b9909859cd522f690b92bdb9f95d0d898daa6ed90a8d96b",
+      "normalized": true
+    },
+    {
+      "source": "observer-0-candidate-cpu-allocs-space.txt",
+      "stored": "observer-0-candidate-cpu-allocs-space.txt",
+      "original_sha256": "c0da0f7de1e0a2befe213c60f27fa21365c3ee2c32eaffd49ec95a133515aa21",
+      "stored_sha256": "c0da0f7de1e0a2befe213c60f27fa21365c3ee2c32eaffd49ec95a133515aa21",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu-allocs.pprof",
+      "stored": null,
+      "original_sha256": "223c4abcc9e46ebb8b92f38088bec9c357770a16d847e5c8239cc285c2b62624",
+      "reason": "Original binary CPU/allocation profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-0-candidate-cpu-cum.txt",
+      "stored": "observer-0-candidate-cpu-cum.txt",
+      "original_sha256": "1fafba1df487f4bdd83b1de43ebe42ad1b1cc3ecc79b1f0ff2a26be2abac5c84",
+      "stored_sha256": "1fafba1df487f4bdd83b1de43ebe42ad1b1cc3ecc79b1f0ff2a26be2abac5c84",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu-gc.txt",
+      "stored": "observer-0-candidate-cpu-gc.txt",
+      "original_sha256": "74263fa3df95d0a47af20509d6ffb2940faa656fe271a690ce7c69d8ea0f8842",
+      "stored_sha256": "74263fa3df95d0a47af20509d6ffb2940faa656fe271a690ce7c69d8ea0f8842",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu-raw.txt",
+      "stored": "observer-0-candidate-cpu-raw.txt",
+      "original_sha256": "3e7d54779b83c5e9ffb3c52a082f425c41bd2dc32297ad00705138e7c5337d2f",
+      "stored_sha256": "3941f7f7d4d1be4df8cda215843b19fa4c780067b06ef050bfb2c4840e862777",
+      "normalized": true
+    },
+    {
+      "source": "observer-0-candidate-cpu-storage.txt",
+      "stored": "observer-0-candidate-cpu-storage.txt",
+      "original_sha256": "185bb526b098eb34f6a4a4b300b9aa7e06450d465a1f0af7cc401064b0e5bd98",
+      "stored_sha256": "185bb526b098eb34f6a4a4b300b9aa7e06450d465a1f0af7cc401064b0e5bd98",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu-top.txt",
+      "stored": "observer-0-candidate-cpu-top.txt",
+      "original_sha256": "33341ccdeb3bc72e5e6c30ab5a71bad9d47be426f8ee039b8d49c13f0c950414",
+      "stored_sha256": "33341ccdeb3bc72e5e6c30ab5a71bad9d47be426f8ee039b8d49c13f0c950414",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu.json",
+      "stored": "observer-0-candidate-cpu.json",
+      "original_sha256": "29e8168e2ed1ab5ca4cf7d09b6d9e20990f0c4656e5b2847095a9a5bf35644d6",
+      "stored_sha256": "29e8168e2ed1ab5ca4cf7d09b6d9e20990f0c4656e5b2847095a9a5bf35644d6",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu.pprof",
+      "stored": null,
+      "original_sha256": "5b367eb99ebd2806e8412d8035722a1d51b24c675304b1b0338307c7cf017e54",
+      "reason": "Original binary CPU/allocation profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-0-candidate-cpu.txt",
+      "stored": "observer-0-candidate-cpu.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu-allocs-focused.txt",
+      "stored": "observer-1-baseline-cpu-allocs-focused.txt",
+      "original_sha256": "59a9c326b3dc3a622ef0b395e963b6861cc602accd7506047502b7f88b6ef8e9",
+      "stored_sha256": "59a9c326b3dc3a622ef0b395e963b6861cc602accd7506047502b7f88b6ef8e9",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu-allocs-objects.txt",
+      "stored": "observer-1-baseline-cpu-allocs-objects.txt",
+      "original_sha256": "eb2dc9b501a600a4660ac61e5262266136bdd576504254bda2d3e2d40735c47b",
+      "stored_sha256": "eb2dc9b501a600a4660ac61e5262266136bdd576504254bda2d3e2d40735c47b",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu-allocs-raw.txt",
+      "stored": "observer-1-baseline-cpu-allocs-raw.txt",
+      "original_sha256": "99cc1da6adf9125c25a3fceaa02a9dcda8326575035c8e460b2bc75d6f3a6786",
+      "stored_sha256": "33e49118c3a33e635c586b3c2de97282adc775e8d47a392a7ac31ee293770c4d",
+      "normalized": true
+    },
+    {
+      "source": "observer-1-baseline-cpu-allocs-space.txt",
+      "stored": "observer-1-baseline-cpu-allocs-space.txt",
+      "original_sha256": "885e4b5139d85ddf864b8d35ebe0bf3d909aeff2e079bb6392184a56f51deb55",
+      "stored_sha256": "885e4b5139d85ddf864b8d35ebe0bf3d909aeff2e079bb6392184a56f51deb55",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu-allocs.pprof",
+      "stored": null,
+      "original_sha256": "dc7490d74a4e338aad206a77f9d11e19d5d208beadaf3c66e0981ced727da74f",
+      "reason": "Original binary CPU/allocation profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-1-baseline-cpu-cum.txt",
+      "stored": "observer-1-baseline-cpu-cum.txt",
+      "original_sha256": "2c1ce0e4402a67d562f192b54a8f398b4762893b46b66fac9d9a93e3eadd1be2",
+      "stored_sha256": "2c1ce0e4402a67d562f192b54a8f398b4762893b46b66fac9d9a93e3eadd1be2",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu-gc.txt",
+      "stored": "observer-1-baseline-cpu-gc.txt",
+      "original_sha256": "be4d36593caf200156b529c03149356fdf43302afb1dbc304202490ce2ed56b8",
+      "stored_sha256": "be4d36593caf200156b529c03149356fdf43302afb1dbc304202490ce2ed56b8",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu-raw.txt",
+      "stored": "observer-1-baseline-cpu-raw.txt",
+      "original_sha256": "7a37f8cc75805f959bbe2449772d4f9d07960271f29e078387f0f2f28dbc598f",
+      "stored_sha256": "155dae5dac9d04275bef5292850edb70d7d60b64903b6cd8af712f58e5d9a54f",
+      "normalized": true
+    },
+    {
+      "source": "observer-1-baseline-cpu-storage.txt",
+      "stored": "observer-1-baseline-cpu-storage.txt",
+      "original_sha256": "c8fb6d7c88c4b8f05ec3a98828a6e917476dceea37e9a27e950f32bf53c21cb2",
+      "stored_sha256": "c8fb6d7c88c4b8f05ec3a98828a6e917476dceea37e9a27e950f32bf53c21cb2",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu-top.txt",
+      "stored": "observer-1-baseline-cpu-top.txt",
+      "original_sha256": "7886972b378d8c916ba50c1a78377558a6cce1523108575fcbf1fa79a52ddfab",
+      "stored_sha256": "7886972b378d8c916ba50c1a78377558a6cce1523108575fcbf1fa79a52ddfab",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu.json",
+      "stored": "observer-1-baseline-cpu.json",
+      "original_sha256": "28d44ef8088359872402acf74496994819ff86bcc655802dd947ba34245ab9d4",
+      "stored_sha256": "28d44ef8088359872402acf74496994819ff86bcc655802dd947ba34245ab9d4",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu.pprof",
+      "stored": null,
+      "original_sha256": "0f6a41d0b499b93225dbec18206efe04b589f208c103711d8c75a05f93add6f6",
+      "reason": "Original binary CPU/allocation profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-1-baseline-cpu.txt",
+      "stored": "observer-1-baseline-cpu.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu-allocs-focused.txt",
+      "stored": "observer-1-candidate-cpu-allocs-focused.txt",
+      "original_sha256": "1c3e5728f9f87b8012912bee07ffc6a36a6662a632399def2a702156b8c43c42",
+      "stored_sha256": "1c3e5728f9f87b8012912bee07ffc6a36a6662a632399def2a702156b8c43c42",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu-allocs-objects.txt",
+      "stored": "observer-1-candidate-cpu-allocs-objects.txt",
+      "original_sha256": "67fcdc9ced087c6c8f9cfbca445f1513e158f1dc7cd2d4e307ccd5268918f551",
+      "stored_sha256": "67fcdc9ced087c6c8f9cfbca445f1513e158f1dc7cd2d4e307ccd5268918f551",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu-allocs-raw.txt",
+      "stored": "observer-1-candidate-cpu-allocs-raw.txt",
+      "original_sha256": "e6896e6975e4c642b29559b373e062eb91dfe4f86052186282be0e1f14aa9751",
+      "stored_sha256": "3035914136e07e8989d3b901b86e7c3f0974e6120b7af663b2332da102f24cde",
+      "normalized": true
+    },
+    {
+      "source": "observer-1-candidate-cpu-allocs-space.txt",
+      "stored": "observer-1-candidate-cpu-allocs-space.txt",
+      "original_sha256": "9049c1f3b06798d2276f1597f19190a7f98396eb92ccef1f424cb8243b338455",
+      "stored_sha256": "9049c1f3b06798d2276f1597f19190a7f98396eb92ccef1f424cb8243b338455",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu-allocs.pprof",
+      "stored": null,
+      "original_sha256": "3a7a1d23a37d7bc3f0a3beb825d31ed3a2eb59e27841800b6d8fcbec5d65824e",
+      "reason": "Original binary CPU/allocation profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-1-candidate-cpu-cum.txt",
+      "stored": "observer-1-candidate-cpu-cum.txt",
+      "original_sha256": "81b45f901c7ed4a6b042948fa8b7d98e9731c830232b7e67074860c839b38ea2",
+      "stored_sha256": "81b45f901c7ed4a6b042948fa8b7d98e9731c830232b7e67074860c839b38ea2",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu-gc.txt",
+      "stored": "observer-1-candidate-cpu-gc.txt",
+      "original_sha256": "a5135448c2018b099a8d0c3a839b2a9cbe9f72fbb5248e9abb5b2fa9c2dc9524",
+      "stored_sha256": "a5135448c2018b099a8d0c3a839b2a9cbe9f72fbb5248e9abb5b2fa9c2dc9524",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu-raw.txt",
+      "stored": "observer-1-candidate-cpu-raw.txt",
+      "original_sha256": "cf29b3f1531cde712d60d306b69fbe59e18eb3e826df56654b50b93771c767fe",
+      "stored_sha256": "e3e8a63eea203b0990be611ea7d9ef5efc48fbf00240b9dced5528b4fec3a68a",
+      "normalized": true
+    },
+    {
+      "source": "observer-1-candidate-cpu-storage.txt",
+      "stored": "observer-1-candidate-cpu-storage.txt",
+      "original_sha256": "de17a6e5dcbe2091f7116dc5277bebcbd515a80ee399712ffef6a9197583ff3a",
+      "stored_sha256": "de17a6e5dcbe2091f7116dc5277bebcbd515a80ee399712ffef6a9197583ff3a",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu-top.txt",
+      "stored": "observer-1-candidate-cpu-top.txt",
+      "original_sha256": "0cdd6e8fedfd75fc2a5fbd636b9d1b207c280d8ad4c684fe237f49e7f7229009",
+      "stored_sha256": "0cdd6e8fedfd75fc2a5fbd636b9d1b207c280d8ad4c684fe237f49e7f7229009",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu.json",
+      "stored": "observer-1-candidate-cpu.json",
+      "original_sha256": "cd464e52cdf84de1acc4badfbec9de9f0393b9c255c612880534facddbcd6c74",
+      "stored_sha256": "cd464e52cdf84de1acc4badfbec9de9f0393b9c255c612880534facddbcd6c74",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu.pprof",
+      "stored": null,
+      "original_sha256": "4297f1add1f3e5db20b166fcee8d4937f5c4f9f199848ce6aeba676dcdfb4781",
+      "reason": "Original binary CPU/allocation profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-1-candidate-cpu.txt",
+      "stored": "observer-1-candidate-cpu.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-inputs.json",
+      "stored": "observer-inputs.json",
+      "original_sha256": "2718c48573bec8bb03db801b80c3b304d6bc89664a0b2af13b1aeeed141ff8a8",
+      "stored_sha256": "2718c48573bec8bb03db801b80c3b304d6bc89664a0b2af13b1aeeed141ff8a8",
+      "normalized": false
+    },
+    {
+      "source": "parser-crosscheck.json",
+      "stored": "parser-crosscheck.json",
+      "original_sha256": "2dd219627859c297ff20d8b6c99c7751854376ad9edc31304608b94d1d7e14cf",
+      "stored_sha256": "2dd219627859c297ff20d8b6c99c7751854376ad9edc31304608b94d1d7e14cf",
+      "normalized": false
+    },
+    {
+      "source": "receipt.json",
+      "stored": "receipt.json",
+      "original_sha256": "4e401cc2a5675c020d56f4c86d24610c43a1dacac08ef71acd02df42f27abdd8",
+      "stored_sha256": "49c170f27958c3ebbd404da932a8ab1e98db25ec7cf6de3303c492c663fc3aaa",
+      "normalized": true
+    },
+    {
+      "source": "reuse-stacks.json",
+      "stored": "reuse-stacks.json",
+      "original_sha256": "13e5aa3fe0dffbe9cfec9d417a4c4cc6f632f9f5e2989b8ddb8c2687f4dc9b37",
+      "stored_sha256": "13e5aa3fe0dffbe9cfec9d417a4c4cc6f632f9f5e2989b8ddb8c2687f4dc9b37",
+      "normalized": false
+    },
+    {
+      "source": "storage-source-audit.json",
+      "stored": "storage-source-audit.json",
+      "original_sha256": "c559e465d17e6311d22d58b55e000413e0a415e4468e6f7e0e50ffdc1dc44704",
+      "stored_sha256": "c559e465d17e6311d22d58b55e000413e0a415e4468e6f7e0e50ffdc1dc44704",
+      "normalized": false
+    },
+    {
+      "source": "temp-checksums.json",
+      "stored": "temp-checksums.json",
+      "original_sha256": "0f763f25ae5da23d002fbf445740f6205ef878a7caf284e40b16cd481c4f9365",
+      "stored_sha256": "0f763f25ae5da23d002fbf445740f6205ef878a7caf284e40b16cd481c4f9365",
+      "normalized": false
+    }
+  ]
+}

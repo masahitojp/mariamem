@@ -1,0 +1,39 @@
+File: baseline-observer
+Type: cpu
+Time: 2026-10-17 08:35:46 JST
+Duration: 26.71s, Total samples = 25.32s (94.81%)
+Active filters:
+   focus=runtime.gc|runtime.scan|runtime.malloc
+Showing nodes accounting for 0.28s, 1.11% of 25.32s total
+Showing top 30 nodes out of 141
+      flat  flat%   sum%        cum   cum%
+     0.18s  0.71%  0.71%      0.18s  0.71%  runtime.memclrNoHeapPointers
+     0.03s  0.12%  0.83%      0.03s  0.12%  runtime.mmap
+     0.02s 0.079%  0.91%      0.02s 0.079%  runtime.(*mheap).setSpans
+     0.01s 0.039%  0.95%      0.01s 0.039%  internal/runtime/atomic.(*Uint32).Add (inline)
+     0.01s 0.039%  0.99%      0.01s 0.039%  runtime.acquirem (inline)
+     0.01s 0.039%  1.03%      0.01s 0.039%  runtime.pthread_cond_signal
+     0.01s 0.039%  1.07%      0.01s 0.039%  runtime.pthread_cond_timedwait_relative_np
+     0.01s 0.039%  1.11%      0.01s 0.039%  runtime.pthread_kill
+         0     0%  1.11%      0.01s 0.039%  database/sql.(*DB).Exec
+         0     0%  1.11%      0.01s 0.039%  database/sql.(*DB).ExecContext
+         0     0%  1.11%      0.01s 0.039%  database/sql.(*DB).ExecContext.func1
+         0     0%  1.11%      0.01s 0.039%  database/sql.(*DB).exec
+         0     0%  1.11%      0.01s 0.039%  database/sql.(*DB).execDC
+         0     0%  1.11%      0.01s 0.039%  database/sql.(*DB).execDC.func2
+         0     0%  1.11%      0.01s 0.039%  database/sql.(*DB).retry
+         0     0%  1.11%      0.01s 0.039%  database/sql.ctxDriverExec
+         0     0%  1.11%      0.01s 0.039%  database/sql.withLock
+         0     0%  1.11%      0.01s 0.039%  github.com/go-sql-driver/mysql.(*buffer).takeBuffer (inline)
+         0     0%  1.11%      0.01s 0.039%  github.com/go-sql-driver/mysql.(*mysqlConn).Exec
+         0     0%  1.11%      0.01s 0.039%  github.com/go-sql-driver/mysql.(*mysqlConn).ExecContext
+         0     0%  1.11%      0.01s 0.039%  github.com/go-sql-driver/mysql.(*mysqlConn).exec
+         0     0%  1.11%      0.01s 0.039%  github.com/go-sql-driver/mysql.(*mysqlConn).writeCommandPacketStr
+         0     0%  1.11%      0.02s 0.079%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait
+         0     0%  1.11%      0.02s 0.079%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Path_open2
+         0     0%  1.11%      0.04s  0.16%  github.com/masahitojp/mariamem/internal/generatedgo.StartInstance.func2
+         0     0%  1.11%      0.04s  0.16%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0%  1.11%      0.17s  0.67%  github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.func2.installGuestThreadLifetime.InstallThreadLifetime.1
+         0     0%  1.11%      0.04s  0.16%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0%  1.11%      0.01s 0.039%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemFS).PinDirectory
+         0     0%  1.11%      0.17s  0.67%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_allocate

@@ -1,0 +1,25 @@
+{
+  "go_version": "go1.26.8",
+  "files": {
+    "bin/go": "2ebc27dd4e38e9b86a9f41df0307785f4f7e2997e4be761a7b4af04b41a0de57",
+    "src/runtime/metrics/description.go": "e69545a7ac2fd82190bebcb09fe0a72111d045ae163e902895957dc49863f1c0",
+    "src/runtime/pprof/pprof.go": "d8c92bf67507fa0385b50d848dcf4d278922e9acb1755ae7d6968baf82466cfa",
+    "src/runtime/mprof.go": "cd26b885d64fa60668250491c3ea127d3364874059ed390d8cb9de570ecbb234",
+    "src/runtime/mem_darwin.go": "5561c1a69491bc5c08075764db75364ada35416157fb3650c25aeab00d07aec0",
+    "src/runtime/mheap.go": "6147548986e268b53fca158135149396a586cfd7d82aef7669b06f59a113bc04"
+  },
+  "observation_rules": {
+    "allocs_profile": "Default sampling rate; no runtime.MemProfileRate assignment; existing final GC only",
+    "histogram": "Counts of allocations per approximate size bucket, not bytes; tiny allocations grouped by runtime",
+    "heap_released": "Current pages returned to OS, not cumulative sysUsed calls; phase deltas cannot reveal gross reuse/return churn",
+    "measurement": "Per-phase ReadMemStats/metrics outside phase timer; may perturb pacing. All four cells CPU+allocation-profiled; previous off/on calibration is historical, not a zero-overhead proof."
+  },
+  "attempts_before_measurement": [
+    "Workspace helper cwd mismatch exited before build; original console.log retained.",
+    "Manual guarded workload runner initial build encountered sandbox DNS denial; resumed with explicit execution approval before any workload."
+  ],
+  "start_utc": "2026-10-16 23:26:54 UTC",
+  "deadline_utc": "2026-10-17 00:26:54 UTC",
+  "maximum_pairs": 2,
+  "discarded_setup_cache": "Helper failure exported 499-byte Xcode xcrun_db before any workload; inspected as regeneratable tool cache, removed. Its original hash remains in temp-checksums.json; no measurement removed."
+}

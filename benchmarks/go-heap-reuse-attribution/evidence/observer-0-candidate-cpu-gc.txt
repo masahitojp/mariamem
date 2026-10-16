@@ -1,0 +1,39 @@
+File: candidate-observer
+Type: cpu
+Time: 2026-10-17 08:34:47 JST
+Duration: 26.30s, Total samples = 25.38s (96.49%)
+Active filters:
+   focus=runtime.gc|runtime.scan|runtime.malloc
+Showing nodes accounting for 0.62s, 2.44% of 25.38s total
+Showing top 30 nodes out of 132
+      flat  flat%   sum%        cum   cum%
+     0.44s  1.73%  1.73%      0.44s  1.73%  runtime.memclrNoHeapPointers
+     0.05s   0.2%  1.93%      0.05s   0.2%  runtime.(*mspan).init
+     0.03s  0.12%  2.05%      0.03s  0.12%  runtime.nextFreeFast (inline)
+     0.02s 0.079%  2.13%      0.02s 0.079%  internal/runtime/atomic.(*UnsafePointer).Load (inline)
+     0.02s 0.079%  2.21%      0.02s 0.079%  runtime.(*mheap).setSpans
+     0.01s 0.039%  2.25%      0.01s 0.039%  internal/runtime/atomic.(*UnsafePointer).StoreNoWB (inline)
+     0.01s 0.039%  2.29%      0.01s 0.039%  runtime.(*gcBits).bytep (inline)
+     0.01s 0.039%  2.32%      0.01s 0.039%  runtime.(*memRecordCycle).add
+     0.01s 0.039%  2.36%      0.01s 0.039%  runtime.binarySearchTree
+     0.01s 0.039%  2.40%      0.01s 0.039%  runtime.pthread_cond_signal
+     0.01s 0.039%  2.44%      0.01s 0.039%  runtime.recordspan
+         0     0%  2.44%      0.01s 0.039%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait
+         0     0%  2.44%      0.05s   0.2%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Path_open2
+         0     0%  2.44%      0.01s 0.039%  github.com/masahitojp/mariamem/internal/generatedgo.StartInstance.func2
+         0     0%  2.44%      0.01s 0.039%  github.com/masahitojp/mariamem/internal/generatedgo.entropyFS.OpenFile
+         0     0%  2.44%      0.01s 0.039%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0%  2.44%      0.57s  2.25%  github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.func2.installGuestThreadLifetime.InstallThreadLifetime.1
+         0     0%  2.44%      0.01s 0.039%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0%  2.44%      0.01s 0.039%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemFS).OpenFile
+         0     0%  2.44%      0.02s 0.079%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemFS).PinDirectory
+         0     0%  2.44%      0.01s 0.039%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemFS).lookup
+         0     0%  2.44%      0.52s  2.05%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_pwrite
+         0     0%  2.44%      0.01s 0.039%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).pathOpenOnFS
+         0     0%  2.44%      0.52s  2.05%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*blockStorage).writeAt
+         0     0%  2.44%      0.52s  2.05%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).WriteAt
+         0     0%  2.44%      0.52s  2.05%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).writeAt
+         0     0%  2.44%      0.01s 0.039%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait
+         0     0%  2.44%      0.01s 0.039%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At
+         0     0%  2.44%      0.05s   0.2%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.OpenRelative
+         0     0%  2.44%      0.57s  2.25%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1

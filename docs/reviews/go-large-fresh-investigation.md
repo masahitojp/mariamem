@@ -151,7 +151,8 @@ v0.5.0→v0.5.1にはguest起動修正も含まれるので、差をすべてD�
 systemstackから直接の因果が取れなければ未帰属と明記して止める。
 それを理由に無制限に観測や対象を広げず、追加instrumentationが必要なら別の範囲・費用で判断する。
 修正実装、global GC設定変更、block形式変更やpool／arena設計はこの承認に含めない。
-この追加調査はまだ実行していない。
+追加調査はその後承認され、[最大2対の結果と未帰属の停止判断](go-heap-reuse-attribution.md)を保存した。
+この節の推薦理由と範囲は当時の記録であり、新たな着手依頼ではない。
 
 ## Evidence, replay and retention
 

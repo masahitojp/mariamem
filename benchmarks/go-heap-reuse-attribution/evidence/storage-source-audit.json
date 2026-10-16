@@ -1,0 +1,11 @@
+{
+  "baseline": {
+    "internal/generatedgo/runtime_instance.go": "f968359a8bd53f192c12ff3f891e032bed947550909b47482d0c00cfe0bc7a17",
+    "internal/generatedgo/code/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f"
+  },
+  "candidate": {
+    "internal/generatedgo/runtime_instance.go": "5e18bdec6748cfaad25dec5dfa6a886b8158a9f8c44d14f306b027bd3dbe7c91",
+    "internal/generatedgo/code/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
+    "internal/generatedgo/code/base/block_storage.go": "78b513813a6f5050a7ba1f0b677b7af7ba60331b287d8983c853bad8017492ae"
+  }
+}

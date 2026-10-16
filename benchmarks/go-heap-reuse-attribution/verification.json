@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "executions": 4,
+  "DB_lifecycles": 16,
+  "checks": [
+    "Unchanged SQL/commit/rollback/Fresh independence/cleanup oracles",
+    "Typed release identities; clean standalone source clones; actual Go binary VCS stamp and unchanged hashes",
+    "Allocation parser storage-union and total byte estimates crosschecked against Go pprof for all four profiles",
+    "All phases, allocation categories/stacks and CPU groups replay identically from normalized public text; only raw-text hashes differ",
+    "Python AST syntax",
+    "verify.py check --scope docs: version, public source boundary (3305 files), diff whitespace"
+  ],
+  "source_sha256": {
+    "collect.py": "782fd582282efb478a96cc4fde05e6db76c0fe24d1aa56bc8ae90950b771172b",
+    "run.py": "887b5673722df7e304ff42903bf6758771dfd45191c3bd797a79d5dae8d4a210",
+    "analyze.py": "de7bb0da1d8d35ae84827771a801c7e366546abd0766f454eefaceacbf201119"
+  }
+}

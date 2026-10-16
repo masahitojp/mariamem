@@ -1,0 +1,87 @@
+File: baseline-observer
+Type: alloc_objects
+Time: 2026-10-17 08:36:13 JST
+Showing nodes accounting for 2381882, 98.11% of 2427697 total
+Dropped 137 nodes (cum <= 12138)
+Showing top 80 nodes out of 92
+      flat  flat%   sum%        cum   cum%
+    791422 32.60% 32.60%     922638 38.00%  main.main.func5
+    725607 29.89% 62.49%    1279581 52.71%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait
+    371390 15.30% 77.79%     553974 22.82%  time.NewTimer
+    182584  7.52% 85.31%     182584  7.52%  time.newTimer
+     98305  4.05% 89.36%      98305  4.05%  github.com/go-sql-driver/mysql.converter.ConvertValue
+     69934  2.88% 92.24%      69934  2.88%  github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).callQuery
+     32768  1.35% 93.59%      32768  1.35%  encoding/json.typeFields
+     27307  1.12% 94.71%      60075  2.47%  encoding/json.(*decodeState).object
+     19115  0.79% 95.50%      19115  0.79%  strings.genSplit
+     16384  0.67% 96.17%     127801  5.26%  database/sql.(*DB).execDC
+     16384  0.67% 96.85%      16384  0.67%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryMappingStats
+     14906  0.61% 97.46%      14906  0.61%  github.com/masahitojp/mariamem/internal/guest.(*Process).Call
+      7282   0.3% 97.76%      70998  2.92%  github.com/masahitojp/mariamem/internal/guest.(*Process).read
+      3943  0.16% 97.93%     102248  4.21%  database/sql.driverArgsConnLocked
+      3641  0.15% 98.08%      63716  2.62%  encoding/json.Unmarshal
+       910 0.037% 98.11%      17294  0.71%  main.goResourcePoint
+         0     0% 98.11%     127801  5.26%  database/sql.(*DB).Exec (inline)
+         0     0% 98.11%     127801  5.26%  database/sql.(*DB).ExecContext
+         0     0% 98.11%     127801  5.26%  database/sql.(*DB).ExecContext.func1
+         0     0% 98.11%     127801  5.26%  database/sql.(*DB).exec
+         0     0% 98.11%     111417  4.59%  database/sql.(*DB).execDC.func2
+         0     0% 98.11%     127801  5.26%  database/sql.(*DB).retry
+         0     0% 98.11%     111417  4.59%  database/sql.withLock
+         0     0% 98.11%      60075  2.47%  encoding/json.(*decodeState).unmarshal
+         0     0% 98.11%      60075  2.47%  encoding/json.(*decodeState).value
+         0     0% 98.11%      32768  1.35%  encoding/json.cachedTypeFields
+         0     0% 98.11%      32768  1.35%  encoding/json.newStructEncoder (inline)
+         0     0% 98.11%      32768  1.35%  encoding/json.newTypeEncoder
+         0     0% 98.11%      32768  1.35%  encoding/json.typeEncoder
+         0     0% 98.11%      32768  1.35%  encoding/json.typeEncoder.OnceValue[go.shape.func].func3 (inline)
+         0     0% 98.11%      32768  1.35%  encoding/json.typeEncoder.func1
+         0     0% 98.11%      32768  1.35%  encoding/json.typeEncoder.typeEncoder.OnceValue[go.shape.func].func3.func4
+         0     0% 98.11%      98305  4.05%  github.com/go-sql-driver/mysql.(*mysqlConn).CheckNamedValue
+         0     0% 98.11%    1279581 52.71%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait
+         0     0% 98.11%      19115  0.79%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Path_open2
+         0     0% 98.11%      21872   0.9%  github.com/masahitojp/mariamem/internal/generatedgo.StartInstance.func2
+         0     0% 98.11%      19115  0.79%  github.com/masahitojp/mariamem/internal/generatedgo.entropyFS.OpenFile
+         0     0% 98.11%      21870   0.9%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0% 98.11%    1292921 53.26%  github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.func2.installGuestThreadLifetime.InstallThreadLifetime.1
+         0     0% 98.11%      21870   0.9%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0% 98.11%      19115  0.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemFS).OpenFile
+         0     0% 98.11%      19115  0.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemFS).lookup
+         0     0% 98.11%      19115  0.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).pathOpenOnFS
+         0     0% 98.11%    1279581 52.71%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At
+         0     0% 98.11%      19115  0.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.OpenRelative
+         0     0% 98.11%    1292921 53.26%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+         0     0% 98.11%    1292921 53.26%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+         0     0% 98.11%      19115  0.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.memSplit
+         0     0% 98.11%     172167  7.09%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14521
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14901
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14906
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17130
+         0     0% 98.11%      21870   0.9%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21692
+         0     0% 98.11%     172167  7.09%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5549
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14532
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn14896
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18104
+         0     0% 98.11%     172167  7.09%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn256
+         0     0% 98.11%    1111050 45.77%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16534
+         0     0% 98.11%    1274900 52.51%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn218
+         0     0% 98.11%     172167  7.09%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14516
+         0     0% 98.11%    1288240 53.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn216
+         0     0% 98.11%      19115  0.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn229
+         0     0% 98.11%     172167  7.09%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn262
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14900
+         0     0% 98.11%      19115  0.79%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn165
+         0     0% 98.11%    1116073 45.97%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16535
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16564
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn17895
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18432
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn7091
+         0     0% 98.11%    1111050 45.77%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16497
+         0     0% 98.11%    1116073 45.97%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16539
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16727
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn17634
+         0     0% 98.11%     172167  7.09%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5790
+         0     0% 98.11%    1279581 52.71%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn12984
+         0     0% 98.11%     163850  6.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn18440
+         0     0% 98.11%      70998  2.92%  github.com/masahitojp/mariamem/internal/guest.Connect.func1
