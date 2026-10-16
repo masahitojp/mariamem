@@ -1,12 +1,9 @@
 # Python usage
 
-This guide describes current main, including adopted, unreleased changes.
-Published Python `0.5.0` retains file-backed Snapshots and save/load APIs;
-installing its wheel does not include main's shared host or API removals.
-The core Start/Snapshot/Fork examples work in both. See
-[API changes and migration](changes-since-v050.md), the
-[released guide](https://github.com/masahitojp/mariamem/blob/v0.5.0/docs/python.md)
-and [installation](../README.md#installation).
+This guide describes Python `0.5.1`: in-memory Snapshots and one automatically
+managed host per root lineage. Public save/load APIs are removed. See
+[API changes and migration](changes-since-v050.md) and
+[installation](../README.md#installation).
 
 ## A disposable database
 
@@ -100,7 +97,7 @@ not authorize killing a host with other live owners.
 
 Snapshots are process-local. Saving/loading baselines, path-based acquisition,
 path-taking capture such as `db.snapshot(path)`, `snapshot_to`, `load_snapshot`
-and `Snapshot.open(path)` are unavailable on main.
+and `Snapshot.open(path)` are unavailable in this version.
 Re-run migrations/seed to prepare a baseline in each test session.
 Old persisted artifacts are not inputs to this API. The library does not manage
 an automatic cache. Internal handoff for an explicitly different development
@@ -162,7 +159,7 @@ it does not share one mutable database. Use the function-scoped fixtures for per
 Each pytest-xdist worker has its own session fixtures and therefore prepares
 its own baseline. There is no automatic run-wide baseline, cross-worker cache
 or cross-run reuse policy. Prepare each worker's baseline from migrations/seed
-with `snapshot()`; a saved Snapshot artifact is not an input on main.
+with `snapshot()`; a saved Snapshot artifact is not an input in this version.
 
 ## Connections, timeouts and failures
 

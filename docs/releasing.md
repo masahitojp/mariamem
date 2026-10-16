@@ -1,12 +1,11 @@
 # Releasing mariamem
 
-The latest published release is `v0.5.0`; Python spelling is `0.5.0`.
-The [tracked notes](../release/NOTES-v0.5.0.md) describe that released source.
-Main contains adopted changes after that release; see
-[unreleased behavior and API changes](changes-since-v050.md). The version constants
-have not been bumped, and no next release version or publication is authorized.
-A normal
-release requires one human request authorizing one exact final-version SHA.
+This source prepares the human-selected `v0.5.1`; Python spelling is `0.5.1`.
+The [tracked notes](../release/NOTES-v0.5.1.md) and
+[behavior/API migration](changes-since-v050.md) describe its changes.
+The maintainer authorized this version after Qualification and Product Verification;
+the release workflow must still accept the exact final-version source/artifacts.
+A normal release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
 
 ## Exact-source release boundary
@@ -70,9 +69,9 @@ MariaDB/WASIX source → LLVM23 legacy-EH WASM → patched pinned wasm2go
 ```
 
 Each DB reconstructs fresh execution/thread/TLS/FD state and private writable
-files. On main, Snapshot/Fork use immutable prepared blocks with private child
-changes, not ready-heap/live-worker restoration. The published release uses
-file-backed prepared state. Python main shares one host per root lineage.
+files. Snapshot/Fork use immutable prepared blocks with private child
+changes, not ready-heap/live-worker restoration. The previous v0.5.0 release used
+file-backed prepared state. Python shares one host per root lineage.
 Python's installed host links the same guest; Go runs it in-process.
 
 ## Build and source/provenance verification
@@ -248,9 +247,13 @@ Full generated guest `-race` remains **GENERAL SHARED-MEMORY MODEL WORK REQUIRED
 no suppression is used and it is not a v0.4 release gate. Focused handwritten
 FD/MemFS/thread/TLS/futex race coverage remains enabled in normal integration CI.
 Forced query-timeout reclamation/hard failure containment is not guaranteed.
-The published v0.5.0 ~1s startup mode has a source correction adopted on main;
-bounded comparisons passed on both platforms. An unexplained slower resource
-trial remains for the separate performance review. The current runtime releases its
+The v0.5.0 ~1s startup mode has a source correction in v0.5.1;
+bounded checks passed on both platforms. The subsequent macOS
+[Product Verification](../benchmarks/main-product-verification.md) completed 274
+executions. Its old slow small resource trial did not recur in bounded repeats;
+its cause remains unknown. The maintainer accepted the performance tradeoff and
+deferred the adverse 100 MiB Go Fresh result until after v0.5.1 release; this is
+not an added release gate. The current runtime releases its
 mmap-backed linear memory after cooperative join; remaining Go filesystem/metadata
 heap and OS accounting still differ from live allocations. The exact combined
 source's external Go1.27.2 consumers passed on both native platforms in

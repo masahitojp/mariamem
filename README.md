@@ -11,12 +11,11 @@ Start fresh for light setup. When migrations or fixtures are expensive, prepare
 them once, fix that state as a Snapshot, and Fork independent databases for
 individual tests. Share the baseline, not previous tests' mutations.
 
-The published release is Python `0.5.0` / Go `v0.5.0`, released on 2026-10-13.
-See its [release notes](release/NOTES-v0.5.0.md).
-This main checkout also contains adopted, unreleased changes: in-memory
-Snapshots, a shared Python host per root lineage, and removal of public save/load
-APIs. The core Start → Snapshot → Fork examples below work in both versions;
-the ownership sections describe main. See [changes since the release](docs/changes-since-v050.md).
+Python `0.5.1` / Go `v0.5.1` includes in-memory Snapshots, one automatically
+managed Python host per root lineage, and the startup ordering correction.
+Public save/load APIs have been removed; prepare migrations and fixtures once
+per test session and reuse the live baseline. See the
+[release notes](release/NOTES-v0.5.1.md) and [API migration guide](docs/changes-since-v050.md).
 
 ## Installation
 
@@ -37,10 +36,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 # macOS arm64
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.5.0/mariamem-0.5.0-py3-none-macosx_15_0_arm64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.5.1/mariamem-0.5.1-py3-none-macosx_15_0_arm64.whl'
 
 # Ubuntu x86_64: use this instead
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.5.0/mariamem-0.5.0-py3-none-linux_x86_64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.5.1/mariamem-0.5.1-py3-none-linux_x86_64.whl'
 ```
 
 The `test` extra supplies PyMySQL and pytest tools. Use the wheel rather than a
@@ -50,7 +49,7 @@ For the published Go module:
 
 ```sh
 go mod init example.com/mariamem-test
-go get github.com/masahitojp/mariamem@v0.5.0
+go get github.com/masahitojp/mariamem@v0.5.1
 go get github.com/go-sql-driver/mysql
 ```
 
@@ -58,8 +57,8 @@ Optional release audit assets can be downloaded separately; they are not needed
 for ordinary startup:
 
 ```sh
-gh release download v0.5.0 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.0-corresponding-source.tar.gz'
+gh release download v0.5.1 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.1-corresponding-source.tar.gz'
 ```
 
 ## Start fresh
@@ -152,9 +151,8 @@ fixture integration is described in the Python guide.
 
 Baselines are process-local and retain fully verified immutable blocks in memory.
 Each Fork has private changes and an independent MariaDB runtime. Prepare once
-per test session; saving/loading baseline artifacts is removed on main and is
-still available in the published release. Installing the release above does not
-install these unreleased changes.
+per test session. Saving/loading baseline artifacts is no longer supported;
+retain migrations and seed inputs to recreate preparation in another process.
 See the [Python](docs/python.md#snapshot-ownership-and-host-lifetime) and
 [Go](docs/go.md#in-memory-baseline-lifetime) guides for ownership and cleanup.
 
@@ -177,8 +175,8 @@ See the [Python](docs/python.md#snapshot-ownership-and-host-lifetime) and
   DBs and baselines contain your test data; treat sensitive data accordingly.
 - Resource use and the Fresh/prepared crossover depend on the workload.
   Large scans remain query work even when preparation is reused.
-- The 0.x API may change. See [released changes](release/NOTES-v0.5.0.md)
-  and [unreleased API changes](docs/changes-since-v050.md).
+- The 0.x API may change. See [release changes](release/NOTES-v0.5.1.md)
+  and [API migration](docs/changes-since-v050.md).
 
 You do not need runtime implementation knowledge to use these APIs.
 [Architecture](docs/v04-generated-go-architecture.md) explains the current

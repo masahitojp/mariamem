@@ -1,11 +1,9 @@
 # Go usage
 
-This guide describes current main, including adopted, unreleased changes.
-The installation command below installs published `v0.5.0`; it does not include
-main's save/load API removal or in-memory backing. The core Start/Snapshot/Fork
-examples work in both. See [API changes and migration](changes-since-v050.md),
-the [released guide](https://github.com/masahitojp/mariamem/blob/v0.5.0/docs/go.md)
-and [installation](../README.md#installation) for supported platforms.
+This guide describes `v0.5.1`: in-memory Snapshot/Fork and process-local baseline
+reuse. Public save/load APIs are removed. See
+[API changes and migration](changes-since-v050.md) and
+[installation](../README.md#installation) for supported platforms.
 The public package is `github.com/masahitojp/mariamem`.
 
 ## Start fresh
@@ -113,7 +111,7 @@ with private block changes. Closing the baseline prevents new Forks and waits
 for admitted startups; started children remain usable until separately closed.
 
 Snapshot content is process-local. `SnapshotOptions.Destination` and
-`LoadSnapshot` are removed on main. Re-run migrations/seed to prepare
+`LoadSnapshot` are removed in this version. Re-run migrations/seed to prepare
 state in each test process. No user-managed file or daemon is required.
 Closing a handle releases its ownership; other children may still own blocks.
 Go memory reclamation and OS RSS reduction have different timing.
@@ -157,14 +155,14 @@ internal mechanisms.
 Install the published module and optional release audit files with:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.5.0
-gh release download v0.5.0 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.0-corresponding-source.tar.gz'
+go get github.com/masahitojp/mariamem@v0.5.1
+gh release download v0.5.1 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.1-corresponding-source.tar.gz'
 ```
 
 Runtime details belong in [architecture](v04-generated-go-architecture.md).
 See [local verification](development.md#local-verification) for scoped
-development checks, [release notes](../release/NOTES-v0.5.0.md)
-for the published version, and [changes on main](changes-since-v050.md).
+development checks, [release notes](../release/NOTES-v0.5.1.md)
+and [API migration](changes-since-v050.md).
 The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.
