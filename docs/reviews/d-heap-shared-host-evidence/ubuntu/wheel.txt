@@ -1,0 +1,23 @@
+Processing ./python
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: mariamem
+  Building wheel for mariamem (pyproject.toml): started
+  Building wheel for mariamem (pyproject.toml): finished with status 'done'
+  Created wheel for mariamem: filename=mariamem-0.5.0-py3-none-linux_x86_64.whl size=50190795 sha256=5a9852de2d720c2d184a21d2dbb2eac83294dac3ae407bec517bc87756551d28
+  Stored in directory: /tmp/pip-ephem-wheel-cache-_ju6dipi/wheels/1f/8e/fe/f19601396f0a2c8c546e02e12786c0b646fd2595265c943efc
+Successfully built mariamem
+{
+  "version": 1,
+  "package_version": "0.5.0",
+  "platform": "ubuntu24.04-x86_64",
+  "distribution": "ubuntu",
+  "version_id": "24.04",
+  "architecture": "x86_64",
+  "runtime_kind": "generated-go",
+  "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+  "public_release_ready": false,
+  "sha256": {
+    "mariamem-host": "14120e5007a9dafdd1bdbfb4b71e99d0f1a6e29872dbfba6ac44c99db27eb1cd"
+  }
+}

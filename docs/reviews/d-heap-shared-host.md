@@ -1,15 +1,14 @@
 # D heap Snapshot＋Python共有host：実装とHuman Review
 
-2026-10-16。`experiment/d-heap-shared-host`。main統合・リリース準備は行っていない。
+2026-10-17更新。`experiment/d-heap-shared-host`。main統合・リリース準備は行っていない。
 
 ## Human Review
 
-**Ubuntuの確認が未完了のため、今回の範囲全体を完了とは判定しない。** macOS arm64の
-実装・検証と限定比較を保存し、Ubuntuの同じ変更境界をCIへ渡す。
-次にHumanが判断するのは、両native platformの結果が揃った後に、この候補をmainへ採用するか。
-推薦は、**Ubuntuの所有・SQL・終了・consumer検証もPASSした条件で採用すること**。
-通常のライブラリ利用と独立DBを維持し、Snapshotの保存・再読込を取り除ける。
-利益の大きさは下の測定範囲で判断し、過去の試作値を今回の成果に加算しない。
+**今回Humanに判断してほしいのは、この候補をmainへ採用するか。推薦は採用。**
+承認済みの実装・限定検証を完了した。macOS arm64に加え、Ubuntu x86_64でも所有・I/O・
+SQL・隔離・終了・consumer検証がPASSした。通常のライブラリ利用と独立DBを維持し、
+Snapshotの保存・再読込を取り除ける。macOSの限定比較ではSnapshotが約45〜49%短縮し、
+準備から全Closeまでは小規模30.8%・中規模6.5%短縮した。Ubuntuの速度は測っていない。
 
 **最も強い反論は、host crashで同じ準備系統の基準と子をまとめて失う点。**
 従来は子のhostが別で基準はPython側に残った。host kill試験でも、同じ系統は失効し、
@@ -17,8 +16,11 @@
 通常SQLエラー・子のClose・個別要求timeoutは、使用中の系統全体のkillへ拡大しない。
 子単位のprocess障害隔離が必要な利用には、この候補を推薦しない。
 
-採用と後日のリリース承認は別。CI提出後はURLとSHAを渡して停止する。
+前回の「UbuntuもPASSした条件で採用」という推薦条件が、
+[完了したCI](https://github.com/masahitojp/mariamem/actions/runs/38908979283/job/116999692620)で
+満たされた。条件を緩めたものではない。採用と後日のリリース承認は別。
 最終Release Qualification／重いProduct Validationは実施していない。
+下記の未実行probeと未解明の遅い試行は、今回PASSの意味に含めず残す。
 
 ## 入力と変更範囲
 
@@ -26,6 +28,7 @@
 | --- | --- |
 | main baseline | `a8137b8b444f86068d3128a291e3a848adfdfd56` |
 | 最終実装・計測入力 | `a6df1c8a396a7b175b634c51295acda724c57444`。後続は資料と証拠の保存 |
+| Ubuntu CI入力 | `4282cba73f12c772942b72c2f020b3ec1228be11`。上記との差は資料・証拠のみでruntime差分なし。source commit型もCIで確認 |
 | 初回実装保存 | `884f692a3c45de137d5cd6a0be66523df9d0ece1` |
 | guest | MariaDB12.3.3、Wasm `7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09`。変更なし |
 | Generated Go provenance | `7c7ad7b5a14b55d3d63cb9bc2484e7c93e99860f0a1b0731104d01f8ecc94589` |
@@ -92,19 +95,25 @@ guest build receiptのsource_commitは変更のないguest入力を持つbaselin
 
 | 設計§6 | 判定 | 証拠／範囲 |
 | --- | --- | --- |
-| 所有とI/O | PASS・macOS | 3 seed×600操作の参照比較、block境界、穴、zero length、shrink/regrow、Allocate、rename/unlinkとopen handle、並行read/write、破損／identity oracle |
-| 制御と失敗 | PASS・macOS | out-of-order、個別cancel、遅延DB／Snapshot回収、未返却子、EOF／invalid protocol、実host kill、別DB待機中のClose、Fork／Close競合、最終reap |
-| API・consumer | PASS・macOS | 指定した削除、option継承、status／connection_info／id／capabilities／diagnostics／logs、起動エラーcode／stage／closed／cause、異binary、外部Go／installed Python／2worker |
-| 規模・資源 | PASS・macOS | 小・中、100 MiB／16 Fork、4並列、10世代、同Session100 Fork。host FD／directory増加なし。weak referenceで到達性を確認 |
+| 所有とI/O | PASS・両native | 3 seed×600操作の参照比較、block境界、穴、zero length、shrink/regrow、Allocate、rename/unlinkとopen handle、並行read/write、破損／identity oracle |
+| 制御と失敗 | PASS・両native | out-of-order、個別cancel、遅延DB／Snapshot回収、未返却子、EOF／invalid protocol、実host kill、別DB待機中のClose、Fork／Close競合、最終reap |
+| API・consumer | PASS・両native | 指定した削除、option継承、status／connection_info／id／capabilities／diagnostics／logs、起動エラーcode／stage／closed／cause、異binary、外部Go／installed Python／2worker |
+| 規模・資源 | PASS・記載範囲 | 小・中、100 MiB／16 Forkの限定比較はmacOS。4並列、10世代、同Session100 Forkは両native。host FD／directory増加なし。weak referenceで到達性を確認 |
 | 正式生成 | PASS | 固定guest独立2 build、独立translation／最終installer、generated source／license／mirror |
 | canonical check／integration | PASS・macOS | [check](d-heap-shared-host-evidence/check-frozen.txt)：Python610成功・23 SKIP、Go test／vet。[integration](d-heap-shared-host-evidence/integration-frozen.txt)：Python17成功、Snapshot33項目、Go／memory境界 |
 | 外部consumer・ORM | PASS・macOS | [ガイド3件](d-heap-shared-host-evidence/guides-consumer-frozen.txt)、Go module実内容一致、installed consumer9件、fixture serial／2worker／migration／失敗cleanup、SQLAlchemy start／fork各11件 |
 | 正式候補の利益 | PASS・macOS限定 | 全54試行のSQL／隔離／回収assert成功。各scaleで6通常対・3資源対。下表の範囲で改善 |
-| Ubuntu24.04 x86_64 | PENDING | `.github/workflows/sharedhost-native.yml`。未実行をPASSとしない |
+| Ubuntu24.04 x86_64 | PASS・限定検証 | [receipt／SKIP内訳](d-heap-shared-host-evidence/ubuntu/receipt.json)。source／license／mirror22成功、Go test／vet、Python607成功・26 SKIP・12 subtests。integration17成功・Snapshot33項目、installed consumer9件、fixture audit、SQLAlchemy start／fork各11件、ガイド3件。全workflow step成功 |
 | 最終Qualification／重いProduct Validation | NOT RUN | 今回の範囲外 |
 
-23 SKIPは通常checkがreal-host等の専用条件を要求するため。対応するintegration／installed
-consumerは別実行した。意図的なassertion失敗1件・fixture setup error1件はcleanup試験の期待結果。
+macOSの23 SKIPは通常checkがreal-host等の専用条件を要求するため。Ubuntuも同じ23件に加え、
+固定ソースarchiveを取得しないためnative認証ソース比較3 modeがSKIPになった。
+うちreal-host 20件はintegration17件とガイド3件で別実行して成功。
+残る開発専用経路probe・型比較probe・強制query-timeout診断の3件は今回のUbuntu CIでは
+実行していない。強制停止はこの設計の完了条件外であり、通常Closeとは別の診断。
+認証ソース比較を含むSKIP6件をPASSへ読み替えない。CIのcheckは`-q`で個別SKIP理由を
+保存していないため、この内訳は固定ソースの条件とworkflow入力に基づく対応づけ。
+意図的なassertion失敗1件・fixture setup error1件はcleanup試験の期待結果。
 初回checkで起動診断4件が失敗したため、code／stage／cause／終了code／stderrを保持するよう修正。
 protocolの期待値だけを2へ更新した。追加待機fixtureの二重Closeも修正して再実行した。
 起動失敗のclosedフラグと基準継続も確認。
@@ -159,9 +168,15 @@ index・orders・DB管理fileを含む総量ではない。以前の1表Go測定
 
 ## 後続と証拠の扱い
 
-Ubuntu nativeの所有・I/O・Go／Python／wheel／ORMの結果が残る。失敗すればその境界を修正・
-再検証し、macOSだけで全対象完了としない。今回の限定比較を全workloadの速度保証には使わない。
+Ubuntu nativeの所有・I/O・Go／Python／wheel／ORMは今回のCIで確認済み。
+今回の限定比較を全workloadやUbuntuの速度保証には使わない。
 接続数調整、さらにhash走査を減らす最適化、強制停止再設計は今回追加していない。
+
+CI結果の取得後は資料・証拠だけを更新した。CI対象SHAを新しい資料commitへ付け替えず、
+[run／step結果](d-heap-shared-host-evidence/ubuntu/run.json)、各検証ログと元／公開hashを
+[receipt](d-heap-shared-host-evidence/ubuntu/receipt.json)に保存した。
+資料だけの保存commitでは`[skip ci]`を指定し、変更していないruntimeのCIを再実行しない。
+main採用はHuman Review待ちであり、Release READYとは判定しない。
 
 既存Ubuntu証拠の`.log`名は公開source guardに反するため`.txt`へ変更し、integration証拠の
 CI絶対path1箇所をrepository相対pathへ正規化した。

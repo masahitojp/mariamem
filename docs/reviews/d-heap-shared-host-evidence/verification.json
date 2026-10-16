@@ -1,7 +1,7 @@
 {
   "source_commit": "a6df1c8a396a7b175b634c51295acda724c57444",
   "source_object_type": "commit",
-  "result": "LOCAL_PASS_NATIVE_UBUNTU_PENDING",
+  "result": "BOUNDED_IMPLEMENTATION_VERIFICATION_PASS_BOTH_NATIVE",
   "checks": {
     "canonical_check": "PASS: Go test/vet, Python 610 passed + 23 skipped + 12 subtests",
     "integration": "PASS: Go runtime/API/race-scoped packages, Python 17 passed + 33 Snapshot checks",
@@ -12,7 +12,7 @@
     "fixture_failure_cleanup": "PASS: expected assertion failure and fixture setup error; all final hosts reaped",
     "sqlalchemy": "PASS: start 11 + fork 11",
     "comparison": "PASS: all 54 final cases",
-    "ubuntu": "PENDING: native CI handoff",
+    "ubuntu": "PASS: 4282cba73f12c772942b72c2f020b3ec1228be11; ubuntu/receipt.json; explicit SKIP details retained",
     "release_qualification": "NOT RUN"
   },
   "history": [
@@ -43,6 +43,15 @@
       "result": "PASS",
       "boundary": "final exact-input campaign",
       "source_commit": "a6df1c8a396a7b175b634c51295acda724c57444"
+    },
+    {
+      "result": "PASS",
+      "boundary": "Ubuntu native verification",
+      "source_commit": "4282cba73f12c772942b72c2f020b3ec1228be11",
+      "evidence": "ubuntu/receipt.json",
+      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/38908979283"
     }
-  ]
+  ],
+  "ubuntu_source_commit": "4282cba73f12c772942b72c2f020b3ec1228be11",
+  "ubuntu_evidence": "ubuntu/receipt.json"
 }

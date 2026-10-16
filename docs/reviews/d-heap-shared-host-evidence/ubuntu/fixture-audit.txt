@@ -1,0 +1,4 @@
+{"name": "serial", "tests": 7, "failures": 0, "errors": 0, "skipped": 0, "fixture_instances_disposed": 5, "final_hosts_reaped": 1}
+{"name": "parallel", "tests": 7, "failures": 0, "errors": 0, "skipped": 0, "fixture_instances_disposed": 6, "final_hosts_reaped": 2}
+{"name": "migration", "tests": 2, "failures": 0, "errors": 0, "skipped": 0, "fixture_instances_disposed": 3, "final_hosts_reaped": 1}
+{"name": "failure-cleanup", "tests": 2, "failures": 1, "errors": 1, "skipped": 0, "fixture_instances_disposed": 3, "final_hosts_reaped": 1}
