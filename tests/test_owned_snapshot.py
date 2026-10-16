@@ -208,11 +208,16 @@ def test_explicit_other_binary_uses_private_handoff(tmp_path):
 def test_wait_on_one_database_does_not_delay_sibling_close():
     with prepared() as baseline:
         with baseline.fork() as waiting, baseline.fork() as sibling:
-            with pymysql.connect(**waiting.connection_info()) as connection, ThreadPoolExecutor(2) as pool:
-                assert waiting.status()["active_connections"] == 1
-                pending = pool.submit(waiting.wait_disconnected, 10)
-                pool.submit(sibling.close).result(5)
-                assert not pending.done()
-                connection.close()
-                pending.result(5)
+            connection = pymysql.connect(**waiting.connection_info())
+            try:
+                with ThreadPoolExecutor(2) as pool:
+                    assert waiting.status()["active_connections"] == 1
+                    pending = pool.submit(waiting.wait_disconnected, 10)
+                    pool.submit(sibling.close).result(5)
+                    assert not pending.done()
+                    connection.close()
+                    pending.result(5)
+            finally:
+                if connection.open:
+                    connection.close()
             initial(waiting)
