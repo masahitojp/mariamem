@@ -29,9 +29,10 @@ class Session:
         self._logs = ""
         self._temp = tempfile.TemporaryDirectory(prefix="mariamem-")
         self.root = Path(self._temp.name)
-        self._stderr = (self.root / "host.log").open("xb")
+        self._stderr = None
         self._process = None
         try:
+            self._stderr = (self.root / "host.log").open("xb")
             self._process = subprocess.Popen(
                 [self.binary, "--shared"], stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE, stderr=self._stderr, text=True,
@@ -238,7 +239,8 @@ class Session:
                     self._reader.join(timeout=5)
                 self._process.stdout.close()
         finally:
-            self._stderr.close()
+            if self._stderr is not None:
+                self._stderr.close()
             try:
                 with (self.root / "host.log").open("rb") as stream:
                     stream.seek(max(0, stream.seek(0, 2)-16384))

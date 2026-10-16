@@ -42,6 +42,7 @@ class Database:
             raise ValueError("wasmer_dir is retired; generated-Go requires no Wasmer cache")
         for v in (query_timeout, startup_timeout, shutdown_timeout):
             _positive(v)
+        requested_log = Path(log_path).absolute() if log_path is not None else None
         if snapshot is not None and not isinstance(snapshot, Snapshot):
             raise TypeError("snapshot must be a live Snapshot handle; saved snapshots are no longer supported")
         try:
@@ -98,7 +99,7 @@ class Database:
                         raise
         self._session = session
         self._owned_log = log_path is None
-        self.log_path = Path(log_path).absolute() if log_path is not None else session.root / ("db-" + uuid.uuid4().hex + ".log")
+        self.log_path = requested_log if requested_log is not None else session.root / ("db-" + uuid.uuid4().hex + ".log")
         try:
             self.log_path.parent.mkdir(parents=True, exist_ok=True)
             fields = dict(log_path=str(self.log_path), query_timeout=f"{query_timeout}s",

@@ -219,3 +219,32 @@ def test_reader_start_failure_reaps_launched_host(fake_host, monkeypatch):
     assert process.poll() is not None
     assert process.stdin.closed and process.stdout.closed
     assert not scratch.exists()
+
+
+def test_invalid_log_path_rejected_before_host_creation(monkeypatch):
+    import subprocess
+    def unexpected(*args, **kwargs):
+        pytest.fail("invalid log path launched a host")
+    monkeypatch.setattr(subprocess, "Popen", unexpected)
+    with pytest.raises(TypeError):
+        mariamem.start(log_path=object())
+
+
+def test_host_log_open_failure_removes_owned_scratch(fake_host, monkeypatch):
+    import tempfile
+    created = []
+    original_temp = tempfile.TemporaryDirectory
+    original_open = Path.open
+    def temporary(*args, **kwargs):
+        value = original_temp(*args, **kwargs)
+        created.append(Path(value.name))
+        return value
+    def reject(path, *args, **kwargs):
+        if path.name == "host.log":
+            raise OSError("injected log-open failure")
+        return original_open(path, *args, **kwargs)
+    monkeypatch.setattr(tempfile, "TemporaryDirectory", temporary)
+    monkeypatch.setattr(Path, "open", reject)
+    with pytest.raises(mariamem.HostError, match="log-open failure"):
+        Session(fake_host)
+    assert len(created) == 1 and not created[0].exists()
