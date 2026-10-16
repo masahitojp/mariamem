@@ -1,0 +1,15 @@
+package base
+import("bytes";"os";"testing";"github.com/masahitojp/mariamem/internal/prepared";"github.com/masahitojp/mariamem/internal/snapshot")
+func TestHeapFreezeIsolationAndDerived(t *testing.T){
+ t.Setenv("MARIAMEM_HEAP","1");fs:=NewMemFS();fs.DEnable(false);fs.MkdirAll("mariadb",0700);content:=bytes.Repeat([]byte{'x'},int(3*dBlockSize+7));if e:=fs.WriteFile("mariadb/a",content,0600);e!=nil{t.Fatal(e)}
+ h,e:=fs.FreezeHeap("fixture",false);if e!=nil{t.Fatal(e)};owner,e:=snapshot.OwnHeap(h,"fixture");if e!=nil{t.Fatal(e)}
+ entries,release,e:=owner.Acquire("fixture");if e!=nil{t.Fatal(e)};a:=NewMemFS();a.DEnable(true);b:=NewMemFS();b.DEnable(true);ma,e:=MapPreparedHandles(a,entries,"mariadb");if e!=nil{t.Fatal(e)};defer ma.Close();mb,e:=MapPreparedHandles(b,entries,"mariadb");if e!=nil{t.Fatal(e)};defer mb.Close();release();owner.Close()
+ f,_:=a.OpenFile("mariadb/a",os.O_RDWR,0600);f.WriteAt([]byte("hi"),dBlockSize-1);f.Truncate(3);f.Truncate(3*dBlockSize+7);want:=append([]byte("xxx"),make([]byte,int(3*dBlockSize+4))...);dContents(t,f,want)
+ q,e:=a.FreezeHeap("fixture",false);if e!=nil{t.Fatal(e)};if e=q.Verify("fixture");e!=nil{t.Fatal(e)};third:=NewMemFS();third.DEnable(true);_,e=MapHeap(third,q,"mariadb");if e!=nil{t.Fatal(e)};c,_:=third.OpenFile("mariadb/a",os.O_RDWR,0600);dContents(t,c,want);c.WriteAt([]byte("changed"),0);dContents(t,f,want)
+ sibling,_:=b.OpenFile("mariadb/a",os.O_RDWR,0600);dContents(t,sibling,content);if e=h.Verify("fixture");e!=nil{t.Fatal(e)}
+ if _,e=snapshot.OwnHeap(h,"wrong");e==nil{t.Fatal("wrong identity accepted")}
+ bad:=*h;bad.Files=map[string]prepared.HeapFile{"a":h.Files["a"]};v:=bad.Files["a"];v.Blocks=append([]prepared.HeapBlock{},v.Blocks...);v.Blocks[0].Valid=prepared.HeapBlockSize+1;bad.Files["a"]=v;if bad.Verify("fixture")==nil{t.Fatal("bad range accepted")}
+}
+func TestHeapRejectCorruption(t *testing.T){
+ for _,fault:=range []string{"target_corrupt","owner_corrupt"}{t.Run(fault,func(t *testing.T){t.Setenv("MARIAMEM_HEAP","1");t.Setenv("MARIAMEM_HEAP_FAULT",fault);fs:=NewMemFS();fs.DEnable(false);fs.MkdirAll("mariadb",0700);fs.WriteFile("mariadb/a",[]byte("payload"),0600);h,e:=fs.FreezeHeap("fixture",false);if fault=="owner_corrupt"&&e==nil{_,e=snapshot.OwnHeap(h,"fixture")};if e==nil||e.Error()!="heap content mismatch"{t.Fatalf("expected mismatch, got %v",e)}})}
+}

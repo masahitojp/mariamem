@@ -1,0 +1,40 @@
+{
+  "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "tag_object_sha": null,
+  "identity_method": "GitHub commits/a61005d resolved to full commit SHA; exact commit raw sources fetched",
+  "files": {
+    "packages/python/src/pgmem/_client.py": {
+      "sha256": "edc6900065f835c8481b9b42d40fff3120ad35f9e629a70f38a8393ecfeb0220",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/packages/python/src/pgmem/_client.py"
+    },
+    "packages/python/src/pgmem/pytest_plugin.py": {
+      "sha256": "9fbec2bd5eb20a9aa73c1db605ecb95f9d5276019d8a21d32091b596f0ef100a",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/packages/python/src/pgmem/pytest_plugin.py"
+    },
+    "internal/engine/engine.go": {
+      "sha256": "013565b556db0d3847ce45aaab026c26639b1aff562e132fa6ddb96ae456bdc4",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/internal/engine/engine.go"
+    },
+    "internal/engine/cluster.go": {
+      "sha256": "830237e8238a8b637b078833e6d23bdf6121eab331982767ab0f7e6d844faf11",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/internal/engine/cluster.go"
+    },
+    "internal/host/cluster.go": {
+      "sha256": "44bbe4677668cc2106085d8a79b012f4ed548383987584146077af5ba293f0a9",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/internal/host/cluster.go"
+    },
+    "cmd/pgmem/control.go": {
+      "sha256": "f3bc70e8b98268c79fc4093360d167613b234fccf4541d28e4b1902db8f416f2",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/cmd/pgmem/control.go"
+    },
+    "internal/vfs/vfs.go": {
+      "sha256": "7fae6a4878db5aece65b39905fa287bfa1de56a2f626775bdfe6f8b95e824ecb",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/internal/vfs/vfs.go"
+    },
+    "snapshot.go": {
+      "sha256": "01b060fb6acb1eb6f5673e85c2ee2b607fb7259d8460a4d3585de3481814d855",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/snapshot.go"
+    }
+  },
+  "execution": "source inspection only; pgmem was not built or benchmarked"
+}

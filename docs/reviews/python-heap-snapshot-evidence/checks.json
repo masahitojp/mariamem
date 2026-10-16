@@ -1,0 +1,12 @@
+{
+  "go_vet_broker_metrics": "PASS with stable applied overlay",
+  "earlier_vet": "discarded: overlay was restored before vet finished; missing overlay files, rerun after reapplying exact postimages",
+  "python_compileall": "PASS",
+  "full_public_source": "FAIL pre-existing tracked docs/reviews/v050-startup-tail-source-fix-evidence/ubuntu/measurement.log",
+  "touched_public_source": {
+    "passed": true,
+    "files": 46
+  },
+  "overlay_restored": "PASS",
+  "resource_owner_counts": "PASS: all sampled host registry counts and capture_requests == 0"
+}

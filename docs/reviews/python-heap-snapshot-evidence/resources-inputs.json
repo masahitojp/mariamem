@@ -1,0 +1,22 @@
+{
+  "object_sha": "c129476de5cf41f74abc387274fe0e28034d5fda",
+  "object_type": "commit",
+  "source_commit": "c129476de5cf41f74abc387274fe0e28034d5fda",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "binaries": {
+    "mariamem-host": "94e260e11049ee21427ece8354f40fa9edb7751bd395b8eee7881946b98a05a4",
+    "broker": "da6bd94b9927bf86106077a7d1d4b19013e338e6d2df66d76790f1dcaf14fa53"
+  },
+  "harness": {
+    "build.py": "ab0d1283635d7ffa22cd60173ab125171dab72934cab7386fd9282132388a730",
+    "test_fixture.py": "c24292675926040de0a4b643170c85936d6740710010c3cb11242487523bc940",
+    "boundaries.py": "31db2d7938986122f693a1b32f6c9dff58ceff20460b21878499fc9ce39a8b12",
+    "adapter.py": "6c2acacdea996645fd06758adcbe72ace6a7a59934da4da3d22898892e60f52f",
+    "campaign.py": "9529dcef2840c86b10a004b4a8ce712c1d4418056d4d72d31aa89deb5d86d330",
+    "workflow.py": "31cbf56458bec965876658326f3d77af1b8f7065581ccbe66697fb33ee2eca25",
+    "verify.py": "b08823a072d9024df3615219b36aeaf15a430d1b545f9a1d163aeedd2968018e",
+    "instrument.py": "2629102f14349110a6a214171abee705c4b98512c1374eecbfe96eeeffd43c3b",
+    "restore.py": "dbe886fd340b3b3768c14026eec72f6f262283363faaae34e0a90dc179fabbc9"
+  }
+}

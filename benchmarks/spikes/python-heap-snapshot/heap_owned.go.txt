@@ -1,0 +1,13 @@
+package snapshot
+import("errors";"os";"time";"github.com/masahitojp/mariamem/internal/prepared")
+func OwnHeap(h *prepared.Heap,build string)(*Owned,error){
+ if h==nil{return nil,errors.New("missing heap capture")}
+ if os.Getenv("MARIAMEM_HEAP_FAULT")=="owner_corrupt"{for _,n:=range h.SortedFiles(){f:=h.Files[n];for i,b:=range f.Blocks{if b.Valid>0&&int64(i)*prepared.HeapBlockSize<f.Size{b.Data[0]^=255;goto corrupted}}};return nil,errors.New("missing corrupt block")}
+ corrupted:
+ at:=time.Now();if e:=h.Verify(build);e!=nil{return nil,e};h.Stats["owner_verify_ns"]=time.Since(at).Nanoseconds()
+ m:=Manifest{Format:"mariamem-cold-snapshot",Version:1,WASM:build,Storage:"memory",Entries:map[string]Entry{}}
+ for _,n:=range h.Dirs{m.Entries[n]=Entry{Kind:"directory"}};for n,f:=range h.Files{size:=f.Size;m.Entries[n]=Entry{Kind:"file",Bytes:&size,SHA256:f.Hash}}
+ if e:=checkManifest(m,build);e!=nil{return nil,e};return &Owned{manifest:m,heap:h},nil
+}
+func(o *Owned) HeapStats()map[string]int64{o.mu.RLock();defer o.mu.RUnlock();out:=map[string]int64{};if o.heap!=nil{for k,v:=range o.heap.Stats{out[k]=v}};return out}
+func(o *Owned) VerifyHeap(build string)error{o.mu.RLock();defer o.mu.RUnlock();if o.closed||o.heap==nil{return errors.New("heap closed")};return o.heap.Verify(build)}

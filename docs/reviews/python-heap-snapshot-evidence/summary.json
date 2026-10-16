@@ -1,0 +1,1518 @@
+{
+  "plain": {
+    "100": {
+      "control": {
+        "whole_ms": {
+          "n": 6,
+          "median": 585.291708,
+          "min": 573.378209,
+          "max": 716.562708
+        },
+        "setup/start": {
+          "n": 6,
+          "median": 47.903333,
+          "min": 46.091167,
+          "max": 56.135875
+        },
+        "setup/migrate-seed": {
+          "n": 6,
+          "median": 21.899,
+          "min": 19.839459,
+          "max": 24.014292
+        },
+        "setup/snapshot": {
+          "n": 6,
+          "median": 380.24264600000004,
+          "min": 369.319708,
+          "max": 496.496625
+        },
+        "baseline/close": {
+          "n": 6,
+          "median": 1.5245625,
+          "min": 1.254667,
+          "max": 2.692917
+        },
+        "per_child/startup": {
+          "n": 12,
+          "median": 50.387042,
+          "min": 49.578,
+          "max": 55.507917
+        },
+        "per_child/connect": {
+          "n": 12,
+          "median": 4.4174585,
+          "min": 4.371292,
+          "max": 4.934542
+        },
+        "per_child/crud": {
+          "n": 12,
+          "median": 2.9650415,
+          "min": 2.254541,
+          "max": 4.377834
+        },
+        "per_child/disconnect": {
+          "n": 12,
+          "median": 6.838,
+          "min": 0.14425,
+          "max": 7.822208
+        },
+        "per_child/close": {
+          "n": 12,
+          "median": 4.4698545,
+          "min": 4.302667,
+          "max": 4.702667
+        }
+      },
+      "file": {
+        "whole_ms": {
+          "n": 6,
+          "median": 584.01975,
+          "min": 557.753876,
+          "max": 652.725292
+        },
+        "setup/start": {
+          "n": 6,
+          "median": 54.81325,
+          "min": 54.025875,
+          "max": 69.027875
+        },
+        "setup/migrate-seed": {
+          "n": 6,
+          "median": 20.620167,
+          "min": 20.222584,
+          "max": 24.477916
+        },
+        "setup/snapshot": {
+          "n": 6,
+          "median": 359.760062,
+          "min": 339.93875,
+          "max": 401.841208
+        },
+        "baseline/close": {
+          "n": 6,
+          "median": 9.1582505,
+          "min": 6.735125,
+          "max": 13.072834
+        },
+        "per_child/startup": {
+          "n": 12,
+          "median": 54.4398125,
+          "min": 50.097458,
+          "max": 57.110083
+        },
+        "per_child/connect": {
+          "n": 12,
+          "median": 4.164896000000001,
+          "min": 4.017083,
+          "max": 4.577167
+        },
+        "per_child/crud": {
+          "n": 12,
+          "median": 3.067417,
+          "min": 2.06875,
+          "max": 4.11975
+        },
+        "per_child/disconnect": {
+          "n": 12,
+          "median": 6.4059795,
+          "min": 0.150084,
+          "max": 6.485958
+        },
+        "per_child/close": {
+          "n": 12,
+          "median": 2.6749785,
+          "min": 2.585459,
+          "max": 3.321167
+        }
+      },
+      "heap": {
+        "whole_ms": {
+          "n": 6,
+          "median": 402.2784785,
+          "min": 397.447957,
+          "max": 413.8525
+        },
+        "setup/start": {
+          "n": 6,
+          "median": 53.2241665,
+          "min": 52.477834,
+          "max": 58.479667
+        },
+        "setup/migrate-seed": {
+          "n": 6,
+          "median": 20.6528965,
+          "min": 20.432791,
+          "max": 20.945625
+        },
+        "setup/snapshot": {
+          "n": 6,
+          "median": 190.798771,
+          "min": 189.212375,
+          "max": 195.785208
+        },
+        "baseline/close": {
+          "n": 6,
+          "median": 1.6439374999999998,
+          "min": 1.622542,
+          "max": 1.689875
+        },
+        "per_child/startup": {
+          "n": 12,
+          "median": 51.546375,
+          "min": 50.300125,
+          "max": 60.653375
+        },
+        "per_child/connect": {
+          "n": 12,
+          "median": 4.1404165,
+          "min": 4.039875,
+          "max": 4.231375
+        },
+        "per_child/crud": {
+          "n": 12,
+          "median": 2.831875,
+          "min": 1.973125,
+          "max": 3.772333
+        },
+        "per_child/disconnect": {
+          "n": 12,
+          "median": 6.412979,
+          "min": 0.13625,
+          "max": 6.44975
+        },
+        "per_child/close": {
+          "n": 12,
+          "median": 2.538188,
+          "min": 2.441333,
+          "max": 2.762584
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 6,
+            "median": 144953650.0,
+            "min": 144953645,
+            "max": 144953650
+          },
+          "owner_verify_ns": {
+            "n": 6,
+            "median": 61754146.0,
+            "min": 61647042,
+            "max": 64801834
+          },
+          "payload_copy_bytes": {
+            "n": 6,
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 6,
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 6,
+            "median": 3162112.0,
+            "min": 3162112,
+            "max": 3162112
+          },
+          "source_hash_metadata_ns": {
+            "n": 6,
+            "median": 62099104.0,
+            "min": 62038375,
+            "max": 63788917
+          },
+          "target_verify_ns": {
+            "n": 6,
+            "median": 62351083.0,
+            "min": 61615834,
+            "max": 65408458
+          }
+        }
+      },
+      "comparisons": {
+        "heap-vs-control": {
+          "pairs": [
+            {
+              "label": "n100-r0",
+              "baseline_ms": 716.562708,
+              "candidate_ms": 398.528334,
+              "delta_ms": -318.03437400000007
+            },
+            {
+              "label": "n100-r1",
+              "baseline_ms": 614.787125,
+              "candidate_ms": 399.44675,
+              "delta_ms": -215.34037499999994
+            },
+            {
+              "label": "n100-r2",
+              "baseline_ms": 573.378209,
+              "candidate_ms": 405.110207,
+              "delta_ms": -168.26800199999997
+            },
+            {
+              "label": "n100-r3",
+              "baseline_ms": 580.886458,
+              "candidate_ms": 409.846292,
+              "delta_ms": -171.04016599999994
+            },
+            {
+              "label": "n100-r4",
+              "baseline_ms": 589.696958,
+              "candidate_ms": 413.8525,
+              "delta_ms": -175.84445799999997
+            },
+            {
+              "label": "n100-r5",
+              "baseline_ms": 578.843417,
+              "candidate_ms": 397.447957,
+              "delta_ms": -181.39546000000007
+            }
+          ],
+          "faster_pairs": 6,
+          "median_percent_change": -31.26872070772614
+        },
+        "heap-vs-file": {
+          "pairs": [
+            {
+              "label": "n100-r0",
+              "baseline_ms": 652.725292,
+              "candidate_ms": 398.528334,
+              "delta_ms": -254.196958
+            },
+            {
+              "label": "n100-r1",
+              "baseline_ms": 598.974542,
+              "candidate_ms": 399.44675,
+              "delta_ms": -199.52779200000003
+            },
+            {
+              "label": "n100-r2",
+              "baseline_ms": 597.281417,
+              "candidate_ms": 405.110207,
+              "delta_ms": -192.17121000000003
+            },
+            {
+              "label": "n100-r3",
+              "baseline_ms": 570.758083,
+              "candidate_ms": 409.846292,
+              "delta_ms": -160.91179100000005
+            },
+            {
+              "label": "n100-r4",
+              "baseline_ms": 557.753876,
+              "candidate_ms": 413.8525,
+              "delta_ms": -143.90137599999997
+            },
+            {
+              "label": "n100-r5",
+              "baseline_ms": 563.060625,
+              "candidate_ms": 397.447957,
+              "delta_ms": -165.61266799999999
+            }
+          ],
+          "faster_pairs": 6,
+          "median_percent_change": -31.119028337654687
+        },
+        "file-vs-control": {
+          "pairs": [
+            {
+              "label": "n100-r0",
+              "baseline_ms": 716.562708,
+              "candidate_ms": 652.725292,
+              "delta_ms": -63.837416000000076
+            },
+            {
+              "label": "n100-r1",
+              "baseline_ms": 614.787125,
+              "candidate_ms": 598.974542,
+              "delta_ms": -15.812582999999904
+            },
+            {
+              "label": "n100-r2",
+              "baseline_ms": 573.378209,
+              "candidate_ms": 597.281417,
+              "delta_ms": 23.903208000000063
+            },
+            {
+              "label": "n100-r3",
+              "baseline_ms": 580.886458,
+              "candidate_ms": 570.758083,
+              "delta_ms": -10.128374999999892
+            },
+            {
+              "label": "n100-r4",
+              "baseline_ms": 589.696958,
+              "candidate_ms": 557.753876,
+              "delta_ms": -31.943082000000004
+            },
+            {
+              "label": "n100-r5",
+              "baseline_ms": 578.843417,
+              "candidate_ms": 563.060625,
+              "delta_ms": -15.782792000000086
+            }
+          ],
+          "faster_pairs": 5,
+          "median_percent_change": -0.21732035199103494
+        }
+      }
+    },
+    "10000": {
+      "control": {
+        "whole_ms": {
+          "n": 6,
+          "median": 1401.9131875,
+          "min": 1388.290166,
+          "max": 1445.176166
+        },
+        "setup/start": {
+          "n": 6,
+          "median": 46.1854585,
+          "min": 44.568584,
+          "max": 48.996083
+        },
+        "setup/migrate-seed": {
+          "n": 6,
+          "median": 773.6984170000001,
+          "min": 769.604209,
+          "max": 779.297333
+        },
+        "setup/snapshot": {
+          "n": 6,
+          "median": 404.67229150000003,
+          "min": 395.647875,
+          "max": 447.313833
+        },
+        "baseline/close": {
+          "n": 6,
+          "median": 1.6638125000000001,
+          "min": 1.503375,
+          "max": 2.275208
+        },
+        "per_child/startup": {
+          "n": 12,
+          "median": 50.510020499999996,
+          "min": 50.034667,
+          "max": 53.065792
+        },
+        "per_child/connect": {
+          "n": 12,
+          "median": 4.358771,
+          "min": 4.315792,
+          "max": 4.664583
+        },
+        "per_child/crud": {
+          "n": 12,
+          "median": 19.657792,
+          "min": 16.067584,
+          "max": 22.463958
+        },
+        "per_child/disconnect": {
+          "n": 12,
+          "median": 7.7537085,
+          "min": 0.186542,
+          "max": 7.845083
+        },
+        "per_child/close": {
+          "n": 12,
+          "median": 4.5625625,
+          "min": 4.46075,
+          "max": 4.774292
+        }
+      },
+      "file": {
+        "whole_ms": {
+          "n": 6,
+          "median": 1379.721958,
+          "min": 1369.049959,
+          "max": 1418.143375
+        },
+        "setup/start": {
+          "n": 6,
+          "median": 55.192396,
+          "min": 52.791292,
+          "max": 58.390833
+        },
+        "setup/migrate-seed": {
+          "n": 6,
+          "median": 777.8138955,
+          "min": 768.25375,
+          "max": 796.232
+        },
+        "setup/snapshot": {
+          "n": 6,
+          "median": 364.7273745,
+          "min": 360.992417,
+          "max": 389.965666
+        },
+        "baseline/close": {
+          "n": 6,
+          "median": 13.1314375,
+          "min": 12.096583,
+          "max": 13.353875
+        },
+        "per_child/startup": {
+          "n": 12,
+          "median": 54.7099585,
+          "min": 50.950916,
+          "max": 57.181375
+        },
+        "per_child/connect": {
+          "n": 12,
+          "median": 4.110958,
+          "min": 4.043667,
+          "max": 4.240625
+        },
+        "per_child/crud": {
+          "n": 12,
+          "median": 19.768792,
+          "min": 15.474541,
+          "max": 22.920666
+        },
+        "per_child/disconnect": {
+          "n": 12,
+          "median": 6.4392084999999994,
+          "min": 0.173375,
+          "max": 6.522459
+        },
+        "per_child/close": {
+          "n": 12,
+          "median": 2.7821455,
+          "min": 2.685333,
+          "max": 2.939291
+        }
+      },
+      "heap": {
+        "whole_ms": {
+          "n": 6,
+          "median": 1212.4054375,
+          "min": 1205.792791,
+          "max": 1215.664334
+        },
+        "setup/start": {
+          "n": 6,
+          "median": 54.4093335,
+          "min": 52.570959,
+          "max": 55.893125
+        },
+        "setup/migrate-seed": {
+          "n": 6,
+          "median": 766.5534375,
+          "min": 762.573083,
+          "max": 775.59675
+        },
+        "setup/snapshot": {
+          "n": 6,
+          "median": 218.45775,
+          "min": 217.814083,
+          "max": 219.988291
+        },
+        "baseline/close": {
+          "n": 6,
+          "median": 1.6531455,
+          "min": 1.641625,
+          "max": 4.630292
+        },
+        "per_child/startup": {
+          "n": 12,
+          "median": 52.478333,
+          "min": 50.286333,
+          "max": 56.236667
+        },
+        "per_child/connect": {
+          "n": 12,
+          "median": 4.1486665,
+          "min": 4.064833,
+          "max": 4.745667
+        },
+        "per_child/crud": {
+          "n": 12,
+          "median": 20.076604000000003,
+          "min": 15.952833,
+          "max": 24.164791
+        },
+        "per_child/disconnect": {
+          "n": 12,
+          "median": 6.1308125,
+          "min": 0.163542,
+          "max": 6.479125
+        },
+        "per_child/close": {
+          "n": 12,
+          "median": 2.6341665,
+          "min": 2.529333,
+          "max": 3.350417
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 6,
+            "median": 166285321.0,
+            "min": 166285321,
+            "max": 166285322
+          },
+          "owner_verify_ns": {
+            "n": 6,
+            "median": 71515896.0,
+            "min": 71387417,
+            "max": 73471292
+          },
+          "payload_copy_bytes": {
+            "n": 6,
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 6,
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 6,
+            "median": 28590080.0,
+            "min": 28590080,
+            "max": 28590080
+          },
+          "source_hash_metadata_ns": {
+            "n": 6,
+            "median": 72272521.0,
+            "min": 72055958,
+            "max": 72924375
+          },
+          "target_verify_ns": {
+            "n": 6,
+            "median": 71405125.0,
+            "min": 71216041,
+            "max": 71515250
+          }
+        }
+      },
+      "comparisons": {
+        "heap-vs-control": {
+          "pairs": [
+            {
+              "label": "n10000-r0",
+              "baseline_ms": 1445.176166,
+              "candidate_ms": 1215.664334,
+              "delta_ms": -229.5118319999999
+            },
+            {
+              "label": "n10000-r1",
+              "baseline_ms": 1397.791167,
+              "candidate_ms": 1205.792791,
+              "delta_ms": -191.998376
+            },
+            {
+              "label": "n10000-r2",
+              "baseline_ms": 1390.167084,
+              "candidate_ms": 1208.268376,
+              "delta_ms": -181.89870799999994
+            },
+            {
+              "label": "n10000-r3",
+              "baseline_ms": 1388.290166,
+              "candidate_ms": 1214.381792,
+              "delta_ms": -173.9083740000001
+            },
+            {
+              "label": "n10000-r4",
+              "baseline_ms": 1422.89575,
+              "candidate_ms": 1213.913958,
+              "delta_ms": -208.9817919999998
+            },
+            {
+              "label": "n10000-r5",
+              "baseline_ms": 1406.035208,
+              "candidate_ms": 1210.896917,
+              "delta_ms": -195.13829099999998
+            }
+          ],
+          "faster_pairs": 6,
+          "median_percent_change": -13.51779494548766
+        },
+        "heap-vs-file": {
+          "pairs": [
+            {
+              "label": "n10000-r0",
+              "baseline_ms": 1379.147416,
+              "candidate_ms": 1215.664334,
+              "delta_ms": -163.48308199999997
+            },
+            {
+              "label": "n10000-r1",
+              "baseline_ms": 1410.024875,
+              "candidate_ms": 1205.792791,
+              "delta_ms": -204.232084
+            },
+            {
+              "label": "n10000-r2",
+              "baseline_ms": 1371.43925,
+              "candidate_ms": 1208.268376,
+              "delta_ms": -163.1708739999999
+            },
+            {
+              "label": "n10000-r3",
+              "baseline_ms": 1369.049959,
+              "candidate_ms": 1214.381792,
+              "delta_ms": -154.66816700000004
+            },
+            {
+              "label": "n10000-r4",
+              "baseline_ms": 1418.143375,
+              "candidate_ms": 1213.913958,
+              "delta_ms": -204.229417
+            },
+            {
+              "label": "n10000-r5",
+              "baseline_ms": 1380.2965,
+              "candidate_ms": 1210.896917,
+              "delta_ms": -169.3995829999999
+            }
+          ],
+          "faster_pairs": 6,
+          "median_percent_change": -12.12682885344063
+        },
+        "file-vs-control": {
+          "pairs": [
+            {
+              "label": "n10000-r0",
+              "baseline_ms": 1445.176166,
+              "candidate_ms": 1379.147416,
+              "delta_ms": -66.02874999999995
+            },
+            {
+              "label": "n10000-r1",
+              "baseline_ms": 1397.791167,
+              "candidate_ms": 1410.024875,
+              "delta_ms": 12.233707999999979
+            },
+            {
+              "label": "n10000-r2",
+              "baseline_ms": 1390.167084,
+              "candidate_ms": 1371.43925,
+              "delta_ms": -18.72783400000003
+            },
+            {
+              "label": "n10000-r3",
+              "baseline_ms": 1388.290166,
+              "candidate_ms": 1369.049959,
+              "delta_ms": -19.240207000000055
+            },
+            {
+              "label": "n10000-r4",
+              "baseline_ms": 1422.89575,
+              "candidate_ms": 1418.143375,
+              "delta_ms": -4.752374999999802
+            },
+            {
+              "label": "n10000-r5",
+              "baseline_ms": 1406.035208,
+              "candidate_ms": 1380.2965,
+              "delta_ms": -25.738708000000088
+            }
+          ],
+          "faster_pairs": 5,
+          "median_percent_change": -1.5829246559534216
+        }
+      }
+    }
+  },
+  "resources": {
+    "100": {
+      "control": {
+        "whole_ms": {
+          "n": 3,
+          "median": 618.123458,
+          "min": 613.06021,
+          "max": 785.127872
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 45.145625,
+          "min": 44.768292,
+          "max": 69.3445
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 21.680959,
+          "min": 19.551375,
+          "max": 26.134459
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 401.104292,
+          "min": 391.518875,
+          "max": 542.212834
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 2.769042,
+          "min": 2.711667,
+          "max": 3.009458
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 52.3799585,
+          "min": 50.071416,
+          "max": 60.609959
+        },
+        "per_child/connect": {
+          "n": 6,
+          "median": 4.4827085,
+          "min": 4.401375,
+          "max": 5.32275
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 3.2859375,
+          "min": 2.172625,
+          "max": 5.114042
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 7.7634170000000005,
+          "min": 7.730458,
+          "max": 7.81625
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 4.640854,
+          "min": 4.497833,
+          "max": 4.757334
+        },
+        "host_peak_maxrss_raw": {
+          "n": 3,
+          "median": 553041920,
+          "min": 552960000,
+          "max": 553156608
+        },
+        "host_total_alloc_sum": {
+          "n": 3,
+          "median": 477830216,
+          "min": 477802728,
+          "max": 477833840
+        },
+        "host_process_count": {
+          "n": 3,
+          "median": 4,
+          "min": 4,
+          "max": 4
+        },
+        "python_maxrss_raw": {
+          "n": 3,
+          "median": 22151168,
+          "min": 22134784,
+          "max": 23248896
+        },
+        "host_num_gc_sum": {
+          "n": 3,
+          "median": 5,
+          "min": 5,
+          "max": 5
+        }
+      },
+      "file": {
+        "whole_ms": {
+          "n": 3,
+          "median": 621.14621,
+          "min": 587.426667,
+          "max": 643.953416
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 54.294291,
+          "min": 53.655667,
+          "max": 68.559083
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 20.589416,
+          "min": 20.266042,
+          "max": 23.170958
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 387.511875,
+          "min": 363.832458,
+          "max": 395.560208
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 12.988125,
+          "min": 11.810917,
+          "max": 13.096292
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 54.6544375,
+          "min": 49.782167,
+          "max": 60.604916
+        },
+        "per_child/connect": {
+          "n": 6,
+          "median": 4.112354,
+          "min": 4.022958,
+          "max": 4.139333
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 2.970625,
+          "min": 2.04425,
+          "max": 4.16675
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.4219375,
+          "min": 5.525042,
+          "max": 6.506792
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 2.6471245,
+          "min": 2.63675,
+          "max": 2.868375
+        },
+        "host_peak_maxrss_raw": {
+          "n": 3,
+          "median": 569802752,
+          "min": 569769984,
+          "max": 570507264
+        },
+        "host_total_alloc_sum": {
+          "n": 3,
+          "median": 477741120,
+          "min": 477699056,
+          "max": 477751368
+        },
+        "host_process_count": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1
+        },
+        "python_maxrss_raw": {
+          "n": 3,
+          "median": 20004864,
+          "min": 19939328,
+          "max": 20054016
+        },
+        "host_num_gc_sum": {
+          "n": 3,
+          "median": 3,
+          "min": 3,
+          "max": 3
+        }
+      },
+      "heap": {
+        "whole_ms": {
+          "n": 3,
+          "median": 407.189539,
+          "min": 400.393794,
+          "max": 422.417251
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 54.338958,
+          "min": 52.466459,
+          "max": 54.374583
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 20.559333,
+          "min": 20.52875,
+          "max": 20.776667
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 193.690084,
+          "min": 189.1955,
+          "max": 194.75075
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 1.658041,
+          "min": 1.61625,
+          "max": 1.663833
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 53.214771,
+          "min": 50.763875,
+          "max": 59.591333
+        },
+        "per_child/connect": {
+          "n": 6,
+          "median": 4.1767085,
+          "min": 4.070458,
+          "max": 4.7285
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 2.8438745,
+          "min": 2.068541,
+          "max": 3.833458
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.4254999999999995,
+          "min": 5.627875,
+          "max": 6.603917
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 2.6678335,
+          "min": 2.472334,
+          "max": 2.906709
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 3,
+            "median": 144953650,
+            "min": 144953650,
+            "max": 144953650
+          },
+          "owner_verify_ns": {
+            "n": 3,
+            "median": 63149625,
+            "min": 61732500,
+            "max": 64419375
+          },
+          "payload_copy_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 3,
+            "median": 3162112,
+            "min": 3162112,
+            "max": 3162112
+          },
+          "source_hash_metadata_ns": {
+            "n": 3,
+            "median": 63221667,
+            "min": 61931750,
+            "max": 65855042
+          },
+          "target_verify_ns": {
+            "n": 3,
+            "median": 62165083,
+            "min": 61802875,
+            "max": 62472542
+          }
+        },
+        "host_peak_maxrss_raw": {
+          "n": 3,
+          "median": 130351104,
+          "min": 128811008,
+          "max": 131055616
+        },
+        "host_total_alloc_sum": {
+          "n": 3,
+          "median": 14943104,
+          "min": 14932816,
+          "max": 14997088
+        },
+        "host_process_count": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1
+        },
+        "python_maxrss_raw": {
+          "n": 3,
+          "median": 20054016,
+          "min": 19922944,
+          "max": 20086784
+        },
+        "host_num_gc_sum": {
+          "n": 3,
+          "median": 4,
+          "min": 4,
+          "max": 4
+        }
+      },
+      "comparisons": {
+        "heap-vs-control": {
+          "pairs": [
+            {
+              "label": "n100-r0",
+              "baseline_ms": 785.127872,
+              "candidate_ms": 400.393794,
+              "delta_ms": -384.734078
+            },
+            {
+              "label": "n100-r1",
+              "baseline_ms": 618.123458,
+              "candidate_ms": 407.189539,
+              "delta_ms": -210.933919
+            },
+            {
+              "label": "n100-r2",
+              "baseline_ms": 613.06021,
+              "candidate_ms": 422.417251,
+              "delta_ms": -190.64295899999996
+            }
+          ],
+          "faster_pairs": 3,
+          "median_percent_change": -34.124884967559346
+        },
+        "heap-vs-file": {
+          "pairs": [
+            {
+              "label": "n100-r0",
+              "baseline_ms": 643.953416,
+              "candidate_ms": 400.393794,
+              "delta_ms": -243.55962199999993
+            },
+            {
+              "label": "n100-r1",
+              "baseline_ms": 621.14621,
+              "candidate_ms": 407.189539,
+              "delta_ms": -213.95667099999997
+            },
+            {
+              "label": "n100-r2",
+              "baseline_ms": 587.426667,
+              "candidate_ms": 422.417251,
+              "delta_ms": -165.00941599999993
+            }
+          ],
+          "faster_pairs": 3,
+          "median_percent_change": -34.44546027255
+        },
+        "file-vs-control": {
+          "pairs": [
+            {
+              "label": "n100-r0",
+              "baseline_ms": 785.127872,
+              "candidate_ms": 643.953416,
+              "delta_ms": -141.17445600000008
+            },
+            {
+              "label": "n100-r1",
+              "baseline_ms": 618.123458,
+              "candidate_ms": 621.14621,
+              "delta_ms": 3.0227519999999686
+            },
+            {
+              "label": "n100-r2",
+              "baseline_ms": 613.06021,
+              "candidate_ms": 587.426667,
+              "delta_ms": -25.63354300000003
+            }
+          ],
+          "faster_pairs": 2,
+          "median_percent_change": 0.48902075481496166
+        }
+      }
+    },
+    "10000": {
+      "control": {
+        "whole_ms": {
+          "n": 3,
+          "median": 1394.305334,
+          "min": 1392.458791,
+          "max": 1484.704083
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 47.895166,
+          "min": 46.886292,
+          "max": 49.833375
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 773.044209,
+          "min": 771.132084,
+          "max": 776.870833
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 408.847042,
+          "min": 398.726459,
+          "max": 472.756833
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 1.565,
+          "min": 1.499375,
+          "max": 3.125625
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 51.757521,
+          "min": 51.000875,
+          "max": 56.584375
+        },
+        "per_child/connect": {
+          "n": 6,
+          "median": 4.470936999999999,
+          "min": 4.337708,
+          "max": 4.810167
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 20.4432495,
+          "min": 16.570541,
+          "max": 22.288125
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.6375,
+          "min": 0.204958,
+          "max": 7.812334
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 4.570812500000001,
+          "min": 4.512833,
+          "max": 4.823334
+        },
+        "host_peak_maxrss_raw": {
+          "n": 3,
+          "median": 630718464,
+          "min": 630292480,
+          "max": 635256832
+        },
+        "host_total_alloc_sum": {
+          "n": 3,
+          "median": 660141128,
+          "min": 660121440,
+          "max": 660287432
+        },
+        "host_process_count": {
+          "n": 3,
+          "median": 4,
+          "min": 4,
+          "max": 4
+        },
+        "python_maxrss_raw": {
+          "n": 3,
+          "median": 23019520,
+          "min": 23003136,
+          "max": 23134208
+        },
+        "host_num_gc_sum": {
+          "n": 3,
+          "median": 6,
+          "min": 6,
+          "max": 6
+        }
+      },
+      "file": {
+        "whole_ms": {
+          "n": 3,
+          "median": 1385.006334,
+          "min": 1368.369499,
+          "max": 1387.556834
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 54.09475,
+          "min": 52.781292,
+          "max": 55.276542
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 776.835542,
+          "min": 775.48325,
+          "max": 783.105583
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 365.558583,
+          "min": 354.209375,
+          "max": 368.545375
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 13.101375,
+          "min": 11.81475,
+          "max": 13.290416
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 53.2566665,
+          "min": 51.514083,
+          "max": 56.569833
+        },
+        "per_child/connect": {
+          "n": 6,
+          "median": 4.111542,
+          "min": 4.031,
+          "max": 4.482458
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 19.0600625,
+          "min": 16.118458,
+          "max": 21.963416
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.4351875,
+          "min": 6.406708,
+          "max": 6.512625
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 2.765771,
+          "min": 2.612125,
+          "max": 2.89525
+        },
+        "host_peak_maxrss_raw": {
+          "n": 3,
+          "median": 644743168,
+          "min": 644644864,
+          "max": 645103616
+        },
+        "host_total_alloc_sum": {
+          "n": 3,
+          "median": 659996480,
+          "min": 659994336,
+          "max": 660182880
+        },
+        "host_process_count": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1
+        },
+        "python_maxrss_raw": {
+          "n": 3,
+          "median": 22872064,
+          "min": 22790144,
+          "max": 23003136
+        },
+        "host_num_gc_sum": {
+          "n": 3,
+          "median": 4,
+          "min": 4,
+          "max": 4
+        }
+      },
+      "heap": {
+        "whole_ms": {
+          "n": 3,
+          "median": 1215.648958,
+          "min": 1209.546543,
+          "max": 1225.315458
+        },
+        "setup/start": {
+          "n": 3,
+          "median": 54.6455,
+          "min": 54.017083,
+          "max": 55.022041
+        },
+        "setup/migrate-seed": {
+          "n": 3,
+          "median": 767.207709,
+          "min": 761.894208,
+          "max": 779.209958
+        },
+        "setup/snapshot": {
+          "n": 3,
+          "median": 218.657417,
+          "min": 217.927166,
+          "max": 219.764583
+        },
+        "baseline/close": {
+          "n": 3,
+          "median": 4.668417,
+          "min": 4.64225,
+          "max": 4.669417
+        },
+        "per_child/startup": {
+          "n": 6,
+          "median": 51.8643745,
+          "min": 50.641333,
+          "max": 52.949417
+        },
+        "per_child/connect": {
+          "n": 6,
+          "median": 4.2006665000000005,
+          "min": 4.02925,
+          "max": 4.649375
+        },
+        "per_child/crud": {
+          "n": 6,
+          "median": 19.136771,
+          "min": 15.98875,
+          "max": 23.674292
+        },
+        "per_child/disconnect": {
+          "n": 6,
+          "median": 6.429228999999999,
+          "min": 5.861833,
+          "max": 6.506583
+        },
+        "per_child/close": {
+          "n": 6,
+          "median": 2.6843335,
+          "min": 2.565584,
+          "max": 2.88275
+        },
+        "heap_stats": {
+          "logical_bytes": {
+            "n": 3,
+            "median": 166285322,
+            "min": 166285321,
+            "max": 166285322
+          },
+          "owner_verify_ns": {
+            "n": 3,
+            "median": 71415750,
+            "min": 71296917,
+            "max": 72116500
+          },
+          "payload_copy_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "payload_file_bytes": {
+            "n": 3,
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "retained_block_bytes": {
+            "n": 3,
+            "median": 28606464,
+            "min": 28590080,
+            "max": 28606464
+          },
+          "source_hash_metadata_ns": {
+            "n": 3,
+            "median": 72420375,
+            "min": 72092458,
+            "max": 74321375
+          },
+          "target_verify_ns": {
+            "n": 3,
+            "median": 71319292,
+            "min": 71261834,
+            "max": 71507584
+          }
+        },
+        "host_peak_maxrss_raw": {
+          "n": 3,
+          "median": 164724736,
+          "min": 162529280,
+          "max": 166002688
+        },
+        "host_total_alloc_sum": {
+          "n": 3,
+          "median": 63513240,
+          "min": 63491832,
+          "max": 63528920
+        },
+        "host_process_count": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1
+        },
+        "python_maxrss_raw": {
+          "n": 3,
+          "median": 22921216,
+          "min": 22740992,
+          "max": 23003136
+        },
+        "host_num_gc_sum": {
+          "n": 3,
+          "median": 7,
+          "min": 7,
+          "max": 7
+        }
+      },
+      "comparisons": {
+        "heap-vs-control": {
+          "pairs": [
+            {
+              "label": "n10000-r0",
+              "baseline_ms": 1484.704083,
+              "candidate_ms": 1215.648958,
+              "delta_ms": -269.0551250000001
+            },
+            {
+              "label": "n10000-r1",
+              "baseline_ms": 1394.305334,
+              "candidate_ms": 1225.315458,
+              "delta_ms": -168.98987599999987
+            },
+            {
+              "label": "n10000-r2",
+              "baseline_ms": 1392.458791,
+              "candidate_ms": 1209.546543,
+              "delta_ms": -182.9122480000001
+            }
+          ],
+          "faster_pairs": 3,
+          "median_percent_change": -12.81328928775366
+        },
+        "heap-vs-file": {
+          "pairs": [
+            {
+              "label": "n10000-r0",
+              "baseline_ms": 1368.369499,
+              "candidate_ms": 1215.648958,
+              "delta_ms": -152.7205409999999
+            },
+            {
+              "label": "n10000-r1",
+              "baseline_ms": 1385.006334,
+              "candidate_ms": 1225.315458,
+              "delta_ms": -159.6908759999999
+            },
+            {
+              "label": "n10000-r2",
+              "baseline_ms": 1387.556834,
+              "candidate_ms": 1209.546543,
+              "delta_ms": -178.01029100000005
+            }
+          ],
+          "faster_pairs": 3,
+          "median_percent_change": -12.227913464545924
+        },
+        "file-vs-control": {
+          "pairs": [
+            {
+              "label": "n10000-r0",
+              "baseline_ms": 1484.704083,
+              "candidate_ms": 1368.369499,
+              "delta_ms": -116.33458400000018
+            },
+            {
+              "label": "n10000-r1",
+              "baseline_ms": 1394.305334,
+              "candidate_ms": 1385.006334,
+              "delta_ms": -9.298999999999978
+            },
+            {
+              "label": "n10000-r2",
+              "baseline_ms": 1392.458791,
+              "candidate_ms": 1387.556834,
+              "delta_ms": -4.9019570000000385
+            }
+          ],
+          "faster_pairs": 3,
+          "median_percent_change": -0.6669270907343483
+        }
+      }
+    }
+  }
+}

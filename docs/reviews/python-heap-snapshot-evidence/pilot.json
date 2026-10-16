@@ -1,0 +1,158 @@
+[
+  {
+    "label": "n100-r-1-control",
+    "mode": "control",
+    "rows": 100,
+    "resources_enabled": false,
+    "times_ms": {
+      "setup/start": 1124.865458,
+      "setup/migrate-seed": 30.329333,
+      "setup/snapshot": 389.447542,
+      "first/startup": 52.459291,
+      "first/connect": 4.294,
+      "first/crud": 2.674458,
+      "first/disconnect": 7.792958,
+      "first/close": 4.250875,
+      "second/startup": 52.284459,
+      "second/connect": 4.360416,
+      "second/crud": 4.185625,
+      "second/disconnect": 7.808542,
+      "second/close": 4.490083,
+      "baseline/close": 1.718
+    },
+    "resources": {},
+    "pids": [
+      48267,
+      48322,
+      48324
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 1691.441416,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n100-r-1-file",
+    "mode": "file",
+    "rows": 100,
+    "resources_enabled": false,
+    "times_ms": {
+      "setup/start": 1012.316875,
+      "setup/migrate-seed": 23.994125,
+      "setup/snapshot": 353.209667,
+      "first/startup": 53.838417,
+      "first/connect": 4.0975,
+      "first/crud": 2.470125,
+      "first/disconnect": 6.464583,
+      "first/close": 2.989833,
+      "second/startup": 51.070292,
+      "second/connect": 3.908917,
+      "second/crud": 3.844209,
+      "second/disconnect": 5.584625,
+      "second/close": 2.67475,
+      "baseline/close": 6.857334
+    },
+    "resources": {},
+    "pids": [
+      48327,
+      48327,
+      48327
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 1533.672501,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n100-r-1-heap",
+    "mode": "heap",
+    "rows": 100,
+    "resources_enabled": false,
+    "times_ms": {
+      "setup/start": 52.757792,
+      "setup/migrate-seed": 20.548042,
+      "setup/snapshot": 189.394542,
+      "first/startup": 51.423625,
+      "first/connect": 4.193041,
+      "first/crud": 2.095167,
+      "first/disconnect": 6.420958,
+      "first/close": 2.647625,
+      "second/startup": 51.750917,
+      "second/connect": 5.177333,
+      "second/crud": 4.265125,
+      "second/disconnect": 6.453917,
+      "second/close": 2.660875,
+      "baseline/close": 1.641583
+    },
+    "resources": {},
+    "pids": [
+      48355,
+      48355,
+      48355
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 61626458,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3162112,
+      "source_hash_metadata_ns": 62329083,
+      "target_verify_ns": 61662625
+    },
+    "whole_ms": 401.795249,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  }
+]

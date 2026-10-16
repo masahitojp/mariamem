@@ -1,0 +1,70 @@
+{
+  "internal/generatedgo/code/base/base.go": {
+    "before": "8b092f6215c75f842c1a9804313527639214276e1c8c74876f427ddc19fd0d63",
+    "after": "339e594c5b1cfe5056028f150b9dd5b7addff0168122691baf734622517e4482"
+  },
+  "cmd/mariamem-host/main.go": {
+    "before": "f54d5eb118842c206427bdfbf60c0fdb044f6accaed432dbaaf19a428e377d15",
+    "after": "a0393fc19954affc60158f0fa179c8298556e01db8815425963f3c893a98bc21"
+  },
+  "internal/prepared/entry.go": {
+    "before": "973b1f28efcaefdbaf41fd4606eef25550ebc5606923a9386a5d56eb585459a3",
+    "after": "b83623919fc561837ac4ec0ffa36a8f8701177c2b25f8f19cf9605a739a9e52b"
+  },
+  "internal/generatedgo/code/base/owned_prepared.go": {
+    "before": "7ae03ac0aeae14505faae3e151649eb3f683ca6d63e3313109972560e3a9c388",
+    "after": "660c06bf09dd6e8a2d2a433daf0884b50e34b3c657a7bdd0bc0f1bd3849c22c8"
+  },
+  "internal/generatedgo/runtime_instance.go": {
+    "before": "f968359a8bd53f192c12ff3f891e032bed947550909b47482d0c00cfe0bc7a17",
+    "after": "c871b0bc77c88ce243003f7c90399b73efb0ac09cdeda1b0b23bc4ee073a5533"
+  },
+  "internal/generatedgo/main.go": {
+    "before": "ab9f7485fbcf37650e99262487f37a5085ac84652596d22f540b87d09cd2b233",
+    "after": "38d986fde81ae674aa7f4dd9ec00bae0c99593e6d38bc1c9d9d1005457cb625a"
+  },
+  "internal/snapshot/owned.go": {
+    "before": "98f0ac27ae821654b45879cec92de05d1a4feaaa2132fb4b66c1b56a357b6437",
+    "after": "e2a34c452d4a8598a29d1fb20d34c9d4b14377f8dd0f8a79184b1e7b211e6e68"
+  },
+  "snapshot.go": {
+    "before": "95635dc19eaebe4d761762ae45843c31a95ad44f8f5848508dae0f50754dc9c9",
+    "after": "d9ca5e415406321642e8fb681075f4c997346b0e540814ba4558c9e7f5104999"
+  },
+  "internal/generatedgo/code/base/d_block.go": {
+    "before": null,
+    "after": "a0f21b998b80aa0d3ea51585109d9c75120369de5caaa7a0cc5a8cd7300c6fe5"
+  },
+  "internal/generatedgo/code/base/d_block_test.go": {
+    "before": null,
+    "after": "db523916965bee9b8817286d5740a59ee7e42924c98ff1aec35bede33f39ecd4"
+  },
+  "internal/generatedgo/code/base/d_integration_test.go": {
+    "before": null,
+    "after": "d9101e3d059c62d6eff293a1525cdf9dac67306f93996918cdcc2f586924c198"
+  },
+  "internal/prepared/heap.go": {
+    "before": null,
+    "after": "46e16c79182f6f6cef95b109144fccb12e0d4db3154b46543d7da85cc7e6b70d"
+  },
+  "internal/generatedgo/code/base/heap.go": {
+    "before": null,
+    "after": "cb9987cc4a751c3da4e3f6308c35086774905e609bc0586e4c67ae54d31f3ba4"
+  },
+  "internal/snapshot/heap.go": {
+    "before": null,
+    "after": "2eaf950ac3135d765dacd6a54f1a5591a7ee32b3b7a242b07cfe514091ebe3c9"
+  },
+  "internal/host/heap.go": {
+    "before": null,
+    "after": "a89e7e56bd86570317867962b687ae91a304845d69a73f5ccfdc59e5540737bb"
+  },
+  "heap_experiment.go": {
+    "before": null,
+    "after": "f42c1cfc9b913b376b7c88660c0de5ca6cbc7a4c6577f79eb0b58dd91c86af0e"
+  },
+  "internal/generatedgo/code/base/heap_test.go": {
+    "before": null,
+    "after": "a754ec4741d858cdb195f411b4b93a8104df1d3db74c044618a366d5545c0c93"
+  }
+}

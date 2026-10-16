@@ -1,0 +1,10 @@
+{
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "go": "go version go1.26.8 darwin/arm64",
+  "native_ubuntu_x86_64": "SKIP: no native target used",
+  "main_user_changes": "docs/project-status.md modified; storage-design-directions.md and storage-investment-reassessment.md untracked; preserved",
+  "guest_version": "12.3.3-MariaDB-embedded",
+  "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09"
+}

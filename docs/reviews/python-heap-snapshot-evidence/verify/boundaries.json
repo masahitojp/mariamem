@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "checks": [
+    "transaction-rejection-source-usable",
+    "source-consumed",
+    "closed-and-invalid-handles-rejected",
+    "one-host-distinct-db-endpoints",
+    "two-connections-one-db",
+    "SQL-error-keeps-host-and-other-db-usable",
+    "parent-close-live-children",
+    "derived-baseline-close-live-child",
+    "one-db-close-keeps-sibling-alive",
+    "simultaneous-fork-requests-serialized",
+    "concurrent-independent-SQL",
+    "freeze-failure-and-two-corruption-gates",
+    "owner-EOF-cooperative-all-resource-cleanup",
+    "host-loss-invalidates-lineage-wakes-pending",
+    "separate-start-survives-host-loss"
+  ],
+  "faults": [
+    {
+      "fault": "freeze",
+      "error": "mariamem snapshot_failed: guest shutdown: injected heap freeze",
+      "closed": true
+    },
+    {
+      "fault": "target_corrupt",
+      "error": "mariamem snapshot_failed: guest shutdown: heap content mismatch",
+      "closed": true
+    },
+    {
+      "fault": "owner_corrupt",
+      "error": "mariamem snapshot_failed: heap content mismatch",
+      "closed": true
+    }
+  ],
+  "host_loss": {
+    "pending": [
+      {
+        "type": "HostError",
+        "code": "unusable",
+        "message": "shared host exited"
+      }
+    ],
+    "returncode": -9,
+    "residue_before_harness_cleanup": {
+      "files": 0,
+      "dirs": 4,
+      "bytes": 0
+    },
+    "unrelated_start_survived": true
+  }
+}

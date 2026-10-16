@@ -1,0 +1,69 @@
+=== RUN   TestDBlockIsolationAndPartialIO
+--- PASS: TestDBlockIsolationAndPartialIO (0.00s)
+=== RUN   TestDBlockShrinkRegrowAndHoles
+--- PASS: TestDBlockShrinkRegrowAndHoles (0.00s)
+=== RUN   TestDBlockOverwriteAndEOF
+--- PASS: TestDBlockOverwriteAndEOF (0.00s)
+=== RUN   TestDBlockDeterministicReference
+--- PASS: TestDBlockDeterministicReference (0.06s)
+=== RUN   TestDIntegrationIdentity
+--- PASS: TestDIntegrationIdentity (0.00s)
+=== RUN   TestDIntegrationMetadataAndGrowth
+--- PASS: TestDIntegrationMetadataAndGrowth (0.00s)
+=== RUN   TestDIntegrationSiblingLifetime
+--- PASS: TestDIntegrationSiblingLifetime (0.00s)
+=== RUN   TestDIntegrationConcurrentHandles
+--- PASS: TestDIntegrationConcurrentHandles (0.00s)
+=== RUN   TestHeapFreezeIsolationAndDerived
+--- PASS: TestHeapFreezeIsolationAndDerived (0.00s)
+=== RUN   TestHeapRejectCorruption
+=== RUN   TestHeapRejectCorruption/target_corrupt
+=== RUN   TestHeapRejectCorruption/owner_corrupt
+--- PASS: TestHeapRejectCorruption (0.00s)
+    --- PASS: TestHeapRejectCorruption/target_corrupt (0.00s)
+    --- PASS: TestHeapRejectCorruption/owner_corrupt (0.00s)
+=== RUN   TestMemFSGrowthAmortizedCopy
+--- PASS: TestMemFSGrowthAmortizedCopy (0.00s)
+=== RUN   TestMemFSGrowthZeroFillAndOffsets
+--- PASS: TestMemFSGrowthZeroFillAndOffsets (0.00s)
+=== RUN   TestOwnedPrivateViewsGrowthAndRelease
+--- PASS: TestOwnedPrivateViewsGrowthAndRelease (0.00s)
+=== RUN   TestOwnedPartialMappingFailure
+    owned_prepared_test.go:139: OS file-map counter omitted; acceptance sets MARIAMEM_PROCESS_COST
+    owned_prepared_test.go:145: OS file-map counter omitted; acceptance sets MARIAMEM_PROCESS_COST
+    owned_prepared_test.go:146: 100 partial mapping failures: file-backed VM bytes 0 -> 0
+--- PASS: TestOwnedPartialMappingFailure (0.00s)
+=== RUN   TestOwnedMappedTruncateRenameUnlinkIdentity
+--- PASS: TestOwnedMappedTruncateRenameUnlinkIdentity (0.00s)
+=== RUN   TestPreparedFilePrivateViews
+--- PASS: TestPreparedFilePrivateViews (0.00s)
+=== RUN   TestPreparedFilesRejectPartialInvalidTree
+--- PASS: TestPreparedFilesRejectPartialInvalidTree (0.00s)
+=== RUN   TestPreparedGrowthOwnershipAndZeroFill
+--- PASS: TestPreparedGrowthOwnershipAndZeroFill (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.445s
+=== RUN   TestOwnedImportRejectsChangedInput
+=== RUN   TestOwnedImportRejectsChangedInput/content
+=== RUN   TestOwnedImportRejectsChangedInput/extra
+=== RUN   TestOwnedImportRejectsChangedInput/missing
+=== RUN   TestOwnedImportRejectsChangedInput/size
+=== RUN   TestOwnedImportRejectsChangedInput/link
+=== RUN   TestOwnedImportRejectsChangedInput/manifest
+=== RUN   TestOwnedImportRejectsChangedInput/guest
+=== RUN   TestOwnedImportRejectsChangedInput/format
+--- PASS: TestOwnedImportRejectsChangedInput (0.03s)
+    --- PASS: TestOwnedImportRejectsChangedInput/content (0.01s)
+    --- PASS: TestOwnedImportRejectsChangedInput/extra (0.01s)
+    --- PASS: TestOwnedImportRejectsChangedInput/missing (0.00s)
+    --- PASS: TestOwnedImportRejectsChangedInput/size (0.00s)
+    --- PASS: TestOwnedImportRejectsChangedInput/link (0.00s)
+    --- PASS: TestOwnedImportRejectsChangedInput/manifest (0.00s)
+    --- PASS: TestOwnedImportRejectsChangedInput/guest (0.00s)
+    --- PASS: TestOwnedImportRejectsChangedInput/format (0.00s)
+=== RUN   TestOwnedImportDetachedAndPinned
+--- PASS: TestOwnedImportDetachedAndPinned (0.02s)
+=== RUN   TestOwnedFailureAndCloseNoFDLeak
+--- PASS: TestOwnedFailureAndCloseNoFDLeak (0.12s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/snapshot	0.520s

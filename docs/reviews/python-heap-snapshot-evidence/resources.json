@@ -1,0 +1,2408 @@
+[
+  {
+    "label": "n100-r0-control",
+    "mode": "control",
+    "rows": 100,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 69.3445,
+      "setup/migrate-seed": 26.134459,
+      "setup/snapshot": 542.212834,
+      "first/startup": 52.772125,
+      "first/connect": 4.617625,
+      "first/crud": 2.68175,
+      "first/disconnect": 7.730458,
+      "first/close": 4.629583,
+      "second/startup": 50.071416,
+      "second/connect": 4.430708,
+      "second/crud": 4.558291,
+      "second/disconnect": 7.81625,
+      "second/close": 4.621,
+      "baseline/close": 3.009458
+    },
+    "resources": {},
+    "pids": [
+      67321,
+      67354,
+      67359
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 785.127872,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 437234728,
+        "maxrss_raw": 553041920,
+        "num_gc": 3,
+        "pid": 67321,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 450703736
+      },
+      {
+        "heap_alloc": 177024,
+        "maxrss_raw": 6422528,
+        "num_gc": 0,
+        "pid": 67350,
+        "role": "mariamem-host",
+        "snapshot_info_helper": true,
+        "total_alloc": 177024
+      },
+      {
+        "heap_alloc": 13337216,
+        "maxrss_raw": 126025728,
+        "num_gc": 1,
+        "pid": 67354,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13461472
+      },
+      {
+        "heap_alloc": 13363728,
+        "maxrss_raw": 127025152,
+        "num_gc": 1,
+        "pid": 67359,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13487984
+      }
+    ],
+    "python_maxrss_raw": 22134784,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n100-r0-file",
+    "mode": "file",
+    "rows": 100,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 68.559083,
+      "setup/migrate-seed": 23.170958,
+      "setup/snapshot": 387.511875,
+      "first/startup": 58.508875,
+      "first/connect": 4.127542,
+      "first/crud": 2.596833,
+      "first/disconnect": 6.396042,
+      "first/close": 2.650083,
+      "second/startup": 60.604916,
+      "second/connect": 4.097416,
+      "second/crud": 4.16675,
+      "second/disconnect": 6.506792,
+      "second/close": 2.868375,
+      "baseline/close": 11.810917
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 158940856,
+          "maxrss_raw": 122159104,
+          "num_gc": 2,
+          "pid": 67362,
+          "total_alloc": 159091392
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 437737048,
+          "maxrss_raw": 553500672,
+          "num_gc": 3,
+          "pid": 67362,
+          "total_alloc": 451253096
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 450830592,
+          "maxrss_raw": 564658176,
+          "num_gc": 3,
+          "pid": 67362,
+          "total_alloc": 464346640
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 450934648,
+          "maxrss_raw": 566575104,
+          "num_gc": 3,
+          "pid": 67362,
+          "total_alloc": 464450696
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 464048304,
+          "maxrss_raw": 568819712,
+          "num_gc": 3,
+          "pid": 67362,
+          "total_alloc": 477564352
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 464179584,
+          "maxrss_raw": 570507264,
+          "num_gc": 3,
+          "pid": 67362,
+          "total_alloc": 477695632
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67362,
+      67362,
+      67362
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 643.953416,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 464183008,
+        "maxrss_raw": 570507264,
+        "num_gc": 3,
+        "pid": 67362,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 477699056
+      }
+    ],
+    "python_maxrss_raw": 19939328,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n100-r0-heap",
+    "mode": "heap",
+    "rows": 100,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 54.374583,
+      "setup/migrate-seed": 20.559333,
+      "setup/snapshot": 189.1955,
+      "first/startup": 50.763875,
+      "first/connect": 4.174375,
+      "first/crud": 2.174333,
+      "first/disconnect": 5.627875,
+      "first/close": 2.472334,
+      "second/startup": 52.105042,
+      "second/connect": 4.179042,
+      "second/crud": 3.469541,
+      "second/disconnect": 6.603917,
+      "second/close": 2.672208,
+      "baseline/close": 1.658041
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 5668736,
+          "maxrss_raw": 121405440,
+          "num_gc": 2,
+          "pid": 67383,
+          "total_alloc": 6054344
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 7307720,
+          "maxrss_raw": 123781120,
+          "num_gc": 2,
+          "pid": 67383,
+          "total_alloc": 7693328
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 6188824,
+          "maxrss_raw": 127172608,
+          "num_gc": 3,
+          "pid": 67383,
+          "total_alloc": 10278720
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 7227824,
+          "maxrss_raw": 128532480,
+          "num_gc": 3,
+          "pid": 67383,
+          "total_alloc": 11317720
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 9853448,
+          "maxrss_raw": 128679936,
+          "num_gc": 3,
+          "pid": 67383,
+          "total_alloc": 13943344
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 7163088,
+          "maxrss_raw": 130351104,
+          "num_gc": 4,
+          "pid": 67383,
+          "total_alloc": 14936480
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67383,
+      67383,
+      67383
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 61732500,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3162112,
+      "source_hash_metadata_ns": 61931750,
+      "target_verify_ns": 61802875
+    },
+    "whole_ms": 400.393794,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 7169712,
+        "maxrss_raw": 130351104,
+        "num_gc": 4,
+        "pid": 67383,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 14943104
+      }
+    ],
+    "python_maxrss_raw": 20086784,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n100-r1-control",
+    "mode": "control",
+    "rows": 100,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 45.145625,
+      "setup/migrate-seed": 19.551375,
+      "setup/snapshot": 391.518875,
+      "first/startup": 60.609959,
+      "first/connect": 4.475042,
+      "first/crud": 2.172625,
+      "first/disconnect": 7.752167,
+      "first/close": 4.497833,
+      "second/startup": 56.088959,
+      "second/connect": 5.32275,
+      "second/crud": 5.114042,
+      "second/disconnect": 7.774667,
+      "second/close": 4.757334,
+      "baseline/close": 2.711667
+    },
+    "resources": {},
+    "pids": [
+      67436,
+      67440,
+      67442
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 618.123458,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 437235344,
+        "maxrss_raw": 553156608,
+        "num_gc": 3,
+        "pid": 67436,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 450684208
+      },
+      {
+        "heap_alloc": 177168,
+        "maxrss_raw": 6275072,
+        "num_gc": 0,
+        "pid": 67438,
+        "role": "mariamem-host",
+        "snapshot_info_helper": true,
+        "total_alloc": 177168
+      },
+      {
+        "heap_alloc": 13341432,
+        "maxrss_raw": 126304256,
+        "num_gc": 1,
+        "pid": 67440,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13465872
+      },
+      {
+        "heap_alloc": 13351376,
+        "maxrss_raw": 126894080,
+        "num_gc": 1,
+        "pid": 67442,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13475480
+      }
+    ],
+    "python_maxrss_raw": 23248896,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n100-r1-file",
+    "mode": "file",
+    "rows": 100,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 53.655667,
+      "setup/migrate-seed": 20.589416,
+      "setup/snapshot": 395.560208,
+      "first/startup": 55.120125,
+      "first/connect": 4.127292,
+      "first/crud": 2.053917,
+      "first/disconnect": 5.525042,
+      "first/close": 2.643417,
+      "second/startup": 51.711,
+      "second/connect": 4.139333,
+      "second/crud": 3.497,
+      "second/disconnect": 6.423917,
+      "second/close": 2.644166,
+      "baseline/close": 13.096292
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 158934440,
+          "maxrss_raw": 121683968,
+          "num_gc": 2,
+          "pid": 67392,
+          "total_alloc": 159084976
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 437732224,
+          "maxrss_raw": 553041920,
+          "num_gc": 3,
+          "pid": 67392,
+          "total_alloc": 451256792
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 450855368,
+          "maxrss_raw": 564314112,
+          "num_gc": 3,
+          "pid": 67392,
+          "total_alloc": 464379936
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 450971192,
+          "maxrss_raw": 566050816,
+          "num_gc": 3,
+          "pid": 67392,
+          "total_alloc": 464495760
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 464093368,
+          "maxrss_raw": 568066048,
+          "num_gc": 3,
+          "pid": 67392,
+          "total_alloc": 477617936
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 464223632,
+          "maxrss_raw": 569802752,
+          "num_gc": 3,
+          "pid": 67392,
+          "total_alloc": 477748200
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67392,
+      67392,
+      67392
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 621.14621,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 464226800,
+        "maxrss_raw": 569802752,
+        "num_gc": 3,
+        "pid": 67392,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 477751368
+      }
+    ],
+    "python_maxrss_raw": 20054016,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n100-r1-heap",
+    "mode": "heap",
+    "rows": 100,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 52.466459,
+      "setup/migrate-seed": 20.776667,
+      "setup/snapshot": 193.690084,
+      "first/startup": 50.837417,
+      "first/connect": 4.070458,
+      "first/crud": 2.068541,
+      "first/disconnect": 6.428625,
+      "first/close": 2.663459,
+      "second/startup": 54.3245,
+      "second/connect": 4.7285,
+      "second/crud": 3.833458,
+      "second/disconnect": 6.422375,
+      "second/close": 2.906709,
+      "baseline/close": 1.61625
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 5653376,
+          "maxrss_raw": 121126912,
+          "num_gc": 2,
+          "pid": 67409,
+          "total_alloc": 6043936
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 7285560,
+          "maxrss_raw": 123600896,
+          "num_gc": 2,
+          "pid": 67409,
+          "total_alloc": 7676120
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 6136232,
+          "maxrss_raw": 126943232,
+          "num_gc": 3,
+          "pid": 67409,
+          "total_alloc": 10222344
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 7227456,
+          "maxrss_raw": 128466944,
+          "num_gc": 3,
+          "pid": 67409,
+          "total_alloc": 11313568
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 9389168,
+          "maxrss_raw": 128958464,
+          "num_gc": 3,
+          "pid": 67409,
+          "total_alloc": 13475280
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 7188016,
+          "maxrss_raw": 131055616,
+          "num_gc": 4,
+          "pid": 67409,
+          "total_alloc": 14990464
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67409,
+      67409,
+      67409
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 64419375,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3162112,
+      "source_hash_metadata_ns": 63221667,
+      "target_verify_ns": 62472542
+    },
+    "whole_ms": 407.189539,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 7194640,
+        "maxrss_raw": 131055616,
+        "num_gc": 4,
+        "pid": 67409,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 14997088
+      }
+    ],
+    "python_maxrss_raw": 19922944,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n100-r2-control",
+    "mode": "control",
+    "rows": 100,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 44.768292,
+      "setup/migrate-seed": 21.680959,
+      "setup/snapshot": 401.104292,
+      "first/startup": 51.987792,
+      "first/connect": 4.490375,
+      "first/crud": 2.218042,
+      "first/disconnect": 7.735292,
+      "first/close": 4.698959,
+      "second/startup": 50.38175,
+      "second/connect": 4.401375,
+      "second/crud": 3.890125,
+      "second/disconnect": 7.808083,
+      "second/close": 4.652125,
+      "baseline/close": 2.769042
+    },
+    "resources": {},
+    "pids": [
+      67473,
+      67480,
+      67482
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 613.06021,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 437234880,
+        "maxrss_raw": 552960000,
+        "num_gc": 3,
+        "pid": 67473,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 450696232
+      },
+      {
+        "heap_alloc": 182984,
+        "maxrss_raw": 6455296,
+        "num_gc": 0,
+        "pid": 67479,
+        "role": "mariamem-host",
+        "snapshot_info_helper": true,
+        "total_alloc": 182984
+      },
+      {
+        "heap_alloc": 13339984,
+        "maxrss_raw": 125829120,
+        "num_gc": 1,
+        "pid": 67480,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13464472
+      },
+      {
+        "heap_alloc": 13365912,
+        "maxrss_raw": 126844928,
+        "num_gc": 1,
+        "pid": 67482,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13490152
+      }
+    ],
+    "python_maxrss_raw": 22151168,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n100-r2-file",
+    "mode": "file",
+    "rows": 100,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 54.294291,
+      "setup/migrate-seed": 20.266042,
+      "setup/snapshot": 363.832458,
+      "first/startup": 54.18875,
+      "first/connect": 4.022958,
+      "first/crud": 2.04425,
+      "first/disconnect": 6.440708,
+      "first/close": 2.63675,
+      "second/startup": 49.782167,
+      "second/connect": 4.092417,
+      "second/crud": 3.344417,
+      "second/disconnect": 6.419958,
+      "second/close": 2.707,
+      "baseline/close": 12.988125
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 158935432,
+          "maxrss_raw": 121389056,
+          "num_gc": 2,
+          "pid": 67494,
+          "total_alloc": 159085952
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 437731360,
+          "maxrss_raw": 552894464,
+          "num_gc": 3,
+          "pid": 67494,
+          "total_alloc": 451246536
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 450854376,
+          "maxrss_raw": 563986432,
+          "num_gc": 3,
+          "pid": 67494,
+          "total_alloc": 464369552
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 450974744,
+          "maxrss_raw": 565886976,
+          "num_gc": 3,
+          "pid": 67494,
+          "total_alloc": 464489920
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 464091520,
+          "maxrss_raw": 568082432,
+          "num_gc": 3,
+          "pid": 67494,
+          "total_alloc": 477606696
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 464222776,
+          "maxrss_raw": 569769984,
+          "num_gc": 3,
+          "pid": 67494,
+          "total_alloc": 477737952
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67494,
+      67494,
+      67494
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 587.426667,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 464225944,
+        "maxrss_raw": 569769984,
+        "num_gc": 3,
+        "pid": 67494,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 477741120
+      }
+    ],
+    "python_maxrss_raw": 20004864,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n100-r2-heap",
+    "mode": "heap",
+    "rows": 100,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 54.338958,
+      "setup/migrate-seed": 20.52875,
+      "setup/snapshot": 194.75075,
+      "first/startup": 59.591333,
+      "first/connect": 4.153,
+      "first/crud": 2.218208,
+      "first/disconnect": 6.47075,
+      "first/close": 2.612875,
+      "second/startup": 58.66275,
+      "second/connect": 4.245417,
+      "second/crud": 3.595042,
+      "second/disconnect": 6.412167,
+      "second/close": 2.797041,
+      "baseline/close": 1.663833
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 5670584,
+          "maxrss_raw": 121487360,
+          "num_gc": 2,
+          "pid": 67445,
+          "total_alloc": 6039512
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 7306432,
+          "maxrss_raw": 123879424,
+          "num_gc": 2,
+          "pid": 67445,
+          "total_alloc": 7675360
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 5755584,
+          "maxrss_raw": 126058496,
+          "num_gc": 3,
+          "pid": 67445,
+          "total_alloc": 9804568
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 7235656,
+          "maxrss_raw": 127172608,
+          "num_gc": 3,
+          "pid": 67445,
+          "total_alloc": 11284640
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 6277704,
+          "maxrss_raw": 127746048,
+          "num_gc": 4,
+          "pid": 67445,
+          "total_alloc": 13930880
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 7272840,
+          "maxrss_raw": 128811008,
+          "num_gc": 4,
+          "pid": 67445,
+          "total_alloc": 14926016
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67445,
+      67445,
+      67445
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "heap_stats": {
+      "logical_bytes": 144953650,
+      "owner_verify_ns": 63149625,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 3162112,
+      "source_hash_metadata_ns": 65855042,
+      "target_verify_ns": 62165083
+    },
+    "whole_ms": 422.417251,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 7279640,
+        "maxrss_raw": 128811008,
+        "num_gc": 4,
+        "pid": 67445,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 14932816
+      }
+    ],
+    "python_maxrss_raw": 20054016,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n10000-r0-control",
+    "mode": "control",
+    "rows": 10000,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 47.895166,
+      "setup/migrate-seed": 776.870833,
+      "setup/snapshot": 472.756833,
+      "first/startup": 56.584375,
+      "first/connect": 4.810167,
+      "first/crud": 18.658083,
+      "first/disconnect": 7.812334,
+      "first/close": 4.823334,
+      "second/startup": 51.849958,
+      "second/connect": 4.407416,
+      "second/crud": 22.228416,
+      "second/disconnect": 7.6695,
+      "second/close": 4.691291,
+      "baseline/close": 3.125625
+    },
+    "resources": {},
+    "pids": [
+      67505,
+      67515,
+      67526
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 1484.704083,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 505633024,
+        "maxrss_raw": 630718464,
+        "num_gc": 4,
+        "pid": 67505,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 633058472
+      },
+      {
+        "heap_alloc": 177168,
+        "maxrss_raw": 6373376,
+        "num_gc": 0,
+        "pid": 67514,
+        "role": "mariamem-host",
+        "snapshot_info_helper": true,
+        "total_alloc": 177168
+      },
+      {
+        "heap_alloc": 13421168,
+        "maxrss_raw": 128532480,
+        "num_gc": 1,
+        "pid": 67515,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13545472
+      },
+      {
+        "heap_alloc": 13381832,
+        "maxrss_raw": 128909312,
+        "num_gc": 1,
+        "pid": 67526,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13506320
+      }
+    ],
+    "python_maxrss_raw": 23019520,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n10000-r0-file",
+    "mode": "file",
+    "rows": 10000,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 52.781292,
+      "setup/migrate-seed": 776.835542,
+      "setup/snapshot": 354.209375,
+      "first/startup": 53.913375,
+      "first/connect": 4.031,
+      "first/crud": 16.340542,
+      "first/disconnect": 6.512625,
+      "first/close": 2.799584,
+      "second/startup": 51.514083,
+      "second/connect": 4.482458,
+      "second/crud": 21.963416,
+      "second/disconnect": 6.414042,
+      "second/close": 2.89525,
+      "baseline/close": 13.290416
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 247316184,
+          "maxrss_raw": 222183424,
+          "num_gc": 3,
+          "pid": 67529,
+          "total_alloc": 298826888
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 506126376,
+          "maxrss_raw": 630472704,
+          "num_gc": 4,
+          "pid": 67529,
+          "total_alloc": 633692688
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 519237928,
+          "maxrss_raw": 639614976,
+          "num_gc": 4,
+          "pid": 67529,
+          "total_alloc": 646804240
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 519356144,
+          "maxrss_raw": 641368064,
+          "num_gc": 4,
+          "pid": 67529,
+          "total_alloc": 646922456
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 532450000,
+          "maxrss_raw": 642088960,
+          "num_gc": 4,
+          "pid": 67529,
+          "total_alloc": 660016312
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 532612968,
+          "maxrss_raw": 644644864,
+          "num_gc": 4,
+          "pid": 67529,
+          "total_alloc": 660179280
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67529,
+      67529,
+      67529
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 1368.369499,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 532616568,
+        "maxrss_raw": 644644864,
+        "num_gc": 4,
+        "pid": 67529,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 660182880
+      }
+    ],
+    "python_maxrss_raw": 22872064,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n10000-r0-heap",
+    "mode": "heap",
+    "rows": 10000,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 54.6455,
+      "setup/migrate-seed": 767.207709,
+      "setup/snapshot": 217.927166,
+      "first/startup": 52.676125,
+      "first/connect": 4.094083,
+      "first/crud": 15.98875,
+      "first/disconnect": 5.861833,
+      "first/close": 2.648667,
+      "second/startup": 51.802916,
+      "second/connect": 4.649375,
+      "second/crud": 23.674292,
+      "second/disconnect": 6.418042,
+      "second/close": 2.734042,
+      "baseline/close": 4.668417
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 36650624,
+          "maxrss_raw": 156876800,
+          "num_gc": 6,
+          "pid": 67566,
+          "total_alloc": 54692776
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 38060448,
+          "maxrss_raw": 158908416,
+          "num_gc": 6,
+          "pid": 67566,
+          "total_alloc": 56102600
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 40717848,
+          "maxrss_raw": 159121408,
+          "num_gc": 6,
+          "pid": 67566,
+          "total_alloc": 58760000
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 41756128,
+          "maxrss_raw": 161251328,
+          "num_gc": 6,
+          "pid": 67566,
+          "total_alloc": 59798280
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 44364752,
+          "maxrss_raw": 163725312,
+          "num_gc": 6,
+          "pid": 67566,
+          "total_alloc": 62406904
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 32800328,
+          "maxrss_raw": 166002688,
+          "num_gc": 7,
+          "pid": 67566,
+          "total_alloc": 63506616
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67566,
+      67566,
+      67566
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "heap_stats": {
+      "logical_bytes": 166285322,
+      "owner_verify_ns": 71296917,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28590080,
+      "source_hash_metadata_ns": 72420375,
+      "target_verify_ns": 71319292
+    },
+    "whole_ms": 1215.648958,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 32806952,
+        "maxrss_raw": 166002688,
+        "num_gc": 7,
+        "pid": 67566,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 63513240
+      }
+    ],
+    "python_maxrss_raw": 23003136,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n10000-r1-control",
+    "mode": "control",
+    "rows": 10000,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 49.833375,
+      "setup/migrate-seed": 773.044209,
+      "setup/snapshot": 408.847042,
+      "first/startup": 51.470875,
+      "first/connect": 4.55025,
+      "first/crud": 16.570541,
+      "first/disconnect": 0.393875,
+      "first/close": 4.57125,
+      "second/startup": 51.665084,
+      "second/connect": 4.381542,
+      "second/crud": 22.2415,
+      "second/disconnect": 0.204958,
+      "second/close": 4.512833,
+      "baseline/close": 1.499375
+    },
+    "resources": {},
+    "pids": [
+      67656,
+      67677,
+      67679
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 1394.305334,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 505618704,
+        "maxrss_raw": 630292480,
+        "num_gc": 4,
+        "pid": 67656,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 632976312
+      },
+      {
+        "heap_alloc": 177008,
+        "maxrss_raw": 6373376,
+        "num_gc": 0,
+        "pid": 67676,
+        "role": "mariamem-host",
+        "snapshot_info_helper": true,
+        "total_alloc": 177008
+      },
+      {
+        "heap_alloc": 13373752,
+        "maxrss_raw": 128335872,
+        "num_gc": 1,
+        "pid": 67677,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13497976
+      },
+      {
+        "heap_alloc": 13365608,
+        "maxrss_raw": 128745472,
+        "num_gc": 1,
+        "pid": 67679,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13489832
+      }
+    ],
+    "python_maxrss_raw": 23134208,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n10000-r1-file",
+    "mode": "file",
+    "rows": 10000,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 55.276542,
+      "setup/migrate-seed": 775.48325,
+      "setup/snapshot": 368.545375,
+      "first/startup": 56.569833,
+      "first/connect": 4.082167,
+      "first/crud": 16.118458,
+      "first/disconnect": 6.406708,
+      "first/close": 2.612125,
+      "second/startup": 52.599958,
+      "second/connect": 4.191292,
+      "second/crud": 21.779583,
+      "second/disconnect": 6.4305,
+      "second/close": 2.731958,
+      "baseline/close": 11.81475
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 247137680,
+          "maxrss_raw": 222494720,
+          "num_gc": 3,
+          "pid": 67596,
+          "total_alloc": 298619888
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 506099064,
+          "maxrss_raw": 630849536,
+          "num_gc": 4,
+          "pid": 67596,
+          "total_alloc": 633485128
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 519206336,
+          "maxrss_raw": 639811584,
+          "num_gc": 4,
+          "pid": 67596,
+          "total_alloc": 646592400
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 519326680,
+          "maxrss_raw": 641843200,
+          "num_gc": 4,
+          "pid": 67596,
+          "total_alloc": 646712744
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 532436104,
+          "maxrss_raw": 642940928,
+          "num_gc": 4,
+          "pid": 67596,
+          "total_alloc": 659822168
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 532606848,
+          "maxrss_raw": 645103616,
+          "num_gc": 4,
+          "pid": 67596,
+          "total_alloc": 659992912
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67596,
+      67596,
+      67596
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 1385.006334,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 532610416,
+        "maxrss_raw": 645103616,
+        "num_gc": 4,
+        "pid": 67596,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 659996480
+      }
+    ],
+    "python_maxrss_raw": 22790144,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n10000-r1-heap",
+    "mode": "heap",
+    "rows": 10000,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 54.017083,
+      "setup/migrate-seed": 779.209958,
+      "setup/snapshot": 218.657417,
+      "first/startup": 52.949417,
+      "first/connect": 4.180375,
+      "first/crud": 16.155,
+      "first/disconnect": 6.416875,
+      "first/close": 2.88275,
+      "second/startup": 50.646084,
+      "second/connect": 4.02925,
+      "second/crud": 22.0135,
+      "second/disconnect": 6.506583,
+      "second/close": 2.649583,
+      "baseline/close": 4.64225
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 36212096,
+          "maxrss_raw": 156467200,
+          "num_gc": 6,
+          "pid": 67622,
+          "total_alloc": 54749520
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 37622120,
+          "maxrss_raw": 158466048,
+          "num_gc": 6,
+          "pid": 67622,
+          "total_alloc": 56159544
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 40228232,
+          "maxrss_raw": 158777344,
+          "num_gc": 6,
+          "pid": 67622,
+          "total_alloc": 58765656
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 32676248,
+          "maxrss_raw": 160972800,
+          "num_gc": 7,
+          "pid": 67622,
+          "total_alloc": 59830776
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 35290696,
+          "maxrss_raw": 161218560,
+          "num_gc": 7,
+          "pid": 67622,
+          "total_alloc": 62445224
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 36367592,
+          "maxrss_raw": 162529280,
+          "num_gc": 7,
+          "pid": 67622,
+          "total_alloc": 63522120
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67622,
+      67622,
+      67622
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "heap_stats": {
+      "logical_bytes": 166285322,
+      "owner_verify_ns": 72116500,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28606464,
+      "source_hash_metadata_ns": 72092458,
+      "target_verify_ns": 71507584
+    },
+    "whole_ms": 1225.315458,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 36374392,
+        "maxrss_raw": 162529280,
+        "num_gc": 7,
+        "pid": 67622,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 63528920
+      }
+    ],
+    "python_maxrss_raw": 22921216,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n10000-r2-control",
+    "mode": "control",
+    "rows": 10000,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 46.886292,
+      "setup/migrate-seed": 771.132084,
+      "setup/snapshot": 398.726459,
+      "first/startup": 51.965584,
+      "first/connect": 4.534458,
+      "first/crud": 17.035333,
+      "first/disconnect": 7.760625,
+      "first/close": 4.570375,
+      "second/startup": 51.000875,
+      "second/connect": 4.337708,
+      "second/crud": 22.288125,
+      "second/disconnect": 5.6055,
+      "second/close": 4.569084,
+      "baseline/close": 1.565
+    },
+    "resources": {},
+    "pids": [
+      67706,
+      67745,
+      67747
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 1392.458791,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 505624664,
+        "maxrss_raw": 635256832,
+        "num_gc": 4,
+        "pid": 67706,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 632978848
+      },
+      {
+        "heap_alloc": 177008,
+        "maxrss_raw": 6258688,
+        "num_gc": 0,
+        "pid": 67726,
+        "role": "mariamem-host",
+        "snapshot_info_helper": true,
+        "total_alloc": 177008
+      },
+      {
+        "heap_alloc": 13354056,
+        "maxrss_raw": 128188416,
+        "num_gc": 1,
+        "pid": 67745,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13478176
+      },
+      {
+        "heap_alloc": 13362920,
+        "maxrss_raw": 128892928,
+        "num_gc": 1,
+        "pid": 67747,
+        "role": "mariamem-host",
+        "snapshot_info_helper": false,
+        "total_alloc": 13487408
+      }
+    ],
+    "python_maxrss_raw": 23003136,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n10000-r2-file",
+    "mode": "file",
+    "rows": 10000,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 54.09475,
+      "setup/migrate-seed": 783.105583,
+      "setup/snapshot": 365.558583,
+      "first/startup": 54.743166,
+      "first/connect": 4.140917,
+      "first/crud": 16.283291,
+      "first/disconnect": 6.439875,
+      "first/close": 2.851375,
+      "second/startup": 51.705833,
+      "second/connect": 4.07575,
+      "second/crud": 21.936708,
+      "second/disconnect": 6.443917,
+      "second/close": 2.695167,
+      "baseline/close": 13.101375
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 247167912,
+          "maxrss_raw": 222478336,
+          "num_gc": 3,
+          "pid": 67750,
+          "total_alloc": 298625704
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 506108848,
+          "maxrss_raw": 630702080,
+          "num_gc": 4,
+          "pid": 67750,
+          "total_alloc": 633491736
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 519216552,
+          "maxrss_raw": 639434752,
+          "num_gc": 4,
+          "pid": 67750,
+          "total_alloc": 646599440
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 519342408,
+          "maxrss_raw": 641449984,
+          "num_gc": 4,
+          "pid": 67750,
+          "total_alloc": 646725296
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 532452208,
+          "maxrss_raw": 642400256,
+          "num_gc": 4,
+          "pid": 67750,
+          "total_alloc": 659835096
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 532608280,
+          "maxrss_raw": 644743168,
+          "num_gc": 4,
+          "pid": 67750,
+          "total_alloc": 659991168
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67750,
+      67750,
+      67750
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 1,
+      "bytes": 0
+    },
+    "whole_ms": 1387.556834,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 532611448,
+        "maxrss_raw": 644743168,
+        "num_gc": 4,
+        "pid": 67750,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 659994336
+      }
+    ],
+    "python_maxrss_raw": 23003136,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  },
+  {
+    "label": "n10000-r2-heap",
+    "mode": "heap",
+    "rows": 10000,
+    "resources_enabled": true,
+    "times_ms": {
+      "setup/start": 55.022041,
+      "setup/migrate-seed": 761.894208,
+      "setup/snapshot": 219.764583,
+      "first/startup": 51.925833,
+      "first/connect": 4.584875,
+      "first/crud": 16.281875,
+      "first/disconnect": 6.440416,
+      "first/close": 2.565584,
+      "second/startup": 50.641333,
+      "second/connect": 4.220958,
+      "second/crud": 21.991667,
+      "second/disconnect": 6.442167,
+      "second/close": 2.719084,
+      "baseline/close": 4.669417
+    },
+    "resources": {
+      "after-seed": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 3,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 38763768,
+          "maxrss_raw": 158662656,
+          "num_gc": 6,
+          "pid": 67682,
+          "total_alloc": 54682264
+        },
+        "snapshots": 0
+      },
+      "after-snapshot": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 5,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 40173600,
+          "maxrss_raw": 160710656,
+          "num_gc": 6,
+          "pid": 67682,
+          "total_alloc": 56092096
+        },
+        "snapshots": 1
+      },
+      "first-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 7,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 42883552,
+          "maxrss_raw": 161120256,
+          "num_gc": 6,
+          "pid": 67682,
+          "total_alloc": 58802048
+        },
+        "snapshots": 1
+      },
+      "first-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 10,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 32762856,
+          "maxrss_raw": 163217408,
+          "num_gc": 7,
+          "pid": 67682,
+          "total_alloc": 59778992
+        },
+        "snapshots": 1
+      },
+      "second-started": {
+        "capture_requests": 0,
+        "dbs": 1,
+        "id": 12,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 35198072,
+          "maxrss_raw": 163561472,
+          "num_gc": 7,
+          "pid": 67682,
+          "total_alloc": 62214208
+        },
+        "snapshots": 1
+      },
+      "second-closed": {
+        "capture_requests": 0,
+        "dbs": 0,
+        "id": 15,
+        "idle": false,
+        "ok": true,
+        "resources": {
+          "heap_alloc": 36468800,
+          "maxrss_raw": 164724736,
+          "num_gc": 7,
+          "pid": 67682,
+          "total_alloc": 63484936
+        },
+        "snapshots": 1
+      }
+    },
+    "pids": [
+      67682,
+      67682,
+      67682
+    ],
+    "guest_version": "12.3.3-MariaDB-embedded",
+    "tmp_after_snapshot": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "heap_stats": {
+      "logical_bytes": 166285321,
+      "owner_verify_ns": 71415750,
+      "payload_copy_bytes": 0,
+      "payload_file_bytes": 0,
+      "retained_block_bytes": 28606464,
+      "source_hash_metadata_ns": 74321375,
+      "target_verify_ns": 71261834
+    },
+    "whole_ms": 1209.546543,
+    "tmp_after_close": {
+      "files": 0,
+      "dirs": 0,
+      "bytes": 0
+    },
+    "host_metrics": [
+      {
+        "heap_alloc": 36475696,
+        "maxrss_raw": 164724736,
+        "num_gc": 7,
+        "pid": 67682,
+        "role": "broker",
+        "snapshot_info_helper": false,
+        "total_alloc": 63491832
+      }
+    ],
+    "python_maxrss_raw": 22740992,
+    "status": "PASS",
+    "checks": [
+      "version",
+      "CRUD-commit-rollback",
+      "sibling-isolation",
+      "source-consumed",
+      "host-pid-ownership",
+      "cleanup"
+    ]
+  }
+]
