@@ -32,6 +32,9 @@ def call(r):
  if op=='invalid':send({'id':999999,'ok':True});return
  if op=='malformed':send([]);return
  if op=='bad_error':send({'id':r['id'],'ok':False,'error':'broken'});return
+ if op in ('start','fork') and r.get('log_path','').endswith('reject-startup'):
+  out.update(ok=False,error={'code':'guest_start','stage':'guest_launch','message':'injected guest startup failure'})
+  send(out);return
  if op in ('slow','late_database','late_snapshot'):release_slow.wait(5)
  if op=='release_slow':release_slow.set()
  if op in ('start','fork','late_database'):
@@ -248,3 +251,16 @@ def test_host_log_open_failure_removes_owned_scratch(fake_host, monkeypatch):
     with pytest.raises(mariamem.HostError, match="log-open failure"):
         Session(fake_host)
     assert len(created) == 1 and not created[0].exists()
+
+
+def test_child_start_failure_keeps_closed_flag_and_preserves_baseline(fake_host, tmp_path):
+    with mariamem.start(host_binary=fake_host) as root:
+        with root.snapshot() as baseline:
+            with pytest.raises(mariamem.HostError) as failed:
+                baseline.fork(log_path=tmp_path / "reject-startup")
+            assert failed.value.closed
+            assert failed.value.code == "guest_start"
+            assert failed.value.stage == "guest_launch"
+            assert baseline._session.request("stats")["handles"] == 1
+            with baseline.fork() as child:
+                assert child.status()["state"] == "ready"

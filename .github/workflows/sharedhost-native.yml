@@ -29,14 +29,20 @@ jobs:
         run: |
           python scripts/build_alpha.py --ci-candidate > build/sharedhost-evidence/wheel.txt 2>&1
           python -m venv build/consumer-venv
-          build/consumer-venv/bin/python -m pip install build/dist/*.whl pytest PyMySQL pytest-xdist
+          build/consumer-venv/bin/python -m pip install build/dist/*.whl pytest PyMySQL pytest-xdist SQLAlchemy==2.0.54
+          build/consumer-venv/bin/python tests/verify_alpha.py > build/sharedhost-evidence/fixture-audit.txt 2>&1
           mkdir -p "$RUNNER_TEMP/sharedhost-consumer"
           cp tests/consumer/test_database.py tests/consumer/test_generated_platform.py "$RUNNER_TEMP/sharedhost-consumer/"
           "$GITHUB_WORKSPACE/build/consumer-venv/bin/python" -m pytest --confcutdir="$RUNNER_TEMP/sharedhost-consumer" -n 2 "$RUNNER_TEMP/sharedhost-consumer" -q > build/sharedhost-evidence/consumer.txt 2>&1
+          cp tests/consumer/test_sqlalchemy_dogfood.py "$RUNNER_TEMP/sharedhost-consumer/"
+          for mode in start fork; do
+            DOGFOOD_MODE="$mode" DOGFOOD_EVIDENCE="$GITHUB_WORKSPACE/build/sharedhost-evidence/sqlalchemy-$mode.json" build/consumer-venv/bin/python -m pytest --confcutdir="$RUNNER_TEMP/sharedhost-consumer" "$RUNNER_TEMP/sharedhost-consumer/test_sqlalchemy_dogfood.py" -q > "build/sharedhost-evidence/sqlalchemy-$mode.txt" 2>&1
+          done
       - name: Executable guides and external Go module
         env:
           MARIAMEM_TEST_HOST: ${{ github.workspace }}/build/mariamem-host
           PYTHONPATH: python
+          GOMODCACHE: ${{ github.workspace }}/build/guide-modules
         run: python -m pytest tests/test_usability_examples.py -q > build/sharedhost-evidence/guides.txt 2>&1
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()

@@ -27,6 +27,17 @@ audit_plugin = '''import json
 import os
 from pathlib import Path
 import mariamem
+sessions = {}
+
+def check_session(session):
+    if session._refs:
+        assert session._process.poll() is None
+        assert session.root.exists()
+    else:
+        assert session._reaped.is_set()
+        assert session._process.poll() == 0
+        assert not session.root.exists()
+        assert not session._reader.is_alive()
 
 def pytest_fixture_post_finalizer(fixturedef, request):
     cached = fixturedef.cached_result
@@ -35,21 +46,37 @@ def pytest_fixture_post_finalizer(fixturedef, request):
     value = cached[0]
     if isinstance(value, mariamem.Database):
         assert value.closed
-        assert not value.log_path.parent.exists()
-        for pid in value.diagnostics.values():
+        assert not value.log_path.exists()
+        session = value._session
+        sessions[session._process.pid] = session
+        check_session(session)
+        if session._refs:
             try:
-                os.kill(pid, 0)
-            except ProcessLookupError:
-                pass
+                session.request("status", handle=value._handle)
+            except mariamem.HostError as error:
+                assert "database is closed" in str(error)
             else:
-                raise AssertionError(f"process {pid} survived teardown")
-        record = {"fixture": fixturedef.argname, "id": value.id, "reaped": True}
+                raise AssertionError("disposed DB remains in host registry")
+        record = {"fixture": fixturedef.argname, "id": value.id, "disposed": True,
+                  "host_reaped_now": session._reaped.is_set()}
         (Path(os.environ["ALPHA_AUDIT"]) / (value.id + ".json")).write_text(json.dumps(record))
     elif isinstance(value, mariamem.Snapshot):
-        assert value._closed and value._released
-        assert not value._files
-        if value._temporary is not None:
-            assert not Path(value._temporary.name).exists()
+        assert value._closed and value._close_done.is_set()
+        sessions[value._session._process.pid] = value._session
+        check_session(value._session)
+
+def pytest_sessionfinish(session, exitstatus):
+    for pid, owner in sessions.items():
+        assert owner._refs == 0
+        check_session(owner)
+        try:
+            os.kill(pid, 0)
+        except ProcessLookupError:
+            pass
+        else:
+            raise AssertionError(f"host {pid} survived final owner teardown")
+        record = {"pid": pid, "reaped": True, "directory_removed": True}
+        (Path(os.environ["ALPHA_AUDIT"]) / ("host-" + str(pid) + ".json")).write_text(json.dumps(record))
 '''
 
 
@@ -77,8 +104,12 @@ def main():
                       for key in ("tests", "failures", "errors", "skipped")}
             assert counts["failures"] == failures and counts["errors"] == errors, counts
             records = [json.loads(p.read_text()) for p in audit.glob("*.json")]
-            assert records and all(r["reaped"] for r in records)
-            report["runs"].append({"name": name, **counts, "fixture_instances_reaped": len(records)})
+            databases = [r for r in records if "disposed" in r]
+            hosts = [r for r in records if "reaped" in r]
+            assert databases and all(r["disposed"] for r in databases)
+            assert hosts and all(r["reaped"] and r["directory_removed"] for r in hosts)
+            report["runs"].append({"name": name, **counts,
+                "fixture_instances_disposed": len(databases), "final_hosts_reaped": len(hosts)})
             print(json.dumps(report["runs"][-1]), flush=True)
 
         run("serial", ["test_database.py"])

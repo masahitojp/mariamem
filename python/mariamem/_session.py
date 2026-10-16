@@ -123,7 +123,7 @@ class Session:
             error = reply.get("error", {})
             cls = {"busy": Busy, "transaction_active": TransactionActive}.get(error.get("code"), HostError)
             raise cls(error.get("message", "Host request failed"), code=error.get("code"),
-                      stage=error.get("stage"), closed=reply.get("closed", False))
+                      stage=error.get("stage"), closed=reply.get("closed", op in ("start", "fork")))
         return reply
 
     def _read(self):

@@ -93,11 +93,19 @@ def prepare(engine):
         session.commit()
 
 
-def reaped(db, pids, directory):
-    assert db.closed and not directory.exists()
-    for pid in pids.values():
-        with pytest.raises(ProcessLookupError):
-            os.kill(pid, 0)
+def disposed(db, pids, directory):
+    assert db.closed and not db.log_path.exists()
+    session = db._session
+    if session._refs:
+        assert session._process.poll() is None and directory.exists()
+        with pytest.raises(mariamem.HostError, match="database is closed"):
+            session.request("status", handle=db._handle)
+    else:
+        assert session._reaped.is_set() and session._process.poll() == 0
+        assert not directory.exists()
+        for pid in pids.values():
+            with pytest.raises(ProcessLookupError):
+                os.kill(pid, 0)
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -137,10 +145,13 @@ def prepared(audit):
             engine.dispose()
         template.wait_disconnected()
         with template.snapshot() as snapshot:
-            reaped(template, pids, directory)
+            disposed(template, pids, directory)
             record["setup_snapshot_ms"] = (time.monotonic() - started) * 1000
             audit["templates"].append(record)
             yield snapshot
+        assert template._session._reaped.is_set()
+        assert template._session._process.poll() == 0
+        assert not directory.exists()
 
 
 @pytest.fixture
@@ -194,7 +205,7 @@ def app(request, prepared, audit):
                 record["after_dispose_sessions"] = db.status()["active_connections"]
         finally:
             db.close()
-        reaped(db, pids, directory)
+        disposed(db, pids, directory)
         record["cleanup"] = "PASS"
 
 
@@ -309,7 +320,7 @@ def test_08_shutdown_with_idle_pool_connections(app):
     pids, directory = db.diagnostics, db.log_path.parent
     db.close()
     engine.dispose()
-    reaped(db, pids, directory)
+    disposed(db, pids, directory)
     record["database_first_shutdown"] = "PASS"
 
 

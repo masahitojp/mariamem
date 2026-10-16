@@ -34,6 +34,15 @@ def fd_count():
     return count
 
 
+def host_fd_count(pid):
+    directory = Path(f"/proc/{pid}/fd")
+    if directory.is_dir():
+        return len(list(directory.iterdir()))
+    # Numeric descriptor fields only: exclude cwd, executable and memory maps.
+    text = subprocess.check_output(["/usr/sbin/lsof", "-a", "-p", str(pid), "-Ff"], text=True)
+    return sum(line.startswith("f") and line[1:].isdigit() for line in text.splitlines())
+
+
 def sql(db, statement, args=None):
     with pymysql.connect(**db.connection_info(), autocommit=True) as connection:
         with connection.cursor() as cursor:
@@ -133,9 +142,13 @@ def test_hundred_forks_and_ten_generations():
     before = fd_count()
     with prepared() as original:
         session = original._session
+        host_fds = host_fd_count(session._process.pid)
+        scratch = {p.relative_to(session.root) for p in session.root.rglob("*")}
         for _ in range(100):
             with original.fork() as child:
                 initial(child)
+        assert host_fd_count(session._process.pid) == host_fds
+        assert {p.relative_to(session.root) for p in session.root.rglob("*")} == scratch
         parent = original
         derived = []
         try:
@@ -221,3 +234,34 @@ def test_wait_on_one_database_does_not_delay_sibling_close():
                 if connection.open:
                     connection.close()
             initial(waiting)
+
+
+def test_real_fork_racing_baseline_close_preserves_started_children():
+    baseline = prepared()
+    session = baseline._session
+    first = baseline.fork()
+    gate = threading.Barrier(5)
+    def fork():
+        gate.wait()
+        try:
+            return baseline.fork()
+        except (mariamem.HostError, ValueError) as error:
+            assert "closed" in str(error).lower()
+            return None
+    with ThreadPoolExecutor(4) as pool:
+        pending = [pool.submit(fork) for _ in range(4)]
+        gate.wait()
+        baseline.close()
+        children = [first]
+        try:
+            initial(first)
+            for future in pending:
+                child = future.result(20)
+                if child is not None:
+                    children.append(child)
+                    initial(child)
+        finally:
+            for child in children:
+                child.close()
+    assert session._process.poll() == 0
+    assert not session.root.exists()
