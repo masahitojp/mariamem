@@ -29,7 +29,7 @@ for state, (directory, source) in sources.items():
     assert identity["source_commit"] == source and identity["object_type"] == "commit"
     assert not subprocess.check_output(["git", "status", "--porcelain"], cwd=root)
     binaries = work / "temp/binaries" / state
-    binaries.mkdir(parents=True)
+    binaries.mkdir(parents=True, exist_ok=True)
     for target, package in (("mariamem-host", "./cmd/mariamem-host"),
                             ("ownedprepared", "./benchmarks/ownedprepared")):
         print("BUILD", state, target, flush=True)

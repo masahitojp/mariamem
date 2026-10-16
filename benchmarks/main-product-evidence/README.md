@@ -30,3 +30,10 @@ Then run `run-product.py --workspace WORK --output NEW_OUTPUT` and the sharedhos
 campaign twice (default 6/3 all scales, then --scales small --plain-repeats 30
 --resource-repeats 30). Both receive exact clean roots and stamped hosts.
 The orchestrator and actual input/binary/dependency hashes are saved with results.
+
+Input checkout note: the first linked-worktree builds recorded the parent repo's
+SHA in Go VCS metadata and were rejected before any measurement. Independent
+Git checkouts with real .git directories replace them; inputs and runtime code
+are unchanged. The initial failure receipt/build metadata are retained. A locked,
+disk-guarded manual continuation uses the remaining original two-hour budget;
+completion is judged only after all 262 executions and identity checks succeed.
