@@ -1,7 +1,7 @@
 # Disposable databases and fixed baselines
 
-Status: maintainer-approved v0.4.4 product contract; implementation qualification
-and release approval remain separate.
+Status: maintainer-approved product contract, updated for D block storage and
+Python shared-host main adoption on 2026-10-17. Release approval remains separate.
 
 ## Product boundary
 
@@ -29,7 +29,7 @@ The maintainer approved removing persistence and loading during the D/shared-hos
 implementation on 2026-10-16. Path-taking capture such as `db.snapshot(path)` is not supported. Python
 `snapshot_to`, `load_snapshot`,
 `Snapshot.open(path)` and path-based acquisition, and Go `Destination` /
-`LoadSnapshot`, are removed in this candidate. Prepare from migration/seed inputs
+`LoadSnapshot`, are removed from the adopted implementation. Prepare from migration/seed inputs
 again for each test process/session. No automatic cache is introduced.
 
 Python automatically manages one host per independent root start lineage. DBs,
@@ -70,7 +70,8 @@ fixtures. Fixture ergonomics are deferred to v0.6.0 dogfood evidence.
 
 Ordinary baselines retain immutable Go blocks, not one backing FD per file.
 Each child separates modified blocks. Closing a baseline does not revoke blocks
-already owned by children. Public save/load behavior from v0.4.4–v0.5.0 is an
+already owned by children. Removing the earlier file-backed public save/load API is an
 intentional API removal; the earlier reports preserve that historical contract.
-The implementation is under verification; architecture adoption and release
-approval remain separate from this approved direction.
+The maintainer accepted main adoption after bounded validation on both native
+platforms. Final release validation and release approval remain separate.
+See the [adoption decision and evidence](../reviews/d-heap-shared-host.md).

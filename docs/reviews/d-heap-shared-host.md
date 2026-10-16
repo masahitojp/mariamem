@@ -1,6 +1,23 @@
 # D heap Snapshot＋Python共有host：実装とHuman Review
 
-2026-10-17更新。`experiment/d-heap-shared-host`。main統合・リリース準備は行っていない。
+2026-10-17更新。検証元は`experiment/d-heap-shared-host`。以下のHuman Reviewは採用前の判断資料。
+
+## Human決定：main採用
+
+2026-10-17、Humanは候補`f55bd3a91073e9f80b8a816055acf0983b8b2e79`のmain採用を承認した。
+両OSの関連検証、今回の利用条件での利益、明示した契約変更を根拠とする。
+未解明の遅い資源計測1試行も判断材料に含めた上で、採用後の最終リリース検証へ引き継ぐ。
+共有hostの故障範囲と公開保存／load APIの廃止も、この判断の対象。
+採用はリリース承認ではなく、今回リリース準備・最終Qualification・公開は開始しない。
+
+採用時に変更するのは承認記録と現在の製品契約の状態だけで、runtime・生成物・toolchain・
+既存oracleは検証済み候補と同一。macOSの実装・計測入力`a6df1c8`とUbuntu入力`4282cba`を
+新しい採用commitの検証結果として付け替えない。
+
+最終リリース検証へ渡す確認点は、準備→Snapshot→子→全Closeの全体時間と各区間、
+通常計測と資源計測の区別、遅い試行の頻度・区間、両OSでのSQL／隔離／回収。
+既存の生データを対照として使い、原因未確定のまま「解消済み」「単なるばらつき」としない。
+新たなcorrectness欠陥が見つかれば、その影響と修正範囲を別途判断する。
 
 ## Human Review
 
@@ -176,7 +193,7 @@ CI結果の取得後は資料・証拠だけを更新した。CI対象SHAを新�
 [run／step結果](d-heap-shared-host-evidence/ubuntu/run.json)、各検証ログと元／公開hashを
 [receipt](d-heap-shared-host-evidence/ubuntu/receipt.json)に保存した。
 資料だけの保存commitでは`[skip ci]`を指定し、変更していないruntimeのCIを再実行しない。
-main採用はHuman Review待ちであり、Release READYとは判定しない。
+main採用の承認は冒頭の追記に記録した。Release READYとは判定しない。
 
 既存Ubuntu証拠の`.log`名は公開source guardに反するため`.txt`へ変更し、integration証拠の
 CI絶対path1箇所をrepository相対pathへ正規化した。

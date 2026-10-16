@@ -23,13 +23,17 @@ The maintainer approved D block storage plus one automatically managed Python
 host per root lineage on 2026-10-16, and then removed public persistence/loading
 from the implementation scope. Baselines become process-local; preparation inputs
 remain migrations/seed. Child independence and consuming Snapshot are retained.
-Implementation and bounded verification on macOS arm64 and Ubuntu24.04 x86_64
-are saved on `experiment/d-heap-shared-host`. Native Ubuntu CI passed on source
+The maintainer approved main adoption on 2026-10-17 for reviewed candidate
+`f55bd3a91073e9f80b8a816055acf0983b8b2e79`. Its runtime matches the bounded
+macOS arm64 verification and native Ubuntu CI, which passed on source
 `4282cba73f12c772942b72c2f020b3ec1228be11` in
 [run 38908979283](https://github.com/masahitojp/mariamem/actions/runs/38908979283).
-The recommendation is adoption; performance comparison remains macOS-only,
-and the shared-host crash domain and skipped probes are recorded in the review.
-Main integration and release are not approved. See the
+The shared-host crash domain and intentional public save/load API removal are
+accepted for this use. Performance comparison remains macOS-only. The unexplained
+slow resource-observed small-fixture trial remains unresolved and must be revisited
+in final release validation; it is not classified as noise or a candidate defect.
+Skipped probes remain explicit. This adoption does not start release preparation
+or authorize publication. See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
