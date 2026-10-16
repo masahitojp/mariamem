@@ -420,3 +420,4 @@ func (f *memFile) ReadDir(n int) ([]os.DirEntry, error) {
 	return out, nil
 }
 
+// wasiOpen is one entry
