@@ -1,0 +1,3692 @@
+{
+  "historical_pairs": [
+    {
+      "pair": "matrix/0",
+      "baseline": {
+        "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+        "result_sha256": "c4cf463a998ab586b6078c2d5d6bb36d12b4c2a00eac9df0c79d508bbbeba3a0",
+        "wall": 25.257792329999997,
+        "cpu": 28.066525,
+        "phases": {
+          "fresh_ready": {
+            "wall": 0.22943225,
+            "cpu": 0.20421300000000311,
+            "instances": [
+              {
+                "name": "fresh_ready_00",
+                "wall": 0.0521635,
+                "cpu": 0.045291
+              },
+              {
+                "name": "fresh_ready_01",
+                "wall": 0.05448125,
+                "cpu": 0.04794699999999974
+              },
+              {
+                "name": "fresh_ready_02",
+                "wall": 0.056865333,
+                "cpu": 0.05075000000000074
+              },
+              {
+                "name": "fresh_ready_03",
+                "wall": 0.065922167,
+                "cpu": 0.06022500000000264
+              }
+            ]
+          },
+          "fresh_setup": {
+            "wall": 21.743452498,
+            "cpu": 22.793029,
+            "instances": [
+              {
+                "name": "fresh_setup_00",
+                "wall": 5.385859458,
+                "cpu": 5.686186999999999
+              },
+              {
+                "name": "fresh_setup_01",
+                "wall": 5.387506458,
+                "cpu": 5.682842
+              },
+              {
+                "name": "fresh_setup_02",
+                "wall": 5.544300041,
+                "cpu": 5.746073000000001
+              },
+              {
+                "name": "fresh_setup_03",
+                "wall": 5.425786541,
+                "cpu": 5.677927
+              }
+            ]
+          },
+          "point_use": {
+            "wall": 0.005620875,
+            "cpu": 0.004332000000002445,
+            "instances": [
+              {
+                "name": "point_use_00",
+                "wall": 0.001754666,
+                "cpu": 0.0014729999999998356
+              },
+              {
+                "name": "point_use_01",
+                "wall": 0.001230292,
+                "cpu": 0.001109000000001359
+              },
+              {
+                "name": "point_use_02",
+                "wall": 0.001182417,
+                "cpu": 0.0008590000000019415
+              },
+              {
+                "name": "point_use_03",
+                "wall": 0.0014535,
+                "cpu": 0.000890999999999309
+              }
+            ]
+          },
+          "count_use": {
+            "wall": 1.078311748,
+            "cpu": 1.6644250000000005,
+            "instances": [
+              {
+                "name": "count_use_00",
+                "wall": 0.269065041,
+                "cpu": 0.417338
+              },
+              {
+                "name": "count_use_01",
+                "wall": 0.272649458,
+                "cpu": 0.42122600000000077
+              },
+              {
+                "name": "count_use_02",
+                "wall": 0.267593833,
+                "cpu": 0.4099819999999994
+              },
+              {
+                "name": "count_use_03",
+                "wall": 0.269003416,
+                "cpu": 0.41587900000000033
+              }
+            ]
+          },
+          "mutation": {
+            "wall": 2.1700732499999997,
+            "cpu": 3.373704000000002,
+            "instances": [
+              {
+                "name": "mutation_00",
+                "wall": 0.5426595,
+                "cpu": 0.8389980000000001
+              },
+              {
+                "name": "mutation_01",
+                "wall": 0.543473834,
+                "cpu": 0.8453040000000005
+              },
+              {
+                "name": "mutation_02",
+                "wall": 0.542782208,
+                "cpu": 0.8458420000000011
+              },
+              {
+                "name": "mutation_03",
+                "wall": 0.541157708,
+                "cpu": 0.8435600000000001
+              }
+            ]
+          },
+          "child_close": {
+            "wall": 0.030901709,
+            "cpu": 0.010850999999997946,
+            "instances": [
+              {
+                "name": "child_close_00",
+                "wall": 0.007757333,
+                "cpu": 0.0030729999999996593
+              },
+              {
+                "name": "child_close_01",
+                "wall": 0.007777167,
+                "cpu": 0.0025089999999998724
+              },
+              {
+                "name": "child_close_02",
+                "wall": 0.00769575,
+                "cpu": 0.002624000000000848
+              },
+              {
+                "name": "child_close_03",
+                "wall": 0.007671459,
+                "cpu": 0.002644999999997566
+              }
+            ]
+          }
+        },
+        "allocations_mib": 5709.213760375977,
+        "gc_cycles": 26,
+        "gc_pause_ms": 1.883789,
+        "mallocs": 2615641,
+        "file": "benchmarks/main-product-evidence/results/matrix/baseline-go-large-0-fresh.json"
+      },
+      "candidate": {
+        "source_commit": "c97e55fc065f6ee7b560325077726da53e5d95d7",
+        "result_sha256": "fb42431a2a08a8752fec88e50634f50485eaca3f6f13aaa670ce6069f4cc7e4f",
+        "wall": 32.584814085,
+        "cpu": 31.877862,
+        "phases": {
+          "fresh_ready": {
+            "wall": 0.205778124,
+            "cpu": 0.16976399999999875,
+            "instances": [
+              {
+                "name": "fresh_ready_00",
+                "wall": 0.050726791,
+                "cpu": 0.04307
+              },
+              {
+                "name": "fresh_ready_01",
+                "wall": 0.047666875,
+                "cpu": 0.03810000000000002
+              },
+              {
+                "name": "fresh_ready_02",
+                "wall": 0.055735167,
+                "cpu": 0.04545000000000066
+              },
+              {
+                "name": "fresh_ready_03",
+                "wall": 0.051649291,
+                "cpu": 0.04314399999999807
+              }
+            ]
+          },
+          "fresh_setup": {
+            "wall": 27.674142251,
+            "cpu": 25.399796,
+            "instances": [
+              {
+                "name": "fresh_setup_00",
+                "wall": 5.380938292,
+                "cpu": 5.707218
+              },
+              {
+                "name": "fresh_setup_01",
+                "wall": 5.593136792,
+                "cpu": 5.821612
+              },
+              {
+                "name": "fresh_setup_02",
+                "wall": 6.951523125,
+                "cpu": 6.60487
+              },
+              {
+                "name": "fresh_setup_03",
+                "wall": 9.748544042,
+                "cpu": 7.266096000000001
+              }
+            ]
+          },
+          "point_use": {
+            "wall": 0.007492376,
+            "cpu": 0.011825999999995673,
+            "instances": [
+              {
+                "name": "point_use_00",
+                "wall": 0.001734375,
+                "cpu": 0.0015210000000003276
+              },
+              {
+                "name": "point_use_01",
+                "wall": 0.0011825,
+                "cpu": 0.0008879999999997779
+              },
+              {
+                "name": "point_use_02",
+                "wall": 0.001365667,
+                "cpu": 0.0026549999999971874
+              },
+              {
+                "name": "point_use_03",
+                "wall": 0.003209834,
+                "cpu": 0.00676199999999838
+              }
+            ]
+          },
+          "count_use": {
+            "wall": 1.321919834,
+            "cpu": 1.990535000000004,
+            "instances": [
+              {
+                "name": "count_use_00",
+                "wall": 0.274791917,
+                "cpu": 0.42648500000000045
+              },
+              {
+                "name": "count_use_01",
+                "wall": 0.270778209,
+                "cpu": 0.4124490000000005
+              },
+              {
+                "name": "count_use_02",
+                "wall": 0.289358417,
+                "cpu": 0.5061300000000024
+              },
+              {
+                "name": "count_use_03",
+                "wall": 0.486991291,
+                "cpu": 0.6454710000000006
+              }
+            ]
+          },
+          "mutation": {
+            "wall": 3.3408321670000003,
+            "cpu": 4.266614,
+            "instances": [
+              {
+                "name": "mutation_00",
+                "wall": 0.546541834,
+                "cpu": 0.8478289999999999
+              },
+              {
+                "name": "mutation_01",
+                "wall": 0.86520875,
+                "cpu": 1.1196839999999995
+              },
+              {
+                "name": "mutation_02",
+                "wall": 0.594447542,
+                "cpu": 0.9675839999999987
+              },
+              {
+                "name": "mutation_03",
+                "wall": 1.334634041,
+                "cpu": 1.3315170000000016
+              }
+            ]
+          },
+          "child_close": {
+            "wall": 0.034649333,
+            "cpu": 0.014377000000001416,
+            "instances": [
+              {
+                "name": "child_close_00",
+                "wall": 0.007899375,
+                "cpu": 0.0029079999999996886
+              },
+              {
+                "name": "child_close_01",
+                "wall": 0.00794225,
+                "cpu": 0.0027900000000009584
+              },
+              {
+                "name": "child_close_02",
+                "wall": 0.008923667,
+                "cpu": 0.0037330000000004304
+              },
+              {
+                "name": "child_close_03",
+                "wall": 0.009884041,
+                "cpu": 0.004946000000000339
+              }
+            ]
+          }
+        },
+        "allocations_mib": 3201.1460494995117,
+        "gc_cycles": 40,
+        "gc_pause_ms": 3.271791,
+        "mallocs": 2817138,
+        "file": "benchmarks/main-product-evidence/results/matrix/candidate-go-large-0-fresh.json"
+      },
+      "difference": {
+        "wall_difference_seconds": 7.3270217550000005,
+        "wall_change_percent": 29.008955570108608,
+        "cpu_difference_seconds": 3.8113370000000018,
+        "cpu_change_percent": 13.57965405407333,
+        "phase_differences": {
+          "fresh_ready": {
+            "wall": -0.023654125999999998,
+            "cpu": -0.034449000000004365
+          },
+          "fresh_setup": {
+            "wall": 5.930689752999999,
+            "cpu": 2.606766999999998
+          },
+          "point_use": {
+            "wall": 0.0018715010000000002,
+            "cpu": 0.007493999999993228
+          },
+          "count_use": {
+            "wall": 0.24360808600000006,
+            "cpu": 0.32611000000000345
+          },
+          "mutation": {
+            "wall": 1.1707589170000006,
+            "cpu": 0.8929099999999979
+          },
+          "child_close": {
+            "wall": 0.003747623999999998,
+            "cpu": 0.003526000000003471
+          }
+        }
+      }
+    },
+    {
+      "pair": "large-repeat/0",
+      "baseline": {
+        "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+        "result_sha256": "2990f36879a0e9b032045ba61ebe567d8c1aa9c7c7d655f7321d57ad6c001995",
+        "wall": 25.44826075,
+        "cpu": 28.280669,
+        "phases": {
+          "fresh_ready": {
+            "wall": 0.261246541,
+            "cpu": 0.23908500000000066,
+            "instances": [
+              {
+                "name": "fresh_ready_00",
+                "wall": 0.068310291,
+                "cpu": 0.067682
+              },
+              {
+                "name": "fresh_ready_01",
+                "wall": 0.060993583,
+                "cpu": 0.05274599999999996
+              },
+              {
+                "name": "fresh_ready_02",
+                "wall": 0.071412125,
+                "cpu": 0.06545800000000135
+              },
+              {
+                "name": "fresh_ready_03",
+                "wall": 0.060530542,
+                "cpu": 0.05319899999999933
+              }
+            ]
+          },
+          "fresh_setup": {
+            "wall": 21.886670875999997,
+            "cpu": 22.978807999999997,
+            "instances": [
+              {
+                "name": "fresh_setup_00",
+                "wall": 5.574272917,
+                "cpu": 5.824941
+              },
+              {
+                "name": "fresh_setup_01",
+                "wall": 5.427522084,
+                "cpu": 5.731043
+              },
+              {
+                "name": "fresh_setup_02",
+                "wall": 5.404625792,
+                "cpu": 5.665356000000001
+              },
+              {
+                "name": "fresh_setup_03",
+                "wall": 5.480250083,
+                "cpu": 5.757467999999999
+              }
+            ]
+          },
+          "point_use": {
+            "wall": 0.006540292000000001,
+            "cpu": 0.005197999999999148,
+            "instances": [
+              {
+                "name": "point_use_00",
+                "wall": 0.00267525,
+                "cpu": 0.002502999999999922
+              },
+              {
+                "name": "point_use_01",
+                "wall": 0.001446292,
+                "cpu": 0.0009090000000000487
+              },
+              {
+                "name": "point_use_02",
+                "wall": 0.001231542,
+                "cpu": 0.0008699999999990382
+              },
+              {
+                "name": "point_use_03",
+                "wall": 0.001187208,
+                "cpu": 0.0009160000000001389
+              }
+            ]
+          },
+          "count_use": {
+            "wall": 1.088448584,
+            "cpu": 1.6687950000000011,
+            "instances": [
+              {
+                "name": "count_use_00",
+                "wall": 0.273310209,
+                "cpu": 0.4174439999999997
+              },
+              {
+                "name": "count_use_01",
+                "wall": 0.270097875,
+                "cpu": 0.40795600000000043
+              },
+              {
+                "name": "count_use_02",
+                "wall": 0.269839542,
+                "cpu": 0.4190879999999986
+              },
+              {
+                "name": "count_use_03",
+                "wall": 0.275200958,
+                "cpu": 0.42430700000000243
+              }
+            ]
+          },
+          "mutation": {
+            "wall": 2.1702732080000002,
+            "cpu": 3.3583870000000005,
+            "instances": [
+              {
+                "name": "mutation_00",
+                "wall": 0.543254375,
+                "cpu": 0.8413330000000006
+              },
+              {
+                "name": "mutation_01",
+                "wall": 0.536684417,
+                "cpu": 0.8281159999999996
+              },
+              {
+                "name": "mutation_02",
+                "wall": 0.542799583,
+                "cpu": 0.8399149999999977
+              },
+              {
+                "name": "mutation_03",
+                "wall": 0.547534833,
+                "cpu": 0.8490230000000025
+              }
+            ]
+          },
+          "child_close": {
+            "wall": 0.035081249,
+            "cpu": 0.014260000000000161,
+            "instances": [
+              {
+                "name": "child_close_00",
+                "wall": 0.008830208,
+                "cpu": 0.003620999999998986
+              },
+              {
+                "name": "child_close_01",
+                "wall": 0.008249333,
+                "cpu": 0.0029450000000004195
+              },
+              {
+                "name": "child_close_02",
+                "wall": 0.008231625,
+                "cpu": 0.003013000000002819
+              },
+              {
+                "name": "child_close_03",
+                "wall": 0.009770083,
+                "cpu": 0.004680999999997937
+              }
+            ]
+          }
+        },
+        "allocations_mib": 5708.53759765625,
+        "gc_cycles": 26,
+        "gc_pause_ms": 1.616836,
+        "mallocs": 2605940,
+        "file": "benchmarks/main-product-evidence/results/large-repeat/baseline-go-large-0-fresh.json"
+      },
+      "candidate": {
+        "source_commit": "c97e55fc065f6ee7b560325077726da53e5d95d7",
+        "result_sha256": "000780f03b869dad7325cc537b2095b5e432f2ae299f0e3df49e2135b6fc7198",
+        "wall": 26.283151168,
+        "cpu": 29.074969,
+        "phases": {
+          "fresh_ready": {
+            "wall": 0.289474667,
+            "cpu": 0.20495299999999828,
+            "instances": [
+              {
+                "name": "fresh_ready_00",
+                "wall": 0.134371292,
+                "cpu": 0.077608
+              },
+              {
+                "name": "fresh_ready_01",
+                "wall": 0.052683375,
+                "cpu": 0.04300899999999963
+              },
+              {
+                "name": "fresh_ready_02",
+                "wall": 0.052862416,
+                "cpu": 0.04424299999999981
+              },
+              {
+                "name": "fresh_ready_03",
+                "wall": 0.049557584,
+                "cpu": 0.040092999999998824
+              }
+            ]
+          },
+          "fresh_setup": {
+            "wall": 22.587631793,
+            "cpu": 23.568848000000003,
+            "instances": [
+              {
+                "name": "fresh_setup_00",
+                "wall": 5.742111459,
+                "cpu": 5.818058000000001
+              },
+              {
+                "name": "fresh_setup_01",
+                "wall": 5.622586292,
+                "cpu": 5.879894
+              },
+              {
+                "name": "fresh_setup_02",
+                "wall": 5.664943709,
+                "cpu": 5.959199000000002
+              },
+              {
+                "name": "fresh_setup_03",
+                "wall": 5.557990333,
+                "cpu": 5.911697
+              }
+            ]
+          },
+          "point_use": {
+            "wall": 0.011419416000000002,
+            "cpu": 0.006646999999999181,
+            "instances": [
+              {
+                "name": "point_use_00",
+                "wall": 0.0073215,
+                "cpu": 0.0036769999999997083
+              },
+              {
+                "name": "point_use_01",
+                "wall": 0.001392333,
+                "cpu": 0.0010519999999996088
+              },
+              {
+                "name": "point_use_02",
+                "wall": 0.001402916,
+                "cpu": 0.0009289999999992915
+              },
+              {
+                "name": "point_use_03",
+                "wall": 0.001302667,
+                "cpu": 0.0009890000000005728
+              }
+            ]
+          },
+          "count_use": {
+            "wall": 1.11292525,
+            "cpu": 1.7326480000000046,
+            "instances": [
+              {
+                "name": "count_use_00",
+                "wall": 0.297221292,
+                "cpu": 0.4808260000000004
+              },
+              {
+                "name": "count_use_01",
+                "wall": 0.274484458,
+                "cpu": 0.4242290000000004
+              },
+              {
+                "name": "count_use_02",
+                "wall": 0.269756584,
+                "cpu": 0.4139840000000028
+              },
+              {
+                "name": "count_use_03",
+                "wall": 0.271462916,
+                "cpu": 0.413609000000001
+              }
+            ]
+          },
+          "mutation": {
+            "wall": 2.244777708,
+            "cpu": 3.526386999999999,
+            "instances": [
+              {
+                "name": "mutation_00",
+                "wall": 0.559743542,
+                "cpu": 0.8501810000000001
+              },
+              {
+                "name": "mutation_01",
+                "wall": 0.561635666,
+                "cpu": 0.8941700000000008
+              },
+              {
+                "name": "mutation_02",
+                "wall": 0.553716625,
+                "cpu": 0.8770089999999975
+              },
+              {
+                "name": "mutation_03",
+                "wall": 0.569681875,
+                "cpu": 0.9050270000000005
+              }
+            ]
+          },
+          "child_close": {
+            "wall": 0.036922333999999994,
+            "cpu": 0.01467500000000399,
+            "instances": [
+              {
+                "name": "child_close_00",
+                "wall": 0.011268792,
+                "cpu": 0.0037210000000005294
+              },
+              {
+                "name": "child_close_01",
+                "wall": 0.007903625,
+                "cpu": 0.0031860000000012434
+              },
+              {
+                "name": "child_close_02",
+                "wall": 0.008070083,
+                "cpu": 0.003240000000001686
+              },
+              {
+                "name": "child_close_03",
+                "wall": 0.009679834,
+                "cpu": 0.004528000000000532
+              }
+            ]
+          }
+        },
+        "allocations_mib": 3197.1410903930664,
+        "gc_cycles": 44,
+        "gc_pause_ms": 4.454833,
+        "mallocs": 2726874,
+        "file": "benchmarks/main-product-evidence/results/large-repeat/candidate-go-large-0-fresh.json"
+      },
+      "difference": {
+        "wall_difference_seconds": 0.8348904180000005,
+        "wall_change_percent": 3.2807366530932747,
+        "cpu_difference_seconds": 0.7942999999999998,
+        "cpu_change_percent": 2.8086322851839096,
+        "phase_differences": {
+          "fresh_ready": {
+            "wall": 0.02822812600000002,
+            "cpu": -0.03413200000000238
+          },
+          "fresh_setup": {
+            "wall": 0.7009609170000033,
+            "cpu": 0.5900400000000054
+          },
+          "point_use": {
+            "wall": 0.004879124,
+            "cpu": 0.0014490000000000336
+          },
+          "count_use": {
+            "wall": 0.02447666599999998,
+            "cpu": 0.06385300000000349
+          },
+          "mutation": {
+            "wall": 0.07450449999999975,
+            "cpu": 0.16799999999999837
+          },
+          "child_close": {
+            "wall": 0.0018410849999999923,
+            "cpu": 0.00041500000000382897
+          }
+        }
+      }
+    },
+    {
+      "pair": "large-repeat/1",
+      "baseline": {
+        "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+        "result_sha256": "045990450d27b977528d40c17b90955c529f48f6b0b1ef2e554c0c12483d2324",
+        "wall": 29.454740416000003,
+        "cpu": 31.394489999999998,
+        "phases": {
+          "fresh_ready": {
+            "wall": 1.353493959,
+            "cpu": 0.2899499999999975,
+            "instances": [
+              {
+                "name": "fresh_ready_00",
+                "wall": 1.151315375,
+                "cpu": 0.104025
+              },
+              {
+                "name": "fresh_ready_01",
+                "wall": 0.058256208,
+                "cpu": 0.05247699999999966
+              },
+              {
+                "name": "fresh_ready_02",
+                "wall": 0.070926334,
+                "cpu": 0.06362199999999874
+              },
+              {
+                "name": "fresh_ready_03",
+                "wall": 0.072996042,
+                "cpu": 0.06982599999999906
+              }
+            ]
+          },
+          "fresh_setup": {
+            "wall": 24.543105249999996,
+            "cpu": 25.373748,
+            "instances": [
+              {
+                "name": "fresh_setup_00",
+                "wall": 5.886313542,
+                "cpu": 6.135720999999999
+              },
+              {
+                "name": "fresh_setup_01",
+                "wall": 5.892844375,
+                "cpu": 6.22336
+              },
+              {
+                "name": "fresh_setup_02",
+                "wall": 6.383139333,
+                "cpu": 6.470896
+              },
+              {
+                "name": "fresh_setup_03",
+                "wall": 6.380808,
+                "cpu": 6.543771
+              }
+            ]
+          },
+          "point_use": {
+            "wall": 0.011302958,
+            "cpu": 0.00585600000000408,
+            "instances": [
+              {
+                "name": "point_use_00",
+                "wall": 0.007408958,
+                "cpu": 0.002699000000000673
+              },
+              {
+                "name": "point_use_01",
+                "wall": 0.001397792,
+                "cpu": 0.0012910000000001531
+              },
+              {
+                "name": "point_use_02",
+                "wall": 0.00127625,
+                "cpu": 0.0009360000000029345
+              },
+              {
+                "name": "point_use_03",
+                "wall": 0.001219958,
+                "cpu": 0.0009300000000003195
+              }
+            ]
+          },
+          "count_use": {
+            "wall": 1.150588666,
+            "cpu": 1.8946450000000006,
+            "instances": [
+              {
+                "name": "count_use_00",
+                "wall": 0.285856916,
+                "cpu": 0.4862219999999997
+              },
+              {
+                "name": "count_use_01",
+                "wall": 0.292376917,
+                "cpu": 0.5017510000000005
+              },
+              {
+                "name": "count_use_02",
+                "wall": 0.292166833,
+                "cpu": 0.4603339999999996
+              },
+              {
+                "name": "count_use_03",
+                "wall": 0.280188,
+                "cpu": 0.4463380000000008
+              }
+            ]
+          },
+          "mutation": {
+            "wall": 2.355906583,
+            "cpu": 3.799165999999997,
+            "instances": [
+              {
+                "name": "mutation_00",
+                "wall": 0.581128333,
+                "cpu": 0.9081149999999996
+              },
+              {
+                "name": "mutation_01",
+                "wall": 0.577714459,
+                "cpu": 0.9184149999999995
+              },
+              {
+                "name": "mutation_02",
+                "wall": 0.579733125,
+                "cpu": 0.9460489999999986
+              },
+              {
+                "name": "mutation_03",
+                "wall": 0.617330666,
+                "cpu": 1.0265869999999993
+              }
+            ]
+          },
+          "child_close": {
+            "wall": 0.040343,
+            "cpu": 0.014205000000000467,
+            "instances": [
+              {
+                "name": "child_close_00",
+                "wall": 0.016137042,
+                "cpu": 0.004939000000000249
+              },
+              {
+                "name": "child_close_01",
+                "wall": 0.008051083,
+                "cpu": 0.002987000000000961
+              },
+              {
+                "name": "child_close_02",
+                "wall": 0.007635083,
+                "cpu": 0.002929999999999211
+              },
+              {
+                "name": "child_close_03",
+                "wall": 0.008519792,
+                "cpu": 0.0033490000000000464
+              }
+            ]
+          }
+        },
+        "allocations_mib": 5712.886756896973,
+        "gc_cycles": 26,
+        "gc_pause_ms": 2.219164,
+        "mallocs": 2673192,
+        "file": "benchmarks/main-product-evidence/results/large-repeat/baseline-go-large-1-fresh.json"
+      },
+      "candidate": {
+        "source_commit": "c97e55fc065f6ee7b560325077726da53e5d95d7",
+        "result_sha256": "198fb99b872843dc7314475cf3dcc62dfbc27dee225f71f283c64d52ae670e07",
+        "wall": 28.755068503000007,
+        "cpu": 31.85323,
+        "phases": {
+          "fresh_ready": {
+            "wall": 0.297775333,
+            "cpu": 0.21141900000000122,
+            "instances": [
+              {
+                "name": "fresh_ready_00",
+                "wall": 0.135583542,
+                "cpu": 0.077489
+              },
+              {
+                "name": "fresh_ready_01",
+                "wall": 0.047631958,
+                "cpu": 0.038285000000000124
+              },
+              {
+                "name": "fresh_ready_02",
+                "wall": 0.060686208,
+                "cpu": 0.05206199999999939
+              },
+              {
+                "name": "fresh_ready_03",
+                "wall": 0.053873625,
+                "cpu": 0.043583000000001704
+              }
+            ]
+          },
+          "fresh_setup": {
+            "wall": 24.7265275,
+            "cpu": 25.711463000000006,
+            "instances": [
+              {
+                "name": "fresh_setup_00",
+                "wall": 6.021567792,
+                "cpu": 6.289696999999999
+              },
+              {
+                "name": "fresh_setup_01",
+                "wall": 6.271026958,
+                "cpu": 6.499278
+              },
+              {
+                "name": "fresh_setup_02",
+                "wall": 6.4266495,
+                "cpu": 6.623113000000002
+              },
+              {
+                "name": "fresh_setup_03",
+                "wall": 6.00728325,
+                "cpu": 6.299375000000001
+              }
+            ]
+          },
+          "point_use": {
+            "wall": 0.011317709,
+            "cpu": 0.010890999999996431,
+            "instances": [
+              {
+                "name": "point_use_00",
+                "wall": 0.007626042,
+                "cpu": 0.002680000000000682
+              },
+              {
+                "name": "point_use_01",
+                "wall": 0.0012435,
+                "cpu": 0.0010499999999993292
+              },
+              {
+                "name": "point_use_02",
+                "wall": 0.0012535,
+                "cpu": 0.0009859999999974889
+              },
+              {
+                "name": "point_use_03",
+                "wall": 0.001194667,
+                "cpu": 0.006174999999998931
+              }
+            ]
+          },
+          "count_use": {
+            "wall": 1.198548626,
+            "cpu": 1.910932999999999,
+            "instances": [
+              {
+                "name": "count_use_00",
+                "wall": 0.294646125,
+                "cpu": 0.4585189999999999
+              },
+              {
+                "name": "count_use_01",
+                "wall": 0.318825084,
+                "cpu": 0.48669899999999977
+              },
+              {
+                "name": "count_use_02",
+                "wall": 0.292255084,
+                "cpu": 0.4676689999999972
+              },
+              {
+                "name": "count_use_03",
+                "wall": 0.292822333,
+                "cpu": 0.4980460000000022
+              }
+            ]
+          },
+          "mutation": {
+            "wall": 2.4834355009999998,
+            "cpu": 3.9745529999999984,
+            "instances": [
+              {
+                "name": "mutation_00",
+                "wall": 0.594326792,
+                "cpu": 0.9373249999999995
+              },
+              {
+                "name": "mutation_01",
+                "wall": 0.683075625,
+                "cpu": 1.0671970000000002
+              },
+              {
+                "name": "mutation_02",
+                "wall": 0.609190625,
+                "cpu": 1.0138870000000004
+              },
+              {
+                "name": "mutation_03",
+                "wall": 0.596842459,
+                "cpu": 0.9561439999999983
+              }
+            ]
+          },
+          "child_close": {
+            "wall": 0.037463834,
+            "cpu": 0.013467000000002116,
+            "instances": [
+              {
+                "name": "child_close_00",
+                "wall": 0.012012625,
+                "cpu": 0.003731000000000151
+              },
+              {
+                "name": "child_close_01",
+                "wall": 0.008906625,
+                "cpu": 0.0037000000000002586
+              },
+              {
+                "name": "child_close_02",
+                "wall": 0.008217375,
+                "cpu": 0.0029520000000005098
+              },
+              {
+                "name": "child_close_03",
+                "wall": 0.008327209,
+                "cpu": 0.003084000000001197
+              }
+            ]
+          }
+        },
+        "allocations_mib": 3200.267219543457,
+        "gc_cycles": 41,
+        "gc_pause_ms": 4.036829,
+        "mallocs": 2780949,
+        "file": "benchmarks/main-product-evidence/results/large-repeat/candidate-go-large-1-fresh.json"
+      },
+      "difference": {
+        "wall_difference_seconds": -0.699671912999996,
+        "wall_change_percent": -2.3754136112499213,
+        "cpu_difference_seconds": 0.45874000000000237,
+        "cpu_change_percent": 1.4612118241130956,
+        "phase_differences": {
+          "fresh_ready": {
+            "wall": -1.055718626,
+            "cpu": -0.07853099999999627
+          },
+          "fresh_setup": {
+            "wall": 0.18342225000000312,
+            "cpu": 0.3377150000000064
+          },
+          "point_use": {
+            "wall": 1.4751000000000347e-05,
+            "cpu": 0.005034999999992351
+          },
+          "count_use": {
+            "wall": 0.047959960000000024,
+            "cpu": 0.016287999999998526
+          },
+          "mutation": {
+            "wall": 0.12752891799999988,
+            "cpu": 0.17538700000000151
+          },
+          "child_close": {
+            "wall": -0.0028791659999999955,
+            "cpu": -0.0007379999999983511
+          }
+        }
+      }
+    },
+    {
+      "pair": "large-repeat/2",
+      "baseline": {
+        "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+        "result_sha256": "20e04c8ad8a40002fd7230194fa13a445dfa8a9ed5f06f33bdddcb829570be83",
+        "wall": 27.782642292000006,
+        "cpu": 31.258217,
+        "phases": {
+          "fresh_ready": {
+            "wall": 0.256973417,
+            "cpu": 0.2280310000000005,
+            "instances": [
+              {
+                "name": "fresh_ready_00",
+                "wall": 0.054850875,
+                "cpu": 0.047409
+              },
+              {
+                "name": "fresh_ready_01",
+                "wall": 0.061902333,
+                "cpu": 0.0563469999999997
+              },
+              {
+                "name": "fresh_ready_02",
+                "wall": 0.06441225,
+                "cpu": 0.05853700000000117
+              },
+              {
+                "name": "fresh_ready_03",
+                "wall": 0.075807959,
+                "cpu": 0.06573799999999963
+              }
+            ]
+          },
+          "fresh_setup": {
+            "wall": 23.874541707000002,
+            "cpu": 25.150306,
+            "instances": [
+              {
+                "name": "fresh_setup_00",
+                "wall": 5.917091458,
+                "cpu": 6.251228
+              },
+              {
+                "name": "fresh_setup_01",
+                "wall": 6.000846333,
+                "cpu": 6.314017000000001
+              },
+              {
+                "name": "fresh_setup_02",
+                "wall": 6.003309125,
+                "cpu": 6.349646999999999
+              },
+              {
+                "name": "fresh_setup_03",
+                "wall": 5.953294791,
+                "cpu": 6.235413999999999
+              }
+            ]
+          },
+          "point_use": {
+            "wall": 0.005604958,
+            "cpu": 0.005022999999998667,
+            "instances": [
+              {
+                "name": "point_use_00",
+                "wall": 0.001562291,
+                "cpu": 0.0012900000000000134
+              },
+              {
+                "name": "point_use_01",
+                "wall": 0.001483625,
+                "cpu": 0.0015599999999995617
+              },
+              {
+                "name": "point_use_02",
+                "wall": 0.001382709,
+                "cpu": 0.001192999999997113
+              },
+              {
+                "name": "point_use_03",
+                "wall": 0.001176333,
+                "cpu": 0.0009800000000019793
+              }
+            ]
+          },
+          "count_use": {
+            "wall": 1.2529713759999999,
+            "cpu": 2.0460460000000005,
+            "instances": [
+              {
+                "name": "count_use_00",
+                "wall": 0.289475542,
+                "cpu": 0.5003159999999998
+              },
+              {
+                "name": "count_use_01",
+                "wall": 0.384620709,
+                "cpu": 0.5521399999999996
+              },
+              {
+                "name": "count_use_02",
+                "wall": 0.289742708,
+                "cpu": 0.4997560000000014
+              },
+              {
+                "name": "count_use_03",
+                "wall": 0.289132417,
+                "cpu": 0.49383399999999966
+              }
+            ]
+          },
+          "mutation": {
+            "wall": 2.358442459,
+            "cpu": 3.7969469999999994,
+            "instances": [
+              {
+                "name": "mutation_00",
+                "wall": 0.579831084,
+                "cpu": 0.9190360000000002
+              },
+              {
+                "name": "mutation_01",
+                "wall": 0.59852475,
+                "cpu": 0.9678629999999995
+              },
+              {
+                "name": "mutation_02",
+                "wall": 0.6023085,
+                "cpu": 0.9858849999999997
+              },
+              {
+                "name": "mutation_03",
+                "wall": 0.577778125,
+                "cpu": 0.9241630000000001
+              }
+            ]
+          },
+          "child_close": {
+            "wall": 0.034108374999999996,
+            "cpu": 0.0131909999999964,
+            "instances": [
+              {
+                "name": "child_close_00",
+                "wall": 0.0084225,
+                "cpu": 0.003262999999999572
+              },
+              {
+                "name": "child_close_01",
+                "wall": 0.008158,
+                "cpu": 0.0029249999999994003
+              },
+              {
+                "name": "child_close_02",
+                "wall": 0.009082834,
+                "cpu": 0.0038400000000002876
+              },
+              {
+                "name": "child_close_03",
+                "wall": 0.008445041,
+                "cpu": 0.0031629999999971403
+              }
+            ]
+          }
+        },
+        "allocations_mib": 5712.601165771484,
+        "gc_cycles": 26,
+        "gc_pause_ms": 2.167998,
+        "mallocs": 2669277,
+        "file": "benchmarks/main-product-evidence/results/large-repeat/baseline-go-large-2-fresh.json"
+      },
+      "candidate": {
+        "source_commit": "c97e55fc065f6ee7b560325077726da53e5d95d7",
+        "result_sha256": "1301e7950bfc47f923ec418429f2ee4854bc29edff2f1a736ad29d4a8f834447",
+        "wall": 28.298754790999997,
+        "cpu": 31.423833000000002,
+        "phases": {
+          "fresh_ready": {
+            "wall": 0.28930279200000003,
+            "cpu": 0.2037470000000001,
+            "instances": [
+              {
+                "name": "fresh_ready_00",
+                "wall": 0.128663292,
+                "cpu": 0.07196
+              },
+              {
+                "name": "fresh_ready_01",
+                "wall": 0.050877625,
+                "cpu": 0.042304999999999815
+              },
+              {
+                "name": "fresh_ready_02",
+                "wall": 0.052355333,
+                "cpu": 0.04143200000000036
+              },
+              {
+                "name": "fresh_ready_03",
+                "wall": 0.057406542,
+                "cpu": 0.048049999999999926
+              }
+            ]
+          },
+          "fresh_setup": {
+            "wall": 24.128759416999998,
+            "cpu": 25.212097999999997,
+            "instances": [
+              {
+                "name": "fresh_setup_00",
+                "wall": 6.074449833,
+                "cpu": 6.1817329999999995
+              },
+              {
+                "name": "fresh_setup_01",
+                "wall": 5.9740455,
+                "cpu": 6.280098999999999
+              },
+              {
+                "name": "fresh_setup_02",
+                "wall": 6.016824,
+                "cpu": 6.295310000000001
+              },
+              {
+                "name": "fresh_setup_03",
+                "wall": 6.063440084,
+                "cpu": 6.454955999999999
+              }
+            ]
+          },
+          "point_use": {
+            "wall": 0.011887791,
+            "cpu": 0.009680999999999607,
+            "instances": [
+              {
+                "name": "point_use_00",
+                "wall": 0.007936292,
+                "cpu": 0.0032880000000004017
+              },
+              {
+                "name": "point_use_01",
+                "wall": 0.001370166,
+                "cpu": 0.0011070000000010793
+              },
+              {
+                "name": "point_use_02",
+                "wall": 0.001408375,
+                "cpu": 0.004338999999998094
+              },
+              {
+                "name": "point_use_03",
+                "wall": 0.001172958,
+                "cpu": 0.0009470000000000312
+              }
+            ]
+          },
+          "count_use": {
+            "wall": 1.190982834,
+            "cpu": 1.9405669999999988,
+            "instances": [
+              {
+                "name": "count_use_00",
+                "wall": 0.293872708,
+                "cpu": 0.461595
+              },
+              {
+                "name": "count_use_01",
+                "wall": 0.296665417,
+                "cpu": 0.5051810000000003
+              },
+              {
+                "name": "count_use_02",
+                "wall": 0.29948175,
+                "cpu": 0.49600699999999875
+              },
+              {
+                "name": "count_use_03",
+                "wall": 0.300962959,
+                "cpu": 0.47778399999999976
+              }
+            ]
+          },
+          "mutation": {
+            "wall": 2.638821458,
+            "cpu": 4.023499999999999,
+            "instances": [
+              {
+                "name": "mutation_00",
+                "wall": 0.589366833,
+                "cpu": 0.922301
+              },
+              {
+                "name": "mutation_01",
+                "wall": 0.590574667,
+                "cpu": 0.9472070000000006
+              },
+              {
+                "name": "mutation_02",
+                "wall": 0.8869,
+                "cpu": 1.2475859999999983
+              },
+              {
+                "name": "mutation_03",
+                "wall": 0.571979958,
+                "cpu": 0.9064060000000005
+              }
+            ]
+          },
+          "child_close": {
+            "wall": 0.039000499,
+            "cpu": 0.0147449999999969,
+            "instances": [
+              {
+                "name": "child_close_00",
+                "wall": 0.013334958,
+                "cpu": 0.0040719999999998535
+              },
+              {
+                "name": "child_close_01",
+                "wall": 0.00806375,
+                "cpu": 0.0027679999999996596
+              },
+              {
+                "name": "child_close_02",
+                "wall": 0.009821791,
+                "cpu": 0.004804999999997506
+              },
+              {
+                "name": "child_close_03",
+                "wall": 0.00778,
+                "cpu": 0.0030999999999998806
+              }
+            ]
+          }
+        },
+        "allocations_mib": 3198.793167114258,
+        "gc_cycles": 41,
+        "gc_pause_ms": 2.291038,
+        "mallocs": 2753587,
+        "file": "benchmarks/main-product-evidence/results/large-repeat/candidate-go-large-2-fresh.json"
+      },
+      "difference": {
+        "wall_difference_seconds": 0.5161124989999912,
+        "wall_change_percent": 1.8576796748688063,
+        "cpu_difference_seconds": 0.16561600000000354,
+        "cpu_change_percent": 0.5298318838851346,
+        "phase_differences": {
+          "fresh_ready": {
+            "wall": 0.03232937500000005,
+            "cpu": -0.024284000000000416
+          },
+          "fresh_setup": {
+            "wall": 0.2542177099999954,
+            "cpu": 0.06179199999999696
+          },
+          "point_use": {
+            "wall": 0.006282833,
+            "cpu": 0.004658000000000939
+          },
+          "count_use": {
+            "wall": -0.061988541999999924,
+            "cpu": -0.10547900000000165
+          },
+          "mutation": {
+            "wall": 0.28037899899999985,
+            "cpu": 0.226553
+          },
+          "child_close": {
+            "wall": 0.004892124000000005,
+            "cpu": 0.0015540000000004994
+          }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "pair": "Baseline/candidate from the same alternating trial, not arbitrary sorted observations",
+    "wall": "Existing product phase wall excludes diagnostic probe/GC; CPU is process total including diagnostics",
+    "off_cpu_limit": "Wall minus process CPU is not measured wait; multi-thread CPU can exceed elapsed time",
+    "gc_pause": "STW pause counters exclude concurrent/assist GC CPU; cycle counts do not measure time",
+    "profiling": "Full-process samples include workload, Go observer/GC and profile finalization; on/off cohorts stay separate"
+  },
+  "historical_pair_medians": {
+    "wall_change_percent": 2.5692081639810405,
+    "cpu_change_percent": 2.1349220546485026,
+    "wall_difference_seconds": 0.6755014584999959,
+    "cpu_difference_seconds": 0.6265200000000011
+  },
+  "current_cells": [
+    {
+      "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+      "result_sha256": "0d01a9a88f963a0737c12b131cfa29a5a33a5c1751b8b2ee49cb0bb82b1f4ff0",
+      "wall": 26.631302540999997,
+      "cpu": 29.956364,
+      "phases": {
+        "fresh_ready": {
+          "wall": 0.24969683199999998,
+          "cpu": 0.22776999999999623,
+          "instances": [
+            {
+              "name": "fresh_ready_00",
+              "wall": 0.066794875,
+              "cpu": 0.06354699999999999
+            },
+            {
+              "name": "fresh_ready_01",
+              "wall": 0.057513625,
+              "cpu": 0.0515629999999998
+            },
+            {
+              "name": "fresh_ready_02",
+              "wall": 0.059610416,
+              "cpu": 0.05360799999999877
+            },
+            {
+              "name": "fresh_ready_03",
+              "wall": 0.065777916,
+              "cpu": 0.05905199999999766
+            }
+          ]
+        },
+        "fresh_setup": {
+          "wall": 22.957953792999998,
+          "cpu": 24.308483,
+          "instances": [
+            {
+              "name": "fresh_setup_00",
+              "wall": 5.706885667,
+              "cpu": 6.035228
+            },
+            {
+              "name": "fresh_setup_01",
+              "wall": 5.7369255,
+              "cpu": 6.077811
+            },
+            {
+              "name": "fresh_setup_02",
+              "wall": 5.803217792,
+              "cpu": 6.122665999999999
+            },
+            {
+              "name": "fresh_setup_03",
+              "wall": 5.710924834,
+              "cpu": 6.072778
+            }
+          ]
+        },
+        "point_use": {
+          "wall": 0.006088916,
+          "cpu": 0.005113000000000589,
+          "instances": [
+            {
+              "name": "point_use_00",
+              "wall": 0.002584167,
+              "cpu": 0.0024600000000001288
+            },
+            {
+              "name": "point_use_01",
+              "wall": 0.001196166,
+              "cpu": 0.000926999999999012
+            },
+            {
+              "name": "point_use_02",
+              "wall": 0.00117725,
+              "cpu": 0.0008400000000001739
+            },
+            {
+              "name": "point_use_03",
+              "wall": 0.001131333,
+              "cpu": 0.0008860000000012747
+            }
+          ]
+        },
+        "count_use": {
+          "wall": 1.112105457,
+          "cpu": 1.7747679999999972,
+          "instances": [
+            {
+              "name": "count_use_00",
+              "wall": 0.276689916,
+              "cpu": 0.42696799999999957
+            },
+            {
+              "name": "count_use_01",
+              "wall": 0.274853041,
+              "cpu": 0.44042000000000137
+            },
+            {
+              "name": "count_use_02",
+              "wall": 0.279429458,
+              "cpu": 0.46076499999999854
+            },
+            {
+              "name": "count_use_03",
+              "wall": 0.281133042,
+              "cpu": 0.44661499999999776
+            }
+          ]
+        },
+        "mutation": {
+          "wall": 2.273061959,
+          "cpu": 3.6122559999999977,
+          "instances": [
+            {
+              "name": "mutation_00",
+              "wall": 0.567684625,
+              "cpu": 0.9003769999999998
+            },
+            {
+              "name": "mutation_01",
+              "wall": 0.572336042,
+              "cpu": 0.9234179999999999
+            },
+            {
+              "name": "mutation_02",
+              "wall": 0.562863542,
+              "cpu": 0.873152000000001
+            },
+            {
+              "name": "mutation_03",
+              "wall": 0.57017775,
+              "cpu": 0.915308999999997
+            }
+          ]
+        },
+        "child_close": {
+          "wall": 0.032395584000000005,
+          "cpu": 0.011360999999999066,
+          "instances": [
+            {
+              "name": "child_close_00",
+              "wall": 0.007871125,
+              "cpu": 0.0032250000000004775
+            },
+            {
+              "name": "child_close_01",
+              "wall": 0.008525334,
+              "cpu": 0.002719000000000804
+            },
+            {
+              "name": "child_close_02",
+              "wall": 0.007649792,
+              "cpu": 0.0026519999999976562
+            },
+            {
+              "name": "child_close_03",
+              "wall": 0.008349333,
+              "cpu": 0.0027650000000001285
+            }
+          ]
+        }
+      },
+      "allocations_mib": 5710.044410705566,
+      "gc_cycles": 26,
+      "gc_pause_ms": 1.688919,
+      "mallocs": 2628800,
+      "name": "calibration-0-baseline-plain",
+      "label": "baseline",
+      "kind": "calibration",
+      "trial": 0,
+      "profiled": false
+    },
+    {
+      "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+      "result_sha256": "6873dcb527418a4bd318ea419e58f5cff52f51afbb0802c20c37f6c611dddaee",
+      "wall": 26.042109709000005,
+      "cpu": 29.40101,
+      "phases": {
+        "fresh_ready": {
+          "wall": 0.232106541,
+          "cpu": 0.20107899999999856,
+          "instances": [
+            {
+              "name": "fresh_ready_00",
+              "wall": 0.065540458,
+              "cpu": 0.06324099999999999
+            },
+            {
+              "name": "fresh_ready_01",
+              "wall": 0.048739167,
+              "cpu": 0.038792000000000826
+            },
+            {
+              "name": "fresh_ready_02",
+              "wall": 0.052327416,
+              "cpu": 0.04297299999999993
+            },
+            {
+              "name": "fresh_ready_03",
+              "wall": 0.0654995,
+              "cpu": 0.05607299999999782
+            }
+          ]
+        },
+        "fresh_setup": {
+          "wall": 22.387197916999998,
+          "cpu": 23.848657,
+          "instances": [
+            {
+              "name": "fresh_setup_00",
+              "wall": 5.6076901249999995,
+              "cpu": 5.93022
+            },
+            {
+              "name": "fresh_setup_01",
+              "wall": 5.545574208,
+              "cpu": 5.919202
+            },
+            {
+              "name": "fresh_setup_02",
+              "wall": 5.580642625,
+              "cpu": 5.975318999999999
+            },
+            {
+              "name": "fresh_setup_03",
+              "wall": 5.653290959,
+              "cpu": 6.023916
+            }
+          ]
+        },
+        "point_use": {
+          "wall": 0.0060427910000000005,
+          "cpu": 0.006581999999999866,
+          "instances": [
+            {
+              "name": "point_use_00",
+              "wall": 0.002472916,
+              "cpu": 0.00233500000000042
+            },
+            {
+              "name": "point_use_01",
+              "wall": 0.001159958,
+              "cpu": 0.0008529999999993265
+            },
+            {
+              "name": "point_use_02",
+              "wall": 0.0012045,
+              "cpu": 0.0025289999999991153
+            },
+            {
+              "name": "point_use_03",
+              "wall": 0.001205417,
+              "cpu": 0.0008650000000010039
+            }
+          ]
+        },
+        "count_use": {
+          "wall": 1.113426375,
+          "cpu": 1.7149659999999978,
+          "instances": [
+            {
+              "name": "count_use_00",
+              "wall": 0.279263583,
+              "cpu": 0.42852400000000035
+            },
+            {
+              "name": "count_use_01",
+              "wall": 0.277654542,
+              "cpu": 0.42637500000000017
+            },
+            {
+              "name": "count_use_02",
+              "wall": 0.275652292,
+              "cpu": 0.42295099999999763
+            },
+            {
+              "name": "count_use_03",
+              "wall": 0.280855958,
+              "cpu": 0.4371159999999996
+            }
+          ]
+        },
+        "mutation": {
+          "wall": 2.26851325,
+          "cpu": 3.5983540000000005,
+          "instances": [
+            {
+              "name": "mutation_00",
+              "wall": 0.569338292,
+              "cpu": 0.9004790000000007
+            },
+            {
+              "name": "mutation_01",
+              "wall": 0.560704125,
+              "cpu": 0.883972
+            },
+            {
+              "name": "mutation_02",
+              "wall": 0.573870167,
+              "cpu": 0.9164959999999986
+            },
+            {
+              "name": "mutation_03",
+              "wall": 0.564600666,
+              "cpu": 0.8974070000000012
+            }
+          ]
+        },
+        "child_close": {
+          "wall": 0.034822834999999996,
+          "cpu": 0.011792999999998166,
+          "instances": [
+            {
+              "name": "child_close_00",
+              "wall": 0.009289709,
+              "cpu": 0.0035970000000000724
+            },
+            {
+              "name": "child_close_01",
+              "wall": 0.008427667,
+              "cpu": 0.00259799999999899
+            },
+            {
+              "name": "child_close_02",
+              "wall": 0.008653375,
+              "cpu": 0.003008000000001232
+            },
+            {
+              "name": "child_close_03",
+              "wall": 0.008452084,
+              "cpu": 0.0025899999999978718
+            }
+          ]
+        }
+      },
+      "allocations_mib": 3195.857322692871,
+      "gc_cycles": 50,
+      "gc_pause_ms": 3.133926,
+      "mallocs": 2708196,
+      "name": "calibration-0-candidate-plain",
+      "label": "candidate",
+      "kind": "calibration",
+      "trial": 0,
+      "profiled": false
+    },
+    {
+      "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+      "result_sha256": "9db94ef3be9eb7fbd6b99d863eae4ddd489fc74a3aa8b416fff463938be6f956",
+      "wall": 26.109310417,
+      "cpu": 29.235376,
+      "phases": {
+        "fresh_ready": {
+          "wall": 0.275630374,
+          "cpu": 0.24631800000000073,
+          "instances": [
+            {
+              "name": "fresh_ready_00",
+              "wall": 0.084109583,
+              "cpu": 0.069939
+            },
+            {
+              "name": "fresh_ready_01",
+              "wall": 0.058181166,
+              "cpu": 0.053760000000000474
+            },
+            {
+              "name": "fresh_ready_02",
+              "wall": 0.06093425,
+              "cpu": 0.05358700000000027
+            },
+            {
+              "name": "fresh_ready_03",
+              "wall": 0.072405375,
+              "cpu": 0.06903199999999998
+            }
+          ]
+        },
+        "fresh_setup": {
+          "wall": 22.458199126,
+          "cpu": 23.722829,
+          "instances": [
+            {
+              "name": "fresh_setup_00",
+              "wall": 5.5777413750000004,
+              "cpu": 5.903201999999999
+            },
+            {
+              "name": "fresh_setup_01",
+              "wall": 5.603835417,
+              "cpu": 5.914028999999999
+            },
+            {
+              "name": "fresh_setup_02",
+              "wall": 5.682473834,
+              "cpu": 5.9652280000000015
+            },
+            {
+              "name": "fresh_setup_03",
+              "wall": 5.5941485,
+              "cpu": 5.940369999999998
+            }
+          ]
+        },
+        "point_use": {
+          "wall": 0.006184416999999999,
+          "cpu": 0.005441000000001139,
+          "instances": [
+            {
+              "name": "point_use_00",
+              "wall": 0.002390459,
+              "cpu": 0.002223000000000752
+            },
+            {
+              "name": "point_use_01",
+              "wall": 0.001297166,
+              "cpu": 0.0011849999999995475
+            },
+            {
+              "name": "point_use_02",
+              "wall": 0.001334334,
+              "cpu": 0.001122999999999763
+            },
+            {
+              "name": "point_use_03",
+              "wall": 0.001162458,
+              "cpu": 0.0009100000000010766
+            }
+          ]
+        },
+        "count_use": {
+          "wall": 1.09831475,
+          "cpu": 1.698356000000004,
+          "instances": [
+            {
+              "name": "count_use_00",
+              "wall": 0.273429208,
+              "cpu": 0.41469299999999976
+            },
+            {
+              "name": "count_use_01",
+              "wall": 0.272072708,
+              "cpu": 0.4191830000000003
+            },
+            {
+              "name": "count_use_02",
+              "wall": 0.278527084,
+              "cpu": 0.44199800000000167
+            },
+            {
+              "name": "count_use_03",
+              "wall": 0.27428575,
+              "cpu": 0.42248200000000224
+            }
+          ]
+        },
+        "mutation": {
+          "wall": 2.236609458,
+          "cpu": 3.5342210000000005,
+          "instances": [
+            {
+              "name": "mutation_00",
+              "wall": 0.552374167,
+              "cpu": 0.8622189999999996
+            },
+            {
+              "name": "mutation_01",
+              "wall": 0.567350916,
+              "cpu": 0.9080600000000008
+            },
+            {
+              "name": "mutation_02",
+              "wall": 0.561817,
+              "cpu": 0.8898539999999997
+            },
+            {
+              "name": "mutation_03",
+              "wall": 0.555067375,
+              "cpu": 0.8740880000000004
+            }
+          ]
+        },
+        "child_close": {
+          "wall": 0.034372292,
+          "cpu": 0.011228999999997491,
+          "instances": [
+            {
+              "name": "child_close_00",
+              "wall": 0.008971375,
+              "cpu": 0.00339799999999979
+            },
+            {
+              "name": "child_close_01",
+              "wall": 0.008506083,
+              "cpu": 0.0026320000000001897
+            },
+            {
+              "name": "child_close_02",
+              "wall": 0.008415042,
+              "cpu": 0.002553999999999945
+            },
+            {
+              "name": "child_close_03",
+              "wall": 0.008479792,
+              "cpu": 0.002644999999997566
+            }
+          ]
+        }
+      },
+      "allocations_mib": 5708.528823852539,
+      "gc_cycles": 26,
+      "gc_pause_ms": 1.720124,
+      "mallocs": 2605954,
+      "name": "observer-0-baseline-plain",
+      "label": "baseline",
+      "kind": "observer",
+      "trial": 0,
+      "profiled": false
+    },
+    {
+      "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+      "result_sha256": "ae7aa8b979f2118e55e07218fad45d30fa6c5ccf5dcba5a866fac14432d30ccc",
+      "wall": 25.820786372,
+      "cpu": 29.022530000000003,
+      "phases": {
+        "fresh_ready": {
+          "wall": 0.236312707,
+          "cpu": 0.198367000000001,
+          "instances": [
+            {
+              "name": "fresh_ready_00",
+              "wall": 0.079517917,
+              "cpu": 0.070939
+            },
+            {
+              "name": "fresh_ready_01",
+              "wall": 0.050970041,
+              "cpu": 0.04164499999999993
+            },
+            {
+              "name": "fresh_ready_02",
+              "wall": 0.051677041,
+              "cpu": 0.04178199999999954
+            },
+            {
+              "name": "fresh_ready_03",
+              "wall": 0.054147708,
+              "cpu": 0.04400100000000151
+            }
+          ]
+        },
+        "fresh_setup": {
+          "wall": 22.206777083,
+          "cpu": 23.56547,
+          "instances": [
+            {
+              "name": "fresh_setup_00",
+              "wall": 5.567173791,
+              "cpu": 5.882114
+            },
+            {
+              "name": "fresh_setup_01",
+              "wall": 5.53717575,
+              "cpu": 5.845394
+            },
+            {
+              "name": "fresh_setup_02",
+              "wall": 5.503301375,
+              "cpu": 5.864246
+            },
+            {
+              "name": "fresh_setup_03",
+              "wall": 5.599126167,
+              "cpu": 5.973716
+            }
+          ]
+        },
+        "point_use": {
+          "wall": 0.006259958000000001,
+          "cpu": 0.005213000000000356,
+          "instances": [
+            {
+              "name": "point_use_00",
+              "wall": 0.002564666,
+              "cpu": 0.002403000000000155
+            },
+            {
+              "name": "point_use_01",
+              "wall": 0.001193625,
+              "cpu": 0.0008939999999988402
+            },
+            {
+              "name": "point_use_02",
+              "wall": 0.00119975,
+              "cpu": 0.000897000000001924
+            },
+            {
+              "name": "point_use_03",
+              "wall": 0.001301917,
+              "cpu": 0.001018999999999437
+            }
+          ]
+        },
+        "count_use": {
+          "wall": 1.105233874,
+          "cpu": 1.7111969999999985,
+          "instances": [
+            {
+              "name": "count_use_00",
+              "wall": 0.275722833,
+              "cpu": 0.42497000000000007
+            },
+            {
+              "name": "count_use_01",
+              "wall": 0.271296166,
+              "cpu": 0.4184870000000007
+            },
+            {
+              "name": "count_use_02",
+              "wall": 0.27968525,
+              "cpu": 0.44276999999999944
+            },
+            {
+              "name": "count_use_03",
+              "wall": 0.278529625,
+              "cpu": 0.4249699999999983
+            }
+          ]
+        },
+        "mutation": {
+          "wall": 2.2317644999999997,
+          "cpu": 3.5121949999999984,
+          "instances": [
+            {
+              "name": "mutation_00",
+              "wall": 0.552277458,
+              "cpu": 0.8586279999999995
+            },
+            {
+              "name": "mutation_01",
+              "wall": 0.558925791,
+              "cpu": 0.8815109999999997
+            },
+            {
+              "name": "mutation_02",
+              "wall": 0.563152334,
+              "cpu": 0.8982670000000006
+            },
+            {
+              "name": "mutation_03",
+              "wall": 0.557408917,
+              "cpu": 0.8737889999999986
+            }
+          ]
+        },
+        "child_close": {
+          "wall": 0.034438250000000004,
+          "cpu": 0.010996000000001338,
+          "instances": [
+            {
+              "name": "child_close_00",
+              "wall": 0.008992584,
+              "cpu": 0.003181999999999796
+            },
+            {
+              "name": "child_close_01",
+              "wall": 0.008574292,
+              "cpu": 0.0026999999999990365
+            },
+            {
+              "name": "child_close_02",
+              "wall": 0.008458958,
+              "cpu": 0.002601999999999549
+            },
+            {
+              "name": "child_close_03",
+              "wall": 0.008412416,
+              "cpu": 0.0025120000000029563
+            }
+          ]
+        }
+      },
+      "allocations_mib": 3195.4876251220703,
+      "gc_cycles": 40,
+      "gc_pause_ms": 2.382623,
+      "mallocs": 2706442,
+      "name": "observer-0-candidate-plain",
+      "label": "candidate",
+      "kind": "observer",
+      "trial": 0,
+      "profiled": false
+    },
+    {
+      "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+      "result_sha256": "4777f53772c3d01c93ad3d7f9c645f70b833782656d7d80ad9f51384baec8809",
+      "wall": 25.855851791,
+      "cpu": 29.144417,
+      "phases": {
+        "fresh_ready": {
+          "wall": 0.214697542,
+          "cpu": 0.18154300000000043,
+          "instances": [
+            {
+              "name": "fresh_ready_00",
+              "wall": 0.054000542,
+              "cpu": 0.047625
+            },
+            {
+              "name": "fresh_ready_01",
+              "wall": 0.053992875,
+              "cpu": 0.04390200000000011
+            },
+            {
+              "name": "fresh_ready_02",
+              "wall": 0.052405625,
+              "cpu": 0.04381399999999935
+            },
+            {
+              "name": "fresh_ready_03",
+              "wall": 0.0542985,
+              "cpu": 0.046202000000000965
+            }
+          ]
+        },
+        "fresh_setup": {
+          "wall": 22.242129625,
+          "cpu": 23.663513999999996,
+          "instances": [
+            {
+              "name": "fresh_setup_00",
+              "wall": 5.503013333,
+              "cpu": 5.849659000000001
+            },
+            {
+              "name": "fresh_setup_01",
+              "wall": 5.515180417,
+              "cpu": 5.905625
+            },
+            {
+              "name": "fresh_setup_02",
+              "wall": 5.58393,
+              "cpu": 5.905053999999998
+            },
+            {
+              "name": "fresh_setup_03",
+              "wall": 5.640005875,
+              "cpu": 6.003176
+            }
+          ]
+        },
+        "point_use": {
+          "wall": 0.00535475,
+          "cpu": 0.004224999999998147,
+          "instances": [
+            {
+              "name": "point_use_00",
+              "wall": 0.001670084,
+              "cpu": 0.0014500000000001734
+            },
+            {
+              "name": "point_use_01",
+              "wall": 0.001271458,
+              "cpu": 0.0009719999999990847
+            },
+            {
+              "name": "point_use_02",
+              "wall": 0.001288708,
+              "cpu": 0.0008879999999997779
+            },
+            {
+              "name": "point_use_03",
+              "wall": 0.0011245,
+              "cpu": 0.000914999999999111
+            }
+          ]
+        },
+        "count_use": {
+          "wall": 1.110485667,
+          "cpu": 1.7022210000000007,
+          "instances": [
+            {
+              "name": "count_use_00",
+              "wall": 0.277748459,
+              "cpu": 0.4272470000000004
+            },
+            {
+              "name": "count_use_01",
+              "wall": 0.278383209,
+              "cpu": 0.4260009999999994
+            },
+            {
+              "name": "count_use_02",
+              "wall": 0.275546666,
+              "cpu": 0.4244710000000005
+            },
+            {
+              "name": "count_use_03",
+              "wall": 0.278807333,
+              "cpu": 0.4245020000000004
+            }
+          ]
+        },
+        "mutation": {
+          "wall": 2.249737916,
+          "cpu": 3.5544359999999973,
+          "instances": [
+            {
+              "name": "mutation_00",
+              "wall": 0.555657375,
+              "cpu": 0.875114
+            },
+            {
+              "name": "mutation_01",
+              "wall": 0.562707458,
+              "cpu": 0.8824659999999991
+            },
+            {
+              "name": "mutation_02",
+              "wall": 0.54865525,
+              "cpu": 0.8601700000000001
+            },
+            {
+              "name": "mutation_03",
+              "wall": 0.582717833,
+              "cpu": 0.9366859999999981
+            }
+          ]
+        },
+        "child_close": {
+          "wall": 0.033446290999999996,
+          "cpu": 0.012578999999999674,
+          "instances": [
+            {
+              "name": "child_close_00",
+              "wall": 0.008716917,
+              "cpu": 0.002937999999999441
+            },
+            {
+              "name": "child_close_01",
+              "wall": 0.008465,
+              "cpu": 0.002634999999999721
+            },
+            {
+              "name": "child_close_02",
+              "wall": 0.007914166,
+              "cpu": 0.002883000000000635
+            },
+            {
+              "name": "child_close_03",
+              "wall": 0.008350208,
+              "cpu": 0.004122999999999877
+            }
+          ]
+        }
+      },
+      "allocations_mib": 3195.492202758789,
+      "gc_cycles": 50,
+      "gc_pause_ms": 3.364745,
+      "mallocs": 2704140,
+      "name": "observer-0-candidate-cpu",
+      "label": "candidate",
+      "kind": "observer",
+      "trial": 0,
+      "profiled": true
+    },
+    {
+      "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+      "result_sha256": "8c6e96773d57cb9c88279bcf967e3b46c2e1b0108900f62a3fff588b0aade325",
+      "wall": 27.347151289000003,
+      "cpu": 30.406152000000002,
+      "phases": {
+        "fresh_ready": {
+          "wall": 0.31706887500000003,
+          "cpu": 0.25830700000000234,
+          "instances": [
+            {
+              "name": "fresh_ready_00",
+              "wall": 0.128928042,
+              "cpu": 0.082787
+            },
+            {
+              "name": "fresh_ready_01",
+              "wall": 0.066232208,
+              "cpu": 0.06269200000000019
+            },
+            {
+              "name": "fresh_ready_02",
+              "wall": 0.058800375,
+              "cpu": 0.054655999999999594
+            },
+            {
+              "name": "fresh_ready_03",
+              "wall": 0.06310825,
+              "cpu": 0.058172000000002555
+            }
+          ]
+        },
+        "fresh_setup": {
+          "wall": 23.551218374,
+          "cpu": 24.654217000000003,
+          "instances": [
+            {
+              "name": "fresh_setup_00",
+              "wall": 5.92631725,
+              "cpu": 6.173494
+            },
+            {
+              "name": "fresh_setup_01",
+              "wall": 5.875013291,
+              "cpu": 6.171682000000001
+            },
+            {
+              "name": "fresh_setup_02",
+              "wall": 5.847303792,
+              "cpu": 6.114395999999999
+            },
+            {
+              "name": "fresh_setup_03",
+              "wall": 5.902584041,
+              "cpu": 6.194645000000001
+            }
+          ]
+        },
+        "point_use": {
+          "wall": 0.015160791999999998,
+          "cpu": 0.005947000000000813,
+          "instances": [
+            {
+              "name": "point_use_00",
+              "wall": 0.011637083,
+              "cpu": 0.003130999999999773
+            },
+            {
+              "name": "point_use_01",
+              "wall": 0.001120917,
+              "cpu": 0.0009150000000008873
+            },
+            {
+              "name": "point_use_02",
+              "wall": 0.00117575,
+              "cpu": 0.0008739999999995973
+            },
+            {
+              "name": "point_use_03",
+              "wall": 0.001227042,
+              "cpu": 0.0010270000000005552
+            }
+          ]
+        },
+        "count_use": {
+          "wall": 1.137013999,
+          "cpu": 1.9137730000000017,
+          "instances": [
+            {
+              "name": "count_use_00",
+              "wall": 0.296739917,
+              "cpu": 0.5045130000000002
+            },
+            {
+              "name": "count_use_01",
+              "wall": 0.283702833,
+              "cpu": 0.47529100000000035
+            },
+            {
+              "name": "count_use_02",
+              "wall": 0.278767916,
+              "cpu": 0.4667330000000014
+            },
+            {
+              "name": "count_use_03",
+              "wall": 0.277803333,
+              "cpu": 0.46723599999999976
+            }
+          ]
+        },
+        "mutation": {
+          "wall": 2.2823632509999996,
+          "cpu": 3.5411870000000034,
+          "instances": [
+            {
+              "name": "mutation_00",
+              "wall": 0.563738334,
+              "cpu": 0.8562900000000004
+            },
+            {
+              "name": "mutation_01",
+              "wall": 0.568543084,
+              "cpu": 0.8820540000000001
+            },
+            {
+              "name": "mutation_02",
+              "wall": 0.564867208,
+              "cpu": 0.8723300000000016
+            },
+            {
+              "name": "mutation_03",
+              "wall": 0.585214625,
+              "cpu": 0.9305130000000013
+            }
+          ]
+        },
+        "child_close": {
+          "wall": 0.044325998000000005,
+          "cpu": 0.015248999999998958,
+          "instances": [
+            {
+              "name": "child_close_00",
+              "wall": 0.017456416,
+              "cpu": 0.005632000000000303
+            },
+            {
+              "name": "child_close_01",
+              "wall": 0.008945666,
+              "cpu": 0.0031490000000005125
+            },
+            {
+              "name": "child_close_02",
+              "wall": 0.008586083,
+              "cpu": 0.002707000000000903
+            },
+            {
+              "name": "child_close_03",
+              "wall": 0.009337833,
+              "cpu": 0.0037609999999972388
+            }
+          ]
+        }
+      },
+      "allocations_mib": 5710.319122314453,
+      "gc_cycles": 30,
+      "gc_pause_ms": 2.747621,
+      "mallocs": 2630450,
+      "name": "observer-0-baseline-cpu",
+      "label": "baseline",
+      "kind": "observer",
+      "trial": 0,
+      "profiled": true
+    },
+    {
+      "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+      "result_sha256": "7f98110b0c29127ebd5f78d2d928cd4188fa7b662b05c01047bd4dec474e5e59",
+      "wall": 26.750123872999996,
+      "cpu": 30.075236,
+      "phases": {
+        "fresh_ready": {
+          "wall": 0.277951749,
+          "cpu": 0.2083670000000013,
+          "instances": [
+            {
+              "name": "fresh_ready_00",
+              "wall": 0.120705708,
+              "cpu": 0.07819799999999999
+            },
+            {
+              "name": "fresh_ready_01",
+              "wall": 0.049004083,
+              "cpu": 0.03976999999999986
+            },
+            {
+              "name": "fresh_ready_02",
+              "wall": 0.056959833,
+              "cpu": 0.04827200000000076
+            },
+            {
+              "name": "fresh_ready_03",
+              "wall": 0.051282125,
+              "cpu": 0.04212700000000069
+            }
+          ]
+        },
+        "fresh_setup": {
+          "wall": 22.996923876,
+          "cpu": 24.395552,
+          "instances": [
+            {
+              "name": "fresh_setup_00",
+              "wall": 5.7432,
+              "cpu": 6.070725
+            },
+            {
+              "name": "fresh_setup_01",
+              "wall": 5.795182584,
+              "cpu": 6.125075
+            },
+            {
+              "name": "fresh_setup_02",
+              "wall": 5.691207583,
+              "cpu": 6.089517000000001
+            },
+            {
+              "name": "fresh_setup_03",
+              "wall": 5.767333709,
+              "cpu": 6.110234999999999
+            }
+          ]
+        },
+        "point_use": {
+          "wall": 0.010401332000000001,
+          "cpu": 0.005761999999999823,
+          "instances": [
+            {
+              "name": "point_use_00",
+              "wall": 0.006647083,
+              "cpu": 0.0027250000000007546
+            },
+            {
+              "name": "point_use_01",
+              "wall": 0.001275375,
+              "cpu": 0.0009839999999989857
+            },
+            {
+              "name": "point_use_02",
+              "wall": 0.001211916,
+              "cpu": 0.001117999999998176
+            },
+            {
+              "name": "point_use_03",
+              "wall": 0.001266958,
+              "cpu": 0.0009350000000019065
+            }
+          ]
+        },
+        "count_use": {
+          "wall": 1.126946583,
+          "cpu": 1.838641,
+          "instances": [
+            {
+              "name": "count_use_00",
+              "wall": 0.282831584,
+              "cpu": 0.4709659999999998
+            },
+            {
+              "name": "count_use_01",
+              "wall": 0.277617541,
+              "cpu": 0.45515499999999953
+            },
+            {
+              "name": "count_use_02",
+              "wall": 0.282706958,
+              "cpu": 0.4419210000000007
+            },
+            {
+              "name": "count_use_03",
+              "wall": 0.2837905,
+              "cpu": 0.470599
+            }
+          ]
+        },
+        "mutation": {
+          "wall": 2.2999210000000003,
+          "cpu": 3.5934420000000005,
+          "instances": [
+            {
+              "name": "mutation_00",
+              "wall": 0.573447958,
+              "cpu": 0.8735620000000006
+            },
+            {
+              "name": "mutation_01",
+              "wall": 0.574633125,
+              "cpu": 0.904993000000001
+            },
+            {
+              "name": "mutation_02",
+              "wall": 0.572386667,
+              "cpu": 0.9135840000000002
+            },
+            {
+              "name": "mutation_03",
+              "wall": 0.57945325,
+              "cpu": 0.9013029999999986
+            }
+          ]
+        },
+        "child_close": {
+          "wall": 0.037979333000000004,
+          "cpu": 0.01295699999999922,
+          "instances": [
+            {
+              "name": "child_close_00",
+              "wall": 0.011426166,
+              "cpu": 0.003948999999999536
+            },
+            {
+              "name": "child_close_01",
+              "wall": 0.00942025,
+              "cpu": 0.0035170000000004364
+            },
+            {
+              "name": "child_close_02",
+              "wall": 0.00863225,
+              "cpu": 0.0027159999999994966
+            },
+            {
+              "name": "child_close_03",
+              "wall": 0.008500667,
+              "cpu": 0.00277499999999975
+            }
+          ]
+        }
+      },
+      "allocations_mib": 3196.01131439209,
+      "gc_cycles": 45,
+      "gc_pause_ms": 2.879458,
+      "mallocs": 2721109,
+      "name": "observer-1-candidate-plain",
+      "label": "candidate",
+      "kind": "observer",
+      "trial": 1,
+      "profiled": false
+    },
+    {
+      "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+      "result_sha256": "c5426a59875118c3b0da89e6d9e60d28290a1dae88bd41e65fe9d35cc32d1dea",
+      "wall": 26.762729788999994,
+      "cpu": 30.124651,
+      "phases": {
+        "fresh_ready": {
+          "wall": 0.24610437500000001,
+          "cpu": 0.22289399999999948,
+          "instances": [
+            {
+              "name": "fresh_ready_00",
+              "wall": 0.05297,
+              "cpu": 0.047744
+            },
+            {
+              "name": "fresh_ready_01",
+              "wall": 0.0618075,
+              "cpu": 0.05750499999999992
+            },
+            {
+              "name": "fresh_ready_02",
+              "wall": 0.05874075,
+              "cpu": 0.051528999999998604
+            },
+            {
+              "name": "fresh_ready_03",
+              "wall": 0.072586125,
+              "cpu": 0.06611600000000095
+            }
+          ]
+        },
+        "fresh_setup": {
+          "wall": 23.027121623999996,
+          "cpu": 24.330683,
+          "instances": [
+            {
+              "name": "fresh_setup_00",
+              "wall": 5.716488125,
+              "cpu": 6.023540000000001
+            },
+            {
+              "name": "fresh_setup_01",
+              "wall": 5.779047583,
+              "cpu": 6.09741
+            },
+            {
+              "name": "fresh_setup_02",
+              "wall": 5.769530291,
+              "cpu": 6.115682
+            },
+            {
+              "name": "fresh_setup_03",
+              "wall": 5.762055625,
+              "cpu": 6.094051
+            }
+          ]
+        },
+        "point_use": {
+          "wall": 0.0052830410000000005,
+          "cpu": 0.0057629999999946335,
+          "instances": [
+            {
+              "name": "point_use_00",
+              "wall": 0.001690166,
+              "cpu": 0.0014810000000000656
+            },
+            {
+              "name": "point_use_01",
+              "wall": 0.001213083,
+              "cpu": 0.0008520000000000749
+            },
+            {
+              "name": "point_use_02",
+              "wall": 0.0011225,
+              "cpu": 0.0024819999999969866
+            },
+            {
+              "name": "point_use_03",
+              "wall": 0.001257292,
+              "cpu": 0.0009479999999975064
+            }
+          ]
+        },
+        "count_use": {
+          "wall": 1.147198333,
+          "cpu": 1.8906019999999977,
+          "instances": [
+            {
+              "name": "count_use_00",
+              "wall": 0.278409833,
+              "cpu": 0.4343629999999994
+            },
+            {
+              "name": "count_use_01",
+              "wall": 0.282893084,
+              "cpu": 0.4707080000000001
+            },
+            {
+              "name": "count_use_02",
+              "wall": 0.283315625,
+              "cpu": 0.46624499999999713
+            },
+            {
+              "name": "count_use_03",
+              "wall": 0.302579791,
+              "cpu": 0.519286000000001
+            }
+          ]
+        },
+        "mutation": {
+          "wall": 2.3014648330000003,
+          "cpu": 3.6417789999999988,
+          "instances": [
+            {
+              "name": "mutation_00",
+              "wall": 0.600219125,
+              "cpu": 0.9861279999999999
+            },
+            {
+              "name": "mutation_01",
+              "wall": 0.558099375,
+              "cpu": 0.8604079999999996
+            },
+            {
+              "name": "mutation_02",
+              "wall": 0.57532825,
+              "cpu": 0.9027080000000005
+            },
+            {
+              "name": "mutation_03",
+              "wall": 0.567818083,
+              "cpu": 0.8925349999999987
+            }
+          ]
+        },
+        "child_close": {
+          "wall": 0.035557583,
+          "cpu": 0.01380600000000154,
+          "instances": [
+            {
+              "name": "child_close_00",
+              "wall": 0.00848825,
+              "cpu": 0.003934000000000104
+            },
+            {
+              "name": "child_close_01",
+              "wall": 0.009345708,
+              "cpu": 0.0034770000000001744
+            },
+            {
+              "name": "child_close_02",
+              "wall": 0.008940042,
+              "cpu": 0.0033980000000006783
+            },
+            {
+              "name": "child_close_03",
+              "wall": 0.008783583,
+              "cpu": 0.0029970000000005825
+            }
+          ]
+        }
+      },
+      "allocations_mib": 5711.186569213867,
+      "gc_cycles": 26,
+      "gc_pause_ms": 1.937284,
+      "mallocs": 2644976,
+      "name": "observer-1-baseline-plain",
+      "label": "baseline",
+      "kind": "observer",
+      "trial": 1,
+      "profiled": false
+    },
+    {
+      "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+      "result_sha256": "939fcaf790d83dcff8a312b64adcbf8243e6aa818c37397c7c367d7d3f9ca2cc",
+      "wall": 26.972827457,
+      "cpu": 30.312186999999998,
+      "phases": {
+        "fresh_ready": {
+          "wall": 0.248577333,
+          "cpu": 0.23608899999999838,
+          "instances": [
+            {
+              "name": "fresh_ready_00",
+              "wall": 0.051557708,
+              "cpu": 0.047603
+            },
+            {
+              "name": "fresh_ready_01",
+              "wall": 0.070759667,
+              "cpu": 0.07086899999999918
+            },
+            {
+              "name": "fresh_ready_02",
+              "wall": 0.057642,
+              "cpu": 0.052879000000000786
+            },
+            {
+              "name": "fresh_ready_03",
+              "wall": 0.068617958,
+              "cpu": 0.06473799999999841
+            }
+          ]
+        },
+        "fresh_setup": {
+          "wall": 23.289880333,
+          "cpu": 24.621302000000004,
+          "instances": [
+            {
+              "name": "fresh_setup_00",
+              "wall": 5.919004833,
+              "cpu": 6.20017
+            },
+            {
+              "name": "fresh_setup_01",
+              "wall": 5.7974795839999995,
+              "cpu": 6.122059999999999
+            },
+            {
+              "name": "fresh_setup_02",
+              "wall": 5.764352541,
+              "cpu": 6.130160000000002
+            },
+            {
+              "name": "fresh_setup_03",
+              "wall": 5.809043375,
+              "cpu": 6.168912000000002
+            }
+          ]
+        },
+        "point_use": {
+          "wall": 0.005754125,
+          "cpu": 0.004863999999997759,
+          "instances": [
+            {
+              "name": "point_use_00",
+              "wall": 0.001917333,
+              "cpu": 0.0018419999999998993
+            },
+            {
+              "name": "point_use_01",
+              "wall": 0.001228875,
+              "cpu": 0.0009459999999990032
+            },
+            {
+              "name": "point_use_02",
+              "wall": 0.001316875,
+              "cpu": 0.0008939999999988402
+            },
+            {
+              "name": "point_use_03",
+              "wall": 0.001291042,
+              "cpu": 0.0011820000000000164
+            }
+          ]
+        },
+        "count_use": {
+          "wall": 1.1218369579999998,
+          "cpu": 1.8642810000000027,
+          "instances": [
+            {
+              "name": "count_use_00",
+              "wall": 0.285611625,
+              "cpu": 0.4746069999999998
+            },
+            {
+              "name": "count_use_01",
+              "wall": 0.27443925,
+              "cpu": 0.44520999999999944
+            },
+            {
+              "name": "count_use_02",
+              "wall": 0.2835625,
+              "cpu": 0.4872630000000022
+            },
+            {
+              "name": "count_use_03",
+              "wall": 0.278223583,
+              "cpu": 0.4572010000000013
+            }
+          ]
+        },
+        "mutation": {
+          "wall": 2.267685541,
+          "cpu": 3.5486889999999995,
+          "instances": [
+            {
+              "name": "mutation_00",
+              "wall": 0.567394959,
+              "cpu": 0.8810900000000004
+            },
+            {
+              "name": "mutation_01",
+              "wall": 0.567805666,
+              "cpu": 0.8885040000000011
+            },
+            {
+              "name": "mutation_02",
+              "wall": 0.558268041,
+              "cpu": 0.8627809999999982
+            },
+            {
+              "name": "mutation_03",
+              "wall": 0.574216875,
+              "cpu": 0.9163139999999999
+            }
+          ]
+        },
+        "child_close": {
+          "wall": 0.039093167,
+          "cpu": 0.014969000000000676,
+          "instances": [
+            {
+              "name": "child_close_00",
+              "wall": 0.010106667,
+              "cpu": 0.004509999999999792
+            },
+            {
+              "name": "child_close_01",
+              "wall": 0.009012625,
+              "cpu": 0.0031520000000000437
+            },
+            {
+              "name": "child_close_02",
+              "wall": 0.010539459,
+              "cpu": 0.0037090000000006285
+            },
+            {
+              "name": "child_close_03",
+              "wall": 0.009434416,
+              "cpu": 0.003598000000000212
+            }
+          ]
+        }
+      },
+      "allocations_mib": 5710.5922927856445,
+      "gc_cycles": 30,
+      "gc_pause_ms": 1.912244,
+      "mallocs": 2634491,
+      "name": "observer-1-baseline-cpu",
+      "label": "baseline",
+      "kind": "observer",
+      "trial": 1,
+      "profiled": true
+    },
+    {
+      "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+      "result_sha256": "57b3e75fceed0981e61b092bcb08348402906fe140e838f7b080dbdbdf05a05e",
+      "wall": 26.50488929000001,
+      "cpu": 29.88376,
+      "phases": {
+        "fresh_ready": {
+          "wall": 0.289230166,
+          "cpu": 0.21136599999999778,
+          "instances": [
+            {
+              "name": "fresh_ready_00",
+              "wall": 0.131800333,
+              "cpu": 0.079926
+            },
+            {
+              "name": "fresh_ready_01",
+              "wall": 0.048444,
+              "cpu": 0.03959099999999971
+            },
+            {
+              "name": "fresh_ready_02",
+              "wall": 0.054242583,
+              "cpu": 0.04552900000000015
+            },
+            {
+              "name": "fresh_ready_03",
+              "wall": 0.05474325,
+              "cpu": 0.04631999999999792
+            }
+          ]
+        },
+        "fresh_setup": {
+          "wall": 22.738077707000002,
+          "cpu": 24.194011000000003,
+          "instances": [
+            {
+              "name": "fresh_setup_00",
+              "wall": 5.6942095,
+              "cpu": 5.982013
+            },
+            {
+              "name": "fresh_setup_01",
+              "wall": 5.696057416,
+              "cpu": 6.066843
+            },
+            {
+              "name": "fresh_setup_02",
+              "wall": 5.71738725,
+              "cpu": 6.081693
+            },
+            {
+              "name": "fresh_setup_03",
+              "wall": 5.630423541,
+              "cpu": 6.063462000000001
+            }
+          ]
+        },
+        "point_use": {
+          "wall": 0.009814706999999999,
+          "cpu": 0.0063589999999997815,
+          "instances": [
+            {
+              "name": "point_use_00",
+              "wall": 0.006298208,
+              "cpu": 0.002919000000000338
+            },
+            {
+              "name": "point_use_01",
+              "wall": 0.001117416,
+              "cpu": 0.0015079999999993987
+            },
+            {
+              "name": "point_use_02",
+              "wall": 0.001134125,
+              "cpu": 0.0009820000000004825
+            },
+            {
+              "name": "point_use_03",
+              "wall": 0.001264958,
+              "cpu": 0.0009499999999995623
+            }
+          ]
+        },
+        "count_use": {
+          "wall": 1.121021959,
+          "cpu": 1.7465720000000058,
+          "instances": [
+            {
+              "name": "count_use_00",
+              "wall": 0.282332208,
+              "cpu": 0.44265000000000043
+            },
+            {
+              "name": "count_use_01",
+              "wall": 0.276369584,
+              "cpu": 0.42714800000000075
+            },
+            {
+              "name": "count_use_02",
+              "wall": 0.273005042,
+              "cpu": 0.4215490000000024
+            },
+            {
+              "name": "count_use_03",
+              "wall": 0.289315125,
+              "cpu": 0.4552250000000022
+            }
+          ]
+        },
+        "mutation": {
+          "wall": 2.3077531669999996,
+          "cpu": 3.6928669999999997,
+          "instances": [
+            {
+              "name": "mutation_00",
+              "wall": 0.584744917,
+              "cpu": 0.919772
+            },
+            {
+              "name": "mutation_01",
+              "wall": 0.56889525,
+              "cpu": 0.9118709999999997
+            },
+            {
+              "name": "mutation_02",
+              "wall": 0.572924958,
+              "cpu": 0.9222840000000012
+            },
+            {
+              "name": "mutation_03",
+              "wall": 0.581188042,
+              "cpu": 0.9389399999999988
+            }
+          ]
+        },
+        "child_close": {
+          "wall": 0.038991583999999996,
+          "cpu": 0.012587999999999155,
+          "instances": [
+            {
+              "name": "child_close_00",
+              "wall": 0.0133765,
+              "cpu": 0.00450400000000073
+            },
+            {
+              "name": "child_close_01",
+              "wall": 0.008611667,
+              "cpu": 0.002665999999999613
+            },
+            {
+              "name": "child_close_02",
+              "wall": 0.008646417,
+              "cpu": 0.002797999999998524
+            },
+            {
+              "name": "child_close_03",
+              "wall": 0.008357,
+              "cpu": 0.0026200000000002888
+            }
+          ]
+        }
+      },
+      "allocations_mib": 3196.9106216430664,
+      "gc_cycles": 46,
+      "gc_pause_ms": 3.16821,
+      "mallocs": 2724016,
+      "name": "observer-1-candidate-cpu",
+      "label": "candidate",
+      "kind": "observer",
+      "trial": 1,
+      "profiled": true
+    }
+  ],
+  "current_groups": {
+    "calibration/plain": {
+      "baseline": {
+        "n": 1,
+        "wall": [
+          26.631302540999997
+        ],
+        "cpu": [
+          29.956364
+        ],
+        "median_wall": 26.631302540999997,
+        "median_cpu": 29.956364
+      },
+      "candidate": {
+        "n": 1,
+        "wall": [
+          26.042109709000005
+        ],
+        "cpu": [
+          29.40101
+        ],
+        "median_wall": 26.042109709000005,
+        "median_cpu": 29.40101
+      },
+      "median_wall_change_percent": -2.2124071141203294,
+      "median_cpu_change_percent": -1.853876525201792,
+      "pairs": [
+        {
+          "wall_difference_seconds": -0.5891928319999913,
+          "wall_change_percent": -2.2124071141203294,
+          "cpu_difference_seconds": -0.5553540000000012,
+          "cpu_change_percent": -1.853876525201792,
+          "phase_differences": {
+            "fresh_ready": {
+              "wall": -0.01759029099999998,
+              "cpu": -0.02669099999999766
+            },
+            "fresh_setup": {
+              "wall": -0.5707558759999998,
+              "cpu": -0.4598259999999996
+            },
+            "point_use": {
+              "wall": -4.612499999999929e-05,
+              "cpu": 0.0014689999999992764
+            },
+            "count_use": {
+              "wall": 0.0013209180000000043,
+              "cpu": -0.05980199999999947
+            },
+            "mutation": {
+              "wall": -0.004548709000000262,
+              "cpu": -0.013901999999997194
+            },
+            "child_close": {
+              "wall": 0.0024272509999999914,
+              "cpu": 0.00043199999999909977
+            }
+          }
+        }
+      ]
+    },
+    "observer/plain": {
+      "baseline": {
+        "n": 2,
+        "wall": [
+          26.109310417,
+          26.762729788999994
+        ],
+        "cpu": [
+          29.235376,
+          30.124651
+        ],
+        "median_wall": 26.436020102999997,
+        "median_cpu": 29.6800135
+      },
+      "candidate": {
+        "n": 2,
+        "wall": [
+          25.820786372,
+          26.750123872999996
+        ],
+        "cpu": [
+          29.022530000000003,
+          30.075236
+        ],
+        "median_wall": 26.285455122499997,
+        "median_cpu": 29.548883000000004
+      },
+      "median_wall_change_percent": -0.5695448101241007,
+      "median_cpu_change_percent": -0.4418141521397856,
+      "pairs": [
+        {
+          "wall_difference_seconds": -0.28852404499999906,
+          "wall_change_percent": -1.1050619123672445,
+          "cpu_difference_seconds": -0.21284599999999543,
+          "cpu_change_percent": -0.7280426289027253,
+          "phase_differences": {
+            "fresh_ready": {
+              "wall": -0.039317667,
+              "cpu": -0.047950999999999744
+            },
+            "fresh_setup": {
+              "wall": -0.2514220430000016,
+              "cpu": -0.15735899999999958
+            },
+            "point_use": {
+              "wall": 7.554100000000188e-05,
+              "cpu": -0.00022800000000078313
+            },
+            "count_use": {
+              "wall": 0.006919124000000165,
+              "cpu": 0.012840999999994551
+            },
+            "mutation": {
+              "wall": -0.00484495800000051,
+              "cpu": -0.0220260000000021
+            },
+            "child_close": {
+              "wall": 6.595800000000485e-05,
+              "cpu": -0.00023299999999615295
+            }
+          }
+        },
+        {
+          "wall_difference_seconds": -0.012605915999998274,
+          "wall_change_percent": -0.04710250448808351,
+          "cpu_difference_seconds": -0.049414999999999765,
+          "cpu_change_percent": -0.1640350953775349,
+          "phase_differences": {
+            "fresh_ready": {
+              "wall": 0.03184737400000001,
+              "cpu": -0.01452699999999818
+            },
+            "fresh_setup": {
+              "wall": -0.030197747999995528,
+              "cpu": 0.06486899999999807
+            },
+            "point_use": {
+              "wall": 0.0051182910000000005,
+              "cpu": -9.999999948107074e-07
+            },
+            "count_use": {
+              "wall": -0.020251749999999902,
+              "cpu": -0.0519609999999977
+            },
+            "mutation": {
+              "wall": -0.001543832999999939,
+              "cpu": -0.0483369999999983
+            },
+            "child_close": {
+              "wall": 0.0024217500000000072,
+              "cpu": -0.0008490000000023201
+            }
+          }
+        }
+      ]
+    },
+    "observer/cpu": {
+      "baseline": {
+        "n": 2,
+        "wall": [
+          27.347151289000003,
+          26.972827457
+        ],
+        "cpu": [
+          30.406152000000002,
+          30.312186999999998
+        ],
+        "median_wall": 27.159989373000002,
+        "median_cpu": 30.3591695
+      },
+      "candidate": {
+        "n": 2,
+        "wall": [
+          25.855851791,
+          26.50488929000001
+        ],
+        "cpu": [
+          29.144417,
+          29.88376
+        ],
+        "median_wall": 26.180370540500004,
+        "median_cpu": 29.5140885
+      },
+      "median_wall_change_percent": -3.6068454189965404,
+      "median_cpu_change_percent": -2.783610401463721,
+      "pairs": [
+        {
+          "wall_difference_seconds": -1.4912994980000036,
+          "wall_change_percent": -5.453216981323594,
+          "cpu_difference_seconds": -1.2617350000000016,
+          "cpu_change_percent": -4.149604330071099,
+          "phase_differences": {
+            "fresh_ready": {
+              "wall": -0.10237133300000004,
+              "cpu": -0.07676400000000191
+            },
+            "fresh_setup": {
+              "wall": -1.3090887490000007,
+              "cpu": -0.990703000000007
+            },
+            "point_use": {
+              "wall": -0.009806041999999997,
+              "cpu": -0.0017220000000026658
+            },
+            "count_use": {
+              "wall": -0.026528332000000043,
+              "cpu": -0.21155200000000107
+            },
+            "mutation": {
+              "wall": -0.032625334999999644,
+              "cpu": 0.013248999999993849
+            },
+            "child_close": {
+              "wall": -0.01087970700000001,
+              "cpu": -0.002669999999999284
+            }
+          }
+        },
+        {
+          "wall_difference_seconds": -0.4679381669999927,
+          "wall_change_percent": -1.734850259009657,
+          "cpu_difference_seconds": -0.4284269999999992,
+          "cpu_change_percent": -1.4133820169425548,
+          "phase_differences": {
+            "fresh_ready": {
+              "wall": 0.040652833,
+              "cpu": -0.024723000000000606
+            },
+            "fresh_setup": {
+              "wall": -0.5518026259999971,
+              "cpu": -0.4272910000000003
+            },
+            "point_use": {
+              "wall": 0.004060581999999999,
+              "cpu": 0.0014950000000020225
+            },
+            "count_use": {
+              "wall": -0.0008149989999999274,
+              "cpu": -0.11770899999999695
+            },
+            "mutation": {
+              "wall": 0.04006762599999947,
+              "cpu": 0.14417800000000014
+            },
+            "child_close": {
+              "wall": -0.00010158300000000231,
+              "cpu": -0.002381000000001521
+            }
+          }
+        }
+      ]
+    }
+  },
+  "completed_executions": 10,
+  "completed_sql_oracles": true,
+  "balanced_memory_mappings": 40,
+  "profiles": {
+    "observer-0-candidate-cpu": {
+      "raw_report": "observer-0-candidate-cpu-raw.txt",
+      "raw_report_sha256": "79050fd75032092f02b91577b9b78394c960c807a3cf05a96b35c340df13a9e4",
+      "sampled_cpu_seconds": 25.2400000000007,
+      "groups": {
+        "storage_union": {
+          "sample_seconds": 1.0300000000000002,
+          "percentage": 4.0808240887479075
+        },
+        "bounds_union": {
+          "sample_seconds": 5.66999999999995,
+          "percentage": 22.46434231378682
+        },
+        "gc_mark_union": {
+          "sample_seconds": 0.03,
+          "percentage": 0.11885895404120114
+        },
+        "allocation_union": {
+          "sample_seconds": 0.7000000000000002,
+          "percentage": 2.773375594294694
+        },
+        "madvise_union": {
+          "sample_seconds": 2.05,
+          "percentage": 8.122028526148744
+        },
+        "heap_reuse_union": {
+          "sample_seconds": 2.03,
+          "percentage": 8.04278922345461
+        },
+        "heap_return_union": {
+          "sample_seconds": 0.02,
+          "percentage": 0.0792393026941341
+        },
+        "cond_signal_flat": {
+          "sample_seconds": 5.729999999999998,
+          "percentage": 22.70206022186941
+        },
+        "cond_wait_flat": {
+          "sample_seconds": 1.56,
+          "percentage": 6.1806656101424595
+        },
+        "rawsyscall_flat": {
+          "sample_seconds": 3.7199999999999984,
+          "percentage": 14.738510301108935
+        }
+      },
+      "limits": "Groups overlap and must not be summed. CPU sample positions, not wall-wait durations. Systemstack allocation samples do not identify the triggering application allocation."
+    },
+    "observer-0-baseline-cpu": {
+      "raw_report": "observer-0-baseline-cpu-raw.txt",
+      "raw_report_sha256": "a0266a1ab0539f56d508a0c61979398987a0f8d10f7867d5613f24d13b598ee7",
+      "sampled_cpu_seconds": 26.21000000000064,
+      "groups": {
+        "storage_union": {
+          "sample_seconds": 3.359999999999998,
+          "percentage": 12.81953452880548
+        },
+        "bounds_union": {
+          "sample_seconds": 5.969999999999952,
+          "percentage": 22.77756581457385
+        },
+        "gc_mark_union": {
+          "sample_seconds": 0.02,
+          "percentage": 0.0763067531476517
+        },
+        "allocation_union": {
+          "sample_seconds": 0.29000000000000004,
+          "percentage": 1.1064479206409499
+        },
+        "madvise_union": {
+          "sample_seconds": 0.03,
+          "percentage": 0.11446012972147755
+        },
+        "heap_reuse_union": {
+          "sample_seconds": 0.02,
+          "percentage": 0.0763067531476517
+        },
+        "heap_return_union": {
+          "sample_seconds": 0.01,
+          "percentage": 0.03815337657382585
+        },
+        "cond_signal_flat": {
+          "sample_seconds": 5.84,
+          "percentage": 22.2815719191143
+        },
+        "cond_wait_flat": {
+          "sample_seconds": 1.97,
+          "percentage": 7.516215185043693
+        },
+        "rawsyscall_flat": {
+          "sample_seconds": 3.5299999999999985,
+          "percentage": 13.468141930560519
+        }
+      },
+      "limits": "Groups overlap and must not be summed. CPU sample positions, not wall-wait durations. Systemstack allocation samples do not identify the triggering application allocation."
+    },
+    "observer-1-baseline-cpu": {
+      "raw_report": "observer-1-baseline-cpu-raw.txt",
+      "raw_report_sha256": "490be1f972ce1e2d7fd37b235a1cf4975f0501c44e4f45d8793209f05665bf42",
+      "sampled_cpu_seconds": 26.230000000000576,
+      "groups": {
+        "storage_union": {
+          "sample_seconds": 3.2199999999999975,
+          "percentage": 12.27601982462801
+        },
+        "bounds_union": {
+          "sample_seconds": 6.469999999999953,
+          "percentage": 24.66641250476481
+        },
+        "gc_mark_union": {
+          "sample_seconds": 0.01,
+          "percentage": 0.03812428516965223
+        },
+        "allocation_union": {
+          "sample_seconds": 0.3,
+          "percentage": 1.143728555089567
+        },
+        "madvise_union": {
+          "sample_seconds": 0.08,
+          "percentage": 0.30499428135721784
+        },
+        "heap_reuse_union": {
+          "sample_seconds": 0.08,
+          "percentage": 0.30499428135721784
+        },
+        "heap_return_union": {
+          "sample_seconds": 0,
+          "percentage": 0.0
+        },
+        "cond_signal_flat": {
+          "sample_seconds": 5.779999999999999,
+          "percentage": 22.035836828058986
+        },
+        "cond_wait_flat": {
+          "sample_seconds": 1.71,
+          "percentage": 6.519252764010532
+        },
+        "rawsyscall_flat": {
+          "sample_seconds": 3.3699999999999983,
+          "percentage": 12.847884102172795
+        }
+      },
+      "limits": "Groups overlap and must not be summed. CPU sample positions, not wall-wait durations. Systemstack allocation samples do not identify the triggering application allocation."
+    },
+    "observer-1-candidate-cpu": {
+      "raw_report": "observer-1-candidate-cpu-raw.txt",
+      "raw_report_sha256": "13cdb98c93e970619aacb83b7308fcafb738e7f5ed3e2cfdc820095f4ba5593a",
+      "sampled_cpu_seconds": 25.690000000000683,
+      "groups": {
+        "storage_union": {
+          "sample_seconds": 1.0800000000000003,
+          "percentage": 4.203970416504366
+        },
+        "bounds_union": {
+          "sample_seconds": 5.869999999999948,
+          "percentage": 22.84935772674111
+        },
+        "gc_mark_union": {
+          "sample_seconds": 0.02,
+          "percentage": 0.07785130400934008
+        },
+        "allocation_union": {
+          "sample_seconds": 0.6300000000000001,
+          "percentage": 2.4523160762942133
+        },
+        "madvise_union": {
+          "sample_seconds": 1.93,
+          "percentage": 7.512650836901318
+        },
+        "heap_reuse_union": {
+          "sample_seconds": 1.92,
+          "percentage": 7.473725184896648
+        },
+        "heap_return_union": {
+          "sample_seconds": 0.01,
+          "percentage": 0.03892565200467004
+        },
+        "cond_signal_flat": {
+          "sample_seconds": 5.77,
+          "percentage": 22.460101206694613
+        },
+        "cond_wait_flat": {
+          "sample_seconds": 1.51,
+          "percentage": 5.877773452705177
+        },
+        "rawsyscall_flat": {
+          "sample_seconds": 3.389999999999998,
+          "percentage": 13.195796029583136
+        }
+      },
+      "limits": "Groups overlap and must not be summed. CPU sample positions, not wall-wait durations. Systemstack allocation samples do not identify the triggering application allocation."
+    }
+  }
+}

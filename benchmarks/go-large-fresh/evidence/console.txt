@@ -1,0 +1,27 @@
+BUILD baseline calibration
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+go: downloading filippo.io/edwards25519 v1.1.0
+BUILD baseline observer
+BUILD candidate calibration
+BUILD candidate observer
+RUN calibration-0-baseline-plain
+PASS calibration-0-baseline-plain 26.631 29.956
+RUN calibration-0-candidate-plain
+PASS calibration-0-candidate-plain 26.042 29.401
+RUN observer-0-baseline-plain
+PASS observer-0-baseline-plain 26.109 29.235
+RUN observer-0-candidate-plain
+PASS observer-0-candidate-plain 25.821 29.023
+RUN observer-0-candidate-cpu
+PASS observer-0-candidate-cpu 25.856 29.144
+RUN observer-0-baseline-cpu
+PASS observer-0-baseline-cpu 27.347 30.406
+RUN observer-1-candidate-plain
+PASS observer-1-candidate-plain 26.75 30.075
+RUN observer-1-baseline-plain
+PASS observer-1-baseline-plain 26.763 30.125
+RUN observer-1-baseline-cpu
+PASS observer-1-baseline-cpu 26.973 30.312
+RUN observer-1-candidate-cpu
+PASS observer-1-candidate-cpu 26.505 29.884
+PASS: 10 executions, runtime inputs unchanged, original SQL/cleanup oracles intact

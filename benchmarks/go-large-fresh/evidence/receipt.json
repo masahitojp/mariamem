@@ -1,0 +1,179 @@
+{
+  "completed": true,
+  "started": 1792191663.515341,
+  "sources": {
+    "baseline": {
+      "identity": {
+        "object_sha": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+        "object_type": "commit",
+        "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61"
+      },
+      "tag_object_sha": "bfd854da1cecbe71ad761d1578b3f2c710a1c07f",
+      "benchmark_source_sha256": "d871520d9b78cc5329883d4d6a034ec882629d77aba7abc9d2c603e6500b0d5a",
+      "observer_source_sha256": "b4dd64bbc160cc497ecf270bfdac92c2c7b6119e12919f840cdd9e2eafe8c819",
+      "overlay_sha256": "a7d04401a4c2c3fa8d6fabac224087f181a3131ca30ff72ef18d951619f641cf",
+      "binaries": {
+        "calibration": {
+          "sha256": "f0e8aaac2694065b82beebc736af9345c22af21c46bc62c41b51f413d0bca48a",
+          "build_info": "<WORKSPACE>/temp/baseline-calibration: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.0\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=44100ec676c8c9064f32f3a01bd9a990d487bb61\n\tbuild\tvcs.time=2026-10-13T12:07:54Z\n\tbuild\tvcs.modified=false\n"
+        },
+        "observer": {
+          "sha256": "c76fd54e482ec8295d4e2f3065ae9b785806b50a0540a0560061d725c9c18b55",
+          "build_info": "<WORKSPACE>/temp/baseline-observer: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.0\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=44100ec676c8c9064f32f3a01bd9a990d487bb61\n\tbuild\tvcs.time=2026-10-13T12:07:54Z\n\tbuild\tvcs.modified=false\n"
+        }
+      }
+    },
+    "candidate": {
+      "identity": {
+        "object_sha": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+        "object_type": "commit",
+        "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb"
+      },
+      "tag_object_sha": "089b32e09608902f6d46e7ab9527d09922dcf065",
+      "benchmark_source_sha256": "34e2ec124cff43de7513773d954f5ed5ab79d9cf394e1cb9c38f967922c7be64",
+      "observer_source_sha256": "760be9af9170a47e05bbc28afa5aa4f0af18958b798fe41475f8adc62ec7cd2e",
+      "overlay_sha256": "76817345e92ffaf51948e9f860e59fcd03a9afec4011ce961649a1cf920ee193",
+      "binaries": {
+        "calibration": {
+          "sha256": "f0d8b4ee620c603714bc0e35796df2f35a03335b87e60ff38e22b56359438156",
+          "build_info": "<WORKSPACE>/temp/candidate-calibration: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=7a82f338cf111d5d52538b5a3f7bf129c12e2dbb\n\tbuild\tvcs.time=2026-10-16T20:02:16Z\n\tbuild\tvcs.modified=false\n"
+        },
+        "observer": {
+          "sha256": "290040720afa3b3fa5b40f580e8c5141609cc4d13bf2ab696eefb1152f951ce9",
+          "build_info": "<WORKSPACE>/temp/candidate-observer: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=7a82f338cf111d5d52538b5a3f7bf129c12e2dbb\n\tbuild\tvcs.time=2026-10-16T20:02:16Z\n\tbuild\tvcs.modified=false\n"
+        }
+      }
+    }
+  },
+  "cells": [
+    {
+      "name": "calibration-0-baseline-plain",
+      "label": "baseline",
+      "kind": "calibration",
+      "trial": 0,
+      "profiled": false,
+      "returncode": 0,
+      "product_seconds": 26.631302540999997,
+      "cpu_seconds": 29.956364,
+      "result_sha256": "0d01a9a88f963a0737c12b131cfa29a5a33a5c1751b8b2ee49cb0bb82b1f4ff0"
+    },
+    {
+      "name": "calibration-0-candidate-plain",
+      "label": "candidate",
+      "kind": "calibration",
+      "trial": 0,
+      "profiled": false,
+      "returncode": 0,
+      "product_seconds": 26.042109709000005,
+      "cpu_seconds": 29.40101,
+      "result_sha256": "6873dcb527418a4bd318ea419e58f5cff52f51afbb0802c20c37f6c611dddaee"
+    },
+    {
+      "name": "observer-0-baseline-plain",
+      "label": "baseline",
+      "kind": "observer",
+      "trial": 0,
+      "profiled": false,
+      "returncode": 0,
+      "product_seconds": 26.109310417,
+      "cpu_seconds": 29.235376,
+      "result_sha256": "9db94ef3be9eb7fbd6b99d863eae4ddd489fc74a3aa8b416fff463938be6f956"
+    },
+    {
+      "name": "observer-0-candidate-plain",
+      "label": "candidate",
+      "kind": "observer",
+      "trial": 0,
+      "profiled": false,
+      "returncode": 0,
+      "product_seconds": 25.820786372,
+      "cpu_seconds": 29.022530000000003,
+      "result_sha256": "ae7aa8b979f2118e55e07218fad45d30fa6c5ccf5dcba5a866fac14432d30ccc"
+    },
+    {
+      "name": "observer-0-candidate-cpu",
+      "label": "candidate",
+      "kind": "observer",
+      "trial": 0,
+      "profiled": true,
+      "returncode": 0,
+      "product_seconds": 25.855851791,
+      "cpu_seconds": 29.144417,
+      "result_sha256": "4777f53772c3d01c93ad3d7f9c645f70b833782656d7d80ad9f51384baec8809",
+      "profile_sha256": "4cca5801e5180fb491b349938729901b4d0eedfec8ca224c9cda5ffe3c749a3b"
+    },
+    {
+      "name": "observer-0-baseline-cpu",
+      "label": "baseline",
+      "kind": "observer",
+      "trial": 0,
+      "profiled": true,
+      "returncode": 0,
+      "product_seconds": 27.347151289000003,
+      "cpu_seconds": 30.406152000000002,
+      "result_sha256": "8c6e96773d57cb9c88279bcf967e3b46c2e1b0108900f62a3fff588b0aade325",
+      "profile_sha256": "15dbfe6f648f38e251b7c386481edf94aef9c2e06d1c92ade8d97a695301860c"
+    },
+    {
+      "name": "observer-1-candidate-plain",
+      "label": "candidate",
+      "kind": "observer",
+      "trial": 1,
+      "profiled": false,
+      "returncode": 0,
+      "product_seconds": 26.750123872999996,
+      "cpu_seconds": 30.075236,
+      "result_sha256": "7f98110b0c29127ebd5f78d2d928cd4188fa7b662b05c01047bd4dec474e5e59"
+    },
+    {
+      "name": "observer-1-baseline-plain",
+      "label": "baseline",
+      "kind": "observer",
+      "trial": 1,
+      "profiled": false,
+      "returncode": 0,
+      "product_seconds": 26.762729788999994,
+      "cpu_seconds": 30.124651,
+      "result_sha256": "c5426a59875118c3b0da89e6d9e60d28290a1dae88bd41e65fe9d35cc32d1dea"
+    },
+    {
+      "name": "observer-1-baseline-cpu",
+      "label": "baseline",
+      "kind": "observer",
+      "trial": 1,
+      "profiled": true,
+      "returncode": 0,
+      "product_seconds": 26.972827457,
+      "cpu_seconds": 30.312186999999998,
+      "result_sha256": "939fcaf790d83dcff8a312b64adcbf8243e6aa818c37397c7c367d7d3f9ca2cc",
+      "profile_sha256": "2cbcab32fbfa28e66fef5196216e053b8da4369ce63cd4e6fd129c10fadb0f1c"
+    },
+    {
+      "name": "observer-1-candidate-cpu",
+      "label": "candidate",
+      "kind": "observer",
+      "trial": 1,
+      "profiled": true,
+      "returncode": 0,
+      "product_seconds": 26.50488929000001,
+      "cpu_seconds": 29.88376,
+      "result_sha256": "57b3e75fceed0981e61b092bcb08348402906fe140e838f7b080dbdbdf05a05e",
+      "profile_sha256": "6b125d469e8c03b53d7d88cd1840810bf8ea4857f2d4bffbf7280f8591ed3663"
+    }
+  ],
+  "harness_source_commit": "870b9a0903968f02a2bf6e6e3a2e2194ead5e9ed",
+  "runner_sha256": "2884a236493decd8e19ccd01a6ab764aecc4cb8ee2d3337012e7936548d78e68",
+  "host": "Darwin MacBookAir 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:05:27 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T8103 arm64",
+  "go": "go1.26.8",
+  "cgo_enabled": 0,
+  "flags": [
+    "-p",
+    "1",
+    "-trimpath",
+    "-buildvcs=true"
+  ],
+  "process_helper_sha256": "6fe68101d7a580d2c7f4e08f267556b6482c2bd8b167cad3fc5f79c1eb5b46d7",
+  "ended": 1792192189.7713401,
+  "peak_owned_bytes": 2522206208,
+  "minimum_free_bytes": 73059553280
+}

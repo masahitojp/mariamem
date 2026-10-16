@@ -1,0 +1,6 @@
+{
+  "memory_bounds_functions": "byte-identical MemoryInBounds and MemoryEA in the two released sources",
+  "source_sha256": "bf90b2fd987ec1f733263af22b61d99f4eac2c272751204bf0d7f751edac2b91",
+  "fresh_workload": "No Snapshot/Fork call in the fresh branch; four independent preparations plus SQL and Close",
+  "runtime_edits": "None; observer overlay replaces only benchmarks/ownedprepared/main.go"
+}

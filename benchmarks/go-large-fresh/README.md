@@ -16,7 +16,7 @@ generated-source edit, wider product matrix or release action.
    timings are diagnostic, never pooled with ordinary timings. Calibration
    exposes differences from adding the unused profile flag/linkage.
 4. The only build overlay is the benchmark main: runtime/pprof import, optional
-   flag, Start/StopCPUProfile and result marker. Runtime/guest inputs remain
+   flag and Start/StopCPUProfile. The receipt records profiling mode and hashes. Runtime/guest inputs remain
    clean. Exact overlay source/map hashes accompany stamped binary identities.
 5. Preserve raw profiles/checksums and pprof text; assess storage, allocation/GC,
    guest SQL and CPU-versus-wall bounds. Sampling cannot by itself prove a
@@ -28,3 +28,11 @@ incomplete. Per workload timeout180s; process RSS above8 GiB stops after a cell
 (sampled safeguard, not a hard RAM quota). Remaining uncertainty is reported
 with a concrete next decision; elapsed budget is not completion. Ubuntu is not
 measured. Finish with evidence/Human Review, commit/push and disposable cleanup.
+
+Run `run.py --workspace WORK --go-root GO_ROOT` through the workspace helper.
+Use real independent Git clones at `WORK/temp/baseline` and `candidate`, detached
+at the typed release pins, not linked worktrees (binary VCS stamping is checked).
+Then `analyze.py --workspace WORK` accounts for every result and sample stack;
+`collect.py --workspace WORK --output NEW_PUBLIC_DIR` normalizes public text.
+The four original small binary CPU profiles stay in local durable evidence;
+the complete `pprof -raw` text plus hashes is published. No raw sample is dropped.

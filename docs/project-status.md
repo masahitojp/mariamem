@@ -5,8 +5,8 @@ This document owns current state and future direction. The
 owns current HOW, [decisions](decisions/snapshot-product-contract.md) own
 continuing product constraints, and reports preserve historical evidence.
 Version themes are direction; they are not release approval.
-The current published release and the authorized v0.5.1 preparation are distinct
-sources. Changing version metadata does not itself publish a release.
+The current published v0.5.1 source and later documentation/research commits are
+distinct identities, even when their version metadata is unchanged.
 
 ## Product contract
 
@@ -48,13 +48,29 @@ observations: median +7.2%). The [Product Verification Human Review](reviews/mai
 recommended accepting that tradeoff. The maintainer accepted the performance
 review and authorized preparation/release as **v0.5.1** on 2026-10-17, explicitly
 deferring the 100 MiB Go Fresh investigation until after release. Release CI
-still owns acceptance of the exact final-version source and its publication;
-neither the earlier READY nor these measurements are relabelled as that source.
+subsequently accepted and published the exact final-version source with both
+native public smokes passing; see the release record below. Neither the earlier
+READY nor the measurements are relabelled as that final source.
 See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
-## Current published release: v0.5.0 — MariaDB 12.3.3
+## Current published release: v0.5.1 — In-memory baselines and shared Python host
+
+[v0.5.1](https://github.com/masahitojp/mariamem/releases/tag/v0.5.1) was published
+on 2026-10-17 JST (2026-10-16 UTC) from source_commit
+`7a82f338cf111d5d52538b5a3f7bf129c12e2dbb`; tag_object_sha
+`089b32e09608902f6d46e7ab9527d09922dcf065`.
+[Release run 38959312232](https://github.com/masahitojp/mariamem/actions/runs/38959312232)
+passed full independent generation/source closure, both native candidate and
+external acceptance, aggregate guard, publication and both public smokes.
+The release includes the startup ordering correction, D block storage, automatic
+Python host sharing per root lineage, and public persistence/loading API removal.
+See [notes](../release/NOTES-v0.5.1.md) and [migration](changes-since-v050.md).
+No PyPI publication was performed. The 100 MiB Go Fresh follow-up below is
+post-release research, not an unfinished release gate.
+
+## Previous release: v0.5.0 — MariaDB 12.3.3
 
 [v0.5.0](https://github.com/masahitojp/mariamem/releases/tag/v0.5.0) was published
 on 2026-10-13 from source `44100ec676c8c9064f32f3a01bd9a990d487bb61`;
@@ -64,11 +80,11 @@ repairs. Its public Go/Python APIs and file-backed Snapshot persistence were
 retained. See the [released notes](../release/NOTES-v0.5.0.md).
 
 The startup ordering correction, D block backing, Python shared host and public
-save/load API removal are later main changes. They are adopted but unreleased;
+save/load API removal are later changes released in v0.5.1;
 see [API differences and migration](changes-since-v050.md). Combined-source
 Qualification and bounded macOS Product Verification have passed for the exact
-SHA above; the maintainer subsequently approved v0.5.1 preparation. Its final
-source/artifacts must pass the existing release workflow. The earlier
+tested runtime SHA; the maintainer subsequently approved v0.5.1 preparation and
+its final source/artifacts passed the release workflow recorded above. The earlier
 v0.5.0 preparation history below does not qualify later main commits.
 
 ## Previous release: v0.4.7 — Upstream converter migration
@@ -196,7 +212,7 @@ Product Validation; those changes are not part of v0.4.5.
 - Physical footprint, RSS and reachable heap are different resource measures.
   The v0.4.2 lifecycle releases linear memory after joined workers; filesystem
   metadata remains GC-managed.
-- Published file-backed Snapshots retain roughly one FD per prepared file.
+- Earlier file-backed releases retain roughly one FD per prepared file.
   The adopted D memory path removes this ordinary backing-FD requirement;
   both-native verification is recorded above. The historical 64-table fixture
   had 137 files and released its backing FDs after Close on both platforms.
@@ -215,10 +231,16 @@ retains the original +29.0% wall-time trial, the three additional pairs (+1.9%
 median), and all four observations (+7.2% wall / +6.3% CPU median). Preparation
 and SQL account for the adverse intervals; storage overhead versus execution
 conditions remains unresolved. The maintainer accepted this tradeoff for
-v0.5.1; it is not an additional release gate. After release, reuse the saved
-phase/CPU/allocation data first and separately scope any profiling or runtime
-repair. Do not call the result measurement noise, promise Fresh acceleration,
-or start that new investigation during release preparation.
+v0.5.1; it is not an additional release gate. The authorized
+[bounded post-release investigation](reviews/go-large-fresh-investigation.md)
+completed ten executions against the two released sources on macOS arm64.
+Ordinary runs did not reproduce a persistent slowdown. Profiles repeatedly
+show lower direct file-I/O CPU and higher Go heap-reuse CPU; the triggering
+allocation is not identified, and the original 32.6-second trial remains
+unexplained. A further one-hour allocation-attribution check is recommended for
+Human Review, not yet approved or executed. No runtime repair or main adoption
+is inferred. Keep the original adverse evidence; do not classify it as noise or
+promise universal Fresh acceleration.
 
 Current storage routing follows the adopted D/shared-host contract and
 [implementation/adoption report](reviews/d-heap-shared-host.md) above. The v0.4.x

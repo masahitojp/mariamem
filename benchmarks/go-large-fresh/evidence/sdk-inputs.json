@@ -1,0 +1,9 @@
+{
+  "toolchain": "go1.26.8 darwin/arm64",
+  "go_sha256": "2ebc27dd4e38e9b86a9f41df0307785f4f7e2997e4be761a7b4af04b41a0de57",
+  "runtime_sources": {
+    "runtime/mem_darwin.go": "5561c1a69491bc5c08075764db75364ada35416157fb3650c25aeab00d07aec0",
+    "runtime/mheap.go": "6147548986e268b53fca158135149396a586cfd7d82aef7669b06f59a113bc04"
+  },
+  "observation": "sysUsedOS marks scavenged heap memory reused using MADV_FREE_REUSE; systemstack frames do not identify the triggering application allocation"
+}

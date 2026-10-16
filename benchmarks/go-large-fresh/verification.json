@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "successful_executions": 10,
+  "DB_lifecycles": 40,
+  "checks": [
+    "Original SQL/commit/rollback/fresh-state/cleanup oracles and balanced memory mappings",
+    "Four clean stamped binary identities and unchanged hashes after measurement",
+    "Public text reproduces every phase, pair and CPU group without binary profiles",
+    "Profile storage-union parser crosschecked against Go pprof with node trimming disabled",
+    "Python AST syntax",
+    "Version and public-source boundary; no duplicate runtime Qualification"
+  ],
+  "pprof_independent_storage_seconds": {
+    "observer-0-candidate-cpu": 1.03,
+    "observer-0-baseline-cpu": 3.36,
+    "observer-1-baseline-cpu": 3.22,
+    "observer-1-candidate-cpu": 1.08
+  },
+  "source_sha256": {
+    "collect.py": "9830cc2f40130267fc67ecd660a63340812b30997604ac31b41265c10463ef1c",
+    "run.py": "2884a236493decd8e19ccd01a6ab764aecc4cb8ee2d3337012e7936548d78e68",
+    "analyze.py": "fa95f24c044cb8fefd4967a6dbbf04f289e33f639e765e36ab171c68d7df5871"
+  }
+}

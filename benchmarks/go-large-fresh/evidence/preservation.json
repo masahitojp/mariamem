@@ -1,0 +1,373 @@
+{
+  "normalization": "Task/repository/home path prefixes; .log becomes .txt; LF line endings and trailing whitespace removal. Numeric observations and sample stacks are unchanged.",
+  "collector_sha256": "9830cc2f40130267fc67ecd660a63340812b30997604ac31b41265c10463ef1c",
+  "files": [
+    {
+      "source": "analysis.json",
+      "stored": "analysis.json",
+      "original_sha256": "9d7de3d30ab68085ae20da9184f837e5141a40aaf84dfc64d147fd1a13f1f9a7",
+      "stored_sha256": "9d7de3d30ab68085ae20da9184f837e5141a40aaf84dfc64d147fd1a13f1f9a7",
+      "normalized": false
+    },
+    {
+      "source": "calibration-0-baseline-plain.json",
+      "stored": "calibration-0-baseline-plain.json",
+      "original_sha256": "0d01a9a88f963a0737c12b131cfa29a5a33a5c1751b8b2ee49cb0bb82b1f4ff0",
+      "stored_sha256": "0d01a9a88f963a0737c12b131cfa29a5a33a5c1751b8b2ee49cb0bb82b1f4ff0",
+      "normalized": false
+    },
+    {
+      "source": "calibration-0-baseline-plain.txt",
+      "stored": "calibration-0-baseline-plain.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "calibration-0-candidate-plain.json",
+      "stored": "calibration-0-candidate-plain.json",
+      "original_sha256": "6873dcb527418a4bd318ea419e58f5cff52f51afbb0802c20c37f6c611dddaee",
+      "stored_sha256": "6873dcb527418a4bd318ea419e58f5cff52f51afbb0802c20c37f6c611dddaee",
+      "normalized": false
+    },
+    {
+      "source": "calibration-0-candidate-plain.txt",
+      "stored": "calibration-0-candidate-plain.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "console.log",
+      "stored": "console.txt",
+      "original_sha256": "85e1f5734470e821f875ab1f3ded0702feef04c363aed34cb9f9bd995fe4a465",
+      "stored_sha256": "85e1f5734470e821f875ab1f3ded0702feef04c363aed34cb9f9bd995fe4a465",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu-cum.txt",
+      "stored": "observer-0-baseline-cpu-cum.txt",
+      "original_sha256": "a49f063f20ed1eb891a3315d34869810093489d6f0c7d5c8c537730e864896d9",
+      "stored_sha256": "a49f063f20ed1eb891a3315d34869810093489d6f0c7d5c8c537730e864896d9",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu-gc.txt",
+      "stored": "observer-0-baseline-cpu-gc.txt",
+      "original_sha256": "bf89e7e061d9ae295e5afb89a4d8112c30edd2395e6705459eeaadcbe46d7442",
+      "stored_sha256": "bf89e7e061d9ae295e5afb89a4d8112c30edd2395e6705459eeaadcbe46d7442",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu-raw.txt",
+      "stored": "observer-0-baseline-cpu-raw.txt",
+      "original_sha256": "a0266a1ab0539f56d508a0c61979398987a0f8d10f7867d5613f24d13b598ee7",
+      "stored_sha256": "ca0a6ca8738738c8ef36222c7030f1482229d2abfecf855fddc58b9b71920a1d",
+      "normalized": true
+    },
+    {
+      "source": "observer-0-baseline-cpu-storage.txt",
+      "stored": "observer-0-baseline-cpu-storage.txt",
+      "original_sha256": "0a59f16f67d7a18fa32c45c6f09706efc994cd143ec1d7f8d1ee540bfdf68102",
+      "stored_sha256": "0a59f16f67d7a18fa32c45c6f09706efc994cd143ec1d7f8d1ee540bfdf68102",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu-top.txt",
+      "stored": "observer-0-baseline-cpu-top.txt",
+      "original_sha256": "4718272201420b4a233edb302fe81e5c9017f97554babd904c51e2fb4ce4d8ac",
+      "stored_sha256": "4718272201420b4a233edb302fe81e5c9017f97554babd904c51e2fb4ce4d8ac",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu.json",
+      "stored": "observer-0-baseline-cpu.json",
+      "original_sha256": "8c6e96773d57cb9c88279bcf967e3b46c2e1b0108900f62a3fff588b0aade325",
+      "stored_sha256": "8c6e96773d57cb9c88279bcf967e3b46c2e1b0108900f62a3fff588b0aade325",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-cpu.pprof",
+      "stored": null,
+      "original_sha256": "15dbfe6f648f38e251b7c386481edf94aef9c2e06d1c92ade8d97a695301860c",
+      "reason": "Original binary CPU profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-0-baseline-cpu.txt",
+      "stored": "observer-0-baseline-cpu.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-plain.json",
+      "stored": "observer-0-baseline-plain.json",
+      "original_sha256": "9db94ef3be9eb7fbd6b99d863eae4ddd489fc74a3aa8b416fff463938be6f956",
+      "stored_sha256": "9db94ef3be9eb7fbd6b99d863eae4ddd489fc74a3aa8b416fff463938be6f956",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-baseline-plain.txt",
+      "stored": "observer-0-baseline-plain.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu-cum.txt",
+      "stored": "observer-0-candidate-cpu-cum.txt",
+      "original_sha256": "c3c0e1596c3041ebaaa9dd9f9fc7e0dbd0739702e4ee7a1b1ea9ef0880a0fdf6",
+      "stored_sha256": "c3c0e1596c3041ebaaa9dd9f9fc7e0dbd0739702e4ee7a1b1ea9ef0880a0fdf6",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu-gc.txt",
+      "stored": "observer-0-candidate-cpu-gc.txt",
+      "original_sha256": "6d1b8956f36a13b11252d3cb9e97378b201572c3a336ac99fa30b3618af75dfa",
+      "stored_sha256": "6d1b8956f36a13b11252d3cb9e97378b201572c3a336ac99fa30b3618af75dfa",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu-raw.txt",
+      "stored": "observer-0-candidate-cpu-raw.txt",
+      "original_sha256": "79050fd75032092f02b91577b9b78394c960c807a3cf05a96b35c340df13a9e4",
+      "stored_sha256": "1024cebe64497142efdd39b8939a9e4bf72879473957407c2dfaa8771347c8d2",
+      "normalized": true
+    },
+    {
+      "source": "observer-0-candidate-cpu-storage.txt",
+      "stored": "observer-0-candidate-cpu-storage.txt",
+      "original_sha256": "0d176ceb064427c74d2faba335ee95a770516fc790a5b243127486b8e45a8613",
+      "stored_sha256": "0d176ceb064427c74d2faba335ee95a770516fc790a5b243127486b8e45a8613",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu-top.txt",
+      "stored": "observer-0-candidate-cpu-top.txt",
+      "original_sha256": "863730aa7163ff351e1eee84383f17f73e606cfedb9b193e332c0e12dfb21fdb",
+      "stored_sha256": "863730aa7163ff351e1eee84383f17f73e606cfedb9b193e332c0e12dfb21fdb",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu.json",
+      "stored": "observer-0-candidate-cpu.json",
+      "original_sha256": "4777f53772c3d01c93ad3d7f9c645f70b833782656d7d80ad9f51384baec8809",
+      "stored_sha256": "4777f53772c3d01c93ad3d7f9c645f70b833782656d7d80ad9f51384baec8809",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-cpu.pprof",
+      "stored": null,
+      "original_sha256": "4cca5801e5180fb491b349938729901b4d0eedfec8ca224c9cda5ffe3c749a3b",
+      "reason": "Original binary CPU profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-0-candidate-cpu.txt",
+      "stored": "observer-0-candidate-cpu.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-plain.json",
+      "stored": "observer-0-candidate-plain.json",
+      "original_sha256": "ae7aa8b979f2118e55e07218fad45d30fa6c5ccf5dcba5a866fac14432d30ccc",
+      "stored_sha256": "ae7aa8b979f2118e55e07218fad45d30fa6c5ccf5dcba5a866fac14432d30ccc",
+      "normalized": false
+    },
+    {
+      "source": "observer-0-candidate-plain.txt",
+      "stored": "observer-0-candidate-plain.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu-cum.txt",
+      "stored": "observer-1-baseline-cpu-cum.txt",
+      "original_sha256": "e97c1cab7131857504acded1f2d6c594c91e4d96fb78b07e52a532d42b48a2aa",
+      "stored_sha256": "e97c1cab7131857504acded1f2d6c594c91e4d96fb78b07e52a532d42b48a2aa",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu-gc.txt",
+      "stored": "observer-1-baseline-cpu-gc.txt",
+      "original_sha256": "f75c58f88f49b3964eeb9f32c2c0baed8ec72648b8b2dc7c5b86cbddb2065ba7",
+      "stored_sha256": "f75c58f88f49b3964eeb9f32c2c0baed8ec72648b8b2dc7c5b86cbddb2065ba7",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu-raw.txt",
+      "stored": "observer-1-baseline-cpu-raw.txt",
+      "original_sha256": "490be1f972ce1e2d7fd37b235a1cf4975f0501c44e4f45d8793209f05665bf42",
+      "stored_sha256": "a96adc3dd86bef3f81a156695e81e6403e1ece722292788b50c071ff74d1c019",
+      "normalized": true
+    },
+    {
+      "source": "observer-1-baseline-cpu-storage.txt",
+      "stored": "observer-1-baseline-cpu-storage.txt",
+      "original_sha256": "72cad0eb2df2d211727619a6d6c177006562864c26437ab5147157ded559dfb3",
+      "stored_sha256": "72cad0eb2df2d211727619a6d6c177006562864c26437ab5147157ded559dfb3",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu-top.txt",
+      "stored": "observer-1-baseline-cpu-top.txt",
+      "original_sha256": "e7807363990019071229c90a0cf09482291206146cbfc1b90c4a97d0d0b160f2",
+      "stored_sha256": "e7807363990019071229c90a0cf09482291206146cbfc1b90c4a97d0d0b160f2",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu.json",
+      "stored": "observer-1-baseline-cpu.json",
+      "original_sha256": "939fcaf790d83dcff8a312b64adcbf8243e6aa818c37397c7c367d7d3f9ca2cc",
+      "stored_sha256": "939fcaf790d83dcff8a312b64adcbf8243e6aa818c37397c7c367d7d3f9ca2cc",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-cpu.pprof",
+      "stored": null,
+      "original_sha256": "2cbcab32fbfa28e66fef5196216e053b8da4369ce63cd4e6fd129c10fadb0f1c",
+      "reason": "Original binary CPU profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-1-baseline-cpu.txt",
+      "stored": "observer-1-baseline-cpu.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-plain.json",
+      "stored": "observer-1-baseline-plain.json",
+      "original_sha256": "c5426a59875118c3b0da89e6d9e60d28290a1dae88bd41e65fe9d35cc32d1dea",
+      "stored_sha256": "c5426a59875118c3b0da89e6d9e60d28290a1dae88bd41e65fe9d35cc32d1dea",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-baseline-plain.txt",
+      "stored": "observer-1-baseline-plain.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu-cum.txt",
+      "stored": "observer-1-candidate-cpu-cum.txt",
+      "original_sha256": "93fc69ccb66390b248d3456d8831fb0876b041f134f506ae2835384025e8c977",
+      "stored_sha256": "93fc69ccb66390b248d3456d8831fb0876b041f134f506ae2835384025e8c977",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu-gc.txt",
+      "stored": "observer-1-candidate-cpu-gc.txt",
+      "original_sha256": "2b6efbb3febe99cb50788e1d1599ba26a25737f5ebb5e2024dfff62c900278f1",
+      "stored_sha256": "2b6efbb3febe99cb50788e1d1599ba26a25737f5ebb5e2024dfff62c900278f1",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu-raw.txt",
+      "stored": "observer-1-candidate-cpu-raw.txt",
+      "original_sha256": "13cdb98c93e970619aacb83b7308fcafb738e7f5ed3e2cfdc820095f4ba5593a",
+      "stored_sha256": "9846ace6ff328ec65322127817dd77da483595256c1a0d95f782149c21905ca2",
+      "normalized": true
+    },
+    {
+      "source": "observer-1-candidate-cpu-storage.txt",
+      "stored": "observer-1-candidate-cpu-storage.txt",
+      "original_sha256": "187cc445c14539dc9a5b9c800a0808de2b9550cb6b0a4cd79ef04d6ce4685f88",
+      "stored_sha256": "187cc445c14539dc9a5b9c800a0808de2b9550cb6b0a4cd79ef04d6ce4685f88",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu-top.txt",
+      "stored": "observer-1-candidate-cpu-top.txt",
+      "original_sha256": "da053a8d71e800b81a35a28c763cc8453aa5c70f9d73a1ba72601fdbf72033f1",
+      "stored_sha256": "da053a8d71e800b81a35a28c763cc8453aa5c70f9d73a1ba72601fdbf72033f1",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu.json",
+      "stored": "observer-1-candidate-cpu.json",
+      "original_sha256": "57b3e75fceed0981e61b092bcb08348402906fe140e838f7b080dbdbdf05a05e",
+      "stored_sha256": "57b3e75fceed0981e61b092bcb08348402906fe140e838f7b080dbdbdf05a05e",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-cpu.pprof",
+      "stored": null,
+      "original_sha256": "6b125d469e8c03b53d7d88cd1840810bf8ea4857f2d4bffbf7280f8591ed3663",
+      "reason": "Original binary CPU profile retained in local compact evidence. Complete sample/location/mapping text is public in the matching -raw.txt file."
+    },
+    {
+      "source": "observer-1-candidate-cpu.txt",
+      "stored": "observer-1-candidate-cpu.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-plain.json",
+      "stored": "observer-1-candidate-plain.json",
+      "original_sha256": "7f98110b0c29127ebd5f78d2d928cd4188fa7b662b05c01047bd4dec474e5e59",
+      "stored_sha256": "7f98110b0c29127ebd5f78d2d928cd4188fa7b662b05c01047bd4dec474e5e59",
+      "normalized": false
+    },
+    {
+      "source": "observer-1-candidate-plain.txt",
+      "stored": "observer-1-candidate-plain.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized": false
+    },
+    {
+      "source": "observer-overlay/baseline-observer-source.go.txt",
+      "stored": "observer-overlay/baseline-observer-source.go.txt",
+      "original_sha256": "b4dd64bbc160cc497ecf270bfdac92c2c7b6119e12919f840cdd9e2eafe8c819",
+      "stored_sha256": "b4dd64bbc160cc497ecf270bfdac92c2c7b6119e12919f840cdd9e2eafe8c819",
+      "normalized": false
+    },
+    {
+      "source": "observer-overlay/baseline-overlay.json",
+      "stored": "observer-overlay/baseline-overlay.json",
+      "original_sha256": "a7d04401a4c2c3fa8d6fabac224087f181a3131ca30ff72ef18d951619f641cf",
+      "stored_sha256": "50b7e37688f02ff74b213a47987a29693326a962bd81634d75f0a643356bfd0d",
+      "normalized": true
+    },
+    {
+      "source": "observer-overlay/candidate-observer-source.go.txt",
+      "stored": "observer-overlay/candidate-observer-source.go.txt",
+      "original_sha256": "760be9af9170a47e05bbc28afa5aa4f0af18958b798fe41475f8adc62ec7cd2e",
+      "stored_sha256": "760be9af9170a47e05bbc28afa5aa4f0af18958b798fe41475f8adc62ec7cd2e",
+      "normalized": false
+    },
+    {
+      "source": "observer-overlay/candidate-overlay.json",
+      "stored": "observer-overlay/candidate-overlay.json",
+      "original_sha256": "76817345e92ffaf51948e9f860e59fcd03a9afec4011ce961649a1cf920ee193",
+      "stored_sha256": "461eeac313ea6c3801de753a8007bba76cc1b32b0ca0a952de9e856ac69bf163",
+      "normalized": true
+    },
+    {
+      "source": "receipt.json",
+      "stored": "receipt.json",
+      "original_sha256": "6fe5654cf96f340dbb86033cc433fb0003186ac509edb5f9bfcb3112a0242c9d",
+      "stored_sha256": "b5dc4400645c765148523a8b950b6805171c12c6dd08dc9adf4df036babff7e3",
+      "normalized": true
+    },
+    {
+      "source": "sdk-inputs.json",
+      "stored": "sdk-inputs.json",
+      "original_sha256": "510401a13384071dd9dcc8b7ead41faec4ab032ca25b1a54b3fd655bdfd8a096",
+      "stored_sha256": "510401a13384071dd9dcc8b7ead41faec4ab032ca25b1a54b3fd655bdfd8a096",
+      "normalized": false
+    },
+    {
+      "source": "static-audit.json",
+      "stored": "static-audit.json",
+      "original_sha256": "7a7c29c042cba8c0d419eec1139d5821c11bd7fe89aef8f959a2c78085c63bd6",
+      "stored_sha256": "7a7c29c042cba8c0d419eec1139d5821c11bd7fe89aef8f959a2c78085c63bd6",
+      "normalized": false
+    }
+  ]
+}
