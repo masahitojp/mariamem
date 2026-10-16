@@ -1,0 +1,27 @@
+{
+  "owner": "mariamem-experiment-v1",
+  "name": "main-performance",
+  "repo": "<REPOSITORY>",
+  "state": "failed",
+  "base_sha": "ec93b188e003025d1b7aa2feb0f02127404c3dbb",
+  "created": 1792175389.050601,
+  "min_free_gib": 20.0,
+  "budget_gib": 12.0,
+  "disposable": [
+    "temp",
+    "worktree"
+  ],
+  "evidence": "evidence",
+  "branch": "experiment/main-performance",
+  "command": [
+    "<WORKSPACE>/temp/venv/bin/python",
+    "benchmarks/main-product-evidence/run-all.py",
+    "--workspace",
+    "<WORKSPACE>",
+    "--go-root",
+    "<HOME>/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64"
+  ],
+  "returncode": 1,
+  "peak_owned_bytes": 2668122112,
+  "minimum_free_bytes": 76824064000
+}

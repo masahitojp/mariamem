@@ -1,0 +1,55 @@
+{
+  "go": "go version go1.26.8 darwin/arm64",
+  "flags": [
+    "-p",
+    "1",
+    "-trimpath",
+    "-buildvcs=true"
+  ],
+  "CGO_ENABLED": "0",
+  "states": {
+    "baseline": {
+      "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+      "tree_sha": "ca7c568b20d667c3935bec4c5361decccc2b4390",
+      "guest": "7c7b6ce5168a1a0d98019751b4c36c25f2e9948dbae0124ec3f434efb0b8642c",
+      "generated_provenance_sha256": "5172cc89b7823bb59eef9d86972d74bfa68ac87b26bd9f12dd37aad3f717883c",
+      "binary_sha256": {
+        "ownedprepared": "f0e8aaac2694065b82beebc736af9345c22af21c46bc62c41b51f413d0bca48a",
+        "mariamem-host": "037165877b0298b289d014b8ec7435b8139b04fad7bcfa11c5c30e683bb13452"
+      },
+      "go_build_info": {
+        "ownedprepared": "<WORKSPACE>/temp/binaries/baseline/ownedprepared: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.0\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=44100ec676c8c9064f32f3a01bd9a990d487bb61\n\tbuild\tvcs.time=2026-10-13T12:07:54Z\n\tbuild\tvcs.modified=false\n",
+        "mariamem-host": "<WORKSPACE>/temp/binaries/baseline/mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.0\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=44100ec676c8c9064f32f3a01bd9a990d487bb61\n\tbuild\tvcs.time=2026-10-13T12:07:54Z\n\tbuild\tvcs.modified=false\n"
+      }
+    },
+    "candidate": {
+      "source_commit": "c97e55fc065f6ee7b560325077726da53e5d95d7",
+      "tree_sha": "a26a9c1f15ab2e5b2ae756297b19b5cd5b531ba4",
+      "guest": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+      "generated_provenance_sha256": "7c7ad7b5a14b55d3d63cb9bc2484e7c93e99860f0a1b0731104d01f8ecc94589",
+      "binary_sha256": {
+        "ownedprepared": "102a6351f4b6a7ba8d35555668b3f14516b77ab70220a4906e7339d7995306fe",
+        "mariamem-host": "c23d8627d9534bc72d4e3bb26e29d3efdf17edd9a7a0797774e450f3fb81ac53"
+      },
+      "go_build_info": {
+        "ownedprepared": "<WORKSPACE>/temp/binaries/candidate/ownedprepared: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1-0.20261016164135-c97e55fc065f\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c97e55fc065f6ee7b560325077726da53e5d95d7\n\tbuild\tvcs.time=2026-10-16T16:41:35Z\n\tbuild\tvcs.modified=false\n",
+        "mariamem-host": "<WORKSPACE>/temp/binaries/candidate/mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1-0.20261016164135-c97e55fc065f\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c97e55fc065f6ee7b560325077726da53e5d95d7\n\tbuild\tvcs.time=2026-10-16T16:41:35Z\n\tbuild\tvcs.modified=false\n"
+      }
+    }
+  },
+  "observer_equivalence": "identical resources/Python; Go differs only by retired unused export guard and empty SnapshotOptions",
+  "observer_sources": {
+    "baseline": {
+      "benchmarks/ownedprepared/main.go": "d871520d9b78cc5329883d4d6a034ec882629d77aba7abc9d2c603e6500b0d5a",
+      "benchmarks/ownedprepared/resources.go": "38130a59ef787516142528d3eef997e648322ab7f3cc45a4f2f4a529f7188f6c",
+      "benchmarks/python_product_suites.py": "f0d0e98a213bcebd423c913ce204e86d9af5ee11967cdfe905e739f7ff4d5102"
+    },
+    "candidate": {
+      "benchmarks/ownedprepared/main.go": "34e2ec124cff43de7513773d954f5ed5ab79d9cf394e1cb9c38f967922c7be64",
+      "benchmarks/ownedprepared/resources.go": "38130a59ef787516142528d3eef997e648322ab7f3cc45a4f2f4a529f7188f6c",
+      "benchmarks/python_product_suites.py": "f0d0e98a213bcebd423c913ce204e86d9af5ee11967cdfe905e739f7ff4d5102"
+    }
+  },
+  "process_helper_sha256": "6fe68101d7a580d2c7f4e08f267556b6482c2bd8b167cad3fc5f79c1eb5b46d7",
+  "cc_version": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n"
+}

@@ -1,0 +1,999 @@
+{
+  "source_commits": {
+    "baseline": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+    "candidate": "c97e55fc065f6ee7b560325077726da53e5d95d7"
+  },
+  "harness_source_commit": "c618b0ac3a3c3a204099cb3fe152c87a59def1f4",
+  "harness_sha256": {
+    "benchmarks/main-product-evidence/run-product.py": "a2622e4529011bd9844dd7ce5a2f3474c51fa1adbe1a5465054b8d00f23060ff",
+    "benchmarks/python_product_suites.py": "f0d0e98a213bcebd423c913ce204e86d9af5ee11967cdfe905e739f7ff4d5102",
+    "benchmarks/ownedprepared/main.go": "34e2ec124cff43de7513773d954f5ed5ab79d9cf394e1cb9c38f967922c7be64",
+    "benchmarks/ownedprepared/resources.go": "38130a59ef787516142528d3eef997e648322ab7f3cc45a4f2f4a529f7188f6c"
+  },
+  "go": "go version go1.26.8 darwin/arm64",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "trials": 3,
+  "large_trials": 1,
+  "suite_count": 4,
+  "normal_cells": 80,
+  "pilots": 8,
+  "cell_timeout_seconds": 900,
+  "disk_budget_gib": 12,
+  "minimum_free_gib": 20,
+  "scope": "Approved paired Go/Python Fresh/Fork comparison; native container anchors are not included.",
+  "host": {
+    "uname": "Darwin MacBookAir 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:05:27 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T8103 arm64",
+    "ram_bytes": 17179869184,
+    "macos": "27.0.1"
+  },
+  "cells": [
+    {
+      "name": "pilot-baseline-go-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.423512916080654,
+      "disk": {
+        "owned_bytes": 2380529664,
+        "free_bytes": 77063303168,
+        "peak_owned_bytes": 2380529664,
+        "minimum_free_bytes": 77063299072
+      }
+    },
+    {
+      "name": "pilot-baseline-go-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.416038209106773,
+      "disk": {
+        "owned_bytes": 2380537856,
+        "free_bytes": 77059129344,
+        "peak_owned_bytes": 2380537856,
+        "minimum_free_bytes": 77059129344
+      }
+    },
+    {
+      "name": "pilot-baseline-python-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.3768345839343965,
+      "disk": {
+        "owned_bytes": 2380599296,
+        "free_bytes": 77059100672,
+        "peak_owned_bytes": 2380599296,
+        "minimum_free_bytes": 77059100672
+      }
+    },
+    {
+      "name": "pilot-baseline-python-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.3881627910304815,
+      "disk": {
+        "owned_bytes": 2380603392,
+        "free_bytes": 77058011136,
+        "peak_owned_bytes": 2380603392,
+        "minimum_free_bytes": 77057814528
+      }
+    },
+    {
+      "name": "pilot-candidate-go-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.393939250148833,
+      "disk": {
+        "owned_bytes": 2380611584,
+        "free_bytes": 77059760128,
+        "peak_owned_bytes": 2380611584,
+        "minimum_free_bytes": 77057921024
+      }
+    },
+    {
+      "name": "pilot-candidate-go-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.423392541939393,
+      "disk": {
+        "owned_bytes": 2380619776,
+        "free_bytes": 77059215360,
+        "peak_owned_bytes": 2380619776,
+        "minimum_free_bytes": 77059215360
+      }
+    },
+    {
+      "name": "pilot-candidate-python-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.410381166962907,
+      "disk": {
+        "owned_bytes": 2380677120,
+        "free_bytes": 77059022848,
+        "peak_owned_bytes": 2380677120,
+        "minimum_free_bytes": 77059022848
+      }
+    },
+    {
+      "name": "pilot-candidate-python-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.367649665800855,
+      "disk": {
+        "owned_bytes": 2380681216,
+        "free_bytes": 77058920448,
+        "peak_owned_bytes": 2380681216,
+        "minimum_free_bytes": 77058920448
+      }
+    },
+    {
+      "name": "baseline-go-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.373706417158246,
+      "disk": {
+        "owned_bytes": 2380693504,
+        "free_bytes": 77059059712,
+        "peak_owned_bytes": 2380693504,
+        "minimum_free_bytes": 77058920448
+      }
+    },
+    {
+      "name": "candidate-go-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.373484333045781,
+      "disk": {
+        "owned_bytes": 2380709888,
+        "free_bytes": 77058805760,
+        "peak_owned_bytes": 2380709888,
+        "minimum_free_bytes": 77058805760
+      }
+    },
+    {
+      "name": "candidate-go-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.4192812498658895,
+      "disk": {
+        "owned_bytes": 2380722176,
+        "free_bytes": 77057646592,
+        "peak_owned_bytes": 2380722176,
+        "minimum_free_bytes": 77057646592
+      }
+    },
+    {
+      "name": "baseline-go-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.423427750123665,
+      "disk": {
+        "owned_bytes": 2380734464,
+        "free_bytes": 77057908736,
+        "peak_owned_bytes": 2380734464,
+        "minimum_free_bytes": 77057646592
+      }
+    },
+    {
+      "name": "baseline-python-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.415357499849051,
+      "disk": {
+        "owned_bytes": 2380738560,
+        "free_bytes": 77057859584,
+        "peak_owned_bytes": 2380738560,
+        "minimum_free_bytes": 77057859584
+      }
+    },
+    {
+      "name": "candidate-python-light-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.413002459099516,
+      "disk": {
+        "owned_bytes": 2380742656,
+        "free_bytes": 77057835008,
+        "peak_owned_bytes": 2380742656,
+        "minimum_free_bytes": 77057835008
+      }
+    },
+    {
+      "name": "candidate-python-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.41461820807308,
+      "disk": {
+        "owned_bytes": 2380746752,
+        "free_bytes": 77056872448,
+        "peak_owned_bytes": 2380746752,
+        "minimum_free_bytes": 77056872448
+      }
+    },
+    {
+      "name": "baseline-python-light-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.413627874804661,
+      "disk": {
+        "owned_bytes": 2380750848,
+        "free_bytes": 77056671744,
+        "peak_owned_bytes": 2380750848,
+        "minimum_free_bytes": 77056671744
+      }
+    },
+    {
+      "name": "baseline-go-fixture-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.3754605408757925,
+      "disk": {
+        "owned_bytes": 2380763136,
+        "free_bytes": 77056974848,
+        "peak_owned_bytes": 2380763136,
+        "minimum_free_bytes": 77056839680
+      }
+    },
+    {
+      "name": "candidate-go-fixture-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.427200582809746,
+      "disk": {
+        "owned_bytes": 2380775424,
+        "free_bytes": 77056917504,
+        "peak_owned_bytes": 2380775424,
+        "minimum_free_bytes": 77056917504
+      }
+    },
+    {
+      "name": "candidate-go-fixture-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.422675332985818,
+      "disk": {
+        "owned_bytes": 2380787712,
+        "free_bytes": 77056503808,
+        "peak_owned_bytes": 2380787712,
+        "minimum_free_bytes": 77056503808
+      }
+    },
+    {
+      "name": "baseline-go-fixture-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.428362749982625,
+      "disk": {
+        "owned_bytes": 2380800000,
+        "free_bytes": 77055422464,
+        "peak_owned_bytes": 2380800000,
+        "minimum_free_bytes": 77055422464
+      }
+    },
+    {
+      "name": "baseline-python-fixture-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.415603790897876,
+      "disk": {
+        "owned_bytes": 2380804096,
+        "free_bytes": 77054038016,
+        "peak_owned_bytes": 2380804096,
+        "minimum_free_bytes": 77054038016
+      }
+    },
+    {
+      "name": "candidate-python-fixture-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.3793059170711786,
+      "disk": {
+        "owned_bytes": 2380808192,
+        "free_bytes": 77446553600,
+        "peak_owned_bytes": 2380808192,
+        "minimum_free_bytes": 77054025728
+      }
+    },
+    {
+      "name": "candidate-python-fixture-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.426254166988656,
+      "disk": {
+        "owned_bytes": 2380812288,
+        "free_bytes": 77444296704,
+        "peak_owned_bytes": 2380812288,
+        "minimum_free_bytes": 77444296704
+      }
+    },
+    {
+      "name": "baseline-python-fixture-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.41387595795095,
+      "disk": {
+        "owned_bytes": 2380820480,
+        "free_bytes": 77445189632,
+        "peak_owned_bytes": 2380820480,
+        "minimum_free_bytes": 77444255744
+      }
+    },
+    {
+      "name": "baseline-go-parallel-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.441526916110888,
+      "disk": {
+        "owned_bytes": 2380828672,
+        "free_bytes": 77444677632,
+        "peak_owned_bytes": 2380828672,
+        "minimum_free_bytes": 77444677632
+      }
+    },
+    {
+      "name": "candidate-go-parallel-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.450544708874077,
+      "disk": {
+        "owned_bytes": 2380836864,
+        "free_bytes": 80358641664,
+        "peak_owned_bytes": 2380836864,
+        "minimum_free_bytes": 77444759552
+      }
+    },
+    {
+      "name": "candidate-go-parallel-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.370647040894255,
+      "disk": {
+        "owned_bytes": 2380845056,
+        "free_bytes": 80358260736,
+        "peak_owned_bytes": 2380845056,
+        "minimum_free_bytes": 80358260736
+      }
+    },
+    {
+      "name": "baseline-go-parallel-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.421074166893959,
+      "disk": {
+        "owned_bytes": 2380853248,
+        "free_bytes": 80356872192,
+        "peak_owned_bytes": 2380853248,
+        "minimum_free_bytes": 80356872192
+      }
+    },
+    {
+      "name": "baseline-python-parallel-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.41098954109475,
+      "disk": {
+        "owned_bytes": 2380857344,
+        "free_bytes": 80355258368,
+        "peak_owned_bytes": 2380857344,
+        "minimum_free_bytes": 80355258368
+      }
+    },
+    {
+      "name": "candidate-python-parallel-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.421798499999568,
+      "disk": {
+        "owned_bytes": 2380861440,
+        "free_bytes": 80355721216,
+        "peak_owned_bytes": 2380861440,
+        "minimum_free_bytes": 80355258368
+      }
+    },
+    {
+      "name": "candidate-python-parallel-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.4625042921397835,
+      "disk": {
+        "owned_bytes": 2380865536,
+        "free_bytes": 80356528128,
+        "peak_owned_bytes": 2380865536,
+        "minimum_free_bytes": 80355663872
+      }
+    },
+    {
+      "name": "baseline-python-parallel-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.375562416156754,
+      "disk": {
+        "owned_bytes": 2380869632,
+        "free_bytes": 80356306944,
+        "peak_owned_bytes": 2380869632,
+        "minimum_free_bytes": 80356306944
+      }
+    },
+    {
+      "name": "baseline-go-large-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 25.911623666994274,
+      "disk": {
+        "owned_bytes": 2380881920,
+        "free_bytes": 80353759232,
+        "peak_owned_bytes": 2380881920,
+        "minimum_free_bytes": 80353759232
+      }
+    },
+    {
+      "name": "candidate-go-large-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 37.367831957992166,
+      "disk": {
+        "owned_bytes": 2380894208,
+        "free_bytes": 80328413184,
+        "peak_owned_bytes": 2380894208,
+        "minimum_free_bytes": 80328413184
+      }
+    },
+    {
+      "name": "candidate-go-large-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 15.832057874882594,
+      "disk": {
+        "owned_bytes": 2380906496,
+        "free_bytes": 80308891648,
+        "peak_owned_bytes": 2380906496,
+        "minimum_free_bytes": 80308891648
+      }
+    },
+    {
+      "name": "baseline-go-large-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 15.784349707886577,
+      "disk": {
+        "owned_bytes": 2380918784,
+        "free_bytes": 80261529600,
+        "peak_owned_bytes": 2380918784,
+        "minimum_free_bytes": 80031916032
+      }
+    },
+    {
+      "name": "baseline-python-large-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 31.186772583052516,
+      "disk": {
+        "owned_bytes": 2380922880,
+        "free_bytes": 79999995904,
+        "peak_owned_bytes": 2380922880,
+        "minimum_free_bytes": 79999987712
+      }
+    },
+    {
+      "name": "candidate-python-large-0-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 31.11552849994041,
+      "disk": {
+        "owned_bytes": 2380931072,
+        "free_bytes": 79969443840,
+        "peak_owned_bytes": 2380931072,
+        "minimum_free_bytes": 79969443840
+      }
+    },
+    {
+      "name": "candidate-python-large-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 10.544790291925892,
+      "disk": {
+        "owned_bytes": 2380935168,
+        "free_bytes": 79970390016,
+        "peak_owned_bytes": 2380935168,
+        "minimum_free_bytes": 79969427456
+      }
+    },
+    {
+      "name": "baseline-python-large-0-fork",
+      "returncode": 0,
+      "elapsed_seconds": 15.699025250039995,
+      "disk": {
+        "owned_bytes": 2380939264,
+        "free_bytes": 79970893824,
+        "peak_owned_bytes": 2380939264,
+        "minimum_free_bytes": 79695597568
+      }
+    },
+    {
+      "name": "candidate-go-light-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.408562166849151,
+      "disk": {
+        "owned_bytes": 2380951552,
+        "free_bytes": 79970660352,
+        "peak_owned_bytes": 2380951552,
+        "minimum_free_bytes": 79970660352
+      }
+    },
+    {
+      "name": "baseline-go-light-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.434368582908064,
+      "disk": {
+        "owned_bytes": 2380963840,
+        "free_bytes": 79970570240,
+        "peak_owned_bytes": 2380963840,
+        "minimum_free_bytes": 79970570240
+      }
+    },
+    {
+      "name": "baseline-go-light-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.435774167068303,
+      "disk": {
+        "owned_bytes": 2380976128,
+        "free_bytes": 79970463744,
+        "peak_owned_bytes": 2380988416,
+        "minimum_free_bytes": 79970463744
+      }
+    },
+    {
+      "name": "candidate-go-light-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.436245665885508,
+      "disk": {
+        "owned_bytes": 2380988416,
+        "free_bytes": 79970615296,
+        "peak_owned_bytes": 2380988416,
+        "minimum_free_bytes": 79970615296
+      }
+    },
+    {
+      "name": "candidate-python-light-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.425045375013724,
+      "disk": {
+        "owned_bytes": 2380992512,
+        "free_bytes": 79970361344,
+        "peak_owned_bytes": 2380992512,
+        "minimum_free_bytes": 79970361344
+      }
+    },
+    {
+      "name": "baseline-python-light-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.438560290960595,
+      "disk": {
+        "owned_bytes": 2380996608,
+        "free_bytes": 79967125504,
+        "peak_owned_bytes": 2380996608,
+        "minimum_free_bytes": 79967125504
+      }
+    },
+    {
+      "name": "baseline-python-light-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.440244917059317,
+      "disk": {
+        "owned_bytes": 2381000704,
+        "free_bytes": 79966785536,
+        "peak_owned_bytes": 2381000704,
+        "minimum_free_bytes": 79966785536
+      }
+    },
+    {
+      "name": "candidate-python-light-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.406548457918689,
+      "disk": {
+        "owned_bytes": 2381004800,
+        "free_bytes": 79970484224,
+        "peak_owned_bytes": 2381004800,
+        "minimum_free_bytes": 79966785536
+      }
+    },
+    {
+      "name": "candidate-go-fixture-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.427089042030275,
+      "disk": {
+        "owned_bytes": 2381017088,
+        "free_bytes": 79968247808,
+        "peak_owned_bytes": 2381017088,
+        "minimum_free_bytes": 79967956992
+      }
+    },
+    {
+      "name": "baseline-go-fixture-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.415207832818851,
+      "disk": {
+        "owned_bytes": 2381029376,
+        "free_bytes": 79967969280,
+        "peak_owned_bytes": 2381029376,
+        "minimum_free_bytes": 79967969280
+      }
+    },
+    {
+      "name": "baseline-go-fixture-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.440728875109926,
+      "disk": {
+        "owned_bytes": 2381045760,
+        "free_bytes": 79967920128,
+        "peak_owned_bytes": 2381045760,
+        "minimum_free_bytes": 79967920128
+      }
+    },
+    {
+      "name": "candidate-go-fixture-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.43230158300139,
+      "disk": {
+        "owned_bytes": 2381058048,
+        "free_bytes": 79967789056,
+        "peak_owned_bytes": 2381058048,
+        "minimum_free_bytes": 79967789056
+      }
+    },
+    {
+      "name": "candidate-python-fixture-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.393952666083351,
+      "disk": {
+        "owned_bytes": 2381062144,
+        "free_bytes": 79967309824,
+        "peak_owned_bytes": 2381062144,
+        "minimum_free_bytes": 79967309824
+      }
+    },
+    {
+      "name": "baseline-python-fixture-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.425103999907151,
+      "disk": {
+        "owned_bytes": 2381066240,
+        "free_bytes": 79966773248,
+        "peak_owned_bytes": 2381066240,
+        "minimum_free_bytes": 79966773248
+      }
+    },
+    {
+      "name": "baseline-python-fixture-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.422187458956614,
+      "disk": {
+        "owned_bytes": 2381070336,
+        "free_bytes": 79964172288,
+        "peak_owned_bytes": 2381070336,
+        "minimum_free_bytes": 79964172288
+      }
+    },
+    {
+      "name": "candidate-python-fixture-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.427545917220414,
+      "disk": {
+        "owned_bytes": 2381074432,
+        "free_bytes": 79963037696,
+        "peak_owned_bytes": 2381074432,
+        "minimum_free_bytes": 79963037696
+      }
+    },
+    {
+      "name": "candidate-go-parallel-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.409367542015389,
+      "disk": {
+        "owned_bytes": 2381082624,
+        "free_bytes": 79963025408,
+        "peak_owned_bytes": 2381082624,
+        "minimum_free_bytes": 79963021312
+      }
+    },
+    {
+      "name": "baseline-go-parallel-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.452914207940921,
+      "disk": {
+        "owned_bytes": 2381094912,
+        "free_bytes": 79963430912,
+        "peak_owned_bytes": 2381094912,
+        "minimum_free_bytes": 79963009024
+      }
+    },
+    {
+      "name": "baseline-go-parallel-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.432003374909982,
+      "disk": {
+        "owned_bytes": 2381103104,
+        "free_bytes": 79962615808,
+        "peak_owned_bytes": 2381103104,
+        "minimum_free_bytes": 79962615808
+      }
+    },
+    {
+      "name": "candidate-go-parallel-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.434367750072852,
+      "disk": {
+        "owned_bytes": 2381111296,
+        "free_bytes": 79962738688,
+        "peak_owned_bytes": 2381111296,
+        "minimum_free_bytes": 79962603520
+      }
+    },
+    {
+      "name": "candidate-python-parallel-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.374690667027608,
+      "disk": {
+        "owned_bytes": 2381115392,
+        "free_bytes": 79962722304,
+        "peak_owned_bytes": 2381115392,
+        "minimum_free_bytes": 79962714112
+      }
+    },
+    {
+      "name": "baseline-python-parallel-1-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.418098208028823,
+      "disk": {
+        "owned_bytes": 2381119488,
+        "free_bytes": 79961616384,
+        "peak_owned_bytes": 2381119488,
+        "minimum_free_bytes": 79961616384
+      }
+    },
+    {
+      "name": "baseline-python-parallel-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.419074167031795,
+      "disk": {
+        "owned_bytes": 2381123584,
+        "free_bytes": 79961513984,
+        "peak_owned_bytes": 2381123584,
+        "minimum_free_bytes": 79961513984
+      }
+    },
+    {
+      "name": "candidate-python-parallel-1-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.417461959179491,
+      "disk": {
+        "owned_bytes": 2381127680,
+        "free_bytes": 79961387008,
+        "peak_owned_bytes": 2381127680,
+        "minimum_free_bytes": 79961387008
+      }
+    },
+    {
+      "name": "baseline-go-light-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.422273874981329,
+      "disk": {
+        "owned_bytes": 2381144064,
+        "free_bytes": 79961477120,
+        "peak_owned_bytes": 2381144064,
+        "minimum_free_bytes": 79961382912
+      }
+    },
+    {
+      "name": "candidate-go-light-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.422417209018022,
+      "disk": {
+        "owned_bytes": 2381156352,
+        "free_bytes": 79961411584,
+        "peak_owned_bytes": 2381156352,
+        "minimum_free_bytes": 79961411584
+      }
+    },
+    {
+      "name": "candidate-go-light-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.425494832918048,
+      "disk": {
+        "owned_bytes": 2381168640,
+        "free_bytes": 79960936448,
+        "peak_owned_bytes": 2381168640,
+        "minimum_free_bytes": 79960936448
+      }
+    },
+    {
+      "name": "baseline-go-light-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.417497124988586,
+      "disk": {
+        "owned_bytes": 2381180928,
+        "free_bytes": 79959662592,
+        "peak_owned_bytes": 2381180928,
+        "minimum_free_bytes": 79959662592
+      }
+    },
+    {
+      "name": "baseline-python-light-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.420048375148326,
+      "disk": {
+        "owned_bytes": 2381185024,
+        "free_bytes": 79959519232,
+        "peak_owned_bytes": 2381185024,
+        "minimum_free_bytes": 79959519232
+      }
+    },
+    {
+      "name": "candidate-python-light-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.404582290910184,
+      "disk": {
+        "owned_bytes": 2381189120,
+        "free_bytes": 79959396352,
+        "peak_owned_bytes": 2381189120,
+        "minimum_free_bytes": 79959396352
+      }
+    },
+    {
+      "name": "candidate-python-light-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.411633458221331,
+      "disk": {
+        "owned_bytes": 2381193216,
+        "free_bytes": 79978139648,
+        "peak_owned_bytes": 2381193216,
+        "minimum_free_bytes": 79959396352
+      }
+    },
+    {
+      "name": "baseline-python-light-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.415624875109643,
+      "disk": {
+        "owned_bytes": 2381197312,
+        "free_bytes": 79977066496,
+        "peak_owned_bytes": 2381197312,
+        "minimum_free_bytes": 79977066496
+      }
+    },
+    {
+      "name": "baseline-go-fixture-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.445436458103359,
+      "disk": {
+        "owned_bytes": 2381209600,
+        "free_bytes": 79976853504,
+        "peak_owned_bytes": 2381209600,
+        "minimum_free_bytes": 79976853504
+      }
+    },
+    {
+      "name": "candidate-go-fixture-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.415616457816213,
+      "disk": {
+        "owned_bytes": 2381221888,
+        "free_bytes": 79976808448,
+        "peak_owned_bytes": 2381221888,
+        "minimum_free_bytes": 79976808448
+      }
+    },
+    {
+      "name": "candidate-go-fixture-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.376316166948527,
+      "disk": {
+        "owned_bytes": 2381234176,
+        "free_bytes": 79976718336,
+        "peak_owned_bytes": 2381234176,
+        "minimum_free_bytes": 79976718336
+      }
+    },
+    {
+      "name": "baseline-go-fixture-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.3756432079244405,
+      "disk": {
+        "owned_bytes": 2381246464,
+        "free_bytes": 79976943616,
+        "peak_owned_bytes": 2381246464,
+        "minimum_free_bytes": 79976718336
+      }
+    },
+    {
+      "name": "baseline-python-fixture-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.421372666954994,
+      "disk": {
+        "owned_bytes": 2381250560,
+        "free_bytes": 79976845312,
+        "peak_owned_bytes": 2381250560,
+        "minimum_free_bytes": 79976845312
+      }
+    },
+    {
+      "name": "candidate-python-fixture-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.41826970805414,
+      "disk": {
+        "owned_bytes": 2381258752,
+        "free_bytes": 79976812544,
+        "peak_owned_bytes": 2381258752,
+        "minimum_free_bytes": 79976812544
+      }
+    },
+    {
+      "name": "candidate-python-fixture-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.42295120889321,
+      "disk": {
+        "owned_bytes": 2381262848,
+        "free_bytes": 79976726528,
+        "peak_owned_bytes": 2381262848,
+        "minimum_free_bytes": 79976726528
+      }
+    },
+    {
+      "name": "baseline-python-fixture-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.422393416985869,
+      "disk": {
+        "owned_bytes": 2381266944,
+        "free_bytes": 79975604224,
+        "peak_owned_bytes": 2381266944,
+        "minimum_free_bytes": 79975604224
+      }
+    },
+    {
+      "name": "baseline-go-parallel-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.447094458853826,
+      "disk": {
+        "owned_bytes": 2381275136,
+        "free_bytes": 79978881024,
+        "peak_owned_bytes": 2381275136,
+        "minimum_free_bytes": 79975587840
+      }
+    },
+    {
+      "name": "candidate-go-parallel-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.447634249925613,
+      "disk": {
+        "owned_bytes": 2381283328,
+        "free_bytes": 79978225664,
+        "peak_owned_bytes": 2381283328,
+        "minimum_free_bytes": 79978225664
+      }
+    },
+    {
+      "name": "candidate-go-parallel-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.4217657500412315,
+      "disk": {
+        "owned_bytes": 2381291520,
+        "free_bytes": 79978242048,
+        "peak_owned_bytes": 2381291520,
+        "minimum_free_bytes": 79978180608
+      }
+    },
+    {
+      "name": "baseline-go-parallel-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.421631125034764,
+      "disk": {
+        "owned_bytes": 2381299712,
+        "free_bytes": 79977857024,
+        "peak_owned_bytes": 2381299712,
+        "minimum_free_bytes": 79977857024
+      }
+    },
+    {
+      "name": "baseline-python-parallel-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.420499125029892,
+      "disk": {
+        "owned_bytes": 2381303808,
+        "free_bytes": 79978024960,
+        "peak_owned_bytes": 2381303808,
+        "minimum_free_bytes": 79977852928
+      }
+    },
+    {
+      "name": "candidate-python-parallel-2-fresh",
+      "returncode": 0,
+      "elapsed_seconds": 5.374332207953557,
+      "disk": {
+        "owned_bytes": 2381307904,
+        "free_bytes": 79977885696,
+        "peak_owned_bytes": 2381307904,
+        "minimum_free_bytes": 79977885696
+      }
+    },
+    {
+      "name": "candidate-python-parallel-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.4318818328902125,
+      "disk": {
+        "owned_bytes": 2381312000,
+        "free_bytes": 80009449472,
+        "peak_owned_bytes": 2381312000,
+        "minimum_free_bytes": 79977881600
+      }
+    },
+    {
+      "name": "baseline-python-parallel-2-fork",
+      "returncode": 0,
+      "elapsed_seconds": 5.433080124901608,
+      "disk": {
+        "owned_bytes": 2381316096,
+        "free_bytes": 80009306112,
+        "peak_owned_bytes": 2381316096,
+        "minimum_free_bytes": 80009306112
+      }
+    }
+  ]
+}

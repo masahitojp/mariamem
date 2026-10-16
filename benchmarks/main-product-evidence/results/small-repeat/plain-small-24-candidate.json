@@ -1,0 +1,29 @@
+{
+  "result": "PASS",
+  "scale": "small",
+  "rows": 100,
+  "payload_bytes": 25600,
+  "forks": 2,
+  "whole_ms": 444.612958,
+  "times_ms": {
+    "prepare/start": 57.782791,
+    "prepare/migrate-seed": 48.254041,
+    "prepare/snapshot": 197.852625,
+    "child0/start": 51.96625,
+    "child0/connect": 7.233791,
+    "child0/crud": 3.292917,
+    "child0/disconnect": 6.602667,
+    "child0/close": 2.81375,
+    "child1/start": 46.317375,
+    "child1/connect": 7.197875,
+    "child1/crud": 3.10675,
+    "child1/disconnect": 6.653917,
+    "child1/close": 2.769875,
+    "baseline/close": 1.723375
+  },
+  "unique_hosts": 1,
+  "reaped_host_maxrss_raw": 129286144,
+  "label": "candidate",
+  "resources_enabled": false,
+  "repetition": 24
+}

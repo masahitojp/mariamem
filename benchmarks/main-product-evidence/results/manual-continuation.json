@@ -1,0 +1,20 @@
+{
+  "initial_failure": "failed-initial-execution.json",
+  "replacement": "same exact commits in standalone Git checkouts; no VCS guard weakened",
+  "command": [
+    "<WORKSPACE>/temp/venv/bin/python",
+    "<WORKSPACE>/worktree/benchmarks/main-product-evidence/run-all.py",
+    "--workspace",
+    "<WORKSPACE>",
+    "--go-root",
+    "<HOME>/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64"
+  ],
+  "started": 1792176506.748945,
+  "original_deadline": 1792182589.050601,
+  "remaining_seconds_at_start": 6082.3016719818115,
+  "completed": true,
+  "returncode": 0,
+  "ended": 1792177946.771829,
+  "peak_owned_bytes": 2711388160,
+  "minimum_free_bytes": 76942725120
+}

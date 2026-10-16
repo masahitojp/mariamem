@@ -5,6 +5,10 @@
 [Run 38935990860](https://github.com/masahitojp/mariamem/actions/runs/38935990860)
 は`operation=verify`、full qualification。両platformとaggregate guardは`READY`。
 
+その後Humanが性能確認を承認し、限定Product Verificationを完了した。
+[結果と次のHuman Review資料](main-product-verification.md)を保存し、判断は待っている。
+以下のNOT RUNはこのCI単独の範囲を示し、後続計測の結果を置き換えない。
+
 ## Human Review
 
 **次の判断は、残る最終構成の利用・性能確認へ進むか。推薦は進むこと。**

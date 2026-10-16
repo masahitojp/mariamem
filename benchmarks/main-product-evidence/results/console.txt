@@ -1,0 +1,14 @@
+BUILD baseline mariamem-host
+BUILD baseline ownedprepared
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+go: downloading filippo.io/edwards25519 v1.1.0
+BUILD candidate mariamem-host
+BUILD candidate ownedprepared
+PASS: both fixed runtimes built with identical observers
+Traceback (most recent call last):
+  File "<WORKSPACE>/worktree/benchmarks/main-product-evidence/run-all.py", line 37, in <module>
+    verify_go_binary(w / 'temp' / label, w / 'temp/binaries' / label / binary, source, go=a.go_root / 'bin/go')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<WORKSPACE>/worktree/scripts/git_identity.py", line 113, in verify_go_binary
+    raise ValueError('binary build identity differs from exact clean source')
+ValueError: binary build identity differs from exact clean source

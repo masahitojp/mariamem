@@ -20,7 +20,7 @@ def main():
     substitutions = [(str(w), '<WORKSPACE>'),
                      (str(w.parents[2]), '<REPOSITORY>'),
                      (str(Path.home()) + '/', '<HOME>/')]
-    manifest = dict(normalization='Replace task/repository/home path prefixes only; .log becomes .txt. Numeric observations and source/binary hashes unchanged.',
+    manifest = dict(normalization='Replace task/repository/home path prefixes; .log becomes .txt; CSV CRLF becomes LF. Numeric observations and source/binary hashes unchanged.',
                     collector_sha256=digest(Path(__file__).read_bytes()), files=[])
     for source in sorted((w / 'evidence').rglob('*')):
         if not source.is_file():
@@ -34,6 +34,8 @@ def main():
         content = before.decode()
         for actual, replacement in substitutions:
             content = content.replace(actual, replacement)
+        if source.suffix == '.csv':
+            content = content.replace('\r\n', '\n')
         after = content.encode()
         (destination / target).parent.mkdir(parents=True, exist_ok=True)
         (destination / target).write_bytes(after)

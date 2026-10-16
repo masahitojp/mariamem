@@ -1,0 +1,14 @@
+panic: mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted
+	listen tcp4 127.0.0.1:0: bind: operation not permitted
+
+goroutine 1 [running]:
+main.must({0x10897c2e0?, 0x46b7c37a40c0?})
+	github.com/masahitojp/mariamem/benchmarks/ownedprepared/main.go:27 +0x38
+main.main.main.func7.func10()
+	github.com/masahitojp/mariamem/benchmarks/ownedprepared/main.go:195 +0x78
+main.main.func2({0x46b7c36942a0, 0xe}, 0x46b7c3583e98)
+	github.com/masahitojp/mariamem/benchmarks/ownedprepared/main.go:98 +0x60
+main.main.func7(...)
+	github.com/masahitojp/mariamem/benchmarks/ownedprepared/main.go:195
+main.main()
+	github.com/masahitojp/mariamem/benchmarks/ownedprepared/main.go:258 +0x1e98

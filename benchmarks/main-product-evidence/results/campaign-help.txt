@@ -1,0 +1,25 @@
+usage: campaign.py [-h] --baseline BASELINE --baseline-commit BASELINE_COMMIT
+                   --baseline-host BASELINE_HOST --candidate CANDIDATE
+                   --candidate-commit CANDIDATE_COMMIT
+                   --candidate-host CANDIDATE_HOST --output OUTPUT
+                   --scratch SCRATCH
+                   [--scales {small,medium,100mib} [{small,medium,100mib} ...]]
+                   [--plain-repeats PLAIN_REPEATS]
+                   [--resource-repeats RESOURCE_REPEATS]
+
+Bounded paired comparison; ordinary and sampled-resource runs stay separate.
+
+options:
+  -h, --help            show this help message and exit
+  --baseline BASELINE   clean exact-source checkout
+  --baseline-commit BASELINE_COMMIT
+  --baseline-host BASELINE_HOST
+  --candidate CANDIDATE
+                        clean exact-source checkout
+  --candidate-commit CANDIDATE_COMMIT
+  --candidate-host CANDIDATE_HOST
+  --output OUTPUT
+  --scratch SCRATCH
+  --scales {small,medium,100mib} [{small,medium,100mib} ...]
+  --plain-repeats PLAIN_REPEATS
+  --resource-repeats RESOURCE_REPEATS

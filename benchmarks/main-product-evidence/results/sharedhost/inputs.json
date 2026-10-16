@@ -1,0 +1,36 @@
+{
+  "sources": {
+    "baseline": {
+      "identity": {
+        "object_sha": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+        "object_type": "commit",
+        "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61"
+      },
+      "host_sha256": "037165877b0298b289d014b8ec7435b8139b04fad7bcfa11c5c30e683bb13452",
+      "build_info": "<WORKSPACE>/temp/binaries/baseline/mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.0\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=44100ec676c8c9064f32f3a01bd9a990d487bb61\n\tbuild\tvcs.time=2026-10-13T12:07:54Z\n\tbuild\tvcs.modified=false\n"
+    },
+    "candidate": {
+      "identity": {
+        "object_sha": "c97e55fc065f6ee7b560325077726da53e5d95d7",
+        "object_type": "commit",
+        "source_commit": "c97e55fc065f6ee7b560325077726da53e5d95d7"
+      },
+      "host_sha256": "c23d8627d9534bc72d4e3bb26e29d3efdf17edd9a7a0797774e450f3fb81ac53",
+      "build_info": "<WORKSPACE>/temp/binaries/candidate/mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1-0.20261016164135-c97e55fc065f\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c97e55fc065f6ee7b560325077726da53e5d95d7\n\tbuild\tvcs.time=2026-10-16T16:41:35Z\n\tbuild\tvcs.modified=false\n"
+    }
+  },
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "scales": [
+    "small",
+    "medium",
+    "100mib"
+  ],
+  "plain_repeats": 6,
+  "resource_repeats": 3,
+  "harness": {
+    "workflow.py": "e4dd55221d6cfaee7710fa6d83812bb6018d4307e9f2ba3a7b63df843d6cc431",
+    "campaign.py": "de07ac1c57ed8ef7fe426d084b0420bd25a99a3fdbb30caf94c3acd21ed2b161"
+  }
+}

@@ -1,0 +1,148 @@
+[
+  {
+    "file": "pilot-baseline-go-light-0-fork.json",
+    "label": "baseline",
+    "language": "go",
+    "case": "light",
+    "trial": 0,
+    "mode": "fork",
+    "wall_seconds": 0.485307542,
+    "observed_wall_seconds": 0.530602375,
+    "cpu_seconds": 0.5079940000000001,
+    "peak_rss_mib": 544.1875,
+    "peak_go_heap_mib": 429.4170455932617,
+    "cumulative_alloc_mib": 441.9242248535156,
+    "after_heap_bytes": 321576,
+    "mapping_creates": 2,
+    "mapping_releases": 2,
+    "fd_delta": 1,
+    "starts_seconds": [
+      0.054400958,
+      0.053358417
+    ],
+    "snapshot_seconds": 0.354417417
+  },
+  {
+    "file": "pilot-baseline-go-light-0-fresh.json",
+    "label": "baseline",
+    "language": "go",
+    "case": "light",
+    "trial": 0,
+    "mode": "fresh",
+    "wall_seconds": 0.122309124,
+    "observed_wall_seconds": 0.148086209,
+    "cpu_seconds": 0.10272400000000001,
+    "peak_rss_mib": 122.90625,
+    "peak_go_heap_mib": 151.0379638671875,
+    "cumulative_alloc_mib": 151.34471130371094,
+    "after_heap_bytes": 309728,
+    "mapping_creates": 1,
+    "mapping_releases": 1,
+    "fd_delta": 1,
+    "starts_seconds": [
+      0.09529225
+    ],
+    "snapshot_seconds": null
+  },
+  {
+    "file": "pilot-baseline-python-light-0-fork.json",
+    "label": "baseline",
+    "language": "python",
+    "case": "light",
+    "trial": 0,
+    "mode": "fork",
+    "wall_seconds": 0.5211508329957724,
+    "cpu_seconds": 0.5455620000000001,
+    "starts_seconds": [
+      0.060375249944627285
+    ],
+    "prepare_snapshot_seconds": 0.4276195829734206
+  },
+  {
+    "file": "pilot-baseline-python-light-0-fresh.json",
+    "label": "baseline",
+    "language": "python",
+    "case": "light",
+    "trial": 0,
+    "mode": "fresh",
+    "wall_seconds": 1.067651541903615,
+    "cpu_seconds": 0.13311399999999998,
+    "starts_seconds": [
+      1.0253484591376036
+    ],
+    "prepare_snapshot_seconds": null
+  },
+  {
+    "file": "pilot-candidate-go-light-0-fork.json",
+    "label": "candidate",
+    "language": "go",
+    "case": "light",
+    "trial": 0,
+    "mode": "fork",
+    "wall_seconds": 0.32002583500000004,
+    "observed_wall_seconds": 0.349401583,
+    "cpu_seconds": 0.326081,
+    "peak_rss_mib": 126.15625,
+    "peak_go_heap_mib": 6.96630859375,
+    "cumulative_alloc_mib": 10.363304138183594,
+    "after_heap_bytes": 321944,
+    "mapping_creates": 2,
+    "mapping_releases": 2,
+    "fd_delta": 1,
+    "starts_seconds": [
+      0.05126,
+      0.051399208
+    ],
+    "snapshot_seconds": 0.195990458
+  },
+  {
+    "file": "pilot-candidate-go-light-0-fresh.json",
+    "label": "candidate",
+    "language": "go",
+    "case": "light",
+    "trial": 0,
+    "mode": "fresh",
+    "wall_seconds": 0.09967670799999999,
+    "observed_wall_seconds": 0.122978667,
+    "cpu_seconds": 0.10007200000000001,
+    "peak_rss_mib": 122.578125,
+    "peak_go_heap_mib": 5.8513031005859375,
+    "cumulative_alloc_mib": 6.141868591308594,
+    "after_heap_bytes": 311896,
+    "mapping_creates": 1,
+    "mapping_releases": 1,
+    "fd_delta": 1,
+    "starts_seconds": [
+      0.071134375
+    ],
+    "snapshot_seconds": null
+  },
+  {
+    "file": "pilot-candidate-python-light-0-fork.json",
+    "label": "candidate",
+    "language": "python",
+    "case": "light",
+    "trial": 0,
+    "mode": "fork",
+    "wall_seconds": 0.33484245790168643,
+    "cpu_seconds": 0.366577,
+    "starts_seconds": [
+      0.0535840829834342
+    ],
+    "prepare_snapshot_seconds": 0.25055354181677103
+  },
+  {
+    "file": "pilot-candidate-python-light-0-fresh.json",
+    "label": "candidate",
+    "language": "python",
+    "case": "light",
+    "trial": 0,
+    "mode": "fresh",
+    "wall_seconds": 1.1216147090308368,
+    "cpu_seconds": 0.19578099999999998,
+    "starts_seconds": [
+      1.0738584999926388
+    ],
+    "prepare_snapshot_seconds": null
+  }
+]

@@ -1,0 +1,96 @@
+{
+  "result": "PASS",
+  "scale": "small",
+  "rows": 100,
+  "payload_bytes": 25600,
+  "forks": 2,
+  "whole_ms": 702.05575,
+  "times_ms": {
+    "prepare/start": 48.045875,
+    "prepare/migrate-seed": 50.92,
+    "prepare/snapshot": 410.924292,
+    "child0/start": 61.231417,
+    "child0/connect": 10.348083,
+    "child0/crud": 3.992417,
+    "child0/disconnect": 0.208667,
+    "child0/close": 5.265167,
+    "child1/start": 83.424958,
+    "child1/connect": 11.581458,
+    "child1/crud": 6.570542,
+    "child1/disconnect": 0.313375,
+    "child1/close": 5.300542,
+    "baseline/close": 3.056459
+  },
+  "unique_hosts": 3,
+  "reaped_host_maxrss_raw": 554188800,
+  "label": "baseline",
+  "resources_enabled": true,
+  "repetition": 2,
+  "resource_samples": [
+    {
+      "host_rss_kib": 0,
+      "host_count": 0
+    },
+    {
+      "host_rss_kib": 0,
+      "host_count": 0
+    },
+    {
+      "host_rss_kib": 43024,
+      "host_count": 1
+    },
+    {
+      "host_rss_kib": 118112,
+      "host_count": 1
+    },
+    {
+      "host_rss_kib": 382816,
+      "host_count": 1
+    },
+    {
+      "host_rss_kib": 497824,
+      "host_count": 1
+    },
+    {
+      "host_rss_kib": 463584,
+      "host_count": 1
+    },
+    {
+      "host_rss_kib": 463744,
+      "host_count": 1
+    },
+    {
+      "host_rss_kib": 464048,
+      "host_count": 1
+    },
+    {
+      "host_rss_kib": 464080,
+      "host_count": 1
+    },
+    {
+      "host_rss_kib": 0,
+      "host_count": 0
+    },
+    {
+      "host_rss_kib": 0,
+      "host_count": 0
+    },
+    {
+      "host_rss_kib": 39936,
+      "host_count": 1
+    },
+    {
+      "host_rss_kib": 32,
+      "host_count": 1
+    },
+    {
+      "host_rss_kib": 97152,
+      "host_count": 1
+    },
+    {
+      "host_rss_kib": 0,
+      "host_count": 0
+    }
+  ],
+  "sampled_host_peak_rss_mib": 486.15625
+}

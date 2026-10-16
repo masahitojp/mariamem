@@ -75,8 +75,22 @@ for mode in ['fresh','fork']:
   entry[label]['median_seconds']=statistics.median(entry[label]['wall_seconds'])
  entry['change_percent']=100*(entry['candidate']['median_seconds']/entry['baseline']['median_seconds']-1)
  extra_summary[mode]=entry
+all_large={}
+for mode in ['fresh','fork']:
+ entry={}
+ for label in ['baseline','candidate']:
+  items=[r for r in rows if (r['label'],r['language'],r['case'],r['mode'])==(label,'go','large',mode)]+[r for r in extra if r['label']==label and r['mode']==mode]
+  assert len(items)==4
+  entry[label]={'files':[r['file'] for r in items]}
+  for metric in ['wall_seconds','cpu_seconds','peak_rss_mib','cumulative_alloc_mib']:
+   entry[label][metric]=[r[metric] for r in items]
+   entry[label]['median_'+metric]=statistics.median(entry[label][metric])
+ entry['change_percent']=100*(entry['candidate']['median_wall_seconds']/entry['baseline']['median_wall_seconds']-1)
+ all_large[mode]=entry
 report={'matrix':summary,'small_case_repeats':repeats,'sharedhost':json.loads((evidence/'sharedhost/summary.json').read_text()),'large_followup':extra_summary,'invariants':{'matrix_oracles':'80 measured + 8 pilots completed; Go memory mapping creates/releases balanced; Python completed/version counts checked; SQL assertions stop each process','go_mapping_total_measured':sum(r['mapping_creates'] for r in rows if r['language']=='go'),'go_mapping_total_pilots':sum(r['mapping_creates'] for r in pilots if r['language']=='go'),'go_after_heap_max_bytes':max(r['after_heap_bytes'] for r in rows if r['language']=='go'),'sharedhost_oracles':'174 processes PASS including seed/commit/rollback/sibling isolation/reaped host/scratch-empty assertions','go_followup_oracles':'12 processes PASS, unchanged SQL oracles and balanced memory mappings','go_followup_mappings':sum(r['mapping_creates'] for r in extra)},'scope':'macOS arm64 only; sharedhost regular latency and sampled RSS separately; Go product wall excludes diagnostic probes; no cross-schema pooled comparisons; 12 post-hoc adverse-case repeats kept separate from the original 262 executions'}
 assert report['invariants']['go_mapping_total_measured']==180 and report['invariants']['go_mapping_total_pilots']==6
+report['large_all_observations']=all_large
+report['invariants']['go_after_heap_max_including_followup_bytes']=max([r['after_heap_bytes'] for r in rows if r['language']=='go']+[r['after_heap_bytes'] for r in extra])
 (out/'summary.json').write_text(json.dumps(report,indent=2)+'\n')
 (out/'cells.json').write_text(json.dumps(rows,indent=2)+'\n');(out/'pilots.json').write_text(json.dumps(pilots,indent=2)+'\n')
 (out/'large-followup.json').write_text(json.dumps(extra,indent=2)+'\n')

@@ -1,0 +1,36 @@
+{
+  "reason": "Repeat material adverse Go 100 MiB n=1 observations; original cells retained",
+  "repetitions_per_mode": 3,
+  "original_deadline": 1792182589.050601,
+  "started": 1792177990.7265432,
+  "completed": false,
+  "cells": [
+    {
+      "name": "baseline-go-large-0-fresh",
+      "returncode": 2,
+      "elapsed_seconds": 5.530157084111124
+    }
+  ],
+  "inputs": {
+    "baseline": {
+      "identity": {
+        "object_sha": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+        "object_type": "commit",
+        "source_commit": "44100ec676c8c9064f32f3a01bd9a990d487bb61"
+      },
+      "binary_sha256": "f0e8aaac2694065b82beebc736af9345c22af21c46bc62c41b51f413d0bca48a",
+      "build_info": "<WORKSPACE>/temp/binaries/baseline/ownedprepared: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.0\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=44100ec676c8c9064f32f3a01bd9a990d487bb61\n\tbuild\tvcs.time=2026-10-13T12:07:54Z\n\tbuild\tvcs.modified=false\n"
+    },
+    "candidate": {
+      "identity": {
+        "object_sha": "c97e55fc065f6ee7b560325077726da53e5d95d7",
+        "object_type": "commit",
+        "source_commit": "c97e55fc065f6ee7b560325077726da53e5d95d7"
+      },
+      "binary_sha256": "102a6351f4b6a7ba8d35555668b3f14516b77ab70220a4906e7339d7995306fe",
+      "build_info": "<WORKSPACE>/temp/binaries/candidate/ownedprepared: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1-0.20261016164135-c97e55fc065f\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c97e55fc065f6ee7b560325077726da53e5d95d7\n\tbuild\tvcs.time=2026-10-16T16:41:35Z\n\tbuild\tvcs.modified=false\n"
+    }
+  },
+  "harness_source_commit": "f0fd3b52ee9fa80b9c8438ed7143fbc591729cb7",
+  "runner_sha256": "6b02b54a1f35f29b6decab52b604ec0b8c7158b16a8350817bdf3f832706b770"
+}

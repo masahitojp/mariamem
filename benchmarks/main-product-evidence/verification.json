@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "scope": "Performance harness, analysis and documentation only; runtime inputs unchanged. No duplicate full Qualification run.",
+  "successful_executions": 274,
+  "excluded_pilots": 8,
+  "sandbox_rejected_attempts_before_SQL": 1,
+  "checks": [
+    "274 existing benchmark SQL/transaction/isolation/cleanup oracles and analysis counts",
+    "verify.py check --scope docs: version, public source and diff",
+    "AST syntax of seven touched Python harness scripts",
+    "local report references",
+    "both runtime sources still clean and all four binary hashes unchanged",
+    "all 574 preserved evidence file hashes"
+  ],
+  "harness_sha256": {
+    "collect.py": "71be7fc81cd6b47e3288a5c8645a9413c9c7973c40cef85b1296e06f534906ef",
+    "run-all.py": "66b056fd5059ded20f146f97c5eb9c218bc28d26657aec2151017f411f5b7451",
+    "run-product.py": "a2622e4529011bd9844dd7ce5a2f3474c51fa1adbe1a5465054b8d00f23060ff",
+    "build-pair.py": "3a6498baa5b42ad57f3af40d27bad27b691f531080a85a40fd2182b79f19f25a",
+    "repeat-large.py": "6b02b54a1f35f29b6decab52b604ec0b8c7158b16a8350817bdf3f832706b770",
+    "analyze.py": "574841fa96e558e5cb5c985c7eb7c23520a3a689b93e0c51bac75dc36b7d7365"
+  },
+  "preservation_manifest_sha256": "b86592dd6334ee3371cdce12c33461734edf4f3f276fddccb59b63b381dfd45a",
+  "ubuntu_performance": {
+    "status": "NOT RUN",
+    "reason": "Local macOS arm64 campaign; both-native functionality remains the separate completed Qualification"
+  }
+}

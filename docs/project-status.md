@@ -31,17 +31,22 @@ macOS arm64 verification and native Ubuntu CI, which passed on source
 `4282cba73f12c772942b72c2f020b3ec1228be11` in
 [run 38908979283](https://github.com/masahitojp/mariamem/actions/runs/38908979283).
 The shared-host crash domain and intentional public save/load API removal are
-accepted for this use. Performance comparison remains macOS-only. The unexplained
-slow resource-observed small-fixture trial remains unresolved and must be revisited
-in final release validation; it is not classified as noise or a candidate defect.
+accepted for this use. Performance comparison remains macOS-only. The earlier
+slow resource-observed small-fixture trial is preserved; the later bounded
+comparison did not reproduce it in 30 ordinary and 30 resource-observed candidate
+repeats. Its cause remains unknown, rather than classified as noise or a defect.
 Skipped probes remain explicit. The later authorized final configuration
 Qualification passed for exact source `c97e55fc065f6ee7b560325077726da53e5d95d7`
 in [verify run 38935990860](https://github.com/masahitojp/mariamem/actions/runs/38935990860).
 Both native platforms and the aggregate guard returned READY after full builds,
 regeneration and external acceptance. The [Qualification review](reviews/main-storage-qualification.md)
-retains receipts/SKIPs and recommends the remaining user-workflow/performance check.
-That new comparison and the unexplained slow-trial assessment remain unperformed;
-publication is not authorized. See the
+retains receipts/SKIPs. The subsequently authorized
+[user-workflow/performance check](../benchmarks/main-product-verification.md)
+completed 274 executions on those exact runtime inputs. Typical fixture reuse
+and memory improved, while 100 MiB Go Fresh retains adverse results (all four
+observations: median +7.2%). The [Product Verification Human Review](reviews/main-product-verification.md)
+recommends accepting that tradeoff and proceeding to release preparation;
+the Human decision and publication authorization remain pending. See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
@@ -57,8 +62,8 @@ retained. See the [released notes](../release/NOTES-v0.5.0.md).
 The startup ordering correction, D block backing, Python shared host and public
 save/load API removal are later main changes. They are adopted but unreleased;
 see [API differences and migration](changes-since-v050.md). Combined-source
-Qualification has passed for the exact SHA above; subsequent Product Validation
-and release approval remain separate. The earlier
+Qualification and bounded macOS Product Verification have passed for the exact
+SHA above; the later Human Review and release approval remain separate. The earlier
 v0.5.0 preparation history below does not qualify later main commits.
 
 ## Previous release: v0.4.7 — Upstream converter migration

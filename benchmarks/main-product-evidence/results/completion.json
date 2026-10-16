@@ -1,0 +1,9 @@
+{
+  "completed": true,
+  "executions": 262,
+  "runtime_sources": {
+    "baseline": "44100ec676c8c9064f32f3a01bd9a990d487bb61",
+    "candidate": "c97e55fc065f6ee7b560325077726da53e5d95d7"
+  },
+  "harness_source_commit": "c618b0ac3a3c3a204099cb3fe152c87a59def1f4"
+}
