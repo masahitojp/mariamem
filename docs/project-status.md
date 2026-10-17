@@ -319,6 +319,11 @@ distinct from the FD/resource-model pressure observation, which is assigned to
 v0.6.0 dogfood above. The current active and closed items are listed in the
 [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
 
+**In 0.5.x scope: child Fork startup and child Close attribution.** Measure the
+cost of creating a Fork child and of Close, and identify which phases own that
+time. The task ends at measurement and cause identification; selecting or
+implementing a fix is a separate decision.
+
 **Closed until recurrence: 100 MiB Go Fresh.** The
 [completed paired comparison](../benchmarks/main-product-verification.md#adverse-100-mib-go-case-and-bounded-repeat)
 retains the original +29.0% wall-time trial, the three additional pairs (+1.9%
