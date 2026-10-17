@@ -4,10 +4,13 @@ Updated 2026-10-17. [v0.5.0](https://github.com/masahitojp/mariamem/releases/tag
 was published on 2026-10-13 from source
 `44100ec676c8c9064f32f3a01bd9a990d487bb61`; annotated tag object
 `bfd854da1cecbe71ad761d1578b3f2c710a1c07f`.
-The changes below are adopted on main for the authorized v0.5.1 release and are
-not in v0.5.0's Go module or Python wheels. Final-version publication is owned
-by Release CI; the earlier qualified/measured source and final release source
-remain separate identities.
+The changes below shipped in [v0.5.1](https://github.com/masahitojp/mariamem/releases/tag/v0.5.1)
+on 2026-10-17 JST from source `7a82f338cf111d5d52538b5a3f7bf129c12e2dbb`;
+annotated tag object `089b32e09608902f6d46e7ab9527d09922dcf065`.
+They are not in v0.5.0's Go module or Python wheels. Release CI completed
+publication and both native public smokes in
+[run 38959312232](https://github.com/masahitojp/mariamem/actions/runs/38959312232).
+The earlier qualified/measured source and final released source remain separate identities.
 
 ## Behavior and API differences
 

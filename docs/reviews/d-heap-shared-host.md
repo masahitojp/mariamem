@@ -2,6 +2,11 @@
 
 2026-10-17更新。検証元は`experiment/d-heap-shared-host`。以下のHuman Reviewは採用前の判断資料。
 
+後続状態：最終構成Qualificationと[Product Verification](main-product-verification.md)を経て、
+本変更は[v0.5.1](https://github.com/masahitojp/mariamem/releases/tag/v0.5.1)で公開された。
+以下の「残件」「公開は行っていない」は各検証・採用時点の履歴。
+現在の任意改善候補は[0.5.x残件整理](v05x-followup.md)を参照。
+
 ## Human決定：main採用
 
 2026-10-17、Humanは候補`f55bd3a91073e9f80b8a816055acf0983b8b2e79`のmain採用を承認した。

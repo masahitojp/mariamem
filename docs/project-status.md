@@ -5,8 +5,8 @@ This document owns current state and future direction. The
 owns current HOW, [decisions](decisions/snapshot-product-contract.md) own
 continuing product constraints, and reports preserve historical evidence.
 Version themes are direction; they are not release approval.
-The current published release and the authorized v0.5.1 preparation are distinct
-sources. Changing version metadata does not itself publish a release.
+The current published v0.5.1 source and later documentation/research commits are
+distinct identities, even when their version metadata is unchanged.
 
 ## Product contract
 
@@ -48,13 +48,29 @@ observations: median +7.2%). The [Product Verification Human Review](reviews/mai
 recommended accepting that tradeoff. The maintainer accepted the performance
 review and authorized preparation/release as **v0.5.1** on 2026-10-17, explicitly
 deferring the 100 MiB Go Fresh investigation until after release. Release CI
-still owns acceptance of the exact final-version source and its publication;
-neither the earlier READY nor these measurements are relabelled as that source.
+subsequently accepted and published the exact final-version source with both
+native public smokes passing; see the release record below. Neither the earlier
+READY nor the measurements are relabelled as that final source.
 See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
-## Current published release: v0.5.0 — MariaDB 12.3.3
+## Current published release: v0.5.1 — In-memory baselines and shared Python host
+
+[v0.5.1](https://github.com/masahitojp/mariamem/releases/tag/v0.5.1) was published
+on 2026-10-17 JST (2026-10-16 UTC) from source_commit
+`7a82f338cf111d5d52538b5a3f7bf129c12e2dbb`; tag_object_sha
+`089b32e09608902f6d46e7ab9527d09922dcf065`.
+[Release run 38959312232](https://github.com/masahitojp/mariamem/actions/runs/38959312232)
+passed full independent generation/source closure, both native candidate and
+external acceptance, aggregate guard, publication and both public smokes.
+The release includes the startup ordering correction, D block storage, automatic
+Python host sharing per root lineage, and public persistence/loading API removal.
+See [notes](../release/NOTES-v0.5.1.md) and [migration](changes-since-v050.md).
+No PyPI publication was performed. The 100 MiB Go Fresh follow-up below is
+post-release research, not an unfinished release gate.
+
+## Previous release: v0.5.0 — MariaDB 12.3.3
 
 [v0.5.0](https://github.com/masahitojp/mariamem/releases/tag/v0.5.0) was published
 on 2026-10-13 from source `44100ec676c8c9064f32f3a01bd9a990d487bb61`;
@@ -64,11 +80,11 @@ repairs. Its public Go/Python APIs and file-backed Snapshot persistence were
 retained. See the [released notes](../release/NOTES-v0.5.0.md).
 
 The startup ordering correction, D block backing, Python shared host and public
-save/load API removal are later main changes. They are adopted but unreleased;
+save/load API removal are later changes released in v0.5.1;
 see [API differences and migration](changes-since-v050.md). Combined-source
 Qualification and bounded macOS Product Verification have passed for the exact
-SHA above; the maintainer subsequently approved v0.5.1 preparation. Its final
-source/artifacts must pass the existing release workflow. The earlier
+tested runtime SHA; the maintainer subsequently approved v0.5.1 preparation and
+its final source/artifacts passed the release workflow recorded above. The earlier
 v0.5.0 preparation history below does not qualify later main commits.
 
 ## Previous release: v0.4.7 — Upstream converter migration
@@ -189,14 +205,15 @@ Product Validation; those changes are not part of v0.4.5.
   The [page-cleaner source correction](reviews/v050-startup-tail-source-fix-integration.md)
   is adopted on main after bounded Fresh comparisons and related regression
   passed on both native platforms. This does not establish a universal latency
-  bound; final combined-source release validation remains pending.
+  bound. The correction shipped in v0.5.1 after final-source Release CI passed;
+  the earlier pending-validation wording describes the pre-release stage.
 - External consumer checks passed on macOS arm64 with Go 1.26.8 and
   1.27.0/1.27.1/1.27.2. See [compatibility](go-compatibility.md); minimum Go
   and driver versions are unchanged.
 - Physical footprint, RSS and reachable heap are different resource measures.
   The v0.4.2 lifecycle releases linear memory after joined workers; filesystem
   metadata remains GC-managed.
-- Published file-backed Snapshots retain roughly one FD per prepared file.
+- Earlier file-backed releases retain roughly one FD per prepared file.
   The adopted D memory path removes this ordinary backing-FD requirement;
   both-native verification is recorded above. The historical 64-table fixture
   had 137 files and released its backing FDs after Close on both platforms.
@@ -207,6 +224,21 @@ Product Validation; those changes are not part of v0.4.5.
 - The 0.x API may change. Corresponding guest source, licenses, notices and
   reproducible generation remain required.
 
+## v0.5.x follow-up after v0.5.1
+
+The released v0.5.1 scope has no outstanding mandatory implementation or release
+step. Qualification, Product Verification and publication are complete for their
+recorded inputs. Further optimization is a new investment decision, not unfinished
+v0.5.1 acceptance. See the [follow-up Human Review](reviews/v05x-followup.md).
+
+| Item | Current disposition |
+| --- | --- |
+| 100 MiB Go Fresh investigation | Closed by Human decision; revisit if similar slowdown recurs. Preserve unknown cause and original observations. |
+| Additional Snapshot hash-pass reduction | Optional next design candidate; not implemented. Current normal heap capture still performs three full logical content passes. Review immutable ownership and failure oracles before changing this. |
+| Connection capacity (16 per DB) | Deferred; unchanged. Consider with real concurrent application needs, not merely because a shared host exists. |
+| General shared-memory guarantee expansion / forced termination | Separate design scope; no newly observed defect is established by this follow-up. Do not reopen completed bounded correctness work. |
+| Broader framework dogfood / fixture ergonomics | Existing v0.6.0 direction; not silently moved into 0.5.x. |
+
 ## Performance evidence and pending optimization questions
 
 **Approved post-v0.5.1 follow-up: 100 MiB Go Fresh.** The
@@ -215,10 +247,26 @@ retains the original +29.0% wall-time trial, the three additional pairs (+1.9%
 median), and all four observations (+7.2% wall / +6.3% CPU median). Preparation
 and SQL account for the adverse intervals; storage overhead versus execution
 conditions remains unresolved. The maintainer accepted this tradeoff for
-v0.5.1; it is not an additional release gate. After release, reuse the saved
-phase/CPU/allocation data first and separately scope any profiling or runtime
-repair. Do not call the result measurement noise, promise Fresh acceleration,
-or start that new investigation during release preparation.
+v0.5.1; it is not an additional release gate. The authorized
+[bounded post-release investigation](https://github.com/masahitojp/mariamem/blob/7068dd045f10c2772535fccca73c040c387e5b0b/docs/reviews/go-large-fresh-investigation.md)
+completed ten executions against the two released sources on macOS arm64.
+Ordinary runs did not reproduce a persistent slowdown. Profiles repeatedly
+show lower direct MemFS read/write/copy CPU and higher Go heap-reuse CPU.
+The maintainer then approved the one-hour, maximum-two-pair allocation check;
+[all four executions and the bounded analysis are complete](https://github.com/masahitojp/mariamem/blob/7068dd045f10c2772535fccca73c040c387e5b0b/docs/reviews/go-heap-reuse-attribution.md).
+Both Fresh versions already use in-memory files: the change is contiguous-slice
+storage versus 16 KiB blocks. New cumulative allocation is about 44% lower;
+allocation profiles identify about 0.9 GiB of block storage and 2.1 GiB of SQL
+transport across four DBs. Heap-reuse CPU still loses its triggering caller at
+systemstack and remains unassigned. The agreed stop condition was reached without
+expanding scope; no runtime repair or main adoption is inferred. The original
+32.6-second cause remains unknown. Keep the original adverse evidence; do not
+classify it as noise or promise universal Fresh acceleration.
+
+**Human decision — 2026-10-17:** close this investigation here. Revisit if a
+similar Fresh slowdown recurs in normal use or measurement, comparing it with
+the preserved evidence. No further measurement or repair starts automatically;
+the original slow trial and unassigned heap-reuse CPU remain unresolved.
 
 Current storage routing follows the adopted D/shared-host contract and
 [implementation/adoption report](reviews/d-heap-shared-host.md) above. The v0.4.x
