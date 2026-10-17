@@ -47,6 +47,7 @@ def main():
         commands=[('source',[sys.executable,'scripts/verify_generated_runtime.py']),('source-tests',[sys.executable,'-m','pytest','tests/test_generated_runtime_inventory.py','tests/test_distribution_licenses.py','tests/test_packaging_license_mirrors.py','-q'])]
     else:
         assert a.guest_dir
+        env.update(GOPROXY='https://proxy.golang.org',GOSUMDB='sum.golang.org')
         commands=[('regeneration',[sys.executable,'scripts/regenerate_release_guest.py','--guest-dir',str(a.guest_dir.resolve()),'--output',str(w/'temp/regeneration')])]
     evidence=w/'evidence';evidence.mkdir(exist_ok=True)
     for label,cmd in commands:
