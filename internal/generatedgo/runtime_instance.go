@@ -3,10 +3,14 @@ package generatedgo
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/masahitojp/mariamem/internal/timing"
 	"io"
+	"os"
+	"path/filepath"
+	"strconv"
 	"sync"
 
 	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
@@ -24,13 +28,25 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 	libraryMode.Do(func() { diagnostic = false })
 	done := make(chan error, 1)
 	go func() {
-		ctx, finishTiming := timing.Begin(context.Background(), "instance")
-		defer finishTiming()
+		var startupRecord json.RawMessage
+		diagnosticCtx := timing.WithRecorder(context.Background(), func(t timing.Trace) {
+			if len(startupRecord) > 0 {
+				data, _ := json.Marshal(struct {
+					Operation string          `json:"operation"`
+					Origin    int64           `json:"origin_ns"`
+					PID       int             `json:"pid"`
+					Guest     json.RawMessage `json:"guest"`
+				}{"instance_guest", t.Origin, os.Getpid(), startupRecord})
+				_ = os.WriteFile(filepath.Join(os.Getenv("MARIAMEM_TIMING_DIR"), strconv.Itoa(os.Getpid())+"-guest-"+strconv.FormatInt(t.Origin, 10)+".json"), data, 0600)
+			}
+		})
+		ctx, finishTiming := timing.Begin(diagnosticCtx, "instance")
 		var err error
 		defer func() {
 			if p := recover(); p != nil {
 				err = errors.Join(err, guestFailure(p))
 			}
+			finishTiming()
 			done <- err
 		}()
 		w := base.DefaultWASI()
@@ -79,6 +95,16 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 			return
 		}
 		timing.Mark(ctx, "guest_workers_joined")
+		if timing.Enabled(ctx) {
+			if f, e := fs.OpenFile("snapshot-out/startup-timing.json", os.O_RDONLY, 0); e == nil {
+				data, e := io.ReadAll(io.LimitReader(f, 128*1024+1))
+				_ = f.Close()
+				if e == nil && len(data) <= 128*1024 && json.Valid(data) {
+					startupRecord = data
+				}
+			}
+			timing.Mark(ctx, "guest_diagnostics_collected")
+		}
 		if len(captures) > 0 && captures[0] != nil && captures[0].Requested() {
 			err = fs.FreezeRoot(GuestSHA256, captures[0])
 			return
