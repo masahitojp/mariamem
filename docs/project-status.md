@@ -275,9 +275,10 @@ Product Validation; those changes are not part of v0.4.5.
   across 10,980,000 reads), and no mixing occurs under the common-lock or
   completed-handoff controls. This is not grounds for a Go-conversion fix. The
   purge-specific protection premise (reader `purge_sys.latch` vs writer
-  `end_latch`) remains unverified and is not closed as harmless, Ubuntu x86_64
-  was not executed, and no runtime change follows. This is not a general
-  shared-memory guarantee.
+  `end_latch`) remains unverified. The Human accepted it as a stated limitation
+  on 2026-10-17 and did not authorize a real-guest order observation; it is not
+  established as harmless. Ubuntu x86_64 was not executed, and no runtime change
+  follows. This is not a general shared-memory guarantee.
 - Forced timeout/hard-failure containment is not guaranteed. Normal cooperative
   cleanup and non-cooperative reclaim are distinct boundaries.
 - v0.5.0 had an observed approximately one-second startup mode. The
