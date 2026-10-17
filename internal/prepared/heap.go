@@ -169,10 +169,14 @@ func (h *Heap) Verify(build string) error {
 // Capture is per execution, with no global registry or environment switches.
 // The result is read only after instance completion. Requests precede Shutdown.
 type Capture struct {
-	mu        sync.Mutex
-	requested bool
-	abandoned bool
-	result    *Heap
+	mu                     sync.Mutex
+	requested              bool
+	abandoned              bool
+	result                 *Heap
+	source                 *RootSource
+	build                  string
+	native, expectedNative *Root
+	taken                  bool
 }
 
 func (c *Capture) Request()        { c.mu.Lock(); defer c.mu.Unlock(); c.requested = true }
@@ -195,4 +199,12 @@ func (c *Capture) TakeResult() *Heap {
 	return h
 }
 
-func (c *Capture) Discard() { c.mu.Lock(); defer c.mu.Unlock(); c.abandoned = true; c.result = nil }
+func (c *Capture) Discard() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.abandoned = true
+	c.result = nil
+	c.native = nil
+	c.expectedNative = nil
+	c.source = nil
+}

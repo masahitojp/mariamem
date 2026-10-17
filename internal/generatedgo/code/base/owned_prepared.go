@@ -12,6 +12,9 @@ import (
 // MapPreparedHandles maps the exact verified backing pinned by its owner. It
 // neither opens a pathname nor hashes content. Each child still owns its views.
 func MapPreparedHandles(fsys *MemFS, entries []prepared.Entry, prefix string) (_ *PreparedFiles, err error) {
+	if len(entries) == 1 && entries[0].Root != nil {
+		return mapRoot(fsys, entries[0].Root, prefix)
+	}
 	if len(entries) == 1 && entries[0].Heap != nil {
 		return mapHeap(fsys, entries[0].Heap, prefix)
 	}
@@ -49,10 +52,10 @@ func MapPreparedHandles(fsys *MemFS, entries []prepared.Entry, prefix string) (_
 		node, e := fsys.lookup(dest)
 		if e == nil {
 			if fsys.blockStorage {
-				node.blocks = newBlockStorage()
-				node.blocks.base = data
-				node.blocks.size = entry.Size
-				node.blocks.inheritedLimit = entry.Size
+				node.blocks = newBlockStorage(fsys.rootSource)
+				if e := node.blocks.file.BorrowMapping(data); e != nil {
+					return nil, e
+				}
 			} else {
 				node.data = data
 			}

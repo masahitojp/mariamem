@@ -4,6 +4,7 @@
 package base
 
 import (
+	"github.com/masahitojp/mariamem/internal/prepared"
 	"io"
 	"io/fs"
 	"os"
@@ -20,6 +21,7 @@ import (
 // NewMemFS. Safe for concurrent use.
 type MemFS struct {
 	blockStorage bool
+	rootSource   *prepared.RootSource
 	mu           sync.Mutex
 	root         *memNode
 }

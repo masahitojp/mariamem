@@ -31,6 +31,11 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 		}()
 		w := base.DefaultWASI()
 		fs := base.NewBlockMemFS()
+		if len(captures) > 0 && captures[0] != nil {
+			if err = captures[0].BindRootSource(fs.RootSource(), GuestSHA256); err != nil {
+				return
+			}
+		}
 		if err = fs.MkdirAll("dev", 0755); err != nil {
 			return
 		}
@@ -65,11 +70,7 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 			return
 		}
 		if len(captures) > 0 && captures[0] != nil && captures[0].Requested() {
-			image, e := fs.FreezeHeap(GuestSHA256)
-			err = e
-			if e == nil {
-				captures[0].Complete(image)
-			}
+			err = fs.FreezeRoot(GuestSHA256, captures[0])
 			return
 		}
 		if transfer != "" {
