@@ -9,11 +9,12 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 main 取込 `9789a1e` を反映）。スナップショットのため、各項目の最新状態は
 [project-status](../project-status.md) を正とする。
 
+2026-10-18追記: Ubuntu性能確認はHuman受理によりクローズ。他項目の基準日は上記のとおり。
+
 ## アクティブ（判断・作業が残る）
 
 | # | 残件 | 現状 | 次の判断／作業 |
 | --- | --- | --- | --- |
-| 2 | Ubuntu 性能 | [固定scope](ubuntu-product-performance.md)の246実行・入力identity・集計の照合が完了。[結果Review](ubuntu-product-performance-results.md) | Snapshotの利益と大規模Pythonの混在結果を含め、Humanが結果を受理するか判断する |
 | 3 | 16 接続/DB の接続数調整 | 0.5.x スコープに追加済み | 実需要と資源効果を確認してから上限変更を検討する |
 | 4 | 信頼スコープ再設計 | 未着手 | 着手前に別 Human Review（dependency closure と negative proof）が必要 |
 
@@ -28,10 +29,10 @@ main 取込 `9789a1e` を反映）。スナップショットのため、各項�
 | 5 | v0.6.x serial/parallel 利用ガイド | v0.6.0 節に documentation backlog として記録済み（実装は v0.6.x） |
 | 6 | startup tail の記述 | 整合済み。v0.5.1 Release CI（`7a82f338…`）が page-cleaner 修正を含む最終 source を両 native で検証済み |
 | 7 | 共有メモリ一般モデル / purge 保護前提 | 未確立の限界として受理。R1–R5・T1/T2/J1・scalar/SIMD 照合・purge 限定比較は完了。一般 Wasm→Go の正しさは未確立、purge 保護前提は未確認の限界 |
+| 8 | Ubuntu 性能 | 2026-10-18にHuman受理、完了。[結果Review](ubuntu-product-performance-results.md)。Snapshotの利益と大規模Pythonの混在結果・原因未確定を保存。全workloadの改善を意味しない |
 
 ## 実質残るもの
 
-- **Ubuntu 性能** — 計測・証拠照合完了、Human Review待ち。全workloadの性能改善を意味しない。
 - **16 接続調整** — 0.5.x 入りしたので需要・資源効果の確認。
 - **信頼スコープ再設計** — 着手ゲートのまま。
 
@@ -47,7 +48,8 @@ main 取込 `9789a1e` を反映）。スナップショットのため、各項�
 
 | 日付 | 決定 | 記録 |
 | --- | --- | --- |
-| 2026-10-17 | 接続数調整より先にUbuntu性能確認を実施する | [固定scopeと結果待ち](ubuntu-product-performance.md)、本台帳 アクティブ #2 |
+| 2026-10-18 | Ubuntu性能確認を完了として受理。大規模Pythonの悪化・原因未確定は留保し、追加調査・main統合・リリースは今回の承認に含めない | [結果Review](ubuntu-product-performance-results.md)、本台帳 クローズ #8 |
+| 2026-10-17 | 接続数調整より先にUbuntu性能確認を実施する | [固定scope](ubuntu-product-performance.md)、本台帳 クローズ #8 |
 | 2026-10-17 | 16 接続/DB の接続数調整を 0.5.x スコープに追加（需要・資源効果の確認が先） | project-status（`ff5d442`）、本台帳 アクティブ #3 |
 | 2026-10-17 | purge head/view の限定 Wasm/Go 比較を完了として受理し、Go 変換の修正には進まない | 比較 `424172f`、本台帳 クローズ #7 |
 | 2026-10-17 | purge 保護前提を「未確認の限界」として受理。実 guest 順序観測（上限2時間案）は承認しない（無害とはしない） | project-status、本台帳 クローズ #7 |

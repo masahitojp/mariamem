@@ -14,6 +14,13 @@ Go／Pythonの4テストForkも多くの条件で短縮した。機能oracleと�
 そのため結果を受理する推薦は維持するが、「すべてのworkloadで全体が速い」とは結論しない。
 ここでruntime修正や追加の原因調査を自動で開始する推薦ではない。
 
+## Human decision（2026-10-18）
+
+Humanは上記推薦を受け入れ、Ubuntu性能確認を完了として受理した。
+Snapshotの改善と、大規模Pythonでは全体の悪化もあり原因未確定であることを併記する。
+全workloadの高速化や原因解明を完了扱いにはしない。
+この受理は追加調査・main統合・runtime変更・Qualification・公開の承認を含まない。
+
 ## 対象と証拠
 
 - [CI run 39073990176](https://github.com/masahitojp/mariamem/actions/runs/39073990176)、
