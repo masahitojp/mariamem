@@ -241,7 +241,10 @@ Product Validation; those changes are not part of v0.4.5.
   and Python 3.14; minimum package versions do not imply a broad tested matrix.
 - Full generated guest is not Go race-detector clean. Preserve the
   [race census](../benchmarks/direct-link-race-scope.md); focused handwritten
-  checks do not prove general race correctness.
+  checks do not prove general race correctness. The census is complete for its
+  old pinned inputs. The [post-v0.5 evidence reconciliation](reviews/shared-memory-post-v05-reassessment.md)
+  distinguishes the later R1–R5 investigation and repairs from a new census or
+  general shared-memory model; those scopes must not be counted as one task.
 - Forced timeout/hard-failure containment is not guaranteed. Normal cooperative
   cleanup and non-cooperative reclaim are distinct boundaries.
 - Published v0.5.0 still has an observed approximately one-second startup mode.
@@ -268,16 +271,24 @@ Product Validation; those changes are not part of v0.4.5.
 
 ## Performance evidence and pending optimization questions
 
-**Approved post-v0.5.1 follow-up: 100 MiB Go Fresh.** The
+**Closed until recurrence: 100 MiB Go Fresh.** The
 [completed paired comparison](../benchmarks/main-product-verification.md#adverse-100-mib-go-case-and-bounded-repeat)
 retains the original +29.0% wall-time trial, the three additional pairs (+1.9%
 median), and all four observations (+7.2% wall / +6.3% CPU median). Preparation
 and SQL account for the adverse intervals; storage overhead versus execution
 conditions remains unresolved. The maintainer accepted this tradeoff for
-v0.5.1; it is not an additional release gate. After release, reuse the saved
-phase/CPU/allocation data first and separately scope any profiling or runtime
-repair. Do not call the result measurement noise, promise Fresh acceleration,
-or start that new investigation during release preparation.
+v0.5.1; it was not an additional release gate. The subsequent bounded
+[released-source investigation](https://github.com/masahitojp/mariamem/blob/7068dd045f10c2772535fccca73c040c387e5b0b/docs/reviews/go-large-fresh-investigation.md)
+and [allocation attribution](https://github.com/masahitojp/mariamem/blob/7068dd045f10c2772535fccca73c040c387e5b0b/docs/reviews/go-heap-reuse-attribution.md)
+are complete on `experiment/go-large-fresh`; their experiment history is not merged.
+The additional runs did not reproduce persistent Fresh slowdown. The original
+slow trial's cause and the allocation origin of heap-reuse CPU remain unresolved.
+The Human explicitly closed the investigation on 2026-10-17, recorded in
+`7068dd045f10c2772535fccca73c040c387e5b0b`, and reaffirmed that decision after
+v0.5.2 publication. Reopen only if similar slowdown recurs in normal use or
+measurement, using the saved evidence. Further profiling or runtime repair is
+not pending approved work; do not start additional measurements while waiting
+for recurrence, call the old result noise, or claim the cause was fixed.
 
 Current storage routing follows the adopted D/shared-host contract and
 [implementation/adoption report](reviews/d-heap-shared-host.md) above. The v0.4.x
