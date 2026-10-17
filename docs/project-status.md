@@ -324,6 +324,21 @@ cost of creating a Fork child and of Close, and identify which phases own that
 time. The task ends at measurement and cause identification; selecting or
 implementing a fix is a separate decision.
 
+The Human prioritized native Ubuntu performance measurement next. The
+[fixed-scope campaign](reviews/ubuntu-product-performance.md) completed 246
+executions on the released v0.5.0/v0.5.1/v0.5.2 inputs in
+[run 39073990176](https://github.com/masahitojp/mariamem/actions/runs/39073990176).
+The [result review](reviews/ubuntu-product-performance-results.md) reconciles
+all cells and identities: Snapshot gains also appear on Ubuntu, while large
+Python whole-workflow results remain mixed. The Human accepted these results
+on 2026-10-18, closing this performance check. The large Python regressions and
+their unresolved cause remain recorded. Acceptance does not reopen the closed
+100 MiB Go Fresh investigation or authorize additional cause profiling, main
+integration, runtime changes, Qualification or publication.
+The Human separately authorized main integration and push on 2026-10-18.
+The integrated scope is measurement tooling, preserved evidence and documentation;
+no runtime change or further measurement is included.
+
 **Closed until recurrence: 100 MiB Go Fresh.** The
 [completed paired comparison](../benchmarks/main-product-verification.md#adverse-100-mib-go-case-and-bounded-repeat)
 retains the original +29.0% wall-time trial, the three additional pairs (+1.9%

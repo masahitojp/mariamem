@@ -1,0 +1,36 @@
+{
+  "sources": {
+    "baseline": {
+      "identity": {
+        "object_sha": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+        "object_type": "commit",
+        "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb"
+      },
+      "host_sha256": "19f5b4024ad8f595942318a40a462706012685cfd3970dcd54d005f88f2ead77",
+      "build_info": "<workspace>/temp/binaries/v0.5.1/mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=7a82f338cf111d5d52538b5a3f7bf129c12e2dbb\n\tbuild\tvcs.time=2026-10-16T20:02:16Z\n\tbuild\tvcs.modified=false\n"
+    },
+    "candidate": {
+      "identity": {
+        "object_sha": "47f297cc7498625e076abb93322eb616c9560bb8",
+        "object_type": "commit",
+        "source_commit": "47f297cc7498625e076abb93322eb616c9560bb8"
+      },
+      "host_sha256": "0f28d6ba7ec13275a478fce3e88d44b312f06915552cb5ef530d8c81bc5bdad8",
+      "build_info": "<workspace>/temp/binaries/v0.5.2/mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.2\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=47f297cc7498625e076abb93322eb616c9560bb8\n\tbuild\tvcs.time=2026-10-17T07:22:16Z\n\tbuild\tvcs.modified=false\n"
+    }
+  },
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+  "scales": [
+    "small",
+    "medium",
+    "100mib"
+  ],
+  "plain_repeats": 6,
+  "resource_repeats": 3,
+  "harness": {
+    "workflow.py": "e4dd55221d6cfaee7710fa6d83812bb6018d4307e9f2ba3a7b63df843d6cc431",
+    "campaign.py": "de07ac1c57ed8ef7fe426d084b0420bd25a99a3fdbb30caf94c3acd21ed2b161"
+  }
+}

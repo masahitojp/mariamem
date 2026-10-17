@@ -1,0 +1,1 @@
+HEAD is now at 47f297c release: prepare v0.5.2 for CI publication
