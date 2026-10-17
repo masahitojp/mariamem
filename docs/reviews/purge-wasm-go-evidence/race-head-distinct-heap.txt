@@ -1,0 +1,30 @@
+==================
+WARNING: DATA RACE
+Read at 0x00c0018707f0 by goroutine 11:
+  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_v128_load()
+      github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:2093 +0xd4
+  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_p_v128_load()
+      github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:2248 +0x38
+  main.main.func4()
+      purge-probe.go:84 +0xa8
+  main.main.func7()
+      purge-probe.go:94 +0xa8
+
+Previous write at 0x00c0018707f0 by goroutine 10:
+  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_v128_store()
+      github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:2106 +0xd4
+  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_p_fx262()
+      github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:4590 +0x58
+  main.main.func3()
+      purge-probe.go:82 +0xb0
+  main.main.func6()
+      purge-probe.go:93 +0xa8
+
+Goroutine 11 (running) created at:
+  main.main()
+      purge-probe.go:94 +0x12a4
+
+Goroutine 10 (running) created at:
+  main.main()
+      purge-probe.go:93 +0x11c0
+==================

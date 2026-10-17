@@ -1,0 +1,78 @@
+// Experiment driver. Production base helpers are imported without modification.
+package main
+
+import (
+ "encoding/binary"
+ "encoding/json"
+ "os"
+ "runtime"
+ "strconv"
+ "sync"
+ "sync/atomic"
+ "unsafe"
+ base "github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+)
+
+const head int32 = 24020976
+const view int32 = 24020776
+const latch int32 = 24020736
+const endLatch int32 = 24020864
+const scratchLock int32 = 256
+const size = 400*65536
+const va uint64 = 0x1111111111111111
+const vb uint64 = 0x2222222222222222
+type Counts struct { Reads int `json:"reads"`; Hybrid int `json:"hybrid"`; Ahead int `json:"ahead"`; Forbidden int `json:"forbidden"`; Samples [][2]uint64 `json:"samples"` }
+
+func wordOK(v uint64,a,b uint64) bool {
+ for i:=uint(0);i<64;i+=8 { x:=byte(v>>i); if x!=byte(a>>i)&&x!=byte(b>>i){return false} };return true
+}
+func (c *Counts) record(kind,mode string,a,b uint64) {
+ c.Reads++
+ if kind=="head" {
+   complete:=(a==100&&b==900)||(a==101&&b==0)
+   if !complete { c.Hybrid++; if len(c.Samples)<4 {c.Samples=append(c.Samples,[2]uint64{a,b})} }
+   if a>101||(a==101&&b>0) { c.Ahead++ }
+   if !wordOK(a,100,101)||!wordOK(b,900,0)||(mode!="distinct"&&!complete) {c.Forbidden++}
+ } else if !wordOK(a,va,vb)||(mode!="distinct"&&a!=va&&a!=vb) { c.Forbidden++ }
+}
+//go:noinline
+func readView(m *base.Module) uint64 { return *(*uint64)(unsafe.Add(m.M,uintptr(base.MemoryEA(m,uint64(view),0,8)))) }
+//go:noinline
+func writeView(m *base.Module,v uint64) { *(*uint64)(unsafe.Add(m.M,uintptr(base.MemoryEA(m,uint64(view),0,8))))=v }
+func lock(m *base.Module,a int32) { for base.AtomicRmwCmpxchg32(m,a,0,0,1)!=0 {} }
+func unlock(m *base.Module,a int32) { base.AtomicStore32At(m,uint64(a),0) }
+func main() {
+ runtime.GOMAXPROCS(2)
+ kind,mode,backing:=os.Args[1],os.Args[2],os.Args[3]
+ n,e:=strconv.Atoi(os.Args[4]);if e!=nil {panic(e)}
+ var mem []byte
+ var mapping *base.MemoryMapping
+ if backing=="mmap" {mapping,e=base.NewMemoryMapping(size,size);if e!=nil{panic(e)};defer mapping.Close();mem=mapping.Bytes()} else {mem=make([]byte,size)}
+ bound:=new(atomic.Uint64);bound.Store(size)
+ m:=&base.Module{Memory:mem,M:unsafe.Pointer(&mem[0]),MemSize:bound,MemShared:true}
+ base.ForceContendedAtomics(m)
+ binary.LittleEndian.PutUint64(mem[512:],100);binary.LittleEndian.PutUint64(mem[520:],900)
+ binary.LittleEndian.PutUint64(mem[528:],101);binary.LittleEndian.PutUint64(mem[536:],0)
+ base.Simd_p_fx262(m,512);writeView(m,va)
+ var wr,rd int32
+ if kind=="head" {wr=endLatch;rd=latch} else {wr=latch;rd=scratchLock}
+ if mode=="shared" {rd=wr}
+ write:=func(i int){ lock(m,wr);if kind=="head" {base.Simd_p_fx262(m,512+int32(i%2)*16)} else {v:=va;if i%2!=0{v=vb};writeView(m,v)};unlock(m,wr) }
+ counts:=Counts{}
+ read:=func(){lock(m,rd);if kind=="head" {a,b:=base.Simd_p_v128_load(m,head,0);counts.record(kind,mode,a,b)} else {counts.record(kind,mode,readView(m),0)};unlock(m,rd)}
+ if mode=="ordered" {
+   // A completion handoff per operation; no racing data accesses.
+   request:=make(chan int);done:=make(chan struct{})
+   go func(){defer close(done);for i:=range request {write(i);done<-struct{}{}}}()
+   for i:=0;i<n;i++ {request<-i;<-done;read();if kind=="head" {a,b:=base.Simd_p_v128_load(m,head,0);if a!=uint64(100+i%2)||b!=uint64(900*(1-i%2)){panic("ordered stale head")}} else {want:=va;if i%2!=0{want=vb};if readView(m)!=want{panic("ordered stale view")}}}
+   close(request);<-done
+ } else {
+   start:=make(chan struct{});var wg sync.WaitGroup;wg.Add(2)
+   go func(){defer wg.Done();<-start;for i:=0;i<n;i++{write(i)}}()
+   go func(){defer wg.Done();<-start;for i:=0;i<n;i++{read()}}()
+   close(start);wg.Wait()
+ }
+ if err:=json.NewEncoder(os.Stdout).Encode(map[string]any{"engine":"Go","kind":kind,"mode":mode,"backing":backing,"iterations":n,"counts":counts});err!=nil{panic(err)}
+ runtime.KeepAlive(mem)
+ if counts.Forbidden!=0 {os.Exit(2)}
+}

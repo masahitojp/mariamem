@@ -1,0 +1,41 @@
+{
+  "files_sha256": {
+    "build-race.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "campaign-notes.json": "e489777c59f6e752963d09e3af2665a9f1f380cc41da4f4af8518429340639a8",
+    "fixture-hex.txt": "bbcec4491cb9b470a261495f3a5d662e4004172e06c042b598739f5a33a61ef2",
+    "go-disassembly.txt": "4e0dc01c9c689b0fccda79446bc02c0d870bdc30eaab5c7a586287f82c67eb2a",
+    "initial-inputs/probe.go.txt": "96a046307358b5ad2f0dfd90ced51d521c8c0fa3638e9c8b33f351d8689552e9",
+    "initial-inputs/protocol.md": "991bbae1bf539c69ac8b226ca6428e4cf2612626ec9ff983473a38dff579da76",
+    "initial-inputs/reference.cjs": "8252e3af1a9ed80a6d3c28c9ba99ec12b5024beb91970bc0afbcb1173c66d84d",
+    "initial-inputs/run.py": "f718aa5d16f55b0eceae24471d11d1585d297a5b928138d095829a4a2cca2a33",
+    "initial-results.json": "abac9d8047cf85714b2763b0f4b3079cdd041f8a1e476df3bdc904ecafaa908a",
+    "model.json": "e0a8d2be0ebfd077f583d1795d6314fcd5b98ec99c79e8674585bc66adcadae6",
+    "pre-witness-inputs/probe.go.txt": "674b15268e541041c2617716f63e95620780e047c619115a01a6ca013c2f4dad",
+    "pre-witness-inputs/protocol.md": "991bbae1bf539c69ac8b226ca6428e4cf2612626ec9ff983473a38dff579da76",
+    "pre-witness-inputs/reference.cjs": "70f9546325792838a524bc2be9fe73a0a6f7e021fddd66a44505b5d91409b372",
+    "pre-witness-inputs/run.py": "1c9777339c18775210e3b858a711b39cc81ba5ddda8b48afb2b35c3dd6a6bf54",
+    "pre-witness-results.json": "ecad1986a7643b4ff1b1a980a5a8da264433e5082b36460517dc52b64c27844a",
+    "protection-anchors.json": "82ce71f27b78982b551952d58af131264cb0524b165b57427cf2d1ee1742f211",
+    "race-head-distinct-heap.txt": "c0e36e98c52678cb9af0c077c169ff6ae3839802abce42b5f2485686ec43c83c",
+    "race-head-distinct-mmap.txt": "c4eecd53073192e07481eb2a6c34692c2104c61c2c33527c064ec07c87b16693",
+    "race-head-host-mutex-mmap.txt": "db2e750a2dd1ad94b622890abc429611d7b5bfbeead084632a042ef7997b4dc9",
+    "race-head-shared-heap.txt": "f88dcef401b20eb80cad73e4a1e68de51728848fb549b39969c5bb337bb5419c",
+    "race-head-shared-mmap.txt": "110049b4831ab1514658231f0faa1c8d05c5a0a901cdffbbed72d02d2f27dd9a",
+    "race-view-distinct-heap.txt": "71b075566281a70acfd0a238ffa3640a118fef1d2a989ec97e9df778e0243f8c",
+    "race-view-distinct-mmap.txt": "6e51dbf8970d563c39e3c44eef97fc3bcfbebf6144cadd15b830ea3a455797d0",
+    "race-view-host-mutex-mmap.txt": "06e16bbc1606f805e283309fb7149e909aedc61a693327c775e1abb7d2fc9d87",
+    "race-view-shared-heap.txt": "08538576e9b3edfed4fde821dc146a47506b2bff33a2c1430389fac33d2bdbec",
+    "race-view-shared-mmap.txt": "c1578932c49a172f0ba7bcc527822d51d6d4ee21b77dbaa6554e3d661f787763",
+    "results.json": "a224a214d4a04343fa6964d2ad0ca2e0fddb46680f9c2db269e8918e806ceb9d",
+    "summary.json": "a91f84c69e2dfb9c7263887fb405bd95571306674635a89e327c464891ccf46e"
+  },
+  "preservation": "UTF-8 logs already path-scrubbed by runner; selected Wasm bytes are hex text; input templates preserved verbatim",
+  "normalizations": {
+    "go-disassembly.txt": {
+      "source_sha256": "2fcdb6680d1e598b2e6b9145d39f210fcf680231add1ea08141f72cdc9d44642",
+      "stored_sha256": "4e0dc01c9c689b0fccda79446bc02c0d870bdc30eaab5c7a586287f82c67eb2a",
+      "operation": "strip trailing whitespace per line; preserve instructions and order"
+    }
+  }
+}

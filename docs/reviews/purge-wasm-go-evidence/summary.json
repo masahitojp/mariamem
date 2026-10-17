@@ -1,0 +1,200 @@
+{
+  "head_distinct": [
+    {
+      "engine": "Node/Wasm",
+      "backing": "shared WebAssembly.Memory",
+      "reads": 900000,
+      "hybrid": 0,
+      "ahead": 0,
+      "trials": [
+        {
+          "reads": 300000,
+          "hybrid": 0,
+          "ahead": 0,
+          "forbidden": 0,
+          "samples": []
+        },
+        {
+          "reads": 300000,
+          "hybrid": 0,
+          "ahead": 0,
+          "forbidden": 0,
+          "samples": []
+        },
+        {
+          "reads": 300000,
+          "hybrid": 0,
+          "ahead": 0,
+          "forbidden": 0,
+          "samples": []
+        }
+      ]
+    },
+    {
+      "engine": "Go",
+      "backing": "heap",
+      "reads": 900000,
+      "hybrid": 1383,
+      "ahead": 450,
+      "trials": [
+        {
+          "reads": 300000,
+          "hybrid": 692,
+          "ahead": 251,
+          "forbidden": 0,
+          "samples": [
+            [
+              101,
+              900
+            ],
+            [
+              101,
+              900
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              100,
+              0
+            ]
+          ]
+        },
+        {
+          "reads": 300000,
+          "hybrid": 551,
+          "ahead": 121,
+          "forbidden": 0,
+          "samples": [
+            [
+              101,
+              900
+            ],
+            [
+              101,
+              900
+            ],
+            [
+              101,
+              900
+            ],
+            [
+              100,
+              0
+            ]
+          ]
+        },
+        {
+          "reads": 300000,
+          "hybrid": 140,
+          "ahead": 78,
+          "forbidden": 0,
+          "samples": [
+            [
+              100,
+              0
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              101,
+              900
+            ],
+            [
+              101,
+              900
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "engine": "Go",
+      "backing": "mmap",
+      "reads": 900000,
+      "hybrid": 5709,
+      "ahead": 3063,
+      "trials": [
+        {
+          "reads": 300000,
+          "hybrid": 2040,
+          "ahead": 956,
+          "forbidden": 0,
+          "samples": [
+            [
+              100,
+              0
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              101,
+              900
+            ],
+            [
+              100,
+              0
+            ]
+          ]
+        },
+        {
+          "reads": 300000,
+          "hybrid": 1849,
+          "ahead": 1198,
+          "forbidden": 0,
+          "samples": [
+            [
+              101,
+              900
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              101,
+              900
+            ],
+            [
+              100,
+              0
+            ]
+          ]
+        },
+        {
+          "reads": 300000,
+          "hybrid": 1820,
+          "ahead": 909,
+          "forbidden": 0,
+          "samples": [
+            [
+              100,
+              0
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              100,
+              0
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "non_race_runs": 54,
+  "race_diagnostic_runs": 10,
+  "non_race_reads": 10980000,
+  "semantic_forbidden_observations": 0
+}

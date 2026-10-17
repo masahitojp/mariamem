@@ -1,0 +1,92 @@
+[
+  {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "storage/innobase/include/trx0purge.h",
+    "file_sha256": "cfd767522a2f2d16c348a3a489b0bf6c2c56dae2605ce5100a318527a0cce759",
+    "start_line": 198,
+    "end_line": 225,
+    "source": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/include/trx0purge.h#L198",
+    "excerpt": "\n\tque_t*\t\tquery;\t\t/*!< The query graph which will do the\n\t\t\t\t\tparallelized purge operation */\n\n\t/** Iterator to the undo log records of committed transactions */\n\tstruct iterator\n\t{\n\t\tbool operator<=(const iterator& other) const\n\t\t{\n\t\t\tif (trx_no < other.trx_no) return true;\n\t\t\tif (trx_no > other.trx_no) return false;\n\t\t\treturn undo_no <= other.undo_no;\n\t\t}\n\n\t\t/** Remove unnecessary history data from a rollback segment.\n\t\t@param rseg   rollback segment\n\t\t@return error code */\n\t\tinline dberr_t free_history_rseg(trx_rseg_t &rseg) const;\n\n\t\t/** Free the undo pages up to this. */\n\t\tdberr_t free_history() const;\n\n\t\t/** trx_t::no of the committed transaction */\n\t\ttrx_id_t\ttrx_no;\n\t\t/** The record number within the committed transaction's undo\n\t\tlog, increasing, purged from from 0 onwards */\n\t\tundo_no_t\tundo_no;\n\t};\n"
+  },
+  {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "storage/innobase/include/trx0purge.h",
+    "file_sha256": "cfd767522a2f2d16c348a3a489b0bf6c2c56dae2605ce5100a318527a0cce759",
+    "start_line": 227,
+    "end_line": 234,
+    "source": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/include/trx0purge.h#L227",
+    "excerpt": "\t/** The tail of the purge queue; the last parsed undo log of a\n\tcommitted transaction. */\n\titerator\ttail;\n\t/** The head of the purge queue; any older undo logs of committed\n\ttransactions may be discarded (history list truncation).\n\tProtected by latch. */\n\titerator\thead;\n\t/*-----------------------------*/\n"
+  },
+  {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "storage/innobase/include/trx0purge.h",
+    "file_sha256": "cfd767522a2f2d16c348a3a489b0bf6c2c56dae2605ce5100a318527a0cce759",
+    "start_line": 407,
+    "end_line": 429,
+    "source": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/include/trx0purge.h#L407",
+    "excerpt": "  trx_id_t low_limit_no() const\n  {\n    /* This function may only be called by purge_coordinator_callback().\n\n    The purge coordinator task may call this without holding any latch,\n    because it is the only thread that may modify purge_sys.view.\n\n    Any other threads that access purge_sys.view must hold purge_sys.latch,\n    typically via purge_sys_t::view_guard. */\n    return view.low_limit_no();\n  }\n  /** A wrapper around ReadView::sees(). */\n  trx_id_t sees(trx_id_t id) const\n  {\n    /* This function may only be called by purge_coordinator_callback().\n\n    The purge coordinator task may call this without holding any latch,\n    because it is the only thread that may modify purge_sys.view.\n\n    Any other threads that access purge_sys.view must hold purge_sys.latch,\n    typically via purge_sys_t::view_guard. */\n    return view.sees(id);\n  }\n"
+  },
+  {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "storage/innobase/include/trx0purge.h",
+    "file_sha256": "cfd767522a2f2d16c348a3a489b0bf6c2c56dae2605ce5100a318527a0cce759",
+    "start_line": 450,
+    "end_line": 469,
+    "source": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/include/trx0purge.h#L450",
+    "excerpt": "  /** A wrapper around trx_sys_t::clone_oldest_view(). */\n  template<bool also_end_view= false>\n  void clone_oldest_view(THD *thd)\n  {\n    ut_ad(also_end_view == !thd);\n    ut_ad(!thd || !coordinator_thd);\n    coordinator_thd= thd;\n\n    if (!also_end_view)\n      wait_FTS(true);\n    latch.wr_lock(SRW_LOCK_CALL);\n    trx_sys.clone_oldest_view(&view);\n    if (also_end_view)\n      (end_view= view).\n        clamp_low_limit_id(head.trx_no ? head.trx_no : tail.trx_no);\n    latch.wr_unlock();\n  }\n\n  /** Wake up the purge threads if there is work to do. */\n  void wake_if_not_active();\n"
+  },
+  {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "storage/innobase/trx/trx0purge.cc",
+    "file_sha256": "7956ec9af7e034edc8701c17f85d6b50edaacd44ba08709ba8802a4c14beeefd",
+    "start_line": 398,
+    "end_line": 425,
+    "source": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/trx/trx0purge.cc#L398",
+    "excerpt": "    buf_page_get_gen(page_id_t(rseg.space->id, hdr_addr.page),\n                     0, RW_X_LATCH, nullptr, BUF_GET_POSSIBLY_FREED,\n                     &mtr, &err);\n  if (!b)\n    goto func_exit;\n\n  const trx_id_t undo_trx_no=\n    mach_read_from_8(b->page.frame + hdr_addr.boffset + TRX_UNDO_TRX_NO);\n\n  if (undo_trx_no >= trx_no)\n  {\n    if (undo_trx_no == trx_no)\n      err= trx_undo_truncate_start(&rseg, hdr_addr.page,\n                                   hdr_addr.boffset, undo_no);\n    goto func_exit;\n  }\n  else\n  {\n    rseg_ref= rseg.ref_load();\n    if (rseg_ref >= rseg.REF || !purge_sys.sees(rseg.needs_purge))\n    {\n      /* We cannot clear this entire rseg because trx_assign_rseg_low()\n      has already chosen it for a future trx_undo_assign(), or\n      because some recently started transaction needs purging.\n\n      If this invocation could not reduce rseg.history_size at all\n      (!freed), we will try to ensure progress and prevent our\n      starvation by disabling one rollback segment for future\n"
+  },
+  {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "storage/innobase/trx/trx0purge.cc",
+    "file_sha256": "7956ec9af7e034edc8701c17f85d6b50edaacd44ba08709ba8802a4c14beeefd",
+    "start_line": 1424,
+    "end_line": 1446,
+    "source": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/trx/trx0purge.cc#L1424",
+    "excerpt": "void purge_sys_t::batch_cleanup(const purge_sys_t::iterator &head)\n{\n  m_active= false;\n\n  /* Release the undo pages. */\n  for (auto p : pages)\n    p.second->unfix();\n  pages.clear();\n  pages.reserve(srv_purge_batch_size);\n\n  /* This is only invoked only by the purge coordinator,\n  which is the only thread that can modify our inputs head, tail, view.\n  Therefore, we only need to protect end_view from concurrent reads. */\n\n  /* Limit the end_view similar to what trx_purge_truncate_history() does. */\n  const trx_id_t trx_no= head.trx_no ? head.trx_no : tail.trx_no;\n  end_latch.wr_lock();\n  this->head= head;\n  end_view= view;\n  end_view.clamp_low_limit_id(trx_no);\n  end_latch.wr_unlock();\n  coordinator_thd= nullptr;\n}\n"
+  },
+  {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "storage/innobase/srv/srv0srv.cc",
+    "file_sha256": "18e1b6b8771f6abc837c14747522371052e08b0c9ed0e13305ca799500b04c04",
+    "start_line": 1098,
+    "end_line": 1117,
+    "source": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/srv/srv0srv.cc#L1098",
+    "excerpt": "\nstatic void purge_worker_callback(void*);\nstatic void purge_coordinator_callback(void*);\nstatic void purge_truncation_callback(void*)\n{\n  purge_sys.latch.rd_lock(SRW_LOCK_CALL);\n  const purge_sys_t::iterator head= purge_sys.head;\n  purge_sys.latch.rd_unlock();\n  head.free_history();\n}\n\nstatic tpool::task_group purge_task_group;\ntpool::waitable_task purge_worker_task(purge_worker_callback, nullptr,\n                                       &purge_task_group);\nstatic tpool::task_group purge_coordinator_task_group(1);\nstatic tpool::waitable_task purge_coordinator_task\n  (purge_coordinator_callback, nullptr, &purge_coordinator_task_group);\nstatic tpool::task_group purge_truncation_task_group(1);\nstatic tpool::waitable_task purge_truncation_task\n  (purge_truncation_callback, nullptr, &purge_truncation_task_group);\n"
+  },
+  {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "storage/innobase/srv/srv0srv.cc",
+    "file_sha256": "18e1b6b8771f6abc837c14747522371052e08b0c9ed0e13305ca799500b04c04",
+    "start_line": 1407,
+    "end_line": 1435,
+    "source": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/srv/srv0srv.cc#L1407",
+    "excerpt": "    ut_ad(n_threads);\n\n    history_size= trx_sys.history_size();\n\n    if (!history_size)\n    {\n    no_history:\n      srv_dml_needed_delay= 0;\n      purge_truncation_task.wait();\n      trx_purge_truncate_history();\n      break;\n    }\n\n    ulint n_pages_handled= trx_purge(trx, n_threads, history_size);\n    if (!trx_sys.history_exists())\n      goto no_history;\n    if (purge_sys.truncating_tablespace() ||\n        srv_shutdown_state != SRV_SHUTDOWN_NONE)\n    {\n      purge_truncation_task.wait();\n      trx_purge_truncate_history();\n    }\n    else\n      srv_thread_pool->submit_task(&purge_truncation_task);\n    if (!n_pages_handled)\n      break;\n  }\n  while (purge_sys.enabled() && !purge_sys.paused() &&\n         !srv_purge_should_exit(history_size));\n"
+  },
+  {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "storage/innobase/include/read0types.h",
+    "file_sha256": "180440e196e07c216793a699204d9e844a6a3ed721e5129be3b973afd802aee3",
+    "start_line": 37,
+    "end_line": 61,
+    "source": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/include/read0types.h#L37",
+    "excerpt": "*/\nclass ReadViewBase\n{\n  /**\n    The read should not see any transaction with trx id >= this value.\n    In other words, this is the \"high water mark\".\n  */\n  trx_id_t m_low_limit_id= 0;\n\n  /**\n    The read should see all trx ids which are strictly\n    smaller (<) than this value. In other words, this is the\n    low water mark\".\n  */\n  trx_id_t m_up_limit_id;\n\n  /** Set of RW transactions that was active when this snapshot was taken */\n  trx_ids_t m_ids;\n\n  /**\n    The view does not need to see the undo logs for transactions whose\n    transaction number is strictly smaller (<) than this value: they can be\n    removed in purge if not needed by other views.\n  */\n  trx_id_t m_low_limit_no;\n"
+  },
+  {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "storage/innobase/include/read0types.h",
+    "file_sha256": "180440e196e07c216793a699204d9e844a6a3ed721e5129be3b973afd802aee3",
+    "start_line": 133,
+    "end_line": 149,
+    "source": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/include/read0types.h#L133",
+    "excerpt": "      return false;\n    return id < m_up_limit_id ||\n           m_ids.empty() ||\n           !std::binary_search(m_ids.begin(), m_ids.end(), id);\n  }\n\n  /**\n    @param id transaction to check\n    @return true if view sees transaction id\n  */\n  bool sees(trx_id_t id) const { return id < m_up_limit_id; }\n\n  /** @return the low limit no */\n  trx_id_t low_limit_no() const { return m_low_limit_no; }\n\n  /** @return the low limit id */\n  trx_id_t low_limit_id() const { return m_low_limit_id; }\n"
+  }
+]

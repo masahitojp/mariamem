@@ -1,0 +1,25 @@
+{
+  "primary": "results.json: final campaign, 54 non-race runs and 10 separate race diagnostic runs",
+  "earlier_complete_campaigns": [
+    "initial-results.json: before direct Go/JS classifier controls and view hybrid counters",
+    "pre-witness-results.json: direct classifier controls present, before protected-state witness"
+  ],
+  "harness_failures": [
+    {
+      "stage": "second campaign packaging",
+      "reason": "oracle-run insertion landed in finite_model; undefined temp; no product/runtime failure",
+      "retained": "terminal diagnosis only; incomplete campaign not used as primary evidence"
+    },
+    {
+      "stage": "direct oracle negative/positive controls",
+      "reason": "test expected 0x12 bytes to be permitted from 0x11/0x22 byte writes; actual classifier rejected it correctly",
+      "resolution": "positive mixed-byte case corrected to 0x1122112211221122; rejection rule unchanged"
+    },
+    {
+      "stage": "shared mmap race diagnostic after adding heap witness",
+      "reason": "-race reported the heap-resident witness despite shared CAS lock in mmap; harness incorrectly required silence",
+      "resolution": "keep diagnostic exit 66 separate from semantic checks, as required by pre-execution protocol; add host sync.Mutex diagnostic control; preserve final report/log"
+    }
+  ],
+  "scope": "No product failure oracle removed or changed; semantic assertions retained and strengthened with exact shared-lock witness."
+}

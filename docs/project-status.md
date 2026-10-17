@@ -269,6 +269,12 @@ Product Validation; those changes are not part of v0.4.5.
   a concrete purge-state protection question and proposes a bounded original-Wasm/Go
   comparison for Human Review. No new execution or runtime fix is included, and
   candidate-site correspondence is not a complete semantic or exact-PC proof.
+  The Human then approved the bounded head/view comparison. Its
+  [macOS fixture results](reviews/purge-wasm-go-comparison.md) observe torn heads
+  in Go within the Wasm-permitted set and no forbidden outcome in the defined
+  synchronization controls. The recommendation is no conversion fix on this
+  evidence; actual guest impact and general-model acceptance remain unresolved.
+  This experiment result awaits Human Review and is not a new product guarantee.
 - Forced timeout/hard-failure containment is not guaranteed. Normal cooperative
   cleanup and non-cooperative reclaim are distinct boundaries.
 - v0.5.0 had an observed approximately one-second startup mode. The

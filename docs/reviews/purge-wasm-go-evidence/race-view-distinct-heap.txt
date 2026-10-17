@@ -1,0 +1,26 @@
+==================
+WARNING: DATA RACE
+Write at 0x00c001868728 by goroutine 10:
+  main.writeView()
+      purge-probe.go:56 +0x114
+  main.main.func3()
+      purge-probe.go:82 +0xd4
+  main.main.func6()
+      purge-probe.go:93 +0xa8
+
+Previous read at 0x00c001868728 by goroutine 11:
+  main.readView()
+      purge-probe.go:54 +0xc8
+  main.main.func4()
+      purge-probe.go:84 +0x164
+  main.main.func7()
+      purge-probe.go:94 +0xa8
+
+Goroutine 10 (running) created at:
+  main.main()
+      purge-probe.go:93 +0x11c0
+
+Goroutine 11 (running) created at:
+  main.main()
+      purge-probe.go:94 +0x12a4
+==================

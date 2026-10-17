@@ -1,0 +1,1 @@
+{"backing":"mmap","counts":{"reads":10000,"hybrid":0,"ahead":0,"forbidden":0,"samples":null},"engine":"Go","iterations":10000,"kind":"view","mode":"distinct"}

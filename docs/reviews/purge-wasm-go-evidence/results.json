@@ -1,0 +1,2036 @@
+{
+  "source_identity": {
+    "object_sha": "47f297cc7498625e076abb93322eb616c9560bb8",
+    "object_type": "commit",
+    "source_commit": "47f297cc7498625e076abb93322eb616c9560bb8"
+  },
+  "experiment_base_commit": "29e4d0b1865b96178de1f0f4cce40e0250b881b3",
+  "base_inventory_sha256": {
+    "internal/generatedgo/code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
+    "internal/generatedgo/code/base/base.go": "8cc53738988f7d4c9b7eb353721cab3359ca83ab5785df0c0fec0c2910236b30",
+    "internal/generatedgo/code/base/block_storage.go": "429c4c67d3cb3fd3356ae89bfaa07eaca49e83a58cad7fe1174744aede4ee73c",
+    "internal/generatedgo/code/base/block_storage_test.go": "5e727e8203dcae55b6b2a8d4ffcb1169a7edb87bde5354d102a624f19e132ae1",
+    "internal/generatedgo/code/base/bulk_bounds_test.go": "81ae586bce2e72eec5dbd9ebd33fee05ae26106256131957dcdcaadfea46280c",
+    "internal/generatedgo/code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+    "internal/generatedgo/code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+    "internal/generatedgo/code/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+    "internal/generatedgo/code/base/cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+    "internal/generatedgo/code/base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+    "internal/generatedgo/code/base/fd_allocate_test.go": "0a3c9391708d99baf7b83c3eea234d9947e33ee993eb469f374feba0fda09fdd",
+    "internal/generatedgo/code/base/heap_snapshot.go": "b0ee33871d4e750b5ec1bc65023a5c0fd6640bfcfd3a8bf2a16ac9d62b632bef",
+    "internal/generatedgo/code/base/heap_snapshot_test.go": "14f2aa50e6bc69df071eece8e5d3cff212f27c50f9994471e863a95a8e740d22",
+    "internal/generatedgo/code/base/host_memory_test.go": "a9d5e8abd543f3a56ff6abde0e75600f12e40e523a355aec552a4549dfc4e4da",
+    "internal/generatedgo/code/base/memfs.go": "9f837926d070c66947be82ee8aecc35ac724fcdc245cd42814e39e85d3c234ed",
+    "internal/generatedgo/code/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
+    "internal/generatedgo/code/base/memfs_growth_test.go": "2c7c1954fa9a952d7e182c2b721fe9330c6d935b34f9aa9f45a35a6c8501f4c4",
+    "internal/generatedgo/code/base/memory_mapping.go": "388e8cf70e3387db7143f9081b9e62c6ddb3edf52e4adbff223be1f9a8020cc7",
+    "internal/generatedgo/code/base/memory_mapping_test.go": "6a7afb89d60c2247b722e86f0bf2da7b4cc08803671f8123a77b858a1b06aeba",
+    "internal/generatedgo/code/base/narrow_load_darwin_arm64.s": "0e5f92aaa6767c173b90b3432ce6866291a96e1b3e26a3a43c7b23de96cdd5a9",
+    "internal/generatedgo/code/base/narrow_load_linux_amd64.s": "7a4c1ba99109aa8870db20bdd6eee26515362d292738ec0008b5fa4c43d0956f",
+    "internal/generatedgo/code/base/narrow_load_other.go": "49b7b233f4380992c11c0d9ab6cd7442db1d2401c8428d33389fcf320fb626c7",
+    "internal/generatedgo/code/base/narrow_load_supported.go": "53a04e996c7edafe5a21c28c35d4fa9f9661c8854d4d1aaca5029af83331d342",
+    "internal/generatedgo/code/base/narrow_load_test.go": "87744a96f49f180a6a10ef2c4730c96f87f9cc88ac76eecc94b9a2dc1e5d566b",
+    "internal/generatedgo/code/base/narrow_write_darwin_arm64.s": "8c7f1579987ad56f6bc71b5210ebd252b747d1ecd4044ff8a0c3ed6d39742e89",
+    "internal/generatedgo/code/base/narrow_write_linux_amd64.s": "a189e25e3f4fd8f19f245345b052e8ddcf87fd4b649250365ffa44f3d94c9f19",
+    "internal/generatedgo/code/base/narrow_write_other.go": "e66dd1978ec60a9c16f302e9d461ba77e370519b6c95275ed9832b085f8fa4de",
+    "internal/generatedgo/code/base/narrow_write_supported.go": "3a0c9b33fbc99a343943c3996a23ad1879c36dde88d9903bd13f94a9ec3bb18d",
+    "internal/generatedgo/code/base/narrow_write_test.go": "c720856d6dcc0224239ab6c1a4ced3afe6596c255d7eb0d71fe4ea3a9bb171b6",
+    "internal/generatedgo/code/base/owned_prepared.go": "a276d8ed117163b5386a8025e11ce73dbfd1f3713327541177ec1063293b82b6",
+    "internal/generatedgo/code/base/owned_prepared_test.go": "1bef884421a17c364faca5102407deafa80b5600759a5ba0247ac643722d15bc",
+    "internal/generatedgo/code/base/prepared_files.go": "6abb8d5c5886a0b4a8eaba13236cd6de6eaee21ccfa674b7a60adcefe78c3c7e",
+    "internal/generatedgo/code/base/prepared_files_test.go": "540bf350e2aaa9276ef7266980d6c637ca06b2ce62dbb9b1e84da1a5410ec7ef",
+    "internal/generatedgo/code/base/prepared_growth_test.go": "4c1122c2f378b35787c48debbe2053f5d0b7eabaf706f71bb3fdb8beef8f1d93",
+    "internal/generatedgo/code/base/relative.go": "a5c100e135a04b93b76b36b9c80cc14645950f6fab34abf6655b13cdf02ca15a",
+    "internal/generatedgo/code/base/relative_contract_test.go": "f3f731925741da0bd9dd528b57972e5aaf721410090c83ab524cb75f44f87ba2",
+    "internal/generatedgo/code/base/runtime_cleanup.go": "40886ea6b6c24316f4fd73d451674c815bc7b26717e1b635362b2170d010d75c",
+    "internal/generatedgo/code/base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+    "internal/generatedgo/code/base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+    "internal/generatedgo/code/base/sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+    "internal/generatedgo/code/base/simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+    "internal/generatedgo/code/base/simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c",
+    "internal/generatedgo/code/base/simd_asm_decls_amd64.go": "456cefd6896b1021a6dbf813a381165ec99efb3cd7b66a34a4e97ef31b23802e",
+    "internal/generatedgo/code/base/simd_asm_decls_arm64.go": "8e9dd950f0c3282a924cf961e055db631536f883f2c05cccef44c4974d99abee",
+    "internal/generatedgo/code/base/simd_fallback.go": "0bb864d570bc9286d87290c55ef52e7082c114e6f3730ae86415e15bbff849ad",
+    "internal/generatedgo/code/base/simd_pair.go": "ffa8c2aac9e0a61608fca859ea8a7493b42dca47babed99c28762573c8d0a916",
+    "internal/generatedgo/code/base/simd_relaxed.go": "ce4ddfb367e686107aa8dbcba8ced4bb5b591106cec94d0950f5e588b1235152",
+    "internal/generatedgo/code/base/simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+    "internal/generatedgo/code/base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+    "internal/generatedgo/code/base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+    "internal/generatedgo/code/base/spike_contract_test.go": "2ea04d8502569740c3d7f779c5a3c9cbdbbc46f4ed8606bd80ba272494d0b947",
+    "internal/generatedgo/code/base/spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862",
+    "internal/generatedgo/code/base/thread_identity_test.go": "e544ab6caed39b416e8475cc453637cde5f5e092d7e1f671d231bb34945f4d03",
+    "internal/generatedgo/code/base/thread_lifetime.go": "e381f829248d859331ec560de111e3d5edabb1be11a84f57fb4458c3dec7de25",
+    "internal/generatedgo/code/base/thread_lifetime_test.go": "00cfb003802388dbf53a663a478e681045e89b8a8e3da3b81de2317c49f82a21",
+    "internal/generatedgo/code/base/wait_timeout_test.go": "bc55d663c8f53886769a6e59d9b47fb0b68cafd063e8e6101f599128729859a8"
+  },
+  "fixture_sha256": "98d57cf0a4f7be97e2bf50065f6f07634d1a3c1bba783e49119b1186154b6fde",
+  "template_sha256": {
+    "run.py": "4879a3d83646046730ac0cdd3dabeb2bdadf6b03a9b079e460a5e1d6d07a7479",
+    "probe.go.txt": "628edde3274671f5afda0fc635af4590b25e9b4e67fb4b8f661201834d6c3262",
+    "reference.cjs": "5ef78a9049907b19114c58ba13b1118ccacbb94735d4f7b016272d6b49573ba9",
+    "protocol.md": "991bbae1bf539c69ac8b226ca6428e4cf2612626ec9ff983473a38dff579da76"
+  },
+  "node_version": "v26.11.1",
+  "go_version": "go version go1.26.8 darwin/arm64",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "duration_seconds": 13.938874006271362,
+  "iterations": 300000,
+  "repeats": 3,
+  "oracle_controls": [
+    {
+      "engine": "Go",
+      "oracle_controls": 12,
+      "result": "PASS"
+    },
+    {
+      "engine": "Node/Wasm",
+      "oracle_controls": 12,
+      "result": "PASS"
+    }
+  ],
+  "runs": [
+    {
+      "engine": "Node/Wasm",
+      "kind": "head",
+      "mode": "distinct",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 692,
+        "ahead": 251,
+        "forbidden": 0,
+        "samples": [
+          [
+            101,
+            900
+          ],
+          [
+            101,
+            900
+          ],
+          [
+            100,
+            0
+          ],
+          [
+            100,
+            0
+          ]
+        ]
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "distinct",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 2040,
+        "ahead": 956,
+        "forbidden": 0,
+        "samples": [
+          [
+            100,
+            0
+          ],
+          [
+            100,
+            0
+          ],
+          [
+            101,
+            900
+          ],
+          [
+            100,
+            0
+          ]
+        ]
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "distinct",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "head",
+      "mode": "shared",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "shared",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "shared",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "head",
+      "mode": "ordered",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 10000,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "head",
+      "mode": "ordered",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "head",
+      "mode": "ordered",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "view",
+      "mode": "distinct",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "distinct",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "distinct",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "view",
+      "mode": "shared",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "shared",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "shared",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "view",
+      "mode": "ordered",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 10000,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "view",
+      "mode": "ordered",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "view",
+      "mode": "ordered",
+      "trial": 0,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "head",
+      "mode": "distinct",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 551,
+        "ahead": 121,
+        "forbidden": 0,
+        "samples": [
+          [
+            101,
+            900
+          ],
+          [
+            101,
+            900
+          ],
+          [
+            101,
+            900
+          ],
+          [
+            100,
+            0
+          ]
+        ]
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "distinct",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 1849,
+        "ahead": 1198,
+        "forbidden": 0,
+        "samples": [
+          [
+            101,
+            900
+          ],
+          [
+            100,
+            0
+          ],
+          [
+            101,
+            900
+          ],
+          [
+            100,
+            0
+          ]
+        ]
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "distinct",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "head",
+      "mode": "shared",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "shared",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "shared",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "head",
+      "mode": "ordered",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 10000,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "head",
+      "mode": "ordered",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "head",
+      "mode": "ordered",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "view",
+      "mode": "distinct",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "distinct",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "distinct",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "view",
+      "mode": "shared",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "shared",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "shared",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "view",
+      "mode": "ordered",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 10000,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "view",
+      "mode": "ordered",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "view",
+      "mode": "ordered",
+      "trial": 1,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "head",
+      "mode": "distinct",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 140,
+        "ahead": 78,
+        "forbidden": 0,
+        "samples": [
+          [
+            100,
+            0
+          ],
+          [
+            100,
+            0
+          ],
+          [
+            101,
+            900
+          ],
+          [
+            101,
+            900
+          ]
+        ]
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "distinct",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 1820,
+        "ahead": 909,
+        "forbidden": 0,
+        "samples": [
+          [
+            100,
+            0
+          ],
+          [
+            100,
+            0
+          ],
+          [
+            100,
+            0
+          ],
+          [
+            100,
+            0
+          ]
+        ]
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "distinct",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "head",
+      "mode": "shared",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "shared",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "head",
+      "mode": "shared",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "head",
+      "mode": "ordered",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 10000,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "head",
+      "mode": "ordered",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "head",
+      "mode": "ordered",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "view",
+      "mode": "distinct",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "distinct",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "distinct",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "view",
+      "mode": "shared",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 300000,
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "shared",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 300000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 300000,
+      "kind": "view",
+      "mode": "shared",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "engine": "Node/Wasm",
+      "kind": "view",
+      "mode": "ordered",
+      "backing": "shared WebAssembly.Memory",
+      "iterations": 10000,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": []
+      },
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "heap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "view",
+      "mode": "ordered",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "backing": "mmap",
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "engine": "Go",
+      "iterations": 10000,
+      "kind": "view",
+      "mode": "ordered",
+      "trial": 2,
+      "race": false
+    },
+    {
+      "engine": "Go",
+      "kind": "head",
+      "mode": "distinct",
+      "backing": "heap",
+      "race": true,
+      "iterations": 10000,
+      "exit_code": 66,
+      "reports_before_halt": 1,
+      "counts": null,
+      "log": "race-head-distinct-heap.txt",
+      "log_sha256": "c0e36e98c52678cb9af0c077c169ff6ae3839802abce42b5f2485686ec43c83c"
+    },
+    {
+      "engine": "Go",
+      "kind": "head",
+      "mode": "distinct",
+      "backing": "mmap",
+      "race": true,
+      "iterations": 10000,
+      "exit_code": 0,
+      "reports_before_halt": 0,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 180,
+        "ahead": 88,
+        "forbidden": 0,
+        "samples": [
+          [
+            101,
+            900
+          ],
+          [
+            101,
+            900
+          ],
+          [
+            101,
+            900
+          ],
+          [
+            100,
+            0
+          ]
+        ]
+      },
+      "log": "race-head-distinct-mmap.txt",
+      "log_sha256": "c4eecd53073192e07481eb2a6c34692c2104c61c2c33527c064ec07c87b16693"
+    },
+    {
+      "engine": "Go",
+      "kind": "head",
+      "mode": "shared",
+      "backing": "heap",
+      "race": true,
+      "iterations": 10000,
+      "exit_code": 0,
+      "reports_before_halt": 0,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "log": "race-head-shared-heap.txt",
+      "log_sha256": "f88dcef401b20eb80cad73e4a1e68de51728848fb549b39969c5bb337bb5419c"
+    },
+    {
+      "engine": "Go",
+      "kind": "head",
+      "mode": "shared",
+      "backing": "mmap",
+      "race": true,
+      "iterations": 10000,
+      "exit_code": 66,
+      "reports_before_halt": 1,
+      "counts": null,
+      "log": "race-head-shared-mmap.txt",
+      "log_sha256": "110049b4831ab1514658231f0faa1c8d05c5a0a901cdffbbed72d02d2f27dd9a"
+    },
+    {
+      "engine": "Go",
+      "kind": "view",
+      "mode": "distinct",
+      "backing": "heap",
+      "race": true,
+      "iterations": 10000,
+      "exit_code": 66,
+      "reports_before_halt": 1,
+      "counts": null,
+      "log": "race-view-distinct-heap.txt",
+      "log_sha256": "71b075566281a70acfd0a238ffa3640a118fef1d2a989ec97e9df778e0243f8c"
+    },
+    {
+      "engine": "Go",
+      "kind": "view",
+      "mode": "distinct",
+      "backing": "mmap",
+      "race": true,
+      "iterations": 10000,
+      "exit_code": 0,
+      "reports_before_halt": 0,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "log": "race-view-distinct-mmap.txt",
+      "log_sha256": "6e51dbf8970d563c39e3c44eef97fc3bcfbebf6144cadd15b830ea3a455797d0"
+    },
+    {
+      "engine": "Go",
+      "kind": "view",
+      "mode": "shared",
+      "backing": "heap",
+      "race": true,
+      "iterations": 10000,
+      "exit_code": 0,
+      "reports_before_halt": 0,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "log": "race-view-shared-heap.txt",
+      "log_sha256": "08538576e9b3edfed4fde821dc146a47506b2bff33a2c1430389fac33d2bdbec"
+    },
+    {
+      "engine": "Go",
+      "kind": "view",
+      "mode": "shared",
+      "backing": "mmap",
+      "race": true,
+      "iterations": 10000,
+      "exit_code": 66,
+      "reports_before_halt": 1,
+      "counts": null,
+      "log": "race-view-shared-mmap.txt",
+      "log_sha256": "c1578932c49a172f0ba7bcc527822d51d6d4ee21b77dbaa6554e3d661f787763"
+    },
+    {
+      "engine": "Go",
+      "kind": "head",
+      "mode": "shared",
+      "backing": "mmap",
+      "race": true,
+      "lock_control": "host sync.Mutex diagnostic",
+      "iterations": 10000,
+      "exit_code": 0,
+      "reports_before_halt": 0,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "log": "race-head-host-mutex-mmap.txt",
+      "log_sha256": "db2e750a2dd1ad94b622890abc429611d7b5bfbeead084632a042ef7997b4dc9"
+    },
+    {
+      "engine": "Go",
+      "kind": "view",
+      "mode": "shared",
+      "backing": "mmap",
+      "race": true,
+      "lock_control": "host sync.Mutex diagnostic",
+      "iterations": 10000,
+      "exit_code": 0,
+      "reports_before_halt": 0,
+      "counts": {
+        "reads": 10000,
+        "hybrid": 0,
+        "ahead": 0,
+        "forbidden": 0,
+        "samples": null
+      },
+      "log": "race-view-host-mutex-mmap.txt",
+      "log_sha256": "06e16bbc1606f805e283309fb7149e909aedc61a693327c775e1abb7d2fc9d87"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "go",
+        "build",
+        "-mod=readonly",
+        "-trimpath",
+        "-buildvcs=false",
+        "-o",
+        "<temp>/probe",
+        "<repo>/build/purge-probe.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.6307840347290039
+    },
+    {
+      "argv": [
+        "go",
+        "build",
+        "-mod=readonly",
+        "-trimpath",
+        "-buildvcs=false",
+        "-race",
+        "-o",
+        "<temp>/probe-race",
+        "<repo>/build/purge-probe.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.46777915954589844
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "oracle"
+      ],
+      "exit_code": 0,
+      "seconds": 0.3481318950653076
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "oracle"
+      ],
+      "exit_code": 0,
+      "seconds": 0.23459196090698242
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "head",
+        "distinct",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.28551602363586426
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "distinct",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.017466068267822266
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "distinct",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.01740097999572754
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "head",
+        "shared",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.29202818870544434
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "shared",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.035569190979003906
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "shared",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.033946990966796875
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "head",
+        "ordered",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.17227911949157715
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "ordered",
+        "heap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007774829864501953
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "ordered",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007399082183837891
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "view",
+        "distinct",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.20734095573425293
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "distinct",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.014410018920898438
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "distinct",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.013982057571411133
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "view",
+        "shared",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2234187126159668
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "shared",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.02500009536743164
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "shared",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.023539066314697266
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "view",
+        "ordered",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.1679227352142334
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "ordered",
+        "heap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007570981979370117
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "ordered",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.006947040557861328
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "head",
+        "distinct",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2451341152191162
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "distinct",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0179440975189209
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "distinct",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.018307924270629883
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "head",
+        "shared",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.3169395923614502
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "shared",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03497886657714844
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "shared",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03366899490356445
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "head",
+        "ordered",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.18126726150512695
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "ordered",
+        "heap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.008089065551757812
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "ordered",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007784843444824219
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "view",
+        "distinct",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.20990633964538574
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "distinct",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.014404058456420898
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "distinct",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.013939857482910156
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "view",
+        "shared",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.22373175621032715
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "shared",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.025127887725830078
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "shared",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.02348637580871582
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "view",
+        "ordered",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.16914987564086914
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "ordered",
+        "heap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007564067840576172
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "ordered",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0069162845611572266
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "head",
+        "distinct",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2461528778076172
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "distinct",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.018006086349487305
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "distinct",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.01742696762084961
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "head",
+        "shared",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.31865382194519043
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "shared",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.033933162689208984
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "shared",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03632616996765137
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "head",
+        "ordered",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.17360901832580566
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "ordered",
+        "heap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0076410770416259766
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "head",
+        "ordered",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007046937942504883
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "view",
+        "distinct",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.25049281120300293
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "distinct",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.014369726181030273
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "distinct",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.01412820816040039
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "view",
+        "shared",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2250690460205078
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "shared",
+        "heap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0252988338470459
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "shared",
+        "mmap",
+        "300000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.024868249893188477
+    },
+    {
+      "argv": [
+        "node",
+        "<repo>/benchmarks/spikes/purge-wasm-go/reference.cjs",
+        "<temp>/fixture.wasm",
+        "view",
+        "ordered",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.1645500659942627
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "ordered",
+        "heap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007502079010009766
+    },
+    {
+      "argv": [
+        "<temp>/probe",
+        "view",
+        "ordered",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007230043411254883
+    },
+    {
+      "argv": [
+        "<temp>/probe-race",
+        "head",
+        "distinct",
+        "heap",
+        "10000"
+      ],
+      "exit_code": 66,
+      "seconds": 0.31223011016845703
+    },
+    {
+      "argv": [
+        "<temp>/probe-race",
+        "head",
+        "distinct",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0397989749908447
+    },
+    {
+      "argv": [
+        "<temp>/probe-race",
+        "head",
+        "shared",
+        "heap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0460989475250244
+    },
+    {
+      "argv": [
+        "<temp>/probe-race",
+        "head",
+        "shared",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 66,
+      "seconds": 0.02664804458618164
+    },
+    {
+      "argv": [
+        "<temp>/probe-race",
+        "view",
+        "distinct",
+        "heap",
+        "10000"
+      ],
+      "exit_code": 66,
+      "seconds": 0.01717519760131836
+    },
+    {
+      "argv": [
+        "<temp>/probe-race",
+        "view",
+        "distinct",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0303611755371094
+    },
+    {
+      "argv": [
+        "<temp>/probe-race",
+        "view",
+        "shared",
+        "heap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0619499683380127
+    },
+    {
+      "argv": [
+        "<temp>/probe-race",
+        "view",
+        "shared",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 66,
+      "seconds": 0.014541864395141602
+    },
+    {
+      "argv": [
+        "<temp>/probe-race",
+        "head",
+        "shared",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0407769680023193
+    },
+    {
+      "argv": [
+        "<temp>/probe-race",
+        "view",
+        "shared",
+        "mmap",
+        "10000"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0420258045196533
+    },
+    {
+      "argv": [
+        "go",
+        "tool",
+        "objdump",
+        "-s",
+        "base.Simd_v128_(load|store)$",
+        "<temp>/probe"
+      ],
+      "exit_code": 0,
+      "seconds": 0.15572214126586914
+    }
+  ],
+  "limits": [
+    "not a translated complete guest",
+    "abstracted CAS mutexes, not production srw slow paths",
+    "alternating stress is not a MariaDB workload",
+    "no SQL harm test",
+    "no complete memory-model proof",
+    "mmap zero reports does not imply safety",
+    "Ubuntu not executed"
+  ]
+}

@@ -1,0 +1,59 @@
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_v128_load(SB) github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go
+  base.go:2090		0x1000cba00		f9400b90		MOVD 16(R28), R16
+  base.go:2090		0x1000cba04		eb3063ff		CMP R16, RSP
+  base.go:2090		0x1000cba08		54000269		BLS 19(PC)
+  base.go:2090		0x1000cba0c		f81d0ffe		MOVD.W R30, -48(RSP)
+  base.go:2090		0x1000cba10		f81f83fd		MOVD R29, -8(RSP)
+  base.go:2090		0x1000cba14		d10023fd		SUB $8, RSP, R29
+  base.go:2093		0x1000cba18		f90027e0		MOVD R0, 72(RSP)
+  base.go:2090		0x1000cba1c		a903ffff		STP (ZR, ZR), 56(RSP)
+  base.go:2091		0x1000cba20		b27c03e3		ORR $16, ZR, R3
+  base.go:2091		0x1000cba24		97ffffd3		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.SimdEA(SB)
+  base.go:2092		0x1000cba28		f94027e4		MOVD 72(RSP), R4
+  base.go:2092		0x1000cba2c		f9401084		MOVD 32(R4), R4
+  base.go:2093		0x1000cba30		a903ffff		STP (ZR, ZR), 56(RSP)
+  base.go:2092		0x1000cba34		8b000085		ADD R0, R4, R5
+  base.go:2093		0x1000cba38		f8606884		MOVD (R4)(R0), R4
+  base.go:2093		0x1000cba3c		f9001fe4		MOVD R4, 56(RSP)
+  base.go:2093		0x1000cba40		f94004a4		MOVD 8(R5), R4
+  base.go:2093		0x1000cba44		f90023e4		MOVD R4, 64(RSP)
+  base.go:2093		0x1000cba48		f85f83fd		MOVD -8(RSP), R29
+  base.go:2093		0x1000cba4c		f84307fe		MOVD.P 48(RSP), R30
+  base.go:2093		0x1000cba50		d65f03c0		RET
+  base.go:2090		0x1000cba54		f9000fe0		MOVD R0, 24(RSP)
+  base.go:2090		0x1000cba58		29040be1		STPW (R1, R2), 32(RSP)
+  base.go:2090		0x1000cba5c		aa1e03e3		MOVD R30, R3
+  base.go:2090		0x1000cba60		97feb2dc		CALL runtime.morestack_noctxt.abi0(SB)
+  base.go:2090		0x1000cba64		f9400fe0		MOVD 24(RSP), R0
+  base.go:2090		0x1000cba68		29440be1		LDPW 32(RSP), (R1, R2)
+  base.go:2090		0x1000cba6c		17ffffe5		JMP github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_v128_load(SB)
+
+TEXT github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_v128_store(SB) github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go
+  base.go:2103		0x1000cba70		f9400b90		MOVD 16(R28), R16
+  base.go:2103		0x1000cba74		eb3063ff		CMP R16, RSP
+  base.go:2103		0x1000cba78		54000249		BLS 18(PC)
+  base.go:2103		0x1000cba7c		f81d0ffe		MOVD.W R30, -48(RSP)
+  base.go:2103		0x1000cba80		f81f83fd		MOVD R29, -8(RSP)
+  base.go:2103		0x1000cba84		d10023fd		SUB $8, RSP, R29
+  base.go:2108		0x1000cba88		f90027e0		MOVD R0, 72(RSP)
+  base.go:2104		0x1000cba8c		b27c03e3		ORR $16, ZR, R3
+  base.go:2104		0x1000cba90		97ffffb8		CALL github.com/masahitojp/mariamem/internal/generatedgo/code/base.SimdEA(SB)
+  base.go:2105		0x1000cba94		f94027e4		MOVD 72(RSP), R4
+  base.go:2105		0x1000cba98		f9401084		MOVD 32(R4), R4
+  base.go:2105		0x1000cba9c		8b000085		ADD R0, R4, R5
+  base.go:2106		0x1000cbaa0		f9401fe6		MOVD 56(RSP), R6
+  base.go:2106		0x1000cbaa4		f8206886		MOVD R6, (R4)(R0)
+  base.go:2107		0x1000cbaa8		f94023e4		MOVD 64(RSP), R4
+  base.go:2107		0x1000cbaac		f90004a4		MOVD R4, 8(R5)
+  base.go:2108		0x1000cbab0		aa1f03e0		MOVD ZR, R0
+  base.go:2108		0x1000cbab4		f85f83fd		MOVD -8(RSP), R29
+  base.go:2108		0x1000cbab8		f84307fe		MOVD.P 48(RSP), R30
+  base.go:2108		0x1000cbabc		d65f03c0		RET
+  base.go:2103		0x1000cbac0		f9000fe0		MOVD R0, 24(RSP)
+  base.go:2103		0x1000cbac4		29040be1		STPW (R1, R2), 32(RSP)
+  base.go:2103		0x1000cbac8		aa1e03e3		MOVD R30, R3
+  base.go:2103		0x1000cbacc		97feb2c1		CALL runtime.morestack_noctxt.abi0(SB)
+  base.go:2103		0x1000cbad0		f9400fe0		MOVD 24(RSP), R0
+  base.go:2103		0x1000cbad4		29440be1		LDPW 32(RSP), (R1, R2)
+  base.go:2103		0x1000cbad8		17ffffe6		JMP github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_v128_store(SB)
+  base.go:2103		0x1000cbadc		00000000		?
