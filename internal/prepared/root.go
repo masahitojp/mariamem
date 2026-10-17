@@ -259,6 +259,14 @@ func (s *FileStore) Seal() (*FrozenFile, error) {
 			return nil, errors.New("mapped target mismatch")
 		}
 	}
+	if s.source.meter != nil {
+		if len(d.blocks) == 0 {
+			s.source.work("freeze/zero", 0, 0, 0, 0, 1)
+		}
+		for _, b := range d.blocks {
+			s.source.work("freeze/"+b.route, 0, 0, 0, 0, 1)
+		}
+	}
 	d.sealed = true
 	s.private = nil
 	return &FrozenFile{source: s.source, data: d}, nil

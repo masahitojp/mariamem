@@ -93,3 +93,72 @@ func TestHeapTargetCorruptionOracle(t *testing.T) {
 		t.Fatal("corrupt transferred target accepted")
 	}
 }
+
+// Exercise actual MemFS/FD/relative-open -> Capture -> Root -> mapRoot wiring.
+func TestRootFDAndGenerationIsolation(t *testing.T) {
+	fs := NewBlockMemFS()
+	fs.MkdirAll("mariadb", 0700)
+	fd, e := fs.OpenFile("mariadb/f", os.O_CREATE|os.O_RDWR, 0600)
+	if e != nil {
+		t.Fatal(e)
+	}
+	fd.WriteAt([]byte("original"), 0)
+	dirfd, _ := fs.OpenFile("mariadb", os.O_RDONLY, 0)
+	dir, e := fs.PinDirectory(dirfd)
+	if e != nil {
+		t.Fatal(e)
+	}
+	c := &prepared.Capture{}
+	if e = c.BindRootSource(fs.RootSource(), "guest"); e != nil {
+		t.Fatal(e)
+	}
+	c.Request()
+	if e = fs.FreezeRoot("guest", c); e != nil {
+		t.Fatal(e)
+	}
+	r, e := c.TakeRoot("guest")
+	if e != nil {
+		t.Fatal(e)
+	}
+	if _, e = fd.WriteAt([]byte{1}, 0); e == nil {
+		t.Fatal("old FD writable")
+	}
+	if e = fd.Truncate(0); e == nil {
+		t.Fatal("old FD truncate")
+	}
+	if _, e = dir.OpenFile("f", os.O_TRUNC|os.O_RDWR, 0600); e == nil {
+		t.Fatal("relative truncation writable")
+	}
+	for generation := 0; generation < 10; generation++ {
+		child := NewBlockMemFS()
+		if _, e = mapRoot(child, r, "mariadb"); e != nil {
+			t.Fatal(e)
+		}
+		f, e := child.OpenFile("mariadb/f", os.O_RDWR, 0600)
+		if e != nil {
+			t.Fatal(e)
+		}
+		f.WriteAt([]byte{byte(generation)}, prepared.BlockSize-1)
+		f.Truncate(prepared.BlockSize + 1)
+		f.Truncate(3 * prepared.BlockSize)
+		p := make([]byte, 8)
+		if _, e = r.File("f").ReadAt(p, 0); e != nil || string(p) != "original" {
+			t.Fatal("parent changed", e)
+		}
+		next := &prepared.Capture{}
+		next.BindRootSource(child.RootSource(), "guest")
+		next.Request()
+		if e = child.FreezeRoot("guest", next); e != nil {
+			t.Fatal(e)
+		}
+		r, e = next.TakeRoot("guest")
+		if e != nil {
+			t.Fatal(e)
+		}
+		tail := make([]byte, 2*prepared.BlockSize-1)
+		r.File("f").ReadAt(tail, prepared.BlockSize+1)
+		if !bytes.Equal(tail, make([]byte, len(tail))) {
+			t.Fatal("tail leaked")
+		}
+	}
+}
