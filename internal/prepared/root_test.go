@@ -202,3 +202,17 @@ func TestRootCaptureReclamation(t *testing.T) {
 	runtime.KeepAlive(c)
 	runtime.KeepAlive(f)
 }
+
+func TestRootFailedAcquisitionReleasesCapture(t *testing.T) {
+	c, _, f := rootFixture(t)
+	ref := weak.Make(c.native)
+	if r, e := c.TakeRoot("wrong guest"); e == nil || r != nil {
+		t.Fatal("wrong identity accepted")
+	}
+	runtime.GC()
+	if ref.Value() != nil {
+		t.Fatal("failed acquisition retained root")
+	}
+	runtime.KeepAlive(c)
+	runtime.KeepAlive(f)
+}

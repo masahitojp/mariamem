@@ -416,9 +416,17 @@ func (c *Capture) CompleteRoot(source *RootSource, build string, dirs []string, 
 	c.expectedNative = r
 	return nil
 }
-func (c *Capture) TakeRoot(build string) (*Root, error) {
+func (c *Capture) TakeRoot(build string) (result *Root, err error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+	defer func() {
+		if err != nil {
+			c.native = nil
+			c.expectedNative = nil
+			c.source = nil
+			c.taken = true
+		}
+	}()
 	if c.abandoned || c.taken || c.native == nil || c.native != c.expectedNative || c.native.source != c.source {
 		return nil, errors.New("missing/substituted capture root")
 	}
