@@ -5,8 +5,8 @@ This document owns current state and future direction. The
 owns current HOW, [decisions](decisions/snapshot-product-contract.md) own
 continuing product constraints, and reports preserve historical evidence.
 Version themes are direction; they are not release approval.
-The current published release and the authorized v0.5.1 preparation are distinct
-sources. Changing version metadata does not itself publish a release.
+The current published release and later main changes are distinct sources.
+Changing version metadata does not itself publish a release.
 
 ## Product contract
 
@@ -48,13 +48,24 @@ observations: median +7.2%). The [Product Verification Human Review](reviews/mai
 recommended accepting that tradeoff. The maintainer accepted the performance
 review and authorized preparation/release as **v0.5.1** on 2026-10-17, explicitly
 deferring the 100 MiB Go Fresh investigation until after release. Release CI
-still owns acceptance of the exact final-version source and its publication;
+owned acceptance of the exact final-version source and its publication;
 neither the earlier READY nor these measurements are relabelled as that source.
 See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
-## Current published release: v0.5.0 — MariaDB 12.3.3
+## Current published release: v0.5.1 — In-memory baselines and shared host
+
+[v0.5.1](https://github.com/masahitojp/mariamem/releases/tag/v0.5.1) was published
+on 2026-10-17 (JST) from source `7a82f338cf111d5d52538b5a3f7bf129c12e2dbb`;
+annotated tag object `089b32e09608902f6d46e7ab9527d09922dcf065`.
+The [typed baseline pin](../release/baselines/v0.5.1.json) separates these identities.
+It includes the startup ordering correction, D block backing, Python shared host
+and public save/load API removal. See [released notes](../release/NOTES-v0.5.1.md)
+and [API migration](changes-since-v050.md). The ownership optimization adopted
+below is a later, unreleased main change; v0.5.1 evidence does not qualify it.
+
+## Previous release: v0.5.0 — MariaDB 12.3.3
 
 [v0.5.0](https://github.com/masahitojp/mariamem/releases/tag/v0.5.0) was published
 on 2026-10-13 from source `44100ec676c8c9064f32f3a01bd9a990d487bb61`;
@@ -64,14 +75,10 @@ repairs. Its public Go/Python APIs and file-backed Snapshot persistence were
 retained. See the [released notes](../release/NOTES-v0.5.0.md).
 
 The startup ordering correction, D block backing, Python shared host and public
-save/load API removal are later main changes. They are adopted but unreleased;
-see [API differences and migration](changes-since-v050.md). Combined-source
-Qualification and bounded macOS Product Verification have passed for the exact
-SHA above; the maintainer subsequently approved v0.5.1 preparation. Its final
-source/artifacts must pass the existing release workflow. The earlier
-v0.5.0 preparation history below does not qualify later main commits.
+save/load API removal were subsequently released in v0.5.1. The earlier v0.5.0
+preparation history below does not qualify later main commits.
 
-## Approved ownership productization — not yet integrated
+## Adopted ownership optimization — unreleased
 
 On 2026-10-17 the maintainer explicitly accepted the limited Snapshot ownership
 contract and authorized the minimal FileStore/Root/capture-binding implementation,
@@ -79,21 +86,25 @@ adapters, independent byte reference/substitution/lifetime/generation tests.
 Normal API immutability, same backing, child isolation, strict Heap/transfer
 validation and mapped lifetime detachment remain required. Ordinary heap
 acquisition does not promise full-scan post hoc detection of private-byte faults.
-Main integration and release remain separate decisions; this approval changes
-neither. See the [contract](decisions/snapshot-product-contract.md) and
+The maintainer subsequently approved main integration in Human Review.
+Release remains a separate decision. See the [contract](decisions/snapshot-product-contract.md) and
 [productization report](reviews/snapshot-owned-root-productization.md).
 The experiment history is not merged into this branch. Productization development
 verification passed on exact source `890f770eee36c004036826104229f9269138775b`
 for macOS15 arm64 and Ubuntu24.04 x86_64 in
 [run39000948512](https://github.com/masahitojp/mariamem/actions/runs/39000948512):
 canonical check and integration on both, including the mapped-child derived baseline.
-The [integration review](reviews/snapshot-owned-root-productization.md) recommends
-main adoption; the Human has not yet authorized it. The tested implementation remains on `experiment/snapshot-owned-root-productization`.
-The adoption review now also corrects current usage-doc ownership wording and legacy/invariant
-Go comments; executable behavior is unchanged, but this is not the same full
-Git tree as the CI candidate. Integration is planned as ff-only to the fixed
-`experiment/snapshot-owned-root-integration` candidate, whose commit/tree are
-recorded separately from the review head. See the report's identity record.
+After the [integration review](reviews/snapshot-owned-root-productization.md),
+the Human approved the fixed candidate. Main was fast-forwarded from
+`7a82f338cf111d5d52538b5a3f7bf129c12e2dbb` to
+`52c078ba2fd5a38340ec5eb42a83853b258d7435`, with Git tree object ID
+`02da8809cd9aa76ff3769af268134b90675a68a7`. The review-only head was not merged.
+Relative to CI source 890f770, that candidate changes documentation/evidence and
+Go line comments only; executable behavior, tests and build inputs are unchanged.
+This follow-up records adoption, corrects the published-release status and stale
+architecture/Acquire wording without changing executable code. The full Git tree
+therefore differs from both the integration candidate and CI source. Historical
+review/CI evidence remains under its original source identity.
 The v0.5.1 baseline pin is retained as a separate release ledger entry.
 The narrowed detection guarantee is recorded in [unreleased changes](changes-since-v051.md)
 and must appear in the eventual versioned release notes; the Human has not chosen

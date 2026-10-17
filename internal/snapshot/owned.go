@@ -275,8 +275,8 @@ func fileFor(files []*os.File, fd int) *os.File {
 	return nil
 }
 
-// Acquire pins descriptor identity, checks cheap metadata, and returns borrowed
-// entries. It performs no inventory walk or content hashing.
+// Acquire pins backing identity, checks metadata, and returns borrowed entries.
+// Root checks walk file/block metadata; no path walk or content hashing is done.
 func (o *Owned) Acquire(build string) ([]prepared.Entry, func(), error) {
 	o.mu.RLock()
 	fail := func(e error) ([]prepared.Entry, func(), error) { o.mu.RUnlock(); return nil, nil, e }

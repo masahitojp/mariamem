@@ -1,8 +1,8 @@
 # Unreleased changes since v0.5.1
 
-This describes the ownership productization candidate, not a new published
-version or approved main integration. The release version remains a Human
-choice. The published v0.5.1 baseline is pinned in
+This describes the ownership optimization adopted on main after Human Review,
+not a new published version. The release version remains a Human choice.
+The published v0.5.1 baseline is pinned in
 [the release ledger](../release/baselines/v0.5.1.json).
 
 ## Snapshot ownership and detection

@@ -2,9 +2,10 @@
 
 Status: maintainer-approved product contract, updated for D block storage and
 Python shared-host main adoption on 2026-10-17. Release approval remains separate.
-The ownership update below was approved for productization on 2026-10-17;
-main integration and release remain separate Human decisions. The earlier D/shared-host
-contract is already adopted on main. Published v0.5.0 retains the earlier
+The ownership update below was approved for productization on 2026-10-17 and
+subsequently adopted on main at candidate `52c078b`. Release remains a separate
+Human decision. Published v0.5.1 has the earlier D/shared-host implementation;
+the later ownership optimization is unreleased. Published v0.5.0 retains the
 file-backed/save-load contract; see [version differences](../changes-since-v050.md).
 
 ## Product boundary
@@ -96,5 +97,6 @@ See the [adoption decision and evidence](../reviews/d-heap-shared-host.md).
 The Human approved the ownership boundary above and the minimal FileStore/Root/
 capture-binding implementation, adapters and ownership oracles on 2026-10-17.
 See [productization status](../reviews/snapshot-owned-root-productization.md).
-This approval permits implementation and verification; it does not approve main
-integration or a release.
+The Human subsequently approved main adoption of fixed candidate `52c078b`.
+See [current adoption status](../project-status.md#adopted-ownership-optimization--unreleased).
+Neither approval authorizes a release.

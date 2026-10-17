@@ -47,18 +47,19 @@ freezing the completed datadir. Success consumes the source. Failure after
 acceptance can also consume it. This captures schema/data, not running threads,
 TLS, locks, stacks, waiters, connections or active transactions.
 
-`internal/generatedgo/code/base/heap_snapshot.go` seals and transfers file
-blocks; `internal/prepared/heap.go` owns immutable 16 KiB blocks and inventory.
-Mutable byte slices are not exposed. Source, fixed-target and ownership
-acquisition validation retain full content/digest and guest-identity checks,
-including logical zero-filled regions. `internal/host/heap_snapshot.go` and
-`internal/snapshot/heap.go` connect capture to the public owned Snapshot.
+`internal/generatedgo/code/base/heap_snapshot.go` seals the same FileStore
+backing; `internal/prepared/root.go` owns immutable 16 KiB blocks and inventory.
+Mutable byte slices are not exposed. Ordinary acquisition validates the bound
+source, guest identity, state and structure without rereading contents. Strict
+Heap imports, private transfers and borrowed-mapping copies retain content/digest
+checks, including logical zero-filled regions. `internal/host/heap_snapshot.go`
+and `internal/snapshot/root.go` connect capture to the public owned Snapshot.
 
 Ordinary capture does not copy into guest snapshot-out and then materialize
 host files. It owns process-local prepared blocks. Public persistence, external
 import and path-based acquisition are removed; migration/seed recreates the
-baseline in each test process. This removes file serialization, not complete
-content validation or explicit ownership.
+baseline in each test process. The ownership path also removes repeated content
+scans while retaining explicit ownership and the required transfer checks.
 
 ## Fork and private child state
 
@@ -87,8 +88,8 @@ It does not rebuild or rescan payload for acquisition. It is not a detector for
 arbitrary changes to private memory bytes. Strict Heap imports and private
 transfer receivers still copy/verify content; borrowed mappings detach and compare
 source/target before leaving their instance. See the approved
-[ownership contract](decisions/snapshot-product-contract.md). This productization
-branch is pending separate main integration and release decisions.
+[ownership contract](decisions/snapshot-product-contract.md). Human Review
+approved main adoption of candidate `52c078b`; release remains a separate decision.
 
 An explicit different development host binary is an exception to the shared
 host route. `internal/snapshot/handoff.go` materializes a private temporary
