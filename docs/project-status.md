@@ -269,6 +269,15 @@ Product Validation; those changes are not part of v0.4.5.
   a concrete purge-state protection question and proposes a bounded original-Wasm/Go
   comparison for Human Review. No new execution or runtime fix is included, and
   candidate-site correspondence is not a complete semantic or exact-PC proof.
+  The Human then approved that bounded purge head/view comparison and accepted its
+  [macOS fixture result](https://github.com/masahitojp/mariamem/blob/424172f017a0ec42c01407300f08411e9d480348/docs/reviews/purge-wasm-go-comparison.md):
+  torn Go heads occur inside the Wasm-permitted set (0 forbidden observations
+  across 10,980,000 reads), and no mixing occurs under the common-lock or
+  completed-handoff controls. This is not grounds for a Go-conversion fix. The
+  purge-specific protection premise (reader `purge_sys.latch` vs writer
+  `end_latch`) remains unverified and is not closed as harmless, Ubuntu x86_64
+  was not executed, and no runtime change follows. This is not a general
+  shared-memory guarantee.
 - Forced timeout/hard-failure containment is not guaranteed. Normal cooperative
   cleanup and non-cooperative reclaim are distinct boundaries.
 - v0.5.0 had an observed approximately one-second startup mode. The
