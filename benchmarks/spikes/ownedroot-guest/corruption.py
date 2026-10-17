@@ -17,7 +17,7 @@ mapping=w/'temp/corruption-overlay.json';mapping.write_text(json.dumps({'Replace
 (out/'overlay.go.txt').write_text(text)
 env['OWNED_ROOT_PROBE_EVIDENCE']=str(out)
 cmd=[str(GO),'test','-json','-p','1','-tags=integration,ownedroot_probe','-overlay',str(mapping),'./tests/gointegration','-run','^TestOwnedRootCorruptionProbe$','-count=1','-timeout=120s']
-r=subprocess.run(cmd,cwd=ROOT,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=180)
+r=subprocess.run(cmd,cwd=ROOT,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=1200)
 (out/'runner.txt').write_text(clean(r.stdout,w))
 (out/'receipt.json').write_text(json.dumps(dict(source_commit=identity['source_commit'],exit_code=r.returncode,original_sha256=hashlib.sha256(original.encode()).hexdigest(),overlay_sha256=hashlib.sha256(text.encode()).hexdigest(),injection_point='after TakeRoot; before OwnRoot; capture not yet returned',arguments=[clean(v,w) for v in cmd]),indent=2)+'\n')
 print(r.stdout[-5000:]);sys.exit(r.returncode)

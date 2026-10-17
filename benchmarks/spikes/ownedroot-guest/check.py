@@ -4,7 +4,8 @@ import argparse,hashlib,json,os,re,shutil,subprocess,sys,time
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[3]
-GO=Path('/Users') / os.environ['USER'] / '.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go'
+MAC_GO=Path('/Users') / os.environ.get('USER','') / '.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go'
+GO=Path(os.environ.get('OWNED_ROOT_GO') or (str(MAC_GO) if MAC_GO.is_file() else shutil.which('go') or 'go'))
 
 def environment(w):
     temp=w/'temp'
@@ -17,9 +18,9 @@ def environment(w):
     return e
 
 def modules(env):
-    old=GO.parents[4]
+    # Seed the ordinary cache with `go mod download` in CI before these checks.
     # Existing cache is read-only input; private copies are verified against zip hashes.
-    cache=Path('/Users')/os.environ['USER']/'.go/pkg/mod'
+    cache=Path(subprocess.check_output([str(GO),'env','GOMODCACHE'],env=dict(os.environ,GOTOOLCHAIN='local'),text=True).strip())
     for name,version in [('github.com/go-sql-driver/mysql','v1.9.3'),('filippo.io/edwards25519','v1.1.0')]:
         source=cache/(name+'@'+version);dest=Path(env['GOMODCACHE'])/(name+'@'+version)
         if not dest.exists():shutil.copytree(source,dest)

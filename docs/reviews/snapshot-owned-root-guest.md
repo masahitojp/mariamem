@@ -3,7 +3,13 @@
 2026-10-17。部品spikeの後、Humanが「制限事項で良い気もする」「spikeは進めて」と承認した限定接続。
 製品への採用、検出契約の変更、main統合、リリースの承認ではない。
 
-## Human Review
+## Human Review — 製品化候補へ進む方針を確認済み
+
+Humanは2026-10-17に「進める（製品化候補）。検出能力の差を限定契約として認める判断とUbuntu確認を採用条件に置く」とする整理を支持した。
+この支持を、検出契約の変更自体やmain採用の承認には読み替えない。
+次はUbuntuの限定確認をCIに提出し、その結果と契約文案を揃えて採用判断へ返す。
+
+以下は方針確認時の推薦と根拠。Ubuntuの結果は未取得であり、提出をPASSと扱わない。
 
 **判断依頼：所有権方式を、Ubuntu確認と契約文の確定を含む製品化候補として進めるか。私は進めることを推薦する。**
 macOSの実MariaDBで、通常heapのSnapshot固定・取得に内容の再読み取りを不要にできた。
@@ -193,3 +199,21 @@ baseline並列は10回中2回で全体1163/1187ms。削除せず全データを�
 [証拠集計](../../benchmarks/spikes/ownedroot-guest/analyze.py)。
 `files.json`は原本/保存後hashを記録し、個人path置換を明示する。全数値/失敗/外れ値を保持する。
 通常runtimeにfault hookを残さず、探索branchから必要な最小差分を別途製品化する。
+
+## 9. 方針確認後の製品化差分と採用条件
+
+1. **Ubuntu条件**：新しい`owned-root-native.yml`で既存の所有層/strict oracle、Go SQL・隔離・終了競合、
+   Python共有host・handoff・mapped再Snapshot、限定破損注入を同じ候補SHAで確認する。
+   source/license確認を含む。性能再測定や全量QualificationはこのCIには含めない。
+   CI artifactのsource_commitとstage receiptで判断し、未実行/失敗をPASSへ読み替えない。
+2. **契約条件**：§2の契約案について、即時の内容破損拒否との差をHumanが受け入れる判断が必要。
+   今回の「製品化候補として進める」支持は、この条件自体の受け入れとは別。
+3. **採用時の最小差分**：通常runtimeのFileStore/Root/capture bindingと既存adapter、および独立byte参照・
+   差し替え拒否・寿命/派生世代testを取り出す。実験履歴全体はmergeしない。
+   strict Heap/転送検証、mapped寿命切断、生成所有元の分類を維持する。
+4. **文書/診断の整合**：採用契約に合わせてSnapshotの「verified」の意味、開発用の内容検出境界、
+   実際のfreeze/own診断を揃える。通常runtimeにfault hookを追加しない。
+   unit/限定guest受け入れ、source/canonical identityの確認を差分へ対応させる。
+
+Ubuntuへ出す変更はCI・検証helperの環境可搬化・判断記録だけ。通常Go runtimeはmacOS検証候補と同一。
+公開API、guest/converter、生成物を変更せず、main統合やリリース準備を開始するものではない。

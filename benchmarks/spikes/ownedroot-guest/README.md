@@ -8,6 +8,9 @@ Use `.agents/skills/experiment-workspace/SKILL.md` to prepare a disposable works
 with 8 GiB owned / 20 GiB free bounds. Commands take the workspace directory,
 not its worktree. `check.py` requires Go1.26.8 in the existing verified toolchain;
 use Python3.14 + pytest for Python/source checks and official regeneration.
+On Ubuntu the runner finds Go on PATH (or `OWNED_ROOT_GO`); version remains
+strictly Go1.26.8. Seed its ordinary module cache with `go mod download` before
+checks copy those verified inputs to the private workspace.
 
 ```sh
 python3 benchmarks/spikes/ownedroot-guest/check.py focused --workspace /path/to/workspace
@@ -50,3 +53,13 @@ not the incidence or coverage of all possible corruption.
 counter controls, ordinary/diagnostic separation and exact failure outcomes.
 After preserving commits/evidence, finalize and clean the disposable workspace;
 retain no compiler/module/download/generated caches.
+
+## Bounded native Ubuntu CI
+
+`.github/workflows/owned-root-native.yml` runs on pushes to this experiment branch.
+It uses Ubuntu24.04 x86_64, Go1.26.8, Python3.14 and the same focused/source,
+Go lifecycle, Python shared-host/mapped and special-tag corruption checks as macOS.
+Artifacts record the exact candidate SHA and stage receipts even on failure.
+No performance claims, guest rebuild, independent regeneration repeat, full
+Qualification, main adoption or publication is part of this CI submission.
+CI owns execution; submission is not a PASS or adoption decision.
