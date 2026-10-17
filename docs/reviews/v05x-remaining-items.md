@@ -5,7 +5,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 [project-status](../project-status.md) が所有し、本書は「現在アクティブな残件」と
 「次の判断」を一覧するために置く。
 
-本版の基準: main `be5fddc`（startup tail、scalar/SIMD、purge 比較の受理、子Fork/Close費用帰属の追加まで反映）。
+本版の基準: main `15b694f`（startup tail、scalar/SIMD、purge 比較、Ubuntu 性能確認の受理と証拠統合まで反映）。
 スナップショットのため、各項目の最新状態は [project-status](../project-status.md) を正とする。
 
 2026-10-18追記: Ubuntu性能確認はHuman受理によりクローズ。他項目の基準日は上記のとおり。

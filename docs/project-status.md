@@ -31,7 +31,10 @@ macOS arm64 verification and native Ubuntu CI, which passed on source
 `4282cba73f12c772942b72c2f020b3ec1228be11` in
 [run 38908979283](https://github.com/masahitojp/mariamem/actions/runs/38908979283).
 The shared-host crash domain and intentional public save/load API removal are
-accepted for this use. Performance comparison remains macOS-only. The earlier
+accepted for this use. That v0.5.1 performance comparison remained macOS-only;
+the later [native Ubuntu campaign](reviews/ubuntu-product-performance-results.md)
+confirmed the Snapshot gain on Ubuntu x86_64 (see the Snapshot stopping point
+below). The earlier
 slow resource-observed small-fixture trial is preserved; the later bounded
 comparison did not reproduce it in 30 ordinary and 30 resource-observed candidate
 repeats. Its cause remains unknown, rather than classified as noise or a defect.
@@ -144,10 +147,11 @@ universal lower bound. Remaining Light serial time is mostly child startup/use:
 child Fork median 59.4ms (40 child observations), 4-test total median 364.0ms.
 The approximately 3.08ms diagnostic capture is from the candidate, not v0.5.1;
 measured/diagnostic cohorts are not combined. These medians are quoted from the
-adoption-source macOS measurements; the ownership-candidate comparison records
-behind them are not included in this branch, so they cannot be independently
-re-verified from main. They are not new productization benchmarks or Ubuntu
-performance claims.
+adoption-source macOS measurements and remain macOS investment figures, not a
+cross-platform lower bound. The separately authorized
+[native Ubuntu campaign](reviews/ubuntu-product-performance-results.md), now
+integrated on main, independently confirmed the Snapshot gain on Ubuntu x86_64
+and recorded the mixed large-Python whole-workflow results.
 
 ## Previous release: v0.4.7 — Upstream converter migration
 
