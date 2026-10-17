@@ -1,0 +1,9 @@
+{"Time":"2026-10-17T11:12:33.771516+09:00","Action":"start","Package":"github.com/masahitojp/mariamem/benchmarks/spikes/ownedroot"}
+{"Time":"2026-10-17T11:12:34.108599+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/benchmarks/spikes/ownedroot","Test":"TestG0VerifiedRootHandoff"}
+{"Time":"2026-10-17T11:12:34.10892+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/benchmarks/spikes/ownedroot","Test":"TestG0VerifiedRootHandoff","Output":"=== RUN   TestG0VerifiedRootHandoff\n"}
+{"Time":"2026-10-17T11:12:34.108959+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/benchmarks/spikes/ownedroot","Test":"TestG0VerifiedRootHandoff","Output":"    model_test.go:358: EVIDENCE {\"name\":\"G0-verified-handoff\",\"value\":{\"additional_acquisition_payload_bytes\":0,\"scope\":\"common-root component, not production Heap\",\"strict_hash_bytes\":8}}\n"}
+{"Time":"2026-10-17T11:12:34.109006+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/benchmarks/spikes/ownedroot","Test":"TestG0VerifiedRootHandoff","Output":"--- PASS: TestG0VerifiedRootHandoff (0.00s)\n"}
+{"Time":"2026-10-17T11:12:34.109019+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/benchmarks/spikes/ownedroot","Test":"TestG0VerifiedRootHandoff","Elapsed":0}
+{"Time":"2026-10-17T11:12:34.109025+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/benchmarks/spikes/ownedroot","Output":"PASS\n"}
+{"Time":"2026-10-17T11:12:35.113096+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/benchmarks/spikes/ownedroot","Output":"ok  \tgithub.com/masahitojp/mariamem/benchmarks/spikes/ownedroot\t1.341s\n"}
+{"Time":"2026-10-17T11:12:35.113128+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/benchmarks/spikes/ownedroot","Elapsed":1.342}

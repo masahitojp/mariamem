@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<user>/src/mysqlmem/publish/mariamem/build/experiment-work/owned-root-component/worktree/benchmarks/spikes/ownedroot/run.py", line 81, in <module>
+    raise SystemExit(main())
+  File "<user>/src/mysqlmem/publish/mariamem/build/experiment-work/owned-root-component/worktree/benchmarks/spikes/ownedroot/run.py", line 68, in main
+    item=json.loads(text.split('EVIDENCE ',1)[1]);item['run']=label;receipt['evidence'].append(item)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 988 (char 987)

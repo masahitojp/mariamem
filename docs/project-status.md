@@ -234,7 +234,7 @@ v0.5.1 acceptance. See the [follow-up Human Review](reviews/v05x-followup.md).
 | Item | Current disposition |
 | --- | --- |
 | 100 MiB Go Fresh investigation | Closed by Human decision; revisit if similar slowdown recurs. Preserve unknown cause and original observations. |
-| Snapshot ownership and repeated content reads | The review recommends approval subject to five requirements; the component spike is awaiting Human confirmation. This recommendation is not Human authorization. Only workspace preparation has occurred; implementation and execution have not started. Product adoption is not approved. |
+| Snapshot ownership and repeated content reads | The maintainer approved the five-condition component spike on 2026-10-17. The guest-disconnected implementation and bounded macOS checks are complete; real-guest integration, detection-contract changes and product adoption await separate Human decisions. |
 | Connection capacity (16 per DB) | Deferred; unchanged. Consider with real concurrent application needs, not merely because a shared host exists. |
 | General shared-memory guarantee expansion / forced termination | Separate design scope; no newly observed defect is established by this follow-up. Do not reopen completed bounded correctness work. |
 | Broader framework dogfood / fixture ergonomics | Existing v0.6.0 direction; not silently moved into 0.5.x. |
@@ -245,8 +245,11 @@ actually protect and whether pgmem-like ownership is appropriate. The
 [ownership design review](reviews/snapshot-ownership-contracts.md) compares
 validated handoff with freezing a common content representation, records the
 remaining runtime-corruption-detection difference, and recommends a bounded
-storage-only spike for Human decision. This is a design result, not an implemented
-or proven replacement. The [earlier two-pass proposal](reviews/snapshot-two-pass-design.md)
+storage-only spike. The maintainer subsequently approved those five conditions.
+The [component results](reviews/snapshot-owned-root-component.md) demonstrate
+zero payload reads/copies/hashes during heap Freeze/Acquire and bounded ownership
+oracles, while explicitly reproducing the remaining direct-byte-corruption
+detection difference. This is not a proven real-guest replacement. The [earlier two-pass proposal](reviews/snapshot-two-pass-design.md)
 and its 150ms/480ms targets are retained as historical alternatives, not current
 acceptance criteria. The approved product contract remains unchanged.
 

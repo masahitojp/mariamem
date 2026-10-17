@@ -1,0 +1,17 @@
+{
+  "source_commit": "38f62dcf5365e12e44db21eb4d6506833888e92e",
+  "arguments": [
+    "test",
+    "-json",
+    "-race",
+    "-p",
+    "1",
+    "-count=1",
+    "-timeout=60s",
+    "./benchmarks/spikes/ownedroot",
+    "-run",
+    "^TestG0VerifiedRootHandoff$"
+  ],
+  "exit_code": 0,
+  "scope": "New G0 test only; prior component body unchanged"
+}

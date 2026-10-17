@@ -1,0 +1,2017 @@
+{
+  "source_commit": "653ec565464703685a46c9c1132671bfc81bc7b8",
+  "source_object_type": "commit",
+  "go": "go version go1.26.8 darwin/arm64",
+  "inputs_sha256": {
+    "benchmarks/spikes/ownedroot/README.md": "bdd0e4bd07c443fd6d525a0202e64baa68bc6f7fdcfbe059ae633e45720e8e80",
+    "benchmarks/spikes/ownedroot/mapped_unix_test.go": "e14bf1ee9c8469a0acebcfee2288ec4163589248e20acd86785c739206b1b0f6",
+    "benchmarks/spikes/ownedroot/model.go": "e80fb81c8c556e2a48875c7de18e556027ac054d238930fc8b0f3bf6510ba1d5",
+    "benchmarks/spikes/ownedroot/model_test.go": "f68dc7bd408667fc8d4527f73e5c248f08ed4e638d4d77b6301cf8cbd9203636",
+    "benchmarks/spikes/ownedroot/run.py": "365b270ea7edec364ffc7ce893c91497bab1a1e46852b5d5ea59d6397413c881"
+  },
+  "scope": "guest-disconnected component; no SQL/performance qualification",
+  "runs": [
+    {
+      "name": "component",
+      "arguments": [
+        "test",
+        "-json",
+        "-p",
+        "1",
+        "-count=1",
+        "-timeout=90s",
+        "./benchmarks/spikes/ownedroot"
+      ],
+      "cgo_enabled": "0",
+      "exit_code": 0,
+      "elapsed_seconds": 8.217649166,
+      "tests": [
+        {
+          "Action": "pass",
+          "Test": "TestActualMappedCopyAndLifetime"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestRoutesAndPositiveControls/dirty"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestRoutesAndPositiveControls/inherited"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestRoutesAndPositiveControls/zero"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestRoutesAndPositiveControls/mixed"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestRoutesAndPositiveControls"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestReferenceAndGenerations/1"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestReferenceAndGenerations/73"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestReferenceAndGenerations/991"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestReferenceAndGenerations"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestOldWritersAliasesAndMetadata"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/other-root"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/unsealed"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/other-capture"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/identity"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/abandoned"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/missing-file"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/extra-file"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/block"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/size"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/directory"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestStrictOracleAndInternalCorruptionLimit"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestFailureAbandonmentAndWeakLifetime"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestConcurrentForkAndClose"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestHandoffManifestAndCorruption"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestWriteAndMetadataCostSeparation"
+        }
+      ]
+    },
+    {
+      "name": "existing-strict",
+      "arguments": [
+        "test",
+        "-json",
+        "-p",
+        "1",
+        "-count=1",
+        "-timeout=90s",
+        "./internal/generatedgo/code/base",
+        "./internal/snapshot",
+        "./internal/prepared",
+        "-run",
+        "TestHeap|TestClosedOwnerDoesNotRetainHeap|TestCompletedCaptureDoesNotRetainImage"
+      ],
+      "cgo_enabled": "0",
+      "exit_code": 0,
+      "elapsed_seconds": 3.169935292,
+      "tests": [
+        {
+          "Action": "pass",
+          "Test": "TestHeapOwnershipAcrossGenerations"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestHeapFreezeFailureAndIdentityOracle"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestHeapTargetCorruptionOracle"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestHeapOwnerRejectsCorruptionAndWrongIdentity"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestClosedOwnerDoesNotRetainHeap"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestCompletedCaptureDoesNotRetainImage"
+        }
+      ]
+    },
+    {
+      "name": "component-race",
+      "arguments": [
+        "test",
+        "-json",
+        "-race",
+        "-p",
+        "1",
+        "-count=1",
+        "-timeout=90s",
+        "./benchmarks/spikes/ownedroot"
+      ],
+      "cgo_enabled": "1",
+      "exit_code": 0,
+      "elapsed_seconds": 12.531363125000002,
+      "tests": [
+        {
+          "Action": "pass",
+          "Test": "TestActualMappedCopyAndLifetime"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestRoutesAndPositiveControls/dirty"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestRoutesAndPositiveControls/inherited"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestRoutesAndPositiveControls/zero"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestRoutesAndPositiveControls/mixed"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestRoutesAndPositiveControls"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestReferenceAndGenerations/1"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestReferenceAndGenerations/73"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestReferenceAndGenerations/991"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestReferenceAndGenerations"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestOldWritersAliasesAndMetadata"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/other-root"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/unsealed"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/other-capture"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/identity"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/abandoned"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/missing-file"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/extra-file"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/block"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/size"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles/directory"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestSubstitutionAndStateOracles"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestStrictOracleAndInternalCorruptionLimit"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestFailureAbandonmentAndWeakLifetime"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestConcurrentForkAndClose"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestHandoffManifestAndCorruption"
+        },
+        {
+          "Action": "pass",
+          "Test": "TestWriteAndMetadataCostSeparation"
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "name": "mapped",
+      "value": {
+        "acquire/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "application-read/dirty": {
+          "ReadBytes": 32771,
+          "CopyBytes": 32771,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "freeze/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "mapped-copy/dirty": {
+          "ReadBytes": 32771,
+          "CopyBytes": 32771,
+          "HashBytes": 0,
+          "ZeroBytes": 49152,
+          "WriteBytes": 32771,
+          "AllocBytes": 49152,
+          "Metadata": 0
+        },
+        "mapped-source/mapped": {
+          "ReadBytes": 32771,
+          "CopyBytes": 0,
+          "HashBytes": 32771,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "mapped-target-verify/content": {
+          "ReadBytes": 32771,
+          "CopyBytes": 0,
+          "HashBytes": 32771,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "mapped-target-verify/dirty": {
+          "ReadBytes": 32771,
+          "CopyBytes": 32771,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "mapped-target-verify/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        }
+      },
+      "run": "component"
+    },
+    {
+      "name": "routes/dirty",
+      "value": {
+        "acquire/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 4
+        },
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "application-read/dirty": {
+          "ReadBytes": 49155,
+          "CopyBytes": 49155,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "freeze/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 4
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "strict/content": {
+          "ReadBytes": 49155,
+          "CopyBytes": 0,
+          "HashBytes": 49155,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "strict/dirty": {
+          "ReadBytes": 49155,
+          "CopyBytes": 49155,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 4
+        },
+        "strict/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "write/dirty": {
+          "ReadBytes": 49158,
+          "CopyBytes": 49158,
+          "HashBytes": 0,
+          "ZeroBytes": 81919,
+          "WriteBytes": 49158,
+          "AllocBytes": 65536,
+          "Metadata": 0
+        }
+      },
+      "run": "component"
+    },
+    {
+      "name": "routes/inherited",
+      "value": {
+        "acquire/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "acquire/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "application-read/inherited": {
+          "ReadBytes": 16386,
+          "CopyBytes": 16386,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "application-read/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 32769,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "fork/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "fork/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "fork/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "freeze/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "freeze/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "strict/content": {
+          "ReadBytes": 49155,
+          "CopyBytes": 0,
+          "HashBytes": 49155,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "strict/inherited": {
+          "ReadBytes": 16386,
+          "CopyBytes": 16386,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "strict/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "strict/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 32769,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "write/dirty": {
+          "ReadBytes": 3,
+          "CopyBytes": 3,
+          "HashBytes": 0,
+          "ZeroBytes": 49151,
+          "WriteBytes": 3,
+          "AllocBytes": 32768,
+          "Metadata": 0
+        }
+      },
+      "run": "component"
+    },
+    {
+      "name": "routes/zero",
+      "value": {
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "application-read/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 49155,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "strict/content": {
+          "ReadBytes": 49155,
+          "CopyBytes": 0,
+          "HashBytes": 49155,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "strict/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "strict/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 49155,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        }
+      },
+      "run": "component"
+    },
+    {
+      "name": "routes/mixed",
+      "value": {
+        "acquire/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "acquire/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "application-read/dirty": {
+          "ReadBytes": 1,
+          "CopyBytes": 1,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "application-read/inherited": {
+          "ReadBytes": 16386,
+          "CopyBytes": 16386,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "application-read/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 32768,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "fork/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "fork/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "fork/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "freeze/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "freeze/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "strict/content": {
+          "ReadBytes": 49155,
+          "CopyBytes": 0,
+          "HashBytes": 49155,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "strict/dirty": {
+          "ReadBytes": 1,
+          "CopyBytes": 1,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 1
+        },
+        "strict/inherited": {
+          "ReadBytes": 16386,
+          "CopyBytes": 16386,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "strict/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "strict/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 32768,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "write/dirty": {
+          "ReadBytes": 4,
+          "CopyBytes": 4,
+          "HashBytes": 0,
+          "ZeroBytes": 65535,
+          "WriteBytes": 4,
+          "AllocBytes": 49152,
+          "Metadata": 0
+        }
+      },
+      "run": "component"
+    },
+    {
+      "name": "reference/1",
+      "value": {
+        "generations": 20,
+        "operations": 500
+      },
+      "run": "component"
+    },
+    {
+      "name": "reference/73",
+      "value": {
+        "generations": 20,
+        "operations": 500
+      },
+      "run": "component"
+    },
+    {
+      "name": "reference/991",
+      "value": {
+        "generations": 20,
+        "operations": 500
+      },
+      "run": "component"
+    },
+    {
+      "name": "writer-isolation",
+      "value": {
+        "input_alias_detached": true,
+        "old_writer_rejections": 8,
+        "sibling_and_child_after_parent_close": true
+      },
+      "run": "component"
+    },
+    {
+      "name": "capture-rejections",
+      "value": {
+        "cases": 12
+      },
+      "run": "component"
+    },
+    {
+      "name": "internal-corruption-limit",
+      "value": {
+        "interpretation": "Known detection difference; not product approval",
+        "ownership_acquire": "NOT DETECTED",
+        "strict_oracle": "REJECTED"
+      },
+      "run": "component"
+    },
+    {
+      "name": "lifetime",
+      "value": {
+        "child_does_not_retain_parent_root": true,
+        "failed_root_released": true,
+        "transport_released": true
+      },
+      "run": "component"
+    },
+    {
+      "name": "concurrent",
+      "value": {
+        "independent_children_after_close": 4
+      },
+      "run": "component"
+    },
+    {
+      "name": "handoff",
+      "value": {
+        "acquire/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "application-read/dirty": {
+          "ReadBytes": 32774,
+          "CopyBytes": 32774,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "freeze/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "handoff-copy/dirty": {
+          "ReadBytes": 16387,
+          "CopyBytes": 16387,
+          "HashBytes": 0,
+          "ZeroBytes": 32768,
+          "WriteBytes": 16387,
+          "AllocBytes": 32768,
+          "Metadata": 0
+        },
+        "handoff-receive/handoff": {
+          "ReadBytes": 32774,
+          "CopyBytes": 0,
+          "HashBytes": 32774,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "handoff-send/dirty": {
+          "ReadBytes": 3,
+          "CopyBytes": 3,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "handoff-send/handoff": {
+          "ReadBytes": 16387,
+          "CopyBytes": 0,
+          "HashBytes": 16387,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "handoff-send/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 16384,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "handoff-target-verify/content": {
+          "ReadBytes": 16387,
+          "CopyBytes": 0,
+          "HashBytes": 16387,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "handoff-target-verify/dirty": {
+          "ReadBytes": 16387,
+          "CopyBytes": 16387,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "handoff-target-verify/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "write/dirty": {
+          "ReadBytes": 3,
+          "CopyBytes": 3,
+          "HashBytes": 0,
+          "ZeroBytes": 16384,
+          "WriteBytes": 3,
+          "AllocBytes": 16384,
+          "Metadata": 0
+        }
+      },
+      "run": "component"
+    },
+    {
+      "name": "cost",
+      "value": {
+        "cow_preserved_bytes": 1,
+        "logical_bytes": 104857600,
+        "materialized_blocks": 1,
+        "metrics": {
+          "acquire/dirty": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 2
+          },
+          "acquire/metadata": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 4
+          },
+          "fork/dirty": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 1
+          },
+          "fork/inherited": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 1
+          },
+          "fork/metadata": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 2
+          },
+          "freeze/dirty": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 2
+          },
+          "freeze/metadata": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 4
+          },
+          "write/dirty": {
+            "ReadBytes": 2,
+            "CopyBytes": 2,
+            "HashBytes": 0,
+            "ZeroBytes": 32768,
+            "WriteBytes": 2,
+            "AllocBytes": 32768,
+            "Metadata": 0
+          },
+          "write/inherited": {
+            "ReadBytes": 1,
+            "CopyBytes": 1,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 0
+          }
+        },
+        "parent_root_depth": 0
+      },
+      "run": "component"
+    },
+    {
+      "name": "mapped",
+      "value": {
+        "acquire/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "application-read/dirty": {
+          "ReadBytes": 32771,
+          "CopyBytes": 32771,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "freeze/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "mapped-copy/dirty": {
+          "ReadBytes": 32771,
+          "CopyBytes": 32771,
+          "HashBytes": 0,
+          "ZeroBytes": 49152,
+          "WriteBytes": 32771,
+          "AllocBytes": 49152,
+          "Metadata": 0
+        },
+        "mapped-source/mapped": {
+          "ReadBytes": 32771,
+          "CopyBytes": 0,
+          "HashBytes": 32771,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "mapped-target-verify/content": {
+          "ReadBytes": 32771,
+          "CopyBytes": 0,
+          "HashBytes": 32771,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "mapped-target-verify/dirty": {
+          "ReadBytes": 32771,
+          "CopyBytes": 32771,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "mapped-target-verify/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        }
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "routes/dirty",
+      "value": {
+        "acquire/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 4
+        },
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "application-read/dirty": {
+          "ReadBytes": 49155,
+          "CopyBytes": 49155,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "freeze/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 4
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "strict/content": {
+          "ReadBytes": 49155,
+          "CopyBytes": 0,
+          "HashBytes": 49155,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "strict/dirty": {
+          "ReadBytes": 49155,
+          "CopyBytes": 49155,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 4
+        },
+        "strict/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "write/dirty": {
+          "ReadBytes": 49158,
+          "CopyBytes": 49158,
+          "HashBytes": 0,
+          "ZeroBytes": 81919,
+          "WriteBytes": 49158,
+          "AllocBytes": 65536,
+          "Metadata": 0
+        }
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "routes/inherited",
+      "value": {
+        "acquire/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "acquire/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "application-read/inherited": {
+          "ReadBytes": 16386,
+          "CopyBytes": 16386,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "application-read/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 32769,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "fork/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "fork/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "fork/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "freeze/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "freeze/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "strict/content": {
+          "ReadBytes": 49155,
+          "CopyBytes": 0,
+          "HashBytes": 49155,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "strict/inherited": {
+          "ReadBytes": 16386,
+          "CopyBytes": 16386,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "strict/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "strict/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 32769,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "write/dirty": {
+          "ReadBytes": 3,
+          "CopyBytes": 3,
+          "HashBytes": 0,
+          "ZeroBytes": 49151,
+          "WriteBytes": 3,
+          "AllocBytes": 32768,
+          "Metadata": 0
+        }
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "routes/zero",
+      "value": {
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "application-read/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 49155,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "strict/content": {
+          "ReadBytes": 49155,
+          "CopyBytes": 0,
+          "HashBytes": 49155,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "strict/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "strict/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 49155,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        }
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "routes/mixed",
+      "value": {
+        "acquire/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "acquire/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "application-read/dirty": {
+          "ReadBytes": 1,
+          "CopyBytes": 1,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "application-read/inherited": {
+          "ReadBytes": 16386,
+          "CopyBytes": 16386,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "application-read/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 32768,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "fork/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "fork/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "fork/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "freeze/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "freeze/inherited": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "strict/content": {
+          "ReadBytes": 49155,
+          "CopyBytes": 0,
+          "HashBytes": 49155,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "strict/dirty": {
+          "ReadBytes": 1,
+          "CopyBytes": 1,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 1
+        },
+        "strict/inherited": {
+          "ReadBytes": 16386,
+          "CopyBytes": 16386,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "strict/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "strict/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 32768,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "write/dirty": {
+          "ReadBytes": 4,
+          "CopyBytes": 4,
+          "HashBytes": 0,
+          "ZeroBytes": 65535,
+          "WriteBytes": 4,
+          "AllocBytes": 49152,
+          "Metadata": 0
+        }
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "reference/1",
+      "value": {
+        "generations": 20,
+        "operations": 500
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "reference/73",
+      "value": {
+        "generations": 20,
+        "operations": 500
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "reference/991",
+      "value": {
+        "generations": 20,
+        "operations": 500
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "writer-isolation",
+      "value": {
+        "input_alias_detached": true,
+        "old_writer_rejections": 8,
+        "sibling_and_child_after_parent_close": true
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "capture-rejections",
+      "value": {
+        "cases": 12
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "internal-corruption-limit",
+      "value": {
+        "interpretation": "Known detection difference; not product approval",
+        "ownership_acquire": "NOT DETECTED",
+        "strict_oracle": "REJECTED"
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "lifetime",
+      "value": {
+        "child_does_not_retain_parent_root": true,
+        "failed_root_released": true,
+        "transport_released": true
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "concurrent",
+      "value": {
+        "independent_children_after_close": 4
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "handoff",
+      "value": {
+        "acquire/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "acquire/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "application-read/dirty": {
+          "ReadBytes": 32774,
+          "CopyBytes": 32774,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "freeze/dirty": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "freeze/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 6
+        },
+        "handoff-copy/dirty": {
+          "ReadBytes": 16387,
+          "CopyBytes": 16387,
+          "HashBytes": 0,
+          "ZeroBytes": 32768,
+          "WriteBytes": 16387,
+          "AllocBytes": 32768,
+          "Metadata": 0
+        },
+        "handoff-receive/handoff": {
+          "ReadBytes": 32774,
+          "CopyBytes": 0,
+          "HashBytes": 32774,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "handoff-send/dirty": {
+          "ReadBytes": 3,
+          "CopyBytes": 3,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "handoff-send/handoff": {
+          "ReadBytes": 16387,
+          "CopyBytes": 0,
+          "HashBytes": 16387,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "handoff-send/zero": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 16384,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "handoff-target-verify/content": {
+          "ReadBytes": 16387,
+          "CopyBytes": 0,
+          "HashBytes": 16387,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 0
+        },
+        "handoff-target-verify/dirty": {
+          "ReadBytes": 16387,
+          "CopyBytes": 16387,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 2
+        },
+        "handoff-target-verify/metadata": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "write/dirty": {
+          "ReadBytes": 3,
+          "CopyBytes": 3,
+          "HashBytes": 0,
+          "ZeroBytes": 16384,
+          "WriteBytes": 3,
+          "AllocBytes": 16384,
+          "Metadata": 0
+        }
+      },
+      "run": "component-race"
+    },
+    {
+      "name": "cost",
+      "value": {
+        "cow_preserved_bytes": 1,
+        "logical_bytes": 104857600,
+        "materialized_blocks": 1,
+        "metrics": {
+          "acquire/dirty": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 2
+          },
+          "acquire/metadata": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 4
+          },
+          "fork/dirty": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 1
+          },
+          "fork/inherited": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 1
+          },
+          "fork/metadata": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 2
+          },
+          "freeze/dirty": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 2
+          },
+          "freeze/metadata": {
+            "ReadBytes": 0,
+            "CopyBytes": 0,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 4
+          },
+          "write/dirty": {
+            "ReadBytes": 2,
+            "CopyBytes": 2,
+            "HashBytes": 0,
+            "ZeroBytes": 32768,
+            "WriteBytes": 2,
+            "AllocBytes": 32768,
+            "Metadata": 0
+          },
+          "write/inherited": {
+            "ReadBytes": 1,
+            "CopyBytes": 1,
+            "HashBytes": 0,
+            "ZeroBytes": 0,
+            "WriteBytes": 0,
+            "AllocBytes": 0,
+            "Metadata": 0
+          }
+        },
+        "parent_root_depth": 0
+      },
+      "run": "component-race"
+    }
+  ],
+  "result": "PASS",
+  "interpretation": "Race detector output only; no claim of mmap or general shared-memory safety."
+}

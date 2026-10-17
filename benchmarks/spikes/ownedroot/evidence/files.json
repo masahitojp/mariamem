@@ -1,0 +1,56 @@
+[
+  {
+    "file": "component.jsonl",
+    "original_sha256": "8802c116b7994663ccfaf05d55367ad1269906cc7ba12621bc86de461cf6ec29",
+    "stored_sha256": "8802c116b7994663ccfaf05d55367ad1269906cc7ba12621bc86de461cf6ec29",
+    "normalization": "Personal paths only; JSON numbers and trial/test events retained."
+  },
+  {
+    "file": "existing-strict.jsonl",
+    "original_sha256": "6350d5fb535d136252ab03d0e33425896d8f0878d2dbbc9a6509c4299daf57ed",
+    "stored_sha256": "6350d5fb535d136252ab03d0e33425896d8f0878d2dbbc9a6509c4299daf57ed",
+    "normalization": "Personal paths only; JSON numbers and trial/test events retained."
+  },
+  {
+    "file": "component-race.jsonl",
+    "original_sha256": "88ac7d9f4b38a4467f6195a76d3a127251a61d080225c6a9a2dd13551f421c4b",
+    "stored_sha256": "88ac7d9f4b38a4467f6195a76d3a127251a61d080225c6a9a2dd13551f421c4b",
+    "normalization": "Personal paths only; JSON numbers and trial/test events retained."
+  },
+  {
+    "file": "receipt.json",
+    "original_sha256": "08263de54ee122fc1188d012de5a5032c40e1486c79d13c59ada8cf78b54d426",
+    "stored_sha256": "08263de54ee122fc1188d012de5a5032c40e1486c79d13c59ada8cf78b54d426",
+    "normalization": "Personal paths only; JSON numbers and trial/test events retained."
+  },
+  {
+    "file": "g0-targeted.json",
+    "original_sha256": "1057bf85ef69a1cc81f97c3d7f4f9df34ac4ab0a480612815d97a1eff8e306cf",
+    "stored_sha256": "1057bf85ef69a1cc81f97c3d7f4f9df34ac4ab0a480612815d97a1eff8e306cf",
+    "normalization": "Personal paths only; JSON numbers and trial/test events retained."
+  },
+  {
+    "file": "g0-targeted.jsonl",
+    "original_sha256": "ddc298dbdfb92248cfae6f80c0289a9862c66d92fe849db7c30d741bc2c2acee",
+    "stored_sha256": "ddc298dbdfb92248cfae6f80c0289a9862c66d92fe849db7c30d741bc2c2acee",
+    "normalization": "Personal paths only; JSON numbers and trial/test events retained."
+  },
+  {
+    "file": "console.txt",
+    "original_sha256": "16cca9fb835b3c79fe08932739bbf732f7ceb4d3b737fccf5a8c6b4ecf3a3828",
+    "stored_sha256": "16cca9fb835b3c79fe08932739bbf732f7ceb4d3b737fccf5a8c6b4ecf3a3828",
+    "normalization": "Personal paths only; JSON numbers and trial/test events retained."
+  },
+  {
+    "file": "initial-collector-failure.txt",
+    "original_sha256": "b56bbc2e5a271a4b850fb815cfd64ee5dd33489ccee0fc37c745309522c2fcf9",
+    "stored_sha256": "7f6f95acf1d7dd96fbfced48af13d769ed1f56ab95564d5c8fac828131cd2223",
+    "normalization": "Personal paths only; JSON numbers and trial/test events retained."
+  },
+  {
+    "file": "initial-component.jsonl",
+    "original_sha256": "5a0545a43febabf3e93ec0fc01dc7bd67fffb0c5c99722a6219e1e65cf82a5fb",
+    "stored_sha256": "5a0545a43febabf3e93ec0fc01dc7bd67fffb0c5c99722a6219e1e65cf82a5fb",
+    "normalization": "Personal paths only; JSON numbers and trial/test events retained."
+  }
+]

@@ -1,0 +1,245 @@
+{
+  "component_source_commit": "653ec565464703685a46c9c1132671bfc81bc7b8",
+  "G0_test_source_commit": "38f62dcf5365e12e44db21eb4d6506833888e92e",
+  "runs": [
+    {
+      "name": "component",
+      "exit_code": 0,
+      "cgo_enabled": "0",
+      "test_events": 27
+    },
+    {
+      "name": "existing-strict",
+      "exit_code": 0,
+      "cgo_enabled": "0",
+      "test_events": 6
+    },
+    {
+      "name": "component-race",
+      "exit_code": 0,
+      "cgo_enabled": "1",
+      "test_events": 27
+    }
+  ],
+  "routes": [
+    {
+      "run": "component",
+      "route": "dirty",
+      "phases": {
+        "freeze": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 7
+        },
+        "acquire": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 7
+        }
+      },
+      "positive_controls": "PASS"
+    },
+    {
+      "run": "component",
+      "route": "inherited",
+      "phases": {
+        "freeze": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 10
+        },
+        "acquire": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 10
+        }
+      },
+      "positive_controls": "PASS"
+    },
+    {
+      "run": "component",
+      "route": "zero",
+      "phases": {
+        "freeze": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "acquire": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        }
+      },
+      "positive_controls": "PASS"
+    },
+    {
+      "run": "component",
+      "route": "mixed",
+      "phases": {
+        "freeze": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 11
+        },
+        "acquire": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 11
+        }
+      },
+      "positive_controls": "PASS"
+    },
+    {
+      "run": "component-race",
+      "route": "dirty",
+      "phases": {
+        "freeze": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 7
+        },
+        "acquire": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 7
+        }
+      },
+      "positive_controls": "PASS"
+    },
+    {
+      "run": "component-race",
+      "route": "inherited",
+      "phases": {
+        "freeze": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 10
+        },
+        "acquire": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 10
+        }
+      },
+      "positive_controls": "PASS"
+    },
+    {
+      "run": "component-race",
+      "route": "zero",
+      "phases": {
+        "freeze": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        },
+        "acquire": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 3
+        }
+      },
+      "positive_controls": "PASS"
+    },
+    {
+      "run": "component-race",
+      "route": "mixed",
+      "phases": {
+        "freeze": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 11
+        },
+        "acquire": {
+          "ReadBytes": 0,
+          "CopyBytes": 0,
+          "HashBytes": 0,
+          "ZeroBytes": 0,
+          "WriteBytes": 0,
+          "AllocBytes": 0,
+          "Metadata": 11
+        }
+      },
+      "positive_controls": "PASS"
+    }
+  ],
+  "mapped": "PASS: actual macOS mapping, independent copy and strict check; not zero",
+  "handoff": "PASS: in-memory adapter and existing manifest JSON decode; production IPC/FD/path route NOT RUN",
+  "G0": "PASS in common-root component: strict hash 8 bytes, acquisition adds zero payload work; existing Heap optimization NOT IMPLEMENTED",
+  "G1": "PASS in component: no Snapshot-only content reconstruction, no source/target hash in Freeze/Acquire",
+  "G2": "PARTIAL: common sparse-block heap representation; mapped materialization remains a separate copy",
+  "internal_corruption": "LIMITATION CONFIRMED: no-hash acquisition does not detect direct private-byte mutation; strict oracle rejects it",
+  "platforms": {
+    "macOS arm64": "PASS for bounded fixtures",
+    "Ubuntu x86_64": "SKIP: not executed"
+  },
+  "first_attempt": "Component tests PASS; collector failed on split test2json line. Raw evidence preserved; fixed runner then completed remaining checks.",
+  "not_proven": [
+    "real guest integration",
+    "real SQL/workflow speed",
+    "production capture cancellation/retry and FD/relative-open wiring",
+    "production handoff transport",
+    "general memory/race correctness",
+    "acceptance of contract/detection changes"
+  ]
+}

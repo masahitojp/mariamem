@@ -53,7 +53,7 @@ def main():
                               stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=480)
         output=result.stdout.replace(str(ROOT),'<source>').replace(str(temp),'<temp>')
         import re
-        output=re.sub(r'/Users/[^\s/]+/', '<user>/', output)
+        output=re.sub(r'/(?:Users|home)/[^\s/]+/', '<user>/', output)
         (evidence/(label+'.jsonl')).write_text(output)
         tests=[]
         outputs={}
