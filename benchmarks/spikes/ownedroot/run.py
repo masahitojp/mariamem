@@ -56,6 +56,7 @@ def main():
         output=re.sub(r'/Users/[^\s/]+/', '<user>/', output)
         (evidence/(label+'.jsonl')).write_text(output)
         tests=[]
+        outputs={}
         for line in output.splitlines():
             try:
                 event=json.loads(line)
@@ -64,8 +65,14 @@ def main():
             if event.get('Action') in ('pass','fail','skip') and event.get('Test'):
                 tests.append({k:event[k] for k in ('Action','Test')})
             text=event.get('Output','')
-            if 'EVIDENCE ' in text:
-                item=json.loads(text.split('EVIDENCE ',1)[1]);item['run']=label;receipt['evidence'].append(item)
+            outputs.setdefault(event.get('Test',''),[]).append(text)
+        # test2json may split a long testing.Log line across multiple events.
+        for chunks in outputs.values():
+            for line in ''.join(chunks).splitlines():
+                if 'EVIDENCE ' in line:
+                    item=json.loads(line.split('EVIDENCE ',1)[1])
+                    item['run']=label
+                    receipt['evidence'].append(item)
         receipt['runs'].append({'name':label,'arguments':command,'cgo_enabled':cgo,
                                'exit_code':result.returncode,'elapsed_seconds':time.monotonic()-t0,'tests':tests})
         (evidence/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
