@@ -2,7 +2,21 @@
 
 2026-10-17。通常heapの内容を再構成・再走査せず、停止後に同じ実体を固定して受け渡す。
 
-## Human decision と現在の境界
+## Human Review — main統合の判断
+
+**判断依頼：この製品化差分をmainへ統合するか。私は統合を推薦する。**
+承認済みの所有権契約を、実験履歴を含まない最小差分へ移し、製品化候補890f770に対する
+macOS15 arm64 / Ubuntu24.04 x86_64の正規check・integrationが両方PASSした。
+strict Heap/転送検証、mapped寿命切断、独立byte参照、差し替え拒否、寿命/世代の境界を維持している。
+今回の製品化に未解決のFAILはなく、追加のSnapshot高速化は行わない方針も反映済み。
+
+**残る大きな留保は、最終リリース構成のQualificationと、この製品化SHAでの独立再生成は未実施なこと。**
+今回の変更は既登録handwritten ownerとtree外の所有層で、変換済み関数・guest/converter・provenanceは不変。
+既存canonical inventory/clean installer/inclusion/ライセンス検証がPASSしているため、
+mainの開発基盤への採用を推薦する。今回のCIを公開資格とせず、公開前の検証は別のリリース判断に残す。
+限定契約自体はHuman承認済みで、再承認を求めない。main統合・リリースはまだ実施していない。
+
+## 承認済みのHuman decisionと境界
 
 Humanは、通常APIによる変更防止・同一実体・親子隔離・転送時検証を維持し、通常heapでの全量走査による
 private-byte故障の事後検出を約束しないという限定契約を明示的に承認した。
@@ -76,7 +90,7 @@ Light直列の子Forkは40子の中央値59.38ms、4子を準備・SQL・終了�
 
 runtimeの所有層と全てのMemFS file操作の実装が変わるため、source-only確認だけでは閉じない。
 最初にcanonical source/ライセンスとprepared/snapshot/baseのrace testで抽出ミスを検出し、
-正規`verify.py check`と`verify.py integration`を製品化候補SHAに対して両native CIへ提出する。
+正規`verify.py check`と`verify.py integration`を製品化候補SHAに対して両native CIへ提出し、両方PASSした。
 これは開発検証であり、リリース承認・最終Qualification・新たな性能計測ではない。
 結果はsource identity、原出力、終了値とともに記録し、未実行をPASSにはしない。
 
@@ -85,11 +99,42 @@ runtimeの所有層と全てのMemFS file操作の実装が変わるため、sou
 | source inventory / ownership | PASS：抽出後のverify_generated_runtime |
 | source/license/mirror | PASS：22 pytest、typed baseline pin/source inventory |
 | prepared/snapshot/base focused race | PASS：source266186b、全対象testでSKIP/FAILなし。下記receipt参照 |
-| 製品化候補のcanonical check/integration | このbranchのpushで両OS CIへ提出。結果未取得 |
+| 製品化候補のcanonical check/integration | PASS：source890f770、run39000948512の両OS。下記CI証拠参照 |
 | 性能の再測定 | SKIP：追加Snapshot高速化は行わず、既存証拠を参照 |
 | main統合・リリース | 未承認・未実施 |
 
 ローカル検証の[receipt/原出力](snapshot-owned-root-productization-evidence)と
 [hash/集計](snapshot-owned-root-productization-evidence/summary.json)は、実装commit266186bに対する結果。
 その後の証拠・文書commitを新しい実装の検証結果とは呼ばない。
-CIへ提出する最終SHAでは通常Goソースが同一であることを確認する。
+CI候補890f770では通常Goソースが266186bと同一であることを確認した。
+
+## 両OSの製品化CI結果
+
+[run39000948512](https://github.com/masahitojp/mariamem/actions/runs/39000948512)の全体と両jobがsuccess。
+[macOS job117303546037](https://github.com/masahitojp/mariamem/actions/runs/39000948512/job/117303546037)、
+[Ubuntu job117303546255](https://github.com/masahitojp/mariamem/actions/runs/39000948512/job/117303546255)。
+head_sha、両artifactのsource.json、ローカルGitのcommit identityは
+`890f770eee36c004036826104229f9269138775b`に一致した。
+[原出力とhash集計](snapshot-owned-root-productization-evidence/ci/summary.json)を保存した。
+
+| 正規検証の内容 | macOS15 arm64 | Ubuntu24.04 x86_64 |
+| --- | --- | --- |
+| version・canonical source/inventory・ライセンス | PASS：source pytest22件 | PASS：source pytest22件 |
+| `go test ./...` と既存規則のvet | PASS | PASS |
+| 通常Python check | PASS607 / SKIP27 / subtest PASS12 | PASS607 / SKIP27 / subtest PASS12 |
+| handwritten/runtime/API所有元のrace対象package | PASS | PASS |
+| 実guest Go integration / default / memory trap | PASS：3 suite | PASS：3 suite |
+| Python通常Close / 複数接続 / wire / owned Snapshot | PASS18、追加mapped派生testを含む | PASS18、追加mapped派生testを含む |
+| 既存Snapshot scenario | PASS33 checks | PASS33 checks |
+
+通常checkの27 SKIPをPASSとは扱わない。ordinary checkではreal-host pytestをopt-inにしており、
+integration側では明示hostを指定して上記18件を実行した。全てのSKIPがintegrationで消えた、という主張ではない。
+強制timeout回収の別診断は正規integrationの対象外で、既存の観測限界も変えていない。
+race報告ゼロからmmap/全guestの正確性を推論しない。
+
+実環境：Go1.26.8、Python3.14.7（macOS）/3.14.8（Ubuntu）。これは開発検証で、最終Qualification、
+新しい性能測定、公開済みartifactの受け入れではない。
+
+この結果記録は`experiment/snapshot-owned-root-adoption-review`上の文書・小さな証拠だけのcommit。
+CIで検証した実装は`experiment/snapshot-owned-root-productization`の890f770に保持する。
+統合対象はmain7a82f33からの製品化2commitとこの結果記録で、元の探索commit群を取り込まない。

@@ -82,7 +82,17 @@ acquisition does not promise full-scan post hoc detection of private-byte faults
 Main integration and release remain separate decisions; this approval changes
 neither. See the [contract](decisions/snapshot-product-contract.md) and
 [productization report](reviews/snapshot-owned-root-productization.md).
-The experiment history is not merged into this branch.
+The experiment history is not merged into this branch. Productization development
+verification passed on exact source `890f770eee36c004036826104229f9269138775b`
+for macOS15 arm64 and Ubuntu24.04 x86_64 in
+[run39000948512](https://github.com/masahitojp/mariamem/actions/runs/39000948512):
+canonical check and integration on both, including the mapped-child derived baseline.
+The [integration review](reviews/snapshot-owned-root-productization.md) recommends
+main adoption; the Human has not yet authorized it. The tested implementation
+remains on `experiment/snapshot-owned-root-productization`; result-only review
+branch `experiment/snapshot-owned-root-adoption-review` adds no runtime changes.
+Release Qualification/independent regeneration for that final release source
+remain separate; CI development PASS is not release readiness.
 
 **Snapshot optimization stopping point:** the observed Light Snapshot median
 fell from 204.8ms on v0.5.1 to 2.85ms on the ownership candidate in the same

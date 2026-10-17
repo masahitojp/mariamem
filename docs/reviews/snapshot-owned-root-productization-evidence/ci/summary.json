@@ -1,0 +1,92 @@
+{
+  "conclusion": "success",
+  "final_qualification": "not performed",
+  "main_integration": "awaiting Human decision",
+  "performance": "not rerun",
+  "platforms": {
+    "darwin-arm64": {
+      "api_reported_archive_digest": "sha256:78c5b450fcc229373be2d8bfc76ed33c5b280a1a8bd8a66062c294665e093491",
+      "archive_digest_independently_verified": false,
+      "artifact_id": 12090105665,
+      "canonical_check": "PASS",
+      "canonical_integration": "PASS",
+      "conclusion": "success",
+      "files": {
+        "check.txt": {
+          "bytes": 4323,
+          "original_sha256": "23515163f9cd9e0860001f57b6f127b2d400492e9d70a04551ef2630fbe6e99f",
+          "stored_sha256": "f7ede089e72cab801d6b1659493ff412780568c29526db687bace364f18c663a"
+        },
+        "integration.txt": {
+          "bytes": 1903,
+          "original_sha256": "4a09b29239ada6fad9763e0aff9018fd963172d87ebfef638ad8f8f35e05ef79",
+          "stored_sha256": "bc66288b49a40eebb2643b9f91cf8ee4249c2d1cddc26a49df2cc1e852f7ac1d"
+        },
+        "platform.txt": {
+          "bytes": 248,
+          "original_sha256": "f4512c6163ed8d6a7c33df647def13fa6b4ba334784f9f546e93568423b6149f",
+          "stored_sha256": "f4512c6163ed8d6a7c33df647def13fa6b4ba334784f9f546e93568423b6149f"
+        },
+        "source.json": {
+          "bytes": 153,
+          "original_sha256": "f583c27c9dfd7c783f5200481cff439dbc35e922a8aefe6cbcd0ec9f7c5a92c1",
+          "stored_sha256": "f583c27c9dfd7c783f5200481cff439dbc35e922a8aefe6cbcd0ec9f7c5a92c1"
+        }
+      },
+      "job_id": 117303546037,
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/39000948512/job/117303546037",
+      "ordinary_pytest": {
+        "passed": 607,
+        "skipped": 27,
+        "subtests_passed": 12
+      },
+      "python_runtime_pytest_passed": 18,
+      "snapshot_scenario_checks_passed": 33,
+      "source_pytest_passed": 22
+    },
+    "ubuntu24.04-x86_64": {
+      "api_reported_archive_digest": "sha256:6cdf72a73c7d13b0a66592f7b60352ee460d2f8cda979e2d68d233e7a102129f",
+      "archive_digest_independently_verified": false,
+      "artifact_id": 12089935612,
+      "canonical_check": "PASS",
+      "canonical_integration": "PASS",
+      "conclusion": "success",
+      "files": {
+        "check.txt": {
+          "bytes": 4263,
+          "original_sha256": "4e6b461a890545db79133e9fa941fc7b8f497b80f3894de8f5075b8944af5bfa",
+          "stored_sha256": "071a5b5a04f8cd2074c554972b12d26edcdd585973f35fdfb7db035c04321cdc"
+        },
+        "integration.txt": {
+          "bytes": 1835,
+          "original_sha256": "4cab1eea06e5451fdca03741d0aa5305469b7beed16b67b2897ca4bdaa9797e9",
+          "stored_sha256": "2878dc131c67a9aab2b0cb5f1bdcb6e3404916e24615ccb3a3e0b693c260d60a"
+        },
+        "platform.txt": {
+          "bytes": 159,
+          "original_sha256": "3c57985f54e7c12e3a6a6f3a5e4fa1f4fd6132779827f9f06be00a3f3b7e2098",
+          "stored_sha256": "3c57985f54e7c12e3a6a6f3a5e4fa1f4fd6132779827f9f06be00a3f3b7e2098"
+        },
+        "source.json": {
+          "bytes": 153,
+          "original_sha256": "f583c27c9dfd7c783f5200481cff439dbc35e922a8aefe6cbcd0ec9f7c5a92c1",
+          "stored_sha256": "f583c27c9dfd7c783f5200481cff439dbc35e922a8aefe6cbcd0ec9f7c5a92c1"
+        }
+      },
+      "job_id": 117303546255,
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/39000948512/job/117303546255",
+      "ordinary_pytest": {
+        "passed": 607,
+        "skipped": 27,
+        "subtests_passed": 12
+      },
+      "python_runtime_pytest_passed": 18,
+      "snapshot_scenario_checks_passed": 33,
+      "source_pytest_passed": 22
+    }
+  },
+  "release": "not authorized",
+  "run_id": 39000948512,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39000948512",
+  "source_commit": "890f770eee36c004036826104229f9269138775b"
+}
