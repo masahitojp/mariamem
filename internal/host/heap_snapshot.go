@@ -44,12 +44,13 @@ func (s *Server) SnapshotHeap(ctx context.Context, rollback bool) (*snapshot.Own
 	if image == nil {
 		return nil, true, errors.New("missing snapshot capture")
 	}
+
+	owned, e := snapshot.OwnRoot(image, s.build)
 	for key, v := range image.Counts() {
 		timing.Work(ctx, "root/"+key+"/read", v.Read, 0)
 		timing.Work(ctx, "root/"+key+"/copy", v.Copy, 0)
 		timing.Work(ctx, "root/"+key+"/hash", v.Hash, 0)
 		timing.Work(ctx, "root/"+key+"/zero", v.Zero, v.Metadata)
 	}
-	owned, e := snapshot.OwnRoot(image, s.build)
 	return owned, true, e
 }

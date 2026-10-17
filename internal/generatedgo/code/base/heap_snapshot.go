@@ -128,6 +128,8 @@ var _ io.ReaderAt = (*prepared.HeapFile)(nil)
 
 // FreezeRoot runs after joined guest completion, under the same namespace lock as every mutation.
 func (fs *MemFS) FreezeRoot(build string, capture *prepared.Capture) error {
+	ctx, finish := timing.Begin(context.Background(), "snapshot_freeze")
+	defer finish()
 	fs.mu.Lock()
 	defer fs.mu.Unlock()
 	node, e := fs.lookup("mariadb")
@@ -165,7 +167,10 @@ func (fs *MemFS) FreezeRoot(build string, capture *prepared.Capture) error {
 	if e = walk(node, "."); e != nil {
 		return e
 	}
-	return capture.CompleteRoot(fs.rootSource, build, dirs, files)
+	timing.Mark(ctx, "root_files_sealed")
+	e = capture.CompleteRoot(fs.rootSource, build, dirs, files)
+	timing.Mark(ctx, "root_capture_completed")
+	return e
 }
 func mapRoot(fs *MemFS, r *prepared.Root, prefix string) (*PreparedFiles, error) {
 	if !fs.blockStorage {

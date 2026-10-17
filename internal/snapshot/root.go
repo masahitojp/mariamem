@@ -1,10 +1,12 @@
 package snapshot
 
 import (
+	"context"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"github.com/masahitojp/mariamem/internal/timing"
 	"io"
 	"os"
 	"path/filepath"
@@ -15,6 +17,8 @@ import (
 // OwnRoot accepts only a sealed capture-produced resource, never raw bytes.
 // The process's Capture checks the request/source binding before this call.
 func OwnRoot(r *prepared.Root, build string) (*Owned, error) {
+	_, finish := timing.Begin(context.Background(), "snapshot_own")
+	defer finish()
 	if e := r.Check(build); e != nil {
 		return nil, e
 	}
