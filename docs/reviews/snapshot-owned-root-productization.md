@@ -83,7 +83,13 @@ runtimeの所有層と全てのMemFS file操作の実装が変わるため、sou
 | 項目 | 状態 |
 | --- | --- |
 | source inventory / ownership | PASS：抽出後のverify_generated_runtime |
-| source/license/mirror / focused race | 未実行：抽出SHAを固定して実施 |
-| 製品化候補のcanonical check/integration | 未実行：CIへ提出予定 |
+| source/license/mirror | PASS：22 pytest、typed baseline pin/source inventory |
+| prepared/snapshot/base focused race | PASS：source266186b、全対象testでSKIP/FAILなし。下記receipt参照 |
+| 製品化候補のcanonical check/integration | このbranchのpushで両OS CIへ提出。結果未取得 |
 | 性能の再測定 | SKIP：追加Snapshot高速化は行わず、既存証拠を参照 |
 | main統合・リリース | 未承認・未実施 |
+
+ローカル検証の[receipt/原出力](snapshot-owned-root-productization-evidence)と
+[hash/集計](snapshot-owned-root-productization-evidence/summary.json)は、実装commit266186bに対する結果。
+その後の証拠・文書commitを新しい実装の検証結果とは呼ばない。
+CIへ提出する最終SHAでは通常Goソースが同一であることを確認する。

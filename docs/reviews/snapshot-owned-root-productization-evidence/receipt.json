@@ -1,0 +1,69 @@
+{
+  "source_commit": "266186b82ea3381aa20409a2a50e71b4ca87e2b4",
+  "go": "go version go1.26.8 darwin/arm64",
+  "commands": [
+    {
+      "name": "baseline",
+      "arguments": [
+        "<user>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "scripts/git_identity.py",
+        "verify-release",
+        "--pin",
+        "release/baselines/v0.5.1.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.208622541
+    },
+    {
+      "name": "source",
+      "arguments": [
+        "<user>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "scripts/verify_generated_runtime.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.31716050000000007
+    },
+    {
+      "name": "source-tests",
+      "arguments": [
+        "<user>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_generated_runtime_inventory.py",
+        "tests/test_distribution_licenses.py",
+        "tests/test_packaging_license_mirrors.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "seconds": 1.3203585000000002
+    },
+    {
+      "name": "modules",
+      "arguments": [
+        "<user>/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "mod",
+        "verify"
+      ],
+      "exit_code": 0,
+      "seconds": 0.025054375000000295
+    },
+    {
+      "name": "focused-race",
+      "arguments": [
+        "<user>/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+        "test",
+        "-json",
+        "-race",
+        "-p",
+        "1",
+        "-count=1",
+        "-timeout=120s",
+        "./internal/prepared",
+        "./internal/snapshot",
+        "./internal/generatedgo/code/base"
+      ],
+      "exit_code": 0,
+      "seconds": 21.23065425
+    }
+  ]
+}

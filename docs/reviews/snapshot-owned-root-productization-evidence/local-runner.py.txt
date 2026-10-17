@@ -1,0 +1,27 @@
+import hashlib,json,os,re,shutil,subprocess,sys,time
+from pathlib import Path
+W=Path(__file__).resolve().parents[1];R=W/'worktree';E=W/'evidence';E.mkdir(exist_ok=True)
+GO=Path('/Users')/os.environ['USER']/'.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go'
+PY=R.parents[3]/'build/release-v051-venv/bin/python'
+# The release venv is a read-only prerequisite, never disposable task output.
+PY=Path('/Users')/os.environ['USER']/'src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python'
+env=dict(os.environ,GOTOOLCHAIN='local',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='',CGO_ENABLED='1',GOCACHE=str(W/'temp/gocache'),GOPATH=str(W/'temp/gopath'),GOMODCACHE=str(W/'temp/gomodcache'),GOTMPDIR=str(W/'temp/gotmp'),TMPDIR=str(W/'temp/gotmp'),GOPROXY='off',GOSUMDB='off',PYTHONDONTWRITEBYTECODE='1',PYTHONPATH=str(R/'python'),PATH=str(GO.parent)+os.pathsep+os.environ['PATH'])
+for k in ['MARIAMEM_DEV_WORKSPACE','MARIAMEM_NATIVE_DIR','MARIAMEM_TEST_HOST','MARIAMEM_TIMING_DIR','GOGC','GOMEMLIMIT','GOMAXPROCS']:env.pop(k,None)
+for n in ['gocache','gopath','gomodcache','gotmp']:(W/'temp'/n).mkdir(exist_ok=True)
+cache=Path('/Users')/os.environ['USER']/'.go/pkg/mod'
+for name,version in [('github.com/go-sql-driver/mysql','v1.9.3'),('filippo.io/edwards25519','v1.1.0')]:
+ dest=Path(env['GOMODCACHE'])/(name+'@'+version)
+ if not dest.exists():shutil.copytree(cache/(name+'@'+version),dest)
+ dest=Path(env['GOMODCACHE'])/'cache/download'/name/'@v';dest.mkdir(parents=True,exist_ok=True)
+ for p in (cache/'cache/download'/name/'@v').glob(version+'.*'):
+  if p.suffix!='.lock':shutil.copy2(p,dest/p.name)
+identity=json.loads(subprocess.check_output([sys.executable,'scripts/git_identity.py','inspect','HEAD'],cwd=R))
+assert not subprocess.check_output(['git','status','--porcelain'],cwd=R).strip()
+version=subprocess.check_output([str(GO),'version'],env=env,text=True).strip();assert 'go1.26.8' in version
+receipt={'source_commit':identity['source_commit'],'go':version,'commands':[]}
+def clean(s):return re.sub(r'/(?:Users|home)/[^\s/]+/','<user>/',s.replace(str(R),'<source>').replace(str(W),' <workspace>'))
+commands=[('baseline',[str(PY),'scripts/git_identity.py','verify-release','--pin','release/baselines/v0.5.1.json']),('source',[str(PY),'scripts/verify_generated_runtime.py']),('source-tests',[str(PY),'-m','pytest','tests/test_generated_runtime_inventory.py','tests/test_distribution_licenses.py','tests/test_packaging_license_mirrors.py','-q']),('modules',[str(GO),'mod','verify']),('focused-race',[str(GO),'test','-json','-race','-p','1','-count=1','-timeout=120s','./internal/prepared','./internal/snapshot','./internal/generatedgo/code/base'])]
+for name,cmd in commands:
+ start=time.monotonic();r=subprocess.run(cmd,cwd=R,env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=750)
+ (E/(name+'.txt')).write_text(clean(r.stdout));receipt['commands'].append({'name':name,'arguments':[clean(x) for x in cmd],'exit_code':r.returncode,'seconds':time.monotonic()-start});(E/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');print(name,'PASS' if not r.returncode else 'FAIL',flush=True)
+ if r.returncode:print(r.stdout[-4500:]);sys.exit(r.returncode)

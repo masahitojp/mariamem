@@ -1,0 +1,18 @@
+{
+  "source_commit": "266186b82ea3381aa20409a2a50e71b4ca87e2b4",
+  "result": "PASS",
+  "source_pytest": 22,
+  "focused_pass_events_with_test": 175,
+  "focused_skip_fail_events": 0,
+  "ci": "not yet submitted",
+  "benchmarks": "not rerun; existing source-pinned evidence referenced",
+  "files": {
+    "receipt.json": "4ea5aaa7380e4bf9c8242dec8cc5e76c34672848d32ca80c8612a4a496303016",
+    "baseline.txt": "fb258d9295617567e1c7628af76968f086ae0cc2eab297fc115810cd0ee04198",
+    "source.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "source-tests.txt": "20963899dbae1609daa0099eb4befd6fd95bb053da140e075ce1059d1a1deac2",
+    "modules.txt": "b4537ed75f533f993f371954de47e42a793b8e5b0587577de7e27fb3e50696bd",
+    "focused-race.txt": "3e9eb28b6bf01e751a72f34a27efb476f04605ace206e0502141b0d4e45b5381",
+    "local-runner.py.txt": "71fef681a5be1f78ac5057f727095595793fbab43cf37e2d347e808fd4949690"
+  }
+}
