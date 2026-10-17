@@ -234,7 +234,7 @@ v0.5.1 acceptance. See the [follow-up Human Review](reviews/v05x-followup.md).
 | Item | Current disposition |
 | --- | --- |
 | 100 MiB Go Fresh investigation | Closed by Human decision; revisit if similar slowdown recurs. Preserve unknown cause and original observations. |
-| Snapshot ownership and repeated content reads | Human-authorized design review: determine why each read is needed and whether ownership can remove that need while retaining guarantees. Design report complete; prototype and product adoption are not approved. |
+| Snapshot ownership and repeated content reads | Design reviewed; component spike conditionally approved with five requirements. Human requested review of those requirements before implementation; only workspace preparation is complete. Product adoption is not approved. |
 | Connection capacity (16 per DB) | Deferred; unchanged. Consider with real concurrent application needs, not merely because a shared host exists. |
 | General shared-memory guarantee expansion / forced termination | Separate design scope; no newly observed defect is established by this follow-up. Do not reopen completed bounded correctness work. |
 | Broader framework dogfood / fixture ergonomics | Existing v0.6.0 direction; not silently moved into 0.5.x. |

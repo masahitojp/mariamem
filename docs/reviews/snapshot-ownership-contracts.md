@@ -2,6 +2,97 @@
 
 2026-10-17。設計検討・静的コード確認。ランタイム変更、試作、追加計測は行っていない。
 
+## Spike前のHuman Review — 5条件の具体化
+
+**状態：Humanの条件付き承認後、実装前の再レビュー待ち。専用branch/worktreeの準備のみ。**
+この節が後述§7・§8を具体化する。以下は実施結果ではなく、確認してから着手する条件である。
+承認対象はguest未接続の部品spike。製品契約、既存oracle、本番経路の変更は含めない。
+
+### 1. strict oracleの棲み先と新経路の拒否
+
+二層に分ける。unit testを残しただけで新経路を検証済みとは扱わない。
+
+| 層 | 配置・責任 | 必要な結果 |
+| --- | --- | --- |
+| 所有層の内容oracle | 現行`heap_snapshot_test.go`の`TestHeapTargetCorruptionOracle`と`internal/snapshot/heap_test.go`の拒否を保持。新モデルでは所有層unit testが独立byteモデル/期待digestと内容を比較する | 内容・末尾・ゼロ・世代の一致。意図的に壊した内容をstrict検査が拒否する |
+| 新しい受け渡し経路 | spike内の`freeze → Capture → acquire`を通す差し替え拒否oracle | 別root、未固定root、別capture、別guest、放棄済み/失敗済み候補を拒否し、使用可能な所有物を返さない |
+
+新モデルの期待digestはtest側が保持し、通常取得へ隠れてhashを戻さない。
+後に本番へ接続する場合は、同じ拒否oracleを実際のCapture/Owned配線へ移す必要がある。
+unit testだけのPASSを本番配線のPASSとしない。
+
+`TestHeapTargetCorruptionOracle`はdigest無しの本番経路では毎回呼ぶ検証ではなく、
+所有層の内容保持を確かめるテストに位置づく。現行strict経路はこのspikeで変更しない。
+新経路に対し同じrootの内部bytesだけを直接壊す注入も別に記録する。
+それを所有権だけで検出できない結果は**検出能力の差**であり、差し替え拒否PASSで相殺しない。
+この差を許容する製品判断は未承認。既存failureをsuccessへ書き換えない。
+
+### 2. 読み直しゼロは経路別に判定する
+
+計測区間は固定・Capture受け渡し・取得を分け、準備write、子write、内容oracleのreadを
+混ぜない。read bytes、copy bytes、hash bytes、metadata訪問数を別々に記録する。
+counterは実際のpayloadアクセス箇所に接続し、既知量のread/copy/hashで非ゼロになる対照も置く。
+全てのpayloadアクセスがcounterを通ることをコードで確認し、未計測はゼロと報告しない。
+
+| 経路 | 通常の固定/受け渡しで狙うこと | 除外せず別記録する費用 |
+| --- | --- | --- |
+| dirty heap | payload read/copy/hash = 0 | 準備writeでの入力copy、metadata固定 |
+| inherited heap | payload read/copy/hash = 0 | 子が最初に変更するときのCoW copy、descriptor処理 |
+| implicit zero | ゼロの全領域展開・走査・hash = 0 | 論理長と末尾/穴のmetadata確認。実readでは正しいゼロを返す |
+| mapped base | **全経路ゼロを要求しない**。mapping寿命を切る移行を別判定 | source read、heap copy、必要な比較。実mmap未実行ならモデル結果と分けSKIPを記録 |
+| private handoff | **ゼロ対象外**。別実体への転送/取得検証を維持 | 送信read/hash/write、受信copy/検証をそれぞれ記録 |
+
+dirty/inherited/zeroが混在するfileも含める。mapped/handoffは部品adapterの確認と
+本番OS/host経路の確認を区別する。ゼロ対象外の行を未実装のままPASSとはしない。
+
+### 3. 利得は三つに分離する
+
+| 独立して評価する利得 | 省く仕事 | 成立しない場合に残せるもの |
+| --- | --- | --- |
+| G0：確認済み実体の所有権受け渡し（以前の比較表row1） | 所有取得時の3回目の走査 | 表現変更に依存させず、小案として残す |
+| G1：Snapshot専用の再構成をやめる | 元hash作成と移行後比較のためのpayload走査（pass1/2の内容処理） | G1が不成立でもG0の成立性・費用を別報告 |
+| G2：内容表現を統一する | base/zero等を取得時に別表現へ変換する仕事、readerの分岐/重複 | G2が不成立でも、既存表現を固定して使うG1が成立するか区別 |
+
+pass1には固定・metadata構築も含まれるため、「pass1/2の時間が丸ごと消える」とはしない。
+G2はゼロの意味を消すことではない。mappedの寿命切断も表現統一だけでは消えない。
+部品spikeでは対応する経路/counterを分け、成立した取り分を全体案の成否で捨てない。
+未実装の比較案について速度利益を実測済みとは報告しない。
+
+### 4. 生成境界の変更と費用を設計出力にする
+
+部品spikeは隔離packageに置き、本番生成物を変更しない。その成果物に、本番接続時の
+変更対象と「変更が必要になる条件」を下表の粒度で残す。
+
+| 対象 | 本番接続時の作業・費用 |
+| --- | --- |
+| `HANDWRITTEN_FILES` | MemFS/所有層adapter/testの追加・移動・削除を列挙し、`handwritten_owner`とclean再生成時の取り込みを確認。通常`internal/prepared`側のfileは生成treeとの所属を区別 |
+| `runtime_memfs.py` | relative open/truncate、mapped install等の置換先を新APIと整合。各置換のpreimage/count検査と対応fixtureを確認 |
+| pinned preimageの再ピン留め | **現在のhashは変更前のconverter出力断片を固定している。** 手書き実装だけ変える場合は再ピン留めしない。実際に断片が変わる場合に限り、旧新入力と出所・再生成結果を照合して更新する |
+| `release/generated-go-inputs.json` | 現在はconverter側のcandidate source inventory。raw入力が変われば正式生成で更新。手書きfile追加だけなら、その理由でcandidate hashを書き換えない。更新要否を明記 |
+| 出力inventory/provenanceと独立再生成 | 変換後出力・手書きownerの分類を保持し、正式経路で独立再生成して一致を確認。owner追加をraw入力inventoryだけで済ませない |
+
+したがって「部品が通ったら数行の接続だけ」とは見積もらない。owner/API配線、生成変換、
+inventory検証、独立再生成、本番経路oracleの各作業を別に残す。
+このspikeでは再生成を実施したことにせず、本番接続を承認する際の範囲として提示する。
+
+### 5. digest無しの表現とAPI/manifest設計
+
+現行`NewHeapFile`はSHA-256形式のdigestを必須にし、`Digest()`はhandoff manifestに使われる。
+空文字やダミーhashを入れて通す案は採らない。
+
+推薦する設計出力は、**digest無しの内部固定rootと、digest付き転送表現を別型にする**こと。
+
+- 通常の内部型：bytesを外へ出さない固定root、guest identity、構造、取得要求との結び付きを持つ。
+  raw Heapを無検査でこの型へ変換する入口は作らない。
+- Capture/Owned/復元：新型を渡す内部APIの変更点を列挙する。Go/Pythonの公開Snapshot/Fork APIは維持する案。
+- 転送表現：handoff時に内容を読み、file digestを作る。受信側は既存同等の内容/identity検証を行う。
+  既存manifest形式・digest必須を維持できるかを設計し、変更するならversion/受信側対応を明記する。
+- digestを作る時点がSnapshot作成時からhandoff時へ移るため、作成からexportまでの
+  内容破壊の検出能力は同じとは言えない。この差と製品契約の更新案を成果物に含める。
+
+**この5条件で部品spikeへ進むことを推薦する。** 現時点では仕様提案のレビューであり、
+各oracle・counter・API案の実証はこれから。本節をHumanが確認するまで実装/実行へ進まない。
+
 ## Human Review
 
 **判断は、通常の同一プロセス内Snapshotを「元の状態そのものを固定して所有する」方式で
