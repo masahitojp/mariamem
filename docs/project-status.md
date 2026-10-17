@@ -234,7 +234,7 @@ v0.5.1 acceptance. See the [follow-up Human Review](reviews/v05x-followup.md).
 | Item | Current disposition |
 | --- | --- |
 | 100 MiB Go Fresh investigation | Closed by Human decision; revisit if similar slowdown recurs. Preserve unknown cause and original observations. |
-| Snapshot ownership and repeated content reads | Design reviewed; component spike conditionally approved with five requirements. Human requested review of those requirements before implementation; only workspace preparation is complete. Product adoption is not approved. |
+| Snapshot ownership and repeated content reads | The review recommends approval subject to five requirements; the component spike is awaiting Human confirmation. This recommendation is not Human authorization. Only workspace preparation has occurred; implementation and execution have not started. Product adoption is not approved. |
 | Connection capacity (16 per DB) | Deferred; unchanged. Consider with real concurrent application needs, not merely because a shared host exists. |
 | General shared-memory guarantee expansion / forced termination | Separate design scope; no newly observed defect is established by this follow-up. Do not reopen completed bounded correctness work. |
 | Broader framework dogfood / fixture ergonomics | Existing v0.6.0 direction; not silently moved into 0.5.x. |
@@ -249,6 +249,13 @@ storage-only spike for Human decision. This is a design result, not an implement
 or proven replacement. The [earlier two-pass proposal](reviews/snapshot-two-pass-design.md)
 and its 150ms/480ms targets are retained as historical alternatives, not current
 acceptance criteria. The approved product contract remains unchanged.
+
+The authoritative review-document lineage is `experiment/snapshot-owned-root-spike`:
+it includes the original design at `e932ab9`, the five requirements at `7cc75d5`,
+and subsequent review corrections. `experiment/snapshot-ownership-contracts`
+remains the historical design branch at `e932ab9`. If main integration is later
+authorized, use the reviewed documents from the authoritative branch; do not
+also import the historical branch's copies of the same documents.
 
 ## Performance evidence and pending optimization questions
 
