@@ -99,12 +99,17 @@ the Human approved the fixed candidate. Main was fast-forwarded from
 `7a82f338cf111d5d52538b5a3f7bf129c12e2dbb` to
 `52c078ba2fd5a38340ec5eb42a83853b258d7435`, with Git tree object ID
 `02da8809cd9aa76ff3769af268134b90675a68a7`. The review-only head was not merged.
-Relative to CI source 890f770, that candidate changes documentation/evidence and
-Go line comments only; executable behavior, tests and build inputs are unchanged.
-This follow-up records adoption, corrects the published-release status and stale
-architecture/Acquire wording without changing executable code. The full Git tree
-therefore differs from both the integration candidate and CI source. Historical
-review/CI evidence remains under its original source identity.
+The [integration identity record](reviews/snapshot-owned-root-productization-evidence/integration-target.json)
+pins that candidate's commit and tree, the CI source it builds on and the exact
+difference set. Relative to CI source 890f770, that candidate changes
+documentation/evidence and Go line comments only (four Go files); executable
+behavior, tests and build inputs are unchanged. This follow-up records adoption,
+corrects the published-release status and stale architecture/Acquire wording
+without changing executable code, and adds one more comment-only Go file
+(`internal/snapshot/owned.go`); the current runtime source therefore differs from
+CI source in five comment-only files. The full Git tree differs from both the
+integration candidate and CI source. Historical review/CI evidence remains under
+its original source identity.
 The v0.5.1 baseline pin is retained as a separate release ledger entry.
 The narrowed detection guarantee is recorded in [unreleased changes](changes-since-v051.md)
 and must appear in the eventual versioned release notes; the Human has not chosen
@@ -119,8 +124,11 @@ This is an investment decision for the measured workflow, not a claim of a
 universal lower bound. Remaining Light serial time is mostly child startup/use:
 child Fork median 59.4ms (40 child observations), 4-test total median 364.0ms.
 The approximately 3.08ms diagnostic capture is from the candidate, not v0.5.1;
-measured/diagnostic cohorts are not combined. These are existing spike results,
-not new productization benchmarks or Ubuntu performance claims.
+measured/diagnostic cohorts are not combined. These medians are quoted from the
+adoption-source macOS measurements; the ownership-candidate comparison records
+behind them are not included in this branch, so they cannot be independently
+re-verified from main. They are not new productization benchmarks or Ubuntu
+performance claims.
 
 ## Previous release: v0.4.7 — Upstream converter migration
 

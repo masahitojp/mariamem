@@ -2,6 +2,10 @@
 
 2026-10-17。通常heapの内容を再構成・再走査せず、停止後に同じ実体を固定して受け渡す。
 
+状態: Human Reviewの統合判断は承認済みで、main統合は実施済み。
+現在の状態は [project-status](../project-status.md#adopted-ownership-optimization--unreleased) を参照。
+以下の現在形の記述は判断時点のものを保存している。
+
 ## Human Review — main統合の判断
 
 **判断依頼：この製品化差分をmainへ統合するか。私は統合を推薦する。**
@@ -86,6 +90,7 @@ canonical inventory/clean installer/owner inclusionの既存oracleを維持す�
 Light直列の子Forkは40子の中央値59.38ms、4子を準備・SQL・終了まで含む全体中央値363.95ms。
 残る利用者時間は主に子の起動と利用にある。新たなFork/SQLの最適化調査をこの作業に追加しない。
 数値は採用元のmacOS結果を引用したもので、新しい測定やUbuntuの性能結果ではない。
+採用元の比較記録は本枝に収載していないため、mainから独立に再検証することはできない。
 
 ## 検証状態
 
@@ -103,7 +108,7 @@ runtimeの所有層と全てのMemFS file操作の実装が変わるため、sou
 | prepared/snapshot/base focused race | PASS：source266186b、全対象testでSKIP/FAILなし。下記receipt参照 |
 | 製品化候補のcanonical check/integration | PASS：source890f770、run39000948512の両OS。下記CI証拠参照 |
 | 性能の再測定 | SKIP：追加Snapshot高速化は行わず、既存証拠を参照 |
-| main統合・リリース | 未承認・未実施 |
+| main統合・リリース | 未承認・未実施（判断時点） |
 
 ローカル検証の[receipt/原出力](snapshot-owned-root-productization-evidence)と
 [hash/集計](snapshot-owned-root-productization-evidence/summary.json)は、実装commit266186bに対する結果。
@@ -170,12 +175,13 @@ bytesは保存後サイズである。このためhashが異なる。原本の�
 
 ### 統合対象とidentity
 
-統合方式は**固定候補へのfast-forward-only**とする。mainはまだ更新していない。
+統合方式は**固定候補へのfast-forward-only**とする。mainはまだ更新していない（判断時点の記述。実際の統合は実施済み）。
 今回のusage docs/コメント修正と引き継ぎを含むcommitを先に確定し、
 `experiment/snapshot-owned-root-integration`へ固定する。そのsource_commitとGit tree object IDを
 別のreview-only証拠commitで記録する。
-[統合identity record](https://github.com/masahitojp/mariamem/blob/experiment/snapshot-owned-root-adoption-review/docs/reviews/snapshot-owned-root-productization-evidence/integration-target.json)を正本とし、
-レビューheadとこの固定候補を混同しない。
+[統合identity record](snapshot-owned-root-productization-evidence/integration-target.json)を正本とし、
+レビューheadとこの固定候補を混同しない。このrecordは
+`experiment/snapshot-owned-root-adoption-review`の`d188a83`から同一内容で本枝へ収載した判断時点の記録である。
 mainの基点7a82f33が変わっていたら、自動でmerge commitを作らず、差分と候補identityを再確認する。
 承認後にff-onlyで統合すれば、main HEADとtreeは固定候補のcommit/treeに完全一致する。
 
