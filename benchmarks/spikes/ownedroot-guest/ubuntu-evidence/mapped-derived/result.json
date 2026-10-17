@@ -1,0 +1,42 @@
+{
+  "result": "PASS",
+  "capture_count": 2,
+  "mapped_work": {
+    "root/mapped-source/dirty/read": 294964,
+    "root/mapped-source/dirty/copy": 294964,
+    "root/mapped-source/dirty/hash": 0,
+    "root/mapped-source/dirty/zero": 0,
+    "root/mapped-target/dirty/read": 294964,
+    "root/mapped-target/dirty/copy": 294964,
+    "root/mapped-target/dirty/hash": 0,
+    "root/mapped-target/dirty/zero": 0,
+    "root/mapped-target/hash/read": 144786482,
+    "root/mapped-target/hash/copy": 0,
+    "root/mapped-target/hash/hash": 144786482,
+    "root/mapped-target/hash/zero": 0,
+    "root/mapped-source/mapped/read": 144491518,
+    "root/mapped-source/mapped/copy": 144491518,
+    "root/mapped-source/mapped/hash": 0,
+    "root/mapped-source/mapped/zero": 0,
+    "root/mapped-target/mapped/read": 144491518,
+    "root/mapped-target/mapped/copy": 144491518,
+    "root/mapped-target/mapped/hash": 0,
+    "root/mapped-target/mapped/zero": 0,
+    "root/mapped-source/hash/read": 144786482,
+    "root/mapped-source/hash/copy": 0,
+    "root/mapped-source/hash/hash": 144786482,
+    "root/mapped-source/hash/zero": 0,
+    "root/mapped-copy/mapped/read": 144491518,
+    "root/mapped-copy/mapped/copy": 144491518,
+    "root/mapped-copy/mapped/hash": 0,
+    "root/mapped-copy/mapped/zero": 0
+  },
+  "observed": [
+    "handoff strict receiver",
+    "mapped resnapshot materialization",
+    "grandchild data",
+    "sibling isolation",
+    "original baseline unchanged",
+    "handoff cleanup"
+  ]
+}

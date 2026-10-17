@@ -234,7 +234,7 @@ v0.5.1 acceptance. See the [follow-up Human Review](reviews/v05x-followup.md).
 | Item | Current disposition |
 | --- | --- |
 | 100 MiB Go Fresh investigation | Closed by Human decision; revisit if similar slowdown recurs. Preserve unknown cause and original observations. |
-| Snapshot ownership and repeated content reads | The maintainer approved the five-condition component spike on 2026-10-17. The component spike is complete. The maintainer then approved the actual-guest spike; its bounded macOS results are recorded in the [guest review](reviews/snapshot-owned-root-guest.md). The maintainer supports proceeding as a productization candidate, with two adoption conditions: a decision accepting the limited detection contract and Ubuntu verification. Neither condition is recorded as met; product adoption and main integration are not authorized. Bounded Ubuntu CI is the next verification step. |
+| Snapshot ownership and repeated content reads | The maintainer approved the five-condition component spike on 2026-10-17. The component spike is complete. The maintainer then approved the actual-guest spike; its bounded macOS results are recorded in the [guest review](reviews/snapshot-owned-root-guest.md). The maintainer supports proceeding as a productization candidate, with two adoption conditions: a decision accepting the limited detection contract and Ubuntu verification. Ubuntu related verification passed on exact candidate `c2a7664bc2cf5b62a5931bf521f060c4fe11a4b8` in [run38998771860](https://github.com/masahitojp/mariamem/actions/runs/38998771860), including strict oracles, lifecycle/isolation, shared host/handoff, mapped resnapshot and the same corruption characterization. The limited detection-contract decision remains pending; product adoption and main integration are not authorized. This is bounded verification, not final Qualification or Ubuntu performance evidence. |
 | Connection capacity (16 per DB) | Deferred; unchanged. Consider with real concurrent application needs, not merely because a shared host exists. |
 | General shared-memory guarantee expansion / forced termination | Separate design scope; no newly observed defect is established by this follow-up. Do not reopen completed bounded correctness work. |
 | Broader framework dogfood / fixture ergonomics | Existing v0.6.0 direction; not silently moved into 0.5.x. |
@@ -253,11 +253,11 @@ detection difference. The subsequently approved [real-guest spike](reviews/snaps
 and its 150ms/480ms targets are retained as historical alternatives, not current
 acceptance criteria. The approved product contract remains unchanged.
 
-The authoritative continuation is now `experiment/snapshot-owned-root-guest`, based on component result `39b394b`. The historical component lineage is `experiment/snapshot-owned-root-spike`:
+The verified code continuation is `experiment/snapshot-owned-root-guest` at candidate `c2a7664`; the CI result and current Human Review are recorded on evidence-only branch `experiment/snapshot-owned-root-ubuntu-review`. Both retain component result `39b394b`. The historical component lineage is `experiment/snapshot-owned-root-spike`:
 it includes the original design at `e932ab9`, the five requirements at `7cc75d5`,
 and subsequent review corrections. `experiment/snapshot-ownership-contracts`
 remains the historical design branch at `e932ab9`. If main integration is later
-authorized, use the reviewed documents from the current continuation branch; do not
+authorized, use the current Ubuntu review documents with the verified candidate code; do not
 also import the historical branch's copies of the same documents.
 
 ## Performance evidence and pending optimization questions

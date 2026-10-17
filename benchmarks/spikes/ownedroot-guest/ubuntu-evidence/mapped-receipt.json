@@ -1,0 +1,34 @@
+{
+  "source_commit": "c2a7664bc2cf5b62a5931bf521f060c4fe11a4b8",
+  "stage": "mapped",
+  "go": "go version go1.26.8 linux/amd64",
+  "runs": [
+    {
+      "name": "mapped-host-build",
+      "arguments": [
+        "go",
+        "build",
+        "-p",
+        "1",
+        "-trimpath",
+        "-o",
+        "<source>/build/owned-root-native/temp/owned-root-host",
+        "./cmd/mariamem-host"
+      ],
+      "exit_code": 0,
+      "seconds": 0.16655374499998743
+    },
+    {
+      "name": "mapped-derived",
+      "arguments": [
+        "python",
+        "-m",
+        "pytest",
+        "benchmarks/spikes/ownedroot-guest/test_mapped_lineage.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0390583070000048
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "source_commit": "c2a7664bc2cf5b62a5931bf521f060c4fe11a4b8",
+  "stage": "integration",
+  "go": "go version go1.26.8 linux/amd64",
+  "runs": [
+    {
+      "name": "integration",
+      "arguments": [
+        "go",
+        "test",
+        "-json",
+        "-p",
+        "1",
+        "-tags=integration",
+        "./tests/gointegration",
+        "-count=1",
+        "-timeout=240s",
+        "-run",
+        "TestPublicLifecycle|TestOwnedManyOrderParallelAndClose|TestOwnedForkCloseRace|TestOwnedModifiedChildCreatesNewBaseline"
+      ],
+      "exit_code": 0,
+      "seconds": 157.18571854799998
+    }
+  ]
+}

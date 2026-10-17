@@ -1,0 +1,8 @@
+{"Time":"2026-10-17T03:33:58.356505261Z","Action":"start","Package":"github.com/masahitojp/mariamem/tests/gointegration"}
+{"Time":"2026-10-17T03:33:58.358148536Z","Action":"run","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedRootCorruptionProbe"}
+{"Time":"2026-10-17T03:33:58.358163418Z","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedRootCorruptionProbe","Output":"=== RUN   TestOwnedRootCorruptionProbe\n"}
+{"Time":"2026-10-17T03:33:58.57831408Z","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedRootCorruptionProbe","Output":"--- PASS: TestOwnedRootCorruptionProbe (0.22s)\n"}
+{"Time":"2026-10-17T03:33:58.5783475Z","Action":"pass","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedRootCorruptionProbe","Elapsed":0.22}
+{"Time":"2026-10-17T03:33:58.578353919Z","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Output":"PASS\n"}
+{"Time":"2026-10-17T03:33:58.578613013Z","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Output":"ok  \tgithub.com/masahitojp/mariamem/tests/gointegration\t0.222s\n"}
+{"Time":"2026-10-17T03:33:58.57863074Z","Action":"pass","Package":"github.com/masahitojp/mariamem/tests/gointegration","Elapsed":0.222}

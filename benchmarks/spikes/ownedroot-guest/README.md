@@ -1,7 +1,8 @@
 # Owned-root actual-guest spike
 
 The current review is [snapshot-owned-root-guest.md](../../../docs/reviews/snapshot-owned-root-guest.md).
-This experiment branch is not merge/release approval. macOS arm64 only; Ubuntu is SKIP.
+This experiment branch is not merge/release approval. macOS arm64 and bounded
+Ubuntu24.04 x86_64 checks passed; measurements remain macOS-only.
 
 Before builds, commit exact inputs and verify `scripts/git_identity.py inspect HEAD`.
 Use `.agents/skills/experiment-workspace/SKILL.md` to prepare a disposable workspace
@@ -56,10 +57,17 @@ retain no compiler/module/download/generated caches.
 
 ## Bounded native Ubuntu CI
 
-`.github/workflows/owned-root-native.yml` runs on pushes to this experiment branch.
+`.github/workflows/owned-root-native.yml` runs on pushes to candidate branch
+`experiment/snapshot-owned-root-guest`.
 It uses Ubuntu24.04 x86_64, Go1.26.8, Python3.14 and the same focused/source,
 Go lifecycle, Python shared-host/mapped and special-tag corruption checks as macOS.
 Artifacts record the exact candidate SHA and stage receipts even on failure.
 No performance claims, guest rebuild, independent regeneration repeat, full
 Qualification, main adoption or publication is part of this CI submission.
 CI owns execution; submission is not a PASS or adoption decision.
+
+Ubuntu run38998771860 passed on source `c2a7664bc2cf5b62a5931bf521f060c4fe11a4b8`.
+`ubuntu-evidence/summary.json` verifies receipt identities/exits and records
+per-file original/stored hashes; it is separate from the earlier macOS cohort.
+The evidence-only `experiment/snapshot-owned-root-ubuntu-review` branch changes
+no runtime code and submits no new CI. The candidate branch retains c2a7664.

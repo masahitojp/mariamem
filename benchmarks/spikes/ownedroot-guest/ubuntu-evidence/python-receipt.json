@@ -1,0 +1,36 @@
+{
+  "source_commit": "c2a7664bc2cf5b62a5931bf521f060c4fe11a4b8",
+  "stage": "python",
+  "go": "go version go1.26.8 linux/amd64",
+  "runs": [
+    {
+      "name": "python-host-build",
+      "arguments": [
+        "go",
+        "build",
+        "-p",
+        "1",
+        "-trimpath",
+        "-o",
+        "<source>/build/owned-root-native/temp/owned-root-host",
+        "./cmd/mariamem-host"
+      ],
+      "exit_code": 0,
+      "seconds": 101.607228061
+    },
+    {
+      "name": "python-owned",
+      "arguments": [
+        "python",
+        "-m",
+        "pytest",
+        "tests/test_owned_snapshot.py::test_modified_child_creates_new_baseline_without_changing_parent",
+        "tests/test_owned_snapshot.py::test_explicit_other_binary_uses_private_handoff",
+        "tests/test_owned_snapshot.py::test_real_fork_racing_baseline_close_preserves_started_children",
+        "-q"
+      ],
+      "exit_code": 0,
+      "seconds": 1.4971654080000008
+    }
+  ]
+}

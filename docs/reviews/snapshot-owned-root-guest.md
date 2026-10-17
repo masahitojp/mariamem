@@ -3,26 +3,27 @@
 2026-10-17。部品spikeの後、Humanが「制限事項で良い気もする」「spikeは進めて」と承認した限定接続。
 製品への採用、検出契約の変更、main統合、リリースの承認ではない。
 
-## Human Review — 製品化候補へ進む方針を確認済み
+## Human Review — Ubuntu確認後の採用契約判断
 
-Humanは2026-10-17に「進める（製品化候補）。検出能力の差を限定契約として認める判断とUbuntu確認を採用条件に置く」とする整理を支持した。
-この支持を、検出契約の変更自体やmain採用の承認には読み替えない。
-次はUbuntuの限定確認をCIに提出し、その結果と契約文案を揃えて採用判断へ返す。
+**判断依頼：§2の限定契約を受け入れ、所有権方式の最小差分を製品化へ進めるか。私は受け入れて進めることを推薦する。**
+通常APIの変更防止、同一実体の受け渡し、親子隔離、mapped/別host転送時の内容検証を保つ構造は、
+macOS arm64とUbuntu24.04 x86_64の関連検証を通過した。
+macOSでは軽い準備を4子で再利用する全体が、直列572→364ms、4並列378→172ms（各中央値）。
+繰り返す内容走査を不要にする利益があり、今回の範囲で未解決の検証FAILはない。
 
-以下は方針確認時の推薦と根拠。Ubuntuの結果は未取得であり、提出をPASSと扱わない。
+**最も強い反論：freeze後・取得前の内部byte変更を、取得時の全量hashで検出する能力は減る。**
+両OSの同じ1 byte注入で、所有権取得は通過し、後のSELECTが破損エラー1877で拒否された。
+既存strict verifierは同じ破損を取得前に拒否する。利用者には、準備のエラーが後のテストSQLまで遅れる違いがある。
+この例で黙った誤値は出ていないが、全ファイルの破壊もMariaDBが検出するという証拠ではない。
+私はこの限定された検出契約を認めることを推薦する。通常APIによる隔離の保証を弱める提案ではなく、
+任意のprivate-byte破壊を全量走査で事後検出することを通常heap経路では約束しない、という境界である。
 
-**判断依頼：所有権方式を、Ubuntu確認と契約文の確定を含む製品化候補として進めるか。私は進めることを推薦する。**
-macOSの実MariaDBで、通常heapのSnapshot固定・取得に内容の再読み取りを不要にできた。
-軽い準備を4子で再利用する全体は、直列572→364ms、4並列378→172ms（各中央値）。
-SQL、世代間隔離、終了、Python共有hostと明示的な別hostへの転送を確認した。
-利益はSnapshotだけでなく利用全体に出ており、子の起動を速くした結果とは区別できる。
+2026-10-17にHumanは「製品化候補として進める」整理を支持し、限定契約の判断とUbuntu確認を採用条件に置いた。
+後者は[CI run38998771860](https://github.com/masahitojp/mariamem/actions/runs/38998771860)で完了。
+前者は未決定であり、CI成功を契約の受け入れ・main統合・リリース承認に読み替えない。
+判断後は§9の最小差分を製品化し、その差分を検証して統合レビューへ返す。
 
-**最も強い反論：取得前の内部byte破壊を取得時に検出する能力は減る。**
-実guestのInnoDBページを1 byte壊した例では、所有権取得は通過し、後のSELECTが破損エラー1877で拒否された。
-従来のstrict verifierは同じ破損を取得前に拒否する。この例で黙った値変更は起きなかったが、
-全ファイルや他の破壊にもMariaDBの検出が効くという証拠ではない。
-この差を限定された契約として認める判断と、未実施のUbuntu確認が、採用には必要。
-今回の結果だけでmain採用やリリースへ進めない。
+Ubuntuの性能測定・最終Qualificationは今回未実施で、macOSの測定値を他OSへ一般化しない。
 
 ## 1. 元の問いと結論
 
@@ -179,7 +180,7 @@ baseline並列は10回中2回で全体1163/1187ms。削除せず全データを�
 | 独立再生成 | PASS、99file一致 |
 | 46通常＋4診断workflow | PASS、SQL/assert/cleanup込み |
 | 故障注入 | 観測PASS：strict拒否/metadata受理/SELECT破損エラー。安全性同等のPASSではない |
-| Ubuntu x86_64 | SKIP：今回未実行 |
+| Ubuntu24.04 x86_64 | PASS：候補c2a7664の限定native CI。§10参照。性能/最終Qualificationは対象外 |
 | 最終Qualification・広いProduct Validation・ORM | SKIP：今回の限定spike外 |
 
 最初のsandbox実行はlocalhost bind拒否でFAIL→許可された環境で再実行PASS。
@@ -188,7 +189,7 @@ baseline並列は10回中2回で全体1163/1187ms。削除せず全データを�
 注入fixtureは最初に公開APIの引数不一致でbuild FAIL→fixtureを現行APIに合わせてPASS。
 これらを破棄せず保存し、runtime意味論の失敗と混同しない。
 
-残件：Ubuntu、採用時の契約文、製品化の差分整理、採用後の最終検証。
+残件：限定契約の受け入れ判断、製品化の最小差分整理と検証、採用後の最終検証。Ubuntuの関連確認は§10で完了。
 今回のmac結果は上記の利用条件に限る。追加の全面共有メモリ調査や任意破壊の完全証明を要求する結論ではない。
 
 ## 8. 再現・証拠
@@ -202,10 +203,10 @@ baseline並列は10回中2回で全体1163/1187ms。削除せず全データを�
 
 ## 9. 方針確認後の製品化差分と採用条件
 
-1. **Ubuntu条件**：新しい`owned-root-native.yml`で既存の所有層/strict oracle、Go SQL・隔離・終了競合、
-   Python共有host・handoff・mapped再Snapshot、限定破損注入を同じ候補SHAで確認する。
+1. **Ubuntu条件（充足済み）**：新しい`owned-root-native.yml`で既存の所有層/strict oracle、Go SQL・隔離・終了競合、
+   Python共有host・handoff・mapped再Snapshot、限定破損注入を同じ候補SHAで確認した。
    source/license確認を含む。性能再測定や全量QualificationはこのCIには含めない。
-   CI artifactのsource_commitとstage receiptで判断し、未実行/失敗をPASSへ読み替えない。
+   CI artifactのsource_commitとstage receiptで判断し、未実行/失敗をPASSへ読み替えない。候補c2a7664で全対象PASS（§10）。
 2. **契約条件**：§2の契約案について、即時の内容破損拒否との差をHumanが受け入れる判断が必要。
    今回の「製品化候補として進める」支持は、この条件自体の受け入れとは別。
 3. **採用時の最小差分**：通常runtimeのFileStore/Root/capture bindingと既存adapter、および独立byte参照・
@@ -217,3 +218,33 @@ baseline並列は10回中2回で全体1163/1187ms。削除せず全データを�
 
 Ubuntuへ出す変更はCI・検証helperの環境可搬化・判断記録だけ。通常Go runtimeはmacOS検証候補と同一。
 公開API、guest/converter、生成物を変更せず、main統合やリリース準備を開始するものではない。
+
+## 10. Ubuntu CI完了の確認
+
+[run38998771860](https://github.com/masahitojp/mariamem/actions/runs/38998771860)、
+[job117297051362](https://github.com/masahitojp/mariamem/actions/runs/38998771860/job/117297051362)はsuccess。
+候補`source_commit=c2a7664bc2cf5b62a5931bf521f060c4fe11a4b8`はローカルGitのcommitとして検査し、
+run head_sha、artifact source.json、全stage receiptのsource_commitが一致した。
+[Ubuntu receipt/原データ](../../benchmarks/spikes/ownedroot-guest/ubuntu-evidence)と
+[hash/機械集計](../../benchmarks/spikes/ownedroot-guest/ubuntu-evidence/summary.json)を保存。
+
+| 確認 | 結果 |
+| --- | --- |
+| source/license/mirror | PASS、22 pytest |
+| prepared/snapshot/base、既存strict oracle、race | PASS、Test付きpass event173（subtest含む）、SKIP/FAIL event0 |
+| 実guest lifecycle / 35子 / fork-close / 派生baseline | PASS、4 test、SKIP/FAIL event0 |
+| guest/host/control/public Go | PASS、Test付きpass event29、SKIP/FAIL event0 |
+| Python共有host / 明示handoff / fork-close | PASS、既存3 test |
+| mapped子からの再Snapshot・孫/兄弟隔離・cleanup | PASS、1 test |
+| 正常対照/取得前1 byte破損 | 観測PASS。正常は元の値、破損はmetadata受理/strict拒否/SELECTエラー1877 |
+| Ubuntu性能・最終Qualification | SKIP：このworkflowの対象外 |
+
+実環境はGo1.26.8 linux/amd64、Python3.14.8。Ubuntu24.04 x86_64をworkflowでassert。
+ページ設定と注入位置・値、mapped経路のcopy/hash量はmacOSの同じfixtureと一致した。
+race報告ゼロは限定testの結果であり、mmapを含む全アクセスの安全性証明ではない。
+CI内の独立再生成は未実施。macOSで確認済みの99file一致を、Ubuntu再生成の結果として扱わない。
+
+今回の更新は候補c2a7664から文書と小さな証拠だけを追加したもの。
+`experiment/snapshot-owned-root-guest`はCI検証済みコードの正本、
+`experiment/snapshot-owned-root-ubuntu-review`はその結果を記録するreview branch。
+採用時はこの差を明示して資料を引き継ぐ。新しいruntime候補を作った扱いにはしない。

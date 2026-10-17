@@ -1,0 +1,35 @@
+{
+  "source_commit": "c2a7664bc2cf5b62a5931bf521f060c4fe11a4b8",
+  "stage": "focused",
+  "go": "go version go1.26.8 linux/amd64",
+  "runs": [
+    {
+      "name": "modules",
+      "arguments": [
+        "go",
+        "mod",
+        "verify"
+      ],
+      "exit_code": 0,
+      "seconds": 0.006737869000005503
+    },
+    {
+      "name": "focused",
+      "arguments": [
+        "go",
+        "test",
+        "-json",
+        "-race",
+        "-p",
+        "1",
+        "-count=1",
+        "-timeout=120s",
+        "./internal/prepared",
+        "./internal/snapshot",
+        "./internal/generatedgo/code/base"
+      ],
+      "exit_code": 0,
+      "seconds": 19.213782705
+    }
+  ]
+}
