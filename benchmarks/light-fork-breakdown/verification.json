@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "executions": 20,
+  "DB_lifecycles": 100,
+  "checks": [
+    "Unchanged SQL/commit/rollback/independence and mapping cleanup oracles",
+    "Typed tag/source pin and actual clean binary VCS stamp; overlay identities explicit",
+    "Ten traced workloads have all expected lifecycle event counts",
+    "All result hashes, traces, phase sums and nested envelopes replay exactly from public text",
+    "Python AST and report local references",
+    "verify.py check --scope docs PASS: version/public-source boundary/whitespace"
+  ],
+  "source_sha256": {
+    "collect.py": "024e97e6d52c0d5f9b7886d728eca097b9b3b5473408182a2c93dc9f1c9b76c2",
+    "run.py": "646f0cfa4b71cbf71a34ab353b20c794431a40882b820940a40255e5a4c4a740",
+    "analyze.py": "1d6c647510fa18492f4b759e3236960361a45882d50acb45b14a53a1ed1c68ef"
+  }
+}

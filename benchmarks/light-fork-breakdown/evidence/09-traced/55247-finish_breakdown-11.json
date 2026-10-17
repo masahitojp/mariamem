@@ -1,0 +1,1 @@
+{"operation":"finish_breakdown","pid":55247,"events":[{"name":"begin","offset_ns":584},{"name":"session_workers_drained","offset_ns":2375},{"name":"shutdown_call_begin","offset_ns":2500},{"name":"shutdown_call_returned","offset_ns":2228000},{"name":"end","offset_ns":2230250}]}

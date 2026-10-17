@@ -1,0 +1,1 @@
+{"operation":"snapshot_capture","pid":54572,"events":[{"name":"begin","offset_ns":333},{"name":"preconditions_checked","offset_ns":1166},{"name":"before_finish","offset_ns":52000},{"name":"finish_returned","offset_ns":129179041},{"name":"before_own","offset_ns":129187916},{"name":"own_returned","offset_ns":192066083},{"name":"end","offset_ns":192142000}]}

@@ -1,0 +1,197 @@
+{
+  "completed": true,
+  "source_identity": {
+    "object_sha": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+    "object_type": "commit",
+    "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb"
+  },
+  "tag_object_sha": "089b32e09608902f6d46e7ab9527d09922dcf065",
+  "go": "go1.26.8",
+  "host": "Darwin MacBookAir 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:05:27 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T8103 arm64",
+  "binary_sha256": "f7ed0bed624b87930f711c6044e82bbbad8a1900a67f219a21ca3a7faf28c880",
+  "binary_build_info": "<WORKSPACE>/temp/light-fork: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=7a82f338cf111d5d52538b5a3f7bf129c12e2dbb\n\tbuild\tvcs.time=2026-10-16T20:02:16Z\n\tbuild\tvcs.modified=false\n",
+  "overlays": [
+    {
+      "source": "internal/host/server.go",
+      "source_sha256": "bf801c4406e748d6cc403d80f877ddec13f40316699503687f114fed1db58200",
+      "observer_sha256": "d7052f80b7972c5ad5e7e7f30b2cdcf85694a979edbcf0c105bc023b40e65130"
+    },
+    {
+      "source": "internal/host/heap_snapshot.go",
+      "source_sha256": "82c30fb8a54b531a6334a0a75d76f9a9ccc7d4807e66a5b78863083ea04453a2",
+      "observer_sha256": "41a0f3ddb1b13c1b6485ca5f1d6577d5b58a6ccc8da3a6be7f2798785e4df010"
+    },
+    {
+      "source": "benchmarks/ownedprepared/main.go",
+      "source_sha256": "34e2ec124cff43de7513773d954f5ed5ab79d9cf394e1cb9c38f967922c7be64",
+      "observer_sha256": "e2e4bfd751d65282db337be3b964992a78982748b31da4a0c2e9b00dc49fc036"
+    }
+  ],
+  "runner_sha256": "646f0cfa4b71cbf71a34ab353b20c794431a40882b820940a40255e5a4c4a740",
+  "cells": [
+    {
+      "name": "00-plain",
+      "trial": 0,
+      "traced": false,
+      "result_sha256": "e5ef12b3dc4f524eeb77291eec7da991534e8a55a804cc31304fcf23ef9cde3b",
+      "product_seconds": 0.5477082480000001,
+      "cpu_seconds": 0.521506
+    },
+    {
+      "name": "00-traced",
+      "trial": 0,
+      "traced": true,
+      "result_sha256": "8fddb4c4bcc0554c370137646d5fcba78134ca2a96142a5f6485748b79ac14cb",
+      "product_seconds": 0.511341042,
+      "cpu_seconds": 0.504273
+    },
+    {
+      "name": "01-traced",
+      "trial": 1,
+      "traced": true,
+      "result_sha256": "816c7e61b2e7c37143e3c1dd63fed76bedb42f089c9ab8c147768e451112da63",
+      "product_seconds": 0.5219511680000001,
+      "cpu_seconds": 0.507662
+    },
+    {
+      "name": "01-plain",
+      "trial": 1,
+      "traced": false,
+      "result_sha256": "f6b82ebd35cd1f0dbc3561887d9e15b3c11917d8bde2220cb2733ddf648e4ed0",
+      "product_seconds": 0.515639505,
+      "cpu_seconds": 0.49713699999999994
+    },
+    {
+      "name": "02-plain",
+      "trial": 2,
+      "traced": false,
+      "result_sha256": "ac1dbb88aac728f5002bd1217446d6e202fe4d2ef915ecdb45417b50f54c2eba",
+      "product_seconds": 0.5210153359999999,
+      "cpu_seconds": 0.510061
+    },
+    {
+      "name": "02-traced",
+      "trial": 2,
+      "traced": true,
+      "result_sha256": "2523d4509b7190c65b2fc3c618d6c8e5e742447ec3e6f5def8b00c648e2a42a9",
+      "product_seconds": 0.5265232530000001,
+      "cpu_seconds": 0.516198
+    },
+    {
+      "name": "03-traced",
+      "trial": 3,
+      "traced": true,
+      "result_sha256": "669bc3fffb2f42124a96c440e22bb5e6e8911658c08a3cb499f4879f56e46718",
+      "product_seconds": 0.5125493329999999,
+      "cpu_seconds": 0.49803200000000003
+    },
+    {
+      "name": "03-plain",
+      "trial": 3,
+      "traced": false,
+      "result_sha256": "b0c8d0180c29fb5bcc3caa90d94b12e188d73814feeabfc4273f83f90be7581f",
+      "product_seconds": 0.5112005000000001,
+      "cpu_seconds": 0.49554999999999993
+    },
+    {
+      "name": "04-plain",
+      "trial": 4,
+      "traced": false,
+      "result_sha256": "161f72c486e271645bd967d10abed20d7bf55aa3447a3825fd39619de32298f5",
+      "product_seconds": 0.5187287070000001,
+      "cpu_seconds": 0.507019
+    },
+    {
+      "name": "04-traced",
+      "trial": 4,
+      "traced": true,
+      "result_sha256": "8d2bf418ebeb01fa99b41637762f0024ecf359609c0f9c25237b784efa7dc855",
+      "product_seconds": 0.511007665,
+      "cpu_seconds": 0.49662600000000007
+    },
+    {
+      "name": "05-traced",
+      "trial": 5,
+      "traced": true,
+      "result_sha256": "ba6ea6b91a316c2a36970e1bb4447870c6c2b300a05915217934700cb72e18d1",
+      "product_seconds": 0.5213219130000001,
+      "cpu_seconds": 0.510498
+    },
+    {
+      "name": "05-plain",
+      "trial": 5,
+      "traced": false,
+      "result_sha256": "11595d15069ef6b3e67f88468bf30cd5ed0576637bc9f2175e872fd3cd49adec",
+      "product_seconds": 0.516606166,
+      "cpu_seconds": 0.493585
+    },
+    {
+      "name": "06-plain",
+      "trial": 6,
+      "traced": false,
+      "result_sha256": "6b817200ca815ec376225b88fefe7b2680cdb9adef02729da75e1e59640cc0d5",
+      "product_seconds": 0.5215860470000001,
+      "cpu_seconds": 0.5102
+    },
+    {
+      "name": "06-traced",
+      "trial": 6,
+      "traced": true,
+      "result_sha256": "5fe660f09e14484af02bdca9805d582a49aa4852a98edf7d6f8ef2e0382e3926",
+      "product_seconds": 0.516808164,
+      "cpu_seconds": 0.5015179999999999
+    },
+    {
+      "name": "07-traced",
+      "trial": 7,
+      "traced": true,
+      "result_sha256": "0041a9913ba6b60ebb5dc891f04937094c85084f7c786a7d7900b9107231431a",
+      "product_seconds": 0.5084179999999999,
+      "cpu_seconds": 0.49596699999999994
+    },
+    {
+      "name": "07-plain",
+      "trial": 7,
+      "traced": false,
+      "result_sha256": "fb9cd567d5575df75216e54e1e48e7e65f967fb03759078089c660026ff24767",
+      "product_seconds": 0.516491417,
+      "cpu_seconds": 0.497754
+    },
+    {
+      "name": "08-plain",
+      "trial": 8,
+      "traced": false,
+      "result_sha256": "5a15bfd743f0fb6e7f8748d3d43b4e5b32c79f4139850b30a5db403fea2fcbb4",
+      "product_seconds": 0.515617206,
+      "cpu_seconds": 0.495236
+    },
+    {
+      "name": "08-traced",
+      "trial": 8,
+      "traced": true,
+      "result_sha256": "e6edb36f0f758b8087d45977fbd5ef2abc106d169ab8e043b5c53ccc51089bc7",
+      "product_seconds": 0.5164571680000001,
+      "cpu_seconds": 0.506915
+    },
+    {
+      "name": "09-traced",
+      "trial": 9,
+      "traced": true,
+      "result_sha256": "4b97610818146185bd52ba5d1c10a65b96eee14cbc2f311bc686b63755a5c2d5",
+      "product_seconds": 0.5168202499999999,
+      "cpu_seconds": 0.5084960000000001
+    },
+    {
+      "name": "09-plain",
+      "trial": 9,
+      "traced": false,
+      "result_sha256": "b04b3cb9083911a696f0addb5b8a2ccdda82182e0bd8fffc45afa459b6b1e13a",
+      "product_seconds": 0.5247524179999999,
+      "cpu_seconds": 0.505998
+    }
+  ],
+  "started": 1792197184.8089101,
+  "ended": 1792197213.7780302,
+  "peak_owned_bytes": 1557889024,
+  "minimum_free_bytes": 72716947456
+}

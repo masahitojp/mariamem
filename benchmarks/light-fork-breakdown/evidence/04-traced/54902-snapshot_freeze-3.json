@@ -1,0 +1,1 @@
+{"operation":"snapshot_freeze","pid":54902,"events":[{"name":"begin","offset_ns":625},{"name":"source_inventory_hashed","offset_ns":63808250},{"name":"target_verified","offset_ns":126564167},{"name":"end","offset_ns":126565292}]}
