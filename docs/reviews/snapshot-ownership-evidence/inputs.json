@@ -1,0 +1,232 @@
+{
+  "scope": "Static design review; no candidate runtime, build, test execution or benchmark",
+  "mariamem": {
+    "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+    "tag_object_sha": "089b32e09608902f6d46e7ab9527d09922dcf065",
+    "document_parent_commit": "ebadbf92de0fe4ff50fcbfc830e77c520657d85d",
+    "identity_command": "python3 scripts/git_identity.py inspect v0.5.1",
+    "files": [
+      {
+        "path": "internal/generatedgo/code/base/heap_snapshot.go",
+        "sha256": "72521eb5fe706a517695c8760250057f2de5cb591c2248fb8f231d36fe3e1618",
+        "bytes": 4176,
+        "symbols": {
+          "func (fs *MemFS) FreezeHeap": 19,
+          "func (fs *MemFS) freezeHeap": 25,
+          "func mapHeap": 114
+        }
+      },
+      {
+        "path": "internal/generatedgo/code/base/block_storage.go",
+        "sha256": "78b513813a6f5050a7ba1f0b677b7af7ba60331b287d8983c853bad8017492ae",
+        "bytes": 3802,
+        "symbols": {
+          "type blockStorage": 14,
+          "func (d *blockStorage) readAt": 37,
+          "func (d *blockStorage) writeAt": 67,
+          "func (d *blockStorage) resize": 95
+        }
+      },
+      {
+        "path": "internal/generatedgo/code/base/memfs.go",
+        "sha256": "9c872fd7676c346f2793cccef9e423c5efc76ceb74fec1e7a552e01ae11e65f6",
+        "bytes": 13001,
+        "symbols": {
+          "func (fsys *MemFS) WriteFile": 247,
+          "func (f *memFile) Allocate": 316,
+          "func (f *memFile) writeAt": 397,
+          "func (f *memFile) Truncate": 452
+        }
+      },
+      {
+        "path": "internal/generatedgo/code/base/relative.go",
+        "sha256": "a5c100e135a04b93b76b36b9c80cc14645950f6fab34abf6655b13cdf02ca15a",
+        "bytes": 6050,
+        "symbols": {}
+      },
+      {
+        "path": "internal/generatedgo/code/base/owned_prepared.go",
+        "sha256": "5786d650e90cef1f5d1d06b9d43e03f0ede33002a9fcd002d23d06954670943a",
+        "bytes": 1797,
+        "symbols": {
+          "func MapPreparedHandles": 14
+        }
+      },
+      {
+        "path": "internal/generatedgo/code/base/prepared_files.go",
+        "sha256": "6abb8d5c5886a0b4a8eaba13236cd6de6eaee21ccfa674b7a60adcefe78c3c7e",
+        "bytes": 1951,
+        "symbols": {
+          "func MapPreparedFiles": 16
+        }
+      },
+      {
+        "path": "internal/generatedgo/code/base/heap_snapshot_test.go",
+        "sha256": "98ac5d080cc108ce2227a6687c413b04b14025066065c21e9e6621c542009bdf",
+        "bytes": 2651,
+        "symbols": {
+          "func TestHeapOwnershipAcrossGenerations": 12,
+          "func TestHeapTargetCorruptionOracle": 76
+        }
+      },
+      {
+        "path": "internal/generatedgo/code/base/block_storage_test.go",
+        "sha256": "5e727e8203dcae55b6b2a8d4ffcb1169a7edb87bde5354d102a624f19e132ae1",
+        "bytes": 5147,
+        "symbols": {
+          "func TestBlockStorageReference": 14
+        }
+      },
+      {
+        "path": "internal/prepared/heap.go",
+        "sha256": "df3c626b958fa2123e07017c7fd246971e18db334f9a16f725d418fc56626119",
+        "bytes": 5454,
+        "symbols": {
+          "func TakeBlock": 25,
+          "func NewHeapFile": 51,
+          "func (h *Heap) Check": 118,
+          "func (h *Heap) Verify": 147,
+          "type Capture": 171
+        }
+      },
+      {
+        "path": "internal/prepared/heap_test.go",
+        "sha256": "6981a0cd22e8a01296ac50ca82466fc5b926856f676f7762f028555b385257a1",
+        "bytes": 825,
+        "symbols": {}
+      },
+      {
+        "path": "internal/generatedgo/runtime_instance.go",
+        "sha256": "5e18bdec6748cfaad25dec5dfa6a886b8158a9f8c44d14f306b027bd3dbe7c91",
+        "bytes": 3110,
+        "symbols": {
+          "func StartInstance": 20,
+          "func executeGuest": 85
+        }
+      },
+      {
+        "path": "internal/guest/linked.go",
+        "sha256": "4663663a9aa9526f9d742e2e7fae56a95eccf71cd5791b3b661c863aebe8a813",
+        "bytes": 2727,
+        "symbols": {
+          "func startLinked": 15,
+          "func Connect": 50
+        }
+      },
+      {
+        "path": "internal/host/heap_snapshot.go",
+        "sha256": "82c30fb8a54b531a6334a0a75d76f9a9ccc7d4807e66a5b78863083ea04453a2",
+        "bytes": 1104,
+        "symbols": {
+          "func (s *Server) SnapshotHeap": 12
+        }
+      },
+      {
+        "path": "internal/host/server.go",
+        "sha256": "bf801c4406e748d6cc403d80f877ddec13f40316699503687f114fed1db58200",
+        "bytes": 8366,
+        "symbols": {
+          "func (s *Server) finish": 254
+        }
+      },
+      {
+        "path": "internal/snapshot/heap.go",
+        "sha256": "3cdc57a71fed4ab6ae2e7a2f85344eae146e49762ac30dbf507b3269fcde9e60",
+        "bytes": 531,
+        "symbols": {
+          "func OwnHeap": 11
+        }
+      },
+      {
+        "path": "internal/snapshot/heap_test.go",
+        "sha256": "c27b2da1d5e238ee10ecc38344ec5b3d0a17bc7e41f70345a9171e4f867fed4f",
+        "bytes": 1770,
+        "symbols": {
+          "func TestHeapOwnerRejectsCorruptionAndWrongIdentity": 13
+        }
+      },
+      {
+        "path": "internal/snapshot/owned.go",
+        "sha256": "b51cb0c43266a8cc66dcf5fefcfa7ff09f8a9c19088afe760ae67073ef341eda",
+        "bytes": 10753,
+        "symbols": {
+          "func (o *Owned) Acquire": 278,
+          "func (o *Owned) Close": 311
+        }
+      },
+      {
+        "path": "internal/snapshot/handoff.go",
+        "sha256": "6e9cfb3a5d73a565e64981d6c0cf669f6292bccb7e857da803ee5d9fa858050c",
+        "bytes": 1606,
+        "symbols": {
+          "func (o *Owned) Handoff": 14
+        }
+      },
+      {
+        "path": "internal/control/shared.go",
+        "sha256": "87bda676c071030751d0ba91bc340a19436cbdb3df8c98c4cfaa873d6d147a1b",
+        "bytes": 11755,
+        "symbols": {}
+      },
+      {
+        "path": "snapshot.go",
+        "sha256": "162b8577eb33b3b06141f9fd24b9e384204563a038f55aed0bd4c345f0675aa4",
+        "bytes": 2539,
+        "symbols": {
+          "func (db *Database) Snapshot": 29,
+          "func (s *Snapshot) Fork": 61
+        }
+      },
+      {
+        "path": "docs/decisions/snapshot-product-contract.md",
+        "sha256": "ec076d5544650374730a25f187cbb36a2b385f6684499959d5d1a32523553482",
+        "bytes": 4247,
+        "symbols": {}
+      },
+      {
+        "path": "scripts/runtime_memfs.py",
+        "sha256": "93b3ebdc3d99ffb3d837ef6634e7ea0255a8002b9a24a84726c2fad9fc3af49d",
+        "bytes": 1445,
+        "symbols": {}
+      }
+    ]
+  },
+  "pgmem": {
+    "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+    "git_tree_sha": "6989b187a4b744fb06678d7673c9f29e11a19bd1",
+    "identity_endpoint": "repos/shibukawa/pgmem/git/commits/a61005d37d01e6671f814fe8ca828222e8147df4",
+    "retrieval": "gh api repos/shibukawa/pgmem/contents/<path>?ref=<source_commit>; decoded content checked against Git blob SHA and size",
+    "files": [
+      {
+        "path": "internal/vfs/vfs.go",
+        "sha256": "7fae6a4878db5aece65b39905fa287bfa1de56a2f626775bdfe6f8b95e824ecb",
+        "bytes": 37582,
+        "symbols": {
+          "func writeAt": 681,
+          "func (n *Node) own": 709,
+          "func (fs *FS) Clone": 1612,
+          "func cloneNode": 1630
+        },
+        "git_blob_sha": "f43753bbeb7df0e34cd31bee5cebfee4fa425924",
+        "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/internal/vfs/vfs.go"
+      },
+      {
+        "path": "snapshot.go",
+        "sha256": "01b060fb6acb1eb6f5673e85c2ee2b607fb7259d8460a4d3585de3481814d855",
+        "bytes": 4687,
+        "symbols": {
+          "func (s *Server) Snapshot": 47,
+          "func (sn *Snapshot) Fork": 73,
+          "func (s *Server) cloneStopped": 131
+        },
+        "git_blob_sha": "b84fc20d24771a0be29ae2b272ada544015b3ac1",
+        "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/snapshot.go"
+      }
+    ]
+  },
+  "verification": {
+    "source_bytes": "All reviewed local files equal git show source_commit:path; remote files match API Git blob SHA and size.",
+    "test_execution": "NOT RUN: documentation-only design review",
+    "new_measurements": "NONE"
+  }
+}

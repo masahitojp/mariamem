@@ -234,18 +234,21 @@ v0.5.1 acceptance. See the [follow-up Human Review](reviews/v05x-followup.md).
 | Item | Current disposition |
 | --- | --- |
 | 100 MiB Go Fresh investigation | Closed by Human decision; revisit if similar slowdown recurs. Preserve unknown cause and original observations. |
-| Additional Snapshot hash-pass reduction | Optional next design candidate; not implemented. Current normal heap capture still performs three full logical content passes. Review immutable ownership and failure oracles before changing this. |
+| Snapshot ownership and repeated content reads | Human-authorized design review: determine why each read is needed and whether ownership can remove that need while retaining guarantees. Design report complete; prototype and product adoption are not approved. |
 | Connection capacity (16 per DB) | Deferred; unchanged. Consider with real concurrent application needs, not merely because a shared host exists. |
 | General shared-memory guarantee expansion / forced termination | Separate design scope; no newly observed defect is established by this follow-up. Do not reopen completed bounded correctness work. |
 | Broader framework dogfood / fixture ergonomics | Existing v0.6.0 direction; not silently moved into 0.5.x. |
 
-The maintainer requested a strategy retaining guarantees and realistic targets
-before implementation. The [two-pass design proposal](reviews/snapshot-two-pass-design.md)
-keeps source digest generation and final acquisition verification, and proposes
-combining the intermediate verification with the latter. Initial macOS Light
-targets are Snapshot <=150ms and four-test workflow <=480ms, based on the
-[completed lifecycle breakdown](https://github.com/masahitojp/mariamem/blob/a8a3ccb42d503234c11447d5a0ee1a63ca06a18c/docs/reviews/light-fork-macos-breakdown.md).
-These are planning targets, not achieved performance or implementation approval.
+The maintainer clarified the goal: retain guarantees while removing the need to
+reread contents at each ownership boundary; first establish what current checks
+actually protect and whether pgmem-like ownership is appropriate. The
+[ownership design review](reviews/snapshot-ownership-contracts.md) compares
+validated handoff with freezing a common content representation, records the
+remaining runtime-corruption-detection difference, and recommends a bounded
+storage-only spike for Human decision. This is a design result, not an implemented
+or proven replacement. The [earlier two-pass proposal](reviews/snapshot-two-pass-design.md)
+and its 150ms/480ms targets are retained as historical alternatives, not current
+acceptance criteria. The approved product contract remains unchanged.
 
 ## Performance evidence and pending optimization questions
 
