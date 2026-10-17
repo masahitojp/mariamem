@@ -109,7 +109,11 @@ func mapHeap(fs *MemFS, h *prepared.Heap, prefix string) (*PreparedFiles, error)
 		fs.mu.Lock()
 		node, e := fs.lookup(dst)
 		if e == nil {
-			node.blocks = &blockStorage{file: prepared.StoreFromHeap(fs.rootSource, f)}
+			var store *prepared.FileStore
+			store, e = prepared.StoreFromHeap(fs.rootSource, f)
+			if e == nil {
+				node.blocks = &blockStorage{file: store}
+			}
 		}
 		fs.mu.Unlock()
 		if e != nil {

@@ -298,15 +298,30 @@ func (f *FrozenFile) LegacyFile() (*HeapFile, error) {
 	}
 	return NewHeapFile(f.Size(), blocks, sum)
 }
-func StoreFromHeap(source *RootSource, f *HeapFile) *FileStore {
+
+// StoreFromHeap is a strict copy boundary. A raw HeapFile cannot lend mutable
+// aliases into the digest-free root route, even when its caller retains bytes.
+func StoreFromHeap(source *RootSource, f *HeapFile) (*FileStore, error) {
 	s := NewFileStore(source)
 	s.data.size = f.size
 	for i, b := range f.blocks {
-		if b.data != nil {
-			s.data.blocks[int64(i)] = rootBlock{b, "inherited"}
+		if b.data == nil {
+			continue
 		}
+		p := make([]byte, BlockSize)
+		b.ReadAt(p, 0)
+		source.work("legacy-copy", int64(b.valid), int64(b.valid), 0, int64(BlockSize-b.valid), 0)
+		s.data.blocks[int64(i)] = rootBlock{Block{p, b.valid}, "inherited"}
+		s.private[int64(i)] = true
 	}
-	return s
+	sum, e := fileDigest(s.data, source, "legacy-target")
+	if e != nil {
+		return nil, e
+	}
+	if sum != f.digest {
+		return nil, errors.New("legacy input content mismatch")
+	}
+	return s, nil
 }
 
 // Root has no public constructor accepting a raw Heap or a verified flag.

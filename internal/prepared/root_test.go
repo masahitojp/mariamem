@@ -216,3 +216,30 @@ func TestRootFailedAcquisitionReleasesCapture(t *testing.T) {
 	runtime.KeepAlive(c)
 	runtime.KeepAlive(f)
 }
+
+func TestRootLegacyImportRejectsCorruptionAndDetaches(t *testing.T) {
+	source := NewRootSource(true)
+	raw := make([]byte, BlockSize)
+	copy(raw, "original")
+	b, e := TakeBlock(raw, 8)
+	if e != nil {
+		t.Fatal(e)
+	}
+	sum := fmt.Sprintf("%x", sha256.Sum256(raw[:8]))
+	f, e := NewHeapFile(8, []Block{b}, sum)
+	if e != nil {
+		t.Fatal(e)
+	}
+	store, e := StoreFromHeap(source, f)
+	if e != nil {
+		t.Fatal(e)
+	}
+	raw[0] ^= 255
+	p := make([]byte, 8)
+	if _, e = store.ReadAt(p, 0); e != nil || string(p) != "original" {
+		t.Fatal("raw alias escaped", e)
+	}
+	if _, e = StoreFromHeap(source, f); e == nil {
+		t.Fatal("corrupted raw heap accepted")
+	}
+}
