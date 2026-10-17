@@ -106,7 +106,11 @@ separately. Close is idempotent. Do not copy DB or Snapshot handles.
 ## In-memory baseline lifetime
 
 `Snapshot(ctx, SnapshotOptions{})` consumes a disconnected source DB and owns a
-fully verified immutable baseline. `Fork` creates independent MariaDB execution
+fixed baseline with private immutable blocks. Heap-backed capture seals the same
+backing and checks its identity and structure, without rescanning every byte.
+Content checks remain at internal import/transfer boundaries and when borrowed
+file mappings are copied into owned memory.
+`Fork` creates independent MariaDB execution
 with private block changes. Closing the baseline prevents new Forks and waits
 for admitted startups; started children remain usable until separately closed.
 

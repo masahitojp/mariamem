@@ -43,6 +43,10 @@ func (fs *MemFS) installMappedStorage(n *memNode, data []byte) {
 		return
 	}
 	n.blocks = newBlockStorage(fs.rootSource)
+	// The caller holds fs.mu and this store is fresh, empty and unsealed.
+	// BorrowMapping rejects only nonempty/sealed stores, so failure here means
+	// an internal invariant was broken. External open/stat/mmap errors are
+	// returned by MapPreparedFiles before installation; this helper does no I/O.
 	if e := n.blocks.file.BorrowMapping(data); e != nil {
 		panic(e)
 	}

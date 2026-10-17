@@ -12,8 +12,9 @@ import (
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
-// FreezeHeap runs only after root and ALL workers have joined. It permanently
-// seals producer blocks before transferring bytes, so no mutable alias survives.
+// FreezeHeap is the legacy strict adapter retained for direct tests. Normal
+// capture uses FreezeRoot. Call only after root and ALL workers have joined;
+// producer blocks are permanently sealed before constructing the strict Heap.
 func (fs *MemFS) FreezeHeap(build string) (*prepared.Heap, error) {
 	return fs.freezeHeap(build, nil)
 }

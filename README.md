@@ -149,7 +149,10 @@ fixture integration is described in the Python guide.
 
 ## Reuse expensive preparation within a test session
 
-Baselines are process-local and retain fully verified immutable blocks in memory.
+Baselines are process-local and retain fixed, private immutable blocks in memory.
+Heap-backed capture enforces ownership and immutability without rereading every
+byte. Content checks remain at internal import/transfer boundaries and when
+copying borrowed file mappings into owned memory.
 Each Fork has private changes and an independent MariaDB runtime. Prepare once
 per test session. Saving/loading baseline artifacts is no longer supported;
 retain migrations and seed inputs to recreate preparation in another process.

@@ -6,8 +6,9 @@ import (
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
-// OwnHeap performs the third complete verification on the exact immutable
-// backing used by Fork. A borrowed producer/path/unchecked boolean is not owned.
+// OwnHeap strictly verifies a legacy digest-bearing Heap for its direct callers.
+// Current callers are tests; normal capture uses FreezeRoot/TakeRoot/OwnRoot.
+// These strict oracles do not validate the normal capture wiring.
 func OwnHeap(h *prepared.Heap, build string) (*Owned, error) {
 	_, finish := timing.Begin(context.Background(), "snapshot_own")
 	defer finish()

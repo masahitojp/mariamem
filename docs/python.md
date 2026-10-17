@@ -81,8 +81,12 @@ creation routes, not successive steps.
 
 ## Snapshot ownership and host lifetime
 
-`snapshot()` fixes a fully verified baseline in Go memory. It ends the source
-DB and retains the baseline in the automatically managed host. Fork creates a
+`snapshot()` fixes a baseline with private immutable blocks in Go memory.
+Ownership and immutability are enforced without rescanning every byte during
+ordinary heap capture. Internal imports, transfers and copies from borrowed
+file mappings retain their content checks.
+It ends the source DB and retains the baseline in the automatically managed host.
+Fork creates a
 fresh MariaDB runtime and private changes; it does not copy running threads.
 One independent `start()` owns one host lineage. Its baseline, children and
 derived baselines share that host. Each DB has its own SQL endpoint and a limit

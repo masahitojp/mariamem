@@ -360,7 +360,8 @@ func startupError(err error, tail *stderrTail) error {
 	return diagnostic.Wrap("guest_connection", "guest_ready", fmt.Errorf("generated-Go guest startup did not complete the expected API v2 handshake; inspect guest diagnostics. Cause: %w", err))
 }
 
-// RequestCapture precedes cooperative Shutdown; TakeCapture follows Done.
+// RequestCapture precedes cooperative Shutdown; normal TakeRoot follows Done.
+// TakeCapture is an unused legacy Heap bridge, not the production capture path.
 func (p *Process) RequestCapture()             { p.capture.Request() }
 func (p *Process) TakeCapture() *prepared.Heap { return p.capture.TakeResult() }
 

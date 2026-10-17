@@ -88,9 +88,16 @@ for macOS15 arm64 and Ubuntu24.04 x86_64 in
 [run39000948512](https://github.com/masahitojp/mariamem/actions/runs/39000948512):
 canonical check and integration on both, including the mapped-child derived baseline.
 The [integration review](reviews/snapshot-owned-root-productization.md) recommends
-main adoption; the Human has not yet authorized it. The tested implementation
-remains on `experiment/snapshot-owned-root-productization`; result-only review
-branch `experiment/snapshot-owned-root-adoption-review` adds no runtime changes.
+main adoption; the Human has not yet authorized it. The tested implementation remains on `experiment/snapshot-owned-root-productization`.
+The adoption review now also corrects current usage-doc ownership wording and legacy/invariant
+Go comments; executable behavior is unchanged, but this is not the same full
+Git tree as the CI candidate. Integration is planned as ff-only to the fixed
+`experiment/snapshot-owned-root-integration` candidate, whose commit/tree are
+recorded separately from the review head. See the report's identity record.
+The v0.5.1 baseline pin is retained as a separate release ledger entry.
+The narrowed detection guarantee is recorded in [unreleased changes](changes-since-v051.md)
+and must appear in the eventual versioned release notes; the Human has not chosen
+a new version. Prior Qualification and spike regeneration results are not relabelled.
 Release Qualification/independent regeneration for that final release source
 remain separate; CI development PASS is not release readiness.
 

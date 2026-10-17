@@ -88,5 +88,6 @@
   "release": "not authorized",
   "run_id": 39000948512,
   "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39000948512",
-  "source_commit": "890f770eee36c004036826104229f9269138775b"
+  "source_commit": "890f770eee36c004036826104229f9269138775b",
+  "storage_transform": "Runner home prefixes were replaced with <user>/ in saved text. original_sha256 hashes the pre-scrub bytes; stored_sha256 hashes the saved bytes; bytes is the saved size."
 }
