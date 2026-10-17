@@ -271,11 +271,14 @@ Product Validation; those changes are not part of v0.4.5.
   candidate-site correspondence is not a complete semantic or exact-PC proof.
 - Forced timeout/hard-failure containment is not guaranteed. Normal cooperative
   cleanup and non-cooperative reclaim are distinct boundaries.
-- Published v0.5.0 still has an observed approximately one-second startup mode.
-  The [page-cleaner source correction](reviews/v050-startup-tail-source-fix-integration.md)
-  is adopted on main after bounded Fresh comparisons and related regression
-  passed on both native platforms. This does not establish a universal latency
-  bound; final combined-source release validation remains pending.
+- v0.5.0 had an observed approximately one-second startup mode. The
+  [page-cleaner source correction](reviews/v050-startup-tail-source-fix-integration.md)
+  is released in v0.5.1 and retained in v0.5.2, after bounded Fresh comparisons
+  and related regression passed on both native platforms. The exact final source
+  that contains it, `7a82f338cf111d5d52538b5a3f7bf129c12e2dbb`, passed
+  [v0.5.1 Release CI](https://github.com/masahitojp/mariamem/actions/runs/38959312232),
+  so the earlier pending exact-final-source validation is satisfied. This does
+  not establish a universal latency bound.
 - External consumer checks passed on macOS arm64 with Go 1.26.8 and
   1.27.0/1.27.1/1.27.2. See [compatibility](go-compatibility.md); minimum Go
   and driver versions are unchanged.

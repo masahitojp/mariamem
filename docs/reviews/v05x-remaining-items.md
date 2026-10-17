@@ -13,7 +13,6 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 | 2 | Ubuntu 性能 | 未計測のまま。「PASS に数えない」 | 承認済み 0.5.x 作業として起動するか、documented gap のまま残すかを決める |
 | 3 | 16 接続/DB の接続数調整 | 0.5.x スコープに追加済み | 実需要と資源効果を確認してから上限変更を検討する |
 | 4 | 信頼スコープ再設計 | 未着手 | 着手前に別 Human Review（dependency closure と negative proof）が必要 |
-| 5 | startup tail の記述 | [project-status](../project-status.md) に "final combined-source release validation remains pending" が残存 | v0.5.1/v0.5.2 公開済みに合わせ、closed にするか reopen するかを決めて整合を取る |
 
 ## クローズ / 0.5.x 対象外
 
@@ -24,6 +23,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 | 3 | 強制タイムアウト閉じ込め | 作業ではなく製品限界（documented limitation）として維持する |
 | 4 | v0.5.2 の公開反映 | 完了。source `47f297cc…` / tag object `2e98dee0…`、typed pin を追加し、current published release に更新済み |
 | 5 | v0.6.x serial/parallel 利用ガイド | v0.6.0 節に documentation backlog として記録済み（実装は v0.6.x） |
+| 6 | startup tail の記述 | 整合済み。v0.5.1 Release CI（`7a82f338…`）が page-cleaner 修正を含む最終 source を両 native で検証済み |
 
 ## 実質残るもの
 
@@ -31,7 +31,6 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 - **Ubuntu 性能** — 0.5.x 作業に入れるかどうかの判断のみ。
 - **16 接続調整** — 0.5.x 入りしたので需要・資源効果の確認。
 - **信頼スコープ再設計** — 着手ゲートのまま。
-- **startup tail 記述** — ドキュメント整合のみ。
 
 ## 並行成果物（未コミットのローカル成果物）
 
