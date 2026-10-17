@@ -34,7 +34,11 @@ purge固有の保護前提は未確認の個別項目として残す。追加実
   importするbase packageの全ファイルを製品commitのGit blobとbyte照合した。
 - fixture Wasm SHA256：`98d57cf0a4f7be97e2bf50065f6f07634d1a3c1bba783e49119b1186154b6fde`、243 bytes。
   [hex記録](purge-wasm-go-evidence/fixture-hex.txt)と生成scriptから再構成できる。
-- 実行環境：macOS arm64、Go1.26.8、Node/V8 v18.18.2。
+- 最終campaignの実行環境：macOS arm64、Go1.26.8、Node v26.11.1（同梱V8をWasm参照に使用）。
+  初期campaignのNode v18.18.2とは区別する。強化前campaignもNode v26.11.1。
+  各記録は[最終](purge-wasm-go-evidence/results.json)、
+  [初期](purge-wasm-go-evidence/initial-results.json)、
+  [強化前](purge-wasm-go-evidence/pre-witness-results.json)の`node_version`を参照。
   Ubuntu x86_64はSKIP（今回ローカル限定比較では実行していない）。
 - 入力hash、54回の通常実行・10回のrace診断、コマンド・版情報は
   [results.json](purge-wasm-go-evidence/results.json)に固定。
