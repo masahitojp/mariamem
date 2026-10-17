@@ -3,10 +3,12 @@
 package generatedgo
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 // Constructor ownership transfers only after all generated initialization succeeds.
@@ -18,7 +20,10 @@ func newMemoryModule(h *host) (m *base.Module, release func() error, err error) 
 	})
 }
 func initializeMemoryModule(reserve func() (*base.MemoryMapping, error), initialize func(*base.MemoryMapping) *base.Module) (m *base.Module, release func() error, err error) {
+	ctx, finishTiming := timing.Begin(context.Background(), "memory_init")
+	defer finishTiming()
 	b, err := reserve()
+	timing.Mark(ctx, "mapping_reserved")
 	if err != nil {
 		return nil, nil, err
 	}
@@ -33,6 +38,7 @@ func initializeMemoryModule(reserve func() (*base.MemoryMapping, error), initial
 		}
 	}()
 	m = initialize(b)
+	timing.Mark(ctx, "generated_initialized")
 	m.PrepareMemoryGrow = b.Grow
 	transferred = true
 	return m, b.Close, nil

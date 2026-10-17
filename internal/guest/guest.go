@@ -17,6 +17,7 @@ import (
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/prepared"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
+	"github.com/masahitojp/mariamem/internal/timing"
 )
 
 type Column struct {
@@ -308,6 +309,7 @@ func (p *Process) stop(ctx context.Context, export bool) error {
 		}
 		return err
 	}
+	timing.Mark(ctx, "stop_frame_written")
 	p.in.Close()
 	if export {
 		select {

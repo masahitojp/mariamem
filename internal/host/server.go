@@ -187,10 +187,13 @@ func (s *Server) allocateSlotLocked() (uint32, bool) {
 	return 0, false
 }
 func (s *Server) Close(ctx context.Context) (err error) {
-	defer func() { err = errors.Join(err, os.RemoveAll(s.transfer)) }()
+	ctx, finishTiming := timing.Begin(ctx, "host_close")
+	defer finishTiming()
+	defer func() { err = errors.Join(err, os.RemoveAll(s.transfer)); timing.Mark(ctx, "transfer_removed") }()
 	s.mu.Lock()
 	s.stopAccepting()
 	s.mu.Unlock()
+	timing.Mark(ctx, "accepting_stopped")
 	return s.finish(ctx, false)
 }
 
@@ -257,12 +260,14 @@ func (s *Server) finish(ctx context.Context, export bool) error {
 	var err error
 	select {
 	case <-done:
+		timing.Mark(ctx, "workers_drained")
 		if export {
 			timing.Mark(ctx, "sessions_drained")
 			err = s.Guest.Export(ctx)
 			timing.Mark(ctx, "export_acknowledged")
 		} else {
 			err = s.Guest.Shutdown(ctx)
+			timing.Mark(ctx, "shutdown_returned")
 		}
 	case <-ctx.Done():
 		err = ctx.Err()

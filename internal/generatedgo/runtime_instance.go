@@ -2,8 +2,10 @@
 package generatedgo
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"github.com/masahitojp/mariamem/internal/timing"
 	"io"
 	"sync"
 
@@ -22,6 +24,8 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 	libraryMode.Do(func() { diagnostic = false })
 	done := make(chan error, 1)
 	go func() {
+		ctx, finishTiming := timing.Begin(context.Background(), "instance")
+		defer finishTiming()
 		var err error
 		defer func() {
 			if p := recover(); p != nil {
@@ -52,23 +56,29 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 		w.SetStdout(out)
 		w.SetStderr(stderr)
 		var maps *base.PreparedFiles
-		defer func() { err = errors.Join(err, w.CloseDescriptors(), maps.Close()) }()
+		defer func() {
+			err = errors.Join(err, w.CloseDescriptors(), maps.Close())
+			timing.Mark(ctx, "descriptors_prepared_closed")
+		}()
 		if restore != nil {
 			maps, err = base.MapPreparedHandles(fs, restore, "mariadb")
 			if err != nil {
 				return
 			}
 		}
+		timing.Mark(ctx, "prepared_handles_installed")
 		h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
 		m, release, allocErr := newMemoryModule(h)
 		if allocErr != nil {
 			err = allocErr
 			return
 		}
-		defer releaseMemoryModule(m, release, &err)
-		if err = executeGuest(m, generated.Start); err != nil {
+		timing.Mark(ctx, "memory_initialized")
+		defer func() { releaseMemoryModule(m, release, &err); timing.Mark(ctx, "memory_released") }()
+		if err = executeGuest(m, func(m *base.Module) { defer timing.Mark(ctx, "guest_root_returned"); generated.Start(m) }); err != nil {
 			return
 		}
+		timing.Mark(ctx, "guest_workers_joined")
 		if len(captures) > 0 && captures[0] != nil && captures[0].Requested() {
 			err = fs.FreezeRoot(GuestSHA256, captures[0])
 			return

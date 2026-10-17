@@ -13,6 +13,7 @@ import (
 )
 
 var sequence atomic.Uint64
+var processOrigin = time.Now()
 
 type key struct{}
 type recorderKey struct{}
@@ -32,6 +33,7 @@ type Event struct {
 type Trace struct {
 	mu         *sync.Mutex
 	Operation  string          `json:"operation"`
+	Origin     int64           `json:"origin_ns"`
 	PID        int             `json:"pid"`
 	RuntimePID int             `json:"runtime_pid,omitempty"`
 	Events     []Event         `json:"events"`
@@ -46,7 +48,8 @@ func Begin(ctx context.Context, operation string) (context.Context, func()) {
 	if dir == "" {
 		return ctx, func() {}
 	}
-	t := &Trace{mu: &sync.Mutex{}, Operation: operation, PID: os.Getpid(), start: time.Now(), dir: dir}
+	now := time.Now()
+	t := &Trace{mu: &sync.Mutex{}, Operation: operation, PID: os.Getpid(), start: now, Origin: now.Sub(processOrigin).Nanoseconds(), dir: dir}
 	ctx = context.WithValue(ctx, key{}, t)
 	Mark(ctx, "begin")
 	return ctx, func() {

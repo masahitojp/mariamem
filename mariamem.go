@@ -174,6 +174,8 @@ func (db *Database) Closed() bool {
 // Close is idempotent; repeated calls return the stored cleanup result.
 func (db *Database) Close() error { db.mu.Lock(); defer db.mu.Unlock(); return db.closeLocked() }
 func (db *Database) closeLocked() error {
+	ctx, finishTiming := timing.Begin(context.Background(), "api_close")
+	defer finishTiming()
 	if db.closed {
 		return db.closeErr
 	}
@@ -183,11 +185,13 @@ func (db *Database) closeLocked() error {
 	db.closed = true
 	var err error
 	if db.server != nil {
-		ctx, cancel := context.WithTimeout(context.Background(), db.opts.ShutdownTimeout)
+		ctx, cancel := context.WithTimeout(ctx, db.opts.ShutdownTimeout)
 		err = db.server.Close(ctx)
 		cancel()
 	}
+	timing.Mark(ctx, "host_closed")
 	db.closeErr = hostError(errors.Join(err, db.removeTemporary()), "close", true)
+	timing.Mark(ctx, "temporary_removed")
 	return db.closeErr
 }
 func (db *Database) removeTemporary() error {
