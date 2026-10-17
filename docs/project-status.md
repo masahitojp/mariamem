@@ -264,6 +264,11 @@ Product Validation; those changes are not part of v0.4.5.
   old pinned inputs. The [post-v0.5 evidence reconciliation](reviews/shared-memory-post-v05-reassessment.md)
   distinguishes the later R1–R5 investigation and repairs from a new census or
   general shared-memory model; those scopes must not be counted as one task.
+  The [scalar/SIMD static follow-up](reviews/shared-memory-scalar-simd-reassessment.md)
+  records 36 historical signatures and current candidate access sites. It identifies
+  a concrete purge-state protection question and proposes a bounded original-Wasm/Go
+  comparison for Human Review. No new execution or runtime fix is included, and
+  candidate-site correspondence is not a complete semantic or exact-PC proof.
 - Forced timeout/hard-failure containment is not guaranteed. Normal cooperative
   cleanup and non-cooperative reclaim are distinct boundaries.
 - Published v0.5.0 still has an observed approximately one-second startup mode.

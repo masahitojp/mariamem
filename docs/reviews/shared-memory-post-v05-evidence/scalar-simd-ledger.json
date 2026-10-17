@@ -1,0 +1,4164 @@
+{
+  "census_sha256": "b1e0ae88b794e3aef69056de5d0c56acc4191bc0f8f99d23943ad8c78a515b9d",
+  "contract": "static correspondence, not alias/ordering/execution proof",
+  "current_guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+  "current_source_commit": "47f297cc7498625e076abb93322eb616c9560bb8",
+  "execution": "NOT RUN",
+  "function_bindings": [
+    {
+      "address_erased_template_equal": true,
+      "binding_status": "structural correspondence",
+      "current": {
+        "body_sha256": "09b67f3c36057d85b761a4e97a7f6ed074aaf2e2ebba580dd7f055f1d600a58a",
+        "file": "internal/generatedgo/code/p8/p8_pure.go",
+        "file_sha256": "3d710a9ebb67a862562f992ca6ef4e5efb4dfa02467005b83510f8628a50e337",
+        "line": 3579,
+        "signature": "func Fn209(m *base.Module, l0 int32) int32 {"
+      },
+      "current_function": 209,
+      "current_symbol": "__pthread_rwlock_trywrlock",
+      "old": {
+        "body_sha256": "09b67f3c36057d85b761a4e97a7f6ed074aaf2e2ebba580dd7f055f1d600a58a",
+        "file": "internal/generatedgo/code/p8/p8_pure.go",
+        "file_sha256": "df29fae6066ffb1ca1df22e3e070b8cc0d9683ce541698cd4a2b57ac3e491739",
+        "line": 4363,
+        "signature": "func Fn209(m *base.Module, l0 int32) int32 {"
+      },
+      "old_function": 209
+    },
+    {
+      "address_erased_template_equal": false,
+      "binding_status": "source-role correspondence; body changed; not an exact-PC map",
+      "current": {
+        "body_sha256": "61e6cf6972f70a5e749e6b10390a184621e0aa5816b0a07fcd7d92c5e6c95e47",
+        "file": "internal/generatedgo/code/p7/p7_pure.go",
+        "file_sha256": "d2bfaa94895e4e614b19dd09db7dd3a5f5748e0580d6cf35f1f433b8e4d6f20e",
+        "line": 858612,
+        "signature": "func Fn16565(m *base.Module, l0 int32) {"
+      },
+      "current_function": 16565,
+      "current_symbol": "_ZN9srw_lock_ILb1EE7rd_waitEv",
+      "old": {
+        "body_sha256": "94322dedcd8acc8588eaa4c7d0399215d90b9fc013ac40a1c02490cad3659a32",
+        "file": "internal/generatedgo/code/p7/p7_pure.go",
+        "file_sha256": "a2ba726cd0234beaa50447fb4cea69a4da1077ffb28f96ee82eb4628275a15a7",
+        "line": 827345,
+        "signature": "func Fn16609(m *base.Module, l0 int32) {"
+      },
+      "old_function": 16609
+    },
+    {
+      "address_erased_template_equal": false,
+      "binding_status": "source-role correspondence; body changed; not an exact-PC map",
+      "current": {
+        "body_sha256": "0746b798cdff78d1f7f9552af16b153a89b811074db8aa6f21938545a14f8efc",
+        "file": "internal/generatedgo/code/p7/p7_pure.go",
+        "file_sha256": "d2bfaa94895e4e614b19dd09db7dd3a5f5748e0580d6cf35f1f433b8e4d6f20e",
+        "line": 858993,
+        "signature": "func Fn16566(m *base.Module, l0 int32) {"
+      },
+      "current_function": 16566,
+      "current_symbol": "_ZN9srw_lock_ILb1EE7wr_waitEv",
+      "old": {
+        "body_sha256": "731cd7513760fe42a143cbad228f042a6194b3da2d0b0dd102da3d21cafb4d2c",
+        "file": "internal/generatedgo/code/p7/p7_pure.go",
+        "file_sha256": "a2ba726cd0234beaa50447fb4cea69a4da1077ffb28f96ee82eb4628275a15a7",
+        "line": 827723,
+        "signature": "func Fn16610(m *base.Module, l0 int32) {"
+      },
+      "old_function": 16610
+    },
+    {
+      "address_erased_template_equal": true,
+      "binding_status": "structural correspondence",
+      "current": {
+        "body_sha256": "1ef23bade60b151382b06b332fac4de621f13785e374e8b8e98db35f9f3fcaa5",
+        "file": "internal/generatedgo/code/p5/p5_pure.go",
+        "file_sha256": "8f99ee297e51ccfddfb5920c2618fd73250d5978fdf6e7076ffecc8012a22667",
+        "line": 906656,
+        "signature": "func Fn16729(m *base.Module, l0 int64, l1 int32, l2 int32, l3 int32, l4 int32, l5 int32, l6 int32) int32 {"
+      },
+      "current_function": 16729,
+      "current_symbol": "_ZL17buf_read_page_low9page_id_tmP7dberr_tRN10buf_pool_t10hash_chainEP11fil_space_tRP11buf_block_tP3THD",
+      "old": {
+        "body_sha256": "fa400c72954b78b284f794245ce4eb300e334ed63245132dda7f7f17b8ffe211",
+        "file": "internal/generatedgo/code/p5/p5_pure.go",
+        "file_sha256": "9767c30189dce414d7d5f4287800073675d29acd26f9a744e7dd876b6bb08d92",
+        "line": 887761,
+        "signature": "func Fn16719(m *base.Module, l0 int64, l1 int32, l2 int32, l3 int32, l4 int32, l5 int32, l6 int32) int32 {"
+      },
+      "old_function": 16719
+    },
+    {
+      "address_erased_template_equal": true,
+      "binding_status": "structural correspondence",
+      "current": {
+        "body_sha256": "fa5e483c263d485971b46d6130b313d03c423ce4e415cc61ef5ed6c9c6135eab",
+        "file": "internal/generatedgo/code/p3/p3_pure.go",
+        "file_sha256": "552cd1ece212546691b3157bc7666f2d3d5c9e235eda0c857cd9c4ddcc1f4c7e",
+        "line": 796634,
+        "signature": "func Fn16686(m *base.Module) {"
+      },
+      "current_function": 16686,
+      "current_symbol": "_ZNK9trx_sys_t17clone_oldest_viewEP12ReadViewBase",
+      "old": {
+        "body_sha256": "6316e6a5a38b5eb30fb3060d7a0f59bd7fff4d6f94f45a755d93e0392b54290c",
+        "file": "internal/generatedgo/code/p3/p3_pure.go",
+        "file_sha256": "ffa6fcb534d7a218c4df8b6bcf2f50e419e9dbe69a25cd7f67e3aee749449193",
+        "line": 822212,
+        "signature": "func Fn17012(m *base.Module) {"
+      },
+      "old_function": 17012
+    },
+    {
+      "address_erased_template_equal": false,
+      "binding_status": "source-role correspondence; body changed; not an exact-PC map",
+      "current": {
+        "body_sha256": "82651e3506c8d02495eab86b7877d25ccad4b3ce069bf36b3674ddf01a194db4",
+        "file": "internal/generatedgo/code/p1/p1_pure.go",
+        "file_sha256": "4b42efd1c7e00f2ab854cd2cf1094e483738f36b3faa02fa16aaec969b8de4aa",
+        "line": 716949,
+        "signature": "func Fn16950(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l5 int32, l6 int32, l7 int32) int32 {"
+      },
+      "current_function": 16950,
+      "current_symbol": "_Z29trx_undo_report_row_operationP9que_thr_tP12dict_index_tPK8dtuple_tPK5upd_tmPKhPKtPy",
+      "old": {
+        "body_sha256": "d1cf6900259a869590746aad4648c6833df75ef8aa4eb0924972333551662a8c",
+        "file": "internal/generatedgo/code/p1/p1_pure.go",
+        "file_sha256": "ec32b6937b1903e6a394b5b2a5947074f252a82d46b48519acf8de0854d18e2a",
+        "line": 769476,
+        "signature": "func Fn17161(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l5 int32, l6 int32, l7 int32) int32 {"
+      },
+      "old_function": 17161
+    },
+    {
+      "address_erased_template_equal": false,
+      "binding_status": "source-role correspondence; body changed; not an exact-PC map",
+      "current": {
+        "body_sha256": "ee00ed91b743be036222b5064af4949114fbf96749d61a66fae2a55a2be69928",
+        "file": "internal/generatedgo/code/p2/p2_pure.go",
+        "file_sha256": "8417306f739a0a02d446316ebd268732a1477d9e3cd439cdd5994897a7c359e3",
+        "line": 835800,
+        "signature": "func Fn17151(m *base.Module, l0 int32) int32 {"
+      },
+      "current_function": 17151,
+      "current_symbol": "_ZNK11purge_sys_t8iterator12free_historyEv",
+      "old": {
+        "body_sha256": "a8672aa0d8b3b7d7c43cb67899cb7d73268b6b6d55a58ae7514d3bd5065e489e",
+        "file": "internal/generatedgo/code/p2/p2_pure.go",
+        "file_sha256": "340c9b30df353574afa9428dcf444e7a10020c867ec45a53552d2cc52a82dc02",
+        "line": 819995,
+        "signature": "func Fn17289(m *base.Module, l0 int32) int32 {"
+      },
+      "old_function": 17289
+    },
+    {
+      "address_erased_template_equal": false,
+      "binding_status": "source-role correspondence; body changed; not an exact-PC map",
+      "current": {
+        "body_sha256": "7331a004ea02ad9e10e85feff9e60f795dc963f1bf821103b1f4e7ae354b4de7",
+        "file": "internal/generatedgo/code/p1/p1_pure.go",
+        "file_sha256": "4b42efd1c7e00f2ab854cd2cf1094e483738f36b3faa02fa16aaec969b8de4aa",
+        "line": 782504,
+        "signature": "func Fn17161(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {"
+      },
+      "current_function": 17161,
+      "current_symbol": "_Z9trx_purgeP5trx_tmm",
+      "old": {
+        "body_sha256": "c543722beb364afccf160596a427e01b8f655c802a0546952818c234ca6ef879",
+        "file": "internal/generatedgo/code/p1/p1_pure.go",
+        "file_sha256": "ec32b6937b1903e6a394b5b2a5947074f252a82d46b48519acf8de0854d18e2a",
+        "line": 805120,
+        "signature": "func Fn17299(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {"
+      },
+      "old_function": 17299
+    },
+    {
+      "address_erased_template_equal": true,
+      "binding_status": "structural correspondence",
+      "current": {
+        "body_sha256": "daf1d93de5f906d63d92d76bebf36d9739672002fafb68b5b2e02d13a7cef22a",
+        "file": "internal/generatedgo/code/p7/p7_pure.go",
+        "file_sha256": "d2bfaa94895e4e614b19dd09db7dd3a5f5748e0580d6cf35f1f433b8e4d6f20e",
+        "line": 912725,
+        "signature": "func Fn17511(m *base.Module) int32 {"
+      },
+      "current_function": 17511,
+      "current_symbol": "_ZN9trx_sys_t12history_sizeEv",
+      "old": {
+        "body_sha256": "788aa4cc1946c5db65094845f663064cf3f24def85d224a1256d0743ae23f9fb",
+        "file": "internal/generatedgo/code/p7/p7_pure.go",
+        "file_sha256": "a2ba726cd0234beaa50447fb4cea69a4da1077ffb28f96ee82eb4628275a15a7",
+        "line": 863819,
+        "signature": "func Fn17315(m *base.Module) int32 {"
+      },
+      "old_function": 17315
+    },
+    {
+      "address_erased_template_equal": true,
+      "binding_status": "structural correspondence",
+      "current": {
+        "body_sha256": "aaa194beb6122e1a3765ac82aac44426963c7c2320432884e30e9d3cfe7f0bd0",
+        "file": "internal/generatedgo/code/p3/p3_pure.go",
+        "file_sha256": "552cd1ece212546691b3157bc7666f2d3d5c9e235eda0c857cd9c4ddcc1f4c7e",
+        "line": 959874,
+        "signature": "func Fn17999(m *base.Module, l0 int32, l1 int32) int32 {"
+      },
+      "current_function": 17999,
+      "current_symbol": "_ZN10buf_page_t5flushEP11fil_space_t",
+      "old": {
+        "body_sha256": "9826d732fb3c204aec8b0543285ead1ddb787ee789f809bda413865e4a6dd960",
+        "file": "internal/generatedgo/code/p4/p4_pure.go",
+        "file_sha256": "7b02eff17be16ada01010078a50e1d3cb75f0c2b4afb1077bb5c8e7d17997dd3",
+        "line": 1010336,
+        "signature": "func Fn18097(m *base.Module, l0 int32, l1 int32) int32 {"
+      },
+      "old_function": 18097
+    },
+    {
+      "address_erased_template_equal": false,
+      "binding_status": "source-role correspondence; body changed; not an exact-PC map",
+      "current": {
+        "body_sha256": "60138bbda60b5750b25021471371e5c96592100b557f23f9a4992f930e71f2e8",
+        "file": "internal/generatedgo/code/p5/p5_pure.go",
+        "file_sha256": "8f99ee297e51ccfddfb5920c2618fd73250d5978fdf6e7076ffecc8012a22667",
+        "line": 1014622,
+        "signature": "func Fn18005(m *base.Module, l0 int64, l1 int32) {"
+      },
+      "current_function": 18005,
+      "current_symbol": "_Z14buf_flush_waityb",
+      "old": {
+        "body_sha256": "46196149867a9df8d2be6f6f9431e22498229e083c9af53a9413eed27782a797",
+        "file": "internal/generatedgo/code/p5/p5_pure.go",
+        "file_sha256": "9767c30189dce414d7d5f4287800073675d29acd26f9a744e7dd876b6bb08d92",
+        "line": 1006055,
+        "signature": "func Fn18103(m *base.Module, l0 int64, l1 int32) {"
+      },
+      "old_function": 18103
+    },
+    {
+      "address_erased_template_equal": false,
+      "binding_status": "source-role correspondence; body changed; not an exact-PC map",
+      "current": {
+        "body_sha256": "a68e7d7e7160aab2a8557911b65504181c7d59bbac941aeedf58963376fbf0ad",
+        "file": "internal/generatedgo/code/p2/p2_pure.go",
+        "file_sha256": "8417306f739a0a02d446316ebd268732a1477d9e3cd439cdd5994897a7c359e3",
+        "line": 957155,
+        "signature": "func Fn18010(m *base.Module) {"
+      },
+      "current_function": 18010,
+      "current_symbol": "_ZL22buf_flush_page_cleanerv",
+      "old": {
+        "body_sha256": "338f5ea314dbef378534982accbef49264d5da0e6cabc090bd6a4705652247a1",
+        "file": "internal/generatedgo/code/p2/p2_pure.go",
+        "file_sha256": "340c9b30df353574afa9428dcf444e7a10020c867ec45a53552d2cc52a82dc02",
+        "line": 940780,
+        "signature": "func Fn18108(m *base.Module) {"
+      },
+      "old_function": 18108
+    },
+    {
+      "address_erased_template_equal": false,
+      "binding_status": "source-role correspondence; body changed; not an exact-PC map",
+      "current": {
+        "body_sha256": "a6485d666bd4378da5d485d9ec1df9995193d0bd6424ae179e22d7503deb35ee",
+        "file": "internal/generatedgo/code/p3/p3_pure.go",
+        "file_sha256": "552cd1ece212546691b3157bc7666f2d3d5c9e235eda0c857cd9c4ddcc1f4c7e",
+        "line": 963121,
+        "signature": "func Fn18014(m *base.Module, l0 int64, l1 int64) {"
+      },
+      "current_function": 18014,
+      "current_symbol": "_ZL18log_checkpoint_lowyy",
+      "old": {
+        "body_sha256": "95ee86d202929f146b171650cdfb69d8de02f06e27202800b31d7551a421145f",
+        "file": "internal/generatedgo/code/p2/p2_pure.go",
+        "file_sha256": "340c9b30df353574afa9428dcf444e7a10020c867ec45a53552d2cc52a82dc02",
+        "line": 946296,
+        "signature": "func Fn18112(m *base.Module, l0 int64, l1 int64) int64 {"
+      },
+      "old_function": 18112
+    },
+    {
+      "address_erased_template_equal": false,
+      "binding_status": "source-role correspondence; body changed; not an exact-PC map",
+      "current": {
+        "body_sha256": "a007fd4748cc1f9906b22d1729c093abc3ed9f656a544d1c1e408fbba876c769",
+        "file": "internal/generatedgo/code/p5/p5_pure.go",
+        "file_sha256": "8f99ee297e51ccfddfb5920c2618fd73250d5978fdf6e7076ffecc8012a22667",
+        "line": 1017089,
+        "signature": "func Fn18065(m *base.Module) int64 {"
+      },
+      "current_function": 18065,
+      "current_symbol": "_ZL10log_writerv",
+      "old": {
+        "body_sha256": "ccc827ab2f5b8d27c2e2a181083348d496a0627c0e87a8aecc04175aae97b34b",
+        "file": "internal/generatedgo/code/p5/p5_pure.go",
+        "file_sha256": "9767c30189dce414d7d5f4287800073675d29acd26f9a744e7dd876b6bb08d92",
+        "line": 1007427,
+        "signature": "func Fn18164(m *base.Module) int64 {"
+      },
+      "old_function": 18164
+    },
+    {
+      "address_erased_template_equal": false,
+      "binding_status": "source-role correspondence; body changed; not an exact-PC map",
+      "current": {
+        "body_sha256": "1bfc85ecd7dfbeb6c9e28ae292ec95f1ac8e52a3efdb52d4ca95582dab345e62",
+        "file": "internal/generatedgo/code/p6/p6_pure.go",
+        "file_sha256": "112a178197c78c103df432c9b7cb3313b113e0a9f1cd90e60d7f1725d4995615",
+        "line": 995161,
+        "signature": "func Fn18070(m *base.Module, l0 int64, l1 int32, l2 int32) {"
+      },
+      "current_function": 18070,
+      "current_symbol": "_Z15log_write_up_toybPK19completion_callback",
+      "old": {
+        "body_sha256": "7ceacb484e9832c0a30d51e81f85de8cdf46cdb6b760c2aaec180aad2e2f9682",
+        "file": "internal/generatedgo/code/p5/p5_pure.go",
+        "file_sha256": "9767c30189dce414d7d5f4287800073675d29acd26f9a744e7dd876b6bb08d92",
+        "line": 1008160,
+        "signature": "func Fn18169(m *base.Module, l0 int64, l1 int32, l2 int32) {"
+      },
+      "old_function": 18169
+    },
+    {
+      "address_erased_template_equal": true,
+      "binding_status": "structural correspondence",
+      "current": {
+        "body_sha256": "bda5f9136277ad4a4ade3145ed261288f1d8d773281f1ae8d267c1c8a3dca228",
+        "file": "internal/generatedgo/code/p4/p4_pure.go",
+        "file_sha256": "21ae87a502d3c3de7a179fd0691329f7246275a67e0b4971b4eb4290859a56d8",
+        "line": 1031269,
+        "signature": "func Fn18127(m *base.Module, l0 int32, l1 int32) {"
+      },
+      "current_function": 18127,
+      "current_symbol": "_Z17buf_LRU_add_blockP10buf_page_tb",
+      "old": {
+        "body_sha256": "9a3d30938fe25651553b1db5e22c9835f76843ad90abef6e2970f044827f5475",
+        "file": "internal/generatedgo/code/p4/p4_pure.go",
+        "file_sha256": "7b02eff17be16ada01010078a50e1d3cb75f0c2b4afb1077bb5c8e7d17997dd3",
+        "line": 1043909,
+        "signature": "func Fn18236(m *base.Module, l0 int32, l1 int32) {"
+      },
+      "old_function": 18236
+    },
+    {
+      "address_erased_template_equal": true,
+      "binding_status": "structural correspondence",
+      "current": {
+        "body_sha256": "c5e859b635bf14ab455e1b0617ce6c818dfea05497dfcb53da0edaab759a7bf4",
+        "file": "internal/generatedgo/code/p4/p4_pure.go",
+        "file_sha256": "21ae87a502d3c3de7a179fd0691329f7246275a67e0b4971b4eb4290859a56d8",
+        "line": 1031813,
+        "signature": "func Fn18130(m *base.Module, l0 int32) {"
+      },
+      "current_function": 18130,
+      "current_symbol": "_ZL20buf_LRU_remove_blockP10buf_page_t",
+      "old": {
+        "body_sha256": "e53903e3bb0516570baf5ad4002458f245a553f6af81d01238590f77dfa243fb",
+        "file": "internal/generatedgo/code/p4/p4_pure.go",
+        "file_sha256": "7b02eff17be16ada01010078a50e1d3cb75f0c2b4afb1077bb5c8e7d17997dd3",
+        "line": 1044453,
+        "signature": "func Fn18239(m *base.Module, l0 int32) {"
+      },
+      "old_function": 18239
+    },
+    {
+      "address_erased_template_equal": true,
+      "binding_status": "structural correspondence",
+      "current": {
+        "body_sha256": "444f0446ff1ac40ad265f0055c3f134fa1e26e8741677af4e584c3184112b976",
+        "file": "internal/generatedgo/code/p7/p7_pure.go",
+        "file_sha256": "d2bfaa94895e4e614b19dd09db7dd3a5f5748e0580d6cf35f1f433b8e4d6f20e",
+        "line": 949409,
+        "signature": "func Fn18131(m *base.Module, l0 int32) int32 {"
+      },
+      "current_function": 18131,
+      "current_symbol": "_Z29buf_page_make_young_if_neededP10buf_page_t",
+      "old": {
+        "body_sha256": "0de87840bcfb9abf895aa0d705fab706ed3c9a3b367dd661c578fc3bb283153a",
+        "file": "internal/generatedgo/code/p7/p7_pure.go",
+        "file_sha256": "a2ba726cd0234beaa50447fb4cea69a4da1077ffb28f96ee82eb4628275a15a7",
+        "line": 921765,
+        "signature": "func Fn18240(m *base.Module, l0 int32) int32 {"
+      },
+      "old_function": 18240
+    },
+    {
+      "address_erased_template_equal": true,
+      "binding_status": "structural correspondence",
+      "current": {
+        "body_sha256": "c49728c2a40c91082b05e8d153f7f9f7df29861565257eaddfe05dae2d9d5fb0",
+        "file": "internal/generatedgo/code/p4/p4_pure.go",
+        "file_sha256": "21ae87a502d3c3de7a179fd0691329f7246275a67e0b4971b4eb4290859a56d8",
+        "line": 1032435,
+        "signature": "func Fn18133(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {"
+      },
+      "current_function": 18133,
+      "current_symbol": "_ZL27buf_LRU_block_remove_hashedP10buf_page_t9page_id_tRN10buf_pool_t10hash_chainEb",
+      "old": {
+        "body_sha256": "a8047710093d0ac81ebfdae3a1a48a517c1595c534c861f34b3cc7b65a487c1f",
+        "file": "internal/generatedgo/code/p4/p4_pure.go",
+        "file_sha256": "7b02eff17be16ada01010078a50e1d3cb75f0c2b4afb1077bb5c8e7d17997dd3",
+        "line": 1045075,
+        "signature": "func Fn18242(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {"
+      },
+      "old_function": 18242
+    },
+    {
+      "address_erased_template_equal": true,
+      "binding_status": "structural correspondence",
+      "current": {
+        "body_sha256": "29ffd60ed8f316b13817132dac44044ff09e9921add47d68221c74e493dd67c2",
+        "file": "internal/generatedgo/code/p5/p5_pure.go",
+        "file_sha256": "8f99ee297e51ccfddfb5920c2618fd73250d5978fdf6e7076ffecc8012a22667",
+        "line": 1022213,
+        "signature": "func Fn18168(m *base.Module, l0 int32) {"
+      },
+      "current_function": 18168,
+      "current_symbol": "_ZL26purge_coordinator_callbackPv",
+      "old": {
+        "body_sha256": "8638443a2ab8cdb98a7e67adb617fc48dba72870703502520ec6435261b74c26",
+        "file": "internal/generatedgo/code/p5/p5_pure.go",
+        "file_sha256": "9767c30189dce414d7d5f4287800073675d29acd26f9a744e7dd876b6bb08d92",
+        "line": 1013356,
+        "signature": "func Fn18275(m *base.Module, l0 int32) {"
+      },
+      "old_function": 18275
+    },
+    {
+      "address_erased_template_equal": true,
+      "binding_status": "structural correspondence",
+      "current": {
+        "body_sha256": "87105a90db01d64eb19ed58613a4cad8d157a744f1f557b05871c2604ed57571",
+        "file": "internal/generatedgo/code/p8/p8_pure.go",
+        "file_sha256": "3d710a9ebb67a862562f992ca6ef4e5efb4dfa02467005b83510f8628a50e337",
+        "line": 347496,
+        "signature": "func Fn18171(m *base.Module, l0 int32) {"
+      },
+      "current_function": 18171,
+      "current_symbol": "_ZL25purge_truncation_callbackPv",
+      "old": {
+        "body_sha256": "6c9d64e125d21c1ea575975faca7e4f7350711c170320439f5c55f8094c8caf8",
+        "file": "internal/generatedgo/code/p8/p8_pure.go",
+        "file_sha256": "df29fae6066ffb1ca1df22e3e070b8cc0d9683ce541698cd4a2b57ac3e491739",
+        "line": 462766,
+        "signature": "func Fn18278(m *base.Module, l0 int32) {"
+      },
+      "old_function": 18278
+    }
+  ],
+  "general_shared_memory_correctness": "NOT ESTABLISHED",
+  "groups": {
+    "other scalar shared state": 34,
+    "wide-memory overlap": 2
+  },
+  "old_source_commit": "a427b83078071e4cee5d6aebe16d0ee55fb73041",
+  "records": [
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "SIMD-helper",
+              "expression": "v37, v37__h = base.Simd_p_v128_load(m, int32(24020976), v36)",
+              "file": "internal/generatedgo/code/p8/p8_pure.go",
+              "line": 347610,
+              "width_bytes": 16
+            }
+          ],
+          "current_function": 18171,
+          "current_symbol": "_ZL25purge_truncation_callbackPv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/base/base.go",
+            "function": "base.Simd_v128_load",
+            "generated": "v37, v37__h = base.Simd_p_v128_load(m, int32(24091504), v36)",
+            "guest_file": "code/p8/p8_pure.go",
+            "guest_line": 462880,
+            "kind": "simd",
+            "line": 2064,
+            "sync_atomic": "",
+            "wasm_function": 18278,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "v128.load (fd00)"
+          },
+          "historical_width_bytes": 16,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "SIMD-helper",
+              "expression": "base.Simd_p_fx262(m, v3407)",
+              "file": "internal/generatedgo/code/p1/p1_pure.go",
+              "line": 788995,
+              "width_bytes": 16
+            }
+          ],
+          "current_function": 17161,
+          "current_symbol": "_Z9trx_purgeP5trx_tmm",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.Simd_v128_store",
+            "generated": "base.Simd_p_fx279(m, v3407)",
+            "guest_file": "code/p1/p1_pure.go",
+            "guest_line": 811554,
+            "kind": "simd",
+            "line": 2077,
+            "sync_atomic": "",
+            "wasm_function": 17299,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "v128.store (fd0b) via fused helper"
+          },
+          "historical_width_bytes": 16,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "wide-memory overlap",
+      "historical_signature_id": 4
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "SIMD-helper",
+              "expression": "v37, v37__h = base.Simd_p_v128_load(m, int32(24020976), v36)",
+              "file": "internal/generatedgo/code/p8/p8_pure.go",
+              "line": 347610,
+              "width_bytes": 16
+            }
+          ],
+          "current_function": 18171,
+          "current_symbol": "_ZL25purge_truncation_callbackPv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/base/base.go",
+            "function": "base.Simd_v128_load",
+            "generated": "v37, v37__h = base.Simd_p_v128_load(m, int32(24091504), v36)",
+            "guest_file": "code/p8/p8_pure.go",
+            "guest_line": 462880,
+            "kind": "simd",
+            "line": 2064,
+            "sync_atomic": "",
+            "wasm_function": 18278,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "v128.load (fd00)"
+          },
+          "historical_width_bytes": 16,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "SIMD-helper",
+              "expression": "base.Simd_p_fx262(m, v3407)",
+              "file": "internal/generatedgo/code/p1/p1_pure.go",
+              "line": 788995,
+              "width_bytes": 16
+            }
+          ],
+          "current_function": 17161,
+          "current_symbol": "_Z9trx_purgeP5trx_tmm",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.Simd_v128_store",
+            "generated": "base.Simd_p_fx279(m, v3407)",
+            "guest_file": "code/p1/p1_pure.go",
+            "guest_line": 811554,
+            "kind": "simd",
+            "line": 2078,
+            "sync_atomic": "",
+            "wasm_function": 17299,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "v128.store (fd0b) via fused helper"
+          },
+          "historical_width_bytes": 16,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "wide-memory overlap",
+      "historical_signature_id": 5
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v940 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v889)), 4, 4)))",
+              "file": "internal/generatedgo/code/p1/p1_pure.go",
+              "line": 721801,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16950,
+          "current_symbol": "_Z29trx_undo_report_row_operationP9que_thr_tP12dict_index_tPK8dtuple_tPK5upd_tmPKhPKtPy",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p1/p1_pure.go",
+            "function": "p1.Fn17161",
+            "generated": "v940 = *(*int32)(unsafe.Add(mBase, uint32(v889)+4))",
+            "guest_file": "code/p1/p1_pure.go",
+            "guest_line": 774328,
+            "kind": "ordinary",
+            "line": 774328,
+            "sync_atomic": "",
+            "wasm_function": 17161,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v126 = base.AtomicRmwCmpxchg32(m, l0, int32(4), v122, v122+int32(1))",
+              "file": "internal/generatedgo/code/p7/p7_pure.go",
+              "line": 859301,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16566,
+          "current_symbol": "_ZN9srw_lock_ILb1EE7wr_waitEv",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v126 = base.AtomicRmwCmpxchg32(m, l0, int32(4), v122, v122+int32(1))",
+            "guest_file": "code/p7/p7_pure.go",
+            "guest_line": 828029,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 16610,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 12
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24020776
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v855 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 24020776, 0, 8)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 837614,
+              "width_bytes": 8
+            }
+          ],
+          "current_function": 17151,
+          "current_symbol": "_ZNK11purge_sys_t8iterator12free_historyEv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn17289",
+            "generated": "v855 = *(*int64)(unsafe.Add(mBase, _consts[993]))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 821806,
+            "kind": "ordinary",
+            "line": 821806,
+            "sync_atomic": "",
+            "wasm_function": 17289,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i64.load (29)"
+          },
+          "historical_width_bytes": 8,
+          "method": "expression-template candidate",
+          "old_constant_global": 24091304,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24020776
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 24020776, 0, 8))) = v38",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 796999,
+              "width_bytes": 8
+            }
+          ],
+          "current_function": 16686,
+          "current_symbol": "_ZNK9trx_sys_t17clone_oldest_viewEP12ReadViewBase",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p3/p3_pure.go",
+            "function": "p3.Fn17012",
+            "generated": "*(*int64)(unsafe.Add(mBase, _consts[1568])) = v38",
+            "guest_file": "code/p3/p3_pure.go",
+            "guest_line": 822577,
+            "kind": "ordinary",
+            "line": 822577,
+            "sync_atomic": "",
+            "wasm_function": 17012,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i64.store (37)"
+          },
+          "historical_width_bytes": 8,
+          "method": "expression-template candidate",
+          "old_constant_global": 24091304,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 17
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1699 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v69)), 4, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 838683,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17151,
+          "current_symbol": "_ZNK11purge_sys_t8iterator12free_historyEv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn17289",
+            "generated": "v1699 = *(*int32)(unsafe.Add(mBase, uint32(v50)+uint32(_consts[1002])))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 822875,
+            "kind": "ordinary",
+            "line": 822875,
+            "sync_atomic": "",
+            "wasm_function": 17289,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v142 = base.AtomicRmwCmpxchg32(m, l0, int32(4), v138, v138+int32(1))",
+              "file": "internal/generatedgo/code/p7/p7_pure.go",
+              "line": 858943,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16565,
+          "current_symbol": "_ZN9srw_lock_ILb1EE7rd_waitEv",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v142 = base.AtomicRmwCmpxchg32(m, l0, int32(4), v138, v138+int32(1))",
+            "guest_file": "code/p7/p7_pure.go",
+            "guest_line": 827674,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 16609,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 18
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1700 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v69)), 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 838684,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17151,
+          "current_symbol": "_ZNK11purge_sys_t8iterator12free_historyEv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn17289",
+            "generated": "v1700 = *(*int32)(unsafe.Add(mBase, uint32(v50)+uint32(_consts[1003])))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 822876,
+            "kind": "ordinary",
+            "line": 822876,
+            "sync_atomic": "",
+            "wasm_function": 17289,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v146 = base.AtomicRmwCmpxchg32(m, l0, int32(0), v130, v144)",
+              "file": "internal/generatedgo/code/p7/p7_pure.go",
+              "line": 858952,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16565,
+          "current_symbol": "_ZN9srw_lock_ILb1EE7rd_waitEv",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v146 = base.AtomicRmwCmpxchg32(m, l0, int32(0), v130, v144)",
+            "guest_file": "code/p7/p7_pure.go",
+            "guest_line": 827683,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 16609,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 19
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            15209856
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v103 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958481,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v314 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958687,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v261 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958829,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v975 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 959974,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1365 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960681,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1513 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960876,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1545 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960934,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18010,
+          "current_symbol": "_ZL22buf_flush_page_cleanerv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn18108",
+            "generated": "v107 = *(*int32)(unsafe.Add(mBase, _consts[956]))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 942257,
+            "kind": "ordinary",
+            "line": 942257,
+            "sync_atomic": "",
+            "wasm_function": 18108,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 15276544,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            15209856
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4))) = v33 + v34",
+              "file": "internal/generatedgo/code/p4/p4_pure.go",
+              "line": 1031500,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18127,
+          "current_symbol": "_Z17buf_LRU_add_blockP10buf_page_tb",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18236",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1368])) = v33 + v34",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1044140,
+            "kind": "ordinary",
+            "line": 1044140,
+            "sync_atomic": "",
+            "wasm_function": 18236,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 15276544,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 20
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            15209856
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v103 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958481,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v314 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958687,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v261 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958829,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v975 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 959974,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1365 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960681,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1513 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960876,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1545 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960934,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18010,
+          "current_symbol": "_ZL22buf_flush_page_cleanerv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn18108",
+            "generated": "v107 = *(*int32)(unsafe.Add(mBase, _consts[956]))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 942257,
+            "kind": "ordinary",
+            "line": 942257,
+            "sync_atomic": "",
+            "wasm_function": 18108,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 15276544,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            15209856
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4))) = v55 - int32(1)",
+              "file": "internal/generatedgo/code/p4/p4_pure.go",
+              "line": 1032099,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18130,
+          "current_symbol": "_ZL20buf_LRU_remove_blockP10buf_page_t",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18239",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1368])) = v55 - int32(1)",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1044739,
+            "kind": "ordinary",
+            "line": 1044739,
+            "sync_atomic": "",
+            "wasm_function": 18239,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 15276544,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 21
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            15209856
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v103 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958481,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v314 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958687,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v261 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958829,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v975 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 959974,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1365 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960681,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1513 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960876,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1545 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960934,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18010,
+          "current_symbol": "_ZL22buf_flush_page_cleanerv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn18108",
+            "generated": "v263 = *(*int32)(unsafe.Add(mBase, _consts[956]))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 942619,
+            "kind": "ordinary",
+            "line": 942619,
+            "sync_atomic": "",
+            "wasm_function": 18108,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 15276544,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            15209856
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4))) = v33 + v34",
+              "file": "internal/generatedgo/code/p4/p4_pure.go",
+              "line": 1031500,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18127,
+          "current_symbol": "_Z17buf_LRU_add_blockP10buf_page_tb",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18236",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1368])) = v33 + v34",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1044140,
+            "kind": "ordinary",
+            "line": 1044140,
+            "sync_atomic": "",
+            "wasm_function": 18236,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 15276544,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 22
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            15209856
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v103 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958481,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v314 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958687,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v261 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958829,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v975 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 959974,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1365 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960681,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1513 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960876,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1545 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960934,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18010,
+          "current_symbol": "_ZL22buf_flush_page_cleanerv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn18108",
+            "generated": "v1496 = *(*int32)(unsafe.Add(mBase, _consts[956]))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 944745,
+            "kind": "ordinary",
+            "line": 944745,
+            "sync_atomic": "",
+            "wasm_function": 18108,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 15276544,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            15209856
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4))) = v33 + v34",
+              "file": "internal/generatedgo/code/p4/p4_pure.go",
+              "line": 1031500,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18127,
+          "current_symbol": "_Z17buf_LRU_add_blockP10buf_page_tb",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18236",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1368])) = v33 + v34",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1044140,
+            "kind": "ordinary",
+            "line": 1044140,
+            "sync_atomic": "",
+            "wasm_function": 18236,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 15276544,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 23
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            15209856
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v103 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958481,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v314 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958687,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v261 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 958829,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v975 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 959974,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1365 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960681,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1513 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960876,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1545 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960934,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18010,
+          "current_symbol": "_ZL22buf_flush_page_cleanerv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn18108",
+            "generated": "v1496 = *(*int32)(unsafe.Add(mBase, _consts[956]))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 944745,
+            "kind": "ordinary",
+            "line": 944745,
+            "sync_atomic": "",
+            "wasm_function": 18108,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 15276544,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            15209856
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209856, 0, 4))) = v55 - int32(1)",
+              "file": "internal/generatedgo/code/p4/p4_pure.go",
+              "line": 1032099,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18130,
+          "current_symbol": "_ZL20buf_LRU_remove_blockP10buf_page_t",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18239",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1368])) = v55 - int32(1)",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1044739,
+            "kind": "ordinary",
+            "line": 1044739,
+            "sync_atomic": "",
+            "wasm_function": 18239,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 15276544,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 24
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1267 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960479,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1271 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960507,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1284 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960538,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1737 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 961335,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1741 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 961363,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1754 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 961394,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1845 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 961573,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1849 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 961601,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1862 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 961632,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1977 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 961802,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18010,
+          "current_symbol": "_ZL22buf_flush_page_cleanerv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn18108",
+            "generated": "v1994 = *(*int32)(unsafe.Add(mBase, _consts[902]))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 945696,
+            "kind": "ordinary",
+            "line": 945696,
+            "sync_atomic": "",
+            "wasm_function": 18108,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v84 = base.AtomicRmwCmpxchg32(m, v59, int32(0), v70, v82)",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1015045,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18005,
+          "current_symbol": "_Z14buf_flush_waityb",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v84 = base.AtomicRmwCmpxchg32(m, v59, int32(0), v70, v82)",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1006476,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 18103,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 25
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24088748
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v49 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964216,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v234 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964500,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v277 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964623,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v281 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964639,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v297 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964685,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v312 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964705,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v880 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965197,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1526 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965885,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1530 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965901,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1546 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965947,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1561 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965967,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18014,
+          "current_symbol": "_ZL18log_checkpoint_lowyy",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn18112",
+            "generated": "v248 = *(*int32)(unsafe.Add(mBase, _consts[903]))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 947871,
+            "kind": "ordinary",
+            "line": 947871,
+            "sync_atomic": "",
+            "wasm_function": 18112,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 24142636,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24088748
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v260 = base.AtomicRmwCmpxchg32(m, v223, int32(4), v256, v256+int32(1))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1015398,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18005,
+          "current_symbol": "_Z14buf_flush_waityb",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v260 = base.AtomicRmwCmpxchg32(m, v223, int32(4), v256, v256+int32(1))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1006829,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 18103,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142636,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 26
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v50 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964217,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v235 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964501,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v274 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964603,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v278 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964631,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v291 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964662,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v881 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965198,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1523 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965865,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1527 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965893,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1540 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965924,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18014,
+          "current_symbol": "_ZL18log_checkpoint_lowyy",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn18112",
+            "generated": "v249 = *(*int32)(unsafe.Add(mBase, _consts[902]))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 947872,
+            "kind": "ordinary",
+            "line": 947872,
+            "sync_atomic": "",
+            "wasm_function": 18112,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v265 = base.AtomicRmwCmpxchg32(m, v223, int32(0), v250, v263)",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1015407,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18005,
+          "current_symbol": "_Z14buf_flush_waityb",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v265 = base.AtomicRmwCmpxchg32(m, v223, int32(0), v250, v263)",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1006838,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 18103,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 27
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v50 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964217,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v235 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964501,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v274 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964603,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v278 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964631,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v291 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964662,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v881 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965198,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1523 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965865,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1527 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965893,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v1540 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965924,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18014,
+          "current_symbol": "_ZL18log_checkpoint_lowyy",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn18112",
+            "generated": "v288 = *(*int32)(unsafe.Add(mBase, _consts[902]))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 947974,
+            "kind": "ordinary",
+            "line": 947974,
+            "sync_atomic": "",
+            "wasm_function": 18112,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v84 = base.AtomicRmwCmpxchg32(m, v59, int32(0), v70, v82)",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1015045,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18005,
+          "current_symbol": "_Z14buf_flush_waityb",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v84 = base.AtomicRmwCmpxchg32(m, v59, int32(0), v70, v82)",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1006476,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 18103,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 28
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v77 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 960541,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17999,
+          "current_symbol": "_ZN10buf_page_t5flushEP11fil_space_t",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18097",
+            "generated": "v77 = *(*int32)(unsafe.Add(mBase, _consts[1466]))",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1011003,
+            "kind": "ordinary",
+            "line": 1011003,
+            "sync_atomic": "",
+            "wasm_function": 18097,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 906996,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907245,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907536,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907785,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908073,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908322,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16729,
+          "current_symbol": "_ZL17buf_read_page_low9page_id_tmP7dberr_tRN10buf_pool_t10hash_chainEP11fil_space_tRP11buf_block_tP3THD",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn16719",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1349])) = v166 + v161",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 888350,
+            "kind": "ordinary",
+            "line": 888350,
+            "sync_atomic": "",
+            "wasm_function": 16719,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 47
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v77 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 960541,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17999,
+          "current_symbol": "_ZN10buf_page_t5flushEP11fil_space_t",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18097",
+            "generated": "v77 = *(*int32)(unsafe.Add(mBase, _consts[1466]))",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1011003,
+            "kind": "ordinary",
+            "line": 1011003,
+            "sync_atomic": "",
+            "wasm_function": 18097,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 906996,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907245,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907536,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907785,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908073,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908322,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16729,
+          "current_symbol": "_ZL17buf_read_page_low9page_id_tmP7dberr_tRN10buf_pool_t10hash_chainEP11fil_space_tRP11buf_block_tP3THD",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn16719",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1349])) = v166 + v161",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 889178,
+            "kind": "ordinary",
+            "line": 889178,
+            "sync_atomic": "",
+            "wasm_function": 16719,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 48
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 906995,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907244,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907535,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907784,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908072,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908321,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16729,
+          "current_symbol": "_ZL17buf_read_page_low9page_id_tmP7dberr_tRN10buf_pool_t10hash_chainEP11fil_space_tRP11buf_block_tP3THD",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn16719",
+            "generated": "v166 = *(*int32)(unsafe.Add(mBase, _consts[1349]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 888100,
+            "kind": "ordinary",
+            "line": 888100,
+            "sync_atomic": "",
+            "wasm_function": 16719,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 906996,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907245,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907536,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907785,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908073,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908322,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16729,
+          "current_symbol": "_ZL17buf_read_page_low9page_id_tmP7dberr_tRN10buf_pool_t10hash_chainEP11fil_space_tRP11buf_block_tP3THD",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn16719",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1349])) = v166 + v161",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 889427,
+            "kind": "ordinary",
+            "line": 889427,
+            "sync_atomic": "",
+            "wasm_function": 16719,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 53
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 906995,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907244,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907535,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907784,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908072,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908321,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16729,
+          "current_symbol": "_ZL17buf_read_page_low9page_id_tmP7dberr_tRN10buf_pool_t10hash_chainEP11fil_space_tRP11buf_block_tP3THD",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn16719",
+            "generated": "v166 = *(*int32)(unsafe.Add(mBase, _consts[1349]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 888349,
+            "kind": "ordinary",
+            "line": 888349,
+            "sync_atomic": "",
+            "wasm_function": 16719,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v77 + v78",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 960543,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17999,
+          "current_symbol": "_ZN10buf_page_t5flushEP11fil_space_t",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18097",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1466])) = v77 + v78",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1011005,
+            "kind": "ordinary",
+            "line": 1011005,
+            "sync_atomic": "",
+            "wasm_function": 18097,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 54
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 906995,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907244,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907535,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907784,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908072,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908321,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16729,
+          "current_symbol": "_ZL17buf_read_page_low9page_id_tmP7dberr_tRN10buf_pool_t10hash_chainEP11fil_space_tRP11buf_block_tP3THD",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn16719",
+            "generated": "v166 = *(*int32)(unsafe.Add(mBase, _consts[1349]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 889177,
+            "kind": "ordinary",
+            "line": 889177,
+            "sync_atomic": "",
+            "wasm_function": 16719,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v77 + v78",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 960543,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17999,
+          "current_symbol": "_ZN10buf_page_t5flushEP11fil_space_t",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18097",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1466])) = v77 + v78",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1011005,
+            "kind": "ordinary",
+            "line": 1011005,
+            "sync_atomic": "",
+            "wasm_function": 18097,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 55
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 906995,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907244,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907535,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907784,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908072,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908321,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16729,
+          "current_symbol": "_ZL17buf_read_page_low9page_id_tmP7dberr_tRN10buf_pool_t10hash_chainEP11fil_space_tRP11buf_block_tP3THD",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn16719",
+            "generated": "v166 = *(*int32)(unsafe.Add(mBase, _consts[1349]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 889426,
+            "kind": "ordinary",
+            "line": 889426,
+            "sync_atomic": "",
+            "wasm_function": 16719,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v77 + v78",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 960543,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17999,
+          "current_symbol": "_ZN10buf_page_t5flushEP11fil_space_t",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18097",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1466])) = v77 + v78",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1011005,
+            "kind": "ordinary",
+            "line": 1011005,
+            "sync_atomic": "",
+            "wasm_function": 18097,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 56
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 906995,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907244,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907535,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907784,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908072,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v166 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908321,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16729,
+          "current_symbol": "_ZL17buf_read_page_low9page_id_tmP7dberr_tRN10buf_pool_t10hash_chainEP11fil_space_tRP11buf_block_tP3THD",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn16719",
+            "generated": "v166 = *(*int32)(unsafe.Add(mBase, _consts[1349]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 889426,
+            "kind": "ordinary",
+            "line": 889426,
+            "sync_atomic": "",
+            "wasm_function": 16719,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24089032
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 906996,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907245,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907536,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 907785,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908073,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24089032, 0, 4))) = v166 + v161",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 908322,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16729,
+          "current_symbol": "_ZL17buf_read_page_low9page_id_tmP7dberr_tRN10buf_pool_t10hash_chainEP11fil_space_tRP11buf_block_tP3THD",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn16719",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1349])) = v166 + v161",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 888101,
+            "kind": "ordinary",
+            "line": 888101,
+            "sync_atomic": "",
+            "wasm_function": 16719,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142920,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 57
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v70 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1015005,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18005,
+          "current_symbol": "_Z14buf_flush_waityb",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn18103",
+            "generated": "v70 = *(*int32)(unsafe.Add(mBase, _consts[1528]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1006436,
+            "kind": "ordinary",
+            "line": 1006436,
+            "sync_atomic": "",
+            "wasm_function": 18103,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v7 = base.AtomicRmwCmpxchg32(m, l0, v3, v3, int32(2147483647))",
+              "file": "internal/generatedgo/code/p8/p8_pure.go",
+              "line": 3587,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 209,
+          "current_symbol": "__pthread_rwlock_trywrlock",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v7 = base.AtomicRmwCmpxchg32(m, l0, v3, v3, int32(2147483647))",
+            "guest_file": "code/p8/p8_pure.go",
+            "guest_line": 4371,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 209,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 58
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v233 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1015315,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18005,
+          "current_symbol": "_Z14buf_flush_waityb",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn18103",
+            "generated": "v233 = *(*int32)(unsafe.Add(mBase, _consts[1528]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1006746,
+            "kind": "ordinary",
+            "line": 1006746,
+            "sync_atomic": "",
+            "wasm_function": 18103,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v64 = base.AtomicRmwCmpxchg32(m, v39, int32(0), v50, v62)",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964257,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v249 = base.AtomicRmwCmpxchg32(m, v224, int32(0), v235, v247)",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964541,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v306 = base.AtomicRmwCmpxchg32(m, v264, int32(0), v291, v304)",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964695,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v895 = base.AtomicRmwCmpxchg32(m, v870, int32(0), v881, v893)",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965238,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v1555 = base.AtomicRmwCmpxchg32(m, v1513, int32(0), v1540, v1553)",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965957,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18014,
+          "current_symbol": "_ZL18log_checkpoint_lowyy",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v263 = base.AtomicRmwCmpxchg32(m, v238, int32(0), v249, v261)",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 947912,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 18112,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 59
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v237 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1015343,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18005,
+          "current_symbol": "_Z14buf_flush_waityb",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn18103",
+            "generated": "v237 = *(*int32)(unsafe.Add(mBase, _consts[1528]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1006774,
+            "kind": "ordinary",
+            "line": 1006774,
+            "sync_atomic": "",
+            "wasm_function": 18103,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v1299 = base.AtomicRmwCmpxchg32(m, v1257, int32(0), v1284, v1297)",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 960571,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v1769 = base.AtomicRmwCmpxchg32(m, v1727, int32(0), v1754, v1767)",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 961427,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v1877 = base.AtomicRmwCmpxchg32(m, v1835, int32(0), v1862, v1875)",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 961665,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v1991 = base.AtomicRmwCmpxchg32(m, v1966, int32(0), v1977, v1989)",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 961842,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18010,
+          "current_symbol": "_ZL22buf_flush_page_cleanerv",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v2245 = base.AtomicRmwCmpxchg32(m, v2220, int32(0), v2231, v2243)",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 946197,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 18108,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 60
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v237 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1015343,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18005,
+          "current_symbol": "_Z14buf_flush_waityb",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn18103",
+            "generated": "v237 = *(*int32)(unsafe.Add(mBase, _consts[1528]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1006774,
+            "kind": "ordinary",
+            "line": 1006774,
+            "sync_atomic": "",
+            "wasm_function": 18103,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v64 = base.AtomicRmwCmpxchg32(m, v39, int32(0), v50, v62)",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964257,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v249 = base.AtomicRmwCmpxchg32(m, v224, int32(0), v235, v247)",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964541,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v306 = base.AtomicRmwCmpxchg32(m, v264, int32(0), v291, v304)",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 964695,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v895 = base.AtomicRmwCmpxchg32(m, v870, int32(0), v881, v893)",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965238,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v1555 = base.AtomicRmwCmpxchg32(m, v1513, int32(0), v1540, v1553)",
+              "file": "internal/generatedgo/code/p3/p3_pure.go",
+              "line": 965957,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18014,
+          "current_symbol": "_ZL18log_checkpoint_lowyy",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v263 = base.AtomicRmwCmpxchg32(m, v238, int32(0), v249, v261)",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 947912,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 18112,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 61
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v237 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1015343,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18005,
+          "current_symbol": "_Z14buf_flush_waityb",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn18103",
+            "generated": "v237 = *(*int32)(unsafe.Add(mBase, _consts[1528]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1006774,
+            "kind": "ordinary",
+            "line": 1006774,
+            "sync_atomic": "",
+            "wasm_function": 18103,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v7 = base.AtomicRmwCmpxchg32(m, l0, v3, v3, int32(2147483647))",
+              "file": "internal/generatedgo/code/p8/p8_pure.go",
+              "line": 3587,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 209,
+          "current_symbol": "__pthread_rwlock_trywrlock",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v7 = base.AtomicRmwCmpxchg32(m, l0, v3, v3, int32(2147483647))",
+            "guest_file": "code/p8/p8_pure.go",
+            "guest_line": 4371,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 209,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 62
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24088748
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v38 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1017239,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v171 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 4, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1017344,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18065,
+          "current_symbol": "_ZL10log_writerv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn18164",
+            "generated": "v224 = *(*int32)(unsafe.Add(mBase, _consts[1529]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1007705,
+            "kind": "ordinary",
+            "line": 1007705,
+            "sync_atomic": "",
+            "wasm_function": 18164,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 24142636,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24088748
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v260 = base.AtomicRmwCmpxchg32(m, v223, int32(4), v256, v256+int32(1))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1015398,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18005,
+          "current_symbol": "_Z14buf_flush_waityb",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v260 = base.AtomicRmwCmpxchg32(m, v223, int32(4), v256, v256+int32(1))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1006829,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 18103,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142636,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 63
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v37 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p6/p6_pure.go",
+              "line": 995484,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v41 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p6/p6_pure.go",
+              "line": 995512,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v54 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p6/p6_pure.go",
+              "line": 995543,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v152 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p6/p6_pure.go",
+              "line": 995828,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v156 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p6/p6_pure.go",
+              "line": 995856,
+              "width_bytes": 4
+            },
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v169 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24088744, 0, 4)))",
+              "file": "internal/generatedgo/code/p6/p6_pure.go",
+              "line": 995887,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18070,
+          "current_symbol": "_Z15log_write_up_toybPK19completion_callback",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn18169",
+            "generated": "v39 = *(*int32)(unsafe.Add(mBase, _consts[1528]))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1008524,
+            "kind": "ordinary",
+            "line": 1008524,
+            "sync_atomic": "",
+            "wasm_function": 18169,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "same relocated global / kind / width; not an exact-PC match",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24088744
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v84 = base.AtomicRmwCmpxchg32(m, v59, int32(0), v70, v82)",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1015045,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18005,
+          "current_symbol": "_Z14buf_flush_waityb",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v84 = base.AtomicRmwCmpxchg32(m, v59, int32(0), v70, v82)",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1006476,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 18103,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24142632,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 64
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v76 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v71+int32(15121448))), 0, 4)))",
+              "file": "internal/generatedgo/code/p5/p5_pure.go",
+              "line": 1022556,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18168,
+          "current_symbol": "_ZL26purge_coordinator_callbackPv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p5/p5_pure.go",
+            "function": "p5.Fn18275",
+            "generated": "v76 = *(*int32)(unsafe.Add(mBase, uint32(v71)+uint32(_consts[1660])))",
+            "guest_file": "code/p5/p5_pure.go",
+            "guest_line": 1013699,
+            "kind": "ordinary",
+            "line": 1013699,
+            "sync_atomic": "",
+            "wasm_function": 18275,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v62)), 40, 4))) = v1476 - int32(1)",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 838437,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17151,
+          "current_symbol": "_ZNK11purge_sys_t8iterator12free_historyEv",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p2/p2_pure.go",
+            "function": "p2.Fn17289",
+            "generated": "*(*int32)(unsafe.Add(mBase, uint32(v50)+uint32(_consts[999]))) = v1476 - int32(1)",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 822629,
+            "kind": "ordinary",
+            "line": 822629,
+            "sync_atomic": "",
+            "wasm_function": 17289,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 65
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v24 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v17)), 0, 4)))",
+              "file": "internal/generatedgo/code/p7/p7_pure.go",
+              "line": 912809,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17511,
+          "current_symbol": "_ZN9trx_sys_t12history_sizeEv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p7/p7_pure.go",
+            "function": "p7.Fn17315",
+            "generated": "v24 = *(*int32)(unsafe.Add(mBase, uint32(v8)+uint32(_consts[1035])))",
+            "guest_file": "code/p7/p7_pure.go",
+            "guest_line": 863903,
+            "kind": "ordinary",
+            "line": 863903,
+            "sync_atomic": "",
+            "wasm_function": 17315,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v75 = base.AtomicRmwCmpxchg32(m, v69, v71, v71, int32(2147483647))",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 836624,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17151,
+          "current_symbol": "_ZNK11purge_sys_t8iterator12free_historyEv",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v75 = base.AtomicRmwCmpxchg32(m, v69, v71, v71, int32(2147483647))",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 820817,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 17289,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 118
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v24 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v17)), 0, 4)))",
+              "file": "internal/generatedgo/code/p7/p7_pure.go",
+              "line": 912809,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17511,
+          "current_symbol": "_ZN9trx_sys_t12history_sizeEv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p7/p7_pure.go",
+            "function": "p7.Fn17315",
+            "generated": "v24 = *(*int32)(unsafe.Add(mBase, uint32(v8)+uint32(_consts[1035])))",
+            "guest_file": "code/p7/p7_pure.go",
+            "guest_line": 863903,
+            "kind": "ordinary",
+            "line": 863903,
+            "sync_atomic": "",
+            "wasm_function": 17315,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v1714 = base.AtomicRmwCmpxchg32(m, v69, int32(0), v1700, v1712)",
+              "file": "internal/generatedgo/code/p2/p2_pure.go",
+              "line": 838724,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17151,
+          "current_symbol": "_ZNK11purge_sys_t8iterator12free_historyEv",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v1714 = base.AtomicRmwCmpxchg32(m, v69, int32(0), v1700, v1712)",
+            "guest_file": "code/p2/p2_pure.go",
+            "guest_line": 822916,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 17289,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 119
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v72 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v62)), 4, 4)))",
+              "file": "internal/generatedgo/code/p7/p7_pure.go",
+              "line": 912892,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17511,
+          "current_symbol": "_ZN9trx_sys_t12history_sizeEv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p7/p7_pure.go",
+            "function": "p7.Fn17315",
+            "generated": "v72 = *(*int32)(unsafe.Add(mBase, uint32(v55)+uint32(_consts[1036])))",
+            "guest_file": "code/p7/p7_pure.go",
+            "guest_line": 863986,
+            "kind": "ordinary",
+            "line": 863986,
+            "sync_atomic": "",
+            "wasm_function": 17315,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v126 = base.AtomicRmwCmpxchg32(m, l0, int32(4), v122, v122+int32(1))",
+              "file": "internal/generatedgo/code/p7/p7_pure.go",
+              "line": 859301,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 16566,
+          "current_symbol": "_ZN9srw_lock_ILb1EE7wr_waitEv",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v126 = base.AtomicRmwCmpxchg32(m, l0, int32(4), v122, v122+int32(1))",
+            "guest_file": "code/p7/p7_pure.go",
+            "guest_line": 828029,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 16610,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 120
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            15209752
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v21 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209752, 0, 4)))",
+              "file": "internal/generatedgo/code/p7/p7_pure.go",
+              "line": 949453,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18131,
+          "current_symbol": "_Z29buf_page_make_young_if_neededP10buf_page_t",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p7/p7_pure.go",
+            "function": "p7.Fn18240",
+            "generated": "v21 = *(*int32)(unsafe.Add(mBase, _consts[1228]))",
+            "guest_file": "code/p7/p7_pure.go",
+            "guest_line": 921809,
+            "kind": "ordinary",
+            "line": 921809,
+            "sync_atomic": "",
+            "wasm_function": 18240,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 15276440,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            15209752
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15209752, 0, 4))) = v34 + int32(1)",
+              "file": "internal/generatedgo/code/p4/p4_pure.go",
+              "line": 1032689,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18133,
+          "current_symbol": "_ZL27buf_LRU_block_remove_hashedP10buf_page_t9page_id_tRN10buf_pool_t10hash_chainEb",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18242",
+            "generated": "*(*int32)(unsafe.Add(mBase, _consts[1231])) = v34 + int32(1)",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1045329,
+            "kind": "ordinary",
+            "line": 1045329,
+            "sync_atomic": "",
+            "wasm_function": 18242,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 15276440,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 121
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v24 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 192, 4)))",
+              "file": "internal/generatedgo/code/p7/p7_pure.go",
+              "line": 949457,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18131,
+          "current_symbol": "_Z29buf_page_make_young_if_neededP10buf_page_t",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p7/p7_pure.go",
+            "function": "p7.Fn18240",
+            "generated": "v24 = *(*int32)(unsafe.Add(mBase, uint32(l0)+192))",
+            "guest_file": "code/p7/p7_pure.go",
+            "guest_line": 921813,
+            "kind": "ordinary",
+            "line": 921813,
+            "sync_atomic": "",
+            "wasm_function": 18240,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-write",
+              "expression": "*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v132)), 192, 4))) = v137 & int32(-2)",
+              "file": "internal/generatedgo/code/p4/p4_pure.go",
+              "line": 1032294,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18130,
+          "current_symbol": "_ZL20buf_LRU_remove_blockP10buf_page_t",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/p4/p4_pure.go",
+            "function": "p4.Fn18239",
+            "generated": "*(*int32)(unsafe.Add(mBase, uint32(v132)+192)) = v137 & int32(-2)",
+            "guest_file": "code/p4/p4_pure.go",
+            "guest_line": 1044934,
+            "kind": "ordinary",
+            "line": 1044934,
+            "sync_atomic": "",
+            "wasm_function": 18239,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.store (36)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": null,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 122
+    },
+    {
+      "endpoints": [
+        {
+          "candidate_current_globals": [
+            24020736
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "ordinary-read",
+              "expression": "v14 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 24020736, 0, 4)))",
+              "file": "internal/generatedgo/code/p8/p8_pure.go",
+              "line": 347569,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 18171,
+          "current_symbol": "_ZL25purge_truncation_callbackPv",
+          "historical_endpoint": {
+            "access": "read",
+            "file": "code/p8/p8_pure.go",
+            "function": "p8.Fn18278",
+            "generated": "v14 = *(*int32)(unsafe.Add(mBase, _consts[1288]))",
+            "guest_file": "code/p8/p8_pure.go",
+            "guest_line": 462839,
+            "kind": "ordinary",
+            "line": 462839,
+            "sync_atomic": "",
+            "wasm_function": 18278,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.load (28)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24091264,
+          "status": "STATIC CANDIDATES"
+        },
+        {
+          "candidate_current_globals": [
+            24020736
+          ],
+          "current_candidates": [
+            {
+              "access_kind": "atomic-cmpxchg",
+              "expression": "v188 = base.AtomicRmwCmpxchg32(m, v163, int32(0), v174, v186)",
+              "file": "internal/generatedgo/code/p1/p1_pure.go",
+              "line": 784313,
+              "width_bytes": 4
+            }
+          ],
+          "current_function": 17161,
+          "current_symbol": "_Z9trx_purgeP5trx_tmm",
+          "historical_endpoint": {
+            "access": "write",
+            "file": "code/base/base.go",
+            "function": "base.AtomicRmwCmpxchg32",
+            "generated": "v188 = base.AtomicRmwCmpxchg32(m, v163, int32(0), v174, v186)",
+            "guest_file": "code/p1/p1_pure.go",
+            "guest_line": 806891,
+            "kind": "atomic",
+            "line": 1836,
+            "sync_atomic": "CompareAndSwapUint32",
+            "wasm_function": 17299,
+            "wasm_mapping_confidence": "instruction class / lowering path; exact body PC not generally recovered",
+            "wasm_operation": "i32.atomic.rmw.cmpxchg (fe48)"
+          },
+          "historical_width_bytes": 4,
+          "method": "expression-template candidate",
+          "old_constant_global": 24091264,
+          "status": "STATIC CANDIDATES"
+        }
+      ],
+      "historical_group": "other scalar shared state",
+      "historical_signature_id": 140
+    }
+  ],
+  "relocations": {
+    "15169216": [
+      15104960
+    ],
+    "15275788": [
+      15209100
+    ],
+    "15275844": [
+      15209156
+    ],
+    "15275852": [
+      15209164
+    ],
+    "15275900": [
+      15209212
+    ],
+    "15276296": [
+      15209608
+    ],
+    "15276304": [
+      15209616
+    ],
+    "15276308": [
+      15209620
+    ],
+    "15276392": [
+      15209704
+    ],
+    "15276400": [
+      15209712
+    ],
+    "15276404": [
+      15209716
+    ],
+    "15276440": [
+      15209752
+    ],
+    "15276532": [
+      15209844
+    ],
+    "15276540": [
+      15209852
+    ],
+    "15276544": [
+      15209856
+    ],
+    "15276548": [
+      15209860
+    ],
+    "15276552": [
+      15209864
+    ],
+    "15276556": [
+      15209868
+    ],
+    "15276560": [
+      15209872
+    ],
+    "15276564": [
+      15209876
+    ],
+    "15276568": [
+      15209880
+    ],
+    "15276572": [
+      15209884
+    ],
+    "15276576": [
+      15209888
+    ],
+    "15276580": [
+      15209892
+    ],
+    "15312664": [
+      15244248
+    ],
+    "24089112": [
+      24021120
+    ],
+    "24089120": [
+      24021128
+    ],
+    "24089252": [
+      24021260
+    ],
+    "24089256": [
+      24021264
+    ],
+    "24089260": [
+      24021268
+    ],
+    "24091264": [
+      24020736
+    ],
+    "24091268": [
+      24020740
+    ],
+    "24091296": [
+      24020768
+    ],
+    "24091304": [
+      24020776
+    ],
+    "24091312": [
+      24020784
+    ],
+    "24091316": [
+      24020788
+    ],
+    "24091320": [
+      24020792
+    ],
+    "24091328": [
+      24020800
+    ],
+    "24091588": [
+      24021060
+    ],
+    "24122936": [
+      24051432
+    ],
+    "24122943": [
+      24051439
+    ],
+    "24122948": [
+      24051444
+    ],
+    "24129016": [
+      24075112
+    ],
+    "24129024": [
+      24075120
+    ],
+    "24142632": [
+      24088744
+    ],
+    "24142636": [
+      24088748
+    ],
+    "24142664": [
+      24088932
+    ],
+    "24142920": [
+      24089032
+    ],
+    "24142936": [
+      24089048
+    ],
+    "24144540": [
+      24090652
+    ],
+    "24144560": [
+      24090672
+    ],
+    "24144564": [
+      24090676
+    ],
+    "24144568": [
+      24090680
+    ],
+    "24144624": [
+      24090736
+    ],
+    "24144628": [
+      24090740
+    ],
+    "24144636": [
+      24090748
+    ],
+    "24144708": [
+      24090820
+    ],
+    "24268304": [
+      24214416
+    ],
+    "24269252": [
+      24215364
+    ],
+    "24269344": [
+      24215456
+    ],
+    "24269476": [
+      24215588
+    ],
+    "8953184": [
+      8950768
+    ]
+  },
+  "summary": {
+    "endpoints": {
+      "STATIC CANDIDATES": 72
+    },
+    "functions": 21,
+    "signatures": 36,
+    "template_equal_functions": 11
+  },
+  "symbol_map_sha256": "9072658996738894b86effc9b60911db92b413d35cb3c7863f3851666bb645b6"
+}

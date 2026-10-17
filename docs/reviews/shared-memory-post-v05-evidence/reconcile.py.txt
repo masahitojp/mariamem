@@ -1,0 +1,243 @@
+#!/usr/bin/env python3
+"""Static evidence only: reconcile 36 historical signatures with a fixed guest.
+
+Address-erasing templates generate candidates, never prove aliasing/semantics.
+No generated source is written and no guest or compiler is executed.
+"""
+import argparse
+from collections import Counter, defaultdict
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+
+OLD = 'a427b83078071e4cee5d6aebe16d0ee55fb73041'
+CURRENT = '47f297cc7498625e076abb93322eb616c9560bb8'
+PAIRS = {209: 209, 16609: 16565, 16610: 16566, 16719: 16729,
+         17012: 16686, 17161: 16950, 17289: 17151, 17299: 17161,
+         17315: 17511, 18097: 17999, 18103: 18005, 18108: 18010,
+         18112: 18014, 18164: 18065, 18169: 18070, 18236: 18127,
+         18239: 18130, 18240: 18131, 18242: 18133, 18275: 18168,
+         18278: 18171}
+GROUPS = {'other scalar shared state': 34, 'wide-memory overlap': 2}
+
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def git(root, *args):
+    return subprocess.check_output(['git', '-C', str(root), *args])
+
+
+def arguments(text, start):
+    depth, last, pos, out = 1, start, start, []
+    while depth:
+        char = text[pos]
+        if char == '(':
+            depth += 1
+        elif char == ')':
+            depth -= 1
+        elif char == ',' and depth == 1:
+            out.append(text[last:pos].strip())
+            last = pos + 1
+        pos += 1
+    out.append(text[last:pos - 1].strip())
+    return out, pos
+
+
+def constants(text):
+    found = re.search(r'var _consts = \[\d+\]uintptr\{([^}]+)\}', text)
+    return list(map(int, found[1].split(','))) if found else []
+
+
+def normalize(text, consts):
+    text = re.sub(r'_consts\[(\d+)\]', lambda m: str(consts[int(m[1])]), text)
+    pieces, start = [], 0
+    while True:
+        at = text.find('unsafe.Add(mBase,', start)
+        if at < 0:
+            pieces.append(text[start:])
+            break
+        _, end = arguments(text, at + len('unsafe.Add('))
+        pieces.extend([text[start:at], 'unsafe.Add(mBase,MEMADDR)'])
+        start = end
+    text = ''.join(pieces)
+    text = re.sub(r'\b(?:p\d+\.)?Fn\d+\b', 'Fn', text)
+    text = re.sub(r'(?<![\w-])\d{7,}(?!\w)',
+                  lambda m: 'RELOC' if 1000000 <= int(m[0]) < 2**26 else m[0], text)
+    text = re.sub(r'Simd_p_fx\d+', 'Simd_p_fx', text)
+    return re.sub(r'\s+', '', text)
+
+
+def functions(root, ref, needed):
+    out = {}
+    paths = git(root, 'ls-tree', '-r', '--name-only', ref,
+                'internal/generatedgo/code').decode().splitlines()
+    for name in sorted(p for p in paths if re.search(r'/p\d+/p\d+_pure.go$', p)):
+        text = git(root, 'show', ref + ':' + name).decode()
+        package = Path(name).parent.name
+        consts = constants(git(root, 'show', ref + ':' +
+                               str(Path(name).with_name(package + '.go'))).decode())
+        for found in re.finditer(r'(?ms)^func Fn(\d+)\(.*?^}\n', text):
+            number = int(found[1])
+            if number not in needed:
+                continue
+            body = found[0]
+            out[number] = {'file': name, 'line': text.count('\n', 0, found.start()) + 1,
+                           'body': body, 'body_sha256': sha(body.encode()),
+                           'file_sha256': sha(text.encode()), 'constants': consts}
+    assert set(out) == set(needed)
+    return out
+
+
+def plain_global(text, consts):
+    old = re.search(r'unsafe.Add\(mBase, _consts\[(\d+)\]\)', text)
+    if old:
+        return consts[int(old[1])]
+    new = re.search(r'base.MemoryEA\(m, (\d+), (\d+), (\d+)\)', text)
+    return int(new[1]) + int(new[2]) if new else None
+
+
+def address(text, row):
+    value = plain_global(text, row['constants'])
+    if value is not None:
+        return value
+    marker = 'base.AtomicRmwCmpxchg32('
+    if marker not in text:
+        return None
+    args, _ = arguments(text, text.index(marker) + len(marker))
+    base, offset = args[1:3]
+    literal = re.fullmatch(r'int32\((\d+)\)', base)
+    if not literal:
+        definitions = re.findall(r'(?m)^\s*' + re.escape(base) +
+                                 r'\s*=\s*(.+)$', row['body'])
+        if len(definitions) != 1:
+            return None
+        literal = re.fullmatch(r'int32\((\d+)\)', definitions[0])
+    off = re.fullmatch(r'int32\((\d+)\)', offset)
+    return int(literal[1]) + int(off[1]) if literal and off else None
+
+
+def width(text):
+    for kind, size in [('int64', 8), ('uint64', 8), ('int32', 4), ('uint32', 4),
+                       ('uint16', 2), ('uint8', 1)]:
+        if '(*' + kind + ')' in text:
+            return size
+    if 'AtomicRmwCmpxchg32' in text:
+        return 4
+    if 'Simd_p_' in text:
+        return 16
+    return None
+
+
+def access(text):
+    if 'AtomicRmwCmpxchg32' in text:
+        return 'atomic-cmpxchg'
+    if text.lstrip().startswith('*(*'):
+        return 'ordinary-write'
+    if 'unsafe.Add' in text:
+        return 'ordinary-read'
+    return 'SIMD-helper'
+
+
+def reconcile(root, symbol_map):
+    for ref in (OLD, CURRENT):
+        assert git(root, 'cat-file', '-t', ref).strip() == b'commit'
+    raw = git(root, 'show', CURRENT + ':benchmarks/direct-link-race-scope.json')
+    census = json.loads(raw)
+    records = [r for r in census['records'] if r['diagnostic_category'] in GROUPS]
+    assert dict(Counter(r['diagnostic_category'] for r in records)) == GROUPS
+    assert {e['wasm_function'] for r in records for e in r['endpoints']} == set(PAIRS)
+    license_record = json.loads(git(root, 'show', CURRENT + ':release/generated-license-evidence.json'))
+    symbol_bytes = symbol_map.read_bytes()
+    assert sha(symbol_bytes) == license_record['symbol_map_sha256']
+    names = {int(i): name for i, name in
+             (line.split(':', 1) for line in symbol_bytes.decode().splitlines())}
+    old = functions(root, OLD, PAIRS)
+    current = functions(root, CURRENT, PAIRS.values())
+    bindings, relocations = {}, defaultdict(set)
+    line_indexes = {}
+    for before, after in PAIRS.items():
+        a, b = old[before], current[after]
+        a_norm = normalize(a['body'], a['constants'])
+        b_norm = normalize(b['body'], b['constants'])
+        same_template = a_norm == b_norm
+        binding = {'old_function': before, 'current_function': after,
+                   'current_symbol': names[after],
+                   'address_erased_template_equal': same_template,
+                   'binding_status': 'structural correspondence' if same_template else
+                   'source-role correspondence; body changed; not an exact-PC map'}
+        for label, row in [('old', a), ('current', b)]:
+            binding[label] = {k: row[k] for k in ('file', 'line', 'body_sha256', 'file_sha256')}
+            binding[label]['signature'] = row['body'].splitlines()[0]
+        bindings[before] = binding
+        index = defaultdict(list)
+        for i, text in enumerate(b['body'].splitlines()):
+            index[normalize(text, b['constants'])].append((b['line'] + i, text.strip()))
+        line_indexes[before] = index
+        # Manually reviewed extra anchor: buf_flush_wait differs only by an
+        # inserted scalar read/declaration in the address-erased body. It is
+        # not included in the template-equal count or treated as equal code.
+        if same_template or before == 18103:
+            for text in a['body'].splitlines():
+                addr = plain_global(text, a['constants'])
+                if addr is not None:
+                    matches = index[normalize(text, a['constants'])]
+                    dest = {plain_global(t, b['constants']) for _, t in matches}
+                    if len(dest) == 1 and None not in dest:
+                        relocations[addr].update(dest)
+    rows = []
+    for record in records:
+        endpoints = []
+        for endpoint in record['endpoints']:
+            before = endpoint['wasm_function']
+            a, b = old[before], current[PAIRS[before]]
+            expression = endpoint['generated']
+            assert a['body'].splitlines()[endpoint['guest_line'] - a['line']].strip() == expression
+            matches = line_indexes[before].get(normalize(expression, a['constants']), [])
+            old_address = address(expression, a)
+            addresses = relocations.get(old_address, set())
+            if addresses:
+                matches = [(n, t) for n, t in matches if address(t, b) in addresses]
+            method = 'expression-template candidate'
+            if not matches and len(addresses) == 1:
+                method = 'same relocated global / kind / width; not an exact-PC match'
+                matches = [(b['line'] + i, text.strip()) for i, text in enumerate(b['body'].splitlines())
+                           if address(text, b) in addresses and
+                           width(text) == width(expression) and access(text) == access(expression)]
+            endpoints.append({'historical_endpoint': endpoint,
+                              'current_function': PAIRS[before],
+                              'current_symbol': names[PAIRS[before]],
+                              'method': method, 'old_constant_global': old_address,
+                              'candidate_current_globals': sorted(addresses),
+                              'historical_width_bytes': width(expression),
+                              'current_candidates': [{'file': b['file'], 'line': n,
+                                                      'expression': t, 'width_bytes': width(t),
+                                                      'access_kind': access(t)} for n, t in matches],
+                              'status': 'STATIC CANDIDATES' if matches else 'UNRESOLVED STATEMENT'})
+        rows.append({'historical_signature_id': record['id'],
+                     'historical_group': record['diagnostic_category'], 'endpoints': endpoints})
+    return {'contract': 'static correspondence, not alias/ordering/execution proof',
+            'old_source_commit': OLD, 'current_source_commit': CURRENT,
+            'current_guest_sha256': license_record['guest_sha256'],
+            'census_sha256': sha(raw), 'symbol_map_sha256': sha(symbol_bytes),
+            'groups': GROUPS, 'function_bindings': list(bindings.values()),
+            'relocations': {str(a): sorted(b) for a, b in sorted(relocations.items())},
+            'records': rows,
+            'summary': {'signatures': len(rows), 'functions': len(bindings),
+                        'template_equal_functions': sum(b['address_erased_template_equal'] for b in bindings.values()),
+                        'endpoints': dict(Counter(e['status'] for r in rows for e in r['endpoints']))},
+            'execution': 'NOT RUN', 'general_shared_memory_correctness': 'NOT ESTABLISHED'}
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--root', type=Path, default=Path.cwd())
+    parser.add_argument('--symbol-map', type=Path, required=True)
+    parser.add_argument('--output', type=Path, required=True)
+    args = parser.parse_args()
+    result = reconcile(args.root, args.symbol_map)
+    args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + '\n')
+    print(json.dumps(result['summary'], sort_keys=True))
