@@ -54,3 +54,13 @@ native以外の環境ではclone／build前に停止し、未完了のfailure記
 
 CI提出後はrun URLとharness SHAをHumanへ引き渡し、監視・pollを行わず停止する。
 結果が返された時点でartifactの入力・完了receipt・全試行と集計を照合してレビューする。
+
+## 初回提出の定義エラー
+
+[run 39036053275](https://github.com/masahitojp/mariamem/actions/runs/39036053275)
+（harness `3755a004df6115f179b8af190d3ff58e46277b49`）はjob未作成の定義エラーで終了した。
+計測実行や機能oracleの失敗としては数えない。YAML自体のparseでは検出できなかったが、
+job-level `env`に許されない`runner.temp` contextを使っていた。
+[公式context表](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability)
+と照合し、runner上のstepで`RUNNER_TEMP`から`GITHUB_ENV`へ設定する形に修正した。
+測定入力・scope・harness本体・失敗oracleは変更せず、新しいSHAで再提出する。

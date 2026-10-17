@@ -15,8 +15,9 @@ jobs:
     env:
       GOTOOLCHAIN: local
       PYTHONDONTWRITEBYTECODE: '1'
-      PERFORMANCE: ${{ runner.temp }}/ubuntu-product-performance
     steps:
+      - name: Set owned workspace on the runner
+        run: echo "PERFORMANCE=$RUNNER_TEMP/ubuntu-product-performance" >> "$GITHUB_ENV"
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           fetch-depth: 0
