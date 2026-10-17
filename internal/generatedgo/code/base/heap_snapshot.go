@@ -2,8 +2,6 @@ package base
 
 import (
 	"context"
-	"crypto/sha256"
-	"encoding/hex"
 	"errors"
 	"io"
 	"os"
@@ -33,7 +31,6 @@ func (fs *MemFS) freezeHeap(build string, beforeVerify func(*prepared.Heap) (*pr
 	}
 	dirs := []string{}
 	files := map[string]*prepared.HeapFile{}
-	buf := make([]byte, prepared.BlockSize)
 	var walk func(*memNode, string) error
 	walk = func(n *memNode, name string) error {
 		if n.dir {
@@ -51,42 +48,18 @@ func (fs *MemFS) freezeHeap(build string, beforeVerify func(*prepared.Heap) (*pr
 			return nil
 		}
 		d := n.blocks
-		if d == nil || d.sealed {
+		if d == nil || d.file.Sealed() {
 			return nilStorageError()
 		}
-		d.sealed = true
-		blocks := make([]prepared.Block, d.size/prepared.BlockSize+min(d.size%prepared.BlockSize, 1))
-		sum := sha256.New()
-		for off := int64(0); off < d.size; off += prepared.BlockSize {
-			count := min(int64(len(buf)), d.size-off)
-			if _, e := d.readAt(buf[:count], off); e != nil {
-				return e
-			}
-			sum.Write(buf[:count])
-			i := off / prepared.BlockSize
-			if b := d.dirty[i]; b != nil {
-				blocks[i], e = prepared.TakeBlock(b, int(count))
-			} else if off < d.inheritedLimit && d.base != nil {
-				b := make([]byte, prepared.BlockSize)
-				d.original(b, off)
-				blocks[i], e = prepared.TakeBlock(b, int(count))
-			} else if off < d.inheritedLimit && i < int64(len(d.inherited)) {
-				blocks[i] = d.inherited[i].Limit(int(min(count, d.inheritedLimit-off)))
-			}
-			if e != nil {
-				return e
-			}
+		frozen, e := d.file.Seal()
+		if e != nil {
+			return e
 		}
-		f, e := prepared.NewHeapFile(d.size, blocks, hex.EncodeToString(sum.Sum(nil)))
+		f, e := frozen.LegacyFile()
 		if e != nil {
 			return e
 		}
 		files[name] = f
-		// The original FS retains read-only descriptors only; no dirty block writer.
-		d.dirty = nil
-		d.base = nil
-		d.inherited = f.Blocks()
-		d.inheritedLimit = d.size
 		return nil
 	}
 	if e = walk(root, "."); e != nil {
@@ -136,9 +109,11 @@ func mapHeap(fs *MemFS, h *prepared.Heap, prefix string) (*PreparedFiles, error)
 		fs.mu.Lock()
 		node, e := fs.lookup(dst)
 		if e == nil {
-			node.blocks.size = f.Size()
-			node.blocks.inheritedLimit = f.Size()
-			node.blocks.inherited = f.Blocks()
+			var store *prepared.FileStore
+			store, e = prepared.StoreFromHeap(fs.rootSource, f)
+			if e == nil {
+				node.blocks = &blockStorage{file: store}
+			}
 		}
 		fs.mu.Unlock()
 		if e != nil {
@@ -150,3 +125,83 @@ func mapHeap(fs *MemFS, h *prepared.Heap, prefix string) (*PreparedFiles, error)
 
 // Keep io.ReaderAt's end semantics visible to the storage reference tests.
 var _ io.ReaderAt = (*prepared.HeapFile)(nil)
+
+// FreezeRoot runs after joined guest completion, under the same namespace lock as every mutation.
+func (fs *MemFS) FreezeRoot(build string, capture *prepared.Capture) error {
+	ctx, finish := timing.Begin(context.Background(), "snapshot_freeze")
+	defer finish()
+	fs.mu.Lock()
+	defer fs.mu.Unlock()
+	node, e := fs.lookup("mariadb")
+	if e != nil {
+		return e
+	}
+	dirs := []string{}
+	files := map[string]*prepared.FrozenFile{}
+	var walk func(*memNode, string) error
+	walk = func(n *memNode, name string) error {
+		if n.dir {
+			dirs = append(dirs, name)
+			names := make([]string, 0, len(n.children))
+			for k := range n.children {
+				names = append(names, k)
+			}
+			sort.Strings(names)
+			for _, k := range names {
+				if e := walk(n.children[k], path.Join(name, k)); e != nil {
+					return e
+				}
+			}
+			return nil
+		}
+		if n.blocks == nil {
+			return nilStorageError()
+		}
+		f, e := n.blocks.file.Seal()
+		if e != nil {
+			return e
+		}
+		files[name] = f
+		return nil
+	}
+	if e = walk(node, "."); e != nil {
+		return e
+	}
+	timing.Mark(ctx, "root_files_sealed")
+	e = capture.CompleteRoot(fs.rootSource, build, dirs, files)
+	timing.Mark(ctx, "root_capture_completed")
+	return e
+}
+func mapRoot(fs *MemFS, r *prepared.Root, prefix string) (*PreparedFiles, error) {
+	if !fs.blockStorage {
+		return nil, errors.New("root requires block storage")
+	}
+	if e := r.Check(r.Build()); e != nil {
+		return nil, e
+	}
+	for _, n := range r.Dirs() {
+		if e := fs.MkdirAll(path.Join(prefix, n), 0700); e != nil {
+			return nil, e
+		}
+	}
+	for _, n := range r.Names() {
+		dst := path.Join(prefix, n)
+		fd, e := fs.OpenFile(dst, os.O_CREATE|os.O_EXCL|os.O_RDWR, 0600)
+		if e != nil {
+			return nil, e
+		}
+		if e = fd.Close(); e != nil {
+			return nil, e
+		}
+		fs.mu.Lock()
+		node, e := fs.lookup(dst)
+		if e == nil {
+			node.blocks = &blockStorage{file: r.File(n).Fork(fs.rootSource)}
+		}
+		fs.mu.Unlock()
+		if e != nil {
+			return nil, e
+		}
+	}
+	return &PreparedFiles{}, nil
+}

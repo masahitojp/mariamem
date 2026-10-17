@@ -14,7 +14,8 @@ type SnapshotOptions struct {
 	Rollback bool
 }
 
-// Snapshot owns a fixed, verified baseline. Child writes never update it. Do not copy.
+// Snapshot owns a fixed baseline with private backing. Child writes never update it.
+// Do not copy.
 type Snapshot struct {
 	mu       sync.RWMutex
 	backing  *stored.Owned
@@ -25,7 +26,8 @@ type Snapshot struct {
 
 // Snapshot consumes the DB on success, or on failure after host acceptance.
 // It forwards ctx unchanged: no default snapshot timeout is imposed. The existing
-// copy/hash phase is not context-interruptible. Precondition rejection leaves DB alive.
+// sealing phase is not context-interruptible; borrowed mappings also require
+// copying and validation. Precondition rejection leaves DB alive.
 func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapshot, error) {
 	ctx, finishTiming := timing.Begin(ctx, "public_snapshot")
 	defer finishTiming()

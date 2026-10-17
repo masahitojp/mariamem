@@ -18,10 +18,12 @@ import (
 	"github.com/masahitojp/mariamem/internal/prepared"
 )
 
-// Owned pins a completely verified template. No path is used after acquisition.
-// Later media corruption is not rehashed at Fork. Not a same-UID security boundary.
+// Owned pins a sealed heap root or a strictly verified imported template.
+// No path is used after acquisition; Fork checks structure and lifetime, not
+// arbitrary private-byte corruption. Not a same-UID security boundary.
 type Owned struct {
 	heap     *prepared.Heap
+	root     *prepared.Root
 	mu       sync.RWMutex
 	manifest Manifest
 	entries  []prepared.Entry
@@ -281,6 +283,12 @@ func (o *Owned) Acquire(build string) ([]prepared.Entry, func(), error) {
 	if o.closed {
 		return fail(errors.New("snapshot is closed"))
 	}
+	if o.root != nil {
+		if e := o.root.Check(build); e != nil {
+			return fail(e)
+		}
+		return []prepared.Entry{{Root: o.root}}, o.mu.RUnlock, nil
+	}
 	if o.heap != nil {
 		if e := o.heap.Check(build); e != nil {
 			return fail(e)
@@ -319,6 +327,7 @@ func (o *Owned) Close() error {
 	}
 	o.closed = true
 	o.heap = nil
+	o.root = nil
 	for _, f := range o.files {
 		o.closeErr = errors.Join(o.closeErr, f.Close())
 	}

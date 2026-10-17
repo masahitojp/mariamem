@@ -14,6 +14,9 @@ import (
 func (o *Owned) Handoff(destination, build string) (err error) {
 	o.mu.RLock()
 	defer o.mu.RUnlock()
+	if !o.closed && o.root != nil {
+		return o.handoffRoot(destination, build)
+	}
 	if o.closed || o.heap == nil {
 		return errors.New("handoff requires a live heap baseline")
 	}

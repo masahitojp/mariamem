@@ -2,7 +2,9 @@
 
 Status: maintainer-approved product contract, updated for D block storage and
 Python shared-host main adoption on 2026-10-17. Release approval remains separate.
-This contract describes adopted main. Published v0.5.0 retains the earlier
+The ownership update below was approved for productization on 2026-10-17;
+main integration and release remain separate Human decisions. The earlier D/shared-host
+contract is already adopted on main. Published v0.5.0 retains the earlier
 file-backed/save-load contract; see [version differences](../changes-since-v050.md).
 
 ## Product boundary
@@ -42,20 +44,33 @@ workers do not share a process. Go uses its caller's process as before.
 
 ## Integrity follows ownership
 
-Acquisition completely verifies prepared inventory, content and guest identity.
-mariamem owns the exact verified backing; supported operations never mutate it.
-Fork uses that same resource with cheap structural/lifetime/compatibility checks,
-without recomputing full content hashes.
+A successful ordinary heap Snapshot fixes the source's content after guest workers
+have stopped, seals that same backing, and prevents subsequent changes through
+normal APIs. Capture is bound to the source before execution. Acquisition checks
+the source/guest identity, completed capture, inventory, layout and seal state;
+it does not reconstruct or rescan the file contents. Fork creates independent
+metadata and copies inherited blocks before writing. Parent and sibling content
+remains unchanged; children retain their own lifetime after baseline Close.
 
-No public external import remains. An explicit different development host binary
-may use a private temporary handoff; that boundary still independently copies and
-verifies expected inventory/hashes and guest identity before ownership. It does
-not expose a user-managed baseline artifact.
+The heap ownership path does not promise post hoc detection, by a full content
+scan, of faults that directly alter private process-memory bytes. This detection
+boundary was explicitly accepted for productization; it is not a relaxation of
+normal API isolation or permission to treat a failed strict oracle as success.
+The development review retains the difference from the earlier acquire-time
+content-hash check. Private memory faults are not a public user operation.
 
-The contract explicitly does not promise detection on every Fork of silent
-media corruption arising after acquisition. It is not an adversarial same-user
-security boundary. Reducing repeated verification is supported by exact resource
-ownership, not a path name, timestamp or cached boolean.
+An explicit different development host binary may use a private temporary
+handoff. This serialization/copy boundary still independently verifies expected
+inventory, content hashes and guest identity before ownership. A borrowed file
+mapping is materialized into owned heap blocks before it can escape its source
+instance, with source/target content validation. Strict digest-bearing Heap
+imports retain their checks and detach mutable producer aliases. No public
+external import or user-managed baseline artifact is introduced.
+
+Reducing rereads follows from the same sealed resource and its lifetime, not a
+path name, timestamp or cached boolean. Fork does not rescan every byte or promise
+detection of later arbitrary corruption. This is not an adversarial same-user
+security boundary.
 
 ## pytest boundary
 
@@ -77,3 +92,9 @@ intentional API removal; the earlier reports preserve that historical contract.
 The maintainer accepted main adoption after bounded validation on both native
 platforms. Final release validation and release approval remain separate.
 See the [adoption decision and evidence](../reviews/d-heap-shared-host.md).
+
+The Human approved the ownership boundary above and the minimal FileStore/Root/
+capture-binding implementation, adapters and ownership oracles on 2026-10-17.
+See [productization status](../reviews/snapshot-owned-root-productization.md).
+This approval permits implementation and verification; it does not approve main
+integration or a release.

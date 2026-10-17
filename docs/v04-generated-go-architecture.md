@@ -81,9 +81,14 @@ Writes cannot change a parent or sibling. A changed child can become a new
 baseline while its parent remains unchanged.
 
 Fork uses cheap structure/lifetime/guest checks on owned backing rather than
-rehashing all content. Acquisition validates the exact resource used by children;
-it is not an every-Fork detector for later silent corruption or an adversarial
-same-user security boundary.
+rehashing all content. Ordinary capture binds the source before execution, joins
+workers, seals the same FileStore backing and validates root identity/state/layout.
+It does not rebuild or rescan payload for acquisition. It is not a detector for
+arbitrary changes to private memory bytes. Strict Heap imports and private
+transfer receivers still copy/verify content; borrowed mappings detach and compare
+source/target before leaving their instance. See the approved
+[ownership contract](decisions/snapshot-product-contract.md). This productization
+branch is pending separate main integration and release decisions.
 
 An explicit different development host binary is an exception to the shared
 host route. `internal/snapshot/handoff.go` materializes a private temporary

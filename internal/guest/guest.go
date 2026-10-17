@@ -365,3 +365,5 @@ func (p *Process) RequestCapture()             { p.capture.Request() }
 func (p *Process) TakeCapture() *prepared.Heap { return p.capture.TakeResult() }
 
 func (p *Process) DiscardCapture() { p.capture.Discard() }
+
+func (p *Process) TakeRoot(build string) (*prepared.Root, error) { return p.capture.TakeRoot(build) }

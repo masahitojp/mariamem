@@ -71,6 +71,29 @@ SHA above; the maintainer subsequently approved v0.5.1 preparation. Its final
 source/artifacts must pass the existing release workflow. The earlier
 v0.5.0 preparation history below does not qualify later main commits.
 
+## Approved ownership productization — not yet integrated
+
+On 2026-10-17 the maintainer explicitly accepted the limited Snapshot ownership
+contract and authorized the minimal FileStore/Root/capture-binding implementation,
+adapters, independent byte reference/substitution/lifetime/generation tests.
+Normal API immutability, same backing, child isolation, strict Heap/transfer
+validation and mapped lifetime detachment remain required. Ordinary heap
+acquisition does not promise full-scan post hoc detection of private-byte faults.
+Main integration and release remain separate decisions; this approval changes
+neither. See the [contract](decisions/snapshot-product-contract.md) and
+[productization report](reviews/snapshot-owned-root-productization.md).
+The experiment history is not merged into this branch.
+
+**Snapshot optimization stopping point:** the observed Light Snapshot median
+fell from 204.8ms on v0.5.1 to 2.85ms on the ownership candidate in the same
+macOS comparison. No further Snapshot speed optimization is planned.
+This is an investment decision for the measured workflow, not a claim of a
+universal lower bound. Remaining Light serial time is mostly child startup/use:
+child Fork median 59.4ms (40 child observations), 4-test total median 364.0ms.
+The approximately 3.08ms diagnostic capture is from the candidate, not v0.5.1;
+measured/diagnostic cohorts are not combined. These are existing spike results,
+not new productization benchmarks or Ubuntu performance claims.
+
 ## Previous release: v0.4.7 — Upstream converter migration
 
 [v0.4.7](https://github.com/masahitojp/mariamem/releases/tag/v0.4.7) was published

@@ -37,10 +37,20 @@ func (s *Server) SnapshotHeap(ctx context.Context, rollback bool) (*snapshot.Own
 		s.Guest.DiscardCapture()
 		return nil, true, e
 	}
-	image := s.Guest.TakeCapture()
+	image, takeErr := s.Guest.TakeRoot(s.build)
+	if takeErr != nil {
+		return nil, true, takeErr
+	}
 	if image == nil {
 		return nil, true, errors.New("missing snapshot capture")
 	}
-	owned, e := snapshot.OwnHeap(image, s.build)
+
+	owned, e := snapshot.OwnRoot(image, s.build)
+	for key, v := range image.Counts() {
+		timing.Work(ctx, "root/"+key+"/read", v.Read, 0)
+		timing.Work(ctx, "root/"+key+"/copy", v.Copy, 0)
+		timing.Work(ctx, "root/"+key+"/hash", v.Hash, 0)
+		timing.Work(ctx, "root/"+key+"/zero", v.Zero, v.Metadata)
+	}
 	return owned, true, e
 }

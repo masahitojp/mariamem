@@ -265,3 +265,27 @@ def test_real_fork_racing_baseline_close_preserves_started_children():
                 child.close()
     assert session._process.poll() == 0
     assert not session.root.exists()
+
+
+def test_mapped_child_resnapshot_preserves_independent_lineage(tmp_path):
+    """A private handoff's mapping must not outlive its child via a new baseline."""
+    alternate = tmp_path / "alternate-host"
+    shutil.copy2(HOST, alternate)
+    alternate.chmod(0o755)
+    with mariamem.start(host_binary=HOST) as source:
+        sql(source, "CREATE TABLE mapped_lineage(id INT PRIMARY KEY,value INT) ENGINE=InnoDB")
+        sql(source, "INSERT INTO mapped_lineage VALUES(1,10)")
+        source.wait_disconnected()
+        with source.snapshot() as baseline:
+            with baseline.fork(host_binary=alternate) as mapped:
+                sql(mapped, "UPDATE mapped_lineage SET value=20 WHERE id=1")
+                mapped.wait_disconnected()
+                with mapped.snapshot() as derived:
+                    with derived.fork() as child:
+                        assert sql(child, "SELECT value FROM mapped_lineage WHERE id=1") == ((20,),)
+                        sql(child, "UPDATE mapped_lineage SET value=30 WHERE id=1")
+                    with derived.fork() as sibling:
+                        assert sql(sibling, "SELECT value FROM mapped_lineage WHERE id=1") == ((20,),)
+            with baseline.fork() as untouched:
+                assert sql(untouched, "SELECT value FROM mapped_lineage WHERE id=1") == ((10,),)
+            assert not list(baseline._session.root.glob("handoff-*"))
