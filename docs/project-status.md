@@ -247,6 +247,11 @@ expanding scope; no runtime repair or main adoption is inferred. The original
 32.6-second cause remains unknown. Keep the original adverse evidence; do not
 classify it as noise or promise universal Fresh acceleration.
 
+**Human decision — 2026-10-17:** close this investigation here. Revisit if a
+similar Fresh slowdown recurs in normal use or measurement, comparing it with
+the preserved evidence. No further measurement or repair starts automatically;
+the original slow trial and unassigned heap-reuse CPU remain unresolved.
+
 Current storage routing follows the adopted D/shared-host contract and
 [implementation/adoption report](reviews/d-heap-shared-host.md) above. The v0.4.x
 decision and research handoff below record earlier investigation context; their
