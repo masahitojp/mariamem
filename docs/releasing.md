@@ -1,9 +1,9 @@
 # Releasing mariamem
 
-This source prepares the human-selected `v0.5.1`; Python spelling is `0.5.1`.
-The [tracked notes](../release/NOTES-v0.5.1.md) and
+This source prepares the human-selected `v0.5.2`; Python spelling is `0.5.2`.
+The [tracked notes](../release/NOTES-v0.5.2.md) and
 [behavior/API migration](changes-since-v050.md) describe its changes.
-The maintainer authorized this version after Qualification and Product Verification;
+The maintainer authorized this version after ownership integration and Qualification;
 the release workflow must still accept the exact final-version source/artifacts.
 A normal release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
