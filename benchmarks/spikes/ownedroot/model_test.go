@@ -330,6 +330,34 @@ func TestStrictOracleAndInternalCorruptionLimit(t *testing.T) {
 	evidence(t, "internal-corruption-limit", map[string]string{"ownership_acquire": "NOT DETECTED", "strict_oracle": "REJECTED", "interpretation": "Known detection difference; not product approval"})
 }
 
+// G0 is evaluated separately: one strict content check, then an identity-bound
+// handoff without a second content check. This is a component demonstration,
+// not an implementation of the existing Heap-based production optimization.
+func TestG0VerifiedRootHandoff(t *testing.T) {
+	m := NewMeter()
+	b := New("guest", m)
+	h := open(t, b, "f")
+	must(t, h.WriteAt([]byte("original"), 0))
+	h.Close()
+	c, e := b.Request()
+	must(t, e)
+	must(t, b.Freeze(c, -1))
+	probe := &Owner{r: c.result, meter: m}
+	must(t, probe.VerifyContents("guest", map[string]string{"f": digest([]byte("original"))}))
+	before := m.Snapshot()
+	probe.Close()
+	o, e := c.Acquire("guest", m)
+	must(t, e)
+	defer o.Close()
+	after := m.Snapshot()
+	if before["strict/content"].HashBytes != 8 || after["strict/content"] != before["strict/content"] {
+		t.Fatal("verification repeated or control failed")
+	}
+	assertNoCapturePayload(t, m)
+	assertBytes(t, o, "f", []byte("original"))
+	evidence(t, "G0-verified-handoff", map[string]any{"strict_hash_bytes": 8, "additional_acquisition_payload_bytes": 0, "scope": "common-root component, not production Heap"})
+}
+
 func TestFailureAbandonmentAndWeakLifetime(t *testing.T) {
 	for _, after := range []int{0, 1} {
 		b := New("guest", NewMeter())
