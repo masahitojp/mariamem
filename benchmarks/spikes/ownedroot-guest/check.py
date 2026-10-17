@@ -31,18 +31,21 @@ def clean(text,w):
     return re.sub(r'/(?:Users|home)/[^\s/]+/','<user>/',text.replace(str(ROOT),'<source>').replace(str(w/'temp'),'<temp>'))
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('stage',choices=['focused','integration','public','source','regenerate']);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--guest-dir',type=Path);a=p.parse_args();w=a.workspace.resolve();env=environment(w)
+    p=argparse.ArgumentParser();p.add_argument('stage',choices=['focused','integration','public','python','source','regenerate']);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--guest-dir',type=Path);a=p.parse_args();w=a.workspace.resolve();env=environment(w)
     identity=json.loads(subprocess.check_output([sys.executable,'scripts/git_identity.py','inspect','HEAD'],cwd=ROOT))
     assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT).strip(),'Commit exact inputs first'
     version=subprocess.check_output([str(GO),'version'],env=env,text=True).strip();assert 'go1.26.8' in version
     result={'source_commit':identity['source_commit'],'stage':a.stage,'go':version,'runs':[]}
-    if a.stage in ('focused','integration','public'):modules(env)
+    if a.stage in ('focused','integration','public','python'):modules(env)
     if a.stage=='focused':
         commands=[('modules',[str(GO),'mod','verify']),('focused',[str(GO),'test','-json','-race','-p','1','-count=1','-timeout=120s','./internal/prepared','./internal/snapshot','./internal/generatedgo/code/base'])];env['CGO_ENABLED']='1'
     elif a.stage=='integration':
         env['MARIAMEM_TEST_DEFAULT']='1';commands=[('integration',[str(GO),'test','-json','-p','1','-tags=integration','./tests/gointegration','-count=1','-timeout=240s','-run','TestPublicLifecycle|TestOwnedManyOrderParallelAndClose|TestOwnedForkCloseRace|TestOwnedModifiedChildCreatesNewBaseline'])]
     elif a.stage=='public':
         commands=[('public-api',[str(GO),'test','-json','-p','1','-count=1','./internal/guest','./internal/host','./internal/control','.'])]
+    elif a.stage=='python':
+        host=w/'temp/owned-root-host';env.update(PYTHONPATH=str(ROOT/'python'),MARIAMEM_TEST_HOST=str(host),PYTHONDONTWRITEBYTECODE='1')
+        commands=[('python-host-build',[str(GO),'build','-p','1','-trimpath','-o',str(host),'./cmd/mariamem-host']),('python-owned',[sys.executable,'-m','pytest','tests/test_owned_snapshot.py::test_modified_child_creates_new_baseline_without_changing_parent','tests/test_owned_snapshot.py::test_explicit_other_binary_uses_private_handoff','tests/test_owned_snapshot.py::test_real_fork_racing_baseline_close_preserves_started_children','-q'])]
     elif a.stage=='source':
         commands=[('source',[sys.executable,'scripts/verify_generated_runtime.py']),('source-tests',[sys.executable,'-m','pytest','tests/test_generated_runtime_inventory.py','tests/test_distribution_licenses.py','tests/test_packaging_license_mirrors.py','-q'])]
     else:
