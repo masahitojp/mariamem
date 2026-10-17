@@ -107,10 +107,11 @@ Old persisted artifacts are not inputs to this API. The library does not manage
 an automatic cache. Internal handoff for an explicitly different development
 host binary is temporary and is not a public save operation.
 
-Creation checks inventory, complete content and guest identity before owning
-the exact backing. Fork reuses owned immutable blocks and copies changed blocks
-privately. It does not fully hash content on every Fork. This preserves the
-existing distinction between acquisition validation and later reuse.
+Creation checks inventory, layout, seal state and guest/source identity while
+retaining the same backing. Ordinary heap acquisition does not perform a full
+content reread. Fork reuses the fixed blocks and copies changes privately;
+it does not fully hash content on every Fork. Internal import/transfer boundaries
+and borrowed-mapping copies retain their content validation.
 
 ## pytest fixtures
 

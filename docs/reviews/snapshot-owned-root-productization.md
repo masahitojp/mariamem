@@ -148,6 +148,7 @@ README、Go guide、Python guideに残っていた「fully verified」を、priv
 所有権・不変性による保護、通常heap取得では内容再走査をせず内部import/transferでは内容検証するという表現へ修正した。
 前の文書整合はcontract/architecture/statusまでで、この3つのcurrent usage docsを見落としていた。
 version/public-source gateは所有権の意味の整合を検査しないため、CI PASSを根拠に文書も完了とした扱いを訂正する。
+Python guide後半の「complete contentを取得時に検査する」文も同じ理由で修正した。
 今回はcurrent usage docsの文言を目視・検索で確認し、通常のdocs-scope gateは版/公開境界の確認として分ける。
 
 `internal/snapshot/heap.go`の「third complete verification」はlegacy strict入口の説明へ訂正した。
