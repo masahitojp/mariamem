@@ -512,6 +512,19 @@ separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Dogfood and fixture ergonomics
 
+**Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
+parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
+with pytest fixtures: prepare migrations/seed once per worker, acquire an
+independent DB per test, and let fixture teardown close it. Show ordinary
+pytest versus pytest-xdist (`pytest -n 4`) and explicitly state that each xdist
+worker owns its own session baseline. Separately show manual parallel Fork
+calls sharing one live baseline in one process (Python ThreadPoolExecutor /
+Go goroutines), with per-child SQL connections, errors propagated, and all
+children joined before baseline Close. Label serial versus parallel benchmark
+examples and compare elapsed time rather than overlapping operation sums.
+This is documentation of existing behavior, not new cross-worker sharing,
+automatic scheduling or a new public API. Implementation is deferred to v0.6.x.
+
 Use real consumer/workload evidence, including Django, Alembic/migrations,
 metadata-heavy and dbt-like workloads. Retain SQLAlchemy/GORM regression anchors.
 Evaluate actual preparation, per-test isolation, resource and failure costs.
