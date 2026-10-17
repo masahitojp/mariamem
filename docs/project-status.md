@@ -302,7 +302,8 @@ Product Validation; those changes are not part of v0.4.5.
 
 **In 0.5.x scope: per-DB connection-count tuning.** The current contract keeps a
 fixed 16-connection limit per DB and treated connection-count optimization as a
-separate matter. The Human decision now includes that tuning in the 0.5.x scope:
+separate matter. The Human decision of 2026-10-17 includes that tuning in the
+0.5.x scope:
 confirm actual demand and resource effect before changing the limit. This is
 distinct from the FD/resource-model pressure observation, which is assigned to
 v0.6.0 dogfood above. The current active and closed items are listed in the
