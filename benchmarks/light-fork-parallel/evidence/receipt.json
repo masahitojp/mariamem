@@ -1,0 +1,187 @@
+{
+  "completed": true,
+  "source_identity": {
+    "object_sha": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+    "object_type": "commit",
+    "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb"
+  },
+  "tag_object_sha": "089b32e09608902f6d46e7ab9527d09922dcf065",
+  "go": "go1.26.8",
+  "host": "Darwin MacBookAir 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:05:27 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T8103 arm64",
+  "binary_sha256": "a3c68c984151c12a1045a75108f47301341cc7216fbe987b89ebba6411c9f3f0",
+  "binary_build_info": "<WORKSPACE>/temp/light-fork-parallel: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=7a82f338cf111d5d52538b5a3f7bf129c12e2dbb\n\tbuild\tvcs.time=2026-10-16T20:02:16Z\n\tbuild\tvcs.modified=false\n",
+  "overlays": [
+    {
+      "source": "benchmarks/ownedprepared/main.go",
+      "source_sha256": "34e2ec124cff43de7513773d954f5ed5ab79d9cf394e1cb9c38f967922c7be64",
+      "observer_sha256": "cc5c6ce25ce7f62f4cea04083652412ad8a0b17c40b338f5a062e1efa06f7f56"
+    }
+  ],
+  "runner_sha256": "56b3e2fb47d8a83b2e12d2dba19540d7d04c490757967bf7f8b81a1c5cb8e156",
+  "cells": [
+    {
+      "name": "00-workers1",
+      "trial": 0,
+      "workers": 1,
+      "result_sha256": "f40133e1a02bdb1987662241b19ab7141316f41d634dd369e66115f065483516",
+      "product_seconds": 0.5680643379999999,
+      "cpu_seconds": 0.535166
+    },
+    {
+      "name": "00-workers4",
+      "trial": 0,
+      "workers": 4,
+      "result_sha256": "5ad6e49d1c52f1d172e3d0e6197f1011849715f0acf456fa18c7f4b73159eb0f",
+      "product_seconds": 0.343145625,
+      "cpu_seconds": 0.542535
+    },
+    {
+      "name": "01-workers4",
+      "trial": 1,
+      "workers": 4,
+      "result_sha256": "aec1e13efc2eab931983bee2c7712bbc5402ed64ed668ad7580dec07876b982a",
+      "product_seconds": 0.35130062399999995,
+      "cpu_seconds": 0.5522710000000001
+    },
+    {
+      "name": "01-workers1",
+      "trial": 1,
+      "workers": 1,
+      "result_sha256": "662dca18fc6a8641386c10cb3a80823413904d86beb5c1c7c4e26c968bdf73ad",
+      "product_seconds": 0.5234319990000001,
+      "cpu_seconds": 0.5092
+    },
+    {
+      "name": "02-workers1",
+      "trial": 2,
+      "workers": 1,
+      "result_sha256": "8f950e09b592af88ae36a79cf0274836d14cd81f0422b8215d039c60897c5d80",
+      "product_seconds": 0.5235505809999998,
+      "cpu_seconds": 0.505855
+    },
+    {
+      "name": "02-workers4",
+      "trial": 2,
+      "workers": 4,
+      "result_sha256": "03199719378ae89f112e64385ba56715b9551ee66d6e94dc0b847c352ff41c4f",
+      "product_seconds": 0.371525249,
+      "cpu_seconds": 0.613164
+    },
+    {
+      "name": "03-workers4",
+      "trial": 3,
+      "workers": 4,
+      "result_sha256": "d410b70bcd40c9605fa5f7813e19c0c94d769fbc5df47a20b5adb326f42d8f29",
+      "product_seconds": 0.363731417,
+      "cpu_seconds": 0.579435
+    },
+    {
+      "name": "03-workers1",
+      "trial": 3,
+      "workers": 1,
+      "result_sha256": "9c776db4a8141c77a383313278141444e96a56dfdc2912357b49c73d775c6589",
+      "product_seconds": 0.538338127,
+      "cpu_seconds": 0.525978
+    },
+    {
+      "name": "04-workers1",
+      "trial": 4,
+      "workers": 1,
+      "result_sha256": "c5dc970f55199bd21e6b3344482cead3dfdfc36056c4a99ea091a1562a50936c",
+      "product_seconds": 0.5201239599999999,
+      "cpu_seconds": 0.49831699999999995
+    },
+    {
+      "name": "04-workers4",
+      "trial": 4,
+      "workers": 4,
+      "result_sha256": "763ee81759c2703d29f0dd095297a24112880d6cbfedf034d5c6695151539603",
+      "product_seconds": 0.376421833,
+      "cpu_seconds": 0.576474
+    },
+    {
+      "name": "05-workers4",
+      "trial": 5,
+      "workers": 4,
+      "result_sha256": "6ecb778af330205769a6ce5b27a26f7f9ff4b8926cdeef9b9c7bf5072c5bd4ba",
+      "product_seconds": 0.33840887599999997,
+      "cpu_seconds": 0.5202479999999999
+    },
+    {
+      "name": "05-workers1",
+      "trial": 5,
+      "workers": 1,
+      "result_sha256": "62e75416049815e7ad84976e931bb13c00bd25c15a59e5f1521853b89a067c64",
+      "product_seconds": 0.5218010399999999,
+      "cpu_seconds": 0.506529
+    },
+    {
+      "name": "06-workers1",
+      "trial": 6,
+      "workers": 1,
+      "result_sha256": "34bd9ea910e06f3efdc6cf175c88a29b626856f93cedd5d24285c334d77eba71",
+      "product_seconds": 0.5210775430000001,
+      "cpu_seconds": 0.502999
+    },
+    {
+      "name": "06-workers4",
+      "trial": 6,
+      "workers": 4,
+      "result_sha256": "35a3b2ce42e0c7eefac640fbbdb8a26430b8e73eab6a789b95e0d5bb80de4b41",
+      "product_seconds": 0.35401404299999994,
+      "cpu_seconds": 0.576921
+    },
+    {
+      "name": "07-workers4",
+      "trial": 7,
+      "workers": 4,
+      "result_sha256": "95a4bb7bba2eb636f52750a17dffd54c5090ccef62e4a7f718d2dbc0bda57688",
+      "product_seconds": 0.346776959,
+      "cpu_seconds": 0.558237
+    },
+    {
+      "name": "07-workers1",
+      "trial": 7,
+      "workers": 1,
+      "result_sha256": "51eef9968a69d780413d03ee5c3ced7c7fdad98253e2249c0fd49db3eadf060f",
+      "product_seconds": 0.5202825,
+      "cpu_seconds": 0.503281
+    },
+    {
+      "name": "08-workers1",
+      "trial": 8,
+      "workers": 1,
+      "result_sha256": "6f0bead62fbe7b726930c63f715d572ac3287c9f542d4ee6d8325c29824a8f8b",
+      "product_seconds": 0.523745166,
+      "cpu_seconds": 0.520823
+    },
+    {
+      "name": "08-workers4",
+      "trial": 8,
+      "workers": 4,
+      "result_sha256": "73e2ed387138cf35151f53aae7d0da52e8e78f200993cf237c8a6e40bd0c1a57",
+      "product_seconds": 0.34009229300000005,
+      "cpu_seconds": 0.523938
+    },
+    {
+      "name": "09-workers4",
+      "trial": 9,
+      "workers": 4,
+      "result_sha256": "27f6d55c71cbd478a990b907c7923960da32b9a8ab1508c59f9dc0c366fd8e98",
+      "product_seconds": 0.348214291,
+      "cpu_seconds": 0.5558970000000001
+    },
+    {
+      "name": "09-workers1",
+      "trial": 9,
+      "workers": 1,
+      "result_sha256": "0f0a7138550cb67d0b2b6539a06407f40f4695be9ac32b065db86ac455241575",
+      "product_seconds": 0.521322168,
+      "cpu_seconds": 0.505346
+    }
+  ],
+  "started": 1792198674.5233831,
+  "ended": 1792198703.903339,
+  "peak_owned_bytes": 1559629824,
+  "minimum_free_bytes": 72604172288
+}

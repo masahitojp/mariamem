@@ -1,0 +1,1554 @@
+{
+  "completed_executions": 20,
+  "DB_lifecycles": 100,
+  "cohorts": {
+    "1": {
+      "product": {
+        "n": 10,
+        "median_ms": 522.6165195000001,
+        "min_ms": 520.1239599999999,
+        "max_ms": 568.0643379999999,
+        "all_ms": [
+          568.0643379999999,
+          523.4319990000001,
+          523.5505809999999,
+          538.3381270000001,
+          520.1239599999999,
+          521.80104,
+          521.0775430000001,
+          520.2825,
+          523.745166,
+          521.3221679999999
+        ]
+      },
+      "observed": {
+        "n": 10,
+        "median_ms": 523.1318955,
+        "min_ms": 520.642917,
+        "max_ms": 568.7212499999999,
+        "all_ms": [
+          568.7212499999999,
+          523.917416,
+          524.202292,
+          538.912417,
+          520.642917,
+          522.3463750000001,
+          521.553833,
+          520.7837910000001,
+          524.2467079999999,
+          521.9957079999999
+        ]
+      },
+      "prepare": {
+        "n": 10,
+        "median_ms": 59.424437999999995,
+        "min_ms": 56.367125,
+        "max_ms": 90.025209,
+        "all_ms": [
+          90.025209,
+          63.674625,
+          61.646874999999994,
+          60.007417000000004,
+          56.733042,
+          56.367125,
+          59.382876,
+          58.932667,
+          59.465999999999994,
+          57.810832999999995
+        ]
+      },
+      "snapshot": {
+        "n": 10,
+        "median_ms": 193.445563,
+        "min_ms": 191.363167,
+        "max_ms": 198.749,
+        "all_ms": [
+          197.63262500000002,
+          191.363167,
+          192.483709,
+          194.667833,
+          195.267875,
+          191.935792,
+          193.342084,
+          193.54904200000001,
+          198.749,
+          192.269459
+        ]
+      },
+      "four_child_elapsed": {
+        "n": 10,
+        "median_ms": 269.0281255,
+        "min_ms": 265.63874999999996,
+        "max_ms": 283.7865,
+        "all_ms": [
+          280.51658299999997,
+          268.513959,
+          269.54229200000003,
+          283.7865,
+          268.221667,
+          273.614792,
+          268.469583,
+          267.905833,
+          265.63874999999996,
+          271.380083
+        ]
+      },
+      "baseline_close": {
+        "n": 10,
+        "median_ms": 0.0008955,
+        "min_ms": 0.00075,
+        "max_ms": 0.000958,
+        "all_ms": [
+          0.00075,
+          0.00075,
+          0.000834,
+          0.000958,
+          0.000958,
+          0.000917,
+          0.000791,
+          0.000916,
+          0.000875,
+          0.000916
+        ]
+      },
+      "fork_operation_sum": {
+        "n": 10,
+        "median_ms": 208.40745850000002,
+        "min_ms": 207.139125,
+        "max_ms": 220.404709,
+        "all_ms": [
+          216.118791,
+          207.257251,
+          207.43841599999996,
+          220.404709,
+          209.24908499999998,
+          213.86683200000002,
+          207.793459,
+          207.139125,
+          207.394458,
+          209.021458
+        ]
+      },
+      "SQL_operation_sum": {
+        "n": 10,
+        "median_ms": 26.74775,
+        "min_ms": 25.834041999999997,
+        "max_ms": 29.404504000000003,
+        "all_ms": [
+          29.404504000000003,
+          26.614582,
+          28.081331,
+          28.879792,
+          26.16375,
+          26.331166,
+          27.290292,
+          25.942792,
+          25.834041999999997,
+          26.880918
+        ]
+      },
+      "disconnect_close_operation_sum": {
+        "n": 10,
+        "median_ms": 34.138417000000004,
+        "min_ms": 32.300791,
+        "max_ms": 35.338584,
+        "all_ms": [
+          34.882459,
+          34.521623999999996,
+          33.899416,
+          34.377418000000006,
+          32.70925,
+          33.299208,
+          33.268041,
+          34.717958,
+          32.300791,
+          35.338584
+        ]
+      }
+    },
+    "4": {
+      "product": {
+        "n": 10,
+        "median_ms": 349.7574575,
+        "min_ms": 338.40887599999996,
+        "max_ms": 376.421833,
+        "all_ms": [
+          343.145625,
+          351.30062399999997,
+          371.525249,
+          363.731417,
+          376.421833,
+          338.40887599999996,
+          354.01404299999996,
+          346.776959,
+          340.09229300000004,
+          348.214291
+        ]
+      },
+      "observed": {
+        "n": 10,
+        "median_ms": 350.3524375,
+        "min_ms": 338.97675,
+        "max_ms": 376.99704099999997,
+        "all_ms": [
+          343.703541,
+          351.923875,
+          372.113208,
+          364.357458,
+          376.99704099999997,
+          338.97675,
+          354.641458,
+          347.372083,
+          340.724292,
+          348.781
+        ]
+      },
+      "prepare": {
+        "n": 10,
+        "median_ms": 57.800667000000004,
+        "min_ms": 56.202166999999996,
+        "max_ms": 65.035292,
+        "all_ms": [
+          58.570291,
+          63.509708,
+          56.202166999999996,
+          64.135167,
+          65.035292,
+          56.735375000000005,
+          57.591251,
+          57.861917,
+          56.334459,
+          57.739417
+        ]
+      },
+      "snapshot": {
+        "n": 10,
+        "median_ms": 193.37352049999998,
+        "min_ms": 191.628917,
+        "max_ms": 195.307792,
+        "all_ms": [
+          194.615167,
+          194.206833,
+          192.178666,
+          192.672,
+          195.307792,
+          191.628917,
+          191.929084,
+          193.320625,
+          194.938625,
+          193.426416
+        ]
+      },
+      "four_child_elapsed": {
+        "n": 10,
+        "median_ms": 96.3204795,
+        "min_ms": 88.817542,
+        "max_ms": 123.14224999999999,
+        "all_ms": [
+          89.95925000000001,
+          93.583042,
+          123.14224999999999,
+          106.922625,
+          116.077666,
+          90.043667,
+          104.492,
+          95.59345900000001,
+          88.817542,
+          97.0475
+        ]
+      },
+      "baseline_close": {
+        "n": 10,
+        "median_ms": 0.001062,
+        "min_ms": 0.000917,
+        "max_ms": 0.002166,
+        "all_ms": [
+          0.000917,
+          0.001041,
+          0.002166,
+          0.001625,
+          0.001083,
+          0.000917,
+          0.001708,
+          0.000958,
+          0.001667,
+          0.000958
+        ]
+      },
+      "fork_operation_sum": {
+        "n": 10,
+        "median_ms": 298.32214600000003,
+        "min_ms": 274.69220800000005,
+        "max_ms": 380.00041699999997,
+        "all_ms": [
+          278.392833,
+          289.72487399999994,
+          374.67641599999996,
+          328.569834,
+          380.00041699999997,
+          274.69220800000005,
+          317.994791,
+          292.85904100000005,
+          283.266543,
+          303.785251
+        ]
+      },
+      "SQL_operation_sum": {
+        "n": 10,
+        "median_ms": 42.320249000000004,
+        "min_ms": 30.801042,
+        "max_ms": 54.43154,
+        "all_ms": [
+          37.780624,
+          42.860957,
+          45.50566499999999,
+          44.615665,
+          37.257127000000004,
+          40.413998,
+          54.43154,
+          42.612124,
+          30.801042,
+          42.028374
+        ]
+      },
+      "disconnect_close_operation_sum": {
+        "n": 10,
+        "median_ms": 37.847125,
+        "min_ms": 33.758958,
+        "max_ms": 44.789415,
+        "all_ms": [
+          37.973708,
+          36.085957,
+          37.720541999999995,
+          44.789415,
+          36.209043,
+          40.78004,
+          38.564875,
+          41.043999,
+          35.046334,
+          33.758958
+        ]
+      }
+    }
+  },
+  "records": [
+    {
+      "name": "00-workers1",
+      "trial": 0,
+      "workers": 1,
+      "values_ms": {
+        "product": 568.0643379999999,
+        "observed": 568.7212499999999,
+        "prepare": 90.025209,
+        "snapshot": 197.63262500000002,
+        "four_child_elapsed": 280.51658299999997,
+        "baseline_close": 0.00075,
+        "fork_operation_sum": 216.118791,
+        "SQL_operation_sum": 29.404504000000003,
+        "disconnect_close_operation_sum": 34.882459
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 287753417,
+          "fork_ready_ns": 341517625,
+          "close_begin_ns": 349953708,
+          "close_end_ns": 358601708,
+          "mutation_begin_ns": 346256583,
+          "mutation_end_ns": 349949667
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 358605750,
+          "fork_ready_ns": 410666667,
+          "close_begin_ns": 417831333,
+          "close_end_ns": 426711625,
+          "mutation_begin_ns": 414396708,
+          "mutation_end_ns": 417827750
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 426718667,
+          "fork_ready_ns": 482288208,
+          "close_begin_ns": 489532375,
+          "close_end_ns": 498241250,
+          "mutation_begin_ns": 486415083,
+          "mutation_end_ns": 489523500
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 498245500,
+          "fork_ready_ns": 552969625,
+          "close_begin_ns": 559618125,
+          "close_end_ns": 568263417,
+          "mutation_begin_ns": 556456583,
+          "mutation_end_ns": 559615417
+        }
+      ],
+      "peak_overlapping_workflows": 1,
+      "peak_overlapping_fork_calls": 1,
+      "peak_overlapping_ready_DBs_before_close": 1,
+      "peak_overlapping_mutation_operations": 1
+    },
+    {
+      "name": "00-workers4",
+      "trial": 0,
+      "workers": 4,
+      "values_ms": {
+        "product": 343.145625,
+        "observed": 343.703541,
+        "prepare": 58.570291,
+        "snapshot": 194.615167,
+        "four_child_elapsed": 89.95925000000001,
+        "baseline_close": 0.000917,
+        "fork_operation_sum": 278.392833,
+        "SQL_operation_sum": 37.780624,
+        "disconnect_close_operation_sum": 37.973708
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 253342084,
+          "fork_ready_ns": 325549709,
+          "close_begin_ns": 332106250,
+          "close_end_ns": 342343625,
+          "mutation_begin_ns": 327674667,
+          "mutation_end_ns": 332089709
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 253392292,
+          "fork_ready_ns": 326577792,
+          "close_begin_ns": 332731875,
+          "close_end_ns": 343246375,
+          "mutation_begin_ns": 328371709,
+          "mutation_end_ns": 332729000
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 253406084,
+          "fork_ready_ns": 319831834,
+          "close_begin_ns": 332731084,
+          "close_end_ns": 340646709,
+          "mutation_begin_ns": 327534000,
+          "mutation_end_ns": 332728125
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 253357334,
+          "fork_ready_ns": 319931292,
+          "close_begin_ns": 332182792,
+          "close_end_ns": 341489000,
+          "mutation_begin_ns": 327577292,
+          "mutation_end_ns": 332176750
+        }
+      ],
+      "peak_overlapping_workflows": 4,
+      "peak_overlapping_fork_calls": 4,
+      "peak_overlapping_ready_DBs_before_close": 4,
+      "peak_overlapping_mutation_operations": 4
+    },
+    {
+      "name": "01-workers4",
+      "trial": 1,
+      "workers": 4,
+      "values_ms": {
+        "product": 351.30062399999997,
+        "observed": 351.923875,
+        "prepare": 63.509708,
+        "snapshot": 194.206833,
+        "four_child_elapsed": 93.583042,
+        "baseline_close": 0.001041,
+        "fork_operation_sum": 289.72487399999994,
+        "SQL_operation_sum": 42.860957,
+        "disconnect_close_operation_sum": 36.085957
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 257841375,
+          "fork_ready_ns": 329523166,
+          "close_begin_ns": 341300958,
+          "close_end_ns": 349597666,
+          "mutation_begin_ns": 338390500,
+          "mutation_end_ns": 341293416
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 257888666,
+          "fork_ready_ns": 329038291,
+          "close_begin_ns": 340049041,
+          "close_end_ns": 348721041,
+          "mutation_begin_ns": 335193375,
+          "mutation_end_ns": 340046625
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 257902750,
+          "fork_ready_ns": 327416791,
+          "close_begin_ns": 341270625,
+          "close_end_ns": 350527541,
+          "mutation_begin_ns": 338040083,
+          "mutation_end_ns": 341264791
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 257864208,
+          "fork_ready_ns": 335243625,
+          "close_begin_ns": 341549125,
+          "close_end_ns": 351409458,
+          "mutation_begin_ns": 338629666,
+          "mutation_end_ns": 341547041
+        }
+      ],
+      "peak_overlapping_workflows": 4,
+      "peak_overlapping_fork_calls": 4,
+      "peak_overlapping_ready_DBs_before_close": 4,
+      "peak_overlapping_mutation_operations": 4
+    },
+    {
+      "name": "01-workers1",
+      "trial": 1,
+      "workers": 1,
+      "values_ms": {
+        "product": 523.4319990000001,
+        "observed": 523.917416,
+        "prepare": 63.674625,
+        "snapshot": 191.363167,
+        "four_child_elapsed": 268.513959,
+        "baseline_close": 0.00075,
+        "fork_operation_sum": 207.257251,
+        "SQL_operation_sum": 26.614582,
+        "disconnect_close_operation_sum": 34.521623999999996
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 255137625,
+          "fork_ready_ns": 308115292,
+          "close_begin_ns": 314636417,
+          "close_end_ns": 323293292,
+          "mutation_begin_ns": 311589500,
+          "mutation_end_ns": 314633083
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 323297333,
+          "fork_ready_ns": 372810667,
+          "close_begin_ns": 379536792,
+          "close_end_ns": 387692750,
+          "mutation_begin_ns": 376177583,
+          "mutation_end_ns": 379531375
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 387699542,
+          "fork_ready_ns": 440282667,
+          "close_begin_ns": 447093833,
+          "close_end_ns": 455807958,
+          "mutation_begin_ns": 443898792,
+          "mutation_end_ns": 447085375
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 455812292,
+          "fork_ready_ns": 507995417,
+          "close_begin_ns": 514648167,
+          "close_end_ns": 523642833,
+          "mutation_begin_ns": 511384958,
+          "mutation_end_ns": 514640167
+        }
+      ],
+      "peak_overlapping_workflows": 1,
+      "peak_overlapping_fork_calls": 1,
+      "peak_overlapping_ready_DBs_before_close": 1,
+      "peak_overlapping_mutation_operations": 1
+    },
+    {
+      "name": "02-workers1",
+      "trial": 2,
+      "workers": 1,
+      "values_ms": {
+        "product": 523.5505809999999,
+        "observed": 524.202292,
+        "prepare": 61.646874999999994,
+        "snapshot": 192.483709,
+        "four_child_elapsed": 269.54229200000003,
+        "baseline_close": 0.000834,
+        "fork_operation_sum": 207.43841599999996,
+        "SQL_operation_sum": 28.081331,
+        "disconnect_close_operation_sum": 33.899416
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 254224500,
+          "fork_ready_ns": 305865750,
+          "close_begin_ns": 312697916,
+          "close_end_ns": 321613125,
+          "mutation_begin_ns": 309704041,
+          "mutation_end_ns": 312691541
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 321620458,
+          "fork_ready_ns": 375653291,
+          "close_begin_ns": 383147125,
+          "close_end_ns": 390791166,
+          "mutation_begin_ns": 379870625,
+          "mutation_end_ns": 383143333
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 390795875,
+          "fork_ready_ns": 441613291,
+          "close_begin_ns": 449077666,
+          "close_end_ns": 457719166,
+          "mutation_begin_ns": 445918916,
+          "mutation_end_ns": 449071416
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 457727333,
+          "fork_ready_ns": 508674250,
+          "close_begin_ns": 515061625,
+          "close_end_ns": 523760291,
+          "mutation_begin_ns": 511940708,
+          "mutation_end_ns": 515058291
+        }
+      ],
+      "peak_overlapping_workflows": 1,
+      "peak_overlapping_fork_calls": 1,
+      "peak_overlapping_ready_DBs_before_close": 1,
+      "peak_overlapping_mutation_operations": 1
+    },
+    {
+      "name": "02-workers4",
+      "trial": 2,
+      "workers": 4,
+      "values_ms": {
+        "product": 371.525249,
+        "observed": 372.113208,
+        "prepare": 56.202166999999996,
+        "snapshot": 192.178666,
+        "four_child_elapsed": 123.14224999999999,
+        "baseline_close": 0.002166,
+        "fork_operation_sum": 374.67641599999996,
+        "SQL_operation_sum": 45.50566499999999,
+        "disconnect_close_operation_sum": 37.720541999999995
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 248513541,
+          "fork_ready_ns": 340328333,
+          "close_begin_ns": 351393166,
+          "close_end_ns": 362232583,
+          "mutation_begin_ns": 344762666,
+          "mutation_end_ns": 351381291
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 248552500,
+          "fork_ready_ns": 334097791,
+          "close_begin_ns": 352343541,
+          "close_end_ns": 360814333,
+          "mutation_begin_ns": 345560958,
+          "mutation_end_ns": 352339708
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 248584791,
+          "fork_ready_ns": 340207791,
+          "close_begin_ns": 349106208,
+          "close_end_ns": 357516333,
+          "mutation_begin_ns": 343178083,
+          "mutation_end_ns": 349099625
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 248521333,
+          "fork_ready_ns": 354214666,
+          "close_begin_ns": 361613500,
+          "close_end_ns": 371613708,
+          "mutation_begin_ns": 358097250,
+          "mutation_end_ns": 361607750
+        }
+      ],
+      "peak_overlapping_workflows": 4,
+      "peak_overlapping_fork_calls": 4,
+      "peak_overlapping_ready_DBs_before_close": 3,
+      "peak_overlapping_mutation_operations": 3
+    },
+    {
+      "name": "03-workers4",
+      "trial": 3,
+      "workers": 4,
+      "values_ms": {
+        "product": 363.731417,
+        "observed": 364.357458,
+        "prepare": 64.135167,
+        "snapshot": 192.672,
+        "four_child_elapsed": 106.922625,
+        "baseline_close": 0.001625,
+        "fork_operation_sum": 328.569834,
+        "SQL_operation_sum": 44.615665,
+        "disconnect_close_operation_sum": 44.789415
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 256922083,
+          "fork_ready_ns": 337663667,
+          "close_begin_ns": 349785042,
+          "close_end_ns": 359185750,
+          "mutation_begin_ns": 345081792,
+          "mutation_end_ns": 349781167
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 256960042,
+          "fork_ready_ns": 337802542,
+          "close_begin_ns": 351153000,
+          "close_end_ns": 362058458,
+          "mutation_begin_ns": 347864958,
+          "mutation_end_ns": 351151125
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 256982625,
+          "fork_ready_ns": 343057583,
+          "close_begin_ns": 349882917,
+          "close_end_ns": 363829000,
+          "mutation_begin_ns": 346083875,
+          "mutation_end_ns": 349880292
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 256941333,
+          "fork_ready_ns": 337852125,
+          "close_begin_ns": 350243792,
+          "close_end_ns": 360780958,
+          "mutation_begin_ns": 345356750,
+          "mutation_end_ns": 350240458
+        }
+      ],
+      "peak_overlapping_workflows": 4,
+      "peak_overlapping_fork_calls": 4,
+      "peak_overlapping_ready_DBs_before_close": 4,
+      "peak_overlapping_mutation_operations": 4
+    },
+    {
+      "name": "03-workers1",
+      "trial": 3,
+      "workers": 1,
+      "values_ms": {
+        "product": 538.3381270000001,
+        "observed": 538.912417,
+        "prepare": 60.007417000000004,
+        "snapshot": 194.667833,
+        "four_child_elapsed": 283.7865,
+        "baseline_close": 0.000958,
+        "fork_operation_sum": 220.404709,
+        "SQL_operation_sum": 28.879792,
+        "disconnect_close_operation_sum": 34.377418000000006
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 254785542,
+          "fork_ready_ns": 312865959,
+          "close_begin_ns": 321153125,
+          "close_end_ns": 329958209,
+          "mutation_begin_ns": 317415375,
+          "mutation_end_ns": 321146584
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 329971375,
+          "fork_ready_ns": 385613792,
+          "close_begin_ns": 392638375,
+          "close_end_ns": 401312959,
+          "mutation_begin_ns": 389284167,
+          "mutation_end_ns": 392635167
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 401319459,
+          "fork_ready_ns": 456136834,
+          "close_begin_ns": 463084625,
+          "close_end_ns": 470990375,
+          "mutation_begin_ns": 459874875,
+          "mutation_end_ns": 463080250
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 470997375,
+          "fork_ready_ns": 522861875,
+          "close_begin_ns": 529570500,
+          "close_end_ns": 538562500,
+          "mutation_begin_ns": 526265084,
+          "mutation_end_ns": 529566750
+        }
+      ],
+      "peak_overlapping_workflows": 1,
+      "peak_overlapping_fork_calls": 1,
+      "peak_overlapping_ready_DBs_before_close": 1,
+      "peak_overlapping_mutation_operations": 1
+    },
+    {
+      "name": "04-workers1",
+      "trial": 4,
+      "workers": 1,
+      "values_ms": {
+        "product": 520.1239599999999,
+        "observed": 520.642917,
+        "prepare": 56.733042,
+        "snapshot": 195.267875,
+        "four_child_elapsed": 268.221667,
+        "baseline_close": 0.000958,
+        "fork_operation_sum": 209.24908499999998,
+        "SQL_operation_sum": 26.16375,
+        "disconnect_close_operation_sum": 32.70925
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 252175791,
+          "fork_ready_ns": 308323250,
+          "close_begin_ns": 314780541,
+          "close_end_ns": 323390625,
+          "mutation_begin_ns": 311643541,
+          "mutation_end_ns": 314777833
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 323395291,
+          "fork_ready_ns": 374160541,
+          "close_begin_ns": 380648250,
+          "close_end_ns": 388190666,
+          "mutation_begin_ns": 377364791,
+          "mutation_end_ns": 380644041
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 388194041,
+          "fork_ready_ns": 440311708,
+          "close_begin_ns": 446876791,
+          "close_end_ns": 454828582,
+          "mutation_begin_ns": 443543333,
+          "mutation_end_ns": 446869500
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 454836166,
+          "fork_ready_ns": 505054875,
+          "close_begin_ns": 511785625,
+          "close_end_ns": 520390583,
+          "mutation_begin_ns": 508396791,
+          "mutation_end_ns": 511781125
+        }
+      ],
+      "peak_overlapping_workflows": 1,
+      "peak_overlapping_fork_calls": 1,
+      "peak_overlapping_ready_DBs_before_close": 1,
+      "peak_overlapping_mutation_operations": 1
+    },
+    {
+      "name": "04-workers4",
+      "trial": 4,
+      "workers": 4,
+      "values_ms": {
+        "product": 376.421833,
+        "observed": 376.99704099999997,
+        "prepare": 65.035292,
+        "snapshot": 195.307792,
+        "four_child_elapsed": 116.077666,
+        "baseline_close": 0.001083,
+        "fork_operation_sum": 380.00041699999997,
+        "SQL_operation_sum": 37.257127000000004,
+        "disconnect_close_operation_sum": 36.209043
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 260470000,
+          "fork_ready_ns": 353541542,
+          "close_begin_ns": 363616375,
+          "close_end_ns": 372991792,
+          "mutation_begin_ns": 356736334,
+          "mutation_end_ns": 363612959
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 260517209,
+          "fork_ready_ns": 357957667,
+          "close_begin_ns": 365241875,
+          "close_end_ns": 374770917,
+          "mutation_begin_ns": 361995917,
+          "mutation_end_ns": 365238459
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 260535750,
+          "fork_ready_ns": 348718209,
+          "close_begin_ns": 362783125,
+          "close_end_ns": 371299167,
+          "mutation_begin_ns": 354572000,
+          "mutation_end_ns": 362775792
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 260494792,
+          "fork_ready_ns": 361800750,
+          "close_begin_ns": 367743750,
+          "close_end_ns": 376532292,
+          "mutation_begin_ns": 365303125,
+          "mutation_end_ns": 367741625
+        }
+      ],
+      "peak_overlapping_workflows": 4,
+      "peak_overlapping_fork_calls": 4,
+      "peak_overlapping_ready_DBs_before_close": 4,
+      "peak_overlapping_mutation_operations": 3
+    },
+    {
+      "name": "05-workers4",
+      "trial": 5,
+      "workers": 4,
+      "values_ms": {
+        "product": 338.40887599999996,
+        "observed": 338.97675,
+        "prepare": 56.735375000000005,
+        "snapshot": 191.628917,
+        "four_child_elapsed": 90.043667,
+        "baseline_close": 0.000917,
+        "fork_operation_sum": 274.69220800000005,
+        "SQL_operation_sum": 40.413998,
+        "disconnect_close_operation_sum": 40.78004
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 248479875,
+          "fork_ready_ns": 316362000,
+          "close_begin_ns": 327332459,
+          "close_end_ns": 337791959,
+          "mutation_begin_ns": 324267709,
+          "mutation_end_ns": 327330292
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 248528667,
+          "fork_ready_ns": 316497167,
+          "close_begin_ns": 327681334,
+          "close_end_ns": 337852125,
+          "mutation_begin_ns": 324992209,
+          "mutation_end_ns": 327678417
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 248543500,
+          "fork_ready_ns": 319421750,
+          "close_begin_ns": 326265417,
+          "close_end_ns": 335858500,
+          "mutation_begin_ns": 322494584,
+          "mutation_end_ns": 326260084
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 248504084,
+          "fork_ready_ns": 316467417,
+          "close_begin_ns": 327953209,
+          "close_end_ns": 338509875,
+          "mutation_begin_ns": 325126584,
+          "mutation_end_ns": 327951334
+        }
+      ],
+      "peak_overlapping_workflows": 4,
+      "peak_overlapping_fork_calls": 4,
+      "peak_overlapping_ready_DBs_before_close": 4,
+      "peak_overlapping_mutation_operations": 4
+    },
+    {
+      "name": "05-workers1",
+      "trial": 5,
+      "workers": 1,
+      "values_ms": {
+        "product": 521.80104,
+        "observed": 522.3463750000001,
+        "prepare": 56.367125,
+        "snapshot": 191.935792,
+        "four_child_elapsed": 273.614792,
+        "baseline_close": 0.000917,
+        "fork_operation_sum": 213.86683200000002,
+        "SQL_operation_sum": 26.331166,
+        "disconnect_close_operation_sum": 33.299208
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 248407542,
+          "fork_ready_ns": 300215875,
+          "close_begin_ns": 306250542,
+          "close_end_ns": 314032667,
+          "mutation_begin_ns": 303205292,
+          "mutation_end_ns": 306247250
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 314036709,
+          "fork_ready_ns": 371046500,
+          "close_begin_ns": 377537042,
+          "close_end_ns": 386300959,
+          "mutation_begin_ns": 374245750,
+          "mutation_end_ns": 377533209
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 386306334,
+          "fork_ready_ns": 437645625,
+          "close_begin_ns": 444850167,
+          "close_end_ns": 452816000,
+          "mutation_begin_ns": 441629917,
+          "mutation_end_ns": 444844959
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 452825792,
+          "fork_ready_ns": 506535209,
+          "close_begin_ns": 513228584,
+          "close_end_ns": 522015917,
+          "mutation_begin_ns": 510045834,
+          "mutation_end_ns": 513225167
+        }
+      ],
+      "peak_overlapping_workflows": 1,
+      "peak_overlapping_fork_calls": 1,
+      "peak_overlapping_ready_DBs_before_close": 1,
+      "peak_overlapping_mutation_operations": 1
+    },
+    {
+      "name": "06-workers1",
+      "trial": 6,
+      "workers": 1,
+      "values_ms": {
+        "product": 521.0775430000001,
+        "observed": 521.553833,
+        "prepare": 59.382876,
+        "snapshot": 193.342084,
+        "four_child_elapsed": 268.469583,
+        "baseline_close": 0.000791,
+        "fork_operation_sum": 207.793459,
+        "SQL_operation_sum": 27.290292,
+        "disconnect_close_operation_sum": 33.268041
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 252831041,
+          "fork_ready_ns": 304061333,
+          "close_begin_ns": 310589083,
+          "close_end_ns": 318651583,
+          "mutation_begin_ns": 307439166,
+          "mutation_end_ns": 310585750
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 318659541,
+          "fork_ready_ns": 370192750,
+          "close_begin_ns": 376888166,
+          "close_end_ns": 385217666,
+          "mutation_begin_ns": 373676583,
+          "mutation_end_ns": 376884166
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 385222250,
+          "fork_ready_ns": 437911083,
+          "close_begin_ns": 444620000,
+          "close_end_ns": 452247291,
+          "mutation_begin_ns": 441436875,
+          "mutation_end_ns": 444615375
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 452252125,
+          "fork_ready_ns": 504593250,
+          "close_begin_ns": 512043041,
+          "close_end_ns": 521291791,
+          "mutation_begin_ns": 507877166,
+          "mutation_end_ns": 512036166
+        }
+      ],
+      "peak_overlapping_workflows": 1,
+      "peak_overlapping_fork_calls": 1,
+      "peak_overlapping_ready_DBs_before_close": 1,
+      "peak_overlapping_mutation_operations": 1
+    },
+    {
+      "name": "06-workers4",
+      "trial": 6,
+      "workers": 4,
+      "values_ms": {
+        "product": 354.01404299999996,
+        "observed": 354.641458,
+        "prepare": 57.591251,
+        "snapshot": 191.929084,
+        "four_child_elapsed": 104.492,
+        "baseline_close": 0.001708,
+        "fork_operation_sum": 317.994791,
+        "SQL_operation_sum": 54.43154,
+        "disconnect_close_operation_sum": 38.564875
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 249645958,
+          "fork_ready_ns": 325144833,
+          "close_begin_ns": 342533875,
+          "close_end_ns": 352853000,
+          "mutation_begin_ns": 337154000,
+          "mutation_end_ns": 342531416
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 249684166,
+          "fork_ready_ns": 332538625,
+          "close_begin_ns": 343917250,
+          "close_end_ns": 354098875,
+          "mutation_begin_ns": 340465958,
+          "mutation_end_ns": 343915333
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 249719500,
+          "fork_ready_ns": 326369916,
+          "close_begin_ns": 342138916,
+          "close_end_ns": 350926166,
+          "mutation_begin_ns": 335723500,
+          "mutation_end_ns": 342133916
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 249657375,
+          "fork_ready_ns": 332648416,
+          "close_begin_ns": 342638791,
+          "close_end_ns": 351915666,
+          "mutation_begin_ns": 337504208,
+          "mutation_end_ns": 342636541
+        }
+      ],
+      "peak_overlapping_workflows": 4,
+      "peak_overlapping_fork_calls": 4,
+      "peak_overlapping_ready_DBs_before_close": 4,
+      "peak_overlapping_mutation_operations": 4
+    },
+    {
+      "name": "07-workers4",
+      "trial": 7,
+      "workers": 4,
+      "values_ms": {
+        "product": 346.776959,
+        "observed": 347.372083,
+        "prepare": 57.861917,
+        "snapshot": 193.320625,
+        "four_child_elapsed": 95.59345900000001,
+        "baseline_close": 0.000958,
+        "fork_operation_sum": 292.85904100000005,
+        "SQL_operation_sum": 42.612124,
+        "disconnect_close_operation_sum": 41.043999
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 251324667,
+          "fork_ready_ns": 324998083,
+          "close_begin_ns": 335696583,
+          "close_end_ns": 346879708,
+          "mutation_begin_ns": 330891333,
+          "mutation_end_ns": 335694833
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 251343333,
+          "fork_ready_ns": 324028375,
+          "close_begin_ns": 335295750,
+          "close_end_ns": 345972375,
+          "mutation_begin_ns": 331055292,
+          "mutation_end_ns": 335293417
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 251382792,
+          "fork_ready_ns": 324446167,
+          "close_begin_ns": 334876417,
+          "close_end_ns": 344006458,
+          "mutation_begin_ns": 330444125,
+          "mutation_end_ns": 334871458
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 251339875,
+          "fork_ready_ns": 324777083,
+          "close_begin_ns": 335071667,
+          "close_end_ns": 345125875,
+          "mutation_begin_ns": 331567042,
+          "mutation_end_ns": 335067375
+        }
+      ],
+      "peak_overlapping_workflows": 4,
+      "peak_overlapping_fork_calls": 4,
+      "peak_overlapping_ready_DBs_before_close": 4,
+      "peak_overlapping_mutation_operations": 4
+    },
+    {
+      "name": "07-workers1",
+      "trial": 7,
+      "workers": 1,
+      "values_ms": {
+        "product": 520.2825,
+        "observed": 520.7837910000001,
+        "prepare": 58.932667,
+        "snapshot": 193.54904200000001,
+        "four_child_elapsed": 267.905833,
+        "baseline_close": 0.000916,
+        "fork_operation_sum": 207.139125,
+        "SQL_operation_sum": 25.942792,
+        "disconnect_close_operation_sum": 34.717958
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 252580917,
+          "fork_ready_ns": 304004625,
+          "close_begin_ns": 310777208,
+          "close_end_ns": 319519458,
+          "mutation_begin_ns": 307538500,
+          "mutation_end_ns": 310774292
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 319525708,
+          "fork_ready_ns": 371430542,
+          "close_begin_ns": 377643583,
+          "close_end_ns": 386379833,
+          "mutation_begin_ns": 374597417,
+          "mutation_end_ns": 377640917
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 386383542,
+          "fork_ready_ns": 439804500,
+          "close_begin_ns": 446251875,
+          "close_end_ns": 454928375,
+          "mutation_begin_ns": 443084125,
+          "mutation_end_ns": 446247292
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 454933250,
+          "fork_ready_ns": 505322875,
+          "close_begin_ns": 511915167,
+          "close_end_ns": 520478125,
+          "mutation_begin_ns": 508747792,
+          "mutation_end_ns": 511911083
+        }
+      ],
+      "peak_overlapping_workflows": 1,
+      "peak_overlapping_fork_calls": 1,
+      "peak_overlapping_ready_DBs_before_close": 1,
+      "peak_overlapping_mutation_operations": 1
+    },
+    {
+      "name": "08-workers1",
+      "trial": 8,
+      "workers": 1,
+      "values_ms": {
+        "product": 523.745166,
+        "observed": 524.2467079999999,
+        "prepare": 59.465999999999994,
+        "snapshot": 198.749,
+        "four_child_elapsed": 265.63874999999996,
+        "baseline_close": 0.000875,
+        "fork_operation_sum": 207.394458,
+        "SQL_operation_sum": 25.834041999999997,
+        "disconnect_close_operation_sum": 32.300791
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 258333167,
+          "fork_ready_ns": 310331500,
+          "close_begin_ns": 316665042,
+          "close_end_ns": 324632375,
+          "mutation_begin_ns": 313610458,
+          "mutation_end_ns": 316659167
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 324637583,
+          "fork_ready_ns": 375452458,
+          "close_begin_ns": 381290500,
+          "close_end_ns": 388860125,
+          "mutation_begin_ns": 378798208,
+          "mutation_end_ns": 381287375
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 388866125,
+          "fork_ready_ns": 441852583,
+          "close_begin_ns": 449135792,
+          "close_end_ns": 456932125,
+          "mutation_begin_ns": 446001458,
+          "mutation_end_ns": 449131458
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 456937875,
+          "fork_ready_ns": 508532667,
+          "close_begin_ns": 514996292,
+          "close_end_ns": 523963792,
+          "mutation_begin_ns": 511736708,
+          "mutation_end_ns": 514990708
+        }
+      ],
+      "peak_overlapping_workflows": 1,
+      "peak_overlapping_fork_calls": 1,
+      "peak_overlapping_ready_DBs_before_close": 1,
+      "peak_overlapping_mutation_operations": 1
+    },
+    {
+      "name": "08-workers4",
+      "trial": 8,
+      "workers": 4,
+      "values_ms": {
+        "product": 340.09229300000004,
+        "observed": 340.724292,
+        "prepare": 56.334459,
+        "snapshot": 194.938625,
+        "four_child_elapsed": 88.817542,
+        "baseline_close": 0.001667,
+        "fork_operation_sum": 283.266543,
+        "SQL_operation_sum": 30.801042,
+        "disconnect_close_operation_sum": 35.046334
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 251381708,
+          "fork_ready_ns": 324469625,
+          "close_begin_ns": 329523458,
+          "close_end_ns": 337250708,
+          "mutation_begin_ns": 326157208,
+          "mutation_end_ns": 329521375
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 251431583,
+          "fork_ready_ns": 323802500,
+          "close_begin_ns": 331945833,
+          "close_end_ns": 340177500,
+          "mutation_begin_ns": 328912375,
+          "mutation_end_ns": 331942458
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 251446500,
+          "fork_ready_ns": 322583000,
+          "close_begin_ns": 328991791,
+          "close_end_ns": 339174041,
+          "mutation_begin_ns": 325351333,
+          "mutation_end_ns": 328989791
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 251408291,
+          "fork_ready_ns": 318079499,
+          "close_begin_ns": 329384666,
+          "close_end_ns": 338289833,
+          "mutation_begin_ns": 326323875,
+          "mutation_end_ns": 329381416
+        }
+      ],
+      "peak_overlapping_workflows": 4,
+      "peak_overlapping_fork_calls": 4,
+      "peak_overlapping_ready_DBs_before_close": 4,
+      "peak_overlapping_mutation_operations": 4
+    },
+    {
+      "name": "09-workers4",
+      "trial": 9,
+      "workers": 4,
+      "values_ms": {
+        "product": 348.214291,
+        "observed": 348.781,
+        "prepare": 57.739417,
+        "snapshot": 193.426416,
+        "four_child_elapsed": 97.0475,
+        "baseline_close": 0.000958,
+        "fork_operation_sum": 303.785251,
+        "SQL_operation_sum": 42.028374,
+        "disconnect_close_operation_sum": 33.758958
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 251296042,
+          "fork_ready_ns": 335125334,
+          "close_begin_ns": 339909334,
+          "close_end_ns": 347449500,
+          "mutation_begin_ns": 336626584,
+          "mutation_end_ns": 339906959
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 251329125,
+          "fork_ready_ns": 321048834,
+          "close_begin_ns": 335533875,
+          "close_end_ns": 344996459,
+          "mutation_begin_ns": 331122500,
+          "mutation_end_ns": 335523459
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 251343959,
+          "fork_ready_ns": 331723834,
+          "close_begin_ns": 340033209,
+          "close_end_ns": 348313167,
+          "mutation_begin_ns": 337186375,
+          "mutation_end_ns": 340030334
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 251311750,
+          "fork_ready_ns": 321168125,
+          "close_begin_ns": 335725584,
+          "close_end_ns": 344201834,
+          "mutation_begin_ns": 331237584,
+          "mutation_end_ns": 335723000
+        }
+      ],
+      "peak_overlapping_workflows": 4,
+      "peak_overlapping_fork_calls": 4,
+      "peak_overlapping_ready_DBs_before_close": 4,
+      "peak_overlapping_mutation_operations": 2
+    },
+    {
+      "name": "09-workers1",
+      "trial": 9,
+      "workers": 1,
+      "values_ms": {
+        "product": 521.3221679999999,
+        "observed": 521.9957079999999,
+        "prepare": 57.810832999999995,
+        "snapshot": 192.269459,
+        "four_child_elapsed": 271.380083,
+        "baseline_close": 0.000916,
+        "fork_operation_sum": 209.021458,
+        "SQL_operation_sum": 26.880918,
+        "disconnect_close_operation_sum": 35.338584
+      },
+      "children": [
+        {
+          "index": 0,
+          "fork_begin_ns": 250192542,
+          "fork_ready_ns": 302195417,
+          "close_begin_ns": 309027292,
+          "close_end_ns": 317769250,
+          "mutation_begin_ns": 305607667,
+          "mutation_end_ns": 309022583
+        },
+        {
+          "index": 1,
+          "fork_begin_ns": 317775375,
+          "fork_ready_ns": 370445333,
+          "close_begin_ns": 377359625,
+          "close_end_ns": 386270542,
+          "mutation_begin_ns": 374051958,
+          "mutation_end_ns": 377354375
+        },
+        {
+          "index": 2,
+          "fork_begin_ns": 386278417,
+          "fork_ready_ns": 438076875,
+          "close_begin_ns": 444966583,
+          "close_end_ns": 453874875,
+          "mutation_begin_ns": 441590375,
+          "mutation_end_ns": 444961750
+        },
+        {
+          "index": 3,
+          "fork_begin_ns": 453882208,
+          "fork_ready_ns": 506432375,
+          "close_begin_ns": 512787458,
+          "close_end_ns": 521564875,
+          "mutation_begin_ns": 509634625,
+          "mutation_end_ns": 512783167
+        }
+      ],
+      "peak_overlapping_workflows": 1,
+      "peak_overlapping_fork_calls": 1,
+      "peak_overlapping_ready_DBs_before_close": 1,
+      "peak_overlapping_mutation_operations": 1
+    }
+  ],
+  "pairs": [
+    {
+      "trial": 0,
+      "product_change_percent": -39.593880121374546,
+      "child_elapsed_change_percent": -67.93086204105087
+    },
+    {
+      "trial": 1,
+      "product_change_percent": -32.88514560226573,
+      "child_elapsed_change_percent": -65.14779255852393
+    },
+    {
+      "trial": 2,
+      "product_change_percent": -29.03737241769958,
+      "child_elapsed_change_percent": -54.31431220448331
+    },
+    {
+      "trial": 3,
+      "product_change_percent": -32.43439415540412,
+      "child_elapsed_change_percent": -62.322864195442705
+    },
+    {
+      "trial": 4,
+      "product_change_percent": -27.628438228456144,
+      "child_elapsed_change_percent": -56.72323295194494
+    },
+    {
+      "trial": 5,
+      "product_change_percent": -35.14599434297793,
+      "child_elapsed_change_percent": -67.0910821955854
+    },
+    {
+      "trial": 6,
+      "product_change_percent": -32.061159081653244,
+      "child_elapsed_change_percent": -61.07864480126227
+    },
+    {
+      "trial": 7,
+      "product_change_percent": -33.34833306905384,
+      "child_elapsed_change_percent": -64.31826140941097
+    },
+    {
+      "trial": 8,
+      "product_change_percent": -35.065311323560735,
+      "child_elapsed_change_percent": -66.56453849447792
+    },
+    {
+      "trial": 9,
+      "product_change_percent": -33.20554690089449,
+      "child_elapsed_change_percent": -64.23926954138341
+    }
+  ],
+  "limits": [
+    "Four-child wall is the elapsed child-loop envelope; operation sums overlap with workers=4 and are not wall time.",
+    "Timestamps show interval overlap, not simultaneous instruction retirement or a hardware-thread count.",
+    "Ready DB intervals end before Close begins; they are conservative overlap windows, not an exact active-object counter.",
+    "Same benchmark-only observer for both cohorts, trace environment disabled; no unmodified-binary calibration, resource peak, pgmem or Linux measurement."
+  ]
+}

@@ -1,0 +1,24 @@
+BUILD
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+go: downloading filippo.io/edwards25519 v1.1.0
+PASS 00-workers1 568.06
+PASS 00-workers4 343.15
+PASS 01-workers4 351.3
+PASS 01-workers1 523.43
+PASS 02-workers1 523.55
+PASS 02-workers4 371.53
+PASS 03-workers4 363.73
+PASS 03-workers1 538.34
+PASS 04-workers1 520.12
+PASS 04-workers4 376.42
+PASS 05-workers4 338.41
+PASS 05-workers1 521.8
+PASS 06-workers1 521.08
+PASS 06-workers4 354.01
+PASS 07-workers4 346.78
+PASS 07-workers1 520.28
+PASS 08-workers1 523.75
+PASS 08-workers4 340.09
+PASS 09-workers4 348.21
+PASS 09-workers1 521.32
+PASS: 20 workloads, 100 DB lifecycles, unchanged SQL/cleanup oracles

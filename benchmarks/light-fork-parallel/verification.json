@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "executions": 20,
+  "DB_lifecycles": 100,
+  "checks": [
+    "Typed v0.5.1 pin, clean standalone source and actual binary VCS identity; overlay hashes explicit",
+    "Unchanged SQL/commit/rollback/independence oracles and five balanced mmap lifecycles per cell",
+    "Every parallel trial has four overlapping workflow and Fork call intervals; conservative ready DB overlap and SQL interval overlap retained",
+    "All result hashes, pairs, phase sums and interval peaks replay exactly from public text",
+    "Python AST and report local references",
+    "verify.py check --scope docs: version / public-source / whitespace PASS"
+  ],
+  "source_sha256": {
+    "run.py": "56b3e2fb47d8a83b2e12d2dba19540d7d04c490757967bf7f8b81a1c5cb8e156",
+    "analyze.py": "021bf73ca35679910af845ae8447cd155d34cca1ce47fdbf512f37bfa0fb056d"
+  }
+}
