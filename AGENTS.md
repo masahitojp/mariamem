@@ -30,6 +30,10 @@ concern. Codex recommends; the Human decides and explores the evidence as PO.
 Use the scalable format in `docs/development.md#human-review-recommendations`.
 Keep approved product direction in `docs/project-status.md`; preserve historical
 reviews under their original evidence and decision context.
+Milestone/gate reviews follow the repository `review` skill
+(`.agents/skills/review/SKILL.md`; Pi `/skill:review`, Codex `$review`), which
+pins the artifact SHA, cross-checks prior acceptance conditions and checks
+whether existing CI can detect each candidate gap.
 
 Git source identity must be checked before builds/benchmarks. A 40-character SHA
 and the first `ls-remote refs/tags/...` row do not prove commit identity. Use

@@ -13,7 +13,8 @@ TOP_DIRS = {"cmd", "internal", "python", "guest", "scripts", "tests", "docs", "l
 EXCLUDED = {"__pycache__", ".pytest_cache", "_native"}
 # Repository guidance is public on GitHub but is not part of corresponding source.
 REPOSITORY_ONLY_FILES = {"AGENTS.md", ".agents/skills/release/SKILL.md",
-                         ".agents/skills/experiment-workspace/SKILL.md"}
+                         ".agents/skills/experiment-workspace/SKILL.md",
+                         ".agents/skills/review/SKILL.md"}
 
 
 def public_files(root=None):

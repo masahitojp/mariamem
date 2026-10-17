@@ -38,6 +38,7 @@ TOOLING = {
     '.github/workflows/check.yml', '.github/workflows/release-candidate-ready.yml',
     'AGENTS.md', '.agents/skills/release/SKILL.md',
     '.agents/skills/experiment-workspace/SKILL.md',
+    '.agents/skills/review/SKILL.md',
 }
 # Only already-owned non-real-host suites are runtime-free. New test files are
 # unknown until deliberately assigned a responsibility, even if named .py.

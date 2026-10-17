@@ -59,6 +59,7 @@ def test_evidence_scope_does_not_exempt_unknown_code_or_directories(path):
     'tests/verify_alpha.py', '.github/workflows/v044-product-validation.yml', 'scripts/runtime_validation.py',
     'tests/test_runtime_validation.py', '.github/workflows/check.yml',
     '.agents/skills/experiment-workspace/SKILL.md',
+    '.agents/skills/review/SKILL.md',
 ])
 def test_tooling_remains_checked_without_runtime_qualification(path):
     assert scope.select([path])['check_scope'] == 'python'
