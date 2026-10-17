@@ -1,0 +1,10 @@
+{
+  "verification_script_sha256": "9cd547086b738a60210febba08e98f676a51b94a1e8162262be5c2b94d481435",
+  "review_summary_sha256": "7d6f2b27b564f3298eea4cd856d3c436c6a769bfb9cba44b5e3f436c2cb0f70d",
+  "evidence_source": "CI39073990176/job117517239946",
+  "commands": [
+    "python3 docs/reviews/ubuntu-product-performance-verify.py.txt"
+  ],
+  "result": "PASS",
+  "scope": "offline reconciliation only; no new guest/benchmark execution"
+}

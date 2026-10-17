@@ -1,0 +1,137 @@
+#!/usr/bin/env python3
+"""Offline review of pinned CI evidence. Never executes a guest or benchmark."""
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import statistics
+import subprocess
+
+ROOT = Path(__file__).resolve().parents[2]
+OUT = ROOT/'benchmarks/ubuntu-product-evidence'
+HARNESS = 'a3a852fe643ad3d651ef8bee895e015912b4449c'
+SPEC = importlib.util.spec_from_file_location('ubuntu_perf', ROOT/'benchmarks/ubuntu-product/run.py')
+MODULE = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(MODULE)
+
+def blob(ref, path):
+    return subprocess.check_output(['git', '-C', str(ROOT), 'show', ref+':'+path])
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+def load(path):
+    return json.loads((OUT/path).read_text())
+
+def stamp(info, commit):
+    assert info.splitlines()[0].endswith(' go1.26.8')
+    pairs = [s.strip()[len('build\t'):].split('=', 1) for s in info.splitlines() if s.strip().startswith('build\t')]
+    fields = dict(pairs)
+    assert len(fields) == len(pairs)
+    for k, value in dict(vcs='git', GOOS='linux', GOARCH='amd64', CGO_ENABLED='0', **{'vcs.revision':commit, 'vcs.modified':'false'}).items():
+        assert fields[k] == value, (k, fields[k], value)
+
+def main():
+    r = load('receipt.json');preservation = load('preservation.json')
+    assert preservation['extracted_files'] == 515
+    for path, record in preservation['files'].items():
+        assert digest((OUT/path).read_bytes()) == record['stored_sha256'], path
+    assert r['completed'] is True and r['harness_source_commit'] == HARNESS
+    assert (r['matrix_cells'], r['measured_cells'], r['pilots'], r['reuse_cells'], r['total_executions']) == (138,126,12,108,246)
+    assert r['go'] == 'go version go1.26.8 linux/amd64' and r['python'].startswith('3.14.8 ')
+    assert (r['os_release']['ID'], r['os_release']['VERSION_ID']) == ('ubuntu','24.04')
+    assert len(r['commands']) == 153 and all(c['returncode'] == 0 for c in r['commands'])
+    for path, expected in r['harness_sha256'].items():
+        assert digest(blob(HARNESS, path)) == expected, path
+    for version, source in r['sources'].items():
+        pin = json.loads(blob(HARNESS, f'release/baselines/{version}.json'))
+        assert source['pin'] == {k:v for k,v in pin.items() if k != 'version'}
+        verified = MODULE.verify_release_pin(ROOT, MODULE.read_release_pin(ROOT/f'release/baselines/{version}.json'))
+        assert source['identity'] == MODULE.asdict(verified)
+        commit = pin['source_commit']
+        assert source['guest_sha256'] == json.loads(blob(commit, 'release/generated-go-inputs.json'))['guest_sha256']
+        assert source['provenance_sha256'] == digest(blob(commit, 'internal/generatedgo/provenance.json'))
+        for path, expected in source['observer_sha256'].items():assert digest(blob(commit,path)) == expected
+        for binary in source['binaries'].values():
+            assert len(binary['sha256']) == 64
+            stamp(binary['build_info'], commit)
+    assert MODULE.plan() == load('plan.json')
+    rows = []
+    for cell in MODULE.plan():
+        name = MODULE.cell_name(cell)
+        data = load('matrix/'+name+'.json')
+        rows.append(MODULE.reduce_cell(cell, data, r['sources'][cell['version']]['pin']['source_commit']))
+    assert {p.stem for p in (OUT/'matrix').glob('*.json')} == {MODULE.cell_name(c) for c in MODULE.plan()}
+    assert r['cells'] == [row['name'] for row in rows]
+    assert rows == load('cells.json')
+    assert MODULE.summarize(rows) == load('matrix-summary.json')
+    reuse = {};phase_deltas = []
+    for baseline in ('v0.5.0','v0.5.1'):
+        directory = 'reuse-'+baseline
+        inputs = load(directory+'/inputs.json')
+        assert inputs['machine'] == 'x86_64' and inputs['python'].startswith('3.14.8 ')
+        assert (inputs['plain_repeats'],inputs['resource_repeats']) == (6,3)
+        for path, expected in inputs['harness'].items():
+            assert digest(blob(HARNESS,'benchmarks/sharedhost/'+path)) == expected
+        for label, version in (('baseline',baseline),('candidate','v0.5.2')):
+            source = r['sources'][version]
+            assert inputs['sources'][label]['identity']['source_commit'] == source['pin']['source_commit']
+            assert inputs['sources'][label]['host_sha256'] == source['binaries']['mariamem-host']['sha256']
+            stamp(inputs['sources'][label]['build_info'], source['pin']['source_commit'])
+        count = 0;summary = load(directory+'/summary.json');details = {}
+        for scale, payload_rows, forks in (('small',100,2),('medium',10000,2),('100mib',102400,16)):
+            detail = {}
+            for label in ('baseline','candidate'):
+                plain = [];resource = []
+                for prefix, n, bucket in (('plain',6,plain),('resource',3,resource)):
+                    for trial in range(n):
+                        data = load(f'{directory}/{prefix}-{scale}-{trial}-{label}.json');count += 1
+                        assert data['result'] == 'PASS' and data['rows'] == payload_rows and data['forks'] == forks
+                        assert data['label'] == label and data['scale'] == scale and data['repetition'] == trial
+                        assert data['resources_enabled'] == (prefix == 'resource')
+                        bucket.append(data)
+                saved = summary[scale][label]
+                assert saved['whole_ms'] == [x['whole_ms'] for x in plain]
+                assert saved['resource_whole_ms'] == [x['whole_ms'] for x in resource]
+                assert saved['median_ms'] == statistics.median(x['whole_ms'] for x in plain)
+                assert saved['snapshot_median_ms'] == statistics.median(x['times_ms']['prepare/snapshot'] for x in plain)
+                assert saved['child_start_median_ms'] == statistics.median(v for x in plain for k,v in x['times_ms'].items() if k.startswith('child') and k.endswith('/start'))
+                assert saved['sampled_peak_rss_mib'] == [x['sampled_host_peak_rss_mib'] for x in resource]
+                detail[label] = {**saved,'child_close_median_ms':statistics.median(v for x in plain for k,v in x['times_ms'].items() if k.startswith('child') and k.endswith('/close'))}
+            assert summary[scale]['median_reduction_percent'] == 100*(1-summary[scale]['candidate']['median_ms']/summary[scale]['baseline']['median_ms'])
+            details[scale] = detail
+        assert count == 54
+        expected_names = {f'{prefix}-{scale}-{trial}-{label}.json'
+                          for prefix,n in (('plain',6),('resource',3))
+                          for scale in ('small','medium','100mib')
+                          for trial in range(n) for label in ('baseline','candidate')}
+        assert {p.name for p in (OUT/directory).glob('*.json')} == expected_names | {'inputs.json','summary.json'}
+        reuse[baseline] = details
+    for trial in range(6):
+        a = load(f'reuse-v0.5.1/plain-100mib-{trial}-baseline.json')
+        b = load(f'reuse-v0.5.1/plain-100mib-{trial}-candidate.json')
+        delta = dict(trial=trial, whole_ms=b['whole_ms']-a['whole_ms'])
+        for phase in ('prepare/start','prepare/migrate-seed','prepare/snapshot'):
+            delta[phase] = b['times_ms'][phase]-a['times_ms'][phase]
+        phase_deltas.append(delta)
+    totals = {}
+    for version in MODULE.VERSIONS:
+        group = [x for x in rows if x['language']=='go' and not x['pilot'] and x['version']==version]
+        starts = [t for x in group for t in x['starts_seconds']]
+        totals[version] = dict(mapping_creates=sum(x['mapping_creates'] for x in group),
+                               mapping_releases=sum(x['mapping_releases'] for x in group),
+                               maximum_after_heap_bytes=max(x['after_heap_bytes'] for x in group),
+                               go_start_observations=len(starts), go_starts_ge_900ms=sum(t>=.9 for t in starts),
+                               maximum_go_start_seconds=max(starts))
+    write = dict(verified=True, run_id=39073990176, job_id=117517239946, harness_source_commit=HARNESS,
+                 artifact_sha256=preservation['artifact_sha256'], measured_matrix=126, pilots=12, reuse=108,
+                 matrix=MODULE.summarize(rows), reuse_details=reuse, go_invariants=totals,
+                 large_python_reuse_pair_phase_delta_ms=phase_deltas,
+                 limits=['binary stamp/hash checked by CI; binary bytes intentionally not archived',
+                         'single hosted runner; n=3 matrix and n=6 ordinary reuse, n=3 observed reuse',
+                         'magnitude or cause of slowdowns is not proven to be noise or code',
+                         'no 100 MiB Fresh; no new Qualification or release claim'])
+    MODULE.write(OUT/'review-summary.json',write)
+    print('PASS: artifact files, fixed inputs, stamps, all 246 cells and saved aggregates reconciled')
+
+if __name__ == '__main__':main()

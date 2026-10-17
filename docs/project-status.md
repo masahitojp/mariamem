@@ -320,10 +320,14 @@ v0.6.0 dogfood above. The current active and closed items are listed in the
 [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
 
 The Human prioritized native Ubuntu performance measurement next. The
-[fixed-scope campaign](reviews/ubuntu-product-performance.md) compares released
-v0.5.0/v0.5.1/v0.5.2 with existing workload/oracles; performance results remain
-pending. It does not reopen the closed 100 MiB Go Fresh investigation or approve
-runtime changes, Qualification or publication.
+[fixed-scope campaign](reviews/ubuntu-product-performance.md) completed 246
+executions on the released v0.5.0/v0.5.1/v0.5.2 inputs in
+[run 39073990176](https://github.com/masahitojp/mariamem/actions/runs/39073990176).
+The [result review](reviews/ubuntu-product-performance-results.md) reconciles
+all cells and identities: Snapshot gains also appear on Ubuntu, while large
+Python whole-workflow results remain mixed. Human acceptance of these results
+is pending. This does not reopen the closed 100 MiB Go Fresh investigation or
+approve runtime changes, Qualification or publication.
 
 **Closed until recurrence: 100 MiB Go Fresh.** The
 [completed paired comparison](../benchmarks/main-product-verification.md#adverse-100-mib-go-case-and-bounded-repeat)

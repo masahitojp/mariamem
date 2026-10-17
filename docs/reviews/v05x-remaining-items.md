@@ -13,7 +13,7 @@ main 取込 `9789a1e` を反映）。スナップショットのため、各項�
 
 | # | 残件 | 現状 | 次の判断／作業 |
 | --- | --- | --- | --- |
-| 2 | Ubuntu 性能 | Humanが先行実施を承認。[固定scopeでCI提出準備](ubuntu-product-performance.md)。結果未取得 | native Ubuntuのartifactが返った時点でidentity・完了数・全試行を確認し、性能をReviewする |
+| 2 | Ubuntu 性能 | [固定scope](ubuntu-product-performance.md)の246実行・入力identity・集計の照合が完了。[結果Review](ubuntu-product-performance-results.md) | Snapshotの利益と大規模Pythonの混在結果を含め、Humanが結果を受理するか判断する |
 | 3 | 16 接続/DB の接続数調整 | 0.5.x スコープに追加済み | 実需要と資源効果を確認してから上限変更を検討する |
 | 4 | 信頼スコープ再設計 | 未着手 | 着手前に別 Human Review（dependency closure と negative proof）が必要 |
 
@@ -31,7 +31,7 @@ main 取込 `9789a1e` を反映）。スナップショットのため、各項�
 
 ## 実質残るもの
 
-- **Ubuntu 性能** — 実施承認済み、計測結果待ち。性能PASSとは数えない。
+- **Ubuntu 性能** — 計測・証拠照合完了、Human Review待ち。全workloadの性能改善を意味しない。
 - **16 接続調整** — 0.5.x 入りしたので需要・資源効果の確認。
 - **信頼スコープ再設計** — 着手ゲートのまま。
 
