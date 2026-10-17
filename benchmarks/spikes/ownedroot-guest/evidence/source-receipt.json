@@ -1,5 +1,5 @@
 {
-  "source_commit": "bd9d171c103c1bdf3985a716d92a576419f3c79a",
+  "source_commit": "37f0de56931db92a43e87f1d1099300f33e6d5da",
   "stage": "source",
   "go": "go version go1.26.8 darwin/arm64",
   "runs": [
@@ -10,7 +10,7 @@
         "scripts/verify_generated_runtime.py"
       ],
       "exit_code": 0,
-      "seconds": 0.2687427089549601
+      "seconds": 0.22295637498609722
     },
     {
       "name": "source-tests",
@@ -24,7 +24,7 @@
         "-q"
       ],
       "exit_code": 0,
-      "seconds": 1.4025179161690176
+      "seconds": 1.2121893330477178
     }
   ]
 }
