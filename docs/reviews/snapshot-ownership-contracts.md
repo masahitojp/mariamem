@@ -5,12 +5,12 @@
 ## Spike前のHuman Review — 5条件の具体化（着手承認済みの履歴）
 
 **現在の状態：Humanが2026-10-17に「ほい、承認します」と5条件での部品spike着手を承認。
-部品spikeは完了し、現在の判断依頼は[結果のHuman Review](snapshot-owned-root-component.md)に一本化した。**
+部品spikeは完了し、現在の判断依頼は、承認済みの接続spikeを経た[実guest結果](snapshot-owned-root-guest.md)に一本化した。**
 当初の5条件付き承認の推薦はHuman承認ではなく、その後の上記発言が着手承認に当たる。
 この節が後述§7・§8を具体化する。以下は実施結果ではなく、確認してから着手する条件である。
 承認対象はguest未接続の部品spike。製品契約、既存oracle、本番経路の変更は含めない。
 
-文書の正本は`experiment/snapshot-owned-root-spike`上の本書と`docs/project-status.md`。
+現在の正本は`experiment/snapshot-owned-root-guest`上の本書と`docs/project-status.md`。部品結果`39b394b`を起点とする継続branchで、`experiment/snapshot-owned-root-spike`は部品段階の履歴。
 `experiment/snapshot-ownership-contracts`の`e932ab9`は当初の設計記録として保存する旧版で、
 正本の祖先に含まれる。`7cc75d5`が5条件を追加し、以後の修正も正本ブランチへ積む。
 mainへの反映が別途承認された場合は、この正本のレビュー済み文書を取り込み元とし、

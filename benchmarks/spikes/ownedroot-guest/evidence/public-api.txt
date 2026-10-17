@@ -1,0 +1,132 @@
+{"Time":"2026-10-17T11:40:18.077603+09:00","Action":"start","Package":"github.com/masahitojp/mariamem/internal/guest"}
+{"Time":"2026-10-17T11:40:19.168693+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestCompiledIdentityFailure"}
+{"Time":"2026-10-17T11:40:19.168773+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestCompiledIdentityFailure","Output":"=== RUN   TestCompiledIdentityFailure\n"}
+{"Time":"2026-10-17T11:40:19.168798+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestCompiledIdentityFailure","Output":"--- PASS: TestCompiledIdentityFailure (0.00s)\n"}
+{"Time":"2026-10-17T11:40:19.168805+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestCompiledIdentityFailure","Elapsed":0}
+{"Time":"2026-10-17T11:40:19.168815+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestStartupCauseAndBoundedTail"}
+{"Time":"2026-10-17T11:40:19.168817+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestStartupCauseAndBoundedTail","Output":"=== RUN   TestStartupCauseAndBoundedTail\n"}
+{"Time":"2026-10-17T11:40:19.16882+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestStartupCauseAndBoundedTail","Output":"--- PASS: TestStartupCauseAndBoundedTail (0.00s)\n"}
+{"Time":"2026-10-17T11:40:19.168822+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestStartupCauseAndBoundedTail","Elapsed":0}
+{"Time":"2026-10-17T11:40:19.168823+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestFramedStartupFailureSurvivesAndJoins"}
+{"Time":"2026-10-17T11:40:19.168825+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestFramedStartupFailureSurvivesAndJoins","Output":"=== RUN   TestFramedStartupFailureSurvivesAndJoins\n"}
+{"Time":"2026-10-17T11:40:19.168829+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestFramedStartupFailureSurvivesAndJoins","Output":"--- PASS: TestFramedStartupFailureSurvivesAndJoins (0.00s)\n"}
+{"Time":"2026-10-17T11:40:19.168831+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestFramedStartupFailureSurvivesAndJoins","Elapsed":0}
+{"Time":"2026-10-17T11:40:19.168836+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestReadyTransportObservationsAreOptIn"}
+{"Time":"2026-10-17T11:40:19.168838+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestReadyTransportObservationsAreOptIn","Output":"=== RUN   TestReadyTransportObservationsAreOptIn\n"}
+{"Time":"2026-10-17T11:40:19.169081+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestReadyTransportObservationsAreOptIn","Output":"--- PASS: TestReadyTransportObservationsAreOptIn (0.00s)\n"}
+{"Time":"2026-10-17T11:40:19.169103+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/guest","Test":"TestReadyTransportObservationsAreOptIn","Elapsed":0}
+{"Time":"2026-10-17T11:40:19.169108+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/guest","Output":"PASS\n"}
+{"Time":"2026-10-17T11:40:19.16962+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/guest","Output":"ok  \tgithub.com/masahitojp/mariamem/internal/guest\t1.090s\n"}
+{"Time":"2026-10-17T11:40:19.169636+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/guest","Elapsed":1.091}
+{"Time":"2026-10-17T11:40:19.805351+09:00","Action":"start","Package":"github.com/masahitojp/mariamem/internal/host"}
+{"Time":"2026-10-17T11:40:20.055408+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSlotReservationAndReuse"}
+{"Time":"2026-10-17T11:40:20.055472+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSlotReservationAndReuse","Output":"=== RUN   TestSlotReservationAndReuse\n"}
+{"Time":"2026-10-17T11:40:20.055484+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSlotReservationAndReuse","Output":"--- PASS: TestSlotReservationAndReuse (0.00s)\n"}
+{"Time":"2026-10-17T11:40:20.055495+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSlotReservationAndReuse","Elapsed":0}
+{"Time":"2026-10-17T11:40:20.055503+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination"}
+{"Time":"2026-10-17T11:40:20.055505+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination","Output":"=== RUN   TestSnapshotDestination\n"}
+{"Time":"2026-10-17T11:40:20.055507+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/success"}
+{"Time":"2026-10-17T11:40:20.055509+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/success","Output":"=== RUN   TestSnapshotDestination/success\n"}
+{"Time":"2026-10-17T11:40:20.06043+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/success","Output":"--- PASS: TestSnapshotDestination/success (0.00s)\n"}
+{"Time":"2026-10-17T11:40:20.060464+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/success","Elapsed":0}
+{"Time":"2026-10-17T11:40:20.060471+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/publish-failure"}
+{"Time":"2026-10-17T11:40:20.060474+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/publish-failure","Output":"=== RUN   TestSnapshotDestination/publish-failure\n"}
+{"Time":"2026-10-17T11:40:20.062864+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/publish-failure","Output":"--- PASS: TestSnapshotDestination/publish-failure (0.00s)\n"}
+{"Time":"2026-10-17T11:40:20.062893+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/publish-failure","Elapsed":0}
+{"Time":"2026-10-17T11:40:20.062904+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/export-failure"}
+{"Time":"2026-10-17T11:40:20.062908+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/export-failure","Output":"=== RUN   TestSnapshotDestination/export-failure\n"}
+{"Time":"2026-10-17T11:40:20.064362+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/export-failure","Output":"--- PASS: TestSnapshotDestination/export-failure (0.00s)\n"}
+{"Time":"2026-10-17T11:40:20.064389+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/export-failure","Elapsed":0}
+{"Time":"2026-10-17T11:40:20.064395+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/existing"}
+{"Time":"2026-10-17T11:40:20.064399+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/existing","Output":"=== RUN   TestSnapshotDestination/existing\n"}
+{"Time":"2026-10-17T11:40:20.066311+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/existing","Output":"--- PASS: TestSnapshotDestination/existing (0.00s)\n"}
+{"Time":"2026-10-17T11:40:20.066349+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination/existing","Elapsed":0}
+{"Time":"2026-10-17T11:40:20.066357+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination","Output":"--- PASS: TestSnapshotDestination (0.01s)\n"}
+{"Time":"2026-10-17T11:40:20.066362+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/host","Test":"TestSnapshotDestination","Elapsed":0.01}
+{"Time":"2026-10-17T11:40:20.066425+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Output":"PASS\n"}
+{"Time":"2026-10-17T11:40:20.066629+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/host","Output":"ok  \tgithub.com/masahitojp/mariamem/internal/host\t0.261s\n"}
+{"Time":"2026-10-17T11:40:20.066638+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/host","Elapsed":0.261}
+{"Time":"2026-10-17T11:40:21.609483+09:00","Action":"start","Package":"github.com/masahitojp/mariamem/internal/control"}
+{"Time":"2026-10-17T11:40:22.529693+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/control","Test":"TestRequestCancellationDoesNotSerializeOtherOperations"}
+{"Time":"2026-10-17T11:40:22.529743+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/control","Test":"TestRequestCancellationDoesNotSerializeOtherOperations","Output":"=== RUN   TestRequestCancellationDoesNotSerializeOtherOperations\n"}
+{"Time":"2026-10-17T11:40:22.530215+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/control","Test":"TestRequestCancellationDoesNotSerializeOtherOperations","Output":"--- PASS: TestRequestCancellationDoesNotSerializeOtherOperations (0.00s)\n"}
+{"Time":"2026-10-17T11:40:22.530223+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/control","Test":"TestRequestCancellationDoesNotSerializeOtherOperations","Elapsed":0}
+{"Time":"2026-10-17T11:40:22.530232+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/internal/control","Test":"TestOwnerEOFCancelsPendingAndCleansUp"}
+{"Time":"2026-10-17T11:40:22.530236+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/control","Test":"TestOwnerEOFCancelsPendingAndCleansUp","Output":"=== RUN   TestOwnerEOFCancelsPendingAndCleansUp\n"}
+{"Time":"2026-10-17T11:40:22.530299+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/control","Test":"TestOwnerEOFCancelsPendingAndCleansUp","Output":"--- PASS: TestOwnerEOFCancelsPendingAndCleansUp (0.00s)\n"}
+{"Time":"2026-10-17T11:40:22.530302+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/control","Test":"TestOwnerEOFCancelsPendingAndCleansUp","Elapsed":0}
+{"Time":"2026-10-17T11:40:22.530311+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/control","Output":"PASS\n"}
+{"Time":"2026-10-17T11:40:22.530867+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/internal/control","Output":"ok  \tgithub.com/masahitojp/mariamem/internal/control\t0.920s\n"}
+{"Time":"2026-10-17T11:40:22.530877+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/internal/control","Elapsed":0.921}
+{"Time":"2026-10-17T11:40:23.251982+09:00","Action":"start","Package":"github.com/masahitojp/mariamem"}
+{"Time":"2026-10-17T11:40:24.119248+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestOptions"}
+{"Time":"2026-10-17T11:40:24.119296+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestOptions","Output":"=== RUN   TestOptions\n"}
+{"Time":"2026-10-17T11:40:24.119372+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestOptions","Output":"--- PASS: TestOptions (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.119386+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestOptions","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.11939+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestConnection"}
+{"Time":"2026-10-17T11:40:24.119392+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestConnection","Output":"=== RUN   TestConnection\n"}
+{"Time":"2026-10-17T11:40:24.120094+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestConnection","Output":"--- PASS: TestConnection (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.120099+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestConnection","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.120101+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestErrors"}
+{"Time":"2026-10-17T11:40:24.120103+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestErrors","Output":"=== RUN   TestErrors\n"}
+{"Time":"2026-10-17T11:40:24.120112+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestErrors","Output":"--- PASS: TestErrors (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.120115+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestErrors","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.120118+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestCloseIdempotent"}
+{"Time":"2026-10-17T11:40:24.120119+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestCloseIdempotent","Output":"=== RUN   TestCloseIdempotent\n"}
+{"Time":"2026-10-17T11:40:24.120768+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestCloseIdempotent","Output":"--- PASS: TestCloseIdempotent (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.12078+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestCloseIdempotent","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.120782+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestZeroValues"}
+{"Time":"2026-10-17T11:40:24.120784+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestZeroValues","Output":"=== RUN   TestZeroValues\n"}
+{"Time":"2026-10-17T11:40:24.120786+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestZeroValues","Output":"--- PASS: TestZeroValues (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.120796+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestZeroValues","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.120799+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestWaitDisconnected"}
+{"Time":"2026-10-17T11:40:24.1208+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestWaitDisconnected","Output":"=== RUN   TestWaitDisconnected\n"}
+{"Time":"2026-10-17T11:40:24.122539+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestWaitDisconnected","Output":"--- PASS: TestWaitDisconnected (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.122544+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestWaitDisconnected","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.122552+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestSnapshotOwnership"}
+{"Time":"2026-10-17T11:40:24.122553+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestSnapshotOwnership","Output":"=== RUN   TestSnapshotOwnership\n"}
+{"Time":"2026-10-17T11:40:24.12328+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestSnapshotOwnership","Output":"--- PASS: TestSnapshotOwnership (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.123284+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestSnapshotOwnership","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.123286+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestSnapshotFailures"}
+{"Time":"2026-10-17T11:40:24.123288+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestSnapshotFailures","Output":"=== RUN   TestSnapshotFailures\n"}
+{"Time":"2026-10-17T11:40:24.124601+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestSnapshotFailures","Output":"--- PASS: TestSnapshotFailures (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.124605+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestSnapshotFailures","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.124608+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestLogsBounded"}
+{"Time":"2026-10-17T11:40:24.124619+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestLogsBounded","Output":"=== RUN   TestLogsBounded\n"}
+{"Time":"2026-10-17T11:40:24.124623+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestLogsBounded","Output":"--- PASS: TestLogsBounded (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.124625+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestLogsBounded","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.124626+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestRuntimeExitCleanup"}
+{"Time":"2026-10-17T11:40:24.124628+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestRuntimeExitCleanup","Output":"=== RUN   TestRuntimeExitCleanup\n"}
+{"Time":"2026-10-17T11:40:24.125259+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestRuntimeExitCleanup","Output":"--- PASS: TestRuntimeExitCleanup (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.125267+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestRuntimeExitCleanup","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.12527+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestInvalidatedState"}
+{"Time":"2026-10-17T11:40:24.125272+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestInvalidatedState","Output":"=== RUN   TestInvalidatedState\n"}
+{"Time":"2026-10-17T11:40:24.126408+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestInvalidatedState","Output":"--- PASS: TestInvalidatedState (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.126415+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestInvalidatedState","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.12643+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestSuccessfulCaptureWithoutOwnedSnapshot"}
+{"Time":"2026-10-17T11:40:24.126433+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestSuccessfulCaptureWithoutOwnedSnapshot","Output":"=== RUN   TestSuccessfulCaptureWithoutOwnedSnapshot\n"}
+{"Time":"2026-10-17T11:40:24.127134+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestSuccessfulCaptureWithoutOwnedSnapshot","Output":"--- PASS: TestSuccessfulCaptureWithoutOwnedSnapshot (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.127147+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestSuccessfulCaptureWithoutOwnedSnapshot","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.127168+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestConcurrentForkCloseOwnership"}
+{"Time":"2026-10-17T11:40:24.127171+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestConcurrentForkCloseOwnership","Output":"=== RUN   TestConcurrentForkCloseOwnership\n"}
+{"Time":"2026-10-17T11:40:24.128398+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestConcurrentForkCloseOwnership","Output":"--- PASS: TestConcurrentForkCloseOwnership (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.128408+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestConcurrentForkCloseOwnership","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.128413+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestSequentialForkReleasesReadLock"}
+{"Time":"2026-10-17T11:40:24.128415+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestSequentialForkReleasesReadLock","Output":"=== RUN   TestSequentialForkReleasesReadLock\n"}
+{"Time":"2026-10-17T11:40:24.128418+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestSequentialForkReleasesReadLock","Output":"--- PASS: TestSequentialForkReleasesReadLock (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.128422+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestSequentialForkReleasesReadLock","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.128425+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestStartupErrorBoundaryAndLifecycleCause"}
+{"Time":"2026-10-17T11:40:24.128437+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestStartupErrorBoundaryAndLifecycleCause","Output":"=== RUN   TestStartupErrorBoundaryAndLifecycleCause\n"}
+{"Time":"2026-10-17T11:40:24.12844+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestStartupErrorBoundaryAndLifecycleCause","Output":"--- PASS: TestStartupErrorBoundaryAndLifecycleCause (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.128443+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestStartupErrorBoundaryAndLifecycleCause","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.12845+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestPublicForkTimingRetainsPreparationFailureAndNestedScopes"}
+{"Time":"2026-10-17T11:40:24.128452+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestPublicForkTimingRetainsPreparationFailureAndNestedScopes","Output":"=== RUN   TestPublicForkTimingRetainsPreparationFailureAndNestedScopes\n"}
+{"Time":"2026-10-17T11:40:24.130049+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestPublicForkTimingRetainsPreparationFailureAndNestedScopes","Output":"--- PASS: TestPublicForkTimingRetainsPreparationFailureAndNestedScopes (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.130054+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestPublicForkTimingRetainsPreparationFailureAndNestedScopes","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.130057+09:00","Action":"run","Package":"github.com/masahitojp/mariamem","Test":"TestRetiredRuntimeOverrides"}
+{"Time":"2026-10-17T11:40:24.130059+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestRetiredRuntimeOverrides","Output":"=== RUN   TestRetiredRuntimeOverrides\n"}
+{"Time":"2026-10-17T11:40:24.130111+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Test":"TestRetiredRuntimeOverrides","Output":"--- PASS: TestRetiredRuntimeOverrides (0.00s)\n"}
+{"Time":"2026-10-17T11:40:24.130128+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Test":"TestRetiredRuntimeOverrides","Elapsed":0}
+{"Time":"2026-10-17T11:40:24.130131+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Output":"PASS\n"}
+{"Time":"2026-10-17T11:40:24.130737+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Output":"ok  \tgithub.com/masahitojp/mariamem\t0.878s\n"}
+{"Time":"2026-10-17T11:40:24.130745+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem","Elapsed":0.878}

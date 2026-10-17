@@ -234,7 +234,7 @@ v0.5.1 acceptance. See the [follow-up Human Review](reviews/v05x-followup.md).
 | Item | Current disposition |
 | --- | --- |
 | 100 MiB Go Fresh investigation | Closed by Human decision; revisit if similar slowdown recurs. Preserve unknown cause and original observations. |
-| Snapshot ownership and repeated content reads | The maintainer approved the five-condition component spike on 2026-10-17. The guest-disconnected implementation and bounded macOS checks are complete; real-guest integration, detection-contract changes and product adoption await separate Human decisions. |
+| Snapshot ownership and repeated content reads | The maintainer approved the five-condition component spike on 2026-10-17. The component spike is complete. The maintainer then approved the actual-guest spike; its bounded macOS results are recorded in the [guest review](reviews/snapshot-owned-root-guest.md). Detection-contract changes and product adoption await Human decisions; Ubuntu is not yet checked. |
 | Connection capacity (16 per DB) | Deferred; unchanged. Consider with real concurrent application needs, not merely because a shared host exists. |
 | General shared-memory guarantee expansion / forced termination | Separate design scope; no newly observed defect is established by this follow-up. Do not reopen completed bounded correctness work. |
 | Broader framework dogfood / fixture ergonomics | Existing v0.6.0 direction; not silently moved into 0.5.x. |
@@ -249,15 +249,15 @@ storage-only spike. The maintainer subsequently approved those five conditions.
 The [component results](reviews/snapshot-owned-root-component.md) demonstrate
 zero payload reads/copies/hashes during heap Freeze/Acquire and bounded ownership
 oracles, while explicitly reproducing the remaining direct-byte-corruption
-detection difference. This is not a proven real-guest replacement. The [earlier two-pass proposal](reviews/snapshot-two-pass-design.md)
+detection difference. The subsequently approved [real-guest spike](reviews/snapshot-owned-root-guest.md) confirms the bounded macOS path and end-to-end benefit, while preserving the detection-contract difference. A pre-acquisition InnoDB-page byte fault passed ownership acquisition but was rejected by the later SQL read; this is not equal to immediate strict rejection or proof for all files. The [earlier two-pass proposal](reviews/snapshot-two-pass-design.md)
 and its 150ms/480ms targets are retained as historical alternatives, not current
 acceptance criteria. The approved product contract remains unchanged.
 
-The authoritative review-document lineage is `experiment/snapshot-owned-root-spike`:
+The authoritative continuation is now `experiment/snapshot-owned-root-guest`, based on component result `39b394b`. The historical component lineage is `experiment/snapshot-owned-root-spike`:
 it includes the original design at `e932ab9`, the five requirements at `7cc75d5`,
 and subsequent review corrections. `experiment/snapshot-ownership-contracts`
 remains the historical design branch at `e932ab9`. If main integration is later
-authorized, use the reviewed documents from the authoritative branch; do not
+authorized, use the reviewed documents from the current continuation branch; do not
 also import the historical branch's copies of the same documents.
 
 ## Performance evidence and pending optimization questions

@@ -1,0 +1,23 @@
+{
+  "injection": {
+    "mutate": false,
+    "file": "data/test/checksum_probe.ibd",
+    "offset": 49373,
+    "page": 3,
+    "page_type": 17855,
+    "before": 117,
+    "after": 117,
+    "strict_rejected": false,
+    "metadata_accepted": true
+  },
+  "kind": "healthy",
+  "logs": "",
+  "outcome": "original_value",
+  "variables": {
+    "innodb_checksum_algorithm": "full_crc32",
+    "innodb_doublewrite": "ON",
+    "innodb_file_per_table": "ON",
+    "innodb_force_recovery": "0",
+    "innodb_page_size": "16384"
+  }
+}

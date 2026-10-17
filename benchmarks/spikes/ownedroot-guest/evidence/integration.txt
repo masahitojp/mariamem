@@ -1,0 +1,23 @@
+{"Time":"2026-10-17T11:40:18.186039+09:00","Action":"start","Package":"github.com/masahitojp/mariamem/tests/gointegration"}
+{"Time":"2026-10-17T11:40:19.238249+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestPublicLifecycle"}
+{"Time":"2026-10-17T11:40:19.238337+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestPublicLifecycle","Output":"=== RUN   TestPublicLifecycle\n"}
+{"Time":"2026-10-17T11:40:19.337541+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestPublicLifecycle","Output":"    lifecycle_test.go:102: driver=v1.9.3 server=12.3.3-MariaDB-embedded\n"}
+{"Time":"2026-10-17T11:40:19.529886+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestPublicLifecycle","Output":"    lifecycle_test.go:256: Start, ConnectionInfo/DSN, SQL, InnoDB, commit, transaction rejection, disconnect, snapshot, concurrent/sequential fork isolation and cleanup passed\n"}
+{"Time":"2026-10-17T11:40:19.529931+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestPublicLifecycle","Output":"--- PASS: TestPublicLifecycle (0.29s)\n"}
+{"Time":"2026-10-17T11:40:19.52994+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestPublicLifecycle","Elapsed":0.29}
+{"Time":"2026-10-17T11:40:19.529962+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedManyOrderParallelAndClose"}
+{"Time":"2026-10-17T11:40:19.529963+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedManyOrderParallelAndClose","Output":"=== RUN   TestOwnedManyOrderParallelAndClose\n"}
+{"Time":"2026-10-17T11:40:28.136453+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedManyOrderParallelAndClose","Output":"    owned_prepared_test.go:232: 35 mutating children + live-after-Close: fd 4 -\u003e 4; goroutines 2 -\u003e 2\n"}
+{"Time":"2026-10-17T11:40:28.136475+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedManyOrderParallelAndClose","Output":"--- PASS: TestOwnedManyOrderParallelAndClose (8.60s)\n"}
+{"Time":"2026-10-17T11:40:28.136478+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedManyOrderParallelAndClose","Elapsed":8.6}
+{"Time":"2026-10-17T11:40:28.136483+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedForkCloseRace"}
+{"Time":"2026-10-17T11:40:28.136485+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedForkCloseRace","Output":"=== RUN   TestOwnedForkCloseRace\n"}
+{"Time":"2026-10-17T11:40:28.549946+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedForkCloseRace","Output":"--- PASS: TestOwnedForkCloseRace (0.41s)\n"}
+{"Time":"2026-10-17T11:40:28.549965+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedForkCloseRace","Elapsed":0.41}
+{"Time":"2026-10-17T11:40:28.549974+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedModifiedChildCreatesNewBaseline"}
+{"Time":"2026-10-17T11:40:28.549975+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedModifiedChildCreatesNewBaseline","Output":"=== RUN   TestOwnedModifiedChildCreatesNewBaseline\n"}
+{"Time":"2026-10-17T11:40:28.910879+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedModifiedChildCreatesNewBaseline","Output":"--- PASS: TestOwnedModifiedChildCreatesNewBaseline (0.36s)\n"}
+{"Time":"2026-10-17T11:40:28.910896+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/tests/gointegration","Test":"TestOwnedModifiedChildCreatesNewBaseline","Elapsed":0.36}
+{"Time":"2026-10-17T11:40:28.910901+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Output":"PASS\n"}
+{"Time":"2026-10-17T11:40:28.913027+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/tests/gointegration","Output":"ok  \tgithub.com/masahitojp/mariamem/tests/gointegration\t10.717s\n"}
+{"Time":"2026-10-17T11:40:28.913037+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/tests/gointegration","Elapsed":10.718}

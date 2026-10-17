@@ -1,0 +1,20 @@
+{
+  "source_commit": "11fa56bd8f7c7180299d3235b586a0bc18004768",
+  "stage": "regenerate",
+  "go": "go version go1.26.8 darwin/arm64",
+  "runs": [
+    {
+      "name": "regeneration",
+      "arguments": [
+        "python",
+        "scripts/regenerate_release_guest.py",
+        "--guest-dir",
+        "<temp>/release-inputs/generated-release",
+        "--output",
+        "<temp>/regeneration"
+      ],
+      "exit_code": 0,
+      "seconds": 159.6732653330546
+    }
+  ]
+}

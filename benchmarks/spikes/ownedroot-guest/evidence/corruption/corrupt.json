@@ -1,0 +1,24 @@
+{
+  "error": "Error 1877 (HY000): Table `test`.`checksum_probe` is corrupted. Please drop the table and recreate.",
+  "injection": {
+    "mutate": true,
+    "file": "data/test/checksum_probe.ibd",
+    "offset": 49373,
+    "page": 3,
+    "page_type": 17855,
+    "before": 117,
+    "after": 116,
+    "strict_rejected": true,
+    "metadata_accepted": true
+  },
+  "kind": "corrupt",
+  "logs": "Got ERROR: \"InnoDB: Failed to read page 3 from file '/mariadb/data/test/checksum_probe.ibd': Page read from tablespace is corrupted.\" errno: 2000\nGot ERROR: \"InnoDB: File '/mariadb/data/test/checksum_probe.ibd' is corrupted\" errno: 2000\nGot ERROR: \"InnoDB: Failed to read page 3 from file '/mariadb/data/test/checksum_probe.ibd': Page read from tablespace is corrupted.\" errno: 2000\nGot ERROR: \"unknown: Table `test`.`checksum_probe` is corrupted. Please drop the table and recreate.\" errno: 2000\n",
+  "outcome": "query_error",
+  "variables": {
+    "innodb_checksum_algorithm": "full_crc32",
+    "innodb_doublewrite": "ON",
+    "innodb_file_per_table": "ON",
+    "innodb_force_recovery": "0",
+    "innodb_page_size": "16384"
+  }
+}

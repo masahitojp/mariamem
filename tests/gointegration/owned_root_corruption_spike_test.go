@@ -1,6 +1,6 @@
 //go:build integration && ownedroot_probe
 
-package mariamem_test
+package gointegration_test
 
 import (
 	"context"

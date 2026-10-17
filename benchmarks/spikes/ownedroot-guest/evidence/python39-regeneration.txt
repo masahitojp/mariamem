@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "<source>/benchmarks/spikes/generated-go-integration/translate_guest.py", line 77, in <module>
+    main()
+  File "<source>/benchmarks/spikes/generated-go-integration/translate_guest.py", line 50, in main
+    archive.extractall(converter, filter='data')
+TypeError: extractall() got an unexpected keyword argument 'filter'
+Traceback (most recent call last):
+  File "<source>/scripts/regenerate_release_guest.py", line 63, in <module>
+    if __name__ == '__main__': main()
+  File "<source>/scripts/regenerate_release_guest.py", line 49, in main
+    observed_run([sys.executable,*map(str,command)],cwd=ROOT,env=env,check=True,
+  File "<source>/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Library/Developer/CommandLineTools/usr/bin/python3', '<source>/benchmarks/spikes/generated-go-integration/translate_guest.py', '--guest', '<temp>/release-inputs/generated-release/mariamem.wasm', '--guest-sha256', '7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09', '--converter-archive', '<source>/build/downloads/wasm2go-upstream.tar.gz', '--output', '<temp>/regeneration/translation']' returned non-zero exit status 1.

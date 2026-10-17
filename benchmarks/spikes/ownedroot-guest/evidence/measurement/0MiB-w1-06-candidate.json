@@ -1,0 +1,172 @@
+{
+ "diagnostic_overhead_seconds": 0.0007670379999999422,
+ "fds_after": 6,
+ "fds_before": 5,
+ "fds_snapshot": 6,
+ "final_go": {
+  "goroutines": 1,
+  "heap_alloc_bytes": 320720,
+  "heap_inuse_bytes": 1212416,
+  "heap_released_bytes": 5627904,
+  "heap_sys_bytes": 16089088,
+  "linear_memory_virtual": {
+   "active_mappings": 0,
+   "active_reserved_bytes": 0,
+   "active_rw_bytes": 0,
+   "creates": 5,
+   "grow_calls": 522,
+   "grow_failures": 0,
+   "peak_total_rw_bytes": 696844288,
+   "release_failures": 0,
+   "releases": 5
+  },
+  "mallocs": 27497,
+  "num_gc": 7,
+  "pause_total_ns": 1410165,
+  "total_alloc_bytes": 19992376
+ },
+ "fork_suite_wall_seconds": 0.3166695,
+ "forks": 4,
+ "go": "go1.26.8",
+ "goarch": "arm64",
+ "goos": "darwin",
+ "instance_suite_wall_seconds": 0.3166695,
+ "label": "11fa56bd8f7c7180299d3235b586a0bc18004768",
+ "lifecycle": "fork",
+ "operations": [
+  {
+   "cpu_seconds": 0.049871000000000006,
+   "name": "prepare_start",
+   "seconds": 0.055185834
+  },
+  {
+   "cpu_seconds": 0.012853999999999997,
+   "name": "prepare_setup",
+   "seconds": 0.007504666
+  },
+  {
+   "cpu_seconds": 0.0033129999999999965,
+   "name": "snapshot",
+   "seconds": 0.002901542
+  },
+  {
+   "cpu_seconds": 0.051170999999999994,
+   "name": "fork_ready_00",
+   "seconds": 0.060109834
+  },
+  {
+   "cpu_seconds": 0.011233000000000007,
+   "name": "point_use_00",
+   "seconds": 0.003882709
+  },
+  {
+   "cpu_seconds": 0.0002929999999999877,
+   "name": "count_use_00",
+   "seconds": 0.000319125
+  },
+  {
+   "cpu_seconds": 0.006071999999999994,
+   "name": "mutation_00",
+   "seconds": 0.00335325
+  },
+  {
+   "cpu_seconds": 0.003821999999999992,
+   "name": "child_close_00",
+   "seconds": 0.008537709
+  },
+  {
+   "cpu_seconds": 0.05704799999999999,
+   "name": "fork_ready_01",
+   "seconds": 0.064288792
+  },
+  {
+   "cpu_seconds": 0.009739999999999999,
+   "name": "point_use_01",
+   "seconds": 0.003095666
+  },
+  {
+   "cpu_seconds": 0.0015449999999999908,
+   "name": "count_use_01",
+   "seconds": 0.000788833
+  },
+  {
+   "cpu_seconds": 0.006900000000000017,
+   "name": "mutation_01",
+   "seconds": 0.003824417
+  },
+  {
+   "cpu_seconds": 0.004403000000000018,
+   "name": "child_close_01",
+   "seconds": 0.008806334
+  },
+  {
+   "cpu_seconds": 0.055827000000000016,
+   "name": "fork_ready_02",
+   "seconds": 0.064476209
+  },
+  {
+   "cpu_seconds": 0.011012000000000022,
+   "name": "point_use_02",
+   "seconds": 0.004203
+  },
+  {
+   "cpu_seconds": 0.0003349999999999742,
+   "name": "count_use_02",
+   "seconds": 0.000337125
+  },
+  {
+   "cpu_seconds": 0.00460900000000003,
+   "name": "mutation_02",
+   "seconds": 0.003481542
+  },
+  {
+   "cpu_seconds": 0.008641999999999983,
+   "name": "child_close_02",
+   "seconds": 0.0087045
+  },
+  {
+   "cpu_seconds": 0.056401000000000034,
+   "name": "fork_ready_03",
+   "seconds": 0.061752875
+  },
+  {
+   "cpu_seconds": 0.013467000000000007,
+   "name": "point_use_03",
+   "seconds": 0.004693125
+  },
+  {
+   "cpu_seconds": 0.00030000000000002247,
+   "name": "count_use_03",
+   "seconds": 0.000329167
+  },
+  {
+   "cpu_seconds": 0.005578000000000027,
+   "name": "mutation_03",
+   "seconds": 0.002938292
+  },
+  {
+   "cpu_seconds": 0.00464500000000001,
+   "name": "child_close_03",
+   "seconds": 0.008552083
+  },
+  {
+   "cpu_seconds": 0.000003000000000030756,
+   "name": "snapshot_close",
+   "seconds": 9.17e-7
+  }
+ ],
+ "parallel_resource_sampling": "before/after child loop only; no simultaneous-child peak sample",
+ "payload_mib": 0,
+ "prepare_seconds": 0.06569075,
+ "resources": {},
+ "suite_cpu_scope": "RUSAGE_SELF; benchmark/diagnostic overhead included; counter-helper child CPU excluded",
+ "suite_cpu_seconds": 0.38021099999999997,
+ "suite_n1_seconds": 0.1419265,
+ "suite_operation_seconds": 0.38206754600000004,
+ "suite_product_seconds": 0.38206754600000004,
+ "suite_seconds": 0.382834584,
+ "sum_of_operation_seconds": 0.38206754600000004,
+ "tables": 1,
+ "workers": 1,
+ "workload": "app-connections"
+}

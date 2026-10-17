@@ -1,0 +1,22 @@
+{
+  "source_commit": "7994db2fb6d391027cd4ab1ce2e4dda84ca7662d",
+  "exit_code": 0,
+  "original_sha256": "2c637efb05d5108ec9cc896163d5bd770627af56e461a27a5d1079f06a01623a",
+  "overlay_sha256": "bd3b9e1611376cb0f38e83f0ecfd0d26aec8c12b1f087444bafc70de7b2b9e27",
+  "injection_point": "after TakeRoot; before OwnRoot; capture not yet returned",
+  "arguments": [
+    "<user>/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+    "test",
+    "-json",
+    "-p",
+    "1",
+    "-tags=integration,ownedroot_probe",
+    "-overlay",
+    "<temp>/corruption-overlay.json",
+    ".",
+    "-run",
+    "^TestOwnedRootCorruptionProbe$",
+    "-count=1",
+    "-timeout=120s"
+  ]
+}

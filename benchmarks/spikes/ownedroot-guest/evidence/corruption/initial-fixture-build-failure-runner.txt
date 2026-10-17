@@ -1,0 +1,17 @@
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"# github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"./owned_root_corruption_spike_test.go:64:17: too many arguments in call to db.Close\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"\thave (context.Context)\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"\twant ()\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"./owned_root_corruption_spike_test.go:100:25: not enough arguments in call to db.Snapshot\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"\thave (context.Context)\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"\twant (context.Context, mariamem.SnapshotOptions)\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"./owned_root_corruption_spike_test.go:110:29: too many arguments in call to snap.Fork\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"\thave (context.Context, mariamem.Options)\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"\twant (context.Context)\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"./owned_root_corruption_spike_test.go:119:20: too many arguments in call to child.Close\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"\thave (context.Context)\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-output","Output":"\twant ()\n"}
+{"ImportPath":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]","Action":"build-fail"}
+{"Time":"2026-10-17T12:05:19.80444+09:00","Action":"start","Package":"github.com/masahitojp/mariamem"}
+{"Time":"2026-10-17T12:05:19.805266+09:00","Action":"output","Package":"github.com/masahitojp/mariamem","Output":"FAIL\tgithub.com/masahitojp/mariamem [build failed]\n"}
+{"Time":"2026-10-17T12:05:19.805273+09:00","Action":"fail","Package":"github.com/masahitojp/mariamem","Elapsed":0.001,"FailedBuild":"github.com/masahitojp/mariamem_test [github.com/masahitojp/mariamem.test]"}

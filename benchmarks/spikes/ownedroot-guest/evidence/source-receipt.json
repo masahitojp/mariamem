@@ -1,0 +1,30 @@
+{
+  "source_commit": "bd9d171c103c1bdf3985a716d92a576419f3c79a",
+  "stage": "source",
+  "go": "go version go1.26.8 darwin/arm64",
+  "runs": [
+    {
+      "name": "source",
+      "arguments": [
+        "python",
+        "scripts/verify_generated_runtime.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2687427089549601
+    },
+    {
+      "name": "source-tests",
+      "arguments": [
+        "python",
+        "-m",
+        "pytest",
+        "tests/test_generated_runtime_inventory.py",
+        "tests/test_distribution_licenses.py",
+        "tests/test_packaging_license_mirrors.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "seconds": 1.4025179161690176
+    }
+  ]
+}

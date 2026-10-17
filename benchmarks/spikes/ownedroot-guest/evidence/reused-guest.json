@@ -1,0 +1,7 @@
+{
+  "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+  "artifact_run": 38959312232,
+  "artifact_name": "release-generated-inputs-7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+  "guest_build_record_source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+  "note": "Exact accepted build input reused; not a new guest build or release qualification"
+}

@@ -1,0 +1,24 @@
+{
+  "source_commit": "48a714b99fc367fc109cd428f973b928feb28715",
+  "stage": "public",
+  "go": "go version go1.26.8 darwin/arm64",
+  "runs": [
+    {
+      "name": "public-api",
+      "arguments": [
+        "go",
+        "test",
+        "-json",
+        "-p",
+        "1",
+        "-count=1",
+        "./internal/guest",
+        "./internal/host",
+        "./internal/control",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 86.601294083
+    }
+  ]
+}
