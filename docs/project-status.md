@@ -319,6 +319,12 @@ distinct from the FD/resource-model pressure observation, which is assigned to
 v0.6.0 dogfood above. The current active and closed items are listed in the
 [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
 
+The Human prioritized native Ubuntu performance measurement next. The
+[fixed-scope campaign](reviews/ubuntu-product-performance.md) compares released
+v0.5.0/v0.5.1/v0.5.2 with existing workload/oracles; performance results remain
+pending. It does not reopen the closed 100 MiB Go Fresh investigation or approve
+runtime changes, Qualification or publication.
+
 **Closed until recurrence: 100 MiB Go Fresh.** The
 [completed paired comparison](../benchmarks/main-product-verification.md#adverse-100-mib-go-case-and-bounded-repeat)
 retains the original +29.0% wall-time trial, the three additional pairs (+1.9%
