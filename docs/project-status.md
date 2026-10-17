@@ -54,7 +54,24 @@ See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
-## Current published release: v0.5.1 — In-memory baselines and shared host
+## Current published release: v0.5.2 — Snapshot ownership without repeated content scans
+
+[v0.5.2](https://github.com/masahitojp/mariamem/releases/tag/v0.5.2) was published
+on 2026-10-17 (JST) from source `47f297cc7498625e076abb93322eb616c9560bb8`;
+annotated tag object `2e98dee0ca94abe95dcef8351b71f7726320bf12`.
+It seals the source's same private backing instead of reconstructing the ordinary
+heap baseline and repeatedly reading all file contents, reducing Snapshot
+creation work. Public Go/Python API signatures, MariaDB 12.3.3, supported
+platforms and minimum Go version are unchanged from v0.5.1. Ordinary heap
+acquisition no longer performs a full content scan to detect faults that directly
+alter private bytes between freezing and acquisition; it validates identity,
+state and structure instead, while strict digest-bearing imports, cross-host
+transfer and borrowed-mapping lifetime detachment retain their content checks.
+See [released notes](../release/NOTES-v0.5.2.md) and
+[changes since v0.5.1](changes-since-v051.md). The adoption history below records
+the main integration that preceded this release.
+
+## Previous release: v0.5.1 — In-memory baselines and shared host
 
 [v0.5.1](https://github.com/masahitojp/mariamem/releases/tag/v0.5.1) was published
 on 2026-10-17 (JST) from source `7a82f338cf111d5d52538b5a3f7bf129c12e2dbb`;
@@ -62,8 +79,8 @@ annotated tag object `089b32e09608902f6d46e7ab9527d09922dcf065`.
 The [typed baseline pin](../release/baselines/v0.5.1.json) separates these identities.
 It includes the startup ordering correction, D block backing, Python shared host
 and public save/load API removal. See [released notes](../release/NOTES-v0.5.1.md)
-and [API migration](changes-since-v050.md). The ownership optimization adopted
-below is a later, unreleased main change; v0.5.1 evidence does not qualify it.
+and [API migration](changes-since-v050.md). The ownership optimization recorded
+below was subsequently released in v0.5.2; v0.5.1 evidence does not qualify it.
 
 ## Previous release: v0.5.0 — MariaDB 12.3.3
 
@@ -78,7 +95,7 @@ The startup ordering correction, D block backing, Python shared host and public
 save/load API removal were subsequently released in v0.5.1. The earlier v0.5.0
 preparation history below does not qualify later main commits.
 
-## Adopted ownership optimization — unreleased
+## Adopted ownership optimization — released in v0.5.2
 
 On 2026-10-17 the maintainer explicitly accepted the limited Snapshot ownership
 contract and authorized the minimal FileStore/Root/capture-binding implementation,
@@ -87,7 +104,8 @@ Normal API immutability, same backing, child isolation, strict Heap/transfer
 validation and mapped lifetime detachment remain required. Ordinary heap
 acquisition does not promise full-scan post hoc detection of private-byte faults.
 The maintainer subsequently approved main integration in Human Review.
-Release remains a separate decision. See the [contract](decisions/snapshot-product-contract.md) and
+The separate release decision followed and published the optimization as v0.5.2
+above. See the [contract](decisions/snapshot-product-contract.md) and
 [productization report](reviews/snapshot-owned-root-productization.md).
 The experiment history is not merged into this branch. Productization development
 verification passed on exact source `890f770eee36c004036826104229f9269138775b`
@@ -111,11 +129,12 @@ CI source in five comment-only files. The full Git tree differs from both the
 integration candidate and CI source. Historical review/CI evidence remains under
 its original source identity.
 The v0.5.1 baseline pin is retained as a separate release ledger entry.
-The narrowed detection guarantee is recorded in [unreleased changes](changes-since-v051.md)
-and must appear in the eventual versioned release notes; the Human has not chosen
-a new version. Prior Qualification and spike regeneration results are not relabelled.
-Release Qualification/independent regeneration for that final release source
-remain separate; CI development PASS is not release readiness.
+The narrowed detection guarantee recorded in [changes since v0.5.1](changes-since-v051.md)
+is published in the v0.5.2 notes above. Prior Qualification and spike
+regeneration results are not relabelled as the final v0.5.2 source. Release
+Qualification and independent regeneration for the exact final source were
+CI-owned and separate; the CI development PASS recorded here is not itself
+release readiness.
 
 **Snapshot optimization stopping point:** the observed Light Snapshot median
 fell from 204.8ms on v0.5.1 to 2.85ms on the ownership candidate in the same
@@ -263,13 +282,22 @@ Product Validation; those changes are not part of v0.4.5.
   both-native verification is recorded above. The historical 64-table fixture
   had 137 files and released its backing FDs after Close on both platforms.
   Many simultaneously retained baselines, especially file-heavy schemas, may
-  approach process FD limits. Gather real workload evidence and improve the
-  resource model if pressure is demonstrated; this is accepted and non-blocking
-  for v0.4.4, not a reason by itself to create v0.4.5.
+  approach process FD limits. The Human decision places that observation in the
+  v0.6.0 dogfood scope below: gather real workload evidence there and improve
+  the resource model only if pressure is demonstrated. This item is therefore
+  out of 0.5.x; it is not an approved 0.5.x task and not a reason by itself to
+  create another 0.5.x patch release.
 - The 0.x API may change. Corresponding guest source, licenses, notices and
   reproducible generation remain required.
 
 ## Performance evidence and pending optimization questions
+
+**In 0.5.x scope: per-DB connection-count tuning.** The current contract keeps a
+fixed 16-connection limit per DB and treated connection-count optimization as a
+separate matter. The Human decision now includes that tuning in the 0.5.x scope:
+confirm actual demand and resource effect before changing the limit. This is
+distinct from the FD/resource-model pressure observation, which is assigned to
+v0.6.0 dogfood above.
 
 **Closed until recurrence: 100 MiB Go Fresh.** The
 [completed paired comparison](../benchmarks/main-product-verification.md#adverse-100-mib-go-case-and-bounded-repeat)
@@ -283,9 +311,9 @@ and [allocation attribution](https://github.com/masahitojp/mariamem/blob/7068dd0
 are complete on `experiment/go-large-fresh`; their experiment history is not merged.
 The additional runs did not reproduce persistent Fresh slowdown. The original
 slow trial's cause and the allocation origin of heap-reuse CPU remain unresolved.
-The Human explicitly closed the investigation on 2026-10-17, recorded in
-`7068dd045f10c2772535fccca73c040c387e5b0b`, and reaffirmed that decision after
-v0.5.2 publication. Reopen only if similar slowdown recurs in normal use or
+The original Human decision to close the investigation on 2026-10-17 is recorded
+in `7068dd045f10c2772535fccca73c040c387e5b0b`.
+Reopen only if similar slowdown recurs in normal use or
 measurement, using the saved evidence. Further profiling or runtime repair is
 not pending approved work; do not start additional measurements while waiting
 for recurrence, call the old result noise, or claim the cause was fixed.
@@ -487,6 +515,9 @@ separate work; no general performance improvement is claimed.
 Use real consumer/workload evidence, including Django, Alembic/migrations,
 metadata-heavy and dbt-like workloads. Retain SQLAlchemy/GORM regression anchors.
 Evaluate actual preparation, per-test isolation, resource and failure costs.
+This scope also observes whether many simultaneously retained file-heavy
+baselines produce process FD/resource pressure; a dedicated resource-model
+change is reopened only if that evidence shows pressure.
 
 New run-wide baseline fixture ergonomics are deferred here. Existing session
 fixtures remain worker-local under xdist. Do not promise new framework/platform

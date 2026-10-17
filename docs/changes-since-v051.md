@@ -1,7 +1,8 @@
-# Unreleased changes since v0.5.1
+# Changes since v0.5.1 — released as v0.5.2
 
-This describes the ownership optimization adopted on main after Human Review,
-not a new published version. The release version remains a Human choice.
+This describes the ownership optimization adopted on main after Human Review and
+published as [v0.5.2](https://github.com/masahitojp/mariamem/releases/tag/v0.5.2)
+from source `47f297cc7498625e076abb93322eb616c9560bb8`.
 The published v0.5.1 baseline is pinned in
 [the release ledger](../release/baselines/v0.5.1.json).
 
@@ -29,8 +30,8 @@ preserved isolation contract are described in the
 
 ## Release handoff
 
-The eventual versioned release notes must state the detection change above along
-with the preserved isolation and transfer guarantees. This file is an unreleased
-change record, not `release/NOTES-<version>.md` and not release approval. Commit
-this record before versioned release preparation, whose allowed diff is narrower.
+[release/NOTES-v0.5.2.md](../release/NOTES-v0.5.2.md) states the detection
+change above along with the preserved isolation and transfer guarantees. This
+file is the change record behind that release, not a substitute for the versioned
+notes or release approval.
 See [the integration review](reviews/snapshot-owned-root-productization.md#qualificationとリリースの引き継ぎ).
