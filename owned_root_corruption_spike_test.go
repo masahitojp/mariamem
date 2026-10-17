@@ -61,7 +61,7 @@ func TestOwnedRootCorruptionWorker(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	defer db.Close(context.Background())
+	defer db.Close()
 	pool, e := sql.Open("mysql", db.DSN())
 	if e != nil {
 		t.Fatal(e)
@@ -97,7 +97,7 @@ func TestOwnedRootCorruptionWorker(t *testing.T) {
 	}
 	probe := &prepared.RootCorruptionProbe{Mutate: kind == "corrupt", Token: token}
 	result["injection"] = probe
-	snap, e := db.Snapshot(prepared.WithRootCorruptionProbe(ctx, probe))
+	snap, e := db.Snapshot(prepared.WithRootCorruptionProbe(ctx, probe), mariamem.SnapshotOptions{})
 	if e != nil {
 		result["outcome"] = "capture_error"
 		result["error"] = e.Error()
@@ -107,7 +107,7 @@ func TestOwnedRootCorruptionWorker(t *testing.T) {
 	if probe.File == "" || !probe.MetadataAccepted || probe.StrictRejected != (kind == "corrupt") {
 		t.Fatalf("probe oracle mismatch: %+v", probe)
 	}
-	child, e := snap.Fork(ctx, opts)
+	child, e := snap.Fork(ctx)
 	if e != nil {
 		result["outcome"] = "startup_error"
 		result["error"] = e.Error()
@@ -116,7 +116,7 @@ func TestOwnedRootCorruptionWorker(t *testing.T) {
 		}
 		return
 	}
-	defer child.Close(context.Background())
+	defer child.Close()
 	p, e := sql.Open("mysql", child.DSN())
 	if e != nil {
 		t.Fatal(e)
