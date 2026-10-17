@@ -4,7 +4,11 @@
 
 ## Human Review — main統合の判断
 
-**判断依頼：この製品化差分をmainへ統合するか。私は統合を推薦する。**
+**判断依頼：固定候補`52c078ba2fd5a38340ec5eb42a83853b258d7435`をmainへff-only統合するか。私は統合を推薦する。**
+候補のGit tree object IDは`02da8809cd9aa76ff3769af268134b90675a68a7`。
+mainの基点が7a82f33のまま承認後にff-onlyで進めれば、統合後のHEAD/treeはこの2値に一致する。
+このidentityを記録したreview-only commit自体は統合対象ではない。
+[固定identityと差分証拠](snapshot-owned-root-productization-evidence/integration-target.json)を参照。
 承認済みの所有権契約を、実験履歴を含まない最小差分へ移し、製品化候補890f770に対する
 macOS15 arm64 / Ubuntu24.04 x86_64の正規check・integrationが両方PASSした。
 strict Heap/転送検証、mapped寿命切断、独立byte参照、差し替え拒否、寿命/世代の境界を維持している。

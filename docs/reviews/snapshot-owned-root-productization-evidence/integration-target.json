@@ -1,0 +1,104 @@
+{
+  "ci_git_tree_object_sha": "25fb56ab3cf86872b7032e9023381264ca7e2e76",
+  "ci_run_url": "https://github.com/masahitojp/mariamem/actions/runs/39000948512",
+  "ci_source_commit": "890f770eee36c004036826104229f9269138775b",
+  "differences_from_ci": [
+    "README.md",
+    "docs/changes-since-v051.md",
+    "docs/go.md",
+    "docs/project-status.md",
+    "docs/python.md",
+    "docs/reviews/snapshot-owned-root-productization-evidence/ci/darwin-arm64/check.txt",
+    "docs/reviews/snapshot-owned-root-productization-evidence/ci/darwin-arm64/integration.txt",
+    "docs/reviews/snapshot-owned-root-productization-evidence/ci/darwin-arm64/platform.txt",
+    "docs/reviews/snapshot-owned-root-productization-evidence/ci/darwin-arm64/source.json",
+    "docs/reviews/snapshot-owned-root-productization-evidence/ci/summary.json",
+    "docs/reviews/snapshot-owned-root-productization-evidence/ci/ubuntu24.04-x86_64/check.txt",
+    "docs/reviews/snapshot-owned-root-productization-evidence/ci/ubuntu24.04-x86_64/integration.txt",
+    "docs/reviews/snapshot-owned-root-productization-evidence/ci/ubuntu24.04-x86_64/platform.txt",
+    "docs/reviews/snapshot-owned-root-productization-evidence/ci/ubuntu24.04-x86_64/source.json",
+    "docs/reviews/snapshot-owned-root-productization.md",
+    "internal/generatedgo/code/base/block_storage.go",
+    "internal/generatedgo/code/base/heap_snapshot.go",
+    "internal/guest/guest.go",
+    "internal/snapshot/heap.go"
+  ],
+  "expected_main_after_git_tree_object_sha": "02da8809cd9aa76ff3769af268134b90675a68a7",
+  "expected_main_after_source_commit": "52c078ba2fd5a38340ec5eb42a83853b258d7435",
+  "full_tree_same_as_ci": false,
+  "git_object_format": "sha1",
+  "git_tree_object_sha": "02da8809cd9aa76ff3769af268134b90675a68a7",
+  "go_comment_only_changes": {
+    "internal/generatedgo/code/base/block_storage.go": {
+      "candidate_file_sha256": "429c4c67d3cb3fd3356ae89bfaa07eaca49e83a58cad7fe1174744aede4ee73c",
+      "changed_lines_are_comments_not_go_directives": true,
+      "ci_file_sha256": "ef0d10766555515e9fc939f2b8ec018fb1d09e15e9b93c245101cf6aad9d9e3b",
+      "unchanged_after_removing_full_line_comments": true
+    },
+    "internal/generatedgo/code/base/heap_snapshot.go": {
+      "candidate_file_sha256": "b0ee33871d4e750b5ec1bc65023a5c0fd6640bfcfd3a8bf2a16ac9d62b632bef",
+      "changed_lines_are_comments_not_go_directives": true,
+      "ci_file_sha256": "efb81edc98f8ffcc50367ff149d28cdfb457249d3e0a0afa5a8a0d1fd20c132c",
+      "unchanged_after_removing_full_line_comments": true
+    },
+    "internal/guest/guest.go": {
+      "candidate_file_sha256": "8b74e75a8054920a0e7dbcdab8fb76fc73cf94d925e41a1044ab2a1fa272b611",
+      "changed_lines_are_comments_not_go_directives": true,
+      "ci_file_sha256": "a0932c94bc709b466b349ee566896745f79d22c94273149ce5fdf5036a61d9f1",
+      "unchanged_after_removing_full_line_comments": true
+    },
+    "internal/snapshot/heap.go": {
+      "candidate_file_sha256": "ebf5fca6868164c1f21788f6ccfa1bcd123bc075751bf018f99aa1a7fa4b826d",
+      "changed_lines_are_comments_not_go_directives": true,
+      "ci_file_sha256": "3cdc57a71fed4ab6ae2e7a2f85344eae146e49762ac30dbf507b3269fcde9e60",
+      "unchanged_after_removing_full_line_comments": true
+    }
+  },
+  "integration_method": "fast-forward-only after separate Human approval",
+  "integration_ref": "refs/heads/experiment/snapshot-owned-root-integration",
+  "main_before_source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+  "main_updated": false,
+  "other_code_tests_and_build_inputs_byte_identical": [
+    "scripts",
+    "guest",
+    "tests",
+    "python",
+    "go.mod",
+    "go.sum",
+    "snapshot.go",
+    "release/generated-go-inputs.json",
+    "release/generated-go-toolchain.json",
+    "internal/generatedgo/provenance.json"
+  ],
+  "purpose": "Proposed exact ff-only main target; not Qualification or release authorization",
+  "qualification": {
+    "if_separately_requested": "After main integration/push, dispatch v044-product-validation.yml with --ref main and candidate_ref exactly equal to main HEAD/GITHUB_SHA",
+    "independent_regeneration": "99-file spike proof is not a proof for this target",
+    "release_auto": "No preceding Qualification is required; existing release mode=auto chooses valid exact reuse or full qualification after an explicit versioned release request",
+    "runtime_validation_receipt_present": false,
+    "status": "NOT RUN for integration target"
+  },
+  "release_ledger": {
+    "decision": "retain as independent published-release ledger, not ownership runtime change",
+    "not_on_main_before": true,
+    "path": "release/baselines/v0.5.1.json",
+    "pin": {
+      "release_tag": "v0.5.1",
+      "source_commit": "7a82f338cf111d5d52538b5a3f7bf129c12e2dbb",
+      "tag_object_sha": "089b32e09608902f6d46e7ab9527d09922dcf065",
+      "version": 1
+    },
+    "same_bytes_as_ci": true,
+    "sha256": "55faf18f9f26917e09d1c473a412bc24b95a8d572f12a0a9c9288dc7eee8fb9c"
+  },
+  "review_head_policy": "The review-only identity commit is intentionally outside the fixed integration target; do not merge the review head as an implicit candidate.",
+  "source_commit": "52c078ba2fd5a38340ec5eb42a83853b258d7435",
+  "verification": {
+    "ci_saved_hashes": "PASS",
+    "comment_only_source_diff": "PASS",
+    "docs_scope_check": "PASS; version/public-source/whitespace only, not a semantic ownership checker",
+    "runtime_rebuilt_or_retested": false,
+    "usage_docs_wording": "manually inspected and searched; fully verified removed from README/Go/Python usage"
+  },
+  "version": 1
+}
