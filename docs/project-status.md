@@ -239,6 +239,14 @@ v0.5.1 acceptance. See the [follow-up Human Review](reviews/v05x-followup.md).
 | General shared-memory guarantee expansion / forced termination | Separate design scope; no newly observed defect is established by this follow-up. Do not reopen completed bounded correctness work. |
 | Broader framework dogfood / fixture ergonomics | Existing v0.6.0 direction; not silently moved into 0.5.x. |
 
+The maintainer requested a strategy retaining guarantees and realistic targets
+before implementation. The [two-pass design proposal](reviews/snapshot-two-pass-design.md)
+keeps source digest generation and final acquisition verification, and proposes
+combining the intermediate verification with the latter. Initial macOS Light
+targets are Snapshot <=150ms and four-test workflow <=480ms, based on the
+[completed lifecycle breakdown](https://github.com/masahitojp/mariamem/blob/a8a3ccb42d503234c11447d5a0ee1a63ca06a18c/docs/reviews/light-fork-macos-breakdown.md).
+These are planning targets, not achieved performance or implementation approval.
+
 ## Performance evidence and pending optimization questions
 
 **Approved post-v0.5.1 follow-up: 100 MiB Go Fresh.** The
