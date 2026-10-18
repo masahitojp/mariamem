@@ -435,6 +435,22 @@ The Human separately authorized main integration and push on 2026-10-18.
 The integrated scope is measurement tooling, preserved evidence and documentation;
 no runtime change or further measurement is included.
 
+**Current-main product measurement — macOS only, completed 2026-10-18.**
+The Human requested a repeat of the product-oriented scenarios on macOS only.
+The [results](reviews/current-product-macos.md) compare released v0.5.2 with
+source `2a02e80399dc32eea71c304064b17b8921a0061d`, using unchanged Go/Python
+observers, 84 measured matrix cells, 8 excluded pilots and 54 prepared-reuse runs.
+All 146 executions and the independent reduction passed their bounded oracles.
+Light Fork whole-suite medians improve from 378 to 300ms in Go and 469 to 394ms
+in Python. Larger workflows show smaller gains; Go parallel Fresh is +2.7%.
+Go allocation/RSS are broadly similar, while the separate 100MiB Python
+resource-observed reuse cohort has higher sampled RSS (492 to 549MiB median).
+Ordinary recorded ru_maxrss moves in the opposite direction; the cause is
+unresolved and neither a general memory improvement nor noise is claimed.
+This is measurement evidence, not runtime changes, release Qualification or
+publication. Ubuntu and 100MiB Fresh were not rerun. Result integration remains
+a separate Human decision.
+
 **Closed until recurrence: 100 MiB Go Fresh.** The
 [completed paired comparison](../benchmarks/main-product-verification.md#adverse-100-mib-go-case-and-bounded-repeat)
 retains the original +29.0% wall-time trial, the three additional pairs (+1.9%

@@ -1,0 +1,19 @@
+{
+  "harness_source_commit": "83f72ebe6d866e98f2ab96150fe458d770af6f02",
+  "candidate_source_commit": "2a02e80399dc32eea71c304064b17b8921a0061d",
+  "baseline_release": "v0.5.2",
+  "unit_result": "17 passed, 12 subtests passed",
+  "public_source_result": "PASS: 3941 files",
+  "diff_check": "PASS",
+  "macos": "27.0.1 arm64",
+  "scope": "146 executions, macOS only; no additional 100MiB Fresh or profiling",
+  "runtime_diff_from_release": [
+    "internal/artifacts/artifacts.go",
+    "internal/artifacts/platform_cache.go",
+    "internal/artifacts/platform_cache_test.go"
+  ],
+  "user_changes_before_start": "none",
+  "other_worktrees": "left untouched",
+  "initial_free_space_gib": 65,
+  "cleanup_audit": "no retained_large_paths or cleanup_debt before task"
+}

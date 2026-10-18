@@ -1,0 +1,47 @@
+"""Replay after completion; argument is the campaign evidence directory."""
+import importlib.util,json,statistics,sys
+from pathlib import Path
+root=Path(sys.argv[1]).resolve()
+harness=Path(sys.argv[2]).resolve()
+spec=importlib.util.spec_from_file_location('product_current',harness/'benchmarks/current-product/run.py')
+module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+receipt=json.loads((root/'receipt.json').read_text())
+assert receipt['completed'] and receipt['total_executions']==146
+assert len(receipt['cells'])==len(set(receipt['cells']))==92
+assert all(c['returncode']==0 for c in receipt['commands'])
+rows=[]
+for case in module.plan():
+ name=module.cell_name(case);data=json.loads((root/'matrix'/(name+'.json')).read_text())
+ rows.append(module.reduce_cell(case,data,receipt['sources'][case['version']]['source_commit']))
+assert rows==json.loads((root/'cells.json').read_text())
+summary=module.summarize(rows);assert summary==json.loads((root/'matrix-summary.json').read_text())
+reuse=root/'reuse-v0.5.2';stats={}
+for scale in ['small','medium','100mib']:
+ stats[scale]={}
+ for label in ['baseline','candidate']:
+  cell={}
+  for kind,count in [('plain',6),('resource',3)]:
+   samples=[]
+   for rep in range(count):
+    d=json.loads((reuse/f'{kind}-{scale}-{rep}-{label}.json').read_text())
+    assert d['result']=='PASS' and d['scale']==scale and d['label']==label and d['repetition']==rep
+    assert d['resources_enabled']==(kind=='resource') and d['unique_hosts']==1
+    assert d['forks']==(16 if scale=='100mib' else 2)
+    samples.append(d)
+   metric={}
+   for name in ['whole_ms','snapshot_ms','child_starts_ms','migration_ms','child_crud_ms','child_closes_ms']:
+    values=[]
+    for d in samples:
+     t=d['times_ms']
+     values.append(d['whole_ms'] if name=='whole_ms' else t['prepare/snapshot'] if name=='snapshot_ms' else t['prepare/migrate-seed'] if name=='migration_ms' else sum(v for k,v in t.items() if k.startswith('child') and k.endswith('/'+{'child_starts_ms':'start','child_crud_ms':'crud','child_closes_ms':'close'}[name])))
+    metric[name]={'values':values,'median':statistics.median(values),'min':min(values),'max':max(values)}
+   if kind=='resource':metric['peak_rss_mib']={'values':[d['sampled_host_peak_rss_mib'] for d in samples],'median':statistics.median(d['sampled_host_peak_rss_mib'] for d in samples)}
+   cell[kind]=metric
+  stats[scale][label]=cell
+ stats[scale]['ordinary_change_percent']=100*(stats[scale]['candidate']['plain']['whole_ms']['median']/stats[scale]['baseline']['plain']['whole_ms']['median']-1)
+assert len(list(reuse.glob('plain-*.json')))==36 and len(list(reuse.glob('resource-*.json')))==18
+mapping=sum(r.get('mapping_creates',0) for r in rows)
+assert mapping==sum(r.get('mapping_releases',0) for r in rows)
+result={'result':'PASS','matrix_cells':92,'measured_matrix':84,'pilots':8,'reuse_cells':54,'total':146,'go_mappings_created_and_released':mapping,'matrix':summary,'reuse':stats}
+(root/'independent-analysis.json').write_text(json.dumps(result,indent=2)+'\n')
+print('PASS: all 146 executions, exact matrix reduction, reuse dimensions/labels/isolation, mapping balance')
