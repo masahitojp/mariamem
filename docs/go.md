@@ -1,6 +1,6 @@
 # Go usage
 
-This guide describes `v0.5.2`: in-memory Snapshot/Fork and process-local baseline
+This guide describes `v0.5.3`: in-memory Snapshot/Fork and process-local baseline
 reuse. Public save/load APIs are removed. See
 [API changes and migration](changes-since-v050.md) and
 [installation](../README.md#installation) for supported platforms.
@@ -159,14 +159,14 @@ internal mechanisms.
 Install the published module and optional release audit files with:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.5.2
-gh release download v0.5.2 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.2-corresponding-source.tar.gz'
+go get github.com/masahitojp/mariamem@v0.5.3
+gh release download v0.5.3 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.3-corresponding-source.tar.gz'
 ```
 
 Runtime details belong in [architecture](v04-generated-go-architecture.md).
 See [local verification](development.md#local-verification) for scoped
-development checks, [release notes](../release/NOTES-v0.5.2.md)
+development checks, [release notes](../release/NOTES-v0.5.3.md)
 and [API migration](changes-since-v050.md).
 The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.

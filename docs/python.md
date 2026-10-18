@@ -1,6 +1,6 @@
 # Python usage
 
-This guide describes Python `0.5.2`: in-memory Snapshots and one automatically
+This guide describes Python `0.5.3`: in-memory Snapshots and one automatically
 managed host per root lineage. Public save/load APIs are removed. See
 [API changes and migration](changes-since-v050.md) and
 [installation](../README.md#installation).

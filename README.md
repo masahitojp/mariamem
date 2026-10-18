@@ -11,11 +11,12 @@ Start fresh for light setup. When migrations or fixtures are expensive, prepare
 them once, fix that state as a Snapshot, and Fork independent databases for
 individual tests. Share the baseline, not previous tests' mutations.
 
-Python `0.5.2` / Go `v0.5.2` includes in-memory Snapshots, one automatically
-managed Python host per root lineage, and the startup ordering correction.
+Python `0.5.3` / Go `v0.5.3` reuses successful macOS platform checks to reduce
+repeated startup work. It retains in-memory Snapshots and one automatically
+managed Python host per root lineage.
 Public save/load APIs have been removed; prepare migrations and fixtures once
 per test session and reuse the live baseline. See the
-[release notes](release/NOTES-v0.5.2.md) and [API migration guide](docs/changes-since-v050.md).
+[release notes](release/NOTES-v0.5.3.md) and [API migration guide](docs/changes-since-v050.md).
 
 ## Installation
 
@@ -36,10 +37,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 # macOS arm64
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.5.2/mariamem-0.5.2-py3-none-macosx_15_0_arm64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.5.3/mariamem-0.5.3-py3-none-macosx_15_0_arm64.whl'
 
 # Ubuntu x86_64: use this instead
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.5.2/mariamem-0.5.2-py3-none-linux_x86_64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.5.3/mariamem-0.5.3-py3-none-linux_x86_64.whl'
 ```
 
 The `test` extra supplies PyMySQL and pytest tools. Use the wheel rather than a
@@ -49,7 +50,7 @@ For the published Go module:
 
 ```sh
 go mod init example.com/mariamem-test
-go get github.com/masahitojp/mariamem@v0.5.2
+go get github.com/masahitojp/mariamem@v0.5.3
 go get github.com/go-sql-driver/mysql
 ```
 
@@ -57,8 +58,8 @@ Optional release audit assets can be downloaded separately; they are not needed
 for ordinary startup:
 
 ```sh
-gh release download v0.5.2 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.2-corresponding-source.tar.gz'
+gh release download v0.5.3 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.3-corresponding-source.tar.gz'
 ```
 
 ## Start fresh
@@ -178,7 +179,7 @@ See the [Python](docs/python.md#snapshot-ownership-and-host-lifetime) and
   DBs and baselines contain your test data; treat sensitive data accordingly.
 - Resource use and the Fresh/prepared crossover depend on the workload.
   Large scans remain query work even when preparation is reused.
-- The 0.x API may change. See [release changes](release/NOTES-v0.5.2.md)
+- The 0.x API may change. See [release changes](release/NOTES-v0.5.3.md)
   and [API migration](docs/changes-since-v050.md).
 
 You do not need runtime implementation knowledge to use these APIs.
