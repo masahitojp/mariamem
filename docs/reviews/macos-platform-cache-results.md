@@ -189,3 +189,21 @@ artifacts変更がintegrationを選び、race flag付きでpackageが含まれ�
 対照専用6bdcd0eのuncached revertは祖先に含まれない。mainはfast-forwardで統合する。
 過去の採用前レビューは当時の状態を記録するもので、この節が現在のHuman決定を所有する。
 リリース準備・公開は今回の採用に含めない。
+
+## main開発CIの時間切れと再提出（2026-10-18）
+
+main統合source `94d0a21a4efbedbaf6247d969d3810b3399034bd` の
+[run39092465869](https://github.com/masahitojp/mariamem/actions/runs/39092465869)はcheck PASS、
+integrationはjob全体15分上限でcancelled。成功として扱わない。
+[該当job117571958635](https://github.com/masahitojp/mariamem/actions/runs/39092465869/job/117571958635)の
+annotationは `The job has exceeded the maximum execution time of 15m0s`。
+ログではartifactsを含むrace集合の全packageがPASSした後、
+`go test -tags=integration ./tests/gointegration -count=1 -timeout=3m` の実行中に停止した。
+後続のgodefault/generatedmemory/Python検証まで完了した証拠ではない。
+
+Human承認に従い、job全体の枠のみ15→30分へ変更する。テスト集合・race flag・各test commandの
+3分deadlineは維持する。cold buildと実行を含む全job予算の調整であり、未完了結果をPASSへ変えない。
+workflowだけの変更では既存scope selectorがintegrationを省略するため、check workflowへ
+`workflow_dispatch` を追加する。手動eventは既存selectorのevent-baseなし→full判定を使い、
+更新したexact sourceをフル検証へ再提出する。selector自体は変更しない。
+新runの結果はHumanが完了を通知した後に確認する。runtime変更・公開は行わない。

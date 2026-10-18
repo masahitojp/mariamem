@@ -365,7 +365,13 @@ Human approved main adoption/integration on 2026-10-18. Canonical
 `scripts/verify.py integration` now includes `./internal/artifacts` in its race
 set, so main CI retains the new concurrency oracles on native macOS. Product
 runtime matches the reviewed CI source; this follow-up adds CI wiring and
-adoption records. Release remains a separate decision. Item 2
+adoption records. The first main Development CI passed check and all race
+packages, but its integration job hit the 15-minute job limit before completing
+later acceptance. Following Human approval, the job budget is 30 minutes with
+individual test deadlines unchanged; a manual full-development run is submitted
+on the updated source. This remains pending evidence, not a PASS or release
+qualification. See the linked results for the original timeout. Release remains
+a separate decision. Item 2
 has not started. Other previously recorded roadmap items are not cancelled by
 this workstream decision.
 
