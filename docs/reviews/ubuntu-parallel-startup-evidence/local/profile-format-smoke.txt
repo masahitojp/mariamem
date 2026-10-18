@@ -1,0 +1,78 @@
+File: trace-smoke
+Type: cpu
+Time: 2026-10-18 13:43:34 JST
+Duration: 203.68ms, Total samples = 40ms (19.64%)
+Showing nodes accounting for 40ms, 100% of 40ms total
+      flat  flat%   sum%        cum   cum%
+      30ms 75.00% 75.00%       30ms 75.00%  runtime.walltime
+      10ms 25.00%   100%       10ms 25.00%  runtime.nanotime1
+         0     0%   100%       40ms   100%  main.main
+         0     0%   100%       40ms   100%  runtime.main
+         0     0%   100%       10ms 25.00%  runtime.nanotime (inline)
+         0     0%   100%       40ms   100%  time.Now
+         0     0%   100%       40ms   100%  time.now
+         0     0%   100%       40ms   100%  time.runtimeNow
+Type: delay
+Showing nodes accounting for 281.28us, 67.60% of 416.06us total
+Dropped 1 node (cum <= 2.08us)
+      flat  flat%   sum%        cum   cum%
+  220.22us 52.93% 52.93%   224.06us 53.85%  time.Now
+   41.41us  9.95% 62.88%    41.41us  9.95%  runtime.systemstack_switch
+   12.10us  2.91% 65.79%    12.10us  2.91%  runtime.chansend1
+    3.84us  0.92% 66.71%     3.84us  0.92%  time.runtimeNow
+    3.71us  0.89% 67.60%     3.71us  0.89%  runtime.mallocgcSmallScanNoHeader
+         0     0% 67.60%   224.06us 53.85%  main.main
+         0     0% 67.60%    45.63us 10.97%  runtime.gcBgMarkWorker
+         0     0% 67.60%     3.71us  0.89%  runtime.mallocgc
+         0     0% 67.60%     3.71us  0.89%  runtime.newobject
+         0     0% 67.60%     3.71us  0.89%  runtime/pprof.newProfileBuilder
+         0     0% 67.60%    11.58us  2.78%  runtime/pprof.profileWriter
+Type: delay
+Showing nodes accounting for 358.85ms, 100% of 358.85ms total
+Dropped 8 nodes (cum <= 1.79ms)
+      flat  flat%   sum%        cum   cum%
+  358.85ms   100%   100%   358.85ms   100%  runtime.chanrecv1
+         0     0%   100%   154.82ms 43.14%  main.main
+         0     0%   100%   204.02ms 56.85%  runtime.(*wakeableSleep).sleep
+         0     0%   100%   204.02ms 56.85%  runtime.traceStartReadCPU.func1
+         0     0%   100%   153.56ms 42.79%  runtime/pprof.StopCPUProfile
+Type: delay
+Showing nodes accounting for 545.41us, 100% of 545.41us total
+Dropped 3 nodes (cum <= 2.73us)
+      flat  flat%   sum%        cum   cum%
+  545.41us   100%   100%   545.41us   100%  syscall.syscall
+         0     0%   100%    84.67us 15.52%  compress/flate.(*Writer).Close
+         0     0%   100%    84.67us 15.52%  compress/flate.(*compressor).close
+         0     0%   100%    49.09us  9.00%  compress/flate.(*compressor).encSpeed
+         0     0%   100%    35.58us  6.52%  compress/flate.(*huffmanBitWriter).flush
+         0     0%   100%    84.67us 15.52%  compress/flate.(*huffmanBitWriter).write
+         0     0%   100%    49.09us  9.00%  compress/flate.(*huffmanBitWriter).writeBlockDynamic
+         0     0%   100%    49.09us  9.00%  compress/flate.(*huffmanBitWriter).writeCode
+         0     0%   100%    18.05us  3.31%  compress/flate.(*huffmanBitWriter).writeStoredHeader
+         0     0%   100%    49.09us  9.00%  compress/flate.(*huffmanBitWriter).writeTokens
+         0     0%   100%   102.08us 18.72%  compress/gzip.(*Writer).Close
+         0     0%   100%   130.50us 23.93%  compress/gzip.(*Writer).Write
+         0     0%   100%   121.09us 22.20%  internal/poll.(*FD).Close
+         0     0%   100%   365.82us 67.07%  internal/poll.(*FD).Write
+         0     0%   100%   121.09us 22.20%  internal/poll.(*FD).decref
+         0     0%   100%   121.09us 22.20%  internal/poll.(*FD).destroy
+         0     0%   100%   121.09us 22.20%  internal/poll.(*SysFile).destroy
+         0     0%   100%   365.82us 67.07%  internal/poll.ignoringEINTRIO
+         0     0%   100%   179.58us 32.93%  main.main
+         0     0%   100%   121.09us 22.20%  os.(*File).Close
+         0     0%   100%   365.82us 67.07%  os.(*File).Write
+         0     0%   100%   365.82us 67.07%  os.(*File).write
+         0     0%   100%   121.09us 22.20%  os.(*file).close
+         0     0%   100%    58.50us 10.73%  os.Create
+         0     0%   100%    58.50us 10.73%  os.OpenFile
+         0     0%   100%    58.50us 10.73%  os.ignoringEINTR
+         0     0%   100%    57.60us 10.56%  os.open
+         0     0%   100%    58.50us 10.73%  os.openFileNolog
+         0     0%   100%    57.60us 10.56%  os.openFileNolog.func1
+         0     0%   100%   232.58us 42.64%  runtime/pprof.(*profileBuilder).build
+         0     0%   100%   232.58us 42.64%  runtime/pprof.profileWriter
+         0     0%   100%   133.25us 24.43%  runtime/trace.(*traceMultiplexer).startLocked.func1
+         0     0%   100%   121.09us 22.20%  syscall.Close
+         0     0%   100%    57.60us 10.56%  syscall.Open
+         0     0%   100%   365.82us 67.07%  syscall.Write
+         0     0%   100%   365.82us 67.07%  syscall.write
