@@ -1,0 +1,59 @@
+name: Child Fork and Close attribution
+on:
+  push:
+    branches: [experiment/child-lifecycle-attribution]
+    paths:
+      - '.github/workflows/child-lifecycle-attribution.yml'
+      - 'benchmarks/child-lifecycle/**'
+permissions:
+  contents: read
+jobs:
+  ubuntu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 80
+    env:
+      GOTOOLCHAIN: local
+      CGO_ENABLED: '0'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14.8'
+      - name: Owned workspace and exact harness
+        run: |
+          echo "ATTRIBUTION=$RUNNER_TEMP/child-lifecycle-attribution" >> "$GITHUB_ENV"
+          echo "GOCACHE=$RUNNER_TEMP/child-lifecycle-attribution/temp/go-cache" >> "$GITHUB_ENV"
+          echo "GOMODCACHE=$RUNNER_TEMP/child-lifecycle-attribution/temp/go-mod" >> "$GITHUB_ENV"
+          python -c 'import os,subprocess;from scripts.git_identity import require_commit;require_commit(".",os.environ["GITHUB_SHA"]);assert subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()==os.environ["GITHUB_SHA"];assert not subprocess.check_output(["git","status","--porcelain"])'
+          python -m unittest discover -s benchmarks/child-lifecycle -p test_tools.py -v
+          python -m pip install --no-cache-dir PyMySQL==1.2.3
+      - name: Build only clean exact-commit inputs
+        run: |
+          python scripts/experiment_disk.py --work-dir "$ATTRIBUTION" --min-free-gib 8 --budget-gib 18 --timeout 1800 -- python benchmarks/child-lifecycle/build.py "$ATTRIBUTION" --go "$(command -v go)"
+      - name: Finite paired attribution and separate diagnostic CPU profiles
+        run: |
+          python scripts/experiment_disk.py --work-dir "$ATTRIBUTION" --min-free-gib 8 --budget-gib 18 --timeout 1800 -- python benchmarks/child-lifecycle/campaign.py --workspace "$ATTRIBUTION"
+          python benchmarks/child-lifecycle/reduce.py "$ATTRIBUTION/evidence/campaign" > "$ATTRIBUTION/evidence/analysis-check.txt"
+      - name: Remove owned cloned inputs, binaries and caches
+        if: always()
+        shell: python
+        run: |
+          import os,sys
+          from pathlib import Path
+          sys.path.insert(0,'scripts')
+          from experiment_workspace import remove_disposable_tree
+          remove_disposable_tree(Path(os.environ['ATTRIBUTION'])/'temp')
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: child-lifecycle-attribution-${{ github.sha }}
+          path: ${{ runner.temp }}/child-lifecycle-attribution/evidence
+          if-no-files-found: error
+          retention-days: 90

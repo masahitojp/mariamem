@@ -2,6 +2,7 @@
 """Finite native attribution campaign; no builds or correctness changes."""
 import argparse
 import hashlib
+import importlib.metadata
 import json
 import os
 from pathlib import Path
@@ -12,14 +13,30 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 
+EXPECTED_COMMITS={"control":"9cedaa76720336ec8304b9db7f28d6b1174b13b6","observed":"0a36f304b5b4c940f15359ce9e35a97db9512869"}
+
+def validate_stamps(binaries):
+ assert set(binaries)==set(EXPECTED_COMMITS)
+ for variant,bs in binaries.items():
+  assert set(bs)=={'child','host'}
+  for binary in bs.values():
+   stamp=binary['stamp']
+   assert stamp.splitlines()[0].endswith(' go1.26.8'),(variant,'toolchain')
+   assert 'vcs.revision='+EXPECTED_COMMITS[variant] in stamp,(variant,'source stamp mismatch')
+   assert 'vcs.modified=false' in stamp,(variant,'dirty build')
+   assert 'CGO_ENABLED=0' in stamp,(variant,'CGO')
+
 def main():
  p=argparse.ArgumentParser();p.add_argument('--workspace',type=Path,required=True);a=p.parse_args()
  work=a.workspace.resolve();out=work/'evidence'/'campaign';out.mkdir(parents=True,exist_ok=False)
  temp=work/'temp';commands=[];begin=time.monotonic()
  binaries={v:{kind:temp/f'{v}-{kind}' for kind in ('child','host')} for v in ('control','observed')}
  def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
- receipt={'platform':platform.platform(),'machine':platform.machine(),'python':sys.version,'binaries':{v:{k:{'sha256':sha(path),'stamp':subprocess.check_output([str(temp/'go'),'version','-m',str(path)],text=True)} for k,path in bs.items()} for v,bs in binaries.items()},'commands':commands,'completed':False}
+ receipt={'pymysql_version':importlib.metadata.version('PyMySQL'),'harness_source_commit':subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(),'platform':platform.platform(),'machine':platform.machine(),'python':sys.version,'binaries':{v:{k:{'sha256':sha(path),'stamp':subprocess.check_output([str(temp/'go'),'version','-m',str(path)],text=True)} for k,path in bs.items()} for v,bs in binaries.items()},'commands':commands,'completed':False}
  def save(): (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
+ validate_stamps(receipt["binaries"])
+ assert receipt['pymysql_version']=='1.2.3'
+ save()
  def run(name,cmd,observed=False):
   assert time.monotonic()-begin<1800,'campaign time budget'
   scratch=temp/'scratch'/name;scratch.mkdir(parents=True)
