@@ -762,6 +762,11 @@ inventory, fixture/test UX findings, dump/binlog assessment, the stable-endpoint
 verification theme, additional scope candidates and the suggested priority order.
 Discovery notes only; not approval.
 
+The [wire-relay feasibility memo](reviews/v06x-wire-relay-feasibility.md) records
+an unverified question: whether the embedded guest can expose a real MySQL
+endpoint that the host relays, as pgmem relays PostgreSQL's wire. It is not part
+of the approved prepared spike, and no test has run.
+
 ## v0.7.x — Guest initialization optimization candidate selection
 
 The Human scheduled selection of guest-initialization improvements for v0.7.x
