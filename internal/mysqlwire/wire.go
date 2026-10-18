@@ -412,7 +412,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		_ = w.send(ErrorPacket(1045, "28000", "only local root with empty password is supported"))
 		return nil
 	}
-	if flags&(clientFoundRows|65536|131072) != 0 {
+	if flags&clientFoundRows != 0 {
 		// MariaDB's client capability is fixed at connect time. Reopen only this
 		// flagged session so unflagged clients retain single-statement behavior.
 		// MULTI_STATEMENTS also requires result draining; never merely accept its bit.
@@ -425,17 +425,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			return closeErr
 		}
 		opened = false
-		var sessionFlags byte
-		if flags&clientFoundRows != 0 {
-			sessionFlags |= 1
-		}
-		if flags&65536 != 0 {
-			sessionFlags |= 2 | 4
-		}
-		if flags&131072 != 0 {
-			sessionFlags |= 4
-		}
-		r, err = call(1, []byte{sessionFlags})
+		r, err = call(1, []byte{1})
 		if err != nil {
 			_ = w.send(fatalPacket(err))
 			return err
@@ -445,6 +435,23 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			return nil
 		}
 		opened = true
+		status = r.Status
+	}
+	// Embedded CLIENT_CAPABILITIES already includes MULTI_RESULTS. Toggle
+	// MULTI_STATEMENTS through its public API without replacing the MYSQL/THD
+	// whose identity was sent in the greeting (libmysqld/client_settings.h).
+	if flags&65536 != 0 {
+		r, err = call(4, []byte{27, 0, 0})
+		if err != nil {
+			return err
+		}
+		if r.Version != 2 {
+			return errors.New("set-option bridge version mismatch")
+		}
+		if !r.OK {
+			_ = w.send(ErrorPacket(r.Errno, r.SQLState, r.Error))
+			return nil
+		}
 		status = r.Status
 	}
 	use := func(name []byte, monitor bool) (guest.Result, error) {
@@ -486,7 +493,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			r, e = query(request[1:], true)
 		case 2:
 			r, e = use(request[1:], true)
-		case 22, 23, 24, 25, 26:
+		case 22, 23, 24, 25, 26, 27:
 			// No-response commands are serialized via internal ack, without the
 			// query read-ahead monitor consuming the following client command.
 			if request[0] == 24 || request[0] == 25 {
@@ -517,6 +524,8 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 				replies, e = spikePrepare(r)
 			} else if request[0] == 23 {
 				replies, e = spikeBinary(r)
+			} else if request[0] == 27 && r.OK {
+				replies = [][]byte{eofPacket(r.Status, r.Warnings)}
 			} else {
 				replies = [][]byte{okPacket(r.Status, 0, 0, 0)}
 				if !r.OK {

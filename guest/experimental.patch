@@ -8,7 +8,7 @@
  #include "wire_api.inc"
 --- /dev/null
 +++ b/wasm/prepared_spike.inc
-@@ -0,0 +1,216 @@
+@@ -0,0 +1,224 @@
 +/* EXPERIMENT ONLY: public embedded mysql_stmt API, bounded type/row coverage.
 + * Wire command payload is session-owned; no MYSQL pointers cross the boundary.
 + * Upstream recipe insertion lives in guest/experimental.patch. */
@@ -80,6 +80,14 @@
 +  unsigned cmd=*p++;
 +  struct pst_entry *e=NULL;
 +  buf_t b={0}; char t[192]; MYSQL_RES *meta=NULL;
++  if(cmd==27) {
++    if((size_t)(end-p)!=2) return wire_error(1235,"unsupported prepared opcode","42000");
++    unsigned option=(unsigned)p[0] | (unsigned)p[1]<<8;
++    if(mysql_set_server_option(db,(enum enum_mysql_set_option)option))
++      return wire_error(mysql_errno(db),mysql_error(db),mysql_sqlstate(db));
++    if(buf_puts(&b,"{\"ok\":true") || wire_state(&b) || buf_putc(&b,'}')) goto oom;
++    return b.p;
++  }
 +  if(cmd==22) {
 +    for(int i=0;i<PST_LIMIT;i++) if(!pst_entries[i].stmt) { e=pst_entries+i; break; }
 +    if(!e || pst_next==UINT32_MAX) return wire_error(1461,"spike statement limit","42000");

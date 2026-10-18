@@ -69,6 +69,14 @@ static char *pst_call(MYSQL *db,const unsigned char *p,size_t size) {
   unsigned cmd=*p++;
   struct pst_entry *e=NULL;
   buf_t b={0}; char t[192]; MYSQL_RES *meta=NULL;
+  if(cmd==27) {
+    if((size_t)(end-p)!=2) return wire_error(1235,"unsupported prepared opcode","42000");
+    unsigned option=(unsigned)p[0] | (unsigned)p[1]<<8;
+    if(mysql_set_server_option(db,(enum enum_mysql_set_option)option))
+      return wire_error(mysql_errno(db),mysql_error(db),mysql_sqlstate(db));
+    if(buf_puts(&b,"{\"ok\":true") || wire_state(&b) || buf_putc(&b,'}')) goto oom;
+    return b.p;
+  }
   if(cmd==22) {
     for(int i=0;i<PST_LIMIT;i++) if(!pst_entries[i].stmt) { e=pst_entries+i; break; }
     if(!e || pst_next==UINT32_MAX) return wire_error(1461,"spike statement limit","42000");

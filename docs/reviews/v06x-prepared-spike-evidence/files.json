@@ -678,25 +678,25 @@
     "stored_sha256": "3eb56ddb4dc826ca3ae60810bc708cedce833c31aa6f858ba57f02deb99807eb",
     "encoding": "gzip"
   },
-  "selected-j1-probe_test.go": {
-    "original_bytes": 5398,
-    "stored_bytes": 5398,
-    "original_sha256": "04ff3774d4430aa87036bf98259846a9dfdc00b308d76307428e3aa6d39d32a7",
-    "stored_sha256": "04ff3774d4430aa87036bf98259846a9dfdc00b308d76307428e3aa6d39d32a7",
+  "selected-initial-probe-main.go.txt": {
+    "original_bytes": 6135,
+    "stored_bytes": 6135,
+    "original_sha256": "7c8ec75696b3d283aaea9b3d9c65bff79b47855af5b3a06cc6827c9c6911dfed",
+    "stored_sha256": "7c8ec75696b3d283aaea9b3d9c65bff79b47855af5b3a06cc6827c9c6911dfed",
     "encoding": "identity"
   },
-  "selected-j1-host.go": {
+  "selected-j1-host.go.txt": {
     "original_bytes": 4665,
     "stored_bytes": 4665,
     "original_sha256": "f4ffe5ae4ee6efe96a55517a37f804f0aed97a472f084f87766c2d5f5728e060",
     "stored_sha256": "f4ffe5ae4ee6efe96a55517a37f804f0aed97a472f084f87766c2d5f5728e060",
     "encoding": "identity"
   },
-  "selected-initial-probe-main.go": {
-    "original_bytes": 6135,
-    "stored_bytes": 6135,
-    "original_sha256": "7c8ec75696b3d283aaea9b3d9c65bff79b47855af5b3a06cc6827c9c6911dfed",
-    "stored_sha256": "7c8ec75696b3d283aaea9b3d9c65bff79b47855af5b3a06cc6827c9c6911dfed",
+  "selected-j1-probe_test.go.txt": {
+    "original_bytes": 5398,
+    "stored_bytes": 5398,
+    "original_sha256": "04ff3774d4430aa87036bf98259846a9dfdc00b308d76307428e3aa6d39d32a7",
+    "stored_sha256": "04ff3774d4430aa87036bf98259846a9dfdc00b308d76307428e3aa6d39d32a7",
     "encoding": "identity"
   }
 }

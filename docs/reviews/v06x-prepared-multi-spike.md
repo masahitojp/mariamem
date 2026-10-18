@@ -29,3 +29,11 @@ failure. Compare an unmodified standalone Python 3.14 distribution to separate
 Python version from TLS-library/build effects; do not inject deprecated constants.
 
 Status: in progress; no new success claim yet.
+
+
+The first continuation guest passed default Python/multi-statement basics but
+reopening sessions for capability changes made greeting/SQL connection IDs differ.
+A bounded follow-up uses the existing public mysql_set_server_option API instead
+of reopening for MULTI_STATEMENTS. The existing FOUND_ROWS reopen path is retained
+as a separate existing behavior. Missing mysql.proc blocks the procedure oracle;
+no system-table/bootstrap expansion is included. Preserve all observed FAILs.
