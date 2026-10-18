@@ -1,0 +1,31 @@
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:46:31.0829030Z ^[[36;1m  python scripts/runtime_validation.py --candidate-sha 'a390b6e496b5fa1d272dc46a9aecffe6129fcec4' \^[[0m
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:46:31.0830450Z ^[[36;1m  python scripts/release_preparation_checks.py^[[0m
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:46:31.0832300Z ^[[36;1m  GOTOOLCHAIN=go1.26.8 python scripts/verify.py check^[[0m
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:46:31.0832770Z ^[[36;1m  GOTOOLCHAIN=go1.26.8 python scripts/verify.py integration^[[0m
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:46:31.0838840Z ^[[36;1mpython scripts/build_alpha.py --ci-candidate^[[0m
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:46:38.6827130Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python scripts/check_version.py
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:46:38.7496850Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python scripts/verify_generated_runtime.py
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:46:39.4504510Z PASS: generated source inventory, pinned inputs and guest identity
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:46:39.4963900Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:46:42.0567260Z 22 passed in 1.99s
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:46:42.1386490Z + go test -p 1 ./...
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:55:59.5355890Z + go vet -p 1 -vettool=<runner>/work/mariamem/mariamem/scripts/vet_generated.py ./...
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T05:59:48.5019470Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py -q
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:00:47.9457700Z 608 passed, 27 skipped in 58.90s
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:00:48.0820990Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python scripts/check_public.py
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:01:00.6650100Z Public source check passed: 3210 files
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:01:00.8951450Z + go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:22:54.1790690Z + go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:23:14.9933940Z + go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:23:22.0767560Z + go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:23:25.3511640Z + go build -p 1 -o /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/mariamem-integration-x543zsm_/mariamem-host ./cmd/mariamem-host
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:23:28.5779700Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py -q
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:24:21.1885700Z 18 passed in 51.96s
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:24:21.2612070Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python tests/snapshots.py
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:24:22.7697240Z {"passed": true, "checks": 33, "error": null, "evidence": "<runner>/work/mariamem/mariamem/tests/evidence/snapshots.json"}
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:24:23.2307350Z PASS: generated source inventory, pinned inputs and guest identity
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:28:49.8094750Z Building wheels for collected packages: mariamem
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:28:49.8111500Z   Building wheel for mariamem (pyproject.toml): started
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:28:54.8432300Z   Building wheel for mariamem (pyproject.toml): finished with status 'done'
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:28:54.8833940Z   Created wheel for mariamem: filename=mariamem-0.5.1-py3-none-macosx_15_0_arm64.whl size=48873455 sha256=8b757b7776c89c5d700a1198f3569039698103169a0bf63a497f077a52d25c31
+candidate (darwin-arm64, macos-15)	Build generated-Go host-only wheel	2026-10-17T06:28:54.9002720Z Successfully built mariamem

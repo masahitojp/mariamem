@@ -1,0 +1,185 @@
+{
+  "scope": "source-only compare_inventory; not full authenticated receipt validation and not a proposed-policy implementation",
+  "cases": [
+    {
+      "path": "mariamem.go",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "mariamem.go",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "mariamem.go",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "guest/source.patch",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "guest/source.patch",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "guest/source.patch",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "go.mod",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "go.mod",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "go.mod",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "scripts/generated_guest_recipe.py",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "scripts/generated_guest_recipe.py",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "scripts/generated_guest_recipe.py",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": ".github/workflows/v044-product-validation.yml",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": ".github/workflows/v044-product-validation.yml",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": ".github/workflows/v044-product-validation.yml",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "scripts/verify.py",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "scripts/verify.py",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "scripts/verify.py",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "scripts/shared_bench_helper.py",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "scripts/shared_bench_helper.py",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "scripts/shared_bench_helper.py",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "benchmarks/ubuntu-startup/main.go",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "benchmarks/ubuntu-startup/main.go",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "benchmarks/ubuntu-startup/main.go",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "benchmarks/ubuntu-startup/campaign.py",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "benchmarks/ubuntu-startup/campaign.py",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "benchmarks/ubuntu-startup/campaign.py",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": ".github/workflows/ubuntu-parallel-startup.yml",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": ".github/workflows/ubuntu-parallel-startup.yml",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": ".github/workflows/ubuntu-parallel-startup.yml",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "benchmarks/ubuntu-startup/new.go",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "benchmarks/ubuntu-startup/new.go",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "benchmarks/ubuntu-startup/new.go",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "unexpected.py",
+      "change": "modify",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "unexpected.py",
+      "change": "add",
+      "current_inventory_policy": "REJECT"
+    },
+    {
+      "path": "unexpected.py",
+      "change": "delete",
+      "current_inventory_policy": "REJECT"
+    }
+  ]
+}

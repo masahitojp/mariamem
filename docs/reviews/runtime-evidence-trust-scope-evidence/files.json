@@ -1,0 +1,92 @@
+{
+  "source_commit": "8abe93efe9698bfbe1d620aae6a1d7e995b8ede5",
+  "purpose": "completed CI timing and source-only current-policy checks; no runtime builds or new CI",
+  "files": {
+    "117322615952-excerpt.txt": {
+      "original_sha256": "5e13d1ccf2a5b974819e30fdb7e7784b3db9bd7e52a3324211fa2b759bb576f8",
+      "stored_sha256": "76b256793d03f7fc126c26e8876be959967529fdf9129b83d1e3f1e56c240735",
+      "bytes": 6081
+    },
+    "117322615952-identity.json": {
+      "original_sha256": "a9849a6d503d6de100eb06febb22b95e0cbeb03aba65bef65cf51c4d5aedb507",
+      "stored_sha256": "a9849a6d503d6de100eb06febb22b95e0cbeb03aba65bef65cf51c4d5aedb507",
+      "bytes": 259
+    },
+    "117322615952-intervals.json": {
+      "original_sha256": "1adacd1de0f875e66872a097fd1cbb792870ed762b783bf4cfb533793a34aec8",
+      "stored_sha256": "9135a39d7841f9155d89b56a49118defc3da37eccc4edf074aa2e79eeaa9daaf",
+      "bytes": 3763
+    },
+    "117322616023-excerpt.txt": {
+      "original_sha256": "bce1dd569f8f8b149812b1e0bbdf963ca896357338668ad378cacba4f3b5f2de",
+      "stored_sha256": "a4f32ceff0eb4a567d2c48400d3d2c785ed7aa5f3704ee6771d2bad2253c7b87",
+      "bytes": 5904
+    },
+    "117322616023-identity.json": {
+      "original_sha256": "dae4612ec48e9f5ffc16b1a783df65c54fff54abde8e65ee115c7d18aceddb24",
+      "stored_sha256": "dae4612ec48e9f5ffc16b1a783df65c54fff54abde8e65ee115c7d18aceddb24",
+      "bytes": 259
+    },
+    "117322616023-intervals.json": {
+      "original_sha256": "b7ff0ae90f7cdeb13a4d1a2b164146b7c5ae93e617929a57f135289f31cc8c8a",
+      "stored_sha256": "76d8dc520b98071d7c9e8942b708be0bd234f7e113d0ef6857c96e1422a088dd",
+      "bytes": 3882
+    },
+    "117343701804-excerpt.txt": {
+      "original_sha256": "fdd256d5e11df5872edfad4be11250ca363867559df5c524b366baa5bf84811d",
+      "stored_sha256": "3c3fc2c4a09d11fe0baac84afe653d652e96a36ee2913a974ac9e35fcfbebd4c",
+      "bytes": 5117
+    },
+    "117343701804-identity.json": {
+      "original_sha256": "533ac8e9400a6195cc1ffc239b48e1e9b4118be4955c20204d026c943d01d020",
+      "stored_sha256": "533ac8e9400a6195cc1ffc239b48e1e9b4118be4955c20204d026c943d01d020",
+      "bytes": 258
+    },
+    "117343701804-intervals.json": {
+      "original_sha256": "c2d1d97717abbb00aee3483255fec840adc634971855f2d84b0beb8296541935",
+      "stored_sha256": "63d7e355e8ec9857fdc74af7c2adc5561b29d9346b3b93bd8e63b0b65c4d6e87",
+      "bytes": 3879
+    },
+    "117343701883-excerpt.txt": {
+      "original_sha256": "b7584cdca7abb33cf94f8578409222fc9da13cd2b7c47680fc5a93253a480e67",
+      "stored_sha256": "71d3c17f07928bfc96ac543ce0047eae119588bc80c5a8e2e395d035faccf7f1",
+      "bytes": 5284
+    },
+    "117343701883-identity.json": {
+      "original_sha256": "96974d4fb9b6991b040b787119fb41be49ac301b384645d6a1c7fd5c7d122e01",
+      "stored_sha256": "96974d4fb9b6991b040b787119fb41be49ac301b384645d6a1c7fd5c7d122e01",
+      "bytes": 258
+    },
+    "117343701883-intervals.json": {
+      "original_sha256": "943cc8a734948f7d9adab3ba2e7ea9d8ccdce050d64401546494f1e07d135772",
+      "stored_sha256": "f8b2dd39e8cc3a62c14a31df4563f35e3489ba11dcaee771f01ac3ed048e69ff",
+      "bytes": 3765
+    },
+    "39006279807.json": {
+      "original_sha256": "bbec2138bbceafa5c642d842569c9b8163b35063e72bffa119f34b94065e2279",
+      "stored_sha256": "bbec2138bbceafa5c642d842569c9b8163b35063e72bffa119f34b94065e2279",
+      "bytes": 18375
+    },
+    "39013386987.json": {
+      "original_sha256": "510302c53f6941445a37424d6d2d8f79d20964515b81ed84a17dcd73a6c89641",
+      "stored_sha256": "510302c53f6941445a37424d6d2d8f79d20964515b81ed84a17dcd73a6c89641",
+      "bytes": 24665
+    },
+    "negative-matrix.json": {
+      "original_sha256": "45b75352c944b23faaecec2dfb51402b4ee8eb52c1d37567fe5438b439326c64",
+      "stored_sha256": "45b75352c944b23faaecec2dfb51402b4ee8eb52c1d37567fe5438b439326c64",
+      "bytes": 4672
+    },
+    "timing-summary.json": {
+      "original_sha256": "b66c70ed8d4d4277020efdae1d00270cbe8ecbaac038b5f9807d596bdd3c1358",
+      "stored_sha256": "b66c70ed8d4d4277020efdae1d00270cbe8ecbaac038b5f9807d596bdd3c1358",
+      "bytes": 27915
+    },
+    "version-transition.json": {
+      "original_sha256": "071c1a8c1d16beb3ab293a5c4bbbcf3b2ac40b355c95d3c60129c3ead13a23f6",
+      "stored_sha256": "071c1a8c1d16beb3ab293a5c4bbbcf3b2ac40b355c95d3c60129c3ead13a23f6",
+      "bytes": 885
+    }
+  },
+  "transform": "ANSI color removed; runner home prefixes replaced with <runner>/; download chatter removed from selected log excerpts. Command timestamps retained. Full-log digests are in separate job identity files."
+}

@@ -1,0 +1,31 @@
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:45:48.8782246Z ^[[36;1m  python scripts/runtime_validation.py --candidate-sha 'a390b6e496b5fa1d272dc46a9aecffe6129fcec4' \^[[0m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:45:48.8783220Z ^[[36;1m  python scripts/release_preparation_checks.py^[[0m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:45:48.8783801Z ^[[36;1m  GOTOOLCHAIN=go1.26.8 python scripts/verify.py check^[[0m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:45:48.8784237Z ^[[36;1m  GOTOOLCHAIN=go1.26.8 python scripts/verify.py integration^[[0m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:45:48.8785213Z ^[[36;1mpython scripts/build_alpha.py --ci-candidate^[[0m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:45:53.6427577Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python scripts/check_version.py
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:45:53.6970066Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python scripts/verify_generated_runtime.py
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:45:53.9156094Z PASS: generated source inventory, pinned inputs and guest identity
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:45:53.9235590Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:45:55.8570841Z 22 passed in 1.01s
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:45:55.8891802Z + go test -p 1 ./...
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:50:07.5139332Z + go vet -p 1 -vettool=<runner>/work/mariamem/mariamem/scripts/vet_generated.py ./...
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:51:37.9953927Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py -q
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:52:12.8828638Z 608 passed, 27 skipped in 34.64s
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:52:12.9271134Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python scripts/check_public.py
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:52:26.7917711Z Public source check passed: 3210 files
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T05:52:26.8702732Z + go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:01:17.9632981Z + go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:01:30.9874025Z + go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:01:33.8250421Z + go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:01:35.5416314Z + go build -p 1 -o /tmp/mariamem-integration-bjtm3lj7/mariamem-host ./cmd/mariamem-host
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:01:36.9235227Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py -q
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:02:30.5248421Z 18 passed in 53.37s
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:02:30.5538577Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python tests/snapshots.py
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:02:31.7735907Z {"passed": true, "checks": 33, "error": null, "evidence": "<runner>/work/mariamem/mariamem/tests/evidence/snapshots.json"}
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:02:32.0326177Z PASS: generated source inventory, pinned inputs and guest identity
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:05:21.9315199Z Building wheels for collected packages: mariamem
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:05:21.9323878Z   Building wheel for mariamem (pyproject.toml): started
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:05:26.3297241Z   Building wheel for mariamem (pyproject.toml): finished with status 'done'
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:05:26.3673461Z   Created wheel for mariamem: filename=mariamem-0.5.1-py3-none-linux_x86_64.whl size=50208528 sha256=f4a601096944c7fa90bbd0aae28ff459881fe735bbcb6de5ecfd3276aaf4b4fe
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	Build generated-Go host-only wheel	2026-10-17T06:05:26.3716822Z Successfully built mariamem

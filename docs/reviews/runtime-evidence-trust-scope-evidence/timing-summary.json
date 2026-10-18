@@ -1,0 +1,899 @@
+{
+  "39006279807": {
+    "source_commit": "a390b6e496b5fa1d272dc46a9aecffe6129fcec4",
+    "url": "https://github.com/masahitojp/mariamem/actions/runs/39006279807",
+    "elapsed_seconds_first_job_to_last": 5455.0,
+    "jobs": [
+      {
+        "name": "resolve",
+        "job_id": 117319318329,
+        "seconds": 32.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 9.0
+          },
+          {
+            "name": "Run [[ \"$CANDIDATE_REF\" =~ ^[0-9a-f]{40}$ ]] || exit 1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 9.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 1.0
+          },
+          {
+            "name": "Automatically select authenticated READY reuse or full qualification",
+            "seconds": 10.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 1.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      },
+      {
+        "name": "guest",
+        "job_id": 117319417351,
+        "seconds": 1075.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 10.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 8.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Install native build tools",
+            "seconds": 17.0
+          },
+          {
+            "name": "Two independent canonical source to WASM builds",
+            "seconds": 744.0
+          },
+          {
+            "name": "Reproduce generated Go and verify GPL source closure offline",
+            "seconds": 281.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 10.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 1.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      },
+      {
+        "name": "candidate (ubuntu24.04-x86_64, ubuntu-24.04)",
+        "job_id": 117322615952,
+        "seconds": 1348.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 10.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 9.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 1.0
+          },
+          {
+            "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+            "seconds": 5.0
+          },
+          {
+            "name": "Build generated-Go host-only wheel",
+            "seconds": 1304.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 14.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 1.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      },
+      {
+        "name": "candidate (darwin-arm64, macos-15)",
+        "job_id": 117322616023,
+        "seconds": 2783.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 3.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 16.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 3.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 1.0
+          },
+          {
+            "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+            "seconds": 37.0
+          },
+          {
+            "name": "Build generated-Go host-only wheel",
+            "seconds": 2694.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 21.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 1.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 1.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 3.0
+          }
+        ]
+      },
+      {
+        "name": "verification (darwin-arm64, macos-15)",
+        "job_id": 117331099658,
+        "seconds": 1045.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 2.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 13.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 2.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+            "seconds": 31.0
+          },
+          {
+            "name": "Restore hash-bound immutable inputs (no rebuild fallback)",
+            "seconds": 81.0
+          },
+          {
+            "name": "Clean Go default + failure/Snapshot + GORM32; installed wheel + SQLAlchemy44",
+            "seconds": 779.0
+          },
+          {
+            "name": "Exact platform guard \u2014 READY / NOT READY",
+            "seconds": 125.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 3.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 2.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 4.0
+          }
+        ]
+      },
+      {
+        "name": "verification (ubuntu24.04-x86_64, ubuntu-24.04)",
+        "job_id": 117331099737,
+        "seconds": 677.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 2.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 11.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 8.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+            "seconds": 15.0
+          },
+          {
+            "name": "Restore hash-bound immutable inputs (no rebuild fallback)",
+            "seconds": 78.0
+          },
+          {
+            "name": "Clean Go default + failure/Snapshot + GORM32; installed wheel + SQLAlchemy44",
+            "seconds": 470.0
+          },
+          {
+            "name": "Exact platform guard \u2014 READY / NOT READY",
+            "seconds": 87.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 2.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      },
+      {
+        "name": "aggregate",
+        "job_id": 117334295941,
+        "seconds": 495.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 10.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Restore both frozen platforms and exact external evidence",
+            "seconds": 288.0
+          },
+          {
+            "name": "Aggregate guard \u2014 require both platforms even after acceptance failure",
+            "seconds": 192.0
+          },
+          {
+            "name": "Record immutable qualification references for later automatic reuse",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 2.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  "39013386987": {
+    "source_commit": "47f297cc7498625e076abb93322eb616c9560bb8",
+    "url": "https://github.com/masahitojp/mariamem/actions/runs/39013386987",
+    "elapsed_seconds_first_job_to_last": 5641.0,
+    "jobs": [
+      {
+        "name": "resolve",
+        "job_id": 117340420441,
+        "seconds": 33.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 10.0
+          },
+          {
+            "name": "Run [[ \"$CANDIDATE_REF\" =~ ^[0-9a-f]{40}$ ]] || exit 1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 10.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Automatically select authenticated READY reuse or full qualification",
+            "seconds": 10.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      },
+      {
+        "name": "guest",
+        "job_id": 117340522899,
+        "seconds": 1045.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 9.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 6.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 1.0
+          },
+          {
+            "name": "Install native build tools",
+            "seconds": 14.0
+          },
+          {
+            "name": "Two independent canonical source to WASM builds",
+            "seconds": 720.0
+          },
+          {
+            "name": "Reproduce generated Go and verify GPL source closure offline",
+            "seconds": 281.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 10.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      },
+      {
+        "name": "candidate (darwin-arm64, macos-15)",
+        "job_id": 117343701804,
+        "seconds": 1716.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 3.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 15.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 2.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+            "seconds": 6.0
+          },
+          {
+            "name": "Build generated-Go host-only wheel",
+            "seconds": 1672.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 13.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 1.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 2.0
+          }
+        ]
+      },
+      {
+        "name": "candidate (ubuntu24.04-x86_64, ubuntu-24.04)",
+        "job_id": 117343701883,
+        "seconds": 1310.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 3.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 12.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 12.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+            "seconds": 6.0
+          },
+          {
+            "name": "Build generated-Go host-only wheel",
+            "seconds": 1259.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 15.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 1.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      },
+      {
+        "name": "verification (ubuntu24.04-x86_64, ubuntu-24.04)",
+        "job_id": 117348952752,
+        "seconds": 657.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 10.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 11.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+            "seconds": 5.0
+          },
+          {
+            "name": "Restore hash-bound immutable inputs (no rebuild fallback)",
+            "seconds": 79.0
+          },
+          {
+            "name": "Clean Go default + failure/Snapshot + GORM32; installed wheel + SQLAlchemy44",
+            "seconds": 459.0
+          },
+          {
+            "name": "Exact platform guard \u2014 READY / NOT READY",
+            "seconds": 87.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 1.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      },
+      {
+        "name": "verification (darwin-arm64, macos-15)",
+        "job_id": 117348952795,
+        "seconds": 1006.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 2.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 18.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 3.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+            "seconds": 34.0
+          },
+          {
+            "name": "Restore hash-bound immutable inputs (no rebuild fallback)",
+            "seconds": 94.0
+          },
+          {
+            "name": "Clean Go default + failure/Snapshot + GORM32; installed wheel + SQLAlchemy44",
+            "seconds": 745.0
+          },
+          {
+            "name": "Exact platform guard \u2014 READY / NOT READY",
+            "seconds": 103.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 2.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 2.0
+          }
+        ]
+      },
+      {
+        "name": "aggregate",
+        "job_id": 117352069819,
+        "seconds": 474.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 1.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 9.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Restore both frozen platforms and exact external evidence",
+            "seconds": 276.0
+          },
+          {
+            "name": "Aggregate guard \u2014 require both platforms even after acceptance failure",
+            "seconds": 184.0
+          },
+          {
+            "name": "Record immutable qualification references for later automatic reuse",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 1.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      },
+      {
+        "name": "publication",
+        "job_id": 117353498377,
+        "seconds": 1055.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 11.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Restore and recheck accepted bytes only",
+            "seconds": 739.0
+          },
+          {
+            "name": "Existing exact-SHA publisher (verify mode never enters this job)",
+            "seconds": 302.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 1.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      },
+      {
+        "name": "public_smoke (ubuntu24.04-x86_64, ubuntu-24.04)",
+        "job_id": 117356696380,
+        "seconds": 219.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 2.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 9.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 6.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 1.0
+          },
+          {
+            "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+            "seconds": 0.0
+          },
+          {
+            "name": "Public module tag and downloaded accepted wheel",
+            "seconds": 197.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 1.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 1.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 0.0
+          }
+        ]
+      },
+      {
+        "name": "public_smoke (darwin-arm64, macos-15)",
+        "job_id": 117356696436,
+        "seconds": 282.0,
+        "steps": [
+          {
+            "name": "Set up job",
+            "seconds": 2.0
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 16.0
+          },
+          {
+            "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 2.0
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+            "seconds": 2.0
+          },
+          {
+            "name": "Public module tag and downloaded accepted wheel",
+            "seconds": 252.0
+          },
+          {
+            "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+            "seconds": 2.0
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "seconds": 0.0
+          },
+          {
+            "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+            "seconds": 1.0
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "seconds": 0.0
+          },
+          {
+            "name": "Complete job",
+            "seconds": 2.0
+          }
+        ]
+      }
+    ]
+  }
+}

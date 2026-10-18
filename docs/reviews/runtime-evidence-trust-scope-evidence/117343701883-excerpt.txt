@@ -1,0 +1,30 @@
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:41:03.8525865Z ^[[36;1m  python scripts/runtime_validation.py --candidate-sha '47f297cc7498625e076abb93322eb616c9560bb8' \^[[0m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:41:03.8526793Z ^[[36;1m  python scripts/release_preparation_checks.py^[[0m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:41:03.8527388Z ^[[36;1m  GOTOOLCHAIN=go1.26.8 python scripts/verify.py check^[[0m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:41:03.8527805Z ^[[36;1m  GOTOOLCHAIN=go1.26.8 python scripts/verify.py integration^[[0m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:41:03.8529014Z ^[[36;1mpython scripts/build_alpha.py --ci-candidate^[[0m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:41:15.0543186Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python scripts/check_version.py
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:41:15.1066504Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python scripts/verify_generated_runtime.py
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:41:15.3502053Z PASS: generated source inventory, pinned inputs and guest identity
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:41:15.3577439Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:41:18.1767689Z 22 passed in 1.03s
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:41:18.2164608Z + go test -p 1 ./...
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:45:22.6816289Z + go vet -p 1 -vettool=<runner>/work/mariamem/mariamem/scripts/vet_generated.py ./...
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:46:53.4850192Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py -q
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:47:28.8684561Z 608 passed, 27 skipped in 35.13s
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:47:28.9361638Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python scripts/check_public.py
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:47:42.8264702Z Public source check passed: 3212 files
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:47:42.9018958Z + go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:56:11.0953437Z + go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:56:24.0836645Z + go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:56:26.9871211Z + go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:56:28.6622505Z + go build -p 1 -o /tmp/mariamem-integration-f7707fyu/mariamem-host ./cmd/mariamem-host
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:56:30.0178374Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py -q
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:57:23.2888226Z 18 passed in 53.05s
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:57:23.3240263Z + /opt/hostedtoolcache/Python/3.14.8/x64/bin/python tests/snapshots.py
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:57:24.5804503Z {"passed": true, "checks": 33, "error": null, "evidence": "<runner>/work/mariamem/mariamem/tests/evidence/snapshots.json"}
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T07:57:24.8584038Z PASS: generated source inventory, pinned inputs and guest identity
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T08:00:01.1533446Z Building wheels for collected packages: mariamem
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T08:00:01.1540147Z   Building wheel for mariamem (pyproject.toml): started
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T08:00:05.5586136Z   Building wheel for mariamem (pyproject.toml): finished with status 'done'
+candidate (ubuntu24.04-x86_64, ubuntu-24.04)	UNKNOWN STEP	2026-10-17T08:00:05.6014136Z   Created wheel for mariamem: filename=mariamem-0.5.2-py3-none-linux_x86_64.whl size=50208534 sha256=ae4e8599c125ee62941394144bc8b487989ce8e793cad7eed8f7e2f029459cc4

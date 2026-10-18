@@ -1,0 +1,80 @@
+[
+  {
+    "command": "/opt/hostedtoolcache/Python/3.14.8/x64/bin/python scripts/check_version.py",
+    "seconds_until_next_logged_command": 0.054249,
+    "start_utc": "2026-10-17T05:45:53.6427577Z",
+    "next_utc": "2026-10-17T05:45:53.6970066Z"
+  },
+  {
+    "command": "/opt/hostedtoolcache/Python/3.14.8/x64/bin/python scripts/verify_generated_runtime.py",
+    "seconds_until_next_logged_command": 0.226553,
+    "start_utc": "2026-10-17T05:45:53.6970066Z",
+    "next_utc": "2026-10-17T05:45:53.9235590Z"
+  },
+  {
+    "command": "/opt/hostedtoolcache/Python/3.14.8/x64/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q",
+    "seconds_until_next_logged_command": 1.965621,
+    "start_utc": "2026-10-17T05:45:53.9235590Z",
+    "next_utc": "2026-10-17T05:45:55.8891802Z"
+  },
+  {
+    "command": "go test -p 1 ./...",
+    "seconds_until_next_logged_command": 251.624753,
+    "start_utc": "2026-10-17T05:45:55.8891802Z",
+    "next_utc": "2026-10-17T05:50:07.5139332Z"
+  },
+  {
+    "command": "go vet -p 1 -vettool=<runner>/work/mariamem/mariamem/scripts/vet_generated.py ./...",
+    "seconds_until_next_logged_command": 90.481459,
+    "start_utc": "2026-10-17T05:50:07.5139332Z",
+    "next_utc": "2026-10-17T05:51:37.9953927Z"
+  },
+  {
+    "command": "/opt/hostedtoolcache/Python/3.14.8/x64/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py -q",
+    "seconds_until_next_logged_command": 34.931721,
+    "start_utc": "2026-10-17T05:51:37.9953927Z",
+    "next_utc": "2026-10-17T05:52:12.9271134Z"
+  },
+  {
+    "command": "/opt/hostedtoolcache/Python/3.14.8/x64/bin/python scripts/check_public.py",
+    "seconds_until_next_logged_command": 13.94316,
+    "start_utc": "2026-10-17T05:52:12.9271134Z",
+    "next_utc": "2026-10-17T05:52:26.8702732Z"
+  },
+  {
+    "command": "go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot ./internal/control ./internal/prepared . -count=1",
+    "seconds_until_next_logged_command": 531.093025,
+    "start_utc": "2026-10-17T05:52:26.8702732Z",
+    "next_utc": "2026-10-17T06:01:17.9632981Z"
+  },
+  {
+    "command": "go test -tags=integration ./tests/gointegration -count=1 -timeout=3m",
+    "seconds_until_next_logged_command": 13.024104,
+    "start_utc": "2026-10-17T06:01:17.9632981Z",
+    "next_utc": "2026-10-17T06:01:30.9874025Z"
+  },
+  {
+    "command": "go test -tags=integration ./tests/godefault -count=1 -timeout=3m",
+    "seconds_until_next_logged_command": 2.83764,
+    "start_utc": "2026-10-17T06:01:30.9874025Z",
+    "next_utc": "2026-10-17T06:01:33.8250421Z"
+  },
+  {
+    "command": "go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m",
+    "seconds_until_next_logged_command": 1.716589,
+    "start_utc": "2026-10-17T06:01:33.8250421Z",
+    "next_utc": "2026-10-17T06:01:35.5416314Z"
+  },
+  {
+    "command": "go build -p 1 -o /tmp/mariamem-integration-bjtm3lj7/mariamem-host ./cmd/mariamem-host",
+    "seconds_until_next_logged_command": 1.381891,
+    "start_utc": "2026-10-17T06:01:35.5416314Z",
+    "next_utc": "2026-10-17T06:01:36.9235227Z"
+  },
+  {
+    "command": "/opt/hostedtoolcache/Python/3.14.8/x64/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py -q",
+    "seconds_until_next_logged_command": 53.630335,
+    "start_utc": "2026-10-17T06:01:36.9235227Z",
+    "next_utc": "2026-10-17T06:02:30.5538577Z"
+  }
+]

@@ -1,0 +1,30 @@
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:40:59.8326830Z ^[[36;1m  python scripts/runtime_validation.py --candidate-sha '47f297cc7498625e076abb93322eb616c9560bb8' \^[[0m
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:40:59.8327600Z ^[[36;1m  python scripts/release_preparation_checks.py^[[0m
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:40:59.8328200Z ^[[36;1m  GOTOOLCHAIN=go1.26.8 python scripts/verify.py check^[[0m
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:40:59.8328670Z ^[[36;1m  GOTOOLCHAIN=go1.26.8 python scripts/verify.py integration^[[0m
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:40:59.8329600Z ^[[36;1mpython scripts/build_alpha.py --ci-candidate^[[0m
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:41:04.5537140Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python scripts/check_version.py
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:41:04.6145150Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python scripts/verify_generated_runtime.py
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:41:04.9188360Z PASS: generated source inventory, pinned inputs and guest identity
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:41:04.9248790Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:41:06.4641090Z 22 passed in 1.25s
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:41:06.5037790Z + go test -p 1 ./...
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:46:32.9284680Z + go vet -p 1 -vettool=<runner>/work/mariamem/mariamem/scripts/vet_generated.py ./...
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:48:31.9135470Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py -q
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:49:22.5649550Z 608 passed, 27 skipped in 50.24s
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:49:22.6203560Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python scripts/check_public.py
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:49:33.7466560Z Public source check passed: 3212 files
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T07:49:33.8836730Z + go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:03:39.6310680Z + go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:03:54.2180990Z + go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:03:58.8801190Z + go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:04:01.7768260Z + go build -p 1 -o /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/mariamem-integration-5poqp251/mariamem-host ./cmd/mariamem-host
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:04:03.8721110Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py -q
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:04:37.8928340Z 18 passed in 33.55s
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:04:37.9177580Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python tests/snapshots.py
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:04:38.9142560Z {"passed": true, "checks": 33, "error": null, "evidence": "<runner>/work/mariamem/mariamem/tests/evidence/snapshots.json"}
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:04:39.2342720Z PASS: generated source inventory, pinned inputs and guest identity
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:07:22.4334040Z Building wheels for collected packages: mariamem
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:07:22.4344240Z   Building wheel for mariamem (pyproject.toml): started
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:07:26.2231670Z   Building wheel for mariamem (pyproject.toml): finished with status 'done'
+candidate (darwin-arm64, macos-15)	UNKNOWN STEP	2026-10-17T08:07:26.2533500Z   Created wheel for mariamem: filename=mariamem-0.5.2-py3-none-macosx_15_0_arm64.whl size=48873428 sha256=99f430bb4378453df955b0f960a3093fbd3c5934adaca39fb9860aa103081bf8

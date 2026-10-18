@@ -1,0 +1,7 @@
+{
+  "run_id": 39006279807,
+  "job_id": 117322615952,
+  "original_bytes": 127098,
+  "original_sha256": "73a8b11da0353caadcbb772ebf68e604a4f2c2c9bc53f0d03a117660125d0e76",
+  "selection": "command/build/test/evidence marker lines retaining original timestamp"
+}

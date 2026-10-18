@@ -1,0 +1,22 @@
+{
+  "basis_commit": "a390b6e496b5fa1d272dc46a9aecffe6129fcec4",
+  "release_source_commit": "47f297cc7498625e076abb93322eb616c9560bb8",
+  "changed_paths": [
+    "README.md",
+    "docs/go.md",
+    "docs/project-status.md",
+    "docs/python.md",
+    "docs/releasing.md",
+    "docs/reviews/snapshot-owned-root-productization-evidence/integration-target.json",
+    "docs/reviews/snapshot-owned-root-productization.md",
+    "python/mariamem/_version.py",
+    "release/NOTES-v0.5.2.md"
+  ],
+  "comparison": "PASS under current path/version comparison alone; NOT authenticated runtime reuse",
+  "intent_present": {
+    "a390b6e496b5fa1d272dc46a9aecffe6129fcec4": false,
+    "47f297cc7498625e076abb93322eb616c9560bb8": false
+  },
+  "qualification_workflow": ".github/workflows/release-candidate-ready.yml",
+  "required_runtime_reuse_workflow": ".github/workflows/v044-product-validation.yml"
+}
