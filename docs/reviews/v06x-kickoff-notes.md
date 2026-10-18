@@ -120,6 +120,21 @@ need this.
 - `SHOW BINLOG EVENTS`/`SHOW MASTER STATUS` are `COM_QUERY` (host-only exposure).
 - CDC streaming needs `COM_BINLOG_DUMP` (guest API + host).
 
+**Priority: low / watch (v0.6).** binlog/CDC does not serve the core
+"Docker-free fast MariaDB test double" use case, and it conflicts with the core
+priorities: enabling binlog is a guest argv patch, and the replication stream is
+the heaviest wire work. Defer both; revisit only if dogfood shows a real
+dependency in the target workflow:
+
+- schema-migration tools that need binlog + replication (gh-ost,
+  pt-online-schema-change);
+- `mysqldump --single-transaction --master-data` (needs `SHOW MASTER STATUS`);
+- CDC consumers (Debezium/Maxwell/canal).
+
+Binlog *emission* (a guest argv addition) is cheaper than the replication
+*stream* (`COM_BINLOG_DUMP`, guest API + host); do not start the stream until
+demand is demonstrated.
+
 ## 5. Guest patch provenance (maintenance)
 
 - `guest/source.patch` patches both the lite4mariadb recipe
@@ -165,8 +180,16 @@ binlog / stable endpoint above. Candidates for Human decision, **not approved**.
    ships Java (JUnit5/Spring/Micronaut) and Node. Note as a strategic direction
    if JVM/TS test suites are in the target market.
 
-Suggested v0.6 subset: 1 (safety), 3 (driver matrix), 2 (framework adapters),
-5 (failure/observability), 4 (cache decision). 6 and 7 can follow.
+Priority order (v0.6, suggestion):
+
+1. prepared statements (wire compatibility; determines product viability);
+2. driver/auth matrix + framework adapters (adoption cost);
+3. parallel resource safety (OOM prevention);
+4. failure / observability UX;
+5. dump/restore helper and procedure (preparation UX);
+6. binlog emission — watch only (section 4);
+7. CDC replication stream — deferred until demand is demonstrated;
+8. bulk load / language coverage — strategic, later.
 
 ## 7. Strategy note: pgmem as a matched floor reference
 
