@@ -12,9 +12,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 ## アクティブ（判断・作業が残る）
 
-| # | 残件 | 現状 | 次の判断／作業 |
-| --- | --- | --- | --- |
-| 4 | 信頼スコープ再設計 | [承認済み限定整理の結果・Human Review待ち](runtime-evidence-trust-scope-results.md)。規則変更は未実装 | 計測器依存と拒否条件、過去2CIの費用を確認。現行判定維持＋既存の一回release/同一SHA再利用を推薦。範囲拡張の保留はHuman判断待ち |
+現在アクティブな項目はない。後続版へ移した項目・再開条件つきの保留は下表のとおり。
 
 ## クローズ / 0.5.x 対象外
 
@@ -33,11 +31,12 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 | 11 | macOS の OS 確認結果の再利用（2b） | 2026-10-18にHumanがmain採用・統合を承認。両native focused CIとmacOS32実行を照合済み。[採用記録](macos-platform-cache-results.md)。mainのcanonical integrationにもartifactsのrace検証を追加 |
 | 12 | Ubuntu・10MiB の並列起動の限定調査（2a） | 2026-10-18にHuman受理、クローズ。[32試行・結果Review](ubuntu-parallel-startup-results.md)。起動同士の実行資源競合まで確認、CPU待ち/cache/帯域の寄与は未分離。GOMAXPROCSは自動設定を維持。guest改善の方式選定は0.7.x。成果物のmain統合も別途承認済み |
 | 13 | 16 接続/DB の接続数調整 | Human 決定（2026-10-18）で 0.5.x から v0.6.x dogfood へ移動。dogfood で需要と資源効果を確認してから上限変更を判断 |
+| 14 | 信頼スコープ再設計 | 2026-10-18に[限定整理](runtime-evidence-trust-scope-results.md)をHuman受理。範囲拡張は保留、現行判定を維持。既存の一回release/同一SHA再利用を使う。計測器変更による再利用阻害が繰り返された場合に再検討。未実装・資料main統合は別判断 |
 
 ## 実質残るもの
 
 - **今回の最適化の範囲は完了** — macOS の OS 確認再利用（2b）は採用済み。Ubuntu 並列起動の限定調査（2a）もHuman受理によりクローズ、調査成果のmain統合も別途承認済み。guest 初期化の改善候補選定は 0.7.x。
-- **信頼スコープ再設計** — 限定整理を完了しHuman Review待ち。規則変更の必要性・費用対効果を既存の再利用手順と比較済み。実装へは進んでいない。
+- **信頼スコープ再設計** — 限定整理はHuman受理、範囲拡張を保留。現行判定を維持し、既存の再利用手順を使う。実装へは進んでいない。
 
 ## 関連する確定済み成果物
 
@@ -51,6 +50,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 | 日付 | 決定 | 記録 |
 | --- | --- | --- |
+| 2026-10-18 | 信頼スコープ限定整理を受理。再利用範囲の拡張は保留、現行規則と既存の一回release/同一SHA再利用を使う。公開・main統合は別判断 | [Human決定](runtime-evidence-trust-scope-results.md#human決定2026-10-18)、project-status、本台帳 クローズ #14 |
 | 2026-10-18 | 16 接続/DB の接続数調整を 0.5.x から v0.6.x dogfood へ移動。dogfood で需要と資源効果を確認してから上限変更を判断 | project-status、本台帳 クローズ #13 |
 | 2026-10-18 | Ubuntu並列起動調査の計測器・証拠・報告をmainへ統合。runtime変更・新規計測・リリースは含めない | project-status、[統合記録](ubuntu-parallel-startup-results.md#main統合2026-10-18)、採用元 `791108e` |
 | 2026-10-18 | Ubuntu並列起動の限定調査結果を受理。GOMAXPROCS自動設定を維持し、改善方式選定は0.7.xへ引継ぎ。main統合・実装・公開は含めない | project-status、[受理記録](ubuntu-parallel-startup-results.md#human決定2026-10-18)、本台帳 クローズ #12 |

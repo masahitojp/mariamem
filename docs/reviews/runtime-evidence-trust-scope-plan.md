@@ -60,3 +60,6 @@ Humanが上記の限定整理と、過去の長いリリースCI時間内訳の�
 [結果と次のHuman Review](runtime-evidence-trust-scope-results.md)に4成果をまとめた。
 実装・規則変更には進んでいない。推薦は現行判定を維持し、既存の一回release/同一SHA再利用手順を使うこと。
 この推薦の受理と残件の保留扱いはHuman判断待ち。
+
+2026-10-18追記：Humanが結果と推薦を受理した。
+[Human決定](runtime-evidence-trust-scope-results.md#human決定2026-10-18)に従い、限定整理をクローズし範囲拡張は保留する。

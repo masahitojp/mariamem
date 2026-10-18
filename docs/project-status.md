@@ -322,7 +322,7 @@ before changing the limit. This is distinct from the FD/resource-model pressure
 observation, also assigned to v0.6.0 dogfood above. The current active and closed
 items are listed in the [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
 
-**Evidence reuse scope — bounded assessment, Human Review pending (2026-10-18).**
+**Evidence reuse scope — assessment accepted, expansion deferred (2026-10-18).**
 The Human approved the [limited dependency/rejection-condition assessment](reviews/runtime-evidence-trust-scope-plan.md),
 including a timing check of the previous long verify/release runs. The
 [results](reviews/runtime-evidence-trust-scope-results.md) distinguish runtime
@@ -333,8 +333,12 @@ current path/version comparison, but no authenticated reusable runtime intent
 connected them. Exact-SHA READY reuse also could not bridge different commits.
 The recommendation is to retain current reuse rules and use the existing
 one-shot release, or verify the final versioned candidate and release the same
-SHA. No new exclusions or runtime/workflow changes were implemented. Human
-acceptance of deferring the wider redesign is pending; no release is authorized.
+SHA. No new exclusions or runtime/workflow changes were implemented. The Human
+accepted deferring the wider redesign on 2026-10-18. This closes the bounded
+assessment and removes scope expansion from active v0.5.x work; it does not
+establish a new reuse contract. Revisit if benchmark-only changes repeatedly
+block otherwise eligible evidence reuse. Main integration of these documents
+and any actual release remain separate decisions.
 
 **Child Fork startup and child Close attribution — accepted 2026-10-18.** The
 [bounded attribution](https://github.com/masahitojp/mariamem/blob/bbf5d1c27f3cea3e2135e8fae053f875ceb234b5/docs/reviews/child-lifecycle-attribution.md)
