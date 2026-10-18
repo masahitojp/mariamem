@@ -57,7 +57,21 @@ See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
-## Current published release: v0.5.2 — Snapshot ownership without repeated content scans
+## Current published release: v0.5.3 — Reuse successful macOS platform checks
+
+[v0.5.3](https://github.com/masahitojp/mariamem/releases/tag/v0.5.3) was published
+on 2026-10-18 (JST) from source `4f7b18bfc00965974fcbb16ac49cbf00d9fb2b0e`.
+[Release CI 39115376954](https://github.com/masahitojp/mariamem/actions/runs/39115376954)
+completed independent guest builds/generated-Go reproduction, both-platform
+acceptance, aggregate guard, publication and public Go/wheel smoke successfully.
+The product runtime change since v0.5.2 is the macOS platform-check success
+cache (`internal/artifacts/platform_cache.go`). Public APIs, guest and Snapshot
+ownership remain unchanged. See [release notes](../release/NOTES-v0.5.3.md).
+The macOS product comparison against v0.5.2 remains on
+`experiment/product-main-macos` at `94f13e6`; integrating that measurement report
+is a separate decision. v0.6 planning follows this published boundary.
+
+## Previous release: v0.5.2 — Snapshot ownership without repeated content scans
 
 [v0.5.2](https://github.com/masahitojp/mariamem/releases/tag/v0.5.2) was published
 on 2026-10-17 (JST) from source `47f297cc7498625e076abb93322eb616c9560bb8`;
@@ -73,16 +87,6 @@ transfer and borrowed-mapping lifetime detachment retain their content checks.
 See [released notes](../release/NOTES-v0.5.2.md) and
 [changes since v0.5.1](changes-since-v051.md). The adoption history below records
 the main integration that preceded this release.
-
-**Next release — v0.5.3 (planned, not prepared).** The only product runtime change
-on main after v0.5.2 is the macOS platform-check success cache
-(`internal/artifacts/platform_cache.go`); the rest of the post-v0.5.2 history is
-documentation, measurement tooling and CI. The Human scheduled wrapping this
-boundary as v0.5.3 before starting the v0.6 term. No version bump, notes, tag or
-publication is prepared here; release qualification remains the existing
-fail-closed CI path. The macOS effect was measured against v0.5.2 on the product
-scenarios (`experiment/product-main-macos` `94f13e6`, macOS-only); integrating
-that result is a separate decision.
 
 ## Previous release: v0.5.1 — In-memory baselines and shared host
 
@@ -676,6 +680,13 @@ This records product intent, not current support or implementation approval.
 Enumerate the capability space before choosing representative tests; tests
 prioritize gaps rather than define the whole scope. Version-specific acceptance
 and any public-contract changes still require their own decision.
+
+The [v0.6 capability map](reviews/v06x-capability-map.md) expands that intent into
+existing foundations, gaps, unverified coverage and dependencies. It proposes
+connected designs for entry/routing/lifecycle, preparation/import and
+compatibility/actionable failures. The Human agreed to this planning direction
+on 2026-10-18; implementation scope and API choices are not yet approved.
+All capability axes remain visible before selecting tests.
 
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage

@@ -3,9 +3,10 @@
 Status: maintainer-approved product contract, updated for D block storage and
 Python shared-host main adoption on 2026-10-17. Release approval remains separate.
 The ownership update below was approved for productization on 2026-10-17 and
-subsequently adopted on main at candidate `52c078b`. Release remains a separate
-Human decision. Published v0.5.1 has the earlier D/shared-host implementation;
-the later ownership optimization is unreleased. Published v0.5.0 retains the
+subsequently adopted on main at candidate `52c078b`, then published in
+[v0.5.2](../../release/NOTES-v0.5.2.md). The current published v0.5.3 retains that
+ownership contract. Historical v0.5.1 has the earlier D/shared-host implementation;
+v0.5.0 retains the
 file-backed/save-load contract; see [version differences](../changes-since-v050.md).
 
 ## Product boundary
