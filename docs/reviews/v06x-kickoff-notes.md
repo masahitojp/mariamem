@@ -222,7 +222,74 @@ Lineage: pgmem (PGLite) and mariamem (`lite4mariadb` recipe) both use the
 `wasm2go` converter. pgmem forks the whole initialized storage (a VFS copy, not a
 runtime-state clone), consistent with the pgmem VFS review.
 
-## 9. Next steps (v0.6.x, for Human decision)
+## 9. External references to study (test-double UX, by pattern)
+
+The goal is to draw from the **test-double / test-ergonomics ecosystem**, not to
+copy pgmem (which itself copies moto). Study patterns and their "feel", pinned to
+a version, at the source / real test code — not the README.
+
+### A. Service emulators (decorator / transparent redirect)
+
+- moto (AWS) — `@mock_aws`, the origin of the shadow idea.
+- localstack / Azurite / fake-gcs-server / gcloud emulators — process +
+  endpoint-override style; compare in-process decorator vs separate process.
+- miniredis (Go, in-memory Redis + inspection), ElasticMQ / dynamodb-local —
+  "real-compatible lightweight fake + inspection API".
+- WireMock / Prism / vcr / nock / gock — HTTP record/replay; the "test builds its
+  own environment" mindset.
+
+### B. Containers / real infrastructure (lifecycle UX)
+
+- Testcontainers (go/python/java) — `withReuse` (reuse across runs), Ryuk
+  (leak reaping), wait strategies.
+- embedded-postgres (fergusstrange/Go, Zonky/Java, otj-pg-embedded) — a direct
+  competitor to mariamem's position.
+- pglite — the base pgmem is built on.
+
+### C. Database-specific test UX
+
+- pytest-postgresql / pytest-django — `django_db` fixture, `--reuse-db`,
+  transaction wrapping; a model for framework integration.
+- Spring Boot Test / Quarkus Dev Services / Micronaut Test —
+  `@DynamicPropertySource`, auto-started dependencies injected without config.
+- Rails (database_cleaner, parallelize, `--keepdb`), pgbouncer / ProxySQL
+  (pool reset; the analogue of `COM_RESET_CONNECTION`).
+- toxiproxy — network fault injection for failure-path UX.
+
+### D. Determinism / time
+
+- freezegun / timecop / clockwork, Go `synctest` (1.24+) — freeze time and the
+  scheduler for reproducible tests.
+
+### E. Snapshot / reuse / baseline
+
+- testcontainers `withReuse`, Django `--reuse-db`, Rails `--keepdb` — examples of
+  cross-run baselines (input to the cache decision).
+- pgmem `LiveBaseline.capture()` / named datasets — in-process baseline.
+
+### F. Shadow / traffic
+
+- moto `@mock_aws` (SDK redirect), goReplay / Envoy shadow (traffic mirroring).
+
+### Mapping to the v0.6 items
+
+| Want to learn | Reference | v0.6 item |
+| --- | --- | --- |
+| transparent decorator, per-language entry | moto / pgmem / localstack | fixture UX, language coverage |
+| reuse across runs | testcontainers `withReuse`, Django `--reuse-db`, Rails `--keepdb` | cross-run cache decision |
+| resource reaping / safety cap | testcontainers Ryuk, `MaxForks` | parallel resource safety |
+| readiness / wait | testcontainers wait strategies | startup/busy UX |
+| framework integration | pytest-postgresql, Spring/Quarkus Dev Services | framework adapter |
+| pool reset / session | pgbouncer, SQLAlchemy pool guard | wire `COM_RESET_CONNECTION` |
+| fault injection | toxiproxy | failure / observability UX |
+| determinism | freezegun, Go `synctest` | test reproducibility |
+
+Study method: pick one representative per pattern (decorator=moto,
+reuse=testcontainers `withReuse`, framework=pytest-postgresql,
+determinism=synctest), read source and real tests at a pinned version, and record
+"pattern -> applicability to mariamem" rather than copying implementations.
+
+## 10. Next steps (v0.6.x, for Human decision)
 
 1. Dogfood (Django, Alembic/migrations, metadata-heavy, dbt-like; retain the
    SQLAlchemy/GORM anchors) and record which wire commands/flags each client
