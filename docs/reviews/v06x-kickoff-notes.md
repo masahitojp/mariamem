@@ -324,8 +324,47 @@ determinism=synctest), read source and real tests at a pinned version, and recor
 4. Resolve the stable-endpoint verification theme (spike) before deciding whether
    HTTP-app `live=True` is in scope.
 
-## 11. Proposed v0.6 execution sequence (Human proposal, 2026-10-18)
+## 11. North star and capability coverage matrix (ideal-driven)
 
+The execution sequence alone is demand-driven: it fixes the gaps that the chosen
+representative tests happen to hit and can under-shoot the ideal. Add an
+ideal-driven artifact first.
+
+**North star (v0.6 definition of done, positional rather than "everything").** A
+Go or Python test suite can switch to a disposable MariaDB double without
+changing application code or configuration (moto-style), migrate from
+Testcontainers in minutes, and after one preparation run tests are far faster and
+safe in parallel, without Docker. Use this as the filter for scope.
+
+**Capability coverage matrix.** Enumerate the space first and mark current
+support; the gaps — including ones no representative test hits — become the
+candidate set. The tests then *prioritize*; they do not define scope.
+
+| Axis | Enumerate (examples) | Current | Reach / defer in v0.6 |
+| --- | --- | --- | --- |
+| Driver | PyMySQL, mysqlclient, asyncmy, aiomysql, go-sql-driver, mysql2 (Node), JDBC | Go/Python text-protocol; others untested | re-evaluate after prepared statements |
+| Framework | Django, SQLAlchemy, Alembic, dbt, GORM, Rails?, Spring? | SQLAlchemy/GORM anchors; integration thin | adapter decision |
+| Wire feature | prepared, multi-statement, reset, TLS, auth, LOAD DATA | prepared no, multi no, TLS no | priority from the matrix |
+| Lifecycle | session/class/function, xdist, cross-run reuse | server → snapshot → fork only | reuse / cap |
+| Environment | Docker-less CI, sandbox, macOS, Linux | in-process strength | strength |
+| UX pattern | transparent routing, prepare hook, live reset, baseline capture, error taxonomy, fault injection | none / thin | define from the references |
+| Determinism | freeze time, scheduler | none | v0.6? |
+
+**Where the "ideal" per axis comes from** (do not invent): the external
+references define it — Testcontainers (lifecycle/reuse/wait), Dev Services /
+`@DynamicPropertySource` (zero-config injection), moto `@mock_aws` (transparent
+shadow), pytest-postgresql / pytest-django (framework integration), toxiproxy
+(fault injection), Go `synctest` (determinism). The ideal is the filtered union of
+the best patterns for this niche.
+
+**Completion is not "the tests pass".** Use ideal → matrix → tests for priority,
+and review the matrix at the end to see how far toward the ideal v0.6 reached.
+
+## 12. Proposed v0.6 execution sequence (Human proposal, 2026-10-18)
+
+0. **Write the north star and the capability coverage matrix (section 11) first.**
+   Enumerate the axes and mark current support; the tests below then prioritize
+   the gaps rather than defining scope.
 1. **Pick the representative tests to complete in v0.6.** Cover the priority axes:
    at least one Go and one Python suite; one framework with real migrations
    (Django or Alembic); one driver that defaults to server-side prepared
