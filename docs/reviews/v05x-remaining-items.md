@@ -5,7 +5,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 [project-status](../project-status.md) が所有し、本書は「現在アクティブな残件」と
 「次の判断」を一覧するために置く。
 
-本版の基準: main `df90c09`（Ubuntu 性能受理、child-lifecycle 帰属の受理と 0.5.x 最適化範囲まで反映）。
+本版の基準: main `8178abd`（child-lifecycle 帰属の受理、0.5.x 最適化範囲、実施順変更まで反映）。
 スナップショットのため、各項目の最新状態は [project-status](../project-status.md) を正とする。
 
 2026-10-18追記: Ubuntu性能確認はHuman受理によりクローズ。他項目の基準日は上記のとおり。
@@ -14,8 +14,8 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 | # | 残件 | 現状 | 次の判断／作業 |
 | --- | --- | --- | --- |
-| 2a | Ubuntu・10MiB の並列起動の限定調査 | Human 承認済み・未着手（先行） | 起動同士の競合と他の子の SQL/終了との重なりを区別し主要因を特定。per-child と 4子全体の実経過時間を共に評価。guest 改善の方式選定・実装へ広げない |
-| 2b | macOS の OS 確認結果の再利用 | Human 承認済み・未着手（2a の後） | DB 内部を変えず小修正と効果確認。対応OS拒否・キャンセル/失敗・並列起動時の正しさを維持 |
+| 2b | macOS の OS 確認結果の再利用 | Human 承認済み・着手中（Codex、先行） | DB 内部を変えず小修正と効果確認。対応OS拒否・キャンセル/失敗・並列起動時の正しさを維持 |
+| 2a | Ubuntu・10MiB の並列起動の限定調査 | Human 承認済み・未着手（2b の後）。v0.7.x 選定の計測を兼ねる | 起動同士の競合と他の子の SQL/終了との重なりを区別し主要因を特定。per-child と 4子全体の実経過時間を共に評価。guest 改善の方式選定・実装へ広げない |
 | 3 | 16 接続/DB の接続数調整 | 0.5.x スコープに追加済み | 実需要と資源効果を確認してから上限変更を検討する |
 | 4 | 信頼スコープ再設計 | 未着手 | 着手前に別 Human Review（dependency closure と negative proof）が必要 |
 
@@ -36,7 +36,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 ## 実質残るもの
 
-- **今回の最適化は2件** — Ubuntu 並列起動の限定調査（2a）→ macOS の OS 確認再利用（2b）。guest 初期化の改善候補選定は 0.7.x。
+- **今回の最適化は2件** — macOS の OS 確認再利用（2b、先行・着手中）→ Ubuntu 並列起動の限定調査（2a、計測兼用）。guest 初期化の改善候補選定は 0.7.x。
 - **16 接続調整** — 0.5.x 入りしたので需要・資源効果の確認。
 - **信頼スコープ再設計** — 着手ゲートのまま。
 
@@ -52,6 +52,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 | 日付 | 決定 | 記録 |
 | --- | --- | --- |
+| 2026-10-18 | 0.5.x の実施順を変更: 2b（macOS OS 確認の再利用）を先行、その後 2a（Ubuntu 並列起動の限定調査、v0.7.x 選定の計測を兼ねる） | project-status、本台帳 2a/2b |
 | 2026-10-18 | 子 Fork 起動・Close の費用帰属を完了として受理 | [帰属Review](https://github.com/masahitojp/mariamem/blob/bbf5d1c27f3cea3e2135e8fae053f875ceb234b5/docs/reviews/child-lifecycle-attribution.md)、本台帳 クローズ #9 |
 | 2026-10-18 | 0.5.x の child-lifecycle 最適化範囲を Ubuntu 並列起動の限定調査（2a）と macOS の OS 確認再利用（2b）に限定。guest 初期化の改善候補選定は v0.7.x へ | project-status、本台帳 2a/2b、クローズ #10 |
 | 2026-10-18 | Ubuntu性能確認の資料・保存証拠・計測ツールのmain統合とpushを別途承認。runtime変更・追加計測・公開は含めない | project-status、[結果Review](ubuntu-product-performance-results.md) |

@@ -335,23 +335,25 @@ disconnect waiting and is mainly guest shutdown and linear memory release.
 Investigation #2 met its exit criteria and the Human accepted it on 2026-10-18.
 Acceptance does not itself approve an optimization or main integration.
 
-**Human-approved child-lifecycle optimization scope — 2026-10-18:** for this
-workstream, v0.5.x is limited to these two actions, in order:
-1. Investigate Ubuntu 10MiB parallel startup: distinguish startup contention
-   from overlap with other children’s SQL/cleanup and identify the principal
-   cause. Observed guest open-to-ready is 65.84ms serial versus 133.95ms with
-   four workers (60.62ms is the different Light case). Compare per-child latency
-   and whole-suite elapsed time. This authorizes the bounded investigation, not
-   guest-initialization optimization implementation.
-2. Implement and measure reuse of successful macOS platform checks, preserving
+**Human-approved child-lifecycle optimization scope — 2026-10-18 (order
+revised 2026-10-18):** for this workstream, v0.5.x is limited to these two
+actions, in order:
+1. Implement and measure reuse of successful macOS platform checks, preserving
    unsupported-platform rejection, cancellation/failure behavior and concurrent
-   startup correctness. Keep DB internals unchanged.
+   startup correctness. Keep DB internals unchanged. Implementation has started
+   (delegated).
+2. Then investigate Ubuntu 10MiB parallel startup: distinguish startup
+   contention from overlap with other children’s SQL/cleanup and identify the
+   principal cause. Observed guest open-to-ready is 65.84ms serial versus
+   133.95ms with four workers (60.62ms is the different Light case). Compare
+   per-child latency and whole-suite elapsed time. This bounded investigation
+   also supplies measurement evidence for the v0.7.x selection; it does not
+   authorize guest-initialization optimization implementation.
 
 Guest-initialization improvement candidate selection is scheduled for v0.7.x,
 using the investigation evidence; it is not a v0.5.x task. Main integration and
-release remain separate decisions. These actions are approved but not yet
-started. Other previously recorded roadmap items are not cancelled by this
-workstream decision.
+release remain separate decisions. Item 2 has not started. Other previously
+recorded roadmap items are not cancelled by this workstream decision.
 
 The Human prioritized native Ubuntu performance measurement next. The
 [fixed-scope campaign](reviews/ubuntu-product-performance.md) completed 246
