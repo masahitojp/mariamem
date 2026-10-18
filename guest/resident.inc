@@ -64,6 +64,7 @@ static void *multi_worker(void *arg)
     if (stop)
     {
       free(sql);
+      pst_clear();
       if (multi_mysql) mysql_close(multi_mysql);
       multi_mysql= NULL;
       mysql_thread_end();
@@ -80,6 +81,7 @@ static void *multi_worker(void *arg)
       {
         reply= wire_error(multi_mysql ? mysql_errno(multi_mysql) : 2000,
                           multi_mysql ? mysql_error(multi_mysql) : "mysql_init failed", "HY000");
+        pst_clear();
         if (multi_mysql) mysql_close(multi_mysql);
         multi_mysql= NULL;
       }
@@ -88,10 +90,13 @@ static void *multi_worker(void *arg)
     }
     else if (op == 3)
     {
+      pst_clear();
       mysql_close(multi_mysql);
       multi_mysql= NULL;
       reply= strdup("{\"ok\":true,\"closed\":true}");
     }
+    else if (op == 4)
+      reply= pst_call(multi_mysql, (const unsigned char *)sql, length);
     else
       reply= l4m_query_v2(sql, (unsigned long)length);
     free(sql);
@@ -182,7 +187,7 @@ int main(int argc, char **argv)
     packet[n]= 0;
     unsigned int op= packet[0];
     uint32_t request= multi_u32(packet + 1), slot= multi_u32(packet + 5);
-    if (slot >= MULTI_LIMIT || op < 1 || op > 3 || (op == 1 && n - 9 > 1))
+    if (slot >= MULTI_LIMIT || op < 1 || op > 4 || (op == 1 && n - 9 > 1))
       multi_error(request, slot, 1235, "unsupported request/slot");
     else
     {

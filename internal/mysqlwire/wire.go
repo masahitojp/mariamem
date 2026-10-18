@@ -79,7 +79,7 @@ func (w *wire) send(b []byte) error {
 // callQuery observes a driver disconnect while the guest is executing SQL.
 // MySQL clients issue one command at a time; unexpected pipelined input also
 // invalidates the instance rather than leaving a query running unsupervised.
-func (w *wire) callQuery(p *guest.Process, slot uint32, sql []byte) (guest.Result, error) {
+func (w *wire) callGuest(p *guest.Process, op byte, slot uint32, sql []byte) (guest.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), w.timeout)
 	defer cancel()
 	type outcome struct {
@@ -88,7 +88,7 @@ func (w *wire) callQuery(p *guest.Process, slot uint32, sql []byte) (guest.Resul
 	}
 	completed := make(chan outcome, 1)
 	go func() {
-		r, err := p.Call(ctx, 2, slot, sql)
+		r, err := p.Call(ctx, op, slot, sql)
 		completed <- outcome{r, err}
 	}()
 	type observed struct {
@@ -311,7 +311,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		var r guest.Result
 		var e error
 		if monitor {
-			r, e = w.callQuery(p, slot, sql)
+			r, e = w.callGuest(p, 2, slot, sql)
 		} else {
 			r, e = call(2, sql)
 		}
@@ -453,6 +453,43 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			r, e = query(request[1:], true)
 		case 2:
 			r, e = use(request[1:], true)
+		case 22, 23, 24, 25, 26:
+			// No-response commands are serialized via internal ack, without the
+			// query read-ahead monitor consuming the following client command.
+			if request[0] == 24 || request[0] == 25 {
+				r, e = call(4, request)
+			} else {
+				r, e = w.callGuest(p, 4, slot, request)
+			}
+			if e == nil && r.Version != 2 {
+				e = errors.New("prepared bridge version mismatch")
+			}
+			if e != nil {
+				_ = w.send(fatalPacket(e))
+				return e
+			}
+			if request[0] == 24 || request[0] == 25 {
+				// Prototype terminates on a failed no-response command; never
+				// emits a response the protocol does not define.
+				if !r.OK {
+					return errors.New("failed no-response prepared command: " + r.Error)
+				}
+				activity.Idle(status)
+				continue
+			}
+			if r.Version == 2 {
+				status = r.Status
+			}
+			if request[0] == 22 {
+				replies, e = spikePrepare(r)
+			} else if request[0] == 23 {
+				replies, e = spikeBinary(r)
+			} else {
+				replies = [][]byte{okPacket(r.Status, 0, 0, 0)}
+				if !r.OK {
+					replies, e = packets(r)
+				}
+			}
 		case 14:
 			replies = [][]byte{okPacket(status, 0, 0, 0)}
 		default:

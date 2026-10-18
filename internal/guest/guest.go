@@ -36,22 +36,25 @@ type Cell struct {
 	Hex string `json:"$h"`
 }
 type Result struct {
-	OK              bool      `json:"ok"`
-	Ready           bool      `json:"ready"`
-	Closed          bool      `json:"closed"`
-	Version         int       `json:"api_version"`
-	MaxSessions     int       `json:"max_sessions"`
-	SnapshotVersion int       `json:"snapshot_version"`
-	Snapshot        bool      `json:"snapshot"`
-	Status          uint16    `json:"server_status"`
-	Warnings        uint16    `json:"warnings"`
-	Errno           uint16    `json:"errno"`
-	Error           string    `json:"error"`
-	SQLState        string    `json:"sqlstate"`
-	Affected        string    `json:"affected"`
-	InsertID        string    `json:"insert_id"`
-	Columns         []Column  `json:"columns"`
-	Rows            [][]*Cell `json:"rows"`
+	StmtID            uint32    `json:"stmt_id"`
+	ParamCount        uint16    `json:"param_count"`
+	ParamMetadataNull bool      `json:"param_metadata_null"`
+	OK                bool      `json:"ok"`
+	Ready             bool      `json:"ready"`
+	Closed            bool      `json:"closed"`
+	Version           int       `json:"api_version"`
+	MaxSessions       int       `json:"max_sessions"`
+	SnapshotVersion   int       `json:"snapshot_version"`
+	Snapshot          bool      `json:"snapshot"`
+	Status            uint16    `json:"server_status"`
+	Warnings          uint16    `json:"warnings"`
+	Errno             uint16    `json:"errno"`
+	Error             string    `json:"error"`
+	SQLState          string    `json:"sqlstate"`
+	Affected          string    `json:"affected"`
+	InsertID          string    `json:"insert_id"`
+	Columns           []Column  `json:"columns"`
+	Rows              [][]*Cell `json:"rows"`
 }
 type response struct {
 	result              Result
