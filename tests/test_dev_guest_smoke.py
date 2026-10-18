@@ -33,7 +33,13 @@ def test_dev_fresh_transactions_snapshot_children_and_close():
                             assert q.fetchall() == ((1,),)
                             q.execute('INSERT INTO dev_items VALUES(%s)', (index+10,))
         assert db._closed
+    # Since shared-host adoption, Session owns the process, pipes and reader.
+    # All root/baseline/child owners have left their scopes at this point.
     for child in children:
-        assert child._process.poll() is not None
-        assert child._process.stdin.closed and child._process.stdout.closed and child._log.closed
-        assert not child._reader.is_alive()
+        assert child.closed
+        session = child._session
+        assert session._refs == 0 and session._reaped.is_set()
+        assert session._process.poll() == 0
+        assert session._process.stdin.closed and session._process.stdout.closed
+        assert session._stderr.closed and not session._reader.is_alive()
+        assert not session.root.exists()

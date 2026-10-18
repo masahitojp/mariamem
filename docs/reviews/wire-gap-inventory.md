@@ -93,6 +93,8 @@ public contracts are unchanged.
 
 The pinned lite4mariadb recipe already provides `l4m_exec_multi` and
 CLIENT_MULTI_STATEMENTS; `guest/source.patch` disables that flag in the resident
-build. A dump-import bridge may therefore cost less than prepared support, though
+build; `guest/resident.inc` also opens each worker session without that flag.
+Both the worker connection and result API need adaptation. A dump-import bridge
+may therefore cost less than prepared support, though
 result draining and host/guest semantics remain unverified. This is an independent
 import option; prepared remains priority #1 for ordinary Python/Go consumers.

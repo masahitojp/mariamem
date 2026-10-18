@@ -34,7 +34,7 @@ def main():
     assert all(not graph[str(n)]['indirect_calls'] for n in seen)
     module=out/'module';module.mkdir();(module/'go.mod').write_text('module github.com/masahitojp/mariamem\n\ngo 1.26.0\n')
     copied={}
-    for relative in ['internal/generatedgo/code/base','internal/prepared']:
+    for relative in ['internal/generatedgo/code/base','internal/prepared','internal/timing']:
         target=module/relative;target.mkdir(parents=True)
         for f in (product/relative).iterdir():
             if f.suffix in ['.go','.s'] and not f.name.endswith('_test.go'):
