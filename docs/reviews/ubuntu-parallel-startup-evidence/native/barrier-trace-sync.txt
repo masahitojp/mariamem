@@ -1,0 +1,41 @@
+File: startup-study
+Type: delay
+Showing nodes accounting for 473730.30us, 100% of 473827.71us total
+Dropped 15 nodes (cum <= 2369.14us)
+      flat  flat%   sum%        cum   cum%
+359401.02us 75.85% 75.85% 359401.02us 75.85%  runtime.selectgo
+82347.97us 17.38% 93.23% 82347.97us 17.38%  sync.(*WaitGroup).Wait
+31979.97us  6.75%   100% 31979.97us  6.75%  runtime.chanrecv1
+    1.34us 0.00028%   100% 327893.82us 69.20%  main.main.func2
+         0     0%   100% 327892.48us 69.20%  github.com/masahitojp/mariamem.(*Snapshot).Fork
+         0     0%   100% 327892.48us 69.20%  github.com/masahitojp/mariamem.start
+         0     0%   100% 63488.51us 13.40%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait
+         0     0%   100% 63465.28us 13.39%  github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.func2.installGuestThreadLifetime.InstallThreadLifetime.1
+         0     0%   100% 63488.51us 13.40%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait
+         0     0%   100% 63488.51us 13.40%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At
+         0     0%   100% 63465.28us 13.39%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+         0     0%   100% 63465.28us 13.39%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+         0     0%   100% 11880.06us  2.51%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18010
+         0     0%   100% 31956.74us  6.74%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17440
+         0     0%   100%  6051.97us  1.28%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16534
+         0     0%   100% 63488.51us 13.40%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn218
+         0     0%   100% 63465.28us 13.39%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn216
+         0     0%   100% 31956.74us  6.74%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16526
+         0     0%   100% 38008.71us  8.02%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16535
+         0     0%   100% 13576.51us  2.87%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn5472
+         0     0%   100%  6051.97us  1.28%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16497
+         0     0%   100% 38008.71us  8.02%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16539
+         0     0%   100% 31956.74us  6.74%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn17439
+         0     0%   100% 11880.06us  2.51%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18015
+         0     0%   100% 31956.74us  6.74%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18216
+         0     0%   100% 63488.51us 13.40%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88
+         0     0%   100% 31956.74us  6.74%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16496
+         0     0%   100% 327892.48us 69.20%  github.com/masahitojp/mariamem/internal/guest.Connect
+         0     0%   100% 327892.48us 69.20%  github.com/masahitojp/mariamem/internal/guest.startLinked
+         0     0%   100% 327892.48us 69.20%  github.com/masahitojp/mariamem/internal/host.StartGenerated
+         0     0%   100% 327892.48us 69.20%  github.com/masahitojp/mariamem/internal/host.start
+         0     0%   100% 82348.74us 17.38%  main.main
+         0     0%   100% 327893.82us 69.20%  main.main.func7
+         0     0%   100% 327892.48us 69.20%  main.main.func7.3
+         0     0%   100% 82348.74us 17.38%  main.runChildren
+         0     0%   100% 327990.46us 69.22%  main.runChildren.func1

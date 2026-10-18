@@ -1,0 +1,1367 @@
+{
+  "result": "PASS",
+  "source_commit": "4e73abe126672869ad03575e84706b5ab2cb557c",
+  "cells": {
+    "ordinary-serial-0": {
+      "fork_ms": [
+        42.96767,
+        46.922273,
+        42.822757,
+        44.041097
+      ],
+      "serial_fork_cpu_ms": [
+        56.79400000000001,
+        61.278999999999975,
+        56.92299999999983,
+        57.61700000000003
+      ],
+      "children_wall_ms": 541.233022,
+      "all_ready_wall_ms": 453.006136,
+      "startup_cpu_ms": 692.1440000000001,
+      "startup_cpu_per_wall": 1.5278910041077238,
+      "startup_gc_cpu_ms": 1.4518049999999987,
+      "startup_gc_cycles": 1,
+      "callback_lag_ms": 0.172727,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 3,
+        "mutation": 3,
+        "disconnect": 3,
+        "child_close": 3
+      }
+    },
+    "ordinary-pipeline-0": {
+      "fork_ms": [
+        82.779203,
+        84.617285,
+        84.95630299999999,
+        96.410759
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 261.468331,
+      "all_ready_wall_ms": 103.947732,
+      "startup_cpu_ms": 401.3179999999999,
+      "startup_cpu_per_wall": 3.860767255604961,
+      "startup_gc_cpu_ms": 3.1250359999999993,
+      "startup_gc_cycles": 1,
+      "callback_lag_ms": 7.512605,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 3,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "ordinary-barrier-0": {
+      "fork_ms": [
+        98.32832699999999,
+        80.795533,
+        80.73429,
+        98.374083
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 275.109803,
+      "all_ready_wall_ms": 98.397983,
+      "startup_cpu_ms": 348.78200000000004,
+      "startup_cpu_per_wall": 3.544605177526861,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.004006,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "ordinary-pipeline-1": {
+      "fork_ms": [
+        83.779624,
+        66.228467,
+        84.27413200000001,
+        84.87554
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 262.53592599999996,
+      "all_ready_wall_ms": 85.6059,
+      "startup_cpu_ms": 330.691,
+      "startup_cpu_per_wall": 3.8629463623418476,
+      "startup_gc_cpu_ms": 0.19362299999999866,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.713884,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "ordinary-barrier-1": {
+      "fork_ms": [
+        85.971642,
+        86.414537,
+        81.802556,
+        86.140492
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 268.430669,
+      "all_ready_wall_ms": 86.499905,
+      "startup_cpu_ms": 346.18000000000006,
+      "startup_cpu_per_wall": 4.002085320209312,
+      "startup_gc_cpu_ms": 2.746406,
+      "startup_gc_cycles": 1,
+      "callback_lag_ms": 0.003596,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "ordinary-serial-1": {
+      "fork_ms": [
+        43.36025,
+        42.702525,
+        43.979014,
+        43.476710000000004
+      ],
+      "serial_fork_cpu_ms": [
+        58.35299999999999,
+        55.216000000000044,
+        59.829000000000136,
+        58.102000000000096
+      ],
+      "children_wall_ms": 549.183582,
+      "all_ready_wall_ms": 455.999734,
+      "startup_cpu_ms": 688.3840000000001,
+      "startup_cpu_per_wall": 1.5096149156964205,
+      "startup_gc_cpu_ms": 1.4870790000000005,
+      "startup_gc_cycles": 1,
+      "callback_lag_ms": 0.199671,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 3,
+        "mutation": 3,
+        "disconnect": 3,
+        "child_close": 3
+      }
+    },
+    "ordinary-barrier-2": {
+      "fork_ms": [
+        73.75774799999999,
+        105.2041,
+        73.58051999999999,
+        73.691842
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 275.968577,
+      "all_ready_wall_ms": 105.297001,
+      "startup_cpu_ms": 359.97100000000006,
+      "startup_cpu_per_wall": 3.418625379463562,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.008482,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "ordinary-serial-2": {
+      "fork_ms": [
+        42.920004999999996,
+        43.653801,
+        43.441556999999996,
+        43.239332999999995
+      ],
+      "serial_fork_cpu_ms": [
+        55.73499999999998,
+        55.784999999999975,
+        56.524000000000015,
+        55.36800000000008
+      ],
+      "children_wall_ms": 537.501756,
+      "all_ready_wall_ms": 447.998439,
+      "startup_cpu_ms": 673.8299999999999,
+      "startup_cpu_per_wall": 1.5040900622423818,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.217589,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 3,
+        "mutation": 3,
+        "disconnect": 3,
+        "child_close": 3
+      }
+    },
+    "ordinary-pipeline-2": {
+      "fork_ms": [
+        98.828177,
+        82.840912,
+        83.079815,
+        84.357135
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 281.965156,
+      "all_ready_wall_ms": 99.292599,
+      "startup_cpu_ms": 392.7269999999999,
+      "startup_cpu_per_wall": 3.9552494743339324,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.452364,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "ordinary-serial-3": {
+      "fork_ms": [
+        65.041753,
+        45.591212,
+        44.161953,
+        44.520114
+      ],
+      "serial_fork_cpu_ms": [
+        88.88799999999996,
+        58.18900000000005,
+        58.073999999999955,
+        57.83800000000006
+      ],
+      "children_wall_ms": 578.649411,
+      "all_ready_wall_ms": 485.90609,
+      "startup_cpu_ms": 735.5609999999999,
+      "startup_cpu_per_wall": 1.51379251081212,
+      "startup_gc_cpu_ms": 1.2738000000000003,
+      "startup_gc_cycles": 1,
+      "callback_lag_ms": 0.199581,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 3,
+        "mutation": 3,
+        "disconnect": 3,
+        "child_close": 3
+      }
+    },
+    "ordinary-pipeline-3": {
+      "fork_ms": [
+        94.378357,
+        79.165767,
+        94.34798699999999,
+        104.38338399999999
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 265.69138799999996,
+      "all_ready_wall_ms": 104.539665,
+      "startup_cpu_ms": 415.5249999999999,
+      "startup_cpu_per_wall": 3.974807074424812,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.121514,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 3,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "ordinary-barrier-3": {
+      "fork_ms": [
+        74.455528,
+        74.589801,
+        74.473085,
+        74.596075
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 558.495005,
+      "all_ready_wall_ms": 74.67304600000001,
+      "startup_cpu_ms": 295.188,
+      "startup_cpu_per_wall": 3.953072973613531,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.005669,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "ordinary-pipeline-4": {
+      "fork_ms": [
+        82.966042,
+        83.21059699999999,
+        90.956229,
+        84.295246
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 263.471137,
+      "all_ready_wall_ms": 91.57881499999999,
+      "startup_cpu_ms": 360.64099999999996,
+      "startup_cpu_per_wall": 3.938039600097468,
+      "startup_gc_cpu_ms": 0.24066200000000088,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.520176,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "ordinary-barrier-4": {
+      "fork_ms": [
+        90.565753,
+        90.611688,
+        90.48426099999999,
+        80.841055
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 276.799177,
+      "all_ready_wall_ms": 90.64652500000001,
+      "startup_cpu_ms": 327.3469999999999,
+      "startup_cpu_per_wall": 3.6112470941384673,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.004507,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "ordinary-serial-4": {
+      "fork_ms": [
+        44.840102,
+        44.723507000000005,
+        43.097163,
+        42.982082999999996
+      ],
+      "serial_fork_cpu_ms": [
+        59.63499999999999,
+        59.14900000000001,
+        55.931999999999874,
+        56.98500000000006
+      ],
+      "children_wall_ms": 536.981562,
+      "all_ready_wall_ms": 447.386296,
+      "startup_cpu_ms": 684.1619999999999,
+      "startup_cpu_per_wall": 1.5292421920764419,
+      "startup_gc_cpu_ms": 1.244690999999999,
+      "startup_gc_cycles": 1,
+      "callback_lag_ms": 0.075154,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 3,
+        "mutation": 3,
+        "disconnect": 3,
+        "child_close": 3
+      }
+    },
+    "procs-1-0": {
+      "fork_ms": [
+        211.36711,
+        196.33204800000001,
+        216.94274199999998,
+        211.14714700000002
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 661.861067,
+      "all_ready_wall_ms": 232.241292,
+      "startup_cpu_ms": 233.3400000000001,
+      "startup_cpu_per_wall": 1.0047308899745533,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.006961,
+      "gomaxprocs": 1,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "procs-2-0": {
+      "fork_ms": [
+        93.465845,
+        93.167585,
+        108.039103,
+        95.224274
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 608.310688,
+      "all_ready_wall_ms": 108.446088,
+      "startup_cpu_ms": 216.9549999999999,
+      "startup_cpu_per_wall": 2.0005793108922463,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.009114,
+      "gomaxprocs": 2,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "procs-4-0": {
+      "fork_ms": [
+        66.19825999999999,
+        66.270173,
+        66.224558,
+        66.314756
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 559.987002,
+      "all_ready_wall_ms": 66.33671,
+      "startup_cpu_ms": 263.12200000000007,
+      "startup_cpu_per_wall": 3.9664614057585927,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.004026,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "procs-2-1": {
+      "fork_ms": [
+        102.966931,
+        102.783058,
+        102.681815,
+        90.014659
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 997.012578,
+      "all_ready_wall_ms": 103.05354299999999,
+      "startup_cpu_ms": 205.98899999999998,
+      "startup_cpu_per_wall": 1.9988541296440432,
+      "startup_gc_cpu_ms": 1.106381000000001,
+      "startup_gc_cycles": 1,
+      "callback_lag_ms": 0.003025,
+      "gomaxprocs": 2,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "procs-4-1": {
+      "fork_ms": [
+        73.532836,
+        91.234908,
+        66.727049,
+        73.573882
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 260.482936,
+      "all_ready_wall_ms": 91.276873,
+      "startup_cpu_ms": 361.564,
+      "startup_cpu_per_wall": 3.961178643795127,
+      "startup_gc_cpu_ms": 2.8471899999999994,
+      "startup_gc_cycles": 1,
+      "callback_lag_ms": 0.009595,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "procs-1-1": {
+      "fork_ms": [
+        197.335175,
+        217.27195,
+        216.915422,
+        232.04529
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 666.779299,
+      "all_ready_wall_ms": 232.242899,
+      "startup_cpu_ms": 232.73600000000005,
+      "startup_cpu_per_wall": 1.0021232123872172,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.003856,
+      "gomaxprocs": 1,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "procs-4-2": {
+      "fork_ms": [
+        84.547395,
+        92.673127,
+        82.049649,
+        98.495007
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 277.963908,
+      "all_ready_wall_ms": 98.521393,
+      "startup_cpu_ms": 385.55799999999994,
+      "startup_cpu_per_wall": 3.913444463782602,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.007541,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "procs-1-2": {
+      "fork_ms": [
+        186.87597,
+        219.749095,
+        219.21502700000002,
+        223.37660200000002
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 687.271897,
+      "all_ready_wall_ms": 237.162139,
+      "startup_cpu_ms": 237.82400000000004,
+      "startup_cpu_per_wall": 1.0027907532070288,
+      "startup_gc_cpu_ms": 0.017846999999999655,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.002974,
+      "gomaxprocs": 1,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "procs-2-2": {
+      "fork_ms": [
+        116.071817,
+        115.79504899999999,
+        125.991511,
+        85.386606
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 331.41600900000003,
+      "all_ready_wall_ms": 126.37352800000001,
+      "startup_cpu_ms": 251.26899999999998,
+      "startup_cpu_per_wall": 1.988304069504176,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.012048,
+      "gomaxprocs": 2,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "cpu-pipeline-0": {
+      "fork_ms": [
+        80.444515,
+        98.598584,
+        91.49055200000001,
+        80.090149
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 270.14197,
+      "all_ready_wall_ms": 98.859901,
+      "startup_cpu_ms": 382.31500000000005,
+      "startup_cpu_per_wall": 3.867240368771966,
+      "startup_gc_cpu_ms": 3.157122,
+      "startup_gc_cycles": 1,
+      "callback_lag_ms": 0.185431,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "cpu-barrier-0": {
+      "fork_ms": [
+        86.013707,
+        82.445014,
+        82.26610500000001,
+        106.736031
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 271.04094299999997,
+      "all_ready_wall_ms": 106.860524,
+      "startup_cpu_ms": 418.909,
+      "startup_cpu_per_wall": 3.9201473502038975,
+      "startup_gc_cpu_ms": 2.9510410000000014,
+      "startup_gc_cycles": 1,
+      "callback_lag_ms": 0.03974,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "cpu-barrier-1": {
+      "fork_ms": [
+        83.866803,
+        92.964954,
+        83.67543500000001,
+        118.760988
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 305.693256,
+      "all_ready_wall_ms": 118.851394,
+      "startup_cpu_ms": 411.5940000000001,
+      "startup_cpu_per_wall": 3.463097790842909,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.01973,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "cpu-pipeline-1": {
+      "fork_ms": [
+        85.007707,
+        85.12751300000001,
+        70.506939,
+        86.90102399999999
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 294.012241,
+      "all_ready_wall_ms": 87.150475,
+      "startup_cpu_ms": 341.1839999999999,
+      "startup_cpu_per_wall": 3.9148839980504975,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.162035,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "cpu-pipeline-2": {
+      "fork_ms": [
+        78.22249000000001,
+        83.323807,
+        77.719256,
+        97.45016
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 267.466371,
+      "all_ready_wall_ms": 97.67290200000001,
+      "startup_cpu_ms": 383.81600000000003,
+      "startup_cpu_per_wall": 3.929605777455041,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.147794,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "cpu-barrier-2": {
+      "fork_ms": [
+        75.807425,
+        85.27765,
+        104.729807,
+        101.83478699999999
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 277.14136,
+      "all_ready_wall_ms": 105.007763,
+      "startup_cpu_ms": 370.48199999999997,
+      "startup_cpu_per_wall": 3.5281391529119612,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.023035,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "trace-pipeline": {
+      "fork_ms": [
+        94.265506,
+        89.904278,
+        90.628899,
+        104.183622
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 288.698395,
+      "all_ready_wall_ms": 104.39475800000001,
+      "startup_cpu_ms": 411.27000000000004,
+      "startup_cpu_per_wall": 3.9395656245498456,
+      "startup_gc_cpu_ms": 3.0790100000000002,
+      "startup_gc_cycles": 1,
+      "callback_lag_ms": 0.1516,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 3,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    },
+    "trace-barrier": {
+      "fork_ms": [
+        82.386927,
+        82.30573,
+        82.228993,
+        82.270336
+      ],
+      "serial_fork_cpu_ms": [],
+      "children_wall_ms": 266.632474,
+      "all_ready_wall_ms": 82.411453,
+      "startup_cpu_ms": 327.66799999999995,
+      "startup_cpu_per_wall": 3.9760007629036704,
+      "startup_gc_cpu_ms": 0,
+      "startup_gc_cycles": 0,
+      "callback_lag_ms": 0.004296,
+      "gomaxprocs": 4,
+      "phases_started_before_last_ready": {
+        "point_use": 0,
+        "count_use": 0,
+        "mutation": 0,
+        "disconnect": 0,
+        "child_close": 0
+      }
+    }
+  },
+  "groups": {
+    "ordinary/pipeline/w1/p0": {
+      "fork_ms": {
+        "n": 20,
+        "median": 43.565255500000006,
+        "min": 42.702525,
+        "max": 65.041753
+      },
+      "serial_fork_cpu_ms": {
+        "n": 20,
+        "median": 57.72750000000005,
+        "min": 55.216000000000044,
+        "max": 88.88799999999996
+      },
+      "children_wall_ms": {
+        "n": 5,
+        "median": 541.233022,
+        "min": 536.981562,
+        "max": 578.649411
+      },
+      "all_ready_wall_ms": {
+        "n": 5,
+        "median": 453.006136,
+        "min": 447.386296,
+        "max": 485.90609
+      },
+      "startup_cpu_ms": {
+        "n": 5,
+        "median": 688.3840000000001,
+        "min": 673.8299999999999,
+        "max": 735.5609999999999
+      },
+      "startup_cpu_per_wall": {
+        "n": 5,
+        "median": 1.51379251081212,
+        "min": 1.5040900622423818,
+        "max": 1.5292421920764419
+      },
+      "startup_gc_cpu_ms": {
+        "n": 5,
+        "median": 1.2738000000000003,
+        "min": 0,
+        "max": 1.4870790000000005
+      },
+      "startup_gc_cycles": {
+        "n": 5,
+        "median": 1,
+        "min": 0,
+        "max": 1
+      },
+      "callback_lag_ms": {
+        "n": 5,
+        "median": 0.199581,
+        "min": 0.075154,
+        "max": 0.217589
+      },
+      "gomaxprocs": {
+        "n": 5,
+        "median": 4,
+        "min": 4,
+        "max": 4
+      }
+    },
+    "ordinary/pipeline/w4/p0": {
+      "fork_ms": {
+        "n": 20,
+        "median": 84.3261905,
+        "min": 66.228467,
+        "max": 104.38338399999999
+      },
+      "children_wall_ms": {
+        "n": 5,
+        "median": 263.471137,
+        "min": 261.468331,
+        "max": 281.965156
+      },
+      "all_ready_wall_ms": {
+        "n": 5,
+        "median": 99.292599,
+        "min": 85.6059,
+        "max": 104.539665
+      },
+      "startup_cpu_ms": {
+        "n": 5,
+        "median": 392.7269999999999,
+        "min": 330.691,
+        "max": 415.5249999999999
+      },
+      "startup_cpu_per_wall": {
+        "n": 5,
+        "median": 3.938039600097468,
+        "min": 3.860767255604961,
+        "max": 3.974807074424812
+      },
+      "startup_gc_cpu_ms": {
+        "n": 5,
+        "median": 0.19362299999999866,
+        "min": 0,
+        "max": 3.1250359999999993
+      },
+      "startup_gc_cycles": {
+        "n": 5,
+        "median": 0,
+        "min": 0,
+        "max": 1
+      },
+      "callback_lag_ms": {
+        "n": 5,
+        "median": 0.520176,
+        "min": 0.121514,
+        "max": 7.512605
+      },
+      "gomaxprocs": {
+        "n": 5,
+        "median": 4,
+        "min": 4,
+        "max": 4
+      }
+    },
+    "ordinary/barrier/w4/p0": {
+      "fork_ms": {
+        "n": 20,
+        "median": 81.3218055,
+        "min": 73.58051999999999,
+        "max": 105.2041
+      },
+      "children_wall_ms": {
+        "n": 5,
+        "median": 275.968577,
+        "min": 268.430669,
+        "max": 558.495005
+      },
+      "all_ready_wall_ms": {
+        "n": 5,
+        "median": 90.64652500000001,
+        "min": 74.67304600000001,
+        "max": 105.297001
+      },
+      "startup_cpu_ms": {
+        "n": 5,
+        "median": 346.18000000000006,
+        "min": 295.188,
+        "max": 359.97100000000006
+      },
+      "startup_cpu_per_wall": {
+        "n": 5,
+        "median": 3.6112470941384673,
+        "min": 3.418625379463562,
+        "max": 4.002085320209312
+      },
+      "startup_gc_cpu_ms": {
+        "n": 5,
+        "median": 0,
+        "min": 0,
+        "max": 2.746406
+      },
+      "startup_gc_cycles": {
+        "n": 5,
+        "median": 0,
+        "min": 0,
+        "max": 1
+      },
+      "callback_lag_ms": {
+        "n": 5,
+        "median": 0.004507,
+        "min": 0.003596,
+        "max": 0.008482
+      },
+      "gomaxprocs": {
+        "n": 5,
+        "median": 4,
+        "min": 4,
+        "max": 4
+      }
+    },
+    "procs/barrier/w4/p1": {
+      "fork_ms": {
+        "n": 12,
+        "median": 216.929082,
+        "min": 186.87597,
+        "max": 232.04529
+      },
+      "children_wall_ms": {
+        "n": 3,
+        "median": 666.779299,
+        "min": 661.861067,
+        "max": 687.271897
+      },
+      "all_ready_wall_ms": {
+        "n": 3,
+        "median": 232.242899,
+        "min": 232.241292,
+        "max": 237.162139
+      },
+      "startup_cpu_ms": {
+        "n": 3,
+        "median": 233.3400000000001,
+        "min": 232.73600000000005,
+        "max": 237.82400000000004
+      },
+      "startup_cpu_per_wall": {
+        "n": 3,
+        "median": 1.0027907532070288,
+        "min": 1.0021232123872172,
+        "max": 1.0047308899745533
+      },
+      "startup_gc_cpu_ms": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0.017846999999999655
+      },
+      "startup_gc_cycles": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "callback_lag_ms": {
+        "n": 3,
+        "median": 0.003856,
+        "min": 0.002974,
+        "max": 0.006961
+      },
+      "gomaxprocs": {
+        "n": 3,
+        "median": 1,
+        "min": 1,
+        "max": 1
+      }
+    },
+    "procs/barrier/w4/p2": {
+      "fork_ms": {
+        "n": 12,
+        "median": 102.7324365,
+        "min": 85.386606,
+        "max": 125.991511
+      },
+      "children_wall_ms": {
+        "n": 3,
+        "median": 608.310688,
+        "min": 331.41600900000003,
+        "max": 997.012578
+      },
+      "all_ready_wall_ms": {
+        "n": 3,
+        "median": 108.446088,
+        "min": 103.05354299999999,
+        "max": 126.37352800000001
+      },
+      "startup_cpu_ms": {
+        "n": 3,
+        "median": 216.9549999999999,
+        "min": 205.98899999999998,
+        "max": 251.26899999999998
+      },
+      "startup_cpu_per_wall": {
+        "n": 3,
+        "median": 1.9988541296440432,
+        "min": 1.988304069504176,
+        "max": 2.0005793108922463
+      },
+      "startup_gc_cpu_ms": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 1.106381000000001
+      },
+      "startup_gc_cycles": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 1
+      },
+      "callback_lag_ms": {
+        "n": 3,
+        "median": 0.009114,
+        "min": 0.003025,
+        "max": 0.012048
+      },
+      "gomaxprocs": {
+        "n": 3,
+        "median": 2,
+        "min": 2,
+        "max": 2
+      }
+    },
+    "procs/barrier/w4/p4": {
+      "fork_ms": {
+        "n": 12,
+        "median": 73.553359,
+        "min": 66.19825999999999,
+        "max": 98.495007
+      },
+      "children_wall_ms": {
+        "n": 3,
+        "median": 277.963908,
+        "min": 260.482936,
+        "max": 559.987002
+      },
+      "all_ready_wall_ms": {
+        "n": 3,
+        "median": 91.276873,
+        "min": 66.33671,
+        "max": 98.521393
+      },
+      "startup_cpu_ms": {
+        "n": 3,
+        "median": 361.564,
+        "min": 263.12200000000007,
+        "max": 385.55799999999994
+      },
+      "startup_cpu_per_wall": {
+        "n": 3,
+        "median": 3.961178643795127,
+        "min": 3.913444463782602,
+        "max": 3.9664614057585927
+      },
+      "startup_gc_cpu_ms": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 2.8471899999999994
+      },
+      "startup_gc_cycles": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 1
+      },
+      "callback_lag_ms": {
+        "n": 3,
+        "median": 0.007541,
+        "min": 0.004026,
+        "max": 0.009595
+      },
+      "gomaxprocs": {
+        "n": 3,
+        "median": 4,
+        "min": 4,
+        "max": 4
+      }
+    },
+    "cpu/pipeline/w4/p0": {
+      "fork_ms": {
+        "n": 12,
+        "median": 84.165757,
+        "min": 70.506939,
+        "max": 98.598584
+      },
+      "children_wall_ms": {
+        "n": 3,
+        "median": 270.14197,
+        "min": 267.466371,
+        "max": 294.012241
+      },
+      "all_ready_wall_ms": {
+        "n": 3,
+        "median": 97.67290200000001,
+        "min": 87.150475,
+        "max": 98.859901
+      },
+      "startup_cpu_ms": {
+        "n": 3,
+        "median": 382.31500000000005,
+        "min": 341.1839999999999,
+        "max": 383.81600000000003
+      },
+      "startup_cpu_per_wall": {
+        "n": 3,
+        "median": 3.9148839980504975,
+        "min": 3.867240368771966,
+        "max": 3.929605777455041
+      },
+      "startup_gc_cpu_ms": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 3.157122
+      },
+      "startup_gc_cycles": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 1
+      },
+      "callback_lag_ms": {
+        "n": 3,
+        "median": 0.162035,
+        "min": 0.147794,
+        "max": 0.185431
+      },
+      "gomaxprocs": {
+        "n": 3,
+        "median": 4,
+        "min": 4,
+        "max": 4
+      }
+    },
+    "cpu/barrier/w4/p0": {
+      "fork_ms": {
+        "n": 12,
+        "median": 85.6456785,
+        "min": 75.807425,
+        "max": 118.760988
+      },
+      "children_wall_ms": {
+        "n": 3,
+        "median": 277.14136,
+        "min": 271.04094299999997,
+        "max": 305.693256
+      },
+      "all_ready_wall_ms": {
+        "n": 3,
+        "median": 106.860524,
+        "min": 105.007763,
+        "max": 118.851394
+      },
+      "startup_cpu_ms": {
+        "n": 3,
+        "median": 411.5940000000001,
+        "min": 370.48199999999997,
+        "max": 418.909
+      },
+      "startup_cpu_per_wall": {
+        "n": 3,
+        "median": 3.5281391529119612,
+        "min": 3.463097790842909,
+        "max": 3.9201473502038975
+      },
+      "startup_gc_cpu_ms": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 2.9510410000000014
+      },
+      "startup_gc_cycles": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 1
+      },
+      "callback_lag_ms": {
+        "n": 3,
+        "median": 0.023035,
+        "min": 0.01973,
+        "max": 0.03974
+      },
+      "gomaxprocs": {
+        "n": 3,
+        "median": 4,
+        "min": 4,
+        "max": 4
+      }
+    },
+    "trace/pipeline/w4/p0": {
+      "fork_ms": {
+        "n": 4,
+        "median": 92.4472025,
+        "min": 89.904278,
+        "max": 104.183622
+      },
+      "children_wall_ms": {
+        "n": 1,
+        "median": 288.698395,
+        "min": 288.698395,
+        "max": 288.698395
+      },
+      "all_ready_wall_ms": {
+        "n": 1,
+        "median": 104.39475800000001,
+        "min": 104.39475800000001,
+        "max": 104.39475800000001
+      },
+      "startup_cpu_ms": {
+        "n": 1,
+        "median": 411.27000000000004,
+        "min": 411.27000000000004,
+        "max": 411.27000000000004
+      },
+      "startup_cpu_per_wall": {
+        "n": 1,
+        "median": 3.9395656245498456,
+        "min": 3.9395656245498456,
+        "max": 3.9395656245498456
+      },
+      "startup_gc_cpu_ms": {
+        "n": 1,
+        "median": 3.0790100000000002,
+        "min": 3.0790100000000002,
+        "max": 3.0790100000000002
+      },
+      "startup_gc_cycles": {
+        "n": 1,
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "callback_lag_ms": {
+        "n": 1,
+        "median": 0.1516,
+        "min": 0.1516,
+        "max": 0.1516
+      },
+      "gomaxprocs": {
+        "n": 1,
+        "median": 4,
+        "min": 4,
+        "max": 4
+      }
+    },
+    "trace/barrier/w4/p0": {
+      "fork_ms": {
+        "n": 4,
+        "median": 82.288033,
+        "min": 82.228993,
+        "max": 82.386927
+      },
+      "children_wall_ms": {
+        "n": 1,
+        "median": 266.632474,
+        "min": 266.632474,
+        "max": 266.632474
+      },
+      "all_ready_wall_ms": {
+        "n": 1,
+        "median": 82.411453,
+        "min": 82.411453,
+        "max": 82.411453
+      },
+      "startup_cpu_ms": {
+        "n": 1,
+        "median": 327.66799999999995,
+        "min": 327.66799999999995,
+        "max": 327.66799999999995
+      },
+      "startup_cpu_per_wall": {
+        "n": 1,
+        "median": 3.9760007629036704,
+        "min": 3.9760007629036704,
+        "max": 3.9760007629036704
+      },
+      "startup_gc_cpu_ms": {
+        "n": 1,
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "startup_gc_cycles": {
+        "n": 1,
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "callback_lag_ms": {
+        "n": 1,
+        "median": 0.004296,
+        "min": 0.004296,
+        "max": 0.004296
+      },
+      "gomaxprocs": {
+        "n": 1,
+        "median": 4,
+        "min": 4,
+        "max": 4
+      }
+    }
+  }
+}

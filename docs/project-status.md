@@ -375,10 +375,21 @@ passed scope, full check and canonical integration on exact source
 acceptance, Python18 tests and Snapshot33 checks completed. This closes the
 post-integration development check, not release qualification. The linked
 results retain the original timeout and the successful rerun. Release remains
-a separate decision. Item 2 is now in progress on the isolated
+a separate decision. Item 2 completed its bounded measurements on the isolated
 [Ubuntu parallel-startup study](reviews/ubuntu-parallel-startup-study.md):
 matched serial/pipeline/barrier conditions plus separate bounded diagnostics.
-No new Ubuntu results or guest-initialization fix are claimed yet. Other previously recorded roadmap items are not cancelled by
+[run39099563649](https://github.com/masahitojp/mariamem/actions/runs/39099563649)
+passed all 32 executions on source `4e73abe126672869ad03575e84706b5ab2cb557c`.
+The [result and Human Review](reviews/ubuntu-parallel-startup-results.md) finds
+that preventing early SQL/Close overlap does not remove slower per-child Forks;
+startup execution-resource sharing is the main supported cause category.
+Ordinary process-level medians are 43.50ms serial versus 84.03ms parallel per
+child, while four-child elapsed time improves from 541.23ms to 263.47ms.
+CPU scheduling versus cache/bandwidth contributions remain unseparated; a slow
+post-ready SQL trial is retained separately. Result acceptance is awaiting Human
+review. No guest optimization or main integration is approved by this report.
+Guest-initialization candidate selection remains scheduled for v0.7.x.
+Other previously recorded roadmap items are not cancelled by
 this workstream decision.
 
 The Human prioritized native Ubuntu performance measurement next. The
