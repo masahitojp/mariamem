@@ -65,12 +65,13 @@ def test_prepared_spike_identity_is_explicit_and_not_a_wildcard():
                 binding.apply(name, preimage(name), guest_sha256=binding.PREPARED_SPIKE_GUEST)
 
 
+@pytest.mark.parametrize('guest_sha256', [binding.MULTI_SPIKE_GUEST, binding.OPTION_SPIKE_GUEST])
 @pytest.mark.parametrize('name', list(binding.PREPARED_SPIKE_FUNCTIONS))
-def test_multi_spike_keeps_exact_body_mutation_gate(name):
+def test_multi_spike_keeps_exact_body_mutation_gate(name, guest_sha256):
     fn = binding.PREPARED_SPIKE_FUNCTIONS[name][0]
     text = (ROOT/'docs/reviews/v06x-prepared-spike-evidence'/('selected-'+fn+'-new.go.txt')).read_text()
-    binding.apply(name, text, guest_sha256=binding.MULTI_SPIKE_GUEST)
+    binding.apply(name, text, guest_sha256=guest_sha256)
     assert 'mBase := m.M' in text
     changed = text.replace('mBase := m.M', 'mBase := unsafe.Pointer(nil)', 1)
     with pytest.raises(ValueError, match='function changed'):
-        binding.apply(name, changed, guest_sha256=binding.MULTI_SPIKE_GUEST)
+        binding.apply(name, changed, guest_sha256=guest_sha256)

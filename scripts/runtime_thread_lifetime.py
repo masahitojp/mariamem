@@ -28,8 +28,10 @@ PREPARED_SPIKE_FUNCTIONS = {
 # data image to the prepared spike. Bind its whole guest identity explicitly;
 # keep checking every body, not a wildcard or normalized-address recognizer.
 MULTI_SPIKE_GUEST = "1fabf31ced768f12bd60ba2f0c4c79110fbbe883c440bfa4c9ee63d834b6c179"
+OPTION_SPIKE_GUEST = "55c5d4910459c87b5e1e00eb999506acc661ea0eaa3a794662db647bd124c953"
 REVIEWED_BINDINGS = {GUEST_SHA256: FUNCTIONS, PREPARED_SPIKE_GUEST: PREPARED_SPIKE_FUNCTIONS,
-                     MULTI_SPIKE_GUEST: PREPARED_SPIKE_FUNCTIONS}
+                     MULTI_SPIKE_GUEST: PREPARED_SPIKE_FUNCTIONS,
+                     OPTION_SPIKE_GUEST: PREPARED_SPIKE_FUNCTIONS}
 
 
 def validate_inputs(guest_sha256, candidate_files):

@@ -44,6 +44,30 @@ def run(port):
             else:raise AssertionError('unnegotiated multi statement accepted')
             q.execute('SELECT 3');assert q.fetchone()==(3,);return dict(errno=1064,reused=True)
     record('unflagged-still-single-statement',unflagged)
+    def set_option():
+        with pymysql.connect(host='127.0.0.1',port=port,user='root',database='test',autocommit=True,read_timeout=15) as c:
+            q=c.cursor();q.execute('SELECT CONNECTION_ID()');before=q.fetchone()[0]
+            c._execute_command(27,b'\x00\x00');assert c._read_packet().is_eof_packet()
+            q.execute('SELECT 41; SELECT 42');assert q.fetchone()==(41,);assert q.nextset();assert q.fetchone()==(42,);assert not q.nextset()
+            c._execute_command(27,b'\x01\x00');assert c._read_packet().is_eof_packet()
+            try:q.execute('SELECT 41; SELECT 42')
+            except pymysql.MySQLError as e:assert e.args[0]==1064,e
+            else:raise AssertionError('set-option OFF did not disable multi statements')
+            c._execute_command(27,b'\xff\xff')
+            try:c._read_packet()
+            except pymysql.MySQLError as e:assert e.args[0]==1047,e
+            else:raise AssertionError('unknown option accepted')
+            q.execute('SELECT CONNECTION_ID()');after=q.fetchone()[0];assert before==after,(before,after)
+            return dict(before=before,after=after,on_off=True,unknown_option_errno=1047,reused=True)
+    record('set-option-on-off-unknown-and-stable-identity',set_option)
+    def identity():
+        pairs=[]
+        for pure in (True,False):
+            with mysql.connector.connect(host='127.0.0.1',port=port,user='root',database='test',use_pure=pure,connection_timeout=10,read_timeout=15) as c:
+                q=c.cursor();q.execute('SELECT CONNECTION_ID()');actual=q.fetchone()[0];q.close();pairs.append(dict(pure=pure,greeting=c.connection_id,sql=actual))
+        assert all(x['greeting']==x['sql'] for x in pairs),pairs
+        return pairs
+    record('default-connector-greeting-sql-identity',identity)
     def found_rows():
         values=[]
         for found in (False,True):
