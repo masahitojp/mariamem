@@ -718,6 +718,26 @@ patch isolation, fixed inputs, independent regeneration, explicit PASS/FAIL/SKIP
 and guest rebase/maintenance budgeting. Production implementation remains pending
 Human Review of the results.
 
+**Multi-statement added to scope; spike to re-run on the current connector
+(2026-10-19).** The bounded spike returned a positive feasibility answer for the
+prepared bridge (Go and configured Python prepared execution on the real guest,
+no internal MariaDB API extension), but the strongest objection held: the default
+Connector/Python connection requests `CLIENT_MULTI_STATEMENTS` and is rejected
+before PREPARE, so the one-line goal is unmet for the default Python workflow.
+The Human therefore decided that multi-statement support is in scope rather than
+deferred, that consumer evidence must use the current Connector/Python (26.7.0,
+`requires_python >= 3.10`) instead of the unreleased-era 9.4.0 that cannot import
+on Python 3.14, and that the bounded spike is re-run with those two changes,
+retaining the earlier PASS/FAIL/SKIP evidence and the unresolved C-extension
+syntax-error comparison. Source shows the lite4mariadb recipe already carries the
+multi-statement machinery and mariamem's resident patch is what disables it, so
+the cheapest path is restoring per-session acceptance, extending the v2 JSON to
+carry several result sets, and advertising/serving them with
+`SERVER_MORE_RESULTS_EXISTS` semantics. Capability bits must not be advertised
+without being served. Production implementation, adoption, Qualification and
+release remain separate decisions, and the published text-only promise is
+unchanged. See the [design decision](reviews/v06x-prepared-design.md).
+
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
 with pytest fixtures: prepare migrations/seed once per worker, acquire an
