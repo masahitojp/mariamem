@@ -1,0 +1,41 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "sw_vers"
+      ],
+      "output": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434"
+    },
+    {
+      "argv": [
+        "uname",
+        "-a"
+      ],
+      "output": "Darwin MacBookAir 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:05:27 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T8103 arm64"
+    },
+    {
+      "argv": [
+        "sysctl",
+        "-n",
+        "machdep.cpu.brand_string"
+      ],
+      "output": "Apple M1"
+    },
+    {
+      "argv": [
+        "sysctl",
+        "-n",
+        "hw.memsize"
+      ],
+      "output": "17179869184"
+    },
+    {
+      "argv": [
+        "sysctl",
+        "-n",
+        "hw.logicalcpu"
+      ],
+      "output": "8"
+    }
+  ]
+}

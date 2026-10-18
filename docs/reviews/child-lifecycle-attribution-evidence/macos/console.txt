@@ -1,0 +1,1 @@
+go: writing stat cache: open <user-home>/.go/pkg/mod/cache/download/github.com/masahitojp/mariamem/@v/v0.5.3-0.20261017232807-df90c096a269.info365607355.tmp: operation not permitted

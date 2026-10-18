@@ -1,0 +1,1 @@
+{"operation":"host_close","origin_ns":169479375,"pid":61479,"events":[{"name":"begin","offset_ns":666},{"name":"accepting_stopped","offset_ns":22041},{"name":"workers_drained","offset_ns":23416},{"name":"stop_frame_written","offset_ns":32625},{"name":"shutdown_returned","offset_ns":2597291},{"name":"transfer_removed","offset_ns":2693375},{"name":"end","offset_ns":2693583}]}

@@ -1,0 +1,9 @@
+PeriodType: cpu nanoseconds
+Period: 10000000
+Time: 2026-10-18 09:22:59.353667 +0900 JST
+Duration: 4.90
+Samples:
+samples/count cpu/nanoseconds
+Locations
+Mappings
+1: 0x104db4000/0x108b5c000/0x0 <workspace>/temp/observed-child  

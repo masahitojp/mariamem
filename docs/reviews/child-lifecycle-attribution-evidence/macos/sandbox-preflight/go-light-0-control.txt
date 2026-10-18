@@ -1,0 +1,12 @@
+panic: mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted
+	listen tcp4 127.0.0.1:0: bind: operation not permitted
+
+goroutine 1 [running]:
+main.must(...)
+	<workspace>/worktree/benchmarks/child-lifecycle/main.go:29
+main.main.func4()
+	<workspace>/worktree/benchmarks/child-lifecycle/main.go:166 +0x9c
+main.main.func2({0x1075c9368, 0xd}, 0x34f7d598cee8)
+	<workspace>/worktree/benchmarks/child-lifecycle/main.go:118 +0x1dc
+main.main()
+	<workspace>/worktree/benchmarks/child-lifecycle/main.go:166 +0xb54

@@ -1,0 +1,1 @@
+{"operation":"platform_check","origin_ns":6563237875,"pid":64271,"events":[{"name":"begin","offset_ns":3000},{"name":"target_detected","offset_ns":8533167},{"name":"end","offset_ns":8538000}]}

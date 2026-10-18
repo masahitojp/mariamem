@@ -327,6 +327,11 @@ v0.6.0 dogfood above. The current active and closed items are listed in the
 cost of creating a Fork child and of Close, and identify which phases own that
 time. The task ends at measurement and cause identification; selecting or
 implementing a fix is a separate decision.
+The [bounded attribution](reviews/child-lifecycle-attribution.md) has completed
+its macOS campaign: guest server initialization and repeated platform checks
+dominate Fork; actual DB Close is distinct from SQL-disconnect waiting. The
+same pinned native Ubuntu breakdown is handed to CI and remains unconfirmed.
+Item #2 is not closed and no optimization is adopted.
 
 The Human prioritized native Ubuntu performance measurement next. The
 [fixed-scope campaign](reviews/ubuntu-product-performance.md) completed 246

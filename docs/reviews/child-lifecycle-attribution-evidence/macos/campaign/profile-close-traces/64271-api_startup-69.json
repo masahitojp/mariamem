@@ -1,0 +1,1 @@
+{"operation":"api_startup","origin_ns":1751887375,"pid":64271,"events":[{"name":"begin","offset_ns":708},{"name":"options_ready","offset_ns":2042},{"name":"runtime_directory_ready","offset_ns":26544792},{"name":"host_returned","offset_ns":75381250},{"name":"database_ready","offset_ns":75385708},{"name":"end","offset_ns":75387333}]}

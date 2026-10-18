@@ -1,0 +1,883 @@
+{
+  "pymysql_version": "1.2.3",
+  "harness_source_commit": "6cb4d76628b0f26ab4ac999d946c74cc19e637d4",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "binaries": {
+    "control": {
+      "child": {
+        "sha256": "52c4e1dfccde19fe056c54a5c54f851badf53ded0a14141754bf4b5243bc31f0",
+        "stamp": "<workspace>/temp/control-child: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/child-lifecycle\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261017234554-9cedaa767203\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=9cedaa76720336ec8304b9db7f28d6b1174b13b6\n\tbuild\tvcs.time=2026-10-17T23:45:54Z\n\tbuild\tvcs.modified=false\n"
+      },
+      "host": {
+        "sha256": "a37a205fe3ed9679effc5e439d06c490ac5b14c56f864a8386838b4652e51e63",
+        "stamp": "<workspace>/temp/control-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261017234554-9cedaa767203\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=9cedaa76720336ec8304b9db7f28d6b1174b13b6\n\tbuild\tvcs.time=2026-10-17T23:45:54Z\n\tbuild\tvcs.modified=false\n"
+      }
+    },
+    "observed": {
+      "child": {
+        "sha256": "d4705a447d6dedfab7c86c10f3e0586fd5925e1af313094ec5fbb86726a75ac2",
+        "stamp": "<workspace>/temp/observed-child: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/child-lifecycle\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261018001303-0a36f304b5b4\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=0a36f304b5b4c940f15359ce9e35a97db9512869\n\tbuild\tvcs.time=2026-10-18T00:13:03Z\n\tbuild\tvcs.modified=false\n"
+      },
+      "host": {
+        "sha256": "a34102920c52d9fb65e16cf2d70bb27841f2f7aeb4d5cc3d1a1d45562b2574dc",
+        "stamp": "<workspace>/temp/observed-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261018001303-0a36f304b5b4\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=0a36f304b5b4c940f15359ce9e35a97db9512869\n\tbuild\tvcs.time=2026-10-18T00:13:03Z\n\tbuild\tvcs.modified=false\n"
+      }
+    }
+  },
+  "commands": [
+    {
+      "name": "go-light-0-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "0",
+        "--tables",
+        "1",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-light-0-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.447126166895032,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-light-0-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "0",
+        "--tables",
+        "1",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-light-0-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.3684363749343902,
+      "timing_enabled": true
+    },
+    {
+      "name": "go-light-1-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "0",
+        "--tables",
+        "1",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-light-1-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.41770724998787045,
+      "timing_enabled": true
+    },
+    {
+      "name": "go-light-1-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "0",
+        "--tables",
+        "1",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-light-1-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.36716933408752084,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-light-2-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "0",
+        "--tables",
+        "1",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-light-2-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.3636172499973327,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-light-2-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "0",
+        "--tables",
+        "1",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-light-2-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.37504395795986056,
+      "timing_enabled": true
+    },
+    {
+      "name": "go-medium-0-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-medium-0-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.3469334580004215,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-medium-0-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-medium-0-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.302327083889395,
+      "timing_enabled": true
+    },
+    {
+      "name": "go-medium-1-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-medium-1-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.334354833001271,
+      "timing_enabled": true
+    },
+    {
+      "name": "go-medium-1-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-medium-1-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.3289052080363035,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-medium-2-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-medium-2-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.3289020420052111,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-medium-2-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-medium-2-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.3813507908489555,
+      "timing_enabled": true
+    },
+    {
+      "name": "go-large-0-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "100",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-large-0-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 9.65882045798935,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-large-0-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "100",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-large-0-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 10.129589166957885,
+      "timing_enabled": true
+    },
+    {
+      "name": "go-large-1-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "100",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-large-1-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 10.357680041110143,
+      "timing_enabled": true
+    },
+    {
+      "name": "go-large-1-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "100",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-large-1-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 10.290854499908164,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-large-2-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "100",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-large-2-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 10.365971708204597,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-large-2-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "100",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "1",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-large-2-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 10.543448999989778,
+      "timing_enabled": true
+    },
+    {
+      "name": "go-parallel-0-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "4",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-parallel-0-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.984595333924517,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-parallel-0-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "4",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-parallel-0-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.0344948749989271,
+      "timing_enabled": true
+    },
+    {
+      "name": "go-parallel-1-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "4",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-parallel-1-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.043204665882513,
+      "timing_enabled": true
+    },
+    {
+      "name": "go-parallel-1-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "4",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-parallel-1-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.0011265000794083,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-parallel-2-control",
+      "argv": [
+        "<workspace>/temp/control-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "4",
+        "--workload",
+        "app-connections",
+        "--label",
+        "control",
+        "--out",
+        "<workspace>/evidence/campaign/go-parallel-2-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.0111990000586957,
+      "timing_enabled": false
+    },
+    {
+      "name": "go-parallel-2-observed",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "10",
+        "--tables",
+        "8",
+        "--forks",
+        "4",
+        "--workers",
+        "4",
+        "--workload",
+        "app-connections",
+        "--label",
+        "observed",
+        "--out",
+        "<workspace>/evidence/campaign/go-parallel-2-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.0644671670161188,
+      "timing_enabled": true
+    },
+    {
+      "name": "python-small-0-control",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/control-host",
+        "--scale",
+        "small",
+        "--output",
+        "<workspace>/evidence/campaign/python-small-0-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.4189325831830502,
+      "timing_enabled": false
+    },
+    {
+      "name": "python-small-0-observed",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/observed-host",
+        "--scale",
+        "small",
+        "--output",
+        "<workspace>/evidence/campaign/python-small-0-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.3561210839543492,
+      "timing_enabled": true
+    },
+    {
+      "name": "python-small-1-observed",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/observed-host",
+        "--scale",
+        "small",
+        "--output",
+        "<workspace>/evidence/campaign/python-small-1-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.35692929197102785,
+      "timing_enabled": true
+    },
+    {
+      "name": "python-small-1-control",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/control-host",
+        "--scale",
+        "small",
+        "--output",
+        "<workspace>/evidence/campaign/python-small-1-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.34673608280718327,
+      "timing_enabled": false
+    },
+    {
+      "name": "python-small-2-control",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/control-host",
+        "--scale",
+        "small",
+        "--output",
+        "<workspace>/evidence/campaign/python-small-2-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.35368008399382234,
+      "timing_enabled": false
+    },
+    {
+      "name": "python-small-2-observed",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/observed-host",
+        "--scale",
+        "small",
+        "--output",
+        "<workspace>/evidence/campaign/python-small-2-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.35063341702334583,
+      "timing_enabled": true
+    },
+    {
+      "name": "python-medium-0-control",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/control-host",
+        "--scale",
+        "medium",
+        "--output",
+        "<workspace>/evidence/campaign/python-medium-0-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.4033954578917474,
+      "timing_enabled": false
+    },
+    {
+      "name": "python-medium-0-observed",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/observed-host",
+        "--scale",
+        "medium",
+        "--output",
+        "<workspace>/evidence/campaign/python-medium-0-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.51379937492311,
+      "timing_enabled": true
+    },
+    {
+      "name": "python-medium-1-observed",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/observed-host",
+        "--scale",
+        "medium",
+        "--output",
+        "<workspace>/evidence/campaign/python-medium-1-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.4970743749290705,
+      "timing_enabled": true
+    },
+    {
+      "name": "python-medium-1-control",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/control-host",
+        "--scale",
+        "medium",
+        "--output",
+        "<workspace>/evidence/campaign/python-medium-1-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.5462797079235315,
+      "timing_enabled": false
+    },
+    {
+      "name": "python-medium-2-control",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/control-host",
+        "--scale",
+        "medium",
+        "--output",
+        "<workspace>/evidence/campaign/python-medium-2-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.5656802079174668,
+      "timing_enabled": false
+    },
+    {
+      "name": "python-medium-2-observed",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/observed-host",
+        "--scale",
+        "medium",
+        "--output",
+        "<workspace>/evidence/campaign/python-medium-2-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.5241492080967873,
+      "timing_enabled": true
+    },
+    {
+      "name": "python-100mib-0-control",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/control-host",
+        "--scale",
+        "100mib",
+        "--output",
+        "<workspace>/evidence/campaign/python-100mib-0-control.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 35.76678270800039,
+      "timing_enabled": false
+    },
+    {
+      "name": "python-100mib-0-observed",
+      "argv": [
+        "<user-home>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python",
+        "<workspace>/worktree/benchmarks/sharedhost/workflow.py",
+        "--sdk",
+        "<workspace>/worktree/python",
+        "--host",
+        "<workspace>/temp/observed-host",
+        "--scale",
+        "100mib",
+        "--output",
+        "<workspace>/evidence/campaign/python-100mib-0-observed.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 36.385534417117015,
+      "timing_enabled": true
+    },
+    {
+      "name": "profile-fork",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "0",
+        "--forks",
+        "24",
+        "--workload",
+        "app-connections",
+        "--label",
+        "profile-only",
+        "--profile-dir",
+        "<workspace>/evidence/campaign/profile-fork",
+        "--profile-phase",
+        "fork",
+        "--out",
+        "<workspace>/evidence/campaign/profile-fork.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 5.359739959007129,
+      "timing_enabled": true
+    },
+    {
+      "name": "profile-close",
+      "argv": [
+        "<workspace>/temp/observed-child",
+        "--payload-mib",
+        "0",
+        "--forks",
+        "24",
+        "--workload",
+        "app-connections",
+        "--label",
+        "profile-only",
+        "--profile-dir",
+        "<workspace>/evidence/campaign/profile-close",
+        "--profile-phase",
+        "close",
+        "--out",
+        "<workspace>/evidence/campaign/profile-close.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 6.863810166949406,
+      "timing_enabled": true
+    }
+  ],
+  "completed": true,
+  "elapsed_seconds": 190.7835199588444
+}

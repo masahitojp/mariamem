@@ -1,0 +1,24 @@
+{
+  "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+  "symbol_map_sha256": "9072658996738894b86effc9b60911db92b413d35cb3c7863f3851666bb645b6",
+  "symbols": {
+    "152": "dlmalloc",
+    "151": "sbrk",
+    "236": "__wrap_malloc",
+    "244": "l4m_open",
+    "245": "l4m_close",
+    "456": "my_uca_info_init",
+    "453": "my_coll_init_uca",
+    "5560": "init_embedded_server",
+    "5726": "mysql_server_init",
+    "5727": "mysql_server_end",
+    "753": "my_once_alloc",
+    "954": "get_internal_charset",
+    "955": "my_collation_get_by_name",
+    "7046": "_Z24ha_initialize_handlertonPv",
+    "14687": "_ZL17plugin_initializeP11st_mem_rootP13st_plugin_intPiPPcb",
+    "14688": "_ZL20plugin_do_initializeP13st_plugin_intRj",
+    "18085": "_Z21buf_page_is_corruptedbPKhj",
+    "20051": "_ZN24Charset_collation_map_st9from_textERK25st_mysql_const_lex_stringm"
+  }
+}

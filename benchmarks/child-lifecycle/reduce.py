@@ -46,6 +46,7 @@ def main():
   for key in ['fork','startup','api_startup','instance','memory_init','instance_guest']:
    expected=0 if py and key in ['fork','api_startup'] else n+(key!='fork')
    assert len(traces[key])==expected,(name,key,len(traces[key]),expected)
+  assert len(traces['platform_check'])==(n+1)*(1 if py else 2),(name,'all platform checks')
   # Successful Snapshot consumes the parent; subsequent idempotent Close traces are excluded.
   api_close=[t for t in traces['api_close'] if any(e['name']=='host_closed' for e in t['events'])]
   assert len(traces['host_close'])==n and (py or len(api_close)==n),(name,'close counts')
@@ -79,14 +80,20 @@ def main():
    cells.append({'name':name,'children':n,'cross_scope_pairing':False,'durations':{k:stats(v) for k,v in durations.items()}})
    continue
   fork_scopes=traces['startup'][1:] if py else traces['fork']
-  for ft in fork_scopes:
+  for fork_index,ft in enumerate(fork_scopes):
    fe=events(ft);start=ft['origin_ns'];end=start+fe['end'];pid=ft['pid']
    def nested(key):
     found=[t for t in traces[key] if t['pid']==pid and start<=t['origin_ns']<=end];assert len(found)==1,(name,key,len(found));return found[0]
    st=nested('startup');se=events(st);mi=nested('memory_init');me=events(mi);ins=nested('instance');ie=events(ins)
-   platforms=[t for t in traces['platform_check'] if t['pid']==pid and start<=t['origin_ns']<=end]
+   if py:
+    platforms=[t for t in traces['platform_check'] if t['pid']==pid and t['origin_ns']<start][-1:]
+    assert platforms and platforms[0]['origin_ns']+events(platforms[0])['end']<=start
+   else:platforms=[t for t in traces['platform_check'] if t['pid']==pid and start<=t['origin_ns']<=end]
    assert len(platforms)==(1 if py else 2),(name,'platform count',len(platforms))
-   add('platform_checks_total',sum(events(t)['target_detected'] for t in platforms))
+   platform_ns=sum(events(t)['target_detected'] for t in platforms)
+   add('platform_checks_total',platform_ns)
+   if py:add('python_public_remainder',fork[fork_index]-se['end']-platform_ns)
+   else:add('api_other_outside_host',fe['end']-se['end']-platform_ns)
    g=[t for t in traces['instance_guest'] if (t['pid'],t['origin_ns'])==(ins['pid'],ins['origin_ns'])];assert len(g)==1
    ge={e['name']:e['offset_ns'] for e in g[0]['guest']['events']};assert {'guest_main','restore_begin','restore_complete','open_begin','ready_prepared'}<=ge.keys()
    add('baseline_acquire',se['metadata_snapshot_validated']-se['native_identity_checked'])

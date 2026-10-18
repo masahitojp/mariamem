@@ -1,0 +1,1 @@
+{"operation":"snapshot_freeze","origin_ns":711579125,"pid":61114,"events":[{"name":"begin","offset_ns":417},{"name":"root_files_sealed","offset_ns":103875},{"name":"root_capture_completed","offset_ns":304750},{"name":"end","offset_ns":305083}]}

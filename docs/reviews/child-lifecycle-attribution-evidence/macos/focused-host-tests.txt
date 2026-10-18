@@ -1,0 +1,5 @@
+ok  	github.com/masahitojp/mariamem/internal/timing	0.299s
+ok  	github.com/masahitojp/mariamem/internal/guest	1.007s
+ok  	github.com/masahitojp/mariamem/internal/host	0.324s
+ok  	github.com/masahitojp/mariamem/internal/artifacts	0.236s
+ok  	github.com/masahitojp/mariamem	0.954s
