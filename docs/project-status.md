@@ -352,8 +352,11 @@ actions, in order:
 
 Guest-initialization improvement candidate selection is scheduled for v0.7.x,
 using the investigation evidence; it is not a v0.5.x task. Main integration and
-release remain separate decisions. Item 2 has not started. Other previously
-recorded roadmap items are not cancelled by this workstream decision.
+release remain separate decisions. The Human approved the
+[success-cache design](reviews/macos-platform-cache-design.md) for implementation
+and bounded measurement on 2026-10-18, with review gaps to close first. Item 2
+has not started. Other previously recorded roadmap items are not cancelled by
+this workstream decision.
 
 The Human prioritized native Ubuntu performance measurement next. The
 [fixed-scope campaign](reviews/ubuntu-product-performance.md) completed 246
