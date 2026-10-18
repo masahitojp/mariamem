@@ -314,14 +314,13 @@ Product Validation; those changes are not part of v0.4.5.
 
 ## Performance evidence and pending optimization questions
 
-**In 0.5.x scope: per-DB connection-count tuning.** The current contract keeps a
-fixed 16-connection limit per DB and treated connection-count optimization as a
-separate matter. The Human decision of 2026-10-17 includes that tuning in the
-0.5.x scope:
-confirm actual demand and resource effect before changing the limit. This is
-distinct from the FD/resource-model pressure observation, which is assigned to
-v0.6.0 dogfood above. The current active and closed items are listed in the
-[v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
+**Moved to v0.6.x dogfood: per-DB connection-count tuning.** The current contract
+keeps a fixed 16-connection limit per DB. The Human placed connection-count
+optimization in the 0.5.x scope on 2026-10-17; on 2026-10-18 the Human moved it to
+v0.6.x so that actual demand and resource effect are confirmed during dogfood
+before changing the limit. This is distinct from the FD/resource-model pressure
+observation, also assigned to v0.6.0 dogfood above. The current active and closed
+items are listed in the [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
 
 **Child Fork startup and child Close attribution — accepted 2026-10-18.** The
 [bounded attribution](https://github.com/masahitojp/mariamem/blob/bbf5d1c27f3cea3e2135e8fae053f875ceb234b5/docs/reviews/child-lifecycle-attribution.md)
@@ -648,6 +647,8 @@ Evaluate actual preparation, per-test isolation, resource and failure costs.
 This scope also observes whether many simultaneously retained file-heavy
 baselines produce process FD/resource pressure; a dedicated resource-model
 change is reopened only if that evidence shows pressure.
+This scope also decides per-DB connection-count tuning (currently fixed at 16)
+from observed demand and resource effect.
 
 New run-wide baseline fixture ergonomics are deferred here. Existing session
 fixtures remain worker-local under xdist. Do not promise new framework/platform
