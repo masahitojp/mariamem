@@ -130,7 +130,45 @@ need this.
 - Keep the "minimize guest patches" preference: prefer host-only wire work and
   config/host levers before guest changes.
 
-## 6. Next steps (v0.6.x, for Human decision)
+## 6. Additional scope candidates (perspective scan)
+
+Gaps seen from a product/test-UX perspective, beyond wire / fixture UX / dump,
+binlog / stable endpoint above. Candidates for Human decision, **not approved**.
+
+1. **Parallel resource safety (highest safety priority).** There is no fork/DB
+   count cap; at ~240–320 MiB per DB, 16 parallel databases is ~4–5 GiB, an OOM
+   risk on CI. pgmem derives `MaxForks` from memory. Add a fork/concurrency budget
+   (cap plus guidance) and document worker/memory totals. Evidence: the per-DB
+   incremental memory in `benchmarks/memory-session-envelope.md`; current
+   `max_sessions=16` per DB and no cap in `internal/host` or the public API.
+2. **Framework integration layer, not just measurement.** Dogfood should decide
+   whether per-framework adapters/fixtures are deliverables with correct
+   semantics: Django test runner (test DB, transaction wrapping, flush, migrate),
+   Alembic apply/shadow, SQLAlchemy pool reset, dbt.
+3. **Driver/auth/TLS compatibility matrix.** Text protocol only means
+   prepared-statement-default drivers (Go `interpolateParams=false`, MySQL
+   Connector, JDBC, Node mysql2) hang or fail. Also root/no-password, no TLS,
+   `caching_sha2_password` key paths, `SET NAMES utf8mb4`, default collation.
+   Produce a compatibility table with required settings before adding wire
+   commands.
+4. **Cross-run baseline cache decision.** Large fixtures are re-prepared per
+   session/worker (100 MiB seed ~35 s); mariamem removed save/load, so there is
+   no cross-run cache. Decide opt-in cache vs no-cache and record the trust
+   rationale.
+5. **Failure / observability UX.** Make SQL error / `busy` / timeout /
+   non-cooperative termination visible, and add a fixture that fails teardown on
+   an unclosed DB/handle. `Database.Logs()` exists but has no test-level
+   assertion.
+6. **Bulk data load.** `LOAD DATA LOCAL INFILE` uses a special protocol (a wire
+   gap); CSV bulk load would speed up 100 MiB preparation.
+7. **Language coverage (likely beyond v0.6).** Only Go and Python today; pgmem
+   ships Java (JUnit5/Spring/Micronaut) and Node. Note as a strategic direction
+   if JVM/TS test suites are in the target market.
+
+Suggested v0.6 subset: 1 (safety), 3 (driver matrix), 2 (framework adapters),
+5 (failure/observability), 4 (cache decision). 6 and 7 can follow.
+
+## 7. Next steps (v0.6.x, for Human decision)
 
 1. Dogfood (Django, Alembic/migrations, metadata-heavy, dbt-like; retain the
    SQLAlchemy/GORM anchors) and record which wire commands/flags each client
