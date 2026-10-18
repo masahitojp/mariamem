@@ -658,6 +658,25 @@ separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Dogfood and fixture ergonomics
 
+**North-star discussion recorded with the Human, 2026-10-18:** reduce the work
+of establishing and growing database tests in both new applications and existing
+systems without tests, so developers can focus on features and their behavior.
+Aim for use without learning special conventions (for example, one added line
+redirecting existing connections), understandable import of existing preparation
+data, independent reusable test workflows across frameworks, accessible official
+MariaDB compatibility references, and failures that explain the known context
+and next action to humans and coding assistants. Evaluate first-test setup,
+next-test authoring and execution time separately. The intended niche is a
+Docker-free library that reduces environment setup, test-authoring and cleanup
+work compared with assembling a container-based workflow. This is not a claim
+of universal superiority over Testcontainers: existing container infrastructure
+or a need for exact production MySQL behavior may favor that approach. See
+[the north star, principles and objections](reviews/v06x-kickoff-notes.md#11-north-star-and-capability-coverage-matrix-ideal-driven).
+This records product intent, not current support or implementation approval.
+Enumerate the capability space before choosing representative tests; tests
+prioritize gaps rather than define the whole scope. Version-specific acceptance
+and any public-contract changes still require their own decision.
+
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
 with pytest fixtures: prepare migrations/seed once per worker, acquire an

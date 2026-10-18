@@ -330,11 +330,79 @@ The execution sequence alone is demand-driven: it fixes the gaps that the chosen
 representative tests happen to hit and can under-shoot the ideal. Add an
 ideal-driven artifact first.
 
-**North star (v0.6 definition of done, positional rather than "everything").** A
-Go or Python test suite can switch to a disposable MariaDB double without
-changing application code or configuration (moto-style), migrate from
-Testcontainers in minutes, and after one preparation run tests are far faster and
-safe in parallel, without Docker. Use this as the filter for scope.
+**North star — refined with the Human, 2026-10-18.** Help developers establish
+a database-test workflow quickly and focus on writing and checking features.
+In new applications and existing systems without tests, make the first test easy
+to start and subsequent independent tests easy to add. Support preparation,
+execution, cleanup and understanding failures as one connected experience.
+
+The Human's formulation is preserved here in Japanese:
+
+> 新規開発でも既存システムでも、DBを使うテストの流れを手軽に作り、
+> 機能を書くこと・確かめることに集中できるようにする。
+> 最初の一本を迷わず動かし、二本目以降を同じ流れで増やせる。
+> 準備・実行・後片付け・失敗時の理解を製品側で支える。
+
+This is product direction, not a claim of current coverage or a complete v0.6
+acceptance specification. Quick migration from existing test infrastructure and
+faster repeated execution remain aspirations; establish their achievable scope
+and evidence in the matrix before making quantitative promises.
+
+### Product principles behind the north star
+
+- **Start without learning special conventions.** Aim for an entry such as one
+  added test line redirecting the application's existing connections. Ordinary
+  application code and database operations should remain usable; the library
+  supplies sensible preparation/isolation/cleanup defaults. This is a UX goal,
+  not selection of monkeypatching or a promise for every driver. Details should
+  remain inspectable when needed.
+- **Reuse existing preparation assets.** Make migration/seed, SQL dumps and data
+  produced elsewhere understandable entry paths into a prepared baseline, then
+  independent test databases. Formats and helpers remain design choices; this
+  does not itself reinstate saved-Snapshot loading.
+- **Fit familiar frameworks.** Avoid making one framework a prerequisite;
+  provide connected examples for common combinations and explicitly distinguish
+  verified, constrained and untested support.
+- **Explain compatibility in terms of use.** MySQL applications may benefit
+  where MariaDB supports the behavior under test. Make MariaDB's official
+  compatibility information reachable, with version-relevant direct references
+  where identified, and distinguish it from mariamem-specific limitations.
+  This is a documentation requirement; this discussion did not audit those
+  external references or establish equivalence to production MySQL.
+- **Give an actionable failure, not merely an error.** State the attempted
+  operation, failing stage, original error/code, known reason and next useful
+  action. Distinguish confirmed facts from hypotheses and unknowns. Collect
+  available diagnostic context so users and coding assistants need not repeatedly
+  reconstruct it, reducing investigation time and token use. Keep the initial
+  explanation short, offer details, and avoid exposing secrets. Do not label an
+  SQL error an application bug without evidence; complete automatic diagnosis
+  is not the promise.
+- **Value three kinds of speed.** Time to establish the first test, effort to
+  add the next test, and repeated execution time all matter. Library delivery,
+  independent databases and prepared-state reuse serve these outcomes.
+
+### Challenge and stopping point for this discussion
+
+Docker/Testcontainers already provide real databases, and can be the easier
+choice where their infrastructure exists or exact MySQL behavior is essential.
+The distinctive hypothesis is lower total setup, test-authoring and troubleshooting
+burden, not universally superior database fidelity or execution speed.
+
+The strongest remaining objection is displacement of work: compatibility research,
+special conventions or opaque automation might cost more than the environment
+work removed. Minimal-entry defaults, official compatibility references and
+actionable diagnostics directly address that objection, but their effectiveness
+must be demonstrated in actual workflows. Official information alone does not
+prove an application's compatibility, and data import does not decide its test
+assertions.
+
+No further material objection was identified that requires reopening the north
+star itself. Stop the wording discussion here and carry these concerns into the
+capability matrix and design review. Assess both a new application's first test
+workflow and adding tests to an existing application. Representative tests
+prioritize gaps; they do not silently shrink the capability space. Runtime/API
+implementation, coverage commitments and version-specific acceptance remain
+separate Human decisions.
 
 **Capability coverage matrix.** Enumerate the space first and mark current
 support; the gaps — including ones no representative test hits — become the
