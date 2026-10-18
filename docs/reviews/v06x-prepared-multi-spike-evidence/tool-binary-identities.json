@@ -1,0 +1,7 @@
+{
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "files_sha256": {
+    "temp/standalone-python/cpython-3.14.8-macos-aarch64-none/bin/python3.14": "69d5d7633be933a8e4df3c1d6ce4a4883233f0b24660ceaeb8720c4e9f368cee",
+    "temp/consumer-venv/bin/uv": "c7634fea71703a48913e793c65997d63351f492ee0c38f6c20f0878fb2795d18"
+  }
+}

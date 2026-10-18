@@ -1,0 +1,22 @@
+[
+  {
+    "pure": true,
+    "errno": 1064,
+    "sqlstate": "42000",
+    "message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELEC broken ?' at line 1",
+    "original_1064_oracle": "PASS",
+    "next_select": [
+      1
+    ]
+  },
+  {
+    "pure": false,
+    "errno": 2006,
+    "sqlstate": "HY000",
+    "message": "2006 (HY000): MySQL server has gone away",
+    "original_1064_oracle": "FAIL",
+    "next_select": [
+      1
+    ]
+  }
+]

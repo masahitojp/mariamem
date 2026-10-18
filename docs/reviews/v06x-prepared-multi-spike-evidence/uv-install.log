@@ -1,0 +1,6 @@
+Collecting uv
+  Downloading uv-0.13.1-py3-none-macosx_11_0_arm64.whl.metadata (11 kB)
+Downloading uv-0.13.1-py3-none-macosx_11_0_arm64.whl (14.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.4/14.4 MB 10.8 MB/s  0:00:01
+Installing collected packages: uv
+Successfully installed uv-0.13.1

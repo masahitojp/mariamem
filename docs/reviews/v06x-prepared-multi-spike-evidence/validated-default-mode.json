@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "connection_type": "CMySQLConnection",
+  "cursor_type": "CMySQLCursorPrepared",
+  "row": [
+    17,
+    "\u65e5\u672c\u8a9e",
+    null
+  ],
+  "explicit_use_pure": false,
+  "explicit_client_flags": false
+}

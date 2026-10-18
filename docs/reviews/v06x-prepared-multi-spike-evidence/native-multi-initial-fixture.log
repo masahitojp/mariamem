@@ -1,0 +1,55 @@
+[
+  {
+    "case": "raw-single-packet-mixed-results-error-reuse-rollback",
+    "result": "FAIL",
+    "error": "AssertionError([10, 10, 10, 10])"
+  },
+  {
+    "case": "unflagged-still-single-statement",
+    "result": "PASS",
+    "detail": {
+      "errno": 1064,
+      "reused": true
+    }
+  },
+  {
+    "case": "connector-default-multi-then-prepared-pure",
+    "result": "PASS",
+    "detail": {
+      "rows": [
+        [
+          [
+            11
+          ]
+        ],
+        [
+          [
+            22
+          ]
+        ]
+      ],
+      "prepared_after_multi": true,
+      "connection_after_close": true
+    }
+  },
+  {
+    "case": "connector-default-multi-then-prepared-cext",
+    "result": "PASS",
+    "detail": {
+      "rows": [
+        [
+          [
+            11
+          ]
+        ],
+        [
+          [
+            22
+          ]
+        ]
+      ],
+      "prepared_after_multi": true,
+      "connection_after_close": true
+    }
+  }
+]

@@ -704,26 +704,50 @@ driver coverage remain unfinished. No new compatibility support is established.
 Python Connector/Python `cursor(prepared=True)` is now an explicit design case:
 routing, per-session prepared state and binary protocol support are separate
 requirements. Source inspection found prepare/reset/execute/close plus metadata
-handling; bounded spike results are recorded below; production runtime acceptance remains pending.
+handling; bounded prototype results are below; production acceptance remains pending.
 Go explicit DB/Tx/Conn prepared statements are equally explicit design cases:
 the current interpolation-enabled DSN does not make explicit Prepare supported.
 The Human approved prepared support in both languages as a mandatory part of
 the one-line-switching goal. Disabling prepared use, changing application SQL or
 silently substituting interpolation does not satisfy that goal.
 The [prepared implementation alternatives](reviews/v06x-prepared-design.md)
-recommend a bounded guest `mysql_stmt_*` bridge spike. Embedded API source exists,
-with the API parameter-metadata gap investigated against the native server in the spike.
+recommended a bounded guest `mysql_stmt_*` bridge spike. The initial
+[results](reviews/v06x-prepared-spike.md) established bounded real-guest feasibility
+and compared the parameter-metadata gap against native placeholders.
 On 2026-10-19 the Human approved that bounded spike, including experimental
 patch isolation, fixed inputs, independent regeneration, explicit PASS/FAIL/SKIP
 and guest rebase/maintenance budgeting. Production implementation remains pending
 Human Review of the results.
-The [prepared bridge spike results](reviews/v06x-prepared-spike.md) establish bounded
-real-guest feasibility on macOS arm64 (Go DB/Tx/Conn and configured Python prepared
-execution, independent generation and retained J1 failure oracle). Default
-Connector/Python connection still fails at the unchanged MULTI_STATEMENTS capability
-gate; full types/errors/lifecycle and native Ubuntu acceptance remain incomplete.
-Production implementation is recommended, **awaiting Human decision**; this is
-not main adoption, Qualification or release approval.
+
+**Human decision: add multi-statements and continue the spike (2026-10-19).** The bounded spike returned a positive feasibility answer for the
+prepared bridge (Go and configured Python prepared execution on the real guest,
+no internal MariaDB API extension), but the strongest objection held: the default
+Connector/Python connection requested `CLIENT_MULTI_STATEMENTS` and was rejected
+before PREPARE, so the one-line goal was unmet at that stage.
+The Human therefore decided that multi-statement support is in scope rather than
+deferred, that consumer evidence must use the current Connector/Python (26.7.0,
+`requires_python >= 3.10`) instead of 9.4.0, and that the bounded spike is
+re-run with those two changes. The earlier local Python 3.14 import failure
+motivated the updated environment comparison below. Earlier PASS/FAIL/SKIP
+evidence and the unresolved C-extension syntax-error comparison are retained. Source shows the lite4mariadb recipe already carries the
+multi-statement machinery and mariamem's resident patch is what disables it, so
+the cheapest path is restoring per-session acceptance, extending the v2 JSON to
+carry several result sets, and advertising/serving them with
+`SERVER_MORE_RESULTS_EXISTS` semantics. Capability bits must not be advertised
+without being served. Production implementation, adoption, Qualification and
+release remain separate decisions, and the published text-only promise is
+unchanged. See the [design decision](reviews/v06x-prepared-design.md).
+
+The [continuation results and current Human Review](reviews/v06x-prepared-multi-spike.md)
+confirm default-capability Python 3.14.8 / Connector 26.7.0 prepared and text
+multi-statement execution on macOS arm64, with no flag workaround. Public
+mysql_set_server_option avoids the observed default-mode greeting/SQL ID mismatch.
+Independent generation and the unchanged J1 failure oracle are recorded. This
+is bounded feasibility, not general prepared support: Homebrew/OpenSSL 4 import,
+C-extension syntax-error reporting and procedure preparation retain FAIL records;
+Python 3.14/OpenSSL 3 execution passes. Native Ubuntu and production coverage are
+pending. **Awaiting Human decision on production implementation; no main adoption,
+Qualification or release approval.**
 
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
@@ -751,23 +775,25 @@ New run-wide baseline fixture ergonomics are deferred here. Existing session
 fixtures remain worker-local under xdist. Do not promise new framework/platform
 compatibility or introduce automatic cache policy before use-case evidence.
 
-**Wire practical coverage (v0.6.x scope):** the host wrapper
-(`internal/mysqlwire`) implements only the MySQL text-protocol commands
-`COM_QUERY`, `COM_INIT_DB`, `COM_PING` and `COM_QUIT`; other commands return
-"command is not supported". Collect the practical gaps and let dogfood decide
-priority: server-side prepared statements (`COM_STMT_PREPARE/EXECUTE/CLOSE/RESET`,
-largest for ORMs/drivers that do not interpolate), `COM_RESET_CONNECTION` /
-`COM_SET_OPTION` (pool reset), multi-statements, and connection handshake flags.
-Wire framing belongs to the host; preserving prepared semantics may also require
-a guest API change and regeneration. Prepared support is now an approved
-requirement, while implementation and other command/flag scope decisions remain
-pending. The deliverable includes the gap inventory, consumer evidence and
-explicit Human decisions; no protocol implementation is approved yet.
+**Wire practical coverage (v0.6.x scope):** the published text-only wrapper
+supports COM_QUERY, COM_INIT_DB, COM_PING and COM_QUIT. Prepared statements and
+multi-statements are now approved requirements, with bounded experiment results
+above; production implementation/adoption are not approved. Continue tracking
+other command/flag needs through real consumers. COM_RESET_CONNECTION is pool
+reset; COM_SET_OPTION toggles multi-statement behavior and is not pool reset.
+Framing belongs to the host; engine semantics may require a guest API change and
+regeneration. Keep the full capability inventory and explicit Human decisions;
+prototype PASS does not change the published compatibility promise.
 
 The [v0.6.x kickoff notes](reviews/v06x-kickoff-notes.md) consolidate the wire gap
 inventory, fixture/test UX findings, dump/binlog assessment, the stable-endpoint
 verification theme, additional scope candidates and the suggested priority order.
 Discovery notes only; not approval.
+
+The [wire-relay feasibility memo](reviews/v06x-wire-relay-feasibility.md) records
+an unverified question: whether the embedded guest can expose a real MySQL
+endpoint that the host relays, as pgmem relays PostgreSQL's wire. It is not part
+of the approved prepared spike, and no test has run.
 
 ## v0.7.x — Guest initialization optimization candidate selection
 

@@ -1,0 +1,10 @@
+{
+  "guest/source.patch": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16",
+  "guest/experimental.patch": "8fdb09f02fd27fe8d26d0e8782b5cc8a63020bb555af9afb5c8f4a4622bea099",
+  "guest/resident.inc": "339fe98e58414a50f356606067300a05c2d58172a53f121708f2aeebfa9ac29b",
+  "guest/wire_core.inc": "0782376dc1556f58f6b96f061f728c0ed2ebda7ce16c1ad2a4a8799f9ede0363",
+  "release/inputs.lock.json": "9fef9ca092a32bb78cdf000e75f9a14da8b107ec2f1958ceb6f450518bf3d65b",
+  "release/generated-go-toolchain.json": "01bf46c4fd10d022a58badb4834bdac5a7d9d7f53cd88499882e8542c69d7ef9",
+  "release/generated-go-translation.json": "4d10fde2f7831ac561aa7a711306a34c61201feca87589b6a170608d20e5943f",
+  "release/generated-go-inputs.json": "22b7ff030998a97b109d325f43722bf1bed662ab09c383d7f0e5621abc7e1171"
+}

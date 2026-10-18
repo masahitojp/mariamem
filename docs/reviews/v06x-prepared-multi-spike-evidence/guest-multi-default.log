@@ -1,0 +1,107 @@
+[
+  {
+    "case": "raw-single-packet-mixed-results-error-reuse-rollback",
+    "result": "PASS",
+    "detail": {
+      "results": [
+        {
+          "rows": null,
+          "affected": 1
+        },
+        {
+          "rows": [
+            [
+              10
+            ]
+          ],
+          "affected": 1
+        },
+        {
+          "rows": null,
+          "affected": 1
+        },
+        {
+          "rows": [
+            [
+              11
+            ]
+          ],
+          "affected": 1
+        }
+      ],
+      "more_results_bits": [
+        8,
+        8,
+        8,
+        0
+      ],
+      "middle_error": 1146,
+      "first_error": 1064,
+      "reused": true,
+      "rollback": true
+    }
+  },
+  {
+    "case": "unflagged-still-single-statement",
+    "result": "PASS",
+    "detail": {
+      "errno": 1064,
+      "reused": true
+    }
+  },
+  {
+    "case": "multi-statements-preserves-found-rows-bit",
+    "result": "PASS",
+    "detail": {
+      "unchanged_update_affected": [
+        0,
+        1
+      ]
+    }
+  },
+  {
+    "case": "multi-results-only-procedure-terminal-ok",
+    "result": "FAIL",
+    "error": "ProgrammingError(1146, \"Table 'mysql.proc' doesn't exist\")"
+  },
+  {
+    "case": "connector-default-multi-then-prepared-pure",
+    "result": "PASS",
+    "detail": {
+      "rows": [
+        [
+          [
+            11
+          ]
+        ],
+        [
+          [
+            22
+          ]
+        ]
+      ],
+      "prepared_after_multi": true,
+      "connection_after_close": true
+    }
+  },
+  {
+    "case": "connector-default-multi-then-prepared-cext",
+    "result": "PASS",
+    "detail": {
+      "rows": [
+        [
+          [
+            11
+          ]
+        ],
+        [
+          [
+            22
+          ]
+        ]
+      ],
+      "prepared_after_multi": true,
+      "connection_after_close": true
+    }
+  }
+]

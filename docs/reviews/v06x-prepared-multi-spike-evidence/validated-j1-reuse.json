@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "basis": "98 runtime/code files byte-identical to final-native-b; copied fixture inputs identical; only provenance namespace differs",
+  "rerun": false,
+  "fixture_matrix": "final-j1-matrix.json"
+}

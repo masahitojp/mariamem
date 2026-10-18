@@ -1,0 +1,13 @@
+{
+  "version": "26.7.0",
+  "requires_python": ">=3.10",
+  "project_url": "https://pypi.org/project/mysql-connector-python/26.7.0/",
+  "matching_wheels": [
+    {
+      "filename": "mysql_connector_python-26.7.0-cp314-cp314-macosx_14_0_arm64.whl",
+      "sha256": "c02cc3d5e4763ddc960fce521bd353b242cfec4c6a936234916f2597bfd656cd",
+      "url": "https://files.pythonhosted.org/packages/eb/46/a2383cebea1cf22e07a0bc7b6e5035baac04de18415df188d257b68abab2/mysql_connector_python-26.7.0-cp314-cp314-macosx_14_0_arm64.whl",
+      "size": 20280169
+    }
+  ]
+}

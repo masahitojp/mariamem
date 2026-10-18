@@ -1,0 +1,156 @@
+[
+  {
+    "case": "embedded-api-direct",
+    "result": "PASS",
+    "detail": {
+      "execute": {
+        "results": null,
+        "stmt_id": 0,
+        "param_count": 0,
+        "param_metadata_null": false,
+        "ok": true,
+        "ready": false,
+        "closed": false,
+        "api_version": 2,
+        "max_sessions": 0,
+        "snapshot_version": 0,
+        "snapshot": false,
+        "server_status": 2,
+        "warnings": 0,
+        "errno": 0,
+        "error": "",
+        "sqlstate": "",
+        "affected": "1",
+        "insert_id": "0",
+        "columns": [
+          {
+            "name": "?",
+            "org_name": "",
+            "table": "",
+            "org_table": "",
+            "db": "",
+            "catalog": "def",
+            "type": 8,
+            "charset": 63,
+            "flags": 32897,
+            "length": 21,
+            "decimals": 0
+          },
+          {
+            "name": "?",
+            "org_name": "",
+            "table": "",
+            "org_table": "",
+            "db": "",
+            "catalog": "def",
+            "type": 253,
+            "charset": 224,
+            "flags": 1,
+            "length": 20,
+            "decimals": 39
+          },
+          {
+            "name": "?",
+            "org_name": "",
+            "table": "",
+            "org_table": "",
+            "db": "",
+            "catalog": "def",
+            "type": 6,
+            "charset": 63,
+            "flags": 32896,
+            "length": 0,
+            "decimals": 0
+          }
+        ],
+        "rows": [
+          [
+            {
+              "$h": "2d3737"
+            },
+            {
+              "$h": "68656c6c6f"
+            },
+            null
+          ]
+        ]
+      },
+      "foreign_errno": 1243,
+      "prepare": {
+        "results": null,
+        "stmt_id": 1,
+        "param_count": 3,
+        "param_metadata_null": true,
+        "ok": true,
+        "ready": false,
+        "closed": false,
+        "api_version": 2,
+        "max_sessions": 0,
+        "snapshot_version": 0,
+        "snapshot": false,
+        "server_status": 2,
+        "warnings": 0,
+        "errno": 0,
+        "error": "",
+        "sqlstate": "",
+        "affected": "",
+        "insert_id": "",
+        "columns": [
+          {
+            "name": "?",
+            "org_name": "",
+            "table": "",
+            "org_table": "",
+            "db": "",
+            "catalog": "def",
+            "type": 6,
+            "charset": 63,
+            "flags": 32896,
+            "length": 0,
+            "decimals": 0
+          },
+          {
+            "name": "?",
+            "org_name": "",
+            "table": "",
+            "org_table": "",
+            "db": "",
+            "catalog": "def",
+            "type": 6,
+            "charset": 63,
+            "flags": 32896,
+            "length": 0,
+            "decimals": 0
+          },
+          {
+            "name": "?",
+            "org_name": "",
+            "table": "",
+            "org_table": "",
+            "db": "",
+            "catalog": "def",
+            "type": 6,
+            "charset": 63,
+            "flags": 32896,
+            "length": 0,
+            "decimals": 0
+          }
+        ],
+        "rows": null
+      },
+      "stale_errno": 1243,
+      "syntax_errno": 1064
+    }
+  },
+  {
+    "case": "go-explicit-implicit-and-lifecycle",
+    "result": "PASS",
+    "detail": {
+      "DB_Tx_Conn": true,
+      "driver": "v1.9.3",
+      "explicit": true,
+      "implicit": true,
+      "interpolation_enabled_explicit": true
+    }
+  }
+]

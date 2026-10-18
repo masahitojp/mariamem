@@ -1,0 +1,14 @@
+[
+  {
+    "pure": true,
+    "greeting_connection_id": 2,
+    "sql_connection_id": 2,
+    "result": "PASS"
+  },
+  {
+    "pure": false,
+    "greeting_connection_id": 3,
+    "sql_connection_id": 3,
+    "result": "PASS"
+  }
+]

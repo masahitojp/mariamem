@@ -1,0 +1,15 @@
+Using Python 3.14.8 environment at: build/experiment-work/v06-prepared-multi/temp/acceptance-venv
+Resolved 7 packages in 196ms
+Downloading pygments (1.2MiB)
+Downloading mysql-connector-python (19.3MiB)
+ Downloaded pygments
+ Downloaded mysql-connector-python
+Prepared 7 packages in 2.04s
+Installed 7 packages in 23ms
+ + iniconfig==2.3.1
+ + mysql-connector-python==26.7.0
+ + packaging==26.3
+ + pluggy==1.7.0
+ + pygments==2.21.0
+ + pymysql==1.2.3
+ + pytest==8.4.2

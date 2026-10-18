@@ -179,7 +179,7 @@ Update source manifests, generated input inventories and provenance as required
 by the actual changed inputs. Public docs currently promise text-only support;
 revise that contract only with accepted implementation and evidence.
 
-## Human Review — spike approved, production decision pending
+## Historical Human Review — initial spike approved
 
 **Recommendation accepted for the bounded embedded-API spike above**; full
 implementation is not approved. Decisive reason: it preserves engine-owned prepared semantics
@@ -191,3 +191,46 @@ public embedded parameter-metadata API is a stub; binary results and lifecycle
 handling add a real guest/host integration burden. The spike must resolve that
 boundary before the production effort is accepted. If it cannot, return a
 specific design alternative and cost rather than weakening the north star.
+
+
+## Human decision (2026-10-19): include multi-statements and re-spike on the current connector
+
+After the [bounded spike results](v06x-prepared-spike.md) were returned, the Human
+decided:
+
+1. **Multi-statement support is in scope**, not deferred. The spike's strongest
+   objection was that the default Connector/Python connection requests
+   `CLIENT_MULTI_STATEMENTS` and is rejected before PREPARE, so the one-line goal
+   is unmet for the default Python workflow. Prepared support alone does not
+   complete the requirement.
+2. **Use the current Connector/Python (26.7.0) for consumer evidence** instead of
+   the pinned 9.4.0, which could not even import on Python 3.14
+   (`ssl.PROTOCOL_TLSv1` removed). Version 26.7.0 requires Python >= 3.10.
+3. **Re-run the bounded spike** with those two changes before a production
+   decision, retaining the previous PASS/FAIL/SKIP evidence and the unresolved
+   C-extension syntax-error comparison.
+
+The cheapest concrete path identified from source: the lite4mariadb recipe
+already contains the multi-statement machinery (`serialize_result_into`,
+`drain_extra_results` over `mysql_more_results`/`mysql_next_result`,
+`l4m_exec_multi` returning `{"ok":true,"results":[...]}`), and mariamem's
+resident patch is what sets `CLIENT_MULTI_STATEMENTS` to `0`. On the host,
+`internal/mysqlwire` capabilities omit bit 65536. The work is therefore to restore
+per-session multi-statement acceptance in the guest, extend the v2 JSON result to
+carry several result sets, and have the host advertise and serve them with
+`SERVER_MORE_RESULTS_EXISTS` semantics.
+
+Design constraints retained: advertise only what is honoured (do not set the
+capability bit without serving it); a later failing statement must still report
+its own error after the earlier results; multi-statement is not a license to
+change text single-statement behaviour. Consumer default capability flags must be
+re-derived at 26.7.0 rather than carried over from 9.4.0.
+
+This remains a spike/design instruction. It does not approve production
+implementation, adoption, Qualification or release, and it does not change the
+published text-only promise.
+
+
+Current results and decision: [continuation Human Review](v06x-prepared-multi-spike.md).
+The earlier import observation was local to its TLS build; the continuation
+separates Python 3.14/OpenSSL 3 success from OpenSSL 4 import failure.

@@ -1,0 +1,7 @@
+{
+  "tests/v06_multi_scenarios.py": "348fc354611287450f16bbd52ee57a453f1372551d0fd0237063500af6b06641",
+  "tests/v06_prepared_extended.py": "94b6fdbbce5a4ff8e6b5d36fb25495f0d985705b7f5fe0033bbda5e02e34d948",
+  "tests/v06_prepared_error_health.py": "e3b060c831fc965f699912d856d17ea2cf446e10e9ed860046f87feca4d7ca8e",
+  "tests/v06_default_connector_probe.py": "c058794c90a134f90b9489e275f9256234a3b7927bc5f7d019e96d5872df9b79",
+  "tests/v06_prepared_probe/main.go": "7c8ec75696b3d283aaea9b3d9c65bff79b47855af5b3a06cc6827c9c6911dfed"
+}

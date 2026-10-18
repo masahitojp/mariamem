@@ -1,0 +1,8 @@
+{
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "executable": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared-multi/temp/consumer-venv/bin/python",
+  "ssl": "/opt/homebrew/Cellar/python@3.14/3.14.8_2/Frameworks/Python.framework/Versions/3.14/lib/python3.14/ssl.py",
+  "openssl": "OpenSSL 4.0.3 29 Sep 2026",
+  "has_protocol_tlsv1": false,
+  "connector": "26.7.0"
+}

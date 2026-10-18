@@ -1,0 +1,7 @@
+{
+  "counterexample_reproduced": true,
+  "protected_controls_pass": true,
+  "oracle_source_unchanged": true,
+  "rebased_oracle_identical_to_round1": true,
+  "limitations": "Focused fixture; no inference of general race freedom"
+}

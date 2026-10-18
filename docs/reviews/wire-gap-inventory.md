@@ -16,7 +16,7 @@ subsequently approved Python/Go prepared support as mandatory; the
 because host emulation is not established as equivalent. The Human approved the bounded embedded-API spike on 2026-10-19;
 production method adoption remains pending.
 
-## Current state (source-anchored)
+## Released baseline state (source-anchored)
 
 - Command dispatch (`internal/mysqlwire/wire.go`): `COM_QUIT(1)`, `COM_INIT_DB(2)`,
   `COM_QUERY(3)`, `COM_PING(14)`; any other command returns
@@ -86,8 +86,9 @@ lite4mariadb context; mariamem's overrides are the added hunks.
 3. Human decision on which commands/flags to implement, keeping the layer split
    above and preferring host-only where the result is equivalent.
 
-This is a draft inventory, not an approval. Runtime, guest, generated sources and
-public contracts are unchanged.
+The initial inventory was not implementation approval; runtime, guest, generated
+sources and public contracts were unchanged at that stage. Follow-up prototype
+results below are separate from that released-baseline snapshot.
 
 ### Multi-statement precedent (2026-10-19)
 
@@ -98,3 +99,15 @@ Both the worker connection and result API need adaptation. A dump-import bridge
 may therefore cost less than prepared support, though
 result draining and host/guest semantics remain unverified. This is an independent
 import option; prepared remains priority #1 for ordinary Python/Go consumers.
+
+
+### Bounded prototype results (2026-10-19; not published support)
+
+The Human added multi-statements to the prepared scope; the
+[continuation review](v06x-prepared-multi-spike.md) records default Python 3.14 /
+Connector 26.7.0 prepared and text multi-result tests, SET_OPTION ON/OFF and
+native error-packet comparison. It supersedes the earlier unverified/deferred
+status for this bounded investigation, not the released-baseline table above.
+Procedure setup is blocked by missing mysql.proc; C-extension syntax reporting
+and OpenSSL 4 import remain FAILs. Pool reset is COM_RESET_CONNECTION, distinct
+from COM_SET_OPTION. Production coverage, native Ubuntu and adoption remain pending.

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared-multi/worktree/scripts/build_generated_guest.py", line 154, in <module>
+    main()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared-multi/worktree/scripts/build_generated_guest.py", line 56, in main
+    identity = source_identity(ROOT)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared-multi/worktree/scripts/dev_guest.py", line 45, in source_identity
+    require(not git('status', '--porcelain').strip(), 'dev build requires committed clean source')
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared-multi/worktree/scripts/dev_guest.py", line 13, in require
+    raise ValueError(message)
+ValueError: dev build requires committed clean source

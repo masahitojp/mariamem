@@ -1,0 +1,7 @@
+{
+  "contract": "development-unqualified-v1",
+  "exception": "CalledProcessError",
+  "guest_sha256": "1fabf31ced768f12bd60ba2f0c4c79110fbbe883c440bfa4c9ee63d834b6c179",
+  "message": "Command '['/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared-multi/worktree/../temp/acceptance-venv/bin/python', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared-multi/worktree/scripts/generate_runtime.py', '--source-module', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared-multi/temp/dev-native-a/candidate/module', '--development-input', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared-multi/temp/dev-native-a/installation-inputs.json', '--output', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared-multi/temp/dev-native-a/generatedgo']' returned non-zero exit status 1.",
+  "result": "FAILED"
+}

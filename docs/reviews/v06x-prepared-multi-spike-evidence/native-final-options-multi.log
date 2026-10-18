@@ -1,0 +1,149 @@
+[
+  {
+    "case": "raw-single-packet-mixed-results-error-reuse-rollback",
+    "result": "PASS",
+    "detail": {
+      "results": [
+        {
+          "rows": null,
+          "affected": 1
+        },
+        {
+          "rows": [
+            [
+              10
+            ]
+          ],
+          "affected": 1
+        },
+        {
+          "rows": null,
+          "affected": 1
+        },
+        {
+          "rows": [
+            [
+              11
+            ]
+          ],
+          "affected": 1
+        }
+      ],
+      "more_results_bits": [
+        8,
+        8,
+        8,
+        0
+      ],
+      "middle_error": 1146,
+      "first_error": 1064,
+      "reused": true,
+      "rollback": true
+    }
+  },
+  {
+    "case": "unflagged-still-single-statement",
+    "result": "PASS",
+    "detail": {
+      "errno": 1064,
+      "reused": true
+    }
+  },
+  {
+    "case": "set-option-on-off-unknown-and-stable-identity",
+    "result": "PASS",
+    "detail": {
+      "before": 42,
+      "after": 42,
+      "on_off": true,
+      "unknown_option_errno": 1047,
+      "reused": true
+    }
+  },
+  {
+    "case": "default-connector-greeting-sql-identity",
+    "result": "PASS",
+    "detail": [
+      {
+        "pure": true,
+        "greeting": 43,
+        "sql": 43
+      },
+      {
+        "pure": false,
+        "greeting": 44,
+        "sql": 44
+      }
+    ]
+  },
+  {
+    "case": "multi-statements-preserves-found-rows-bit",
+    "result": "PASS",
+    "detail": {
+      "unchanged_update_affected": [
+        0,
+        1
+      ]
+    }
+  },
+  {
+    "case": "multi-results-only-procedure-terminal-ok",
+    "result": "PASS",
+    "detail": {
+      "results": [
+        [
+          [
+            7
+          ]
+        ],
+        [
+          [
+            8
+          ]
+        ],
+        null
+      ],
+      "reused": true
+    }
+  },
+  {
+    "case": "connector-default-multi-then-prepared-pure",
+    "result": "PASS",
+    "detail": {
+      "rows": [
+        [
+          [
+            11
+          ]
+        ],
+        [
+          [
+            22
+          ]
+        ]
+      ],
+      "prepared_after_multi": true,
+      "connection_after_close": true
+    }
+  },
+  {
+    "case": "connector-default-multi-then-prepared-cext",
+    "result": "PASS",
+    "detail": {
+      "rows": [
+        [
+          [
+            11
+          ]
+        ],
+        [
+          [
+            22
+          ]
+        ]
+      ],
+      "prepared_after_multi": true,
+      "connection_after_close": true
+    }
+  }
+]

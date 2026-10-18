@@ -1,0 +1,25 @@
+{
+  "libmysql.c": {
+    "sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c"
+  },
+  "lib_sql.cc": {
+    "sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e"
+  },
+  "sql_parse.cc": {
+    "sha256": "d4fcbe0d53e2474ec9730294101549ca84c1b619fcdf6c1c37de9d70cf88fa85"
+  },
+  "libmysqld.c": {
+    "sha256": "29c1685f824f9880a31821074dbc00fc65833f27644cb1b16ab052c7aa88f527"
+  },
+  "embedded-client_settings.h": {
+    "sha256": "570ac53b957a2b4f077b1e501df10f99ce47c7f8ae427a564514181ae20dc5ff"
+  },
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "findings": [
+    "libmysql.c mysql_set_server_option:963 calls simple_command(COM_SET_OPTION)",
+    "lib_sql.cc emb_advanced_command:108 forwards to dispatch_command on the same THD",
+    "sql_parse.cc COM_SET_OPTION:2328 toggles only CLIENT_MULTI_STATEMENTS",
+    "libmysqld/client_settings.h CLIENT_CAPABILITIES already includes MULTI_RESULTS and PS_MULTI_RESULTS",
+    "libmysqld.c mysql_real_connect ORs CLIENT_CAPABILITIES before create_embedded_thd"
+  ]
+}

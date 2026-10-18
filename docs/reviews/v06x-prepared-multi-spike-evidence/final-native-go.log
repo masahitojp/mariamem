@@ -1,0 +1,13 @@
+[
+  {
+    "case": "go-explicit-implicit-and-lifecycle",
+    "result": "PASS",
+    "detail": {
+      "DB_Tx_Conn": true,
+      "driver": "v1.9.3",
+      "explicit": true,
+      "implicit": true,
+      "interpolation_enabled_explicit": true
+    }
+  }
+]

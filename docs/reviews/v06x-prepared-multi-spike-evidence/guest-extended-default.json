@@ -1,0 +1,75 @@
+[
+  {
+    "case": "typed-values-pure",
+    "result": "PASS",
+    "detail": {
+      "rows": [
+        [
+          -7,
+          "hello",
+          null
+        ],
+        [
+          9223372036854775807,
+          "second",
+          null
+        ],
+        [
+          0,
+          "\u65e5\u672c\u8a9e",
+          null
+        ]
+      ]
+    }
+  },
+  {
+    "case": "prepare-error-pure",
+    "result": "PASS",
+    "detail": {
+      "errno": 1064,
+      "sqlstate": "42000",
+      "message": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELEC broken ?' at line 1"
+    }
+  },
+  {
+    "case": "typed-values-cext",
+    "result": "PASS",
+    "detail": {
+      "rows": [
+        [
+          -7,
+          "hello",
+          null
+        ],
+        [
+          9223372036854775807,
+          "second",
+          null
+        ],
+        [
+          0,
+          "\u65e5\u672c\u8a9e",
+          null
+        ]
+      ]
+    }
+  },
+  {
+    "case": "prepare-error-cext",
+    "result": "FAIL",
+    "error": "AssertionError({'errno': 2006, 'sqlstate': 'HY000', 'message': '2006 (HY000): MySQL server has gone away'})"
+  },
+  {
+    "case": "execute-type-descriptor-reuse",
+    "result": "PASS",
+    "detail": [
+      -17,
+      91
+    ]
+  },
+  {
+    "case": "long-data-chunks-no-response-then-execute",
+    "result": "PASS",
+    "detail": "000008706172740074776f"
+  }
+]

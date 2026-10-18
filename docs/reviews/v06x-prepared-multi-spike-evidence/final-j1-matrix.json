@@ -1,0 +1,42 @@
+[
+  {
+    "protected": false,
+    "backing": "heap",
+    "race": false,
+    "exit_code": 1,
+    "expected_exit_code": 1,
+    "log": "final-j1-unprotected-heap.log"
+  },
+  {
+    "protected": true,
+    "backing": "heap",
+    "race": false,
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "final-j1-protected-heap.log"
+  },
+  {
+    "protected": true,
+    "backing": "mmap",
+    "race": false,
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "final-j1-protected-mmap.log"
+  },
+  {
+    "protected": true,
+    "backing": "heap",
+    "race": true,
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "final-j1-protected-heap-race.log"
+  },
+  {
+    "protected": true,
+    "backing": "mmap",
+    "race": true,
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "final-j1-protected-mmap-race.log"
+  }
+]
