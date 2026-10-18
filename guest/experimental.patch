@@ -8,7 +8,7 @@
  #include "wire_api.inc"
 --- /dev/null
 +++ b/wasm/prepared_spike.inc
-@@ -0,0 +1,213 @@
+@@ -0,0 +1,216 @@
 +/* EXPERIMENT ONLY: public embedded mysql_stmt API, bounded type/row coverage.
 + * Wire command payload is session-owned; no MYSQL pointers cross the boundary.
 + * Upstream recipe insertion lives in guest/experimental.patch. */
@@ -93,6 +93,7 @@
 +    }
 +    e->stmt=s; e->id=++pst_next;
 +    meta=mysql_stmt_result_metadata(s);
++    if(mysql_stmt_field_count(s) && !meta) {char *err=pst_error(s);mysql_stmt_close(s);memset(e,0,sizeof(*e));return err;}
 +    snprintf(t,sizeof(t),"{\"ok\":true,\"stmt_id\":%u,\"param_count\":%lu,\"param_metadata_null\":%s,\"columns\":",
 +      e->id,mysql_stmt_param_count(s),mysql_stmt_param_metadata(s)==NULL ? "true":"false");
 +    if(buf_puts(&b,t) || pst_fields(&b,meta) || wire_state(&b) || buf_putc(&b,'}')) goto oom;
@@ -173,6 +174,7 @@
 +    if(exec_rc) return pst_error(s);
 +    if(mysql_stmt_store_result(s)) return pst_error(s);
 +    meta=mysql_stmt_result_metadata(s);
++    if(mysql_stmt_field_count(s) && !meta) {mysql_stmt_free_result(s);return pst_error(s);}
 +    unsigned cols=meta ? mysql_num_fields(meta) : 0;
 +    if(cols>PST_LIMIT) { if(meta) mysql_free_result(meta); mysql_stmt_free_result(s); return wire_error(1235,"result columns outside spike","42000"); }
 +    snprintf(t,sizeof(t),"{\"ok\":true,\"affected\":\"%llu\",\"insert_id\":\"%llu\"",
@@ -185,6 +187,7 @@
 +      char *data=calloc(cols,PST_BYTES);
 +      if(!data) goto oom;
 +      memset(outs,0,sizeof(outs));
++      memset(lens,0,sizeof(lens)); memset(ns,0,sizeof(ns)); memset(errs,0,sizeof(errs));
 +      for(unsigned i=0;i<cols;i++) {
 +        outs[i].buffer_type=MYSQL_TYPE_BLOB; outs[i].buffer=data+i*PST_BYTES; outs[i].buffer_length=PST_BYTES;
 +        outs[i].length=lens+i; outs[i].is_null=ns+i; outs[i].error=errs+i;
@@ -195,7 +198,7 @@
 +        if(rows>=1024) { free(data); goto bounds; }
 +        if((rows++ && buf_putc(&b,',')) || buf_putc(&b,'[')) {free(data); goto oom;}
 +        for(unsigned i=0;i<cols;i++) {
-+          if(lens[i]>PST_BYTES || errs[i]) {free(data); goto bounds;}
++          if(!ns[i] && (lens[i]>PST_BYTES || errs[i])) {free(data); goto bounds;}
 +          if((i && buf_putc(&b,',')) || (ns[i] ? buf_puts(&b,"null") :
 +             (buf_puts(&b,"{\"$h\":") || buf_put_json_hex(&b,data+i*PST_BYTES,lens[i]) || buf_putc(&b,'}')))) {free(data); goto oom;}
 +        }
