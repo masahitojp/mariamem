@@ -323,6 +323,15 @@ distinct from the FD/resource-model pressure observation, which is assigned to
 v0.6.0 dogfood above. The current active and closed items are listed in the
 [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
 
+**Optimization candidate added — 2026-10-18:** the Human requested recording
+Ubuntu parallel guest-initialization slowdown as a candidate investigation.
+For the same 10MiB workload, observed guest open-to-ready rises from 65.84ms
+serial to 133.95ms with four workers; the 60.62ms figure is Light, not the
+matched serial case. Distinguish per-child latency from whole-suite elapsed
+benefit and startup contention from overlap with other children’s SQL/cleanup.
+See the [candidate and evidence](reviews/child-lifecycle-attribution.md).
+Registration does not start another experiment or authorize a runtime change.
+
 **In 0.5.x scope: child Fork startup and child Close attribution.** Measure the
 cost of creating a Fork child and of Close, and identify which phases own that
 time. The task ends at measurement and cause identification; selecting or

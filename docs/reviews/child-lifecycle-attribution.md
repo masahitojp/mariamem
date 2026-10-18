@@ -14,6 +14,26 @@ Human受理はまだ記録していない。最適化候補を選ぶ場合は別
 DB自体のCloseとSQL切断待ちを分ける必要がある。macOSのDB Closeは約2–3ms、UbuntuはGo約4–5ms・Python約5–6msだった。
 今回、最適化・接続数変更・main統合・Qualification・公開は行わない。
 
+## 追加した最適化調査候補（2026-10-18）
+
+Humanの指示により、**Ubuntuの4並列時にguest初期化が伸びる原因**を候補へ追加した。
+候補登録であり、追加実験や修正の開始を意味しない。
+
+- 観測ありの `l4m_open→ready準備` は、Light直列60.62ms、10MiB直列65.84ms、10MiB4並列133.95ms。
+  「61→134ms」はデータ規模が異なる。並列化の比較には同じ10MiBの **65.84→133.95ms** を使う。
+- 通常実行の同じ10MiBでは、1子のFork中央値70.47→139.77ms。一方、4子の起動・SQL・切断・Closeの
+  実経過時間は989→538ms（各3試行の中央値、親準備とSnapshot作成を除く）。1子の遅延とスイート全体の利益を分ける。
+- 現行harnessは各workerがFork→SQL→切断→Closeを進め、全子readyのbarrierを設けていない。
+  他の子のSQL/終了と初期化が重なり得る。CPU/scheduler、メモリ帯域/GC、内部同期、他段階の重なりの寄与は未特定。
+  テスト不具合または不可避な競合と断定しない。
+- 選定時に閉じる問いは、起動だけの競合とスイート中の他段階との競合を区別し、主要な伸長要因と
+  対応候補を示せるか。1子のFork時間だけでなく4子全体の実経過時間も評価する。
+  この候補の存在を、完了済みの費用帰属調査を未完了へ戻す理由にはしない。
+
+根拠は下記Ubuntu集計と、同evidenceの `campaign/go-medium-{0,1,2}-control.json`、
+`campaign/go-parallel-{0,1,2}-control.json` の `instance_suite_wall_seconds`、
+および `benchmarks/child-lifecycle/main.go` のworker loop。
+
 ## 入力と方法
 
 - main基点: `df90c096a269d448a50ac44ac92f88e47619d58e`。
