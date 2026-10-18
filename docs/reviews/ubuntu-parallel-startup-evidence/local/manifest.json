@@ -1,0 +1,21 @@
+{
+  "scope": "local macOS mechanical scheduler/validator/tool-format verification only; no real guest execution or Ubuntu performance claim",
+  "files": {
+    "schedule-tests.txt": {
+      "sha256": "78f36ce35ab53e3d95bd46f9842abcdbb80728b40294ca1bb4fb730c03122501",
+      "bytes": 35
+    },
+    "tools-tests.txt": {
+      "sha256": "f0853651ff069ea5935ca2fc2c017c817090010bdeb46eeed9259337a09339ca",
+      "bytes": 107
+    },
+    "profile-format-smoke.txt": {
+      "sha256": "2e8a361a2f6e5a8aeb10431d71609ba7af5292c57cbf4cba5e078a3c92f9c46d",
+      "bytes": 4731
+    },
+    "trace-format-fixture.go.txt": {
+      "sha256": "97c481c8874895a538e2ff37b6a48aa1d10394484035e30c5df6094cc0e6d35b",
+      "bytes": 496
+    }
+  }
+}

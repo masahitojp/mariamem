@@ -1,0 +1,10 @@
+package main
+import("os";"runtime/pprof";"runtime/trace";"time")
+func main(){
+ d:=os.Args[1]
+ t,e:=os.Create(d+"/smoke.trace");if e!=nil{panic(e)};if e=trace.Start(t);e!=nil{panic(e)}
+ f,e:=os.Create(d+"/smoke.pprof");if e!=nil{panic(e)};if e=pprof.StartCPUProfile(f);e!=nil{panic(e)}
+ stop:=time.Now().Add(50*time.Millisecond);for time.Now().Before(stop){}
+ c:=make(chan struct{});go func(){time.Sleep(time.Millisecond);close(c)}();<-c
+ pprof.StopCPUProfile();f.Close();trace.Stop();t.Close()
+}

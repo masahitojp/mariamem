@@ -375,8 +375,10 @@ passed scope, full check and canonical integration on exact source
 acceptance, Python18 tests and Snapshot33 checks completed. This closes the
 post-integration development check, not release qualification. The linked
 results retain the original timeout and the successful rerun. Release remains
-a separate decision. Item 2
-has not started. Other previously recorded roadmap items are not cancelled by
+a separate decision. Item 2 is now in progress on the isolated
+[Ubuntu parallel-startup study](reviews/ubuntu-parallel-startup-study.md):
+matched serial/pipeline/barrier conditions plus separate bounded diagnostics.
+No new Ubuntu results or guest-initialization fix are claimed yet. Other previously recorded roadmap items are not cancelled by
 this workstream decision.
 
 The Human prioritized native Ubuntu performance measurement next. The

@@ -1,0 +1,85 @@
+name: Ubuntu parallel startup bounded study
+on:
+  push:
+    branches: [experiment/ubuntu-parallel-startup]
+    paths:
+      - 'benchmarks/ubuntu-startup/**'
+      - '.github/workflows/ubuntu-parallel-startup.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  study:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      GOTOOLCHAIN: go1.26.8
+      CGO_ENABLED: '0'
+      GOCACHE: ${{ github.workspace }}/build/ubuntu-startup/temp/gocache
+      GOTMPDIR: ${{ github.workspace }}/build/ubuntu-startup/temp/compiler
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Inputs and actual CPU limits
+        run: |
+          mkdir -p build/ubuntu-startup/evidence build/ubuntu-startup/temp/compiler
+          python scripts/git_identity.py inspect HEAD > build/ubuntu-startup/evidence/source.json
+          python -c 'import json,os;assert json.load(open("build/ubuntu-startup/evidence/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          uname -a > build/ubuntu-startup/evidence/platform.txt
+          go version >> build/ubuntu-startup/evidence/platform.txt
+          lscpu --json > build/ubuntu-startup/evidence/lscpu.json
+          python - <<'PY'
+          import json,os,platform
+          from pathlib import Path
+          files=['/etc/os-release','/proc/self/status','/proc/self/cgroup','/sys/fs/cgroup/cpu.max','/sys/fs/cgroup/cpu.stat','/sys/fs/cgroup/cpuset.cpus.effective','/sys/fs/cgroup/memory.max']
+          def read(path):
+              try: return Path(path).read_text()
+              except OSError as e: return {'unavailable':str(e)}
+          hierarchy={}
+          for line in Path('/proc/self/cgroup').read_text().splitlines():
+              if line.startswith('0::'):
+                  membership=Path(line.split('::',1)[1])
+                  if '..' not in membership.parts:
+                      current=Path('/sys/fs/cgroup')/str(membership).lstrip('/')
+                      while current.is_relative_to('/sys/fs/cgroup'):
+                          hierarchy[str(current/'cpu.max')]=read(current/'cpu.max')
+                          if current==Path('/sys/fs/cgroup'): break
+                          current=current.parent
+          result={'platform':platform.platform(),'logical_cpus':os.cpu_count(),'affinity':sorted(os.sched_getaffinity(0)),'files':{p:read(p) for p in files},'cgroup_v2_hierarchy_cpu_max':hierarchy,'cgroup_mounts':[l for l in Path('/proc/self/mountinfo').read_text().splitlines() if ' - cgroup' in l]}
+          Path('build/ubuntu-startup/evidence/environment.json').write_text(json.dumps(result,indent=2)+'\n')
+          PY
+          sha256sum docs/reviews/v050-ad-integration-evidence/function-map.txt > build/ubuntu-startup/evidence/symbol-map.sha256
+          python scripts/verify_generated_runtime.py > build/ubuntu-startup/evidence/generated.txt
+      - name: Scheduler and evidence failure oracles
+        run: |
+          python -m pip install 'pytest>=7'
+          python -m pytest benchmarks/ubuntu-startup/test_tools.py tests/test_git_identity.py -q > build/ubuntu-startup/evidence/tools-tests.txt
+          CGO_ENABLED=1 go test -race benchmarks/ubuntu-startup/schedule.go benchmarks/ubuntu-startup/schedule_test.go -count=3 -timeout=1m > build/ubuntu-startup/evidence/schedule-tests.txt
+      - name: Fixed native campaign (no product runtime changes)
+        run: |
+          python scripts/experiment_disk.py --work-dir build/ubuntu-startup --min-free-gib 8 --budget-gib 6 --timeout 1500 -- python benchmarks/ubuntu-startup/campaign.py --work build/ubuntu-startup --source-commit '${{ github.sha }}'
+          python benchmarks/ubuntu-startup/reduce.py build/ubuntu-startup/evidence > build/ubuntu-startup/evidence/reduce.txt
+      - name: Remove reproducible build and process scratch
+        if: always()
+        run: |
+          du -sh build/ubuntu-startup > build/ubuntu-startup/evidence/storage-before.txt
+          rm -rf build/ubuntu-startup/temp
+          du -sh build/ubuntu-startup > build/ubuntu-startup/evidence/storage-after.txt
+          test ! -e build/ubuntu-startup/temp
+      - name: Preserve study evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: ubuntu-startup-${{ github.sha }}
+          path: build/ubuntu-startup/evidence
+          if-no-files-found: error
