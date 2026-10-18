@@ -704,7 +704,7 @@ driver coverage remain unfinished. No new compatibility support is established.
 Python Connector/Python `cursor(prepared=True)` is now an explicit design case:
 routing, per-session prepared state and binary protocol support are separate
 requirements. Source inspection found prepare/reset/execute/close plus metadata
-handling; implementation and runtime acceptance remain pending.
+handling; bounded spike results are recorded below; production runtime acceptance remains pending.
 Go explicit DB/Tx/Conn prepared statements are equally explicit design cases:
 the current interpolation-enabled DSN does not make explicit Prepare supported.
 The Human approved prepared support in both languages as a mandatory part of
@@ -712,11 +712,18 @@ the one-line-switching goal. Disabling prepared use, changing application SQL or
 silently substituting interpolation does not satisfy that goal.
 The [prepared implementation alternatives](reviews/v06x-prepared-design.md)
 recommend a bounded guest `mysql_stmt_*` bridge spike. Embedded API source exists,
-but parameter metadata is a known API gap; runtime feasibility is unproven.
+with the API parameter-metadata gap investigated against the native server in the spike.
 On 2026-10-19 the Human approved that bounded spike, including experimental
 patch isolation, fixed inputs, independent regeneration, explicit PASS/FAIL/SKIP
 and guest rebase/maintenance budgeting. Production implementation remains pending
 Human Review of the results.
+The [prepared bridge spike results](reviews/v06x-prepared-spike.md) establish bounded
+real-guest feasibility on macOS arm64 (Go DB/Tx/Conn and configured Python prepared
+execution, independent generation and retained J1 failure oracle). Default
+Connector/Python connection still fails at the unchanged MULTI_STATEMENTS capability
+gate; full types/errors/lifecycle and native Ubuntu acceptance remain incomplete.
+Production implementation is recommended, **awaiting Human decision**; this is
+not main adoption, Qualification or release approval.
 
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage

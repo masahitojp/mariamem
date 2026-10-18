@@ -1,0 +1,15 @@
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+go: downloading filippo.io/edwards25519 v1.1.0
+[
+  {
+    "case": "go-explicit-implicit-and-lifecycle",
+    "result": "PASS",
+    "detail": {
+      "DB_Tx_Conn": true,
+      "driver": "v1.9.3",
+      "explicit": true,
+      "implicit": true,
+      "interpolation_enabled_explicit": true
+    }
+  }
+]

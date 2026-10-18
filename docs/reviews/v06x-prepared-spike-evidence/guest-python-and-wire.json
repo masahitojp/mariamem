@@ -1,0 +1,35 @@
+[
+  {
+    "case": "typed-values-pure",
+    "result": "FAIL",
+    "error": "ProgrammingError(1235, '1235 (42000): unsupported connection capabilities', '42000')"
+  },
+  {
+    "case": "prepare-error-pure",
+    "result": "FAIL",
+    "error": "ProgrammingError(1235, '1235 (42000): unsupported connection capabilities', '42000')"
+  },
+  {
+    "case": "typed-values-cext",
+    "result": "FAIL",
+    "error": "ProgrammingError(1235, '1235 (42000): unsupported connection capabilities', '42000')"
+  },
+  {
+    "case": "prepare-error-cext",
+    "result": "FAIL",
+    "error": "ProgrammingError(1235, '1235 (42000): unsupported connection capabilities', '42000')"
+  },
+  {
+    "case": "execute-type-descriptor-reuse",
+    "result": "PASS",
+    "detail": [
+      -17,
+      91
+    ]
+  },
+  {
+    "case": "long-data-chunks-no-response-then-execute",
+    "result": "PASS",
+    "detail": "000008706172740074776f"
+  }
+]

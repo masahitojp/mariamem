@@ -1,0 +1,168 @@
+{
+  "version": "12.3.3-MariaDB-ubu2404",
+  "cases": [
+    {
+      "sql": "SELECT * FROM go_prepared WHERE id=?",
+      "params": [
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "table": "go_prepared",
+          "type": 8,
+          "charset": 63,
+          "flags": 20483,
+          "length": 20,
+          "decimals": 0,
+          "raw": "0364656604746573740b676f5f70726570617265640b676f5f70726570617265640269640269640c3f0014000000080350000000"
+        },
+        {
+          "name": "value",
+          "table": "go_prepared",
+          "type": 253,
+          "charset": 63,
+          "flags": 128,
+          "length": 100,
+          "decimals": 0,
+          "raw": "0364656604746573740b676f5f70726570617265640b676f5f70726570617265640576616c75650576616c75650c3f0064000000fd8000000000"
+        }
+      ]
+    },
+    {
+      "sql": "INSERT INTO go_prepared VALUES(?, ?)",
+      "params": [
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        },
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        }
+      ],
+      "columns": []
+    },
+    {
+      "sql": "UPDATE go_prepared SET value=? WHERE id=?",
+      "params": [
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        },
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        }
+      ],
+      "columns": []
+    },
+    {
+      "sql": "SELECT * FROM go_prepared LIMIT ?",
+      "params": [
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "table": "go_prepared",
+          "type": 8,
+          "charset": 63,
+          "flags": 20483,
+          "length": 20,
+          "decimals": 0,
+          "raw": "0364656604746573740b676f5f70726570617265640b676f5f70726570617265640269640269640c3f0014000000080350000000"
+        },
+        {
+          "name": "value",
+          "table": "go_prepared",
+          "type": 253,
+          "charset": 63,
+          "flags": 128,
+          "length": 100,
+          "decimals": 0,
+          "raw": "0364656604746573740b676f5f70726570617265640b676f5f70726570617265640576616c75650576616c75650c3f0064000000fd8000000000"
+        }
+      ]
+    },
+    {
+      "sql": "SELECT ? LIMIT ?",
+      "params": [
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        },
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        }
+      ],
+      "columns": [
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        }
+      ]
+    }
+  ]
+}

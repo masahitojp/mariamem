@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/scripts/build_generated_guest.py", line 154, in <module>
+    main()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/scripts/build_generated_guest.py", line 55, in main
+    out = external_output(ROOT, args.development_output)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/scripts/dev_guest.py", line 28, in external_output
+    require(not output.exists(), 'dev output must be fresh')
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/scripts/dev_guest.py", line 13, in require
+    raise ValueError(message)
+ValueError: dev output must be fresh

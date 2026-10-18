@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "files_sha256": {
+    "wasm/lite4mariadb.c": "36371135e87e647f0abd9ddb091b8768d0b2c25a13ad357dbc52666fbf7a3a24",
+    "wasm/prepared_spike.inc": "09ae54c02d24fba82b088eb5db725f00642027857be6a1c0bc60639c2644dd84"
+  },
+  "experimental_patch": {
+    "file": "guest/experimental.patch",
+    "sha256": "8fdb09f02fd27fe8d26d0e8782b5cc8a63020bb555af9afb5c8f4a4622bea099"
+  }
+}

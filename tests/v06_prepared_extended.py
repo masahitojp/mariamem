@@ -1,16 +1,17 @@
-"""Additional cases kept outside the clean build source until guest completion."""
+"""Bounded prepared consumer and raw-wire contrast oracles."""
 import argparse,importlib.util,json,sys,struct
 from pathlib import Path
 import mysql.connector,pymysql
 
-def cases(port):
+def cases(port, no_multi_statements=False):
+    flags = dict(client_flags=[-65536]) if no_multi_statements else {}
     out=[]
     def record(name,fn):
         try:detail=fn();out.append(dict(case=name,result='PASS',detail=detail))
         except Exception as e:out.append(dict(case=name,result='FAIL',error=repr(e)))
     for pure in (True,False):
         def execute_values(pure=pure):
-            c=mysql.connector.connect(host='127.0.0.1',port=port,user='root',database='test',use_pure=pure,autocommit=True,connection_timeout=10,read_timeout=20)
+            c=mysql.connector.connect(host='127.0.0.1',port=port,user='root',database='test',use_pure=pure,autocommit=True,connection_timeout=10,read_timeout=20,**flags)
             try:
                 q=c.cursor(prepared=True)
                 rows=[]
@@ -20,7 +21,7 @@ def cases(port):
             finally:c.close()
         record('typed-values-pure' if pure else 'typed-values-cext',execute_values)
         def syntax(pure=pure):
-            c=mysql.connector.connect(host='127.0.0.1',port=port,user='root',database='test',use_pure=pure,autocommit=True,connection_timeout=10,read_timeout=20)
+            c=mysql.connector.connect(host='127.0.0.1',port=port,user='root',database='test',use_pure=pure,autocommit=True,connection_timeout=10,read_timeout=20,**flags)
             try:
                 q=c.cursor(prepared=True)
                 try:q.execute('SELEC broken ?',(1,))
@@ -64,11 +65,11 @@ def cases(port):
     c.close()
     return out
 
-p=argparse.ArgumentParser();p.add_argument('--port',type=int);p.add_argument('--host');p.add_argument('--output',required=True);a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--port',type=int);p.add_argument('--host');p.add_argument('--output',required=True);p.add_argument('--no-multi-statements',action='store_true');a=p.parse_args()
 if a.host:
  import mariamem
- with mariamem.start(host_binary=a.host) as db:results=cases(db.connection_info()['port'])
-else:results=cases(a.port)
+ with mariamem.start(host_binary=a.host) as db:results=cases(db.connection_info()['port'],a.no_multi_statements)
+else:results=cases(a.port,a.no_multi_statements)
 Path(a.output).write_text(json.dumps(results,indent=2)+'\n')
 print(json.dumps(results,indent=2))
 sys.exit(any(x['result']=='FAIL' for x in results))

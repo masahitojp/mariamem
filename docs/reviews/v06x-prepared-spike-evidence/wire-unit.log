@@ -1,0 +1,2 @@
+go: downloading go1.26.8 (darwin/arm64)
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	0.370s

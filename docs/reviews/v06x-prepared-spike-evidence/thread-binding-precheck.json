@@ -1,0 +1,23 @@
+[
+  {
+    "path": "code/p3/p3_pure.go",
+    "function": "Fn153",
+    "expected": "b1d381957fd1d352e7ab741f3e7330c5ac77e1b6f20ddd465c497f51f7389d5b",
+    "actual": "7700544cce65958d2073cb961140bed4c7b3b0b33f658b28ac0851370a12b43f",
+    "same": false
+  },
+  {
+    "path": "code/p8/p8_pure.go",
+    "function": "Fn131",
+    "expected": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+    "actual": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+    "same": true
+  },
+  {
+    "path": "code/p5/p5_pure.go",
+    "function": "Fn216",
+    "expected": "7d0e1dee8ae23b77990a1c0ce7b2f56988a67f80003d6962a25dc2159b3de7eb",
+    "actual": "16f465fc8b73be894545ec6bc525658bd2a7d27257dba87fe4c3802fb7e00362",
+    "same": false
+  }
+]

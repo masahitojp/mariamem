@@ -1,0 +1,44 @@
+{
+  "result": "PASS",
+  "before_sha256": {
+    "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
+    "wasm/prepared_spike.inc": null
+  },
+  "after_sha256": {
+    "wasm/lite4mariadb.c": "36371135e87e647f0abd9ddb091b8768d0b2c25a13ad357dbc52666fbf7a3a24",
+    "wasm/prepared_spike.inc": "0125d9a8719bc2ef3ae91c9b9bd4e09bb2aa2ff0cfa53f7c442897a58966f954"
+  },
+  "operations": [
+    {
+      "command": [
+        "patch",
+        "--batch",
+        "--fuzz=0",
+        "-p1",
+        "-R",
+        "-i",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/guest/experimental.patch"
+      ],
+      "returncode": 0,
+      "stdout": "patching file 'wasm/lite4mariadb.c'\npatching file 'wasm/prepared_spike.inc'\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "patch",
+        "--batch",
+        "--fuzz=0",
+        "-p1",
+        "--forward",
+        "-i",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/guest/experimental.patch"
+      ],
+      "returncode": 0,
+      "stdout": "patching file 'wasm/lite4mariadb.c'\npatching file 'wasm/prepared_spike.inc'\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_patch_sha256": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16",
+  "baseline_prepared_source_sha256": "82276032cb4817437e83ee373f7c79ec80b805c3e86861f7f38b25d51472f2a5",
+  "baseline_preimage_match": "PASS"
+}

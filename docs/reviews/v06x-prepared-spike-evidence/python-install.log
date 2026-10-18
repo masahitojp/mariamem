@@ -1,0 +1,25 @@
+Collecting pytest==8.4.2
+  Downloading pytest-8.4.2-py3-none-any.whl.metadata (7.7 kB)
+Collecting PyMySQL==1.2.3
+  Downloading pymysql-1.2.3-py3-none-any.whl.metadata (4.2 kB)
+Collecting mysql-connector-python==9.4.0
+  Downloading mysql_connector_python-9.4.0-py2.py3-none-any.whl.metadata (7.3 kB)
+Collecting iniconfig>=1 (from pytest==8.4.2)
+  Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+Collecting packaging>=20 (from pytest==8.4.2)
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest==8.4.2)
+  Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+Collecting pygments>=2.7.2 (from pytest==8.4.2)
+  Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+Downloading pymysql-1.2.3-py3-none-any.whl (46 kB)
+Downloading mysql_connector_python-9.4.0-py2.py3-none-any.whl (406 kB)
+Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 5.1 MB/s  0:00:00
+Installing collected packages: PyMySQL, pygments, pluggy, packaging, mysql-connector-python, iniconfig, pytest
+
+Successfully installed PyMySQL-1.2.3 iniconfig-2.3.1 mysql-connector-python-9.4.0 packaging-26.3 pluggy-1.7.0 pygments-2.21.0 pytest-8.4.2

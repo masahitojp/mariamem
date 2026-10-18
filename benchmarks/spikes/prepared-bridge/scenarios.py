@@ -3,8 +3,9 @@ import argparse,io,json,struct
 import mysql.connector
 import pymysql
 
-def prepared_cases(port,pure):
-    c=mysql.connector.connect(host='127.0.0.1',port=port,user='root',database='test',use_pure=pure,autocommit=False)
+def prepared_cases(port,pure,no_multi_statements=False):
+    flags = dict(client_flags=[-65536]) if no_multi_statements else {}
+    c=mysql.connector.connect(host='127.0.0.1',port=port,user='root',database='test',use_pure=pure,autocommit=False,**flags)
     text=c.cursor();text.execute('DROP TABLE IF EXISTS prepared_items');text.execute('CREATE TABLE prepared_items(id BIGINT PRIMARY KEY, value VARBINARY(100)) ENGINE=InnoDB');c.commit()
     q=c.cursor(prepared=True)
     q.execute('SELECT ?, ?, ?',(-7,'hello',None));row=q.fetchone();assert row==(-7,'hello',None),row
@@ -48,12 +49,12 @@ def raw_cases(port):
     c.close()
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--port',type=int);p.add_argument('--host');p.add_argument('--output',required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--port',type=int);p.add_argument('--host');p.add_argument('--output',required=True);p.add_argument('--no-multi-statements',action='store_true');a=p.parse_args()
     records=[]
     def run(port):
         for pure in (True,False):
-            try:prepared_cases(port,pure)
-            except Exception as e:records.append(dict(case='python-pure' if pure else 'python-cext',result='FAIL',error=repr(e)));raise
+            try:prepared_cases(port,pure,a.no_multi_statements)
+            except Exception as e:records.append(dict(case='python-pure' if pure else 'python-cext',result='FAIL',error=repr(e)));continue
             records.append(dict(case='python-pure' if pure else 'python-cext',result='PASS'))
         raw_cases(port);records.append(dict(case='session-handles-and-no-response-close',result='PASS'))
     try:
@@ -63,4 +64,5 @@ def main():
         else:run(a.port)
     finally:
         with open(a.output,'w') as f:json.dump(records,f,indent=2)
-if __name__=='__main__':main()
+    return int(any(x['result']=='FAIL' for x in records))
+if __name__=='__main__':raise SystemExit(main())

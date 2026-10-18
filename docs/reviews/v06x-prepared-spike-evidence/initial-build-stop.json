@@ -1,0 +1,6 @@
+{
+  "source_commit": "430cb658891c415e5137de35d7c371032754bef2",
+  "result": "ABORTED",
+  "reason": "Source review found NULL result length may be uninitialized; fix experimental bridge and rebuild from new committed inputs",
+  "guest_artifact": false
+}

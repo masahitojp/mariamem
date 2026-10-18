@@ -151,6 +151,9 @@ still needs result draining, error/session semantics and a host/guest API, but m
 be cheaper for dump import than prepared support. It remains an independent
 capability and is not required to be implemented in this spike.
 
+Results of the authorized spike: [Human Review and evidence](v06x-prepared-spike.md).
+The historical proposal above is retained; the results document owns the current ask.
+
 ## Production work and acceptance after feasibility
 
 Provisional effort: **5–10 additional engineer-days**, not a delivery commitment:

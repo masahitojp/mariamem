@@ -1,0 +1,11 @@
+[
+  {
+    "case": "python-pure",
+    "result": "PASS"
+  },
+  {
+    "case": "python-cext",
+    "result": "FAIL",
+    "error": "AssertionError((2006, '2006 (HY000): MySQL server has gone away'))"
+  }
+]

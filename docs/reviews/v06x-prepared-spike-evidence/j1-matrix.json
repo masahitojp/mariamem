@@ -1,0 +1,56 @@
+[
+  {
+    "backing": "heap",
+    "race": false,
+    "command": [
+      "go",
+      "test",
+      "-count=1",
+      "-v",
+      "./probe"
+    ],
+    "exit_code": 0,
+    "log": "j1-protected-heap.log"
+  },
+  {
+    "backing": "mmap",
+    "race": false,
+    "command": [
+      "go",
+      "test",
+      "-count=1",
+      "-v",
+      "./probe"
+    ],
+    "exit_code": 0,
+    "log": "j1-protected-mmap.log"
+  },
+  {
+    "backing": "heap",
+    "race": true,
+    "command": [
+      "go",
+      "test",
+      "-count=1",
+      "-v",
+      "-race",
+      "./probe"
+    ],
+    "exit_code": 0,
+    "log": "j1-protected-heap-race.log"
+  },
+  {
+    "backing": "mmap",
+    "race": true,
+    "command": [
+      "go",
+      "test",
+      "-count=1",
+      "-v",
+      "-race",
+      "./probe"
+    ],
+    "exit_code": 0,
+    "log": "j1-protected-mmap-race.log"
+  }
+]

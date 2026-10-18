@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/temp/consumer-venv/lib/python3.11/site-packages/mysql/connector/connection_cext.py", line 682, in cmd_stmt_prepare
+    stmt = self._cmysql.stmt_prepare(statement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_mysql_connector.MySQLInterfaceError: MySQL server has gone away
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/benchmarks/spikes/prepared-bridge/scenarios.py", line 17, in prepared_cases
+    try:q.execute('SELEC broken ?',(1,))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/temp/consumer-venv/lib/python3.11/site-packages/mysql/connector/cursor_cext.py", line 1156, in execute
+    self._stmt = self._connection.cmd_stmt_prepare(operation)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/temp/consumer-venv/lib/python3.11/site-packages/mysql/connector/connection_cext.py", line 687, in cmd_stmt_prepare
+    raise get_mysql_exception(
+mysql.connector.errors.DatabaseError: 2006 (HY000): MySQL server has gone away
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/benchmarks/spikes/prepared-bridge/scenarios.py", line 66, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/benchmarks/spikes/prepared-bridge/scenarios.py", line 63, in main
+    else:run(a.port)
+         ^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/benchmarks/spikes/prepared-bridge/scenarios.py", line 55, in run
+    try:prepared_cases(port,pure)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/benchmarks/spikes/prepared-bridge/scenarios.py", line 18, in prepared_cases
+    except mysql.connector.Error as e:assert e.errno==1064,(e.errno,str(e))
+                                             ^^^^^^^^^^^^^
+AssertionError: (2006, '2006 (HY000): MySQL server has gone away')

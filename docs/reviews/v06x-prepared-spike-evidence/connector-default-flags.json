@@ -1,0 +1,7 @@
+{
+  "default": 3383821,
+  "multi_statements": 65536,
+  "ssl": 2048,
+  "default_multi": true,
+  "default_ssl": false
+}

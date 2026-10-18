@@ -1,0 +1,79 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_dev_fresh_transactions_snapshot_children_and_close ____________
+
+    def test_dev_fresh_transactions_snapshot_children_and_close():
+        children = []
+        with mariamem.start(host_binary=HOST) as db:
+            children.append(db)
+            with pymysql.connect(**db.connection_info()) as c:
+                with c.cursor() as q:
+                    q.execute('SELECT 1')
+                    assert q.fetchone() == (1,)
+                    q.execute('CREATE TABLE dev_items(id INT PRIMARY KEY) ENGINE=InnoDB')
+                    q.execute('INSERT INTO dev_items VALUES(1)')
+                    c.commit()
+                    q.execute('INSERT INTO dev_items VALUES(2)')
+                    c.rollback()
+                    q.execute('SELECT id FROM dev_items ORDER BY id')
+                    assert q.fetchall() == ((1,),)
+>           with db.snapshot() as baseline:
+                 ^^^^^^^^^^^^^
+
+tests/test_dev_guest_smoke.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../temp/dev-native-a2/product/python/mariamem/__init__.py:199: in snapshot
+    reply = self._request("snapshot", response_timeout=None, rollback=rollback, timeout=f"{timeout}s")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../temp/dev-native-a2/product/python/mariamem/__init__.py:139: in _request
+    return self._session.request(op, response_timeout=response_timeout, handle=self._handle, **fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <mariamem._session.Session object at 0x10a647450>, op = 'snapshot'
+response_timeout = None
+fields = {'handle': 1, 'rollback': False, 'timeout': '120s'}
+HostError = <class 'mariamem.HostError'>, Busy = <class 'mariamem.Busy'>
+TransactionActive = <class 'mariamem.TransactionActive'>
+pending = <mariamem._session._Reply object at 0x10a62f510>, identifier = 4
+reply = {'closed': False, 'error': {'code': 'busy', 'message': 'handshake, query or session cleanup is active', 'stage': 'host_control'}, 'id': 4, 'logs': '', ...}
+
+    def request(self, op, response_timeout=None, **fields):
+        from . import HostError, Busy, TransactionActive
+        pending = _Reply()
+        with self._lock:
+            if self._failure is not None:
+                raise self._failure
+            self._sequence += 1
+            identifier = self._sequence
+            self._pending[identifier] = pending
+        try:
+            self._send(dict(id=identifier, op=op, **fields))
+        except (OSError, ValueError) as exc:
+            self._fail(HostError("Shared host control pipe closed: " + str(exc),
+                                 code="unusable", stage="host_control", closed=True))
+        if not pending.ready.wait(response_timeout):
+            with self._lock:
+                if not pending.ready.is_set():
+                    pending.abandoned = True
+                    try:
+                        self._send(dict(op="cancel", target=identifier))
+                    except (OSError, ValueError):
+                        pass
+                    # Keep the pending owner until the late reply is collected.
+                    # A late created handle is closed by _read, not leaked.
+                    raise TimeoutError("Host control response timed out; the request was cancelled")
+        reply = pending.value
+        if isinstance(reply, BaseException):
+            raise reply
+        if not reply.get("ok"):
+            error = reply.get("error", {})
+            cls = {"busy": Busy, "transaction_active": TransactionActive}.get(error.get("code"), HostError)
+>           raise cls(error.get("message", "Host request failed"), code=error.get("code"),
+                      stage=error.get("stage"), closed=reply.get("closed", op in ("start", "fork")))
+E           mariamem.Busy: handshake, query or session cleanup is active
+
+../temp/dev-native-a2/product/python/mariamem/_session.py:125: Busy
+=========================== short test summary info ============================
+FAILED tests/test_dev_guest_smoke.py::test_dev_fresh_transactions_snapshot_children_and_close
+1 failed in 0.45s

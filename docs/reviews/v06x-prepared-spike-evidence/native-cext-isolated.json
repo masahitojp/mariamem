@@ -1,0 +1,24 @@
+[
+  {
+    "pure": true,
+    "case": "fresh-syntax-error",
+    "errno": 1064,
+    "error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELEC broken ?' at line 1"
+  },
+  {
+    "pure": true,
+    "case": "text-after-error",
+    "result": "PASS"
+  },
+  {
+    "pure": false,
+    "case": "fresh-syntax-error",
+    "errno": 2006,
+    "error": "2006 (HY000): MySQL server has gone away"
+  },
+  {
+    "pure": false,
+    "case": "text-after-error",
+    "result": "PASS"
+  }
+]

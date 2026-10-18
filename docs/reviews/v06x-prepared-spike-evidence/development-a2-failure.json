@@ -1,0 +1,7 @@
+{
+  "contract": "development-unqualified-v1",
+  "exception": "CalledProcessError",
+  "guest_sha256": "e8f1b15e69194c860101496ed02ec684e34ad042bb3f6048630805ba656208ac",
+  "message": "Command '['/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/temp/consumer-venv/bin/python3', '-m', 'pytest', '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/v06-prepared/worktree/tests/test_dev_guest_smoke.py', '-q']' returned non-zero exit status 1.",
+  "result": "FAILED"
+}

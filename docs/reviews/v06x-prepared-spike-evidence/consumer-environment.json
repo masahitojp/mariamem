@@ -1,0 +1,11 @@
+{
+  "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "ssl": "OpenSSL 3.6.5 29 Sep 2026",
+  "connector_python": "9.4.0",
+  "cext_sha256": "95ec71740cb7f4636c4c848e0196a14a7daadf25b22bac0553491369d5504ec7",
+  "cext_bytes": 7668584,
+  "pymysql_distribution_version": "1.2.3",
+  "pymysql_api_compatibility_version": "2.2.8"
+}

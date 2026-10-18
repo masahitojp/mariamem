@@ -1,0 +1,146 @@
+{
+  "version": "12.3.3-MariaDB-ubu2404",
+  "cases": [
+    {
+      "sql": "SELECT ?, ?, ?",
+      "params": [
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        },
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        },
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        }
+      ],
+      "columns": [
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        },
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        },
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        }
+      ]
+    },
+    {
+      "sql": "SELECT CAST(? AS SIGNED), CAST(? AS CHAR)",
+      "params": [
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        },
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        }
+      ],
+      "columns": [
+        {
+          "name": "CAST(? AS SIGNED)",
+          "table": "",
+          "type": 3,
+          "charset": 63,
+          "flags": 128,
+          "length": 2,
+          "decimals": 0,
+          "raw": "036465660000001143415354283f204153205349474e454429000c3f0002000000038000000000"
+        },
+        {
+          "name": "CAST(? AS CHAR)",
+          "table": "",
+          "type": 253,
+          "charset": 224,
+          "flags": 0,
+          "length": 0,
+          "decimals": 0,
+          "raw": "036465660000000f43415354283f204153204348415229000ce00000000000fd0000000000"
+        }
+      ]
+    },
+    {
+      "sql": "SELECT 1 WHERE ? IS NULL",
+      "params": [
+        {
+          "name": "?",
+          "table": "",
+          "type": 6,
+          "charset": 63,
+          "flags": 128,
+          "length": 0,
+          "decimals": 0,
+          "raw": "03646566000000013f000c3f0000000000068000000000"
+        }
+      ],
+      "columns": [
+        {
+          "name": "1",
+          "table": "",
+          "type": 3,
+          "charset": 63,
+          "flags": 129,
+          "length": 1,
+          "decimals": 0,
+          "raw": "036465660000000131000c3f0001000000038100000000"
+        }
+      ]
+    }
+  ]
+}
