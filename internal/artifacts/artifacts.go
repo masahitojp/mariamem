@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/timing"
 	"os"
 	"os/exec"
 	"runtime"
@@ -14,7 +15,10 @@ import (
 
 // ValidatePlatform checks supported OS/architecture without runtime discovery.
 func ValidatePlatform(ctx context.Context) error {
+	ctx, finishTiming := timing.Begin(ctx, "platform_check")
+	defer finishTiming()
 	platform, major, err := currentTarget(ctx)
+	timing.Mark(ctx, "target_detected")
 	if err != nil {
 		return err
 	}
