@@ -1,11 +1,11 @@
-# v0.5.x 残件リスト（2026-10-17 時点）
+# v0.5.x 残件リスト（2026-10-18 更新）
 
 v0.5.2 公開と関連する Human 決定を反映した残件のスナップショット。
 新しい計測や runtime 変更は行っていない。個々の決定は
 [project-status](../project-status.md) が所有し、本書は「現在アクティブな残件」と
 「次の判断」を一覧するために置く。
 
-本版の基準: main `15b694f`（startup tail、scalar/SIMD、purge 比較、Ubuntu 性能確認の受理と証拠統合まで反映）。
+本版の基準: main `df90c09`（Ubuntu 性能受理、child-lifecycle 帰属の受理と 0.5.x 最適化範囲まで反映）。
 スナップショットのため、各項目の最新状態は [project-status](../project-status.md) を正とする。
 
 2026-10-18追記: Ubuntu性能確認はHuman受理によりクローズ。他項目の基準日は上記のとおり。
@@ -14,7 +14,8 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 | # | 残件 | 現状 | 次の判断／作業 |
 | --- | --- | --- | --- |
-| 2 | 子 Fork 起動と子 Close の費用帰属 | 未着手 | 子の Fork 起動と Close の費用を計測し、時間を使っている処理を特定する。計測と原因特定までをゴールとし、修正・最適化の選定は範囲外 |
+| 2a | Ubuntu・10MiB の並列起動の限定調査 | Human 承認済み・未着手（先行） | 起動同士の競合と他の子の SQL/終了との重なりを区別し主要因を特定。per-child と 4子全体の実経過時間を共に評価。guest 改善の方式選定・実装へ広げない |
+| 2b | macOS の OS 確認結果の再利用 | Human 承認済み・未着手（2a の後） | DB 内部を変えず小修正と効果確認。対応OS拒否・キャンセル/失敗・並列起動時の正しさを維持 |
 | 3 | 16 接続/DB の接続数調整 | 0.5.x スコープに追加済み | 実需要と資源効果を確認してから上限変更を検討する |
 | 4 | 信頼スコープ再設計 | 未着手 | 着手前に別 Human Review（dependency closure と negative proof）が必要 |
 
@@ -30,10 +31,12 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 | 6 | startup tail の記述 | 整合済み。v0.5.1 Release CI（`7a82f338…`）が page-cleaner 修正を含む最終 source を両 native で検証済み |
 | 7 | 共有メモリ一般モデル / purge 保護前提 | 未確立の限界として受理。R1–R5・T1/T2/J1・scalar/SIMD 照合・purge 限定比較は完了。一般 Wasm→Go の正しさは未確立、purge 保護前提は未確認の限界 |
 | 8 | Ubuntu 性能 | 2026-10-18にHuman受理、完了。[結果Review](ubuntu-product-performance-results.md)。Snapshotの利益と大規模Pythonの混在結果・原因未確定を保存。全workloadの改善を意味しない |
+| 9 | 子 Fork 起動・Close の費用帰属 | 2026-10-18にHuman受理、完了。[帰属Review](https://github.com/masahitojp/mariamem/blob/bbf5d1c27f3cea3e2135e8fae053f875ceb234b5/docs/reviews/child-lifecycle-attribution.md)。両native各40実行で Fork は guest 初期化、Close は guest 終了＋linear memory 解放が主。修正・最適化の選定は別判断 |
+| 10 | guest 初期化の改善候補選定 | Human 決定により 0.7.x へ延期。0.5.x の並列起動調査の証拠を引き継ぐ。方式・実装は未承認 |
 
 ## 実質残るもの
 
-- **子 Fork 起動・Close の費用帰属** — 計測と原因特定（実装は別）。
+- **今回の最適化は2件** — Ubuntu 並列起動の限定調査（2a）→ macOS の OS 確認再利用（2b）。guest 初期化の改善候補選定は 0.7.x。
 - **16 接続調整** — 0.5.x 入りしたので需要・資源効果の確認。
 - **信頼スコープ再設計** — 着手ゲートのまま。
 
@@ -49,6 +52,8 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 | 日付 | 決定 | 記録 |
 | --- | --- | --- |
+| 2026-10-18 | 子 Fork 起動・Close の費用帰属を完了として受理 | [帰属Review](https://github.com/masahitojp/mariamem/blob/bbf5d1c27f3cea3e2135e8fae053f875ceb234b5/docs/reviews/child-lifecycle-attribution.md)、本台帳 クローズ #9 |
+| 2026-10-18 | 0.5.x の child-lifecycle 最適化範囲を Ubuntu 並列起動の限定調査（2a）と macOS の OS 確認再利用（2b）に限定。guest 初期化の改善候補選定は v0.7.x へ | project-status、本台帳 2a/2b、クローズ #10 |
 | 2026-10-18 | Ubuntu性能確認の資料・保存証拠・計測ツールのmain統合とpushを別途承認。runtime変更・追加計測・公開は含めない | project-status、[結果Review](ubuntu-product-performance-results.md) |
 | 2026-10-18 | Ubuntu性能確認を完了として受理。大規模Pythonの悪化・原因未確定は留保し、追加調査・main統合・リリースは今回の承認に含めない | [結果Review](ubuntu-product-performance-results.md)、本台帳 クローズ #8 |
 | 2026-10-17 | 接続数調整より先にUbuntu性能確認を実施する | [固定scope](ubuntu-product-performance.md)、本台帳 クローズ #8 |
@@ -61,6 +66,6 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 - [post-v0.5 共有メモリ照合](shared-memory-post-v05-reassessment.md)
 - [main Product Verification](main-product-verification.md)
-- [Fast architecture review](../benchmarks/fast-architecture-review.md)
+- [Fast architecture review](../../benchmarks/fast-architecture-review.md)
 - [verification-economics の deferred 変更](v045-verification-economics.md)
 - [project-status](../project-status.md) / [releasing](../releasing.md)

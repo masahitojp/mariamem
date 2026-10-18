@@ -323,10 +323,35 @@ distinct from the FD/resource-model pressure observation, which is assigned to
 v0.6.0 dogfood above. The current active and closed items are listed in the
 [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
 
-**In 0.5.x scope: child Fork startup and child Close attribution.** Measure the
-cost of creating a Fork child and of Close, and identify which phases own that
-time. The task ends at measurement and cause identification; selecting or
-implementing a fix is a separate decision.
+**Child Fork startup and child Close attribution — accepted 2026-10-18.** The
+[bounded attribution](https://github.com/masahitojp/mariamem/blob/bbf5d1c27f3cea3e2135e8fae053f875ceb234b5/docs/reviews/child-lifecycle-attribution.md)
+completed 40 fixed executions on each native platform (macOS local; Ubuntu source
+`e4a5522ca475f73b56f23b08a725354eafb81b19` in
+[run 39083277771](https://github.com/masahitojp/mariamem/actions/runs/39083277771),
+artifact identity and all cells/traces/aggregates independently reconciled).
+Guest server initialization dominates Fork on both platforms; the repeated OS
+check adds material cost only on macOS. Actual DB Close is separate from SQL
+disconnect waiting and is mainly guest shutdown and linear memory release.
+Investigation #2 met its exit criteria and the Human accepted it on 2026-10-18.
+Acceptance does not itself approve an optimization or main integration.
+
+**Human-approved child-lifecycle optimization scope — 2026-10-18:** for this
+workstream, v0.5.x is limited to these two actions, in order:
+1. Investigate Ubuntu 10MiB parallel startup: distinguish startup contention
+   from overlap with other children’s SQL/cleanup and identify the principal
+   cause. Observed guest open-to-ready is 65.84ms serial versus 133.95ms with
+   four workers (60.62ms is the different Light case). Compare per-child latency
+   and whole-suite elapsed time. This authorizes the bounded investigation, not
+   guest-initialization optimization implementation.
+2. Implement and measure reuse of successful macOS platform checks, preserving
+   unsupported-platform rejection, cancellation/failure behavior and concurrent
+   startup correctness. Keep DB internals unchanged.
+
+Guest-initialization improvement candidate selection is scheduled for v0.7.x,
+using the investigation evidence; it is not a v0.5.x task. Main integration and
+release remain separate decisions. These actions are approved but not yet
+started. Other previously recorded roadmap items are not cancelled by this
+workstream decision.
 
 The Human prioritized native Ubuntu performance measurement next. The
 [fixed-scope campaign](reviews/ubuntu-product-performance.md) completed 246
@@ -579,6 +604,14 @@ change is reopened only if that evidence shows pressure.
 New run-wide baseline fixture ergonomics are deferred here. Existing session
 fixtures remain worker-local under xdist. Do not promise new framework/platform
 compatibility or introduce automatic cache policy before use-case evidence.
+
+## v0.7.x — Guest initialization optimization candidate selection
+
+The Human scheduled selection of guest-initialization improvements for v0.7.x
+on 2026-10-18. Reuse the child-lifecycle attribution and the v0.5.x bounded
+Ubuntu parallel-startup investigation. Potential directions include guest
+allocation/growth and collation initialization; no method, expected saving or
+implementation is approved yet. This work is outside the two v0.5.x actions above.
 
 ## Development discipline
 
