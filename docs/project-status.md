@@ -695,6 +695,11 @@ Wire work is host-side and does not add a guest patch. The deliverable is a gap
 inventory plus dogfood evidence and a Human decision on which commands/flags to
 implement; no protocol change is approved yet.
 
+The [v0.6.x kickoff notes](reviews/v06x-kickoff-notes.md) consolidate the wire gap
+inventory, fixture/test UX findings, dump/binlog assessment, the stable-endpoint
+verification theme, additional scope candidates and the suggested priority order.
+Discovery notes only; not approval.
+
 ## v0.7.x — Guest initialization optimization candidate selection
 
 The Human scheduled selection of guest-initialization improvements for v0.7.x
@@ -705,6 +710,10 @@ implementation is approved yet. The Human also scheduled large-scale tuning here
 specifically the 100MiB case and other preparation-heavy workflows where guest
 initialization dominates. Config/host levers come before guest patches. This work
 is outside the two v0.5.x actions above.
+
+The [v0.6.x kickoff notes](reviews/v06x-kickoff-notes.md) record the strategy of
+using pgmem only as a matched floor reference (after a matched measurement) and
+the v0.6/v0.7 split.
 
 ## Development discipline
 
