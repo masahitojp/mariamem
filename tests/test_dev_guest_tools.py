@@ -155,6 +155,9 @@ def test_historical_guest_origin_allows_only_bound_host_stage_changes(tmp_path):
     (root/'scripts/dev_guest.py').write_text('old host stage')
     (root/'scripts/runtime_thread_lifetime.py').write_text('old exact binding')
     (root/'guest/source.patch').write_text('guest patch')
+    (root/'internal/mysqlwire').mkdir(parents=True)
+    (root/'internal/mysqlwire/wire.go').write_text('old authored host')
+    (root/'internal/mysqlwire/multi_spike_test.go').write_text('old host test')
     def git(*args):
         return subprocess.check_output(['git',*args],cwd=root,text=True)
     git('init','-q');git('config','user.name','fixture');git('config','user.email','fixture@example.invalid')
@@ -162,11 +165,22 @@ def test_historical_guest_origin_allows_only_bound_host_stage_changes(tmp_path):
     origin=dev.source_identity(root)
     (root/'scripts/dev_guest.py').write_text('fixed host stage')
     (root/'scripts/runtime_thread_lifetime.py').write_text('reviewed exact binding')
+    (root/'internal/mysqlwire/wire.go').write_text('fixed authored host')
+    (root/'internal/mysqlwire/multi_spike_test.go').write_text('fixed host test')
     git('add','.');git('commit','-qm','host fix')
     dev.verify_source_origin(root,origin)
     wrong=copy.deepcopy(origin);wrong['files_sha256']['scripts/dev_guest.py']='f'*64
     with pytest.raises(ValueError,match='historical source hash'):
         dev.verify_source_origin(root,wrong)
+    wrong=copy.deepcopy(origin);wrong['files_sha256']['internal/mysqlwire/wire.go']='f'*64
+    with pytest.raises(ValueError,match='historical source hash'):
+        dev.verify_source_origin(root,wrong)
+    (root/'internal/mysqlwire/unclassified.go').write_text('unclassified input')
+    git('add','.');git('commit','-qm','unclassified addition')
+    with pytest.raises(ValueError,match='fresh guest build'):
+        dev.verify_source_origin(root,origin)
+    (root/'internal/mysqlwire/unclassified.go').unlink()
+    git('add','.');git('commit','-qm','remove unclassified addition')
     (root/'guest/source.patch').write_text('different guest')
     git('add','.');git('commit','-qm','guest change')
     with pytest.raises(ValueError,match='fresh guest build'):

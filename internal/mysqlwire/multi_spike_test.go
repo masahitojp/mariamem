@@ -2,6 +2,7 @@ package mysqlwire
 
 import (
 	"encoding/binary"
+	"encoding/hex"
 	"github.com/masahitojp/mariamem/internal/guest"
 	"testing"
 )
@@ -38,6 +39,25 @@ func TestSpikeMultiMalformedEnvelope(t *testing.T) {
 	for _, parts := range [][]guest.Result{{}, {bad, ok}, {{Version: 2, OK: true, Results: []guest.Result{ok}}}} {
 		if _, err := packets(guest.Result{Version: 2, OK: true, Results: parts}); err == nil {
 			t.Fatal("accepted malformed result chain")
+		}
+	}
+}
+
+func TestSpikeSetOptionValidationMatchesNativeUnknownOption(t *testing.T) {
+	for _, payload := range [][]byte{{0, 0}, {1, 0}} {
+		if setOptionError(payload) != nil {
+			t.Fatal("valid option rejected")
+		}
+	}
+	// Captured unchanged from the pinned native MariaDB 12.3.3 COM_SET_OPTION.
+	expected, _ := hex.DecodeString("ff1704233038533031556e6b6e6f776e20636f6d6d616e64")
+	got := setOptionError([]byte{255, 255})
+	if string(got) != string(expected) {
+		t.Fatalf("unknown option packet %x", got)
+	}
+	for _, payload := range [][]byte{nil, {0}, {0, 0, 0}} {
+		if setOptionError(payload) == nil {
+			t.Fatal("invalid option size accepted")
 		}
 	}
 }

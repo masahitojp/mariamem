@@ -134,6 +134,18 @@ func (w *wire) callGuest(p *guest.Process, op byte, slot uint32, sql []byte) (gu
 	_ = w.conn.SetReadDeadline(time.Time{})
 	return result.result, result.err
 }
+
+// SET_OPTION has two standard values. Validate its wire domain before calling
+// the embedded API, whose invalid-option failure does not populate MYSQL errno.
+func setOptionError(payload []byte) []byte {
+	if len(payload) != 2 {
+		return ErrorPacket(1235, "HY000", "invalid set-option packet")
+	}
+	if binary.LittleEndian.Uint16(payload) > 1 {
+		return ErrorPacket(1047, "08S01", "Unknown command")
+	}
+	return nil
+}
 func le16(n uint16) []byte { return []byte{byte(n), byte(n >> 8)} }
 func le32(n uint32) []byte { return []byte{byte(n), byte(n >> 8), byte(n >> 16), byte(n >> 24)} }
 func leint(n uint64) []byte {
@@ -449,6 +461,9 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			return errors.New("set-option bridge version mismatch")
 		}
 		if !r.OK {
+			if r.Errno == 0 {
+				return errors.New("embedded option API failed without error details")
+			}
 			_ = w.send(ErrorPacket(r.Errno, r.SQLState, r.Error))
 			return nil
 		}
@@ -494,6 +509,12 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		case 2:
 			r, e = use(request[1:], true)
 		case 22, 23, 24, 25, 26, 27:
+			if request[0] == 27 {
+				if bad := setOptionError(request[1:]); bad != nil {
+					replies = [][]byte{bad}
+					break
+				}
+			}
 			// No-response commands are serialized via internal ack, without the
 			// query read-ahead monitor consuming the following client command.
 			if request[0] == 24 || request[0] == 25 {
@@ -507,6 +528,9 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			if e != nil {
 				_ = w.send(fatalPacket(e))
 				return e
+			}
+			if request[0] == 27 && !r.OK && r.Errno == 0 {
+				return errors.New("embedded option API failed without error details")
 			}
 			if request[0] == 24 || request[0] == 25 {
 				// Prototype terminates on a failed no-response command; never

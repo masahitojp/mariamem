@@ -73,7 +73,8 @@ def verify_source_origin(root, origin):
         require(set(origin['files_sha256']) == old_names, 'guest origin source inventory missing/mismatched')
         changed = set(git('diff','--name-only',origin['commit'],current['commit']).decode().splitlines())
         host_stages = {'scripts/dev_guest.py','scripts/generate_runtime.py','scripts/regenerate_release_guest.py',
-                       'scripts/runtime_thread_lifetime.py'}
+                       'scripts/runtime_thread_lifetime.py',
+                       'internal/mysqlwire/wire.go','internal/mysqlwire/multi_spike_test.go'}
         require(all(n in host_stages or n.startswith(('docs/','tests/')) for n in changed),
                 'guest source/build inputs changed; fresh guest build required')
         for name, sha in origin['files_sha256'].items():
