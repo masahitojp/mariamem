@@ -70,9 +70,37 @@ Candidate mariamem v0.6 UX items:
 - **cheap, plugin-only**: a `shadow_mariamem`-style driver routing to a fork
   (PyMySQL/SQLAlchemy/Go mysql), a Go `mariamemtest` helper with `t.Cleanup`, a
   `prepare` hook, an env/DSN helper.
-- **architectural**: stable endpoint + in-place reset. This needs a relay/proxy
-  layer and changes the current "Fork = new endpoint / Snapshot consumes source"
-  contract → separate design decision.
+- **architectural / verification theme**: stable endpoint + in-place reset (see
+  below). This needs a relay/session layer and changes the current "Fork = new
+  endpoint / Snapshot consumes source" contract → separate design decision.
+
+### Verification theme (spike): stable endpoint + in-place reset
+
+Hypothesis to test, **not an approved implementation**. Today every database owns
+an ephemeral listener (`internal/host/server.go`, `net.Listen("tcp4",
+"127.0.0.1:0")`), `Fork` creates a new endpoint, and `Snapshot` consumes its
+source. A "live" endpoint would keep the listener/port and client sockets while
+the guest backend is re-materialized from a baseline.
+
+Bounded questions to resolve before any implementation:
+
+1. Can a running `Server` restart its guest in place from the same baseline
+   (`stored.Owned` / `restore.Acquire`) without changing the listener or port?
+2. Can `clients`/`slots` and `internal/mysqlwire` session state survive the
+   backend swap, and what is the correct behavior for an open transaction
+   (`busy`/wait) and for sessions from the previous backend?
+3. Does the Python shared host (one host, multiple databases) fit a per-DB relay,
+   or does the current one-guest-per-database assumption block it?
+4. Is a wire session reset (`COM_RESET_CONNECTION`) needed, or can the relay
+   present a fresh session without it?
+5. Does this need any guest change? Expectation: none (the guest restarts like a
+   Fork), but confirm.
+
+Exit conditions: a bounded spike on a pinned commit that demonstrates or refutes
+in-place restart on a stable endpoint, with the invariants above stated. Any
+implementation, and whether HTTP-app `live=True` is worth it, is a separate
+Human decision. The cheaper driver-routing path above is independent and does not
+need this.
 
 ## 3. Dump / restore as fixture preparation
 
@@ -111,5 +139,7 @@ Candidate mariamem v0.6 UX items:
    `reset` (stable endpoint), `pgmemtest` and driver routing.
 3. Human decision on: which wire commands to implement, which fixture-UX helpers
    to add, and whether the stable-endpoint reset is in scope.
+4. Resolve the stable-endpoint verification theme (spike) before deciding whether
+   HTTP-app `live=True` is in scope.
 
 Draft only. No runtime, wire, guest, generated source or public contract changes.
