@@ -354,7 +354,11 @@ Guest-initialization improvement candidate selection is scheduled for v0.7.x,
 using the investigation evidence; it is not a v0.5.x task. Main integration and
 release remain separate decisions. The Human approved the
 [success-cache design](reviews/macos-platform-cache-design.md) for implementation
-and bounded measurement on 2026-10-18, with review gaps to close first. Item 2
+and bounded measurement on 2026-10-18, with review gaps to close first. The
+[implemented candidate and bounded macOS results](reviews/macos-platform-cache-results.md)
+record passing unit/race and lifecycle checks, 32 measured executions, faster
+subsequent Forks and child-suite medians, plus initial-Python/parallel-Close
+uncertainty. Native focused CI and adoption review remain pending. Item 2
 has not started. Other previously recorded roadmap items are not cancelled by
 this workstream decision.
 

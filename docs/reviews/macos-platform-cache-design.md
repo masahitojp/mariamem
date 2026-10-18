@@ -1,5 +1,8 @@
 # macOS OS確認結果の再利用：設計とHuman Review
 
+2026-10-18：Human承認済み。以下は設計時の提案・検証計画。現在の到達点は
+[実装・検証資料](macos-platform-cache-results.md)を参照。
+
 ## 今回の判断
 
 **推薦：対応macOSの確認成功だけをGoプロセス内で再利用する最小実装へ進む。**

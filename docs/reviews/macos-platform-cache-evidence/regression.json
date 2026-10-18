@@ -1,0 +1,35 @@
+[
+  {
+    "name": "go-lifecycle",
+    "command": [
+      "<user-home>/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin/go",
+      "test",
+      "-p",
+      "1",
+      "-tags=integration",
+      "./tests/godefault",
+      "-run",
+      "TestDefaultNoBundleAndForkIsolation|TestDefaultRepeatedConcurrentLifecycle|TestDefaultReleaseFailurePaths|TestMemorySnapshotIndependentLifecycle",
+      "-count=1",
+      "-timeout=3m",
+      "-v"
+    ],
+    "returncode": 0,
+    "source_commit": "160b272e1ce217f1ef2b7d9da19a2ad643927297"
+  },
+  {
+    "name": "python-lifecycle",
+    "command": [
+      "<work>/temp/venv/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_python_diagnostics.py",
+      "tests/test_python_multiclient.py",
+      "tests/test_owned_snapshot.py::test_many_order_and_parallel_siblings",
+      "tests/test_owned_snapshot.py::test_modified_child_creates_new_baseline_without_changing_parent",
+      "-q"
+    ],
+    "returncode": 0,
+    "source_commit": "160b272e1ce217f1ef2b7d9da19a2ad643927297"
+  }
+]

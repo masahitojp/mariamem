@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "exact_case_inventory": 32,
+  "all_output_hashes": true,
+  "four_binary_hashes_and_exact_stamps": true,
+  "all_aggregates_recomputed": true,
+  "control_runtime_matches_main": true,
+  "guest_generated_release_input_difference": []
+}

@@ -43,7 +43,9 @@ def main():
     temp, evidence = work / 'temp', work / 'evidence'
     evidence.mkdir(exist_ok=True)
     env = dict(os.environ, GOTOOLCHAIN='go1.26.8', CGO_ENABLED='0',
-               GOCACHE=str(temp / 'gocache'), PYTHONDONTWRITEBYTECODE='1')
+               GOCACHE=str(temp / 'gocache'), PYTHONDONTWRITEBYTECODE='1',
+               TMPDIR=str(temp / 'compiler-temp'), GOTMPDIR=str(temp / 'compiler-temp'))
+    (temp / 'compiler-temp').mkdir(exist_ok=True)
     for key in ('MARIAMEM_NATIVE_DIR', 'MARIAMEM_TEST_HOST', 'MARIAMEM_RUNTIME'):
         env.pop(key, None)
     builds = {}

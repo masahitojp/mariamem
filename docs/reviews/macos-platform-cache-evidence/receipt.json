@@ -1,0 +1,290 @@
+[
+  {
+    "name": "go-w1-0-control",
+    "language": "go",
+    "workers": 1,
+    "trial": 0,
+    "label": "control",
+    "elapsed_seconds": 1.8862164579331875,
+    "output_sha256": "3d6127f3f97bc1042042073cf9c8db5c667a5be4737555df608764eee897d3d9"
+  },
+  {
+    "name": "go-w1-0-candidate",
+    "language": "go",
+    "workers": 1,
+    "trial": 0,
+    "label": "candidate",
+    "elapsed_seconds": 1.3616336667910218,
+    "output_sha256": "d2bdd6bba6adeee83b0c5aa85dcf91241756e7a6ace803b7dfc9a7513f6cd641"
+  },
+  {
+    "name": "go-w1-1-candidate",
+    "language": "go",
+    "workers": 1,
+    "trial": 1,
+    "label": "candidate",
+    "elapsed_seconds": 0.34137854212895036,
+    "output_sha256": "e4158364ef23fd84e54e8d97505987da685cccb11a323c62d235ff65aa0f8a6d"
+  },
+  {
+    "name": "go-w1-1-control",
+    "language": "go",
+    "workers": 1,
+    "trial": 1,
+    "label": "control",
+    "elapsed_seconds": 0.3983260418754071,
+    "output_sha256": "13568999009235faa9a9399034b96f66b3f377da0ea3eb99e3a72043876376fd"
+  },
+  {
+    "name": "go-w1-2-control",
+    "language": "go",
+    "workers": 1,
+    "trial": 2,
+    "label": "control",
+    "elapsed_seconds": 0.3979804159607738,
+    "output_sha256": "d90757a2a2fe730f967fa5aa74b9392f081616cf865a4e5ca36a62b42fc6ec15"
+  },
+  {
+    "name": "go-w1-2-candidate",
+    "language": "go",
+    "workers": 1,
+    "trial": 2,
+    "label": "candidate",
+    "elapsed_seconds": 0.3421243329066783,
+    "output_sha256": "0f310eeb78e945d49454120e2f76977bd388aa63425bcdade3dc729060ce56b5"
+  },
+  {
+    "name": "go-w1-3-candidate",
+    "language": "go",
+    "workers": 1,
+    "trial": 3,
+    "label": "candidate",
+    "elapsed_seconds": 0.3396341660991311,
+    "output_sha256": "cadb38ad57c885f1053f02e0d71d6c1cd7f1d59624587c8292ccdb16518e8c4c"
+  },
+  {
+    "name": "go-w1-3-control",
+    "language": "go",
+    "workers": 1,
+    "trial": 3,
+    "label": "control",
+    "elapsed_seconds": 0.4384453750681132,
+    "output_sha256": "21844ab8bafbc2dd460bfe6e7a901b0f53fc27d29f215d71a61c42ebcb2c0aef"
+  },
+  {
+    "name": "go-w1-4-control",
+    "language": "go",
+    "workers": 1,
+    "trial": 4,
+    "label": "control",
+    "elapsed_seconds": 0.3881953328382224,
+    "output_sha256": "09701022f33f2ea3c1d025b8977abf9f47fb55fe29711d1a4a2291428b4d5e0d"
+  },
+  {
+    "name": "go-w1-4-candidate",
+    "language": "go",
+    "workers": 1,
+    "trial": 4,
+    "label": "candidate",
+    "elapsed_seconds": 0.2938938750885427,
+    "output_sha256": "f0b399dcd2cc144b622daf7e0aeccda4787b9848abd838d64a8f27faf093905c"
+  },
+  {
+    "name": "go-w4-0-control",
+    "language": "go",
+    "workers": 4,
+    "trial": 0,
+    "label": "control",
+    "elapsed_seconds": 0.24147975002415478,
+    "output_sha256": "fd81b7f035b25c617a004b3512f925600e84aa5fde9fe1a649bef5e54d6489ba"
+  },
+  {
+    "name": "go-w4-0-candidate",
+    "language": "go",
+    "workers": 4,
+    "trial": 0,
+    "label": "candidate",
+    "elapsed_seconds": 0.1829076251015067,
+    "output_sha256": "d34d52f4533cf7768391b83de531e8f7bbbb520391384a6933dca916ac5e7eac"
+  },
+  {
+    "name": "go-w4-1-candidate",
+    "language": "go",
+    "workers": 4,
+    "trial": 1,
+    "label": "candidate",
+    "elapsed_seconds": 0.18113829218782485,
+    "output_sha256": "754c0d3a58a9b6fdd56e463c12b2d89d02f7982bd50d18040008146b247b14f8"
+  },
+  {
+    "name": "go-w4-1-control",
+    "language": "go",
+    "workers": 4,
+    "trial": 1,
+    "label": "control",
+    "elapsed_seconds": 0.2387358748819679,
+    "output_sha256": "f79e55566bdd051ddf79f2d24eec5e002afb35f64175fd9501f80d42f00de322"
+  },
+  {
+    "name": "go-w4-2-control",
+    "language": "go",
+    "workers": 4,
+    "trial": 2,
+    "label": "control",
+    "elapsed_seconds": 0.22794812498614192,
+    "output_sha256": "5e755c9ddaa81b8b1af92700b7e4f9da2993e55c83e29f34761a8c34539d1bae"
+  },
+  {
+    "name": "go-w4-2-candidate",
+    "language": "go",
+    "workers": 4,
+    "trial": 2,
+    "label": "candidate",
+    "elapsed_seconds": 0.18770158314146101,
+    "output_sha256": "4f787ec5100e270fd95004876a82b802f6aaa348c8c64b5c1151c8b946e50443"
+  },
+  {
+    "name": "python-w1-0-control",
+    "language": "python",
+    "workers": 1,
+    "trial": 0,
+    "label": "control",
+    "elapsed_seconds": 1.9408282921649516,
+    "output_sha256": "9e3b4ac05b5294f6b6753bf1195ae4da218dafaf8c51234de6a2185307559126"
+  },
+  {
+    "name": "python-w1-0-candidate",
+    "language": "python",
+    "workers": 1,
+    "trial": 0,
+    "label": "candidate",
+    "elapsed_seconds": 1.4713711668737233,
+    "output_sha256": "e94dfa751ffca51724b1cf0ca0d430daec6df492d4043be7d643aa9e64172e18"
+  },
+  {
+    "name": "python-w1-1-candidate",
+    "language": "python",
+    "workers": 1,
+    "trial": 1,
+    "label": "candidate",
+    "elapsed_seconds": 0.49123275000602007,
+    "output_sha256": "61d25cd508631c3b6b8e63175e61feec77850c55c719802af5b6b9ce4a750af7"
+  },
+  {
+    "name": "python-w1-1-control",
+    "language": "python",
+    "workers": 1,
+    "trial": 1,
+    "label": "control",
+    "elapsed_seconds": 0.5561621668748558,
+    "output_sha256": "16065e51f4f6f04ab3c9047f150a20f58c2921b5b5554699fdfbbd7a7adc04cc"
+  },
+  {
+    "name": "python-w1-2-control",
+    "language": "python",
+    "workers": 1,
+    "trial": 2,
+    "label": "control",
+    "elapsed_seconds": 0.5040820001158863,
+    "output_sha256": "7a0a9940e24ff43b434fce2343895c7d3f3690d15fadd63abfbef742d3b809a3"
+  },
+  {
+    "name": "python-w1-2-candidate",
+    "language": "python",
+    "workers": 1,
+    "trial": 2,
+    "label": "candidate",
+    "elapsed_seconds": 0.5468308748677373,
+    "output_sha256": "e940917dfe7bced5703646f834c59a879467a86812255c62e7571abc3f53fb40"
+  },
+  {
+    "name": "python-w1-3-candidate",
+    "language": "python",
+    "workers": 1,
+    "trial": 3,
+    "label": "candidate",
+    "elapsed_seconds": 0.497605417156592,
+    "output_sha256": "cd2c01b0dfb8d0913a11749be1c07211c1cb89f0ec2f0b250a7172ba3684f67c"
+  },
+  {
+    "name": "python-w1-3-control",
+    "language": "python",
+    "workers": 1,
+    "trial": 3,
+    "label": "control",
+    "elapsed_seconds": 0.5146136658731848,
+    "output_sha256": "380e839b0c6ec115299a64bb13a6a8c4fe9ede0861e2c11d880feb36d75ca83a"
+  },
+  {
+    "name": "python-w1-4-control",
+    "language": "python",
+    "workers": 1,
+    "trial": 4,
+    "label": "control",
+    "elapsed_seconds": 0.5419821660034359,
+    "output_sha256": "74390089ff174df7c4094606202c68ccd848efe29a26dec75d60502da48fc193"
+  },
+  {
+    "name": "python-w1-4-candidate",
+    "language": "python",
+    "workers": 1,
+    "trial": 4,
+    "label": "candidate",
+    "elapsed_seconds": 0.5029007499106228,
+    "output_sha256": "c758c89ae191dcdf4889536a652be772a5089c8074c9c2c038601d939447db0f"
+  },
+  {
+    "name": "python-w4-0-control",
+    "language": "python",
+    "workers": 4,
+    "trial": 0,
+    "label": "control",
+    "elapsed_seconds": 0.3434350420720875,
+    "output_sha256": "c4f43577ce656de883882351d4296cfbb9749214cdb0a73d6efff3870a982cbc"
+  },
+  {
+    "name": "python-w4-0-candidate",
+    "language": "python",
+    "workers": 4,
+    "trial": 0,
+    "label": "candidate",
+    "elapsed_seconds": 0.40278491703793406,
+    "output_sha256": "562b1b72e6a0d225b90ed603a23442ae2e586d6e1e2e0cddd2831df39ba88f0c"
+  },
+  {
+    "name": "python-w4-1-candidate",
+    "language": "python",
+    "workers": 4,
+    "trial": 1,
+    "label": "candidate",
+    "elapsed_seconds": 0.3363523748703301,
+    "output_sha256": "2cf98a78a4ac8cf0e5eaf580272903a81aae348255a21c431bfcfc5046755814"
+  },
+  {
+    "name": "python-w4-1-control",
+    "language": "python",
+    "workers": 4,
+    "trial": 1,
+    "label": "control",
+    "elapsed_seconds": 0.3885090830735862,
+    "output_sha256": "18979367c9c8de2d317ab37eeeb00e305edf5f12d33b3d1cf4635c5cbbde588b"
+  },
+  {
+    "name": "python-w4-2-control",
+    "language": "python",
+    "workers": 4,
+    "trial": 2,
+    "label": "control",
+    "elapsed_seconds": 0.3988108339253813,
+    "output_sha256": "0a37d63ead0f4a68610482fb3eb23a9e99746a49bcb4086b76563ae4b45e3edb"
+  },
+  {
+    "name": "python-w4-2-candidate",
+    "language": "python",
+    "workers": 4,
+    "trial": 2,
+    "label": "candidate",
+    "elapsed_seconds": 0.33992624981328845,
+    "output_sha256": "8f3c58f1afd8420a7e683105fcf4f43788bc6f35dd1662399739442449ef3618"
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "control": {
+    "identity": {
+      "object_sha": "6bdcd0e4fa9f29ef46fbae7e414ae965d5483b37",
+      "object_type": "commit",
+      "source_commit": "6bdcd0e4fa9f29ef46fbae7e414ae965d5483b37"
+    },
+    "binaries": {
+      "go": {
+        "path": "<work>/temp/control-go",
+        "sha256": "4b0eba102c4bac4fb693b3d8fa249f0219ea6b9af76fb49f3c95e2a590047ca1",
+        "build_info": "<work>/temp/control-go: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/platform-cache\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261018021331-6bdcd0e4fa9f\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=6bdcd0e4fa9f29ef46fbae7e414ae965d5483b37\n\tbuild\tvcs.time=2026-10-18T02:13:31Z\n\tbuild\tvcs.modified=false\n"
+      },
+      "host": {
+        "path": "<work>/temp/control-host",
+        "sha256": "d9d3dd4421801224636548b36807927b431fe5b6af2cf2f02473ecae7b1697c8",
+        "build_info": "<work>/temp/control-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261018021331-6bdcd0e4fa9f\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=6bdcd0e4fa9f29ef46fbae7e414ae965d5483b37\n\tbuild\tvcs.time=2026-10-18T02:13:31Z\n\tbuild\tvcs.modified=false\n"
+      }
+    }
+  },
+  "candidate": {
+    "identity": {
+      "object_sha": "160b272e1ce217f1ef2b7d9da19a2ad643927297",
+      "object_type": "commit",
+      "source_commit": "160b272e1ce217f1ef2b7d9da19a2ad643927297"
+    },
+    "binaries": {
+      "go": {
+        "path": "<work>/temp/candidate-go",
+        "sha256": "151dff4afafa335cfbeac47e45f5fef2659bf3dc939fcf30ef87031d51278ad3",
+        "build_info": "<work>/temp/candidate-go: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/platform-cache\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261018021313-160b272e1ce2\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=160b272e1ce217f1ef2b7d9da19a2ad643927297\n\tbuild\tvcs.time=2026-10-18T02:13:13Z\n\tbuild\tvcs.modified=false\n"
+      },
+      "host": {
+        "path": "<work>/temp/candidate-host",
+        "sha256": "f4d7f6a431c8184aec4d1e47e7a3e29917f24fba376cda3f1fa5549cf22fd16e",
+        "build_info": "<work>/temp/candidate-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261018021313-160b272e1ce2\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=160b272e1ce217f1ef2b7d9da19a2ad643927297\n\tbuild\tvcs.time=2026-10-18T02:13:13Z\n\tbuild\tvcs.modified=false\n"
+      }
+    }
+  }
+}

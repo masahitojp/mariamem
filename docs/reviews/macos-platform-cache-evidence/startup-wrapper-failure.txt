@@ -1,0 +1,1 @@
+/opt/homebrew/Cellar/python@3.14/3.14.8_2/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python: can't open file '<work>/worktree/build/experiment-work/macos-platform-cache/worktree/benchmarks/platform-cache/campaign.py': [Errno 2] No such file or directory
