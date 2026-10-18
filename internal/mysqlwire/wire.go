@@ -18,7 +18,7 @@ import (
 	"github.com/masahitojp/mariamem/internal/guest"
 )
 
-const capabilities uint32 = 1 | 4 | 8 | 512 | 8192 | 32768 | 524288
+const capabilities uint32 = 1 | 4 | 8 | 512 | 8192 | 32768 | 65536 | 131072 | 524288
 const maxPacket = 0xffffff - 1
 const clientFoundRows uint32 = 2
 
@@ -184,6 +184,28 @@ func eofPacket(status, warnings uint16) []byte {
 	return append(append([]byte{0xfe}, le16(warnings)...), le16(status)...)
 }
 func packets(r guest.Result) ([][]byte, error) {
+	if r.Results != nil {
+		if !r.OK || len(r.Results) == 0 || len(r.Results) > 128 {
+			return nil, errors.New("invalid multi-result envelope")
+		}
+		var replies [][]byte
+		for i, part := range r.Results {
+			if part.Version != 2 || part.Results != nil || (!part.OK && i != len(r.Results)-1) {
+				return nil, errors.New("invalid multi-result element")
+			}
+			part.Status &^= 8
+			if i < len(r.Results)-1 {
+				part.Status |= 8
+			}
+			next, err := packets(part)
+			if err != nil {
+				return nil, err
+			}
+			replies = append(replies, next...)
+		}
+		return replies, nil
+	}
+
 	if !r.OK {
 		return [][]byte{ErrorPacket(r.Errno, r.SQLState, r.Error)}, nil
 	}
@@ -364,7 +386,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		return nil
 	}
 	flags := binary.LittleEndian.Uint32(auth)
-	if flags&512 == 0 || flags&(2048|65536) != 0 {
+	if flags&512 == 0 || flags&2048 != 0 {
 		_ = w.send(ErrorPacket(1235, "42000", "unsupported connection capabilities"))
 		return nil
 	}
@@ -390,9 +412,10 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		_ = w.send(ErrorPacket(1045, "28000", "only local root with empty password is supported"))
 		return nil
 	}
-	if flags&clientFoundRows != 0 {
+	if flags&(clientFoundRows|65536|131072) != 0 {
 		// MariaDB's client capability is fixed at connect time. Reopen only this
-		// flagged session so clients without FOUND_ROWS retain the original path.
+		// flagged session so unflagged clients retain single-statement behavior.
+		// MULTI_STATEMENTS also requires result draining; never merely accept its bit.
 		closed, closeErr := call(3, nil)
 		if closeErr != nil || !closed.Closed {
 			if closeErr == nil {
@@ -402,7 +425,17 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			return closeErr
 		}
 		opened = false
-		r, err = call(1, []byte{1})
+		var sessionFlags byte
+		if flags&clientFoundRows != 0 {
+			sessionFlags |= 1
+		}
+		if flags&65536 != 0 {
+			sessionFlags |= 2 | 4
+		}
+		if flags&131072 != 0 {
+			sessionFlags |= 4
+		}
+		r, err = call(1, []byte{sessionFlags})
 		if err != nil {
 			_ = w.send(fatalPacket(err))
 			return err
@@ -501,7 +534,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		}
 		if replies == nil {
 			if r.Version == 2 {
-				status = r.Status
+				status = r.Status &^ 8
 			}
 			replies, e = packets(r)
 			if e != nil {

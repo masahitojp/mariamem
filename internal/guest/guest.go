@@ -36,6 +36,7 @@ type Cell struct {
 	Hex string `json:"$h"`
 }
 type Result struct {
+	Results           []Result  `json:"results"`
 	StmtID            uint32    `json:"stmt_id"`
 	ParamCount        uint16    `json:"param_count"`
 	ParamMetadataNull bool      `json:"param_metadata_null"`

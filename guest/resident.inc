@@ -8,7 +8,7 @@ typedef struct {
   pthread_t thread;
   pthread_mutex_t mutex;
   pthread_cond_t condition;
-  int started, live, busy, stop, op, found_rows;
+  int started, live, busy, stop, op, session_flags;
   uint32_t request, slot;
   char *sql;
   size_t length;
@@ -54,7 +54,7 @@ static void *multi_worker(void *arg)
     while (!s->op && !s->stop)
       pthread_cond_wait(&s->condition, &s->mutex);
     int op= s->op, stop= s->stop;
-    int found_rows= s->found_rows;
+    int session_flags= s->session_flags;
     uint32_t request= s->request;
     char *sql= s->sql;
     size_t length= s->length;
@@ -76,7 +76,9 @@ static void *multi_worker(void *arg)
       multi_mysql= mysql_init(NULL);
       if (!multi_mysql ||
           !mysql_real_connect(multi_mysql, NULL, "root", "", "test", 0, NULL,
-                              found_rows ? CLIENT_FOUND_ROWS : 0) ||
+                              ((session_flags & 1) ? CLIENT_FOUND_ROWS : 0) |
+                              ((session_flags & 2) ? CLIENT_MULTI_STATEMENTS : 0) |
+                              ((session_flags & 4) ? CLIENT_MULTI_RESULTS : 0)) ||
           mysql_query(multi_mysql, "SET NAMES utf8mb4"))
       {
         reply= wire_error(multi_mysql ? mysql_errno(multi_mysql) : 2000,
@@ -187,7 +189,7 @@ int main(int argc, char **argv)
     packet[n]= 0;
     unsigned int op= packet[0];
     uint32_t request= multi_u32(packet + 1), slot= multi_u32(packet + 5);
-    if (slot >= MULTI_LIMIT || op < 1 || op > 4 || (op == 1 && n - 9 > 1))
+    if (slot >= MULTI_LIMIT || op < 1 || op > 4 || (op == 1 && (n - 9 > 1 || (n > 9 && (packet[9] & ~7)))))
       multi_error(request, slot, 1235, "unsupported request/slot");
     else
     {
@@ -197,7 +199,7 @@ int main(int argc, char **argv)
       {
         s->live= s->busy= 1;
         s->stop= 0;
-        s->found_rows= n > 9 && packet[9] != 0;
+        s->session_flags= n > 9 ? packet[9] : 0;
         s->op= 1;
         s->request= request;
         if (!s->started)

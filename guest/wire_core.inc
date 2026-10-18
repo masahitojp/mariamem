@@ -39,6 +39,8 @@ char *l4m_query_v2(const char *sql, unsigned long length)
 {
   MYSQL_RES *res= NULL;
   buf_t b= {0};
+  unsigned int results= 0;
+  int chained= 0;
   char text[256];
   if (!g_open || !g_mysql)
     return wire_error(2006, "not open", "HY000");
@@ -47,6 +49,12 @@ char *l4m_query_v2(const char *sql, unsigned long length)
   if (mysql_real_query(g_mysql, sql, length))
     return wire_error(mysql_errno(g_mysql), mysql_error(g_mysql), mysql_sqlstate(g_mysql));
 
+  chained= mysql_more_results(g_mysql);
+  if (chained && buf_puts(&b, "{\"ok\":true,\"results\":["))
+    goto oom;
+  for (;;)
+  {
+  if (++results > 128) goto oom; /* Bounded spike; transport fails, never partial OK. */
   res= mysql_store_result(g_mysql);
   if (!res && mysql_field_count(g_mysql))
     return wire_error(mysql_errno(g_mysql), mysql_error(g_mysql), mysql_sqlstate(g_mysql));
@@ -112,6 +120,21 @@ char *l4m_query_v2(const char *sql, unsigned long length)
   }
   if (buf_putc(&b, '}'))
     goto oom;
+  if (!chained) return b.p;
+  if (!mysql_more_results(g_mysql)) break;
+  if (buf_putc(&b, ',')) goto oom;
+  int next= mysql_next_result(g_mysql);
+  if (next > 0) {
+    char *error= wire_error(mysql_errno(g_mysql), mysql_error(g_mysql), mysql_sqlstate(g_mysql));
+    if (!error) goto oom;
+    int failed= buf_puts(&b, error);
+    free(error);
+    if (failed) goto oom;
+    break;
+  }
+  if (next < 0) goto oom; /* MORE_RESULTS without a next result is inconsistent. */
+  }
+  if (buf_putc(&b, ']') || wire_state(&b) || buf_putc(&b, '}')) goto oom;
   return b.p;
 oom:
   if (res)
