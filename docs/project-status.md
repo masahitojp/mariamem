@@ -337,8 +337,10 @@ SHA. No new exclusions or runtime/workflow changes were implemented. The Human
 accepted deferring the wider redesign on 2026-10-18. This closes the bounded
 assessment and removes scope expansion from active v0.5.x work; it does not
 establish a new reuse contract. Revisit if benchmark-only changes repeatedly
-block otherwise eligible evidence reuse. Main integration of these documents
-and any actual release remain separate decisions.
+block otherwise eligible evidence reuse. The Human separately approved main
+integration of the assessment, evidence and acceptance records on 2026-10-18;
+source `779ad55babaef2fab6875846e63d2d984f5a16d8` was fast-forwarded without
+runtime, verifier or workflow changes. Any actual release remains a separate decision.
 
 **Child Fork startup and child Close attribution — accepted 2026-10-18.** The
 [bounded attribution](https://github.com/masahitojp/mariamem/blob/bbf5d1c27f3cea3e2135e8fae053f875ceb234b5/docs/reviews/child-lifecycle-attribution.md)

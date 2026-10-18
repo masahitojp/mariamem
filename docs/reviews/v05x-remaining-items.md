@@ -31,7 +31,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 | 11 | macOS の OS 確認結果の再利用（2b） | 2026-10-18にHumanがmain採用・統合を承認。両native focused CIとmacOS32実行を照合済み。[採用記録](macos-platform-cache-results.md)。mainのcanonical integrationにもartifactsのrace検証を追加 |
 | 12 | Ubuntu・10MiB の並列起動の限定調査（2a） | 2026-10-18にHuman受理、クローズ。[32試行・結果Review](ubuntu-parallel-startup-results.md)。起動同士の実行資源競合まで確認、CPU待ち/cache/帯域の寄与は未分離。GOMAXPROCSは自動設定を維持。guest改善の方式選定は0.7.x。成果物のmain統合も別途承認済み |
 | 13 | 16 接続/DB の接続数調整 | Human 決定（2026-10-18）で 0.5.x から v0.6.x dogfood へ移動。dogfood で需要と資源効果を確認してから上限変更を判断 |
-| 14 | 信頼スコープ再設計 | 2026-10-18に[限定整理](runtime-evidence-trust-scope-results.md)をHuman受理。範囲拡張は保留、現行判定を維持。既存の一回release/同一SHA再利用を使う。計測器変更による再利用阻害が繰り返された場合に再検討。未実装・資料main統合は別判断 |
+| 14 | 信頼スコープ再設計 | 2026-10-18に[限定整理](runtime-evidence-trust-scope-results.md)をHuman受理。範囲拡張は保留、現行判定を維持。既存の一回release/同一SHA再利用を使う。計測器変更による再利用阻害が繰り返された場合に再検討。未実装。資料main統合は別途承認により実施 |
 
 ## 実質残るもの
 
@@ -50,6 +50,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 | 日付 | 決定 | 記録 |
 | --- | --- | --- |
+| 2026-10-18 | 信頼スコープ限定整理の文書・証拠・受理記録をmainへ統合。検証規則・runtime・CI・公開は変更しない | [統合記録](runtime-evidence-trust-scope-results.md#main統合2026-10-18)、採用元 `779ad55` |
 | 2026-10-18 | 信頼スコープ限定整理を受理。再利用範囲の拡張は保留、現行規則と既存の一回release/同一SHA再利用を使う。公開・main統合は別判断 | [Human決定](runtime-evidence-trust-scope-results.md#human決定2026-10-18)、project-status、本台帳 クローズ #14 |
 | 2026-10-18 | 16 接続/DB の接続数調整を 0.5.x から v0.6.x dogfood へ移動。dogfood で需要と資源効果を確認してから上限変更を判断 | project-status、本台帳 クローズ #13 |
 | 2026-10-18 | Ubuntu並列起動調査の計測器・証拠・報告をmainへ統合。runtime変更・新規計測・リリースは含めない | project-status、[統合記録](ubuntu-parallel-startup-results.md#main統合2026-10-18)、採用元 `791108e` |
