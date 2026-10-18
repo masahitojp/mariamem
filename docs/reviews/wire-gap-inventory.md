@@ -10,7 +10,11 @@ The host wrapper `internal/mysqlwire` ("initial MySQL text protocol") implements
 the client-facing MySQL protocol and forwards SQL to the embedded guest through
 the guest JSON API. This inventory lists practical gaps and assigns each to an
 implementation layer. The open question is how to split the work so that as much
-as possible stays host-side and does not add guest patches.
+as possible stays host-side without sacrificing required semantics. The Human
+subsequently approved Python/Go prepared support as mandatory; the
+[implementation comparison](v06x-prepared-design.md) proposes a guest-API spike
+because host emulation is not established as equivalent. The Human approved the bounded embedded-API spike on 2026-10-19;
+production method adoption remains pending.
 
 ## Current state (source-anchored)
 
@@ -39,7 +43,7 @@ as possible stays host-side and does not add guest patches.
 
 | Gap | Current | Who needs it (to confirm by dogfood) | Impact | Layer |
 | --- | --- | --- | --- | --- |
-| Server-side prepared statements (`COM_STMT_PREPARE/EXECUTE/CLOSE/RESET/SEND_LONG_DATA`) | rejected as "command is not supported" | Go `database/sql` with `interpolateParams=false`, SQLAlchemy, MySQL Connector, JDBC | high | host-only if emulated (store SQL, interpolate params); guest API if `mysql_stmt_*` is used |
+| Server-side prepared statements (`COM_STMT_PREPARE/EXECUTE/CLOSE/RESET/SEND_LONG_DATA`) | rejected as "command is not supported" | Go parameterized/Prepare paths without interpolation; Connector/Python `cursor(prepared=True)`; ORM/JDBC use depends on driver and settings | high | host emulation is a candidate requiring semantic proof; guest API if `mysql_stmt_*` is used |
 | Multi-statements (`CLIENT_MULTI_STATEMENTS`) | not advertised; resident build overrides the recipe default to `0`; guest API single-result | dump/restore that batches statements per request; some migration tools | medium (restore) | guest API + host (`mysql_next_result`) — or fragile host-side SQL splitting |
 | `COM_RESET_CONNECTION` / `COM_SET_OPTION` | rejected | pool reset-on-return | medium | host-only (re-encode over the existing API) |
 | `COM_STATISTICS` / `COM_PROCESS_INFO` | rejected | monitoring tools | low | host-only (may need guest status) |
@@ -50,6 +54,13 @@ as possible stays host-side and does not add guest patches.
 | Replication stream (`COM_BINLOG_DUMP`, `COM_REGISTER_SLAVE`, GTID) | not implemented | Debezium/Maxwell/canal-style CDC | high effort | guest API + host |
 
 ## Layer summary
+
+Follow-up source inspection confirms a concrete Python consumer:
+[Connector/Python prepared design requirements](v06x-mysql-workflow-source-review.md#5-python-prepared-statements--design-prerequisite).
+Its ordinary prepared execute includes STMT_RESET, and PREPARE expects metadata;
+support is not merely replacing SQL placeholders. Pure-Python and C-extension
+paths need separate coverage. The host-only labels below describe possible
+approaches, not proof of semantic equivalence or approved implementations.
 
 - **host-only** (re-encode over the current single-statement guest API):
   prepared-statement emulation, pool reset, extra SHOW, handshake flags.
@@ -77,3 +88,11 @@ lite4mariadb context; mariamem's overrides are the added hunks.
 
 This is a draft inventory, not an approval. Runtime, guest, generated sources and
 public contracts are unchanged.
+
+### Multi-statement precedent (2026-10-19)
+
+The pinned lite4mariadb recipe already provides `l4m_exec_multi` and
+CLIENT_MULTI_STATEMENTS; `guest/source.patch` disables that flag in the resident
+build. A dump-import bridge may therefore cost less than prepared support, though
+result draining and host/guest semantics remain unverified. This is an independent
+import option; prepared remains priority #1 for ordinary Python/Go consumers.

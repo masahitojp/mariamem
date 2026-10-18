@@ -693,6 +693,30 @@ actionable diagnostics under one lifecycle. The Human approved this comparative
 design direction on 2026-10-18; source investigation proceeds with the existing
 Snapshot contract in the cross-check basis. Mechanisms remain alternatives,
 not approved implementations.
+The [first routing/preparation source findings](reviews/v06x-routing-source-findings.md)
+pin the pgmem reference and distinguish new, idle-pooled and active connections,
+including the different scope of its Python and Go helpers. The
+[MySQL workflow continuation](reviews/v06x-mysql-workflow-source-review.md) records
+pinned driver/framework seams, concrete upstream dump/migration input inventory,
+and diagnostic/official-reference requirements. Source investigation now supports
+a bounded prototype proposal; runtime validation, mechanism selection and broader
+driver coverage remain unfinished. No new compatibility support is established.
+Python Connector/Python `cursor(prepared=True)` is now an explicit design case:
+routing, per-session prepared state and binary protocol support are separate
+requirements. Source inspection found prepare/reset/execute/close plus metadata
+handling; implementation and runtime acceptance remain pending.
+Go explicit DB/Tx/Conn prepared statements are equally explicit design cases:
+the current interpolation-enabled DSN does not make explicit Prepare supported.
+The Human approved prepared support in both languages as a mandatory part of
+the one-line-switching goal. Disabling prepared use, changing application SQL or
+silently substituting interpolation does not satisfy that goal.
+The [prepared implementation alternatives](reviews/v06x-prepared-design.md)
+recommend a bounded guest `mysql_stmt_*` bridge spike. Embedded API source exists,
+but parameter metadata is a known API gap; runtime feasibility is unproven.
+On 2026-10-19 the Human approved that bounded spike, including experimental
+patch isolation, fixed inputs, independent regeneration, explicit PASS/FAIL/SKIP
+and guest rebase/maintenance budgeting. Production implementation remains pending
+Human Review of the results.
 
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
@@ -727,9 +751,11 @@ compatibility or introduce automatic cache policy before use-case evidence.
 priority: server-side prepared statements (`COM_STMT_PREPARE/EXECUTE/CLOSE/RESET`,
 largest for ORMs/drivers that do not interpolate), `COM_RESET_CONNECTION` /
 `COM_SET_OPTION` (pool reset), multi-statements, and connection handshake flags.
-Wire work is host-side and does not add a guest patch. The deliverable is a gap
-inventory plus dogfood evidence and a Human decision on which commands/flags to
-implement; no protocol change is approved yet.
+Wire framing belongs to the host; preserving prepared semantics may also require
+a guest API change and regeneration. Prepared support is now an approved
+requirement, while implementation and other command/flag scope decisions remain
+pending. The deliverable includes the gap inventory, consumer evidence and
+explicit Human decisions; no protocol implementation is approved yet.
 
 The [v0.6.x kickoff notes](reviews/v06x-kickoff-notes.md) consolidate the wire gap
 inventory, fixture/test UX findings, dump/binlog assessment, the stable-endpoint
