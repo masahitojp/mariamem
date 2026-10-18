@@ -1,4 +1,4 @@
-# v0.5.x 残件リスト（2026-10-17 時点）
+# v0.5.x 残件リスト（2026-10-18 更新）
 
 v0.5.2 公開と関連する Human 決定を反映した残件のスナップショット。
 新しい計測や runtime 変更は行っていない。個々の決定は
@@ -15,6 +15,8 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 | # | 残件 | 現状 | 次の判断／作業 |
 | --- | --- | --- | --- |
 | 2 | 子 Fork 起動と子 Close の費用帰属 | [両native各40実行と費用帰属の照合完了](child-lifecycle-attribution.md)、Human受理待ち | 完了した調査結果をHuman Reviewで受理するか判断する。修正・最適化の選定は別判断 |
+| 2a | Ubuntu・10MiBの並列起動の限定調査 | Human承認済み・未着手 | 起動同士の競合と他の子のSQL/終了との重なりを区別し、主要因を特定。guest改善の方式選定・実装へ広げない |
+| 2b | macOSのOS確認結果の再利用 | Human承認済み・未着手。2aの後 | DB内部を変えず小修正と効果確認。対応OS拒否・キャンセル/失敗・並列起動を維持 |
 | 3 | 16 接続/DB の接続数調整 | 0.5.x スコープに追加済み | 実需要と資源効果を確認してから上限変更を検討する |
 | 4 | 信頼スコープ再設計 | 未着手 | 着手前に別 Human Review（dependency closure と negative proof）が必要 |
 
@@ -30,10 +32,12 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 | 6 | startup tail の記述 | 整合済み。v0.5.1 Release CI（`7a82f338…`）が page-cleaner 修正を含む最終 source を両 native で検証済み |
 | 7 | 共有メモリ一般モデル / purge 保護前提 | 未確立の限界として受理。R1–R5・T1/T2/J1・scalar/SIMD 照合・purge 限定比較は完了。一般 Wasm→Go の正しさは未確立、purge 保護前提は未確認の限界 |
 | 8 | Ubuntu 性能 | 2026-10-18にHuman受理、完了。[結果Review](ubuntu-product-performance-results.md)。Snapshotの利益と大規模Pythonの混在結果・原因未確定を保存。全workloadの改善を意味しない |
+| 9 | guest初期化の改善候補選定 | Human決定により0.7.xへ延期。0.5.xの並列起動調査の証拠を引き継ぐ。方式・実装は未承認 |
 
 ## 実質残るもの
 
 - **子 Fork 起動・Close の費用帰属** — 調査完了、Human受理待ち（修正・最適化は別判断）。
+- **今回の最適化は2件まで** — Ubuntu並列起動の限定調査 → macOSのOS確認再利用。guest初期化の改善候補選定は0.7.x。
 - **16 接続調整** — 0.5.x 入りしたので需要・資源効果の確認。
 - **信頼スコープ再設計** — 着手ゲートのまま。
 
@@ -49,6 +53,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 | 日付 | 決定 | 記録 |
 | --- | --- | --- |
+| 2026-10-18 | 子ライフサイクル最適化の0.5.x範囲をUbuntu並列起動の限定調査とmacOSのOS確認再利用に限定。guest初期化の改善候補選定は0.7.xへ | project-status、[範囲決定](child-lifecycle-attribution.md) |
 | 2026-10-18 | Ubuntu性能確認の資料・保存証拠・計測ツールのmain統合とpushを別途承認。runtime変更・追加計測・公開は含めない | project-status、[結果Review](ubuntu-product-performance-results.md) |
 | 2026-10-18 | Ubuntu性能確認を完了として受理。大規模Pythonの悪化・原因未確定は留保し、追加調査・main統合・リリースは今回の承認に含めない | [結果Review](ubuntu-product-performance-results.md)、本台帳 クローズ #8 |
 | 2026-10-17 | 接続数調整より先にUbuntu性能確認を実施する | [固定scope](ubuntu-product-performance.md)、本台帳 クローズ #8 |

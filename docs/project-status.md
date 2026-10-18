@@ -323,14 +323,24 @@ distinct from the FD/resource-model pressure observation, which is assigned to
 v0.6.0 dogfood above. The current active and closed items are listed in the
 [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
 
-**Optimization candidate added — 2026-10-18:** the Human requested recording
-Ubuntu parallel guest-initialization slowdown as a candidate investigation.
-For the same 10MiB workload, observed guest open-to-ready rises from 65.84ms
-serial to 133.95ms with four workers; the 60.62ms figure is Light, not the
-matched serial case. Distinguish per-child latency from whole-suite elapsed
-benefit and startup contention from overlap with other children’s SQL/cleanup.
-See the [candidate and evidence](reviews/child-lifecycle-attribution.md).
-Registration does not start another experiment or authorize a runtime change.
+**Human-approved optimization scope — 2026-10-18:** for this child-lifecycle
+optimization workstream, v0.5.x is limited to these two actions, in order:
+
+1. Investigate Ubuntu 10MiB parallel startup: distinguish startup contention
+   from overlap with other children’s SQL/cleanup and identify the principal
+   cause. Observed guest open-to-ready is 65.84ms serial versus 133.95ms with
+   four workers (60.62ms is the different Light case). Compare per-child
+   latency and whole-suite elapsed time. This authorizes the bounded
+   investigation, not guest-initialization optimization implementation.
+2. Implement and measure reuse of successful macOS platform checks, preserving
+   unsupported-platform rejection, cancellation/failure behavior and concurrent
+   startup correctness. Keep DB internals unchanged.
+
+Guest-initialization improvement candidate selection is scheduled for v0.7.x,
+using the investigation evidence; it is not a v0.5.x task. Main integration
+and release remain separate decisions. These actions are approved but not yet
+started; see the [attribution and scope record](reviews/child-lifecycle-attribution.md).
+Other previously recorded roadmap items are not cancelled by this workstream decision.
 
 **In 0.5.x scope: child Fork startup and child Close attribution.** Measure the
 cost of creating a Fork child and of Close, and identify which phases own that
@@ -598,6 +608,14 @@ change is reopened only if that evidence shows pressure.
 New run-wide baseline fixture ergonomics are deferred here. Existing session
 fixtures remain worker-local under xdist. Do not promise new framework/platform
 compatibility or introduce automatic cache policy before use-case evidence.
+
+## v0.7.x — Guest initialization optimization candidate selection
+
+The Human scheduled selection of guest-initialization improvements for v0.7.x
+on 2026-10-18. Reuse the child-lifecycle attribution and the v0.5.x bounded
+Ubuntu parallel-startup investigation. Potential directions include guest
+allocation/growth and collation initialization; no method, expected saving or
+implementation is approved yet. This work is outside the two v0.5.x actions above.
 
 ## Development discipline
 
