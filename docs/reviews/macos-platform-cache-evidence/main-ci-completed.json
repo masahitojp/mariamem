@@ -1,0 +1,37 @@
+{
+  "run_id": 39094406383,
+  "source_commit": "8907a4e19da104fd9cd110a91e36543097e43ba4",
+  "event": "workflow_dispatch",
+  "conclusion": "success",
+  "jobs": {
+    "scope": 117577740847,
+    "check": 117577789753,
+    "integration": 117577789799
+  },
+  "original_integration_log_sha256": "5e5417644882932c30481edd0028bd47ca91b08af15d9c682198f3eacba7b973",
+  "normalization": "selected test/command lines; runner repository paths normalized",
+  "verified_log_lines": [
+    "2026-10-18T03:40:59.8228460Z + go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot ./internal/control ./internal/prepared . -count=1",
+    "2026-10-18T03:41:23.5000340Z ok  \tgithub.com/masahitojp/mariamem/internal/artifacts\t2.196s",
+    "2026-10-18T03:41:33.6758430Z ok  \tgithub.com/masahitojp/mariamem/internal/generatedgo/code/base\t3.221s",
+    "2026-10-18T03:56:01.1688810Z ok  \tgithub.com/masahitojp/mariamem/internal/generatedgo\t1.815s",
+    "2026-10-18T03:56:06.4914030Z ok  \tgithub.com/masahitojp/mariamem/internal/guest\t1.134s",
+    "2026-10-18T03:56:08.7253050Z ok  \tgithub.com/masahitojp/mariamem/internal/host\t1.207s",
+    "2026-10-18T03:56:10.4547140Z ok  \tgithub.com/masahitojp/mariamem/internal/mysqlwire\t1.186s",
+    "2026-10-18T03:56:12.1774160Z ok  \tgithub.com/masahitojp/mariamem/internal/snapshot\t1.268s",
+    "2026-10-18T03:56:15.5158240Z ok  \tgithub.com/masahitojp/mariamem/internal/control\t1.055s",
+    "2026-10-18T03:56:17.5960790Z ok  \tgithub.com/masahitojp/mariamem/internal/prepared\t1.635s",
+    "2026-10-18T03:56:21.4806750Z ok  \tgithub.com/masahitojp/mariamem\t1.145s",
+    "2026-10-18T03:56:21.7392410Z + go test -tags=integration ./tests/gointegration -count=1 -timeout=3m",
+    "2026-10-18T04:01:05.0572010Z ok  \tgithub.com/masahitojp/mariamem/tests/gointegration\t11.955s",
+    "2026-10-18T04:01:05.2563750Z + go test -tags=integration ./tests/godefault -count=1 -timeout=3m",
+    "2026-10-18T04:01:12.4456960Z ok  \tgithub.com/masahitojp/mariamem/tests/godefault\t2.710s",
+    "2026-10-18T04:01:12.4788720Z + go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m",
+    "2026-10-18T04:01:15.2091880Z ok  \tgithub.com/masahitojp/mariamem/tests/generatedmemory\t0.792s",
+    "2026-10-18T04:01:15.2337020Z + go build -p 1 -o /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/mariamem-integration-36g01u3a/mariamem-host ./cmd/mariamem-host",
+    "2026-10-18T04:01:17.9885160Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py -q",
+    "2026-10-18T04:01:59.9807280Z 18 passed in 41.47s",
+    "2026-10-18T04:02:00.0916910Z + /Library/Frameworks/Python.framework/Versions/3.14/bin/python tests/snapshots.py",
+    "2026-10-18T04:02:01.5834870Z {\"passed\": true, \"checks\": 33, \"error\": null, \"evidence\": \"<repo>/tests/evidence/snapshots.json\"}"
+  ]
+}

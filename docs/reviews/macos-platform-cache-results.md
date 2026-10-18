@@ -207,3 +207,18 @@ workflowだけの変更では既存scope selectorがintegrationを省略する�
 `workflow_dispatch` を追加する。手動eventは既存selectorのevent-baseなし→full判定を使い、
 更新したexact sourceをフル検証へ再提出する。selector自体は変更しない。
 新runの結果はHumanが完了を通知した後に確認する。runtime変更・公開は行わない。
+
+## main開発CIの再確認完了（2026-10-18）
+
+更新source `8907a4e19da104fd9cd110a91e36543097e43ba4` の手動
+[run39094406383](https://github.com/masahitojp/mariamem/actions/runs/39094406383)は
+scope・full check・integrationが全てsuccess。
+[integration job117577789799](https://github.com/masahitojp/mariamem/actions/runs/39094406383/job/117577789799)の
+ログでartifactsを含む全race packageのPASSと、後続のgointegration/godefault/generatedmemory、
+Python18 tests、Snapshot33 checksの成功を照合した。
+[照合receipt・原本log hash・該当行](macos-platform-cache-evidence/main-ci-completed.json)を保存。
+
+元の15分timeoutは当時の未完了記録として維持し、今回のsuccessと区別する。
+テスト内容と各commandの3分timeoutは変更していない。main採用後の開発検証は完了。
+Ubuntu並列起動調査は別作業として残り、今回の確認はリリースQualificationや公開ではない。
+この完了記録の追加はdocs/evidenceのみで、検証したruntimeは不変。

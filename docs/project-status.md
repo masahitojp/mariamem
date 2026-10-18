@@ -368,9 +368,13 @@ runtime matches the reviewed CI source; this follow-up adds CI wiring and
 adoption records. The first main Development CI passed check and all race
 packages, but its integration job hit the 15-minute job limit before completing
 later acceptance. Following Human approval, the job budget is 30 minutes with
-individual test deadlines unchanged; a manual full-development run is submitted
-on the updated source. This remains pending evidence, not a PASS or release
-qualification. See the linked results for the original timeout. Release remains
+individual test deadlines unchanged. The manual full-development
+[run39094406383](https://github.com/masahitojp/mariamem/actions/runs/39094406383)
+passed scope, full check and canonical integration on exact source
+`8907a4e19da104fd9cd110a91e36543097e43ba4`; the artifacts race set, later Go
+acceptance, Python18 tests and Snapshot33 checks completed. This closes the
+post-integration development check, not release qualification. The linked
+results retain the original timeout and the successful rerun. Release remains
 a separate decision. Item 2
 has not started. Other previously recorded roadmap items are not cancelled by
 this workstream decision.
