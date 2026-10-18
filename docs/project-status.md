@@ -687,6 +687,12 @@ connected designs for entry/routing/lifecycle, preparation/import and
 compatibility/actionable failures. The Human agreed to this planning direction
 on 2026-10-18; implementation scope and API choices are not yet approved.
 All capability axes remain visible before selecting tests.
+The [connected workflow design options](reviews/v06x-workflow-design-options.md)
+compare connection injection/adapters/interception, preparation paths and
+actionable diagnostics under one lifecycle. The Human approved this comparative
+design direction on 2026-10-18; source investigation proceeds with the existing
+Snapshot contract in the cross-check basis. Mechanisms remain alternatives,
+not approved implementations.
 
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
