@@ -24,7 +24,12 @@ PREPARED_SPIKE_FUNCTIONS = {
     "code/p8/p8_pure.go": FUNCTIONS["code/p8/p8_pure.go"],
     "code/p5/p5_pure.go": ("Fn216", "16f465fc8b73be894545ec6bc525658bd2a7d27257dba87fe4c3802fb7e00362"),
 }
-REVIEWED_BINDINGS = {GUEST_SHA256: FUNCTIONS, PREPARED_SPIKE_GUEST: PREPARED_SPIKE_FUNCTIONS}
+# This continuation has byte-identical allocation/entry/free functions and
+# data image to the prepared spike. Bind its whole guest identity explicitly;
+# keep checking every body, not a wildcard or normalized-address recognizer.
+MULTI_SPIKE_GUEST = "1fabf31ced768f12bd60ba2f0c4c79110fbbe883c440bfa4c9ee63d834b6c179"
+REVIEWED_BINDINGS = {GUEST_SHA256: FUNCTIONS, PREPARED_SPIKE_GUEST: PREPARED_SPIKE_FUNCTIONS,
+                     MULTI_SPIKE_GUEST: PREPARED_SPIKE_FUNCTIONS}
 
 
 def validate_inputs(guest_sha256, candidate_files):

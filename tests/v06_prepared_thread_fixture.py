@@ -23,7 +23,7 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--product',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     product=a.product.resolve();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
     runtime=product/'internal/generatedgo';prov=json.loads((runtime/'provenance.json').read_text())
-    assert prov['guest_sha256']==binding.PREPARED_SPIKE_GUEST
+    assert prov['guest_sha256'] in (binding.PREPARED_SPIKE_GUEST, binding.MULTI_SPIKE_GUEST)
     graph=json.loads((ROOT/'docs/reviews/v050-access-paths-evidence/direct-call-graph.json').read_text())
     seen=set();todo=[217,221,152]
     while todo:
