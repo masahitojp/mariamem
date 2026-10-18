@@ -99,3 +99,18 @@ Pythonの新しい13 testと既存Git identity testsを合わせて25 tests・12
 parsed/sched/sync/syscall形式が読めることを確認した。
 これらは計測器の検証であり、Ubuntuの実guestシナリオや原因特定のPASSではない。
 [ローカル準備証拠](ubuntu-parallel-startup-evidence/local/manifest.json)を保存する。
+
+## 初回CIの準備失敗と修正
+
+[run 39098455094](https://github.com/masahitojp/mariamem/actions/runs/39098455094)
+（source_commit `b01d400484f0763544dcc131b364ca83d464c275`）はsetup-go内の
+`go env`で失敗した。job環境のGOTMPDIRを作るstepがsetup-goより後にあり、
+`temp/compiler: no such file or directory`となった。guest・unit・計測は未実行で、
+原因調査の結果は得られていない。証拠directoryも未作成のためcleanup/uploadも二次失敗した。
+
+toolchain設定前にdirectoryを作る順序へ修正する。always cleanup自身もdirectoryを作り、
+cleanup前のjob statusとsource_commitを保存して、早期失敗でも後片付けと証拠保存を可能にする。
+32試行・失敗oracle・runtime・guestには変更しない。
+修正のローカル確認はYAML読込・全run shell構文・埋め込みPython構文・step順序がPASS。
+準備前失敗／準備後失敗／成功の3条件でcleanupを各2回実行し、status保存とscratch削除を確認した。
+これはworkflowの確認であり、Ubuntu計測の成功を意味しない。
