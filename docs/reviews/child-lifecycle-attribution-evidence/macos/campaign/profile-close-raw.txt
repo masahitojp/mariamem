@@ -6,4 +6,4 @@ Samples:
 samples/count cpu/nanoseconds
 Locations
 Mappings
-1: 0x104db4000/0x108b5c000/0x0 <workspace>/temp/observed-child  
+1: 0x104db4000/0x108b5c000/0x0 <workspace>/temp/observed-child

@@ -175,7 +175,7 @@ release inventoryを観測用に再pinしてguardを通した扱いにはしな�
 freshな通常cloneへ展開してbuildする。`campaign.py --workspace WORKSPACE` で同じ有限40実行、
 `reduce.py WORKSPACE/evidence/campaign` でoffline照合。
 macOSのraw source inputs/binary hash/build commands/全試行/全merged profileは上のevidenceにある。
-pathだけ正規化し、原本と保存後のhashを保存した。per-call protobuf原本48個はcompact local evidence、
+pathと出力の行末空白だけ正規化し、原本と保存後のhashを保存した。per-call protobuf原本48個はcompact local evidence、
 公開資料には全merged samplesをtextで保存した。binary/cache/source cloneは再作成可能なので保持しない。
 Ubuntuも同じpin/SQL/終了条件で実行し、結果が揃ってからHuman Reviewする。
 

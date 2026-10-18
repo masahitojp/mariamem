@@ -1,5 +1,5 @@
 {
-  "normalization": "work paths and user-home paths only; original/stored hashes are distinct when changed",
+  "normalization": "work/user-home paths and line trailing whitespace only; original/stored hashes are distinct when changed",
   "files": {
     "build-control-child.txt": {
       "original_sha256": "327e664e3aa4b4e09c6efeeb4394100bffad25ce0a2328593923fb149ceb7d54",
@@ -3999,21 +3999,21 @@
     },
     "campaign/profile-close-cum.txt": {
       "original_sha256": "421596e6770a500b1034efa1c5c01a6885eae8f96ec79b7363f0f5b1c89926e9",
-      "stored_sha256": "421596e6770a500b1034efa1c5c01a6885eae8f96ec79b7363f0f5b1c89926e9",
+      "stored_sha256": "fb2e5fab86557b574034882ab2872837d263ba637e5d5862dcd2f976eea9e6b9",
       "original_bytes": 186,
-      "stored_bytes": 186
+      "stored_bytes": 185
     },
     "campaign/profile-close-flat.txt": {
       "original_sha256": "421596e6770a500b1034efa1c5c01a6885eae8f96ec79b7363f0f5b1c89926e9",
-      "stored_sha256": "421596e6770a500b1034efa1c5c01a6885eae8f96ec79b7363f0f5b1c89926e9",
+      "stored_sha256": "fb2e5fab86557b574034882ab2872837d263ba637e5d5862dcd2f976eea9e6b9",
       "original_bytes": 186,
-      "stored_bytes": 186
+      "stored_bytes": 185
     },
     "campaign/profile-close-raw.txt": {
       "original_sha256": "852839d35a3c12242b4d3673e121abfa4fd902d960128dc6e1e9eda37ca0cf3a",
-      "stored_sha256": "8a6525ce30b147250dc85d29bd860e09c2ecb7214c64fd0d36c0ff3cc0f81eb4",
+      "stored_sha256": "ddc32584067393012de2b522e3d3ab029f6ca70b2631a6d3373b93ca20435656",
       "original_bytes": 303,
-      "stored_bytes": 226
+      "stored_bytes": 224
     },
     "campaign/profile-close-traces/64271-api_close-100.json": {
       "original_sha256": "e1a485d7e336e0377c889f930f65f949ff920e467fab98d0fdf366806c7fb24a",
@@ -5547,9 +5547,9 @@
     },
     "campaign/profile-fork-raw.txt": {
       "original_sha256": "9d8bdcf3b03e03363e12c296fd74e201eb9cb836a6b6ab5e72c36bbebf8f7260",
-      "stored_sha256": "aabfc25bb613cfaf791a0c380522f157bf97563ba44370b579fcf1b91cf196e9",
+      "stored_sha256": "6d38c7976d57131342a2806d148614d0957b6232e321da99051d5c5e9a014a7c",
       "original_bytes": 59087,
-      "stored_bytes": 53304
+      "stored_bytes": 53243
     },
     "campaign/profile-fork-traces/64055-api_close-100.json": {
       "original_sha256": "8b6f124ad3711de5aa0a1d9e564131c50a84d00de30eb265c592a6f8730e9c17",

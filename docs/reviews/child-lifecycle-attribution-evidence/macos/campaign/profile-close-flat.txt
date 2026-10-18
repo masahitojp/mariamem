@@ -1,6 +1,6 @@
 File: observed-child
 Type: cpu
 Time: 2026-10-18 09:22:59 JST
-Duration: 4.90s, Total samples = 0 
+Duration: 4.90s, Total samples = 0
 Showing nodes accounting for 0, 0% of 0 total
       flat  flat%   sum%        cum   cum%
