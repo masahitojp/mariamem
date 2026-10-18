@@ -38,6 +38,12 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 - **今回の最適化の範囲は完了** — macOS の OS 確認再利用（2b）は採用済み。Ubuntu 並列起動の限定調査（2a）もHuman受理によりクローズ、調査成果のmain統合も別途承認済み。guest 初期化の改善候補選定は 0.7.x。
 - **信頼スコープ再設計** — 限定整理はHuman受理、範囲拡張を保留。現行判定を維持し、既存の再利用手順を使う。実装へは進んでいない。
 
+## 次の版の区切り（2026-10-18 Human 決定）
+
+- **v0.5.3（区切り）** — 0.5.2 以降の runtime 差は macOS OS 確認キャッシュのみ。これを載せる小さなリリース。release は既存 CI qualification。
+- **v0.6.x** — wire 実用ギャップ台帳＋dogfood（server-side prepared statements、pool reset、multi-statements、handshake flags 等）。host 側で実装し guest patch は増やさない。採用機能は Human 判断。
+- **v0.7.x** — guest init の探索＋100MiB 級の大規模チューニング。guest patch は最小、まず config/host レバー。
+
 ## 関連する確定済み成果物
 
 以下は v0.5.x 共有メモリ（上表 #1）に関連し、main `9789a1e` で取り込まれた静的照合の
@@ -50,6 +56,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 | 日付 | 決定 | 記録 |
 | --- | --- | --- |
+| 2026-10-18 | 版の区切りを決定: v0.5.3（platform cache を載せる小さなリリース）で締め、v0.6.x で wire 実用ギャップ台帳＋dogfood、v0.7.x で guest init＋100MiB 大規模チューニング | project-status、本台帳 次の版 |
 | 2026-10-18 | 信頼スコープ限定整理の文書・証拠・受理記録をmainへ統合。検証規則・runtime・CI・公開は変更しない | [統合記録](runtime-evidence-trust-scope-results.md#main統合2026-10-18)、採用元 `779ad55` |
 | 2026-10-18 | 信頼スコープ限定整理を受理。再利用範囲の拡張は保留、現行規則と既存の一回release/同一SHA再利用を使う。公開・main統合は別判断 | [Human決定](runtime-evidence-trust-scope-results.md#human決定2026-10-18)、project-status、本台帳 クローズ #14 |
 | 2026-10-18 | 16 接続/DB の接続数調整を 0.5.x から v0.6.x dogfood へ移動。dogfood で需要と資源効果を確認してから上限変更を判断 | project-status、本台帳 クローズ #13 |

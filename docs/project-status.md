@@ -74,6 +74,16 @@ See [released notes](../release/NOTES-v0.5.2.md) and
 [changes since v0.5.1](changes-since-v051.md). The adoption history below records
 the main integration that preceded this release.
 
+**Next release — v0.5.3 (planned, not prepared).** The only product runtime change
+on main after v0.5.2 is the macOS platform-check success cache
+(`internal/artifacts/platform_cache.go`); the rest of the post-v0.5.2 history is
+documentation, measurement tooling and CI. The Human scheduled wrapping this
+boundary as v0.5.3 before starting the v0.6 term. No version bump, notes, tag or
+publication is prepared here; release qualification remains the existing
+fail-closed CI path. The macOS effect was measured against v0.5.2 on the product
+scenarios (`experiment/product-main-macos` `94f13e6`, macOS-only); integrating
+that result is a separate decision.
+
 ## Previous release: v0.5.1 — In-memory baselines and shared host
 
 [v0.5.1](https://github.com/masahitojp/mariamem/releases/tag/v0.5.1) was published
@@ -674,13 +684,27 @@ New run-wide baseline fixture ergonomics are deferred here. Existing session
 fixtures remain worker-local under xdist. Do not promise new framework/platform
 compatibility or introduce automatic cache policy before use-case evidence.
 
+**Wire practical coverage (v0.6.x scope):** the host wrapper
+(`internal/mysqlwire`) implements only the MySQL text-protocol commands
+`COM_QUERY`, `COM_INIT_DB`, `COM_PING` and `COM_QUIT`; other commands return
+"command is not supported". Collect the practical gaps and let dogfood decide
+priority: server-side prepared statements (`COM_STMT_PREPARE/EXECUTE/CLOSE/RESET`,
+largest for ORMs/drivers that do not interpolate), `COM_RESET_CONNECTION` /
+`COM_SET_OPTION` (pool reset), multi-statements, and connection handshake flags.
+Wire work is host-side and does not add a guest patch. The deliverable is a gap
+inventory plus dogfood evidence and a Human decision on which commands/flags to
+implement; no protocol change is approved yet.
+
 ## v0.7.x — Guest initialization optimization candidate selection
 
 The Human scheduled selection of guest-initialization improvements for v0.7.x
 on 2026-10-18. Reuse the child-lifecycle attribution and the v0.5.x bounded
 Ubuntu parallel-startup investigation. Potential directions include guest
 allocation/growth and collation initialization; no method, expected saving or
-implementation is approved yet. This work is outside the two v0.5.x actions above.
+implementation is approved yet. The Human also scheduled large-scale tuning here,
+specifically the 100MiB case and other preparation-heavy workflows where guest
+initialization dominates. Config/host levers come before guest patches. This work
+is outside the two v0.5.x actions above.
 
 ## Development discipline
 
