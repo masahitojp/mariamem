@@ -168,7 +168,42 @@ binlog / stable endpoint above. Candidates for Human decision, **not approved**.
 Suggested v0.6 subset: 1 (safety), 3 (driver matrix), 2 (framework adapters),
 5 (failure/observability), 4 (cache decision). 6 and 7 can follow.
 
-## 7. Next steps (v0.6.x, for Human decision)
+## 7. Strategy note: pgmem as a matched floor reference
+
+Now that the non-guest layers are largely eliminated (OS check cached, native
+bundle resolve removed, Snapshot content scan removed in v0.5.2, transport and
+session handling small), the remaining target is guest MariaDB re-initialization
+plus parallel startup contention. That is where pgmem becomes a meaningful
+reference — as a **floor**, not a target.
+
+Preconditions before any speed tuning against pgmem:
+
+1. **Matched measurement.** The current numbers do not reconcile: mariamem's own
+   attribution puts Fork at ~54–65 ms and DB Close at ~2.5–4.9 ms (macOS M1,
+   post-ownership), while the external pgmem comparison put mariamem child Fork at
+   ~502 ms and Close at ~63 ms (Intel). The difference is boundary/cohort, not a
+   regression. Define one matched benchmark (same harness, boundary, machine,
+   workload) before trying to "close the gap".
+2. **Engine difference.** pgmem is Postgres/PGlite; mariamem is MariaDB 12.3.3
+   (guest init alone is 34–61 ms). pgmem's cheaper fork is plausibly engine
+   weight, not a copyable trick; the pgmem review also found that pgmem does not
+   clone runtime state.
+
+Levers, in order:
+
+- reduce guest init work (collation / InnoDB page / memory EA); config/host first,
+  minimal guest patch only where a concrete saving is demonstrated;
+- hide it (pre-warm pool); the 4-parallel suite already wins ~51% wall;
+- avoid it (clone an initialized state); highest payoff, hardest, and not done by
+  pgmem either — a research theme, not a task.
+
+Positioning: use pgmem as a floor reference for what is achievable, with the
+engine difference stated, and decide the guest-init investment from a matched
+benchmark. Suggested arc: **v0.6 = UX/wire** so the disposable DB is a tool users
+can trust; **v0.7 = guest init plus 100 MiB large-scale tuning**, with the matched
+pgmem baseline as the investment input.
+
+## 8. Next steps (v0.6.x, for Human decision)
 
 1. Dogfood (Django, Alembic/migrations, metadata-heavy, dbt-like; retain the
    SQLAlchemy/GORM anchors) and record which wire commands/flags each client
