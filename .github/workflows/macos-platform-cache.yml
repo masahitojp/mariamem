@@ -1,0 +1,68 @@
+name: Platform success cache focused native checks
+on:
+  push:
+    branches: [experiment/macos-platform-cache]
+    paths:
+      - '.github/workflows/macos-platform-cache.yml'
+      - 'internal/artifacts/**'
+      - 'benchmarks/platform-cache/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 25
+    env:
+      GOTOOLCHAIN: go1.26.8
+      CGO_ENABLED: '0'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Exact source
+        run: |
+          mkdir -p build/platform-cache-evidence
+          python scripts/git_identity.py inspect HEAD > build/platform-cache-evidence/source.json
+          python -c 'import json,os;assert json.load(open("build/platform-cache-evidence/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          uname -a > build/platform-cache-evidence/platform.txt
+          go version >> build/platform-cache-evidence/platform.txt
+      - name: Native platform check race oracles
+        env:
+          CGO_ENABLED: '1'
+        run: go test -race ./internal/artifacts -count=3 -timeout=2m -v > build/platform-cache-evidence/artifacts-race.txt 2>&1
+      - name: Source boundaries
+        run: |
+          python scripts/verify_generated_runtime.py > build/platform-cache-evidence/generated.txt 2>&1
+          python scripts/check_public.py > build/platform-cache-evidence/public.txt 2>&1
+          git diff --check
+      - name: Go startup, cancellation, concurrent children and cleanup
+        env:
+          MARIAMEM_TEST_DEFAULT: '1'
+        run: go test -p 1 -tags=integration ./tests/godefault -run 'TestDefaultNoBundleAndForkIsolation|TestDefaultRepeatedConcurrentLifecycle|TestDefaultReleaseFailurePaths|TestMemorySnapshotIndependentLifecycle' -count=1 -timeout=3m -v > build/platform-cache-evidence/go-lifecycle.txt 2>&1
+      - name: Shared host Python regression
+        env:
+          MARIAMEM_TEST_DEFAULT: '1'
+          PYTHONPATH: python
+        run: |
+          python -m pip install 'pytest>=7' 'PyMySQL==1.2.3'
+          go build -p 1 -o build/platform-cache-host ./cmd/mariamem-host
+          MARIAMEM_TEST_HOST="$PWD/build/platform-cache-host" python -m pytest tests/test_python_diagnostics.py tests/test_python_multiclient.py tests/test_owned_snapshot.py::test_many_order_and_parallel_siblings tests/test_owned_snapshot.py::test_modified_child_creates_new_baseline_without_changing_parent -q > build/platform-cache-evidence/python-lifecycle.txt 2>&1
+      - name: Preserve focused evidence (not Qualification)
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: platform-cache-${{ matrix.runner }}-${{ github.sha }}
+          path: build/platform-cache-evidence
+          if-no-files-found: error

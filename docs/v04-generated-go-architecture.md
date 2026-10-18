@@ -166,3 +166,13 @@ and the released architecture linked above. Earlier build/runtime work is in
 [v0.4.3 characterization](../benchmarks/v043-characterization.md) and the
 [historical integration audit](v04-integration-audit.md). Their source identities,
 measurements and API contracts are not current operational instructions.
+
+### macOS platform-check lifetime
+
+The Go platform checker keeps a successful macOS15+ arm64 result for the life
+of its process. Initial concurrent checks share one active probe; waiting
+callers retain independent cancellation. Failures are not cached. Once success
+is recorded, later changes to the sw_vers executable or its answer are not
+re-detected by that process. A new Go process checks again. Python siblings
+reuse their shared Go host’s result; a new root host starts with no cached result.
+Linux detection and Python wheel/hash verification retain their existing paths.

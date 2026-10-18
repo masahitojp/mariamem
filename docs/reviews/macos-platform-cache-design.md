@@ -16,11 +16,11 @@ DBファイル・wheel・バイナリの内容検証をキャッシュする提�
 
 ## 基点と確認済みの根拠
 
-source_commit: `8178abdacec756767355e69b7979734941982523`（main、設計開始時clean）。
+source_commit: `a43960b110a739a3c87b4a25757bb0f106464041`（main、設計開始時clean）。
 既存の費用帰属と0.5.x/0.7.xの区切りは
 [承認済み状態](../project-status.md)と
 [固定された費用帰属資料](https://github.com/masahitojp/mariamem/blob/bbf5d1c27f3cea3e2135e8fae053f875ceb234b5/docs/reviews/child-lifecycle-attribution.md)を参照。
-今回の指示でmacOS側の設計を先行する。Ubuntu並列調査の状態や範囲を変更しない。
+最新mainのHuman決定どおりmacOS側を先行する。Ubuntu並列調査の状態や範囲を変更しない。
 
 - `mariamem.go:100` と `internal/host/server.go:50` が `artifacts.ValidatePlatform` を呼ぶ。
   Go Start/Forkでは双方を通る。外側確認は一時ディレクトリ作成前、内側はguest起動前。
@@ -131,3 +131,11 @@ Ubuntuは既存platform/起動のfocused回帰をnative CIで確認し、性能�
 process内成功キャッシュと再確認しない境界を記載する。公開APIや製品の隔離契約の変更は不要。
 
 今回承認するなら、この有限な実装・検証へ進む。Ubuntu並列起動調査と0.7.xのguest改善選定は別範囲のまま。
+
+## 実装前レビューへの対応（2026-10-18）
+
+- 最新main a43960bへrebaseし、macOS先行の順序を維持。source_commitも更新。
+- 失敗する同時N呼び出しは最大N probe（callerごと最大1回）、同時実行最大1とし、N=32で固定。
+- 注入testはcheckerを個別所有。production globalは専用subprocessでのみ検査しresetしない。
+- native macOS CIでartifacts packageをrace付き実行し、production Darwin分岐も専用testで確認。
+- probe担当者のpanicでもdeferで完了通知と確認中状態解除を保証し、panic自体は伝播する。
