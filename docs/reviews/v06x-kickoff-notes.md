@@ -324,4 +324,26 @@ determinism=synctest), read source and real tests at a pinned version, and recor
 4. Resolve the stable-endpoint verification theme (spike) before deciding whether
    HTTP-app `live=True` is in scope.
 
+## 11. Proposed v0.6 execution sequence (Human proposal, 2026-10-18)
+
+1. **Pick the representative tests to complete in v0.6.** Cover the priority axes:
+   at least one Go and one Python suite; one framework with real migrations
+   (Django or Alembic); one driver that defaults to server-side prepared
+   statements; and one large-fixture / parallel case for the resource check.
+   Define what "complete" means (setup time and resource bounds), and use the
+   "Docker-free fast MariaDB test double" positioning as the filter for scope.
+2. **Run them on the current version and separate the two failure kinds.** For
+   each test record (a) compatibility gaps — which driver/framework issued which
+   unsupported wire command, with the error — and (b) fixture friction — prepare
+   hook, pool lifecycle, dump loading, resource totals. Pin the exact
+   version/boundary so the evidence is matched. This is the input to step 3; do
+   not design wire before this.
+3. **Design the needed wire support and fixture helpers, each with its own Human
+   Review.** Keep them separate: wire is host/guest; helpers are plugin/helper.
+   For each, state scope, the negative/oracle design, and the layer split
+   (host-only / guest API / guest config).
+4. **Verify combined usage and parallel resource behavior, then decide whether
+   additional control is needed.** Use the per-DB memory (~240–320 MiB) to decide
+   on a fork/concurrency cap or worker budget, and record the decision.
+
 Draft only. No runtime, wire, guest, generated source or public contract changes.
