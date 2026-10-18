@@ -85,7 +85,7 @@ def integration():
     env["PYTHONPATH"] = str(ROOT / "python")
     # v0.4 keeps handwritten/runtime race coverage. Full generated guest races
     # are a documented shared-memory-model limitation, not a release gate.
-    run(["go", "test", "-race", "-p", "1", "./internal/generatedgo/code/base",
+    run(["go", "test", "-race", "-p", "1", "./internal/artifacts", "./internal/generatedgo/code/base",
          "./internal/generatedgo", "./internal/guest", "./internal/host",
          "./internal/mysqlwire", "./internal/snapshot", "./internal/control", "./internal/prepared", ".", "-count=1"], env=env)
     command = ["go", "test"]

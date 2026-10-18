@@ -5,7 +5,7 @@
 **推薦：今回の成功キャッシュ修正をmainへ採用する。**
 両native OSのfocused CIとmacOSの限定性能結果が採用条件を満たした。今回Humanに求める判断はmain採用・統合であり、公開ではない。
 後続Forkと4子の実経過時間に利益があり、起動失敗・キャンセル・並列子・SQL・隔離・終了の既存oracleを維持した。
-main採用と公開は未承認。[承認した設計](macos-platform-cache-design.md)に対する結果を記録する。
+Humanはmain採用・統合を承認済み。公開は別判断。[承認した設計](macos-platform-cache-design.md)に対する結果を記録する。
 
 **最も強い留保：少数試行であり、Python初回起動の1秒級上振れ、Python並列の1対の全体悪化、
 並列Closeの小幅増加が残る。**
@@ -123,7 +123,7 @@ Go Lightは1行・1table、Python smallは100 users/100 orders・payload256Bの�
 
 runtimeは測定候補160b272のまま。後続差分は資料・証拠と、再実行時のcompiler tempをworkspaceへ
 寄せるtooling修正だけ。履歴を書き換えるため、旧設計commit e0dc61dを基点に統合しない。
-実装scope、macOS限定検証、両native focused CIの証拠確認は完了。main採用のHuman判断は未記録。
+実装scope、macOS限定検証、両native focused CIの証拠確認は完了。Humanのmain採用承認と統合については末尾に記録。
 新workflowはfocused development checksで、最終Qualificationやリリースを起動しない。
 
 ## CI照合と採用レビュー（2026-10-18）
@@ -171,4 +171,21 @@ OS版の呼称はworkflow runnerのmacos-15/ubuntu-24.04で、未記録のpatch 
 本branchにはguest/VFS/生成Goの実験差分や、対照側のuncached revert commitは含まれない。
 
 この照合後の差分は文書・証拠のみで、runtimeはCI source dc183e4および測定候補160b272と同一。
-main統合・リリースはまだ行っていない。Ubuntu並列起動調査は別の承認済み作業として残す。
+このCI照合時点ではmain統合前であり、その後のHuman承認・統合は末尾を参照。Ubuntu並列起動調査は別の承認済み作業として残す。
+
+## Human採用・main統合の記録（2026-10-18）
+
+Humanは採用・統合を承認し、main CIでrace検証を継続する条件を追加した。
+`scripts/verify.py integration` の既存 `go test -race` 集合へ `./internal/artifacts` を追加した。
+`.github/workflows/check.yml` のmain push/PR → scope判定 → macos-15 integrationを通るため、
+実験専用workflowのtriggerに依存せず検証が続く。Linuxの通常checkは従来どおり。
+
+この追加はCI実行対象と採用文書だけで、runtime/testの実装は両OS CIが確認したdc183e4と同一。
+[配線確認記録](macos-platform-cache-evidence/main-race-wiring.json)のとおり、source scope selectorの既存57 testsと、integration先頭commandを捕捉する確認で、
+artifacts変更がintegrationを選び、race flag付きでpackageが含まれることを確認した。
+変更していないruntimeの再ビルドや性能再測定は行わない。main push後の開発CIへ引き継ぐ。
+
+採用対象はa43960bから本branchまでの実装・通常計測コード・証拠と、このCI配線差分。
+対照専用6bdcd0eのuncached revertは祖先に含まれない。mainはfast-forwardで統合する。
+過去の採用前レビューは当時の状態を記録するもので、この節が現在のHuman決定を所有する。
+リリース準備・公開は今回の採用に含めない。

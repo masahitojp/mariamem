@@ -1,0 +1,45 @@
+{
+  "result": "PASS",
+  "canonical_race_command": [
+    "go",
+    "test",
+    "-race",
+    "-p",
+    "1",
+    "./internal/artifacts",
+    "./internal/generatedgo/code/base",
+    "./internal/generatedgo",
+    "./internal/guest",
+    "./internal/host",
+    "./internal/mysqlwire",
+    "./internal/snapshot",
+    "./internal/control",
+    "./internal/prepared",
+    ".",
+    "-count=1"
+  ],
+  "main_workflow": ".github/workflows/check.yml",
+  "native_integration_runner": "macos-15",
+  "scope_selection": {
+    "internal/artifacts/platform_cache.go": {
+      "version": 1,
+      "check_scope": "full",
+      "integration": true,
+      "changed_paths": [
+        "internal/artifacts/platform_cache.go"
+      ],
+      "reason": "unknown/runtime input"
+    },
+    "scripts/verify.py": {
+      "version": 1,
+      "check_scope": "full",
+      "integration": true,
+      "changed_paths": [
+        "scripts/verify.py"
+      ],
+      "reason": "unknown/runtime input"
+    }
+  },
+  "existing_scope_tests": "57 passed",
+  "runtime_matches_ci_source": "dc183e438a65c13aa532e16e38e31e3378d0a1dd"
+}

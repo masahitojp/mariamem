@@ -340,8 +340,8 @@ revised 2026-10-18):** for this workstream, v0.5.x is limited to these two
 actions, in order:
 1. Implement and measure reuse of successful macOS platform checks, preserving
    unsupported-platform rejection, cancellation/failure behavior and concurrent
-   startup correctness. Keep DB internals unchanged. Implementation has started
-   (delegated).
+   startup correctness. Keep DB internals unchanged. Implemented, verified and
+   accepted for main integration on 2026-10-18.
 2. Then investigate Ubuntu 10MiB parallel startup: distinguish startup
    contention from overlap with other children’s SQL/cleanup and identify the
    principal cause. Observed guest open-to-ready is 65.84ms serial versus
@@ -360,8 +360,12 @@ record passing unit/race and lifecycle checks, 32 measured executions, faster
 subsequent Forks and child-suite medians, plus initial-Python/parallel-Close
 uncertainty. Native focused CI passed on exact source dc183e438a65c13aa532e16e38e31e3378d0a1dd
 in [run39091145992](https://github.com/masahitojp/mariamem/actions/runs/39091145992);
-both artifact digests, source receipts and focused logs were reconciled. Main
-adoption is recommended and awaits Human decision. Item 2
+both artifact digests, source receipts and focused logs were reconciled. The
+Human approved main adoption/integration on 2026-10-18. Canonical
+`scripts/verify.py integration` now includes `./internal/artifacts` in its race
+set, so main CI retains the new concurrency oracles on native macOS. Product
+runtime matches the reviewed CI source; this follow-up adds CI wiring and
+adoption records. Release remains a separate decision. Item 2
 has not started. Other previously recorded roadmap items are not cancelled by
 this workstream decision.
 
