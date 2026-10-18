@@ -142,7 +142,7 @@ def main():
         elif name in ('fs_contract_test.go', 'guest_identity.go'):
             text = text.replace('package main', 'package generatedgo', 1)
         from runtime_thread_lifetime import apply as thread_lifetime
-        text = thread_lifetime(str(target.relative_to(out)), text)
+        text = thread_lifetime(str(target.relative_to(out)), text, guest_sha256=pins["guest_sha256"])
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.

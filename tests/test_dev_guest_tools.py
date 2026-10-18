@@ -153,6 +153,7 @@ def test_historical_guest_origin_allows_only_bound_host_stage_changes(tmp_path):
     root=tmp_path/'repo';(root/'scripts').mkdir(parents=True)
     (root/'guest').mkdir()
     (root/'scripts/dev_guest.py').write_text('old host stage')
+    (root/'scripts/runtime_thread_lifetime.py').write_text('old exact binding')
     (root/'guest/source.patch').write_text('guest patch')
     def git(*args):
         return subprocess.check_output(['git',*args],cwd=root,text=True)
@@ -160,6 +161,7 @@ def test_historical_guest_origin_allows_only_bound_host_stage_changes(tmp_path):
     git('add','.');git('commit','-qm','guest origin')
     origin=dev.source_identity(root)
     (root/'scripts/dev_guest.py').write_text('fixed host stage')
+    (root/'scripts/runtime_thread_lifetime.py').write_text('reviewed exact binding')
     git('add','.');git('commit','-qm','host fix')
     dev.verify_source_origin(root,origin)
     wrong=copy.deepcopy(origin);wrong['files_sha256']['scripts/dev_guest.py']='f'*64

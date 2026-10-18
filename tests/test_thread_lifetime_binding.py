@@ -52,3 +52,14 @@ def test_guest_and_required_file_identity():
     for file in files:
         with pytest.raises(ValueError, match='unreviewed'):
             binding.validate_inputs(binding.GUEST_SHA256, files-{file})
+
+
+def test_prepared_spike_identity_is_explicit_and_not_a_wildcard():
+    files = {'generated/base/base.go', *('generated/'+p.removeprefix('code/') for p in binding.FUNCTIONS)}
+    binding.validate_inputs(binding.PREPARED_SPIKE_GUEST, files)
+    with pytest.raises(ValueError, match='unreviewed'):
+        binding.apply('code/base/base.go', preimage('code/base/base.go'), guest_sha256='f'*64)
+    for name in binding.FUNCTIONS:
+        if binding.FUNCTIONS[name] != binding.PREPARED_SPIKE_FUNCTIONS[name]:
+            with pytest.raises(ValueError, match='function changed'):
+                binding.apply(name, preimage(name), guest_sha256=binding.PREPARED_SPIKE_GUEST)
