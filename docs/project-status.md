@@ -386,8 +386,12 @@ startup execution-resource sharing is the main supported cause category.
 Ordinary process-level medians are 43.50ms serial versus 84.03ms parallel per
 child, while four-child elapsed time improves from 541.23ms to 263.47ms.
 CPU scheduling versus cache/bandwidth contributions remain unseparated; a slow
-post-ready SQL trial is retained separately. Result acceptance is awaiting Human
-review. No guest optimization or main integration is approved by this report.
+post-ready SQL trial is retained separately. The Human accepted the bounded
+investigation results on 2026-10-18 after clarification of the GOMAXPROCS
+diagnostics. Keep automatic GOMAXPROCS selection: 4 was fastest among the
+tested 1/2/4 settings and also matched the native default; no better setting
+has been demonstrated. This closes item 2a, not the unseparated mechanisms.
+The acceptance does not authorize guest optimization or main integration.
 Guest-initialization candidate selection remains scheduled for v0.7.x.
 Other previously recorded roadmap items are not cancelled by
 this workstream decision.

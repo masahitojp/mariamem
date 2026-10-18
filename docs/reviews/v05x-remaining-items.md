@@ -14,7 +14,6 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 | # | 残件 | 現状 | 次の判断／作業 |
 | --- | --- | --- | --- |
-| 2a | Ubuntu・10MiB の並列起動の限定調査 | [32試行・解析完了、Human受理待ち](ubuntu-parallel-startup-results.md)。v0.7.x 選定の計測を兼ねる | SQLをready後まで止めても遅延は残る。起動側の実行資源競合まで確認。CPU待ち/cache/帯域の寄与は未分離。1子は約44→84ms、4子全体は約541→263ms。guest改善の方式選定・実装はv0.7.x |
 | 3 | 16 接続/DB の接続数調整 | 0.5.x スコープに追加済み | 実需要と資源効果を確認してから上限変更を検討する |
 | 4 | 信頼スコープ再設計 | 未着手 | 着手前に別 Human Review（dependency closure と negative proof）が必要 |
 
@@ -33,10 +32,11 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 | 9 | 子 Fork 起動・Close の費用帰属 | 2026-10-18にHuman受理、完了。[帰属Review](https://github.com/masahitojp/mariamem/blob/bbf5d1c27f3cea3e2135e8fae053f875ceb234b5/docs/reviews/child-lifecycle-attribution.md)。両native各40実行で Fork は guest 初期化、Close は guest 終了＋linear memory 解放が主。修正・最適化の選定は別判断 |
 | 10 | guest 初期化の改善候補選定 | Human 決定により 0.7.x へ延期。0.5.x の並列起動調査の証拠を引き継ぐ。方式・実装は未承認 |
 | 11 | macOS の OS 確認結果の再利用（2b） | 2026-10-18にHumanがmain採用・統合を承認。両native focused CIとmacOS32実行を照合済み。[採用記録](macos-platform-cache-results.md)。mainのcanonical integrationにもartifactsのrace検証を追加 |
+| 12 | Ubuntu・10MiB の並列起動の限定調査（2a） | 2026-10-18にHuman受理、クローズ。[32試行・結果Review](ubuntu-parallel-startup-results.md)。起動同士の実行資源競合まで確認、CPU待ち/cache/帯域の寄与は未分離。GOMAXPROCSは自動設定を維持。guest改善の方式選定は0.7.x、main統合は別判断 |
 
 ## 実質残るもの
 
-- **今回の最適化の残り** — macOS の OS 確認再利用（2b）は採用済み。Ubuntu 並列起動の限定調査（2a）は32試行・解析を終えHuman受理待ち。guest 初期化の改善候補選定は 0.7.x。
+- **今回の最適化の範囲は完了** — macOS の OS 確認再利用（2b）は採用済み。Ubuntu 並列起動の限定調査（2a）もHuman受理によりクローズ。調査成果のmain統合は別判断。guest 初期化の改善候補選定は 0.7.x。
 - **16 接続調整** — 0.5.x 入りしたので需要・資源効果の確認。
 - **信頼スコープ再設計** — 着手ゲートのまま。
 
@@ -52,6 +52,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 | 日付 | 決定 | 記録 |
 | --- | --- | --- |
+| 2026-10-18 | Ubuntu並列起動の限定調査結果を受理。GOMAXPROCS自動設定を維持し、改善方式選定は0.7.xへ引継ぎ。main統合・実装・公開は含めない | project-status、[受理記録](ubuntu-parallel-startup-results.md#human決定2026-10-18)、本台帳 クローズ #12 |
 | 2026-10-18 | OS確認結果の成功キャッシュをmainへ採用・統合。main CIからrace検出網を落とさない条件に従い、canonical integrationへartifactsを追加。公開は別判断 | [採用記録](macos-platform-cache-results.md)、本台帳 クローズ #11 |
 | 2026-10-18 | 0.5.x の実施順を変更: 2b（macOS OS 確認の再利用）を先行、その後 2a（Ubuntu 並列起動の限定調査、v0.7.x 選定の計測を兼ねる） | project-status、本台帳 2a/2b |
 | 2026-10-18 | 子 Fork 起動・Close の費用帰属を完了として受理 | [帰属Review](https://github.com/masahitojp/mariamem/blob/bbf5d1c27f3cea3e2135e8fae053f875ceb234b5/docs/reviews/child-lifecycle-attribution.md)、本台帳 クローズ #9 |

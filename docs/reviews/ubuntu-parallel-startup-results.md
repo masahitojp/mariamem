@@ -1,6 +1,6 @@
 # Ubuntu 10MiB parallel startup — bounded result / Human Review
 
-## Human Review
+## Human Review（提出時）
 
 **推薦：この限定調査の結果を受理し、guest初期化の改善方式選定は予定どおりv0.7.xへ渡す。**
 4子を並列に用意すると1子の待ちは延びるが、4テストの処理全体は約541→263msへ短縮した。
@@ -131,3 +131,13 @@ CIはscratchを削除し[残量12MiB](ubuntu-parallel-startup-evidence/native/st
 ローカルは原本11.8MBを470767byteのarchiveへ圧縮保存し、参照用の主要JSON/textも保持した。
 保存hashと再展開hashを照合し、一時downloadは削除した。今回追加の1GiB超残置・cleanup debtはない。
 次のHuman判断は本限定調査結果の受理であり、main統合・実装・リリースとは分ける。
+
+## Human決定（2026-10-18）
+
+HumanはGOMAXPROCS診断の意味を確認した後、本限定調査の結果を承認した。
+依頼された2aはクローズする。CPU待ち/cache/帯域の内訳や遅いSQL試行の原因まで解明済みとはしない。
+
+GOMAXPROCSは自動設定を維持する。今回のnative既定値は4で、試した1/2/4では4が最速だった。
+4超の指定・別環境・Fork同時数の最適値は未検証で、より良い設定が見つかったという結論ではない。
+guest起動時の仕事量削減と同時実行の効率は、予定どおり0.7.xの改善方式選定へ引き継ぐ。
+本承認にmain統合・最適化実装・Qualification・リリースは含めない。
