@@ -23,6 +23,8 @@ def test_dev_fresh_transactions_snapshot_children_and_close():
                 c.rollback()
                 q.execute('SELECT id FROM dev_items ORDER BY id')
                 assert q.fetchall() == ((1,),)
+        db.wait_disconnected()
+        assert db.status()["active_connections"] == 0
         with db.snapshot() as baseline:
             for index in range(3):
                 with baseline.fork(host_binary=HOST) as child:
