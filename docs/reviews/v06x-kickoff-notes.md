@@ -203,7 +203,26 @@ benchmark. Suggested arc: **v0.6 = UX/wire** so the disposable DB is a tool user
 can trust; **v0.7 = guest init plus 100 MiB large-scale tuning**, with the matched
 pgmem baseline as the investment input.
 
-## 8. Next steps (v0.6.x, for Human decision)
+## 8. Inspiration: moto's shadow pattern ("moto for MariaDB")
+
+The pgmem author states (Future Tech Blog, 2026-10-15,
+<https://future-architect.github.io/articles/20261015a/>) that `@shadow_pg` /
+`fx.ShadowPG` / `@ShadowPg` were inspired by **moto's `@mock_aws`**: a decorator
+that redirects an SDK to a local emulator **without changing application code or
+endpoints**. pgmem applies that pattern to PostgreSQL drivers; it also ships the
+same decorator per language (Go/Python/Java).
+
+Product framing for mariamem: a real MariaDB as a **test double (fake)** with the
+same "redirect the driver, change nothing" ergonomics — **"moto for MariaDB"**.
+The value is the decorator (transparent routing), not only a faster database, so
+the v0.6 fixture UX should be framed around that. The per-language decorator is
+also a useful model for the language-coverage discussion (item 7 above).
+
+Lineage: pgmem (PGLite) and mariamem (`lite4mariadb` recipe) both use the
+`wasm2go` converter. pgmem forks the whole initialized storage (a VFS copy, not a
+runtime-state clone), consistent with the pgmem VFS review.
+
+## 9. Next steps (v0.6.x, for Human decision)
 
 1. Dogfood (Django, Alembic/migrations, metadata-heavy, dbt-like; retain the
    SQLAlchemy/GORM anchors) and record which wire commands/flags each client
