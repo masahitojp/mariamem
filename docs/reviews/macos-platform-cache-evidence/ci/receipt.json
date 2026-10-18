@@ -1,0 +1,87 @@
+{
+  "run_id": 39091145992,
+  "source_commit": "dc183e438a65c13aa532e16e38e31e3378d0a1dd",
+  "conclusion": "success",
+  "platforms": {
+    "macos": {
+      "job_id": 117567984061,
+      "artifact_id": 12123295742,
+      "zip_sha256": "009ca2cfd1a5b40332419190781aa7080dfc4bbe2afedb2e7d77027177441da7",
+      "zip_bytes": 2129,
+      "files": {
+        "python-lifecycle.txt": {
+          "sha256": "92371fefdca46d9cf72d294204019909c94fd7e85bcb9f38d1f12520e2d59608",
+          "bytes": 100
+        },
+        "platform.txt": {
+          "sha256": "ea3068db835025ea65741eb72c1727a1499ed75dad8fc2f8907d8f0bab72192f",
+          "bytes": 234
+        },
+        "public.txt": {
+          "sha256": "44fa6f9ef1042ba2f69e4520698d0aa41100c67269d46fa4b7a290d224a93231",
+          "bytes": 39
+        },
+        "source.json": {
+          "sha256": "29bfed97029d690bab6e86d41817ba1ce7cdacac2db7d4b7f1578ffc51818edc",
+          "bytes": 153
+        },
+        "go-lifecycle.txt": {
+          "sha256": "bd019fc2cf14159e35927e008994c38158c0eca4f38df24ea80d9128e299c9a4",
+          "bytes": 978
+        },
+        "generated.txt": {
+          "sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+          "bytes": 67
+        },
+        "artifacts-race.txt": {
+          "sha256": "e1744954d46fe081ab176620d06bf28bda96047c754148a559748680ec7de52e",
+          "bytes": 5257
+        }
+      },
+      "platform_race_repetitions": 3,
+      "native_darwin_test": "PASS",
+      "go_lifecycle_tests": 4,
+      "python_tests": 22
+    },
+    "ubuntu": {
+      "job_id": 117567983754,
+      "artifact_id": 12123036878,
+      "zip_sha256": "484ba128c613b0db03e9d75521e9027401086dfa87e9d38bd1dd02e8609b62e6",
+      "zip_bytes": 2089,
+      "files": {
+        "python-lifecycle.txt": {
+          "sha256": "257b7b3d50f299eee897d1c7a4728bf53fe06ed5f4cb64d53610a3c56a96fa71",
+          "bytes": 100
+        },
+        "platform.txt": {
+          "sha256": "ab15a0bb00c64d55fc5600fca2817ec64e94073d96975477af74aa86820091e8",
+          "bytes": 145
+        },
+        "public.txt": {
+          "sha256": "44fa6f9ef1042ba2f69e4520698d0aa41100c67269d46fa4b7a290d224a93231",
+          "bytes": 39
+        },
+        "source.json": {
+          "sha256": "29bfed97029d690bab6e86d41817ba1ce7cdacac2db7d4b7f1578ffc51818edc",
+          "bytes": 153
+        },
+        "go-lifecycle.txt": {
+          "sha256": "c70a9a7bae857f8d398f8852eadb40fb3f82ccef801f9d2e0ccd8d74f60ef5c2",
+          "bytes": 976
+        },
+        "generated.txt": {
+          "sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+          "bytes": 67
+        },
+        "artifacts-race.txt": {
+          "sha256": "dce1a49ecf7f551401ff9465d5bd0a1baeb4917b3ec297cee9cc876e2783fcc1",
+          "bytes": 5425
+        }
+      },
+      "platform_race_repetitions": 3,
+      "native_darwin_test": "SKIP",
+      "go_lifecycle_tests": 4,
+      "python_tests": 22
+    }
+  }
+}

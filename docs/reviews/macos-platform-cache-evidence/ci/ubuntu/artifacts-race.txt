@@ -1,0 +1,107 @@
+=== RUN   TestMacOSMajor
+--- PASS: TestMacOSMajor (0.00s)
+=== RUN   TestPlatformCheckCanceledMiss
+--- PASS: TestPlatformCheckCanceledMiss (0.00s)
+=== RUN   TestPlatformCheckSuccessAndCanceledHit
+--- PASS: TestPlatformCheckSuccessAndCanceledHit (0.00s)
+=== RUN   TestPlatformCheckFailureRecovery
+=== RUN   TestPlatformCheckFailureRecovery/command
+=== RUN   TestPlatformCheckFailureRecovery/parse
+=== RUN   TestPlatformCheckFailureRecovery/unsupported
+--- PASS: TestPlatformCheckFailureRecovery (0.00s)
+    --- PASS: TestPlatformCheckFailureRecovery/command (0.00s)
+    --- PASS: TestPlatformCheckFailureRecovery/parse (0.00s)
+    --- PASS: TestPlatformCheckFailureRecovery/unsupported (0.00s)
+=== RUN   TestPlatformCheckConcurrentCohorts
+=== RUN   TestPlatformCheckConcurrentCohorts/success
+=== RUN   TestPlatformCheckConcurrentCohorts/failure
+--- PASS: TestPlatformCheckConcurrentCohorts (0.00s)
+    --- PASS: TestPlatformCheckConcurrentCohorts/success (0.00s)
+    --- PASS: TestPlatformCheckConcurrentCohorts/failure (0.00s)
+=== RUN   TestPlatformCheckLeaderCancellation
+--- PASS: TestPlatformCheckLeaderCancellation (0.00s)
+=== RUN   TestPlatformCheckWaiterCancellation
+--- PASS: TestPlatformCheckWaiterCancellation (0.00s)
+=== RUN   TestPlatformCheckCancellationAfterProbe
+--- PASS: TestPlatformCheckCancellationAfterProbe (0.00s)
+=== RUN   TestPlatformCheckCanceledCommandRetainsBothCauses
+--- PASS: TestPlatformCheckCanceledCommandRetainsBothCauses (0.00s)
+=== RUN   TestPlatformCheckPanicReleasesWaiters
+--- PASS: TestPlatformCheckPanicReleasesWaiters (0.00s)
+=== RUN   TestMacOSProductionCheckSubprocess
+    platform_cache_test.go:292: native macOS arm64 path
+--- SKIP: TestMacOSProductionCheckSubprocess (0.00s)
+=== RUN   TestUbuntuPlatform
+--- PASS: TestUbuntuPlatform (0.00s)
+=== RUN   TestMacOSMajor
+--- PASS: TestMacOSMajor (0.00s)
+=== RUN   TestPlatformCheckCanceledMiss
+--- PASS: TestPlatformCheckCanceledMiss (0.00s)
+=== RUN   TestPlatformCheckSuccessAndCanceledHit
+--- PASS: TestPlatformCheckSuccessAndCanceledHit (0.00s)
+=== RUN   TestPlatformCheckFailureRecovery
+=== RUN   TestPlatformCheckFailureRecovery/command
+=== RUN   TestPlatformCheckFailureRecovery/parse
+=== RUN   TestPlatformCheckFailureRecovery/unsupported
+--- PASS: TestPlatformCheckFailureRecovery (0.00s)
+    --- PASS: TestPlatformCheckFailureRecovery/command (0.00s)
+    --- PASS: TestPlatformCheckFailureRecovery/parse (0.00s)
+    --- PASS: TestPlatformCheckFailureRecovery/unsupported (0.00s)
+=== RUN   TestPlatformCheckConcurrentCohorts
+=== RUN   TestPlatformCheckConcurrentCohorts/success
+=== RUN   TestPlatformCheckConcurrentCohorts/failure
+--- PASS: TestPlatformCheckConcurrentCohorts (0.00s)
+    --- PASS: TestPlatformCheckConcurrentCohorts/success (0.00s)
+    --- PASS: TestPlatformCheckConcurrentCohorts/failure (0.00s)
+=== RUN   TestPlatformCheckLeaderCancellation
+--- PASS: TestPlatformCheckLeaderCancellation (0.00s)
+=== RUN   TestPlatformCheckWaiterCancellation
+--- PASS: TestPlatformCheckWaiterCancellation (0.00s)
+=== RUN   TestPlatformCheckCancellationAfterProbe
+--- PASS: TestPlatformCheckCancellationAfterProbe (0.00s)
+=== RUN   TestPlatformCheckCanceledCommandRetainsBothCauses
+--- PASS: TestPlatformCheckCanceledCommandRetainsBothCauses (0.00s)
+=== RUN   TestPlatformCheckPanicReleasesWaiters
+--- PASS: TestPlatformCheckPanicReleasesWaiters (0.00s)
+=== RUN   TestMacOSProductionCheckSubprocess
+    platform_cache_test.go:292: native macOS arm64 path
+--- SKIP: TestMacOSProductionCheckSubprocess (0.00s)
+=== RUN   TestUbuntuPlatform
+--- PASS: TestUbuntuPlatform (0.00s)
+=== RUN   TestMacOSMajor
+--- PASS: TestMacOSMajor (0.00s)
+=== RUN   TestPlatformCheckCanceledMiss
+--- PASS: TestPlatformCheckCanceledMiss (0.00s)
+=== RUN   TestPlatformCheckSuccessAndCanceledHit
+--- PASS: TestPlatformCheckSuccessAndCanceledHit (0.00s)
+=== RUN   TestPlatformCheckFailureRecovery
+=== RUN   TestPlatformCheckFailureRecovery/command
+=== RUN   TestPlatformCheckFailureRecovery/parse
+=== RUN   TestPlatformCheckFailureRecovery/unsupported
+--- PASS: TestPlatformCheckFailureRecovery (0.00s)
+    --- PASS: TestPlatformCheckFailureRecovery/command (0.00s)
+    --- PASS: TestPlatformCheckFailureRecovery/parse (0.00s)
+    --- PASS: TestPlatformCheckFailureRecovery/unsupported (0.00s)
+=== RUN   TestPlatformCheckConcurrentCohorts
+=== RUN   TestPlatformCheckConcurrentCohorts/success
+=== RUN   TestPlatformCheckConcurrentCohorts/failure
+--- PASS: TestPlatformCheckConcurrentCohorts (0.00s)
+    --- PASS: TestPlatformCheckConcurrentCohorts/success (0.00s)
+    --- PASS: TestPlatformCheckConcurrentCohorts/failure (0.00s)
+=== RUN   TestPlatformCheckLeaderCancellation
+--- PASS: TestPlatformCheckLeaderCancellation (0.00s)
+=== RUN   TestPlatformCheckWaiterCancellation
+--- PASS: TestPlatformCheckWaiterCancellation (0.00s)
+=== RUN   TestPlatformCheckCancellationAfterProbe
+--- PASS: TestPlatformCheckCancellationAfterProbe (0.00s)
+=== RUN   TestPlatformCheckCanceledCommandRetainsBothCauses
+--- PASS: TestPlatformCheckCanceledCommandRetainsBothCauses (0.00s)
+=== RUN   TestPlatformCheckPanicReleasesWaiters
+--- PASS: TestPlatformCheckPanicReleasesWaiters (0.00s)
+=== RUN   TestMacOSProductionCheckSubprocess
+    platform_cache_test.go:292: native macOS arm64 path
+--- SKIP: TestMacOSProductionCheckSubprocess (0.00s)
+=== RUN   TestUbuntuPlatform
+--- PASS: TestUbuntuPlatform (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/artifacts	1.018s

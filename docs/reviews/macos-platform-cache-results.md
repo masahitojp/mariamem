@@ -2,15 +2,16 @@
 
 ## Human Review
 
-**推薦：macOSの限定結果は採用候補を支持する。native macOS15/Ubuntuのfocused CIを完了してからmain採用のHuman Reviewへ返す。**
+**推薦：今回の成功キャッシュ修正をmainへ採用する。**
+両native OSのfocused CIとmacOSの限定性能結果が採用条件を満たした。今回Humanに求める判断はmain採用・統合であり、公開ではない。
 後続Forkと4子の実経過時間に利益があり、起動失敗・キャンセル・並列子・SQL・隔離・終了の既存oracleを維持した。
 main採用と公開は未承認。[承認した設計](macos-platform-cache-design.md)に対する結果を記録する。
 
 **最も強い留保：少数試行であり、Python初回起動の1秒級上振れ、Python並列の1対の全体悪化、
-並列Closeの小幅増加が残る。native CIも未完了。**
+並列Closeの小幅増加が残る。**
 これらを削らず保存する。今回の利益は成功した環境確認の反復削減で、初回host起動や全区間の改善保証ではない。
 有限な同一入力比較では後続Fork・4子区間の各群中央値が改善したため候補は維持するが、
-native回帰失敗なら採用を止める。CI PASSを性能の普遍保証にはしない。
+両OSの機能回帰は通過したが、CI PASSを性能の普遍保証にはしない。
 Ubuntu並列起動の原因調査と0.7.xのguest改善候補選定は別範囲。
 
 ## 入力と実装
@@ -110,7 +111,7 @@ Go Lightは1行・1table、Python smallは100 users/100 orders・payload256Bの�
 | Goの既存起動失敗・並列子・Snapshot/Fork・cleanup | PASS | [Go log](macos-platform-cache-evidence/go-lifecycle.txt)、tests/godefaultの選定4 tests |
 | Python diagnostics / multiclient / 並列siblings / 子の再Snapshot | PASS | [Python log](macos-platform-cache-evidence/python-lifecycle.txt)、22 tests |
 | 生成入力・guest identity・public境界・vet/diff | PASS | generated.txt/public.txt、変更は通常Go package。独立再生成は対象外 |
-| native macOS15/Ubuntu focused CI | PENDING | 新workflowで両OS race/platform/起動/共有hostを実行する。Ubuntuの性能確認ではない |
+| native macOS15/Ubuntu focused CI | PASS（限定scope） | [run39091145992](https://github.com/masahitojp/mariamem/actions/runs/39091145992)。両OS race/platform/起動/共有host。Ubuntuの性能確認ではない |
 | main統合・Qualification・公開 | 対象外 | 別Human判断 |
 
 [環境](macos-platform-cache-evidence/environment.json)、
@@ -122,5 +123,52 @@ Go Lightは1行・1table、Python smallは100 users/100 orders・payload256Bの�
 
 runtimeは測定候補160b272のまま。後続差分は資料・証拠と、再実行時のcompiler tempをworkspaceへ
 寄せるtooling修正だけ。履歴を書き換えるため、旧設計commit e0dc61dを基点に統合しない。
-実装scopeは完了、macOSの限定検証は完了。native CIの確認と採用Human Reviewは未完了。
+実装scope、macOS限定検証、両native focused CIの証拠確認は完了。main採用のHuman判断は未記録。
 新workflowはfocused development checksで、最終Qualificationやリリースを起動しない。
+
+## CI照合と採用レビュー（2026-10-18）
+
+[run39091145992](https://github.com/masahitojp/mariamem/actions/runs/39091145992)は
+source_commit `dc183e438a65c13aa532e16e38e31e3378d0a1dd`、両job全step success。
+[macOS job117567984061](https://github.com/masahitojp/mariamem/actions/runs/39091145992/job/117567984061)、
+[Ubuntu job117567983754](https://github.com/masahitojp/mariamem/actions/runs/39091145992/job/117567983754)。
+GitHub metadataのdigestとダウンロードZIPのSHA256を照合し、各7ファイルをそのまま保存した。
+
+| artifact | ID | ZIP SHA256 |
+| --- | --- | --- |
+| macos-15 | 12123295742 | `009ca2cfd1a5b40332419190781aa7080dfc4bbe2afedb2e7d77027177441da7` |
+| ubuntu-24.04 | 12123036878 | `484ba128c613b0db03e9d75521e9027401086dfa87e9d38bd1dd02e8609b62e6` |
+
+[照合receiptと原本file hashes](macos-platform-cache-evidence/ci/receipt.json)、
+[macOS race log](macos-platform-cache-evidence/ci/macos/artifacts-race.txt)、
+[Ubuntu race log](macos-platform-cache-evidence/ci/ubuntu/artifacts-race.txt)。
+実際のplatform.txtはmacOS jobでDarwin24.6.0 arm64、Ubuntu jobでLinux6.17.0 x86_64、両方Go1.26.8。
+OS版の呼称はworkflow runnerのmacos-15/ubuntu-24.04で、未記録のpatch versionを補わない。
+
+- 両OSでgeneric checkerの成功・失敗後回復・32caller上限・キャンセル・panic解除をrace付き3回PASS。
+- macOSの実production Darwin入口は専用subprocessで3回PASS。Ubuntuではこの1 testだけを明示SKIP。
+  UbuntuのSKIPをmacOS経路のPASSへ読み替えない。
+- 両OSでGo既存4 lifecycle testsとPython22 testsがPASS。
+  FD/goroutineの回収記録も保存され、Goのfailure-path testはmacOS11→11/2→2、Ubuntu9→9/2→2。
+- source.jsonはいずれも上のexact commit。生成inventory/guest identity/public source検証もPASS。
+  CIはbenchmarkやQualificationを実施していない。
+
+### 採用条件・gapの結論
+
+| 確認点 | 判断 |
+| --- | --- |
+| 最新mainのmacOS先行方針、成功だけ保存、失敗再試行、独立キャンセル | 満たす。実装と専用oracleを照合 |
+| 失敗時のN回上限、test分離、panic解除、native macOSのrace | 満たす。既存レビューgapを両OS logsで閉じた |
+| 公開API/対応OS/minimum Go、README/Go/Python/releasingの契約 | 新しい矛盾なし。変更は成功済み環境確認の寿命。architectureに明記 |
+| 生成所有元、guest/converter、release inventory/台帳 | 差分なし。生成物の手編集・guard緩和・再生成済みの誤記なし |
+| 選定した起動/SQL/transaction/子隔離/終了の回帰 | 両nativeの限定oracleでPASS。全guest意味論の保証にはしない |
+| 性能の例外 | 上記の通り未解明。CI不可視であり、少数試行の測定から取り除いていない |
+| 未実施 | Ubuntu性能・大規模fixture・最終Qualification。今回の内部確認削減の採用条件に追加せず、結果を保証したとも記載しない |
+
+採用を妨げる未充足の条件は見つからなかった。最大の反論は初回Python/並列Closeの不確実性だが、
+本修正が狙う後続Forkと4子区間の利益、両OS機能回帰の維持、変更範囲の小ささから採用を推薦する。
+旧実験履歴の無条件mergeではなく、a43960bからの本branch差分が対象。
+本branchにはguest/VFS/生成Goの実験差分や、対照側のuncached revert commitは含まれない。
+
+この照合後の差分は文書・証拠のみで、runtimeはCI source dc183e4および測定候補160b272と同一。
+main統合・リリースはまだ行っていない。Ubuntu並列起動調査は別の承認済み作業として残す。

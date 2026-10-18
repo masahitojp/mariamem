@@ -358,7 +358,10 @@ and bounded measurement on 2026-10-18, with review gaps to close first. The
 [implemented candidate and bounded macOS results](reviews/macos-platform-cache-results.md)
 record passing unit/race and lifecycle checks, 32 measured executions, faster
 subsequent Forks and child-suite medians, plus initial-Python/parallel-Close
-uncertainty. Native focused CI and adoption review remain pending. Item 2
+uncertainty. Native focused CI passed on exact source dc183e438a65c13aa532e16e38e31e3378d0a1dd
+in [run39091145992](https://github.com/masahitojp/mariamem/actions/runs/39091145992);
+both artifact digests, source receipts and focused logs were reconciled. Main
+adoption is recommended and awaits Human decision. Item 2
 has not started. Other previously recorded roadmap items are not cancelled by
 this workstream decision.
 

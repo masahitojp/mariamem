@@ -1,0 +1,18 @@
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+go: downloading filippo.io/edwards25519 v1.1.0
+=== RUN   TestDefaultNoBundleAndForkIsolation
+--- PASS: TestDefaultNoBundleAndForkIsolation (0.38s)
+=== RUN   TestDefaultRepeatedConcurrentLifecycle
+--- PASS: TestDefaultRepeatedConcurrentLifecycle (0.50s)
+=== RUN   TestDefaultReleaseFailurePaths
+[mysql] 2026/10/18 02:49:38 connection.go:706 closing bad idle connection: EOF
+[mysql] 2026/10/18 02:49:38 connection.go:706 closing bad idle connection: EOF
+=== RUN   TestDefaultReleaseFailurePaths/unusable_temporary_directory
+=== NAME  TestDefaultReleaseFailurePaths
+    failure_paths_test.go:210: FDs=11→11 goroutines=2→2
+--- PASS: TestDefaultReleaseFailurePaths (0.44s)
+    --- PASS: TestDefaultReleaseFailurePaths/unusable_temporary_directory (0.00s)
+=== RUN   TestMemorySnapshotIndependentLifecycle
+--- PASS: TestMemorySnapshotIndependentLifecycle (0.27s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/godefault	1.643s
