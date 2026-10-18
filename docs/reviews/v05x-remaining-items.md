@@ -14,7 +14,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 | # | 残件 | 現状 | 次の判断／作業 |
 | --- | --- | --- | --- |
-| 2 | 子 Fork 起動と子 Close の費用帰属 | [macOSの40実行と帰属照合完了](child-lifecycle-attribution.md)、Ubuntu内訳はCI結果待ち | 子の Fork 起動と Close の費用を計測し、時間を使っている処理を特定する。計測と原因特定までをゴールとし、修正・最適化の選定は範囲外 |
+| 2 | 子 Fork 起動と子 Close の費用帰属 | [両native各40実行と費用帰属の照合完了](child-lifecycle-attribution.md)、Human受理待ち | 完了した調査結果をHuman Reviewで受理するか判断する。修正・最適化の選定は別判断 |
 | 3 | 16 接続/DB の接続数調整 | 0.5.x スコープに追加済み | 実需要と資源効果を確認してから上限変更を検討する |
 | 4 | 信頼スコープ再設計 | 未着手 | 着手前に別 Human Review（dependency closure と negative proof）が必要 |
 
@@ -33,7 +33,7 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 ## 実質残るもの
 
-- **子 Fork 起動・Close の費用帰属** — macOS完了、Ubuntu照合待ち。全体は未完了（実装は別）。
+- **子 Fork 起動・Close の費用帰属** — 調査完了、Human受理待ち（修正・最適化は別判断）。
 - **16 接続調整** — 0.5.x 入りしたので需要・資源効果の確認。
 - **信頼スコープ再設計** — 着手ゲートのまま。
 
@@ -61,6 +61,6 @@ v0.5.2 公開と関連する Human 決定を反映した残件のスナップシ
 
 - [post-v0.5 共有メモリ照合](shared-memory-post-v05-reassessment.md)
 - [main Product Verification](main-product-verification.md)
-- [Fast architecture review](../benchmarks/fast-architecture-review.md)
+- [Fast architecture review](../../benchmarks/fast-architecture-review.md)
 - [verification-economics の deferred 変更](v045-verification-economics.md)
 - [project-status](../project-status.md) / [releasing](../releasing.md)

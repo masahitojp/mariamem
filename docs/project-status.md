@@ -327,11 +327,16 @@ v0.6.0 dogfood above. The current active and closed items are listed in the
 cost of creating a Fork child and of Close, and identify which phases own that
 time. The task ends at measurement and cause identification; selecting or
 implementing a fix is a separate decision.
-The [bounded attribution](reviews/child-lifecycle-attribution.md) has completed
-its macOS campaign: guest server initialization and repeated platform checks
-dominate Fork; actual DB Close is distinct from SQL-disconnect waiting. The
-same pinned native Ubuntu breakdown is handed to CI and remains unconfirmed.
-Item #2 is not closed and no optimization is adopted.
+The [bounded attribution](reviews/child-lifecycle-attribution.md) completed
+40 fixed executions on each native platform. Ubuntu source
+`e4a5522ca475f73b56f23b08a725354eafb81b19` passed in
+[run 39083277771](https://github.com/masahitojp/mariamem/actions/runs/39083277771);
+artifact identity, all cells/traces and aggregates were independently reconciled.
+Guest server initialization dominates Fork on both platforms; repeated OS
+checks add material cost only on macOS in this comparison. Actual DB Close is
+separate from SQL disconnect waiting and is mainly guest shutdown and linear
+memory release. Investigation #2 meets its exit criteria; Human acceptance is
+pending. No optimization or main integration is approved by that conclusion.
 
 The Human prioritized native Ubuntu performance measurement next. The
 [fixed-scope campaign](reviews/ubuntu-product-performance.md) completed 246

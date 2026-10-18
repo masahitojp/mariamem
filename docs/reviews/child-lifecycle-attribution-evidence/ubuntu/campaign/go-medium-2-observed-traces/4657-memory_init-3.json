@@ -1,0 +1,1 @@
+{"operation":"memory_init","origin_ns":679602,"pid":4657,"events":[{"name":"begin","offset_ns":651},{"name":"mapping_reserved","offset_ns":27351},{"name":"generated_initialized","offset_ns":2530821},{"name":"end","offset_ns":2534528}]}

@@ -1,0 +1,4859 @@
+{
+  "groups": {
+    "go-light/control": {
+      "public_fork": {
+        "n": 12,
+        "median_ms": 65.7530085,
+        "min_ms": 63.141714,
+        "max_ms": 71.098894
+      },
+      "public_close": {
+        "n": 12,
+        "median_ms": 4.879197,
+        "min_ms": 4.208673,
+        "max_ms": 6.578165
+      },
+      "disconnect": {
+        "n": 12,
+        "median_ms": 5.2624415,
+        "min_ms": 0.211034,
+        "max_ms": 5.315156
+      }
+    },
+    "go-light/observed": {
+      "public_fork": {
+        "n": 12,
+        "median_ms": 63.6174765,
+        "min_ms": 62.096477,
+        "max_ms": 68.714515
+      },
+      "public_close": {
+        "n": 12,
+        "median_ms": 5.0246525,
+        "min_ms": 4.493294,
+        "max_ms": 5.229394
+      },
+      "disconnect": {
+        "n": 12,
+        "median_ms": 5.2484105,
+        "min_ms": 5.18875,
+        "max_ms": 5.332913
+      },
+      "platform_checks_total": {
+        "n": 12,
+        "median_ms": 0.0383465,
+        "min_ms": 0.036548,
+        "max_ms": 0.073617
+      },
+      "api_other_outside_host": {
+        "n": 12,
+        "median_ms": 0.276341,
+        "min_ms": 0.243494,
+        "max_ms": 0.426405
+      },
+      "baseline_acquire": {
+        "n": 12,
+        "median_ms": 0.028328,
+        "min_ms": 0.020468,
+        "max_ms": 0.035036
+      },
+      "host_transfer_setup": {
+        "n": 12,
+        "median_ms": 0.056736,
+        "min_ms": 0.054061,
+        "max_ms": 0.061855
+      },
+      "prepared_handles": {
+        "n": 12,
+        "median_ms": 0.0790075,
+        "min_ms": 0.06958,
+        "max_ms": 0.595398
+      },
+      "memory_mapping": {
+        "n": 12,
+        "median_ms": 0.0340035,
+        "min_ms": 0.027712,
+        "max_ms": 0.041627
+      },
+      "generated_memory_init": {
+        "n": 12,
+        "median_ms": 1.67543,
+        "min_ms": 1.596789,
+        "max_ms": 1.924771
+      },
+      "memory_total": {
+        "n": 12,
+        "median_ms": 1.7133205,
+        "min_ms": 1.629048,
+        "max_ms": 1.960156
+      },
+      "guest_until_ready": {
+        "n": 12,
+        "median_ms": 61.1674165,
+        "min_ms": 59.256883,
+        "max_ms": 65.999931
+      },
+      "guest_main_until_ready_prepared": {
+        "n": 12,
+        "median_ms": 60.6451975,
+        "min_ms": 58.700913,
+        "max_ms": 65.492915
+      },
+      "guest_l4m_open_and_slot_init": {
+        "n": 12,
+        "median_ms": 60.618112,
+        "min_ms": 58.680475,
+        "max_ms": 65.461155
+      },
+      "guest_restore_copy": {
+        "n": 12,
+        "median_ms": 0.0002005,
+        "min_ms": 0.00018,
+        "max_ms": 0.000661
+      },
+      "guest_before_main_and_ready_delivery_residual": {
+        "n": 12,
+        "median_ms": 0.490795,
+        "min_ms": 0.402957,
+        "max_ms": 0.619015
+      },
+      "ready_decode_and_listener": {
+        "n": 12,
+        "median_ms": 0.1053565,
+        "min_ms": 0.095098,
+        "max_ms": 0.156041
+      },
+      "host_startup_total": {
+        "n": 12,
+        "median_ms": 63.277002,
+        "min_ms": 61.723501,
+        "max_ms": 68.121468
+      },
+      "fork_trace_total": {
+        "n": 12,
+        "median_ms": 63.5799315,
+        "min_ms": 62.056373,
+        "max_ms": 68.584762
+      },
+      "host_admission_stop": {
+        "n": 12,
+        "median_ms": 0.0319995,
+        "min_ms": 0.023724,
+        "max_ms": 0.037089
+      },
+      "host_session_drain": {
+        "n": 12,
+        "median_ms": 0.0032915,
+        "min_ms": 0.002475,
+        "max_ms": 0.004749
+      },
+      "shutdown_write_to_guest_root": {
+        "n": 12,
+        "median_ms": 2.334403,
+        "min_ms": 1.99971,
+        "max_ms": 2.70728
+      },
+      "guest_final_join": {
+        "n": 12,
+        "median_ms": 0.001027,
+        "min_ms": 0.000932,
+        "max_ms": 0.002755
+      },
+      "guest_diag_read": {
+        "n": 12,
+        "median_ms": 0.009377,
+        "min_ms": 0.007364,
+        "max_ms": 0.015119
+      },
+      "linear_memory_release": {
+        "n": 12,
+        "median_ms": 2.1699875,
+        "min_ms": 1.920201,
+        "max_ms": 2.434522
+      },
+      "descriptor_prepared_release": {
+        "n": 12,
+        "median_ms": 0.001553,
+        "min_ms": 0.001423,
+        "max_ms": 0.001864
+      },
+      "close_after_resources": {
+        "n": 12,
+        "median_ms": 0.234782,
+        "min_ms": 0.208329,
+        "max_ms": 0.268767
+      },
+      "host_close_total": {
+        "n": 12,
+        "median_ms": 4.8961985,
+        "min_ms": 4.344556,
+        "max_ms": 5.108088
+      }
+    },
+    "go-medium/control": {
+      "public_fork": {
+        "n": 12,
+        "median_ms": 70.466195,
+        "min_ms": 68.579549,
+        "max_ms": 79.131079
+      },
+      "public_close": {
+        "n": 12,
+        "median_ms": 4.1489015,
+        "min_ms": 3.785672,
+        "max_ms": 5.856286
+      },
+      "disconnect": {
+        "n": 12,
+        "median_ms": 5.267409,
+        "min_ms": 5.204162,
+        "max_ms": 5.381058
+      }
+    },
+    "go-medium/observed": {
+      "public_fork": {
+        "n": 12,
+        "median_ms": 69.424471,
+        "min_ms": 67.595016,
+        "max_ms": 72.535252
+      },
+      "public_close": {
+        "n": 12,
+        "median_ms": 4.169361,
+        "min_ms": 3.798756,
+        "max_ms": 4.839686
+      },
+      "disconnect": {
+        "n": 12,
+        "median_ms": 5.2659455,
+        "min_ms": 5.185398,
+        "max_ms": 5.438514
+      },
+      "platform_checks_total": {
+        "n": 12,
+        "median_ms": 0.039925,
+        "min_ms": 0.037039,
+        "max_ms": 0.054812
+      },
+      "api_other_outside_host": {
+        "n": 12,
+        "median_ms": 0.279687,
+        "min_ms": 0.247893,
+        "max_ms": 0.361114
+      },
+      "baseline_acquire": {
+        "n": 12,
+        "median_ms": 0.203525,
+        "min_ms": 0.14455,
+        "max_ms": 0.229918
+      },
+      "host_transfer_setup": {
+        "n": 12,
+        "median_ms": 0.0593655,
+        "min_ms": 0.055623,
+        "max_ms": 0.066564
+      },
+      "prepared_handles": {
+        "n": 12,
+        "median_ms": 0.431284,
+        "min_ms": 0.400076,
+        "max_ms": 0.621469
+      },
+      "memory_mapping": {
+        "n": 12,
+        "median_ms": 0.0355865,
+        "min_ms": 0.030467,
+        "max_ms": 0.061144
+      },
+      "generated_memory_init": {
+        "n": 12,
+        "median_ms": 1.727492,
+        "min_ms": 1.573585,
+        "max_ms": 2.163008
+      },
+      "memory_total": {
+        "n": 12,
+        "median_ms": 1.7670655,
+        "min_ms": 1.61885,
+        "max_ms": 2.204956
+      },
+      "guest_until_ready": {
+        "n": 12,
+        "median_ms": 66.3854205,
+        "min_ms": 64.446693,
+        "max_ms": 69.56894
+      },
+      "guest_main_until_ready_prepared": {
+        "n": 12,
+        "median_ms": 65.8610425,
+        "min_ms": 63.953393,
+        "max_ms": 68.975652
+      },
+      "guest_l4m_open_and_slot_init": {
+        "n": 12,
+        "median_ms": 65.8359455,
+        "min_ms": 63.915162,
+        "max_ms": 68.952368
+      },
+      "guest_restore_copy": {
+        "n": 12,
+        "median_ms": 0.0002155,
+        "min_ms": 0.00019,
+        "max_ms": 0.00029
+      },
+      "guest_before_main_and_ready_delivery_residual": {
+        "n": 12,
+        "median_ms": 0.4322715,
+        "min_ms": 0.398904,
+        "max_ms": 0.78807
+      },
+      "ready_decode_and_listener": {
+        "n": 12,
+        "median_ms": 0.107185,
+        "min_ms": 0.103523,
+        "max_ms": 0.129101
+      },
+      "host_startup_total": {
+        "n": 12,
+        "median_ms": 69.062656,
+        "min_ms": 67.208445,
+        "max_ms": 72.144634
+      },
+      "fork_trace_total": {
+        "n": 12,
+        "median_ms": 69.3840505,
+        "min_ms": 67.552918,
+        "max_ms": 72.489708
+      },
+      "host_admission_stop": {
+        "n": 12,
+        "median_ms": 0.0319645,
+        "min_ms": 0.02139,
+        "max_ms": 0.042469
+      },
+      "host_session_drain": {
+        "n": 12,
+        "median_ms": 0.0035465,
+        "min_ms": 0.002685,
+        "max_ms": 0.008265
+      },
+      "shutdown_write_to_guest_root": {
+        "n": 12,
+        "median_ms": 1.437855,
+        "min_ms": 1.345155,
+        "max_ms": 1.661758
+      },
+      "guest_final_join": {
+        "n": 12,
+        "median_ms": 0.001202,
+        "min_ms": 0.001022,
+        "max_ms": 0.001472
+      },
+      "guest_diag_read": {
+        "n": 12,
+        "median_ms": 0.0096885,
+        "min_ms": 0.007143,
+        "max_ms": 0.01079
+      },
+      "linear_memory_release": {
+        "n": 12,
+        "median_ms": 2.29953,
+        "min_ms": 1.966428,
+        "max_ms": 2.689958
+      },
+      "descriptor_prepared_release": {
+        "n": 12,
+        "median_ms": 0.001653,
+        "min_ms": 0.001362,
+        "max_ms": 0.002204
+      },
+      "close_after_resources": {
+        "n": 12,
+        "median_ms": 0.255143,
+        "min_ms": 0.224736,
+        "max_ms": 0.285968
+      },
+      "host_close_total": {
+        "n": 12,
+        "median_ms": 4.0266675,
+        "min_ms": 3.676638,
+        "max_ms": 4.67041
+      }
+    },
+    "go-large/control": {
+      "public_fork": {
+        "n": 12,
+        "median_ms": 72.7501395,
+        "min_ms": 70.74611,
+        "max_ms": 87.316161
+      },
+      "public_close": {
+        "n": 12,
+        "median_ms": 4.2844895,
+        "min_ms": 4.0718890000000005,
+        "max_ms": 6.304829
+      },
+      "disconnect": {
+        "n": 12,
+        "median_ms": 5.3264435,
+        "min_ms": 5.267916,
+        "max_ms": 5.390855
+      }
+    },
+    "go-large/observed": {
+      "public_fork": {
+        "n": 12,
+        "median_ms": 72.747643,
+        "min_ms": 70.142679,
+        "max_ms": 84.10405
+      },
+      "public_close": {
+        "n": 12,
+        "median_ms": 4.553197,
+        "min_ms": 4.115095,
+        "max_ms": 4.793021
+      },
+      "disconnect": {
+        "n": 12,
+        "median_ms": 5.2663305,
+        "min_ms": 5.190598,
+        "max_ms": 5.407199
+      },
+      "platform_checks_total": {
+        "n": 12,
+        "median_ms": 0.0459955,
+        "min_ms": 0.038842,
+        "max_ms": 0.068548
+      },
+      "api_other_outside_host": {
+        "n": 12,
+        "median_ms": 0.265915,
+        "min_ms": 0.227375,
+        "max_ms": 0.301664
+      },
+      "baseline_acquire": {
+        "n": 12,
+        "median_ms": 1.724161,
+        "min_ms": 1.17883,
+        "max_ms": 1.914382
+      },
+      "host_transfer_setup": {
+        "n": 12,
+        "median_ms": 0.0683975,
+        "min_ms": 0.05912,
+        "max_ms": 0.082064
+      },
+      "prepared_handles": {
+        "n": 12,
+        "median_ms": 3.3011185,
+        "min_ms": 3.101676,
+        "max_ms": 4.585283
+      },
+      "memory_mapping": {
+        "n": 12,
+        "median_ms": 0.040811,
+        "min_ms": 0.030116,
+        "max_ms": 0.043941
+      },
+      "generated_memory_init": {
+        "n": 12,
+        "median_ms": 1.758985,
+        "min_ms": 1.578405,
+        "max_ms": 1.932915
+      },
+      "memory_total": {
+        "n": 12,
+        "median_ms": 1.797346,
+        "min_ms": 1.609843,
+        "max_ms": 1.975826
+      },
+      "guest_until_ready": {
+        "n": 12,
+        "median_ms": 65.3164345,
+        "min_ms": 62.803698,
+        "max_ms": 74.984519
+      },
+      "guest_main_until_ready_prepared": {
+        "n": 12,
+        "median_ms": 64.86801,
+        "min_ms": 62.085378,
+        "max_ms": 74.435876
+      },
+      "guest_l4m_open_and_slot_init": {
+        "n": 12,
+        "median_ms": 64.8294335,
+        "min_ms": 62.055872,
+        "max_ms": 74.40076
+      },
+      "guest_restore_copy": {
+        "n": 12,
+        "median_ms": 0.0002505,
+        "min_ms": 0.00019,
+        "max_ms": 0.00046
+      },
+      "guest_before_main_and_ready_delivery_residual": {
+        "n": 12,
+        "median_ms": 0.502502,
+        "min_ms": 0.41321,
+        "max_ms": 0.7944
+      },
+      "ready_decode_and_listener": {
+        "n": 12,
+        "median_ms": 0.1094035,
+        "min_ms": 0.102461,
+        "max_ms": 0.137435
+      },
+      "host_startup_total": {
+        "n": 12,
+        "median_ms": 72.3982025,
+        "min_ms": 69.779322,
+        "max_ms": 83.71292
+      },
+      "fork_trace_total": {
+        "n": 12,
+        "median_ms": 72.707463,
+        "min_ms": 70.101291,
+        "max_ms": 84.060779
+      },
+      "host_admission_stop": {
+        "n": 12,
+        "median_ms": 0.0344095,
+        "min_ms": 0.029115,
+        "max_ms": 0.041106
+      },
+      "host_session_drain": {
+        "n": 12,
+        "median_ms": 0.0039525,
+        "min_ms": 0.002915,
+        "max_ms": 0.016832
+      },
+      "shutdown_write_to_guest_root": {
+        "n": 12,
+        "median_ms": 1.4293985,
+        "min_ms": 1.344198,
+        "max_ms": 1.896611
+      },
+      "guest_final_join": {
+        "n": 12,
+        "median_ms": 0.0012925,
+        "min_ms": 0.000972,
+        "max_ms": 0.001803
+      },
+      "guest_diag_read": {
+        "n": 12,
+        "median_ms": 0.0082805,
+        "min_ms": 0.007283,
+        "max_ms": 0.011361
+      },
+      "linear_memory_release": {
+        "n": 12,
+        "median_ms": 2.6379005,
+        "min_ms": 2.232,
+        "max_ms": 2.757974
+      },
+      "descriptor_prepared_release": {
+        "n": 12,
+        "median_ms": 0.001623,
+        "min_ms": 0.001363,
+        "max_ms": 0.002385
+      },
+      "close_after_resources": {
+        "n": 12,
+        "median_ms": 0.263675,
+        "min_ms": 0.231174,
+        "max_ms": 0.276196
+      },
+      "host_close_total": {
+        "n": 12,
+        "median_ms": 4.4268065,
+        "min_ms": 3.992387,
+        "max_ms": 4.668918
+      }
+    },
+    "go-parallel/control": {
+      "public_fork": {
+        "n": 12,
+        "median_ms": 139.773686,
+        "min_ms": 106.427726,
+        "max_ms": 175.065661
+      },
+      "public_close": {
+        "n": 12,
+        "median_ms": 5.040871,
+        "min_ms": 3.831992,
+        "max_ms": 8.632284
+      },
+      "disconnect": {
+        "n": 12,
+        "median_ms": 5.218961,
+        "min_ms": 5.076914,
+        "max_ms": 6.100828
+      }
+    },
+    "go-parallel/observed": {
+      "public_fork": {
+        "n": 12,
+        "median_ms": 149.8917785,
+        "min_ms": 122.065892,
+        "max_ms": 215.823065
+      },
+      "public_close": {
+        "n": 12,
+        "median_ms": 6.3076495,
+        "min_ms": 4.77807,
+        "max_ms": 9.546642
+      },
+      "disconnect": {
+        "n": 12,
+        "median_ms": 5.276398,
+        "min_ms": 5.082733,
+        "max_ms": 6.050446
+      },
+      "baseline_acquire": {
+        "n": 12,
+        "median_ms": 0.581339,
+        "min_ms": 0.1941,
+        "max_ms": 3.154366
+      },
+      "linked_execution_until_ready": {
+        "n": 12,
+        "median_ms": 148.296185,
+        "min_ms": 118.976476,
+        "max_ms": 214.721391
+      },
+      "host_startup_total": {
+        "n": 12,
+        "median_ms": 149.3742685,
+        "min_ms": 121.596829,
+        "max_ms": 215.351899
+      },
+      "memory_mapping": {
+        "n": 12,
+        "median_ms": 0.0347745,
+        "min_ms": 0.020368,
+        "max_ms": 0.173863
+      },
+      "generated_memory_init": {
+        "n": 12,
+        "median_ms": 2.7304315,
+        "min_ms": 2.089956,
+        "max_ms": 4.938588
+      },
+      "prepared_handles": {
+        "n": 12,
+        "median_ms": 0.721851,
+        "min_ms": 0.53786,
+        "max_ms": 2.527654
+      },
+      "guest_final_join": {
+        "n": 12,
+        "median_ms": 0.001187,
+        "min_ms": 0.000962,
+        "max_ms": 0.001713
+      },
+      "linear_memory_release": {
+        "n": 12,
+        "median_ms": 3.9843305,
+        "min_ms": 2.489206,
+        "max_ms": 6.861604
+      },
+      "descriptor_prepared_release": {
+        "n": 12,
+        "median_ms": 0.001979,
+        "min_ms": 0.001663,
+        "max_ms": 0.002645
+      },
+      "guest_l4m_open_and_slot_init": {
+        "n": 12,
+        "median_ms": 133.952413,
+        "min_ms": 103.405264,
+        "max_ms": 196.848535
+      },
+      "host_session_drain": {
+        "n": 12,
+        "median_ms": 0.003762,
+        "min_ms": 0.002875,
+        "max_ms": 0.019126
+      },
+      "shutdown_including_resource_release": {
+        "n": 12,
+        "median_ms": 6.0778375,
+        "min_ms": 4.534008,
+        "max_ms": 9.28248
+      },
+      "host_close_total": {
+        "n": 12,
+        "median_ms": 6.1559025,
+        "min_ms": 4.630436,
+        "max_ms": 9.381704
+      }
+    },
+    "python-small/control": {
+      "public_fork": {
+        "n": 6,
+        "median_ms": 65.705453,
+        "min_ms": 63.20012,
+        "max_ms": 71.795457
+      },
+      "public_close": {
+        "n": 6,
+        "median_ms": 6.0214395,
+        "min_ms": 5.322561,
+        "max_ms": 7.20519
+      },
+      "disconnect": {
+        "n": 6,
+        "median_ms": 0.457891,
+        "min_ms": 0.319039,
+        "max_ms": 0.653675
+      }
+    },
+    "python-small/observed": {
+      "public_fork": {
+        "n": 6,
+        "median_ms": 67.3879685,
+        "min_ms": 63.213709,
+        "max_ms": 88.459557
+      },
+      "public_close": {
+        "n": 6,
+        "median_ms": 5.583626,
+        "min_ms": 5.400486,
+        "max_ms": 7.867951
+      },
+      "disconnect": {
+        "n": 6,
+        "median_ms": 0.4379995,
+        "min_ms": 0.32315,
+        "max_ms": 0.545213
+      },
+      "platform_checks_total": {
+        "n": 6,
+        "median_ms": 0.0363275,
+        "min_ms": 0.035215,
+        "max_ms": 0.05942
+      },
+      "python_public_remainder": {
+        "n": 6,
+        "median_ms": 0.6997565,
+        "min_ms": 0.657539,
+        "max_ms": 0.944906
+      },
+      "baseline_acquire": {
+        "n": 6,
+        "median_ms": 0.033663,
+        "min_ms": 0.022883,
+        "max_ms": 0.041517
+      },
+      "host_transfer_setup": {
+        "n": 6,
+        "median_ms": 0.069494,
+        "min_ms": 0.062967,
+        "max_ms": 0.089335
+      },
+      "prepared_handles": {
+        "n": 6,
+        "median_ms": 0.0898165,
+        "min_ms": 0.076502,
+        "max_ms": 0.104524
+      },
+      "memory_mapping": {
+        "n": 6,
+        "median_ms": 0.039619,
+        "min_ms": 0.031719,
+        "max_ms": 0.043381
+      },
+      "generated_memory_init": {
+        "n": 6,
+        "median_ms": 1.773005,
+        "min_ms": 1.635329,
+        "max_ms": 1.837705
+      },
+      "memory_total": {
+        "n": 6,
+        "median_ms": 1.813741,
+        "min_ms": 1.674461,
+        "max_ms": 1.881456
+      },
+      "guest_until_ready": {
+        "n": 6,
+        "median_ms": 64.3428795,
+        "min_ms": 59.97998,
+        "max_ms": 85.499434
+      },
+      "guest_main_until_ready_prepared": {
+        "n": 6,
+        "median_ms": 63.8879295,
+        "min_ms": 59.205188,
+        "max_ms": 85.020848
+      },
+      "guest_l4m_open_and_slot_init": {
+        "n": 6,
+        "median_ms": 63.854417,
+        "min_ms": 59.180703,
+        "max_ms": 84.992195
+      },
+      "guest_restore_copy": {
+        "n": 6,
+        "median_ms": 0.000181,
+        "min_ms": 0.00016,
+        "max_ms": 0.00031
+      },
+      "guest_before_main_and_ready_delivery_residual": {
+        "n": 6,
+        "median_ms": 0.470565,
+        "min_ms": 0.432631,
+        "max_ms": 0.774792
+      },
+      "ready_decode_and_listener": {
+        "n": 6,
+        "median_ms": 0.110641,
+        "min_ms": 0.092643,
+        "max_ms": 0.27433
+      },
+      "host_startup_total": {
+        "n": 6,
+        "median_ms": 66.6768715,
+        "min_ms": 62.223559,
+        "max_ms": 87.711135
+      },
+      "host_admission_stop": {
+        "n": 6,
+        "median_ms": 0.0337425,
+        "min_ms": 0.024636,
+        "max_ms": 0.053911
+      },
+      "host_session_drain": {
+        "n": 6,
+        "median_ms": 0.0025595,
+        "min_ms": 0.002174,
+        "max_ms": 0.003576
+      },
+      "shutdown_write_to_guest_root": {
+        "n": 6,
+        "median_ms": 2.5156255,
+        "min_ms": 2.345368,
+        "max_ms": 4.013887
+      },
+      "guest_final_join": {
+        "n": 6,
+        "median_ms": 0.0011425,
+        "min_ms": 0.000992,
+        "max_ms": 0.001222
+      },
+      "guest_diag_read": {
+        "n": 6,
+        "median_ms": 0.0099585,
+        "min_ms": 0.007664,
+        "max_ms": 0.015449
+      },
+      "linear_memory_release": {
+        "n": 6,
+        "median_ms": 2.4552875,
+        "min_ms": 2.135519,
+        "max_ms": 3.164099
+      },
+      "descriptor_prepared_release": {
+        "n": 6,
+        "median_ms": 0.001829,
+        "min_ms": 0.001562,
+        "max_ms": 0.002194
+      },
+      "close_after_resources": {
+        "n": 6,
+        "median_ms": 0.275034,
+        "min_ms": 0.260947,
+        "max_ms": 0.285857
+      },
+      "host_close_total": {
+        "n": 6,
+        "median_ms": 5.225627,
+        "min_ms": 5.052143,
+        "max_ms": 7.493425
+      }
+    },
+    "python-medium/control": {
+      "public_fork": {
+        "n": 6,
+        "median_ms": 65.427337,
+        "min_ms": 64.876031,
+        "max_ms": 68.411729
+      },
+      "public_close": {
+        "n": 6,
+        "median_ms": 5.2758185,
+        "min_ms": 5.095068,
+        "max_ms": 5.827928
+      },
+      "disconnect": {
+        "n": 6,
+        "median_ms": 0.3273735,
+        "min_ms": 0.282384,
+        "max_ms": 5.562023
+      }
+    },
+    "python-medium/observed": {
+      "public_fork": {
+        "n": 6,
+        "median_ms": 66.585597,
+        "min_ms": 64.464641,
+        "max_ms": 70.825187
+      },
+      "public_close": {
+        "n": 6,
+        "median_ms": 5.7287985,
+        "min_ms": 5.300291,
+        "max_ms": 6.783412
+      },
+      "disconnect": {
+        "n": 6,
+        "median_ms": 0.380821,
+        "min_ms": 0.338256,
+        "max_ms": 5.541863
+      },
+      "platform_checks_total": {
+        "n": 6,
+        "median_ms": 0.035366,
+        "min_ms": 0.03283,
+        "max_ms": 0.063989
+      },
+      "python_public_remainder": {
+        "n": 6,
+        "median_ms": 0.6819994999999963,
+        "min_ms": 0.605686,
+        "max_ms": 0.781422
+      },
+      "baseline_acquire": {
+        "n": 6,
+        "median_ms": 0.184117,
+        "min_ms": 0.138457,
+        "max_ms": 0.227133
+      },
+      "host_transfer_setup": {
+        "n": 6,
+        "median_ms": 0.070997,
+        "min_ms": 0.06414,
+        "max_ms": 0.077414
+      },
+      "prepared_handles": {
+        "n": 6,
+        "median_ms": 0.4108535,
+        "min_ms": 0.394343,
+        "max_ms": 0.44127
+      },
+      "memory_mapping": {
+        "n": 6,
+        "median_ms": 0.0342535,
+        "min_ms": 0.029265,
+        "max_ms": 0.044663
+      },
+      "generated_memory_init": {
+        "n": 6,
+        "median_ms": 1.7119875,
+        "min_ms": 1.601119,
+        "max_ms": 1.910535
+      },
+      "memory_total": {
+        "n": 6,
+        "median_ms": 1.744553,
+        "min_ms": 1.632247,
+        "max_ms": 1.95641
+      },
+      "guest_until_ready": {
+        "n": 6,
+        "median_ms": 63.274008,
+        "min_ms": 60.818388,
+        "max_ms": 67.598039
+      },
+      "guest_main_until_ready_prepared": {
+        "n": 6,
+        "median_ms": 62.7900645,
+        "min_ms": 60.309691,
+        "max_ms": 67.167392
+      },
+      "guest_l4m_open_and_slot_init": {
+        "n": 6,
+        "median_ms": 62.7642965,
+        "min_ms": 60.267513,
+        "max_ms": 67.141033
+      },
+      "guest_restore_copy": {
+        "n": 6,
+        "median_ms": 0.000195,
+        "min_ms": 0.000171,
+        "max_ms": 0.000221
+      },
+      "guest_before_main_and_ready_delivery_residual": {
+        "n": 6,
+        "median_ms": 0.4839435,
+        "min_ms": 0.416601,
+        "max_ms": 0.538831
+      },
+      "ready_decode_and_listener": {
+        "n": 6,
+        "median_ms": 0.1169025,
+        "min_ms": 0.103502,
+        "max_ms": 0.148756
+      },
+      "host_startup_total": {
+        "n": 6,
+        "median_ms": 65.864771,
+        "min_ms": 63.716922,
+        "max_ms": 70.183504
+      },
+      "host_admission_stop": {
+        "n": 6,
+        "median_ms": 0.035972,
+        "min_ms": 0.025046,
+        "max_ms": 0.045735
+      },
+      "host_session_drain": {
+        "n": 6,
+        "median_ms": 0.0028905,
+        "min_ms": 0.002054,
+        "max_ms": 0.003747
+      },
+      "shutdown_write_to_guest_root": {
+        "n": 6,
+        "median_ms": 2.3396305,
+        "min_ms": 2.029245,
+        "max_ms": 3.342887
+      },
+      "guest_final_join": {
+        "n": 6,
+        "median_ms": 0.0010965,
+        "min_ms": 0.000941,
+        "max_ms": 0.001383
+      },
+      "guest_diag_read": {
+        "n": 6,
+        "median_ms": 0.0083355,
+        "min_ms": 0.007134,
+        "max_ms": 0.009278
+      },
+      "linear_memory_release": {
+        "n": 6,
+        "median_ms": 2.6758535,
+        "min_ms": 2.55584,
+        "max_ms": 2.858088
+      },
+      "descriptor_prepared_release": {
+        "n": 6,
+        "median_ms": 0.0015175,
+        "min_ms": 0.001423,
+        "max_ms": 0.001954
+      },
+      "close_after_resources": {
+        "n": 6,
+        "median_ms": 0.2449655,
+        "min_ms": 0.236104,
+        "max_ms": 0.280333
+      },
+      "host_close_total": {
+        "n": 6,
+        "median_ms": 5.40261,
+        "min_ms": 4.999782,
+        "max_ms": 6.391092
+      }
+    },
+    "python-100mib/control": {
+      "public_fork": {
+        "n": 16,
+        "median_ms": 71.318539,
+        "min_ms": 67.902457,
+        "max_ms": 81.369459
+      },
+      "public_close": {
+        "n": 16,
+        "median_ms": 5.4034125,
+        "min_ms": 4.969961,
+        "max_ms": 17.704774
+      },
+      "disconnect": {
+        "n": 16,
+        "median_ms": 0.349292,
+        "min_ms": 0.293697,
+        "max_ms": 5.585627
+      }
+    },
+    "python-100mib/observed": {
+      "public_fork": {
+        "n": 16,
+        "median_ms": 72.3104365,
+        "min_ms": 69.894122,
+        "max_ms": 77.600867
+      },
+      "public_close": {
+        "n": 16,
+        "median_ms": 5.7376835,
+        "min_ms": 5.195096,
+        "max_ms": 17.644215
+      },
+      "disconnect": {
+        "n": 16,
+        "median_ms": 0.353983,
+        "min_ms": 0.32789,
+        "max_ms": 0.406878
+      },
+      "platform_checks_total": {
+        "n": 16,
+        "median_ms": 0.0357865,
+        "min_ms": 0.034624,
+        "max_ms": 0.046858
+      },
+      "python_public_remainder": {
+        "n": 16,
+        "median_ms": 0.6596575,
+        "min_ms": 0.593407,
+        "max_ms": 1.234049
+      },
+      "baseline_acquire": {
+        "n": 16,
+        "median_ms": 1.75571,
+        "min_ms": 1.398004,
+        "max_ms": 2.681245
+      },
+      "host_transfer_setup": {
+        "n": 16,
+        "median_ms": 0.070807,
+        "min_ms": 0.065453,
+        "max_ms": 0.09699
+      },
+      "prepared_handles": {
+        "n": 16,
+        "median_ms": 3.464132,
+        "min_ms": 3.27521,
+        "max_ms": 5.151846
+      },
+      "memory_mapping": {
+        "n": 16,
+        "median_ms": 0.0408355,
+        "min_ms": 0.030266,
+        "max_ms": 0.054232
+      },
+      "generated_memory_init": {
+        "n": 16,
+        "median_ms": 1.8118995,
+        "min_ms": 1.666664,
+        "max_ms": 2.16908
+      },
+      "memory_total": {
+        "n": 16,
+        "median_ms": 1.8558015,
+        "min_ms": 1.70711,
+        "max_ms": 2.218042
+      },
+      "guest_until_ready": {
+        "n": 16,
+        "median_ms": 64.083068,
+        "min_ms": 61.412894,
+        "max_ms": 69.635157
+      },
+      "guest_main_until_ready_prepared": {
+        "n": 16,
+        "median_ms": 63.5905345,
+        "min_ms": 60.931177,
+        "max_ms": 69.144389
+      },
+      "guest_l4m_open_and_slot_init": {
+        "n": 16,
+        "median_ms": 63.55841,
+        "min_ms": 60.869482,
+        "max_ms": 69.114964
+      },
+      "guest_restore_copy": {
+        "n": 16,
+        "median_ms": 0.000181,
+        "min_ms": 0.00015,
+        "max_ms": 0.000351
+      },
+      "guest_before_main_and_ready_delivery_residual": {
+        "n": 16,
+        "median_ms": 0.5011305,
+        "min_ms": 0.435583,
+        "max_ms": 0.786464
+      },
+      "ready_decode_and_listener": {
+        "n": 16,
+        "median_ms": 0.1060775,
+        "min_ms": 0.094396,
+        "max_ms": 0.12859
+      },
+      "host_startup_total": {
+        "n": 16,
+        "median_ms": 71.6152835,
+        "min_ms": 69.187867,
+        "max_ms": 76.963177
+      },
+      "host_admission_stop": {
+        "n": 16,
+        "median_ms": 0.034028,
+        "min_ms": 0.025567,
+        "max_ms": 0.046006
+      },
+      "host_session_drain": {
+        "n": 16,
+        "median_ms": 0.00259,
+        "min_ms": 0.002074,
+        "max_ms": 0.009709
+      },
+      "shutdown_write_to_guest_root": {
+        "n": 16,
+        "median_ms": 2.412656,
+        "min_ms": 2.139204,
+        "max_ms": 14.323686
+      },
+      "guest_final_join": {
+        "n": 16,
+        "median_ms": 0.001187,
+        "min_ms": 0.000962,
+        "max_ms": 0.001473
+      },
+      "guest_diag_read": {
+        "n": 16,
+        "median_ms": 0.008245,
+        "min_ms": 0.007113,
+        "max_ms": 0.013885
+      },
+      "linear_memory_release": {
+        "n": 16,
+        "median_ms": 2.6527215,
+        "min_ms": 2.134215,
+        "max_ms": 3.086329
+      },
+      "descriptor_prepared_release": {
+        "n": 16,
+        "median_ms": 0.001808,
+        "min_ms": 0.001522,
+        "max_ms": 0.002514
+      },
+      "close_after_resources": {
+        "n": 16,
+        "median_ms": 0.267497,
+        "min_ms": 0.238529,
+        "max_ms": 0.308216
+      },
+      "host_close_total": {
+        "n": 16,
+        "median_ms": 5.33746,
+        "min_ms": 4.788361,
+        "max_ms": 17.192804
+      }
+    },
+    "profile-fork/profile": {
+      "public_fork": {
+        "n": 24,
+        "median_ms": 65.858634,
+        "min_ms": 62.75125800000001,
+        "max_ms": 78.674695
+      },
+      "public_close": {
+        "n": 24,
+        "median_ms": 5.0709125,
+        "min_ms": 4.483297,
+        "max_ms": 5.955141
+      },
+      "disconnect": {
+        "n": 24,
+        "median_ms": 5.2716035,
+        "min_ms": 5.122644,
+        "max_ms": 5.396842
+      }
+    },
+    "profile-fork/observed": {
+      "platform_checks_total": {
+        "n": 24,
+        "median_ms": 0.052207,
+        "min_ms": 0.038312,
+        "max_ms": 0.23662
+      },
+      "api_other_outside_host": {
+        "n": 24,
+        "median_ms": 0.313009,
+        "min_ms": 0.250987,
+        "max_ms": 0.422968
+      },
+      "baseline_acquire": {
+        "n": 24,
+        "median_ms": 0.0324505,
+        "min_ms": 0.020128,
+        "max_ms": 0.134828
+      },
+      "host_transfer_setup": {
+        "n": 24,
+        "median_ms": 0.0630575,
+        "min_ms": 0.045695,
+        "max_ms": 0.102732
+      },
+      "prepared_handles": {
+        "n": 24,
+        "median_ms": 0.084027,
+        "min_ms": 0.071493,
+        "max_ms": 0.400702
+      },
+      "memory_mapping": {
+        "n": 24,
+        "median_ms": 0.035351,
+        "min_ms": 0.029345,
+        "max_ms": 0.04853
+      },
+      "generated_memory_init": {
+        "n": 24,
+        "median_ms": 1.751893,
+        "min_ms": 1.611662,
+        "max_ms": 2.098328
+      },
+      "memory_total": {
+        "n": 24,
+        "median_ms": 1.791482,
+        "min_ms": 1.651937,
+        "max_ms": 2.140076
+      },
+      "guest_until_ready": {
+        "n": 24,
+        "median_ms": 62.805145,
+        "min_ms": 60.194993,
+        "max_ms": 75.556017
+      },
+      "guest_main_until_ready_prepared": {
+        "n": 24,
+        "median_ms": 62.260833,
+        "min_ms": 59.507592,
+        "max_ms": 73.821105
+      },
+      "guest_l4m_open_and_slot_init": {
+        "n": 24,
+        "median_ms": 62.233398,
+        "min_ms": 59.479008,
+        "max_ms": 73.784386
+      },
+      "guest_restore_copy": {
+        "n": 24,
+        "median_ms": 0.000191,
+        "min_ms": 0.00018,
+        "max_ms": 0.000331
+      },
+      "guest_before_main_and_ready_delivery_residual": {
+        "n": 24,
+        "median_ms": 0.4837955,
+        "min_ms": 0.418025,
+        "max_ms": 1.734912
+      },
+      "ready_decode_and_listener": {
+        "n": 24,
+        "median_ms": 0.1096245,
+        "min_ms": 0.093655,
+        "max_ms": 0.133068
+      },
+      "host_startup_total": {
+        "n": 24,
+        "median_ms": 65.3009155,
+        "min_ms": 62.341274,
+        "max_ms": 78.191094
+      },
+      "fork_trace_total": {
+        "n": 24,
+        "median_ms": 65.8089215,
+        "min_ms": 62.701986,
+        "max_ms": 78.614774
+      },
+      "host_admission_stop": {
+        "n": 24,
+        "median_ms": 0.0286285,
+        "min_ms": 0.022942,
+        "max_ms": 0.038041
+      },
+      "host_session_drain": {
+        "n": 24,
+        "median_ms": 0.003226,
+        "min_ms": 0.002605,
+        "max_ms": 0.008456
+      },
+      "shutdown_write_to_guest_root": {
+        "n": 24,
+        "median_ms": 2.3428855,
+        "min_ms": 2.077881,
+        "max_ms": 3.182044
+      },
+      "guest_final_join": {
+        "n": 24,
+        "median_ms": 0.001102,
+        "min_ms": 0.000922,
+        "max_ms": 0.001402
+      },
+      "guest_diag_read": {
+        "n": 24,
+        "median_ms": 0.010094,
+        "min_ms": 0.008055,
+        "max_ms": 0.040385
+      },
+      "linear_memory_release": {
+        "n": 24,
+        "median_ms": 2.188668,
+        "min_ms": 1.914509,
+        "max_ms": 2.732319
+      },
+      "descriptor_prepared_release": {
+        "n": 24,
+        "median_ms": 0.0016435,
+        "min_ms": 0.001332,
+        "max_ms": 0.002224
+      },
+      "close_after_resources": {
+        "n": 24,
+        "median_ms": 0.259195,
+        "min_ms": 0.229521,
+        "max_ms": 0.306598
+      },
+      "host_close_total": {
+        "n": 24,
+        "median_ms": 4.9244855,
+        "min_ms": 4.343267,
+        "max_ms": 5.81522
+      }
+    },
+    "profile-close/profile": {
+      "public_fork": {
+        "n": 24,
+        "median_ms": 65.14957399999999,
+        "min_ms": 61.57261,
+        "max_ms": 74.772498
+      },
+      "public_close": {
+        "n": 24,
+        "median_ms": 5.2800165,
+        "min_ms": 4.963118,
+        "max_ms": 6.189865
+      },
+      "disconnect": {
+        "n": 24,
+        "median_ms": 5.261314,
+        "min_ms": 5.194671,
+        "max_ms": 5.42772
+      }
+    },
+    "profile-close/observed": {
+      "platform_checks_total": {
+        "n": 24,
+        "median_ms": 0.04001,
+        "min_ms": 0.036509,
+        "max_ms": 0.120736
+      },
+      "api_other_outside_host": {
+        "n": 24,
+        "median_ms": 0.2900405,
+        "min_ms": 0.261216,
+        "max_ms": 0.446292
+      },
+      "baseline_acquire": {
+        "n": 24,
+        "median_ms": 0.0273105,
+        "min_ms": 0.020519,
+        "max_ms": 0.063569
+      },
+      "host_transfer_setup": {
+        "n": 24,
+        "median_ms": 0.0588595,
+        "min_ms": 0.05355,
+        "max_ms": 0.10252
+      },
+      "prepared_handles": {
+        "n": 24,
+        "median_ms": 0.085159,
+        "min_ms": 0.067816,
+        "max_ms": 0.143507
+      },
+      "memory_mapping": {
+        "n": 24,
+        "median_ms": 0.034379,
+        "min_ms": 0.028883,
+        "max_ms": 0.044923
+      },
+      "generated_memory_init": {
+        "n": 24,
+        "median_ms": 1.735262,
+        "min_ms": 1.584471,
+        "max_ms": 2.049217
+      },
+      "memory_total": {
+        "n": 24,
+        "median_ms": 1.7673175,
+        "min_ms": 1.621921,
+        "max_ms": 2.095403
+      },
+      "guest_until_ready": {
+        "n": 24,
+        "median_ms": 62.5579915,
+        "min_ms": 59.184872,
+        "max_ms": 71.815651
+      },
+      "guest_main_until_ready_prepared": {
+        "n": 24,
+        "median_ms": 62.1151975,
+        "min_ms": 58.757146,
+        "max_ms": 71.255171
+      },
+      "guest_l4m_open_and_slot_init": {
+        "n": 24,
+        "median_ms": 62.0916435,
+        "min_ms": 58.734113,
+        "max_ms": 71.224444
+      },
+      "guest_restore_copy": {
+        "n": 24,
+        "median_ms": 0.000191,
+        "min_ms": 0.00018,
+        "max_ms": 0.003376
+      },
+      "guest_before_main_and_ready_delivery_residual": {
+        "n": 24,
+        "median_ms": 0.4712505,
+        "min_ms": 0.414486,
+        "max_ms": 0.690766
+      },
+      "ready_decode_and_listener": {
+        "n": 24,
+        "median_ms": 0.1102155,
+        "min_ms": 0.091851,
+        "max_ms": 0.156271
+      },
+      "host_startup_total": {
+        "n": 24,
+        "median_ms": 64.750335,
+        "min_ms": 61.226184,
+        "max_ms": 74.296632
+      },
+      "fork_trace_total": {
+        "n": 24,
+        "median_ms": 65.06951,
+        "min_ms": 61.530131,
+        "max_ms": 74.716134
+      },
+      "host_admission_stop": {
+        "n": 24,
+        "median_ms": 0.0236035,
+        "min_ms": 0.017562,
+        "max_ms": 0.207368
+      },
+      "host_session_drain": {
+        "n": 24,
+        "median_ms": 0.0030455,
+        "min_ms": 0.002484,
+        "max_ms": 0.068608
+      },
+      "shutdown_write_to_guest_root": {
+        "n": 24,
+        "median_ms": 2.532081,
+        "min_ms": 2.040331,
+        "max_ms": 3.120758
+      },
+      "guest_final_join": {
+        "n": 24,
+        "median_ms": 0.001007,
+        "min_ms": 0.000842,
+        "max_ms": 0.001342
+      },
+      "guest_diag_read": {
+        "n": 24,
+        "median_ms": 0.009663,
+        "min_ms": 0.007384,
+        "max_ms": 0.017202
+      },
+      "linear_memory_release": {
+        "n": 24,
+        "median_ms": 2.4240855,
+        "min_ms": 1.958999,
+        "max_ms": 2.899842
+      },
+      "descriptor_prepared_release": {
+        "n": 24,
+        "median_ms": 0.001548,
+        "min_ms": 0.001323,
+        "max_ms": 0.001974
+      },
+      "close_after_resources": {
+        "n": 24,
+        "median_ms": 0.240913,
+        "min_ms": 0.21249,
+        "max_ms": 0.279268
+      },
+      "host_close_total": {
+        "n": 24,
+        "median_ms": 5.1328715,
+        "min_ms": 4.820061,
+        "max_ms": 6.068699
+      }
+    }
+  },
+  "paired_medians": {
+    "go-light-0": {
+      "control": {
+        "fork_ms": 65.0121415,
+        "close_ms": 4.879197,
+        "disconnect_ms": 5.274203
+      },
+      "observed": {
+        "fork_ms": 65.00198,
+        "close_ms": 4.9297395,
+        "disconnect_ms": 5.225147
+      }
+    },
+    "go-light-1": {
+      "observed": {
+        "fork_ms": 63.09864499999999,
+        "close_ms": 5.0632965,
+        "disconnect_ms": 5.2900765
+      },
+      "control": {
+        "fork_ms": 66.364929,
+        "close_ms": 4.9258745,
+        "disconnect_ms": 5.282119
+      }
+    },
+    "go-light-2": {
+      "control": {
+        "fork_ms": 66.04097,
+        "close_ms": 4.8346135,
+        "disconnect_ms": 5.229276
+      },
+      "observed": {
+        "fork_ms": 63.5566445,
+        "close_ms": 4.98587,
+        "disconnect_ms": 5.2484105
+      }
+    },
+    "go-medium-0": {
+      "control": {
+        "fork_ms": 70.527815,
+        "close_ms": 4.0141575,
+        "disconnect_ms": 5.273654
+      },
+      "observed": {
+        "fork_ms": 68.94716,
+        "close_ms": 4.293242,
+        "disconnect_ms": 5.2351485
+      }
+    },
+    "go-medium-1": {
+      "observed": {
+        "fork_ms": 69.480078,
+        "close_ms": 4.0668385,
+        "disconnect_ms": 5.316186
+      },
+      "control": {
+        "fork_ms": 70.3708375,
+        "close_ms": 4.4826115,
+        "disconnect_ms": 5.2728665
+      }
+    },
+    "go-medium-2": {
+      "control": {
+        "fork_ms": 71.56232,
+        "close_ms": 4.0964555,
+        "disconnect_ms": 5.266303
+      },
+      "observed": {
+        "fork_ms": 69.392416,
+        "close_ms": 4.161148,
+        "disconnect_ms": 5.2658715
+      }
+    },
+    "go-large-0": {
+      "control": {
+        "fork_ms": 78.792728,
+        "close_ms": 4.779746,
+        "disconnect_ms": 5.312288
+      },
+      "observed": {
+        "fork_ms": 75.1634055,
+        "close_ms": 4.477049,
+        "disconnect_ms": 5.238908
+      }
+    },
+    "go-large-1": {
+      "observed": {
+        "fork_ms": 70.713646,
+        "close_ms": 4.715673,
+        "disconnect_ms": 5.2805925
+      },
+      "control": {
+        "fork_ms": 72.0226445,
+        "close_ms": 4.380795,
+        "disconnect_ms": 5.3065045
+      }
+    },
+    "go-large-2": {
+      "control": {
+        "fork_ms": 72.657105,
+        "close_ms": 4.2342035,
+        "disconnect_ms": 5.334689
+      },
+      "observed": {
+        "fork_ms": 72.510634,
+        "close_ms": 4.29724,
+        "disconnect_ms": 5.318385
+      }
+    },
+    "go-parallel-0": {
+      "control": {
+        "fork_ms": 136.4330115,
+        "close_ms": 5.3286765,
+        "disconnect_ms": 5.4450955
+      },
+      "observed": {
+        "fork_ms": 151.7589865,
+        "close_ms": 6.8838115,
+        "disconnect_ms": 5.207858
+      }
+    },
+    "go-parallel-1": {
+      "observed": {
+        "fork_ms": 144.190932,
+        "close_ms": 8.6832965,
+        "disconnect_ms": 5.2845525
+      },
+      "control": {
+        "fork_ms": 137.798589,
+        "close_ms": 5.094834,
+        "disconnect_ms": 5.2013315
+      }
+    },
+    "go-parallel-2": {
+      "control": {
+        "fork_ms": 153.378926,
+        "close_ms": 4.7249785,
+        "disconnect_ms": 5.2258955
+      },
+      "observed": {
+        "fork_ms": 161.0870745,
+        "close_ms": 5.202976,
+        "disconnect_ms": 5.3088515
+      }
+    },
+    "python-small-0": {
+      "control": {
+        "fork_ms": 66.493684,
+        "close_ms": 6.0791465,
+        "disconnect_ms": 0.465072
+      },
+      "observed": {
+        "fork_ms": 68.0242835,
+        "close_ms": 5.5077955,
+        "disconnect_ms": 0.4341815
+      }
+    },
+    "python-small-1": {
+      "observed": {
+        "fork_ms": 67.3879685,
+        "close_ms": 6.8057255,
+        "disconnect_ms": 0.4379995
+      },
+      "control": {
+        "fork_ms": 67.4977885,
+        "close_ms": 6.4716555,
+        "disconnect_ms": 0.428915
+      }
+    },
+    "python-small-2": {
+      "control": {
+        "fork_ms": 65.45995,
+        "close_ms": 5.8076875,
+        "disconnect_ms": 0.515333
+      },
+      "observed": {
+        "fork_ms": 75.836633,
+        "close_ms": 5.52928,
+        "disconnect_ms": 0.450104
+      }
+    },
+    "python-medium-0": {
+      "control": {
+        "fork_ms": 66.9524975,
+        "close_ms": 5.1200845,
+        "disconnect_ms": 2.9222035
+      },
+      "observed": {
+        "fork_ms": 68.5825985,
+        "close_ms": 5.8439715,
+        "disconnect_ms": 0.367154
+      }
+    },
+    "python-medium-1": {
+      "observed": {
+        "fork_ms": 66.9165865,
+        "close_ms": 5.4909115,
+        "disconnect_ms": 5.5401035
+      },
+      "control": {
+        "fork_ms": 65.3030795,
+        "close_ms": 5.2758185,
+        "disconnect_ms": 0.342306
+      }
+    },
+    "python-medium-2": {
+      "control": {
+        "fork_ms": 65.904852,
+        "close_ms": 5.625833,
+        "disconnect_ms": 0.3033725
+      },
+      "observed": {
+        "fork_ms": 65.6479125,
+        "close_ms": 6.370563,
+        "disconnect_ms": 0.36018
+      }
+    },
+    "python-100mib-0": {
+      "control": {
+        "fork_ms": 71.318539,
+        "close_ms": 5.4034125,
+        "disconnect_ms": 0.349292
+      },
+      "observed": {
+        "fork_ms": 72.3104365,
+        "close_ms": 5.7376835,
+        "disconnect_ms": 0.353983
+      }
+    }
+  },
+  "cells": [
+    {
+      "name": "go-light-0-observed",
+      "children": 4,
+      "validated_instance_count": 5,
+      "durations": {
+        "platform_checks_total": {
+          "n": 4,
+          "median_ms": 0.0378255,
+          "min_ms": 0.036548,
+          "max_ms": 0.073617
+        },
+        "api_other_outside_host": {
+          "n": 4,
+          "median_ms": 0.2881325,
+          "min_ms": 0.257671,
+          "max_ms": 0.426405
+        },
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 0.0275465,
+          "min_ms": 0.020468,
+          "max_ms": 0.035036
+        },
+        "host_transfer_setup": {
+          "n": 4,
+          "median_ms": 0.0586395,
+          "min_ms": 0.055093,
+          "max_ms": 0.061855
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 0.073592,
+          "min_ms": 0.06958,
+          "max_ms": 0.595398
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.0340035,
+          "min_ms": 0.031368,
+          "max_ms": 0.034313
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 1.646191,
+          "min_ms": 1.596789,
+          "max_ms": 1.924771
+        },
+        "memory_total": {
+          "n": 4,
+          "median_ms": 1.681912,
+          "min_ms": 1.629048,
+          "max_ms": 1.960156
+        },
+        "guest_until_ready": {
+          "n": 4,
+          "median_ms": 62.1709105,
+          "min_ms": 60.041356,
+          "max_ms": 65.999931
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 4,
+          "median_ms": 61.7259035,
+          "min_ms": 59.633423,
+          "max_ms": 65.492915
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 61.6976505,
+          "min_ms": 59.609659,
+          "max_ms": 65.461155
+        },
+        "guest_restore_copy": {
+          "n": 4,
+          "median_ms": 0.0001855,
+          "min_ms": 0.00018,
+          "max_ms": 0.000661
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 4,
+          "median_ms": 0.447495,
+          "min_ms": 0.402957,
+          "max_ms": 0.507016
+        },
+        "ready_decode_and_listener": {
+          "n": 4,
+          "median_ms": 0.1042545,
+          "min_ms": 0.102571,
+          "max_ms": 0.156041
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 64.620023,
+          "min_ms": 62.050604,
+          "max_ms": 68.121468
+        },
+        "fork_trace_total": {
+          "n": 4,
+          "median_ms": 64.962231,
+          "min_ms": 62.349051,
+          "max_ms": 68.584762
+        },
+        "host_admission_stop": {
+          "n": 4,
+          "median_ms": 0.028939,
+          "min_ms": 0.024035,
+          "max_ms": 0.035817
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.0030405,
+          "min_ms": 0.002615,
+          "max_ms": 0.003617
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 4,
+          "median_ms": 2.334403,
+          "min_ms": 1.99971,
+          "max_ms": 2.430528
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.001002,
+          "min_ms": 0.000952,
+          "max_ms": 0.001062
+        },
+        "guest_diag_read": {
+          "n": 4,
+          "median_ms": 0.009332,
+          "min_ms": 0.007364,
+          "max_ms": 0.009648
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 2.256489,
+          "min_ms": 2.044714,
+          "max_ms": 2.434522
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.001658,
+          "min_ms": 0.001472,
+          "max_ms": 0.001864
+        },
+        "close_after_resources": {
+          "n": 4,
+          "median_ms": 0.2299555,
+          "min_ms": 0.208329,
+          "max_ms": 0.237695
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 4.8131525,
+          "min_ms": 4.621192,
+          "max_ms": 4.926085
+        }
+      }
+    },
+    {
+      "name": "go-light-1-observed",
+      "children": 4,
+      "validated_instance_count": 5,
+      "durations": {
+        "platform_checks_total": {
+          "n": 4,
+          "median_ms": 0.0375245,
+          "min_ms": 0.037159,
+          "max_ms": 0.04306
+        },
+        "api_other_outside_host": {
+          "n": 4,
+          "median_ms": 0.285253,
+          "min_ms": 0.249705,
+          "max_ms": 0.302956
+        },
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 0.0302615,
+          "min_ms": 0.020829,
+          "max_ms": 0.030767
+        },
+        "host_transfer_setup": {
+          "n": 4,
+          "median_ms": 0.056736,
+          "min_ms": 0.055093,
+          "max_ms": 0.058008
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 0.0808455,
+          "min_ms": 0.076422,
+          "max_ms": 0.523274
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.0370845,
+          "min_ms": 0.027842,
+          "max_ms": 0.041627
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 1.660848,
+          "min_ms": 1.616064,
+          "max_ms": 1.680775
+        },
+        "memory_total": {
+          "n": 4,
+          "median_ms": 1.69693,
+          "min_ms": 1.652693,
+          "max_ms": 1.72108
+        },
+        "guest_until_ready": {
+          "n": 4,
+          "median_ms": 60.6643995,
+          "min_ms": 59.256883,
+          "max_ms": 63.238476
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 4,
+          "median_ms": 60.187408,
+          "min_ms": 58.700913,
+          "max_ms": 62.619461
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 60.1656475,
+          "min_ms": 58.680475,
+          "max_ms": 62.595466
+        },
+        "guest_restore_copy": {
+          "n": 4,
+          "median_ms": 0.0002005,
+          "min_ms": 0.000191,
+          "max_ms": 0.000241
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 4,
+          "median_ms": 0.5529375,
+          "min_ms": 0.404078,
+          "max_ms": 0.619015
+        },
+        "ready_decode_and_listener": {
+          "n": 4,
+          "median_ms": 0.1079965,
+          "min_ms": 0.095098,
+          "max_ms": 0.125874
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 62.738153,
+          "min_ms": 61.723501,
+          "max_ms": 65.370252
+        },
+        "fork_trace_total": {
+          "n": 4,
+          "median_ms": 63.054593,
+          "min_ms": 62.056373,
+          "max_ms": 65.682935
+        },
+        "host_admission_stop": {
+          "n": 4,
+          "median_ms": 0.0292195,
+          "min_ms": 0.025347,
+          "max_ms": 0.035216
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.003426,
+          "min_ms": 0.002475,
+          "max_ms": 0.004749
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 4,
+          "median_ms": 2.392322,
+          "min_ms": 2.030338,
+          "max_ms": 2.596408
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.0010615,
+          "min_ms": 0.001001,
+          "max_ms": 0.002755
+        },
+        "guest_diag_read": {
+          "n": 4,
+          "median_ms": 0.009377,
+          "min_ms": 0.008637,
+          "max_ms": 0.015119
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 2.1522095,
+          "min_ms": 2.031209,
+          "max_ms": 2.361745
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.001588,
+          "min_ms": 0.001493,
+          "max_ms": 0.001673
+        },
+        "close_after_resources": {
+          "n": 4,
+          "median_ms": 0.233262,
+          "min_ms": 0.228444,
+          "max_ms": 0.246812
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 4.9402615,
+          "min_ms": 4.344556,
+          "max_ms": 5.013273
+        }
+      }
+    },
+    {
+      "name": "go-light-2-observed",
+      "children": 4,
+      "validated_instance_count": 5,
+      "durations": {
+        "platform_checks_total": {
+          "n": 4,
+          "median_ms": 0.041016,
+          "min_ms": 0.037931,
+          "max_ms": 0.056786
+        },
+        "api_other_outside_host": {
+          "n": 4,
+          "median_ms": 0.269959,
+          "min_ms": 0.243494,
+          "max_ms": 0.286384
+        },
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 0.0261535,
+          "min_ms": 0.020859,
+          "max_ms": 0.03202
+        },
+        "host_transfer_setup": {
+          "n": 4,
+          "median_ms": 0.0561195,
+          "min_ms": 0.054061,
+          "max_ms": 0.057307
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 0.083586,
+          "min_ms": 0.071093,
+          "max_ms": 0.092883
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.0304165,
+          "min_ms": 0.027712,
+          "max_ms": 0.039213
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 1.6969705,
+          "min_ms": 1.678681,
+          "max_ms": 1.754022
+        },
+        "memory_total": {
+          "n": 4,
+          "median_ms": 1.727673,
+          "min_ms": 1.719016,
+          "max_ms": 1.784669
+        },
+        "guest_until_ready": {
+          "n": 4,
+          "median_ms": 61.063383,
+          "min_ms": 60.559105,
+          "max_ms": 61.877633
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 4,
+          "median_ms": 60.5878825,
+          "min_ms": 60.117182,
+          "max_ms": 61.319185
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 60.5584025,
+          "min_ms": 60.093107,
+          "max_ms": 61.298006
+        },
+        "guest_restore_copy": {
+          "n": 4,
+          "median_ms": 0.0002155,
+          "min_ms": 0.00019,
+          "max_ms": 0.00029
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 4,
+          "median_ms": 0.482218,
+          "min_ms": 0.428488,
+          "max_ms": 0.558448
+        },
+        "ready_decode_and_listener": {
+          "n": 4,
+          "median_ms": 0.1172785,
+          "min_ms": 0.102872,
+          "max_ms": 0.148607
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 63.2142365,
+          "min_ms": 62.687092,
+          "max_ms": 64.011774
+        },
+        "fork_trace_total": {
+          "n": 4,
+          "median_ms": 63.515463,
+          "min_ms": 63.011407,
+          "max_ms": 64.331551
+        },
+        "host_admission_stop": {
+          "n": 4,
+          "median_ms": 0.0351605,
+          "min_ms": 0.023724,
+          "max_ms": 0.037089
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.0034465,
+          "min_ms": 0.002555,
+          "max_ms": 0.004078
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 4,
+          "median_ms": 2.448336,
+          "min_ms": 2.143951,
+          "max_ms": 2.70728
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.001052,
+          "min_ms": 0.000932,
+          "max_ms": 0.001142
+        },
+        "guest_diag_read": {
+          "n": 4,
+          "median_ms": 0.009407,
+          "min_ms": 0.007695,
+          "max_ms": 0.01047
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 2.105808,
+          "min_ms": 1.920201,
+          "max_ms": 2.360492
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.001518,
+          "min_ms": 0.001423,
+          "max_ms": 0.001533
+        },
+        "close_after_resources": {
+          "n": 4,
+          "median_ms": 0.2520295,
+          "min_ms": 0.229147,
+          "max_ms": 0.268767
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 4.8476525,
+          "min_ms": 4.630601,
+          "max_ms": 5.108088
+        }
+      }
+    },
+    {
+      "name": "go-medium-0-observed",
+      "children": 4,
+      "validated_instance_count": 5,
+      "durations": {
+        "platform_checks_total": {
+          "n": 4,
+          "median_ms": 0.0486555,
+          "min_ms": 0.040055,
+          "max_ms": 0.054812
+        },
+        "api_other_outside_host": {
+          "n": 4,
+          "median_ms": 0.2915845,
+          "min_ms": 0.275205,
+          "max_ms": 0.361114
+        },
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 0.2044565,
+          "min_ms": 0.145642,
+          "max_ms": 0.210813
+        },
+        "host_transfer_setup": {
+          "n": 4,
+          "median_ms": 0.0604875,
+          "min_ms": 0.055623,
+          "max_ms": 0.066564
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 0.431284,
+          "min_ms": 0.412048,
+          "max_ms": 0.473513
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.03492,
+          "min_ms": 0.030467,
+          "max_ms": 0.039613
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 1.775888,
+          "min_ms": 1.711702,
+          "max_ms": 1.808724
+        },
+        "memory_total": {
+          "n": 4,
+          "median_ms": 1.815872,
+          "min_ms": 1.743211,
+          "max_ms": 1.841936
+        },
+        "guest_until_ready": {
+          "n": 4,
+          "median_ms": 65.8395815,
+          "min_ms": 64.446693,
+          "max_ms": 68.03962
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 4,
+          "median_ms": 65.3155745,
+          "min_ms": 63.953393,
+          "max_ms": 67.606101
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 65.28911,
+          "min_ms": 63.915162,
+          "max_ms": 67.581044
+        },
+        "guest_restore_copy": {
+          "n": 4,
+          "median_ms": 0.00023,
+          "min_ms": 0.000191,
+          "max_ms": 0.00027
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 4,
+          "median_ms": 0.4634095,
+          "min_ms": 0.430282,
+          "max_ms": 0.617732
+        },
+        "ready_decode_and_listener": {
+          "n": 4,
+          "median_ms": 0.110782,
+          "min_ms": 0.108993,
+          "max_ms": 0.129101
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 68.527537,
+          "min_ms": 67.208445,
+          "max_ms": 70.805819
+        },
+        "fork_trace_total": {
+          "n": 4,
+          "median_ms": 68.9035035,
+          "min_ms": 67.552918,
+          "max_ms": 71.121079
+        },
+        "host_admission_stop": {
+          "n": 4,
+          "median_ms": 0.0376305,
+          "min_ms": 0.029415,
+          "max_ms": 0.042469
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.0039975,
+          "min_ms": 0.003757,
+          "max_ms": 0.004558
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 4,
+          "median_ms": 1.451554,
+          "min_ms": 1.428252,
+          "max_ms": 1.661758
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.001278,
+          "min_ms": 0.001202,
+          "max_ms": 0.001472
+        },
+        "guest_diag_read": {
+          "n": 4,
+          "median_ms": 0.009192,
+          "min_ms": 0.007864,
+          "max_ms": 0.01079
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 2.410146,
+          "min_ms": 1.966428,
+          "max_ms": 2.689958
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.001938,
+          "min_ms": 0.001623,
+          "max_ms": 0.002204
+        },
+        "close_after_resources": {
+          "n": 4,
+          "median_ms": 0.258907,
+          "min_ms": 0.224736,
+          "max_ms": 0.261982
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 4.170353,
+          "min_ms": 3.676638,
+          "max_ms": 4.67041
+        }
+      }
+    },
+    {
+      "name": "go-medium-1-observed",
+      "children": 4,
+      "validated_instance_count": 5,
+      "durations": {
+        "platform_checks_total": {
+          "n": 4,
+          "median_ms": 0.0390075,
+          "min_ms": 0.037039,
+          "max_ms": 0.039795
+        },
+        "api_other_outside_host": {
+          "n": 4,
+          "median_ms": 0.2587075,
+          "min_ms": 0.249085,
+          "max_ms": 0.261497
+        },
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 0.201326,
+          "min_ms": 0.151522,
+          "max_ms": 0.208859
+        },
+        "host_transfer_setup": {
+          "n": 4,
+          "median_ms": 0.0584935,
+          "min_ms": 0.056956,
+          "max_ms": 0.061244
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 0.4518175,
+          "min_ms": 0.421306,
+          "max_ms": 0.621469
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.036979,
+          "min_ms": 0.031158,
+          "max_ms": 0.061144
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 1.801205,
+          "min_ms": 1.598232,
+          "max_ms": 2.163008
+        },
+        "memory_total": {
+          "n": 4,
+          "median_ms": 1.84934,
+          "min_ms": 1.630281,
+          "max_ms": 2.204956
+        },
+        "guest_until_ready": {
+          "n": 4,
+          "median_ms": 66.5024745,
+          "min_ms": 65.623864,
+          "max_ms": 68.714376
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 4,
+          "median_ms": 66.0722415,
+          "min_ms": 64.835794,
+          "max_ms": 68.293741
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 66.0492135,
+          "min_ms": 64.799977,
+          "max_ms": 68.270378
+        },
+        "guest_restore_copy": {
+          "n": 4,
+          "median_ms": 0.000231,
+          "min_ms": 0.000191,
+          "max_ms": 0.00029
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 4,
+          "median_ms": 0.430233,
+          "min_ms": 0.420635,
+          "max_ms": 0.78807
+        },
+        "ready_decode_and_listener": {
+          "n": 4,
+          "median_ms": 0.105437,
+          "min_ms": 0.103523,
+          "max_ms": 0.108462
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 69.139418,
+          "min_ms": 68.40452,
+          "max_ms": 72.016999
+        },
+        "fork_trace_total": {
+          "n": 4,
+          "median_ms": 69.440449,
+          "min_ms": 68.69918,
+          "max_ms": 72.303123
+        },
+        "host_admission_stop": {
+          "n": 4,
+          "median_ms": 0.030091,
+          "min_ms": 0.026399,
+          "max_ms": 0.039404
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.0030155,
+          "min_ms": 0.002685,
+          "max_ms": 0.008265
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 4,
+          "median_ms": 1.4384315,
+          "min_ms": 1.383741,
+          "max_ms": 1.454259
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.001132,
+          "min_ms": 0.001022,
+          "max_ms": 0.001242
+        },
+        "guest_diag_read": {
+          "n": 4,
+          "median_ms": 0.0101285,
+          "min_ms": 0.007944,
+          "max_ms": 0.01061
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 2.1888135,
+          "min_ms": 2.021511,
+          "max_ms": 2.627401
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.001653,
+          "min_ms": 0.001523,
+          "max_ms": 0.001724
+        },
+        "close_after_resources": {
+          "n": 4,
+          "median_ms": 0.2624615,
+          "min_ms": 0.241385,
+          "max_ms": 0.285968
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 3.9234465,
+          "min_ms": 3.771976,
+          "max_ms": 4.367667
+        }
+      }
+    },
+    {
+      "name": "go-medium-2-observed",
+      "children": 4,
+      "validated_instance_count": 5,
+      "durations": {
+        "platform_checks_total": {
+          "n": 4,
+          "median_ms": 0.041923,
+          "min_ms": 0.037179,
+          "max_ms": 0.047298
+        },
+        "api_other_outside_host": {
+          "n": 4,
+          "median_ms": 0.2863785,
+          "min_ms": 0.247893,
+          "max_ms": 0.307895
+        },
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 0.2028235,
+          "min_ms": 0.14455,
+          "max_ms": 0.229918
+        },
+        "host_transfer_setup": {
+          "n": 4,
+          "median_ms": 0.0608835,
+          "min_ms": 0.058048,
+          "max_ms": 0.063538
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 0.415645,
+          "min_ms": 0.400076,
+          "max_ms": 0.449609
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.0356065,
+          "min_ms": 0.030467,
+          "max_ms": 0.044293
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 1.640675,
+          "min_ms": 1.573585,
+          "max_ms": 1.686205
+        },
+        "memory_total": {
+          "n": 4,
+          "median_ms": 1.672805,
+          "min_ms": 1.61885,
+          "max_ms": 1.726621
+        },
+        "guest_until_ready": {
+          "n": 4,
+          "median_ms": 66.4379305,
+          "min_ms": 65.863262,
+          "max_ms": 69.56894
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 4,
+          "median_ms": 66.0356345,
+          "min_ms": 65.424263,
+          "max_ms": 68.975652
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 66.0110785,
+          "min_ms": 65.400428,
+          "max_ms": 68.952368
+        },
+        "guest_restore_copy": {
+          "n": 4,
+          "median_ms": 0.0002005,
+          "min_ms": 0.00019,
+          "max_ms": 0.00022
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 4,
+          "median_ms": 0.4223435,
+          "min_ms": 0.398904,
+          "max_ms": 0.593288
+        },
+        "ready_decode_and_listener": {
+          "n": 4,
+          "median_ms": 0.1055665,
+          "min_ms": 0.105096,
+          "max_ms": 0.115765
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 69.032911,
+          "min_ms": 68.374326,
+          "max_ms": 72.144634
+        },
+        "fork_trace_total": {
+          "n": 4,
+          "median_ms": 69.340865,
+          "min_ms": 68.710212,
+          "max_ms": 72.489708
+        },
+        "host_admission_stop": {
+          "n": 4,
+          "median_ms": 0.030562,
+          "min_ms": 0.02139,
+          "max_ms": 0.038862
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.0029805,
+          "min_ms": 0.002795,
+          "max_ms": 0.004067
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 4,
+          "median_ms": 1.3886085,
+          "min_ms": 1.345155,
+          "max_ms": 1.514596
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.001187,
+          "min_ms": 0.001162,
+          "max_ms": 0.001293
+        },
+        "guest_diag_read": {
+          "n": 4,
+          "median_ms": 0.0090415,
+          "min_ms": 0.007143,
+          "max_ms": 0.009729
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 2.290383,
+          "min_ms": 2.134352,
+          "max_ms": 2.576145
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.0014175,
+          "min_ms": 0.001362,
+          "max_ms": 0.001683
+        },
+        "close_after_resources": {
+          "n": 4,
+          "median_ms": 0.241177,
+          "min_ms": 0.229257,
+          "max_ms": 0.268638
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 4.0266675,
+          "min_ms": 3.762864,
+          "max_ms": 4.272144
+        }
+      }
+    },
+    {
+      "name": "go-large-0-observed",
+      "children": 4,
+      "validated_instance_count": 5,
+      "durations": {
+        "platform_checks_total": {
+          "n": 4,
+          "median_ms": 0.0459955,
+          "min_ms": 0.042739,
+          "max_ms": 0.058859
+        },
+        "api_other_outside_host": {
+          "n": 4,
+          "median_ms": 0.264278,
+          "min_ms": 0.227375,
+          "max_ms": 0.301664
+        },
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 1.7676425,
+          "min_ms": 1.698187,
+          "max_ms": 1.914382
+        },
+        "host_transfer_setup": {
+          "n": 4,
+          "median_ms": 0.073567,
+          "min_ms": 0.05912,
+          "max_ms": 0.082064
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 3.5686015,
+          "min_ms": 3.206411,
+          "max_ms": 4.585283
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.0408715,
+          "min_ms": 0.036739,
+          "max_ms": 0.04281
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 1.748922,
+          "min_ms": 1.619662,
+          "max_ms": 1.932915
+        },
+        "memory_total": {
+          "n": 4,
+          "median_ms": 1.7901245,
+          "min_ms": 1.660949,
+          "max_ms": 1.975826
+        },
+        "guest_until_ready": {
+          "n": 4,
+          "median_ms": 67.520524,
+          "min_ms": 65.418996,
+          "max_ms": 74.984519
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 4,
+          "median_ms": 66.8448045,
+          "min_ms": 64.962635,
+          "max_ms": 74.435876
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 66.812329,
+          "min_ms": 64.933802,
+          "max_ms": 74.40076
+        },
+        "guest_restore_copy": {
+          "n": 4,
+          "median_ms": 0.0002755,
+          "min_ms": 0.000191,
+          "max_ms": 0.00046
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 4,
+          "median_ms": 0.552841,
+          "min_ms": 0.456361,
+          "max_ms": 0.7944
+        },
+        "ready_decode_and_listener": {
+          "n": 4,
+          "median_ms": 0.1135315,
+          "min_ms": 0.105426,
+          "max_ms": 0.124072
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 74.8194935,
+          "min_ms": 72.606403,
+          "max_ms": 83.71292
+        },
+        "fork_trace_total": {
+          "n": 4,
+          "median_ms": 75.1175845,
+          "min_ms": 72.913546,
+          "max_ms": 84.060779
+        },
+        "host_admission_stop": {
+          "n": 4,
+          "median_ms": 0.0379855,
+          "min_ms": 0.033302,
+          "max_ms": 0.040645
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.004073,
+          "min_ms": 0.003556,
+          "max_ms": 0.00492
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 4,
+          "median_ms": 1.403215,
+          "min_ms": 1.384311,
+          "max_ms": 1.443854
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.0012525,
+          "min_ms": 0.000972,
+          "max_ms": 0.001803
+        },
+        "guest_diag_read": {
+          "n": 4,
+          "median_ms": 0.008051,
+          "min_ms": 0.007283,
+          "max_ms": 0.01069
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 2.645985,
+          "min_ms": 2.539877,
+          "max_ms": 2.723741
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.001703,
+          "min_ms": 0.001363,
+          "max_ms": 0.001834
+        },
+        "close_after_resources": {
+          "n": 4,
+          "median_ms": 0.2596535,
+          "min_ms": 0.231174,
+          "max_ms": 0.264431
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 4.3523115,
+          "min_ms": 4.230988,
+          "max_ms": 4.481982
+        }
+      }
+    },
+    {
+      "name": "go-large-1-observed",
+      "children": 4,
+      "validated_instance_count": 5,
+      "durations": {
+        "platform_checks_total": {
+          "n": 4,
+          "median_ms": 0.0489965,
+          "min_ms": 0.039063,
+          "max_ms": 0.062527
+        },
+        "api_other_outside_host": {
+          "n": 4,
+          "median_ms": 0.2747165,
+          "min_ms": 0.263512,
+          "max_ms": 0.296162
+        },
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 1.724161,
+          "min_ms": 1.193576,
+          "max_ms": 1.788316
+        },
+        "host_transfer_setup": {
+          "n": 4,
+          "median_ms": 0.063178,
+          "min_ms": 0.05919,
+          "max_ms": 0.0699
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 3.3146125,
+          "min_ms": 3.101676,
+          "max_ms": 3.42026
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.038021,
+          "min_ms": 0.030467,
+          "max_ms": 0.043941
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 1.709489,
+          "min_ms": 1.578405,
+          "max_ms": 1.871602
+        },
+        "memory_total": {
+          "n": 4,
+          "median_ms": 1.754147,
+          "min_ms": 1.609843,
+          "max_ms": 1.906917
+        },
+        "guest_until_ready": {
+          "n": 4,
+          "median_ms": 63.18356,
+          "min_ms": 62.803698,
+          "max_ms": 68.422485
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 4,
+          "median_ms": 62.6006955,
+          "min_ms": 62.085378,
+          "max_ms": 67.986587
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 62.5713565,
+          "min_ms": 62.055872,
+          "max_ms": 67.953365
+        },
+        "guest_restore_copy": {
+          "n": 4,
+          "median_ms": 0.0002505,
+          "min_ms": 0.00019,
+          "max_ms": 0.000251
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 4,
+          "median_ms": 0.577109,
+          "min_ms": 0.41321,
+          "max_ms": 0.752519
+        },
+        "ready_decode_and_listener": {
+          "n": 4,
+          "median_ms": 0.1094035,
+          "min_ms": 0.105597,
+          "max_ms": 0.11235
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 70.3303505,
+          "min_ms": 69.779322,
+          "max_ms": 75.036116
+        },
+        "fork_trace_total": {
+          "n": 4,
+          "median_ms": 70.6724235,
+          "min_ms": 70.101291,
+          "max_ms": 75.338691
+        },
+        "host_admission_stop": {
+          "n": 4,
+          "median_ms": 0.031694,
+          "min_ms": 0.029115,
+          "max_ms": 0.041106
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.0039125,
+          "min_ms": 0.002915,
+          "max_ms": 0.016832
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 4,
+          "median_ms": 1.562459,
+          "min_ms": 1.423343,
+          "max_ms": 1.696633
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.0013975,
+          "min_ms": 0.001293,
+          "max_ms": 0.001603
+        },
+        "guest_diag_read": {
+          "n": 4,
+          "median_ms": 0.0082205,
+          "min_ms": 0.007895,
+          "max_ms": 0.011361
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 2.6705915,
+          "min_ms": 2.653139,
+          "max_ms": 2.757974
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.001743,
+          "min_ms": 0.001523,
+          "max_ms": 0.002385
+        },
+        "close_after_resources": {
+          "n": 4,
+          "median_ms": 0.265527,
+          "min_ms": 0.26168,
+          "max_ms": 0.2753
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 4.5529095,
+          "min_ms": 4.50045,
+          "max_ms": 4.668918
+        }
+      }
+    },
+    {
+      "name": "go-large-2-observed",
+      "children": 4,
+      "validated_instance_count": 5,
+      "durations": {
+        "platform_checks_total": {
+          "n": 4,
+          "median_ms": 0.0458455,
+          "min_ms": 0.038842,
+          "max_ms": 0.068548
+        },
+        "api_other_outside_host": {
+          "n": 4,
+          "median_ms": 0.2637695,
+          "min_ms": 0.251377,
+          "max_ms": 0.273468
+        },
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 1.6885925,
+          "min_ms": 1.17883,
+          "max_ms": 1.801527
+        },
+        "host_transfer_setup": {
+          "n": 4,
+          "median_ms": 0.0678415,
+          "min_ms": 0.06469,
+          "max_ms": 0.071964
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 3.259892,
+          "min_ms": 3.173356,
+          "max_ms": 3.306233
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.0402195,
+          "min_ms": 0.030116,
+          "max_ms": 0.041898
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 1.7681155,
+          "min_ms": 1.651539,
+          "max_ms": 1.8138
+        },
+        "memory_total": {
+          "n": 4,
+          "median_ms": 1.805154,
+          "min_ms": 1.696442,
+          "max_ms": 1.856139
+        },
+        "guest_until_ready": {
+          "n": 4,
+          "median_ms": 65.136052,
+          "min_ms": 63.703747,
+          "max_ms": 70.422782
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 4,
+          "median_ms": 64.701951,
+          "min_ms": 63.276494,
+          "max_ms": 69.851741
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 64.664035,
+          "min_ms": 63.253181,
+          "max_ms": 69.778195
+        },
+        "guest_restore_copy": {
+          "n": 4,
+          "median_ms": 0.0002405,
+          "min_ms": 0.00022,
+          "max_ms": 0.000401
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 4,
+          "median_ms": 0.434101,
+          "min_ms": 0.427253,
+          "max_ms": 0.571041
+        },
+        "ready_decode_and_listener": {
+          "n": 4,
+          "median_ms": 0.104865,
+          "min_ms": 0.102461,
+          "max_ms": 0.137435
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 72.167732,
+          "min_ms": 70.775287,
+          "max_ms": 77.000282
+        },
+        "fork_trace_total": {
+          "n": 4,
+          "median_ms": 72.4685305,
+          "min_ms": 71.083139,
+          "max_ms": 77.342298
+        },
+        "host_admission_stop": {
+          "n": 4,
+          "median_ms": 0.0344095,
+          "min_ms": 0.032189,
+          "max_ms": 0.040645
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.0039525,
+          "min_ms": 0.003075,
+          "max_ms": 0.008796
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 4,
+          "median_ms": 1.4125935,
+          "min_ms": 1.344198,
+          "max_ms": 1.896611
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.001237,
+          "min_ms": 0.001172,
+          "max_ms": 0.001462
+        },
+        "guest_diag_read": {
+          "n": 4,
+          "median_ms": 0.0083555,
+          "min_ms": 0.007874,
+          "max_ms": 0.008787
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 2.417131,
+          "min_ms": 2.232,
+          "max_ms": 2.517688
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.001578,
+          "min_ms": 0.001453,
+          "max_ms": 0.001843
+        },
+        "close_after_resources": {
+          "n": 4,
+          "median_ms": 0.26455,
+          "min_ms": 0.246703,
+          "max_ms": 0.276196
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 4.15731,
+          "min_ms": 3.992387,
+          "max_ms": 4.601299
+        }
+      }
+    },
+    {
+      "name": "go-parallel-0-observed",
+      "children": 4,
+      "cross_scope_pairing": false,
+      "durations": {
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 0.617011,
+          "min_ms": 0.1941,
+          "max_ms": 0.92939
+        },
+        "linked_execution_until_ready": {
+          "n": 4,
+          "median_ms": 150.605985,
+          "min_ms": 145.622025,
+          "max_ms": 166.337299
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 151.3424315,
+          "min_ms": 146.084578,
+          "max_ms": 167.441204
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.04595,
+          "min_ms": 0.027051,
+          "max_ms": 0.173863
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 2.452655,
+          "min_ms": 2.089956,
+          "max_ms": 2.720969
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 1.183333,
+          "min_ms": 0.634559,
+          "max_ms": 2.527654
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.001147,
+          "min_ms": 0.001012,
+          "max_ms": 0.001713
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 4.4860335,
+          "min_ms": 3.042967,
+          "max_ms": 6.861604
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.001979,
+          "min_ms": 0.001804,
+          "max_ms": 0.002164
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 141.6685485,
+          "min_ms": 132.678185,
+          "max_ms": 149.597328
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.0035915,
+          "min_ms": 0.002975,
+          "max_ms": 0.019126
+        },
+        "shutdown_including_resource_release": {
+          "n": 4,
+          "median_ms": 6.6114845,
+          "min_ms": 5.373791,
+          "max_ms": 8.723372
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 6.7074335,
+          "min_ms": 5.468717,
+          "max_ms": 8.785938
+        }
+      }
+    },
+    {
+      "name": "go-parallel-1-observed",
+      "children": 4,
+      "cross_scope_pairing": false,
+      "durations": {
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 0.536084,
+          "min_ms": 0.366305,
+          "max_ms": 1.074232
+        },
+        "linked_execution_until_ready": {
+          "n": 4,
+          "median_ms": 142.587514,
+          "min_ms": 134.24167,
+          "max_ms": 151.798277
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 143.618806,
+          "min_ms": 134.849999,
+          "max_ms": 152.376275
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.028042,
+          "min_ms": 0.020368,
+          "max_ms": 0.05896
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 2.8419335,
+          "min_ms": 2.715859,
+          "max_ms": 3.023672
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 0.721851,
+          "min_ms": 0.53786,
+          "max_ms": 0.836896
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.001217,
+          "min_ms": 0.000962,
+          "max_ms": 0.001703
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 5.453684,
+          "min_ms": 3.49576,
+          "max_ms": 6.739097
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.002069,
+          "min_ms": 0.002064,
+          "max_ms": 0.002645
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 128.4388865,
+          "min_ms": 119.376989,
+          "max_ms": 135.226641
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.003812,
+          "min_ms": 0.003737,
+          "max_ms": 0.003918
+        },
+        "shutdown_including_resource_release": {
+          "n": 4,
+          "median_ms": 8.466043,
+          "min_ms": 5.3355,
+          "max_ms": 9.28248
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 8.545401,
+          "min_ms": 5.421389,
+          "max_ms": 9.381704
+        }
+      }
+    },
+    {
+      "name": "go-parallel-2-observed",
+      "children": 4,
+      "cross_scope_pairing": false,
+      "durations": {
+        "baseline_acquire": {
+          "n": 4,
+          "median_ms": 1.438539,
+          "min_ms": 0.317273,
+          "max_ms": 3.154366
+        },
+        "linked_execution_until_ready": {
+          "n": 4,
+          "median_ms": 158.428402,
+          "min_ms": 118.976476,
+          "max_ms": 214.721391
+        },
+        "host_startup_total": {
+          "n": 4,
+          "median_ms": 160.3481175,
+          "min_ms": 121.596829,
+          "max_ms": 215.351899
+        },
+        "memory_mapping": {
+          "n": 4,
+          "median_ms": 0.0344635,
+          "min_ms": 0.024986,
+          "max_ms": 0.038662
+        },
+        "generated_memory_init": {
+          "n": 4,
+          "median_ms": 3.745658,
+          "min_ms": 2.39496,
+          "max_ms": 4.938588
+        },
+        "prepared_handles": {
+          "n": 4,
+          "median_ms": 0.7272085,
+          "min_ms": 0.6565,
+          "max_ms": 0.810293
+        },
+        "guest_final_join": {
+          "n": 4,
+          "median_ms": 0.001197,
+          "min_ms": 0.001162,
+          "max_ms": 0.001333
+        },
+        "linear_memory_release": {
+          "n": 4,
+          "median_ms": 2.8961525,
+          "min_ms": 2.489206,
+          "max_ms": 4.335065
+        },
+        "descriptor_prepared_release": {
+          "n": 4,
+          "median_ms": 0.001868,
+          "min_ms": 0.001663,
+          "max_ms": 0.001904
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 4,
+          "median_ms": 130.468928,
+          "min_ms": 103.405264,
+          "max_ms": 196.848535
+        },
+        "host_session_drain": {
+          "n": 4,
+          "median_ms": 0.003396,
+          "min_ms": 0.002875,
+          "max_ms": 0.003787
+        },
+        "shutdown_including_resource_release": {
+          "n": 4,
+          "median_ms": 4.967754,
+          "min_ms": 4.534008,
+          "max_ms": 6.194829
+        },
+        "host_close_total": {
+          "n": 4,
+          "median_ms": 5.0619335,
+          "min_ms": 4.630436,
+          "max_ms": 6.257535
+        }
+      }
+    },
+    {
+      "name": "python-small-0-observed",
+      "children": 2,
+      "validated_instance_count": 3,
+      "durations": {
+        "platform_checks_total": {
+          "n": 2,
+          "median_ms": 0.047553,
+          "min_ms": 0.035686,
+          "max_ms": 0.05942
+        },
+        "python_public_remainder": {
+          "n": 2,
+          "median_ms": 0.692438,
+          "min_ms": 0.657539,
+          "max_ms": 0.727337
+        },
+        "baseline_acquire": {
+          "n": 2,
+          "median_ms": 0.037505,
+          "min_ms": 0.033493,
+          "max_ms": 0.041517
+        },
+        "host_transfer_setup": {
+          "n": 2,
+          "median_ms": 0.0791565,
+          "min_ms": 0.068978,
+          "max_ms": 0.089335
+        },
+        "prepared_handles": {
+          "n": 2,
+          "median_ms": 0.090513,
+          "min_ms": 0.076502,
+          "max_ms": 0.104524
+        },
+        "memory_mapping": {
+          "n": 2,
+          "median_ms": 0.039619,
+          "min_ms": 0.039063,
+          "max_ms": 0.040175
+        },
+        "generated_memory_init": {
+          "n": 2,
+          "median_ms": 1.773005,
+          "min_ms": 1.763778,
+          "max_ms": 1.782232
+        },
+        "memory_total": {
+          "n": 2,
+          "median_ms": 1.813741,
+          "min_ms": 1.804885,
+          "max_ms": 1.822597
+        },
+        "guest_until_ready": {
+          "n": 2,
+          "median_ms": 65.0362295,
+          "min_ms": 62.533307,
+          "max_ms": 67.539152
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 2,
+          "median_ms": 64.5310775,
+          "min_ms": 61.955634,
+          "max_ms": 67.106521
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 2,
+          "median_ms": 64.499534,
+          "min_ms": 61.919307,
+          "max_ms": 67.079761
+        },
+        "guest_restore_copy": {
+          "n": 2,
+          "median_ms": 0.0002455,
+          "min_ms": 0.000181,
+          "max_ms": 0.00031
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 2,
+          "median_ms": 0.505152,
+          "min_ms": 0.432631,
+          "max_ms": 0.577673
+        },
+        "ready_decode_and_listener": {
+          "n": 2,
+          "median_ms": 0.097201,
+          "min_ms": 0.092643,
+          "max_ms": 0.101759
+        },
+        "host_startup_total": {
+          "n": 2,
+          "median_ms": 67.2842925,
+          "min_ms": 64.742874,
+          "max_ms": 69.825711
+        },
+        "host_admission_stop": {
+          "n": 2,
+          "median_ms": 0.043311,
+          "min_ms": 0.032711,
+          "max_ms": 0.053911
+        },
+        "host_session_drain": {
+          "n": 2,
+          "median_ms": 0.0025595,
+          "min_ms": 0.002474,
+          "max_ms": 0.002645
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 2,
+          "median_ms": 2.4860025,
+          "min_ms": 2.474893,
+          "max_ms": 2.497112
+        },
+        "guest_final_join": {
+          "n": 2,
+          "median_ms": 0.001107,
+          "min_ms": 0.000992,
+          "max_ms": 0.001222
+        },
+        "guest_diag_read": {
+          "n": 2,
+          "median_ms": 0.0115565,
+          "min_ms": 0.007664,
+          "max_ms": 0.015449
+        },
+        "linear_memory_release": {
+          "n": 2,
+          "median_ms": 2.293186,
+          "min_ms": 2.238409,
+          "max_ms": 2.347963
+        },
+        "descriptor_prepared_release": {
+          "n": 2,
+          "median_ms": 0.0017585,
+          "min_ms": 0.001573,
+          "max_ms": 0.001944
+        },
+        "close_after_resources": {
+          "n": 2,
+          "median_ms": 0.26893,
+          "min_ms": 0.260947,
+          "max_ms": 0.276913
+        },
+        "host_close_total": {
+          "n": 2,
+          "median_ms": 5.108411,
+          "min_ms": 5.087605,
+          "max_ms": 5.129217
+        }
+      }
+    },
+    {
+      "name": "python-small-1-observed",
+      "children": 2,
+      "validated_instance_count": 3,
+      "durations": {
+        "platform_checks_total": {
+          "n": 2,
+          "median_ms": 0.035436,
+          "min_ms": 0.035215,
+          "max_ms": 0.035657
+        },
+        "python_public_remainder": {
+          "n": 2,
+          "median_ms": 0.675661,
+          "min_ms": 0.663262,
+          "max_ms": 0.68806
+        },
+        "baseline_acquire": {
+          "n": 2,
+          "median_ms": 0.028358,
+          "min_ms": 0.022883,
+          "max_ms": 0.033833
+        },
+        "host_transfer_setup": {
+          "n": 2,
+          "median_ms": 0.079538,
+          "min_ms": 0.07001,
+          "max_ms": 0.089066
+        },
+        "prepared_handles": {
+          "n": 2,
+          "median_ms": 0.091735,
+          "min_ms": 0.080439,
+          "max_ms": 0.103031
+        },
+        "memory_mapping": {
+          "n": 2,
+          "median_ms": 0.04301,
+          "min_ms": 0.042639,
+          "max_ms": 0.043381
+        },
+        "generated_memory_init": {
+          "n": 2,
+          "median_ms": 1.8256325,
+          "min_ms": 1.81356,
+          "max_ms": 1.837705
+        },
+        "memory_total": {
+          "n": 2,
+          "median_ms": 1.87015,
+          "min_ms": 1.858844,
+          "max_ms": 1.881456
+        },
+        "guest_until_ready": {
+          "n": 2,
+          "median_ms": 64.3428795,
+          "min_ms": 63.61986,
+          "max_ms": 65.065899
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 2,
+          "median_ms": 63.8879295,
+          "min_ms": 63.172504,
+          "max_ms": 64.603355
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 2,
+          "median_ms": 63.854417,
+          "min_ms": 63.134704,
+          "max_ms": 64.57413
+        },
+        "guest_restore_copy": {
+          "n": 2,
+          "median_ms": 0.000245,
+          "min_ms": 0.00018,
+          "max_ms": 0.00031
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 2,
+          "median_ms": 0.45495,
+          "min_ms": 0.447356,
+          "max_ms": 0.462544
+        },
+        "ready_decode_and_listener": {
+          "n": 2,
+          "median_ms": 0.1202435,
+          "min_ms": 0.116647,
+          "max_ms": 0.12384
+        },
+        "host_startup_total": {
+          "n": 2,
+          "median_ms": 66.6768715,
+          "min_ms": 65.986799,
+          "max_ms": 67.366944
+        },
+        "host_admission_stop": {
+          "n": 2,
+          "median_ms": 0.0254725,
+          "min_ms": 0.024636,
+          "max_ms": 0.026309
+        },
+        "host_session_drain": {
+          "n": 2,
+          "median_ms": 0.002199,
+          "min_ms": 0.002174,
+          "max_ms": 0.002224
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 2,
+          "median_ms": 3.274013,
+          "min_ms": 2.534139,
+          "max_ms": 4.013887
+        },
+        "guest_final_join": {
+          "n": 2,
+          "median_ms": 0.0010775,
+          "min_ms": 0.001042,
+          "max_ms": 0.001113
+        },
+        "guest_diag_read": {
+          "n": 2,
+          "median_ms": 0.011496,
+          "min_ms": 0.008555,
+          "max_ms": 0.014437
+        },
+        "linear_memory_release": {
+          "n": 2,
+          "median_ms": 2.8633555,
+          "min_ms": 2.562612,
+          "max_ms": 3.164099
+        },
+        "descriptor_prepared_release": {
+          "n": 2,
+          "median_ms": 0.001894,
+          "min_ms": 0.001714,
+          "max_ms": 0.002074
+        },
+        "close_after_resources": {
+          "n": 2,
+          "median_ms": 0.2771275,
+          "min_ms": 0.269403,
+          "max_ms": 0.284852
+        },
+        "host_close_total": {
+          "n": 2,
+          "median_ms": 6.456635,
+          "min_ms": 5.419845,
+          "max_ms": 7.493425
+        }
+      }
+    },
+    {
+      "name": "python-small-2-observed",
+      "children": 2,
+      "validated_instance_count": 3,
+      "durations": {
+        "platform_checks_total": {
+          "n": 2,
+          "median_ms": 0.0411065,
+          "min_ms": 0.036969,
+          "max_ms": 0.045244
+        },
+        "python_public_remainder": {
+          "n": 2,
+          "median_ms": 0.8281795,
+          "min_ms": 0.711453,
+          "max_ms": 0.944906
+        },
+        "baseline_acquire": {
+          "n": 2,
+          "median_ms": 0.0291745,
+          "min_ms": 0.023424,
+          "max_ms": 0.034925
+        },
+        "host_transfer_setup": {
+          "n": 2,
+          "median_ms": 0.0648855,
+          "min_ms": 0.062967,
+          "max_ms": 0.066804
+        },
+        "prepared_handles": {
+          "n": 2,
+          "median_ms": 0.0881085,
+          "min_ms": 0.077023,
+          "max_ms": 0.099194
+        },
+        "memory_mapping": {
+          "n": 2,
+          "median_ms": 0.0348595,
+          "min_ms": 0.031719,
+          "max_ms": 0.038
+        },
+        "generated_memory_init": {
+          "n": 2,
+          "median_ms": 1.690056,
+          "min_ms": 1.635329,
+          "max_ms": 1.744783
+        },
+        "memory_total": {
+          "n": 2,
+          "median_ms": 1.725952,
+          "min_ms": 1.674461,
+          "max_ms": 1.777443
+        },
+        "guest_until_ready": {
+          "n": 2,
+          "median_ms": 72.739707,
+          "min_ms": 59.97998,
+          "max_ms": 85.499434
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 2,
+          "median_ms": 72.113018,
+          "min_ms": 59.205188,
+          "max_ms": 85.020848
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 2,
+          "median_ms": 72.086449,
+          "min_ms": 59.180703,
+          "max_ms": 84.992195
+        },
+        "guest_restore_copy": {
+          "n": 2,
+          "median_ms": 0.0001705,
+          "min_ms": 0.00016,
+          "max_ms": 0.000181
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 2,
+          "median_ms": 0.626689,
+          "min_ms": 0.478586,
+          "max_ms": 0.774792
+        },
+        "ready_decode_and_listener": {
+          "n": 2,
+          "median_ms": 0.1894825,
+          "min_ms": 0.104635,
+          "max_ms": 0.27433
+        },
+        "host_startup_total": {
+          "n": 2,
+          "median_ms": 74.967347,
+          "min_ms": 62.223559,
+          "max_ms": 87.711135
+        },
+        "host_admission_stop": {
+          "n": 2,
+          "median_ms": 0.0360065,
+          "min_ms": 0.034774,
+          "max_ms": 0.037239
+        },
+        "host_session_drain": {
+          "n": 2,
+          "median_ms": 0.0035465,
+          "min_ms": 0.003517,
+          "max_ms": 0.003576
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 2,
+          "median_ms": 2.4617745,
+          "min_ms": 2.345368,
+          "max_ms": 2.578181
+        },
+        "guest_final_join": {
+          "n": 2,
+          "median_ms": 0.001177,
+          "min_ms": 0.001172,
+          "max_ms": 0.001182
+        },
+        "guest_diag_read": {
+          "n": 2,
+          "median_ms": 0.0099585,
+          "min_ms": 0.009037,
+          "max_ms": 0.01088
+        },
+        "linear_memory_release": {
+          "n": 2,
+          "median_ms": 2.393243,
+          "min_ms": 2.135519,
+          "max_ms": 2.650967
+        },
+        "descriptor_prepared_release": {
+          "n": 2,
+          "median_ms": 0.001878,
+          "min_ms": 0.001562,
+          "max_ms": 0.002194
+        },
+        "close_after_resources": {
+          "n": 2,
+          "median_ms": 0.279506,
+          "min_ms": 0.273155,
+          "max_ms": 0.285857
+        },
+        "host_close_total": {
+          "n": 2,
+          "median_ms": 5.18709,
+          "min_ms": 5.052143,
+          "max_ms": 5.322037
+        }
+      }
+    },
+    {
+      "name": "python-medium-0-observed",
+      "children": 2,
+      "validated_instance_count": 3,
+      "durations": {
+        "platform_checks_total": {
+          "n": 2,
+          "median_ms": 0.035366,
+          "min_ms": 0.034735,
+          "max_ms": 0.035997
+        },
+        "python_public_remainder": {
+          "n": 2,
+          "median_ms": 0.6488795000000037,
+          "min_ms": 0.605686,
+          "max_ms": 0.6920730000000075
+        },
+        "baseline_acquire": {
+          "n": 2,
+          "median_ms": 0.183256,
+          "min_ms": 0.139379,
+          "max_ms": 0.227133
+        },
+        "host_transfer_setup": {
+          "n": 2,
+          "median_ms": 0.074273,
+          "min_ms": 0.071132,
+          "max_ms": 0.077414
+        },
+        "prepared_handles": {
+          "n": 2,
+          "median_ms": 0.4178065,
+          "min_ms": 0.394343,
+          "max_ms": 0.44127
+        },
+        "memory_mapping": {
+          "n": 2,
+          "median_ms": 0.0302565,
+          "min_ms": 0.029265,
+          "max_ms": 0.031248
+        },
+        "generated_memory_init": {
+          "n": 2,
+          "median_ms": 1.7133795,
+          "min_ms": 1.698778,
+          "max_ms": 1.727981
+        },
+        "memory_total": {
+          "n": 2,
+          "median_ms": 1.744553,
+          "min_ms": 1.730998,
+          "max_ms": 1.758108
+        },
+        "guest_until_ready": {
+          "n": 2,
+          "median_ms": 65.242497,
+          "min_ms": 62.886955,
+          "max_ms": 67.598039
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 2,
+          "median_ms": 64.7755245,
+          "min_ms": 62.383657,
+          "max_ms": 67.167392
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 2,
+          "median_ms": 64.74894,
+          "min_ms": 62.356847,
+          "max_ms": 67.141033
+        },
+        "guest_restore_copy": {
+          "n": 2,
+          "median_ms": 0.0001855,
+          "min_ms": 0.000171,
+          "max_ms": 0.0002
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 2,
+          "median_ms": 0.4669725,
+          "min_ms": 0.430647,
+          "max_ms": 0.503298
+        },
+        "ready_decode_and_listener": {
+          "n": 2,
+          "median_ms": 0.1106355,
+          "min_ms": 0.104804,
+          "max_ms": 0.116467
+        },
+        "host_startup_total": {
+          "n": 2,
+          "median_ms": 67.898353,
+          "min_ms": 65.613202,
+          "max_ms": 70.183504
+        },
+        "host_admission_stop": {
+          "n": 2,
+          "median_ms": 0.0362925,
+          "min_ms": 0.02685,
+          "max_ms": 0.045735
+        },
+        "host_session_drain": {
+          "n": 2,
+          "median_ms": 0.002545,
+          "min_ms": 0.002054,
+          "max_ms": 0.003036
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 2,
+          "median_ms": 2.600226,
+          "min_ms": 2.029245,
+          "max_ms": 3.171207
+        },
+        "guest_final_join": {
+          "n": 2,
+          "median_ms": 0.001237,
+          "min_ms": 0.001091,
+          "max_ms": 0.001383
+        },
+        "guest_diag_read": {
+          "n": 2,
+          "median_ms": 0.0076545,
+          "min_ms": 0.007134,
+          "max_ms": 0.008175
+        },
+        "linear_memory_release": {
+          "n": 2,
+          "median_ms": 2.6196435,
+          "min_ms": 2.55584,
+          "max_ms": 2.683447
+        },
+        "descriptor_prepared_release": {
+          "n": 2,
+          "median_ms": 0.001488,
+          "min_ms": 0.001423,
+          "max_ms": 0.001553
+        },
+        "close_after_resources": {
+          "n": 2,
+          "median_ms": 0.256107,
+          "min_ms": 0.248538,
+          "max_ms": 0.263676
+        },
+        "host_close_total": {
+          "n": 2,
+          "median_ms": 5.5251935,
+          "min_ms": 4.999782,
+          "max_ms": 6.050605
+        }
+      }
+    },
+    {
+      "name": "python-medium-1-observed",
+      "children": 2,
+      "validated_instance_count": 3,
+      "durations": {
+        "platform_checks_total": {
+          "n": 2,
+          "median_ms": 0.0365525,
+          "min_ms": 0.03283,
+          "max_ms": 0.040275
+        },
+        "python_public_remainder": {
+          "n": 2,
+          "median_ms": 0.7260620000000038,
+          "min_ms": 0.6707020000000075,
+          "max_ms": 0.781422
+        },
+        "baseline_acquire": {
+          "n": 2,
+          "median_ms": 0.198153,
+          "min_ms": 0.171238,
+          "max_ms": 0.225068
+        },
+        "host_transfer_setup": {
+          "n": 2,
+          "median_ms": 0.072425,
+          "min_ms": 0.070862,
+          "max_ms": 0.073988
+        },
+        "prepared_handles": {
+          "n": 2,
+          "median_ms": 0.4077425,
+          "min_ms": 0.400164,
+          "max_ms": 0.415321
+        },
+        "memory_mapping": {
+          "n": 2,
+          "median_ms": 0.0380205,
+          "min_ms": 0.037259,
+          "max_ms": 0.038782
+        },
+        "generated_memory_init": {
+          "n": 2,
+          "median_ms": 1.682688,
+          "min_ms": 1.640179,
+          "max_ms": 1.725197
+        },
+        "memory_total": {
+          "n": 2,
+          "median_ms": 1.7217705,
+          "min_ms": 1.6783,
+          "max_ms": 1.765241
+        },
+        "guest_until_ready": {
+          "n": 2,
+          "median_ms": 63.509016,
+          "min_ms": 62.39416,
+          "max_ms": 64.623872
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 2,
+          "median_ms": 63.0313,
+          "min_ms": 61.977559,
+          "max_ms": 64.085041
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 2,
+          "median_ms": 63.001274,
+          "min_ms": 61.944427,
+          "max_ms": 64.058121
+        },
+        "guest_restore_copy": {
+          "n": 2,
+          "median_ms": 0.000195,
+          "min_ms": 0.00019,
+          "max_ms": 0.0002
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 2,
+          "median_ms": 0.477716,
+          "min_ms": 0.416601,
+          "max_ms": 0.538831
+        },
+        "ready_decode_and_listener": {
+          "n": 2,
+          "median_ms": 0.133047,
+          "min_ms": 0.117338,
+          "max_ms": 0.148756
+        },
+        "host_startup_total": {
+          "n": 2,
+          "median_ms": 66.153972,
+          "min_ms": 65.033576,
+          "max_ms": 67.274368
+        },
+        "host_admission_stop": {
+          "n": 2,
+          "median_ms": 0.033372,
+          "min_ms": 0.025046,
+          "max_ms": 0.041698
+        },
+        "host_session_drain": {
+          "n": 2,
+          "median_ms": 0.0029405,
+          "min_ms": 0.002134,
+          "max_ms": 0.003747
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 2,
+          "median_ms": 2.262363,
+          "min_ms": 2.26195,
+          "max_ms": 2.262776
+        },
+        "guest_final_join": {
+          "n": 2,
+          "median_ms": 0.001147,
+          "min_ms": 0.001102,
+          "max_ms": 0.001192
+        },
+        "guest_diag_read": {
+          "n": 2,
+          "median_ms": 0.0087265,
+          "min_ms": 0.008496,
+          "max_ms": 0.008957
+        },
+        "linear_memory_release": {
+          "n": 2,
+          "median_ms": 2.632949,
+          "min_ms": 2.597638,
+          "max_ms": 2.66826
+        },
+        "descriptor_prepared_release": {
+          "n": 2,
+          "median_ms": 0.0014725,
+          "min_ms": 0.001463,
+          "max_ms": 0.001482
+        },
+        "close_after_resources": {
+          "n": 2,
+          "median_ms": 0.2387485,
+          "min_ms": 0.236104,
+          "max_ms": 0.241393
+        },
+        "host_close_total": {
+          "n": 2,
+          "median_ms": 5.181719,
+          "min_ms": 5.157487,
+          "max_ms": 5.205951
+        }
+      }
+    },
+    {
+      "name": "python-medium-2-observed",
+      "children": 2,
+      "validated_instance_count": 3,
+      "durations": {
+        "platform_checks_total": {
+          "n": 2,
+          "median_ms": 0.049282,
+          "min_ms": 0.034575,
+          "max_ms": 0.063989
+        },
+        "python_public_remainder": {
+          "n": 2,
+          "median_ms": 0.6819994999999963,
+          "min_ms": 0.6802689999999926,
+          "max_ms": 0.68373
+        },
+        "baseline_acquire": {
+          "n": 2,
+          "median_ms": 0.1677265,
+          "min_ms": 0.138457,
+          "max_ms": 0.196996
+        },
+        "host_transfer_setup": {
+          "n": 2,
+          "median_ms": 0.0644605,
+          "min_ms": 0.06414,
+          "max_ms": 0.064781
+        },
+        "prepared_handles": {
+          "n": 2,
+          "median_ms": 0.41117,
+          "min_ms": 0.406386,
+          "max_ms": 0.415954
+        },
+        "memory_mapping": {
+          "n": 2,
+          "median_ms": 0.0373795,
+          "min_ms": 0.030096,
+          "max_ms": 0.044663
+        },
+        "generated_memory_init": {
+          "n": 2,
+          "median_ms": 1.755827,
+          "min_ms": 1.601119,
+          "max_ms": 1.910535
+        },
+        "memory_total": {
+          "n": 2,
+          "median_ms": 1.7943285,
+          "min_ms": 1.632247,
+          "max_ms": 1.95641
+        },
+        "guest_until_ready": {
+          "n": 2,
+          "median_ms": 62.2397245,
+          "min_ms": 60.818388,
+          "max_ms": 63.661061
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 2,
+          "median_ms": 61.7530815,
+          "min_ms": 60.309691,
+          "max_ms": 63.196472
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 2,
+          "median_ms": 61.7196295,
+          "min_ms": 60.267513,
+          "max_ms": 63.171746
+        },
+        "guest_restore_copy": {
+          "n": 2,
+          "median_ms": 0.0002005,
+          "min_ms": 0.00018,
+          "max_ms": 0.000221
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 2,
+          "median_ms": 0.486643,
+          "min_ms": 0.464589,
+          "max_ms": 0.508697
+        },
+        "ready_decode_and_listener": {
+          "n": 2,
+          "median_ms": 0.1134505,
+          "min_ms": 0.103502,
+          "max_ms": 0.123399
+        },
+        "host_startup_total": {
+          "n": 2,
+          "median_ms": 64.916631,
+          "min_ms": 63.716922,
+          "max_ms": 66.11634
+        },
+        "host_admission_stop": {
+          "n": 2,
+          "median_ms": 0.035972,
+          "min_ms": 0.030958,
+          "max_ms": 0.040986
+        },
+        "host_session_drain": {
+          "n": 2,
+          "median_ms": 0.003206,
+          "min_ms": 0.002745,
+          "max_ms": 0.003667
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 2,
+          "median_ms": 2.879686,
+          "min_ms": 2.416485,
+          "max_ms": 3.342887
+        },
+        "guest_final_join": {
+          "n": 2,
+          "median_ms": 0.0009815,
+          "min_ms": 0.000941,
+          "max_ms": 0.001022
+        },
+        "guest_diag_read": {
+          "n": 2,
+          "median_ms": 0.0085215,
+          "min_ms": 0.007765,
+          "max_ms": 0.009278
+        },
+        "linear_memory_release": {
+          "n": 2,
+          "median_ms": 2.805059,
+          "min_ms": 2.75203,
+          "max_ms": 2.858088
+        },
+        "descriptor_prepared_release": {
+          "n": 2,
+          "median_ms": 0.0017885,
+          "min_ms": 0.001623,
+          "max_ms": 0.001954
+        },
+        "close_after_resources": {
+          "n": 2,
+          "median_ms": 0.259966,
+          "min_ms": 0.239599,
+          "max_ms": 0.280333
+        },
+        "host_close_total": {
+          "n": 2,
+          "median_ms": 5.9951805,
+          "min_ms": 5.599269,
+          "max_ms": 6.391092
+        }
+      }
+    },
+    {
+      "name": "python-100mib-0-observed",
+      "children": 16,
+      "validated_instance_count": 17,
+      "durations": {
+        "platform_checks_total": {
+          "n": 16,
+          "median_ms": 0.0357865,
+          "min_ms": 0.034624,
+          "max_ms": 0.046858
+        },
+        "python_public_remainder": {
+          "n": 16,
+          "median_ms": 0.6596575,
+          "min_ms": 0.593407,
+          "max_ms": 1.234049
+        },
+        "baseline_acquire": {
+          "n": 16,
+          "median_ms": 1.75571,
+          "min_ms": 1.398004,
+          "max_ms": 2.681245
+        },
+        "host_transfer_setup": {
+          "n": 16,
+          "median_ms": 0.070807,
+          "min_ms": 0.065453,
+          "max_ms": 0.09699
+        },
+        "prepared_handles": {
+          "n": 16,
+          "median_ms": 3.464132,
+          "min_ms": 3.27521,
+          "max_ms": 5.151846
+        },
+        "memory_mapping": {
+          "n": 16,
+          "median_ms": 0.0408355,
+          "min_ms": 0.030266,
+          "max_ms": 0.054232
+        },
+        "generated_memory_init": {
+          "n": 16,
+          "median_ms": 1.8118995,
+          "min_ms": 1.666664,
+          "max_ms": 2.16908
+        },
+        "memory_total": {
+          "n": 16,
+          "median_ms": 1.8558015,
+          "min_ms": 1.70711,
+          "max_ms": 2.218042
+        },
+        "guest_until_ready": {
+          "n": 16,
+          "median_ms": 64.083068,
+          "min_ms": 61.412894,
+          "max_ms": 69.635157
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 16,
+          "median_ms": 63.5905345,
+          "min_ms": 60.931177,
+          "max_ms": 69.144389
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 16,
+          "median_ms": 63.55841,
+          "min_ms": 60.869482,
+          "max_ms": 69.114964
+        },
+        "guest_restore_copy": {
+          "n": 16,
+          "median_ms": 0.000181,
+          "min_ms": 0.00015,
+          "max_ms": 0.000351
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 16,
+          "median_ms": 0.5011305,
+          "min_ms": 0.435583,
+          "max_ms": 0.786464
+        },
+        "ready_decode_and_listener": {
+          "n": 16,
+          "median_ms": 0.1060775,
+          "min_ms": 0.094396,
+          "max_ms": 0.12859
+        },
+        "host_startup_total": {
+          "n": 16,
+          "median_ms": 71.6152835,
+          "min_ms": 69.187867,
+          "max_ms": 76.963177
+        },
+        "host_admission_stop": {
+          "n": 16,
+          "median_ms": 0.034028,
+          "min_ms": 0.025567,
+          "max_ms": 0.046006
+        },
+        "host_session_drain": {
+          "n": 16,
+          "median_ms": 0.00259,
+          "min_ms": 0.002074,
+          "max_ms": 0.009709
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 16,
+          "median_ms": 2.412656,
+          "min_ms": 2.139204,
+          "max_ms": 14.323686
+        },
+        "guest_final_join": {
+          "n": 16,
+          "median_ms": 0.001187,
+          "min_ms": 0.000962,
+          "max_ms": 0.001473
+        },
+        "guest_diag_read": {
+          "n": 16,
+          "median_ms": 0.008245,
+          "min_ms": 0.007113,
+          "max_ms": 0.013885
+        },
+        "linear_memory_release": {
+          "n": 16,
+          "median_ms": 2.6527215,
+          "min_ms": 2.134215,
+          "max_ms": 3.086329
+        },
+        "descriptor_prepared_release": {
+          "n": 16,
+          "median_ms": 0.001808,
+          "min_ms": 0.001522,
+          "max_ms": 0.002514
+        },
+        "close_after_resources": {
+          "n": 16,
+          "median_ms": 0.267497,
+          "min_ms": 0.238529,
+          "max_ms": 0.308216
+        },
+        "host_close_total": {
+          "n": 16,
+          "median_ms": 5.33746,
+          "min_ms": 4.788361,
+          "max_ms": 17.192804
+        }
+      }
+    },
+    {
+      "name": "profile-fork",
+      "children": 24,
+      "validated_instance_count": 25,
+      "durations": {
+        "platform_checks_total": {
+          "n": 24,
+          "median_ms": 0.052207,
+          "min_ms": 0.038312,
+          "max_ms": 0.23662
+        },
+        "api_other_outside_host": {
+          "n": 24,
+          "median_ms": 0.313009,
+          "min_ms": 0.250987,
+          "max_ms": 0.422968
+        },
+        "baseline_acquire": {
+          "n": 24,
+          "median_ms": 0.0324505,
+          "min_ms": 0.020128,
+          "max_ms": 0.134828
+        },
+        "host_transfer_setup": {
+          "n": 24,
+          "median_ms": 0.0630575,
+          "min_ms": 0.045695,
+          "max_ms": 0.102732
+        },
+        "prepared_handles": {
+          "n": 24,
+          "median_ms": 0.084027,
+          "min_ms": 0.071493,
+          "max_ms": 0.400702
+        },
+        "memory_mapping": {
+          "n": 24,
+          "median_ms": 0.035351,
+          "min_ms": 0.029345,
+          "max_ms": 0.04853
+        },
+        "generated_memory_init": {
+          "n": 24,
+          "median_ms": 1.751893,
+          "min_ms": 1.611662,
+          "max_ms": 2.098328
+        },
+        "memory_total": {
+          "n": 24,
+          "median_ms": 1.791482,
+          "min_ms": 1.651937,
+          "max_ms": 2.140076
+        },
+        "guest_until_ready": {
+          "n": 24,
+          "median_ms": 62.805145,
+          "min_ms": 60.194993,
+          "max_ms": 75.556017
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 24,
+          "median_ms": 62.260833,
+          "min_ms": 59.507592,
+          "max_ms": 73.821105
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 24,
+          "median_ms": 62.233398,
+          "min_ms": 59.479008,
+          "max_ms": 73.784386
+        },
+        "guest_restore_copy": {
+          "n": 24,
+          "median_ms": 0.000191,
+          "min_ms": 0.00018,
+          "max_ms": 0.000331
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 24,
+          "median_ms": 0.4837955,
+          "min_ms": 0.418025,
+          "max_ms": 1.734912
+        },
+        "ready_decode_and_listener": {
+          "n": 24,
+          "median_ms": 0.1096245,
+          "min_ms": 0.093655,
+          "max_ms": 0.133068
+        },
+        "host_startup_total": {
+          "n": 24,
+          "median_ms": 65.3009155,
+          "min_ms": 62.341274,
+          "max_ms": 78.191094
+        },
+        "fork_trace_total": {
+          "n": 24,
+          "median_ms": 65.8089215,
+          "min_ms": 62.701986,
+          "max_ms": 78.614774
+        },
+        "host_admission_stop": {
+          "n": 24,
+          "median_ms": 0.0286285,
+          "min_ms": 0.022942,
+          "max_ms": 0.038041
+        },
+        "host_session_drain": {
+          "n": 24,
+          "median_ms": 0.003226,
+          "min_ms": 0.002605,
+          "max_ms": 0.008456
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 24,
+          "median_ms": 2.3428855,
+          "min_ms": 2.077881,
+          "max_ms": 3.182044
+        },
+        "guest_final_join": {
+          "n": 24,
+          "median_ms": 0.001102,
+          "min_ms": 0.000922,
+          "max_ms": 0.001402
+        },
+        "guest_diag_read": {
+          "n": 24,
+          "median_ms": 0.010094,
+          "min_ms": 0.008055,
+          "max_ms": 0.040385
+        },
+        "linear_memory_release": {
+          "n": 24,
+          "median_ms": 2.188668,
+          "min_ms": 1.914509,
+          "max_ms": 2.732319
+        },
+        "descriptor_prepared_release": {
+          "n": 24,
+          "median_ms": 0.0016435,
+          "min_ms": 0.001332,
+          "max_ms": 0.002224
+        },
+        "close_after_resources": {
+          "n": 24,
+          "median_ms": 0.259195,
+          "min_ms": 0.229521,
+          "max_ms": 0.306598
+        },
+        "host_close_total": {
+          "n": 24,
+          "median_ms": 4.9244855,
+          "min_ms": 4.343267,
+          "max_ms": 5.81522
+        }
+      }
+    },
+    {
+      "name": "profile-close",
+      "children": 24,
+      "validated_instance_count": 25,
+      "durations": {
+        "platform_checks_total": {
+          "n": 24,
+          "median_ms": 0.04001,
+          "min_ms": 0.036509,
+          "max_ms": 0.120736
+        },
+        "api_other_outside_host": {
+          "n": 24,
+          "median_ms": 0.2900405,
+          "min_ms": 0.261216,
+          "max_ms": 0.446292
+        },
+        "baseline_acquire": {
+          "n": 24,
+          "median_ms": 0.0273105,
+          "min_ms": 0.020519,
+          "max_ms": 0.063569
+        },
+        "host_transfer_setup": {
+          "n": 24,
+          "median_ms": 0.0588595,
+          "min_ms": 0.05355,
+          "max_ms": 0.10252
+        },
+        "prepared_handles": {
+          "n": 24,
+          "median_ms": 0.085159,
+          "min_ms": 0.067816,
+          "max_ms": 0.143507
+        },
+        "memory_mapping": {
+          "n": 24,
+          "median_ms": 0.034379,
+          "min_ms": 0.028883,
+          "max_ms": 0.044923
+        },
+        "generated_memory_init": {
+          "n": 24,
+          "median_ms": 1.735262,
+          "min_ms": 1.584471,
+          "max_ms": 2.049217
+        },
+        "memory_total": {
+          "n": 24,
+          "median_ms": 1.7673175,
+          "min_ms": 1.621921,
+          "max_ms": 2.095403
+        },
+        "guest_until_ready": {
+          "n": 24,
+          "median_ms": 62.5579915,
+          "min_ms": 59.184872,
+          "max_ms": 71.815651
+        },
+        "guest_main_until_ready_prepared": {
+          "n": 24,
+          "median_ms": 62.1151975,
+          "min_ms": 58.757146,
+          "max_ms": 71.255171
+        },
+        "guest_l4m_open_and_slot_init": {
+          "n": 24,
+          "median_ms": 62.0916435,
+          "min_ms": 58.734113,
+          "max_ms": 71.224444
+        },
+        "guest_restore_copy": {
+          "n": 24,
+          "median_ms": 0.000191,
+          "min_ms": 0.00018,
+          "max_ms": 0.003376
+        },
+        "guest_before_main_and_ready_delivery_residual": {
+          "n": 24,
+          "median_ms": 0.4712505,
+          "min_ms": 0.414486,
+          "max_ms": 0.690766
+        },
+        "ready_decode_and_listener": {
+          "n": 24,
+          "median_ms": 0.1102155,
+          "min_ms": 0.091851,
+          "max_ms": 0.156271
+        },
+        "host_startup_total": {
+          "n": 24,
+          "median_ms": 64.750335,
+          "min_ms": 61.226184,
+          "max_ms": 74.296632
+        },
+        "fork_trace_total": {
+          "n": 24,
+          "median_ms": 65.06951,
+          "min_ms": 61.530131,
+          "max_ms": 74.716134
+        },
+        "host_admission_stop": {
+          "n": 24,
+          "median_ms": 0.0236035,
+          "min_ms": 0.017562,
+          "max_ms": 0.207368
+        },
+        "host_session_drain": {
+          "n": 24,
+          "median_ms": 0.0030455,
+          "min_ms": 0.002484,
+          "max_ms": 0.068608
+        },
+        "shutdown_write_to_guest_root": {
+          "n": 24,
+          "median_ms": 2.532081,
+          "min_ms": 2.040331,
+          "max_ms": 3.120758
+        },
+        "guest_final_join": {
+          "n": 24,
+          "median_ms": 0.001007,
+          "min_ms": 0.000842,
+          "max_ms": 0.001342
+        },
+        "guest_diag_read": {
+          "n": 24,
+          "median_ms": 0.009663,
+          "min_ms": 0.007384,
+          "max_ms": 0.017202
+        },
+        "linear_memory_release": {
+          "n": 24,
+          "median_ms": 2.4240855,
+          "min_ms": 1.958999,
+          "max_ms": 2.899842
+        },
+        "descriptor_prepared_release": {
+          "n": 24,
+          "median_ms": 0.001548,
+          "min_ms": 0.001323,
+          "max_ms": 0.001974
+        },
+        "close_after_resources": {
+          "n": 24,
+          "median_ms": 0.240913,
+          "min_ms": 0.21249,
+          "max_ms": 0.279268
+        },
+        "host_close_total": {
+          "n": 24,
+          "median_ms": 5.1328715,
+          "min_ms": 4.820061,
+          "max_ms": 6.068699
+        }
+      }
+    }
+  ]
+}

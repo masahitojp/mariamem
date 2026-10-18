@@ -1,0 +1,74 @@
+[
+  {
+    "variant": "control",
+    "kind": "child",
+    "source_commit": "9cedaa76720336ec8304b9db7f28d6b1174b13b6",
+    "argv": [
+      "/opt/hostedtoolcache/go/1.26.8/x64/bin/go",
+      "build",
+      "-buildvcs=true",
+      "-p",
+      "2",
+      "-o",
+      "<workspace>/temp/control-child",
+      "./benchmarks/child-lifecycle"
+    ],
+    "elapsed_seconds": 172.901814752,
+    "sha256": "b9748ac7a377b23d67effe2dc99feed382ca1096d287bf3251d29425df4b4d19",
+    "stamp": "<workspace>/temp/control-child: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/child-lifecycle\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261017234554-9cedaa767203\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=9cedaa76720336ec8304b9db7f28d6b1174b13b6\n\tbuild\tvcs.time=2026-10-17T23:45:54Z\n\tbuild\tvcs.modified=false\n"
+  },
+  {
+    "variant": "control",
+    "kind": "host",
+    "source_commit": "9cedaa76720336ec8304b9db7f28d6b1174b13b6",
+    "argv": [
+      "/opt/hostedtoolcache/go/1.26.8/x64/bin/go",
+      "build",
+      "-buildvcs=true",
+      "-p",
+      "2",
+      "-o",
+      "<workspace>/temp/control-host",
+      "./cmd/mariamem-host"
+    ],
+    "elapsed_seconds": 1.3276248389999523,
+    "sha256": "fedc5df24ef110f62133f9013003fecfdf058e93f4b06b37c4b8c42b61843925",
+    "stamp": "<workspace>/temp/control-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261017234554-9cedaa767203\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=9cedaa76720336ec8304b9db7f28d6b1174b13b6\n\tbuild\tvcs.time=2026-10-17T23:45:54Z\n\tbuild\tvcs.modified=false\n"
+  },
+  {
+    "variant": "observed",
+    "kind": "child",
+    "source_commit": "0a36f304b5b4c940f15359ce9e35a97db9512869",
+    "argv": [
+      "/opt/hostedtoolcache/go/1.26.8/x64/bin/go",
+      "build",
+      "-buildvcs=true",
+      "-p",
+      "2",
+      "-o",
+      "<workspace>/temp/observed-child",
+      "./benchmarks/child-lifecycle"
+    ],
+    "elapsed_seconds": 164.40343435900002,
+    "sha256": "248c2ca295632e7b109d2d83542371397f8107f4bb5338fb73306c2dbf9f6056",
+    "stamp": "<workspace>/temp/observed-child: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/child-lifecycle\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261018001303-0a36f304b5b4\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=0a36f304b5b4c940f15359ce9e35a97db9512869\n\tbuild\tvcs.time=2026-10-18T00:13:03Z\n\tbuild\tvcs.modified=false\n"
+  },
+  {
+    "variant": "observed",
+    "kind": "host",
+    "source_commit": "0a36f304b5b4c940f15359ce9e35a97db9512869",
+    "argv": [
+      "/opt/hostedtoolcache/go/1.26.8/x64/bin/go",
+      "build",
+      "-buildvcs=true",
+      "-p",
+      "2",
+      "-o",
+      "<workspace>/temp/observed-host",
+      "./cmd/mariamem-host"
+    ],
+    "elapsed_seconds": 1.371406166999975,
+    "sha256": "3e51c5635ec143022fcf122550fa55ccc46ce927bc5d758ea5bab6be89f49ca1",
+    "stamp": "<workspace>/temp/observed-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3-0.20261018001303-0a36f304b5b4\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=0a36f304b5b4c940f15359ce9e35a97db9512869\n\tbuild\tvcs.time=2026-10-18T00:13:03Z\n\tbuild\tvcs.modified=false\n"
+  }
+]

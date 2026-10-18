@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+"""Offline review only: authenticate ZIP, reconcile all cells, rerun saved analysis."""
+import argparse
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import subprocess
+import sys
+import zipfile
+
+ROOT = Path(__file__).resolve().parents[2]
+EXPECTED = 'e4a5522ca475f73b56f23b08a725354eafb81b19'
+ZIP_SHA256 = 'a21090cd70cedd4791e5eeedddc75c0f6b813c73453cd7adf2d005e5126a2027'
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('archive',type=Path);parser.add_argument('evidence',type=Path);args=parser.parse_args()
+    assert hashlib.sha256(args.archive.read_bytes()).hexdigest()==ZIP_SHA256
+    with zipfile.ZipFile(args.archive) as archive:
+        members=[i for i in archive.infolist() if not i.is_dir()]
+        assert len(members)==1478
+        for member in members:
+            assert archive.read(member.filename)==(args.evidence/member.filename).read_bytes(),member.filename
+    r=json.loads((args.evidence/'campaign/receipt.json').read_text())
+    assert r['harness_source_commit']==EXPECTED and r['completed'] is True
+    assert r['machine']=='x86_64' and r['python'].startswith('3.14.8 ') and r['pymysql_version']=='1.2.3'
+    cases={'light':(0,1,1),'medium':(10,1,8),'large':(100,1,8),'parallel':(10,4,8)}
+    expected={f'go-{case}-{trial}-{variant}' for case in cases for trial in range(3) for variant in ['control','observed']}
+    expected|={f'python-{case}-{trial}-{variant}' for case,n in [('small',3),('medium',3),('100mib',1)] for trial in range(n) for variant in ['control','observed']}
+    expected|={'profile-fork','profile-close'}
+    commands=r['commands'];assert len(commands)==40 and {c['name'] for c in commands}==expected
+    for command in commands:
+        name=command['name'];assert command['exit_code']==0
+        d=json.loads((args.evidence/'campaign'/(name+'.json')).read_text())
+        profile=name.startswith('profile-');py=name.startswith('python-')
+        assert command['timing_enabled']==(profile or name.endswith('-observed'))
+        if py:
+            scale=name.split('-')[1];rows={'small':100,'medium':10000,'100mib':102400}[scale]
+            assert d['result']=='PASS' and d['rows']==rows and d['unique_hosts']==1
+            assert d['forks']==(16 if scale=='100mib' else 2)
+        else:
+            payload,workers,tables=(0,1,1) if profile else cases[name.split('-')[1]]
+            assert (d['payload_mib'],d['workers'],d['tables'])==(payload,workers,tables)
+            assert (d['go'],d['goos'],d['goarch'])==('go1.26.8','linux','amd64')
+            assert d['lifecycle']=='fork' and d['workload']=='app-connections' and d['forks']==(24 if profile else 4)
+            for prefix in ['fork_ready_','point_use_','count_use_','mutation_','disconnect_','child_close_']:
+                ops=[o['name'] for o in d['operations'] if o['name'].startswith(prefix)]
+                assert len(ops)==len(set(ops))==d['forks'],(name,prefix)
+    builds=json.loads((args.evidence/'builds.json').read_text());assert len(builds)==4
+    assert {(b['variant'],b['kind']) for b in builds}=={(v,k) for v in ['control','observed'] for k in ['child','host']}
+    for b in builds:
+        data=r['binaries'][b['variant']][b['kind']]
+        assert data['stamp']==b['stamp'] and data['sha256']==b['sha256']
+    saved=json.loads((args.evidence/'campaign/analysis.json').read_text())
+    subprocess.run([sys.executable,str(ROOT/'benchmarks/child-lifecycle/reduce.py'),str(args.evidence/'campaign')],check=True,stdout=subprocess.DEVNULL)
+    assert saved==json.loads((args.evidence/'campaign/analysis.json').read_text())
+    result={'result':'PASS','artifact_id':12120345304,'zip_sha256':ZIP_SHA256,'zip_files':1478,'harness_source_commit':EXPECTED,'executions':40,'go_ordinary_cells':24,'python_ordinary_cells':14,'profile_cells':2,'checks':['authenticated ZIP and every extracted file','exact case inventory and dimensions','all child SQL/mutation/disconnect/Close operations','four build and campaign binary stamp/hash records','recomputed complete startup/Close traces and aggregates']}
+    print(json.dumps(result,indent=2))
+if __name__=='__main__':main()

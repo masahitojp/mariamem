@@ -1,0 +1,507 @@
+ubuntu	Set up job	﻿2026-10-18T00:34:50.1435610Z Current runner version: '2.337.0'
+ubuntu	Set up job	2026-10-18T00:34:50.1472468Z ##[group]Runner Image Provisioner
+ubuntu	Set up job	2026-10-18T00:34:50.1473811Z Hosted Compute Agent
+ubuntu	Set up job	2026-10-18T00:34:50.1474930Z Version: 20261012.601
+ubuntu	Set up job	2026-10-18T00:34:50.1476022Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+ubuntu	Set up job	2026-10-18T00:34:50.1477335Z Build Date: 2026-10-12T17:48:21Z
+ubuntu	Set up job	2026-10-18T00:34:50.1478518Z Worker ID: {949afc1d-6c74-4987-b677-480c04eefb55}
+ubuntu	Set up job	2026-10-18T00:34:50.1479988Z Region: eastus2
+ubuntu	Set up job	2026-10-18T00:34:50.1481052Z Cloud: Azure
+ubuntu	Set up job	2026-10-18T00:34:50.1482007Z ##[endgroup]
+ubuntu	Set up job	2026-10-18T00:34:50.1484367Z ##[group]Operating System
+ubuntu	Set up job	2026-10-18T00:34:50.1485440Z Ubuntu
+ubuntu	Set up job	2026-10-18T00:34:50.1486309Z 24.04.5
+ubuntu	Set up job	2026-10-18T00:34:50.1487297Z LTS
+ubuntu	Set up job	2026-10-18T00:34:50.1488162Z ##[endgroup]
+ubuntu	Set up job	2026-10-18T00:34:50.1489187Z ##[group]Runner Image
+ubuntu	Set up job	2026-10-18T00:34:50.1490547Z Image: ubuntu-24.04
+ubuntu	Set up job	2026-10-18T00:34:50.1491472Z Version: 20261012.334.1
+ubuntu	Set up job	2026-10-18T00:34:50.1493466Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+ubuntu	Set up job	2026-10-18T00:34:50.1496506Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+ubuntu	Set up job	2026-10-18T00:34:50.1498185Z ##[endgroup]
+ubuntu	Set up job	2026-10-18T00:34:50.1500526Z ##[group]GITHUB_TOKEN Permissions
+ubuntu	Set up job	2026-10-18T00:34:50.1503130Z Contents: read
+ubuntu	Set up job	2026-10-18T00:34:50.1504234Z Metadata: read
+ubuntu	Set up job	2026-10-18T00:34:50.1505170Z ##[endgroup]
+ubuntu	Set up job	2026-10-18T00:34:50.1508067Z Secret source: Actions
+ubuntu	Set up job	2026-10-18T00:34:50.1510047Z Cache mode: write
+ubuntu	Set up job	2026-10-18T00:34:50.1511265Z Prepare workflow directory
+ubuntu	Set up job	2026-10-18T00:34:50.2037452Z Prepare all required actions
+ubuntu	Set up job	2026-10-18T00:34:50.2085234Z Getting action download info
+ubuntu	Set up job	2026-10-18T00:34:50.3911781Z Download action repository 'actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+ubuntu	Set up job	2026-10-18T00:34:50.5251958Z Download action repository 'actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16' (SHA:924ae3a1cded613372ab5595356fb5720e22ba16)
+ubuntu	Set up job	2026-10-18T00:34:50.7293408Z Download action repository 'actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+ubuntu	Set up job	2026-10-18T00:34:50.8120629Z Download action repository 'actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f' (SHA:b7c566a772e6b6bfb58ed0dc250532a479d7789f)
+ubuntu	Set up job	2026-10-18T00:34:51.0470887Z Complete job name: ubuntu
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	﻿2026-10-18T00:34:51.1344397Z ##[group]Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1345504Z with:
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1345932Z   fetch-depth: 0
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1346400Z   repository: masahitojp/mariamem
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1350562Z   token: ***
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1351033Z   ssh-strict: true
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1351473Z   ssh-user: git
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1351918Z   persist-credentials: true
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1352444Z   clean: true
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1352887Z   sparse-checkout-cone-mode: true
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1353402Z   fetch-tags: false
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1353836Z   show-progress: true
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1354275Z   lfs: false
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1354703Z   submodules: false
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1355146Z   set-safe-directory: true
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1355641Z   allow-unsafe-pr-checkout: false
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1356500Z env:
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1356951Z   GOTOOLCHAIN: local
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1357399Z   CGO_ENABLED: 0
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1357848Z   PYTHONDONTWRITEBYTECODE: 1
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.1358368Z ##[endgroup]
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2458823Z Syncing repository: masahitojp/mariamem
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2461889Z ##[group]Getting Git version info
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2462723Z Working directory is '<harness>'
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2463740Z [command]/usr/bin/git version
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2555922Z git version 2.55.0
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2582820Z ##[endgroup]
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2598165Z Temporarily overriding HOME='<runner-home>/work/_temp/05f23900-142d-4d3b-88fe-e7a31deeb6a3' before making global git config changes
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2600155Z Adding repository directory to the temporary git global config as a safe directory
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2603802Z [command]/usr/bin/git config --global --add safe.directory <harness>
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2665347Z Deleting the contents of '<harness>'
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2671282Z ##[group]Initializing the repository
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2676109Z [command]/usr/bin/git init <harness>
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2828227Z hint: Using 'master' as the name for the initial branch. This default branch name
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2830138Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2831185Z hint: to use in all of your new repositories, which will suppress this warning,
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2832201Z hint: call:
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2832804Z hint:
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2833440Z hint: 	git config --global init.defaultBranch <name>
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2834490Z hint:
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2835255Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2836242Z hint: 'development'. The just-created branch can be renamed via this command:
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2836972Z hint:
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2837536Z hint: 	git branch -m <name>
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2838396Z hint:
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2839466Z hint: Disable this message with "git config set advice.defaultBranchName false"
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2841213Z Initialized empty Git repository in <harness>/.git/
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2847638Z [command]/usr/bin/git remote add origin https://github.com/masahitojp/mariamem
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2901001Z ##[endgroup]
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2902051Z ##[group]Disabling automatic garbage collection
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2905635Z [command]/usr/bin/git config --local gc.auto 0
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2954901Z ##[endgroup]
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2956520Z ##[group]Setting up auth
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.2957729Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.3004750Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.3416508Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.3453946Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.3679259Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.3715428Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.3943768Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.3986200Z ##[endgroup]
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.3987419Z ##[group]Fetching the repository
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:51.3997339Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.5974956Z From https://github.com/masahitojp/mariamem
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.5977604Z  * [new branch]      chore/disposable-experiment-policy -> origin/chore/disposable-experiment-policy
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.5981062Z  * [new branch]      chore/experiment-disk-lifecycle -> origin/chore/experiment-disk-lifecycle
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.5983829Z  * [new branch]      chore/one-shot-release  -> origin/chore/one-shot-release
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.5986306Z  * [new branch]      ci/v041-reuse-tempdir   -> origin/ci/v041-reuse-tempdir
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.5988968Z  * [new branch]      docs/cow-semantics-audit -> origin/docs/cow-semantics-audit
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.5992534Z  * [new branch]      docs/snapshot-pass-reduction-plan -> origin/docs/snapshot-pass-reduction-plan
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.5996480Z  * [new branch]      experiment/aria-cache-memory -> origin/experiment/aria-cache-memory
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6001492Z  * [new branch]      experiment/block-storage-discovery -> origin/experiment/block-storage-discovery
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6004931Z  * [new branch]      experiment/cd-heap-snapshot -> origin/experiment/cd-heap-snapshot
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6007457Z  * [new branch]      experiment/ce-file-cow  -> origin/experiment/ce-file-cow
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6096933Z  * [new branch]      experiment/child-lifecycle-attribution -> origin/experiment/child-lifecycle-attribution
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6101335Z  * [new branch]      experiment/d-block-cow  -> origin/experiment/d-block-cow
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6104765Z  * [new branch]      experiment/d-heap-shared-host -> origin/experiment/d-heap-shared-host
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6108862Z  * [new branch]      experiment/d-snapshot-components -> origin/experiment/d-snapshot-components
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6113313Z  * [new branch]      experiment/d-snapshot-design -> origin/experiment/d-snapshot-design
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6115728Z  * [new branch]      experiment/d2-guest     -> origin/experiment/d2-guest
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6118001Z  * [new branch]      experiment/e-snapshot-handoff -> origin/experiment/e-snapshot-handoff
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6121311Z  * [new branch]      experiment/file-cow-crud -> origin/experiment/file-cow-crud
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6124619Z  * [new branch]      experiment/fork-integrity-audit -> origin/experiment/fork-integrity-audit
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6127655Z  * [new branch]      experiment/go-heap-reuse-attribution -> origin/experiment/go-heap-reuse-attribution
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6130786Z  * [new branch]      experiment/go-heap-snapshot -> origin/experiment/go-heap-snapshot
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6133294Z  * [new branch]      experiment/go-large-fresh -> origin/experiment/go-large-fresh
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6135702Z  * [new branch]      experiment/infra-audit-v044 -> origin/experiment/infra-audit-v044
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6138477Z  * [new branch]      experiment/light-fork-breakdown -> origin/experiment/light-fork-breakdown
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6141664Z  * [new branch]      experiment/light-fork-parallel -> origin/experiment/light-fork-parallel
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6145175Z  * [new branch]      experiment/main-performance -> origin/experiment/main-performance
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6149855Z  * [new branch]      experiment/memfs-architecture-decision -> origin/experiment/memfs-architecture-decision
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6154242Z  * [new branch]      experiment/memfs-attribution -> origin/experiment/memfs-attribution
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6158123Z  * [new branch]      experiment/memfs-discovery -> origin/experiment/memfs-discovery
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6162447Z  * [new branch]      experiment/pgmem-vfs-review -> origin/experiment/pgmem-vfs-review
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6166870Z  * [new branch]      experiment/post-v046-reconciliation -> origin/experiment/post-v046-reconciliation
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6171680Z  * [new branch]      experiment/prepared-auth-keys -> origin/experiment/prepared-auth-keys
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6175916Z  * [new branch]      experiment/public-module-discovery -> origin/experiment/public-module-discovery
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6178694Z  * [new branch]      experiment/purge-wasm-go -> origin/experiment/purge-wasm-go
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6181653Z  * [new branch]      experiment/python-heap-snapshot -> origin/experiment/python-heap-snapshot
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6185572Z  * [new branch]      experiment/restore-host-volume -> origin/experiment/restore-host-volume
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6188492Z  * [new branch]      experiment/shared-backing-probe -> origin/experiment/shared-backing-probe
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6191618Z  * [new branch]      experiment/snapshot-child-cost -> origin/experiment/snapshot-child-cost
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6194665Z  * [new branch]      experiment/snapshot-direct-copy -> origin/experiment/snapshot-direct-copy
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6199091Z  * [new branch]      experiment/snapshot-latency-residual -> origin/experiment/snapshot-latency-residual
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6205130Z  * [new branch]      experiment/snapshot-owned-root-adoption-review -> origin/experiment/snapshot-owned-root-adoption-review
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6211385Z  * [new branch]      experiment/snapshot-owned-root-guest -> origin/experiment/snapshot-owned-root-guest
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6216332Z  * [new branch]      experiment/snapshot-owned-root-integration -> origin/experiment/snapshot-owned-root-integration
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6220387Z  * [new branch]      experiment/snapshot-owned-root-productization -> origin/experiment/snapshot-owned-root-productization
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6224600Z  * [new branch]      experiment/snapshot-owned-root-spike -> origin/experiment/snapshot-owned-root-spike
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6228167Z  * [new branch]      experiment/snapshot-owned-root-ubuntu-review -> origin/experiment/snapshot-owned-root-ubuntu-review
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6232017Z  * [new branch]      experiment/snapshot-ownership-contracts -> origin/experiment/snapshot-ownership-contracts
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6236284Z  * [new branch]      experiment/snapshot-ownership-design -> origin/experiment/snapshot-ownership-design
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6239892Z  * [new branch]      experiment/startup-tail-innodb-config -> origin/experiment/startup-tail-innodb-config
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6243214Z  * [new branch]      experiment/startup-tail-source-fix-v050 -> origin/experiment/startup-tail-source-fix-v050
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6246289Z  * [new branch]      experiment/startup-tail-ubuntu-v050 -> origin/experiment/startup-tail-ubuntu-v050
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6249018Z  * [new branch]      experiment/startup-tail-v050 -> origin/experiment/startup-tail-v050
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6252001Z  * [new branch]      experiment/startup-tail-wakeup-v050 -> origin/experiment/startup-tail-wakeup-v050
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6255037Z  * [new branch]      experiment/ubuntu-product-performance -> origin/experiment/ubuntu-product-performance
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6257915Z  * [new branch]      experiment/v04-fd-close-lifetime -> origin/experiment/v04-fd-close-lifetime
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6261066Z  * [new branch]      experiment/v04-snapshot-preallocation -> origin/experiment/v04-snapshot-preallocation
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6263866Z  * [new branch]      experiment/v041-consumer-cost -> origin/experiment/v041-consumer-cost
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6266399Z  * [new branch]      experiment/v041-disposable-soak -> origin/experiment/v041-disposable-soak
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6268919Z  * [new branch]      experiment/v041-fan-in-review -> origin/experiment/v041-fan-in-review
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6272150Z  * [new branch]      experiment/v041-fixture-crossover -> origin/experiment/v041-fixture-crossover
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6275044Z  * [new branch]      experiment/v041-migration-debt-audit -> origin/experiment/v041-migration-debt-audit
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6277702Z  * [new branch]      experiment/v041-rsa-startup -> origin/experiment/v041-rsa-startup
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6280440Z  * [new branch]      experiment/v042-controlled-traps -> origin/experiment/v042-controlled-traps
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6283055Z  * [new branch]      experiment/v042-generic-memory -> origin/experiment/v042-generic-memory
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6285660Z  * [new branch]      experiment/v042-memory-candidate -> origin/experiment/v042-memory-candidate
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6288186Z  * [new branch]      experiment/v042-mmap-contract -> origin/experiment/v042-mmap-contract
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6291051Z  * [new branch]      experiment/v042-mmap-controlled -> origin/experiment/v042-mmap-controlled
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6293668Z  * [new branch]      experiment/v042-mmap-integration -> origin/experiment/v042-mmap-integration
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6296499Z  * [new branch]      experiment/v042-production-integration -> origin/experiment/v042-production-integration
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6299287Z  * [new branch]      experiment/v042-release-control -> origin/experiment/v042-release-control
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6301875Z  * [new branch]      experiment/v043-first-use -> origin/experiment/v043-first-use
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6304258Z  * [new branch]      experiment/v043-release-closeout -> origin/experiment/v043-release-closeout
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6307138Z  * [new branch]      experiment/v043-retirement-current -> origin/experiment/v043-retirement-current
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6310446Z  * [new branch]      experiment/v043-snapshot-characterization -> origin/experiment/v043-snapshot-characterization
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6313463Z  * [new branch]      experiment/v043-wasmer-retirement -> origin/experiment/v043-wasmer-retirement
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6316184Z  * [new branch]      experiment/v044-git-identity-guard -> origin/experiment/v044-git-identity-guard
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6318778Z  * [new branch]      experiment/v044-owned-snapshot -> origin/experiment/v044-owned-snapshot
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6321810Z  * [new branch]      experiment/v044-product-alignment-docs -> origin/experiment/v044-product-alignment-docs
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6324664Z  * [new branch]      experiment/v044-product-contract -> origin/experiment/v044-product-contract
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6327504Z  * [new branch]      experiment/v044-product-contract-audit -> origin/experiment/v044-product-contract-audit
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6330658Z  * [new branch]      experiment/v044-release-reuse-design -> origin/experiment/v044-release-reuse-design
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6333353Z  * [new branch]      experiment/v045-infrastructure -> origin/experiment/v045-infrastructure
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6335705Z  * [new branch]      experiment/v045-measurement -> origin/experiment/v045-measurement
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6338021Z  * [new branch]      experiment/v045-release-prep -> origin/experiment/v045-release-prep
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6340966Z  * [new branch]      experiment/v045-verification-economics -> origin/experiment/v045-verification-economics
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6343744Z  * [new branch]      experiment/v046-go-performance -> origin/experiment/v046-go-performance
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6346317Z  * [new branch]      experiment/v046-integration-prep -> origin/experiment/v046-integration-prep
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6349057Z  * [new branch]      experiment/v046-release-qualification -> origin/experiment/v046-release-qualification
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6351858Z  * [new branch]      experiment/v046-usability -> origin/experiment/v046-usability
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6354163Z  * [new branch]      experiment/v046-usability-plan -> origin/experiment/v046-usability-plan
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6356712Z  * [new branch]      experiment/v047-upstream-migration -> origin/experiment/v047-upstream-migration
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6359419Z  * [new branch]      experiment/v05-dev-guest-build -> origin/experiment/v05-dev-guest-build
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6362393Z  * [new branch]      experiment/v05-fast-feedback-assessment -> origin/experiment/v05-fast-feedback-assessment
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6365269Z  * [new branch]      experiment/v05-fast-feedback-phase1 -> origin/experiment/v05-fast-feedback-phase1
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6368053Z  * [new branch]      experiment/v05-mariadb-132-feasibility -> origin/experiment/v05-mariadb-132-feasibility
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6371246Z  * [new branch]      experiment/v05-stable-guest-feasibility -> origin/experiment/v05-stable-guest-feasibility
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6374365Z  * [new branch]      experiment/v05-wasm2go-upstream-feasibility -> origin/experiment/v05-wasm2go-upstream-feasibility
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6377110Z  * [new branch]      experiment/v050-access-paths -> origin/experiment/v050-access-paths
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6379376Z  * [new branch]      experiment/v050-access-review -> origin/experiment/v050-access-review
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6381952Z  * [new branch]      experiment/v050-ad-integration -> origin/experiment/v050-ad-integration
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6384283Z  * [new branch]      experiment/v050-boundary-join -> origin/experiment/v050-boundary-join
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6386516Z  * [new branch]      experiment/v050-correctness -> origin/experiment/v050-correctness
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6388880Z  * [new branch]      experiment/v050-correctness-fixes -> origin/experiment/v050-correctness-fixes
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6391569Z  * [new branch]      experiment/v050-exact-writers -> origin/experiment/v050-exact-writers
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6394462Z  * [new branch]      experiment/v050-exact-writers-integration -> origin/experiment/v050-exact-writers-integration
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6397351Z  * [new branch]      experiment/v050-final-qualification -> origin/experiment/v050-final-qualification
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6400038Z  * [new branch]      experiment/v050-join-lifetime -> origin/experiment/v050-join-lifetime
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6402595Z  * [new branch]      experiment/v050-product-verification -> origin/experiment/v050-product-verification
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6405152Z  * [new branch]      experiment/v050-semantic-audit -> origin/experiment/v050-semantic-audit
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6407461Z  * [new branch]      experiment/v050-shared-impact -> origin/experiment/v050-shared-impact
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6410108Z  * [new branch]      experiment/wasm2go-diff-management -> origin/experiment/wasm2go-diff-management
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6412805Z  * [new branch]      feature/startup-tail-source-fix-v050 -> origin/feature/startup-tail-source-fix-v050
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6415523Z  * [new branch]      fix/v045-public-smoke-session-drain -> origin/fix/v045-public-smoke-session-drain
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6417577Z  * [new branch]      main                    -> origin/main
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6419291Z  * [new branch]      release/v0.4.1-distribution -> origin/release/v0.4.1-distribution
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6421535Z  * [new branch]      release/v0.4.2-memory   -> origin/release/v0.4.2-memory
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6423356Z  * [new branch]      v0.3/go-zero-setup      -> origin/v0.3/go-zero-setup
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6425089Z  * [new branch]      v0.3/gorm-dogfood       -> origin/v0.3/gorm-dogfood
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6426900Z  * [new branch]      v0.3/sqlalchemy-dogfood -> origin/v0.3/sqlalchemy-dogfood
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6428669Z  * [new branch]      v0.4/baseline           -> origin/v0.4/baseline
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6430592Z  * [new branch]      v0.4/cow-spike          -> origin/v0.4/cow-spike
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6432576Z  * [new branch]      v0.4/generated-go-integration -> origin/v0.4/generated-go-integration
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6434741Z  * [new branch]      v0.4/prepared-clone-spike -> origin/v0.4/prepared-clone-spike
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6436648Z  * [new branch]      v0.4/reentry-spike      -> origin/v0.4/reentry-spike
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6438418Z  * [new branch]      v0.4/wasm2go-spike      -> origin/v0.4/wasm2go-spike
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6440419Z  * [new tag]         v0.1.0                  -> v0.1.0
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6441790Z  * [new tag]         v0.1.0-alpha.1          -> v0.1.0-alpha.1
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6443210Z  * [new tag]         v0.1.0-alpha.2          -> v0.1.0-alpha.2
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6444644Z  * [new tag]         v0.1.0-alpha.3          -> v0.1.0-alpha.3
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6446079Z  * [new tag]         v0.1.0-alpha.4          -> v0.1.0-alpha.4
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6447421Z  * [new tag]         v0.2.0                  -> v0.2.0
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6448765Z  * [new tag]         v0.2.0-alpha.1          -> v0.2.0-alpha.1
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6450381Z  * [new tag]         v0.3.0                  -> v0.3.0
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6451648Z  * [new tag]         v0.4.0                  -> v0.4.0
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6452897Z  * [new tag]         v0.4.1                  -> v0.4.1
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6454153Z  * [new tag]         v0.4.2                  -> v0.4.2
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6455420Z  * [new tag]         v0.4.3                  -> v0.4.3
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6456666Z  * [new tag]         v0.4.4                  -> v0.4.4
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6457907Z  * [new tag]         v0.4.5                  -> v0.4.5
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6459157Z  * [new tag]         v0.4.6                  -> v0.4.6
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6460694Z  * [new tag]         v0.4.7                  -> v0.4.7
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6461943Z  * [new tag]         v0.5.0                  -> v0.5.0
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6463199Z  * [new tag]         v0.5.1                  -> v0.5.1
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6464455Z  * [new tag]         v0.5.2                  -> v0.5.2
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6467833Z [command]/usr/bin/git branch --list --remote origin/experiment/child-lifecycle-attribution
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6469946Z   origin/experiment/child-lifecycle-attribution
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6472883Z [command]/usr/bin/git rev-parse refs/remotes/origin/experiment/child-lifecycle-attribution
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6474675Z e4a5522ca475f73b56f23b08a725354eafb81b19
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6477377Z ##[endgroup]
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6478735Z ##[group]Determining the checkout info
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6480579Z ##[endgroup]
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6481505Z [command]/usr/bin/git sparse-checkout disable
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6484175Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6487335Z ##[group]Checking out the ref
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:34:59.6490092Z [command]/usr/bin/git checkout --progress --force -B experiment/child-lifecycle-attribution refs/remotes/origin/experiment/child-lifecycle-attribution
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.6823846Z Updating files:  93% (4848/5203)
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.6928915Z Updating files:  94% (4891/5203)
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7026678Z Updating files:  95% (4943/5203)
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7094920Z Updating files:  96% (4995/5203)
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7126328Z Updating files:  97% (5047/5203)
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7160865Z Updating files:  98% (5099/5203)
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7193431Z Updating files:  99% (5151/5203)
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7194179Z Updating files: 100% (5203/5203)
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7194790Z Updating files: 100% (5203/5203), done.
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7271617Z Switched to a new branch 'experiment/child-lifecycle-attribution'
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7278979Z branch 'experiment/child-lifecycle-attribution' set up to track 'origin/experiment/child-lifecycle-attribution'.
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7324035Z ##[endgroup]
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7373097Z [command]/usr/bin/git log -1 --format=%H
+ubuntu	Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:35:00.7403531Z e4a5522ca475f73b56f23b08a725354eafb81b19
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	﻿2026-10-18T00:35:00.7658768Z ##[group]Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.7659280Z with:
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.7659496Z   go-version: 1.26.8
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.7660107Z   cache: false
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.7660344Z   check-latest: false
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.7662667Z   token: ***
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.7662875Z env:
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.7663072Z   GOTOOLCHAIN: local
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.7663295Z   CGO_ENABLED: 0
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.7663518Z   PYTHONDONTWRITEBYTECODE: 1
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.7663767Z ##[endgroup]
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.8928152Z Setup go version spec 1.26.8
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:00.8941959Z Attempting to download 1.26.8...
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:01.5187353Z matching 1.26.8...
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:01.5225845Z Acquiring 1.26.8 from https://github.com/actions/go-versions/releases/download/1.26.8-33583485350/go-1.26.8-linux-x64.tar.gz
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:01.9888026Z Extracting Go...
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:02.0022560Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C <runner-home>/work/_temp/4b703f36-2b92-493e-a660-86daef9b5452 -f <runner-home>/work/_temp/610a102b-d94b-4748-b097-5c868b6210e8
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:03.5848068Z Successfully extracted go to <runner-home>/work/_temp/4b703f36-2b92-493e-a660-86daef9b5452
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:03.5848627Z Adding to the cache ...
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.0914080Z Successfully cached go to /opt/hostedtoolcache/go/1.26.8/x64
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.0917022Z Added go to the path
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.0919932Z Successfully set up Go version 1.26.8
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.1141025Z go version go1.26.8 linux/amd64
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.1141265Z
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.1141664Z ##[group]go env
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2545976Z AR='ar'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2546415Z CC='gcc'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2546802Z CGO_CFLAGS='-O2 -g'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2547134Z CGO_CPPFLAGS=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2547380Z CGO_CXXFLAGS='-O2 -g'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2547621Z CGO_ENABLED='0'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2547838Z CGO_FFLAGS='-O2 -g'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2548062Z CGO_LDFLAGS='-O2 -g'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2548304Z CXX='g++'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2548533Z GCCGO='gccgo'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2548748Z GO111MODULE=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2549371Z GOAMD64='v1'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2549570Z GOARCH='amd64'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2550198Z GOAUTH='netrc'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2550517Z GOBIN=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2550767Z GOCACHE='<runner-home>/.cache/go-build'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2551064Z GOCACHEPROG=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2551268Z GODEBUG=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2551484Z GOENV='<runner-home>/.config/go/env'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2551776Z GOEXE=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2551980Z GOEXPERIMENT=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2552189Z GOFIPS140='off'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2552392Z GOFLAGS=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2553058Z GOGCCFLAGS='-fPIC -m64 -Wl,--no-gc-sections -fmessage-length=0 -ffile-prefix-map=/tmp/go-build326918424=/tmp/go-build -gno-record-gcc-switches'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2553722Z GOHOSTARCH='amd64'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2553947Z GOHOSTOS='linux'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2554162Z GOINSECURE=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2554436Z GOMOD='<harness>/go.mod'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2554788Z GOMODCACHE='<runner-home>/go/pkg/mod'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2555067Z GONOPROXY=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2555268Z GONOSUMDB=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2555460Z GOOS='linux'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2555665Z GOPATH='<runner-home>/go'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2555895Z GOPRIVATE=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2556174Z GOPROXY='https://proxy.golang.org,direct'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2556526Z GOROOT='/opt/hostedtoolcache/go/1.26.8/x64'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2556841Z GOSUMDB='sum.golang.org'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2557083Z GOTELEMETRY='local'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2557358Z GOTELEMETRYDIR='<runner-home>/.config/go/telemetry'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2557670Z GOTMPDIR=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2557870Z GOTOOLCHAIN='local'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2558199Z GOTOOLDIR='/opt/hostedtoolcache/go/1.26.8/x64/pkg/tool/linux_amd64'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2558564Z GOVCS=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2558761Z GOVERSION='go1.26.8'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2558976Z GOWORK=''
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2559187Z PKG_CONFIG='pkg-config'
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2559339Z
+ubuntu	Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	2026-10-18T00:35:09.2560425Z ##[endgroup]
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	﻿2026-10-18T00:35:09.2788352Z ##[group]Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2788807Z with:
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2789017Z   python-version: 3.14.8
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2789261Z   check-latest: false
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2791874Z   token: ***
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2792122Z   update-environment: true
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2792373Z   allow-prereleases: false
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2792609Z   freethreaded: false
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2792824Z env:
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2793015Z   GOTOOLCHAIN: local
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2793224Z   CGO_ENABLED: 0
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2793443Z   PYTHONDONTWRITEBYTECODE: 1
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.2793682Z ##[endgroup]
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.4117176Z ##[group]Installed versions
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.4157134Z Successfully set up CPython (3.14.8)
+ubuntu	Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	2026-10-18T00:35:09.4159216Z ##[endgroup]
+ubuntu	Owned workspace and exact harness	﻿2026-10-18T00:35:09.4300696Z ##[group]Run echo "ATTRIBUTION=$RUNNER_TEMP/child-lifecycle-attribution" >> "$GITHUB_ENV"
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4301430Z ^[[36;1mecho "ATTRIBUTION=$RUNNER_TEMP/child-lifecycle-attribution" >> "$GITHUB_ENV"^[[0m
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4302094Z ^[[36;1mecho "GOCACHE=$RUNNER_TEMP/child-lifecycle-attribution/temp/go-cache" >> "$GITHUB_ENV"^[[0m
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4302758Z ^[[36;1mecho "GOMODCACHE=$RUNNER_TEMP/child-lifecycle-attribution/temp/go-mod" >> "$GITHUB_ENV"^[[0m
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4304083Z ^[[36;1mpython -c 'import os,subprocess;from scripts.git_identity import require_commit;require_commit(".",os.environ["GITHUB_SHA"]);assert subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()==os.environ["GITHUB_SHA"];assert not subprocess.check_output(["git","status","--porcelain"])'^[[0m
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4305385Z ^[[36;1mpython -m unittest discover -s benchmarks/child-lifecycle -p test_tools.py -v^[[0m
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4305890Z ^[[36;1mpython -m pip install --no-cache-dir PyMySQL==1.2.3^[[0m
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4745535Z shell: /usr/bin/bash -e {0}
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4745880Z env:
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4746122Z   GOTOOLCHAIN: local
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4746389Z   CGO_ENABLED: 0
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4746657Z   PYTHONDONTWRITEBYTECODE: 1
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4747264Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4747795Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.8/x64/lib/pkgconfig
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4748305Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4748761Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4749198Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4749840Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.8/x64/lib
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:09.4750218Z ##[endgroup]
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:11.1161014Z test_absent_dirty_or_missing_binary_is_rejected (test_tools.IdentityAndTraceOracle.test_absent_dirty_or_missing_binary_is_rejected) ... ok
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:11.1162625Z test_exact_stamps (test_tools.IdentityAndTraceOracle.test_exact_stamps) ... ok
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:11.1163837Z test_outer_main_stamp_is_rejected (test_tools.IdentityAndTraceOracle.test_outer_main_stamp_is_rejected) ... ok
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:11.1165751Z test_trace_gaps_and_nonmonotonicity_are_rejected (test_tools.IdentityAndTraceOracle.test_trace_gaps_and_nonmonotonicity_are_rejected) ... ok
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:11.1166861Z
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:11.1167288Z ----------------------------------------------------------------------
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:11.1168150Z Ran 4 tests in 0.001s
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:11.1168527Z
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:11.1168703Z OK
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:12.9669010Z Collecting PyMySQL==1.2.3
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:13.0431839Z   Downloading pymysql-1.2.3-py3-none-any.whl.metadata (4.2 kB)
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:13.0637326Z Downloading pymysql-1.2.3-py3-none-any.whl (46 kB)
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:13.1949985Z Installing collected packages: PyMySQL
+ubuntu	Owned workspace and exact harness	2026-10-18T00:35:13.2441975Z Successfully installed PyMySQL-1.2.3
+ubuntu	Build only clean exact-commit inputs	﻿2026-10-18T00:35:13.3042072Z ##[group]Run python scripts/experiment_disk.py --work-dir "$ATTRIBUTION" --min-free-gib 8 --budget-gib 18 --timeout 1800 -- python benchmarks/child-lifecycle/build.py "$ATTRIBUTION" --go "$(command -v go)"
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3043563Z ^[[36;1mpython scripts/experiment_disk.py --work-dir "$ATTRIBUTION" --min-free-gib 8 --budget-gib 18 --timeout 1800 -- python benchmarks/child-lifecycle/build.py "$ATTRIBUTION" --go "$(command -v go)"^[[0m
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3109855Z shell: /usr/bin/bash -e {0}
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3110151Z env:
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3110361Z   GOTOOLCHAIN: local
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3110592Z   CGO_ENABLED: 0
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3110817Z   PYTHONDONTWRITEBYTECODE: 1
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3111133Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3111571Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.8/x64/lib/pkgconfig
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3112021Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3112412Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3112854Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3113238Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.8/x64/lib
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3113674Z   ATTRIBUTION: <workspace>
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3114160Z   GOCACHE: <workspace>/temp/go-cache
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3114684Z   GOMODCACHE: <workspace>/temp/go-mod
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3115519Z ##[endgroup]
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.3704743Z Disk preflight OK: 84.59 GiB free, 0.00 GiB owned
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.4317636Z Cloning into '<workspace>/temp/control-clone'...
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:13.4396367Z done.
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:35:14.5182369Z HEAD is now at 9cedaa7 bench: add finite paired native lifecycle campaign
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:38:09.3933723Z Cloning into '<workspace>/temp/observed-clone'...
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:38:09.3991510Z done.
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:38:10.4665763Z HEAD is now at 0a36f30 experiment: attribute repeated supported-platform detection during Fork
+ubuntu	Build only clean exact-commit inputs	2026-10-18T00:40:56.8945019Z PASS: four clean exact-commit binary stamps
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	﻿2026-10-18T00:40:57.5981968Z ##[group]Run python scripts/experiment_disk.py --work-dir "$ATTRIBUTION" --min-free-gib 8 --budget-gib 18 --timeout 1800 -- python benchmarks/child-lifecycle/campaign.py --workspace "$ATTRIBUTION"
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.5983356Z ^[[36;1mpython scripts/experiment_disk.py --work-dir "$ATTRIBUTION" --min-free-gib 8 --budget-gib 18 --timeout 1800 -- python benchmarks/child-lifecycle/campaign.py --workspace "$ATTRIBUTION"^[[0m
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.5984451Z ^[[36;1mpython benchmarks/child-lifecycle/reduce.py "$ATTRIBUTION/evidence/campaign" > "$ATTRIBUTION/evidence/analysis-check.txt"^[[0m
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6047331Z shell: /usr/bin/bash -e {0}
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6047600Z env:
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6047796Z   GOTOOLCHAIN: local
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6048014Z   CGO_ENABLED: 0
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6048234Z   PYTHONDONTWRITEBYTECODE: 1
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6048549Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6048974Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.8/x64/lib/pkgconfig
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6049448Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6050040Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6050421Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6050802Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.8/x64/lib
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6051223Z   ATTRIBUTION: <workspace>
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6051719Z   GOCACHE: <workspace>/temp/go-cache
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6052237Z   GOMODCACHE: <workspace>/temp/go-mod
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.6052622Z ##[endgroup]
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:40:57.8047940Z Disk preflight OK: 82.96 GiB free, 1.63 GiB owned
+ubuntu	Finite paired attribution and separate diagnostic CPU profiles	2026-10-18T00:46:58.5337618Z PASS: 24 Go paired cells, 14 Python paired cells, 2 diagnostic profile cells
+ubuntu	Remove owned cloned inputs, binaries and caches	﻿2026-10-18T00:46:59.4271246Z ##[group]Run import os,sys
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4271558Z ^[[36;1mimport os,sys^[[0m
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4271816Z ^[[36;1mfrom pathlib import Path^[[0m
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4272090Z ^[[36;1msys.path.insert(0,'scripts')^[[0m
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4272440Z ^[[36;1mfrom experiment_workspace import remove_disposable_tree^[[0m
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4272900Z ^[[36;1mremove_disposable_tree(Path(os.environ['ATTRIBUTION'])/'temp')^[[0m
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4276050Z shell: /opt/hostedtoolcache/Python/3.14.8/x64/bin/python {0}
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4276398Z env:
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4276592Z   GOTOOLCHAIN: local
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4276808Z   CGO_ENABLED: 0
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4277027Z   PYTHONDONTWRITEBYTECODE: 1
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4277338Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4277758Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.8/x64/lib/pkgconfig
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4278171Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4278541Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4278948Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4279338Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.8/x64/lib
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4279997Z   ATTRIBUTION: <workspace>
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4280473Z   GOCACHE: <workspace>/temp/go-cache
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4280982Z   GOMODCACHE: <workspace>/temp/go-mod
+ubuntu	Remove owned cloned inputs, binaries and caches	2026-10-18T00:46:59.4281370Z ##[endgroup]
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	﻿2026-10-18T00:47:00.4004795Z ##[group]Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4005237Z with:
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4005580Z   name: child-lifecycle-attribution-e4a5522ca475f73b56f23b08a725354eafb81b19
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4006098Z   path: <workspace>/evidence
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4006472Z   if-no-files-found: error
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4006710Z   retention-days: 90
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4006927Z   compression-level: 6
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4007141Z   overwrite: false
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4007537Z   include-hidden-files: false
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4007774Z env:
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4007965Z   GOTOOLCHAIN: local
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4008170Z   CGO_ENABLED: 0
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4008384Z   PYTHONDONTWRITEBYTECODE: 1
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4008692Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4009110Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.8/x64/lib/pkgconfig
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4009523Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4010273Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4010654Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.8/x64
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4011045Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.8/x64/lib
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4011469Z   ATTRIBUTION: <workspace>
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4011947Z   GOCACHE: <workspace>/temp/go-cache
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4012471Z   GOMODCACHE: <workspace>/temp/go-mod
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.4012860Z ##[endgroup]
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.7903347Z With the provided path, there will be 1478 files uploaded
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.7908697Z Artifact name is valid!
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:00.7909328Z Root directory input is valid!
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:01.0171536Z Beginning upload of artifact content to blob storage
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:01.8158967Z Uploaded bytes 689255
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:01.8276462Z Finished uploading artifact content to blob storage!
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:01.8277904Z SHA256 digest of uploaded artifact zip is a21090cd70cedd4791e5eeedddc75c0f6b813c73453cd7adf2d005e5126a2027
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:01.8279429Z Finalizing artifact upload
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:02.0881276Z Artifact child-lifecycle-attribution-e4a5522ca475f73b56f23b08a725354eafb81b19.zip successfully finalized. Artifact ID 12120345304
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:02.0883382Z Artifact child-lifecycle-attribution-e4a5522ca475f73b56f23b08a725354eafb81b19 has been successfully uploaded! Final size is 689255 bytes. Artifact ID is 12120345304
+ubuntu	Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f	2026-10-18T00:47:02.0885539Z Artifact download URL: https://github.com/masahitojp/mariamem/actions/runs/39083277771/artifacts/12120345304
+ubuntu	Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1	﻿2026-10-18T00:47:02.1146660Z Post job cleanup.
+ubuntu	Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16	﻿2026-10-18T00:47:02.2585119Z Post job cleanup.
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	﻿2026-10-18T00:47:02.4059888Z Post job cleanup.
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.4972086Z [command]/usr/bin/git version
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5020003Z git version 2.55.0
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5062192Z Temporarily overriding HOME='<runner-home>/work/_temp/6cd26b01-e404-4165-9759-697ea38ba673' before making global git config changes
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5064315Z Adding repository directory to the temporary git global config as a safe directory
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5068923Z [command]/usr/bin/git config --global --add safe.directory <harness>
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5117741Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5160700Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5433740Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5461764Z http.https://github.com/.extraheader
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5476388Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5548234Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5868799Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+ubuntu	Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09	2026-10-18T00:47:02.5912843Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+ubuntu	Complete job	﻿2026-10-18T00:47:02.6332754Z Cleaning up orphan processes

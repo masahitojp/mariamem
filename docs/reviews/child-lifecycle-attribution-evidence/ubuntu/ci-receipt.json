@@ -1,0 +1,16 @@
+{
+  "run_id": 39083277771,
+  "job_id": 117544494198,
+  "url": "https://github.com/masahitojp/mariamem/actions/runs/39083277771/job/117544494198",
+  "head_sha": "e4a5522ca475f73b56f23b08a725354eafb81b19",
+  "conclusion": "success",
+  "artifact_id": 12120345304,
+  "artifact_name": "child-lifecycle-attribution-e4a5522ca475f73b56f23b08a725354eafb81b19",
+  "zip_sha256": "a21090cd70cedd4791e5eeedddc75c0f6b813c73453cd7adf2d005e5126a2027",
+  "zip_bytes": 689255,
+  "zip_files": 1478,
+  "expires_at": "2027-01-16T00:34:47Z",
+  "normalized_text_files": 1434,
+  "original_cpu_profiles": 48,
+  "binary_limit": "CI checked pre/post binary hash; binaries were deleted by CI and are absent from artifact, so downloaded binary bytes were not independently rehashed"
+}

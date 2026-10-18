@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "artifact_id": 12120345304,
+  "zip_sha256": "a21090cd70cedd4791e5eeedddc75c0f6b813c73453cd7adf2d005e5126a2027",
+  "zip_files": 1478,
+  "harness_source_commit": "e4a5522ca475f73b56f23b08a725354eafb81b19",
+  "executions": 40,
+  "go_ordinary_cells": 24,
+  "python_ordinary_cells": 14,
+  "profile_cells": 2,
+  "checks": [
+    "authenticated ZIP and every extracted file",
+    "exact case inventory and dimensions",
+    "all child SQL/mutation/disconnect/Close operations",
+    "four build and campaign binary stamp/hash records",
+    "recomputed complete startup/Close traces and aggregates"
+  ]
+}

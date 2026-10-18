@@ -1,0 +1,1 @@
+{"operation":"api_close","origin_ns":1512643555,"pid":4759,"events":[{"name":"begin","offset_ns":1373},{"name":"host_closed","offset_ns":4689767},{"name":"temporary_removed","offset_ns":4724912},{"name":"end","offset_ns":4725363}]}

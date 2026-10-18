@@ -2,15 +2,17 @@
 
 ## 現時点の結論
 
-**macOSの計測・原因帰属は完了。Ubuntuの同じ内訳はCIへ引き継ぎ、残件#2全体はまだ完了扱いにしない。**
-子を用意する待ちの中心は、基準DBファイルのコピーではなく、MariaDBを毎回開き直す処理だった。
-macOSにはOSバージョン確認の外部commandもあり、Go経路では1回のForkに2回実行される。
-DB自体のCloseは約2–3msで、従来GoのClose区間に含まれていたSQL切断待ちとは分ける必要がある。
+**Human Reviewで求める判断は、残件#2「子Fork起動・Closeの計測→原因特定」を完了として受理すること。推薦は受理。**
+両native OSの固定40実行ずつを照合し、Forkの主な費用がMariaDB再初期化、DB Closeの主な費用がguest終了とlinear memory解放であるところまで特定した。
+基準DBファイルの全量コピーや最終worker joinが主因だった、という結果ではない。
+macOSのGo経路には約17msのOS確認もあるが、Ubuntuでは約0.04msで、この費用を横展開しない。
 
-**推薦は、Ubuntuの内訳照合まで済ませて費用帰属を閉じ、その結果で最適化対象をHuman Reviewすること。**
+**最も強い留保は、細分化した観測そのものの費用と少数試行により、内訳を削った場合の改善量までは確定できないこと。**
+ただし終了条件は費用帰属までで、修正候補の効果実証ではない。通常値/観測値を分け、個別関数のwall比率・tail確率の保証をせずに今回の調査を閉じる推薦は変わらない。
+Human受理はまだ記録していない。最適化候補を選ぶ場合は別の判断とする。
+
+DB自体のCloseとSQL切断待ちを分ける必要がある。macOSのDB Closeは約2–3ms、UbuntuはGo約4–5ms・Python約5–6msだった。
 今回、最適化・接続数変更・main統合・Qualification・公開は行わない。
-最も強い留保は、観測がCloseに約0.5ms以上の費用を加えていることと、macOS固有のOS確認費用を
-Ubuntuへ移せないこと。通常値はcontrolで示し、観測値をそのまま製品の速度とはしない。
 
 ## 入力と方法
 
@@ -139,7 +141,7 @@ wallの区間帰属は取れているが、Close内部のCPU割合は未判定�
   少数対の条件差が混じり、固定の観測税を一律に引くこともできない。
 - Python100MiBは1対だけ。16子を16回の独立キャンペーンと数えない。
 - 正常なquery、切断、協調終了だけを扱う。非協調worker、異常終了、全guest race censusや一般意味論の再評価は対象外。
-- Ubuntu内訳は結果未取得。既存のUbuntu性能246実行は外側の費用を裏付けるが、この内訳の代用にはしない。
+- Ubuntu内訳も下記の専用40実行で照合済み。既存Ubuntu性能246実行を今回の内訳証拠へ読み替えていない。
 
 ## 検証と状態
 
@@ -151,7 +153,7 @@ wallの区間帰属は取れているが、Close内部のCPU割合は未判定�
 | identity/trace失敗oracle | PASS | test_tools.py（誤刻印・欠損・dirty・非単調traceを拒否） |
 | focused host/artifacts/timing/API tests | PASS | focused-host-tests.txt |
 | controlled guest trap/joinとmemory failure cleanup | PASS | focused-runtime-tests.txt |
-| Ubuntu nativeの内訳確認 | 未完了 | 専用CIへ引継ぎ。PASS/SKIPに置き換えない |
+| Ubuntu nativeの内訳確認 | PASS（限定scope） | [CI run 39083277771](https://github.com/masahitojp/mariamem/actions/runs/39083277771)、原本1478ファイルと40実行・全trace/集計を独立照合 |
 | 最適化・product candidateの生成guard/独立再生成・最終Qualification | 今回対象外 | guest/Generated Goは不変。診断差分を製品採用しない |
 
 生成所有元のruntime_instance.go/memory_backing_unix.goは実験branchだけで観測変更した。
@@ -177,7 +179,124 @@ freshな通常cloneへ展開してbuildする。`campaign.py --workspace WORKSPA
 macOSのraw source inputs/binary hash/build commands/全試行/全merged profileは上のevidenceにある。
 pathと出力の行末空白だけ正規化し、原本と保存後のhashを保存した。per-call protobuf原本48個はcompact local evidence、
 公開資料には全merged samplesをtextで保存した。binary/cache/source cloneは再作成可能なので保持しない。
-Ubuntuも同じpin/SQL/終了条件で実行し、結果が揃ってからHuman Reviewする。
+Ubuntuも同じpin/SQL/終了条件で実行し、下記の照合を終えた。今回のHuman Reviewは調査結果の受理で、製品修正の採用判断ではない。
+
+## Ubuntu照合結果（2026-10-18）
+
+### 証拠と入力
+
+- [run 39083277771 / job 117544494198](https://github.com/masahitojp/mariamem/actions/runs/39083277771/job/117544494198)、全step success、cleanup stepもsuccess。
+- harness source commit `e4a5522ca475f73b56f23b08a725354eafb81b19`。control/observedの固定commitはmacOSと同一。
+- Ubuntu24.04.5 x86_64、kernel6.17.0-1022-azure、runner image `20261012.334.1`、Go1.26.8、Python3.14.8、PyMySQL1.2.3、CGO無効。
+  CPU機種・core数はこのcampaignのartifactには記録していない。macOSとの絶対値差をOS単独の効果としない。
+- artifact ID `12120345304`、ZIP689255 bytes、SHA256 `a21090cd70cedd4791e5eeedddc75c0f6b813c73453cd7adf2d005e5126a2027`。
+  GitHub metadataのdigestと実ZIPを照合し、1478原本ファイル全てをZIP contentsと照合した。
+- 40実行のcase名・寸法・operation数、4 buildのsource stamp/hashと実行receiptを照合。
+  pinnedなoffline集計を再実行し、保存された全aggregateと一致。
+  binary本体はCI cleanup済みでartifactにない。ここで行ったのはCIが記録したpre/post hashとstampの照合であり、ダウンロードしたbinaryの再hashとは主張しない。
+
+[CI receipt](child-lifecycle-attribution-evidence/ubuntu/ci-receipt.json)、
+[独立照合結果](child-lifecycle-attribution-evidence/ubuntu/verification.json)、
+[build records](child-lifecycle-attribution-evidence/ubuntu/builds.json)、
+[40実行receipt](child-lifecycle-attribution-evidence/ubuntu/campaign/receipt.json)、
+[全aggregate/min/max](child-lifecycle-attribution-evidence/ubuntu/campaign/analysis.json)、
+[CI job log](child-lifecycle-attribution-evidence/ubuntu/ci-job.txt)、
+[原本/保存後hash](child-lifecycle-attribution-evidence/ubuntu/preservation.json)。
+
+### 通常値と観測した内訳
+
+通常値はcontrol、単位ms。Go各行3プロセス×4子、Python small/medium各3プロセス×2子、100MiBは1プロセス×16子の子の中央値。
+
+| 条件 | Fork | SQL切断＋待ち | DB Close |
+| --- | ---: | ---: | ---: |
+| Go Light / 直列 | 65.75 | 5.26 | 4.88 |
+| Go 10MiB / 直列 | 70.47 | 5.27 | 4.15 |
+| Go 100MiB / 直列 | 72.75 | 5.33 | 4.28 |
+| Go 10MiB / 4並列・1子 | 139.77 | 5.22 | 5.04 |
+| Python small | 65.70 | 0.46 | 6.02 |
+| Python medium | 65.43 | 0.33 | 5.28 |
+| Python 100MiB / 16子 | 71.32 | 0.35 | 5.40 |
+
+観測ありGo直列各12子の内訳、単位ms。下位区間の包含とmedianを合算しない。
+
+| 処理 | Light | 10MiB | 100MiB |
+| --- | ---: | ---: | ---: |
+| OS/platform確認合計 | 0.038 | 0.040 | 0.046 |
+| 基準Rootの取得・構造確認 | 0.028 | 0.204 | 1.724 |
+| 子FSのprepared handle接続等 | 0.079 | 0.431 | 3.301 |
+| linear memory初期化 | 1.713 | 1.767 | 1.797 |
+| guest実行開始後〜readyヘッダ受信 | 61.17 | 66.39 | 65.32 |
+| ↳ guest内l4m_open開始〜ready準備 | 60.62 | 65.84 | 64.83 |
+| ready decode＋listener準備 | 0.105 | 0.107 | 0.109 |
+| Fork全体（観測あり） | 63.62 | 69.42 | 72.75 |
+| shutdown要求〜guest rootが戻るまで | 2.334 | 1.438 | 1.429 |
+| 最終guest worker join | 0.001 | 0.001 | 0.001 |
+| linear memory解放（再join確認＋munmap） | 2.170 | 2.300 | 2.638 |
+| descriptor/prepared handle解放 | 0.002 | 0.002 | 0.002 |
+| resources解放後のhost側 | 0.235 | 0.255 | 0.264 |
+| DB Close全体（観測あり） | 5.025 | 4.169 | 4.553 |
+
+4並列ではguest内open〜ready準備が133.95ms、prepared接続0.722ms、constructor2.730ms。
+延びる主な観測区間もguest起動側だった。これをCPU競合だけの証明としたり、1子のdurationを4子全体のwall時間へ読み替えたりしない。
+Root取得・接続の大規模時の増分も保存し、ゼロとはしない。
+
+### CPU profileと両OSの共通/相違
+
+Ubuntu Fork24子の別profileは205 samples / 2.05 CPU秒。
+[累積](child-lifecycle-attribution-evidence/ubuntu/campaign/profile-fork-cum.txt)、
+[flat](child-lifecycle-attribution-evidence/ubuntu/campaign/profile-fork-flat.txt)、
+[全merged samples](child-lifecycle-attribution-evidence/ubuntu/campaign/profile-fork-raw.txt)。
+`l4m_open → mysql_server_init` は累積1.49秒、`init_embedded_server` は1.47秒。
+`my_uca_info_init` は0.52秒、`buf_page_is_corrupted` は0.34秒、`MemoryEA` は0.66秒を含む。
+これらは包含・重複し、wall比率や独立した削減可能量ではない。
+文字照合情報構築、guestメモリアクセス/確保、InnoDBのページ処理という起動時の仕事を示す。
+InnoDBのページ処理を、廃止済みのSnapshot全量再走査と混同しない。
+macOSで大きかったheap拡張/mprotectの比率を、Ubuntuの比率と同一とはしていない。
+
+Ubuntu Close24子は14 samples / 140 CPU msと少ないが、うち80 CPU msが
+`releaseMemoryModule → MemoryMapping.Close → Munmap` stack。
+[Close累積](child-lifecycle-attribution-evidence/ubuntu/campaign/profile-close-cum.txt)、
+[Close全merged samples](child-lifecycle-attribution-evidence/ubuntu/campaign/profile-close-raw.txt)。
+wallでもこの区間は約2.2–2.6msで、メモリ解放が主要部分である裏付けになる。
+14 samplesから正確なCPU割合を一般化しない。macOSはsampleゼロのままとし、Ubuntuの結果で補完した扱いにしない。
+
+共通して、**Snapshotのファイル表現を再び高速化するだけでは、Forkの主な時間は消えない。MariaDB再初期化が次の共通の検討対象**になる。
+macOSの二重OS確認は別の小さな候補。どちらも今回は修正の方式・費用・効果を決めておらず、自動着手しない。
+
+### 観測費用と調査の終了条件
+
+Ubuntu Lightはcontrol→observedでFork65.75→63.62ms、Close4.88→5.03ms。
+4並列はFork139.77→149.89ms、Close5.04→6.31ms。
+観測の影響と条件差が混じるため、固定の観測税を引いた推定値は作らない。
+Python100MiBが1対、Goが各3対という少数試行の限界もmacOSと同じ。
+
+| 終了条件 | 判定 | 到達点/限界 |
+| --- | --- | --- |
+| Forkの所有基準取得・host/FS・memory・guest・readyの費用帰属 | 完了 | 両nativeの全trace/件数/集計を照合。guest起動が主で、macOSにはOS確認もある |
+| Closeと接続切断を分離し、終了・join・解放・cleanupを帰属 | 完了 | guest root終了とlinear memory解放が主。guest内slot joinとl4m_closeの個別wall割合は未計測 |
+| 通常利用のSQL・transaction・子独立性・協調cleanup | 完了（限定fixture） | 両OS40実行ずつの既存oracle。一般的な異常終了の保証にはしない |
+| 観測あり/なしとprofileを分離 | 完了 | 全値保存。sample不足と少数対を明示 |
+| 追加の原因調査が必要なblocker | なし | 合意scopeに、効果実証・全plugin wall比率・tail確率保証は含まれない |
+| 修正候補の選定/実装/採用・最終Qualification | 今回対象外 | Humanの次の判断で扱う |
+
+**今回の調査は完了条件を満たす。受理・クローズのHuman判断は未記録。**
+より細かな関数のwall時間がないことを理由に今回の調査を無期限に継続する推薦ではない。
+
+### Reviewの確認範囲
+
+- 採用前提: 同じ固定入力、失敗oracleの維持、有限cohort、両native照合、観測費用の分離は満たす。
+  修正の採用・main統合・Release承認とは分ける。
+- 検出網: stamp/trace失敗は既存4 unit tests、case/寸法/operation欠損とaggregate差は
+  [offline照合recipe](child-lifecycle-ubuntu-verify.py.txt)で検出。観測の代表性や将来のspeedupはCIでは証明しない。
+- 公開ガイドの契約/API変更はなし。生成Goとguestは不変、実験の手書き観測差分を製品へ取り込まない。
+  inventoryを緩めたり再pinしてQualification済みにした箇所はない。
+- 未実施の境界: pool未切断でのClose全般、非協調終了、別Go版、macOS15の最終Qualification。
+  今回の費用帰属と、既存製品のサポート/Qualificationは同じ判定ではない。
+
+原本ZIPを1478ファイルへ展開し、`python3 docs/reviews/child-lifecycle-ubuntu-verify.py.txt ZIP EVIDENCE` で同じoffline照合ができる。
+保存時のpath/行末空白の変更はmanifestで原本と保存後のhashを別々に記録。
+per-call protobuf48個は認証済みZIPへ保持し、公開資料には全merged CPU samplesをtextで残した。
+追加のguest実行、main変更、公開は行っていない。
 
 ---
 
