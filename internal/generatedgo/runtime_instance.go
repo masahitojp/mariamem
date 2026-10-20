@@ -44,10 +44,7 @@ func StartInstance(in io.Reader, out, stderr io.Writer, transfer string, restore
 		}
 		w.SetFS(entropyFS{fs})
 		w.SetArgs([]string{"mariamem"})
-		w.SetEnv(nil)
-		if guestTiming {
-			w.SetEnv([]string{"MARIAMEM_GUEST_TIMING=1"})
-		}
+		w.SetEnv(guestEnvironment(restore != nil, guestTiming))
 		w.SetStdin(in)
 		w.SetStdout(out)
 		w.SetStderr(stderr)
@@ -106,4 +103,17 @@ func guestFailure(p any) error {
 		return fmt.Errorf("generated-Go guest failure: %w", e)
 	}
 	return fmt.Errorf("generated-Go guest failure: %v", p)
+}
+
+// Construct per-instance guest context; ambient process variables are not inputs.
+func guestEnvironment(restore, guestTiming bool) []string {
+	mode := "fresh"
+	if restore {
+		mode = "restore"
+	}
+	values := []string{"MARIAMEM_BOOT_MODE=" + mode}
+	if guestTiming {
+		values = append(values, "MARIAMEM_GUEST_TIMING=1")
+	}
+	return values
 }

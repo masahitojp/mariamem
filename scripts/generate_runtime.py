@@ -77,6 +77,7 @@ def adapt_driver(text):
     # Export attribution belongs to this deterministic adapter, not a manual
     # edit of its generated output. Reject an unexpected pinned driver shape.
     changes = (
+        ('\tw.SetEnv([]string{"MARIAMEM_GUEST_TIMING=1"})\n\tif !diagnostic {\n\t\tw.SetEnv(nil)\n\t}', '\tw.SetEnv(guestEnvironment(restore != "", diagnostic))'),
         ('import (\n', 'import (\n\t"context"\n'),
         ('\t"os"\n', '\t"os"\n\t"github.com/masahitojp/mariamem/internal/timing"\n'),
         ('\tvar walk func(string, string) error\n', '\tctx, finishTiming := timing.Begin(context.Background(), "snapshot_export")\n\tdefer finishTiming()\n\tvar walk func(string, string) error\n'),
@@ -142,7 +143,7 @@ def main():
         elif name in ('fs_contract_test.go', 'guest_identity.go'):
             text = text.replace('package main', 'package generatedgo', 1)
         from runtime_thread_lifetime import apply as thread_lifetime
-        text = thread_lifetime(str(target.relative_to(out)), text)
+        text = thread_lifetime(str(target.relative_to(out)), text, guest_sha256=pins["guest_sha256"])
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.

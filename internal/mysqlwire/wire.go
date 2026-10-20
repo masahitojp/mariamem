@@ -18,7 +18,7 @@ import (
 	"github.com/masahitojp/mariamem/internal/guest"
 )
 
-const capabilities uint32 = 1 | 4 | 8 | 512 | 8192 | 32768 | 524288
+const capabilities uint32 = 1 | 4 | 8 | 512 | 8192 | 32768 | 65536 | 131072 | 524288
 const maxPacket = 0xffffff - 1
 const clientFoundRows uint32 = 2
 
@@ -76,10 +76,10 @@ func (w *wire) send(b []byte) error {
 	return nil
 }
 
-// callQuery observes a driver disconnect while the guest is executing SQL.
+// callGuest observes a driver disconnect while the guest is executing SQL.
 // MySQL clients issue one command at a time; unexpected pipelined input also
 // invalidates the instance rather than leaving a query running unsupervised.
-func (w *wire) callQuery(p *guest.Process, slot uint32, sql []byte) (guest.Result, error) {
+func (w *wire) callGuest(p *guest.Process, op byte, slot uint32, sql []byte) (guest.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), w.timeout)
 	defer cancel()
 	type outcome struct {
@@ -88,7 +88,7 @@ func (w *wire) callQuery(p *guest.Process, slot uint32, sql []byte) (guest.Resul
 	}
 	completed := make(chan outcome, 1)
 	go func() {
-		r, err := p.Call(ctx, 2, slot, sql)
+		r, err := p.Call(ctx, op, slot, sql)
 		completed <- outcome{r, err}
 	}()
 	type observed struct {
@@ -133,6 +133,18 @@ func (w *wire) callQuery(p *guest.Process, slot uint32, sql []byte) (guest.Resul
 	}
 	_ = w.conn.SetReadDeadline(time.Time{})
 	return result.result, result.err
+}
+
+// SET_OPTION has two standard values. Validate its wire domain before calling
+// the embedded API, whose invalid-option failure does not populate MYSQL errno.
+func setOptionError(payload []byte) []byte {
+	if len(payload) != 2 {
+		return ErrorPacket(1235, "HY000", "invalid set-option packet")
+	}
+	if binary.LittleEndian.Uint16(payload) > 1 {
+		return ErrorPacket(1047, "08S01", "Unknown command")
+	}
+	return nil
 }
 func le16(n uint16) []byte { return []byte{byte(n), byte(n >> 8)} }
 func le32(n uint32) []byte { return []byte{byte(n), byte(n >> 8), byte(n >> 16), byte(n >> 24)} }
@@ -184,6 +196,28 @@ func eofPacket(status, warnings uint16) []byte {
 	return append(append([]byte{0xfe}, le16(warnings)...), le16(status)...)
 }
 func packets(r guest.Result) ([][]byte, error) {
+	if r.Results != nil {
+		if !r.OK || len(r.Results) == 0 {
+			return nil, errors.New("invalid multi-result envelope")
+		}
+		var replies [][]byte
+		for i, part := range r.Results {
+			if part.Version != 2 || part.Results != nil || (!part.OK && i != len(r.Results)-1) {
+				return nil, errors.New("invalid multi-result element")
+			}
+			part.Status &^= 8
+			if i < len(r.Results)-1 {
+				part.Status |= 8
+			}
+			next, err := packets(part)
+			if err != nil {
+				return nil, err
+			}
+			replies = append(replies, next...)
+		}
+		return replies, nil
+	}
+
 	if !r.OK {
 		return [][]byte{ErrorPacket(r.Errno, r.SQLState, r.Error)}, nil
 	}
@@ -311,7 +345,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		var r guest.Result
 		var e error
 		if monitor {
-			r, e = w.callQuery(p, slot, sql)
+			r, e = w.callGuest(p, 2, slot, sql)
 		} else {
 			r, e = call(2, sql)
 		}
@@ -364,7 +398,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		return nil
 	}
 	flags := binary.LittleEndian.Uint32(auth)
-	if flags&512 == 0 || flags&(2048|65536) != 0 {
+	if flags&512 == 0 || flags&2048 != 0 {
 		_ = w.send(ErrorPacket(1235, "42000", "unsupported connection capabilities"))
 		return nil
 	}
@@ -392,7 +426,8 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 	}
 	if flags&clientFoundRows != 0 {
 		// MariaDB's client capability is fixed at connect time. Reopen only this
-		// flagged session so clients without FOUND_ROWS retain the original path.
+		// flagged session so unflagged clients retain single-statement behavior.
+		// MULTI_STATEMENTS also requires result draining; never merely accept its bit.
 		closed, closeErr := call(3, nil)
 		if closeErr != nil || !closed.Closed {
 			if closeErr == nil {
@@ -412,6 +447,26 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			return nil
 		}
 		opened = true
+		status = r.Status
+	}
+	// Embedded CLIENT_CAPABILITIES already includes MULTI_RESULTS. Toggle
+	// MULTI_STATEMENTS through its public API without replacing the MYSQL/THD
+	// whose identity was sent in the greeting (libmysqld/client_settings.h).
+	if flags&65536 != 0 {
+		r, err = call(4, []byte{0, 0})
+		if err != nil {
+			return err
+		}
+		if r.Version != 2 {
+			return errors.New("set-option bridge version mismatch")
+		}
+		if !r.OK {
+			if r.Errno == 0 {
+				return errors.New("embedded option API failed without error details")
+			}
+			_ = w.send(ErrorPacket(r.Errno, r.SQLState, r.Error))
+			return nil
+		}
 		status = r.Status
 	}
 	use := func(name []byte, monitor bool) (guest.Result, error) {
@@ -453,6 +508,22 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			r, e = query(request[1:], true)
 		case 2:
 			r, e = use(request[1:], true)
+		case 27:
+			if bad := setOptionError(request[1:]); bad != nil {
+				replies = [][]byte{bad}
+				break
+			}
+			r, e = w.callGuest(p, 4, slot, request[1:])
+			if e == nil && r.Version != 2 {
+				e = errors.New("text option bridge version mismatch")
+			}
+			if e == nil && !r.OK && r.Errno == 0 {
+				e = errors.New("embedded option API failed without error details")
+			}
+			if e == nil && r.OK {
+				status = r.Status &^ 8
+				replies = [][]byte{eofPacket(status, r.Warnings)}
+			}
 		case 14:
 			replies = [][]byte{okPacket(status, 0, 0, 0)}
 		default:
@@ -464,7 +535,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		}
 		if replies == nil {
 			if r.Version == 2 {
-				status = r.Status
+				status = r.Status &^ 8
 			}
 			replies, e = packets(r)
 			if e != nil {

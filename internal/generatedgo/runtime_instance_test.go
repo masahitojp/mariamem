@@ -166,3 +166,27 @@ func TestControlledGuestFirstWorkerTrap(t *testing.T) {
 		}
 	}
 }
+
+func TestGuestEnvironmentIsPerInstance(t *testing.T) {
+	t.Setenv("MARIAMEM_BOOT_MODE", "restore")
+	t.Setenv("MARIAMEM_GUEST_TIMING", "1")
+	for _, restore := range []bool{false, true} {
+		for _, timing := range []bool{false, true} {
+			want := []string{"MARIAMEM_BOOT_MODE=fresh"}
+			if restore {
+				want[0] = "MARIAMEM_BOOT_MODE=restore"
+			}
+			if timing {
+				want = append(want, "MARIAMEM_GUEST_TIMING=1")
+			}
+			got := guestEnvironment(restore, timing)
+			if strings.Join(got, "\n") != strings.Join(want, "\n") {
+				t.Fatalf("restore=%v timing=%v: %v", restore, timing, got)
+			}
+			got[0] = "modified"
+			if guestEnvironment(restore, timing)[0] != want[0] {
+				t.Fatal("guest context aliases another instance")
+			}
+		}
+	}
+}

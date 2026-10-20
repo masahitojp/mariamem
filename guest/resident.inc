@@ -1,6 +1,6 @@
 /* Resident guest: one persistent WASIX worker per reusable slot.
  * Request: u32le length, u8 opcode, u32le request id, u32le slot, SQL bytes.
- * 1=open, 2=query, 3=close; zero-length frame shuts down all sessions.
+ * 1=open, 2=query, 3=close, 4=set text-protocol option; zero-length frame shuts down all sessions.
  * Responses may be reordered and carry request_id + connection_id.
  */
 #define MULTI_LIMIT 16
@@ -92,6 +92,8 @@ static void *multi_worker(void *arg)
       multi_mysql= NULL;
       reply= strdup("{\"ok\":true,\"closed\":true}");
     }
+    else if (op == 4)
+      reply= l4m_set_option_v2((const unsigned char *)sql, length);
     else
       reply= l4m_query_v2(sql, (unsigned long)length);
     free(sql);
@@ -105,6 +107,7 @@ static void *multi_worker(void *arg)
 }
 
 #include "snapshot_fs.inc"
+#include "routine_bootstrap.inc"
 #include "prepared_auth_keys.inc"
 extern int mariamem_auth_keys_ready(void);
 extern int mariamem_auth_key_self_test(void);
@@ -120,6 +123,8 @@ int main(int argc, char **argv)
      !strcmp(argv[1], "--check-auth-keys-missing") ||
      !strcmp(argv[1], "--check-auth-keys-corrupt"));
   if (argc > 2 || (argc == 2 && strcmp(argv[1], "--restore-snapshot") && !key_check)) return 16;
+  int routine_restore= key_check ? 0 : routine_boot_mode(getenv("MARIAMEM_BOOT_MODE"), argc == 2);
+  if (routine_restore < 0) return 11;
   if (prepare_auth_keys()) return 18;
   /* Explicit diagnostic CLI only, never changed default authentication semantics. */
   if (key_check && !strcmp(argv[1], "--check-auth-keys-missing"))
@@ -152,6 +157,9 @@ int main(int argc, char **argv)
     l4m_close();
     return check ? 19 : 0;
   }
+  startup_mark("routine_schema_begin");
+  if (routine_bootstrap(g_mysql, routine_restore)) { l4m_close(); return 11; }
+  startup_mark("routine_schema_complete");
   /* Bootstrap connection creates test; engine remains alive after closing it. */
   mysql_close(g_mysql);
   g_mysql= NULL;
@@ -182,7 +190,7 @@ int main(int argc, char **argv)
     packet[n]= 0;
     unsigned int op= packet[0];
     uint32_t request= multi_u32(packet + 1), slot= multi_u32(packet + 5);
-    if (slot >= MULTI_LIMIT || op < 1 || op > 3 || (op == 1 && n - 9 > 1))
+    if (slot >= MULTI_LIMIT || op < 1 || op > 4 || (op == 1 && n - 9 > 1))
       multi_error(request, slot, 1235, "unsupported request/slot");
     else
     {

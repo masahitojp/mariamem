@@ -101,3 +101,14 @@ See [productization status](../reviews/snapshot-owned-root-productization.md).
 The Human subsequently approved main adoption of fixed candidate `52c078b`.
 See [current adoption status](../project-status.md#adopted-ownership-optimization--unreleased).
 Neither approval authorizes a release.
+
+## Approved routine candidate boundary — not yet adopted
+
+The Human approved minimum procedure/function initialization and its
+product-managed mysql.proc structure boundary. Fresh initializes before ready;
+restored missing/incompatible definitions are rejected rather than repaired.
+Routine rows remain mutable, private child state. See
+[routine support scope](routine-support-scope.md). Packages remain outside
+support/testing/guarantees; events remain excluded by the embedded build;
+DEFINER acceptance does not promise grant enforcement. Version placement,
+main integration, Qualification and publication remain separate decisions.

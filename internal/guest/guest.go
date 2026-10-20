@@ -36,6 +36,7 @@ type Cell struct {
 	Hex string `json:"$h"`
 }
 type Result struct {
+	Results         []Result  `json:"results"`
 	OK              bool      `json:"ok"`
 	Ready           bool      `json:"ready"`
 	Closed          bool      `json:"closed"`

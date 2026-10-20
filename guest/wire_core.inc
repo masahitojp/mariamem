@@ -39,6 +39,7 @@ char *l4m_query_v2(const char *sql, unsigned long length)
 {
   MYSQL_RES *res= NULL;
   buf_t b= {0};
+  int chained= 0;
   char text[256];
   if (!g_open || !g_mysql)
     return wire_error(2006, "not open", "HY000");
@@ -47,9 +48,24 @@ char *l4m_query_v2(const char *sql, unsigned long length)
   if (mysql_real_query(g_mysql, sql, length))
     return wire_error(mysql_errno(g_mysql), mysql_error(g_mysql), mysql_sqlstate(g_mysql));
 
+  chained= mysql_more_results(g_mysql);
+  if (chained && buf_puts(&b, "{\"ok\":true,\"results\":["))
+    goto oom;
+  for (;;)
+  {
   res= mysql_store_result(g_mysql);
   if (!res && mysql_field_count(g_mysql))
-    return wire_error(mysql_errno(g_mysql), mysql_error(g_mysql), mysql_sqlstate(g_mysql));
+  {
+    if (!mysql_errno(g_mysql)) goto oom;
+    if (!chained)
+      return wire_error(mysql_errno(g_mysql), mysql_error(g_mysql), mysql_sqlstate(g_mysql));
+    char *error= wire_error(mysql_errno(g_mysql), mysql_error(g_mysql), mysql_sqlstate(g_mysql));
+    if (!error) goto oom;
+    int failed= buf_puts(&b, error);
+    free(error);
+    if (failed) goto oom;
+    break;
+  }
 
   /* Read the statement's state before freeing the result or advancing it.
    * Decimal strings preserve full unsigned 64-bit counters in JSON clients. */
@@ -112,6 +128,21 @@ char *l4m_query_v2(const char *sql, unsigned long length)
   }
   if (buf_putc(&b, '}'))
     goto oom;
+  if (!chained) return b.p;
+  if (!mysql_more_results(g_mysql)) break;
+  if (buf_putc(&b, ',')) goto oom;
+  int next= mysql_next_result(g_mysql);
+  if (next > 0) {
+    char *error= wire_error(mysql_errno(g_mysql), mysql_error(g_mysql), mysql_sqlstate(g_mysql));
+    if (!error) goto oom;
+    int failed= buf_puts(&b, error);
+    free(error);
+    if (failed) goto oom;
+    break;
+  }
+  if (next < 0) goto oom; /* MORE_RESULTS without a next result is inconsistent. */
+  }
+  if (buf_putc(&b, ']') || wire_state(&b) || buf_putc(&b, '}')) goto oom;
   return b.p;
 oom:
   if (res)
@@ -120,3 +151,25 @@ oom:
   return NULL;
 }
 
+
+/* Public embedded option API only: no MYSQL_STMT state or binary commands. */
+static char *l4m_set_option_v2(const unsigned char *payload, size_t length)
+{
+  if (length != 2)
+    return wire_error(1235, "invalid set-option packet", "HY000");
+  unsigned int option= (unsigned int)payload[0] | (unsigned int)payload[1] << 8;
+  if (option > 1)
+    return wire_error(1047, "Unknown command", "08S01");
+  if (mysql_set_server_option(g_mysql, (enum enum_mysql_set_option)option))
+  {
+    if (!mysql_errno(g_mysql)) return NULL; /* fail transport, never fabricated OK */
+    return wire_error(mysql_errno(g_mysql), mysql_error(g_mysql), mysql_sqlstate(g_mysql));
+  }
+  buf_t b= {0};
+  if (buf_puts(&b, "{\"ok\":true") || wire_state(&b) || buf_putc(&b, '}'))
+  {
+    free(b.p);
+    return NULL;
+  }
+  return b.p;
+}

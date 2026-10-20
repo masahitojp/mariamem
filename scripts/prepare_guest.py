@@ -9,6 +9,7 @@ from guest_init_hooks import instrument
 from guest_experiment import patch_files
 from guest_input import descriptor, apply_series
 from prepared_auth_keys import write_header
+from routine_schema import prepare as prepare_routine_schema
 from guest_auth_hooks import prepare as prepare_auth_source
 
 source = ROOT / "build/source"
@@ -46,12 +47,13 @@ if experimental.exists():
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
 (source / "wasm/wire_api.inc").write_text(
     "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "resident.inc"\n')
-for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc", "init_diagnostics.inc", "prepared_auth_keys.inc"):
+for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc", "init_diagnostics.inc", "prepared_auth_keys.inc", "routine_bootstrap.inc"):
     shutil.copy2(ROOT / "guest" / name, source / "wasm" / name)
 shutil.copy2(ROOT / "guest/init_diagnostics.h", source / "include/mariamem_init_diagnostics.h")
 diagnostic_files = instrument(source)
 auth_files = prepare_auth_source(source)
 auth_header = write_header(source)
+routine_schema = prepare_routine_schema(source)
 cmake = source / 'wasm/CMakeLists.txt'
 text = cmake.read_text()
 anchor = '  TARGET_LINK_OPTIONS(lite4mariadb-wasix PRIVATE\n'
@@ -71,13 +73,13 @@ for name, cmake in (("pcre2", "cmake/pcre.cmake"), ("libfmt", "cmake/libfmt.cmak
     if text.count(entry["url"]) != 1:
         raise ValueError(f"unexpected dependency URL in {cmake}")
     path.write_text(text.replace(entry["url"], "${CMAKE_SOURCE_DIR}/mariamem-dependencies/" + entry["file"]))
-manifest = {"guest_input": guest_input, "portability_series": portability_series,
+manifest = {"guest_input": guest_input, "portability_series": portability_series, "routine_schema": routine_schema,
             "inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
             "overlays": {p.name: digest(p) for p in sorted((ROOT / "guest").iterdir()) if p.is_file()},
             "modified_files": {name: digest(source / name) for name in
                                (*LOCK["pristine_files"], *(name for patch in portability_series for name in patch["after_sha256"]), "wasm/wire_api.inc", "wasm/resident.inc",
                                 "wasm/snapshot_fs.inc", "wasm/startup_timing.inc", "wasm/init_diagnostics.inc",
-                                "wasm/prepared_auth_keys.inc", auth_header, *auth_files,
+                                "wasm/prepared_auth_keys.inc", "wasm/routine_bootstrap.inc", routine_schema["header"], auth_header, *auth_files,
                                 "include/mariamem_init_diagnostics.h", *diagnostic_files,
                                 "cmake/pcre.cmake", "cmake/libfmt.cmake", *experimental_files)}}
 if experimental.exists():
