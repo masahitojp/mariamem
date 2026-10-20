@@ -112,3 +112,46 @@ def test_existing_1728_oracle_is_not_replaced_by_startup_check():
         with pytest.raises(pymysql.MySQLError) as caught:
             sql(db, 'CREATE PROCEDURE test.bad_definition() SELECT 1')
         assert caught.value.args[0] == 1728
+
+
+def test_bound_j1_negative_and_protected_oracles(tmp_path):
+    """Same failure/canary assertions, exact reviewed function/data relocations."""
+    import json
+    import shutil
+    import subprocess
+    import sys
+    root = Path(__file__).resolve().parents[1]
+    evidence = Path(os.environ.get('MARIAMEM_ROUTINE_EVIDENCE', str(root/'build/routine-ci')))
+    evidence.mkdir(parents=True, exist_ok=True)
+    product = Path(HOST).resolve().parent/'product'
+    output = tmp_path/'bound-j1'
+    create = subprocess.run([sys.executable, str(root/'tests/v06_prepared_thread_fixture.py'),
+                             '--product', str(product), '--output', str(output)],
+                            text=True, capture_output=True, timeout=180)
+    (evidence/'j1-fixture.log').write_text(create.stdout+create.stderr)
+    assert create.returncode == 0, create.stdout+create.stderr
+    shutil.copy2(output/'identities.json', evidence/'j1-identities.json')
+    results = []
+    for backing in ['heap', 'mmap']:
+        for protected, race in [(False, False), (True, False), (True, True)]:
+            name = f'j1-{backing}-protected-{int(protected)}-race-{int(race)}'
+            argv = ['go', 'test', '-p', '1', '-trimpath', '-count=1', '-v']
+            if race:
+                argv.append('-race')
+            argv.append('./probe')
+            env = dict(os.environ, GOTOOLCHAIN='go1.26.8', GOWORK='off',
+                       JOIN_PROTECTED=str(int(protected)), JOIN_BACKING=backing)
+            run = subprocess.run(argv, cwd=output/'module', env=env, text=True,
+                                 capture_output=True, timeout=600)
+            text = run.stdout+run.stderr
+            (evidence/(name+'.log')).write_text(text)
+            results.append(dict(case=name, returncode=run.returncode))
+            (evidence/'j1-results.json').write_text(json.dumps(results, indent=2)+'\n')
+            if protected:
+                assert run.returncode == 0, text
+            else:
+                assert run.returncode == 1, text
+                assert 'replacement byte changed from 165 to 1 after join/free/reuse' in text, text
+                assert text.count('--- FAIL: TestJoinAllocationLastAccess/') == 1, text
+                for control in ['completed-before-free', 'no-post-unlock-wake']:
+                    assert f'--- PASS: TestJoinAllocationLastAccess/{control}' in text, text

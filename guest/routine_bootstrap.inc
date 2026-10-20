@@ -95,12 +95,12 @@ static int routine_bootstrap(MYSQL *c, int restore)
   if (routine_scalar(c, "SELECT DATABASE()", "test", "context") ||
       routine_scalar(c, "SELECT COUNT(*) FROM information_schema.SCHEMATA WHERE SCHEMA_NAME='mysql'", "0", "fresh_state") ||
       routine_statement(c, "SET @mariamem_bootstrap_sql_mode=@@SESSION.sql_mode", "save_sql_mode") ||
-      routine_statement(c, "SET SESSION.sql_mode=''", "sql_mode") ||
+      routine_statement(c, "SET SESSION sql_mode=''", "sql_mode") ||
       routine_statement(c, "CREATE DATABASE mysql", "create_schema")) return -1;
   if (mysql_select_db(c, "mysql")) return routine_failure(c, "select_schema", "SQL failed");
   if (routine_statement(c, routine_schema_ddl, "create_proc")) return -1;
   if (mysql_select_db(c, "test")) return routine_failure(c, "restore_database", "SQL failed");
-  if (routine_statement(c, "SET SESSION.sql_mode=@mariamem_bootstrap_sql_mode", "restore_sql_mode")) return -1;
+  if (routine_statement(c, "SET SESSION sql_mode=@mariamem_bootstrap_sql_mode", "restore_sql_mode")) return -1;
   /* Charset/collation were never changed. Private user variables die on close. */
   return routine_validate(c);
 }

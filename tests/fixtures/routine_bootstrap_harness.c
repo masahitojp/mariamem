@@ -36,8 +36,8 @@ static int mysql_query(MYSQL *c, const char *sql)
   if (!strncmp(sql,"CREATE ",7)) creates++;
   if (!strncmp(sql,"SET ",4)) changes++;
   if (!strcmp(sql,"SET @mariamem_bootstrap_sql_mode=@@SESSION.sql_mode")) mode_saved=1;
-  if (!strcmp(sql,"SET SESSION.sql_mode=''")) { assert(mode_saved); mode_empty=1; }
-  if (!strcmp(sql,"SET SESSION.sql_mode=@mariamem_bootstrap_sql_mode")) { assert(mode_empty);mode_restored=1; }
+  if (!strcmp(sql,"SET SESSION sql_mode=''")) { assert(mode_saved); mode_empty=1; }
+  if (!strcmp(sql,"SET SESSION sql_mode=@mariamem_bootstrap_sql_mode")) { assert(mode_empty);mode_restored=1; }
   return 0;
 }
 static MYSQL_RES *mysql_store_result(MYSQL *c)
