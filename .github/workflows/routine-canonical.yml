@@ -1,0 +1,116 @@
+name: Canonical routine candidate (not Qualification)
+on:
+  push:
+    branches: [experiment/routine-canonical-adoption]
+permissions:
+  contents: read
+jobs:
+  guest:
+    runs-on: ubuntu-24.04-arm
+    container:
+      image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
+    timeout-minutes: 100
+    steps:
+      - name: Source builder dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Trust this checkout
+        env:
+          HOME: /root
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Two independent canonical source builds
+        env:
+          HOME: /root
+        run: |
+          test "$HOME" = /root
+          test "$(id -u)" = 0
+          mkdir -p build/routine-ci
+          python3 scripts/git_identity.py inspect HEAD > build/routine-ci/source.json
+          python3 -c 'import json,os;assert json.load(open("build/routine-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          test ! -e guest/experimental.patch
+          python3 scripts/build_generated_guest.py > build/routine-ci/guest-build.txt 2>&1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: canonical-routine-guest-${{ github.sha }}
+          path: build/generated-release
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: canonical-routine-source-${{ github.sha }}
+          path: build/routine-ci
+          retention-days: 7
+  native:
+    needs: guest
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 70
+    env:
+      GOTOOLCHAIN: go1.26.8
+      PYTHONDONTWRITEBYTECODE: '1'
+      MARIAMEM_ROUTINE_REQUIRE_CONNECTOR: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: canonical-routine-guest-${{ github.sha }}
+          path: build/generated-release
+      - name: Fixed consumers and source checks
+        run: |
+          python -m pip install -r tests/consumer/sqlalchemy-requirements.txt mysql-connector-python==26.7.0 setuptools wheel
+          mkdir -p build/routine-ci
+          python scripts/git_identity.py inspect HEAD > build/routine-ci/source.json
+          python -c 'import json,os;assert json.load(open("build/routine-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python scripts/verify.py check > build/routine-ci/check.txt 2>&1
+      - name: Independent canonical Go regeneration and build guard
+        run: |
+          python scripts/regenerate_release_guest.py --output "$RUNNER_TEMP/canonical-routine-regeneration" > build/routine-ci/regeneration.txt 2>&1
+          cp build/generated-release/guest.json build/routine-ci/guest.json
+          cp build/generated-release/regeneration.json build/routine-ci/regeneration.json
+          python -c 'import sys,os;sys.path.insert(0,"scripts");from common import ROOT;from generated_release import verify_build;verify_build(ROOT,os.environ["GITHUB_SHA"])' > build/routine-ci/build-guard.txt 2>&1
+      - name: Standard runtime integration including routine and text consumer gates
+        run: python scripts/verify.py integration > build/routine-ci/integration.txt 2>&1
+      - name: J1 failure oracle and protected controls
+        run: |
+          python tests/routine_thread_fixture.py --output "$RUNNER_TEMP/canonical-routine-j1" --run > build/routine-ci/j1.txt 2>&1
+          cp "$RUNNER_TEMP/canonical-routine-j1/identities.json" build/routine-ci/j1-identities.json
+          cp "$RUNNER_TEMP/canonical-routine-j1/results.json" build/routine-ci/j1-results.json
+          cp "$RUNNER_TEMP/canonical-routine-j1/"*.txt build/routine-ci/
+      - name: Go routine lifecycle and bounded DEFINER
+        run: |
+          go build -p 1 -trimpath -o build/routine-ci/mariamem-host ./cmd/mariamem-host
+          PYTHONPATH=python python tests/v06_routine_definer_probe.py --host build/routine-ci/mariamem-host --output build/routine-ci/definer.json > build/routine-ci/definer.txt 2>&1
+          go run -p 1 -trimpath ./tests/routine_probe -output build/routine-ci/go-routines.json > build/routine-ci/go-routines.txt 2>&1
+          go run -p 1 -trimpath ./cmd/mariamem-guest auth-check > build/routine-ci/auth.txt 2>&1
+      - name: Local-only wheel and existing ORM consumers
+        run: |
+          python scripts/build_alpha.py --ci-candidate > build/routine-ci/wheel.txt 2>&1
+          python -m pip install --force-reinstall --no-deps build/dist/*.whl
+          python tests/consumer/run_sqlalchemy.py --output build/routine-ci/sqlalchemy > build/routine-ci/sqlalchemy.txt 2>&1
+          python tests/consumer/run_gorm.py --source-dir "$GITHUB_WORKSPACE" --zero-options --output build/routine-ci/gorm > build/routine-ci/gorm.txt 2>&1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: canonical-routine-native-${{ matrix.runner }}-${{ github.sha }}
+          path: |
+            build/routine-ci/*.txt
+            build/routine-ci/*.json
+            build/routine-ci/sqlalchemy
+            build/routine-ci/gorm
+          if-no-files-found: error
+          retention-days: 7

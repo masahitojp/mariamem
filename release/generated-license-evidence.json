@@ -6,12 +6,12 @@
     "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
-  "audit_source_commit": "c9676fe3e1d626d0666e353af44b23c22284ac28",
-  "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
-  "linked_sha256": "d3022ab3b5f41ffba26b5c4172616ceb4f087c02ffe18569a701ae48fa0bbd53",
-  "symbol_map_sha256": "9072658996738894b86effc9b60911db92b413d35cb3c7863f3851666bb645b6",
-  "symbol_map_entries": 21693,
-  "generated_provenance_sha256": "7c7ad7b5a14b55d3d63cb9bc2484e7c93e99860f0a1b0731104d01f8ecc94589",
+  "audit_source_commit": "e4c483257b9388909a53ea8797299eb5fda25c85",
+  "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
+  "linked_sha256": "f58eb48ffdea1b5a7978d1dc2af9e2d702518991007b611d46ab8a30da6ed6bb",
+  "symbol_map_sha256": "1cc3630aaee8fa674c428d7911f8772532333ecfb8a928c8c3a2557763dc9a59",
+  "symbol_map_entries": 21699,
+  "generated_provenance_sha256": "995e7a5138c209e3c8d5109fc7677dcbd897ac7ce8da519c65af51099a0d6cef",
   "method": "Same pinned Binaryen -O2 recipe with only --symbolmap; mapped WASM SHA256 equals adopted canonical guest",
   "retained_symbols": {
     "MariaDB": {
@@ -21,17 +21,17 @@
       "host_named_definitions": 2,
       "examples": [
         {
-          "index": 5726,
+          "index": 5732,
           "symbol": "mysql_server_init",
           "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn5726",
+          "generated_function": "Fn5732",
           "host_symbol_retained": true
         },
         {
-          "index": 5790,
+          "index": 5796,
           "symbol": "mysql_real_query",
           "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-          "generated_function": "Fn5790",
+          "generated_function": "Fn5796",
           "host_symbol_retained": true
         }
       ]
@@ -50,17 +50,17 @@
           "host_symbol_retained": true
         },
         {
-          "index": 245,
+          "index": 246,
           "symbol": "l4m_close",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn245",
+          "generated_function": "Fn246",
           "host_symbol_retained": true
         },
         {
-          "index": 246,
+          "index": 247,
           "symbol": "l4m_free",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn246",
+          "generated_function": "Fn247",
           "host_symbol_retained": true
         }
       ]
@@ -101,24 +101,24 @@
       "host_named_definitions": 344,
       "examples": [
         {
-          "index": 1253,
+          "index": 1259,
           "symbol": "wolfSSL_ResourceFree",
           "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn1253",
+          "generated_function": "Fn1259",
           "host_symbol_retained": true
         },
         {
-          "index": 1331,
+          "index": 1337,
           "symbol": "wolfSSL_ERR_func_error_string",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1331",
+          "generated_function": "Fn1337",
           "host_symbol_retained": true
         },
         {
-          "index": 1385,
+          "index": 1391,
           "symbol": "wolfSSL_CTX_set_groups",
           "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-          "generated_function": "Fn1385",
+          "generated_function": "Fn1391",
           "host_symbol_retained": true
         }
       ]
@@ -130,24 +130,24 @@
       "host_named_definitions": 14,
       "examples": [
         {
-          "index": 4478,
+          "index": 4484,
           "symbol": "crc32_z",
           "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn4478",
+          "generated_function": "Fn4484",
           "host_symbol_retained": true
         },
         {
-          "index": 6716,
+          "index": 6722,
           "symbol": "adler32",
           "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
-          "generated_function": "Fn6716",
+          "generated_function": "Fn6722",
           "host_symbol_retained": true
         },
         {
-          "index": 6724,
+          "index": 6730,
           "symbol": "deflateInit_",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn6724",
+          "generated_function": "Fn6730",
           "host_symbol_retained": true
         }
       ]
@@ -159,24 +159,24 @@
       "host_named_definitions": 8,
       "examples": [
         {
-          "index": 7212,
+          "index": 7218,
           "symbol": "pcre2_match_data_free_8",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn7212",
+          "generated_function": "Fn7218",
           "host_symbol_retained": true
         },
         {
-          "index": 7215,
+          "index": 7221,
           "symbol": "_pcre2_strncmp_8",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn7215",
+          "generated_function": "Fn7221",
           "host_symbol_retained": true
         },
         {
-          "index": 7220,
+          "index": 7226,
           "symbol": "_pcre2_compile_process_capture_list",
-          "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
-          "generated_function": "Fn7220",
+          "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
+          "generated_function": "Fn7226",
           "host_symbol_retained": true
         }
       ]
@@ -188,24 +188,24 @@
       "host_named_definitions": 59,
       "examples": [
         {
-          "index": 10759,
+          "index": 10765,
           "symbol": "_ZN3fmt3v1219basic_memory_bufferIcLm500E12my_allocatorIcEE4growERNS0_6detail6bufferIcEEm",
           "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
-          "generated_function": "Fn10759",
+          "generated_function": "Fn10765",
           "host_symbol_retained": true
         },
         {
-          "index": 11130,
+          "index": 11136,
           "symbol": "_ZN3fmt3v126detail5valueINS0_7contextEE13format_customI6StringEEvPvRNS0_13parse_contextIcEERS3_",
           "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
-          "generated_function": "Fn11130",
+          "generated_function": "Fn11136",
           "host_symbol_retained": true
         },
         {
-          "index": 11131,
+          "index": 11137,
           "symbol": "_ZN3fmt3v126detail18parse_format_specsIcEEPKT_S5_S5_RNS1_20dynamic_format_specsIS3_EERNS0_13parse_contextIS3_EENS1_4typeE",
           "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn11131",
+          "generated_function": "Fn11137",
           "host_symbol_retained": true
         }
       ]
@@ -217,24 +217,24 @@
       "host_named_definitions": 358,
       "examples": [
         {
-          "index": 4584,
+          "index": 4590,
           "symbol": "_ZNSt3__221__throw_runtime_errorEPKc",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn4584",
+          "generated_function": "Fn4590",
           "host_symbol_retained": true
         },
         {
-          "index": 4585,
+          "index": 4591,
           "symbol": "_ZNSt3__212__next_primeEm",
           "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn4585",
+          "generated_function": "Fn4591",
           "host_symbol_retained": true
         },
         {
-          "index": 4586,
+          "index": 4592,
           "symbol": "_ZNSt3__222__throw_overflow_errorB8ne200100EPKc",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn4586",
+          "generated_function": "Fn4592",
           "host_symbol_retained": true
         }
       ]
@@ -246,24 +246,24 @@
       "host_named_definitions": 14,
       "examples": [
         {
-          "index": 1078,
+          "index": 1084,
           "symbol": "__cxa_pure_virtual",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1078",
+          "generated_function": "Fn1084",
           "host_symbol_retained": true
         },
         {
-          "index": 1114,
+          "index": 1120,
           "symbol": "__cxa_allocate_exception",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1114",
+          "generated_function": "Fn1120",
           "host_symbol_retained": true
         },
         {
-          "index": 1115,
+          "index": 1121,
           "symbol": "__cxa_free_exception",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1115",
+          "generated_function": "Fn1121",
           "host_symbol_retained": true
         }
       ]
@@ -275,24 +275,24 @@
       "host_named_definitions": 7,
       "examples": [
         {
-          "index": 1105,
+          "index": 1111,
           "symbol": "_Unwind_CallPersonality",
           "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
-          "generated_function": "Fn1105",
+          "generated_function": "Fn1111",
           "host_symbol_retained": true
         },
         {
-          "index": 1106,
+          "index": 1112,
           "symbol": "_Unwind_RaiseException",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1106",
+          "generated_function": "Fn1112",
           "host_symbol_retained": true
         },
         {
-          "index": 1107,
+          "index": 1113,
           "symbol": "_Unwind_DeleteException",
           "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
-          "generated_function": "Fn1107",
+          "generated_function": "Fn1113",
           "host_symbol_retained": true
         }
       ]
@@ -356,9 +356,9 @@
   },
   "result": "PASS",
   "host_check": {
-    "source_commit": "c9676fe3e1d626d0666e353af44b23c22284ac28",
-    "sha256": "8114dd992ae0804a39a1edf38e06c2d3bcff2156c5a2c6c256c5f44de59ec270",
-    "buildinfo": "mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.1-0.20261013221103-c9676fe3e1d6\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c9676fe3e1d626d0666e353af44b23c22284ac28\n\tbuild\tvcs.time=2026-10-13T22:11:03Z\n\tbuild\tvcs.modified=false\n",
+    "source_commit": "e4c483257b9388909a53ea8797299eb5fda25c85",
+    "sha256": "a6eeb6e1359e885dd69253751de0e3bb9deee6eda178a9efe6dcf11622646887",
+    "buildinfo": "mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261020093910-e4c483257b93\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=e4c483257b9388909a53ea8797299eb5fda25c85\n\tbuild\tvcs.time=2026-10-20T09:39:10Z\n\tbuild\tvcs.modified=false\n",
     "note": "Diagnostic attribution, not new release approval."
   },
   "previous_attribution": {

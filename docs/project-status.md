@@ -57,6 +57,22 @@ See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
+## Routine canonical adoption candidate — awaiting both-OS validation
+
+The Human approved procedures/functions and bounded DEFINER for canonical
+adoption preparation, including the product-managed mysql.proc structure
+boundary. Packages/package bodies remain outside support/testing; events remain
+an embedded restriction (1235). See the [scope decision](decisions/routine-support-scope.md)
+and [candidate report](reviews/routine-canonical-adoption.md).
+The minimal candidate lives on `experiment/routine-canonical-adoption`; it adopts
+routine initialization and the necessary text multiple-result/option paths,
+without the binary-prepared prototype or its unapproved limits. The prepared
+product requirement remains open. Source build, generated provenance and exact
+thread-lifetime binding have been refreshed; source rebuild/both-OS candidate
+checks are separate from final Qualification. Target version, main integration
+and publication remain separate Human decisions. Published v0.5.3 below does
+not include this work.
+
 ## Current published release: v0.5.3 — Reuse successful macOS platform checks
 
 [v0.5.3](https://github.com/masahitojp/mariamem/releases/tag/v0.5.3) was published

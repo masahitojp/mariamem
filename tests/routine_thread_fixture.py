@@ -6,6 +6,8 @@ from pathlib import Path
 import re
 import runpy
 import shutil
+import os
+import subprocess
 import sys
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
@@ -19,7 +21,7 @@ def data_file(path):
     return bytes.fromhex(match[1].replace('\\x',''))
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True)
+    parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--run',action='store_true')
     a=parser.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
     runtime=ROOT/'internal/generatedgo';provenance=json.loads((runtime/'provenance.json').read_text())
     layout=json.loads((ROOT/'tests/fixtures/routine-thread-layout.json').read_text())
@@ -85,6 +87,21 @@ def main():
         assert test.count(before)==1,before;test=test.replace(before,after)
     (probe/'probe_test.go').write_text(test)
     (out/'identities.json').write_text(json.dumps({'guest_sha256':layout['guest_sha256'],'provenance_sha256':sha(runtime/'provenance.json'),'functions':identities,'copied_source_sha256':copied,'historical_oracle_sha256':sha(template),'rebased_oracle_sha256':sha(probe/'probe_test.go'),'only_oracle_changes':replacements,'observer':'same post-notify pause; assertions unchanged','data_sha256':layout['data_sha256']},indent=2)+'\n')
+    if a.run:
+        results=[]
+        for backing in ('heap','mmap'):
+            for protected,race in (('0',False),('1',False),('1',True)):
+                name=backing+'-'+protected+('-race' if race else '')
+                command=['go','test','-v','-count=1',*(['-race'] if race else []),'./probe']
+                result=subprocess.run(command,cwd=module,env=dict(os.environ,JOIN_BACKING=backing,JOIN_PROTECTED=protected),capture_output=True,text=True,timeout=180)
+                text=result.stdout+result.stderr;(out/(name+'.txt')).write_text(text)
+                if protected=='0':
+                    passed=(result.returncode==1 and 'replacement byte changed from 165 to 1 after join/free/reuse' in text and '--- FAIL: TestJoinAllocationLastAccess/early-free' in text and all('--- PASS: TestJoinAllocationLastAccess/'+control in text for control in ('completed-before-free','no-post-unlock-wake')))
+                else:
+                    passed=result.returncode==0 and all('--- PASS: TestJoinAllocationLastAccess/'+control in text for control in ('early-free','completed-before-free','no-post-unlock-wake','detached-self-free'))
+                results.append(dict(name=name,exit_code=result.returncode,expected_failure=protected=='0',passed=passed))
+                (out/'results.json').write_text(json.dumps(results,indent=2)+'\n')
+                if not passed:raise RuntimeError('J1 oracle failed: '+name)
     print(module)
 
 if __name__=='__main__':main()

@@ -106,7 +106,7 @@ def test_unsupported_host_request_preserves_ready_database(wire_db):
 
 def test_unsupported_handshake_flags_are_rejected_without_poisoning_host(wire_db):
     with pytest.raises(pymysql.MySQLError) as error:
-        connect(wire_db, client_flag=CLIENT.MULTI_STATEMENTS)
+        connect(wire_db, client_flag=CLIENT.SSL)
     assert error.value.args[0] == 1235
     wire_db.wait_disconnected()
     with connect(wire_db) as conn:

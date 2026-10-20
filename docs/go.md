@@ -136,6 +136,16 @@ leaves it running. Failure after acceptance can consume it as well
 (`HostError.Closed`). Use `errors.Is` with `ErrBusy`,
 `ErrTransactionActive`, `ErrClosed`, and `errors.As` with `*HostError`.
 
+Development candidate (not included in published v0.5.3): stored procedures
+and functions are supported in the candidate through ordinary SQL, including
+CALL result chains and Snapshot/Fork retention. Packages/package bodies are
+outside product support and compatibility testing; events remain unavailable
+in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
+accepted and retained, but `--skip-grant-tables` means account existence and
+privileges are not enforced. See the [approved scope](decisions/routine-support-scope.md).
+Binary prepared statements remain a separate adoption task. `DELIMITER` is a
+client directive; this candidate does not add a general dump importer.
+
 Multiple SQL clients have separate sessions, transactions and temporary tables.
 Current capacity is 16, not a permanent API or throughput guarantee. Additional
 connections receive recoverable MySQL error 1040; slots are reused after
