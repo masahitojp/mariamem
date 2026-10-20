@@ -1,0 +1,17 @@
+{
+  "ci_default": {
+    "home": "/github/home",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "CMake Error at /tmp/routine-sdk-home-4t2hpe96/probe.cmake:3 (message):\n  SDK compiler missing: /github/home/.wasixcc/bin/wasixcc\n\n\n"
+  },
+  "fixed_builder": {
+    "home": "/root",
+    "returncode": 0,
+    "stdout": "-- SDK compiler found: /root/.wasixcc/bin/wasixcc\n",
+    "stderr": ""
+  },
+  "shared_home_git_identity": "PASS",
+  "source_sha256": "114c296e33df8bb68bab6797d1b40b11834a2c3cfe1e934ffbe87037816c32ea",
+  "result": "PASS (path/config probe only; not a guest build)"
+}

@@ -17,9 +17,15 @@ jobs:
           DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
       - name: Trust only this container checkout for Git identity checks
+        env:
+          HOME: /root
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Exact source, fresh SDK, normal development guest route
+        env:
+          HOME: /root
         run: |
+          test "$HOME" = /root
+          test "$(id -u)" = 0
           mkdir -p build/routine-ci
           python3 scripts/git_identity.py inspect HEAD > build/routine-ci/source.json
           python3 -c 'import json,os;assert json.load(open("build/routine-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'

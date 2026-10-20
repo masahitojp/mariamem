@@ -194,6 +194,34 @@ The corrected candidate must still run guest build and both native
 jobs; those results remain pending, not PASS. Re-running unchanged runtime checks
 locally would not exercise this CI-container ownership boundary.
 
+## Second CI infrastructure correction: fixed SDK HOME
+
+[Run 39378516288](https://github.com/masahitojp/mariamem/actions/runs/39378516288)
+on `63733ea103f9c5940912a8fa9f26e456c74a6961` passed the Git ownership preflight.
+It then built native generator tools, but failed during WASIX CMake configuration:
+compiler `/github/home/.wasixcc/bin/wasixcc` did not exist. Both native product
+jobs were skipped. Neither a completed guest build nor opposite-platform
+acceptance is claimed.
+
+The fresh builder installs the SDK at `/root/.wasixcc`
+(`scripts/build_generated_guest.py`); the unchanged pinned upstream CMake
+recipe defaults its root to `$ENV{HOME}/.wasixcc`. The container step inherited
+`HOME=/github/home`. The two builder steps (Git trust and source/build) now
+explicitly use `HOME=/root`, preserving the accepted SDK and build paths and
+sharing the same Git global config. An early HOME/root-UID assertion makes this
+assumption explicit. Native product jobs retain their runner environments.
+No source pin, compiler flags, guest patch, runtime or acceptance test changes.
+
+[Reproduction, scope and raw artifacts](v06x-routine-bootstrap-ci-sdk-fix/reproduce.md)
+and [results](v06x-routine-bootstrap-ci-sdk-fix/result.json) show PASS for a
+network-isolated CMake/Git configuration probe: old HOME fails compiler lookup,
+fixed HOME finds the compiler, and the trust/inspection configuration is shared.
+The copied upstream recipe is hash-checked against the existing input pin.
+This small probe uses an existing builder image; it is **not** a fresh pinned
+SDK build and does not establish the resulting Wasm identity. The full CI guest
+build, exact guest binding and both native acceptance jobs remain required and
+pending. The original failed build log is preserved without relabelling it.
+
 ## Next Human Review
 
 First obtain native CI receipts for the exact submitted candidate. Then decide
