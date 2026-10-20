@@ -773,6 +773,14 @@ The design is ready for Human Review. Production implementation, routine target
 version, integration, Qualification and release are not approved by this step;
 prepared/multi-statement scope remains unchanged.
 
+**Human scope approval — routine bootstrap (2026-10-20):** the Human approved
+implementation of the minimum bootstrap design, explicitly including the
+product-managed proc structure and rejection rather than repair of incompatible
+restored baselines. Routine rows remain mutable and isolated per child. Work is
+on `experiment/routine-bootstrap`; its implementation/verification is in progress.
+Version placement, main integration, Qualification and release remain separate;
+the prepared/multi-statement decision is not advanced by this approval.
+
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
 with pytest fixtures: prepare migrations/seed once per worker, acquire an

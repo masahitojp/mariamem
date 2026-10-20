@@ -101,3 +101,15 @@ See [productization status](../reviews/snapshot-owned-root-productization.md).
 The Human subsequently approved main adoption of fixed candidate `52c078b`.
 See [current adoption status](../project-status.md#adopted-ownership-optimization--unreleased).
 Neither approval authorizes a release.
+
+## Approved routine candidate boundary — not yet adopted
+
+On2026-10-20 the Human approved the minimum-routine implementation scope and
+its product-managed `mysql.proc` structure boundary. In that candidate, Fresh
+creates the pinned structure before ready; a restored baseline with missing or
+incompatible structure is rejected at Fork startup, without automatic repair.
+Creating/dropping user routines changes rows and remains supported per-child
+state; parent/sibling isolation is unchanged. This approval does not make the
+candidate part of current main/published behavior or choose its version. Main
+integration, Qualification and release remain separate. See the
+[routine bootstrap design](../reviews/v06x-routine-bootstrap-design.md).

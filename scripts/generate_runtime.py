@@ -77,6 +77,7 @@ def adapt_driver(text):
     # Export attribution belongs to this deterministic adapter, not a manual
     # edit of its generated output. Reject an unexpected pinned driver shape.
     changes = (
+        ('\tw.SetEnv([]string{"MARIAMEM_GUEST_TIMING=1"})\n\tif !diagnostic {\n\t\tw.SetEnv(nil)\n\t}', '\tw.SetEnv(guestEnvironment(restore != "", diagnostic))'),
         ('import (\n', 'import (\n\t"context"\n'),
         ('\t"os"\n', '\t"os"\n\t"github.com/masahitojp/mariamem/internal/timing"\n'),
         ('\tvar walk func(string, string) error\n', '\tctx, finishTiming := timing.Begin(context.Background(), "snapshot_export")\n\tdefer finishTiming()\n\tvar walk func(string, string) error\n'),

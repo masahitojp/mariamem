@@ -112,6 +112,7 @@ static void *multi_worker(void *arg)
 }
 
 #include "snapshot_fs.inc"
+#include "routine_bootstrap.inc"
 #include "prepared_auth_keys.inc"
 extern int mariamem_auth_keys_ready(void);
 extern int mariamem_auth_key_self_test(void);
@@ -127,6 +128,8 @@ int main(int argc, char **argv)
      !strcmp(argv[1], "--check-auth-keys-missing") ||
      !strcmp(argv[1], "--check-auth-keys-corrupt"));
   if (argc > 2 || (argc == 2 && strcmp(argv[1], "--restore-snapshot") && !key_check)) return 16;
+  int routine_restore= key_check ? 0 : routine_boot_mode(getenv("MARIAMEM_BOOT_MODE"), argc == 2);
+  if (routine_restore < 0) return 11;
   if (prepare_auth_keys()) return 18;
   /* Explicit diagnostic CLI only, never changed default authentication semantics. */
   if (key_check && !strcmp(argv[1], "--check-auth-keys-missing"))
@@ -159,6 +162,9 @@ int main(int argc, char **argv)
     l4m_close();
     return check ? 19 : 0;
   }
+  startup_mark("routine_schema_begin");
+  if (routine_bootstrap(g_mysql, routine_restore)) { l4m_close(); return 11; }
+  startup_mark("routine_schema_complete");
   /* Bootstrap connection creates test; engine remains alive after closing it. */
   mysql_close(g_mysql);
   g_mysql= NULL;

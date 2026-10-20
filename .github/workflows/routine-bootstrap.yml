@@ -1,0 +1,94 @@
+name: Routine bootstrap candidate (not Qualification)
+on:
+  push:
+    branches: [experiment/routine-bootstrap]
+permissions:
+  contents: read
+jobs:
+  guest:
+    runs-on: ubuntu-24.04-arm
+    container:
+      image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
+    timeout-minutes: 90
+    steps:
+      - name: Source builder dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Exact source, fresh SDK, normal development guest route
+        run: |
+          mkdir -p build/routine-ci
+          python3 scripts/git_identity.py inspect HEAD > build/routine-ci/source.json
+          python3 -c 'import json,os;assert json.load(open("build/routine-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python3 scripts/build_generated_guest.py --development-output /tmp/routine-guest > build/routine-ci/guest-build.log 2>&1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: routine-guest-${{ github.sha }}
+          path: /tmp/routine-guest
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: routine-source-build-${{ github.sha }}
+          path: build/routine-ci
+          if-no-files-found: error
+          retention-days: 7
+  native:
+    needs: guest
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    env:
+      GOTOOLCHAIN: go1.26.8
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: routine-guest-${{ github.sha }}
+          path: ${{ runner.temp }}/routine-guest
+      - name: Fixed consumers and source/helper oracles
+        run: |
+          python -m pip install PyMySQL==1.2.3 pytest==8.4.2
+          mkdir -p build/routine-ci
+          python scripts/git_identity.py inspect HEAD > build/routine-ci/source.json
+          python -c 'import json,os;assert json.load(open("build/routine-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python -m pytest -q tests/test_routine_schema.py tests/test_dev_guest_tools.py tests/test_thread_lifetime_binding.py > build/routine-ci/input-tests.log 2>&1
+      - name: Normal development translation, compilation and standard smoke
+        run: |
+          GUEST=$(python -c 'import os;from pathlib import Path;print((Path(os.environ["RUNNER_TEMP"])/"routine-guest").resolve())')
+          OUT=$(python -c 'import os;from pathlib import Path;print((Path(os.environ["RUNNER_TEMP"])/"routine-native").resolve())')
+          python scripts/regenerate_release_guest.py --development --guest-dir "$GUEST" --output "$OUT" > build/routine-ci/regeneration.log 2>&1
+          echo "ROUTINE_PRODUCT=$OUT/product" >> "$GITHUB_ENV"
+          echo "MARIAMEM_ROUTINE_HOST=$OUT/mariamem-dev-host" >> "$GITHUB_ENV"
+          cp "$OUT/development.json" build/routine-ci/development.json
+          cp "$OUT/translation/input-manifest.json" build/routine-ci/translation.json
+      - name: Routine startup, isolation and failure acceptance
+        run: |
+          PYTHONPATH="$ROUTINE_PRODUCT/python" python -m pytest -q tests/test_routine_bootstrap_runtime.py > build/routine-ci/routine-runtime.log 2>&1
+          cd "$ROUTINE_PRODUCT"
+          go test -p 1 -trimpath ./internal/generatedgo -run TestGuestEnvironmentIsPerInstance > "$GITHUB_WORKSPACE/build/routine-ci/mode-unit.log" 2>&1
+          go test -p 1 -trimpath ./internal/mysqlwire > "$GITHUB_WORKSPACE/build/routine-ci/wire-unit.log" 2>&1
+          go run -p 1 -trimpath ./tests/v06_routine_probe -output "$GITHUB_WORKSPACE/build/routine-ci/go-routines.json" > "$GITHUB_WORKSPACE/build/routine-ci/go-routines.log" 2>&1
+          go run -p 1 -trimpath ./cmd/mariamem-guest auth-check > "$GITHUB_WORKSPACE/build/routine-ci/auth-diagnostic.log" 2>&1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: routine-native-${{ matrix.runner }}-${{ github.sha }}
+          path: build/routine-ci
+          if-no-files-found: error
+          retention-days: 7

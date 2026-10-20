@@ -1,5 +1,11 @@
 # Minimum routine bootstrap — implementation decision
 
+Status update, 2026-10-20: the Human approved the bounded implementation scope
+**including the product-managed proc-structure boundary and rejection of
+incompatible restored baselines**. Version placement, integration and release
+remain separate decisions. The design/recommendation below records the earlier
+Human Review at1f4599f; its pending-approval wording is historical.
+
 2026-10-20. **Decision requested: approve a bounded production-candidate
 implementation of the minimum routine bootstrap below? Recommend approval.**
 Users should be able to prepare procedure/function fixtures without manually
