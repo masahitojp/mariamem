@@ -1,10 +1,11 @@
 {
-  "compiled_guest_source_scope": "MariaDB 12.3.3 canonical portability series; no experimental.patch",
-  "completed": true,
-  "full_guest_regeneration": true,
-  "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
-  "guest_size": 18368013,
-  "linked_guest_sha256": "d3022ab3b5f41ffba26b5c4172616ceb4f087c02ffe18569a701ae48fa0bbd53",
+  "compiled_guest_source_scope": "MariaDB12.3.3 canonical routine/text overlays; no experimental.patch; binary prepared excluded",
+  "completed": false,
+  "full_guest_regeneration": false,
+  "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
+  "guest_size": 18376493,
+  "linked_guest_sha256": "f58eb48ffdea1b5a7978d1dc2af9e2d702518991007b611d46ab8a30da6ed6bb",
+  "pending": "Same-input independent two-build receipt will be produced by canonical candidate CI",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.3",
@@ -116,10 +117,12 @@
       "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
       "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
       "wasm/prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
-      "wasm/resident.inc": "7dfee608541002f4fca74b6eeceb8a0b54f22e0b04b5d1e254391b970e6af634",
+      "wasm/resident.inc": "f94aa5a1c3ac4aaab242e15d080af716ceff49e0ee2de2cb67ff1aa52caffebf",
+      "wasm/routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
+      "wasm/routine_schema_sql.inc": "3c94977cfe21c57815ad5c73288eaa73cc5a4744a457b11e46756480a3ca3e68",
       "wasm/snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
       "wasm/startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
-      "wasm/wire_api.inc": "d21bea6b0bb9d3f044fa88170899f0b52f99aa0c73aa51f54a7e7004b858e344"
+      "wasm/wire_api.inc": "ddee57f46f4b4b31c076761d0307254c5160c4c6d671562025d04c28cde8b86c"
     },
     "overlays": {
       "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
@@ -127,12 +130,14 @@
       "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
       "input.json": "242dd470815fe2edbaf65bf5ff48c2042f6858120349c45696fa002bad76d869",
       "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
-      "resident.inc": "7dfee608541002f4fca74b6eeceb8a0b54f22e0b04b5d1e254391b970e6af634",
+      "resident.inc": "f94aa5a1c3ac4aaab242e15d080af716ceff49e0ee2de2cb67ff1aa52caffebf",
+      "routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
+      "routine_schema.json": "3b6de53bc59ad91dc5c606c435b26f408eb26ff9a091b253d799af86e2460dfd",
       "snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
       "source.patch": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16",
       "startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
       "test-auth-keypair.json": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be",
-      "wire_core.inc": "dafdc569959bc21821ddf39533116f2a62eab2441c9280a675be3065db58278f"
+      "wire_core.inc": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a"
     },
     "portability_series": [
       {
@@ -187,19 +192,23 @@
         "file": "guest/patches/12.3.3-redo.patch",
         "sha256": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22"
       }
-    ]
+    ],
+    "routine_schema": {
+      "ddl_sha256": "e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc",
+      "header": "wasm/routine_schema_sql.inc",
+      "header_sha256": "3c94977cfe21c57815ad5c73288eaa73cc5a4744a457b11e46756480a3ca3e68",
+      "metadata_sha256": "104f0b429207adc28e83f453c0889f4d7d71eb97ff886a66af926b4de944cbd4",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "source_file_sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d"
+    }
   },
   "repetitions": [
     {
-      "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
-      "linked_sha256": "d3022ab3b5f41ffba26b5c4172616ceb4f087c02ffe18569a701ae48fa0bbd53"
-    },
-    {
-      "guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
-      "linked_sha256": "d3022ab3b5f41ffba26b5c4172616ceb4f087c02ffe18569a701ae48fa0bbd53"
+      "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
+      "linked_sha256": "f58eb48ffdea1b5a7978d1dc2af9e2d702518991007b611d46ab8a30da6ed6bb"
     }
   ],
-  "source_commit": "00702fc87141f48b681e6f01459a0ab4deb7877c",
+  "source_commit": "587f7d162cf4361f7ede78de3d0438ff7a7aecaa",
   "toolchain": {
     "archives_sha256": {
       "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",

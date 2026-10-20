@@ -325,10 +325,7 @@ func run(args []string) {
 	if len(args) == 2 && args[1] == "measure" {
 		diagnostic = false
 	}
-	w.SetEnv([]string{"MARIAMEM_GUEST_TIMING=1"})
-	if !diagnostic {
-		w.SetEnv(nil)
-	}
+	w.SetEnv(guestEnvironment(restore != "", diagnostic))
 	w.SetStdin(os.Stdin)
 	w.SetStdout(os.Stdout)
 	w.SetStderr(os.Stderr)

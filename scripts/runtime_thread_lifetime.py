@@ -7,11 +7,11 @@ before installing the handoff; this is a single-guest binding, not a generic ABI
 import hashlib
 import re
 
-GUEST_SHA256 = "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09"
+GUEST_SHA256 = "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87"
 FUNCTIONS = {
-    "code/p3/p3_pure.go": ("Fn153", "b1d381957fd1d352e7ab741f3e7330c5ac77e1b6f20ddd465c497f51f7389d5b"),
+    "code/p3/p3_pure.go": ("Fn153", "fc0fbe16d5c656aa793a9c35ed8342fbf8e729a3b40289914ebc0a4f65233199"),
     "code/p8/p8_pure.go": ("Fn131", "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"),
-    "code/p5/p5_pure.go": ("Fn216", "7d0e1dee8ae23b77990a1c0ce7b2f56988a67f80003d6962a25dc2159b3de7eb"),
+    "code/p5/p5_pure.go": ("Fn214", "95c5c95062e7f284dba73a5e12d762c4fa02c1740488e2d6b9ed61d49a8a9f03"),
 }
 
 

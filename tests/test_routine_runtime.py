@@ -8,7 +8,7 @@ import mariamem
 import pymysql
 import pytest
 
-HOST = os.environ.get('MARIAMEM_ROUTINE_HOST')
+HOST = os.environ.get('MARIAMEM_TEST_HOST')
 pytestmark = pytest.mark.skipif(not HOST, reason='requires explicit routine candidate host')
 
 

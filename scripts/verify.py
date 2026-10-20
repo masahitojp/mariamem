@@ -106,7 +106,8 @@ def integration():
               "normal Close remains required.", flush=True)
         run([sys.executable, "-m", "pytest", timeout_test,
              "tests/test_python_multiclient.py", "tests/test_python_wire.py",
-             "tests/test_owned_snapshot.py", "-q"], env=env)
+             "tests/test_owned_snapshot.py", "tests/test_routine_runtime.py",
+             "tests/test_text_multi_runtime.py", "-q"], env=env)
         run([sys.executable, "tests/snapshots.py"], env=env)
 
 
