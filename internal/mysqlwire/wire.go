@@ -324,6 +324,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 	if !r.OK {
 		return fmt.Errorf("open session: %s", r.Error)
 	}
+	preparedOpen := r
 	opened := true
 	defer func() {
 		if !opened {
@@ -448,6 +449,14 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		}
 		opened = true
 		status = r.Status
+		preparedOpen = r
+	}
+	statements, err := newPreparedSession(preparedOpen, p.PreparedVersion, p.PreparedOperations)
+	if err != nil {
+		return err
+	}
+	if statements != nil {
+		defer statements.registry.Clear()
 	}
 	// Embedded CLIENT_CAPABILITIES already includes MULTI_RESULTS. Toggle
 	// MULTI_STATEMENTS through its public API without replacing the MYSQL/THD
@@ -502,6 +511,21 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		}
 		var replies [][]byte
 		switch request[0] {
+		case 22, 25, 26:
+			// Local errors and ignored unknown CLOSE must preserve state from the
+			// most recent text command too (not an older prepared response).
+			if statements != nil {
+				statements.status = status
+			}
+			replies, e = statements.handle(request[0], request[1:], func(body []byte, monitor bool) (guest.Result, error) {
+				if monitor {
+					return w.callGuest(p, 5, slot, body)
+				}
+				return call(5, body)
+			})
+			if statements != nil {
+				status = statements.status
+			}
 		case 1:
 			return nil
 		case 3:

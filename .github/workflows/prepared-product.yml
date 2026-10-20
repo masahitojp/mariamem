@@ -1,4 +1,4 @@
-name: Prepared implementation P1 source and unit checks (not acceptance)
+name: Prepared P1 source, unit and development runtime (not adoption)
 on:
   push:
     branches: [experiment/prepared-product]
@@ -82,6 +82,57 @@ jobs:
         if: always()
         with:
           name: prepared-p1-unit-${{ matrix.runner }}-${{ github.sha }}
+          path: build/prepared-p1
+          if-no-files-found: error
+          retention-days: 7
+  development-runtime:
+    needs: guest-source
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 70
+    env:
+      GOTOOLCHAIN: go1.26.8
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: prepared-p1-unqualified-guest-${{ github.sha }}
+          path: ${{ runner.temp }}/prepared-p1-guest
+      - name: Fixed consumers and exact clean source
+        run: |
+          python -m pip install pytest==8.4.2 PyMySQL==1.2.3
+          mkdir -p build/prepared-p1
+          python scripts/git_identity.py inspect HEAD > build/prepared-p1/source.json
+          python -c 'import json,os;assert json.load(open("build/prepared-p1/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+      - name: Formal single-pass development generation, compilation and SQL smoke
+        run: |
+          python scripts/regenerate_release_guest.py --development --guest-dir "$RUNNER_TEMP/prepared-p1-guest" --output "$RUNNER_TEMP/prepared-p1-native" > build/prepared-p1/development.txt 2>&1
+          cp "$RUNNER_TEMP/prepared-p1-native/development.json" build/prepared-p1/development.json
+      - name: Exact installed binding and failure mutations on the actual new runtime
+        run: |
+          python tests/check_prepared_p1_binding.py --runtime "$RUNNER_TEMP/prepared-p1-native/product/internal/generatedgo" > build/prepared-p1/binding.txt 2>&1
+          python -m pytest -q "$RUNNER_TEMP/prepared-p1-native/product/tests/test_thread_lifetime_binding.py" > build/prepared-p1/binding-mutations.txt 2>&1
+      - name: Real P1 wire lifecycle and native metadata differential
+        env:
+          PYTHONPATH: ${{ runner.temp }}/prepared-p1-native/product/python
+        run: |
+          python tests/v06_prepared_p1_probe.py --host "$RUNNER_TEMP/prepared-p1-native/mariamem-dev-host" --reference tests/fixtures/prepared-p1-native.json --output build/prepared-p1/runtime.json > build/prepared-p1/runtime.txt 2>&1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: prepared-p1-development-${{ matrix.runner }}-${{ github.sha }}
           path: build/prepared-p1
           if-no-files-found: error
           retention-days: 7

@@ -66,21 +66,23 @@ type response struct {
 	headerAt, decodedAt time.Time
 }
 type Process struct {
-	capture         *prepared.Capture
-	in              io.WriteCloser
-	out             io.ReadCloser
-	mu              sync.Mutex
-	next            uint32
-	pending         map[uint32]chan response
-	failure         error
-	stopping        bool
-	writes          chan struct{}
-	done            chan struct{}
-	exitErr         error
-	abort           sync.Once
-	startupTiming   bool
-	SnapshotVersion int
-	MaxSessions     int
+	capture            *prepared.Capture
+	in                 io.WriteCloser
+	out                io.ReadCloser
+	mu                 sync.Mutex
+	next               uint32
+	pending            map[uint32]chan response
+	failure            error
+	stopping           bool
+	writes             chan struct{}
+	done               chan struct{}
+	exitErr            error
+	abort              sync.Once
+	startupTiming      bool
+	SnapshotVersion    int
+	MaxSessions        int
+	PreparedVersion    int
+	PreparedOperations []uint8
 }
 
 func StartGenerated(ctx context.Context, transfer string, restore []prepared.Entry, stderr io.Writer) (*Process, error) {

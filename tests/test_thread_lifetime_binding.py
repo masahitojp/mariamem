@@ -1,5 +1,6 @@
 """Fail-closed guest ABI/reclaimer installation, independent of runtime scheduling tests."""
 import importlib.util
+import json
 from pathlib import Path
 import re
 import pytest
@@ -11,6 +12,17 @@ spec.loader.exec_module(binding)
 
 
 def preimage(name):
+    # During staged implementation canonical generated files still belong to
+    # the old guest. New candidate preimages are exact, reviewed converter output,
+    # never normalized into acceptance. Native development CI also checks these
+    # against the freshly generated candidate before executing it.
+    provenance=json.loads((ROOT/'internal/generatedgo/provenance.json').read_text())
+    if provenance['guest_sha256'] != binding.GUEST_SHA256 and name in binding.FUNCTIONS:
+        identity=json.loads((ROOT/'tests/fixtures/prepared-p1-binding/identity.json').read_text())
+        assert provenance['guest_sha256']==identity['baseline_guest_sha256'],'unexpected canonical guest during P1 transition'
+        assert binding.GUEST_SHA256==identity['guest_sha256']
+        fn=binding.FUNCTIONS[name][0]
+        return (ROOT/'tests/fixtures/prepared-p1-binding'/(fn+'.txt')).read_text()
     text = (ROOT/'internal/generatedgo'/name).read_text()
     # Construct raw input from canonical output only for mutation tests. The
     # independent regeneration command is the valid-input acceptance oracle.
@@ -52,3 +64,10 @@ def test_guest_and_required_file_identity():
     for file in files:
         with pytest.raises(ValueError, match='unreviewed'):
             binding.validate_inputs(binding.GUEST_SHA256, files-{file})
+
+
+def test_old_guest_is_not_an_alternate_allowed_identity():
+    old=json.loads((ROOT/'tests/fixtures/prepared-p1-binding/identity.json').read_text())['baseline_guest_sha256']
+    files={'generated/base/base.go',*('generated/'+p.removeprefix('code/') for p in binding.FUNCTIONS)}
+    with pytest.raises(ValueError,match='unreviewed'):
+        binding.validate_inputs(old,files)
