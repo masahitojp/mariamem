@@ -57,26 +57,33 @@ See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
-## Routine canonical adoption candidate — both-OS PASS, awaiting Human adoption
+## Routine support adopted on main — unreleased
 
-The Human approved procedures/functions and bounded DEFINER for canonical
-adoption preparation, including the product-managed mysql.proc structure
-boundary. Packages/package bodies remain outside support/testing; events remain
-an embedded restriction (1235). See the [scope decision](decisions/routine-support-scope.md)
-and [candidate report](reviews/routine-canonical-adoption.md).
-The minimal candidate lives on `experiment/routine-canonical-adoption`; it adopts
-routine initialization and the necessary text multiple-result/option paths,
-without the binary-prepared prototype or its unapproved limits. The prepared
-product requirement remains open. Source build, generated provenance and exact
-thread-lifetime binding have been refreshed. Exact candidate03184a6 passed
-independent two-source-build reproduction and all99 generated files on macOS
-arm64 and Ubuntu x86_64 in
-[CI39406398732](https://github.com/masahitojp/mariamem/actions/runs/39406398732),
-including required Connector/Python26.7.0, J1 failure/control oracles and existing
-ORM consumers. See the [Human adoption review](reviews/routine-canonical-ci-review.md).
-This is candidate evidence, separate from final Qualification. Target version, main integration
-and publication remain separate Human decisions. Published v0.5.3 below does
-not include this work.
+On 2026-10-20 the Human approved main adoption after the
+[Human adoption review](reviews/routine-canonical-ci-review.md). Main fast-forwarded
+to `429492fd35bc48948576b21cb3804726ced3c03a`, which contains the tested routine/text
+candidate `03184a61a63b1977a1d05ed378404f59d57cf68e` plus evidence and build-ledger
+updates. The subsequent documentation commit records this decision; runtime,
+guest/converter inputs and generated provenance remain identical to the tested
+candidate. No exploratory history was merged.
+
+Procedures/functions and bounded DEFINER are included, together with the
+product-managed mysql.proc structure boundary and necessary text multiple-result /
+option paths. Packages/package bodies remain outside support/testing; events
+remain an embedded restriction (1235). DEFINER metadata is retained, but account
+existence/privileges are not enforced under skip-grant-tables. See the
+[scope decision](decisions/routine-support-scope.md) and
+[candidate report](reviews/routine-canonical-adoption.md).
+Binary prepared productization and its unapproved prototype limits were not
+adopted; that product requirement remains open.
+
+[CI39406398732](https://github.com/masahitojp/mariamem/actions/runs/39406398732)
+passed independent two-source-build reproduction, all99 generated files on macOS
+arm64 and Ubuntu x86_64, required Connector/Python26.7.0, J1 failure/control
+oracles and existing ORM consumers on exact candidate03184a6. These are candidate
+receipts, not Qualification of a later main/release SHA. Target version, final
+Qualification and publication remain separate Human decisions and were not
+started by main adoption. Published v0.5.3 below does not include this work.
 
 ## Current published release: v0.5.3 — Reuse successful macOS platform checks
 

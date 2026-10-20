@@ -2,8 +2,12 @@
 
 Human decision, 2026-10-20. The minimum procedure/function bootstrap is approved
 for canonical adoption preparation. **This is an adoption-scope decision, not a
-claim that the current published release already includes it.** Target version,
-main integration, Qualification and publication remain separate decisions.
+claim that the current published release already includes it.** The Human
+subsequently approved main adoption on 2026-10-20 after the
+[both-OS adoption review](../reviews/routine-canonical-ci-review.md). Main contains
+the reviewed routine/text implementation; binary prepared productization remains
+separate. Target version, final Qualification and publication remain separate
+decisions. Published v0.5.3 does not contain this change.
 
 | Feature | Product scope | Reason / boundary |
 | --- | --- | --- |
