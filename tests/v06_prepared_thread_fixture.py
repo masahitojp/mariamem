@@ -23,7 +23,13 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--product',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     product=a.product.resolve();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
     runtime=product/'internal/generatedgo';prov=json.loads((runtime/'provenance.json').read_text())
-    assert prov['guest_sha256'] in (binding.PREPARED_SPIKE_GUEST, binding.MULTI_SPIKE_GUEST, binding.OPTION_SPIKE_GUEST)
+    assert prov['guest_sha256'] in (binding.PREPARED_SPIKE_GUEST, binding.MULTI_SPIKE_GUEST, binding.OPTION_SPIKE_GUEST, binding.ROUTINE_BOOTSTRAP_GUEST)
+    routine = prov['guest_sha256'] == binding.ROUTINE_BOOTSTRAP_GUEST
+    # This exact guest relocates two functions in the unchanged bounded oracle.
+    # No runtime wildcard/normalization: installation still checks whole bodies.
+    function_relocations = {217:215, 221:219} if routine else {}
+    address_delta = 50304 if routine else 46528
+    diagnostic_address = 8688272 if routine else 8687786
     graph=json.loads((ROOT/'docs/reviews/v050-access-paths-evidence/direct-call-graph.json').read_text())
     seen=set();todo=[217,221,152]
     while todo:
@@ -44,13 +50,15 @@ def main():
     for n in sorted(seen):
         info=graph[str(n)];rel=info['file'].removeprefix('internal/generatedgo/')
         source=runtime/rel;assert sha(source)==prov['files_sha256'][rel]
-        old=body(ROOT/info['file'],'Fn'+str(n));new=body(source,'Fn'+str(n))
+        old=body(ROOT/info['file'],'Fn'+str(n));new=body(source,'Fn'+str(function_relocations.get(n,n)))
+        for original,relocated in function_relocations.items():
+            old=re.sub(r'\bFn'+str(original)+r'\b', 'Fn'+str(relocated), old)
         # Default canonical and candidate both retain the completion handoff.
         x,y=normalized(old),normalized(new)
         assert literal.sub('#',x)==literal.sub('#',y),f'function structure changed: {n}'
         changes=sorted(set((int(i),int(j)) for i,j in zip(literal.findall(x),literal.findall(y)) if i!=j))
         for i,j in changes:
-            assert (15239105<=i<=15301648 and j-i==46528) or (i,j)==(8687180,8687786),(n,i,j)
+            assert (15239105<=i<=15301648 and j-i==address_delta) or (i,j)==(8687180,diagnostic_address),(n,i,j)
         assert not re.search(r'\bm\.T\d+\[',new),'unexpected indirect call'
         identities[str(n)]=dict(source_sha256=sha(source),body_sha256=hashlib.sha256(new.encode()).hexdigest(),integer_literal_relocations=changes,non_literal_structure_equal=True)
         defs.append(new)
@@ -68,23 +76,29 @@ def main():
     data=data_file(runtime/'code/generated.go');old_data=data_file(ROOT/'internal/generatedgo/code/generated.go')
     def cstring(b,addr):
         pos=addr-8388608;return b[pos:b.index(b'\0',pos)]
-    assert cstring(data,8687786)==cstring(old_data,8687180)
+    assert cstring(data,diagnostic_address)==cstring(old_data,8687180)
     (probe/'data.bin').write_bytes(data)
     generated=(runtime/'code/generated.go').read_text()
-    assert 'wasm2goData_data_bin[0:6208038], wasm2goData_data_bin[6208038:6850658], wasm2goData_data_bin[6850658:6896979]' in generated
+    first,second,third = (6211814,6854434,6900755) if routine else (6208038,6850658,6896979)
+    second_address,third_address = (14600448,15243072) if routine else (14596672,15239296)
+    assert f'wasm2goData_data_bin[0:{first}], wasm2goData_data_bin[{first}:{second}], wasm2goData_data_bin[{second}:{third}]' in generated
     init=body(runtime/'code/p7/p7_pure.go','Fn67')
-    for fragment in ['base.MemoryInit(m, 0, int32(8388608), v7, int32(6208038))','base.MemoryInit(m, 1, int32(14596672), v7, int32(642620))','v14 = int32(15239296)','base.MemoryInit(m, 2, v14, v7, int32(46321))']:
+    for fragment in [f'base.MemoryInit(m, 0, int32(8388608), v7, int32({first}))',f'base.MemoryInit(m, 1, int32({second_address}), v7, int32(642620))',f'v14 = int32({third_address})','base.MemoryInit(m, 2, v14, v7, int32(46321))']:
         assert fragment in init,fragment
     template=ROOT/'benchmarks/spikes/v050-join-lifetime/probe_test.go.txt';test=template.read_text()
     replacements={
-        'copy(memory[8388608:], data[:6207334])':'copy(memory[8388608:], data[:6208038])',
-        'copy(memory[14595968:], data[6207334:6849954])':'copy(memory[14596672:], data[6208038:6850658])',
-        'copy(memory[15238592:], data[6849954:])':'copy(memory[15239296:], data[6850658:])',
-        'put(15243132, 123)':'put(15289660, 123)',
-        'put(15244240, 0)':'put(15290768, 0)',
-        'put(15244244, tc.waiters)':'put(15290772, tc.waiters)',
+        'copy(memory[8388608:], data[:6207334])':f'copy(memory[8388608:], data[:{first}])',
+        'copy(memory[14595968:], data[6207334:6849954])':f'copy(memory[{second_address}:], data[{first}:{second}])',
+        'copy(memory[15238592:], data[6849954:])':f'copy(memory[{third_address}:], data[{second}:])',
+        'put(15243132, 123)':f'put({15243132+address_delta}, 123)',
+        'put(15244240, 0)':f'put({15244240+address_delta}, 0)',
+        'put(15244244, tc.waiters)':f'put({15244244+address_delta}, tc.waiters)',
     }
     for old,new in replacements.items():assert test.count(old)==1;test=test.replace(old,new)
+    for original,relocated in function_relocations.items():
+        old=f'Fn{original}(';new=f'Fn{relocated}('
+        assert test.count(old)==1;test=test.replace(old,new)
+        replacements[old]=new
     (probe/'probe_test.go').write_text(test)
     (out/'identities.json').write_text(json.dumps(dict(guest_sha256=prov['guest_sha256'],provenance_sha256=sha(runtime/'provenance.json'),functions=identities,copied_source_sha256=copied,canonical_oracle_sha256=sha(template),rebased_oracle_sha256=sha(probe/'probe_test.go'),only_oracle_changes=replacements,observer='same single wake pause; canonical assertions unchanged',data_sha256=sha(probe/'data.bin')),indent=2)+'\n')
     print(module)

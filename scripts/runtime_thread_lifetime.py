@@ -34,6 +34,17 @@ REVIEWED_BINDINGS = {GUEST_SHA256: FUNCTIONS, PREPARED_SPIKE_GUEST: PREPARED_SPI
                      OPTION_SPIKE_GUEST: PREPARED_SPIKE_FUNCTIONS}
 
 
+# Routine-bootstrap candidate: reviewed fixed function-index/data relocations.
+# Canonical/default identities remain unchanged; unknown bodies still fail closed.
+ROUTINE_BOOTSTRAP_GUEST = "25df44f57849f00c191f2f33e48fa1d0d711856f8b17e2fc088044847755d0c0"
+ROUTINE_BOOTSTRAP_FUNCTIONS = {
+    "code/p3/p3_pure.go": ("Fn153", "69d7332f9e7394f785c30f5f99f68d915967d1809169259f1cdd8f59811967dd"),
+    "code/p8/p8_pure.go": FUNCTIONS["code/p8/p8_pure.go"],
+    "code/p5/p5_pure.go": ("Fn214", "1d3576a757e65cecf336d24d38a98ad54d12257bd6fcb3c82585f4f7e71728fb"),
+}
+REVIEWED_BINDINGS[ROUTINE_BOOTSTRAP_GUEST] = ROUTINE_BOOTSTRAP_FUNCTIONS
+
+
 def validate_inputs(guest_sha256, candidate_files):
     required = {"generated/base/base.go", *("generated/" + p.removeprefix("code/") for p in FUNCTIONS)}
     if guest_sha256 not in REVIEWED_BINDINGS or not required <= set(candidate_files):

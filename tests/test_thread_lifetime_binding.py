@@ -75,3 +75,21 @@ def test_multi_spike_keeps_exact_body_mutation_gate(name, guest_sha256):
     changed = text.replace('mBase := m.M', 'mBase := unsafe.Pointer(nil)', 1)
     with pytest.raises(ValueError, match='function changed'):
         binding.apply(name, changed, guest_sha256=guest_sha256)
+
+
+@pytest.mark.parametrize('name', list(binding.ROUTINE_BOOTSTRAP_FUNCTIONS))
+def test_routine_bootstrap_binding_rejects_body_mutations(name):
+    fn = binding.ROUTINE_BOOTSTRAP_FUNCTIONS[name][0]
+    text = (ROOT/'tests/fixtures'/('routine-'+fn+'.go.txt')).read_text()
+    binding.apply(name, text, guest_sha256=binding.ROUTINE_BOOTSTRAP_GUEST)
+    with pytest.raises(ValueError, match='function changed'):
+        binding.apply(name, text.replace('mBase := m.M', 'mBase := unsafe.Pointer(nil)', 1),
+                      guest_sha256=binding.ROUTINE_BOOTSTRAP_GUEST)
+
+
+def test_routine_bootstrap_guest_is_exact_and_requires_every_input():
+    files = {'generated/base/base.go', *('generated/'+p.removeprefix('code/') for p in binding.ROUTINE_BOOTSTRAP_FUNCTIONS)}
+    binding.validate_inputs(binding.ROUTINE_BOOTSTRAP_GUEST, files)
+    for file in files:
+        with pytest.raises(ValueError, match='unreviewed'):
+            binding.validate_inputs(binding.ROUTINE_BOOTSTRAP_GUEST, files-{file})
