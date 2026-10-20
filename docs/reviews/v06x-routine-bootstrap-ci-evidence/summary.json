@@ -1,0 +1,139 @@
+{
+  "candidate_source_commit": "2c599bb904e3d523585347ccefc57ee1d833a993",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39379752111",
+  "qualification": false,
+  "platforms": {
+    "native-macos-15": {
+      "environment": {
+        "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+        "system": "Darwin",
+        "machine": "arm64",
+        "openssl": "OpenSSL 3.5.7 9 Jun 2026",
+        "pymysql": "1.2.3",
+        "host_sha256": "1eb79b527c16ade9001f60b9a451021c703214d745357c4366e0bad6e4c95b2b"
+      },
+      "connector": {
+        "result": "PASS",
+        "version": "26.7.0",
+        "default_connection": "CMySQLConnection",
+        "text_call": [
+          [
+            [
+              7
+            ]
+          ],
+          [
+            [
+              8
+            ]
+          ]
+        ],
+        "prepared_expression": 20
+      },
+      "guest_sha256": "118ef83ee066d57f946603f7e2a2b2c60d9b5f1cd4d627c3d18a73cbd963350c",
+      "host_sha256": "1eb79b527c16ade9001f60b9a451021c703214d745357c4366e0bad6e4c95b2b",
+      "input_tests_passed": 55,
+      "runtime_tests_passed": 8,
+      "j1": [
+        {
+          "case": "j1-heap-protected-0-race-0",
+          "returncode": 1
+        },
+        {
+          "case": "j1-heap-protected-1-race-0",
+          "returncode": 0
+        },
+        {
+          "case": "j1-heap-protected-1-race-1",
+          "returncode": 0
+        },
+        {
+          "case": "j1-mmap-protected-0-race-0",
+          "returncode": 1
+        },
+        {
+          "case": "j1-mmap-protected-1-race-0",
+          "returncode": 0
+        },
+        {
+          "case": "j1-mmap-protected-1-race-1",
+          "returncode": 0
+        }
+      ],
+      "mapping_creates": 9,
+      "mapping_releases": 9,
+      "mapping_final_active": 0
+    },
+    "native-ubuntu-24.04": {
+      "environment": {
+        "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+        "system": "Linux",
+        "machine": "x86_64",
+        "openssl": "OpenSSL 3.0.13 30 Jan 2024",
+        "pymysql": "1.2.3",
+        "host_sha256": "9fafa1297eb674bce04a01c79d4f0921d1536fbb546fb2ad7b0ba15dd3c6fad5"
+      },
+      "connector": {
+        "result": "PASS",
+        "version": "26.7.0",
+        "default_connection": "MySQLConnection",
+        "text_call": [
+          [
+            [
+              7
+            ]
+          ],
+          [
+            [
+              8
+            ]
+          ]
+        ],
+        "prepared_expression": 20
+      },
+      "guest_sha256": "118ef83ee066d57f946603f7e2a2b2c60d9b5f1cd4d627c3d18a73cbd963350c",
+      "host_sha256": "9fafa1297eb674bce04a01c79d4f0921d1536fbb546fb2ad7b0ba15dd3c6fad5",
+      "input_tests_passed": 55,
+      "runtime_tests_passed": 8,
+      "j1": [
+        {
+          "case": "j1-heap-protected-0-race-0",
+          "returncode": 1
+        },
+        {
+          "case": "j1-heap-protected-1-race-0",
+          "returncode": 0
+        },
+        {
+          "case": "j1-heap-protected-1-race-1",
+          "returncode": 0
+        },
+        {
+          "case": "j1-mmap-protected-0-race-0",
+          "returncode": 1
+        },
+        {
+          "case": "j1-mmap-protected-1-race-0",
+          "returncode": 0
+        },
+        {
+          "case": "j1-mmap-protected-1-race-1",
+          "returncode": 0
+        }
+      ],
+      "mapping_creates": 9,
+      "mapping_releases": 9,
+      "mapping_final_active": 0
+    }
+  },
+  "cross_platform_identity": {
+    "raw_file_hashes_equal": 51,
+    "converter_patch_hashes_equal": 13,
+    "installed_equal": 98,
+    "installed_total": 99,
+    "installed_differences": [
+      "provenance.json"
+    ],
+    "note": "Input records and converter executable binaries differ by platform; this is not identical-input 99-file equality."
+  }
+}

@@ -782,8 +782,13 @@ on `experiment/routine-bootstrap`; the [implementation results](reviews/v06x-rou
 record macOS arm64 PASS for immediate routines, Snapshot/Fork isolation, rejected
 restored definitions/cleanup and unchanged J1 failure/protection oracles. Fixed
 guest `118ef83e` has independent raw52/installed99-file regeneration evidence.
-Native Ubuntu acceptance is pending the separate candidate CI; no PASS or main
-adoption is inferred from local verification.
+[Candidate CI 39379752111](https://github.com/masahitojp/mariamem/actions/runs/39379752111)
+passed guest build and both native platforms on exact source
+`2c599bb904e3d523585347ccefc57ee1d833a993`, including default Connector/Python26.7.0,
+routine isolation, invalid-restore cleanup and J1 oracles. The
+[post-CI Human Review](reviews/v06x-routine-bootstrap-ci-review.md) retains exact
+receipts, platform/identity differences and outstanding canonical promotion.
+This is UNQUALIFIED development-product evidence, not main adoption.
 Version placement, main integration, Qualification and release remain separate;
 the prepared/multi-statement decision is not advanced by this approval.
 
