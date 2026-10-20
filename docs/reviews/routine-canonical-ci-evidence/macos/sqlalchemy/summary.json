@@ -1,0 +1,78 @@
+{
+  "source_commit": "03184a61a63b1977a1d05ed378404f59d57cf68e",
+  "runs": [
+    {
+      "name": "1-start",
+      "mode": "start",
+      "returncode": 0,
+      "suite_seconds": 3.941690375000235,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "3.327",
+          "timestamp": "2026-10-20T11:03:02.978751+00:00",
+          "hostname": "sjc22-bm208-a9f459bc-d72e-4a49-8d86-95a6144c399e-FAFF5F3CD7BA.local"
+        }
+      ]
+    },
+    {
+      "name": "2-fork",
+      "mode": "fork",
+      "returncode": 0,
+      "suite_seconds": 2.463993291999941,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.877",
+          "timestamp": "2026-10-20T11:03:06.934676+00:00",
+          "hostname": "sjc22-bm208-a9f459bc-d72e-4a49-8d86-95a6144c399e-FAFF5F3CD7BA.local"
+        }
+      ]
+    },
+    {
+      "name": "3-fork",
+      "mode": "fork",
+      "returncode": 0,
+      "suite_seconds": 2.1708001670003796,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.663",
+          "timestamp": "2026-10-20T11:03:09.319491+00:00",
+          "hostname": "sjc22-bm208-a9f459bc-d72e-4a49-8d86-95a6144c399e-FAFF5F3CD7BA.local"
+        }
+      ]
+    },
+    {
+      "name": "4-start",
+      "mode": "start",
+      "returncode": 0,
+      "suite_seconds": 3.485895666000033,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "2.961",
+          "timestamp": "2026-10-20T11:03:11.502760+00:00",
+          "hostname": "sjc22-bm208-a9f459bc-d72e-4a49-8d86-95a6144c399e-FAFF5F3CD7BA.local"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

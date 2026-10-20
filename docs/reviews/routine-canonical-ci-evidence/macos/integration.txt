@@ -1,0 +1,24 @@
++ go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+ok  	github.com/masahitojp/mariamem/internal/artifacts	2.220s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	3.480s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	1.876s
+ok  	github.com/masahitojp/mariamem/internal/guest	1.149s
+ok  	github.com/masahitojp/mariamem/internal/host	1.083s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.164s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.379s
+ok  	github.com/masahitojp/mariamem/internal/control	1.133s
+ok  	github.com/masahitojp/mariamem/internal/prepared	1.381s
+ok  	github.com/masahitojp/mariamem	1.178s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	9.396s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	1.633s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	0.489s
++ go build -p 1 -o /var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/mariamem-integration-fpq_4kz4/mariamem-host ./cmd/mariamem-host
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ /Library/Frameworks/Python.framework/Versions/3.14/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py tests/test_routine_runtime.py tests/test_text_multi_runtime.py -q
+................................                                         [100%]
+32 passed in 41.04s
++ /Library/Frameworks/Python.framework/Versions/3.14/bin/python tests/snapshots.py
+{"passed": true, "checks": 33, "error": null, "evidence": "<user-home>/work/mariamem/mariamem/tests/evidence/snapshots.json"}

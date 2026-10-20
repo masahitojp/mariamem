@@ -1,0 +1,531 @@
+{
+  "mode": "fork",
+  "python": "3.14.7",
+  "native_dir_override": null,
+  "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+  "architecture": "arm64",
+  "packages": {
+    "mariamem": "0.5.3",
+    "SQLAlchemy": "2.0.54",
+    "PyMySQL": "1.2.3",
+    "pytest": "8.4.2"
+  },
+  "cases": [
+    {
+      "test": "test_01_committed_data_without_cleanup",
+      "database_id": "31006d3f29bf3f8a983971ecb5760271",
+      "connects": 1,
+      "checkouts": 4,
+      "checkins": 4,
+      "resets": 4,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 103.68329199991422,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 2,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_02_next_database_cannot_see_committed_data",
+      "database_id": "bc3c4f0ac2242898105081b91f8f0ad3",
+      "connects": 1,
+      "checkouts": 3,
+      "checkins": 3,
+      "resets": 3,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "SELECT user_account.id, user_account.name, user_account.fullname \nFROM user_account \nWHERE user_account.name = %(name_1)s",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 98.99166600007447,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_03_update_commit_and_delete",
+      "database_id": "bfe74d3bf44c59c87686200b5a7e4960",
+      "connects": 1,
+      "checkouts": 5,
+      "checkins": 5,
+      "resets": 5,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "SELECT user_account.id, user_account.name, user_account.fullname \nFROM user_account",
+        "UPDATE user_account SET fullname=%(fullname)s WHERE user_account.id = %(user_account_id)s",
+        "SELECT address.id AS address_id, address.email_address AS address_email_address, address.user_id AS address_user_id \nFROM address \nWHERE %(param_1)s = address.user_id",
+        "SELECT user_account.id, user_account.name, user_account.fullname \nFROM user_account INNER JOIN address ON user_account.id = address.user_id \nWHERE address.email_address = %(email_address_1)s",
+        "SELECT user_account.fullname \nFROM user_account",
+        "SELECT address.id, address.email_address, address.user_id \nFROM address",
+        "DELETE FROM address WHERE address.id = %(id)s",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 107.56266699991102,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_04_explicit_business_rollback",
+      "database_id": "34a8f068c6c2960c7ac87360a82db586",
+      "connects": 1,
+      "checkouts": 4,
+      "checkins": 4,
+      "resets": 4,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "SELECT user_account.id, user_account.name, user_account.fullname \nFROM user_account \nWHERE user_account.name = %(name_1)s",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 91.97691700001087,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_05_constraint_error_is_recoverable[unique-1062]",
+      "database_id": "205e6a8312d5d839e2ddba2c753f2ca2",
+      "connects": 1,
+      "checkouts": 4,
+      "checkins": 4,
+      "resets": 4,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 90.37137499990422,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_05_constraint_error_is_recoverable[not_null-1048]",
+      "database_id": "b3e538ecc287532f35a387ea153810ac",
+      "connects": 1,
+      "checkouts": 4,
+      "checkins": 4,
+      "resets": 4,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 109.53387499966993,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_05_constraint_error_is_recoverable[foreign_key-1452]",
+      "database_id": "0a9c3d360a64501becc042d8de51592b",
+      "connects": 1,
+      "checkouts": 4,
+      "checkins": 4,
+      "resets": 4,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)",
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 106.17233300035878,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_06_metadata_and_autocommit",
+      "database_id": "c776227ce2c4f0e310f7ebf693db0e56",
+      "connects": 1,
+      "checkouts": 11,
+      "checkins": 11,
+      "resets": 11,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "SHOW FULL TABLES FROM `test`",
+        "SHOW CREATE TABLE `user_account`",
+        "SHOW CREATE TABLE `address`",
+        "SHOW FULL TABLES FROM `test`",
+        "SHOW CREATE TABLE `address`",
+        "SHOW CREATE TABLE `user_account`",
+        "INSERT INTO user_account(name) VALUES ('autocommit@example.test')",
+        "SELECT COUNT(*) FROM user_account",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 118.14616700030456,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "final_users": 2,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_07_normal_pool_and_session_state",
+      "database_id": "33e9a003beaf5685714f38cf95cf053f",
+      "connects": 2,
+      "checkouts": 6,
+      "checkins": 6,
+      "resets": 6,
+      "closes": 2,
+      "peak_checked_out": 2,
+      "sql": [
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "SELECT CONNECTION_ID()",
+        "SELECT CONNECTION_ID()",
+        "SET @dogfood_state = 42",
+        "CREATE TEMPORARY TABLE dogfood_temp(id INT)",
+        "SELECT @dogfood_state",
+        "SELECT COUNT(*) FROM dogfood_temp",
+        "INSERT INTO user_account(name) VALUES ('uncommitted@example.test')",
+        "SELECT CONNECTION_ID()",
+        "SELECT COUNT(*) FROM user_account WHERE name='uncommitted@example.test'",
+        "SELECT @dogfood_state",
+        "SELECT CONNECTION_ID()",
+        "SELECT COUNT(*) FROM user_account WHERE name='uncommitted@example.test'",
+        "SELECT @dogfood_state",
+        "SELECT COUNT(*) FROM dogfood_temp",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 91.86766700031512,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "temporary_table_survived_checkin": true,
+      "reused_session_variables": [
+        null,
+        42
+      ],
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_08_shutdown_with_idle_pool_connections",
+      "database_id": "0d79f1e2f1aef2213b613760822fabab",
+      "connects": 1,
+      "checkouts": 2,
+      "checkins": 2,
+      "resets": 2,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "SELECT 1"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 97.21416699994734,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "database_first_shutdown": "PASS",
+      "cleanup": "PASS"
+    },
+    {
+      "test": "test_09_matched_rowcount_observation",
+      "database_id": "26b356eec63c4a2c38150790aa05a8b3",
+      "connects": 1,
+      "checkouts": 3,
+      "checkins": 3,
+      "resets": 3,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "SELECT count(*) AS count_1 \nFROM user_account",
+        "SELECT count(*) AS count_1 \nFROM address",
+        "SELECT user_account.name \nFROM user_account",
+        "SELECT VERSION()",
+        "UPDATE user_account SET name=name WHERE id=1",
+        "SELECT count(*) AS count_1 \nFROM user_account"
+      ],
+      "server_version": "12.3.3-MariaDB-embedded",
+      "handshake_version": "12.3.3-MariaDB-embedded",
+      "ready_ms": 91.74341700008881,
+      "dialect": {
+        "name": "mysql",
+        "is_mariadb": true,
+        "version": [
+          12,
+          3,
+          3
+        ],
+        "insert_returning": true,
+        "delete_returning": true
+      },
+      "pool": {
+        "class": "QueuePool",
+        "size": 5,
+        "max_overflow": 10
+      },
+      "noop_update_rowcount": 1,
+      "final_users": 1,
+      "after_dispose_sessions": 0,
+      "cleanup": "PASS"
+    }
+  ],
+  "templates": [
+    {
+      "connects": 1,
+      "checkouts": 2,
+      "checkins": 2,
+      "resets": 2,
+      "closes": 1,
+      "peak_checked_out": 1,
+      "sql": [
+        "DESCRIBE `test`.`user_account`",
+        "DESCRIBE `test`.`address`",
+        "\nCREATE TABLE user_account (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\tname VARCHAR(30) NOT NULL, \n\tfullname VARCHAR(120), \n\tPRIMARY KEY (id), \n\tUNIQUE (name)\n)ENGINE=InnoDB\n\n",
+        "\nCREATE TABLE address (\n\tid INTEGER NOT NULL AUTO_INCREMENT, \n\temail_address VARCHAR(120) NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user_account (id)\n)ENGINE=InnoDB\n\n",
+        "INSERT INTO user_account (name, fullname) VALUES (%(name)s, %(fullname)s)",
+        "INSERT INTO address (email_address, user_id) VALUES (%(email_address)s, %(user_id)s)"
+      ],
+      "setup_snapshot_ms": 238.9032920000318
+    }
+  ],
+  "wheel_origin": {
+    "archive_info": {
+      "hash": "sha256=b8255d0d8506fa6b132ca9013f2957530267e87e567de0bf9bd3be6458d39ea3",
+      "hashes": {
+        "sha256": "b8255d0d8506fa6b132ca9013f2957530267e87e567de0bf9bd3be6458d39ea3"
+      }
+    },
+    "url": "file://<user-home>/work/mariamem/mariamem/build/dist/mariamem-0.5.3-py3-none-macosx_15_0_arm64.whl"
+  },
+  "native_manifest": {
+    "version": 1,
+    "package_version": "0.5.3",
+    "platform": "darwin-arm64",
+    "minimum_macos": 15,
+    "runtime_kind": "generated-go",
+    "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
+    "public_release_ready": false,
+    "sha256": {
+      "mariamem-host": "49c502d3ffb77e7cef228a409496a2ce952ca46ca32ce7e4cddf21aaa7f248f3"
+    }
+  }
+}

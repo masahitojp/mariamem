@@ -1,11 +1,10 @@
 {
   "compiled_guest_source_scope": "MariaDB12.3.3 canonical routine/text overlays; no experimental.patch; binary prepared excluded",
-  "completed": false,
-  "full_guest_regeneration": false,
+  "completed": true,
+  "full_guest_regeneration": true,
   "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
   "guest_size": 18376493,
   "linked_guest_sha256": "f58eb48ffdea1b5a7978d1dc2af9e2d702518991007b611d46ab8a30da6ed6bb",
-  "pending": "Same-input independent two-build receipt will be produced by canonical candidate CI",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.3",
@@ -206,9 +205,13 @@
     {
       "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
       "linked_sha256": "f58eb48ffdea1b5a7978d1dc2af9e2d702518991007b611d46ab8a30da6ed6bb"
+    },
+    {
+      "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
+      "linked_sha256": "f58eb48ffdea1b5a7978d1dc2af9e2d702518991007b611d46ab8a30da6ed6bb"
     }
   ],
-  "source_commit": "587f7d162cf4361f7ede78de3d0438ff7a7aecaa",
+  "source_commit": "03184a61a63b1977a1d05ed378404f59d57cf68e",
   "toolchain": {
     "archives_sha256": {
       "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
@@ -243,5 +246,11 @@
       "python": "Python 3.12.3",
       "wasixcc": "wasixcc 0.4.7"
     }
+  },
+  "ci_evidence": {
+    "run_id": 39406398732,
+    "source_commit": "03184a61a63b1977a1d05ed378404f59d57cf68e",
+    "receipt": "docs/reviews/routine-canonical-ci-evidence/guest.json",
+    "review": "docs/reviews/routine-canonical-ci-review.md"
   }
 }

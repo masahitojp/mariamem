@@ -1,0 +1,651 @@
+{
+  "run_id": 39406398732,
+  "tested_source_commit": "03184a61a63b1977a1d05ed378404f59d57cf68e",
+  "files": [
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/auth.txt",
+      "stored": "macos/auth.txt",
+      "original_sha256": "7c6781dc56540ae2ca7151b6c182967f069ca198426b752903d72d5fe00e2ea2",
+      "stored_sha256": "7c6781dc56540ae2ca7151b6c182967f069ca198426b752903d72d5fe00e2ea2",
+      "bytes": 3279
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/build-guard.txt",
+      "stored": "macos/build-guard.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/check.txt",
+      "stored": "macos/check.txt",
+      "original_sha256": "566037b6eace5fc8525482d79040069e79b592a499f8ef488672df07700b27e0",
+      "stored_sha256": "8bc7b5f89a83c14cb3cecadaf07e142131e50b6dd7131d018c3c9cb1f7805196",
+      "bytes": 4627
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/connector-regression.json",
+      "stored": "macos/connector-regression.json",
+      "original_sha256": "e47baec4391847507a4bfdfd07e7799853af6af8f7aef98d88ef451de77157f1",
+      "stored_sha256": "e47baec4391847507a4bfdfd07e7799853af6af8f7aef98d88ef451de77157f1",
+      "bytes": 214
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/definer.json",
+      "stored": "macos/definer.json",
+      "original_sha256": "43923b9866c857ab56b02a8604f171c822449d3b35279cdf96cbbf5f6db06292",
+      "stored_sha256": "43923b9866c857ab56b02a8604f171c822449d3b35279cdf96cbbf5f6db06292",
+      "bytes": 71270
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/definer.txt",
+      "stored": "macos/definer.txt",
+      "original_sha256": "7ce2d220b59c7b36fed9f33412941e559577aeb68af5fb64565a32d2931d8028",
+      "stored_sha256": "7ce2d220b59c7b36fed9f33412941e559577aeb68af5fb64565a32d2931d8028",
+      "bytes": 64
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/go-routines.json",
+      "stored": "macos/go-routines.json",
+      "original_sha256": "0250f72a4c4ade3177946cc868be718073f87c5ccc5a621c2924bacb7896c707",
+      "stored_sha256": "0250f72a4c4ade3177946cc868be718073f87c5ccc5a621c2924bacb7896c707",
+      "bytes": 6167
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/go-routines.txt",
+      "stored": "macos/go-routines.txt",
+      "original_sha256": "0250f72a4c4ade3177946cc868be718073f87c5ccc5a621c2924bacb7896c707",
+      "stored_sha256": "0250f72a4c4ade3177946cc868be718073f87c5ccc5a621c2924bacb7896c707",
+      "bytes": 6167
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/1-start.json",
+      "stored": "macos/gorm/1-start.json",
+      "original_sha256": "eedf0636ebb1d62c7c1501f51a544dc4ad7b4e95691a7362886a6f767c97f617",
+      "stored_sha256": "9736ade26ed968c5e148b62acae4e08b80f39e06df2d2805e43dcb3807b5609d",
+      "bytes": 17012
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/1-start.txt",
+      "stored": "macos/gorm/1-start.txt",
+      "original_sha256": "7cc31c7246bcf7ad3b59af16b1b297aa764447dd1ddbdbbb9fd11d232322effe",
+      "stored_sha256": "7cc31c7246bcf7ad3b59af16b1b297aa764447dd1ddbdbbb9fd11d232322effe",
+      "bytes": 2683
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/2-fork.json",
+      "stored": "macos/gorm/2-fork.json",
+      "original_sha256": "44fea8d961413d237382831f7e00dda9087cfcf97251456e09d5851b3e747dc9",
+      "stored_sha256": "ce5e9d4d02d4960499ef7cf20beb3cac78d85b3429c417aeadd6837e166663e0",
+      "bytes": 17031
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/2-fork.txt",
+      "stored": "macos/gorm/2-fork.txt",
+      "original_sha256": "470732f6a979ab6b060c759240a58136ca6aa70ad820b17b2e83c43b291362cb",
+      "stored_sha256": "470732f6a979ab6b060c759240a58136ca6aa70ad820b17b2e83c43b291362cb",
+      "bytes": 2404
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/3-fork.json",
+      "stored": "macos/gorm/3-fork.json",
+      "original_sha256": "e7a8a1f76c7dd93b40dc9d3bdd8ca01737ce26f27c519cb9bb61276a536fa394",
+      "stored_sha256": "ce493b9479f302dd9a4df99d6fdcf1663f432818cd7af4545bb577852d0fc160",
+      "bytes": 17040
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/3-fork.txt",
+      "stored": "macos/gorm/3-fork.txt",
+      "original_sha256": "c3cd219f20865fbbb8644609dd9417b3c6ca7feb9681f98fa895efe849c6bad2",
+      "stored_sha256": "c3cd219f20865fbbb8644609dd9417b3c6ca7feb9681f98fa895efe849c6bad2",
+      "bytes": 2404
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/4-start.json",
+      "stored": "macos/gorm/4-start.json",
+      "original_sha256": "9318703472ed50567ad5af2d0e81db1585e74d3c48dd21c8c068224d97eab5a4",
+      "stored_sha256": "6ff3c58ac28b7fcbff1404bdc35ebf3b7a82ef970f00a7ded3e73ce19a6a04ee",
+      "bytes": 17002
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/4-start.txt",
+      "stored": "macos/gorm/4-start.txt",
+      "original_sha256": "9d6aa8b9a99db5b85def14d604b48f47e0b1b477c3aa42c8dfc31a2fd84d04a0",
+      "stored_sha256": "9d6aa8b9a99db5b85def14d604b48f47e0b1b477c3aa42c8dfc31a2fd84d04a0",
+      "bytes": 2404
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/summary.json",
+      "stored": "macos/gorm/summary.json",
+      "original_sha256": "7f7c84b75ad66f4081167abd38e4742835f8f1de05b2b2a40797e588ff824316",
+      "stored_sha256": "7f7c84b75ad66f4081167abd38e4742835f8f1de05b2b2a40797e588ff824316",
+      "bytes": 437
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm.txt",
+      "stored": "macos/gorm.txt",
+      "original_sha256": "6b3301ab405fcad80b3881425faf320b9e189819ee2665a228a4520756f064c6",
+      "stored_sha256": "6b3301ab405fcad80b3881425faf320b9e189819ee2665a228a4520756f064c6",
+      "bytes": 342
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/guest.json",
+      "stored": "macos/guest.json",
+      "original_sha256": "4d3a773a528c347d0f9efa45eabe85c7ee5e9ebf208523aa2348dff605b31bef",
+      "stored_sha256": "4d3a773a528c347d0f9efa45eabe85c7ee5e9ebf208523aa2348dff605b31bef",
+      "bytes": 18514
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/heap-0.txt",
+      "stored": "macos/heap-0.txt",
+      "original_sha256": "4ab376c0108c49084762751cef0ac24932771b8a504772980b601ecdb68d4425",
+      "stored_sha256": "4ab376c0108c49084762751cef0ac24932771b8a504772980b601ecdb68d4425",
+      "bytes": 1060
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/heap-1-race.txt",
+      "stored": "macos/heap-1-race.txt",
+      "original_sha256": "4de4846f66c1ea8e123dca6c28fc8b0aefb5ce698c685a57d5eed0ae49de9bd9",
+      "stored_sha256": "4de4846f66c1ea8e123dca6c28fc8b0aefb5ce698c685a57d5eed0ae49de9bd9",
+      "bytes": 1224
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/heap-1.txt",
+      "stored": "macos/heap-1.txt",
+      "original_sha256": "4d3100d0c2f4189046f4a4e021d9afd6efdf8ac6d5caa351c3d5ec91281d203f",
+      "stored_sha256": "4d3100d0c2f4189046f4a4e021d9afd6efdf8ac6d5caa351c3d5ec91281d203f",
+      "bytes": 1224
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/integration.txt",
+      "stored": "macos/integration.txt",
+      "original_sha256": "9b949e96449ca298b589ede2756e48237a4b7772f90ce2b59175a77926a62b23",
+      "stored_sha256": "19d6f7e8ff251bf3d22fd3fedf3007eb852b90bd1f65870e0a889d3c0048b213",
+      "bytes": 2053
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/j1-identities.json",
+      "stored": "macos/j1-identities.json",
+      "original_sha256": "225875b08e23dbb7e9cd83121c7195f5d50e6146161b6b97f3a4681b19ebd038",
+      "stored_sha256": "225875b08e23dbb7e9cd83121c7195f5d50e6146161b6b97f3a4681b19ebd038",
+      "bytes": 11438
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/j1-results.json",
+      "stored": "macos/j1-results.json",
+      "original_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "stored_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "bytes": 617
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/j1.txt",
+      "stored": "macos/j1.txt",
+      "original_sha256": "ebeff15823acf16aff1b62432817b227fbc3dd53e249876f5a3663e14b01c118",
+      "stored_sha256": "07b1a48d963fdcad9dc69083e366c83d859c40a48a064700c8c65661dec9e5aa",
+      "bytes": 51
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/mmap-0.txt",
+      "stored": "macos/mmap-0.txt",
+      "original_sha256": "595158e9901a70ce0e83f53e7d079c1ddbf10c87f6ef9d1f404d4db6abefafcc",
+      "stored_sha256": "595158e9901a70ce0e83f53e7d079c1ddbf10c87f6ef9d1f404d4db6abefafcc",
+      "bytes": 1060
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/mmap-1-race.txt",
+      "stored": "macos/mmap-1-race.txt",
+      "original_sha256": "bd8bbe1d511dfa8fc61236f91c403e2452c6d5011aa08853aff66a4273768588",
+      "stored_sha256": "bd8bbe1d511dfa8fc61236f91c403e2452c6d5011aa08853aff66a4273768588",
+      "bytes": 1224
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/mmap-1.txt",
+      "stored": "macos/mmap-1.txt",
+      "original_sha256": "9ddcf8a63b75125e94730f9cd46bba04bf961046cd3e9bf675c43f605c4f0c1d",
+      "stored_sha256": "9ddcf8a63b75125e94730f9cd46bba04bf961046cd3e9bf675c43f605c4f0c1d",
+      "bytes": 1224
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/regeneration.json",
+      "stored": "macos/regeneration.json",
+      "original_sha256": "0e462426d33c84f8c369b9bf2b5cb4528b7f405220a07fcdd1dee3dec309e6ea",
+      "stored_sha256": "0e462426d33c84f8c369b9bf2b5cb4528b7f405220a07fcdd1dee3dec309e6ea",
+      "bytes": 16925
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/regeneration.txt",
+      "stored": "macos/regeneration.txt",
+      "original_sha256": "145ae8eb5677849632b1d7ee7d2e83ec861e6c8427614fed7aa277a670d2eb8c",
+      "stored_sha256": "6993805a1b8c51dea57d60e04ba085901a77464f1f32a6127a723fd06dcf4b73",
+      "bytes": 15041
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/runtime-environment.json",
+      "stored": "macos/runtime-environment.json",
+      "original_sha256": "c19e3bf1e96caa3a7e839b5d7e7910f82d0b5efcaf73617b7760067667f3509d",
+      "stored_sha256": "c19e3bf1e96caa3a7e839b5d7e7910f82d0b5efcaf73617b7760067667f3509d",
+      "bytes": 298
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/source.json",
+      "stored": "macos/source.json",
+      "original_sha256": "f44c74e369fda2ad249b2e71e877289bba6996565d27f80437d68ee948be1532",
+      "stored_sha256": "f44c74e369fda2ad249b2e71e877289bba6996565d27f80437d68ee948be1532",
+      "bytes": 153
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/1-start.json",
+      "stored": "macos/sqlalchemy/1-start.json",
+      "original_sha256": "fcc64fe61d5a543611534daab927f60a46bd322978f92e862162ddb4ebb7b5b9",
+      "stored_sha256": "5d790fbbabcef3ebcc143ea73d78c1e0c9adc1c3af41696513c7d76d448d6f18",
+      "bytes": 23642
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/1-start.log",
+      "stored": "macos/sqlalchemy/1-start.txt",
+      "original_sha256": "948fe2201d6dcc6b36ce934654d155b35f89d2f5da2ad1afe5dc55723152f75f",
+      "stored_sha256": "68668456292d42e27deb255e04a59edf3922b4af29067974fbdc866c817635a6",
+      "bytes": 198
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/2-fork.json",
+      "stored": "macos/sqlalchemy/2-fork.json",
+      "original_sha256": "b0be33c0dbbfcb639734b816fa74b0ffda8c4f39d34ace018606b1da61f01cf4",
+      "stored_sha256": "26bd20c1728ee5e58ee34f3607805e8e395d602c4667cb24d06b1390693da310",
+      "bytes": 16856
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/2-fork.log",
+      "stored": "macos/sqlalchemy/2-fork.txt",
+      "original_sha256": "b3c61336ee3fa947649b3589f66bc3e000127179ae4b42750eac888e6e5675be",
+      "stored_sha256": "7cb0cc940d9ae305cf38576e735590e83ae02d22a973363cf2ccb5fa162551b6",
+      "bytes": 197
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/3-fork.json",
+      "stored": "macos/sqlalchemy/3-fork.json",
+      "original_sha256": "6ffb8437801e604544993fa35feab512ece1a593febc42a9e1790c26b18865bd",
+      "stored_sha256": "0b0b9024b9ce694ae05170fdb08e8a87916e263a07e6b901061fb28add2906bd",
+      "bytes": 16852
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/3-fork.log",
+      "stored": "macos/sqlalchemy/3-fork.txt",
+      "original_sha256": "eab2ead1723b330e1b37a4b139e2d38fe83959d3e9502a717312c7b7f7ccdafb",
+      "stored_sha256": "3ae49302bc0ddfdc93eb6056a715b85730c6365712580c145599d2e155aa3361",
+      "bytes": 197
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/4-start.json",
+      "stored": "macos/sqlalchemy/4-start.json",
+      "original_sha256": "abed649ad7353128b5f1f7a5c41e50e0a7283a4da44ade251fa6e9aa9844240a",
+      "stored_sha256": "bdcf3358ef5d251ffd1b59f4766133f255cb3abef10f432cf75991cfc7615f7b",
+      "bytes": 23646
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/4-start.log",
+      "stored": "macos/sqlalchemy/4-start.txt",
+      "original_sha256": "31106563dc401677d376c4c69e6d1ab41a7f6dd7999727206175d783fab75273",
+      "stored_sha256": "f81f33462877e078dec27ac2192f521f6a60503b8a78679fed4a86b1484131ed",
+      "bytes": 198
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/summary.json",
+      "stored": "macos/sqlalchemy/summary.json",
+      "original_sha256": "35785584cbd500708f4bad21be89ebd2f0a0c6a2e7864adea675f9df74370e40",
+      "stored_sha256": "35785584cbd500708f4bad21be89ebd2f0a0c6a2e7864adea675f9df74370e40",
+      "bytes": 2017
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy.txt",
+      "stored": "macos/sqlalchemy.txt",
+      "original_sha256": "654b2f1281f4c11f5ce286aa872f9f8f17a353fcdeb6a4b9c04300a5e5195775",
+      "stored_sha256": "f6d21fc62529311120b4c32e3deca99e8dd6f24b86e3b4bf6500a18f7c9f6285",
+      "bytes": 1316
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-macos-15-03184a61a63b1977a1d05ed378404f59d57cf68e/wheel.txt",
+      "stored": "macos/wheel.txt",
+      "original_sha256": "23cd1586eed505ab89061688fd6349a0454c6b50eaf19eb4060043dbd4b76853",
+      "stored_sha256": "23cd1586eed505ab89061688fd6349a0454c6b50eaf19eb4060043dbd4b76853",
+      "bytes": 1054
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/auth.txt",
+      "stored": "ubuntu/auth.txt",
+      "original_sha256": "112bb6d7b5a147b478a36f8bbaa2b74571c2e4eac777d1212d84a499187129ac",
+      "stored_sha256": "112bb6d7b5a147b478a36f8bbaa2b74571c2e4eac777d1212d84a499187129ac",
+      "bytes": 3279
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/build-guard.txt",
+      "stored": "ubuntu/build-guard.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/check.txt",
+      "stored": "ubuntu/check.txt",
+      "original_sha256": "5d5c7b150cd3c53d04f7ca9408b690f6bd5a05df817dc8b53e0597abaf2dd92b",
+      "stored_sha256": "57aa24e849ff16695cab7e52aa7c3df10c0e48670220821f39a8c4df3a5053d6",
+      "bytes": 4569
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/connector-regression.json",
+      "stored": "ubuntu/connector-regression.json",
+      "original_sha256": "2a0bb7fb300bc76366c86eb1d7432ee967034394f537c0fc1ecebf342072304f",
+      "stored_sha256": "2a0bb7fb300bc76366c86eb1d7432ee967034394f537c0fc1ecebf342072304f",
+      "bytes": 213
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/definer.json",
+      "stored": "ubuntu/definer.json",
+      "original_sha256": "1c12170e363b74548c1b0fe60dee2cf9637624cad12c1995ab8c78cb4f556d58",
+      "stored_sha256": "1c12170e363b74548c1b0fe60dee2cf9637624cad12c1995ab8c78cb4f556d58",
+      "bytes": 71242
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/definer.txt",
+      "stored": "ubuntu/definer.txt",
+      "original_sha256": "7ce2d220b59c7b36fed9f33412941e559577aeb68af5fb64565a32d2931d8028",
+      "stored_sha256": "7ce2d220b59c7b36fed9f33412941e559577aeb68af5fb64565a32d2931d8028",
+      "bytes": 64
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/go-routines.json",
+      "stored": "ubuntu/go-routines.json",
+      "original_sha256": "6695b9aba059cead79be9963da90ada5db25d8e5a3fd3ad01125be90ada1192a",
+      "stored_sha256": "6695b9aba059cead79be9963da90ada5db25d8e5a3fd3ad01125be90ada1192a",
+      "bytes": 6167
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/go-routines.txt",
+      "stored": "ubuntu/go-routines.txt",
+      "original_sha256": "6695b9aba059cead79be9963da90ada5db25d8e5a3fd3ad01125be90ada1192a",
+      "stored_sha256": "6695b9aba059cead79be9963da90ada5db25d8e5a3fd3ad01125be90ada1192a",
+      "bytes": 6167
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/1-start.json",
+      "stored": "ubuntu/gorm/1-start.json",
+      "original_sha256": "315e9164718c530c7613fad7ad0857a161875448e2637d8bbbaf1f11eb401a8a",
+      "stored_sha256": "25e19759deb9ba040bd89dfc10136e3077030d601e0a3ee9576de3a563ad20da",
+      "bytes": 16942
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/1-start.txt",
+      "stored": "ubuntu/gorm/1-start.txt",
+      "original_sha256": "5d1c224f0143ac53d59f07d32033b60996b3d493bc7d3766b8ae042d8593d5d2",
+      "stored_sha256": "5d1c224f0143ac53d59f07d32033b60996b3d493bc7d3766b8ae042d8593d5d2",
+      "bytes": 2416
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/2-fork.json",
+      "stored": "ubuntu/gorm/2-fork.json",
+      "original_sha256": "5fa50841a885ae79970f2c68809d7c0f98065d8026d6fbd57c5b4829e4a8db71",
+      "stored_sha256": "925bf56835bddea43a607f6b5621c3af446b6223dc07d59d3a3c18791eb40add",
+      "bytes": 16968
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/2-fork.txt",
+      "stored": "ubuntu/gorm/2-fork.txt",
+      "original_sha256": "f2ce06d134e2b9c16132a218dae8b2a1f706cd555258d2d747887fe94c72b203",
+      "stored_sha256": "f2ce06d134e2b9c16132a218dae8b2a1f706cd555258d2d747887fe94c72b203",
+      "bytes": 2196
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/3-fork.json",
+      "stored": "ubuntu/gorm/3-fork.json",
+      "original_sha256": "be7124e2013aa486cbeac88cbfb82bf5ec22853b1b1eb0716edc585461c15bb0",
+      "stored_sha256": "f39c39635b2d799ba65da1ddf8655ae48e3c9d06129198a33bd48ef59f57ea51",
+      "bytes": 16969
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/3-fork.txt",
+      "stored": "ubuntu/gorm/3-fork.txt",
+      "original_sha256": "5148050dba01b7e9dd4671f1e5b379e6fdb7618ea30459fe89d74dfa04b9d165",
+      "stored_sha256": "5148050dba01b7e9dd4671f1e5b379e6fdb7618ea30459fe89d74dfa04b9d165",
+      "bytes": 2196
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/4-start.json",
+      "stored": "ubuntu/gorm/4-start.json",
+      "original_sha256": "115d8391e495a51e09cc6f55ec3a895aa7e8a9db350624dfb0540e25f7a5321a",
+      "stored_sha256": "4170e2394c0c789000e7df068dca7fd85ac1c9e3c2156800771f2cda6f929495",
+      "bytes": 16946
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/4-start.txt",
+      "stored": "ubuntu/gorm/4-start.txt",
+      "original_sha256": "9fe4cb2be60ec183fc2be8fdcfff9c3140a0c4bd3901c820c759fadef9bf3d57",
+      "stored_sha256": "9fe4cb2be60ec183fc2be8fdcfff9c3140a0c4bd3901c820c759fadef9bf3d57",
+      "bytes": 2196
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm/summary.json",
+      "stored": "ubuntu/gorm/summary.json",
+      "original_sha256": "0fc9e23f998f42c39eecb431a4c3a9e3a8c70ab5148a69ef5ef4844af2b3fc4e",
+      "stored_sha256": "0fc9e23f998f42c39eecb431a4c3a9e3a8c70ab5148a69ef5ef4844af2b3fc4e",
+      "bytes": 435
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/gorm.txt",
+      "stored": "ubuntu/gorm.txt",
+      "original_sha256": "58609cda39cf52eb99012cc0171bb19bc2079a26a92d6f20ef7aaea4e2d77586",
+      "stored_sha256": "58609cda39cf52eb99012cc0171bb19bc2079a26a92d6f20ef7aaea4e2d77586",
+      "bytes": 340
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/guest.json",
+      "stored": "ubuntu/guest.json",
+      "original_sha256": "4d3a773a528c347d0f9efa45eabe85c7ee5e9ebf208523aa2348dff605b31bef",
+      "stored_sha256": "4d3a773a528c347d0f9efa45eabe85c7ee5e9ebf208523aa2348dff605b31bef",
+      "bytes": 18514
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/heap-0.txt",
+      "stored": "ubuntu/heap-0.txt",
+      "original_sha256": "f9c0b3d59a6e65a7b12f7f651fdcbaa72729b3e5e289376c45c79873a589060f",
+      "stored_sha256": "f9c0b3d59a6e65a7b12f7f651fdcbaa72729b3e5e289376c45c79873a589060f",
+      "bytes": 1060
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/heap-1-race.txt",
+      "stored": "ubuntu/heap-1-race.txt",
+      "original_sha256": "7e17603a4e4c6cfb3b818d27f775024e338e59c1c2f4fcf1591fb9b83d7084b8",
+      "stored_sha256": "7e17603a4e4c6cfb3b818d27f775024e338e59c1c2f4fcf1591fb9b83d7084b8",
+      "bytes": 1224
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/heap-1.txt",
+      "stored": "ubuntu/heap-1.txt",
+      "original_sha256": "82b8da41cb3c3d99469a4838ad852188fe6efe4dd3b28446601ed6732958be2e",
+      "stored_sha256": "82b8da41cb3c3d99469a4838ad852188fe6efe4dd3b28446601ed6732958be2e",
+      "bytes": 1224
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/integration.txt",
+      "stored": "ubuntu/integration.txt",
+      "original_sha256": "9457551bf923eb64604370d0c37258abb98180cd98fda7521ba7db7b8125c195",
+      "stored_sha256": "3c62d13a60ea29ecac5f3ce9a1847ec3ba24d099be22886f1fef61cd41aa08c2",
+      "bytes": 1988
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/j1-identities.json",
+      "stored": "ubuntu/j1-identities.json",
+      "original_sha256": "473981d69c6d99817fef451a4d870d58b5c5e91527fcca7376960c6bd90354c1",
+      "stored_sha256": "473981d69c6d99817fef451a4d870d58b5c5e91527fcca7376960c6bd90354c1",
+      "bytes": 11438
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/j1-results.json",
+      "stored": "ubuntu/j1-results.json",
+      "original_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "stored_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "bytes": 617
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/j1.txt",
+      "stored": "ubuntu/j1.txt",
+      "original_sha256": "a1e54c69e872ccc2dc1fa3ee07360d96b23de6c42effafedef8b86ea26baf947",
+      "stored_sha256": "9f226bb61b52f586afb74b6902bfa4d41a9a32c8ff39344771e2d062142f0942",
+      "bytes": 53
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/mmap-0.txt",
+      "stored": "ubuntu/mmap-0.txt",
+      "original_sha256": "55e6620866cc8792a5b6eca819ef652889334c4336690e3f89da6fe81a69c032",
+      "stored_sha256": "55e6620866cc8792a5b6eca819ef652889334c4336690e3f89da6fe81a69c032",
+      "bytes": 1060
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/mmap-1-race.txt",
+      "stored": "ubuntu/mmap-1-race.txt",
+      "original_sha256": "c957c236be291f79866c3588c7aae49d43bc1051ed35469dcca753204dec4f31",
+      "stored_sha256": "c957c236be291f79866c3588c7aae49d43bc1051ed35469dcca753204dec4f31",
+      "bytes": 1224
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/mmap-1.txt",
+      "stored": "ubuntu/mmap-1.txt",
+      "original_sha256": "88b8f26533c37609a871dd4914faf19018897c7fb75a80f03eef3659b872c023",
+      "stored_sha256": "88b8f26533c37609a871dd4914faf19018897c7fb75a80f03eef3659b872c023",
+      "bytes": 1224
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/regeneration.json",
+      "stored": "ubuntu/regeneration.json",
+      "original_sha256": "5a732a0e76f993f136edf35bd7dcb3e3f5b1ee0b1c297efe3b331999796b678c",
+      "stored_sha256": "5a732a0e76f993f136edf35bd7dcb3e3f5b1ee0b1c297efe3b331999796b678c",
+      "bytes": 16925
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/regeneration.txt",
+      "stored": "ubuntu/regeneration.txt",
+      "original_sha256": "d8730808e7546a1c5cbd547e7c5db43ecf9770b340965ea5af804ffee96caff9",
+      "stored_sha256": "831204093a3252f7e3fae2b36b432f5c3e0276e21a7473ce4d193d28919e83ad",
+      "bytes": 15045
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/runtime-environment.json",
+      "stored": "ubuntu/runtime-environment.json",
+      "original_sha256": "44ad578c75cd115c9a6b64573cfe0fc99a56dd7f3ee029f1aa581059901ad64c",
+      "stored_sha256": "44ad578c75cd115c9a6b64573cfe0fc99a56dd7f3ee029f1aa581059901ad64c",
+      "bytes": 262
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/source.json",
+      "stored": "ubuntu/source.json",
+      "original_sha256": "f44c74e369fda2ad249b2e71e877289bba6996565d27f80437d68ee948be1532",
+      "stored_sha256": "f44c74e369fda2ad249b2e71e877289bba6996565d27f80437d68ee948be1532",
+      "bytes": 153
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/1-start.json",
+      "stored": "ubuntu/sqlalchemy/1-start.json",
+      "original_sha256": "c31833b4ff7f61880c17ec6b8ec36b8636519bdce1f1f484b1c211c36a333a65",
+      "stored_sha256": "5f79e2eef787ed3ee0ff1250f06db2cf9116e401e757391b2ee387faa403365d",
+      "bytes": 23723
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/1-start.log",
+      "stored": "ubuntu/sqlalchemy/1-start.txt",
+      "original_sha256": "df3a5b84a01759282d51461f2e7a4f51ba6debd8dc57448c1a24f6dc6e5b8c47",
+      "stored_sha256": "2e383465b0b3f6a326cf9d09fbf090bb599d7a932a15d4e33d4b7667d3542d23",
+      "bytes": 200
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/2-fork.json",
+      "stored": "ubuntu/sqlalchemy/2-fork.json",
+      "original_sha256": "e985835ba55aca13b7b9ca5a6efc214f004f4f2c9600397e971bf55f8061fbec",
+      "stored_sha256": "1d7b32a25f007afa209587e80422beb5be7af787a64b96f1fc980a3cdc478d20",
+      "bytes": 16929
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/2-fork.log",
+      "stored": "ubuntu/sqlalchemy/2-fork.txt",
+      "original_sha256": "fb24e24d3ee57f2768e93a4bec0eb5c231521d539e4d956ede434041d3da4fd6",
+      "stored_sha256": "a6710c99faec79b44c0dffe01f59c1ecc20f039db821cb2cf220fdd04528441a",
+      "bytes": 199
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/3-fork.json",
+      "stored": "ubuntu/sqlalchemy/3-fork.json",
+      "original_sha256": "d541d2deb9a7ec212044032ad0d5832b4e1975d59a9dced8babd06611a38286b",
+      "stored_sha256": "9acefbcf349c089e443015efad23699010a6472d070f13d4c0e129dae3d64771",
+      "bytes": 16932
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/3-fork.log",
+      "stored": "ubuntu/sqlalchemy/3-fork.txt",
+      "original_sha256": "1af8f9c816dc333fcad544442afe0150e793b0204c7b1dc1d372d3e4b3505a7c",
+      "stored_sha256": "45d2af697e3df1a3d38813a191e362d1a2ea24b4c9a4dcbbad4fe22fe626d91f",
+      "bytes": 199
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/4-start.json",
+      "stored": "ubuntu/sqlalchemy/4-start.json",
+      "original_sha256": "69b907d2c3e9d0fca73e4a2b30417e8aa9e0ea87480ebf536570d88c7b96e625",
+      "stored_sha256": "8d4039424705d2e6b29bd862ea4d5597c6b3fa606b9789d8108b7ca29259a7f6",
+      "bytes": 23720
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/4-start.log",
+      "stored": "ubuntu/sqlalchemy/4-start.txt",
+      "original_sha256": "e30472c486356cd0fd58a64307f785ab9bce75509e8ee6ac1d750cbd4dc117a8",
+      "stored_sha256": "e514d68e1e83d955d0da135b733cc1750e038359d89dd573c6228f5c92d89462",
+      "bytes": 200
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy/summary.json",
+      "stored": "ubuntu/sqlalchemy/summary.json",
+      "original_sha256": "8d9674d4abc88b70e219ae884db167872803189a5aa7d26e5167f0dafba04d2a",
+      "stored_sha256": "8d9674d4abc88b70e219ae884db167872803189a5aa7d26e5167f0dafba04d2a",
+      "bytes": 1804
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/sqlalchemy.txt",
+      "stored": "ubuntu/sqlalchemy.txt",
+      "original_sha256": "d9138e408a7f0ad1448694baac445dd41341bf159e29895b86425251b778fc3e",
+      "stored_sha256": "0db32ec23805a85fc919e080d1baca40add62588954c67b6d194518287c2e376",
+      "bytes": 1108
+    },
+    {
+      "artifact_relative_path": "canonical-routine-native-ubuntu-24.04-03184a61a63b1977a1d05ed378404f59d57cf68e/wheel.txt",
+      "stored": "ubuntu/wheel.txt",
+      "original_sha256": "2829e645d9ff21b06ee0d8cbc55b6a081229f54a1625efedbe0c7176278aa18a",
+      "stored_sha256": "2829e645d9ff21b06ee0d8cbc55b6a081229f54a1625efedbe0c7176278aa18a",
+      "bytes": 1061
+    },
+    {
+      "artifact_relative_path": "canonical-routine-guest-03184a61a63b1977a1d05ed378404f59d57cf68e/guest.json",
+      "stored": "guest.json",
+      "original_sha256": "4d3a773a528c347d0f9efa45eabe85c7ee5e9ebf208523aa2348dff605b31bef",
+      "stored_sha256": "4d3a773a528c347d0f9efa45eabe85c7ee5e9ebf208523aa2348dff605b31bef",
+      "bytes": 18514
+    },
+    {
+      "artifact_relative_path": "local-receipt/validated.json",
+      "stored": "validated.json",
+      "original_sha256": "a9ec0ea8fccf1a4bd848ad0a09c57b2450384c6aa19d361ce54c5d323e9d1cb0",
+      "stored_sha256": "a9ec0ea8fccf1a4bd848ad0a09c57b2450384c6aa19d361ce54c5d323e9d1cb0",
+      "bytes": 7016
+    }
+  ],
+  "normalization": "Only home-path prefixes scrubbed. Original/stored SHA256 and stored size distinguish actual artifact text from normalized repository copy. No assertion is inferred from race silence.",
+  "artifacts": [
+    {
+      "id": 12259851359,
+      "sha256": "2a2c87dd6eaf710a1ef69de88a4810cedf8ceb451508a056c67b063ee3e1923f"
+    },
+    {
+      "id": 12258724128,
+      "sha256": "3c1127b5564496c2ffdc281766cb3d714c94a4e1ada887428a443d384290173d"
+    },
+    {
+      "id": 12258017737,
+      "sha256": "c52f1ba0681cd683a1bc41ce0f2a88d00d06e3e946cbe38556b056a9536d2993"
+    }
+  ]
+}

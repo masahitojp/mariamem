@@ -1,0 +1,64 @@
+generated-Go instantiate_begin (explicit MemFS)
+generated-Go instantiated
+generated-Go start_begin
+generated-Go inherited signal dispositions=0
+generated-Go registered signal callback __wasm_signal
+generated-Go getcwd=/
+generated-Go path_open2 "/mariamem-auth/private.pem" errno=0
+generated-Go path_open2 "/mariamem-auth/public.pem" errno=0
+generated-Go proc_id
+generated-Go path_open2 "/mariadb/data/wasmer.lower-test" errno=0
+generated-Go proc_id
+generated-Go proc_id
+generated-Go path_open2 "/mariadb/data/ddl_recovery.log" errno=44
+generated-Go path_open2 "/mariadb/data/ddl_recovery.log" errno=0
+generated-Go thread_parallelism 3
+generated-Go path_open2 "/tmp/ibkIpDpG" errno=0
+generated-Go path_open2 "/tmp/ibkLKCnm" errno=0
+generated-Go path_open2 "/tmp/ibBpoLfF" errno=0
+generated-Go path_open2 "/mariadb/data//undo001" errno=44
+generated-Go path_open2 "/mariadb/data//undo002" errno=44
+generated-Go path_open2 "/mariadb/data//undo003" errno=44
+generated-Go path_open2 "/mariadb/data/ib_logfile0" errno=44
+generated-Go path_open2 "/mariadb/data/ibdata1" errno=0
+generated-Go path_open2 "/mariadb/data/ib_logfile101" errno=0
+generated-Go path_open2 "/mariadb/data/ibdata1" errno=0
+generated-Go path_open2 "/mariadb/data//undo001" errno=0
+generated-Go path_open2 "/mariadb/data//undo002" errno=0
+generated-Go path_open2 "/mariadb/data//undo003" errno=0
+generated-Go path_open2 "/mariadb/data//undo001" errno=0
+generated-Go path_open2 "/mariadb/data//undo002" errno=0
+generated-Go path_open2 "/mariadb/data//undo003" errno=0
+generated-Go path_open2 "/mariadb/data//undo004" errno=44
+generated-Go path_open2 "/tmp/ibolkPEb" errno=0
+generated-Go path_open2 "/mariadb/data/ibtmp1" errno=0
+generated-Go path_open2 "/mariadb/data/ibtmp1" errno=0
+generated-Go path_open2 "/mariadb/data/aria_log_control" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/mariadb/data/" errno=0
+generated-Go path_open2 "/mariadb/data/aria_log.00000001" errno=0
+generated-Go path_open2 "/mariamem-auth/private.pem" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/mariamem-auth/public.pem" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/#binlog_cache_files/" errno=44
+generated-Go path_open2 "/mariadb/data/mysql/servers.frm" errno=44
+generated-Go path_open2 "/mariadb/data/mysql/time_zone_leap_second.frm" errno=44
+generated-Go path_open2 "/mariadb/data/test/db.opt" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+generated-Go path_open2 "/dev/urandom" errno=0
+{"prepared_auth_keys":"PASS","generated":false,"actual_callback":true}
+generated-Go path_open2 "/mariadb/data/ib_buffer_pool.incomplete" errno=0
+generated-Go start_returned
+generated-Go all generated workers joined

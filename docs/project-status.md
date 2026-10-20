@@ -57,7 +57,7 @@ See the
 [implementation results and Human Review](reviews/d-heap-shared-host.md) and
 [approved design and scope change](reviews/d-heap-productization-design.md).
 
-## Routine canonical adoption candidate — awaiting both-OS validation
+## Routine canonical adoption candidate — both-OS PASS, awaiting Human adoption
 
 The Human approved procedures/functions and bounded DEFINER for canonical
 adoption preparation, including the product-managed mysql.proc structure
@@ -68,8 +68,13 @@ The minimal candidate lives on `experiment/routine-canonical-adoption`; it adopt
 routine initialization and the necessary text multiple-result/option paths,
 without the binary-prepared prototype or its unapproved limits. The prepared
 product requirement remains open. Source build, generated provenance and exact
-thread-lifetime binding have been refreshed; source rebuild/both-OS candidate
-checks are separate from final Qualification. Target version, main integration
+thread-lifetime binding have been refreshed. Exact candidate03184a6 passed
+independent two-source-build reproduction and all99 generated files on macOS
+arm64 and Ubuntu x86_64 in
+[CI39406398732](https://github.com/masahitojp/mariamem/actions/runs/39406398732),
+including required Connector/Python26.7.0, J1 failure/control oracles and existing
+ORM consumers. See the [Human adoption review](reviews/routine-canonical-ci-review.md).
+This is candidate evidence, separate from final Qualification. Target version, main integration
 and publication remain separate Human decisions. Published v0.5.3 below does
 not include this work.
 

@@ -1,0 +1,38 @@
+=== RUN   TestDogfood
+=== RUN   TestDogfood/01_commit_without_cleanup
+=== RUN   TestDogfood/02_next_test_clean
+=== RUN   TestDogfood/03_crud_relationships
+
+2026/10/20 10:52:45 [31;1m/tmp/mariamem-gorm-d1hoa4mc/dogfood_test.go:243 [35;1mrecord not found
+[0m[33m[0.453ms] [34;1m[rows:0][0m SELECT * FROM `users` WHERE `users`.`id` = 2 ORDER BY `users`.`id` LIMIT 1
+=== RUN   TestDogfood/04_explicit_rollback
+=== RUN   TestDogfood/05_constraint_errors_recoverable
+
+2026/10/20 10:52:45 [31;1m/tmp/mariamem-gorm-d1hoa4mc/dogfood_test.go:259 [35;1mError 1062 (23000): Duplicate entry 'seed' for key 'idx_users_name'
+[0m[33m[0.872ms] [34;1m[rows:0][0m INSERT INTO `users` (`name`,`fullname`,`created_at`,`updated_at`) VALUES ('seed',NULL,'2026-10-20 10:52:45.601','2026-10-20 10:52:45.601') RETURNING `id`
+
+2026/10/20 10:52:45 [31;1m/tmp/mariamem-gorm-d1hoa4mc/dogfood_test.go:260 [35;1mError 1048 (23000): Column 'name' cannot be null
+[0m[33m[0.710ms] [34;1m[rows:0][0m INSERT INTO `users` (`name`) VALUES (NULL) RETURNING `id`
+
+2026/10/20 10:52:45 [31;1m/tmp/mariamem-gorm-d1hoa4mc/dogfood_test.go:261 [35;1mError 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`test`.`addresses`, CONSTRAINT `fk_users_addresses` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))
+[0m[33m[0.935ms] [34;1m[rows:0][0m INSERT INTO `addresses` (`email`,`user_id`) VALUES ('orphan@example.test',99999) RETURNING `id`
+=== RUN   TestDogfood/06_normal_pool_sessions
+=== RUN   TestDogfood/07_idempotent_migrate_introspection
+=== RUN   TestDogfood/08_shutdown_with_pool
+[mysql] 2026/10/20 10:52:45 packets.go:58 unexpected EOF
+--- PASS: TestDogfood (0.90s)
+    --- PASS: TestDogfood/01_commit_without_cleanup (0.12s)
+    --- PASS: TestDogfood/02_next_test_clean (0.10s)
+    --- PASS: TestDogfood/03_crud_relationships (0.11s)
+    --- PASS: TestDogfood/04_explicit_rollback (0.10s)
+    --- PASS: TestDogfood/05_constraint_errors_recoverable (0.10s)
+    --- PASS: TestDogfood/06_normal_pool_sessions (0.10s)
+    --- PASS: TestDogfood/07_idempotent_migrate_introspection (0.12s)
+    --- PASS: TestDogfood/08_shutdown_with_pool (0.09s)
+PASS
+ok  	mariamem-dogfood/gorm	0.907s
+go: downloading gorm.io/driver/mysql v1.6.0
+go: downloading gorm.io/gorm v1.31.1
+go: downloading github.com/jinzhu/now v1.1.5
+go: downloading github.com/jinzhu/inflection v1.0.0
+go: downloading golang.org/x/text v0.20.0

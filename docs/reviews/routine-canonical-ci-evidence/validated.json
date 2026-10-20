@@ -1,0 +1,270 @@
+{
+  "result": "PASS",
+  "source_commit": "03184a61a63b1977a1d05ed378404f59d57cf68e",
+  "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
+  "linked_sha256": "f58eb48ffdea1b5a7978d1dc2af9e2d702518991007b611d46ab8a30da6ed6bb",
+  "repetitions": [
+    {
+      "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
+      "linked_sha256": "f58eb48ffdea1b5a7978d1dc2af9e2d702518991007b611d46ab8a30da6ed6bb"
+    },
+    {
+      "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
+      "linked_sha256": "f58eb48ffdea1b5a7978d1dc2af9e2d702518991007b611d46ab8a30da6ed6bb"
+    }
+  ],
+  "platforms": [
+    {
+      "platform": "Darwin-arm64",
+      "source_commit": "03184a61a63b1977a1d05ed378404f59d57cf68e",
+      "regenerated_files": 99,
+      "build_guard": "PASS",
+      "connector": {
+        "result": "PASS",
+        "version": "26.7.0",
+        "default_connection": "CMySQLConnection",
+        "text_call": [
+          [
+            [
+              7
+            ]
+          ],
+          [
+            [
+              8
+            ]
+          ]
+        ],
+        "text_expression": 20
+      },
+      "j1": [
+        {
+          "name": "heap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "heap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "heap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "mmap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        }
+      ],
+      "python_integration": "32 passed; no SKIPs",
+      "snapshots": 33,
+      "definer_fresh_cases": 16,
+      "definer_forks": 2,
+      "mapping_counts": {
+        "initial": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 0,
+          "grow_calls": 0,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 0,
+          "release_failures": 0,
+          "releases": 0
+        },
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 9,
+          "grow_calls": 930,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 1377566720,
+          "release_failures": 0,
+          "releases": 9
+        }
+      },
+      "gorm_runs": [
+        {
+          "name": "1-start",
+          "exit_code": 0,
+          "cases": 8,
+          "runner_seconds": 12.435660000000098
+        },
+        {
+          "name": "2-fork",
+          "exit_code": 0,
+          "cases": 8,
+          "runner_seconds": 2.8893305420001525
+        },
+        {
+          "name": "3-fork",
+          "exit_code": 0,
+          "cases": 8,
+          "runner_seconds": 2.5377261670000735
+        },
+        {
+          "name": "4-start",
+          "exit_code": 0,
+          "cases": 8,
+          "runner_seconds": 2.2967058750000433
+        }
+      ],
+      "sqlalchemy_passed": true,
+      "sqlalchemy_runs": 4,
+      "environment": {
+        "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+        "system": "Darwin",
+        "machine": "arm64",
+        "openssl": "OpenSSL 3.5.7 9 Jun 2026",
+        "pymysql": "1.2.3",
+        "host_sha256": "667804f59e3d9e16924a92a84e26cbb612266e9a7a66ba6b20e9598075a3851c"
+      }
+    },
+    {
+      "platform": "Linux-x86_64",
+      "source_commit": "03184a61a63b1977a1d05ed378404f59d57cf68e",
+      "regenerated_files": 99,
+      "build_guard": "PASS",
+      "connector": {
+        "result": "PASS",
+        "version": "26.7.0",
+        "default_connection": "MySQLConnection",
+        "text_call": [
+          [
+            [
+              7
+            ]
+          ],
+          [
+            [
+              8
+            ]
+          ]
+        ],
+        "text_expression": 20
+      },
+      "j1": [
+        {
+          "name": "heap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "heap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "heap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "mmap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        }
+      ],
+      "python_integration": "32 passed; no SKIPs",
+      "snapshots": 33,
+      "definer_fresh_cases": 16,
+      "definer_forks": 2,
+      "mapping_counts": {
+        "initial": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 0,
+          "grow_calls": 0,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 0,
+          "release_failures": 0,
+          "releases": 0
+        },
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 9,
+          "grow_calls": 936,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 1394343936,
+          "release_failures": 0,
+          "releases": 9
+        }
+      },
+      "gorm_runs": [
+        {
+          "name": "1-start",
+          "exit_code": 0,
+          "cases": 8,
+          "runner_seconds": 4.951345342999957
+        },
+        {
+          "name": "2-fork",
+          "exit_code": 0,
+          "cases": 8,
+          "runner_seconds": 1.8033324420000554
+        },
+        {
+          "name": "3-fork",
+          "exit_code": 0,
+          "cases": 8,
+          "runner_seconds": 1.841722647999859
+        },
+        {
+          "name": "4-start",
+          "exit_code": 0,
+          "cases": 8,
+          "runner_seconds": 1.7999626600001193
+        }
+      ],
+      "sqlalchemy_passed": true,
+      "sqlalchemy_runs": 4,
+      "environment": {
+        "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+        "system": "Linux",
+        "machine": "x86_64",
+        "openssl": "OpenSSL 3.0.13 30 Jan 2024",
+        "pymysql": "1.2.3",
+        "host_sha256": "df308fba8b3a96210dc5dff4b4fad3615022bc93390e7808e7156324cb34f37c"
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+  "system": "Linux",
+  "machine": "x86_64",
+  "openssl": "OpenSSL 3.0.13 30 Jan 2024",
+  "pymysql": "1.2.3",
+  "host_sha256": "df308fba8b3a96210dc5dff4b4fad3615022bc93390e7808e7156324cb34f37c"
+}
