@@ -1,6 +1,6 @@
 /* Resident guest: one persistent WASIX worker per reusable slot.
  * Request: u32le length, u8 opcode, u32le request id, u32le slot, SQL bytes.
- * 1=open, 2=query, 3=close, 4=set text-protocol option; zero-length frame shuts down all sessions.
+ * 1=open, 2=query, 3=close, 4=set text-protocol option, 5=versioned prepared API; zero-length frame shuts down all sessions.
  * Responses may be reordered and carry request_id + connection_id.
  */
 #define MULTI_LIMIT 16
@@ -64,9 +64,11 @@ static void *multi_worker(void *arg)
     if (stop)
     {
       free(sql);
+      int failed= ps_clear();
       if (multi_mysql) mysql_close(multi_mysql);
       multi_mysql= NULL;
       mysql_thread_end();
+      if (failed) _Exit(23);
       return NULL;
     }
     char *reply= NULL;
@@ -83,17 +85,26 @@ static void *multi_worker(void *arg)
         if (multi_mysql) mysql_close(multi_mysql);
         multi_mysql= NULL;
       }
-      else
-        reply= strdup("{\"ok\":true,\"api_version\":2,\"server_status\":2}");
+      else if (ps_begin_session()) {
+        reply= wire_error(1461,"prepared session identity exhausted","42000");
+        mysql_close(multi_mysql); multi_mysql= NULL;
+      } else {
+        char state[192];
+        snprintf(state,sizeof(state),"{\"ok\":true,\"api_version\":2,\"server_status\":2,\"prepared_version\":1,\"prepared_operations\":[22,25,26],\"session_generation\":%u}",ps_generation);
+        reply= strdup(state);
+      }
     }
     else if (op == 3)
     {
+      int failed= ps_clear();
       mysql_close(multi_mysql);
       multi_mysql= NULL;
-      reply= strdup("{\"ok\":true,\"closed\":true}");
+      reply= failed ? wire_error(2000,"prepared statement cleanup failed","HY000") : strdup("{\"ok\":true,\"closed\":true}");
     }
     else if (op == 4)
       reply= l4m_set_option_v2((const unsigned char *)sql, length);
+    else if (op == 5)
+      reply= ps_call(multi_mysql,(const unsigned char *)sql,length);
     else
       reply= l4m_query_v2(sql, (unsigned long)length);
     free(sql);
@@ -172,7 +183,7 @@ int main(int argc, char **argv)
   startup_mark("ready_prepared");
   mariamem_init_mark("ready_prepared");
   startup_write();
-  multi_reply(0, 0, "{\"ready\":true,\"api_version\":2,\"max_sessions\":16,\"snapshot_version\":1}");
+  multi_reply(0, 0, "{\"ready\":true,\"api_version\":2,\"max_sessions\":16,\"snapshot_version\":1,\"prepared_version\":1,\"prepared_operations\":[22,25,26]}");
   int rc= 0, export_snapshot= 0;
   for (;;)
   {
@@ -183,14 +194,20 @@ int main(int argc, char **argv)
     uint32_t n= multi_u32(h);
     if (!n) break;
     if (n == 0xfffffffe) { export_snapshot= 1; break; }
-    if (n < 9 || n > 1048585) { rc= 14; break; }
+    if (n < 9 || n > PS_MAX_ENVELOPE+9) { rc= 14; break; }
+    unsigned char prefix[9];
+    if (fread(prefix, 1, sizeof(prefix), stdin) != sizeof(prefix)) { rc= 13; break; }
+    unsigned int op= prefix[0];
+    /* Preserve the original fail-closed text-frame budget. Only the new typed
+     * internal envelope needs a separate overhead allowance. */
+    if (op != 5 && n > 1048585) { rc= 14; break; }
     unsigned char *packet= malloc(n + 1);
     if (!packet) { rc= 10; break; }
-    if (fread(packet, 1, n, stdin) != n) { free(packet); rc= 13; break; }
+    memcpy(packet, prefix, sizeof(prefix));
+    if (fread(packet + 9, 1, n - 9, stdin) != n - 9) { free(packet); rc= 13; break; }
     packet[n]= 0;
-    unsigned int op= packet[0];
     uint32_t request= multi_u32(packet + 1), slot= multi_u32(packet + 5);
-    if (slot >= MULTI_LIMIT || op < 1 || op > 4 || (op == 1 && n - 9 > 1))
+    if (slot >= MULTI_LIMIT || op < 1 || op > 5 || (op == 1 && n - 9 > 1))
       multi_error(request, slot, 1235, "unsupported request/slot");
     else
     {

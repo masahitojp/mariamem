@@ -16,6 +16,7 @@ import (
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/prepared"
+	"github.com/masahitojp/mariamem/internal/preparedproto"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
 )
 
@@ -36,23 +37,28 @@ type Cell struct {
 	Hex string `json:"$h"`
 }
 type Result struct {
-	Results         []Result  `json:"results"`
-	OK              bool      `json:"ok"`
-	Ready           bool      `json:"ready"`
-	Closed          bool      `json:"closed"`
-	Version         int       `json:"api_version"`
-	MaxSessions     int       `json:"max_sessions"`
-	SnapshotVersion int       `json:"snapshot_version"`
-	Snapshot        bool      `json:"snapshot"`
-	Status          uint16    `json:"server_status"`
-	Warnings        uint16    `json:"warnings"`
-	Errno           uint16    `json:"errno"`
-	Error           string    `json:"error"`
-	SQLState        string    `json:"sqlstate"`
-	Affected        string    `json:"affected"`
-	InsertID        string    `json:"insert_id"`
-	Columns         []Column  `json:"columns"`
-	Rows            [][]*Cell `json:"rows"`
+	PreparedOperations []uint8   `json:"prepared_operations"`
+	PreparedVersion    int       `json:"prepared_version"`
+	SessionGeneration  uint32    `json:"session_generation"`
+	StatementID        uint32    `json:"statement_id"`
+	ParamCount         uint32    `json:"param_count"`
+	Results            []Result  `json:"results"`
+	OK                 bool      `json:"ok"`
+	Ready              bool      `json:"ready"`
+	Closed             bool      `json:"closed"`
+	Version            int       `json:"api_version"`
+	MaxSessions        int       `json:"max_sessions"`
+	SnapshotVersion    int       `json:"snapshot_version"`
+	Snapshot           bool      `json:"snapshot"`
+	Status             uint16    `json:"server_status"`
+	Warnings           uint16    `json:"warnings"`
+	Errno              uint16    `json:"errno"`
+	Error              string    `json:"error"`
+	SQLState           string    `json:"sqlstate"`
+	Affected           string    `json:"affected"`
+	InsertID           string    `json:"insert_id"`
+	Columns            []Column  `json:"columns"`
+	Rows               [][]*Cell `json:"rows"`
 }
 type response struct {
 	result              Result
@@ -228,8 +234,12 @@ func (p *Process) write(ctx context.Context, b []byte) error {
 	}
 }
 func (p *Process) Call(ctx context.Context, op byte, slot uint32, sql []byte) (Result, error) {
-	if len(sql) > 1<<20 {
-		return Result{}, errors.New("SQL exceeds 1 MiB")
+	limit := 1 << 20
+	if op == preparedproto.GuestOpcode {
+		limit = preparedproto.MaxEnvelope
+	}
+	if len(sql) > limit {
+		return Result{}, errors.New("guest request exceeds payload limit")
 	}
 	ch := make(chan response, 1)
 	p.mu.Lock()

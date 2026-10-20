@@ -46,8 +46,8 @@ if experimental.exists():
     subprocess.run(["patch", "-p1", "-i", str(experimental)], cwd=source, check=True)
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
 (source / "wasm/wire_api.inc").write_text(
-    "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "resident.inc"\n')
-for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc", "init_diagnostics.inc", "prepared_auth_keys.inc", "routine_bootstrap.inc"):
+    "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "prepared_api.inc"\n#include "resident.inc"\n')
+for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc", "init_diagnostics.inc", "prepared_auth_keys.inc", "routine_bootstrap.inc", "prepared_api.inc"):
     shutil.copy2(ROOT / "guest" / name, source / "wasm" / name)
 shutil.copy2(ROOT / "guest/init_diagnostics.h", source / "include/mariamem_init_diagnostics.h")
 diagnostic_files = instrument(source)
@@ -79,7 +79,7 @@ manifest = {"guest_input": guest_input, "portability_series": portability_series
             "modified_files": {name: digest(source / name) for name in
                                (*LOCK["pristine_files"], *(name for patch in portability_series for name in patch["after_sha256"]), "wasm/wire_api.inc", "wasm/resident.inc",
                                 "wasm/snapshot_fs.inc", "wasm/startup_timing.inc", "wasm/init_diagnostics.inc",
-                                "wasm/prepared_auth_keys.inc", "wasm/routine_bootstrap.inc", routine_schema["header"], auth_header, *auth_files,
+                                "wasm/prepared_auth_keys.inc", "wasm/routine_bootstrap.inc", "wasm/prepared_api.inc", routine_schema["header"], auth_header, *auth_files,
                                 "include/mariamem_init_diagnostics.h", *diagnostic_files,
                                 "cmake/pcre.cmake", "cmake/libfmt.cmake", *experimental_files)}}
 if experimental.exists():
