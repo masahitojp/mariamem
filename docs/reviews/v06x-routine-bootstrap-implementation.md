@@ -169,6 +169,31 @@ These direct intervals exclude effects of having system-table files during the
 preceding engine initialization. They are not an old/new total-startup delta,
 an Ubuntu result, or a guarantee. General initialization tuning remains separate.
 
+## Candidate CI infrastructure correction
+
+[Run 39377782645](https://github.com/masahitojp/mariamem/actions/runs/39377782645)
+on `b9a37745739f0dfc96a22a36bc2ceea9bb86fc89` failed **before guest build**:
+`git_identity.py inspect HEAD` was rejected by Git's dubious-ownership check in
+the Ubuntu container (`/__w/mariamem/mariamem`). Both native matrix executions
+were skipped. This is not native acceptance evidence or a guest/runtime failure.
+
+The candidate workflow now explicitly registers only `$GITHUB_WORKSPACE` with
+`git config --global --add safe.directory` after checkout and before inspection.
+No wildcard trust, SHA check bypass, runtime, guest, converter or acceptance
+condition changes are included. Git source identity and clean-tree checks remain
+in place.
+
+[Focused reproduction](v06x-routine-bootstrap-ci-owner-fix/verify.py) reproduces
+ownership rejection using Git's different-owner test hook and a disposable global
+config, executes the exact workflow command, then verifies that the checkout is
+accepted and a separate repository is still rejected.
+[Result](v06x-routine-bootstrap-ci-owner-fix/result.json): PASS.
+[Original failed-step log](v06x-routine-bootstrap-ci-owner-fix/failed-ci.log.gz)
+is retained losslessly compressed (the raw log includes trailing whitespace).
+The corrected candidate must still run guest build and both native
+jobs; those results remain pending, not PASS. Re-running unchanged runtime checks
+locally would not exercise this CI-container ownership boundary.
+
 ## Next Human Review
 
 First obtain native CI receipts for the exact submitted candidate. Then decide

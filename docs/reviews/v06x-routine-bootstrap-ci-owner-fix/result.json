@@ -1,0 +1,7 @@
+{
+  "before": "ownership rejection reproduced",
+  "after": "exact checkout accepted",
+  "other_repository": "still rejected",
+  "workflow_order": "trust precedes identity check",
+  "result": "PASS"
+}
