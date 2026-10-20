@@ -1,0 +1,1 @@
+Recorded 16 bounded DEFINER cases <user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/routine-canonical-adoption/evidence/definer.json

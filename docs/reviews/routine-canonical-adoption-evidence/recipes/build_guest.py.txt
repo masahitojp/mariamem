@@ -1,0 +1,39 @@
+import argparse
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+p=Path(__file__).resolve().parents[1]
+root=p/'worktree'
+sys.path.insert(0,str(root/'scripts'))
+from experiment_disk import DiskGuard,run_guarded
+parser=argparse.ArgumentParser();parser.add_argument('phase');parser.add_argument('--canonical',action='store_true');a=parser.parse_args()
+phase=p/'temp'/a.phase;phase.mkdir()
+build=phase/'build';build.mkdir();shutil.copy2(root/'build/go.mod',build/'go.mod')
+for name in ('root','work'):(phase/name).mkdir()
+source=json.loads(subprocess.check_output([sys.executable,str(root/'scripts/git_identity.py'),'inspect','HEAD'],cwd=root,text=True))
+(p/'evidence'/('source-'+a.phase+'.json')).write_text(json.dumps(source,indent=2)+'\n')
+assert not subprocess.check_output(['git','status','--porcelain'],cwd=root).strip()
+repo=Path(json.loads((p/'experiment.json').read_text())['repo'])
+image='sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f'
+name='mariamem-routine-canonical-'+a.phase
+cmd=['docker','create','--name',name,'--env','HOME=/root','--env','GIT_OPTIONAL_LOCKS=0',
+    '--mount',f'type=bind,src={repo},dst={repo},readonly',
+    '--mount',f'type=bind,src={p},dst=/task',
+    '--mount',f'type=bind,src={build},dst={root}/build',
+    '--mount',f'type=bind,src={phase}/root,dst=/root',
+    '--mount',f'type=bind,src={phase}/work,dst=/work',
+    '--workdir',str(root),image,'python3','scripts/build_generated_guest.py']
+if not a.canonical:cmd+=['--development-output','/task/temp/guest-'+a.phase]
+cid=subprocess.check_output(cmd,text=True).strip()
+guard=DiskGuard(p,min_free_gib=8,budget_gib=24)
+try:
+    with (p/'evidence'/('guest-'+a.phase+'.log')).open('w') as log:
+        rc=run_guarded(['docker','start','-a',cid],guard,cwd=root,output=log,timeout=2400)
+    if rc:raise RuntimeError('guest source build failed; see phase log')
+    if a.canonical:shutil.copytree(build/'generated-release',p/'temp'/('guest-'+a.phase))
+finally:
+    subprocess.run(['docker','rm','-f',cid],check=True,stdout=subprocess.DEVNULL)
+    (p/'evidence'/('disk-'+a.phase+'.json')).write_text(json.dumps({'peak_owned_bytes':guard.peak,'minimum_free_bytes':guard.minimum_free},indent=2)+'\n')

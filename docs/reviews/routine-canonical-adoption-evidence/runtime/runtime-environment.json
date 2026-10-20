@@ -1,0 +1,8 @@
+{
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "system": "Darwin",
+  "machine": "arm64",
+  "openssl": "OpenSSL 4.0.3 29 Sep 2026",
+  "pymysql": "1.2.3",
+  "host_sha256": "a6eeb6e1359e885dd69253751de0e3bb9deee6eda178a9efe6dcf11622646887"
+}

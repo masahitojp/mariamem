@@ -1,0 +1,20 @@
+[
+  {
+    "name": "routine-runtime",
+    "exit_code": 0,
+    "expected_failure": false,
+    "pass_": true
+  },
+  {
+    "name": "definer",
+    "exit_code": 0,
+    "expected_failure": false,
+    "pass_": true
+  },
+  {
+    "name": "go-routines",
+    "exit_code": 0,
+    "expected_failure": false,
+    "pass_": true
+  }
+]

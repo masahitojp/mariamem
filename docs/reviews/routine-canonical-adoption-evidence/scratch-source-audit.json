@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+  "patched_source_inventory_sha256": "a80d7f19a59cda9a2d971a5acc75e085975097fdaad8200331457eb36234bcaf",
+  "checkouts": [
+    {
+      "path": "temp/translation/converter/wasm2go-730057c146463f663e8774587bc96fb2bea91af8",
+      "source_files": 420,
+      "all_match_reconstructed_fixed_archive_plus_13_patches": true,
+      "no_commits_or_refs": true
+    },
+    {
+      "path": "temp/independent-go/translation/converter/wasm2go-730057c146463f663e8774587bc96fb2bea91af8",
+      "source_files": 420,
+      "all_match_reconstructed_fixed_archive_plus_13_patches": true,
+      "no_commits_or_refs": true
+    },
+    {
+      "path": "temp/converter-reconstruction/wasm2go-730057c146463f663e8774587bc96fb2bea91af8",
+      "source_files": 420,
+      "all_match_reconstructed_fixed_archive_plus_13_patches": true,
+      "no_commits_or_refs": true
+    }
+  ],
+  "decision": "All three .git directories were created only by fixed-input patch application. No source changes/history are unique; remove synthetic metadata before owned scratch cleanup."
+}

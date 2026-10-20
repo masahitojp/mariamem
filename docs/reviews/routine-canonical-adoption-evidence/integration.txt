@@ -1,0 +1,69 @@
++ go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+ok  	github.com/masahitojp/mariamem/internal/artifacts	2.394s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	3.505s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	3.727s
+ok  	github.com/masahitojp/mariamem/internal/guest	2.891s
+ok  	github.com/masahitojp/mariamem/internal/host	1.130s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.098s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.489s
+ok  	github.com/masahitojp/mariamem/internal/control	2.790s
+ok  	github.com/masahitojp/mariamem/internal/prepared	1.444s
+ok  	github.com/masahitojp/mariamem	2.852s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	12.003s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	2.763s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.464s
++ go build -p 1 -o /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-996x5d6r/mariamem-host ./cmd/mariamem-host
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ <user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/routine-canonical-adoption/temp/venv/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py tests/test_routine_runtime.py tests/test_text_multi_runtime.py -q
+.......F................s.......                                         [100%]
+=================================== FAILURES ===================================
+_____ test_unsupported_handshake_flags_are_rejected_without_poisoning_host _____
+
+wire_db = <mariamem.Database object at 0x108774490>
+
+    def test_unsupported_handshake_flags_are_rejected_without_poisoning_host(wire_db):
+>       with pytest.raises(pymysql.MySQLError) as error:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'pymysql.err.MySQLError'>
+
+tests/test_python_wire.py:108: Failed
+=========================== short test summary info ============================
+FAILED tests/test_python_wire.py::test_unsupported_handshake_flags_are_rejected_without_poisoning_host
+1 failed, 30 passed, 1 skipped in 43.17s
+Traceback (most recent call last):
+  File "<user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/routine-canonical-adoption/worktree/scripts/verify.py", line 151, in <module>
+    main()
+    ~~~~^^
+  File "<user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/routine-canonical-adoption/worktree/scripts/verify.py", line 132, in main
+    integration()
+    ~~~~~~~~~~~^^
+  File "<user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/routine-canonical-adoption/worktree/scripts/verify.py", line 107, in integration
+    run([sys.executable, "-m", "pytest", timeout_test,
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         "tests/test_python_multiclient.py", "tests/test_python_wire.py",
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         "tests/test_owned_snapshot.py", "tests/test_routine_runtime.py",
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         "tests/test_text_multi_runtime.py", "-q"], env=env)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/routine-canonical-adoption/worktree/scripts/verify.py", line 34, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/routine-canonical-adoption/worktree/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.8_2/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/routine-canonical-adoption/temp/venv/bin/python', '-m', 'pytest', 'tests/test_python_timeout.py::test_normal_close_is_idempotent', 'tests/test_python_multiclient.py', 'tests/test_python_wire.py', 'tests/test_owned_snapshot.py', 'tests/test_routine_runtime.py', 'tests/test_text_multi_runtime.py', '-q']' returned non-zero exit status 1.

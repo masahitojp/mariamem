@@ -1,0 +1,17 @@
+{
+  "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
+  "linked_sha256": "f58eb48ffdea1b5a7978d1dc2af9e2d702518991007b611d46ab8a30da6ed6bb",
+  "symbol_map_sha256": "1cc3630aaee8fa674c428d7911f8772532333ecfb8a928c8c3a2557763dc9a59",
+  "symbol_map_entries": 21699,
+  "method": "Pinned Binaryen133 same O2 flags plus symbolmap; diagnostic Wasm byte-identical to adopted candidate",
+  "selected_symbols": {
+    "131": "sched_yield",
+    "153": "dlfree",
+    "214": "wasi_thread_start",
+    "215": "__tl_unlock",
+    "216": "__pthread_cond_timedwait",
+    "217": "__private_cond_signal",
+    "219": "__pthread_join",
+    "221": "closedir"
+  }
+}

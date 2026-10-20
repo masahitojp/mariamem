@@ -1,0 +1,494 @@
+{
+  "source_checkpoint": "9cf8cdc",
+  "files": [
+    {
+      "source": "evidence/scratch-source-audit.json",
+      "stored": "scratch-source-audit.json",
+      "original_sha256": "796f43676081e7a04539c1a7c072387a105b414051d1abaa636bb67483fab43d",
+      "stored_sha256": "796f43676081e7a04539c1a7c072387a105b414051d1abaa636bb67483fab43d",
+      "bytes": 1150,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/abi-review.json",
+      "stored": "abi-review.json",
+      "original_sha256": "d46676e8ad23868bd945fe9a6dac1016b9e17c2eaec27d9efa1020decd2dd777",
+      "stored_sha256": "d46676e8ad23868bd945fe9a6dac1016b9e17c2eaec27d9efa1020decd2dd777",
+      "bytes": 11428,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/symbol-map-proof.json",
+      "stored": "symbol-map-proof.json",
+      "original_sha256": "5f465f8cee5519938ac635ab9818c31bccb03b97ba57a3fb66b18dec714d909d",
+      "stored_sha256": "5f465f8cee5519938ac635ab9818c31bccb03b97ba57a3fb66b18dec714d909d",
+      "bytes": 674,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/source-initial.json",
+      "stored": "source-initial.json",
+      "original_sha256": "47a3d1f1fffd8d89668852fb10ceb7166d99d6e678fdabc897dc1d9c1778b06e",
+      "stored_sha256": "47a3d1f1fffd8d89668852fb10ceb7166d99d6e678fdabc897dc1d9c1778b06e",
+      "bytes": 153,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/host-results.json",
+      "stored": "host-results.json",
+      "original_sha256": "6841149011c16a2440ba38a0c797614fe263a2d2c4b33921f5ef66badb5d61a7",
+      "stored_sha256": "6841149011c16a2440ba38a0c797614fe263a2d2c4b33921f5ef66badb5d61a7",
+      "bytes": 101,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/features-results.json",
+      "stored": "features-results.json",
+      "original_sha256": "10b214e5cc7557305b523d18f5ed55d3211fb5a04d323c5fc86c8296cec7417c",
+      "stored_sha256": "10b214e5cc7557305b523d18f5ed55d3211fb5a04d323c5fc86c8296cec7417c",
+      "bytes": 318,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/j1-results.json",
+      "stored": "j1-results.json",
+      "original_sha256": "655aa6f56670ed5dec58ed0f323ff7e925c940e6da5610584c3b599a4cf4592a",
+      "stored_sha256": "655aa6f56670ed5dec58ed0f323ff7e925c940e6da5610584c3b599a4cf4592a",
+      "bytes": 611,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/regenerate-results.json",
+      "stored": "regenerate-results.json",
+      "original_sha256": "4da2897a2e94e216dbc00d902db8e71885e33f63cd772416c8e2974dbc64539e",
+      "stored_sha256": "4da2897a2e94e216dbc00d902db8e71885e33f63cd772416c8e2974dbc64539e",
+      "bytes": 107,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/finish-results.json",
+      "stored": "finish-results.json",
+      "original_sha256": "7aff9f3e65681cbb10ba9b47063275808f31c6b6048e75ff0a27121801c63abe",
+      "stored_sha256": "7aff9f3e65681cbb10ba9b47063275808f31c6b6048e75ff0a27121801c63abe",
+      "bytes": 218,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/focused-results.json",
+      "stored": "focused-results.json",
+      "original_sha256": "03cb895c74c51aa6d82dc3cb4d096639c58e1c544520cf553165cde64f67985d",
+      "stored_sha256": "03cb895c74c51aa6d82dc3cb4d096639c58e1c544520cf553165cde64f67985d",
+      "bytes": 310,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/source-finish-results.json",
+      "stored": "source-finish-results.json",
+      "original_sha256": "ab1f492872773a3a44bff7b6687d3a128b543d707f2abc253dc8b35f00611379",
+      "stored_sha256": "ab1f492872773a3a44bff7b6687d3a128b543d707f2abc253dc8b35f00611379",
+      "bytes": 209,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/sqlalchemy-results.json",
+      "stored": "sqlalchemy-results.json",
+      "original_sha256": "24b59e3df70bd88615b70598b2646abe1e2bd155342874681f4f51f9eca70843",
+      "stored_sha256": "24b59e3df70bd88615b70598b2646abe1e2bd155342874681f4f51f9eca70843",
+      "bytes": 107,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/wheel-results.json",
+      "stored": "wheel-results.json",
+      "original_sha256": "c7a0c8382df975dbf2d91e184862d6068323722444145e713f453365cd70330c",
+      "stored_sha256": "c7a0c8382df975dbf2d91e184862d6068323722444145e713f453365cd70330c",
+      "bytes": 102,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/check.txt",
+      "stored": "check.txt",
+      "original_sha256": "37417fa539f590044124ca8083926341c15d825460f3f9483756cf43605c618a",
+      "stored_sha256": "9e0f286b9c74fa15436933ec039c59fa0701ea4c4267e2f9484fa35725905cd3",
+      "bytes": 4867,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/check-results.json",
+      "stored": "check-results.json",
+      "original_sha256": "75e4e913e9038514d49ef6dede9ae82940160afd454c24cb3282e2d1eee559e9",
+      "stored_sha256": "75e4e913e9038514d49ef6dede9ae82940160afd454c24cb3282e2d1eee559e9",
+      "bytes": 102,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/check-initial.txt",
+      "stored": "check-initial.txt",
+      "original_sha256": "a43c700a3919259bc180f219d04921c496f5ff1666b1cf09d7457d448230279d",
+      "stored_sha256": "92711439a56cf79ca6e2fdfcc1fe581157acd59f5c3fef2c99a471d58ce9d0a4",
+      "bytes": 8836,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/integration.txt",
+      "stored": "integration.txt",
+      "original_sha256": "d6cccfa14713149cec1068a4be0a7b3b62e2a4049c3a408650999f12ec6011a6",
+      "stored_sha256": "092d4edb90262726ada69b6f29574eaacd03f6232089028c67939c361af6827e",
+      "bytes": 5604,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/python-check.txt",
+      "stored": "python-check.txt",
+      "original_sha256": "cc0c81df728efead8c9f4e664530a06be1def136191cff41750e4c31aebef6fe",
+      "stored_sha256": "cc0c81df728efead8c9f4e664530a06be1def136191cff41750e4c31aebef6fe",
+      "bytes": 833,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/integration-python.txt",
+      "stored": "integration-python.txt",
+      "original_sha256": "b42bde47cca866073ba03d1eb5d0dd8c3641c5a1a6be8e1b87f1715dd6749008",
+      "stored_sha256": "b42bde47cca866073ba03d1eb5d0dd8c3641c5a1a6be8e1b87f1715dd6749008",
+      "bytes": 111,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/snapshots.txt",
+      "stored": "snapshots.txt",
+      "original_sha256": "23a9ca442eb7f1d1c064a4cc1c63e1a475c9901e9e47a384308d154d7af3ade9",
+      "stored_sha256": "97c26150abb2bfe6a20b098ed8e23388bbc6164ba5358d8a4d7c1b7d2ac02669",
+      "bytes": 191,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/routine-runtime.txt",
+      "stored": "routine-runtime.txt",
+      "original_sha256": "355f02be0c0b36022b9cff51a30d2915c8d300295aea28ff50dc2140b60fada4",
+      "stored_sha256": "355f02be0c0b36022b9cff51a30d2915c8d300295aea28ff50dc2140b60fada4",
+      "bytes": 110,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/go-routines.json",
+      "stored": "go-routines.json",
+      "original_sha256": "78e2e030b35fa44963dc034b04a426c9c9695f11b7e8d3ed6513847385015a34",
+      "stored_sha256": "78e2e030b35fa44963dc034b04a426c9c9695f11b7e8d3ed6513847385015a34",
+      "bytes": 6167,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/go-routines.txt",
+      "stored": "go-routines.txt",
+      "original_sha256": "b8f72f4e9716773626bd8363c573698eb45ca198a36ceca36ff57232d256db22",
+      "stored_sha256": "b8f72f4e9716773626bd8363c573698eb45ca198a36ceca36ff57232d256db22",
+      "bytes": 6268,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/definer.json",
+      "stored": "definer.json",
+      "original_sha256": "d640d22705d64394b0c0690509ef670a6782624fa065a2b03a4822b8359d0d9d",
+      "stored_sha256": "d640d22705d64394b0c0690509ef670a6782624fa065a2b03a4822b8359d0d9d",
+      "bytes": 71254,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/definer.txt",
+      "stored": "definer.txt",
+      "original_sha256": "c26041bc4879fdfaea9b2e3cfcf1950e1904d48edc10c722b3f8449e24ddacc1",
+      "stored_sha256": "2c0ebf70f0498c57e6989e0508c65c2e15e167de4d9414ac018a0610e846b2a7",
+      "bytes": 147,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/gorm.txt",
+      "stored": "gorm.txt",
+      "original_sha256": "3459703ded2298eddc580230b67a745f7f179c76b59f60d1d5ad8e8a9be76952",
+      "stored_sha256": "3459703ded2298eddc580230b67a745f7f179c76b59f60d1d5ad8e8a9be76952",
+      "bytes": 341,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/sqlalchemy.txt",
+      "stored": "sqlalchemy.txt",
+      "original_sha256": "6fe3c4919058fcf3d9bfa554dade4788fda97d2c747052fff551f5f2ffbf67dc",
+      "stored_sha256": "02d7caf099a6c0f27f6e377edf2c5ef896e3150d2543a2550f8f54dda657f843",
+      "bytes": 1280,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/translation.log",
+      "stored": "translation.txt",
+      "original_sha256": "6ce9d47a9149d7baf73a0e7f9a8ad8480d0be146f097e7cafda2df246db0d593",
+      "stored_sha256": "ec86a719de448c03c619554be923571ec948676d942f24cd9d14d0dd54e1406f",
+      "bytes": 13842,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/install-b.txt",
+      "stored": "install-b.txt",
+      "original_sha256": "f9aebb4532cdfcdccf4107723d21954dca1adf36196b4d3ced51f9d3754bf785",
+      "stored_sha256": "f9aebb4532cdfcdccf4107723d21954dca1adf36196b4d3ced51f9d3754bf785",
+      "bytes": 53,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/regenerate.txt",
+      "stored": "regenerate.txt",
+      "original_sha256": "1da70fe32767f82ddfbd24ee4cf1f332d19f30edd9845828ac96974e317f8d68",
+      "stored_sha256": "7bee97af7fb1057a7f0c6b13e4bd686f33eac7cceb2bcf06b94b626396e5f862",
+      "bytes": 15155,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/j1-runner/identities.json",
+      "stored": "j1/identities.json",
+      "original_sha256": "225875b08e23dbb7e9cd83121c7195f5d50e6146161b6b97f3a4681b19ebd038",
+      "stored_sha256": "225875b08e23dbb7e9cd83121c7195f5d50e6146161b6b97f3a4681b19ebd038",
+      "bytes": 11438,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/j1-runner/results.json",
+      "stored": "j1/results.json",
+      "original_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "stored_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "bytes": 617,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/j1-runner/heap-0.txt",
+      "stored": "j1/heap-0.txt",
+      "original_sha256": "31bf80a2aff19693528bf23769bcbdc404b0eaaa8c29c6a5858f224bdbc86bac",
+      "stored_sha256": "31bf80a2aff19693528bf23769bcbdc404b0eaaa8c29c6a5858f224bdbc86bac",
+      "bytes": 1060,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/j1-runner/heap-1.txt",
+      "stored": "j1/heap-1.txt",
+      "original_sha256": "bbb8a433b1b8b3d6148f73f35b0b1588b5bc94cccda824ace6d242fbd093e489",
+      "stored_sha256": "bbb8a433b1b8b3d6148f73f35b0b1588b5bc94cccda824ace6d242fbd093e489",
+      "bytes": 1224,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/j1-runner/heap-1-race.txt",
+      "stored": "j1/heap-1-race.txt",
+      "original_sha256": "8ef45b150282e45d3318ef64daa37347b50ec990e1ee580b851a71ed8f42ff61",
+      "stored_sha256": "8ef45b150282e45d3318ef64daa37347b50ec990e1ee580b851a71ed8f42ff61",
+      "bytes": 1224,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/j1-runner/mmap-0.txt",
+      "stored": "j1/mmap-0.txt",
+      "original_sha256": "f507f52249e7d6b6eb029941c8809f5f0e37c9b3ec44b2d38e4eedb375ecc058",
+      "stored_sha256": "f507f52249e7d6b6eb029941c8809f5f0e37c9b3ec44b2d38e4eedb375ecc058",
+      "bytes": 1060,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/j1-runner/mmap-1.txt",
+      "stored": "j1/mmap-1.txt",
+      "original_sha256": "befbbc37be5cc3b8b22acf5b32a9ae28daf06853bb7647f0f47b17832018d8a6",
+      "stored_sha256": "befbbc37be5cc3b8b22acf5b32a9ae28daf06853bb7647f0f47b17832018d8a6",
+      "bytes": 1224,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/j1-runner/mmap-1-race.txt",
+      "stored": "j1/mmap-1-race.txt",
+      "original_sha256": "547cc4f55a9429366e395252308c092d128096a1865c5013e73d4d0ef03c282a",
+      "stored_sha256": "547cc4f55a9429366e395252308c092d128096a1865c5013e73d4d0ef03c282a",
+      "bytes": 1224,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/guest-initial/guest.json",
+      "stored": "guest.json",
+      "original_sha256": "9a5c0456619017c1f9215ce0a3bcfbdccbe329ea48ce2df6bcdfaa70dafc7e12",
+      "stored_sha256": "9a5c0456619017c1f9215ce0a3bcfbdccbe329ea48ce2df6bcdfaa70dafc7e12",
+      "bytes": 583578,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/guest-initial/regeneration.json",
+      "stored": "regeneration.json",
+      "original_sha256": "6084ebc79fc573282bb1e8883b68d0d142187e52b70be68362de800c61962884",
+      "stored_sha256": "6084ebc79fc573282bb1e8883b68d0d142187e52b70be68362de800c61962884",
+      "bytes": 16925,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/runtime/runtime-environment.json",
+      "stored": "runtime/runtime-environment.json",
+      "original_sha256": "21c2a184e8981591a3abca16dc7f38de1d25033ae67f1c9f57dac5ae0fbde5a1",
+      "stored_sha256": "21c2a184e8981591a3abca16dc7f38de1d25033ae67f1c9f57dac5ae0fbde5a1",
+      "bytes": 283,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/gorm/1-start.json",
+      "stored": "gorm/1-start.json",
+      "original_sha256": "c55fa5268b48944609ddd199712ce46f65b87af28b1817a8a7748bf8876d7efd",
+      "stored_sha256": "ab4601b503b0f55b282903aeb826512a79c749a58c739d4dc8bc755460fe0366",
+      "bytes": 18472,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/gorm/2-fork.json",
+      "stored": "gorm/2-fork.json",
+      "original_sha256": "69be203d362cd70d94c172ae2a6f55aa8668ba736f254d2a8d8de45d27b04e2a",
+      "stored_sha256": "03f3299ab95fb3c38cd0aaa9f345409bb038e3475de521702f556960151ad04a",
+      "bytes": 18493,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/gorm/3-fork.json",
+      "stored": "gorm/3-fork.json",
+      "original_sha256": "542288c72a5273a0f5de7fcd66a36b322911ba5442c25e4d24b510a4cb57c762",
+      "stored_sha256": "07530e73f90e9de56aa65079d0c35ad827c4e8ecea70d0bc89235cf604d1e6b9",
+      "bytes": 18483,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/gorm/4-start.json",
+      "stored": "gorm/4-start.json",
+      "original_sha256": "d805eb3a3586784c039e281fd7c8b3eb30469823a1216d26159e0d2655f98455",
+      "stored_sha256": "76883565a12c69dcd1ddf1006c1e7d12ac67d6897928e096528258d7c1207c45",
+      "bytes": 18473,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/gorm/summary.json",
+      "stored": "gorm/summary.json",
+      "original_sha256": "efc3eca5385070b7e40e4205f9dbf866d5bbff08e54db2169a21d62f9359ae4c",
+      "stored_sha256": "efc3eca5385070b7e40e4205f9dbf866d5bbff08e54db2169a21d62f9359ae4c",
+      "bytes": 436,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/sqlalchemy/1-start.json",
+      "stored": "sqlalchemy/1-start.json",
+      "original_sha256": "3fc0cb86e16e1f32d98b72875739b8e59ae03d0818332e257dc5b127fb41074e",
+      "stored_sha256": "153c6a898c6c6a56f90d6cec16448db16e01088a66095855cf61e8ad7ad43d2a",
+      "bytes": 23710,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/sqlalchemy/2-fork.json",
+      "stored": "sqlalchemy/2-fork.json",
+      "original_sha256": "52dc55e0d78d1d8bb6f845c171ab98ae2d7be5513cab7b4fafff7992e97a5d7e",
+      "stored_sha256": "03da4cd0b32b12b4713647f16b31e710ca7506b4790daee5993c65dcdfd1aa6b",
+      "bytes": 16920,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/sqlalchemy/3-fork.json",
+      "stored": "sqlalchemy/3-fork.json",
+      "original_sha256": "b9b12c4623acbd90d37b911331cc193733df874cd3f07a961de44279390683c2",
+      "stored_sha256": "b90ed578f74d54b1a1bfb2736447f903243edc69b4ff52de5de57ad8b8f42ca1",
+      "bytes": 16917,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/sqlalchemy/4-start.json",
+      "stored": "sqlalchemy/4-start.json",
+      "original_sha256": "4b37457bd1f21f2586644cc2d7cf51a932d6780f40d50d1feb16efbcbf2ef0e0",
+      "stored_sha256": "4400d5dbd3a50e6935fd47c18b76de163cad147d93290008a22cba8513345256",
+      "bytes": 23710,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "evidence/sqlalchemy/summary.json",
+      "stored": "sqlalchemy/summary.json",
+      "original_sha256": "4bf3a0de8467daf01891c81785d04cc3f7c69102183fdb03c1b5f0358f60d12d",
+      "stored_sha256": "4bf3a0de8467daf01891c81785d04cc3f7c69102183fdb03c1b5f0358f60d12d",
+      "bytes": 1790,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "worktree/tests/evidence/snapshots.json",
+      "stored": "snapshot-checks.json",
+      "original_sha256": "65d939f98e37d2140a39b5955901dbd1243896933fcf4a62c69484e88e6251a1",
+      "stored_sha256": "42c28f4ff445623db490174404f2dd0faebbe7022c3497fdd47093942165d940",
+      "bytes": 1442,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "worktree/tests/evidence/alpha-wheel.json",
+      "stored": "local-wheel.json",
+      "original_sha256": "5b52bd4643619095586b13361bf04fb94b5d099ada597724eabb329932e68c55",
+      "stored_sha256": "fe8dc8f96d497e6a263a920dfec07fb8c21d8bf9b217d3b19520955101ccb530",
+      "bytes": 560835,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/build_guest.py",
+      "stored": "recipes/build_guest.py.txt",
+      "original_sha256": "6a3c1631e81c3c1c0fd6d728c3e40bc46dda4707bdda4a5cd658a5eb304d63e1",
+      "stored_sha256": "6a3c1631e81c3c1c0fd6d728c3e40bc46dda4707bdda4a5cd658a5eb304d63e1",
+      "bytes": 2241,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/translate.py",
+      "stored": "recipes/translate.py.txt",
+      "original_sha256": "26d71ca40f07086045cde01957bf07dea1b3d2110aa28620a58727aba677ce09",
+      "stored_sha256": "26d71ca40f07086045cde01957bf07dea1b3d2110aa28620a58727aba677ce09",
+      "bytes": 1309,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/map_symbols.py",
+      "stored": "recipes/map_symbols.py.txt",
+      "original_sha256": "83027c7a1c74bbe34bc76d11d270db4ad5b2cf620d129c1e565fa9b06bf52793",
+      "stored_sha256": "83027c7a1c74bbe34bc76d11d270db4ad5b2cf620d129c1e565fa9b06bf52793",
+      "bytes": 1709,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/observe_layout.py",
+      "stored": "recipes/observe_layout.py.txt",
+      "original_sha256": "8ae656d8231432840c9ac124097808a1b44407a65462a5ced0ce120e04bfd1d9",
+      "stored_sha256": "8ae656d8231432840c9ac124097808a1b44407a65462a5ced0ce120e04bfd1d9",
+      "bytes": 2337,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/setup_candidate.py",
+      "stored": "recipes/setup_candidate.py.txt",
+      "original_sha256": "8dfa11d83df08a1d4fc7f20de5cf15639cacd05df4915780481cd08033c1755f",
+      "stored_sha256": "8dfa11d83df08a1d4fc7f20de5cf15639cacd05df4915780481cd08033c1755f",
+      "bytes": 926,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/install.py",
+      "stored": "recipes/install.py.txt",
+      "original_sha256": "63297fc097f9380e71d8dfd01200c0f72565fc908f7e86b3d5f2d5c57543589b",
+      "stored_sha256": "63297fc097f9380e71d8dfd01200c0f72565fc908f7e86b3d5f2d5c57543589b",
+      "bytes": 1073,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/license.py",
+      "stored": "recipes/license.py.txt",
+      "original_sha256": "7162d3414b37577837f0aa9da328dd96d431d645fc4d438acb523b36eb727297",
+      "stored_sha256": "7162d3414b37577837f0aa9da328dd96d431d645fc4d438acb523b36eb727297",
+      "bytes": 1636,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    },
+    {
+      "source": "temp/checks.py",
+      "stored": "recipes/checks.py.txt",
+      "original_sha256": "385c10b35257a7961f939559cbb375393b24990dbde1814f9db5538f0075c7dd",
+      "stored_sha256": "385c10b35257a7961f939559cbb375393b24990dbde1814f9db5538f0075c7dd",
+      "bytes": 4772,
+      "normalization": "personal/runner home prefix only; different hashes mean path scrubbing"
+    }
+  ],
+  "note": "Raw logs ran in an owned worktree. Only home-path prefixes are scrubbed; SHA256 before/after and saved byte lengths are explicit. Local source build is a single UNQUALIFIED build; canonical independent source rebuild/both-OS evidence remains pending CI."
+}

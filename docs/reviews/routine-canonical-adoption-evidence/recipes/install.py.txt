@@ -1,0 +1,19 @@
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+p=Path(__file__).resolve().parents[1];root=p/'worktree';sys.path.insert(0,str(root/'scripts'))
+from build_feedback import go_environment
+from experiment_disk import DiskGuard,run_guarded
+env=dict(os.environ)
+for k in ('GOCACHE','GOPATH','GOMODCACHE'):env.pop(k,None)
+env.update(MARIAMEM_DEV_WORKSPACE=str(p),GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off')
+env=go_environment(env,root=root)
+out=p/'temp/canonical-generated-b'
+cmd=[sys.executable,str(root/'scripts/generate_runtime.py'),'--source-module',str(p/'temp/candidate/module'),'--output',str(out)]
+with (p/'evidence/install-b.txt').open('w') as log:rc=run_guarded(cmd,DiskGuard(p,8,24),cwd=root,env=env,output=log,timeout=900)
+if rc:raise SystemExit(rc)
+# Every byte comes from the canonical installer, including copied handwritten owners.
+runtime=root/'internal/generatedgo';shutil.rmtree(runtime);shutil.copytree(out,runtime)
+subprocess.run([sys.executable,str(root/'scripts/verify_generated_runtime.py')],cwd=root,env=env,check=True)

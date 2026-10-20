@@ -1,0 +1,20 @@
+[
+  {
+    "name": "wire-focused",
+    "exit_code": 0,
+    "expected_failure": false,
+    "pass_": true
+  },
+  {
+    "name": "j1-runner",
+    "exit_code": 0,
+    "expected_failure": false,
+    "pass_": true
+  },
+  {
+    "name": "gorm",
+    "exit_code": 0,
+    "expected_failure": false,
+    "pass_": true
+  }
+]

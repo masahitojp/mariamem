@@ -1,0 +1,14 @@
+import os
+from pathlib import Path
+import subprocess
+import sys
+p=Path(__file__).resolve().parents[1];root=p/'worktree';sys.path.insert(0,str(root/'scripts'))
+from build_feedback import go_environment
+from experiment_disk import DiskGuard,run_guarded
+env=dict(os.environ)
+for k in ('GOCACHE','GOPATH','GOMODCACHE'):env.pop(k,None)
+env.update(MARIAMEM_DEV_WORKSPACE=str(p),GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off')
+env=go_environment(env,root=root)
+cmd=[sys.executable,str(root/'benchmarks/spikes/generated-go-integration/setup_candidate.py'),'--source-only','--source-module',str(p/'temp/translation/module'),'--guest',str(p/'temp/guest-initial/mariamem.wasm'),'--input-manifest',str(p/'temp/translation/input-manifest.json'),'--output',str(p/'temp/candidate')]
+with (p/'evidence/setup-candidate.txt').open('w') as log:rc=run_guarded(cmd,DiskGuard(p,8,24),cwd=root,env=env,output=log,timeout=1200)
+raise SystemExit(rc)

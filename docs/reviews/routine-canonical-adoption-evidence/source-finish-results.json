@@ -1,0 +1,14 @@
+[
+  {
+    "name": "python-check",
+    "exit_code": 0,
+    "expected_failure": false,
+    "pass_": true
+  },
+  {
+    "name": "public",
+    "exit_code": 0,
+    "expected_failure": false,
+    "pass_": true
+  }
+]

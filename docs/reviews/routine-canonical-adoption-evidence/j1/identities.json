@@ -1,0 +1,156 @@
+{
+  "guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
+  "provenance_sha256": "995e7a5138c209e3c8d5109fc7677dcbd897ac7ce8da519c65af51099a0d6cef",
+  "functions": {
+    "70": {
+      "function": 70,
+      "raw_normalized_sha256": "68f0b5603bd885ca5be30266c5224680ca5a0783d12dcb376ac28844fe08bbc3",
+      "installed_body_sha256": "21c622fd6ab68f76d94659b7b736638e38c221b2219dcd37c8131331389fa51b",
+      "source_sha256": "dc5abb796c78d1771efcfce6fd2e271be04e94887dbbf7814729d86a2142cbcc"
+    },
+    "82": {
+      "function": 82,
+      "raw_normalized_sha256": "5d47974851b4306097cde1eeb2b123cb08c4a7a4f525c59ec00787df74985160",
+      "installed_body_sha256": "5ed3ae163a91dc3148ac5a9cefa38af5331693120b6585d61eb4d6ef724bba0f",
+      "source_sha256": "e7442c97bcb5a604c0e7300148f8ce1fa993757f07183b64c08cac3750deef89"
+    },
+    "83": {
+      "function": 83,
+      "raw_normalized_sha256": "5ba252f997bb5e46030dd1c3a46bf8b0f1827a17bd265db8bf93726276e3e277",
+      "installed_body_sha256": "c3ccff559b52f38a92c21cb4b75b9a0d257350ba921b077dd985dd6f37c874d4",
+      "source_sha256": "e7442c97bcb5a604c0e7300148f8ce1fa993757f07183b64c08cac3750deef89"
+    },
+    "88": {
+      "function": 88,
+      "raw_normalized_sha256": "9bee0271824d682a80bd04cfb03a709b7a725e027cff1a224be1f93461e2b180",
+      "installed_body_sha256": "cc5fa49abdba370698b087a573b9ec5078c5bd5b32c094cbda9c1d028c2239dc",
+      "source_sha256": "dc5abb796c78d1771efcfce6fd2e271be04e94887dbbf7814729d86a2142cbcc"
+    },
+    "89": {
+      "function": 89,
+      "raw_normalized_sha256": "e9a331e213fa0fa8e757b5a7401755f7ec36f6f3373a97ef7e106c555f70f1d6",
+      "installed_body_sha256": "e400833a19e38501f1de8d66d99631aef07298063ff5d231fc2fac6b1a1d5b17",
+      "source_sha256": "e7442c97bcb5a604c0e7300148f8ce1fa993757f07183b64c08cac3750deef89"
+    },
+    "97": {
+      "function": 97,
+      "raw_normalized_sha256": "29085e231bc4b8fc032bc1eac354e632fc5999be6ca6cb1ca05fe100e6f42c7c",
+      "installed_body_sha256": "63c2a8044223628d0fc091ac2fbab0c103043c571cf4bef551aa1ad6bdb4d28d",
+      "source_sha256": "cbd34fae2737ba23b09a407324edcbd53918f5ecbd070b64b5f0a0cae77194c0"
+    },
+    "131": {
+      "function": 131,
+      "raw_normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "installed_body_sha256": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
+      "source_sha256": "e7442c97bcb5a604c0e7300148f8ce1fa993757f07183b64c08cac3750deef89"
+    },
+    "135": {
+      "function": 135,
+      "raw_normalized_sha256": "015bdb428380550ad7ee6b0cf9cc1ebc3830df069641d8898ed166ec508f51dc",
+      "installed_body_sha256": "90cbdbfc15c2a691156c0ad9e3300b35678769381c553f7c75a939da54e796cb",
+      "source_sha256": "d4c98a7e63f01320ac6478ed86f97736ddc4cee287b83850d93fc97e992ecdf4"
+    },
+    "150": {
+      "function": 150,
+      "raw_normalized_sha256": "5a6a3ca6ca7483b30b036d4c64a1e5efc671677c90375a59e248ba2ff27ae961",
+      "installed_body_sha256": "08485f3ce2bbfe303e379bccd92a6f9ebf567b55e56ae60c2f65ee36f37f8b12",
+      "source_sha256": "e7442c97bcb5a604c0e7300148f8ce1fa993757f07183b64c08cac3750deef89"
+    },
+    "151": {
+      "function": 151,
+      "raw_normalized_sha256": "b15826e2ef9e60330d18ba732b8bc901b85dbbfe9442b66ef98aafc7769e8ac4",
+      "installed_body_sha256": "77ff8aeb040aac7c09b01f0eccc06392684fa8a363cf82df38b582fe0fccaa97",
+      "source_sha256": "e7442c97bcb5a604c0e7300148f8ce1fa993757f07183b64c08cac3750deef89"
+    },
+    "152": {
+      "function": 152,
+      "raw_normalized_sha256": "4ae8b3cd459a5db2470ee180554190e286926ab6f2007be2e342f6648873ab12",
+      "installed_body_sha256": "58c31f5fd4ec1b0c93769de5b3dff3524fcf95cb45f9e2437b83756b77567bca",
+      "source_sha256": "3161928d48bef5229b136c07644e136aea354ed05bce87e7001ae86c29524b63"
+    },
+    "153": {
+      "function": 153,
+      "raw_normalized_sha256": "fc0fbe16d5c656aa793a9c35ed8342fbf8e729a3b40289914ebc0a4f65233199",
+      "installed_body_sha256": "365942b7b73dcd7678772684edf0746bf37385e63059f2fca70f4adca623172b",
+      "source_sha256": "12add40baef473c0e7f7430e19dfef80e9b2ab4f5d4e46bf56b0da8f0705e11b"
+    },
+    "158": {
+      "function": 158,
+      "raw_normalized_sha256": "a9868a44150f74a492b505ac37fbec3d74f629eeb22a62d78980b528a2b36b15",
+      "installed_body_sha256": "649473c5e020a0ce252c09b0d8f1e74397933aff51ee27193e5d733d1485bb3b",
+      "source_sha256": "e7442c97bcb5a604c0e7300148f8ce1fa993757f07183b64c08cac3750deef89"
+    },
+    "217": {
+      "function": 215,
+      "raw_normalized_sha256": "451f75fd0c9854235fb741010a23febc2088e14eafe7c1b25be2178e056c234c",
+      "installed_body_sha256": "8dbc47f734faa0334d843d586df677afd6338a96f636208d51a8ed3b133a20dd",
+      "source_sha256": "e7442c97bcb5a604c0e7300148f8ce1fa993757f07183b64c08cac3750deef89"
+    },
+    "221": {
+      "function": 219,
+      "raw_normalized_sha256": "42487349ed4e98eec9a00433ad818355e5802ca1d55024447024de3437e384ee",
+      "installed_body_sha256": "41872fd2c49cf03c965a115b01123ce4a2d75d80bc2956d17bf5fff021f79fc9",
+      "source_sha256": "dc5abb796c78d1771efcfce6fd2e271be04e94887dbbf7814729d86a2142cbcc"
+    }
+  },
+  "copied_source_sha256": {
+    "internal/generatedgo/code/base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+    "internal/generatedgo/code/base/simd_relaxed.go": "ce4ddfb367e686107aa8dbcba8ced4bb5b591106cec94d0950f5e588b1235152",
+    "internal/generatedgo/code/base/simd_pair.go": "ffa8c2aac9e0a61608fca859ea8a7493b42dca47babed99c28762573c8d0a916",
+    "internal/generatedgo/code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
+    "internal/generatedgo/code/base/cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+    "internal/generatedgo/code/base/simd_asm_decls_arm64.go": "8e9dd950f0c3282a924cf961e055db631536f883f2c05cccef44c4974d99abee",
+    "internal/generatedgo/code/base/memory_mapping.go": "388e8cf70e3387db7143f9081b9e62c6ddb3edf52e4adbff223be1f9a8020cc7",
+    "internal/generatedgo/code/base/simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+    "internal/generatedgo/code/base/memfs.go": "9f837926d070c66947be82ee8aecc35ac724fcdc245cd42814e39e85d3c234ed",
+    "internal/generatedgo/code/base/simd_fallback.go": "0bb864d570bc9286d87290c55ef52e7082c114e6f3730ae86415e15bbff849ad",
+    "internal/generatedgo/code/base/block_storage.go": "429c4c67d3cb3fd3356ae89bfaa07eaca49e83a58cad7fe1174744aede4ee73c",
+    "internal/generatedgo/code/base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+    "internal/generatedgo/code/base/prepared_files.go": "6abb8d5c5886a0b4a8eaba13236cd6de6eaee21ccfa674b7a60adcefe78c3c7e",
+    "internal/generatedgo/code/base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+    "internal/generatedgo/code/base/narrow_load_supported.go": "53a04e996c7edafe5a21c28c35d4fa9f9661c8854d4d1aaca5029af83331d342",
+    "internal/generatedgo/code/base/simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+    "internal/generatedgo/code/base/owned_prepared.go": "a276d8ed117163b5386a8025e11ce73dbfd1f3713327541177ec1063293b82b6",
+    "internal/generatedgo/code/base/narrow_write_linux_amd64.s": "a189e25e3f4fd8f19f245345b052e8ddcf87fd4b649250365ffa44f3d94c9f19",
+    "internal/generatedgo/code/base/narrow_write_supported.go": "3a0c9b33fbc99a343943c3996a23ad1879c36dde88d9903bd13f94a9ec3bb18d",
+    "internal/generatedgo/code/base/sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+    "internal/generatedgo/code/base/runtime_cleanup.go": "40886ea6b6c24316f4fd73d451674c815bc7b26717e1b635362b2170d010d75c",
+    "internal/generatedgo/code/base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+    "internal/generatedgo/code/base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+    "internal/generatedgo/code/base/heap_snapshot.go": "b0ee33871d4e750b5ec1bc65023a5c0fd6640bfcfd3a8bf2a16ac9d62b632bef",
+    "internal/generatedgo/code/base/narrow_write_darwin_arm64.s": "8c7f1579987ad56f6bc71b5210ebd252b747d1ecd4044ff8a0c3ed6d39742e89",
+    "internal/generatedgo/code/base/simd_asm_decls_amd64.go": "456cefd6896b1021a6dbf813a381165ec99efb3cd7b66a34a4e97ef31b23802e",
+    "internal/generatedgo/code/base/relative.go": "a5c100e135a04b93b76b36b9c80cc14645950f6fab34abf6655b13cdf02ca15a",
+    "internal/generatedgo/code/base/narrow_load_linux_amd64.s": "7a4c1ba99109aa8870db20bdd6eee26515362d292738ec0008b5fa4c43d0956f",
+    "internal/generatedgo/code/base/memfs_growth.go": "cf3105a038b013ec476b01564c72de3b50f8b4034bf625a011e8a09aeae38e1f",
+    "internal/generatedgo/code/base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+    "internal/generatedgo/code/base/base.go": "01c609ab3d6260a162606d6aa6cebabb2d45cba609d465eaac273b6567f39ded",
+    "internal/generatedgo/code/base/spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862",
+    "internal/generatedgo/code/base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+    "internal/generatedgo/code/base/thread_lifetime.go": "e381f829248d859331ec560de111e3d5edabb1be11a84f57fb4458c3dec7de25",
+    "internal/generatedgo/code/base/narrow_load_darwin_arm64.s": "0e5f92aaa6767c173b90b3432ce6866291a96e1b3e26a3a43c7b23de96cdd5a9",
+    "internal/generatedgo/code/base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+    "internal/generatedgo/code/base/simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c",
+    "internal/generatedgo/code/base/narrow_load_other.go": "49b7b233f4380992c11c0d9ab6cd7442db1d2401c8428d33389fcf320fb626c7",
+    "internal/generatedgo/code/base/narrow_write_other.go": "e66dd1978ec60a9c16f302e9d461ba77e370519b6c95275ed9832b085f8fa4de",
+    "internal/prepared/heap.go": "081713bbeee8dfd541e7a1a09b98f9ce38339809a3c40c5b6ef0ea0eaa088bc9",
+    "internal/prepared/entry.go": "4996850b33c9a256733b94fff51046fa05bc8035ba72f0fbdd03c80cc1fbdaf4",
+    "internal/prepared/root_names.go": "b154d56d1e922a25e1131489a70cdedd8ccbb9cd778f980ef511f99cb645bcda",
+    "internal/prepared/root.go": "f91ada0b4ea815791b035bb3551bed1db4c8bb836683ee14673ac62da7434212",
+    "internal/timing/timing.go": "9eef3299e19ff03f66c12ac1ad4de392bef005fd51c4ce98829910b3333852e2"
+  },
+  "historical_oracle_sha256": "afc920c38e3acdeaa266db3218bd008dfaf45873bdf0162de1275d6a11b94d14",
+  "rebased_oracle_sha256": "fc670f700cc73d1c3ae32c1320aa2f2db2ab4231a162c3cd395941b8baa05733",
+  "only_oracle_changes": {
+    "copy(memory[8388608:], data[:6207334])": "copy(memory[8388608:], data[:6211110])",
+    "copy(memory[14595968:], data[6207334:6849954])": "copy(memory[14599744:], data[6211110:6853730])",
+    "copy(memory[15238592:], data[6849954:])": "copy(memory[15242368:], data[6853730:])",
+    "put(15243132, 123)": "put(15246908, 123)",
+    "put(15244240, 0)": "put(15248016, 0)",
+    "put(15244244, tc.waiters)": "put(15248020, tc.waiters)",
+    "Fn217(": "Fn215(",
+    "Fn221(": "Fn219("
+  },
+  "observer": "same post-notify pause; assertions unchanged",
+  "data_sha256": "65cf56f09ffe71505da74763cd37d74a540c97aec7fba3d20eeac72f45bb8ceb"
+}

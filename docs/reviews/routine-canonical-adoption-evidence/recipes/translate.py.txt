@@ -1,0 +1,23 @@
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+p=Path(__file__).resolve().parents[1];root=p/'worktree';sys.path.insert(0,str(root/'scripts'))
+from experiment_disk import DiskGuard,run_guarded
+from build_feedback import go_environment
+record=json.loads((p/'temp/guest-initial/guest.json').read_text())
+guest=p/'temp/guest-initial/mariamem.wasm'
+assert hashlib.sha256(guest.read_bytes()).hexdigest()==record['guest_sha256']
+archive=p/'temp/initial/build/downloads/wasm2go-upstream.tar.gz'
+env=dict(os.environ)
+for k in ('GOCACHE','GOPATH','GOMODCACHE'):env.pop(k,None)
+env.update(MARIAMEM_DEV_WORKSPACE=str(p),GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off')
+env=go_environment(env,root=root)
+command=[sys.executable,str(root/'benchmarks/spikes/generated-go-integration/translate_guest.py'),
+ '--guest',str(guest),'--guest-sha256',record['guest_sha256'],'--converter-archive',str(archive),'--output',str(p/'temp/translation')]
+guard=DiskGuard(p,min_free_gib=8,budget_gib=24)
+with (p/'evidence/translation.log').open('w') as log:rc=run_guarded(command,guard,cwd=root,env=env,output=log,timeout=1800)
+(p/'evidence/disk-translation.json').write_text(json.dumps({'peak_owned_bytes':guard.peak,'minimum_free_bytes':guard.minimum_free},indent=2)+'\n')
+raise SystemExit(rc)

@@ -1,0 +1,34 @@
+"""Observe exact ABI candidates on new compiler output; never edits runtime sources."""
+import hashlib
+import json
+from pathlib import Path
+import re
+p=Path(__file__).resolve().parents[1]
+raw=p/'temp/translation/module/generated'
+baseline=json.loads((p/'evidence/j1-baseline-bodies.json').read_text())
+literal=re.compile(r'(?<![A-Za-z_0-9])\d+\b')
+def normalize(body):return re.sub(r'\s+','',body)
+def shape(body):return hashlib.sha256(literal.sub('#',normalize(re.sub(r'\bFn\d+\b','Fn',body))).encode()).hexdigest()
+functions={}
+for file in sorted(raw.glob('p*/*_pure.go')):
+    text=file.read_text();starts=list(re.finditer(r'(?m)^func (Fn\d+)\(',text))
+    for i,m in enumerate(starts):
+        end=starts[i+1].start()-1 if i+1<len(starts) else len(text)
+        body=text[m.start():end]
+        functions[m[1]]={'file':str(file.relative_to(raw)),'body':body,'shape':shape(body)}
+result={'baseline_source_commit':baseline['source_commit'],'guest_sha256':json.loads((p/'temp/translation/input-manifest.json').read_text())['guest_sha256'],'functions':{}}
+for old,record in baseline['functions'].items():
+    candidates=[];oldbody=record['body'];oldliterals=literal.findall(normalize(oldbody));oldshape=shape(oldbody)
+    for name,current in functions.items():
+        if current['shape']!=oldshape:continue
+        newliterals=literal.findall(normalize(current['body']))
+        assert len(oldliterals)==len(newliterals)
+        changes=sorted(set((int(x),int(y)) for x,y in zip(oldliterals,newliterals) if x!=y))
+        candidates.append({'function':name,'file':current['file'],'normalized_sha256':hashlib.sha256(normalize(current['body']).encode()).hexdigest(),'integer_changes':changes,'direct_calls':sorted(set(re.findall(r'\bFn(\d+)\(',current['body']))- {name.removeprefix('Fn')})})
+    result['functions'][old]={'baseline_shape_sha256':shape(oldbody),'candidates':candidates}
+    print('Old Fn'+old,'candidates',[(x['function'],x['file'],x['integer_changes'][:12]) for x in candidates])
+(p/'evidence/new-layout-observations.json').write_text(json.dumps(result,indent=2)+'\n')
+for name,record in functions.items():
+    if 'base.MemoryInit(m, 0,' in record['body'] and 'base.MemoryInit(m, 1,' in record['body']:
+        (p/'evidence/new-data-init.go.txt').write_text(record['body'])
+        print('Data init',name,record['file'])

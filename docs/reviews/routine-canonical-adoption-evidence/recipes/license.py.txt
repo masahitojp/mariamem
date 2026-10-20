@@ -1,0 +1,20 @@
+import os,sys,json,hashlib,subprocess
+from pathlib import Path
+p=Path(__file__).resolve().parents[1];r=p/'worktree';sys.path.insert(0,str(r/'scripts'))
+from build_feedback import go_environment
+def sha(x):return hashlib.sha256(x.read_bytes()).hexdigest()
+e=dict(os.environ)
+for k in ('GOCACHE','GOPATH','GOMODCACHE'):e.pop(k,None)
+e.update(MARIAMEM_DEV_WORKSPACE=str(p),GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off');e=go_environment(e,root=r)
+f=r/'release/generated-license-evidence.json';v=json.loads(f.read_text());g=p/'temp/guest-initial';m=p/'temp/symbols/functions.map'
+v.update(guest_sha256=sha(g/'mariamem.wasm'),linked_sha256=sha(g/'linked.wasm'),symbol_map_sha256=sha(m),symbol_map_entries=len(m.read_text().splitlines()),generated_provenance_sha256=sha(r/'internal/generatedgo/provenance.json'))
+f.write_text(json.dumps(v,indent=2)+'\n')
+out=p/'evidence/license-reproduced.json'
+subprocess.run([sys.executable,str(r/'scripts/audit_generated_licenses.py'),'--linked',str(g/'linked.wasm'),'--guest',str(g/'mariamem.wasm'),'--function-map',str(m),'--host',str(p/'temp/mariamem-host'),'--output',str(out)],cwd=r,env=e,check=True)
+v=json.loads(out.read_text());v['audit_source_commit']=v['host_check']['source_commit'];f.write_text(json.dumps(v,indent=2)+'\n')
+for rel in ('release/distribution-licenses.json','python/mariamem/license-inventory.json'):
+ path=r/rel
+ if not path.exists():
+  path=r/'python/license-inventory.json'
+ v=json.loads(path.read_text());v['evidence_sha256']=sha(f);path.write_text(json.dumps(v,indent=2)+'\n')
+print('License identities refreshed from actual generated definitions and clean native host')

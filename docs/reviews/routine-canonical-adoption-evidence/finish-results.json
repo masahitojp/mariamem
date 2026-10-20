@@ -1,0 +1,14 @@
+[
+  {
+    "name": "integration-python",
+    "exit_code": 0,
+    "expected_failure": false,
+    "pass_": true
+  },
+  {
+    "name": "snapshots",
+    "exit_code": 0,
+    "expected_failure": false,
+    "pass_": true
+  }
+]

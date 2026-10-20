@@ -1,0 +1,38 @@
+[
+  {
+    "name": "heap-0",
+    "exit_code": 1,
+    "expected_failure": true,
+    "passed": true
+  },
+  {
+    "name": "heap-1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "passed": true
+  },
+  {
+    "name": "heap-1-race",
+    "exit_code": 0,
+    "expected_failure": false,
+    "passed": true
+  },
+  {
+    "name": "mmap-0",
+    "exit_code": 1,
+    "expected_failure": true,
+    "passed": true
+  },
+  {
+    "name": "mmap-1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "passed": true
+  },
+  {
+    "name": "mmap-1-race",
+    "exit_code": 0,
+    "expected_failure": false,
+    "passed": true
+  }
+]

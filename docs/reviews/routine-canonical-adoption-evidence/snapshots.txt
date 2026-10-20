@@ -1,0 +1,1 @@
+{"passed": true, "checks": 33, "error": null, "evidence": "<user-home>/src/mysqlmem/publish/mariamem/build/experiment-work/routine-canonical-adoption/worktree/tests/evidence/snapshots.json"}

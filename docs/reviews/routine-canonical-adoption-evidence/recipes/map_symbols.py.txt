@@ -1,0 +1,29 @@
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+p=Path(__file__).resolve().parents[1]
+out=p/'temp/symbols';out.mkdir()
+cmd=['docker','run','--rm','--network','none',
+ '--mount',f'type=bind,src={p}/temp/initial/root,dst=/root,readonly',
+ '--mount',f'type=bind,src={p}/temp/guest-initial,dst=/guest,readonly',
+ '--mount',f'type=bind,src={out},dst=/out',
+ 'sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f',
+ '/root/.wasixcc/binaryen/bin/wasm-opt','-O2',
+ '--enable-threads','--enable-mutable-globals','--enable-bulk-memory',
+ '--enable-bulk-memory-opt','--enable-exception-handling','--enable-simd',
+ '--enable-relaxed-simd','--enable-extended-const','--symbolmap',
+ '/guest/linked.wasm','-o','/out/mapped.wasm']
+with (out/'functions.map').open('w') as stdout,(p/'evidence/symbolmap.log').open('w') as stderr:
+ subprocess.run(cmd,check=True,stdout=stdout,stderr=stderr)
+sha=lambda f:hashlib.sha256(f.read_bytes()).hexdigest()
+record=json.loads((p/'temp/guest-initial/guest.json').read_text())
+assert sha(out/'mapped.wasm')==record['guest_sha256']
+rows=(out/'functions.map').read_text().splitlines()
+names={int(i):name for i,name in (row.split(':',1) for row in rows)}
+result={'guest_sha256':record['guest_sha256'],'linked_sha256':sha(p/'temp/guest-initial/linked.wasm'),
+ 'symbol_map_sha256':sha(out/'functions.map'),'symbol_map_entries':len(rows),
+ 'method':'Pinned Binaryen133 same O2 flags plus symbolmap; diagnostic Wasm byte-identical to adopted candidate',
+ 'selected_symbols':{str(n):names.get(n) for n in (131,153,214,215,216,217,219,221)}}
+(p/'evidence/symbol-map-proof.json').write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps(result,indent=2))
