@@ -47,6 +47,7 @@ jobs:
     env:
       GOTOOLCHAIN: go1.26.8
       PYTHONDONTWRITEBYTECODE: '1'
+      MARIAMEM_ROUTINE_REQUIRE_CONNECTOR: '1'
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
@@ -62,7 +63,7 @@ jobs:
           path: ${{ runner.temp }}/routine-guest
       - name: Fixed consumers and source/helper oracles
         run: |
-          python -m pip install PyMySQL==1.2.3 pytest==8.4.2
+          python -m pip install PyMySQL==1.2.3 pytest==8.4.2 mysql-connector-python==26.7.0
           mkdir -p build/routine-ci
           python scripts/git_identity.py inspect HEAD > build/routine-ci/source.json
           python -c 'import json,os;assert json.load(open("build/routine-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'

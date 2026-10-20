@@ -1,0 +1,27 @@
+{
+  "steps": [
+    {
+      "sql": "SET @mariamem_bootstrap_sql_mode=@@SESSION.sql_mode",
+      "result": "PASS"
+    },
+    {
+      "sql": "SET SESSION sql_mode=''",
+      "result": "PASS"
+    },
+    {
+      "sql": "SET SESSION sql_mode=@mariamem_bootstrap_sql_mode",
+      "result": "PASS"
+    }
+  ],
+  "before": [
+    "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+    "test",
+    "utf8mb4"
+  ],
+  "after": [
+    "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+    "test",
+    "utf8mb4"
+  ],
+  "unchanged": true
+}

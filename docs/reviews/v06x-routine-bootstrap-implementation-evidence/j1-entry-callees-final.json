@@ -1,0 +1,51 @@
+{
+  "212": {
+    "new_function": 210,
+    "explicit_callee_renames": {
+      "212": 210,
+      "215": 213,
+      "4056": 4064
+    },
+    "structure_equal_after_explicit_rename": true,
+    "integer_literal_changes": [],
+    "original_body_sha256": "9ecb8f3959a7276114583de64689beff758f351f2a4ce92b7d5966dc6a6328be",
+    "new_body_sha256": "3abdaf239b2d20b1da465a9fb4b59326d28a64a81f837e6ddc588524312d1e35"
+  },
+  "215": {
+    "new_function": 213,
+    "explicit_callee_renames": {
+      "212": 210,
+      "215": 213,
+      "4056": 4064
+    },
+    "structure_equal_after_explicit_rename": true,
+    "integer_literal_changes": [],
+    "original_body_sha256": "b1e53acb39b9d4e6726b9fc44303dd94be878901d4b9457f29e20dd68ceddc1a",
+    "new_body_sha256": "5f3c7bb200dd289f3dd46fc1b33e0913fc6f1171429f15eca97a1be283ef6a74"
+  },
+  "4056": {
+    "new_function": 4064,
+    "explicit_callee_renames": {
+      "212": 210,
+      "215": 213,
+      "4056": 4064
+    },
+    "structure_equal_after_explicit_rename": true,
+    "integer_literal_changes": [
+      [
+        15466168,
+        15516472
+      ],
+      [
+        15466172,
+        15516476
+      ],
+      [
+        15466176,
+        15516480
+      ]
+    ],
+    "original_body_sha256": "5bb53aedf60cba8d87969e7d29c05cc5bdbd36d8a0feb2d4ae27eaef761d4e01",
+    "new_body_sha256": "fbc4c5f2fdb17504b05b0cc4917c19c2924c3ec98c5faa1b8c08ce6baeefb35c"
+  }
+}

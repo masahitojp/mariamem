@@ -1,0 +1,26 @@
+{
+  "scope": "minimum routine candidate, not main adoption or Qualification",
+  "local_platform": "macOS arm64",
+  "source_tests": "PASS55",
+  "routine_runtime": "PASS7",
+  "default_connector_local": "SKIP: OpenSSL4 missing ssl.PROTOCOL_TLSv1; mandatory in candidate CI",
+  "native_control": "PASS6",
+  "failed_restore_cases": "PASS3 plus repeated Python Forks/healthy sibling",
+  "j1_negative_returncodes": [
+    1,
+    1
+  ],
+  "j1_protected_returncodes": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "independent_raw": "PASS52",
+  "independent_install": "PASS99 including provenance",
+  "candidate_ci": "PENDING",
+  "main_integration": "NOT_PERFORMED",
+  "version_placement": "NOT_DECIDED",
+  "qualification": "NOT_PERFORMED",
+  "release": "NOT_PERFORMED"
+}

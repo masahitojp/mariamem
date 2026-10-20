@@ -1,0 +1,31 @@
+{
+  "after": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 1,
+    "grow_calls": 106,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 689242112,
+    "release_failures": 0,
+    "releases": 1
+  },
+  "before": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 0,
+    "grow_calls": 0,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 0,
+    "release_failures": 0,
+    "releases": 0
+  },
+  "error": "guest_ready: generated-Go guest startup did not complete the expected API v2 handshake; inspect guest diagnostics. Cause: guest output closed unexpectedly: EOF\nguest output closed unexpectedly: EOF\nguest process: generated-Go guest failure: unimplemented WASIX: Proc_exit2; stderr tail: mariamem: routine_bootstrap step=sql_mode errno=4081 sqlstate=HY000 reason=SQL failed error=Unknown structured system variable or ROW routine variable 'SESSION' ddl=e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc; Fresh failure with matching artifacts requires a bootstrap bug report; an incompatible restored proc structure requires preparing a new baseline.",
+  "guest_sha256": "25df44f57849f00c191f2f33e48fa1d0d711856f8b17e2fc088044847755d0c0",
+  "oracle": "actual rejected first candidate Fresh SQL failure, not a corrected-candidate success",
+  "result": "PASS",
+  "server_nil": true,
+  "stderr": "mariamem: routine_bootstrap step=sql_mode errno=4081 sqlstate=HY000 reason=SQL failed error=Unknown structured system variable or ROW routine variable 'SESSION' ddl=e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc; Fresh failure with matching artifacts requires a bootstrap bug report; an incompatible restored proc structure requires preparing a new baseline.\n",
+  "transfer_directories_unchanged": true
+}

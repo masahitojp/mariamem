@@ -1,0 +1,130 @@
+{
+  "identity": [
+    [
+      "12.3.3-MariaDB-ubu2404",
+      "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+      "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    ]
+  ],
+  "cases": [
+    {
+      "case": "procedure-create-call-drop",
+      "result": "PASS",
+      "detail": [
+        {
+          "rows": [
+            [
+              7
+            ]
+          ],
+          "columns": [
+            "value"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ]
+    },
+    {
+      "case": "in-out-inout",
+      "result": "PASS",
+      "detail": [
+        [
+          6,
+          13
+        ]
+      ]
+    },
+    {
+      "case": "multiple-results-terminal-ok",
+      "result": "PASS",
+      "detail": [
+        {
+          "rows": [
+            [
+              7
+            ]
+          ],
+          "columns": [
+            "a"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": [
+            [
+              8
+            ]
+          ],
+          "columns": [
+            "b"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ]
+    },
+    {
+      "case": "function-create-invoke-drop-null",
+      "result": "PASS",
+      "detail": [
+        [
+          5,
+          null
+        ]
+      ]
+    },
+    {
+      "case": "information-schema-routine-and-parameters",
+      "result": "PASS",
+      "detail": {
+        "routines": [
+          [
+            "PROCEDURE"
+          ]
+        ],
+        "parameters": [
+          [
+            1,
+            "IN",
+            "a"
+          ],
+          [
+            2,
+            "OUT",
+            "b"
+          ]
+        ]
+      }
+    },
+    {
+      "case": "later-error-reuse-and-after-drop",
+      "result": "PASS",
+      "detail": {
+        "signal_errno": 1644,
+        "after_drop": {
+          "sql": "CALL test.feas_error()",
+          "result": "FAIL",
+          "errno": 1305,
+          "error": "(1305, 'PROCEDURE test.feas_error does not exist')",
+          "elapsed_ms": 1.32733304053545
+        },
+        "reused": true
+      }
+    }
+  ]
+}

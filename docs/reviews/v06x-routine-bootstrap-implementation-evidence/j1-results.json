@@ -1,0 +1,26 @@
+[
+  {
+    "case": "j1-heap-protected-0-race-0",
+    "returncode": 1
+  },
+  {
+    "case": "j1-heap-protected-1-race-0",
+    "returncode": 0
+  },
+  {
+    "case": "j1-heap-protected-1-race-1",
+    "returncode": 0
+  },
+  {
+    "case": "j1-mmap-protected-0-race-0",
+    "returncode": 1
+  },
+  {
+    "case": "j1-mmap-protected-1-race-0",
+    "returncode": 0
+  },
+  {
+    "case": "j1-mmap-protected-1-race-1",
+    "returncode": 0
+  }
+]

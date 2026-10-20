@@ -173,3 +173,40 @@ def record_candidate_environment():
                   openssl=ssl.OPENSSL_VERSION, pymysql=importlib.metadata.version('PyMySQL'),
                   host_sha256=hashlib.sha256(Path(HOST).read_bytes()).hexdigest())
     (evidence/'runtime-environment.json').write_text(json.dumps(record, indent=2)+'\n')
+
+
+def test_default_connector_python_routine_and_prepared_regression():
+    """Bounded existing-driver regression; prepared CALL is not included."""
+    import importlib.metadata
+    import json
+    import ssl
+    required = os.environ.get('MARIAMEM_ROUTINE_REQUIRE_CONNECTOR') == '1'
+    if not hasattr(ssl, 'PROTOCOL_TLSv1'):
+        reason = 'Connector/Python 26.7.0 import requires ssl.PROTOCOL_TLSv1; this OpenSSL build omits it'
+        if required:
+            pytest.fail(reason)
+        pytest.skip(reason)
+    if required:
+        import mysql.connector as connector
+    else:
+        connector = pytest.importorskip('mysql.connector')
+    assert importlib.metadata.version('mysql-connector-python') == '26.7.0'
+    with mariamem.start(host_binary=HOST) as db:
+        with connector.connect(**db.connection_info(), autocommit=True) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute('CREATE FUNCTION test.connector_value() RETURNS INT DETERMINISTIC RETURN 17')
+                cursor.execute('CREATE PROCEDURE test.connector_call() BEGIN SELECT 7; SELECT 8; END')
+                cursor.execute('CALL test.connector_call()')
+                rows = []
+                while True:
+                    if cursor.with_rows:
+                        rows.append(cursor.fetchall())
+                    if not cursor.nextset():
+                        break
+                assert rows == [[(7,)], [(8,)]], rows
+            with connection.cursor(prepared=True) as cursor:
+                cursor.execute('SELECT test.connector_value()+%s', (3,))
+                assert cursor.fetchall() == [(20,)]
+            evidence = Path(os.environ.get('MARIAMEM_ROUTINE_EVIDENCE', str(Path(__file__).resolve().parents[1]/'build/routine-ci')))
+            evidence.mkdir(parents=True, exist_ok=True)
+            (evidence/'connector-regression.json').write_text(json.dumps(dict(result='PASS', version=connector.__version__, default_connection=type(connection).__name__, text_call=rows, prepared_expression=20), indent=2)+'\n')

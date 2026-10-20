@@ -1,0 +1,579 @@
+{
+  "classification": "diagnostic, six paired modes in one warm Go host; each guest starts anew; not a before/after benchmark",
+  "go": "go1.26.8",
+  "goarch": "arm64",
+  "goos": "darwin",
+  "guest_sha256": "118ef83ee066d57f946603f7e2a2b2c60d9b5f1cd4d627c3d18a73cbd963350c",
+  "pairs": [
+    {
+      "fresh": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 33542
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 34000
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 34125
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 36458
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 30610875
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 30751708
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 30752458
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 32498083
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 32515583
+          }
+        ]
+      },
+      "pair": 0,
+      "restore": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 30250
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 30666
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 30833
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 39416
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 35391833
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 35497666
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 35498166
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 36383916
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 36397166
+          }
+        ]
+      }
+    },
+    {
+      "fresh": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 28208
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 28291
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 28708
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 31125
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 31383458
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 31584458
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 31584916
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 33117625
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 33132791
+          }
+        ]
+      },
+      "pair": 1,
+      "restore": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 23875
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 24042
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 24208
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 28167
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 41210625
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 41308667
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 41309292
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 42288542
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 42302333
+          }
+        ]
+      }
+    },
+    {
+      "fresh": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 25750
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 25833
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 26042
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 28375
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 32884083
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 32976917
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 32977500
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 34619375
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 34634375
+          }
+        ]
+      },
+      "pair": 2,
+      "restore": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 25666
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 25750
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 25916
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 30250
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 40030375
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 40165833
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 40166375
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 41052750
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 41067625
+          }
+        ]
+      }
+    },
+    {
+      "fresh": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 27709
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 27834
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 28167
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 30584
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 29699334
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 29862000
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 29862500
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 31983292
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 31999500
+          }
+        ]
+      },
+      "pair": 3,
+      "restore": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 24500
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 24583
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 24791
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 28875
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 32755166
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 32851583
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 32852083
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 33742250
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 33755750
+          }
+        ]
+      }
+    },
+    {
+      "fresh": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 29291
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 29375
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 29583
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 32291
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 31704166
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 31902583
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 31903458
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 33727250
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 33742375
+          }
+        ]
+      },
+      "pair": 4,
+      "restore": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 23459
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 23584
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 23750
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 27959
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 36710084
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 36805167
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 36805792
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 37762750
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 37776625
+          }
+        ]
+      }
+    },
+    {
+      "fresh": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 27334
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 27500
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 27667
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 30084
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 38037959
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 38136125
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 38136500
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 40545875
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 40562834
+          }
+        ]
+      },
+      "pair": 5,
+      "restore": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 23916
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 24000
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 24333
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 28291
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 36089583
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 36318541
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 36319041
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 37248750
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 37263291
+          }
+        ]
+      }
+    }
+  ]
+}

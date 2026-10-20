@@ -769,15 +769,21 @@ It recommends guest initialization before ready, explicit internal Fresh/restore
 context, and rejection rather than repair of an incompatible restored proc
 structure. Public multi-result CALL additionally depends on adoption of the
 text multi-result bridge; initialization does not require binary prepared support.
-The design is ready for Human Review. Production implementation, routine target
-version, integration, Qualification and release are not approved by this step;
+This records the earlier design step; the later implementation approval is
+below. Routine target version, integration, Qualification and release were not
+approved by that design-only step;
 prepared/multi-statement scope remains unchanged.
 
 **Human scope approval — routine bootstrap (2026-10-20):** the Human approved
 implementation of the minimum bootstrap design, explicitly including the
 product-managed proc structure and rejection rather than repair of incompatible
 restored baselines. Routine rows remain mutable and isolated per child. Work is
-on `experiment/routine-bootstrap`; its implementation/verification is in progress.
+on `experiment/routine-bootstrap`; the [implementation results](reviews/v06x-routine-bootstrap-implementation.md)
+record macOS arm64 PASS for immediate routines, Snapshot/Fork isolation, rejected
+restored definitions/cleanup and unchanged J1 failure/protection oracles. Fixed
+guest `118ef83e` has independent raw52/installed99-file regeneration evidence.
+Native Ubuntu acceptance is pending the separate candidate CI; no PASS or main
+adoption is inferred from local verification.
 Version placement, main integration, Qualification and release remain separate;
 the prepared/multi-statement decision is not advanced by this approval.
 

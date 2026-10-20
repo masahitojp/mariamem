@@ -1,0 +1,96 @@
+[
+  {
+    "name": "routine-runtime",
+    "argv": [
+      "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/routine-bootstrap/temp/venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/routine-bootstrap/worktree/tests/test_routine_bootstrap_runtime.py"
+    ],
+    "cwd": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/routine-bootstrap/worktree",
+    "returncode": 0,
+    "seconds": 31.976066834060475
+  },
+  {
+    "name": "mode-unit",
+    "argv": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "-trimpath",
+      "./internal/generatedgo",
+      "-run",
+      "TestGuestEnvironmentIsPerInstance",
+      "-count=1"
+    ],
+    "cwd": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/routine-bootstrap/temp/dev-fixed-native/product",
+    "returncode": 0,
+    "seconds": 57.532311792019755
+  },
+  {
+    "name": "wire-unit",
+    "argv": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "-trimpath",
+      "./internal/mysqlwire"
+    ],
+    "cwd": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/routine-bootstrap/temp/dev-fixed-native/product",
+    "returncode": 0,
+    "seconds": 1.6656927498988807
+  },
+  {
+    "name": "go-routines",
+    "argv": [
+      "go",
+      "run",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "./tests/v06_routine_probe",
+      "-output",
+      "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/routine-bootstrap/evidence/go-routines.json"
+    ],
+    "cwd": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/routine-bootstrap/temp/dev-fixed-native/product",
+    "returncode": 0,
+    "seconds": 7.214610000140965
+  },
+  {
+    "name": "prepared-regression",
+    "argv": [
+      "go",
+      "run",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "./tests/v06_prepared_probe",
+      "-output",
+      "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/routine-bootstrap/evidence/prepared-regression.json"
+    ],
+    "cwd": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/routine-bootstrap/temp/dev-fixed-native/product",
+    "returncode": 0,
+    "seconds": 2.0993545830715448
+  },
+  {
+    "name": "auth-diagnostic",
+    "argv": [
+      "go",
+      "run",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "./cmd/mariamem-guest",
+      "auth-check"
+    ],
+    "cwd": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/routine-bootstrap/temp/dev-fixed-native/product",
+    "returncode": 0,
+    "seconds": 2.2037653748411685
+  }
+]

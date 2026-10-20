@@ -1,0 +1,11 @@
+{
+  "classification": "diagnostic-only post-execution copy; no adoption or Qualification claim",
+  "owner": "internal/generatedgo/runtime_instance.go",
+  "owner_sha256": "8166f027fb23c9117c3eca08d767dce24f7bbd36b3f6ac81cc829cc223c1c796",
+  "overlay_sha256": "e2c699f624bdfc41c3b4894502c0f0d2a3e7f07797e5dcb5c9b17c078908d792",
+  "product": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/routine-bootstrap/temp/dev-fixed-native/product",
+  "generated_files_edited": false,
+  "binary_sha256": "ff8c5cccbcabccff99b135ff4d5dfb62960e534994eaf03f30fbd54698c80bde",
+  "candidate_generated_inventory_unchanged": true,
+  "files": 99
+}

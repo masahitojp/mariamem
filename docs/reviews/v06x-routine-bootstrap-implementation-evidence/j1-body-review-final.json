@@ -1,0 +1,414 @@
+{
+  "Fn70": {
+    "file": "generated/p7/p7_pure.go",
+    "body_sha256": "21c622fd6ab68f76d94659b7b736638e38c221b2219dcd37c8131331389fa51b",
+    "normalized_sha256": "68f0b5603bd885ca5be30266c5224680ca5a0783d12dcb376ac28844fe08bbc3",
+    "non_literal_structure_equal": true,
+    "integer_changes": [],
+    "indirect_call": false
+  },
+  "Fn82": {
+    "file": "generated/p8/p8_pure.go",
+    "body_sha256": "5ed3ae163a91dc3148ac5a9cefa38af5331693120b6585d61eb4d6ef724bba0f",
+    "normalized_sha256": "5d47974851b4306097cde1eeb2b123cb08c4a7a4f525c59ec00787df74985160",
+    "non_literal_structure_equal": true,
+    "integer_changes": [],
+    "indirect_call": false
+  },
+  "Fn83": {
+    "file": "generated/p8/p8_pure.go",
+    "body_sha256": "c3ccff559b52f38a92c21cb4b75b9a0d257350ba921b077dd985dd6f37c874d4",
+    "normalized_sha256": "5ba252f997bb5e46030dd1c3a46bf8b0f1827a17bd265db8bf93726276e3e277",
+    "non_literal_structure_equal": true,
+    "integer_changes": [],
+    "indirect_call": false
+  },
+  "Fn88": {
+    "file": "generated/p7/p7_pure.go",
+    "body_sha256": "cc5fa49abdba370698b087a573b9ec5078c5bd5b32c094cbda9c1d028c2239dc",
+    "normalized_sha256": "9bee0271824d682a80bd04cfb03a709b7a725e027cff1a224be1f93461e2b180",
+    "non_literal_structure_equal": true,
+    "integer_changes": [],
+    "indirect_call": false
+  },
+  "Fn89": {
+    "file": "generated/p8/p8_pure.go",
+    "body_sha256": "e400833a19e38501f1de8d66d99631aef07298063ff5d231fc2fac6b1a1d5b17",
+    "normalized_sha256": "e9a331e213fa0fa8e757b5a7401755f7ec36f6f3373a97ef7e106c555f70f1d6",
+    "non_literal_structure_equal": true,
+    "integer_changes": [],
+    "indirect_call": false
+  },
+  "Fn97": {
+    "file": "generated/p5/p5_pure.go",
+    "body_sha256": "2a25cd22f8d79eba4ed52c5e359efb2208a20b65c4f451c9da3b8d86cbe0fa5b",
+    "normalized_sha256": "8aef85db386cbe43305ce3ae661561c08b90fc3f8c1bd089ed88e7a075afc7b5",
+    "non_literal_structure_equal": true,
+    "integer_changes": [
+      [
+        15239105,
+        15289409
+      ]
+    ],
+    "indirect_call": false
+  },
+  "Fn131": {
+    "file": "generated/p8/p8_pure.go",
+    "body_sha256": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
+    "normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+    "non_literal_structure_equal": true,
+    "integer_changes": [],
+    "indirect_call": false
+  },
+  "Fn135": {
+    "file": "generated/p8/p8_pure.go",
+    "body_sha256": "90cbdbfc15c2a691156c0ad9e3300b35678769381c553f7c75a939da54e796cb",
+    "normalized_sha256": "015bdb428380550ad7ee6b0cf9cc1ebc3830df069641d8898ed166ec508f51dc",
+    "non_literal_structure_equal": true,
+    "integer_changes": [],
+    "indirect_call": false
+  },
+  "Fn150": {
+    "file": "generated/p8/p8_pure.go",
+    "body_sha256": "c158753203557b5756c81aaa03c024b2a33bf54e960c4710a49ebedb63d2f95a",
+    "normalized_sha256": "4211d0f1c72bdababdd78465823ea27e8dfe1ff7e6d162e192ed10d8ea0b2ee6",
+    "non_literal_structure_equal": true,
+    "integer_changes": [
+      [
+        8687180,
+        8688272
+      ],
+      [
+        15239148,
+        15289452
+      ],
+      [
+        15239168,
+        15289472
+      ]
+    ],
+    "indirect_call": false
+  },
+  "Fn151": {
+    "file": "generated/p8/p8_pure.go",
+    "body_sha256": "77ff8aeb040aac7c09b01f0eccc06392684fa8a363cf82df38b582fe0fccaa97",
+    "normalized_sha256": "b15826e2ef9e60330d18ba732b8bc901b85dbbfe9442b66ef98aafc7769e8ac4",
+    "non_literal_structure_equal": true,
+    "integer_changes": [],
+    "indirect_call": false
+  },
+  "Fn152": {
+    "file": "generated/p1/p1_pure.go",
+    "body_sha256": "ebec45f071087138ca8407e23019e5f577cbd2f47c338319b09759c23907cbda",
+    "normalized_sha256": "b627051cd1c298a34ba26679d6c65f354d96326c3f5da12f308c7a644dfc48b1",
+    "non_literal_structure_equal": true,
+    "integer_changes": [
+      [
+        15240500,
+        15290804
+      ],
+      [
+        15240504,
+        15290808
+      ],
+      [
+        15240508,
+        15290812
+      ],
+      [
+        15240512,
+        15290816
+      ],
+      [
+        15240516,
+        15290820
+      ],
+      [
+        15240520,
+        15290824
+      ],
+      [
+        15240524,
+        15290828
+      ],
+      [
+        15240528,
+        15290832
+      ],
+      [
+        15240532,
+        15290836
+      ],
+      [
+        15240536,
+        15290840
+      ],
+      [
+        15240540,
+        15290844
+      ],
+      [
+        15240544,
+        15290848
+      ],
+      [
+        15240548,
+        15290852
+      ],
+      [
+        15240552,
+        15290856
+      ],
+      [
+        15240556,
+        15290860
+      ],
+      [
+        15240560,
+        15290864
+      ],
+      [
+        15240564,
+        15290868
+      ],
+      [
+        15240572,
+        15290876
+      ],
+      [
+        15240576,
+        15290880
+      ],
+      [
+        15240580,
+        15290884
+      ],
+      [
+        15240584,
+        15290888
+      ],
+      [
+        15240588,
+        15290892
+      ],
+      [
+        15240592,
+        15290896
+      ],
+      [
+        15240596,
+        15290900
+      ],
+      [
+        15240600,
+        15290904
+      ],
+      [
+        15240828,
+        15291132
+      ],
+      [
+        15240956,
+        15291260
+      ],
+      [
+        15240960,
+        15291264
+      ],
+      [
+        15240964,
+        15291268
+      ],
+      [
+        15240968,
+        15291272
+      ],
+      [
+        15240972,
+        15291276
+      ],
+      [
+        15240976,
+        15291280
+      ],
+      [
+        15240980,
+        15291284
+      ],
+      [
+        15240984,
+        15291288
+      ],
+      [
+        15240988,
+        15291292
+      ],
+      [
+        15241000,
+        15291304
+      ]
+    ],
+    "indirect_call": false
+  },
+  "Fn153": {
+    "file": "generated/p3/p3_pure.go",
+    "body_sha256": "0fcd56708b2189a6e5667c535b0d583396b23d7d76a2f748a8b37d1cdbecf08d",
+    "normalized_sha256": "69d7332f9e7394f785c30f5f99f68d915967d1809169259f1cdd8f59811967dd",
+    "non_literal_structure_equal": true,
+    "integer_changes": [
+      [
+        15240524,
+        15290828
+      ],
+      [
+        15240528,
+        15290832
+      ],
+      [
+        15240532,
+        15290836
+      ],
+      [
+        15240536,
+        15290840
+      ],
+      [
+        15240540,
+        15290844
+      ],
+      [
+        15240544,
+        15290848
+      ],
+      [
+        15240548,
+        15290852
+      ],
+      [
+        15240556,
+        15290860
+      ],
+      [
+        15240564,
+        15290868
+      ],
+      [
+        15240828,
+        15291132
+      ],
+      [
+        15240968,
+        15291272
+      ],
+      [
+        15240972,
+        15291276
+      ]
+    ],
+    "indirect_call": false
+  },
+  "Fn158": {
+    "file": "generated/p8/p8_pure.go",
+    "body_sha256": "649473c5e020a0ce252c09b0d8f1e74397933aff51ee27193e5d733d1485bb3b",
+    "normalized_sha256": "a9868a44150f74a492b505ac37fbec3d74f629eeb22a62d78980b528a2b36b15",
+    "non_literal_structure_equal": true,
+    "integer_changes": [],
+    "indirect_call": false
+  },
+  "Fn217": {
+    "new_function": "Fn215",
+    "file": "generated/p8/p8_pure.go",
+    "normalized_sha256": "19894c7ca6c27cd72bafb5df5c02faef79428ba2dc49b4d6300bd88ddc6ad4c0",
+    "non_literal_structure_equal_after_explicit_function_relocation": true,
+    "integer_changes": [
+      [
+        15243132,
+        15293436
+      ],
+      [
+        15244240,
+        15294544
+      ],
+      [
+        15244244,
+        15294548
+      ]
+    ]
+  },
+  "Fn221": {
+    "new_function": "Fn219",
+    "file": "generated/p7/p7_pure.go",
+    "normalized_sha256": "49f2e0d81458e5d4a8a58d42f68eb7f5024fe42fbda0a96c44784c6bf20686b3",
+    "non_literal_structure_equal_after_explicit_function_relocation": true,
+    "integer_changes": [
+      [
+        15243132,
+        15293436
+      ],
+      [
+        15244244,
+        15294548
+      ],
+      [
+        15244248,
+        15294552
+      ],
+      [
+        15301648,
+        15351952
+      ]
+    ]
+  },
+  "Fn216": {
+    "new_function": "Fn214",
+    "file": "generated/p5/p5_pure.go",
+    "normalized_sha256": "1d3576a757e65cecf336d24d38a98ad54d12257bd6fcb3c82585f4f7e71728fb",
+    "non_literal_structure_equal_after_explicit_function_relocation": true,
+    "integer_changes": [
+      [
+        15285633,
+        15289409
+      ],
+      [
+        15285636,
+        15289412
+      ],
+      [
+        15289660,
+        15293436
+      ],
+      [
+        15290176,
+        15293952
+      ],
+      [
+        15290224,
+        15294000
+      ],
+      [
+        15290768,
+        15294544
+      ],
+      [
+        15290772,
+        15294548
+      ],
+      [
+        15290776,
+        15294552
+      ],
+      [
+        15348176,
+        15351952
+      ]
+    ],
+    "comparison": "prepared experiment selected-Fn216-new.go.txt",
+    "explicit_function_relocations": {
+      "212": 210,
+      "215": 213,
+      "216": 214
+    },
+    "original_body_sha256": "f0e688085ef63cecad6ccf0b071558de7047353e155d3f250a006674d29e0c11",
+    "body_sha256": "4ae38a5a8738d671e244cee3b60f18da93fd6eb63158e8cd4df198a2b28db85e"
+  }
+}

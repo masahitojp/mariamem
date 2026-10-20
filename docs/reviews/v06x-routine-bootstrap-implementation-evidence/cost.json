@@ -1,0 +1,53 @@
+{
+  "classification": "diagnostic, six paired Fresh/Fork; timing observer on; not benchmark acceptance",
+  "rows": [
+    {
+      "pair": 0,
+      "host_pid": 7674,
+      "fresh_ms": 250.62329112552106,
+      "capture_ms": 5.2239999640733,
+      "fork_ms": 44.25470787100494,
+      "close_ms": 2.222584094852209
+    },
+    {
+      "pair": 1,
+      "host_pid": 7682,
+      "fresh_ms": 52.87087499164045,
+      "capture_ms": 8.937207981944084,
+      "fork_ms": 45.37266702391207,
+      "close_ms": 3.103249939158559
+    },
+    {
+      "pair": 2,
+      "host_pid": 7707,
+      "fresh_ms": 59.91770792752504,
+      "capture_ms": 3.030250081792474,
+      "fork_ms": 41.971042053774,
+      "close_ms": 2.30775005184114
+    },
+    {
+      "pair": 3,
+      "host_pid": 7709,
+      "fresh_ms": 57.58691602386534,
+      "capture_ms": 3.0967919155955315,
+      "fork_ms": 39.03312515467405,
+      "close_ms": 2.4629158433526754
+    },
+    {
+      "pair": 4,
+      "host_pid": 7711,
+      "fresh_ms": 61.286167008802295,
+      "capture_ms": 2.977041993290186,
+      "fork_ms": 40.81449983641505,
+      "close_ms": 2.5569589342921972
+    },
+    {
+      "pair": 5,
+      "host_pid": 7713,
+      "fresh_ms": 59.97520801611245,
+      "capture_ms": 3.0248749535530806,
+      "fork_ms": 42.86770801991224,
+      "close_ms": 2.386749954894185
+    }
+  ]
+}

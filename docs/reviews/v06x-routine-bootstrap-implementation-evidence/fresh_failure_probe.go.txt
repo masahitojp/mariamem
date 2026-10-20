@@ -1,0 +1,12 @@
+package main
+import("bytes";"context";"encoding/json";"fmt";"os";"path/filepath";"reflect";"strings";"time";"github.com/masahitojp/mariamem/internal/host";"github.com/masahitojp/mariamem/internal/generatedgo/code/base")
+func main(){
+ ctx,cancel:=context.WithTimeout(context.Background(),30*time.Second);defer cancel()
+ before:=base.MemoryMappingStats();dirsBefore,e:=filepath.Glob(filepath.Join(os.TempDir(),"mariamem-transfer-*"));if e!=nil{panic(e)}
+ var stderr bytes.Buffer;s,err:=host.StartGenerated(ctx,nil,20*time.Second,&stderr)
+ if err==nil||s!=nil||!strings.Contains(err.Error(),"routine_bootstrap step=sql_mode errno=4081"){panic(fmt.Sprint("wrong failure: ",s,err))}
+ after:=base.MemoryMappingStats();for _,k:=range []string{"active_mappings","active_reserved_bytes","active_rw_bytes","release_failures"}{if before[k]!=after[k]{panic("leak: "+k)}}
+ if after["creates"]!=before["creates"]+1||after["releases"]!=before["releases"]+1{panic("not exactly one mapping release")}
+ dirsAfter,e:=filepath.Glob(filepath.Join(os.TempDir(),"mariamem-transfer-*"));if e!=nil{panic(e)};if !reflect.DeepEqual(dirsBefore,dirsAfter){panic("transfer directory leak")}
+ data,e:=json.MarshalIndent(map[string]any{"result":"PASS","oracle":"actual rejected first candidate Fresh SQL failure, not a corrected-candidate success","guest_sha256":"25df44f57849f00c191f2f33e48fa1d0d711856f8b17e2fc088044847755d0c0","server_nil":s==nil,"before":before,"after":after,"transfer_directories_unchanged":true,"error":err.Error(),"stderr":stderr.String()},"","  ");if e!=nil{panic(e)};fmt.Println(string(data))
+}
