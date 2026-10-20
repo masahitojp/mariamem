@@ -801,9 +801,13 @@ DEFINER is bounded to clause/metadata acceptance, ordinary execution and
 Snapshot/Fork retention; `--skip-grant-tables` does not reproduce account/privilege
 enforcement. The [scope decision](decisions/routine-support-scope.md) owns the
 boundary and the [bounded findings](reviews/v06x-routine-adoption-bounds.md) record
-macOS/native results. No package execution tests were added. Ubuntu DEFINER
-confirmation is pending the amended candidate CI; earlier both-OS routine
-acceptance is not relabelled as that new coverage. Canonical generation promotion
+macOS/native results. No package execution tests were added. The
+[DEFINER CI receipt](reviews/v06x-routine-adoption-bounds-ci.md) closes native
+confirmation: guest build and both supported OS jobs PASS in
+[run39389127237](https://github.com/masahitojp/mariamem/actions/runs/39389127237)
+on exact source `387a5f2a685748877d17e706491738ae242c0c4b`, including16 DEFINER
+combinations and retention in two Forks per OS. This does not establish grant
+enforcement or native account-context equivalence. Canonical generation promotion
 and prepared/text-result production prerequisites remain outstanding; version,
 main integration, Qualification and release remain separate decisions.
 

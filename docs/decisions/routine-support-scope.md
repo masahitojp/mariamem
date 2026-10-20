@@ -59,7 +59,9 @@ SQL SECURITY DEFINER executions with1446. Guest CURRENT_USER stayed root@localho
 in this cohort. Access-control or CURRENT_USER-sensitive assertions therefore need
 an appropriate real-server check; this does not invalidate ordinary routine
 logic and isolation tests. See the
-[bounded evidence](../reviews/v06x-routine-adoption-bounds.md).
+[bounded evidence](../reviews/v06x-routine-adoption-bounds.md). The
+[both-OS CI receipt](../reviews/v06x-routine-adoption-bounds-ci.md) subsequently
+confirmed the same bounded guest behavior on macOS arm64 and Ubuntu x86_64.
 
 ## Adoption boundaries
 

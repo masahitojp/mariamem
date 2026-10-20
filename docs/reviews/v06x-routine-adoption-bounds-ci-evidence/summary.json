@@ -1,0 +1,159 @@
+{
+  "candidate_source_commit": "387a5f2a685748877d17e706491738ae242c0c4b",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39389127237",
+  "job_ids": {
+    "guest": 118516115003,
+    "ubuntu": 118519232548,
+    "macos": 118519232587
+  },
+  "conclusion": "success",
+  "qualification": false,
+  "platforms": {
+    "native-macos-15": {
+      "guest_sha256": "118ef83ee066d57f946603f7e2a2b2c60d9b5f1cd4d627c3d18a73cbd963350c",
+      "host_sha256": "1eb79b527c16ade9001f60b9a451021c703214d745357c4366e0bad6e4c95b2b",
+      "definer": "PASS: 16 Fresh cases and their definitions/results in two Forks; no privilege-enforcement claim",
+      "fresh_cases": 16,
+      "forks": 2,
+      "total_calls": 48,
+      "input_tests": 55,
+      "runtime_tests": 8,
+      "connector": {
+        "result": "PASS",
+        "version": "26.7.0",
+        "default_connection": "CMySQLConnection",
+        "text_call": [
+          [
+            [
+              7
+            ]
+          ],
+          [
+            [
+              8
+            ]
+          ]
+        ],
+        "prepared_expression": 20
+      },
+      "j1": [
+        {
+          "case": "j1-heap-protected-0-race-0",
+          "returncode": 1
+        },
+        {
+          "case": "j1-heap-protected-1-race-0",
+          "returncode": 0
+        },
+        {
+          "case": "j1-heap-protected-1-race-1",
+          "returncode": 0
+        },
+        {
+          "case": "j1-mmap-protected-0-race-0",
+          "returncode": 1
+        },
+        {
+          "case": "j1-mmap-protected-1-race-0",
+          "returncode": 0
+        },
+        {
+          "case": "j1-mmap-protected-1-race-1",
+          "returncode": 0
+        }
+      ],
+      "resources_final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 9,
+        "grow_calls": 945,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 1378418688,
+        "release_failures": 0,
+        "releases": 9
+      },
+      "environment": {
+        "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+        "system": "Darwin",
+        "machine": "arm64",
+        "openssl": "OpenSSL 3.5.7 9 Jun 2026",
+        "pymysql": "1.2.3",
+        "host_sha256": "1eb79b527c16ade9001f60b9a451021c703214d745357c4366e0bad6e4c95b2b"
+      }
+    },
+    "native-ubuntu-24.04": {
+      "guest_sha256": "118ef83ee066d57f946603f7e2a2b2c60d9b5f1cd4d627c3d18a73cbd963350c",
+      "host_sha256": "9fafa1297eb674bce04a01c79d4f0921d1536fbb546fb2ad7b0ba15dd3c6fad5",
+      "definer": "PASS: 16 Fresh cases and their definitions/results in two Forks; no privilege-enforcement claim",
+      "fresh_cases": 16,
+      "forks": 2,
+      "total_calls": 48,
+      "input_tests": 55,
+      "runtime_tests": 8,
+      "connector": {
+        "result": "PASS",
+        "version": "26.7.0",
+        "default_connection": "MySQLConnection",
+        "text_call": [
+          [
+            [
+              7
+            ]
+          ],
+          [
+            [
+              8
+            ]
+          ]
+        ],
+        "prepared_expression": 20
+      },
+      "j1": [
+        {
+          "case": "j1-heap-protected-0-race-0",
+          "returncode": 1
+        },
+        {
+          "case": "j1-heap-protected-1-race-0",
+          "returncode": 0
+        },
+        {
+          "case": "j1-heap-protected-1-race-1",
+          "returncode": 0
+        },
+        {
+          "case": "j1-mmap-protected-0-race-0",
+          "returncode": 1
+        },
+        {
+          "case": "j1-mmap-protected-1-race-0",
+          "returncode": 0
+        },
+        {
+          "case": "j1-mmap-protected-1-race-1",
+          "returncode": 0
+        }
+      ],
+      "resources_final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 9,
+        "grow_calls": 946,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 1369964544,
+        "release_failures": 0,
+        "releases": 9
+      },
+      "environment": {
+        "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+        "system": "Linux",
+        "machine": "x86_64",
+        "openssl": "OpenSSL 3.0.13 30 Jan 2024",
+        "pymysql": "1.2.3",
+        "host_sha256": "9fafa1297eb674bce04a01c79d4f0921d1536fbb546fb2ad7b0ba15dd3c6fad5"
+      }
+    }
+  }
+}

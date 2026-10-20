@@ -1,0 +1,386 @@
+[
+  {
+    "file": "native-macos-15/auth-diagnostic.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 3279,
+    "original_sha256": "cef49c1c53671f5d99bc97d173b2929fc657837692581ad5dfd0ca2141b2e3f3",
+    "stored_bytes": 560,
+    "stored_sha256": "67c089d6cdebf16a78bf28945ca807a65cedde246821582d12bab03a8b69bd7b"
+  },
+  {
+    "file": "native-macos-15/connector-regression.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 218,
+    "original_sha256": "9599119714b53aedbfbe0b886aa41cb4ecc2de5711f570df864f570440422abd",
+    "stored_bytes": 143,
+    "stored_sha256": "99d7ec0ec0ff3f8e6648ba3582885f2d017f789973369b62ac5085705b033924"
+  },
+  {
+    "file": "native-macos-15/definer.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 71270,
+    "original_sha256": "9e1d07785068c389a04ab06282bd0e55e271e6a21e5625aa18e1f58d70d6a34b",
+    "stored_bytes": 1951,
+    "stored_sha256": "bc45a4d0c432f537c9585950b5e8a720d7afdd6b78d37da949f4d21244e8ca00"
+  },
+  {
+    "file": "native-macos-15/definer.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 101,
+    "original_sha256": "a2dd64fe35cf7cf80b2b9e54159440b37cd779ca23f148dc075100a6957f8e6a",
+    "stored_bytes": 107,
+    "stored_sha256": "5ef8307e2cf60c9da63e120dd890f0a61737f8e2378bf5cb2c80dd9dd0679713"
+  },
+  {
+    "file": "native-macos-15/development.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 1959009,
+    "original_sha256": "f33081d77474140ec2deda482b6e8ac1c236ec26cc313a262bc59df8815608b7",
+    "stored_bytes": 554094,
+    "stored_sha256": "350d158cab354e39e05bbb671b08a2c6b10221a555b175afed08582ce9414407"
+  },
+  {
+    "file": "native-macos-15/go-routines.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 6171,
+    "original_sha256": "6cea934d889c3a92cf5f55835ef6726151920b50324bc9a48ac2acc131a1e384",
+    "stored_bytes": 957,
+    "stored_sha256": "6eff70bb6b147a993c1e5a2cf4dc705c035ffcd014701e34063fe24f8f8684b5"
+  },
+  {
+    "file": "native-macos-15/go-routines.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 6272,
+    "original_sha256": "a0f9ddb3fd855eb088d4a8d1c32a1494180708821ffacd8263cd73b422b21756",
+    "stored_bytes": 1021,
+    "stored_sha256": "21c9510104765c685b0d60d5a2fbeabdede2806300ca944f774c91db3e9d0404"
+  },
+  {
+    "file": "native-macos-15/input-tests.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 99,
+    "original_sha256": "22e31a03a9696e10c3ab9d5909d34653cb1a89adf3ef1d9a310b42d4b029bbff",
+    "stored_bytes": 52,
+    "stored_sha256": "4bb42ab38119bad59d42bbd9945813b8c59389fed48bd860aaad8327d7be7569"
+  },
+  {
+    "file": "native-macos-15/j1-fixture.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 131,
+    "original_sha256": "f5c686d28fa3c5b157272f9c5c4e55b6ec68b91d937ffd717dff26f9f63cf65d",
+    "stored_bytes": 125,
+    "stored_sha256": "5eb3ce54a4d7ecc0baf647088b9cb0d6b5a3c877b63d499fe8a8b171d22b9c70"
+  },
+  {
+    "file": "native-macos-15/j1-heap-protected-0-race-0.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1060,
+    "original_sha256": "fc789baf29e8c23a3a4b8e98b2c3fbd0e7fe922c2016334cdd297e2f75fe850b",
+    "stored_bytes": 363,
+    "stored_sha256": "d3640f702a832d29df1e18513bc2c8a6c81cd217131477b09289549971047a0e"
+  },
+  {
+    "file": "native-macos-15/j1-heap-protected-1-race-0.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1224,
+    "original_sha256": "3d6999bfacdde3becc5241f99548897861c99ebfb05c43c9ed6e60b51c88117e",
+    "stored_bytes": 320,
+    "stored_sha256": "ae81b6f0d02d925d3537f9083c5738ebbc5661f47feb1509b5203e07796f1159"
+  },
+  {
+    "file": "native-macos-15/j1-heap-protected-1-race-1.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1224,
+    "original_sha256": "63b0e92ba35866b5a810e5b672d1e61c63da2e876e775b385ee7ca8bf002350f",
+    "stored_bytes": 324,
+    "stored_sha256": "4d6a2d3ec0e2743ef898a63806d53727fca00ed7b7f3c7159489329daee19a5f"
+  },
+  {
+    "file": "native-macos-15/j1-identities.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 14307,
+    "original_sha256": "ed629b9594fea3ac9ce5125875262d0b04e00905f3cdd2eb4ce5af4c5bbd9667",
+    "stored_bytes": 4087,
+    "stored_sha256": "82a3783cf16cd1fe537245eb7f7ac487d478ab3dcc0e9b987d634fec8dfba6d3"
+  },
+  {
+    "file": "native-macos-15/j1-mmap-protected-0-race-0.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1060,
+    "original_sha256": "b5a2539ec56b10bf65de631cf3d59744a5430ed6f46004b94aef8a03884fbc87",
+    "stored_bytes": 358,
+    "stored_sha256": "e2fa3eb01853988618fb8a4b7725701cbdabc71f95615451bbf1819133569ee5"
+  },
+  {
+    "file": "native-macos-15/j1-mmap-protected-1-race-0.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1224,
+    "original_sha256": "f1e693ae5ad925fd8d4232aee074858dbfcd1275384eb1836e6e44ca2a459807",
+    "stored_bytes": 314,
+    "stored_sha256": "1f897518c896ccfdf9f3b233740a2ad990f435f766614b1372fa0b685720585d"
+  },
+  {
+    "file": "native-macos-15/j1-mmap-protected-1-race-1.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1224,
+    "original_sha256": "300e3251ff54f7ae6ff1d308fcb91e5118800499d352036e6d4332af40ea9703",
+    "stored_bytes": 318,
+    "stored_sha256": "7436e34ae0ab2bd6611fd1c6d14d6a440ab1942d86d8c91952d3077923c4e163"
+  },
+  {
+    "file": "native-macos-15/j1-results.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 429,
+    "original_sha256": "c745b3db687ec5210ca37eec338b23ef50402a7b3113a9a950be537905ab2ca2",
+    "stored_bytes": 113,
+    "stored_sha256": "d5cb8fcaa11391dc323580830d7cd7bb06262ad7a6251b14cf59b87a41888d64"
+  },
+  {
+    "file": "native-macos-15/mode-unit.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 64,
+    "original_sha256": "fa3f35ee1eaf62ed91d9655f4137aacac834ee438c6341b7c85fe522980ba9c2",
+    "stored_bytes": 81,
+    "stored_sha256": "074cb270bf7b6ecbe13892cd3dfe20511db6e1475c3a3014a82d5548cb209200"
+  },
+  {
+    "file": "native-macos-15/regeneration.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 14166,
+    "original_sha256": "c6f1b82263a7bd5cf1c528526dc51a3fbcf9efeaad466aa697b20c78b5068237",
+    "stored_bytes": 1632,
+    "stored_sha256": "c2e232aaf65d4f3354ab8567e9b6c276c994aad5ef86d71cd845e04f7d500ce6"
+  },
+  {
+    "file": "native-macos-15/routine-runtime.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 99,
+    "original_sha256": "28fccad74d5d5691e267aa0a09433dec77028255456f155246f185732b5dbf4b",
+    "stored_bytes": 52,
+    "stored_sha256": "37afa0dbd05eee1e715f9e92ff1588dc96f68f5413f8a8ba974e9ba8bc2fadf7"
+  },
+  {
+    "file": "native-macos-15/runtime-environment.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 298,
+    "original_sha256": "debf7a659c6fdfb60d928cd96f4e440cc2d468ed638b8bb48d7cf2b1ad66f1ff",
+    "stored_bytes": 240,
+    "stored_sha256": "bd8611ebc219b1e14f837da435947f91b93826662341b9cadd5615958dd884ca"
+  },
+  {
+    "file": "native-macos-15/source.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 153,
+    "original_sha256": "13f2f8e0eadfb2f1c1931476ac5a5543f76718e8cfcb0354eded57f915d8092e",
+    "stored_bytes": 111,
+    "stored_sha256": "f110ed987509213c079880ff689bc8a5232a53307b45bd34fccb7ddc7a3598d5"
+  },
+  {
+    "file": "native-macos-15/translation.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 6367,
+    "original_sha256": "55ed434d562a444e4e2651f7d6aa5b8cd964ebe0687489c786907834a13e4b6c",
+    "stored_bytes": 3264,
+    "stored_sha256": "71806bf761e6158b4d9c0f1b48dadcd4b63a431faa7a3316cc54d1eb6c40235a"
+  },
+  {
+    "file": "native-macos-15/wire-unit.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 62,
+    "original_sha256": "9e7ac043bad08ab8f3186704a950054c71d337d863f00121e489ebabaaf7d949",
+    "stored_bytes": 80,
+    "stored_sha256": "9756653e7c57ef032292194f6642abf4339c41a574dc01599f8092d855aa0f44"
+  },
+  {
+    "file": "native-ubuntu-24.04/auth-diagnostic.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 3279,
+    "original_sha256": "e58f713978bb0f449e1747ad3bc45a9a58b5c9d0648d73be93926a33eba9ef38",
+    "stored_bytes": 556,
+    "stored_sha256": "a0cb201acaadd78a3dbc05d5c2b1df15f2404747f236fb1c6a225ba6c292e688"
+  },
+  {
+    "file": "native-ubuntu-24.04/connector-regression.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 217,
+    "original_sha256": "dfb7abdffd0ddf52afc6a5be199f34f08e12b0f4800e6b3ec6aa623202ec2243",
+    "stored_bytes": 142,
+    "stored_sha256": "47c7a449c944465dad752632032569a679553b00dbba7186bb4c7e8a25113ac9"
+  },
+  {
+    "file": "native-ubuntu-24.04/definer.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 71242,
+    "original_sha256": "00de1e5d6036f9dfc926d5ffc8dc3cea471016ad7b6a7a06bf6486fb5f12a4ae",
+    "stored_bytes": 1942,
+    "stored_sha256": "bc0736884575c060e7c016dabbf80d889dd9f341387d259ade1bddd7a891c679"
+  },
+  {
+    "file": "native-ubuntu-24.04/definer.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 100,
+    "original_sha256": "e54fe4a64a7111eb52534ba66a3a01274fc8c85d0a3a95987eccba0017fc2777",
+    "stored_bytes": 106,
+    "stored_sha256": "ff3fa0f7de26a5cf8299e4fd82088e08fcfe22fd22013246630b9c27b78378e7"
+  },
+  {
+    "file": "native-ubuntu-24.04/development.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 1959005,
+    "original_sha256": "fdf874f475ad6ef8eea0b8936e9b68f5985c4af6d91c4493b5bb4af625631581",
+    "stored_bytes": 554092,
+    "stored_sha256": "17ea59e0b1feb5885b2116625377aed143e0082144bb7c41abf70c8b2d629ca6"
+  },
+  {
+    "file": "native-ubuntu-24.04/go-routines.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 6171,
+    "original_sha256": "ef283921a483d280dd11d0f0dfbb98b498ea53c65d2eddfac9cd385f0d6167dd",
+    "stored_bytes": 951,
+    "stored_sha256": "089f325c300fd20801be46a87db1bff40ddf9c23ad12c2c245c53bfe8f4a34ed"
+  },
+  {
+    "file": "native-ubuntu-24.04/go-routines.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 6272,
+    "original_sha256": "5ced7109b6866c47c85fddfac95554d8eb3be85ccdd65f336388f803b8318a9c",
+    "stored_bytes": 1014,
+    "stored_sha256": "58cfa6f446b8790f98cb29b3c752b30fbe6fb90c67b1da3d85c1e6916bc9e8f0"
+  },
+  {
+    "file": "native-ubuntu-24.04/input-tests.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 99,
+    "original_sha256": "f99a9eb3b52d52591bc890a328790fb5c7f5e682e2c3388530755741dcfb1249",
+    "stored_bytes": 52,
+    "stored_sha256": "52acb94907db217eb3b9e5edf46029469cad77ad970ed912bfdc10246806ace7"
+  },
+  {
+    "file": "native-ubuntu-24.04/j1-fixture.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 79,
+    "original_sha256": "798bb11c5e08361a56f17584f102627d11c83d870121ed40679e1784b281e59a",
+    "stored_bytes": 86,
+    "stored_sha256": "db67cc2a03ecd3cdcc1657f6e39bb9489959787ef466056f68f1563efcbd2acb"
+  },
+  {
+    "file": "native-ubuntu-24.04/j1-heap-protected-0-race-0.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1060,
+    "original_sha256": "c315a05cda431ea21c712a3fd8f52fc4ed138ba512297a47cde11efd67b3757f",
+    "stored_bytes": 363,
+    "stored_sha256": "be457af7d0518c1efab3f9bac29f744fc75f6e595f71b9a6cfa66480b7dd7186"
+  },
+  {
+    "file": "native-ubuntu-24.04/j1-heap-protected-1-race-0.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1224,
+    "original_sha256": "0698a15464696666ae1d1b35badce98f4536141614c16215c940acfab4b7bcd1",
+    "stored_bytes": 319,
+    "stored_sha256": "e17b929e39f58caee2e9d5319c53b5a7adb7b4266ea4ad65edf41d9d9572d6c7"
+  },
+  {
+    "file": "native-ubuntu-24.04/j1-heap-protected-1-race-1.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1224,
+    "original_sha256": "96700347e73ede9657d7d136ca9a5965f3a2982d66b99022b30427551406ca95",
+    "stored_bytes": 319,
+    "stored_sha256": "ca4e1d82bf6561445c11360cbff4e1641a1084179c0591ba45287fa86241806e"
+  },
+  {
+    "file": "native-ubuntu-24.04/j1-identities.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 14307,
+    "original_sha256": "2af83f19f744d472e23ee8f35146bd8ffe9e3ecc55999ae984b75eb1f4448873",
+    "stored_bytes": 4082,
+    "stored_sha256": "996b0480b34a580376df8590ddc9a6e8ebced5da175b63e5897b0cfdbb8d34c4"
+  },
+  {
+    "file": "native-ubuntu-24.04/j1-mmap-protected-0-race-0.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1060,
+    "original_sha256": "b2ca009b628aa58d0429e75128674ab5f2aaec403df90388f85439cdfd90adc9",
+    "stored_bytes": 356,
+    "stored_sha256": "f06c98447901ca7a4d04759d5c7d1244fa77241d7837ed00a1f054435de481ee"
+  },
+  {
+    "file": "native-ubuntu-24.04/j1-mmap-protected-1-race-0.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1224,
+    "original_sha256": "812c7a643e3b7e88bbd4eb5e055283a88b256ab093013425df22f5deceed9cae",
+    "stored_bytes": 314,
+    "stored_sha256": "a2b0911674e1b1f381bf1efc35d648bbbbe8843d66af63940e3ac52793074538"
+  },
+  {
+    "file": "native-ubuntu-24.04/j1-mmap-protected-1-race-1.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 1224,
+    "original_sha256": "f01308b73044bb865c79932f3f4dcad4db370cebc689dd610dab817272c7f510",
+    "stored_bytes": 317,
+    "stored_sha256": "01e5815e5eb76a3d257860e29d1b703fdc56669a71b600c90157d5be0fd1274a"
+  },
+  {
+    "file": "native-ubuntu-24.04/j1-results.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 429,
+    "original_sha256": "c745b3db687ec5210ca37eec338b23ef50402a7b3113a9a950be537905ab2ca2",
+    "stored_bytes": 113,
+    "stored_sha256": "d5cb8fcaa11391dc323580830d7cd7bb06262ad7a6251b14cf59b87a41888d64"
+  },
+  {
+    "file": "native-ubuntu-24.04/mode-unit.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 64,
+    "original_sha256": "1f28a87d3f0609b6e56f3870420d14dc62fd215eedfbcd13ffcd41dbd3f70b33",
+    "stored_bytes": 81,
+    "stored_sha256": "c049f140efdda33b6cedd78fa0acb1f8ca8dd6402559e18cac333298530c75fd"
+  },
+  {
+    "file": "native-ubuntu-24.04/regeneration.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 14164,
+    "original_sha256": "3e66087cafa446723879a13951f8264ff4712b16164b588fdae6a690b053b1ba",
+    "stored_bytes": 1630,
+    "stored_sha256": "f91a69c3b04ea143aa05a29ae87ceadbd0bbc08adb0ee2219c3a45045cdd5d07"
+  },
+  {
+    "file": "native-ubuntu-24.04/routine-runtime.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 99,
+    "original_sha256": "818e2a7fd60f352d2e728dec547a050b1581ba3382ee8a4bbd67812674078351",
+    "stored_bytes": 52,
+    "stored_sha256": "247b0a98b12c1d1b16699b409109c304f0b5ca76c9cf022afb6336bab43a871a"
+  },
+  {
+    "file": "native-ubuntu-24.04/runtime-environment.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 262,
+    "original_sha256": "13fc10314e6ce2799c023e1379747dade083e3a818c601ce4492a1230eb5bf5c",
+    "stored_bytes": 221,
+    "stored_sha256": "e691af048169ce5da130951f3e6bfcb57d8fdca815e28a8e3255426c257985e9"
+  },
+  {
+    "file": "native-ubuntu-24.04/source.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 153,
+    "original_sha256": "13f2f8e0eadfb2f1c1931476ac5a5543f76718e8cfcb0354eded57f915d8092e",
+    "stored_bytes": 111,
+    "stored_sha256": "f110ed987509213c079880ff689bc8a5232a53307b45bd34fccb7ddc7a3598d5"
+  },
+  {
+    "file": "native-ubuntu-24.04/translation.json.gz",
+    "encoding": "gzip",
+    "original_bytes": 6367,
+    "original_sha256": "0b4d9814a8674c19e619ebd90b3f0f1ee310b38980d657cc8a3db10e719c88a2",
+    "stored_bytes": 3266,
+    "stored_sha256": "47322a89602e84748c0848bcc9b04befd991b083c9b6a3fc95745fbd331c39d0"
+  },
+  {
+    "file": "native-ubuntu-24.04/wire-unit.log.gz",
+    "encoding": "gzip",
+    "original_bytes": 62,
+    "original_sha256": "ede342a99badf1ba6aab1d79dd28db7253d7b1537424a07f402340228ddb864c",
+    "stored_bytes": 80,
+    "stored_sha256": "7430e7734459dc9e4bd2025e3c1003b3043e50f0d1d37debaf3aec531d622257"
+  }
+]
