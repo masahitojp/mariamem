@@ -1,5 +1,5 @@
 """Pinned extraction and startup-helper failure oracles; no network/guest build."""
-import gzip
+import base64
 import importlib.util
 import json
 from pathlib import Path
@@ -20,7 +20,8 @@ def inputs(tmp_path):
     (source/'scripts').mkdir(parents=True)
     (root/'guest').mkdir(parents=True)
     (root/'release').mkdir()
-    raw = gzip.decompress((ROOT/'tests/fixtures/mariadb-proc-source.sql.gz').read_bytes())
+    # Lossless encoding preserves upstream whitespace and GPL notice; no network fixture.
+    raw = base64.decodebytes((ROOT/'tests/fixtures/mariadb-proc-source.sql.base64').read_bytes())
     (source/'scripts/mariadb_system_tables.sql').write_bytes(raw)
     (source/'VERSION').write_text('MYSQL_VERSION_MAJOR=12\nMYSQL_VERSION_MINOR=3\nMYSQL_VERSION_PATCH=3\n')
     for name in ['guest/routine_schema.json', 'release/inputs.lock.json']:
