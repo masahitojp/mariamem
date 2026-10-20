@@ -1,0 +1,145 @@
+commit 8f3168b569c3390e649d1c6eaf544056d56abd4f
+Author:     fixture <fixture@example.invalid>
+AuthorDate: Tue Oct 20 09:11:23 2026 +0900
+Commit:     fixture <fixture@example.invalid>
+CommitDate: Tue Oct 20 09:11:23 2026 +0900
+
+    guest change
+
+diff --git a/guest/source.patch b/guest/source.patch
+index 5592db9..4f04f57 100644
+--- a/guest/source.patch
++++ b/guest/source.patch
+@@ -1 +1 @@
+-guest patch
+\ No newline at end of file
++different guest
+\ No newline at end of file
+
+commit aa80f28e7267bf57ee51ba7dbd3557a9b33dec48
+Author:     fixture <fixture@example.invalid>
+AuthorDate: Tue Oct 20 09:11:23 2026 +0900
+Commit:     fixture <fixture@example.invalid>
+CommitDate: Tue Oct 20 09:11:23 2026 +0900
+
+    remove unclassified addition
+
+diff --git a/internal/mysqlwire/unclassified.go b/internal/mysqlwire/unclassified.go
+deleted file mode 100644
+index e1c8223..0000000
+--- a/internal/mysqlwire/unclassified.go
++++ /dev/null
+@@ -1 +0,0 @@
+-unclassified input
+\ No newline at end of file
+
+commit 16fb062472a9f92f22ef506b25b8fdcd36954e8e
+Author:     fixture <fixture@example.invalid>
+AuthorDate: Tue Oct 20 09:11:23 2026 +0900
+Commit:     fixture <fixture@example.invalid>
+CommitDate: Tue Oct 20 09:11:23 2026 +0900
+
+    unclassified addition
+
+diff --git a/internal/mysqlwire/unclassified.go b/internal/mysqlwire/unclassified.go
+new file mode 100644
+index 0000000..e1c8223
+--- /dev/null
++++ b/internal/mysqlwire/unclassified.go
+@@ -0,0 +1 @@
++unclassified input
+\ No newline at end of file
+
+commit 2b6b436f6a075d71d4ad8fbac123f7fd11ed2b41
+Author:     fixture <fixture@example.invalid>
+AuthorDate: Tue Oct 20 09:11:22 2026 +0900
+Commit:     fixture <fixture@example.invalid>
+CommitDate: Tue Oct 20 09:11:22 2026 +0900
+
+    host fix
+
+diff --git a/internal/mysqlwire/multi_spike_test.go b/internal/mysqlwire/multi_spike_test.go
+index c853af3..416f9eb 100644
+--- a/internal/mysqlwire/multi_spike_test.go
++++ b/internal/mysqlwire/multi_spike_test.go
+@@ -1 +1 @@
+-old host test
+\ No newline at end of file
++fixed host test
+\ No newline at end of file
+diff --git a/internal/mysqlwire/wire.go b/internal/mysqlwire/wire.go
+index 067e7ab..0e77c44 100644
+--- a/internal/mysqlwire/wire.go
++++ b/internal/mysqlwire/wire.go
+@@ -1 +1 @@
+-old authored host
+\ No newline at end of file
++fixed authored host
+\ No newline at end of file
+diff --git a/scripts/dev_guest.py b/scripts/dev_guest.py
+index 928d3a1..eaafb5f 100644
+--- a/scripts/dev_guest.py
++++ b/scripts/dev_guest.py
+@@ -1 +1 @@
+-old host stage
+\ No newline at end of file
++fixed host stage
+\ No newline at end of file
+diff --git a/scripts/runtime_thread_lifetime.py b/scripts/runtime_thread_lifetime.py
+index 290b34f..64fa270 100644
+--- a/scripts/runtime_thread_lifetime.py
++++ b/scripts/runtime_thread_lifetime.py
+@@ -1 +1 @@
+-old exact binding
+\ No newline at end of file
++reviewed exact binding
+\ No newline at end of file
+
+commit 3a4592fe8f6e99a31bfb3d32a25c70d225207b11
+Author:     fixture <fixture@example.invalid>
+AuthorDate: Tue Oct 20 09:11:22 2026 +0900
+Commit:     fixture <fixture@example.invalid>
+CommitDate: Tue Oct 20 09:11:22 2026 +0900
+
+    guest origin
+
+diff --git a/guest/source.patch b/guest/source.patch
+new file mode 100644
+index 0000000..5592db9
+--- /dev/null
++++ b/guest/source.patch
+@@ -0,0 +1 @@
++guest patch
+\ No newline at end of file
+diff --git a/internal/mysqlwire/multi_spike_test.go b/internal/mysqlwire/multi_spike_test.go
+new file mode 100644
+index 0000000..c853af3
+--- /dev/null
++++ b/internal/mysqlwire/multi_spike_test.go
+@@ -0,0 +1 @@
++old host test
+\ No newline at end of file
+diff --git a/internal/mysqlwire/wire.go b/internal/mysqlwire/wire.go
+new file mode 100644
+index 0000000..067e7ab
+--- /dev/null
++++ b/internal/mysqlwire/wire.go
+@@ -0,0 +1 @@
++old authored host
+\ No newline at end of file
+diff --git a/scripts/dev_guest.py b/scripts/dev_guest.py
+new file mode 100644
+index 0000000..928d3a1
+--- /dev/null
++++ b/scripts/dev_guest.py
+@@ -0,0 +1 @@
++old host stage
+\ No newline at end of file
+diff --git a/scripts/runtime_thread_lifetime.py b/scripts/runtime_thread_lifetime.py
+new file mode 100644
+index 0000000..290b34f
+--- /dev/null
++++ b/scripts/runtime_thread_lifetime.py
+@@ -0,0 +1 @@
++old exact binding
+\ No newline at end of file

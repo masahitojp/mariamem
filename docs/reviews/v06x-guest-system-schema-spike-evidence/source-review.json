@@ -1,0 +1,22 @@
+{
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "files": {
+    "scripts/mariadb_system_tables.sql": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d",
+    "scripts/mariadb_system_tables_fix.sql": "0986bff7b31c567255411e323c70e8c2c67342f3e0164bb030018da2c7b692a9",
+    "scripts/mysql_install_db.sh": "8bfaca591dcd12068a68cf4d911247f01403b1f4d81172046fc561ab8cb99f66",
+    "sql/sp.cc": "8643abd093380d02153233503d08122f7fb8c88df059a76544c697fce480e43c",
+    "sql/table.cc": "a3959b7bda544beeffdcb6e2b80a44fc462eeda50596c6535e458c82a0f23741",
+    "sql/sql_parse.cc": "d4fcbe0d53e2474ec9730294101549ca84c1b619fcdf6c1c37de9d70cf88fa85",
+    "VERSION": "4944887a4c28a21fb793a0727ed91ad5578913cb531855d87fb98125eb697b28"
+  },
+  "findings": {
+    "proc_columns": 22,
+    "column_name": "prefix comparison; warning only, ordinal access",
+    "type": "prefix comparison type_len-1; accepts trailing ENUM/SET members",
+    "charset": "prefix utf8mb in compiled proc descriptor, upstream DDL explicitly utf8mb3",
+    "nullable": "CAN_BE_NULL compared to real_maybe_null; mismatch rejects",
+    "mysql_version": "internal FRM header loaded at sql/table.cc:1990, not SQL user variable; VERSION 12.3.3 => compiled MYSQL_VERSION_ID 120303",
+    "new_install": "mysql_install_db.sh:580-605 base + performance + data + help + GIS + sys, not system_tables_fix.sql",
+    "controlled_1728": "comment ordinal 15 changed to NULL, native server log rejects NOT NULL mismatch"
+  }
+}

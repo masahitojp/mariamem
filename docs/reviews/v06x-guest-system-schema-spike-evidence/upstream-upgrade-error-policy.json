@@ -1,0 +1,19 @@
+{
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "source_file": "client/mysql_upgrade.c",
+  "file_sha256": "7751c02955cf6a919115d8e50eb329af5c0314e71a883d170e2ed525cff69e9a",
+  "lines": "1057-1089",
+  "expected_error_codes": [
+    1051,
+    1060,
+    1061,
+    1054,
+    1146,
+    1290,
+    1347,
+    1348,
+    1356,
+    1449
+  ],
+  "scope": "classify raw failures from official upgrade SQL only; no guest/runtime test oracle changes"
+}

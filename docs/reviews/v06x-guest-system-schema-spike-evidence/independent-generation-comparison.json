@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "fresh_source_commit": "866c17e7c64c7b0bee73b3e5b42a1b83982d4378",
+  "reference_file": "docs/reviews/v06x-prepared-multi-spike-evidence/validated-independent-regeneration.json",
+  "reference_sha256": "ace2e61d8572757bcc843340abb8561f0684258120719c9585a88b2b839ed054",
+  "raw_file_count": 52,
+  "equals_both_independent_inventories": true,
+  "installed_file_count": 99,
+  "installed_runtime_files_equal_previous": 98,
+  "provenance": "new original record differs; not normalized; no new common-input 99-file equality claim"
+}

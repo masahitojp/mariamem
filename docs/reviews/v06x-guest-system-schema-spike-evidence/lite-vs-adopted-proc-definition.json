@@ -1,0 +1,12 @@
+{
+  "sql/sp.cc": {
+    "same": true,
+    "lite_13_1_sha256": "10d9888d3269040592784c4118e0971c5fe09ece2afef8fa599ecbe895b3fd42",
+    "adopted_12_3_sha256": "10d9888d3269040592784c4118e0971c5fe09ece2afef8fa599ecbe895b3fd42"
+  },
+  "scripts/mariadb_system_tables.sql": {
+    "same": true,
+    "lite_13_1_sha256": "e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc",
+    "adopted_12_3_sha256": "e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc"
+  }
+}

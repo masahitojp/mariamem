@@ -1,0 +1,46 @@
+{
+  "arch": "arm64",
+  "cold_definition": "only first Start in this process; OS caches not flushed",
+  "go": "go1.26.8",
+  "kind": "diagnostic-not-benchmark",
+  "os": "darwin",
+  "samples": [
+    {
+      "iteration": 0,
+      "mode": "proc",
+      "start_ms": 51.2065,
+      "connect_ms": 3.595625,
+      "init_ms": 2.702958,
+      "routine_ms": 2.661958,
+      "close_ms": 3.174875,
+      "total_ms": 69.630584,
+      "sql_bytes": 2039,
+      "init_errors": null
+    },
+    {
+      "iteration": 1,
+      "mode": "proc",
+      "start_ms": 40.535167,
+      "connect_ms": 1.555875,
+      "init_ms": 1.985875,
+      "routine_ms": 2.459667,
+      "close_ms": 3.907709,
+      "total_ms": 55.491916,
+      "sql_bytes": 2039,
+      "init_errors": null
+    },
+    {
+      "iteration": 2,
+      "mode": "proc",
+      "start_ms": 47.490833,
+      "connect_ms": 0.940708,
+      "init_ms": 2.560375,
+      "routine_ms": 1.673125,
+      "close_ms": 3.328292,
+      "total_ms": 61.035709,
+      "sql_bytes": 2039,
+      "init_errors": null
+    }
+  ],
+  "warm_definition": "later independent empty DB Starts in same process"
+}

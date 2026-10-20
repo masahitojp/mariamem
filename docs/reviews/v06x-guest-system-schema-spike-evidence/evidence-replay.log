@@ -1,0 +1,39 @@
+{
+  "feasibility": "PASS",
+  "checks": 16,
+  "cost": {
+    "control": {
+      "n": 3,
+      "first_start_ms": 42.805042,
+      "first_init_ms": 0.000542,
+      "later_start_median_ms": 36.1349165,
+      "later_init_median_ms": 0.0003535,
+      "init_range_ms": [
+        0.000291,
+        0.000542
+      ]
+    },
+    "proc": {
+      "n": 3,
+      "first_start_ms": 51.2065,
+      "first_init_ms": 2.702958,
+      "later_start_median_ms": 44.013000000000005,
+      "later_init_median_ms": 2.2731250000000003,
+      "init_range_ms": [
+        1.985875,
+        2.702958
+      ]
+    },
+    "base-fix": {
+      "n": 3,
+      "first_start_ms": 52.671291,
+      "first_init_ms": 137.812375,
+      "later_start_median_ms": 36.2198335,
+      "later_init_median_ms": 125.200875,
+      "init_range_ms": [
+        115.987625,
+        137.812375
+      ]
+    }
+  }
+}

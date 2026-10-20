@@ -1,0 +1,77 @@
+// Diagnostic only: first/warm Starts in one process; SQL is applied after ready.
+package main
+
+import (
+ "context"
+ "database/sql"
+ "encoding/json"
+ "flag"
+ "fmt"
+ "os"
+ "runtime"
+ "time"
+
+ _ "github.com/go-sql-driver/mysql"
+ mariamem "github.com/masahitojp/mariamem"
+)
+
+type Sample struct {
+ Iteration int `json:"iteration"`
+ Mode string `json:"mode"`
+ StartMS float64 `json:"start_ms"`
+ ConnectMS float64 `json:"connect_ms"`
+ InitMS float64 `json:"init_ms"`
+ RoutineMS float64 `json:"routine_ms"`
+ CloseMS float64 `json:"close_ms"`
+ TotalMS float64 `json:"total_ms"`
+ SQLBytes int `json:"sql_bytes"`
+ InitErrors []string `json:"init_errors"`
+}
+
+func check(err error) { if err != nil { panic(err) } }
+func ms(t time.Time) float64 { return float64(time.Since(t))/float64(time.Millisecond) }
+func main() {
+ input := flag.String("input", "", "JSON map of SQL statement lists")
+ output := flag.String("output", "", "diagnostic result")
+ only := flag.String("only", "", "one mode for a distinct process's first Start")
+ flag.Parse()
+ bytes, err := os.ReadFile(*input); check(err)
+ var scripts map[string][]string; check(json.Unmarshal(bytes, &scripts))
+ ctx, cancel := context.WithTimeout(context.Background(), 10*time.Minute); defer cancel()
+ var samples []Sample
+ // Alternating order, three independent empty DBs per mode; no drop/reuse shortcut.
+ orders := [][]string{{"control","proc","base-fix"},{"base-fix","proc","control"}}
+ if *only!="" { orders=[][]string{{*only},{*only}} }
+ for i := 0; i < 3; i++ {
+  for _, mode := range orders[i%2] {
+   wall:=time.Now(); t:=time.Now()
+   db, err:=mariamem.Start(ctx,mariamem.Options{}); check(err)
+   s:=Sample{Iteration:i,Mode:mode,StartMS:ms(t)}
+   t=time.Now(); pool,err:=sql.Open("mysql",db.DSN());check(err)
+   conn,err:=pool.Conn(ctx);check(err);check(conn.PingContext(ctx));s.ConnectMS=ms(t)
+   t=time.Now()
+   for n, statement:=range scripts[mode] {
+    s.SQLBytes+=len(statement)
+    // Query + NextResultSet drains upstream SELECT/SHOW/compound statement results.
+    rows,err:=conn.QueryContext(ctx,statement)
+    if err != nil { s.InitErrors=append(s.InitErrors,fmt.Sprintf("%d: %v",n,err));continue }
+    for { for rows.Next() {} ;check(rows.Err());if !rows.NextResultSet(){break} }
+    check(rows.Close())
+   }
+   s.InitMS=ms(t)
+   if mode!="control" {
+    t=time.Now()
+    _,err=conn.ExecContext(ctx,"CREATE PROCEDURE test.cost_proc(IN n INT, OUT x INT) SET x=n+1");check(err)
+    _,err=conn.ExecContext(ctx,"CALL test.cost_proc(4,@x)");check(err)
+    var value int;check(conn.QueryRowContext(ctx,"SELECT @x").Scan(&value));if value!=5 {panic(value)}
+    _,err=conn.ExecContext(ctx,"DROP PROCEDURE test.cost_proc");check(err)
+    s.RoutineMS=ms(t)
+   }
+   check(conn.Close());check(pool.Close());check(db.WaitDisconnected(ctx))
+   t=time.Now();check(db.Close());s.CloseMS=ms(t);s.TotalMS=ms(wall)
+   samples=append(samples,s)
+  }
+ }
+ result:=map[string]any{"kind":"diagnostic-not-benchmark","cold_definition":"only first Start in this process; OS caches not flushed","warm_definition":"later independent empty DB Starts in same process","go":runtime.Version(),"os":runtime.GOOS,"arch":runtime.GOARCH,"samples":samples}
+ bytes,err=json.MarshalIndent(result,"","  ");check(err);check(os.WriteFile(*output,bytes,0600))
+}

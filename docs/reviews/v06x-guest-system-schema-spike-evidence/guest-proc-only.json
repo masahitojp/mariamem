@@ -1,0 +1,415 @@
+{
+  "mode": "proc-only",
+  "port": 57019,
+  "scripts": {
+    "base": {
+      "count": 89,
+      "sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d"
+    },
+    "fix": {
+      "count": 242,
+      "sha256": "0986bff7b31c567255411e323c70e8c2c67342f3e0164bb030018da2c7b692a9"
+    }
+  },
+  "stages": [
+    {
+      "stage": "official-base-proc",
+      "steps": [
+        {
+          "sql": "CREATE TABLE IF NOT EXISTS proc (db char(64) collate utf8mb3_bin DEFAULT '' NOT NULL, name char(64) DEFAULT '' NOT NULL, type enum('FUNCTION','PROCEDURE','PACKAGE','PACKAGE BODY') NOT NULL, specific_name char(64) DEFAULT '' NOT NULL, language enum('SQL') DEFAULT 'SQL' NOT NULL, sql_data_access enum( 'CONTAINS_SQL', 'NO_SQL', 'READS_SQL_DATA', 'MODIFIES_SQL_DATA') DEFAULT 'CONTAINS_SQL' NOT NULL, is_deterministic enum('YES','NO') DEFAULT 'NO' NOT NULL, security_type enum('INVOKER','DEFINER') DEFAULT 'DEFINER' NOT NULL, param_list blob NOT NULL, returns longblob NOT NULL, body longblob NOT NULL, definer varchar(384) collate utf8mb3_bin DEFAULT '' NOT NULL, created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, modified timestamp NOT NULL DEFAULT '0000-00-00 00:00:00', sql_mode set( 'REAL_AS_FLOAT', 'PIPES_AS_CONCAT', 'ANSI_QUOTES', 'IGNORE_SPACE', 'IGNORE_BAD_TABLE_OPTIONS', 'ONLY_FULL_GROUP_BY', 'NO_UNSIGNED_SUBTRACTION', 'NO_DIR_IN_CREATE', 'POSTGRESQL', 'ORACLE', 'MSSQL', 'DB2', 'MAXDB', 'NO_KEY_OPTIONS', 'NO_TABLE_OPTIONS', 'NO_FIELD_OPTIONS', 'MYSQL323', 'MYSQL40', 'ANSI', 'NO_AUTO_VALUE_ON_ZERO', 'NO_BACKSLASH_ESCAPES', 'STRICT_TRANS_TABLES', 'STRICT_ALL_TABLES', 'NO_ZERO_IN_DATE', 'NO_ZERO_DATE', 'INVALID_DATES', 'ERROR_FOR_DIVISION_BY_ZERO', 'TRADITIONAL', 'NO_AUTO_CREATE_USER', 'HIGH_NOT_PRECEDENCE', 'NO_ENGINE_SUBSTITUTION', 'PAD_CHAR_TO_FULL_LENGTH', 'EMPTY_STRING_IS_NULL', 'SIMULTANEOUS_ASSIGNMENT', 'TIME_ROUND_FRACTIONAL') DEFAULT '' NOT NULL, comment text collate utf8mb3_bin NOT NULL, character_set_client char(32) collate utf8mb3_bin, collation_connection char(64) collate utf8mb3_bin, db_collation char(64) collate utf8mb3_bin, body_utf8 longblob, aggregate enum('NONE', 'GROUP') DEFAULT 'NONE' NOT NULL, path TEXT COLLATE utf8mb3_bin DEFAULT 'CURRENT_SCHEMA' NOT NULL, PRIMARY KEY (db,name,type)) engine=Aria transactional=1 character set utf8mb3 COLLATE utf8mb3_general_ci comment='Stored Procedures'",
+          "result": "PASS",
+          "sets": [
+            {
+              "rows": null,
+              "columns": [],
+              "affected": 0,
+              "more": 0
+            }
+          ],
+          "elapsed_ms": 9.567708009853959
+        }
+      ]
+    }
+  ],
+  "start_ms": 62.135541113093495,
+  "guest_identity": "55c5d4910459c87b5e1e00eb999506acc661ea0eaa3a794662db647bd124c953",
+  "identity": {
+    "sql": "SELECT VERSION(), @@version_comment, @@sql_mode, @@skip_grant_tables",
+    "result": "PASS",
+    "sets": [
+      {
+        "rows": [
+          [
+            "12.3.3-MariaDB-embedded",
+            "Source distribution",
+            "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+            1
+          ]
+        ],
+        "columns": [
+          "VERSION()",
+          "@@version_comment",
+          "@@sql_mode",
+          "@@skip_grant_tables"
+        ],
+        "affected": 1,
+        "more": 0
+      }
+    ],
+    "elapsed_ms": 0.4291248042136431
+  },
+  "source_revision": {
+    "sql": "SHOW VARIABLES LIKE 'version_source_revision'",
+    "result": "PASS",
+    "sets": [
+      {
+        "rows": [
+          [
+            "version_source_revision",
+            ""
+          ]
+        ],
+        "columns": [
+          "Variable_name",
+          "Value"
+        ],
+        "affected": 1,
+        "more": 0
+      }
+    ],
+    "elapsed_ms": 1.2738748919218779
+  },
+  "before": [
+    {
+      "sql": "SHOW DATABASES",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              "information_schema"
+            ],
+            [
+              "test"
+            ]
+          ],
+          "columns": [
+            "Database"
+          ],
+          "affected": 2,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.3563340287655592
+    },
+    {
+      "sql": "SHOW TABLES FROM mysql",
+      "result": "FAIL",
+      "errno": 1049,
+      "error": "(1049, \"Unknown database 'mysql'\")",
+      "elapsed_ms": 0.257750041782856
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.ROUTINES",
+      "result": "FAIL",
+      "errno": 1146,
+      "error": "(1146, \"Table 'mysql.proc' doesn't exist\")",
+      "elapsed_ms": 0.5473331548273563
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.PARAMETERS",
+      "result": "FAIL",
+      "errno": 1146,
+      "error": "(1146, \"Table 'mysql.proc' doesn't exist\")",
+      "elapsed_ms": 0.38716685958206654
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.USERS",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              0
+            ]
+          ],
+          "columns": [
+            "COUNT(*)"
+          ],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.397917116060853
+    },
+    {
+      "sql": "CREATE PROCEDURE test.feas_before() SELECT 1",
+      "result": "FAIL",
+      "errno": 1146,
+      "error": "(1146, \"Table 'mysql.proc' doesn't exist\")",
+      "elapsed_ms": 0.2859579399228096
+    }
+  ],
+  "setup": [
+    {
+      "sql": "CREATE DATABASE IF NOT EXISTS mysql",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.3107499796897173
+    },
+    {
+      "sql": "USE mysql",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.18837489187717438
+    },
+    {
+      "sql": "SET sql_mode=''",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 1.0625419672578573
+    },
+    {
+      "sql": "SET @auth_root_socket=NULL",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.6332090124487877
+    }
+  ],
+  "proc_ddl": {
+    "sql": "SHOW CREATE TABLE mysql.proc",
+    "result": "PASS",
+    "sets": [
+      {
+        "rows": [
+          [
+            "proc",
+            "CREATE TABLE `proc` (\n  `db` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',\n  `name` char(64) NOT NULL DEFAULT '',\n  `type` enum('FUNCTION','PROCEDURE','PACKAGE','PACKAGE BODY') NOT NULL,\n  `specific_name` char(64) NOT NULL DEFAULT '',\n  `language` enum('SQL') NOT NULL DEFAULT 'SQL',\n  `sql_data_access` enum('CONTAINS_SQL','NO_SQL','READS_SQL_DATA','MODIFIES_SQL_DATA') NOT NULL DEFAULT 'CONTAINS_SQL',\n  `is_deterministic` enum('YES','NO') NOT NULL DEFAULT 'NO',\n  `security_type` enum('INVOKER','DEFINER') NOT NULL DEFAULT 'DEFINER',\n  `param_list` blob NOT NULL,\n  `returns` longblob NOT NULL,\n  `body` longblob NOT NULL,\n  `definer` varchar(384) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',\n  `created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',\n  `sql_mode` set('REAL_AS_FLOAT','PIPES_AS_CONCAT','ANSI_QUOTES','IGNORE_SPACE','IGNORE_BAD_TABLE_OPTIONS','ONLY_FULL_GROUP_BY','NO_UNSIGNED_SUBTRACTION','NO_DIR_IN_CREATE','POSTGRESQL','ORACLE','MSSQL','DB2','MAXDB','NO_KEY_OPTIONS','NO_TABLE_OPTIONS','NO_FIELD_OPTIONS','MYSQL323','MYSQL40','ANSI','NO_AUTO_VALUE_ON_ZERO','NO_BACKSLASH_ESCAPES','STRICT_TRANS_TABLES','STRICT_ALL_TABLES','NO_ZERO_IN_DATE','NO_ZERO_DATE','INVALID_DATES','ERROR_FOR_DIVISION_BY_ZERO','TRADITIONAL','NO_AUTO_CREATE_USER','HIGH_NOT_PRECEDENCE','NO_ENGINE_SUBSTITUTION','PAD_CHAR_TO_FULL_LENGTH','EMPTY_STRING_IS_NULL','SIMULTANEOUS_ASSIGNMENT','TIME_ROUND_FRACTIONAL') NOT NULL DEFAULT '',\n  `comment` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,\n  `character_set_client` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,\n  `collation_connection` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,\n  `db_collation` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,\n  `body_utf8` longblob DEFAULT NULL,\n  `aggregate` enum('NONE','GROUP') NOT NULL DEFAULT 'NONE',\n  `path` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT 'CURRENT_SCHEMA',\n  PRIMARY KEY (`db`,`name`,`type`)\n) ENGINE=Aria DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci PAGE_CHECKSUM=1 TRANSACTIONAL=1 COMMENT='Stored Procedures'"
+          ]
+        ],
+        "columns": [
+          "Table",
+          "Create Table"
+        ],
+        "affected": 1,
+        "more": 0
+      }
+    ],
+    "elapsed_ms": 2.7298328932374716
+  },
+  "routines": [
+    {
+      "case": "procedure-create-call-drop",
+      "result": "PASS",
+      "detail": [
+        {
+          "rows": [
+            [
+              7
+            ]
+          ],
+          "columns": [
+            "value"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ]
+    },
+    {
+      "case": "in-out-inout",
+      "result": "PASS",
+      "detail": [
+        [
+          6,
+          13
+        ]
+      ]
+    },
+    {
+      "case": "multiple-results-terminal-ok",
+      "result": "PASS",
+      "detail": [
+        {
+          "rows": [
+            [
+              7
+            ]
+          ],
+          "columns": [
+            "a"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": [
+            [
+              8
+            ]
+          ],
+          "columns": [
+            "b"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ]
+    },
+    {
+      "case": "function-create-invoke-drop-null",
+      "result": "PASS",
+      "detail": [
+        [
+          5,
+          null
+        ]
+      ]
+    },
+    {
+      "case": "information-schema-routine-and-parameters",
+      "result": "PASS",
+      "detail": {
+        "routines": [
+          [
+            "PROCEDURE"
+          ]
+        ],
+        "parameters": [
+          [
+            1,
+            "IN",
+            "a"
+          ],
+          [
+            2,
+            "OUT",
+            "b"
+          ]
+        ]
+      }
+    },
+    {
+      "case": "later-error-reuse-and-after-drop",
+      "result": "PASS",
+      "detail": {
+        "signal_errno": 1644,
+        "after_drop": {
+          "sql": "CALL test.feas_error()",
+          "result": "FAIL",
+          "errno": 1305,
+          "error": "(1305, 'PROCEDURE test.feas_error does not exist')",
+          "elapsed_ms": 0.18912507221102715
+        },
+        "reused": true
+      }
+    }
+  ],
+  "before_fix_logs": "",
+  "after": [
+    {
+      "sql": "SHOW TABLES FROM mysql",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              "proc"
+            ]
+          ],
+          "columns": [
+            "Tables_in_mysql"
+          ],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.2634588163346052
+    },
+    {
+      "sql": "SELECT ROUTINE_NAME, ROUTINE_TYPE FROM information_schema.ROUTINES",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [],
+          "columns": [
+            "ROUTINE_NAME",
+            "ROUTINE_TYPE"
+          ],
+          "affected": 0,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.34958403557538986
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.PARAMETERS",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              0
+            ]
+          ],
+          "columns": [
+            "COUNT(*)"
+          ],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.2989580389112234
+    }
+  ],
+  "events": {
+    "sql": "CREATE EVENT test.feas_event ON SCHEDULE EVERY 1 DAY DO SELECT 1",
+    "result": "FAIL",
+    "errno": 1235,
+    "error": "(1235, \"This version of MariaDB doesn't yet support 'embedded server'\")",
+    "elapsed_ms": 0.16579218208789825
+  },
+  "guest_logs": "",
+  "final_guest_logs": "",
+  "close_ms": 5.888374987989664
+}

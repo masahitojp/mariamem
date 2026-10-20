@@ -1,0 +1,1 @@
+Got ERROR: "Incorrect definition of table mysql.proc: expected column 'comment' at position 15 to be NOT NULL." errno: 2000

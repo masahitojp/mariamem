@@ -1,0 +1,3 @@
+{
+  "scope_note": "Minimum routine feasibility PASS; full official fix FAIL1193; historical REPL and unexecuted platform/production paths remain explicit SKIP."
+}

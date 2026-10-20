@@ -1,0 +1,905 @@
+{
+  "mode": "damaged-proc",
+  "port": 57019,
+  "scripts": {
+    "base": {
+      "count": 89,
+      "sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d"
+    },
+    "fix": {
+      "count": 242,
+      "sha256": "0986bff7b31c567255411e323c70e8c2c67342f3e0164bb030018da2c7b692a9"
+    }
+  },
+  "stages": [
+    {
+      "stage": "official-base-proc",
+      "steps": [
+        {
+          "sql": "CREATE TABLE IF NOT EXISTS proc (db char(64) collate utf8mb3_bin DEFAULT '' NOT NULL, name char(64) DEFAULT '' NOT NULL, type enum('FUNCTION','PROCEDURE','PACKAGE','PACKAGE BODY') NOT NULL, specific_name char(64) DEFAULT '' NOT NULL, language enum('SQL') DEFAULT 'SQL' NOT NULL, sql_data_access enum( 'CONTAINS_SQL', 'NO_SQL', 'READS_SQL_DATA', 'MODIFIES_SQL_DATA') DEFAULT 'CONTAINS_SQL' NOT NULL, is_deterministic enum('YES','NO') DEFAULT 'NO' NOT NULL, security_type enum('INVOKER','DEFINER') DEFAULT 'DEFINER' NOT NULL, param_list blob NOT NULL, returns longblob NOT NULL, body longblob NOT NULL, definer varchar(384) collate utf8mb3_bin DEFAULT '' NOT NULL, created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, modified timestamp NOT NULL DEFAULT '0000-00-00 00:00:00', sql_mode set( 'REAL_AS_FLOAT', 'PIPES_AS_CONCAT', 'ANSI_QUOTES', 'IGNORE_SPACE', 'IGNORE_BAD_TABLE_OPTIONS', 'ONLY_FULL_GROUP_BY', 'NO_UNSIGNED_SUBTRACTION', 'NO_DIR_IN_CREATE', 'POSTGRESQL', 'ORACLE', 'MSSQL', 'DB2', 'MAXDB', 'NO_KEY_OPTIONS', 'NO_TABLE_OPTIONS', 'NO_FIELD_OPTIONS', 'MYSQL323', 'MYSQL40', 'ANSI', 'NO_AUTO_VALUE_ON_ZERO', 'NO_BACKSLASH_ESCAPES', 'STRICT_TRANS_TABLES', 'STRICT_ALL_TABLES', 'NO_ZERO_IN_DATE', 'NO_ZERO_DATE', 'INVALID_DATES', 'ERROR_FOR_DIVISION_BY_ZERO', 'TRADITIONAL', 'NO_AUTO_CREATE_USER', 'HIGH_NOT_PRECEDENCE', 'NO_ENGINE_SUBSTITUTION', 'PAD_CHAR_TO_FULL_LENGTH', 'EMPTY_STRING_IS_NULL', 'SIMULTANEOUS_ASSIGNMENT', 'TIME_ROUND_FRACTIONAL') DEFAULT '' NOT NULL, comment text collate utf8mb3_bin NOT NULL, character_set_client char(32) collate utf8mb3_bin, collation_connection char(64) collate utf8mb3_bin, db_collation char(64) collate utf8mb3_bin, body_utf8 longblob, aggregate enum('NONE', 'GROUP') DEFAULT 'NONE' NOT NULL, path TEXT COLLATE utf8mb3_bin DEFAULT 'CURRENT_SCHEMA' NOT NULL, PRIMARY KEY (db,name,type)) engine=Aria transactional=1 character set utf8mb3 COLLATE utf8mb3_general_ci comment='Stored Procedures'",
+          "result": "PASS",
+          "sets": [
+            {
+              "rows": null,
+              "columns": [],
+              "affected": 0,
+              "more": 0
+            }
+          ],
+          "elapsed_ms": 1.4485411811619997
+        }
+      ]
+    },
+    {
+      "stage": "controlled-wrong-nullability",
+      "steps": [
+        {
+          "sql": "ALTER TABLE mysql.proc MODIFY comment text COLLATE utf8mb3_bin NULL",
+          "result": "PASS",
+          "sets": [
+            {
+              "rows": null,
+              "columns": [],
+              "affected": 54,
+              "more": 0
+            }
+          ],
+          "elapsed_ms": 31.759333098307252
+        },
+        {
+          "sql": "CREATE PROCEDURE test.feas_bad_definition() SELECT 1",
+          "result": "FAIL",
+          "errno": 1728,
+          "error": "(1728, 'Cannot load from mysql.proc. The table is probably corrupted')",
+          "elapsed_ms": 1.3755420222878456
+        }
+      ]
+    },
+    {
+      "stage": "restore-official-nullability",
+      "steps": [
+        {
+          "sql": "ALTER TABLE mysql.proc MODIFY comment text COLLATE utf8mb3_bin NOT NULL",
+          "result": "PASS",
+          "sets": [
+            {
+              "rows": null,
+              "columns": [],
+              "affected": 54,
+              "more": 0
+            }
+          ],
+          "elapsed_ms": 34.257291816174984
+        }
+      ]
+    }
+  ],
+  "identity": {
+    "sql": "SELECT VERSION(), @@version_comment, @@sql_mode, @@skip_grant_tables",
+    "result": "PASS",
+    "sets": [
+      {
+        "rows": [
+          [
+            "12.3.3-MariaDB-ubu2404",
+            "mariadb.org binary distribution",
+            "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+            0
+          ]
+        ],
+        "columns": [
+          "VERSION()",
+          "@@version_comment",
+          "@@sql_mode",
+          "@@skip_grant_tables"
+        ],
+        "affected": 1,
+        "more": 0
+      }
+    ],
+    "elapsed_ms": 1.0130410082638264
+  },
+  "before": [
+    {
+      "sql": "SHOW DATABASES",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              "information_schema"
+            ],
+            [
+              "mysql"
+            ],
+            [
+              "performance_schema"
+            ],
+            [
+              "sys"
+            ],
+            [
+              "test"
+            ]
+          ],
+          "columns": [
+            "Database"
+          ],
+          "affected": 5,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 1.3689580373466015
+    },
+    {
+      "sql": "SHOW TABLES FROM mysql",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              "column_stats"
+            ],
+            [
+              "columns_priv"
+            ],
+            [
+              "db"
+            ],
+            [
+              "event"
+            ],
+            [
+              "func"
+            ],
+            [
+              "general_log"
+            ],
+            [
+              "global_priv"
+            ],
+            [
+              "gtid_slave_pos"
+            ],
+            [
+              "help_category"
+            ],
+            [
+              "help_keyword"
+            ],
+            [
+              "help_relation"
+            ],
+            [
+              "help_topic"
+            ],
+            [
+              "index_stats"
+            ],
+            [
+              "innodb_index_stats"
+            ],
+            [
+              "innodb_table_stats"
+            ],
+            [
+              "plugin"
+            ],
+            [
+              "proc"
+            ],
+            [
+              "procs_priv"
+            ],
+            [
+              "proxies_priv"
+            ],
+            [
+              "roles_mapping"
+            ],
+            [
+              "servers"
+            ],
+            [
+              "slow_log"
+            ],
+            [
+              "table_stats"
+            ],
+            [
+              "tables_priv"
+            ],
+            [
+              "time_zone"
+            ],
+            [
+              "time_zone_leap_second"
+            ],
+            [
+              "time_zone_name"
+            ],
+            [
+              "time_zone_transition"
+            ],
+            [
+              "time_zone_transition_type"
+            ],
+            [
+              "transaction_registry"
+            ],
+            [
+              "user"
+            ]
+          ],
+          "columns": [
+            "Tables_in_mysql"
+          ],
+          "affected": 31,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 1.5624999068677425
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.ROUTINES",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              54
+            ]
+          ],
+          "columns": [
+            "COUNT(*)"
+          ],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 2.5042498018592596
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.PARAMETERS",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              93
+            ]
+          ],
+          "columns": [
+            "COUNT(*)"
+          ],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 7.556332973763347
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.USERS",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              6
+            ]
+          ],
+          "columns": [
+            "COUNT(*)"
+          ],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 16.853417037054896
+    },
+    {
+      "sql": "CREATE PROCEDURE test.feas_before() SELECT 1",
+      "result": "FAIL",
+      "errno": 1304,
+      "error": "(1304, 'PROCEDURE feas_before already exists')",
+      "elapsed_ms": 2.7138330042362213
+    }
+  ],
+  "setup": [
+    {
+      "sql": "CREATE DATABASE IF NOT EXISTS mysql",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 2.977208001539111
+    },
+    {
+      "sql": "USE mysql",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 2.526666969060898
+    },
+    {
+      "sql": "SET sql_mode=''",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 1.6637500375509262
+    },
+    {
+      "sql": "SET @auth_root_socket=NULL",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 2.229291945695877
+    }
+  ],
+  "proc_ddl": {
+    "sql": "SHOW CREATE TABLE mysql.proc",
+    "result": "PASS",
+    "sets": [
+      {
+        "rows": [
+          [
+            "proc",
+            "CREATE TABLE `proc` (\n  `db` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',\n  `name` char(64) NOT NULL DEFAULT '',\n  `type` enum('FUNCTION','PROCEDURE','PACKAGE','PACKAGE BODY') NOT NULL,\n  `specific_name` char(64) NOT NULL DEFAULT '',\n  `language` enum('SQL') NOT NULL DEFAULT 'SQL',\n  `sql_data_access` enum('CONTAINS_SQL','NO_SQL','READS_SQL_DATA','MODIFIES_SQL_DATA') NOT NULL DEFAULT 'CONTAINS_SQL',\n  `is_deterministic` enum('YES','NO') NOT NULL DEFAULT 'NO',\n  `security_type` enum('INVOKER','DEFINER') NOT NULL DEFAULT 'DEFINER',\n  `param_list` blob NOT NULL,\n  `returns` longblob NOT NULL,\n  `body` longblob NOT NULL,\n  `definer` varchar(384) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '',\n  `created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',\n  `sql_mode` set('REAL_AS_FLOAT','PIPES_AS_CONCAT','ANSI_QUOTES','IGNORE_SPACE','IGNORE_BAD_TABLE_OPTIONS','ONLY_FULL_GROUP_BY','NO_UNSIGNED_SUBTRACTION','NO_DIR_IN_CREATE','POSTGRESQL','ORACLE','MSSQL','DB2','MAXDB','NO_KEY_OPTIONS','NO_TABLE_OPTIONS','NO_FIELD_OPTIONS','MYSQL323','MYSQL40','ANSI','NO_AUTO_VALUE_ON_ZERO','NO_BACKSLASH_ESCAPES','STRICT_TRANS_TABLES','STRICT_ALL_TABLES','NO_ZERO_IN_DATE','NO_ZERO_DATE','INVALID_DATES','ERROR_FOR_DIVISION_BY_ZERO','TRADITIONAL','NO_AUTO_CREATE_USER','HIGH_NOT_PRECEDENCE','NO_ENGINE_SUBSTITUTION','PAD_CHAR_TO_FULL_LENGTH','EMPTY_STRING_IS_NULL','SIMULTANEOUS_ASSIGNMENT','TIME_ROUND_FRACTIONAL') NOT NULL DEFAULT '',\n  `comment` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,\n  `character_set_client` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,\n  `collation_connection` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,\n  `db_collation` char(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,\n  `body_utf8` longblob DEFAULT NULL,\n  `aggregate` enum('NONE','GROUP') NOT NULL DEFAULT 'NONE',\n  `path` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT 'CURRENT_SCHEMA',\n  PRIMARY KEY (`db`,`name`,`type`)\n) ENGINE=Aria DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci PAGE_CHECKSUM=1 TRANSACTIONAL=1 COMMENT='Stored Procedures'"
+          ]
+        ],
+        "columns": [
+          "Table",
+          "Create Table"
+        ],
+        "affected": 1,
+        "more": 0
+      }
+    ],
+    "elapsed_ms": 0.9542920161038637
+  },
+  "routines": [
+    {
+      "case": "procedure-create-call-drop",
+      "result": "FAIL",
+      "error": "OperationalError(1728, 'Cannot load from mysql.proc. The table is probably corrupted')"
+    },
+    {
+      "case": "in-out-inout",
+      "result": "FAIL",
+      "error": "OperationalError(1728, 'Cannot load from mysql.proc. The table is probably corrupted')"
+    },
+    {
+      "case": "multiple-results-terminal-ok",
+      "result": "FAIL",
+      "error": "OperationalError(1728, 'Cannot load from mysql.proc. The table is probably corrupted')"
+    },
+    {
+      "case": "function-create-invoke-drop-null",
+      "result": "FAIL",
+      "error": "OperationalError(1728, 'Cannot load from mysql.proc. The table is probably corrupted')"
+    },
+    {
+      "case": "information-schema-routine-and-parameters",
+      "result": "FAIL",
+      "error": "OperationalError(1728, 'Cannot load from mysql.proc. The table is probably corrupted')"
+    },
+    {
+      "case": "later-error-reuse-and-after-drop",
+      "result": "FAIL",
+      "error": "OperationalError(1728, 'Cannot load from mysql.proc. The table is probably corrupted')"
+    }
+  ],
+  "after_repair": [
+    {
+      "case": "procedure-create-call-drop",
+      "result": "PASS",
+      "detail": [
+        {
+          "rows": [
+            [
+              7
+            ]
+          ],
+          "columns": [
+            "value"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ]
+    },
+    {
+      "case": "in-out-inout",
+      "result": "PASS",
+      "detail": [
+        [
+          6,
+          13
+        ]
+      ]
+    },
+    {
+      "case": "multiple-results-terminal-ok",
+      "result": "PASS",
+      "detail": [
+        {
+          "rows": [
+            [
+              7
+            ]
+          ],
+          "columns": [
+            "a"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": [
+            [
+              8
+            ]
+          ],
+          "columns": [
+            "b"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ]
+    },
+    {
+      "case": "function-create-invoke-drop-null",
+      "result": "PASS",
+      "detail": [
+        [
+          5,
+          null
+        ]
+      ]
+    },
+    {
+      "case": "information-schema-routine-and-parameters",
+      "result": "PASS",
+      "detail": {
+        "routines": [
+          [
+            "PROCEDURE"
+          ]
+        ],
+        "parameters": [
+          [
+            1,
+            "IN",
+            "a"
+          ],
+          [
+            2,
+            "OUT",
+            "b"
+          ]
+        ]
+      }
+    },
+    {
+      "case": "later-error-reuse-and-after-drop",
+      "result": "PASS",
+      "detail": {
+        "signal_errno": 1644,
+        "after_drop": {
+          "sql": "CALL test.feas_error()",
+          "result": "FAIL",
+          "errno": 1305,
+          "error": "(1305, 'PROCEDURE test.feas_error does not exist')",
+          "elapsed_ms": 0.8615839760750532
+        },
+        "reused": true
+      }
+    }
+  ],
+  "after": [
+    {
+      "sql": "SHOW TABLES FROM mysql",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              "column_stats"
+            ],
+            [
+              "columns_priv"
+            ],
+            [
+              "db"
+            ],
+            [
+              "event"
+            ],
+            [
+              "func"
+            ],
+            [
+              "general_log"
+            ],
+            [
+              "global_priv"
+            ],
+            [
+              "gtid_slave_pos"
+            ],
+            [
+              "help_category"
+            ],
+            [
+              "help_keyword"
+            ],
+            [
+              "help_relation"
+            ],
+            [
+              "help_topic"
+            ],
+            [
+              "index_stats"
+            ],
+            [
+              "innodb_index_stats"
+            ],
+            [
+              "innodb_table_stats"
+            ],
+            [
+              "plugin"
+            ],
+            [
+              "proc"
+            ],
+            [
+              "procs_priv"
+            ],
+            [
+              "proxies_priv"
+            ],
+            [
+              "roles_mapping"
+            ],
+            [
+              "servers"
+            ],
+            [
+              "slow_log"
+            ],
+            [
+              "table_stats"
+            ],
+            [
+              "tables_priv"
+            ],
+            [
+              "time_zone"
+            ],
+            [
+              "time_zone_leap_second"
+            ],
+            [
+              "time_zone_name"
+            ],
+            [
+              "time_zone_transition"
+            ],
+            [
+              "time_zone_transition_type"
+            ],
+            [
+              "transaction_registry"
+            ],
+            [
+              "user"
+            ]
+          ],
+          "columns": [
+            "Tables_in_mysql"
+          ],
+          "affected": 31,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 1.132915960624814
+    },
+    {
+      "sql": "SELECT ROUTINE_NAME, ROUTINE_TYPE FROM information_schema.ROUTINES",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              "AddGeometryColumn",
+              "PROCEDURE"
+            ],
+            [
+              "DropGeometryColumn",
+              "PROCEDURE"
+            ],
+            [
+              "create_synonym_db",
+              "PROCEDURE"
+            ],
+            [
+              "diagnostics",
+              "PROCEDURE"
+            ],
+            [
+              "execute_prepared_stmt",
+              "PROCEDURE"
+            ],
+            [
+              "extract_schema_from_file_name",
+              "FUNCTION"
+            ],
+            [
+              "extract_table_from_file_name",
+              "FUNCTION"
+            ],
+            [
+              "format_bytes",
+              "FUNCTION"
+            ],
+            [
+              "format_path",
+              "FUNCTION"
+            ],
+            [
+              "format_statement",
+              "FUNCTION"
+            ],
+            [
+              "format_time",
+              "FUNCTION"
+            ],
+            [
+              "list_add",
+              "FUNCTION"
+            ],
+            [
+              "list_drop",
+              "FUNCTION"
+            ],
+            [
+              "optimizer_switch_choice",
+              "PROCEDURE"
+            ],
+            [
+              "optimizer_switch_off",
+              "PROCEDURE"
+            ],
+            [
+              "optimizer_switch_on",
+              "PROCEDURE"
+            ],
+            [
+              "ps_is_account_enabled",
+              "FUNCTION"
+            ],
+            [
+              "ps_is_consumer_enabled",
+              "FUNCTION"
+            ],
+            [
+              "ps_is_instrument_default_enabled",
+              "FUNCTION"
+            ],
+            [
+              "ps_is_instrument_default_timed",
+              "FUNCTION"
+            ],
+            [
+              "ps_is_thread_instrumented",
+              "FUNCTION"
+            ],
+            [
+              "ps_setup_disable_background_threads",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_disable_consumer",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_disable_instrument",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_disable_thread",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_enable_background_threads",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_enable_consumer",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_enable_instrument",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_enable_thread",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_reload_saved",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_reset_to_default",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_save",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_show_disabled",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_show_disabled_consumers",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_show_disabled_instruments",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_show_enabled",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_show_enabled_consumers",
+              "PROCEDURE"
+            ],
+            [
+              "ps_setup_show_enabled_instruments",
+              "PROCEDURE"
+            ],
+            [
+              "ps_statement_avg_latency_histogram",
+              "PROCEDURE"
+            ],
+            [
+              "ps_thread_account",
+              "FUNCTION"
+            ],
+            [
+              "ps_thread_id",
+              "FUNCTION"
+            ],
+            [
+              "ps_thread_stack",
+              "FUNCTION"
+            ],
+            [
+              "ps_thread_trx_info",
+              "FUNCTION"
+            ],
+            [
+              "ps_trace_statement_digest",
+              "PROCEDURE"
+            ],
+            [
+              "ps_trace_thread",
+              "PROCEDURE"
+            ],
+            [
+              "ps_truncate_all_tables",
+              "PROCEDURE"
+            ],
+            [
+              "quote_identifier",
+              "FUNCTION"
+            ],
+            [
+              "statement_performance_analyzer",
+              "PROCEDURE"
+            ],
+            [
+              "sys_get_config",
+              "FUNCTION"
+            ],
+            [
+              "table_exists",
+              "PROCEDURE"
+            ],
+            [
+              "version_major",
+              "FUNCTION"
+            ],
+            [
+              "version_minor",
+              "FUNCTION"
+            ],
+            [
+              "version_patch",
+              "FUNCTION"
+            ],
+            [
+              "feas_before",
+              "PROCEDURE"
+            ]
+          ],
+          "columns": [
+            "ROUTINE_NAME",
+            "ROUTINE_TYPE"
+          ],
+          "affected": 54,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 1.8539580050855875
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.PARAMETERS",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              93
+            ]
+          ],
+          "columns": [
+            "COUNT(*)"
+          ],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 2.017207909375429
+    }
+  ],
+  "events": {
+    "sql": "CREATE EVENT test.feas_event ON SCHEDULE EVERY 1 DAY DO SELECT 1",
+    "result": "FAIL",
+    "errno": 1537,
+    "error": "(1537, \"Event 'feas_event' already exists\")",
+    "elapsed_ms": 0.8892079349607229
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "guest/source.patch": {
+    "bytes": 4630,
+    "sha256": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16"
+  },
+  "guest/experimental.patch": {
+    "bytes": 12200,
+    "sha256": "adf4c2d0784e7b1c74506589442bbb4d20886482d93fc7cbefac35a5f7219aac"
+  },
+  "guest/resident.inc": {
+    "bytes": 8804,
+    "sha256": "339fe98e58414a50f356606067300a05c2d58172a53f121708f2aeebfa9ac29b"
+  },
+  "guest/wire_core.inc": {
+    "bytes": 5070,
+    "sha256": "0782376dc1556f58f6b96f061f728c0ed2ebda7ce16c1ad2a4a8799f9ede0363"
+  },
+  "release/generated-go-toolchain.json": {
+    "bytes": 2192,
+    "sha256": "01bf46c4fd10d022a58badb4834bdac5a7d9d7f53cd88499882e8542c69d7ef9"
+  },
+  "release/generated-go-translation.json": {
+    "bytes": 6367,
+    "sha256": "4d10fde2f7831ac561aa7a711306a34c61201feca87589b6a170608d20e5943f"
+  },
+  "converter_patches": {
+    "imported-memory.patch": "9e05149ed2ad75780ee939a7caa577f420d151855ab723498ec60c533f805d40",
+    "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+    "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
+    "pure-memory32.patch": "7b0bf47f257d51ed842483e1ae2c6cb9a45fb009d7114679f9ed32ff76378694",
+    "controlled-thread-traps.patch": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+    "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+    "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
+    "helper-bridge.patch": "934246d80d37a596b43d786065b168aa3d94af62ae3130bd5a9c422ce7e5783b",
+    "export-collision.patch": "2e4866056a3e65c7be0fbc343207157319f609391b07cb8123bed4ab2b2f8f93",
+    "fd-allocate-preservation.patch": "84582c8c9684026735a04117e00a48905f10aef736fb4178c26c79d804b797e6",
+    "zero-bulk-bounds.patch": "85c05f04b24a03e3f65b86b73e8682221615ab10df1d66bde05157d3348813eb",
+    "wait-timeout-range.patch": "980da7652e8b22322cc639a9b39efffaf3a1035b5fdea1467593bf0e50dff5ff",
+    "thread-id-range.patch": "ef07a969971433966fd18ce246d5e515da8c5faa3f10f32e67a09108283a54cf"
+  }
+}

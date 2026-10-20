@@ -1,0 +1,7 @@
+{
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "python_runner": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]\nOpenSSL 4.0.3 29 Sep 2026\n",
+  "go": "go: downloading go1.26.8 (darwin/arm64)\ngo version go1.26.8 darwin/arm64\n",
+  "reference": "MariaDB 12.3.3 Linux arm64 Docker; not native Ubuntu x86_64"
+}

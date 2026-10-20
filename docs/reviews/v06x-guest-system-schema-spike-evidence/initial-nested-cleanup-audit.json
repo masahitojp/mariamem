@@ -1,0 +1,17 @@
+{
+  "before_bytes": 0,
+  "after_bytes": 0,
+  "applied": false,
+  "decisions": [
+    {
+      "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/guest-system-schema/worktree/build/experiment-work/guest-system-schema",
+      "classification": "DELETE",
+      "code": "recreatable_candidate",
+      "reason": "no unique source/result identified; unmanaged deletion requires ownership/recipe inspection",
+      "automatic": false,
+      "bytes": 0
+    }
+  ],
+  "retained_large_paths": [],
+  "cleanup_debt": []
+}

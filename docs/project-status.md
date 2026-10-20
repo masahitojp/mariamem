@@ -749,6 +749,19 @@ Python 3.14/OpenSSL 3 execution passes. Native Ubuntu and production coverage ar
 pending. **Awaiting Human decision on production implementation; no main adoption,
 Qualification or release approval.**
 
+**Stored routine feasibility, separate Human Review (2026-10-20):** the Human
+authorized an independent system-schema spike before deciding routine scope. The
+[WASIX procedure/function findings](reviews/v06x-guest-system-schema-spike.md)
+show six native-control cases passing after the official `mysql.proc` DDL, with
+the existing guest/converter/runtime unchanged. The complete base script succeeds,
+but the upgrade fix script has one unexpected 1193 on the absent embedded
+`event_scheduler` variable; it is not a drop-in full bootstrap. Minimum routine
+feasibility is established, while production initialization, lifecycle/driver
+coverage, owner and target version await Human Review. The original Web REPL 1728
+manual-DDL cause and deployed Emscripten identity remain unconfirmed. This does
+not change the approved prepared/multi-statement v0.6.0 scope or authorize
+production implementation, main integration, Qualification or release.
+
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
 with pytest fixtures: prepare migrations/seed once per worker, acquire an

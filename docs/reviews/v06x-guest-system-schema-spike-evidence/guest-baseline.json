@@ -1,0 +1,176 @@
+{
+  "mode": "baseline",
+  "port": 57019,
+  "scripts": {
+    "base": {
+      "count": 89,
+      "sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d"
+    },
+    "fix": {
+      "count": 242,
+      "sha256": "0986bff7b31c567255411e323c70e8c2c67342f3e0164bb030018da2c7b692a9"
+    }
+  },
+  "stages": [],
+  "start_ms": 192.87558388896286,
+  "guest_identity": "55c5d4910459c87b5e1e00eb999506acc661ea0eaa3a794662db647bd124c953",
+  "identity": {
+    "sql": "SELECT VERSION(), @@version_comment, @@sql_mode, @@skip_grant_tables",
+    "result": "PASS",
+    "sets": [
+      {
+        "rows": [
+          [
+            "12.3.3-MariaDB-embedded",
+            "Source distribution",
+            "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+            1
+          ]
+        ],
+        "columns": [
+          "VERSION()",
+          "@@version_comment",
+          "@@sql_mode",
+          "@@skip_grant_tables"
+        ],
+        "affected": 1,
+        "more": 0
+      }
+    ],
+    "elapsed_ms": 1.147374976426363
+  },
+  "source_revision": {
+    "sql": "SHOW VARIABLES LIKE 'version_source_revision'",
+    "result": "PASS",
+    "sets": [
+      {
+        "rows": [
+          [
+            "version_source_revision",
+            ""
+          ]
+        ],
+        "columns": [
+          "Variable_name",
+          "Value"
+        ],
+        "affected": 1,
+        "more": 0
+      }
+    ],
+    "elapsed_ms": 10.385375004261732
+  },
+  "before": [
+    {
+      "sql": "SHOW DATABASES",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              "information_schema"
+            ],
+            [
+              "test"
+            ]
+          ],
+          "columns": [
+            "Database"
+          ],
+          "affected": 2,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.5311660934239626
+    },
+    {
+      "sql": "SHOW TABLES FROM mysql",
+      "result": "FAIL",
+      "errno": 1049,
+      "error": "(1049, \"Unknown database 'mysql'\")",
+      "elapsed_ms": 0.4710000939667225
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.ROUTINES",
+      "result": "FAIL",
+      "errno": 1146,
+      "error": "(1146, \"Table 'mysql.proc' doesn't exist\")",
+      "elapsed_ms": 5.7859160006046295
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.PARAMETERS",
+      "result": "FAIL",
+      "errno": 1146,
+      "error": "(1146, \"Table 'mysql.proc' doesn't exist\")",
+      "elapsed_ms": 0.298250000923872
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.USERS",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              0
+            ]
+          ],
+          "columns": [
+            "COUNT(*)"
+          ],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.23920787498354912
+    },
+    {
+      "sql": "CREATE PROCEDURE test.feas_before() SELECT 1",
+      "result": "FAIL",
+      "errno": 1146,
+      "error": "(1146, \"Table 'mysql.proc' doesn't exist\")",
+      "elapsed_ms": 2.3836251348257065
+    }
+  ],
+  "routines": [
+    {
+      "case": "procedure-create-call-drop",
+      "result": "FAIL",
+      "error": "ProgrammingError(1146, \"Table 'mysql.proc' doesn't exist\")"
+    },
+    {
+      "case": "in-out-inout",
+      "result": "FAIL",
+      "error": "ProgrammingError(1146, \"Table 'mysql.proc' doesn't exist\")"
+    },
+    {
+      "case": "multiple-results-terminal-ok",
+      "result": "FAIL",
+      "error": "ProgrammingError(1146, \"Table 'mysql.proc' doesn't exist\")"
+    },
+    {
+      "case": "function-create-invoke-drop-null",
+      "result": "FAIL",
+      "error": "ProgrammingError(1146, \"Table 'mysql.proc' doesn't exist\")"
+    },
+    {
+      "case": "information-schema-routine-and-parameters",
+      "result": "FAIL",
+      "error": "ProgrammingError(1146, \"Table 'mysql.proc' doesn't exist\")"
+    },
+    {
+      "case": "later-error-reuse-and-after-drop",
+      "result": "FAIL",
+      "error": "ProgrammingError(1146, \"Table 'mysql.proc' doesn't exist\")"
+    }
+  ],
+  "events": {
+    "sql": "CREATE EVENT test.feas_event ON SCHEDULE EVERY 1 DAY DO SELECT 1",
+    "result": "FAIL",
+    "errno": 1235,
+    "error": "(1235, \"This version of MariaDB doesn't yet support 'embedded server'\")",
+    "elapsed_ms": 0.20670797675848007
+  },
+  "guest_logs": "",
+  "final_guest_logs": "",
+  "close_ms": 8.730333065614104
+}

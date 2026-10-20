@@ -1,0 +1,9 @@
+{
+  "guest_sha256": "55c5d4910459c87b5e1e00eb999506acc661ea0eaa3a794662db647bd124c953",
+  "raw_files": 51,
+  "raw_files_equal_previous": true,
+  "converter_equal_previous": true,
+  "patches_equal_previous": true,
+  "reference_commit": "866c17e7c64c7b0bee73b3e5b42a1b83982d4378",
+  "reference": "validated-translation.json"
+}

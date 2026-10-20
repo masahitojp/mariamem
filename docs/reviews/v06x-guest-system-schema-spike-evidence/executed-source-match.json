@@ -1,0 +1,18 @@
+{
+  "scripts/mariadb_system_tables.sql": {
+    "pristine_sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d",
+    "built_source_sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d"
+  },
+  "scripts/mariadb_system_tables_fix.sql": {
+    "pristine_sha256": "0986bff7b31c567255411e323c70e8c2c67342f3e0164bb030018da2c7b692a9",
+    "built_source_sha256": "0986bff7b31c567255411e323c70e8c2c67342f3e0164bb030018da2c7b692a9"
+  },
+  "sql/sp.cc": {
+    "pristine_sha256": "8643abd093380d02153233503d08122f7fb8c88df059a76544c697fce480e43c",
+    "built_source_sha256": "8643abd093380d02153233503d08122f7fb8c88df059a76544c697fce480e43c"
+  },
+  "sql/table.cc": {
+    "pristine_sha256": "a3959b7bda544beeffdcb6e2b80a44fc462eeda50596c6535e458c82a0f23741",
+    "built_source_sha256": "a3959b7bda544beeffdcb6e2b80a44fc462eeda50596c6535e458c82a0f23741"
+  }
+}

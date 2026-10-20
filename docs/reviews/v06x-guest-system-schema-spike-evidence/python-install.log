@@ -1,0 +1,22 @@
+Collecting PyMySQL==1.2.3
+  Downloading pymysql-1.2.3-py3-none-any.whl (46 kB)
+Collecting pytest==8.4.2
+  Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+Collecting pluggy<2,>=1.5
+  Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Collecting iniconfig>=1
+  Downloading iniconfig-2.1.0-py3-none-any.whl (6.0 kB)
+Collecting tomli>=1
+  Downloading tomli-2.5.0-py3-none-any.whl (14 kB)
+Collecting exceptiongroup>=1
+  Downloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+Collecting pygments>=2.7.2
+  Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+Collecting packaging>=20
+  Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Collecting typing-extensions>=4.6.0
+  Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Installing collected packages: typing-extensions, tomli, pygments, pluggy, packaging, iniconfig, exceptiongroup, pytest, PyMySQL
+Successfully installed PyMySQL-1.2.3 exceptiongroup-1.3.1 iniconfig-2.1.0 packaging-26.3 pluggy-1.6.0 pygments-2.21.0 pytest-8.4.2 tomli-2.5.0 typing-extensions-4.16.0
+WARNING: You are using pip version 21.2.4; however, version 26.0.1 is available.
+You should consider upgrading via the '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/guest-system-schema/temp/venv/bin/python -m pip install --upgrade pip' command.

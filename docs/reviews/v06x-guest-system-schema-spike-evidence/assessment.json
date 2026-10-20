@@ -1,0 +1,160 @@
+{
+  "feasibility": "PASS",
+  "meaning": "minimum text-SQL procedure/function cases feasible after pinned proc DDL; not full install-db, production support or prepared CALL",
+  "matrix": [
+    {
+      "check": "initial-missing-proc-negative-oracle",
+      "result": "PASS",
+      "actual_errno": 1146
+    },
+    {
+      "check": "initial-routines-unavailable",
+      "result": "FAIL",
+      "actual_errno": 1146,
+      "meaning": "expected unrepaired state; retained"
+    },
+    {
+      "check": "official-proc-only-routines-native-parity",
+      "result": "PASS",
+      "cases": 6
+    },
+    {
+      "check": "controlled-definition-mismatch-negative-oracle",
+      "result": "PASS",
+      "actual_errno": 1728,
+      "ordinal": 15,
+      "column": "comment",
+      "reason": "NOT NULL required"
+    },
+    {
+      "check": "definition-repair-restores-native-parity",
+      "result": "PASS",
+      "cases": 6
+    },
+    {
+      "check": "official-base-all-statements",
+      "result": "PASS",
+      "statements": 89,
+      "cases": 6
+    },
+    {
+      "check": "guest-official-fix-upgrade-policy",
+      "result": "FAIL",
+      "statements": 242,
+      "raw_failures": 87,
+      "error_counts": {
+        "1347": 44,
+        "1060": 29,
+        "1348": 10,
+        "1061": 1,
+        "1054": 2,
+        "1193": 1
+      },
+      "unexpected": [
+        {
+          "sql": "set global event_scheduler=original",
+          "result": "FAIL",
+          "errno": 1193,
+          "error": "(1193, \"Unknown system variable 'event_scheduler'\")",
+          "elapsed_ms": 0.20920904353260994
+        }
+      ]
+    },
+    {
+      "check": "native-official-fix-upgrade-policy",
+      "result": "PASS",
+      "statements": 242,
+      "raw_failures": 87,
+      "error_counts": {
+        "1347": 44,
+        "1060": 29,
+        "1356": 11,
+        "1061": 1,
+        "1054": 2
+      },
+      "unexpected": []
+    },
+    {
+      "check": "routines-after-full-fix-despite-1193",
+      "result": "PASS",
+      "cases": 6,
+      "does_not_resolve": "guest-official-fix-upgrade-policy FAIL"
+    },
+    {
+      "check": "events-remain-unsupported",
+      "result": "PASS",
+      "actual_errno": 1235,
+      "meaning": "unsupported boundary confirmed; not feature support"
+    },
+    {
+      "check": "historical-web-repl-1728-cause",
+      "result": "SKIP",
+      "reason": "exact manual DDL, server error log and deployed binary identity were not supplied; controlled WASIX reproduction is not attribution"
+    },
+    {
+      "check": "emscripten-deployed-binary-equivalence",
+      "result": "SKIP",
+      "reason": "fixed lite4 source definition equality established; deployed Web REPL provenance not available"
+    },
+    {
+      "check": "native-ubuntu-x86_64",
+      "result": "SKIP",
+      "reason": "local machine is macOS arm64; reference container is Linux arm64"
+    },
+    {
+      "check": "embedded-sql-binary-size-startup",
+      "result": "SKIP",
+      "reason": "no embedding/code change made; only unchanged Wasm + runtime SQL measured"
+    },
+    {
+      "check": "fresh-build-generation-vs-reviewed",
+      "result": "PASS",
+      "guest_sha256": "55c5d4910459c87b5e1e00eb999506acc661ea0eaa3a794662db647bd124c953",
+      "binary_sha256": "f779d6a4e092c9dddbc9a27b7f225cf8466031105c6ce3dc7b7ef2efe7a44b89",
+      "manifest_files": 51,
+      "raw_module_files": 52,
+      "runtime_files_equal": 98,
+      "provenance": "original new input record retained"
+    },
+    {
+      "check": "official-development-smoke",
+      "result": "PASS",
+      "qualification": "UNQUALIFIED"
+    }
+  ],
+  "cost_diagnostic": {
+    "control": {
+      "n": 3,
+      "first_start_ms": 42.805042,
+      "first_init_ms": 0.000542,
+      "later_start_median_ms": 36.1349165,
+      "later_init_median_ms": 0.0003535,
+      "init_range_ms": [
+        0.000291,
+        0.000542
+      ]
+    },
+    "proc": {
+      "n": 3,
+      "first_start_ms": 51.2065,
+      "first_init_ms": 2.702958,
+      "later_start_median_ms": 44.013000000000005,
+      "later_init_median_ms": 2.2731250000000003,
+      "init_range_ms": [
+        1.985875,
+        2.702958
+      ]
+    },
+    "base-fix": {
+      "n": 3,
+      "first_start_ms": 52.671291,
+      "first_init_ms": 137.812375,
+      "later_start_median_ms": 36.2198335,
+      "later_init_median_ms": 125.200875,
+      "init_range_ms": [
+        115.987625,
+        137.812375
+      ]
+    }
+  }
+}

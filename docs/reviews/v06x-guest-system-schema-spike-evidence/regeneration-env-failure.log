@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/guest-system-schema/worktree/scripts/regenerate_release_guest.py", line 63, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/guest-system-schema/worktree/scripts/regenerate_release_guest.py", line 26, in main
+    regenerate_development(ROOT, guest, a.output)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/guest-system-schema/worktree/scripts/dev_guest.py", line 155, in regenerate_development
+    env = go_environment(dict(os.environ, GOTOOLCHAIN='go1.26.8', GOWORK='off', GOENV='off'))
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/guest-system-schema/worktree/scripts/build_feedback.py", line 39, in go_environment
+    raise ValueError('conflicting '+key+'; unset it before selecting task workspace')
+ValueError: conflicting GOPATH; unset it before selecting task workspace

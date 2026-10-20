@@ -1,0 +1,8 @@
+{
+  "probe.py": "c99acf94b6e0d99c8a504a83b5372dcec6513c7cd02998af92b7be3bf4f563bc",
+  "assess.py": "92f206e11e9f9f7b2e696b1b5ac59cdd7c8f2123f76bdb60006d225d11516089",
+  "cost.go.txt": "7e813787972cab663be9c7182a0b670566a7961b615dd1ed44fa45639af67a3e",
+  "cost-sql.json": "36ae343038831031baa1dcc6fd3af21e6a3b4acbe79e485e79214b4c5e8bacfb",
+  "probe-initial.py": "bc066ccd06c43c356f5dff8e0bfaa8f72f729917a97a99f888479160bd4dfc5b",
+  "probe-native-final.py": "55190be046ed8bc36e09e8b6e331697c16e3cdb2c4b956b5e6614c99f3258fc2"
+}

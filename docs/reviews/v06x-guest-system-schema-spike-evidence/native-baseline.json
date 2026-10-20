@@ -1,0 +1,362 @@
+{
+  "mode": "baseline",
+  "port": 57019,
+  "scripts": {
+    "base": {
+      "count": 89,
+      "sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d"
+    },
+    "fix": {
+      "count": 242,
+      "sha256": "0986bff7b31c567255411e323c70e8c2c67342f3e0164bb030018da2c7b692a9"
+    }
+  },
+  "stages": [],
+  "identity": {
+    "sql": "SELECT VERSION(), @@version_comment, @@sql_mode, @@skip_grant_tables",
+    "result": "PASS",
+    "sets": [
+      {
+        "rows": [
+          [
+            "12.3.3-MariaDB-ubu2404",
+            "mariadb.org binary distribution",
+            "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+            0
+          ]
+        ],
+        "columns": [
+          "VERSION()",
+          "@@version_comment",
+          "@@sql_mode",
+          "@@skip_grant_tables"
+        ],
+        "affected": 1,
+        "more": 0
+      }
+    ],
+    "elapsed_ms": 0.9241250809282064
+  },
+  "before": [
+    {
+      "sql": "SHOW DATABASES",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              "information_schema"
+            ],
+            [
+              "mysql"
+            ],
+            [
+              "performance_schema"
+            ],
+            [
+              "sys"
+            ],
+            [
+              "test"
+            ]
+          ],
+          "columns": [
+            "Database"
+          ],
+          "affected": 5,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 1.679625129327178
+    },
+    {
+      "sql": "SHOW TABLES FROM mysql",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              "column_stats"
+            ],
+            [
+              "columns_priv"
+            ],
+            [
+              "db"
+            ],
+            [
+              "event"
+            ],
+            [
+              "func"
+            ],
+            [
+              "general_log"
+            ],
+            [
+              "global_priv"
+            ],
+            [
+              "gtid_slave_pos"
+            ],
+            [
+              "help_category"
+            ],
+            [
+              "help_keyword"
+            ],
+            [
+              "help_relation"
+            ],
+            [
+              "help_topic"
+            ],
+            [
+              "index_stats"
+            ],
+            [
+              "innodb_index_stats"
+            ],
+            [
+              "innodb_table_stats"
+            ],
+            [
+              "plugin"
+            ],
+            [
+              "proc"
+            ],
+            [
+              "procs_priv"
+            ],
+            [
+              "proxies_priv"
+            ],
+            [
+              "roles_mapping"
+            ],
+            [
+              "servers"
+            ],
+            [
+              "slow_log"
+            ],
+            [
+              "table_stats"
+            ],
+            [
+              "tables_priv"
+            ],
+            [
+              "time_zone"
+            ],
+            [
+              "time_zone_leap_second"
+            ],
+            [
+              "time_zone_name"
+            ],
+            [
+              "time_zone_transition"
+            ],
+            [
+              "time_zone_transition_type"
+            ],
+            [
+              "transaction_registry"
+            ],
+            [
+              "user"
+            ]
+          ],
+          "columns": [
+            "Tables_in_mysql"
+          ],
+          "affected": 31,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.6228340789675713
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.ROUTINES",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              53
+            ]
+          ],
+          "columns": [
+            "COUNT(*)"
+          ],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 5.7949170004576445
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.PARAMETERS",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              93
+            ]
+          ],
+          "columns": [
+            "COUNT(*)"
+          ],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 1.9652089104056358
+    },
+    {
+      "sql": "SELECT COUNT(*) FROM information_schema.USERS",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": [
+            [
+              6
+            ]
+          ],
+          "columns": [
+            "COUNT(*)"
+          ],
+          "affected": 1,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 0.5275001749396324
+    },
+    {
+      "sql": "CREATE PROCEDURE test.feas_before() SELECT 1",
+      "result": "PASS",
+      "sets": [
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ],
+      "elapsed_ms": 1.3666250742971897
+    }
+  ],
+  "routines": [
+    {
+      "case": "procedure-create-call-drop",
+      "result": "PASS",
+      "detail": [
+        {
+          "rows": [
+            [
+              7
+            ]
+          ],
+          "columns": [
+            "value"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ]
+    },
+    {
+      "case": "in-out-inout",
+      "result": "PASS",
+      "detail": [
+        [
+          6,
+          13
+        ]
+      ]
+    },
+    {
+      "case": "multiple-results-terminal-ok",
+      "result": "PASS",
+      "detail": [
+        {
+          "rows": [
+            [
+              7
+            ]
+          ],
+          "columns": [
+            "a"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": [
+            [
+              8
+            ]
+          ],
+          "columns": [
+            "b"
+          ],
+          "affected": 1,
+          "more": 8
+        },
+        {
+          "rows": null,
+          "columns": [],
+          "affected": 0,
+          "more": 0
+        }
+      ]
+    },
+    {
+      "case": "function-create-invoke-drop-null",
+      "result": "PASS",
+      "detail": [
+        [
+          5,
+          null
+        ]
+      ]
+    },
+    {
+      "case": "later-error-reuse-and-after-drop",
+      "result": "PASS",
+      "detail": {
+        "signal_errno": 1644,
+        "after_drop": {
+          "sql": "CALL test.feas_error()",
+          "result": "FAIL",
+          "errno": 1305,
+          "error": "(1305, 'PROCEDURE test.feas_error does not exist')",
+          "elapsed_ms": 0.29783393256366253
+        },
+        "reused": true
+      }
+    }
+  ],
+  "events": {
+    "sql": "CREATE EVENT test.feas_event ON SCHEDULE EVERY 1 DAY DO SELECT 1",
+    "result": "PASS",
+    "sets": [
+      {
+        "rows": null,
+        "columns": [],
+        "affected": 0,
+        "more": 0
+      }
+    ],
+    "elapsed_ms": 2.2235410287976265
+  }
+}
