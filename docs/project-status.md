@@ -762,6 +762,17 @@ manual-DDL cause and deployed Emscripten identity remain unconfirmed. This does
 not change the approved prepared/multi-statement v0.6.0 scope or authorize
 production implementation, main integration, Qualification or release.
 
+**Minimum routine bootstrap design authorized (2026-10-20):** following the
+[feasibility findings](reviews/v06x-guest-system-schema-spike.md), the Human
+approved proceeding to the [bounded initialization design](reviews/v06x-routine-bootstrap-design.md).
+It recommends guest initialization before ready, explicit internal Fresh/restore
+context, and rejection rather than repair of an incompatible restored proc
+structure. Public multi-result CALL additionally depends on adoption of the
+text multi-result bridge; initialization does not require binary prepared support.
+The design is ready for Human Review. Production implementation, routine target
+version, integration, Qualification and release are not approved by this step;
+prepared/multi-statement scope remains unchanged.
+
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
 with pytest fixtures: prepare migrations/seed once per worker, acquire an
