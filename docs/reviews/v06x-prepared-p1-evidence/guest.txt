@@ -1,0 +1,1 @@
+ok  	github.com/masahitojp/mariamem/internal/guest	2.580s

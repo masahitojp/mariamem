@@ -35,6 +35,7 @@ typedef struct {unsigned params,columns,errno_;int meta_fail;} MYSQL_STMT;
 static MYSQL_STMT *mysql_stmt_init(MYSQL *db){(void)db;MYSQL_STMT *s=calloc(1,sizeof(*s));if(s)live++;return s;}
 static int mysql_stmt_prepare(MYSQL_STMT *s,const char *sql,unsigned long n){
  prepared_calls++;
+ if(n==8&&!memcmp(sql,"SELECT ?",8))s->params=1;
  if(n==3&&!memcmp(sql,"bad",3)){s->errno_=1064;return 1;}
  if(n==8&&!memcmp(sql,"params65",8))s->params=65;
  if(n==6&&!memcmp(sql,"cols65",6))s->columns=65;
@@ -70,8 +71,15 @@ static char *call(unsigned op,uint32_t generation,uint32_t id,const char *body){
  if(n)memcpy(b+16,body,n);MYSQL db={0};char *reply=ps_call(&db,b,16+n);free(b);return reply;
 }
 static void expect(char *reply,const char *fragment){assert(reply);if(!strstr(reply,fragment)){fputs(reply,stderr);abort();}free(reply);}
-int main(void){
+int main(int argc,char **argv){
  assert(!ps_begin_session()&&ps_generation==1);
+ if(argc==2){
+  size_t n=strlen(argv[1]);assert(n%2==0);unsigned char *request=malloc(n/2);assert(request);
+  for(size_t i=0;i<n/2;i++){unsigned value;assert(sscanf(argv[1]+2*i,"%2x",&value)==1);request[i]=(unsigned char)value;}
+  MYSQL db={0};char *response=ps_call(&db,request,n/2);assert(response);puts(response);free(response);free(request);
+  assert(live==1);assert(!ps_clear()&&!live);return 0;
+ }
+ assert(argc==1);
  expect(call(22,1,0,"params65"),"\"param_count\":65");
  expect(call(22,1,0,"cols65"),"\"columns\":[");
  for(unsigned i=0;i<130;i++)expect(call(22,1,0,"SELECT ?"),"\"ok\":true");

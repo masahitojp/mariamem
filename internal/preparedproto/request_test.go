@@ -3,6 +3,9 @@ package preparedproto
 import (
 	"bytes"
 	"encoding/binary"
+	"encoding/hex"
+	"encoding/json"
+	"os"
 	"testing"
 )
 
@@ -41,5 +44,28 @@ func TestMalformedEnvelopeRejected(t *testing.T) {
 		if _, e := Decode(b); e == nil {
 			t.Fatal("length mismatch")
 		}
+	}
+}
+
+func TestSharedGuestEnvelopeVector(t *testing.T) {
+	data, err := os.ReadFile("../../tests/fixtures/prepared-envelope-v1.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var v struct {
+		Operation          byte
+		Generation, Handle uint32
+		SQL, Hex           string
+	}
+	if err = json.Unmarshal(data, &v); err != nil {
+		t.Fatal(err)
+	}
+	want, err := hex.DecodeString(v.Hex)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got, err := Encode(Request{v.Operation, v.Generation, v.Handle, []byte(v.SQL)})
+	if err != nil || !bytes.Equal(got, want) {
+		t.Fatalf("guest vector mismatch: %x %v", got, err)
 	}
 }

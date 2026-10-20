@@ -730,7 +730,7 @@ and diagnostic/official-reference requirements. Source investigation now support
 a bounded prototype proposal; runtime validation, mechanism selection and broader
 driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Prepared Statements — production design awaiting Human Review.** Python
+**Prepared Statements — implementation approved, in progress.** Python
 `cursor(prepared=True)` and Go explicit DB/Tx/Conn Prepare remain required for the
 one-line-switching goal; interpolation or application SQL changes are not a
 substitute. The original [prepared alternatives/spike decision](reviews/v06x-prepared-design.md)
@@ -746,9 +746,11 @@ those prerequisites are complete, not work to repeat. The
 separate versioned guest path, typed dynamic buffers, prepared CALL multiple
 results, no-response lifecycle and finite P1–P6 acceptance. It distinguishes the
 native-parity C-extension syntax-error exception proposal from the unchanged
-original1064 FAIL. Production implementation and any exception acceptance await
-Human decision; main adoption, target version, Qualification and release remain
-separate decisions. The existing guest/converter/toolchain pins remain fixed.
+original1064 FAIL. The Human approved production implementation after that design review.
+[Staged implementation](reviews/v06x-prepared-implementation.md) has P1 owners,
+protocol and unit coverage; actual new-guest acceptance and P2–P6 remain unfinished.
+Exception acceptance, main adoption, target version, Qualification and release
+remain separate decisions. The existing guest/converter/toolchain pins remain fixed.
 
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
@@ -780,7 +782,7 @@ compatibility or introduce automatic cache policy before use-case evidence.
 COM_INIT_DB, COM_PING, COM_QUIT and COM_SET_OPTION, including text multiple
 statements/results and the required handshake flags. Published v0.5.3 remains
 the earlier text-only baseline. Server-side prepared commands are the current
-implementation gap, with the production design above awaiting approval.
+implementation gap, with production implementation now approved and in progress.
 COM_RESET_CONNECTION/pool session reset and other optional commands/flags remain
 separate capability-map items; COM_STMT_RESET is not a session reset. Host framing
 and guest semantics both need acceptance. No broader protocol implementation is

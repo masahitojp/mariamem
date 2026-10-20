@@ -1,0 +1,87 @@
+name: Prepared implementation P1 source and unit checks (not acceptance)
+on:
+  push:
+    branches: [experiment/prepared-product]
+permissions:
+  contents: read
+jobs:
+  guest-source:
+    runs-on: ubuntu-24.04-arm
+    container:
+      image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
+    timeout-minutes: 90
+    steps:
+      - name: Source builder dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Trust this checkout
+        env:
+          HOME: /root
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Fixed-source development guest compilation, not canonical adoption
+        env:
+          HOME: /root
+        run: |
+          mkdir -p build/prepared-p1
+          python3 scripts/git_identity.py inspect HEAD > build/prepared-p1/source.json
+          python3 -c 'import json,os;assert json.load(open("build/prepared-p1/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          test ! -e guest/experimental.patch
+          python3 scripts/build_generated_guest.py --development-output /tmp/prepared-p1-guest > build/prepared-p1/guest-build.txt 2>&1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: prepared-p1-unqualified-guest-${{ github.sha }}
+          path: /tmp/prepared-p1-guest
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: prepared-p1-source-${{ github.sha }}
+          path: build/prepared-p1
+          retention-days: 7
+  unit:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 35
+    env:
+      GOTOOLCHAIN: go1.26.8
+      PYTHONDONTWRITEBYTECODE: '1'
+      MARIAMEM_REQUIRE_PREPARED_C: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Fixed test dependencies and source identity
+        run: |
+          python -m pip install pytest==8.4.2 PyMySQL==1.2.3
+          mkdir -p build/prepared-p1
+          python scripts/git_identity.py inspect HEAD > build/prepared-p1/source.json
+          python -c 'import json,os;assert json.load(open("build/prepared-p1/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+      - name: C ownership and input guards, including sanitizers
+        run: python -m pytest -q -rA tests/test_prepared_api.py tests/test_routine_schema.py tests/test_thread_lifetime_binding.py tests/test_dev_guest_tools.py > build/prepared-p1/inputs.txt 2>&1
+      - name: Host protocol, registry, metadata and request budgets
+        run: go test -race -p 1 -count=1 ./internal/preparedproto ./internal/mysqlwire ./internal/guest > build/prepared-p1/go-unit.txt 2>&1
+      - name: Existing canonical baseline inventory and public sources
+        run: |
+          python scripts/verify_generated_runtime.py > build/prepared-p1/baseline-inventory.txt 2>&1
+          python scripts/check_public.py > build/prepared-p1/public.txt 2>&1
+          git diff --check
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: prepared-p1-unit-${{ matrix.runner }}-${{ github.sha }}
+          path: build/prepared-p1
+          if-no-files-found: error
+          retention-days: 7

@@ -1,0 +1,57 @@
+{
+  "code_source_commit": "bd3a4e8be559a6dacfe0beb6b0a1ada2faf6b275",
+  "later_changes": "shared C/Go schema vector and test-only additions; final CI binds its exact SHA",
+  "toolchain": {
+    "go": "go version go1.26.8 darwin/arm64",
+    "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+    "system": "Darwin",
+    "machine": "arm64",
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin",
+    "sanitizers": "address,undefined; native mock harness, not guest"
+  },
+  "scope": "P1 components only; no new-guest execution or prepared consumer acceptance",
+  "results": "PASS for listed local unit commands; actual source build/OS matrix pending CI",
+  "files": [
+    {
+      "file": "p1-code-source.json",
+      "sha256": "105f98bcb3b7f6aede7355f586ffb2330126199adfd01ba5ada93b1001a7acfe",
+      "bytes": 153
+    },
+    {
+      "file": "proto.txt",
+      "sha256": "20c6559f1e0d5c4db7d6ccfe86d6209a338784d861fd613434193f08c3d10d2a",
+      "bytes": 66
+    },
+    {
+      "file": "wire.txt",
+      "sha256": "53322fdf5474d79aac8a9082d5f960f52ca359730330612bca69597c32a0b7f2",
+      "bytes": 62
+    },
+    {
+      "file": "guest.txt",
+      "sha256": "5cf11508701c8b46e941e4c3c3212fdaaa6ff16d4a17f479cf086d76a36ebc86",
+      "bytes": 58
+    },
+    {
+      "file": "inputs.txt",
+      "sha256": "8f2d7a753ea944fda5b7e6cfe9f6aff4a38455ef9df12bdb9977a7df977cbd0d",
+      "bytes": 99
+    }
+  ],
+  "tested_files_sha256": {
+    "guest/prepared_api.inc": "2dababecee2ec15ed018b7cc401c1044a192b52ad01a718673ca0f47d60401c1",
+    "guest/resident.inc": "fafea47442308dd0c7dcaf97e9523faf18a9d23a1fe9e1223e2fb6db280210ce",
+    "internal/guest/guest.go": "61d6efbfc39af1664487b5cad43e084105f1ab6f0ac3f304e1cafda18e1382b7",
+    "internal/guest/statement_test.go": "15574782f9091bb41ad3035916ad6cd87b5cb73d131dbac9adca235f1d123ac9",
+    "internal/mysqlwire/prepared.go": "c2cff784a9ccc5ba438fd6de997dc9218442e928ae7dc68b85a49dd26230eec5",
+    "internal/mysqlwire/prepared_test.go": "cffa67d0922cd1f5d2a21c12ee3a51301267f3076d1ff9a16b12521321fb0d8f",
+    "internal/preparedproto/registry.go": "d8143cf84b677beecfd2ee945e78d09a4e3b5833e8f477775adb520f0b35ec6a",
+    "internal/preparedproto/registry_test.go": "92ac2fd6349b035de2781edc7979ee58dc4c69939bd05c0427fa6df9c4696a6b",
+    "internal/preparedproto/request.go": "74e0d849dd0cd983ec81a0547a7c5ff2c56de5c96ec0ab4863e2f043467792ff",
+    "internal/preparedproto/request_test.go": "96f4a794211c5677e010ed4aff26e9bea339a21187b328a4d431b990d9b95497",
+    "scripts/prepare_guest.py": "a772f544be7a1f427d3f6056acfca6460d27ca9afca80e4ca9495d39b2aa681d",
+    "tests/fixtures/prepared_api_harness.c": "bf3bd04327a04ace383de18df58a8409415e9252c02c2365799f3148d3633667",
+    "tests/test_prepared_api.py": "a1f93f8d4af5df5fe1594972dcf00688746047f860c9113ad83ce0a0f6614e8a",
+    "tests/fixtures/prepared-envelope-v1.json": "db06bd61d449556e4449e932d93b274f1339f9aa8c318cf5db9c750ebfff8186"
+  }
+}
