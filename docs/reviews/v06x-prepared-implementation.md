@@ -26,14 +26,22 @@ and build outputs stay disposable.
 - internal/preparedproto owns bounded envelopes and a session-local registry.
   Numeric wire IDs may match in different sessions; mappings cannot cross their
   owning generation. Removal/clear/ID exhaustion cannot resurrect a stale entry.
-- Host PREPARE metadata serializer and schema/identity validation are added as
-  components. **They are not yet wired into public command dispatch.** The main
-  unsupported-PREPARE test is retained until full execution is implemented.
+- Host PREPARE metadata serializer and schema/identity validation were initially
+  components only. The continuation now connects PREPARE/RESET/CLOSE to each
+  physical session's registry. Metadata is checked before committing a public ID;
+  rejected metadata closes the native handle. CLOSE uses a deadline-bound internal
+  call without the query read-ahead monitor or a client reply. The final successful
+  MYSQL open supplies the generation, including FOUND_ROWS reopen.
+- This intermediate branch still keeps the old canonical guest and its unsupported
+  PREPARE test. An absent prepared advertisement on that old guest retains the old
+  behavior; malformed or mismatched nonzero advertisements fail closed. P6 must
+  remove the legacy-guest transition when adopting the complete prepared runtime;
+  P5 must replace the historical unsupported assertion with execution acceptance.
 - An internal typed-envelope overhead allowance preserves the full1MiB SQL input
   while normal text request limits remain unchanged. Public packet limits are
   not raised. No generated Go is hand-edited or repinned in this stage.
 
-## Verification and explicit limits
+## Initial P1 component verification at c63b563
 
 | Evidence | Local result | What it does not establish |
 | --- | --- | --- |
@@ -43,34 +51,88 @@ and build outputs stay disposable.
 | Host PREPARE metadata/error/malformed-response tests with race | PASS | Pinned generic descriptor still needs the expanded actual guest/native matrix |
 | Guest request budget tests and existing package tests with race | PASS | Tests compile/run against the current checked-in canonical guest, not the new C overlay |
 | Helper/source/J1 input tests plus C harness |46 PASS | Existing J1 checks remain bound to the old canonical artifact; new guest binding is pending |
-| New guest source compilation | Pending source CI | Single development build is UNQUALIFIED; never independent same-input source reproduction |
+| New guest source compilation and both-OS P1 units | PASS at c63b563 in [39424820005](https://github.com/masahitojp/mariamem/actions/runs/39424820005) | Single development build is UNQUALIFIED; never independent same-input source reproduction |
 
 [Local receipt](v06x-prepared-p1-evidence/receipt.json) binds tested owner/test
 hashes, actual tool versions and the four saved unit transcripts.
 
-No existing failure oracle is weakened. Native compile success will establish
+No existing failure oracle is weakened. Native compile success established
 actual header/link availability, not completed P1 runtime semantics. The new C
 owner's native MariaDB behavior, expanded parameter descriptors, actual worker
 isolation, fresh guest identity/layout and end-to-end wire PREPARE still need
 verification. P1 is therefore **partial**, not complete.
 
+## P1 continuation: native control and development runtime gate
+
+The completed source CI produced guest SHA256
+`c42f1c64de3116a1552b43b76bb5c6f22053936486177c0eecdae986bfd2bdb8`
+(18,390,895 bytes) from source_commit c63b5638f25dcd14d8beb403b8d6690d06d8e654.
+The guest/source.patch, all authored C overlays, converter pin and13 patches are
+unchanged in this continuation. A newly checksum-bound translation was produced
+locally; generated Go was not hand-edited or installed into canonical source.
+
+The [continuation evidence](v06x-prepared-p1-continuation/receipt.json) records the
+source CI, artifact/translation identities, native control and local results.
+See its [reproduction steps](v06x-prepared-p1-continuation/reproduce.md).
+The expanded [native descriptor fixture](../../tests/fixtures/prepared-p1-native.json)
+covers SELECT placeholders, typed expressions, DML, CALL, zero parameters and65
+parameters/columns (71 parameter descriptors total). The unchanged generic native
+descriptor matches all those native parameter cases. Native12.3.3 also passed70
+simultaneously live handles, RESET, CLOSE→PING without an intervening read/sleep,
+closed/cross-session ID rejection, prepare-without-DML-execution, syntax1064 with
+a healthy following query, and FOUND_ROWS connections. This is a **Linux arm64
+MariaDB container reference on macOS**, not a macOS-native server or new-guest PASS.
+Image digest and exact fixture hashes are in the receipt.
+
+The wire error probe preserves the raw errno **and SQLSTATE**, rather than relying
+only on a driver exception. Unknown CLOSE followed by PING also retains an active
+transaction started through text SQL. Ready and final-open prepared advertisements
+must agree before any prepared command is accepted.
+
+The installer has a candidate-only **single-guest** rebinding for that Wasm. Its
+three complete function hashes remain hard checks; there is no relocation-tolerant
+runtime matcher or alternate guest allowlist. Reviewed exact preimages are in
+[prepared-p1-binding](../../tests/fixtures/prepared-p1-binding/identity.json).
+Relative to the routine baseline: Fn131 is identical; Fn153 changes only absolute
+addresses by+704; Fn214 has the same address relocation and copies505 rather than
+497 initialized TLS bytes. Segment2 actually contains505 bytes. The full data/TLS
+hashes and every changed literal are recorded, without treating arbitrary literal
+changes as acceptable. This preserves the existing pre-allocator handoff and
+mutation rejection. It **does not complete P6's full closure review, J1 failure
+oracle/control campaign or independent canonical reproduction**.
+
+Canonical generated files and release ledgers intentionally remain the prior
+routine guest at this stage. Consequently the newly bound installer rejects
+attempts to regenerate that old guest: do not mistake the old canonical inventory
+check's PASS for successful installation of the new candidate. During this
+transition, binding mutation unit tests use exact reviewed converter fixtures;
+the new development CI repeats them against its freshly installed runtime and
+compares the installed functions/data to those fixtures before the P1 wire probe.
+No output or canonical provenance was refreshed to hide that intermediate state.
+
+The expanded P1 CI builds the same fixed guest afresh at its own exact commit,
+uses the formal **UNQUALIFIED development** translation/adapter/installer route,
+runs the existing SQL/transaction/Snapshot/Fork/Close smoke, then executes the new
+wire/native differential probe on macOS arm64 and Ubuntu x86_64. Results remain
+pending until that CI completes. It is not Qualification, full P1–P6 acceptance,
+or main-adoption approval.
+
 ## Remaining authorized work
 
 | Unit | State and next evidence |
 | --- | --- |
-| P1 | Source/components/unit checks present; actual new-guest/native metadata and integrated ownership acceptance pending |
+| P1 | Source CI/both-OS units and expanded native control PASS; host lifecycle dispatch added; new-guest/native metadata and actual ownership acceptance pending development CI |
 | P2 | Typed EXECUTE/binary/temporal/large-value implementation pending |
 | P3 | Prepared CALL/results/OUT and later-error draining pending |
 | P4 | LONG_DATA/no-response/reset/pool/cancel/disconnect and failure/resource matrix pending |
 | P5 | Real Go/Python prepared consumers, native controls and both-OS regression pending |
 | P6 | Canonical new source builds, independent generation, strict J1 rebind, licenses/provenance/inventories and guards pending |
 
-The [P1 workflow](../../.github/workflows/prepared-product.yml) runs both-OS unit
-checks and compiles a single fresh development guest using the formal source
-preparation recipe. It intentionally does not run Qualification or relabel the
-old generated runtime as this new guest. After source CI, consume its actual
-artifact identity and continue the authorized units; do not ask for a new
-implementation approval merely because a stage ended.
+The [P1 workflow](../../.github/workflows/prepared-product.yml) runs source/units
+and the new development runtime gate described above. It intentionally does not
+run Qualification or relabel the old canonical runtime as this new guest.
+Continue the authorized units after this gate; do not ask for a new implementation
+approval merely because a stage ended.
 
 The canonical guest and release ledger remain the main routine baseline. A normal
 canonical source build must continue to reject newly changed Wasm until P6's

@@ -1,0 +1,112 @@
+{
+  "source_commit": "c63b5638f25dcd14d8beb403b8d6690d06d8e654",
+  "guest_sha256": "c42f1c64de3116a1552b43b76bb5c6f22053936486177c0eecdae986bfd2bdb8",
+  "functions": {
+    "Fn153": {
+      "raw_normalized_sha256": "19869a31e4a02b0d55de7172c36deb0f1feb67949960605c72327f45c9fb2080",
+      "only_reviewed_integer_changes": [
+        [
+          15244300,
+          15245004
+        ],
+        [
+          15244304,
+          15245008
+        ],
+        [
+          15244308,
+          15245012
+        ],
+        [
+          15244312,
+          15245016
+        ],
+        [
+          15244316,
+          15245020
+        ],
+        [
+          15244320,
+          15245024
+        ],
+        [
+          15244324,
+          15245028
+        ],
+        [
+          15244332,
+          15245036
+        ],
+        [
+          15244340,
+          15245044
+        ],
+        [
+          15244604,
+          15245308
+        ],
+        [
+          15244744,
+          15245448
+        ],
+        [
+          15244748,
+          15245452
+        ]
+      ],
+      "shape_equal": true
+    },
+    "Fn131": {
+      "raw_normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "only_reviewed_integer_changes": [],
+      "shape_equal": true
+    },
+    "Fn214": {
+      "raw_normalized_sha256": "2675e7798cf001c814cd52ebf69a1be59cba54e208cb4788d4c5cc8d6cb34a67",
+      "only_reviewed_integer_changes": [
+        [
+          497,
+          505
+        ],
+        [
+          15242881,
+          15243585
+        ],
+        [
+          15242884,
+          15243588
+        ],
+        [
+          15246908,
+          15247612
+        ],
+        [
+          15247424,
+          15248128
+        ],
+        [
+          15247472,
+          15248176
+        ],
+        [
+          15248016,
+          15248720
+        ],
+        [
+          15248020,
+          15248724
+        ],
+        [
+          15248024,
+          15248728
+        ],
+        [
+          15305424,
+          15306128
+        ]
+      ],
+      "shape_equal": true
+    }
+  },
+  "scope": "P1 exact installer preimages; not complete P6 J1 closure/failure-oracle acceptance"
+}

@@ -748,9 +748,12 @@ results, no-response lifecycle and finite P1–P6 acceptance. It distinguishes t
 native-parity C-extension syntax-error exception proposal from the unchanged
 original1064 FAIL. The Human approved production implementation after that design review.
 [Staged implementation](reviews/v06x-prepared-implementation.md) has P1 owners,
-protocol and unit coverage; actual new-guest acceptance and P2–P6 remain unfinished.
+protocol, lifecycle dispatch and unit coverage. Its source compilation and
+both-OS unit CI passed; expanded native12.3.3 PREPARE controls passed. The next
+gate uses a strictly rebound, freshly generated development runtime on both OSes;
+actual new-guest acceptance and P2–P6 remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
-remain separate decisions. The existing guest/converter/toolchain pins remain fixed.
+remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
 
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
