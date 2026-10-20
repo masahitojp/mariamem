@@ -36,7 +36,7 @@ REVIEWED_BINDINGS = {GUEST_SHA256: FUNCTIONS, PREPARED_SPIKE_GUEST: PREPARED_SPI
 
 # Routine-bootstrap candidate: reviewed fixed function-index/data relocations.
 # Canonical/default identities remain unchanged; unknown bodies still fail closed.
-ROUTINE_BOOTSTRAP_GUEST = "25df44f57849f00c191f2f33e48fa1d0d711856f8b17e2fc088044847755d0c0"
+ROUTINE_BOOTSTRAP_GUEST = "118ef83ee066d57f946603f7e2a2b2c60d9b5f1cd4d627c3d18a73cbd963350c"
 ROUTINE_BOOTSTRAP_FUNCTIONS = {
     "code/p3/p3_pure.go": ("Fn153", "69d7332f9e7394f785c30f5f99f68d915967d1809169259f1cdd8f59811967dd"),
     "code/p8/p8_pure.go": FUNCTIONS["code/p8/p8_pure.go"],

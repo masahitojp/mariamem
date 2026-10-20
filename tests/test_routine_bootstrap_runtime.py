@@ -155,3 +155,21 @@ def test_bound_j1_negative_and_protected_oracles(tmp_path):
                 assert text.count('--- FAIL: TestJoinAllocationLastAccess/') == 1, text
                 for control in ['completed-before-free', 'no-post-unlock-wake']:
                     assert f'--- PASS: TestJoinAllocationLastAccess/{control}' in text, text
+
+@pytest.fixture(scope='session', autouse=True)
+def record_candidate_environment():
+    if not HOST:
+        return
+    import hashlib
+    import importlib.metadata
+    import json
+    import platform
+    import ssl
+    import sys
+    root = Path(__file__).resolve().parents[1]
+    evidence = Path(os.environ.get('MARIAMEM_ROUTINE_EVIDENCE', str(root/'build/routine-ci')))
+    evidence.mkdir(parents=True, exist_ok=True)
+    record = dict(python=sys.version, system=platform.system(), machine=platform.machine(),
+                  openssl=ssl.OPENSSL_VERSION, pymysql=importlib.metadata.version('PyMySQL'),
+                  host_sha256=hashlib.sha256(Path(HOST).read_bytes()).hexdigest())
+    (evidence/'runtime-environment.json').write_text(json.dumps(record, indent=2)+'\n')
