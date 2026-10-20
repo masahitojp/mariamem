@@ -173,6 +173,9 @@ See the [Python](docs/python.md#snapshot-ownership-and-host-lifetime) and
   session capacity is 16; excess connections get recoverable MySQL error 1040.
   This is not a permanent capacity or parallel-throughput guarantee.
 - Server-side prepared statements are unsupported.
+- Stored packages/package bodies are outside product support: no compatibility
+  tests or guarantees. Scheduled events are unsupported. See the
+  [routine scope decision](docs/decisions/routine-support-scope.md).
 - Interrupted active SQL invalidates that database. Close it and start or fork
   another. Forced reclamation of hung execution is not guaranteed.
 - This is a test database, not a production service or security boundary.

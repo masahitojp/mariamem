@@ -1,0 +1,27 @@
+{
+  "host_source_commit": "d3eef9e031a7a64a7bbbd8b9e49a866207dd8c29",
+  "guest_source_commit": "2c599bb904e3d523585347ccefc57ee1d833a993",
+  "guest_sha256": "118ef83ee066d57f946603f7e2a2b2c60d9b5f1cd4d627c3d18a73cbd963350c",
+  "host_sha256": "1eb79b527c16ade9001f60b9a451021c703214d745357c4366e0bad6e4c95b2b",
+  "probe_sha256": "6044415082951c51e8e675240242dbe9f83f3b1ebbb3523ccf750e4387c5b2aa",
+  "guest_fresh_cases": 16,
+  "guest_children": 2,
+  "guest_calls_including_children": 48,
+  "guest_result": "PASS: bounded guest semantics and retention",
+  "native_execute_ok": 14,
+  "native_rejections": [
+    {
+      "case": "bounded_3_definer_procedure",
+      "errno": 1446
+    },
+    {
+      "case": "bounded_3_definer_function",
+      "errno": 1446
+    }
+  ],
+  "comparison": "Not account/privilege equivalence; native grant enforcement differs intentionally from embedded test mode",
+  "ubuntu_definer": "PENDING CI",
+  "packages": "OUT: no execution tests or guarantees",
+  "canonical_promotion": "NOT DONE",
+  "qualification": "NOT RUN"
+}

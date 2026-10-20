@@ -142,6 +142,9 @@ connections receive recoverable MySQL error 1040; slots are reused after
 disconnect cleanup. Close the pool before `WaitDisconnected`.
 DSN enables driver-side parameter interpolation; server-side prepared
 statements are unsupported.
+Stored packages/package bodies are outside product support, with no compatibility
+tests or guarantees; scheduled events are unsupported. See the
+[routine scope decision](decisions/routine-support-scope.md).
 
 Ordinary SQL errors leave the DB usable. Host query timeout, client cancellation
 or disconnect during active SQL invalidates the DB. Close it and start/fork

@@ -89,6 +89,7 @@ jobs:
       - name: Routine startup, isolation and failure acceptance
         run: |
           PYTHONPATH="$ROUTINE_PRODUCT/python" python -m pytest -q tests/test_routine_bootstrap_runtime.py > build/routine-ci/routine-runtime.log 2>&1
+          PYTHONPATH="$ROUTINE_PRODUCT/python" python tests/v06_routine_definer_probe.py --host "$MARIAMEM_ROUTINE_HOST" --output "$GITHUB_WORKSPACE/build/routine-ci/definer.json" > build/routine-ci/definer.log 2>&1
           cd "$ROUTINE_PRODUCT"
           go test -p 1 -trimpath ./internal/generatedgo -run TestGuestEnvironmentIsPerInstance > "$GITHUB_WORKSPACE/build/routine-ci/mode-unit.log" 2>&1
           go test -p 1 -trimpath ./internal/mysqlwire > "$GITHUB_WORKSPACE/build/routine-ci/wire-unit.log" 2>&1

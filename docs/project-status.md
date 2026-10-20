@@ -792,6 +792,21 @@ This is UNQUALIFIED development-product evidence, not main adoption.
 Version placement, main integration, Qualification and release remain separate;
 the prepared/multi-statement decision is not advanced by this approval.
 
+**Human adoption-scope decision — routines (2026-10-20):** the Human accepted
+preparation of the minimal canonical adoption candidate: procedures/functions
+IN; packages/package bodies OUT (not supported, not compatibility-tested, no
+guarantees); events OUT (embedded build restriction1235). PACKAGE enum values
+remain in the pinned proc schema without implying package behavior support.
+DEFINER is bounded to clause/metadata acceptance, ordinary execution and
+Snapshot/Fork retention; `--skip-grant-tables` does not reproduce account/privilege
+enforcement. The [scope decision](decisions/routine-support-scope.md) owns the
+boundary and the [bounded findings](reviews/v06x-routine-adoption-bounds.md) record
+macOS/native results. No package execution tests were added. Ubuntu DEFINER
+confirmation is pending the amended candidate CI; earlier both-OS routine
+acceptance is not relabelled as that new coverage. Canonical generation promotion
+and prepared/text-result production prerequisites remain outstanding; version,
+main integration, Qualification and release remain separate decisions.
+
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
 with pytest fixtures: prepare migrations/seed once per worker, acquire an

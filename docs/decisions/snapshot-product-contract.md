@@ -114,3 +114,8 @@ candidate part of current main/published behavior or choose its version. Main
 integration, Qualification and release remain separate. See the
 [routine bootstrap design](../reviews/v06x-routine-bootstrap-design.md) and
 [implementation evidence](../reviews/v06x-routine-bootstrap-implementation.md).
+
+The later Human adoption-scope decision retains this boundary and specifies
+procedures/functions IN, packages/events OUT and bounded DEFINER coverage.
+See [routine support scope](routine-support-scope.md). Adoption preparation is
+approved; canonical promotion and main integration are not recorded as complete.

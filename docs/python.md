@@ -183,6 +183,9 @@ active SQL does: `closed` becomes true and `status()` raises
 `HostError(code="unusable", closed=True)`. Close it and start/fork another.
 Idle disconnect does not invalidate it. Forced cleanup of non-cooperative
 execution is not guaranteed. Server-side prepared statements are unsupported.
+Stored packages/package bodies are outside product support, with no compatibility
+tests or guarantees; scheduled events are unsupported. See the
+[routine scope decision](decisions/routine-support-scope.md).
 
 `HostError.code` identifies startup/lifecycle categories; `stage` supplies
 diagnostic context and `__cause__` retains a Python cause. Startup failure
