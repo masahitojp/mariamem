@@ -821,7 +821,12 @@ NULL metadata cases, with values/termination/following SQL matching. The
 [parameter-order continuation](reviews/v06x-prepared-param-order.md) fixes the
 descriptor assignment before conversion/NULL handling in both embedded paths,
 within the approved binding scope. Local102 checks and extra2 native controls
-PASS; new guest build/identity and both-OS runtime confirmation remain pending.
+PASS. [Source CI39607505031](https://github.com/masahitojp/mariamem/actions/runs/39607505031)
+passes guest-source and both-OS units at a342f30. The
+[parameter-order binding review](reviews/v06x-prepared-param-order-binding/reproduce.md)
+verifies new guest4dad84d0 with unchanged converter/13 patches, full lifetime
+bodies, data/TLS and memory initialization; local103 checks PASS. Both-OS actual
+runtime/native confirmation remains pending on prepared-product.
 No scope reduction is accepted. P2–P6 and full production acceptance remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.

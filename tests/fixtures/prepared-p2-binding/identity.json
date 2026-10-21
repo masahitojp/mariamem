@@ -1,6 +1,6 @@
 {
-  "source_commit": "68fb5c247e273192565789246abcb34733a20bc1",
-  "guest_sha256": "41ab407681f537daed9b8f2d9c0ef5edc584f7d598399dd8d42ed8e1b13a0be0",
+  "source_commit": "a342f3065772f21ae4674f4196b8e63c130e0856",
+  "guest_sha256": "4dad84d0b7eba16aa457d23e76fe82d8ae6836dc910545f2203fb5ad8030ba76",
   "baseline_guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
   "previous_guest_sha256": "3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8",
   "functions": {
@@ -49,5 +49,6 @@
     "file": "code/p7/p7_pure.go",
     "function": "Fn67",
     "normalized_sha256": "84653bc582c02b49808bd91498f1e2449206df8992ea46fd0aeb06dfd687d340"
-  }
+  },
+  "type_repair_guest_sha256": "41ab407681f537daed9b8f2d9c0ef5edc584f7d598399dd8d42ed8e1b13a0be0"
 }

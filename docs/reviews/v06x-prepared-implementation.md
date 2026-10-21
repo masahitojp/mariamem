@@ -594,3 +594,13 @@ No expected fixture or guard is weakened. Submit source preflight on
 experiment/prepared-param-order, review its new identity before the actual gate,
 and retain all prior oracles. This is inside the approved bounded input repair;
 no main adoption, version placement, Qualification or release is decided.
+
+### Parameter-order guest binding continuation
+
+Source preflight39607505031 passes guest-source and both-OS units at a342f30.
+New guest4dad84d0 is reviewed against the unchanged converter/13 patches,
+all lifetime function bodies, full data/TLS and complete memory initialization.
+The single binding advances; the immediately previous41ab4076 is additionally
+rejected. Local103 focused checks PASS. See the [binding receipt](v06x-prepared-param-order-binding/reproduce.md).
+Actual both-OS unsigned/NULL native comparisons remain pending; no P2 completion,
+main adoption or release judgment is implied.

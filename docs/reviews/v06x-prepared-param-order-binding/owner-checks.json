@@ -1,0 +1,5 @@
+{
+  "adapter": "PASS",
+  "atomic_memfs_lifetime_pure_transforms": "PASS",
+  "installed_runtime": "NOT RUN"
+}

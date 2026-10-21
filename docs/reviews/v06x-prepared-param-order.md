@@ -72,13 +72,15 @@ zero-fuzz application and repeated/changed-input rejection.
   Two extra native controls cover uint64 max/signed min and text, unsigned↔signed,
   NULL/non-NULL and descriptor reuse; both have exact saved references and replay.
   Native remains the pinned Linux arm64 container on macOS, not a guest PASS.
-- **PENDING: new guest source build and identity review.** The current41ab4076
-  binding is intentionally not extended to an unknown guest. Source preflight
-  on experiment/prepared-param-order skips development-runtime by design.
+- **PASS: source build and both-OS unit preflight** at a342f30 in
+  [CI39607505031](https://github.com/masahitojp/mariamem/actions/runs/39607505031).
+  Runtime was SKIP by source-branch design, not a runtime PASS.
+- **PASS: new guest identity review.** The [binding receipt and reproduction](v06x-prepared-param-order-binding/reproduce.md)
+  cover guest4dad84d0, fixed converter/13 patches, exact lifetime bodies, all
+  data/TLS and the full memory-initialization function. Local103 checks PASS.
 - **PENDING: actual both-OS runtime gate**, unchanged P1/22/TIME13/20/15 plus the
-  extra2. Only after the new guest's exact lifetime/data/TLS/init review should
-  prepared-product run that gate. Remaining P2–P6, independent canonical
-  generation, main adoption and release are not completed here.
+  extra2, now submitted through prepared-product with that single binding.
+  P2–P6, independent canonical generation, main adoption and release remain open.
 
 Reproduce with the fixed pins and Python3.14/pytest8.4.2/PyMySQL1.2.3: run
 tests/test_prepared_param_order.py plus the eight focused owners from the

@@ -1,0 +1,379 @@
+{
+  "source_build": {
+    "run": "https://github.com/masahitojp/mariamem/actions/runs/39607505031",
+    "source_commit": "a342f3065772f21ae4674f4196b8e63c130e0856",
+    "source_inventory_verified": true,
+    "source_files": 4308,
+    "guest_sha256": "4dad84d0b7eba16aa457d23e76fe82d8ae6836dc910545f2203fb5ad8030ba76",
+    "guest_bytes": 18400809,
+    "linked_sha256": "73d860164b65748d79a51a3de3fbad27180a8b58644967a4fb3a49f67ce336b2",
+    "guest_record_sha256": "c3b83caed7863bac76a856b9674a5f5ea521feb11c5242ac374eb075817f979a",
+    "prepared_source": {
+      "experimental_patch": {
+        "file": "guest/experimental.patch",
+        "sha256": "5bddc92d47b13c68b1eb0b680a068011d4f17839921aafd275121765fd1448bc"
+      },
+      "experimental_prepared_patch": {
+        "application_stage": "after guest/input.json portability series and canonical guest/source.patch",
+        "component_fixture_sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb",
+        "files": [
+          {
+            "after_sha256": "52688fea1cd41b8b0e32c4287d75c2273b82653f1e19858906830291f89a6bd4",
+            "before_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+            "file": "sql/sql_prepare.cc"
+          },
+          {
+            "after_sha256": "9568d5eb9d40839ef61be354cbd584b72c566586e89e80ff0874db0559fb57c7",
+            "before_sha256": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+            "file": "libmysqld/libmysql.c"
+          }
+        ],
+        "parameter_fixture_sha256": "f6e60279b9165b9b5e125d58856afcf6f0178f0650015fcca55efe1ed7fbb065",
+        "patch_sha256": "5bddc92d47b13c68b1eb0b680a068011d4f17839921aafd275121765fd1448bc",
+        "purpose": "Approved experimental TIME plus raw parameter types and single-execution result metadata repair; WASIX embedded-only additions. Not canonical adoption.",
+        "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+        "time_only_intermediate_sha256": "b66f2b5b1ac8cbfff25e2cfee6e479586d403c627bfe00ee5d5cfc88b9a09ee1"
+      },
+      "guest_input": {
+        "candidate": "MariaDB 12.3.3",
+        "patches": [
+          {
+            "after_sha256": {
+              "CMakeLists.txt": "6c70d280b3a7a1736d5ba7260fb113a44e8f094d23c9de9dd4ec0da3ce88402d",
+              "cmake/os/Emscripten.cmake": "af8159bccbfa7d33a5860091fb3c3a716b58df5a2daf57892d6970fb5feb3675",
+              "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+              "cmake/pcre.cmake": "869b4f50cb8345cafd399d139f80640dd3d3ea6e2c08f8b8930741ab524d82e0",
+              "configure.cmake": "f14251cbb6717181cfd4a9e26fabd0d49399b762ce81f6e6cfdcbc224f5c0ff8",
+              "include/my_global.h": "60aaa58fee20a00cb09737eb45a09b3882eaaa6564f9d7bfae77662c07434b9b",
+              "include/my_stacktrace.h": "8437a3f83abbb3cc6e29fbf588a8e0c8507820c3a066ba8707198da7f925861f",
+              "libmysqld/libmysql.c": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+              "mysys/CMakeLists.txt": "9cb50fe418b6557872329ee9a4ab30e24b168eabdc0f4b6d04eeb99a7088ef94",
+              "mysys/my_largepage.c": "a70dfe799d6e7091f4d5c8f8221a658171a309658010ef4c46dbf9ca832bbe4b",
+              "mysys/my_lock.c": "7aed29f87e0ad6bc7978ce4794c0f10b1c99a52903c207ee49314632e60ecc46",
+              "mysys/my_timezone.cc": "6777513d495db9a832b52f248455156b79dfa1a778fc86b2aa6e14d90c15ad50",
+              "mysys/my_virtual_mem.c": "ea8d8902f9ac07987defed73e64a3dd974705f94e24bb29728c07797d75855d0",
+              "sql/sql_plugin.cc": "26146bcb7abe172c1fbc6b78f0a37b0157a0f90752717cc81170e7386984ca77",
+              "storage/innobase/fil/fil0fil.cc": "6bb2290f8de022054bb3ffa84a12d528270c0bce999f385667ad8a30af216cbb",
+              "storage/innobase/os/os0file.cc": "4b8515af8e247a22fde4bf8524ab6e68932f436dbc25290e6dcb8d4987ca2c73",
+              "storage/maria/ma_loghandler.c": "515a8afc9aef1cccd7055028441aae249021835c49f5dd1353982d7fc8542281"
+            },
+            "before_sha256": {
+              "CMakeLists.txt": "ba2f1d28cb662e240f533158fb71a876f87ad3bbbbe7c14b67cc3ba3cfbf8222",
+              "cmake/os/Emscripten.cmake": null,
+              "cmake/os/WASIX.cmake": null,
+              "cmake/pcre.cmake": "f694c627b8f51788495cfa91210405bf762728e3a338e80fc8b3708bf29ce681",
+              "configure.cmake": "98b0926c7a4f7346080765cf64efd316288455185b2c2b812d79d130f8bc8d3e",
+              "include/my_global.h": "fc4d434c83576a251088ba695ca9b84c3219229e6e3975348e20070bc7a12a13",
+              "include/my_stacktrace.h": "b7179553374c94fe2e6bb70c0e3ed086c664210a41bbcbcc9e30896a5dd96cb7",
+              "libmysqld/libmysql.c": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+              "mysys/CMakeLists.txt": "ddc4b71aeaf74ff2fe609425694517094a64a855e52ba0adc94d1843bde9d04d",
+              "mysys/my_largepage.c": "7375cc5e78ddc18d2aa584b8855e84cff9faf4b0b7f32336257795c2a76f39e6",
+              "mysys/my_lock.c": "5f42e8210a6c64d4c0ad9aa64f6386598d955c057705cd747fa17f0b3fa68532",
+              "mysys/my_timezone.cc": "106825479a77729174569afa8c270c018709a422da48d6b41577395614ab4095",
+              "mysys/my_virtual_mem.c": "88f26c781f18ff863eb3b4dda29d852d6ad2a0bacd726257a2038ffb2441183d",
+              "sql/sql_plugin.cc": "26ca2b661e3934016ed8da8faea155398efe3330c20270cec1e8a5f109a0377c",
+              "storage/innobase/fil/fil0fil.cc": "fcab85397990f72624ed57b77d667c15f64fcd9fcd26bb8f37a366407f1bab1c",
+              "storage/innobase/os/os0file.cc": "6ad774c7950dfcc5f051abf6901f55f6158c2a0a8fbfb403aa737ad797ebfefd",
+              "storage/maria/ma_loghandler.c": "3084201abe2577ed521cbabaa622677e1c9d1b4a9e77c23c60d39d786bc0657b"
+            },
+            "file": "guest/patches/common-portability.patch",
+            "sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+          },
+          {
+            "after_sha256": {
+              "storage/innobase/log/log0log.cc": "c193ece2c236840e84e61336126051e0c9ac031d4e133855483832780022205c"
+            },
+            "before_sha256": {
+              "storage/innobase/log/log0log.cc": "999ed3b38d49d9d4f4de50e4244f5bcc7a802aa6a41d4861834d99ed49f47a07"
+            },
+            "file": "guest/patches/12.3.3-redo.patch",
+            "sha256": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22"
+          }
+        ],
+        "portability_source_base": "b2a8c2234dbc276fe3947633c9ffea454badf48f",
+        "recipe_archive_sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd",
+        "recipe_files_sha256": {
+          "wasm/CMakeLists.txt": "f317e2786a12b2cfdd7c0de8d4b3d3c05b6aa9ee4f0a8aad909898b6d218f437",
+          "wasm/COPYING": "240a15a1d0f34d3abca462cdb7e5fb89470967563f16b0e71169e51c1e74cf2b",
+          "wasm/build-wasix.sh": "2d6c9407361e560e1b5623e611d570e233d25333dcf90340068682af8b6bf782",
+          "wasm/lite4mariadb.c": "c0a959b6755d3463de31d9d08d2a43031cc418a332768a0956ebfd5046e15526",
+          "wasm/platforms/Platform/WASIX.cmake": "24d0ba74185453b0624c4a381c9bc2f67f19071e54d3b5e55e553136271419f7",
+          "wasm/wasix-toolchain.cmake": "114c296e33df8bb68bab6797d1b40b11834a2c3cfe1e934ffbe87037816c32ea"
+        },
+        "recipe_input": "lite4mariadb",
+        "recipe_source_commit": "24be9371a2f6c71250a2356631ad6feab2280b02",
+        "schema": 1,
+        "source_archive_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+        "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+        "source_input": "mariadb",
+        "tag_object_sha": "bd852bcd567fedc89ad4521e2f1a64c7a1e0d0f0",
+        "version": "12.3.3"
+      },
+      "inputs_lock_sha256": "9fef9ca092a32bb78cdf000e75f9a14da8b107ec2f1958ceb6f450518bf3d65b",
+      "modified_files": {
+        "CMakeLists.txt": "6c70d280b3a7a1736d5ba7260fb113a44e8f094d23c9de9dd4ec0da3ce88402d",
+        "cmake/libfmt.cmake": "436e87408474a62f2c344ea6de4ccbcc02e65f900f00a8474073513c082da765",
+        "cmake/os/Emscripten.cmake": "af8159bccbfa7d33a5860091fb3c3a716b58df5a2daf57892d6970fb5feb3675",
+        "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+        "cmake/pcre.cmake": "ed0dbf1f78b8fe86ed04e1a85cdeaeec3b2b9c271b0ee4a5f9eb036d43eb0907",
+        "configure.cmake": "f14251cbb6717181cfd4a9e26fabd0d49399b762ce81f6e6cfdcbc224f5c0ff8",
+        "include/mariamem_init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
+        "include/my_global.h": "60aaa58fee20a00cb09737eb45a09b3882eaaa6564f9d7bfae77662c07434b9b",
+        "include/my_stacktrace.h": "8437a3f83abbb3cc6e29fbf588a8e0c8507820c3a066ba8707198da7f925861f",
+        "libmysqld/lib_sql.cc": "70a2321943f5853c794646248ac6ebcb3cd35e40a443e93eec31bb004833d2c4",
+        "libmysqld/libmysql.c": "9568d5eb9d40839ef61be354cbd584b72c566586e89e80ff0874db0559fb57c7",
+        "mysys/CMakeLists.txt": "9cb50fe418b6557872329ee9a4ab30e24b168eabdc0f4b6d04eeb99a7088ef94",
+        "mysys/my_largepage.c": "a70dfe799d6e7091f4d5c8f8221a658171a309658010ef4c46dbf9ca832bbe4b",
+        "mysys/my_lib.c": "d00d2647d98e49272c6652e0dc5a88438d86da5856c6007d70f0047a994f0f26",
+        "mysys/my_lock.c": "7aed29f87e0ad6bc7978ce4794c0f10b1c99a52903c207ee49314632e60ecc46",
+        "mysys/my_timezone.cc": "6777513d495db9a832b52f248455156b79dfa1a778fc86b2aa6e14d90c15ad50",
+        "mysys/my_virtual_mem.c": "ea8d8902f9ac07987defed73e64a3dd974705f94e24bb29728c07797d75855d0",
+        "plugin/auth_mysql_sha2/mysql_sha2.c": "2dfb8b6e0ca9bc26e1aa6ab50c8009f0d5be850d3d7ad0c56b9413b4acc3928e",
+        "plugin/auth_mysql_sha2/ssl_stuff.c": "8621b8bbb5cab82eb32b736938fcfebf66a09a4acd388bcca5be8c2962ff0d02",
+        "sql/mysqld.cc": "091d40a8edf55f470ee36b185ea7e5eccccd09f4283e66b49d7b57c86ddd3d0b",
+        "sql/sql_plugin.cc": "a8811caebf288bf5257e7ffe5669c44ae27e607af5cf31adbb7e8631b7d85443",
+        "sql/sql_prepare.cc": "52688fea1cd41b8b0e32c4287d75c2273b82653f1e19858906830291f89a6bd4",
+        "storage/innobase/fil/fil0fil.cc": "6bb2290f8de022054bb3ffa84a12d528270c0bce999f385667ad8a30af216cbb",
+        "storage/innobase/handler/ha_innodb.cc": "7f5498c5e856fc0fa6e9dd3d95674ea64c884b0d246b8755329a99d17b87173c",
+        "storage/innobase/log/log0log.cc": "c193ece2c236840e84e61336126051e0c9ac031d4e133855483832780022205c",
+        "storage/innobase/os/os0file.cc": "4b8515af8e247a22fde4bf8524ab6e68932f436dbc25290e6dcb8d4987ca2c73",
+        "storage/innobase/srv/srv0start.cc": "bca5515ad8421103ff8fa675d420dbc0e105e12585aece0057401bef55350c2d",
+        "storage/maria/ha_maria.cc": "465fe7518073e467a97710e48626fbf4dbdd15f28ec20d2d074087b6d7871c36",
+        "storage/maria/ma_loghandler.c": "515a8afc9aef1cccd7055028441aae249021835c49f5dd1353982d7fc8542281",
+        "wasm/CMakeLists.txt": "c202123fef2d0ac6ec8da5d659d488907aaff4b8040a5a6e514255c3d47fd254",
+        "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
+        "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
+        "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
+        "wasm/prepared_api.inc": "299a771c2fe94a68bd0815287b302ee553659f17cb6547434faa324a4ff3f905",
+        "wasm/prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
+        "wasm/resident.inc": "b7a5b64b30e401406653136cbeb622e3827707a6592bb84ef2e99c13de2d7ac5",
+        "wasm/routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
+        "wasm/routine_schema_sql.inc": "3c94977cfe21c57815ad5c73288eaa73cc5a4744a457b11e46756480a3ca3e68",
+        "wasm/snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
+        "wasm/startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
+        "wasm/wire_api.inc": "d1f20b50ca23f470873d383513d8f927e85ece2173dec65f8ea6a9f24b31c24a"
+      },
+      "overlays": {
+        "Dockerfile": "d27b70cfdada3236efe95678294140e335876288f005e845da2278a07590976d",
+        "experimental.patch": "5bddc92d47b13c68b1eb0b680a068011d4f17839921aafd275121765fd1448bc",
+        "init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
+        "init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
+        "input.json": "242dd470815fe2edbaf65bf5ff48c2042f6858120349c45696fa002bad76d869",
+        "prepared_api.inc": "299a771c2fe94a68bd0815287b302ee553659f17cb6547434faa324a4ff3f905",
+        "prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
+        "prepared_source_patch.json": "454b1f9dc1f39b64d6a5416a7d07c48444709184e0f939839a65152c62eae82a",
+        "prepared_time_patch.json": "c936d4b1159fd1bf652856a506f34cd5ff1858b16de3aa6a6c5731fa0deff172",
+        "resident.inc": "b7a5b64b30e401406653136cbeb622e3827707a6592bb84ef2e99c13de2d7ac5",
+        "routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
+        "routine_schema.json": "3b6de53bc59ad91dc5c606c435b26f408eb26ff9a091b253d799af86e2460dfd",
+        "snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
+        "source.patch": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16",
+        "startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
+        "test-auth-keypair.json": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be",
+        "wire_core.inc": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a"
+      },
+      "portability_series": [
+        {
+          "after_sha256": {
+            "CMakeLists.txt": "6c70d280b3a7a1736d5ba7260fb113a44e8f094d23c9de9dd4ec0da3ce88402d",
+            "cmake/os/Emscripten.cmake": "af8159bccbfa7d33a5860091fb3c3a716b58df5a2daf57892d6970fb5feb3675",
+            "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+            "cmake/pcre.cmake": "869b4f50cb8345cafd399d139f80640dd3d3ea6e2c08f8b8930741ab524d82e0",
+            "configure.cmake": "f14251cbb6717181cfd4a9e26fabd0d49399b762ce81f6e6cfdcbc224f5c0ff8",
+            "include/my_global.h": "60aaa58fee20a00cb09737eb45a09b3882eaaa6564f9d7bfae77662c07434b9b",
+            "include/my_stacktrace.h": "8437a3f83abbb3cc6e29fbf588a8e0c8507820c3a066ba8707198da7f925861f",
+            "libmysqld/libmysql.c": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+            "mysys/CMakeLists.txt": "9cb50fe418b6557872329ee9a4ab30e24b168eabdc0f4b6d04eeb99a7088ef94",
+            "mysys/my_largepage.c": "a70dfe799d6e7091f4d5c8f8221a658171a309658010ef4c46dbf9ca832bbe4b",
+            "mysys/my_lock.c": "7aed29f87e0ad6bc7978ce4794c0f10b1c99a52903c207ee49314632e60ecc46",
+            "mysys/my_timezone.cc": "6777513d495db9a832b52f248455156b79dfa1a778fc86b2aa6e14d90c15ad50",
+            "mysys/my_virtual_mem.c": "ea8d8902f9ac07987defed73e64a3dd974705f94e24bb29728c07797d75855d0",
+            "sql/sql_plugin.cc": "26146bcb7abe172c1fbc6b78f0a37b0157a0f90752717cc81170e7386984ca77",
+            "storage/innobase/fil/fil0fil.cc": "6bb2290f8de022054bb3ffa84a12d528270c0bce999f385667ad8a30af216cbb",
+            "storage/innobase/os/os0file.cc": "4b8515af8e247a22fde4bf8524ab6e68932f436dbc25290e6dcb8d4987ca2c73",
+            "storage/maria/ma_loghandler.c": "515a8afc9aef1cccd7055028441aae249021835c49f5dd1353982d7fc8542281"
+          },
+          "before_sha256": {
+            "CMakeLists.txt": "ba2f1d28cb662e240f533158fb71a876f87ad3bbbbe7c14b67cc3ba3cfbf8222",
+            "cmake/os/Emscripten.cmake": null,
+            "cmake/os/WASIX.cmake": null,
+            "cmake/pcre.cmake": "f694c627b8f51788495cfa91210405bf762728e3a338e80fc8b3708bf29ce681",
+            "configure.cmake": "98b0926c7a4f7346080765cf64efd316288455185b2c2b812d79d130f8bc8d3e",
+            "include/my_global.h": "fc4d434c83576a251088ba695ca9b84c3219229e6e3975348e20070bc7a12a13",
+            "include/my_stacktrace.h": "b7179553374c94fe2e6bb70c0e3ed086c664210a41bbcbcc9e30896a5dd96cb7",
+            "libmysqld/libmysql.c": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+            "mysys/CMakeLists.txt": "ddc4b71aeaf74ff2fe609425694517094a64a855e52ba0adc94d1843bde9d04d",
+            "mysys/my_largepage.c": "7375cc5e78ddc18d2aa584b8855e84cff9faf4b0b7f32336257795c2a76f39e6",
+            "mysys/my_lock.c": "5f42e8210a6c64d4c0ad9aa64f6386598d955c057705cd747fa17f0b3fa68532",
+            "mysys/my_timezone.cc": "106825479a77729174569afa8c270c018709a422da48d6b41577395614ab4095",
+            "mysys/my_virtual_mem.c": "88f26c781f18ff863eb3b4dda29d852d6ad2a0bacd726257a2038ffb2441183d",
+            "sql/sql_plugin.cc": "26ca2b661e3934016ed8da8faea155398efe3330c20270cec1e8a5f109a0377c",
+            "storage/innobase/fil/fil0fil.cc": "fcab85397990f72624ed57b77d667c15f64fcd9fcd26bb8f37a366407f1bab1c",
+            "storage/innobase/os/os0file.cc": "6ad774c7950dfcc5f051abf6901f55f6158c2a0a8fbfb403aa737ad797ebfefd",
+            "storage/maria/ma_loghandler.c": "3084201abe2577ed521cbabaa622677e1c9d1b4a9e77c23c60d39d786bc0657b"
+          },
+          "file": "guest/patches/common-portability.patch",
+          "sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+        },
+        {
+          "after_sha256": {
+            "storage/innobase/log/log0log.cc": "c193ece2c236840e84e61336126051e0c9ac031d4e133855483832780022205c"
+          },
+          "before_sha256": {
+            "storage/innobase/log/log0log.cc": "999ed3b38d49d9d4f4de50e4244f5bcc7a802aa6a41d4861834d99ed49f47a07"
+          },
+          "file": "guest/patches/12.3.3-redo.patch",
+          "sha256": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22"
+        }
+      ],
+      "routine_schema": {
+        "ddl_sha256": "e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc",
+        "header": "wasm/routine_schema_sql.inc",
+        "header_sha256": "3c94977cfe21c57815ad5c73288eaa73cc5a4744a457b11e46756480a3ca3e68",
+        "metadata_sha256": "104f0b429207adc28e83f453c0889f4d7d71eb97ff886a66af926b4de944cbd4",
+        "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+        "source_file_sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d"
+      }
+    },
+    "toolchain": {
+      "archives_sha256": {
+        "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
+        "converter": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+        "icu": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174",
+        "llvm": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4",
+        "sysroot": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4",
+        "sysroot_pic": "54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0",
+        "wasixcc": "b4cf06f3ce00a0b2bdc376de24324bac2c963f4672914bf9a1ba99000a4866a7"
+      },
+      "contract": "generated-go-v1",
+      "environment": {
+        "LC_ALL": "C",
+        "LD_LIBRARY_PATH": "/root/.wasixcc/llvm/lib",
+        "PATH": "/root/.wasixcc/bin:/usr/bin:/bin",
+        "SOURCE_DATE_EPOCH": "0",
+        "TZ": "UTC"
+      },
+      "host": "linux-arm64",
+      "pins_sha256": "01bf46c4fd10d022a58badb4834bdac5a7d9d7f53cd88499882e8542c69d7ef9",
+      "sysroot": {
+        "entries": 4985,
+        "inventory_sha256": "ec9f4eec4cc3f5d019531a8b3d6dbfb524b2661ba5a2046b9d8ce89378bf29dc"
+      },
+      "versions": {
+        "binaryen": "wasm-opt version 133 (version_133)",
+        "bison": "bison (GNU Bison) 3.8.2\nWritten by Robert Corbett and Richard Stallman.\n\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        "cmake": "cmake version 3.28.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+        "lld": "LLD 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)",
+        "llvm": "clang version 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /root/.wasixcc/llvm/bin",
+        "make": "GNU Make 4.3\nBuilt for aarch64-unknown-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "python": "Python 3.12.3",
+        "wasixcc": "wasixcc 0.4.7"
+      }
+    },
+    "experimental_prepared_patch_equals_pin": true
+  },
+  "converter": {
+    "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+    "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+    "patched_converter_sha256": "430bf08585f685138e0c678ebd5a9c9f92802cc124bb01f17e0ac270a35cf2b0",
+    "patches_sha256": {
+      "imported-memory.patch": "9e05149ed2ad75780ee939a7caa577f420d151855ab723498ec60c533f805d40",
+      "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+      "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
+      "pure-memory32.patch": "7b0bf47f257d51ed842483e1ae2c6cb9a45fb009d7114679f9ed32ff76378694",
+      "controlled-thread-traps.patch": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+      "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+      "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
+      "helper-bridge.patch": "934246d80d37a596b43d786065b168aa3d94af62ae3130bd5a9c422ce7e5783b",
+      "export-collision.patch": "2e4866056a3e65c7be0fbc343207157319f609391b07cb8123bed4ab2b2f8f93",
+      "fd-allocate-preservation.patch": "84582c8c9684026735a04117e00a48905f10aef736fb4178c26c79d804b797e6",
+      "zero-bulk-bounds.patch": "85c05f04b24a03e3f65b86b73e8682221615ab10df1d66bde05157d3348813eb",
+      "wait-timeout-range.patch": "980da7652e8b22322cc639a9b39efffaf3a1035b5fdea1467593bf0e50dff5ff",
+      "thread-id-range.patch": "ef07a969971433966fd18ce246d5e515da8c5faa3f10f32e67a09108283a54cf"
+    }
+  },
+  "scope": "source build, formal translation/adapter and exact binding preimages; installed runtime/native comparison still pending",
+  "saved_files": {
+    "ci-jobs.json": {
+      "original_sha256": "8242ffb15d1b88b4c4d217298e54ee02b385fe5c4598bb1fffe80eace824dd6e",
+      "stored_sha256": "8242ffb15d1b88b4c4d217298e54ee02b385fe5c4598bb1fffe80eace824dd6e",
+      "bytes": 288
+    },
+    "source-identity.json": {
+      "original_sha256": "87f1205090c1453b75e764bab49f29ce9a46fd4cd2a84b38a97d690b7faa6b06",
+      "stored_sha256": "87f1205090c1453b75e764bab49f29ce9a46fd4cd2a84b38a97d690b7faa6b06",
+      "bytes": 153
+    },
+    "translation-inputs.json": {
+      "original_sha256": "ded6c8cdce8ad7764f4794e11ae8d0ca0502920adb4799d1bef86af4f7353e6b",
+      "stored_sha256": "ded6c8cdce8ad7764f4794e11ae8d0ca0502920adb4799d1bef86af4f7353e6b",
+      "bytes": 6367
+    },
+    "raw-inventory-comparison.json": {
+      "original_sha256": "61c8d8890aead27caa2d31a9c17572b46c545971277648d5ea24ca248da743e9",
+      "stored_sha256": "61c8d8890aead27caa2d31a9c17572b46c545971277648d5ea24ca248da743e9",
+      "bytes": 10833
+    },
+    "binding-review.json": {
+      "original_sha256": "e0071ebdf358c06ca5d4dc6d417274beafa8e36dcc7e2632744f8a4024d61123",
+      "stored_sha256": "e0071ebdf358c06ca5d4dc6d417274beafa8e36dcc7e2632744f8a4024d61123",
+      "bytes": 1421
+    },
+    "owner-checks.json": {
+      "original_sha256": "6111fcf69cca76de52b6130b5fec319f63d8dd9b280f30563e16c12db7b905e7",
+      "stored_sha256": "6111fcf69cca76de52b6130b5fec319f63d8dd9b280f30563e16c12db7b905e7",
+      "bytes": 109
+    },
+    "local-tests.txt": {
+      "original_sha256": "d53d2b7e8435be00864702107711f857e3364ee84836bb17982e332418e1216e",
+      "stored_sha256": "d53d2b7e8435be00864702107711f857e3364ee84836bb17982e332418e1216e",
+      "bytes": 15399
+    },
+    "inventory.txt": {
+      "original_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "stored_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "bytes": 67
+    },
+    "public.txt": {
+      "original_sha256": "16df002db5f8692b012213fdd16e2cb8364bc1f3c33384c07e1b5d04107030b4",
+      "stored_sha256": "16df002db5f8692b012213fdd16e2cb8364bc1f3c33384c07e1b5d04107030b4",
+      "bytes": 39
+    },
+    "translation.txt": {
+      "original_sha256": "ba278dbaecb15981ce6d553c68f5d23ea9383e658b7ef63a88a427506a537634",
+      "stored_sha256": "6bf2e712d82854f1cee59f2e43c40af4255d42fa70d9dd119593b8c7748c155a",
+      "bytes": 13813
+    },
+    "adapter.txt": {
+      "original_sha256": "71c7f55c58d67420ce5cb41d1df197592bf7f149b04ecbd19f45aaafb5238778",
+      "stored_sha256": "d6e9549a76011e1cec32d84014d0bb80cdb53e3f6d6b0727ddf49b75c6ee0461",
+      "bytes": 162
+    },
+    "cleanup-source-proof.json": {
+      "original_sha256": "2f230f358bf6834c3d5ba04bb491442513e12e8ed7812e177ad643dcbcc7e178",
+      "stored_sha256": "2f230f358bf6834c3d5ba04bb491442513e12e8ed7812e177ad643dcbcc7e178",
+      "bytes": 46680
+    },
+    "memory-init.txt": {
+      "original_sha256": "7d381be779de983816eb325293f60eb123110aa7d4347cbd9692b4c128bb820b",
+      "stored_sha256": "7d381be779de983816eb325293f60eb123110aa7d4347cbd9692b4c128bb820b",
+      "bytes": 933
+    },
+    "translate.py": {
+      "stored_sha256": "72189a9e9e1cfee2c9d72fe9fdfa2528f0080ee0e51639c0e70c11a90e99e869",
+      "bytes": 1718
+    },
+    "review.py": {
+      "stored_sha256": "017f6ce65a512b858ae1e49c86847f379d4e45903924050a2ad09598b9975b82",
+      "bytes": 3931
+    }
+  },
+  "log_transformation": "Only local absolute repo paths replaced by <repo>; original/stored hashes distinguish transformed logs. SSA/f16 converter diagnostics retained unchanged.",
+  "local_verification": {
+    "tests": 103,
+    "result": "PASS",
+    "canonical_inventory": "PASS (unchanged routine guest)",
+    "public_source": "PASS",
+    "runtime_execution": "PENDING both-OS development CI"
+  }
+}
