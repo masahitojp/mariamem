@@ -1,0 +1,5 @@
+{
+  "result": "PASS",
+  "files": 420,
+  "recipe": "fixed archive + same13 patches; complete file hashes equal excluding no-ref .git metadata"
+}

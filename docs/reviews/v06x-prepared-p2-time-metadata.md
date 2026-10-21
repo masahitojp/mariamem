@@ -130,3 +130,8 @@ its complete fresh identity/function/data/TLS outputs before explicitly updating
 the single guest binding and submitting both-OS actual P1/P2/TIME comparison.
 The approved work continues across this CI handoff; no additional implementation
 approval is requested. Main integration, Qualification and release remain separate.
+
+Source preflight at4f41be8 subsequently passed on both OS unit targets and the
+source builder. [Exact binding continuation](v06x-prepared-p2-time-binding/reproduce.md)
+records the reviewed patched guest and62 local checks. The full actual guest
+comparison is pending; this continuation does not change the approved scope.

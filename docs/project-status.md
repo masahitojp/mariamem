@@ -780,8 +780,12 @@ that name; the ordinary call switched to the newly introduced full-width23
 constant. The one-line repair is now staged only in guest/experimental.patch
 with complete source pre/postimage and patch hashes. [Repair evidence](reviews/v06x-prepared-p2-time-repair/receipt.json)
 records61 local checks and13 additional native TIME cases PASS, plus an unchanged
-22-case native replay. A fresh source/unit preflight is next; new Wasm identity,
-exact rebind and actual patched-guest comparisons on both OSes remain pending. P2–P6 and full production acceptance
+22-case native replay. [Source preflight39572844101](https://github.com/masahitojp/mariamem/actions/runs/39572844101)
+passed source and both-OS units at4f41be8. The patched guest's exact allocation/
+lifetime bodies, full data and TLS match the previous reviewed output; only
+one raw generated part changes. [TIME binding evidence](reviews/v06x-prepared-p2-time-binding/receipt.json)
+records the new single identity and62 local checks PASS. Actual patched-guest
+P1/P2/TIME comparisons on both OSes are the next gate and remain pending. P2–P6 and full production acceptance
 remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.

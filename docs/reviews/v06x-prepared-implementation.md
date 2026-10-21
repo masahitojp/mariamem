@@ -457,3 +457,31 @@ skipped until its exact identity and function/data/TLS binding are reviewed.
 The full prepared-product gate now includes the additional TIME/native comparison
 alongside existing P1/P2 probes. No patched guest runtime PASS, completed P2-P6,
 main adoption, Qualification or release follows from the native/local checks.
+
+## P2 TIME repair — exact binding reviewed, full development gate next
+
+[Source preflight39572844101](https://github.com/masahitojp/mariamem/actions/runs/39572844101)
+at source_commit4f41be87ac30c86cf688b150afb5493fed6b6a1b passed source compilation
+and both-OS units. Development runtime was intentionally SKIP until binding review.
+The new18,400,359-byte Wasm has SHA256
+`3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8`.
+[Receipt](v06x-prepared-p2-time-binding/receipt.json) and
+[reproduction steps](v06x-prepared-p2-time-binding/reproduce.md) bind the source,
+experimental patch, toolchain and formal raw/source-adapter generation.
+
+The fixed converter binary and all13 patches match the previous P2 translation.
+Only raw p7/p7_pure.go differs; every other raw inventory file matches, with no
+added/removed files. All three allocation/lifetime function hashes and reviewed
+fixtures, the full data.bin/ranges/constructors and505-byte TLS match exactly.
+The single accepted guest SHA changes; no function preimage hash or generated Go
+is hand-edited. Rejection now explicitly includes the immediately previous P2
+Wasm as well as P1 and canonical baseline identities.62 focused input/mock/
+sanitizer/binding/patch checks pass locally. Formal source-only adaptation and
+pure installation owners pass; no full local runtime installation is claimed.
+
+Submit the complete prepared-product development gate at the new exact source:
+fresh source build, generation/compile/SQL smoke, exact installed bindings and
+mutations, actual P1/P2 comparison and the extra13 TIME cases. Passing the source
+preflight/rebind is not passing those guest comparisons or completing P2–P6.
+Canonical source.patch, converter and native expected packets remain unchanged.
+No main adoption, Qualification or publication is performed.

@@ -7,10 +7,10 @@ before installing the handoff; this is a single-guest binding, not a generic ABI
 import hashlib
 import re
 
-# Candidate-only P2 binding: canonical release inputs remain the routine guest
+# Candidate-only P2 TIME-repair binding: canonical release inputs remain the routine guest
 # until P6. See tests/fixtures/prepared-p2-binding and the implementation review.
 # A fresh source build must match this single identity before development use.
-GUEST_SHA256 = "a52dd707d337d5349a7c5d72bc2108dc823cfe0c625742e93bc0875a2e3b519a"
+GUEST_SHA256 = "3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8"
 FUNCTIONS = {
     "code/p3/p3_pure.go": ("Fn153", "7287c2422d92f9cb8e1b35e90d6ff5a49f9d5578ae567ff46a261a4b11159270"),
     "code/p8/p8_pure.go": ("Fn131", "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"),
