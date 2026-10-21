@@ -1,4 +1,4 @@
-name: Prepared P1 source, unit and development runtime (not adoption)
+name: Prepared staged source, unit and development runtime (not adoption)
 on:
   push:
     branches: [experiment/prepared-product]

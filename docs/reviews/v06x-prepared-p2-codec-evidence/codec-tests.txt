@@ -1,0 +1,76 @@
+=== RUN   TestRegistrySessionsCapacityAndLifetime
+--- PASS: TestRegistrySessionsCapacityAndLifetime (0.00s)
+=== RUN   TestRequestIdentityAndBoundaries
+--- PASS: TestRequestIdentityAndBoundaries (0.00s)
+=== RUN   TestMalformedEnvelopeRejected
+--- PASS: TestMalformedEnvelopeRejected (0.00s)
+=== RUN   TestSharedGuestEnvelopeVector
+--- PASS: TestSharedGuestEnvelopeVector (0.00s)
+=== RUN   TestExecuteExactVectors
+=== RUN   TestExecuteExactVectors/null
+=== RUN   TestExecuteExactVectors/signed-tiny-min
+=== RUN   TestExecuteExactVectors/unsigned-tiny-max
+=== RUN   TestExecuteExactVectors/signed-short-min
+=== RUN   TestExecuteExactVectors/unsigned-short-max
+=== RUN   TestExecuteExactVectors/signed-long-min
+=== RUN   TestExecuteExactVectors/unsigned-long-max
+=== RUN   TestExecuteExactVectors/signed-longlong-min
+=== RUN   TestExecuteExactVectors/unsigned-longlong-max
+=== RUN   TestExecuteExactVectors/float-negative-zero
+=== RUN   TestExecuteExactVectors/double-nan-payload
+=== RUN   TestExecuteExactVectors/empty-string
+=== RUN   TestExecuteExactVectors/blob-nul
+=== RUN   TestExecuteExactVectors/unicode
+=== RUN   TestExecuteExactVectors/decimal-exact-scale
+=== RUN   TestExecuteExactVectors/zero-date
+=== RUN   TestExecuteExactVectors/leap-date
+=== RUN   TestExecuteExactVectors/datetime-microseconds
+=== RUN   TestExecuteExactVectors/negative-time-over-24h
+--- PASS: TestExecuteExactVectors (0.00s)
+    --- PASS: TestExecuteExactVectors/null (0.00s)
+    --- PASS: TestExecuteExactVectors/signed-tiny-min (0.00s)
+    --- PASS: TestExecuteExactVectors/unsigned-tiny-max (0.00s)
+    --- PASS: TestExecuteExactVectors/signed-short-min (0.00s)
+    --- PASS: TestExecuteExactVectors/unsigned-short-max (0.00s)
+    --- PASS: TestExecuteExactVectors/signed-long-min (0.00s)
+    --- PASS: TestExecuteExactVectors/unsigned-long-max (0.00s)
+    --- PASS: TestExecuteExactVectors/signed-longlong-min (0.00s)
+    --- PASS: TestExecuteExactVectors/unsigned-longlong-max (0.00s)
+    --- PASS: TestExecuteExactVectors/float-negative-zero (0.00s)
+    --- PASS: TestExecuteExactVectors/double-nan-payload (0.00s)
+    --- PASS: TestExecuteExactVectors/empty-string (0.00s)
+    --- PASS: TestExecuteExactVectors/blob-nul (0.00s)
+    --- PASS: TestExecuteExactVectors/unicode (0.00s)
+    --- PASS: TestExecuteExactVectors/decimal-exact-scale (0.00s)
+    --- PASS: TestExecuteExactVectors/zero-date (0.00s)
+    --- PASS: TestExecuteExactVectors/leap-date (0.00s)
+    --- PASS: TestExecuteExactVectors/datetime-microseconds (0.00s)
+    --- PASS: TestExecuteExactVectors/negative-time-over-24h (0.00s)
+=== RUN   TestInternalValueGoldenAndGuards
+--- PASS: TestInternalValueGoldenAndGuards (0.00s)
+=== RUN   TestExecuteTypeReuseIsTransactional
+--- PASS: TestExecuteTypeReuseIsTransactional (0.00s)
+=== RUN   TestExecuteMalformedAndUnsupported
+--- PASS: TestExecuteMalformedAndUnsupported (0.00s)
+=== RUN   TestLengthEncodedBounds
+--- PASS: TestLengthEncodedBounds (0.00s)
+=== RUN   TestExecuteFreshTypesReplaceOnlyCandidateCache
+--- PASS: TestExecuteFreshTypesReplaceOnlyCandidateCache (0.00s)
+=== RUN   TestExecutePacketBudget
+--- PASS: TestExecutePacketBudget (0.00s)
+=== RUN   TestTemporalShapesNotHostNormalization
+--- PASS: TestTemporalShapesNotHostNormalization (0.00s)
+=== RUN   TestValuesCapacityAndNullBitmapAcrossBytes
+--- PASS: TestValuesCapacityAndNullBitmapAcrossBytes (0.06s)
+=== RUN   TestBinaryRowsAgainstNativeCapture
+--- PASS: TestBinaryRowsAgainstNativeCapture (0.01s)
+=== RUN   TestBinaryRowBitmapAndBudget
+--- PASS: TestBinaryRowBitmapAndBudget (0.00s)
+=== RUN   FuzzExecuteAndInternalValues
+=== RUN   FuzzExecuteAndInternalValues/seed#0
+=== RUN   FuzzExecuteAndInternalValues/seed#1
+--- PASS: FuzzExecuteAndInternalValues (0.00s)
+    --- PASS: FuzzExecuteAndInternalValues/seed#0 (0.00s)
+    --- PASS: FuzzExecuteAndInternalValues/seed#1 (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	1.434s

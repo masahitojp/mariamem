@@ -1,0 +1,10 @@
+fuzz: elapsed: 0s, gathering baseline coverage: 0/24 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 24/24 completed, now fuzzing with 2 workers
+fuzz: elapsed: 3s, execs: 23367 (7789/sec), new interesting: 2 (total: 26)
+fuzz: elapsed: 6s, execs: 47658 (8096/sec), new interesting: 2 (total: 26)
+fuzz: elapsed: 9s, execs: 71261 (7869/sec), new interesting: 3 (total: 27)
+fuzz: elapsed: 12s, execs: 95289 (8004/sec), new interesting: 5 (total: 29)
+fuzz: elapsed: 15s, execs: 119453 (8060/sec), new interesting: 5 (total: 29)
+fuzz: elapsed: 16s, execs: 119453 (0/sec), new interesting: 5 (total: 29)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	17.295s

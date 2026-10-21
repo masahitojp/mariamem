@@ -752,8 +752,12 @@ protocol, lifecycle dispatch and unit coverage. Its source compilation and
 both-OS unit CI passed; expanded native12.3.3 PREPARE controls passed. The subsequent
 development gate passed the new-guest smoke and exact installed binding checks
 on both OSes. Its actual wire/native metadata comparison exposed a C API numeric
-flag leaking onto the wire; a host-serializer repair is awaiting CI. P1 acceptance
-and P2–P6 remain unfinished.
+flag leaking onto the wire; the host-serializer repair passed the corrected
+[both-OS gate39540250744](https://github.com/masahitojp/mariamem/actions/runs/39540250744)
+at3496095, including actual P1 lifecycle and native metadata equivalence.
+P2 now has initial typed-value/client decoder and binary-row components with
+local native-reference/race tests; guest EXECUTE binding/fetching and dispatch
+are not connected. P2–P6 and full production acceptance remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
 

@@ -113,11 +113,67 @@ No output or canonical provenance was refreshed to hide that intermediate state.
 The expanded P1 CI builds the same fixed guest afresh at its own exact commit,
 uses the formal **UNQUALIFIED development** translation/adapter/installer route,
 runs the existing SQL/transaction/Snapshot/Fork/Close smoke, then executes the new
-wire/native differential probe on macOS arm64 and Ubuntu x86_64. Results remain
-pending until that CI completes. It is not Qualification, full P1–P6 acceptance,
+wire/native differential probe on macOS arm64 and Ubuntu x86_64. At that continuation's
+submission, its results were pending; the corrected outcome is recorded below.
+It is not Qualification, full P1–P6 acceptance,
 or main-adoption approval.
 
-## Remaining authorized work
+## P1 corrected development gate — confirmed
+
+[CI39540250744](https://github.com/masahitojp/mariamem/actions/runs/39540250744)
+passed all five jobs at source_commit
+`349609523b4d0a2640a0da28b7c30295ee486433`. Both macOS arm64 and Ubuntu x86_64
+saved runtime.json with `result=PASS` and `native_metadata=PASS`, covering the six
+P1 lifecycle/error/ownership checks and all140 descriptors against the unchanged
+native fixture. Both also passed the development SQL/transaction/Snapshot/Fork/
+Close smoke, installed binding check and7 mutations. The source guest hash remains
+`c42f1c64de3116a1552b43b76bb5c6f22053936486177c0eecdae986bfd2bdb8`.
+
+This closes the reported P1 development metadata failure. It is not P2 execution,
+independent reproduction or final acceptance. Historical failures below retain
+their original commits/results. The [continuation receipt](v06x-prepared-p2-codec-evidence/receipt.json)
+retains the new job links, artifact hashes and runtime result.
+
+## P2 initial codec component — in progress
+
+`internal/preparedproto/values.go` adds a client EXECUTE decoder, an explicit
+internal typed-value payload and binary result-row encoder. Integers/floats remain
+little-endian bytes, decimal/string/blob values remain exact bytes, and temporal
+bodies retain components without Go calendar/timezone conversion. Internal flags
+distinguish NULL from an empty value. Counts/lengths and envelope/packet budgets
+are checked before output allocation; type reuse returns a candidate descriptor
+cache without mutating the committed cache on malformed input. Binary result
+NULL bits use their separate two-bit offset.
+
+The [19 input vectors](../../tests/fixtures/prepared-p2-values.json) are shared by
+Go tests and a reusable [raw-wire probe](../../tests/v06_prepared_p2_probe.py).
+The [native capture](../../tests/fixtures/prepared-p2-native.json) covers those
+inputs plus an8,194-byte binary value,1,500 rows and65 columns, including repeated
+execution without resending descriptors. It was collected from the same pinned
+MariaDB12.3.3 Linux arm64 image on Docker Desktop/macOS, **not a macOS-native
+MariaDB build or a new guest run**. A second native replay matched the saved
+capture. Row encoder tests compare bytes to this capture, not self-round-trips
+alone. Native FLOAT evaluation canonicalizes negative zero to positive zero;
+input decoding preserves the input sign bit, while result encoding must use the
+engine-returned value. DOUBLE NaN payload bytes in this named native case were
+preserved. These observations are not universal engine/type promises.
+
+Focused race tests and a15-second bounded fuzz run passed (119,453 fuzz executions
+in that run; not a completeness claim). Tests include cut/trailing/overflowed
+lengths, invalid descriptors, temporal shapes, NULL bitmap boundaries, cache
+replacement/reuse, the exact1MiB client payload and32MiB-minus-header internal
+boundaries. SQL calendar/range validation remains engine-owned.
+
+**P2 is not complete.** These components are not connected to Serve or advertised
+by the guest. Native MYSQL_BIND/MYSQL_TIME input binding, typed fetching and
+fetch_column truncation recovery, integration with current metadata, DML/status/
+warnings, reprepare, and actual guest/native differential acceptance are still
+required. Unusual parameter codes versus their result-column representation also
+need explicit native/API mapping; a shared byte shape alone does not prove that
+mapping. LONG_DATA omission/precedence remains P4. No C overlay, generated Go,
+canonical input, capability, supported operation or public API changes here.
+
+## Remaining authorized work and historical failures
 
 P1 CI at3eda067
 ([39537687879](https://github.com/masahitojp/mariamem/actions/runs/39537687879))
@@ -143,8 +199,9 @@ comparison oracle is changed. A race-enabled standalone test of the production
 flag owner checks all256 type IDs and replays140 captured descriptors against
 the unchanged native packets; exactly68 numeric descriptors change. Every byte,
 including names, charset, widths, decimals and other flags, must then match.
-This replay passes locally; full-package tests and corrected actual wire behavior
-remain for the new exact-source CI. P1 overall is still unfinished.
+At the repair's submission, this replay passed locally; full-package tests and
+corrected actual wire behavior remained for exact-source CI. The corrected
+gate above subsequently passed; this historical FAIL is not relabelled.
 
 The historical text serializer also forwards the C API flags. It is unchanged
 here; native text-column comparison belongs in the already planned P5 metadata/
@@ -173,8 +230,8 @@ new exact-source CI. No exception or incomplete unit is accepted by this repair.
 
 | Unit | State and next evidence |
 | --- | --- |
-| P1 | Source CI/both-OS units and expanded native control PASS; host lifecycle dispatch added; new-guest/native metadata and actual ownership acceptance pending development CI |
-| P2 | Typed EXECUTE/binary/temporal/large-value implementation pending |
+| P1 | Corrected development gate at3496095 PASS on both OSes, including actual ownership and native metadata comparison; later full-scope acceptance remains required |
+| P2 | Initial typed decoder/internal payload/binary-row component and native vectors PASS locally; guest binding/fetching, host dispatch and actual guest/native execution pending |
 | P3 | Prepared CALL/results/OUT and later-error draining pending |
 | P4 | LONG_DATA/no-response/reset/pool/cancel/disconnect and failure/resource matrix pending |
 | P5 | Real Go/Python prepared consumers, native controls and both-OS regression pending |
