@@ -424,3 +424,19 @@ preserve the failure. Runtime/guest/converter/source-origin policy, exact hashes
 preimages and native comparison fixtures are unchanged. Only the test and progress
 evidence change. Resubmit the existing complete development workflow; no canonical
 regeneration, main integration, Qualification or publication occurs here.
+
+## P2 actual native comparison: TIME metadata decision
+
+The corrected gate atab5c39d ([39565377640](https://github.com/masahitojp/mariamem/actions/runs/39565377640))
+passes source/units, development smoke, exact bindings, all12 mutation tests and
+actual P1 comparison on both OSes. P2 executes22 cases and fails the unchanged
+native comparison: negative fractional >24h TIME has declared column length16
+instead of23. All other captured descriptor fields, binary rows and terminal
+packets match. This is a real metadata discrepancy, not a repeated mutation-test
+failure or observed SQL data corruption.
+
+The [Human decision and one-line proposal](v06x-prepared-p2-time-metadata.md)
+record the pinned embedded/ordinary Item_param source asymmetry, exact captures,
+limited next implementation/verification and cost. The design requires stopping
+before a MariaDB-internal edit; no source patch or further CI run is submitted.
+P2–P6 remain unfinished and the original oracle/expected fixture is unchanged.

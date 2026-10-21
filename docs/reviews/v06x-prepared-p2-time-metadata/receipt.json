@@ -1,0 +1,54 @@
+{
+  "source_commit": "ab5c39db3ca99dba9948c9c2c9b2326714bebda9",
+  "failed_run": "https://github.com/masahitojp/mariamem/actions/runs/39565377640",
+  "both_OS_identical_execute_capture": true,
+  "case_count": 22,
+  "differences": [
+    {
+      "case": "negative-time-over-24h",
+      "field": "columns",
+      "observed": [
+        "036465660000000176000c3f00100000000b8100060000"
+      ],
+      "native": [
+        "036465660000000176000c3f00170000000b8100060000"
+      ]
+    }
+  ],
+  "all_binary_rows_and_terminals": "identical across22 cases; input type reuse assertions completed",
+  "P1_native_comparison": "PASS on both OSes",
+  "mutation_tests": "12 PASS on both OSes",
+  "primary_sources": {
+    "pinned-sql_prepare.cc": {
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_prepare.cc",
+      "sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3"
+    },
+    "pinned-item.cc": {
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/item.cc",
+      "sha256": "693e2f3f50567fb00e0865ba624360b47cbf71e3d3524f70fa280214d8ceb1e8"
+    }
+  },
+  "CI_records": {
+    "ubuntu-24.04/binding.txt": {
+      "sha256": "19322a76a32837f003f924ca104a12a8fb1f5fbcd745e1fcb4a26fdf246f7a76"
+    },
+    "ubuntu-24.04/binding-mutations.txt": {
+      "sha256": "7ee61ee68735a7cc04649c703914d25270871e5eeef0c37c2c7dcf3155923231"
+    },
+    "ubuntu-24.04/runtime.json": {
+      "sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95"
+    },
+    "macos-15/binding.txt": {
+      "sha256": "19322a76a32837f003f924ca104a12a8fb1f5fbcd745e1fcb4a26fdf246f7a76"
+    },
+    "macos-15/binding-mutations.txt": {
+      "sha256": "46d8c0ade3b0778f3191da0b4bf2700c5c6552166c10fd29cc5283b864971e5f"
+    },
+    "macos-15/runtime.json": {
+      "sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95"
+    }
+  },
+  "native_fixture_sha256": "4dd63f276c1cf4b86b6312b4b93a625a9293e35c87775e60797a3b4aee60169d",
+  "proposal": "one-line source patch, NOT applied; requires Human decision under design stop condition",
+  "limits": "No observed SQL value difference for these vectors; metadata mismatch is real. Not full temporal or P2-P6 acceptance."
+}

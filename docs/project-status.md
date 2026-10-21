@@ -769,9 +769,14 @@ passed generation/compile/SQL smoke and exact installed bindings on both OSes,
 but a new mutation test changed an earlier unrelated literal instead of its
 target function. The [test-only repair](reviews/v06x-prepared-p2-mutation-fix/receipt.json)
 scopes the mutation to that function and passes12 focused checks, including an
-earlier-same-literal regression. P1/P2 wire probes were skipped in that run and
-remain pending the corrected gate. P2–P6 and full production
-acceptance remain unfinished.
+earlier-same-literal regression. The corrected
+[gate39565377640](https://github.com/masahitojp/mariamem/actions/runs/39565377640)
+passed those12 mutations and actual P1 comparison on both OSes. Actual P2
+comparison now exposes one TIME column-length difference (16 vs native23), with
+all22 cases' binary rows/terminals matching. The [bounded internal-source proposal](reviews/v06x-prepared-p2-time-metadata.md)
+requires Human decision under the approved design's MariaDB-internal-edit stop
+condition; no engine patch is applied. P2–P6 and full production acceptance
+remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
 
