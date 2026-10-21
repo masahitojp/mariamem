@@ -49,7 +49,7 @@ func preparePackets(r guest.Result, generation, wireID uint32) ([][]byte, error)
 	if !r.OK {
 		return packets(r)
 	}
-	if r.Rows != nil || wireID == 0 || r.StatementID == 0 || r.ParamCount > 65535 || len(r.Columns) > 65535 {
+	if r.BinaryRows || r.Rows != nil || wireID == 0 || r.StatementID == 0 || r.ParamCount > 65535 || len(r.Columns) > 65535 {
 		return nil, errors.New("invalid prepared metadata")
 	}
 	b := append([]byte{0}, le32(wireID)...)

@@ -10,6 +10,8 @@ approved design commit00c2e18e2d74f61d169177e1b81ae2571f71fcea.
 Work lives on experiment/prepared-product. Existing root untracked user files
 are preserved. Workspace policy:24GiB maximum,8GiB free-space floor; task caches
 and build outputs stay disposable.
+The EXECUTE source preflight is on its child branch experiment/prepared-execute;
+it returns to prepared-product only after the new guest's exact binding review.
 
 ## P1 source implementation
 
@@ -175,6 +177,69 @@ canonical input, capability, supported operation or public API changes here.
 
 ## Remaining authorized work and historical failures
 
+### P2 EXECUTE source candidate — source/unit preflight, not runtime acceptance
+
+The preceding codec candidate0ceca7cd597c7c8f69c85d3898a407ee7c954441 passed all
+five jobs in [CI39548803322](https://github.com/masahitojp/mariamem/actions/runs/39548803322).
+Its saved both-OS runtime records still explicitly cover **P1 only**; they do not
+certify the newly added EXECUTE owner described here.
+
+The current authored source now connects host EXECUTE to opcode5 and public
+mysql_stmt_bind_param/execute/bind_result/store_result/fetch/fetch_column. It is
+an intermediate candidate, not an accepted implementation or product claim:
+
+- The host resolves session-owned IDs/generations and expands cached descriptors
+  into exact values. Invalid packets cannot update that cache or reach the
+  engine. SQL errors preserve native errno/state; successful typed results must
+  name the owning native handle and match the current metadata/row widths.
+- C independently checks typed counts, types, padding, flags and byte ranges.
+  Parameter buffers are aligned and privately owned until a successful rebind
+  or native close; no request buffer survives by reference. Native handles are
+  destroyed before freeing pointers after a partial API bind failure. Such a
+  failure terminates transport rather than fabricating success.
+- MYSQL_TIME receives explicit components. Its native buffer length is
+  sizeof(MYSQL_TIME), **not** the protocol body's0/4/7/8/11/12-byte length:
+  pinned sql_prepare.cc:1188–1257 passes *MYSQL_BIND.length to the embedded
+  converter, whose temporal handlers require the native structure size. Fixed
+  numeric values use exact-width aligned buffers and typed bit copies.
+- Each execution obtains current result metadata and typed numeric/temporal
+  buffers. Variable fields first use a one-byte scratch buffer, then their
+  reported complete length drives fetch_column; NULL, truncation/error and
+  returned length are checked. The scratch size is not a cell capacity. A
+  serialized-envelope overflow fails closed rather than returning shortened data.
+- Results carry an explicit binary_rows discriminator and exact hex bytes. The
+  host uses the tested binary-row encoder and PREPARE-compatible metadata flag
+  normalization. DML counts/insert IDs remain decimal uint64 strings until wire
+  encoding. Text/authentication, opcode4 and public APIs remain unchanged.
+
+[Local evidence](v06x-prepared-execute-evidence/receipt.json) records ordinary
+C plus ASan/UBSan and related Go packages with race, all PASS. The C harness adds
+typed-buffer ownership/copy/alignment,65 bindings, full8,194-byte retrieval,
+malformed lengths/counts, SQL error/recovery, partial bind failures and cleanup.
+Host tests compare complete rows/metadata to saved native vectors, reject invalid
+typed envelopes and preserve uint64 DML values above2^53. **These are mocked C
+APIs and Go components using the old canonical runtime, not new-guest execution.**
+See [reproduction and remaining work](v06x-prepared-execute-evidence/reproduce.md).
+
+The dedicated branch's CI schedules the fixed-source build and both-OS unit jobs
+only. The development-runtime job is explicitly **SKIP pending exact new-guest
+binding review**, not PASS or waived acceptance. The normal prepared-product
+branch still requires that complete job. Old P1-only Wasm/function/data pins are
+unchanged and reject unknown inputs. No matching-by-relocation or second allowed
+guest is introduced; generated Go is not edited. After the source output is
+available, review its exact functions/data and install the binding before
+running the real P2 probe against the unchanged native reference.
+
+P2 remains incomplete: actual guest execution, extended temporal/SQL-mode cases,
+DML/warnings and schema/reprepare, and named field forms need native comparison.
+Unusual wire parameter types and the public API's accepted binding types still
+need explicit reconciliation; sharing a result byte shape is not proof of that
+mapping. Prepared result chains are P3: PS_MULTI_RESULTS remains unadvertised,
+and unexpected MORE_RESULTS in this intermediate owner fails the transport
+rather than silently dropping a result. LONG_DATA remains P4. Canonical and full
+J1/P6 generation checks, consumers/regressions and the separately unaccepted
+C-extension exception are not closed by the source preflight. No scope is removed.
+
 P1 CI at3eda067
 ([39537687879](https://github.com/masahitojp/mariamem/actions/runs/39537687879))
 passed source/unit jobs, the repaired development SQL/transaction/Snapshot/Fork/
@@ -231,7 +296,7 @@ new exact-source CI. No exception or incomplete unit is accepted by this repair.
 | Unit | State and next evidence |
 | --- | --- |
 | P1 | Corrected development gate at3496095 PASS on both OSes, including actual ownership and native metadata comparison; later full-scope acceptance remains required |
-| P2 | Initial typed decoder/internal payload/binary-row component and native vectors PASS locally; guest binding/fetching, host dispatch and actual guest/native execution pending |
+| P2 | Codec gate at0ceca7c PASS on both OSes; EXECUTE source owner/host dispatch added with local mock/unit PASS; source-build preflight, exact new binding and actual guest/native execution pending |
 | P3 | Prepared CALL/results/OUT and later-error draining pending |
 | P4 | LONG_DATA/no-response/reset/pool/cancel/disconnect and failure/resource matrix pending |
 | P5 | Real Go/Python prepared consumers, native controls and both-OS regression pending |

@@ -37,6 +37,7 @@ type Cell struct {
 	Hex string `json:"$h"`
 }
 type Result struct {
+	BinaryRows         bool      `json:"binary_rows"`
 	PreparedOperations []uint8   `json:"prepared_operations"`
 	PreparedVersion    int       `json:"prepared_version"`
 	SessionGeneration  uint32    `json:"session_generation"`

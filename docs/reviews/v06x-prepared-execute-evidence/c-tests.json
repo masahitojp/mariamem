@@ -1,0 +1,76 @@
+[
+  {
+    "sanitizer": false,
+    "command": [
+      "clang",
+      "-std=c11",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I",
+      "guest",
+      "tests/fixtures/prepared_api_harness.c",
+      "-o",
+      "/private/tmp/mariamem-prepared-execute-test-normal"
+    ],
+    "binary_sha256": "e3f5ad53924ee652ba63ebeb6205db6ee3914e1275bb71b401b7502c9c0a1f98",
+    "record": {
+      "ownership": "PASS",
+      "more_than_64_handles": true,
+      "failure_cleanup": true,
+      "generation_rejection": true,
+      "live_handles": 0,
+      "scope": "mock API ownership only"
+    },
+    "stderr": "",
+    "golden_prepare_response": {
+      "prepared_version": 1,
+      "session_generation": 1,
+      "ok": true,
+      "statement_id": 1,
+      "param_count": 1,
+      "columns": [],
+      "api_version": 2,
+      "server_status": 2,
+      "warnings": 0
+    }
+  },
+  {
+    "sanitizer": true,
+    "command": [
+      "clang",
+      "-std=c11",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-I",
+      "guest",
+      "tests/fixtures/prepared_api_harness.c",
+      "-o",
+      "/private/tmp/mariamem-prepared-execute-test-asan"
+    ],
+    "binary_sha256": "e080fba44fbd808460d5d2116eef55d11cb437805516dc497e77b5fdcb376177",
+    "record": {
+      "ownership": "PASS",
+      "more_than_64_handles": true,
+      "failure_cleanup": true,
+      "generation_rejection": true,
+      "live_handles": 0,
+      "scope": "mock API ownership only"
+    },
+    "stderr": "",
+    "golden_prepare_response": {
+      "prepared_version": 1,
+      "session_generation": 1,
+      "ok": true,
+      "statement_id": 1,
+      "param_count": 1,
+      "columns": [],
+      "api_version": 2,
+      "server_status": 2,
+      "warnings": 0
+    }
+  }
+]

@@ -15,6 +15,8 @@ import (
 type preparedSession struct {
 	registry *preparedproto.Registry
 	status   uint16
+	execute  bool
+	types    map[uint32][]preparedproto.ParameterType
 }
 
 func newPreparedSession(open guest.Result, readyVersion int, readyOperations []uint8) (*preparedSession, error) {
@@ -43,7 +45,7 @@ func newPreparedSession(open guest.Result, readyVersion int, readyOperations []u
 	if err != nil {
 		return nil, err
 	}
-	return &preparedSession{registry: r, status: open.Status}, nil
+	return &preparedSession{registry: r, status: open.Status, execute: ops[preparedproto.Execute], types: make(map[uint32][]preparedproto.ParameterType)}, nil
 }
 
 // call's monitor is false only for no-response operations: a following packet
@@ -69,6 +71,9 @@ func (s *preparedSession) call(op byte, handle uint32, payload []byte, monitor b
 func (s *preparedSession) handle(op byte, payload []byte, call preparedCall) ([][]byte, error) {
 	if s == nil {
 		return [][]byte{ErrorPacket(1235, "42000", "command is not supported")}, nil
+	}
+	if op == preparedproto.Execute {
+		return s.executeStatement(payload, call)
 	}
 	if op == preparedproto.Prepare {
 		if len(payload) == 0 || len(payload) > preparedproto.MaxSQL {
@@ -129,6 +134,7 @@ func (s *preparedSession) handle(op byte, payload []byte, call preparedCall) ([]
 			return nil, errors.New("native prepared close failed")
 		}
 		s.registry.Remove(id)
+		delete(s.types, id)
 		return [][]byte{}, nil
 	}
 	if !r.OK {

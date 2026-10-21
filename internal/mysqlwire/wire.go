@@ -511,7 +511,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		}
 		var replies [][]byte
 		switch request[0] {
-		case 22, 25, 26:
+		case 22, 23, 25, 26:
 			// Local errors and ignored unknown CLOSE must preserve state from the
 			// most recent text command too (not an older prepared response).
 			if statements != nil {

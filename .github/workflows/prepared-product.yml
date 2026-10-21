@@ -1,7 +1,7 @@
 name: Prepared staged source, unit and development runtime (not adoption)
 on:
   push:
-    branches: [experiment/prepared-product]
+    branches: [experiment/prepared-product, experiment/prepared-execute]
 permissions:
   contents: read
 jobs:
@@ -86,6 +86,11 @@ jobs:
           if-no-files-found: error
           retention-days: 7
   development-runtime:
+    # The EXECUTE branch first produces a new, unknown guest for exact binding
+    # review. It does not run or claim the runtime gate with the P1-only pin.
+    # After review, bringing it into prepared-product restores the full gate;
+    # the installer/whole-body checks themselves are never bypassed.
+    if: github.ref == 'refs/heads/experiment/prepared-product'
     needs: guest-source
     strategy:
       fail-fast: false
@@ -129,6 +134,11 @@ jobs:
           PYTHONPATH: ${{ runner.temp }}/prepared-p1-native/product/python
         run: |
           python tests/v06_prepared_p1_probe.py --host "$RUNNER_TEMP/prepared-p1-native/mariamem-dev-host" --reference tests/fixtures/prepared-p1-native.json --output build/prepared-p1/runtime.json > build/prepared-p1/runtime.txt 2>&1
+      - name: Real P2 typed EXECUTE vectors and native binary result differential
+        env:
+          PYTHONPATH: ${{ runner.temp }}/prepared-p1-native/product/python
+        run: |
+          python tests/v06_prepared_p2_probe.py --host "$RUNNER_TEMP/prepared-p1-native/mariamem-dev-host" --reference tests/fixtures/prepared-p2-native.json --output build/prepared-p1/execute.json > build/prepared-p1/execute.txt 2>&1
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
