@@ -627,3 +627,15 @@ map these results to every specified P2 development criterion, superseding the
 pending P2 states above without rewriting their historical evidence. P3–P6,
 production adoption and release remain open; continue with the minimal P3 CALL
 case before its full matrix. No runtime source is changed by this evidence entry.
+
+### P3 first CALL source candidate
+
+The [minimal candidate](v06x-prepared-call-minimal.md) adds guest-side typed
+result capture/next-result handling and Go EXECUTE-only ordered binary chains.
+The fixed native case (two ordinary results, OUT and terminal OK, followed by
+SELECT1 and CLOSE/PING) passes capture/replay. Local106 Python/C checks and three Go race packages PASS; they cover metadata/
+buffer switching, status retention, malformed-chain rejection and later errors.
+Actual new guest generation, exact binding and both-OS execution remain pending;
+old binding guards reject unknown Wasm. External PS_MULTI_RESULTS stays
+unadvertised until full P3 acceptance; no public API/converter/canonical patch or
+Generated Go is changed. Source preflight and P3 actual runtime are separate.

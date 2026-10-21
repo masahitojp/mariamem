@@ -30,3 +30,20 @@ def test_dynamic_prepared_owner_and_failure_cleanup(tmp_path, sanitize):
     reply=json.loads(golden.stdout)
     assert reply['ok'] and reply['prepared_version']==1 and reply['session_generation']==vector['generation']
     assert reply['statement_id']==1 and reply['param_count']==1
+
+    # Mock proves owned metadata/buffers advance through two ordinary results,
+    # an OUT result and a terminal OK. Actual embedded/native acceptance is separate.
+    chain=json.loads(subprocess.run([str(target),'call-two'],check=True,capture_output=True,text=True).stdout)
+    assert chain['ok'] and chain['binary_rows'] and chain['server_status']==2
+    assert len(chain['results'])==4
+    assert [len(x.get('columns',[])) for x in chain['results']]==[1,2,1,0]
+    assert [x['server_status'] for x in chain['results']]==[10,10,4106,2]
+    assert all(x['binary_rows'] and x['statement_id']==1 for x in chain['results'])
+
+    later=json.loads(subprocess.run([str(target),'call-later-error'],check=True,capture_output=True,text=True).stdout)
+    assert len(later['results'])==2
+    assert later['results'][0]['server_status']&8
+    assert not later['results'][1]['ok'] and later['results'][1]['errno']==1644
+    assert not later['results'][1]['server_status']&8
+    missing=json.loads(subprocess.run([str(target),'call-missing-next'],check=True,capture_output=True,text=True).stdout)
+    assert missing=={'rejected':True}

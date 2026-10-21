@@ -61,7 +61,13 @@ func (s *preparedSession) call(op byte, handle uint32, payload []byte, monitor b
 	if err != nil {
 		return guest.Result{}, err
 	}
-	if err = validatePrepared(r, s.registry.Generation()); err != nil {
+	header := r
+	// Only EXECUTE may return a chain. The serializer validates every element
+	// before any response packet is sent; PREPARE/lifecycle remain single-result.
+	if op == preparedproto.Execute {
+		header.Results = nil
+	}
+	if err = validatePrepared(header, s.registry.Generation()); err != nil {
 		return guest.Result{}, err
 	}
 	s.status = r.Status &^ 8

@@ -20,7 +20,7 @@ static int buf_put_json_hex(buf_t *b,const char *v,unsigned long n) {
  for(unsigned long i=0;i<n;i++)if(buf_putc(b,hex[((unsigned char)v[i])>>4])||buf_putc(b,hex[((unsigned char)v[i])&15]))return 1;
  return buf_putc(b,'"');
 }
-static int wire_state(buf_t *b){return buf_puts(b,",\"api_version\":2,\"server_status\":2,\"warnings\":0");}
+static int wire_state(buf_t *b);
 static int wire_name(buf_t *b,const char *key,const char *value,unsigned n) {
   if(buf_putc(b,'"')||buf_puts(b,key)||buf_puts(b,"\":\""))return 1;
   for(unsigned i=0;i<n;i++)if(buf_putc(b,value[i]))return 1;
@@ -28,9 +28,13 @@ static int wire_name(buf_t *b,const char *key,const char *value,unsigned n) {
 }
 static char *wire_error(unsigned code,const char *message,const char *state){
   buf_t b={0};char text[512];snprintf(text,sizeof(text),"{\"ok\":false,\"errno\":%u,\"error\":\"%s\",\"sqlstate\":\"%s\"}",code,message,state);
-  if(buf_puts(&b,text)){free(b.p);return NULL;}return b.p;
+  size_t len=strlen(text);assert(len&&text[len-1]=='}');text[len-1]=0;
+  if(buf_puts(&b,text)||wire_state(&b)||buf_putc(&b,'}')){free(b.p);return NULL;}return b.p;
 }
 typedef struct {unsigned server_status;} MYSQL;
+static MYSQL *active_db;
+static int wire_state(buf_t *b){char text[96];snprintf(text,sizeof(text),",\"api_version\":2,\"server_status\":%u,\"warnings\":0",active_db?active_db->server_status:2);return buf_puts(b,text);}
+
 typedef char my_bool;
 enum enum_field_types {MYSQL_TYPE_SHORT=2,MYSQL_TYPE_LONG=3,MYSQL_TYPE_DATE=10,MYSQL_TYPE_BLOB=252};
 enum {MYSQL_TIMESTAMP_DATE,MYSQL_TIMESTAMP_DATETIME,MYSQL_TIMESTAMP_TIME};
@@ -44,12 +48,14 @@ typedef struct {
  unsigned type,charsetnr,flags;unsigned long length;unsigned decimals;
 } MYSQL_FIELD;
 typedef struct {unsigned count;MYSQL_FIELD *fields;} MYSQL_RES;
-typedef struct {unsigned params,columns,errno_,fetched,type;int meta_fail;MYSQL_BIND *param_bind,*result_bind;} MYSQL_STMT;
+typedef struct {unsigned params,columns,errno_,fetched,type;int meta_fail;MYSQL *db;unsigned chain_index,chain_mode;MYSQL_BIND *param_bind,*result_bind;} MYSQL_STMT;
 static int fail_bind_param,fail_bind_result,fail_fetch_column,fail_execute_sql,execute_calls;
+static int fail_next;
 static int pending_result,free_result_calls,fail_free_result,fail_execute_oom;
-static MYSQL_STMT *mysql_stmt_init(MYSQL *db){(void)db;MYSQL_STMT *s=calloc(1,sizeof(*s));if(s)live++;return s;}
+static MYSQL_STMT *mysql_stmt_init(MYSQL *db){(void)db;MYSQL_STMT *s=calloc(1,sizeof(*s));if(s){live++;s->db=db;}return s;}
 static int mysql_stmt_prepare(MYSQL_STMT *s,const char *sql,unsigned long n){
  prepared_calls++;
+ if(n==8&&!memcmp(sql,"call-two",8)){s->params=1;s->columns=1;s->chain_mode=1;}
  if(n==8&&!memcmp(sql,"SELECT ?",8))s->params=1;
  if(n==10&&!memcmp(sql,"one-result",10)){s->params=1;s->columns=1;}
  if(n==11&&!memcmp(sql,"blob-result",11)){s->columns=1;s->type=252;}
@@ -86,7 +92,15 @@ static int mysql_stmt_bind_param(MYSQL_STMT *s,MYSQL_BIND *b){
 static int mysql_stmt_bind_result(MYSQL_STMT *s,MYSQL_BIND *b){s->result_bind=b;return fail_bind_result;}
 static int mysql_stmt_execute(MYSQL_STMT *s){
  s->fetched=0;execute_calls++;s->errno_=fail_execute_oom?2008:fail_execute_sql?1062:0;
- pending_result=!!s->errno_;return !!s->errno_;
+ pending_result=!!s->errno_;if(s->chain_mode){s->chain_index=0;s->columns=1;s->db->server_status=10;}return !!s->errno_;
+}
+static int mysql_stmt_next_result(MYSQL_STMT *s){
+ assert(s->chain_mode && s->chain_index<3);
+ if(fail_next){s->errno_=fail_next>0?1644:0;s->db->server_status=2;return fail_next;}
+ s->chain_index++;s->fetched=0;
+ s->columns=s->chain_index==1?2:s->chain_index==2?1:0;
+ s->db->server_status=s->chain_index==3?2:s->chain_index==2?4106:10;
+ return 0;
 }
 static int mysql_stmt_store_result(MYSQL_STMT *s){(void)s;return 0;}
 static int mysql_stmt_free_result(MYSQL_STMT *s){
@@ -116,19 +130,31 @@ static void *entry_calloc(size_t n,size_t s){return fail_entry?NULL:calloc(n,s);
 #undef calloc
 
 static void put32(unsigned char *p,uint32_t v){for(unsigned i=0;i<4;i++)p[i]=(unsigned char)(v>>(8*i));}
+static MYSQL session_db={2};
 static char *call_binary(unsigned op,uint32_t generation,uint32_t id,const unsigned char *body,size_t n){
  unsigned char *b=malloc(16+n);assert(b);
  b[0]='P';b[1]='S';b[2]=1;b[3]=(unsigned char)op;put32(b+4,generation);put32(b+8,id);put32(b+12,(uint32_t)n);
- if(n)memcpy(b+16,body,n);MYSQL db={0};char *reply=ps_call(&db,b,16+n);free(b);return reply;
+ if(n)memcpy(b+16,body,n);active_db=&session_db;char *reply=ps_call(&session_db,b,16+n);free(b);return reply;
 }
 static char *call(unsigned op,uint32_t generation,uint32_t id,const char *body){
  size_t n=body?strlen(body):0;unsigned char *b=malloc(16+n);assert(b);
  b[0]='P';b[1]='S';b[2]=1;b[3]=(unsigned char)op;put32(b+4,generation);put32(b+8,id);put32(b+12,(uint32_t)n);
- if(n)memcpy(b+16,body,n);MYSQL db={0};char *reply=ps_call(&db,b,16+n);free(b);return reply;
+ if(n)memcpy(b+16,body,n);active_db=&session_db;char *reply=ps_call(&session_db,b,16+n);free(b);return reply;
 }
 static void expect(char *reply,const char *fragment){assert(reply);if(!strstr(reply,fragment)){fputs(reply,stderr);abort();}free(reply);}
 int main(int argc,char **argv){
  assert(!ps_begin_session()&&ps_generation==1);
+ if(argc==2 && (!strcmp(argv[1],"call-two") || !strcmp(argv[1],"call-later-error") || !strcmp(argv[1],"call-missing-next"))) {
+  expect(call(22,1,0,"call-two"),"\"ok\":true");
+  unsigned char null_value[12]={1,0,0,0,6,2};
+  fail_next=!strcmp(argv[1],"call-later-error")?1:!strcmp(argv[1],"call-missing-next")?-1:0;
+  int before_call=execute_calls;
+  char *response=call_binary(23,1,1,null_value,sizeof(null_value));
+  assert(execute_calls==before_call+1);
+  if(fail_next<0){assert(!response);puts("{\"rejected\":true}");}
+  else {assert(response);assert(ps_entries->stmt->chain_index==(fail_next?0:3));puts(response);free(response);}
+  assert(!ps_clear()&&!live);return 0;
+ }
  if(argc==2){
   size_t n=strlen(argv[1]);assert(n%2==0);unsigned char *request=malloc(n/2);assert(request);
   for(size_t i=0;i<n/2;i++){unsigned value;assert(sscanf(argv[1]+2*i,"%2x",&value)==1);request[i]=(unsigned char)value;}

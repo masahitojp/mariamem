@@ -49,10 +49,44 @@ func (s *preparedSession) executeStatement(payload []byte, call preparedCall) ([
 	return preparedResultPackets(r)
 }
 
-// Only the single-result P2 shape is accepted here; P3 adds explicit chains.
-// A text/partially typed response must never be mistaken for a binary result.
+// Binary results retain each native status, including OUT and MORE_RESULTS.
+// Validate the entire chain before returning any packet to the connection.
 func preparedResultPackets(r guest.Result) ([][]byte, error) {
-	if !r.OK || !r.BinaryRows || r.Results != nil || r.Status&8 != 0 {
+	if r.Results != nil {
+		if !r.OK || !r.BinaryRows || len(r.Results) == 0 || r.Status&8 != 0 || r.Columns != nil || r.Rows != nil {
+			return nil, errors.New("invalid prepared result chain")
+		}
+		var replies [][]byte
+		for i, part := range r.Results {
+			more := i < len(r.Results)-1
+			if part.Version != 2 || part.Results != nil || (part.Status&8 != 0) != more || (!part.OK && more) {
+				return nil, errors.New("invalid prepared result chain element")
+			}
+			var next [][]byte
+			var err error
+			if !part.OK {
+				if part.Errno == 0 || len(part.SQLState) != 5 || part.Columns != nil || part.Rows != nil {
+					return nil, errors.New("invalid prepared terminal error")
+				}
+				next, err = packets(part)
+			} else {
+				if part.StatementID != r.StatementID {
+					return nil, errors.New("prepared result chain handle mismatch")
+				}
+				next, err = preparedSingleResultPackets(part, true)
+			}
+			if err != nil {
+				return nil, err
+			}
+			replies = append(replies, next...)
+		}
+		return replies, nil
+	}
+	return preparedSingleResultPackets(r, false)
+}
+
+func preparedSingleResultPackets(r guest.Result, allowMore bool) ([][]byte, error) {
+	if !r.OK || !r.BinaryRows || r.Results != nil || (!allowMore && r.Status&8 != 0) {
 		return nil, errors.New("invalid prepared binary result envelope")
 	}
 	if r.Columns == nil {

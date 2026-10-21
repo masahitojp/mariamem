@@ -830,7 +830,10 @@ runtime/native confirmation now [PASSes at5146d8a](reviews/v06x-prepared-p2-pass
 in [CI39616628715](https://github.com/masahitojp/mariamem/actions/runs/39616628715):
 all72 typed scenarios per OS, P1, smoke and17 installed binding mutation tests.
 The specified P2 development acceptance row is satisfied; P3–P6 and full
-production acceptance remain unfinished. Next is the [minimal P3 CALL case](reviews/v06x-prepared-p3-source.md).
+production acceptance remain unfinished. The [minimal P3 source candidate](reviews/v06x-prepared-call-minimal.md) now adds
+owned binary result chains and an OUT+two-results native reference. Local106
+Python/C checks, three Go race packages and native replay PASS. Actual new
+guest compilation/identity review and both-OS CALL execution remain pending.
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.

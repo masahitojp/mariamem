@@ -286,33 +286,8 @@ static int ps_cell(buf_t *b,MYSQL_STMT *stmt,ps_buffers *p,MYSQL_FIELD *fields,u
   if (b->n>PS_MAX_ENVELOPE-512 || n>(PS_MAX_ENVELOPE-512-b->n)/2) return 1;
   return buf_puts(b,"{\"$h\":") || buf_put_json_hex(b,(const char *)bytes,n) || buf_putc(b,'}');
 }
-static char *ps_execute(MYSQL *db,ps_entry *e,const unsigned char *data,size_t size)
+static char *ps_capture_result(MYSQL *db,ps_entry *e)
 {
-  unsigned long count=mysql_stmt_param_count(e->stmt);
-  if (ps_check_values(data,size,count)) return wire_error(1835,"invalid prepared typed values","HY000");
-  ps_buffers *params=ps_parameters(data,(unsigned int)count);
-  if (!params) return NULL;
-  if (count && mysql_stmt_bind_param(e->stmt,params->bind)) {
-    /* A failed bind may have copied pointers before reporting an API error.
-     * Destroy the native handle before releasing either binding allocation.
-     * NULL fails the transport rather than presenting this partial bind as OK. */
-    mysql_stmt_close(e->stmt);e->stmt=NULL;
-    ps_buffers_free(params);return NULL;
-  }
-  ps_buffers_free(e->parameters);e->parameters=params;
-  if (mysql_stmt_execute(e->stmt)) {
-    /* Preserve the native error before cleanup clears it. An EXECUTE may
-     * already have produced a result; never leave it blocking the next SQL
-     * command, and never retry SQL to repair changed result metadata. */
-    char *error=ps_error(e->stmt);
-    if (mysql_stmt_errno(e->stmt)==2008) {
-      /* Metadata allocation can have replaced/freed the old field arena.
-       * Do not reuse that partially rebuilt handle after out-of-memory. */
-      mysql_stmt_close(e->stmt);e->stmt=NULL;free(error);return NULL;
-    }
-    if (mysql_stmt_free_result(e->stmt) || (db->server_status&8)) {free(error);return NULL;}
-    return error;
-  }
   unsigned int columns=mysql_stmt_field_count(e->stmt);
   MYSQL_RES *meta=columns ? mysql_stmt_result_metadata(e->stmt) : NULL;
   if (columns && (!meta || columns>UINT16_MAX || mysql_num_fields(meta)!=columns)) {if(meta)mysql_free_result(meta);return NULL;}
@@ -343,13 +318,77 @@ static char *ps_execute(MYSQL *db,ps_entry *e,const unsigned char *data,size_t s
     }
   }
   if (meta) mysql_free_result(meta);
-  if (e->stmt && mysql_stmt_free_result(e->stmt)) failed=1;
-  /* P3 will add explicit result chains. Never discard MORE_RESULTS as success. */
-  if (db->server_status&8) {free(error);error=NULL;failed=1;}
+
+  /* Capture this result's status/warnings before freeing or advancing it. */
   if (!failed) failed=wire_state(&b) || buf_putc(&b,'}') || b.n>PS_MAX_ENVELOPE-128;
-  if (failed) {free(b.p);return error;}
+  int cleanup_failed=e->stmt && mysql_stmt_free_result(e->stmt);
+  if (failed || cleanup_failed) {
+    free(b.p);
+    /* Retain a recoverable API error only after complete cleanup. Pending
+     * successors or cleanup failure require transport termination. */
+    if (cleanup_failed || (db->server_status&8)) {free(error);return NULL;}
+    return error;
+  }
   free(error);return b.p;
 }
+static char *ps_execute(MYSQL *db,ps_entry *e,const unsigned char *data,size_t size)
+{
+  unsigned long count=mysql_stmt_param_count(e->stmt);
+  if (ps_check_values(data,size,count)) return wire_error(1835,"invalid prepared typed values","HY000");
+  ps_buffers *params=ps_parameters(data,(unsigned int)count);
+  if (!params) return NULL;
+  if (count && mysql_stmt_bind_param(e->stmt,params->bind)) {
+    /* A failed bind may have copied pointers before reporting an API error.
+     * Destroy the native handle before releasing either binding allocation.
+     * NULL fails the transport rather than presenting this partial bind as OK. */
+    mysql_stmt_close(e->stmt);e->stmt=NULL;
+    ps_buffers_free(params);return NULL;
+  }
+  ps_buffers_free(e->parameters);e->parameters=params;
+  if (mysql_stmt_execute(e->stmt)) {
+    /* Preserve the native error before cleanup clears it. An EXECUTE may
+     * already have produced a result; never leave it blocking the next SQL
+     * command, and never retry SQL to repair changed result metadata. */
+    char *error=ps_error(e->stmt);
+    if (mysql_stmt_errno(e->stmt)==2008) {
+      /* Metadata allocation can have replaced/freed the old field arena.
+       * Do not reuse that partially rebuilt handle after out-of-memory. */
+      mysql_stmt_close(e->stmt);e->stmt=NULL;free(error);return NULL;
+    }
+    if (mysql_stmt_free_result(e->stmt) || (db->server_status&8)) {free(error);return NULL;}
+    return error;
+  }
+  int chained=(db->server_status&8)!=0;
+  buf_t chain={0};char prefix[112];
+  if (chained) {
+    snprintf(prefix,sizeof(prefix),"{\"ok\":true,\"binary_rows\":true,\"statement_id\":%u,\"results\":[",e->id);
+    if (buf_puts(&chain,prefix)) {free(chain.p);return NULL;}
+  }
+  for (;;) {
+    char *part=ps_capture_result(db,e);
+    if (!part) {free(chain.p);return NULL;}
+    if (!chained) return part;
+    int failed=buf_puts(&chain,part) || chain.n>PS_MAX_ENVELOPE-128;
+    free(part);
+    if (failed) {free(chain.p);return NULL;}
+    if (!(db->server_status&8)) break;
+    int next=mysql_stmt_next_result(e->stmt);
+    if (next<0) {free(chain.p);return NULL;} /* MORE_RESULTS must have a successor. */
+    if (buf_putc(&chain,',')) {free(chain.p);return NULL;}
+    if (next>0) {
+      char *error=ps_error(e->stmt);
+      if (!error) {free(chain.p);return NULL;}
+      failed=buf_puts(&chain,error);free(error);
+      /* Preserve the terminal SQL error, then clean up without retrying SQL. */
+      if (mysql_stmt_free_result(e->stmt) || (db->server_status&8)) failed=1;
+      if (failed) {free(chain.p);return NULL;}
+      break;
+    }
+  }
+  if (buf_putc(&chain,']') || wire_state(&chain) || buf_putc(&chain,'}') || chain.n>PS_MAX_ENVELOPE-128) {free(chain.p);return NULL;}
+  return chain.p;
+}
+
 static char *ps_prepare(MYSQL *db, const unsigned char *sql, size_t size)
 {
   if (!size || size > PS_MAX_SQL) return wire_error(1153,"prepared SQL length must be 1..1048576 bytes","08S01");

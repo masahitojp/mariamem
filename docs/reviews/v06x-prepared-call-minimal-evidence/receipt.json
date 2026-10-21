@@ -1,0 +1,94 @@
+{
+  "baseline_source_commit": "b03e393c37905f4aef3ef263ae1c380f8b3198f4",
+  "authored_inputs_sha256": {
+    "guest/prepared_api.inc": "69dab10573633d7af93d9d0676cb11bc85e5e04eb20661819ab109b1dd28723a",
+    "guest/experimental.patch": "5bddc92d47b13c68b1eb0b680a068011d4f17839921aafd275121765fd1448bc",
+    "guest/prepared_source_patch.json": "454b1f9dc1f39b64d6a5416a7d07c48444709184e0f939839a65152c62eae82a",
+    "guest/source.patch": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16",
+    "internal/mysqlwire/prepared_execute.go": "fc4af915044412d81d56075c0d4bcf498204b09908ae8845cfd7f8bade544213",
+    "internal/mysqlwire/prepared_session.go": "f0232add1c9b73e3438bf0ede7d9585beb4271a1cb7743955c5b37c896ea00c8",
+    "internal/mysqlwire/prepared_chain_test.go": "5f7c908ca8e02fda4cedfae8c35db0928fe0f59c0579f86f5482c73405b68c44",
+    "tests/fixtures/prepared_api_harness.c": "0e3daa5a734a33f918e498094f221b7f18664c49200ff909b3bf735771aa4583",
+    "tests/fixtures/prepared-call-native.json": "1e60696ce7a0b2b6b637e0629167128161a1568e4d4c1d93c49524182319e8a1",
+    "tests/test_prepared_api.py": "50da582e513d61f3785a3285406353087c8a1fa588b0b252cc889a649ef975e3",
+    "tests/test_prepared_call_probe.py": "065f54ab123c3ae5c43ba74b7ea65d430b5aa4b265170ab87779637f66de53ab",
+    "tests/v06_prepared_call_probe.py": "23faf22a2342a584d29625cebfae04f6e0ff1d5f56aaff5e13a51f6bf502ca90",
+    ".github/workflows/prepared-product.yml": "0163542c27dc9c7ea595430c8b87432b8b28a10a1734e462088750868bdf2d7a",
+    "release/generated-go-toolchain.json": "01bf46c4fd10d022a58badb4834bdac5a7d9d7f53cd88499882e8542c69d7ef9"
+  },
+  "local": {
+    "host": "macOS arm64",
+    "go": "go1.26.8 darwin/arm64",
+    "python": "3.14.8",
+    "pytest": "8.4.2",
+    "PyMySQL": "1.2.3",
+    "python_c_tests": 106,
+    "result": "PASS",
+    "go_race_packages": [
+      "internal/preparedproto",
+      "internal/mysqlwire",
+      "internal/guest"
+    ],
+    "go_race_result": "PASS",
+    "go_scope": "host/component tests linking unchanged canonical routine runtime, not new guest execution"
+  },
+  "native": {
+    "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+    "image_id": "sha256:23ccfa2f2df26837c8f397a8f9a070ad728768c095d246edd07cd8d24e9ec40c",
+    "environment": "Linux aarch64 Docker reference on macOS arm64; not macOS-native MariaDB",
+    "version": "12.3.3-MariaDB-ubu2404",
+    "capture": "PASS",
+    "reference_replay": "PASS",
+    "final_probe_replay": "PASS"
+  },
+  "new_guest": {
+    "build": "PENDING source preflight CI",
+    "identity": "UNKNOWN; current binding unchanged and rejects unknown guest",
+    "actual_guest_CALL": "NOT RUN",
+    "full_P3": "PENDING"
+  },
+  "saved_files": {
+    "local-tests-final.txt": {
+      "original_sha256": "e292ffa1f704b603e795cc5398ae1c550204b271caa065fd8e05d7f9abfa1a08",
+      "stored_sha256": "e292ffa1f704b603e795cc5398ae1c550204b271caa065fd8e05d7f9abfa1a08",
+      "bytes": 15710
+    },
+    "c-owner.txt": {
+      "original_sha256": "9f3ab38f467f9a8007eb8c2f84527dcda49465fb3139400098ddaf223fa8063c",
+      "stored_sha256": "9f3ab38f467f9a8007eb8c2f84527dcda49465fb3139400098ddaf223fa8063c",
+      "bytes": 98
+    },
+    "go-unit.txt": {
+      "original_sha256": "68833a88d9276ccead6c1abe9d9ef7a28c128ba6dfe2a3a6638171f138d8fc44",
+      "stored_sha256": "68833a88d9276ccead6c1abe9d9ef7a28c128ba6dfe2a3a6638171f138d8fc44",
+      "bytes": 186
+    },
+    "native-first.json": {
+      "original_sha256": "1e60696ce7a0b2b6b637e0629167128161a1568e4d4c1d93c49524182319e8a1",
+      "stored_sha256": "1e60696ce7a0b2b6b637e0629167128161a1568e4d4c1d93c49524182319e8a1",
+      "bytes": 1321
+    },
+    "native-replay.json": {
+      "original_sha256": "f83c7db40d0de968137b9defcb984338b57d7da4d08226402c17f1989c38bbd1",
+      "stored_sha256": "f83c7db40d0de968137b9defcb984338b57d7da4d08226402c17f1989c38bbd1",
+      "bytes": 1352
+    },
+    "native-final.json": {
+      "original_sha256": "cba3803c900b3b1852319631803ad9788e2fe79b700e68e2f3fd30c2a8b49643",
+      "stored_sha256": "cba3803c900b3b1852319631803ad9788e2fe79b700e68e2f3fd30c2a8b49643",
+      "bytes": 1398
+    },
+    "inventory.txt": {
+      "original_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "stored_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "bytes": 67
+    },
+    "public.txt": {
+      "original_sha256": "dd582e6196d067d559e46519f99a9bbf2c71bae28b1527eda62f5cad98afce48",
+      "stored_sha256": "dd582e6196d067d559e46519f99a9bbf2c71bae28b1527eda62f5cad98afce48",
+      "bytes": 39
+    }
+  },
+  "unchanged_boundaries": "canonical+experimental source patches, fixed converter13/toolchain, Generated Go and single-guest lifetime binding",
+  "log_transformation": "Only local absolute repository prefixes scrubbed; original/stored hashes distinguish transformed logs."
+}
