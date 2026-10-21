@@ -651,3 +651,14 @@ preimages without numeric normalization. Local107 checks PASS and all older
 guests remain rejected. Formal installation/compilation and actual P1/P2/minimal
 CALL comparison on both OSes remain the next prepared-product CI gate. P3 actual
 acceptance and full P3–P6 are not closed by source/layout/component evidence.
+
+### P3 minimal real-guest/native gate PASS at42be2b5
+
+[CI39631360824](https://github.com/masahitojp/mariamem/actions/runs/39631360824)
+passes all five jobs. On both OSes the minimal CALL produces both ordinary
+results, OUT with SERVER_PS_OUT_PARAMS, terminal OK and healthy following
+SELECT1/CLOSE/PING, matching complete native metadata/packet bytes/status.
+P1/all72 P2 cases, smoke and18 installed binding mutations also PASS. See the
+[saved results and remaining scope](v06x-prepared-call-pass.md). This closes only
+the first P3 feasibility gate; full P3/capability truthfulness, P4–P6 and later
+production/release decisions remain open. No runtime code changes here.

@@ -838,7 +838,12 @@ passes guest-source and both-OS units at46f5c2c. The
 [P3 binding review](reviews/v06x-prepared-call-binding/reproduce.md) records new
 gueste6d6021a, its64-byte data/BSS layout shift, exact complete functions/init,
 unchanged TLS content and107 local ownership checks PASS. Only that new guest
-is accepted; actual both-OS CALL comparison remains pending on prepared-product.
+is accepted. [CI39631360824](https://github.com/masahitojp/mariamem/actions/runs/39631360824)
+now [passes the minimal CALL](reviews/v06x-prepared-call-pass.md) on both OSes at42be2b5,
+including exact native metadata/rows/status, OUT, terminal OK, following SQL and
+Close/PING. P1/all72 P2 controls and18 installed mutations also PASS per OS.
+The minimal P3 feasibility gate is closed; the full P3 matrix/capability truthfulness
+and P4–P6 remain pending.
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
