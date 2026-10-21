@@ -537,3 +537,15 @@ Six local controls pass. Native packets/scenario functions/oracles remain intact
 the BIT implementation is not repaired and no new guest identity is introduced.
 Repeat all20 cases on both OSes to establish the actual repair scope. A green
 result is not assumed; source-internal edits still require the existing decision.
+
+## P2 isolated matrix — eight actual failures, additional repair decision
+
+[CI39585983268](https://github.com/masahitojp/mariamem/actions/runs/39585983268)
+atd11f4ff completes all20 in independent DB/hosts on both platforms:12 match
+native, seven parameter type inputs independently time out, and schema-add
+returns2057 followed by commands-out-of-sync2014. Earlier gates still pass.
+[Current failure assessment](v06x-prepared-p2-blockers.md) records source owners,
+exact evidence and the proposed bounded continuation. No implementation repair
+or new source change is included. The existing MariaDB-internal stop condition
+now requires a Human decision before expanding the patch scope. P2 remains open;
+neither harness isolation nor the12 passing scenarios completes P2–P6.

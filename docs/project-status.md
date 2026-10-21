@@ -797,9 +797,15 @@ passed original probes on both OSes but exposed a BIT16 timeout/DB termination;
 only the first2 scenarios matched, while the next17 were not independently
 assessed after that shared DB died. The [test-isolation repair](reviews/v06x-prepared-p2-isolation-evidence/receipt.json)
 uses a fresh root DB/host for each of the same20 scenarios and captures logs/
-teardown errors;6 local controls PASS. BIT itself is not fixed; both-OS isolated
-comparison is the next diagnostic gate. P2–P6 and full production acceptance
-remain unfinished.
+teardown errors;6 local controls PASS. The isolated
+[gate39585983268](https://github.com/masahitojp/mariamem/actions/runs/39585983268)
+atd11f4ff independently matches12 scenarios on both OSes and fails8: seven raw
+parameter type inputs time out; schema-add returns2057 and leaves following SQL
+out of sync. Previous P1/original22/TIME13 and smoke/binding gates still PASS.
+[Failure assessment and bounded repair proposal](reviews/v06x-prepared-p2-blockers.md)
+preserve exact captures, separate observed harm from source inference, and await
+Human decision before any additional MariaDB-internal change. No fix or scope
+reduction is accepted here. P2–P6 and full production acceptance remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
 
