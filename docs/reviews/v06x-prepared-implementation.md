@@ -662,3 +662,20 @@ P1/all72 P2 cases, smoke and18 installed binding mutations also PASS. See the
 [saved results and remaining scope](v06x-prepared-call-pass.md). This closes only
 the first P3 feasibility gate; full P3/capability truthfulness, P4–P6 and later
 production/release decisions remain open. No runtime code changes here.
+
+### Full P3 local matrix and bounded negotiation repair
+
+[Source/evidence](v06x-prepared-p3-matrix.md) preserves13 native controls and
+baseline11 PASS/2 FAIL: dedicated OUT results were emitted without external
+PS_MULTI_RESULTS negotiation. The Go-only repair validates the complete guest
+chain before native-matched OUT selection; normal results/errors are retained.
+Ready/open is checked before conditional EXECUTE capability advertisement;
+FOUND_ROWS still replaces the registry and binds final client flags.
+A paired positive control adds one case without changing any prior expectation.
+The source49cb504 handwritten host and unchanged99-file guest runtime pass all14
+actual/native cases on macOS, prior P1/all72 P2, minimal CALL and SQL/transaction/
+Snapshot/Fork/Close smoke. Local112 Python/C and3 non-race Go packages PASS.
+The diagnostic composite source/binary receipt is distinct from the unchanged
+formal baseline record. Fresh both-OS candidate/race CI remains required; no
+source-origin guard, generated Go, guest or converter changes are introduced.
+P3 is not closed locally, and P4–P6/main/release decisions remain open.

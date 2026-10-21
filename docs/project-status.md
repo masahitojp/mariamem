@@ -842,8 +842,12 @@ is accepted. [CI39631360824](https://github.com/masahitojp/mariamem/actions/runs
 now [passes the minimal CALL](reviews/v06x-prepared-call-pass.md) on both OSes at42be2b5,
 including exact native metadata/rows/status, OUT, terminal OK, following SQL and
 Close/PING. P1/all72 P2 controls and18 installed mutations also PASS per OS.
-The minimal P3 feasibility gate is closed; the full P3 matrix/capability truthfulness
-and P4–P6 remain pending.
+The minimal P3 feasibility gate is closed. The [full P3 candidate](reviews/v06x-prepared-p3-matrix.md)
+then matches11/13 baseline cases and exposes two unnegotiated-OUT differences.
+A bounded Go bridge negotiation fix now passes all14 native/guest cases on macOS,
+including paired flag states and advertisement; P1/all72 P2 and smoke remain PASS.
+Local112 Python/C and3 non-race Go package checks PASS. Fresh exact-candidate
+both-OS/race CI is next; P3 completion and P4–P6 remain pending.
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
