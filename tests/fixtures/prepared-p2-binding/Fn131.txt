@@ -1,0 +1,20 @@
+func Fn131(m *base.Module) {
+	mBase := m.M
+	_ = mBase
+	var v2 int32
+	_ = v2
+	var v4 int32
+	_ = v4
+	var v7 int32
+	_ = v7
+	v2 = m.Wasi_snapshot_preview1.Sched_yield(m)
+	mBase = m.M
+	v4 = v2 & int32(65535)
+	if v4 == int32(0) {
+		return
+	} else {
+		v7 = m.G1
+		*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v7)), 0, 4))) = v4
+		return
+	}
+}

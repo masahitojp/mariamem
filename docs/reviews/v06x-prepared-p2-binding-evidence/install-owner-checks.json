@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "guest_sha256": "a52dd707d337d5349a7c5d72bc2108dc823cfe0c625742e93bc0875a2e3b519a",
+  "scope": "installation-owner functions after formal source-only adapter; no full installation or runtime execution",
+  "functions": [
+    "code/p3/p3_pure.go",
+    "code/p8/p8_pure.go",
+    "code/p5/p5_pure.go"
+  ],
+  "module_hook_count": 1,
+  "memfs_pinned_preimage": "PASS",
+  "narrow_atomic_pinned_preimages": "PASS"
+}

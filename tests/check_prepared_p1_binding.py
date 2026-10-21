@@ -1,4 +1,4 @@
-"""Check the exact reviewed P1 binding against newly installed development Go.
+"""Check the exact reviewed P2 binding against newly installed development Go.
 
 Not a substitute for P6's full closure and forced-schedule J1 failure oracle.
 """
@@ -15,7 +15,7 @@ import runtime_thread_lifetime as binding
 
 
 def check(runtime):
-    identity=json.loads((ROOT/'tests/fixtures/prepared-p1-binding/identity.json').read_text())
+    identity=json.loads((ROOT/'tests/fixtures/prepared-p2-binding/identity.json').read_text())
     provenance=json.loads((runtime/'provenance.json').read_text())
     assert provenance['guest_sha256']==identity['guest_sha256']==binding.GUEST_SHA256
     generated=(runtime/'code/generated.go').read_text()
@@ -37,9 +37,9 @@ def check(runtime):
             body=body.replace(hook,'',1)
         digest=hashlib.sha256(re.sub(r'\s+','',body).encode()).hexdigest()
         assert digest==expected==identity['functions'][name]['normalized_sha256']
-        fixture=(ROOT/'tests/fixtures/prepared-p1-binding'/(function+'.txt')).read_text()
+        fixture=(ROOT/'tests/fixtures/prepared-p2-binding'/(function+'.txt')).read_text()
         assert re.sub(r'\s+','',body)==re.sub(r'\s+','',fixture)
-    print('PASS: installed P1 functions match the reviewed exact preimages and handoff')
+    print('PASS: installed P2 functions match the reviewed exact preimages and handoff')
 
 
 if __name__=='__main__':

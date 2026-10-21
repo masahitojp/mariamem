@@ -757,11 +757,15 @@ flag leaking onto the wire; the host-serializer repair passed the corrected
 at3496095, including actual P1 lifecycle and native metadata equivalence.
 P2 typed-value/client decoder and binary-row components passed both-OS units in
 [CI39548803322](https://github.com/masahitojp/mariamem/actions/runs/39548803322)
-at0ceca7c. The child branch experiment/prepared-execute now adds guest typed
-binding/fetching and host EXECUTE dispatch with local mock/sanitizer/race PASS.
-Its next gate is source/unit preflight only; new-guest identity/binding and real
-EXECUTE/native comparison remain pending. P2–P6 and full production acceptance
-remain unfinished.
+at0ceca7c. EXECUTE source compilation and both-OS units passed in
+[CI39554451701](https://github.com/masahitojp/mariamem/actions/runs/39554451701)
+at00962f8; that run intentionally skipped development runtime execution.
+The new guest has now been translated with the fixed converter/13 patches and
+its three allocation/lifetime functions and TLS data reviewed for a single exact
+binding. [Binding evidence](reviews/v06x-prepared-p2-binding-evidence/reproduce.md)
+records50 local input/guard checks PASS. Real P1/P2 wire/native comparison is the
+next both-OS development gate; it has not passed yet. P2–P6 and full production
+acceptance remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
 

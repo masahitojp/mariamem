@@ -296,7 +296,7 @@ new exact-source CI. No exception or incomplete unit is accepted by this repair.
 | Unit | State and next evidence |
 | --- | --- |
 | P1 | Corrected development gate at3496095 PASS on both OSes, including actual ownership and native metadata comparison; later full-scope acceptance remains required |
-| P2 | Codec gate at0ceca7c PASS on both OSes; EXECUTE source owner/host dispatch added with local mock/unit PASS; source-build preflight, exact new binding and actual guest/native execution pending |
+| P2 | Codec gate at0ceca7c PASS on both OSes; EXECUTE source owner/host dispatch added with local mock/unit PASS; source/unit preflight PASS at00962f8; exact new binding review and50 local checks PASS; actual guest/native execution pending |
 | P3 | Prepared CALL/results/OUT and later-error draining pending |
 | P4 | LONG_DATA/no-response/reset/pool/cancel/disconnect and failure/resource matrix pending |
 | P5 | Real Go/Python prepared consumers, native controls and both-OS regression pending |
@@ -331,3 +331,34 @@ reading the initial greeting identity. Capture the prepared schema/operations an
 session generation from the final successful open, not the earlier overwritten
 query result; initialize the statement registry only for that final session.
 Include flagged and unflagged connections in the P1/P5 integration cases.
+
+## P2 exact binding continuation after source preflight
+
+[CI39554451701](https://github.com/masahitojp/mariamem/actions/runs/39554451701)
+at source_commit00962f85fff7cdddadf8724c05f0f44834197b79 passed source compilation
+and both-OS units; development runtime jobs were intentionally skipped.
+Its18,400,359-byte guest has SHA256
+`a52dd707d337d5349a7c5d72bc2108dc823cfe0c625742e93bc0875a2e3b519a`.
+The [binding receipt](v06x-prepared-p2-binding-evidence/receipt.json) and
+[reproduction steps](v06x-prepared-p2-binding-evidence/reproduce.md) bind the fixed
+source/toolchain, converter13 patches, raw generation and source-adapter outputs.
+
+Fn131 is unchanged. Fn153 and Fn214 differ only in observed absolute-address
+literals, each increased by1152; the complete normalized bodies otherwise match
+the P1 preimages. This is an offline comparison, not a relocation-tolerant guard:
+installation still requires exact complete hashes, and fresh address mutations
+are rejected. TLS505 bytes match exactly. Other initial data differs; its exact
+hashes/ranges are pinned without claiming full semantic equality from numeric
+relocations. The canonical generated tree is unchanged. No generated Go was
+hand-edited, converter patch changed, or unknown guest admitted by a fallback.
+
+Formal raw translation verification and source-only adaptation passed. The atomic,
+MemFS and lifetime owner transformations passed in their formal adapter order;
+50 local input/mock/sanitizer/binding checks passed. These are not execution of
+the new guest, a full J1 failure/control run, or independent source regeneration.
+The next prepared-product push rebuilds the guest at the submitted commit and
+runs formal development generation/compile/smoke, exact installed bindings,
+P1 lifecycle/native metadata and P2 typed EXECUTE/native binary vectors on both
+OSes. P2's remaining temporal/DML/schema/type matrix, P3–P6 and the separately
+unaccepted C-extension exception remain open. No main adoption or release is
+requested or performed.

@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "recreated_files": 420,
+  "recipe": "fixed archive extracted into isolated initialized repository + same13 patches; all file hashes match excluding .git",
+  "refs": "none"
+}

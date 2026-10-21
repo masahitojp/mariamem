@@ -1,0 +1,7 @@
+{
+  "source_commit": "00962f85fff7cdddadf8724c05f0f44834197b79",
+  "guest_sha256": "a52dd707d337d5349a7c5d72bc2108dc823cfe0c625742e93bc0875a2e3b519a",
+  "guest_bytes": 18400359,
+  "guest_record_sha256": "f4c07370d8855449a2037fa2fcfce23fbe6ba2352f4eb6711fcad5a8e5a85c0d",
+  "toolchain_json_sha256": "e73ecd9023b681a1c2ae0b547a515393990bf95d3ed5eebb21abb014fca04aeb"
+}
