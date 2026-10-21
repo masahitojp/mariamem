@@ -579,3 +579,18 @@ identity is accepted; four older identities are rejected, not allowlisted.
 Submit full prepared-product CI for installed bindings, smoke and all existing
 plus15 repair native controls. Actual runtime PASS is pending; no generated Go
 edit, canonical regeneration completion, main merge or release is claimed.
+
+## P2 actual repair gate — unsigned NULL flag mismatch remains
+
+[CI39601636017](https://github.com/masahitojp/mariamem/actions/runs/39601636017)
+ate8f5f76 passes smoke/installed bindings/P1/22/TIME13/additional20 on both OSes.
+The added15-case gate has seven mismatches: initial/reused unsigned NULL column
+flags omit0x20; rows/terminals and following SQL match throughout. All other
+cases, including single-execution grow/shrink, match native. P2 is not complete.
+[Parameter-order repair](v06x-prepared-param-order.md) addresses the current
+descriptor before conversion in both embedded execution paths. Local102 checks,
+exact full-source application and unchanged15/extra2 native replay PASS.
+No expected fixture or guard is weakened. Submit source preflight on
+experiment/prepared-param-order, review its new identity before the actual gate,
+and retain all prior oracles. This is inside the approved bounded input repair;
+no main adoption, version placement, Qualification or release is decided.

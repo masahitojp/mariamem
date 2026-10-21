@@ -1,11 +1,11 @@
 {
   "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
-  "patch_sha256": "454392be989ebb95d00c92cf8df667cb52e77eb2044c294769d94c9cc2350e34",
+  "patch_sha256": "5bddc92d47b13c68b1eb0b680a068011d4f17839921aafd275121765fd1448bc",
   "files": [
     {
       "file": "sql/sql_prepare.cc",
       "before_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
-      "after_sha256": "b66f2b5b1ac8cbfff25e2cfee6e479586d403c627bfe00ee5d5cfc88b9a09ee1"
+      "after_sha256": "52688fea1cd41b8b0e32c4287d75c2273b82653f1e19858906830291f89a6bd4"
     },
     {
       "file": "libmysqld/libmysql.c",
@@ -15,5 +15,7 @@
   ],
   "purpose": "Approved experimental TIME plus raw parameter types and single-execution result metadata repair; WASIX embedded-only additions. Not canonical adoption.",
   "component_fixture_sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb",
-  "application_stage": "after guest/input.json portability series and canonical guest/source.patch"
+  "application_stage": "after guest/input.json portability series and canonical guest/source.patch",
+  "parameter_fixture_sha256": "f6e60279b9165b9b5e125d58856afcf6f0178f0650015fcca55efe1ed7fbb065",
+  "time_only_intermediate_sha256": "b66f2b5b1ac8cbfff25e2cfee6e479586d403c627bfe00ee5d5cfc88b9a09ee1"
 }

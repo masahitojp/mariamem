@@ -41,6 +41,9 @@ def tree(tmp_path):
     p = root / 'guest/prepared_source_patch.json'
     pin = json.loads(p.read_text())
     pin['component_fixture_sha256'] = sha((root / 'tests/fixtures/prepared-p2-source-functions.json').read_bytes())
+    (root/'tests/fixtures/prepared-param-order-functions.json').write_text(json.dumps(dict(
+        file='sql/sql_prepare.cc',before={},after={})))
+    pin['parameter_fixture_sha256']=sha((root/'tests/fixtures/prepared-param-order-functions.json').read_bytes())
     p.write_text(json.dumps(pin))
     return root, source
 
@@ -61,12 +64,12 @@ def test_check_all_preimages_before_any_mutation(tree):
     assert (source / 'sql/sql_prepare.cc').read_bytes() == b'old\n'
 
 
-@pytest.mark.parametrize('field', ['source_commit', 'patch_sha256', 'component_fixture_sha256', 'before_sha256', 'after_sha256', 'file'])
+@pytest.mark.parametrize('field', ['source_commit', 'patch_sha256', 'component_fixture_sha256', 'parameter_fixture_sha256', 'before_sha256', 'after_sha256', 'file'])
 def test_mutated_pins_rejected(tree, field):
     root, source = tree
     p = root / 'guest/prepared_source_patch.json'
     pin = json.loads(p.read_text())
-    if field in ['source_commit', 'patch_sha256', 'component_fixture_sha256']:
+    if field in ['source_commit', 'patch_sha256', 'component_fixture_sha256', 'parameter_fixture_sha256']:
         pin[field] = 'changed'
     else:
         pin['files'][1][field] = 'changed'
@@ -88,7 +91,13 @@ def test_command_failure_not_hidden(tree, monkeypatch):
 def test_repository_binding_and_time_repair_preserved():
     pin = patch.inputs(ROOT)
     old = json.loads((ROOT / 'guest/prepared_time_patch.json').read_text())
-    assert pin['files'][0] == {k: old[k] for k in ['file', 'before_sha256', 'after_sha256']}
+    assert pin['files'][0]['file']==old['file']
+    assert pin['files'][0]['before_sha256']==old['before_sha256']
+    assert pin['time_only_intermediate_sha256']==old['after_sha256']
+    text=(ROOT/'guest/experimental.patch').read_text()
+    start=text.index('\n@@')
+    end=text.index('\n@@',start+3)
+    assert sha(text[:end+1].encode())==old['patch_sha256']
 
 
 def test_repository_binding_is_after_portability():

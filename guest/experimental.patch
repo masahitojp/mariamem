@@ -9,6 +9,18 @@
  }
  
  void Item_param::set_param_datetime(uchar **pos, ulong len)
+@@ -1199,0 +1200,5 @@
++#ifdef __wasi__
++    /* Type attributes belong to the descriptor, including NULL values.
++       Match set_conversion_functions before selecting the type handler. */
++    param->unsigned_flag= client_param->is_unsigned;
++#endif
+@@ -1236,0 +1242,5 @@
++#ifdef __wasi__
++    /* Type attributes belong to the descriptor, including NULL values.
++       Match set_conversion_functions before selecting the type handler. */
++    param->unsigned_flag= client_param->is_unsigned;
++#endif
 --- a/libmysqld/libmysql.c
 +++ b/libmysqld/libmysql.c
 @@ -1753,0 +1754,8 @@

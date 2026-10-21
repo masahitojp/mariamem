@@ -46,15 +46,15 @@ def scenarios():
     return cases
 
 
-def main():
+def main(selected=None,scope=None):
     p=argparse.ArgumentParser();s=p.add_mutually_exclusive_group(required=True)
     s.add_argument('--native-port',type=int);s.add_argument('--host')
     p.add_argument('--reference',type=Path);p.add_argument('--output',type=Path,required=True)
     args=p.parse_args();result={'result':'FAIL'}
     try:
         info=None if args.host else dict(host='127.0.0.1',port=args.native_port,user='root',database='test')
-        result=matrix.exercise(info=info,host=args.host,selected=scenarios())
-        result['scope']='P2 repair: raw types/null/reuse/transitions and single-execution metadata growth/shrink; not full P2-P6'
+        result=matrix.exercise(info=info,host=args.host,selected=scenarios() if selected is None else selected)
+        result['scope']=scope or 'P2 repair: raw types/null/reuse/transitions and single-execution metadata growth/shrink; not full P2-P6'
         if args.reference:
             expected=json.loads(args.reference.read_text())
             observed,wanted=matrix.comparable(result['cases']),matrix.comparable(expected['cases'])
