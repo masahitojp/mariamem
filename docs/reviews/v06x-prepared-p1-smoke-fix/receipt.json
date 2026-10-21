@@ -1,0 +1,32 @@
+{
+  "source_commit": "e9fe604e7c55e37cbc63c27bdcdb5fcaf3506ca1",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39434643324",
+  "job_results": {
+    "guest-source": "PASS",
+    "unit macOS": "PASS",
+    "unit Ubuntu": "PASS",
+    "development-runtime macOS": "FAIL: obsolete Database._process assertion",
+    "development-runtime Ubuntu": "FAIL: Snapshot requested before disconnected SQL session cleanup",
+    "P1 actual wire and binding probes": "SKIP: predecessor smoke failed; no PASS inferred"
+  },
+  "fix_scope": "tests/test_dev_guest_smoke.py only; add public wait_disconnected before Snapshot and assert shared-session lifetime, all child disposal and final host cleanup",
+  "local_checks": "52 PASS: test_owned_snapshot_unit.py + test_dev_guest_tools.py; smoke syntax PASS",
+  "actual_guest_after_fix": "PENDING CI; not run locally",
+  "files": [
+    {
+      "file": "macos-failure.txt",
+      "original_artifact_file_sha256": "f273ac4430815eb2c5b62236d399e00ee903786dcb16e56f31a1c7efb8b0022e",
+      "stored_excerpt_sha256": "c07c32357290560899ef8dc24cad7f8fec985def70f8d9c129328a9fbd79aca6",
+      "stored_bytes": 5582,
+      "transformation": "last 90 lines; runner-home paths replaced by <runner>; trailing line whitespace removed"
+    },
+    {
+      "file": "ubuntu-failure.txt",
+      "original_artifact_file_sha256": "e3b3b6d5d4bfa0b3c98593e9fa960b9f95b6622b0399706d3c1d97fb1090596c",
+      "stored_excerpt_sha256": "d92d0f560bcccb710e4d6fd3130de75e42d056e5787cfe17aa62d5baa9c27774",
+      "stored_bytes": 5608,
+      "transformation": "last 90 lines; runner-home paths replaced by <runner>; trailing line whitespace removed"
+    }
+  ],
+  "repaired_smoke_sha256": "2b317aae840ac5b517939014b4e1cc0082ec455bb9f1a2358110568e0f0717ed"
+}

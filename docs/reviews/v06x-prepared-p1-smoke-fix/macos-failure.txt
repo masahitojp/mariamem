@@ -1,0 +1,90 @@
+wasm2go: SSA fixpoint cap reached at function Fn18358
+wasm2go: SSA fixpoint cap reached at function Fn18690
+wasm2go: SSA fixpoint cap reached at function Fn19691
+wasm2go: SSA fixpoint cap reached at function Fn19760
+wasm2go: SSA fixpoint cap reached at function Fn11818
+wasm2go: SSA fixpoint cap reached at function Fn14076
+wasm2go: SSA fixpoint cap reached at function Fn15658
+wasm2go: SSA fixpoint cap reached at function Fn850
+
+wasm2go: SSA optimization + memory promotion summary
+  SSA instructions:         4496104 -> 3135767  (-30.3% folded)
+  emit form:                  15740 structured / 5921 goto  (72.7% structured)
+  SSA-lowered functions:      21661
+  functions with a frame:      6716  (563 non-escaping)
+  total memory accesses:     781558
+  promoted (y/x):             31871 / 781558  (  4.1%)
+    frame:                     4835  (  0.6%)
+    rodata:                   27036  (  3.5%)
+  slab (not promoted):       749687  ( 95.9%)
+  top un-promoted functions:
+    Fn21724                      slab=14682  frame=0     total=14913
+    Fn21514                      slab=14021  frame=0     total=14241
+    Fn65                         slab=12701  frame=0     total=13816
+    Fn14554                      slab=6841   frame=0     total=7103
+    Fn5663                       slab=5376   frame=0     total=5381
+
+wasm2go: f16 gather sites at bases [12420976] were not verified (no static table image, no init-loop coverage) — the table-keyed rewrites stayed OFF there
+<runner>/work/_temp/prepared-p1-native/translation/input-manifest.json
+Installed FD audit. Stable directory-object adaptation installed; FD contracts must PASS.
+<runner>/work/_temp/prepared-p1-native/candidate/module
+Installed checksum-bound generated runtime: 62 files
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_dev_fresh_transactions_snapshot_children_and_close ____________
+
+    def test_dev_fresh_transactions_snapshot_children_and_close():
+        children = []
+        with mariamem.start(host_binary=HOST) as db:
+            children.append(db)
+            with pymysql.connect(**db.connection_info()) as c:
+                with c.cursor() as q:
+                    q.execute('SELECT 1')
+                    assert q.fetchone() == (1,)
+                    q.execute('CREATE TABLE dev_items(id INT PRIMARY KEY) ENGINE=InnoDB')
+                    q.execute('INSERT INTO dev_items VALUES(1)')
+                    c.commit()
+                    q.execute('INSERT INTO dev_items VALUES(2)')
+                    c.rollback()
+                    q.execute('SELECT id FROM dev_items ORDER BY id')
+                    assert q.fetchall() == ((1,),)
+            with db.snapshot() as baseline:
+                for index in range(3):
+                    with baseline.fork(host_binary=HOST) as child:
+                        children.append(child)
+                        with pymysql.connect(**child.connection_info(), autocommit=True) as c:
+                            with c.cursor() as q:
+                                q.execute('SELECT id FROM dev_items')
+                                assert q.fetchall() == ((1,),)
+                                q.execute('INSERT INTO dev_items VALUES(%s)', (index+10,))
+            assert db._closed
+        for child in children:
+>           assert child._process.poll() is not None
+                   ^^^^^^^^^^^^^^
+E           AttributeError: 'Database' object has no attribute '_process'
+
+../../../mariamem/mariamem/tests/test_dev_guest_smoke.py:37: AttributeError
+=========================== short test summary info ============================
+FAILED ../../../mariamem/mariamem/tests/test_dev_guest_smoke.py::test_dev_fresh_transactions_snapshot_children_and_close - AttributeError: 'Database' object has no attribute '_process'
+1 failed in 0.36s
+Traceback (most recent call last):
+  File "<runner>/work/mariamem/mariamem/scripts/regenerate_release_guest.py", line 63, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "<runner>/work/mariamem/mariamem/scripts/regenerate_release_guest.py", line 26, in main
+    regenerate_development(ROOT, guest, a.output)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "<runner>/work/mariamem/mariamem/scripts/dev_guest.py", line 210, in regenerate_development
+    run([sys.executable, '-m', 'pytest', str(root/'tests/test_dev_guest_smoke.py'), '-q'],
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        cwd=product, env=smoke_env, check=True, phase='dev:sql-smoke', inputs=[host])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<runner>/work/mariamem/mariamem/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/Library/Frameworks/Python.framework/Versions/3.14/bin/python', '-m', 'pytest', '<runner>/work/mariamem/mariamem/tests/test_dev_guest_smoke.py', '-q']' returned non-zero exit status 1.

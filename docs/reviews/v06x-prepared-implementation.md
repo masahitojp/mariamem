@@ -119,6 +119,26 @@ or main-adoption approval.
 
 ## Remaining authorized work
 
+P1 development CI at e9fe604
+([39434643324](https://github.com/masahitojp/mariamem/actions/runs/39434643324))
+failed in the common smoke after generation/compilation on both native targets.
+Source compilation and both unit jobs passed. Ubuntu reached Snapshot before
+the just-closed SQL connection's server cleanup finished; macOS completed the SQL/
+Snapshot/Fork portion, then failed an obsolete Database._process assertion from
+the pre-shared-host model. Binding and prepared wire probes were skipped, so no
+P1 runtime PASS follows. The [failure receipt and excerpts](v06x-prepared-p1-smoke-fix/receipt.json)
+retain this result; excerpt paths are scrubbed as recorded by their original and
+stored checksums.
+
+The repair changes only the development smoke: use the supported
+wait_disconnected before Snapshot, require children to share their lineage's
+session, keep the host alive while the baseline owns it, then require all DBs/
+owned logs disposed and the last shared host reaped with closed pipes/stderr,
+stopped reader and removed scratch. Runtime code, Busy/transaction guards and
+failure oracles are unchanged. Existing shared-host ownership and dev-tool tests
+passed52 cases locally; the actual guest smoke and later P1 probes require the
+new exact-source CI. No exception or incomplete unit is accepted by this repair.
+
 | Unit | State and next evidence |
 | --- | --- |
 | P1 | Source CI/both-OS units and expanded native control PASS; host lifecycle dispatch added; new-guest/native metadata and actual ownership acceptance pending development CI |
