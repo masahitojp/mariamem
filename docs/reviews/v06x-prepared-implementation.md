@@ -615,3 +615,15 @@ capability, which remains unadvertised during P2. Actual P3 execution is NOT RUN
 First exercise one OUT plus two ordinary results and complete native sequence/
 following SELECT1 within P3, then retain the full approved matrix. No P2 gate,
 prepared scope, generated source or release boundary changes here.
+
+### P2 specified development row closed at5146d8a
+
+[CI39616628715](https://github.com/masahitojp/mariamem/actions/runs/39616628715)
+passes all five jobs, including both native-platform runtime gates. Each OS
+passes P1, installed binding/17 mutations, SQL/transaction/Snapshot/Fork/Close
+smoke and22+13+20+15+2 typed/native scenarios. The former unsigned/NULL metadata
+failures no longer reproduce. [Current disposition and saved evidence](v06x-prepared-p2-pass.md)
+map these results to every specified P2 development criterion, superseding the
+pending P2 states above without rewriting their historical evidence. P3–P6,
+production adoption and release remain open; continue with the minimal P3 CALL
+case before its full matrix. No runtime source is changed by this evidence entry.

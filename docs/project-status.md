@@ -826,8 +826,12 @@ passes guest-source and both-OS units at a342f30. The
 [parameter-order binding review](reviews/v06x-prepared-param-order-binding/reproduce.md)
 verifies new guest4dad84d0 with unchanged converter/13 patches, full lifetime
 bodies, data/TLS and memory initialization; local103 checks PASS. Both-OS actual
-runtime/native confirmation remains pending on prepared-product.
-No scope reduction is accepted. P2–P6 and full production acceptance remain unfinished.
+runtime/native confirmation now [PASSes at5146d8a](reviews/v06x-prepared-p2-pass.md)
+in [CI39616628715](https://github.com/masahitojp/mariamem/actions/runs/39616628715):
+all72 typed scenarios per OS, P1, smoke and17 installed binding mutation tests.
+The specified P2 development acceptance row is satisfied; P3–P6 and full
+production acceptance remain unfinished. Next is the [minimal P3 CALL case](reviews/v06x-prepared-p3-source.md).
+No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
 
