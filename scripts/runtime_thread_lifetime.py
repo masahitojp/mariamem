@@ -7,14 +7,14 @@ before installing the handoff; this is a single-guest binding, not a generic ABI
 import hashlib
 import re
 
-# Candidate-only P2 type/metadata-repair binding: canonical release inputs remain the routine guest
+# Candidate-only P3 CALL binding: canonical release inputs remain the routine guest
 # until P6. See tests/fixtures/prepared-p2-binding and the implementation review.
 # A fresh source build must match this single identity before development use.
-GUEST_SHA256 = "4dad84d0b7eba16aa457d23e76fe82d8ae6836dc910545f2203fb5ad8030ba76"
+GUEST_SHA256 = "e6d6021a5753492169aeacbbc787e693e1730026b6da9960ef8c6ace296ac37a"
 FUNCTIONS = {
-    "code/p3/p3_pure.go": ("Fn153", "7287c2422d92f9cb8e1b35e90d6ff5a49f9d5578ae567ff46a261a4b11159270"),
+    "code/p3/p3_pure.go": ("Fn153", "ed283d10ae0c72b68b111efacdfbf08a87772ed0e8fa27e8b05ed1debece667b"),
     "code/p8/p8_pure.go": ("Fn131", "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"),
-    "code/p5/p5_pure.go": ("Fn214", "e8d7ae281efd9f856fd14ae535c40473e2ccbf2af261bf67fa716bac40e3bfab"),
+    "code/p5/p5_pure.go": ("Fn214", "33b932bca2adfbc3005deed2c8849fe4d604f570eb8c2f7f3d62d4dad2ea6c1f"),
 }
 
 

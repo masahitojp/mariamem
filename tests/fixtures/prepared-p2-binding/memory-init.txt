@@ -16,22 +16,22 @@ func Fn67(m *base.Module) {
 	var v36 int32
 	_ = v36
 	v2 = int32(0)
-	v5 = base.AtomicRmwCmpxchg32(m, int32(24227312), v2, v2, int32(1))
+	v5 = base.AtomicRmwCmpxchg32(m, int32(24227376), v2, v2, int32(1))
 	switch v5 {
 	case 0:
 		v7 = int32(0)
-		base.MemoryInit(m, 0, int32(8388608), v7, int32(6212966))
-		base.MemoryInit(m, 1, int32(14601600), v7, int32(642620))
-		v14 = int32(15244224)
+		base.MemoryInit(m, 0, int32(8388608), v7, int32(6213030))
+		base.MemoryInit(m, 1, int32(14601664), v7, int32(642620))
+		v14 = int32(15244288)
 		m.G1 = v14
 		base.MemoryInit(m, 2, v14, v7, int32(505))
-		base.MemoryFill(m, int32(15244736), v7, int32(8982576))
-		v24 = int32(24227312)
+		base.MemoryFill(m, int32(15244800), v7, int32(8982576))
+		v24 = int32(24227376)
 		v25 = int32(2)
 		atomic.StoreUint32((*uint32)(unsafe.Add(m.M, base.AtomicEA(m, v24, int32(0), 4))), uint32(v25))
 		v31 = base.AtomicNotify(m, v24, v7, int32(-1))
 	case 1:
-		v36 = base.AtomicWait32(m, int32(24227312), int32(0), int32(1), int64(-1))
+		v36 = base.AtomicWait32(m, int32(24227376), int32(0), int32(1), int64(-1))
 	default:
 	}
 	base.DataDrop(m, 0)

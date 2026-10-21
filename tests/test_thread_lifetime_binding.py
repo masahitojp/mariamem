@@ -45,8 +45,8 @@ def test_bound_function_change_is_rejected(name):
 
 
 @pytest.mark.parametrize('name,address', [
-    ('code/p3/p3_pure.go', '15246156'),
-    ('code/p5/p5_pure.go', '15244737'),
+    ('code/p3/p3_pure.go', '15246220'),
+    ('code/p5/p5_pure.go', '15244801'),
 ])
 @pytest.mark.parametrize('earlier_same_literal', [False, True])
 def test_another_address_relocation_is_not_accepted(name, address, earlier_same_literal):
@@ -90,7 +90,7 @@ def test_guest_and_required_file_identity():
             binding.validate_inputs(binding.GUEST_SHA256, files-{file})
 
 
-@pytest.mark.parametrize('old_identity', ['baseline_guest_sha256', 'previous_guest_sha256', 'p1_guest_sha256', 'initial_p2_guest_sha256', 'type_repair_guest_sha256'])
+@pytest.mark.parametrize('old_identity', ['baseline_guest_sha256', 'previous_guest_sha256', 'p1_guest_sha256', 'initial_p2_guest_sha256', 'type_repair_guest_sha256', 'p2_guest_sha256'])
 def test_old_guest_is_not_an_alternate_allowed_identity(old_identity):
     old=json.loads((ROOT/'tests/fixtures/prepared-p2-binding/identity.json').read_text())[old_identity]
     files={'generated/base/base.go',*('generated/'+p.removeprefix('code/') for p in binding.FUNCTIONS)}

@@ -832,8 +832,13 @@ all72 typed scenarios per OS, P1, smoke and17 installed binding mutation tests.
 The specified P2 development acceptance row is satisfied; P3–P6 and full
 production acceptance remain unfinished. The [minimal P3 source candidate](reviews/v06x-prepared-call-minimal.md) now adds
 owned binary result chains and an OUT+two-results native reference. Local106
-Python/C checks, three Go race packages and native replay PASS. Actual new
-guest compilation/identity review and both-OS CALL execution remain pending.
+Python/C checks, three Go race packages and native replay PASS.
+[Source preflight39624071363](https://github.com/masahitojp/mariamem/actions/runs/39624071363)
+passes guest-source and both-OS units at46f5c2c. The
+[P3 binding review](reviews/v06x-prepared-call-binding/reproduce.md) records new
+gueste6d6021a, its64-byte data/BSS layout shift, exact complete functions/init,
+unchanged TLS content and107 local ownership checks PASS. Only that new guest
+is accepted; actual both-OS CALL comparison remains pending on prepared-product.
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.

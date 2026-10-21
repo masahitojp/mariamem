@@ -93,3 +93,12 @@ success.
 P3 actual guest, full P3, P4–P6, canonical independent regeneration and final
 production/release decisions remain unfinished. No new architecture exploration
 or compatibility profile is introduced by this first source candidate.
+
+## Source preflight and binding follow-up
+
+Source and both-OS unit jobs in39624071363 PASS at46f5c2c. The new
+[binding review](v06x-prepared-call-binding/reproduce.md) records the exact guest,
+64-byte BSS/layout relocation, unchanged TLS and107 local checks PASS. The old
+4dad84d0 rejection is retained and extended; the current single allowed guest
+is e6d6021a. This supersedes the pending source/binding state above only. Actual
+both-OS CALL/native execution and the complete P3 matrix remain pending.

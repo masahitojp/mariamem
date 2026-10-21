@@ -1,4 +1,4 @@
-"""Check the exact reviewed P2 binding against newly installed development Go.
+"""Check the exact reviewed prepared binding against newly installed development Go.
 
 Not a substitute for P6's full closure and forced-schedule J1 failure oracle.
 """
@@ -49,7 +49,7 @@ def check(runtime):
         assert digest==expected==identity['functions'][name]['normalized_sha256']
         fixture=(ROOT/'tests/fixtures/prepared-p2-binding'/(function+'.txt')).read_text()
         assert re.sub(r'\s+','',body)==re.sub(r'\s+','',fixture)
-    print('PASS: installed P2 functions match the reviewed exact preimages and handoff')
+    print('PASS: installed prepared functions match the reviewed exact preimages and handoff')
 
 
 if __name__=='__main__':

@@ -639,3 +639,15 @@ Actual new guest generation, exact binding and both-OS execution remain pending;
 old binding guards reject unknown Wasm. External PS_MULTI_RESULTS stays
 unadvertised until full P3 acceptance; no public API/converter/canonical patch or
 Generated Go is changed. Source preflight and P3 actual runtime are separate.
+
+### P3 source preflight and exact new guest binding
+
+[Preflight39624071363](https://github.com/masahitojp/mariamem/actions/runs/39624071363)
+passes guest-source and both-OS units at46f5c2c; runtime is SKIP by branch design.
+The [binding review](v06x-prepared-call-binding/reproduce.md) binds gueste6d6021a
+through unchanged converter13 patches. It explains all64-byte BSS reference shifts,
+full data/segment/init identities and unchanged505-byte TLS, then pins complete
+preimages without numeric normalization. Local107 checks PASS and all older
+guests remain rejected. Formal installation/compilation and actual P1/P2/minimal
+CALL comparison on both OSes remain the next prepared-product CI gate. P3 actual
+acceptance and full P3–P6 are not closed by source/layout/component evidence.

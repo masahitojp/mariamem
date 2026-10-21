@@ -1,0 +1,7 @@
+{
+  "complete_functions_data_TLS_init": "PASS",
+  "formal_source_adapter": "PASS",
+  "pure_atomic_memfs_lifetime_transforms": "PASS",
+  "single_guest_input_guard": "PASS",
+  "installed_runtime": "NOT RUN"
+}
