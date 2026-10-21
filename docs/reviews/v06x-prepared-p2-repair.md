@@ -65,8 +65,8 @@ Canonical guest/source.patch and release's experimental-patch rejection are inta
 | Fixed native12.3.3:15 added controls and replay | PASS | Both unsigned flags, NULL/non-NULL/reused descriptors, integer→raw-type transitions; grow/shrink with a counter advancing exactly once per execution and healthy following SQL |
 | Unchanged native20/22/TIME13 references replay | PASS | Prior expectations are not edited to accommodate this candidate |
 | Canonical generated inventory/public-source checks | PASS | Existing canonical runtime intact; not a new guest PASS |
-| New guest Wasm/source build | PENDING | Source/unit preflight CI on experiment/prepared-p2-repair |
-| New allocation/lifetime functions, data/TLS binding and installed runtime | PENDING | Review actual new output before using its identity; no allowlist/guard bypass |
+| New guest Wasm/source build | PASS, CI39596726209 | Source/both-OS units at68fb5c2; single UNQUALIFIED build |
+| New allocation/lifetime functions and data/TLS/initialization binding | PASS, source review | [Binding review](v06x-prepared-p2-repair-binding/reproduce.md); installed runtime still pending, no allowlist/guard bypass |
 | Both-OS actual guest: previous gates plus20 and15 repair cases | PENDING | Needed before judging the eight failures repaired |
 
 The component source fixture retains upstream copyright/license notices. Its

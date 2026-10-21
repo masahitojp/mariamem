@@ -1,0 +1,2 @@
+Installed FD audit. Stable directory-object adaptation installed; FD contracts must PASS.
+<repo>/build/experiment-work/prepared-p2-repair-binding/temp/candidate/module

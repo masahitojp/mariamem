@@ -807,9 +807,15 @@ preserve exact captures and separate observed harm from source inference.
 The Human approved the bounded two-part repair continuation. The
 [source candidate](reviews/v06x-prepared-p2-repair.md) preserves raw parameter
 types and rebuilds changed result metadata without SQL retry. Its91 focused
-macOS component checks and15 added fixed-native controls PASS; actual new guest
-build, identity review and both-OS runtime comparison remain pending. No scope
-reduction is accepted. P2–P6 and full production acceptance remain unfinished.
+macOS component checks and15 added fixed-native controls PASS. The
+[source preflight39596726209](https://github.com/masahitojp/mariamem/actions/runs/39596726209)
+passes source/both-OS units at68fb5c2. The
+[new guest binding review](reviews/v06x-prepared-p2-repair-binding/reproduce.md)
+verifies guest41ab4076 through the fixed converter/13 patches: all3 lifetime
+function bodies, full data and TLS match the previous guest; memory initialization
+is checked/pinned too. Local94 checks PASS. Formal installation and the both-OS
+actual native comparisons are next; the eight guest failures are not closed yet.
+No scope reduction is accepted. P2–P6 and full production acceptance remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
 

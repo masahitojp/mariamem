@@ -563,3 +563,19 @@ These are components/reference checks, not actual patched guest execution.
 Submit source/unit preflight on experiment/prepared-p2-repair; only after the
 new guest identity/body/data/TLS review should the full prepared-product gate
 run. The eight guest failures remain unclosed until that comparison passes.
+
+## P2 repair guest — exact binding reviewed, actual both-OS gate next
+
+[Source preflight39596726209](https://github.com/masahitojp/mariamem/actions/runs/39596726209)
+passes guest-source and both-OS units at68fb5c2. Guest41ab4076 is verified against
+the exact clean source inventory and unchanged toolchain; the fixed converter
+and13 patches reproduce byte-identical Fn153/Fn131/Fn214, full data and TLS.
+[Binding evidence/reproduction](v06x-prepared-p2-repair-binding/reproduce.md)
+preserve the complete raw inventory, including30 changed files of51. Formal
+source adapter/pure owner transforms and94 local checks pass. Memory initialization
+placements are explicitly checked and the complete Fn67 body is added to the
+installed checker with an offset mutation rejection test. Only the new guest
+identity is accepted; four older identities are rejected, not allowlisted.
+Submit full prepared-product CI for installed bindings, smoke and all existing
+plus15 repair native controls. Actual runtime PASS is pending; no generated Go
+edit, canonical regeneration completion, main merge or release is claimed.

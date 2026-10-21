@@ -14,6 +14,15 @@ sys.path.insert(0,str(ROOT/'scripts'))
 import runtime_thread_lifetime as binding
 
 
+def check_memory_initialization(runtime, identity):
+    pin=identity['memory_init']
+    body=binding.function((runtime/pin['file']).read_text(),pin['function'])
+    normalize=lambda text:re.sub(r'\s+','',text)
+    assert hashlib.sha256(normalize(body).encode()).hexdigest()==pin['normalized_sha256'],'memory initialization changed'
+    fixture=(ROOT/'tests/fixtures/prepared-p2-binding/memory-init.txt').read_text()
+    assert normalize(body)==normalize(fixture),'memory initialization fixture changed'
+
+
 def check(runtime):
     identity=json.loads((ROOT/'tests/fixtures/prepared-p2-binding/identity.json').read_text())
     provenance=json.loads((runtime/'provenance.json').read_text())
@@ -29,6 +38,7 @@ def check(runtime):
     tls=segments[2]
     assert tls['end']-tls['start']==identity['tls_bytes']==505
     assert hashlib.sha256(data[tls['start']:tls['end']]).hexdigest()==identity['tls_sha256']
+    check_memory_initialization(runtime,identity)
     for name,(function,expected) in binding.FUNCTIONS.items():
         body=binding.function((runtime/name).read_text(),function)
         if function=='Fn153':

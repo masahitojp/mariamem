@@ -90,9 +90,22 @@ def test_guest_and_required_file_identity():
             binding.validate_inputs(binding.GUEST_SHA256, files-{file})
 
 
-@pytest.mark.parametrize('old_identity', ['baseline_guest_sha256', 'previous_guest_sha256', 'p1_guest_sha256'])
+@pytest.mark.parametrize('old_identity', ['baseline_guest_sha256', 'previous_guest_sha256', 'p1_guest_sha256', 'initial_p2_guest_sha256'])
 def test_old_guest_is_not_an_alternate_allowed_identity(old_identity):
     old=json.loads((ROOT/'tests/fixtures/prepared-p2-binding/identity.json').read_text())[old_identity]
     files={'generated/base/base.go',*('generated/'+p.removeprefix('code/') for p in binding.FUNCTIONS)}
     with pytest.raises(ValueError,match='unreviewed'):
         binding.validate_inputs(old,files)
+
+
+@pytest.mark.parametrize('mutate_offset',[False,True])
+def test_memory_initialization_binding(tmp_path,mutate_offset):
+    import check_prepared_p1_binding as checker
+    identity=json.loads((ROOT/'tests/fixtures/prepared-p2-binding/identity.json').read_text())
+    body=(ROOT/'tests/fixtures/prepared-p2-binding/memory-init.txt').read_text()
+    target=tmp_path/identity['memory_init']['file'];target.parent.mkdir(parents=True)
+    target.write_text(body.replace('int32(8388608)','int32(8388612)',1) if mutate_offset else body)
+    if mutate_offset:
+        with pytest.raises(AssertionError,match='memory initialization changed'):
+            checker.check_memory_initialization(tmp_path,identity)
+    else:checker.check_memory_initialization(tmp_path,identity)
