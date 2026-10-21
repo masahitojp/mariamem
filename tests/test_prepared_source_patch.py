@@ -30,7 +30,9 @@ def tree(tmp_path):
         p.write_bytes(b'old\n')
         delta += '--- a/'+name+'\n+++ b/'+name+'\n@@ -1 +1 @@\n-old\n+new\n'
         files.append(dict(file=name, before_sha256=sha(b'old\n'), after_sha256=sha(b'new\n')))
-    (root / 'guest/input.json').write_text(json.dumps(dict(source_commit='fixed')))
+    (root / 'guest/input.json').write_text(json.dumps(dict(source_commit='fixed',patches=[{
+        'file':'guest/patches/common-portability.patch',
+        'after_sha256':{'libmysqld/libmysql.c':sha(b'old\n')}}])))
     (root / 'guest/experimental.patch').write_text(delta)
     (root / 'guest/prepared_source_patch.json').write_text(json.dumps(dict(
         source_commit='fixed', patch_sha256=sha(delta.encode()), files=files)))
@@ -87,6 +89,21 @@ def test_repository_binding_and_time_repair_preserved():
     pin = patch.inputs(ROOT)
     old = json.loads((ROOT / 'guest/prepared_time_patch.json').read_text())
     assert pin['files'][0] == {k: old[k] for k in ['file', 'before_sha256', 'after_sha256']}
+
+
+def test_repository_binding_is_after_portability():
+    source=json.loads((ROOT/'guest/input.json').read_text())
+    expected=source['patches'][0]['after_sha256']['libmysqld/libmysql.c']
+    assert patch.inputs(ROOT)['files'][1]['before_sha256']==expected
+
+
+def test_wrong_preparation_phase_rejected_before_mutation(tree):
+    root,source=tree;p=root/'guest/input.json';data=json.loads(p.read_text())
+    data['patches'][0]['after_sha256']['libmysqld/libmysql.c']='wrong-phase'
+    p.write_text(json.dumps(data))
+    with pytest.raises(ValueError,match='inputs changed'):
+        patch.apply(source,root)
+    assert (source/'sql/sql_prepare.cc').read_bytes()==b'old\n'
 
 
 @pytest.mark.parametrize('version,wasi,expected', [

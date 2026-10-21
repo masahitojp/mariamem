@@ -45,6 +45,11 @@ remains byte-for-byte the previously approved repair and has the same SQL source
 postimage. The old prepared_time_patch.json/helper is retained for historical
 identity/tests; its repository entry point now rejects use when superseded.
 prepare_guest uses the combined exact patch and records experimental_prepared_patch.
+The libmysql preimage is the fixed common-portability output2030952136e69dc9,
+not pristine upstream d8f0a9d4f7c638bd. Its pin is checked against guest/input.json's
+portability postimage before application; a wrong-phase negative control rejects
+the mismatch before changing either file. The remaining redo portability patch
+and canonical source.patch do not modify these two inputs.
 Every complete preimage is checked before either file is changed. Failures,
 changed inputs, changed proof functions and repeat application are rejected.
 Canonical guest/source.patch and release's experimental-patch rejection are intact.
@@ -53,7 +58,7 @@ Canonical guest/source.patch and release's experimental-patch rejection are inta
 
 | Check | Result | What it establishes |
 | --- | --- | --- |
-| Complete original source → combined patch → complete postimages, checked proof extracts, repeat rejection | PASS | Fixed source application; no fuzzy/source drift acceptance |
+| Pristine source → fixed portability → experimental patch → complete postimages, checked proof extracts, repeat rejection | PASS | Fixed source application and input phase; no fuzzy/source drift acceptance |
 | Focused89 checks on macOS arm64 | PASS | Patch guards, real extracted source functions with mock dependencies, owner cleanup, existing binding/tooling guards and new oracle negative controls |
 | Source-function before/after controls, normal and address/undefined sanitizers | PASS | Before: all7 rejected, changed count2057. After:7 accepted with type codes intact, counts grow/shrink without a second execution, input binding retained |
 | Metadata allocation failure injection | PASS, component scope | Each of16 allocations for two columns fails separately, including name/default copies; error2008, no fetch, one execution. This is not full engine/allocator fault coverage |

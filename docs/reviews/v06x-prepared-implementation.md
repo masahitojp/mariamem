@@ -556,7 +556,7 @@ The Human approved proceeding with the two-part proposal.
 [Candidate and reproduction](v06x-prepared-p2-repair.md) record the WASIX embedded
 raw-type binding extension, single-execution metadata rebuild, allocation/error
 cleanup, exact combined patch ownership and15 additional native controls.
-All89 focused local tests pass, including pre-fix source controls, sanitizers,
+All91 focused local tests pass, including pre-fix source controls, sanitizers,
 metadata allocation failure injection and duplicate-execution oracle rejection.
 Native15/20/22/TIME13 replay and unchanged canonical inventory/public checks PASS.
 These are components/reference checks, not actual patched guest execution.

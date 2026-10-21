@@ -806,7 +806,7 @@ out of sync. Previous P1/original22/TIME13 and smoke/binding gates still PASS.
 preserve exact captures and separate observed harm from source inference.
 The Human approved the bounded two-part repair continuation. The
 [source candidate](reviews/v06x-prepared-p2-repair.md) preserves raw parameter
-types and rebuilds changed result metadata without SQL retry. Its89 focused
+types and rebuilds changed result metadata without SQL retry. Its91 focused
 macOS component checks and15 added fixed-native controls PASS; actual new guest
 build, identity review and both-OS runtime comparison remain pending. No scope
 reduction is accepted. P2–P6 and full production acceptance remain unfinished.

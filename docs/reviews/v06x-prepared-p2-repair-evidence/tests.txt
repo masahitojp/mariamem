@@ -1,5 +1,5 @@
-........................................................................ [ 80%]
-.................                                                        [100%]
+........................................................................ [ 79%]
+...................                                                      [100%]
 ==================================== PASSES ====================================
 ___________________ test_exact_apply_and_double_application ____________________
 ----------------------------- Captured stdout call -----------------------------
@@ -46,6 +46,8 @@ PASSED tests/test_prepared_source_patch.py::test_mutated_pins_rejected[after_sha
 PASSED tests/test_prepared_source_patch.py::test_mutated_pins_rejected[file]
 PASSED tests/test_prepared_source_patch.py::test_command_failure_not_hidden
 PASSED tests/test_prepared_source_patch.py::test_repository_binding_and_time_repair_preserved
+PASSED tests/test_prepared_source_patch.py::test_repository_binding_is_after_portability
+PASSED tests/test_prepared_source_patch.py::test_wrong_preparation_phase_rejected_before_mutation
 PASSED tests/test_prepared_source_patch.py::test_real_source_functions[False-before-True-expected0]
 PASSED tests/test_prepared_source_patch.py::test_real_source_functions[False-after-True-expected1]
 PASSED tests/test_prepared_source_patch.py::test_real_source_functions[False-after-False-expected2]
@@ -123,4 +125,4 @@ PASSED tests/test_dev_guest_tools.py::test_dev_and_release_entrypoints_parse
 PASSED tests/test_dev_guest_tools.py::test_missing_installation_provenance_rejected
 PASSED tests/test_dev_guest_tools.py::test_external_release_namespace_rejected
 PASSED tests/test_dev_guest_tools.py::test_historical_guest_origin_allows_only_bound_host_stage_changes
-89 passed in 3.38s
+91 passed in 7.64s

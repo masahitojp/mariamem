@@ -4,7 +4,7 @@
   "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
   "patch_pin": {
     "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
-    "patch_sha256": "259c1afcf50a173406a7dd75c691eedc3f8643e8353bcb07aabd62955fbc255b",
+    "patch_sha256": "454392be989ebb95d00c92cf8df667cb52e77eb2044c294769d94c9cc2350e34",
     "files": [
       {
         "file": "sql/sql_prepare.cc",
@@ -13,16 +13,17 @@
       },
       {
         "file": "libmysqld/libmysql.c",
-        "before_sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
-        "after_sha256": "02e7c561a33fff7cfc85ac953fc02149f06231f6c73ee8a27562b3ac78ee6159"
+        "before_sha256": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+        "after_sha256": "9568d5eb9d40839ef61be354cbd584b72c566586e89e80ff0874db0559fb57c7"
       }
     ],
     "purpose": "Approved experimental TIME plus raw parameter types and single-execution result metadata repair; WASIX embedded-only additions. Not canonical adoption.",
-    "component_fixture_sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb"
+    "component_fixture_sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb",
+    "application_stage": "after guest/input.json portability series and canonical guest/source.patch"
   },
   "local_component_tests": {
     "result": "PASS",
-    "count": 89,
+    "count": 91,
     "platform": "macOS arm64",
     "C_dependencies": "mock, source functions verified verbatim against complete pinned pre/postimages",
     "memory_checks": "address/undefined sanitizers; independent failure injection for all16 allocations when refreshing two columns",
@@ -46,17 +47,17 @@
     "tests/fixtures/prepared-p2-matrix-native.json": "267d97358f968b7a535194cb021149b86b41f8903c1869ed7b7a07f45d3c6f74"
   },
   "changed_inputs_sha256": {
-    "guest/experimental.patch": "259c1afcf50a173406a7dd75c691eedc3f8643e8353bcb07aabd62955fbc255b",
-    "guest/prepared_source_patch.json": "8bb8700999df209942ffb76bdb9f822bce2f9df1d9b1d4a259713126bc8b3970",
+    "guest/experimental.patch": "454392be989ebb95d00c92cf8df667cb52e77eb2044c294769d94c9cc2350e34",
+    "guest/prepared_source_patch.json": "7657da678a97d7c10c7e1facb945726e8076de8badf5c86f3a710408e84014a7",
     "guest/prepared_api.inc": "299a771c2fe94a68bd0815287b302ee553659f17cb6547434faa324a4ff3f905",
-    "scripts/prepared_source_patch.py": "6d64f804dac39277eb771a95325980c39775966f786f057693a4f15c7a9f3693",
+    "scripts/prepared_source_patch.py": "9b6a202ae2c5140455d6651bc2250d0d8833047abed01a7dee7300c29035b801",
     "scripts/prepare_guest.py": "5d686bac921a6bad479e9e2b9364c06256cf803552867055dd69cb6419729962",
     "tests/fixtures/prepared-p2-source-functions.json": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb",
     "tests/fixtures/prepared_p2_source_harness.c": "c5676b9d6de2e2fdc8b71d8a67a6ec49a34bb203d00a1c2ff928c45e057459cc",
     "tests/fixtures/prepared-p2-repair-native.json": "ec2b8efbfaf624fcff7e98246fe17f24466c197fa4df01af968a18777ad65ee1",
     "tests/v06_prepared_p2_repair_probe.py": "192388f5a7ecc03e076edbaa4dd2ec559529e2421998c0bdfac766950e3f267f",
     "tests/v06_prepared_p2_matrix.py": "8d88db3627f66137a8ef791bcd05b612f740e97aa68eae9166827fcb2129ca50",
-    "tests/test_prepared_source_patch.py": "6eea64e26097de2b60d3ee62b44de7917cbca6f06f2111341deef38fd5ec64d5",
+    "tests/test_prepared_source_patch.py": "10e719414e36321e5eb9423b394cb1f00d5afd3c1a5970d16544ae15875699b4",
     "tests/test_prepared_p2_repair_probe.py": "8d1f8f3e17e172331ba8400c1cc8854f5829341dce92190e230ccc081e4d9b37",
     ".github/workflows/prepared-product.yml": "ab4e76524cbfc6a12770c22d0faf14c6437b074a74ef551496fffea1f216b38d",
     "tests/fixtures/prepared_api_harness.c": "4e75cee12d65f263a319c4e55e9535ba3dca3624fa06f0f4e56e7594f089878e",
@@ -65,8 +66,8 @@
   },
   "evidence_files": {
     "tests.txt": {
-      "sha256": "dac32a4edb87995d60e024e495eb10302a9cb65250adf4f0f0dd73f849fc0015",
-      "bytes": 11958
+      "sha256": "cca25e2a71afcbe9fb6e31cc0d3c27cbc8ba603f497554b2a28c79bd6b9f366b",
+      "bytes": 12145
     },
     "inventory.txt": {
       "sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
@@ -77,8 +78,8 @@
       "bytes": 39
     },
     "patch-application.json": {
-      "sha256": "94f97930bcd1f4a872e95aba46f04d2a77abde8d328b207571457116848017ec",
-      "bytes": 1079
+      "sha256": "a7fdcc0b839fc9387d3e1de2487e7735463776a2511acb3b667eaa74c18d475b",
+      "bytes": 1619
     },
     "native-repair-replay.json": {
       "sha256": "82ee9fec9ffbd494e1838a44fb7a1b589a1ad565a3b5e618dfbc4d633cb1b596",
@@ -108,5 +109,6 @@
     "The source-function proof mocks dependencies; it does not prove complete MariaDB allocator, engine or ABI behavior.",
     "No type renaming, SQL retry, oracle reduction, converter change, generated Go edit, main integration or release."
   ],
-  "patch_application_note": "New libmysql hunks use zero context, with exact complete preimages/postimages and --fuzz=0; the existing TIME hunk is unchanged. This also avoids trailing-whitespace context lines in the tracked patch."
+  "patch_application_note": "New libmysql hunks use zero context, with exact complete preimages/postimages and --fuzz=0; the existing TIME hunk is unchanged. This also avoids trailing-whitespace context lines in the tracked patch.",
+  "preparation_order": "Pristine libmysql d8f0a9... -> fixed portability 203095... -> experimental preimage; wrong-phase and current pin/portability linkage have dedicated unit controls. Canonical source.patch and remaining redo portability patch do not touch these inputs."
 }

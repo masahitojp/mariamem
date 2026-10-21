@@ -24,8 +24,11 @@ def inputs(root=ROOT):
     source = json.loads((root / 'guest/input.json').read_text())
     patch = root / 'guest/experimental.patch'
     names = [item['file'] for item in pin['files']]
+    portability = next((item for item in source.get('patches', [])
+                        if item['file'] == 'guest/patches/common-portability.patch'), {})
     if (pin['source_commit'] != source['source_commit'] or
             names != ['sql/sql_prepare.cc', 'libmysqld/libmysql.c'] or
+            pin['files'][1]['before_sha256'] != portability.get('after_sha256', {}).get('libmysqld/libmysql.c') or
             patch.is_symlink() or digest(patch) != pin['patch_sha256'] or
             digest(root / 'tests/fixtures/prepared-p2-source-functions.json') != pin['component_fixture_sha256'] or
             re.findall(r'^\+\+\+ b/(.+)$', patch.read_text(), re.M) != names):
