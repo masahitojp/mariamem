@@ -509,3 +509,16 @@ remain P2 work; P3–P6 are unchanged. No acceptance condition/oracle was reduce
 no source patch became canonical, and no main adoption/Qualification/release is
 implied. This evidence-only follow-up does not rebuild unchanged runtime code or
 re-trigger the same development CI.
+
+## P2 additional20-case matrix — next actual guest gate
+
+After the TIME repair, [additional P2 controls](v06x-prepared-p2-matrix.md) cover
+DML/uint64 IDs/counts, warnings and recovery, commit/rollback, DATE SQL modes,
+wire/public-API type handling and engine schema reprepare. All20 independent
+scenarios pass the fixed native engine;4 local packet/oracle controls pass.
+[Receipt](v06x-prepared-p2-matrix-evidence/receipt.json) records exact inputs and
+scope. Actual guest acceptance is pending. Failures keep partial responses and
+a following-query health observation, while later scenarios continue independently.
+The guest, converter, single binding and original P1/P2/TIME oracles are unchanged.
+The full development gate now adds this comparison after the existing probes;
+no new canonical inputs, main adoption, Qualification or release is attempted.

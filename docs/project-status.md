@@ -789,8 +789,11 @@ records the new single identity and62 local checks PASS. The full
 atf498396 passed all5 jobs. [Result evidence](reviews/v06x-prepared-p2-time-result/receipt.json)
 confirms actual P1, original22-case P2 and extra13-case TIME/native comparison
 PASS on macOS arm64 and Ubuntu x86_64, plus smoke and13 binding tests per OS.
-The bounded TIME repair is verified for that matrix; P2's extended DML/warnings/
-schema-reprepare/type/SQL-mode coverage still remains. P2–P6 and full production acceptance
+The bounded TIME repair is verified for that matrix. The
+[additional P2 matrix](reviews/v06x-prepared-p2-matrix.md) now defines20 independent
+DML/warnings/schema-reprepare/type/SQL-mode controls, all PASS against fixed
+native12.3.3, with4 local oracle/parser controls PASS. Actual guest comparison
+is pending the next both-OS gate; native success is not guest acceptance. P2–P6 and full production acceptance
 remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
