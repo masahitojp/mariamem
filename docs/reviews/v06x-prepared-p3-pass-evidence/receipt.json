@@ -1,0 +1,194 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39686154515",
+  "source_commit": "6fc594a39ecc27fd92dc798208a02c53748a79b9",
+  "guest_sha256": "e6d6021a5753492169aeacbbc787e693e1730026b6da9960ef8c6ace296ac37a",
+  "result": "PASS",
+  "scope": "P3 development acceptance; not P4-P6 or Qualification",
+  "platforms": {
+    "macos-15": {
+      "artifact_id": 12386434978,
+      "P3_cases": 14,
+      "P3_result": "PASS",
+      "native_comparison": "PASS",
+      "P2_cases": 72,
+      "previous_gates": {
+        "execute": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 22
+        },
+        "time": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 13
+        },
+        "matrix": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 20
+        },
+        "repair": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 15
+        },
+        "unsigned": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 2
+        },
+        "runtime": {
+          "result": "PASS",
+          "checks": [
+            "prepare-does-not-execute-dml",
+            "native-1064-followed-by-query",
+            "70-live-handles-and-no-response-close-ping",
+            "cross-session-unknown-id",
+            "unknown-close-preserves-text-transaction-status",
+            "found-rows-final-session-generation"
+          ]
+        },
+        "call": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "following_select": "PASS",
+          "close_ping": "PASS"
+        }
+      },
+      "installed_mutations": 18,
+      "python_C_checks": 112,
+      "artifact_files_sha256": {
+        "binding-mutations.txt": "1d323cfcee7359a28cac6f60df8ee38ba4b80f9748b6b2bbac6ec6e58837c6e1",
+        "binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+        "call.json": "cb54d86c7e0021b0be5f5201b8de2a71c0dcff7cca35ca99227af6824505f040",
+        "call.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "development.json": "cc7041c6e54b814c93ab93cd271acca3fd9fb74c12e5c7126ae43a602874d2c5",
+        "development.txt": "347d2de08b59eb9a179b2bf878543894df3d8e45fcd79afd2d261d1fc4577036",
+        "execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+        "execute.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "matrix.json": "fe226e1a5cefd03191e7f7a70886ef6e88d4c04a0f770f220579e91d7642f4de",
+        "matrix.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "p3-matrix.json": "3863660799a8335cde577fa7f58d609d47f6755f7d68cb652e7c186a4ac94107",
+        "p3-matrix.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "repair.json": "fb01371c2e6ac92a44f71ab4f4494f0c4443ee99fb83808b458b7a01390084d5",
+        "repair.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime.json": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+        "runtime.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source.json": "e899cdd1c588d365c8271e3d2f41894fb4869ca94b06fccaccd6a99f3badc920",
+        "time.json": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+        "time.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "unsigned.json": "0cdec72e574724e6fce3de4e3ad58f44d65d176d562eed3c296cd84547a2f961",
+        "unsigned.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "unit_artifact_files_sha256": {
+        "baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+        "go-unit.txt": "7488034555223b635f66d14d5f2546d650bc68af41c2416689b69df57606dcaa",
+        "inputs.txt": "81c3fa51f1cd5616e932310d2a5774eff12f1313902a4733dda3af6bf0855737",
+        "public.txt": "1c7379259ea4c7f261413042ee153e5d8f15f140d87e2103da45dcbaf73d3474",
+        "source.json": "e899cdd1c588d365c8271e3d2f41894fb4869ca94b06fccaccd6a99f3badc920"
+      }
+    },
+    "ubuntu-24.04": {
+      "artifact_id": 12386239267,
+      "P3_cases": 14,
+      "P3_result": "PASS",
+      "native_comparison": "PASS",
+      "P2_cases": 72,
+      "previous_gates": {
+        "execute": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 22
+        },
+        "time": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 13
+        },
+        "matrix": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 20
+        },
+        "repair": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 15
+        },
+        "unsigned": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 2
+        },
+        "runtime": {
+          "result": "PASS",
+          "checks": [
+            "prepare-does-not-execute-dml",
+            "native-1064-followed-by-query",
+            "70-live-handles-and-no-response-close-ping",
+            "cross-session-unknown-id",
+            "unknown-close-preserves-text-transaction-status",
+            "found-rows-final-session-generation"
+          ]
+        },
+        "call": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "following_select": "PASS",
+          "close_ping": "PASS"
+        }
+      },
+      "installed_mutations": 18,
+      "python_C_checks": 112,
+      "artifact_files_sha256": {
+        "binding-mutations.txt": "e2c35f391456c7614beae07ab5829f87f8eb7c97542a6f7287dbfebda87f489d",
+        "binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+        "call.json": "2f0c3aacbe3c36cbd63bb5a0b2b067ebbba2a70c5974c410ef573de4b9d6c816",
+        "call.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "development.json": "d3089ce2e90acc90a84ae2489c9a493a5dc36f6f5da6975470dee52d08214524",
+        "development.txt": "8b4f7bf246cc2323a6d5da0d0eb6ba965d1b8190155b4d8e829d49fa5f906ea8",
+        "execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+        "execute.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "matrix.json": "0213ddeb3b16e9e049314ca6edf0129145f07f63c37c1a75c87a69a7f2ce1f76",
+        "matrix.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "p3-matrix.json": "87e19bd7ebadb5512461d2edf865a6935692413b79476deb9bb434012f329c41",
+        "p3-matrix.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "repair.json": "cb2bb6329066e067bdeb01a157fdf4add3dfd672d9e53d059d2ff3eae3e7cf8e",
+        "repair.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime.json": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+        "runtime.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source.json": "e899cdd1c588d365c8271e3d2f41894fb4869ca94b06fccaccd6a99f3badc920",
+        "time.json": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+        "time.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "unsigned.json": "5e51a0721101b095f28915e4cb9dbad8b9ea52d6ff91000bcb9cd471e14b738e",
+        "unsigned.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "unit_artifact_files_sha256": {
+        "baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+        "go-unit.txt": "ef4ffcc28cdd1f528e8b78d598dca867f0b9bcd8caec27f4ec0d3af2d4e51c62",
+        "inputs.txt": "f05ea81819d302f020071f1d82e4b1864537b15563bb3fb8d46646a182743e8b",
+        "public.txt": "1c7379259ea4c7f261413042ee153e5d8f15f140d87e2103da45dcbaf73d3474",
+        "source.json": "e899cdd1c588d365c8271e3d2f41894fb4869ca94b06fccaccd6a99f3badc920"
+      }
+    }
+  },
+  "saved_files_sha256": {
+    "macos-15-development-summary.json": "2a3686a1d4df06cb95780ac5aebadad3baaf6e5d6ae89906d9bfd74fe24cccd9",
+    "macos-15-p3-matrix.json": "3863660799a8335cde577fa7f58d609d47f6755f7d68cb652e7c186a4ac94107",
+    "macos-15-binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+    "macos-15-binding-mutations.txt": "1d323cfcee7359a28cac6f60df8ee38ba4b80f9748b6b2bbac6ec6e58837c6e1",
+    "macos-15-unit-inputs.txt": "81c3fa51f1cd5616e932310d2a5774eff12f1313902a4733dda3af6bf0855737",
+    "macos-15-unit-go-unit.txt": "7488034555223b635f66d14d5f2546d650bc68af41c2416689b69df57606dcaa",
+    "macos-15-unit-public.txt": "1c7379259ea4c7f261413042ee153e5d8f15f140d87e2103da45dcbaf73d3474",
+    "macos-15-unit-baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "ubuntu-24.04-development-summary.json": "8a0d8131111de38855c3131259dce76abfb1e7fd9ead0d3f3547f0986708e0b3",
+    "ubuntu-24.04-p3-matrix.json": "87e19bd7ebadb5512461d2edf865a6935692413b79476deb9bb434012f329c41",
+    "ubuntu-24.04-binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+    "ubuntu-24.04-binding-mutations.txt": "e2c35f391456c7614beae07ab5829f87f8eb7c97542a6f7287dbfebda87f489d",
+    "ubuntu-24.04-unit-inputs.txt": "f05ea81819d302f020071f1d82e4b1864537b15563bb3fb8d46646a182743e8b",
+    "ubuntu-24.04-unit-go-unit.txt": "ef4ffcc28cdd1f528e8b78d598dca867f0b9bcd8caec27f4ec0d3af2d4e51c62",
+    "ubuntu-24.04-unit-public.txt": "1c7379259ea4c7f261413042ee153e5d8f15f140d87e2103da45dcbaf73d3474",
+    "ubuntu-24.04-unit-baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9"
+  },
+  "scrubbing": "Runner home path prefixes become <runner>/. Original and stored hashes are recorded; summaries retain original full receipt hashes."
+}

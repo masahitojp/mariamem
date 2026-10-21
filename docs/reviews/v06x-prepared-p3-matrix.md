@@ -47,8 +47,9 @@ The fixed handwritten host at source_commit
 cases locally on macOS arm64, including required advertisement and both negotiated
 states. There are no failures/different cases. It also passes the previous P1,
 all72 P2 cases, minimal CALL and the SQL/transaction/Snapshot/Fork/Close smoke.
-Local112 Python/C checks PASS; the3 Go packages pass non-race units. Both-OS
-exact-candidate CI, including its race suites, is still pending.
+Local112 Python/C checks PASS; the3 Go packages pass non-race units. Subsequent
+[exact-candidate both-OS CI now PASSes](v06x-prepared-p3-pass.md), including race
+suites and all14 cases; P3 development acceptance is complete.
 
 This local host reuses the formally installed baseline's unchanged99-file
 Generated Go inventory with the identified committed handwritten host source.
@@ -92,5 +93,5 @@ introduced by this repair.
 |No pending result leaks in these scenarios|all responses drained; following QUERY after every execution; CLOSE immediately followed by PING; root cleanup errors fail each case|
 
 These controls do not substitute for P4's broader lifetime/resource testing or
-P5's real Go/Python consumer acceptance. The upcoming both-OS CI must pass this
-same fixed matrix; local PASS alone does not close P3.
+P5's real Go/Python consumer acceptance. Both-OS CI39686154515 now passes this
+same fixed matrix and previous gates; see the linked acceptance record.

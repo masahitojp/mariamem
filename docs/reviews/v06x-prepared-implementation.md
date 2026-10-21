@@ -679,3 +679,16 @@ The diagnostic composite source/binary receipt is distinct from the unchanged
 formal baseline record. Fresh both-OS candidate/race CI remains required; no
 source-origin guard, generated Go, guest or converter changes are introduced.
 P3 is not closed locally, and P4–P6/main/release decisions remain open.
+
+
+### Full P3 development acceptance PASS on both OSes
+
+[CI39686154515](https://github.com/masahitojp/mariamem/actions/runs/39686154515)
+at6fc594a freshly generates/compiles the candidate and passes all14 P3 native
+comparisons, truthful advertisement and negotiated on/off behavior on macOS arm64
+and Ubuntu x86_64. All following QUERY/CLOSE/PING and per-case cleanup controls
+PASS, as do prior P1/all72 P2, minimal CALL, smoke,112 Python/C checks, three Go
+race packages and18 installed mutations per OS. [Saved acceptance evidence](v06x-prepared-p3-pass.md)
+closes the approved P3 development row. P4 lifetime/resources/long data, P5 consumer
+regressions and P6 canonical/J1/independent generation remain unfinished. No main
+integration, Qualification or release decision is implied.

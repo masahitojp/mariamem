@@ -847,7 +847,12 @@ then matches11/13 baseline cases and exposes two unnegotiated-OUT differences.
 A bounded Go bridge negotiation fix now passes all14 native/guest cases on macOS,
 including paired flag states and advertisement; P1/all72 P2 and smoke remain PASS.
 Local112 Python/C and3 non-race Go package checks PASS. Fresh exact-candidate
-both-OS/race CI is next; P3 completion and P4–P6 remain pending.
+[CI39686154515](https://github.com/masahitojp/mariamem/actions/runs/39686154515)
+now [passes the full P3 row on both OSes](reviews/v06x-prepared-p3-pass.md)
+at6fc594a: all14 cases match native, negotiated capability states and following
+QUERY/CLOSE/PING PASS, and previous P1/all72 P2 controls, smoke,112 Python/C
+checks, three Go race packages and18 installed mutations PASS per OS.
+P3 development acceptance is complete; P4–P6 and production acceptance remain unfinished.
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
