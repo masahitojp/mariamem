@@ -763,8 +763,14 @@ at00962f8; that run intentionally skipped development runtime execution.
 The new guest has now been translated with the fixed converter/13 patches and
 its three allocation/lifetime functions and TLS data reviewed for a single exact
 binding. [Binding evidence](reviews/v06x-prepared-p2-binding-evidence/reproduce.md)
-records50 local input/guard checks PASS. Real P1/P2 wire/native comparison is the
-next both-OS development gate; it has not passed yet. P2–P6 and full production
+records50 local input/guard checks PASS. The first full P2 development gate
+[39561037019](https://github.com/masahitojp/mariamem/actions/runs/39561037019)
+passed generation/compile/SQL smoke and exact installed bindings on both OSes,
+but a new mutation test changed an earlier unrelated literal instead of its
+target function. The [test-only repair](reviews/v06x-prepared-p2-mutation-fix/receipt.json)
+scopes the mutation to that function and passes12 focused checks, including an
+earlier-same-literal regression. P1/P2 wire probes were skipped in that run and
+remain pending the corrected gate. P2–P6 and full production
 acceptance remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.

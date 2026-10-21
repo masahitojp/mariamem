@@ -48,12 +48,22 @@ def test_bound_function_change_is_rejected(name):
     ('code/p3/p3_pure.go', '15246156'),
     ('code/p5/p5_pure.go', '15244737'),
 ])
-def test_another_address_relocation_is_not_accepted(name, address):
+@pytest.mark.parametrize('earlier_same_literal', [False, True])
+def test_another_address_relocation_is_not_accepted(name, address, earlier_same_literal):
     # The offline review compared one observed relocation. Runtime matching
     # still requires the exact complete preimage, including every address.
     text=preimage(name)
-    assert address in text
-    changed=text.replace(address,str(int(address)+4),1)
+    if earlier_same_literal:
+        # Installed part files contain other functions with the same address.
+        # A file-wide first replacement can mutate an unrelated function.
+        text='func Fn0(m *base.Module) { _ = '+address+' }\n\n'+text
+    fn=binding.FUNCTIONS[name][0]
+    body=binding.function(text,fn)
+    assert address in body
+    changed_body=body.replace(address,str(int(address)+4),1)
+    assert changed_body != body
+    changed=text.replace(body,changed_body,1)
+    assert binding.function(changed,fn)==changed_body
     with pytest.raises(ValueError,match='function changed'):
         binding.apply(name,changed)
 

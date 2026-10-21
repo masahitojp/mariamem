@@ -362,3 +362,27 @@ P1 lifecycle/native metadata and P2 typed EXECUTE/native binary vectors on both
 OSes. P2's remaining temporal/DML/schema/type matrix, P3–P6 and the separately
 unaccepted C-extension exception remain open. No main adoption or release is
 requested or performed.
+
+## P2 development gate: mutation-test targeting repair
+
+[39561037019](https://github.com/masahitojp/mariamem/actions/runs/39561037019)
+at source_commit6a9a84290ecd6d31d51cc21109a0c49f660f9314 passed source, both-OS
+units, formal generation/compilation/SQL smoke and the exact installed P2 binding
+checker. Both runtime jobs then failed one of10 mutation tests; P1/P2 actual wire
+probes were skipped. This is not a completed P2 runtime comparison.
+
+The new address-mutation test used file-wide first replacement. In an installed
+part file, the same address appeared before Fn214, so it changed an unrelated
+function, left Fn214 intact and incorrectly expected the exact Fn214 guard to
+reject it. Local units had used the isolated reviewed Fn214 fixture, hiding that
+context dependency. The repair extracts the named body first, changes the literal
+inside that body, verifies the changed body is present, then checks rejection.
+The regression includes a preceding unrelated function containing the same literal
+for both tested targets. Local replay confirms the old mutation misses the target
+and the corrected mutation is rejected; all12 focused binding tests pass.
+
+[Receipt, original both-OS failure logs and local transcript](v06x-prepared-p2-mutation-fix/receipt.json)
+preserve the failure. Runtime/guest/converter/source-origin policy, exact hashes,
+preimages and native comparison fixtures are unchanged. Only the test and progress
+evidence change. Resubmit the existing complete development workflow; no canonical
+regeneration, main integration, Qualification or publication occurs here.

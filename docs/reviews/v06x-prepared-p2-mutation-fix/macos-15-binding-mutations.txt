@@ -1,0 +1,24 @@
+....F.....                                                               [100%]
+=================================== FAILURES ===================================
+_ test_another_address_relocation_is_not_accepted[code/p5/p5_pure.go-15244737] _
+
+name = 'code/p5/p5_pure.go', address = '15244737'
+
+    @pytest.mark.parametrize('name,address', [
+        ('code/p3/p3_pure.go', '15246156'),
+        ('code/p5/p5_pure.go', '15244737'),
+    ])
+    def test_another_address_relocation_is_not_accepted(name, address):
+        # The offline review compared one observed relocation. Runtime matching
+        # still requires the exact complete preimage, including every address.
+        text=preimage(name)
+        assert address in text
+        changed=text.replace(address,str(int(address)+4),1)
+>       with pytest.raises(ValueError,match='function changed'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+../../_temp/prepared-p1-native/product/tests/test_thread_lifetime_binding.py:57: Failed
+=========================== short test summary info ============================
+FAILED ../../_temp/prepared-p1-native/product/tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[code/p5/p5_pure.go-15244737] - Failed: DID NOT RAISE <class 'ValueError'>
+1 failed, 9 passed in 1.78s
