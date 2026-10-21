@@ -119,6 +119,38 @@ or main-adoption approval.
 
 ## Remaining authorized work
 
+P1 CI at3eda067
+([39537687879](https://github.com/masahitojp/mariamem/actions/runs/39537687879))
+passed source/unit jobs, the repaired development SQL/transaction/Snapshot/Fork/
+Close smoke and the exact installed binding checks (including7 mutation tests)
+on both OSes. The real wire probe completed its six lifecycle/error/ownership
+checks but failed the final comparison to native metadata. Its overall FAIL is
+preserved in the [metadata-fix evidence](v06x-prepared-p1-metadata-fix/receipt.json).
+The two platforms' captured failure records are byte-identical.
+
+The cause is a representation difference the host failed to translate:
+pinned libmysqld/lib_sql.cc copies server_field.flags into MYSQL_FIELD, then adds
+NUM_FLAG(0x8000) for the include/mysql.h IS_NUM types; protocol.cc serializes the
+original server flags. PREPARE column serialization copied that augmented C API
+value verbatim. The source receipt pins exact files/lines. This is not evidence
+of SQL data corruption; it is an observable metadata mismatch.
+
+The repair is in the handwritten host serializer only: undo that C-derived bit
+for exactly the pinned IS_NUM type set, preserving every other bit and all flags
+for non-IS_NUM types. NULL6 belongs to that C macro, while TIMESTAMP7 and BIT16
+do not. No C overlay, Wasm, converter, generated Go, native reference fixture or
+comparison oracle is changed. A race-enabled standalone test of the production
+flag owner checks all256 type IDs and replays140 captured descriptors against
+the unchanged native packets; exactly68 numeric descriptors change. Every byte,
+including names, charset, widths, decimals and other flags, must then match.
+This replay passes locally; full-package tests and corrected actual wire behavior
+remain for the new exact-source CI. P1 overall is still unfinished.
+
+The historical text serializer also forwards the C API flags. It is unchanged
+here; native text-column comparison belongs in the already planned P5 metadata/
+text regression before deciding that existing boundary. This repair adds no
+claim of complete text metadata parity or complete P2–P6 acceptance.
+
 P1 development CI at e9fe604
 ([39434643324](https://github.com/masahitojp/mariamem/actions/runs/39434643324))
 failed in the common smoke after generation/compilation on both native targets.

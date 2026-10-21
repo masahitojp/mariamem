@@ -1,0 +1,6 @@
+=== RUN   TestPreparedWireFlagsPreserveOtherBitsAndNonNumericTypes
+--- PASS: TestPreparedWireFlagsPreserveOtherBitsAndNonNumericTypes (0.00s)
+=== RUN   TestCapturedPreparedMetadataMatchesNativeExactlyAfterWireConversion
+--- PASS: TestCapturedPreparedMetadataMatchesNativeExactlyAfterWireConversion (0.00s)
+PASS
+ok  	command-line-arguments	1.146s

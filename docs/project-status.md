@@ -749,9 +749,11 @@ native-parity C-extension syntax-error exception proposal from the unchanged
 original1064 FAIL. The Human approved production implementation after that design review.
 [Staged implementation](reviews/v06x-prepared-implementation.md) has P1 owners,
 protocol, lifecycle dispatch and unit coverage. Its source compilation and
-both-OS unit CI passed; expanded native12.3.3 PREPARE controls passed. The next
-gate uses a strictly rebound, freshly generated development runtime on both OSes;
-actual new-guest acceptance and P2–P6 remain unfinished.
+both-OS unit CI passed; expanded native12.3.3 PREPARE controls passed. The subsequent
+development gate passed the new-guest smoke and exact installed binding checks
+on both OSes. Its actual wire/native metadata comparison exposed a C API numeric
+flag leaking onto the wire; a host-serializer repair is awaiting CI. P1 acceptance
+and P2–P6 remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
 

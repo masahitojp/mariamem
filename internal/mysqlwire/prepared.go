@@ -23,7 +23,7 @@ func preparedColumn(c guest.Column) ([]byte, error) {
 	b = append(b, le16(c.Charset)...)
 	b = append(b, le32(c.Length)...)
 	b = append(b, c.Type)
-	b = append(b, le16(c.Flags)...)
+	b = append(b, le16(preparedWireFlags(c.Type, c.Flags))...)
 	b = append(b, c.Decimals, 0, 0)
 	if len(b) > maxPacket {
 		return nil, errors.New("prepared column metadata exceeds packet limit")
