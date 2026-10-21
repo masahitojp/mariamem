@@ -224,6 +224,12 @@ adoption stays blocked on fixing/updating the consumer path or a new scope decis
 forcing pure mode or interpolation is not completion of the approved goal.
 Implementation may proceed without accepting the exception yet; adoption may not.
 
+**Human decision (2026-10-21): accepted as native parity.** The C-extension
+2006/HY000 presentation is documented behavior when the raw wire still returns
+1064/42000 and the same pinned native consumer produces 2006. Split the oracle
+(raw wire1064, pure1064, C extension2006); keep the original1064 attempt as a
+historical FAIL. See the [implementation progress record](v06x-prepared-implementation.md).
+
 ### Python3.14 / OpenSSL
 
 Homebrew Python3.14/OpenSSL4 import failure occurs before either database is

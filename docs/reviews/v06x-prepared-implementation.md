@@ -237,8 +237,10 @@ need explicit reconciliation; sharing a result byte shape is not proof of that
 mapping. Prepared result chains are P3: PS_MULTI_RESULTS remains unadvertised,
 and unexpected MORE_RESULTS in this intermediate owner fails the transport
 rather than silently dropping a result. LONG_DATA remains P4. Canonical and full
-J1/P6 generation checks, consumers/regressions and the separately unaccepted
-C-extension exception are not closed by the source preflight. No scope is removed.
+J1/P6 generation checks and consumers/regressions are not closed by the source
+preflight. The C-extension syntax-error disposition is recorded separately as
+native parity (see the decision section) and does not close runtime acceptance.
+No scope is removed.
 
 P1 CI at3eda067
 ([39537687879](https://github.com/masahitojp/mariamem/actions/runs/39537687879))
@@ -311,9 +313,44 @@ approval merely because a stage ended.
 The canonical guest and release ledger remain the main routine baseline. A normal
 canonical source build must continue to reject newly changed Wasm until P6's
 explicit adoption inputs/provenance are prepared. A green P1 source/unit run
-cannot complete P1–P6, authorize main integration or accept the C-extension error
-exception. Final Human Review follows the whole approved scope or a concrete
+cannot complete P1–P6, authorize main integration or replace the recorded
+C-extension native-parity disposition. Final Human Review follows the whole approved scope or a concrete
 blocking finding; no release/version/public API change is made here.
+
+## Human decision — C-extension syntax error accepted as native parity
+
+2026-10-21. The Human decided to match native MariaDB rather than treat this as a
+mariamem defect or block prepared adoption. The guest already matches native;
+the old oracle expectation, not the server behavior, was the mismatch.
+
+| Layer | PREPARE syntax-error result |
+| --- | --- |
+| Server raw wire | 1064 / 42000 |
+| Connector/Python 26.7.0 pure | 1064 |
+| Connector/Python 26.7.0 C extension | 2006 / HY000 (`MySQL server has gone away`) |
+| Native MariaDB 12.3.3 + the same C extension | 2006 |
+
+This is a consumer error-presentation difference on the prepared syntax-error
+path, not a server or guest regression. It affects no successful prepared
+execution.
+
+Required disposition:
+
+- Split the oracle: server raw wire **1064/42000**; pure Python **1064**;
+  C extension **2006/HY000** as the native-parity expectation.
+- Keep the original C-extension 1064 attempt as a historical **FAIL**. Do not
+  relabel it PASS, fabricate 2006 on the server, or advertise exact exception-code
+  parity for the C extension.
+- Acceptance conditions: fresh raw-wire evidence still shows 1064/42000; the same
+  pinned native consumer produces 2006; both connections remain usable afterwards
+  (a following text SELECT/PING succeeds).
+- Do not force pure mode, use interpolation, or weaken J1/truncation/wrong-error/
+  ownership oracles to make the split pass.
+- Document the C-extension behavior when prepared support is published; revisit
+  the disposition if a future connector/native version changes it.
+
+This records the adoption disposition. It is not a new implementation approval
+and does not convert any pending runtime unit into PASS.
 
 ## P4 source note retained for the next implementation unit
 
@@ -359,9 +396,10 @@ the new guest, a full J1 failure/control run, or independent source regeneration
 The next prepared-product push rebuilds the guest at the submitted commit and
 runs formal development generation/compile/smoke, exact installed bindings,
 P1 lifecycle/native metadata and P2 typed EXECUTE/native binary vectors on both
-OSes. P2's remaining temporal/DML/schema/type matrix, P3–P6 and the separately
-unaccepted C-extension exception remain open. No main adoption or release is
-requested or performed.
+OSes. P2's remaining temporal/DML/schema/type matrix and P3–P6 remain open. The
+C-extension syntax-error disposition is recorded as native parity (see the
+decision section); it does not close runtime acceptance. No main adoption or
+release is requested or performed.
 
 ## P2 development gate: mutation-test targeting repair
 
