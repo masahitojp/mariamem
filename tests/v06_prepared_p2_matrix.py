@@ -179,10 +179,40 @@ def scenarios():
     return result
 
 
-def exercise(info):
+def guest_case(host,scenario):
+    # A terminal guest failure invalidates the entire DB, not just its SQL
+    # connection. A new root start owns a fresh host/session for every scenario.
+    import mariamem
+    db=None;case={'trace':[],'ok_observations':[]};diagnostics={}
+    try:
+        db=mariamem.start(host_binary=host)
+        diagnostics['runtime']=db.diagnostics
+        case=run_group(db.connection_info(),scenario)
+    except Exception as error:
+        case['failure']=dict(type=type(error).__name__,error=str(error))
+    finally:
+        if db is not None:
+            try:diagnostics['logs']=db.logs
+            except Exception as error:diagnostics['logs_error']=repr(error)
+            try:db.close()
+            except Exception as error:
+                case['lifecycle_failure']=dict(type=type(error).__name__,error=str(error))
+                case.setdefault('failure',case['lifecycle_failure'])
+            try:
+                final_logs=db.logs
+                if final_logs!=diagnostics.get('logs'):diagnostics['closed_logs']=final_logs
+            except Exception as error:diagnostics['closed_logs_error']=repr(error)
+    return case,diagnostics
+
+
+def exercise(info=None,host=None):
     result={'scope':'additional P2 DML/schema/types/modes; not full P2-P6','cases':{},'failures':{}}
+    if host:result['host_diagnostics']={}
     for name,scenario in scenarios().items():
-        case=run_group(info,scenario)
+        if host:
+            case,diagnostics=guest_case(host,scenario)
+            result['host_diagnostics'][name]=diagnostics
+        else:case=run_group(info,scenario)
         result['cases'][name]=case
         if 'failure' in case:result['failures'][name]=case['failure']
     result['result']='FAIL' if result['failures'] else 'PASS'
@@ -200,8 +230,7 @@ def main():
     args=p.parse_args();result={'result':'FAIL'}
     try:
         if args.host:
-            import mariamem
-            with mariamem.start(host_binary=args.host) as db:result=exercise(db.connection_info())
+            result=exercise(host=args.host)
         else:result=exercise(dict(host='127.0.0.1',port=args.native_port,user='root',database='test'))
         if args.reference:
             expected=json.loads(args.reference.read_text())

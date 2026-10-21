@@ -1,0 +1,124 @@
+{
+  "failed_run": "https://github.com/masahitojp/mariamem/actions/runs/39582653522",
+  "source_commit": "007b32361d9c72b9d9a0a8850a4a1c6c922dc8ec",
+  "both_matrix_captures_identical": true,
+  "actual_assessment": {
+    "matching_scenarios": [
+      "parameter-type-0",
+      "parameter-type-15"
+    ],
+    "first_real_failure": {
+      "case": "parameter-type-16",
+      "observed": "EXECUTE read timeout, failed following query, subsequent DB termination",
+      "binary_row_captured": false
+    },
+    "not_independently_assessed": [
+      "parameter-type-247",
+      "parameter-type-248",
+      "parameter-type-249",
+      "parameter-type-250",
+      "parameter-type-251",
+      "parameter-type-255",
+      "parameter-type-9",
+      "parameter-type-13",
+      "parameter-type-14",
+      "parameter-type-7",
+      "repeated-type-changes",
+      "dml-warnings-recovery",
+      "commit-rollback",
+      "date-sql-modes",
+      "schema-type",
+      "schema-add",
+      "schema-drop"
+    ],
+    "note": "18 reported mismatches do not establish18 separate implementation defects.17 later scenarios never got SQL responses because the shared DB was already terminated."
+  },
+  "existing_gates": "source/both-OS units, smoke/bindings, P1/original22/TIME13 PASS",
+  "original_files": {
+    "ubuntu-24.04": {
+      "runtime.json": {
+        "sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+        "bytes": 9161
+      },
+      "execute.json": {
+        "sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+        "bytes": 51967
+      },
+      "time.json": {
+        "sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+        "bytes": 3187
+      },
+      "binding.txt": {
+        "sha256": "19322a76a32837f003f924ca104a12a8fb1f5fbcd745e1fcb4a26fdf246f7a76",
+        "bytes": 76
+      },
+      "binding-mutations.txt": {
+        "sha256": "c512bf8293527a43c4d8da17de03026ce2dbfc2585dc48cea1dd0da4dc6835d1",
+        "bytes": 99
+      },
+      "matrix.json": {
+        "sha256": "ea457cfc89d1a8f20aa0dc20c10861c03c9d3162be1f2802366b7a94e76ba875",
+        "bytes": 10954
+      },
+      "development.json": {
+        "sha256": "d7a80368cad24e17411572be56f8cd1373e1c821aa41bf1267973199e4d8f4be",
+        "bytes": 1821924
+      }
+    },
+    "macos-15": {
+      "runtime.json": {
+        "sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+        "bytes": 9161
+      },
+      "execute.json": {
+        "sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+        "bytes": 51967
+      },
+      "time.json": {
+        "sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+        "bytes": 3187
+      },
+      "binding.txt": {
+        "sha256": "19322a76a32837f003f924ca104a12a8fb1f5fbcd745e1fcb4a26fdf246f7a76",
+        "bytes": 76
+      },
+      "binding-mutations.txt": {
+        "sha256": "b1c07a7d3cc4760d4be03bd4ec38daabc4326961fbc8ae569b49a08be4dc5650",
+        "bytes": 99
+      },
+      "matrix.json": {
+        "sha256": "ea457cfc89d1a8f20aa0dc20c10861c03c9d3162be1f2802366b7a94e76ba875",
+        "bytes": 10954
+      },
+      "development.json": {
+        "sha256": "24baee011645f49fa7252f79523f0cedf14df268da3436ba24e3092437ca9834",
+        "bytes": 1821928
+      }
+    }
+  },
+  "repair": "test harness only: fresh mariamem.start root DB/host for each guest scenario; capture DB logs before/after Close; preserve scenario/lifecycle failures and continue all20 cases",
+  "local_controls": "6 PASS including terminal-first-DB isolation and teardown-error preservation",
+  "native_owners_unchanged_AST": [
+    "length_encoded",
+    "payload",
+    "execute",
+    "query",
+    "run_group",
+    "parameter",
+    "type_changes",
+    "dml",
+    "transactions",
+    "schema",
+    "date_modes",
+    "scenarios",
+    "comparable"
+  ],
+  "original_native_fixture_sha256": "267d97358f968b7a535194cb021149b86b41f8903c1869ed7b7a07f45d3c6f74",
+  "BIT_failure_fixed": false,
+  "runtime_guest_converter_oracle_changes": "none",
+  "pending": "Repeat exact20-case actual guest comparison on both OSes with isolation; evaluate actual failures before choosing runtime/API repair or requesting an engine-internal scope change",
+  "tested_files_sha256": {
+    "tests/v06_prepared_p2_matrix.py": "153961eb2b60029d0765ed7e6f9adbd2cd9608e4c28240ca07364421f8847085",
+    "tests/test_prepared_p2_matrix.py": "ba51fbfb77f9cf25219470d13712c673d168734ece7daf4ff536a27c0a276616"
+  }
+}

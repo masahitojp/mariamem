@@ -522,3 +522,18 @@ a following-query health observation, while later scenarios continue independent
 The guest, converter, single binding and original P1/P2/TIME oracles are unchanged.
 The full development gate now adds this comparison after the existing probes;
 no new canonical inputs, main adoption, Qualification or release is attempted.
+
+## P2 matrix failure — isolate DB termination before judging later scenarios
+
+[39582653522](https://github.com/masahitojp/mariamem/actions/runs/39582653522)
+at007b323 passed the source/unit/previous runtime gates on both OSes. The new
+matrix matched DECIMAL/VARCHAR, then BIT EXECUTE timed out and the shared DB
+terminated. All17 later scenarios failed to connect to that dead DB. The18
+reported differences are not18 separately established implementation defects.
+[Failure receipt](v06x-prepared-p2-isolation-evidence/receipt.json) preserves the
+identical both-OS capture. The harness repair creates an independent root DB/host
+per guest scenario, captures logs before/after close and retains lifecycle errors.
+Six local controls pass. Native packets/scenario functions/oracles remain intact;
+the BIT implementation is not repaired and no new guest identity is introduced.
+Repeat all20 cases on both OSes to establish the actual repair scope. A green
+result is not assumed; source-internal edits still require the existing decision.

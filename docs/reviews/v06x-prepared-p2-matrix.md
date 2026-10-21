@@ -39,10 +39,16 @@ not a normalization of any existing failing fixture. It is not a claim of full
 DML wire byte equality; any observed informational-text difference remains visible
 for later consumer/P5 assessment.
 
-Every scenario has an independent physical connection. Unexpected errors retain
+The initial implementation gave every scenario an independent physical
+connection but shared one guest DB across the whole matrix. That did not isolate
+a terminal DB failure; the failure and correction are recorded below. The
+corrected guest runner creates a fresh root DB/host with mariamem.start for every
+scenario, then closes it. Native reference still uses independent connections to
+the fixed native server; packet/scenario/comparison owners and the fixture are
+unchanged. Unexpected errors retain
 the preceding trace, trigger a following-query health check where possible and
 are aggregated, allowing the other scenarios to execute. Any failure/mismatching
-case makes the comparison FAIL. Four deterministic controls cover uint64 parsing,
+case makes the comparison FAIL. The original four deterministic controls cover uint64 parsing,
 semantic-field mutations, null/reused-type request framing and evidence retention
 following an unexpected failure. No failure is relabelled SKIP or accepted here.
 
@@ -74,3 +80,34 @@ necessary. Existing generated inventory/public checks and diff checks still run.
 Do not declare the whole P2–P6 scope complete from these20 cases. After the actual
 gate, disposition any findings against the approved P2 criteria, then continue
 P3–P6. Main integration, version placement, Qualification and release remain separate.
+
+## CI39582653522: first BIT failure and shared-DB contamination
+
+[CI39582653522](https://github.com/masahitojp/mariamem/actions/runs/39582653522)
+at007b323 passed source, units, development smoke, exact bindings and all previous
+P1/original22/TIME13 comparisons on both OSes. The new matrix failed. Both captures
+are identical. [Original failure and repair receipt](v06x-prepared-p2-isolation-evidence/receipt.json)
+separate the actual observations:
+
+- DECIMAL0 and VARCHAR15 match native, including reuse and healthy following query.
+- BIT16 EXECUTE times out without a captured binary row; its following query fails.
+- The next17 scenarios receive database-instance-terminated errors before SQL
+  execution. They are not17 independently confirmed engine incompatibilities.
+
+The unsupported BIT binding switch and guest's NULL-response/terminal path are
+source-supported leads; the exact dynamic failure site is not proven by the
+original capture, which lacked DB logs. No unsupported-type normalization,
+source patch, or replacement native expectation is introduced in this repair.
+
+Correct the harness first: isolate each guest scenario in a fresh root DB/host,
+preserve logs and close failures separately, and retain FAIL for every original
+failure. Six local controls pass, including the first-DB-death/next-DB-success
+regression and visible teardown failure. The13 existing native packet/scenario/
+comparison owner functions are AST-identical to the original. Reuse the same
+20-scenario native fixture; no cases are removed or relabelled PASS/SKIP. This
+changes diagnostics/isolation only, not the BIT implementation or acceptance.
+
+The next exact-source CI intentionally retains the BIT scenario and repeats all
+20 with fresh DBs. It may still fail. Its purpose is to identify the complete
+repair scope and user impact without contamination, then continue within the
+approved implementation or stop for the specified MariaDB-internal decision.

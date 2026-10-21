@@ -1,0 +1,303 @@
+{
+  "scope": "additional P2 DML/schema/types/modes; not full P2-P6",
+  "cases": {
+    "parameter-type-0": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0009000000008100040000"
+          ],
+          "rows": [
+            "0000083132332e34353030"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0009000000008100040000"
+          ],
+          "rows": [
+            "0000083132332e34353030"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-15": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0010000000fd0100270000"
+          ],
+          "rows": [
+            "00000474657874"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0010000000fd0100270000"
+          ],
+          "rows": [
+            "00000474657874"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-16": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'Lost connection to MySQL server during query (timed out)')"
+      },
+      "healthy_following_query": false,
+      "following_query_failure": {
+        "type": "InterfaceError",
+        "error": "(0, '')"
+      }
+    },
+    "parameter-type-247": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "parameter-type-248": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "parameter-type-249": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "parameter-type-250": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "parameter-type-251": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "parameter-type-255": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "parameter-type-9": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "parameter-type-13": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "parameter-type-14": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "parameter-type-7": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "repeated-type-changes": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "dml-warnings-recovery": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "commit-rollback": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "date-sql-modes": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "schema-type": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "schema-add": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    },
+    "schema-drop": {
+      "trace": [],
+      "ok_observations": [],
+      "failure": {
+        "type": "OperationalError",
+        "error": "(2013, 'mariamem database instance terminated')"
+      }
+    }
+  },
+  "failures": {
+    "parameter-type-16": {
+      "type": "OperationalError",
+      "error": "(2013, 'Lost connection to MySQL server during query (timed out)')"
+    },
+    "parameter-type-247": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "parameter-type-248": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "parameter-type-249": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "parameter-type-250": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "parameter-type-251": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "parameter-type-255": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "parameter-type-9": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "parameter-type-13": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "parameter-type-14": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "parameter-type-7": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "repeated-type-changes": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "dml-warnings-recovery": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "commit-rollback": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "date-sql-modes": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "schema-type": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "schema-add": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    },
+    "schema-drop": {
+      "type": "OperationalError",
+      "error": "(2013, 'mariamem database instance terminated')"
+    }
+  },
+  "result": "FAIL",
+  "different_cases": [
+    "commit-rollback",
+    "date-sql-modes",
+    "dml-warnings-recovery",
+    "parameter-type-13",
+    "parameter-type-14",
+    "parameter-type-16",
+    "parameter-type-247",
+    "parameter-type-248",
+    "parameter-type-249",
+    "parameter-type-250",
+    "parameter-type-251",
+    "parameter-type-255",
+    "parameter-type-7",
+    "parameter-type-9",
+    "repeated-type-changes",
+    "schema-add",
+    "schema-drop",
+    "schema-type"
+  ],
+  "native_comparison": "FAIL",
+  "error": "AssertionError('{\"failures\": {\"parameter-type-16\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'Lost connection to MySQL server during query (timed out)\\')\"}, \"parameter-type-247\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"parameter-type-248\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"parameter-type-249\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"parameter-type-250\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"parameter-type-251\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"parameter-type-255\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"parameter-type-9\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"parameter-type-13\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"parameter-type-14\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"parameter-type-7\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"repeated-type-changes\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"dml-warnings-recovery\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"commit-rollback\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"date-sql-modes\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"schema-type\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"schema-add\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}, \"schema-drop\": {\"type\": \"OperationalError\", \"error\": \"(2013, \\'mariamem database instance terminated\\')\"}}, \"different_cases\": [\"commit-rollback\", \"date-sql-modes\", \"dml-warnings-recovery\", \"parameter-type-13\", \"parameter-type-14\", \"parameter-type-16\", \"parameter-type-247\", \"parameter-type-248\", \"parameter-type-249\", \"parameter-type-250\", \"parameter-type-251\", \"parameter-type-255\", \"parameter-type-7\", \"parameter-type-9\", \"repeated-type-changes\", \"schema-add\", \"schema-drop\", \"schema-type\"]}')"
+}

@@ -792,8 +792,13 @@ PASS on macOS arm64 and Ubuntu x86_64, plus smoke and13 binding tests per OS.
 The bounded TIME repair is verified for that matrix. The
 [additional P2 matrix](reviews/v06x-prepared-p2-matrix.md) now defines20 independent
 DML/warnings/schema-reprepare/type/SQL-mode controls, all PASS against fixed
-native12.3.3, with4 local oracle/parser controls PASS. Actual guest comparison
-is pending the next both-OS gate; native success is not guest acceptance. P2–P6 and full production acceptance
+native12.3.3. Actual [gate39582653522](https://github.com/masahitojp/mariamem/actions/runs/39582653522)
+passed original probes on both OSes but exposed a BIT16 timeout/DB termination;
+only the first2 scenarios matched, while the next17 were not independently
+assessed after that shared DB died. The [test-isolation repair](reviews/v06x-prepared-p2-isolation-evidence/receipt.json)
+uses a fresh root DB/host for each of the same20 scenarios and captures logs/
+teardown errors;6 local controls PASS. BIT itself is not fixed; both-OS isolated
+comparison is the next diagnostic gate. P2–P6 and full production acceptance
 remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.

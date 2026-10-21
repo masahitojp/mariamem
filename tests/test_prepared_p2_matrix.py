@@ -72,3 +72,42 @@ def test_scenario_failure_keeps_trace_and_attempts_following_query(monkeypatch):
     assert result['trace']==[dict(kind='ok',affected=1,insert_id=0,status=2,warnings=0)]
     assert result['failure']['error']=='after captured response'
     assert result['healthy_following_query'] and seen[-1]=='SELECT 1'
+
+
+def test_terminal_db_failure_cannot_poison_later_scenario(monkeypatch):
+    from types import SimpleNamespace
+    started=[];closed=[]
+    class DB:
+        def __init__(self):self.number=len(started)+1;started.append(self.number)
+        diagnostics=property(lambda self:{'host_pid':self.number})
+        logs=property(lambda self:'original fatal logs' if self.number==1 else 'healthy logs')
+        def connection_info(self):return {'generation':self.number}
+        def close(self):closed.append(self.number)
+    monkeypatch.setitem(sys.modules,'mariamem',SimpleNamespace(start=lambda **kwargs:DB()))
+    monkeypatch.setattr(matrix,'scenarios',lambda:{'first':object(),'second':object()})
+    def run_group(info,scenario):
+        if info['generation']==1:
+            return {'trace':[], 'ok_observations':[], 'failure':{'type':'OperationalError','error':'terminal DB failure'},'healthy_following_query':False}
+        return {'trace':[{'kind':'rows'}], 'ok_observations':[], 'healthy_following_query':True}
+    monkeypatch.setattr(matrix,'run_group',run_group)
+    result=matrix.exercise(host='test-host')
+    assert started==closed==[1,2]
+    assert result['result']=='FAIL' and list(result['failures'])==['first']
+    assert result['cases']['second']['healthy_following_query']
+    assert result['host_diagnostics']['first']['logs']=='original fatal logs'
+    assert result['host_diagnostics']['second']['runtime']['host_pid']==2
+
+
+def test_scenario_teardown_failure_is_not_hidden(monkeypatch):
+    from types import SimpleNamespace
+    class DB:
+        diagnostics={'host_pid':1}
+        logs='close evidence'
+        def connection_info(self):return {}
+        def close(self):raise RuntimeError('failed teardown')
+    monkeypatch.setitem(sys.modules,'mariamem',SimpleNamespace(start=lambda **kwargs:DB()))
+    monkeypatch.setattr(matrix,'run_group',lambda *args:{'trace':[{'kind':'rows'}],'healthy_following_query':True})
+    case,diagnostics=matrix.guest_case('test-host',object())
+    assert case['trace']==[{'kind':'rows'}]
+    assert case['failure']==case['lifecycle_failure']=={'type':'RuntimeError','error':'failed teardown'}
+    assert diagnostics['logs']=='close evidence'

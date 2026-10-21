@@ -1,0 +1,5 @@
+Focused summary copied from local command output (not a full transcript).
+Python3.14 / pytest8.4.2 / PyMySQL1.2.3 / darwin-arm64
+Command: python -m pytest -q -rA tests/test_prepared_p2_matrix.py
+Result: 6 passed in 0.05s
+Added controls: terminal first DB cannot poison next scenario; teardown errors remain FAIL.
