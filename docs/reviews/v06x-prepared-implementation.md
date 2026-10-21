@@ -298,7 +298,7 @@ new exact-source CI. No exception or incomplete unit is accepted by this repair.
 | Unit | State and next evidence |
 | --- | --- |
 | P1 | Corrected development gate at3496095 PASS on both OSes, including actual ownership and native metadata comparison; later full-scope acceptance remains required |
-| P2 | Codec gate at0ceca7c PASS on both OSes; EXECUTE source owner/host dispatch added with local mock/unit PASS; source/unit preflight PASS at00962f8; exact new binding review and50 local checks PASS; actual guest/native execution pending |
+| P2 | TIME-repaired actual22-case EXECUTE and13-case TIME/native gate PASS on both OSes atf498396; extended DML/warnings/schema-reprepare/type/SQL-mode coverage pending |
 | P3 | Prepared CALL/results/OUT and later-error draining pending |
 | P4 | LONG_DATA/no-response/reset/pool/cancel/disconnect and failure/resource matrix pending |
 | P5 | Real Go/Python prepared consumers, native controls and both-OS regression pending |
@@ -485,3 +485,27 @@ mutations, actual P1/P2 comparison and the extra13 TIME cases. Passing the sourc
 preflight/rebind is not passing those guest comparisons or completing P2–P6.
 Canonical source.patch, converter and native expected packets remain unchanged.
 No main adoption, Qualification or publication is performed.
+
+## P2 TIME repair — actual both-OS verification PASS
+
+[CI39577305621](https://github.com/masahitojp/mariamem/actions/runs/39577305621)
+at source_commitf498396d2547070a80e5a8d758f5eaada670d145 passed all5 jobs.
+[Result receipt and captured TIME/binding outputs](v06x-prepared-p2-time-result/receipt.json)
+confirm actual original22 P2 cases and13 additional TIME cases match the complete
+unchanged native packets on macOS arm64 and Ubuntu x86_64. The original16-vs23
+TIME descriptor discrepancy is resolved for the reproducer. P1 actual lifecycle/
+native metadata, development SQL/transaction/Snapshot/Fork/Close smoke and13
+binding checks per platform also pass. Both artifacts bind the exact candidate
+and guest3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8.
+
+All generated-inventory entries except provenance.json match across platforms.
+The native converter binaries differ by platform; provenance binds development
+input manifests. The receipt records these identities separately and does not
+claim complete provenance equality or independent Wasm source generation.
+
+This closes the bounded TIME repair/matrix, not P2–P6. Extended DML/warnings,
+schema/reprepare, additional wire/public-API type reconciliation and SQL modes
+remain P2 work; P3–P6 are unchanged. No acceptance condition/oracle was reduced,
+no source patch became canonical, and no main adoption/Qualification/release is
+implied. This evidence-only follow-up does not rebuild unchanged runtime code or
+re-trigger the same development CI.

@@ -135,3 +135,8 @@ Source preflight at4f41be8 subsequently passed on both OS unit targets and the
 source builder. [Exact binding continuation](v06x-prepared-p2-time-binding/reproduce.md)
 records the reviewed patched guest and62 local checks. The full actual guest
 comparison is pending; this continuation does not change the approved scope.
+
+The subsequent [both-OS actual runtime result](v06x-prepared-p2-time-result/receipt.json)
+atf498396 passed the original22-case comparison and all13 extra TIME controls,
+as well as P1/smoke/bindings. The bounded repair is verified for those cases;
+remaining full P2–P6 work and canonical/main/release decisions are unchanged.

@@ -1,0 +1,118 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39577305621",
+  "source_commit": "f498396d2547070a80e5a8d758f5eaada670d145",
+  "jobs": "all5 PASS: source + both-OS units + both-OS development runtime",
+  "generated_inventory_cross_OS": {
+    "different_files": [
+      "provenance.json"
+    ],
+    "all_other_files_match": true,
+    "note": "provenance binds development input manifest; native converter binary identities differ by OS/architecture and are recorded separately. This is not full provenance identity or independent Wasm source regeneration."
+  },
+  "platforms": {
+    "ubuntu-24.04": {
+      "original_files": {
+        "development.json": {
+          "sha256": "b4be7bd75f1c861fa6297a6a8c6352da1279b9df2f8c0bbf2ad2c9fe651434c2",
+          "bytes": 1816748
+        },
+        "runtime.json": {
+          "sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+          "bytes": 9161
+        },
+        "execute.json": {
+          "sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+          "bytes": 51967
+        },
+        "time.json": {
+          "sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+          "bytes": 3187
+        },
+        "binding.txt": {
+          "sha256": "19322a76a32837f003f924ca104a12a8fb1f5fbcd745e1fcb4a26fdf246f7a76",
+          "bytes": 76
+        },
+        "binding-mutations.txt": {
+          "sha256": "1b56cc6eaa2c1a7a67570eb36c7b4eeec579b593891924cf74a0e938c385a63b",
+          "bytes": 99
+        }
+      },
+      "source_commit": "f498396d2547070a80e5a8d758f5eaada670d145",
+      "guest_sha256": "3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8",
+      "binary_sha256": "39968be602bd7c0e8ecb7cc703067d949be7a98def2811c4239dc24a0adba8a3",
+      "guest_record_sha256": "6e278ba0acb1b2743f4904bb19b346aae754effc5af84c549e7e8ba11b11cc93",
+      "converter_binary_sha256": "1036433580595816435a1abba4dd6e59195c1b7f25d4f01a9bc541331bc798ef",
+      "P1_checks": [
+        "prepare-does-not-execute-dml",
+        "native-1064-followed-by-query",
+        "70-live-handles-and-no-response-close-ping",
+        "cross-session-unknown-id",
+        "unknown-close-preserves-text-transaction-status",
+        "found-rows-final-session-generation"
+      ],
+      "P1_native_metadata": "PASS",
+      "P2_native_cases": 22,
+      "TIME_native_cases": 13,
+      "development_smoke": "PASS",
+      "binding": "PASS",
+      "mutations": ".............                                                            [100%]\n13 passed in 2.29s"
+    },
+    "macos-15": {
+      "original_files": {
+        "development.json": {
+          "sha256": "4ab4f4a03815f1c53ae131a60cc2d974750f9bbeec2717eeb1f71f2f69d27bde",
+          "bytes": 1816752
+        },
+        "runtime.json": {
+          "sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+          "bytes": 9161
+        },
+        "execute.json": {
+          "sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+          "bytes": 51967
+        },
+        "time.json": {
+          "sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+          "bytes": 3187
+        },
+        "binding.txt": {
+          "sha256": "19322a76a32837f003f924ca104a12a8fb1f5fbcd745e1fcb4a26fdf246f7a76",
+          "bytes": 76
+        },
+        "binding-mutations.txt": {
+          "sha256": "4e2e74983f8bf88d60ea02fa2ac08b0204dd0ce73ec8048cccc7a5d222134bff",
+          "bytes": 99
+        }
+      },
+      "source_commit": "f498396d2547070a80e5a8d758f5eaada670d145",
+      "guest_sha256": "3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8",
+      "binary_sha256": "f662a16463912ca03cea9da9e405d0e473c54379d020f26bd7f5a39ae51c1875",
+      "guest_record_sha256": "6e278ba0acb1b2743f4904bb19b346aae754effc5af84c549e7e8ba11b11cc93",
+      "converter_binary_sha256": "430bf08585f685138e0c678ebd5a9c9f92802cc124bb01f17e0ac270a35cf2b0",
+      "P1_checks": [
+        "prepare-does-not-execute-dml",
+        "native-1064-followed-by-query",
+        "70-live-handles-and-no-response-close-ping",
+        "cross-session-unknown-id",
+        "unknown-close-preserves-text-transaction-status",
+        "found-rows-final-session-generation"
+      ],
+      "P1_native_metadata": "PASS",
+      "P2_native_cases": 22,
+      "TIME_native_cases": 13,
+      "development_smoke": "PASS",
+      "binding": "PASS",
+      "mutations": ".............                                                            [100%]\n13 passed in 2.40s"
+    }
+  },
+  "original_22_case_fixture_sha256": "4dd63f276c1cf4b86b6312b4b93a625a9293e35c87775e60797a3b4aee60169d",
+  "additional_13_case_fixture_sha256": "b6ee70084369144a2054f1bafe2c6f03308ec2696fe8251897b62ba5592ccb76",
+  "scope": "bounded TIME repair and named P1/P2/TIME controls PASS, not full P2-P6 acceptance or Qualification",
+  "pending": [
+    "P2 extended DML/warnings/schema-reprepare/type mapping and SQL-mode coverage",
+    "P3 prepared multiple results",
+    "P4 lifetime/failure matrix",
+    "P5 required consumers/regressions",
+    "P6 canonical ownership/independent source generation/full J1 controls"
+  ]
+}

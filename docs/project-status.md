@@ -784,8 +784,13 @@ records61 local checks and13 additional native TIME cases PASS, plus an unchange
 passed source and both-OS units at4f41be8. The patched guest's exact allocation/
 lifetime bodies, full data and TLS match the previous reviewed output; only
 one raw generated part changes. [TIME binding evidence](reviews/v06x-prepared-p2-time-binding/receipt.json)
-records the new single identity and62 local checks PASS. Actual patched-guest
-P1/P2/TIME comparisons on both OSes are the next gate and remain pending. P2–P6 and full production acceptance
+records the new single identity and62 local checks PASS. The full
+[gate39577305621](https://github.com/masahitojp/mariamem/actions/runs/39577305621)
+atf498396 passed all5 jobs. [Result evidence](reviews/v06x-prepared-p2-time-result/receipt.json)
+confirms actual P1, original22-case P2 and extra13-case TIME/native comparison
+PASS on macOS arm64 and Ubuntu x86_64, plus smoke and13 binding tests per OS.
+The bounded TIME repair is verified for that matrix; P2's extended DML/warnings/
+schema-reprepare/type/SQL-mode coverage still remains. P2–P6 and full production acceptance
 remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
