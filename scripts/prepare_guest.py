@@ -42,8 +42,15 @@ subprocess.run(["patch", "--batch", "--forward", "--fuzz=0", "-p1", "-i", str(RO
 # A disposable experiment patch is separate from the canonical product patch.
 experimental = ROOT / "guest/experimental.patch"
 experimental_files = patch_files(ROOT)
+time_patch = None
 if experimental.exists():
-    subprocess.run(["patch", "-p1", "-i", str(experimental)], cwd=source, check=True)
+    if (ROOT / "guest/prepared_time_patch.json").exists():
+        from prepared_time_patch import apply as apply_time_patch
+        time_patch = apply_time_patch(source)
+    else:
+        subprocess.run(["patch", "-p1", "-i", str(experimental)], cwd=source, check=True)
+elif (ROOT / "guest/prepared_time_patch.json").exists():
+    raise ValueError("experimental TIME patch is missing")
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
 (source / "wasm/wire_api.inc").write_text(
     "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "prepared_api.inc"\n#include "resident.inc"\n')
@@ -84,6 +91,8 @@ manifest = {"guest_input": guest_input, "portability_series": portability_series
                                 "cmake/pcre.cmake", "cmake/libfmt.cmake", *experimental_files)}}
 if experimental.exists():
     manifest["experimental_patch"] = {"file": "guest/experimental.patch", "sha256": digest(experimental)}
+if time_patch:
+    manifest["experimental_time_patch"] = time_patch
 (ROOT / "build/prepared-source.json").write_text(json.dumps(manifest, indent=2) + "\n")
 shutil.copy2(ROOT / "release/inputs.lock.json", ROOT / "build/preparation-inputs.lock.json")
 print("Prepared build/source from pinned archives; all guest dependencies are local.")

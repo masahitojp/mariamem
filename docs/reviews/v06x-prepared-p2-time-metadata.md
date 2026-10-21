@@ -4,8 +4,8 @@
 
 The Human accepted the bounded repair direction after the upstream-history
 investigation and requested the historical correction below. The approval covers
-the proposed limited implementation/verification direction; no source patch has
-yet been applied. Main adoption, target version, Qualification and release remain
+the proposed limited implementation/verification direction. The decision-time
+proposal was unapplied; current implementation progress is recorded below. Main adoption, target version, Qualification and release remain
 separate decisions. This update records the decision and corrects history only.
 
 ## Original Human Review proposal (answered)
@@ -113,3 +113,20 @@ That was imprecise. The call retained its symbolic constant, while the2011
 changed the constant's value23→16. This strengthens the missed-update hypothesis
 without establishing author intent or an official bug classification. The header
 and call-site edits must be read together.
+
+## Approved implementation continuation — source preflight
+
+The [repair receipt](v06x-prepared-p2-time-repair/receipt.json) and
+[reproduction steps](v06x-prepared-p2-time-repair/reproduce.md) record the staged
+one-line experimental patch, exact full-file pre/postimage checks and checked
+zero-fuzz application. The canonical source.patch/converter and release guards
+are unchanged.61 local input/mock/sanitizer/binding/patch tests pass. A fixed
+Linux arm64 native12.3.3 container passes13 additional TIME cases and the unchanged
+original22-case reference. These are native controls, not patched-guest PASS.
+
+The experiment/prepared-time-width source/unit CI builds the unknown new guest
+without running the development runtime jobs with the old binding pin. Review
+its complete fresh identity/function/data/TLS outputs before explicitly updating
+the single guest binding and submitting both-OS actual P1/P2/TIME comparison.
+The approved work continues across this CI handoff; no additional implementation
+approval is requested. Main integration, Qualification and release remain separate.

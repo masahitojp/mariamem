@@ -1,0 +1,71 @@
+.............................................................            [100%]
+==================================== PASSES ====================================
+___________________ test_exact_apply_and_double_application ____________________
+----------------------------- Captured stdout call -----------------------------
+patching file 'sql/sql_prepare.cc'
+_ test_pin_mutations_rejected[after_sha256-0000000000000000000000000000000000000000000000000000000000000000] _
+----------------------------- Captured stdout call -----------------------------
+patching file 'sql/sql_prepare.cc'
+=========================== short test summary info ============================
+PASSED tests/test_prepared_time_patch.py::test_exact_apply_and_double_application
+PASSED tests/test_prepared_time_patch.py::test_pin_mutations_rejected[source_commit-other]
+PASSED tests/test_prepared_time_patch.py::test_pin_mutations_rejected[file-other.cc]
+PASSED tests/test_prepared_time_patch.py::test_pin_mutations_rejected[patch_sha256-0000000000000000000000000000000000000000000000000000000000000000]
+PASSED tests/test_prepared_time_patch.py::test_pin_mutations_rejected[before_sha256-0000000000000000000000000000000000000000000000000000000000000000]
+PASSED tests/test_prepared_time_patch.py::test_pin_mutations_rejected[after_sha256-0000000000000000000000000000000000000000000000000000000000000000]
+PASSED tests/test_prepared_time_patch.py::test_changed_complete_source_rejected_before_mutation
+PASSED tests/test_prepared_time_patch.py::test_checked_command_failure_is_not_hidden
+PASSED tests/test_prepared_time_patch.py::test_repository_patch_input_binding
+PASSED tests/test_prepared_api.py::test_dynamic_prepared_owner_and_failure_cleanup[normal]
+PASSED tests/test_prepared_api.py::test_dynamic_prepared_owner_and_failure_cleanup[address-undefined-sanitizers]
+PASSED tests/test_routine_schema.py::test_reviewed_native_metadata_matches_pinned_ddl
+PASSED tests/test_routine_schema.py::test_source_identity_mismatch_is_not_accepted[source_commit-0000000000000000000000000000000000000000]
+PASSED tests/test_routine_schema.py::test_source_identity_mismatch_is_not_accepted[server_version-13.1.0]
+PASSED tests/test_routine_schema.py::test_source_identity_mismatch_is_not_accepted[source_file-other.sql]
+PASSED tests/test_routine_schema.py::test_sql_byte_mutation_rejected
+PASSED tests/test_routine_schema.py::test_source_anchor_and_ddl_are_separately_bound[missing]
+PASSED tests/test_routine_schema.py::test_source_anchor_and_ddl_are_separately_bound[duplicate]
+PASSED tests/test_routine_schema.py::test_source_anchor_and_ddl_are_separately_bound[changed]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[nullable]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[type]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[collation]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[order]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[key]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[engine]
+PASSED tests/test_routine_schema.py::test_table_version_is_actual_source_version
+PASSED tests/test_routine_schema.py::test_c_startup_helper_oracles
+PASSED tests/test_routine_schema.py::test_driver_adapter_keeps_boot_mode_with_timing
+PASSED tests/test_thread_lifetime_binding.py::test_bound_function_change_is_rejected[code/p3/p3_pure.go]
+PASSED tests/test_thread_lifetime_binding.py::test_bound_function_change_is_rejected[code/p8/p8_pure.go]
+PASSED tests/test_thread_lifetime_binding.py::test_bound_function_change_is_rejected[code/p5/p5_pure.go]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[False-code/p3/p3_pure.go-15246156]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[False-code/p5/p5_pure.go-15244737]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[True-code/p3/p3_pure.go-15246156]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[True-code/p5/p5_pure.go-15244737]
+PASSED tests/test_thread_lifetime_binding.py::test_duplicate_module_hook_is_rejected
+PASSED tests/test_thread_lifetime_binding.py::test_late_yield_contract_change_is_rejected
+PASSED tests/test_thread_lifetime_binding.py::test_guest_and_required_file_identity
+PASSED tests/test_thread_lifetime_binding.py::test_old_guest_is_not_an_alternate_allowed_identity[baseline_guest_sha256]
+PASSED tests/test_thread_lifetime_binding.py::test_old_guest_is_not_an_alternate_allowed_identity[previous_guest_sha256]
+PASSED tests/test_dev_guest_tools.py::test_bound_guest
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[source]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[wasm]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[tool]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[missing]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[contract]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[linked]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[patch]
+PASSED tests/test_dev_guest_tools.py::test_canonical_and_release_outputs_rejected[build/generated-release]
+PASSED tests/test_dev_guest_tools.py::test_canonical_and_release_outputs_rejected[internal/generatedgo]
+PASSED tests/test_dev_guest_tools.py::test_canonical_and_release_outputs_rejected[python/mariamem/_native]
+PASSED tests/test_dev_guest_tools.py::test_canonical_and_release_outputs_rejected[release]
+PASSED tests/test_dev_guest_tools.py::test_existing_and_symlink_outputs_rejected
+PASSED tests/test_dev_guest_tools.py::test_stale_generated_candidate_cannot_be_installed
+PASSED tests/test_dev_guest_tools.py::test_translation_binds_guest_converter_patches_and_complete_inventory
+PASSED tests/test_dev_guest_tools.py::test_partial_generation_never_emits_success_or_canonical_output
+PASSED tests/test_dev_guest_tools.py::test_existing_release_guard_rejects_dev_receipts
+PASSED tests/test_dev_guest_tools.py::test_dev_and_release_entrypoints_parse
+PASSED tests/test_dev_guest_tools.py::test_missing_installation_provenance_rejected
+PASSED tests/test_dev_guest_tools.py::test_external_release_namespace_rejected
+PASSED tests/test_dev_guest_tools.py::test_historical_guest_origin_allows_only_bound_host_stage_changes
+61 passed in 2.00s

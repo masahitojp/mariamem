@@ -440,3 +440,20 @@ record the pinned embedded/ordinary Item_param source asymmetry, exact captures,
 limited next implementation/verification and cost. The design requires stopping
 before a MariaDB-internal edit; no source patch or further CI run is submitted.
 P2–P6 remain unfinished and the original oracle/expected fixture is unchanged.
+
+## P2 TIME repair — approved bounded implementation started
+
+After upstream-history review and correction, the Human approved the bounded
+MariaDB-internal change. [Source-stage evidence](v06x-prepared-p2-time-repair/receipt.json)
+records the single experimental line change and complete before/after hashes.
+The preparation owner rejects changed full source/patch/postimage and repeated
+application; it records the experimental input separately.61 focused checks pass.
+The fixed native container passes13 extra TIME controls and the unchanged22-case
+oracle. Guest/manifest handling is explicitly experimental; release rejection and
+canonical source.patch/converter13 patches remain unchanged.
+
+A source/unit preflight produces the new Wasm. Development runtime is intentionally
+skipped until its exact identity and function/data/TLS binding are reviewed.
+The full prepared-product gate now includes the additional TIME/native comparison
+alongside existing P1/P2 probes. No patched guest runtime PASS, completed P2-P6,
+main adoption, Qualification or release follows from the native/local checks.

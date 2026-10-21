@@ -777,8 +777,11 @@ all22 cases' binary rows/terminals matching. The [bounded internal-source propos
 was approved by the Human on2026-10-21 after the upstream-history investigation.
 The2011 change redefined MAX_TIME_WIDTH23→16 while the embedded call retained
 that name; the ordinary call switched to the newly introduced full-width23
-constant. No engine patch is applied yet; the present update records approval
-and corrects history only. P2–P6 and full production acceptance
+constant. The one-line repair is now staged only in guest/experimental.patch
+with complete source pre/postimage and patch hashes. [Repair evidence](reviews/v06x-prepared-p2-time-repair/receipt.json)
+records61 local checks and13 additional native TIME cases PASS, plus an unchanged
+22-case native replay. A fresh source/unit preflight is next; new Wasm identity,
+exact rebind and actual patched-guest comparisons on both OSes remain pending. P2–P6 and full production acceptance
 remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.

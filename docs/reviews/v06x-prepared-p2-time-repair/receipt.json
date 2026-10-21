@@ -1,0 +1,48 @@
+{
+  "source_base_commit": "7fb183705f0b518e1d9b98bef70e02a2afdab167",
+  "approved_scope": "bounded embedded prepared TIME metadata constant repair; no canonical adoption",
+  "source_patch": {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "file": "sql/sql_prepare.cc",
+    "before_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+    "after_sha256": "b66f2b5b1ac8cbfff25e2cfee6e479586d403c627bfe00ee5d5cfc88b9a09ee1",
+    "patch_sha256": "ffbdb32b7b816968896da2b1990e470ba856d8e911e3933742513ddf7708e4fc",
+    "purpose": "Align embedded prepared TIME metadata width with ordinary server; approved bounded experimental patch, not canonical adoption"
+  },
+  "actual_pinned_source_application": "PASS complete pre/post hashes; zero-fuzz patch; no guest built locally",
+  "synthetic_failure_checks": "PASS preimage/postimage/patch/source identity, repeat apply and subprocess failure",
+  "local_input_checks": "61 PASS; mock/sanitizer/ABI/dev input controls included",
+  "native_reference": {
+    "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+    "version": "12.3.3-MariaDB-ubu2404",
+    "platform": "Linux arm64 container on macOS arm64, not a macOS-native MariaDB server",
+    "cases": 13,
+    "fixture": "tests/fixtures/prepared-time-native.json",
+    "original22_case_fixture_replay": "PASS unchanged reference",
+    "original_replay_sha256": "047245d32ca7f52e37b86d0513a3d0805038351aa39d9ddd7b41025c2c488f02"
+  },
+  "tested_files_sha256": {
+    "guest/experimental.patch": "ffbdb32b7b816968896da2b1990e470ba856d8e911e3933742513ddf7708e4fc",
+    "guest/prepared_time_patch.json": "c936d4b1159fd1bf652856a506f34cd5ff1858b16de3aa6a6c5731fa0deff172",
+    "scripts/prepared_time_patch.py": "9fde643fc234d8ffe647d79cd27319a4f4ed3b24bc935a0dc9fe7af8b49675b5",
+    "scripts/prepare_guest.py": "e9583e4981e58a7025ae2a4407ee015e8e950b799853eb9f53f2b35b3180a6b6",
+    "tests/test_prepared_time_patch.py": "639d681ce4855145b0dadbb52837b83e840ef3f24740b742899cd3b2cadf31b1",
+    "tests/v06_prepared_time_probe.py": "405e9808a08277c5b4382f07d688c6e1888f487035fd8b989d1a64a3c228eebf",
+    "tests/fixtures/prepared-time-native.json": "b6ee70084369144a2054f1bafe2c6f03308ec2696fe8251897b62ba5592ccb76",
+    ".github/workflows/prepared-product.yml": "5ddafc379b5d032a38c9576a835c2e463d0253e9e340e12c365615e65c09b26f"
+  },
+  "pending": [
+    "fresh patched Wasm build",
+    "fixed converter generation and exact single-identity binding review",
+    "both-OS actual patched guest P1/P2/TIME comparisons",
+    "full P2-P6 completion"
+  ],
+  "unchanged": [
+    "canonical guest/source.patch",
+    "converter13 patches",
+    "existing native22-case fixture",
+    "runtime binding hashes/preimages",
+    "release rejection of experimental patches"
+  ],
+  "submission": "source/unit preflight on experiment/prepared-time-width; development runtime intentionally skipped until new artifact binding review"
+}
