@@ -9,6 +9,8 @@ from common import ROOT, digest
 
 def inputs(root=ROOT):
     root = Path(root)
+    if (root/'guest/prepared_source_patch.json').exists():
+        raise ValueError('TIME-only patch superseded; use prepared_source_patch.py')
     pin = json.loads((root/'guest/prepared_time_patch.json').read_text())
     source = json.loads((root/'guest/input.json').read_text())
     patch = root/'guest/experimental.patch'

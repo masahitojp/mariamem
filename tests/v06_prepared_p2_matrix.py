@@ -205,10 +205,10 @@ def guest_case(host,scenario):
     return case,diagnostics
 
 
-def exercise(info=None,host=None):
+def exercise(info=None,host=None,selected=None):
     result={'scope':'additional P2 DML/schema/types/modes; not full P2-P6','cases':{},'failures':{}}
     if host:result['host_diagnostics']={}
-    for name,scenario in scenarios().items():
+    for name,scenario in (scenarios() if selected is None else selected).items():
         if host:
             case,diagnostics=guest_case(host,scenario)
             result['host_diagnostics'][name]=diagnostics

@@ -300,7 +300,19 @@ static char *ps_execute(MYSQL *db,ps_entry *e,const unsigned char *data,size_t s
     ps_buffers_free(params);return NULL;
   }
   ps_buffers_free(e->parameters);e->parameters=params;
-  if (mysql_stmt_execute(e->stmt)) return ps_error(e->stmt);
+  if (mysql_stmt_execute(e->stmt)) {
+    /* Preserve the native error before cleanup clears it. An EXECUTE may
+     * already have produced a result; never leave it blocking the next SQL
+     * command, and never retry SQL to repair changed result metadata. */
+    char *error=ps_error(e->stmt);
+    if (mysql_stmt_errno(e->stmt)==2008) {
+      /* Metadata allocation can have replaced/freed the old field arena.
+       * Do not reuse that partially rebuilt handle after out-of-memory. */
+      mysql_stmt_close(e->stmt);e->stmt=NULL;free(error);return NULL;
+    }
+    if (mysql_stmt_free_result(e->stmt) || (db->server_status&8)) {free(error);return NULL;}
+    return error;
+  }
   unsigned int columns=mysql_stmt_field_count(e->stmt);
   MYSQL_RES *meta=columns ? mysql_stmt_result_metadata(e->stmt) : NULL;
   if (columns && (!meta || columns>UINT16_MAX || mysql_num_fields(meta)!=columns)) {if(meta)mysql_free_result(meta);return NULL;}

@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "pin": {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "patch_sha256": "259c1afcf50a173406a7dd75c691eedc3f8643e8353bcb07aabd62955fbc255b",
+    "files": [
+      {
+        "file": "sql/sql_prepare.cc",
+        "before_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+        "after_sha256": "b66f2b5b1ac8cbfff25e2cfee6e479586d403c627bfe00ee5d5cfc88b9a09ee1"
+      },
+      {
+        "file": "libmysqld/libmysql.c",
+        "before_sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+        "after_sha256": "02e7c561a33fff7cfc85ac953fc02149f06231f6c73ee8a27562b3ac78ee6159"
+      }
+    ],
+    "purpose": "Approved experimental TIME plus raw parameter types and single-execution result metadata repair; WASIX embedded-only additions. Not canonical adoption.",
+    "component_fixture_sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb"
+  },
+  "complete_preimages_checked": true,
+  "repeat_rejected": true,
+  "component_functions_bound_to_full_source": true
+}

@@ -803,9 +803,13 @@ atd11f4ff independently matches12 scenarios on both OSes and fails8: seven raw
 parameter type inputs time out; schema-add returns2057 and leaves following SQL
 out of sync. Previous P1/original22/TIME13 and smoke/binding gates still PASS.
 [Failure assessment and bounded repair proposal](reviews/v06x-prepared-p2-blockers.md)
-preserve exact captures, separate observed harm from source inference, and await
-Human decision before any additional MariaDB-internal change. No fix or scope
-reduction is accepted here. P2–P6 and full production acceptance remain unfinished.
+preserve exact captures and separate observed harm from source inference.
+The Human approved the bounded two-part repair continuation. The
+[source candidate](reviews/v06x-prepared-p2-repair.md) preserves raw parameter
+types and rebuilds changed result metadata without SQL retry. Its89 focused
+macOS component checks and15 added fixed-native controls PASS; actual new guest
+build, identity review and both-OS runtime comparison remain pending. No scope
+reduction is accepted. P2–P6 and full production acceptance remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
 

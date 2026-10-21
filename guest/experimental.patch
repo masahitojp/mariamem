@@ -9,3 +9,70 @@
  }
  
  void Item_param::set_param_datetime(uchar **pos, ulong len)
+--- a/libmysqld/libmysql.c
++++ b/libmysqld/libmysql.c
+@@ -1749,0 +1750,8 @@
++#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
++    if (!field->catalog || !field->db || !field->table || !field->org_table ||
++        !field->name || !field->org_name || (fields->def && !field->def))
++    {
++      set_stmt_error(stmt, CR_OUT_OF_MEMORY, unknown_sqlstate, NULL);
++      return;
++    }
++#endif
+@@ -1760,2 +1768,3 @@
+-  @note If the new field count is different from the original one,
+-        an error is set and no update is performed.
++  @note Ordinary clients reject a changed field count. The WASIX embedded
++        resident bridge replaces metadata and clears old bindings instead;
++        it must bind the current result after every execution.
+@@ -1767,3 +1776,3 @@
+-  MYSQL_FIELD *field_end= field + stmt->field_count;
+-  MYSQL_FIELD *stmt_field= stmt->fields;
+-  MYSQL_BIND *my_bind= stmt->bind_result_done ? stmt->bind : 0;
++  MYSQL_FIELD *field_end;
++  MYSQL_FIELD *stmt_field;
++  MYSQL_BIND *my_bind;
+@@ -1772,0 +1782,8 @@
++#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
++    /* The resident bridge binds results after each EXECUTE. Replace stale
++       metadata/binds from this execution, without executing the SQL again. */
++    stmt->bind_result_done= FALSE;
++    stmt->field_count= stmt->mysql->field_count;
++    alloc_stmt_fields(stmt);
++    return;
++#else
+@@ -1786,2 +1803,6 @@
+-  }
+-
++#endif
++  }
++
++  field_end= field + stmt->field_count;
++  stmt_field= stmt->fields;
++  my_bind= stmt->bind_result_done ? stmt->bind : 0;
+@@ -2610,0 +2632,4 @@
++#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
++    if (stmt->last_errno)
++      DBUG_RETURN(1);
++#endif
+@@ -2883,0 +2909,3 @@
++#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
++    case MYSQL_TYPE_YEAR:
++#endif
+@@ -2888,0 +2917,3 @@
++#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
++    case MYSQL_TYPE_INT24:
++#endif
+@@ -2912,0 +2944,3 @@
++#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
++    case MYSQL_TYPE_NEWDATE:
++#endif
+@@ -2921,0 +2956,7 @@
++#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
++    /* Preserve the wire type for Item_param::setup_conversion. */
++    case MYSQL_TYPE_BIT:
++    case MYSQL_TYPE_ENUM:
++    case MYSQL_TYPE_SET:
++    case MYSQL_TYPE_GEOMETRY:
++#endif

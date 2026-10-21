@@ -75,4 +75,5 @@ def test_checked_command_failure_is_not_hidden(tree,monkeypatch):
 
 
 def test_repository_patch_input_binding():
-    assert patch.inputs(ROOT)['before_sha256']=='2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3'
+    with pytest.raises(ValueError,match='superseded'):
+        patch.inputs(ROOT)

@@ -46,6 +46,7 @@ typedef struct {
 typedef struct {unsigned count;MYSQL_FIELD *fields;} MYSQL_RES;
 typedef struct {unsigned params,columns,errno_,fetched,type;int meta_fail;MYSQL_BIND *param_bind,*result_bind;} MYSQL_STMT;
 static int fail_bind_param,fail_bind_result,fail_fetch_column,fail_execute_sql,execute_calls;
+static int pending_result,free_result_calls,fail_free_result,fail_execute_oom;
 static MYSQL_STMT *mysql_stmt_init(MYSQL *db){(void)db;MYSQL_STMT *s=calloc(1,sizeof(*s));if(s)live++;return s;}
 static int mysql_stmt_prepare(MYSQL_STMT *s,const char *sql,unsigned long n){
  prepared_calls++;
@@ -83,9 +84,14 @@ static int mysql_stmt_bind_param(MYSQL_STMT *s,MYSQL_BIND *b){
  return fail_bind_param;
 }
 static int mysql_stmt_bind_result(MYSQL_STMT *s,MYSQL_BIND *b){s->result_bind=b;return fail_bind_result;}
-static int mysql_stmt_execute(MYSQL_STMT *s){s->fetched=0;execute_calls++;s->errno_=fail_execute_sql?1062:0;return fail_execute_sql;}
+static int mysql_stmt_execute(MYSQL_STMT *s){
+ s->fetched=0;execute_calls++;s->errno_=fail_execute_oom?2008:fail_execute_sql?1062:0;
+ pending_result=!!s->errno_;return !!s->errno_;
+}
 static int mysql_stmt_store_result(MYSQL_STMT *s){(void)s;return 0;}
-static int mysql_stmt_free_result(MYSQL_STMT *s){(void)s;return 0;}
+static int mysql_stmt_free_result(MYSQL_STMT *s){
+ free_result_calls++;pending_result=0;s->errno_=0;return fail_free_result;
+}
 static unsigned long long mysql_stmt_affected_rows(MYSQL_STMT *s){(void)s;return 0;}
 static unsigned long long mysql_stmt_insert_id(MYSQL_STMT *s){(void)s;return 0;}
 static int mysql_stmt_fetch(MYSQL_STMT *s){
@@ -168,7 +174,11 @@ int main(int argc,char **argv){
  unsigned char blob[15]={1,0,0,0,252,0,0,0,3,0,0,0,'A',0,'B'};
  expect(call_binary(23,3,1,blob,sizeof(blob)),"\"binary_rows\":true");
  blob[12]='Z';assert(ps_entries->parameters->slots[0].bytes[0]=='A'); /* no borrowed request lifetime */
+ int before_error=free_result_calls,before_execute=execute_calls;
  fail_execute_sql=1;expect(call_binary(23,3,1,integer,sizeof(integer)),"\"sqlstate\":\"23000\"");fail_execute_sql=0;
+ assert(!pending_result&&free_result_calls==before_error+1&&execute_calls==before_execute+1);
+ fail_execute_sql=1;fail_free_result=1;assert(!call_binary(23,3,1,integer,sizeof(integer)));
+ fail_free_result=fail_execute_sql=0;
  blob[12]='A';expect(call_binary(23,3,1,blob,sizeof(blob)),"\"binary_rows\":true");
  blob[12]='Z';
  int executed=execute_calls;
@@ -213,6 +223,10 @@ int main(int argc,char **argv){
  assert(!ps_cell(&cell,NULL,numeric,&field,0));assert(!strcmp(cell.p,"{\"$h\":\"341200000000f87f\"}"));free(cell.p);
  cell=(buf_t){0};numeric->slots[0].length=4;assert(ps_cell(&cell,NULL,numeric,&field,0));assert(!cell.p);
  ps_buffers_free(numeric);
+ assert(!ps_begin_session()&&ps_generation==7);
+ expect(call(22,7,0,"one-result"),"\"statement_id\":1");
+ fail_execute_oom=1;assert(!call_binary(23,7,1,integer,sizeof(integer)));fail_execute_oom=0;
+ assert(!live&&!ps_entries->stmt);assert(!ps_clear());
  ps_generation=UINT32_MAX;assert(ps_begin_session());
  puts("{\"ownership\":\"PASS\",\"more_than_64_handles\":true,\"failure_cleanup\":true,\"generation_rejection\":true,\"live_handles\":0,\"scope\":\"mock API ownership only\"}");
  return 0;

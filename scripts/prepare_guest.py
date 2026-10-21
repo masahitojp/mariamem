@@ -43,12 +43,18 @@ subprocess.run(["patch", "--batch", "--forward", "--fuzz=0", "-p1", "-i", str(RO
 experimental = ROOT / "guest/experimental.patch"
 experimental_files = patch_files(ROOT)
 time_patch = None
+prepared_patch = None
 if experimental.exists():
-    if (ROOT / "guest/prepared_time_patch.json").exists():
+    if (ROOT / "guest/prepared_source_patch.json").exists():
+        from prepared_source_patch import apply as apply_prepared_patch
+        prepared_patch = apply_prepared_patch(source)
+    elif (ROOT / "guest/prepared_time_patch.json").exists():
         from prepared_time_patch import apply as apply_time_patch
         time_patch = apply_time_patch(source)
     else:
         subprocess.run(["patch", "-p1", "-i", str(experimental)], cwd=source, check=True)
+elif (ROOT / "guest/prepared_source_patch.json").exists():
+    raise ValueError("experimental prepared source patch is missing")
 elif (ROOT / "guest/prepared_time_patch.json").exists():
     raise ValueError("experimental TIME patch is missing")
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
@@ -93,6 +99,8 @@ if experimental.exists():
     manifest["experimental_patch"] = {"file": "guest/experimental.patch", "sha256": digest(experimental)}
 if time_patch:
     manifest["experimental_time_patch"] = time_patch
+if prepared_patch:
+    manifest["experimental_prepared_patch"] = prepared_patch
 (ROOT / "build/prepared-source.json").write_text(json.dumps(manifest, indent=2) + "\n")
 shutil.copy2(ROOT / "release/inputs.lock.json", ROOT / "build/preparation-inputs.lock.json")
 print("Prepared build/source from pinned archives; all guest dependencies are local.")

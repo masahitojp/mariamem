@@ -549,3 +549,17 @@ exact evidence and the proposed bounded continuation. No implementation repair
 or new source change is included. The existing MariaDB-internal stop condition
 now requires a Human decision before expanding the patch scope. P2 remains open;
 neither harness isolation nor the12 passing scenarios completes P2–P6.
+
+## P2 bounded repair continuation — approved source candidate
+
+The Human approved proceeding with the two-part proposal.
+[Candidate and reproduction](v06x-prepared-p2-repair.md) record the WASIX embedded
+raw-type binding extension, single-execution metadata rebuild, allocation/error
+cleanup, exact combined patch ownership and15 additional native controls.
+All89 focused local tests pass, including pre-fix source controls, sanitizers,
+metadata allocation failure injection and duplicate-execution oracle rejection.
+Native15/20/22/TIME13 replay and unchanged canonical inventory/public checks PASS.
+These are components/reference checks, not actual patched guest execution.
+Submit source/unit preflight on experiment/prepared-p2-repair; only after the
+new guest identity/body/data/TLS review should the full prepared-product gate
+run. The eight guest failures remain unclosed until that comparison passes.
