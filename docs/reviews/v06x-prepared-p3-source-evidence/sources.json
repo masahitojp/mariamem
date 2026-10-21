@@ -1,0 +1,60 @@
+{
+  "method": "GitHub contents API raw at exact MariaDB commit; source inspection only, no build or execution",
+  "files": [
+    {
+      "file": "include/mysql.h",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "aff93c3ce50a8d3e2e56d42c9e2150af2cfc61c139098fae08d16c8427cd8a7c"
+    },
+    {
+      "file": "include/mysql_com.h",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "75f5644c62eb9f20882b1730dc6525e45c4b1e58f3c4f97ff229e1aa7cbc986d"
+    },
+    {
+      "file": "include/sql_common.h",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "e63fe7ec731e01706c058efaf95a8f634ad302ff45edf5d89624a2d9f27e85d5"
+    },
+    {
+      "file": "libmysqld/examples/CMakeLists.txt",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "116bea5bdcab051f76b7c09f1e1c1d0af43597b143a003fd350a23678eccffac"
+    },
+    {
+      "file": "libmysqld/lib_sql.cc",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e"
+    },
+    {
+      "file": "libmysqld/libmysql.c",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c"
+    },
+    {
+      "file": "libmysqld/libmysqld.c",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "29c1685f824f9880a31821074dbc00fc65833f27644cb1b16ab052c7aa88f527"
+    },
+    {
+      "file": "sql/protocol.cc",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242"
+    },
+    {
+      "file": "sql/sql_prepare.cc",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3"
+    },
+    {
+      "file": "sql-common/client.c",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "40d26fe8713eaa276c8b095ec055034eea4f31162c49e2feb9b7254ec0bdf3a6"
+    },
+    {
+      "file": "tests/mysql_client_test.c",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "2816adf2ec3738ee8886d6847a7d98cfad1d609ad36e6ebba39a4603b996a38a"
+    }
+  ]
+}

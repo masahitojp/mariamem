@@ -604,3 +604,14 @@ The single binding advances; the immediately previous41ab4076 is additionally
 rejected. Local103 focused checks PASS. See the [binding receipt](v06x-prepared-param-order-binding/reproduce.md).
 Actual both-OS unsigned/NULL native comparisons remain pending; no P2 completion,
 main adoption or release judgment is implied.
+
+### P3 source preflight supplied by the Human
+
+The [embedded CALL/OUT source review](v06x-prepared-p3-source.md) confirms the
+public next-result API, exact embedded methods slot, internal capability path
+and upstream test/build target at the fixed MariaDB commit. The embedded connect
+path itself adds CLIENT_CAPABILITIES; this is distinct from the external wire
+capability, which remains unadvertised during P2. Actual P3 execution is NOT RUN.
+First exercise one OUT plus two ordinary results and complete native sequence/
+following SELECT1 within P3, then retain the full approved matrix. No P2 gate,
+prepared scope, generated source or release boundary changes here.
