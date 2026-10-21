@@ -16,6 +16,7 @@ type preparedSession struct {
 	registry *preparedproto.Registry
 	status   uint16
 	execute  bool
+	psMulti  bool
 	types    map[uint32][]preparedproto.ParameterType
 }
 

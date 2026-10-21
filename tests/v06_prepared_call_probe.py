@@ -17,14 +17,17 @@ class CallWireError(Exception):
         super().__init__(stage,self.errno,self.sqlstate,raw.hex())
 
 
-def result_chain(c, payload):
+def result_chain(c, payload, allow_error=False):
     c._execute_command(23, payload)
     results=[]
     while True:
         first=c._read_packet(RawErrorPacket)
         raw=first.get_all_data()
         if raw[0]==255:
-            raise CallWireError(f'next-result/{len(results)}',raw)
+            error=CallWireError(f'next-result/{len(results)}',raw)
+            if not allow_error:raise error
+            results.append({'error_packet':raw.hex(),'errno':error.errno,'sqlstate':error.sqlstate})
+            break
         if first.is_ok_packet():
             first.read_uint8()
             first.read_length_encoded_integer();first.read_length_encoded_integer()
@@ -38,7 +41,12 @@ def result_chain(c, payload):
             while True:
                 row=c._read_packet(RawErrorPacket)
                 data=row.get_all_data()
-                if data[0]==255:raise CallWireError(f'fetch/{len(results)}',data)
+                if data[0]==255:
+                    error=CallWireError(f'fetch/{len(results)}',data)
+                    if not allow_error:raise error
+                    results.append({'columns':columns,'metadata_end':meta.get_all_data().hex(),
+                                    'rows':rows,'error_packet':data.hex(),'errno':error.errno,'sqlstate':error.sqlstate})
+                    return results
                 if row.is_eof_packet():break
                 assert data[0]==0,data.hex()
                 rows.append(data.hex())

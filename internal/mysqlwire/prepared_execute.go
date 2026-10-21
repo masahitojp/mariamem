@@ -46,6 +46,42 @@ func (s *preparedSession) executeStatement(payload []byte, call preparedCall) ([
 	if r.StatementID != e.Handle {
 		return nil, errors.New("prepared execute handle mismatch")
 	}
+	return preparedClientPackets(r, s.psMulti)
+}
+
+// The embedded connection enables PS multi-results internally. Native
+// Protocol_binary::send_out_parameters emits OUT only when the wire client
+// negotiated CLIENT_PS_MULTI_RESULTS. Consume/validate the internal OUT result
+// but expose it only under that same client capability; ordinary results and
+// errors are never filtered. Validate even unexposed OUT bytes before replying.
+func preparedClientPackets(r guest.Result, psMulti bool) ([][]byte, error) {
+	validated, err := preparedResultPackets(r)
+	if err != nil {
+		return nil, err
+	}
+	if psMulti {
+		return validated, nil
+	}
+	if r.Results == nil {
+		if r.Status&4096 != 0 {
+			return nil, errors.New("standalone prepared OUT result")
+		}
+		return validated, nil
+	}
+	remaining := make([]guest.Result, 0, len(r.Results))
+	for i, part := range r.Results {
+		if part.Status&4096 != 0 {
+			if !part.OK || len(part.Columns) == 0 || i == len(r.Results)-1 {
+				return nil, errors.New("invalid prepared OUT chain position")
+			}
+			continue
+		}
+		remaining = append(remaining, part)
+	}
+	if len(remaining) == len(r.Results) {
+		return validated, nil
+	}
+	r.Results = remaining
 	return preparedResultPackets(r)
 }
 

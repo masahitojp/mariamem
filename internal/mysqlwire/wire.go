@@ -21,6 +21,14 @@ import (
 const capabilities uint32 = 1 | 4 | 8 | 512 | 8192 | 32768 | 65536 | 131072 | 524288
 const maxPacket = 0xffffff - 1
 const clientFoundRows uint32 = 2
+const clientPSMultiResults uint32 = 1 << 18
+
+func preparedCapabilities(s *preparedSession) uint32 {
+	if s != nil && s.execute {
+		return capabilities | clientPSMultiResults
+	}
+	return capabilities
+}
 
 type wire struct {
 	conn     net.Conn
@@ -338,6 +346,12 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			err = errors.Join(err, errors.New("session did not close"))
 		}
 	}()
+	// Validate Ready/open before advertising prepared result support. A legacy
+	// guest and the staged PREPARE-only owner must not advertise PS results.
+	statements, err := newPreparedSession(preparedOpen, p.PreparedVersion, p.PreparedOperations)
+	if err != nil {
+		return err
+	}
 	w := wire{conn: conn, timeout: timeout, begin: activity.Begin}
 	query := func(sql []byte, monitor bool) (guest.Result, error) {
 		if len(sql) == 0 || len(sql) > 1<<20 {
@@ -373,15 +387,16 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 	for i := range salt {
 		salt[i] = 33 + salt[i]%90
 	}
+	serverCaps := preparedCapabilities(statements)
 	b := append([]byte{10}, serverVersion...)
 	b = append(b, 0)
 	b = append(b, le32(uint32(id))...)
 	b = append(b, salt[:8]...)
 	b = append(b, 0)
-	b = append(b, le16(uint16(capabilities&0xffff))...)
+	b = append(b, le16(uint16(serverCaps&0xffff))...)
 	b = append(b, 45)
 	b = append(b, le16(status)...)
-	b = append(b, le16(uint16(capabilities>>16))...)
+	b = append(b, le16(uint16(serverCaps>>16))...)
 	b = append(b, 21)
 	b = append(b, make([]byte, 10)...)
 	b = append(b, salt[8:]...)
@@ -450,12 +465,13 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		opened = true
 		status = r.Status
 		preparedOpen = r
-	}
-	statements, err := newPreparedSession(preparedOpen, p.PreparedVersion, p.PreparedOperations)
-	if err != nil {
-		return err
+		statements, err = newPreparedSession(preparedOpen, p.PreparedVersion, p.PreparedOperations)
+		if err != nil {
+			return err
+		}
 	}
 	if statements != nil {
+		statements.psMulti = flags&clientPSMultiResults != 0
 		defer statements.registry.Clear()
 	}
 	// Embedded CLIENT_CAPABILITIES already includes MULTI_RESULTS. Toggle

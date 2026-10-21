@@ -1,0 +1,50 @@
+{
+  "baseline_source_commit": "9d25fde2a3fcc73a4395f5c558d9502f1abf6fb0",
+  "baseline_guest_source_commit": "42be2b598b4b1a1047f7e9d3787d12fec11aa760",
+  "guest_sha256": "e6d6021a5753492169aeacbbc787e693e1730026b6da9960ef8c6ace296ac37a",
+  "baseline_formal_development_record_sha256": "020b592a6c78fca3d94d0d0ce6697145d1fad7bc1546c80867742fffe2a6794f",
+  "baseline_guest_matrix": {
+    "result": "FAIL",
+    "matched_cases": 11,
+    "failed_cases": [
+      "no-PS-flag-OUT",
+      "no-PS-flag-multiple"
+    ],
+    "cause": "OUT dedicated result emitted although external client does not negotiate PS_MULTI_RESULTS; expected native omission only of dedicated OUT result"
+  },
+  "native14": {
+    "result": "PASS",
+    "all_original13_controls_unchanged": true,
+    "added_case": "PS-flag-multiple: same procedure as no-PS-flag-multiple, capability positive control",
+    "environment": "Linux aarch64 fixed Docker MariaDB12.3.3 image on macOS arm64",
+    "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1"
+  },
+  "saved_files": {
+    "native-first.json": {
+      "original_sha256": "2bf649dc4ce4f5e7dc35dccf16ed8b62c795e50c9555bc5866c1024a894eb83f",
+      "stored_sha256": "2bf649dc4ce4f5e7dc35dccf16ed8b62c795e50c9555bc5866c1024a894eb83f",
+      "bytes": 55840
+    },
+    "guest-baseline.json": {
+      "original_sha256": "70c3136324172460012d2b4da48bf8d89cb4c06afca71c9bb44dd273e5d81707",
+      "stored_sha256": "70c3136324172460012d2b4da48bf8d89cb4c06afca71c9bb44dd273e5d81707",
+      "bytes": 59108
+    },
+    "native14.json": {
+      "original_sha256": "de359c104285e514343097cded40309198becf39442afc83a5e2f8dc36aa2fb6",
+      "stored_sha256": "de359c104285e514343097cded40309198becf39442afc83a5e2f8dc36aa2fb6",
+      "bytes": 57500
+    },
+    "native14-replay.json": {
+      "original_sha256": "a73ef6eb960e8a7026636669c1f990f971b1950118c6e3d9855b084d92954fa7",
+      "stored_sha256": "a73ef6eb960e8a7026636669c1f990f971b1950118c6e3d9855b084d92954fa7",
+      "bytes": 57556
+    },
+    "probe-unit-final.txt": {
+      "original_sha256": "cda9c08bb1cef0414244f1623c99947ea8a2d3c6278e29818278f03da5386ecd",
+      "stored_sha256": "cda9c08bb1cef0414244f1623c99947ea8a2d3c6278e29818278f03da5386ecd",
+      "bytes": 1094
+    }
+  },
+  "fixed_host_runtime": "PENDING; not inferred from native or baseline passes"
+}
