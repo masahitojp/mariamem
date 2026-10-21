@@ -360,12 +360,12 @@
       "bytes": 933
     },
     "translate.py": {
-      "stored_sha256": "72189a9e9e1cfee2c9d72fe9fdfa2528f0080ee0e51639c0e70c11a90e99e869",
-      "bytes": 1718
+      "stored_sha256": "c56e58524d1093437f4afaf6e0724eb973774e1e5c31ab51128ee147cc144672",
+      "bytes": 1616
     },
     "review.py": {
-      "stored_sha256": "017f6ce65a512b858ae1e49c86847f379d4e45903924050a2ad09598b9975b82",
-      "bytes": 3931
+      "stored_sha256": "87aaa7062437f8677d1d5a4637342bf669e5c5170c148bad20df7eb4048d8cf7",
+      "bytes": 3940
     }
   },
   "log_transformation": "Only local absolute repo paths replaced by <repo>; original/stored hashes distinguish transformed logs. SSA/f16 converter diagnostics retained unchanged.",
@@ -375,5 +375,26 @@
     "canonical_inventory": "PASS (unchanged routine guest)",
     "public_source": "PASS",
     "runtime_execution": "PENDING both-OS development CI"
+  },
+  "post_capture_correction": {
+    "run": "https://github.com/masahitojp/mariamem/actions/runs/39614500947",
+    "candidate_source_commit": "3c0da63c9d2e879c7595115100dbfe9883a1e6ee",
+    "failed_job": 119271804794,
+    "reason": "check_public rejected two saved reproduction helpers containing a local absolute Go binary path; earlier local public PASS preceded saving these helpers",
+    "change": "Use Go from caller PATH and assert actual go1.26.8 darwin/arm64 in both helpers; regenerate helper hashes. No guest/host/converter/runtime changes.",
+    "runtime_result": "Not inferred from the unit failure; runtime jobs not polled",
+    "artifact_id": 12352895827,
+    "saved_failure_files": {
+      "ci39614500947-public.txt": {
+        "original_sha256": "e3976662129fb9e2450de059c10f3ad7dfc295f3f9f7cded337a3dddc7cd3e6c",
+        "stored_sha256": "219e9e35342065be37b7a54d9ea421b9037338ed1ed8f7f3a9d17f3569d9c7ce",
+        "bytes": 438
+      },
+      "ci39614500947-baseline-inventory.txt": {
+        "original_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+        "stored_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+        "bytes": 67
+      }
+    }
   }
 }

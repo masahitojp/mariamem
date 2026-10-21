@@ -25,7 +25,8 @@ for s in ident['data_segments']:assert hashlib.sha256(content[s['start']:s['end'
 generated=(t/'module/generated/generated.go').read_text(); declaration='m.DataSegs = [][]byte{'+', '.join(f'wasm2goData_data_bin[{s["start"]}:{s["end"]}]' for s in ident['data_segments'])+'}'
 assert declaration in generated
 (w/'evidence/binding-review.json').write_text(json.dumps({'functions':review,'data_sha256':sha(data),'data_segments':ident['data_segments'],'memory_init':pin,'all_exact_preimages_match':True},indent=2)+'\n')
-env={k:v for k,v in os.environ.items() if k not in ('GOPATH','GOCACHE','GOMODCACHE','GOROOT','MARIAMEM_DEV_WORKSPACE')};env.update(PATH='/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin:'+env['PATH'],GOTOOLCHAIN='go1.26.8',GOENV='off',GOWORK='off')
+env={k:v for k,v in os.environ.items() if k not in ('GOPATH','GOCACHE','GOMODCACHE','GOROOT','MARIAMEM_DEV_WORKSPACE')};env.update(GOTOOLCHAIN='go1.26.8',GOENV='off',GOWORK='off')
+assert subprocess.check_output(['go','version'],env=env,text=True).strip()=='go version go1.26.8 darwin/arm64'
 guest=next((w/'temp/ci').glob('prepared-p1-unqualified-guest-*'))/'mariamem.wasm'
 with (w/'evidence/adapter.txt').open('w') as log:subprocess.run([sys.executable,str(root/'benchmarks/spikes/generated-go-integration/setup_candidate.py'),'--source-only','--source-module',str(t/'module'),'--guest',str(guest),'--input-manifest',str(t/'input-manifest.json'),'--output',str(w/'temp/candidate')],env=env,stdout=log,stderr=subprocess.STDOUT,check=True)
 base=(w/'temp/candidate/module/generated/base/base.go').read_text().replace('example.com/mariamem-spike/generated','github.com/masahitojp/mariamem/internal/generatedgo/code')

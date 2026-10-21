@@ -33,8 +33,8 @@ Reproduction:
    matching guest/source/unit artifacts. Verify the complete source inventory,
    patches, toolchain, optimized Wasm and linked Wasm with dev_guest.verify_guest.
 2. Copy [translate.py](translate.py) and [review.py](review.py) into workspace/temp.
-   Replace `<repo>` in pinned local Go paths with the local equivalent only where
-   applicable; the actual compiler must report go1.26.8. Download the recorded
+   Put the pinned Go1.26.8 darwin/arm64 bin directory on PATH; both helpers assert
+   the actual compiler version. No personal absolute toolchain path is embedded. Download the recorded
    converter archive to temp/wasm2go.tar.gz. Run translate.py with Python3.14
    through experiment_workspace.py run --timeout1800, with scoped caches.
 3. Run review.py through experiment_disk.py with the same budget/floor.
@@ -60,3 +60,12 @@ Logs only scrub local paths, with original/stored hashes; SSA/f16 diagnostics
 remain visible. Delete owned raw/generated/cache/worktree state after preserving
 compact evidence. Independent canonical generation/full J1/P6 acceptance,
 main adoption, target version, Qualification and release remain separate.
+
+CI39614500947 at3c0da63 failed the Ubuntu public-source check because the two
+saved helper recipes still embedded a personal Go binary path. The earlier
+local public PASS preceded saving those helpers; it did not cover the final
+published evidence tree. The helpers now use caller PATH and assert the actual
+pinned compiler, with updated hashes in receipt.json. This docs/helper correction
+does not alter guest, converter, runtime, expected native packets or oracles.
+Rerun public-source checking after all evidence files are saved. The failed unit
+job is not a statement about the separate guest-runtime comparison.

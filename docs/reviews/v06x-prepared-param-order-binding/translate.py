@@ -10,7 +10,7 @@ assert r['prepared_source']['experimental_prepared_patch']==json.loads((root/'gu
 (w/'evidence/guest.json').write_text(json.dumps(r,indent=2)+'\n')
 print('VERIFIED GUEST',r['guest_sha256'],r['guest_bytes'],flush=True)
 env={k:v for k,v in os.environ.items() if k not in ('GOPATH','GOCACHE','GOMODCACHE','GOROOT')}
-env.update(PATH='/Users/masahito/.go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.8.darwin-arm64/bin:'+env['PATH'],GOTOOLCHAIN='go1.26.8',GOENV='off',GOWORK='off',GOFLAGS='',GOEXPERIMENT='',MARIAMEM_DEV_WORKSPACE=str(w))
+env.update(GOTOOLCHAIN='go1.26.8',GOENV='off',GOWORK='off',GOFLAGS='',GOEXPERIMENT='',MARIAMEM_DEV_WORKSPACE=str(w))
 assert subprocess.check_output(['go','version'],env=env,text=True).strip()=='go version go1.26.8 darwin/arm64'
 with (w/'evidence/translation.txt').open('w') as log:
  subprocess.run([sys.executable,str(root/'benchmarks/spikes/generated-go-integration/translate_guest.py'),'--guest',str(guest/'mariamem.wasm'),'--guest-sha256',r['guest_sha256'],'--converter-archive',str(w/'temp/wasm2go.tar.gz'),'--output',str(w/'temp/translation')],env=env,stdout=log,stderr=subprocess.STDOUT,check=True)
