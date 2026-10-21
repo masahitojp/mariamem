@@ -774,8 +774,11 @@ earlier-same-literal regression. The corrected
 passed those12 mutations and actual P1 comparison on both OSes. Actual P2
 comparison now exposes one TIME column-length difference (16 vs native23), with
 all22 cases' binary rows/terminals matching. The [bounded internal-source proposal](reviews/v06x-prepared-p2-time-metadata.md)
-requires Human decision under the approved design's MariaDB-internal-edit stop
-condition; no engine patch is applied. P2–P6 and full production acceptance
+was approved by the Human on2026-10-21 after the upstream-history investigation.
+The2011 change redefined MAX_TIME_WIDTH23→16 while the embedded call retained
+that name; the ordinary call switched to the newly introduced full-width23
+constant. No engine patch is applied yet; the present update records approval
+and corrects history only. P2–P6 and full production acceptance
 remain unfinished.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
