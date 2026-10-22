@@ -42,7 +42,7 @@ def main():
     if sha(a.converter_archive) != CONVERTER_ARCHIVE: p.error('converter archive mismatch')
     out.mkdir(parents=True); (out/'go.mod').write_text('module example.com/readiness-replay\n\ngo 1.26.0\n')
     report = {'source_sha': subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(), 'completed': False, 'stages': [], 'full_guest_regeneration': not bool(a.translation_only_guest)}
-    env = dict(os.environ, GOTOOLCHAIN='go1.26.8', GOWORK='off')
+    env = dict(os.environ, GOTOOLCHAIN='go1.26.10', GOWORK='off')
     def save(): (out/'replay.json').write_text(json.dumps(report, indent=2)+'\n')
     def run(name, cmd, cwd=out, timeout=3600):
         start = time.monotonic()

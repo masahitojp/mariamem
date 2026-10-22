@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic pure memory32 regressions against pinned WASM-reference results.
 
-Requires the pinned patched converter binary and Go 1.26.8. Output must be a new
+Requires the pinned patched converter binary and Go 1.26.10. Output must be a new
 owned directory. Node/Wasmer are unnecessary for regression replay; use
 reference.js separately when reviewing fixture changes, never auto-update goldens.
 """
@@ -34,7 +34,7 @@ def main():
     (project/'go.mod').write_text('module genericfixture\n\ngo 1.26.0\n')
     shutil.copyfile(HERE/'matrix.go.txt', project/'main.go')
     subprocess.run([str(args.converter.resolve()), '-pure', '-i', str((fixture/'contract.wasm').resolve()), '-o', str((project/'fixture/fixture.go').resolve()), '-pkg', 'fixture', '-import', 'genericfixture/fixture'], check=True)
-    env = dict(os.environ, GOTOOLCHAIN='go1.26.8', GOWORK='off', GOENV='off', GOFLAGS='', GOEXPERIMENT='')
+    env = dict(os.environ, GOTOOLCHAIN='go1.26.10', GOWORK='off', GOENV='off', GOFLAGS='', GOEXPERIMENT='')
     result = subprocess.run(['go', 'run', '.', str((fixture/'matrix.json').resolve())], cwd=project, env=env, capture_output=True, text=True, check=True)
     rows = [json.loads(line) for line in result.stdout.splitlines() if line.startswith('{')]
     actual = [[row[key] for key in KEYS] for row in rows]

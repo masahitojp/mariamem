@@ -51,7 +51,7 @@ def main():
     source = next(converter.iterdir())
     # Keep patch application inside this extracted source, including in worktrees.
     subprocess.run(['git', 'init', '-q'], cwd=source, check=True)
-    env = go_environment(dict(os.environ, GOTOOLCHAIN='go1.26.8', GOWORK='off'))
+    env = go_environment(dict(os.environ, GOTOOLCHAIN='go1.26.10', GOWORK='off'))
     patches = HERE.parent/'wasm2go'
     for name in PATCHES:
         subprocess.run(['git','apply','--unidiff-zero',str(patches/name)],cwd=source,check=True)

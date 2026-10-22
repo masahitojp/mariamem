@@ -35,8 +35,11 @@ counted as PASS. See the [CI repair receipt](v06x-prepared-p6-ci-fix-evidence/re
   lite4mariadb recipe_source_commit `24be9371a2f6c71250a2356631ad6feab2280b02`.
   Archive identities and tag-object identity remain in `guest/input.json`.
 - Converter `730057c146463f663e8774587bc96fb2bea91af8` plus the same13 patches;
-  Go1.26.8, LLVM23.1.0, WASIXCC0.4.7, Binaryen133 and the pinned legacy-EH
-  sysroots remain unchanged. No shibukawa converter dependency is introduced.
+  The initial receipts use Go1.26.8. The Human subsequently requested the
+  Go1.26.10 security update (forward compatibility1.27.3); current-source
+  new-Go regeneration/runtime/audit results are pending a new candidate CI.
+  LLVM23.1.0, WASIXCC0.4.7, Binaryen133 and the pinned legacy-EH sysroots remain
+  unchanged. No shibukawa converter dependency is introduced.
 
 The exact approved three-file source repair moves from `guest/experimental.patch`
 into `guest/patches/12.3.3-prepared.patch` (SHA256

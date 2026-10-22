@@ -221,7 +221,7 @@ Go `LoadSnapshot(ctx, path, opts)` completes persisted-baseline acquisition.
 Go/Python guides and [bounded product comparisons](../benchmarks/v046-product-validation.md)
 cover Fresh, preparation reuse, optional persistence and independent children.
 Go minimum 1.26.0, mysql client v1.9.3, guest, generated runtime and Snapshot format
-remain unchanged. Release validation uses Go1.26.10 and Python3.14; accepted
+remain unchanged. That release was validated with Go1.26.8 and Python3.14; accepted
 Go1.27 consumer scope is documented in [compatibility](go-compatibility.md).
 No Snapshot or filesystem optimization is included.
 
@@ -1068,3 +1068,23 @@ P6 is not complete and no main adoption is claimed.
 See the [P6 candidate report](reviews/v06x-prepared-p6-canonical.md) for source
 identities, local proof limits, generation steps and pending gates. Existing
 release guards remain enabled; no Qualification or release is started.
+
+
+## Prepared candidate toolchain security update — in progress
+
+The Human requested incorporation of `chore/go-1.26.10` during P6. Source_commit
+`0cf9970533f719c765ef2b19802e5c6a509d5b48` is cherry-picked into the prepared
+candidate (integration commit9272889), preserving the Prepared consumer dependency
+when resolving the development-guide overlap. Build/generation/CI pins now use
+Go1.26.10; the later external forward-compat check uses Go1.27.3. Go minimum1.26.0,
+MariaDB/WASIX/Binaryen/converter pins and the13 converter patches are unchanged.
+The canonical translator, adapter and memory32 fixture had their own older Go
+selectors; those and the new P6 workflow are aligned too. Dedicated source guards
+bind them to the authoritative toolchain pin.
+
+[GO-2026-6809](https://pkg.go.dev/vuln/GO-2026-6809) identifies the corrected
+crypto/x509 certificate verification behavior. This is toolchain remediation,
+not evidence that a specific mariamem use case was exploitable. Earlier Go1.26.8
+CI/build/license receipts remain historical; new-Go reproduction/runtime/library
+audit results must come from the new candidate CI. No existing PASS is relabeled,
+no main integration or publication is approved by this toolchain update.

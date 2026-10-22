@@ -1,0 +1,29 @@
+{
+  "adopted_source_commit": "0cf9970533f719c765ef2b19802e5c6a509d5b48",
+  "integration_source_commit": "92728894b46c8bd3a64ebe8395f1aa03c006b148",
+  "prior_prepared_source_commit": "4aa764aefedfcb8ae3bde55077c8f29ad4081026",
+  "go": "go version go1.26.10 darwin/arm64",
+  "go_minimum_unchanged": "1.26.0",
+  "security_reference": "https://pkg.go.dev/vuln/GO-2026-6809",
+  "forward_compatibility_pin": "1.27.3",
+  "files": [
+    {
+      "file": "tests.txt",
+      "sha256": "ffe1e7fb537a7e7eca0326a1f1df8a6ec5a6b3c9b5897bc63d9588b4514a8784",
+      "bytes": 261
+    },
+    {
+      "file": "dependencies.txt",
+      "sha256": "daa0295fd308fe73da2656eb19201d13798b642452154e4fcedf795763035549",
+      "bytes": 1336
+    }
+  ],
+  "local_checks": {
+    "identity_release_runtime_validation_inventory": "185 PASS",
+    "workflow_syntax": "11 YAML /85 bash /2 Python steps PASS under their declared interpreters",
+    "version": "PASS, published version unchanged0.5.3",
+    "generated_runtime": "No hand edits. Actual new-Go independent regeneration/host compile/J1/library audit pending candidate CI.",
+    "go127_external_consumer": "NOT RUN here; actual Go1.27.3 external consumer remains in later Qualification, its existing guard now requires1.27.3."
+  },
+  "source_changes": "Toolchain pins/CI/scripts/tests/docs only; MariaDB source, recipe, WASIX/Binaryen, converter13 patches and module minimum unchanged. No prior result relabelled."
+}

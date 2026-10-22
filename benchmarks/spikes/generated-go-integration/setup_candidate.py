@@ -71,7 +71,7 @@ func verifyCompiledGuest(name string) {
     shutil.copyfile(HERE/'prepared-files.go.txt', module/'generated/base/prepared_files.go')
     shutil.copyfile(HERE/'prepared-files-test.go.txt', module/'generated/base/prepared_files_test.go')
     shutil.copyfile(HERE/'prepared-growth-test.go.txt', module/'generated/base/prepared_growth_test.go')
-    env = dict(os.environ, GOTOOLCHAIN='go1.26.8')
+    env = dict(os.environ, GOTOOLCHAIN='go1.26.10')
     sources = sorted(module.rglob('*.go'))
     go_root = Path(subprocess.check_output(['go','env','GOROOT'], env=env, text=True).strip())
     subprocess.run([str(go_root/'bin/gofmt'),'-w', *map(str,sources)], check=True)
@@ -86,7 +86,7 @@ func verifyCompiledGuest(name string) {
     shutil.copyfile(Path(str(a.guest)+'.json'),native/'mariamem.wasmu.json')
     manifest = dict(version=1,platform='darwin-arm64',minimum_macos=15,public_release_ready=False,runtime_kind='generated-go',sha256={n:digest(native/n) for n in ['wasmer-headless','mariamem-host','mariamem.wasmu','mariamem.wasmu.json']})
     (native/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
-    provenance = dict(source_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),guest_sha256=guest_sha,input_manifest_sha256=digest(input_manifest),go_toolchain='go1.26.8',converter_commit=pins['converter_commit'],templates_sha256={str(f.relative_to(HERE)):digest(f) for f in sorted(HERE.iterdir()) if f.is_file()},generated_go_sha256={str(f.relative_to(module)):digest(f) for f in sources},generated_asm_sha256={str(f.relative_to(module)):digest(f) for f in sorted(module.rglob('*.s'))},native_manifest=manifest,scope='selected local candidate; full source regeneration and Ubuntu acceptance pending')
+    provenance = dict(source_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),guest_sha256=guest_sha,input_manifest_sha256=digest(input_manifest),go_toolchain='go1.26.10',converter_commit=pins['converter_commit'],templates_sha256={str(f.relative_to(HERE)):digest(f) for f in sorted(HERE.iterdir()) if f.is_file()},generated_go_sha256={str(f.relative_to(module)):digest(f) for f in sources},generated_asm_sha256={str(f.relative_to(module)):digest(f) for f in sorted(module.rglob('*.s'))},native_manifest=manifest,scope='selected local candidate; full source regeneration and Ubuntu acceptance pending')
     (out/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     print(native)
 
