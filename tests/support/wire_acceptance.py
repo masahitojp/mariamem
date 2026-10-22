@@ -1,11 +1,28 @@
 """MySQL text protocol regression cases, promoted from the initial investigation."""
 import datetime
+import json
+from pathlib import Path
 import re
 import time
 from decimal import Decimal
 import pymysql
 
-def exercise(conn, events, api_version=1):
+def exercise_prepared_lifecycle(conn):
+    """Require native PREPARE metadata, RESET and response-free CLOSE/reuse."""
+    from v06_prepared_p1_probe import prepare, close_ping, expect_error
+    import struct
+
+    expected = json.loads((Path(__file__).resolve().parents[1] /
+                           'fixtures/prepared-p1-native.json').read_text())
+    sid, metadata = prepare(conn, 'SELECT ?')
+    assert metadata == expected['metadata']['placeholder'], metadata
+    conn._execute_command(26, struct.pack('<I', sid))
+    assert conn._read_packet().is_ok_packet()
+    close_ping(conn, sid)
+    expect_error(conn, 26, struct.pack('<I', sid), 1243)
+
+
+def exercise(conn, events, api_version=1, *, prepared=False):
     conn.ping(reconnect=False)
     conn.select_db("test")
     with conn.cursor() as cur:
@@ -120,17 +137,23 @@ def exercise(conn, events, api_version=1):
         cur.execute("WITH RECURSIVE sequence(n) AS (SELECT 1 UNION ALL SELECT n+1 FROM sequence WHERE n<300) SELECT n FROM sequence")
         assert cur.fetchall() == tuple((n,) for n in range(1, 301))
         events.append({"check": "70kb_request_response_and_300_row_packet_sequence_wrap", "passed": True})
-        # PyMySQL sends COM_STMT_PREPARE only through this low-level entry;
-        # normal cursor parameters above are client-side escaping + COM_QUERY.
-        conn._execute_command(22, "SELECT ?")
-        try:
-            conn._read_packet()
-            raise AssertionError("prepared statements must be explicitly rejected")
-        except pymysql.MySQLError as error:
-            assert error.args[0] == 1235
+        # Explicit feature expectation: historical text-only callers retain the
+        # rejection oracle; the current prepared candidate must pass P1 metadata
+        # and lifecycle checks instead. Never auto-detect success or rejection.
+        if prepared:
+            exercise_prepared_lifecycle(conn)
+            prepare_check = "errors_then_continue_empty_result_and_prepare_lifecycle"
+        else:
+            conn._execute_command(22, "SELECT ?")
+            try:
+                conn._read_packet()
+                raise AssertionError("prepared statements must be explicitly rejected")
+            except pymysql.MySQLError as error:
+                assert error.args[0] == 1235
+            prepare_check = "errors_then_continue_empty_result_and_prepare_rejection"
         cur.execute("SELECT 7")
         assert cur.fetchone() == (7,)
-        events.append({"check": "errors_then_continue_empty_result_and_prepare_rejection", "passed": True})
+        events.append({"check": prepare_check, "passed": True})
         start = time.monotonic()
         for _ in range(100):
             cur.execute("SELECT @wire_marker")

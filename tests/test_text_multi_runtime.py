@@ -1,8 +1,9 @@
-"""Real canonical-guest text chaining; binary prepared scope remains separate."""
+"""Real canonical-guest text chaining and prepared/text lifecycle coexistence."""
 import os
 import mariamem
 import pymysql
 from pymysql.constants import CLIENT
+from support.wire_acceptance import exercise_prepared_lifecycle
 import pytest
 
 HOST=os.environ.get('MARIAMEM_TEST_HOST')
@@ -79,9 +80,7 @@ def test_found_rows_and_multi_flags_remain_independent(found):
         assert q.rowcount==int(found)
 
 
-def test_binary_prepare_is_not_silently_adopted():
+def test_binary_prepare_lifecycle_preserves_text_connection():
     with mariamem.start(host_binary=HOST) as db, connection(db) as c:
-        c._execute_command(22,b'SELECT ?')
-        with pytest.raises(pymysql.MySQLError) as error:c._read_packet()
-        assert error.value.args[0]==1235
+        exercise_prepared_lifecycle(c)
         q=c.cursor();q.execute('SELECT 43');assert q.fetchone()==(43,)

@@ -52,11 +52,11 @@ def test_handshake_identity_matches_guest_across_sessions(wire_db):
 def test_text_protocol_values_metadata_flags_and_error_recovery(wire_db):
     events = []
     with connect(wire_db) as conn:
-        wire_acceptance.exercise(conn, events, api_version=2)
+        wire_acceptance.exercise(conn, events, api_version=2, prepared=True)
         conn.rollback()
     wire_acceptance.exercise_found_rows(wire_db.connection_info(), events)
     wire_db.wait_disconnected()
-    # The shared oracle also exercises unsupported COM_STMT_PREPARE and then
+    # The shared oracle checks actual PREPARE metadata, RESET/CLOSE and then
     # proves that the same session remains usable; no SQL-only substitute.
     assert {e["check"] for e in events} >= {
         "typed_values_and_driver_parameters",
@@ -64,7 +64,7 @@ def test_text_protocol_values_metadata_flags_and_error_recovery(wire_db):
         "begin_rollback_commit_autocommit_and_status",
         "native_insert_id_status_warnings_columns_duplicate_names_row_count_found_rows",
         "70kb_request_response_and_300_row_packet_sequence_wrap",
-        "errors_then_continue_empty_result_and_prepare_rejection",
+        "errors_then_continue_empty_result_and_prepare_lifecycle",
         "client_found_rows_semantics",
     }
 

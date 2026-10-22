@@ -1,0 +1,211 @@
++ go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+ok  	github.com/masahitojp/mariamem/internal/artifacts	1.010s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	3.376s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	1.635s
+ok  	github.com/masahitojp/mariamem/internal/guest	1.010s
+ok  	github.com/masahitojp/mariamem/internal/host	1.017s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.091s
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	1.368s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.162s
+ok  	github.com/masahitojp/mariamem/internal/control	1.010s
+ok  	github.com/masahitojp/mariamem/internal/prepared	1.397s
+ok  	github.com/masahitojp/mariamem	1.016s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	12.127s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	1.918s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	0.588s
++ go build -p 1 -o /tmp/mariamem-integration-d__30jcx/mariamem-host ./cmd/mariamem-host
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ /opt/hostedtoolcache/Python/3.14.8/x64/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py tests/test_routine_runtime.py tests/test_text_multi_runtime.py -q
+...F...........................F                                         [100%]
+=================================== FAILURES ===================================
+_________ test_text_protocol_values_metadata_flags_and_error_recovery __________
+
+wire_db = <mariamem.Database object at <object-address>>
+
+    def test_text_protocol_values_metadata_flags_and_error_recovery(wire_db):
+        events = []
+        with connect(wire_db) as conn:
+>           wire_acceptance.exercise(conn, events, api_version=2)
+
+tests/test_python_wire.py:55:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+conn = <pymysql.connections.Connection object at <object-address>>
+events = [{'check': 'typed_values_and_driver_parameters', 'passed': True, 'types': ['str', 'bytes', 'NoneType', 'Decimal', 'dat...or', 'errno': 1064, 'sql': 'SELEC invalid'}, {'check': 'mysql_error', 'errno': 1064, 'sql': 'SELECT 1; SELECT 2'}, ...]
+api_version = 2
+
+    def exercise(conn, events, api_version=1):
+        conn.ping(reconnect=False)
+        conn.select_db("test")
+        with conn.cursor() as cur:
+            cur.execute("SELECT 1 AS one, VERSION() AS version")
+            one, version = cur.fetchone()
+            assert one == 1 and re.fullmatch(r"\d+\.\d+\.\d+-MariaDB-embedded", version), (one, version)
+            assert conn.get_server_info() == version, (conn.get_server_info(), version)
+            cur.execute("CREATE TABLE wire_probe (id INT PRIMARY KEY AUTO_INCREMENT, "
+                        "txt VARCHAR(80), b VARBINARY(16), n INT NULL, amount DECIMAL(10,2), "
+                        "dt DATETIME, u BIGINT UNSIGNED) ENGINE=InnoDB")
+            values = ("日本語🙂 ' \\", b"\x00\xff\x27\x5c", None, Decimal("123.45"),
+                      datetime.datetime(2026, 9, 22, 3, 4, 5), 18446744073709551615)
+            assert cur.execute("INSERT INTO wire_probe(txt,b,n,amount,dt,u) VALUES (%s,%s,%s,%s,%s,%s)", values) == 1
+            assert cur.rowcount == 1
+            if api_version == 2:
+                assert cur.lastrowid == 1, cur.lastrowid
+                cur.execute("SELECT ROW_COUNT()")
+                assert cur.fetchone() == (1,)
+            cur.execute("SELECT txt,b,n,amount,dt,u FROM wire_probe WHERE id=%s", (1,))
+            row = cur.fetchone()
+            assert row == values, (row, values)
+            events.append({"check": "typed_values_and_driver_parameters", "passed": True,
+                           "types": [type(value).__name__ for value in row]})
+            cur.execute("SELECT LAST_INSERT_ID()")
+            assert cur.fetchone() == (1,)
+            # Engine identity complements the insert-ID protocol assertions above.
+            cur.execute("SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA='test' AND TABLE_NAME='wire_probe'")
+            assert cur.fetchone() == ("InnoDB",)
+            # Generic schema discovery: wildcard/enumeration must agree with exact
+            # lookup, including newly created and subsequently dropped databases.
+            cur.execute("SHOW DATABASES")
+            assert ("test",) in cur.fetchall()
+            cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA")
+            assert ("test",) in cur.fetchall()
+            cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA "
+                        "WHERE SCHEMA_NAME LIKE %s ORDER BY SCHEMA_NAME=%s DESC,SCHEMA_NAME LIMIT 1",
+                        ("test%", "test"))
+            assert cur.fetchone() == ("test",)
+            cur.execute("CREATE DATABASE wire_discovery")
+            cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA "
+                        "WHERE SCHEMA_NAME LIKE %s", ("wire_discovery%",))
+            assert cur.fetchall() == (("wire_discovery",),)
+            cur.execute("DROP DATABASE wire_discovery")
+            cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA "
+                        "WHERE SCHEMA_NAME=%s", ("wire_discovery",))
+            assert cur.fetchall() == ()
+            cur.execute("SHOW DATABASES")
+            assert ("wire_discovery",) not in cur.fetchall()
+            events.append({"check": "schema_discovery_enumeration_wildcard_create_drop", "passed": True})
+            cur.execute("SET @wire_marker=9876")
+            conn.begin()
+            assert conn.server_status & 1
+            assert cur.execute("UPDATE wire_probe SET txt='rollback' WHERE id=1") == 1
+            conn.rollback()
+            assert not conn.server_status & 1
+            cur.execute("SELECT txt FROM wire_probe WHERE id=1")
+            assert cur.fetchone() == (values[0],)
+            conn.autocommit(False)
+            assert not conn.get_autocommit()
+            cur.execute("INSERT INTO wire_probe(id,txt) VALUES (2,'committed')")
+            assert conn.server_status & 1
+            conn.commit()
+            assert not conn.server_status & 1
+            conn.autocommit(True)
+            assert conn.get_autocommit()
+            events.append({"check": "begin_rollback_commit_autocommit_and_status", "passed": True})
+            errors = [("INSERT INTO wire_probe(id) VALUES (1)", 1062), ("SELEC invalid", 1064),
+                      ("SELECT 1; SELECT 2", 1064 if api_version == 2 else 1235)]
+            if api_version == 1:
+                errors.append(("SELECT 1 AS duplicate, 2 AS duplicate", 1235))
+            for sql, errno in errors:
+                try:
+                    cur.execute(sql)
+                    raise AssertionError(f"expected MySQL error {errno}")
+                except pymysql.MySQLError as error:
+                    assert error.args[0] == errno, error
+                    events.append({"check": "mysql_error", "sql": sql, "errno": errno})
+            cur.execute("SELECT @wire_marker, COUNT(*) FROM wire_probe")
+            assert cur.fetchone() == (9876, 2)
+            cur.execute("SELECT id FROM wire_probe WHERE id=-1")
+            assert cur.fetchall() == ()
+            assert len(cur.description) == 1
+            if api_version == 2:
+                cur.execute("SELECT 1 AS duplicate, 2 AS duplicate")
+                assert cur.fetchone() == (1, 2)
+                assert [d[0] for d in cur.description] == ["duplicate", "duplicate"]
+                cur.execute("SELECT %s AS punctuation", ("a;b",))
+                assert cur.fetchone() == ("a;b",)
+                cur.execute("SELECT amount AS money, txt AS renamed FROM wire_probe AS w WHERE id=1")
+                money, renamed = cur._result.fields
+                assert money.scale == 2 and money.length == 12, (money.scale, money.length)
+                assert (money.db, money.table_name, money.org_table, money.name, money.org_name) == (b"test", "w", "wire_probe", "money", "amount")
+                assert renamed.length == 320 and renamed.org_name == "txt", (renamed.length, renamed.org_name)
+                cur.execute("SELECT SQL_CALC_FOUND_ROWS id FROM wire_probe LIMIT 1")
+                assert len(cur.fetchall()) == 1
+                cur.execute("SELECT FOUND_ROWS()")
+                assert cur.fetchone() == (2,)
+                cur.execute("SELECT CAST('not-a-number' AS UNSIGNED)")
+                assert cur.fetchone() == (0,)
+                assert cur.warning_count == 1, cur.warning_count
+                cur.execute("SHOW WARNINGS")
+                assert cur.fetchone()[1] == 1292
+                cur.execute("UPDATE wire_probe SET txt='committed' WHERE id=2")
+                assert cur.lastrowid == 0, cur.lastrowid
+                cur.execute("SELECT ROW_COUNT()")
+                assert cur.fetchone() == (0,)
+                cur.execute("UPDATE wire_probe SET txt=txt WHERE id=2")
+                assert cur.rowcount == 0, cur.rowcount
+                events.append({"check": "native_insert_id_status_warnings_columns_duplicate_names_row_count_found_rows", "passed": True})
+            cur.execute("SELECT %s AS large_value", ("x" * 70000,))
+            assert cur.fetchone() == ("x" * 70000,)
+            cur.execute("WITH RECURSIVE sequence(n) AS (SELECT 1 UNION ALL SELECT n+1 FROM sequence WHERE n<300) SELECT n FROM sequence")
+            assert cur.fetchall() == tuple((n,) for n in range(1, 301))
+            events.append({"check": "70kb_request_response_and_300_row_packet_sequence_wrap", "passed": True})
+            # PyMySQL sends COM_STMT_PREPARE only through this low-level entry;
+            # normal cursor parameters above are client-side escaping + COM_QUERY.
+            conn._execute_command(22, "SELECT ?")
+            try:
+                conn._read_packet()
+>               raise AssertionError("prepared statements must be explicitly rejected")
+E               AssertionError: prepared statements must be explicitly rejected
+
+tests/support/wire_acceptance.py:128: AssertionError
+_________________ test_binary_prepare_is_not_silently_adopted __________________
+
+    def test_binary_prepare_is_not_silently_adopted():
+        with mariamem.start(host_binary=HOST) as db, connection(db) as c:
+            c._execute_command(22,b'SELECT ?')
+>           with pytest.raises(pymysql.MySQLError) as error:c._read_packet()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE <class 'pymysql.err.MySQLError'>
+
+tests/test_text_multi_runtime.py:85: Failed
+=========================== short test summary info ============================
+FAILED tests/test_python_wire.py::test_text_protocol_values_metadata_flags_and_error_recovery - AssertionError: prepared statements must be explicitly rejected
+FAILED tests/test_text_multi_runtime.py::test_binary_prepare_is_not_silently_adopted - Failed: DID NOT RAISE <class 'pymysql.err.MySQLError'>
+2 failed, 30 passed in 57.35s
+Traceback (most recent call last):
+  File "<repository>/scripts/verify.py", line 153, in <module>
+    main()
+    ~~~~^^
+  File "<repository>/scripts/verify.py", line 134, in main
+    integration()
+    ~~~~~~~~~~~^^
+  File "<repository>/scripts/verify.py", line 107, in integration
+    run([sys.executable, "-m", "pytest", timeout_test,
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         "tests/test_python_multiclient.py", "tests/test_python_wire.py",
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         "tests/test_owned_snapshot.py", "tests/test_routine_runtime.py",
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         "tests/test_text_multi_runtime.py", "-q"], env=env)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repository>/scripts/verify.py", line 34, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repository>/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/opt/hostedtoolcache/Python/3.14.8/x64/bin/python', '-m', 'pytest', 'tests/test_python_timeout.py::test_normal_close_is_idempotent', 'tests/test_python_multiclient.py', 'tests/test_python_wire.py', 'tests/test_owned_snapshot.py', 'tests/test_routine_runtime.py', 'tests/test_text_multi_runtime.py', '-q']' returned non-zero exit status 1.

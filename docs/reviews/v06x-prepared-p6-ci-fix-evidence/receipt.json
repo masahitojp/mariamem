@@ -1,0 +1,128 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39798209370",
+  "source_commit": "1b4e41ebfff86cbab228dfa623c3364e80ddf9eb",
+  "run_conclusion": "FAIL",
+  "files": [
+    {
+      "file": "macos-15-source.json",
+      "original_sha256": "2cc564bf681eea8328a08be9a06e18e8b2aeb6ce173c66a2a42f8f32f760935b",
+      "stored_sha256": "2cc564bf681eea8328a08be9a06e18e8b2aeb6ce173c66a2a42f8f32f760935b",
+      "bytes": 153
+    },
+    {
+      "file": "macos-15-guest.json",
+      "original_sha256": "1315f69685f3da6c97dd95644f669c5641bbe009525b64ac4348927fba6b3fe2",
+      "stored_sha256": "1315f69685f3da6c97dd95644f669c5641bbe009525b64ac4348927fba6b3fe2",
+      "bytes": 22304
+    },
+    {
+      "file": "macos-15-regeneration.json",
+      "original_sha256": "bd65d0fa076f9d0305a18100177a5d4c23a0c6ddf20b52c068426bce824653aa",
+      "stored_sha256": "bd65d0fa076f9d0305a18100177a5d4c23a0c6ddf20b52c068426bce824653aa",
+      "bytes": 16925
+    },
+    {
+      "file": "macos-15-build-guard.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos-15-check.txt",
+      "original_sha256": "92f48b36b20af5f3666ab7db71cd3f60a433063fe291b87b0e02fe3047cc695a",
+      "stored_sha256": "09ccd5f77f55d3bf527ad3a8668ea2313babbd22e7c497c3e5cb38dec1ec692a",
+      "bytes": 5048
+    },
+    {
+      "file": "macos-15-integration.txt",
+      "original_sha256": "0359dbea47407061a919e5688db7a1a9f5bde17d9faaf657ba88741af101a3be",
+      "stored_sha256": "a85813e1bd9f2cf70b699dd029fb47d9f1a2cc64c0cd3b3a929a730ac9129090",
+      "bytes": 14014
+    },
+    {
+      "file": "ubuntu-24.04-source.json",
+      "original_sha256": "2cc564bf681eea8328a08be9a06e18e8b2aeb6ce173c66a2a42f8f32f760935b",
+      "stored_sha256": "2cc564bf681eea8328a08be9a06e18e8b2aeb6ce173c66a2a42f8f32f760935b",
+      "bytes": 153
+    },
+    {
+      "file": "ubuntu-24.04-guest.json",
+      "original_sha256": "1315f69685f3da6c97dd95644f669c5641bbe009525b64ac4348927fba6b3fe2",
+      "stored_sha256": "1315f69685f3da6c97dd95644f669c5641bbe009525b64ac4348927fba6b3fe2",
+      "bytes": 22304
+    },
+    {
+      "file": "ubuntu-24.04-regeneration.json",
+      "original_sha256": "a581e2079393f8032b68c911836bb2a98ff02ae1f60f578ecaa9513558d30cff",
+      "stored_sha256": "a581e2079393f8032b68c911836bb2a98ff02ae1f60f578ecaa9513558d30cff",
+      "bytes": 16925
+    },
+    {
+      "file": "ubuntu-24.04-build-guard.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu-24.04-check.txt",
+      "original_sha256": "7ba567b9ada1735065e8952b1eae9b7d703480c4a41c7943d7ba3811e9f0a15e",
+      "stored_sha256": "a78297ab5c966b4bafce144b9456ce84874dc4ba22962eda9eca003fc7f9bc76",
+      "bytes": 4988
+    },
+    {
+      "file": "ubuntu-24.04-integration.txt",
+      "original_sha256": "b24040c4323186c5ef2440746686e6f66882920773c9b36686d1a82d67ef2b7b",
+      "stored_sha256": "352e1ec90ffef9055b3293d5b541e04f6c19b75674a31c8c183c77c3011123e8",
+      "bytes": 13935
+    },
+    {
+      "file": "focused.txt",
+      "original_sha256": "a5a7e5dfd36780f885b491f7515d206543f7d33e4b9df81a59a658159700aa1a",
+      "stored_sha256": "a5a7e5dfd36780f885b491f7515d206543f7d33e4b9df81a59a658159700aa1a",
+      "bytes": 192
+    },
+    {
+      "file": "dependencies.txt",
+      "original_sha256": "5d10c8d42dfd86f8b5a20b80ae637faa353140b0b6bb3d039c7e95e61b50794e",
+      "stored_sha256": "5d10c8d42dfd86f8b5a20b80ae637faa353140b0b6bb3d039c7e95e61b50794e",
+      "bytes": 1141
+    },
+    {
+      "file": "macos-15-regeneration.txt",
+      "original_sha256": "8cb869f23313a579ab58fef08a2125bb5600d9de8f1105ca83d72945d3c02826",
+      "stored_sha256": "6946fda66ee6a2b0280a10a77c7244859e13c19fc1b8eb9dc9cc7846c731a22e",
+      "bytes": 15089
+    },
+    {
+      "file": "ubuntu-24.04-regeneration.txt",
+      "original_sha256": "aebe08bbfa9cdef3d77afa2a168fb5374227c23d9aad6b7c7c4a29862e0af472",
+      "stored_sha256": "6946fda66ee6a2b0280a10a77c7244859e13c19fc1b8eb9dc9cc7846c731a22e",
+      "bytes": 15089
+    }
+  ],
+  "scrubbing": "Runner home/repository prefixes and Python object addresses only; traceback trailing whitespace removed. SQL/error/oracle values unchanged. Original/stored hashes distinguished.",
+  "confirmed": {
+    "macos-15": {
+      "two_source_builds": "PASS (same Linux arm64 artifact on both native jobs)",
+      "independent_generation": "PASS,99 identical files",
+      "build_guard": "PASS",
+      "source_checks": "PASS",
+      "race_and_go_integration": "PASS",
+      "python_integration": "FAIL: obsolete prepared rejection assumptions,2 FAIL/30 PASS"
+    },
+    "ubuntu-24.04": {
+      "two_source_builds": "PASS (same Linux arm64 artifact on both native jobs)",
+      "independent_generation": "PASS,99 identical files",
+      "build_guard": "PASS",
+      "source_checks": "PASS",
+      "race_and_go_integration": "PASS",
+      "python_integration": "FAIL: obsolete prepared rejection assumptions,2 FAIL/30 PASS"
+    }
+  },
+  "pending": "J1/ORM/P1-P5/post-integration steps SKIP in this run; complete candidate acceptance remains pending.",
+  "local_repair_verification": {
+    "result": "60 PASS /15 SKIP",
+    "mutations": "8 new positive/negative tests: exact native metadata, old rejection, modified descriptor/count/EOF, RESET failure, invented CLOSE ACK, wrong closed-ID error",
+    "runtime_scope": "Actual-host cases remain SKIP locally; fixed-source native execution is pending candidate CI. No runtime/converter/generated Go changes."
+  }
+}

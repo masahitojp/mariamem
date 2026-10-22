@@ -1057,8 +1057,12 @@ Canonical inventories/generated source, exact J1/data/TLS binding, retained-libr
 attribution, selected normal-CI consumers and precise public-guide exceptions are
 implemented. Local regeneration matched all99 files; J1 failure/protected controls
 and the selected Go/Python consumer comparison passed, retaining the accepted
-functional FAILs. Full canonical two-source-build and both-platform replay are
-still pending new candidate CI; P6 is not complete and no main adoption is claimed.
+functional FAILs. CI39798209370 confirmed two canonical source builds plus both-platform99-file
+independent regeneration/build guards at1b4e41e. It then stopped on two obsolete
+Python assertions demanding Prepared rejection; those are replaced by strict
+native-metadata/RESET/CLOSE/reuse checks, with negative mutation coverage. Full
+current-source runtime/consumer/J1 replay is pending the repaired candidate CI;
+P6 is not complete and no main adoption is claimed.
 See the [P6 candidate report](reviews/v06x-prepared-p6-canonical.md) for source
 identities, local proof limits, generation steps and pending gates. Existing
 release guards remain enabled; no Qualification or release is started.

@@ -7,11 +7,18 @@ target version, Qualification, Product Validation and publication are separate
 Human decisions. No new engine/driver workaround or broader compatibility claim
 is introduced.
 
-The material remaining objection is that local generation reused the reviewed
-experimental Wasm. Byte identity and local consumer PASS cannot establish that
-the new canonical source path builds those bytes. The candidate workflow must
-independently build twice from source, reproduce Go on both supported platforms,
-and pass its unchanged semantic oracles before this gap can close.
+[CI39798209370](https://github.com/masahitojp/mariamem/actions/runs/39798209370)
+confirmed two independent canonical source builds and99-file independent Go
+regeneration/build guards on both platforms at source_commit
+`1b4e41ebfff86cbab228dfa623c3364e80ddf9eb`. It failed later because two existing
+Python integration assertions still required PREPARE rejection. These assertions
+now explicitly require native PREPARE metadata and RESET/CLOSE/reuse; historical
+text-only callers retain their explicit rejection expectation. There is no
+accept-either-result fallback. Runtime, guest inputs and generated Go are unchanged.
+
+The remaining material gap is complete current-source runtime/consumer/J1 replay:
+the failed integration step skipped downstream jobs, so those checks cannot be
+counted as PASS. See the [CI repair receipt](v06x-prepared-p6-ci-fix-evidence/receipt.json).
 
 ## Inputs and ownership
 
@@ -82,7 +89,8 @@ control, routines/DEFINER/auth, installed wheel and SQLAlchemy/GORM, J1 controls
 retained-library audit and17 independently mutated build-evidence rejections.
 It is candidate verification, not Qualification. In the interim,
 `release/generated-go-build.json` deliberately records `completed=false`, empty
-source-build repetitions and pending CI; no source-build completion is fabricated.
+source-build repetitions until the candidate ledger is closed; the confirmed
+source-build and regeneration results above remain in their original CI receipts.
 
 ## J1 and accepted failures
 
@@ -124,8 +132,9 @@ links prior both-platform native and MariaDB-driver evidence.
 | Selected Go/Python real consumers | PASS matching locally | clean0ca1a14 host, Python3.14.8 / OpenSSL3.5.9; accepted functional FAIL remains FAIL |
 | Original upstream notices / retained-library attribution | PASS locally | six pinned source archives;12 positive symbol families in clean host |
 | Full source Go tests/vet and final inventories | PASS locally | `check-final.txt`:22 inventory/source tests +774 other source tests,41 explicit SKIP, Go tests/vet and public allowlist |
-| Two independent canonical source guest builds | PENDING CI | fresh Linux arm64 builder, exact expected guest/link hashes |
-| Both-OS independent regeneration, semantic/consumer/guard replay | PENDING CI | new exact-source workflow, no prior-run substitution |
+| Two independent canonical source guest builds | PASS at1b4e41e | CI39798209370, fresh Linux arm64 builder, exact expected guest/link hashes |
+| Both-OS independent regeneration/build guard | PASS at1b4e41e |99-file identity and build guard, original same-SHA receipts |
+| Full semantic/consumer/J1 replay after integration repair | PENDING new CI |2 obsolete assertions failed; downstream checks SKIP, not PASS |
 | Qualification / Product Validation / release | NOT RUN | separate decisions |
 
 No new performance improvement is claimed. The remaining production maintenance
@@ -144,3 +153,21 @@ Owned scratch/build/download/cache copies and the completed helper worktree were
 removed after preservation (about5.8GiB before cleanup,164KiB compact local
 evidence remains). The helper intermediate source ref is retained, with no owned
 path over1GiB or cleanup debt. See `v06x-prepared-p6-evidence/cleanup.json`.
+
+## CI integration expectation repair — 2026-10-23
+
+Both platforms passed focused race/Go integration, default execution and generated
+memory tests. Python integration had30 PASS /2 FAIL: the old text-only
+`test_python_wire` and `test_text_multi_runtime` still demanded error1235 for
+COM_STMT_PREPARE. Current prepared support correctly returns the success header;
+the stale assertions stopped the job before J1 and P1–P5 replay.
+
+`exercise_prepared_lifecycle` reuses the established P1 raw-wire parser, compares
+both descriptor groups and warnings to the fixed native placeholder metadata,
+checks RESET success, sends CLOSE followed immediately by PING to detect an
+invented CLOSE ACK, and requires1243 for the closed ID. Existing following SQL
+checks remain. New deterministic tests reject old1235 behavior, altered metadata,
+wrong counts/missing EOF, RESET failure, an extra CLOSE ACK and a wrong closed-ID
+error. Focused local checks:60 PASS /15 explicit actual-host SKIP. These are not
+substitutes for fixed-source native CI. No guard, accepted failure, public scope
+or engine implementation changes.
