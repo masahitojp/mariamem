@@ -1,0 +1,188 @@
+{
+  "scope": "P5 fixed real Go/Python consumers, not full P5 or Qualification",
+  "environment": {
+    "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+    "openssl": "OpenSSL 3.0.13 30 Jan 2024",
+    "os": "Linux",
+    "arch": "x86_64"
+  },
+  "cases": {
+    "pure": {
+      "raw_syntax": {
+        "errno": 1064,
+        "sqlstate": "42000",
+        "packet": "ff2804233432303030596f75206861766520616e206572726f7220696e20796f75722053514c2073796e7461783b20636865636b20746865206d616e75616c207468617420636f72726573706f6e647320746f20796f7572204d617269614442207365727665722076657273696f6e20666f72207468652072696768742073796e74617820746f20757365206e656172202753454c454320696e76616c696427206174206c696e652031"
+      },
+      "mode": "pure",
+      "connector": "26.7.0",
+      "stage": "prepared-call",
+      "implementation": "MySQLConnection",
+      "prepared_values": [
+        null,
+        -17,
+        9223372036854775807,
+        "\u96ea",
+        "A\u0000B",
+        {
+          "type": "decimal",
+          "value": "123.45"
+        }
+      ],
+      "nul_projection_integrity": "PASS",
+      "duplicate_error": {
+        "errno": 1062,
+        "sqlstate": "23000"
+      },
+      "syntax_error": {
+        "errno": 1064,
+        "sqlstate": "42000"
+      },
+      "default_multi_statement": [
+        [
+          [
+            7
+          ]
+        ],
+        [
+          [
+            8
+          ]
+        ]
+      ],
+      "prepared_after": 0,
+      "crud_binary_table_and_text_controls": "PASS",
+      "result": "FAIL",
+      "error": "ProgrammingError(-1, \"Failed handling non-resultset; 'affected_rows'\", None)",
+      "logs": "",
+      "temporary_removed": true
+    },
+    "default": {
+      "raw_syntax": {
+        "errno": 1064,
+        "sqlstate": "42000",
+        "packet": "ff2804233432303030596f75206861766520616e206572726f7220696e20796f75722053514c2073796e7461783b20636865636b20746865206d616e75616c207468617420636f72726573706f6e647320746f20796f7572204d617269614442207365727665722076657273696f6e20666f72207468652072696768742073796e74617820746f20757365206e656172202753454c454320696e76616c696427206174206c696e652031"
+      },
+      "mode": "default",
+      "connector": "26.7.0",
+      "stage": "prepared-call",
+      "implementation": "MySQLConnection",
+      "prepared_values": [
+        null,
+        -17,
+        9223372036854775807,
+        "\u96ea",
+        "A\u0000B",
+        {
+          "type": "decimal",
+          "value": "123.45"
+        }
+      ],
+      "nul_projection_integrity": "PASS",
+      "duplicate_error": {
+        "errno": 1062,
+        "sqlstate": "23000"
+      },
+      "syntax_error": {
+        "errno": 1064,
+        "sqlstate": "42000"
+      },
+      "default_multi_statement": [
+        [
+          [
+            7
+          ]
+        ],
+        [
+          [
+            8
+          ]
+        ]
+      ],
+      "prepared_after": 0,
+      "crud_binary_table_and_text_controls": "PASS",
+      "result": "FAIL",
+      "error": "ProgrammingError(-1, \"Failed handling non-resultset; 'affected_rows'\", None)",
+      "logs": "",
+      "temporary_removed": true
+    },
+    "cext": {
+      "raw_syntax": {
+        "errno": 1064,
+        "sqlstate": "42000",
+        "packet": "ff2804233432303030596f75206861766520616e206572726f7220696e20796f75722053514c2073796e7461783b20636865636b20746865206d616e75616c207468617420636f72726573706f6e647320746f20796f7572204d617269614442207365727665722076657273696f6e20666f72207468652072696768742073796e74617820746f20757365206e656172202753454c454320696e76616c696427206174206c696e652031"
+      },
+      "result": "SKIP",
+      "reason": "explicit C extension unavailable; default and pure remain required",
+      "active_connections_after": 0,
+      "logs": "",
+      "temporary_removed": true
+    },
+    "go": {
+      "raw_syntax": {
+        "errno": 1064,
+        "sqlstate": "42000",
+        "packet": "ff2804233432303030596f75206861766520616e206572726f7220696e20796f75722053514c2073796e7461783b20636865636b20746865206d616e75616c207468617420636f72726573706f6e647320746f20796f7572204d617269614442207365727665722076657273696f6e20666f72207468652072696768742073796e74617820746f20757365206e656172202753454c454320696e76616c696427206174206c696e652031"
+      },
+      "modes": [
+        {
+          "call_results": [
+            [
+              7
+            ],
+            [
+              8
+            ]
+          ],
+          "duplicate_errno": 1062,
+          "explicit_prepare_observed": true,
+          "following_query": true,
+          "interpolate_params": true,
+          "open_after": 0,
+          "parameterized_query_prepare_observed": false,
+          "prepared_after": 0,
+          "result": "PASS",
+          "syntax_errno": 1064,
+          "transaction_binary_values": true
+        },
+        {
+          "call_results": [
+            [
+              7
+            ],
+            [
+              8
+            ]
+          ],
+          "duplicate_errno": 1062,
+          "explicit_prepare_observed": true,
+          "following_query": true,
+          "interpolate_params": false,
+          "open_after": 0,
+          "parameterized_query_prepare_observed": true,
+          "prepared_after": 0,
+          "result": "PASS",
+          "syntax_errno": 1064,
+          "transaction_binary_values": true
+        }
+      ],
+      "result": "PASS",
+      "scope": "P5 Go driver1.9.3 consumer",
+      "stderr": "",
+      "active_connections_after": 0,
+      "logs": "",
+      "temporary_removed": true
+    }
+  },
+  "failures": {
+    "pure": "ProgrammingError(-1, \"Failed handling non-resultset; 'affected_rows'\", None)",
+    "default": "ProgrammingError(-1, \"Failed handling non-resultset; 'affected_rows'\", None)"
+  },
+  "engine_versions": {
+    "pure": "12.3.3-MariaDB-embedded",
+    "default": "12.3.3-MariaDB-embedded",
+    "cext": "12.3.3-MariaDB-embedded",
+    "go": "12.3.3-MariaDB-embedded"
+  },
+  "result": "FAIL",
+  "consumer_sha256": "e1c4e631f36bfbcd6ac81ee48fa735e95580232d0bf2fc7bbee3277f1cdec4f7"
+}

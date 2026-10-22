@@ -1,0 +1,105 @@
+{
+  "scope": "consumer edge characterization, never adoption acceptance",
+  "environment": {
+    "connector": "26.7.0",
+    "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+    "openssl": "OpenSSL 3.0.13 30 Jan 2024",
+    "system": "Linux",
+    "architecture": "x86_64"
+  },
+  "modes": {
+    "pure": {
+      "mode": "pure",
+      "cases": {
+        "nul_projection": {
+          "row": [
+            "A\u0000B",
+            "410042",
+            3,
+            {
+              "bytes_hex": "410042"
+            }
+          ],
+          "functional_result": "PASS"
+        },
+        "prepared_call": {
+          "stage": "nextset",
+          "resultsets": [
+            [
+              [
+                7
+              ]
+            ]
+          ],
+          "cleanup_errors": [],
+          "nextset_owner": "MySQLCursor.nextset",
+          "nextset_source_sha256": "0805a9cf7a1286926f5e1b65ce0a09a67f84effc6b3d089319351cd12aea81d4",
+          "functional_result": "FAIL",
+          "error": {
+            "type": "ProgrammingError",
+            "errno": -1,
+            "sqlstate": null,
+            "message": "Failed handling non-resultset; 'affected_rows'"
+          },
+          "following_query_error": {
+            "type": "InterfaceError",
+            "errno": -1,
+            "sqlstate": null,
+            "message": "Invalid result"
+          }
+        }
+      },
+      "implementation": "MySQLConnection",
+      "capture": "COMPLETE"
+    },
+    "default": {
+      "mode": "default",
+      "cases": {
+        "nul_projection": {
+          "row": [
+            "A\u0000B",
+            "410042",
+            3,
+            {
+              "bytes_hex": "410042"
+            }
+          ],
+          "functional_result": "PASS"
+        },
+        "prepared_call": {
+          "stage": "nextset",
+          "resultsets": [
+            [
+              [
+                7
+              ]
+            ]
+          ],
+          "cleanup_errors": [],
+          "nextset_owner": "MySQLCursor.nextset",
+          "nextset_source_sha256": "0805a9cf7a1286926f5e1b65ce0a09a67f84effc6b3d089319351cd12aea81d4",
+          "functional_result": "FAIL",
+          "error": {
+            "type": "ProgrammingError",
+            "errno": -1,
+            "sqlstate": null,
+            "message": "Failed handling non-resultset; 'affected_rows'"
+          },
+          "following_query_error": {
+            "type": "InterfaceError",
+            "errno": -1,
+            "sqlstate": null,
+            "message": "Invalid result"
+          }
+        }
+      },
+      "implementation": "MySQLConnection",
+      "capture": "COMPLETE"
+    },
+    "cext": {
+      "mode": "cext",
+      "capture": "SKIP",
+      "reason": "explicit C extension unavailable"
+    }
+  }
+}

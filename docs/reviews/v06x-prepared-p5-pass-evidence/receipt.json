@@ -1,0 +1,206 @@
+{
+  "source_commit": "c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+  "base_commit": "371641c8df48f7593b3e008d711b9ad546a03b37",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39769591459",
+  "run_conclusion": "success",
+  "jobs": {
+    "unit_ubuntu": 119793483876,
+    "unit_macos": 119793484565,
+    "guest_source": 119793484376,
+    "native_control": 119793484308,
+    "runtime_macos": 119796904306,
+    "runtime_ubuntu": 119796904311
+  },
+  "functional_acceptance": "FAIL retained",
+  "human_disposition": "PENDING",
+  "files": [
+    {
+      "artifact": "prepared-p1-development-macos-15-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "source.json",
+      "stored": "macos-source.json",
+      "original_sha256": "ea4265dfd99de2651a43d3e91a10ecb1d7854734d78623c665398308aedb2b0a",
+      "stored_sha256": "ea4265dfd99de2651a43d3e91a10ecb1d7854734d78623c665398308aedb2b0a",
+      "bytes": 153
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-environment.json",
+      "stored": "macos-p5-environment.json",
+      "original_sha256": "baef8423732bc95f5a472457c04a448a69480adeac39dbb626f30a6e34ec88b4",
+      "stored_sha256": "baef8423732bc95f5a472457c04a448a69480adeac39dbb626f30a6e34ec88b4",
+      "bytes": 584
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-consumers.json",
+      "stored": "macos-p5-consumers.json",
+      "original_sha256": "ccaf20fa7986140e273a7d216860d1a60a951c8d43775fe09fa90ae12d7f56f4",
+      "stored_sha256": "ccaf20fa7986140e273a7d216860d1a60a951c8d43775fe09fa90ae12d7f56f4",
+      "bytes": 6969
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-matching.json",
+      "stored": "macos-p5-matching.json",
+      "original_sha256": "c4a526457b2d0ace3238fd1e339e3b8d4f5599be5e46ed57aa7d8fc69ff278f1",
+      "stored_sha256": "c4a526457b2d0ace3238fd1e339e3b8d4f5599be5e46ed57aa7d8fc69ff278f1",
+      "bytes": 1630
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-edges.json",
+      "stored": "macos-p5-edges.json",
+      "original_sha256": "dd7a9540a8a5b118cfed39ba5c01f0dcf7308ab0a59503d36b3e4e1fa0e36600",
+      "stored_sha256": "dd7a9540a8a5b118cfed39ba5c01f0dcf7308ab0a59503d36b3e4e1fa0e36600",
+      "bytes": 3886
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-python-regressions.txt",
+      "stored": "macos-p5-python-regressions.txt",
+      "original_sha256": "65983a1fcd4acdc9af367f5058529dda5d31ffaefc2efa03f2aef48907af8a4f",
+      "stored_sha256": "65983a1fcd4acdc9af367f5058529dda5d31ffaefc2efa03f2aef48907af8a4f",
+      "bytes": 1940
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-go-regressions.txt",
+      "stored": "macos-p5-go-regressions.txt",
+      "original_sha256": "597a7be6c22ff4a750bf5bd771e4bf2cda19e958a8e259af15c98632cc2deef1",
+      "stored_sha256": "597a7be6c22ff4a750bf5bd771e4bf2cda19e958a8e259af15c98632cc2deef1",
+      "bytes": 5237
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-go-routines.txt",
+      "stored": "macos-p5-go-routines.txt",
+      "original_sha256": "ce42ec32fba9e6d6ee44b062b3d69a5d343813530a6ab9a17b8619867f21efb4",
+      "stored_sha256": "ce42ec32fba9e6d6ee44b062b3d69a5d343813530a6ab9a17b8619867f21efb4",
+      "bytes": 6167
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-sqlalchemy/summary.json",
+      "stored": "macos-p5-sqlalchemy-summary.json",
+      "original_sha256": "3cc2aa9586b680b4c5b01e3e79fae9eb96e9c2b3bcae7bdc06641fa6ac80f93a",
+      "stored_sha256": "3cc2aa9586b680b4c5b01e3e79fae9eb96e9c2b3bcae7bdc06641fa6ac80f93a",
+      "bytes": 2019
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-gorm/summary.json",
+      "stored": "macos-p5-gorm-summary.json",
+      "original_sha256": "39cadb8432144d97532125cc27530b811a45b1ca09c653bbe59084ce4077ac98",
+      "stored_sha256": "39cadb8432144d97532125cc27530b811a45b1ca09c653bbe59084ce4077ac98",
+      "bytes": 434
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "source.json",
+      "stored": "ubuntu-source.json",
+      "original_sha256": "ea4265dfd99de2651a43d3e91a10ecb1d7854734d78623c665398308aedb2b0a",
+      "stored_sha256": "ea4265dfd99de2651a43d3e91a10ecb1d7854734d78623c665398308aedb2b0a",
+      "bytes": 153
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-environment.json",
+      "stored": "ubuntu-p5-environment.json",
+      "original_sha256": "e5bf8dbb023451deac91f3e4f0569c33d32822f4eb0b7954bea77b1557d0f776",
+      "stored_sha256": "e5bf8dbb023451deac91f3e4f0569c33d32822f4eb0b7954bea77b1557d0f776",
+      "bytes": 790
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-consumers.json",
+      "stored": "ubuntu-p5-consumers.json",
+      "original_sha256": "a43c6b4db7a0f59b2824cde5f80801e1994bdbaadeef953cf1cb587512b46354",
+      "stored_sha256": "a43c6b4db7a0f59b2824cde5f80801e1994bdbaadeef953cf1cb587512b46354",
+      "bytes": 6002
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-matching.json",
+      "stored": "ubuntu-p5-matching.json",
+      "original_sha256": "023b4bbf0153ded009050d9d5a115f0d37e735612106e47835f685bf7ae0c082",
+      "stored_sha256": "023b4bbf0153ded009050d9d5a115f0d37e735612106e47835f685bf7ae0c082",
+      "bytes": 191
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-edges.json",
+      "stored": "ubuntu-p5-edges.json",
+      "original_sha256": "07842cee15deaff0b596ee849a320abab91bd484011f219624236a7d4f93fb95",
+      "stored_sha256": "07842cee15deaff0b596ee849a320abab91bd484011f219624236a7d4f93fb95",
+      "bytes": 2762
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-python-regressions.txt",
+      "stored": "ubuntu-p5-python-regressions.txt",
+      "original_sha256": "a5871644ec78d0aa50de38cd69d0d8c762accb18723843e1454c39e6623bdc20",
+      "stored_sha256": "a5871644ec78d0aa50de38cd69d0d8c762accb18723843e1454c39e6623bdc20",
+      "bytes": 1940
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-go-regressions.txt",
+      "stored": "ubuntu-p5-go-regressions.txt",
+      "original_sha256": "6d7a0f54c639173354d52e434eac621f98365d176a9b3df79c97ee356cf8f092",
+      "stored_sha256": "6d7a0f54c639173354d52e434eac621f98365d176a9b3df79c97ee356cf8f092",
+      "bytes": 5113
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-go-routines.txt",
+      "stored": "ubuntu-p5-go-routines.txt",
+      "original_sha256": "0d550e446085c35325bfe61f9e6026a82268be2b9a1a7beae1866b6e518405ae",
+      "stored_sha256": "0d550e446085c35325bfe61f9e6026a82268be2b9a1a7beae1866b6e518405ae",
+      "bytes": 6167
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-sqlalchemy/summary.json",
+      "stored": "ubuntu-p5-sqlalchemy-summary.json",
+      "original_sha256": "5ece265ad3bd460fabba3ab5b72b832826698157f1f3fc5be5569b3f7bdeea54",
+      "stored_sha256": "5ece265ad3bd460fabba3ab5b72b832826698157f1f3fc5be5569b3f7bdeea54",
+      "bytes": 1802
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+      "source": "p5-gorm/summary.json",
+      "stored": "ubuntu-p5-gorm-summary.json",
+      "original_sha256": "b7f6c0bd71734e0ccdee12e361e5ff3ac4a70f928c826e7a321af74873f7110a",
+      "stored_sha256": "b7f6c0bd71734e0ccdee12e361e5ff3ac4a70f928c826e7a321af74873f7110a",
+      "bytes": 433
+    }
+  ],
+  "runtime_inputs": {
+    "macos": {
+      "contract": "development-unqualified-v1",
+      "result": "UNQUALIFIED",
+      "smoke": "PASS",
+      "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+      "binary_sha256": "b5f6909591c72a3a2b9e1ce19795c219310fa28055597de730be47fe14e08871",
+      "development_receipt_original_sha256": "c3ca922f9b50338c7e3de08bcf29f9e9d94536e0d8d09317e80b4328e1b10139",
+      "guest_identity_binding": "Both exact binding and mutation steps PASS in this source-pinned runtime job; full receipts at run URL."
+    },
+    "ubuntu": {
+      "contract": "development-unqualified-v1",
+      "result": "UNQUALIFIED",
+      "smoke": "PASS",
+      "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+      "binary_sha256": "57911d1b961a7550dd8b7cea2fe23d94966d3800ee6b7f7069e67adf4c8c6388",
+      "development_receipt_original_sha256": "7826cab81ad80ddbb0861f5e540f200e885e198e19f3ac6555f54d69e5619aa1",
+      "guest_identity_binding": "Both exact binding and mutation steps PASS in this source-pinned runtime job; full receipts at run URL."
+    }
+  },
+  "scrubbing": "Replace user/runner home prefixes only. original_sha256 hashes downloaded bytes; stored_sha256 and bytes describe saved files. No values/errors normalized.",
+  "manual_edge_comparison": {
+    "result": "PASS: complete cases equal to recorded native Mac Python3.14 control for the same implementation",
+    "fields": "NUL rows/hex/length/binary, CALL prefix, primary/following-query/cleanup errors, nextset source ownership/hash",
+    "reference": "../v06x-prepared-p5-ci-evidence/local-macos-edges.json",
+    "reference_sha256": "ef20548479e28fe024c586d0b60c54d0443d91c89feaa91debd1e0ee3ea7017d",
+    "limit": "CI matcher checks consumer cases and client profile; edge-capture step itself records functional FAIL without asserting expected edge errors."
+  }
+}

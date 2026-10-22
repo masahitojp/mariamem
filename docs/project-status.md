@@ -930,9 +930,18 @@ Mac guest observations were captured, but matching failed because Linux lacked
 a native C-extension control; subsequent Mac regressions were skipped.
 The [comparison-gate diagnosis](reviews/v06x-prepared-p5-ci-diagnosis.md) supplies
 a separate Mac Python3.14 native control with client binary/source/ABI binding;
-the corrected both-OS CI is pending. P5 stays open even if diagnostic matching
-passes; these two functional constraints have no
-Human acceptance yet. Runtime/guest/converter/canonical generation inputs remain
+[corrected CI39769591459](https://github.com/masahitojp/mariamem/actions/runs/39769591459)
+now passes all six jobs on exact source_commit
+`c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b`: both-OS native matching,
+installed regressions and existing SQLAlchemy/GORM anchors. Mac C client
+binary/source/ABI binding passes; Ubuntu's additional C mode remains an explicit
+OpenSSL import SKIP, with required pure/default executed.
+The [P5 Human Review](reviews/v06x-prepared-p5-human-review.md) recommends
+accepting the two precise native-consumer limitations and continuing to P6.
+This is a recommendation awaiting Human decision, not acceptance: prospective
+functional FAILs remain FAIL, and P5 has no unconditional completion claim.
+P6 canonical independent generation/J1/provenance and permanent edge/consumer
+CI placement remain unfinished. Runtime/guest/converter/canonical generation inputs remain
 unchanged, and no default connection is forced to pure mode.
 
 

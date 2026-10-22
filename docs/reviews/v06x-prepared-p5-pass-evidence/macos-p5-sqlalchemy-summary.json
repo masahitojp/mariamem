@@ -1,0 +1,78 @@
+{
+  "source_commit": "c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b",
+  "runs": [
+    {
+      "name": "1-start",
+      "mode": "start",
+      "returncode": 0,
+      "suite_seconds": 3.8013505420001366,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "3.254",
+          "timestamp": "2026-10-22T11:47:20.531805+00:00",
+          "hostname": "sjc22-bm209-433dd234-a731-44f4-8631-2dee030aedc7-4EC52B2607D2.local"
+        }
+      ]
+    },
+    {
+      "name": "2-fork",
+      "mode": "fork",
+      "returncode": 0,
+      "suite_seconds": 1.3728894169998966,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.061",
+          "timestamp": "2026-10-22T11:47:24.101074+00:00",
+          "hostname": "sjc22-bm209-433dd234-a731-44f4-8631-2dee030aedc7-4EC52B2607D2.local"
+        }
+      ]
+    },
+    {
+      "name": "3-fork",
+      "mode": "fork",
+      "returncode": 0,
+      "suite_seconds": 1.3236279580000883,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "0.991",
+          "timestamp": "2026-10-22T11:47:25.480156+00:00",
+          "hostname": "sjc22-bm209-433dd234-a731-44f4-8631-2dee030aedc7-4EC52B2607D2.local"
+        }
+      ]
+    },
+    {
+      "name": "4-start",
+      "mode": "start",
+      "returncode": 0,
+      "suite_seconds": 2.253684791999831,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.929",
+          "timestamp": "2026-10-22T11:47:26.805808+00:00",
+          "hostname": "sjc22-bm209-433dd234-a731-44f4-8631-2dee030aedc7-4EC52B2607D2.local"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}
