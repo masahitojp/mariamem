@@ -1,0 +1,221 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39699613828",
+  "source_commit": "ecfea4ab6b1e9b665a89ac000c655fb584bfd754",
+  "guest_sha256": "e6d6021a5753492169aeacbbc787e693e1730026b6da9960ef8c6ace296ac37a",
+  "result": "PASS",
+  "scope": "P4 first lifetime slice, not complete P4 or Qualification",
+  "jobs": {
+    "guest-source": 119565378950,
+    "unit-ubuntu": 119565379061,
+    "unit-macos": 119565379383,
+    "runtime-macos": 119568410543,
+    "runtime-ubuntu": 119568410573
+  },
+  "platforms": {
+    "macos-15": {
+      "runtime_artifact_id": 12392732922,
+      "unit_artifact_id": 12392903754,
+      "P4_lifetime_cases": 7,
+      "P4_lifetime_result": "PASS",
+      "native_comparison": "PASS",
+      "connections_after_each_case": 0,
+      "temporary_removed_each_case": true,
+      "previous_gates": {
+        "execute": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 22
+        },
+        "time": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 13
+        },
+        "matrix": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 20
+        },
+        "repair": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 15
+        },
+        "unsigned": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 2
+        },
+        "p3-matrix": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 14
+        },
+        "runtime": {
+          "result": "PASS",
+          "checks": [
+            "prepare-does-not-execute-dml",
+            "native-1064-followed-by-query",
+            "70-live-handles-and-no-response-close-ping",
+            "cross-session-unknown-id",
+            "unknown-close-preserves-text-transaction-status",
+            "found-rows-final-session-generation"
+          ]
+        },
+        "call": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "following_select": "PASS",
+          "close_ping": "PASS"
+        }
+      },
+      "installed_mutations": 18,
+      "python_C_checks": 114,
+      "Go_race_packages": "3 PASS",
+      "artifact_files_sha256": {
+        "binding-mutations.txt": "a2425469f3ad0d3dbb857c68b1a22aafe30365f7e2bd9ed7f503130189404631",
+        "binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+        "call.json": "4c0c2871da7d3e881ee7b9ccf3ff37bcaa5618839bf30099f2ada61b89da3626",
+        "call.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "development.json": "0a8ddceca227f4d7d24b26b508057411277db91e964991c7819f31d7d0171164",
+        "development.txt": "7e33951c4e49379bf3dff8884ddc8d087d8a3f4a07f8218d32ab63cd5a9d56e1",
+        "execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+        "execute.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "matrix.json": "5a1f29ea66703119063faa76cc905bdee369d6e06fd5adde7b7aabff55951b18",
+        "matrix.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "p3-matrix.json": "61513c641c4771e61271816e3cba26b71b460954ff281b36d3e00fe45c937952",
+        "p3-matrix.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "p4-lifetime.json": "d9f5e291f14d71facfc09431988d245e06c0051adf25e73bc27401a739c39688",
+        "p4-lifetime.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "repair.json": "fe7c7813ae90e64759205c48baca9a2a0cb1709db0b1ddb3bca0e1bd9b6ffb3a",
+        "repair.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime.json": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+        "runtime.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source.json": "c7dde6d10927b33fd3b6fd882b688f7749c8a8574ee2b1aebdc4e31b9b0fba27",
+        "time.json": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+        "time.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "unsigned.json": "b7ef2a42173be8fcaf75bac7ba85447ce15db99d985e614988fcf9f6450ec8d2",
+        "unsigned.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "unit_artifact_files_sha256": {
+        "baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+        "go-unit.txt": "8906bb5c201638e957e5e8d842d8d53c7a4342f42c2cb9d23ddececbba218f1d",
+        "inputs.txt": "9318d36a947b0901deb20844eec24d411e1e0a4c84eda62c87900bef34c01826",
+        "public.txt": "56380225fc13fb96183522555e19c66e837b80f1e50261af83dd90fbaaeef70a",
+        "source.json": "c7dde6d10927b33fd3b6fd882b688f7749c8a8574ee2b1aebdc4e31b9b0fba27"
+      }
+    },
+    "ubuntu-24.04": {
+      "runtime_artifact_id": 12392314198,
+      "unit_artifact_id": 12392407827,
+      "P4_lifetime_cases": 7,
+      "P4_lifetime_result": "PASS",
+      "native_comparison": "PASS",
+      "connections_after_each_case": 0,
+      "temporary_removed_each_case": true,
+      "previous_gates": {
+        "execute": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 22
+        },
+        "time": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 13
+        },
+        "matrix": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 20
+        },
+        "repair": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 15
+        },
+        "unsigned": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 2
+        },
+        "p3-matrix": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 14
+        },
+        "runtime": {
+          "result": "PASS",
+          "checks": [
+            "prepare-does-not-execute-dml",
+            "native-1064-followed-by-query",
+            "70-live-handles-and-no-response-close-ping",
+            "cross-session-unknown-id",
+            "unknown-close-preserves-text-transaction-status",
+            "found-rows-final-session-generation"
+          ]
+        },
+        "call": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "following_select": "PASS",
+          "close_ping": "PASS"
+        }
+      },
+      "installed_mutations": 18,
+      "python_C_checks": 114,
+      "Go_race_packages": "3 PASS",
+      "artifact_files_sha256": {
+        "binding-mutations.txt": "a228b3f1833eb837947082e38a94fe51f0e7477979301290e1ad38ec45c646e1",
+        "binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+        "call.json": "161ba958779e6400ba85421b69c1d4223afe0a659b895bebc54d36fbc8928e38",
+        "call.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "development.json": "fa9e5aa932c31e7a7bcd3d85968ee84a6f4f8fbdb12523359a636591756ee541",
+        "development.txt": "f3816de0827348f0ec4d00d7c158578f8bf07fd21a854dd2ee2b9696e3bbe607",
+        "execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+        "execute.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "matrix.json": "2c7c3cbc9b9d59354d344a495d52be2f5472e0c4f2ed280795b40332b5826619",
+        "matrix.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "p3-matrix.json": "c2e8b993757477c2b4fe101eeb4af875c37f78437dbaba8befb079edf35e3952",
+        "p3-matrix.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "p4-lifetime.json": "a5da04948ac6d127e7d50e04c3b20eb7e9c02836e9b8761439a82833b362eec3",
+        "p4-lifetime.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "repair.json": "99efe80636e8649ed6e64b682a96c3ad8cdee940dee73aa46e5a7a2b6d21e3ca",
+        "repair.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime.json": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+        "runtime.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source.json": "c7dde6d10927b33fd3b6fd882b688f7749c8a8574ee2b1aebdc4e31b9b0fba27",
+        "time.json": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+        "time.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "unsigned.json": "3b5e09f26c0de8d8e22093d1a709c5f90fde34cd94937a33a5a8d7edb32bc053",
+        "unsigned.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "unit_artifact_files_sha256": {
+        "baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+        "go-unit.txt": "c24f8492f061b5332a4d1f35ccf87d512908d828c57f9889d06ead74b6fb15ca",
+        "inputs.txt": "fa5fe1ca9aa317d04d3c2e82998bb437f4376b020083c285d6228877e3f2346a",
+        "public.txt": "56380225fc13fb96183522555e19c66e837b80f1e50261af83dd90fbaaeef70a",
+        "source.json": "c7dde6d10927b33fd3b6fd882b688f7749c8a8574ee2b1aebdc4e31b9b0fba27"
+      }
+    }
+  },
+  "saved_files_sha256": {
+    "macos-15-development-summary.json": "9c0e456f2674f0d903a3ea9770982aad7e4e305d8842ceec4fae010d8888cb55",
+    "macos-15-p4-lifetime.json": "d9f5e291f14d71facfc09431988d245e06c0051adf25e73bc27401a739c39688",
+    "macos-15-binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+    "macos-15-binding-mutations.txt": "a2425469f3ad0d3dbb857c68b1a22aafe30365f7e2bd9ed7f503130189404631",
+    "macos-15-unit-inputs.txt": "9318d36a947b0901deb20844eec24d411e1e0a4c84eda62c87900bef34c01826",
+    "macos-15-unit-go-unit.txt": "8906bb5c201638e957e5e8d842d8d53c7a4342f42c2cb9d23ddececbba218f1d",
+    "macos-15-unit-public.txt": "56380225fc13fb96183522555e19c66e837b80f1e50261af83dd90fbaaeef70a",
+    "macos-15-unit-baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "ubuntu-24.04-development-summary.json": "d7f6f5b07795ca835b33669b563f0b1c4c2e9685d0e3d1ec3b56fd9563ec2da1",
+    "ubuntu-24.04-p4-lifetime.json": "a5da04948ac6d127e7d50e04c3b20eb7e9c02836e9b8761439a82833b362eec3",
+    "ubuntu-24.04-binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+    "ubuntu-24.04-binding-mutations.txt": "a228b3f1833eb837947082e38a94fe51f0e7477979301290e1ad38ec45c646e1",
+    "ubuntu-24.04-unit-inputs.txt": "fa5fe1ca9aa317d04d3c2e82998bb437f4376b020083c285d6228877e3f2346a",
+    "ubuntu-24.04-unit-go-unit.txt": "c24f8492f061b5332a4d1f35ccf87d512908d828c57f9889d06ead74b6fb15ca",
+    "ubuntu-24.04-unit-public.txt": "56380225fc13fb96183522555e19c66e837b80f1e50261af83dd90fbaaeef70a",
+    "ubuntu-24.04-unit-baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9"
+  },
+  "scrubbing": "Runner home prefixes become <runner>/. Original file hashes are retained separately; development summaries retain the full original receipt hash."
+}

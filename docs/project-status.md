@@ -858,9 +858,14 @@ Go DB/Tx/Conn/pool, RESET/transaction/type reuse, malformed lifecycle adjacency,
 engine quota recovery and idle QUIT/EOF cleanup. Native capture/replay7/7 and
 local114 Python/C plus3 Go race packages PASS. A bounded handwritten-host
 CLOSE/RESET length repair leaves guest/converter/generated identities unchanged.
-Actual-guest both-OS confirmation is pending CI. LONG_DATA, executing-query
-cancellation/disconnect and the remaining resource/failure matrix are still P4
-work; this first slice does not close or narrow P4.
+[CI39699613828](https://github.com/masahitojp/mariamem/actions/runs/39699613828)
+now confirms all7 cases on both OSes at ecfea4a with no native differences:
+active connections return0, temporary directories are removed, and the Go
+consumer restores native statement counts/open connections to0. P1/all72 P2/
+all14 P3/minimal CALL, smoke,114 Python/C checks,3 Go race packages and18 binding
+mutations also PASS per OS. The first lifetime slice is complete. LONG_DATA,
+executing-query cancellation/disconnect and the remaining resource/failure
+matrix are still P4 work; this first slice does not close or narrow P4.
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.

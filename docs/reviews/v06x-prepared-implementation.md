@@ -706,3 +706,20 @@ binding identity changes. Local114 Python/C checks and three Go race packages
 PASS; prepared-product CI now requires the actual-guest matrix on both OSes.
 P4 remains unfinished: LONG_DATA, prepared executing-query failure/cancellation
 and the complete resource/failure matrix are not waived by this first slice.
+
+
+### P4 first lifetime slice PASS on both OSes at ecfea4a
+
+[CI39699613828](https://github.com/masahitojp/mariamem/actions/runs/39699613828)
+passes all five jobs at source_commit ecfea4ab6b1e9b665a89ac000c655fb584bfd754.
+[Both-OS evidence](v06x-prepared-p4-lifetime-evidence/ci/receipt.json) confirms all7
+P4 lifetime scenarios/native comparisons, including Go DB/Tx/Conn/pool usage,
+RESET/transaction/type reuse, malformed lifecycle adjacency, native quota recovery
+and idle QUIT/EOF cleanup. Every case restores active connections to0 and removes
+temporary state; the Go consumer restores native statement counts/open connections
+to0. Previous P1/all72 P2/all14 P3/minimal CALL, formal generation/compile/smoke,
+114 Python/C checks, three Go race packages and18 installed mutations also PASS
+per OS. This closes this lifetime slice only. LONG_DATA, prepared executing-query
+cancellation/disconnect and the remaining resource/failure matrix keep P4 open.
+Guest/converter/canonical generated ownership is unchanged; main adoption,
+Qualification and release remain separate decisions.
