@@ -936,10 +936,13 @@ now passes all six jobs on exact source_commit
 installed regressions and existing SQLAlchemy/GORM anchors. Mac C client
 binary/source/ABI binding passes; Ubuntu's additional C mode remains an explicit
 OpenSSL import SKIP, with required pure/default executed.
-The [P5 Human Review](reviews/v06x-prepared-p5-human-review.md) recommends
-accepting the two precise native-consumer limitations and continuing to P6.
-This is a recommendation awaiting Human decision, not acceptance: prospective
-functional FAILs remain FAIL, and P5 has no unconditional completion claim.
+After the [P5 Human Review](reviews/v06x-prepared-p5-human-review.md) and
+additional MariaDB-driver replay below, the Human explicitly accepted the two
+precise Oracle Connector/Python26.7.0 limitations on 2026-10-22.
+The [decision](decisions/prepared-consumer-exceptions.md) records **P5 evidence
+complete with accepted consumer exceptions**, permitting continuation to P6.
+Prospective functional FAILs remain FAIL; no unconditional functional PASS,
+main adoption, release version or publication is approved.
 P6 canonical independent generation/J1/provenance and permanent edge/consumer
 CI placement remain unfinished. The Human requested an additional
 [MariaDB Connector/Python replay](reviews/v06x-prepared-mariadb-replay.md)
@@ -952,15 +955,16 @@ replays preserve all NUL bytes, drain both prepared CALL results, execute
 subsequent SQL and close cleanly; server counters confirm binary execution.
 The [results](reviews/v06x-prepared-mariadb-results.md) retain native comparison,
 actual Python/ConnectorC versions and driver hashes. The original Oracle
-Connector/Python26.7.0 functional FAILs remain, with Human disposition pending.
-This establishes the two tested MariaDB-driver paths, not general driver
-support or acceptance of either Oracle-connector limitation. Runtime/guest/converter/canonical generation inputs remain
+Connector/Python26.7.0 functional FAILs remain; their later Human acceptance is
+recorded separately in the decision above, not rewritten into the CI receipts.
+The replay establishes the two tested MariaDB-driver paths, not general driver
+support. Runtime/guest/converter/canonical generation inputs remain
 unchanged, and no default connection is forced to pure mode.
 
 
-No scope reduction is accepted.
-Exception acceptance, main adoption, target version, Qualification and release
-remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
+Apart from the explicitly accepted consumer exceptions above, no further
+scope reduction is accepted. Main adoption, target version, Qualification and
+release remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
 
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
