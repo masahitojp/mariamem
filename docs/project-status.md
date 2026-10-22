@@ -941,7 +941,12 @@ accepting the two precise native-consumer limitations and continuing to P6.
 This is a recommendation awaiting Human decision, not acceptance: prospective
 functional FAILs remain FAIL, and P5 has no unconditional completion claim.
 P6 canonical independent generation/J1/provenance and permanent edge/consumer
-CI placement remain unfinished. Runtime/guest/converter/canonical generation inputs remain
+CI placement remain unfinished. The Human requested an additional
+[MariaDB Connector/Python replay](reviews/v06x-prepared-mariadb-replay.md)
+before continuing the exception decision. Fixed stable1.1.14 passes both exact
+case purposes against native12.3.3 using Linux/arm64 Python3.14/ConnectorC3.4.9;
+real-guest Mac/Ubuntu results are pending CI. This does not establish full driver
+support or accept either Connector/Python26.7.0 limitation. Runtime/guest/converter/canonical generation inputs remain
 unchanged, and no default connection is forced to pure mode.
 
 
