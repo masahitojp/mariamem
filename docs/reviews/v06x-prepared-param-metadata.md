@@ -100,3 +100,12 @@ No expected native packets, LONG_DATA cases or prior gates are removed.
 
 No main integration, version placement, Qualification or release. LONG_DATA
 acceptance, the remainder of P4 and P5/P6 stay unfinished.
+
+## Source compilation and binding follow-up
+
+Source CI39724676227 passes guest-source and both OS unit jobs at ab8c350.
+The [exact binding evidence](v06x-prepared-param-metadata-binding/reproduce.md)
+now binds guest8f617762 to fixed converter13 patches and reviewed BSS+64
+function/init changes. Local122 focused checks, formal source-only adapter and
+pure owner transforms PASS. The source compilation concern above is resolved;
+actual strict runtime/native metadata parity remains PENDING.

@@ -1,0 +1,14 @@
+[
+  {
+    "file": "adapter.txt",
+    "original_sha256": "4572c1726d52cc00c62bdb6e4e902af2c017efc812428ac90edbb947df01df98",
+    "stored_sha256": "013f0c55589b6102384707316d2c81c601467df5fc8e11abfde340537bc3771a",
+    "reason": "Personal local path scrub only; test content/result unchanged"
+  },
+  {
+    "file": "translation.txt",
+    "original_sha256": "3925a68c296d40fc8ea42bb46a3d2188ffa4e0fb01f10e9b25d9d621c37c36b5",
+    "stored_sha256": "6065f1390f62115018de0aadccbb0758f77a546ac5375d7bfb01895ae515baf7",
+    "reason": "Personal local path scrub only; test content/result unchanged"
+  }
+]

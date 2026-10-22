@@ -756,3 +756,11 @@ both-OS prior runtime gates PASS; LONG_DATA strict comparison FAIL despite all25
 individual assertions passing. Replace the generic parameter descriptor with
 engine-owned metadata rather than relaxing aliases in the native oracle.
 The source-repair branch must rebuild before another exact binding/runtime gate.
+
+### Parameter metadata source PASS and new binding
+
+[CI39724676227 and binding](v06x-prepared-param-metadata-binding/reproduce.md)
+confirm embedded C++ compilation at ab8c350 and exact new guest8f617762.
+The complete reviewed functions/init track BSS+64 with unchanged TLS; old
+f5ce001d is rejected. Local122 checks PASS. Strict both-OS runtime/native parity
+is next and remains unconfirmed; P4/P5/P6 are not closed.

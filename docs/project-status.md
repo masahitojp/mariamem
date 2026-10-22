@@ -880,8 +880,11 @@ pending; source/unit success is not LONG_DATA/P4 completion.
 [Runtime CI39718930329 failure analysis](reviews/v06x-prepared-param-metadata.md)
 now confirms both-OS generation/previous regressions PASS and LONG_DATA strict
 comparison FAIL: aliased parameter names were incorrectly fixed to `?`.
-An engine-owned parameter metadata extension is a source-repair candidate; new
-guest build, binding review and actual runtime acceptance remain pending.
+The engine-owned metadata extension now passes source CI39724676227 at ab8c350.
+Its [new exact binding](reviews/v06x-prepared-param-metadata-binding/reproduce.md)
+records the BSS+64 layout, unchanged TLS and complete function/init/data pins;
+local122 checks and the formal source-only adapter PASS. Actual both-OS runtime
+acceptance remains pending.
 The comparator/native fixtures are preserved; this does not close LONG_DATA/P4.
 
 No scope reduction is accepted.

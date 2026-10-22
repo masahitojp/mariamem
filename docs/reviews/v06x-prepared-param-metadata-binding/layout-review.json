@@ -1,0 +1,174 @@
+{
+  "functions": {
+    "Fn153": {
+      "non_numeric_structure_identical": true,
+      "changed_literal_occurrences": 48,
+      "literal_pairs": [
+        [
+          15246220,
+          15246284
+        ],
+        [
+          15246224,
+          15246288
+        ],
+        [
+          15246228,
+          15246292
+        ],
+        [
+          15246232,
+          15246296
+        ],
+        [
+          15246236,
+          15246300
+        ],
+        [
+          15246240,
+          15246304
+        ],
+        [
+          15246244,
+          15246308
+        ],
+        [
+          15246252,
+          15246316
+        ],
+        [
+          15246260,
+          15246324
+        ],
+        [
+          15246524,
+          15246588
+        ],
+        [
+          15246664,
+          15246728
+        ],
+        [
+          15246668,
+          15246732
+        ]
+      ],
+      "deltas": [
+        64
+      ]
+    },
+    "Fn131": {
+      "non_numeric_structure_identical": true,
+      "changed_literal_occurrences": 0,
+      "literal_pairs": [],
+      "deltas": []
+    },
+    "Fn214": {
+      "non_numeric_structure_identical": true,
+      "changed_literal_occurrences": 62,
+      "literal_pairs": [
+        [
+          15244801,
+          15244865
+        ],
+        [
+          15244804,
+          15244868
+        ],
+        [
+          15248828,
+          15248892
+        ],
+        [
+          15249344,
+          15249408
+        ],
+        [
+          15249392,
+          15249456
+        ],
+        [
+          15249936,
+          15250000
+        ],
+        [
+          15249940,
+          15250004
+        ],
+        [
+          15249944,
+          15250008
+        ],
+        [
+          15307344,
+          15307408
+        ]
+      ],
+      "deltas": [
+        64
+      ]
+    }
+  },
+  "memory_init_changes": {
+    "non_numeric_structure_identical": true,
+    "literal_pairs": [
+      [
+        24227376,
+        24227440
+      ],
+      [
+        6213030,
+        6213094
+      ],
+      [
+        14601664,
+        14601728
+      ],
+      [
+        15244288,
+        15244352
+      ],
+      [
+        15244800,
+        15244864
+      ],
+      [
+        24227376,
+        24227440
+      ],
+      [
+        24227376,
+        24227440
+      ]
+    ]
+  },
+  "data_sha256": "6111bfe83de71695517e3d9f25fed842d4a43bfc6ae774815abafd81af9064dd",
+  "data_segments": [
+    {
+      "start": 0,
+      "end": 6213094,
+      "sha256": "be973962467e1840edcf4e6fb48746545465c9c21af3f7f2f70e9f960c734b97"
+    },
+    {
+      "start": 6213094,
+      "end": 6855714,
+      "sha256": "8fb1e5114c14bf018b8f74e21e7f8cd2fbef0faab141b2954537102af5b065aa"
+    },
+    {
+      "start": 6855714,
+      "end": 6856219,
+      "sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df"
+    }
+  ],
+  "TLS_bytes": 505,
+  "TLS_content_identical_to_previous": true,
+  "layout": {
+    "BSS_start_previous": 15244800,
+    "BSS_start_current": 15244864,
+    "BSS_length_unchanged": 8982576,
+    "guard_previous": 24227376,
+    "guard_current": 24227440,
+    "all_changed_function_literals_preserve_BSS_relative_offsets": true,
+    "other_numeric_literals_and_object_offsets_unchanged": true
+  }
+}
