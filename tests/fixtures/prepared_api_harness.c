@@ -48,9 +48,10 @@ typedef struct {
  unsigned type,charsetnr,flags;unsigned long length;unsigned decimals;
 } MYSQL_FIELD;
 typedef struct {unsigned count;MYSQL_FIELD *fields;} MYSQL_RES;
-typedef struct {unsigned params,columns,errno_,fetched,type;int meta_fail;MYSQL *db;unsigned chain_index,chain_mode;MYSQL_BIND *param_bind,*result_bind;} MYSQL_STMT;
+typedef struct {unsigned params,columns,errno_,fetched,type;int meta_fail;MYSQL *db;unsigned chain_index,chain_mode;MYSQL_BIND *param_bind,*result_bind;unsigned char *long_bytes;size_t long_length;int long_active;} MYSQL_STMT;
 static int fail_bind_param,fail_bind_result,fail_fetch_column,fail_execute_sql,execute_calls;
-static int fail_next;
+static int fail_next,fail_long_send,fail_reset;
+static unsigned char consumed_long[32];static size_t consumed_long_length;static int consumed_long_active;
 static int pending_result,free_result_calls,fail_free_result,fail_execute_oom;
 static MYSQL_STMT *mysql_stmt_init(MYSQL *db){(void)db;MYSQL_STMT *s=calloc(1,sizeof(*s));if(s){live++;s->db=db;}return s;}
 static int mysql_stmt_prepare(MYSQL_STMT *s,const char *sql,unsigned long n){
@@ -71,8 +72,8 @@ static unsigned mysql_stmt_field_count(MYSQL_STMT *s){return s->columns;}
 static unsigned mysql_stmt_errno(MYSQL_STMT *s){return s->errno_;}
 static const char *mysql_stmt_error(MYSQL_STMT *s){(void)s;return "mock native error";}
 static const char *mysql_stmt_sqlstate(MYSQL_STMT *s){return s->errno_==1064?"42000":s->errno_==1062?"23000":"HY000";}
-static int mysql_stmt_close(MYSQL_STMT *s){assert(s&&live>0);live--;free(s);return fail_close;}
-static int mysql_stmt_reset(MYSQL_STMT *s){assert(s);reset_calls++;return 0;}
+static int mysql_stmt_close(MYSQL_STMT *s){assert(s&&live>0);live--;free(s->long_bytes);free(s);return fail_close;}
+static int mysql_stmt_reset(MYSQL_STMT *s){assert(s);reset_calls++;if(fail_reset)return 1;free(s->long_bytes);s->long_bytes=NULL;s->long_length=0;s->long_active=0;return 0;}
 static MYSQL_RES *mysql_stmt_result_metadata(MYSQL_STMT *s){
  if(!s->columns||s->meta_fail)return NULL;
  MYSQL_RES *m=calloc(1,sizeof(*m));assert(m);m->count=s->columns;m->fields=calloc(m->count,sizeof(*m->fields));assert(m->fields);
@@ -90,8 +91,17 @@ static int mysql_stmt_bind_param(MYSQL_STMT *s,MYSQL_BIND *b){
  return fail_bind_param;
 }
 static int mysql_stmt_bind_result(MYSQL_STMT *s,MYSQL_BIND *b){s->result_bind=b;return fail_bind_result;}
+static int mysql_stmt_send_long_data(MYSQL_STMT *s,unsigned index,const char *data,unsigned long n){
+ assert(index<s->params&&index==0&&s->param_bind&&s->param_bind[index].buffer_type==252);
+ if(fail_long_send)return 1;
+ unsigned char *p=realloc(s->long_bytes,s->long_length+n+1);assert(p);s->long_bytes=p;
+ if(n)memcpy(p+s->long_length,data,n);s->long_length+=n;s->long_active=1;return 0;
+}
 static int mysql_stmt_execute(MYSQL_STMT *s){
  s->fetched=0;execute_calls++;s->errno_=fail_execute_oom?2008:fail_execute_sql?1062:0;
+ consumed_long_active=s->long_active;consumed_long_length=s->long_length;
+ assert(s->long_length<=sizeof(consumed_long));if(s->long_length)memcpy(consumed_long,s->long_bytes,s->long_length);
+ free(s->long_bytes);s->long_bytes=NULL;s->long_length=0;s->long_active=0;
  pending_result=!!s->errno_;if(s->chain_mode){s->chain_index=0;s->columns=1;s->db->server_status=10;}return !!s->errno_;
 }
 static int mysql_stmt_next_result(MYSQL_STMT *s){
@@ -144,6 +154,43 @@ static char *call(unsigned op,uint32_t generation,uint32_t id,const char *body){
 static void expect(char *reply,const char *fragment){assert(reply);if(!strstr(reply,fragment)){fputs(reply,stderr);abort();}free(reply);}
 int main(int argc,char **argv){
  assert(!ps_begin_session()&&ps_generation==1);
+ if(argc==2 && !strcmp(argv[1],"long-data")) {
+  expect(call(22,1,0,"SELECT ?"),"\"ok\":true");
+  unsigned char chunk[5]={0,0,'A',0,'B'},empty[2]={0,0},bad[3]={9,0,'x'};
+  unsigned char placeholder[12]={1,0,0,0,252,2};
+  expect(call_binary(24,1,1,chunk,5),"\"ok\":true");chunk[2]='Z';
+  expect(call_binary(24,1,1,empty,2),"\"ok\":true");
+  unsigned char tail[3]={0,0,'C'};expect(call_binary(24,1,1,tail,3),"\"ok\":true");
+  assert(ps_entries->long_data[0]&&ps_entries->stmt->long_length==4);
+  int prior=execute_calls;
+  expect(call_binary(23,1,1,placeholder,12),"\"ok\":true");
+  assert(execute_calls==prior+1&&consumed_long_active&&consumed_long_length==4&&!memcmp(consumed_long,"A\0BC",4));
+  assert(!ps_entries->long_data);
+  expect(call_binary(24,1,1,empty,2),"\"ok\":true");
+  expect(call_binary(23,1,1,placeholder,12),"\"ok\":true");
+  assert(consumed_long_active&&!consumed_long_length);
+  expect(call_binary(24,1,1,bad,3),"\"errno\":1210");prior=execute_calls;
+  expect(call_binary(23,1,1,placeholder,12),"\"errno\":1210");
+  expect(call_binary(23,1,1,NULL,0),"\"errno\":1210");assert(execute_calls==prior);
+  expect(call(26,1,1,NULL),"\"ok\":true");assert(!ps_entries->deferred_long_error);
+  expect(call_binary(24,1,1,tail,3),"\"ok\":true");
+  unsigned char numeric[12]={1,0,0,0,3,2};prior=execute_calls;
+  expect(call_binary(23,1,1,numeric,12),"\"errno\":1210");
+  assert(execute_calls==prior&&!ps_entries->long_data&&!ps_entries->stmt->long_active);
+  expect(call_binary(23,1,1,placeholder,12),"\"ok\":true");
+  fail_entry=1;assert(!call_binary(24,1,1,tail,3));fail_entry=0;assert(!ps_entries->long_data);
+  fail_long_send=1;assert(!call_binary(24,1,1,tail,3));fail_long_send=0;
+  expect(call_binary(24,1,1,tail,3),"\"ok\":true");
+  prior=execute_calls;fail_reset=1;assert(!call_binary(23,1,1,numeric,12));fail_reset=0;assert(execute_calls==prior);
+  assert(!ps_clear()&&!live);
+  expect(call(22,1,0,"SELECT ?"),"\"ok\":true");
+  expect(call_binary(24,1,2,tail,3),"\"ok\":true");
+  expect(call(25,1,2,NULL),"\"ok\":true");assert(!ps_entries&&!live);
+  expect(call(22,1,0,"SELECT ?"),"\"ok\":true");fail_wrapper=1;
+  assert(!call_binary(24,1,3,tail,3));fail_wrapper=0;assert(ps_entries->long_data[0]);
+  assert(!ps_clear()&&!live);
+  puts("{\"result\":\"PASS\",\"scope\":\"mock public API stream ownership only\",\"live_handles\":0}");return 0;
+ }
  if(argc==2 && (!strcmp(argv[1],"call-two") || !strcmp(argv[1],"call-later-error") || !strcmp(argv[1],"call-missing-next"))) {
   expect(call(22,1,0,"call-two"),"\"ok\":true");
   unsigned char null_value[12]={1,0,0,0,6,2};

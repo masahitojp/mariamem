@@ -866,6 +866,15 @@ all14 P3/minimal CALL, smoke,114 Python/C checks,3 Go race packages and18 bindin
 mutations also PASS per OS. The first lifetime slice is complete. LONG_DATA,
 executing-query cancellation/disconnect and the remaining resource/failure
 matrix are still P4 work; this first slice does not close or narrow P4.
+The [LONG_DATA source candidate](reviews/v06x-prepared-long-data.md) now forwards
+chunks to the public embedded API, retains only parameter-presence/deferred-error
+state in the bridge, and adds omission/NULL/type reuse plus reset/close handling.
+Native25-case capture/replay PASS, including1MiB aggregate crossing, index64 and
+native1105 capacity/error recovery. Local118 Python/C checks and3 Go race
+packages PASS. New guest build/identity, exact binding and actual both-OS runtime
+acceptance remain pending; the unchanged old binding rejects unknown input.
+The source branch runs source/units only; this is not LONG_DATA/P4 completion.
+
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.

@@ -178,6 +178,16 @@ func ErrorPacket(code uint16, state, message string) []byte {
 	b := append([]byte{0xff}, le16(code)...)
 	return append(b, []byte("#"+state+message)...)
 }
+
+// A transport/serialization failure closes a no-response command's session;
+// it must not leave an invented error packet for the next PING/EXECUTE to read.
+func (w *wire) commandFailure(op byte, err error) error {
+	if op != 24 && op != 25 {
+		_ = w.send(fatalPacket(err))
+	}
+	return err
+}
+
 func fatalPacket(err error) []byte {
 	if errors.Is(err, context.DeadlineExceeded) {
 		return ErrorPacket(2013, "HY000", "mariamem query timed out; database instance terminated")
@@ -527,7 +537,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		}
 		var replies [][]byte
 		switch request[0] {
-		case 22, 23, 25, 26:
+		case 22, 23, 24, 25, 26:
 			// Local errors and ignored unknown CLOSE must preserve state from the
 			// most recent text command too (not an older prepared response).
 			if statements != nil {
@@ -570,8 +580,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			replies = [][]byte{ErrorPacket(1235, "42000", "command is not supported")}
 		}
 		if e != nil {
-			_ = w.send(fatalPacket(e))
-			return e
+			return w.commandFailure(request[0], e)
 		}
 		if replies == nil {
 			if r.Version == 2 {

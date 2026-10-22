@@ -723,3 +723,20 @@ per OS. This closes this lifetime slice only. LONG_DATA, prepared executing-quer
 cancellation/disconnect and the remaining resource/failure matrix keep P4 open.
 Guest/converter/canonical generated ownership is unchanged; main adoption,
 Qualification and release remain separate decisions.
+
+
+### P4 LONG_DATA source candidate and native25 controls
+
+[Candidate and evidence](v06x-prepared-long-data.md) implement engine-owned chunks
+through public mysql_stmt_send_long_data, typed omission/NULL precedence, bounded
+presence maps, deferred1210 and RESET/CLOSE cleanup. Native25 capture/replay PASS,
+including accepted/rejected types,65 parameters,1MiB aggregate crossing and native
+capacity1105/repeated error/reset. Local118 Python/C checks and3 Go race packages
+PASS. The authored type guard uses public RESET before SQL; diagnostic command
+counts are not exact network parity. Canonical/experimental upstream patches and
+converter13 patches remain unchanged. New guest source-build CI and exact full
+binding review are required before actual runtime acceptance; old e6d6021a pins
+remain unchanged and fail closed. The eventual prepared-product gate requires
+all old P1/P2/P3/P4-lifetime controls plus the25 new cases on both OSes. LONG_DATA
+and P4 remain incomplete until that gate and remaining cancellation/resource
+work close; no main adoption, Qualification or release is implied.

@@ -49,6 +49,8 @@ typedef struct ps_entry {
   MYSQL_STMT *stmt;
   uint32_t id;
   ps_buffers *parameters, *results;
+  unsigned char *long_data;
+  int deferred_long_error;
   struct ps_entry *next;
 } ps_entry;
 static _Thread_local ps_entry *ps_entries;
@@ -67,7 +69,7 @@ static int ps_clear(void)
     ps_entry *e= ps_entries;
     ps_entries= e->next;
     if (e->stmt && mysql_stmt_close(e->stmt)) failed= 1;
-    ps_buffers_free(e->parameters);ps_buffers_free(e->results);
+    ps_buffers_free(e->parameters);ps_buffers_free(e->results);free(e->long_data);
     free(e);
   }
   return failed;
@@ -331,10 +333,59 @@ static char *ps_capture_result(MYSQL *db,ps_entry *e)
   }
   free(error);return b.p;
 }
+/* Bind neutral binary placeholders before the first chunk of each stream batch.
+ * Only the server owns chunk bytes. emb_insert_params consults its long value
+ * before the inline binding; client long_data_used flags are not its source.
+ */
+static char *ps_long_data(ps_entry *e,const unsigned char *data,size_t size)
+{
+  if (size<2) return NULL;
+  unsigned int index=(unsigned int)ps_uint(data,2);
+  unsigned long count=mysql_stmt_param_count(e->stmt);
+  if (e->deferred_long_error || index>=count) {
+    e->deferred_long_error=1;
+    return wire_error(1210,"Incorrect arguments to mysqld_stmt_send_long_data","HY000");
+  }
+  if (!e->long_data) {
+    unsigned char *pending=calloc(count,1);
+    ps_buffers *params=ps_buffers_new((unsigned int)count);
+    if (!pending || !params) {free(pending);ps_buffers_free(params);return NULL;}
+    for (unsigned int i=0;i<count;i++) {
+      params->bind[i].buffer_type=MYSQL_TYPE_BLOB;
+      params->bind[i].buffer=&params->slots[i].value;
+    }
+    if (mysql_stmt_bind_param(e->stmt,params->bind)) {
+      mysql_stmt_close(e->stmt);e->stmt=NULL;
+      free(pending);ps_buffers_free(params);return NULL;
+    }
+    ps_buffers_free(e->parameters);e->parameters=params;e->long_data=pending;
+  }
+  if (mysql_stmt_send_long_data(e->stmt,index,(const char *)data+2,(unsigned long)(size-2))) return NULL;
+  e->long_data[index]=1;
+  buf_t b={0};
+  if (buf_puts(&b,"{\"ok\":true") || wire_state(&b) || buf_putc(&b,'}')) {free(b.p);return NULL;}
+  return b.p;
+}
+
 static char *ps_execute(MYSQL *db,ps_entry *e,const unsigned char *data,size_t size)
 {
   unsigned long count=mysql_stmt_param_count(e->stmt);
+  if (e->deferred_long_error) return wire_error(1210,"Incorrect arguments to mysqld_stmt_send_long_data","HY000");
   if (ps_check_values(data,size,count)) return wire_error(1835,"invalid prepared typed values","HY000");
+  if (e->long_data) {
+    const unsigned char *v=data+4;
+    for (unsigned int i=0;i<count;i++) {
+      if (e->long_data[i] && (ps_shape(v[0])!=-1 || v[0]==0 || v[0]==16 || v[0]==246)) {
+        /* Embedded lacks the network path's long-data type rejection. Match
+         * that recoverable1210 before SQL, using the public reset API to drop
+         * the stream. No upstream structure or statement pointer is inspected. */
+        if (mysql_stmt_reset(e->stmt)) return NULL;
+        free(e->long_data);e->long_data=NULL;
+        return wire_error(1210,"Incorrect arguments to mysqld_stmt_execute","HY000");
+      }
+      v+=8+ps_u32(v+4);
+    }
+  }
   ps_buffers *params=ps_parameters(data,(unsigned int)count);
   if (!params) return NULL;
   if (count && mysql_stmt_bind_param(e->stmt,params->bind)) {
@@ -345,7 +396,9 @@ static char *ps_execute(MYSQL *db,ps_entry *e,const unsigned char *data,size_t s
     ps_buffers_free(params);return NULL;
   }
   ps_buffers_free(e->parameters);e->parameters=params;
-  if (mysql_stmt_execute(e->stmt)) {
+  int execute_error=mysql_stmt_execute(e->stmt);
+  free(e->long_data);e->long_data=NULL;
+  if (execute_error) {
     /* Preserve the native error before cleanup clears it. An EXECUTE may
      * already have produced a result; never leave it blocking the next SQL
      * command, and never retry SQL to repair changed result metadata. */
@@ -442,16 +495,18 @@ static char *ps_dispatch(MYSQL *db, const unsigned char *data, size_t size)
   ps_entry *e= id ? ps_find(id) : NULL;
   if (!e) return wire_error(1243,"unknown prepared statement handle","HY000");
   if (op==23) return ps_execute(db,e,data+PS_HEADER,length);
+  if (op==24) return ps_long_data(e,data+PS_HEADER,length);
   if (op==25 || op==26) {
     if (length) return wire_error(1235,"unexpected prepared lifecycle payload","HY000");
     if (op==26) {
       if (mysql_stmt_reset(e->stmt)) return ps_error(e->stmt);
+      free(e->long_data);e->long_data=NULL;e->deferred_long_error=0;
     } else {
       ps_entry **link= &ps_entries;
       while (*link != e) link= &(*link)->next;
       *link= e->next;
       int failed= mysql_stmt_close(e->stmt);
-      ps_buffers_free(e->parameters);ps_buffers_free(e->results);
+      ps_buffers_free(e->parameters);ps_buffers_free(e->results);free(e->long_data);
       free(e);
       if (failed) return NULL;
     }

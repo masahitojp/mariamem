@@ -25,6 +25,9 @@ def test_dynamic_prepared_owner_and_failure_cleanup(tmp_path, sanitize):
     assert record==dict(ownership='PASS',more_than_64_handles=True,failure_cleanup=True,
                         generation_rejection=True,live_handles=0,scope='mock API ownership only')
 
+    stream=json.loads(subprocess.run([str(target),'long-data'],check=True,capture_output=True,text=True).stdout)
+    assert stream==dict(result='PASS',scope='mock public API stream ownership only',live_handles=0)
+
     vector=json.loads((ROOT/'tests/fixtures/prepared-envelope-v1.json').read_text())
     golden=subprocess.run([str(target),vector['hex']],check=True,capture_output=True,text=True)
     reply=json.loads(golden.stdout)

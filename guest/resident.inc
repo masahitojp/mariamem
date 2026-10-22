@@ -90,7 +90,7 @@ static void *multi_worker(void *arg)
         mysql_close(multi_mysql); multi_mysql= NULL;
       } else {
         char state[192];
-        snprintf(state,sizeof(state),"{\"ok\":true,\"api_version\":2,\"server_status\":2,\"prepared_version\":1,\"prepared_operations\":[22,23,25,26],\"session_generation\":%u}",ps_generation);
+        snprintf(state,sizeof(state),"{\"ok\":true,\"api_version\":2,\"server_status\":2,\"prepared_version\":1,\"prepared_operations\":[22,23,24,25,26],\"session_generation\":%u}",ps_generation);
         reply= strdup(state);
       }
     }
@@ -183,7 +183,7 @@ int main(int argc, char **argv)
   startup_mark("ready_prepared");
   mariamem_init_mark("ready_prepared");
   startup_write();
-  multi_reply(0, 0, "{\"ready\":true,\"api_version\":2,\"max_sessions\":16,\"snapshot_version\":1,\"prepared_version\":1,\"prepared_operations\":[22,23,25,26]}");
+  multi_reply(0, 0, "{\"ready\":true,\"api_version\":2,\"max_sessions\":16,\"snapshot_version\":1,\"prepared_version\":1,\"prepared_operations\":[22,23,24,25,26]}");
   int rc= 0, export_snapshot= 0;
   for (;;)
   {

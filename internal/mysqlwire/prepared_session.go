@@ -13,11 +13,14 @@ import (
 // preparedSession is confined to the owning TCP session's serial dispatcher.
 // A nil owner preserves the unsupported contract of the old canonical guest.
 type preparedSession struct {
-	registry *preparedproto.Registry
-	status   uint16
-	execute  bool
-	psMulti  bool
-	types    map[uint32][]preparedproto.ParameterType
+	registry   *preparedproto.Registry
+	status     uint16
+	execute    bool
+	longData   bool
+	long       map[uint32]map[uint16]bool
+	longErrors map[uint32]guest.Result
+	psMulti    bool
+	types      map[uint32][]preparedproto.ParameterType
 }
 
 func newPreparedSession(open guest.Result, readyVersion int, readyOperations []uint8) (*preparedSession, error) {
@@ -46,7 +49,7 @@ func newPreparedSession(open guest.Result, readyVersion int, readyOperations []u
 	if err != nil {
 		return nil, err
 	}
-	return &preparedSession{registry: r, status: open.Status, execute: ops[preparedproto.Execute], types: make(map[uint32][]preparedproto.ParameterType)}, nil
+	return &preparedSession{registry: r, status: open.Status, execute: ops[preparedproto.Execute], longData: ops[preparedproto.LongData], long: make(map[uint32]map[uint16]bool), longErrors: make(map[uint32]guest.Result), types: make(map[uint32][]preparedproto.ParameterType)}, nil
 }
 
 // call's monitor is false only for no-response operations: a following packet
@@ -76,6 +79,9 @@ func (s *preparedSession) call(op byte, handle uint32, payload []byte, monitor b
 }
 
 func (s *preparedSession) handle(op byte, payload []byte, call preparedCall) ([][]byte, error) {
+	if op == preparedproto.LongData {
+		return s.sendLongData(payload, call)
+	}
 	if s == nil {
 		return [][]byte{ErrorPacket(1235, "42000", "command is not supported")}, nil
 	}
@@ -142,10 +148,14 @@ func (s *preparedSession) handle(op byte, payload []byte, call preparedCall) ([]
 		}
 		s.registry.Remove(id)
 		delete(s.types, id)
+		delete(s.long, id)
+		delete(s.longErrors, id)
 		return [][]byte{}, nil
 	}
 	if !r.OK {
 		return packets(r)
 	}
+	delete(s.long, id)
+	delete(s.longErrors, id)
 	return [][]byte{okPacket(r.Status, 0, 0, r.Warnings)}, nil
 }

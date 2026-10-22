@@ -155,8 +155,15 @@ func DecodeValues(b []byte, expected uint16) ([]Value, error) {
 // excluding the command byte. Ownership resolution remains with the caller.
 // The returned descriptors are a private candidate cache: malformed packets
 // never alter previous. Values borrow packet; previous and result never alias.
-// LONG_DATA omission/precedence is a separate P4 extension, not implemented here.
 func DecodeExecute(packet []byte, count uint16, previous []ParameterType) ([]Value, []ParameterType, error) {
+	return DecodeExecuteLongData(packet, count, previous, nil)
+}
+
+// DecodeExecuteLongData omits inline values for parameters held by the engine.
+// A typed NULL is an internal placeholder, not replacement stream data: the
+// embedded engine's existing long value takes precedence over this binding.
+// No chunk bytes are buffered here; even an empty stream overrides the bitmap.
+func DecodeExecuteLongData(packet []byte, count uint16, previous []ParameterType, pending map[uint16]bool) ([]Value, []ParameterType, error) {
 	if len(packet) < 9 || len(packet) > MaxSQL {
 		return nil, nil, ErrExecute
 	}
@@ -208,6 +215,11 @@ func DecodeExecute(packet []byte, count uint16, previous []ParameterType) ([]Val
 			return nil, nil, ErrExecute
 		}
 		v := Value{ParameterType: t, Null: mask[i/8]&(1<<uint(i%8)) != 0 || t.Type == 6}
+		if pending[uint16(i)] {
+			v.Null = true
+			values[i] = v
+			continue
+		}
 		if !v.Null {
 			size := valueShape(t.Type)
 			var length uint64
