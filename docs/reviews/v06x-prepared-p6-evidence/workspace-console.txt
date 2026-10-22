@@ -1,0 +1,10 @@
+PHASE identity
+PHASE dependencies
+PHASE source-tests
+PHASE prepare
+PHASE translation
+PHASE adapter
+PHASE install
+PHASE canonical-inventory
+PHASE compile
+PHASE complete

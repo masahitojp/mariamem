@@ -6,48 +6,6 @@
   "new_engine_or_converter_behavior": false,
   "files": [
     {
-      "file": "identity.txt",
-      "original_sha256": "549765443e4b7d2805a80953689df9d1d6ad21bb267bce7704085f9680c1819d",
-      "stored_sha256": "549765443e4b7d2805a80953689df9d1d6ad21bb267bce7704085f9680c1819d",
-      "bytes": 153
-    },
-    {
-      "file": "source-tests.txt",
-      "original_sha256": "0e0ad9e88831a2f9f16e3857734c9af5381886e6ad9dbd6a0c72ab11b31ab4f3",
-      "stored_sha256": "0e0ad9e88831a2f9f16e3857734c9af5381886e6ad9dbd6a0c72ab11b31ab4f3",
-      "bytes": 99
-    },
-    {
-      "file": "prepare.txt",
-      "original_sha256": "88f43b9a71e5603c574cb32c205fcb4664a9a26d29a5c7fb3f1de2b7b0d8bbd1",
-      "stored_sha256": "88f43b9a71e5603c574cb32c205fcb4664a9a26d29a5c7fb3f1de2b7b0d8bbd1",
-      "bytes": 1027
-    },
-    {
-      "file": "canonical-inventory.txt",
-      "original_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
-      "stored_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
-      "bytes": 67
-    },
-    {
-      "file": "compile.txt",
-      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "bytes": 0
-    },
-    {
-      "file": "local-generation.json",
-      "original_sha256": "991a053f58612faf2a53e64c60adbe648dc8d4d6cfb43b049441eb08ea3c53d3",
-      "stored_sha256": "991a053f58612faf2a53e64c60adbe648dc8d4d6cfb43b049441eb08ea3c53d3",
-      "bytes": 631
-    },
-    {
-      "file": "j1-data-review.json",
-      "original_sha256": "975e5647d7a564c8339c9cc86d688055480fe007c6e4cf916e17febf01af643f",
-      "stored_sha256": "975e5647d7a564c8339c9cc86d688055480fe007c6e4cf916e17febf01af643f",
-      "bytes": 791
-    },
-    {
       "file": "j1-heap-0.txt",
       "original_sha256": "3c8882f8adebe6f49b631d2874a3b4b324c1e1885f97324453270a8724c3b9bd",
       "stored_sha256": "3c8882f8adebe6f49b631d2874a3b4b324c1e1885f97324453270a8724c3b9bd",
@@ -94,6 +52,192 @@
       "original_sha256": "87ca3f847c389d1199ad4871030a144ada92c0497ff19c557cf30046928d916a",
       "stored_sha256": "87ca3f847c389d1199ad4871030a144ada92c0497ff19c557cf30046928d916a",
       "bytes": 1224
+    },
+    {
+      "file": "local-independent-regeneration.json",
+      "original_sha256": "bc0a2f5aa27d290d53c9029e3ff07be4d917296af8409f55930ec4dcc1ae52dd",
+      "stored_sha256": "bc0a2f5aa27d290d53c9029e3ff07be4d917296af8409f55930ec4dcc1ae52dd",
+      "bytes": 16925
+    },
+    {
+      "file": "local-environment.json",
+      "original_sha256": "8fdb9f476c13ed54bccc87d244b3c921f51241fc6d83683e1f9136f53b0b02fa",
+      "stored_sha256": "8fdb9f476c13ed54bccc87d244b3c921f51241fc6d83683e1f9136f53b0b02fa",
+      "bytes": 585
+    },
+    {
+      "file": "local-consumers.json",
+      "original_sha256": "ba40c8fbff24d3a4a476edb534303f283e2b64859c6b62d777b345da5bae9ff2",
+      "stored_sha256": "ba40c8fbff24d3a4a476edb534303f283e2b64859c6b62d777b345da5bae9ff2",
+      "bytes": 6970
+    },
+    {
+      "file": "local-edges.json",
+      "original_sha256": "ef20548479e28fe024c586d0b60c54d0443d91c89feaa91debd1e0ee3ea7017d",
+      "stored_sha256": "ef20548479e28fe024c586d0b60c54d0443d91c89feaa91debd1e0ee3ea7017d",
+      "bytes": 3887
+    },
+    {
+      "file": "local-matching.json",
+      "original_sha256": "5bc46b782753679c7542968f4889789e8cfd4dab7dbf0336733135ff73fd3963",
+      "stored_sha256": "5bc46b782753679c7542968f4889789e8cfd4dab7dbf0336733135ff73fd3963",
+      "bytes": 1773
+    },
+    {
+      "file": "compile.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "final-license-inventory-tests.txt",
+      "original_sha256": "0a5b221fde0356783245caf42a7c45aa19186c32985d542be0f381c9d939fd34",
+      "stored_sha256": "0a5b221fde0356783245caf42a7c45aa19186c32985d542be0f381c9d939fd34",
+      "bytes": 99
+    },
+    {
+      "file": "consumers.txt",
+      "original_sha256": "7825245be3302823dd56027088fdade35cd4c5d9549b097053d7f019701dc758",
+      "stored_sha256": "7825245be3302823dd56027088fdade35cd4c5d9549b097053d7f019701dc758",
+      "bytes": 115
+    },
+    {
+      "file": "j1-layout.json",
+      "original_sha256": "2933a4ace181a17cecbce676da0b72609162b25935bd69b2143b5b6394877e1f",
+      "stored_sha256": "2933a4ace181a17cecbce676da0b72609162b25935bd69b2143b5b6394877e1f",
+      "bytes": 11191
+    },
+    {
+      "file": "prepare.txt",
+      "original_sha256": "88f43b9a71e5603c574cb32c205fcb4664a9a26d29a5c7fb3f1de2b7b0d8bbd1",
+      "stored_sha256": "88f43b9a71e5603c574cb32c205fcb4664a9a26d29a5c7fb3f1de2b7b0d8bbd1",
+      "bytes": 1027
+    },
+    {
+      "file": "translation.txt",
+      "original_sha256": "deafd1904f7647f8f3e128d18b2d9131876a7766cfb535bba5a3a5c65ebd08c9",
+      "stored_sha256": "e866ebe6fa0694246c5769d3df14378380a3ad3df2536d4375c505f8395a2781",
+      "bytes": 13817
+    },
+    {
+      "file": "prepared-source.json",
+      "original_sha256": "f674911e244191bd8911d147d184d640f22e811d0e6aecf3efedc9841e40fc3b",
+      "stored_sha256": "f674911e244191bd8911d147d184d640f22e811d0e6aecf3efedc9841e40fc3b",
+      "bytes": 18720
+    },
+    {
+      "file": "workspace-console.txt",
+      "original_sha256": "95d039cfb40aeffbf73e600be49c463dc7209d34fd759a6196412f4f0c2e53e3",
+      "stored_sha256": "95d039cfb40aeffbf73e600be49c463dc7209d34fd759a6196412f4f0c2e53e3",
+      "bytes": 168
+    },
+    {
+      "file": "j1-data-review.json",
+      "original_sha256": "975e5647d7a564c8339c9cc86d688055480fe007c6e4cf916e17febf01af643f",
+      "stored_sha256": "975e5647d7a564c8339c9cc86d688055480fe007c6e4cf916e17febf01af643f",
+      "bytes": 791
+    },
+    {
+      "file": "install.txt",
+      "original_sha256": "f9aebb4532cdfcdccf4107723d21954dca1adf36196b4d3ced51f9d3754bf785",
+      "stored_sha256": "f9aebb4532cdfcdccf4107723d21954dca1adf36196b4d3ced51f9d3754bf785",
+      "bytes": 53
+    },
+    {
+      "file": "consumer-dependencies.txt",
+      "original_sha256": "8eadc141528eadd3bc6441b485831801e46877269d51366c2ec41eab90db94f0",
+      "stored_sha256": "a46219fbe1df85c9d6ce70778adeee065f412531facbab13b7917fd8fd3b12cf",
+      "bytes": 698
+    },
+    {
+      "file": "source-all.txt",
+      "original_sha256": "25e8b26281daf43cc0f2516463c7abb387f88f37be4478947d05e8a2602e786c",
+      "stored_sha256": "25e8b26281daf43cc0f2516463c7abb387f88f37be4478947d05e8a2602e786c",
+      "bytes": 993
+    },
+    {
+      "file": "upstream-notices.json",
+      "original_sha256": "a16caf0c04d2f3ce7545ede2ce11c473bed2934ea32c36c7b8e07e3ef5ce762e",
+      "stored_sha256": "a16caf0c04d2f3ce7545ede2ce11c473bed2934ea32c36c7b8e07e3ef5ce762e",
+      "bytes": 753
+    },
+    {
+      "file": "dependencies.txt",
+      "original_sha256": "b208195203494029ef881fb6a655d12b4dfb8927a64380be83bb7075d4310cb3",
+      "stored_sha256": "b208195203494029ef881fb6a655d12b4dfb8927a64380be83bb7075d4310cb3",
+      "bytes": 1819
+    },
+    {
+      "file": "canonical-inventory.txt",
+      "original_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "stored_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "bytes": 67
+    },
+    {
+      "file": "clean-license-audit.json",
+      "original_sha256": "c51a3e9818f422cce3a2a42d8b29ac0dd7d8004047e96303f5f126e009d42126",
+      "stored_sha256": "c51a3e9818f422cce3a2a42d8b29ac0dd7d8004047e96303f5f126e009d42126",
+      "bytes": 18399
+    },
+    {
+      "file": "source-tests.txt",
+      "original_sha256": "0e0ad9e88831a2f9f16e3857734c9af5381886e6ad9dbd6a0c72ab11b31ab4f3",
+      "stored_sha256": "0e0ad9e88831a2f9f16e3857734c9af5381886e6ad9dbd6a0c72ab11b31ab4f3",
+      "bytes": 99
+    },
+    {
+      "file": "adapter.txt",
+      "original_sha256": "065b4ac3ac6b24876bdd1ea1f6877459c325aae6bfaf24d37f97c969dbaffcfb",
+      "stored_sha256": "4c261eaa82d3dc46ad8138d03cc1a16779746fa96a33a0016309fe71d0060c88",
+      "bytes": 166
+    },
+    {
+      "file": "identity.txt",
+      "original_sha256": "549765443e4b7d2805a80953689df9d1d6ad21bb267bce7704085f9680c1819d",
+      "stored_sha256": "549765443e4b7d2805a80953689df9d1d6ad21bb267bce7704085f9680c1819d",
+      "bytes": 153
+    },
+    {
+      "file": "local-generation.json",
+      "original_sha256": "991a053f58612faf2a53e64c60adbe648dc8d4d6cfb43b049441eb08ea3c53d3",
+      "stored_sha256": "991a053f58612faf2a53e64c60adbe648dc8d4d6cfb43b049441eb08ea3c53d3",
+      "bytes": 631
+    },
+    {
+      "file": "authoring-generate.py",
+      "original_sha256": "db0a54c2b48166dec753a4c85b7295f749687bb92d32ae74276fdf4637fdc248",
+      "stored_sha256": "db0a54c2b48166dec753a4c85b7295f749687bb92d32ae74276fdf4637fdc248",
+      "bytes": 3760
+    },
+    {
+      "file": "authoring-j1-layout.py",
+      "original_sha256": "4ed071932c46ec3aa1af2bc8dede08bcfc449631f8b81945c6e732715b5f3e11",
+      "stored_sha256": "4ed071932c46ec3aa1af2bc8dede08bcfc449631f8b81945c6e732715b5f3e11",
+      "bytes": 2651
+    },
+    {
+      "file": "authoring-workflow.py",
+      "original_sha256": "20b3cf2a620fa618caf3a40df83f1aa222c20f79828c42845983df7941af4c60",
+      "stored_sha256": "20b3cf2a620fa618caf3a40df83f1aa222c20f79828c42845983df7941af4c60",
+      "bytes": 6018
+    },
+    {
+      "file": "check-intermediate.txt",
+      "original_sha256": "945a3dd5464d5f653d1e9312808f611b60b0066300e3384ac6524e75357eeedc",
+      "stored_sha256": "9997c5ff500024917e73aadee04907452029238ce63428c00457e8f385ab346e",
+      "bytes": 9893
+    },
+    {
+      "file": "check-final.txt",
+      "original_sha256": "5a5d9b85617343c3c08170333e7eb426fa3fd94550b925839fa8b9c753b0243d",
+      "stored_sha256": "aac3c546133539d5a5d55617f4ffeb61c8cef9d11f0e0056268a1a7d86f63421",
+      "bytes": 5028
+    },
+    {
+      "file": "converter-workspaces.json",
+      "original_sha256": "df4bc6c7c235753f71ca4149de30df67ec8af99f8130b8f59de92abfacbb45a9",
+      "stored_sha256": "df4bc6c7c235753f71ca4149de30df67ec8af99f8130b8f59de92abfacbb45a9",
+      "bytes": 94485
     }
   ],
   "J1_scope": "Same historical failure assertions; exact constructors/addresses/callees bound to current generated guest; not general shared-memory correctness",
@@ -102,5 +246,23 @@
   "local_generated_inventory": {
     "generated_files": 62,
     "total_files_including_owned_glue_and_provenance": 99
-  }
+  },
+  "local_consumer_host_source_commit": "0ca1a1483c1f18db83c2b5a499f9ff82dcc1685d",
+  "local_independent_regeneration_scope": "Repeated canonical translator/adaptor/installer, 99 files identical; Wasm originated from development source_commit 4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d. Not the pending canonical two-source-build proof.",
+  "authoring_scripts": "Historical local derivation scripts, repository paths scrubbed; intermediate J1 derivation is not the accepted final fixture. Canonical reproduction uses the committed workflow/scripts.",
+  "helper_intermediate_source_commit": "56b319553fdd86e5b935276d4b273c695e84a5a9",
+  "python_archive": {
+    "url": "https://github.com/actions/python-versions/releases/download/3.14.8-36806082737/python-3.14.8-darwin-arm64.tar.gz",
+    "sha256": "88379ff8be11ec05986bf384205f00092b4b46975f40321d8567a16a7c2e8d5f",
+    "installation": "pkgutil --expand-full into owned scratch only; DYLD_FRAMEWORK_PATH/PYTHONHOME for private venv; no system install or driver/import workaround"
+  },
+  "local_source_check": {
+    "result": "PASS",
+    "source_commit": "0ca1a1483c1f18db83c2b5a499f9ff82dcc1685d",
+    "working_tree_scope": "Final source/inventory files plus in-progress evidence/docs; not a clean exact-final-candidate CI receipt",
+    "commands": "scripts/verify.py check: version, inventory,22 source/inventory tests, go test ./..., go vet (existing generated control-flow filtering),774 remaining source tests, public allowlist",
+    "python_skipped": 41,
+    "notes": "Intermediate exported console.log was correctly rejected by unchanged public-source allowlist; renamed workspace-console.txt, then entire check rerun successfully. Earlier old runtimekind guest constant caught by test_generated_default and corrected before clean-host consumer replay."
+  },
+  "intermediate_fixture_note": "j1-layout.json and authoring-j1-layout.py retain derivation-stage state. Accepted exact fixture is tests/fixtures/routine-thread-layout.json and actual six-outcome evidence is j1-results.json."
 }

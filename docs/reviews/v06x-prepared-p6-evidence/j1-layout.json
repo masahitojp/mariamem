@@ -1,0 +1,557 @@
+{
+  "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "baseline_source_commit": "de0e08a9c4248969a7522abebfdee8aea6ef9657",
+  "baseline_guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+  "result": "Audited exact callee mapping and constant-only relocation against preserved J1 baseline; oracle execution pending",
+  "global_address_delta": 5760,
+  "data_segments": [
+    {
+      "offset": 8388608,
+      "begin": 0,
+      "end": 6213094
+    },
+    {
+      "offset": 14601728,
+      "begin": 6213094,
+      "end": 6855714
+    },
+    {
+      "offset": 15244352,
+      "begin": 6855714,
+      "end": 6856219
+    }
+  ],
+  "data_sha256": "6111bfe83de71695517e3d9f25fed842d4a43bfc6ae774815abafd81af9064dd",
+  "tls_bytes": 505,
+  "tls_sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df",
+  "function_map": {
+    "70": 70,
+    "82": 82,
+    "83": 83,
+    "88": 88,
+    "89": 89,
+    "97": 97,
+    "131": 131,
+    "135": 135,
+    "150": 150,
+    "151": 151,
+    "152": 152,
+    "153": 153,
+    "158": 158,
+    "216": 214,
+    "217": 215,
+    "221": 219,
+    "212": 210,
+    "215": 213,
+    "4056": 4068
+  },
+  "functions": [
+    {
+      "old_function": 70,
+      "new_function": 70,
+      "function": "Fn70",
+      "file": "p7/p7_pure.go",
+      "normalized_sha256": "68f0b5603bd885ca5be30266c5224680ca5a0783d12dcb376ac28844fe08bbc3",
+      "integer_changes": [],
+      "direct_calls": []
+    },
+    {
+      "old_function": 82,
+      "new_function": 82,
+      "function": "Fn82",
+      "file": "p8/p8_pure.go",
+      "normalized_sha256": "5d47974851b4306097cde1eeb2b123cb08c4a7a4f525c59ec00787df74985160",
+      "integer_changes": [],
+      "direct_calls": [
+        70
+      ]
+    },
+    {
+      "old_function": 83,
+      "new_function": 83,
+      "function": "Fn83",
+      "file": "p8/p8_pure.go",
+      "normalized_sha256": "5ba252f997bb5e46030dd1c3a46bf8b0f1827a17bd265db8bf93726276e3e277",
+      "integer_changes": [],
+      "direct_calls": []
+    },
+    {
+      "old_function": 88,
+      "new_function": 88,
+      "function": "Fn88",
+      "file": "p7/p7_pure.go",
+      "normalized_sha256": "9bee0271824d682a80bd04cfb03a709b7a725e027cff1a224be1f93461e2b180",
+      "integer_changes": [],
+      "direct_calls": []
+    },
+    {
+      "old_function": 89,
+      "new_function": 89,
+      "function": "Fn89",
+      "file": "p8/p8_pure.go",
+      "normalized_sha256": "e9a331e213fa0fa8e757b5a7401755f7ec36f6f3373a97ef7e106c555f70f1d6",
+      "integer_changes": [],
+      "direct_calls": []
+    },
+    {
+      "old_function": 97,
+      "new_function": 97,
+      "function": "Fn97",
+      "file": "p5/p5_pure.go",
+      "normalized_sha256": "9c92af7025434061038ddb1ab97f9ea0f9ed83eb2e47f3c93175b32706c5cb20",
+      "integer_changes": [
+        [
+          15239105,
+          15244865
+        ]
+      ],
+      "direct_calls": [
+        88
+      ]
+    },
+    {
+      "old_function": 131,
+      "new_function": 131,
+      "function": "Fn131",
+      "file": "p8/p8_pure.go",
+      "normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "integer_changes": [],
+      "direct_calls": []
+    },
+    {
+      "old_function": 135,
+      "new_function": 135,
+      "function": "Fn135",
+      "file": "p8/p8_pure.go",
+      "normalized_sha256": "015bdb428380550ad7ee6b0cf9cc1ebc3830df069641d8898ed166ec508f51dc",
+      "integer_changes": [],
+      "direct_calls": []
+    },
+    {
+      "old_function": 150,
+      "new_function": 150,
+      "function": "Fn150",
+      "file": "p8/p8_pure.go",
+      "normalized_sha256": "e803c78f51e1a6af154ff5c8f791dbb8d8e4c09c441b4532c9fe534ccd4cddef",
+      "integer_changes": [
+        [
+          8687180,
+          8688301
+        ],
+        [
+          15239148,
+          15244908
+        ],
+        [
+          15239168,
+          15244928
+        ]
+      ],
+      "direct_calls": [
+        82,
+        83,
+        97,
+        135
+      ]
+    },
+    {
+      "old_function": 151,
+      "new_function": 151,
+      "function": "Fn151",
+      "file": "p8/p8_pure.go",
+      "normalized_sha256": "b15826e2ef9e60330d18ba732b8bc901b85dbbfe9442b66ef98aafc7769e8ac4",
+      "integer_changes": [],
+      "direct_calls": [
+        150
+      ]
+    },
+    {
+      "old_function": 152,
+      "new_function": 152,
+      "function": "Fn152",
+      "file": "p1/p1_pure.go",
+      "normalized_sha256": "a62e983a0e8175ce7e35df5415095b33d37c3f6a1490360e21334dc35c9c418a",
+      "integer_changes": [
+        [
+          15240500,
+          15246260
+        ],
+        [
+          15240504,
+          15246264
+        ],
+        [
+          15240508,
+          15246268
+        ],
+        [
+          15240512,
+          15246272
+        ],
+        [
+          15240516,
+          15246276
+        ],
+        [
+          15240520,
+          15246280
+        ],
+        [
+          15240524,
+          15246284
+        ],
+        [
+          15240528,
+          15246288
+        ],
+        [
+          15240532,
+          15246292
+        ],
+        [
+          15240536,
+          15246296
+        ],
+        [
+          15240540,
+          15246300
+        ],
+        [
+          15240544,
+          15246304
+        ],
+        [
+          15240548,
+          15246308
+        ],
+        [
+          15240552,
+          15246312
+        ],
+        [
+          15240556,
+          15246316
+        ],
+        [
+          15240560,
+          15246320
+        ],
+        [
+          15240564,
+          15246324
+        ],
+        [
+          15240572,
+          15246332
+        ],
+        [
+          15240576,
+          15246336
+        ],
+        [
+          15240580,
+          15246340
+        ],
+        [
+          15240584,
+          15246344
+        ],
+        [
+          15240588,
+          15246348
+        ],
+        [
+          15240592,
+          15246352
+        ],
+        [
+          15240596,
+          15246356
+        ],
+        [
+          15240600,
+          15246360
+        ],
+        [
+          15240828,
+          15246588
+        ],
+        [
+          15240956,
+          15246716
+        ],
+        [
+          15240960,
+          15246720
+        ],
+        [
+          15240964,
+          15246724
+        ],
+        [
+          15240968,
+          15246728
+        ],
+        [
+          15240972,
+          15246732
+        ],
+        [
+          15240976,
+          15246736
+        ],
+        [
+          15240980,
+          15246740
+        ],
+        [
+          15240984,
+          15246744
+        ],
+        [
+          15240988,
+          15246748
+        ],
+        [
+          15241000,
+          15246760
+        ]
+      ],
+      "direct_calls": [
+        131,
+        151
+      ]
+    },
+    {
+      "old_function": 153,
+      "new_function": 153,
+      "function": "Fn153",
+      "file": "p3/p3_pure.go",
+      "normalized_sha256": "4aa80a3d7f3cc57a06cf3939fdba594c874365e69f428ebdf587bd337f5a587a",
+      "integer_changes": [
+        [
+          15240524,
+          15246284
+        ],
+        [
+          15240528,
+          15246288
+        ],
+        [
+          15240532,
+          15246292
+        ],
+        [
+          15240536,
+          15246296
+        ],
+        [
+          15240540,
+          15246300
+        ],
+        [
+          15240544,
+          15246304
+        ],
+        [
+          15240548,
+          15246308
+        ],
+        [
+          15240556,
+          15246316
+        ],
+        [
+          15240564,
+          15246324
+        ],
+        [
+          15240828,
+          15246588
+        ],
+        [
+          15240968,
+          15246728
+        ],
+        [
+          15240972,
+          15246732
+        ]
+      ],
+      "direct_calls": [
+        131
+      ]
+    },
+    {
+      "old_function": 158,
+      "new_function": 158,
+      "function": "Fn158",
+      "file": "p8/p8_pure.go",
+      "normalized_sha256": "a9868a44150f74a492b505ac37fbec3d74f629eeb22a62d78980b528a2b36b15",
+      "integer_changes": [],
+      "direct_calls": []
+    },
+    {
+      "old_function": 216,
+      "new_function": 214,
+      "function": "Fn214",
+      "file": "p5/p5_pure.go",
+      "normalized_sha256": "139b6e0be1213a2c03785e33e29c7e3e709be938888819a0b4e670c8daa939ec",
+      "integer_changes": [
+        [
+          497,
+          505
+        ],
+        [
+          15239105,
+          15244865
+        ],
+        [
+          15239108,
+          15244868
+        ],
+        [
+          15243132,
+          15248892
+        ],
+        [
+          15243648,
+          15249408
+        ],
+        [
+          15243696,
+          15249456
+        ],
+        [
+          15244240,
+          15250000
+        ],
+        [
+          15244244,
+          15250004
+        ],
+        [
+          15244248,
+          15250008
+        ],
+        [
+          15301648,
+          15307408
+        ]
+      ],
+      "direct_calls": [
+        84,
+        88,
+        89,
+        92,
+        97,
+        153,
+        158,
+        210,
+        213
+      ]
+    },
+    {
+      "old_function": 217,
+      "new_function": 215,
+      "function": "Fn215",
+      "file": "p8/p8_pure.go",
+      "normalized_sha256": "58dd12423bb3378b8cf8ce9951ca091c9bcd2af576feb92c9ae19bfd4c977fa6",
+      "integer_changes": [
+        [
+          15243132,
+          15248892
+        ],
+        [
+          15244240,
+          15250000
+        ],
+        [
+          15244244,
+          15250004
+        ]
+      ],
+      "direct_calls": [
+        89
+      ]
+    },
+    {
+      "old_function": 221,
+      "new_function": 219,
+      "function": "Fn219",
+      "file": "p7/p7_pure.go",
+      "normalized_sha256": "fa71736767696b81ee8fb6ea2b3effbdfff3076ed12364bf5ad4cf52cd5bf063",
+      "integer_changes": [
+        [
+          15243132,
+          15248892
+        ],
+        [
+          15244244,
+          15250004
+        ],
+        [
+          15244248,
+          15250008
+        ],
+        [
+          15301648,
+          15307408
+        ]
+      ],
+      "direct_calls": [
+        88,
+        89,
+        153,
+        158
+      ]
+    },
+    {
+      "old_function": 212,
+      "new_function": 210,
+      "function": "Fn210",
+      "file": "p8/p8_pure.go",
+      "normalized_sha256": "20cdf93675f46ea1310839295c3f1a25bb276399dc8af870dcf6e32a98631199",
+      "integer_changes": [],
+      "direct_calls": []
+    },
+    {
+      "old_function": 215,
+      "new_function": 213,
+      "function": "Fn213",
+      "file": "p8/p8_pure.go",
+      "normalized_sha256": "dca98ebe13dc975cc51693e58181fd4c8d6c099b2acc68d685bd003321c9b1c7",
+      "integer_changes": [],
+      "direct_calls": [
+        100,
+        135,
+        4068
+      ]
+    },
+    {
+      "old_function": 4056,
+      "new_function": 4068,
+      "function": "Fn4068",
+      "file": "p7/p7_pure.go",
+      "normalized_sha256": "4396e9c3b6e0dcb6209f4dc4e11a863be4416498bf77e880fd420fdd768ebe18",
+      "integer_changes": [
+        [
+          15466168,
+          15471928
+        ],
+        [
+          15466172,
+          15471932
+        ],
+        [
+          15466176,
+          15471936
+        ]
+      ],
+      "direct_calls": [
+        89,
+        97
+      ]
+    }
+  ]
+}

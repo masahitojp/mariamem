@@ -1,0 +1,12 @@
+Collecting mysql-connector-python==26.7.0
+  Using cached mysql_connector_python-26.7.0-cp314-cp314-macosx_14_0_arm64.whl.metadata (11 kB)
+Collecting PyMySQL==1.2.3
+  Using cached pymysql-1.2.3-py3-none-any.whl.metadata (4.2 kB)
+Using cached mysql_connector_python-26.7.0-cp314-cp314-macosx_14_0_arm64.whl (20.3 MB)
+Using cached pymysql-1.2.3-py3-none-any.whl (46 kB)
+Installing collected packages: PyMySQL, mysql-connector-python
+
+Successfully installed PyMySQL-1.2.3 mysql-connector-python-26.7.0
+
+[notice] A new release of pip is available: 26.2.1 -> 26.2.2
+[notice] To update, run: <repository>/build/experiment-work/prepared-canonical/temp/consumer-venv/bin/python -m pip install --upgrade pip

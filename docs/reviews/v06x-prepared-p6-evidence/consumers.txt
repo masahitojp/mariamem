@@ -1,0 +1,1 @@
+PASS: Go prepared / Python normal controls and exact accepted-exception tripwires; Python functional FAIL retained

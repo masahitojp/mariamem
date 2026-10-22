@@ -1053,6 +1053,12 @@ three-file prepared repair as the next version-specific guest/input.json entry;
 recipe guest/source.patch remains unchanged. No new engine behavior or converter
 patch is introduced. The incoming Wasm identity is explicitly the reviewed
 8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40.
-Canonical inventories/generated source and two-build/reproduction evidence are
-being updated; intermediate commits are NOT READY and not main-adoption evidence.
-Existing release guards remain enabled and must reject incomplete inventories.
+Canonical inventories/generated source, exact J1/data/TLS binding, retained-library
+attribution, selected normal-CI consumers and precise public-guide exceptions are
+implemented. Local regeneration matched all99 files; J1 failure/protected controls
+and the selected Go/Python consumer comparison passed, retaining the accepted
+functional FAILs. Full canonical two-source-build and both-platform replay are
+still pending new candidate CI; P6 is not complete and no main adoption is claimed.
+See the [P6 candidate report](reviews/v06x-prepared-p6-canonical.md) for source
+identities, local proof limits, generation steps and pending gates. Existing
+release guards remain enabled; no Qualification or release is started.

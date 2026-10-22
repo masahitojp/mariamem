@@ -1,0 +1,226 @@
+{
+  "scope": "P5 fixed real Go/Python consumers, not full P5 or Qualification",
+  "environment": {
+    "python": "3.14.8 (v3.14.8:8e6e75d9102, Sep 30 2026, 14:34:30) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "openssl": "OpenSSL 3.5.9 29 Sep 2026",
+    "os": "Darwin",
+    "arch": "arm64"
+  },
+  "cases": {
+    "pure": {
+      "raw_syntax": {
+        "errno": 1064,
+        "sqlstate": "42000",
+        "packet": "ff2804233432303030596f75206861766520616e206572726f7220696e20796f75722053514c2073796e7461783b20636865636b20746865206d616e75616c207468617420636f72726573706f6e647320746f20796f7572204d617269614442207365727665722076657273696f6e20666f72207468652072696768742073796e74617820746f20757365206e656172202753454c454320696e76616c696427206174206c696e652031"
+      },
+      "mode": "pure",
+      "connector": "26.7.0",
+      "stage": "prepared-call",
+      "implementation": "MySQLConnection",
+      "prepared_values": [
+        null,
+        -17,
+        9223372036854775807,
+        "\u96ea",
+        "A\u0000B",
+        {
+          "type": "decimal",
+          "value": "123.45"
+        }
+      ],
+      "nul_projection_integrity": "PASS",
+      "duplicate_error": {
+        "errno": 1062,
+        "sqlstate": "23000"
+      },
+      "syntax_error": {
+        "errno": 1064,
+        "sqlstate": "42000"
+      },
+      "default_multi_statement": [
+        [
+          [
+            7
+          ]
+        ],
+        [
+          [
+            8
+          ]
+        ]
+      ],
+      "prepared_after": 0,
+      "crud_binary_table_and_text_controls": "PASS",
+      "result": "FAIL",
+      "error": "ProgrammingError(-1, \"Failed handling non-resultset; 'affected_rows'\", None)",
+      "logs": "",
+      "temporary_removed": true
+    },
+    "default": {
+      "raw_syntax": {
+        "errno": 1064,
+        "sqlstate": "42000",
+        "packet": "ff2804233432303030596f75206861766520616e206572726f7220696e20796f75722053514c2073796e7461783b20636865636b20746865206d616e75616c207468617420636f72726573706f6e647320746f20796f7572204d617269614442207365727665722076657273696f6e20666f72207468652072696768742073796e74617820746f20757365206e656172202753454c454320696e76616c696427206174206c696e652031"
+      },
+      "mode": "default",
+      "connector": "26.7.0",
+      "stage": "prepared-call",
+      "implementation": "CMySQLConnection",
+      "prepared_values": [
+        null,
+        -17,
+        9223372036854775807,
+        "\u96ea",
+        "A",
+        {
+          "type": "decimal",
+          "value": "123.45"
+        }
+      ],
+      "nul_projection_integrity": "FAIL",
+      "duplicate_error": {
+        "errno": 1062,
+        "sqlstate": "23000"
+      },
+      "syntax_error": {
+        "errno": 2006,
+        "sqlstate": "HY000"
+      },
+      "default_multi_statement": [
+        [
+          [
+            7
+          ]
+        ],
+        [
+          [
+            8
+          ]
+        ]
+      ],
+      "prepared_after": 0,
+      "crud_binary_table_and_text_controls": "PASS",
+      "result": "FAIL",
+      "error": "DatabaseError(2014, \"2014 (HY000): Commands out of sync; you can't run this command now\", 'HY000')",
+      "logs": "",
+      "temporary_removed": true
+    },
+    "cext": {
+      "raw_syntax": {
+        "errno": 1064,
+        "sqlstate": "42000",
+        "packet": "ff2804233432303030596f75206861766520616e206572726f7220696e20796f75722053514c2073796e7461783b20636865636b20746865206d616e75616c207468617420636f72726573706f6e647320746f20796f7572204d617269614442207365727665722076657273696f6e20666f72207468652072696768742073796e74617820746f20757365206e656172202753454c454320696e76616c696427206174206c696e652031"
+      },
+      "mode": "cext",
+      "connector": "26.7.0",
+      "stage": "prepared-call",
+      "implementation": "CMySQLConnection",
+      "prepared_values": [
+        null,
+        -17,
+        9223372036854775807,
+        "\u96ea",
+        "A",
+        {
+          "type": "decimal",
+          "value": "123.45"
+        }
+      ],
+      "nul_projection_integrity": "FAIL",
+      "duplicate_error": {
+        "errno": 1062,
+        "sqlstate": "23000"
+      },
+      "syntax_error": {
+        "errno": 2006,
+        "sqlstate": "HY000"
+      },
+      "default_multi_statement": [
+        [
+          [
+            7
+          ]
+        ],
+        [
+          [
+            8
+          ]
+        ]
+      ],
+      "prepared_after": 0,
+      "crud_binary_table_and_text_controls": "PASS",
+      "result": "FAIL",
+      "error": "DatabaseError(2014, \"2014 (HY000): Commands out of sync; you can't run this command now\", 'HY000')",
+      "logs": "",
+      "temporary_removed": true
+    },
+    "go": {
+      "raw_syntax": {
+        "errno": 1064,
+        "sqlstate": "42000",
+        "packet": "ff2804233432303030596f75206861766520616e206572726f7220696e20796f75722053514c2073796e7461783b20636865636b20746865206d616e75616c207468617420636f72726573706f6e647320746f20796f7572204d617269614442207365727665722076657273696f6e20666f72207468652072696768742073796e74617820746f20757365206e656172202753454c454320696e76616c696427206174206c696e652031"
+      },
+      "modes": [
+        {
+          "call_results": [
+            [
+              7
+            ],
+            [
+              8
+            ]
+          ],
+          "duplicate_errno": 1062,
+          "explicit_prepare_observed": true,
+          "following_query": true,
+          "interpolate_params": true,
+          "open_after": 0,
+          "parameterized_query_prepare_observed": false,
+          "prepared_after": 0,
+          "result": "PASS",
+          "syntax_errno": 1064,
+          "transaction_binary_values": true
+        },
+        {
+          "call_results": [
+            [
+              7
+            ],
+            [
+              8
+            ]
+          ],
+          "duplicate_errno": 1062,
+          "explicit_prepare_observed": true,
+          "following_query": true,
+          "interpolate_params": false,
+          "open_after": 0,
+          "parameterized_query_prepare_observed": true,
+          "prepared_after": 0,
+          "result": "PASS",
+          "syntax_errno": 1064,
+          "transaction_binary_values": true
+        }
+      ],
+      "result": "PASS",
+      "scope": "P5 Go driver1.9.3 consumer",
+      "stderr": "",
+      "active_connections_after": 0,
+      "logs": "",
+      "temporary_removed": true
+    }
+  },
+  "failures": {
+    "pure": "ProgrammingError(-1, \"Failed handling non-resultset; 'affected_rows'\", None)",
+    "default": "DatabaseError(2014, \"2014 (HY000): Commands out of sync; you can't run this command now\", 'HY000')",
+    "cext": "DatabaseError(2014, \"2014 (HY000): Commands out of sync; you can't run this command now\", 'HY000')"
+  },
+  "engine_versions": {
+    "pure": "12.3.3-MariaDB-embedded",
+    "default": "12.3.3-MariaDB-embedded",
+    "cext": "12.3.3-MariaDB-embedded",
+    "go": "12.3.3-MariaDB-embedded"
+  },
+  "result": "FAIL",
+  "consumer_sha256": "49f111a1b350d0f56b95c272bb2e30ba6583dd2f1cae4d4d1ffbca21657110c8"
+}

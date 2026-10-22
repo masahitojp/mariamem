@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "sources": {
+    "libfmt": "a2f4a8d51178f954e4c339007f77edd76ba0cb2e36f87a48e5a5403d9be5878f",
+    "llvm-project": "b62854f0704e513f2a93a0955a41e08894c60bcf750ba32f26b3637e6fa14b05",
+    "mariadb": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+    "pcre2": "d74c183c86c77248ad50017c7f45bae8f88106a6cca5d87ad09917e1c6fb0784",
+    "wasix-libc": "55091ce6af5b549b3c97f61592bd2506e6a7e5da3588cb2f77a64388468ad231",
+    "wolfssl": "2754bcd8a0a3fed5ae19574506d0bf003eee7264ec8bed4ebb15409494246fd3"
+  },
+  "inventory_sha256": "dd77360c8639346c2cd09d2f351adce0fcd0d5194491abe2a258392c056f6885",
+  "scope": "Original upstream notice bytes from checksum-pinned source archives; separate from host retention audit"
+}
