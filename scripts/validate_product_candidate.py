@@ -59,7 +59,7 @@ def qualify(root, candidate, workspace, native_platform):
     env = {k:v for k,v in os.environ.items() if k not in ('GH_TOKEN','GITHUB_TOKEN')
            and not k.startswith(('GO','MARIAMEM_','MYSQLMEM_','WASMER_','WASIX_',
                                  'DYLD_','LD_','PYTEST','PYTHON'))}
-    env.update(GOTOOLCHAIN='go1.26.8', GOMAXPROCS='2', GOENV='off', GOWORK='off',
+    env.update(GOTOOLCHAIN='go1.26.10', GOMAXPROCS='2', GOENV='off', GOWORK='off',
                GOFLAGS='', GOEXPERIMENT='', CGO_ENABLED='1',
                GOCACHE=str(scratch/'gocache'), GOPATH=str(scratch/'gopath'),
                TMPDIR=str(scratch), GOTMPDIR=str(scratch), PIP_NO_CACHE_DIR='1',

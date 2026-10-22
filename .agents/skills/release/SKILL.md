@@ -20,7 +20,7 @@ means stop and request it; never infer, choose, or recommend a next version.
 The request authorizes preparation, commit, push, and release workflow dispatch
 as one transaction. Do not ask for a second publication approval.
 
-Use the canonical Go toolchain (`GOTOOLCHAIN=go1.26.8`) and a Python environment
+Use the canonical Go toolchain (`GOTOOLCHAIN=go1.26.10`) and a Python environment
 with `pytest` and `PyMySQL` available for every preparation command. Check these
 before submit; create an ignored or temporary venv if needed. Do not modify the
 global Python installation.
@@ -39,7 +39,7 @@ global Python installation.
    `release/NOTES-vX.Y.Z.md` for stable releases, matching the project style
    in `release/NOTES-alpha.4.md`, with a heading containing the exact requested
    tag. Summarize actual changes; do not invent product/performance claims.
-4. Run `GOTOOLCHAIN=go1.26.8 <venv>/bin/python scripts/release_prepare.py submit <version>`. It restricts the
+4. Run `GOTOOLCHAIN=go1.26.10 <venv>/bin/python scripts/release_prepare.py submit <version>`. It restricts the
    diff to preparation files, invokes `scripts/verify.py check` (or the focused
    `release_preparation_checks.py` for a tracked runtime reuse intent), commits that
    explicit file set when preparation is needed, pushes normally, verifies exact

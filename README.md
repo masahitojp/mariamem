@@ -22,11 +22,13 @@ per test session and reuse the live baseline. See the
 
 Supported platforms are **macOS 15+ / Apple Silicon (arm64)** and
 **Ubuntu 24.04 LTS / x86_64**. Other platforms are not supported.
-Release validation uses Go 1.26.8 and Python 3.14. Package minimums are
+Release validation uses Go 1.26.10 and Python 3.14. Package minimums are
 Go 1.26.0 and Python 3.9; they are not a tested matrix of all later versions.
 External Go consumers passed on macOS arm64 with Go 1.26.8 and
-1.27.0/1.27.1/1.27.2. See [toolchain compatibility](docs/go-compatibility.md)
-for the exact tested scope; the module minimum remains Go 1.26.0.
+1.27.0/1.27.1/1.27.2 historically; the current forward-compat check uses
+Go 1.27.3. GO-2026-6809 affects Go <1.26.10 and 1.27.0–1.27.2. See
+[toolchain compatibility](docs/go-compatibility.md) for the exact tested scope;
+the module minimum remains Go 1.26.0.
 
 To install the published release, create a virtual environment and install its platform wheel.
 PyPI publication remains unavailable pending account recovery; GitHub Release

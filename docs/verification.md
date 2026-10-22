@@ -5,7 +5,7 @@ reviewed later; [release review](../release/review.json) preserves historical
 candidate evidence. Current candidates use external CI evidence and the
 [release instructions](releasing.md), not those old flags as approval.
 
-The public repository was tested on macOS 27 arm64 with Python 3.9, Go 1.26.8,
+The public repository was tested on macOS 27 arm64 with Python 3.9, Go 1.26.10,
 Wasmer 7.4.2, PyMySQL 1.2.3, pytest 8.4.2, and pytest-xdist 3.8.0.
 
 ## Build provenance

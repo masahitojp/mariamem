@@ -74,11 +74,11 @@ def check_go127_consumer(project, smoke, env, run):
     must use that compiler with automatic switching disabled.
     """
     sdk=Path(subprocess.check_output(['go','env','GOROOT'], cwd=project,
-        env={**env,'GOTOOLCHAIN':'go1.27.2'}, text=True).strip())
+        env={**env,'GOTOOLCHAIN':'go1.27.3'}, text=True).strip())
     compiler=str(sdk/'bin/go')
     local={**env,'GOTOOLCHAIN':'local'}
     actual=subprocess.check_output([compiler,'version'], env=local, text=True).strip()
-    require(actual.startswith('go version go1.27.2 '), 'compatibility compiler differs')
+    require(actual.startswith('go version go1.27.3 '), 'compatibility compiler differs')
     run([compiler,'test','-tags=integration','-count=1','-timeout=5m','-v','.'],project,local)
     run([compiler,'run','.'],smoke,local)
     return {'result':'PASS','actual_go':actual,'GOTOOLCHAIN':'local',
@@ -129,7 +129,7 @@ def accept(root, commit, platform, output, mode='candidate', wheel=None, go_buil
             env=isolated_env(work)
             env={k:v for k,v in env.items() if not k.startswith(('MARIAMEM_','MYSQLMEM_','PYTHON','PYTEST','DOGFOOD_'))}
             require(go_build_jobs is None or go_build_jobs > 0,'Go build jobs must be positive')
-            env.update(GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='' if go_build_jobs is None else f'-p={go_build_jobs}',GOEXPERIMENT='',CGO_ENABLED='0')
+            env.update(GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='' if go_build_jobs is None else f'-p={go_build_jobs}',GOEXPERIMENT='',CGO_ENABLED='0')
             report['go_build_jobs']=go_build_jobs
             home=work/'home'; home.mkdir(); cache=work/'runtime-cache'; cache.mkdir()
             # pip downloads are build/test tooling, not mariamem runtime cache.

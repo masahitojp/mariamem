@@ -32,7 +32,7 @@ if args.runtime is not None or args.module is not None: parser.error("legacy Was
 (ROOT / "build").mkdir(exist_ok=True)
 (ROOT / "tests/evidence").mkdir(parents=True, exist_ok=True)
 host = ROOT / "build/mariamem-host"
-build_env = dict(os.environ, CGO_ENABLED="0", GOTOOLCHAIN="go1.26.8",
+build_env = dict(os.environ, CGO_ENABLED="0", GOTOOLCHAIN="go1.26.10",
                                              GOOS=target["goos"], GOARCH=target["goarch"],
                                              **({"MACOSX_DEPLOYMENT_TARGET": f"{major}.0"}
                                                 if major is not None else {}))

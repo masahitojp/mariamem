@@ -6,7 +6,7 @@
 
 This harness does not edit `release/review.json`. A successful run produces
 reviewable evidence; setting `platform_acceptance=true` remains a separate action.
-Run inside a clean macOS 15 arm64 VM with Python 3.9+ and Go 1.26.8 installed.
+Run inside a clean macOS 15 arm64 VM with Python 3.9+ and Go 1.26.10 installed.
 Network access is needed for the public Go module and its pinned MySQL driver.
 No Wasmer, MariaDB, Homebrew runtime, or repository checkout is needed in the VM.
 

@@ -88,7 +88,7 @@ def verify_release_pin(repository, pin, *, fetch_remote=None):
     return identity
 
 
-def verify_go_binary(repository, binary, expected_commit, *, go='go', toolchain='go1.26.8'):
+def verify_go_binary(repository, binary, expected_commit, *, go='go', toolchain='go1.26.10'):
     """Reject wrong/dirty/missing Go stamping before consuming a built binary.
 
     A .git-file worktree may be invisible to a pinned Go version's VCS scanner;

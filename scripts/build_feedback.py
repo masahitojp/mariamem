@@ -38,7 +38,7 @@ def go_environment(env=None, *, root=ROOT):
         if result.get(key) and Path(result[key]) != path:
             raise ValueError('conflicting '+key+'; unset it before selecting task workspace')
         result[key] = str(path)
-    result.setdefault('GOTOOLCHAIN', 'go1.26.8')
+    result.setdefault('GOTOOLCHAIN', 'go1.26.10')
     # A developer can intentionally select another toolchain/flags. Go keys its
     # own cache accordingly; record the actual compiler, not only this request.
     return result

@@ -185,7 +185,7 @@ def evidence(archive, intent, platform):
             'receipt result/source differs')
     require(set(correct.get('boundaries', [])) == BOUNDARIES, 'runtime coverage incomplete')
     require(inputs.get('native_platform') == platform and inputs.get('python', '').startswith('3.14.')
-            and inputs.get('go_version') == 'go version go1.26.8 ' +
+            and inputs.get('go_version') == 'go version go1.26.10 ' +
                 ('darwin/arm64' if platform == PLATFORMS[0] else 'linux/amd64'), 'wrong toolchain/platform')
     env = inputs.get('environment', {})
     require((platform == PLATFORMS[0] and env.get('system') == 'Darwin'

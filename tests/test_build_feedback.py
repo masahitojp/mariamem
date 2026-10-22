@@ -174,7 +174,7 @@ def test_task_cache_explicit_consistent_and_default_unchanged(tmp_path,monkeypat
     work,root=owned_workspace(tmp_path)
     base={feedback.WORKSPACE:str(work)}
     env=feedback.go_environment(base,root=root)
-    assert env['GOTOOLCHAIN']=='go1.26.8'
+    assert env['GOTOOLCHAIN']=='go1.26.10'
     assert env['GOCACHE']==str(work/'temp/gocache')
     assert env['GOMODCACHE']==str(work/'temp/modcache')
     assert env['GOPATH']==str(work/'temp/gopath')

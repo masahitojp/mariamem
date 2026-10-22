@@ -71,7 +71,7 @@ def main():
     p.add_argument("--converter-manifest",type=Path)
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
     pins=json.loads((ROOT/"release/generated-go-translation.json").read_text())
-    env=dict(os.environ,GOTOOLCHAIN="go1.26.8",GOWORK="off",GOENV="off",GOFLAGS="",GOEXPERIMENT="")
+    env=dict(os.environ,GOTOOLCHAIN="go1.26.10",GOWORK="off",GOENV="off",GOFLAGS="",GOEXPERIMENT="")
     if a.converter_archive:
         assert digest(a.converter_archive)==pins["converter_archive_sha256"]
         archive=out/"converter-source";archive.mkdir()

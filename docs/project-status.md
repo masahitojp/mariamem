@@ -221,7 +221,7 @@ Go `LoadSnapshot(ctx, path, opts)` completes persisted-baseline acquisition.
 Go/Python guides and [bounded product comparisons](../benchmarks/v046-product-validation.md)
 cover Fresh, preparation reuse, optional persistence and independent children.
 Go minimum 1.26.0, mysql client v1.9.3, guest, generated runtime and Snapshot format
-remain unchanged. Release validation uses Go1.26.8 and Python3.14; accepted
+remain unchanged. Release validation uses Go1.26.10 and Python3.14; accepted
 Go1.27 consumer scope is documented in [compatibility](go-compatibility.md).
 No Snapshot or filesystem optimization is included.
 
@@ -302,7 +302,7 @@ Product Validation; those changes are not part of v0.4.5.
 
 ## Supported scope and limitations
 
-- macOS 15+ arm64 and Ubuntu 24.04 x86_64. Canonical acceptance uses Go 1.26.8
+- macOS 15+ arm64 and Ubuntu 24.04 x86_64. Canonical acceptance uses Go 1.26.10
   and Python 3.14; minimum package versions do not imply a broad tested matrix.
 - Full generated guest is not Go race-detector clean. Preserve the
   [race census](../benchmarks/direct-link-race-scope.md); focused handwritten
@@ -336,8 +336,10 @@ Product Validation; those changes are not part of v0.4.5.
   so the earlier pending exact-final-source validation is satisfied. This does
   not establish a universal latency bound.
 - External consumer checks passed on macOS arm64 with Go 1.26.8 and
-  1.27.0/1.27.1/1.27.2. See [compatibility](go-compatibility.md); minimum Go
-  and driver versions are unchanged.
+  1.27.0/1.27.1/1.27.2 historically. GO-2026-6809 affects Go <1.26.10 and
+  1.27.0–1.27.2; 0.6.0 build validation uses Go 1.26.10 and the forward-compat
+  check uses 1.27.3. See [compatibility](go-compatibility.md); minimum Go and
+  driver versions are unchanged.
 - Physical footprint, RSS and reachable heap are different resource measures.
   The v0.4.2 lifecycle releases linear memory after joined workers; filesystem
   metadata remains GC-managed.

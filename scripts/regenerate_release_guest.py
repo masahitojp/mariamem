@@ -31,7 +31,7 @@ def main():
         p.error('unaccepted guest identity')
     tools=json.loads((ROOT/'release/generated-go-toolchain.json').read_text())
     converter=download(tools['archives']['converter'],ROOT/'build/downloads')
-    env=go_environment(dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT=''))
+    env=go_environment(dict(os.environ,GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT=''))
     out.mkdir(parents=True,exist_ok=False)
     spike=ROOT/'benchmarks/spikes/generated-go-integration'
     commands=[

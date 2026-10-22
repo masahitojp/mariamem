@@ -100,11 +100,11 @@ class GitIdentityTest(unittest.TestCase):
 
     def test_binary_identity_never_uses_parent_checkout_or_a_verified_flag(self):
         from unittest.mock import patch
-        correct = f'/tmp/host: go1.26.8\n\tbuild\tvcs=git\n\tbuild\tvcs.revision={self.commit}\n\tbuild\tvcs.modified=false\n'
+        correct = f'/tmp/host: go1.26.10\n\tbuild\tvcs=git\n\tbuild\tvcs.revision={self.commit}\n\tbuild\tvcs.modified=false\n'
         with patch('git_identity.subprocess.check_output',return_value=correct):
             self.assertEqual(verify_go_binary(self.root, '/tmp/host', self.commit),correct)
         variants = [correct.replace(self.commit,'a'*40), correct.replace('modified=false','modified=true'),
-                    correct.replace('go1.26.8','go1.27.1'), correct.replace('vcs=git','vcs=unknown'),
+                    correct.replace('go1.26.10','go1.27.1'), correct.replace('vcs=git','vcs=unknown'),
                     correct.replace(f'\tbuild\tvcs.revision={self.commit}\n',''),
                     correct+'\tbuild\tvcs.revision='+self.commit+'\n']
         for info in variants:

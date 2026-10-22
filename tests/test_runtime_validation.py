@@ -39,7 +39,7 @@ def records(platform):
             'environment': {'system':'Darwin' if mac else 'Linux',
                 'architecture':'arm64' if mac else 'x86_64',
                 'product_version':'15.7', 'distribution':'ubuntu', 'version_id':'24.04'},
-            'go_version':'go version go1.26.8 ' + ('darwin/arm64' if mac else 'linux/amd64'),
+            'go_version':'go version go1.26.10 ' + ('darwin/arm64' if mac else 'linux/amd64'),
             'guest_sha256':'c'*64, 'git_tree_sha256':'f'*64,
             'source_inventory_sha256':digest(json.dumps(inventory).encode()),
             'harness_sha256':{n:h for n,h in inventory.items() if n!='mariamem.go'}},
@@ -344,7 +344,7 @@ class QualificationRunnerTest(unittest.TestCase):
             (source/'release/generated-go-inputs.json').write_text(json.dumps(dict(guest_sha256='c'*64)))
             workspace=base/'work'
             def output(command,**kwargs):
-                if command[:2]==['go','version']: return 'go version go1.26.8 darwin/arm64\n'
+                if command[:2]==['go','version']: return 'go version go1.26.10 darwin/arm64\n'
                 return SHA+'\n' if command[1:3]==['rev-parse','HEAD'] else ''
             inventory={name:'c'*64 for name in (module.WORKFLOW, 'scripts/verify.py', 'scripts/validate_product_candidate.py')}
             with patch.object(module.sys,'version','3.14.8'),\

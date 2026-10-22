@@ -352,8 +352,8 @@ def test_newer_local_macos_is_not_minimum_platform_release_evidence(tmp_path,mon
             'platform':'darwin-arm64','python_version':'0.4.0','wheel_sha256':'b'*64,
             'go_source_sha256':{},'harness_sha256':{},'steps':{k:'PASS' for k in release.STEPS},
             'sqlalchemy_cases':44,'gorm_cases':32,'outside_checkout':True,'runtime_overrides':False,
-            'module_version':'v0.4.0','go_version':'go version go1.26.8 darwin/arm64',
-            'go127_consumer':{'result':'PASS','GOTOOLCHAIN':'local','actual_go':'go version go1.27.2 darwin/arm64'},
+            'module_version':'v0.4.0','go_version':'go version go1.26.10 darwin/arm64',
+            'go127_consumer':{'result':'PASS','GOTOOLCHAIN':'local','actual_go':'go version go1.27.3 darwin/arm64'},
             'environment':{'system':'Darwin','architecture':'arm64','product_version':'27.0.1'}}
     release.write(tmp_path/'build/release/generated-acceptance.json',report)
     with pytest.raises(ValueError,match='macOS acceptance environment'):
@@ -389,7 +389,7 @@ def test_artifact_consumers_stay_full_but_public_smoke_is_identity_bound(tmp_pat
         monkeypatch.setattr(acceptance,name,value)
     resolved={'Path':MODULE,'Version':'v0.4.5','Sum':'h1:fixture','Origin':{'Hash':'a'*40},'Dir':str(root)}
     monkeypatch.setattr(acceptance.subprocess,'check_output',lambda argv,**kw:
-                        'go version go1.26.8 darwin/arm64' if argv[:2]==['go','version'] else json.dumps(resolved))
+                        'go version go1.26.10 darwin/arm64' if argv[:2]==['go','version'] else json.dumps(resolved))
     identity=[]
     discovery=[]
     def unavailable_proxy(url, timeout):
@@ -505,13 +505,13 @@ def test_pkg_go_dev_discovery_missing_module_is_nonfatal(tmp_path,monkeypatch):
     assert report['error']=='go.mod module directive missing'
 
 
-@pytest.mark.parametrize('version', ['go1.27.2', 'go1.26.8'])
+@pytest.mark.parametrize('version', ['go1.27.3', 'go1.26.10'])
 def test_go127_consumer_uses_explicit_compiler_and_local_switching(tmp_path,monkeypatch,version):
     import generated_release_acceptance as acceptance
     calls=[]
     def output(argv,**kw):
         if argv==['go','env','GOROOT']:
-            assert kw['env']['GOTOOLCHAIN']=='go1.27.2'
+            assert kw['env']['GOTOOLCHAIN']=='go1.27.3'
             return str(tmp_path/'sdk')
         assert argv==[str(tmp_path/'sdk/bin/go'),'version']
         assert kw['env']['GOTOOLCHAIN']=='local'
@@ -520,7 +520,7 @@ def test_go127_consumer_uses_explicit_compiler_and_local_switching(tmp_path,monk
     def run(argv,cwd,env):
         assert argv[0]==str(tmp_path/'sdk/bin/go') and env['GOTOOLCHAIN']=='local'
         calls.append((argv,cwd))
-    if version!='go1.27.2':
+    if version!='go1.27.3':
         with pytest.raises(ValueError,match='compatibility compiler differs'):
             acceptance.check_go127_consumer(tmp_path,tmp_path/'smoke',{},run)
         assert not calls

@@ -27,7 +27,7 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     env = {k: v for k, v in os.environ.items()
            if not k.startswith(("MARIAMEM_", "MYSQLMEM_", "DOGFOOD_"))}
-    env["GOTOOLCHAIN"] = "go1.26.8"
+    env["GOTOOLCHAIN"] = "go1.26.10"
     env["GOWORK"] = "off"
     runs = []
     with tempfile.TemporaryDirectory(prefix="mariamem-gorm-") as temporary:

@@ -148,7 +148,7 @@ def main():
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.
     (out/'entry.go').write_text('package generatedgo\nconst GuestSHA256 = "'+pins['guest_sha256']+'"\nfunc Run(args []string) { run(args) }\n')
-    env=dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='')
+    env=dict(os.environ,GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='')
     go_root=Path(subprocess.check_output(['go','env','GOROOT'],env=env,text=True).strip())
     subprocess.run([str(go_root/'bin/gofmt'),'-w', *map(str,out.rglob('*.go'))], check=True)
     inventory = {str(p.relative_to(out)):hashlib.sha256(p.read_bytes()).hexdigest()

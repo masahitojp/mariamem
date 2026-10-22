@@ -150,7 +150,7 @@ def regenerate_development(root, guest, output):
     host_identity = source_identity(root)
     out = external_output(root, output)
     out.mkdir(parents=True)
-    env = go_environment(dict(os.environ, GOTOOLCHAIN='go1.26.8', GOWORK='off', GOENV='off'))
+    env = go_environment(dict(os.environ, GOTOOLCHAIN='go1.26.10', GOWORK='off', GOENV='off'))
     try:
         tools = json.loads((root/'release/generated-go-toolchain.json').read_text())
         converter = download(tools['archives']['converter'], out/'downloads')

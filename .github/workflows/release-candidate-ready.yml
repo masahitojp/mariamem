@@ -112,7 +112,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
-          go-version: 1.26.8
+          go-version: 1.26.10
           cache: false
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
@@ -131,7 +131,7 @@ jobs:
           sudo chown -R "$(id -u):$(id -g)" build
       - name: Reproduce generated Go and verify GPL source closure offline
         env:
-          GOTOOLCHAIN: go1.26.8
+          GOTOOLCHAIN: go1.26.10
         run: |
           python scripts/regenerate_release_guest.py
           python scripts/release_generated_ci.py source --candidate-sha '${{ needs.resolve.outputs.source_sha }}'
@@ -164,7 +164,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
-          go-version: 1.26.8
+          go-version: 1.26.10
           cache: false
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
@@ -184,8 +184,8 @@ jobs:
               --output build/release/runtime-validation.json
             python scripts/release_preparation_checks.py
           else
-            GOTOOLCHAIN=go1.26.8 python scripts/verify.py check
-            GOTOOLCHAIN=go1.26.8 python scripts/verify.py integration
+            GOTOOLCHAIN=go1.26.10 python scripts/verify.py check
+            GOTOOLCHAIN=go1.26.10 python scripts/verify.py integration
           fi
           python scripts/verify_generated_runtime.py
           python scripts/build_alpha.py --ci-candidate
@@ -222,7 +222,7 @@ jobs:
           path: candidate-source
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
-          go-version: 1.26.8
+          go-version: 1.26.10
           cache: false
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
@@ -253,7 +253,7 @@ jobs:
         name: Clean Go default + failure/Snapshot + GORM32; installed wheel + SQLAlchemy44
         if: needs.resolve.outputs.mode != 'guard-only'
         env:
-          GOTOOLCHAIN: go1.26.8
+          GOTOOLCHAIN: go1.26.10
         run: |
           python candidate-source/scripts/generated_release_acceptance.py --root candidate-source \
             --candidate-sha '${{ needs.resolve.outputs.source_sha }}' --platform '${{ matrix.platform }}' \
@@ -407,7 +407,7 @@ jobs:
           path: published-source
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
-          go-version: 1.26.8
+          go-version: 1.26.10
           cache: false
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
@@ -452,7 +452,7 @@ jobs:
           path: candidate-source
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
-          go-version: 1.26.8
+          go-version: 1.26.10
           cache: false
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:

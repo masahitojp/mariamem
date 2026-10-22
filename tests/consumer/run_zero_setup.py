@@ -94,7 +94,7 @@ def main():
             source += '\nfunc main() { testing.Main(func(string, string) (bool, error) { return true, nil }, []testing.InternalTest{{Name: "TestZeroSetup", F: TestZeroSetup}}, nil, nil) }\n'
             (project / 'main.go').write_text(source)
             (project / 'go.mod').write_text(f'module example.com/zero-setup-acceptance\n\ngo 1.26.0\n\nrequire {MODULE} {TAG}\n')
-            tool_env = {**env, 'GOTOOLCHAIN': 'go1.26.8'}
+            tool_env = {**env, 'GOTOOLCHAIN': 'go1.26.10'}
             go_root = subprocess.check_output(['go', 'env', 'GOROOT'], env=tool_env, text=True).strip()
             go = str(Path(go_root) / 'bin/go')
             env.update(GOTOOLCHAIN='local', GOWORK='off' , GOPROXY=proxy.as_uri()+',https://proxy.golang.org',

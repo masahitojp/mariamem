@@ -138,7 +138,7 @@
     "wasm/CMakeLists.txt": "f317e2786a12b2cfdd7c0de8d4b3d3c05b6aa9ee4f0a8aad909898b6d218f437"
   },
   "toolchain": {
-    "go": "1.26.8",
+    "go": "1.26.10",
     "wasmer": "7.4.2",
     "wasixcc": "0.4.7",
     "wasixcc_linux_x86_64": {

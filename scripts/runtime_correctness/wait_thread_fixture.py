@@ -22,7 +22,7 @@ def main():
  p=argparse.ArgumentParser();p.add_argument('--scope',choices=['wait','thread','all'],default='all');p.add_argument('--converter',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
  out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);wasm=out/'fixture.wasm';wasm.write_bytes(fixture())
  module=out/'module';module.mkdir();(module/'go.mod').write_text('module example.com/waitfixture\n\ngo 1.26.0\n')
- env=dict(os.environ,GOTOOLCHAIN='go1.26.8',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='')
+ env=dict(os.environ,GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='')
  subprocess.run([str(a.converter.resolve()),'-pure','-keep-dead-funcs','-i',str(wasm),'-out-dir',str(module/'fixture'),'-pkg','fixture','-import','example.com/waitfixture/fixture'],check=True,env=env)
  base=module/'fixture/base'
  for name in ('wait_timeout_test.go','thread_identity_test.go'):

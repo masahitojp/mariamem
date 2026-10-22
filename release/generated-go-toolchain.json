@@ -1,6 +1,6 @@
 {
   "contract": "generated-go-v1",
-  "go": "1.26.8",
+  "go": "1.26.10",
   "llvm": "23.1.0",
   "llvm_revision": "ea7d852a70e8bdfaf601d6626a760f9771b2c4b4",
   "wasixcc": "0.4.7",

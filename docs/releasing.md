@@ -22,7 +22,9 @@ There is no second approval or mandatory verify dispatch. Codex returns the run
 URL, exact SHA and operation immediately after submission and stops.
 
 Prepare a human-selected version with the repository release skill. Submit using
-`GOTOOLCHAIN=go1.26.8 <venv>/bin/python scripts/release_prepare.py submit vX.Y.Z`.
+`GOTOOLCHAIN=go1.26.10 <venv>/bin/python scripts/release_prepare.py submit vX.Y.Z`.
+Go 1.26.10 is the 0.6.0 build toolchain (GO-2026-6809); the module minimum
+remains Go 1.26.0 and the forward-compat check uses Go 1.27.3.
 Already-prepared clean candidates are accepted without another metadata commit.
 For an optional READY-only audit, add `--operation verify`. Run names include the
 operation, supplied version and short SHA; display labels never establish identity.
@@ -91,7 +93,7 @@ to equal the accepted canonical identities. No local Docker image or hidden
 SDK/download is accepted. `regenerate_release_guest.py` applies the pinned
 converter patches (including memory32 bounds, controlled traps and memory
 ownership) and bounded filesystem adaptations automatically, uses pinned
-Go1.26.8 formatting, and compares **all** regenerated files (including handwritten
+Go1.26.10 formatting, and compares **all** regenerated files (including handwritten
 ownership glue) with committed generated source. A mismatch fails; it does not
 update accepted hashes.
 
