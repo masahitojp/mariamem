@@ -1,0 +1,144 @@
+{
+  "source_commit": "4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39776208952",
+  "conclusion": "success",
+  "jobs": {
+    "native": 119815683908,
+    "unit_macos": 119815684152,
+    "unit_ubuntu": 119815684279,
+    "guest_source": 119815684366,
+    "runtime_macos": 119819096817,
+    "runtime_ubuntu": 119819096901
+  },
+  "files": [
+    {
+      "artifact": "prepared-p1-development-macos-15-4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+      "source": "p5-mariadb-driver.json",
+      "stored": "macos-p5-mariadb-driver.json",
+      "original_sha256": "1bafeee42802c46570a4a629a7ffaccba467f0f2d549c7c8282adef5db6e8acf",
+      "stored_sha256": "1bafeee42802c46570a4a629a7ffaccba467f0f2d549c7c8282adef5db6e8acf",
+      "bytes": 1899
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+      "source": "p5-mariadb-install.json",
+      "stored": "macos-p5-mariadb-install.json",
+      "original_sha256": "b1fac766521c47e10d13f4498da319433261fb1ddcacc4c73f6db1b3f38f0a64",
+      "stored_sha256": "b1fac766521c47e10d13f4498da319433261fb1ddcacc4c73f6db1b3f38f0a64",
+      "bytes": 433
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+      "source": "source.json",
+      "stored": "macos-source.json",
+      "original_sha256": "716ee05ba1a1679014c570d36ba0e9939b78462a6df4b8bf7f025c67aa57763e",
+      "stored_sha256": "716ee05ba1a1679014c570d36ba0e9939b78462a6df4b8bf7f025c67aa57763e",
+      "bytes": 153
+    },
+    {
+      "artifact": "prepared-p1-development-macos-15-4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+      "source": "p5-matching.json",
+      "stored": "macos-p5-matching.json",
+      "original_sha256": "c4a526457b2d0ace3238fd1e339e3b8d4f5599be5e46ed57aa7d8fc69ff278f1",
+      "stored_sha256": "c4a526457b2d0ace3238fd1e339e3b8d4f5599be5e46ed57aa7d8fc69ff278f1",
+      "bytes": 1630
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+      "source": "p5-mariadb-driver.json",
+      "stored": "ubuntu-p5-mariadb-driver.json",
+      "original_sha256": "ef620059723f2138f535674d43fe27a8867049e8542193b1ede1b3160a275f32",
+      "stored_sha256": "ef620059723f2138f535674d43fe27a8867049e8542193b1ede1b3160a275f32",
+      "bytes": 1862
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+      "source": "p5-mariadb-install.json",
+      "stored": "ubuntu-p5-mariadb-install.json",
+      "original_sha256": "f5c3a6d3f2cfa20ed39e9775943e7a88e4ba0f1d63f113fa89c41d00f24a1412",
+      "stored_sha256": "f5c3a6d3f2cfa20ed39e9775943e7a88e4ba0f1d63f113fa89c41d00f24a1412",
+      "bytes": 396
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+      "source": "source.json",
+      "stored": "ubuntu-source.json",
+      "original_sha256": "716ee05ba1a1679014c570d36ba0e9939b78462a6df4b8bf7f025c67aa57763e",
+      "stored_sha256": "716ee05ba1a1679014c570d36ba0e9939b78462a6df4b8bf7f025c67aa57763e",
+      "bytes": 153
+    },
+    {
+      "artifact": "prepared-p1-development-ubuntu-24.04-4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+      "source": "p5-matching.json",
+      "stored": "ubuntu-p5-matching.json",
+      "original_sha256": "023b4bbf0153ded009050d9d5a115f0d37e735612106e47835f685bf7ae0c082",
+      "stored_sha256": "023b4bbf0153ded009050d9d5a115f0d37e735612106e47835f685bf7ae0c082",
+      "bytes": 191
+    },
+    {
+      "artifact": "prepared-p5-native-4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+      "source": "mariadb-driver.json",
+      "stored": "native-mariadb-driver.json",
+      "original_sha256": "f7c206af68ac9481371775c26593aaf1490e39264e72155ecafe1a21cb4ea08c",
+      "stored_sha256": "f7c206af68ac9481371775c26593aaf1490e39264e72155ecafe1a21cb4ea08c",
+      "bytes": 1754
+    },
+    {
+      "artifact": "prepared-p5-native-4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+      "source": "mariadb-install.json",
+      "stored": "native-mariadb-install.json",
+      "original_sha256": "d749369975e61e4aa66baad5efe0882874f91ce1a3ca1928c54dd600801880e6",
+      "stored_sha256": "d749369975e61e4aa66baad5efe0882874f91ce1a3ca1928c54dd600801880e6",
+      "bytes": 396
+    },
+    {
+      "artifact": "prepared-p5-native-4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d",
+      "source": "source.json",
+      "stored": "native-source.json",
+      "original_sha256": "716ee05ba1a1679014c570d36ba0e9939b78462a6df4b8bf7f025c67aa57763e",
+      "stored_sha256": "716ee05ba1a1679014c570d36ba0e9939b78462a6df4b8bf7f025c67aa57763e",
+      "bytes": 153
+    }
+  ],
+  "scope": "MariaDB Connector/Python1.1.14: two prepared edge cases, binary witnesses, subsequent SQL, cleanup and native comparison. Not general driver support or P6.",
+  "oracle_connector_disposition": "Original functional FAIL retained, Human PENDING",
+  "profiles": {
+    "macos": {
+      "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+      "os": "Darwin",
+      "architecture": "arm64",
+      "driver": "1.1.14",
+      "connector_c": [
+        3,
+        4,
+        9
+      ],
+      "extension_sha256": "11b9e30e7df5327a7c18c5537c232d11906a4c374bb8d55a6e90b269529374cd"
+    },
+    "ubuntu": {
+      "python": "3.14.9 (main, Oct 21 2026, 14:50:29) [GCC 13.3.0]",
+      "os": "Linux",
+      "architecture": "x86_64",
+      "driver": "1.1.14",
+      "connector_c": [
+        3,
+        3,
+        17
+      ],
+      "extension_sha256": "e647be5624e2faae87661c4aacac580ba742cc522edb9a3e180cd0184f63c742"
+    },
+    "native": {
+      "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+      "os": "Linux",
+      "architecture": "x86_64",
+      "driver": "1.1.14",
+      "connector_c": [
+        3,
+        3,
+        17
+      ],
+      "extension_sha256": "cc9c96746901bd46d228eed5087887541e4755bdc1f49cade2fea0d41b281bbc"
+    }
+  },
+  "scrubbing": "User/runner home prefixes replaced where present. Original/stored hashes and stored byte counts retained; no SQL values or errors normalized."
+}

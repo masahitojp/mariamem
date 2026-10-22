@@ -945,8 +945,16 @@ CI placement remain unfinished. The Human requested an additional
 [MariaDB Connector/Python replay](reviews/v06x-prepared-mariadb-replay.md)
 before continuing the exception decision. Fixed stable1.1.14 passes both exact
 case purposes against native12.3.3 using Linux/arm64 Python3.14/ConnectorC3.4.9;
-real-guest Mac/Ubuntu results are pending CI. This does not establish full driver
-support or accept either Connector/Python26.7.0 limitation. Runtime/guest/converter/canonical generation inputs remain
+[CI39776208952](https://github.com/masahitojp/mariamem/actions/runs/39776208952)
+now passes all six jobs at exact source_commit
+`4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d`. Both real-guest Mac/Ubuntu
+replays preserve all NUL bytes, drain both prepared CALL results, execute
+subsequent SQL and close cleanly; server counters confirm binary execution.
+The [results](reviews/v06x-prepared-mariadb-results.md) retain native comparison,
+actual Python/ConnectorC versions and driver hashes. The original Oracle
+Connector/Python26.7.0 functional FAILs remain, with Human disposition pending.
+This establishes the two tested MariaDB-driver paths, not general driver
+support or acceptance of either Oracle-connector limitation. Runtime/guest/converter/canonical generation inputs remain
 unchanged, and no default connection is forced to pure mode.
 
 
