@@ -1,0 +1,42 @@
+{
+  "source_commit": "86b89d8bef31021881449892b140b3ef5836fad9",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39752222349",
+  "P4_finite_development_acceptance": "PASS: existing actual runtime evidence plus both-OS owner-failure component gate",
+  "platforms": {
+    "macos-15": {
+      "python_c_checks": 134,
+      "go_race_packages": 4,
+      "source_identity": "PASS",
+      "canonical_inventory": "PASS",
+      "public_source": "PASS"
+    },
+    "ubuntu-24.04": {
+      "python_c_checks": 134,
+      "go_race_packages": 4,
+      "source_identity": "PASS",
+      "canonical_inventory": "PASS",
+      "public_source": "PASS"
+    }
+  },
+  "skipped": {
+    "guest-source": "unchanged production/generation inputs; explicit tests-only branch condition",
+    "development-runtime": "unchanged production/generation inputs; only prepared-product runs this job"
+  },
+  "actual_runtime_evidence": {
+    "source_commit": "fbe419613cc0cc99657d39543c37df7b4dfe5d4a",
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39747013913"
+  },
+  "storage": "Selected CI files preserved byte-for-byte; no path replacement needed.",
+  "files_sha256": {
+    "macos-15/baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "macos-15/go-unit.txt": "5a4753e6e0b20d68513cc142d295394d19fbe7a95e6883626d164b47aa71f235",
+    "macos-15/inputs.txt": "b9a8a69f6c31a0fb23c2ef08a99a27366efb72cb26b6665fef8b02a504ba7a89",
+    "macos-15/public.txt": "8dac851a5e963e9d91528fd0ddcee260d254fa6d570c2ac02a67a1ef05cab0c3",
+    "macos-15/source.json": "292fc39b90929b86f210899d70f1081072c507f39dc1b78195fbe24faba1c495",
+    "ubuntu-24.04/baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "ubuntu-24.04/go-unit.txt": "5b4b6ba5aa78499c1d43205fd4bd38d014fb537cc63bf978863f38142b17349d",
+    "ubuntu-24.04/inputs.txt": "1c69a0980e8cd8b70ea472239ca736163155f7cdfa37e0724d69fe9bd7f5ac5d",
+    "ubuntu-24.04/public.txt": "8dac851a5e963e9d91528fd0ddcee260d254fa6d570c2ac02a67a1ef05cab0c3",
+    "ubuntu-24.04/source.json": "292fc39b90929b86f210899d70f1081072c507f39dc1b78195fbe24faba1c495"
+  }
+}

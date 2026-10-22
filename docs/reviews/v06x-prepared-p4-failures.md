@@ -1,9 +1,13 @@
-# P4 failure/resource closure candidate
+# P4 lifetime/failures — finite development acceptance PASS
 
-The remaining P4 owner-failure checks PASS locally on macOS arm64. Both-OS
-component CI is pending. No runtime, guest, converter, binding or generated Go
-is changed. This is a closure candidate for the finite P4 row, not completion
-of P5/P6, adoption, Qualification or release.
+[CI39752222349](https://github.com/masahitojp/mariamem/actions/runs/39752222349)
+PASSes at source_commit `86b89d8bef31021881449892b140b3ef5836fad9`.
+Both macOS15 arm64 and Ubuntu24.04 x86_64 pass134 Python/C checks, four Go race
+packages, canonical inventory and public-source guards. Together with the
+existing actual-guest/native lifetime, LONG_DATA and active-exit evidence below,
+this satisfies the finite P4 row. P5/P6, adoption, Qualification and release are
+not complete. The [CI receipt and raw logs](v06x-prepared-p4-failures-evidence/ci/receipt.json)
+separate the new component evidence from unchanged actual runtime evidence.
 
 Basis: source_commit `a10ba205e268997bc3c8f095fad3e91fb7221996`, containing
 [actual both-OS active-exit acceptance](v06x-prepared-p4-active.md) at fbe4196.
@@ -21,14 +25,14 @@ its candidate commit separately with scripts/git_identity.py and a clean tree.
 | Go DB/Tx/Conn/Tx.Stmt, pool replacement, several physical sessions/statements | [Lifetime7](v06x-prepared-p4-lifetime.md), both OSes | No new runtime claim |
 | Invalid/stale/cross-session handles; native quota and recovery | Lifetime7; unchanged quota/error/counter oracles | Existing host unwind tests remain |
 | CLOSE/LONG_DATA no-response adjacency, reset/type/stream lifetime | [LONG_DATA25](v06x-prepared-long-data-pass.md), both OSes | Full append/owner allocation failure sweep now added |
-| Allocation failures without half-installed owners | Actual quota ownership/recovery is measured; actual engine allocator exhaustion is not injected | Header malloc/calloc fail-at-N over nine finite success/error actions; mock public init/execute OOM, metadata/bind failures and cleanup controls; both-OS CI pending |
-| Truncated requests/results without stale state or silently shortened values | P2 native differential includes large values; existing C control reconstructs8194-byte binary value after MYSQL_DATA_TRUNCATED | Every proper prefix of a21-byte EXECUTE and a surplus byte reject before engine dispatch; full-column refetch error/short length/unexpected NULL/error flag reject; both-OS CI pending |
-| Serialization failure without partial success/retry | Actual P3 chained results/native terminal/error controls, both OSes | Every selected serializer append fails in turn, including late multi-result/wrapper/error construction; dispatcher rejects corrupt late cells/owner/status/generation with no packets and one call, with/without PS_MULTI_RESULTS; both-OS CI pending |
+| Allocation failures without half-installed owners | Actual quota ownership/recovery is measured; actual engine allocator exhaustion is not injected | Header malloc/calloc fail-at-N over nine finite success/error actions; mock public init/execute OOM, metadata/bind failures and cleanup controls; both-OS CI PASS |
+| Truncated requests/results without stale state or silently shortened values | P2 native differential includes large values; existing C control reconstructs8194-byte binary value after MYSQL_DATA_TRUNCATED | Every proper prefix of a21-byte EXECUTE and a surplus byte reject before engine dispatch; full-column refetch error/short length/unexpected NULL/error flag reject; both-OS CI PASS |
+| Serialization failure without partial success/retry | Actual P3 chained results/native terminal/error controls, both OSes | Every selected serializer append fails in turn, including late multi-result/wrapper/error construction; dispatcher rejects corrupt late cells/owner/status/generation with no packets and one call, with/without PS_MULTI_RESULTS; both-OS CI PASS |
 | Executing-query timeout/cancel/disconnect/Close and cleanup counters | Active7, witnessed engine execution, both OSes; ordinary errors preserve target usability; fatal exits preserve siblings/baseline | No inaccessible failed-target statement count is claimed; native counter/lock/rollback and actual target storage/admission/isolation observations stay distinct |
 
-This table identifies evidence for every item in the original P4 row. Passing
-the remaining both-OS component gate is the proposed P4 closure condition;
-there is no new unspecified investigation after that gate. The component
+This table identifies evidence for every item in the original P4 row.
+The remaining both-OS component gate now PASSes, satisfying that stated closure
+condition. There is no new unspecified investigation after this gate. The component
 allocation/error results do not become real-engine OOM measurements. P5 retains
 its originally specified real consumer/regression matrix, including Snapshot/
 Fork/isolation/Start/Close; P6 retains full canonical generation/J1/provenance.
@@ -72,10 +76,10 @@ A mutation failure is an oracle control, not a reproduced product defect.
 
 | Check | Local macOS arm64 | Ubuntu x86_64 |
 | --- | --- | --- |
-| Fixed scoped Python/C suite including new normal/sanitizer failure matrix |134 PASS|Pending CI|
-| Go race: mysqlwire, preparedproto, guest, diagnostic |4 packages PASS|Pending CI|
+| Fixed scoped Python/C suite including new normal/sanitizer failure matrix |134 PASS|134 PASS (CI)|
+| Go race: mysqlwire, preparedproto, guest, diagnostic |4 packages PASS|4 packages PASS (CI)|
 | Two isolated negative oracle mutations |EXPECTED FAIL, both detected|Not executed locally; not a required separate platform claim|
-| Canonical inventory and public-source check |PASS|Pending CI|
+| Canonical inventory and public-source check |PASS|PASS (CI)|
 | New actual guest runtime campaign |Not run: runtime and generation inputs unchanged|Not run in this tests-only branch|
 
 The prepared-failures branch selects only the existing both-OS unit jobs. Source

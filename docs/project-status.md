@@ -908,9 +908,14 @@ The [P4 failure/resource closure candidate](reviews/v06x-prepared-p4-failures.md
 now maps every finite P4 obligation to existing actual runtime evidence and
 focused component controls. Local macOS134 Python/C checks and4 Go race packages
 PASS, including16,884 injected owner-allocation/serializer failures and two
-negative oracle mutations. Both-OS component CI remains the pending P4 gate;
-no new actual guest campaign is claimed for unchanged runtime inputs. P5 real
-consumers/regressions and P6 canonical/J1/independent generation remain open.
+negative oracle mutations. Both-OS component CI now PASSes at86b89d8 in
+[CI39752222349](https://github.com/masahitojp/mariamem/actions/runs/39752222349):
+134 Python/C checks,4 Go race packages, canonical inventory and public sources
+PASS on each OS. With the existing actual-guest/native evidence, the finite P4
+row is complete. Guest-source/runtime jobs were explicitly SKIP for this
+tests-only candidate; no new actual guest campaign or real-engine OOM injection
+is claimed. P5 real consumers/regressions and P6 canonical/J1/independent
+generation remain open.
 
 
 No scope reduction is accepted.

@@ -801,3 +801,15 @@ Python/C checks and4 Go race packages PASS; two isolated negative mutations fail
 as expected. Both-OS component CI is pending. Runtime/guest/converter inputs are
 unchanged, so no new actual guest PASS is claimed. This is a P4 closure candidate
 against the existing approved row, not P5/P6, adoption or Qualification completion.
+
+### P4 finite lifetime/failures acceptance PASS
+
+[CI39752222349](https://github.com/masahitojp/mariamem/actions/runs/39752222349)
+PASSes both-OS component jobs at source_commit86b89d8bef31021881449892b140b3ef5836fad9:
+134 Python/C checks,4 Go race packages, canonical inventory and public-source
+checks per OS. The [coverage ledger and raw CI receipt](v06x-prepared-p4-failures.md)
+satisfy the previously stated finite P4 closure condition when combined with
+actual guest/native lifetime7, LONG_DATA25 and active7 evidence. Guest-source/
+runtime jobs are SKIP for the unchanged-input test-only candidate. Neither
+mock OOM nor race-detector PASS is generalized into full engine/shared-memory
+correctness. P5/P6, adoption, Qualification and release remain open.
