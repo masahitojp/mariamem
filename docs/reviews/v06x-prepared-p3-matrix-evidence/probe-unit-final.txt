@@ -1,0 +1,12 @@
+........                                                                 [100%]
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_prepared_call_probe.py::test_minimal_reference_has_two_results_out_and_terminal
+PASSED tests/test_prepared_call_probe.py::test_raw_reader_preserves_error_and_does_not_read_past_it[False]
+PASSED tests/test_prepared_call_probe.py::test_raw_reader_preserves_error_and_does_not_read_past_it[True]
+PASSED tests/test_prepared_p3_matrix.py::test_full_matrix_has_complete_pinned_native_controls
+PASSED tests/test_prepared_p3_matrix.py::test_expected_terminal_sql_error_preserves_complete_prefix[False]
+PASSED tests/test_prepared_p3_matrix.py::test_expected_terminal_sql_error_preserves_complete_prefix[True]
+PASSED tests/test_prepared_p3_matrix.py::test_reuse_preserves_bitmap_and_values_without_repeating_descriptors
+PASSED tests/test_prepared_p3_matrix.py::test_comparison_keeps_errors_metadata_status_and_following_query
+8 passed in 0.08s

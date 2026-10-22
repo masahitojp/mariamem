@@ -1,0 +1,261 @@
+{
+  "source_commit": "e8f5f765b091347db21e55629e1ae7859afd9f3c",
+  "run": "https://github.com/masahitojp/mariamem/actions/runs/39601636017",
+  "jobs_at_single_metadata_read": {
+    "source": "PASS",
+    "ubuntu_unit": "PASS",
+    "macos_unit": "unconfirmed; conclusion empty in metadata",
+    "both_runtime": "FAIL at last repair15 step"
+  },
+  "platforms": {
+    "ubuntu-24.04": {
+      "runtime_job": 119230975436,
+      "original_files": {
+        "execute.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "runtime.json": {
+          "sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+          "bytes": 9161
+        },
+        "source.json": {
+          "sha256": "74c19d4c6be96627c3e4ff2a257206b9f44b7af6138dc3dfa5074919fb46e587",
+          "bytes": 153
+        },
+        "matrix.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "runtime.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "repair.json": {
+          "sha256": "37cf305c1ef6aa57c7eb176ca5860ef69e5e6b5cccfb84b18860f29bc730b23d",
+          "bytes": 25774
+        },
+        "development.json": {
+          "sha256": "e0c7912e2eaa08ee4bd8df5a9c23180e3ee6f44e6c7fbde7bbfbcad6ea6645cb",
+          "bytes": 1838453
+        },
+        "time.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "binding-mutations.txt": {
+          "sha256": "e4d3b1a256f1d6fbe1f771d5b0c50391545c1a6ec485b4bbccb49bea3642ad1f",
+          "bytes": 99
+        },
+        "execute.json": {
+          "sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+          "bytes": 51967
+        },
+        "time.json": {
+          "sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+          "bytes": 3187
+        },
+        "binding.txt": {
+          "sha256": "19322a76a32837f003f924ca104a12a8fb1f5fbcd745e1fcb4a26fdf246f7a76",
+          "bytes": 76
+        },
+        "matrix.json": {
+          "sha256": "e92aca781aca56e3bb1b35ae151e13d1fd256fe7844087fae853d44257631730",
+          "bytes": 20488
+        },
+        "repair.txt": {
+          "sha256": "74610da9a425ad151775638b942139eef3fc1633d5d8eda749607d4e8983e8d7",
+          "bytes": 684
+        },
+        "development.txt": {
+          "sha256": "c34147c7300029c560587064dc09f025918dd9ca33912f9727023f4a506aef5b",
+          "bytes": 14172
+        }
+      },
+      "previous20": "PASS native comparison",
+      "prior_P1_original22_TIME13": "PASS",
+      "repair15": "FAIL; 7 unsigned NULL metadata cases, all rows/terminals/following SQL match",
+      "differences": [
+        "type-13-unsigned-True",
+        "type-14-unsigned-True",
+        "type-16-unsigned-True",
+        "type-247-unsigned-True",
+        "type-248-unsigned-True",
+        "type-255-unsigned-True",
+        "type-9-unsigned-True"
+      ],
+      "scenario_failures": {},
+      "all15_following_queries_healthy": true
+    },
+    "macos-15": {
+      "runtime_job": 119230975530,
+      "original_files": {
+        "execute.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "runtime.json": {
+          "sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+          "bytes": 9161
+        },
+        "source.json": {
+          "sha256": "74c19d4c6be96627c3e4ff2a257206b9f44b7af6138dc3dfa5074919fb46e587",
+          "bytes": 153
+        },
+        "matrix.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "runtime.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "repair.json": {
+          "sha256": "da62a0b4f1e8c527d94eeaac33d2bf1060a04d7b8bd470234c7176340b69c6f0",
+          "bytes": 25774
+        },
+        "development.json": {
+          "sha256": "05ade046ac7cc900860699cabe3173fc300d9b4ba0365cd0ed782ef337824883",
+          "bytes": 1838457
+        },
+        "time.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "binding-mutations.txt": {
+          "sha256": "45d989bc55fe27c0e9f3231efe0d82d362c41f183d98063ec5222a5df5ee95f2",
+          "bytes": 99
+        },
+        "execute.json": {
+          "sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+          "bytes": 51967
+        },
+        "time.json": {
+          "sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+          "bytes": 3187
+        },
+        "binding.txt": {
+          "sha256": "19322a76a32837f003f924ca104a12a8fb1f5fbcd745e1fcb4a26fdf246f7a76",
+          "bytes": 76
+        },
+        "matrix.json": {
+          "sha256": "ad884253fa52eba2138e2c5d0563351906b4b1493f0ed3ae53f585a30cf1654e",
+          "bytes": 20488
+        },
+        "repair.txt": {
+          "sha256": "b09153fe03370239c937115280169ce68b217150e70ab3712a7cea787752d4e4",
+          "bytes": 686
+        },
+        "development.txt": {
+          "sha256": "373f7565be979a8c0fc6301a3cb308dbc05480e3c4058444078672474739e8f0",
+          "bytes": 14174
+        }
+      },
+      "previous20": "PASS native comparison",
+      "prior_P1_original22_TIME13": "PASS",
+      "repair15": "FAIL; 7 unsigned NULL metadata cases, all rows/terminals/following SQL match",
+      "differences": [
+        "type-13-unsigned-True",
+        "type-14-unsigned-True",
+        "type-16-unsigned-True",
+        "type-247-unsigned-True",
+        "type-248-unsigned-True",
+        "type-255-unsigned-True",
+        "type-9-unsigned-True"
+      ],
+      "scenario_failures": {},
+      "all15_following_queries_healthy": true
+    }
+  },
+  "observed_difference": "14 column packets (first NULL and reused NULL in seven cases) differ by exactly one byte XOR0x20, UNSIGNED_FLAG. Values, terminal packets and following SQL match. No timeout, crash or wrong row values in these15 captures.",
+  "source_cause": {
+    "file": "sql/sql_prepare.cc",
+    "functions": [
+      "emb_insert_params",
+      "emb_insert_params_with_log"
+    ],
+    "fact": "setup_conversion precedes unsigned_flag assignment; the assignment is inside the non-NULL branch, unlike native set_conversion_functions",
+    "repair": "WASIX embedded descriptor assignment before setup_conversion, regardless of NULL; no host metadata masking/type rename/retry"
+  },
+  "patch_pin": {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "patch_sha256": "5bddc92d47b13c68b1eb0b680a068011d4f17839921aafd275121765fd1448bc",
+    "files": [
+      {
+        "file": "sql/sql_prepare.cc",
+        "before_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+        "after_sha256": "52688fea1cd41b8b0e32c4287d75c2273b82653f1e19858906830291f89a6bd4"
+      },
+      {
+        "file": "libmysqld/libmysql.c",
+        "before_sha256": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+        "after_sha256": "9568d5eb9d40839ef61be354cbd584b72c566586e89e80ff0874db0559fb57c7"
+      }
+    ],
+    "purpose": "Approved experimental TIME plus raw parameter types and single-execution result metadata repair; WASIX embedded-only additions. Not canonical adoption.",
+    "component_fixture_sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb",
+    "application_stage": "after guest/input.json portability series and canonical guest/source.patch",
+    "parameter_fixture_sha256": "f6e60279b9165b9b5e125d58856afcf6f0178f0650015fcca55efe1ed7fbb065",
+    "time_only_intermediate_sha256": "b66f2b5b1ac8cbfff25e2cfee6e479586d403c627bfe00ee5d5cfc88b9a09ee1"
+  },
+  "local_tests": {
+    "result": "PASS",
+    "count": 102,
+    "platform": "macOS arm64",
+    "scope": "Source-function order with mock dependencies, sanitizers, exact patch/application-phase and existing focused owner/tooling guards; not actual new guest"
+  },
+  "native": {
+    "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+    "platform": "Linux arm64 container on macOS, not macOS-native MariaDB",
+    "unchanged_repair15": "PASS replay",
+    "common_unsigned_null_2": "PASS and replay; uint64 max/signed min and text NULL/non-NULL/type reuse"
+  },
+  "old_oracles_unchanged_sha256": {
+    "tests/fixtures/prepared-p1-native.json": "8b573d792eba148cb75b282b58324ea0558a088bd10fef4d1666cdd5887dbe7f",
+    "tests/fixtures/prepared-p2-native.json": "4dd63f276c1cf4b86b6312b4b93a625a9293e35c87775e60797a3b4aee60169d",
+    "tests/fixtures/prepared-time-native.json": "b6ee70084369144a2054f1bafe2c6f03308ec2696fe8251897b62ba5592ccb76",
+    "tests/fixtures/prepared-p2-matrix-native.json": "267d97358f968b7a535194cb021149b86b41f8903c1869ed7b7a07f45d3c6f74",
+    "tests/fixtures/prepared-p2-repair-native.json": "ec2b8efbfaf624fcff7e98246fe17f24466c197fa4df01af968a18777ad65ee1"
+  },
+  "saved_files": {
+    "public.txt": {
+      "sha256": "b7a7edf154844d0c4d34298b586c02c7456109f52928522713f10c3212d9880b",
+      "bytes": 39
+    },
+    "ubuntu-24.04-repair.json": {
+      "sha256": "37cf305c1ef6aa57c7eb176ca5860ef69e5e6b5cccfb84b18860f29bc730b23d",
+      "bytes": 25774
+    },
+    "macos-15-repair.json": {
+      "sha256": "da62a0b4f1e8c527d94eeaac33d2bf1060a04d7b8bd470234c7176340b69c6f0",
+      "bytes": 25774
+    },
+    "inventory.txt": {
+      "sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "bytes": 67
+    },
+    "local-tests.txt": {
+      "sha256": "170c85e2ea2090c19aba6712eca716b9e1bd8da38f85364d913b8c381e935c73",
+      "bytes": 15275
+    },
+    "patch-application.json": {
+      "sha256": "a530c4985a63ecb4c74e0c2880854f2134dd6f95727231a8455d39a015aae34e",
+      "bytes": 1454
+    },
+    "native-unsigned-replay.json": {
+      "sha256": "01bc3e64db5d2fb47c538c165ea3367abffe1e0325b1a175c67763e273743d66",
+      "bytes": 6175
+    },
+    "native-repair15-replay.json": {
+      "sha256": "82ee9fec9ffbd494e1838a44fb7a1b589a1ad565a3b5e618dfbc4d633cb1b596",
+      "bytes": 23194
+    }
+  },
+  "pending": [
+    "New guest source build",
+    "Exact new Wasm/lifetime/data/TLS/init binding review",
+    "Both-OS actual unchanged repair15 plus additional2 and all preceding gates",
+    "Remaining P2-P6 including canonical independent generation"
+  ],
+  "limits": "No new guest runtime PASS or P2 completion, no generated Go edits, converter change, guard reduction, main merge or release"
+}

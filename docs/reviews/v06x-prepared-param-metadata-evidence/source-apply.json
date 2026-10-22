@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "files": [
+    {
+      "file": "sql/sql_prepare.cc",
+      "before_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+      "after_sha256": "48f08ae4fda7990d376fe2e8c809c0a2a0d364979c3e83bb9f1a65b380819fa5"
+    },
+    {
+      "file": "libmysqld/libmysql.c",
+      "before_sha256": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+      "after_sha256": "bb852ad028162f95bc43e6e7cb38d30b197398585f6deb07e94c08c9db2dff67"
+    },
+    {
+      "file": "libmysqld/lib_sql.cc",
+      "before_sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+      "after_sha256": "9f1d1f9152032ec14a619cd48ebcb9ec62a057298c19d871876d5285cca02ec9"
+    }
+  ],
+  "patch_sha256": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4",
+  "complete_preimages_before_any_mutation": true,
+  "zero_fuzz": true,
+  "complete_postimages_and_previous_function_fixtures": true,
+  "embedded_CPP_compilation": "PENDING source CI"
+}

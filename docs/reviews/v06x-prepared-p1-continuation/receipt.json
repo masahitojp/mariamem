@@ -1,0 +1,93 @@
+{
+  "code_identity": {
+    "object_sha": "efa2f3167c35b80acd032f0e6048554e8b5f8907",
+    "object_type": "commit",
+    "source_commit": "efa2f3167c35b80acd032f0e6048554e8b5f8907"
+  },
+  "guest_origin_source_commit": "c63b5638f25dcd14d8beb403b8d6690d06d8e654",
+  "guest_sha256": "c42f1c64de3116a1552b43b76bb5c6f22053936486177c0eecdae986bfd2bdb8",
+  "guest_bytes": 18390895,
+  "guest_record_sha256": "d8be67d1f7c627b0de0a0cad73c977d40f9c2c1235bf707f2212e340f06f3269",
+  "ci_artifact_id": 12264964513,
+  "ci_run_url": "https://github.com/masahitojp/mariamem/actions/runs/39424820005",
+  "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+  "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+  "patched_converter_sha256": "430bf08585f685138e0c678ebd5a9c9f92802cc124bb01f17e0ac270a35cf2b0",
+  "converter_patch_count": 13,
+  "native_control": {
+    "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+    "image_id": "sha256:23ccfa2f2df26837c8f397a8f9a070ad728768c095d246edd07cd8d24e9ec40c",
+    "server_version": "12.3.3-MariaDB-ubu2404",
+    "server_os_architecture": "Linux aarch64 container",
+    "driver": "PyMySQL1.2.3",
+    "host": "macOS arm64; not a macOS-native MariaDB build",
+    "result": "PASS",
+    "cases": "6 metadata cases, 71 parameter descriptors, 70 live handles, errno/SQLSTATE and listed lifecycle checks"
+  },
+  "local_validation": {
+    "toolchain": "Go1.26.8 darwin/arm64; Python3.14.8; Apple clang21",
+    "go_race": "PASS: internal/mysqlwire, internal/preparedproto, internal/guest; count=1",
+    "python": "47 PASS including native C ASan/UBSan mock ownership and binding mutation tests",
+    "canonical_inventory": "PASS for unchanged OLD canonical guest only",
+    "public_sources": "PASS: final public source check including source, evidence and reproduction document",
+    "workflow_yaml": "PASS syntax",
+    "initial_iteration": "FAIL: go/vet could not resolve encoding/json while test sources were being edited. Final run after edits completed PASS; no runtime failure is relabelled."
+  },
+  "new_guest_runtime": "PENDING next exact-commit development CI; not claimed PASS",
+  "p2_p6": "UNFINISHED",
+  "scope": "P1 continuation; UNQUALIFIED development path, no main integration or release",
+  "source_files_sha256": {
+    ".github/workflows/prepared-product.yml": "581d5d4b862a16c4de731df1bdab9e2162d5fbc5e257fe759ef8923408c470d1",
+    "internal/guest/guest.go": "34552ce4f976d97ee55f0597c7a72b82e072b611a21aea61d97a72072283cf2b",
+    "internal/guest/linked.go": "233331deb2e569ceb578a1aac46416772ea55dad9701c269c9e51af7b72d0de0",
+    "internal/mysqlwire/prepared_session.go": "2e7b528dbf4d6ada3dcb3eea339cea0cf19e378e6994a7241c824564142b28c6",
+    "internal/mysqlwire/prepared_session_test.go": "85f44fd01f55874f141dce379d67da9ecf3d890a5565fb4a1e57ba4cc43b4f5b",
+    "internal/mysqlwire/wire.go": "5d516c8e45c0eb44844b654f9182fd50395f4e19dd5a8d10cd9d02214364a49c",
+    "scripts/runtime_thread_lifetime.py": "ffa0c3c766482afc651dd2fe154f096b9eff31547599b5fca74f1db17c87d5f3",
+    "tests/check_prepared_p1_binding.py": "8dad21d1d0ebf3198d633aec522040c29a6e7c876565ecfa0f196572cd09a695",
+    "tests/fixtures/prepared-p1-binding/Fn131.txt": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
+    "tests/fixtures/prepared-p1-binding/Fn153.txt": "909d2429a01ce5aacc20dc720a912302bb2a0e6ee9551035d614122f15f2ccdb",
+    "tests/fixtures/prepared-p1-binding/Fn214.txt": "8f19d5f272dfa47511d45e734f4f52c9ccf4a733f9704d1e1cd6d2b298575f83",
+    "tests/fixtures/prepared-p1-binding/identity.json": "c8d7e7ad9379d83baacb31f2155695ad6e9e4941e7abc74979126c4f67159368",
+    "tests/fixtures/prepared-p1-native.json": "8b573d792eba148cb75b282b58324ea0558a088bd10fef4d1666cdd5887dbe7f",
+    "tests/test_thread_lifetime_binding.py": "ab1474815e2c46dd57e66f93b2f4f3531f7d1400c36ff48978f3749eb7e96493",
+    "tests/v06_prepared_p1_probe.py": "5d6a70f835a106ca565a61dd435dfb810b729790cca8da15f8dfb1e853aa5ece"
+  },
+  "files": [
+    {
+      "file": "go.txt",
+      "sha256": "6a2634f569914f7815a13089bb26e6d63edde638f14c42238a006e015bcd4f61",
+      "bytes": 186
+    },
+    {
+      "file": "inputs.txt",
+      "sha256": "a70d9cbebf2c9f19d81c2366eaacf8343b374c46aa92a2d89b633f41818182d2",
+      "bytes": 99
+    },
+    {
+      "file": "native-p1.json",
+      "sha256": "8b573d792eba148cb75b282b58324ea0558a088bd10fef4d1666cdd5887dbe7f",
+      "bytes": 9131
+    },
+    {
+      "file": "p1-binding-review.json",
+      "sha256": "8e38152821864d0e0f87da67770369084decf0ade73385f385580c0eebe8295a",
+      "bytes": 2162
+    },
+    {
+      "file": "p1-ci.json",
+      "sha256": "348469f0e760dd138027e78ff710b3afe1c10b5c371bff82df794e8043957b52",
+      "bytes": 583
+    },
+    {
+      "file": "translation.json",
+      "sha256": "cf0a3e963f7de1240bc8e5d272d840e2d659d98c07fdc8df5605a9a882e64721",
+      "bytes": 6367
+    },
+    {
+      "file": "reproduce.md",
+      "sha256": "45556ac3eebf20635d5df909500b69f0a000cc096f7ad6fff0affbaf6701bfaf",
+      "bytes": 3380
+    }
+  ]
+}

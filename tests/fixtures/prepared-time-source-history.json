@@ -1,0 +1,8 @@
+{
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "file": "sql/sql_prepare.cc",
+  "before_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+  "after_sha256": "b66f2b5b1ac8cbfff25e2cfee6e479586d403c627bfe00ee5d5cfc88b9a09ee1",
+  "patch_sha256": "ffbdb32b7b816968896da2b1990e470ba856d8e911e3933742513ddf7708e4fc",
+  "purpose": "Align embedded prepared TIME metadata width with ordinary server; approved bounded experimental patch, not canonical adoption"
+}

@@ -1,0 +1,48 @@
+{
+  "baseline_source_commit": "a10ba205e268997bc3c8f095fad3e91fb7221996",
+  "previous_actual_runtime_source_commit": "fbe419613cc0cc99657d39543c37df7b4dfe5d4a",
+  "documentation_correction_commit": "d59ec9c",
+  "candidate_identity": "modified working-tree inputs listed below; exact clean candidate source_commit is bound by CI source.json",
+  "production_diff_vs_previous_runtime": [],
+  "guest_sha256_unchanged": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "converter_commit_unchanged": "730057c146463f663e8774587bc96fb2bea91af8",
+  "converter_patch_count_unchanged": 13,
+  "environment": {
+    "os": "Darwin",
+    "release": "27.0.0",
+    "architecture": "arm64",
+    "python": "3.14",
+    "go": "1.26.8",
+    "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)"
+  },
+  "local_results": {
+    "python_c_checks": 134,
+    "normal_and_asan_ubsan": "PASS",
+    "go_race_packages": 4,
+    "owner_failure_injections": 16884,
+    "additional_api_refetch_failures": 7,
+    "negative_mutations": "EXPECTED FAIL, 2 detected",
+    "both_OS_new_component_CI": "PENDING",
+    "new_guest_runtime_campaign": "NOT RUN, inputs unchanged"
+  },
+  "changed_input_sha256": {
+    "tests/fixtures/prepared_api_harness.c": "a74c893782cb04de45239596054178188d524d3d1ca9001a80e31c875c916fe8",
+    "tests/test_prepared_api.py": "ffc5e54331dae61f8a99a5bdb4cb9c88d41d3c56973e86b38fb5a69e8bc25f18",
+    "internal/mysqlwire/prepared_failures_test.go": "7a5595fe637459ccd6ae685381762749c2907e86b3cb19815000e485d34ec898",
+    ".github/workflows/prepared-product.yml": "9b99812d60d61c7e3da71516fb9685c3fa7e684d394f829cbd7a2850f758a81e"
+  },
+  "storage_notes": {
+    "c-owner-initial.txt": "Earlier uncommitted mock serializer revision, successful137s diagnostic only; inputs.txt is the final134-check record.",
+    "mutation-oracles.json": "Only temporary paths replaced in assertion stderr; original stderr hash retained.",
+    "public.txt": "Latest public check; pre-existing runner prefixes corrected in separate docs commit."
+  },
+  "files_sha256": {
+    "c-owner-initial.txt": "9c01c2f199befdb3f602d9406d7b2b6fc2fa4d0b8fe6fa5059c59f22a3b3fac8",
+    "canonical-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "go-race.txt": "78b9d3ba2e7eac61d596847986ff921d7438b900f4421fc26384901571a15364",
+    "inputs.txt": "288ae415a2ef08eede7fa97ef222d8412671b6dcd87cacd9002ae251b3c7ffc1",
+    "mutation-oracles.json": "cdbf60173de684ce883613ccf67680fd363b6c4324b58da511a2280b1b8cd03d",
+    "owner-matrix.json": "adb8a4ac4ac190c60832bca84daec3905c40d7dc0e118484f0f4d19db34a57c0",
+    "public.txt": "8dac851a5e963e9d91528fd0ddcee260d254fa6d570c2ac02a67a1ef05cab0c3"
+  }
+}

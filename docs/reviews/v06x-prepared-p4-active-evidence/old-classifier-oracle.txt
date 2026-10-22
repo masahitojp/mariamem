@@ -1,0 +1,5 @@
+--- FAIL: TestControlCodeDistinguishesInvalidationFromRequestDeadline (0.00s)
+    control_test.go:18: invalidated DB misclassified timeout
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/diagnostic	0.358s
+FAIL

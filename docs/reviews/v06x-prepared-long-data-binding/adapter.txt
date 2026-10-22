@@ -1,0 +1,2 @@
+Installed FD audit. Stable directory-object adaptation installed; FD contracts must PASS.
+<user>/src/mysqlmem/publish/mariamem/build/experiment-work/prepared-longdata-binding-v2/temp/candidate/module

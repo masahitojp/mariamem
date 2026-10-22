@@ -1,0 +1,49 @@
+{
+  "scope": "P2 EXECUTE source implementation and mock/unit checks; new guest execution NOT tested",
+  "base_source_commit": "0ceca7cd597c7c8f69c85d3898a407ee7c954441",
+  "branch": "experiment/prepared-execute",
+  "tested_authored_inputs": {
+    "guest/prepared_api.inc": "0ce5a562a002603c5e05d76d17bf5e674acfea7fb622c1ea86b1427895699b0e",
+    "guest/resident.inc": "b7a5b64b30e401406653136cbeb622e3827707a6592bb84ef2e99c13de2d7ac5",
+    "internal/guest/guest.go": "ec801ab34f2b6b221cfabfe6e0b513d54a56f2cd3b3e25442ed8217b6ef27805",
+    "internal/mysqlwire/prepared.go": "797712c967f528f8c6e2add6b7b75a4d3de1203663c43671eb7a8d161b1eea41",
+    "internal/mysqlwire/prepared_session.go": "6f695bbe2974a6c831987d46a9a39814d05701328a95da693b7f63bd7376401f",
+    "internal/mysqlwire/prepared_execute.go": "b505343bfe5aeddf92bd1ea5e5ef16040b8bbf41546ed488b71f9777fb198d26",
+    "internal/mysqlwire/prepared_execute_test.go": "15a65e3b2a7bab2bd2a3ee210a2ed811c99654d8cd589e9371941f2ef6677485",
+    "internal/mysqlwire/wire.go": "5d3c8cb71bbe4313df99af988bffb9fdad7123bddb1a63d2897eb8a2df7b2043",
+    "tests/fixtures/prepared_api_harness.c": "6b57d284d699683c7e0c3a906a81db7480ccf68693fed579d13dea003b91d909",
+    ".github/workflows/prepared-product.yml": "9ba00feadcd3996f668965a6d1163b731296d7b844520b8fc641cb7ecbb9e8db"
+  },
+  "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin",
+  "go": "go1.26.8 darwin/arm64",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "local_results": {
+    "C_normal": "PASS",
+    "C_ASAN_UBSAN": "PASS",
+    "Go_related_packages_race": "PASS",
+    "canonical_old_guest_inventory": "PASS; unchanged generated source only, not new-guest generation",
+    "public_source": "PASS"
+  },
+  "pending": {
+    "source_build": "PENDING CI at exact forthcoming source commit",
+    "new_guest_identity_and_exact_binding": "PENDING new source output; existing P1-only binding unchanged and will reject new guest",
+    "new_guest_development_runtime": "SKIP until exact binding review; not a failed or waived acceptance oracle",
+    "P2_native_differential": "NOT RUN on new guest",
+    "P2_extended_matrix": "PENDING temporal ranges/SQL modes, schema changes/reprepare, warnings/DML and named field forms",
+    "P3_P6": "unfinished"
+  },
+  "unchanged": [
+    "guest/source.patch",
+    "converter fixed commit and 13 patches",
+    "canonical generated Go/guest pins/provenance",
+    "public APIs",
+    "PS_MULTI_RESULTS capability"
+  ],
+  "P1_P2_codec_CI": {
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39548803322",
+    "source_commit": "0ceca7cd597c7c8f69c85d3898a407ee7c954441",
+    "conclusion": "success",
+    "scope": "both-OS codec/unit checks and existing P1 development runtime, not EXECUTE guest execution"
+  },
+  "workflow_note": "Full prepared-product branch runtime job now requires the P2 probe in addition to P1. On prepared-execute both remain SKIP until exact binding review."
+}

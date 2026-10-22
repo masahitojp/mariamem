@@ -1,0 +1,21 @@
+[
+  {
+    "file": "adapter.txt",
+    "original_sha256": "63253dc157bf49dcf9ccd6f93f0095dfc93b545252d9a0f4268b2b271be156e4",
+    "stored_sha256": "cd7ca28aadbe4db8602f7c8012ccfabb2456ee787f3a9a58717e19ed7e2687f6",
+    "reason": "personal runner path scrub only"
+  },
+  {
+    "file": "translation.txt",
+    "original_sha256": "637a142fcb645c198486d3bc55f35d1e6f609273c198fec702ad3660624e4664",
+    "stored_sha256": "31a61d4d5fd8f5faa91d4eae8a840ca6f9b31b1d2d4c537f0418c006355f1e79",
+    "reason": "personal runner path scrub only"
+  },
+  {
+    "file": "public-initial.txt",
+    "original_sha256": "160cadacb1a3e6390ce55205689a0d8319f05ba836db3a321da47683c08aefb7",
+    "stored_sha256": "d4a48fa24de9c59f4e63422878a0571e23cb456f189cd28d89f7fe3b99e91a15",
+    "reason": "personal runner path scrub only",
+    "note": "Initial public-source check rejected personal paths/binary bundle; paths scrubbed, bundle retained outside public source. Final public.txt passes."
+  }
+]

@@ -728,43 +728,243 @@ including the different scope of its Python and Go helpers. The
 pinned driver/framework seams, concrete upstream dump/migration input inventory,
 and diagnostic/official-reference requirements. Source investigation now supports
 a bounded prototype proposal; runtime validation, mechanism selection and broader
-driver coverage remain unfinished. No new compatibility support is established.
-Python Connector/Python `cursor(prepared=True)` is now an explicit design case:
-routing, per-session prepared state and binary protocol support are separate
-requirements. Source inspection found prepare/reset/execute/close plus metadata
-handling; implementation and runtime acceptance remain pending.
-Go explicit DB/Tx/Conn prepared statements are equally explicit design cases:
-the current interpolation-enabled DSN does not make explicit Prepare supported.
-The Human approved prepared support in both languages as a mandatory part of
-the one-line-switching goal. Disabling prepared use, changing application SQL or
-silently substituting interpolation does not satisfy that goal.
-The [prepared implementation alternatives](reviews/v06x-prepared-design.md)
-recommend a bounded guest `mysql_stmt_*` bridge spike. Embedded API source exists,
-but parameter metadata is a known API gap; runtime feasibility is unproven.
-On 2026-10-19 the Human approved that bounded spike, including experimental
-patch isolation, fixed inputs, independent regeneration, explicit PASS/FAIL/SKIP
-and guest rebase/maintenance budgeting. Production implementation remains pending
-Human Review of the results.
+driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Multi-statement added to scope; spike to re-run on the current connector
-(2026-10-19).** The bounded spike returned a positive feasibility answer for the
-prepared bridge (Go and configured Python prepared execution on the real guest,
-no internal MariaDB API extension), but the strongest objection held: the default
-Connector/Python connection requests `CLIENT_MULTI_STATEMENTS` and is rejected
-before PREPARE, so the one-line goal is unmet for the default Python workflow.
-The Human therefore decided that multi-statement support is in scope rather than
-deferred, that consumer evidence must use the current Connector/Python (26.7.0,
-`requires_python >= 3.10`) instead of the unreleased-era 9.4.0 that cannot import
-on Python 3.14, and that the bounded spike is re-run with those two changes,
-retaining the earlier PASS/FAIL/SKIP evidence and the unresolved C-extension
-syntax-error comparison. Source shows the lite4mariadb recipe already carries the
-multi-statement machinery and mariamem's resident patch is what disables it, so
-the cheapest path is restoring per-session acceptance, extending the v2 JSON to
-carry several result sets, and advertising/serving them with
-`SERVER_MORE_RESULTS_EXISTS` semantics. Capability bits must not be advertised
-without being served. Production implementation, adoption, Qualification and
-release remain separate decisions, and the published text-only promise is
-unchanged. See the [design decision](reviews/v06x-prepared-design.md).
+**Prepared Statements — implementation approved, in progress.** Python
+`cursor(prepared=True)` and Go explicit DB/Tx/Conn Prepare remain required for the
+one-line-switching goal; interpolation or application SQL changes are not a
+substitute. The original [prepared alternatives/spike decision](reviews/v06x-prepared-design.md)
+led to the [positive feasibility result](https://github.com/masahitojp/mariamem/blob/9250ff5/docs/reviews/v06x-prepared-multi-spike.md)
+with the public embedded mysql_stmt APIs, default multi-statement capabilities
+and Connector/Python26.7.0. That experimental prepared implementation is not
+adopted; its fixed capacities, incomplete type/result codec and named consumer
+error/import differences remain explicit.
+
+Main now supplies routine bootstrap, text multiple results and COM_SET_OPTION;
+those prerequisites are complete, not work to repeat. The
+[prepared production design](reviews/v06x-prepared-product-design.md) proposes a
+separate versioned guest path, typed dynamic buffers, prepared CALL multiple
+results, no-response lifecycle and finite P1–P6 acceptance. It distinguishes the
+native-parity C-extension syntax-error exception proposal from the unchanged
+original1064 FAIL. The Human approved production implementation after that design review.
+[Staged implementation](reviews/v06x-prepared-implementation.md) has P1 owners,
+protocol, lifecycle dispatch and unit coverage. Its source compilation and
+both-OS unit CI passed; expanded native12.3.3 PREPARE controls passed. The subsequent
+development gate passed the new-guest smoke and exact installed binding checks
+on both OSes. Its actual wire/native metadata comparison exposed a C API numeric
+flag leaking onto the wire; the host-serializer repair passed the corrected
+[both-OS gate39540250744](https://github.com/masahitojp/mariamem/actions/runs/39540250744)
+at3496095, including actual P1 lifecycle and native metadata equivalence.
+P2 typed-value/client decoder and binary-row components passed both-OS units in
+[CI39548803322](https://github.com/masahitojp/mariamem/actions/runs/39548803322)
+at0ceca7c. EXECUTE source compilation and both-OS units passed in
+[CI39554451701](https://github.com/masahitojp/mariamem/actions/runs/39554451701)
+at00962f8; that run intentionally skipped development runtime execution.
+The new guest has now been translated with the fixed converter/13 patches and
+its three allocation/lifetime functions and TLS data reviewed for a single exact
+binding. [Binding evidence](reviews/v06x-prepared-p2-binding-evidence/reproduce.md)
+records50 local input/guard checks PASS. The first full P2 development gate
+[39561037019](https://github.com/masahitojp/mariamem/actions/runs/39561037019)
+passed generation/compile/SQL smoke and exact installed bindings on both OSes,
+but a new mutation test changed an earlier unrelated literal instead of its
+target function. The [test-only repair](reviews/v06x-prepared-p2-mutation-fix/receipt.json)
+scopes the mutation to that function and passes12 focused checks, including an
+earlier-same-literal regression. The corrected
+[gate39565377640](https://github.com/masahitojp/mariamem/actions/runs/39565377640)
+passed those12 mutations and actual P1 comparison on both OSes. Actual P2
+comparison now exposes one TIME column-length difference (16 vs native23), with
+all22 cases' binary rows/terminals matching. The [bounded internal-source proposal](reviews/v06x-prepared-p2-time-metadata.md)
+was approved by the Human on2026-10-21 after the upstream-history investigation.
+The2011 change redefined MAX_TIME_WIDTH23→16 while the embedded call retained
+that name; the ordinary call switched to the newly introduced full-width23
+constant. The one-line repair is now staged only in guest/experimental.patch
+with complete source pre/postimage and patch hashes. [Repair evidence](reviews/v06x-prepared-p2-time-repair/receipt.json)
+records61 local checks and13 additional native TIME cases PASS, plus an unchanged
+22-case native replay. [Source preflight39572844101](https://github.com/masahitojp/mariamem/actions/runs/39572844101)
+passed source and both-OS units at4f41be8. The patched guest's exact allocation/
+lifetime bodies, full data and TLS match the previous reviewed output; only
+one raw generated part changes. [TIME binding evidence](reviews/v06x-prepared-p2-time-binding/receipt.json)
+records the new single identity and62 local checks PASS. The full
+[gate39577305621](https://github.com/masahitojp/mariamem/actions/runs/39577305621)
+atf498396 passed all5 jobs. [Result evidence](reviews/v06x-prepared-p2-time-result/receipt.json)
+confirms actual P1, original22-case P2 and extra13-case TIME/native comparison
+PASS on macOS arm64 and Ubuntu x86_64, plus smoke and13 binding tests per OS.
+The bounded TIME repair is verified for that matrix. The
+[additional P2 matrix](reviews/v06x-prepared-p2-matrix.md) now defines20 independent
+DML/warnings/schema-reprepare/type/SQL-mode controls, all PASS against fixed
+native12.3.3. Actual [gate39582653522](https://github.com/masahitojp/mariamem/actions/runs/39582653522)
+passed original probes on both OSes but exposed a BIT16 timeout/DB termination;
+only the first2 scenarios matched, while the next17 were not independently
+assessed after that shared DB died. The [test-isolation repair](reviews/v06x-prepared-p2-isolation-evidence/receipt.json)
+uses a fresh root DB/host for each of the same20 scenarios and captures logs/
+teardown errors;6 local controls PASS. The isolated
+[gate39585983268](https://github.com/masahitojp/mariamem/actions/runs/39585983268)
+atd11f4ff independently matches12 scenarios on both OSes and fails8: seven raw
+parameter type inputs time out; schema-add returns2057 and leaves following SQL
+out of sync. Previous P1/original22/TIME13 and smoke/binding gates still PASS.
+[Failure assessment and bounded repair proposal](reviews/v06x-prepared-p2-blockers.md)
+preserve exact captures and separate observed harm from source inference.
+The Human approved the bounded two-part repair continuation. The
+[source candidate](reviews/v06x-prepared-p2-repair.md) preserves raw parameter
+types and rebuilds changed result metadata without SQL retry. Its91 focused
+macOS component checks and15 added fixed-native controls PASS. The
+[source preflight39596726209](https://github.com/masahitojp/mariamem/actions/runs/39596726209)
+passes source/both-OS units at68fb5c2. The
+[new guest binding review](reviews/v06x-prepared-p2-repair-binding/reproduce.md)
+verifies guest41ab4076 through the fixed converter/13 patches: all3 lifetime
+function bodies, full data and TLS match the previous guest; memory initialization
+is checked/pinned too. Local94 checks PASS.
+[CI39601636017](https://github.com/masahitojp/mariamem/actions/runs/39601636017)
+passes installed bindings/smoke/P1/22/TIME13/additional20 on both OSes; those former
+eight failures no longer reproduce. The final15-case gate fails seven unsigned
+NULL metadata cases, with values/termination/following SQL matching. The
+[parameter-order continuation](reviews/v06x-prepared-param-order.md) fixes the
+descriptor assignment before conversion/NULL handling in both embedded paths,
+within the approved binding scope. Local102 checks and extra2 native controls
+PASS. [Source CI39607505031](https://github.com/masahitojp/mariamem/actions/runs/39607505031)
+passes guest-source and both-OS units at a342f30. The
+[parameter-order binding review](reviews/v06x-prepared-param-order-binding/reproduce.md)
+verifies new guest4dad84d0 with unchanged converter/13 patches, full lifetime
+bodies, data/TLS and memory initialization; local103 checks PASS. Both-OS actual
+runtime/native confirmation now [PASSes at5146d8a](reviews/v06x-prepared-p2-pass.md)
+in [CI39616628715](https://github.com/masahitojp/mariamem/actions/runs/39616628715):
+all72 typed scenarios per OS, P1, smoke and17 installed binding mutation tests.
+The specified P2 development acceptance row is satisfied; P3–P6 and full
+production acceptance remain unfinished. The [minimal P3 source candidate](reviews/v06x-prepared-call-minimal.md) now adds
+owned binary result chains and an OUT+two-results native reference. Local106
+Python/C checks, three Go race packages and native replay PASS.
+[Source preflight39624071363](https://github.com/masahitojp/mariamem/actions/runs/39624071363)
+passes guest-source and both-OS units at46f5c2c. The
+[P3 binding review](reviews/v06x-prepared-call-binding/reproduce.md) records new
+gueste6d6021a, its64-byte data/BSS layout shift, exact complete functions/init,
+unchanged TLS content and107 local ownership checks PASS. Only that new guest
+is accepted. [CI39631360824](https://github.com/masahitojp/mariamem/actions/runs/39631360824)
+now [passes the minimal CALL](reviews/v06x-prepared-call-pass.md) on both OSes at42be2b5,
+including exact native metadata/rows/status, OUT, terminal OK, following SQL and
+Close/PING. P1/all72 P2 controls and18 installed mutations also PASS per OS.
+The minimal P3 feasibility gate is closed. The [full P3 candidate](reviews/v06x-prepared-p3-matrix.md)
+then matches11/13 baseline cases and exposes two unnegotiated-OUT differences.
+A bounded Go bridge negotiation fix now passes all14 native/guest cases on macOS,
+including paired flag states and advertisement; P1/all72 P2 and smoke remain PASS.
+Local112 Python/C and3 non-race Go package checks PASS. Fresh exact-candidate
+[CI39686154515](https://github.com/masahitojp/mariamem/actions/runs/39686154515)
+now [passes the full P3 row on both OSes](reviews/v06x-prepared-p3-pass.md)
+at6fc594a: all14 cases match native, negotiated capability states and following
+QUERY/CLOSE/PING PASS, and previous P1/all72 P2 controls, smoke,112 Python/C
+checks, three Go race packages and18 installed mutations PASS per OS.
+P3 development acceptance is complete; P4–P6 and production acceptance remain unfinished.
+The [first P4 lifetime slice](reviews/v06x-prepared-p4-lifetime.md) adds native-controlled
+Go DB/Tx/Conn/pool, RESET/transaction/type reuse, malformed lifecycle adjacency,
+engine quota recovery and idle QUIT/EOF cleanup. Native capture/replay7/7 and
+local114 Python/C plus3 Go race packages PASS. A bounded handwritten-host
+CLOSE/RESET length repair leaves guest/converter/generated identities unchanged.
+[CI39699613828](https://github.com/masahitojp/mariamem/actions/runs/39699613828)
+now confirms all7 cases on both OSes at ecfea4a with no native differences:
+active connections return0, temporary directories are removed, and the Go
+consumer restores native statement counts/open connections to0. P1/all72 P2/
+all14 P3/minimal CALL, smoke,114 Python/C checks,3 Go race packages and18 binding
+mutations also PASS per OS. The first lifetime slice is complete. LONG_DATA,
+executing-query cancellation/disconnect and the remaining resource/failure
+matrix are still P4 work; this first slice does not close or narrow P4.
+The [LONG_DATA source candidate](reviews/v06x-prepared-long-data.md) now forwards
+chunks to the public embedded API, retains only parameter-presence/deferred-error
+state in the bridge, and adds omission/NULL/type reuse plus reset/close handling.
+Native25-case capture/replay PASS, including1MiB aggregate crossing, index64 and
+native1105 capacity/error recovery. Local118 Python/C checks and3 Go race
+packages PASS. Source CI39714836816 passes guest build and both-OS units at425c821.
+The [exact new guest binding](reviews/v06x-prepared-long-data-binding/reproduce.md)
+passes local source-only checks: three lifetime functions, full initializer and
+TLS remain identical; data identities and the single guest pin are updated, and
+prior P3 input is explicitly rejected. Actual both-OS runtime acceptance remains
+pending; source/unit success is not LONG_DATA/P4 completion.
+[Runtime CI39718930329 failure analysis](reviews/v06x-prepared-param-metadata.md)
+now confirms both-OS generation/previous regressions PASS and LONG_DATA strict
+comparison FAIL: aliased parameter names were incorrectly fixed to `?`.
+The engine-owned metadata extension now passes source CI39724676227 at ab8c350.
+Its [new exact binding](reviews/v06x-prepared-param-metadata-binding/reproduce.md)
+records the BSS+64 layout, unchanged TLS and complete function/init/data pins;
+local122 checks and the formal source-only adapter PASS.
+[CI39729456821](https://github.com/masahitojp/mariamem/actions/runs/39729456821)
+now [closes LONG_DATA and parameter-metadata development acceptance](reviews/v06x-prepared-long-data-pass.md)
+at fba09f6 on both OSes: all25 native comparisons match including parameter names,
+connections return0 and temporary areas are removed. Previous P1/all72 P2/all14
+P3/first7 P4 gates, smoke,122 Python/C checks,3 Go race packages and20 installed
+mutations also PASS per OS. Native fixtures/comparator remain unchanged.
+Full P4 still requires executing-query cancellation/timeout/disconnect and the
+remaining resource/failure matrix; P5/P6 and production acceptance remain pending.
+The next [P4 active-exit candidate](reviews/v06x-prepared-p4-active.md) adds
+execution-witnessed cancellation/deadline/TCP exits and Close with independent
+Fork/baseline cleanup controls. Native5-case controls PASS; actual both-OS7-case
+guest acceptance now PASSes on macOS15 arm64 and Ubuntu24.04 x86_64 at
+[CI39747013913](https://github.com/masahitojp/mariamem/actions/runs/39747013913),
+source_commit fbe419613cc0cc99657d39543c37df7b4dfe5d4a. Execution witnesses,
+target invalidation, healthy sibling/baseline reuse and final cleanup all PASS;
+134 Python/C checks,4 Go race packages and prior runtime gates also PASS.
+Full P4 still needs the remaining failure/resource matrix; P5/P6 are open.
+A bounded shared-control status classification
+repair preserves unusable for fatal deadlines while keeping request timeout
+classification. No guest/converter/Generated Go input is changed.
+The [P4 failure/resource closure candidate](reviews/v06x-prepared-p4-failures.md)
+now maps every finite P4 obligation to existing actual runtime evidence and
+focused component controls. Local macOS134 Python/C checks and4 Go race packages
+PASS, including16,884 injected owner-allocation/serializer failures and two
+negative oracle mutations. Both-OS component CI now PASSes at86b89d8 in
+[CI39752222349](https://github.com/masahitojp/mariamem/actions/runs/39752222349):
+134 Python/C checks,4 Go race packages, canonical inventory and public sources
+PASS on each OS. With the existing actual-guest/native evidence, the finite P4
+row is complete. Guest-source/runtime jobs were explicitly SKIP for this
+tests-only candidate; no new actual guest campaign or real-engine OOM injection
+is claimed. P5 real consumers/regressions and P6 canonical/J1/independent
+generation remain open.
+The [P5 real consumer candidate](reviews/v06x-prepared-p5-consumers.md) adds
+fixed Go explicit/implicit Prepare and Connector26.7.0 pure/default/C observations,
+private source-bound wheel staging, current integration/routine/auth and existing
+SQLAlchemy/GORM anchors. Local native Go modes and Python CRUD/typed binary/text
+controls PASS, but native Python prepared CALL result traversal and C untyped
+NUL projection expose new functional failures. Their original FAIL oracles are
+retained; separate native-matching diagnostics cannot grant functional acceptance.
+[CI39760963205](https://github.com/masahitojp/mariamem/actions/runs/39760963205)
+passed the fresh Linux Python3.14 native control, both-OS units/source build,
+and Ubuntu actual guest consumer matching plus installed/ORM regressions.
+Mac guest observations were captured, but matching failed because Linux lacked
+a native C-extension control; subsequent Mac regressions were skipped.
+The [comparison-gate diagnosis](reviews/v06x-prepared-p5-ci-diagnosis.md) supplies
+a separate Mac Python3.14 native control with client binary/source/ABI binding;
+[corrected CI39769591459](https://github.com/masahitojp/mariamem/actions/runs/39769591459)
+now passes all six jobs on exact source_commit
+`c5dddf36aac2d62cfe8d4edd22b41fb8da7fdd9b`: both-OS native matching,
+installed regressions and existing SQLAlchemy/GORM anchors. Mac C client
+binary/source/ABI binding passes; Ubuntu's additional C mode remains an explicit
+OpenSSL import SKIP, with required pure/default executed.
+After the [P5 Human Review](reviews/v06x-prepared-p5-human-review.md) and
+additional MariaDB-driver replay below, the Human explicitly accepted the two
+precise Oracle Connector/Python26.7.0 limitations on 2026-10-22.
+The [decision](decisions/prepared-consumer-exceptions.md) records **P5 evidence
+complete with accepted consumer exceptions**, permitting continuation to P6.
+Prospective functional FAILs remain FAIL; no unconditional functional PASS,
+main adoption, release version or publication is approved.
+P6 canonical independent generation/J1/provenance and permanent edge/consumer
+CI placement remain unfinished. The Human requested an additional
+[MariaDB Connector/Python replay](reviews/v06x-prepared-mariadb-replay.md)
+before continuing the exception decision. Fixed stable1.1.14 passes both exact
+case purposes against native12.3.3 using Linux/arm64 Python3.14/ConnectorC3.4.9;
+[CI39776208952](https://github.com/masahitojp/mariamem/actions/runs/39776208952)
+now passes all six jobs at exact source_commit
+`4ce9422e8b5a49727f9a1e3ee81706545e4a8f0d`. Both real-guest Mac/Ubuntu
+replays preserve all NUL bytes, drain both prepared CALL results, execute
+subsequent SQL and close cleanly; server counters confirm binary execution.
+The [results](reviews/v06x-prepared-mariadb-results.md) retain native comparison,
+actual Python/ConnectorC versions and driver hashes. The original Oracle
+Connector/Python26.7.0 functional FAILs remain; their later Human acceptance is
+recorded separately in the decision above, not rewritten into the CI receipts.
+The replay establishes the two tested MariaDB-driver paths, not general driver
+support. Runtime/guest/converter/canonical generation inputs remain
+unchanged, and no default connection is forced to pure mode.
+
+
+Apart from the explicitly accepted consumer exceptions above, no further
+scope reduction is accepted. Main adoption, target version, Qualification and
+release remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.
 
 **Approved documentation backlog — v0.6.x, 2026-10-17:** explain serial and
 parallel Snapshot/Fork usage in the Go/Python guides. Lead Python test usage
@@ -792,18 +992,15 @@ New run-wide baseline fixture ergonomics are deferred here. Existing session
 fixtures remain worker-local under xdist. Do not promise new framework/platform
 compatibility or introduce automatic cache policy before use-case evidence.
 
-**Wire practical coverage (v0.6.x scope):** the host wrapper
-(`internal/mysqlwire`) implements only the MySQL text-protocol commands
-`COM_QUERY`, `COM_INIT_DB`, `COM_PING` and `COM_QUIT`; other commands return
-"command is not supported". Collect the practical gaps and let dogfood decide
-priority: server-side prepared statements (`COM_STMT_PREPARE/EXECUTE/CLOSE/RESET`,
-largest for ORMs/drivers that do not interpolate), `COM_RESET_CONNECTION` /
-`COM_SET_OPTION` (pool reset), multi-statements, and connection handshake flags.
-Wire framing belongs to the host; preserving prepared semantics may also require
-a guest API change and regeneration. Prepared support is now an approved
-requirement, while implementation and other command/flag scope decisions remain
-pending. The deliverable includes the gap inventory, consumer evidence and
-explicit Human decisions; no protocol implementation is approved yet.
+**Wire practical coverage (v0.6.x scope):** main now serves text COM_QUERY,
+COM_INIT_DB, COM_PING, COM_QUIT and COM_SET_OPTION, including text multiple
+statements/results and the required handshake flags. Published v0.5.3 remains
+the earlier text-only baseline. Server-side prepared commands are the current
+implementation gap, with production implementation now approved and in progress.
+COM_RESET_CONNECTION/pool session reset and other optional commands/flags remain
+separate capability-map items; COM_STMT_RESET is not a session reset. Host framing
+and guest semantics both need acceptance. No broader protocol implementation is
+approved by this status entry.
 
 The [v0.6.x kickoff notes](reviews/v06x-kickoff-notes.md) consolidate the wire gap
 inventory, fixture/test UX findings, dump/binlog assessment, the stable-endpoint
@@ -844,3 +1041,18 @@ audit. See the [workspace policy](experiment-workspace.md).
 CI owns exact-source build, acceptance and release qualification after handoff;
 a submitted verification run does not publish or approve a release.
 See [release workflow](releasing.md).
+
+
+## Prepared P6 canonical ownership — in progress
+
+Candidate branch `experiment/prepared-canonical` starts from main source_commit
+`22a8c64305e706408ebcd54cfd7ecc45426802ad`. It imports tested authored files from
+`5d729eff7bd64aa5de3d2b5464e728c3a52fb7ed` without merging the experimental
+commit history. Existing preparation/source patch management carries the exact
+three-file prepared repair as the next version-specific guest/input.json entry;
+recipe guest/source.patch remains unchanged. No new engine behavior or converter
+patch is introduced. The incoming Wasm identity is explicitly the reviewed
+8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40.
+Canonical inventories/generated source and two-build/reproduction evidence are
+being updated; intermediate commits are NOT READY and not main-adoption evidence.
+Existing release guards remain enabled and must reject incomplete inventories.

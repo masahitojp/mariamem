@@ -1,0 +1,85 @@
+{
+  "scope": "P4 LONG_DATA source/unit candidate; actual guest and full P4 pending",
+  "source_baseline_commit": "bf363e06b1587c36f0c642dd159e59d984cc5204",
+  "local_identity": "Working tree against verified baseline, changed input hashes below; not a clean baseline guest build",
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "lite4mariadb_source_commit": "24be9371a2f6c71250a2356631ad6feab2280b02",
+  "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+  "converter_patches": "existing13 unchanged",
+  "prior_development_guest_sha256": "e6d6021a5753492169aeacbbc787e693e1730026b6da9960ef8c6ace296ac37a",
+  "new_guest_sha256": null,
+  "new_guest_status": "PENDING fixed-source build CI and exact binding review; old binding remains fail-closed",
+  "native_reference": {
+    "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+    "image_id": "sha256:23ccfa2f2df26837c8f397a8f9a070ad728768c095d246edd07cd8d24e9ec40c",
+    "version": "12.3.3-MariaDB-ubu2404",
+    "os": "linux",
+    "architecture": "arm64",
+    "host": "macOS arm64",
+    "note": "Linux container reference, not macOS-native MariaDB. Image identity/version do not prove its source commit."
+  },
+  "local_verification": {
+    "native_cases": 25,
+    "native_capture": "PASS",
+    "native_replay": "PASS; different_cases=[]",
+    "python_C_checks": "118 PASS, including normal and ASan/UBSan C ownership modes",
+    "final_version_oracle_recheck": "4 PASS",
+    "Go_race_packages": {
+      "internal/preparedproto": "PASS",
+      "internal/mysqlwire": "PASS",
+      "internal/guest": "PASS"
+    },
+    "canonical_baseline_inventory": "PASS; unchanged old canonical tree, not new guest verification",
+    "actual_guest_macos": "PENDING",
+    "actual_guest_ubuntu": "PENDING",
+    "release_Qualification": "NOT RUN"
+  },
+  "inputs_sha256": {
+    "guest/prepared_api.inc": "285d390165799c7f3fec058db7f48fefcdf355f380911875da40d16b20a00cf6",
+    "guest/resident.inc": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c",
+    "guest/input.json": "242dd470815fe2edbaf65bf5ff48c2042f6858120349c45696fa002bad76d869",
+    "guest/source.patch": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16",
+    "guest/experimental.patch": "5bddc92d47b13c68b1eb0b680a068011d4f17839921aafd275121765fd1448bc",
+    "guest/prepared_source_patch.json": "454b1f9dc1f39b64d6a5416a7d07c48444709184e0f939839a65152c62eae82a",
+    "internal/preparedproto/values.go": "5a024a86f072c1a551818f9270291c18b8dddfbb47aa1b8d8f17a2c4dbb5a764",
+    "internal/preparedproto/long_data_test.go": "4d9185055c2043671afb0861aec93df64a3aa5341485a82aecfe9ab21e32faac",
+    "internal/mysqlwire/prepared_session.go": "3591c671a67b87e1fed52eef27638006626e28c0d99437014b332d01abecd0bf",
+    "internal/mysqlwire/prepared_execute.go": "1d32cc73b78afc48654247d0b0d6ac8e37b3f4fe0437d5edd3ef34c2c1a4a2a8",
+    "internal/mysqlwire/prepared_long_data.go": "985a61a2458ef437169849816394c1eb659796d5e74b75efca299ab21e6fac6d",
+    "internal/mysqlwire/prepared_long_data_test.go": "64ff7a0bf95ff22f1c94cd4ff332212e9b878f2dea3528832c7e9c6a118d64b3",
+    "internal/mysqlwire/wire.go": "2f76d934846ca065c060205f9f043205cb5ebfb581f4ba13bf15b403631f1071",
+    "tests/fixtures/prepared_api_harness.c": "a1cdddd223d336a036aa36f25d531f51bd38d2340c9329eeb554f7c2fec5c5f0",
+    "tests/test_prepared_api.py": "9853c23d6e364e7cba665b7916be0b1f717ab3e347cdde441560a71eff8cf112",
+    "tests/v06_prepared_long_data_probe.py": "aa26d8d7b3b36115d4190e649915d36d5ff0b536d74b5c003f7fabc1efd63d76",
+    "tests/test_prepared_long_data_probe.py": "e188245a03521f67fe95779d4b0f8afeebc082a3ed028d62b8a7d25c9a7ccb77",
+    "tests/fixtures/prepared-long-data-native.json": "65cb353d525d571a70876055b66292be188ef98daba98584253646094be190c9",
+    ".github/workflows/prepared-product.yml": "1c4e6dec0731643818ba9237dc643f8dcc07d893931d975ccd9b09120cc45007"
+  },
+  "upstream_source_lookup": {
+    "libmysqld/libmysql.c": {
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/libmysqld/libmysql.c",
+      "sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c"
+    },
+    "sql/sql_prepare.cc": {
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_prepare.cc",
+      "sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3"
+    },
+    "libmysqld/lib_sql.cc": {
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/libmysqld/lib_sql.cc",
+      "sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e"
+    },
+    "sql/sql_type.h": {
+      "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_type.h",
+      "sha256": "2fd8d460095f728fe4dac046e5ac41da03abd69b01f2726591eeb276caee7923"
+    }
+  },
+  "saved_files_sha256": {
+    "inputs.txt": "e8b5b4ea3e243f1b8734a3680552623f6d037444d6f139842af4e96cf4b62485",
+    "go-unit.txt": "5732810b566b4bb31e97163d7d95be8468ccdf2af4844caf3e4ec48a96a8fc27",
+    "native-initial.json": "5c9a2d948d95d71184d280b34231fce86e9afecec8e7c2a8813901fcd064d79e",
+    "native.json": "2e04d7a2ec7190de0ccbf7ca2694b9aed5ef4161a82835f088ce43af8488f72f",
+    "baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "native-replay.json": "c6123d6367b9cb136329af1fc437e28fa8e58711eeb78092181a3e4864c211a4",
+    "native-type-probe.json": "b450aa7e0cc1f88afbeab275c2ac6408f561f9ab1187b63c165d5093ccbcd6a9"
+  }
+}

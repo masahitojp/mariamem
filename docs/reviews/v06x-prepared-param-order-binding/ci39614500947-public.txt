@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<runner-repo>/scripts/check_public.py", line 79, in <module>
+    result = check()
+  File "<runner-repo>/scripts/check_public.py", line 74, in check
+    raise ValueError("\n".join(errors))
+ValueError: local path or credential-like content: docs/reviews/v06x-prepared-param-order-binding/review.py
+local path or credential-like content: docs/reviews/v06x-prepared-param-order-binding/translate.py

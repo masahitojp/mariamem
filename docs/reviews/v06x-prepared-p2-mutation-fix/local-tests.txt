@@ -1,0 +1,16 @@
+............                                                             [100%]
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_thread_lifetime_binding.py::test_bound_function_change_is_rejected[code/p3/p3_pure.go]
+PASSED tests/test_thread_lifetime_binding.py::test_bound_function_change_is_rejected[code/p8/p8_pure.go]
+PASSED tests/test_thread_lifetime_binding.py::test_bound_function_change_is_rejected[code/p5/p5_pure.go]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[False-code/p3/p3_pure.go-15246156]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[False-code/p5/p5_pure.go-15244737]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[True-code/p3/p3_pure.go-15246156]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[True-code/p5/p5_pure.go-15244737]
+PASSED tests/test_thread_lifetime_binding.py::test_duplicate_module_hook_is_rejected
+PASSED tests/test_thread_lifetime_binding.py::test_late_yield_contract_change_is_rejected
+PASSED tests/test_thread_lifetime_binding.py::test_guest_and_required_file_identity
+PASSED tests/test_thread_lifetime_binding.py::test_old_guest_is_not_an_alternate_allowed_identity[baseline_guest_sha256]
+PASSED tests/test_thread_lifetime_binding.py::test_old_guest_is_not_an_alternate_allowed_identity[previous_guest_sha256]
+12 passed in 0.05s

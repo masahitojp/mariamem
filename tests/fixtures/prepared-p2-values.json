@@ -1,0 +1,154 @@
+[
+  {
+    "name": "null",
+    "packet": "01000000000100000001010600",
+    "value": "",
+    "type": 6,
+    "unsigned": false,
+    "null": true
+  },
+  {
+    "name": "signed-tiny-min",
+    "packet": "0100000000010000000001010080",
+    "value": "80",
+    "type": 1,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "unsigned-tiny-max",
+    "packet": "01000000000100000000010180ff",
+    "value": "ff",
+    "type": 1,
+    "unsigned": true,
+    "null": false
+  },
+  {
+    "name": "signed-short-min",
+    "packet": "010000000001000000000102000080",
+    "value": "0080",
+    "type": 2,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "unsigned-short-max",
+    "packet": "01000000000100000000010280ffff",
+    "value": "ffff",
+    "type": 2,
+    "unsigned": true,
+    "null": false
+  },
+  {
+    "name": "signed-long-min",
+    "packet": "0100000000010000000001030000000080",
+    "value": "00000080",
+    "type": 3,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "unsigned-long-max",
+    "packet": "01000000000100000000010380ffffffff",
+    "value": "ffffffff",
+    "type": 3,
+    "unsigned": true,
+    "null": false
+  },
+  {
+    "name": "signed-longlong-min",
+    "packet": "010000000001000000000108000000000000000080",
+    "value": "0000000000000080",
+    "type": 8,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "unsigned-longlong-max",
+    "packet": "01000000000100000000010880ffffffffffffffff",
+    "value": "ffffffffffffffff",
+    "type": 8,
+    "unsigned": true,
+    "null": false
+  },
+  {
+    "name": "float-negative-zero",
+    "packet": "0100000000010000000001040000000080",
+    "value": "00000080",
+    "type": 4,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "double-nan-payload",
+    "packet": "01000000000100000000010500341200000000f87f",
+    "value": "341200000000f87f",
+    "type": 5,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "empty-string",
+    "packet": "0100000000010000000001fe0000",
+    "value": "",
+    "type": 254,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "blob-nul",
+    "packet": "0100000000010000000001fc0003410042",
+    "value": "410042",
+    "type": 252,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "unicode",
+    "packet": "0100000000010000000001fd0006e697a5e69cac",
+    "value": "e697a5e69cac",
+    "type": 253,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "decimal-exact-scale",
+    "packet": "0100000000010000000001f600083132332e34353030",
+    "value": "3132332e34353030",
+    "type": 246,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "zero-date",
+    "packet": "01000000000100000000010a0000",
+    "value": "",
+    "type": 10,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "leap-date",
+    "packet": "01000000000100000000010a0004e807021d",
+    "value": "e807021d",
+    "type": 10,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "datetime-microseconds",
+    "packet": "01000000000100000000010c000be907010203040540e20100",
+    "value": "e907010203040540e20100",
+    "type": 12,
+    "unsigned": false,
+    "null": false
+  },
+  {
+    "name": "negative-time-over-24h",
+    "packet": "01000000000100000000010b000c0102000000030405f1fb0900",
+    "value": "0102000000030405f1fb0900",
+    "type": 11,
+    "unsigned": false,
+    "null": false
+  }
+]

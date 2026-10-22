@@ -1,0 +1,183 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39729456821",
+  "source_commit": "fba09f6356fd13aa088f67a2e2c17cad6729ec7e",
+  "result": "PASS",
+  "scope": "LONG_DATA25 and parameter metadata repair development acceptance; not full P4 or Qualification",
+  "jobs": {
+    "unit_ubuntu": 119660912851,
+    "guest_source": 119660913024,
+    "unit_macos": 119660913036,
+    "runtime_ubuntu": 119663399326,
+    "runtime_macos": 119663399369
+  },
+  "platforms": {
+    "macos-15": {
+      "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+      "binary_sha256": "8c6a3b0e86465991233e6a2b424a3fcbe7447e85354b88c5e352f0c339cda8da",
+      "smoke": "PASS",
+      "gates": {
+        "runtime": {
+          "result": "PASS",
+          "native_comparison": null,
+          "cases": null
+        },
+        "execute": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 22
+        },
+        "time": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 13
+        },
+        "matrix": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 20
+        },
+        "repair": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 15
+        },
+        "unsigned": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 2
+        },
+        "call": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": null
+        },
+        "p3-matrix": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 14
+        },
+        "p4-lifetime": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 7
+        },
+        "long-data": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 25
+        }
+      },
+      "active_connections_after_each_LONG_DATA_case": 0,
+      "temporary_removed_each_LONG_DATA_case": true,
+      "parameter_metadata_matches_native_without_normalization": true,
+      "Python_C_checks": 122,
+      "Go_race_packages": "3 PASS",
+      "installed_binding_mutations": 20,
+      "installed_source_changes": "generated runtime plus exact formal guest identity rewrite; others unchanged"
+    },
+    "ubuntu-24.04": {
+      "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+      "binary_sha256": "a11f82a514befcf94aa03ef95ed508055ca355a749b2e36449be73a3e3912da1",
+      "smoke": "PASS",
+      "gates": {
+        "runtime": {
+          "result": "PASS",
+          "native_comparison": null,
+          "cases": null
+        },
+        "execute": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 22
+        },
+        "time": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 13
+        },
+        "matrix": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 20
+        },
+        "repair": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 15
+        },
+        "unsigned": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 2
+        },
+        "call": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": null
+        },
+        "p3-matrix": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 14
+        },
+        "p4-lifetime": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 7
+        },
+        "long-data": {
+          "result": "PASS",
+          "native_comparison": "PASS",
+          "cases": 25
+        }
+      },
+      "active_connections_after_each_LONG_DATA_case": 0,
+      "temporary_removed_each_LONG_DATA_case": true,
+      "parameter_metadata_matches_native_without_normalization": true,
+      "Python_C_checks": 122,
+      "Go_race_packages": "3 PASS",
+      "installed_binding_mutations": 20,
+      "installed_source_changes": "generated runtime plus exact formal guest identity rewrite; others unchanged"
+    }
+  },
+  "saved_files_sha256": {
+    "log-storage.json": "26053439b4ecbde41dd16dccc14439fe25dbcaff85ec89c866a2978c5c8d08fe",
+    "macos-15/binding-mutations.txt": "246cca6f7234b8dc8c50e5491294b6280bb6a6e517acc6b7aebd2d05fbefc77f",
+    "macos-15/binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+    "macos-15/call.json": "3a3a9651a0c4617c531a506d4fe781bf39bd461afd8a87f6ef3f4d30bb291e45",
+    "macos-15/development-summary.json": "91b6b8013b5c15c350138667c2552a4d83223440aefc53dab915c23bceece6a1",
+    "macos-15/execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+    "macos-15/long-data.json": "41bbc555fa3a9186e6ea40268a178aac7961041e3d484cebda77a21619100c63",
+    "macos-15/long-data.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "macos-15/matrix.json": "adaad28dcec3929eaca43c1e26796c6ead9fe4e7b0c373ff05163b9f9601da1b",
+    "macos-15/p3-matrix.json": "5379a9388e3572afcfe23fb5faf8863e82c53f6fded66f93cd3a35b26ee3ead6",
+    "macos-15/p4-lifetime.json": "16fe02a6a463ea1749ad3371f14410514d24e60cdc0028aea63e4f8ec33b2ffe",
+    "macos-15/repair.json": "5f714a64fc4ab1f8f47fe45e00ab978ab3ab4eec9de28919cd78fa78b41c0a54",
+    "macos-15/runtime.json": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+    "macos-15/time.json": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+    "macos-15/unit-baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "macos-15/unit-go-unit.txt": "0807564a81161696e4a703778e0bb3f877000f631a4ef8c8a20355131654bddc",
+    "macos-15/unit-inputs.txt": "eeaab96bbe4b836ff5e5229fc4b18fdabf3a0c516f50f7c7fe9070a972b92a1e",
+    "macos-15/unit-public.txt": "b8a2504a92aaddcb37ca8969361642ac5687260894da96830eac07e4e806385a",
+    "macos-15/unsigned.json": "25fb15f338d935e30617e2d2571184f9443dc82b18bb067aad1dc9adff8bba71",
+    "source-identity.json": "47d76111a869e61b49b8ae1062e69b83859f62c2a78bddf6479d1ac2fd2f2350",
+    "ubuntu-24.04/binding-mutations.txt": "db90fd93857986c2def220cfb7144d337f365bf4443bf00a07edb2f199687b52",
+    "ubuntu-24.04/binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+    "ubuntu-24.04/call.json": "26ca8821206b856b3e8f5d788d30f702b36794845c78d171a596e0969ee772ee",
+    "ubuntu-24.04/development-summary.json": "a40e8d5575bbca78805e7dd1f78cf20f03447b2a775cb162907d6b2e5e193261",
+    "ubuntu-24.04/execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+    "ubuntu-24.04/long-data.json": "41bbc555fa3a9186e6ea40268a178aac7961041e3d484cebda77a21619100c63",
+    "ubuntu-24.04/long-data.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ubuntu-24.04/matrix.json": "7716c76855992513e9e4479a4a0ce343c8760ae17516f99e83c5bcf8e7a4baad",
+    "ubuntu-24.04/p3-matrix.json": "7c8969b7198e226eeb2c5641dbbec6701e2df9a98038577bfccc5bbe5b6705c5",
+    "ubuntu-24.04/p4-lifetime.json": "684692917248e5ec0f1c6105f86817422f4cfa9f2d904c025ebb860371152167",
+    "ubuntu-24.04/repair.json": "0b8749b6686e3db46807e02c1c731b7a3614d82b6a80440467dcfd658791c50a",
+    "ubuntu-24.04/runtime.json": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+    "ubuntu-24.04/time.json": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+    "ubuntu-24.04/unit-baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "ubuntu-24.04/unit-go-unit.txt": "df3b67c13888ed4442c4f5365e84a7072c92856d4df197e278cf6a2085f42292",
+    "ubuntu-24.04/unit-inputs.txt": "b0d44068e10950eb1f6fb9d01079275f8b39b89d022b9b727111d023df4dafa6",
+    "ubuntu-24.04/unit-public.txt": "b8a2504a92aaddcb37ca8969361642ac5687260894da96830eac07e4e806385a",
+    "ubuntu-24.04/unsigned.json": "4a494b91adab120fe75befccc2ac4f3b85624e45b91372c6e7659972f38f5fc0"
+  }
+}

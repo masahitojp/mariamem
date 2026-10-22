@@ -1,0 +1,78 @@
+{
+  "source_commit": "2b697c82cb4326da39d5d5fede4ad7826e3d7711",
+  "runs": [
+    {
+      "name": "1-start",
+      "mode": "start",
+      "returncode": 0,
+      "suite_seconds": 2.4609390670000266,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.900",
+          "timestamp": "2026-10-22T10:29:27.351371+00:00",
+          "hostname": "runnervm8k3b6"
+        }
+      ]
+    },
+    {
+      "name": "2-fork",
+      "mode": "fork",
+      "returncode": 0,
+      "suite_seconds": 1.5752830619999258,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.169",
+          "timestamp": "2026-10-22T10:29:29.636216+00:00",
+          "hostname": "runnervm8k3b6"
+        }
+      ]
+    },
+    {
+      "name": "3-fork",
+      "mode": "fork",
+      "returncode": 0,
+      "suite_seconds": 1.5461704059999875,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.155",
+          "timestamp": "2026-10-22T10:29:31.210224+00:00",
+          "hostname": "runnervm8k3b6"
+        }
+      ]
+    },
+    {
+      "name": "4-start",
+      "mode": "start",
+      "returncode": 0,
+      "suite_seconds": 2.2560402889999978,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.844",
+          "timestamp": "2026-10-22T10:29:32.754432+00:00",
+          "hostname": "runnervm8k3b6"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,6 @@
+Focused check summary copied from local command output (not a full transcript).
+Python3.14 / pytest8.4.2 / darwin-arm64
+Command: python -m pytest -q -rA tests/test_prepared_time_patch.py tests/test_prepared_api.py tests/test_routine_schema.py tests/test_thread_lifetime_binding.py tests/test_dev_guest_tools.py
+Result: 62 passed in 2.60s
+Includes normal/ASan/UBSan mock checks and13 lifetime binding mutations/checks,
+including canonical/P1/immediately-previous-P2 guest identity rejection.

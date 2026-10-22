@@ -1,0 +1,13 @@
+{
+  "source_identity": {
+    "object_sha": "68fb5c247e273192565789246abcb34733a20bc1",
+    "object_type": "commit",
+    "source_commit": "68fb5c247e273192565789246abcb34733a20bc1"
+  },
+  "guest_sha256": "41ab407681f537daed9b8f2d9c0ef5edc584f7d598399dd8d42ed8e1b13a0be0",
+  "guest_bytes": 18400783,
+  "guest_record_sha256": "978f849553328d6f6ca7b1385260a44efc9f8539f99d4cbb066d8ba5e61ce004",
+  "linked_sha256": "8219566c0213b1d4c0ea936bfb69106a12490ebf54bb7dcd6793e88071837e99",
+  "toolchain_pins_sha256": "01bf46c4fd10d022a58badb4834bdac5a7d9d7f53cd88499882e8542c69d7ef9",
+  "result": "PASS; UNQUALIFIED single source build"
+}

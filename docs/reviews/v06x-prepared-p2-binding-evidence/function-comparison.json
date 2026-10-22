@@ -1,0 +1,113 @@
+{
+  "Fn153": {
+    "changed_literal_occurrences": 48,
+    "changed_literal_pairs": [
+      [
+        15245004,
+        15246156
+      ],
+      [
+        15245008,
+        15246160
+      ],
+      [
+        15245012,
+        15246164
+      ],
+      [
+        15245016,
+        15246168
+      ],
+      [
+        15245020,
+        15246172
+      ],
+      [
+        15245024,
+        15246176
+      ],
+      [
+        15245028,
+        15246180
+      ],
+      [
+        15245036,
+        15246188
+      ],
+      [
+        15245044,
+        15246196
+      ],
+      [
+        15245308,
+        15246460
+      ],
+      [
+        15245448,
+        15246600
+      ],
+      [
+        15245452,
+        15246604
+      ]
+    ],
+    "all_changed_deltas": [
+      1152
+    ],
+    "review_equal_after_subtracting_1152": true,
+    "new_hash": "7287c2422d92f9cb8e1b35e90d6ff5a49f9d5578ae567ff46a261a4b11159270"
+  },
+  "Fn131": {
+    "changed_literal_occurrences": 0,
+    "changed_literal_pairs": [],
+    "all_changed_deltas": [],
+    "review_equal_after_subtracting_1152": true,
+    "new_hash": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"
+  },
+  "Fn214": {
+    "changed_literal_occurrences": 62,
+    "changed_literal_pairs": [
+      [
+        15243585,
+        15244737
+      ],
+      [
+        15243588,
+        15244740
+      ],
+      [
+        15247612,
+        15248764
+      ],
+      [
+        15248128,
+        15249280
+      ],
+      [
+        15248176,
+        15249328
+      ],
+      [
+        15248720,
+        15249872
+      ],
+      [
+        15248724,
+        15249876
+      ],
+      [
+        15248728,
+        15249880
+      ],
+      [
+        15306128,
+        15307280
+      ]
+    ],
+    "all_changed_deltas": [
+      1152
+    ],
+    "review_equal_after_subtracting_1152": true,
+    "new_hash": "e8d7ae281efd9f856fd14ae535c40473e2ccbf2af261bf67fa716bac40e3bfab"
+  }
+}

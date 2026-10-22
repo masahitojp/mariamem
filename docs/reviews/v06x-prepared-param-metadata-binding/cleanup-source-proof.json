@@ -1,0 +1,8 @@
+{
+  "converter_source_files": 420,
+  "all_files_match": "../v06x-prepared-call-binding/cleanup-source-proof.json",
+  "archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+  "complete_inventory_equal": true,
+  "canonical_patch_order": "benchmarks/spikes/generated-go-integration/translate_guest.py:PATCHES",
+  "unique_converter_changes": false
+}

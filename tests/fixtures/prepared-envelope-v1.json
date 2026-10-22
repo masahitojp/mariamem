@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "operation": 22,
+  "generation": 1,
+  "handle": 0,
+  "sql": "SELECT ?",
+  "hex": "5053011601000000000000000800000053454c454354203f",
+  "scope": "Authored internal schema conformance vector, not native engine evidence"
+}

@@ -1,0 +1,7 @@
+{
+  "scope": "CI runner only; no product dependency change",
+  "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+  "driver_sdist": "https://files.pythonhosted.org/packages/c4/ba/cedef19833be88e07bfff11964441cda8a998f1628dd3b2fa3e7751d36e0/mariadb-1.1.14.tar.gz#sha256=e6d702a53eccf20922e47f2f45cfb5c7a0c2c6c0a46e4ee2d8a80d0ff4a52f34",
+  "result": "PASS",
+  "connector_c": "3.3.17"
+}

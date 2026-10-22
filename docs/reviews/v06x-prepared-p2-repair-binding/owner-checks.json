@@ -1,0 +1,4 @@
+{
+  "result": "PASS",
+  "scope": "formal source adapter and pure atomic/MemFS/lifetime transforms; no installation or runtime execution"
+}

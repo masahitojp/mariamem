@@ -1,0 +1,116 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39631360824",
+  "source_commit": "42be2b598b4b1a1047f7e9d3787d12fec11aa760",
+  "result": "success",
+  "guest_sha256": "e6d6021a5753492169aeacbbc787e693e1730026b6da9960ef8c6ace296ac37a",
+  "jobs": {
+    "guest-source": 119330103482,
+    "unit-ubuntu": 119330103776,
+    "unit-macos": 119330103849,
+    "runtime-ubuntu": 119334722518,
+    "runtime-macos": 119334722794
+  },
+  "platforms": {
+    "macos-15": {
+      "artifact_id": 12361495232,
+      "CALL_minimal_result": "PASS",
+      "native_comparison": "PASS",
+      "P2_cases": 72,
+      "installed_mutations": 18,
+      "full_P3": "NOT RUN",
+      "artifact_files_sha256": {
+        "binding-mutations.txt": "2e6288c25d785f64f56eb333b679e2784fb25a7c887fa5ef22ba25028113b5fd",
+        "binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+        "call.json": "b27f2ac1cf17996e633c04fa49a18a53e50f51540523d7d13f9188edf3f2f419",
+        "call.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "development.json": "c7d890749d5c01e59acd87b44c19ed05469a3c1136a155f69d1aa97a746cf029",
+        "development.txt": "c6d03d38a1e0e37406d6b15fb646dffa002c9b104499cca9727c88b34b0dfc4a",
+        "execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+        "execute.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "matrix.json": "b7334a2c65ed2e46108ae56bd9aa2857aa1f51d9ecef96856b4c6756d68eb37f",
+        "matrix.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "repair.json": "661602ff06f0bf2159730e01e5e14330e687fb9a48016620aa7d47b3b15ab0e5",
+        "repair.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime.json": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+        "runtime.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source.json": "46a1214d720d9b697463ec7d4db09123a44e401f21dcf725b13198f5a438035e",
+        "time.json": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+        "time.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "unsigned.json": "99c76611737f9a41b5ec5c915890094bec2f0aa8f4f20b4034ba3f711fdd9767",
+        "unsigned.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "ubuntu-24.04": {
+      "artifact_id": 12359834160,
+      "CALL_minimal_result": "PASS",
+      "native_comparison": "PASS",
+      "P2_cases": 72,
+      "installed_mutations": 18,
+      "full_P3": "NOT RUN",
+      "artifact_files_sha256": {
+        "binding-mutations.txt": "58dfc0b288dfff62352e9dae08e7f8d69727671137668ba16c75ed454d3bcbe8",
+        "binding.txt": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+        "call.json": "243cf44e1c35bc7476daeef996240cdd4f78a66c1ac7b1dd793eeaaaebf4cd92",
+        "call.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "development.json": "1bb74c4d4c332382c1c00cf2992c94b06260977b745246fc722df541fb741975",
+        "development.txt": "674eab663e2f7da0f6a4b0cc88b06a7b614528b0b731a3f7c77d3c1ca2763ea1",
+        "execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+        "execute.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "matrix.json": "8354535b446ee0291aee6498da636b26447f3ff334bb23bf2fd7e4d26e7125b1",
+        "matrix.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "repair.json": "0cd222b038c5a6f99ddca0906f9389518d7519bbcc1b019ac67d3449a284e485",
+        "repair.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime.json": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+        "runtime.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source.json": "46a1214d720d9b697463ec7d4db09123a44e401f21dcf725b13198f5a438035e",
+        "time.json": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+        "time.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "unsigned.json": "c68786ae22fcedaa32120a47a763ba2b952af5432d6923a4ba7db048457b8008",
+        "unsigned.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "saved_files": {
+    "macos-15/call.json": {
+      "original_sha256": "b27f2ac1cf17996e633c04fa49a18a53e50f51540523d7d13f9188edf3f2f419",
+      "stored_sha256": "b27f2ac1cf17996e633c04fa49a18a53e50f51540523d7d13f9188edf3f2f419",
+      "bytes": 1541
+    },
+    "macos-15/binding.txt": {
+      "original_sha256": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+      "stored_sha256": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+      "bytes": 82
+    },
+    "macos-15/binding-mutations.txt": {
+      "original_sha256": "2e6288c25d785f64f56eb333b679e2784fb25a7c887fa5ef22ba25028113b5fd",
+      "stored_sha256": "2e6288c25d785f64f56eb333b679e2784fb25a7c887fa5ef22ba25028113b5fd",
+      "bytes": 99
+    },
+    "macos-15/development-summary.json": {
+      "original_sha256": "dbd6bf0ba9be1e9d8c6b358401b9a058fffae33f153bc2fd9c6ddabf93c20fa7",
+      "stored_sha256": "b5c899c336e2bd3be2e12c649a74f102ad171ab86d5785e9095ce47749023872",
+      "bytes": 18362
+    },
+    "ubuntu-24.04/call.json": {
+      "original_sha256": "243cf44e1c35bc7476daeef996240cdd4f78a66c1ac7b1dd793eeaaaebf4cd92",
+      "stored_sha256": "243cf44e1c35bc7476daeef996240cdd4f78a66c1ac7b1dd793eeaaaebf4cd92",
+      "bytes": 1541
+    },
+    "ubuntu-24.04/binding.txt": {
+      "original_sha256": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+      "stored_sha256": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+      "bytes": 82
+    },
+    "ubuntu-24.04/binding-mutations.txt": {
+      "original_sha256": "58dfc0b288dfff62352e9dae08e7f8d69727671137668ba16c75ed454d3bcbe8",
+      "stored_sha256": "58dfc0b288dfff62352e9dae08e7f8d69727671137668ba16c75ed454d3bcbe8",
+      "bytes": 99
+    },
+    "ubuntu-24.04/development-summary.json": {
+      "original_sha256": "8bedb16e41f75a3d391c4622f5097eeb268bef18fb4db59e167527d29742c01c",
+      "stored_sha256": "3c02c979f2430f0b563dc5151bce1ead10042f3146030a3b674c9480f22e6c3a",
+      "bytes": 18359
+    }
+  },
+  "transformation": "Only absolute runner home prefixes replaced with <runner>/; original/stored hashes retained. Packet bytes, metadata, values and statuses unchanged."
+}

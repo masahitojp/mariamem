@@ -1,0 +1,46 @@
+{
+  "source_base_commit": "c43090239ae454c09dee936dd3918f6122a9f2eb",
+  "runtime_candidate_commit": "f498396d2547070a80e5a8d758f5eaada670d145",
+  "guest_sha256": "3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8",
+  "changes": "test/probe/workflow/docs only; no guest/runtime/converter/binding changes",
+  "native_control": {
+    "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+    "platform": "Linux arm64 container on macOS arm64, not macOS-native MariaDB",
+    "cases": 20,
+    "replay": "PASS with exact saved fixture",
+    "observed_error_controls": {
+      "duplicate": {
+        "errno": 1062,
+        "sqlstate": "23000"
+      },
+      "strict_invalid_date": {
+        "errno": 1292,
+        "sqlstate": "22007"
+      },
+      "schema_dropped_column": {
+        "errno": 1054,
+        "sqlstate": "42S22"
+      }
+    }
+  },
+  "oracle_boundary": {
+    "rows": "full descriptor, binary row and terminal bytes",
+    "DML": "affected uint64, insert ID uint64, status and warnings",
+    "errors": "errno, SQLSTATE and full error message bytes",
+    "connection": "following QUERY must succeed; attempt also after an unexpected scenario failure",
+    "OK_informational_text": "captured in separate ok_observations; not compared as an exact parity requirement in this new matrix. Existing original22/TIME13 oracles unchanged."
+  },
+  "local_unit_controls": "4 PASS: uint64 decode/status/warnings/diagnostics, comparison mutations, null/type-reuse request framing, partial trace and health check after failure",
+  "pending": "actual new20-case guest/native comparison on macOS arm64 and Ubuntu x86_64; no new-case guest PASS yet",
+  "source_observation": {
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/libmysqld/libmysql.c#L2875",
+    "sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+    "note": "wire accepted types exceed mysql_stmt_bind_param switch; unchanged guest forwards those typecodes. New cases expose actual disposition; no unproved type normalization or source repair added."
+  },
+  "tested_files_sha256": {
+    "tests/v06_prepared_p2_matrix.py": "f474f6f9c98dca8cf3b77a07ee6667a43c8ccef46c7ab4b38b003069d2d4aa5b",
+    "tests/test_prepared_p2_matrix.py": "36fbeb069f9a06dff17bbdc339f373f7ae32a01224b21b0d33bd3f5033db6778",
+    "tests/fixtures/prepared-p2-matrix-native.json": "267d97358f968b7a535194cb021149b86b41f8903c1869ed7b7a07f45d3c6f74",
+    ".github/workflows/prepared-product.yml": "29445c73300a18e95b44dc417565c35c994e6e4447cf792bf4d54bfd95219892"
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "source_commit": "d11f4ff3c2a42e6095aaa0d348de21369d2f3dd0",
+  "run": "https://github.com/masahitojp/mariamem/actions/runs/39585983268",
+  "guest_sha256": "3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8",
+  "guest_changed": false,
+  "platforms": {
+    "ubuntu-24.04": {
+      "runtime_job": 119178289604,
+      "matrix_result": "FAIL",
+      "matching_scenarios": [
+        "parameter-type-0",
+        "parameter-type-15",
+        "parameter-type-249",
+        "parameter-type-250",
+        "parameter-type-251",
+        "parameter-type-7",
+        "repeated-type-changes",
+        "dml-warnings-recovery",
+        "commit-rollback",
+        "date-sql-modes",
+        "schema-type",
+        "schema-drop"
+      ],
+      "different_cases": [
+        "parameter-type-13",
+        "parameter-type-14",
+        "parameter-type-16",
+        "parameter-type-247",
+        "parameter-type-248",
+        "parameter-type-255",
+        "parameter-type-9",
+        "schema-add"
+      ],
+      "all20_have_distinct_runtime_pids": true,
+      "diagnostic_logs_empty": true,
+      "original_artifact_files": {
+        "binding-mutations.txt": {
+          "sha256": "38e5e5cba1f10a50adf66066ca89126468a1f3b82f70879862753847ab42c522",
+          "bytes": 99
+        },
+        "binding.txt": {
+          "sha256": "19322a76a32837f003f924ca104a12a8fb1f5fbcd745e1fcb4a26fdf246f7a76",
+          "bytes": 76
+        },
+        "development.json": {
+          "sha256": "4fbe38f12558779c818aa1e7738e09c50587fe817fbbeaa39dac7dcd54a2425a",
+          "bytes": 1823199
+        },
+        "development.txt": {
+          "sha256": "ba2ac3a617684a05c1a8649d26bd0482a891631f6be6ebf4bd606b2d4e6601b0",
+          "bytes": 14172
+        },
+        "execute.json": {
+          "sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+          "bytes": 51967
+        },
+        "execute.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "matrix.json": {
+          "sha256": "8b1222adde2ef0ce05860cc358292d586b488542abac857dc695450b0c37afee",
+          "bytes": 21674
+        },
+        "matrix.txt": {
+          "sha256": "c3c68e139c27ea36925e1a0d5d60a1e1f74a1805ad56eb75fdd297f0008dabe2",
+          "bytes": 1625
+        },
+        "runtime.json": {
+          "sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+          "bytes": 9161
+        },
+        "runtime.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "source.json": {
+          "sha256": "b5b452d344b827cc19c18836b566f29e9dd74855b86ea8ba4ffb4ab77fccbf08",
+          "bytes": 153
+        },
+        "time.json": {
+          "sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+          "bytes": 3187
+        },
+        "time.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    "macos-15": {
+      "runtime_job": 119178289511,
+      "matrix_result": "FAIL",
+      "matching_scenarios": [
+        "parameter-type-0",
+        "parameter-type-15",
+        "parameter-type-249",
+        "parameter-type-250",
+        "parameter-type-251",
+        "parameter-type-7",
+        "repeated-type-changes",
+        "dml-warnings-recovery",
+        "commit-rollback",
+        "date-sql-modes",
+        "schema-type",
+        "schema-drop"
+      ],
+      "different_cases": [
+        "parameter-type-13",
+        "parameter-type-14",
+        "parameter-type-16",
+        "parameter-type-247",
+        "parameter-type-248",
+        "parameter-type-255",
+        "parameter-type-9",
+        "schema-add"
+      ],
+      "all20_have_distinct_runtime_pids": true,
+      "diagnostic_logs_empty": true,
+      "original_artifact_files": {
+        "binding-mutations.txt": {
+          "sha256": "3ac7c3125ee4bbd0bf88fdf22f0f9b51fa33db51a53981f4e58b08ea2036075d",
+          "bytes": 99
+        },
+        "binding.txt": {
+          "sha256": "19322a76a32837f003f924ca104a12a8fb1f5fbcd745e1fcb4a26fdf246f7a76",
+          "bytes": 76
+        },
+        "development.json": {
+          "sha256": "2153c869433d4ed2e0e5222facda5157b6f765167cc7fdcfd014538ff059f3bd",
+          "bytes": 1823203
+        },
+        "development.txt": {
+          "sha256": "0a60f775053e805445d944a782e0b68362f277f8abd25e0644c1510de2d6e1c9",
+          "bytes": 14174
+        },
+        "execute.json": {
+          "sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+          "bytes": 51967
+        },
+        "execute.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "matrix.json": {
+          "sha256": "d22f2665cbc529976b3661619cb0d9e69a700f8be59779aa396463bc2d0e49f0",
+          "bytes": 21714
+        },
+        "matrix.txt": {
+          "sha256": "0deca140ca27d3fbae4164d0aaa0442448cbb4748bce49733d47b6896e639919",
+          "bytes": 1627
+        },
+        "runtime.json": {
+          "sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+          "bytes": 9161
+        },
+        "runtime.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "source.json": {
+          "sha256": "b5b452d344b827cc19c18836b566f29e9dd74855b86ea8ba4ffb4ab77fccbf08",
+          "bytes": 153
+        },
+        "time.json": {
+          "sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+          "bytes": 3187
+        },
+        "time.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Captured DB logs are empty; dynamic exit location is not proven.",
+    "These raw protocol types are not a claim that ordinary drivers emit all seven.",
+    "No new native input mappings or MariaDB source fixes were implemented."
+  ],
+  "both_os_case_results_equal": true,
+  "source_evidence": {
+    "libmysql.c": {
+      "sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+      "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    },
+    "sql_prepare.cc": {
+      "sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+      "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "scope": "P4 PREPARE metadata source repair; not actual new guest acceptance",
+  "source_baseline_commit": "e5f77f035ff304b4fe5fbd10e54f717090331045",
+  "local_source_identity": "Working tree input hashes below; not a clean-source guest build",
+  "failed_ci": "https://github.com/masahitojp/mariamem/actions/runs/39718930329",
+  "failed_guest_sha256": "f5ce001d5bad34e766c3f92b6d83f429ad6767153971fc219b52d37563fb496a",
+  "new_guest_sha256": null,
+  "new_guest_status": "PENDING source CI; old exact binding intentionally unchanged",
+  "MariaDB_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "lite4mariadb_source_commit": "24be9371a2f6c71250a2356631ad6feab2280b02",
+  "converter_source_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+  "converter_patches": "13 unchanged",
+  "local_tests": {
+    "Python_C": "121 PASS; includes normal/ASan/UBSan bridge ownership",
+    "Go_race": "3 packages PASS",
+    "Go_version": "go version go1.26.8 darwin/arm64",
+    "exact_3_file_patch": "PASS preimages/zero-fuzz/postimages/previous fixtures",
+    "canonical_inventory": "PASS unchanged old canonical runtime",
+    "public_sources": "PASS",
+    "full_embedded_CPP_compilation": "PENDING source CI",
+    "actual_new_guest_macos": "PENDING",
+    "actual_new_guest_ubuntu": "PENDING",
+    "Qualification_release": "NOT RUN"
+  },
+  "inputs_sha256": {
+    "guest/experimental.patch": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4",
+    "guest/prepared_source_patch.json": "31254dbcb70a9d9dac0cae563df973d3ce09a357f51d1a5efbe9c1e64ee3249f",
+    "guest/prepared_api.inc": "762a0021c0c5ac2385367e389b5be2a0e54bbf5f50b57b56fd66725a4e027334",
+    "internal/guest/guest.go": "77b696866b1cb1e3015389519ba4a74b2aeb62977aec18c1b44d157e2094db54",
+    "internal/mysqlwire/prepared.go": "84b598cdc19f9708489b5a89c28ec085b31cad061a68aa1b947033e4bd5cab22",
+    "internal/mysqlwire/prepared_long_data.go": "22502a03d9b712a7f7a7f0fd3f7f5443b8af0eb39faca4a42c96003b08cce358",
+    "scripts/prepared_source_patch.py": "4badaed663d1e0e467372062f3451d4c8658d206e06ee69731f627d4b6d0efbf",
+    ".github/workflows/prepared-product.yml": "a9db78027f10b1b2bac06cdb0038d0146262d18bb088f0a247987e5a1eacc5af"
+  },
+  "saved_files_sha256": {
+    "baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "failure-analysis.json": "3e0b76e38f9ea03939812233ed021325bb03e33cddd3b800c0e9db72389c400f",
+    "go-unit.txt": "808458cbc04b528944478faeb1c42dbc7907c646b134de4c7278a069aa1b4596",
+    "local-tests.txt": "9c263edc0c215effc3fd1846072ee4d6250b67fb5f1c49fd7a1aa133dcd0d394",
+    "macos-15-binding-mutations.txt": "268b38fc5ecfd318aad1f31a974afe302b33cbac374387f059935b21da026a61",
+    "macos-15-long-data.json": "70acf0dcadbcc7adcd1bff6dfdc950c5bd8f2f2fa4fc9a23237e523d8883237a",
+    "macos-15-long-data.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "public.txt": "0cae648912d74169769da5cb492331d46ffcbc376d4774ab25bd601d090b4349",
+    "source-apply.json": "e9844a3d2f069819c662bb3496ed1204c81f5f1645b8f106a1567759d5583176",
+    "ubuntu-24.04-binding-mutations.txt": "1fa62b27dc7dc3f6230fa49a3c9d4859882848449ff178ce8d0db95d98e0e723",
+    "ubuntu-24.04-long-data.json": "70acf0dcadbcc7adcd1bff6dfdc950c5bd8f2f2fa4fc9a23237e523d8883237a",
+    "ubuntu-24.04-long-data.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

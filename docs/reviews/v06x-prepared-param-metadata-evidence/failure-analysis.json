@@ -1,0 +1,1160 @@
+{
+  "macos-15": {
+    "individual_cases_PASS": 25,
+    "native_comparison": "FAIL",
+    "different_cases": [
+      "chunks-binary-mixed-parameters",
+      "empty-stream-overrides-null",
+      "type-reuse-and-change",
+      "two-statement-ownership",
+      "invalid-index-deferred",
+      "wrong-LONG-type",
+      "wrong-NULL-type",
+      "wrong-TIME-type",
+      "reset-stream",
+      "close-and-unknown-adjacency",
+      "malformed-short-chunks",
+      "native-aggregate-overflow",
+      "65-parameters-stream-index-64",
+      "wrong-DECIMAL-type",
+      "wrong-BIT-type",
+      "wrong-NEWDECIMAL-type",
+      "accepted-type-15",
+      "accepted-type-247",
+      "accepted-type-248",
+      "accepted-type-249",
+      "accepted-type-250",
+      "accepted-type-251",
+      "accepted-type-254",
+      "accepted-type-255"
+    ],
+    "differences_only_parameter_name": [
+      {
+        "case": "chunks-binary-mixed-parameters",
+        "parameter": 0,
+        "native_name_hex": "61",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "chunks-binary-mixed-parameters",
+        "parameter": 1,
+        "native_name_hex": "6e",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "chunks-binary-mixed-parameters",
+        "parameter": 2,
+        "native_name_hex": "62",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "empty-stream-overrides-null",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "type-reuse-and-change",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "two-statement-ownership",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "two-statement-ownership",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "invalid-index-deferred",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-LONG-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-NULL-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-TIME-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "reset-stream",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "close-and-unknown-adjacency",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "malformed-short-chunks",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "native-aggregate-overflow",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 0,
+        "native_name_hex": "7630",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 1,
+        "native_name_hex": "7631",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 2,
+        "native_name_hex": "7632",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 3,
+        "native_name_hex": "7633",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 4,
+        "native_name_hex": "7634",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 5,
+        "native_name_hex": "7635",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 6,
+        "native_name_hex": "7636",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 7,
+        "native_name_hex": "7637",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 8,
+        "native_name_hex": "7638",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 9,
+        "native_name_hex": "7639",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 10,
+        "native_name_hex": "763130",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 11,
+        "native_name_hex": "763131",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 12,
+        "native_name_hex": "763132",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 13,
+        "native_name_hex": "763133",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 14,
+        "native_name_hex": "763134",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 15,
+        "native_name_hex": "763135",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 16,
+        "native_name_hex": "763136",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 17,
+        "native_name_hex": "763137",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 18,
+        "native_name_hex": "763138",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 19,
+        "native_name_hex": "763139",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 20,
+        "native_name_hex": "763230",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 21,
+        "native_name_hex": "763231",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 22,
+        "native_name_hex": "763232",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 23,
+        "native_name_hex": "763233",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 24,
+        "native_name_hex": "763234",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 25,
+        "native_name_hex": "763235",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 26,
+        "native_name_hex": "763236",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 27,
+        "native_name_hex": "763237",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 28,
+        "native_name_hex": "763238",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 29,
+        "native_name_hex": "763239",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 30,
+        "native_name_hex": "763330",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 31,
+        "native_name_hex": "763331",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 32,
+        "native_name_hex": "763332",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 33,
+        "native_name_hex": "763333",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 34,
+        "native_name_hex": "763334",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 35,
+        "native_name_hex": "763335",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 36,
+        "native_name_hex": "763336",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 37,
+        "native_name_hex": "763337",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 38,
+        "native_name_hex": "763338",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 39,
+        "native_name_hex": "763339",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 40,
+        "native_name_hex": "763430",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 41,
+        "native_name_hex": "763431",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 42,
+        "native_name_hex": "763432",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 43,
+        "native_name_hex": "763433",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 44,
+        "native_name_hex": "763434",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 45,
+        "native_name_hex": "763435",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 46,
+        "native_name_hex": "763436",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 47,
+        "native_name_hex": "763437",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 48,
+        "native_name_hex": "763438",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 49,
+        "native_name_hex": "763439",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 50,
+        "native_name_hex": "763530",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 51,
+        "native_name_hex": "763531",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 52,
+        "native_name_hex": "763532",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 53,
+        "native_name_hex": "763533",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 54,
+        "native_name_hex": "763534",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 55,
+        "native_name_hex": "763535",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 56,
+        "native_name_hex": "763536",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 57,
+        "native_name_hex": "763537",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 58,
+        "native_name_hex": "763538",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 59,
+        "native_name_hex": "763539",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 60,
+        "native_name_hex": "763630",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 61,
+        "native_name_hex": "763631",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 62,
+        "native_name_hex": "763632",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 63,
+        "native_name_hex": "763633",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 64,
+        "native_name_hex": "763634",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-DECIMAL-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-BIT-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-NEWDECIMAL-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-15",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-247",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-248",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-249",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-250",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-251",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-254",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-255",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      }
+    ],
+    "execute_result_type_error_and_following_query_differences": []
+  },
+  "ubuntu-24.04": {
+    "individual_cases_PASS": 25,
+    "native_comparison": "FAIL",
+    "different_cases": [
+      "chunks-binary-mixed-parameters",
+      "empty-stream-overrides-null",
+      "type-reuse-and-change",
+      "two-statement-ownership",
+      "invalid-index-deferred",
+      "wrong-LONG-type",
+      "wrong-NULL-type",
+      "wrong-TIME-type",
+      "reset-stream",
+      "close-and-unknown-adjacency",
+      "malformed-short-chunks",
+      "native-aggregate-overflow",
+      "65-parameters-stream-index-64",
+      "wrong-DECIMAL-type",
+      "wrong-BIT-type",
+      "wrong-NEWDECIMAL-type",
+      "accepted-type-15",
+      "accepted-type-247",
+      "accepted-type-248",
+      "accepted-type-249",
+      "accepted-type-250",
+      "accepted-type-251",
+      "accepted-type-254",
+      "accepted-type-255"
+    ],
+    "differences_only_parameter_name": [
+      {
+        "case": "chunks-binary-mixed-parameters",
+        "parameter": 0,
+        "native_name_hex": "61",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "chunks-binary-mixed-parameters",
+        "parameter": 1,
+        "native_name_hex": "6e",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "chunks-binary-mixed-parameters",
+        "parameter": 2,
+        "native_name_hex": "62",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "empty-stream-overrides-null",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "type-reuse-and-change",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "two-statement-ownership",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "two-statement-ownership",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "invalid-index-deferred",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-LONG-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-NULL-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-TIME-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "reset-stream",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "close-and-unknown-adjacency",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "malformed-short-chunks",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "native-aggregate-overflow",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 0,
+        "native_name_hex": "7630",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 1,
+        "native_name_hex": "7631",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 2,
+        "native_name_hex": "7632",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 3,
+        "native_name_hex": "7633",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 4,
+        "native_name_hex": "7634",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 5,
+        "native_name_hex": "7635",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 6,
+        "native_name_hex": "7636",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 7,
+        "native_name_hex": "7637",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 8,
+        "native_name_hex": "7638",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 9,
+        "native_name_hex": "7639",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 10,
+        "native_name_hex": "763130",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 11,
+        "native_name_hex": "763131",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 12,
+        "native_name_hex": "763132",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 13,
+        "native_name_hex": "763133",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 14,
+        "native_name_hex": "763134",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 15,
+        "native_name_hex": "763135",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 16,
+        "native_name_hex": "763136",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 17,
+        "native_name_hex": "763137",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 18,
+        "native_name_hex": "763138",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 19,
+        "native_name_hex": "763139",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 20,
+        "native_name_hex": "763230",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 21,
+        "native_name_hex": "763231",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 22,
+        "native_name_hex": "763232",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 23,
+        "native_name_hex": "763233",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 24,
+        "native_name_hex": "763234",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 25,
+        "native_name_hex": "763235",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 26,
+        "native_name_hex": "763236",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 27,
+        "native_name_hex": "763237",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 28,
+        "native_name_hex": "763238",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 29,
+        "native_name_hex": "763239",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 30,
+        "native_name_hex": "763330",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 31,
+        "native_name_hex": "763331",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 32,
+        "native_name_hex": "763332",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 33,
+        "native_name_hex": "763333",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 34,
+        "native_name_hex": "763334",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 35,
+        "native_name_hex": "763335",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 36,
+        "native_name_hex": "763336",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 37,
+        "native_name_hex": "763337",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 38,
+        "native_name_hex": "763338",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 39,
+        "native_name_hex": "763339",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 40,
+        "native_name_hex": "763430",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 41,
+        "native_name_hex": "763431",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 42,
+        "native_name_hex": "763432",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 43,
+        "native_name_hex": "763433",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 44,
+        "native_name_hex": "763434",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 45,
+        "native_name_hex": "763435",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 46,
+        "native_name_hex": "763436",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 47,
+        "native_name_hex": "763437",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 48,
+        "native_name_hex": "763438",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 49,
+        "native_name_hex": "763439",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 50,
+        "native_name_hex": "763530",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 51,
+        "native_name_hex": "763531",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 52,
+        "native_name_hex": "763532",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 53,
+        "native_name_hex": "763533",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 54,
+        "native_name_hex": "763534",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 55,
+        "native_name_hex": "763535",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 56,
+        "native_name_hex": "763536",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 57,
+        "native_name_hex": "763537",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 58,
+        "native_name_hex": "763538",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 59,
+        "native_name_hex": "763539",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 60,
+        "native_name_hex": "763630",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 61,
+        "native_name_hex": "763631",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 62,
+        "native_name_hex": "763632",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 63,
+        "native_name_hex": "763633",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "65-parameters-stream-index-64",
+        "parameter": 64,
+        "native_name_hex": "763634",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-DECIMAL-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-BIT-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "wrong-NEWDECIMAL-type",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-15",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-247",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-248",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-249",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-250",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-251",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-254",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      },
+      {
+        "case": "accepted-type-255",
+        "parameter": 0,
+        "native_name_hex": "76",
+        "guest_name_hex": "3f"
+      }
+    ],
+    "execute_result_type_error_and_following_query_differences": []
+  }
+}

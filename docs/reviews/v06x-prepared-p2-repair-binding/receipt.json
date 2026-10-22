@@ -1,0 +1,241 @@
+{
+  "source_build": {
+    "url": "https://github.com/masahitojp/mariamem/actions/runs/39596726209",
+    "source_commit": "68fb5c247e273192565789246abcb34733a20bc1",
+    "guest_source_job": 119210757005,
+    "unit_ubuntu_job": 119210757300,
+    "unit_macos_job": 119210757752,
+    "result": "source and both-OS unit PASS; development-runtime SKIP by design",
+    "guest_sha256": "41ab407681f537daed9b8f2d9c0ef5edc584f7d598399dd8d42ed8e1b13a0be0",
+    "guest_bytes": 18400783,
+    "linked_sha256": "8219566c0213b1d4c0ea936bfb69106a12490ebf54bb7dcd6793e88071837e99",
+    "guest_record_sha256": "978f849553328d6f6ca7b1385260a44efc9f8539f99d4cbb066d8ba5e61ce004",
+    "source_origin_verified": "exact clean worktree source inventory at source_commit; no host-origin exception expanded",
+    "experimental_patch": {
+      "file": "guest/experimental.patch",
+      "sha256": "454392be989ebb95d00c92cf8df667cb52e77eb2044c294769d94c9cc2350e34"
+    },
+    "experimental_prepared_patch": {
+      "application_stage": "after guest/input.json portability series and canonical guest/source.patch",
+      "component_fixture_sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb",
+      "files": [
+        {
+          "after_sha256": "b66f2b5b1ac8cbfff25e2cfee6e479586d403c627bfe00ee5d5cfc88b9a09ee1",
+          "before_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+          "file": "sql/sql_prepare.cc"
+        },
+        {
+          "after_sha256": "9568d5eb9d40839ef61be354cbd584b72c566586e89e80ff0874db0559fb57c7",
+          "before_sha256": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+          "file": "libmysqld/libmysql.c"
+        }
+      ],
+      "patch_sha256": "454392be989ebb95d00c92cf8df667cb52e77eb2044c294769d94c9cc2350e34",
+      "purpose": "Approved experimental TIME plus raw parameter types and single-execution result metadata repair; WASIX embedded-only additions. Not canonical adoption.",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    },
+    "toolchain_pins_sha256": "01bf46c4fd10d022a58badb4834bdac5a7d9d7f53cd88499882e8542c69d7ef9",
+    "toolchain_archives_sha256": {
+      "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
+      "converter": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+      "icu": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174",
+      "llvm": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4",
+      "sysroot": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4",
+      "sysroot_pic": "54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0",
+      "wasixcc": "b4cf06f3ce00a0b2bdc376de24324bac2c963f4672914bf9a1ba99000a4866a7"
+    }
+  },
+  "converter": {
+    "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+    "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+    "patched_converter_sha256": "430bf08585f685138e0c678ebd5a9c9f92802cc124bb01f17e0ac270a35cf2b0",
+    "patches_sha256": {
+      "imported-memory.patch": "9e05149ed2ad75780ee939a7caa577f420d151855ab723498ec60c533f805d40",
+      "import-function-index.patch": "f184c2e800503a3054602dd91e563da5bc52b1695478ae69a534332c072e4654",
+      "relaxed-madd.patch": "c96738bfa8362fed8a4511bfb4496a1157a67cf5e1b047c57cd2b071b1c67a31",
+      "pure-memory32.patch": "7b0bf47f257d51ed842483e1ae2c6cb9a45fb009d7114679f9ed32ff76378694",
+      "controlled-thread-traps.patch": "3ced469af732c0dcd1fa245a6092dcd029d39517ae75f64fd92b79c32e9947ad",
+      "host-logical-memory.patch": "25c9fb5ad28fe852ecbd5ec5c520bf799d066eef71f3b3e6f90ffc007b8ef2ce",
+      "linear-memory-owner.patch": "b71f170fcb2bc5532df1a0c144b9fa4fd31f724ce6799e97138128af13d89df5",
+      "helper-bridge.patch": "934246d80d37a596b43d786065b168aa3d94af62ae3130bd5a9c422ce7e5783b",
+      "export-collision.patch": "2e4866056a3e65c7be0fbc343207157319f609391b07cb8123bed4ab2b2f8f93",
+      "fd-allocate-preservation.patch": "84582c8c9684026735a04117e00a48905f10aef736fb4178c26c79d804b797e6",
+      "zero-bulk-bounds.patch": "85c05f04b24a03e3f65b86b73e8682221615ab10df1d66bde05157d3348813eb",
+      "wait-timeout-range.patch": "980da7652e8b22322cc639a9b39efffaf3a1035b5fdea1467593bf0e50dff5ff",
+      "thread-id-range.patch": "ef07a969971433966fd18ce246d5e515da8c5faa3f10f32e67a09108283a54cf"
+    }
+  },
+  "binding": {
+    "single_guest_sha256": "41ab407681f537daed9b8f2d9c0ef5edc584f7d598399dd8d42ed8e1b13a0be0",
+    "all3_function_bodies_byte_identical": true,
+    "full_data_identical": true,
+    "TLS_bytes": 505,
+    "TLS_identical": true,
+    "data_segment_ranges_identical": true,
+    "previous_guest_rejected": "3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8",
+    "additional_rejected_identities": [
+      "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
+      "a52dd707d337d5349a7c5d72bc2108dc823cfe0c625742e93bc0875a2e3b519a",
+      "c42f1c64de3116a1552b43b76bb5c6f22053936486177c0eecdae986bfd2bdb8"
+    ],
+    "memory_initialization_checked_and_pinned": {
+      "file": "code/p7/p7_pure.go",
+      "function": "Fn67",
+      "normalized_sha256": "84653bc582c02b49808bd91498f1e2449206df8992ea46fd0aeb06dfd687d340"
+    }
+  },
+  "raw_changes": [
+    "alias.go",
+    "base/base.go",
+    "generated.go",
+    "p0/alias.go",
+    "p0/p0.go",
+    "p0/p0_pure.go",
+    "p1/alias.go",
+    "p1/p1.go",
+    "p1/p1_pure.go",
+    "p2/alias.go",
+    "p2/p2.go",
+    "p2/p2_pure.go",
+    "p3/alias.go",
+    "p3/p3.go",
+    "p3/p3_pure.go",
+    "p4/alias.go",
+    "p4/p4.go",
+    "p4/p4_pure.go",
+    "p5/alias.go",
+    "p5/p5.go",
+    "p5/p5_pure.go",
+    "p6/alias.go",
+    "p6/p6.go",
+    "p6/p6_pure.go",
+    "p7/alias.go",
+    "p7/p7.go",
+    "p7/p7_pure.go",
+    "p8/alias.go",
+    "p8/p8.go",
+    "p8/p8_pure.go"
+  ],
+  "local_verification": {
+    "result": "PASS",
+    "tests": 94,
+    "go": "go1.26.8 darwin/arm64",
+    "scope": "source translation/adapter, pure owner transformations, scoped tests and unchanged canonical inventory; no installed host or actual guest execution"
+  },
+  "pending": [
+    "formal installation/compilation and SQL/Snapshot/Fork/Close smoke on both OSes",
+    "exact installed binding and16 mutation checks",
+    "actual P1/original22/TIME13/additional20/repair15 native comparisons",
+    "P2 completion and remaining P3-P6 including independent canonical regeneration"
+  ],
+  "ci_original_files": {
+    "prepared-p1-unit-macos-15-68fb5c247e273192565789246abcb34733a20bc1/inputs.txt": {
+      "sha256": "444cc4e2461a447f9697d91750f61e22ff9342a550ee87a05fbc2e3c962150b6",
+      "bytes": 12145
+    },
+    "prepared-p1-unit-macos-15-68fb5c247e273192565789246abcb34733a20bc1/public.txt": {
+      "sha256": "242891513afdeb0ec00736062f496dbef155ed54957615f68145d89c269d401e",
+      "bytes": 39
+    },
+    "prepared-p1-unit-macos-15-68fb5c247e273192565789246abcb34733a20bc1/source.json": {
+      "sha256": "880bebda2af5320058b259045d79f4d276b6d7bb330d97d6514da25ba47ede4b",
+      "bytes": 153
+    },
+    "prepared-p1-unit-macos-15-68fb5c247e273192565789246abcb34733a20bc1/go-unit.txt": {
+      "sha256": "526d653bf04d0148a01ac6ac7e629caa01820414017bbc9e17051aebe3681690",
+      "bytes": 186
+    },
+    "prepared-p1-unit-macos-15-68fb5c247e273192565789246abcb34733a20bc1/baseline-inventory.txt": {
+      "sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "bytes": 67
+    },
+    "prepared-p1-unit-ubuntu-24.04-68fb5c247e273192565789246abcb34733a20bc1/inputs.txt": {
+      "sha256": "a773292a98676113f31ca47b8ef093a2fbbfd08f890884b43f3000b168b37a91",
+      "bytes": 12133
+    },
+    "prepared-p1-unit-ubuntu-24.04-68fb5c247e273192565789246abcb34733a20bc1/public.txt": {
+      "sha256": "242891513afdeb0ec00736062f496dbef155ed54957615f68145d89c269d401e",
+      "bytes": 39
+    },
+    "prepared-p1-unit-ubuntu-24.04-68fb5c247e273192565789246abcb34733a20bc1/source.json": {
+      "sha256": "880bebda2af5320058b259045d79f4d276b6d7bb330d97d6514da25ba47ede4b",
+      "bytes": 153
+    },
+    "prepared-p1-unit-ubuntu-24.04-68fb5c247e273192565789246abcb34733a20bc1/go-unit.txt": {
+      "sha256": "d4fafe343b811668da236e5c332c36d9f0a44726b0fc2e67a57f334f933598f4",
+      "bytes": 186
+    },
+    "prepared-p1-unit-ubuntu-24.04-68fb5c247e273192565789246abcb34733a20bc1/baseline-inventory.txt": {
+      "sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "bytes": 67
+    }
+  },
+  "saved_files": {
+    "source-proof.json": {
+      "original_sha256": "3fd70057fb661039b8931a6ff806c438065879b954e89d891f0e5491188fb1c5",
+      "stored_sha256": "3fd70057fb661039b8931a6ff806c438065879b954e89d891f0e5491188fb1c5",
+      "bytes": 627
+    },
+    "translation-inputs.json": {
+      "original_sha256": "37b781bf5fde6220b40be585bc850f6db6d9137a7d3b51a7226654e797d26ad4",
+      "stored_sha256": "37b781bf5fde6220b40be585bc850f6db6d9137a7d3b51a7226654e797d26ad4",
+      "bytes": 6367
+    },
+    "raw-inventory-comparison.json": {
+      "original_sha256": "777b47607c9acde8602414081387ebf45451ee0d951a44cb0b427e9998e2beb3",
+      "stored_sha256": "777b47607c9acde8602414081387ebf45451ee0d951a44cb0b427e9998e2beb3",
+      "bytes": 10732
+    },
+    "binding-review.json": {
+      "original_sha256": "e1329205280098e6fb66c9884cb0f7760be8919eb9cbfbf54772fbbe2278fb68",
+      "stored_sha256": "e1329205280098e6fb66c9884cb0f7760be8919eb9cbfbf54772fbbe2278fb68",
+      "bytes": 861
+    },
+    "data-review.json": {
+      "original_sha256": "fca0e8c32a77ccaf9256d46e1c85be25fe862d99fe6973bbcff1448116c2e78b",
+      "stored_sha256": "fca0e8c32a77ccaf9256d46e1c85be25fe862d99fe6973bbcff1448116c2e78b",
+      "bytes": 1014
+    },
+    "owner-checks.json": {
+      "original_sha256": "781ab5fc015b64fb73b5a0013697ff2253d8c75f83960d7ec50c129f01ade782",
+      "stored_sha256": "781ab5fc015b64fb73b5a0013697ff2253d8c75f83960d7ec50c129f01ade782",
+      "bytes": 139
+    },
+    "local-tests.txt": {
+      "original_sha256": "eaa4cbdb345a840b98f36bedd4bacf8dbf9995027fe43385d38fee710d643207",
+      "stored_sha256": "eaa4cbdb345a840b98f36bedd4bacf8dbf9995027fe43385d38fee710d643207",
+      "bytes": 12443
+    },
+    "inventory.txt": {
+      "original_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "stored_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "bytes": 67
+    },
+    "public.txt": {
+      "original_sha256": "1cf4afc9835f64819a8a20bc322df7d85c6503a00631ee002a18748eeef18276",
+      "stored_sha256": "1cf4afc9835f64819a8a20bc322df7d85c6503a00631ee002a18748eeef18276",
+      "bytes": 39
+    },
+    "cleanup-source-proof.json": {
+      "original_sha256": "94015e343b8ca7bfb92005951ff7060123e827036dbd03adde939fa01921cb3d",
+      "stored_sha256": "94015e343b8ca7bfb92005951ff7060123e827036dbd03adde939fa01921cb3d",
+      "bytes": 46668
+    },
+    "translation.txt": {
+      "original_sha256": "a5956b7195de8f5221681f29dd9927b9f88111dbed5b5e1e8b4c1207e367eaed",
+      "stored_sha256": "c888b4c61bbb172483280ddb1deee6adfdcc2281320e0b9c3fe000f2465d00d0",
+      "bytes": 13819
+    },
+    "adapter.txt": {
+      "original_sha256": "dea21f4deb25036ec6f3b69046a7fc16ba6af38d2231f8aac6e995b0dcf33a19",
+      "stored_sha256": "01608fc292daa16011918fa80b24bb997d6f1182d1d9dfb6dd7ed80638e233e0",
+      "bytes": 168
+    },
+    "memory-init.txt": {
+      "original_sha256": "7d381be779de983816eb325293f60eb123110aa7d4347cbd9692b4c128bb820b",
+      "stored_sha256": "7d381be779de983816eb325293f60eb123110aa7d4347cbd9692b4c128bb820b",
+      "bytes": 933
+    }
+  },
+  "log_transformation": "Only local absolute paths are scrubbed; original/stored hashes recorded. Existing SSA/f16 diagnostics retained, not corrected or suppressed."
+}

@@ -1,0 +1,43 @@
+{
+  "baseline_source_commit": "e8897ddb6c1be9d508b88523e07556433882e3df",
+  "probe_identity": "working-tree authored hashes; CI will bind the submitted clean source_commit",
+  "input_sha256": {
+    "tests/v06_prepared_mariadb_probe.py": "65a20427d047570d2686887e85d2dab8b61ac59bde45940d47c32571ac9c9ed3",
+    "tests/v06_install_mariadb_driver.py": "c9c72fe2f284dbd55334c2f3e75d4058afb0243c407758ecab43ccdd4009246d",
+    "tests/test_mariadb_prepared_probe.py": "4754cc215b6eccfaba25f530248caeecf01a042e6dfa2ba37769db4b54e2f275",
+    ".github/workflows/prepared-product.yml": "b723183e7758d9d90135bbfb3a4455d3a2b905bb88ef04fe87d06f710a1ef252"
+  },
+  "driver_version": "1.1.14",
+  "driver_sdist_sha256": "e6d702a53eccf20922e47f2f45cfb5c7a0c2c6c0a46e4ee2d8a80d0ff4a52f34",
+  "driver_sdist_url": "https://files.pythonhosted.org/packages/c4/ba/cedef19833be88e07bfff11964441cda8a998f1628dd3b2fa3e7751d36e0/mariadb-1.1.14.tar.gz",
+  "python_image": "python@sha256:fbecd461fc72d21b2143c6eaba25143738079154a6d0ea3da3aec724f50eed4a",
+  "server_image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+  "native_platform": "Linux arm64 containers running on macOS arm64; NOT Mac-native driver verification or Ubuntu x86_64",
+  "native_result": "PASS: two cases, binary execution witnesses and following SQL",
+  "actual_guest_result": "PENDING supported macOS arm64 and Ubuntu x86_64 CI",
+  "connector_c_policy": "System/runner Connector/C version and compiled extension hash recorded, not claimed identical across platforms; no product/toolchain pin changed",
+  "guest_sha256_expected_unchanged": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "new_exceptions_accepted": false,
+  "files": [
+    {
+      "file": "native-final.json",
+      "original_sha256": "1f7deb855b47c205323c430770e01b4fa8e67312378e54c487dc814464de4c6a",
+      "stored_sha256": "1f7deb855b47c205323c430770e01b4fa8e67312378e54c487dc814464de4c6a",
+      "bytes": 1746
+    },
+    {
+      "file": "native-install-and-run.txt",
+      "original_sha256": "38c8a17be6fe0a21f530866e246bbf29d9e33828ae479d780e6a3467e66a3aa0",
+      "stored_sha256": "9884bd494e9208d67b587bc490fe662cbba2e5473f4bc8f33b3eee94352d7ac9",
+      "bytes": 17237
+    }
+  ],
+  "checks": {
+    "unit_methods": 3,
+    "content_status_negative_variants": 11,
+    "counter_negative_variants": 3,
+    "python_syntax": "PASS",
+    "workflow_yaml": "PASS"
+  },
+  "storage_note": "Install log: normalize terminal CR/CRLF to LF and trim trailing whitespace; original hash retained. Native JSON values/errors unchanged."
+}

@@ -1,0 +1,10 @@
+{
+  "old_input_record": "docs/reviews/v06x-prepared-p2-binding-evidence/translation-inputs.json",
+  "patched_converter_binary_identical": true,
+  "patches_identical": true,
+  "changed_files": [
+    "p7/p7_pure.go"
+  ],
+  "added_files": [],
+  "removed_files": []
+}

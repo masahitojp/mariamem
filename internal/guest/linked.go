@@ -75,6 +75,8 @@ func Connect(ctx context.Context, in io.WriteCloser, out io.ReadCloser, complete
 		if r.err == nil && r.result.Ready && r.result.Version == 2 && r.result.MaxSessions > 0 && r.result.MaxSessions <= 65536 {
 			p.SnapshotVersion = r.result.SnapshotVersion
 			p.MaxSessions = r.result.MaxSessions
+			p.PreparedVersion = r.result.PreparedVersion
+			p.PreparedOperations = append([]uint8(nil), r.result.PreparedOperations...)
 			return p, nil
 		}
 		if r.err == nil {

@@ -1,0 +1,1 @@
+ok  	github.com/masahitojp/mariamem/internal/diagnostic	1.425s

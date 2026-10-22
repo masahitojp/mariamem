@@ -1,0 +1,51 @@
+{
+  "scope": "P4 active-exit candidate; new guest7-case/both-OS acceptance pending",
+  "source_baseline_commit": "54b9332c27c4e2db5fcc6972eee5ea1c5fbc9732",
+  "local_identity": "working source inputs below, not clean-source runtime build",
+  "guest_sha256_unchanged": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "converter_source_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+  "converter_patches": "existing13 unchanged",
+  "native_reference": {
+    "image_digest": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+    "actual_image_id": "sha256:23ccfa2f2df26837c8f397a8f9a070ad728768c095d246edd07cd8d24e9ec40c",
+    "engine_version": "12.3.3-MariaDB-ubu2404",
+    "platform": "Linux arm64 container on macOS arm64; not native macOS engine",
+    "source_commit": "not inferred from image digest",
+    "container": "removed with owned temporary DB volume"
+  },
+  "local_results": {
+    "native_applicable_cases": "5 PASS with race-instrumented Go consumer",
+    "Python_controls": "19 PASS (12 new +7 existing related controls)",
+    "diagnostic_Go_race": "PASS",
+    "old_classifier_precedence": "EXPECTED FAIL; fixed owner restored byte-exactly",
+    "full_local_control_package": "SKIP interrupted during broad canonical runtime compilation; superseded by focused owner check plus mandatory actual guest endpoint cases",
+    "canonical_inventory": "PASS unchanged canonical runtime",
+    "public_sources": "PASS",
+    "actual_new_guest_macos": "PENDING CI",
+    "actual_new_guest_ubuntu": "PENDING CI",
+    "Qualification_release": "NOT RUN"
+  },
+  "consumer_sha256": "68c53bf96c5a7cc525e4cd54147125204c8f7ba7fc7dee86faa0e487fedd784a",
+  "inputs_sha256": {
+    "internal/control/shared.go": "ed7d2744194724d7e173763bbd0c4447dd3e29bcf1782579aa0ae3197d3cc634",
+    "internal/diagnostic/control.go": "20b7fbb0d2356e4845c25e42d35b8574336eed9d1372c263254776597f199158",
+    "internal/diagnostic/control_test.go": "2eea9f17c11478ca260ac78a8894aae6fa7e193195ee97b241f38ecb5d538fa7",
+    "tests/prepared_active/main.go": "9864d5614a1a631e702f012cf3a97cb2ae73e2c126e24eabede1a1f54c6199ee",
+    "tests/v06_prepared_active_probe.py": "76675ec1ba66f95a8dc8153c83e26b7c5d8e94d43289fda243aaf3be2511d002",
+    "tests/test_prepared_active_probe.py": "160f1219637b6d07f00423d40069c4746a9da46f47bd77634aa4b63df3d7ce61",
+    "tests/fixtures/prepared-active-native.json": "e18bea57fb4eff077fed6e79f26c24b2ce86615ea3502676c3f302e3e704b0e3",
+    ".github/workflows/prepared-product.yml": "b3fae71a9645583921b75231742050698af4d78f65eb6729f1262eb7c7eb4f8f"
+  },
+  "saved_files_sha256": {
+    "canonical-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "classifier-oracle.json": "db6af3551796a61d1cc2890e9c3c73132aaf25c2d77624dbf2e2168da67de776",
+    "consumer-buildinfo.txt": "76089b6e864e53d82325470c9a231f5646019de18d6adc4d862502e4e9eb6fa2",
+    "diagnostic-unit.txt": "41899a88fe0afe2e20f50b4b46c30917156ee9e26e8b750b3b2e9d09e5cecced",
+    "log-storage.json": "b8b7ba3ef0ec06e9a588b5c8b5dba1fa6e1a03957d2cd779bb1f1eadeeb0a14e",
+    "native-initial.json": "7d6f66e398643f1d6e2aff8f763b73cfa6fb9a23358438c6334eb54c4fe28598",
+    "native.json": "e18bea57fb4eff077fed6e79f26c24b2ce86615ea3502676c3f302e3e704b0e3",
+    "old-classifier-oracle.txt": "a57b01a4e34d2363af0dee4395b1532c13e76264939d6aa1ccb4e1c46ac617cb",
+    "public.txt": "9133002ad558b75205e0c0fb762b87124b2f826663c60622cab3c01eb5f7add2",
+    "unit.txt": "491d6237fffaed92f0d532be73b37df9853b66a1d45913cc36d3e814946aeeca"
+  }
+}

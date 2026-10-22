@@ -1,0 +1,46 @@
+{
+  "functions": {
+    "code/p3/p3_pure.go": {
+      "function": "Fn153",
+      "normalized_sha256": "7287c2422d92f9cb8e1b35e90d6ff5a49f9d5578ae567ff46a261a4b11159270",
+      "byte_identical": true
+    },
+    "code/p8/p8_pure.go": {
+      "function": "Fn131",
+      "normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "byte_identical": true
+    },
+    "code/p5/p5_pure.go": {
+      "function": "Fn214",
+      "normalized_sha256": "e8d7ae281efd9f856fd14ae535c40473e2ccbf2af261bf67fa716bac40e3bfab",
+      "byte_identical": true
+    }
+  },
+  "data_sha256": "56bd76c7146d6297d5f37ffcc56ba6bfd9906966e33d0831cc4831d9231132f6",
+  "data_segments": [
+    {
+      "start": 0,
+      "end": 6212966,
+      "memory_offset": 8388608,
+      "sha256": "38aa5d1726d1b63051076a2a0e2ca498cb643c4297529660b0af6eea1403f45a"
+    },
+    {
+      "start": 6212966,
+      "end": 6855586,
+      "memory_offset": 14601600,
+      "sha256": "64d031df045ba9f038205e384b248b3646b22e586026becaa7c7c139e039d5b5"
+    },
+    {
+      "start": 6855586,
+      "end": 6856091,
+      "memory_offset": 15244224,
+      "sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df"
+    }
+  ],
+  "memory_init": {
+    "file": "code/p7/p7_pure.go",
+    "function": "Fn67",
+    "normalized_sha256": "84653bc582c02b49808bd91498f1e2449206df8992ea46fd0aeb06dfd687d340"
+  },
+  "all_exact_preimages_match": true
+}

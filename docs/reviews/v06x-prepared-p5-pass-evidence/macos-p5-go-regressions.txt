@@ -1,0 +1,43 @@
+=== RUN   TestDefaultNoBundleAndForkIsolation
+--- PASS: TestDefaultNoBundleAndForkIsolation (0.54s)
+=== RUN   TestDefaultRepeatedConcurrentLifecycle
+--- PASS: TestDefaultRepeatedConcurrentLifecycle (0.62s)
+=== RUN   TestDefaultReleaseFailurePaths
+[mysql] 2026/10/22 11:46:45 connection.go:706 closing bad idle connection: EOF
+[mysql] 2026/10/22 11:46:45 connection.go:706 closing bad idle connection: EOF
+=== RUN   TestDefaultReleaseFailurePaths/unusable_temporary_directory
+=== NAME  TestDefaultReleaseFailurePaths
+    failure_paths_test.go:210: FDs=10→10 goroutines=2→2
+--- PASS: TestDefaultReleaseFailurePaths (0.41s)
+    --- PASS: TestDefaultReleaseFailurePaths/unusable_temporary_directory (0.00s)
+=== RUN   TestClosedDatabaseRetainedPipeLifetime
+    fd_lifetime_test.go:100: retained closed handles=6 descriptors before=10 after=10
+--- PASS: TestClosedDatabaseRetainedPipeLifetime (0.60s)
+=== RUN   TestMemorySnapshotIndependentLifecycle
+--- PASS: TestMemorySnapshotIndependentLifecycle (0.22s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/godefault	2.423s
+=== RUN   TestPublicLifecycle
+    lifecycle_test.go:102: driver=v1.9.3 server=12.3.3-MariaDB-embedded
+    lifecycle_test.go:256: Start, ConnectionInfo/DSN, SQL, InnoDB, commit, transaction rejection, disconnect, snapshot, concurrent/sequential fork isolation and cleanup passed
+--- PASS: TestPublicLifecycle (0.33s)
+=== RUN   TestMultipleClientIsolationAndCapacity
+--- PASS: TestMultipleClientIsolationAndCapacity (0.29s)
+=== RUN   TestMultipleClientSnapshotAndShutdown
+[mysql] 2026/10/22 11:46:51 packets.go:58 unexpected EOF
+[mysql] 2026/10/22 11:46:51 packets.go:58 unexpected EOF
+[mysql] 2026/10/22 11:46:51 packets.go:58 read tcp 127.0.0.1:49724->127.0.0.1:49723: read: connection reset by peer
+[mysql] 2026/10/22 11:46:51 packets.go:58 read tcp 127.0.0.1:49725->127.0.0.1:49723: read: connection reset by peer
+--- PASS: TestMultipleClientSnapshotAndShutdown (0.36s)
+=== RUN   TestOwnedManyOrderParallelAndClose
+    owned_prepared_test.go:232: 35 mutating children + live-after-Close: fd 8 -> 8; goroutines 2 -> 2
+--- PASS: TestOwnedManyOrderParallelAndClose (11.22s)
+=== RUN   TestOwnedForkCloseRace
+--- PASS: TestOwnedForkCloseRace (0.73s)
+=== RUN   TestOwnedModifiedChildCreatesNewBaseline
+--- PASS: TestOwnedModifiedChildCreatesNewBaseline (0.55s)
+=== RUN   TestRepresentativeTypes
+    type_compatibility_test.go:96: [{"database_type":"INT","go_type":"int64","has_decimal":false,"has_length":false,"has_nullable":true,"length":0,"name":"i","nullable":true,"precision":0,"scale":0,"value":"-7"},{"database_type":"UNSIGNED BIGINT","go_type":"uint64","has_decimal":false,"has_length":false,"has_nullable":true,"length":0,"name":"b","nullable":true,"precision":0,"scale":0,"value":"18446744073709551615"},{"database_type":"FLOAT","go_type":"float32","has_decimal":true,"has_length":false,"has_nullable":true,"length":0,"name":"f","nullable":true,"precision":9223372036854775807,"scale":9223372036854775807,"value":"1.25"},{"database_type":"DOUBLE","go_type":"float64","has_decimal":true,"has_length":false,"has_nullable":true,"length":0,"name":"d","nullable":true,"precision":9223372036854775807,"scale":9223372036854775807,"value":"2.5"},{"database_type":"DECIMAL","go_type":"[]uint8","has_decimal":true,"has_length":false,"has_nullable":true,"length":0,"name":"n","nullable":true,"precision":12,"scale":3,"value":"123.450"},{"database_type":"DATE","go_type":"[]uint8","has_decimal":false,"has_length":false,"has_nullable":true,"length":0,"name":"day","nullable":true,"precision":0,"scale":0,"value":"2026-10-01"},{"database_type":"DATETIME","go_type":"[]uint8","has_decimal":true,"has_length":false,"has_nullable":true,"length":0,"name":"dt","nullable":true,"precision":0,"scale":0,"value":"2026-10-01 03:04:05"},{"database_type":"TIMESTAMP","go_type":"[]uint8","has_decimal":true,"has_length":false,"has_nullable":true,"length":0,"name":"ts","nullable":true,"precision":0,"scale":0,"value":"2026-10-01 03:04:05"},{"database_type":"VARCHAR","go_type":"[]uint8","has_decimal":false,"has_length":false,"has_nullable":true,"length":0,"name":"v","nullable":true,"precision":0,"scale":0,"value":"日本語"},{"database_type":"TEXT","go_type":"[]uint8","has_decimal":false,"has_length":false,"has_nullable":true,"length":0,"name":"txt","nullable":true,"precision":0,"scale":0,"value":"text"},{"database_type":"BLOB","go_type":"[]uint8","has_decimal":false,"has_length":false,"has_nullable":true,"length":0,"name":"blobval","nullable":true,"precision":0,"scale":0,"value":"00ff"},{"database_type":"BINARY","go_type":"[]uint8","has_decimal":false,"has_length":false,"has_nullable":true,"length":0,"name":"bin","nullable":true,"precision":0,"scale":0,"value":"01020304"},{"database_type":"BIT","go_type":"[]uint8","has_decimal":false,"has_length":false,"has_nullable":true,"length":0,"name":"bits","nullable":true,"precision":0,"scale":0,"value":"a5"},{"database_type":"INT","go_type":"\u003cnil\u003e","has_decimal":false,"has_length":false,"has_nullable":true,"length":0,"name":"nullable","nullable":true,"precision":0,"scale":0,"value":"\u003cnil\u003e"}]
+--- PASS: TestRepresentativeTypes (0.10s)
+PASS
+ok  	github.com/masahitojp/mariamem/tests/gointegration	13.608s

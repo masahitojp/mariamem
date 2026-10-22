@@ -1,0 +1,5 @@
+Focused local test summary copied from command output, not full transcript.
+Python3.14 / pytest8.4.2 / PyMySQL1.2.3 / darwin-arm64
+Command: python -m pytest -q -rA tests/test_prepared_p2_matrix.py
+Result: 4 passed in 0.05s
+Native reference/replay commands and exact image are recorded in the linked report.

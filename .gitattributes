@@ -4,3 +4,8 @@ python/licenses/* -whitespace
 guest/source.patch -whitespace
 guest/*.inc whitespace=-blank-at-eof
 benchmarks/spikes/wasm2go/*.patch -whitespace
+# Preserve reviewed patch/context evidence byte-for-byte during canonical import.
+guest/patches/*.patch -whitespace
+docs/reviews/v06x-prepared-*/Fn*.diff -whitespace
+docs/reviews/v06x-prepared-*/memory-init.diff -whitespace
+docs/reviews/v06x-prepared-*/proposed-source-change.txt -whitespace

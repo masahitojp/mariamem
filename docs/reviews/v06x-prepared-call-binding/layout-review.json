@@ -1,0 +1,181 @@
+{
+  "functions": {
+    "Fn153": {
+      "non_numeric_structure_identical": true,
+      "all_changes_are_BSS_addresses_plus_64": true,
+      "changed_literal_occurrences": 48,
+      "address_pairs": [
+        [
+          15246156,
+          15246220
+        ],
+        [
+          15246160,
+          15246224
+        ],
+        [
+          15246164,
+          15246228
+        ],
+        [
+          15246168,
+          15246232
+        ],
+        [
+          15246172,
+          15246236
+        ],
+        [
+          15246176,
+          15246240
+        ],
+        [
+          15246180,
+          15246244
+        ],
+        [
+          15246188,
+          15246252
+        ],
+        [
+          15246196,
+          15246260
+        ],
+        [
+          15246460,
+          15246524
+        ],
+        [
+          15246600,
+          15246664
+        ],
+        [
+          15246604,
+          15246668
+        ]
+      ]
+    },
+    "Fn131": {
+      "non_numeric_structure_identical": true,
+      "all_changes_are_BSS_addresses_plus_64": true,
+      "changed_literal_occurrences": 0,
+      "address_pairs": []
+    },
+    "Fn214": {
+      "non_numeric_structure_identical": true,
+      "all_changes_are_BSS_addresses_plus_64": true,
+      "changed_literal_occurrences": 62,
+      "address_pairs": [
+        [
+          15244737,
+          15244801
+        ],
+        [
+          15244740,
+          15244804
+        ],
+        [
+          15248764,
+          15248828
+        ],
+        [
+          15249280,
+          15249344
+        ],
+        [
+          15249328,
+          15249392
+        ],
+        [
+          15249872,
+          15249936
+        ],
+        [
+          15249876,
+          15249940
+        ],
+        [
+          15249880,
+          15249944
+        ],
+        [
+          15307280,
+          15307344
+        ]
+      ]
+    }
+  },
+  "data_sha256": "65fb7f621c373699aeedd32c765ac0138e7b3769f9e43cd7cf087662b4139c52",
+  "data_segments": [
+    {
+      "start": 0,
+      "end": 6213030,
+      "memory_offset": 8388608,
+      "sha256": "7e726a9f216cb35c51e058ea423ae765e7200787cafc6c29984496fb7292a5cb"
+    },
+    {
+      "start": 6213030,
+      "end": 6855650,
+      "memory_offset": 14601664,
+      "sha256": "0495bce90de36ed0a64a08eb3aa3d0427331b382cff954309539c948c8332d2d"
+    },
+    {
+      "start": 6855650,
+      "end": 6856155,
+      "memory_offset": 15244288,
+      "sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df"
+    }
+  ],
+  "TLS_content_identical_to_previous": true,
+  "TLS_bytes": 505,
+  "layout": {
+    "data0_growth": 64,
+    "data1_size_unchanged": 642620,
+    "TLS_shift": 64,
+    "BSS_start_previous": 15244736,
+    "BSS_start_current": 15244800,
+    "BSS_length_unchanged": 8982576,
+    "guard_previous": 24227312,
+    "guard_current": 24227376,
+    "padding_bytes_unchanged": {
+      "data0_to_data1": 26,
+      "data1_to_TLS": 4,
+      "TLS_to_BSS": 7
+    }
+  },
+  "acceptance": "Offline observed differences only; installer must continue exact full-function hashes and one guest hash, never accept numeric normalization",
+  "memory_init_changes": {
+    "non_numeric_structure_identical": true,
+    "changed_literal_pairs": [
+      [
+        24227312,
+        24227376
+      ],
+      [
+        6212966,
+        6213030
+      ],
+      [
+        14601600,
+        14601664
+      ],
+      [
+        15244224,
+        15244288
+      ],
+      [
+        15244736,
+        15244800
+      ],
+      [
+        24227312,
+        24227376
+      ],
+      [
+        24227312,
+        24227376
+      ]
+    ],
+    "other_numeric_literals_unchanged": true
+  }
+}

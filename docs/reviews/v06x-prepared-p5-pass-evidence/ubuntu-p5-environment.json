@@ -1,0 +1,15 @@
+{
+  "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+  "os": "Linux",
+  "architecture": "x86_64",
+  "openssl": "OpenSSL 3.0.13 30 Jan 2024",
+  "python_minor": "3.14",
+  "soabi": "cpython-314-x86_64-linux-gnu",
+  "connector": "26.7.0",
+  "connector_have_cext": false,
+  "connector_sources_sha256": "7945eab736effa50c861b2b7200a1e8bee35cf85af9009105baa0993df6c7c56",
+  "extension_file": "_mysql_connector.cpython-314-x86_64-linux-gnu.so",
+  "extension_sha256": "d50c2c6df26a094c1b87b074a9a4d60fb61b702c25e09761c18e770315e69382",
+  "direct_import": "FAIL",
+  "import_error": "/lib/x86_64-linux-gnu/libssl.so.3: version `OPENSSL_3.2.0' not found (required by /opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/_mysql_connector.cpython-314-x86_64-linux-gnu.so)"
+}

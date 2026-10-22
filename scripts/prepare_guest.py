@@ -42,12 +42,29 @@ subprocess.run(["patch", "--batch", "--forward", "--fuzz=0", "-p1", "-i", str(RO
 # A disposable experiment patch is separate from the canonical product patch.
 experimental = ROOT / "guest/experimental.patch"
 experimental_files = patch_files(ROOT)
+time_patch = None
+prepared_patch = None
 if experimental.exists():
-    subprocess.run(["patch", "-p1", "-i", str(experimental)], cwd=source, check=True)
+    if (ROOT / "guest/prepared_source_patch.json").exists():
+        from prepared_source_patch import apply as apply_prepared_patch
+        prepared_patch = apply_prepared_patch(source)
+    elif (ROOT / "guest/prepared_time_patch.json").exists():
+        from prepared_time_patch import apply as apply_time_patch
+        time_patch = apply_time_patch(source)
+    else:
+        subprocess.run(["patch", "-p1", "-i", str(experimental)], cwd=source, check=True)
+elif (ROOT / "guest/prepared_source_patch.json").exists():
+    from prepared_source_patch import inputs as prepared_inputs, check_functions
+    canonical_prepared = prepared_inputs(ROOT)
+    if canonical_prepared.get('patch_file') != 'guest/patches/12.3.3-prepared.patch':
+        raise ValueError("experimental prepared source patch is missing")
+    check_functions(source, ROOT, 'after')
+elif (ROOT / "guest/prepared_time_patch.json").exists():
+    raise ValueError("experimental TIME patch is missing")
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
 (source / "wasm/wire_api.inc").write_text(
-    "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "resident.inc"\n')
-for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc", "init_diagnostics.inc", "prepared_auth_keys.inc", "routine_bootstrap.inc"):
+    "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "prepared_api.inc"\n#include "resident.inc"\n')
+for name in ("resident.inc", "snapshot_fs.inc", "startup_timing.inc", "init_diagnostics.inc", "prepared_auth_keys.inc", "routine_bootstrap.inc", "prepared_api.inc"):
     shutil.copy2(ROOT / "guest" / name, source / "wasm" / name)
 shutil.copy2(ROOT / "guest/init_diagnostics.h", source / "include/mariamem_init_diagnostics.h")
 diagnostic_files = instrument(source)
@@ -79,11 +96,17 @@ manifest = {"guest_input": guest_input, "portability_series": portability_series
             "modified_files": {name: digest(source / name) for name in
                                (*LOCK["pristine_files"], *(name for patch in portability_series for name in patch["after_sha256"]), "wasm/wire_api.inc", "wasm/resident.inc",
                                 "wasm/snapshot_fs.inc", "wasm/startup_timing.inc", "wasm/init_diagnostics.inc",
-                                "wasm/prepared_auth_keys.inc", "wasm/routine_bootstrap.inc", routine_schema["header"], auth_header, *auth_files,
+                                "wasm/prepared_auth_keys.inc", "wasm/routine_bootstrap.inc", "wasm/prepared_api.inc", routine_schema["header"], auth_header, *auth_files,
                                 "include/mariamem_init_diagnostics.h", *diagnostic_files,
                                 "cmake/pcre.cmake", "cmake/libfmt.cmake", *experimental_files)}}
 if experimental.exists():
     manifest["experimental_patch"] = {"file": "guest/experimental.patch", "sha256": digest(experimental)}
+if time_patch:
+    manifest["experimental_time_patch"] = time_patch
+if prepared_patch:
+    manifest["experimental_prepared_patch"] = prepared_patch
+if not experimental.exists() and (ROOT / "guest/prepared_source_patch.json").exists():
+    manifest["prepared_api_source"] = canonical_prepared
 (ROOT / "build/prepared-source.json").write_text(json.dumps(manifest, indent=2) + "\n")
 shutil.copy2(ROOT / "release/inputs.lock.json", ROOT / "build/preparation-inputs.lock.json")
 print("Prepared build/source from pinned archives; all guest dependencies are local.")

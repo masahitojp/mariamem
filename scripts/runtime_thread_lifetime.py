@@ -7,11 +7,14 @@ before installing the handoff; this is a single-guest binding, not a generic ABI
 import hashlib
 import re
 
-GUEST_SHA256 = "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87"
+# Candidate-only P4 parameter-metadata binding: canonical release inputs remain the routine guest
+# until P6. See tests/fixtures/prepared-p2-binding and the implementation review.
+# A fresh source build must match this single identity before development use.
+GUEST_SHA256 = "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40"
 FUNCTIONS = {
-    "code/p3/p3_pure.go": ("Fn153", "fc0fbe16d5c656aa793a9c35ed8342fbf8e729a3b40289914ebc0a4f65233199"),
+    "code/p3/p3_pure.go": ("Fn153", "4aa80a3d7f3cc57a06cf3939fdba594c874365e69f428ebdf587bd337f5a587a"),
     "code/p8/p8_pure.go": ("Fn131", "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"),
-    "code/p5/p5_pure.go": ("Fn214", "95c5c95062e7f284dba73a5e12d762c4fa02c1740488e2d6b9ed61d49a8a9f03"),
+    "code/p5/p5_pure.go": ("Fn214", "139b6e0be1213a2c03785e33e29c7e3e709be938888819a0b4e670c8daa939ec"),
 }
 
 

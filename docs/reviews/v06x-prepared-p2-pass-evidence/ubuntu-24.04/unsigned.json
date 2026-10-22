@@ -1,0 +1,277 @@
+{
+  "scope": "unsigned/NULL common-type transitions; not full P2-P6",
+  "cases": {
+    "numeric-unsigned-null-transitions": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000008a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000008a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f001500000008a100000000"
+          ],
+          "rows": [
+            "0000ffffffffffffffff"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f001500000008a100000000"
+          ],
+          "rows": [
+            "0000ffffffffffffffff"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000088000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000088000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0015000000088100000000"
+          ],
+          "rows": [
+            "00000000000000000080"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0015000000088100000000"
+          ],
+          "rows": [
+            "00000000000000000080"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000008a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000008a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f001500000008a100000000"
+          ],
+          "rows": [
+            "0000ffffffffffffffff"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f001500000008a100000000"
+          ],
+          "rows": [
+            "0000ffffffffffffffff"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "text-unsigned-null-transitions": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fda000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fda000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd2100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd2100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fd8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fd8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fda000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fda000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd2100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd2100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    }
+  },
+  "failures": {},
+  "host_diagnostics": {
+    "numeric-unsigned-null-transitions": {
+      "runtime": {
+        "runtime_pid": 4613,
+        "host_pid": 4613
+      },
+      "logs": ""
+    },
+    "text-unsigned-null-transitions": {
+      "runtime": {
+        "runtime_pid": 4624,
+        "host_pid": 4624
+      },
+      "logs": ""
+    }
+  },
+  "result": "PASS",
+  "different_cases": [],
+  "native_comparison": "PASS"
+}

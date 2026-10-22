@@ -21,6 +21,14 @@ import (
 const capabilities uint32 = 1 | 4 | 8 | 512 | 8192 | 32768 | 65536 | 131072 | 524288
 const maxPacket = 0xffffff - 1
 const clientFoundRows uint32 = 2
+const clientPSMultiResults uint32 = 1 << 18
+
+func preparedCapabilities(s *preparedSession) uint32 {
+	if s != nil && s.execute {
+		return capabilities | clientPSMultiResults
+	}
+	return capabilities
+}
 
 type wire struct {
 	conn     net.Conn
@@ -170,6 +178,16 @@ func ErrorPacket(code uint16, state, message string) []byte {
 	b := append([]byte{0xff}, le16(code)...)
 	return append(b, []byte("#"+state+message)...)
 }
+
+// A transport/serialization failure closes a no-response command's session;
+// it must not leave an invented error packet for the next PING/EXECUTE to read.
+func (w *wire) commandFailure(op byte, err error) error {
+	if op != 24 && op != 25 {
+		_ = w.send(fatalPacket(err))
+	}
+	return err
+}
+
 func fatalPacket(err error) []byte {
 	if errors.Is(err, context.DeadlineExceeded) {
 		return ErrorPacket(2013, "HY000", "mariamem query timed out; database instance terminated")
@@ -324,6 +342,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 	if !r.OK {
 		return fmt.Errorf("open session: %s", r.Error)
 	}
+	preparedOpen := r
 	opened := true
 	defer func() {
 		if !opened {
@@ -337,6 +356,12 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			err = errors.Join(err, errors.New("session did not close"))
 		}
 	}()
+	// Validate Ready/open before advertising prepared result support. A legacy
+	// guest and the staged PREPARE-only owner must not advertise PS results.
+	statements, err := newPreparedSession(preparedOpen, p.PreparedVersion, p.PreparedOperations)
+	if err != nil {
+		return err
+	}
 	w := wire{conn: conn, timeout: timeout, begin: activity.Begin}
 	query := func(sql []byte, monitor bool) (guest.Result, error) {
 		if len(sql) == 0 || len(sql) > 1<<20 {
@@ -372,15 +397,16 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 	for i := range salt {
 		salt[i] = 33 + salt[i]%90
 	}
+	serverCaps := preparedCapabilities(statements)
 	b := append([]byte{10}, serverVersion...)
 	b = append(b, 0)
 	b = append(b, le32(uint32(id))...)
 	b = append(b, salt[:8]...)
 	b = append(b, 0)
-	b = append(b, le16(uint16(capabilities&0xffff))...)
+	b = append(b, le16(uint16(serverCaps&0xffff))...)
 	b = append(b, 45)
 	b = append(b, le16(status)...)
-	b = append(b, le16(uint16(capabilities>>16))...)
+	b = append(b, le16(uint16(serverCaps>>16))...)
 	b = append(b, 21)
 	b = append(b, make([]byte, 10)...)
 	b = append(b, salt[8:]...)
@@ -448,6 +474,15 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		}
 		opened = true
 		status = r.Status
+		preparedOpen = r
+		statements, err = newPreparedSession(preparedOpen, p.PreparedVersion, p.PreparedOperations)
+		if err != nil {
+			return err
+		}
+	}
+	if statements != nil {
+		statements.psMulti = flags&clientPSMultiResults != 0
+		defer statements.registry.Clear()
 	}
 	// Embedded CLIENT_CAPABILITIES already includes MULTI_RESULTS. Toggle
 	// MULTI_STATEMENTS through its public API without replacing the MYSQL/THD
@@ -502,6 +537,21 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		}
 		var replies [][]byte
 		switch request[0] {
+		case 22, 23, 24, 25, 26:
+			// Local errors and ignored unknown CLOSE must preserve state from the
+			// most recent text command too (not an older prepared response).
+			if statements != nil {
+				statements.status = status
+			}
+			replies, e = statements.handle(request[0], request[1:], func(body []byte, monitor bool) (guest.Result, error) {
+				if monitor {
+					return w.callGuest(p, 5, slot, body)
+				}
+				return call(5, body)
+			})
+			if statements != nil {
+				status = statements.status
+			}
 		case 1:
 			return nil
 		case 3:
@@ -530,8 +580,7 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 			replies = [][]byte{ErrorPacket(1235, "42000", "command is not supported")}
 		}
 		if e != nil {
-			_ = w.send(fatalPacket(e))
-			return e
+			return w.commandFailure(request[0], e)
 		}
 		if replies == nil {
 			if r.Version == 2 {

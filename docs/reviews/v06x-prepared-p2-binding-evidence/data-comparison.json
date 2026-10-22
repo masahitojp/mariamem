@@ -1,0 +1,26 @@
+[
+  {
+    "segment": 0,
+    "old_bytes": 6211814,
+    "new_bytes": 6212966,
+    "equal": false,
+    "old_sha256": "8968d0421acbef6101ca703f3648c3bd048bbc74cf839a16c27306404d94a22a",
+    "new_sha256": "38aa5d1726d1b63051076a2a0e2ca498cb643c4297529660b0af6eea1403f45a"
+  },
+  {
+    "segment": 1,
+    "old_bytes": 642620,
+    "new_bytes": 642620,
+    "equal": false,
+    "old_sha256": "901c907a10ed4f12012f77693146fae69db0ccfd3fab1acc17a482a7f6561959",
+    "new_sha256": "64d031df045ba9f038205e384b248b3646b22e586026becaa7c7c139e039d5b5"
+  },
+  {
+    "segment": 2,
+    "old_bytes": 505,
+    "new_bytes": 505,
+    "equal": true,
+    "old_sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df",
+    "new_sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df"
+  }
+]

@@ -1,0 +1,6 @@
+..                                                                       [100%]
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_prepared_api.py::test_dynamic_prepared_owner_and_failure_cleanup[normal]
+PASSED tests/test_prepared_api.py::test_dynamic_prepared_owner_and_failure_cleanup[address-undefined-sanitizers]
+2 passed in 137.30s (0:02:17)

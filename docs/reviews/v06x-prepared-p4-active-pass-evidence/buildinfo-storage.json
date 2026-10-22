@@ -1,0 +1,16 @@
+{
+  "ubuntu-24.04/development-summary.json": {
+    "original_summary_sha256": "4cdd4588dfe784fa16b722a34b7f80e84f44ddbe688264d770a2ad83e47c0d58",
+    "stored_summary_sha256": "7029c10ea425f0705f13cb86deb72fac9ec5eb7690dc183bc5d5a5c830e883e2",
+    "original_buildinfo_sha256": "2d9380c120f0ee4b565a1d8cde32621d0336078a913d72058023b3adb314065d",
+    "stored_buildinfo_sha256": "2c03033b81627fc321600a73c68055af7a48d9294b41d4f19172e4d2c841b302",
+    "transformation": "Only Go build-info executable runner prefix replaced with <runner-temp>/. Original complete CI receipt hash remains in each summary."
+  },
+  "macos-15/development-summary.json": {
+    "original_summary_sha256": "d662a1280a28283fae63c6ab6d134a0dbf289f0fd245ff12b99455e032fef66b",
+    "stored_summary_sha256": "2fb80889f60e0142956bf698d2da3aa8e62b73754d41dfb68ade508ad2d30b15",
+    "original_buildinfo_sha256": "6c61d49a087df6772534baa20dfcbde7106f971250ff145c958a3435f3754011",
+    "stored_buildinfo_sha256": "3856ebe42aa07a744d3db5a26105e14263c58a10689d4f71f1bca948122abf84",
+    "transformation": "Only Go build-info executable runner prefix replaced with <runner-temp>/. Original complete CI receipt hash remains in each summary."
+  }
+}

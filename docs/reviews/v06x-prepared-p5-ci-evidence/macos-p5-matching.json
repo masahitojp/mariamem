@@ -1,0 +1,11 @@
+{
+  "scope": "diagnostic native parity only; no new limitation accepted",
+  "functional_acceptance": "FAIL",
+  "human_disposition": "PENDING",
+  "matching": "FAIL",
+  "different_cases": [
+    "default",
+    "cext"
+  ],
+  "error": "AssertionError('new native/guest consumer difference')"
+}

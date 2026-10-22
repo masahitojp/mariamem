@@ -1,0 +1,23 @@
+{
+  "code/p3/p3_pure.go": {
+    "function": "Fn153",
+    "expected": "7287c2422d92f9cb8e1b35e90d6ff5a49f9d5578ae567ff46a261a4b11159270",
+    "observed": "7287c2422d92f9cb8e1b35e90d6ff5a49f9d5578ae567ff46a261a4b11159270",
+    "normalized_fixture_equal": true,
+    "bytes_equal": true
+  },
+  "code/p8/p8_pure.go": {
+    "function": "Fn131",
+    "expected": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+    "observed": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+    "normalized_fixture_equal": true,
+    "bytes_equal": true
+  },
+  "code/p5/p5_pure.go": {
+    "function": "Fn214",
+    "expected": "e8d7ae281efd9f856fd14ae535c40473e2ccbf2af261bf67fa716bac40e3bfab",
+    "observed": "e8d7ae281efd9f856fd14ae535c40473e2ccbf2af261bf67fa716bac40e3bfab",
+    "normalized_fixture_equal": true,
+    "bytes_equal": true
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "failed_start_cases": [
+    {
+      "after": {
+        "active_mappings": 1,
+        "active_reserved_bytes": 2147483648,
+        "active_rw_bytes": 688783360,
+        "creates": 5,
+        "grow_calls": 518,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 1377566720,
+        "release_failures": 0,
+        "releases": 4
+      },
+      "before": {
+        "active_mappings": 1,
+        "active_reserved_bytes": 2147483648,
+        "active_rw_bytes": 688783360,
+        "creates": 4,
+        "grow_calls": 416,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 1377566720,
+        "release_failures": 0,
+        "releases": 3
+      },
+      "error": "guest_ready: generated-Go guest startup did not complete the expected API v2 handshake; inspect guest diagnostics. Cause: guest output closed unexpectedly: EOF\nguest output closed unexpectedly: EOF\nguest process: generated-Go guest failure: unimplemented WASIX: Proc_exit2; stderr tail: mariamem: routine_bootstrap step=columns errno=0 sqlstate=00000 reason=incompatible product-managed proc structure; not repaired error= ddl=e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc; Fresh failure with matching artifacts requires a bootstrap bug report; an incompatible restored proc structure requires preparing a new baseline.",
+      "logs": "mariamem: routine_bootstrap step=columns errno=0 sqlstate=00000 reason=incompatible product-managed proc structure; not repaired error= ddl=e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc; Fresh failure with matching artifacts requires a bootstrap bug report; an incompatible restored proc structure requires preparing a new baseline.\n",
+      "mutation": "DROP TABLE mysql.proc",
+      "result": "PASS",
+      "snapshot_close_completed": true,
+      "transfer_directories_unchanged": true
+    },
+    {
+      "after": {
+        "active_mappings": 1,
+        "active_reserved_bytes": 2147483648,
+        "active_rw_bytes": 688783360,
+        "creates": 7,
+        "grow_calls": 729,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 1378746368,
+        "release_failures": 0,
+        "releases": 6
+      },
+      "before": {
+        "active_mappings": 1,
+        "active_reserved_bytes": 2147483648,
+        "active_rw_bytes": 688783360,
+        "creates": 6,
+        "grow_calls": 623,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 1377566720,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "error": "guest_ready: generated-Go guest startup did not complete the expected API v2 handshake; inspect guest diagnostics. Cause: guest output closed unexpectedly: EOF\nguest output closed unexpectedly: EOF\nguest process: generated-Go guest failure: unimplemented WASIX: Proc_exit2; stderr tail: mariamem: routine_bootstrap step=columns errno=0 sqlstate=00000 reason=incompatible product-managed proc structure; not repaired error= ddl=e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc; Fresh failure with matching artifacts requires a bootstrap bug report; an incompatible restored proc structure requires preparing a new baseline.",
+      "logs": "mariamem: routine_bootstrap step=columns errno=0 sqlstate=00000 reason=incompatible product-managed proc structure; not repaired error= ddl=e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc; Fresh failure with matching artifacts requires a bootstrap bug report; an incompatible restored proc structure requires preparing a new baseline.\n",
+      "mutation": "ALTER TABLE mysql.proc MODIFY comment TEXT COLLATE utf8mb3_bin NULL",
+      "result": "PASS",
+      "snapshot_close_completed": true,
+      "transfer_directories_unchanged": true
+    },
+    {
+      "after": {
+        "active_mappings": 1,
+        "active_reserved_bytes": 2147483648,
+        "active_rw_bytes": 688783360,
+        "creates": 9,
+        "grow_calls": 938,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 1378746368,
+        "release_failures": 0,
+        "releases": 8
+      },
+      "before": {
+        "active_mappings": 1,
+        "active_reserved_bytes": 2147483648,
+        "active_rw_bytes": 688783360,
+        "creates": 8,
+        "grow_calls": 833,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 1378746368,
+        "release_failures": 0,
+        "releases": 7
+      },
+      "error": "guest_ready: generated-Go guest startup did not complete the expected API v2 handshake; inspect guest diagnostics. Cause: guest output closed unexpectedly: EOF\nguest output closed unexpectedly: EOF\nguest process: generated-Go guest failure: unimplemented WASIX: Proc_exit2; stderr tail: mariamem: routine_bootstrap step=primary_key errno=0 sqlstate=00000 reason=incompatible product-managed proc key; not repaired error= ddl=e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc; Fresh failure with matching artifacts requires a bootstrap bug report; an incompatible restored proc structure requires preparing a new baseline.",
+      "logs": "mariamem: routine_bootstrap step=primary_key errno=0 sqlstate=00000 reason=incompatible product-managed proc key; not repaired error= ddl=e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc; Fresh failure with matching artifacts requires a bootstrap bug report; an incompatible restored proc structure requires preparing a new baseline.\n",
+      "mutation": "ALTER TABLE mysql.proc DROP PRIMARY KEY, ADD PRIMARY KEY(name,db,type)",
+      "result": "PASS",
+      "snapshot_close_completed": true,
+      "transfer_directories_unchanged": true
+    }
+  ],
+  "final": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 9,
+    "grow_calls": 938,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 1378746368,
+    "release_failures": 0,
+    "releases": 9
+  },
+  "go_text_routine": true,
+  "healthy_instance_after_failures": true,
+  "initial": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 0,
+    "grow_calls": 0,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 0,
+    "release_failures": 0,
+    "releases": 0
+  },
+  "result": "PASS"
+}

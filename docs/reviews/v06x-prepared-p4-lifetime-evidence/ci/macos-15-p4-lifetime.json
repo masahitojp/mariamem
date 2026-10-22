@@ -1,0 +1,258 @@
+{
+  "scope": "P4 lifetime first slice; LONG_DATA and full P4 are unfinished",
+  "cases": {
+    "reset-type-reuse-and-transaction": {
+      "runtime": {
+        "runtime_pid": 12213,
+        "host_pid": 12213
+      },
+      "trace": [
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 0,
+          "status": 3,
+          "warnings": 0
+        },
+        "00000003000000",
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 0,
+          "status": 2,
+          "warnings": 0
+        }
+      ],
+      "prepare": {
+        "parameters": [
+          "03646566000000013f000c3f0000000000068000000000"
+        ],
+        "columns": [],
+        "warnings": 0
+      },
+      "result": "PASS",
+      "following_query": "PASS",
+      "prepared_after": 0,
+      "active_connections_after": 0,
+      "logs": "",
+      "temporary_removed": true
+    },
+    "malformed-lifecycle-adjacency": {
+      "runtime": {
+        "runtime_pid": 12215,
+        "host_pid": 12215
+      },
+      "trace": [
+        {
+          "length": 0,
+          "reset": "ffdb04234859303030556e6b6e6f776e2070726570617265642073746174656d656e742068616e646c65722028302920676976656e20746f206d7973716c645f73746d745f7265736574",
+          "after_kind": "ok"
+        },
+        {
+          "length": 1,
+          "reset": "00000002000000",
+          "after_kind": "unknown-handle"
+        },
+        {
+          "length": 2,
+          "reset": "00000002000000",
+          "after_kind": "unknown-handle"
+        },
+        {
+          "length": 3,
+          "reset": "00000002000000",
+          "after_kind": "unknown-handle"
+        },
+        {
+          "length": 4,
+          "reset": "00000002000000",
+          "after_kind": "unknown-handle"
+        },
+        {
+          "length": 5,
+          "reset": "00000002000000",
+          "after_kind": "unknown-handle"
+        }
+      ],
+      "opaque_handle_observations": [
+        {
+          "id": 1,
+          "after_reset_packet": "00000002000000"
+        },
+        {
+          "id": 2,
+          "after_reset_packet": "ffdb04234859303030556e6b6e6f776e2070726570617265642073746174656d656e742068616e646c65722028322920676976656e20746f206d7973716c645f73746d745f7265736574"
+        },
+        {
+          "id": 3,
+          "after_reset_packet": "ffdb04234859303030556e6b6e6f776e2070726570617265642073746174656d656e742068616e646c65722028332920676976656e20746f206d7973716c645f73746d745f7265736574"
+        },
+        {
+          "id": 4,
+          "after_reset_packet": "ffdb04234859303030556e6b6e6f776e2070726570617265642073746174656d656e742068616e646c65722028342920676976656e20746f206d7973716c645f73746d745f7265736574"
+        },
+        {
+          "id": 5,
+          "after_reset_packet": "ffdb04234859303030556e6b6e6f776e2070726570617265642073746174656d656e742068616e646c65722028352920676976656e20746f206d7973716c645f73746d745f7265736574"
+        },
+        {
+          "id": 6,
+          "after_reset_packet": "ffdb04234859303030556e6b6e6f776e2070726570617265642073746174656d656e742068616e646c65722028362920676976656e20746f206d7973716c645f73746d745f7265736574"
+        }
+      ],
+      "result": "PASS",
+      "following_query": "PASS",
+      "prepared_after": 0,
+      "active_connections_after": 0,
+      "logs": "",
+      "temporary_removed": true
+    },
+    "closed-cross-session-handles": {
+      "runtime": {
+        "runtime_pid": 12217,
+        "host_pid": 12217
+      },
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "03646566000000013f000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "00005c000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "03646566000000013f000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "00005d000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "closed_execute_errno": 1243,
+          "sqlstate": "HY000"
+        }
+      ],
+      "opaque_handle_observations": [
+        {
+          "id": 1,
+          "cross_session_reset_packet": "ffdb04234859303030556e6b6e6f776e2070726570617265642073746174656d656e742068616e646c65722028312920676976656e20746f206d7973716c645f73746d745f7265736574"
+        },
+        {
+          "id": 1,
+          "closed_execute_packet": "ffdb04234859303030556e6b6e6f776e2070726570617265642073746174656d656e742068616e646c65722028312920676976656e20746f206d7973716c645f73746d745f65786563757465"
+        }
+      ],
+      "result": "PASS",
+      "following_query": "PASS",
+      "prepared_after": 0,
+      "active_connections_after": 0,
+      "logs": "",
+      "temporary_removed": true
+    },
+    "native-quota-and-recovery": {
+      "runtime": {
+        "runtime_pid": 12219,
+        "host_pid": 12219
+      },
+      "trace": [
+        {
+          "quota_errno": 1461,
+          "sqlstate": "42000",
+          "live": 2,
+          "error_packet": "ffb50523343230303043616e277420637265617465206d6f7265207468616e206d61785f70726570617265645f73746d745f636f756e742073746174656d656e7473202863757272656e742076616c75653a203229"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "03646566000000013f000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "00004d000000"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "result": "PASS",
+      "following_query": "PASS",
+      "prepared_after": 0,
+      "active_connections_after": 0,
+      "logs": "",
+      "temporary_removed": true
+    },
+    "idle-quit-cleanup": {
+      "runtime": {
+        "runtime_pid": 12221,
+        "host_pid": 12221
+      },
+      "trace": [
+        {
+          "sessions": 12,
+          "statements_per_session": 4,
+          "live_after": 0,
+          "rollback": true
+        }
+      ],
+      "result": "PASS",
+      "following_query": "PASS",
+      "prepared_after": 0,
+      "active_connections_after": 0,
+      "logs": "",
+      "temporary_removed": true
+    },
+    "idle-eof-cleanup": {
+      "runtime": {
+        "runtime_pid": 12223,
+        "host_pid": 12223
+      },
+      "trace": [
+        {
+          "sessions": 12,
+          "statements_per_session": 4,
+          "live_after": 0,
+          "rollback": true
+        }
+      ],
+      "result": "PASS",
+      "following_query": "PASS",
+      "prepared_after": 0,
+      "active_connections_after": 0,
+      "logs": "",
+      "temporary_removed": true
+    },
+    "go-DB-Tx-Conn-pool": {
+      "runtime": {
+        "runtime_pid": 12227,
+        "host_pid": 12227
+      },
+      "consumer": {
+        "result": "PASS",
+        "checks": [
+          "DB.Prepare-explicit-with-interpolation",
+          "Tx.Prepare-Tx.Stmt-commit-rollback-and-invalidation",
+          "Conn.Prepare-and-Conn-close",
+          "shared-DB.Stmt-16-workers-128-executions-4-physical-connections",
+          "DB.Stmt-reprepare-after-idle-retirement-and-ErrBadConn",
+          "native-statement-counter-restored-and-close-idempotent"
+        ],
+        "prepared_before": 0,
+        "prepared_after": 0,
+        "open_after": 0
+      },
+      "stderr": "",
+      "result": "PASS",
+      "active_connections_after": 0,
+      "logs": "",
+      "temporary_removed": true
+    }
+  },
+  "failures": {},
+  "result": "PASS",
+  "different_cases": [],
+  "native_comparison": "PASS"
+}

@@ -1,0 +1,30 @@
+{
+  "scope": "isolated mock owner mutations; no production file edited",
+  "canonical_prepared_api_sha256": "762a0021c0c5ac2385367e389b5be2a0e54bbf5f50b57b56fd66725a4e027334",
+  "harness_sha256": "a74c893782cb04de45239596054178188d524d3d1ca9001a80e31c875c916fe8",
+  "command": "clang -std=c11 -Wall -Wextra -Werror -I <scratch> <scratch>/harness.c -o <scratch>/mutant; <scratch>/mutant failure-matrix",
+  "mutations": {
+    "prepare-owner-leak": {
+      "result": "EXPECTED FAIL",
+      "returncode": -6,
+      "replacement": {
+        "before": "if (failed) { free(b.p); mysql_stmt_close(stmt); free(e); return NULL; }",
+        "after": "if (failed) { free(b.p); mysql_stmt_close(stmt); return NULL; }"
+      },
+      "mutant_sha256": "788756766d7e3c96a89875a33a2eb08b46fdde0ce0030fffb3774560005a98fb",
+      "stderr_original_sha256": "645bc7b66ce3e398a83c6adcf6713bfbe863ce97b965c7f377d54afe454e8a0b",
+      "stderr": "Assertion failed: (!ps_entries && !live && !param_metadata_live && !result_metadata_live && !live_owner_allocations), function failure_teardown, file harness.c, line 220.\n"
+    },
+    "accept-short-refetch": {
+      "result": "EXPECTED FAIL",
+      "returncode": -6,
+      "replacement": {
+        "before": " || length!=n",
+        "after": ""
+      },
+      "mutant_sha256": "faa86c5787db0c935a7ac163cccfcacdf972ccc4904d64fe2534c65121c49778",
+      "stderr_original_sha256": "098690d81c96c3a679a5c770784b6d9cd1763cb89240a84a532e75d61a6b4413",
+      "stderr": "Assertion failed: (!r), function failure_matrix, file harness.c, line 248.\n"
+    }
+  }
+}

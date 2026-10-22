@@ -1,0 +1,21 @@
+.................                                                        [100%]
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_dev_guest_smoke.py::test_dev_fresh_transactions_snapshot_children_and_close
+PASSED tests/test_routine_runtime.py::test_fresh_context_and_native_matched_routine_cases
+PASSED tests/test_routine_runtime.py::test_routine_rows_child_isolation_recapture_and_owner_close
+PASSED tests/test_routine_runtime.py::test_incompatible_baseline_rejected_without_repair_and_sibling_survives[DROP TABLE mysql.proc-columns]
+PASSED tests/test_routine_runtime.py::test_incompatible_baseline_rejected_without_repair_and_sibling_survives[ALTER TABLE mysql.proc MODIFY comment TEXT COLLATE utf8mb3_bin NULL-column]
+PASSED tests/test_routine_runtime.py::test_incompatible_baseline_rejected_without_repair_and_sibling_survives[ALTER TABLE mysql.proc DROP PRIMARY KEY, ADD PRIMARY KEY(name,db,type)-primary]
+PASSED tests/test_routine_runtime.py::test_existing_1728_oracle_is_not_replaced_by_startup_check
+PASSED tests/test_routine_runtime.py::test_default_connector_python_routine_text_regression
+PASSED tests/consumer/test_database.py::test_defaults_and_cleanup
+PASSED tests/consumer/test_database.py::test_snapshot_defaults
+PASSED tests/consumer/test_database.py::test_persistence_api_removed
+PASSED tests/consumer/test_database.py::test_plugin_isolation[1]
+PASSED tests/consumer/test_database.py::test_plugin_isolation[2]
+PASSED tests/consumer/test_database.py::TestIndependent::test_each_method_gets_a_database[1]
+PASSED tests/consumer/test_database.py::TestIndependent::test_each_method_gets_a_database[2]
+PASSED tests/consumer/test_generated_platform.py::test_installed_host_contract
+PASSED tests/consumer/test_generated_platform.py::test_missing_host_rejected_and_next_start_works
+17 passed in 3.90s

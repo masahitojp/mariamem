@@ -1,0 +1,196 @@
+{
+  "source_commit": "2b697c82cb4326da39d5d5fede4ad7826e3d7711",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39760963205",
+  "result": "FAIL: macOS missing matching C native reference; Ubuntu and both units/guest-source PASS",
+  "files": [
+    {
+      "source": "prepared-p1-development-ubuntu-24.04-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-consumers.json",
+      "stored": "ubuntu-p5-consumers.json",
+      "original_sha256": "a43c6b4db7a0f59b2824cde5f80801e1994bdbaadeef953cf1cb587512b46354",
+      "stored_sha256": "a43c6b4db7a0f59b2824cde5f80801e1994bdbaadeef953cf1cb587512b46354",
+      "bytes": 6002
+    },
+    {
+      "source": "prepared-p1-development-ubuntu-24.04-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-matching.json",
+      "stored": "ubuntu-p5-matching.json",
+      "original_sha256": "023b4bbf0153ded009050d9d5a115f0d37e735612106e47835f685bf7ae0c082",
+      "stored_sha256": "023b4bbf0153ded009050d9d5a115f0d37e735612106e47835f685bf7ae0c082",
+      "bytes": 191
+    },
+    {
+      "source": "prepared-p1-development-ubuntu-24.04-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-edges.json",
+      "stored": "ubuntu-p5-edges.json",
+      "original_sha256": "07842cee15deaff0b596ee849a320abab91bd484011f219624236a7d4f93fb95",
+      "stored_sha256": "07842cee15deaff0b596ee849a320abab91bd484011f219624236a7d4f93fb95",
+      "bytes": 2762
+    },
+    {
+      "source": "prepared-p1-development-ubuntu-24.04-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-go-routines.txt",
+      "stored": "ubuntu-p5-go-routines.txt",
+      "original_sha256": "b9411c60dba4f00bb02722e1bbf6b3d2a0a0d2c579714f7c256f1c507b9a34e9",
+      "stored_sha256": "b9411c60dba4f00bb02722e1bbf6b3d2a0a0d2c579714f7c256f1c507b9a34e9",
+      "bytes": 6167
+    },
+    {
+      "source": "prepared-p1-development-ubuntu-24.04-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-sqlalchemy.txt",
+      "stored": "ubuntu-p5-sqlalchemy.txt",
+      "original_sha256": "6517149e20667ffcb5fa033a3b8dc14b575b01b932affebf0edb2569b2f5c067",
+      "stored_sha256": "319aca94eb8f144fac946edb67951bacb0d25ee74bbee0a81ffa9301f34127be",
+      "bytes": 1124
+    },
+    {
+      "source": "prepared-p1-development-ubuntu-24.04-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-gorm.txt",
+      "stored": "ubuntu-p5-gorm.txt",
+      "original_sha256": "df661297e3137536b30276cb6f457fb8be22381b36230cfad2f94bfd433283f3",
+      "stored_sha256": "df661297e3137536b30276cb6f457fb8be22381b36230cfad2f94bfd433283f3",
+      "bytes": 341
+    },
+    {
+      "source": "prepared-p5-native-2b697c82cb4326da39d5d5fede4ad7826e3d7711/consumers.json",
+      "stored": "native-consumers.json",
+      "original_sha256": "c9a346cc5edf313cbd8f076dfc30c6a56193b38068563a52c174e66106c0c7b9",
+      "stored_sha256": "c9a346cc5edf313cbd8f076dfc30c6a56193b38068563a52c174e66106c0c7b9",
+      "bytes": 5720
+    },
+    {
+      "source": "prepared-p5-native-2b697c82cb4326da39d5d5fede4ad7826e3d7711/matching.json",
+      "stored": "native-matching.json",
+      "original_sha256": "023b4bbf0153ded009050d9d5a115f0d37e735612106e47835f685bf7ae0c082",
+      "stored_sha256": "023b4bbf0153ded009050d9d5a115f0d37e735612106e47835f685bf7ae0c082",
+      "bytes": 191
+    },
+    {
+      "source": "prepared-p5-native-2b697c82cb4326da39d5d5fede4ad7826e3d7711/edges.json",
+      "stored": "native-edges.json",
+      "original_sha256": "07842cee15deaff0b596ee849a320abab91bd484011f219624236a7d4f93fb95",
+      "stored_sha256": "07842cee15deaff0b596ee849a320abab91bd484011f219624236a7d4f93fb95",
+      "bytes": 2762
+    },
+    {
+      "source": "prepared-p1-development-macos-15-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-consumers.json",
+      "stored": "macos-p5-consumers.json",
+      "original_sha256": "ccaf20fa7986140e273a7d216860d1a60a951c8d43775fe09fa90ae12d7f56f4",
+      "stored_sha256": "ccaf20fa7986140e273a7d216860d1a60a951c8d43775fe09fa90ae12d7f56f4",
+      "bytes": 6969
+    },
+    {
+      "source": "prepared-p1-development-macos-15-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-matching.json",
+      "stored": "macos-p5-matching.json",
+      "original_sha256": "14f7388e5d843bb1029c3e42042ec1d2f2b3cfd0580bce32118db48342cc29bb",
+      "stored_sha256": "14f7388e5d843bb1029c3e42042ec1d2f2b3cfd0580bce32118db48342cc29bb",
+      "bytes": 289
+    },
+    {
+      "source": "macos-consumers.json",
+      "stored": "local-macos-consumers.json",
+      "original_sha256": "00babe9505a3214ac8ffdd269d130d61b793cd8f059637708e4907830b96d29d",
+      "stored_sha256": "00babe9505a3214ac8ffdd269d130d61b793cd8f059637708e4907830b96d29d",
+      "bytes": 6725
+    },
+    {
+      "source": "macos-environment.json",
+      "stored": "local-macos-environment.json",
+      "original_sha256": "8fdb9f476c13ed54bccc87d244b3c921f51241fc6d83683e1f9136f53b0b02fa",
+      "stored_sha256": "8fdb9f476c13ed54bccc87d244b3c921f51241fc6d83683e1f9136f53b0b02fa",
+      "bytes": 585
+    },
+    {
+      "source": "macos-edges.json",
+      "stored": "local-macos-edges.json",
+      "original_sha256": "ef20548479e28fe024c586d0b60c54d0443d91c89feaa91debd1e0ee3ea7017d",
+      "stored_sha256": "ef20548479e28fe024c586d0b60c54d0443d91c89feaa91debd1e0ee3ea7017d",
+      "bytes": 3887
+    },
+    {
+      "source": "consumers.json",
+      "stored": "local-consumers.json",
+      "original_sha256": "e402e95636c1174e0fc0ae4aa15c91fe4586f72302d2713a1b69f4562d4b6b51",
+      "stored_sha256": "e402e95636c1174e0fc0ae4aa15c91fe4586f72302d2713a1b69f4562d4b6b51",
+      "bytes": 9557
+    },
+    {
+      "source": "environment.json",
+      "stored": "local-environment.json",
+      "original_sha256": "fb674c854c5c6bb2cc4f4e03f7d2cddeb52577ec9759551ac16e5a5542ac3625",
+      "stored_sha256": "fb674c854c5c6bb2cc4f4e03f7d2cddeb52577ec9759551ac16e5a5542ac3625",
+      "bytes": 445
+    },
+    {
+      "source": "matching.json",
+      "stored": "local-matching.json",
+      "original_sha256": "69316c7bf00c0f57711ab065f4329b356ea73c207f04e887b32b296b35545b50",
+      "stored_sha256": "69316c7bf00c0f57711ab065f4329b356ea73c207f04e887b32b296b35545b50",
+      "bytes": 238
+    },
+    {
+      "source": "prepared-p1-development-ubuntu-24.04-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-python-regressions.txt",
+      "stored": "ubuntu-p5-python-regressions.txt",
+      "original_sha256": "8b0a96f5e35391fab0f56f03223701d2fe5a4eaa0cea1c50cf2976f954e3f084",
+      "stored_sha256": "8b0a96f5e35391fab0f56f03223701d2fe5a4eaa0cea1c50cf2976f954e3f084",
+      "bytes": 1940
+    },
+    {
+      "source": "prepared-p1-development-ubuntu-24.04-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-go-regressions.txt",
+      "stored": "ubuntu-p5-go-regressions.txt",
+      "original_sha256": "ed5c142c63b625d25078f5de26197eeeca47fcf267faf240bc5fd571c4d63d0e",
+      "stored_sha256": "ed5c142c63b625d25078f5de26197eeeca47fcf267faf240bc5fd571c4d63d0e",
+      "bytes": 5113
+    },
+    {
+      "source": "prepared-p1-development-ubuntu-24.04-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-sqlalchemy/summary.json",
+      "stored": "ubuntu-p5-sqlalchemy-summary.json",
+      "original_sha256": "3412ae64c31af193307b8afca0343b6f0a26ab77627ec331ef856d534ab899fb",
+      "stored_sha256": "3412ae64c31af193307b8afca0343b6f0a26ab77627ec331ef856d534ab899fb",
+      "bytes": 1804
+    },
+    {
+      "source": "prepared-p1-development-ubuntu-24.04-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-gorm/summary.json",
+      "stored": "ubuntu-p5-gorm-summary.json",
+      "original_sha256": "5fa76429035ff135a50add33945471b2fcfd80b96fe74aefff88e6b386e1a33d",
+      "stored_sha256": "5fa76429035ff135a50add33945471b2fcfd80b96fe74aefff88e6b386e1a33d",
+      "bytes": 436
+    },
+    {
+      "source": "prepared-p1-development-ubuntu-24.04-2b697c82cb4326da39d5d5fede4ad7826e3d7711/p5-routines/connector-regression.json",
+      "stored": "ubuntu-p5-routines-connector-regression.json",
+      "original_sha256": "2a0bb7fb300bc76366c86eb1d7432ee967034394f537c0fc1ecebf342072304f",
+      "stored_sha256": "2a0bb7fb300bc76366c86eb1d7432ee967034394f537c0fc1ecebf342072304f",
+      "bytes": 213
+    }
+  ],
+  "scrubbing": "Runner/home username paths only; original and stored hashes distinguished; stored byte counts.",
+  "macos314_native": {
+    "source_commit": "2b697c82cb4326da39d5d5fede4ad7826e3d7711",
+    "authored_program_unchanged": {
+      "tests/v06_prepared_consumers.py": "48f5e2876da9aa3e0e4e358fd341568ce0b05ef5856fc2cf02f60d4eda69d635",
+      "tests/v06_prepared_consumer_edges.py": "87d6c9de167d847357975ba68eea66c9a5b6ce450c669ab030fece6e32e20168",
+      "tests/prepared_consumer/main.go": "befea07f26b0b3939be4a48b4f46b814b319fa9112fc79dfcc8d07680d83e4b3"
+    },
+    "python_archive_url": "https://github.com/actions/python-versions/releases/download/3.14.8-36806082737/python-3.14.8-darwin-arm64.tar.gz",
+    "python_archive_sha256": "88379ff8be11ec05986bf384205f00092b4b46975f40321d8567a16a7c2e8d5f",
+    "installation": "Expanded package only; no system installation or driver patch. DYLD_FRAMEWORK_PATH/DYLD_LIBRARY_PATH locate unmodified bundled Python/OpenSSL dylibs.",
+    "mariadb_image_digest": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+    "mariadb_image_id": "sha256:23ccfa2f2df26837c8f397a8f9a070ad728768c095d246edd07cd8d24e9ec40c",
+    "server": "Linux arm64 container, 2 CPU/512MiB; client macOS arm64; not a macOS-native MariaDB server",
+    "connector": "26.7.0",
+    "pymysql": "1.2.3",
+    "go": "1.26.8, -race -trimpath -buildvcs=false",
+    "prospective_result": "FAIL retained at prepared-call",
+    "functional_acceptance": "FAIL; Human disposition PENDING",
+    "native_control_fixture_sha256": "00babe9505a3214ac8ffdd269d130d61b793cd8f059637708e4907830b96d29d",
+    "environment_fixture_sha256": "8fdb9f476c13ed54bccc87d244b3c921f51241fc6d83683e1f9136f53b0b02fa"
+  },
+  "correction_inputs_sha256": {
+    "tests/v06_prepared_connector_environment.py": "e80d00ab95f5767bcaf3dd5260ba996cd244181ed512f42655beea6b61cd0253",
+    "tests/v06_prepared_p5_compare.py": "ef7e88d553ed2a98babc341c3d3179a982fb02b23acbfc3effd0f33ba62e959b",
+    "tests/test_prepared_consumers_probe.py": "53ae7016ad858c149e578b4d365a57fe689f1caa11fc62d4bba2f1dc51ea94b3",
+    ".github/workflows/prepared-product.yml": "8c453a10c7703beafd921af962e1629ceb712bbd3ee1b7dfc14a11901d243e87"
+  },
+  "local_verification": {
+    "focused_python314_tests": "36 PASS",
+    "saved_mac_actual_vs_new_native_values_errors": "zero differences; old CI client binary profile not captured",
+    "canonical_inventory": "PASS; unchanged",
+    "public_sources": "PASS",
+    "touched_python_and_workflow_syntax": "PASS"
+  }
+}

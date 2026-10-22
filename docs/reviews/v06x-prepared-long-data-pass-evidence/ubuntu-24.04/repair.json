@@ -1,0 +1,1080 @@
+{
+  "scope": "P2 repair: raw types/null/reuse/transitions and single-execution metadata growth/shrink; not full P2-P6",
+  "cases": {
+    "type-16-unsigned-False": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000108000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000108000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000108000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000108000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000108000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-16-unsigned-True": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000010a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000010a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000010a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000010a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000010a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-247-unsigned-False": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fd8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fd8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-247-unsigned-True": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fda000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fda000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd2100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd2100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd2100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-248-unsigned-False": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fd8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fd8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-248-unsigned-True": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fda000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fda000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd2100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd2100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd2100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-255-unsigned-False": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ff8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ff8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ff8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ff8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ff8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-255-unsigned-True": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ffa000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ffa000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ffa000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ffa000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ffa000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-9-unsigned-False": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000098000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000098000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000098000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000098000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000098000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-9-unsigned-True": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000009a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000009a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000009a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000009a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000000000009a000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-13-unsigned-False": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000d8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000d8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000d8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000d8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000d8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-13-unsigned-True": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000da000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000da000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000da000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000da000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000da000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-14-unsigned-False": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000a8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000a8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000a0000000a8100000000"
+          ],
+          "rows": [
+            "000004e807021d"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000a0000000a8100000000"
+          ],
+          "rows": [
+            "000004e807021d"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000a0000000a8100000000"
+          ],
+          "rows": [
+            "000004e807021d"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "type-14-unsigned-True": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000aa000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000aa000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000a0000000aa100000000"
+          ],
+          "rows": [
+            "000004e807021d"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000a0000000aa100000000"
+          ],
+          "rows": [
+            "000004e807021d"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000011000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000a0000000aa100000000"
+          ],
+          "rows": [
+            "000004e807021d"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "schema-grow-shrink-single-execution": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000a657865637574696f6e73000c3f0015000000088000000000",
+            "03646566047465737401731070325f7265706169725f736368656d61017601760c3f000b000000030000000000"
+          ],
+          "rows": [
+            "0000010000000000000007000000"
+          ],
+          "terminal": "fe00002200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000a657865637574696f6e73000c3f0015000000088000000000",
+            "03646566047465737401731070325f7265706169725f736368656d61017601760c3f000b000000030000000000",
+            "03646566047465737401731070325f7265706169725f736368656d610565787472610565787472610c3f000b000000030000000000"
+          ],
+          "rows": [
+            "00000200000000000000070000000b000000"
+          ],
+          "terminal": "fe00002204"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000a657865637574696f6e73000c3f0015000000088000000000",
+            "03646566047465737401731070325f7265706169725f736368656d61017601760c3f000b000000030000000000"
+          ],
+          "rows": [
+            "0000030000000000000007000000"
+          ],
+          "terminal": "fe00002204"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    }
+  },
+  "failures": {},
+  "host_diagnostics": {
+    "type-16-unsigned-False": {
+      "runtime": {
+        "runtime_pid": 4474,
+        "host_pid": 4474
+      },
+      "logs": ""
+    },
+    "type-16-unsigned-True": {
+      "runtime": {
+        "runtime_pid": 4485,
+        "host_pid": 4485
+      },
+      "logs": ""
+    },
+    "type-247-unsigned-False": {
+      "runtime": {
+        "runtime_pid": 4496,
+        "host_pid": 4496
+      },
+      "logs": ""
+    },
+    "type-247-unsigned-True": {
+      "runtime": {
+        "runtime_pid": 4508,
+        "host_pid": 4508
+      },
+      "logs": ""
+    },
+    "type-248-unsigned-False": {
+      "runtime": {
+        "runtime_pid": 4519,
+        "host_pid": 4519
+      },
+      "logs": ""
+    },
+    "type-248-unsigned-True": {
+      "runtime": {
+        "runtime_pid": 4530,
+        "host_pid": 4530
+      },
+      "logs": ""
+    },
+    "type-255-unsigned-False": {
+      "runtime": {
+        "runtime_pid": 4541,
+        "host_pid": 4541
+      },
+      "logs": ""
+    },
+    "type-255-unsigned-True": {
+      "runtime": {
+        "runtime_pid": 4552,
+        "host_pid": 4552
+      },
+      "logs": ""
+    },
+    "type-9-unsigned-False": {
+      "runtime": {
+        "runtime_pid": 4563,
+        "host_pid": 4563
+      },
+      "logs": ""
+    },
+    "type-9-unsigned-True": {
+      "runtime": {
+        "runtime_pid": 4575,
+        "host_pid": 4575
+      },
+      "logs": ""
+    },
+    "type-13-unsigned-False": {
+      "runtime": {
+        "runtime_pid": 4586,
+        "host_pid": 4586
+      },
+      "logs": ""
+    },
+    "type-13-unsigned-True": {
+      "runtime": {
+        "runtime_pid": 4597,
+        "host_pid": 4597
+      },
+      "logs": ""
+    },
+    "type-14-unsigned-False": {
+      "runtime": {
+        "runtime_pid": 4608,
+        "host_pid": 4608
+      },
+      "logs": ""
+    },
+    "type-14-unsigned-True": {
+      "runtime": {
+        "runtime_pid": 4619,
+        "host_pid": 4619
+      },
+      "logs": ""
+    },
+    "schema-grow-shrink-single-execution": {
+      "runtime": {
+        "runtime_pid": 4630,
+        "host_pid": 4630
+      },
+      "logs": ""
+    }
+  },
+  "result": "PASS",
+  "different_cases": [],
+  "native_comparison": "PASS"
+}

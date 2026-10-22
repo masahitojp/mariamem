@@ -1,0 +1,33 @@
+{
+  "data_sha256": "56bd76c7146d6297d5f37ffcc56ba6bfd9906966e33d0831cc4831d9231132f6",
+  "data_bytes": 6856091,
+  "full_data_equal": true,
+  "tls_sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df",
+  "data_segments": [
+    {
+      "start": 0,
+      "end": 6212966,
+      "memory_offset": 8388608,
+      "sha256": "38aa5d1726d1b63051076a2a0e2ca498cb643c4297529660b0af6eea1403f45a"
+    },
+    {
+      "start": 6212966,
+      "end": 6855586,
+      "memory_offset": 14601600,
+      "sha256": "64d031df045ba9f038205e384b248b3646b22e586026becaa7c7c139e039d5b5"
+    },
+    {
+      "start": 6855586,
+      "end": 6856091,
+      "memory_offset": 15244224,
+      "sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df"
+    }
+  ],
+  "segment_ranges_equal": true,
+  "memory_initialization_checked": true,
+  "memory_init": {
+    "file": "code/p7/p7_pure.go",
+    "function": "Fn67",
+    "normalized_sha256": "84653bc582c02b49808bd91498f1e2449206df8992ea46fd0aeb06dfd687d340"
+  }
+}
