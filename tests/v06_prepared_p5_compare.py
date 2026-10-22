@@ -47,21 +47,59 @@ def verify_cext_profile(actual,reference):
     assert av[1].split('.')[:2]==rv[1].split('.')[:2],'native OpenSSL series differs'
 
 
+
+def compare_edges(actual,native,native_cext=None):
+    assert set(actual['modes'])==set(native['modes'])==set(MODES),'missing edge mode'
+    differences=[]
+    for name,c in actual['modes'].items():
+        if name=='cext' and c.get('capture')=='SKIP':continue
+        assert c.get('capture')=='COMPLETE','incomplete actual edge capture'
+        assert c.get('implementation') in ('MySQLConnection','CMySQLConnection'),'unknown edge implementation'
+        target='cext' if c['implementation']=='CMySQLConnection' else 'pure'
+        reference=native['modes'][target]
+        if reference.get('capture')=='SKIP':
+            assert target=='cext' and native_cext is not None,'missing native C edge control'
+            reference=native_cext['modes']['cext']
+        assert reference.get('capture')=='COMPLETE' and reference.get('implementation')==c['implementation'],'unmatched native edge client'
+        assert set(c['cases'])==set(reference['cases'])=={'nul_projection','prepared_call'},'missing edge case'
+        if c['cases']!=reference['cases']:differences.append(name)
+    return differences
+
+
+def verify_disposition(path):
+    import hashlib
+    # Human acceptance is independent of matching and cannot turn functional
+    # failures into successful values/results. A changed decision needs review.
+    assert hashlib.sha256(path.read_bytes()).hexdigest()==DECISION_SHA256,'unreviewed consumer exception disposition'
+    return 'ACCEPTED_BOUNDED_EXCEPTIONS'
+
+
+DECISION_SHA256 = '291aedf2c85e61f43b5b28ad3c32bff2901181a629f1e78014de2f6f554ed1af'
+
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--actual',type=Path,required=True);p.add_argument('--native',type=Path,required=True);p.add_argument('--native-cext',type=Path);p.add_argument('--actual-environment',type=Path);p.add_argument('--native-cext-environment',type=Path);p.add_argument('--consumer-exit',type=int,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--actual',type=Path,required=True);p.add_argument('--native',type=Path,required=True);p.add_argument('--native-cext',type=Path);p.add_argument('--actual-environment',type=Path);p.add_argument('--native-cext-environment',type=Path);p.add_argument('--actual-edges',type=Path);p.add_argument('--native-edges',type=Path);p.add_argument('--native-cext-edges',type=Path);p.add_argument('--accepted-disposition',type=Path);p.add_argument('--consumer-exit',type=int,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     out={'scope':'diagnostic native parity only; no new limitation accepted','functional_acceptance':'FAIL','human_disposition':'PENDING','matching':'FAIL'}
     try:
         actual=json.loads(a.actual.read_text());native=json.loads(a.native.read_text())
         assert a.consumer_exit==1 and actual['result']=='FAIL','unexpected prospective functional status'
         needs_cext=any(c.get('implementation')=='CMySQLConnection' for c in actual['cases'].values()) and native['cases']['cext'].get('result')=='SKIP'
-        if needs_cext:
-            assert a.native_cext and a.actual_environment and a.native_cext_environment,'required C native profile missing'
+        uses_recorded_cext=needs_cext or ((a.native_cext_environment is not None or a.accepted_disposition is not None) and any(c.get('implementation')=='CMySQLConnection' for c in actual['cases'].values()))
+        if uses_recorded_cext:
+            assert (not needs_cext or a.native_cext) and a.actual_environment and a.native_cext_environment,'required C native profile missing'
             ae=json.loads(a.actual_environment.read_text());ne=json.loads(a.native_cext_environment.read_text())
             verify_cext_profile(ae,ne)
             out['cext_client_environments']={'actual':ae,'native':ne}
         out['different_cases']=compare_observations(actual,native,json.loads(a.native_cext.read_text()) if a.native_cext else None)
-        if needs_cext:out['reference_profiles']=['fresh-linux-native','recorded-macos-python314-native-cext']
+        if uses_recorded_cext:out['reference_profiles']=['fresh-linux-native','recorded-macos-python314-native-cext']
         assert not out['different_cases'],'new native/guest consumer difference'
+        if a.actual_edges or a.native_edges or a.native_cext_edges:
+            assert a.actual_edges and a.native_edges,'both edge captures required'
+            out['different_edge_modes']=compare_edges(json.loads(a.actual_edges.read_text()),json.loads(a.native_edges.read_text()),json.loads(a.native_cext_edges.read_text()) if a.native_cext_edges else None)
+            assert not out['different_edge_modes'],'new native/guest edge difference'
+        if a.accepted_disposition:
+            assert a.actual_edges and a.native_edges,'accepted disposition requires complete edge comparison'
+            out['human_disposition']=verify_disposition(a.accepted_disposition)
+            out['disposition_sha256']=DECISION_SHA256
         out['matching']='PASS'
     except Exception as e:out['error']=repr(e)
     finally:

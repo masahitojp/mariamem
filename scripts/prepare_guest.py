@@ -44,21 +44,27 @@ experimental = ROOT / "guest/experimental.patch"
 experimental_files = patch_files(ROOT)
 time_patch = None
 prepared_patch = None
+canonical_prepared = None
+if (ROOT / "guest/prepared_source_patch.json").exists():
+    pin = json.loads((ROOT / "guest/prepared_source_patch.json").read_text())
+    if pin.get('patch_file') == 'guest/patches/12.3.3-prepared.patch':
+        from prepared_source_patch import inputs as prepared_inputs, check_functions
+        canonical_prepared = prepared_inputs(ROOT)
+        check_functions(source, ROOT, 'after')
 if experimental.exists():
-    if (ROOT / "guest/prepared_source_patch.json").exists():
+    if canonical_prepared is not None:
+        # Future experiments remain isolated and release provenance rejects them.
+        subprocess.run(["patch", "--batch", "--forward", "--fuzz=0", "-p1", "-i", str(experimental)], cwd=source, check=True)
+    elif (ROOT / "guest/prepared_source_patch.json").exists():
         from prepared_source_patch import apply as apply_prepared_patch
         prepared_patch = apply_prepared_patch(source)
     elif (ROOT / "guest/prepared_time_patch.json").exists():
         from prepared_time_patch import apply as apply_time_patch
         time_patch = apply_time_patch(source)
     else:
-        subprocess.run(["patch", "-p1", "-i", str(experimental)], cwd=source, check=True)
-elif (ROOT / "guest/prepared_source_patch.json").exists():
-    from prepared_source_patch import inputs as prepared_inputs, check_functions
-    canonical_prepared = prepared_inputs(ROOT)
-    if canonical_prepared.get('patch_file') != 'guest/patches/12.3.3-prepared.patch':
-        raise ValueError("experimental prepared source patch is missing")
-    check_functions(source, ROOT, 'after')
+        subprocess.run(["patch", "--batch", "--forward", "--fuzz=0", "-p1", "-i", str(experimental)], cwd=source, check=True)
+elif (ROOT / "guest/prepared_source_patch.json").exists() and canonical_prepared is None:
+    raise ValueError("experimental prepared source patch is missing")
 elif (ROOT / "guest/prepared_time_patch.json").exists():
     raise ValueError("experimental TIME patch is missing")
 core = re.sub(r"\bg_mysql\b", "multi_mysql", (ROOT / "guest/wire_core.inc").read_text())
@@ -105,7 +111,7 @@ if time_patch:
     manifest["experimental_time_patch"] = time_patch
 if prepared_patch:
     manifest["experimental_prepared_patch"] = prepared_patch
-if not experimental.exists() and (ROOT / "guest/prepared_source_patch.json").exists():
+if canonical_prepared is not None:
     manifest["prepared_api_source"] = canonical_prepared
 (ROOT / "build/prepared-source.json").write_text(json.dumps(manifest, indent=2) + "\n")
 shutil.copy2(ROOT / "release/inputs.lock.json", ROOT / "build/preparation-inputs.lock.json")

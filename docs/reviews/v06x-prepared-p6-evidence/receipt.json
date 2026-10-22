@@ -1,0 +1,106 @@
+{
+  "baseline_source_commit": "22a8c64305e706408ebcd54cfd7ecc45426802ad",
+  "adopted_files_source_commit": "5d729eff7bd64aa5de3d2b5464e728c3a52fb7ed",
+  "authoring_source_commit": "38b1f795598e3dd56eb3ce9a3e5f3c180d0d59ab",
+  "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "new_engine_or_converter_behavior": false,
+  "files": [
+    {
+      "file": "identity.txt",
+      "original_sha256": "549765443e4b7d2805a80953689df9d1d6ad21bb267bce7704085f9680c1819d",
+      "stored_sha256": "549765443e4b7d2805a80953689df9d1d6ad21bb267bce7704085f9680c1819d",
+      "bytes": 153
+    },
+    {
+      "file": "source-tests.txt",
+      "original_sha256": "0e0ad9e88831a2f9f16e3857734c9af5381886e6ad9dbd6a0c72ab11b31ab4f3",
+      "stored_sha256": "0e0ad9e88831a2f9f16e3857734c9af5381886e6ad9dbd6a0c72ab11b31ab4f3",
+      "bytes": 99
+    },
+    {
+      "file": "prepare.txt",
+      "original_sha256": "88f43b9a71e5603c574cb32c205fcb4664a9a26d29a5c7fb3f1de2b7b0d8bbd1",
+      "stored_sha256": "88f43b9a71e5603c574cb32c205fcb4664a9a26d29a5c7fb3f1de2b7b0d8bbd1",
+      "bytes": 1027
+    },
+    {
+      "file": "canonical-inventory.txt",
+      "original_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "stored_sha256": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+      "bytes": 67
+    },
+    {
+      "file": "compile.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "local-generation.json",
+      "original_sha256": "991a053f58612faf2a53e64c60adbe648dc8d4d6cfb43b049441eb08ea3c53d3",
+      "stored_sha256": "991a053f58612faf2a53e64c60adbe648dc8d4d6cfb43b049441eb08ea3c53d3",
+      "bytes": 631
+    },
+    {
+      "file": "j1-data-review.json",
+      "original_sha256": "975e5647d7a564c8339c9cc86d688055480fe007c6e4cf916e17febf01af643f",
+      "stored_sha256": "975e5647d7a564c8339c9cc86d688055480fe007c6e4cf916e17febf01af643f",
+      "bytes": 791
+    },
+    {
+      "file": "j1-heap-0.txt",
+      "original_sha256": "3c8882f8adebe6f49b631d2874a3b4b324c1e1885f97324453270a8724c3b9bd",
+      "stored_sha256": "3c8882f8adebe6f49b631d2874a3b4b324c1e1885f97324453270a8724c3b9bd",
+      "bytes": 1060
+    },
+    {
+      "file": "j1-heap-1.txt",
+      "original_sha256": "305a1dc402c3b0507967df7c3473a3af791d482ea7eab457d0c79d7e0f23b15d",
+      "stored_sha256": "305a1dc402c3b0507967df7c3473a3af791d482ea7eab457d0c79d7e0f23b15d",
+      "bytes": 1224
+    },
+    {
+      "file": "j1-identities.json",
+      "original_sha256": "668b09b4ed9b287dbf2154dbbbc329fb91c7002bbaacf86b58efc14f87032806",
+      "stored_sha256": "668b09b4ed9b287dbf2154dbbbc329fb91c7002bbaacf86b58efc14f87032806",
+      "bytes": 11438
+    },
+    {
+      "file": "j1-results.json",
+      "original_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "stored_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "bytes": 617
+    },
+    {
+      "file": "j1-mmap-1-race.txt",
+      "original_sha256": "0394b072f812b072d7afd26f893d191060c689f798139feababdcccfbdaa13ae",
+      "stored_sha256": "0394b072f812b072d7afd26f893d191060c689f798139feababdcccfbdaa13ae",
+      "bytes": 1224
+    },
+    {
+      "file": "j1-mmap-0.txt",
+      "original_sha256": "421854394ce6df131df80a9d727d08bdc9196e568843ec5f7bfdf4f53f23f9a8",
+      "stored_sha256": "421854394ce6df131df80a9d727d08bdc9196e568843ec5f7bfdf4f53f23f9a8",
+      "bytes": 1060
+    },
+    {
+      "file": "j1-mmap-1.txt",
+      "original_sha256": "ab5a580a2d734a5a51465240552af1e1df73ebfd54201fc0d16a47477c3827fd",
+      "stored_sha256": "ab5a580a2d734a5a51465240552af1e1df73ebfd54201fc0d16a47477c3827fd",
+      "bytes": 1224
+    },
+    {
+      "file": "j1-heap-1-race.txt",
+      "original_sha256": "87ca3f847c389d1199ad4871030a144ada92c0497ff19c557cf30046928d916a",
+      "stored_sha256": "87ca3f847c389d1199ad4871030a144ada92c0497ff19c557cf30046928d916a",
+      "bytes": 1224
+    }
+  ],
+  "J1_scope": "Same historical failure assertions; exact constructors/addresses/callees bound to current generated guest; not general shared-memory correctness",
+  "scrubbing": "Runner/user-home prefixes only; original/stored hashes distinguished. No SQL or oracle values normalized.",
+  "canonical_source_independent_builds": "PENDING new candidate CI",
+  "local_generated_inventory": {
+    "generated_files": 62,
+    "total_files_including_owned_glue_and_provenance": 99
+  }
+}

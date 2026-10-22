@@ -31,8 +31,7 @@ def inputs(root=ROOT):
         entries = [e for e in source.get('patches', []) if e['file'] == patch_file]
         if (len(entries) != 1 or entries[0]['sha256'] != pin['patch_sha256'] or
                 entries[0]['before_sha256'] != {i['file']: i['before_sha256'] for i in pin['files']} or
-                entries[0]['after_sha256'] != {i['file']: i['after_sha256'] for i in pin['files']} or
-                (root/'guest/experimental.patch').exists()):
+                entries[0]['after_sha256'] != {i['file']: i['after_sha256'] for i in pin['files']}):
             raise ValueError('canonical prepared source series differs')
     names = [item['file'] for item in pin['files']]
     portability = next((item for item in source.get('patches', [])

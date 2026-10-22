@@ -136,3 +136,13 @@ thread/trap/race censusと独立再生成の必要性は既存の開発・Releas
 
 調査報告は当時の入力・結果を保存する。この文書は承認された管理方針と棚卸し基準を所有する。
 今後の実装・棚卸し結果では、対象入力と証拠を追加し、実装済み／未実装を更新する。
+
+
+## Prepared P6での正式系列追加（採用候補）
+
+検証済み3ファイルのTIME／parameter属性／metadata修正を、同じ管理方式の
+`guest/patches/12.3.3-prepared.patch`としてredoの次に追加する。
+`guest/input.json`の順序、完全preimage／postimage、パッチhashを固定し、
+`prepared_source_patch.py`で既存の関数fixtureとも照合する。
+recipe用`guest/source.patch`は不変。実験パッチのbytesは変えず、適用位置の移動が
+同じWasmになることは正式な独立2ビルドで確認する。P6／main採用は完了扱いにしない。

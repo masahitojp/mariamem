@@ -143,15 +143,27 @@ outside product support and compatibility testing; events remain unavailable
 in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
 accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](decisions/routine-support-scope.md).
-Binary prepared statements remain a separate adoption task. `DELIMITER` is a
-client directive; this change does not add a general dump importer.
+The Prepared candidate adds real server-side execution for Go explicit/implicit
+Prepare and Python prepared cursors. It is not in published v0.5.3; main adoption
+and release remain separate decisions. `DELIMITER` is a client directive, and
+this does not add a general dump importer.
+
+Oracle mysql-connector-python26.7.0 has two accepted, native-matched limits:
+prepared CALL result traversal can fail and leave that connection unusable;
+Mac C/default can shorten a NUL-containing untyped character projection.
+Typed binary columns preserve these bytes. The two cases pass with MariaDB
+Connector/Python1.1.14 on both supported guest platforms; this is not blanket
+driver compatibility. See the [exact consumer boundaries](decisions/prepared-consumer-exceptions.md).
+Server-side cursors / COM_STMT_FETCH remain unsupported.
+
 
 Multiple SQL clients have separate sessions, transactions and temporary tables.
 Current capacity is 16, not a permanent API or throughput guarantee. Additional
 connections receive recoverable MySQL error 1040; slots are reused after
 disconnect cleanup. Close the pool before `WaitDisconnected`.
-DSN enables driver-side parameter interpolation; server-side prepared
-statements are unsupported.
+The DSN enables driver-side parameter interpolation for ordinary queries.
+Go explicit Prepare still uses real prepared execution in the candidate;
+interpolation is not required as a substitute for it.
 
 Ordinary SQL errors leave the DB usable. Host query timeout, client cancellation
 or disconnect during active SQL invalidates the DB. Close it and start/fork

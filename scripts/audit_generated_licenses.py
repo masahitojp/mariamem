@@ -39,6 +39,8 @@ def main():
     revision=re.search(r'vcs.revision=([0-9a-f]{40})',buildinfo)
     if not revision or 'vcs.modified=false' not in buildinfo:
         raise ValueError('host lacks clean source identity')
+    original['audit_source_commit']=revision[1]
+    original['generated_provenance_sha256']=digest(ROOT/'internal/generatedgo/provenance.json')
     original['host_check']={'source_commit':revision[1],'sha256':digest(args.host),
                             'buildinfo':buildinfo.replace(str(args.host),'mariamem-host'),
                             'note':'Diagnostic attribution, not new release approval.'}

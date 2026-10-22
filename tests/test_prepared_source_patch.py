@@ -144,7 +144,7 @@ def test_real_source_functions(tmp_path, version, wasi, expected, sanitize):
     assert (record['accepted_types'], record['metadata_refreshed']) == expected
 
 
-def test_canonical_series_entry_and_experiment_mixing_rejected(tree):
+def test_canonical_series_entry_mismatch_rejected(tree):
     root, source = tree
     p = root/'guest/prepared_source_patch.json';pin=json.loads(p.read_text())
     pin['patch_file']='guest/patches/12.3.3-prepared.patch'
@@ -156,5 +156,5 @@ def test_canonical_series_entry_and_experiment_mixing_rejected(tree):
       'after_sha256':{i['file']:i['after_sha256'] for i in pin['files']}})
     d.write_text(json.dumps(v));p.write_text(json.dumps(pin))
     patch.apply(source,root)
-    (root/'guest/experimental.patch').write_text('extra')
+    v['patches'][-1]['sha256']='wrong';d.write_text(json.dumps(v))
     with pytest.raises(ValueError,match='canonical prepared source series differs'):patch.inputs(root)

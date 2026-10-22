@@ -87,7 +87,7 @@ def integration():
     # are a documented shared-memory-model limitation, not a release gate.
     run(["go", "test", "-race", "-p", "1", "./internal/artifacts", "./internal/generatedgo/code/base",
          "./internal/generatedgo", "./internal/guest", "./internal/host",
-         "./internal/mysqlwire", "./internal/snapshot", "./internal/control", "./internal/prepared", ".", "-count=1"], env=env)
+         "./internal/mysqlwire", "./internal/preparedproto", "./internal/snapshot", "./internal/control", "./internal/prepared", ".", "-count=1"], env=env)
     command = ["go", "test"]
     run([*command, "-tags=integration", "./tests/gointegration",
          "-count=1", "-timeout=3m"], env=env)
@@ -109,6 +109,8 @@ def integration():
              "tests/test_owned_snapshot.py", "tests/test_routine_runtime.py",
              "tests/test_text_multi_runtime.py", "-q"], env=env)
         run([sys.executable, "tests/snapshots.py"], env=env)
+        run([sys.executable, "scripts/check_prepared_consumers.py", "--host", host,
+             "--output", Path(temporary)/"prepared-consumers"], env=env)
 
 
 def main():

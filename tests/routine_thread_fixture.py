@@ -71,16 +71,16 @@ def main():
     (probe/'data.bin').write_bytes(data)
     init=binding.function((runtime/'code/p7/p7_pure.go').read_text(),'Fn67')
     segments=layout['data_segments'];first=segments[0]['end'];second=segments[1]['end'];third=segments[2]['end']
-    for text in (f'base.MemoryInit(m, 0, int32(8388608), v7, int32({first}))',f'base.MemoryInit(m, 1, int32({segments[1]["offset"]}), v7, int32(642620))',f'v14 = int32({segments[2]["offset"]})','base.MemoryInit(m, 2, v14, v7, int32(497))'):
+    for text in (f'base.MemoryInit(m, 0, int32(8388608), v7, int32({first}))',f'base.MemoryInit(m, 1, int32({segments[1]["offset"]}), v7, int32(642620))',f'v14 = int32({segments[2]["offset"]})',f'base.MemoryInit(m, 2, v14, v7, int32({third-second}))'):
         assert text in init,text
     template=ROOT/'benchmarks/spikes/v050-join-lifetime/probe_test.go.txt';test=template.read_text()
     replacements={
         'copy(memory[8388608:], data[:6207334])':f'copy(memory[8388608:], data[:{first}])',
         'copy(memory[14595968:], data[6207334:6849954])':f'copy(memory[{segments[1]["offset"]}:], data[{first}:{second}])',
         'copy(memory[15238592:], data[6849954:])':f'copy(memory[{segments[2]["offset"]}:], data[{second}:])',
-        'put(15243132, 123)':'put(15246908, 123)',
-        'put(15244240, 0)':'put(15248016, 0)',
-        'put(15244244, tc.waiters)':'put(15248020, tc.waiters)',
+        'put(15243132, 123)':f'put({15243132+layout["global_address_delta"]}, 123)',
+        'put(15244240, 0)':f'put({15244240+layout["global_address_delta"]}, 0)',
+        'put(15244244, tc.waiters)':f'put({15244244+layout["global_address_delta"]}, tc.waiters)',
         'Fn217(':'Fn215(', 'Fn221(':'Fn219(',
     }
     for before,after in replacements.items():

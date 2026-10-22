@@ -12,6 +12,10 @@ and overlays in this repository. Changes made in September 2026 include a
 resident session protocol, native result metadata, reusable session workers,
 cold filesystem export/restore, a Go MySQL protocol host, and testing APIs.
 
+October 2026 modifications add an embedded public-API prepared bridge, typed
+parameter/result transport and exact TIME/parameter/metadata source repairs.
+Original MariaDB notices remain in the patched corresponding source.
+
 MariaDB Server includes work by Oracle and/or its affiliates, MariaDB and many
 other contributors. Original notices are preserved in the corresponding source.
 lite4mariadb: https://github.com/shyim/lite4mariadb
@@ -27,10 +31,10 @@ are public, non-secret test material, never production credentials. Exact
 source, notice and platform verification remains required for every release
 before public distribution. See docs/releasing.md and THIRD_PARTY_LICENSES.
 
-The v0.4.0 default direct-links generated Go in Go consumers and
+The default runtime direct-links generated Go in Go consumers and
 links it into the host-only Python wheel. WASM is a build intermediate; normal
 execution does not include Wasmer/AOT runtime assets. It uses goccy/wasm2go commit
-730057c146463f663e8774587bc96fb2bea91af8 with nine mariamem-managed patches.
+730057c146463f663e8774587bc96fb2bea91af8 with thirteen mariamem-managed patches.
 Selected compatibility changes derive from shibukawa/wasm2go-fork commit
 ac98bcf00c17d8531f0c071a9836d0b50975e7ff; the fork is no longer a build input.
 Its preserved MIT notice is in licenses/wasm2go-MIT.txt (Masaaki Goshima).

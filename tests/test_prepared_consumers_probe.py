@@ -135,3 +135,62 @@ def test_cli_requires_cext_client_binding_and_keeps_functional_fail(tmp_path,mon
     r=json.loads(output.read_text())
     assert r['matching']==('PASS' if profile=='valid' else 'FAIL')
     assert r['functional_acceptance']=='FAIL' and r['human_disposition']=='PENDING'
+
+
+def edge_reference():
+    return json.loads((ROOT/'tests/fixtures/prepared-p5-native-macos314-edges.json').read_text())
+
+
+def test_full_edge_reference_matches_and_disposition_is_separate():
+    from v06_prepared_p5_compare import compare_edges,verify_disposition
+    r=edge_reference();assert compare_edges(r,r)==[]
+    assert verify_disposition(ROOT/'docs/decisions/prepared-consumer-exceptions.md')=='ACCEPTED_BOUNDED_EXCEPTIONS'
+    assert r['modes']['cext']['cases']['prepared_call']['functional_result']=='FAIL'
+
+
+@pytest.mark.parametrize('mutation',['nul','result-prefix','error','following','cleanup','source','missing'])
+def test_full_edge_controls_reject_changed_accepted_failures(mutation):
+    from v06_prepared_p5_compare import compare_edges
+    r=edge_reference();c=r['modes']['pure']['cases'];call=c['prepared_call']
+    if mutation=='nul':c['nul_projection']['row'][0]='A'
+    elif mutation=='result-prefix':call['resultsets']=[[[9]]]
+    elif mutation=='error':call['error']['errno']=2014
+    elif mutation=='following':call['following_query_error']['message']='different'
+    elif mutation=='cleanup':call['cleanup_errors']=[{'type':'different'}]
+    elif mutation=='source':call['nextset_source_sha256']='0'*64
+    else:del c['prepared_call']
+    try:diff=compare_edges(r,edge_reference())
+    except AssertionError:return
+    assert diff==['pure']
+
+
+def test_edge_cext_missing_control_and_changed_decision_rejected(tmp_path):
+    from v06_prepared_p5_compare import compare_edges,verify_disposition
+    n=edge_reference();n['modes']['cext']={'capture':'SKIP'}
+    with pytest.raises(AssertionError,match='missing native C edge control'):compare_edges(edge_reference(),n)
+    assert compare_edges(edge_reference(),n,edge_reference())==[]
+    p=tmp_path/'decision.md';p.write_text('not the accepted decision')
+    with pytest.raises(AssertionError,match='unreviewed'):verify_disposition(p)
+
+
+@pytest.mark.parametrize('mutation',['none','missing-edge','changed-edge','missing-profile','changed-decision'])
+def test_explicit_accepted_disposition_still_requires_complete_tripwires(tmp_path,monkeypatch,mutation):
+    import sys
+    import v06_prepared_p5_compare as m
+    for name,r in [('actual',native()),('native',native()),('edges',edge_reference()),('native-edges',edge_reference()),('env',cext_environment())]:
+        (tmp_path/(name+'.json')).write_text(json.dumps(r))
+    decision=ROOT/'docs/decisions/prepared-consumer-exceptions.md'
+    if mutation=='changed-decision':decision=tmp_path/'decision';decision.write_text('not approved')
+    if mutation=='changed-edge':
+        r=edge_reference();r['modes']['pure']['cases']['prepared_call']['following_query_error']['message']='new failure';(tmp_path/'edges.json').write_text(json.dumps(r))
+    argv=['compare','--actual',str(tmp_path/'actual.json'),'--native',str(tmp_path/'native.json'),'--consumer-exit','1','--output',str(tmp_path/'out.json'),'--accepted-disposition',str(decision)]
+    if mutation!='missing-edge':argv+=['--actual-edges',str(tmp_path/'edges.json'),'--native-edges',str(tmp_path/'native-edges.json')]
+    if mutation!='missing-profile':argv+=['--actual-environment',str(tmp_path/'env.json'),'--native-cext-environment',str(ROOT/'tests/fixtures/prepared-p5-native-macos314-environment.json')]
+    monkeypatch.setattr(sys,'argv',argv)
+    if mutation=='none':m.main()
+    else:
+        with pytest.raises(SystemExit):m.main()
+    r=json.loads((tmp_path/'out.json').read_text())
+    assert r['matching']==('PASS' if mutation=='none' else 'FAIL')
+    assert r['functional_acceptance']=='FAIL'
+    if mutation=='none':assert r['human_disposition']=='ACCEPTED_BOUNDED_EXCEPTIONS'

@@ -1,0 +1,17 @@
+{
+  "baseline_source_commit": "de0e08a9c4248969a7522abebfdee8aea6ef9657",
+  "baseline_data_sha256": "beafc9db1153a7261d09b09074383b497147fe87c5034df62c592cb241b7ad4f",
+  "candidate_data_sha256": "6111bfe83de71695517e3d9f25fed842d4a43bfc6ae774815abafd81af9064dd",
+  "diagnostic_old": 8687180,
+  "diagnostic_new": 8688301,
+  "diagnostic_bytes_hex": "5f5f7761736d5f7369676e616c5f626c6f636b656400",
+  "diagnostic_bytes_equal": true,
+  "TLS_old_bytes": 497,
+  "TLS_new_bytes": 505,
+  "TLS_old_sha256": "eb83e1aef91b5a2ef84074c7d4470d7a7b142df7409896132bcaad3140b1e19c",
+  "TLS_new_sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df",
+  "TLS_all_nonzero_old": [],
+  "TLS_all_nonzero_new": [],
+  "TLS_497_byte_prefix_identical": true,
+  "TLS_added_8_bytes_all_zero": true
+}

@@ -168,8 +168,19 @@ outside product support and compatibility testing; events remain unavailable
 in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
 accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](docs/decisions/routine-support-scope.md).
-Binary prepared statements remain a separate adoption task. `DELIMITER` is a
-client directive; this change does not add a general dump importer.
+The Prepared candidate adds real server-side execution for Go explicit/implicit
+Prepare and Python prepared cursors. It is not in published v0.5.3; main adoption
+and release remain separate decisions. `DELIMITER` is a client directive, and
+this does not add a general dump importer.
+
+Oracle mysql-connector-python26.7.0 has two accepted, native-matched limits:
+prepared CALL result traversal can fail and leave that connection unusable;
+Mac C/default can shorten a NUL-containing untyped character projection.
+Typed binary columns preserve these bytes. The two cases pass with MariaDB
+Connector/Python1.1.14 on both supported guest platforms; this is not blanket
+driver compatibility. See the [exact consumer boundaries](docs/decisions/prepared-consumer-exceptions.md).
+Server-side cursors / COM_STMT_FETCH remain unsupported.
+
 
 ## Important limits
 
@@ -182,7 +193,7 @@ client directive; this change does not add a general dump importer.
 - Multiple connections and normal commit/rollback are supported. Current
   session capacity is 16; excess connections get recoverable MySQL error 1040.
   This is not a permanent capacity or parallel-throughput guarantee.
-- Server-side prepared statements are unsupported.
+- Prepared support is candidate-only as described above; published v0.5.3 does not include it.
 - Interrupted active SQL invalidates that database. Close it and start or fork
   another. Forced reclamation of hung execution is not guaranteed.
 - This is a test database, not a production service or security boundary.
