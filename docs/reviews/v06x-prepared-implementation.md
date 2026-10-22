@@ -813,3 +813,17 @@ actual guest/native lifetime7, LONG_DATA25 and active7 evidence. Guest-source/
 runtime jobs are SKIP for the unchanged-input test-only candidate. Neither
 mock OOM nor race-detector PASS is generalized into full engine/shared-memory
 correctness. P5/P6, adoption, Qualification and release remain open.
+
+### P5 real consumer and regression candidate
+
+[Bounded P5 matrix and native failure evidence](v06x-prepared-p5-consumers.md)
+add explicit/implicit Go driver1.9.3 consumers, Connector26.7.0 pure/default/C,
+strict private development-wheel binding, current Go/Python lifecycle/routine/
+auth controls and unchanged SQLAlchemy/GORM anchors. Local native Go and Python
+CRUD/typed binary/text checks PASS. Native prepared CALL via Connector nextset
+fails in every mode, and C/default truncates an untyped NUL character projection;
+these stay functional FAIL, with no new Human exception accepted. A separate
+native observation matcher retains FAIL and pending disposition; it cannot close
+P5. Source build, canonical Python3.14 native controls and both-OS actual guest/
+regressions are the next CI gate. Production/guest/converter/Generated Go inputs
+are unchanged. P5/P6 and adoption remain open.

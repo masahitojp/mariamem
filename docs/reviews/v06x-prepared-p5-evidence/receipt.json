@@ -1,0 +1,93 @@
+{
+  "baseline_source_commit": "371641c8df48f7593b3e008d711b9ad546a03b37",
+  "candidate_identity": "working-tree authored input hashes below; exact clean commit is bound by submitted CI source.json",
+  "guest_sha256_unchanged": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "converter_commit_unchanged": "730057c146463f663e8774587bc96fb2bea91af8",
+  "converter_patches_unchanged": 13,
+  "native_reference": {
+    "image_digest": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+    "image_id": "sha256:23ccfa2f2df26837c8f397a8f9a070ad728768c095d246edd07cd8d24e9ec40c",
+    "os": "Linux",
+    "architecture": "arm64",
+    "engine": "12.3.3-MariaDB-ubu2404",
+    "source_commit": null,
+    "limits": {
+      "cpus": 2,
+      "memory_mib": 512
+    },
+    "consumer_host": "macOS arm64",
+    "consumer_environment": {
+      "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "openssl": "OpenSSL 3.6.5 29 Sep 2026",
+      "connector": "26.7.0",
+      "pymysql": "1.2.3"
+    },
+    "source_identity_note": "Container source commit not inferred from image digest or version",
+    "installed_connector_files": {
+      "cursor.py": "4fb42f927bcc7573d76273f646e29b1d2adba12baf7832fca42846ec2c59ceb1",
+      "cursor_cext.py": "cb336bf4e5b02b733b526f457958e79fbf48ebcf4450175c58e1aee41e1c11cc",
+      "_mysql_connector.cpython-311-darwin.so": "f0383ba165ff33be373b0e439e6d626568efeea75903d7fdea87d8db4672199f"
+    }
+  },
+  "go_consumer": {
+    "go": "1.26.8",
+    "driver": "1.9.3",
+    "race": true,
+    "buildvcs": false,
+    "trimpath": true,
+    "sha256": "49f111a1b350d0f56b95c272bb2e30ba6583dd2f1cae4d4d1ffbca21657110c8",
+    "native_interpolation_modes": [
+      true,
+      false
+    ],
+    "native_result": "PASS"
+  },
+  "local_python314": {
+    "status": "SKIP for connector execution",
+    "openssl": "OpenSSL 4.0.3 29 Sep 2026",
+    "PROTOCOL_TLSv1": false,
+    "workaround_used": false
+  },
+  "prospective_python_functional_result": "FAIL: native prepared CALL in all modes, and untyped NUL character projection in C/default",
+  "normal_crud_binary_table_and_text_controls": "PASS, native in all 3 modes",
+  "new_constraints_accepted": false,
+  "actual_guest_acceptance": "PENDING both-OS CI with new native Python3.14 control",
+  "private_wheel_and_existing_regressions": "PENDING CI; not executed locally",
+  "input_sha256": {
+    "tests/prepared_consumer/main.go": "befea07f26b0b3939be4a48b4f46b814b319fa9112fc79dfcc8d07680d83e4b3",
+    "tests/v06_prepared_consumers.py": "48f5e2876da9aa3e0e4e358fd341568ce0b05ef5856fc2cf02f60d4eda69d635",
+    "tests/v06_prepared_consumer_edges.py": "87d6c9de167d847357975ba68eea66c9a5b6ce450c669ab030fece6e32e20168",
+    "tests/v06_prepared_p5_stage.py": "7daf7f2db8f1255c8b7959df77f9766f162a216022f72eb0ad3925fecdec33f4",
+    "tests/v06_prepared_p5_compare.py": "369adcd9431461b0e63916f7abe1cc94eee480c81b71ef3ae6879c0a95421b7a",
+    "tests/test_prepared_consumers_probe.py": "3fd0a2f6f5056d7909a1926f080cc9bd2bf2ddf106b7cf2aec189a815b9d26b8",
+    "tests/fixtures/prepared-p5-native-observation.json": "ad2435df27f8d553b77317c9981e2b3b0c2ca0ecc83df626f316f19f0834f029",
+    ".github/workflows/prepared-product.yml": "03ebe04e5adddde35b91c7093ac15275fcdc2fe5e4b920085e3666a8c388939d"
+  },
+  "files_sha256": {
+    "canonical-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "go-race.txt": "4beed7d2db4ef5627b38ea8243b0ece3a3eb7cd75ccfca4ced9acee291c75965",
+    "inputs.txt": "59e1aa67d7b1602e4f1e7c3fe786ce60645a320cb58df5991dbe72ec16ca8fc8",
+    "native-edges.json": "9ce289d8ed418468ed3ecb9965c84bcbacd8ae45161cf79b83e3fa68dcb5e856",
+    "native-final.json": "ad2435df27f8d553b77317c9981e2b3b0c2ca0ecc83df626f316f19f0834f029",
+    "native-initial.json": "1750885bd01d572cbf6110dca882e5a8ec9249a9a3c149d4c52788478201f418",
+    "native-nul.json": "06e73cc3e6cd8f773731861e7a2d485e9fb7ce9f91d9cbebc9ae534b7a29e47d",
+    "native-stages.json": "512bb5459efba03eaca2b8f2699cbb360418e8d2be737fc6b892e9d3f541763b",
+    "public.txt": "c5677350f8d465233c1cf3fc16027a4158a6eddaffa40768b8509df35956f335"
+  },
+  "local_unit_results": {
+    "python": "3.11 native-control environment",
+    "python_c_checks": 149,
+    "go_race_packages": 4,
+    "source_only": "PASS",
+    "canonical_inventory": "PASS",
+    "public_sources": "PASS",
+    "canonical_python314": "PENDING CI"
+  },
+  "storage_notes": {
+    "native-initial.json": "Intermediate uncommitted prospective consumer revision; historical FAIL, not final candidate acceptance.",
+    "native-stages.json": "Intermediate uncommitted stage instrumentation; historical FAIL, not final candidate acceptance.",
+    "native-final.json": "Final authored consumer input hashes in this receipt; FAIL preserved.",
+    "native-nul.json": "Earlier minimal one-query projection capture; the maintained reproducer is tests/v06_prepared_consumer_edges.py.",
+    "native-edges.json": "Maintained minimal edge reproducer; capture COMPLETE and per-case functional FAIL remain distinct."
+  }
+}

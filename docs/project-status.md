@@ -916,6 +916,17 @@ row is complete. Guest-source/runtime jobs were explicitly SKIP for this
 tests-only candidate; no new actual guest campaign or real-engine OOM injection
 is claimed. P5 real consumers/regressions and P6 canonical/J1/independent
 generation remain open.
+The [P5 real consumer candidate](reviews/v06x-prepared-p5-consumers.md) adds
+fixed Go explicit/implicit Prepare and Connector26.7.0 pure/default/C observations,
+private source-bound wheel staging, current integration/routine/auth and existing
+SQLAlchemy/GORM anchors. Local native Go modes and Python CRUD/typed binary/text
+controls PASS, but native Python prepared CALL result traversal and C untyped
+NUL projection expose new functional failures. Their original FAIL oracles are
+retained; separate native-matching diagnostics cannot grant functional acceptance.
+New native Python3.14 and both-OS actual guest/regression CI are pending. P5 stays
+open even if the diagnostic CI matches native; these two constraints have no
+Human acceptance yet. Runtime/guest/converter/canonical generation inputs remain
+unchanged, and no default connection is forced to pure mode.
 
 
 No scope reduction is accepted.

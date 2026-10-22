@@ -1,0 +1,47 @@
+{
+  "connector": "26.7.0",
+  "modes": {
+    "pure": {
+      "connection": "MySQLConnection",
+      "row": [
+        "A\u0000B",
+        "410042",
+        3,
+        {
+          "hex": "410042"
+        }
+      ],
+      "nextset_implementation": "MySQLCursor.nextset",
+      "nextset_source_sha256": "0805a9cf7a1286926f5e1b65ce0a09a67f84effc6b3d089319351cd12aea81d4",
+      "capture": "COMPLETE"
+    },
+    "default": {
+      "connection": "CMySQLConnection",
+      "row": [
+        "A",
+        "410042",
+        3,
+        {
+          "hex": "410042"
+        }
+      ],
+      "nextset_implementation": "CMySQLCursor.nextset",
+      "nextset_source_sha256": "f7a3e32c76fd3ab0250e69272a6b46cf6ff466afdce83de5d489684cacfda8c1",
+      "capture": "COMPLETE"
+    },
+    "cext": {
+      "connection": "CMySQLConnection",
+      "row": [
+        "A",
+        "410042",
+        3,
+        {
+          "hex": "410042"
+        }
+      ],
+      "nextset_implementation": "CMySQLCursor.nextset",
+      "nextset_source_sha256": "f7a3e32c76fd3ab0250e69272a6b46cf6ff466afdce83de5d489684cacfda8c1",
+      "capture": "COMPLETE"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 name: Prepared staged source, unit and development runtime (not adoption)
 on:
   push:
-    branches: [experiment/prepared-failures, experiment/prepared-product, experiment/prepared-execute, experiment/prepared-time-width, experiment/prepared-p2-repair, experiment/prepared-param-order, experiment/prepared-call, experiment/prepared-long-data, experiment/prepared-param-metadata]
+    branches: [experiment/prepared-consumers, experiment/prepared-failures, experiment/prepared-product, experiment/prepared-execute, experiment/prepared-time-width, experiment/prepared-p2-repair, experiment/prepared-param-order, experiment/prepared-call, experiment/prepared-long-data, experiment/prepared-param-metadata]
 permissions:
   contents: read
 jobs:
@@ -78,7 +78,7 @@ jobs:
           python -c 'import json,os;assert json.load(open("build/prepared-p1/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
           test -z "$(git status --porcelain)"
       - name: C ownership and input guards, including sanitizers
-        run: python -m pytest -q -rA tests/test_prepared_api.py tests/test_routine_schema.py tests/test_thread_lifetime_binding.py tests/test_dev_guest_tools.py tests/test_prepared_time_patch.py tests/test_prepared_source_patch.py tests/test_prepared_param_order.py tests/test_prepared_p2_matrix.py tests/test_prepared_p2_repair_probe.py tests/test_prepared_call_probe.py tests/test_prepared_p3_matrix.py tests/test_prepared_p4_lifetime.py tests/test_prepared_long_data_probe.py tests/test_prepared_active_probe.py > build/prepared-p1/inputs.txt 2>&1
+        run: python -m pytest -q -rA tests/test_prepared_api.py tests/test_routine_schema.py tests/test_thread_lifetime_binding.py tests/test_dev_guest_tools.py tests/test_prepared_time_patch.py tests/test_prepared_source_patch.py tests/test_prepared_param_order.py tests/test_prepared_p2_matrix.py tests/test_prepared_p2_repair_probe.py tests/test_prepared_call_probe.py tests/test_prepared_p3_matrix.py tests/test_prepared_p4_lifetime.py tests/test_prepared_long_data_probe.py tests/test_prepared_active_probe.py tests/test_prepared_consumers_probe.py > build/prepared-p1/inputs.txt 2>&1
       - name: Host protocol, registry, metadata and request budgets
         run: go test -race -p 1 -count=1 ./internal/preparedproto ./internal/mysqlwire ./internal/guest ./internal/diagnostic > build/prepared-p1/go-unit.txt 2>&1
       - name: Existing canonical baseline inventory and public sources
@@ -93,19 +93,69 @@ jobs:
           path: build/prepared-p1
           if-no-files-found: error
           retention-days: 7
+  p5-native-control:
+    # Fixed native reference under canonical Python3.14; both supported hosts
+    # compare to this explicitly Linux x86_64 control, never a macOS server.
+    if: github.ref == 'refs/heads/experiment/prepared-product' || github.ref == 'refs/heads/experiment/prepared-consumers'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      mariadb:
+        image: mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+          MARIADB_DATABASE: test
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=30
+    env:
+      GOTOOLCHAIN: go1.26.8
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Exact native-control inputs
+        run: |
+          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0
+          mkdir -p build/prepared-p5-native
+          python scripts/git_identity.py inspect HEAD > build/prepared-p5-native/source.json
+          python -c 'import json,os;assert json.load(open("build/prepared-p5-native/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          docker image inspect mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1 --format '{{json .}}' > build/prepared-p5-native/image.json
+      - name: Native real consumer observation with functional failures retained
+        run: |
+          go build -race -trimpath -buildvcs=false -o "$RUNNER_TEMP/prepared-p5-native-consumer" ./tests/prepared_consumer
+          set +e
+          python tests/v06_prepared_consumers.py --native-port 3307 --consumer "$RUNNER_TEMP/prepared-p5-native-consumer" --output build/prepared-p5-native/consumers.json > build/prepared-p5-native/consumers.txt 2>&1
+          consumer_exit=$?
+          set -e
+          python tests/v06_prepared_p5_compare.py --actual build/prepared-p5-native/consumers.json --native tests/fixtures/prepared-p5-native-observation.json --consumer-exit "$consumer_exit" --output build/prepared-p5-native/matching.json
+          python tests/v06_prepared_consumer_edges.py --native-port 3307 --output build/prepared-p5-native/edges.json > build/prepared-p5-native/edges.txt 2>&1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: prepared-p5-native-${{ github.sha }}
+          path: build/prepared-p5-native
+          if-no-files-found: error
+          retention-days: 7
   development-runtime:
     # Source repair branches first produce a new, unknown guest for exact binding
     # review. It does not run or claim the runtime gate with the previous guest pin.
     # After review, bringing it into prepared-product restores the full gate;
     # the installer/whole-body checks themselves are never bypassed.
-    if: github.ref == 'refs/heads/experiment/prepared-product'
-    needs: guest-source
+    if: github.ref == 'refs/heads/experiment/prepared-product' || github.ref == 'refs/heads/experiment/prepared-consumers'
+    needs: [guest-source, p5-native-control]
     strategy:
       fail-fast: false
       matrix:
         runner: [macos-15, ubuntu-24.04]
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 70
+    timeout-minutes: 120
     env:
       GOTOOLCHAIN: go1.26.8
       PYTHONDONTWRITEBYTECODE: '1'
@@ -194,6 +244,48 @@ jobs:
         run: |
           go build -race -trimpath -buildvcs=false -o "$RUNNER_TEMP/prepared-active-consumer" ./tests/prepared_active
           python tests/v06_prepared_active_probe.py --host "$RUNNER_TEMP/prepared-p1-native/mariamem-dev-host" --consumer "$RUNNER_TEMP/prepared-active-consumer" --reference tests/fixtures/prepared-active-native.json --output build/prepared-p1/active.json > build/prepared-p1/active.txt 2>&1
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        if: github.ref == 'refs/heads/experiment/prepared-consumers'
+        with:
+          name: prepared-p5-native-${{ github.sha }}
+          path: ${{ runner.temp }}/prepared-p5-native-control
+      - name: P5 fixed Python consumers and private development wheel
+        if: github.ref == 'refs/heads/experiment/prepared-consumers'
+        run: |
+          python -m pip install -r tests/consumer/sqlalchemy-requirements.txt mysql-connector-python==26.7.0 setuptools wheel
+          python tests/v06_prepared_p5_stage.py --development "$RUNNER_TEMP/prepared-p1-native" --work "$RUNNER_TEMP/prepared-p5-private" --output build/prepared-p1/p5-stage.json > build/prepared-p1/p5-stage.txt 2>&1
+      - name: P5 real consumers and explicit native-failure characterization, not acceptance
+        if: github.ref == 'refs/heads/experiment/prepared-consumers'
+        run: |
+          go build -race -trimpath -buildvcs=false -o "$RUNNER_TEMP/prepared-p5-consumer" ./tests/prepared_consumer
+          set +e
+          python tests/v06_prepared_consumers.py --host "$RUNNER_TEMP/prepared-p1-native/mariamem-dev-host" --consumer "$RUNNER_TEMP/prepared-p5-consumer" --output build/prepared-p1/p5-consumers.json > build/prepared-p1/p5-consumers.txt 2>&1
+          consumer_exit=$?
+          set -e
+          python tests/v06_prepared_p5_compare.py --actual build/prepared-p1/p5-consumers.json --native "$RUNNER_TEMP/prepared-p5-native-control/consumers.json" --consumer-exit "$consumer_exit" --output build/prepared-p1/p5-matching.json > build/prepared-p1/p5-matching.txt 2>&1
+          python tests/v06_prepared_consumer_edges.py --host "$RUNNER_TEMP/prepared-p1-native/mariamem-dev-host" --output build/prepared-p1/p5-edges.json > build/prepared-p1/p5-edges.txt 2>&1
+      - name: P5 installed Python lifecycle, routines and text regressions
+        if: github.ref == 'refs/heads/experiment/prepared-consumers'
+        env:
+          MARIAMEM_ROUTINE_REQUIRE_CONNECTOR: '1'
+        run: |
+          export MARIAMEM_TEST_HOST="$RUNNER_TEMP/prepared-p1-native/mariamem-dev-host"
+          export MARIAMEM_ROUTINE_EVIDENCE="$GITHUB_WORKSPACE/build/prepared-p1/p5-routines"
+          python -m pytest -q -rA tests/test_dev_guest_smoke.py tests/test_routine_runtime.py tests/consumer/test_database.py tests/consumer/test_generated_platform.py > build/prepared-p1/p5-python-regressions.txt 2>&1
+      - name: P5 installed Go SQL transaction Snapshot Fork isolation and Close regressions
+        if: github.ref == 'refs/heads/experiment/prepared-consumers'
+        env:
+          MARIAMEM_TEST_DEFAULT: '1'
+        run: |
+          cd "$RUNNER_TEMP/prepared-p1-native/product"
+          go test -tags integration -p 1 -count=1 -timeout=15m -v ./tests/godefault ./tests/gointegration > "$GITHUB_WORKSPACE/build/prepared-p1/p5-go-regressions.txt" 2>&1
+          go run -p 1 -trimpath ./tests/routine_probe -output "$GITHUB_WORKSPACE/build/prepared-p1/p5-go-routines.json" > "$GITHUB_WORKSPACE/build/prepared-p1/p5-go-routines.txt" 2>&1
+          go run -p 1 -trimpath ./cmd/mariamem-guest auth-check > "$GITHUB_WORKSPACE/build/prepared-p1/p5-auth.txt" 2>&1
+      - name: P5 existing unmodified SQLAlchemy and GORM anchors
+        if: github.ref == 'refs/heads/experiment/prepared-consumers'
+        run: |
+          python tests/consumer/run_sqlalchemy.py --output build/prepared-p1/p5-sqlalchemy > build/prepared-p1/p5-sqlalchemy.txt 2>&1
+          python tests/consumer/run_gorm.py --source-dir "$RUNNER_TEMP/prepared-p1-native/product" --zero-options --output build/prepared-p1/p5-gorm > build/prepared-p1/p5-gorm.txt 2>&1
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

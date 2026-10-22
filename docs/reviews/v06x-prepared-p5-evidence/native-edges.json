@@ -1,0 +1,144 @@
+{
+  "scope": "consumer edge characterization, never adoption acceptance",
+  "environment": {
+    "connector": "26.7.0",
+    "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+    "openssl": "OpenSSL 3.6.5 29 Sep 2026",
+    "system": "Darwin",
+    "architecture": "arm64"
+  },
+  "modes": {
+    "pure": {
+      "mode": "pure",
+      "cases": {
+        "nul_projection": {
+          "row": [
+            "A\u0000B",
+            "410042",
+            3,
+            {
+              "bytes_hex": "410042"
+            }
+          ],
+          "functional_result": "PASS"
+        },
+        "prepared_call": {
+          "stage": "nextset",
+          "resultsets": [
+            [
+              [
+                7
+              ]
+            ]
+          ],
+          "cleanup_errors": [],
+          "nextset_owner": "MySQLCursor.nextset",
+          "nextset_source_sha256": "0805a9cf7a1286926f5e1b65ce0a09a67f84effc6b3d089319351cd12aea81d4",
+          "functional_result": "FAIL",
+          "error": {
+            "type": "ProgrammingError",
+            "errno": -1,
+            "sqlstate": null,
+            "message": "Failed handling non-resultset; 'affected_rows'"
+          },
+          "following_query_error": {
+            "type": "InterfaceError",
+            "errno": -1,
+            "sqlstate": null,
+            "message": "Invalid result"
+          }
+        }
+      },
+      "implementation": "MySQLConnection",
+      "capture": "COMPLETE"
+    },
+    "default": {
+      "mode": "default",
+      "cases": {
+        "nul_projection": {
+          "row": [
+            "A",
+            "410042",
+            3,
+            {
+              "bytes_hex": "410042"
+            }
+          ],
+          "functional_result": "FAIL"
+        },
+        "prepared_call": {
+          "stage": "nextset",
+          "resultsets": [
+            [
+              [
+                7
+              ]
+            ]
+          ],
+          "cleanup_errors": [],
+          "nextset_owner": "CMySQLCursor.nextset",
+          "nextset_source_sha256": "f7a3e32c76fd3ab0250e69272a6b46cf6ff466afdce83de5d489684cacfda8c1",
+          "functional_result": "FAIL",
+          "error": {
+            "type": "DatabaseError",
+            "errno": 2014,
+            "sqlstate": "HY000",
+            "message": "2014 (HY000): Commands out of sync; you can't run this command now"
+          },
+          "following_query_error": {
+            "type": "InternalError",
+            "errno": -1,
+            "sqlstate": null,
+            "message": "Unread result found"
+          }
+        }
+      },
+      "implementation": "CMySQLConnection",
+      "capture": "COMPLETE"
+    },
+    "cext": {
+      "mode": "cext",
+      "cases": {
+        "nul_projection": {
+          "row": [
+            "A",
+            "410042",
+            3,
+            {
+              "bytes_hex": "410042"
+            }
+          ],
+          "functional_result": "FAIL"
+        },
+        "prepared_call": {
+          "stage": "nextset",
+          "resultsets": [
+            [
+              [
+                7
+              ]
+            ]
+          ],
+          "cleanup_errors": [],
+          "nextset_owner": "CMySQLCursor.nextset",
+          "nextset_source_sha256": "f7a3e32c76fd3ab0250e69272a6b46cf6ff466afdce83de5d489684cacfda8c1",
+          "functional_result": "FAIL",
+          "error": {
+            "type": "DatabaseError",
+            "errno": 2014,
+            "sqlstate": "HY000",
+            "message": "2014 (HY000): Commands out of sync; you can't run this command now"
+          },
+          "following_query_error": {
+            "type": "InternalError",
+            "errno": -1,
+            "sqlstate": null,
+            "message": "Unread result found"
+          }
+        }
+      },
+      "implementation": "CMySQLConnection",
+      "capture": "COMPLETE"
+    }
+  }
+}
