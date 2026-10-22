@@ -853,6 +853,14 @@ at6fc594a: all14 cases match native, negotiated capability states and following
 QUERY/CLOSE/PING PASS, and previous P1/all72 P2 controls, smoke,112 Python/C
 checks, three Go race packages and18 installed mutations PASS per OS.
 P3 development acceptance is complete; P4–P6 and production acceptance remain unfinished.
+The [first P4 lifetime slice](reviews/v06x-prepared-p4-lifetime.md) adds native-controlled
+Go DB/Tx/Conn/pool, RESET/transaction/type reuse, malformed lifecycle adjacency,
+engine quota recovery and idle QUIT/EOF cleanup. Native capture/replay7/7 and
+local114 Python/C plus3 Go race packages PASS. A bounded handwritten-host
+CLOSE/RESET length repair leaves guest/converter/generated identities unchanged.
+Actual-guest both-OS confirmation is pending CI. LONG_DATA, executing-query
+cancellation/disconnect and the remaining resource/failure matrix are still P4
+work; this first slice does not close or narrow P4.
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release
 remain separate decisions. The MariaDB/lite4mariadb/converter/toolchain pins remain fixed.

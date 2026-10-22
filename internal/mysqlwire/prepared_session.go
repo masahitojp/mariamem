@@ -117,14 +117,14 @@ func (s *preparedSession) handle(op byte, payload []byte, call preparedCall) ([]
 	if op != preparedproto.Close && op != preparedproto.Reset {
 		return [][]byte{ErrorPacket(1235, "42000", "prepared execution is not implemented")}, nil
 	}
-	if len(payload) != 4 {
-		// CLOSE never sends a client reply; a malformed CLOSE is a framing error.
-		if op == preparedproto.Close {
-			return nil, errors.New("invalid statement close packet")
-		}
-		return [][]byte{ErrorPacket(1835, "HY000", "Malformed communication packet")}, nil
-	}
-	id := binary.LittleEndian.Uint32(payload)
+	// Match the pinned native short/surplus-body controls by decoding the first
+	// four bytes, zero-extending short bodies and ignoring surplus bytes.
+	// In particular, CLOSE must not produce an error response or consume the
+	// immediately following command. Copy into a bounded local header rather
+	// than borrowing bytes beyond this request's actual payload.
+	var header [4]byte
+	copy(header[:], payload)
+	id := binary.LittleEndian.Uint32(header[:])
 	e, ok := s.registry.Lookup(id)
 	if !ok {
 		if op == preparedproto.Close {

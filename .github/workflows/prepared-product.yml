@@ -76,7 +76,7 @@ jobs:
           python -c 'import json,os;assert json.load(open("build/prepared-p1/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
           test -z "$(git status --porcelain)"
       - name: C ownership and input guards, including sanitizers
-        run: python -m pytest -q -rA tests/test_prepared_api.py tests/test_routine_schema.py tests/test_thread_lifetime_binding.py tests/test_dev_guest_tools.py tests/test_prepared_time_patch.py tests/test_prepared_source_patch.py tests/test_prepared_param_order.py tests/test_prepared_p2_matrix.py tests/test_prepared_p2_repair_probe.py tests/test_prepared_call_probe.py tests/test_prepared_p3_matrix.py > build/prepared-p1/inputs.txt 2>&1
+        run: python -m pytest -q -rA tests/test_prepared_api.py tests/test_routine_schema.py tests/test_thread_lifetime_binding.py tests/test_dev_guest_tools.py tests/test_prepared_time_patch.py tests/test_prepared_source_patch.py tests/test_prepared_param_order.py tests/test_prepared_p2_matrix.py tests/test_prepared_p2_repair_probe.py tests/test_prepared_call_probe.py tests/test_prepared_p3_matrix.py tests/test_prepared_p4_lifetime.py > build/prepared-p1/inputs.txt 2>&1
       - name: Host protocol, registry, metadata and request budgets
         run: go test -race -p 1 -count=1 ./internal/preparedproto ./internal/mysqlwire ./internal/guest > build/prepared-p1/go-unit.txt 2>&1
       - name: Existing canonical baseline inventory and public sources
@@ -175,6 +175,12 @@ jobs:
           PYTHONPATH: ${{ runner.temp }}/prepared-p1-native/product/python
         run: |
           python tests/v06_prepared_p3_matrix.py --host "$RUNNER_TEMP/prepared-p1-native/mariamem-dev-host" --require-advertisement --reference tests/fixtures/prepared-p3-native.json --output build/prepared-p1/p3-matrix.json > build/prepared-p1/p3-matrix.txt 2>&1
+      - name: P4 first slice physical sessions, RESET, quota and disconnect cleanup
+        env:
+          PYTHONPATH: ${{ runner.temp }}/prepared-p1-native/product/python
+        run: |
+          go build -o "$RUNNER_TEMP/prepared-p4-consumer" ./tests/prepared_lifetime
+          python tests/v06_prepared_p4_lifetime.py --host "$RUNNER_TEMP/prepared-p1-native/mariamem-dev-host" --consumer "$RUNNER_TEMP/prepared-p4-consumer" --reference tests/fixtures/prepared-p4-lifetime-native.json --output build/prepared-p1/p4-lifetime.json > build/prepared-p1/p4-lifetime.txt 2>&1
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

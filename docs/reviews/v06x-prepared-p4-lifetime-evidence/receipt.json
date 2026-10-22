@@ -1,0 +1,68 @@
+{
+  "scope": "P4 first lifetime slice, not full P4 or adoption",
+  "source_baseline_commit": "3574f37c81f9087c8e8276576c01f1b6f69afcfb",
+  "local_identity": "working tree changes against verified baseline; exact changed input hashes below, not labelled a clean baseline build",
+  "inputs_sha256": {
+    "tests/prepared_lifetime/main.go": "b3757d70bf9286d772ebe59e16186aa87463183537eda878193f5f19f4740272",
+    "tests/v06_prepared_p4_lifetime.py": "4e81db16979f86e2adaba4b724903f9f2ed8cefb239e21f8a8480307ab9187d2",
+    "tests/test_prepared_p4_lifetime.py": "6daa326925c40a6ac75a18180ff6b0c304c936ff9f0643c577163b85c54a64d3",
+    "tests/fixtures/prepared-p4-lifetime-native.json": "c416f85306cb09680d658f049950c1521f490109b4a6dbf33071194c3c12dfc0",
+    "internal/mysqlwire/prepared_session.go": "4d84ff8ecd6ed2fb41541415a22b6b54c8a9a8a49793c0cec2f5ba809144fff7",
+    "internal/mysqlwire/prepared_lifetime_test.go": "a0993f30140fe45bc5a5c9b2c3176b48b63111e47affa5f5835ddc3482fe706c",
+    ".github/workflows/prepared-product.yml": "3fc787109a7ce03913fb83aa48c739b2fd7e2bb23170bfa74b51f638831fec1b",
+    "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+    "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4"
+  },
+  "guest_sha256_unchanged": "e6d6021a5753492169aeacbbc787e693e1730026b6da9960ef8c6ace296ac37a",
+  "native_reference": {
+    "image": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+    "image_id": "sha256:23ccfa2f2df26837c8f397a8f9a070ad728768c095d246edd07cd8d24e9ec40c",
+    "os": "linux",
+    "architecture": "arm64",
+    "version": "12.3.3-MariaDB-ubu2404",
+    "note": "Linux container on macOS arm64, not a macOS-native MariaDB build. Image identity/version are recorded; no assertion that this image was built from the separately inspected upstream commit."
+  },
+  "upstream_source_lookup": {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "files": {
+      "libmysqld/libmysql.c": {
+        "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/libmysqld/libmysql.c",
+        "sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c"
+      },
+      "sql/sql_prepare.cc": {
+        "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_prepare.cc",
+        "sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3"
+      },
+      "sql/sql_parse.cc": {
+        "url": "https://raw.githubusercontent.com/MariaDB/server/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_parse.cc",
+        "sha256": "d4fcbe0d53e2474ec9730294101549ca84c1b619fcdf6c1c37de9d70cf88fa85"
+      }
+    }
+  },
+  "consumer": {
+    "go": "go1.26.8",
+    "os": "darwin",
+    "architecture": "arm64",
+    "mysql_driver": "v1.9.3",
+    "binary_sha256": "084b7a8ce2b2c563ac04c0ba401cfa3963fae2591fcca2e0d36e7147b45b32fe",
+    "build_revision": "3574f37c81f9087c8e8276576c01f1b6f69afcfb",
+    "vcs_modified": true
+  },
+  "local_verification": {
+    "native_capture": "7/7 PASS",
+    "native_replay": "7/7 PASS; no differing cases",
+    "python_C_checks": "114 PASS, including ownership sanitizers",
+    "Go_race_packages": {
+      "internal/preparedproto": "PASS",
+      "internal/mysqlwire": "PASS",
+      "internal/guest": "PASS"
+    },
+    "updated_oracle_tests": "2 PASS after adding full opaque-handle packet observations",
+    "actual_guest_macos": "PENDING CI",
+    "actual_guest_ubuntu": "PENDING CI"
+  },
+  "saved_files_sha256": {
+    "local-inputs.txt": "82391c2967cc23f865644c52cd469fa5b246485f9ba9f35d6da344d04411b776",
+    "native-replay.json": "7f28fb56d3165357a01cf100982f1a23109fe0944eeab6d39e0eceb58a1151e8"
+  }
+}

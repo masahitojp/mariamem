@@ -692,3 +692,17 @@ race packages and18 installed mutations per OS. [Saved acceptance evidence](v06x
 closes the approved P3 development row. P4 lifetime/resources/long data, P5 consumer
 regressions and P6 canonical/J1/independent generation remain unfinished. No main
 integration, Qualification or release decision is implied.
+
+
+### P4 first lifetime slice and lifecycle packet boundary repair
+
+The [candidate and remaining P4 scope](v06x-prepared-p4-lifetime.md) add seven
+native-controlled lifetime scenarios, including pinned Go DB/Tx/Conn/pool usage,
+RESET/type/transaction lifetime, engine quota recovery and idle QUIT/EOF cleanup.
+Native capture/replay PASS7/7. Short/surplus CLOSE/RESET bodies revealed a bounded
+host/native mismatch: decode their ID in a zero-filled4-byte local header rather
+than terminating CLOSE or returning RESET1835. No guest/converter/generated or
+binding identity changes. Local114 Python/C checks and three Go race packages
+PASS; prepared-product CI now requires the actual-guest matrix on both OSes.
+P4 remains unfinished: LONG_DATA, prepared executing-query failure/cancellation
+and the complete resource/failure matrix are not waived by this first slice.
