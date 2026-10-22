@@ -12,9 +12,10 @@
     "reason": "personal runner path scrub only"
   },
   {
-    "file": "public.txt",
+    "file": "public-initial.txt",
     "original_sha256": "160cadacb1a3e6390ce55205689a0d8319f05ba836db3a321da47683c08aefb7",
     "stored_sha256": "d4a48fa24de9c59f4e63422878a0571e23cb456f189cd28d89f7fe3b99e91a15",
-    "reason": "personal runner path scrub only"
+    "reason": "personal runner path scrub only",
+    "note": "Initial public-source check rejected personal paths/binary bundle; paths scrubbed, bundle retained outside public source. Final public.txt passes."
   }
 ]
