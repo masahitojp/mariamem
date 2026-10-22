@@ -1,11 +1,13 @@
 name: Prepared staged source, unit and development runtime (not adoption)
 on:
   push:
-    branches: [experiment/prepared-product, experiment/prepared-execute, experiment/prepared-time-width, experiment/prepared-p2-repair, experiment/prepared-param-order, experiment/prepared-call, experiment/prepared-long-data, experiment/prepared-param-metadata]
+    branches: [experiment/prepared-failures, experiment/prepared-product, experiment/prepared-execute, experiment/prepared-time-width, experiment/prepared-p2-repair, experiment/prepared-param-order, experiment/prepared-call, experiment/prepared-long-data, experiment/prepared-param-metadata]
 permissions:
   contents: read
 jobs:
   guest-source:
+    # Owner-failure tests change no guest/runtime inputs; run both-OS units only.
+    if: github.ref != 'refs/heads/experiment/prepared-failures'
     runs-on: ubuntu-24.04-arm
     container:
       image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3

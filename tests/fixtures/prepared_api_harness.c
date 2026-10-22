@@ -6,12 +6,41 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct {char *p;size_t n;} buf_t;
+static void *owner_allocations[2048];static unsigned live_owner_allocations;
+static void *track_owner(void *p) {
+ if(p){unsigned i=0;while(i<2048 && owner_allocations[i])i++;assert(i<2048);owner_allocations[i]=p;live_owner_allocations++;}return p;
+}
+static void entry_free(void *p) {
+ if(p)for(unsigned i=0;i<2048;i++)if(owner_allocations[i]==p){owner_allocations[i]=NULL;assert(live_owner_allocations);live_owner_allocations--;break;}
+ free(p);
+}
+/* Track serializer buffers too, including movement by realloc. Successful
+ * replies are freed by the harness through the same ledger after inclusion. */
+static void *buffer_realloc(void *p,size_t n) {
+ unsigned i=0;int is_new=p==NULL;
+ if(p){while(i<2048 && owner_allocations[i]!=p)i++;}
+ else {while(i<2048 && owner_allocations[i])i++;}
+ assert(i<2048);
+ void *q=realloc(p,n);if(q){owner_allocations[i]=q;if(is_new)live_owner_allocations++;}return q;
+}
+typedef struct {char *p;size_t n,capacity;} buf_t;
 static int fail_buffer, fail_wrapper, fail_entry, fail_close, live, prepared_calls, reset_calls;
+/* Fail exactly one selected owner allocation or serializer append. These
+ * counters deliberately exclude mock-engine and request-construction storage. */
+static unsigned owner_step, owner_fail_at, serial_step, serial_fail_at;
+static int injected_failure;
+static int fault(unsigned *step,unsigned at) {
+ ++*step;if(at && *step==at){injected_failure=1;return 1;}return 0;
+}
 static int buf_puts(buf_t *b,const char *s) {
+  if(fault(&serial_step,serial_fail_at))return 1;
   if (fail_buffer || (fail_wrapper && strstr(s,"{\"prepared_version\":")==s)) return 1;
-  size_t n=strlen(s);char *p=realloc(b->p,b->n+n+1);if(!p)return 1;
-  memcpy(p+b->n,s,n+1);b->p=p;b->n+=n;return 0;
+  size_t n=strlen(s),needed=b->n+n+1;
+  /* Match amortized buffer growth; reallocating every emitted hex nibble
+   * makes the append-point sweep measure sanitizer quarantine, not cleanup. */
+  if(needed>b->capacity){size_t cap=b->capacity?b->capacity:64;while(cap<needed)cap*=2;
+   char *p=buffer_realloc(b->p,cap);if(!p)return 1;b->p=p;b->capacity=cap;}
+  memcpy(b->p+b->n,s,n+1);b->n+=n;return 0;
 }
 static int buf_putc(buf_t *b,char c){char text[2]={c,0};return buf_puts(b,text);}
 static int buf_put_json_hex(buf_t *b,const char *v,unsigned long n) {
@@ -29,7 +58,7 @@ static int wire_name(buf_t *b,const char *key,const char *value,unsigned n) {
 static char *wire_error(unsigned code,const char *message,const char *state){
   buf_t b={0};char text[512];snprintf(text,sizeof(text),"{\"ok\":false,\"errno\":%u,\"error\":\"%s\",\"sqlstate\":\"%s\"}",code,message,state);
   size_t len=strlen(text);assert(len&&text[len-1]=='}');text[len-1]=0;
-  if(buf_puts(&b,text)||wire_state(&b)||buf_putc(&b,'}')){free(b.p);return NULL;}return b.p;
+  if(buf_puts(&b,text)||wire_state(&b)||buf_putc(&b,'}')){entry_free(b.p);return NULL;}return b.p;
 }
 typedef struct {unsigned server_status;} MYSQL;
 static MYSQL *active_db;
@@ -53,7 +82,8 @@ static int fail_bind_param,fail_bind_result,fail_fetch_column,fail_execute_sql,e
 static int fail_next,fail_long_send,fail_reset;
 static unsigned char consumed_long[32];static size_t consumed_long_length;static int consumed_long_active;
 static int pending_result,free_result_calls,fail_free_result,fail_execute_oom;
-static MYSQL_STMT *mysql_stmt_init(MYSQL *db){(void)db;MYSQL_STMT *s=calloc(1,sizeof(*s));if(s){live++;s->db=db;}return s;}
+static int result_metadata_live,fail_init,fail_store,fail_fetch,fetch_column_mismatch;
+static MYSQL_STMT *mysql_stmt_init(MYSQL *db){(void)db;if(fail_init)return NULL;MYSQL_STMT *s=calloc(1,sizeof(*s));if(s){live++;s->db=db;}return s;}
 static int mysql_stmt_prepare(MYSQL_STMT *s,const char *sql,unsigned long n){
  prepared_calls++;
  if(n==8&&!memcmp(sql,"call-two",8)){s->params=1;s->columns=1;s->chain_mode=1;}
@@ -76,7 +106,7 @@ static int mysql_stmt_close(MYSQL_STMT *s){assert(s&&live>0);live--;free(s->long
 static int mysql_stmt_reset(MYSQL_STMT *s){assert(s);reset_calls++;if(fail_reset)return 1;free(s->long_bytes);s->long_bytes=NULL;s->long_length=0;s->long_active=0;return 0;}
 static MYSQL_RES *mysql_stmt_result_metadata(MYSQL_STMT *s){
  if(!s->columns||s->meta_fail)return NULL;
- MYSQL_RES *m=calloc(1,sizeof(*m));assert(m);m->count=s->columns;m->fields=calloc(m->count,sizeof(*m->fields));assert(m->fields);
+ MYSQL_RES *m=calloc(1,sizeof(*m));assert(m);result_metadata_live++;m->count=s->columns;m->fields=calloc(m->count,sizeof(*m->fields));assert(m->fields);
  for(unsigned i=0;i<m->count;i++){MYSQL_FIELD *f=m->fields+i;f->name="c";f->org_name=f->table=f->org_table=f->db="";f->catalog="def";f->name_length=1;f->catalog_length=3;f->type=s->type?s->type:3;f->charsetnr=63;f->length=11;}
  return m;
 }
@@ -88,7 +118,7 @@ static MYSQL_RES *mysql_stmt_param_metadata(MYSQL_STMT *s){
  for(unsigned i=0;i<m->count;i++){MYSQL_FIELD *f=m->fields+i;f->name="engine alias";f->org_name=f->table=f->org_table=f->db="";f->catalog="def";f->name_length=12;f->catalog_length=3;f->type=6;f->charsetnr=63;f->flags=128;}
  return m;
 }
-static void mysql_free_result(MYSQL_RES *m){if(m->count && m->fields[0].name && !strcmp(m->fields[0].name,"engine alias"))param_metadata_live--;free(m->fields);free(m);}
+static void mysql_free_result(MYSQL_RES *m){if(m->count && m->fields[0].name && !strcmp(m->fields[0].name,"engine alias"))param_metadata_live--;else result_metadata_live--;free(m->fields);free(m);}
 static unsigned mysql_num_fields(MYSQL_RES *m){return m->count;}
 static MYSQL_FIELD *mysql_fetch_fields(MYSQL_RES *m){return m->fields;}
 static int mysql_stmt_bind_param(MYSQL_STMT *s,MYSQL_BIND *b){
@@ -120,13 +150,14 @@ static int mysql_stmt_next_result(MYSQL_STMT *s){
  s->db->server_status=s->chain_index==3?2:s->chain_index==2?4106:10;
  return 0;
 }
-static int mysql_stmt_store_result(MYSQL_STMT *s){(void)s;return 0;}
+static int mysql_stmt_store_result(MYSQL_STMT *s){if(fail_store){s->errno_=2008;return 1;}return 0;}
 static int mysql_stmt_free_result(MYSQL_STMT *s){
  free_result_calls++;pending_result=0;s->errno_=0;return fail_free_result;
 }
 static unsigned long long mysql_stmt_affected_rows(MYSQL_STMT *s){(void)s;return 0;}
 static unsigned long long mysql_stmt_insert_id(MYSQL_STMT *s){(void)s;return 0;}
 static int mysql_stmt_fetch(MYSQL_STMT *s){
+ if(fail_fetch){s->errno_=2008;return 1;}
  if(s->fetched++)return MYSQL_NO_DATA;
  assert(s->result_bind);
  for(unsigned i=0;i<s->columns;i++){
@@ -140,12 +171,17 @@ static int mysql_stmt_fetch_column(MYSQL_STMT *s,MYSQL_BIND *b,unsigned i,unsign
  (void)s;assert(i==0&&!offset&&b->buffer_length==8194);
  if(fail_fetch_column)return 1;
  for(unsigned long n=0;n<8194;n++)((unsigned char *)b->buffer)[n]=(n%2)?255:0;
- *b->length=8194;*b->is_null=0;*b->error=0;return 0;
+ *b->length=fetch_column_mismatch==1?8193:8194;*b->is_null=fetch_column_mismatch==2;*b->error=fetch_column_mismatch==3;return 0;
 }
-static void *entry_calloc(size_t n,size_t s){return fail_entry?NULL:calloc(n,s);}
+static void *entry_calloc(size_t n,size_t s){return fail_entry || fault(&owner_step,owner_fail_at)?NULL:track_owner(calloc(n,s));}
+static void *entry_malloc(size_t n){return fault(&owner_step,owner_fail_at)?NULL:track_owner(malloc(n));}
 #define calloc entry_calloc
+#define malloc entry_malloc
+#define free entry_free
 #include "prepared_api.inc"
 #undef calloc
+#undef malloc
+/* Keep free interception for harness consumers of returned reply buffers. */
 
 static void put32(unsigned char *p,uint32_t v){for(unsigned i=0;i<4;i++)p[i]=(unsigned char)(v>>(8*i));}
 static MYSQL session_db={2};
@@ -160,8 +196,65 @@ static char *call(unsigned op,uint32_t generation,uint32_t id,const char *body){
  if(n)memcpy(b+16,body,n);active_db=&session_db;char *reply=ps_call(&session_db,b,16+n);free(b);return reply;
 }
 static void expect(char *reply,const char *fragment){assert(reply);if(!strstr(reply,fragment)){fputs(reply,stderr);abort();}free(reply);}
+/* Each attempt owns a fresh isolated mock session; failure returns no partial
+ * success, and final teardown must release every native handle and metadata. */
+static char *failure_action(unsigned action) {
+ unsigned char bytes[15]={1,0,0,0,252,0,0,0,3,0,0,0,'A',0,'B'};
+ unsigned char zero[4]={0},chunk[5]={0,0,'A',0,'B'};
+ if(action==0)return call(22,ps_generation,0,"one-result");
+ if(action==1 || action==3)return call_binary(23,ps_generation,1,bytes,sizeof(bytes));
+ if(action==2)return call_binary(23,ps_generation,1,zero,sizeof(zero));
+ if(action==4)return call_binary(24,ps_generation,1,chunk,sizeof(chunk));
+ if(action==7)return call(22,ps_generation,0,"bad");
+ if(action==8){fail_execute_sql=1;char *r=call_binary(23,ps_generation,1,bytes,sizeof(bytes));fail_execute_sql=0;return r;}
+ return call(action==5?26:25,ps_generation,1,NULL);
+}
+static void failure_setup(unsigned action) {
+ assert(!ps_entries && !live && !param_metadata_live && !result_metadata_live && !live_owner_allocations);
+ ps_generation=0;assert(!ps_begin_session());session_db.server_status=2;
+ if(action && action!=7)expect(call(22,ps_generation,0,action==2?"blob-result":action==3?"call-two":"one-result"),"\"ok\":true");
+ owner_step=serial_step=0;injected_failure=0;
+}
+static void failure_teardown(void) {
+ owner_fail_at=serial_fail_at=0;
+ assert(!ps_clear());assert(!ps_entries && !live && !param_metadata_live && !result_metadata_live && !live_owner_allocations);
+ session_db.server_status=2;
+}
+static int failure_matrix(void) {
+ const char *names[]={"prepare","execute-bytes","truncated-blob-refetch","multiple-results","long-data","reset","close","prepare-error","execute-error"};
+ unsigned total=0;
+ printf("{\"scope\":\"mock API owner failures only\",\"cases\":[");
+ for(unsigned a=0;a<9;a++) {
+  failure_setup(a);char *r=failure_action(a);assert(r && strstr(r,a<7?"\"ok\":true":a==7?"\"errno\":1064":"\"errno\":1062"));free(r);
+  unsigned allocations=owner_step,appends=serial_step;failure_teardown();
+  for(unsigned kind=0;kind<2;kind++) {
+   unsigned count=kind?appends:allocations;
+   for(unsigned n=1;n<=count;n++) {
+    failure_setup(a);if(kind)serial_fail_at=n;else owner_fail_at=n;
+    r=failure_action(a);assert(injected_failure && !r);failure_teardown();total++;
+    /* Recovery is a new session after fatal transport failure, not reuse of
+     * possibly partial state, using normal setup with injection disabled. */
+    failure_setup(0);expect(failure_action(0),"\"ok\":true");failure_teardown();
+   }
+  }
+  printf("%s{\"name\":\"%s\",\"allocation_points\":%u,\"serialization_points\":%u,\"result\":\"PASS\"}",a?",":"",names[a],allocations,appends);
+ }
+ /* Native API error returns and inconsistent full-column refetch. Distinct
+  * controls from the nth allocation/append sweep above. */
+ int *flags[]={&fail_init,&fail_store,&fail_fetch,&fail_fetch_column,&fetch_column_mismatch};
+ for(unsigned k=0;k<5;k++) {
+  failure_setup(k==0?0:k>=3?2:1);*flags[k]=1;
+  char *r=failure_action(k==0?0:k>=3?2:1);
+  if(k==1 || k==2){assert(r && strstr(r,"\"errno\":2008"));free(r);}else assert(!r);
+  *flags[k]=0;failure_teardown();
+ }
+ for(int mode=2;mode<=3;mode++) {failure_setup(2);fetch_column_mismatch=mode;assert(!failure_action(2));fetch_column_mismatch=0;failure_teardown();}
+ printf("],\"injected_points\":%u,\"API_and_refetch_failures\":7,\"live_handles\":0,\"live_metadata\":0,\"live_owner_allocations\":0,\"result\":\"PASS\"}\n",total);
+ return 0;
+}
 int main(int argc,char **argv){
  assert(!ps_begin_session()&&ps_generation==1);
+ if(argc==2 && !strcmp(argv[1],"failure-matrix"))return failure_matrix();
  if(argc==2 && !strcmp(argv[1],"parameter-metadata")) {
   char *r=call(22,1,0,"SELECT ?");assert(r && strstr(r,"engine alias") && strstr(r,"\"parameters\":["));free(r);
   assert(!param_metadata_live && live==1);assert(!ps_clear() && !live);

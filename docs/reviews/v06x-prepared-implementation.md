@@ -791,3 +791,13 @@ healthy siblings/baseline reuse and final cleanup. Prior matrices,134 Python/C
 checks,4 Go race packages and20 binding mutations PASS per OS. Guest/converter/
 generated source inputs remain unchanged. Remaining failure/resource paths keep
 P4 open; P5/P6, adoption, Qualification and release are separate.
+
+### P4 failure/resource closure candidate
+
+[Finite ledger, exact scope and local evidence](v06x-prepared-p4-failures.md)
+add fail-at-N owner allocation and serializer checks, truncated-refetch negatives
+and full-dispatcher no-partial-result/state-preservation controls. Local macOS134
+Python/C checks and4 Go race packages PASS; two isolated negative mutations fail
+as expected. Both-OS component CI is pending. Runtime/guest/converter inputs are
+unchanged, so no new actual guest PASS is claimed. This is a P4 closure candidate
+against the existing approved row, not P5/P6, adoption or Qualification completion.

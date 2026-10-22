@@ -25,6 +25,18 @@ def test_dynamic_prepared_owner_and_failure_cleanup(tmp_path, sanitize):
     assert record==dict(ownership='PASS',more_than_64_handles=True,failure_cleanup=True,
                         generation_rejection=True,live_handles=0,scope='mock API ownership only')
 
+    failures=json.loads(subprocess.run(
+        [str(target),'failure-matrix'],check=True,capture_output=True,text=True,timeout=180).stdout)
+    assert failures['result']=='PASS' and failures['scope']=='mock API owner failures only'
+    assert failures['live_handles']==failures['live_metadata']==failures['live_owner_allocations']==0
+    cases=failures['cases']
+    assert [c['name'] for c in cases]==[
+        'prepare','execute-bytes','truncated-blob-refetch','multiple-results','long-data','reset','close','prepare-error','execute-error']
+    assert all(c['result']=='PASS' and c['serialization_points']>0 for c in cases)
+    assert all(c['allocation_points']>0 for c in cases[:5])
+    assert failures['injected_points']==sum(c['allocation_points']+c['serialization_points'] for c in cases)
+    assert failures['API_and_refetch_failures']==7
+
     stream=json.loads(subprocess.run([str(target),'long-data'],check=True,capture_output=True,text=True).stdout)
     assert stream==dict(result='PASS',scope='mock public API stream ownership only',live_handles=0)
 
