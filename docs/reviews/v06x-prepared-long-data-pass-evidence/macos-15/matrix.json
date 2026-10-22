@@ -1,0 +1,850 @@
+{
+  "scope": "additional P2 DML/schema/types/modes; not full P2-P6",
+  "cases": {
+    "parameter-type-0": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0009000000008100040000"
+          ],
+          "rows": [
+            "0000083132332e34353030"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0009000000008100040000"
+          ],
+          "rows": [
+            "0000083132332e34353030"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-15": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0010000000fd0100270000"
+          ],
+          "rows": [
+            "00000474657874"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0010000000fd0100270000"
+          ],
+          "rows": [
+            "00000474657874"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-16": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000108000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000108000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-247": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-248": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0014000000fd0100270000"
+          ],
+          "rows": [
+            "000005616c706861"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-249": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0002000000f98100270000"
+          ],
+          "rows": [
+            "00000200ff"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0002000000f98100270000"
+          ],
+          "rows": [
+            "00000200ff"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-250": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0002000000fa8100270000"
+          ],
+          "rows": [
+            "00000200ff"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0002000000fa8100270000"
+          ],
+          "rows": [
+            "00000200ff"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-251": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0002000000fb8100270000"
+          ],
+          "rows": [
+            "00000200ff"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0002000000fb8100270000"
+          ],
+          "rows": [
+            "00000200ff"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-255": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ff8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000ff8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-9": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000098000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000098000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-13": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000d8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f00000000000d8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-14": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000a0000000a8100000000"
+          ],
+          "rows": [
+            "000004e807021d"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000a0000000a8100000000"
+          ],
+          "rows": [
+            "000004e807021d"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "parameter-type-7": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0013000000078100060000"
+          ],
+          "rows": [
+            "00000be807021d0c223840e20100"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0013000000078100060000"
+          ],
+          "rows": [
+            "00000be807021d0c223840e20100"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "repeated-type-changes": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "0000f9ffffff"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f001500000008a100000000"
+          ],
+          "rows": [
+            "0000ffffffffffffffff"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d000c000000fd0100270000"
+          ],
+          "rows": [
+            "000009e697a5e69cace8aa9e"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c2d0000000000fd0100270000"
+          ],
+          "rows": [
+            "000000"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0000000000fd8000000000"
+          ],
+          "rows": [
+            "0004"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f0009000000f68100040000"
+          ],
+          "rows": [
+            "0000083132332e34353030"
+          ],
+          "terminal": "fe00000200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "036465660000000176000c3f000b000000038100000000"
+          ],
+          "rows": [
+            "000009000000"
+          ],
+          "terminal": "fe00000200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "dml-warnings-recovery": {
+      "trace": [
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 1,
+          "status": 2,
+          "warnings": 0
+        },
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 2,
+          "status": 2,
+          "warnings": 0
+        },
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 3,
+          "status": 2,
+          "warnings": 1
+        },
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 0,
+          "status": 2,
+          "warnings": 0
+        },
+        {
+          "kind": "ok",
+          "affected": 0,
+          "insert_id": 0,
+          "status": 2,
+          "warnings": 0
+        },
+        {
+          "kind": "error",
+          "errno": 1062,
+          "sqlstate": "23000",
+          "message_hex": "4475706c696361746520656e7472792027312720666f72206b657920275052494d41525927"
+        },
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 8,
+          "status": 2,
+          "warnings": 0
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "0364656604746573740f70325f6d61747269785f6974656d730f70325f6d61747269785f6974656d730269640269640c3f0014000000082342000000",
+            "0364656604746573740f70325f6d61747269785f6974656d730f70325f6d61747269785f6974656d73017601760c2d000c000000fd0000000000"
+          ],
+          "rows": [
+            "000001000000000000000378797a",
+            "0000020000000000000003616263",
+            "0000030000000000000003616263",
+            "00000800000000000000026f6b"
+          ],
+          "terminal": "fe00002200"
+        }
+      ],
+      "ok_observations": [
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00010102000000"
+        },
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00010202000000"
+        },
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00010302000100"
+        },
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00010002000000"
+        },
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00000002000000"
+        },
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00010802000000"
+        }
+      ],
+      "healthy_following_query": true
+    },
+    "commit-rollback": {
+      "trace": [
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 0,
+          "status": 3,
+          "warnings": 0
+        },
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 0,
+          "status": 3,
+          "warnings": 0
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "0364656604746573740c70325f6d61747269785f74780c70325f6d61747269785f7478017601760c3f000b000000030000000000"
+          ],
+          "rows": [
+            "000002000000"
+          ],
+          "terminal": "fe00002200"
+        }
+      ],
+      "ok_observations": [
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00010003000000"
+        },
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00010003000000"
+        }
+      ],
+      "healthy_following_query": true
+    },
+    "date-sql-modes": {
+      "trace": [
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 0,
+          "status": 2,
+          "warnings": 0
+        },
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 0,
+          "status": 2,
+          "warnings": 0
+        },
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 0,
+          "status": 2,
+          "warnings": 1
+        },
+        {
+          "kind": "error",
+          "errno": 1292,
+          "sqlstate": "22007",
+          "message_hex": "496e636f727265637420646174652076616c75653a2027303030302d30302d30302720666f7220636f6c756d6e206074657374602e6070325f6d61747269785f6461746573602e60766020617420726f772031"
+        },
+        {
+          "kind": "ok",
+          "affected": 1,
+          "insert_id": 0,
+          "status": 2,
+          "warnings": 0
+        },
+        {
+          "kind": "error",
+          "errno": 1292,
+          "sqlstate": "22007",
+          "message_hex": "496e636f727265637420646174652076616c75653a2027303030302d30302d30302720666f7220636f6c756d6e206074657374602e6070325f6d61747269785f6461746573602e60766020617420726f772031"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "0364656604746573740f70325f6d61747269785f64617465730f70325f6d61747269785f6461746573017601760c3f000a0000000a8000000000"
+          ],
+          "rows": [
+            "000000",
+            "000000",
+            "000004e807021d",
+            "000004e807021d"
+          ],
+          "terminal": "fe00002200"
+        }
+      ],
+      "ok_observations": [
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00010002000000"
+        },
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00010002000000"
+        },
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00010002000100"
+        },
+        {
+          "ok_info_hex": "",
+          "ok_packet_hex": "00010002000000"
+        }
+      ],
+      "healthy_following_query": true
+    },
+    "schema-type": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "0364656604746573741070325f6d61747269785f736368656d611070325f6d61747269785f736368656d61017601760c3f000b000000030000000000"
+          ],
+          "rows": [
+            "000007000000"
+          ],
+          "terminal": "fe00002200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "0364656604746573741070325f6d61747269785f736368656d611070325f6d61747269785f736368656d61017601760c3f0014000000080000000000"
+          ],
+          "rows": [
+            "00000700000000000000"
+          ],
+          "terminal": "fe00002200"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "schema-add": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "0364656604746573741070325f6d61747269785f736368656d611070325f6d61747269785f736368656d61017601760c3f000b000000030000000000",
+            "0364656604746573741070325f6d61747269785f736368656d611070325f6d61747269785f736368656d61096f746865725f636f6c096f746865725f636f6c0c3f000b000000030000000000"
+          ],
+          "rows": [
+            "00000700000009000000"
+          ],
+          "terminal": "fe00002200"
+        },
+        {
+          "kind": "rows",
+          "columns": [
+            "0364656604746573741070325f6d61747269785f736368656d611070325f6d61747269785f736368656d61017601760c3f000b000000030000000000",
+            "0364656604746573741070325f6d61747269785f736368656d611070325f6d61747269785f736368656d61096f746865725f636f6c096f746865725f636f6c0c3f000b000000030000000000",
+            "0364656604746573741070325f6d61747269785f736368656d611070325f6d61747269785f736368656d61076e65775f636f6c076e65775f636f6c0c3f000b000000030000000000"
+          ],
+          "rows": [
+            "000007000000090000000b000000"
+          ],
+          "terminal": "fe00002204"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    },
+    "schema-drop": {
+      "trace": [
+        {
+          "kind": "rows",
+          "columns": [
+            "0364656604746573741070325f6d61747269785f736368656d611070325f6d61747269785f736368656d61017601760c3f000b000000030000000000"
+          ],
+          "rows": [
+            "000007000000"
+          ],
+          "terminal": "fe00002200"
+        },
+        {
+          "kind": "error",
+          "errno": 1054,
+          "sqlstate": "42S22",
+          "message_hex": "556e6b6e6f776e20636f6c756d6e2027762720696e202753454c45435427"
+        }
+      ],
+      "ok_observations": [],
+      "healthy_following_query": true
+    }
+  },
+  "failures": {},
+  "host_diagnostics": {
+    "parameter-type-0": {
+      "runtime": {
+        "runtime_pid": 8706,
+        "host_pid": 8706
+      },
+      "logs": ""
+    },
+    "parameter-type-15": {
+      "runtime": {
+        "runtime_pid": 8708,
+        "host_pid": 8708
+      },
+      "logs": ""
+    },
+    "parameter-type-16": {
+      "runtime": {
+        "runtime_pid": 8710,
+        "host_pid": 8710
+      },
+      "logs": ""
+    },
+    "parameter-type-247": {
+      "runtime": {
+        "runtime_pid": 8712,
+        "host_pid": 8712
+      },
+      "logs": ""
+    },
+    "parameter-type-248": {
+      "runtime": {
+        "runtime_pid": 8714,
+        "host_pid": 8714
+      },
+      "logs": ""
+    },
+    "parameter-type-249": {
+      "runtime": {
+        "runtime_pid": 8716,
+        "host_pid": 8716
+      },
+      "logs": ""
+    },
+    "parameter-type-250": {
+      "runtime": {
+        "runtime_pid": 8718,
+        "host_pid": 8718
+      },
+      "logs": ""
+    },
+    "parameter-type-251": {
+      "runtime": {
+        "runtime_pid": 8721,
+        "host_pid": 8721
+      },
+      "logs": ""
+    },
+    "parameter-type-255": {
+      "runtime": {
+        "runtime_pid": 8723,
+        "host_pid": 8723
+      },
+      "logs": ""
+    },
+    "parameter-type-9": {
+      "runtime": {
+        "runtime_pid": 8736,
+        "host_pid": 8736
+      },
+      "logs": ""
+    },
+    "parameter-type-13": {
+      "runtime": {
+        "runtime_pid": 8740,
+        "host_pid": 8740
+      },
+      "logs": ""
+    },
+    "parameter-type-14": {
+      "runtime": {
+        "runtime_pid": 8742,
+        "host_pid": 8742
+      },
+      "logs": ""
+    },
+    "parameter-type-7": {
+      "runtime": {
+        "runtime_pid": 8744,
+        "host_pid": 8744
+      },
+      "logs": ""
+    },
+    "repeated-type-changes": {
+      "runtime": {
+        "runtime_pid": 8746,
+        "host_pid": 8746
+      },
+      "logs": ""
+    },
+    "dml-warnings-recovery": {
+      "runtime": {
+        "runtime_pid": 8748,
+        "host_pid": 8748
+      },
+      "logs": ""
+    },
+    "commit-rollback": {
+      "runtime": {
+        "runtime_pid": 8752,
+        "host_pid": 8752
+      },
+      "logs": ""
+    },
+    "date-sql-modes": {
+      "runtime": {
+        "runtime_pid": 8754,
+        "host_pid": 8754
+      },
+      "logs": ""
+    },
+    "schema-type": {
+      "runtime": {
+        "runtime_pid": 8767,
+        "host_pid": 8767
+      },
+      "logs": ""
+    },
+    "schema-add": {
+      "runtime": {
+        "runtime_pid": 8769,
+        "host_pid": 8769
+      },
+      "logs": ""
+    },
+    "schema-drop": {
+      "runtime": {
+        "runtime_pid": 8771,
+        "host_pid": 8771
+      },
+      "logs": ""
+    }
+  },
+  "result": "PASS",
+  "different_cases": [],
+  "native_comparison": "PASS"
+}

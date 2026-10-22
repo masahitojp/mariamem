@@ -166,3 +166,11 @@ both OSes. LONG_DATA25 individual assertions pass but strict comparison fails
 24 cases:91 parameter names per OS differ. [Root cause and repair candidate](v06x-prepared-param-metadata.md)
 preserve the oracle and implement engine-owned PREPARE metadata in a separate
 source branch. New guest/binding/runtime acceptance is pending; no feature PASS.
+
+## Both-OS LONG_DATA/native metadata development gate closed
+
+[CI39729456821 at fba09f6](v06x-prepared-long-data-pass.md) passes all25
+LONG_DATA/native comparisons including the previously wrong parameter names,
+plus the previous runtime gates and cleanup controls on both OSes. No oracle
+or native fixture was weakened. Full P4 (active-query cancellation/disconnect
+and remaining failure/resource paths), P5/P6 and adoption remain unfinished.

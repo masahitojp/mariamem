@@ -764,3 +764,11 @@ confirm embedded C++ compilation at ab8c350 and exact new guest8f617762.
 The complete reviewed functions/init track BSS+64 with unchanged TLS; old
 f5ce001d is rejected. Local122 checks PASS. Strict both-OS runtime/native parity
 is next and remains unconfirmed; P4/P5/P6 are not closed.
+
+## Both-OS LONG_DATA/native metadata development gate closed
+
+[CI39729456821 at fba09f6](v06x-prepared-long-data-pass.md) passes all25
+LONG_DATA/native comparisons including the previously wrong parameter names,
+plus the previous runtime gates and cleanup controls on both OSes. No oracle
+or native fixture was weakened. Full P4 (active-query cancellation/disconnect
+and remaining failure/resource paths), P5/P6 and adoption remain unfinished.

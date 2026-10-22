@@ -109,3 +109,11 @@ now binds guest8f617762 to fixed converter13 patches and reviewed BSS+64
 function/init changes. Local122 focused checks, formal source-only adapter and
 pure owner transforms PASS. The source compilation concern above is resolved;
 actual strict runtime/native metadata parity remains PENDING.
+
+## Both-OS LONG_DATA/native metadata development gate closed
+
+[CI39729456821 at fba09f6](v06x-prepared-long-data-pass.md) passes all25
+LONG_DATA/native comparisons including the previously wrong parameter names,
+plus the previous runtime gates and cleanup controls on both OSes. No oracle
+or native fixture was weakened. Full P4 (active-query cancellation/disconnect
+and remaining failure/resource paths), P5/P6 and adoption remain unfinished.

@@ -883,9 +883,15 @@ comparison FAIL: aliased parameter names were incorrectly fixed to `?`.
 The engine-owned metadata extension now passes source CI39724676227 at ab8c350.
 Its [new exact binding](reviews/v06x-prepared-param-metadata-binding/reproduce.md)
 records the BSS+64 layout, unchanged TLS and complete function/init/data pins;
-local122 checks and the formal source-only adapter PASS. Actual both-OS runtime
-acceptance remains pending.
-The comparator/native fixtures are preserved; this does not close LONG_DATA/P4.
+local122 checks and the formal source-only adapter PASS.
+[CI39729456821](https://github.com/masahitojp/mariamem/actions/runs/39729456821)
+now [closes LONG_DATA and parameter-metadata development acceptance](reviews/v06x-prepared-long-data-pass.md)
+at fba09f6 on both OSes: all25 native comparisons match including parameter names,
+connections return0 and temporary areas are removed. Previous P1/all72 P2/all14
+P3/first7 P4 gates, smoke,122 Python/C checks,3 Go race packages and20 installed
+mutations also PASS per OS. Native fixtures/comparator remain unchanged.
+Full P4 still requires executing-query cancellation/timeout/disconnect and the
+remaining resource/failure matrix; P5/P6 and production acceptance remain pending.
 
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release
