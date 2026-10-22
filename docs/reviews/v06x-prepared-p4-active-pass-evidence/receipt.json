@@ -1,0 +1,79 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39747013913",
+  "source_commit": "fbe419613cc0cc99657d39543c37df7b4dfe5d4a",
+  "result": "PASS: P4 active-exit slice only",
+  "platforms": {
+    "macos-15": {
+      "cases": {
+        "ordinary-error": "PASS",
+        "go-cancel": "PASS",
+        "go-deadline": "PASS",
+        "active-eof": "PASS",
+        "active-reset": "PASS",
+        "host-deadline": "PASS",
+        "active-db-close": "PASS"
+      },
+      "binary_sha256": "b5f6909591c72a3a2b9e1ce19795c219310fa28055597de730be47fe14e08871",
+      "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+      "development_result": "UNQUALIFIED",
+      "smoke": "PASS"
+    },
+    "ubuntu-24.04": {
+      "cases": {
+        "ordinary-error": "PASS",
+        "go-cancel": "PASS",
+        "go-deadline": "PASS",
+        "active-eof": "PASS",
+        "active-reset": "PASS",
+        "host-deadline": "PASS",
+        "active-db-close": "PASS"
+      },
+      "binary_sha256": "57911d1b961a7550dd8b7cea2fe23d94966d3800ee6b7f7069e67adf4c8c6388",
+      "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+      "development_result": "UNQUALIFIED",
+      "smoke": "PASS"
+    }
+  },
+  "storage": "Selected raw JSON/logs preserved byte-for-byte; development receipt factored, original hash retained. No runner-path scrubbing.",
+  "files_sha256": {
+    "macos-15/active.json": "fec0be5c614e553f71df4e96ab66fc7fff852db0c16ee43966dcfc0a414b95e3",
+    "macos-15/active.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "macos-15/baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "macos-15/binding-mutations.txt": "6b553ab065620d766010a813957b774bec1d823a13418035e432bdd51f4f054b",
+    "macos-15/call.json": "f72657135c7adc05a5d323b59d9d080f9f70ece4adafc1c1f7ccac02bbc109e9",
+    "macos-15/development-summary.json": "d662a1280a28283fae63c6ab6d134a0dbf289f0fd245ff12b99455e032fef66b",
+    "macos-15/execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+    "macos-15/go-unit.txt": "741f2262a092d936817e9d1b961e1bda200b452a6e80f8d2b68cc3cdcdf53726",
+    "macos-15/inputs.txt": "d7832a58d61fa0c4d3fca4cd0e44f38875606eaa557bfb276b49bd7103b46b52",
+    "macos-15/long-data.json": "41bbc555fa3a9186e6ea40268a178aac7961041e3d484cebda77a21619100c63",
+    "macos-15/matrix.json": "08a2dda9597fd60447fdfd0d15d95a320fa8e39f14f09bbce1a3c77d4e5d951e",
+    "macos-15/p3-matrix.json": "428fa761dd7a7e568497f00dbdb1d07b821d22aa8a86c88c3fc9acd06c7f7f5d",
+    "macos-15/p4-lifetime.json": "80088ac69691be1b9e0766dba0f1510e622a647194982e9ac3a52ad8d94d4444",
+    "macos-15/public.txt": "4be445075b05207a024dcece145c7ca9cd927c83ecc03c918bf98d492014d501",
+    "macos-15/repair.json": "765b253981fc63b2c0e7dce3b08bef4be86f8ea7333063d6e5c8b3ab298587e5",
+    "macos-15/runtime.json": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+    "macos-15/source.json": "3dfa794921c4fe7f91358db081ad494209f35563e7d9752104f3da278722582e",
+    "macos-15/time.json": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+    "macos-15/unsigned.json": "fb7dc25cdf89e11ec05d44713a9fd330ddb4175ae617d90276b442a3011c0e88",
+    "source-identity.json": "85d41cc2e6ecd1a9f550d9223ccf3478a974760130f0a44a6c394da11f2a1290",
+    "ubuntu-24.04/active.json": "b8684dacd5fb836a22877bba86514cac51a56b41eca50ce9b2c5762e6c538591",
+    "ubuntu-24.04/active.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ubuntu-24.04/baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+    "ubuntu-24.04/binding-mutations.txt": "e5c33bb1e5baf958200f06b5120706feee92913ab92ef12a506ce012429ac74a",
+    "ubuntu-24.04/call.json": "7684ba62c95fb505b27107639a6db862b5276228b48a6454bad2013c648a2cff",
+    "ubuntu-24.04/development-summary.json": "4cdd4588dfe784fa16b722a34b7f80e84f44ddbe688264d770a2ad83e47c0d58",
+    "ubuntu-24.04/execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+    "ubuntu-24.04/go-unit.txt": "2744b2e5966b786c6ec2d51a2843d4e3ff3e826809c438dc2f1a9402cf391e91",
+    "ubuntu-24.04/inputs.txt": "b0a9662b28567eb5eb3d902c6fae1644d500f06d157e3bce32821fba603a7659",
+    "ubuntu-24.04/long-data.json": "41bbc555fa3a9186e6ea40268a178aac7961041e3d484cebda77a21619100c63",
+    "ubuntu-24.04/matrix.json": "aa5b1916ddfb5b08a8c0b21ff42e6fe855cbb5addbf052c5de89203ada51ff1e",
+    "ubuntu-24.04/p3-matrix.json": "cfe0aa0ff5e53be8baa345eb9e16d1a76f4afb93775ede537533de3e859f46f3",
+    "ubuntu-24.04/p4-lifetime.json": "19791943ec7cff8c5f99ae3bd4686d990a6c3411476866569cdb33297a5b4e87",
+    "ubuntu-24.04/public.txt": "4be445075b05207a024dcece145c7ca9cd927c83ecc03c918bf98d492014d501",
+    "ubuntu-24.04/repair.json": "ad46125ffc103a83bd1029c08333eb574af41996b1fe0ce099739917325f80ae",
+    "ubuntu-24.04/runtime.json": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+    "ubuntu-24.04/source.json": "3dfa794921c4fe7f91358db081ad494209f35563e7d9752104f3da278722582e",
+    "ubuntu-24.04/time.json": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+    "ubuntu-24.04/unsigned.json": "031632a9a4d27af93bd05ddd0211b67fabe8414b6f72cd37665db7e11bc6fc83"
+  }
+}

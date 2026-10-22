@@ -1,4 +1,10 @@
-# P4 active EXECUTE exits — candidate, actual guest acceptance pending
+# P4 active EXECUTE exits — both-OS development PASS
+
+[CI39747013913](https://github.com/masahitojp/mariamem/actions/runs/39747013913)
+PASS at source_commit `fbe419613cc0cc99657d39543c37df7b4dfe5d4a`.
+All7 actual guest cases PASS on macOS15 arm64 and Ubuntu24.04 x86_64.
+The [saved receipt and raw evidence](v06x-prepared-p4-active-pass-evidence/receipt.json)
+retain per-case execution witnesses, dispositions and cleanup results.
 
 Baseline source_commit54b9332c27c4e2db5fcc6972eee5ea1c5fbc9732 preserves the
 [LONG_DATA/native metadata PASS at fba09f6](v06x-prepared-long-data-pass.md).
@@ -21,13 +27,13 @@ this does not establish forced stopping of non-cooperative SQL/workers.
 
 | Case | Native12.3.3 control | Product requirement / actual guest result |
 | --- | --- | --- |
-| Ordinary procedure SIGNAL |1644/45000, exact ERR packet, DB usable | Same packet; DB remains usable; statement count0. PENDING |
-| Explicit Go context cancel | context.Canceled; pool open0; server cleans statement/transaction | Same driver cause/pool result; target DB unusable. PENDING |
-| Go context deadline | context.DeadlineExceeded; pool open0; server cleanup | Same driver cause/pool result; target DB unusable. PENDING |
-| Active TCP shutdown/EOF | Native connection/statement/transaction cleanup | Target DB unusable; other Fork/baseline survive. PENDING |
-| Active reset-requested TCP close | SetLinger(0)+Close; invalid connection; pool/server cleanup | Known transport failure; target DB unusable. PENDING |
-| Host query deadline | Not the same server feature; product-only | Retained deadline cause, unusable/closed, no new SQL admission. PENDING |
-| Explicit DB.Close during EXECUTE | Product lifecycle; no native DB-object counterpart | Idempotent close, no new SQL admission, reader exits, isolation/cleanup. PENDING |
+| Ordinary procedure SIGNAL |1644/45000, exact ERR packet, DB usable | Same packet; DB remains usable; statement count0; PASS on both OSes |
+| Explicit Go context cancel | context.Canceled; pool open0; server cleans statement/transaction | Same driver cause/pool result; target DB unusable; PASS on both OSes |
+| Go context deadline | context.DeadlineExceeded; pool open0; server cleanup | Same driver cause/pool result; target DB unusable; PASS on both OSes |
+| Active TCP shutdown/EOF | Native connection/statement/transaction cleanup | Target DB unusable; other Fork/baseline survive; PASS on both OSes |
+| Active reset-requested TCP close | SetLinger(0)+Close; invalid connection; pool/server cleanup | Known transport failure; target DB unusable; PASS on both OSes |
+| Host query deadline | Not the same server feature; product-only | Retained deadline cause, unusable/closed, no new SQL admission; PASS on both OSes |
+| Explicit DB.Close during EXECUTE | Product lifecycle; no native DB-object counterpart | Idempotent close, no new SQL admission, reader exits, isolation/cleanup; PASS on both OSes |
 
 The [fixed native control](v06x-prepared-p4-active-evidence/native.json) passes
 all5 applicable cases using the fixed Linux/arm64 MariaDB12.3.3 container on a
@@ -85,7 +91,8 @@ focused Go race test for both cause types versus ordinary/startup timeouts.
 Replaying the original unconditional precedence in that owner fails the test;
 the fixed source is restored byte-exactly. The workflow adds internal/diagnostic
 to its permanent race package set, alongside the existing three packages.
-Actual host-deadline behavior still requires the new both-OS runtime row.
+The actual host-deadline row now PASSes on both OSes, including retained
+deadline cause and explicit unusable/closed classification.
 
 ## Local evidence and next gate
 
@@ -112,3 +119,30 @@ Qualification and release are separate decisions.
 P4 still has the remaining failure/resource matrix after this active-exit slice.
 P5 real consumer acceptance and P6 canonical/reproduction/J1/provenance/guards
 remain unfinished. Do not infer full P4 or production readiness from this slice.
+
+## Accepted development result and remaining scope
+
+All five CI jobs PASS. On each OS: 134 Python/C checks, four Go race
+packages, exact20 binding mutations, P1, all72 P2, minimal/full14 P3,
+first7 P4 lifetime and all25 LONG_DATA controls also PASS. The installed
+guest remains `8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40`.
+Development receipts explicitly remain UNQUALIFIED; smoke/test PASS is not
+release Qualification. Earlier pending/next-gate paragraphs describe the
+submission requirements now satisfied by this run, not another required campaign.
+
+All active cases include a confirmed engine execution witness before interruption.
+Ordinary SQL errors preserve usability. Active cancellation/disconnect/deadline
+invalidates the target DB under the existing contract; healthy sibling/baseline
+reuse, target log removal and final lineage cleanup PASS. These are bounded
+cooperative-work observations, not a forced-stop guarantee or a measurement
+of inaccessible statement counters in the failed target.
+
+Evidence preserves selected raw JSON/log bytes with SHA256 receipts; no path
+scrubbing was applied. The complete clean-source inventory is stored once,
+with per-platform installed-host deltas and original development-receipt hashes.
+Installed inventories can be reconstructed from that source map and delta.
+Raw generated inventories and converter identities remain in each summary.
+
+This closes only the active-exit slice. Remaining P4 failure/resource paths,
+P5 real consumers and P6 canonical adoption/independent generation/J1/provenance
+remain open. No main integration or release decision is made here.

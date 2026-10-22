@@ -781,3 +781,13 @@ controls PASS; actual guest7-case and both-OS acceptance remain pending. A small
 shared-control classification repair restores unusable for invalidated-DB status
 without changing ordinary request timeout behavior. Guest/converter/binding
 identities and prior gates remain unchanged. Full P4/P5/P6 remain unfinished.
+
+### P4 active exits PASS on both OSes at fbe4196
+
+[CI39747013913](https://github.com/masahitojp/mariamem/actions/runs/39747013913)
+passes all five jobs. The [active-exit report and receipt](v06x-prepared-p4-active.md)
+record all7 real guest cases, witnessed active execution, target disposition,
+healthy siblings/baseline reuse and final cleanup. Prior matrices,134 Python/C
+checks,4 Go race packages and20 binding mutations PASS per OS. Guest/converter/
+generated source inputs remain unchanged. Remaining failure/resource paths keep
+P4 open; P5/P6, adoption, Qualification and release are separate.

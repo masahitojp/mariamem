@@ -895,7 +895,13 @@ remaining resource/failure matrix; P5/P6 and production acceptance remain pendin
 The next [P4 active-exit candidate](reviews/v06x-prepared-p4-active.md) adds
 execution-witnessed cancellation/deadline/TCP exits and Close with independent
 Fork/baseline cleanup controls. Native5-case controls PASS; actual both-OS7-case
-guest acceptance is pending. A bounded shared-control status classification
+guest acceptance now PASSes on macOS15 arm64 and Ubuntu24.04 x86_64 at
+[CI39747013913](https://github.com/masahitojp/mariamem/actions/runs/39747013913),
+source_commit fbe419613cc0cc99657d39543c37df7b4dfe5d4a. Execution witnesses,
+target invalidation, healthy sibling/baseline reuse and final cleanup all PASS;
+134 Python/C checks,4 Go race packages and prior runtime gates also PASS.
+Full P4 still needs the remaining failure/resource matrix; P5/P6 are open.
+A bounded shared-control status classification
 repair preserves unusable for fatal deadlines while keeping request timeout
 classification. No guest/converter/Generated Go input is changed.
 
